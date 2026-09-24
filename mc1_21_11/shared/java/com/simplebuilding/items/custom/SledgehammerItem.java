@@ -313,7 +313,8 @@ public class SledgehammerItem extends Item {
      * ({@code InWorldTransformations#reshapePairs}) dieselbe Regel benutzt wie das Spiel.
      *
      * <ul>
-     *   <li>vorwaerts: voller Block {@code x} -&gt; {@code x_stairs}; Treppe {@code x_stairs} -&gt; {@code x_slab};</li>
+     *   <li>vorwaerts: voller Block {@code x} -&gt; {@code x_stairs}, ersatzweise ohne {@code _planks},
+     *       {@code _block} oder Plural-s ({@code bricks} -&gt; {@code brick_stairs}); Treppe {@code x_stairs} -&gt; {@code x_slab};</li>
      *   <li>rueckwaerts (Schleichen + Constructor's Touch): Stufe {@code x_slab} -&gt; {@code x_stairs};
      *       Treppe {@code x_stairs} -&gt; {@code x}, ersatzweise {@code xs} oder {@code x_planks}.</li>
      * </ul>
@@ -345,6 +346,11 @@ public class SledgehammerItem extends Item {
         // 1. Block -> Stairs
         if (fullBlock) {
             Optional<Block> stairs = reshapeLookup(namespace, id + "_stairs");
+            // Gegenstueck zu den Rueckwaerts-Ersatzregeln: oak_planks -> oak_stairs, bricks -> brick_stairs,
+            // quartz_block -> quartz_stairs (Vanilla benennt die Treppe nach dem Material, nicht nach dem Block).
+            if (stairs.isEmpty() && id.endsWith("_planks")) stairs = reshapeLookup(namespace, id.substring(0, id.length() - 7) + "_stairs");
+            if (stairs.isEmpty() && id.endsWith("_block")) stairs = reshapeLookup(namespace, id.substring(0, id.length() - 6) + "_stairs");
+            if (stairs.isEmpty() && id.endsWith("s")) stairs = reshapeLookup(namespace, id.substring(0, id.length() - 1) + "_stairs");
             if (stairs.isPresent()) {
                 return stairs;
             }

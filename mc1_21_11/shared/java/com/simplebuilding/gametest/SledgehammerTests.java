@@ -570,6 +570,17 @@ public final class SledgehammerTests {
      * facing north no matter where the player stands.
      */
     public static void sledgehammerReshapesFullBlocksStairsAndSlabs(GameTestHelper helper) {
+        // Vorwaerts-Ersatzregeln (Gegenstueck zu den Rueckwaerts-Fallbacks): ohne sie formt der Hammer
+        // weder Bretter noch Ziegel noch Quarzblock zu Treppen.
+        Block[][] forward = {
+                {Blocks.OAK_PLANKS, Blocks.OAK_STAIRS}, {Blocks.BRICKS, Blocks.BRICK_STAIRS},
+                {Blocks.STONE_BRICKS, Blocks.STONE_BRICK_STAIRS}, {Blocks.QUARTZ_BLOCK, Blocks.QUARTZ_STAIRS}};
+        for (Block[] pair : forward) {
+            Block got = SledgehammerItem.reshapeTarget(pair[0], false, true).orElse(null);
+            if (got != pair[1]) {
+                throw helper.assertionException("the hammer reshapes " + pair[0] + " into " + got + " instead of " + pair[1]);
+            }
+        }
         ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE, 0.0F, 90.0F, true);
         ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
         player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
