@@ -23,6 +23,8 @@
     "simplebuilding:ender_quartz_brick_wall",
     "simplebuilding:ender_quartz_bricks",
     "simplebuilding:ender_quartz_pillar",
+    "simplebuilding:ender_quartz_slab",
+    "simplebuilding:ender_quartz_stairs",
     "simplebuilding:enderite_backpack",
     "simplebuilding:enderite_blast_furnace",
     "simplebuilding:enderite_block",
@@ -240,6 +242,12 @@
     },
     {
       "id": "simplebuilding:ender_quartz_pillar"
+    },
+    {
+      "id": "simplebuilding:ender_quartz_slab"
+    },
+    {
+      "id": "simplebuilding:ender_quartz_stairs"
     },
     {
       "id": "simplebuilding:enderite_apple"

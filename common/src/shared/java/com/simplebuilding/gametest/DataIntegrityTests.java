@@ -1564,7 +1564,9 @@ public final class DataIntegrityTests {
      * The three end palettes - astralit, nihilith and ender quartz - are crafted, cut, mined and
      * tagged like vanilla's end stone and purpur families. Each palette has eleven blocks: the
      * base block, bricks with stairs, slab and wall, the polished block with stairs, slab and wall,
-     * a pillar and chiseled bricks.
+     * a pillar and chiseled bricks. Ender quartz has thirteen: like the quartz block with
+     * {@code quartz_stairs} and {@code quartz_slab}, its base block has stairs and a slab of its own
+     * (six in a stair shape make four, three in a row six, the stonecutter one and two).
      *
      * <p><b>Crafting</b>, every recipe by its documented pattern and count, through the real
      * recipe manager (so a pattern that crafts something else shows up too): four of the material
@@ -1653,6 +1655,17 @@ public final class DataIntegrityTests {
             }
             assertShapedRecipe(helper, modRecipes, "chiseled_" + m + "_bricks", p.chiseled().asItem(), 1,
                     new String[]{"#", "#"}, Map.of('#', p.brickSlab().asItem()), problems);
+            helper.assertTrue(p.blocks().size() == (p == ModBlocks.ENDER_QUARTZ_PALETTE ? 13 : 11)
+                            && (p.blockStairs() == null) == (p != ModBlocks.ENDER_QUARTZ_PALETTE),
+                    m + ": ender quartz alone has stairs and a slab at the base block (13 blocks), the others 11 - but "
+                            + p.blocks().size());
+            if (p.blockStairs() != null) {
+                // like quartz_stairs and quartz_slab from the quartz block
+                assertShapedRecipe(helper, modRecipes, path(p.blockStairs()), p.blockStairs().asItem(), 4,
+                        new String[]{"#  ", "## ", "###"}, Map.of('#', block), problems);
+                assertShapedRecipe(helper, modRecipes, path(p.blockSlab()), p.blockSlab().asItem(), 6, new String[]{"###"},
+                        Map.of('#', block), problems);
+            }
 
             // block -> everything, polished -> its family + bricks family + pillar + chiseled,
             // bricks -> their family + chiseled
@@ -1692,7 +1705,8 @@ public final class DataIntegrityTests {
                         .append(wall.asItem().builtInRegistryHolder().is(wallItems) ? "walls-item " : "");
             }
             helper.assertValueEqual(shapes.toString().trim(),
-                    "stairs stairs-item stairs stairs-item slabs slabs-item slabs slabs-item walls walls-item walls walls-item",
+                    ("stairs stairs-item ".repeat(p.stairs().size()) + "slabs slabs-item ".repeat(p.slabs().size())
+                            + "walls walls-item ".repeat(p.walls().size())).trim(),
                     "the vanilla shape tags the " + m + " stairs, slab and wall belong to");
         }
 
@@ -1798,9 +1812,8 @@ public final class DataIntegrityTests {
      * glass: eight of a quartz block around one ender quartz make eight of the matching palette
      * block. The quartz block becomes the base block, quartz bricks the bricks, the quartz pillar
      * the pillar, the chiseled quartz block the chiseled bricks and smooth quartz the polished
-     * block. Smooth quartz stairs and slab become the polished stairs and slab; plain quartz
-     * stairs and slab do too, since the base block has no stairs or slab of its own and quartz and
-     * smooth quartz look almost the same.
+     * block. Smooth quartz stairs and slab become the polished stairs and slab, quartz stairs and
+     * slab the ender quartz stairs and slab of the base block - the same pairing vanilla has.
      *
      * <p>Astralit and nihilith are not made from quartz: the same ring around their dust or shard
      * must craft nothing, or quartz would turn into a palette that has nothing to do with it.
@@ -1826,8 +1839,8 @@ public final class DataIntegrityTests {
         pairs.put(Items.SMOOTH_QUARTZ, p.polished());
         pairs.put(Items.SMOOTH_QUARTZ_STAIRS, p.polishedStairs());
         pairs.put(Items.SMOOTH_QUARTZ_SLAB, p.polishedSlab());
-        pairs.put(Items.QUARTZ_STAIRS, p.polishedStairs());
-        pairs.put(Items.QUARTZ_SLAB, p.polishedSlab());
+        pairs.put(Items.QUARTZ_STAIRS, p.blockStairs());
+        pairs.put(Items.QUARTZ_SLAB, p.blockSlab());
         for (Map.Entry<Item, Block> pair : pairs.entrySet()) {
             assertShapedRecipe(helper, modRecipes,
                     path(pair.getValue()) + "_from_" + BuiltInRegistries.ITEM.getKey(pair.getKey()).getPath(),
@@ -1850,19 +1863,20 @@ public final class DataIntegrityTests {
     /**
      * The Basic Upgrade Template costs twice the material the crafting table asks for the target
      * tool (the owner's decision): a pickaxe or an axe takes 6, a sword or a hoe 4, a shovel 2 -
-     * the vanilla recipes use 3, 2 and 1. The mod's tools follow the same rule: the chisel takes 2
-     * (one ingot or diamond in its recipe), the sledgehammer 22 (one block plus two ingots, eleven
-     * ingots' worth) and the building wand 8 (four ingots around the nether star of its core; the
-     * star is already in the wand being upgraded).
+     * the vanilla recipes use 3, 2 and 1; the copper tools go to iron at the same prices. The mod's
+     * tools follow the same rule: the chisel takes 2 (one ingot or diamond in its recipe) and the
+     * sledgehammer 22 (one block plus two ingots, eleven ingots' worth). The building wand is the
+     * exception (owner's decision): a wand is made from a core, a late-game item, so its upgrade
+     * costs exactly one core of the target tier instead of ingots.
      *
      * <p>Every rung is walked through the real recipe manager: the priced stack forges the next
      * tier with this very recipe, one item fewer forges nothing. Then every count based smithing
      * recipe the mod loads must be in this table, so an upgrade added later cannot slip in at a
      * price nobody decided.
      *
-     * <p>What breaks this: a changed count, a missing rung (hoes and building wands were missing
-     * until 2026-09-25), an upgrade that takes another material or yields another tool, or a new
-     * count based recipe that is not priced here.
+     * <p>What breaks this: a changed count, a missing rung (hoes, the copper axe, shovel, sword and
+     * hoe and the building wands were missing until 2026-09-25), an upgrade that takes another
+     * material or yields another tool, or a new count based recipe that is not priced here.
      */
     public static void basicUpgradeTemplateCostsTwiceTheCraftingMaterial(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
@@ -1876,6 +1890,10 @@ public final class DataIntegrityTests {
             addLadder(ladder, tiers, true, 6);
         }
         ladder.put(new Item[]{Items.COPPER_PICKAXE, Items.IRON_PICKAXE, Items.IRON_INGOT}, 6);
+        ladder.put(new Item[]{Items.COPPER_AXE, Items.IRON_AXE, Items.IRON_INGOT}, 6);
+        ladder.put(new Item[]{Items.COPPER_SWORD, Items.IRON_SWORD, Items.IRON_INGOT}, 4);
+        ladder.put(new Item[]{Items.COPPER_HOE, Items.IRON_HOE, Items.IRON_INGOT}, 4);
+        ladder.put(new Item[]{Items.COPPER_SHOVEL, Items.IRON_SHOVEL, Items.IRON_INGOT}, 2);
         for (Item[] tiers : new Item[][]{
                 {Items.WOODEN_SWORD, Items.STONE_SWORD, Items.IRON_SWORD, Items.GOLDEN_SWORD, Items.DIAMOND_SWORD},
                 {Items.WOODEN_HOE, Items.STONE_HOE, Items.IRON_HOE, Items.GOLDEN_HOE, Items.DIAMOND_HOE}}) {
@@ -1887,8 +1905,9 @@ public final class DataIntegrityTests {
                 ModItems.DIAMOND_CHISEL}, false, 2);
         addLadder(ladder, new Item[]{ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER,
                 ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER}, false, 22);
-        addLadder(ladder, new Item[]{ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND,
-                ModItems.GOLD_BUILDING_WAND, ModItems.DIAMOND_BUILDING_WAND}, false, 8);
+        ladder.put(new Item[]{ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.IRON_CORE}, 1);
+        ladder.put(new Item[]{ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND, ModItems.GOLD_CORE}, 1);
+        ladder.put(new Item[]{ModItems.GOLD_BUILDING_WAND, ModItems.DIAMOND_BUILDING_WAND, ModItems.DIAMOND_CORE}, 1);
 
         Set<Identifier> priced = new HashSet<>();
         for (Map.Entry<Item[], Integer> rung : ladder.entrySet()) {
@@ -1929,7 +1948,7 @@ public final class DataIntegrityTests {
             }
         }
 
-        helper.assertValueEqual(priced.size(), 30, "upgrade rungs checked (5 + 4 + 4 + 4 + 4 + 3 + 3 + 3)");
+        helper.assertValueEqual(priced.size(), 34, "upgrade rungs checked (pickaxe 5, axe 5, sword 5, hoe 5, shovel 5, chisel 3, sledgehammer 3, wand 3)");
         helper.assertTrue(problems.isEmpty(), "basic upgrade template costs: " + problems);
         helper.succeed();
     }

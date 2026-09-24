@@ -374,7 +374,12 @@ public class ModModelProvider extends FabricModelProvider {
 
     /** Grundblock und gemeisselte Ziegel als Wuerfel, Ziegel und polierter Block je als Familie, Saeule mit Stirnseite. */
     private void registerEndPalette(BlockModelGenerators generator, ModBlocks.EndPalette palette) {
-        generator.createTrivialCube(palette.block());
+        if (palette.blockStairs() != null) {
+            // Enderquarz: Treppe und Stufe am Grundblock, wie quartz_stairs/quartz_slab
+            generator.family(palette.block()).stairs(palette.blockStairs()).slab(palette.blockSlab());
+        } else {
+            generator.createTrivialCube(palette.block());
+        }
         generator.family(palette.bricks()).stairs(palette.brickStairs()).slab(palette.brickSlab()).wall(palette.brickWall());
         generator.family(palette.polished()).stairs(palette.polishedStairs()).slab(palette.polishedSlab()).wall(palette.polishedWall());
         generator.createAxisAlignedPillarBlock(palette.pillar(), TexturedModel.COLUMN_ALT);

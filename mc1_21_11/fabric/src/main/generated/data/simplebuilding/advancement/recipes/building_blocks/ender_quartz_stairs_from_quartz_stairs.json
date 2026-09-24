@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplebuilding:polished_ender_quartz_slab_from_quartz_slab"
+        "recipe": "simplebuilding:ender_quartz_stairs_from_quartz_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "simplebuilding:polished_ender_quartz_slab_from_quartz_slab"
+      "simplebuilding:ender_quartz_stairs_from_quartz_stairs"
     ]
   }
 }

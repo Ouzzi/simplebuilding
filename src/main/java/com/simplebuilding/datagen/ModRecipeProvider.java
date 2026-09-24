@@ -527,6 +527,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createUpgradeRecipe(registries, output, Items.IRON_PICKAXE, Items.GOLDEN_PICKAXE, Items.GOLD_INGOT, 6);
                 createUpgradeRecipe(registries, output, Items.GOLDEN_PICKAXE, Items.DIAMOND_PICKAXE, Items.DIAMOND, 6);
                 createUpgradeRecipe(registries, output, Items.COPPER_PICKAXE, Items.IRON_PICKAXE, Items.IRON_INGOT, 6);
+                createUpgradeRecipe(registries, output, Items.COPPER_AXE, Items.IRON_AXE, Items.IRON_INGOT, 6);
                 createUpgradeRecipe(registries, output, Items.WOODEN_AXE, Items.STONE_AXE, Items.COBBLESTONE, 6);
                 createUpgradeRecipe(registries, output, Items.STONE_AXE, Items.IRON_AXE, Items.IRON_INGOT, 6);
                 createUpgradeRecipe(registries, output, Items.IRON_AXE, Items.GOLDEN_AXE, Items.GOLD_INGOT, 6);
@@ -537,16 +538,19 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createUpgradeRecipe(registries, output, Items.STONE_SWORD, Items.IRON_SWORD, Items.IRON_INGOT, 4);
                 createUpgradeRecipe(registries, output, Items.IRON_SWORD, Items.GOLDEN_SWORD, Items.GOLD_INGOT, 4);
                 createUpgradeRecipe(registries, output, Items.GOLDEN_SWORD, Items.DIAMOND_SWORD, Items.DIAMOND, 4);
+                createUpgradeRecipe(registries, output, Items.COPPER_SWORD, Items.IRON_SWORD, Items.IRON_INGOT, 4);
                 createUpgradeRecipe(registries, output, Items.WOODEN_HOE, Items.STONE_HOE, Items.COBBLESTONE, 4);
                 createUpgradeRecipe(registries, output, Items.STONE_HOE, Items.IRON_HOE, Items.IRON_INGOT, 4);
                 createUpgradeRecipe(registries, output, Items.IRON_HOE, Items.GOLDEN_HOE, Items.GOLD_INGOT, 4);
                 createUpgradeRecipe(registries, output, Items.GOLDEN_HOE, Items.DIAMOND_HOE, Items.DIAMOND, 4);
+                createUpgradeRecipe(registries, output, Items.COPPER_HOE, Items.IRON_HOE, Items.IRON_INGOT, 4);
 
                 // Schaufeln (Werkbank: 1 -> Aufwerten: 2)
                 createUpgradeRecipe(registries, output, Items.WOODEN_SHOVEL, Items.STONE_SHOVEL, Items.COBBLESTONE, 2);
                 createUpgradeRecipe(registries, output, Items.STONE_SHOVEL, Items.IRON_SHOVEL, Items.IRON_INGOT, 2);
                 createUpgradeRecipe(registries, output, Items.IRON_SHOVEL, Items.GOLDEN_SHOVEL, Items.GOLD_INGOT, 2);
                 createUpgradeRecipe(registries, output, Items.GOLDEN_SHOVEL, Items.DIAMOND_SHOVEL, Items.DIAMOND, 2);
+                createUpgradeRecipe(registries, output, Items.COPPER_SHOVEL, Items.IRON_SHOVEL, Items.IRON_INGOT, 2);
 
                 // Mod-Werkzeuge
                 // Meissel (Werkbank: 1 Barren/Diamant -> Aufwerten: 2)
@@ -559,11 +563,11 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createUpgradeRecipe(registries, output, ModItems.IRON_SLEDGEHAMMER, ModItems.GOLD_SLEDGEHAMMER, Items.GOLD_INGOT, 22);
                 createUpgradeRecipe(registries, output, ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, Items.DIAMOND, 22);
 
-                // Baustab (Werkbank: Kern aus 4 Barren + Netherstern -> Aufwerten: 8; der Netherstern
-                // steckt schon im alten Stab)
-                createUpgradeRecipe(registries, output, ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, Items.IRON_INGOT, 8);
-                createUpgradeRecipe(registries, output, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND, Items.GOLD_INGOT, 8);
-                createUpgradeRecipe(registries, output, ModItems.GOLD_BUILDING_WAND, ModItems.DIAMOND_BUILDING_WAND, Items.DIAMOND, 8);
+                // Baustab: kein Barren-Preis - ein Baustab braucht einen Kern (Late-Game), also kostet das
+                // Aufwerten genau einen Kern der Zielstufe (Entscheidung des Besitzers, 2026-09-25).
+                createUpgradeRecipe(registries, output, ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.IRON_CORE, 1);
+                createUpgradeRecipe(registries, output, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND, ModItems.GOLD_CORE, 1);
+                createUpgradeRecipe(registries, output, ModItems.GOLD_BUILDING_WAND, ModItems.DIAMOND_BUILDING_WAND, ModItems.DIAMOND_CORE, 1);
 
 
 
@@ -736,6 +740,13 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 }
                 chiseledBuilder(RecipeCategory.BUILDING_BLOCKS, p.chiseled(), Ingredient.of(p.brickSlab()))
                         .unlockedBy(getHasName(p.brickSlab()), has(p.brickSlab())).save(exporter);
+                if (p.blockStairs() != null) {
+                    // Wie quartz_stairs/quartz_slab: Treppe 6 -> 4, Stufe 3 -> 6, Steinmetz 1 -> 1 bzw. 1 -> 2
+                    stairBuilder(p.blockStairs(), Ingredient.of(p.block())).unlockedBy(getHasName(p.block()), has(p.block())).save(exporter);
+                    slabBuilder(RecipeCategory.BUILDING_BLOCKS, p.blockSlab(), Ingredient.of(p.block())).unlockedBy(getHasName(p.block()), has(p.block())).save(exporter);
+                    stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, p.blockStairs(), p.block());
+                    stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, p.blockSlab(), p.block(), 2);
+                }
 
                 // Steinmetz: Grundblock -> alles, poliert -> polierte Familie + Ziegelfamilie + Saeule +
                 // gemeisselt, Ziegel -> Ziegelfamilie + gemeisselt
@@ -777,10 +788,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                     createRecolourRecipe(exporter, p.polished(), Items.SMOOTH_QUARTZ, material);
                     createRecolourRecipe(exporter, p.polishedStairs(), Items.SMOOTH_QUARTZ_STAIRS, material);
                     createRecolourRecipe(exporter, p.polishedSlab(), Items.SMOOTH_QUARTZ_SLAB, material);
-                    // Der Grundblock hat keine Treppe/Stufe; Quarz- und glatter Quarz sehen fast gleich
-                    // aus, also landen auch Quarztreppe und -stufe bei der polierten Familie.
-                    createRecolourRecipe(exporter, p.polishedStairs(), Items.QUARTZ_STAIRS, material);
-                    createRecolourRecipe(exporter, p.polishedSlab(), Items.QUARTZ_SLAB, material);
+                    createRecolourRecipe(exporter, p.blockStairs(), Items.QUARTZ_STAIRS, material);
+                    createRecolourRecipe(exporter, p.blockSlab(), Items.QUARTZ_SLAB, material);
                 }
             }
 

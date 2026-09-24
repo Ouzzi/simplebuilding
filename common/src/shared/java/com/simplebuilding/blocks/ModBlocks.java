@@ -159,28 +159,39 @@ public class ModBlocks {
     public static final Block POLISHED_ENDER_QUARTZ_WALL = registerBlock("polished_ender_quartz_wall", POLISHED_ENDER_QUARTZ, s -> new WallBlock(s.forceSolidOn()));
     public static final Block ENDER_QUARTZ_PILLAR = registerBlock("ender_quartz_pillar", ENDER_QUARTZ_BLOCK, RotatedPillarBlock::new);
     public static final Block CHISELED_ENDER_QUARTZ_BRICKS = registerBlock("chiseled_ender_quartz_bricks", ENDER_QUARTZ_BLOCK, Block::new);
+    // Wie quartz_stairs/quartz_slab am Quarzblock: Treppe und Stufe direkt am Grundblock (2026-09-25).
+    public static final Block ENDER_QUARTZ_STAIRS = registerBlock("ender_quartz_stairs", ENDER_QUARTZ_BLOCK, s -> new StairBlock(ENDER_QUARTZ_BLOCK.defaultBlockState(), s));
+    public static final Block ENDER_QUARTZ_SLAB = registerBlock("ender_quartz_slab", ENDER_QUARTZ_BLOCK, SlabBlock::new);
 
     /**
      * Eine End-Palette nach dem Vorbild von Endstein und Purpur: Grundblock, Ziegel samt Treppe,
      * Stufe und Mauer, polierter Block samt Treppe, Stufe und Mauer, Saeule und gemeisselte Ziegel.
+     * {@code blockStairs}/{@code blockSlab} sind Treppe und Stufe direkt am Grundblock, wie
+     * {@code quartz_stairs}/{@code quartz_slab} am Quarzblock; nur Enderquarz hat sie, sonst null.
      * Datagen (Modelle, Tags, Beute, Rezepte) und die Spieltests laufen ueber {@link #END_PALETTES},
      * damit keine der drei Paletten an einer Stelle vergessen wird.
      */
     public record EndPalette(String material, Block block, Block bricks, Block brickStairs, Block brickSlab,
                              Block brickWall, Block polished, Block polishedStairs, Block polishedSlab,
-                             Block polishedWall, Block pillar, Block chiseled) {
-        /** Alle elf Bloecke in der Reihenfolge des Kreativ-Tabs. */
+                             Block polishedWall, Block pillar, Block chiseled, Block blockStairs, Block blockSlab) {
+        /** Alle Bloecke in der Reihenfolge des Kreativ-Tabs (elf, bei Enderquarz dreizehn). */
         public List<Block> blocks() {
-            return List.of(block, bricks, brickStairs, brickSlab, brickWall, polished, polishedStairs, polishedSlab,
-                    polishedWall, pillar, chiseled);
+            List<Block> out = new java.util.ArrayList<>(List.of(block));
+            if (blockStairs != null) {
+                out.add(blockStairs);
+                out.add(blockSlab);
+            }
+            out.addAll(List.of(bricks, brickStairs, brickSlab, brickWall, polished, polishedStairs, polishedSlab,
+                    polishedWall, pillar, chiseled));
+            return List.copyOf(out);
         }
 
         public List<Block> stairs() {
-            return List.of(brickStairs, polishedStairs);
+            return blockStairs == null ? List.of(brickStairs, polishedStairs) : List.of(blockStairs, brickStairs, polishedStairs);
         }
 
         public List<Block> slabs() {
-            return List.of(brickSlab, polishedSlab);
+            return blockSlab == null ? List.of(brickSlab, polishedSlab) : List.of(blockSlab, brickSlab, polishedSlab);
         }
 
         public List<Block> walls() {
@@ -190,14 +201,14 @@ public class ModBlocks {
 
     public static final EndPalette ASTRALIT_PALETTE = new EndPalette("astralit", ASTRALIT_BLOCK, ASTRALIT_BRICKS,
             ASTRALIT_BRICK_STAIRS, ASTRALIT_BRICK_SLAB, ASTRALIT_BRICK_WALL, POLISHED_ASTRALIT, POLISHED_ASTRALIT_STAIRS,
-            POLISHED_ASTRALIT_SLAB, POLISHED_ASTRALIT_WALL, ASTRALIT_PILLAR, CHISELED_ASTRALIT_BRICKS);
+            POLISHED_ASTRALIT_SLAB, POLISHED_ASTRALIT_WALL, ASTRALIT_PILLAR, CHISELED_ASTRALIT_BRICKS, null, null);
     public static final EndPalette NIHILITH_PALETTE = new EndPalette("nihilith", NIHILITH_BLOCK, NIHILITH_BRICKS,
             NIHILITH_BRICK_STAIRS, NIHILITH_BRICK_SLAB, NIHILITH_BRICK_WALL, POLISHED_NIHILITH, POLISHED_NIHILITH_STAIRS,
-            POLISHED_NIHILITH_SLAB, POLISHED_NIHILITH_WALL, NIHILITH_PILLAR, CHISELED_NIHILITH_BRICKS);
+            POLISHED_NIHILITH_SLAB, POLISHED_NIHILITH_WALL, NIHILITH_PILLAR, CHISELED_NIHILITH_BRICKS, null, null);
     public static final EndPalette ENDER_QUARTZ_PALETTE = new EndPalette("ender_quartz", ENDER_QUARTZ_BLOCK, ENDER_QUARTZ_BRICKS,
             ENDER_QUARTZ_BRICK_STAIRS, ENDER_QUARTZ_BRICK_SLAB, ENDER_QUARTZ_BRICK_WALL, POLISHED_ENDER_QUARTZ,
             POLISHED_ENDER_QUARTZ_STAIRS, POLISHED_ENDER_QUARTZ_SLAB, POLISHED_ENDER_QUARTZ_WALL, ENDER_QUARTZ_PILLAR,
-            CHISELED_ENDER_QUARTZ_BRICKS);
+            CHISELED_ENDER_QUARTZ_BRICKS, ENDER_QUARTZ_STAIRS, ENDER_QUARTZ_SLAB);
     public static final List<EndPalette> END_PALETTES = List.of(ASTRALIT_PALETTE, NIHILITH_PALETTE, ENDER_QUARTZ_PALETTE);
 
 

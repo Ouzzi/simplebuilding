@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "src/main/generated/wiki/items.json",
       "present": true,
-      "count": 164,
+      "count": 166,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -291,7 +291,7 @@
           "The Building Wand is your first area tool: the Copper Building Wand is built from a Copper Core (top right) and two sticks diagonally below it. The Mason sells Copper Cores from level 2 for 25 emeralds (2 uses) and the Wandering Trader for 46 emeralds as a pair; the finished Copper Building Wand is also available from the Mason at level 4 for 62 emeralds. With blocks in your offhand or on your hotbar, right-click places a 3x3 face against the side of the block you clicked.",
           "A bit of iron brings the helpers: the Magnet (4 iron ingots, a lodestone, redstone, lapis lazuli; pulls in items within 4 blocks and never wears out) and the Rotator (5 iron ingots + an ender pearl; turns logs, furnaces, pistons and hoppers in place with a right-click). The Ore Detector (calibrated sculk sensor on top, compass in the middle, Gold Core at the bottom) is worth it once you have a Gold Core; the Wandering Trader sells a Gold Core for 30 emeralds.",
           "Material tiers for the Sledgehammer and Chisel: stone, copper, iron, gold, diamond, netherite, enderite; for the Building Wand the series starts at copper (3x3) and grows through iron (5x5), gold (7x7), diamond (9x9) and netherite (11x11) up to enderite (13x13). Higher hammer tiers are crafted with the matching block plus two ingots or diamonds, chisels with the ingot or diamond in the middle, building wands with the core of that tier.",
-          "Upgrade instead of rebuild: with the Basic Upgrade Template at the smithing table, copper becomes iron, iron becomes gold and gold becomes diamond (vanilla tools: wood to stone with cobblestone, then stone to iron, iron to gold, gold to diamond, and the copper pickaxe to iron). It costs twice the material the crafting table asks for the new tool: a pickaxe or axe 6, a sword or hoe 4, a shovel 2, a chisel 2, a building wand 8 and a sledgehammer 22 ingots or diamonds. Enchantments, damage and the name are kept. The Stone Sledgehammer cannot be upgraded, and the Diamond Core for the Diamond Building Wand is sold by the Mason (level 2) for 3 netherite ingots.",
+          "Upgrade instead of rebuild: with the Basic Upgrade Template at the smithing table, copper becomes iron, iron becomes gold and gold becomes diamond (vanilla tools: wood to stone with cobblestone, then stone to iron, iron to gold, gold to diamond, and the copper pickaxe, axe, shovel, sword and hoe to iron). It costs twice the material the crafting table asks for the new tool: a pickaxe or axe 6, a sword or hoe 4, a shovel 2, a chisel 2 and a sledgehammer 22 ingots or diamonds; a building wand takes one core of the new tier instead. Enchantments, damage and the name are kept. The Stone Sledgehammer cannot be upgraded, and the Diamond Core for the Diamond Building Wand is sold by the Mason (level 2) for 3 netherite ingots.",
           "Netherite and enderite only exist at the smithing table: Netherite Upgrade Smithing Template + diamond tool + netherite ingot, then Enderite Upgrade Template + netherite tool + Enderite Ingot. Enderite items are not lost in the void; the Enderite Bundle and the Enderite Quiver take the mod's enchantments at an anvil like the tiers below them, while the Enderite building wand, chisel and sledgehammer are still missing from the enchantment tags and cannot be given them by normal means.",
           "The road to the machines runs through the Sledgehammer: holding right-click on a diamond block breaks it into 81 Diamond Pebbles, and 9 pebbles make one Cracked Diamond in the crafting grid (a single pebble also goes into the Reinforced Bundle and the Reinforced Quiver). With those you build Reinforced Furnaces, Blast Furnaces and Smokers (3 Cracked Diamonds, 3 appliances, 3 Cracked Diamonds yield 3), Reinforced Hoppers (5 hoppers, a name tag, 3 Cracked Diamonds yield 5) and Reinforced Pistons (3 Cracked Diamonds, 2 pistons, 4 iron ingots yield 2). The netherite tiers are not crafted: hold right-click for five seconds on a placed Reinforced machine with a Diamond Sledgehammer (or better) in your main hand and a Netherite Nugget in your off hand, and it is hammered into the Netherite machine; a Netherite Sledgehammer (or better) with an Enderite Nugget does the same from Netherite to Enderite. Leftover Cracked Diamonds go back to diamonds in the blast furnace.",
           "Enchantments: only Fast Chiseling appears at the enchanting table. Every other mod enchantment is found as a book and applied at the anvil; the creative tab has every book ready at maximum level.",
@@ -314,7 +314,7 @@
           "Der Baustab ist dein erstes Flächenwerkzeug: Der Kupfer-Baustab wird aus einem Kupferkern (oben rechts) und zwei Stöcken diagonal darunter gebaut. Kupferkerne verkauft der Steinmetz ab Stufe 2 für 25 Smaragde (2 Nutzungen) und der fahrende Händler für 46 Smaragde im Doppelpack; den fertigen Kupfer-Baustab gibt es auch beim Steinmetz ab Stufe 4 für 62 Smaragde. Mit Blöcken in Zweithand oder Hotbar setzt er per Rechtsklick eine 3x3-Fläche vor die angeklickte Blockseite.",
           "Mit etwas Eisen kommen die Helfer dazu: der Magnet (4 Eisenbarren, Leitstein, Redstone, Lapislazuli; zieht Items im Umkreis von 4 Blöcken an und nutzt sich nie ab) und der Rotator (5 Eisenbarren + Enderperle; dreht Stämme, Öfen, Kolben und Trichter per Rechtsklick an Ort und Stelle). Der Erzdetektor (kalibrierter Sculk-Sensor oben, Kompass in der Mitte, Goldkern unten) lohnt sich, sobald du einen Goldkern hast; den verkauft der fahrende Händler für 30 Smaragde.",
           "Materialstufen bei Vorschlaghammer und Meißel: Stein, Kupfer, Eisen, Gold, Diamant, Netherit, Enderit; beim Baustab beginnt die Reihe bei Kupfer (3x3) und wächst über Eisen (5x5), Gold (7x7), Diamant (9x9) und Netherit (11x11) bis Enderit (13x13). Höhere Hammerstufen werden mit dem jeweiligen Block plus zwei Barren bzw. Diamanten gebaut, Meißel mit dem Barren bzw. Diamanten in der Mitte, Baustäbe mit dem Kern der Stufe.",
-          "Aufwerten statt neu bauen: Mit der Basis-Upgrade-Vorlage am Schmiedetisch wird Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant (Vanilla-Werkzeuge: Holz mit Bruchstein zu Stein, dann Stein zu Eisen, Eisen zu Gold, Gold zu Diamant, dazu die Kupferspitzhacke zu Eisen). Es kostet das Doppelte des Materials, das die Werkbank für das neue Werkzeug verlangt: Spitzhacke oder Axt 6, Schwert oder Hacke 4, Schaufel 2, Meißel 2, Baustab 8 und Vorschlaghammer 22 Barren bzw. Diamanten. Verzauberungen, Schaden und Name bleiben dabei erhalten. Der Stein-Vorschlaghammer lässt sich nicht aufwerten, und den Diamantkern für den Diamant-Baustab verkauft der Steinmetz (Stufe 2) für 3 Netheritbarren.",
+          "Aufwerten statt neu bauen: Mit der Basis-Upgrade-Vorlage am Schmiedetisch wird Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant (Vanilla-Werkzeuge: Holz mit Bruchstein zu Stein, dann Stein zu Eisen, Eisen zu Gold, Gold zu Diamant, dazu Kupferspitzhacke, -axt, -schaufel, -schwert und -hacke zu Eisen). Es kostet das Doppelte des Materials, das die Werkbank für das neue Werkzeug verlangt: Spitzhacke oder Axt 6, Schwert oder Hacke 4, Schaufel 2, Meißel 2 und Vorschlaghammer 22 Barren bzw. Diamanten; ein Baustab kostet stattdessen einen Kern der neuen Stufe. Verzauberungen, Schaden und Name bleiben dabei erhalten. Der Stein-Vorschlaghammer lässt sich nicht aufwerten, und den Diamantkern für den Diamant-Baustab verkauft der Steinmetz (Stufe 2) für 3 Netheritbarren.",
           "Netherit und Enderit gibt es nur am Schmiedetisch: Netherit-Aufwertungs-Schmiedevorlage + Diamant-Werkzeug + Netheritbarren, danach Enderite Upgrade Template + Netherit-Werkzeug + Enderite Ingot. Enderit-Gegenstände gehen in der Leere nicht verloren; Enderite Bundle und Enderite Quiver nehmen die Mod-Verzauberungen am Amboss an wie die Stufen darunter, während Enderit-Baustab, -Meißel und -Vorschlaghammer weiterhin in den Verzauberungs-Tags fehlen und sich auf normalem Weg nicht verzaubern lassen.",
           "Der Weg zu den Maschinen führt über den Vorschlaghammer: Rechtsklick halten auf einen Diamantblock zerlegt ihn in 81 Diamantkiesel, und je 9 Kiesel ergeben in der Werkbank einen Rissigen Diamanten (ein einzelner Kiesel steckt außerdem im Verstärkten Bündel und im Verstärkten Köcher). Damit baust du Verstärkte Öfen, Schmelzöfen und Räucheröfen (3 Rissige Diamanten, 3 Geräte, 3 Rissige Diamanten ergeben 3 Stück), Verstärkte Trichter (5 Trichter, Namensschild, 3 Rissige Diamanten ergeben 5 Stück) und Verstärkte Kolben (3 Rissige Diamanten, 2 Kolben, 4 Eisenbarren ergeben 2 Stück). Die Netherit-Stufen werden nicht gecraftet: Halte mit einem Diamant-Vorschlaghammer (oder besser) in der Haupthand und einem Netherit-Nugget in der Nebenhand fünf Sekunden lang Rechtsklick auf die gesetzte Verstärkt-Maschine, dann wird sie zur Netherit-Maschine geschmiedet; ein Netherit-Vorschlaghammer (oder besser) mit einem Enderiten-Nugget macht dasselbe von Netherit zu Enderit. Übrige Rissige Diamanten werden im Hochofen wieder zu Diamanten.",
           "Verzauberungen: Nur Schnelles Meißeln erscheint am Zaubertisch. Alle anderen Mod-Verzauberungen findest du als Bücher und bringst sie am Amboss an; im Kreativ-Reiter liegen alle Bücher auf Höchststufe bereit.",
@@ -658,7 +658,7 @@
           "While the wand is in your main hand and you are looking at a block, a semi-transparent, shrunken ghost preview shows where it would build.",
           "Tiers and maximum area: copper 3x3, iron 5x5, gold 7x7, diamond 9x9, netherite 11x11, enderite 13x13.",
           "Higher tiers: copper through diamond are crafted from the matching core and two sticks, netherite and enderite are made at the smithing table from the previous tier.",
-          "Upgrading instead of crafting anew: with the Basic Upgrade Template at the smithing table a wand goes copper -> iron -> gold -> diamond for 8 ingots or diamonds (twice the four of a core; the nether star is already in the wand), keeping enchantments, damage and name.",
+          "Upgrading instead of crafting anew: with the Basic Upgrade Template at the smithing table a wand goes copper -> iron -> gold -> diamond for one core of the new tier (Iron, Gold or Diamond Core), keeping enchantments, damage and name.",
           "Master Builder enchantment: the wand may also use the rest of the inventory and reinforced bundles as a material source.",
           "Color Palette enchantment: the preview shows a position-dependent mix of all block types found; the build does not commit to one kind, but takes the first block stack it finds until that stack is empty.",
           "Constructor's Touch enchantment: unlocks the settings menu ('Open Tool Settings' key, default G), where the radius and build axis (automatic, X, Y, Z) can be set.",
@@ -679,7 +679,7 @@
           "Solange der Stab in der Haupthand liegt und du auf einen Block zielst, zeigt eine halbtransparente, verkleinerte Geister-Vorschau, wo gebaut würde.",
           "Stufen und maximale Fläche: Kupfer 3x3, Eisen 5x5, Gold 7x7, Diamant 9x9, Netherit 11x11, Enderit 13x13.",
           "Höhere Stufen: Kupfer bis Diamant werden mit dem jeweiligen Kern und zwei Stöcken gecraftet, Netherit und Enderit entstehen am Schmiedetisch aus der vorherigen Stufe.",
-          "Aufwerten statt neu bauen: Mit der Basis-Upgrade-Vorlage am Schmiedetisch wird ein Stab für 8 Barren bzw. Diamanten (das Doppelte der vier eines Kerns; der Netherstern steckt schon im Stab) von Kupfer → Eisen → Gold → Diamant aufgewertet, Verzauberungen, Schaden und Name bleiben erhalten.",
+          "Aufwerten statt neu bauen: Mit der Basis-Upgrade-Vorlage am Schmiedetisch wird ein Stab für einen Kern der neuen Stufe (Eisen-, Gold- bzw. Diamantkern) von Kupfer → Eisen → Gold → Diamant aufgewertet, Verzauberungen, Schaden und Name bleiben erhalten.",
           "Verzauberung Baumeister: der Stab darf auch das restliche Inventar und verstärkte Bündel als Materialquelle nutzen.",
           "Verzauberung Farbpalette: die Vorschau zeigt eine positionsabhängige Mischung aller gefundenen Blockarten; der Bau legt sich nicht auf eine Sorte fest, nimmt aber jeweils den ersten gefundenen Blockstapel, bis er leer ist.",
           "Verzauberung Berührung des Konstrukteurs: schaltet das Einstellungsmenü (Taste 'Werkzeug-Einstellungen öffnen', Standard G) frei, in dem sich Radius und Bauachse (automatisch, X, Y, Z) festlegen lassen.",
@@ -1560,6 +1560,8 @@
         "simplebuilding:polished_ender_quartz_wall",
         "simplebuilding:ender_quartz_pillar",
         "simplebuilding:chiseled_ender_quartz_bricks",
+        "simplebuilding:ender_quartz_stairs",
+        "simplebuilding:ender_quartz_slab",
         "simplebuilding:ender_quartz",
         "simplebuilding:astral_end_stone",
         "simplebuilding:nihil_end_stone",
@@ -1586,9 +1588,9 @@
         "summary": "Three building palettes modelled on vanilla's end stone and purpur: pink Astralit, blue Nihilith and purple Ender Quartz. Each has a base block, bricks with stairs, slab and wall, a polished block with stairs, slab and wall, a pillar and chiseled bricks. Every Astralit block glows.",
         "details": [
           "Materials: Astralit Dust, Nihilith Shard and Ender Quartz (1 Astralit Dust + 1 Nihilith Shard + 1 Quartz, shapeless, make 2).",
-          "Crafting: 4 of the material in a square make 1 base block (like quartz and amethyst); 4 base blocks make 4 Polished; 4 Polished make 4 Bricks; 2 Polished on top of each other make 2 Pillars; 6 Bricks or Polished in a stair shape make 4 Stairs, 3 in a row 6 Slabs, 6 in two rows 6 Walls; 2 Brick Slabs on top of each other make 1 Chiseled Bricks.",
+          "Crafting: 4 of the material in a square make 1 base block (like quartz and amethyst); 4 base blocks make 4 Polished; 4 Polished make 4 Bricks; 2 Polished on top of each other make 2 Pillars; 6 Bricks or Polished in a stair shape make 4 Stairs, 3 in a row 6 Slabs, 6 in two rows 6 Walls; 2 Brick Slabs on top of each other make 1 Chiseled Bricks. Like the Block of Quartz, the Block of Ender Quartz also has its own Ender Quartz Stairs (6 -> 4) and Ender Quartz Slab (3 -> 6), also cut in the stonecutter (1 stairs, 2 slabs).",
           "Recolouring like dye: 8 of a vanilla end stone or purpur block around 1 of the material make 8 of the matching palette block - End Stone to the base block, End Stone Bricks and their stairs, slab and wall to the Bricks and theirs, Purpur Stairs and Slab to the Polished Stairs and Slab, the Purpur Pillar to the Pillar, and the Purpur Block to Polished Ender Quartz. For Astralit and Nihilith the Purpur Block grid stays the older coating recipe (Astral or Nihil Purpur Block), which the stonecutter turns into the Polished block.",
-          "Ender Quartz also from vanilla quartz, the same way: 8 of a quartz block around 1 Ender Quartz make 8 - Block of Quartz to the base block, Quartz Bricks to the Bricks, the Quartz Pillar to the Pillar, Chiseled Quartz Block to the Chiseled Bricks, Smooth Quartz to Polished Ender Quartz, and quartz and smooth quartz stairs and slabs to the Polished Stairs and Slab.",
+          "Ender Quartz also from vanilla quartz, the same way: 8 of a quartz block around 1 Ender Quartz make 8 - Block of Quartz to the base block, Quartz Bricks to the Bricks, the Quartz Pillar to the Pillar, Chiseled Quartz Block to the Chiseled Bricks, Smooth Quartz to Polished Ender Quartz, smooth quartz stairs and slab to the Polished Stairs and Slab, and quartz stairs and slab to Ender Quartz Stairs and Slab.",
           "Stonecutter: the base block cuts into every other block of its palette; the Polished block into its stairs, slab and wall, the Bricks and their stairs, slab and wall, the Pillar and the Chiseled Bricks; the Bricks into their stairs, slab, wall and the Chiseled Bricks. Slabs always come two for one. The older coated end stone (Astral and Nihil End Stone: 8 Polished End Stone around 1 dust or shard) still cuts into the brick set and the base block.",
           "All blocks: hardness 3, blast resistance 9, a pickaxe is needed for the drop. Astralit blocks emit light level 10, Nihilith and Ender Quartz blocks none.",
           "Pillars can be placed along any axis; a double slab drops two slabs; stairs, slabs and walls are in the vanilla block and item tags of their shape, so the walls connect like any vanilla wall.",
@@ -1601,9 +1603,9 @@
         "summary": "Drei Bau-Paletten nach dem Vorbild von Endstein und Purpur: rosa Astralit, blaues Nihilith und violetter Enderquarz. Jede hat einen Grundblock, Ziegel mit Treppe, Stufe und Mauer, einen polierten Block mit Treppe, Stufe und Mauer, eine Säule und gemeißelte Ziegel. Jeder Astralit-Block leuchtet.",
         "details": [
           "Materialien: Astralitstaub, Nihilithsplitter und Enderquarz (1 Astralitstaub + 1 Nihilithsplitter + 1 Quarz, formlos, ergeben 2).",
-          "Herstellung: 4 Material im Quadrat ergeben 1 Grundblock (wie bei Quarz und Amethyst); 4 Grundblöcke ergeben 4 polierte; 4 polierte ergeben 4 Ziegel; 2 polierte übereinander ergeben 2 Säulen; 6 Ziegel oder polierte in Treppenform ergeben 4 Treppen, 3 in einer Reihe 6 Stufen, 6 in zwei Reihen 6 Mauern; 2 Ziegelstufen übereinander ergeben 1 gemeißelte Ziegel.",
+          "Herstellung: 4 Material im Quadrat ergeben 1 Grundblock (wie bei Quarz und Amethyst); 4 Grundblöcke ergeben 4 polierte; 4 polierte ergeben 4 Ziegel; 2 polierte übereinander ergeben 2 Säulen; 6 Ziegel oder polierte in Treppenform ergeben 4 Treppen, 3 in einer Reihe 6 Stufen, 6 in zwei Reihen 6 Mauern; 2 Ziegelstufen übereinander ergeben 1 gemeißelte Ziegel. Wie der Quarzblock hat auch der Enderquarzblock eine eigene Enderquarztreppe (6 → 4) und Enderquarzstufe (3 → 6), auch im Steinmetz (1 Treppe bzw. 2 Stufen).",
           "Umfärben wie mit Farbstoff: 8 eines Vanilla-Endstein- oder -Purpurblocks um 1 Material ergeben 8 des passenden Palettenblocks – Endstein zum Grundblock, Endsteinziegel samt Treppe, Stufe und Mauer zu den Ziegeln samt Treppe, Stufe und Mauer, Purpurtreppe und -stufe zur polierten Treppe und Stufe, die Purpursäule zur Säule und der Purpurblock zu poliertem Enderquarz. Bei Astralit und Nihilith bleibt das Purpurblock-Raster das ältere Beschichtungsrezept (Astral- bzw. Nihil-Purpurblock), das der Steinmetz in den polierten Block schneidet.",
-          "Enderquarz auch aus Vanilla-Quarz, genauso: 8 eines Quarzblocks um 1 Enderquarz ergeben 8 – Quarzblock zum Grundblock, Quarzziegel zu den Ziegeln, Quarzsäule zur Säule, gemeißelter Quarzblock zu den gemeißelten Ziegeln, glatter Quarz zu poliertem Enderquarz, Quarz- und glatte Quarztreppen und -stufen zur polierten Treppe und Stufe.",
+          "Enderquarz auch aus Vanilla-Quarz, genauso: 8 eines Quarzblocks um 1 Enderquarz ergeben 8 – Quarzblock zum Grundblock, Quarzziegel zu den Ziegeln, Quarzsäule zur Säule, gemeißelter Quarzblock zu den gemeißelten Ziegeln, glatter Quarz zu poliertem Enderquarz, glatte Quarztreppe und -stufe zur polierten Treppe und Stufe, Quarztreppe und -stufe zu Enderquarztreppe und -stufe.",
           "Steinmetz: Der Grundblock lässt sich in jeden anderen Block seiner Palette schneiden; der polierte Block in seine Treppe, Stufe und Mauer, die Ziegel samt Treppe, Stufe und Mauer, die Säule und die gemeißelten Ziegel; die Ziegel in ihre Treppe, Stufe, Mauer und die gemeißelten Ziegel. Stufen immer zwei zu eins. Der ältere beschichtete Endstein (Astral- und Nihil-Endstein: 8 polierter Endstein um 1 Staub bzw. Splitter) schneidet weiterhin in den Ziegelbausatz und den Grundblock.",
           "Alle Blöcke: Härte 3, Explosionsfestigkeit 9, für den Drop braucht es eine Spitzhacke. Astralit-Blöcke leuchten mit Lichtstufe 10, Nihilith- und Enderquarz-Blöcke gar nicht.",
           "Säulen lassen sich in jeder Achse setzen; eine Doppelstufe lässt zwei Stufen fallen; Treppen, Stufen und Mauern stehen in den Vanilla-Block- und -Item-Tags ihrer Form, die Mauern verbinden sich also wie jede Vanilla-Mauer.",
@@ -3362,10 +3364,14 @@
       ],
       "usedIn": [
         "simplebuilding:basic_upgrade_template",
+        "simplebuilding:upgrade_copper_axe_to_iron_axe",
         "simplebuilding:upgrade_copper_building_wand_to_iron_building_wand",
         "simplebuilding:upgrade_copper_chisel_to_iron_chisel",
+        "simplebuilding:upgrade_copper_hoe_to_iron_hoe",
         "simplebuilding:upgrade_copper_pickaxe_to_iron_pickaxe",
+        "simplebuilding:upgrade_copper_shovel_to_iron_shovel",
         "simplebuilding:upgrade_copper_sledgehammer_to_iron_sledgehammer",
+        "simplebuilding:upgrade_copper_sword_to_iron_sword",
         "simplebuilding:upgrade_gold_building_wand_to_diamond_building_wand",
         "simplebuilding:upgrade_gold_chisel_to_diamond_chisel",
         "simplebuilding:upgrade_gold_sledgehammer_to_diamond_sledgehammer",
@@ -3650,7 +3656,7 @@
             "All six wands (copper through enderite) are in the building_wand_enchantable tag and therefore also in extra_inventory_items and constructors_touch_enchantable: they can take Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch, and they are in the vanilla minecraft:enchantable/durability tag.",
             "Cover excludes Bridge and Linear (exclusive_set/cover_group); Bridge and Linear only exclude Cover (exclusive_set/wand_modifier_group) and combine with each other.",
             "Recipe for the copper, iron, gold and diamond wand: the tier's core (Copper Core, Iron Core, Gold Core, Diamond Core) in the top right, two sticks running diagonally down to the left below it; unlocked as soon as you own the matching core.",
-            "Upgrade: at the smithing table the Basic Upgrade Template turns a Copper into an Iron, an Iron into a Gold and a Gold into a Diamond Building Wand for 8 ingots or diamonds of the new tier (recipe type simplebuilding:count_based_smithing; twice the four in a core, the nether star is already in the wand); enchantments, damage and name carry over.",
+            "Upgrade: at the smithing table the Basic Upgrade Template turns a Copper into an Iron, an Iron into a Gold and a Gold into a Diamond Building Wand for one core of the new tier - Iron, Gold or Diamond Core (recipe type simplebuilding:count_based_smithing; a wand is built around a core, so the upgrade costs the next one instead of ingots); enchantments, damage and name carry over.",
             "Netherite Building Wand: smithing table with a Netherite Upgrade Smithing Template, the Diamond Building Wand and a netherite ingot.",
             "Enderite Building Wand: smithing table with the Enderite Upgrade Template, the Netherite Building Wand and an Enderite Ingot.",
             "Loot (option enableLootTableChanges, on by default): Diamond Building Wand with a random enchantment in end city treasure chests (weight 6), Iron Building Wand in woodland mansion chests (weight 4).",
@@ -3722,7 +3728,7 @@
             "Alle sechs Baustäbe (Kupfer bis Enderit) stehen im Tag building_wand_enchantable und damit auch in extra_inventory_items und constructors_touch_enchantable: sie können mit Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs verzaubert werden und stehen im Vanilla-Tag minecraft:enchantable/durability.",
             "Abdeckung schließt Brücke und Linear aus (exclusive_set/cover_group); Brücke und Linear schließen nur Abdeckung aus (exclusive_set/wand_modifier_group) und lassen sich miteinander kombinieren.",
             "Rezept für Kupfer-, Eisen-, Gold- und Diamant-Baustab: der Kern der Stufe (Kupferkern, Eisenkern, Goldkern, Diamantkern) oben rechts, darunter zwei Stöcke diagonal nach links unten; freigeschaltet, sobald man den jeweiligen Kern besitzt.",
-            "Aufwerten: Am Schmiedetisch macht die Basis-Upgrade-Vorlage aus einem Kupfer- einen Eisen-, aus einem Eisen- einen Gold- und aus einem Gold- einen Diamant-Baustab, für 8 Barren bzw. Diamanten der neuen Stufe (Rezepttyp simplebuilding:count_based_smithing; das Doppelte der vier im Kern, der Netherstern steckt schon im Stab); Verzauberungen, Schaden und Name bleiben erhalten.",
+            "Aufwerten: Am Schmiedetisch macht die Basis-Upgrade-Vorlage aus einem Kupfer- einen Eisen-, aus einem Eisen- einen Gold- und aus einem Gold- einen Diamant-Baustab, für einen Kern der neuen Stufe – Eisen-, Gold- bzw. Diamantkern (Rezepttyp simplebuilding:count_based_smithing; ein Baustab ist um einen Kern gebaut, also kostet das Aufwerten den nächsten statt Barren); Verzauberungen, Schaden und Name bleiben erhalten.",
             "Netherit-Baustab: Schmiedetisch mit Netherit-Upgrade-Vorlage, Diamant-Baustab und Netheritbarren.",
             "Enderite Building Wand: Schmiedetisch mit Enderite Upgrade Template, Netherit-Baustab und Enderite Ingot.",
             "Beute (Option enableLootTableChanges, standardmäßig an): Diamant-Baustab mit zufälliger Verzauberung in Endsiedlungs-Schatzkisten (Gewicht 6), Eisen-Baustab in Waldanwesen-Kisten (Gewicht 4).",
@@ -4425,7 +4431,7 @@
             "All six wands (copper through enderite) are in the building_wand_enchantable tag and therefore also in extra_inventory_items and constructors_touch_enchantable: they can take Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch, and they are in the vanilla minecraft:enchantable/durability tag.",
             "Cover excludes Bridge and Linear (exclusive_set/cover_group); Bridge and Linear only exclude Cover (exclusive_set/wand_modifier_group) and combine with each other.",
             "Recipe for the copper, iron, gold and diamond wand: the tier's core (Copper Core, Iron Core, Gold Core, Diamond Core) in the top right, two sticks running diagonally down to the left below it; unlocked as soon as you own the matching core.",
-            "Upgrade: at the smithing table the Basic Upgrade Template turns a Copper into an Iron, an Iron into a Gold and a Gold into a Diamond Building Wand for 8 ingots or diamonds of the new tier (recipe type simplebuilding:count_based_smithing; twice the four in a core, the nether star is already in the wand); enchantments, damage and name carry over.",
+            "Upgrade: at the smithing table the Basic Upgrade Template turns a Copper into an Iron, an Iron into a Gold and a Gold into a Diamond Building Wand for one core of the new tier - Iron, Gold or Diamond Core (recipe type simplebuilding:count_based_smithing; a wand is built around a core, so the upgrade costs the next one instead of ingots); enchantments, damage and name carry over.",
             "Netherite Building Wand: smithing table with a Netherite Upgrade Smithing Template, the Diamond Building Wand and a netherite ingot.",
             "Enderite Building Wand: smithing table with the Enderite Upgrade Template, the Netherite Building Wand and an Enderite Ingot.",
             "Loot (option enableLootTableChanges, on by default): Diamond Building Wand with a random enchantment in end city treasure chests (weight 6), Iron Building Wand in woodland mansion chests (weight 4).",
@@ -4497,7 +4503,7 @@
             "Alle sechs Baustäbe (Kupfer bis Enderit) stehen im Tag building_wand_enchantable und damit auch in extra_inventory_items und constructors_touch_enchantable: sie können mit Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs verzaubert werden und stehen im Vanilla-Tag minecraft:enchantable/durability.",
             "Abdeckung schließt Brücke und Linear aus (exclusive_set/cover_group); Brücke und Linear schließen nur Abdeckung aus (exclusive_set/wand_modifier_group) und lassen sich miteinander kombinieren.",
             "Rezept für Kupfer-, Eisen-, Gold- und Diamant-Baustab: der Kern der Stufe (Kupferkern, Eisenkern, Goldkern, Diamantkern) oben rechts, darunter zwei Stöcke diagonal nach links unten; freigeschaltet, sobald man den jeweiligen Kern besitzt.",
-            "Aufwerten: Am Schmiedetisch macht die Basis-Upgrade-Vorlage aus einem Kupfer- einen Eisen-, aus einem Eisen- einen Gold- und aus einem Gold- einen Diamant-Baustab, für 8 Barren bzw. Diamanten der neuen Stufe (Rezepttyp simplebuilding:count_based_smithing; das Doppelte der vier im Kern, der Netherstern steckt schon im Stab); Verzauberungen, Schaden und Name bleiben erhalten.",
+            "Aufwerten: Am Schmiedetisch macht die Basis-Upgrade-Vorlage aus einem Kupfer- einen Eisen-, aus einem Eisen- einen Gold- und aus einem Gold- einen Diamant-Baustab, für einen Kern der neuen Stufe – Eisen-, Gold- bzw. Diamantkern (Rezepttyp simplebuilding:count_based_smithing; ein Baustab ist um einen Kern gebaut, also kostet das Aufwerten den nächsten statt Barren); Verzauberungen, Schaden und Name bleiben erhalten.",
             "Netherit-Baustab: Schmiedetisch mit Netherit-Upgrade-Vorlage, Diamant-Baustab und Netheritbarren.",
             "Enderite Building Wand: Schmiedetisch mit Enderite Upgrade Template, Netherit-Baustab und Enderite Ingot.",
             "Beute (Option enableLootTableChanges, standardmäßig an): Diamant-Baustab mit zufälliger Verzauberung in Endsiedlungs-Schatzkisten (Gewicht 6), Eisen-Baustab in Waldanwesen-Kisten (Gewicht 4).",
@@ -4829,7 +4835,8 @@
       ],
       "usedIn": [
         "simplebuilding:diamond_building_wand",
-        "simplebuilding:netherite_core_smithing"
+        "simplebuilding:netherite_core_smithing",
+        "simplebuilding:upgrade_gold_building_wand_to_diamond_building_wand"
       ],
       "trades": [
         "simplebuilding:mason/2/netherite_diamond_core"
@@ -5189,13 +5196,13 @@
         "simplebuilding:ender_quartz_bricks_from_quartz_bricks",
         "simplebuilding:ender_quartz_pillar_from_purpur_pillar",
         "simplebuilding:ender_quartz_pillar_from_quartz_pillar",
+        "simplebuilding:ender_quartz_slab_from_quartz_slab",
+        "simplebuilding:ender_quartz_stairs_from_quartz_stairs",
         "simplebuilding:polished_ender_quartz_from_purpur_block",
         "simplebuilding:polished_ender_quartz_from_smooth_quartz",
         "simplebuilding:polished_ender_quartz_slab_from_purpur_slab",
-        "simplebuilding:polished_ender_quartz_slab_from_quartz_slab",
         "simplebuilding:polished_ender_quartz_slab_from_smooth_quartz_slab",
         "simplebuilding:polished_ender_quartz_stairs_from_purpur_stairs",
-        "simplebuilding:polished_ender_quartz_stairs_from_quartz_stairs",
         "simplebuilding:polished_ender_quartz_stairs_from_smooth_quartz_stairs"
       ],
       "trades": [],
@@ -5245,6 +5252,10 @@
         "simplebuilding:ender_quartz_brick_wall_from_ender_quartz_block_stonecutting",
         "simplebuilding:ender_quartz_bricks_from_ender_quartz_block_stonecutting",
         "simplebuilding:ender_quartz_pillar_from_ender_quartz_block_stonecutting",
+        "simplebuilding:ender_quartz_slab",
+        "simplebuilding:ender_quartz_slab_from_ender_quartz_block_stonecutting",
+        "simplebuilding:ender_quartz_stairs",
+        "simplebuilding:ender_quartz_stairs_from_ender_quartz_block_stonecutting",
         "simplebuilding:polished_ender_quartz",
         "simplebuilding:polished_ender_quartz_from_ender_quartz_block_stonecutting",
         "simplebuilding:polished_ender_quartz_slab_from_ender_quartz_block_stonecutting",
@@ -5349,6 +5360,38 @@
         "simplebuilding:ender_quartz_pillar_from_polished_ender_quartz_stonecutting",
         "simplebuilding:ender_quartz_pillar_from_purpur_pillar",
         "simplebuilding:ender_quartz_pillar_from_quartz_pillar"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ender_quartz_slab",
+      "name": {
+        "en_us": "Ender Quartz Slab",
+        "de_de": "Enderquarzstufe"
+      },
+      "texture": "assets/textures/block/ender_quartz_block.png",
+      "craftedBy": [
+        "simplebuilding:ender_quartz_slab",
+        "simplebuilding:ender_quartz_slab_from_ender_quartz_block_stonecutting",
+        "simplebuilding:ender_quartz_slab_from_quartz_slab"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ender_quartz_stairs",
+      "name": {
+        "en_us": "Ender Quartz Stairs",
+        "de_de": "Enderquarztreppe"
+      },
+      "texture": "assets/textures/block/ender_quartz_block.png",
+      "craftedBy": [
+        "simplebuilding:ender_quartz_stairs",
+        "simplebuilding:ender_quartz_stairs_from_ender_quartz_block_stonecutting",
+        "simplebuilding:ender_quartz_stairs_from_quartz_stairs"
       ],
       "usedIn": [],
       "trades": [],
@@ -5727,7 +5770,7 @@
             "All six wands (copper through enderite) are in the building_wand_enchantable tag and therefore also in extra_inventory_items and constructors_touch_enchantable: they can take Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch, and they are in the vanilla minecraft:enchantable/durability tag.",
             "Cover excludes Bridge and Linear (exclusive_set/cover_group); Bridge and Linear only exclude Cover (exclusive_set/wand_modifier_group) and combine with each other.",
             "Recipe for the copper, iron, gold and diamond wand: the tier's core (Copper Core, Iron Core, Gold Core, Diamond Core) in the top right, two sticks running diagonally down to the left below it; unlocked as soon as you own the matching core.",
-            "Upgrade: at the smithing table the Basic Upgrade Template turns a Copper into an Iron, an Iron into a Gold and a Gold into a Diamond Building Wand for 8 ingots or diamonds of the new tier (recipe type simplebuilding:count_based_smithing; twice the four in a core, the nether star is already in the wand); enchantments, damage and name carry over.",
+            "Upgrade: at the smithing table the Basic Upgrade Template turns a Copper into an Iron, an Iron into a Gold and a Gold into a Diamond Building Wand for one core of the new tier - Iron, Gold or Diamond Core (recipe type simplebuilding:count_based_smithing; a wand is built around a core, so the upgrade costs the next one instead of ingots); enchantments, damage and name carry over.",
             "Netherite Building Wand: smithing table with a Netherite Upgrade Smithing Template, the Diamond Building Wand and a netherite ingot.",
             "Enderite Building Wand: smithing table with the Enderite Upgrade Template, the Netherite Building Wand and an Enderite Ingot.",
             "Loot (option enableLootTableChanges, on by default): Diamond Building Wand with a random enchantment in end city treasure chests (weight 6), Iron Building Wand in woodland mansion chests (weight 4).",
@@ -5799,7 +5842,7 @@
             "Alle sechs Baustäbe (Kupfer bis Enderit) stehen im Tag building_wand_enchantable und damit auch in extra_inventory_items und constructors_touch_enchantable: sie können mit Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs verzaubert werden und stehen im Vanilla-Tag minecraft:enchantable/durability.",
             "Abdeckung schließt Brücke und Linear aus (exclusive_set/cover_group); Brücke und Linear schließen nur Abdeckung aus (exclusive_set/wand_modifier_group) und lassen sich miteinander kombinieren.",
             "Rezept für Kupfer-, Eisen-, Gold- und Diamant-Baustab: der Kern der Stufe (Kupferkern, Eisenkern, Goldkern, Diamantkern) oben rechts, darunter zwei Stöcke diagonal nach links unten; freigeschaltet, sobald man den jeweiligen Kern besitzt.",
-            "Aufwerten: Am Schmiedetisch macht die Basis-Upgrade-Vorlage aus einem Kupfer- einen Eisen-, aus einem Eisen- einen Gold- und aus einem Gold- einen Diamant-Baustab, für 8 Barren bzw. Diamanten der neuen Stufe (Rezepttyp simplebuilding:count_based_smithing; das Doppelte der vier im Kern, der Netherstern steckt schon im Stab); Verzauberungen, Schaden und Name bleiben erhalten.",
+            "Aufwerten: Am Schmiedetisch macht die Basis-Upgrade-Vorlage aus einem Kupfer- einen Eisen-, aus einem Eisen- einen Gold- und aus einem Gold- einen Diamant-Baustab, für einen Kern der neuen Stufe – Eisen-, Gold- bzw. Diamantkern (Rezepttyp simplebuilding:count_based_smithing; ein Baustab ist um einen Kern gebaut, also kostet das Aufwerten den nächsten statt Barren); Verzauberungen, Schaden und Name bleiben erhalten.",
             "Netherit-Baustab: Schmiedetisch mit Netherit-Upgrade-Vorlage, Diamant-Baustab und Netheritbarren.",
             "Enderite Building Wand: Schmiedetisch mit Enderite Upgrade Template, Netherit-Baustab und Enderite Ingot.",
             "Beute (Option enableLootTableChanges, standardmäßig an): Diamant-Baustab mit zufälliger Verzauberung in Endsiedlungs-Schatzkisten (Gewicht 6), Eisen-Baustab in Waldanwesen-Kisten (Gewicht 4).",
@@ -7233,7 +7276,7 @@
             "All six wands (copper through enderite) are in the building_wand_enchantable tag and therefore also in extra_inventory_items and constructors_touch_enchantable: they can take Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch, and they are in the vanilla minecraft:enchantable/durability tag.",
             "Cover excludes Bridge and Linear (exclusive_set/cover_group); Bridge and Linear only exclude Cover (exclusive_set/wand_modifier_group) and combine with each other.",
             "Recipe for the copper, iron, gold and diamond wand: the tier's core (Copper Core, Iron Core, Gold Core, Diamond Core) in the top right, two sticks running diagonally down to the left below it; unlocked as soon as you own the matching core.",
-            "Upgrade: at the smithing table the Basic Upgrade Template turns a Copper into an Iron, an Iron into a Gold and a Gold into a Diamond Building Wand for 8 ingots or diamonds of the new tier (recipe type simplebuilding:count_based_smithing; twice the four in a core, the nether star is already in the wand); enchantments, damage and name carry over.",
+            "Upgrade: at the smithing table the Basic Upgrade Template turns a Copper into an Iron, an Iron into a Gold and a Gold into a Diamond Building Wand for one core of the new tier - Iron, Gold or Diamond Core (recipe type simplebuilding:count_based_smithing; a wand is built around a core, so the upgrade costs the next one instead of ingots); enchantments, damage and name carry over.",
             "Netherite Building Wand: smithing table with a Netherite Upgrade Smithing Template, the Diamond Building Wand and a netherite ingot.",
             "Enderite Building Wand: smithing table with the Enderite Upgrade Template, the Netherite Building Wand and an Enderite Ingot.",
             "Loot (option enableLootTableChanges, on by default): Diamond Building Wand with a random enchantment in end city treasure chests (weight 6), Iron Building Wand in woodland mansion chests (weight 4).",
@@ -7305,7 +7348,7 @@
             "Alle sechs Baustäbe (Kupfer bis Enderit) stehen im Tag building_wand_enchantable und damit auch in extra_inventory_items und constructors_touch_enchantable: sie können mit Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs verzaubert werden und stehen im Vanilla-Tag minecraft:enchantable/durability.",
             "Abdeckung schließt Brücke und Linear aus (exclusive_set/cover_group); Brücke und Linear schließen nur Abdeckung aus (exclusive_set/wand_modifier_group) und lassen sich miteinander kombinieren.",
             "Rezept für Kupfer-, Eisen-, Gold- und Diamant-Baustab: der Kern der Stufe (Kupferkern, Eisenkern, Goldkern, Diamantkern) oben rechts, darunter zwei Stöcke diagonal nach links unten; freigeschaltet, sobald man den jeweiligen Kern besitzt.",
-            "Aufwerten: Am Schmiedetisch macht die Basis-Upgrade-Vorlage aus einem Kupfer- einen Eisen-, aus einem Eisen- einen Gold- und aus einem Gold- einen Diamant-Baustab, für 8 Barren bzw. Diamanten der neuen Stufe (Rezepttyp simplebuilding:count_based_smithing; das Doppelte der vier im Kern, der Netherstern steckt schon im Stab); Verzauberungen, Schaden und Name bleiben erhalten.",
+            "Aufwerten: Am Schmiedetisch macht die Basis-Upgrade-Vorlage aus einem Kupfer- einen Eisen-, aus einem Eisen- einen Gold- und aus einem Gold- einen Diamant-Baustab, für einen Kern der neuen Stufe – Eisen-, Gold- bzw. Diamantkern (Rezepttyp simplebuilding:count_based_smithing; ein Baustab ist um einen Kern gebaut, also kostet das Aufwerten den nächsten statt Barren); Verzauberungen, Schaden und Name bleiben erhalten.",
             "Netherit-Baustab: Schmiedetisch mit Netherit-Upgrade-Vorlage, Diamant-Baustab und Netheritbarren.",
             "Enderite Building Wand: Schmiedetisch mit Enderite Upgrade Template, Netherit-Baustab und Enderite Ingot.",
             "Beute (Option enableLootTableChanges, standardmäßig an): Diamant-Baustab mit zufälliger Verzauberung in Endsiedlungs-Schatzkisten (Gewicht 6), Eisen-Baustab in Waldanwesen-Kisten (Gewicht 4).",
@@ -7639,7 +7682,8 @@
       ],
       "usedIn": [
         "simplebuilding:gold_building_wand",
-        "simplebuilding:ore_detector"
+        "simplebuilding:ore_detector",
+        "simplebuilding:upgrade_iron_building_wand_to_gold_building_wand"
       ],
       "trades": [
         "simplebuilding:wandering_trader/emerald_gold_core"
@@ -7971,7 +8015,7 @@
             "All six wands (copper through enderite) are in the building_wand_enchantable tag and therefore also in extra_inventory_items and constructors_touch_enchantable: they can take Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch, and they are in the vanilla minecraft:enchantable/durability tag.",
             "Cover excludes Bridge and Linear (exclusive_set/cover_group); Bridge and Linear only exclude Cover (exclusive_set/wand_modifier_group) and combine with each other.",
             "Recipe for the copper, iron, gold and diamond wand: the tier's core (Copper Core, Iron Core, Gold Core, Diamond Core) in the top right, two sticks running diagonally down to the left below it; unlocked as soon as you own the matching core.",
-            "Upgrade: at the smithing table the Basic Upgrade Template turns a Copper into an Iron, an Iron into a Gold and a Gold into a Diamond Building Wand for 8 ingots or diamonds of the new tier (recipe type simplebuilding:count_based_smithing; twice the four in a core, the nether star is already in the wand); enchantments, damage and name carry over.",
+            "Upgrade: at the smithing table the Basic Upgrade Template turns a Copper into an Iron, an Iron into a Gold and a Gold into a Diamond Building Wand for one core of the new tier - Iron, Gold or Diamond Core (recipe type simplebuilding:count_based_smithing; a wand is built around a core, so the upgrade costs the next one instead of ingots); enchantments, damage and name carry over.",
             "Netherite Building Wand: smithing table with a Netherite Upgrade Smithing Template, the Diamond Building Wand and a netherite ingot.",
             "Enderite Building Wand: smithing table with the Enderite Upgrade Template, the Netherite Building Wand and an Enderite Ingot.",
             "Loot (option enableLootTableChanges, on by default): Diamond Building Wand with a random enchantment in end city treasure chests (weight 6), Iron Building Wand in woodland mansion chests (weight 4).",
@@ -8043,7 +8087,7 @@
             "Alle sechs Baustäbe (Kupfer bis Enderit) stehen im Tag building_wand_enchantable und damit auch in extra_inventory_items und constructors_touch_enchantable: sie können mit Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs verzaubert werden und stehen im Vanilla-Tag minecraft:enchantable/durability.",
             "Abdeckung schließt Brücke und Linear aus (exclusive_set/cover_group); Brücke und Linear schließen nur Abdeckung aus (exclusive_set/wand_modifier_group) und lassen sich miteinander kombinieren.",
             "Rezept für Kupfer-, Eisen-, Gold- und Diamant-Baustab: der Kern der Stufe (Kupferkern, Eisenkern, Goldkern, Diamantkern) oben rechts, darunter zwei Stöcke diagonal nach links unten; freigeschaltet, sobald man den jeweiligen Kern besitzt.",
-            "Aufwerten: Am Schmiedetisch macht die Basis-Upgrade-Vorlage aus einem Kupfer- einen Eisen-, aus einem Eisen- einen Gold- und aus einem Gold- einen Diamant-Baustab, für 8 Barren bzw. Diamanten der neuen Stufe (Rezepttyp simplebuilding:count_based_smithing; das Doppelte der vier im Kern, der Netherstern steckt schon im Stab); Verzauberungen, Schaden und Name bleiben erhalten.",
+            "Aufwerten: Am Schmiedetisch macht die Basis-Upgrade-Vorlage aus einem Kupfer- einen Eisen-, aus einem Eisen- einen Gold- und aus einem Gold- einen Diamant-Baustab, für einen Kern der neuen Stufe – Eisen-, Gold- bzw. Diamantkern (Rezepttyp simplebuilding:count_based_smithing; ein Baustab ist um einen Kern gebaut, also kostet das Aufwerten den nächsten statt Barren); Verzauberungen, Schaden und Name bleiben erhalten.",
             "Netherit-Baustab: Schmiedetisch mit Netherit-Upgrade-Vorlage, Diamant-Baustab und Netheritbarren.",
             "Enderite Building Wand: Schmiedetisch mit Enderite Upgrade Template, Netherit-Baustab und Enderite Ingot.",
             "Beute (Option enableLootTableChanges, standardmäßig an): Diamant-Baustab mit zufälliger Verzauberung in Endsiedlungs-Schatzkisten (Gewicht 6), Eisen-Baustab in Waldanwesen-Kisten (Gewicht 4).",
@@ -8376,7 +8420,8 @@
         "simplebuilding:iron_core_plus"
       ],
       "usedIn": [
-        "simplebuilding:iron_building_wand"
+        "simplebuilding:iron_building_wand",
+        "simplebuilding:upgrade_copper_building_wand_to_iron_building_wand"
       ],
       "trades": [
         "simplebuilding:wandering_trader/emerald_iron_cores"
@@ -9387,7 +9432,7 @@
             "All six wands (copper through enderite) are in the building_wand_enchantable tag and therefore also in extra_inventory_items and constructors_touch_enchantable: they can take Cover, Bridge, Linear, Master Builder, Color Palette and Constructor's Touch, and they are in the vanilla minecraft:enchantable/durability tag.",
             "Cover excludes Bridge and Linear (exclusive_set/cover_group); Bridge and Linear only exclude Cover (exclusive_set/wand_modifier_group) and combine with each other.",
             "Recipe for the copper, iron, gold and diamond wand: the tier's core (Copper Core, Iron Core, Gold Core, Diamond Core) in the top right, two sticks running diagonally down to the left below it; unlocked as soon as you own the matching core.",
-            "Upgrade: at the smithing table the Basic Upgrade Template turns a Copper into an Iron, an Iron into a Gold and a Gold into a Diamond Building Wand for 8 ingots or diamonds of the new tier (recipe type simplebuilding:count_based_smithing; twice the four in a core, the nether star is already in the wand); enchantments, damage and name carry over.",
+            "Upgrade: at the smithing table the Basic Upgrade Template turns a Copper into an Iron, an Iron into a Gold and a Gold into a Diamond Building Wand for one core of the new tier - Iron, Gold or Diamond Core (recipe type simplebuilding:count_based_smithing; a wand is built around a core, so the upgrade costs the next one instead of ingots); enchantments, damage and name carry over.",
             "Netherite Building Wand: smithing table with a Netherite Upgrade Smithing Template, the Diamond Building Wand and a netherite ingot.",
             "Enderite Building Wand: smithing table with the Enderite Upgrade Template, the Netherite Building Wand and an Enderite Ingot.",
             "Loot (option enableLootTableChanges, on by default): Diamond Building Wand with a random enchantment in end city treasure chests (weight 6), Iron Building Wand in woodland mansion chests (weight 4).",
@@ -9459,7 +9504,7 @@
             "Alle sechs Baustäbe (Kupfer bis Enderit) stehen im Tag building_wand_enchantable und damit auch in extra_inventory_items und constructors_touch_enchantable: sie können mit Abdeckung, Brücke, Linear, Baumeister, Farbpalette und Berührung des Konstrukteurs verzaubert werden und stehen im Vanilla-Tag minecraft:enchantable/durability.",
             "Abdeckung schließt Brücke und Linear aus (exclusive_set/cover_group); Brücke und Linear schließen nur Abdeckung aus (exclusive_set/wand_modifier_group) und lassen sich miteinander kombinieren.",
             "Rezept für Kupfer-, Eisen-, Gold- und Diamant-Baustab: der Kern der Stufe (Kupferkern, Eisenkern, Goldkern, Diamantkern) oben rechts, darunter zwei Stöcke diagonal nach links unten; freigeschaltet, sobald man den jeweiligen Kern besitzt.",
-            "Aufwerten: Am Schmiedetisch macht die Basis-Upgrade-Vorlage aus einem Kupfer- einen Eisen-, aus einem Eisen- einen Gold- und aus einem Gold- einen Diamant-Baustab, für 8 Barren bzw. Diamanten der neuen Stufe (Rezepttyp simplebuilding:count_based_smithing; das Doppelte der vier im Kern, der Netherstern steckt schon im Stab); Verzauberungen, Schaden und Name bleiben erhalten.",
+            "Aufwerten: Am Schmiedetisch macht die Basis-Upgrade-Vorlage aus einem Kupfer- einen Eisen-, aus einem Eisen- einen Gold- und aus einem Gold- einen Diamant-Baustab, für einen Kern der neuen Stufe – Eisen-, Gold- bzw. Diamantkern (Rezepttyp simplebuilding:count_based_smithing; ein Baustab ist um einen Kern gebaut, also kostet das Aufwerten den nächsten statt Barren); Verzauberungen, Schaden und Name bleiben erhalten.",
             "Netherit-Baustab: Schmiedetisch mit Netherit-Upgrade-Vorlage, Diamant-Baustab und Netheritbarren.",
             "Enderite Building Wand: Schmiedetisch mit Enderite Upgrade Template, Netherit-Baustab und Enderite Ingot.",
             "Beute (Option enableLootTableChanges, standardmäßig an): Diamant-Baustab mit zufälliger Verzauberung in Endsiedlungs-Schatzkisten (Gewicht 6), Eisen-Baustab in Waldanwesen-Kisten (Gewicht 4).",
@@ -11736,7 +11781,6 @@
         "simplebuilding:polished_ender_quartz_slab_from_ender_quartz_block_stonecutting",
         "simplebuilding:polished_ender_quartz_slab_from_polished_ender_quartz_stonecutting",
         "simplebuilding:polished_ender_quartz_slab_from_purpur_slab",
-        "simplebuilding:polished_ender_quartz_slab_from_quartz_slab",
         "simplebuilding:polished_ender_quartz_slab_from_smooth_quartz_slab"
       ],
       "usedIn": [],
@@ -11755,7 +11799,6 @@
         "simplebuilding:polished_ender_quartz_stairs_from_ender_quartz_block_stonecutting",
         "simplebuilding:polished_ender_quartz_stairs_from_polished_ender_quartz_stonecutting",
         "simplebuilding:polished_ender_quartz_stairs_from_purpur_stairs",
-        "simplebuilding:polished_ender_quartz_stairs_from_quartz_stairs",
         "simplebuilding:polished_ender_quartz_stairs_from_smooth_quartz_stairs"
       ],
       "usedIn": [],
@@ -14625,6 +14668,10 @@
         "simplebuilding:ender_quartz_brick_wall_from_ender_quartz_block_stonecutting",
         "simplebuilding:ender_quartz_bricks_from_ender_quartz_block_stonecutting",
         "simplebuilding:ender_quartz_pillar_from_ender_quartz_block_stonecutting",
+        "simplebuilding:ender_quartz_slab",
+        "simplebuilding:ender_quartz_slab_from_ender_quartz_block_stonecutting",
+        "simplebuilding:ender_quartz_stairs",
+        "simplebuilding:ender_quartz_stairs_from_ender_quartz_block_stonecutting",
         "simplebuilding:polished_ender_quartz",
         "simplebuilding:polished_ender_quartz_from_ender_quartz_block_stonecutting",
         "simplebuilding:polished_ender_quartz_slab_from_ender_quartz_block_stonecutting",
@@ -14770,6 +14817,46 @@
       "lootTable": "simplebuilding:blocks/ender_quartz_pillar",
       "drops": [
         "simplebuilding:ender_quartz_pillar"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ender_quartz_slab",
+      "name": {
+        "en_us": "Ender Quartz Slab",
+        "de_de": "Enderquarzstufe"
+      },
+      "texture": "assets/textures/block/ender_quartz_block.png",
+      "craftedBy": [
+        "simplebuilding:ender_quartz_slab",
+        "simplebuilding:ender_quartz_slab_from_ender_quartz_block_stonecutting",
+        "simplebuilding:ender_quartz_slab_from_quartz_slab"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/ender_quartz_slab",
+      "drops": [
+        "simplebuilding:ender_quartz_slab"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:ender_quartz_stairs",
+      "name": {
+        "en_us": "Ender Quartz Stairs",
+        "de_de": "Enderquarztreppe"
+      },
+      "texture": "assets/textures/block/ender_quartz_block.png",
+      "craftedBy": [
+        "simplebuilding:ender_quartz_stairs",
+        "simplebuilding:ender_quartz_stairs_from_ender_quartz_block_stonecutting",
+        "simplebuilding:ender_quartz_stairs_from_quartz_stairs"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/ender_quartz_stairs",
+      "drops": [
+        "simplebuilding:ender_quartz_stairs"
       ],
       "hasCustomBehaviour": false
     },
@@ -16862,7 +16949,6 @@
         "simplebuilding:polished_ender_quartz_slab_from_ender_quartz_block_stonecutting",
         "simplebuilding:polished_ender_quartz_slab_from_polished_ender_quartz_stonecutting",
         "simplebuilding:polished_ender_quartz_slab_from_purpur_slab",
-        "simplebuilding:polished_ender_quartz_slab_from_quartz_slab",
         "simplebuilding:polished_ender_quartz_slab_from_smooth_quartz_slab"
       ],
       "usedIn": [],
@@ -16885,7 +16971,6 @@
         "simplebuilding:polished_ender_quartz_stairs_from_ender_quartz_block_stonecutting",
         "simplebuilding:polished_ender_quartz_stairs_from_polished_ender_quartz_stonecutting",
         "simplebuilding:polished_ender_quartz_stairs_from_purpur_stairs",
-        "simplebuilding:polished_ender_quartz_stairs_from_quartz_stairs",
         "simplebuilding:polished_ender_quartz_stairs_from_smooth_quartz_stairs"
       ],
       "usedIn": [],
@@ -20233,6 +20318,146 @@
       }
     },
     {
+      "id": "simplebuilding:ender_quartz_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_quartz_slab",
+        "count": 6
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/ender_quartz_slab.json",
+      "ingredients": [
+        "simplebuilding:ender_quartz_block"
+      ],
+      "pattern": [
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:ender_quartz_block"
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_quartz_slab_from_ender_quartz_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_quartz_slab",
+        "count": 2
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/ender_quartz_slab_from_ender_quartz_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:ender_quartz_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_quartz_block"
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_quartz_slab_from_quartz_slab",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_quartz_slab",
+        "count": 8
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/ender_quartz_slab_from_quartz_slab.json",
+      "ingredients": [
+        "minecraft:quartz_slab",
+        "simplebuilding:ender_quartz"
+      ],
+      "pattern": [
+        "###",
+        "#M#",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:quartz_slab"
+        ],
+        "M": [
+          "simplebuilding:ender_quartz"
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_quartz_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_quartz_stairs",
+        "count": 4
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/ender_quartz_stairs.json",
+      "ingredients": [
+        "simplebuilding:ender_quartz_block"
+      ],
+      "pattern": [
+        "#  ",
+        "## ",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "simplebuilding:ender_quartz_block"
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_quartz_stairs_from_ender_quartz_block_stonecutting",
+      "type": "minecraft:stonecutting",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_quartz_stairs",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/ender_quartz_stairs_from_ender_quartz_block_stonecutting.json",
+      "ingredients": [
+        "simplebuilding:ender_quartz_block"
+      ],
+      "slots": {
+        "ingredient": [
+          "simplebuilding:ender_quartz_block"
+        ]
+      }
+    },
+    {
+      "id": "simplebuilding:ender_quartz_stairs_from_quartz_stairs",
+      "type": "minecraft:crafting_shaped",
+      "category": "building",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ender_quartz_stairs",
+        "count": 8
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/ender_quartz_stairs_from_quartz_stairs.json",
+      "ingredients": [
+        "minecraft:quartz_stairs",
+        "simplebuilding:ender_quartz"
+      ],
+      "pattern": [
+        "###",
+        "#M#",
+        "###"
+      ],
+      "key": {
+        "#": [
+          "minecraft:quartz_stairs"
+        ],
+        "M": [
+          "simplebuilding:ender_quartz"
+        ]
+      }
+    },
+    {
       "id": "simplebuilding:enderite_apple",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -23289,34 +23514,6 @@
       }
     },
     {
-      "id": "simplebuilding:polished_ender_quartz_slab_from_quartz_slab",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:polished_ender_quartz_slab",
-        "count": 8
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/polished_ender_quartz_slab_from_quartz_slab.json",
-      "ingredients": [
-        "minecraft:quartz_slab",
-        "simplebuilding:ender_quartz"
-      ],
-      "pattern": [
-        "###",
-        "#M#",
-        "###"
-      ],
-      "key": {
-        "#": [
-          "minecraft:quartz_slab"
-        ],
-        "M": [
-          "simplebuilding:ender_quartz"
-        ]
-      }
-    },
-    {
       "id": "simplebuilding:polished_ender_quartz_slab_from_smooth_quartz_slab",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -23428,34 +23625,6 @@
       "key": {
         "#": [
           "minecraft:purpur_stairs"
-        ],
-        "M": [
-          "simplebuilding:ender_quartz"
-        ]
-      }
-    },
-    {
-      "id": "simplebuilding:polished_ender_quartz_stairs_from_quartz_stairs",
-      "type": "minecraft:crafting_shaped",
-      "category": "building",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:polished_ender_quartz_stairs",
-        "count": 8
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/polished_ender_quartz_stairs_from_quartz_stairs.json",
-      "ingredients": [
-        "minecraft:quartz_stairs",
-        "simplebuilding:ender_quartz"
-      ],
-      "pattern": [
-        "###",
-        "#M#",
-        "###"
-      ],
-      "key": {
-        "#": [
-          "minecraft:quartz_stairs"
         ],
         "M": [
           "simplebuilding:ender_quartz"
@@ -24422,6 +24591,34 @@
       }
     },
     {
+      "id": "simplebuilding:upgrade_copper_axe_to_iron_axe",
+      "type": "simplebuilding:count_based_smithing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:iron_axe",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_copper_axe_to_iron_axe.json",
+      "ingredients": [
+        "minecraft:copper_axe",
+        "minecraft:iron_ingot",
+        "simplebuilding:basic_upgrade_template"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:basic_upgrade_template"
+        ],
+        "base": [
+          "minecraft:copper_axe"
+        ],
+        "addition": [
+          "minecraft:iron_ingot"
+        ]
+      },
+      "addition_count": 6
+    },
+    {
       "id": "simplebuilding:upgrade_copper_building_wand_to_iron_building_wand",
       "type": "simplebuilding:count_based_smithing",
       "category": null,
@@ -24432,9 +24629,9 @@
       },
       "source": "src/main/generated/data/simplebuilding/recipe/upgrade_copper_building_wand_to_iron_building_wand.json",
       "ingredients": [
-        "minecraft:iron_ingot",
         "simplebuilding:basic_upgrade_template",
-        "simplebuilding:copper_building_wand"
+        "simplebuilding:copper_building_wand",
+        "simplebuilding:iron_core"
       ],
       "slots": {
         "template": [
@@ -24444,10 +24641,10 @@
           "simplebuilding:copper_building_wand"
         ],
         "addition": [
-          "minecraft:iron_ingot"
+          "simplebuilding:iron_core"
         ]
       },
-      "addition_count": 8
+      "addition_count": 1
     },
     {
       "id": "simplebuilding:upgrade_copper_chisel_to_iron_chisel",
@@ -24478,6 +24675,34 @@
       "addition_count": 2
     },
     {
+      "id": "simplebuilding:upgrade_copper_hoe_to_iron_hoe",
+      "type": "simplebuilding:count_based_smithing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:iron_hoe",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_copper_hoe_to_iron_hoe.json",
+      "ingredients": [
+        "minecraft:copper_hoe",
+        "minecraft:iron_ingot",
+        "simplebuilding:basic_upgrade_template"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:basic_upgrade_template"
+        ],
+        "base": [
+          "minecraft:copper_hoe"
+        ],
+        "addition": [
+          "minecraft:iron_ingot"
+        ]
+      },
+      "addition_count": 4
+    },
+    {
       "id": "simplebuilding:upgrade_copper_pickaxe_to_iron_pickaxe",
       "type": "simplebuilding:count_based_smithing",
       "category": null,
@@ -24504,6 +24729,34 @@
         ]
       },
       "addition_count": 6
+    },
+    {
+      "id": "simplebuilding:upgrade_copper_shovel_to_iron_shovel",
+      "type": "simplebuilding:count_based_smithing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:iron_shovel",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_copper_shovel_to_iron_shovel.json",
+      "ingredients": [
+        "minecraft:copper_shovel",
+        "minecraft:iron_ingot",
+        "simplebuilding:basic_upgrade_template"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:basic_upgrade_template"
+        ],
+        "base": [
+          "minecraft:copper_shovel"
+        ],
+        "addition": [
+          "minecraft:iron_ingot"
+        ]
+      },
+      "addition_count": 2
     },
     {
       "id": "simplebuilding:upgrade_copper_sledgehammer_to_iron_sledgehammer",
@@ -24534,6 +24787,34 @@
       "addition_count": 22
     },
     {
+      "id": "simplebuilding:upgrade_copper_sword_to_iron_sword",
+      "type": "simplebuilding:count_based_smithing",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "minecraft:iron_sword",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/upgrade_copper_sword_to_iron_sword.json",
+      "ingredients": [
+        "minecraft:copper_sword",
+        "minecraft:iron_ingot",
+        "simplebuilding:basic_upgrade_template"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:basic_upgrade_template"
+        ],
+        "base": [
+          "minecraft:copper_sword"
+        ],
+        "addition": [
+          "minecraft:iron_ingot"
+        ]
+      },
+      "addition_count": 4
+    },
+    {
       "id": "simplebuilding:upgrade_gold_building_wand_to_diamond_building_wand",
       "type": "simplebuilding:count_based_smithing",
       "category": null,
@@ -24544,8 +24825,8 @@
       },
       "source": "src/main/generated/data/simplebuilding/recipe/upgrade_gold_building_wand_to_diamond_building_wand.json",
       "ingredients": [
-        "minecraft:diamond",
         "simplebuilding:basic_upgrade_template",
+        "simplebuilding:diamond_core",
         "simplebuilding:gold_building_wand"
       ],
       "slots": {
@@ -24556,10 +24837,10 @@
           "simplebuilding:gold_building_wand"
         ],
         "addition": [
-          "minecraft:diamond"
+          "simplebuilding:diamond_core"
         ]
       },
-      "addition_count": 8
+      "addition_count": 1
     },
     {
       "id": "simplebuilding:upgrade_gold_chisel_to_diamond_chisel",
@@ -24796,8 +25077,8 @@
       },
       "source": "src/main/generated/data/simplebuilding/recipe/upgrade_iron_building_wand_to_gold_building_wand.json",
       "ingredients": [
-        "minecraft:gold_ingot",
         "simplebuilding:basic_upgrade_template",
+        "simplebuilding:gold_core",
         "simplebuilding:iron_building_wand"
       ],
       "slots": {
@@ -24808,10 +25089,10 @@
           "simplebuilding:iron_building_wand"
         ],
         "addition": [
-          "minecraft:gold_ingot"
+          "simplebuilding:gold_core"
         ]
       },
-      "addition_count": 8
+      "addition_count": 1
     },
     {
       "id": "simplebuilding:upgrade_iron_chisel_to_gold_chisel",
@@ -25705,6 +25986,40 @@
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/ender_quartz_pillar.json"
+    },
+    {
+      "id": "simplebuilding:blocks/ender_quartz_slab",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:ender_quartz_slab"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/ender_quartz_slab.json"
+    },
+    {
+      "id": "simplebuilding:blocks/ender_quartz_stairs",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:ender_quartz_stairs"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/ender_quartz_stairs.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_backpack",
@@ -38990,10 +39305,10 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 158,
-    "blocks": 74,
-    "recipes": 294,
-    "lootTables": 73,
+    "items": 160,
+    "blocks": 76,
+    "recipes": 302,
+    "lootTables": 75,
     "trades": 21,
     "enchantments": 19,
     "tags": 27,
