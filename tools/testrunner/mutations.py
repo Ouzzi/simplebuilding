@@ -28,6 +28,7 @@ Usage
     python tools/testrunner/mutations.py --p6b --run            # the remaining areas (server)
     python tools/testrunner/mutations.py --p9 --run             # the fixes of 2026-09-24 (server + client)
     python tools/testrunner/mutations.py --p10 --run            # the tests of the first feature wave (server)
+    python tools/testrunner/mutations.py --p11 --run            # the second feature wave (server and client)
 
 Results land in testing/mutations/<timestamp>.json and are summarised on stdout.
 """
@@ -1563,6 +1564,144 @@ P10_MUTATIONS: list[Mutation] = [
              'shearing wool costs the shears one durability', kind="server"),
 ]
 
+#: P11 (2026-09-24): the counter-checks for the second feature wave - the astralit and nihilith
+#: building sets, the four creative tabs, the ore detector's reach by ore class with Radius, and
+#: the glimmer a calibrated detector draws in its slot. Server entries name the new or sharpened
+#: test whose sentence has to go red; the two client entries run the hud-and-tooltip script. Every
+#: anchor reads the same on both lines (the OreDetectorItem lines touched here are identical, the
+#: generated files differ only in lines no anchor uses).
+_OD = "ore_detector_game_test_"
+_DI = "data_integrity_game_test_"
+_ODI = f"{SHARED}/items/custom/OreDetectorItem.java"
+P11_MUTATIONS: list[Mutation] = [
+    # --- ore detector: reach by ore class --------------------------------------------------------
+    Mutation('p11-detector-rare-classes-common',
+             _ODI,
+             '        if (state.is(Blocks.ANCIENT_DEBRIS) || state.is(ModBlocks.ASTRALIT_ORE) || state.is(ModBlocks.NIHILITH_ORE)) {\n'
+             '            return OreClass.VERY_RARE;\n'
+             '        }',
+             '        if (false) {\n'
+             '            return OreClass.VERY_RARE;\n'
+             '        }',
+             _OD + 'all_ores_reach_follows_the_ore_rarity_and_radius_stretches_the_rare_ones',
+             'the sight lines each ore is found on',
+             'ancient debris and the End ores only answer from 8 blocks of budget', kind="server"),
+    Mutation('p11-detector-radius-grows-common',
+             _ODI,
+             '        COMMON(24, 0),',
+             '        COMMON(24, 1),',
+             _OD + 'all_ores_reach_follows_the_ore_rarity_and_radius_stretches_the_rare_ones',
+             'the sight lines each ore is found on',
+             'Radius leaves the common ores at 24', kind="server"),
+    Mutation('p11-detector-radius-ignored',
+             _ODI,
+             '        boolean radius = hasEnchantment(stack, world, ModEnchantments.RADIUS);',
+             '        boolean radius = false;',
+             _OD + 'all_ores_reach_follows_the_ore_rarity_and_radius_stretches_the_rare_ones',
+             'the sight lines each ore is found on',
+             'Radius on the detector stretches the rare classes', kind="server"),
+    Mutation('p11-detector-rare-budget-old',
+             _ODI,
+             '        RARE(12, 6),',
+             '        RARE(16, 2),',
+             _OD + 'detector_reports_the_nearest_target_inside_its_budget',
+             'which costs 13 of the diamond budget of 12',
+             'diamond and emerald carry a budget of 12', kind="server"),
+    Mutation('p11-detector-end-ores-not-in-all',
+             _ODI,
+             '                    state.is(Blocks.ANCIENT_DEBRIS) || state.is(Blocks.NETHER_QUARTZ_ORE) ||\n'
+             '                    state.is(ModBlocks.ASTRALIT_ORE) || state.is(ModBlocks.NIHILITH_ORE);',
+             '                    state.is(Blocks.ANCIENT_DEBRIS) || state.is(Blocks.NETHER_QUARTZ_ORE);',
+             _OD + 'detector_modes_match_their_ore_tags',
+             'in all-ores mode',
+             'the all-ores mode finds the two End ores', kind="server"),
+    Mutation('p11-radius-tag-without-detector',
+             f'{_GEN}/tags/item/radius_enchantable.json',
+             '    "#simplebuilding:sledgehammer_tools",\n    "simplebuilding:ore_detector"',
+             '    "#simplebuilding:sledgehammer_tools"',
+             _OD + 'all_ores_reach_follows_the_ore_rarity_and_radius_stretches_the_rare_ones',
+             'Radius no longer lists the ore detector',
+             'Radius can be put on the ore detector', kind="server"),
+    Mutation('p11-glimmer-in-fixed-modes',
+             _ODI,
+             '        if (!(stack.getItem() instanceof OreDetectorItem) || getMode(stack) != DetectMode.CUSTOM) return -1;',
+             '        if (!(stack.getItem() instanceof OreDetectorItem)) return -1;',
+             _OD + 'calibrated_detector_glimmers_in_the_colour_of_its_target',
+             'the glimmer of a detector switched from custom to gold',
+             'only a detector in the custom mode with a target glimmers', kind="server"),
+    # --- astralit and nihilith building sets ------------------------------------------------------
+    Mutation('p11-bricks-craft-two',
+             f'{_GEN}/recipe/astralit_bricks.json',
+             '"count": 4,',
+             '"count": 2,',
+             _DI + 'end_brick_sets_are_crafted_cut_mined_and_tagged_like_vanilla',
+             'crafts 2xsimplebuilding:astralit_bricks',
+             'four coated end stone make four bricks', kind="server"),
+    Mutation('p11-slab-cut-one',
+             f'{_GEN}/recipe/nihilith_brick_slab_from_nihil_end_stone_stonecutting.json',
+             '"count": 2,',
+             '"count": 1,',
+             _DI + 'end_brick_sets_are_crafted_cut_mined_and_tagged_like_vanilla',
+             'stonecutter cuts missing',
+             'the stonecutter cuts two slabs from one coated end stone', kind="server"),
+    Mutation('p11-double-slab-drops-one',
+             f'{_GEN}/loot_table/blocks/astralit_brick_slab.json',
+             '"count": 2.0,',
+             '"count": 1.0,',
+             _DI + 'end_brick_sets_are_crafted_cut_mined_and_tagged_like_vanilla',
+             'how the end stone family is mined',
+             'a double slab drops two slabs', kind="server"),
+    Mutation('p11-wall-not-a-wall',
+             'src/main/generated/data/minecraft/tags/block/walls.json',
+             '    "simplebuilding:astralit_brick_wall",\n',
+             '',
+             _DI + 'end_brick_sets_are_crafted_cut_mined_and_tagged_like_vanilla',
+             'the vanilla shape tags the astralit stairs, slab and wall belong to',
+             'the brick walls connect like vanilla walls', kind="server"),
+    Mutation('p11-polished-end-stone-not-pickaxe',
+             'src/main/generated/data/minecraft/tags/block/mineable/pickaxe.json',
+             '    "simplebuilding:polished_end_stone",\n',
+             '',
+             _DI + 'end_brick_sets_are_crafted_cut_mined_and_tagged_like_vanilla',
+             'how the end stone family is mined',
+             'polished end stone drops itself to a pickaxe', kind="server"),
+    Mutation('p11-astralit-bricks-dark',
+             f'{SHARED}/blocks/ModBlocks.java',
+             'registerBlock("astralit_bricks", ASTRAL_END_STONE, Block::new);',
+             'registerBlock("astralit_bricks", NIHIL_END_STONE, Block::new);',
+             _DI + 'end_brick_sets_are_crafted_cut_mined_and_tagged_like_vanilla',
+             'how the end stone family is mined',
+             'astralit bricks glow at 10 like the coated astralit blocks', kind="server"),
+    # --- creative tabs ------------------------------------------------------------------------------
+    Mutation('p11-tab-item-twice',
+             f'{SHARED}/items/ModItemGroupsContent.java',
+             '        entries.accept(ModItems.ENDERITE_INGOT);\n',
+             '        entries.accept(ModItems.ENDERITE_INGOT);\n        entries.accept(ModItems.ENDERITE_INGOT);\n',
+             _DI + 'every_mod_item_is_in_exactly_one_creative_tab',
+             'is offered 2x',
+             'every mod item sits in exactly one creative tab, once', kind="server"),
+    Mutation('p11-tab-apple-missing',
+             f'{SHARED}/items/ModItemGroupsContent.java',
+             '        entries.accept(ModItems.ENCHANTED_ENDERITE_APPLE);\n',
+             '',
+             _DI + 'every_mod_item_is_in_exactly_one_creative_tab',
+             'is offered 0x',
+             'the enchanted enderite apple can be taken from a creative tab', kind="server"),
+    # --- the glimmer on screen (client) ---------------------------------------------------------------
+    Mutation('p11-glimmer-one-row-low',
+             f'{SHARED}/client/render/OreDetectorGlint.java',
+             '        if (i < 15) return new int[]{i, 0};',
+             '        if (i < 15) return new int[]{i, 1};',
+             'hud-and-tooltip', 'The ore detector glimmer rectangles are',
+             'the glimmer runs on the outermost pixel ring of the slot'),
+    Mutation('p11-glimmer-never-drawn',
+             f'{SHARED}/mixin/client/ItemDecorationsMixin.java',
+             '        if (!stack.isEmpty()) {',
+             '        if (stack.isEmpty()) {',
+             'hud-and-tooltip', 'The ore detector glimmer rectangles are',
+             'the item decoration hook draws the glimmer'),
+]
+
 #: The 1.21.11 line keeps its own copy of the shared mod sources (mc1_21_11/shared/java, mirrored
 #: by hand) and its own Fabric module. A server mutation proved on 26.2 says nothing about
 #: whether the TRANSLATED test body on 1.21.11 bites - the bodies are within the drift tolerance,
@@ -1930,7 +2069,7 @@ def reread(dataset: Path) -> int:
     data = json.loads(dataset.read_text(encoding="utf-8"))
     runs_dir = REPO / "testing" / "runs"
     catalogue = {"p6": P6_MUTATIONS, "p6b": P6B_MUTATIONS, "p9": P9_MUTATIONS,
-                 "p10": P10_MUTATIONS}.get(data.get("catalogue"), MUTATIONS)
+                 "p10": P10_MUTATIONS, "p11": P11_MUTATIONS}.get(data.get("catalogue"), MUTATIONS)
     by_id = {m.id: m for m in catalogue}
     stamp = dataset.stem
     rounds_out = []
@@ -2005,6 +2144,8 @@ def main(argv: list[str] | None = None) -> int:
                         help="the P9 counter-checks for the fixes of 2026-09-24 (server and client)")
     parser.add_argument("--p10", action="store_true",
                         help="the P10 counter-checks for the tests of the first feature wave (server)")
+    parser.add_argument("--p11", action="store_true",
+                        help="the P11 counter-checks for the second feature wave (server and client)")
     parser.add_argument("--all-catalogues", action="store_true",
                         help="with --check: every catalogue on both lines, the way the release gate asks")
     parser.add_argument("--reread", default="",
@@ -2017,13 +2158,13 @@ def main(argv: list[str] | None = None) -> int:
     if args.check and args.all_catalogues:
         problems = 0
         for name, cat in (("false-greens", MUTATIONS), ("p6", P6_MUTATIONS), ("p6b", P6B_MUTATIONS),
-                          ("p9", P9_MUTATIONS), ("p10", P10_MUTATIONS)):
+                          ("p9", P9_MUTATIONS), ("p10", P10_MUTATIONS), ("p11", P11_MUTATIONS)):
             for line in ("26.2", LINE_1_21_11):
                 chosen = [on_line(m, line) for m in cat if m.kind == "server"]
                 print(f"{name} (Server) auf {line}: {len(chosen)} Mutationen")
                 problems += check_anchors(chosen)
         for target in LOG_FOR_TARGET:
-            for name, cat in (("false-greens", MUTATIONS), ("p9", P9_MUTATIONS)):
+            for name, cat in (("false-greens", MUTATIONS), ("p9", P9_MUTATIONS), ("p11", P11_MUTATIONS)):
                 chosen = [for_target(m, target) for m in cat if m.kind == "client"]
                 print(f"{name} (Client) auf {target}: {len(chosen)} Mutationen")
                 problems += check_anchors(chosen)
@@ -2033,7 +2174,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.reread:
         return reread(REPO / args.reread)
 
-    catalogue = (P10_MUTATIONS if args.p10 else P9_MUTATIONS if args.p9 else P6B_MUTATIONS if args.p6b
+    catalogue = (P11_MUTATIONS if args.p11 else P10_MUTATIONS if args.p10 else P9_MUTATIONS if args.p9 else P6B_MUTATIONS if args.p6b
                  else P6_MUTATIONS if args.p6 else MUTATIONS)
     # Server mutations are proved per LINE, on that line's Fabric server: with --line 1.21.11,
     # and likewise inside a run for a 1.21.11 client target, they go to fabric-12111. A server
@@ -2086,7 +2227,7 @@ def main(argv: list[str] | None = None) -> int:
     for i, r in enumerate(client_rounds, 1):
         results.append(run_round(i, r, args.target, args.timeout))
 
-    out = write_dataset(results, "p10" if args.p10 else "p9" if args.p9 else "p6b" if args.p6b
+    out = write_dataset(results, "p11" if args.p11 else "p10" if args.p10 else "p9" if args.p9 else "p6b" if args.p6b
                         else "p6" if args.p6 else "false-greens")
     return summarise(results, out)
 

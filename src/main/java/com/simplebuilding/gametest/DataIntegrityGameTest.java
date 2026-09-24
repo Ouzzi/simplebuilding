@@ -65,4 +65,14 @@ public final class DataIntegrityGameTest {
     public void quartzCheckersAreMinedByPickaxeAndCraftedFromTheirMaterial(GameTestHelper helper) {
         DataIntegrityTests.quartzCheckersAreMinedByPickaxeAndCraftedFromTheirMaterial(helper);
     }
+
+    @GameTest
+    public void endBrickSetsAreCraftedCutMinedAndTaggedLikeVanilla(GameTestHelper helper) {
+        DataIntegrityTests.endBrickSetsAreCraftedCutMinedAndTaggedLikeVanilla(helper);
+    }
+
+    @GameTest
+    public void everyModItemIsInExactlyOneCreativeTab(GameTestHelper helper) {
+        DataIntegrityTests.everyModItemIsInExactlyOneCreativeTab(helper);
+    }
 }

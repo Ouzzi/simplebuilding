@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.client.gui.NetheriteHopperScreen;
 import com.simplebuilding.client.gui.RangefinderHudOverlay;
+import com.simplebuilding.client.render.OreDetectorGlint;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
@@ -46,6 +47,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.Util;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.ChatVisiblity;
 import net.minecraft.world.inventory.Slot;
@@ -56,6 +58,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import org.joml.Vector2f;
 
 /**
  * Covers the client-only display code: the rangefinder HUD overlay, the reinforced bundle tooltip
@@ -249,6 +252,7 @@ public final class HudAndTooltipClientTest {
         bundleSubmenuReachesVanillaContainerScreens(script);
         hopperFilterButtonAndGhostSlots(script);
         inventoryTrimStatsButtonToggles(script);
+        oreDetectorGlintMarksTheCalibratedSlot(script);
 
         // What a finally block used to do. As steps these run only when everything above them
         // passed; see the port notes in the class javadoc for what a failure leaves behind.
@@ -2082,6 +2086,157 @@ public final class HudAndTooltipClientTest {
         });
 
         closeScreen(script);
+    }
+
+    // ------------------------------------------------------------------------------------------
+    // OreDetectorGlint
+    // ------------------------------------------------------------------------------------------
+
+    /** Inventory menu slots of hotbar slots 0 and 1. */
+    private static final int GLINT_SLOT = 36;
+    private static final int GLINT_PLAIN_SLOT = 37;
+    private static final String DETECTOR_UNCALIBRATED =
+            "simplebuilding:ore_detector[minecraft:custom_data={Mode:5}]";
+    private static final String DETECTOR_ON_DIAMOND =
+            "simplebuilding:ore_detector[minecraft:custom_data={Mode:5,CustomBlock:{Name:\"minecraft:diamond_ore\"}}]";
+    /** Diamond ore's glimmer colour, {@code OreDetectorItem#targetColor}. */
+    private static final int GLINT_DIAMOND_RGB = 0x5DECF5;
+
+    /**
+     * A calibrated ore detector marks its slot with a one pixel glimmer in the colour of its target
+     * ({@code OreDetectorGlint}, drawn from {@code ItemDecorationsMixin} at the end of vanilla's item
+     * decorations), and an uncalibrated one shows nothing.
+     *
+     * <p>The glimmer runs round the slot's edge in three seconds, so its clock is frozen at the
+     * start of the lap: head at the slot's top left pixel, the two fading tail pixels right below
+     * it. Two detectors sit in hotbar slots 0 and 1 of the open inventory, both in the custom mode;
+     * only the item data of slot 0 changes between the shots, so the model, the count and every
+     * other decoration stay the same.
+     *
+     * <p>Two claims, each on its own evidence. The GUI render state has to contain exactly the three
+     * 1x1 rectangles at slot 0's top left pixels with alpha 0xD0, 0x80 and 0x40 over the diamond
+     * colour, and nothing of the kind at slot 1 - that pins colour, alpha and position exactly. The
+     * screenshot then has to change against the uncalibrated baseline, and only inside that slot's
+     * left pixel column: a glimmer that reaches the render state but not the screen, or lands
+     * anywhere else, fails there. Taking the target away again restores the baseline.
+     *
+     * <p>What breaks this test: the mixin not applying on this loader, the glimmer drawn for an
+     * uncalibrated detector, a wrong colour, alpha or position, or a glimmer that stays after the
+     * target is gone.
+     */
+    private static void oreDetectorGlintMarksTheCalibratedSlot(Script script) {
+        TestScene.build(script, "minecraft:stone", "survival");
+        script.act("freeze the glimmer clock at the start of its lap", client -> OreDetectorGlint.clock = () -> 0L);
+        script.command("item replace entity @a hotbar.0 with " + DETECTOR_UNCALIBRATED);
+        script.command("item replace entity @a hotbar.1 with " + DETECTOR_UNCALIBRATED);
+        script.awaitPackets();
+        script.idle("let both detectors arrive and the item name popup finish", 60);
+
+        openInventoryScreen(script);
+        parkCursor(script);
+        script.idle("let the parked cursor settle", 10);
+        clearWidgetFocus(script);
+
+        assertGlintRectangles(script, false);
+        Later<Path> plain = script.shot("glint-a-uncalibrated");
+        script.idle("let twenty ticks pass between the two baseline shots", 20);
+        Later<Path> plainAgain = script.shot("glint-b-uncalibrated-again");
+        Later<ScreenshotDiff.Diff> noiseFloor = new Later<>("the noise floor of the glimmer scene");
+        script.verify("measure the noise floor of the glimmer scene", () -> {
+            ScreenshotDiff.Diff diff = ScreenshotDiff.compare("noise floor (two uncalibrated detectors, twice)",
+                    plain.get(), plainAgain.get());
+            ScreenshotDiff.assertUnchanged(diff);
+            noiseFloor.set(diff);
+        });
+
+        script.command("item replace entity @a hotbar.0 with " + DETECTOR_ON_DIAMOND);
+        script.awaitPackets();
+        script.idle("let the calibrated detector reach the open inventory", 20);
+        assertGlintRectangles(script, true);
+        Later<int[]> column = glintColumn(script);
+        Later<Path> calibrated = script.shot("glint-c-calibrated");
+        script.verify("the glimmer reached the screen at the calibrated slot's edge and nowhere else", () -> {
+            ScreenshotDiff.ChangedArea area = ScreenshotDiff.changedArea("glimmer", plain.get(), calibrated.get());
+            int[] box = column.get();
+            if (area.changedPixels() == 0 || area.left() < box[0] || area.top() < box[1]
+                    || area.right() > box[2] || area.bottom() > box[3]) {
+                throw new AssertionError("The ore detector glimmer did not land on the calibrated slot's top left "
+                        + "edge pixels (window pixels " + box[0] + "/" + box[1] + ".." + box[2] + "/" + box[3]
+                        + "): " + area);
+            }
+        });
+
+        script.command("item replace entity @a hotbar.0 with " + DETECTOR_UNCALIBRATED);
+        script.awaitPackets();
+        script.idle("let the reset detector reach the open inventory", 20);
+        Later<Path> control = script.shot("glint-d-uncalibrated-control");
+        script.verify("taking the target away removes the glimmer again", () ->
+                ScreenshotDiff.assertBackToBaseline("resetting the detector to no target", noiseFloor.get(),
+                        ScreenshotDiff.compare("control (target removed again)", plain.get(), control.get())));
+
+        closeScreen(script);
+        script.act("let the glimmer clock run again", client -> OreDetectorGlint.clock = Util::getMillis);
+    }
+
+    /**
+     * The 1x1 rectangles the open inventory draws inside hotbar slots 0 and 1: with the glimmer,
+     * exactly head and tail at slot 0's top left pixel column; without it, none in either slot.
+     */
+    private static void assertGlintRectangles(Script script, boolean expectGlint) {
+        script.act("the glimmer rectangles " + (expectGlint ? "sit at the calibrated slot" : "are absent"), client -> {
+            AbstractContainerScreen<?> screen = containerScreen(client);
+            List<String> found = new ArrayList<>();
+            List<String> expected = new ArrayList<>();
+            for (int slotIndex : new int[] {GLINT_SLOT, GLINT_PLAIN_SLOT}) {
+                Slot slot = screen.getMenu().slots.get(slotIndex);
+                int slotX = leftPos(screen) + slot.x;
+                int slotY = topPos(screen) + slot.y;
+                for (ColoredRectangleRenderState rectangle : filledRectangles(extractScreenState(client))) {
+                    if (Math.abs(rectangle.x1() - rectangle.x0()) != 1 || Math.abs(rectangle.y1() - rectangle.y0()) != 1) {
+                        continue;
+                    }
+                    Vector2f corner = rectangle.pose().transformPosition(Math.min(rectangle.x0(), rectangle.x1()),
+                            Math.min(rectangle.y0(), rectangle.y1()), new Vector2f());
+                    int x = Math.round(corner.x) - slotX;
+                    int y = Math.round(corner.y) - slotY;
+                    if (x >= 0 && x < 16 && y >= 0 && y < 16) {
+                        found.add(String.format("slot %d +%d/+%d 0x%08X", slotIndex, x, y, rectangle.col1()));
+                    }
+                }
+            }
+            if (expectGlint) {
+                int[] alpha = OreDetectorGlint.TRAIL_ALPHA;
+                for (int i = 0; i < alpha.length; i++) {
+                    expected.add(String.format("slot %d +0/+%d 0x%08X", GLINT_SLOT, i, (alpha[i] << 24) | GLINT_DIAMOND_RGB));
+                }
+            }
+            if (!found.equals(expected)) {
+                throw new AssertionError("The ore detector glimmer rectangles are " + found + " instead of " + expected
+                        + " (glimmer clock frozen at 0, slot " + GLINT_SLOT + " "
+                        + (expectGlint ? "calibrated on diamond ore" : "uncalibrated") + ", slot " + GLINT_PLAIN_SLOT
+                        + " uncalibrated).");
+            }
+        });
+    }
+
+    /** Window pixel box {left, top, right, bottom} (inclusive) of slot 0's first three left edge pixels. */
+    private static Later<int[]> glintColumn(Script script) {
+        Later<int[]> box = new Later<>("the window pixel box of the glimmer");
+        script.act("work out where the glimmer lands in window pixels", client -> {
+            AbstractContainerScreen<?> screen = containerScreen(client);
+            Slot slot = screen.getMenu().slots.get(GLINT_SLOT);
+            double scaleX = client.getWindow().getScreenWidth() / (double) client.getWindow().getGuiScaledWidth();
+            double scaleY = client.getWindow().getScreenHeight() / (double) client.getWindow().getGuiScaledHeight();
+            int guiX = leftPos(screen) + slot.x;
+            int guiY = topPos(screen) + slot.y;
+            box.set(new int[] {
+                    (int) Math.floor(guiX * scaleX) - 1,
+                    (int) Math.floor(guiY * scaleY) - 1,
+                    (int) Math.ceil((guiX + 1) * scaleX),
+                    (int) Math.ceil((guiY + OreDetectorGlint.TRAIL_ALPHA.length) * scaleY),
+            });
+        });
+        return box;
     }
 
     /**
