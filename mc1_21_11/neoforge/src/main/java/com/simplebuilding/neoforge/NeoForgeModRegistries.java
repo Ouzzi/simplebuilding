@@ -180,12 +180,32 @@ public final class NeoForgeModRegistries {
                         }
                     });
 
-    public static final Supplier<CreativeModeTab> BUILDING_ITEMS_TAB =
-            CREATIVE_TABS.register("building_items", () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 0)
-                    .icon(() -> new ItemStack(ModItems.IRON_CHISEL))
-                    .title(Component.translatable("itemgroup.simplebuilding.building_items"))
-                    .displayItems((displayContext, entries) -> ModItemGroupsContent.populate(entries, displayContext.holders()))
-                    .build());
+    /**
+     * Ein Tab je {@link ModItemGroupsContent.Tab}, in dessen Reihenfolge; jeder weitere Tab steht
+     * per {@code withTabsBefore} hinter seinem Vorgaenger, damit das Kreativinventar sie so ordnet.
+     */
+    public static final java.util.Map<ModItemGroupsContent.Tab, Supplier<CreativeModeTab>> TABS = registerTabs();
+
+    private static java.util.Map<ModItemGroupsContent.Tab, Supplier<CreativeModeTab>> registerTabs() {
+        java.util.Map<ModItemGroupsContent.Tab, Supplier<CreativeModeTab>> tabs = new java.util.EnumMap<>(ModItemGroupsContent.Tab.class);
+        ModItemGroupsContent.Tab previous = null;
+        for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.Tab.values()) {
+            ModItemGroupsContent.Tab before = previous;
+            tabs.put(tab, CREATIVE_TABS.register(tab.id, () -> {
+                CreativeModeTab.Builder builder = CreativeModeTab.builder(CreativeModeTab.Row.TOP, tab.ordinal())
+                        .icon(tab.icon)
+                        .title(Component.translatable(tab.translationKey()))
+                        .displayItems((displayContext, entries) -> ModItemGroupsContent.populate(tab, entries, displayContext.holders()));
+                if (before != null) {
+                    builder.withTabsBefore(net.minecraft.resources.ResourceKey.create(Registries.CREATIVE_MODE_TAB,
+                            net.minecraft.resources.Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, before.id)));
+                }
+                return builder.build();
+            }));
+            previous = tab;
+        }
+        return tabs;
+    }
 
     private NeoForgeModRegistries() {
     }
@@ -210,6 +230,6 @@ public final class NeoForgeModRegistries {
         ModRecipes.COUNT_BASED_SMITHING = COUNT_BASED_SMITHING.get();
         ModRecipes.UPGRADE_SMITHING_SERIALIZER = UPGRADE_SMITHING_SERIALIZER.get();
         ModRegistries.REINFORCED_BUNDLE_SERIALIZER = REINFORCED_BUNDLE_SERIALIZER.get();
-        ModItemGroups.BUILDING_ITEMS_GROUP = BUILDING_ITEMS_TAB.get();
+        TABS.forEach((tab, holder) -> ModItemGroups.GROUPS.put(tab, holder.get()));
     }
 }

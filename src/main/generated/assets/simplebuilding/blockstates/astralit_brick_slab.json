@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "simplebuilding:block/astralit_brick_slab"
+    },
+    "type=double": {
+      "model": "simplebuilding:block/astralit_bricks"
+    },
+    "type=top": {
+      "model": "simplebuilding:block/astralit_brick_slab_top"
+    }
+  }
+}

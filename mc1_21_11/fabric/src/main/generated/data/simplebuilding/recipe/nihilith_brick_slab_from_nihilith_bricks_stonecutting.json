@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:nihilith_bricks",
+  "result": {
+    "count": 2,
+    "id": "simplebuilding:nihilith_brick_slab"
+  }
+}

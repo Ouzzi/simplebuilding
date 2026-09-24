@@ -60,6 +60,11 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.createTrivialCube(ModBlocks.ASTRAL_END_STONE);
         blockStateModelGenerator.createTrivialCube(ModBlocks.NIHIL_END_STONE);
 
+        // Astralit-/Nihilith-Bausatz: Ziegelfamilie (Treppe, Stufe, Mauer samt Inventarmodell),
+        // Saeule mit eigener Stirnseite (_top) und gemeisselte Ziegel als einfacher Wuerfel.
+        registerBrickSet(blockStateModelGenerator, ModBlocks.ASTRALIT_BRICKS, ModBlocks.ASTRALIT_BRICK_STAIRS, ModBlocks.ASTRALIT_BRICK_SLAB, ModBlocks.ASTRALIT_BRICK_WALL, ModBlocks.ASTRALIT_PILLAR, ModBlocks.CHISELED_ASTRALIT_BRICKS);
+        registerBrickSet(blockStateModelGenerator, ModBlocks.NIHILITH_BRICKS, ModBlocks.NIHILITH_BRICK_STAIRS, ModBlocks.NIHILITH_BRICK_SLAB, ModBlocks.NIHILITH_BRICK_WALL, ModBlocks.NIHILITH_PILLAR, ModBlocks.CHISELED_NIHILITH_BRICKS);
+
         blockStateModelGenerator.createTrivialCube(ModBlocks.SUSPENDED_SAND);
         blockStateModelGenerator.createTrivialCube(ModBlocks.SUSPENDED_GRAVEL);
         blockStateModelGenerator.createTrivialCube(ModBlocks.LEVITATING_SAND);
@@ -360,6 +365,12 @@ public class ModModelProvider extends FabricModelProvider {
         // ModLootTableModifications erreichbar, der Fehler waere also sichtbar gewesen.
         itemModelGenerator.generateFlatItem(ModItems.ENCHANTED_NETHERITE_APPLE, ModItems.NETHERITE_APPLE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_APPLE, ModelTemplates.FLAT_ITEM);
+    }
+
+    private void registerBrickSet(BlockModelGenerators generator, Block bricks, Block stairs, Block slab, Block wall, Block pillar, Block chiseled) {
+        generator.family(bricks).stairs(stairs).slab(slab).wall(wall);
+        generator.createAxisAlignedPillarBlock(pillar, TexturedModel.COLUMN_ALT);
+        generator.createTrivialCube(chiseled);
     }
 
     private void registerMirroredChecker(BlockModelGenerators generator, Block block) {

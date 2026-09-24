@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "simplebuilding:block/astralit_bricks",
+    "side": "simplebuilding:block/astralit_bricks",
+    "top": "simplebuilding:block/astralit_bricks"
+  }
+}

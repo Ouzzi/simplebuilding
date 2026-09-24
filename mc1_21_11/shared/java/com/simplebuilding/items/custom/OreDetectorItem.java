@@ -1,6 +1,10 @@
 package com.simplebuilding.items.custom;
 
 import com.simplebuilding.enchantment.ModEnchantments;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.resources.Identifier;
+import net.minecraft.core.registries.BuiltInRegistries;
+import com.simplebuilding.blocks.ModBlocks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
@@ -39,30 +43,67 @@ import static com.simplebuilding.util.EnchantmentHelper.hasEnchantment;
 
 public class OreDetectorItem extends Item {
 
-    // Balancing: "Energie Budget" für die Suche.
-    private static final double BUDGET_COMMON = 24.0;    // Eisen, Kupfer
-    private static final double BUDGET_MEDIUM = 18.0;    // Gold, Redstone
-    private static final double BUDGET_RARE = 16.0;      // Diamant
-    private static final double BUDGET_VERY_RARE = 10.0; // Netherite
+    /**
+     * Balancing nach Seltenheit (2026-09): wie weit der Detektor ein Erz sieht, haengt an der Klasse
+     * des GEFUNDENEN Erzes, nicht am Modus. Das Budget ist zugleich Suchradius (in Bloecken) und
+     * Kostendeckel des Strahls: jeder halbe Block kostet {@code 0.5 * Dichte * 2}, also Luft 2 je
+     * Block, Stein 6, Netherrack 3, Tiefenschiefer/Basalt/Schwarzstein 12; Konstrukteurs Beruehrung
+     * halbiert das. Radius (dieselbe Verzauberung wie am Vorschlaghammer) legt vor allem bei den
+     * seltenen Klassen zu:
+     * <pre>
+     *   Klasse     Erze                                           Budget  mit Radius
+     *   COMMON     Kohle, Kupfer, Eisen, Redstone, Lapis, Quarz     24        24
+     *   MEDIUM     Gold (auch Nethergold)                           18        20
+     *   RARE       Diamant, Smaragd                                 12        18
+     *   VERY_RARE  Antiker Schrott, Astralit-, Nihilitherz           8        14
+     * </pre>
+     * Ein kalibrierter Block, der keines dieser Erze ist, zaehlt als COMMON.
+     */
+    public enum OreClass {
+        COMMON(24, 0),
+        MEDIUM(18, 2),
+        RARE(12, 6),
+        VERY_RARE(8, 6);
+
+        public final int budget;
+        public final int radiusBonus;
+
+        OreClass(int budget, int radiusBonus) {
+            this.budget = budget;
+            this.radiusBonus = radiusBonus;
+        }
+
+        public int budget(boolean radius) {
+            return budget + (radius ? radiusBonus : 0);
+        }
+    }
 
     private static final int SCAN_INTERVAL = 20;   // Ping alle 1 Sekunde
 
+    /** {@code oreClass == null}: der Modus findet Erze mehrerer Klassen (ALL) oder den kalibrierten Block (CUSTOM). */
     private enum DetectMode {
-        IRON(ChatFormatting.GRAY, "Iron", BUDGET_COMMON),
-        GOLD(ChatFormatting.GOLD, "Gold", BUDGET_MEDIUM),
-        DIAMOND(ChatFormatting.AQUA, "Diamond", BUDGET_RARE),
-        NETHERITE(ChatFormatting.DARK_PURPLE, "Netherite", BUDGET_VERY_RARE),
-        ALL(ChatFormatting.WHITE, "All Ores", BUDGET_COMMON),
-        CUSTOM(ChatFormatting.YELLOW, "Custom", BUDGET_COMMON);
+        IRON(ChatFormatting.GRAY, "Iron", OreClass.COMMON),
+        GOLD(ChatFormatting.GOLD, "Gold", OreClass.MEDIUM),
+        DIAMOND(ChatFormatting.AQUA, "Diamond", OreClass.RARE),
+        NETHERITE(ChatFormatting.DARK_PURPLE, "Netherite", OreClass.VERY_RARE),
+        ALL(ChatFormatting.WHITE, "All Ores", null),
+        CUSTOM(ChatFormatting.YELLOW, "Custom", null);
 
         final ChatFormatting color;
         final String name;
-        final double budget;
+        final @Nullable OreClass oreClass;
 
-        DetectMode(ChatFormatting color, String name, double budget) {
+        DetectMode(ChatFormatting color, String name, @Nullable OreClass oreClass) {
             this.color = color;
             this.name = name;
-            this.budget = budget;
+            this.oreClass = oreClass;
+        }
+
+        /** Suchradius: das groesste Budget, das ein Treffer dieses Modus haben kann. */
+        int scanRadius(@Nullable BlockState customTarget, boolean radius) {
+            if (oreClass != null) return oreClass.budget(radius);
+            if (this == CUSTOM && customTarget != null) return classify(customTarget).budget(radius);
+            return OreClass.COMMON.budget(radius);
         }
     }
 
@@ -115,7 +156,8 @@ public class OreDetectorItem extends Item {
     @Nullable
     public BlockPos findTarget(ServerLevel world, ItemStack stack, Vec3 eyesPos) {
         double costMultiplier = hasEnchantment(stack, world, ModEnchantments.CONSTRUCTORS_TOUCH) ? 1.0 : 2.0;
-        return findNearestOreWithRaycast(world, eyesPos, getMode(stack), stack, costMultiplier);
+        boolean radius = hasEnchantment(stack, world, ModEnchantments.RADIUS);
+        return findNearestOreWithRaycast(world, eyesPos, getMode(stack), stack, costMultiplier, radius);
     }
 
     private static boolean isHeldInHands(@Nullable EquipmentSlot slot) {
@@ -160,11 +202,11 @@ public class OreDetectorItem extends Item {
         return super.useOn(context);
     }
 
-    private BlockPos findNearestOreWithRaycast(Level world, Vec3 eyesPos, DetectMode mode, ItemStack stack, double costMultiplier) {
+    private BlockPos findNearestOreWithRaycast(Level world, Vec3 eyesPos, DetectMode mode, ItemStack stack, double costMultiplier, boolean radius) {
         BlockPos origin = BlockPos.containing(eyesPos);
         BlockState customTarget = (mode == DetectMode.CUSTOM) ? getCustomBlock(stack, world.registryAccess()) : null;
 
-        int scanRadius = (int) Math.ceil(mode.budget);
+        int scanRadius = mode.scanRadius(customTarget, radius);
         double maxScanDistanceSq = scanRadius * scanRadius;
         BlockPos bestTarget = null;
         double bestDistanceSq = Double.MAX_VALUE;
@@ -191,7 +233,12 @@ public class OreDetectorItem extends Item {
                     BlockState state = world.getBlockState(checkPos);
                     if (!isTarget(state, mode, customTarget)) continue;
 
-                    if (canReach(world, eyesPos, checkPos, mode.budget, costMultiplier)) {
+                    // Budget des gefundenen Erzes: im ALL-Modus sieht derselbe Detektor Eisen
+                    // weiter als Diamant. Ausserhalb seines eigenen Radius zaehlt ein Treffer nicht.
+                    int budget = classify(state).budget(radius);
+                    if (distanceSq > (double) budget * budget) continue;
+
+                    if (canReach(world, eyesPos, checkPos, budget, costMultiplier)) {
                         // Der naechste Schleifenschritt ueberschreibt den Cursor; behalten werden
                         // darf nur eine Kopie.
                         bestTarget = checkPos.immutable();
@@ -268,9 +315,62 @@ public class OreDetectorItem extends Item {
                     state.is(BlockTags.COPPER_ORES) || state.is(BlockTags.GOLD_ORES) ||
                     state.is(BlockTags.REDSTONE_ORES) || state.is(BlockTags.LAPIS_ORES) ||
                     state.is(BlockTags.DIAMOND_ORES) || state.is(BlockTags.EMERALD_ORES) ||
-                    state.is(Blocks.ANCIENT_DEBRIS) || state.is(Blocks.NETHER_QUARTZ_ORE);
+                    state.is(Blocks.ANCIENT_DEBRIS) || state.is(Blocks.NETHER_QUARTZ_ORE) ||
+                    state.is(ModBlocks.ASTRALIT_ORE) || state.is(ModBlocks.NIHILITH_ORE);
             case CUSTOM -> customTarget != null && state.is(customTarget.getBlock());
         };
+    }
+
+    /** Seltenheitsklasse eines Blocks, siehe {@link OreClass}. */
+    public static OreClass classify(BlockState state) {
+        if (state.is(Blocks.ANCIENT_DEBRIS) || state.is(ModBlocks.ASTRALIT_ORE) || state.is(ModBlocks.NIHILITH_ORE)) {
+            return OreClass.VERY_RARE;
+        }
+        if (state.is(BlockTags.DIAMOND_ORES) || state.is(BlockTags.EMERALD_ORES)) return OreClass.RARE;
+        if (state.is(BlockTags.GOLD_ORES)) return OreClass.MEDIUM;
+        return OreClass.COMMON;
+    }
+
+    /**
+     * Farbe des Randschimmers im Inventar (RGB, ohne Alpha) oder {@code -1}, wenn der Detektor
+     * keinen Block ausgewaehlt hat. Nur der kalibrierte Modus waehlt einen Block aus; Erze bekommen
+     * die Farbe ihres Minerals, alles andere die Kartenfarbe des Blocks.
+     */
+    public static int targetColor(ItemStack stack) {
+        if (!(stack.getItem() instanceof OreDetectorItem) || getMode(stack) != DetectMode.CUSTOM) return -1;
+        Block block = getCustomTargetBlock(stack);
+        return block == null ? -1 : blockColor(block.defaultBlockState());
+    }
+
+    static int blockColor(BlockState state) {
+        if (state.is(ModBlocks.ASTRALIT_ORE)) return 0xE49DD6;
+        if (state.is(ModBlocks.NIHILITH_ORE)) return 0x7BB4B8;
+        if (state.is(Blocks.ANCIENT_DEBRIS)) return 0x9A6A58;
+        if (state.is(Blocks.NETHER_QUARTZ_ORE)) return 0xEAE4DC;
+        if (state.is(BlockTags.DIAMOND_ORES)) return 0x5DECF5;
+        if (state.is(BlockTags.EMERALD_ORES)) return 0x17DD62;
+        if (state.is(BlockTags.GOLD_ORES)) return 0xFCEE4B;
+        if (state.is(BlockTags.IRON_ORES)) return 0xD8AF93;
+        if (state.is(BlockTags.COPPER_ORES)) return 0xE0734D;
+        if (state.is(BlockTags.REDSTONE_ORES)) return 0xFF3A2A;
+        if (state.is(BlockTags.LAPIS_ORES)) return 0x3F6FDB;
+        if (state.is(BlockTags.COAL_ORES)) return 0x5C5C5C;
+        int map = state.getBlock().defaultMapColor().col;
+        return map == 0 ? 0xA0A0A0 : map;
+    }
+
+    /**
+     * Der kalibrierte Block, direkt aus dem gespeicherten Namen gelesen - ohne Registry-Lookup,
+     * damit ihn auch der Inventar-Renderer jedes Bild billig fragen kann.
+     */
+    @Nullable
+    private static Block getCustomTargetBlock(ItemStack stack) {
+        CompoundTag nbt = getCustomData(stack);
+        if (!nbt.contains("CustomBlock")) return null;
+        String name = nbt.getCompoundOrEmpty("CustomBlock").getStringOr("Name", "");
+        Identifier id = Identifier.tryParse(name);
+        if (id == null) return null;
+        return BuiltInRegistries.BLOCK.getOptional(id).orElse(null);
     }
 
     private void spawnSonarBeam(ServerLevel world, Vec3 startPos, BlockPos endPos, BlockState targetState) {
@@ -308,7 +408,7 @@ public class OreDetectorItem extends Item {
         }
     }
 
-    private DetectMode getMode(ItemStack stack) {
+    private static DetectMode getMode(ItemStack stack) {
         CompoundTag nbt = getCustomData(stack);
         int modeIndex = 0;
 
@@ -370,7 +470,13 @@ public class OreDetectorItem extends Item {
         }
 
         textConsumer.accept(Component.empty());
-        textConsumer.accept(Component.literal("Power: " + (int)mode.budget).withStyle(ChatFormatting.DARK_AQUA));
+        boolean radius = stack.getEnchantments().keySet().stream().anyMatch(h -> h.is(ModEnchantments.RADIUS));
+        BlockState custom = mode == DetectMode.CUSTOM ? getCustomBlock(stack, context.registries()) : null;
+        textConsumer.accept(Component.literal("Power: " + mode.scanRadius(custom, radius)).withStyle(ChatFormatting.DARK_AQUA));
+        if (mode == DetectMode.ALL) {
+            textConsumer.accept(Component.literal("Gold " + OreClass.MEDIUM.budget(radius) + ", Diamond/Emerald " + OreClass.RARE.budget(radius)
+                    + ", Debris/End ores " + OreClass.VERY_RARE.budget(radius)).withStyle(ChatFormatting.DARK_AQUA));
+        }
         textConsumer.accept(Component.literal("Penetrates dense blocks slower.").withStyle(ChatFormatting.GRAY));
     }
 }

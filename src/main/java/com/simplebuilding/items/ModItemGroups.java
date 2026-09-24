@@ -7,16 +7,29 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
 
+import java.util.EnumMap;
+import java.util.Map;
+
+/** Die vier Kreativ-Tabs der Mod, in {@link ModItemGroupsContent.Tab}-Reihenfolge registriert. */
 public class ModItemGroups {
-    public static final CreativeModeTab BUILDING_ITEMS_GROUP = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB,
-            Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "building_items"),
-            FabricCreativeModeTab.builder()
-                    .icon(() -> new ItemStack(ModItems.IRON_CHISEL))
-                    .title(Component.translatable("itemgroup.simplebuilding.building_items"))
-                    .displayItems((displayContext, entries) -> ModItemGroupsContent.populate(entries, displayContext.holders()))
-                    .build());
+    public static final Map<ModItemGroupsContent.Tab, CreativeModeTab> GROUPS = new EnumMap<>(ModItemGroupsContent.Tab.class);
+
+    static {
+        for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.Tab.values()) {
+            GROUPS.put(tab, Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB,
+                    Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, tab.id),
+                    FabricCreativeModeTab.builder()
+                            .icon(tab.icon)
+                            .title(Component.translatable(tab.translationKey()))
+                            .displayItems((displayContext, entries) -> ModItemGroupsContent.populate(tab, entries, displayContext.holders()))
+                            .build()));
+        }
+    }
+
+    public static CreativeModeTab get(ModItemGroupsContent.Tab tab) {
+        return GROUPS.get(tab);
+    }
 
     public static void registerItemGroups() {
         Simplebuilding.LOGGER.info("Registering Item Groups for {}", Simplebuilding.MOD_ID);

@@ -2,10 +2,17 @@
   "blocks": [
     "simplebuilding:astral_end_stone",
     "simplebuilding:astral_purpur_block",
+    "simplebuilding:astralit_brick_slab",
+    "simplebuilding:astralit_brick_stairs",
+    "simplebuilding:astralit_brick_wall",
+    "simplebuilding:astralit_bricks",
     "simplebuilding:astralit_ore",
+    "simplebuilding:astralit_pillar",
     "simplebuilding:astralit_quartz_checker",
     "simplebuilding:backpack",
     "simplebuilding:blackstone_quartz_checker",
+    "simplebuilding:chiseled_astralit_bricks",
+    "simplebuilding:chiseled_nihilith_bricks",
     "simplebuilding:construction_light",
     "simplebuilding:cracked_diamond_block",
     "simplebuilding:enderite_backpack",
@@ -27,7 +34,12 @@
     "simplebuilding:netherite_smoker",
     "simplebuilding:nihil_end_stone",
     "simplebuilding:nihil_purpur_block",
+    "simplebuilding:nihilith_brick_slab",
+    "simplebuilding:nihilith_brick_stairs",
+    "simplebuilding:nihilith_brick_wall",
+    "simplebuilding:nihilith_bricks",
     "simplebuilding:nihilith_ore",
+    "simplebuilding:nihilith_pillar",
     "simplebuilding:nihilith_quartz_checker",
     "simplebuilding:polished_end_stone",
     "simplebuilding:purpur_quartz_checker",
@@ -51,10 +63,25 @@
       "id": "simplebuilding:astral_purpur_block"
     },
     {
+      "id": "simplebuilding:astralit_brick_slab"
+    },
+    {
+      "id": "simplebuilding:astralit_brick_stairs"
+    },
+    {
+      "id": "simplebuilding:astralit_brick_wall"
+    },
+    {
+      "id": "simplebuilding:astralit_bricks"
+    },
+    {
       "id": "simplebuilding:astralit_dust"
     },
     {
       "id": "simplebuilding:astralit_ore"
+    },
+    {
+      "id": "simplebuilding:astralit_pillar"
     },
     {
       "id": "simplebuilding:astralit_quartz_checker"
@@ -68,6 +95,12 @@
     },
     {
       "id": "simplebuilding:blackstone_quartz_checker"
+    },
+    {
+      "id": "simplebuilding:chiseled_astralit_bricks"
+    },
+    {
+      "id": "simplebuilding:chiseled_nihilith_bricks"
     },
     {
       "id": "simplebuilding:construction_light"
@@ -478,7 +511,22 @@
       "id": "simplebuilding:nihil_purpur_block"
     },
     {
+      "id": "simplebuilding:nihilith_brick_slab"
+    },
+    {
+      "id": "simplebuilding:nihilith_brick_stairs"
+    },
+    {
+      "id": "simplebuilding:nihilith_brick_wall"
+    },
+    {
+      "id": "simplebuilding:nihilith_bricks"
+    },
+    {
       "id": "simplebuilding:nihilith_ore"
+    },
+    {
+      "id": "simplebuilding:nihilith_pillar"
     },
     {
       "id": "simplebuilding:nihilith_quartz_checker"

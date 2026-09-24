@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "simplebuilding:astral_end_stone",
+  "result": {
+    "count": 2,
+    "id": "simplebuilding:astralit_brick_slab"
+  }
+}

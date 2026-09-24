@@ -642,6 +642,15 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createCoatingRecipe(output, ModBlocks.ASTRAL_END_STONE, ModBlocks.POLISHED_END_STONE, ModItems.ASTRALIT_DUST);
                 createCoatingRecipe(output, ModBlocks.NIHIL_END_STONE, ModBlocks.POLISHED_END_STONE, ModItems.NIHILITH_SHARD);
 
+                // --- ASTRALIT / NIHILITH BAUSATZ ---
+                // Ziegel 2x2 aus dem beschichteten Endstein (4), Saeule 2 uebereinander (2), gemeisselt aus
+                // zwei Ziegelstufen; Treppe/Stufe/Mauer wie bei Vanilla. Der Steinmetz schneidet alles 1:1
+                // (Stufen 1:2) aus dem beschichteten Endstein und Treppe/Stufe/Mauer/gemeisselt aus den Ziegeln.
+                createBrickSetRecipes(output, ModBlocks.ASTRAL_END_STONE, ModBlocks.ASTRALIT_BRICKS, ModBlocks.ASTRALIT_BRICK_STAIRS,
+                        ModBlocks.ASTRALIT_BRICK_SLAB, ModBlocks.ASTRALIT_BRICK_WALL, ModBlocks.ASTRALIT_PILLAR, ModBlocks.CHISELED_ASTRALIT_BRICKS);
+                createBrickSetRecipes(output, ModBlocks.NIHIL_END_STONE, ModBlocks.NIHILITH_BRICKS, ModBlocks.NIHILITH_BRICK_STAIRS,
+                        ModBlocks.NIHILITH_BRICK_SLAB, ModBlocks.NIHILITH_BRICK_WALL, ModBlocks.NIHILITH_PILLAR, ModBlocks.CHISELED_NIHILITH_BRICKS);
+
                 // --- GRAVITY BLOCKS ---
                 // Nihilith -> No Gravity (Suspended)
                 createCoatingRecipe(output, ModBlocks.SUSPENDED_SAND, Items.SAND, ModItems.NIHILITH_SHARD);
@@ -659,6 +668,37 @@ public class ModRecipeProvider extends FabricRecipeProvider {
             }
 
             // Helper für Checker (4 Base + 4 Quartz)
+            private void createBrickSetRecipes(RecipeOutput exporter, ItemLike base, ItemLike bricks, ItemLike stairs,
+                                               ItemLike slab, ItemLike wall, ItemLike pillar, ItemLike chiseled) {
+                shaped(RecipeCategory.BUILDING_BLOCKS, bricks, 4)
+                        .pattern("##")
+                        .pattern("##")
+                        .define('#', base)
+                        .unlockedBy(getHasName(base), has(base))
+                        .save(exporter);
+                stairBuilder(stairs, Ingredient.of(bricks)).unlockedBy(getHasName(bricks), has(bricks)).save(exporter);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, slab, Ingredient.of(bricks)).unlockedBy(getHasName(bricks), has(bricks)).save(exporter);
+                wallBuilder(RecipeCategory.DECORATIONS, wall, Ingredient.of(bricks)).unlockedBy(getHasName(bricks), has(bricks)).save(exporter);
+                shaped(RecipeCategory.BUILDING_BLOCKS, pillar, 2)
+                        .pattern("#")
+                        .pattern("#")
+                        .define('#', base)
+                        .unlockedBy(getHasName(base), has(base))
+                        .save(exporter);
+                chiseledBuilder(RecipeCategory.BUILDING_BLOCKS, chiseled, Ingredient.of(slab)).unlockedBy(getHasName(slab), has(slab)).save(exporter);
+
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, bricks, base);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, stairs, base);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, slab, base, 2);
+                stonecutterResultFromBase(RecipeCategory.DECORATIONS, wall, base);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, pillar, base);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, chiseled, base);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, stairs, bricks);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, slab, bricks, 2);
+                stonecutterResultFromBase(RecipeCategory.DECORATIONS, wall, bricks);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, chiseled, bricks);
+            }
+
             private void createCheckerRecipe(RecipeOutput exporter, ItemLike output, ItemLike base) {
                 shaped(RecipeCategory.BUILDING_BLOCKS, output, 4)
                         .pattern("BQ")
