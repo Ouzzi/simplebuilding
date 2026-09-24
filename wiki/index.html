@@ -146,6 +146,7 @@ a.slot:hover { border-color: var(--accent); text-decoration: none; }
 .slot-empty { background: transparent; border-style: dotted; opacity: .55; }
 .slot-count { position: absolute; right: 1px; bottom: 0; font-size: 11px; font-weight: 700; background: var(--panel); padding: 0 3px; border-radius: 3px 0 0 0; line-height: 1.3; }
 .slot-alt { position: absolute; left: 2px; top: 0; font-size: 9px; color: var(--muted); }
+.slot-hash { position: absolute; right: 2px; top: 0; font-size: 9px; font-weight: 700; color: var(--accent); }
 .slot-result { width: 64px; height: 64px; }
 .slot-result img { width: 48px; height: 48px; }
 .grid { display: grid; gap: 4px; flex: none; }
@@ -189,12 +190,21 @@ main { overflow-wrap: anywhere; }
    gestellt - kein WebGL und kein Build noetig. Die Abstufung der Helligkeit
    ahmt die Beleuchtung im Spiel nach, damit die Kanten sichtbar bleiben,
    wenn alle drei Flaechen dieselbe Textur tragen. */
-.hero-tex.is-cube { perspective: 640px; }
-.cube { width: 72px; height: 72px; position: relative; transform-style: preserve-3d; transform: rotateX(-20deg) rotateY(-45deg); }
-.cube span { position: absolute; inset: 0; background-size: 100% 100%; background-repeat: no-repeat; image-rendering: pixelated; image-rendering: crisp-edges; }
-.cube .f-top { transform: rotateX(90deg) translateZ(36px); }
-.cube .f-front { transform: translateZ(36px); filter: brightness(.88); }
-.cube .f-side { transform: rotateY(90deg) translateZ(36px); filter: brightness(.72); }
+/* Orthografisch wie im Inventar: 45 Grad gedreht, 30 Grad von oben. Bewusst mit
+   reinen 2D-Matrizen statt rotateX/rotateY - dieselbe Projektion, aber ohne
+   3D-Kontext, der in manchen Renderern (Software-Compositing, Screenshots) platt
+   gezeichnet wird. --cs ist die Kantenlaenge; der Wuerfel ist projiziert
+   1,414 * cs breit und 1,573 * cs hoch (Oberseite 0,707, Seiten 0,866). */
+.cube { --cs: 60px; width: calc(var(--cs) * 1.4142); height: calc(var(--cs) * 1.5731); position: relative; flex: none; display: block; }
+.cube span { position: absolute; left: 0; top: 0; width: var(--cs); height: var(--cs); transform-origin: 0 0; background-size: 100% 100%; background-repeat: no-repeat; image-rendering: pixelated; image-rendering: crisp-edges; }
+.cube .f-top { transform: translate(calc(var(--cs) * .7071), 0) matrix(.7071, .3536, -.7071, .3536, 0, 0); }
+.cube .f-front { transform: translate(0, calc(var(--cs) * .3536)) matrix(.7071, .3536, 0, .866, 0, 0); filter: brightness(.8); }
+.cube .f-side { transform: translate(calc(var(--cs) * .7071), calc(var(--cs) * .7071)) matrix(.7071, -.3536, 0, .866, 0, 0); filter: brightness(.62); }
+.slot .cube { --cs: 26px; }
+.slot-result .cube { --cs: 30px; }
+.row .slot .cube, .iw-entry .slot .cube, .rc .slot .cube { --cs: 18px; }
+.rc .slot-result .cube { --cs: 21px; }
+.tree-node > summary .slot .cube { --cs: 15px; }
 .hero .en { color: var(--muted); font-size: 1.05rem; }
 .hero .idline { margin: .4rem 0; }
 .hero .idline code { font-size: .9rem; }
@@ -247,6 +257,78 @@ mark { background: var(--warn-bg); color: inherit; padding: 0 .1em; border-radiu
 .tree-way { margin: .3rem 0 .5rem; }
 .tree-way-head { display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; margin: .2rem 0; }
 .tree-members { margin: .2rem 0; }
+
+/* Einklappbare Abschnitte (Item-Seite) */
+details.fold > summary { list-style: none; cursor: pointer; color: var(--text); }
+details.fold > summary::-webkit-details-marker { display: none; }
+details.fold > summary h2 { display: flex; align-items: center; gap: .45rem; }
+details.fold > summary h2::before { content: '▾'; color: var(--muted); font-size: .85em; width: .9rem; flex: none; transition: transform .12s; }
+details.fold:not([open]) > summary h2::before { transform: rotate(-90deg); }
+details.fold:not([open]) > summary h2 { margin-bottom: 0; }
+details.fold > summary:hover h2 { color: var(--accent); }
+details.fold > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+/* Kernmerkmal der aufgewerteten Maschinen */
+.keyfeat { display: flex; gap: .8rem; align-items: flex-start; border: 1px solid var(--accent); background: var(--accent-soft); border-radius: 8px; padding: .7rem .9rem; margin: .6rem 0 .4rem; }
+.keyfeat-num { flex: none; font-size: 1.7rem; font-weight: 800; color: var(--accent); line-height: 1; min-width: 3.2rem; text-align: center; font-variant-numeric: tabular-nums; }
+.keyfeat-title { font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--accent); font-weight: 700; }
+.keyfeat p { margin: .15rem 0; }
+.keyfeat .src { margin-top: .3rem; }
+
+/* Alle Rezepte */
+.ar-filters { display: flex; flex-direction: column; gap: .5rem; margin: .6rem 0 1rem; padding: .7rem .8rem; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; }
+.ar-frow { display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; }
+.ar-flabel { font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; min-width: 5.2rem; }
+.chip { font: inherit; font-size: .82rem; padding: .18rem .6rem; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); color: var(--text); cursor: pointer; white-space: nowrap; }
+.chip:hover { border-color: var(--accent); }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--panel); font-weight: 600; }
+.chip .n { opacity: .7; font-size: .9em; margin-left: .25rem; }
+.ar-filters input[type=search] { flex: 1 1 240px; min-width: 0; padding: .4rem .7rem; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); font: inherit; }
+.ar-filters label { font-size: .85rem; display: inline-flex; gap: .35rem; align-items: center; cursor: pointer; }
+.ar-status { font-size: .85rem; color: var(--muted); margin: .2rem 0 .6rem; }
+.ar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: .7rem; align-items: start; }
+.rc { --slot: 40px; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: .6rem .7rem; min-width: 0; }
+.rc .slot { width: 40px; height: 40px; }
+.rc .slot img { width: 28px; height: 28px; }
+.rc .slot-text { font-size: 8px; -webkit-line-clamp: 3; }
+.rc .slot-result { width: 48px; height: 48px; }
+.rc .slot-result img { width: 34px; height: 34px; }
+.rc .recipe-body { gap: .6rem; }
+.rc .grid { gap: 3px; }
+.rc-head { display: flex; align-items: center; gap: .35rem; flex-wrap: wrap; font-size: .8rem; margin-bottom: .5rem; }
+.rc-head .rc-name { font-weight: 600; font-size: .92rem; margin-right: auto; min-width: 0; }
+.rc-foot { display: flex; gap: .7rem; flex-wrap: wrap; font-size: .78rem; color: var(--muted); margin-top: .45rem; }
+.rc-variants { display: flex; flex-wrap: wrap; gap: 3px; margin-top: .45rem; }
+.rc-variants button { padding: 0; border: 1px solid transparent; background: none; border-radius: 4px; cursor: pointer; line-height: 0; }
+.rc-variants button[aria-pressed="true"] { border-color: var(--accent); }
+.rc-variants .slot { width: 26px; height: 26px; pointer-events: none; }
+.rc-variants .slot img { width: 20px; height: 20px; }
+.rc-variants .slot .cube { --cs: 12px; }
+.rc-variants .slot-text { display: none; }
+.badge-mod { border-color: var(--accent); color: var(--accent); }
+.badge-line { font-variant-numeric: tabular-nums; }
+.ar-more { display: block; margin: 1rem auto; }
+.iw-card-meta { font-size: .78rem; color: var(--muted); margin-top: .35rem; }
+
+/* JEI-Ansicht je Item */
+.mk-head { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; margin-bottom: .5rem; }
+.mk-head h1 { margin: 0; }
+.mk-tabs { display: flex; gap: .3rem; flex-wrap: wrap; margin: .5rem 0 .8rem; }
+.mk-station { margin-bottom: 1rem; }
+.mk-station > h2 { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
+.mk-pager { display: inline-flex; align-items: center; gap: .3rem; font-size: .85rem; font-weight: 400; color: var(--muted); margin-left: auto; }
+.mk-pager { flex-wrap: wrap; }
+.mk-pager button:not(.chip) { font: inherit; width: 2rem; height: 2rem; border-radius: 6px; border: 1px solid var(--border); background: var(--panel); color: var(--text); cursor: pointer; }
+.mk-pager button:not(.chip):hover:not(:disabled) { border-color: var(--accent); }
+.mk-pager button:disabled { opacity: .4; cursor: default; }
+.mk-pager .chip { font-size: .78rem; }
+.mk-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: .7rem; }
+@media (max-width: 520px) {
+  .ar-grid, .mk-list { grid-template-columns: 1fr; }
+  .ar-flabel { min-width: 0; width: 100%; }
+  .keyfeat { flex-direction: column; gap: .3rem; }
+  .mk-pager { margin-left: 0; }
+}
 </style>
 </head>
 <body>
@@ -641,7 +723,43 @@ en: {
   treeTimes: '{0}×, {1} each',
   treeFuel: 'plus fuel',
   treeTradeFor: 'for {0}× {1}',
-  treeOpenPage: 'page'
+  treeOpenPage: 'page',
+  /* Alle Rezepte, JEI-Ansicht, Maschinen */
+  navAllRecipes: 'All recipes',
+  arTitle: 'All recipes',
+  arIntro: 'Every way to make something, as cards: crafting, cooking, smithing, the stonecutter and in-world transformations - from this mod and from vanilla, for both Minecraft lines. Click any ingredient to see its recipes.',
+  arStation: 'Station', arSource: 'Source', arLine: 'Minecraft', arSearch: 'Filter recipes: item, ingredient, id …',
+  arAll: 'All', arSrcMod: 'SimpleBuilding', arSrcVanilla: 'Vanilla', arLineBoth: 'Both',
+  arMerge: 'Merge variants (colours, wood types)',
+  arCount: '{0} cards · {1} recipes',
+  arMore: 'Show more ({0} left)',
+  arLoading: 'Loading the vanilla recipes …',
+  arVanillaMissing: 'The vanilla recipes of {0} could not be loaded (data/vanilla-{0}.js).',
+  arNone: 'No recipe matches these filters.',
+  arVariants: '{0} variants',
+  arVariantsHint: 'Cycles through the variants; click one to hold it.',
+  arOnlyLine: 'only {0}',
+  arRecipePage: 'details',
+  arAllFor: 'all recipes',
+  'st.crafting': 'Crafting Table', 'st.smelting': 'Furnace', 'st.blasting': 'Blast Furnace', 'st.smoking': 'Smoker',
+  'st.campfire': 'Campfire', 'st.smithing': 'Smithing Table', 'st.stonecutting': 'Stonecutter', 'st.inworld': 'In the world', 'st.other': 'Other',
+  mkTitle: 'Recipes for {0}', mkUseTitle: 'Uses of {0}',
+  mkMake: 'How to make', mkUse: 'Used in',
+  mkNone: 'No recipe makes this item (in the selected sources).',
+  mkNoneUse: 'Nothing uses this item (in the selected sources).',
+  mkPage: '{0} / {1}', mkPrev: 'Previous recipe', mkNext: 'Next recipe', mkShowAll: 'Show all {0}',
+  mkOpenPage: 'Item page',
+  ctxRecipes: 'All recipes (R)', ctxUses: 'Uses (U)',
+  jeiHint: 'All recipes for this item, JEI style: {0} · {1}',
+  machineTitle: 'Key feature',
+  machineCooking: '{0}× as fast as the vanilla {1}: {2} cooking ticks per game tick instead of 1.',
+  machineCookingExample: 'A {0}-tick recipe (the {1} default) finishes in {2} ticks ({3} s) instead of {0} ({4} s) - the last tick is always the vanilla one, so the mod never skips the finishing step.',
+  machineHopper: '{0}× as fast as the vanilla {1}: it acts every {2} ticks instead of every {3}.',
+  machineHopperOne: '{0}× as fast as the vanilla {1}: it acts every tick instead of every {3}.',
+  machineHopperExample: 'Each action moves one item, so up to {0} items per second instead of {1}.',
+  machineSource: 'From the code:',
+  'vn.minecraft:furnace': 'Furnace', 'vn.minecraft:smoker': 'Smoker', 'vn.minecraft:blast_furnace': 'Blast Furnace', 'vn.minecraft:hopper': 'Hopper',
+  foldHint: 'click to fold'
 },
 de: {
   /* Kopf und Navigation */
@@ -972,7 +1090,43 @@ de: {
   treeTimes: '{0}×, je {1}',
   treeFuel: 'dazu Brennstoff',
   treeTradeFor: 'für {0}× {1}',
-  treeOpenPage: 'Seite'
+  treeOpenPage: 'Seite',
+  /* Alle Rezepte, JEI-Ansicht, Maschinen */
+  navAllRecipes: 'Alle Rezepte',
+  arTitle: 'Alle Rezepte',
+  arIntro: 'Jeder Weg, etwas herzustellen, als Karte: Werkbank, Öfen, Schmiedetisch, Steinsäge und Umwandlungen in der Welt - aus dieser Mod und aus Vanilla, für beide Minecraft-Linien. Ein Klick auf eine Zutat zeigt deren Rezepte.',
+  arStation: 'Station', arSource: 'Herkunft', arLine: 'Minecraft', arSearch: 'Rezepte filtern: Item, Zutat, Id …',
+  arAll: 'Alle', arSrcMod: 'SimpleBuilding', arSrcVanilla: 'Vanilla', arLineBoth: 'Beide',
+  arMerge: 'Varianten zusammenfassen (Farben, Holzarten)',
+  arCount: '{0} Karten · {1} Rezepte',
+  arMore: 'Mehr zeigen (noch {0})',
+  arLoading: 'Lade die Vanilla-Rezepte …',
+  arVanillaMissing: 'Die Vanilla-Rezepte von {0} ließen sich nicht laden (data/vanilla-{0}.js).',
+  arNone: 'Kein Rezept passt zu diesen Filtern.',
+  arVariants: '{0} Varianten',
+  arVariantsHint: 'Wechselt durch die Varianten; ein Klick hält eine fest.',
+  arOnlyLine: 'nur {0}',
+  arRecipePage: 'Details',
+  arAllFor: 'alle Rezepte',
+  'st.crafting': 'Werkbank', 'st.smelting': 'Ofen', 'st.blasting': 'Schmelzofen', 'st.smoking': 'Räucherofen',
+  'st.campfire': 'Lagerfeuer', 'st.smithing': 'Schmiedetisch', 'st.stonecutting': 'Steinsäge', 'st.inworld': 'In der Welt', 'st.other': 'Sonstiges',
+  mkTitle: 'Rezepte für {0}', mkUseTitle: 'Verwendung von {0}',
+  mkMake: 'Herstellung', mkUse: 'Verwendet in',
+  mkNone: 'Kein Rezept stellt dieses Item her (in den gewählten Quellen).',
+  mkNoneUse: 'Nichts verwendet dieses Item (in den gewählten Quellen).',
+  mkPage: '{0} / {1}', mkPrev: 'Vorheriges Rezept', mkNext: 'Nächstes Rezept', mkShowAll: 'Alle {0} zeigen',
+  mkOpenPage: 'Item-Seite',
+  ctxRecipes: 'Alle Rezepte (R)', ctxUses: 'Verwendung (U)',
+  jeiHint: 'Alle Rezepte für dieses Item, wie in JEI: {0} · {1}',
+  machineTitle: 'Kernmerkmal',
+  machineCooking: '{0}× so schnell wie der Vanilla-{1}: {2} Garticks pro Spieltick statt 1.',
+  machineCookingExample: 'Ein Rezept mit {0} Ticks (Standard beim {1}) ist nach {2} Ticks ({3} s) fertig statt nach {0} ({4} s) - der letzte Tick ist immer der von Vanilla, die Mod überspringt den Abschluss also nie.',
+  machineHopper: '{0}× so schnell wie der Vanilla-{1}: er arbeitet alle {2} Ticks statt alle {3}.',
+  machineHopperOne: '{0}× so schnell wie der Vanilla-{1}: er arbeitet jeden Tick statt alle {3}.',
+  machineHopperExample: 'Jeder Arbeitsschritt bewegt ein Item, also bis zu {0} Items pro Sekunde statt {1}.',
+  machineSource: 'Aus dem Code:',
+  'vn.minecraft:furnace': 'Ofen', 'vn.minecraft:smoker': 'Räucherofen', 'vn.minecraft:blast_furnace': 'Schmelzofen', 'vn.minecraft:hopper': 'Trichter',
+  foldHint: 'zum Einklappen klicken'
 }
 };
 
@@ -1126,11 +1280,49 @@ function vanillaTexture(id) { return 'assets/textures/minecraft/' + pathOf(id) +
 /* Isometrischer Wuerfel aus den drei Flaechen, die generate.py aus dem
    Blockmodell gezogen hat. Fehlen sie - Trichter, Kolben, alles ohne
    Wuerfelform -, faellt die Seite auf die flache Textur zurueck. */
-function cubeHtml(faces) {
+function cubeHtml(faces, label) {
   if (!isObj(faces) || !faces.top || !faces.side || !faces.front) return '';
   function face(cls, src) { return '<span class="' + cls + '" style="background-image:url(' + esc(encodeURI(src)) + ')"></span>'; }
-  return '<div class="cube">' + face('f-top', faces.top) + face('f-front', faces.front) + face('f-side', faces.side) + '</div>';
+  return '<div class="cube" role="img"' + (label ? ' aria-label="' + esc(label) + '"' : '') + '>' + face('f-top', faces.top) + face('f-front', faces.front) + face('f-side', faces.side) + '</div>';
 }
+/* Wie im Inventar: ein Block, dessen Item das Blockmodell zeigt, erscheint in
+   jedem Slot als Wuerfel. Eigene Bloecke tragen dafuer inventoryCube (generate.py
+   prueft die Item-Definition), Vanilla-Bloecke stehen in assets/textures/
+   minecraft/cubes.js - die Datei gibt es nur, wo auch die Vanilla-Texturen
+   liegen, sonst bleibt es bei Bild oder Textkachel. */
+function cubeFacesOf(id) {
+  var b = IX.blocks.get(id);
+  if (b && b.inventoryCube && isObj(b.faces)) return b.faces;
+  var v = window.VANILLA_CUBES;
+  return (isObj(v) && isObj(v[id])) ? v[id] : null;
+}
+function iconHtml(id) {
+  var name = displayName(id);
+  var cube = cubeHtml(cubeFacesOf(id), name);
+  if (cube) return cube;
+  var tex = textureOf(id);
+  return tex && !MISSING_TEX[tex] ? '<img src="' + esc(tex) + '" alt="' + esc(name) + '" data-name="' + esc(name) + '" loading="lazy">' : '';
+}
+/* Texturen, die schon einmal nicht geladen haben (gehostete Seite ohne Vanilla-
+   Texturen, Betten, Banner): nicht bei jedem Wechsel der Anzeige neu anfragen. */
+var MISSING_TEX = {};
+/* Mitglieder eines Tags fuer die wechselnde Anzeige im Slot: eigene Tags aus den
+   Daten, Vanilla-Tags aus den geladenen Vanilla-Rezepten der Linien. */
+function tagMembersAny(ref) {
+  var seen = {}, out = [];
+  function walk(r) {
+    if (seen[r]) return; seen[r] = true;
+    var vals = [];
+    var t = resolveTag(r, 'item');
+    if (t) vals = arr(t.values).map(tagValueId);
+    else Object.keys(VR.loaded).forEach(function (line) { var v = VR.loaded[line] && VR.loaded[line].tags.get(mcId(r)); if (v && !vals.length) vals = v; });
+    vals.forEach(function (v) { if (!v) return; if (v.charAt(0) === '#') walk(v); else if (out.indexOf(v) < 0) out.push(v); });
+  }
+  walk(ref);
+  return out;
+}
+/* In den Rezeptansichten fuehrt ein Klick auf eine Zutat zu deren Rezepten (wie R in JEI). */
+var LINKMODE = '';
 function textureOf(id) {
   var i = IX.items.get(id), b = IX.blocks.get(id);
   var own = (i && i.texture) || (b && b.texture) || null;
@@ -1145,21 +1337,27 @@ function slotHtml(ref, count, opts) {
   if (!alts.length) return '<span class="' + cls + ' slot-empty" title="' + esc(T('slotEmpty')) + '"></span>';
   var first = alts[0];
   var href = hrefFor(first, opts.hint);
-  var body;
+  if (LINKMODE === 'make' && first.charAt(0) !== '#') href = '#/make/' + encodeURIComponent(first);
+  var body, cycle = [];
   if (first.charAt(0) === '#') {
     cls += ' slot-tag';
-    body = '<span class="slot-text"><span class="hash">#</span>' + esc(shortTag(first)) + '</span>';
+    /* Wie in JEI: ein Tag zeigt reihum seine Mitglieder. */
+    cycle = tagMembersAny(first);
+    var icon0 = cycle.length ? iconHtml(cycle[0]) : '';
+    body = icon0 ? icon0 + '<span class="slot-hash">#</span>' :'<span class="slot-text"><span class="hash">#</span>' + esc(shortTag(first)) + '</span>';
+    if (!icon0) cycle = [];
   } else {
-    var tex = textureOf(first);
-    if (tex) body = '<img src="' + esc(tex) + '" alt="' + esc(displayName(first)) + '" data-name="' + esc(displayName(first)) + '" loading="lazy">';
-    else { cls += ' slot-plain'; body = '<span class="slot-text">' + esc(displayName(first)) + '</span>'; }
+    if (alts.length > 1) cycle = alts.filter(function (a) { return a.charAt(0) !== '#'; });
+    body = iconHtml(first);
+    if (!body) { cls += ' slot-plain'; body = '<span class="slot-text">' + esc(displayName(first)) + '</span>'; }
   }
   var title = alts.map(function (a) { return a.charAt(0) === '#' ? T('slotTitleTag', a) : displayName(a) + ' (' + a + ')'; }).join('  |  ');
   var c = num(count, 1);
   var cnt = c > 1 ? '<span class="slot-count">' + c + '</span>' : '';
   var alt = alts.length > 1 ? '<span class="slot-alt">+' + (alts.length - 1) + '</span>' : '';
   var tag = href && !opts.noLink ? 'a' : 'span';
-  return '<' + tag + ' class="' + cls + '"' + (tag === 'a' ? ' href="' + esc(href) + '"' : '') + ' data-id="' + esc(first) + '" title="' + esc(title) + '">' + body + cnt + alt + '</' + tag + '>';
+  var cyc = cycle.length > 1 ? ' data-cycle="' + esc(cycle.slice(0, 64).join('|')) + '"' : '';
+  return '<' + tag + ' class="' + cls + '"' + (tag === 'a' ? ' href="' + esc(href) + '"' : '') + ' data-id="' + esc(first) + '"' + cyc + ' title="' + esc(title) + '">' + body + cnt + alt + '</' + tag + '>';
 }
 function slotCol(ref, count, label, opts) {
   return '<span class="slotcol">' + slotHtml(ref, count, opts) + (label ? '<span class="slot-label">' + esc(label) + '</span>' : '') + '</span>';
@@ -1167,7 +1365,21 @@ function slotCol(ref, count, label, opts) {
 function badge(text, kind) { return '<span class="badge' + (kind ? ' badge-' + kind : '') + '">' + esc(text) + '</span>'; }
 function section(title, body, opts) {
   opts = opts || {};
-  return '<section class="section" id="' + esc(opts.id || '') + '"><h2>' + esc(title) + (opts.count != null ? ' <span class="muted tiny">(' + opts.count + ')</span>' : '') + '</h2>' + body + '</section>';
+  var h2 = '<h2>' + esc(title) + (opts.count != null ? ' <span class="muted tiny">(' + opts.count + ')</span>' : '') + '</h2>';
+  if (opts.fold) {
+    /* Einklappbar; was der Leser zugeklappt hat, bleibt auf allen Seiten zu (nur in
+       diesem Browser, s. FOLD_STORE). */
+    return '<details class="section fold" data-fold="' + esc(opts.fold) + '"' + (isFolded(opts.fold) ? '' : ' open') + (opts.id ? ' id="' + esc(opts.id) + '"' : '') +
+      '><summary title="' + esc(T('foldHint')) + '">' + h2 + '</summary>' + body + '</details>';
+  }
+  return '<section class="section" id="' + esc(opts.id || '') + '">' + h2 + body + '</section>';
+}
+var FOLD_STORE = 'simplebuilding-wiki-folds';
+var FOLDS = (function () { try { var v = JSON.parse(window.localStorage.getItem(FOLD_STORE) || '{}'); return isObj(v) ? v : {}; } catch (err) { return {}; } })();
+function isFolded(key) { return FOLDS[key] === 1; }
+function setFolded(key, closed) {
+  if (closed) FOLDS[key] = 1; else delete FOLDS[key];
+  try { window.localStorage.setItem(FOLD_STORE, JSON.stringify(FOLDS)); } catch (err) { /* nur fuer diese Sitzung */ }
 }
 function sourceLine(src) { return src ? '<div class="src">' + esc(T('srcSource')) + ' <code>' + esc(src) + '</code></div>' : ''; }
 function hintNoText(what) {
@@ -1243,7 +1455,8 @@ function recipeTypeLabel(type) { return tId('recipe.', type, prettyFromId(type |
 function recipeKind(t) {
   t = String(t || '');
   // simplebuilding:reinforced_bundle ist ein geformtes Werkbank-Rezept, das den Behaelter-Inhalt mitnimmt.
-  if (/crafting_shaped$/.test(t) || t === 'simplebuilding:reinforced_bundle') return 'shaped';
+  // simplebuilding:backpack_upgrade ebenso (geformt, nimmt den Rucksackinhalt mit).
+  if (/crafting_shaped$/.test(t) || t === 'simplebuilding:reinforced_bundle' || t === 'simplebuilding:backpack_upgrade') return 'shaped';
   if (/crafting_shapeless$/.test(t)) return 'shapeless';
   if (/smithing/.test(t)) return 'smithing';
   if (COOK_DEFAULT[t] != null || /smelting|blasting|smoking|cooking/.test(t)) return 'cooking';
@@ -1277,7 +1490,7 @@ function renderShaped(r) {
   var pattern = arr(r.pattern).map(String);
   var key = isObj(r.key) ? r.key : {};
   var n = Math.max(3, pattern.length, pattern.reduce(function (m, row) { return Math.max(m, row.length); }, 0));
-  var h = '<div class="grid" style="grid-template-columns:repeat(' + n + ',56px)">';
+  var h = '<div class="grid" style="grid-template-columns:repeat(' + n + ',var(--slot, 56px))">';
   for (var y = 0; y < n; y++) {
     for (var x = 0; x < n; x++) {
       var ch = (pattern[y] || '').charAt(x);
@@ -1314,7 +1527,10 @@ function renderCooking(r) {
   return h;
 }
 function renderGeneric(r) {
-  var ings = arr(r.ingredients);
+  /* Steinsaege, Umfaerben (transmute) und die Sonderrezepte aus Vanilla tragen ihre
+     Zutaten nur in slots - die Vanilla-Daten haben keine Zutatenliste. */
+  var ings = isObj(r.slots) ? Object.keys(r.slots).map(function (k) { return r.slots[k]; }).filter(function (v) { return arr(v).length; }) : [];
+  if (!ings.length) ings = arr(r.ingredients);
   return '<div class="slotrow">' + (ings.length ? ings.map(function (i) { return slotHtml(i); }).join('') : slotHtml(null)) + '</div><span class="arrow">→</span>' + resultSlot(r);
 }
 function recipeCard(r, opts) {
@@ -1573,7 +1789,7 @@ function propertiesSection(e) {
   if (p.bundleCapacityItems != null) row('propBundleCapacity', esc(T('propItems', p.bundleCapacityItems)));
   if (p.dedicatedSpatula === true) row('propSpatula', esc(T('propYes')));
   if (!rows) return '';
-  return section(T('secProperties'), '<dl class="kv">' + rows + '</dl><div class="src">' + T('propSource') + '</div>');
+  return section(T('secProperties'), '<dl class="kv">' + rows + '</dl><div class="src">' + T('propSource') + '</div>', { fold: 'secProperties' });
 }
 
 function entryPage(id, kind) {
@@ -1583,7 +1799,7 @@ function entryPage(id, kind) {
   var de = nameDe(e), en = nameEn(e), main = nameOf(e) || prettyFromId(id), alt = nameAlt(e);
   var tex = textureOf(id);
   var h = crumbs([{ label: isBlock ? T('navBlocks') : T('navItems'), href: '#/' + kind }, { label: main }]);
-  var cube = isBlock ? cubeHtml(e.faces) : '';
+  var cube = cubeHtml(isBlock ? e.faces : cubeFacesOf(id), main);
   h += '<div class="hero"><div class="hero-tex' + (cube ? ' is-cube' : '') + '" data-id="' + esc(id) + '">'
      + (cube || (tex ? '<img src="' + esc(tex) + '" alt="' + esc(main) + '" data-name="' + esc(main) + '">' : T('noTexture')))
      + '</div><div>';
@@ -1599,23 +1815,34 @@ function entryPage(id, kind) {
   if (isBlock && IX.items.has(id)) badges.push('<a class="badge" href="#/items/' + esc(id) + '">' + esc(T('badgeAsItem')) + '</a>');
   h += '<div class="badges">' + badges.join('') + '</div>';
   h += '</div></div>';
+  h += machineFeature(id);
 
   /* Reihenfolge nach Wunsch des Besitzers: Rezepte zuerst, dann Beschreibung,
      dann Drops, Handel, Verwendung ... Abschnitte ohne Eintrag wandern
      gesammelt ans Ende, mit ihrem "kein Rezept"-Hinweis. */
   var parts = [];
-  function part(title, has, body, empty, opts) { parts.push({ title: title, has: has, body: has ? body : '<p class="hint">' + empty + '</p>', opts: opts || {} }); }
+  /* key ist der STR-Schluessel des Titels und zugleich der Schluessel, unter dem
+     der Leser den Abschnitt zugeklappt hat - so bleibt "Ofen" auf jeder Seite zu. */
+  function part(key, has, body, empty, opts) { opts = opts || {}; opts.fold = opts.fold || key; parts.push({ title: T(key), has: has, body: has ? body : '<p class="hint">' + empty + '</p>', opts: opts }); }
 
+  /* Rezepte je Station (Werkbank, Ofen, Schmiedetisch ...), jede einzeln einklappbar. */
   var crafted = strs(e.craftedBy);
-  part(T('secCrafting'), crafted.length > 0, crafted.map(function (rid) { var r = IX.recipes.get(rid); return r ? recipeCard(r) : '<p class="hint">' + T('recipeNotInData', esc(rid)) + '</p>'; }).join(''), esc(T('noRecipe')), { count: crafted.length });
+  var byStation = new Map();
+  crafted.forEach(function (rid) { var r = IX.recipes.get(rid); var st = r ? stationOfType(r.type) : 'other'; if (!byStation.has(st)) byStation.set(st, []); byStation.get(st).push(rid); });
+  var stations = Array.from(byStation.keys()).sort(function (a, b) { return STATION_ORDER.indexOf(a) - STATION_ORDER.indexOf(b); });
+  stations.forEach(function (st) {
+    var ids = byStation.get(st);
+    part('st.' + st, true, ids.map(function (rid) { var r = IX.recipes.get(rid); return r ? recipeCard(r) : '<p class="hint">' + T('recipeNotInData', esc(rid)) + '</p>'; }).join(''), '', { count: ids.length });
+  });
+  if (!stations.length) part('secCrafting', false, '', esc(T('noRecipe')), {});
 
   var hasNote = noteHasContent(e.note);
-  parts.push({ title: T('secDescription'), has: hasNote, body: noteBlock(e.note, e.hasCustomBehaviour ? T('hintCustomBehaviour') : T('hintPlainBlock')), opts: {} });
+  parts.push({ title: T('secDescription'), has: hasNote, body: noteBlock(e.note, e.hasCustomBehaviour ? T('hintCustomBehaviour') : T('hintPlainBlock')), opts: { fold: 'secDescription' } });
   var props = propertiesSection(e);
   if (props) parts.push({ raw: props, has: true });
 
   var iw = inWorldForItem(id);
-  part(T('secInWorld'), iw.length > 0, iw, esc(T('iwNoneForItem')), {});
+  part('secInWorld', iw.length > 0, iw, esc(T('iwNoneForItem')), {});
 
   if (isBlock) {
     var lt = e.lootTable ? IX.loot.get(e.lootTable) : null;
@@ -1625,30 +1852,394 @@ function entryPage(id, kind) {
     if (lt) body += lootBlock(lt);
     else if (e.lootTable) body += '<p class="hint">' + T('lootNotInDataOne', esc(e.lootTable)) + '</p>';
     var hasDrops = !!(lt || e.lootTable || drops.length);
-    part(T('secDrops'), hasDrops, body, esc(T('noLootTable')) + (drops.length ? '' : esc(T('noLootTableTail'))) + '.', {});
+    part('secDrops', hasDrops, body, esc(T('noLootTable')) + (drops.length ? '' : esc(T('noLootTableTail'))) + '.', {});
   }
   var dropsFrom = (IX.dropsOf.get(id) || []).filter(function (lid) { return !(isBlock && lid === e.lootTable); });
-  if (dropsFrom.length) part(T('secDropsFrom'), true, '<div class="rows">' + dropsFrom.map(function (lid) { return lootRow(IX.loot.get(lid)); }).join('') + '</div>', '', { count: dropsFrom.length });
+  if (dropsFrom.length) part('secDropsFrom', true, '<div class="rows">' + dropsFrom.map(function (lid) { return lootRow(IX.loot.get(lid)); }).join('') + '</div>', '', { count: dropsFrom.length });
 
   var trades = strs(e.trades);
-  part(T('secTrades'), trades.length > 0, trades.map(function (tid) { var tc = IX.trades.get(tid); return tc ? tradeCard(tc) : '<p class="hint">' + T('tradeNotInData', esc(tid)) + '</p>'; }).join(''), esc(T('notTraded')), { count: trades.length });
+  part('secTrades', trades.length > 0, trades.map(function (tid) { var tc = IX.trades.get(tid); return tc ? tradeCard(tc) : '<p class="hint">' + T('tradeNotInData', esc(tid)) + '</p>'; }).join(''), esc(T('notTraded')), { count: trades.length });
 
   var used = strs(e.usedIn);
-  part(T('secUsedIn'), used.length > 0, '<div class="rows">' + used.map(function (rid) { var r = IX.recipes.get(rid); return r ? recipeRow(r) : '<div class="row"><code>' + esc(rid) + '</code></div>'; }).join('') + '</div>', esc(T('notAnIngredient')), { count: used.length });
+  part('secUsedIn', used.length > 0, '<div class="rows">' + used.map(function (rid) { var r = IX.recipes.get(rid); return r ? recipeRow(r) : '<div class="row"><code>' + esc(rid) + '</code></div>'; }).join('') + '</div>', esc(T('notAnIngredient')), { count: used.length });
 
   var inTags = IX.tagsContaining.get(id) || [];
-  if (inTags.length) part(T('secInTags'), true, '<div class="reflist">' + inTags.map(function (tid) { return '<a href="#/tags/' + esc(tid) + '"><code>' + esc(tid) + '</code></a>'; }).join('') + '</div>', '', { count: inTags.length });
+  if (inTags.length) part('secInTags', true, '<div class="reflist">' + inTags.map(function (tid) { return '<a href="#/tags/' + esc(tid) + '"><code>' + esc(tid) + '</code></a>'; }).join('') + '</div>', '', { count: inTags.length });
 
   var feats = arr(D.features).filter(function (f) { return isObj(f) && strs(f.related).indexOf(id) >= 0; });
-  if (feats.length) part(T('secFeatures'), true, '<div class="reflist">' + feats.map(function (f) { return '<a href="#/features/' + esc(f.id) + '">' + esc(featureTitle(f)) + '</a>'; }).join('') + '</div>', '', {});
+  if (feats.length) part('secFeatures', true, '<div class="reflist">' + feats.map(function (f) { return '<a href="#/features/' + esc(f.id) + '">' + esc(featureTitle(f)) + '</a>'; }).join('') + '</div>', '', {});
 
-  h += '<p class="tree-hint tiny muted">' + T('treeHintItem', '<a href="#/tree/' + esc(encodeURIComponent(id)) + '">' + esc(T('treeHintLink')) + '</a>') + '</p>';
+  h += '<p class="tree-hint tiny muted">' + T('treeHintItem', '<a href="#/tree/' + esc(encodeURIComponent(id)) + '">' + esc(T('treeHintLink')) + '</a>') +
+    ' ' + T('jeiHint', '<a href="#/make/' + esc(encodeURIComponent(id)) + '">' + esc(T('mkMake')) + '</a>', '<a href="#/use/' + esc(encodeURIComponent(id)) + '">' + esc(T('mkUse')) + '</a>') + '</p>';
   function out(p) { return p.raw != null ? p.raw : section(p.title, p.body, p.opts); }
   parts.filter(function (p) { return p.has; }).forEach(function (p) { h += out(p); });
   var empty = parts.filter(function (p) { return !p.has; });
   if (empty.length) h += '<div class="empty-sections">' + empty.map(function (p) { return '<section class="section section-empty"><h2>' + esc(p.title) + '</h2>' + p.body + '</section>'; }).join('') + '</div>';
   return h;
 }
+
+/* ------------------------------------------------------------------ */
+/* Kernmerkmal der aufgewerteten Maschinen                            */
+/* ------------------------------------------------------------------ */
+/* Die Zahlen liest generate.py aus der Tick-Methode der Block-Entity (machine.source,
+   Datei:Zeile) und den Vanilla-Trichtertakt aus dem Datagen-Export. Gerechnet wird hier
+   nur, was der Code vorgibt:
+   - Ofen: Vanillas serverTick zaehlt +1, die Mod danach +extraTicks, aber nie ueber
+     total-1 hinaus; fertig wird es erst, wenn Vanillas eigener +1 den Wert total
+     erreicht. Also ceil((total-1)/(1+extra)) Ticks bis zur Kappe, plus einer.
+   - Standarddauer: SmeltingRecipe 200, SmokingRecipe und BlastingRecipe 100
+     (cookingMapCodec in MC 26.2; in 1.21.11 stehen dieselben Werte in den Rezepten).
+   - Trichter: nach jedem erfolgreichen Schritt setzt die Mod die Abklingzeit auf
+     cooldownTicks, Vanilla auf MOVE_ITEM_SPEED; ein Schritt bewegt ein Item. */
+var COOK_TYPE_OF_VANILLA = { 'minecraft:furnace': 'minecraft:smelting', 'minecraft:smoker': 'minecraft:smoking', 'minecraft:blast_furnace': 'minecraft:blasting' };
+function machineFeature(id) {
+  var b = IX.blocks.get(id), m = b && b.machine;
+  if (!isObj(m)) return '';
+  var vname = tId('vn.', m.vanilla, displayName(m.vanilla));
+  var factor = null, lines = [], srcs = [m.source];
+  if (m.kind === 'cooking' && m.cookingTicksPerTick > 1) {
+    factor = m.cookingTicksPerTick;
+    lines.push(T('machineCooking', fmtNum(factor), vname, m.cookingTicksPerTick));
+    var total = COOK_DEFAULT[COOK_TYPE_OF_VANILLA[m.vanilla]];
+    if (total) {
+      var ticks = Math.ceil((total - 1) / factor) + 1;
+      lines.push(T('machineCookingExample', total, vname, ticks, fmtNum(ticks / 20), fmtNum(total / 20)));
+    }
+    srcs.push('AbstractFurnaceBlockEntity.serverTick');
+  } else if (m.kind === 'hopper' && m.cooldownTicks > 0 && m.vanillaCooldownTicks > 0) {
+    factor = m.vanillaCooldownTicks / m.cooldownTicks;
+    lines.push(T(m.cooldownTicks === 1 ? 'machineHopperOne' : 'machineHopper', fmtNum(factor), vname, m.cooldownTicks, m.vanillaCooldownTicks));
+    lines.push(T('machineHopperExample', fmtNum(20 / m.cooldownTicks), fmtNum(20 / m.vanillaCooldownTicks)));
+    srcs.push(m.vanillaCooldownSource);
+  }
+  if (!lines.length) return '';
+  return '<div class="keyfeat"><div class="keyfeat-num">' + (factor ? esc(fmtNum(factor)) + '×' : '') + '</div><div><div class="keyfeat-title">' + esc(T('machineTitle')) + '</div>' +
+    lines.map(function (l) { return '<p>' + esc(l) + '</p>'; }).join('') +
+    '<div class="src">' + esc(T('machineSource')) + ' ' + srcs.filter(Boolean).map(function (s) { return '<code>' + esc(s) + '</code>'; }).join(', ') + '</div></div></div>';
+}
+
+/* ------------------------------------------------------------------ */
+/* Alle Rezepte (Karten, Filter, Varianten) und die JEI-Ansicht je Item */
+/* ------------------------------------------------------------------ */
+var STATION_ORDER = ['crafting', 'smelting', 'blasting', 'smoking', 'campfire', 'smithing', 'stonecutting', 'inworld', 'other'];
+function stationOfType(t) {
+  t = String(t || ''); var p = pathOf(t);
+  if (/^crafting/.test(p) || t === 'simplebuilding:reinforced_bundle' || t === 'simplebuilding:backpack_upgrade') return 'crafting';
+  if (p === 'smelting' || p === 'blasting' || p === 'smoking') return p;
+  if (p === 'campfire_cooking') return 'campfire';
+  if (/smithing/.test(p)) return 'smithing';
+  if (p === 'stonecutting') return 'stonecutting';
+  return 'other';
+}
+function stationLabel(st) { return T('st.' + st); }
+var AR_STORE = 'simplebuilding-wiki-allrecipes';
+var RV = (function () {
+  var d = { st: 'all', src: 'all', line: 'all', q: '', merge: true };
+  try {
+    var v = JSON.parse(window.localStorage.getItem(AR_STORE) || '{}');
+    ['st', 'src', 'line'].forEach(function (k) { if (typeof v[k] === 'string') d[k] = v[k]; });
+    if (v.merge === false) d.merge = false;
+  } catch (err) { /* Standard */ }
+  return d;
+})();
+function saveRV() { try { window.localStorage.setItem(AR_STORE, JSON.stringify({ st: RV.st, src: RV.src, line: RV.line, merge: RV.merge })); } catch (err) { /* nur diese Sitzung */ } }
+var AR = { mod: null, van: {}, shown: 60, groups: [] };
+function arEntry(src, st, lines, r, e) {
+  var res = r ? normStack(r.result) : normStack(e.output);
+  return { src: src, st: st, lines: lines.slice().sort(), r: r, e: e, res: res ? res.id : '', cnt: res ? res.count : 1 };
+}
+function arModEntries() {
+  if (AR.mod) return AR.mod;
+  var gl = (D.generatedFrom && D.generatedFrom.line) || '';
+  var out = [];
+  arr(D.recipes).concat(arr(D.recipesOtherLines)).filter(isObj).forEach(function (r) { out.push(arEntry('mod', stationOfType(r.type), arr(r.lines).length ? r.lines : [gl], r, null)); });
+  IW.entries.forEach(function (e) { out.push(arEntry('mod', 'inworld', arr(e.lines).length ? e.lines : [gl], null, e)); });
+  return (AR.mod = out);
+}
+/* Dasselbe Vanilla-Rezept in beiden Linien wird eine Karte. 26.2 laesst die
+   Standard-Garzeit weg, 1.21.11 schreibt sie aus - fuer den Vergleich gleichgezogen. */
+/* Die Reihenfolge der Alternativen einer Zutat ist bedeutungslos (1.21.11 sortiert sie, 26.2 nicht). */
+function sortAlts(v) {
+  if (Array.isArray(v)) return v.length && v.every(function (x) { return typeof x === 'string'; }) ? v.slice().sort() : v.map(sortAlts);
+  if (isObj(v)) { var o = {}; Object.keys(v).sort().forEach(function (k) { o[k] = sortAlts(v[k]); }); return o; }
+  return v;
+}
+function vanSig(r) {
+  var c = {};
+  Object.keys(r).forEach(function (k) { if (k !== 'vanilla') c[k] = k === 'pattern' ? r[k] : sortAlts(r[k]); });
+  if (c.cookingtime == null && COOK_DEFAULT[r.type] != null) c.cookingtime = COOK_DEFAULT[r.type];
+  return Object.keys(c).sort().map(function (k) { return JSON.stringify(k) + ':' + JSON.stringify(c[k]); }).join(',');
+}
+function arVanillaEntries(lines) {
+  var key = lines.join(',');
+  if (AR.van[key]) return AR.van[key];
+  var map = new Map(), out = [];
+  lines.forEach(function (line) {
+    var v = VR.loaded[line]; if (!v) return;
+    v.byResult.forEach(function (list) {
+      list.forEach(function (r) {
+        var sig = vanSig(r), ex = map.get(sig);
+        if (ex) { if (ex.lines.indexOf(line) < 0) { ex.lines.push(line); ex.lines.sort(); } return; }
+        var en = arEntry('vanilla', stationOfType(r.type), [line], r, null);
+        map.set(sig, en); out.push(en);
+      });
+    });
+  });
+  return (AR.van[key] = out);
+}
+function arWantedLines() { return RV.line === 'all' ? mcLines() : [RV.line]; }
+function arCandidates() {
+  var list = [];
+  if (RV.src !== 'vanilla') list = list.concat(arModEntries());
+  if (RV.src !== 'mod') list = list.concat(arVanillaEntries(arWantedLines().filter(function (l) { return VR.loaded[l]; })));
+  return list;
+}
+/* Laedt die Vanilla-Rezepte der gewaehlten Linien, falls die Herkunft sie verlangt. */
+function arEnsureVanilla(done) {
+  var need = RV.src === 'mod' ? [] : arWantedLines().filter(function (l) { return !VR.loaded[l] && !VR.failed[l]; });
+  if (!need.length) { done(); return; }
+  var left = need.length;
+  need.forEach(function (line) {
+    loadVanilla(line, function () {
+      AR.van = {};
+      arModEntries().forEach(function (en) { delete en.insx; });
+      if (--left === 0) done();
+    });
+  });
+}
+function arRefsOf(en) {
+  if (en.r) return allIngredientRefs(en.r);
+  var out = [];
+  arr(en.e.inputs).forEach(function (s) { arr(s && s.id).forEach(function (x) { out.push(x); }); });
+  return out.concat(arr(en.e.tools));
+}
+function arSearchText(en) {
+  if (en.s) return en.s;
+  var e = entryFor(en.res);
+  var parts = [en.res, displayName(en.res), nameIn(e, 'en'), nameIn(e, 'de'), STR.en['st.' + en.st], STR.de['st.' + en.st], en.r ? en.r.id : en.e.id];
+  if (en.e) parts.push(iwKindTitle(en.e.kind));
+  arRefsOf(en).forEach(function (ref) { parts.push(ref); if (ref.charAt(0) !== '#') parts.push(displayName(ref)); });
+  return (en.s = norm(parts.join(' ')));
+}
+function arUses(en, id) {
+  if (!en.insx) {
+    var set = {};
+    arRefsOf(en).forEach(function (ref) { if (ref.charAt(0) === '#') tagMembersAny(ref).forEach(function (m) { set[m] = true; }); else set[ref] = true; });
+    en.insx = set;
+  }
+  return en.insx[id] === true;
+}
+function arFilter(list, opts) {
+  opts = opts || {};
+  var tokens = opts.noText ? [] : norm(RV.q).split(/\s+/).filter(Boolean);
+  return list.filter(function (en) {
+    if (!opts.anyStation && RV.st !== 'all' && en.st !== RV.st) return false;
+    if (RV.line !== 'all' && en.lines.indexOf(RV.line) < 0) return false;
+    if (tokens.length) { var s = arSearchText(en); for (var i = 0; i < tokens.length; i++) if (s.indexOf(tokens[i]) < 0) return false; }
+    return true;
+  });
+}
+function arSort(list) {
+  return list.slice().sort(function (a, b) {
+    return STATION_ORDER.indexOf(a.st) - STATION_ORDER.indexOf(b.st) || (a.src === b.src ? 0 : a.src === 'mod' ? -1 : 1) ||
+      norm(displayName(a.res)).localeCompare(norm(displayName(b.res)), LANG);
+  });
+}
+/* Varianten: 16 Farben, die Holzarten. Die Karte gilt als Variante einer anderen,
+   wenn sie bis auf dieses eine Wort (als ganzes Glied einer Id) gleich ist. */
+var VARIANT_TOKENS = ['light_blue', 'light_gray', 'white', 'orange', 'magenta', 'yellow', 'lime', 'pink', 'gray', 'cyan', 'purple', 'blue', 'brown', 'green', 'red', 'black',
+  'dark_oak', 'pale_oak', 'oak', 'spruce', 'birch', 'jungle', 'acacia', 'mangrove', 'cherry', 'bamboo', 'crimson', 'warped'];
+var VARIANT_RE = VARIANT_TOKENS.map(function (t) { return { t: t, test: new RegExp('(^|_)' + t + '(_|$)'), all: new RegExp('([:_/"#])' + t + '(?=[_"]|$)', 'g') }; });
+function variantSig(en) {
+  var p = pathOf(en.res), v = null;
+  for (var i = 0; i < VARIANT_RE.length; i++) if (VARIANT_RE[i].test.test(p)) { v = VARIANT_RE[i]; break; }
+  if (!v) return null;
+  var r = en.r, e = en.e;
+  /* Eine Alternativenliste ("jedes andere farbige Bett") nennt je Variante andere
+     Mitglieder - als Menge mit ausgeblendetem Variantenwort ist sie dieselbe. */
+  function collapse(x) {
+    x = sortAlts(x);
+    function walk(v) {
+      if (Array.isArray(v)) {
+        if (v.length > 1 && v.every(function (s) { return typeof s === 'string'; })) {
+          var set = {}; v.forEach(function (s) { var t = s; VARIANT_RE.forEach(function (vr) { t = t.replace(vr.all, '$1{V}'); }); set[t] = 1; });
+          return Object.keys(set).sort();
+        }
+        return v.map(walk);
+      }
+      if (isObj(v)) { var o = {}; Object.keys(v).forEach(function (k) { o[k] = walk(v[k]); }); return o; }
+      return v;
+    }
+    return walk(x);
+  }
+  var shape = r ? { t: r.type, p: r.pattern, k: collapse(r.key), g: collapse(r.ingredientGroups), s: collapse(r.slots), i: (r.pattern || r.ingredientGroups || r.slots) ? null : r.ingredients, c: r.cookingtime, a: r.addition_count, n: en.cnt, o: en.res }
+                : { k: e.kind, i: collapse(e.inputs), t: e.tools, o: e.output, s: e.stats };
+  var str = JSON.stringify(shape), out = str.replace(v.all, '$1{V}');
+  return out === str ? null : en.src + '|' + en.st + '|' + en.lines.join(',') + '|' + out;
+}
+function arGroup(list) {
+  AR.groups = [];
+  if (!RV.merge) return list.map(function (en) { return { en: en }; });
+  var byKey = new Map(), out = [];
+  list.forEach(function (en) {
+    var k = variantSig(en);
+    if (!k) { out.push({ en: en }); return; }
+    var slot = byKey.get(k);
+    if (!slot) { slot = { en: en, members: [en], idx: 0, pinned: false }; byKey.set(k, slot); out.push(slot); }
+    else slot.members.push(en);
+  });
+  out.forEach(function (c) { if (c.members && c.members.length < 2) delete c.members; else if (c.members) { c.gi = AR.groups.length; AR.groups.push(c); } });
+  return out;
+}
+function recipeBodyHtml(r) {
+  var kind = recipeKind(r.type);
+  return kind === 'shaped' ? renderShaped(r) : kind === 'shapeless' ? renderShapeless(r) : kind === 'smithing' ? renderSmithing(r) : kind === 'cooking' ? renderCooking(r) : renderGeneric(r);
+}
+function iwCardBody(e) {
+  var o = normStack(e.output), tools = arr(e.tools);
+  var h = '<div class="recipe-body"><div class="iw-slots">' + arr(e.inputs).map(function (s) { return slotHtml(s.id, s.count); }).join('<span class="plus">+</span>');
+  if (tools.length) h += '<span class="iw-tool" title="' + esc(T('iwTool')) + '">' + slotHtml(tools, 1, { cls: 'slot-tool' }) + '</span>';
+  h += '<span class="arrow">→</span>' + slotHtml(o.id, o.count, { cls: 'slot-result' }) + '</div></div>';
+  var meta = [];
+  if (tools.length) meta.push(esc(T('iwTool')) + ': ' + esc(displayName(tools[0])) + (e.toolOrBetter ? ' ' + esc(T('iwOrBetter')) : (tools.length > 1 ? ' ' + esc(T('iwAndMore', tools.length - 1)) : '')));
+  iwStats(e).forEach(function (x) { meta.push(esc(x)); });
+  return h + (meta.length ? '<div class="iw-card-meta">' + meta.join(' · ') + '</div>' : '');
+}
+function lineBadge(lines) {
+  var all = mcLines();
+  return lines.length && lines.length < all.length ? badge(T('arOnlyLine', lines.join(' / ')), 'line') : '';
+}
+function rcInner(en, g) {
+  var prev = LINKMODE; LINKMODE = 'make';
+  var r = en.r, e = en.e;
+  var h = '<div class="rc-head"><a class="rc-name" href="#/make/' + esc(encodeURIComponent(en.res)) + '" data-id="' + esc(en.res) + '">' + esc(displayName(en.res)) + (en.cnt > 1 ? ' <span class="muted">×' + en.cnt + '</span>' : '') + '</a>' +
+    badge(stationLabel(en.st)) + (en.src === 'mod' ? badge(T('arSrcMod'), 'mod') : badge(T('arSrcVanilla'))) + lineBadge(en.lines) + (g ? badge(T('arVariants', g.members.length)) : '') + '</div>';
+  h += r ? '<div class="recipe-body">' + recipeBodyHtml(r) + '</div>' : iwCardBody(e);
+  var foot = [];
+  if (r && en.src === 'mod' && IX.recipes.has(r.id)) foot.push('<a href="#/recipes/' + esc(r.id) + '">' + esc(T('arRecipePage')) + '</a>');
+  if (e) foot.push('<a href="#/inworld/' + esc(e.kind) + '">' + esc(iwKindTitle(e.kind)) + '</a>');
+  var page = hrefFor(en.res);
+  if (page) foot.push('<a href="' + esc(page) + '">' + esc(T('mkOpenPage')) + '</a>');
+  if (r) foot.push('<code>' + esc(r.id) + '</code>');
+  h += '<div class="rc-foot">' + foot.join('') + '</div>';
+  if (g) {
+    h += '<div class="rc-variants" title="' + esc(T('arVariantsHint')) + '">' + g.members.map(function (m, i) {
+      return '<button type="button" data-vi="' + i + '" aria-pressed="' + (g.pinned && i === g.idx) + '" aria-label="' + esc(displayName(m.res)) + '" title="' + esc(displayName(m.res)) + '">' + slotHtml(m.res, 1, { noLink: true }) + '</button>';
+    }).join('') + '</div>';
+  }
+  LINKMODE = prev;
+  return h;
+}
+function rcCard(c) {
+  var g = c.members ? c : null, en = g ? g.members[g.idx] : c.en;
+  return '<article class="rc"' + (g ? ' data-g="' + g.gi + '"' : '') + '>' + rcInner(en, g) + '</article>';
+}
+function chipRow(label, key, options) {
+  return '<div class="ar-frow" role="group" aria-label="' + esc(label) + '"><span class="ar-flabel">' + esc(label) + '</span>' + options.map(function (o) {
+    return '<button type="button" class="chip" data-ar="' + key + '" data-v="' + esc(o.v) + '" aria-pressed="' + (RV[key] === o.v) + '">' + esc(o.label) + (o.count ? '<span class="n" data-n="' + esc(o.v) + '"></span>' : '') + '</button>';
+  }).join('') + '</div>';
+}
+function srcLineChips() {
+  return chipRow(T('arSource'), 'src', [{ v: 'all', label: T('arAll') }, { v: 'mod', label: T('arSrcMod') }, { v: 'vanilla', label: T('arSrcVanilla') }]) +
+    chipRow(T('arLine'), 'line', [{ v: 'all', label: T('arLineBoth') }].concat(mcLines().slice().reverse().map(function (l) { return { v: l, label: l }; })));
+}
+function pageAllRecipes() {
+  var h = '<div class="listhead"><h1>' + esc(T('arTitle')) + '</h1></div><p class="muted">' + esc(T('arIntro')) + '</p>';
+  h += '<div class="ar-filters">' + chipRow(T('arStation'), 'st', [{ v: 'all', label: T('arAll'), count: true }].concat(STATION_ORDER.map(function (s) { return { v: s, label: stationLabel(s), count: true }; }))) + srcLineChips() +
+    '<div class="ar-frow"><input type="search" id="ar-q" value="' + esc(RV.q) + '" placeholder="' + esc(T('arSearch')) + '" aria-label="' + esc(T('arSearch')) + '"><label><input type="checkbox" id="ar-merge"' + (RV.merge ? ' checked' : '') + '> ' + esc(T('arMerge')) + '</label></div></div>';
+  h += '<div class="ar-status" id="ar-status" aria-live="polite"></div><div class="ar-grid" id="ar-results"></div><div id="ar-more-wrap"></div>';
+  return h;
+}
+function arRenderResults() {
+  var $res = document.getElementById('ar-results'), $st = document.getElementById('ar-status');
+  if (!$res) return;
+  var failed = arWantedLines().filter(function (l) { return RV.src !== 'mod' && VR.failed[l]; });
+  var base = arFilter(arCandidates(), { anyStation: true });
+  /* Zaehler je Station unter den uebrigen Filtern */
+  var counts = { all: base.length };
+  base.forEach(function (en) { counts[en.st] = (counts[en.st] || 0) + 1; });
+  $main.querySelectorAll('[data-n]').forEach(function (n) { var c = counts[n.getAttribute('data-n')] || 0; n.textContent = c; n.parentNode.hidden = !c && n.getAttribute('data-n') !== 'all' && RV.st !== n.getAttribute('data-n'); });
+  var list = arSort(RV.st === 'all' ? base : base.filter(function (en) { return en.st === RV.st; }));
+  var cards = arGroup(list);
+  $st.innerHTML = esc(T('arCount', cards.length, list.length)) + failed.map(function (l) { return ' · <span class="badge badge-warn">' + esc(T('arVanillaMissing', l)) + '</span>'; }).join('');
+  $res.innerHTML = cards.length ? cards.slice(0, AR.shown).map(rcCard).join('') : '<p class="hint">' + esc(T('arNone')) + '</p>';
+  var left = cards.length - AR.shown;
+  document.getElementById('ar-more-wrap').innerHTML = left > 0 ? '<button type="button" class="chip ar-more" data-ar-more>' + esc(T('arMore', left)) + '</button>' : '';
+}
+function fillAllRecipes() {
+  var $st = document.getElementById('ar-status');
+  if ($st && RV.src !== 'mod' && arWantedLines().some(function (l) { return !VR.loaded[l] && !VR.failed[l]; })) $st.textContent = T('arLoading');
+  arEnsureVanilla(function () { if (parseHash().section === 'allrecipes') arRenderResults(); });
+}
+
+var MK = { id: null, mode: 'make', idx: {}, all: {} };
+function pageMake(id, mode) {
+  if (!id) return notFound(T('wordItem'), id);
+  MK = { id: id, mode: mode, idx: {}, all: {} };
+  var name = displayName(id), page = hrefFor(id);
+  var h = crumbs([{ label: T('arTitle'), href: '#/allrecipes' }, { label: name }]);
+  h += '<div class="mk-head">' + slotHtml(id, 1, { cls: 'slot-result', noLink: true }) + '<div><h1>' + esc(T(mode === 'use' ? 'mkUseTitle' : 'mkTitle', name)) + '</h1><div class="idline"><code>' + esc(id) + '</code></div></div></div>';
+  h += '<div class="mk-tabs"><a class="chip" aria-pressed="' + (mode !== 'use') + '" href="#/make/' + esc(encodeURIComponent(id)) + '">' + esc(T('mkMake')) + '</a><a class="chip" aria-pressed="' + (mode === 'use') + '" href="#/use/' + esc(encodeURIComponent(id)) + '">' + esc(T('mkUse')) + '</a>' +
+    (page ? '<a class="chip" href="' + esc(page) + '">' + esc(T('mkOpenPage')) + '</a>' : '') + '<a class="chip" href="#/tree/' + esc(encodeURIComponent(id)) + '">' + esc(T('ctxTree')) + '</a></div>';
+  h += '<div class="ar-filters">' + srcLineChips() + '<div class="ar-frow"><label><input type="checkbox" id="ar-merge"' + (RV.merge ? ' checked' : '') + '> ' + esc(T('arMerge')) + '</label></div></div>';
+  h += '<div class="ar-status" id="ar-status" aria-live="polite"></div><div id="mk-results"></div>';
+  return h;
+}
+function mkRender() {
+  var $res = document.getElementById('mk-results'), $st = document.getElementById('ar-status');
+  if (!$res) return;
+  var list = arFilter(arCandidates(), { anyStation: true, noText: true });
+  list = arSort(MK.mode === 'use' ? list.filter(function (en) { return arUses(en, MK.id); }) : list.filter(function (en) { return en.res === MK.id; }));
+  var cards = arGroup(list);
+  var failed = arWantedLines().filter(function (l) { return RV.src !== 'mod' && VR.failed[l]; });
+  $st.innerHTML = esc(T('arCount', cards.length, list.length)) + failed.map(function (l) { return ' · <span class="badge badge-warn">' + esc(T('arVanillaMissing', l)) + '</span>'; }).join('');
+  if (!cards.length) { $res.innerHTML = '<p class="hint">' + esc(T(MK.mode === 'use' ? 'mkNoneUse' : 'mkNone')) + '</p>'; return; }
+  var byStation = new Map();
+  cards.forEach(function (c) { var st = (c.members ? c.members[0] : c.en).st; if (!byStation.has(st)) byStation.set(st, []); byStation.get(st).push(c); });
+  var h = '';
+  STATION_ORDER.forEach(function (st) {
+    var cs = byStation.get(st); if (!cs) return;
+    var n = cs.length, i = Math.min(MK.idx[st] || 0, n - 1), all = !!MK.all[st] || n === 1;
+    h += '<section class="mk-station" id="mk-' + st + '"><h2>' + esc(stationLabel(st)) + ' <span class="muted tiny">(' + n + ')</span>';
+    if (n > 1) {
+      h += '<span class="mk-pager">' + (all ? '' : '<button type="button" data-mk-step="-1" data-mk-st="' + st + '" aria-label="' + esc(T('mkPrev')) + '"' + (i === 0 ? ' disabled' : '') + '>◀</button><span>' + esc(T('mkPage', i + 1, n)) + '</span><button type="button" data-mk-step="1" data-mk-st="' + st + '" aria-label="' + esc(T('mkNext')) + '"' + (i >= n - 1 ? ' disabled' : '') + '>▶</button>') +
+        '<button type="button" class="chip" data-mk-all="' + st + '" aria-pressed="' + all + '">' + esc(T('mkShowAll', n)) + '</button></span>';
+    }
+    h += '</h2><div class="mk-list">' + (all ? cs : [cs[i]]).map(rcCard).join('') + '</div></section>';
+  });
+  $res.innerHTML = h;
+}
+function fillMake() {
+  var $st = document.getElementById('ar-status');
+  if ($st && RV.src !== 'mod' && arWantedLines().some(function (l) { return !VR.loaded[l] && !VR.failed[l]; })) $st.textContent = T('arLoading');
+  arEnsureVanilla(function () { var s = parseHash().section; if (s === 'make' || s === 'use') mkRender(); });
+}
+function refreshRecipeView() {
+  var s = parseHash().section;
+  if (s === 'allrecipes') fillAllRecipes(); else if (s === 'make' || s === 'use') fillMake();
+}
+/* Wechselnde Anzeige wie in JEI: Tag-Slots zeigen reihum ihre Mitglieder,
+   Variantenkarten ihre Varianten (bis man eine anklickt oder mit der Maus darauf steht). */
+var CYC = 0;
+setInterval(function () {
+  if (document.hidden || !$main) return;
+  CYC++;
+  $main.querySelectorAll('[data-cycle]').forEach(function (el) {
+    if (el.closest('.rc-variants')) return;
+    var list = el.getAttribute('data-cycle').split('|'), id = list[CYC % list.length];
+    var html = iconHtml(id); if (!html) return;
+    var tmp = document.createElement('span'); tmp.innerHTML = html;
+    var old = el.querySelector(':scope > img, :scope > .cube, :scope > .slot-text');
+    if (old) old.replaceWith(tmp.firstChild); else el.insertBefore(tmp.firstChild, el.firstChild);
+    el.classList.remove('slot-plain');
+  });
+  $main.querySelectorAll('.rc[data-g]').forEach(function (card) {
+    var g = AR.groups[+card.getAttribute('data-g')];
+    if (!g || g.pinned || card.matches(':hover') || card.contains(document.activeElement)) return;
+    g.idx = (g.idx + 1) % g.members.length;
+    card.innerHTML = rcInner(g.members[g.idx], g);
+  });
+}, 1400);
 
 function pageRecipes() {
   var groups = new Map();
@@ -2095,6 +2686,10 @@ function openCtx(id, x, y) {
   $ctx.setAttribute('role', 'menu');
   var href = id.charAt(0) === '#' ? hrefFor(id, 'item') : hrefFor(id);
   var items = [{ label: T('ctxTree'), href: '#/tree/' + encodeURIComponent(id) }];
+  if (id.charAt(0) !== '#') {
+    items.push({ label: T('ctxRecipes'), href: '#/make/' + encodeURIComponent(id) });
+    items.push({ label: T('ctxUses'), href: '#/use/' + encodeURIComponent(id) });
+  }
   if (href) items.push({ label: T('ctxOpen'), href: href });
   $ctx.innerHTML = '<div class="ctx-title">' + esc(displayName(id)) + '</div>' + items.map(function (it) { return '<a role="menuitem" href="' + esc(it.href) + '">' + esc(it.label) + '</a>'; }).join('');
   document.body.appendChild($ctx);
@@ -2227,6 +2822,7 @@ var NAV = [
   { key: 'items', labelKey: 'navItems', count: function () { return arr(D.items).length; } },
   { key: 'blocks', labelKey: 'navBlocks', count: function () { return arr(D.blocks).length; } },
   { key: 'recipes', labelKey: 'navRecipes', count: function () { return arr(D.recipes).length; } },
+  { key: 'allrecipes', labelKey: 'navAllRecipes', count: null },
   { key: 'inworld', labelKey: 'navInWorld', count: function () { return IW.entries.length; } },
   { key: 'loot', labelKey: 'navLoot', count: function () { return arr(D.lootTables).length; } },
   { key: 'trades', labelKey: 'navTrades', count: function () { return arr(D.trades).length; } },
@@ -2278,6 +2874,8 @@ function render() {
       case 'tags': html = r.id ? pageTag(r.id) : pageTags(); title = r.id ? T('titleTagPrefix', r.id) : T('navTags'); break;
       case 'config': html = pageConfig(r.id); title = T('navConfig'); break;
       case 'inworld': html = pageInWorld(r.id); title = r.id ? iwKindTitle(r.id) : T('navInWorld'); break;
+      case 'allrecipes': html = pageAllRecipes(); title = T('arTitle'); break;
+      case 'make': case 'use': html = pageMake(r.id, r.section); title = T(r.section === 'use' ? 'mkUseTitle' : 'mkTitle', displayName(r.id)); active = 'allrecipes'; break;
       case 'tree': html = pageTree(r.id); title = T('treeTitle', r.id ? displayName(r.id) : '?'); active = ''; break;
       case 'search': html = pageSearch(r.id); title = T('titleSearch'); active = ''; if (document.activeElement !== $q) $q.value = r.id || ''; break;
       default: html = notFound(T('wordSection'), r.section); title = T('titleNotFound'); active = '';
@@ -2291,6 +2889,7 @@ function render() {
   closeCtx();
   $main.innerHTML = html;
   if (r.section === 'tree') fillTree();
+  if (r.section === 'allrecipes' || r.section === 'make' || r.section === 'use') { AR.shown = 60; refreshRecipeView(); }
   renderSidebar(active);
   document.title = (title ? title + ' – ' : '') + (MOD.name || 'SimpleBuilding') + ' Wiki';
   if (r.section === 'config' && r.id) {
@@ -2308,6 +2907,7 @@ function render() {
 $main.addEventListener('error', function (ev) {
   var img = ev.target;
   if (!img || img.tagName !== 'IMG') return;
+  if (img.getAttribute('src')) MISSING_TEX[img.getAttribute('src')] = true;
   var name = img.getAttribute('data-name') || img.getAttribute('alt') || '?';
   var parent = img.parentNode;
   if (parent && parent.classList && parent.classList.contains('hero-tex')) { parent.innerHTML = T('texNotFound'); return; }
@@ -2385,6 +2985,60 @@ $main.addEventListener('toggle', function (ev) {
   var path = (d.getAttribute('data-path') || '').split('|').filter(Boolean);
   body.innerHTML = treeChildren(ref, num(d.getAttribute('data-need'), 1), path);
 }, true);
+/* Eingeklappte Abschnitte merken. */
+$main.addEventListener('toggle', function (ev) {
+  var d = ev.target;
+  if (d && d.classList && d.classList.contains('fold') && d.getAttribute('data-fold')) setFolded(d.getAttribute('data-fold'), !d.open);
+}, true);
+/* Alle Rezepte / JEI-Ansicht: Filter-Chips, Varianten, Blaettern. */
+$main.addEventListener('click', function (ev) {
+  var t = ev.target && ev.target.closest ? ev.target.closest('button') : null;
+  if (!t || !$main.contains(t)) return;
+  if (t.hasAttribute('data-ar')) {
+    RV[t.getAttribute('data-ar')] = t.getAttribute('data-v'); saveRV();
+    $main.querySelectorAll('[data-ar="' + t.getAttribute('data-ar') + '"]').forEach(function (b) { b.setAttribute('aria-pressed', String(b === t)); });
+    AR.shown = 60; refreshRecipeView();
+  } else if (t.hasAttribute('data-ar-more')) {
+    AR.shown += 60; arRenderResults();
+  } else if (t.hasAttribute('data-vi')) {
+    var card = t.closest('.rc[data-g]'), g = card && AR.groups[+card.getAttribute('data-g')];
+    if (!g) return;
+    var i = +t.getAttribute('data-vi');
+    if (g.pinned && g.idx === i) g.pinned = false; else { g.idx = i; g.pinned = true; }
+    card.innerHTML = rcInner(g.members[g.idx], g);
+    var again = card.querySelector('[data-vi="' + i + '"]'); if (again) again.focus();
+  } else if (t.hasAttribute('data-mk-step')) {
+    var st = t.getAttribute('data-mk-st');
+    MK.idx[st] = Math.max(0, (MK.idx[st] || 0) + num(t.getAttribute('data-mk-step'), 0));
+    mkRender();
+    var sec = document.getElementById('mk-' + st), btn = sec && sec.querySelector('[data-mk-step="' + t.getAttribute('data-mk-step') + '"]:not([disabled])');
+    if (btn) btn.focus();
+  } else if (t.hasAttribute('data-mk-all')) {
+    var s2 = t.getAttribute('data-mk-all'); MK.all[s2] = !MK.all[s2]; mkRender();
+  }
+});
+var arTimer = null;
+$main.addEventListener('input', function (ev) {
+  var t = ev.target;
+  if (!t || t.id !== 'ar-q') return;
+  clearTimeout(arTimer);
+  arTimer = setTimeout(function () { RV.q = t.value; AR.shown = 60; arRenderResults(); }, 150);
+});
+$main.addEventListener('change', function (ev) {
+  var t = ev.target;
+  if (t && t.id === 'ar-merge') { RV.merge = !!t.checked; saveRV(); refreshRecipeView(); }
+});
+/* Wie in JEI: R zeigt die Rezepte, U die Verwendung des Items unter dem Mauszeiger. */
+var hoverId = null;
+document.addEventListener('mouseover', function (ev) { var el = ev.target && ev.target.closest ? ev.target.closest('[data-id]') : null; hoverId = el && $main.contains(el) ? el.getAttribute('data-id') : null; });
+document.addEventListener('keydown', function (ev) {
+  if (ev.ctrlKey || ev.metaKey || ev.altKey || !hoverId || hoverId.charAt(0) === '#') return;
+  var tag = ev.target && ev.target.tagName;
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+  var k = String(ev.key || '').toLowerCase();
+  if (k === 'r') location.hash = '#/make/' + encodeURIComponent(hoverId);
+  else if (k === 'u') location.hash = '#/use/' + encodeURIComponent(hoverId);
+});
 $main.addEventListener('change', function (ev) {
   var t = ev.target;
   if (t && t.hasAttribute && t.hasAttribute('data-tree-line')) {
@@ -2433,7 +3087,21 @@ buildInWorld();
 applyStaticText();
 buildSearch();
 renderMeta();
-render();
+/* Wuerfel der Vanilla-Bloecke: die Datei legt generate.py neben die Vanilla-Texturen
+   (nicht committet, nicht veroeffentlicht). Kurz auf sie warten, damit die erste Seite
+   schon Wuerfel zeigt; kommt sie spaeter, wird einmal nachgezeichnet. */
+(function () {
+  var done = false, s = document.createElement('script');
+  function first() { if (!done) { done = true; render(); } }
+  s.onload = function () {
+    if (!done) { first(); return; }
+    if (isObj(window.VANILLA_CUBES)) { var y = window.pageYOffset || 0; render(); window.scrollTo(0, y); }
+  };
+  s.onerror = first;
+  s.src = 'assets/textures/minecraft/' + 'cubes.js';
+  document.head.appendChild(s);
+  setTimeout(first, 600);
+})();
 })();
 </script>
 </body>

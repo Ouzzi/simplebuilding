@@ -290,6 +290,110 @@ def block_faces(roots: dict, block_id: str) -> dict | None:
     return None
 
 
+def item_shows_block_model(roots: dict, block_id: str) -> bool:
+    """
+    Whether the inventory icon of a block IS its block model - then the app may draw
+    the isometric cube in every slot, like the game's inventory does. A block whose
+    item definition points at a flat item model (a hopper, a door) keeps its icon.
+    """
+    name = short(block_id)
+    for base in (roots["generated_assets"], roots["resource_assets"]):
+        path = REPO / base / "items" / f"{name}.json"
+        if path.exists():
+            try:
+                model = read_json(path).get("model") or {}
+            except json.JSONDecodeError:
+                return False
+            return (model.get("type") == "minecraft:model" and not model.get("tints")
+                    and model.get("model") == f"{NS}:block/{name}")
+    return False
+
+
+# ---------------------------------------------------------------------------
+# how much faster the upgraded machines are
+# ---------------------------------------------------------------------------
+
+# Die Beschleunigung steht in keiner Datendatei und in keiner Konstante, sondern als
+# Literal in der Tick-Methode der Block-Entity - je Familie derselbe kurze Block
+# (siehe FurnaceTests-Javadoc). Deshalb wird genau dieser Block gelesen, mit Datei
+# und Zeile als Beleg. Findet der Parser ihn nicht mehr (umgebaut), meldet --check
+# ein PROBLEM, statt stillschweigend eine alte Zahl stehen zu lassen.
+MACHINE_TICK_CODE = {
+    "blocks/entity/custom/ModFurnaceBlockEntity.java": "cooking",
+    "blocks/entity/custom/ModSmokerBlockEntity.java": "cooking",
+    "blocks/entity/custom/ModBlastFurnaceBlockEntity.java": "cooking",
+    "blocks/entity/custom/ModHopperBlockEntity.java": "hopper",
+}
+MACHINE_BRANCH = re.compile(
+    r'(?:state\.is\(ModBlocks\.(?P<a>[A-Z0-9_]+)\)|block\s*==\s*ModBlocks\.(?P<b>[A-Z0-9_]+))\s*\)\s*\{'
+    r'\s*(?://[^\n]*\n\s*)*(?P<var>extraTicks|speed)\s*=\s*(?P<n>\d+)\s*;')
+MOD_BLOCK_REGISTRATION = re.compile(
+    r'public\s+static\s+final\s+Block\s+([A-Z0-9_]+)\s*=\s*registerBlock\(\s*"([a-z0-9_]+)"\s*,\s*Blocks\.([A-Z0-9_]+)')
+
+
+def load_vanilla_constants(roots: dict) -> dict:
+    """Vanilla-Vergleichswerte, die WikiDataProvider aus den Konstanten des Spiels schreibt."""
+    path = REPO / roots["item_properties"]
+    if not path.exists():
+        return {}
+    value = read_json(path).get("vanilla")
+    return value if isinstance(value, dict) else {}
+
+
+def collect_machine_speeds(roots: dict, vanilla_constants: dict) -> tuple[dict, list[str]]:
+    """
+    Block id -> what its tier changes against the vanilla block it copies.
+
+    cooking: after vanilla's serverTick (+1 cooking tick per game tick) the mod adds
+             extraTicks more, capped one short of the total (AbstractFurnaceBlockEntity).
+    hopper:  after a successful transfer the mod sets the cooldown to `speed` ticks
+             where vanilla's HopperBlockEntity sets MOVE_ITEM_SPEED.
+    The vanilla counterpart is the block the registration copies its properties from
+    (registerBlock("name", Blocks.X, ...)).
+    """
+    problems: list[str] = []
+    code = REPO / roots["code_roots"][0]
+    registry_path = code / "blocks" / "ModBlocks.java"
+    if not registry_path.exists():
+        return {}, [f"{rel(registry_path)} is missing - machine speeds cannot be read"]
+    registrations = {const: (name, base) for const, name, base
+                     in MOD_BLOCK_REGISTRATION.findall(registry_path.read_text(encoding="utf-8"))}
+    out: dict[str, dict] = {}
+    for relative, kind in MACHINE_TICK_CODE.items():
+        path = code / relative
+        if not path.exists():
+            problems.append(f"{rel(path)} is missing - machine speeds cannot be read")
+            continue
+        text = path.read_text(encoding="utf-8")
+        found = 0
+        for match in MACHINE_BRANCH.finditer(text):
+            const = match.group("a") or match.group("b")
+            expected = "extraTicks" if kind == "cooking" else "speed"
+            if match.group("var") != expected or const not in registrations:
+                continue
+            name, base = registrations[const]
+            line_no = text.count("\n", 0, match.start("n")) + 1
+            entry = {"kind": kind, "vanilla": f"minecraft:{base.lower()}",
+                     "source": f"{rel(path)}:{line_no}"}
+            value = int(match.group("n"))
+            if kind == "cooking":
+                entry["extraTicks"] = value
+                entry["cookingTicksPerTick"] = 1 + value
+            else:
+                entry["cooldownTicks"] = value
+                vanilla_cooldown = vanilla_constants.get("hopperMoveItemSpeed")
+                if isinstance(vanilla_cooldown, int):
+                    entry["vanillaCooldownTicks"] = vanilla_cooldown
+                    entry["vanillaCooldownSource"] = (
+                        f"{roots['item_properties']} (HopperBlockEntity.MOVE_ITEM_SPEED)")
+            out[f"{NS}:{name}"] = entry
+            found += 1
+        if not found:
+            problems.append(f"{rel(path)}: no tier branch found any more - the machine speed "
+                            "parser in wiki/generate.py needs to follow the code")
+    return dict(sorted(out.items())), problems
+
+
 # ---------------------------------------------------------------------------
 # recipes
 # ---------------------------------------------------------------------------
@@ -745,6 +849,8 @@ def collect_items_and_blocks(roots: dict, lang: dict, recipes, loot_tables, trad
                 faces = block_faces(roots, identifier)
                 if faces:
                     entry["faces"] = faces
+                    if item_shows_block_model(roots, identifier):
+                        entry["inventoryCube"] = True
                 table = loot_by_block.get(name)
                 if table:
                     entry["lootTable"] = table["id"]
@@ -857,6 +963,56 @@ def copy_vanilla_textures(roots: dict, ids: set[str]) -> dict:
                     if not isinstance(parent, str) or textures:
                         break
                     model_entry = f"assets/minecraft/models/{short(parent)}.json"
+            # Seit MC 1.21.4 steht, welches Modell ein Item zeigt, in items/<name>.json -
+            # Zaeune und Mauern zeigen dort block/<x>_inventory, der Bienenstock ein
+            # select mit block/beehive_empty als Rueckfall. Nur schlichte
+            # "minecraft:model"-Verweise zaehlen: composite (Betten) und special
+            # (Banner) setzen sich aus Teilen zusammen, deren erste Textur das Item
+            # falsch zeigen wuerde (Wolle statt Bett, die Bannervorlage statt der Farbe).
+            item_def = f"assets/minecraft/items/{name}.json"
+            if item_def in names:
+                try:
+                    definition = json.loads(archive.read(item_def).decode("utf-8"))
+                except (json.JSONDecodeError, UnicodeDecodeError):
+                    definition = {}
+                references: list[str] = []
+
+                def collect(node):
+                    if isinstance(node, dict):
+                        if node.get("type") == "minecraft:model" and isinstance(node.get("model"), str):
+                            references.append(node["model"])
+                        if node.get("type") in ("minecraft:composite", "minecraft:special"):
+                            return
+                        for value in node.values():
+                            collect(value)
+                    elif isinstance(node, list):
+                        for value in node:
+                            collect(value)
+
+                collect(definition.get("model"))
+                # block/<x>_inventory (Zaun, Mauer, Knopf) traegt nur die Materialtextur -
+                # ein Zaun saehe in der Rezeptkachel aus wie Bretter. Lieber die Textkachel.
+                references = [r for r in references if not r.endswith("_inventory")]
+                for reference in references:
+                    model_entry = f"assets/minecraft/models/{short(reference)}.json"
+                    for _ in range(4):
+                        if model_entry not in names:
+                            break
+                        try:
+                            model = json.loads(archive.read(model_entry).decode("utf-8"))
+                        except (json.JSONDecodeError, UnicodeDecodeError):
+                            break
+                        textures = model.get("textures", {})
+                        ordered = [textures[k] for k in ("layer0", "all", "texture", "wall", "front", "side", "top", "end", "particle")
+                                   if isinstance(textures.get(k), str)]
+                        ordered += [v for v in textures.values() if isinstance(v, str)]
+                        for texture_ref in ordered:
+                            if not texture_ref.startswith("#"):
+                                yield f"assets/minecraft/textures/{short(texture_ref)}.png"
+                        parent = model.get("parent")
+                        if not isinstance(parent, str) or textures:
+                            break
+                        model_entry = f"assets/minecraft/models/{short(parent)}.json"
             # Animierte Items (Kompass, Uhr) haben nur nummerierte Einzelbilder.
             yield f"assets/minecraft/textures/item/{name}_00.png"
 
@@ -873,7 +1029,89 @@ def copy_vanilla_textures(roots: dict, ids: set[str]) -> dict:
                 break
             else:
                 state["missing"].append(identifier)
+        state["cubes"] = write_vanilla_cubes(archive, names, ids, out_dir)
     return state
+
+
+VANILLA_CUBE_FILE = "cubes.js"
+
+
+def png_is_square(payload: bytes) -> bool:
+    """Animated textures (sea lantern, magma) are tall strips - three faces cannot show them."""
+    if payload[:8] != b"\x89PNG\r\n\x1a\n" or len(payload) < 24:
+        return False
+    return payload[16:20] == payload[20:24]
+
+
+def write_vanilla_cubes(archive, names: set[str], ids: set[str], out_dir: Path) -> int:
+    """
+    The isometric inventory cube for vanilla blocks, the same three faces block_faces()
+    takes from this mod's models: only where the item definition shows the block model
+    untinted (grass and leaves would come out grey) and the model is one of CUBE_PARENTS.
+
+    Written next to the vanilla textures (and like them in .gitignore) as a small
+    script the page loads if it is there: map and images exist together or not at
+    all, so the committed data never depends on the Gradle cache.
+    """
+    cubes: dict[str, dict] = {}
+    face_dir = out_dir / "faces"
+    for identifier in sorted(ids):
+        name = short(identifier)
+        if identifier.startswith("#") or not identifier.startswith("minecraft:"):
+            continue
+        item_entry = f"assets/minecraft/items/{name}.json"
+        if item_entry not in names:
+            continue
+        try:
+            model = (json.loads(archive.read(item_entry).decode("utf-8")).get("model") or {})
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            continue
+        if model.get("type") != "minecraft:model" or model.get("tints") \
+                or model.get("model") != f"minecraft:block/{name}":
+            continue
+        block_entry = f"assets/minecraft/models/block/{name}.json"
+        if block_entry not in names:
+            continue
+        try:
+            block = json.loads(archive.read(block_entry).decode("utf-8"))
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            continue
+        if block.get("parent") not in CUBE_PARENTS:
+            continue
+        textures = block.get("textures", {})
+
+        def pick(*keys):
+            for key in keys:
+                value = textures.get(key)
+                if isinstance(value, str) and not value.startswith("#"):
+                    return value
+            return None
+
+        chosen = {"top": pick("top", "up", "end", "all"),
+                  "side": pick("side", "west", "south", "all"),
+                  "front": pick("front", "north", "side", "west", "all")}
+        if not all(chosen.values()):
+            continue
+        faces = {}
+        for face, reference in chosen.items():
+            entry = f"assets/minecraft/textures/{short(reference)}.png"
+            if entry not in names:
+                break
+            payload = archive.read(entry)
+            if not png_is_square(payload):
+                break
+            file_name = short(reference).split("/")[-1] + ".png"
+            target = face_dir / file_name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            if not target.exists() or target.read_bytes() != payload:
+                target.write_bytes(payload)
+            faces[face] = f"{VANILLA_TEXTURE_DIR}/faces/{file_name}"
+        else:
+            cubes[identifier] = faces
+    write_atomic(out_dir / VANILLA_CUBE_FILE,
+                 "// Generated by wiki/generate.py from the Minecraft client jar - not committed.\n"
+                 "window.VANILLA_CUBES = " + json.dumps(cubes, sort_keys=True, indent=0) + ";\n")
+    return len(cubes)
 
 
 # ---------------------------------------------------------------------------
@@ -1245,6 +1483,40 @@ def behavioural_ids(roots: dict) -> set[str]:
 # assembly
 # ---------------------------------------------------------------------------
 
+def cross_line_presence(line: str, recipes: list[dict], in_world: dict, manual: dict,
+                        item_ids: set[str]) -> list[dict]:
+    """
+    Marks every recipe and in-world entry of this line with the Minecraft lines it exists
+    in (same id), in place, and returns the recipes that only the other lines have -
+    each with its own "lines". Content is taken from this line where both have it;
+    the two lines share their providers, so a same-id recipe is the same recipe.
+    """
+    others = [other for other in sorted(LINES) if other != line]
+    recipe_lines = {r["id"]: [line] for r in recipes}
+    only_elsewhere: dict[str, dict] = {}
+    iw_lines = {e["id"]: [line] for e in in_world["entries"]}
+    for other in others:
+        for recipe in collect_recipes(LINES[other]):
+            if recipe["id"] in recipe_lines:
+                recipe_lines[recipe["id"]].append(other)
+            elif recipe["id"] in only_elsewhere:
+                only_elsewhere[recipe["id"]]["lines"].append(other)
+            else:
+                only_elsewhere[recipe["id"]] = dict(recipe, lines=[other])
+        other_in_world, _ = collect_in_world(LINES[other], manual, item_ids)
+        for entry in other_in_world["entries"]:
+            if entry["id"] in iw_lines:
+                iw_lines[entry["id"]].append(other)
+    for recipe in recipes:
+        recipe["lines"] = sorted(recipe_lines[recipe["id"]])
+    for entry in in_world["entries"]:
+        entry["lines"] = sorted(iw_lines[entry["id"]])
+    extra = sorted(only_elsewhere.values(), key=lambda r: r["id"])
+    for recipe in extra:
+        recipe["lines"] = sorted(recipe["lines"])
+    return extra
+
+
 def build(line: str) -> tuple[dict, list[str]]:
     roots = LINES[line]
     lang = load_lang(roots)
@@ -1291,6 +1563,17 @@ def build(line: str) -> tuple[dict, list[str]]:
                 entry["note"] = note
 
     in_world, in_world_problems = collect_in_world(roots, manual, {e["id"] for e in items})
+
+    # Beide Minecraft-Linien in einer Rezeptansicht: jedes Rezept und jede Umwandlung
+    # sagt, in welchen Linien es existiert, und was es nur in der anderen Linie gibt,
+    # kommt als recipesOtherLines dazu - fuer den Linienfilter der Seite "All recipes".
+    recipes_other_lines = cross_line_presence(line, recipes, in_world, manual, {e["id"] for e in items})
+
+    machines, machine_problems = collect_machine_speeds(roots, load_vanilla_constants(roots))
+    in_world_problems = in_world_problems + machine_problems
+    for entry in blocks:
+        if entry["id"] in machines:
+            entry["machine"] = machines[entry["id"]]
 
     # Vanilla-Texturen erst jetzt: auch die Zutaten der Umwandlungen in der Welt
     # und der Vanilla-Rezepte fuer den Rezeptbaum sollen ein Bild bekommen.
@@ -1384,6 +1667,7 @@ def build(line: str) -> tuple[dict, list[str]]:
         "items": items,
         "blocks": blocks,
         "recipes": recipes,
+        "recipesOtherLines": recipes_other_lines,
         "lootTables": loot_tables,
         "trades": trades,
         "enchantments": enchantments,
@@ -1480,7 +1764,7 @@ def main() -> int:
 
     if vanilla["present"]:
         print(f"Vanilla textures: {vanilla['copied']} of {vanilla['referenced']} referenced ids "
-              f"copied into wiki/{VANILLA_TEXTURE_DIR}/")
+              f"copied into wiki/{VANILLA_TEXTURE_DIR}/, {vanilla.get('cubes', 0)} of them drawn as cubes")
         if vanilla["missing"]:
             print(f"  no texture in the client jar for: {', '.join(vanilla['missing'][:8])}"
                   + (" ..." if len(vanilla["missing"]) > 8 else ""))

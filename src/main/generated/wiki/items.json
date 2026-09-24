@@ -820,5 +820,8 @@
     }
   ],
   "note": "Aus der Item-Registry erzeugt (gradlew runDatagen) - nicht von Hand aendern.",
-  "schema": 1
+  "schema": 1,
+  "vanilla": {
+    "hopperMoveItemSpeed": 8
+  }
 }

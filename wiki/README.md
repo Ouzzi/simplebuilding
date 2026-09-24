@@ -99,11 +99,67 @@ der Baum sie braucht; `tools/wiki_site.py` veröffentlicht beide mit.
 
 Der Generator zieht aus jedem Blockmodell die drei sichtbaren Flächen
 (`top`, `side`, `front`) und legt sie als `faces` an den Blockeintrag. Die App
-stellt daraus per CSS-Transform einen isometrischen Würfel – kein WebGL, kein
+stellt daraus einen isometrischen Würfel wie im Inventar (45° gedreht, 30° von
+oben, orthografisch) – mit reinen 2D-Matrizen, kein 3D-Kontext, kein WebGL, kein
 Build. Nur würfelartige Modelle bekommen einen (`cube_all`, `cube`,
-`orientable`, `cube_bottom_top`, …); Trichter, Kolben und Kolbenköpfe haben eine
-Form, die drei Quadrate nicht abbilden, und behalten die flache Textur. Aktuell
-sind das 23 von 29 Blöcken.
+`orientable`, `cube_bottom_top`, …); Trichter, Kolben, Stufen, Treppen und Mauern
+haben eine Form, die drei Quadrate nicht abbilden, und behalten die flache Textur.
+
+Der Würfel steht nicht nur im Kopf der Blockseite, sondern **in jedem Slot**
+(Rezepte, Listen, Baum), sobald das Item das Blockmodell zeigt: `inventoryCube`
+am Blockeintrag setzt der Generator nur, wenn `items/<name>.json` genau auf
+`simplebuilding:block/<name>` verweist und nicht eingefärbt ist. Für Vanilla-Blöcke
+schreibt er dieselben drei Flächen aus dem Client-Jar nach
+`wiki/assets/textures/minecraft/cubes.js` (plus `faces/*.png`) – neben die
+Vanilla-Texturen, wie sie in `.gitignore` und nicht veröffentlicht. Die Seite lädt
+die Datei, wenn es sie gibt; sonst bleibt es beim flachen Bild oder der Textkachel.
+Eingefärbte Modelle (Gras, Laub) und animierte Texturen (hohe Streifen) sind
+ausgenommen.
+
+### Alle Rezepte und die JEI-Ansicht (`#/allrecipes`, `#/make/<id>`, `#/use/<id>`)
+
+Eine Karte je Rezept: Werkbank (geformt/formlos, Umfärben, Sonderrezepte), Ofen,
+Schmelzofen, Räucherofen, Lagerfeuer, Schmiedetisch (auch mengenbasiert),
+Steinsäge und die Umwandlungen in der Welt mit Zeit, Schlägen und Haltbarkeit.
+Filter nach Station, Herkunft (Mod/Vanilla), Minecraft-Linie und Text.
+
+* **Linien:** jedes Mod-Rezept und jede Umwandlung trägt `lines` – in welchen
+  Linien es dieselbe Id gibt; was nur die andere Linie hat, steht unter
+  `recipesOtherLines`. Vanilla-Rezepte kommen aus `data/vanilla-<linie>.js`;
+  dasselbe Rezept in beiden Linien wird eine Karte (1.21.11 schreibt die
+  Standard-Garzeit aus, 26.2 nicht – für den Vergleich gleichgezogen).
+* **Varianten:** Karten, die sich nur in einer Farbe oder Holzart unterscheiden
+  (als ganzes Glied einer Id), werden eine Karte, die reihum wechselt; ein Klick
+  auf eine Variante hält sie fest. Tag-Zutaten zeigen reihum ihre Mitglieder.
+* **Je Item** wie in JEI: `#/make/<id>` (Herstellung) und `#/use/<id>`
+  (Verwendung, Tags aufgelöst), nach Station gruppiert, mit Blättern. In den
+  Rezeptansichten führt ein Klick auf eine Zutat zu deren Rezepten; über jedem
+  Item-Slot öffnen **R**/**U** dasselbe, das Kontextmenü auch.
+
+Auf der Item-Seite stehen die Rezepte je Station in eigenen Abschnitten; jeder
+Abschnitt lässt sich einklappen, und was zugeklappt ist, bleibt es auf allen
+Seiten (nur in diesem Browser, `localStorage`).
+
+### Kernmerkmal der aufgewerteten Maschinen
+
+Ofen, Räucherofen, Schmelzofen und Trichter der Stufen Verstärkt/Netherit/Enderit
+bekommen oben auf ihrer Seite eine Zeile „N× so schnell wie Vanilla". Die Zahl
+steht im Spiel nicht in einer Konstante, sondern als Literal in der Tick-Methode
+der Block-Entity (`extraTicks = …` bzw. `speed = …`, je Block ein Zweig).
+`generate.py` liest genau diese Zweige (`collect_machine_speeds`), ordnet sie über
+`registerBlock("name", Blocks.X, …)` in `ModBlocks.java` Block und
+Vanilla-Gegenstück zu und legt sie mit Datei:Zeile als `machine` an den
+Blockeintrag. Findet der Parser einen Zweig nicht mehr, meldet `--check` ein
+PROBLEM. Den Vanilla-Trichtertakt schreibt `WikiDataProvider` aus
+`HopperBlockEntity.MOVE_ITEM_SPEED` nach `items.json` (`vanilla.hopperMoveItemSpeed`).
+
+Gerechnet wird nur, was der Code vorgibt: Vanillas `serverTick` zählt +1 Gartick,
+die Mod danach `extraTicks` dazu, gekappt bei Gesamtzeit − 1 – ein Rezept mit
+T Ticks braucht also ⌈(T − 1)/(1 + extraTicks)⌉ + 1 Spielticks. Die
+Beispieldauer ist der Vanilla-Standard (`SmeltingRecipe` 200, `SmokingRecipe` und
+`BlastingRecipe` 100 im `cookingMapCodec`). Trichter: nach jedem erfolgreichen
+Schritt setzt die Mod die Abklingzeit auf `speed`, Vanilla auf `MOVE_ITEM_SPEED`; ein Schritt
+bewegt ein Item.
 
 ### Wirkt eine Verzauberung? (`implementedIn`)
 
