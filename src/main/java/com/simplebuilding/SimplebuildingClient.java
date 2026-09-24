@@ -32,6 +32,7 @@ import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityRenderLayerRegistrationCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
 import net.fabricmc.fabric.api.client.rendering.v1.ClientTooltipComponentCallback;
@@ -67,6 +68,12 @@ public class SimplebuildingClient implements ClientModInitializer {
 
         // Der aufsteigende Block wird wie fallender Sand gezeichnet.
         EntityRendererRegistry.register(ModEntities.LEVITATING_BLOCK, FallingBlockRenderer::new);
+        // Der getragene Rucksack auf dem Ruecken - auf jedem Avatar-Renderer (beide Spielermodelle, Mannequins).
+        LivingEntityRenderLayerRegistrationCallback.EVENT.register((entityType, renderer, helper, context) -> {
+            if (renderer instanceof net.minecraft.client.renderer.entity.player.AvatarRenderer<?> avatar) {
+                helper.register(new com.simplebuilding.client.render.BackpackLayer(avatar));
+            }
+        });
         ClientState.highlightToggleKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(
                 "key.simplebuilding.toggle_highlight",
             InputConstants.Type.KEYSYM,

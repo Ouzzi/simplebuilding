@@ -77,6 +77,7 @@ public final class SimplebuildingNeoForgeClient {
         modContainer.registerExtensionPoint(IConfigScreenFactory.class,
                 (container, parent) -> buildConfigScreen(parent));
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerEntityRenderers);
+        modEventBus.addListener(SimplebuildingNeoForgeClient::addBackpackLayers);
         modEventBus.addListener(this::onClientSetup);
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerMenus);
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerKeys);
@@ -88,6 +89,20 @@ public final class SimplebuildingNeoForgeClient {
         NeoForge.EVENT_BUS.addListener(this::onExtractLevelRenderState);
         NeoForge.EVENT_BUS.addListener(this::onPlayerLogin);
         NeoForge.EVENT_BUS.addListener(NeoForgeClientHooks::onBlockOutlineExtract);
+    }
+
+    /** Der getragene Rucksack auf dem Ruecken: beide Spielermodelle und die Mannequins. */
+    public static void addBackpackLayers(EntityRenderersEvent.AddLayers event) {
+        for (net.minecraft.world.entity.player.PlayerModelType skin : event.getSkins()) {
+            net.minecraft.client.renderer.entity.player.AvatarRenderer<?> player = event.getPlayerRenderer(skin);
+            if (player != null) {
+                player.addLayer(new com.simplebuilding.client.render.BackpackLayer(player));
+            }
+            net.minecraft.client.renderer.entity.player.AvatarRenderer<?> mannequin = event.getMannequinRenderer(skin);
+            if (mannequin != null) {
+                mannequin.addLayer(new com.simplebuilding.client.render.BackpackLayer(mannequin));
+            }
+        }
     }
 
     /** Der aufsteigende Block wird wie fallender Sand gezeichnet. */

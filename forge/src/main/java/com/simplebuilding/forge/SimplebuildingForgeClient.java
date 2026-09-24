@@ -61,6 +61,19 @@ public final class SimplebuildingForgeClient {
         private DefaultBusEvents() {
         }
 
+    /** Der getragene Rucksack auf dem Ruecken: beide Spielermodelle und die Mannequins. */
+    @SubscribeEvent
+    public static void onAddLayers(net.minecraftforge.client.event.EntityRenderersEvent.AddLayers event) {
+        for (net.minecraft.world.entity.player.PlayerModelType type : event.getModelTypes()) {
+            if (event.getPlayerRenderer(type) instanceof net.minecraft.client.renderer.entity.player.AvatarRenderer<?> player) {
+                player.addLayer(new com.simplebuilding.client.render.BackpackLayer(player));
+            }
+            if (event.getMannequinRenderer(type) instanceof net.minecraft.client.renderer.entity.player.AvatarRenderer<?> mannequin) {
+                mannequin.addLayer(new com.simplebuilding.client.render.BackpackLayer(mannequin));
+            }
+        }
+    }
+
     @SubscribeEvent
     public static void onRegisterKeys(RegisterKeyMappingsEvent event) {
         ClientState.highlightToggleKey = new KeyMapping(

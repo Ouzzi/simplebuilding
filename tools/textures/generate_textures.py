@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Erzeugt die handgezeichneten 16x16-Texturen fuer Rucksack, Lederbogen, verstaerkten
 Koecher, verstaerkten klebrigen Kolben, Enderit-Kolben, Spachtel, die Enderit-Maschinen und die
-Nihilith-/Astralit-Quarz-Schachbretter.
+Nihilith-/Astralit-Quarz-Schachbretter; dazu aus Code (nicht aus Pixelkarten) die Rueckentextur
+des getragenen Rucksacks (entity/backpack/*, aus den Blockflaechen) und die Fenster des
+Rucksack-Bildschirms (gui/container/backpack/*).
 
 Aufruf (aus dem Repo-Wurzelverzeichnis oder von ueberall):
 
@@ -1153,6 +1155,205 @@ def mcmeta_text(animation):
 # Texturliste
 # ---------------------------------------------------------------------------
 
+# ---------------------------------------------------------------------------
+# Getragener Rucksack: Entity-Textur (64x32) aus den Blockflaechen
+# ---------------------------------------------------------------------------
+# Das Rueckenmodell (BackpackLayer) ist das Modell des platzierten Rucksacks - dieselben
+# sechs Quader wie BACKPACK_ELEMENTS, um die x-Achse gedreht (Tasche zeigt vom Spieler weg,
+# Riemen liegen am Ruecken). Jede Quaderflaeche bekommt genau die Pixel, die der Block auf
+# derselben Flaeche zeigt; so sehen Item, Block und Ruecken gleich aus. Nord (Tasche) wird die
+# Rueckseite des Entity-Quaders, Sued die Seite am Spieler, West/Ost bleiben -x/+x.
+#
+# UV-Raster eines Entity-Quaders (b, h, t) ab (u, v), wie ModelPart.Cube:
+#   oben (u+t, v) b x t   unten (u+t+b, v) b x t
+#   -x (u, v+t) t x h     vorn/-z (u+t, v+t) b x h   +x (u+t+b, v+t) t x h   hinten/+z (u+2t+b, v+t) b x h
+# Die Quader und ihre Textur-Ursprungspunkte muessen mit BackpackLayer.createLayer uebereinstimmen.
+BACKPACK_ENTITY_BOXES = [
+    # (Element-Index in BACKPACK_ELEMENTS, u, v)
+    (0, 0, 0),    # Korpus 10x9x6
+    (1, 0, 15),   # Deckel 10x4x7
+    (2, 34, 0),   # Vordertasche 8x6x2
+    (3, 34, 8),   # Griff 4x1x1
+    (4, 34, 10),  # Riemen links 2x10x1
+    (5, 44, 10),  # Riemen rechts 2x10x1
+]
+BACKPACK_ENTITY_SIZE = (64, 32)
+
+
+def backpack_entity_texture(faces, pal):
+    """faces: {"front"|"back"|"side"|"top": Image 16x16} der Blockflaechen einer Stufe."""
+    img = Image.new("RGBA", BACKPACK_ENTITY_SIZE, (0, 0, 0, 0))
+    filler = hexrgb(pal["2"]) + (255,)
+
+    def copy(region, face):
+        x0, y0, w, h = region
+        if face is None:
+            for y in range(y0, y0 + h):
+                for x in range(x0, x0 + w):
+                    img.putpixel((x, y), filler)
+            return
+        src = faces[face[0]].convert("RGBA")
+        u1, v1, u2, v2 = face[1]
+        for j in range(h):
+            sv = int(v1 + (j + 0.5) * (v2 - v1) / h)
+            for i in range(w):
+                su = int(u1 + (i + 0.5) * (u2 - u1) / w)
+                img.putpixel((x0 + i, y0 + j), src.getpixel((su, sv)))
+
+    for index, u, v in BACKPACK_ENTITY_BOXES:
+        (x1, y1, z1), (x2, y2, z2), sides = BACKPACK_ELEMENTS[index]
+        b, h, t = x2 - x1, y2 - y1, z2 - z1
+        copy((u + t, v, b, t), sides.get("up"))
+        copy((u + t + b, v, b, t), sides.get("down"))
+        copy((u, v + t, t, h), sides.get("west"))
+        copy((u + t, v + t, b, h), sides.get("south"))
+        copy((u + t + b, v + t, t, h), sides.get("east"))
+        copy((u + 2 * t + b, v + t, b, h), sides.get("north"))
+    return img
+
+
+# ---------------------------------------------------------------------------
+# Rucksack-Bildschirm: ein Vanilla-Fenster aus einem Guss je Stufe (256x256)
+# ---------------------------------------------------------------------------
+# Geometrie wie com.simplebuilding.screen.BackpackLayout: Vanilla-Teil 176 breit, darunter je
+# Rucksack- und Hauptinventar-Reihe 18 px, Hotbar mit 4 px Luecke; Zusatzspalten als Laschen
+# rechts (ab Netherit) und links (Enderit) neben Rucksack-Reihen und Hauptinventar. Das Fenster
+# ist EINE Flaeche (Vereinigung aus Korpus und Laschen) mit Vanillas Rand: schwarze Kontur,
+# abgerundete Ecken (oben links/unten rechts 2-1, oben rechts/unten links 3-2-1 wie in
+# inventory.png), 2 px Licht oben/links, 2 px Schatten unten/rechts; Innenecken an den
+# Laschen laufen diagonal. Der obere Bereich (Ruestung, Spielerbild, 2x2-Raster, Ergebnis,
+# Nebenhand) bleibt leer - den blittet der Bildschirm aus Vanillas inventory.png darueber,
+# damit Ressourcenpakete dort weiter greifen.
+GUI_BLACK, GUI_WHITE, GUI_BG, GUI_DARK = (0, 0, 0), (255, 255, 255), (198, 198, 198), (85, 85, 85)
+SLOT_DARK, SLOT_FILL, SLOT_LIGHT = (55, 55, 55), (139, 139, 139), (255, 255, 255)
+BACKPACK_GUI_TIERS = {"basic": (1, 0), "reinforced": (2, 0), "netherite": (3, 1), "enderite": (4, 2)}
+
+
+def backpack_gui_geometry(rows, columns):
+    vx = 18 if columns >= 2 else 0
+    width, height = 176 + 18 * columns, 166 + 18 * rows
+    rects = [(vx, 0, vx + 176, height)]
+    column_height = rows + 3
+    tab_top, tab_bottom = 76, 83 + 18 * column_height + 7
+    if columns >= 1:
+        rects.append((vx + 176, tab_top, vx + 194, tab_bottom))
+    if columns >= 2:
+        rects.append((0, tab_top, vx, tab_bottom))
+    slots = []
+    for r in range(rows + 3):
+        for c in range(9):
+            slots.append((vx + 7 + 18 * c, 83 + 18 * r))
+    for c in range(9):
+        slots.append((vx + 7 + 18 * c, 83 + 18 * (rows + 3) + 4))
+    for i in range(column_height):
+        if columns >= 1:
+            slots.append((vx + 169, 83 + 18 * i))
+        if columns >= 2:
+            slots.append((vx - 11, 83 + 18 * i))
+    return width, height, rects, slots
+
+
+def paint_panel(width, height, rects):
+    inside = [[any(x0 <= x < x1 and y0 <= y < y1 for x0, y0, x1, y1 in rects) for x in range(width)]
+              for y in range(height)]
+
+    def ins(x, y):
+        return 0 <= x < width and 0 <= y < height and inside[y][x]
+
+    edge = [[ins(x, y) and any(not ins(x + dx, y + dy) for dx in (-1, 0, 1) for dy in (-1, 0, 1))
+             for x in range(width)] for y in range(height)]
+
+    def dist(x, y, dx, dy):
+        for k in (1, 2, 3):
+            if 0 <= x + dx * k < width and 0 <= y + dy * k < height and edge[y + dy * k][x + dx * k]:
+                return k
+        return 9
+
+    img = Image.new("RGBA", (256, 256), (0, 0, 0, 0))
+    px = img.load()
+    cut, black = set(), set()
+    for y in range(height):
+        for x in range(width):
+            if not inside[y][x]:
+                continue
+            up, down, left, right = not ins(x, y - 1), not ins(x, y + 1), not ins(x - 1, y), not ins(x + 1, y)
+            if up and left:          # oben links: 2-1
+                cut |= {(x, y), (x + 1, y), (x, y + 1)}
+                black.add((x + 1, y + 1))
+            if down and right:       # unten rechts: 2-1
+                cut |= {(x, y), (x - 1, y), (x, y - 1)}
+                black.add((x - 1, y - 1))
+            if up and right:         # oben rechts: 3-2-1
+                cut |= {(x, y), (x - 1, y), (x - 2, y), (x, y + 1), (x - 1, y + 1), (x, y + 2)}
+                black |= {(x - 2, y + 1), (x - 1, y + 2)}
+            if down and left:        # unten links: 3-2-1
+                cut |= {(x, y), (x + 1, y), (x + 2, y), (x, y - 1), (x + 1, y - 1), (x, y - 2)}
+                black |= {(x + 1, y - 2), (x + 2, y - 1)}
+    for y in range(height):
+        for x in range(width):
+            if not inside[y][x] or (x, y) in cut:
+                continue
+            concave = edge[y][x] and all(ins(x + dx, y + dy) for dx, dy in ((0, -1), (0, 1), (-1, 0), (1, 0)))
+            if (x, y) in black or (edge[y][x] and not concave):
+                px[x, y] = GUI_BLACK + (255,)
+                continue
+            dt, dl, db, dr = dist(x, y, 0, -1), dist(x, y, -1, 0), dist(x, y, 0, 1), dist(x, y, 1, 0)
+            light, dark = min(dt, dl), min(db, dr)
+            if concave:
+                # Innenecke: die Kontur laeuft diagonal vorbei. Liegt das Aussen oben links,
+                # treffen sich zwei Lichtkanten, unten rechts zwei Schattenkanten; sonst neutral.
+                if not ins(x - 1, y - 1):
+                    colour = GUI_WHITE
+                elif not ins(x + 1, y + 1):
+                    colour = GUI_DARK
+                else:
+                    colour = GUI_BG
+            elif dt == 3 and dl == 3:
+                colour = GUI_WHITE
+            elif db == 3 and dr == 3:
+                colour = GUI_DARK
+            elif light <= 2 and (dark > 2 or light < dark):
+                colour = GUI_WHITE
+            elif dark <= 2 and (light > 2 or dark < light):
+                colour = GUI_DARK
+            else:
+                colour = GUI_BG
+            px[x, y] = colour + (255,)
+    return img
+
+
+def paint_slot(img, x, y):
+    px = img.load()
+    for j in range(18):
+        for i in range(18):
+            if (i < 17 and j == 0) or (i == 0 and j < 17):
+                c = SLOT_DARK
+            elif (i > 0 and j == 17) or (i == 17 and j > 0):
+                c = SLOT_LIGHT
+            else:
+                c = SLOT_FILL
+            px[x + i, y + j] = c + (255,)
+
+
+def backpack_gui_textures():
+    tex = {}
+    for tier, (rows, columns) in BACKPACK_GUI_TIERS.items():
+        width, height, rects, slots = backpack_gui_geometry(rows, columns)
+        img = paint_panel(width, height, rects)
+        for sx, sy in slots:
+            paint_slot(img, sx, sy)
+        tex[f"gui/container/backpack/{tier}.png"] = img
+    return tex
+
+
+def backpack_worn_textures(tex):
+    out = {}
+    for tier, prefix in (("basic", ""), ("reinforced", "reinforced_"), ("netherite", "netherite_"), ("enderite", "enderite_")):
+        faces = {f: tex[f"block/{prefix}backpack_{f}.png"] for f in ("front", "back", "side", "top")}
+        out[f"entity/backpack/{prefix}backpack.png"] = backpack_entity_texture(faces, LEATHER_TIERS[tier])
+    return out
+
+
 def build():
     tex = {}  # relpath -> Image
     tex["item/leather_sheet.png"] = render("leather_sheet", LEATHER_SHEET, LEATHER_SHEET_PAL, False)
@@ -1179,6 +1380,8 @@ def build():
 
     tex.update(enderite_machine_textures())
     tex.update(checker_textures())
+    tex.update(backpack_worn_textures(tex))
+    tex.update(backpack_gui_textures())
     return tex
 
 
