@@ -438,5 +438,22 @@
   "tooltip.simplebuilding.backpack.slots": "%s / %s slots used",
   "tooltip.simplebuilding.backpack.more": "...and %s more",
   "tooltip.simplebuilding.backpack.open_hint": "Wear it and press %s to open it",
-  "tooltip.simplebuilding.backpack.place_hint": "Sneak + right-click a block to set it down"
+  "tooltip.simplebuilding.backpack.place_hint": "Sneak + right-click a block to set it down",
+  "jei.simplebuilding.category.machine_upgrade": "Machine Upgrade (Sledgehammer)",
+  "jei.simplebuilding.category.reshape": "Reshaping (Sledgehammer)",
+  "jei.simplebuilding.category.diamond_crush": "Crushing (Sledgehammer)",
+  "jei.simplebuilding.category.chisel": "Chiseling",
+  "jei.simplebuilding.category.shear_wool": "Shearing Wool",
+  "jei.simplebuilding.note.machine_upgrade.how": "Nugget in off hand, hold right-click",
+  "jei.simplebuilding.note.machine_upgrade.time": "%s hits in %s s (%s ticks)",
+  "jei.simplebuilding.note.machine_upgrade.damage": "%s durability per hit (%s total)",
+  "jei.simplebuilding.note.reshape.forward": "Hold right-click on the block",
+  "jei.simplebuilding.note.reshape.reverse": "Sneak + hold right-click",
+  "jei.simplebuilding.note.reshape.charge": "Charge: %s-%s ticks by hammer",
+  "jei.simplebuilding.note.diamond_crush.how": "Hold right-click on the block",
+  "jei.simplebuilding.note.chisel.forward": "Right-click the block",
+  "jei.simplebuilding.note.chisel.reverse": "Sneak + right-click the block",
+  "jei.simplebuilding.note.shear_wool.how": "Right-click placed wool",
+  "jei.simplebuilding.note.damage": "Costs %s durability",
+  "jei.simplebuilding.note.needs_touch": "Needs %s"
 }

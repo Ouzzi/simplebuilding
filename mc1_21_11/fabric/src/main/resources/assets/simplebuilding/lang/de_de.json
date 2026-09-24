@@ -438,5 +438,22 @@
   "tooltip.simplebuilding.backpack.slots": "%s / %s Plätze belegt",
   "tooltip.simplebuilding.backpack.more": "...und %s weitere",
   "tooltip.simplebuilding.backpack.open_hint": "Anziehen und %s drücken, um ihn zu öffnen",
-  "tooltip.simplebuilding.backpack.place_hint": "Schleichen + Rechtsklick auf einen Block stellt ihn ab"
+  "tooltip.simplebuilding.backpack.place_hint": "Schleichen + Rechtsklick auf einen Block stellt ihn ab",
+  "jei.simplebuilding.category.machine_upgrade": "Maschinen-Aufwertung (Vorschlaghammer)",
+  "jei.simplebuilding.category.reshape": "Umformen (Vorschlaghammer)",
+  "jei.simplebuilding.category.diamond_crush": "Zerschlagen (Vorschlaghammer)",
+  "jei.simplebuilding.category.chisel": "Meißeln",
+  "jei.simplebuilding.category.shear_wool": "Wolle scheren",
+  "jei.simplebuilding.note.machine_upgrade.how": "Nugget in der Nebenhand, Rechtsklick halten",
+  "jei.simplebuilding.note.machine_upgrade.time": "%s Schläge in %s s (%s Ticks)",
+  "jei.simplebuilding.note.machine_upgrade.damage": "%s Haltbarkeit je Schlag (%s gesamt)",
+  "jei.simplebuilding.note.reshape.forward": "Rechtsklick auf dem Block halten",
+  "jei.simplebuilding.note.reshape.reverse": "Schleichen + Rechtsklick halten",
+  "jei.simplebuilding.note.reshape.charge": "Laden: %s-%s Ticks je Hammer",
+  "jei.simplebuilding.note.diamond_crush.how": "Rechtsklick auf dem Block halten",
+  "jei.simplebuilding.note.chisel.forward": "Rechtsklick auf den Block",
+  "jei.simplebuilding.note.chisel.reverse": "Schleichen + Rechtsklick auf den Block",
+  "jei.simplebuilding.note.shear_wool.how": "Rechtsklick auf platzierte Wolle",
+  "jei.simplebuilding.note.damage": "Kostet %s Haltbarkeit",
+  "jei.simplebuilding.note.needs_touch": "Braucht %s"
 }

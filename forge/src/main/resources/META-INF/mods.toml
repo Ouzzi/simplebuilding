@@ -38,3 +38,33 @@ mandatory=false
 versionRange="[26,)"
 ordering="NONE"
 side="BOTH"
+
+# Optional integrations (mandatory=false). None of JEI, Jade and AppleSkin has a MinecraftForge 26.2
+# build at the moment (2026-09-24), only Mouse Tweaks does; declared anyway so a later build lines up.
+[[dependencies.${modId}]]
+modId="jei"
+mandatory=false
+versionRange="[30,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${modId}]]
+modId="jade"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${modId}]]
+modId="appleskin"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${modId}]]
+modId="mousetweaks"
+mandatory=false
+versionRange="[0,)"
+ordering="NONE"
+side="CLIENT"
