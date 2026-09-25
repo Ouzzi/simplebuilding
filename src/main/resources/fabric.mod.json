@@ -80,7 +80,8 @@
       "com.simplebuilding.gametest.InWorldExportGameTest",
       "com.simplebuilding.gametest.EnderiteMachineGameTest",
       "com.simplebuilding.gametest.SmeltingGameTest",
-      "com.simplebuilding.gametest.TradeOfferGameTest"
+      "com.simplebuilding.gametest.TradeOfferGameTest",
+      "com.simplebuilding.gametest.TweaksGameTest"
     ]
   },
   "mixins": [

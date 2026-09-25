@@ -17,6 +17,8 @@ import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.Lifecycle;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.ModBlocks;
+import com.simplebuilding.tweaks.block.TweaksBlocks;
+import com.simplebuilding.tweaks.item.TweaksItems;
 import com.simplebuilding.enchantment.ModEnchantmentTags;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItemGroupsContent;
@@ -1383,6 +1385,8 @@ public final class DataIntegrityTests {
                 throw new IllegalStateException("cannot read ModItems." + field.getName(), e);
             }
         }
+        // Aus Simple Tweaks uebernommen, eigene Registrierung (com.simplebuilding.tweaks).
+        items.addAll(com.simplebuilding.tweaks.item.TweaksItems.all());
         return items;
     }
 
@@ -1407,6 +1411,7 @@ public final class DataIntegrityTests {
                 throw new IllegalStateException("cannot read ModBlocks." + field.getName(), e);
             }
         }
+        blocks.addAll(com.simplebuilding.tweaks.block.TweaksBlocks.all());
         return blocks;
     }
 
@@ -2291,6 +2296,21 @@ public final class DataIntegrityTests {
                 List.of(Items.BUNDLE, ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE),
                 List.of(ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER),
                 List.of(ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK),
+                // Aus Simple Tweaks: Druckplatten, Elytra-Pads, Flypads, Teleporter, Reisen/Laden
+                List.of(TweaksBlocks.DIAMOND_PRESSURE_PLATE.asItem(), TweaksBlocks.NETHERITE_PRESSURE_PLATE.asItem(),
+                        TweaksBlocks.ENDERITE_PRESSURE_PLATE.asItem(), TweaksBlocks.COPPER_PRESSURE_PLATE.asItem(),
+                        TweaksBlocks.EXPOSED_COPPER_PRESSURE_PLATE.asItem(), TweaksBlocks.WEATHERED_COPPER_PRESSURE_PLATE.asItem(),
+                        TweaksBlocks.OXIDIZED_COPPER_PRESSURE_PLATE.asItem()),
+                List.of(TweaksItems.SPAWN_ELYTRA, TweaksBlocks.ELYTRA_PAD.asItem(), TweaksBlocks.REINFORCED_ELYTRA_PAD.asItem(),
+                        TweaksBlocks.NETHERITE_ELYTRA_PAD.asItem(), TweaksBlocks.ENDERITE_ELYTRA_PAD.asItem(),
+                        TweaksBlocks.FINE_ELYTRA_PAD.asItem()),
+                List.of(TweaksBlocks.FLYPAD.asItem(), TweaksBlocks.REINFORCED_FLYPAD.asItem(), TweaksBlocks.NETHERITE_FLYPAD.asItem(),
+                        TweaksBlocks.ENDERITE_FLYPAD.asItem(), TweaksBlocks.STELLAR_FLYPAD.asItem()),
+                List.of(TweaksBlocks.SPAWN_TELEPORTER.asItem(), TweaksBlocks.SPAWN_TELEPORTER_TIER_2.asItem(),
+                        TweaksBlocks.SPAWN_TELEPORTER_TIER_3.asItem(), TweaksBlocks.SPAWN_TELEPORTER_TIER_4.asItem(),
+                        TweaksBlocks.ENDERITE_SPAWN_TELEPORTER.asItem(), TweaksItems.ECHO_COMPASS),
+                List.of(TweaksBlocks.LAUNCHPAD.asItem(), TweaksBlocks.ENDERITE_LAUNCHPAD.asItem(), TweaksBlocks.CHUNK_LOADER.asItem(),
+                        TweaksBlocks.ENDERITE_CHUNK_LOADER.asItem(), TweaksItems.LASER_POINTER),
                 List.of(ModItems.BLUEPRINT, Items.CARTOGRAPHY_TABLE, ModItems.OCTANT, ModItems.COPPER_BUILDING_WAND,
                         ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND, ModItems.DIAMOND_BUILDING_WAND,
                         ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND));

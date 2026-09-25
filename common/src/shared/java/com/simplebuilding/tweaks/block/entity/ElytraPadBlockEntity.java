@@ -32,7 +32,14 @@ public class ElytraPadBlockEntity extends OwnedBlockEntity {
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, ElytraPadBlockEntity be) {
-        if (level.getGameTime() % 10 != 0 || !SimpleTweaks.config().pads.enableElytraPads) {
+        if (level.getGameTime() % 10 == 0) {
+            applyArea(level, pos, state);
+        }
+    }
+
+    /** Ein Durchlauf ueber alle Spieler im Bereich (der Tick macht das alle halbe Sekunde). */
+    public static void applyArea(Level level, BlockPos pos, BlockState state) {
+        if (!SimpleTweaks.config().pads.enableElytraPads) {
             return;
         }
         int tier = tierOf(state);

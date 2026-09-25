@@ -36,7 +36,6 @@ import net.minecraftforge.registries.RegisterEvent;
  * aber mit): Registrierung, eigener Kanal {@code simplebuilding:tweaks}, Befehle, Server-Ereignisse.
  * Keine Config-Persistenz auf Forge (Shim), Befehle aendern die Werte nur bis zum Neustart.
  */
-@Mod.EventBusSubscriber(modid = Simplebuilding.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class TweaksForge {
     private static Channel<CustomPacketPayload> channel;
 
@@ -52,12 +51,15 @@ public final class TweaksForge {
                 .serverbound()
                     .add(ElytraBoostPayload.ID, ElytraBoostPayload.CODEC,
                             (payload, ctx) -> onServer(ctx, player -> TweaksNetwork.handleBoost(payload, player)))
-                    .add(LaserPayload.ID, LaserPayload.CODEC,
-                            (payload, ctx) -> onServer(ctx, player -> TweaksNetwork.handleLaser(payload, player)))
-                .clientbound()
+                .bidirectional()
+                    // Beide Richtungen mit einem Typ: Forge erlaubt keinen Typ zweimal.
                     .add(LaserPayload.ID, LaserPayload.CODEC, (payload, ctx) -> {
-                        ctx.setPacketHandled(true);
-                        ctx.enqueueWork(() -> TweaksNetwork.receiveLaser(payload));
+                        if (ctx.getSender() != null) {
+                            onServer(ctx, player -> TweaksNetwork.handleLaser(payload, player));
+                        } else {
+                            ctx.setPacketHandled(true);
+                            ctx.enqueueWork(() -> TweaksNetwork.receiveLaser(payload));
+                        }
                     })
                 .build();
         TweaksNetwork.setSenders(
@@ -90,36 +92,5 @@ public final class TweaksForge {
                 action.accept(player);
             }
         });
-    }
-
-    @SubscribeEvent
-    public static void onCommands(RegisterCommandsEvent event) {
-        TweaksCommands.register(event.getDispatcher());
-    }
-
-    @SubscribeEvent
-    public static void onServerTick(TickEvent.ServerTickEvent.Post event) {
-        TweaksContent.onServerTick(event.server());
-    }
-
-    @SubscribeEvent
-    public static void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        if (event.getEntity() instanceof ServerPlayer player) {
-            TweaksContent.onPlayerJoin(player);
-        }
-    }
-
-    @SubscribeEvent
-    public static void onRespawn(PlayerEvent.PlayerRespawnEvent event) {
-        if (event.getEntity() instanceof ServerPlayer player) {
-            TweaksContent.onPlayerRespawn(player);
-        }
-    }
-
-    @SubscribeEvent
-    public static void onLevelLoad(LevelEvent.Load event) {
-        if (event.getLevel() instanceof ServerLevel level) {
-            TweaksContent.onLevelLoad(level);
-        }
     }
 }

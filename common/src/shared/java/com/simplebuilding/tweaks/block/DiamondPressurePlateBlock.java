@@ -58,6 +58,11 @@ public class DiamondPressurePlateBlock extends PressurePlateBlock implements Sim
     }
 
     /** Nur Spieler, die nicht ueber Fallen schweben (Zuschauer, Kreativflug ueber der Platte). */
+    /** Oeffentlich fuer die Spieltests (Mock-Spieler loesen keine entityInside-Pruefung aus). */
+    public int signalAt(Level level, BlockPos pos) {
+        return getSignalStrength(level, pos);
+    }
+
     @Override
     protected int getSignalStrength(Level level, BlockPos pos) {
         AABB box = TOUCH_AABB.move(pos);

@@ -60,6 +60,11 @@ public class FilterPressurePlateBlock extends PressurePlateBlock implements Enti
                 super.getDestroyProgress(state, player, level, pos));
     }
 
+    /** Oeffentlich fuer die Spieltests (Mock-Spieler loesen keine entityInside-Pruefung aus). */
+    public int signalAt(Level level, BlockPos pos) {
+        return getSignalStrength(level, pos);
+    }
+
     @Override
     protected int getSignalStrength(Level level, BlockPos pos) {
         if (!SimpleTweaks.config().pads.enableFilterPlates) {

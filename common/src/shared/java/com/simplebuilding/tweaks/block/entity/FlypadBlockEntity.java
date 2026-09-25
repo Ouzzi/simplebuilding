@@ -42,9 +42,13 @@ public class FlypadBlockEntity extends OwnedBlockEntity {
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, FlypadBlockEntity be) {
-        if (level.getGameTime() % 5 != 0) {
-            return;
+        if (level.getGameTime() % 5 == 0) {
+            update(level, pos, state, be);
         }
+    }
+
+    /** Ein Durchlauf: Flug geben, Flug nehmen (der Tick macht das alle 5 Ticks). */
+    public static void update(Level level, BlockPos pos, BlockState state, FlypadBlockEntity be) {
         int tier = tierOf(state);
         if (!SimpleTweaks.config().pads.enableFlypads) {
             be.revokeAll(level, tier);
@@ -86,7 +90,15 @@ public class FlypadBlockEntity extends OwnedBlockEntity {
             return;
         }
         ServerPlayer player = serverLevel.getServer().getPlayerList().getPlayer(id);
-        if (player == null || player.isCreative() || player.isSpectator()) {
+        if (player != null) {
+            revoke(player, tier);
+        }
+    }
+
+    /** Nimmt einem Spieler den Pad-Flug (nicht im Kreativ-/Zuschauermodus); ab Enderit mit Sicherheitsnetz. */
+    public static void revoke(ServerPlayer player, int tier) {
+        // Kreativ = instabuild (Simple Tweaks fragte isCreative(); fuer echte Spieler dasselbe).
+        if (player.getAbilities().instabuild || player.isSpectator()) {
             return;
         }
         boolean wasFlying = player.getAbilities().flying;
