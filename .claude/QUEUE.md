@@ -55,7 +55,11 @@ Verlauf im Detail: git log.
 - [x] Hunger beim Bauen entschaerfen: Freibetrag pro Vorgang (>=256 Bloecke), nur sichtbare Hungerleiste als Massstab
 - [x] Texturen Runde 10: Barren wie Netherit (1 px niedriger, Glimmer), Werkzeug-Griffe wie Netherit mit lila statt schwarz + Glow, analog Hammer/Baustab/Meissel
 
+## Welle 13 (laeuft)
+- [ ] Config-Schalter: Vanilla-Buecher (gibt es), Mod-Buecher custom/vanilla, sichtbare Besatzmuster Vanilla-Ruestung, sichtbare Besatzmuster Enderit-Ruestung
+
 ## Wartet auf den Besitzer
+- [ ] Naechste MC-Version (26.4, Snapshots seit 2026-09-22; Livestream 2026-09-26 19 Uhr): Snapshot-Linie jetzt vorbereiten oder Release abwarten?
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
 
 ## Spaeter
