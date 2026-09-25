@@ -1,0 +1,12 @@
+{
+    DataVersion: 4903,
+    data: {
+        entries: [
+            {
+                block: "minecraft:deepslate",
+                hits: 3,
+                pos: [I; -3, 70, 5]
+            }
+        ]
+    }
+}

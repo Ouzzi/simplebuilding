@@ -1,0 +1,185 @@
+{
+    DataVersion: 4903,
+    Inventory: [
+        {
+            Slot: 0b,
+            components: {
+                "minecraft:item_name": {
+                    translate: "filled_map.monument"
+                },
+                "minecraft:map_color": 3830373,
+                "minecraft:map_decorations": {
+                    +: {
+                        rotation: 180.0f,
+                        type: "minecraft:monument",
+                        x: 128.0d,
+                        z: -256.0d
+                    }
+                },
+                "minecraft:map_id": 7
+            },
+            count: 1,
+            id: "minecraft:filled_map"
+        },
+        {
+            Slot: 1b,
+            components: {
+                "simplebuilding:backpack_contents": [
+                    {
+                        components: {
+                            "minecraft:item_name": {
+                                translate: "filled_map.monument"
+                            },
+                            "minecraft:map_color": 3830373,
+                            "minecraft:map_decorations": {
+                                +: {
+                                    rotation: 180.0f,
+                                    type: "minecraft:monument",
+                                    x: 128.0d,
+                                    z: -256.0d
+                                }
+                            },
+                            "minecraft:map_id": 7
+                        },
+                        count: 1,
+                        id: "minecraft:filled_map",
+                        slot: 0
+                    },
+                    {
+                        components: {
+                            "minecraft:pot_decorations": [
+                                "minecraft:angler_pottery_sherd",
+                                "minecraft:brick",
+                                "minecraft:brick",
+                                "minecraft:skull_pottery_sherd"
+                            ]
+                        },
+                        count: 1,
+                        id: "minecraft:decorated_pot",
+                        slot: 1
+                    },
+                    {
+                        components: {
+                            "minecraft:bundle_contents": [
+                                {
+                                    components: {
+                                        "minecraft:item_name": {
+                                            translate: "filled_map.monument"
+                                        },
+                                        "minecraft:map_color": 3830373,
+                                        "minecraft:map_decorations": {
+                                            +: {
+                                                rotation: 180.0f,
+                                                type: "minecraft:monument",
+                                                x: 128.0d,
+                                                z: -256.0d
+                                            }
+                                        },
+                                        "minecraft:map_id": 7
+                                    },
+                                    id: "minecraft:filled_map"
+                                }
+                            ]
+                        },
+                        count: 1,
+                        id: "simplebuilding:reinforced_bundle",
+                        slot: 2
+                    },
+                    {
+                        count: 150,
+                        id: "minecraft:cobblestone",
+                        slot: 7
+                    }
+                ]
+            },
+            count: 1,
+            id: "simplebuilding:enderite_backpack"
+        }
+    ],
+    SimpleBuildingData: {
+        ActiveTicks: 77,
+        BaseDamage: 55,
+        BaseDist: 11,
+        BaseHostile: 33,
+        BasePassive: 44,
+        BaseTime: 22,
+        BaseXp: 66,
+        TotalHostile: 0,
+        TotalPassive: 0
+    },
+    equipment: {
+        chest: {
+            components: {
+                "simplebuilding:backpack_contents": [
+                    {
+                        components: {
+                            "minecraft:item_name": {
+                                translate: "filled_map.monument"
+                            },
+                            "minecraft:map_color": 3830373,
+                            "minecraft:map_decorations": {
+                                +: {
+                                    rotation: 180.0f,
+                                    type: "minecraft:monument",
+                                    x: 128.0d,
+                                    z: -256.0d
+                                }
+                            },
+                            "minecraft:map_id": 7
+                        },
+                        count: 1,
+                        id: "minecraft:filled_map",
+                        slot: 0
+                    },
+                    {
+                        components: {
+                            "minecraft:pot_decorations": [
+                                "minecraft:angler_pottery_sherd",
+                                "minecraft:brick",
+                                "minecraft:brick",
+                                "minecraft:skull_pottery_sherd"
+                            ]
+                        },
+                        count: 1,
+                        id: "minecraft:decorated_pot",
+                        slot: 1
+                    },
+                    {
+                        components: {
+                            "minecraft:bundle_contents": [
+                                {
+                                    components: {
+                                        "minecraft:item_name": {
+                                            translate: "filled_map.monument"
+                                        },
+                                        "minecraft:map_color": 3830373,
+                                        "minecraft:map_decorations": {
+                                            +: {
+                                                rotation: 180.0f,
+                                                type: "minecraft:monument",
+                                                x: 128.0d,
+                                                z: -256.0d
+                                            }
+                                        },
+                                        "minecraft:map_id": 7
+                                    },
+                                    id: "minecraft:filled_map"
+                                }
+                            ]
+                        },
+                        count: 1,
+                        id: "simplebuilding:reinforced_bundle",
+                        slot: 2
+                    },
+                    {
+                        count: 150,
+                        id: "minecraft:cobblestone",
+                        slot: 7
+                    }
+                ]
+            },
+            count: 1,
+            id: "simplebuilding:enderite_backpack"
+        }
+    }
+}
