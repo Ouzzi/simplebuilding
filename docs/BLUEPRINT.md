@@ -1,6 +1,6 @@
 # Blaupause / Blueprint – Spezifikation
 
-Stand 2026-09-25 (zweite Runde: Raster 256, Form-Scan, Mehr-Tick-Auftraege). Code: `common/src/shared/java/com/simplebuilding/blueprint/` (26.2) und
+Stand 2026-09-25 (dritte Runde: Beispiele, Hilfe, Einfuege-Leiste, Layout, Autospeichern, Kopieren, nur signiert bauen). Code: `common/src/shared/java/com/simplebuilding/blueprint/` (26.2) und
 `mc1_21_11/shared/java/com/simplebuilding/blueprint/` (1.21.11), Spieltests `BlueprintTests`.
 
 Die Blaupause (`simplebuilding:blueprint`, en "Blueprint", de "Blaupause") speichert ein Bauwerk
@@ -8,7 +8,9 @@ als kurzen, lesbaren **Bau-Code**. Sie sieht aus wie ein Kartenblatt (Cyanotypie
 ein Buch.
 
 - **Rezept** (formlos): 1 Enderquarz + 1 Papier + 1 Tintenbeutel → 1 leere Blaupause.
-- **Stapel**: leer bis 16; wird eine Blaupause aus einem Stapel beschrieben, wird sie abgespalten.
+- **Stapel**: leer bis 16; wird eine Blaupause aus einem Stapel beschrieben, bleibt sie im Slot
+  und der Rest des Stapels wandert ins Inventar (so trifft jede weitere Autospeicherung dieselbe).
+- **Neu** ist eine Blaupause leer; Beispielcode gibt es erst per Knopf im Editor (Abschnitt 2.2).
 - **Kreativ-Tab**: Werkzeuge, hinter den Oktanten.
 - **Datenkomponenten**: `simplebuilding:blueprint` = `{code, title, author, signed}`,
   `simplebuilding:blueprint_rotation` = 0..3 (Viertelumdrehungen im Baumodus).
@@ -125,19 +127,60 @@ Benutzen öffnet den Editor (nicht im Baumodus, siehe 4). Ein Kartenblatt, grö�
 (bis 560 × 340 GUI-Pixel), kein Blättern:
 
 - **links** fest stehend die **Materialliste**: Item-Symbol, Menge, Name, größte Menge zuerst;
-  Mausrad rollt, Überfahren zeigt Stapel (`3×64 + 5`). Reine Kreativ-Blöcke rot.
+  Mausrad rollt, Überfahren zeigt Stapel (`3×64 + 5`). Reine Kreativ-Blöcke rot. **Darunter**, in
+  ihrer Breite: die Maße (`5 × 4 × 5`) mit der Blockzahl daneben, darunter der nötige Baustab als
+  Item-Symbol mit Stufenname (Kupfer, Eisen …) und `Kante / Grenze`, darunter die Leiste
+  „genutzt / frei“ bezogen auf die Grenze dieser Stufe.
 - **Mitte** der **Code**: ein scrollbares Feld mit Bildlaufleiste, Zeilennummern,
   Syntax-Farben und rot unterstrichenen Fehlern. Die Schrift ist bei GUI-Maßstab ≥ 3 kleiner
-  (3/4 bzw. 2/3, ganzzahlige Pixel). Unter dem Feld steht der Fehler unter dem Cursor (sonst der
-  erste) mit Zeilennummer, oder "Code in Ordnung".
+  (3/4 bzw. 2/3, ganzzahlige Pixel). **Direkt darunter** nur der Status in Code-Breite: „Code in
+  Ordnung“ (grün), „Ungültig: Zeile n: …“ (rot, der Fehler unter dem Cursor, sonst der erste) oder
+  „Leer“. **Darunter die Einfüge-Leiste**: Suchfeld für Blöcke (angezeigter Name in der
+  Spielsprache oder ID), Treffer als Symbole; ein Klick wählt einen Treffer aus, erst der Knopf
+  „Einfügen“ setzt den technischen Namen (ID ohne `minecraft:`) an die Cursorposition – nie
+  versehentlich mit einem Klick.
 - **rechts** das **Bauwerk in 3D**: Ziehen dreht frei in jede Richtung (Trackball, auch kopfüber),
-  Mausrad zoomt, Doppelklick setzt zurück.
-- **unten** die **Größenanzeige**: Bounding Box, Blockzahl, der kleinste Baustab, der sie baut,
-  und ein Balken bis 256 mit den Stufenmarken 16/32/48/64/128/256.
+  Mausrad zoomt, Doppelklick setzt zurück. Ist der Code leer, steht dort der Hinweis „Schreib eine
+  Zeile … und das Bauwerk erscheint hier“ und ganz unten der Knopf **„Beispiel einfügen“** (2.2).
+  Oben rechts ein **Buch-Knopf** (wie Vanillas Rezeptbuch) öffnet statt der 3D-Ansicht die
+  **Hilfe** (2.1). **Darunter** bündig „Signieren“ und „Fertig“, zusammen genau so breit wie die
+  Vorschau (signiert: nur „Fertig“ über die ganze Breite).
 - **Signieren** wie beim Buch: Titel (1–32 Zeichen), danach schreibgeschützt; Titel wird zum
   Namen, der Autor steht im Tooltip. Signieren geht nur mit fehlerfreiem, nicht leerem Code.
-- Beim Schließen geht der geänderte Code per `BlueprintEditPayload` an den Server, der Slot,
-  Item, Signatur, Länge und – beim Signieren – Titel und Code selbst prüft.
+- **Autospeichern**: jede Änderung geht 1,5 s nach der letzten Eingabe per `BlueprintEditPayload`
+  an den Server, zusätzlich beim Schließen (Esc, „Fertig“, Inventar-Taste, wenn kein Textfeld den
+  Fokus hat) und in `Screen.removed()` – also auch, wenn ein anderer Bildschirm übernimmt, die Welt
+  verlassen oder die Verbindung getrennt wird. Der Server prüft Slot, Item, Signatur, Länge (beim
+  Signieren Titel und Code) und legt den Code **sofort** am Item ab. Ein harter Abbruch (Absturz,
+  Kabel) kostet höchstens die letzten 1,5 s.
+
+### 2.1 Hilfe
+
+Zwei Reiter: **Anleitung** (Kurzfassung der Bausprache mit Beispielen, zehn Absätze, Mausrad
+rollt) und **Blöcke** (Suchfeld für angezeigten Namen oder ID, Liste mit Symbol, Anzeigename und
+technischem Namen; ein Klick wählt den Block für die Einfüge-Leiste aus). Die Suche ist
+`BlueprintBlockSearch`: exakter Treffer (ID, Pfad oder Name) zuerst, dann Anfang von ID oder
+Name, dann Wortanfang, dann irgendwo enthalten.
+
+### 2.2 Beispiele
+
+Nur bei leerem Code und unsignierter Blaupause: „Beispiel einfügen“ setzt ein Beispiel-Bauwerk
+aus dem **Biom an der Position des Spielers** ein, zufällig eines aus dessen Gruppe. Alle
+höchstens 16 × 16 × 16, handgeschrieben und kommentiert als Ressourcen
+`data/simplebuilding/blueprint_examples/<name>.sbp` (Aliase, Bereiche, Wiederholung, `air`):
+
+| Gruppe | Biome | Vorlagen |
+|---|---|---|
+| Ebene | alle übrigen (auch Nether/Ende) | Dorfhaus, Dorfbrunnen, Ruinenportal-Rest |
+| Wüste | Wüste, Tafelberge | Dorfhaus, Wüstenbrunnen, Tempelruine |
+| Savanne | Savanne, Hochebene, zerklüftete Savanne | Dorfhaus, Marktstand |
+| Taiga | Taiga, alte Taigas, zerklüftete Hügel/Wald | Dorfhaus, Lagerfeuer-Camp |
+| Schnee | verschneite Biome, Eis, Hain, Gipfel | Dorfhaus, Iglu |
+| Kirsche | Kirschhain | Dorfhaus, Pavillon |
+| Sumpf | Sumpf, Mangrovensumpf, Dschungel | Stelzenhaus, Sumpfhütte |
+
+Das Einfügen ändert nur den Editor-Inhalt; gespeichert wird über den normalen Edit-Payload mit
+Prüfung. Signierte Blaupausen haben keinen Knopf.
 
 Technik: Die 3D-Ansicht (Editor und Tooltip) setzt die Blockmodelle zu einem Netz zusammen
 (innere Flächen zwischen vollen Blöcken fallen weg), projiziert es orthografisch auf der CPU,
@@ -158,7 +201,10 @@ Mit **Umschalt** die Materialliste (bis 8 Zeilen mit Symbol, dann "… und N wei
 
 ## 4. Bauen
 
-**Baustab in der Haupthand + Blaupause in der Nebenhand** = Baumodus.
+**Baustab in der Haupthand + signierte Blaupause in der Nebenhand** = Baumodus. Eine
+**unsignierte** Blaupause zeigt keine Vorschau und baut nicht; die Aktionsleiste sagt
+„Blaupause signieren, um sie zu bauen“. (Zum Weiterbearbeiten einer signierten: Kopie am
+Kartentisch, Abschnitt 5.1.)
 
 - **Vorschau**: Geisterblöcke am anvisierten Block – genau das, was ein Klick jetzt setzen würde
   (vorhandenes Material, freie Stellen), bis 4096 Geister.
@@ -215,6 +261,15 @@ bleibt. Umschalt-Klick legt beide in ihre Slots.
 Technik: `CartographyTableMenuMixin` ersetzt die drei Tisch-Slots durch Hüllen
 (`BlueprintCartography`) und übernimmt `setupResultSlot`, sobald ein Oktant oben oder eine
 Blaupause unten liegt.
+
+### 5.1 Kopieren am Kartentisch
+
+**Signierte** Blaupause oben, **leere** unten → rechts eine **unsignierte Kopie** mit demselben
+Code und Titel, ohne Autor, also wieder bearbeitbar. Wie beim Karten-Kopieren bleibt das Original
+liegen, verbraucht wird nur die leere. Der Kopier-Pfad greift nur mit einer Blaupause oben, der
+Scan-Pfad nur mit einem Oktanten oben; eine unsignierte Blaupause nimmt der obere Slot nicht an,
+eine beschriebene unten gibt keine Kopie. Umschalt-Klick legt signierte Blaupausen nach oben,
+andere nach unten.
 
 ## 6. Offene Entscheidungen
 

@@ -975,7 +975,10 @@
         "common/src/shared/java/com/simplebuilding/mixin/CartographyTableMenuMixin.java",
         "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
         "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "common/src/shared/java/com/simplebuilding/util/OctantShape.java"
+        "common/src/shared/java/com/simplebuilding/util/OctantShape.java",
+        "common/src/shared/java/com/simplebuilding/blueprint/BlueprintExamples.java",
+        "common/src/shared/java/com/simplebuilding/blueprint/BlueprintBlockSearch.java",
+        "src/main/resources/data/simplebuilding/blueprint_examples/plains_house.sbp"
       ],
       "en": {
         "title": "Blueprint: Writing, Scanning and Building Structures",
@@ -987,10 +990,15 @@
           "Limits: at most 32000 characters of code, a 256 x 256 x 256 grid and at most 4 194 304 filled positions (256 x 256 x 64) - a structure may span the whole grid but not fill it solid. Errors are shown inline; the line under the cursor (or the first error) is explained below the editor.",
           "Signing works like a book: enter a title and sign - afterwards the blueprint is read-only and shows title and author. The server checks every edit again.",
           "Scanning: put an Octant with both corners set into the top slot of a cartography table and an empty or unsigned blueprint into the bottom slot. The result is the filled blueprint; taking it uses up only the blueprint, the octant stays. Only the octant's figure is scanned - sphere, cylinder, pyramid, prism, ellipse or box, exactly the blocks its preview shows. The selection must be loaded, at most 256 blocks per edge, and the table within 32 blocks of it. Large selections are scanned over several ticks (262 144 positions per tick, a full 256 cube in about 3 seconds) with the progress on the action bar. Air is skipped, and of chests and other block entities only the block itself is copied, not the contents. While the octant lies in the table its selection is drawn in the world.",
-          "Building: hold a building wand in the main hand and the blueprint in the off hand. A ghost preview shows exactly what a click would place at the block you aim at; the structure stands in front of you, centred, and grows in your viewing direction. Ctrl + mouse wheel turns it by 90 degrees.",
+          "Building: hold a building wand in the main hand and a signed blueprint in the off hand. A ghost preview shows exactly what a click would place at the block you aim at; the structure stands in front of you, centred, and grows in your viewing direction. Ctrl + mouse wheel turns it by 90 degrees.",
           "A right-click places everything you have: blocks come out of the off hand, the hotbar and, with Master Builder on the wand, the whole inventory, Master Builder bundles and a worn Master Builder backpack - the same search the wand uses. Positions that already hold the right block and occupied positions are skipped, missing blocks are left out so you can come back later. Every placed block costs 1 wand durability. In creative mode everything is placed. Large structures are built over several ticks (4096 blocks per tick) with the progress on the action bar; putting the wand or the blueprint away stops the job.",
           "Wand size limits (longest edge of the bounding box): copper 16, iron 32, gold 48, diamond 64, netherite 128, enderite 256. A wand that is too small refuses with a hint.",
           "Tooltip: hovering a filled blueprint shows the structure as a slowly turning 3D miniature; hold Shift for the material list.",
+          "Empty code: the preview says how to start and offers \"Insert example\": a random example structure from the biome you are standing in - a village house or another typical build (well, desert temple ruin, igloo, cherry pavilion, witch hut, taiga camp, ruined portal remains ...), each at most 16 x 16 x 16 and written as commented example code.",
+          "Help: the book button above the preview opens a short code guide and a searchable block list (name in your language or ID, with icon and technical name).",
+          "Under the code: the status (Code OK / Invalid with the error) and an insert bar - search a block, click a result to select it, press Insert to put its ID at the cursor. Under the materials: size, block count, the needed building wand with its tier and a used/free bar against that tier's limit.",
+          "Autosave: edits are sent to the server 1.5 seconds after you stop typing and again when the editor closes (also when you leave the world or lose the connection); the server stores them on the item immediately.",
+          "Only a signed blueprint builds; an unsigned one shows \"Sign the blueprint to build it\". To edit a signed blueprint again, copy it at a cartography table: signed blueprint on top, empty blueprint below gives an unsigned copy with the same code and title (the original stays, only the empty one is used).",
           "Loader note: identical on Fabric, NeoForge and Forge (26.2) and on Fabric and NeoForge (1.21.11)."
         ]
       },
@@ -1004,10 +1012,15 @@
           "Grenzen: höchstens 32000 Zeichen Code, ein Raster von 256 x 256 x 256 und höchstens 4 194 304 belegte Stellen (256 x 256 x 64) - ein Bauwerk darf das ganze Raster aufspannen, aber nicht massiv füllen. Fehler stehen direkt im Code; die Zeile unter dem Cursor (sonst der erste Fehler) wird unter dem Editor erklärt.",
           "Signieren wie beim Buch: Titel eingeben und signieren - danach ist die Blaupause schreibgeschützt und zeigt Titel und Autor. Der Server prüft jede Änderung selbst.",
           "Scannen: einen Oktanten mit beiden Ecken oben in den Kartentisch legen, eine leere oder nicht signierte Blaupause unten. Rechts kommt die gefüllte Blaupause heraus; Nehmen verbraucht nur die Blaupause, der Oktant bleibt liegen. Gescannt wird nur die Figur des Oktanten - Kugel, Zylinder, Pyramide, Prisma, Ellipse oder Quader, genau die Blöcke, die seine Vorschau zeigt. Die Auswahl muss geladen sein, höchstens 256 Blöcke je Kante, und der Tisch höchstens 32 Blöcke von ihr entfernt. Große Auswahlen werden über mehrere Ticks gescannt (262 144 Stellen je Tick, ein voller 256er-Würfel in gut 3 Sekunden), der Fortschritt steht in der Aktionsleiste. Luft wird übersprungen, von Truhen und anderen Block-Entities wird nur der Block übernommen, nicht der Inhalt. Solange der Oktant im Tisch liegt, wird seine Auswahl in der Welt gezeichnet.",
-          "Bauen: Baustab in die Haupthand, Blaupause in die Nebenhand. Eine Geistervorschau zeigt genau das, was ein Klick am anvisierten Block setzen würde; das Bauwerk steht mittig vor dir und wächst in Blickrichtung. Strg + Mausrad dreht es um 90 Grad.",
+          "Bauen: Baustab in die Haupthand, signierte Blaupause in die Nebenhand. Eine Geistervorschau zeigt genau das, was ein Klick am anvisierten Block setzen würde; das Bauwerk steht mittig vor dir und wächst in Blickrichtung. Strg + Mausrad dreht es um 90 Grad.",
           "Ein Rechtsklick setzt alles, was du hast: Blöcke kommen aus der Nebenhand, der Hotbar und mit Meisterbauer auf dem Stab aus dem ganzen Inventar, aus Meisterbauer-Bündeln und einem getragenen Meisterbauer-Rucksack - dieselbe Suche wie beim Baustab. Stellen, an denen schon der richtige Block steht, und belegte Stellen werden übersprungen, fehlende Blöcke ausgelassen - du kannst später weiterbauen. Jeder gesetzte Block kostet 1 Haltbarkeit des Stabs. Im Kreativmodus wird alles gesetzt. Große Bauwerke entstehen über mehrere Ticks (4096 Blöcke je Tick), der Fortschritt steht in der Aktionsleiste; Baustab oder Blaupause weglegen bricht ab.",
           "Größengrenzen der Baustäbe (längste Kante der Bounding Box): Kupfer 16, Eisen 32, Gold 48, Diamant 64, Netherit 128, Enderit 256. Ein zu kleiner Stab lehnt mit einem Hinweis ab.",
           "Tooltip: über einer gefüllten Blaupause dreht sich das Bauwerk langsam als 3D-Miniatur; mit Umschalt erscheint die Materialliste.",
+          "Leerer Code: die Vorschau erklärt den Einstieg und bietet „Beispiel einfügen“: ein zufälliges Beispiel-Bauwerk aus dem Biom, in dem du stehst - ein Dorfhaus oder ein anderes typisches Bauwerk (Brunnen, Wüsten-Tempelruine, Iglu, Kirschpavillon, Sumpfhütte, Taiga-Camp, Ruinenportal-Rest ...), jedes höchstens 16 x 16 x 16 und als kommentierter Beispielcode geschrieben.",
+          "Hilfe: der Buch-Knopf über der Vorschau öffnet eine kurze Code-Anleitung und eine durchsuchbare Blockliste (Name in deiner Sprache oder ID, mit Symbol und technischem Namen).",
+          "Unter dem Code: der Status (Code in Ordnung / Ungültig mit Fehler) und eine Einfüge-Leiste - Block suchen, Treffer anklicken, mit Einfügen seine ID an den Cursor setzen. Unter den Materialien: Maße, Blockzahl, der nötige Baustab mit Stufe und eine Leiste genutzt/frei zur Grenze dieser Stufe.",
+          "Autospeichern: Änderungen gehen 1,5 Sekunden nach der letzten Eingabe an den Server und noch einmal beim Schließen (auch beim Verlassen der Welt oder Verbindungsabbruch); der Server speichert sie sofort am Item.",
+          "Bauen geht nur mit einer signierten Blaupause; eine unsignierte meldet „Blaupause signieren, um sie zu bauen“. Zum Weiterbearbeiten eine Kopie am Kartentisch machen: signierte Blaupause oben, leere unten ergibt eine unsignierte Kopie mit demselben Code und Titel (das Original bleibt, verbraucht wird nur die leere).",
           "Loader-Hinweis: gleich auf Fabric, NeoForge und Forge (26.2) sowie Fabric und NeoForge (1.21.11)."
         ]
       }
@@ -3736,7 +3749,8 @@
             "Limits: 32000 characters, coordinates 0..255, at most 4 194 304 filled positions, title up to 32 characters. A signed blueprint is named after its title, shows its author and can no longer be edited or overwritten by a scan.",
             "Tooltip: size (width x height x depth, block count), the smallest building wand that can build it, error count, a turning 3D miniature, and with Shift the material list.",
             "Material cost: one item per block; a double slab costs two slabs, the upper half of a door or tall plant and the head of a bed cost nothing; blocks without an item (water, fire, piston head) are creative-only.",
-            "Building wand size per tier (longest edge): copper 16, iron 32, gold 48, diamond 64, netherite 128, enderite 256. Building runs at 4096 blocks per tick, scanning at 262 144 positions per tick; both report progress on the action bar."
+            "Building wand size per tier (longest edge): copper 16, iron 32, gold 48, diamond 64, netherite 128, enderite 256. Building runs at 4096 blocks per tick, scanning at 262 144 positions per tick; both report progress on the action bar.",
+            "Only signed blueprints build; the example button, help panel, insert bar and the cartography-table copy are described in the Blueprint feature page."
           ]
         },
         "de": {
@@ -3748,7 +3762,8 @@
             "Grenzen: 32000 Zeichen, Koordinaten 0..255, höchstens 4 194 304 belegte Stellen, Titel bis 32 Zeichen. Eine signierte Blaupause heißt wie ihr Titel, zeigt ihren Autor und lässt sich weder bearbeiten noch durch einen Scan überschreiben.",
             "Tooltip: Größe (Breite x Höhe x Tiefe, Blockzahl), der kleinste Baustab, der sie bauen kann, Fehlerzahl, eine drehende 3D-Miniatur und mit Umschalt die Materialliste.",
             "Materialkosten: ein Item pro Block; eine doppelte Stufe kostet zwei Stufen, die obere Hälfte einer Tür oder hohen Pflanze und das Kopfteil eines Bettes kosten nichts; Blöcke ohne Item (Wasser, Feuer, Kolbenkopf) gibt es nur im Kreativmodus.",
-            "Baustab-Größe je Stufe (längste Kante): Kupfer 16, Eisen 32, Gold 48, Diamant 64, Netherit 128, Enderit 256. Gebaut wird mit 4096 Blöcken je Tick, gescannt mit 262 144 Stellen je Tick; beides meldet den Fortschritt in der Aktionsleiste."
+            "Baustab-Größe je Stufe (längste Kante): Kupfer 16, Eisen 32, Gold 48, Diamant 64, Netherit 128, Enderit 256. Gebaut wird mit 4096 Blöcken je Tick, gescannt mit 262 144 Stellen je Tick; beides meldet den Fortschritt in der Aktionsleiste.",
+            "Gebaut werden nur signierte Blaupausen; Beispiel-Knopf, Hilfe, Einfüge-Leiste und die Kopie am Kartentisch beschreibt die Feature-Seite Blaupause."
           ]
         }
       },
