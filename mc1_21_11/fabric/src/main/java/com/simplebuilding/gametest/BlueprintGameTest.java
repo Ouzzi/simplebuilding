@@ -118,4 +118,24 @@ public final class BlueprintGameTest {
     public void missingBlocksNeedTheSecondClick(GameTestHelper helper) {
         BlueprintTests.missingBlocksNeedTheSecondClick(helper);
     }
+
+    @GameTest
+    public void materialListCountsMultiItemBlocksByTheirState(GameTestHelper helper) {
+        BlueprintTests.materialListCountsMultiItemBlocksByTheirState(helper);
+    }
+
+    @GameTest
+    public void buildConsumesEveryCandleAndPickleItNeeds(GameTestHelper helper) {
+        BlueprintTests.buildConsumesEveryCandleAndPickleItNeeds(helper);
+    }
+
+    @GameTest
+    public void missingBlocksCheckHasNoCapAndRunsOverSeveralTicks(GameTestHelper helper) {
+        BlueprintTests.missingBlocksCheckHasNoCapAndRunsOverSeveralTicks(helper);
+    }
+
+    @GameTest
+    public void runningBuildSurvivesLogoutAndResumesWithTheSameBlueprint(GameTestHelper helper) {
+        BlueprintTests.runningBuildSurvivesLogoutAndResumesWithTheSameBlueprint(helper);
+    }
 }

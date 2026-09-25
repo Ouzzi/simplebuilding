@@ -9,10 +9,14 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.MultifaceBlock;
+import net.minecraft.world.level.block.VineBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.block.state.properties.SlabType;
 
 /**
@@ -20,7 +24,9 @@ import net.minecraft.world.level.block.state.properties.SlabType;
  * Materialliste (Item, Menge) nach Menge sortiert.
  *
  * <p>Regeln: ein Block kostet ein Stueck seines Items ({@link Block#asItem()}); eine doppelte Stufe
- * kostet zwei; die obere Haelfte zweiteiliger Bloecke (Tuer, hohe Pflanze) und das Kopfteil eines
+ * kostet zwei, ein Block mit Mengen-Eigenschaft so viele, wie sie zaehlt (vier Kerzen = vier Kerzen,
+ * drei Seegurken, fuenf Schneeschichten ...), ein Mehrflaechen-Block eines je Flaeche
+ * ({@link #itemsPerBlock}); die obere Haelfte zweiteiliger Bloecke (Tuer, hohe Pflanze) und das Kopfteil eines
  * Bettes kosten nichts, weil sie mit ihrem Gegenstueck kommen. Zustaende ohne Item (Wasser,
  * Feuer, Kolbenkopf ...) kann nur der Kreativmodus setzen - sie stehen als {@link Items#AIR} in
  * der Liste.
@@ -52,11 +58,52 @@ public final class BlueprintMaterials {
         if (item == Items.AIR) {
             return new Cost(Items.AIR, 1);
         }
+        return new Cost(item, itemsPerBlock(state));
+    }
+
+    /**
+     * Mengen-Eigenschaften: so viele Stueck des Items stecken in <b>einem</b> Blockzustand, weil man
+     * den Block durch weiteres Setzen desselben Items auffuellt (Kerze auf Kerze, Seegurke auf
+     * Seegurke). Allgemeine Regel statt Blockliste: jede dieser Eigenschaften zaehlt, egal an
+     * welchem Block sie haengt - ein neuer Block mit {@code candles} kostet damit von selbst richtig.
+     */
+    private static final List<IntegerProperty> COUNT_PROPERTIES = List.of(
+            BlockStateProperties.CANDLES,          // Kerzen 1..4
+            BlockStateProperties.PICKLES,          // Seegurken 1..4
+            BlockStateProperties.EGGS,             // Schildkroeteneier 1..4
+            BlockStateProperties.LAYERS,           // Schneeschichten 1..8
+            BlockStateProperties.FLOWER_AMOUNT,    // Rosa Blueten, Wildblumen 1..4
+            BlockStateProperties.SEGMENT_AMOUNT);  // Laubstreu 1..4
+
+    /**
+     * Wie viele Items ein Zustand kostet (ohne die kostenlosen Gegenstuecke, siehe {@link #cost}):
+     * doppelte Stufe 2; eine Mengen-Eigenschaft ({@link #COUNT_PROPERTIES}) ihren Wert; ein
+     * Mehrflaechen-Block (Leuchtflechte, Sculkader, Harzklumpen, Ranken) eines je belegter Flaeche,
+     * weil jedes Stueck genau eine Flaeche belegt; sonst 1.
+     */
+    static int itemsPerBlock(BlockState state) {
         if (state.hasProperty(BlockStateProperties.SLAB_TYPE)
                 && state.getValue(BlockStateProperties.SLAB_TYPE) == SlabType.DOUBLE) {
-            return new Cost(item, 2);
+            return 2;
         }
-        return new Cost(item, 1);
+        for (IntegerProperty property : COUNT_PROPERTIES) {
+            if (state.hasProperty(property)) {
+                return Math.max(1, state.getValue(property));
+            }
+        }
+        if (state.getBlock() instanceof MultifaceBlock) {
+            return Math.max(1, MultifaceBlock.availableFaces(state).size());
+        }
+        if (state.getBlock() instanceof VineBlock) {
+            int faces = 0;
+            for (BooleanProperty face : VineBlock.PROPERTY_BY_DIRECTION.values()) {
+                if (state.hasProperty(face) && state.getValue(face)) {
+                    faces++;
+                }
+            }
+            return Math.max(1, faces);
+        }
+        return 1;
     }
 
     /**

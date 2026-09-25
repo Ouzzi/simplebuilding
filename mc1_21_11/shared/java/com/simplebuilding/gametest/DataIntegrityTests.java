@@ -2414,10 +2414,11 @@ public final class DataIntegrityTests {
      * same slot with a hopper in it stays active, so the mixin cannot pass by switching every slot
      * off. A spacer that lands in an inventory anyway (a {@code /give}, say) is gone after one
      * inventory tick. It is hidden from recipe viewers through {@code c:hidden_from_recipe_viewers},
-     * locked in creative slots and hides its tooltip.
+     * locked in creative slots and hides its tooltip, and item command suggestions leave it out
+     * ({@code ItemParserStateMixin}).
      *
      * <p>What breaks this: the mixin not applied or checking the wrong item, the self deletion dropped,
-     * the tag or the default components lost.
+     * the tag or the default components lost, the suggestion filter gone.
      */
     public static void creativeSpacerCannotBeTakenOrKept(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
@@ -2453,6 +2454,20 @@ public final class DataIntegrityTests {
             problems.add("the spacer does not hide its tooltip");
         }
 
+
+        // Command suggestions (ItemParserStateMixin): /give, /clear and /item offer every mod item but
+        // the spacer. The same ItemParser the ItemArgument asks on the client, here on the server's
+        // registries; the chiseled astralit bricks next to it are the control that suggestions work.
+        List<String> offered = new net.minecraft.commands.arguments.item.ItemParser(helper.getLevel().registryAccess())
+                .fillSuggestions(new com.mojang.brigadier.suggestion.SuggestionsBuilder("simplebuilding:c", 0))
+                .join().getList().stream().map(com.mojang.brigadier.suggestion.Suggestion::getText).toList();
+        if (!offered.contains("simplebuilding:chiseled_astralit_bricks")) {
+            problems.add("item suggestions for simplebuilding:c do not offer the chiseled astralit bricks either, "
+                    + "so the spacer check below proves nothing: " + offered);
+        }
+        if (offered.contains("simplebuilding:creative_spacer")) {
+            problems.add("/give suggests simplebuilding:creative_spacer");
+        }
         helper.assertTrue(problems.isEmpty(), "creative spacer: " + problems);
         TestCleanup.succeed(helper);
     }

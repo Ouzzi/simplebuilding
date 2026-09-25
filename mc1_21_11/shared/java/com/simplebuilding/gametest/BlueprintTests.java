@@ -4,6 +4,7 @@ import com.simplebuilding.blueprint.BlueprintBuilder;
 import com.simplebuilding.blueprint.BlueprintCode;
 import com.simplebuilding.blueprint.BlueprintContent;
 import com.simplebuilding.blueprint.BlueprintExamples;
+import com.simplebuilding.blueprint.BlueprintJobs;
 import com.simplebuilding.blueprint.BlueprintMaterials;
 import com.simplebuilding.blueprint.BlueprintModel;
 import com.simplebuilding.blueprint.BlueprintScanner;
@@ -22,6 +23,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -37,6 +40,7 @@ import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -233,6 +237,102 @@ public final class BlueprintTests {
         helper.assertTrue(list.get(4).item() == Items.AIR && list.get(4).block() == Blocks.WATER && list.get(4).count() == 1,
                 "water should be listed as creative-only: " + shown);
         helper.assertTrue(BlueprintMaterials.totalItems(model) == 18, "total items " + BlueprintMaterials.totalItems(model));
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Mehrfach-Bloecke kosten so viele Items, wie in ihnen stecken: vier Kerzen in einem Block sind
+     * vier Kerzen, drei Seegurken drei, acht Schneeschichten acht Schneeschichten, vier
+     * Schildkroeteneier vier, drei rosa Blueten drei, eine Leuchtflechte an zwei Flaechen zwei
+     * Leuchtflechten, eine doppelte Stufe zwei Stufen. Abgeleitet aus den Blockzustands-Eigenschaften
+     * ({@code candles}, {@code pickles}, {@code layers}, {@code eggs}, {@code flower_amount}), nicht aus
+     * einer Blockliste.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> eine Liste, die Bloecke statt Items zaehlt (jede
+     * Kerzengruppe = 1), eine vergessene Eigenschaft, Mehrflaechen-Bloecke zu einem Stueck.
+     */
+    public static void materialListCountsMultiItemBlocksByTheirState(GameTestHelper helper) {
+        BlueprintModel model = new BlueprintModel();
+        model.set(0, 0, 0, Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 4));
+        model.set(1, 0, 0, Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.CANDLES, 1));
+        model.set(2, 0, 0, Blocks.SEA_PICKLE.defaultBlockState().setValue(BlockStateProperties.PICKLES, 3));
+        model.set(3, 0, 0, Blocks.SNOW.defaultBlockState().setValue(BlockStateProperties.LAYERS, 8));
+        model.set(4, 0, 0, Blocks.TURTLE_EGG.defaultBlockState().setValue(BlockStateProperties.EGGS, 4));
+        model.set(5, 0, 0, Blocks.PINK_PETALS.defaultBlockState().setValue(BlockStateProperties.FLOWER_AMOUNT, 3));
+        model.set(6, 0, 0, Blocks.GLOW_LICHEN.defaultBlockState()
+                .setValue(MultifaceBlock.getFaceProperty(Direction.NORTH), true)
+                .setValue(MultifaceBlock.getFaceProperty(Direction.DOWN), true));
+        model.set(7, 0, 0, Blocks.OAK_SLAB.defaultBlockState().setValue(BlockStateProperties.SLAB_TYPE, SlabType.DOUBLE));
+
+        List<BlueprintMaterials.Entry> list = BlueprintMaterials.list(model);
+        String shown = list.stream().map(e -> e.item() + "=" + e.count()).toList().toString();
+        java.util.Map<Item, Integer> counts = new java.util.HashMap<>();
+        list.forEach(e -> counts.put(e.item(), e.count()));
+        Object[][] expected = {
+                {Items.CANDLE, 5, "four candles plus one candle"},
+                {Items.SEA_PICKLE, 3, "three sea pickles"},
+                {Items.SNOW, 8, "eight snow layers"},
+                {Items.TURTLE_EGG, 4, "four turtle eggs"},
+                {Items.PINK_PETALS, 3, "three pink petals"},
+                {Items.GLOW_LICHEN, 2, "glow lichen on two faces"},
+                {Items.OAK_SLAB, 2, "a double slab"}};
+        for (Object[] row : expected) {
+            Integer got = counts.get((Item) row[0]);
+            helper.assertTrue(got != null && got == (int) row[1],
+                    "the material list should count " + row[2] + " as " + row[1] + " " + row[0] + ", but says " + got + ": " + shown);
+        }
+        helper.assertTrue(list.size() == expected.length, "unexpected entries in the material list: " + shown);
+        helper.assertTrue(BlueprintMaterials.totalItems(model) == 27, "total items " + BlueprintMaterials.totalItems(model) + " instead of 27: " + shown);
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Beim Bauen gilt dieselbe Rechnung wie in der Materialliste: drei Kerzen in einem Block
+     * verbrauchen drei Kerzen, zwei Seegurken zwei, fuenf Schneeschichten fuenf - und der Block steht
+     * danach mit genau diesem Zustand. Reicht der Vorrat fuer einen Block nicht ganz (zwei Kerzen fuer
+     * drei), fehlt die Stelle, und von den zwei Kerzen geht keine verloren.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Bau, der je Block ein Item abbucht (drei Kerzen
+     * fuer eine), einer, der einen Teil des Vorrats verbraucht und die Stelle trotzdem frei laesst.
+     */
+    public static void buildConsumesEveryCandleAndPickleItNeeds(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        clear(helper);
+        // Boden unter den drei Stellen: Schnee und Seegurke brauchen Halt.
+        helper.setBlock(CLICKED.west(), Blocks.STONE);
+        helper.setBlock(CLICKED.east(), Blocks.STONE);
+        ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
+        ItemStack candles = new ItemStack(Items.CANDLE, 3);
+        ItemStack pickles = new ItemStack(Items.SEA_PICKLE, 2);
+        ItemStack snow = new ItemStack(Items.SNOW, 5);
+        ItemStack blueprint = blueprint("candle[candles=3] 0,0,0\nsea_pickle[pickles=2,waterlogged=false] 1,0,0\nsnow[layers=5] 2,0,0");
+        hold(player, wand, blueprint, candles, pickles, snow);
+        BlueprintBuilder.Result built = build(helper, player, wand, blueprint);
+        helper.assertTrue(built != null && !built.warned() && built.placed() == 3 && built.missing() == 0,
+                "three candles, two pickles and five snow layers should build all three positions: " + built);
+        BlockState candle = helper.getBlockState(TARGET.west());
+        BlockState pickle = helper.getBlockState(TARGET);
+        BlockState layers = helper.getBlockState(TARGET.east());
+        helper.assertTrue(candle.is(Blocks.CANDLE) && candle.getValue(BlockStateProperties.CANDLES) == 3, "the candle block is " + candle);
+        helper.assertTrue(pickle.is(Blocks.SEA_PICKLE) && pickle.getValue(BlockStateProperties.PICKLES) == 2, "the sea pickle block is " + pickle);
+        helper.assertTrue(layers.is(Blocks.SNOW) && layers.getValue(BlockStateProperties.LAYERS) == 5, "the snow block is " + layers);
+        helper.assertTrue(candles.getCount() == 0 && pickles.getCount() == 0 && snow.getCount() == 0,
+                "building should use every item the blocks hold, left: " + candles.getCount() + " candles, "
+                        + pickles.getCount() + " sea pickles, " + snow.getCount() + " snow layers");
+
+        // Zwei Kerzen reichen nicht fuer drei: die Stelle fehlt, und keine Kerze wird verbraucht.
+        clear(helper);
+        ItemStack two = new ItemStack(Items.CANDLE, 2);
+        ItemStack onlyCandle = blueprint("candle[candles=3] 0,0,0");
+        hold(player, wand, onlyCandle, two);
+        BlueprintBuilder.Result warned = build(helper, player, wand, onlyCandle);
+        helper.assertTrue(warned != null && warned.warned() && warned.missing() == 1,
+                "two candles for a block of three should count as missing: " + warned);
+        BlueprintBuilder.Result confirmed = build(helper, player, wand, onlyCandle);
+        helper.assertTrue(confirmed != null && confirmed.placed() == 0 && confirmed.missing() == 1 && helper.getBlockState(TARGET).isAir(),
+                "a block of three candles was built from two: " + confirmed);
+        helper.assertTrue(two.getCount() == 2, "the missing candle block still used up " + (2 - two.getCount()) + " candles");
+        clear(helper);
         TestCleanup.succeed(helper);
     }
 
@@ -976,6 +1076,131 @@ public final class BlueprintTests {
         helper.assertTrue(complete != null && !complete.warned() && complete.placed() == 4, "nothing missing, but the first click did not build: " + complete);
         clear(helper);
         TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Ein laufender Bauauftrag ueberlebt Logout und Neustart: sein Stand (Code-Hash, Ziel, Drehung,
+     * Fortschritt) steht nach jeder Scheibe in {@link BlueprintJobs}, das mit der Welt gespeichert
+     * wird. Nach dem Neustart - der Speicher ist leer, Baustab und Blaupause sind neue Stapel - baut
+     * er weiter, sobald der Spieler Baustab und eine Blaupause mit demselben Code haelt, und zwar ab
+     * der Stelle, an der er stand: kein Block doppelt, kein Material doppelt. Eine andere Blaupause
+     * in der Nebenhand setzt ihn nicht fort und loescht ihn nicht.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Auftrag, der nur im Speicher lebt; ein
+     * gespeicherter Stand, der nicht durch den Codec kommt; ein Fortsetzen von vorn (Material doppelt
+     * gezaehlt) oder mit fremder Blaupause; ein fertiger Auftrag, der gespeichert bleibt.
+     */
+    public static void runningBuildSurvivesLogoutAndResumesWithTheSameBlueprint(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = mockPlayer(helper, false);
+        player.addTag(BlueprintScanner.SMALL_BUDGET_TAG);
+        clear(helper);
+        String code = "stone 0..1,0,0..3";
+        ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
+        ItemStack stone = new ItemStack(Items.STONE, 8);
+        ItemStack blueprint = blueprint(code);
+        hold(player, wand, blueprint, stone);
+        BlueprintBuilder.Result first = click(helper, player, wand, blueprint);
+        helper.assertTrue(first != null && first.placed() == 3 && BlueprintBuilder.building(player), "no job after the first slice: " + first);
+
+        BlueprintJobs.Pending saved = BlueprintJobs.get(level, player.getUUID());
+        helper.assertTrue(saved != null && saved.index() == 3 && saved.placed() == 3 && saved.target().equals(helper.absolutePos(TARGET))
+                        && saved.codeHash().equals(BlueprintJobs.hash(code)),
+                "the running job was not saved with its progress: " + saved);
+        Tag file = BlueprintJobs.CODEC.encodeStart(NbtOps.INSTANCE, level.getDataStorage().get(BlueprintJobs.TYPE)).getOrThrow();
+        BlueprintJobs reloaded = BlueprintJobs.CODEC.parse(NbtOps.INSTANCE, file).getOrThrow();
+        helper.assertTrue(reloaded.pending().contains(saved), "the saved job did not come back from its file: " + reloaded.pending());
+
+        // Neustart: alles im Speicher ist weg; der Spieler kommt mit neuen Stapeln zurueck.
+        BlueprintBuilder.forgetRunningJob(player.getUUID());
+        helper.assertTrue(!BlueprintBuilder.building(player), "forgetting the running jobs left one behind");
+        ItemStack wandAgain = wand.copy();
+        ItemStack stoneAgain = stone.copy();
+        ItemStack otherBlueprint = blueprint("glass 0..1,0,0..3");
+        hold(player, wandAgain, otherBlueprint, stoneAgain);
+        wandAgain.getItem().inventoryTick(wandAgain, level, player, EquipmentSlot.MAINHAND);
+        helper.assertTrue(!BlueprintBuilder.building(player) && BlueprintJobs.get(level, player.getUUID()) != null,
+                "another blueprint in the off hand resumed or dropped the saved job");
+
+        ItemStack sameCode = blueprint(code);
+        hold(player, wandAgain, sameCode, stoneAgain);
+        wandAgain.getItem().inventoryTick(wandAgain, level, player, EquipmentSlot.MAINHAND);
+        helper.assertTrue(BlueprintBuilder.building(player), "holding the wand and a blueprint with the same code did not resume the build");
+        BlueprintBuilder.Result rest = BlueprintBuilder.completeJob(player);
+        int built = 0;
+        for (int z = 0; z <= 3; z++) {
+            built += helper.getBlockState(TARGET.south(z)).is(Blocks.STONE) ? 1 : 0;
+            built += helper.getBlockState(TARGET.south(z).west()).is(Blocks.STONE) ? 1 : 0;
+        }
+        helper.assertTrue(rest != null && rest.finished() && rest.placed() == 8 && built == 8,
+                "the resumed build did not finish the structure: " + rest + ", " + built + " of 8 stones");
+        helper.assertTrue(stoneAgain.getCount() == 0 && wandAgain.getDamageValue() == 8,
+                "resuming spent material or durability twice: " + stoneAgain.getCount() + " stone left, wand damage "
+                        + wandAgain.getDamageValue());
+        helper.assertTrue(BlueprintJobs.get(level, player.getUUID()) == null, "the finished job is still saved");
+        clear(helper);
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Die Fehlstellen-Pruefung vor einem Ueberlebens-Bau hat keine Obergrenze: was beim Klick nicht
+     * mehr drankommt, prueft sie in den folgenden Ticks (hier mit 3 Stellen je Klick und Tick), und
+     * erst danach warnt sie oder baut. Eine fehlende Stelle ganz am Ende der Bau-Reihenfolge wird
+     * also genauso gefunden wie eine am Anfang; fehlt nichts, beginnt der Bau von selbst.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> eine Pruefung, die nach ihrem Budget aufhoert und
+     * "nichts fehlt" meldet (die fruehere 400 000er-Grenze), ein Bau, der vor dem Ende der Pruefung
+     * beginnt, eine fertige Pruefung, die nicht baut.
+     */
+    public static void missingBlocksCheckHasNoCapAndRunsOverSeveralTicks(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = mockPlayer(helper, false);
+        player.addTag(BlueprintBuilder.SMALL_CHECK_TAG);
+        clear(helper);
+        ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
+        ItemStack stone = new ItemStack(Items.STONE, 8);
+        // Neun Stellen, die fehlende (Glas) liegt eine Schicht hoeher und kommt als letzte dran.
+        ItemStack blueprint = blueprint("stone 0..1,0,0..3\nglass 1,1,3");
+        hold(player, wand, blueprint, stone);
+        BlueprintBuilder.Result first = click(helper, player, wand, blueprint);
+        helper.assertTrue(first != null && first.checking() && !first.warned() && first.placed() == 0 && BlueprintBuilder.checking(player),
+                "the check should go on after the click's budget of 3 positions: " + first);
+        helper.assertTrue(helper.getBlockState(TARGET).isAir() && stone.getCount() == 8, "something was built before the check was done");
+        helper.startSequence()
+                .thenExecuteAfter(1, () -> {
+                    wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND);
+                    helper.assertTrue(BlueprintBuilder.checking(player) && !BlueprintBuilder.building(player),
+                            "after 6 of 9 positions the check should still run and nothing be built");
+                })
+                .thenExecuteAfter(1, () -> {
+                    wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND);
+                    helper.assertTrue(!BlueprintBuilder.checking(player) && !BlueprintBuilder.building(player)
+                                    && helper.getBlockState(TARGET).isAir() && stone.getCount() == 8,
+                            "the glass missing at the very end of the order did not stop the build with a warning");
+                    // Die Warnung ist gegeben: der zweite Klick baut, was da ist, ohne neue Pruefung.
+                    BlueprintBuilder.Result confirmed = build(helper, player, wand, blueprint);
+                    helper.assertTrue(confirmed != null && !confirmed.checking() && confirmed.placed() == 8 && confirmed.missing() == 1,
+                            "the confirming click did not build the eight stones: " + confirmed);
+
+                    // Nichts fehlt: nach der Pruefung beginnt der Bau von selbst.
+                    clear(helper);
+                    player.getInventory().setItem(1, new ItemStack(Items.STONE, 8));
+                    player.getInventory().setItem(2, new ItemStack(Items.GLASS, 1));
+                    BlueprintBuilder.Result again = click(helper, player, wand, blueprint);
+                    helper.assertTrue(again != null && again.checking(), "the second build did not start with a check: " + again);
+                })
+                .thenExecuteAfter(1, () -> wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND))
+                .thenExecuteAfter(1, () -> {
+                    wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND);
+                    helper.assertTrue(!BlueprintBuilder.checking(player), "the check did not end after all nine positions");
+                    BlueprintBuilder.Result done = BlueprintBuilder.completeJob(player);
+                    helper.assertTrue(helper.getBlockState(TARGET.south(3).above()).is(Blocks.GLASS)
+                                    && helper.getBlockState(TARGET).is(Blocks.STONE),
+                            "with nothing missing the finished check did not build: " + done);
+                    clear(helper);
+                })
+                .thenExecute(() -> TestCleanup.run(helper))
+                .thenSucceed();
     }
 
     // =====================================================================================

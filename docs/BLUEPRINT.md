@@ -212,7 +212,10 @@ Kartentisch, Abschnitt 5.1.)
 - **Zwei-Klick-Regel**: fehlt Material, baut der erste Rechtsklick nichts – die roten Stellen
   leuchten kurz kräftig auf, ein Hinweiston erklingt, die Aktionsleiste nennt die Zahl der
   fehlenden Blöcke. Ein zweiter Rechtsklick binnen 3 s baut alles Vorhandene. Fehlt nichts, baut
-  schon der erste Klick. Die Bestätigung gilt nur für diesen einen Bau.
+  schon der erste Klick. Die Bestätigung gilt nur für diesen einen Bau. Die Prüfung davor hat
+  keine Obergrenze: 400 000 Stellen gleich beim Klick, den Rest sehr großer Bauwerke mit 131 072
+  Stellen je Tick danach („Prüfe Material… x / y“), dann Warnung oder Baubeginn; ein
+  bestätigender zweiter Klick prüft nicht erneut.
 - **Ausrichtung**: das Bauwerk steht mittig (x) auf dem Zielblock (in den geklickten Block, wenn
   er ersetzbar ist, sonst davor), seine Unterkante auf dessen Höhe, seine lokale z-Achse zeigt in
   Blickrichtung. Nach Süden blickend entsteht es wie gescannt. **Strg + Mausrad** dreht um 90°
@@ -221,7 +224,10 @@ Kartentisch, Abschnitt 5.1.)
   - Material wie beim Baustab: Nebenhand, Hotbar; mit Meisterbauer auf dem Stab das ganze
     Inventar; Meisterbauer-Bündel (Meisterbauer auf Stab *oder* Bündel); getragener
     Meisterbauer-Rucksack. Gesucht wird nach Item (Wandfackel → Fackel).
-  - Kosten je Zustand: 1 Item; doppelte Stufe 2; obere Tür-/Pflanzenhälfte und Bettkopf 0 (nur
+  - Kosten je Zustand: 1 Item; doppelte Stufe 2; Mengen-Eigenschaften zählen ihren Wert
+    (`candles`, `pickles`, `eggs`, `layers`, `flower_amount`, `segment_amount` – vier Kerzen
+    = 4 Kerzen, fünf Schneeschichten = 5); Mehrflächen-Blöcke (Leuchtflechte, Sculkader,
+    Harzklumpen, Ranken) 1 je belegter Fläche; obere Tür-/Pflanzenhälfte und Bettkopf 0 (nur
     gesetzt, wenn ihr Gegenstück steht oder gerade gesetzt wurde); Zustände ohne Item nur Kreativ.
     Wassergeflutete Zustände werden im Überleben trocken gesetzt.
   - Übersprungen: Stellen mit schon dem richtigen Block, belegte Stellen (nicht ersetzbar),
@@ -238,6 +244,12 @@ Kartentisch, Abschnitt 5.1.)
   - **Abbruch** wie beim Baustab: anderes Werkzeug in der Haupthand (auch kurz), Blaupause aus der
     Nebenhand genommen, Baustab zerbrochen. Ein abgebrochener Bau wird nicht wieder aufgenommen;
     ein neuer Klick ersetzt einen laufenden Auftrag.
+  - **Logout und Neustart** brechen nicht ab: der Stand (Code-Hash, Ziel, Drehung, Fortschritt in
+    der Bau-Reihenfolge, gesetzte Blöcke) steht nach jeder Scheibe in `BlueprintJobs`
+    (SavedData je Dimension). Hält der Spieler danach Baustab und eine signierte Blaupause mit
+    demselben Code (Kopie genügt), läuft der Auftrag an derselben Stelle weiter, ohne erneute
+    Zwei-Klick-Prüfung; mit anderer oder ohne Blaupause nennt die Aktionsleiste einmal je Sitzung
+    Titel und Ort des wartenden Baus. Weitergebaut wird nur, wenn der Zielblock geladen ist.
 - **Stufengrenze** (längste Kante der Bounding Box, Würfel):
 
   | Baustab | Kupfer | Eisen | Gold | Diamant | Netherit | Enderit |

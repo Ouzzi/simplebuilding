@@ -15,6 +15,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -51,6 +52,20 @@ import net.minecraft.world.phys.BlockHitResult;
  * {@link #DEFAULT_PLACE_BUDGET} gesetzte und {@link #VISITS_PER_TICK} gepruefte Stellen, Fortschritt in
  * der Aktionsleiste. Der Auftrag laeuft weiter, solange Baustab (Haupthand) und Blaupause
  * (Nebenhand) gehalten werden; weglegen bricht ihn ab.
+ *
+ * <p><b>Logout und Neustart.</b> Der Stand jedes laufenden Auftrags steht nach jeder Scheibe in
+ * {@link BlueprintJobs} (gespeichert mit der Welt). Geht der Spieler offline oder startet der
+ * Server neu, bleibt der Auftrag stehen - er wird nicht abgebrochen, weil niemand etwas weggelegt
+ * hat. Kommt der Spieler zurueck und haelt Baustab und eine signierte Blaupause mit demselben Code,
+ * laeuft er an derselben Stelle weiter; ohne passende Blaupause sagt ihm die Aktionsleiste einmal,
+ * was fehlt. Wer ihn nicht mehr will, baut etwas anderes (das ersetzt ihn) oder legt waehrend des
+ * Weiterbaus den Stab weg.
+ *
+ * <p><b>Fehlstellen-Pruefung.</b> Vor einem Ueberlebens-Bau zaehlt eine Planung mit simuliertem
+ * Vorrat, ob Material fehlt (Zwei-Klick-Regel). Sie geht <b>alle</b> Stellen durch, ohne Obergrenze:
+ * {@link #CHECK_VISITS_PER_CLICK} gleich beim Klick, den Rest - bei sehr grossen Bauwerken -
+ * mit {@link #VISITS_PER_TICK} je Tick danach, mit Fortschritt in der Aktionsleiste. Ist sie fertig,
+ * warnt sie oder beginnt den Bau. Ein bestaetigender zweiter Klick prueft nicht noch einmal.
  */
 public final class BlueprintBuilder {
     /** Gesetzte Bloecke je Tick (Spieler mit {@link BlueprintScanner#SMALL_BUDGET_TAG}: 3). */
@@ -84,14 +99,29 @@ public final class BlueprintBuilder {
     /** So viele Stellen prueft die Vorschau hoechstens je Neuberechnung. */
     public static final int PREVIEW_VISITS = 200_000;
 
+    /** So viele Stellen prueft die Fehlstellen-Pruefung gleich beim Klick; der Rest folgt je Tick. */
+    public static final int CHECK_VISITS_PER_CLICK = PREVIEW_VISITS * 2;
+    /**
+     * Spieler mit diesem Tag pruefen nur 3 Stellen je Klick und je Tick - damit Spieltests die
+     * Pruefung ueber mehrere Ticks sehen, ohne ein Bauwerk mit 400 000 Stellen aufzubauen.
+     */
+    public static final String SMALL_CHECK_TAG = "simplebuilding_small_check_budget";
+
     private static final Map<UUID, Job> JOBS = new HashMap<>();
+    private static final Map<UUID, Check> CHECKS = new HashMap<>();
+    /** Wem der Hinweis auf einen gespeicherten Auftrag in dieser Sitzung schon gezeigt wurde. */
+    private static final Map<UUID, Player> HINTED = new HashMap<>();
 
     private BlueprintBuilder() {
     }
 
-    /** Zwischen- oder Endstand eines Bauauftrags. */
+    /**
+     * Zwischen- oder Endstand eines Bauauftrags. {@code checking}: die Fehlstellen-Pruefung laeuft
+     * noch ueber die naechsten Ticks, gebaut wurde noch nichts.
+     */
     public record Result(int placed, int already, int occupied, int blocked, int missing,
-                         Map<Item, Integer> missingItems, boolean wandBroke, boolean finished, int total, boolean warned) {
+                         Map<Item, Integer> missingItems, boolean wandBroke, boolean finished, int total, boolean warned,
+                         boolean checking) {
     }
 
     /** Vorschau: was ein Klick setzen wuerde, und wofuer Material fehlt (rot). */
@@ -290,7 +320,13 @@ public final class BlueprintBuilder {
         }
 
         public Result result() {
-            return new Result(placed, already, occupied, blocked, missing, Map.copyOf(missingItems), broke, finished(), layout.size(), false);
+            return new Result(placed, already, occupied, blocked, missing, Map.copyOf(missingItems), broke, finished(), layout.size(), false, false);
+        }
+
+        /** Setzt einen gespeicherten Auftrag fort: ab Stelle {@code index}, mit {@code placedBefore} schon gesetzten. */
+        void resumeAt(int index, int placedBefore) {
+            this.index = Math.max(0, Math.min(index, layout.size()));
+            this.placed = Math.max(0, placedBefore);
         }
 
         /** Bearbeitet hoechstens {@code maxVisits} Stellen und setzt hoechstens {@code maxPlaced} Bloecke. */
@@ -423,72 +459,172 @@ public final class BlueprintBuilder {
         final Placer placer;
         final BlockPos target;
         final Player player;
+        final String codeHash;
+        final String title;
+        final Rotation rotation;
         int visitsPerTick;
         long lastTick;
         SoundType sound;
 
-        Job(Planner planner, Player player, ItemStack wand, ItemStack blueprint, Placer placer, BlockPos target) {
+        Job(Planner planner, Player player, ItemStack wand, ItemStack blueprint, Placer placer, BlockPos target,
+            String codeHash, String title, Rotation rotation) {
             this.planner = planner;
             this.player = player;
             this.wand = wand;
             this.blueprint = blueprint;
             this.placer = placer;
             this.target = target;
+            this.codeHash = codeHash;
+            this.title = title;
+            this.rotation = rotation;
+        }
+    }
+
+    /** Eine Fehlstellen-Pruefung, die ueber mehrere Ticks laeuft (sehr grosse Bauwerke). */
+    private static final class Check {
+        final Planner planner;
+        final Player player;
+        final ItemStack wand;
+        final ItemStack blueprint;
+        final BlockPos target;
+        final Rotation rotation;
+        final BlueprintContent content;
+        long lastTick;
+
+        Check(Planner planner, Player player, ItemStack wand, ItemStack blueprint, BlockPos target, Rotation rotation,
+              BlueprintContent content) {
+            this.planner = planner;
+            this.player = player;
+            this.wand = wand;
+            this.blueprint = blueprint;
+            this.target = target;
+            this.rotation = rotation;
+            this.content = content;
         }
     }
 
     /**
      * Startet den Bau: setzt sofort die erste Scheibe und laesst den Rest (falls es einen gibt) als
      * Auftrag ueber die folgenden Ticks laufen ({@link #tick}). Liefert den Stand nach der ersten
-     * Scheibe; {@code null}, wenn abgelehnt.
+     * Scheibe; {@code null}, wenn abgelehnt. Bei sehr grossen Bauwerken im Ueberlebensmodus kann
+     * zuerst noch die Fehlstellen-Pruefung laufen ({@link Result#checking()}).
      */
     public static Result build(Level level, Player player, ItemStack wand, ItemStack blueprint, BlockPos clicked, Direction face) {
+        BlueprintModel model = buildableModel(player, wand, blueprint, true);
+        if (model == null) {
+            return null;
+        }
+        BlueprintContent content = blueprint.getOrDefault(ModDataComponentTypes.BLUEPRINT, BlueprintContent.EMPTY);
+        BlockPos target = targetFor(level, clicked, face);
+        Rotation rotation = rotationFor(player.getDirection(), rotationSteps(blueprint));
+        boolean creative = player.getAbilities().instabuild;
+        Layout layout = layout(model, target, rotation);
+        // Ein neuer Klick ersetzt, was vorher lief oder gespeichert war.
+        JOBS.remove(player.getUUID());
+        CHECKS.remove(player.getUUID());
+        JOBS.values().removeIf(j -> j.player.isRemoved());
+        CHECKS.values().removeIf(c -> c.player.isRemoved());
+        if (level instanceof ServerLevel serverLevel) {
+            BlueprintJobs.clear(serverLevel, player.getUUID());
+        }
+        if (!creative) {
+            // Zwei-Klick-Regel: fehlt Material, warnt der erste Klick nur (Ton + Meldung, die roten
+            // Stellen leuchten im Client auf); ein zweiter Klick binnen 3 s baut alles Vorhandene.
+            Long warnedAt = WARNED.get(player.getUUID());
+            boolean confirming = warnedAt != null && level.getGameTime() - warnedAt <= CONFIRM_TICKS;
+            if (!confirming) {
+                Planner check = new Planner(level, player, wand, layout, simulatedSupply(player, wand), false, true);
+                check.run(checkBudget(player, true), Integer.MAX_VALUE, (pos, state) -> true);
+                if (!check.finished()) {
+                    Check pending = new Check(check, player, wand, blueprint, target, rotation, content);
+                    pending.lastTick = level.getGameTime();
+                    CHECKS.put(player.getUUID(), pending);
+                    tellChecking(player, check);
+                    return new Result(0, 0, 0, 0, 0, Map.of(), false, false, layout.size(), false, true);
+                }
+                if (warnIfMissing(level, player, check)) {
+                    return new Result(0, 0, 0, 0, check.result().missing(), Map.of(), false, false, layout.size(), true, false);
+                }
+            }
+            WARNED.remove(player.getUUID());
+        }
+        return startJob(level, player, wand, blueprint, layout, target, rotation, content, creative, 0, 0);
+    }
+
+    /**
+     * Das Modell einer baubaren Blaupause, oder {@code null} (mit Meldung, wenn {@code tell}):
+     * signiert, fehlerfrei, nicht leer und nicht groesser als der Wuerfel des Baustabs.
+     */
+    private static BlueprintModel buildableModel(Player player, ItemStack wand, ItemStack blueprint, boolean tell) {
         if (!(wand.getItem() instanceof BuildingWandItem wandItem) || !(blueprint.getItem() instanceof BlueprintItem)) {
             return null;
         }
         BlueprintContent content = blueprint.getOrDefault(ModDataComponentTypes.BLUEPRINT, BlueprintContent.EMPTY);
         if (!content.signed()) {
-            tell(player, Component.translatable("simplebuilding.blueprint.build.sign_first").withStyle(ChatFormatting.YELLOW));
+            if (tell) {
+                tell(player, Component.translatable("simplebuilding.blueprint.build.sign_first").withStyle(ChatFormatting.YELLOW));
+            }
             return null;
         }
         BlueprintCode.ParseResult parsed = BlueprintCode.parseCached(content.code());
         if (parsed.model().isEmpty()) {
-            tell(player, Component.translatable("simplebuilding.blueprint.build.empty").withStyle(ChatFormatting.RED));
+            if (tell) {
+                tell(player, Component.translatable("simplebuilding.blueprint.build.empty").withStyle(ChatFormatting.RED));
+            }
             return null;
         }
         if (!parsed.ok()) {
-            tell(player, Component.translatable("simplebuilding.blueprint.build.errors", parsed.problems().size()).withStyle(ChatFormatting.RED));
+            if (tell) {
+                tell(player, Component.translatable("simplebuilding.blueprint.build.errors", parsed.problems().size()).withStyle(ChatFormatting.RED));
+            }
             return null;
         }
         int size = parsed.model().maxEdge();
         int edge = BlueprintTiers.edgeFor(wandItem);
         if (size > edge) {
-            int needed = BlueprintTiers.tierIndexFor(size);
-            tell(player, Component.translatable("simplebuilding.blueprint.build.too_big", size, edge,
-                    BlueprintTiers.wandName(Math.max(0, needed))).withStyle(ChatFormatting.RED));
+            if (tell) {
+                int needed = BlueprintTiers.tierIndexFor(size);
+                tell(player, Component.translatable("simplebuilding.blueprint.build.too_big", size, edge,
+                        BlueprintTiers.wandName(Math.max(0, needed))).withStyle(ChatFormatting.RED));
+            }
             return null;
         }
-        BlockPos target = targetFor(level, clicked, face);
-        Rotation rotation = rotationFor(player.getDirection(), rotationSteps(blueprint));
-        boolean creative = player.getAbilities().instabuild;
-        Layout layout = layout(parsed.model(), target, rotation);
-        if (!creative) {
-            // Zwei-Klick-Regel: fehlt Material, warnt der erste Klick nur (Ton + Meldung, die roten
-            // Stellen leuchten im Client auf); ein zweiter Klick binnen 3 s baut alles Vorhandene.
-            Planner check = new Planner(level, player, wand, layout, simulatedSupply(player, wand), false, true);
-            check.run(PREVIEW_VISITS * 2, Integer.MAX_VALUE, (pos, state) -> true);
-            int missingNow = check.result().missing();
-            Long warnedAt = WARNED.get(player.getUUID());
-            long now = level.getGameTime();
-            if (missingNow > 0 && (warnedAt == null || now - warnedAt > CONFIRM_TICKS)) {
-                WARNED.put(player.getUUID(), now);
-                level.playSound(null, player.blockPosition(), net.minecraft.sounds.SoundEvents.NOTE_BLOCK_BASS.value(),
-                        SoundSource.PLAYERS, 1.0F, 0.6F);
-                tell(player, Component.translatable("simplebuilding.blueprint.build.missing_warning", missingNow).withStyle(ChatFormatting.GOLD));
-                return new Result(0, 0, 0, 0, missingNow, Map.of(), false, false, layout.size(), true);
-            }
-            WARNED.remove(player.getUUID());
+        return parsed.model();
+    }
+
+    private static int checkBudget(Player player, boolean onClick) {
+        if (player.entityTags().contains(SMALL_CHECK_TAG)) {
+            return 3;
         }
+        return onClick ? CHECK_VISITS_PER_CLICK : VISITS_PER_TICK;
+    }
+
+    /** Warnt (Ton + Meldung), wenn die fertige Pruefung Fehlstellen fand; {@code true} = gewarnt. */
+    private static boolean warnIfMissing(Level level, Player player, Planner check) {
+        int missingNow = check.result().missing();
+        if (missingNow <= 0) {
+            return false;
+        }
+        WARNED.put(player.getUUID(), level.getGameTime());
+        level.playSound(null, player.blockPosition(), net.minecraft.sounds.SoundEvents.NOTE_BLOCK_BASS.value(),
+                SoundSource.PLAYERS, 1.0F, 0.6F);
+        tell(player, Component.translatable("simplebuilding.blueprint.build.missing_warning", missingNow).withStyle(ChatFormatting.GOLD));
+        return true;
+    }
+
+    private static void tellChecking(Player player, Planner check) {
+        tell(player, Component.translatable("simplebuilding.blueprint.build.checking", check.index(), check.layout.size())
+                .withStyle(ChatFormatting.AQUA));
+    }
+
+    /**
+     * Legt den Auftrag an, setzt seine erste Scheibe und merkt ihn sich (im Speicher und, solange er
+     * nicht fertig ist, in {@link BlueprintJobs}). {@code index}/{@code placedBefore} setzen einen
+     * gespeicherten Auftrag fort.
+     */
+    private static Result startJob(Level level, Player player, ItemStack wand, ItemStack blueprint, Layout layout,
+                                   BlockPos target, Rotation rotation, BlueprintContent content, boolean creative,
+                                   int index, int placedBefore) {
         Job[] holder = new Job[1];
         Placer placer = new Placer() {
             @Override
@@ -511,11 +647,10 @@ public final class BlueprintBuilder {
             }
         };
         Planner planner = new Planner(level, player, wand, layout, realSupply(player, wand), creative, false);
-        Job job = new Job(planner, player, wand, blueprint, placer, target);
+        planner.resumeAt(index, placedBefore);
+        Job job = new Job(planner, player, wand, blueprint, placer, target, BlueprintJobs.hash(content.code()), content.title(), rotation);
         job.visitsPerTick = BlueprintScanner.smallBudget(player) ? 3 : visitsPerTick(planner.layout.size());
         holder[0] = job;
-        JOBS.remove(player.getUUID());
-        JOBS.values().removeIf(j -> j.player.isRemoved());
         job.lastTick = level.getGameTime();
         step(level, player, job);
         if (!planner.finished()) {
@@ -527,14 +662,41 @@ public final class BlueprintBuilder {
     /**
      * Fuehrt den Bauauftrag des Spielers einen Tick weiter (aus {@code BuildingWandItem#inventoryTick}
      * fuer den Stab in der Haupthand). Bricht ab, wenn Stab oder Blaupause nicht mehr gehalten werden.
+     * Laeuft keiner, aber ein gespeicherter wartet, wird er hier fortgesetzt.
      */
     public static void tick(Level level, Player player, ItemStack wandStack, boolean inMainHand) {
-        Job job = JOBS.get(player.getUUID());
-        if (job == null || job.wand != wandStack) {
+        UUID id = player.getUUID();
+        Job job = JOBS.get(id);
+        if (job != null && job.player != player) {
+            // Derselbe Spieler, aber ein neues Spieler-Objekt: er war offline (oder der Server hat die
+            // Welt neu geladen). Der Auftrag im Speicher gehoert zur alten Sitzung; weiter geht es
+            // ueber den gespeicherten Stand, sobald er Stab und Blaupause wieder haelt.
+            JOBS.remove(id);
+            job = null;
+        }
+        Check check = CHECKS.get(id);
+        if (check != null && check.player != player) {
+            CHECKS.remove(id);
+            check = null;
+        }
+        if (check != null) {
+            tickCheck(level, player, wandStack, inMainHand, check);
+            return;
+        }
+        if (job == null) {
+            if (inMainHand && player.getMainHandItem() == wandStack && level instanceof ServerLevel serverLevel) {
+                resumeSaved(serverLevel, player, wandStack);
+            }
+            return;
+        }
+        if (job.wand != wandStack) {
             return;
         }
         if (!inMainHand || player.getMainHandItem() != wandStack || player.getOffhandItem() != job.blueprint) {
-            JOBS.remove(player.getUUID());
+            JOBS.remove(id);
+            if (level instanceof ServerLevel serverLevel) {
+                BlueprintJobs.clear(serverLevel, id);
+            }
             tell(player, Component.translatable("simplebuilding.blueprint.build.stopped", job.planner.result().placed())
                     .withStyle(ChatFormatting.YELLOW));
             return;
@@ -545,22 +707,107 @@ public final class BlueprintBuilder {
         job.lastTick = level.getGameTime();
         step(level, player, job);
         if (job.planner.finished()) {
-            JOBS.remove(player.getUUID());
+            JOBS.remove(id);
         }
+    }
+
+    /** Ein Tick der Fehlstellen-Pruefung: weiterzaehlen, und wenn sie fertig ist, warnen oder bauen. */
+    private static void tickCheck(Level level, Player player, ItemStack wandStack, boolean inMainHand, Check check) {
+        if (check.wand != wandStack) {
+            return;
+        }
+        if (!inMainHand || player.getMainHandItem() != wandStack || player.getOffhandItem() != check.blueprint) {
+            CHECKS.remove(player.getUUID());
+            tell(player, Component.translatable("simplebuilding.blueprint.build.stopped", 0).withStyle(ChatFormatting.YELLOW));
+            return;
+        }
+        if (level.getGameTime() == check.lastTick) {
+            return;
+        }
+        check.lastTick = level.getGameTime();
+        check.planner.run(checkBudget(player, false), Integer.MAX_VALUE, (pos, state) -> true);
+        if (!check.planner.finished()) {
+            tellChecking(player, check.planner);
+            return;
+        }
+        finishCheck(level, player, check);
+    }
+
+    /** Die Pruefung ist durch: warnen (Zwei-Klick-Regel) oder den Bau beginnen. */
+    private static Result finishCheck(Level level, Player player, Check check) {
+        CHECKS.remove(player.getUUID());
+        Layout layout = check.planner.layout;
+        if (warnIfMissing(level, player, check.planner)) {
+            return new Result(0, 0, 0, 0, check.planner.result().missing(), Map.of(), false, false, layout.size(), true, false);
+        }
+        WARNED.remove(player.getUUID());
+        return startJob(level, player, check.wand, check.blueprint, layout, check.target, check.rotation, check.content,
+                player.getAbilities().instabuild, 0, 0);
+    }
+
+    /**
+     * Setzt den gespeicherten Auftrag des Spielers fort, wenn die Blaupause in der Nebenhand denselben
+     * Code traegt; sonst einmal je Sitzung ein Hinweis, was fehlt.
+     */
+    private static void resumeSaved(ServerLevel level, Player player, ItemStack wand) {
+        BlueprintJobs.Pending pending = BlueprintJobs.get(level, player.getUUID());
+        if (pending == null) {
+            return;
+        }
+        ItemStack blueprint = player.getOffhandItem();
+        BlueprintContent content = blueprint.getItem() instanceof BlueprintItem
+                ? blueprint.getOrDefault(ModDataComponentTypes.BLUEPRINT, BlueprintContent.EMPTY) : null;
+        if (content == null || !content.signed() || !BlueprintJobs.hash(content.code()).equals(pending.codeHash())) {
+            if (HINTED.get(player.getUUID()) != player) {
+                HINTED.put(player.getUUID(), player);
+                HINTED.values().removeIf(Player::isRemoved);
+                tell(player, Component.translatable("simplebuilding.blueprint.build.resume_hint", pending.title(),
+                        pending.target().getX(), pending.target().getY(), pending.target().getZ()).withStyle(ChatFormatting.AQUA));
+            }
+            return;
+        }
+        if (!level.isLoaded(pending.target())) {
+            return;
+        }
+        BlueprintModel model = buildableModel(player, wand, blueprint, true);
+        if (model == null) {
+            return;
+        }
+        Rotation rotation = Rotation.values()[Math.floorMod(pending.rotation(), Rotation.values().length)];
+        Layout layout = layout(model, pending.target(), rotation);
+        HINTED.remove(player.getUUID());
+        tell(player, Component.translatable("simplebuilding.blueprint.build.resumed", pending.index(), layout.size())
+                .withStyle(ChatFormatting.AQUA));
+        startJob(level, player, wand, blueprint, layout, pending.target(), rotation, content,
+                player.getAbilities().instabuild, pending.index(), pending.placed());
     }
 
     /**
      * Baut den laufenden Auftrag des Spielers sofort zu Ende (ohne Tick-Staffel) und liefert den
-     * Endstand; ohne Auftrag {@code null}. Fuer Spieltests, die das Ergebnis eines Baus pruefen
-     * und nicht seine Staffelung.
+     * Endstand; ohne Auftrag {@code null}. Laeuft noch die Fehlstellen-Pruefung, wird zuerst sie zu
+     * Ende gefuehrt (mit ihrer Warnung, falls etwas fehlt). Fuer Spieltests, die das Ergebnis eines
+     * Baus pruefen und nicht seine Staffelung.
      */
     public static Result completeJob(Player player) {
+        Check check = CHECKS.get(player.getUUID());
+        if (check != null) {
+            while (!check.planner.finished()) {
+                check.planner.run(Integer.MAX_VALUE, Integer.MAX_VALUE, (pos, state) -> true);
+            }
+            Result afterCheck = finishCheck(player.level(), player, check);
+            if (afterCheck == null || afterCheck.warned() || afterCheck.finished()) {
+                return afterCheck;
+            }
+        }
         Job job = JOBS.remove(player.getUUID());
         if (job == null) {
             return null;
         }
         while (!job.planner.finished()) {
             job.planner.run(Integer.MAX_VALUE, Integer.MAX_VALUE, job.placer);
+        }
+        if (player.level() instanceof ServerLevel serverLevel) {
+            BlueprintJobs.clear(serverLevel, player.getUUID());
         }
         return job.planner.result();
     }
@@ -570,6 +817,24 @@ public final class BlueprintBuilder {
         return JOBS.containsKey(player.getUUID());
     }
 
+    /** Laeuft fuer diesen Spieler gerade eine Fehlstellen-Pruefung ueber mehrere Ticks? */
+    public static boolean checking(Player player) {
+        return CHECKS.containsKey(player.getUUID());
+    }
+
+    /**
+     * Vergisst, was fuer diesen Spieler nur im Speicher liegt (laufender Auftrag, Pruefung, Warnung) -
+     * genau das, was ein Serverneustart verliert. Gespeichertes in {@link BlueprintJobs} bleibt. Fuer
+     * Spieltests, die das Fortsetzen nach einem Neustart pruefen; nur dieser eine Spieler, weil
+     * andere Tests zur selben Zeit eigene Auftraege laufen haben.
+     */
+    public static void forgetRunningJob(UUID player) {
+        JOBS.remove(player);
+        CHECKS.remove(player);
+        WARNED.remove(player);
+        HINTED.remove(player);
+    }
+
     private static void step(Level level, Player player, Job job) {
         int before = job.planner.result().placed();
         job.planner.run(job.visitsPerTick, Integer.MAX_VALUE, job.placer);
@@ -577,6 +842,14 @@ public final class BlueprintBuilder {
         if (result.placed() > before && job.sound != null) {
             SoundType sound = job.sound;
             level.playSound(null, job.target, sound.getPlaceSound(), SoundSource.BLOCKS, (sound.getVolume() + 1.0F) / 2.0F, sound.getPitch() * 0.8F);
+        }
+        if (level instanceof ServerLevel serverLevel) {
+            if (result.finished()) {
+                BlueprintJobs.clear(serverLevel, player.getUUID());
+            } else {
+                BlueprintJobs.save(serverLevel, new BlueprintJobs.Pending(player.getUUID(), job.codeHash, job.title,
+                        job.target, job.rotation.ordinal(), job.planner.index(), result.placed()));
+            }
         }
         if (result.finished()) {
             tell(player, Component.translatable("simplebuilding.blueprint.build.done", result.placed(), result.missing())
