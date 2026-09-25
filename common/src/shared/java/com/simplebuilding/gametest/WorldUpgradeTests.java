@@ -597,7 +597,7 @@ public final class WorldUpgradeTests {
      * <p>What breaks this: dropping the legacy check in {@code BuildingWandItem#inventoryTick}
      * (the build goes on, from air or a wrong block), or writing numeric ids again.
      */
-    public static void wandMidBuildFromAnOlderVersionStopsInsteadOfBuildingAShiftedBlock(GameTestHelper helper) {
+    public static void wandMidBuildFromAnOlderVersionStopsInsteadOfBuildingOnWithShiftedIds(GameTestHelper helper) {
         ServerPlayer player = detachedPlayer(helper);
         ItemStack wand = new ItemStack(ModItems.ENDERITE_BUILDING_WAND);
         CompoundTag data = new CompoundTag();

@@ -944,7 +944,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("world_upgrade_game_test_saved_data_survives_the_upgrade", WorldUpgradeTests::savedDataSurvivesTheUpgrade)
                     .build(),
-            GameTestSpec.named("world_upgrade_game_test_wand_mid_build_from_an_older_version_stops_instead_of_building_ashifted_block", WorldUpgradeTests::wandMidBuildFromAnOlderVersionStopsInsteadOfBuildingAShiftedBlock)
+            GameTestSpec.named("world_upgrade_game_test_wand_mid_build_from_an_older_version_stops_instead_of_building_on_with_shifted_ids", WorldUpgradeTests::wandMidBuildFromAnOlderVersionStopsInsteadOfBuildingOnWithShiftedIds)
                     .build(),
             GameTestSpec.named("world_upgrade_game_test_backpack_with_an_unreadable_entry_keeps_the_rest", WorldUpgradeTests::backpackWithAnUnreadableEntryKeepsTheRest)
                     .build());

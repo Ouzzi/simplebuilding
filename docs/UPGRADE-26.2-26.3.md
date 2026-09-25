@@ -3,8 +3,8 @@
 Stand 2026-09-25. Frage: Eine Welt, die auf 26.2 mit SimpleBuilding gespielt wurde, wird auf 26.3 mit
 dem 26.3-Build der Mod geoeffnet - bleibt alles, was die Mod gespeichert hat, erhalten?
 
-Kurzantwort: **ja**, mit dem Build ab diesem Stand. Vorher gingen bestimmte Gegenstaende in
-Mod-Behaeltern verloren (siehe 2). Getestet von `WorldUpgradeTests` gegen echte 26.2-Speicherdaten
+Kurzantwort: **ja**, mit dem Build ab diesem Stand. Vorher wurden Vanilla-Aenderungen an
+Gegenstaenden in Mod-Behaeltern nicht angewandt und ein aufsteigender Block wurde zu Sand (siehe 2). Getestet von `WorldUpgradeTests` gegen echte 26.2-Speicherdaten
 in `testing/fixtures/upgrade-26.2/`.
 
 ## 1. Was Vanilla uebernimmt und was nicht
@@ -25,7 +25,7 @@ Was 26.3 an Vanilla-Formaten aendert (DataFixer 4996-5016), und was davon Mod-Da
 | Aenderung in 26.3 | trifft |
 |---|---|
 | Blockzustand `Name`/`Properties` -> `id`/`properties` (BlockStateFieldNamesFix) | aufsteigender Block (Entity), Erzdetektor-Ziel (custom_data) |
-| Entdeckerkarten umbenannt (`ocean_explorer_map` -> `ocean_monument_map` u. a.) | jeder Stapel in Mod-Behaeltern, Magnet-Filter |
+| Entdeckerkarten werden eigene Items (26.2: `minecraft:filled_map` mit Entdecker-Markierung `+`; 26.3: `minecraft:ocean_monument_map` u. a.) | Karten in Mod-Behaeltern |
 | `minecraft:pot_decorations` Liste -> Karte | verzierte Kruege in Mod-Behaeltern |
 | `minecraft:map_color`, `block_transformer` entfernt, `swing_animation` geteilt | Stapel mit diesen Komponenten in Mod-Behaeltern |
 
@@ -39,17 +39,17 @@ geschlossen; Test = welcher Test es belegt.
 | Oktant-Auswahl (custom_data `Pos1`/`Pos2`/`Locked`/`Shape`/`FillOrder`/`Hollow`) | Mod, Zahlen/Strings | OK | modItems |
 | Erzdetektor (custom_data `Mode`, `CustomBlock` via NbtUtils) | Blockzustand | OK - liest schon beide Schreibweisen (Fix vom 2026-09-25) | modItems, OreDetectorTests |
 | Blaupause (`simplebuilding:blueprint` code/title/author/signed, `blueprint_rotation`) | Mod-Codec, Strings | OK | modItems |
-| Rucksack-Item (`simplebuilding:backpack_contents`) | eigene Eintraege `{slot,id,count,components}` | **behoben**: Eintraege gingen am Fixer vorbei; eine Entdeckerkarte oder ein Krug darin liess die **ganze Liste** scheitern -> Rucksack leer | modItems, player |
+| Rucksack-Item (`simplebuilding:backpack_contents`) | eigene Eintraege `{slot,id,count,components}` | **behoben**: Eintraege gingen am Fixer vorbei (Gegenprobe: eine Entdeckerkarte blieb eine gewoehnliche `filled_map` mit altem Namen); zusaetzlich liess ein einziger nicht mehr lesbarer Eintrag die **ganze Liste** scheitern -> Rucksack leer | modItems, player, backpackWithAnUnreadableEntry |
 | Rucksack-Farbe (`minecraft:dyed_color`) | Vanilla | OK | modItems, modBlockEntities |
 | Verstaerkte/Netherit/Enderit-Buendel (`minecraft:bundle_contents`) | Vanilla | OK (im Vanilla-Behaelter); im Rucksack **behoben** | modItems, modBlockEntities |
 | Besatz (`minecraft:trim`) inkl. Mod-Materialien astralit/nihilith/enderite | Registry-Ids | OK - Material-Ids gibt es auf beiden Linien (Registry-Format der Materialien ist neu, die Ids nicht) | modItems |
 | Verzauberungen inkl. Mod-Verzauberungen | Registry-Ids | OK - alle Mod-Verzauberungen existieren auf 26.3 | modItems |
 | Leucht-Aufwertung (`glow_level`, `visual_glow`, `light_source`), `offset`, `coordinates` | Mod-Codecs, Zahlen | OK | modItems |
 | Haltbarkeit / Aufwertungsstufe (eigene Items je Stufe, `minecraft:damage`) | Vanilla | OK | modItems |
-| Magnet-Filter (custom_data `MagnetFilter` = Item-Id) | Item-Id als String | **behoben**: folgt jetzt Vanillas Umbenennungen (Entdeckerkarten) | modItems |
+| Magnet-Filter (custom_data `MagnetFilter` = Item-Id) | Item-Id als String | OK - 26.3 benennt kein Item um, das es auf 26.2 gab (`filled_map` bleibt) | modItems |
 | Baustab-Einstellungen (custom_data `SettingsRadius`/`SettingsAxis`/`Mode`) | Zahlen | OK | modItems |
 | Baustab mitten im Bauen (`BuildBlockRawId`/`CoverBlockRawId`) | **numerische Registry-Id** | **behoben**: jetzt Namen (`BuildBlock`/`CoverBlock`); ein alter laufender Bauvorgang stoppt, statt mit dem Block weiterzubauen, der auf 26.3 diese Nummer hat (26.3 fuegt Bloecke hinzu) | wandMidBuild |
-| Mod-Trichter (Items, `GhostItems`, `FilterMode`, `TransferCooldown`) | Vanilla-Container unter Mod-Id | **behoben** | modBlockEntities |
+| Mod-Trichter (Items, `GhostItems`, `FilterMode`, `TransferCooldown`) | Vanilla-Container unter Mod-Id | **behoben** (Gegenprobe: Entdeckerkarte blieb `filled_map`) | modBlockEntities |
 | Mod-Oefen/Hochoefen/Raeucheroefen (Items, int-Timer, `simplebuilding:bonus_progress`) | wie Vanilla-Ofen unter Mod-Id | **behoben** (Items); Timer/Fortschritt OK | modBlockEntities |
 | Vanilla-Oefen: int-Timer der Mod (`cooking_time_spent` ...) | Vanilla-Schluessel, Mixin | OK | - |
 | Abgestellter Rucksack (`Contents`, `Color`) | wie das Item | **behoben** | modBlockEntities |
@@ -74,8 +74,7 @@ geschlossen; Test = welcher Test es belegt.
    Vanilla-Ding, dem es gleicht: Mod-Trichter/-Oefen als `minecraft:hopper`/`furnace`/
    `blast_furnace`/`smoker` (ihre Klassen erben davon, also gilt jede kuenftige Vanilla-Aenderung
    an diesen Bloecken 1:1 mit), die Eintraege von `Contents`/`backpack_contents`/`GhostItems` als
-   Item-Stapel, der aufsteigende Block als `minecraft:falling_block`, der Magnet-Filter als
-   Item-Name. Nichts wird geraten: fuer aktuelle Daten (`from >= to`) laeuft nichts.
+   Item-Stapel, der aufsteigende Block als `minecraft:falling_block`. Nichts wird geraten: fuer aktuelle Daten (`from >= to`) laeuft nichts.
 2. **Rucksack-Codec liest nachsichtig**: ein Eintrag, der nicht mehr dekodiert (entferntes Item),
    kostet nur diesen Eintrag (Warnung im Log), nicht den ganzen Rucksack.
 3. **Baustab speichert Block-Namen statt Nummern**; alte Nummern halten einen laufenden Bau an.
@@ -92,8 +91,12 @@ geschlossen; Test = welcher Test es belegt.
     **Orakel**: dieselben Vanilla-Stapel liegen in einer Vanilla-Truhe im selben Chunk; was Vanilla
     daraus macht, muss auch aus den Mod-Behaeltern herauskommen. So steht nirgends "auf 26.3 heisst
     die Karte so", und der Test gilt auch fuer 26.4.
-  - `wandMidBuildFromAnOlderVersionStopsInsteadOfBuildingAShiftedBlock`,
+  - `wandMidBuildFromAnOlderVersionStopsInsteadOfBuildingOnWithShiftedIds`,
     `backpackWithAnUnreadableEntryKeepsTheRest` - die zwei toleranten Leser.
+- Gegenproben (2026-09-25, fabric-263): `ModDataFixer` abgeschaltet -> 4 rot (aufsteigender Block
+  wird Sand; Karte in Trichter, Rucksack-Item und Spieler-Rucksack bleibt `filled_map` statt
+  `ocean_monument_map`); Rucksack-Codec wieder streng -> `backpackWithAnUnreadableEntry` rot;
+  Altdaten-Pruefung im Baustab entfernt -> `wandMidBuild` rot.
 - Fixtures neu schreiben (nur noetig, wenn sich ein 26.2-Speicherformat absichtlich aendert - dann
   die alte Datei zusaetzlich behalten, 26.3 muss auch sie lesen):
 
@@ -113,7 +116,7 @@ Servers); wer es trotzdem an einer echten Welt sehen will:
 1. 26.2-Server starten: `./gradlew.bat runServer` (Fabric 26.2, Ordner `run/`), `eula=true` in
    `run/eula.txt`, einloggen oder in der Konsole:
    ```
-   /setblock 0 -60 0 simplebuilding:enderite_hopper{Items:[{Slot:0b,id:"minecraft:ocean_explorer_map",count:1}]}
+   /setblock 0 -60 0 simplebuilding:enderite_hopper{Items:[{Slot:0b,id:"minecraft:filled_map",count:1,components:{"minecraft:map_id":7,"minecraft:map_decorations":{"+":{type:"minecraft:monument",x:128.0d,z:-256.0d,rotation:180.0f}}}}]}
    /setblock 1 -60 0 simplebuilding:enderite_backpack{Color:3368362,Contents:[{slot:0,id:"minecraft:decorated_pot",count:1,components:{"minecraft:pot_decorations":["minecraft:angler_pottery_sherd","minecraft:brick","minecraft:brick","minecraft:skull_pottery_sherd"]}}]}
    /give @p simplebuilding:ore_detector
    /stop
@@ -123,7 +126,7 @@ Servers); wer es trotzdem an einer echten Welt sehen will:
    `/stop`.)
 2. Welt kopieren: `run/world` nach `mc26_3/fabric/run/world` (bzw. den NeoForge-Laufordner).
 3. 26.3-Server starten: `./gradlew.bat :mc26_3:fabric:runServer`, dann
-   `/data get block 0 -60 0 Items` (Karte heisst jetzt `minecraft:ocean_monument_map`) und
+   `/data get block 0 -60 0 Items` (die Karte ist jetzt `minecraft:ocean_monument_map`) und
    `/data get block 1 -60 0 Contents` (Krug mit `pot_decorations` als Karte).
 
 Vor jedem Upgrade einer echten Welt: **Sicherung**. Und zuerst den Mod-Build mit diesem Fix
@@ -138,7 +141,7 @@ nachgebessert (was dabei nicht dekodierte, ist weg).
 - Ein Baustab, der beim Speichern gerade baute, bleibt stehen - einmal neu klicken.
 - Rueckweg 26.3 -> 26.2 (**Downgrade**) wird von Vanilla nicht unterstuetzt (Minecraft warnt beim
   Oeffnen, Chunks mit neuerer Datenversion werden nicht zurueckgewandelt) und von der Mod ebenso
-  wenig. Ein 26.3-Blockzustand (`id`/`properties`) im aufsteigenden Block, eine umbenannte Karte im
+  wenig. Ein 26.3-Blockzustand (`id`/`properties`) im aufsteigenden Block, eine 26.3-Entdeckerkarte im
   Rucksack usw. liest 26.2 nicht. Nur ueber eine Sicherung zurueck.
 
 ## 7. Grenzen

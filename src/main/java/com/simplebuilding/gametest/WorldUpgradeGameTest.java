@@ -41,8 +41,8 @@ public final class WorldUpgradeGameTest {
     }
 
     @GameTest
-    public void wandMidBuildFromAnOlderVersionStopsInsteadOfBuildingAShiftedBlock(GameTestHelper helper) {
-        WorldUpgradeTests.wandMidBuildFromAnOlderVersionStopsInsteadOfBuildingAShiftedBlock(helper);
+    public void wandMidBuildFromAnOlderVersionStopsInsteadOfBuildingOnWithShiftedIds(GameTestHelper helper) {
+        WorldUpgradeTests.wandMidBuildFromAnOlderVersionStopsInsteadOfBuildingOnWithShiftedIds(helper);
     }
 
     @GameTest
