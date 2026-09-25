@@ -11,6 +11,9 @@ import com.simplebuilding.trim.ModTrimMaterials;
 import com.simplebuilding.util.SurvivalTracerAccessor;
 import com.simplebuilding.util.TrimBenefitUser;
 import com.simplebuilding.util.TrimEffectUtil;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import com.simplebuilding.util.TrimAttributeHandler;
 import com.simplebuilding.util.TrimMultiplierLogic;
 import java.util.HashMap;
 import java.util.List;
@@ -225,7 +228,7 @@ public final class TrimWiringTests {
                         + ", which is outside the 0..1 band the whole multiplier is built on");
         assertClose(helper, TrimMultiplierLogic.calculateCombatMultiplier(player), floor,
                 "the combat curve starts from a different floor than the survival curve");
-        player.experienceLevel = 0;
+        player.totalExperience = 0;
         assertClose(helper, TrimMultiplierLogic.calculateXPMultiplier(player), floor,
                 "the experience curve starts from a different floor than the survival curve");
 
@@ -240,13 +243,13 @@ public final class TrimWiringTests {
         // so the amplitude of the exponential cancels out of all three of them. Pinning the top end
         // against the experience curve is what stops a shrunken amplitude - a fully progressed
         // player quietly getting a fraction of the trim benefits they earned - from passing here.
-        player.experienceLevel = 100;
+        player.totalExperience = TrimMultiplierLogic.XP_POINTS_FOR_FULL_FACTOR;
         assertClose(helper, TrimMultiplierLogic.calculateXPMultiplier(player), ceiling,
                 "the survival curve saturates at " + ceiling + " where the experience curve reaches "
                         + TrimMultiplierLogic.calculateXPMultiplier(player) + "; the three factors "
                         + "no longer share one 0.1..1.0 band, so a fully progressed player gets a "
                         + "fraction of the multiplier the design promises");
-        player.experienceLevel = 0;
+        player.totalExperience = 0;
 
         // --- centimetres into metres, and all five counters into one sum ---
         clearProgress(helper, player);
@@ -278,7 +281,7 @@ public final class TrimWiringTests {
 
         // --- the play time scale ---
         clearProgress(helper, player);
-        setStat(player, Stats.PLAY_TIME, 72_000);
+        tracker.simplebuilding$setActiveTime(72_000);
         double atOneHour = TrimMultiplierLogic.calculateSurvivalMultiplier(player);
         assertRelative(helper, curveScale(72_000.0, atOneHour, floor, ceiling), 72_000.0,
                 "the play time scale of the survival curve");
@@ -291,13 +294,13 @@ public final class TrimWiringTests {
         double atFourHundredMetres = TrimMultiplierLogic.calculateSurvivalMultiplier(player);
         helper.assertTrue(atFourHundredMetres < atOneHour,
                 "test setup broken: 400 m is no longer the weaker half against an hour of play");
-        setStat(player, Stats.PLAY_TIME, 72_000);
+        tracker.simplebuilding$setActiveTime(72_000);
         assertClose(helper, TrimMultiplierLogic.calculateSurvivalMultiplier(player), atOneHour,
                 "an hour of play plus 400 m walked did not come out as the better of the two");
 
         clearProgress(helper, player);
         setStat(player, Stats.WALK_ONE_CM, 400_000);
-        setStat(player, Stats.PLAY_TIME, 7_200);
+        tracker.simplebuilding$setActiveTime(7_200);
         assertClose(helper, TrimMultiplierLogic.calculateSurvivalMultiplier(player), atFourThousandMetres,
                 "4000 m walked plus six minutes of play did not come out as the better of the two");
 
@@ -488,6 +491,8 @@ public final class TrimWiringTests {
         ServerPlayer saver = detachedPlayer(helper, new Vec3(2.5, 2.0, 2.5));
         SurvivalTracerAccessor saverTracker = tracker(helper, saver);
         saverTracker.simplebuilding$setBaseValues(11, 22, 33, 44, 55);
+        saverTracker.simplebuilding$setBaseXp(66);
+        saverTracker.simplebuilding$setActiveTime(77);
         for (int i = 0; i < 3; i++) {
             saver.awardKillScore(hostile, anyKill);
         }
@@ -509,6 +514,8 @@ public final class TrimWiringTests {
         assertField(helper, data, "BaseDamage", 55);
         assertField(helper, data, "TotalHostile", 3);
         assertField(helper, data, "TotalPassive", 2);
+        assertField(helper, data, "BaseXp", 66);
+        assertField(helper, data, "ActiveTicks", 77);
 
         // ---------- the load ----------
         // A second, fresh player, so that every number arriving on the other side really came out
@@ -524,6 +531,8 @@ public final class TrimWiringTests {
         replacement.putInt("BaseDamage", 105);
         replacement.putInt("TotalHostile", 106);
         replacement.putInt("TotalPassive", 107);
+        replacement.putInt("BaseXp", 108);
+        replacement.putInt("ActiveTicks", 109);
         handWritten.put("SimpleBuildingData", replacement);
         loader.load(TagValueInput.create(
                 ProblemReporter.DISCARDING, helper.getLevel().registryAccess(), handWritten));
@@ -535,11 +544,25 @@ public final class TrimWiringTests {
         helper.assertValueEqual(loaderTracker.simplebuilding$getBaseDamageTaken(), 105, "BaseDamage after loading");
         helper.assertValueEqual(loaderTracker.simplebuilding$getCurrentHostileKills(), 106, "TotalHostile after loading");
         helper.assertValueEqual(loaderTracker.simplebuilding$getCurrentPassiveKills(), 107, "TotalPassive after loading");
+        helper.assertValueEqual(loaderTracker.simplebuilding$getBaseXp(), 108, "BaseXp after loading");
+        helper.assertValueEqual(loaderTracker.simplebuilding$getCurrentTime(), 109, "ActiveTicks after loading");
+        // A save from before the active clock existed: its BaseTime was a play time statistic and
+        // does not fit the new counter, so both start from zero.
+        ServerPlayer legacy = detachedPlayer(helper, new Vec3(6.5, 2.0, 2.5));
+        CompoundTag legacyTag = saved.copy();
+        CompoundTag legacyData = replacement.copy();
+        legacyData.remove("ActiveTicks");
+        legacyTag.put("SimpleBuildingData", legacyData);
+        legacy.load(TagValueInput.create(ProblemReporter.DISCARDING, helper.getLevel().registryAccess(), legacyTag));
+        helper.assertValueEqual(tracker(helper, legacy).simplebuilding$getBaseTime(), 0,
+                "a save without ActiveTicks kept its play-time BaseTime, which would hold the time factor at its floor for hours");
 
         // ---------- the respawn ----------
         ServerPlayer dead = detachedPlayer(helper, new Vec3(2.5, 2.0, 4.5));
         SurvivalTracerAccessor deadTracker = tracker(helper, dead);
         deadTracker.simplebuilding$setBaseValues(11, 22, 33, 44, 55);
+        deadTracker.simplebuilding$setBaseXp(66);
+        deadTracker.simplebuilding$setActiveTime(5678);
         for (int i = 0; i < 7; i++) {
             dead.awardKillScore(hostile, anyKill);
         }
@@ -562,6 +585,10 @@ public final class TrimWiringTests {
                 "the peaceful kill baseline was rebased by a respawn that was not a death");
         helper.assertValueEqual(travelledTracker.simplebuilding$getBaseDamageTaken(), 55,
                 "the damage baseline was rebased by a respawn that was not a death");
+        helper.assertValueEqual(travelledTracker.simplebuilding$getBaseXp(), 66,
+                "the experience baseline was rebased by a respawn that was not a death");
+        helper.assertValueEqual(travelledTracker.simplebuilding$getCurrentTime(), 5678,
+                "the active time did not follow the player through the portal");
         helper.assertValueEqual(travelledTracker.simplebuilding$getCurrentHostileKills(), 7,
                 "the hostile kill tally did not follow the player through the portal");
         helper.assertValueEqual(travelledTracker.simplebuilding$getCurrentPassiveKills(), 4,
@@ -577,7 +604,11 @@ public final class TrimWiringTests {
                 "after a death the distance baseline has to be the respawning player's own distance "
                         + "in metres, summed over all five counters and each divided by 100");
         helper.assertValueEqual(respawnedTracker.simplebuilding$getBaseTime(), 5678,
-                "after a death the time baseline has to be the respawning player's own play time");
+                "after a death the time baseline has to be the active time carried over from the old life");
+        helper.assertValueEqual(respawnedTracker.simplebuilding$getCurrentTime(), 5678,
+                "the active time counter was not carried over into the new life");
+        helper.assertValueEqual(respawnedTracker.simplebuilding$getBaseXp(), respawned.totalExperience,
+                "after a death the experience baseline has to be the experience the new life starts with");
         helper.assertValueEqual(respawnedTracker.simplebuilding$getBaseDamageTaken(), 91,
                 "after a death the damage baseline has to be the respawning player's own damage taken");
         helper.assertValueEqual(respawnedTracker.simplebuilding$getCurrentHostileKills(), 7,
@@ -610,37 +641,18 @@ public final class TrimWiringTests {
     // =====================================================================================
 
     /**
-     * The three deliveries of {@code PlayerEntityMixin} that no test could reach before - walking
-     * speed, hunger and experience - each together with the guard that decides when it applies.
+     * The deliveries that ride on the player: walking speed, swimming, luck, block reach and
+     * knockback resistance as vanilla attribute modifiers (TrimAttributeHandler), hunger and
+     * experience through {@code PlayerEntityMixin} - each together with the guard that decides when
+     * it applies.
      *
-     * <p>{@code TrimEffectTests#trimBonusesReachThePlayerThroughTheMixins} already shows that
-     * {@code getSpeed} picks the bolt bonus up while standing. What it cannot show is the condition
-     * around it: the bonus is meant to be a <em>land</em> bonus and has to stand down while the
-     * wearer is swimming or gliding. Both states are checked with a bolt trim and nothing else on,
-     * so those readings are the player's own untrimmed speed.
-     *
-     * <p>The tide (swim) bonus is then asserted on that same player, and that assertion is the
-     * whole point of this paragraph. The bonus used to be injected into
-     * {@code LivingEntity#getSpeed} only - but {@code Player#getSpeed} <em>overrides</em> that
-     * method with {@code (float) getAttributeValue(MOVEMENT_SPEED)} and never calls {@code super},
-     * so for every player the injection was dead code. It now sits in {@code PlayerEntityMixin}
-     * beside the land branch. It is still measured on an armour stand as well, because the
-     * {@code LivingEntityMixin} injection stays in place for non-players and that is the only
-     * wearer left that can prove it.
-     *
-     * <p><b>Why the bonus stays weak in an actual game, and why this test is nevertheless right.</b>
-     * Vanilla's {@code LivingEntity#travelInWater} uses {@code getSpeed()} only in proportion to
-     * {@code Attributes.WATER_MOVEMENT_EFFICIENCY}: it starts from a fixed {@code speed = 0.02F}
-     * and then does {@code speed += (getSpeed() - speed) * waterWalker}, where {@code waterWalker}
-     * is that attribute (halved while off the ground). Depth Strider is what raises the attribute;
-     * without it {@code waterWalker} is {@code 0}, the {@code if} is skipped, and swimming speed is
-     * the flat {@code 0.02F} no matter what {@code getSpeed()} returns. So a swimmer in a full tide
-     * set moves measurably faster only with Depth Strider on. This test asserts the value
-     * {@code getSpeed()} hands over, which is the part the mod owns; a later reader who swims in
-     * game, feels nothing and concludes the test is lying should look at the attribute, not here.
-     *
-     * <p>On the armour stand both halves of the guard are real as well: the multiplier only applies
-     * while {@code isSwimming()}, and only to a wearer that has a tide trim on.
+     * <p>Since 2026-09 the movement bonuses are no longer bent into {@code getSpeed}; they are
+     * transient modifiers on {@code movement_speed} (Bolt, Redstone - players only) and on
+     * {@code water_movement_efficiency} (Tide - every wearer, so it works without Depth Strider).
+     * The test first proves the handler is what delivers them (nothing moves before it has run),
+     * then that {@code LivingEntity#tick} runs it on its own within one 10 tick period, that a
+     * non-player wearer gets the tide modifier but no walking bonus, and that switching the trim
+     * benefits off takes every modifier away again.
      *
      * <p>Hunger and experience both ride on {@code @ModifyVariable} at the head of a vanilla
      * method, which is the kind of injection that fails silently - the method still runs, the
@@ -656,10 +668,11 @@ public final class TrimWiringTests {
      * <p>The player has to be made non-invulnerable first, because {@code Player#causeFoodExhaustion}
      * returns immediately for an invulnerable player and the creative mock is one.
      *
-     * <p>What breaks this: any of the four injections leaving the mixin config, the swim/glide
-     * condition on the walking bonus, the swim branch falling back to {@code LivingEntity#getSpeed}
-     * where no player ever arrives, the sprint condition on the exhaustion reduction, the rounding
-     * of the experience gain, or the guard against non-positive gains.
+     * <p>What breaks this: the attribute handler not running from {@code LivingEntity#tick}, a
+     * modifier with the wrong attribute, amount or operation, the walking bonus reaching non-players,
+     * the benefit switch not clearing the modifiers, the hunger or experience injections leaving the
+     * mixin config, the sprint condition on the exhaustion reduction, the rounding of the experience
+     * gain, or the guard against non-positive gains.
      */
     public static void thePlayerMixinDeliversSpeedHungerAndExperienceBehindItsGuards(GameTestHelper helper) {
         double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
@@ -674,8 +687,9 @@ public final class TrimWiringTests {
             Holder<TrimPattern> raiser = pattern(helper, TrimPatterns.RAISER);
             pinProgressMultiplier(helper, player, 1.0);
 
-            // --- walking speed, and the two states it has to stand down in ---
+            // --- walking speed: a movement_speed modifier, delivered by TrimAttributeHandler ---
             bare(player);
+            TrimAttributeHandler.update(player);
             float bareSpeed = player.getSpeed();
             helper.assertTrue(bareSpeed > 0.0F,
                     "the mock player's movement speed is " + bareSpeed + ", so multiplying it could "
@@ -685,59 +699,73 @@ public final class TrimWiringTests {
             helper.assertTrue(landMultiplier > 1.0F,
                     "test setup broken: a full bolt set is worth a land speed multiplier of "
                             + landMultiplier);
-            assertClose(helper, player.getSpeed(), bareSpeed * landMultiplier,
-                    "Player.getSpeed did not pick up the bolt trim bonus");
-
-            player.setSwimming(true);
             assertClose(helper, player.getSpeed(), bareSpeed,
-                    "the land speed bonus of a bolt trim kept running while the player was swimming");
-            player.setSwimming(false);
+                    "the walking bonus arrived before the attribute handler ran, so something other "
+                            + "than the movement_speed modifier is still bending getSpeed");
+            // LivingEntity#tick runs the handler on its own, once per 10 tick period.
+            for (int tick = 0; tick < TrimAttributeHandler.INTERVAL; tick++) {
+                tickAt(player, 300 + tick);
+            }
             assertClose(helper, player.getSpeed(), bareSpeed * landMultiplier,
-                    "the land speed bonus did not come back once the player stopped swimming");
+                    "Player.getSpeed did not pick up the bolt trim bonus within one attribute period; "
+                            + "the movement_speed modifier is not being set by LivingEntity#tick");
+            AttributeModifier walking = player.getAttribute(Attributes.MOVEMENT_SPEED)
+                    .getModifier(TrimAttributeHandler.WALKING_SPEED_ID);
+            helper.assertTrue(walking != null
+                            && walking.operation() == AttributeModifier.Operation.ADD_MULTIPLIED_BASE
+                            && Math.abs(walking.amount() - (landMultiplier - 1.0F)) < 1.0e-5,
+                    "the walking bonus is not the vanilla modifier it is documented as: " + walking);
 
-            player.startFallFlying();
-            assertClose(helper, player.getSpeed(), bareSpeed,
-                    "the land speed bonus of a bolt trim kept running under an elytra");
-            player.stopFallFlying();
-            assertClose(helper, player.getSpeed(), bareSpeed * landMultiplier,
-                    "the land speed bonus did not come back once the player stopped gliding");
-
-            // --- the swim bonus on the player itself; Player.getSpeed hides LivingEntity.getSpeed ---
+            // --- swimming (tide): water_movement_efficiency, the attribute Depth Strider raises ---
             wear(player, copper, tide, 4);
-            float playerSwimMultiplier = TrimEffectUtil.getSwimSpeedMultiplier(player);
-            helper.assertTrue(playerSwimMultiplier > 1.0F,
-                    "test setup broken: a full tide set is worth a swim multiplier of "
-                            + playerSwimMultiplier);
+            TrimAttributeHandler.update(player);
+            float swimBonus = TrimEffectUtil.getSwimSpeedMultiplier(player) - 1.0F;
+            helper.assertTrue(swimBonus > 0.0F,
+                    "test setup broken: a full tide set is worth a swim bonus of " + swimBonus);
+            assertClose(helper, player.getAttributeValue(Attributes.WATER_MOVEMENT_EFFICIENCY), swimBonus,
+                    "a full tide set did not raise water_movement_efficiency, so tide still does "
+                            + "nothing without Depth Strider");
             assertClose(helper, player.getSpeed(), bareSpeed,
-                    "the tide bonus applied to a player who was standing on dry land");
-            player.setSwimming(true);
-            assertClose(helper, player.getSpeed(), bareSpeed * playerSwimMultiplier,
-                    "Player.getSpeed did not pick up the tide trim bonus while swimming; an "
-                            + "injection into LivingEntity.getSpeed cannot deliver it, because "
-                            + "Player overrides that method and never calls super");
-            player.setSwimming(false);
-            assertClose(helper, player.getSpeed(), bareSpeed,
-                    "the tide bonus kept running once the player stopped swimming");
+                    "the walking bonus of the bolt set survived taking the bolt set off");
 
-            // --- the same bonus on a non-player wearer, which LivingEntityMixin still serves ---
+            // --- luck (host), block reach (shaper), knockback resistance (resin) ---
+            wear(player, copper, pattern(helper, TrimPatterns.HOST), 4);
+            TrimAttributeHandler.update(player);
+            assertClose(helper, player.getAttributeValue(Attributes.LUCK), TrimEffectUtil.getLuckBonus(player),
+                    "the host luck bonus is not a luck attribute modifier");
+            double bareReach = player.getAttributeBaseValue(Attributes.BLOCK_INTERACTION_RANGE);
+            wear(player, copper, pattern(helper, TrimPatterns.SHAPER), 4);
+            TrimAttributeHandler.update(player);
+            assertClose(helper, player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE), bareReach + 1.0,
+                    "a full shaper set at resonance 1.0 is worth 4 x 0.25 blocks of reach");
+            wear(player, material(helper, TrimMaterials.RESIN), pattern(helper, TrimPatterns.SHAPER), 4);
+            TrimAttributeHandler.update(player);
+            assertClose(helper, player.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE), 0.1,
+                    "a full resin set at resonance 1.0 is worth 4 x 0.025 knockback resistance");
+
+            // --- the benefit switch takes every modifier away again ---
+            TrimBenefitUser gate = (TrimBenefitUser) player;
+            gate.simplebuilding$setTrimBenefitsEnabled(false);
+            TrimAttributeHandler.update(player);
+            assertClose(helper, player.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE), 0.0,
+                    "the knockback modifier survived the trim benefit switch");
+            assertClose(helper, player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE), bareReach,
+                    "the reach modifier survived the trim benefit switch");
+            gate.simplebuilding$setTrimBenefitsEnabled(true);
+
+            // --- a non-player wearer: tide yes, walking bonus no (that one is for players) ---
             ArmorStand stand = helper.spawn(EntityTypes.ARMOR_STAND, new BlockPos(1, 2, 1));
-            bare(stand);
-            stand.setSpeed(0.25F);
-            assertClose(helper, stand.getSpeed(), 0.25,
-                    "test setup broken: LivingEntity.getSpeed no longer reports what setSpeed was given");
             wear(stand, copper, tide, 4);
-            assertClose(helper, stand.getSpeed(), 0.25,
-                    "the tide bonus applied to a wearer that was not swimming");
-            stand.setSwimming(true);
-            float swimMultiplier = TrimEffectUtil.getSwimSpeedMultiplier(stand);
-            helper.assertTrue(swimMultiplier > 1.0F,
-                    "test setup broken: a full tide set is worth a swim multiplier of " + swimMultiplier);
-            assertClose(helper, stand.getSpeed(), 0.25 * swimMultiplier,
-                    "LivingEntity.getSpeed did not pick up the tide trim bonus while swimming");
+            TrimAttributeHandler.update(stand);
+            assertClose(helper, stand.getAttributeValue(Attributes.WATER_MOVEMENT_EFFICIENCY),
+                    TrimEffectUtil.getSwimSpeedMultiplier(stand) - 1.0F,
+                    "a tide-trimmed armour stand did not get the water_movement_efficiency modifier");
+            wear(stand, copper, bolt, 4);
+            TrimAttributeHandler.update(stand);
+            helper.assertTrue(stand.getAttribute(Attributes.MOVEMENT_SPEED)
+                            .getModifier(TrimAttributeHandler.WALKING_SPEED_ID) == null,
+                    "a bolt-trimmed armour stand got the walking speed modifier; it is a player bonus");
             bare(stand);
-            assertClose(helper, stand.getSpeed(), 0.25,
-                    "an untrimmed swimmer was handed a speed bonus");
-            stand.setSwimming(false);
 
             // --- exhaustion, and the sprint condition on it ---
             wear(player, copper, wayfinder, 4);
@@ -1172,6 +1200,56 @@ public final class TrimWiringTests {
         helper.succeed();
     }
 
+
+    /**
+     * The time half of the survival factor counts only active play: every 20 ticks the tracker adds
+     * 20 ticks if the player's travelled distance changed within the last minute (1200 ticks).
+     * Standing AFK stops the clock after that grace minute; moving again restarts it. Driven through
+     * the real {@code ServerPlayer#tick} (the injection sits at its tail), one call per look.
+     *
+     * <p>What breaks this: the tick injection leaving the mixin, counting plain play time again, the
+     * grace window growing or disappearing, or the counter not feeding the survival curve.
+     */
+    public static void survivalTimeCountsOnlyWhileThePlayerMoves(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        player.connection.handleAcceptPlayerLoad(new ServerboundPlayerLoadedPacket());
+        SurvivalTracerAccessor tracker = tracker(helper, player);
+        clearProgress(helper, player);
+
+        // First look at the distance: nothing counts yet, there is no earlier reading to compare.
+        serverTickAt(player, 20);
+        int start = tracker.simplebuilding$getCurrentTime();
+
+        // Moving: the distance changes between two looks, so the next looks count.
+        setStat(player, Stats.WALK_ONE_CM, 500);
+        serverTickAt(player, 40);
+        serverTickAt(player, 60);
+        int moving = tracker.simplebuilding$getCurrentTime() - start;
+        helper.assertTrue(moving == 40,
+                "two looks right after moving added " + moving + " ticks of active time instead of 40");
+
+        // Standing still: the grace minute keeps counting, after it nothing does.
+        int beforeIdle = tracker.simplebuilding$getCurrentTime();
+        serverTickAt(player, 1240);
+        int insideGrace = tracker.simplebuilding$getCurrentTime() - beforeIdle;
+        helper.assertTrue(insideGrace == 20,
+                "a look inside the grace minute after the last step added " + insideGrace + " ticks instead of 20");
+        int afterGrace = tracker.simplebuilding$getCurrentTime();
+        serverTickAt(player, 2000);
+        serverTickAt(player, 4000);
+        helper.assertTrue(tracker.simplebuilding$getCurrentTime() == afterGrace,
+                "an AFK player kept earning active time: " + (tracker.simplebuilding$getCurrentTime() - afterGrace)
+                        + " ticks after the grace minute");
+
+        // And it feeds the curve: an hour of active time is the same as the old hour of play time.
+        tracker.simplebuilding$setActiveTime(72_000);
+        tracker.simplebuilding$setBaseValues(0, 0, 0, 0, 0);
+        helper.assertTrue(TrimMultiplierLogic.calculateSurvivalMultiplier(player) > 0.6,
+                "an hour of active time did not move the survival factor");
+        clearProgress(helper, player);
+        helper.succeed();
+    }
+
     /**
      * {@code /simplebuilding config setTrimMultiplier} - the one switch that scales every trim
      * bonus in the game at runtime - driven through the server's own command dispatcher.
@@ -1356,9 +1434,11 @@ public final class TrimWiringTests {
         setStat(player, Stats.CROUCH_ONE_CM, 0);
         setStat(player, Stats.FLY_ONE_CM, 0);
         setStat(player, Stats.CLIMB_ONE_CM, 0);
-        setStat(player, Stats.PLAY_TIME, 0);
         setStat(player, Stats.DAMAGE_TAKEN, 0);
+        tracker(helper, player).simplebuilding$setActiveTime(0);
         tracker(helper, player).simplebuilding$setBaseValues(0, 0, 0, 0, 0);
+        tracker(helper, player).simplebuilding$setBaseXp(0);
+        player.totalExperience = 0;
     }
 
     /**
@@ -1368,7 +1448,7 @@ public final class TrimWiringTests {
     private static void rebaseKills(ServerPlayer player, SurvivalTracerAccessor tracker, int offset) {
         tracker.simplebuilding$setBaseValues(
                 stat(player, Stats.WALK_ONE_CM) / 100,
-                stat(player, Stats.PLAY_TIME),
+                tracker.simplebuilding$getCurrentTime(),
                 tracker.simplebuilding$getCurrentHostileKills() + offset,
                 tracker.simplebuilding$getCurrentPassiveKills() + offset,
                 0);
@@ -1397,7 +1477,6 @@ public final class TrimWiringTests {
         setStat(player, Stats.CROUCH_ONE_CM, 300);
         setStat(player, Stats.FLY_ONE_CM, 400);
         setStat(player, Stats.CLIMB_ONE_CM, 500);
-        setStat(player, Stats.PLAY_TIME, 5_678);
         setStat(player, Stats.DAMAGE_TAKEN, 91);
     }
 
@@ -1529,6 +1608,12 @@ public final class TrimWiringTests {
      * one here made every cadence assertion read a tick that is one short of the period, so the
      * branch under test never fired.
      */
+    /** One {@code ServerPlayer#tick} (not the movement tick {@link #tickAt} drives) at a given tick count. */
+    private static void serverTickAt(ServerPlayer player, int atTick) {
+        player.tickCount = atTick;
+        player.tick();
+    }
+
     private static void tickAt(ServerPlayer player, int atTick) {
         player.tickCount = atTick;
         player.connection.tick();

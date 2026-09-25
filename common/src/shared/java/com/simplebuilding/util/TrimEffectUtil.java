@@ -35,10 +35,12 @@ public class TrimEffectUtil {
     public static final float WILD_THORNS = 0.10f;
     public static final float DUNE_BLAST = 0.08f;
     public static final float COAST_DROWN = 0.10f;
-    public static final float COAST_AIR_SAVE = 0.20f;
+    /** War 0,20 - der 75-%-Deckel war schon bei Resonanz 0,94 erreicht. */
+    public static final float COAST_AIR_SAVE = 0.10f;
     public static final float WARD_ALL = 0.03f;
     public static final float SILENCE_SONIC = 0.20f;
-    public static final float SILENCE_STEALTH = 0.15f;
+    /** War 0,15 - der 50-%-Deckel war schon bei Resonanz 0,83 erreicht. */
+    public static final float SILENCE_STEALTH = 0.08f;
     public static final float SNOUT_FIRE = 0.05f;
     public static final float RIB_WITHER = 0.10f;
     public static final int RIB_WITHER_TICKS = 40;
@@ -50,7 +52,10 @@ public class TrimEffectUtil {
     public static final float TIDE_SWIM = 0.10f;
     public static final float WAYFINDER_SPRINT_HUNGER = 0.10f;
     public static final float RAISER_XP = 0.10f;
-    public static final float HOST_LUCK = 1.0f;
+    /** War 1,0 - der +3-Deckel war schon bei Resonanz 0,75 erreicht. */
+    public static final float HOST_LUCK = 0.5f;
+    /** Blockreichweite (Vanilla-Attribut block_interaction_range) in Bloecken. */
+    public static final float SHAPER_REACH = 0.25f;
 
     // --- MATERIAL-RATEN (je Teil, Resonanz 1,0) ---
     public static final float DIAMOND_PHYSICAL = 0.03f;
@@ -68,6 +73,10 @@ public class TrimEffectUtil {
     public static final float NIHILITH_PHYSICAL = 0.02f;
     public static final float REDSTONE_SPEED = 0.03f;
     public static final float AMETHYST_HEAL_CHANCE = 0.25f;
+    /** Billiges Gegenstueck zum Bolt-Muster. */
+    public static final float COPPER_LIGHTNING = 0.10f;
+    /** Rueckstossresistenz (Vanilla-Attribut knockback_resistance, 1,0 = keiner). */
+    public static final float RESIN_KNOCKBACK_RESISTANCE = 0.025f;
 
     // --- DECKEL (gelten nach Resonanz und Teilezahl) ---
     /** Hoechstens 80 % weniger Schaden je Treffer - so weit reicht auch Vanillas Schutz-Deckel. War 90 %. */
@@ -85,7 +94,10 @@ public class TrimEffectUtil {
     public static final float MAX_XP_BONUS = 0.5f;
     /** Wie Schnelligkeit I. War unbegrenzt. */
     public static final float MAX_LAND_SPEED_BONUS = 0.2f;
+    /** Wassertritt-Effizienz (water_movement_efficiency): 0,5 liegt zwischen Wassertritt I und II. */
     public static final float MAX_SWIM_SPEED_BONUS = 0.5f;
+    /** So viel wie vier normale Shaper-Teile bei voller Resonanz. */
+    public static final float MAX_REACH_BONUS = 2.0f;
     /** 5 s. War unbegrenzt - ein voller Satz loeschte jede Wither-Wirkung unter 16 s sofort. */
     public static final int MAX_WITHER_REDUCTION_TICKS = 100;
     public static final float MAX_HEAL_CHANCE = 1.0f;
@@ -229,12 +241,19 @@ public class TrimEffectUtil {
         return count;
     }
 
-    private static void applyStasisEffect(Player player, double multiplier, int pieces) {
+    /**
+     * Resistenz-Stufe des Enderscape-Stasis-Musters: ab Punktzahl 2 Resistenz I, ab 8 Resistenz II,
+     * hoechstens II (vorher III ab 15, erreichbar mit hochgesetzter Basis); -1 = keine.
+     */
+    public static int stasisAmplifier(double multiplier, int pieces) {
         double powerScore = multiplier * pieces;
-        int amplifier = -1;
-        if (powerScore >= 15.0) amplifier = 2;
-        else if (powerScore >= 8.0) amplifier = 1;
-        else if (powerScore >= 2.0) amplifier = 0;
+        if (powerScore >= 8.0) return 1;
+        if (powerScore >= 2.0) return 0;
+        return -1;
+    }
+
+    private static void applyStasisEffect(Player player, double multiplier, int pieces) {
+        int amplifier = stasisAmplifier(multiplier, pieces);
 
         if (amplifier >= 0) {
             player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 80, amplifier, true, false, true));
@@ -264,7 +283,11 @@ public class TrimEffectUtil {
         if (source.is(DamageTypes.DRAGON_BREATH)) multiplier -= calculateReduction(entity, "eye", EYE_DRAGON_BREATH, progressMult);
         if (source.is(DamageTypeTags.IS_FALL)) multiplier -= calculateReduction(entity, "spire", SPIRE_FALL, progressMult);
         if (source.getDirectEntity() != null && source.getDirectEntity().getType().toString().contains("wind_charge")) multiplier -= calculateReduction(entity, "flow", FLOW_WIND_CHARGE, progressMult);
-        if (source.is(DamageTypes.LIGHTNING_BOLT)) multiplier -= calculateReduction(entity, "bolt", BOLT_LIGHTNING, progressMult);
+        if (source.is(DamageTypes.LIGHTNING_BOLT)) {
+            multiplier -= calculateReduction(entity, "bolt", BOLT_LIGHTNING, progressMult);
+            int copperParts = getMaterialCount(entity, "copper");
+            if (copperParts > 0) multiplier -= (copperParts * COPPER_LIGHTNING * progressMult);
+        }
 
         // B. TRIM MATERIALS
         // --- Vanilla Materials ---
@@ -297,8 +320,9 @@ public class TrimEffectUtil {
 
         // --- NEUE MATERIALIEN ---
 
-        // Enderite: All-Round-Schutz (wie das Ward-Muster, aber als Material) gegen JEDEN Schaden.
-        int enderiteParts = getMaterialCount(entity, "enderite");
+        // Enderite: All-Round-Schutz (wie das Ward-Muster, aber als Material) gegen jeden Schaden,
+        // ausser dem, der die Unverwundbarkeit umgeht (/kill, die Leere).
+        int enderiteParts = source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) ? 0 : getMaterialCount(entity, "enderite");
         if (enderiteParts > 0) {
             generic += (enderiteParts * ENDERITE_ALL * progressMult);
         }
@@ -360,7 +384,7 @@ public class TrimEffectUtil {
         baseBonus += (quartzCount * QUARTZ_XP);
         return 1.0f + Math.min(baseBonus * progressMult, MAX_XP_BONUS);
     }
-    public static float getLuckBonus(Player player) {
+    public static float getLuckBonus(LivingEntity player) {
         float progressMult = getGlobalMultiplier(player);
         float hostCount = getTrimCount(player, "host");
         int emeraldCount = getMaterialCount(player, "emerald");
@@ -393,5 +417,19 @@ public class TrimEffectUtil {
         int amethystCount = getMaterialCount(entity, "amethyst");
         if (amethystCount <= 0) return 0f;
         return Math.min(amethystCount * AMETHYST_HEAL_CHANCE * progressMult, MAX_HEAL_CHANCE);
+    }
+
+    /** Rueckstossresistenz aus Harz-Besatz (Material, je Teil). */
+    public static float getKnockbackResistanceBonus(LivingEntity entity) {
+        int resinCount = getMaterialCount(entity, "resin");
+        if (resinCount <= 0) return 0f;
+        return resinCount * RESIN_KNOCKBACK_RESISTANCE * getGlobalMultiplier(entity);
+    }
+
+    /** Zusaetzliche Blockreichweite aus dem Shaper-Muster, in Bloecken. */
+    public static float getReachBonus(LivingEntity entity) {
+        float shaperCount = getTrimCount(entity, "shaper");
+        if (shaperCount <= 0) return 0f;
+        return Math.min(shaperCount * SHAPER_REACH * getGlobalMultiplier(entity), MAX_REACH_BONUS);
     }
 }

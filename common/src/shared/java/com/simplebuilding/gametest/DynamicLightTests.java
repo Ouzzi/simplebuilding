@@ -23,6 +23,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
@@ -1046,6 +1047,31 @@ public final class DynamicLightTests {
                     frame.discard();
                     assertBlockIs(helper, framePos, Blocks.AIR,
                             "the light of an item frame that was destroyed");
+                })
+                .thenSucceed();
+    }
+
+    /**
+     * Mobs wearing radiant armour give light too (since 2026-09): a zombie with an emission level II
+     * helmet lights the block above its head on the mob clock ({@value DynamicLightHandler#MOB_INTERVAL}
+     * ticks), and the light goes when the mob is removed.
+     *
+     * <p>What breaks this: the light being limited to armour stands again, the mob branch leaving
+     * the LivingEntityMixin tick, or the removal hook forgetting the mob's block.
+     */
+    public static void mobsWearingRadiantArmourLightTheBlockAboveThem(GameTestHelper helper) {
+        Mob zombie = helper.spawnWithNoFreeWill(EntityTypes.ZOMBIE, new BlockPos(6, 2, 1));
+        helper.getLevel().setBlock(zombie.blockPosition().above(), Blocks.AIR.defaultBlockState(), 3);
+        zombie.setItemSlot(EquipmentSlot.HEAD, emitting(ModItems.ENDERITE_HELMET, 2));
+        helper.runBeforeTestEnd(zombie::discard);
+
+        helper.startSequence()
+                .thenExecuteAfter(2 * DynamicLightHandler.MOB_INTERVAL + 1, () -> {
+                    BlockPos head = zombie.blockPosition().above();
+                    assertLight(helper, head, 2 * LIGHT_PER_EMISSION_LEVEL, false,
+                            "the block over a zombie wearing an emission level II helmet");
+                    zombie.discard();
+                    assertBlockIs(helper, head, Blocks.AIR, "the light of a zombie that was removed");
                 })
                 .thenSucceed();
     }

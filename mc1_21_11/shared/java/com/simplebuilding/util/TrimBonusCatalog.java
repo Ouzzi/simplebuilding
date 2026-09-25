@@ -26,6 +26,8 @@ public final class TrimBonusCatalog {
         TICKS,
         /** Faktor auf das Muster dieses Teils ("x1,75"), haengt nicht an der Resonanz. */
         FACTOR,
+        /** Rueckstossresistenz: wie Vanilla-Tooltips mal 10 angezeigt (Netherit-Ruestung "+1"). */
+        KNOCKBACK,
         /** Wirkung ohne Zahl (Sprungkraft, Sturzflug). */
         TEXT
     }
@@ -42,6 +44,8 @@ public final class TrimBonusCatalog {
                         format(perPiece * weight * resonance / 20f), name);
                 case FACTOR -> Component.translatable("tooltip.simplebuilding.trim_bonus.factor",
                         format(perPiece), name);
+                case KNOCKBACK -> Component.translatable("attribute.modifier.plus.0",
+                        format(perPiece * weight * resonance * 10f), name);
                 case TEXT -> name;
             };
         }
@@ -80,6 +84,7 @@ public final class TrimBonusCatalog {
         if (patternPath.contains("wayfinder")) list.add(new Bonus("sprint_hunger", WAYFINDER_SPRINT_HUNGER, Kind.PERCENT));
         if (patternPath.contains("raiser")) list.add(new Bonus("experience", RAISER_XP, Kind.PERCENT));
         if (patternPath.contains("host")) list.add(new Bonus("luck", HOST_LUCK, Kind.POINTS));
+        if (patternPath.contains("shaper")) list.add(new Bonus("block_reach", SHAPER_REACH, Kind.POINTS));
         return list;
     }
 
@@ -118,6 +123,8 @@ public final class TrimBonusCatalog {
         }
         if (materialPath.contains("redstone")) list.add(new Bonus("walking_speed", REDSTONE_SPEED, Kind.PERCENT));
         if (materialPath.contains("amethyst")) list.add(new Bonus("healing_chance", AMETHYST_HEAL_CHANCE, Kind.PERCENT));
+        if (materialPath.contains("copper")) list.add(new Bonus("lightning_protection", COPPER_LIGHTNING, Kind.PERCENT));
+        if (materialPath.contains("resin")) list.add(new Bonus("knockback_resistance", RESIN_KNOCKBACK_RESISTANCE, Kind.KNOCKBACK));
         return list;
     }
 

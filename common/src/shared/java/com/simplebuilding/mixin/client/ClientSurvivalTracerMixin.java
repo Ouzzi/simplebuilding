@@ -12,6 +12,7 @@ public class ClientSurvivalTracerMixin implements SurvivalTracerAccessor {
     @Unique private int baseHostile = 0;
     @Unique private int basePassive = 0;
     @Unique private int baseDamage = 0;
+    @Unique private int baseXp = 0;
 
     @Unique private int curDist = 0;
     @Unique private int curTime = 0;
@@ -24,6 +25,8 @@ public class ClientSurvivalTracerMixin implements SurvivalTracerAccessor {
     @Override public int simplebuilding$getBaseHostileKills() { return baseHostile; }
     @Override public int simplebuilding$getBasePassiveKills() { return basePassive; }
     @Override public int simplebuilding$getBaseDamageTaken() { return baseDamage; }
+    @Override public int simplebuilding$getBaseXp() { return baseXp; }
+    @Override public void simplebuilding$setBaseXp(int xp) { this.baseXp = xp; }
 
     @Override
     public void simplebuilding$setBaseValues(int dist, int time, int hostile, int passive, int damage) {

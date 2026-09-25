@@ -70,6 +70,7 @@ public final class ForgeNetworkRegistration {
                     .add(TrimDataPayload.ID, TrimDataPayload.CODEC, (payload, ctx) -> handled(ctx).enqueueWork(() -> {
                         if (Minecraft.getInstance().player instanceof SurvivalTracerAccessor accessor) {
                             accessor.simplebuilding$setBaseValues(payload.baseDist(), payload.baseTime(), payload.baseHostile(), payload.basePassive(), payload.baseDamage());
+                            accessor.simplebuilding$setBaseXp(payload.baseXp());
                         }
                     }))
                     .add(SurvivalSyncPayload.ID, SurvivalSyncPayload.CODEC, (payload, ctx) -> handled(ctx).enqueueWork(() -> {

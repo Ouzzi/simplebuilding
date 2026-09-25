@@ -60,6 +60,7 @@ public class TrimReferenceScreen extends Screen {
         addMaterial(Items.EMERALD, "minecraft", "emerald", resonance);
         addMaterial(Items.NETHERITE_INGOT, "minecraft", "netherite", resonance);
         addMaterial(Items.COPPER_INGOT, "minecraft", "copper", resonance);
+        addMaterial(Items.RESIN_BRICK, "minecraft", "resin", resonance);
         addMaterial(Items.REDSTONE, "minecraft", "redstone", resonance);
         addMaterial(Items.QUARTZ, "minecraft", "quartz", resonance);
         addMaterial(Items.AMETHYST_SHARD, "minecraft", "amethyst", resonance);

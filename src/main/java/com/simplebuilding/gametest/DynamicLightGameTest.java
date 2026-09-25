@@ -60,4 +60,9 @@ public final class DynamicLightGameTest {
     public void armourStandsAndItemFramesLightTheirBlockAndCleanUp(GameTestHelper helper) {
         DynamicLightTests.armourStandsAndItemFramesLightTheirBlockAndCleanUp(helper);
     }
+
+    @GameTest
+    public void mobsWearingRadiantArmourLightTheBlockAboveThem(GameTestHelper helper) {
+        DynamicLightTests.mobsWearingRadiantArmourLightTheBlockAboveThem(helper);
+    }
 }

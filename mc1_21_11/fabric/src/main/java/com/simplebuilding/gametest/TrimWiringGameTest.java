@@ -22,6 +22,11 @@ public final class TrimWiringGameTest {
     }
 
     @GameTest
+    public void survivalTimeCountsOnlyWhileThePlayerMoves(GameTestHelper helper) {
+        TrimWiringTests.survivalTimeCountsOnlyWhileThePlayerMoves(helper);
+    }
+
+    @GameTest
     public void theCombatFactorWeighsKillsAndDamageByMobCategory(GameTestHelper helper) {
         TrimWiringTests.theCombatFactorWeighsKillsAndDamageByMobCategory(helper);
     }

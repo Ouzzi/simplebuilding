@@ -2238,7 +2238,7 @@ public final class HudAndTooltipClientTest {
      * {@code leftPos + 75 / topPos + 78}.
      *
      * <p>Before handing the rectangle out it is checked against the one the mixin draws its panel
-     * into - {@code leftPos - 114 / topPos + 10}, 84 by 64 GUI pixels, straight out of
+     * into - {@code leftPos - 115 / topPos + 5}, 84 by 64 GUI pixels, straight out of
      * {@code InventoryScreenMixin.renderTrimStats}. If the two ever overlap the mask would swallow
      * part of the signal and the pixel test would go quietly green on a panel that is not there,
      * which is the one failure mode a masked comparison can hide. Either side moving is enough to
@@ -2260,10 +2260,10 @@ public final class HudAndTooltipClientTest {
             };
 
             int[] panel = {
-                    (int) Math.floor((leftPos(screen) - 84 - 30) * scaleX),
-                    (int) Math.floor((topPos(screen) + 10) * scaleY),
-                    (int) Math.ceil((leftPos(screen) - 30) * scaleX),
-                    (int) Math.ceil((topPos(screen) + 10 + 64) * scaleY),
+                    (int) Math.floor((leftPos(screen) - 84 - 31) * scaleX),
+                    (int) Math.floor((topPos(screen) + 5) * scaleY),
+                    (int) Math.ceil((leftPos(screen) - 31) * scaleX),
+                    (int) Math.ceil((topPos(screen) + 5 + 64) * scaleY),
             };
 
             boolean overlaps = model[0] < panel[2] && panel[0] < model[2]
@@ -2351,13 +2351,14 @@ public final class HudAndTooltipClientTest {
                         + " buttons of 20x20; the test cannot tell which one belongs to the mod");
             }
 
-            int expectedX = leftPos(screen) - 24;
-            int expectedY = topPos(screen) + 10;
+            // Since 2026-09 the same spot as the trim button of the smithing table.
+            int expectedX = leftPos(screen) - 25;
+            int expectedY = topPos(screen) + 5;
 
             if (found.getX() != expectedX || found.getY() != expectedY) {
                 throw new AssertionError("Armor trim stats button: the trim button sits at " + found.getX()
                         + "/" + found.getY() + " instead of " + expectedX + "/" + expectedY
-                        + " (24 left of the inventory, 10 below its top edge)");
+                        + " (25 left of the inventory, 5 below its top edge, like the smithing table's trim button)");
             }
 
             centre.set(new int[] {found.getX() + 10, found.getY() + 10});

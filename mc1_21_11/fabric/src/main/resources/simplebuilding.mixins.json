@@ -6,7 +6,6 @@
     "AbstractFurnaceBlockEntityMixin",
     "AbstractFurnaceMenuMixin",
     "AnvilScreenHandlerMixin",
-    "ArmorStandLightMixin",
     "BlockAttachedEntityTickMixin",
     "BlockStateBaseMixin",
     "BlockItemMixin",

@@ -52,8 +52,7 @@ public class NetheriteHopperScreen extends AbstractContainerScreen<NetheriteHopp
 
         HopperFilterMode mode = this.menu.getSyncedFilterMode();
 
-        // 1. Label
-        context.drawString(this.font, Component.literal("Filter:"), this.filterButton.getX() - 2, this.filterButton.getY() - 12, 0xFF404040, false);
+        // 1. Label: im Beschriftungs-Durchgang (extractLabels/renderLabels), wie Titel und Inventar.
 
         // 2. Button Overlay
         if (mode == HopperFilterMode.NONE) {
@@ -69,28 +68,18 @@ public class NetheriteHopperScreen extends AbstractContainerScreen<NetheriteHopp
             context.setTooltipForNextFrame(this.font, mode.getText(), mouseX, mouseY);
         }
 
-        // 3. Ghost Items & Farb-Overlay
+        // 3. Tooltip der Geister-Items. Overlay und Symbol liegen seit 2026-09 im Hintergrund-
+        // Durchgang, also UNTER den echten Items und der Slot-Hervorhebung, wie bei Vanilla.
         if (this.menu.getBlockEntity() instanceof ModHopperBlockEntity be && mode != HopperFilterMode.NONE) {
             for (int i = 0; i < 5; i++) {
                 Slot slot = this.menu.slots.get(i);
                 ItemStack ghostStack = be.getGhostItem(i);
-
-                if (!ghostStack.isEmpty()) {
-                    int slotX = this.leftPos + slot.x;
-                    int slotY = this.topPos + slot.y;
-
-                    context.fill(slotX, slotY, slotX + 16, slotY + 16, 0x60FFAA00);
-
-                    if (slot.getItem().isEmpty()) {
-                        context.renderItem(ghostStack, slotX, slotY);
-
-                        if (isHovering(slot.x, slot.y, 16, 16, mouseX, mouseY)) {
-                            List<Component> tooltip = new ArrayList<>();
-                            tooltip.add(Component.literal("Filtered Item:").withStyle(ChatFormatting.GOLD));
-                            tooltip.add(ghostStack.getHoverName());
-                            context.setComponentTooltipForNextFrame(this.font, tooltip, mouseX, mouseY);
-                        }
-                    }
+                if (!ghostStack.isEmpty() && slot.getItem().isEmpty()
+                        && isHovering(slot.x, slot.y, 16, 16, mouseX, mouseY)) {
+                    List<Component> tooltip = new ArrayList<>();
+                    tooltip.add(Component.translatable("container.simplebuilding.hopper_filter.ghost").withStyle(ChatFormatting.GOLD));
+                    tooltip.add(ghostStack.getHoverName());
+                    context.setComponentTooltipForNextFrame(this.font, tooltip, mouseX, mouseY);
                 }
             }
         }
@@ -137,5 +126,31 @@ public class NetheriteHopperScreen extends AbstractContainerScreen<NetheriteHopp
     @Override
     protected void renderBg(GuiGraphics context, float delta, int mouseX, int mouseY) {
         context.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
+
+        if (this.menu.getBlockEntity() instanceof ModHopperBlockEntity be && this.menu.getSyncedFilterMode() != HopperFilterMode.NONE) {
+            for (int i = 0; i < 5; i++) {
+                Slot slot = this.menu.slots.get(i);
+                ItemStack ghostStack = be.getGhostItem(i);
+
+                if (!ghostStack.isEmpty()) {
+                    int slotX = this.leftPos + slot.x;
+                    int slotY = this.topPos + slot.y;
+
+                    context.fill(slotX, slotY, slotX + 16, slotY + 16, 0x60FFAA00);
+
+                    if (slot.getItem().isEmpty()) {
+                        context.renderItem(ghostStack, slotX, slotY);
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void renderLabels(GuiGraphics context, int mouseX, int mouseY) {
+        super.renderLabels(context, mouseX, mouseY);
+        // Relativ zur Bildecke: rechts ueber dem Filterknopf, in der Zeile des Titels.
+        context.drawString(this.font, Component.translatable("container.simplebuilding.hopper_filter"),
+                this.filterButton.getX() - this.leftPos - 2, this.filterButton.getY() - this.topPos - 12, 0xFF404040, false);
     }
 }

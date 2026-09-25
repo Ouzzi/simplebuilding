@@ -1,5 +1,6 @@
 package com.simplebuilding.gametest;
 
+import com.simplebuilding.util.TrimAttributeHandler;
 import com.simplebuilding.config.SimplebuildingConfig;
 import com.simplebuilding.trim.ModTrimMaterials;
 import com.simplebuilding.util.TrimBenefitUser;
@@ -282,7 +283,14 @@ public final class TrimEffectTests {
                     "a full enderite set against a generic hit (4 x 5%)");
             assertClose(helper, TrimEffectUtil.modifyDamage(player, 10.0F, wither), 8.0,
                     "the enderite material reduction picked up a damage type condition; it is "
-                            + "meant to apply to everything");
+                            + "meant to apply to everything that can be resisted at all");
+            // ...but not to damage that bypasses invulnerability (/kill, the void).
+            assertClose(helper, TrimEffectUtil.modifyDamage(player, 10.0F,
+                            helper.getLevel().damageSources().fellOutOfWorld()), 10.0,
+                    "the enderite material reduced void damage, which bypasses invulnerability");
+            assertClose(helper, TrimEffectUtil.modifyDamage(player, 10.0F,
+                            helper.getLevel().damageSources().genericKill()), 10.0,
+                    "the enderite material reduced /kill damage, which bypasses invulnerability");
 
             // --- pattern and material stack, and the material also weights the pattern count ---
             // 4 enderite ward pieces at progress 0.5: the ward count is 4 x 2.0 = 8, so
@@ -403,16 +411,22 @@ public final class TrimEffectTests {
                     "raiser experience bonus (4 x 10%)");
 
             wear(player, copper, pattern(helper, TrimPatterns.HOST), 4);
-            assertClose(helper, TrimEffectUtil.getLuckBonus(player), 3.0,
-                    "host luck bonus (4 x 1.0 = 4, capped at +3)");
+            assertClose(helper, TrimEffectUtil.getLuckBonus(player), 2.0,
+                    "host luck bonus (4 x 0.5)");
 
             wear(player, copper, pattern(helper, TrimPatterns.SILENCE), 4);
-            assertClose(helper, TrimEffectUtil.getStealthMultiplier(player), 0.5,
-                    "silence stealth factor (1.0 - 4 x 15% = 0.4, held at its 0.5 floor)");
+            assertClose(helper, TrimEffectUtil.getStealthMultiplier(player), 0.68,
+                    "silence stealth factor (1.0 - 4 x 8%)");
 
             wear(player, copper, pattern(helper, TrimPatterns.COAST), 4);
-            assertClose(helper, TrimEffectUtil.getAirSaveChance(player), 0.75,
-                    "coast air save chance (4 x 20% = 80%, capped at 75%)");
+            assertClose(helper, TrimEffectUtil.getAirSaveChance(player), 0.4,
+                    "coast air save chance (4 x 10%)");
+
+            wear(player, material(helper, TrimMaterials.RESIN), pattern(helper, TrimPatterns.SHAPER), 4);
+            assertClose(helper, TrimEffectUtil.getKnockbackResistanceBonus(player), 0.1,
+                    "resin knockback resistance (4 x 0.025)");
+            assertClose(helper, TrimEffectUtil.getReachBonus(player), 1.0,
+                    "shaper block reach (4 x 0.25)");
 
             wear(player, copper, pattern(helper, TrimPatterns.RIB), 4);
             helper.assertTrue(TrimEffectUtil.getWitherReductionAmount(player) == 100,
@@ -453,16 +467,16 @@ public final class TrimEffectTests {
                     "raiser and lapis together ((4 x 10% + 4 x 5%) x 0.4) - one of the two halves is gone");
 
             wear(player, material(helper, TrimMaterials.EMERALD), pattern(helper, TrimPatterns.HOST), 4);
-            assertClose(helper, TrimEffectUtil.getLuckBonus(player), 2.4,
-                    "host and emerald together ((4 x 1.0 + 4 x 0.5) x 0.4) - one of the two halves is gone");
+            assertClose(helper, TrimEffectUtil.getLuckBonus(player), 1.6,
+                    "host and emerald together ((4 x 0.5 + 4 x 0.5) x 0.4) - one of the two halves is gone");
 
             // The two rates that already reach their cap at progress 1.0, measured below it.
             wear(player, copper, pattern(helper, TrimPatterns.SILENCE), 4);
-            assertClose(helper, TrimEffectUtil.getStealthMultiplier(player), 0.76,
-                    "silence stealth factor at progress 0.4 (1.0 - 4 x 15% x 0.4)");
+            assertClose(helper, TrimEffectUtil.getStealthMultiplier(player), 0.872,
+                    "silence stealth factor at progress 0.4 (1.0 - 4 x 8% x 0.4)");
             wear(player, copper, pattern(helper, TrimPatterns.COAST), 4);
-            assertClose(helper, TrimEffectUtil.getAirSaveChance(player), 0.32,
-                    "coast air save chance at progress 0.4 (4 x 20% x 0.4)");
+            assertClose(helper, TrimEffectUtil.getAirSaveChance(player), 0.16,
+                    "coast air save chance at progress 0.4 (4 x 10% x 0.4)");
 
             // --- the clamps ---
             pinProgressMultiplier(helper, player, 5.0);
@@ -489,6 +503,17 @@ public final class TrimEffectTests {
             helper.assertTrue(TrimEffectUtil.getWitherReductionAmount(player) == 100,
                     "the rib cleansing broke through its 100 tick cap, it is "
                             + TrimEffectUtil.getWitherReductionAmount(player));
+            wear(player, copper, pattern(helper, TrimPatterns.SHAPER), 4);
+            assertClose(helper, TrimEffectUtil.getReachBonus(player), 2.0,
+                    "the shaper reach bonus broke through its 2 block cap");
+
+            // --- the Enderscape stasis resistance: at most Resistance II ---
+            // (countTrimById needs the real enderscape:stasis id, so the bands are read off the helper.)
+            helper.assertTrue(TrimEffectUtil.stasisAmplifier(0.4, 4) == -1, "stasis below a score of 2 grants nothing");
+            helper.assertTrue(TrimEffectUtil.stasisAmplifier(0.5, 4) == 0, "stasis at a score of 2 grants Resistance I");
+            helper.assertTrue(TrimEffectUtil.stasisAmplifier(2.0, 4) == 1, "stasis at a score of 8 grants Resistance II");
+            helper.assertTrue(TrimEffectUtil.stasisAmplifier(10.0, 4) == 1,
+                    "stasis granted more than Resistance II at a score of 40");
 
             bare(player);
             helper.succeed();
@@ -847,9 +872,10 @@ public final class TrimEffectTests {
      * {@code simplebuilding.mixins.json} - the numbers would all be right and no player would
      * ever see them. This test asks the player instead of the utility class.
      *
-     * <p>Two of the mixin's injections return a value that can simply be read back on a standing
-     * mock player: {@code getLuck} adds the host/emerald bonus to the luck attribute, and
-     * {@code getSpeed} multiplies the movement speed attribute by the bolt/redstone factor. Both
+     * <p>Two bonuses can simply be read back on a standing mock player: since 2026-09 the host/emerald
+     * luck and the bolt/redstone walking bonus are vanilla attribute modifiers set by
+     * {@code TrimAttributeHandler}, so {@code getLuck} and {@code getSpeed} return them without any
+     * mixin in between. Both
      * are measured against the same player's own untrimmed reading rather than against a
      * hard-coded 0.1, so a vanilla attribute change cannot turn this into a false failure.
      *
@@ -867,30 +893,35 @@ public final class TrimEffectTests {
             pinProgressMultiplier(helper, player, 1.0);
             bare(player);
 
+            TrimAttributeHandler.update(player);
             float bareLuck = player.getLuck();
             float bareSpeed = player.getSpeed();
             helper.assertTrue(bareSpeed > 0.0F,
                     "the mock player's movement speed is " + bareSpeed + ", so multiplying it by "
                             + "the bolt bonus could not be detected either way");
 
-            // --- luck: getLuck has to come back three higher with a full host set (4, capped at 3) ---
+            // --- luck: the luck attribute has to come back two higher with a full host set ---
             wear(player, copper, host, 4);
-            assertClose(helper, player.getLuck(), bareLuck + 3.0,
+            TrimAttributeHandler.update(player);
+            assertClose(helper, player.getLuck(), bareLuck + 2.0,
                     "Player.getLuck did not pick up the host trim bonus - TrimEffectUtil computes "
-                            + "it, but PlayerEntityMixin is not delivering it");
+                            + "it, but TrimAttributeHandler is not delivering it as a luck modifier");
 
             // --- speed: getSpeed has to come back 20% higher with a full bolt set ---
             wear(player, copper, bolt, 4);
+            TrimAttributeHandler.update(player);
             assertClose(helper, player.getSpeed(), bareSpeed * 1.2,
                     "Player.getSpeed did not pick up the bolt trim bonus - TrimEffectUtil computes "
-                            + "it, but PlayerEntityMixin is not delivering it");
+                            + "it, but TrimAttributeHandler is not delivering it as a movement_speed modifier");
 
-            // --- and the gate reaches both injections ---
+            // --- and the gate reaches both modifiers ---
             TrimBenefitUser gate = (TrimBenefitUser) player;
             gate.simplebuilding$setTrimBenefitsEnabled(false);
+            TrimAttributeHandler.update(player);
             assertClose(helper, player.getSpeed(), bareSpeed,
                     "the walk speed bonus survived the trim benefit switch");
             wear(player, copper, host, 4);
+            TrimAttributeHandler.update(player);
             assertClose(helper, player.getLuck(), bareLuck,
                     "the luck bonus survived the trim benefit switch");
             gate.simplebuilding$setTrimBenefitsEnabled(true);

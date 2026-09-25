@@ -5,6 +5,7 @@ import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.util.guiDrawHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.tooltip.TooltipRenderUtil;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.BlockPos;
@@ -135,31 +136,11 @@ public class RangefinderHudOverlay {
             y -= 35;
         }
 
-        // --- BOX RAHMEN ---
-        int bg = theme.background();
-
-        // Haupt-Hintergrund
-        context.fill(x + 1, y + 1, x + boxWidth - 1, y + boxHeight - 1, bg);
-        context.fill(x + 1, y, x + boxWidth - 1, y + 1, bg);
-
-        // Hintergrund "Schatten" für den Rahmen
-        context.fill(x + 1, y - 1, x + boxWidth - 1, y, bg);
-        context.fill(x + 1, y + boxHeight, x + boxWidth - 1, y + boxHeight + 1, bg);
-        context.fill(x - 1, y + 1, x, y + boxHeight - 1, bg);
-        context.fill(x + boxWidth, y + 1, x + boxWidth + 1, y + boxHeight - 1, bg);
-
-        // Ecken
-        context.fillGradient(x + boxWidth - 1, y, x + boxWidth, y + 1, bg, bg);
-        context.fillGradient(x, y, x + 1, y + 1, bg, bg);
-        context.fillGradient(x + boxWidth - 1, y + boxHeight - 1, x + boxWidth, y + boxHeight, bg, bg);
-        context.fillGradient(x, y + boxHeight - 1, x + 1, y + boxHeight, bg, bg);
-
-        // 2. Farbiger Rahmen (Lines)
-        // Nutzt theme.borderStart und theme.borderEnd
-        context.fillGradient(x + 1, y, x + boxWidth - 1, y + 1, theme.borderStart(), theme.borderStart());
-        context.fillGradient(x + 1, y + boxHeight - 1, x + boxWidth - 1, y + boxHeight, theme.borderEnd(), theme.borderEnd());
-        context.fillGradient(x, y + 1, x + 1, y + boxHeight - 1, theme.borderStart(), theme.borderEnd());
-        context.fillGradient(x + boxWidth - 1, y + 1, x + boxWidth, y + boxHeight - 1, theme.borderStart(), theme.borderEnd());
+        // --- BOX: Vanilla-Tooltip-Hintergrund (Sprites tooltip/background + tooltip/frame) wie der
+        // Tachometer. Die Farbstoff-Farbe des Entfernungsmessers bleibt in den Textzeilen (Pos 1,
+        // Pos 2, Ergebnis); der fruehere nachgebaute Kasten mit gefaerbtem Rahmen ist weg.
+        TooltipRenderUtil.extractTooltipBackground(context, x + paddingX, y + paddingY,
+                boxWidth - paddingX * 2, boxHeight - paddingY * 2, null);
 
         // --- TEXT ---
         int textY = y + paddingY;

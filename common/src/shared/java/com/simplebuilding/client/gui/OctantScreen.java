@@ -15,6 +15,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import org.lwjgl.glfw.GLFW;
@@ -25,9 +28,10 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 public class OctantScreen extends Screen {
-    private static final int PANEL_BG = 0xE0100010;
-    private static final int PANEL_BORDER_START = 0xF03f0073;
-    private static final int PANEL_BORDER_END = 0xF0250061;
+    private static final Identifier PANEL_SPRITE = Identifier.withDefaultNamespace("popup/background");
+    /** Vanillas Beschriftungsfarbe auf hellem Grund (Container-Titel, CommonColors.DARK_GRAY). */
+    private static final int LABEL_COLOR = 0xFF404040;
+    private static final int SECONDARY_COLOR = 0xFF707070;
 
     private final ItemStack stack;
 
@@ -72,15 +76,17 @@ public class OctantScreen extends Screen {
     private int yDoneSelection;
     private int yDoneSettings;
 
-    private static final int GROUP_WIDTH = 44;
-    private static final int GROUP_GAP = 5;
-    private static final int ROW_SPACING = 18;
-    private static final int FIELD_OFFSET_Y = 9;
-    private static final int BUTTON_HEIGHT = 16;
-    private static final int BUTTON_STEP = 19;
-    private static final int LOCK_BUTTON_WIDTH = 25;
-    private static final int PAGE_BUTTON_WIDTH = 70;
-    private static final int DONE_BUTTON_WIDTH = 75;
+    private static final int PANEL_PADDING = 8;
+    private static final int TITLE_HEIGHT = 20;
+    private static final int WIDGET_HEIGHT = 20;
+    private static final int ROW_STEP = 24;
+    private static final int GAP = 4;
+    private static final int LABEL_WIDTH = 20;
+    private static final int STEP_BUTTON_WIDTH = 12;
+    private static final int FIELD_WIDTH = 36;
+    private static final int GROUP_WIDTH = STEP_BUTTON_WIDTH + 1 + FIELD_WIDTH + 1 + STEP_BUTTON_WIDTH;
+    private static final int CONTENT_WIDTH = LABEL_WIDTH + GROUP_WIDTH * 3 + GAP * 2;
+    private static final int SUMMARY_HEIGHT = 44;
 
     private enum MenuPage {
         SELECTION,
@@ -149,109 +155,106 @@ public class OctantScreen extends Screen {
 
     @Override
     protected void init() {
-        int panelPaddingX = 8;
-        int labelColumnWidth = 20;
-        int selectionRowWidth = labelColumnWidth + (GROUP_WIDTH * 3) + (GROUP_GAP * 2);
-        int splitButtonRowWidth = (88 * 2) + 4;
-        int bottomRowWidth = LOCK_BUTTON_WIDTH + 5 + PAGE_BUTTON_WIDTH + 5 + DONE_BUTTON_WIDTH;
-        int contentWidth = Math.max(Math.max(selectionRowWidth, 180), Math.max(splitButtonRowWidth, bottomRowWidth));
-
-        this.panelWidth = contentWidth + (panelPaddingX * 2);
+        // Vanilla-Masse: Knoepfe und Eingabefelder 20 hoch, Zeilen im 24er-Raster, 4 px Abstand.
+        this.panelWidth = CONTENT_WIDTH + PANEL_PADDING * 2;
         this.columnCenterX = width - (panelWidth / 2) - 20;
-
-        int totalHeight = 190;
-        this.startY = Math.max(16, (height - totalHeight) / 2) + 10;
         this.panelX = columnCenterX - (panelWidth / 2);
-        this.panelY = startY - 20;
-        this.rowStartX = panelX + panelPaddingX + labelColumnWidth;
+        int tallest = TITLE_HEIGHT + ROW_STEP * 4 + SUMMARY_HEIGHT + WIDGET_HEIGHT + PANEL_PADDING * 2;
+        this.panelY = Math.max(4, (height - tallest) / 2);
+        this.startY = panelY + TITLE_HEIGHT;
+        this.rowStartX = panelX + PANEL_PADDING + LABEL_WIDTH;
 
-        int contentLeft = panelX + panelPaddingX;
-        int contentTop = startY + FIELD_OFFSET_Y;
+        int contentLeft = panelX + PANEL_PADDING;
+        int contentTop = startY;
 
         // 1. POS 1
         createRow(contentTop, pos1.getX(), pos1.getY(), pos1.getZ(), f -> x1Field=f, f -> y1Field=f, f -> z1Field=f);
         // 2. POS 2
-        createRow(contentTop + ROW_SPACING, pos2.getX(), pos2.getY(), pos2.getZ(), f -> x2Field=f, f -> y2Field=f, f -> z2Field=f);
+        createRow(contentTop + ROW_STEP, pos2.getX(), pos2.getY(), pos2.getZ(), f -> x2Field=f, f -> y2Field=f, f -> z2Field=f);
         // 3. SIZE
         int w = Math.abs(pos2.getX() - pos1.getX()) + 1;
         int h = Math.abs(pos2.getY() - pos1.getY()) + 1;
         int d = Math.abs(pos2.getZ() - pos1.getZ()) + 1;
-        createSizeRow(contentTop + ROW_SPACING * 2, w, h, d);
+        createSizeRow(contentTop + ROW_STEP * 2, w, h, d);
 
-        int yControls = contentTop + ROW_SPACING * 3 + 2;
+        int yControls = contentTop + ROW_STEP * 3;
 
         // Shape & Orientation
+        int orientationWidth = 60;
         shapeButton = Button.builder(getShapeText(), b -> cycleShape())
-            .bounds(contentLeft, yControls, 125, BUTTON_HEIGHT).build();
+            .bounds(contentLeft, yControls, CONTENT_WIDTH - orientationWidth - GAP, WIDGET_HEIGHT).build();
         addPageOneWidget(shapeButton);
 
         orientationButton = Button.builder(getOrientationText(), b -> cycleOrientation())
-            .bounds(contentLeft + 130, yControls, 50, BUTTON_HEIGHT).build();
+            .bounds(contentLeft + CONTENT_WIDTH - orientationWidth, yControls, orientationWidth, WIDGET_HEIGHT).build();
         addPageOneWidget(orientationButton);
 
+        int half = (CONTENT_WIDTH - GAP) / 2;
         int yFill = contentTop;
         hollowButton = Button.builder(getHollowText(), b -> { isHollow = !isHollow; b.setMessage(getHollowText()); updateLocalAndSend(); })
-            .bounds(contentLeft, yFill, 88, BUTTON_HEIGHT).build();
+            .bounds(contentLeft, yFill, half, WIDGET_HEIGHT).build();
         addPageTwoWidget(hollowButton);
 
         layerModeButton = Button.builder(getLayerText(), b -> { isLayerMode = !isLayerMode; b.setMessage(getLayerText()); updateLocalAndSend(); })
-            .bounds(contentLeft + 92, yFill, 88, BUTTON_HEIGHT).build();
+            .bounds(contentLeft + CONTENT_WIDTH - half, yFill, half, WIDGET_HEIGHT).build();
         addPageTwoWidget(layerModeButton);
 
-        int yOrder = yFill + BUTTON_STEP;
+        int yOrder = yFill + ROW_STEP;
         fillOrderButton = Button.builder(getOrderText(), b -> cycleOrder())
-            .bounds(contentLeft, yOrder, 180, BUTTON_HEIGHT).build();
+            .bounds(contentLeft, yOrder, CONTENT_WIDTH, WIDGET_HEIGHT).build();
         addPageTwoWidget(fillOrderButton);
 
-        int yFigure = yOrder + BUTTON_STEP;
+        int yFigure = yOrder + ROW_STEP;
         figureToggleButton = Button.builder(getFigureText(), b -> toggleFigure())
-            .bounds(contentLeft, yFigure, 180, BUTTON_HEIGHT).build();
+            .bounds(contentLeft, yFigure, CONTENT_WIDTH, WIDGET_HEIGHT).build();
         addPageTwoWidget(figureToggleButton);
 
-        this.hudSummaryY = yControls + BUTTON_STEP + 2;
+        this.hudSummaryY = yControls + ROW_STEP;
 
-        int pageOneBottom = hudSummaryY + 30;
-        int pageTwoBottom = yFigure + BUTTON_HEIGHT;
-        this.yDoneSelection = pageOneBottom + 8;
-        this.yDoneSettings = pageTwoBottom + 8;
+        this.yDoneSelection = hudSummaryY + SUMMARY_HEIGHT;
+        this.yDoneSettings = yFigure + ROW_STEP;
         int yDone = yDoneSelection;
 
-        int bottomX = contentLeft;
+        int pageWidth = (CONTENT_WIDTH - WIDGET_HEIGHT - GAP * 2) / 2;
+        int doneWidth = CONTENT_WIDTH - WIDGET_HEIGHT - GAP * 2 - pageWidth;
 
         lockButton = Button.builder(getLockIcon(), b -> { isLocked = !isLocked; b.setMessage(getLockIcon()); updateLocalAndSend(); })
-            .bounds(bottomX, yDone, LOCK_BUTTON_WIDTH, BUTTON_HEIGHT).build();
+            .bounds(contentLeft, yDone, WIDGET_HEIGHT, WIDGET_HEIGHT).build();
         addRenderableWidget(lockButton);
 
         pageButton = Button.builder(getPageButtonText(), b -> togglePage())
-            .bounds(bottomX + LOCK_BUTTON_WIDTH + 5, yDone, PAGE_BUTTON_WIDTH, BUTTON_HEIGHT).build();
+            .bounds(contentLeft + WIDGET_HEIGHT + GAP, yDone, pageWidth, WIDGET_HEIGHT).build();
         addRenderableWidget(pageButton);
 
-        doneButton = addRenderableWidget(Button.builder(Component.translatable("simplebuilding.gui.close"), b -> onClose())
-            .bounds(bottomX + LOCK_BUTTON_WIDTH + 5 + PAGE_BUTTON_WIDTH + 5, yDone, DONE_BUTTON_WIDTH, BUTTON_HEIGHT).build());
+        doneButton = addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, b -> onClose())
+            .bounds(contentLeft + CONTENT_WIDTH - doneWidth, yDone, doneWidth, WIDGET_HEIGHT).build());
 
         updateFooterLayout();
 
         updatePageVisibility();
     }
 
-        private void createRow(int y, int v1, int v2, int v3, Consumer<EditBox> a1, Consumer<EditBox> a2, Consumer<EditBox> a3) {
+    private void createRow(int y, int v1, int v2, int v3, Consumer<EditBox> a1, Consumer<EditBox> a2, Consumer<EditBox> a3) {
         createControlGroup(rowStartX, y, v1, a1, false);
-        createControlGroup(rowStartX + GROUP_WIDTH + GROUP_GAP, y, v2, a2, false);
-        createControlGroup(rowStartX + (GROUP_WIDTH + GROUP_GAP) * 2, y, v3, a3, false);
+        createControlGroup(rowStartX + GROUP_WIDTH + GAP, y, v2, a2, false);
+        createControlGroup(rowStartX + (GROUP_WIDTH + GAP) * 2, y, v3, a3, false);
     }
-        private void createSizeRow(int y, int w, int h, int d) {
+    private void createSizeRow(int y, int w, int h, int d) {
         createControlGroup(rowStartX, y, w, f -> wField = f, true);
-        createControlGroup(rowStartX + GROUP_WIDTH + GROUP_GAP, y, h, f -> hField = f, true);
-        createControlGroup(rowStartX + (GROUP_WIDTH + GROUP_GAP) * 2, y, d, f -> dField = f, true);
+        createControlGroup(rowStartX + GROUP_WIDTH + GAP, y, h, f -> hField = f, true);
+        createControlGroup(rowStartX + (GROUP_WIDTH + GAP) * 2, y, d, f -> dField = f, true);
     }
+    /** [-][Feld][+] in voller Vanilla-Hoehe statt der frueheren 10x7-Knoepfe uebereinander. */
     private void createControlGroup(int x, int y, int val, Consumer<EditBox> assigner, boolean isSize) {
-        EditBox field = new EditBox(font, x, y, 24, 14, Component.empty());
+        EditBox field = new EditBox(font, x + STEP_BUTTON_WIDTH + 1, y, FIELD_WIDTH, WIDGET_HEIGHT, Component.empty());
+        addPageOneWidget(Button.builder(Component.literal("-"), b -> adjustField(field, -1, isSize))
+                .bounds(x, y, STEP_BUTTON_WIDTH, WIDGET_HEIGHT).build());
         field.setValue(String.valueOf(val));
         field.setResponder(s -> { if (!isUpdating) { if (isSize) updatePos2FromSize(); else updateLocalAndSend(); } });
         assigner.accept(field);
         addPageOneWidget(field);
-        addPageOneWidget(Button.builder(Component.literal("+"), b -> adjustField(field, 1, isSize)).bounds(x + 25, y, 10, 7).build());
-        addPageOneWidget(Button.builder(Component.literal("-"), b -> adjustField(field, -1, isSize)).bounds(x + 25, y + 7, 10, 7).build());
+        addPageOneWidget(Button.builder(Component.literal("+"), b -> adjustField(field, 1, isSize))
+                .bounds(x + STEP_BUTTON_WIDTH + 1 + FIELD_WIDTH + 1, y, STEP_BUTTON_WIDTH, WIDGET_HEIGHT).build());
     }
     private void adjustField(EditBox field, int delta, boolean isSize) {
         try { int val = Integer.parseInt(field.getValue()) + delta; if (isSize && val < 1) val = 1; field.setValue(String.valueOf(val)); if (isSize) updatePos2FromSize(); else updateLocalAndSend(); } catch (Exception e) { field.setValue("0"); }
@@ -264,8 +267,7 @@ public class OctantScreen extends Screen {
     private Component getLayerText() { return Component.translatable("simplebuilding.gui.layer", isLayerMode ? "ON" : "OFF"); }
     private Component getOrderText() { return Component.translatable("simplebuilding.gui.order", currentOrder.getText()); }
     private Component getFigureText() { return Component.translatable("simplebuilding.gui.figure", Component.translatable(ClientState.showOctantFigure ? "simplebuilding.gui.on" : "simplebuilding.gui.off")); }
-    private Component getPageButtonText() { return currentPage == MenuPage.SELECTION ? Component.literal(">> Settings") : Component.literal("<< Selection"); }
-    private Component getPageLabelText() { return currentPage == MenuPage.SELECTION ? Component.literal("Page 1/2: Selection") : Component.literal("Page 2/2: Fill Settings"); }
+    private Component getPageButtonText() { return currentPage == MenuPage.SELECTION ? Component.translatable("simplebuilding.gui.page.settings") : Component.translatable("simplebuilding.gui.page.selection"); }
 
     private void cycleShape() { currentShape = OctantItem.SelectionShape.values()[(currentShape.ordinal() + 1) % OctantItem.SelectionShape.values().length]; shapeButton.setMessage(getShapeText()); updateLocalAndSend(); }
     private void cycleOrientation() { currentOrientation = currentOrientation.next(); orientationButton.setMessage(getOrientationText()); updateLocalAndSend(); }
@@ -284,7 +286,7 @@ public class OctantScreen extends Screen {
         lockButton.setY(footerY);
         pageButton.setY(footerY);
         doneButton.setY(footerY);
-        panelHeight = (footerY + BUTTON_HEIGHT + 8) - panelY;
+        panelHeight = (footerY + WIDGET_HEIGHT + PANEL_PADDING) - panelY;
     }
 
     private void updatePageVisibility() {
@@ -411,31 +413,15 @@ public class OctantScreen extends Screen {
 
     @Override
     public void extractBackground(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
-        // Keep transparent world background.
+        // Die Welt bleibt sichtbar (man kann sich mit offenem Fenster bewegen) - keine Unschaerfe.
     }
 
     @Override
     public void extractRenderState(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
-        context.fill(0, 0, width, height, 0x15000000);
-
-        context.fill(panelX + 1, panelY + 1, panelX + panelWidth - 1, panelY + panelHeight - 1, PANEL_BG);
-        context.fill(panelX + 1, panelY, panelX + panelWidth - 1, panelY + 1, PANEL_BG);
-        context.fill(panelX + 1, panelY - 1, panelX + panelWidth - 1, panelY, PANEL_BG);
-        context.fill(panelX + 1, panelY + panelHeight, panelX + panelWidth - 1, panelY + panelHeight + 1, PANEL_BG);
-        context.fill(panelX - 1, panelY + 1, panelX, panelY + panelHeight - 1, PANEL_BG);
-        context.fill(panelX + panelWidth, panelY + 1, panelX + panelWidth + 1, panelY + panelHeight - 1, PANEL_BG);
-        context.fillGradient(panelX + panelWidth - 1, panelY, panelX + panelWidth, panelY + 1, PANEL_BG, PANEL_BG);
-        context.fillGradient(panelX, panelY, panelX + 1, panelY + 1, PANEL_BG, PANEL_BG);
-        context.fillGradient(panelX + panelWidth - 1, panelY + panelHeight - 1, panelX + panelWidth, panelY + panelHeight, PANEL_BG, PANEL_BG);
-        context.fillGradient(panelX, panelY + panelHeight - 1, panelX + 1, panelY + panelHeight, PANEL_BG, PANEL_BG);
-
-        context.fillGradient(panelX + 1, panelY, panelX + panelWidth - 1, panelY + 1, PANEL_BORDER_START, PANEL_BORDER_START);
-        context.fillGradient(panelX + 1, panelY + panelHeight - 1, panelX + panelWidth - 1, panelY + panelHeight, PANEL_BORDER_END, PANEL_BORDER_END);
-        context.fillGradient(panelX, panelY + 1, panelX + 1, panelY + panelHeight - 1, PANEL_BORDER_START, PANEL_BORDER_END);
-        context.fillGradient(panelX + panelWidth - 1, panelY + 1, panelX + panelWidth, panelY + panelHeight - 1, PANEL_BORDER_START, PANEL_BORDER_END);
-
-        context.centeredText(font, Component.translatable("simplebuilding.gui.title"), columnCenterX, panelY + 6, 0xFF66FFFF);
-        // Requested: hide page subtitle line for a cleaner header.
+        // Vanillas Popup-Hintergrund (nine-slice, wie PopupScreen) statt des lila Tooltip-Nachbaus.
+        context.blitSprite(RenderPipelines.GUI_TEXTURED, PANEL_SPRITE, panelX, panelY, panelWidth, panelHeight);
+        // Titel wie bei Container-Bildschirmen: links, dunkelgrau, ohne Schatten.
+        context.text(font, this.title, panelX + PANEL_PADDING, panelY + 7, LABEL_COLOR, false);
 
         if (currentPage == MenuPage.SELECTION) {
             drawInputLabels(context);
@@ -447,22 +433,16 @@ public class OctantScreen extends Screen {
     }
 
     private void drawInputLabels(GuiGraphicsExtractor context) {
-        int row1Y = startY + FIELD_OFFSET_Y;
-        int row2Y = row1Y + ROW_SPACING;
-        int row3Y = row2Y + ROW_SPACING;
-
-        context.text(font, Component.literal("P1"), panelX + 8, row1Y + 3, 0xFFFFD15A);
-        context.text(font, Component.literal("P2"), panelX + 8, row2Y + 3, 0xFFD4E56A);
-        context.text(font, Component.literal("SZ"), panelX + 8, row3Y + 3, 0xFF55FFFF);
+        int textDy = (WIDGET_HEIGHT - 8) / 2;
+        int labelX = panelX + PANEL_PADDING;
+        context.text(font, Component.translatable("simplebuilding.gui.label.pos1"), labelX, startY + textDy, LABEL_COLOR, false);
+        context.text(font, Component.translatable("simplebuilding.gui.label.pos2"), labelX, startY + ROW_STEP + textDy, LABEL_COLOR, false);
+        context.text(font, Component.translatable("simplebuilding.gui.label.size"), labelX, startY + ROW_STEP * 2 + textDy, LABEL_COLOR, false);
     }
 
     private void drawInlineHudSummary(GuiGraphicsExtractor context) {
-        int boxX = panelX + 8;
+        int boxX = panelX + PANEL_PADDING;
         int boxY = hudSummaryY;
-        int boxW = panelWidth - 16;
-        int boxH = 40;
-
-        context.fill(boxX, boxY, boxX + boxW, boxY + boxH, 0x30000000);
 
         BlockPos p1 = new BlockPos(parse(x1Field), parse(y1Field), parse(z1Field));
         BlockPos p2 = new BlockPos(parse(x2Field), parse(y2Field), parse(z2Field));
@@ -470,28 +450,26 @@ public class OctantScreen extends Screen {
         int dy = Math.abs(p1.getY() - p2.getY()) + 1;
         int dz = Math.abs(p1.getZ() - p2.getZ()) + 1;
 
-        context.text(font,
-                Component.literal("Pos 1: " + p1.getX() + ", " + p1.getY() + ", " + p1.getZ()),
-            boxX + 4, boxY + 3, 0xFFFFD15A);
-        context.text(font,
-                Component.literal("Pos 2: " + p2.getX() + ", " + p2.getY() + ", " + p2.getZ()),
-            boxX + 4, boxY + 12, 0xFFD4E56A);
+        context.text(font, Component.translatable("simplebuilding.gui.summary.pos1", p1.getX(), p1.getY(), p1.getZ()),
+                boxX, boxY, LABEL_COLOR, false);
+        context.text(font, Component.translatable("simplebuilding.gui.summary.pos2", p2.getX(), p2.getY(), p2.getZ()),
+                boxX, boxY + 10, LABEL_COLOR, false);
 
-        String metric;
-        String dims = null;
+        Component metric;
+        Component dims = null;
         if (dy == 1 && (dx == 1 || dz == 1)) {
-            metric = "Distance: " + Math.max(dx, dz) + " blocks";
+            metric = Component.translatable("simplebuilding.gui.summary.distance", Math.max(dx, dz));
         } else if (dy == 1) {
-            metric = "Area: " + (dx * dz) + " blocks^2";
-            dims = "(" + dx + " x " + dz + ")";
+            metric = Component.translatable("simplebuilding.gui.summary.area", dx * dz);
+            dims = Component.literal("(" + dx + " x " + dz + ")");
         } else {
-            metric = "Volume: " + (dx * dy * dz) + " blocks^3";
-            dims = "(" + dx + " x " + dy + " x " + dz + ")";
+            metric = Component.translatable("simplebuilding.gui.summary.volume", dx * dy * dz);
+            dims = Component.literal("(" + dx + " x " + dy + " x " + dz + ")");
         }
 
-        context.text(font, Component.literal(metric), boxX + 4, boxY + 21, 0xFFFFD15A);
+        context.text(font, metric, boxX, boxY + 20, LABEL_COLOR, false);
         if (dims != null) {
-            context.text(font, Component.literal(dims), boxX + 4, boxY + 30, 0xFFB0B0B0);
+            context.text(font, dims, boxX, boxY + 30, SECONDARY_COLOR, false);
         }
     }
 

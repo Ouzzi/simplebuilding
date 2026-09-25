@@ -2,22 +2,26 @@ package com.simplebuilding.client.gui;
 
 import com.simplebuilding.client.DoubleJumpController;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.network.chat.Component;
+import net.minecraft.client.gui.contextualbar.ContextualBar;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.resources.Identifier;
 
 /**
- * Small HUD cooldown bar for the air-jump (double jump). Shown centered just above
- * the hotbar while the ability is recharging; it fills up as the cooldown counts down
- * and disappears once the air-jump is ready again.
+ * HUD cooldown bar for the air jump (double jump), drawn like vanilla's horse jump bar: the
+ * {@code hud/jump_bar_*} sprites in the contextual bar slot (182x5, where the experience bar sits),
+ * filling up while the ability recharges and gone once it is ready. Vanilla swaps that slot the
+ * same way while riding a horse, so nothing collides with the heart and armour rows any more
+ * (the old 80x5 fill bar with an "Air Jump" label sat 55 px above the bottom, right on top of
+ * extra heart rows). The experience level number is drawn again on top, as vanilla does.
  */
 public final class DoubleJumpHudOverlay {
-    private static final int BAR_WIDTH = 80;
-    private static final int BAR_HEIGHT = 5;
-    private static final int BORDER_COLOR = 0xC0000000;
-    private static final int TRACK_COLOR = 0xFF2B2B2B;
-    private static final int FILL_CHARGING = 0xFFFFC83C; // amber while recharging
-    private static final int FILL_READY = 0xFF4CFF4C;    // green at full charge
+    public static final Identifier BACKGROUND_SPRITE = Identifier.withDefaultNamespace("hud/jump_bar_background");
+    public static final Identifier PROGRESS_SPRITE = Identifier.withDefaultNamespace("hud/jump_bar_progress");
+    /** Vanilla's contextual bar: 182x5, 24 px above the bottom edge plus its own height. */
+    public static final int BAR_WIDTH = 182;
+    public static final int BAR_HEIGHT = 5;
+    public static final int BAR_BOTTOM_OFFSET = 24 + BAR_HEIGHT;
 
     private DoubleJumpHudOverlay() {
     }
@@ -44,22 +48,17 @@ public final class DoubleJumpHudOverlay {
         int remaining = DoubleJumpController.getCooldownRemaining();
         float charged = Math.max(0.0f, Math.min(1.0f, (float) (max - remaining) / (float) max));
 
-        int screenWidth = context.guiWidth();
-        int screenHeight = context.guiHeight();
-        int x = (screenWidth - BAR_WIDTH) / 2;
-        int y = screenHeight - 55; // above the hotbar / xp bar
-
-        // border + empty track
-        context.fill(x - 1, y - 1, x + BAR_WIDTH + 1, y + BAR_HEIGHT + 1, BORDER_COLOR);
-        context.fill(x, y, x + BAR_WIDTH, y + BAR_HEIGHT, TRACK_COLOR);
-
-        // recharge fill
+        int x = (context.guiWidth() - BAR_WIDTH) / 2;
+        int y = context.guiHeight() - BAR_BOTTOM_OFFSET;
+        context.blitSprite(RenderPipelines.GUI_TEXTURED, BACKGROUND_SPRITE, x, y, BAR_WIDTH, BAR_HEIGHT);
         int fillWidth = Math.round(BAR_WIDTH * charged);
         if (fillWidth > 0) {
-            context.fill(x, y, x + fillWidth, y + BAR_HEIGHT, charged >= 1.0f ? FILL_READY : FILL_CHARGING);
+            context.blitSprite(RenderPipelines.GUI_TEXTURED, PROGRESS_SPRITE, BAR_WIDTH, BAR_HEIGHT, 0, 0,
+                    x, y, fillWidth, BAR_HEIGHT);
         }
 
-        Font font = client.font;
-        context.centeredText(font, Component.literal("Air Jump"), screenWidth / 2, y - 10, 0xFFFFFFFF);
+        if (client.gameMode != null && client.gameMode.hasExperience() && client.player.experienceLevel > 0) {
+            ContextualBar.extractExperienceLevel(context, client.font, client.player.experienceLevel);
+        }
     }
 }

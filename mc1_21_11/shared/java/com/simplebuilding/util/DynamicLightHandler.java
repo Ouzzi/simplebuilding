@@ -23,8 +23,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * Leuchtende (emittierende, "Radiance") Ruestung setzt einen unsichtbaren Lichtblock. Traeger
- * sind Spieler (Position wandert jeden Tick mit), Ruestungsstaender und Gegenstandsrahmen
- * (ruhende Traeger, die ihren Lichtblock ueber {@link OwnedLightHolder} mit der Entity speichern).
+ * sind Spieler (Position in einer Tabelle, wandert alle 2 Ticks mit), Mobs, Ruestungsstaender und
+ * Gegenstandsrahmen (die ihren Lichtblock ueber {@link OwnedLightHolder} mit der Entity speichern).
  */
 public class DynamicLightHandler {
     private static final Map<UUID, BlockPos> lightSources = new HashMap<>();
@@ -79,24 +79,29 @@ public class DynamicLightHandler {
         }
     }
 
+    /** Wandernde Traeger (Mobs) pruefen oefter als ruhende, damit das Licht ihnen folgt. */
+    public static final int MOB_INTERVAL = 4;
+
     /**
-     * Ruestungsstaender: Licht auf Kopfhoehe wie beim Spieler. Aufruf jeden Tick aus dem
-     * LivingEntityMixin, gearbeitet wird nur alle {@link #HOLDER_INTERVAL} Ticks.
+     * Ruestungsstaender und Mobs: Licht auf Kopfhoehe wie beim Spieler, mit Position im Traeger
+     * gespeichert. Aufruf jeden Tick aus dem LivingEntityMixin; Spieler laufen ueber {@link #tick}.
      */
-    public static void tickArmorStand(ArmorStand stand) {
-        if (!(stand instanceof OwnedLightHolder holder) || !isHolderTick(stand)) return;
-        tickHolder(stand.level(), holder, stand.blockPosition().above(), wornEmission(stand));
+    public static void tickWearer(LivingEntity wearer) {
+        if (wearer instanceof Player || !(wearer instanceof OwnedLightHolder holder)) return;
+        int interval = wearer instanceof ArmorStand ? HOLDER_INTERVAL : MOB_INTERVAL;
+        if (!isHolderTick(wearer, interval)) return;
+        tickHolder(wearer.level(), holder, wearer.blockPosition().above(), wornEmission(wearer));
     }
 
     /** Gegenstandsrahmen: Licht im Block des Rahmens, gespeist vom eingelegten Gegenstand. */
     public static void tickItemFrame(ItemFrame frame) {
-        if (!(frame instanceof OwnedLightHolder holder) || !isHolderTick(frame)) return;
+        if (!(frame instanceof OwnedLightHolder holder) || !isHolderTick(frame, HOLDER_INTERVAL)) return;
         tickHolder(frame.level(), holder, frame.getPos(), GlowingTrimUtils.getEmissionLevel(frame.getItem()));
     }
 
-    private static boolean isHolderTick(Entity entity) {
+    private static boolean isHolderTick(Entity entity, int interval) {
         return !entity.level().isClientSide() && !entity.isRemoved()
-                && Math.floorMod(entity.level().getGameTime() + entity.getId(), HOLDER_INTERVAL) == 0;
+                && Math.floorMod(entity.level().getGameTime() + entity.getId(), interval) == 0;
     }
 
     static void tickHolder(Level level, OwnedLightHolder holder, BlockPos target, int emissionPoints) {
@@ -164,16 +169,17 @@ public class DynamicLightHandler {
     public static void onEntityRemoved(Entity entity, Entity.RemovalReason reason) {
         Level level = entity.level();
         if (level == null || level.isClientSide()) return;
-        if (entity instanceof OwnedLightHolder holder) {
+        // Spieler zuerst: auch sie tragen (als LivingEntity) das Holder-Feld, nutzen es aber nicht.
+        if (entity instanceof ServerPlayer) {
+            BlockPos pos = lightSources.remove(entity.getUUID());
+            if (pos != null) {
+                removeLight(level, pos);
+            }
+        } else if (entity instanceof OwnedLightHolder holder) {
             BlockPos owned = holder.simplebuilding$getOwnedLight();
             if (owned != null && reason.shouldDestroy()) {
                 removeLight(level, owned);
                 holder.simplebuilding$setOwnedLight(null);
-            }
-        } else if (entity instanceof ServerPlayer) {
-            BlockPos pos = lightSources.remove(entity.getUUID());
-            if (pos != null) {
-                removeLight(level, pos);
             }
         }
     }

@@ -101,6 +101,7 @@ public final class NeoForgeNetworkRegistration {
         registrar.playToClient(TrimDataPayload.ID, TrimDataPayload.CODEC, (payload, context) -> context.enqueueWork(() -> {
             if (context.player() instanceof SurvivalTracerAccessor accessor) {
                 accessor.simplebuilding$setBaseValues(payload.baseDist(), payload.baseTime(), payload.baseHostile(), payload.basePassive(), payload.baseDamage());
+                accessor.simplebuilding$setBaseXp(payload.baseXp());
             }
         }));
         registrar.playToClient(SurvivalSyncPayload.ID, SurvivalSyncPayload.CODEC, (payload, context) -> context.enqueueWork(() -> {

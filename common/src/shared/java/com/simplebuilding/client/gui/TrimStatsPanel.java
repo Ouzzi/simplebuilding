@@ -10,6 +10,8 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.resources.Identifier;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -23,13 +25,15 @@ import net.minecraft.world.item.Items;
  * Eine gemeinsame Klasse statt einer Kopie, damit die zwei Stellen nicht auseinanderlaufen.
  */
 public final class TrimStatsPanel {
+    private static final Identifier PANEL_SPRITE = Identifier.withDefaultNamespace("popup/background");
     private Button button;
     private boolean statsVisible = false; // Standardmäßig ausgeblendet
 
     /** Der Knopf links neben dem Inventar; {@code leftPos}/{@code topPos} sind die Bildecke. */
     public Button createButton(int leftPos, int topPos) {
         this.button = Button.builder(Component.empty(), pressed -> this.statsVisible = !this.statsVisible)
-                .bounds(leftPos - 24, topPos + 10, 20, 20)
+                // Wie der Besatz-Knopf am Schmiedetisch (SmithingScreenMixin): 25 links, 5 unter der Oberkante.
+                .bounds(leftPos - 25, topPos + 5, 20, 20)
                 .tooltip(Tooltip.create(
                         Component.empty()
                                 .append(Component.literal("Toggle Resonance Stats").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD))
@@ -58,8 +62,8 @@ public final class TrimStatsPanel {
 
         int boxWidth = 84;
         int boxHeight = 64;
-        int startX = leftPos - boxWidth - 30; // Etwas weiter links vom Button
-        int startY = topPos + 10;
+        int startX = leftPos - boxWidth - 31; // links vom Knopf, gleiche Oberkante
+        int startY = topPos + 5;
 
         boolean isBoxHovered = mouseX >= startX && mouseX <= startX + boxWidth && mouseY >= startY && mouseY <= startY + boxHeight;
 
@@ -97,22 +101,13 @@ public final class TrimStatsPanel {
         context.text(font, Component.literal(String.format("%.2fx", totalMult)).withStyle(ChatFormatting.DARK_GREEN, ChatFormatting.BOLD), colValX - 4, currentY, 0xFFFFFFFF, false);
 
         if (isBoxHovered) {
-            context.outline(startX - 1, startY - 1, boxWidth + 2, boxHeight + 2, 0xFFFFFFFF);
             renderDetailedTooltip(context, font, minecraft, mouseX, mouseY);
         }
     }
 
+    /** Vanillas Popup-Hintergrund (nine-slice, wie PopupScreen) statt nachgebauter Rechtecke. */
     private static void drawVanillaPanel(GuiGraphicsExtractor context, int x, int y, int width, int height) {
-        int colorBg = 0xFFC6C6C6;
-        int light = 0xFFFFFFFF;
-        int dark = 0xFF555555;
-        int black = 0xFF000000;
-        context.fill(x, y, x + width, y + height, colorBg);
-        context.fill(x, y, x + width - 1, y + 1, light);
-        context.fill(x, y, x + 1, y + height - 1, light);
-        context.fill(x + width - 1, y, x + width, y + height, dark);
-        context.fill(x, y + height - 1, x + width, y + height, dark);
-        context.outline(x - 1, y - 1, width + 2, height + 2, black);
+        context.blitSprite(RenderPipelines.GUI_TEXTURED, PANEL_SPRITE, x, y, width, height);
     }
 
     private static void renderDetailedTooltip(GuiGraphicsExtractor context, Font font, Minecraft minecraft, int mouseX, int mouseY) {

@@ -250,6 +250,7 @@ public class SimplebuildingClient implements ClientModInitializer {
                             payload.baseDist(), payload.baseTime(),
                             payload.baseHostile(), payload.basePassive(), payload.baseDamage()
                     );
+                    accessor.simplebuilding$setBaseXp(payload.baseXp());
                 }
             });
         });

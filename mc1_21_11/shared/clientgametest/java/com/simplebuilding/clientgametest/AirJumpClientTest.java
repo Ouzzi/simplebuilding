@@ -1,5 +1,7 @@
 package com.simplebuilding.clientgametest;
 
+import net.minecraft.resources.Identifier;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -79,10 +81,11 @@ import net.minecraft.world.item.ItemStack;
  *       to draw into.</li>
  *   <li>{@link #theHudBarGeometryColoursAndLabelAreExactlyWhatTheOverlayDraws} calls
  *       {@code DoubleJumpHudOverlay.render} with a {@link GuiGraphics} subclass that
- *       records the {@code fill} and {@code centeredText} calls instead of executing them. A
- *       screenshot can say "something appeared"; only this can say "82x7 border, 80x5 track, amber
- *       fill of exactly this width, centered, top edge 55 pixels above the bottom, label
- *       {@code "Air Jump"}". The controller state it renders is real, produced by a real air jump.
+ *       records the {@code blitSprite}, {@code fill} and {@code centeredText} calls instead of
+ *       executing them. A screenshot can say "something appeared"; only this can say "vanilla jump
+ *       bar background, 182x5, and its progress sprite cut to exactly this width, centred, top edge
+ *       29 pixels above the bottom, no fills, no label". The controller state it renders is real,
+ *       produced by a real air jump.
  *       It does not prove the overlay is registered anywhere - the screenshot test does that.</li>
  * </ul>
  *
@@ -127,11 +130,8 @@ import net.minecraft.world.item.ItemStack;
  *
  * <p><b>Known defect (reported, not written into any assertion).</b>
  * <ul>
- *   <li>{@code DoubleJumpHudOverlay.FILL_READY} (green) is dead code. The overlay returns early
- *       unless {@code DoubleJumpController.isOnCooldown()}, i.e. unless {@code remaining > 0}, and
- *       its fill fraction is {@code (max - remaining) / max}, which reaches 1.0 only at
- *       {@code remaining == 0}. The {@code charged >= 1.0f} branch can therefore never be
- *       taken.</li>
+ *   <li>Fixed 2026-09: the overlay's green "ready" colour was dead code (it only draws while a
+ *       cooldown runs). The vanilla-style bar has no ready state at all.</li>
  *   <li>{@code DoubleJumpController#getDoubleJumpLevel} scans <em>all</em> {@code EquipmentSlot}
  *       values, so enchanted boots merely <em>held in a hand</em> let the client air-jump, while
  *       the server side {@code ModMessageHandlers#handleDoubleJump} only ever looks at
@@ -186,16 +186,14 @@ public final class AirJumpClientTest {
     private static final int LONG_COOLDOWN = 200;
 
     // The bar the overlay claims to draw. Deliberately a second, independent copy of the numbers in
-    // DoubleJumpHudOverlay: if the overlay changes them, these assertions have to go red.
-    private static final int BAR_WIDTH = 80;
+    // DoubleJumpHudOverlay: if the overlay changes them, these assertions have to go red. Since
+    // 2026-09 it is vanilla's horse jump bar in vanilla's contextual bar slot (182x5, 29 px above
+    // the bottom), no longer a hand-filled 80x5 bar with a label.
+    private static final int BAR_WIDTH = 182;
     private static final int BAR_HEIGHT = 5;
-    private static final int BAR_BOTTOM_OFFSET = 55;
-    private static final int LABEL_OFFSET = 10;
-    private static final int BORDER_COLOR = 0xC0000000;
-    private static final int TRACK_COLOR = 0xFF2B2B2B;
-    private static final int FILL_CHARGING = 0xFFFFC83C;
-    private static final int LABEL_COLOR = 0xFFFFFFFF;
-    private static final String LABEL = "Air Jump";
+    private static final int BAR_BOTTOM_OFFSET = 29;
+    private static final String BACKGROUND_SPRITE = "minecraft:hud/jump_bar_background";
+    private static final String PROGRESS_SPRITE = "minecraft:hud/jump_bar_progress";
 
     /** The one position every case returns to: standing still on the scene floor, facing the wall. */
     private static final double HOME_X = 10.5;
@@ -1050,22 +1048,22 @@ public final class AirJumpClientTest {
     }
 
     /**
-     * The exact geometry, colours and label of the bar, taken from the overlay itself.
+     * The exact sprites and geometry of the bar, taken from the overlay itself.
      *
      * <p>{@code DoubleJumpHudOverlay.render} is called with a {@link GuiGraphics} subclass
      * that records {@code fill} and {@code centeredText} instead of performing them, while the
      * controller state it reads is a real cooldown produced by a real air jump. Everything the
-     * overlay promises is checked against an independent copy of the numbers: an 82x7 border box, an
-     * 80x5 track, an amber fill of width {@code round(80 * (max - remaining) / max)}, the whole
-     * thing centred with its top edge 55 pixels above the bottom of the screen, and the label
-     * {@code "Air Jump"} ten pixels above it in white.
+     * overlay promises is checked against an independent copy of the numbers: the vanilla
+     * {@code hud/jump_bar_background} sprite at 182x5, then {@code hud/jump_bar_progress} cut to a
+     * width of {@code round(182 * (max - remaining) / max)}, centred with the top edge 29 pixels
+     * above the bottom of the screen (vanilla's contextual bar slot), and no fill or label at all.
      *
      * <p>The second half waits until the cooldown has run out and records again: nothing at all may
      * be drawn then. That is the guard which makes the green {@code FILL_READY} branch unreachable,
      * so widening it turns this red.
      *
-     * <p>What breaks this test: any change to the bar's size, position, colours or label, dropping
-     * the clamp on the fill fraction, or drawing the bar when no cooldown is running.
+     * <p>What breaks this test: any change to the bar's sprites, size or position, dropping the clamp
+     * on the fill fraction, or drawing the bar when no cooldown is running.
      */
     private static void theHudBarGeometryColoursAndLabelAreExactlyWhatTheOverlayDraws(Script script) {
         setConfig(script, true, LONG_COOLDOWN);
@@ -1105,28 +1103,24 @@ public final class AirJumpClientTest {
 
             if (fillWidth <= 0) {
                 throw new AssertionError("Setup failed: the recorded cooldown state ("
-                        + recorded.remaining() + "/" + recorded.max() + ") produces an empty fill "
-                        + "rectangle, so the fill colour would not be drawn at all.");
+                        + recorded.remaining() + "/" + recorded.max() + ") produces an empty progress "
+                        + "sprite, so it would not be drawn at all.");
             }
 
-            List<HudFill> expectedFills = List.of(
-                    new HudFill(x - 1, y - 1, x + BAR_WIDTH + 1, y + BAR_HEIGHT + 1, BORDER_COLOR),
-                    new HudFill(x, y, x + BAR_WIDTH, y + BAR_HEIGHT, TRACK_COLOR),
-                    new HudFill(x, y, x + fillWidth, y + BAR_HEIGHT, FILL_CHARGING));
+            List<HudSprite> expectedSprites = List.of(
+                    new HudSprite(BACKGROUND_SPRITE, x, y, BAR_WIDTH, BAR_HEIGHT),
+                    new HudSprite(PROGRESS_SPRITE, x, y, fillWidth, BAR_HEIGHT));
 
-            if (!recorded.fills().equals(expectedFills)) {
+            if (!recorded.sprites().equals(expectedSprites)) {
                 throw new AssertionError("The cooldown bar was not drawn as specified at "
                         + recorded.remaining() + "/" + recorded.max() + " on a "
                         + recorded.guiWidth() + "x" + recorded.guiHeight() + " GUI.\nexpected "
-                        + expectedFills + "\nbut drew  " + recorded.fills());
+                        + expectedSprites + "\nbut drew  " + recorded.sprites());
             }
 
-            List<HudText> expectedTexts = List.of(
-                    new HudText(LABEL, recorded.guiWidth() / 2, y - LABEL_OFFSET, LABEL_COLOR));
-
-            if (!recorded.texts().equals(expectedTexts)) {
-                throw new AssertionError("The cooldown bar label was not drawn as specified.\nexpected "
-                        + expectedTexts + "\nbut drew  " + recorded.texts());
+            if (!recorded.fills().isEmpty() || !recorded.texts().isEmpty()) {
+                throw new AssertionError("The cooldown bar still draws hand-made fills or a label: "
+                        + recorded.fills() + " " + recorded.texts() + "; it is vanilla's jump bar now.");
             }
         });
 
@@ -1150,7 +1144,7 @@ public final class AirJumpClientTest {
                 int remaining = DoubleJumpController.getCooldownRemaining();
                 int max = DoubleJumpController.getCooldownMax();
                 DoubleJumpHudOverlay.render(recorder);
-                hidden.set(new HudFrame(List.copyOf(recorder.fills), List.copyOf(recorder.texts),
+                hidden.set(new HudFrame(List.copyOf(recorder.fills), List.copyOf(recorder.texts), List.copyOf(recorder.sprites),
                         remaining, max, recorder.guiWidth(), recorder.guiHeight()));
             } finally {
                 if (!wasHidden) {
@@ -1168,9 +1162,9 @@ public final class AirJumpClientTest {
                         + "frame proves nothing about F1.");
             }
 
-            if (!recorded.fills().isEmpty() || !recorded.texts().isEmpty()) {
+            if (!recorded.fills().isEmpty() || !recorded.texts().isEmpty() || !recorded.sprites().isEmpty()) {
                 throw new AssertionError("The cooldown bar is drawn on a hidden HUD: " + recorded.fills()
-                        + " " + recorded.texts() + ". F1 hides vanilla's HUD as a whole; the mod's "
+                        + " " + recorded.texts() + " " + recorded.sprites() + ". F1 hides vanilla's HUD as a whole; the mod's "
                         + "overlays have to follow it on every loader, not only where the element "
                         + "registry happens to sit inside a vanilla layer.");
             }
@@ -1191,11 +1185,10 @@ public final class AirJumpClientTest {
                         + recorded.remaining() + ") when the idle frame was recorded.");
             }
 
-            if (!recorded.fills().isEmpty() || !recorded.texts().isEmpty()) {
+            if (!recorded.fills().isEmpty() || !recorded.texts().isEmpty() || !recorded.sprites().isEmpty()) {
                 throw new AssertionError("The cooldown bar is still drawn after the air jump recharged: "
-                        + recorded.fills() + " " + recorded.texts()
-                        + ". At a remaining cooldown of 0 the fill fraction is 1.0, which is exactly the "
-                        + "state the overlay's unreachable green branch would render.");
+                        + recorded.fills() + " " + recorded.texts() + " " + recorded.sprites()
+                        + ". At a remaining cooldown of 0 the bar has nothing left to show.");
             }
         });
     }
@@ -1696,7 +1689,7 @@ public final class AirJumpClientTest {
             int remaining = DoubleJumpController.getCooldownRemaining();
             int max = DoubleJumpController.getCooldownMax();
             DoubleJumpHudOverlay.render(recorder);
-            result.set(new HudFrame(List.copyOf(recorder.fills), List.copyOf(recorder.texts),
+            result.set(new HudFrame(List.copyOf(recorder.fills), List.copyOf(recorder.texts), List.copyOf(recorder.sprites),
                     remaining, max, recorder.guiWidth(), recorder.guiHeight()));
         });
 
@@ -1722,7 +1715,7 @@ public final class AirJumpClientTest {
         int barY = metrics.guiHeight() - BAR_BOTTOM_OFFSET;
         int left = (int) Math.floor((barX - 2) * scaleX);
         int right = (int) Math.ceil((barX + BAR_WIDTH + 2) * scaleX);
-        int top = (int) Math.floor((barY - LABEL_OFFSET - 1) * scaleY);
+        int top = (int) Math.floor((barY - 2) * scaleY);
         int bottom = (int) Math.ceil((barY + BAR_HEIGHT + 2) * scaleY);
 
         int inside = 0;
@@ -1915,7 +1908,15 @@ public final class AirJumpClientTest {
         }
     }
 
-    private record HudFrame(List<HudFill> fills, List<HudText> texts,
+    private record HudSprite(String sprite, int x, int y, int width, int height) {
+
+        @Override
+        public String toString() {
+            return String.format("sprite(%s at %d,%d %dx%d)", sprite, x, y, width, height);
+        }
+    }
+
+    private record HudFrame(List<HudFill> fills, List<HudText> texts, List<HudSprite> sprites,
                             int remaining, int max, int guiWidth, int guiHeight) {
     }
 
@@ -1932,6 +1933,7 @@ public final class AirJumpClientTest {
 
         private final List<HudFill> fills = new ArrayList<>();
         private final List<HudText> texts = new ArrayList<>();
+        private final List<HudSprite> sprites = new ArrayList<>();
 
         private HudRecorder(Minecraft client) {
             super(client, new GuiRenderState(), 0, 0);
@@ -1940,6 +1942,17 @@ public final class AirJumpClientTest {
         @Override
         public void fill(int x1, int y1, int x2, int y2, int color) {
             fills.add(new HudFill(x1, y1, x2, y2, color));
+        }
+
+        @Override
+        public void blitSprite(RenderPipeline pipeline, Identifier sprite, int x, int y, int width, int height) {
+            sprites.add(new HudSprite(sprite.toString(), x, y, width, height));
+        }
+
+        @Override
+        public void blitSprite(RenderPipeline pipeline, Identifier sprite, int textureWidth, int textureHeight,
+                               int u, int v, int x, int y, int width, int height) {
+            sprites.add(new HudSprite(sprite.toString(), x, y, width, height));
         }
 
         @Override

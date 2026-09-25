@@ -29,6 +29,16 @@ public abstract class SurvivalTracerMixin implements SurvivalTracerAccessor {
     @Unique private int baseHostile = 0;
     @Unique private int basePassive = 0;
     @Unique private int baseDamage = 0; // NEU
+    @Unique private int baseXp = 0;
+
+    /** Aktiv verbrachte Ticks (Summe ueber alle Leben); die Zeitkurve liest activeTicks - baseTime. */
+    @Unique private int activeTicks = 0;
+    /** Distanz beim letzten Blick und der Tick, zu dem sie sich zuletzt geaendert hat. */
+    @Unique private int lastSeenDistance = -1;
+    @Unique private int lastMovedTick = Integer.MIN_VALUE / 2;
+
+    /** So lange nach der letzten Bewegung zaehlt die Zeit noch (Bauen im Stehen ist kein AFK). */
+    @Unique private static final int ACTIVE_GRACE_TICKS = 1200;
 
     // Accessor
     @Override public int simplebuilding$getBaseDistance() { return baseDist; }
@@ -36,6 +46,9 @@ public abstract class SurvivalTracerMixin implements SurvivalTracerAccessor {
     @Override public int simplebuilding$getBaseHostileKills() { return baseHostile; }
     @Override public int simplebuilding$getBasePassiveKills() { return basePassive; }
     @Override public int simplebuilding$getBaseDamageTaken() { return baseDamage; }
+    @Override public int simplebuilding$getBaseXp() { return baseXp; }
+    @Override public void simplebuilding$setBaseXp(int xp) { this.baseXp = xp; }
+    @Override public void simplebuilding$setActiveTime(int ticks) { this.activeTicks = ticks; }
 
     @Override
     public void simplebuilding$setBaseValues(int dist, int time, int hostile, int passive, int damage) {
@@ -48,7 +61,7 @@ public abstract class SurvivalTracerMixin implements SurvivalTracerAccessor {
 
     // Server Live-Werte (Dummy für Interface, echte Werte kommen aus Logic)
     @Override public int simplebuilding$getCurrentDistance() { return 0; }
-    @Override public int simplebuilding$getCurrentTime() { return 0; }
+    @Override public int simplebuilding$getCurrentTime() { return activeTicks; }
     @Override public int simplebuilding$getCurrentHostileKills() { return totalHostileKills; }
     @Override public int simplebuilding$getCurrentPassiveKills() { return totalPassiveKills; }
     @Override public int simplebuilding$getCurrentDamageTaken() { return 0; } // Live aus Stats
@@ -71,16 +84,27 @@ public abstract class SurvivalTracerMixin implements SurvivalTracerAccessor {
     public void simplebuilding$syncTrimData() {
         ServerPlayer player = (ServerPlayer) (Object) this;
         if (player.connection != null && PlatformServices.canSendToPlayer(player, TrimDataPayload.ID)) {
-            PlatformServices.sendToPlayer(player, new TrimDataPayload(baseDist, baseTime, baseHostile, basePassive, baseDamage));
+            PlatformServices.sendToPlayer(player, new TrimDataPayload(baseDist, baseTime, baseHostile, basePassive, baseDamage, baseXp));
         }
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void simplebuilding$onTick(CallbackInfo ci) {
         ServerPlayer player = (ServerPlayer) (Object) this;
+        if (player.tickCount % 20 == 0) {
+            // Kein AFK: die Zeit zaehlt nur, solange sich der Spieler in der letzten Minute bewegt hat.
+            int distance = getStatTotalDistance(player);
+            if (lastSeenDistance >= 0 && distance != lastSeenDistance) {
+                lastMovedTick = player.tickCount;
+            }
+            lastSeenDistance = distance;
+            if (player.tickCount - lastMovedTick <= ACTIVE_GRACE_TICKS) {
+                activeTicks += 20;
+            }
+        }
         if (player.tickCount % 20 == 0 && player.connection != null) {
             int currentDist = getStatTotalDistance(player);
-            int currentTime = player.getStats().getValue(Stats.CUSTOM.get(Stats.PLAY_TIME));
+            int currentTime = activeTicks;
             int currentDamage = player.getStats().getValue(Stats.CUSTOM.get(Stats.DAMAGE_TAKEN));
 
             if (PlatformServices.canSendToPlayer(player, SurvivalSyncPayload.ID)) {
@@ -98,6 +122,8 @@ public abstract class SurvivalTracerMixin implements SurvivalTracerAccessor {
         nbt.putInt("BaseHostile", baseHostile);
         nbt.putInt("BasePassive", basePassive);
         nbt.putInt("BaseDamage", baseDamage);
+        nbt.putInt("BaseXp", baseXp);
+        nbt.putInt("ActiveTicks", activeTicks);
 
         nbt.putInt("TotalHostile", totalHostileKills);
         nbt.putInt("TotalPassive", totalPassiveKills);
@@ -112,6 +138,15 @@ public abstract class SurvivalTracerMixin implements SurvivalTracerAccessor {
             baseHostile = nbt.getIntOr("BaseHostile", 0);
             basePassive = nbt.getIntOr("BasePassive", 0);
             baseDamage = nbt.getIntOr("BaseDamage", 0);
+            baseXp = nbt.getIntOr("BaseXp", 0);
+            // Aeltere Spielstaende kennen keinen Aktivzaehler; ihre BaseTime war eine Spielzeit-Statistik
+            // und passt nicht zum neuen Zaehler, der bei 0 beginnt.
+            if (nbt.contains("ActiveTicks")) {
+                activeTicks = nbt.getIntOr("ActiveTicks", 0);
+            } else {
+                activeTicks = 0;
+                baseTime = 0;
+            }
             totalHostileKills = nbt.getIntOr("TotalHostile", 0);
             totalPassiveKills = nbt.getIntOr("TotalPassive", 0);
         });
@@ -124,8 +159,11 @@ public abstract class SurvivalTracerMixin implements SurvivalTracerAccessor {
             // Reset
             ServerPlayer player = (ServerPlayer) (Object) this;
             this.baseDist = getStatTotalDistance(player);
-            this.baseTime = player.getStats().getValue(Stats.CUSTOM.get(Stats.PLAY_TIME));
+            this.activeTicks = oldAccessor.simplebuilding$getCurrentTime();
+            this.baseTime = this.activeTicks;
             this.baseDamage = player.getStats().getValue(Stats.CUSTOM.get(Stats.DAMAGE_TAKEN));
+            // Vanilla hat totalExperience hier schon uebernommen (keepInventory) oder bei 0 gelassen.
+            this.baseXp = player.totalExperience;
 
             this.totalHostileKills = oldAccessor.simplebuilding$getCurrentHostileKills();
             this.totalPassiveKills = oldAccessor.simplebuilding$getCurrentPassiveKills();
@@ -138,6 +176,8 @@ public abstract class SurvivalTracerMixin implements SurvivalTracerAccessor {
             this.baseHostile = oldAccessor.simplebuilding$getBaseHostileKills();
             this.basePassive = oldAccessor.simplebuilding$getBasePassiveKills();
             this.baseDamage = oldAccessor.simplebuilding$getBaseDamageTaken();
+            this.baseXp = oldAccessor.simplebuilding$getBaseXp();
+            this.activeTicks = oldAccessor.simplebuilding$getCurrentTime();
 
             this.totalHostileKills = oldAccessor.simplebuilding$getCurrentHostileKills();
             this.totalPassiveKills = oldAccessor.simplebuilding$getCurrentPassiveKills();

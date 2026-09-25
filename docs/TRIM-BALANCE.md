@@ -1,6 +1,6 @@
 # Rüstungsbesatz-Boni – Balance-Durchsicht
 
-Stand 2026-09-25. Grundlage: `TrimEffectUtil`, `TrimMultiplierLogic`, `PlayerEntityMixin`,
+Stand 2026-09-25, zweite Runde mit den Entscheidungen des Besitzers (Abschnitt 4). Grundlage: `TrimEffectUtil`, `TrimMultiplierLogic`, `PlayerEntityMixin`,
 `LivingEntityMixin`, `SurvivalTracerMixin`, der Tooltip (`ItemMixin`), `TrimReferenceScreen` und
 `TrimStatsPanel` in beiden Linien (26.2 und 1.21.11 sind in diesen Dateien identisch). Alle Raten
 stehen seit dieser Durchsicht als Konstanten in `TrimEffectUtil`; Tooltip und Nachschlage-Bildschirm
@@ -20,16 +20,24 @@ zu nehmen, oder ein billiges Material für einen Spezialfall zu wählen.
 - **Materialien** zählen je Teil 1.
 - **Resonanz** = `trimBenefitBaseMultiplier` (Standard 2,0) × Mittelwert aus Erfahrungs-,
   Überlebens- und Kampffaktor (je 0,1..1,0) → **0,2 bis 2,0**. Mobs und Rüstungsständer: fest 0,2.
+- **Erfahrungsfaktor** aus den seit dem Tod **gesammelten** Punkten (`totalExperience` minus Wert beim
+  Tod), voll bei 1395 Punkten (= Stufe 0 bis 30). Ausgeben am Zaubertisch/Amboss kostet nichts.
+- **Zeitkurve** des Überlebensfaktors aus **aktiver** Zeit: alle 20 Ticks zählen 20 Ticks, wenn sich die
+  zurückgelegte Strecke in der letzten Minute geändert hat. AFK hält die Uhr nach einer Minute an.
+- **Tempo, Glück, Schwimmen, Rückstoß, Reichweite** sind Vanilla-Attribut-Modifikatoren
+  (`TrimAttributeHandler`, flüchtig, alle 10 Ticks aufgefrischt): movement_speed (Spieler), luck
+  (Spieler), block_interaction_range (Spieler), water_movement_efficiency (jeder Träger),
+  knockback_resistance (jeder Träger).
 - Der Schaden wird am Anfang von `hurtServer` verringert, also **vor** Rüstung und Verzauberungen –
   die Boni wirken multiplikativ zu beidem.
 
 ### Resonanz in typischen Lagen
 
-| Lage | Faktoren L / S / C | alt (Produkt, Stufe/100) | neu (Mittel, Stufe/30) |
+| Lage | Faktoren L / S / C | alt (Produkt, Stufe/100) | neu (Mittel, Punkte/1395) |
 |---|---|---|---|
 | frisch gespawnt | 0,10 / 0,10 / 0,10 | 0,002 | 0,20 |
-| Stufe 15, 30 min am Leben, ~25 Kampfpunkte | 0,55 / 0,45 / 0,30 | 0,06 | 0,87 |
-| Stufe 30, 3 h am Leben, ~200 Kampfpunkte | 1,00 / 0,96 / 0,88 | 0,62 | 1,89 |
+| ~700 Punkte gesammelt, 30 min aktiv, ~25 Kampfpunkte | 0,55 / 0,45 / 0,30 | 0,06 | 0,87 |
+| 1395+ Punkte, 3 h aktiv, ~200 Kampfpunkte | 1,00 / 0,96 / 0,88 | 0,62 | 1,89 |
 | Obergrenze | 1 / 1 / 1 (alt erst ab Stufe 100) | 2,00 | 2,00 |
 
 ---
@@ -48,10 +56,10 @@ geändert hat.
 | Wild | Kaktus, Beeren, Stalagmit | 10 % | 40 % | 80 % | 80 % |
 | Dune | Explosionen | 8 % | 32 % | 64 % | 80 % |
 | Coast | Ertrinken | 10 % | 40 % | 80 % | 80 % |
-| Coast | Luft sparen (Chance) | 20 % | 75 % (80) | 75 % (160) | **75 %** (alt: keiner) |
+| Coast | Luft sparen (Chance) | 10 % (war 20) | 40 % | 75 % (80) | **75 %** |
 | Ward | jeder Schaden | 3 % | 12 % | 24 % | **25 % gemeinsam** |
 | Silence | Schallwelle des Wardens | 20 % | 80 % | 80 % | 80 % |
-| Silence | Sichtbarkeit für Mobs | −15 % | −50 % (−60) | −50 % | **−50 %** (alt: −100 %) |
+| Silence | Sichtbarkeit für Mobs | −8 % (war −15) | −32 % | −50 % (−64) | **−50 %** |
 | Snout | Feuer | 5 % | 20 % | 40 % | 80 % |
 | Rib | Witherschaden | 10 % | 40 % | 80 % | 80 % |
 | Rib | Wither löschen bis Restdauer | 40 Ticks | 100 (160) | 100 (320) | **100 Ticks** (alt: keiner) |
@@ -59,12 +67,12 @@ geändert hat.
 | Spire | Fallschaden | 8 % | 32 % | 64 % | 80 % |
 | Flow | Windkugeln | 10 % | 40 % | 80 % | 80 % |
 | Bolt | Blitz | 25 % | 80 % | 80 % | 80 % |
-| Bolt | Laufgeschwindigkeit | 5 % | 20 % | 20 % (40) | **+20 %** mit Redstone (alt: keiner) |
-| Tide | Schwimmgeschwindigkeit | 10 % | 40 % | 50 % (80) | **+50 %** (alt: keiner) |
+| Bolt | Laufgeschwindigkeit (Attribut, nur Spieler) | 5 % | 20 % | 20 % (40) | **+20 %** mit Redstone |
+| Tide | Wasserbewegungs-Effizienz (Attribut) | +0,10 | +0,4 | +0,5 (0,8) | **+0,5** (Wassertritt I = 0,33) |
 | Wayfinder | Sprint-Hunger | −10 % | −40 % | −50 % (−80) | **−50 %** (alt: −100 %) |
 | Raiser | Erfahrung | 10 % | 40 % | 50 % (80) | **+50 %** mit Lapis/Quarz |
-| Host | Glück | +1,0 | +3 (4) | +3 (8) | **+3** mit Smaragd (alt: keiner) |
-| Shaper | – | – | – | – | kein Effekt |
+| Host | Glück (Attribut, nur Spieler) | +0,5 (war 1,0) | +2 | +3 (4) | **+3** mit Smaragd |
+| Shaper | Blockreichweite (Attribut, nur Spieler) | +0,25 Blöcke | +1 | +2 | **+2 Blöcke** |
 
 ### Materialien
 
@@ -77,12 +85,13 @@ geändert hat.
 | Smaragd | Illager / Glück | 8 % / +0,5 | 32 % / +2 | 64 % / +3 (4) | |
 | Netherit | Wither-Boss, verzauberungsumgehend | 5 % | 20 % | 40 % | + Muster ×1,75 |
 | Quarz | Feuer / Erfahrung | 5 % / 5 % | 20 % / 20 % | 40 % / 40 % | |
-| Enderit | **jeder** Schaden | 5 % | 20 % | 25 % (40) | + Muster ×2,0 (alt 3,5), im 25-%-Topf |
+| Enderit | jeder Schaden außer `bypasses_invulnerability` (/kill, Leere) | 5 % | 20 % | 25 % (40) | + Muster ×2,0 (alt 3,5), im 25-%-Topf |
 | Astralit | rüstungswirksamer Schaden, Sprungkraft | 2 % | 8 %, Sprung I | 16 %, Sprung II | im 25-%-Topf |
 | Nihilith | rüstungswirksamer Schaden, Sturzflug | 2 % | 8 % | 16 % | im 25-%-Topf |
 | Redstone | Laufgeschwindigkeit | 3 % | 12 % | 20 % (24) | |
 | Amethyst | Heilchance alle 10 s | 25 % | 100 % | 100 % | 1 Lebenspunkt / 10 s |
-| Kupfer, Harz | – | – | – | – | kein Effekt |
+| Kupfer | Blitz | 10 % | 40 % | 80 % | Gegenstück zu Bolt |
+| Harz | Rückstoßresistenz (Attribut, jeder Träger) | +0,025 | +0,1 | +0,2 | |
 
 ### Deckel (neu, alle nach Resonanz und Teilezahl)
 
@@ -99,6 +108,8 @@ geändert hat.
 | Schwimmen | +50 % | – |
 | Wither löschen | 100 Ticks | – |
 | Heilchance | 100 % | – |
+| Blockreichweite | +2 Blöcke | – |
+| Stasis (Enderscape) | Resistenz II | – |
 
 ---
 
@@ -141,46 +152,32 @@ Coast-Test würfelt jetzt 100 Ticks statt eines garantierten Ticks (75-%-Deckel)
 
 ---
 
-## 4. Offene Entscheidungen für den Besitzer (nicht umgesetzt)
+## 4. Entscheidungen des Besitzers (2026-09-25, umgesetzt)
 
-1. **Kupfer, Harz und Shaper geben nichts.** Vorschlag: Kupfer +10 % Blitzschutz je Teil (billiges
-   Gegenstück zu Bolt), Harz +0,025 Rückstoßresistenz je Teil (Vanilla-Attribut, „klebrig“), Shaper
-   +0,25 Block-Reichweite je Teil (Vanilla-Attribut `block_interaction_range` – passt zu einer
-   Bau-Mod).
-2. **Host erreicht den Glücksdeckel schon bei Resonanz 0,75.** Vorschlag: Host 0,5 je Teil
-   (Satz @2,0 = +4 → Deckel +3 erst spät).
-3. **Silence erreicht −50 % Sichtbarkeit schon bei Resonanz 0,83.** Vorschlag: 8 % je Teil.
-4. **Coast-Luftsparen erreicht 75 % schon bei Resonanz 0,94.** Vorschlag: 10 % je Teil.
-5. **Enderit-Material wirkt auch gegen Leere, Hunger, Magie usw.** (kein Schadensart-Filter). Mit dem
-   25-%-Topf nicht mehr übermächtig; Vorschlag trotzdem: `BYPASSES_INVULNERABILITY` ausnehmen, damit
-   `/kill`-artige Schäden unberührt bleiben.
-6. **AFK zählt als Überleben.** Spielzeit läuft auch im Stillstand; drei Stunden AFK = voller
-   Überlebensfaktor. Vorschlag: Zeit nur zählen, solange sich die Distanz in der letzten Minute
-   geändert hat, oder die Zeitskala verdoppeln.
-7. **Ausgegebene Stufen senken die Resonanz.** Wer zaubert, verliert Erfahrungsfaktor. Vorschlag:
-   statt der aktuellen Stufe die seit dem Tod gesammelten Erfahrungspunkte (`totalExperience`, sinkt
-   beim Zaubern nicht) mit 1395 Punkten (= Stufe 30) als voll.
-8. **Stasis (Enderscape) kann Resistenz III geben**, wenn die Basis per Befehl hochgesetzt wird
-   (Schwelle 15 = Resonanz 3,75 bei 4 Teilen). Vorschlag: höchstens Resistenz II.
-9. **Tide wirkt ohne Tiefenschreiter kaum** (Vanilla verrechnet `getSpeed()` beim Schwimmen nur über
-   `WATER_MOVEMENT_EFFICIENCY`). Vorschlag: Tide als Modifikator auf dieses Attribut.
-10. **Boni als echte Attribut-Modifikatoren.** Tempo, Glück und Wasserbewegung ließen sich als
-    Vanilla-Attribute führen (sichtbar in Mods wie AppleSkin/Jade, sauber für andere Mods). Mehr
-    Umbau, reine Stilfrage.
-11. **Mobs und Rüstungsständer: feste Resonanz 0,2.** Alternativ 0 (Boni nur für Spieler) oder die
-    Resonanz des Besitzers.
-12. **Netherit-Gewicht 1,75** passt zum „teuer lohnt sich“-Ziel; ein alter Code-Kommentar nannte 1,5.
-    Keine Änderung empfohlen.
-13. **Basis 2,0**: mit dem Mittelwert liegt ein durchschnittlich gespielter Spieler bei ~0,9–1,9. Wer
-    es stärker auf „Überleben lohnt sich“ trimmen will, senkt den Boden der Faktoren (0,1 → 0) statt
-    die Basis zu heben.
+| # | Frage | Entscheidung | Umsetzung |
+|---|---|---|---|
+| 1 | Kupfer, Harz, Shaper ohne Wirkung | füllen | Kupfer +10 % Blitzschutz, Harz +0,025 Rückstoßresistenz, Shaper +0,25 Blockreichweite (je Teil × Resonanz; Shaper höchstens +2) |
+| 2–4 | Host, Silence, Coast erreichen den Deckel zu früh | senken | Host 0,5 Glück, Silence 8 %, Coast 10 % je Teil |
+| 5 | Enderit schützt gegen alles | nicht gegen `bypasses_invulnerability` | /kill und Leere gehen durch |
+| 6 | AFK zählt als Überleben | nur aktive Zeit | Aktivzähler im `SurvivalTracerMixin` (Strecke in der letzten Minute geändert), gespeichert als `ActiveTicks`; alte Spielstände starten die Uhr bei 0 |
+| 7 | Ausgegebene Stufen senken die Resonanz | gesammelte Punkte | `totalExperience` minus `BaseXp` (Wert beim Tod), voll bei 1395; `BaseXp` wird mit `TrimDataPayload` an den Client geschickt |
+| 8 | Stasis bis Resistenz III | höchstens II | `stasisAmplifier` |
+| 9–10 | Tempo/Glück/Schwimmen als Attribute; Tide ohne Wassertritt | umsetzen | `TrimAttributeHandler`; die getSpeed-/getLuck-Eingriffe sind entfernt; Tide wirkt über water_movement_efficiency |
+| 11 | Mobs/Rüstungsständer | fest 0,2 behalten | unverändert |
+| 12–13 | Netherit-Gewicht, Basis 2,0 | so lassen | unverändert |
+| 14 | Mobs mit Radiance-Rüstung ohne Licht | Licht geben | siehe Abschnitt 5 |
+| 15–18 | Oktant-Bildschirm, Entfernungsmesser, Luftsprung-Balken, Netherit-Trichter, Statistik-Panel | an Vanilla angleichen | siehe Bericht; Popup-Hintergrund, Tooltip-Hintergrund, Pferde-Sprungleiste, übersetzte Texte, Knopfposition wie am Schmiedetisch |
 
----
+Tests: `HopperAndTrimTests` (Erfahrungsfaktor aus Punkten, Basis beim Tod), `TrimEffectTests`
+(neue Raten, Harz, Shaper, Stasis-Deckel, Enderit gegen Leere und /kill), `TrimBonusTests` (Kupfer gegen
+Blitz), `TrimWiringTests` (Attribut-Modifikatoren samt Tick-Verdrahtung und Schalter, Aktivzeit ohne AFK,
+Speicherung von `BaseXp`/`ActiveTicks`, Migration alter Spielstände), `DynamicLightTests` (Mob-Licht).
+Jede neue Prüfung ist mit einer absichtlich eingebauten Gegenprobe rot gesehen worden.
 
 ## 5. Radiance (emittierende Rüstung) – Nachtrag
 
 Nicht Teil der Balance, aber in derselben Runde geändert: Rüstungsständer und Rahmen mit
-strahlenden Teilen setzen jetzt auch Licht (`DynamicLightHandler.tickArmorStand`/`tickItemFrame`,
+strahlenden Teilen setzen jetzt auch Licht (`DynamicLightHandler.tickWearer`/`tickItemFrame`,
 Position über `OwnedLightHolder` mit der Entity gespeichert, Aufräumen in `Entity.setRemoved`), und
 getragene/ausgestellte strahlende Teile geben feine Wachs-Glanz-Partikel ab (Chance je Tick
-2 % × Strahlkraft, höchstens 12 %). Offen: Mobs mit strahlender Rüstung setzen weiterhin kein Licht.
+2 % × Strahlkraft, höchstens 12 %). Seit der zweiten Runde setzen auch Mobs Licht (`DynamicLightHandler.tickWearer`, alle 4 Ticks, Position mit dem Mob gespeichert; Rüstungsständer alle 10 Ticks).

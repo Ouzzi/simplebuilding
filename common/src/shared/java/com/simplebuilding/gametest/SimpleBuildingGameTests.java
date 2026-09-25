@@ -332,6 +332,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("dynamic_light_game_test_armour_stands_and_item_frames_light_their_block_and_clean_up", DynamicLightTests::armourStandsAndItemFramesLightTheirBlockAndCleanUp)
                     .maxTicks(DynamicLightTests.HOLDER_MAX_TICKS)
                     .build(),
+            GameTestSpec.named("dynamic_light_game_test_mobs_wearing_radiant_armour_light_the_block_above_them", DynamicLightTests::mobsWearingRadiantArmourLightTheBlockAboveThem)
+                    .build(),
             GameTestSpec.named("ore_detector_game_test_detector_reports_the_nearest_target_inside_its_budget", OreDetectorTests::detectorReportsTheNearestTargetInsideItsBudget)
                     .build(),
             GameTestSpec.named("ore_detector_game_test_detector_modes_match_their_ore_tags", OreDetectorTests::detectorModesMatchTheirOreTags)
@@ -414,6 +416,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("trim_bonus_game_test_attacker_keyed_materials_read_the_entity_behind_the_hit", TrimBonusTests::attackerKeyedMaterialsReadTheEntityBehindTheHit)
                     .build(),
             GameTestSpec.named("trim_wiring_game_test_the_survival_factor_tracks_distance_and_time_since_the_last_death", TrimWiringTests::theSurvivalFactorTracksDistanceAndTimeSinceTheLastDeath)
+                    .build(),
+            GameTestSpec.named("trim_wiring_game_test_survival_time_counts_only_while_the_player_moves", TrimWiringTests::survivalTimeCountsOnlyWhileThePlayerMoves)
                     .build(),
             GameTestSpec.named("trim_wiring_game_test_the_combat_factor_weighs_kills_and_damage_by_mob_category", TrimWiringTests::theCombatFactorWeighsKillsAndDamageByMobCategory)
                     .build(),

@@ -285,13 +285,25 @@ public final class TrimBonusTests {
                     "an eye set reduced plain magic damage; dragon breath is the only type it is "
                             + "meant to cover");
 
-            // --- bolt: 25% per piece, lightning only ---
-            wear(player, copper, pattern(helper, TrimPatterns.BOLT), 1);
+            // --- bolt: 25% per piece, lightning only (on resin, which has no damage branch -
+            // copper has its own lightning bonus since 2026-09) ---
+            Holder<TrimMaterial> resin = material(helper, TrimMaterials.RESIN);
+            wear(player, resin, pattern(helper, TrimPatterns.BOLT), 1);
             assertDamage(helper, player, lightning, 7.5,
                     "one bolt piece against a lightning strike");
-            wear(player, copper, pattern(helper, TrimPatterns.BOLT), 2);
+            wear(player, resin, pattern(helper, TrimPatterns.BOLT), 2);
             assertDamage(helper, player, lightning, 5.0,
                     "two bolt pieces should take twice as much off as one; the 25% is per piece");
+
+            // --- copper as a material: 10% per piece against lightning, and it adds to bolt ---
+            wear(player, copper, pattern(helper, TrimPatterns.SHAPER), 4);
+            assertDamage(helper, player, lightning, 6.0,
+                    "a full copper set against a lightning strike (4 x 10%)");
+            assertDamage(helper, player, burning, 10.0,
+                    "a copper set reduced fire damage; its bonus is for lightning alone");
+            wear(player, copper, pattern(helper, TrimPatterns.BOLT), 1);
+            assertDamage(helper, player, lightning, 6.5,
+                    "one copper bolt piece: 25% from the pattern plus 10% from the material");
             wear(player, copper, pattern(helper, TrimPatterns.BOLT), 4);
             assertDamage(helper, player, burning, 10.0,
                     "a bolt set reduced fire damage - lightning starts fires, but the two are "

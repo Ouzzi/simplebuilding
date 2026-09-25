@@ -14,7 +14,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import com.simplebuilding.util.DynamicLightHandler;
-import net.minecraft.world.entity.decoration.ArmorStand;
+import org.jspecify.annotations.Nullable;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.core.BlockPos;
+import com.simplebuilding.util.TrimAttributeHandler;
+import com.simplebuilding.util.OwnedLightHolder;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,7 +29,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin {
+public abstract class LivingEntityMixin implements OwnedLightHolder {
 
     @ModifyVariable(method = "hurtServer", at = @At("HEAD"), argsOnly = true, ordinal = 0)
     private float simplebuilding$modifyDamageAmount(float amount, ServerLevel world, DamageSource source) {
@@ -33,26 +38,8 @@ public abstract class LivingEntityMixin {
         return TrimEffectUtil.modifyDamage(entity, amount, source);
     }
 
-    // --- SWIM SPEED (Tide) ---
-    // WARUM diese Injektion bleibt, obwohl der Spieler-Fall jetzt im PlayerEntityMixin haengt:
-    // Player#getSpeed ueberschreibt diese Methode ohne super-Aufruf, hier kommt also nur an,
-    // wer KEIN Spieler ist. Ruestungstragende Mobs (Drowned, Zombies, Ruestungsstaender)
-    // erreicht sie weiterhin - ein Entfernen waere fuer die eine Verhaltensaenderung.
-    // Doppelt angewendet wird nichts: wer hier durchkommt, kommt am PlayerEntityMixin nicht vorbei.
-    @Inject(method = "getSpeed", at = @At("RETURN"), cancellable = true)
-    private void simplebuilding$modifySwimSpeed(CallbackInfoReturnable<Float> cir) {
-        LivingEntity entity = (LivingEntity) (Object) this;
-
-        // Nur wenn wir im Wasser sind und schwimmen
-        if (entity.isSwimming()) {
-             float mult = TrimEffectUtil.getSwimSpeedMultiplier(entity);
-             if (mult > 1.0f) {
-                 cir.setReturnValue(cir.getReturnValue() * mult);
-             }
-        }
-    }
-
-
+    // Schwimmen (Tide) ist seit 2026-09 ein Modifikator auf water_movement_efficiency, siehe
+    // TrimAttributeHandler - der getSpeed-Eingriff wirkte ohne Wassertritt ohnehin kaum.
 
     @Inject(method = "decreaseAirSupply", at = @At("HEAD"), cancellable = true)
     private void simplebuilding$modifyAir(int air, CallbackInfoReturnable<Integer> cir) {
@@ -106,15 +93,42 @@ public abstract class LivingEntityMixin {
         }
     }
 
-    // --- RADIANCE (emittierende Ruestung): Licht am Ruestungsstaender, Schimmer an jedem Traeger ---
+    // --- RADIANCE (emittierende Ruestung) und Besatz-Attribute ---
+    // Licht: jeder Traeger ausser Spielern (die haben ihren eigenen Pfad im DynamicLightHandler),
+    // also Ruestungsstaender und Mobs; Schimmer clientseitig an jedem Traeger.
     @Inject(method = "tick", at = @At("TAIL"))
     private void simplebuilding$radianceTick(CallbackInfo ci) {
         LivingEntity entity = (LivingEntity) (Object) this;
         if (entity.level().isClientSide()) {
             DynamicLightHandler.tickGlowMotes(entity, () -> DynamicLightHandler.wornEmission(entity));
-        } else if (entity instanceof ArmorStand stand) {
-            DynamicLightHandler.tickArmorStand(stand);
+        } else {
+            DynamicLightHandler.tickWearer(entity);
+            TrimAttributeHandler.tick(entity);
         }
+    }
+
+    // Vom Traeger gesetzter Lichtblock (Ruestungsstaender, Mobs), mit der Entity gespeichert.
+    @Unique
+    private @Nullable BlockPos simplebuilding$ownedLight;
+
+    @Override
+    public @Nullable BlockPos simplebuilding$getOwnedLight() {
+        return this.simplebuilding$ownedLight;
+    }
+
+    @Override
+    public void simplebuilding$setOwnedLight(@Nullable BlockPos pos) {
+        this.simplebuilding$ownedLight = pos;
+    }
+
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    private void simplebuilding$writeOwnedLight(ValueOutput output, CallbackInfo ci) {
+        output.storeNullable("SimpleBuildingOwnedLight", BlockPos.CODEC, this.simplebuilding$ownedLight);
+    }
+
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    private void simplebuilding$readOwnedLight(ValueInput input, CallbackInfo ci) {
+        this.simplebuilding$ownedLight = input.read("SimpleBuildingOwnedLight", BlockPos.CODEC).orElse(null);
     }
 
     // 6. SILENCE TRIM (Stealth / Sichtbarkeit) - KORRIGIERT

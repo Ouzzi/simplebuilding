@@ -17,8 +17,11 @@ import net.minecraft.world.entity.player.Player;
  */
 public class TrimMultiplierLogic {
 
-    /** Ab dieser Stufe ist der Erfahrungsfaktor voll - die hoechste, die Vanilla je verlangt (Zaubertisch). */
-    public static final int XP_LEVEL_FOR_FULL_FACTOR = 30;
+    /**
+     * So viele seit dem Tod gesammelte Erfahrungspunkte machen den Erfahrungsfaktor voll - genau die
+     * Punkte von Stufe 0 bis Stufe 30, der hoechsten, die Vanilla je verlangt (Zaubertisch).
+     */
+    public static final int XP_POINTS_FOR_FULL_FACTOR = 1395;
 
     public static double getMultiplier(Player player) {
         double xpMult = calculateXPMultiplier(player);
@@ -34,9 +37,15 @@ public class TrimMultiplierLogic {
         return (calculateXPMultiplier(player) + calculateSurvivalMultiplier(player) + calculateCombatMultiplier(player)) / 3.0d;
     }
 
+    /**
+     * Aus den seit dem letzten Tod GESAMMELTEN Punkten ({@code totalExperience} minus Basis), nicht aus
+     * der aktuellen Stufe: Zaubern und Ambosse senken totalExperience nicht, Ausgeben kostet also
+     * keine Resonanz mehr.
+     */
     public static double calculateXPMultiplier(Player player) {
-        int level = player.experienceLevel;
-        double result = 0.1d + ((double) level / XP_LEVEL_FOR_FULL_FACTOR) * 0.9d;
+        int base = player instanceof SurvivalTracerAccessor accessor ? accessor.simplebuilding$getBaseXp() : 0;
+        int gathered = Math.max(0, player.totalExperience - base);
+        double result = 0.1d + ((double) gathered / XP_POINTS_FOR_FULL_FACTOR) * 0.9d;
         return Mth.clamp(result, 0.1d, 1.0d);
     }
 
@@ -50,12 +59,12 @@ public class TrimMultiplierLogic {
             baseDist = accessor.simplebuilding$getBaseDistance();
             baseTime = accessor.simplebuilding$getBaseTime();
 
+            // Zeit = aktiv verbrachte Ticks (bewegt innerhalb der letzten Minute), keine reine Spielzeit.
+            currentTime = accessor.simplebuilding$getCurrentTime();
             if (player.level().isClientSide()) {
                 currentDist = accessor.simplebuilding$getCurrentDistance();
-                currentTime = accessor.simplebuilding$getCurrentTime();
             } else {
                 currentDist = getStatTotalDistance(player);
-                currentTime = getStat(player, Stats.PLAY_TIME);
             }
         }
 
