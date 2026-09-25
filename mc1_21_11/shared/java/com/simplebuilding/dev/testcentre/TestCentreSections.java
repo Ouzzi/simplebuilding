@@ -529,6 +529,20 @@ public final class TestCentreSections {
     static final List<String> STORAGE_FAMILIES = List.of("bundles", "quivers", "backpacks");
     static final List<DyeColor> DYE_EXAMPLES = List.of(DyeColor.RED, DyeColor.LIME, DyeColor.BLUE, DyeColor.YELLOW);
 
+    /**
+     * Vanilla-Faerbefarbe der Beispiel-Farbstoffe, fest statt ueber DyeColor: 26.4 hat die Farbmethoden
+     * aus DyeColor entfernt, und die Werte sind seit Jahren dieselben (DyeColor#getTextureDiffuseColor).
+     */
+    private static int dyeRgb(DyeColor color) {
+        return switch (color) {
+            case RED -> 0xB02E26;
+            case LIME -> 0x80C71F;
+            case BLUE -> 0x3C44AA;
+            case YELLOW -> 0xFED83D;
+            default -> 0xFFFFFF;
+        };
+    }
+
     public static TcCanvas storage(TcContext ctx) {
         TcCanvas c = new TcCanvas();
         int wallZ = 4;
@@ -545,7 +559,7 @@ public final class TestCentreSections {
                 if (TcContext.isMod(TcContext.id(stack.getItem()))) {
                     for (DyeColor color : DYE_EXAMPLES) {
                         ItemStack copy = stack.copy();
-                        copy.set(DataComponents.DYED_COLOR, new DyedItemColor(color.getTextureDiffuseColor()));
+                        copy.set(DataComponents.DYED_COLOR, new DyedItemColor(dyeRgb(color)));
                         dyed.add(copy);
                     }
                 }
