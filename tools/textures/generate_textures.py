@@ -27,6 +27,8 @@ Stilregeln (gemessen an den vorhandenen Texturen des Mods):
   dunkelste Ton des Materials.
 - Licht von oben links, 4-6 Stufen pro Material, 1-2 Glanzpixel oben links.
 - Keine Halbtransparenz. Items RGBA, Blockflaechen deckend RGB.
+- Ecken der Kontur nicht dicht machen: sind zwei Konturpixel nur ueber Eck verbunden, bleibt das
+  Eckpixel frei (wie bei Vanilla), sonst entstehen dunkle oder helle Flecken. Innen erlaubt.
 
 UV-Vertrag fuer den platzierten Rucksack (Modell block/template_backpack, Vorderseite
 nach Norden, Texturslots #front #back #side #top, Partikel = #side). Pixelbereiche
@@ -1463,30 +1465,31 @@ def ring(x, y):
     return min(x, y, 15 - x, 15 - y)
 
 
-# Enderquarz (Item): kompakter Kristall-/Sternhaufen mit sieben Zacken in verschiedene Richtungen,
-# sehr dunkles Violett mit seltenen Funken, ringsum Abstand zum Rand.
-# O Umriss unten/rechts, R Randton oben/links, 1..5 Facetten dunkel -> hell, s Funke, S Glanzpunkt.
+# Enderquarz (Item): Kristallstern - kleiner Hauptkoerper als vierzackiger Stern (oben, unten,
+# links, rechts), dazu an den vier Diagonalen je ein herausragender Spike, der in einem kleinen
+# vierzackigen Stern endet. Sehr dunkles Violett, 1..5 dunkel -> hell (Licht von oben links),
+# s Funken, S Glanzpunkt; ohne eigene Konturfarbe, damit die Spitzen klar bleiben.
 ENDER_QUARTZ_ITEM = [
     "................",
-    "................",
-    ".......R........",
-    "...R..R5O...R...",
-    "..R5O.R54O.R4O..",
-    "..R54O554OR43O..",
-    "...O55554433O...",
-    "..R554s443332O..",
-    ".R554S44333321O.",
-    "..O4343332222O..",
-    "...O433322221O..",
-    "....OO322OO21O..",
-    "......OO2O.OO1O.",
-    "........O....O..",
-    "................",
+    "..5.....5....3..",
+    ".5s4....4...4s2.",
+    "..545..54..432..",
+    "...455.54.332...",
+    "....45554433....",
+    ".....55S443.....",
+    "..5554444433....",
+    ".54443443322221.",
+    "..4333332211....",
+    ".....43322......",
+    "...344.32.221...",
+    "..343..32..212..",
+    ".343....1...121.",
+    "..3.....1....1..",
     "................",
 ]
 ENDER_QUARTZ_ITEM_PAL = {
-    "O": "#12071c", "R": "#34174b", "1": "#200c31", "2": "#2f1447", "3": "#45206a", "4": "#5e2d88",
-    "5": "#8446b8", "s": "#c68cff", "S": "#fbefff",
+    "1": "#1c0a2e", "2": "#2a1142", "3": "#3b1a5a", "4": "#522678", "5": "#6e369c", "s": "#c68cff",
+    "S": "#fbefff",
 }
 
 # Enderitbarren: Lage, Perspektive und Silhouette des Vanilla-Netheritbarrens (Massvorlage), aber
@@ -1515,55 +1518,55 @@ ENDERITE_INGOT_PAL = {
     "5": "#8e63dc", "6": "#a57de9", "h": "#cfb2fb", "7": "#f1e8ff",
 }
 
-# Enderitschrott: pixelgenau die Grundform der urspruenglichen Textur des Besitzers; drei
-# uebereinanderliegende Lagen wie ein Kratzer mit drei Krallen, jede links spitz auslaufend.
-# O Umriss, H/B Lichtkante, A Oberkante einer Lage, 6..5 Lage, 3 Schatten, 2 Fuge.
+# Enderitschrott: Mischung aus der urspruenglichen Textur des Besitzers (Grundform, Maserung) und
+# den drei spitzen Krallen-Lagen: helle Oberkante A je Lage, weiche Fuge 4/2, links spitz
+# auslaufend. O Umriss unten/rechts, H/B Lichtkante oben/links.
 ENDERITE_SCRAP = [
     "................",
     "................",
     ".........HHO....",
-    ".......HH633O...",
-    ".....HH63322O...",
-    "....H53322A33O..",
-    "...H3322A3322O..",
-    "...B22AA322AAO..",
-    "....OA332AA66O..",
-    "...H3322A6666O..",
-    "...B22AA6665O...",
-    "....OA66655O....",
-    "....OO6655O.....",
+    ".......HHA63O...",
+    ".....HHA6622O...",
+    "....HA6522A65O..",
+    "...HA642A6622O..",
+    "...B42AA622AAO..",
+    "....OA464AA65O..",
+    "...HA642A4653O..",
+    "...B42AA3653O...",
+    "....OA46553O....",
+    ".....O5534O.....",
     "......OOOO......",
     "................",
     "................",
 ]
 ENDERITE_SCRAP_PAL = {
     "O": "#1f0c3d", "H": "#b58ef6", "A": "#a67aef", "B": "#9d7ad5", "6": "#6841a9", "5": "#553190",
-    "3": "#442871", "2": "#2c1356",
+    "3": "#442871", "2": "#2c1356", "4": "#442871",
 }
 
-# Enderitklumpen: die urspruengliche Textur des Besitzers (Klumpen mit Tropfen und seitlichen
-# Tropfspuren), nur auf sieben Toene vereinheitlicht und mit sauberem Umriss.
+# Enderitklumpen: oben der runde Klumpen der urspruenglichen Textur, darunter ein Tropfstein-Keil
+# mit dunklem Band, der nach unten spitz zulaeuft; Tropfen und seitliche Tropfspuren bleiben.
 ENDERITE_NUGGET = [
     "................",
     "................",
     "................",
     "........77O.....",
-    "......H7665OO...",
+    "......H7665O....",
     ".....7676553O...",
     ".....766555O....",
-    "....O.55555O....",
-    "....O.3555O.O...",
-    "......3663O.....",
-    ".......55OO.....",
-    ".......33O.O....",
-    ".......O4..O....",
+    "....O.R4432O....",
+    "....O.H653O.O...",
+    "......R532O.....",
+    ".......53O......",
+    ".......3O..O....",
+    "........4..O....",
     "........3.......",
     "........O.......",
     "................",
 ]
 ENDERITE_NUGGET_PAL = {
     "O": "#341145", "H": "#a881eb", "7": "#8464bc", "6": "#765aa6", "5": "#543487", "4": "#513279",
-    "3": "#3e2263",
+    "3": "#3e2263", "R": "#4a2d70", "2": "#2f1446",
 }
 
 
