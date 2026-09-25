@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Erzeugt die handgezeichneten 16x16-Texturen fuer Rucksack, Lederbogen, verstaerkten
 Koecher, verstaerkten klebrigen Kolben, Enderit-Kolben, Spachtel, die Enderit-Maschinen, die
-Nihilith-/Astralit-Quarz-Schachbretter, Enderquarz, Enderitbarren, -schrott, -klumpen, die beiden Aufwertungen, den Diamant-Kiesel und die
+Nihilith-/Astralit-Quarz-Schachbretter, die Enderit-Stufen der Tweak-Bloecke (Pads, Teleporter,
+Druckplatte, Chunk-Loader, Launchpad), Enderquarz, Enderitbarren, -schrott, -klumpen, die beiden Aufwertungen, den Diamant-Kiesel und die
 Blaupause; dazu aus Code (nicht aus
 Pixelkarten) die drei End-Paletten Astralit, Nihilith und Enderquarz (Grundblock, Ziegel, polierter
 Block, Saeule, gemeisselte Ziegel), die Rueckentextur des getragenen Rucksacks (entity/backpack/*, aus
@@ -1745,6 +1746,146 @@ def enderite_machine_textures():
     return tex
 
 
+# ---------------------------------------------------------------------------
+# Enderit-Stufen der Tweak-Bloecke (aus Simple Tweaks uebernommen): Elytra-Pad IV, Flypad IV,
+# Spawn-Teleporter V, Enderit-Druckplatte, Enderit-Chunk-Loader, Enderit-Launchpad. Alle nutzen das
+# Vanilla-Modell pressure_plate_up: sichtbar sind oben die Pixel 1..14 und an den Seiten Zeile 15.
+# Gemeinsam: heller Enderit-Rahmen mit 2x2-Eckbeschlaegen und leuchtender Niete oben links (wie die
+# Enderit-Maschinen), zwei Glimmerpunkte. Das Motiv innen haelt die Familie erkennbar:
+#   Elytra-Pad  - mittleres Violett, gepraegter Ring mit Spiral-Bogen (wie die Pads I-III)
+#   Flypad      - dunkles Enderit-Mauerwerk, Ring mit Funkelstern (Stellar-Flypad hat Sterne)
+#   Teleporter  - Portalring in Ender-Magenta mit leuchtendem Kern (Leuchtkraft 15)
+#   Druckplatte - schlichte erhabene Platte (wie die Netherit-Druckplatte)
+#   Chunk-Loader- sattes Violett, Ring mit quadratischem "Chunk" in der Mitte
+#   Launchpad   - helles Lavendel, Ring mit innerem Ring (Windstoss), hell wie das Launchpad
+# Die inneren 12x12 Pixel (Spalten/Zeilen 2..13) sind je Block gemalt; tweak_frame() legt den
+# Rahmen darum. Die Ecken der inneren Karte ('_') gehoeren den Beschlaegen.
+ENDERITE_TWEAK_PAL = {
+    # Rahmen und Beschlaege in der Barrenrampe (wie ENDERITE_MACHINE_PAL): F Umriss, m Schatten,
+    # M Grund, N hell, O Lichtkante, L Glimmer (Niete und Glimmerpunkte)
+    "F": "#1c0a33", "m": "#3e2173", "M": "#6d45b8", "N": "#8e63dc", "O": "#cfb2fb", "L": "#f4d2ff",
+    # dunkles Enderit-Mauerwerk (Flypad), dunkel -> hell
+    "a": "#1a1027", "b": "#241734", "c": "#2e1e43", "d": "#3a2754", "e": "#473167",
+    # Barrenrampe (ENDERITE_INGOT_PAL): 1 R-Ton ... 6, h Glanz, v Ender-Magenta, w Kern
+    "1": "#472480", "2": "#55309a", "3": "#6d45b8", "4": "#7b51c9", "5": "#8e63dc", "6": "#a57de9",
+    "h": "#cfb2fb", "v": "#c77dff", "w": "#f1e8ff",
+}
+ENDERITE_TWEAK_MAPS = {
+    "enderite_elytra_pad": [
+        "_4453344544_",
+        "3544hhh644L5",
+        "45hh22336634",
+        "45h233335634",
+        "4h233hh53554",
+        "4h23h2233654",
+        "5h3362233633",
+        "463335543634",
+        "446533336354",
+        "346656663344",
+        "4L5345334454",
+        "_5444334444_",
+    ],
+    "enderite_flypad": [
+        "_cccdcccbcc_",
+        "cdcc5554cdLc",
+        "dc55ee1133cb",
+        "cd5ebbbb23cc",
+        "c5ebbbvbb22c",
+        "c5ebbbhbb32c",
+        "c5bbvhLhv32b",
+        "d32bbbhbb32c",
+        "cb32bbvb32dc",
+        "dc33233311cc",
+        "cLdcc2211cdc",
+        "_cdcccccbcc_",
+    ],
+    "enderite_spawn_teleporter": [
+        "_3343323343_",
+        "3233wwwv34L3",
+        "34ww1122vv33",
+        "33w11221vv33",
+        "3w112vv21vv3",
+        "4w12vwhv2vv3",
+        "3w22vhvv2v63",
+        "3v212vv21v64",
+        "33vv1221v633",
+        "34vvvvvv6633",
+        "3L32vv663423",
+        "_3323343332_",
+    ],
+    "enderite_pressure_plate": [
+        "_3334333433_",
+        "3h6666666643",
+        "365544555523",
+        "365L55565523",
+        "365555445523",
+        "365445555523",
+        "365555554523",
+        "365655544523",
+        "365554555523",
+        "36455555L423",
+        "342222222223",
+        "_3343334333_",
+    ],
+    "enderite_chunk_loader": [
+        "_1121m11211_",
+        "1m11hhh611L1",
+        "11hhmm336612",
+        "11hmmmmm5611",
+        "1hmmh665m551",
+        "1hmm6vL3m652",
+        "2h3m6vv3m631",
+        "163m533mm631",
+        "1163mmmm6321",
+        "116656663321",
+        "1L1m11331121",
+        "_1121111m11_",
+    ],
+    "enderite_launchpad": [
+        "_66h6656h66_",
+        "66h6wwwh66L6",
+        "66ww4455hh66",
+        "6hw455555h66",
+        "6w455wh55556",
+        "6w45w66h5h56",
+        "hw55h6545h46",
+        "6h5554455h46",
+        "66h55555h4h6",
+        "66hh5hhh4466",
+        "6L6655446656",
+        "_6h66666566_",
+    ],
+}
+
+
+def tweak_frame(name, inner):
+    """Rahmen der Enderit-Tweak-Bloecke um die inneren 12x12 Pixel (Spalten/Zeilen 2..13)."""
+    if len(inner) != 12 or any(len(r) != 12 for r in inner):
+        raise ValueError(f"{name}: innere Karte muss 12x12 sein")
+    rows = ["FFFFFFFFFFFFFFFF", "FOONNNNNNNNNNNMF"]
+    for y, r in enumerate(inner):
+        if y == 0:
+            rows.append("FOL" + r[1:11] + "MmF")
+        elif y == 11:
+            rows.append("FNM" + r[1:11] + "mmF")
+        else:
+            rows.append("FN" + r + "mF")
+    rows += ["FMmmmmmmmmmmmmmF", "FmMMMMMMMMMMMMmF"]
+    return rows
+
+
+def enderite_tweak_textures():
+    return {f"block/{name}.png": render(name, tweak_frame(name, inner), ENDERITE_TWEAK_PAL, True)
+            for name, inner in ENDERITE_TWEAK_MAPS.items()}
+
+# Stufe darunter je Enderit-Tweak-Block (fuer die Vorschau)
+ENDERITE_TWEAK_BELOW = {
+    "enderite_elytra_pad": "netherite_elytra_pad", "enderite_flypad": "netherite_flypad",
+    "enderite_spawn_teleporter": "spawn_teleporter_tier_4", "enderite_pressure_plate": "netherite_pressure_plate",
+    "enderite_chunk_loader": "chunk_loader", "enderite_launchpad": "launchpad",
+}
+
+
 def mcmeta_text(animation):
     return json.dumps({"animation": animation}, indent=2) + "\n"
 
@@ -2299,6 +2440,7 @@ def build():
         tex[f"item/{metal}_spatula.png"] = render(f"{metal}_spatula", SPATULA, pal, False)
 
     tex.update(enderite_machine_textures())
+    tex.update(enderite_tweak_textures())
     tex.update(checker_textures())
     tex.update(backpack_worn_textures(tex))
     tex.update(backpack_dyed_textures(tex))
@@ -2568,6 +2710,9 @@ def build_preview(tex):
                                                 (f"{base}_front.png", tex[f"{base}_front.png"]),
                                                 (f"{base}_zusammen.png", opened), (f"{base}_blau.png", dyed)], []))
     groups += machine_preview_groups(tex)
+    groups.append(("Enderit-Tweak-Bloecke (Stufe darunter)",
+                   [(f"block/{below}.png", None) for below in ENDERITE_TWEAK_BELOW.values()], []))
+    groups.append(("Enderit-Tweak-Bloecke", [(f"block/{n}.png", tex[f"block/{n}.png"]) for n in ENDERITE_TWEAK_BELOW], []))
     groups.append(("Quarz-Schachbrett", [("block/lapis_quartz_checker.png", None)]
                    + [(k, tex[k]) for k in ("block/nihilith_quartz_checker.png", "block/nihilith_quartz_checker_mirror.png",
                                             "block/astralit_quartz_checker.png", "block/astralit_quartz_checker_mirror.png",

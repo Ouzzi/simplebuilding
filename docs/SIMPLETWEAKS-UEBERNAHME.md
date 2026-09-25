@@ -46,7 +46,7 @@ Status: **port** = uebernommen, **neu** = in SimpleBuilding neu hinzugekommen (B
 | HUD: blaue Boost-Leiste statt XP-Leiste, Timer | port | als HUD-Ebene ueber der XP-Leiste |
 | Schadensschutz der Spawn-Elytra (Fall + Kinetik, `IS_SAFE_ELYTRA`) | port | Mixin auf LivingEntity |
 | Kein Fallschaden im Spawnbereich (`disableFallDamageInSpawn`) | port | |
-| Erstbeitritt: Spawn-Teleporter + Elytra-Pad geschenkt | port | `spawnTeleporterCount` |
+| Erstbeitritt: Spawn-Teleporter + Elytra-Pad geschenkt | port, geaendert | `firstJoinTeleporterCount`, `firstJoinElytraPadCount` (beide Standard 0; alter `spawnTeleporterCount` != 1 wird fuer beide uebernommen; abgeschaltete Familie = kein Geschenk) |
 | Exakter Spawn (kein Zufallsradius, Bett-Mitte) | port | Mixin auf ServerPlayer; `forceExactSpawn` jetzt Standard **aus** |
 | Eigener Weltspawn aus der Config beim Laden der Oberwelt | port | `useCustomWorldSpawn`, Standard **aus** |
 | Nether/End sperren | port | Mixin auf den Dimensionswechsel |
@@ -239,7 +239,13 @@ Branch `remove-ported-features` im Repo `simpletweaks` (abgezweigt von `1.21.11`
 - Der Flugzeit-Timer einer Pad-Elytra laeuft auch, wenn die Spawn-Elytra abgeschaltet ist (vorher
   blieb sie dann ewig).
 - Erstbeitritt schenkt Teleporter **und** Elytra-Pad (vorher ueberschrieb das zweite Geschenk das erste
-  bei vollem Slot).
+  bei vollem Slot). Seit 2026-09-26 zwei getrennte Mengen `spawn.firstJoinTeleporterCount` und
+  `spawn.firstJoinElytraPadCount`, **beide Standard 0** (Besitzer-Wunsch; Simple Tweaks: ein Wert
+  `spawnTeleporterCount`, Standard 1). Ein alter `spawnTeleporterCount` in einer bestehenden
+  Config-Datei wird beim Laden (`SimplebuildingConfig.validatePostLoad`) fuer beide uebernommen, ausser
+  er steht auf dem alten Standard 1 - der wird zu 0; beim naechsten Speichern verschwindet der alte
+  Schluessel. Befehle: `/simplebuilding tweaks spawn teleporterCount|elytraPadCount <0-64>`. Ist die
+  Familie abgeschaltet (`pads.enableSpawnTeleporters` bzw. `pads.enableElytraPads`), faellt ihr Geschenk weg.
 - Flypad: wird es abgebaut oder abgeschaltet, verlieren Spieler im Bereich den Flug (vorher behielten
   sie ihn).
 - Chunk-Loader: nach Serverneustart wieder aktiv, und er gibt nur Chunks frei, die er selbst erzwungen
@@ -248,8 +254,10 @@ Branch `remove-ported-features` im Repo `simpletweaks` (abgezweigt von `1.21.11`
   behoben, Obergrenze `Short.MAX_VALUE` je Kugel.
 - Kupfer-Druckplatten behalten beim Oxidieren/Abkratzen ihren Besitzer und melden den Block darunter an.
 - Echo-Kompass neu geschrieben (kein AGPL-Code), Unbreaking/Mending wirken, jede Dimension.
-- Enderit-Texturen sind Helligkeits-Umfaerbungen der Stufe-III-Texturen - Pruefung durch den Besitzer
-  offen.
+- Enderit-Texturen (Pads, Teleporter, Druckplatte, Chunk-Loader, Launchpad) seit 2026-09-26 neu gezeichnet
+  (vorher Umfaerbungen der Stufe III): Enderit-Rahmen mit Eckbeschlaegen und Glimmer wie die
+  Enderit-Maschinen, Motiv je Familie; Karten in `tools/textures/generate_textures.py`
+  (`ENDERITE_TWEAK_MAPS`). Abnahme durch den Besitzer offen.
 - Nicht uebernommen: die Timer-Anzeige der Spawn-Elytra ueber der Hungerleiste (doppelt zur
   Boost-Leiste) und die Ergaenzung von `TRIMMABLE_ARMOR`/`TRIM_MATERIALS`-Tags.
 - JEI: jede Familie (Pads, Platten, Teleporter, Chunk-Loader, Launchpad, Spawn-Elytra, Laser,

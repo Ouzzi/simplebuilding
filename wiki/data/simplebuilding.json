@@ -17104,7 +17104,7 @@
             "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
             "The owner sees enchanting particles over their own teleporter. Waterloggable.",
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + netherite ingot; V = enderite upgrade template + IV + enderite ingot.",
-            "On their first join players get the configured number (spawnTeleporterCount, default 1) of Spawn Teleporters named 'Home Teleporter' plus as many Elytra Pads - once; the player tag is the one Simple Tweaks used, so nobody gets them twice after switching.",
+            "On their first join players can get Spawn Teleporters named 'Home Teleporter' (firstJoinTeleporterCount) and Elytra Pads (firstJoinElytraPadCount) - once; both default to 0, so nothing is handed out until an operator sets them, and a family switched off under pads is not handed out at all (config screen or /simplebuilding tweaks spawn teleporterCount|elytraPadCount). An old spawnTeleporterCount other than its old default 1 is taken over for both. The player tag is the one Simple Tweaks used, so nobody gets them twice after switching.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
             "Can be switched off with tweaks.pads.enableSpawnTeleporters."
           ]
@@ -17117,7 +17117,7 @@
             "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
             "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netheritbarren; V = Enderit-Aufwertungsvorlage + IV + Enderitbarren.",
-            "Beim ersten Betreten bekommen Spieler die eingestellte Zahl (spawnTeleporterCount, Standard 1) Spawn-Teleporter mit dem Namen 'Heim-Teleporter' und ebenso viele Elytra-Pads - einmal; der Spieler-Tag ist derselbe wie in Simple Tweaks, nach dem Umstieg gibt es sie also nicht doppelt.",
+            "Beim ersten Betreten koennen Spieler Spawn-Teleporter mit dem Namen 'Heim-Teleporter' (firstJoinTeleporterCount) und Elytra-Pads (firstJoinElytraPadCount) bekommen - einmal; beide stehen standardmaessig auf 0, es gibt also nichts, bis ein Operator sie einstellt, und eine unter pads abgeschaltete Familie wird gar nicht verschenkt (Config-Bildschirm oder /simplebuilding tweaks spawn teleporterCount|elytraPadCount). Ein alter spawnTeleporterCount ungleich dem alten Standard 1 gilt fuer beide. Der Spieler-Tag ist derselbe wie in Simple Tweaks, nach dem Umstieg gibt es sie also nicht doppelt.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
             "Abschaltbar über tweaks.pads.enableSpawnTeleporters."
           ]
@@ -20262,7 +20262,7 @@
             "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
             "The owner sees enchanting particles over their own teleporter. Waterloggable.",
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + netherite ingot; V = enderite upgrade template + IV + enderite ingot.",
-            "On their first join players get the configured number (spawnTeleporterCount, default 1) of Spawn Teleporters named 'Home Teleporter' plus as many Elytra Pads - once; the player tag is the one Simple Tweaks used, so nobody gets them twice after switching.",
+            "On their first join players can get Spawn Teleporters named 'Home Teleporter' (firstJoinTeleporterCount) and Elytra Pads (firstJoinElytraPadCount) - once; both default to 0, so nothing is handed out until an operator sets them, and a family switched off under pads is not handed out at all (config screen or /simplebuilding tweaks spawn teleporterCount|elytraPadCount). An old spawnTeleporterCount other than its old default 1 is taken over for both. The player tag is the one Simple Tweaks used, so nobody gets them twice after switching.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
             "Can be switched off with tweaks.pads.enableSpawnTeleporters."
           ]
@@ -20275,7 +20275,7 @@
             "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
             "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netheritbarren; V = Enderit-Aufwertungsvorlage + IV + Enderitbarren.",
-            "Beim ersten Betreten bekommen Spieler die eingestellte Zahl (spawnTeleporterCount, Standard 1) Spawn-Teleporter mit dem Namen 'Heim-Teleporter' und ebenso viele Elytra-Pads - einmal; der Spieler-Tag ist derselbe wie in Simple Tweaks, nach dem Umstieg gibt es sie also nicht doppelt.",
+            "Beim ersten Betreten koennen Spieler Spawn-Teleporter mit dem Namen 'Heim-Teleporter' (firstJoinTeleporterCount) und Elytra-Pads (firstJoinElytraPadCount) bekommen - einmal; beide stehen standardmaessig auf 0, es gibt also nichts, bis ein Operator sie einstellt, und eine unter pads abgeschaltete Familie wird gar nicht verschenkt (Config-Bildschirm oder /simplebuilding tweaks spawn teleporterCount|elytraPadCount). Ein alter spawnTeleporterCount ungleich dem alten Standard 1 gilt fuer beide. Der Spieler-Tag ist derselbe wie in Simple Tweaks, nach dem Umstieg gibt es sie also nicht doppelt.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
             "Abschaltbar über tweaks.pads.enableSpawnTeleporters."
           ]
@@ -20320,7 +20320,7 @@
             "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
             "The owner sees enchanting particles over their own teleporter. Waterloggable.",
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + netherite ingot; V = enderite upgrade template + IV + enderite ingot.",
-            "On their first join players get the configured number (spawnTeleporterCount, default 1) of Spawn Teleporters named 'Home Teleporter' plus as many Elytra Pads - once; the player tag is the one Simple Tweaks used, so nobody gets them twice after switching.",
+            "On their first join players can get Spawn Teleporters named 'Home Teleporter' (firstJoinTeleporterCount) and Elytra Pads (firstJoinElytraPadCount) - once; both default to 0, so nothing is handed out until an operator sets them, and a family switched off under pads is not handed out at all (config screen or /simplebuilding tweaks spawn teleporterCount|elytraPadCount). An old spawnTeleporterCount other than its old default 1 is taken over for both. The player tag is the one Simple Tweaks used, so nobody gets them twice after switching.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
             "Can be switched off with tweaks.pads.enableSpawnTeleporters."
           ]
@@ -20333,7 +20333,7 @@
             "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
             "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netheritbarren; V = Enderit-Aufwertungsvorlage + IV + Enderitbarren.",
-            "Beim ersten Betreten bekommen Spieler die eingestellte Zahl (spawnTeleporterCount, Standard 1) Spawn-Teleporter mit dem Namen 'Heim-Teleporter' und ebenso viele Elytra-Pads - einmal; der Spieler-Tag ist derselbe wie in Simple Tweaks, nach dem Umstieg gibt es sie also nicht doppelt.",
+            "Beim ersten Betreten koennen Spieler Spawn-Teleporter mit dem Namen 'Heim-Teleporter' (firstJoinTeleporterCount) und Elytra-Pads (firstJoinElytraPadCount) bekommen - einmal; beide stehen standardmaessig auf 0, es gibt also nichts, bis ein Operator sie einstellt, und eine unter pads abgeschaltete Familie wird gar nicht verschenkt (Config-Bildschirm oder /simplebuilding tweaks spawn teleporterCount|elytraPadCount). Ein alter spawnTeleporterCount ungleich dem alten Standard 1 gilt fuer beide. Der Spieler-Tag ist derselbe wie in Simple Tweaks, nach dem Umstieg gibt es sie also nicht doppelt.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
             "Abschaltbar über tweaks.pads.enableSpawnTeleporters."
           ]
@@ -20378,7 +20378,7 @@
             "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
             "The owner sees enchanting particles over their own teleporter. Waterloggable.",
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + netherite ingot; V = enderite upgrade template + IV + enderite ingot.",
-            "On their first join players get the configured number (spawnTeleporterCount, default 1) of Spawn Teleporters named 'Home Teleporter' plus as many Elytra Pads - once; the player tag is the one Simple Tweaks used, so nobody gets them twice after switching.",
+            "On their first join players can get Spawn Teleporters named 'Home Teleporter' (firstJoinTeleporterCount) and Elytra Pads (firstJoinElytraPadCount) - once; both default to 0, so nothing is handed out until an operator sets them, and a family switched off under pads is not handed out at all (config screen or /simplebuilding tweaks spawn teleporterCount|elytraPadCount). An old spawnTeleporterCount other than its old default 1 is taken over for both. The player tag is the one Simple Tweaks used, so nobody gets them twice after switching.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
             "Can be switched off with tweaks.pads.enableSpawnTeleporters."
           ]
@@ -20391,7 +20391,7 @@
             "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
             "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netheritbarren; V = Enderit-Aufwertungsvorlage + IV + Enderitbarren.",
-            "Beim ersten Betreten bekommen Spieler die eingestellte Zahl (spawnTeleporterCount, Standard 1) Spawn-Teleporter mit dem Namen 'Heim-Teleporter' und ebenso viele Elytra-Pads - einmal; der Spieler-Tag ist derselbe wie in Simple Tweaks, nach dem Umstieg gibt es sie also nicht doppelt.",
+            "Beim ersten Betreten koennen Spieler Spawn-Teleporter mit dem Namen 'Heim-Teleporter' (firstJoinTeleporterCount) und Elytra-Pads (firstJoinElytraPadCount) bekommen - einmal; beide stehen standardmaessig auf 0, es gibt also nichts, bis ein Operator sie einstellt, und eine unter pads abgeschaltete Familie wird gar nicht verschenkt (Config-Bildschirm oder /simplebuilding tweaks spawn teleporterCount|elytraPadCount). Ein alter spawnTeleporterCount ungleich dem alten Standard 1 gilt fuer beide. Der Spieler-Tag ist derselbe wie in Simple Tweaks, nach dem Umstieg gibt es sie also nicht doppelt.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
             "Abschaltbar über tweaks.pads.enableSpawnTeleporters."
           ]
@@ -20436,7 +20436,7 @@
             "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
             "The owner sees enchanting particles over their own teleporter. Waterloggable.",
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + netherite ingot; V = enderite upgrade template + IV + enderite ingot.",
-            "On their first join players get the configured number (spawnTeleporterCount, default 1) of Spawn Teleporters named 'Home Teleporter' plus as many Elytra Pads - once; the player tag is the one Simple Tweaks used, so nobody gets them twice after switching.",
+            "On their first join players can get Spawn Teleporters named 'Home Teleporter' (firstJoinTeleporterCount) and Elytra Pads (firstJoinElytraPadCount) - once; both default to 0, so nothing is handed out until an operator sets them, and a family switched off under pads is not handed out at all (config screen or /simplebuilding tweaks spawn teleporterCount|elytraPadCount). An old spawnTeleporterCount other than its old default 1 is taken over for both. The player tag is the one Simple Tweaks used, so nobody gets them twice after switching.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
             "Can be switched off with tweaks.pads.enableSpawnTeleporters."
           ]
@@ -20449,7 +20449,7 @@
             "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
             "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netheritbarren; V = Enderit-Aufwertungsvorlage + IV + Enderitbarren.",
-            "Beim ersten Betreten bekommen Spieler die eingestellte Zahl (spawnTeleporterCount, Standard 1) Spawn-Teleporter mit dem Namen 'Heim-Teleporter' und ebenso viele Elytra-Pads - einmal; der Spieler-Tag ist derselbe wie in Simple Tweaks, nach dem Umstieg gibt es sie also nicht doppelt.",
+            "Beim ersten Betreten koennen Spieler Spawn-Teleporter mit dem Namen 'Heim-Teleporter' (firstJoinTeleporterCount) und Elytra-Pads (firstJoinElytraPadCount) bekommen - einmal; beide stehen standardmaessig auf 0, es gibt also nichts, bis ein Operator sie einstellt, und eine unter pads abgeschaltete Familie wird gar nicht verschenkt (Config-Bildschirm oder /simplebuilding tweaks spawn teleporterCount|elytraPadCount). Ein alter spawnTeleporterCount ungleich dem alten Standard 1 gilt fuer beide. Der Spieler-Tag ist derselbe wie in Simple Tweaks, nach dem Umstieg gibt es sie also nicht doppelt.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
             "Abschaltbar über tweaks.pads.enableSpawnTeleporters."
           ]

@@ -724,18 +724,79 @@ public final class TweaksTests {
     // Spawn, Dimensionen, XP, Stapel, Befehle, Config
     // =====================================================================================
 
-    /** Erstes Betreten: Teleporter und Elytra-Pad in der Config-Menge, genau einmal (Tag wie Simple Tweaks). */
+    /**
+     * Erstes Betreten: Teleporter und Elytra-Pad je in ihrer eigenen Config-Menge (beide Standard 0),
+     * genau einmal (Tag wie Simple Tweaks), nicht fuer eine abgeschaltete Familie; ein alter
+     * {@code spawnTeleporterCount} wird uebernommen.
+     */
     public static void theFirstJoinGiftComesOnceAndHonoursSimpleTweaksPlayers(GameTestHelper helper) {
-        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
-        player.getInventory().clearContent();
-        player.removeTag(SpawnSetup.FIRST_JOIN_TAG);
-        int amount = Math.max(0, Math.min(64, SimpleTweaks.config().spawn.spawnTeleporterCount));
-        SpawnSetup.onPlayerJoin(player);
-        helper.assertValueEqual(player.getInventory().countItem(TweaksBlocks.SPAWN_TELEPORTER.asItem()), amount, "spawn teleporters given on the first join");
-        helper.assertValueEqual(player.getInventory().countItem(TweaksBlocks.ELYTRA_PAD.asItem()), amount, "elytra pads given on the first join");
-        helper.assertTrue(player.getTags().contains("simpletweaks.first_join"), "the first-join tag is not the one Simple Tweaks used");
-        SpawnSetup.onPlayerJoin(player);
-        helper.assertValueEqual(player.getInventory().countItem(TweaksBlocks.SPAWN_TELEPORTER.asItem()), amount, "spawn teleporters after a second join");
+        TweaksConfig.Spawn fresh = new TweaksConfig().spawn;
+        helper.assertValueEqual(fresh.firstJoinTeleporterCount, 0, "default spawn teleporters on the first join");
+        helper.assertValueEqual(fresh.firstJoinElytraPadCount, 0, "default elytra pads on the first join");
+        TweaksConfig.Spawn spawn = SimpleTweaks.config().spawn;
+        TweaksConfig.Pads families = SimpleTweaks.config().pads;
+        int teleporters = spawn.firstJoinTeleporterCount;
+        int pads = spawn.firstJoinElytraPadCount;
+        boolean teleportersOn = families.enableSpawnTeleporters;
+        boolean elytraPadsOn = families.enableElytraPads;
+        try {
+            families.enableSpawnTeleporters = true;
+            families.enableElytraPads = true;
+            ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
+            player.getInventory().clearContent();
+            player.removeTag(SpawnSetup.FIRST_JOIN_TAG);
+            spawn.firstJoinTeleporterCount = 0;
+            spawn.firstJoinElytraPadCount = 0;
+            SpawnSetup.onPlayerJoin(player);
+            helper.assertValueEqual(player.getInventory().countItem(TweaksBlocks.SPAWN_TELEPORTER.asItem()), 0, "spawn teleporters given with the default config");
+            helper.assertValueEqual(player.getInventory().countItem(TweaksBlocks.ELYTRA_PAD.asItem()), 0, "elytra pads given with the default config");
+            helper.assertTrue(player.getTags().contains("simpletweaks.first_join"), "a first join with nothing to give did not set the first-join tag");
+
+            player.removeTag(SpawnSetup.FIRST_JOIN_TAG);
+            spawn.firstJoinTeleporterCount = 2;
+            spawn.firstJoinElytraPadCount = 3;
+            SpawnSetup.onPlayerJoin(player);
+            helper.assertValueEqual(player.getInventory().countItem(TweaksBlocks.SPAWN_TELEPORTER.asItem()), 2, "spawn teleporters given on the first join");
+            helper.assertValueEqual(player.getInventory().countItem(TweaksBlocks.ELYTRA_PAD.asItem()), 3, "elytra pads given on the first join");
+            helper.assertTrue(player.getTags().contains("simpletweaks.first_join"), "the first-join tag is not the one Simple Tweaks used");
+            SpawnSetup.onPlayerJoin(player);
+            helper.assertValueEqual(player.getInventory().countItem(TweaksBlocks.SPAWN_TELEPORTER.asItem()), 2, "spawn teleporters after a second join");
+            helper.assertValueEqual(player.getInventory().countItem(TweaksBlocks.ELYTRA_PAD.asItem()), 3, "elytra pads after a second join");
+
+            // Abgeschaltete Familie: dieses Geschenk faellt weg, das andere bleibt.
+            for (boolean teleportersEnabled : new boolean[] {false, true}) {
+                player.getInventory().clearContent();
+                player.removeTag(SpawnSetup.FIRST_JOIN_TAG);
+                families.enableSpawnTeleporters = teleportersEnabled;
+                families.enableElytraPads = !teleportersEnabled;
+                SpawnSetup.onPlayerJoin(player);
+                helper.assertValueEqual(player.getInventory().countItem(TweaksBlocks.SPAWN_TELEPORTER.asItem()), teleportersEnabled ? 2 : 0,
+                        "spawn teleporters given with spawn teleporters " + (teleportersEnabled ? "enabled" : "disabled"));
+                helper.assertValueEqual(player.getInventory().countItem(TweaksBlocks.ELYTRA_PAD.asItem()), teleportersEnabled ? 0 : 3,
+                        "elytra pads given with elytra pads " + (teleportersEnabled ? "disabled" : "enabled"));
+            }
+            families.enableSpawnTeleporters = true;
+            families.enableElytraPads = true;
+
+            // Alte Config-Datei: ein geaenderter Wert gilt fuer beide, der alte Standard 1 wird 0.
+            TweaksConfig.Spawn legacy = new TweaksConfig().spawn;
+            legacy.spawnTeleporterCount = 5;
+            helper.assertTrue(legacy.migrateLegacyFirstJoinCount(), "an old spawnTeleporterCount was not seen");
+            helper.assertValueEqual(legacy.firstJoinTeleporterCount, 5, "teleporters taken over from an old spawnTeleporterCount");
+            helper.assertValueEqual(legacy.firstJoinElytraPadCount, 5, "elytra pads taken over from an old spawnTeleporterCount");
+            helper.assertTrue(legacy.spawnTeleporterCount == null, "the old key is kept and would be saved again");
+            TweaksConfig.Spawn oldDefault = new TweaksConfig().spawn;
+            oldDefault.spawnTeleporterCount = 1;
+            oldDefault.migrateLegacyFirstJoinCount();
+            helper.assertValueEqual(oldDefault.firstJoinTeleporterCount + oldDefault.firstJoinElytraPadCount, 0,
+                    "the old default 1 still hands out first-join gifts");
+            helper.assertFalse(new TweaksConfig().spawn.migrateLegacyFirstJoinCount(), "a new config claims to carry an old key");
+        } finally {
+            spawn.firstJoinTeleporterCount = teleporters;
+            spawn.firstJoinElytraPadCount = pads;
+            families.enableSpawnTeleporters = teleportersOn;
+            families.enableElytraPads = elytraPadsOn;
+        }
         TestCleanup.succeed(helper);
     }
 
@@ -838,7 +899,8 @@ public final class TweaksTests {
                 "pads.enableFilterPlates=true", "balancing.rocketStackSize=64", "dimensions.allowNether=true",
                 "dimensions.allowEnd=true", "spawn.forceExactSpawn=false", "spawn.disableFallDamageInSpawn=true",
                 "spawn.useCustomWorldSpawn=false", "spawn.xCoordSpawnPoint=0", "spawn.yCoordSpawnPoint=-1",
-                "spawn.zCoordSpawnPoint=0", "spawn.spawnTeleporterCount=1", "spawn.giveElytraOnSpawn=false",
+                "spawn.zCoordSpawnPoint=0", "spawn.firstJoinTeleporterCount=0", "spawn.firstJoinElytraPadCount=0",
+                "spawn.spawnTeleporterCount=null", "spawn.giveElytraOnSpawn=false",
                 "spawn.spawnElytraRadius=25", "spawn.useWorldSpawnAsCenter=false", "spawn.customSpawnElytraX=0",
                 "spawn.customSpawnElytraZ=0", "spawn.flightTimeSeconds=300", "spawn.maxBoosts=3", "spawn.boostStrength=0.6",
                 "spawn.spawn1X=0", "spawn.spawn1Y=-1000", "spawn.spawn1Z=0", "spawn.spawn2X=0", "spawn.spawn2Y=-1000",
