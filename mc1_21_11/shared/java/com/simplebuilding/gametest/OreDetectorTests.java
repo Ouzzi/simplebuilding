@@ -574,6 +574,54 @@ public final class OreDetectorTests {
         TestCleanup.succeed(helper);
     }
 
+    /**
+     * A detector calibrated in another Minecraft line keeps its target. {@code NbtUtils} stores the
+     * block under {@code Name}/{@code Properties} on 26.2 and under {@code id}/{@code properties}
+     * on 26.3, custom data never goes through the DataFixers, and each version's
+     * {@code readBlockState} only knows its own spelling - so a detector brought from a 26.2 world
+     * into 26.3 would silently search for air. Both spellings are written by hand here, so every
+     * line checks both, whatever {@code writeBlockState} produces.
+     *
+     * <p>What breaks this: {@code getCustomBlock} handing the stored tag to {@code readBlockState}
+     * unchanged (the scan finds nothing and the tooltip says "None" for the foreign spelling), or
+     * treating the air fallback of {@code readBlockState} as a real target.
+     */
+    public static void detectorCalibratedInEitherMinecraftLineKeepsItsTarget(GameTestHelper helper) {
+        String oakLog = "minecraft:oak_log";
+        for (String[] keys : new String[][]{{"Name", "Properties", "26.2"}, {"id", "properties", "26.3"}}) {
+            CompoundTag stored = new CompoundTag();
+            stored.putString(keys[0], oakLog);
+            CompoundTag properties = new CompoundTag();
+            properties.putString("axis", "y");
+            stored.put(keys[1], properties);
+
+            ItemStack detector = detectorInMode(MODE_CUSTOM);
+            CompoundTag nbt = customData(detector);
+            nbt.put("CustomBlock", stored);
+            detector.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
+
+            String expectedTarget = "Target: " + Blocks.OAK_LOG.getName().getString();
+            helper.assertTrue(tooltip(helper, detector).contains(expectedTarget),
+                    "a detector calibrated on an oak log in " + keys[2] + " (" + stored
+                            + ") does not name it, its tooltip is " + tooltip(helper, detector));
+
+            clearCorridor(helper);
+            helper.setBlock(rowPos(2), Blocks.STONE);
+            setLogAxis(helper, rowPos(3), Direction.Axis.X);
+            assertFinds(helper, detector, rowPos(3),
+                    "the oak log a detector calibrated in " + keys[2] + " was set to");
+        }
+
+        // A stored tag without any block name is no target at all, not a search for air.
+        ItemStack nameless = detectorInMode(MODE_CUSTOM);
+        CompoundTag nbt = customData(nameless);
+        nbt.put("CustomBlock", new CompoundTag());
+        nameless.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
+        helper.assertTrue(tooltip(helper, nameless).contains("Target: None (Sneak-Use on block)"),
+                "a detector whose stored block has no name claims a target: " + tooltip(helper, nameless));
+        TestCleanup.succeed(helper);
+    }
+
     /** Height of the straight sight line in a {@link LineWorld}; the eye sits in block (0, 64, 0). */
     private static final int LINE_Y = 64;
     private static final Vec3 LINE_EYE = new Vec3(0.5, LINE_Y + 0.5, 0.5);

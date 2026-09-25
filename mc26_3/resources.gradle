@@ -4,8 +4,9 @@
 // what must differ, the same way the Java sources work:
 //
 //   src/main/resources          hand-written assets/data of the mod (shared)
-//   mc26_3/overlay/resources    (currently empty) hand-written files that must differ on 26.3; hides the
-//                               file with the same path in src/main/resources
+//   mc26_3/overlay/resources    hand-written files that must differ on 26.3 (the Enderite equipment
+//                               asset with its trim_overrides); hides the file with the same path in
+//                               src/main/resources
 //   src/main/generated          26.2 datagen output (shared where 26.3 would write the same)
 //   mc26_3/generated            26.3 datagen output, ONLY the files that differ from
 //                               src/main/generated; syncGenerated263 (after :mc26_3:fabric:runDatagen)

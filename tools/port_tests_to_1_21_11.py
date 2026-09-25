@@ -175,6 +175,7 @@ SHIM_FOLDS: list[tuple[str, str]] = [
     (r"McVersion\.bundleItemCopies\(" + _ARG + r"\)", r"\1.itemCopyStream()"),
     (r"McVersion\.emptyBundleMutable\(\)", "new BundleContents.Mutable(BundleContents.EMPTY)"),
     (r"McVersion\.tradeSetTrades\(" + _ARG + r"\)", r"\1.getTrades()"),
+    (r"McVersion\.trimColourSuffix\(" + _ARG + r", " + _ARG + r"\)", r"\1.assets().assetId(\2).suffix()"),
 ]
 
 

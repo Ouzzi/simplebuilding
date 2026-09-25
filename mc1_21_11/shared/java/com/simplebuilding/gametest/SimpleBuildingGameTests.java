@@ -378,6 +378,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("ore_detector_game_test_calibrated_detector_glimmers_in_the_colour_of_its_target", OreDetectorTests::calibratedDetectorGlimmersInTheColourOfItsTarget)
                     .build(),
+            GameTestSpec.named("ore_detector_game_test_detector_calibrated_in_either_minecraft_line_keeps_its_target", OreDetectorTests::detectorCalibratedInEitherMinecraftLineKeepsItsTarget)
+                    .build(),
             GameTestSpec.named("ore_detector_game_test_the_ore_detector_recipe_crafts_from_its_documented_pattern", OreDetectorTests::theOreDetectorRecipeCraftsFromItsDocumentedPattern)
                     .build(),
             GameTestSpec.named("quiver_game_test_right_clicks_do_nothing_even_with_master_builder", QuiverTests::rightClicksDoNothingEvenWithMasterBuilder)
@@ -458,6 +460,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("trim_wiring_game_test_the_tick_driven_trim_effects_fire_on_their_own_cadence", TrimWiringTests::theTickDrivenTrimEffectsFireOnTheirOwnCadence)
                     .build(),
             GameTestSpec.named("trim_wiring_game_test_the_three_trim_materials_keep_their_colours_and_their_tags", TrimWiringTests::theThreeTrimMaterialsKeepTheirColoursAndTheirTags)
+                    .build(),
+            GameTestSpec.named("trim_wiring_game_test_enderite_trim_turns_darker_on_enderite_armour", TrimWiringTests::enderiteTrimTurnsDarkerOnEnderiteArmour)
                     .build(),
             GameTestSpec.named("trim_wiring_game_test_the_trim_multiplier_command_guards_its_range_and_its_permission", TrimWiringTests::theTrimMultiplierCommandGuardsItsRangeAndItsPermission)
                     .build(),

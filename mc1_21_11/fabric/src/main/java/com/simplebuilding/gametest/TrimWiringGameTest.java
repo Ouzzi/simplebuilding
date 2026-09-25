@@ -62,6 +62,11 @@ public final class TrimWiringGameTest {
     }
 
     @GameTest
+    public void enderiteTrimTurnsDarkerOnEnderiteArmour(GameTestHelper helper) {
+        TrimWiringTests.enderiteTrimTurnsDarkerOnEnderiteArmour(helper);
+    }
+
+    @GameTest
     public void theTrimMultiplierCommandGuardsItsRangeAndItsPermission(GameTestHelper helper) {
         TrimWiringTests.theTrimMultiplierCommandGuardsItsRangeAndItsPermission(helper);
     }

@@ -67,6 +67,11 @@ public final class OreDetectorGameTest {
     }
 
     @GameTest
+    public void detectorCalibratedInEitherMinecraftLineKeepsItsTarget(GameTestHelper helper) {
+        OreDetectorTests.detectorCalibratedInEitherMinecraftLineKeepsItsTarget(helper);
+    }
+
+    @GameTest
     public void theOreDetectorRecipeCraftsFromItsDocumentedPattern(GameTestHelper helper) {
         OreDetectorTests.theOreDetectorRecipeCraftsFromItsDocumentedPattern(helper);
     }

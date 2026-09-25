@@ -182,7 +182,7 @@ zwischen 26.2 und 26.3 unterscheidet, liegt als **Zwillingspaar** vor:
 `gradlew checkOverlays` (haengt an `check`) scheitert, wenn eine Klasse zugleich im gemeinsamen Baum
 und in einem Overlay liegt oder ein Overlay-File keinen Zwilling hat.
 
-**Ressourcen** (`mc26_3/resources.gradle`): `mc26_3/overlay/resources` (26.3-items-Atlas) und
+**Ressourcen** (`mc26_3/resources.gradle`): `mc26_3/overlay/resources` (Enderit-Equipment-Asset mit trim_overrides) und
 `mc26_3/generated` liegen VOR `src/main/resources` / `src/main/generated`, Duplikate = EXCLUDE (erstes
 gewinnt). `mc26_3/generated` enthaelt nur die 26.3-Datagen-Dateien, die sich von 26.2 unterscheiden
 (`:mc26_3:fabric:runDatagen` -> `syncGenerated263`); `removed-on-26.3.txt` blendet 26.2-Dateien aus, die
@@ -195,14 +195,16 @@ Tests: `run.py --targets fabric-263,neoforge-263` (Server, gemeinsamer Katalog),
 Mod-Blasting-Rezepte: 26.3 speichert die Ofenzeit und der Hochofen halbiert sie; die 26.3-Datagen
 schreibt deshalb die doppelte Zeit (RecipeProviderCompat.fastMachineTicks), real bleibt es bei der 26.2-Dauer.
 
-Offen / bewusst nicht gemacht:
-- Kalibrierte Erzdetektoren aus 26.2-Welten (CustomBlock "Name") liest der Detektor auf 26.3 weiter,
-  NbtUtils.readBlockState auf 26.3 aber nicht (Schluessel "id") -> Ziel-Suche im CUSTOM-Modus geht
-  nach einem Welt-Upgrade verloren, bis neu kalibriert wird.
-- Dunkle Trim-Varianten (`*_darker`) fuer Enderit-Ruestung mit Enderit-Trim: 26.3 steuert das ueber
-  trim_overrides im Equipment-Asset, nicht mehr ueber die MaterialAssetGroup - nicht nachgebaut.
-- Wiki: kein 26.3-Linienschalter (generate.py erwartet je Linie einen vollstaendigen Baum).
-- Jade / AppleSkin / Mouse Tweaks fuer 26.3 nicht als Dev-Mods eingebunden (nur JEI).
+Erledigt in Welle 12 (2026-09-25):
+- Kalibrierte Erzdetektoren aus 26.2-Welten: getCustomBlock reicht readBlockState beide Schreibweisen
+  (Name/Properties und id/properties); Test ore_detector_..._detector_calibrated_in_either_minecraft_line_keeps_its_target.
+- Enderit-Trim auf Enderit-Ruestung in `enderite_darker`: 26.2 ueber den Asset-Group-Override
+  (ModTrimMaterials.DARKER_ON), 26.3 ueber trim_overrides in
+  `mc26_3/overlay/resources/assets/simplebuilding/equipment/enderite.json` (erste Datei in overlay/resources);
+  Test trim_wiring_..._enderite_trim_turns_darker_on_enderite_armour.
+- Wiki mit 26.3-Linie (generate.py baut den 26.3-Baum aus src/main/generated + mc26_3/generated, Rezepte
+  mit gleicher Id und anderem Inhalt werden als Variante gezeigt, 26.3-Hochofenzeiten normalisiert).
+- Jade / AppleSkin / Mouse Tweaks als 26.3-Dev-Mods (nur runClient/runServer).
 
 Teststand 2026-09-25 (nach Merge mit master): alle 7 Server-Ziele gruen (2776/2776), client-fabric-263,
 client-neoforge-263 und client-fabric-262 je 117/117. Der Glimmer-Test vergleicht Pixel nur im Inventar-Panel
