@@ -61,27 +61,33 @@ Verlauf im Detail: git log.
 - [x] 26.4-Snapshot-Linie vorbereiten (Fabric, Forge falls vorhanden), experimentell, blockiert das Gate nicht
 - [x] Nahtloses Welt-Upgrade 26.2 -> 26.3: Audit aller Mod-Daten, tolerante Leser, Fixture-Rundlauftest, docs/UPGRADE-26.2-26.3.md
 
-## Welle 14 (laeuft): Simple Tweaks uebernehmen
+## Welle 14 (erledigt, gepusht): Simple Tweaks uebernehmen
 - [ ] Inventur + docs/SIMPLETWEAKS-UEBERNAHME.md (inkl. vollstaendiger Claim-Notiz, Claims NICHT portieren)
 - [ ] Port aller Druckplatten (Chunkloader, Elytra-Pad, Fly-Pad, Spawn-Teleporter + Modi), Spawn-/Erstbeitritt, Spawn-Elytra, XP-Kugeln, Laser, Echo-Kompass, Befehle, Config (jede Variante abschaltbar) - alle Linien/Loader
 - [ ] Enderit-Stufe nach Netherit, Netherstern-Stufe rueckt eins hoch (z. B. Enderite Elytra Pad IV, Fine Elytra Pad V); Enderit-Platte mit Zusatzfunktion
 - [ ] Echo-Kompass: Rezept Bergungskompass + Enderit-Kern + Netherit-Druckplatte links/rechts; Unbreaking-Bug fixen
 - [ ] Tests alle Linien; danach in simpletweaks Branch remove-ported-features (nicht gepusht)
 
-## Welle 15 (laeuft): Testzentrale
+## Welle 15 (erledigt, gepusht): Testzentrale
 - [x] /sbtestcentre build: reproduzierbare Testwelt aus Code (Ruestung/Trims/Upgrades, alle Buecher, Werkzeuge plain+verzaubert, Meissel-Tuerme + In-World-Stationen, Lager, Bloecke, Maschinen-Demos, Erzdetektor-Feld, Essen, Oktant/Blaupause/Baustab-Modi, Versatility/Vein/Strip, Command-Block-Knoepfe)
 - [x] Abdeckungstest: jedes Mod-Item/-Block steht in der Zentrale (neue Features fallen automatisch auf); docs/TESTZENTRALE.md; Regel: am Ende jedes Runs pruefen
 
-## Welle 16 (erledigt, auf master, Gate offen): Fehler + Optik aus dem Testen
+## Welle 16 (erledigt, gepusht; Server-Gate 3096/3096, Client-Gate offen): Fehler + Optik aus dem Testen
 - [x] Enderit-Besatzfarbe im Tooltip lesbar (#9A7BD8)
 - [x] Bridge geht nicht; B-Taste schliesst Rucksack-Inventar nicht; Dach-Modus mit Enderit-Baustab; Testzentrale-Command-Blocks feuern doppelt/versetzt; Enderit-Kolben in der Zentrale pruefen
 - [x] Koecher faerbbar und richtig dargestellt; Faerbe-Tönung sanfter, Stufen bleiben unterscheidbar
 - [x] Enderit-Trichter-Item vanilla-nah; verst. klebriger Kolben mit Vanilla-Schleim
 - [x] Enderit-Glimmer: Apfel, Karotte, Koecher, Rucksack, Buendel; Enderit-Maschinen und -Kolben im Barren-Look
 
+## Welle 17 (laeuft)
+- [ ] Eigene Kolbenkoepfe je Stufe (+ klebrig); beim Kolben-Abbau Partikel, Block-Abbau-Sound + eigener Bohr-Sound
+- [ ] Erstbeitritt: Spawn-Teleporter und Pad standardmaessig 0 (zwei Config-Werte)
+- [ ] Enderit-Tweaks-Bloecke: neue Pixelart statt Umfaerbung
+- [ ] Audit: alle Auffaelligkeiten der Mod auflisten
+- [ ] Client-Gate (6 Ziele) sobald Besitzer-Client/-Server geschlossen; Testzentrale neu bauen
+
 ## Wartet auf den Besitzer
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
-- [ ] Eigene Kolbenkoepfe fuer verstaerkt/Netherite/Enderit (zeigen ausgefahren den Vanilla-Kopf; braucht Kopf-Block + Moving-Piston auf allen Loadern)
 
 ## Spaeter
 - [ ] Enderit-Kolben: 3 Bloecke Abbau macht Tunnelbohrer zu leicht - spaeter Balance (z. B. Verschleiss/Schadenszustand)
