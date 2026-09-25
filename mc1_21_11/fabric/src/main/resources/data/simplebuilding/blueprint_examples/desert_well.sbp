@@ -1,0 +1,17 @@
+# Beispiel: Wuestenbrunnen, 5 x 5 x 5 (wie er in der Wueste liegt)
+# Sandstein-Rand, Wasser in der Mitte, vier Saeulen und ein Dach aus Stufen.
+
+$stufe = sandstone_slab
+
+# Boden und Rand; die Mitte wird Wasser
+sandstone 0..4,0,0..4
+$stufe 0..4,1,0 0..4,1,4 0,1,1..3 4,1,1..3
+water 2,1,2
+sandstone 1..3,1,1 1..3,1,3 1,1,2 3,1,2
+
+# Saeulen an den inneren Ecken
+sandstone 1,2..3,1*2@2,0,0 1,2..3,3*2@2,0,0
+
+# Dach
+$stufe 1..3,4,1..3
+sandstone 2,4,2

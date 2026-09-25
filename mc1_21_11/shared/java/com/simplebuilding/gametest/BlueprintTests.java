@@ -3,6 +3,7 @@ package com.simplebuilding.gametest;
 import com.simplebuilding.blueprint.BlueprintBuilder;
 import com.simplebuilding.blueprint.BlueprintCode;
 import com.simplebuilding.blueprint.BlueprintContent;
+import com.simplebuilding.blueprint.BlueprintExamples;
 import com.simplebuilding.blueprint.BlueprintMaterials;
 import com.simplebuilding.blueprint.BlueprintModel;
 import com.simplebuilding.blueprint.BlueprintScanner;
@@ -613,13 +614,9 @@ public final class BlueprintTests {
         ItemStack pile = new ItemStack(ModItems.BLUEPRINT, 3);
         player.getInventory().setItem(1, pile);
         ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(1, "stone 0,0,0", false, ""), player);
-        helper.assertTrue(pile.getCount() == 2 && BlueprintItem.content(pile).isBlank(), "the whole pile was written: " + pile);
-        boolean found = false;
-        for (int i = 2; i < player.getInventory().getNonEquipmentItems().size(); i++) {
-            ItemStack s = player.getInventory().getItem(i);
-            found |= s.is(ModItems.BLUEPRINT) && BlueprintItem.content(s).code().equals("stone 0,0,0");
-        }
-        helper.assertTrue(found, "the written blueprint split off the pile is not in the inventory");
+        helper.assertTrue(player.getInventory().getItem(1).getCount() == 1
+                        && BlueprintItem.content(player.getInventory().getItem(1)).code().equals("stone 0,0,0"),
+                "the whole pile was written or the written one left the slot: " + player.getInventory().getItem(1));
         TestCleanup.succeed(helper);
     }
 
@@ -643,6 +640,181 @@ public final class BlueprintTests {
                 ItemStack.EMPTY, new ItemStack(ModItems.ENDER_QUARTZ), ItemStack.EMPTY, new ItemStack(Items.PAPER)));
         helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, noInk, level).isEmpty(),
                 "a blueprint can be crafted without ink");
+        TestCleanup.succeed(helper);
+    }
+
+    // =====================================================================================
+    // RUNDE 3: BEISPIELE, SUCHE, KOPIEREN, SIGNIERT BAUEN, AUTOSPEICHERN
+    // =====================================================================================
+
+    /**
+     * Jede Beispielvorlage (Knopf "Beispiel einfuegen") parst fehlerfrei, passt in 16 x 16 x 16 und
+     * hat eine Materialliste; jede Biom-Gruppe beginnt mit ihrem Dorfhaus, die Biome gehen auf die
+     * richtige Gruppe, und die Materialliste des Ebenen-Hauses stimmt Stueck fuer Stueck.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Tippfehler in einer Vorlage, eine Vorlage ueber
+     * 16, eine fehlende Ressource, eine falsche Biom-Zuordnung, ein Zaehlfehler in der Materialliste.
+     */
+    public static void examplesParseFitAndListTheirMaterials(GameTestHelper helper) {
+        int total = 0;
+        for (java.util.Map.Entry<String, List<String>> group : BlueprintExamples.TEMPLATES.entrySet()) {
+            helper.assertTrue(group.getValue().get(0).equals(group.getKey() + "_house"), group.getKey() + " does not start with its village house");
+            helper.assertTrue(group.getValue().size() >= 2, group.getKey() + " has only one template");
+            for (String name : group.getValue()) {
+                String code = BlueprintExamples.code(name);
+                helper.assertTrue(!code.isBlank(), name + ": resource missing");
+                helper.assertTrue(code.contains("#"), name + ": the example carries no comments");
+                BlueprintCode.ParseResult parsed = BlueprintCode.parse(code);
+                helper.assertTrue(parsed.ok(), name + ": " + parsed.problems());
+                helper.assertTrue(!parsed.model().isEmpty() && parsed.model().maxEdge() <= 16,
+                        name + ": " + parsed.model().sizeX() + "x" + parsed.model().sizeY() + "x" + parsed.model().sizeZ());
+                helper.assertTrue(!BlueprintMaterials.list(parsed.model()).isEmpty(), name + ": empty material list");
+                total++;
+            }
+        }
+        helper.assertTrue(total >= 14, "only " + total + " templates");
+        String[][] biomes = {{"plains", "plains"}, {"cherry_grove", "cherry"}, {"mangrove_swamp", "swamp"}, {"swamp", "swamp"},
+                {"snowy_taiga", "snow"}, {"badlands", "desert"}, {"savanna_plateau", "savanna"}, {"old_growth_pine_taiga", "taiga"},
+                {"jungle", "swamp"}, {"the_void", "plains"}, {"nether_wastes", "plains"}};
+        for (String[] b : biomes) {
+            helper.assertTrue(BlueprintExamples.groupFor(b[0]).equals(b[1]), b[0] + " -> " + BlueprintExamples.groupFor(b[0]));
+        }
+        java.util.Set<String> picked = new java.util.HashSet<>();
+        for (int i = 0; i < 3; i++) {
+            int index = i;
+            picked.add(BlueprintExamples.pick("desert", n -> index));
+        }
+        helper.assertTrue(picked.equals(new java.util.HashSet<>(BlueprintExamples.TEMPLATES.get("desert"))), "pick does not reach every desert template: " + picked);
+
+        java.util.Map<Item, Integer> counts = new java.util.HashMap<>();
+        for (BlueprintMaterials.Entry e : BlueprintMaterials.list(BlueprintCode.parse(BlueprintExamples.code("plains_house")).model())) {
+            counts.put(e.item(), e.count());
+        }
+        java.util.Map<Item, Integer> expected = java.util.Map.of(Items.OAK_PLANKS, 110, Items.COBBLESTONE, 49, Items.OAK_STAIRS, 42,
+                Items.OAK_LOG, 12, Items.OAK_SLAB, 7, Items.GLASS_PANE, 4, Items.OAK_DOOR, 1, Items.TORCH, 1, Items.CRAFTING_TABLE, 1);
+        helper.assertTrue(counts.equals(expected), "plains house materials " + counts);
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Die Blocksuche des Editors findet ueber den angezeigten Namen (hier der Server-Name und ein
+     * nachgestellter "deutscher") und ueber die Id, der genaue Treffer steht vorn, und eingefuegt
+     * wird die Id ohne {@code minecraft:}.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> eine Suche nur ueber die Id oder nur ueber den
+     * Namen, eine Rangfolge, die den genauen Treffer nach hinten schiebt.
+     */
+    public static void blockSearchFindsByNameAndId(GameTestHelper helper) {
+        java.util.function.Function<net.minecraft.world.level.block.Block, String> english = b -> b.getName().getString();
+        List<net.minecraft.world.level.block.Block> byName = com.simplebuilding.blueprint.BlueprintBlockSearch.search("Glass Pane", english, 10);
+        helper.assertTrue(!byName.isEmpty() && byName.get(0) == Blocks.GLASS_PANE, "'Glass Pane' found " + byName);
+        List<net.minecraft.world.level.block.Block> byId = com.simplebuilding.blueprint.BlueprintBlockSearch.search("oak_stai", english, 10);
+        helper.assertTrue(!byId.isEmpty() && byId.get(0) == Blocks.OAK_STAIRS, "'oak_stai' found " + byId);
+        List<net.minecraft.world.level.block.Block> full = com.simplebuilding.blueprint.BlueprintBlockSearch.search("minecraft:stone", english, 5);
+        helper.assertTrue(!full.isEmpty() && full.get(0) == Blocks.STONE, "'minecraft:stone' found " + full);
+        java.util.function.Function<net.minecraft.world.level.block.Block, String> german = b -> b == Blocks.COBBLESTONE ? "Bruchstein" : b.getName().getString();
+        List<net.minecraft.world.level.block.Block> localized = com.simplebuilding.blueprint.BlueprintBlockSearch.search("bruchst", german, 5);
+        helper.assertTrue(localized.contains(Blocks.COBBLESTONE), "the display name in another language was not searched: " + localized);
+        helper.assertTrue(com.simplebuilding.blueprint.BlueprintBlockSearch.search("zzqq", english, 5).isEmpty(), "nonsense found something");
+        helper.assertTrue(com.simplebuilding.blueprint.BlueprintBlockSearch.codeName(Blocks.OAK_STAIRS).equals("oak_stairs"), "code name keeps minecraft:");
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Kopieren am Kartentisch: signierte Blaupause oben, leere unten ergibt eine unsignierte Kopie
+     * mit demselben Code und Titel, ohne Autor; nehmen verbraucht nur die leere, das Original bleibt
+     * signiert liegen. Eine unsignierte oben oder eine beschriebene unten ergibt nichts.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> eine Kopie, die signiert bleibt oder den Autor
+     * behaelt, ein Ergebnis-Slot, der das Original verbraucht, ein Kopierpfad, der auch
+     * unsignierte oder beschriebene Blaupausen annimmt.
+     */
+    public static void cartographyTableCopiesSignedBlueprints(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = mockPlayer(helper, false);
+        ItemStack original = new ItemStack(ModItems.BLUEPRINT);
+        original.set(ModDataComponentTypes.BLUEPRINT, new BlueprintContent("stone 0..2,0,0", "Turm", "Alice", true));
+        CartographyTableMenu menu = new CartographyTableMenu(21, player.getInventory(),
+                ContainerLevelAccess.create(level, helper.absolutePos(new BlockPos(5, 1, 5))));
+        helper.assertTrue(menu.getSlot(0).mayPlace(original), "the table refuses a signed blueprint on top");
+        menu.getSlot(0).set(original);
+        menu.getSlot(1).set(new ItemStack(ModItems.BLUEPRINT, 3));
+        ItemStack copy = menu.getSlot(2).getItem();
+        BlueprintContent c = BlueprintItem.content(copy);
+        helper.assertTrue(copy.is(ModItems.BLUEPRINT) && copy.getCount() == 1 && !c.signed() && c.author().isEmpty()
+                        && c.title().equals("Turm") && c.code().equals("stone 0..2,0,0"),
+                "not an unsigned copy with code and title: " + c);
+        menu.getSlot(2).onTake(player, copy);
+        helper.assertTrue(menu.getSlot(1).getItem().getCount() == 2, "the copy did not use exactly one blank blueprint");
+        helper.assertTrue(BlueprintItem.content(menu.getSlot(0).getItem()).signed(), "the original was used up or changed");
+
+        ItemStack unsigned = new ItemStack(ModItems.BLUEPRINT);
+        unsigned.set(ModDataComponentTypes.BLUEPRINT, new BlueprintContent("stone 0,0,0", "", "", false));
+        helper.assertTrue(!menu.getSlot(0).mayPlace(unsigned), "an unsigned blueprint is accepted on top");
+        CartographyTableMenu written = new CartographyTableMenu(22, player.getInventory(),
+                ContainerLevelAccess.create(level, helper.absolutePos(new BlockPos(5, 1, 5))));
+        written.getSlot(0).set(original.copy());
+        written.getSlot(1).set(unsigned.copy());
+        helper.assertTrue(written.getSlot(2).getItem().isEmpty(), "a written blueprint below took a copy");
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Gebaut wird nur mit einer signierten Blaupause: eine unsignierte in der Nebenhand setzt nichts
+     * und verbraucht nichts; dieselbe signiert baut.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> eine fehlende Signatur-Pruefung beim Bauen.
+     */
+    public static void buildNeedsTheSignedBlueprint(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        clear(helper);
+        ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
+        ItemStack stone = new ItemStack(Items.STONE, 8);
+        ItemStack draft = new ItemStack(ModItems.BLUEPRINT);
+        draft.set(ModDataComponentTypes.BLUEPRINT, new BlueprintContent("stone 0,0,0..0,0,2", "", "", false));
+        hold(player, wand, draft, stone);
+        helper.assertTrue(build(helper, player, wand, draft) == null, "an unsigned blueprint was built");
+        helper.assertTrue(helper.getBlockState(TARGET).isAir() && stone.getCount() == 8, "the refused build placed or used something");
+        ItemStack signed = blueprint("stone 0,0,0..0,0,2");
+        hold(player, wand, signed, stone);
+        BlueprintBuilder.Result result = build(helper, player, wand, signed);
+        helper.assertTrue(result != null && result.placed() == 3, "the signed blueprint did not build: " + result);
+        clear(helper);
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Autospeichern, serverseitig: jedes Edit-Paket steht sofort am Item - auch wenn der Spieler
+     * danach die Verbindung verliert; weitere Pakete ueberschreiben der Reihe nach, und ein Stapel
+     * leerer Blaupausen behaelt die beschriebene im Slot, damit die naechste Speicherung sie trifft.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Handler, der erst spaeter speichert, ein
+     * Stapel-Split, der die naechste Autospeicherung eine weitere Blaupause abspalten laesst.
+     */
+    public static void editPacketsSaveImmediatelyAndSurviveTheDisconnect(GameTestHelper helper) {
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        player.getInventory().clearContent();
+        player.getInventory().setSelectedSlot(0);
+        ItemStack pile = new ItemStack(ModItems.BLUEPRINT, 3);
+        player.getInventory().setItem(0, pile);
+        ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(0, "stone 0,0,0", false, ""), player);
+        ItemStack inSlot = player.getInventory().getItem(0);
+        helper.assertTrue(inSlot.getCount() == 1 && BlueprintItem.content(inSlot).code().equals("stone 0,0,0"),
+                "the written blueprint did not stay in the slot: " + inSlot);
+        int blanks = 0;
+        for (int i = 1; i < player.getInventory().getNonEquipmentItems().size(); i++) {
+            ItemStack s = player.getInventory().getItem(i);
+            if (s.is(ModItems.BLUEPRINT) && BlueprintItem.content(s).isBlank()) {
+                blanks += s.getCount();
+            }
+        }
+        helper.assertTrue(blanks == 2, "the rest of the pile is not in the inventory: " + blanks);
+        ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(0, "stone 0..1,0,0", false, ""), player);
+        helper.assertTrue(BlueprintItem.content(player.getInventory().getItem(0)).code().equals("stone 0..1,0,0")
+                && player.getInventory().getItem(0).getCount() == 1, "the second autosave did not overwrite the same blueprint");
+        ItemStack kept = player.getInventory().getItem(0);
+        helper.getLevel().getServer().getPlayerList().remove(player);
+        helper.assertTrue(BlueprintItem.content(kept).code().equals("stone 0..1,0,0"), "the saved code is gone after the disconnect");
         TestCleanup.succeed(helper);
     }
 
@@ -673,7 +845,7 @@ public final class BlueprintTests {
 
     private static ItemStack blueprint(String code) {
         ItemStack stack = new ItemStack(ModItems.BLUEPRINT);
-        stack.set(ModDataComponentTypes.BLUEPRINT, new BlueprintContent(code, "", "", false));
+        stack.set(ModDataComponentTypes.BLUEPRINT, new BlueprintContent(code, "Test", "Tester", true));
         return stack;
     }
 

@@ -1,0 +1,31 @@
+# Beispiel: Sumpfhuette (wie die Hexenhuette), 7 x 9 x 10
+# Fichtenbretter auf Eichenstamm-Stelzen, ein Balkon vorn, Kessel und Blumentopf innen.
+
+$dach_s = spruce_stairs[facing=south]
+$dach_n = spruce_stairs[facing=north]
+
+# Stelzen: vier Eichenstaemme bis ueber den Wasserspiegel
+oak_log 1,0..2,1*2@4,0,0 1,0..2,7*2@4,0,0
+
+# Boden der Huette und Balkon (z = 0..1)
+spruce_planks 1..5,3,0..8
+
+# Waende hinter dem Balkon, innen hohl
+spruce_planks 1..5,4..5,2..8
+air 2..4,4..5,3..7
+oak_log 1,4..5,2 5,4..5,2 1,4..5,8 5,4..5,8
+
+# Tuer-Oeffnung und Fenster
+air 3,4..5,2
+glass_pane[east=true,west=true] 3,5,8
+spruce_fence 1,4,0..1 5,4,0..1 2..4,4,0
+
+# Dach
+$dach_s 0..6,6,1*3@0,1,1
+$dach_n 0..6,6,9*3@0,1,-1
+spruce_planks 0..6,6,2..8 0..6,7,3..7 0..6,8,4..6
+
+# Innen: Kessel, Werkbank und Blumentopf mit Pilz
+cauldron 4,4,7
+crafting_table 2,4,7
+potted_red_mushroom 2,4,3

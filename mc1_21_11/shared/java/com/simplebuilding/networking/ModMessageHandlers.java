@@ -291,7 +291,9 @@ public final class ModMessageHandlers {
      * Neuer Code aus dem Editor. Wie beim Buch prueft der Server alles selbst: Slot (Hotbar oder
      * Nebenhand), eine unsignierte Blaupause darin, Laenge des Codes; beim Signieren zusaetzlich
      * Titel (1-32 Zeichen) und fehlerfreien, nicht leeren Code. Liegen mehrere leere Blaupausen
-     * im Slot, wird nur eine beschrieben und abgespalten.
+     * im Slot, bleibt die beschriebene dort und der Rest wird abgespalten. Der Editor schickt das
+     * Paket entprellt waehrend des Tippens und beim Schliessen (Autospeichern); gespeichert wird
+     * sofort am Item.
      */
     public static void handleBlueprintEdit(BlueprintEditPayload payload, ServerPlayer player) {
         int slot = payload.slot();
@@ -328,10 +330,13 @@ public final class ModMessageHandlers {
             written = new com.simplebuilding.blueprint.BlueprintContent(code, old.title(), "", false);
         }
         if (stack.getCount() > 1) {
-            ItemStack single = stack.split(1);
-            single.set(com.simplebuilding.component.ModDataComponentTypes.BLUEPRINT, written);
-            if (!player.getInventory().add(single)) {
-                player.drop(single, false);
+            // Die beschriebene bleibt im Slot (dorthin gehen auch die naechsten Autospeicherungen),
+            // der Rest des Stapels wandert ins Inventar oder faellt heraus.
+            ItemStack rest = stack.copyWithCount(stack.getCount() - 1);
+            stack.setCount(1);
+            stack.set(com.simplebuilding.component.ModDataComponentTypes.BLUEPRINT, written);
+            if (!player.getInventory().add(rest)) {
+                player.drop(rest, false);
             }
             return;
         }

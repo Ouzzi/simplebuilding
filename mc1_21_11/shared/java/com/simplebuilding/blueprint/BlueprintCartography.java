@@ -28,12 +28,38 @@ public final class BlueprintCartography {
 
     /** Ersetzt die drei Tisch-Slots durch die Huellen (gleicher Container, Index und Platz). */
     public static void wrapSlots(AbstractContainerMenu menu, List<Slot> slots, ContainerLevelAccess access) {
-        slots.set(MAP_SLOT, new InputSlot(slots.get(MAP_SLOT), BlueprintScanner::isOctant));
+        slots.set(MAP_SLOT, new InputSlot(slots.get(MAP_SLOT), s -> BlueprintScanner.isOctant(s) || isSigned(s)));
         slots.set(ADDITIONAL_SLOT, new InputSlot(slots.get(ADDITIONAL_SLOT), s -> s.getItem() instanceof com.simplebuilding.items.custom.BlueprintItem));
         slots.set(RESULT_SLOT, new ResultSlot(slots.get(RESULT_SLOT), menu, access));
     }
 
     /** Liegt ein Scan-Paar im Tisch (Oktant oben oder Blaupause unten)? Dann ist es nicht Vanillas Sache. */
+    public static boolean isSigned(ItemStack stack) {
+        return stack.getItem() instanceof com.simplebuilding.items.custom.BlueprintItem
+                && com.simplebuilding.items.custom.BlueprintItem.content(stack).signed();
+    }
+
+    /** Leer = weder Code noch Signatur: nur so eine nimmt eine Kopie auf. */
+    public static boolean isBlank(ItemStack stack) {
+        return stack.getItem() instanceof com.simplebuilding.items.custom.BlueprintItem
+                && com.simplebuilding.items.custom.BlueprintItem.content(stack).isBlank()
+                && !com.simplebuilding.items.custom.BlueprintItem.content(stack).signed();
+    }
+
+    /**
+     * Kopieren wie bei Karten: signierte Blaupause oben, leere unten -> eine unsignierte Kopie mit
+     * demselben Code und Titel, ohne Autor, also wieder bearbeitbar. Sonst leer.
+     */
+    public static ItemStack copyResult(ItemStack original, ItemStack blank) {
+        if (!isSigned(original) || !isBlank(blank)) {
+            return ItemStack.EMPTY;
+        }
+        BlueprintContent source = com.simplebuilding.items.custom.BlueprintItem.content(original);
+        ItemStack copy = blank.copyWithCount(1);
+        copy.set(com.simplebuilding.component.ModDataComponentTypes.BLUEPRINT, new BlueprintContent(source.code(), source.title(), "", false));
+        return copy;
+    }
+
     public static boolean isScanSetup(ItemStack map, ItemStack additional) {
         return BlueprintScanner.isOctant(map) || additional.getItem() instanceof com.simplebuilding.items.custom.BlueprintItem;
     }
@@ -60,6 +86,11 @@ public final class BlueprintCartography {
                 return;
             }
             job = null;
+            if (map.getItem() instanceof com.simplebuilding.items.custom.BlueprintItem) {
+                // Kopier-Pfad (signierte Blaupause oben) - kein Scan.
+                result.accept(copyResult(map, additional));
+                return;
+            }
             if (!BlueprintScanner.isOctant(map) || !BlueprintScanner.isWritableBlueprint(additional)) {
                 if (player != null && BlueprintScanner.isOctant(map) && additional.getItem() instanceof com.simplebuilding.items.custom.BlueprintItem) {
                     player.displayClientMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.blueprint.scan.signed").withStyle(ChatFormatting.RED), true);
@@ -165,8 +196,9 @@ public final class BlueprintCartography {
 
         @Override
         public void onTake(Player player, ItemStack carried) {
-            if (BlueprintScanner.isOctant(menu.getSlot(MAP_SLOT).getItem())) {
-                // Scan: nur die Blaupause wird verbraucht, der Oktant bleibt im Tisch.
+            ItemStack top = menu.getSlot(MAP_SLOT).getItem();
+            if (BlueprintScanner.isOctant(top) || top.getItem() instanceof com.simplebuilding.items.custom.BlueprintItem) {
+                // Scan oder Kopie: nur die untere Blaupause wird verbraucht, Oktant bzw. Original bleibt.
                 menu.getSlot(ADDITIONAL_SLOT).remove(1);
                 access.execute((level, pos) -> level.playSound(null, pos, SoundEvents.UI_CARTOGRAPHY_TABLE_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, 1.0F));
                 this.setChanged();

@@ -727,7 +727,7 @@ public final class BlueprintTests {
      * behaelt, ein Ergebnis-Slot, der das Original verbraucht, ein Kopierpfad, der auch
      * unsignierte oder beschriebene Blaupausen annimmt.
      */
-    public static void cartographyTableCopiesASignedBlueprint(GameTestHelper helper) {
+    public static void cartographyTableCopiesSignedBlueprints(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper, false);
         ItemStack original = new ItemStack(ModItems.BLUEPRINT);
@@ -763,7 +763,7 @@ public final class BlueprintTests {
      *
      * <p><strong>Was diesen Test bricht:</strong> eine fehlende Signatur-Pruefung beim Bauen.
      */
-    public static void buildNeedsASignedBlueprint(GameTestHelper helper) {
+    public static void buildNeedsTheSignedBlueprint(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, false);
         clear(helper);
         ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
@@ -789,7 +789,7 @@ public final class BlueprintTests {
      * <p><strong>Was diesen Test bricht:</strong> ein Handler, der erst spaeter speichert, ein
      * Stapel-Split, der die naechste Autospeicherung eine weitere Blaupause abspalten laesst.
      */
-    public static void editPacketsSaveImmediatelyAndSurviveADisconnect(GameTestHelper helper) {
+    public static void editPacketsSaveImmediatelyAndSurviveTheDisconnect(GameTestHelper helper) {
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         player.getInventory().clearContent();
         player.getInventory().setSelectedSlot(0);

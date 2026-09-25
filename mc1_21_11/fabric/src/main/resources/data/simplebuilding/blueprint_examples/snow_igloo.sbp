@@ -1,0 +1,23 @@
+# Beispiel: Iglu, 7 x 5 x 7
+# Eine Kuppel aus Schneebloecken: jede Lage ein etwas kleinerer Ring, innen hohl.
+
+# Boden
+snow_block 0..6,0,0..6
+
+# Unterste Wandlage: voller Kasten ohne die Ecken, dann aushoehlen
+snow_block 0..6,1..2,1..5 1..5,1..2,0 1..5,1..2,6
+air 1..5,1..2,1..5
+
+# Obere Lagen werden schmaler
+snow_block 1..5,3,1..5
+air 2..4,3,2..4
+snow_block 2..4,4,2..4
+
+# Eingang mit Eis-Fenster gegenueber
+air 3,1..2,0
+ice 3,2,6
+
+# Innen: Teppich, Werkbank, Fackel
+white_carpet 2..4,1,2..4
+crafting_table 1,1,5
+torch 5,1,5

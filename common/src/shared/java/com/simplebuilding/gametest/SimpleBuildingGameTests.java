@@ -750,11 +750,11 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("blueprint_game_test_block_search_finds_by_name_and_id", BlueprintTests::blockSearchFindsByNameAndId)
                     .build(),
-            GameTestSpec.named("blueprint_game_test_cartography_table_copies_asigned_blueprint", BlueprintTests::cartographyTableCopiesASignedBlueprint)
+            GameTestSpec.named("blueprint_game_test_cartography_table_copies_signed_blueprints", BlueprintTests::cartographyTableCopiesSignedBlueprints)
                     .build(),
-            GameTestSpec.named("blueprint_game_test_build_needs_asigned_blueprint", BlueprintTests::buildNeedsASignedBlueprint)
+            GameTestSpec.named("blueprint_game_test_build_needs_the_signed_blueprint", BlueprintTests::buildNeedsTheSignedBlueprint)
                     .build(),
-            GameTestSpec.named("blueprint_game_test_edit_packets_save_immediately_and_survive_adisconnect", BlueprintTests::editPacketsSaveImmediatelyAndSurviveADisconnect)
+            GameTestSpec.named("blueprint_game_test_edit_packets_save_immediately_and_survive_the_disconnect", BlueprintTests::editPacketsSaveImmediatelyAndSurviveTheDisconnect)
                     .build(),
             GameTestSpec.named("blueprint_game_test_build_places_only_available_blocks_and_skips_existing_ones", BlueprintTests::buildPlacesOnlyAvailableBlocksAndSkipsExistingOnes)
                     .build(),

@@ -1,0 +1,21 @@
+# Beispiel: Lagerfeuer-Camp in der Taiga, 9 x 4 x 7
+# Ein Zelt aus Wolle und Fichtenholz, davor ein Lagerfeuer mit Baumstaemmen als Sitze.
+
+# Boden: Grobe Erde und Pfad
+coarse_dirt 0..8,0,0..6
+dirt_path 3..5,0,0..3
+
+# Lagerfeuer in der Mitte, drei liegende Staemme als Baenke
+campfire 4,1,2
+spruce_log[axis=x] 2..3,1,2
+spruce_log[axis=x] 5..6,1,2
+spruce_log[axis=z] 4,1,0
+
+# Zelt hinten: Firststange aus Zaun, Planen aus weisser Wolle als Treppen-Form
+spruce_fence 1,1..2,5*2@6,0,0
+white_wool 1..7,1,4 1..7,1,6 1..7,2,5
+spruce_slab[type=bottom] 1..7,3,5
+
+# Holzstapel und eine Laterne
+spruce_log[axis=y] 8,1,0..1
+lantern 0,1,0

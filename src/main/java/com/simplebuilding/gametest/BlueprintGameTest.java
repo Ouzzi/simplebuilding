@@ -85,17 +85,17 @@ public final class BlueprintGameTest {
     }
 
     @GameTest
-    public void cartographyTableCopiesASignedBlueprint(GameTestHelper helper) {
-        BlueprintTests.cartographyTableCopiesASignedBlueprint(helper);
+    public void cartographyTableCopiesSignedBlueprints(GameTestHelper helper) {
+        BlueprintTests.cartographyTableCopiesSignedBlueprints(helper);
     }
 
     @GameTest
-    public void buildNeedsASignedBlueprint(GameTestHelper helper) {
-        BlueprintTests.buildNeedsASignedBlueprint(helper);
+    public void buildNeedsTheSignedBlueprint(GameTestHelper helper) {
+        BlueprintTests.buildNeedsTheSignedBlueprint(helper);
     }
 
     @GameTest
-    public void editPacketsSaveImmediatelyAndSurviveADisconnect(GameTestHelper helper) {
-        BlueprintTests.editPacketsSaveImmediatelyAndSurviveADisconnect(helper);
+    public void editPacketsSaveImmediatelyAndSurviveTheDisconnect(GameTestHelper helper) {
+        BlueprintTests.editPacketsSaveImmediatelyAndSurviveTheDisconnect(helper);
     }
 }

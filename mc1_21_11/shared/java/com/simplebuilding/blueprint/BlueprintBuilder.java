@@ -34,7 +34,8 @@ import net.minecraft.world.phys.BlockHitResult;
 
 /**
  * Baut eine Blaupause mit dem Baustab: Baustab in der Haupthand, Blaupause in der Nebenhand,
- * Rechtsklick auf einen Block.
+ * Rechtsklick auf einen Block. Nur eine <b>signierte</b> Blaupause baut (und zeigt eine Vorschau);
+ * eine unsignierte meldet "Blaupause signieren, um sie zu bauen".
  *
  * <p>Ausrichtung: das Bauwerk steht vor dem Spieler, seine lokale z-Achse zeigt in Blickrichtung,
  * seine Mitte (x) liegt auf dem Zielblock, seine Unterkante auf dessen Hoehe. Blickt der Spieler
@@ -394,6 +395,10 @@ public final class BlueprintBuilder {
             return null;
         }
         BlueprintContent content = blueprint.getOrDefault(ModDataComponentTypes.BLUEPRINT, BlueprintContent.EMPTY);
+        if (!content.signed()) {
+            tell(player, Component.translatable("simplebuilding.blueprint.build.sign_first").withStyle(ChatFormatting.YELLOW));
+            return null;
+        }
         BlueprintCode.ParseResult parsed = BlueprintCode.parseCached(content.code());
         if (parsed.model().isEmpty()) {
             tell(player, Component.translatable("simplebuilding.blueprint.build.empty").withStyle(ChatFormatting.RED));
@@ -522,6 +527,12 @@ public final class BlueprintBuilder {
             return previewCache;
         }
         previewKey = key;
+        if (!content.signed()) {
+            // Gebaut wird nur eine signierte Blaupause: keine Vorschau, nur der Hinweis.
+            tell(player, Component.translatable("simplebuilding.blueprint.build.sign_first").withStyle(ChatFormatting.YELLOW));
+            previewCache = Map.of();
+            return previewCache;
+        }
         BlueprintCode.ParseResult parsed = BlueprintCode.parseCached(content.code());
         if (!parsed.ok() || parsed.model().isEmpty() || parsed.model().maxEdge() > BlueprintTiers.edgeFor(wandItem)) {
             previewCache = Map.of();

@@ -1,0 +1,19 @@
+# Beispiel: Rest eines Ruinenportals, 6 x 7 x 3
+# Ein halb zerfallener Obsidianrahmen auf Netherrack, dazwischen Steinziegel und Magma.
+
+# Boden aus Netherrack mit etwas Magma und Steinziegeln
+netherrack 0..5,0,0..2
+magma_block 1,0,1 4,0,2
+cracked_stone_bricks 0,0,0 5,0,2
+
+# Rahmen: linke Saeule ganz, rechte Saeule gebrochen, oben nur ein Stueck Sturz
+obsidian 1,1..5,1
+obsidian 4,1..2,1
+crying_obsidian 1,3,1 4,1,1
+obsidian 2..3,5,1
+
+# Herabgefallene Bloecke und Bewuchs
+obsidian 5,1,2
+mossy_stone_bricks 0,1,0 0,1,2
+stone_brick_stairs[facing=east] 0,2,1
+mossy_cobblestone 2,1,2 3,1,0
