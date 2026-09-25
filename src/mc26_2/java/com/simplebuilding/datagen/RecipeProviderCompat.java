@@ -50,5 +50,14 @@ public abstract class RecipeProviderCompat extends FabricRecipeProvider {
         protected Criterion<RecipeUnlockedTrigger.TriggerInstance> unlockedRecipe(ResourceKey<Recipe<?>> recipe) {
             return RecipeUnlockedTrigger.unlocked(recipe);
         }
+
+        /**
+         * Cooking time for a blasting/smoking recipe, given the ticks the blast furnace or smoker
+         * should really need. 26.2 stores exactly that; 26.3 stores the furnace time and lets those
+         * machines cook twice as fast (minecraft:block/fast_cooking).
+         */
+        protected int fastMachineTicks(int machineTicks) {
+            return machineTicks;
+        }
     }
 }

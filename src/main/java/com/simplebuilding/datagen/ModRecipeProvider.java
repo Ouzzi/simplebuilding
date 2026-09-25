@@ -351,7 +351,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .unlockedBy(getHasName(ModItems.DIAMOND_PEBBLE), has(ModItems.DIAMOND_PEBBLE))
                         .save(output);
 
-                oreBlasting(java.util.List.of(ModItems.CRACKED_DIAMOND), RecipeCategory.MISC, net.minecraft.world.item.crafting.CookingBookCategory.MISC, Items.DIAMOND, 1.0f, 100, "diamond_from_cracked");
+                oreBlasting(java.util.List.of(ModItems.CRACKED_DIAMOND), RecipeCategory.MISC, net.minecraft.world.item.crafting.CookingBookCategory.MISC, Items.DIAMOND, 1.0f, fastMachineTicks(100), "diamond_from_cracked");
 
 
                 // Construction light recipe - lapis light
@@ -606,7 +606,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // Eine Stunde (72000 Ticks) in einem Vanilla-Schmelzofen: 30 min verstaerkt, 15 min Netherit,
                 // rund 7,5 min Enderit. Laengere Zeiten als 32767 Ticks ueberleben Speichern und Menue-Sync
                 // nur dank AbstractFurnaceBlockEntityMixin / AbstractFurnaceMenuMixin.
-                oreBlasting(List.of(ModItems.RAW_ENDERITE), RecipeCategory.MISC, net.minecraft.world.item.crafting.CookingBookCategory.MISC, ModItems.ENDERITE_SCRAP, 10.0f, 72000, "enderite_scrap");
+                oreBlasting(List.of(ModItems.RAW_ENDERITE), RecipeCategory.MISC, net.minecraft.world.item.crafting.CookingBookCategory.MISC, ModItems.ENDERITE_SCRAP, 10.0f, fastMachineTicks(72000), "enderite_scrap");
 
                 // --- 3. Barren: Enderite Ingot (4 Scrap + 4 Diamond) ---
                 // Hinweis: Du wolltest Diamanten statt Netherite, um Netherite nicht zu entwerten.

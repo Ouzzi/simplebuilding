@@ -163,3 +163,43 @@ alten Yarn-Branch hochgezogen). Verzeichnis `mc1_21_11/` mit `shared/java` + `fa
   `LegacySpatulaMigration`) und erzeugten beim Start "No model loaded"-Warnungen.
   Seit 2026-09-24 haben sie auf beiden Minecraft-Versionen eine Item-Modelldefinition
   (ModModelProvider, gehalten wie die Meissel, Textur textures/item/<stufe>_spatula.png).
+
+## MC-26.3-Linie (Stand 2026-09-25) - Overlay statt Kopie
+
+Dritte Linie fuer **Fabric + NeoForge** (Forge bleibt 26.2-only), 26.2 bleibt die Hauptlinie.
+Keine dritte Vollkopie: `:mc26_3:fabric` und `:mc26_3:neoforge` kompilieren dieselben Baeume wie die
+26.2-Module (`common/src/shared/java`, `common/src/jei/java`, `src/main/java` bzw.
+`neoforge/src/main/java`, die gemeinsamen Client-Test-Baeume) plus ein kleines Overlay. Was sich
+zwischen 26.2 und 26.3 unterscheidet, liegt als **Zwillingspaar** vor:
+
+| 26.2-Seite (nur 26.2-Module) | 26.3-Seite (nur mc26_3-Module) | Inhalt |
+|---|---|---|
+| `common/src/mc26_2/java` | `mc26_3/overlay/java` | Versions-Shim `com.simplebuilding.version.*` (McVersion, McClientVersion, LootNumbers, BlockCodecs, TexturedGuiElementState), ModWorldGen, 3 Client-Mixins (HeldItemRenderer, BundleTooltip, EquipmentRenderer), Test-Helfer OreGenChecks / LootJsonShape / CookingChecks |
+| `src/mc26_2/java` | `mc26_3/fabric/src/main/java` | Fabric-Datagen: RecipeProviderCompat, ModelGenCompat |
+| `common/src/mc26_2/clientgametest/java` | `mc26_3/overlay/clientgametest/java` | SpriteRecordingGraphics, ClientTestVersion |
+| `neoforge/src/mc26_2/clientGameTest/java` | `mc26_3/neoforge/src/clientGameTest/java` | MouseHandlerAccessor, MouseEvents |
+
+`gradlew checkOverlays` (haengt an `check`) scheitert, wenn eine Klasse zugleich im gemeinsamen Baum
+und in einem Overlay liegt oder ein Overlay-File keinen Zwilling hat.
+
+**Ressourcen** (`mc26_3/resources.gradle`): `mc26_3/overlay/resources` (26.3-items-Atlas) und
+`mc26_3/generated` liegen VOR `src/main/resources` / `src/main/generated`, Duplikate = EXCLUDE (erstes
+gewinnt). `mc26_3/generated` enthaelt nur die 26.3-Datagen-Dateien, die sich von 26.2 unterscheiden
+(`:mc26_3:fabric:runDatagen` -> `syncGenerated263`); `removed-on-26.3.txt` blendet 26.2-Dateien aus, die
+26.3 nicht mehr erzeugt (configured_feature). Handels-JSONs werden beim Bauen auf die 26.3-Schluessel
+umgeschrieben, Trim-Paletten nach `textures/palettes/trim` kopiert.
+
+Tests: `run.py --targets fabric-263,neoforge-263` (Server, gemeinsamer Katalog), Client-Ziele
+`client-fabric-263` / `client-neoforge-263`.
+
+Mod-Blasting-Rezepte: 26.3 speichert die Ofenzeit und der Hochofen halbiert sie; die 26.3-Datagen
+schreibt deshalb die doppelte Zeit (RecipeProviderCompat.fastMachineTicks), real bleibt es bei der 26.2-Dauer.
+
+Offen / bewusst nicht gemacht:
+- Kalibrierte Erzdetektoren aus 26.2-Welten (CustomBlock "Name") liest der Detektor auf 26.3 weiter,
+  NbtUtils.readBlockState auf 26.3 aber nicht (Schluessel "id") -> Ziel-Suche im CUSTOM-Modus geht
+  nach einem Welt-Upgrade verloren, bis neu kalibriert wird.
+- Dunkle Trim-Varianten (`*_darker`) fuer Enderit-Ruestung mit Enderit-Trim: 26.3 steuert das ueber
+  trim_overrides im Equipment-Asset, nicht mehr ueber die MaterialAssetGroup - nicht nachgebaut.
+- Wiki: kein 26.3-Linienschalter (generate.py erwartet je Linie einen vollstaendigen Baum).
+- Jade / AppleSkin / Mouse Tweaks fuer 26.3 nicht als Dev-Mods eingebunden (nur JEI).

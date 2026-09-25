@@ -46,5 +46,10 @@ public abstract class RecipeProviderCompat extends FabricRecipeProvider {
         protected Criterion<RecipeUnlockedTrigger.TriggerInstance> unlockedRecipe(ResourceKey<Recipe<?>> recipe) {
             return RecipeUnlockedTrigger.unlocked(this.output.lookup(Registries.RECIPE).getOrThrow(recipe));
         }
+
+        /** 26.3: the recipe carries the furnace time, the fast machines halve it. */
+        protected int fastMachineTicks(int machineTicks) {
+            return machineTicks * 2;
+        }
     }
 }

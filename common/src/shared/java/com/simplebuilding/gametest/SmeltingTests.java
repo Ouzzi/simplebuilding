@@ -109,7 +109,8 @@ public final class SmeltingTests {
         helper.assertTrue(blasting != null && blasting.id().equals(key),
                 "a blast furnace does not pick " + key.identifier() + " for raw enderite but " + blasting);
         AbstractCookingRecipe recipe = (AbstractCookingRecipe) blasting.value();
-        helper.assertValueEqual(recipe.cookingTime() + " ticks, " + recipe.experience() + " experience",
+        // Machine time: 26.3 stores the furnace time in blasting recipes and halves it in the blast furnace.
+        helper.assertValueEqual(CookingChecks.vanillaCookTime(recipe.cookingTime(), true) + " ticks, " + recipe.experience() + " experience",
                 SCRAP_COOK_TICKS + " ticks, 10.0 experience", "the raw enderite blast");
 
         helper.assertValueEqual(
@@ -128,7 +129,11 @@ public final class SmeltingTests {
             furnace(helper, pos).setItem(0, new ItemStack(ModItems.RAW_ENDERITE));
             totals.append(index > 0 ? " " : "").append(persisted(helper, furnace(helper, pos), "cooking_total_time"));
         }
-        helper.assertValueEqual(totals.toString(), "72000 72000 72000 72000",
+        // Before the first fuel burns, the total is the recipe time as stored: 72000 on 26.2; on 26.3
+        // the recipe holds the doubled furnace time and the fuel's fast multiplier halves it only
+        // once the device lights.
+        String unlitTotal = String.valueOf(recipe.cookingTime());
+        helper.assertValueEqual(totals.toString(), String.join(" ", unlitTotal, unlitTotal, unlitTotal, unlitTotal),
                 "total cook time the vanilla, reinforced, netherite and enderite blast furnace save for raw enderite");
 
         helper.succeed();
