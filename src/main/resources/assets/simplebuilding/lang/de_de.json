@@ -128,6 +128,8 @@
   "text.autoconfig.simplebuilding.option.worldGen.enableLootTableChanges.@Tooltip": "Fügt Items zu Dungeon-/Strukturtruhen hinzu.",
   "text.autoconfig.simplebuilding.option.tools.invertBundleInteractions": "Bündel-Interaktion umkehren",
   "text.autoconfig.simplebuilding.option.tools.invertBundleInteractions.@Tooltip": "Wenn wahr, führt Schleichen bei Bündeln die gegenteilige Aktion aus (Einfügen vs Entnehmen).",
+  "text.autoconfig.simplebuilding.option.tools.buildingWandHungerCost": "Hungerkosten des Baustabs (experimentell)",
+  "text.autoconfig.simplebuilding.option.tools.buildingWandHungerCost.@Tooltip": "Experimentell. Jeder Block, den ein Baustab setzt - eine normale Fläche oder ein Blaupausen-Bau -, erzeugt Erschöpfung; stärkere Baustäbe kosten pro Block weniger (ein Kupfer-Baustab, der 16x16x16 füllt, kostet etwa ein Viertel der vollen Leiste, ein Enderit-Baustab mit 128x128x128 die ganze Leiste). Der Kreativmodus ist ausgenommen. Die Option verursacht nie selbst Schaden; bei leerer Leiste hungerst du nur auf die Vanilla-Art.",
   "text.autoconfig.simplebuilding.option.enableDoubleJump": "Luftsprung-Verzauberung aktivieren",
   "text.autoconfig.simplebuilding.option.enableDoubleJump.@Tooltip": "Schaltet die Funktionalität der Luftsprung-Verzauberung an/aus.",
   "text.autoconfig.simplebuilding.option.airJumpCooldownTicks": "Luftsprung-Abklingzeit (Ticks)",

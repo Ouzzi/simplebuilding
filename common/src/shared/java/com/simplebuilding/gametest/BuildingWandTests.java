@@ -4,11 +4,15 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import com.simplebuilding.Simplebuilding;
+import com.simplebuilding.blueprint.BlueprintBuilder;
+import com.simplebuilding.blueprint.BlueprintContent;
+import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.loot.ModLootTableModifications;
 import com.simplebuilding.util.ModTags;
+import com.simplebuilding.util.WandHunger;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -32,6 +36,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.food.FoodData;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -955,6 +960,188 @@ public final class BuildingWandTests {
                         + "answers above prove nothing");
 
         helper.succeed();
+    }
+
+    // =====================================================================================
+    // EXPERIMENTAL HUNGER COST (WandHunger)
+    // =====================================================================================
+
+    /**
+     * The per-block exhaustion table the owner calibrated on 2026-09-25, pinned as literal numbers:
+     * a copper wand filling its largest cube (16³ = 4096 blocks) costs a quarter of a full bar, an
+     * enderite wand building 128³ (2 097 152 blocks) costs the whole bar, and the tiers in between
+     * lie geometrically between those two rates. "Full bar" is vanilla's 20 food points plus the
+     * 20 saturation points that can sit on top of them, at 4.0 exhaustion per point: 160.
+     *
+     * <p>What breaks it: a changed calibration or table entry, a tier mapped to the wrong wand, a
+     * table that stops getting cheaper with the stronger wand, or a unit slip (points instead of
+     * exhaustion).
+     */
+    public static void wandHungerRatesFollowTheCalibratedTierTable(GameTestHelper helper) {
+        Item[] wands = {ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND,
+                ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND};
+        double[] expected = HUNGER_PER_BLOCK;
+        helper.assertTrue(WandHunger.PER_BLOCK.length == expected.length,
+                "the hunger table has " + WandHunger.PER_BLOCK.length + " tiers instead of six");
+        for (int i = 0; i < wands.length; i++) {
+            helper.assertTrue(WandHunger.tierOf(wands[i]) == i,
+                    WandHunger.TIERS[i] + " wand maps to hunger tier " + WandHunger.tierOf(wands[i]));
+            double rate = WandHunger.exhaustionFor(wands[i], 1);
+            helper.assertTrue(Math.abs(rate / expected[i] - 1.0) < 1.0e-6,
+                    WandHunger.TIERS[i] + " wand costs " + rate + " exhaustion per block instead of " + expected[i]);
+            if (i > 0) {
+                double step = expected[i] / expected[i - 1];
+                helper.assertTrue(Math.abs(rate / WandHunger.exhaustionFor(wands[i - 1], 1) - step) < 1.0e-6,
+                        "the step from " + WandHunger.TIERS[i - 1] + " to " + WandHunger.TIERS[i]
+                                + " is not the geometric factor " + step);
+            }
+        }
+        helper.assertTrue(WandHunger.tierOf(Items.STICK) == -1 && WandHunger.exhaustionFor(Items.STICK, 100) == 0.0,
+                "something that is not a building wand costs hunger");
+
+        double fullBar = (20 + 20) * 4.0;
+        double copperCube = WandHunger.exhaustionFor(ModItems.COPPER_BUILDING_WAND, 16 * 16 * 16);
+        helper.assertTrue(Math.abs(copperCube - fullBar / 4) < 1.0e-9,
+                "a copper wand filling 16^3 costs " + copperCube + " exhaustion instead of a quarter bar (40)");
+        double enderiteCube = WandHunger.exhaustionFor(ModItems.ENDERITE_BUILDING_WAND, 128L * 128 * 128);
+        helper.assertTrue(Math.abs(enderiteCube - fullBar) < 1.0e-9,
+                "an enderite wand building 128^3 costs " + enderiteCube + " exhaustion instead of the full bar (160)");
+        helper.assertTrue(WandHunger.exhaustionFor(ModItems.ENDERITE_BUILDING_WAND, 256L * 256 * 256) > fullBar,
+                "an enderite build larger than 128^3 no longer reaches an empty bar");
+        helper.succeed();
+    }
+
+    /**
+     * In survival every block the wand really places adds its tier's exhaustion to the player's
+     * food data - through the normal face build and through a blueprint build - and a stronger
+     * wand is billed less for the same nine blocks.
+     *
+     * <p>What breaks it: the hook dropped from {@code BuildingWandItem#inventoryTick} or from the
+     * blueprint placer, billing per click instead of per placed block, or the wrong tier's rate.
+     */
+    public static void survivalWandBuildsCostExhaustionPerPlacedBlock(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        boolean original = Simplebuilding.getConfig().tools.buildingWandHungerCost;
+        helper.runBeforeTestEnd(() -> Simplebuilding.getConfig().tools.buildingWandHungerCost = original);
+        try {
+            Simplebuilding.getConfig().tools.buildingWandHungerCost = true;
+
+            setExhaustion(player, 0.0F);
+            Set<BlockPos> copperPlane = buildPlane(helper, player, tunedWand(ModItems.COPPER_BUILDING_WAND, 1, 0),
+                    Direction.UP, SMALL_SITE);
+            helper.assertValueEqual(copperPlane.size(), 9, "blocks the copper wand placed");
+            float copper = exhaustion(player);
+            assertNear(helper, copper, 9 * HUNGER_PER_BLOCK[0], "exhaustion after the copper wand placed 9 blocks");
+
+            setExhaustion(player, 0.0F);
+            Set<BlockPos> diamondPlane = buildPlane(helper, player, tunedWand(ModItems.DIAMOND_BUILDING_WAND, 1, 0),
+                    Direction.UP, SMALL_SITE);
+            helper.assertValueEqual(diamondPlane.size(), 9, "blocks the diamond wand placed");
+            float diamond = exhaustion(player);
+            assertNear(helper, diamond, 9 * HUNGER_PER_BLOCK[3], "exhaustion after the diamond wand placed 9 blocks");
+            helper.assertTrue(diamond < copper, "the diamond wand was not cheaper than the copper wand");
+
+            setExhaustion(player, 0.0F);
+            helper.assertValueEqual(blueprintBuild(helper, player, ModItems.DIAMOND_BUILDING_WAND), 3,
+                    "stone blocks the blueprint build placed");
+            assertNear(helper, exhaustion(player), 3 * HUNGER_PER_BLOCK[3],
+                    "exhaustion after a diamond wand blueprint build placed 3 blocks");
+        } finally {
+            Simplebuilding.getConfig().tools.buildingWandHungerCost = original;
+        }
+        helper.succeed();
+    }
+
+    /**
+     * Two exemptions: with {@code tools.buildingWandHungerCost} switched off, and in creative
+     * ({@code instabuild}), neither the face build nor the blueprint build touches the food data -
+     * while both still place their blocks, so the zero is measured and not a build that did nothing.
+     *
+     * <p>What breaks it: a hook that ignores the option or the creative flag on either path.
+     */
+    public static void wandHungerCostSkipsCreativeAndTheSwitchedOffOption(GameTestHelper helper) {
+        boolean original = Simplebuilding.getConfig().tools.buildingWandHungerCost;
+        helper.runBeforeTestEnd(() -> Simplebuilding.getConfig().tools.buildingWandHungerCost = original);
+        try {
+            ServerPlayer survival = mockPlayer(helper, false);
+            Simplebuilding.getConfig().tools.buildingWandHungerCost = false;
+            setExhaustion(survival, 0.0F);
+            helper.assertValueEqual(buildPlane(helper, survival, tunedWand(ModItems.COPPER_BUILDING_WAND, 1, 0),
+                    Direction.UP, SMALL_SITE).size(), 9, "blocks placed with the option off");
+            helper.assertValueEqual(blueprintBuild(helper, survival, ModItems.COPPER_BUILDING_WAND), 3,
+                    "blueprint blocks placed with the option off");
+            helper.assertValueEqual(exhaustion(survival), 0.0F, "exhaustion with buildingWandHungerCost off");
+
+            ServerPlayer creative = mockPlayer(helper, true);
+            Simplebuilding.getConfig().tools.buildingWandHungerCost = true;
+            setExhaustion(creative, 0.0F);
+            helper.assertValueEqual(buildPlane(helper, creative, tunedWand(ModItems.COPPER_BUILDING_WAND, 1, 0),
+                    Direction.UP, SMALL_SITE).size(), 9, "blocks placed in creative");
+            helper.assertValueEqual(blueprintBuild(helper, creative, ModItems.COPPER_BUILDING_WAND), 3,
+                    "blueprint blocks placed in creative");
+            helper.assertValueEqual(exhaustion(creative), 0.0F, "exhaustion in creative");
+        } finally {
+            Simplebuilding.getConfig().tools.buildingWandHungerCost = original;
+        }
+        helper.succeed();
+    }
+
+    /** Owner's table, exhaustion per placed block: copper, iron, gold, diamond, netherite, enderite. */
+    private static final double[] HUNGER_PER_BLOCK = {
+            9.765625e-3, 3.700480e-3, 1.402220e-3, 5.313419e-4, 2.013409e-4, 7.629395e-5};
+
+    private static void assertNear(GameTestHelper helper, float actual, double expected, String what) {
+        helper.assertTrue(Math.abs(actual - expected) <= Math.max(1.0e-6, Math.abs(expected) * 1.0e-4),
+                what + ": expected " + expected + " but was " + actual);
+    }
+
+    /**
+     * Builds the three stone blueprint {@code stone 0..2,0,0} on top of the anchor with the wand in
+     * the main hand and the blueprint in the off hand, finishes the job and returns how many stone
+     * blocks now stand in the site.
+     */
+    private static int blueprintBuild(GameTestHelper helper, ServerPlayer player, Item wandItem) {
+        resetSite(helper, SMALL_SITE);
+        ItemStack wand = new ItemStack(wandItem);
+        ItemStack blueprint = new ItemStack(ModItems.BLUEPRINT);
+        blueprint.set(ModDataComponentTypes.BLUEPRINT, new BlueprintContent("stone 0..2,0,0", "Test", "Tester", true));
+        stock(player, wand, new ItemStack(Items.STONE, 16));
+        player.setItemInHand(InteractionHand.OFF_HAND, blueprint);
+        BlueprintBuilder.Result first = BlueprintBuilder.build(helper.getLevel(), player, wand, blueprint,
+                helper.absolutePos(ANCHOR), Direction.UP);
+        helper.assertTrue(first != null && !first.warned(), "the blueprint build was refused: " + first);
+        if (!first.finished()) {
+            BlueprintBuilder.completeJob(player);
+        }
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        return blocksIn(helper, SMALL_SITE, Blocks.STONE).size();
+    }
+
+    /** {@code FoodData} has no getter for its exhaustion, so the tests read the field itself. */
+    private static float exhaustion(ServerPlayer player) {
+        try {
+            return exhaustionField().getFloat(player.getFoodData());
+        } catch (IllegalAccessException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    private static void setExhaustion(ServerPlayer player, float value) {
+        try {
+            exhaustionField().setFloat(player.getFoodData(), value);
+        } catch (IllegalAccessException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    private static java.lang.reflect.Field exhaustionField() {
+        try {
+            java.lang.reflect.Field field = FoodData.class.getDeclaredField("exhaustionLevel");
+            field.setAccessible(true);
+            return field;
+        } catch (NoSuchFieldException e) {
+            throw new IllegalStateException("FoodData#exhaustionLevel is gone, the hunger cost cannot be measured", e);
+        }
     }
 
     // =====================================================================================

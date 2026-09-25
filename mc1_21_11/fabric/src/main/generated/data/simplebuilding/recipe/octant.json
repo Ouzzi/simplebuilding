@@ -2,16 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "C": "minecraft:copper_ingot",
-    "G": "minecraft:gold_nugget",
-    "I": "minecraft:gold_ingot",
+    "C": "minecraft:compass",
+    "H": "minecraft:heavy_weighted_pressure_plate",
     "L": "minecraft:lead",
-    "P": "minecraft:compass"
+    "P": "minecraft:light_weighted_pressure_plate",
+    "R": "minecraft:lightning_rod"
   },
   "pattern": [
-    " GL",
-    "IPG",
-    "CI "
+    " RL",
+    "PCR",
+    "HP "
   ],
   "result": {
     "count": 1,

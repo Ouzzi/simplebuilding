@@ -366,6 +366,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("ore_detector_game_test_calibrated_detector_glimmers_in_the_colour_of_its_target", OreDetectorTests::calibratedDetectorGlimmersInTheColourOfItsTarget)
                     .build(),
+            GameTestSpec.named("ore_detector_game_test_the_ore_detector_recipe_crafts_from_its_documented_pattern", OreDetectorTests::theOreDetectorRecipeCraftsFromItsDocumentedPattern)
+                    .build(),
             GameTestSpec.named("quiver_game_test_right_clicks_do_nothing_even_with_master_builder", QuiverTests::rightClicksDoNothingEvenWithMasterBuilder)
                     .build(),
             GameTestSpec.named("quiver_game_test_arrow_filter_holds_for_clicks_and_the_inverted_binding_slips_past_it", QuiverTests::arrowFilterHoldsForClicksAndTheInvertedBindingSlipsPastIt)
@@ -702,6 +704,12 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("building_wand_game_test_iron_wand_drops_in_the_mansion_and_the_diamond_wand_in_the_end_city", BuildingWandTests::ironWandDropsInTheMansionAndTheDiamondWandInTheEndCity)
                     .build(),
+            GameTestSpec.named("building_wand_game_test_wand_hunger_rates_follow_the_calibrated_tier_table", BuildingWandTests::wandHungerRatesFollowTheCalibratedTierTable)
+                    .build(),
+            GameTestSpec.named("building_wand_game_test_survival_wand_builds_cost_exhaustion_per_placed_block", BuildingWandTests::survivalWandBuildsCostExhaustionPerPlacedBlock)
+                    .build(),
+            GameTestSpec.named("building_wand_game_test_wand_hunger_cost_skips_creative_and_the_switched_off_option", BuildingWandTests::wandHungerCostSkipsCreativeAndTheSwitchedOffOption)
+                    .build(),
             GameTestSpec.named("wand_enchantment_game_test_master_builder_opens_the_backpack_and_the_bundles_inside_it_to_the_wand", WandEnchantmentTests::masterBuilderOpensTheBackpackAndTheBundlesInsideItToTheWand)
                     .build(),
             GameTestSpec.named("wand_enchantment_game_test_master_builder_moves_the_preview_sources_the_same_way_it_moves_the_placement", WandEnchantmentTests::masterBuilderMovesThePreviewSourcesTheSameWayItMovesThePlacement)
@@ -743,6 +751,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("octant_game_test_chest_octants_are_enchanted_in_the_two_dangerous_chests_only", OctantTests::chestOctantsAreEnchantedInTheTwoDangerousChestsOnly)
                     .build(),
             GameTestSpec.named("octant_game_test_the_octant_only_measures_and_places_nothing", OctantTests::theOctantOnlyMeasuresAndPlacesNothing)
+                    .build(),
+            GameTestSpec.named("octant_game_test_the_octant_recipe_crafts_from_its_documented_pattern", OctantTests::theOctantRecipeCraftsFromItsDocumentedPattern)
                     .build(),
             GameTestSpec.named("blueprint_game_test_code_round_trips_and_parses_the_spec_examples", BlueprintTests::codeRoundTripsAndParsesTheSpecExamples)
                     .build(),
