@@ -16,10 +16,12 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.simplebuilding.Simplebuilding"
+      "com.simplebuilding.Simplebuilding",
+      "com.simplebuilding.tweaks.fabric.TweaksFabric"
     ],
     "client": [
-      "com.simplebuilding.SimplebuildingClient"
+      "com.simplebuilding.SimplebuildingClient",
+      "com.simplebuilding.tweaks.fabric.TweaksFabricClient"
     ],
     "fabric-datagen": [
       "com.simplebuilding.SimplebuildingDataGenerator"
@@ -83,6 +85,8 @@
   },
   "mixins": [
     "simplebuilding.mixins.json",
+    "simplebuilding.tweaks.mixins.json",
+    "simplebuilding.tweaks.stack.mixins.json",
     {
       "config": "simplebuilding.client.mixins.json",
       "environment": "client"

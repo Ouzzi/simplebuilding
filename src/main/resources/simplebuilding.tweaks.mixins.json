@@ -1,0 +1,23 @@
+{
+  "required": true,
+  "package": "com.simplebuilding.tweaks.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "ExperienceOrbAccessor",
+    "ExperienceOrbMixin",
+    "SpawnElytraDamageMixin",
+    "TweaksServerPlayerMixin"
+  ],
+  "client": [
+    "client.ExperienceBarMixin",
+    "client.ExperienceOrbRendererMixin",
+    "client.ExperienceOrbRenderStateMixin",
+    "client.HudExperienceLevelMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

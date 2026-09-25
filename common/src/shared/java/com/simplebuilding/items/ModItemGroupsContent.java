@@ -292,6 +292,13 @@ public final class ModItemGroupsContent {
      * eine Zeile mit mehr als neun Eintraegen laeuft in die naechste weiter.
      */
     public static List<CreativeTabLayout.Row> functionalRows() {
+        List<CreativeTabLayout.Row> rows = new java.util.ArrayList<>(baseFunctionalRows());
+        // Aus Simple Tweaks: Druckplatten, Pads, Teleporter, Launchpads/Chunk-Loader.
+        rows.addAll(com.simplebuilding.tweaks.item.TweaksItems.functionalRows());
+        return List.copyOf(rows);
+    }
+
+    private static List<CreativeTabLayout.Row> baseFunctionalRows() {
         return List.of(
                 CreativeTabLayout.Row.of("hoppers",
                         Items.HOPPER, ModItems.REINFORCED_HOPPER, ModItems.NETHERITE_HOPPER, ModItems.ENDERITE_HOPPER),
