@@ -11,12 +11,12 @@ import net.minecraft.world.level.block.state.BlockState;
  * Das Bauwerk einer Blaupause: welcher Blockzustand an welcher Stelle des lokalen Rasters steht.
  *
  * <p>Das Raster ist ein Wuerfel mit {@value BlueprintCode#GRID} Feldern Kantenlaenge, jede
- * Koordinate liegt in {@code 0..127}. Eine Stelle wird deshalb als ein {@code int} gespeichert
- * ({@code x | y << 7 | z << 14}); das haelt selbst ein voll gefuelltes 128er-Raster (2 Mio.
- * Bloecke) ohne ein {@code BlockPos}-Objekt pro Stelle. Luft steht nie im Modell.
+ * Koordinate liegt in {@code 0..255}. Eine Stelle wird deshalb als ein {@code int} gespeichert
+ * ({@code x | y << 8 | z << 16}), ohne ein {@code BlockPos}-Objekt pro Stelle; wie viele Stellen
+ * belegt sein duerfen, begrenzt {@link BlueprintCode#MAX_EXPANDED_CELLS}. Luft steht nie im Modell.
  */
 public final class BlueprintModel {
-    private static final int BITS = 7;
+    private static final int BITS = 8;
     private static final int MASK = (1 << BITS) - 1;
 
     private final Int2ObjectOpenHashMap<BlockState> blocks = new Int2ObjectOpenHashMap<>();
@@ -172,5 +172,22 @@ public final class BlueprintModel {
             out.put(keyX(k) + "," + keyY(k) + "," + keyZ(k), e.getValue());
         }
         return out;
+    }
+
+    /**
+     * Schluessel fuer Zwischenspeicher, der das Modell nach Identitaet vergleicht:
+     * {@link #hashCode()} laeuft ueber alle Stellen und waere bei Millionen Bloecken je Abfrage zu teuer.
+     * {@code BlueprintCode.parseCached} liefert fuer denselben Code dasselbe Modell-Objekt.
+     */
+    public record Identity(BlueprintModel model) {
+        @Override
+        public boolean equals(Object o) {
+            return o instanceof Identity other && other.model == model;
+        }
+
+        @Override
+        public int hashCode() {
+            return System.identityHashCode(model);
+        }
     }
 }

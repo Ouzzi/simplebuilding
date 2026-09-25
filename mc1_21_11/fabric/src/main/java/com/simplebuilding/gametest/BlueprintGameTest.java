@@ -58,4 +58,19 @@ public final class BlueprintGameTest {
     public void recipeCraftsOneBlankBlueprint(GameTestHelper helper) {
         BlueprintTests.recipeCraftsOneBlankBlueprint(helper);
     }
+
+    @GameTest
+    public void scanFollowsTheOctantShape(GameTestHelper helper) {
+        BlueprintTests.scanFollowsTheOctantShape(helper);
+    }
+
+    @GameTest
+    public void largeScanRunsOverSeveralTicks(GameTestHelper helper) {
+        BlueprintTests.largeScanRunsOverSeveralTicks(helper);
+    }
+
+    @GameTest
+    public void largeBuildRunsOverSeveralTicks(GameTestHelper helper) {
+        BlueprintTests.largeBuildRunsOverSeveralTicks(helper);
+    }
 }

@@ -30,8 +30,13 @@ public abstract class CartographyTableMenuMixin extends AbstractContainerMenu {
     @Shadow @Final private ContainerLevelAccess access;
     @Shadow @Final private ResultContainer resultContainer;
 
+    @Shadow @Final public net.minecraft.world.Container container;
+
     @Unique
     private Player simplebuilding$player;
+
+    @Unique
+    private final BlueprintCartography.TableScan simplebuilding$scan = new BlueprintCartography.TableScan();
 
     protected CartographyTableMenuMixin(MenuType<?> menuType, int containerId) {
         super(menuType, containerId);
@@ -49,13 +54,25 @@ public abstract class CartographyTableMenuMixin extends AbstractContainerMenu {
             return;
         }
         ci.cancel();
-        this.access.execute((level, pos) -> {
-            ItemStack out = BlueprintCartography.result(level, pos, map, additional, this.simplebuilding$player);
-            if (!ItemStack.matches(out, result)) {
-                this.resultContainer.setItem(BlueprintCartography.RESULT_SLOT, out);
-                this.broadcastChanges();
-            }
-        });
+        this.access.execute((level, pos) -> this.simplebuilding$scan.inputsChanged(level, pos, map, additional,
+                this.simplebuilding$player, this::simplebuilding$setResult));
+    }
+
+    /** Laeuft jeden Server-Tick fuer das offene Menue: fuehrt einen grossen Scan fort. */
+    @Override
+    public void broadcastChanges() {
+        if (this.simplebuilding$scan.running()) {
+            this.access.execute((level, pos) -> this.simplebuilding$scan.tick(level, this.container.getItem(0),
+                    this.container.getItem(1), this.simplebuilding$player, this::simplebuilding$setResult));
+        }
+        super.broadcastChanges();
+    }
+
+    @Unique
+    private void simplebuilding$setResult(ItemStack out) {
+        if (!ItemStack.matches(out, this.resultContainer.getItem(BlueprintCartography.RESULT_SLOT))) {
+            this.resultContainer.setItem(BlueprintCartography.RESULT_SLOT, out);
+        }
     }
 
     /** Umschalt-Klick legt Oktant und Blaupause in ihre Tisch-Slots statt in die Hotbar. */
