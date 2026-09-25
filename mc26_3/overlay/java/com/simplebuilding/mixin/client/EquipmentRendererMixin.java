@@ -10,14 +10,13 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-// MC 26.3 twin of common/src/mc26_2/java/.../EquipmentRendererMixin.java: renderLayers gained a
-// trailing "order" int and trims are drawn through RenderTypes.armorTrim (paletted textures) instead
-// of the armor trim atlas sheet. Same light override.
+// MC 26.3 twin of common/src/mc26_2/java/.../EquipmentRendererMixin.java: trims are drawn through
+// RenderTypes.armorTrim (paletted textures) instead of the armor trim atlas sheet. Same light override.
 @Mixin(EquipmentLayerRenderer.class)
 public class EquipmentRendererMixin {
 
     @ModifyVariable(
-            method = "renderLayers(Lnet/minecraft/client/resources/model/EquipmentClientInfo$LayerType;Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lnet/minecraft/world/item/ItemStack;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;ILnet/minecraft/resources/Identifier;III)V",
+            method = "renderLayers(Lnet/minecraft/client/resources/model/EquipmentClientInfo$LayerType;Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lnet/minecraft/world/item/ItemStack;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;ILnet/minecraft/resources/Identifier;II)V",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/client/renderer/rendertype/RenderTypes;armorTrim(Lnet/minecraft/resources/Identifier;Z)Lnet/minecraft/client/renderer/rendertype/RenderType;"
