@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Erzeugt die handgezeichneten 16x16-Texturen fuer Rucksack, Lederbogen, verstaerkten
 Koecher, verstaerkten klebrigen Kolben, Enderit-Kolben, Spachtel, die Enderit-Maschinen, die
-Nihilith-/Astralit-Quarz-Schachbretter, Enderquarz (Staub), Enderitbarren, Enderitschrott und die
+Nihilith-/Astralit-Quarz-Schachbretter, Enderquarz, Enderitbarren, -schrott, -klumpen und die
 Blaupause; dazu aus Code (nicht aus
 Pixelkarten) die drei End-Paletten Astralit, Nihilith und Enderquarz (Grundblock, Ziegel, polierter
 Block, Saeule, gemeisselte Ziegel), die Rueckentextur des getragenen Rucksacks (entity/backpack/*, aus
@@ -27,6 +27,8 @@ Stilregeln (gemessen an den vorhandenen Texturen des Mods):
   dunkelste Ton des Materials.
 - Licht von oben links, 4-6 Stufen pro Material, 1-2 Glanzpixel oben links.
 - Keine Halbtransparenz. Items RGBA, Blockflaechen deckend RGB.
+- Ecken der Kontur nicht dicht machen: sind zwei Konturpixel nur ueber Eck verbunden, bleibt das
+  Eckpixel frei (wie bei Vanilla), sonst entstehen dunkle oder helle Flecken. Innen erlaubt.
 
 UV-Vertrag fuer den platzierten Rucksack (Modell block/template_backpack, Vorderseite
 nach Norden, Texturslots #front #back #side #top, Partikel = #side). Pixelbereiche
@@ -1463,51 +1465,51 @@ def ring(x, y):
     return min(x, y, 15 - x, 15 - y)
 
 
-# Enderquarz (Item): ein Haeufchen sehr dunkel-violetter Staub wie Glowstone-Staub oder Redstone,
-# aber tiefer und exotischer: 1 Umriss, R Randton, 1..6 Koerner dunkel -> hell, s seltene helle
-# Funken (auch zwei lose Koernchen neben dem Haufen), S ein weisser Glanzpunkt, a/b je ein rosa
-# (Astralit) und tuerkiser (Nihilith) Lichtpunkt wie beim frueheren Kristall.
+# Enderquarz (Item): Kristallstern - kleiner Hauptkoerper als vierzackiger Stern (oben, unten,
+# links, rechts), dazu an den vier Diagonalen je ein herausragender Spike, der in einem kleinen
+# vierzackigen Stern endet. Sehr dunkles Violett, 1..5 dunkel -> hell (Licht von oben links),
+# s Funken, S Glanzpunkt; ohne eigene Konturfarbe, damit die Spitzen klar bleiben.
 ENDER_QUARTZ_ITEM = [
     "................",
-    "................",
-    "................",
-    ".........s......",
-    "......RR....5...",
-    ".....R64O.......",
-    "....R4S53O......",
-    "...R465432O..5..",
-    "..R43254632O....",
-    ".R6325435s32O...",
-    ".R3254a24s321O..",
-    "R3243525432b21O.",
-    "R2132432342312O.",
-    ".O21212321211O..",
-    "..OOO111111OOO..",
+    "..5.....5....3..",
+    ".5s4....4...4s2.",
+    "..545..54..432..",
+    "...455.54.332...",
+    "....45554433....",
+    ".....55S443.....",
+    "..5554444433....",
+    ".54443443322221.",
+    "..4333332211....",
+    ".....43322......",
+    "...344.32.221...",
+    "..343..32..212..",
+    ".343....1...121.",
+    "..3.....1....1..",
     "................",
 ]
 ENDER_QUARTZ_ITEM_PAL = {
-    "O": "#12071c", "R": "#2e1442", "1": "#1f0c2e", "2": "#2d1342", "3": "#3f1d5c", "4": "#552a7a",
-    "5": "#733b9f", "6": "#8f4fc6", "s": "#c68cff", "S": "#fbefff", "a": "#f4a6dc", "b": "#8fd3d0",
+    "1": "#1c0a2e", "2": "#2a1142", "3": "#3b1a5a", "4": "#522678", "5": "#6e369c", "s": "#c68cff",
+    "S": "#fbefff",
 }
 
-# Enderitbarren: klassische Barrenform (Deckflaeche, lange Vorderflaeche, kurze Stirnseite links),
-# Enderit-Violett. O Umriss unten/rechts, R Randton oben/links, 1..2 Vorderflaeche, 3 Stirnseite,
-# 4..6 Deckflaeche, h Lichtkante zwischen Deck- und Vorderflaeche, 7 Glanzpunkt.
+# Enderitbarren: Lage, Perspektive und Silhouette des Vanilla-Netheritbarrens (Massvorlage), aber
+# 4 statt 5 Pixel dick und neu schattiert. O Umriss, R Randton, 5..6 Deckflaeche, h Lichtkanten,
+# 1..2 Vorderflaeche, 3 Stirnseite links, 7 Glanzpunkt.
 ENDERITE_INGOT = [
     "................",
     "................",
-    "..........RRO...",
-    "........RR7665O.",
-    ".....RRR6655554O",
-    "..RRR6655555544O",
-    "RR66555555544hhO",
-    "R3655555554hh21O",
-    "R33655544hh2221O",
-    "R3326547h222211O",
-    ".O3226h2221111O.",
-    "..O32221111OO...",
-    "...O2111OO......",
-    "....OOO.........",
+    "..........RR....",
+    ".......RRR76O...",
+    "....RRR665555O..",
+    ".RRR6655555544O.",
+    "Rh6555555544hh1O",
+    "R3h55544hhhh221O",
+    "R33h44hh2222111O",
+    "O333hh2211111OO.",
+    ".O33221111OOO...",
+    "..O3111OOO......",
+    "...OOOO.........",
+    "................",
     "................",
     "................",
 ]
@@ -1516,30 +1518,55 @@ ENDERITE_INGOT_PAL = {
     "5": "#8e63dc", "6": "#a57de9", "h": "#cfb2fb", "7": "#f1e8ff",
 }
 
-# Enderitschrott: kantiger Brocken aus grauviolettem Gestein, oben eine helle Bruchflaeche,
-# durchzogen von leuchtenden Enderit-Adern (v, w Glanz) - dunkler und matter als der Barren.
-# O Umriss, R Randton, 0..6 Gestein dunkel -> hell.
+# Enderitschrott: Mischung aus der urspruenglichen Textur des Besitzers (Grundform, Maserung) und
+# den drei spitzen Krallen-Lagen: helle Oberkante A je Lage, weiche Fuge 4/2, links spitz
+# auslaufend. O Umriss unten/rechts, H/B Lichtkante oben/links.
 ENDERITE_SCRAP = [
     "................",
     "................",
-    ".......RRRO.....",
-    ".....RR6665O....",
-    "...RR665v5543O..",
-    "..R6655vw554322O",
-    ".R6555v5554432O.",
-    "R444v44v3312211O",
-    "R33v43v3w312210O",
-    ".R3vw3333v32210O",
-    "..R2v23322v2110O",
-    "...R22v222110O..",
-    "...O111221100O..",
-    "....OO11100OO...",
+    ".........HHO....",
+    ".......HHA63O...",
+    ".....HHA6622O...",
+    "....HA6522A65O..",
+    "...HA642A6622O..",
+    "...B42AA622AAO..",
+    "....OA464AA65O..",
+    "...HA642A4653O..",
+    "...B42AA3653O...",
+    "....OA46553O....",
+    ".....O5534O.....",
     "......OOOO......",
+    "................",
     "................",
 ]
 ENDERITE_SCRAP_PAL = {
-    "O": "#190b25", "R": "#3f2757", "0": "#231330", "1": "#2e1c40", "2": "#3e2a55", "3": "#52396d",
-    "4": "#684c88", "5": "#8064a2", "6": "#a48cc0", "v": "#9160dd", "w": "#d6b4ff",
+    "O": "#1f0c3d", "H": "#b58ef6", "A": "#a67aef", "B": "#9d7ad5", "6": "#6841a9", "5": "#553190",
+    "3": "#442871", "2": "#2c1356", "4": "#442871",
+}
+
+# Enderitklumpen: oben der runde Klumpen der urspruenglichen Textur, darunter ein Tropfstein-Keil
+# mit dunklem Band, der nach unten spitz zulaeuft; Tropfen und seitliche Tropfspuren bleiben.
+ENDERITE_NUGGET = [
+    "................",
+    "................",
+    "................",
+    "........77O.....",
+    "......H7665O....",
+    ".....7676553O...",
+    ".....766555O....",
+    "....O.R4432O....",
+    "....O.H653O.O...",
+    "......R532O.....",
+    ".......53O......",
+    ".......3O..O....",
+    "........4..O....",
+    "........3.......",
+    "........O.......",
+    "................",
+]
+ENDERITE_NUGGET_PAL = {
+    "O": "#341145", "H": "#a881eb", "7": "#8464bc", "6": "#765aa6", "5": "#543487", "4": "#513279",
+    "3": "#3e2263", "R": "#4a2d70", "2": "#2f1446",
 }
 
 
@@ -1555,6 +1582,7 @@ def end_palette_textures():
     tex["item/ender_quartz.png"] = render("ender_quartz", ENDER_QUARTZ_ITEM, ENDER_QUARTZ_ITEM_PAL, False)
     tex["item/enderite_ingot.png"] = render("enderite_ingot", ENDERITE_INGOT, ENDERITE_INGOT_PAL, False)
     tex["item/enderite_scrap.png"] = render("enderite_scrap", ENDERITE_SCRAP, ENDERITE_SCRAP_PAL, False)
+    tex["item/enderite_nugget.png"] = render("enderite_nugget", ENDERITE_NUGGET, ENDERITE_NUGGET_PAL, False)
     return tex
 
 
@@ -2327,7 +2355,8 @@ def build_preview(tex):
         groups.append((f"{mat}-Palette", [(k, tex[k]) for k in names],
                        [checker_wall(tex[names[1]]), checker_wall(tex[names[2]])]))
     groups.append(("Enderquarz und Enderit", [(k, tex[k]) for k in (
-        "item/ender_quartz.png", "item/enderite_ingot.png", "item/enderite_scrap.png")], []))
+        "item/ender_quartz.png", "item/enderite_ingot.png", "item/enderite_scrap.png",
+        "item/enderite_nugget.png")], []))
     width = max(pad + len(items) * (cell + pad) + sum(iso.width + pad for iso in isos) + pad
                 for _, items, isos in groups)
     height = pad + len(groups) * (16 + cell + label_h + pad + 4)
