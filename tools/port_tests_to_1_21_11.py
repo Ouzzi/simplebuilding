@@ -63,6 +63,9 @@ TARGET = REPO / "mc1_21_11/shared/java/com/simplebuilding/gametest"
 #: (Muster, Ersatz, Begruendung). Reihenfolge zaehlt: die Aufraeum-Regeln bauen
 #: aufeinander auf, deshalb kommt succeed() nach runBeforeTestEnd().
 RULES: list[tuple[str, str, str]] = [
+    (r"\bDyeRgb\.of\((DyeColor\.[A-Z_]+)\)",
+     r"(\1.getTextureDiffuseColor() & 0xFFFFFF)",
+     "DyeRgb ist der 26.2/26.3/26.4-Versions-Shim (26.4 hat getTextureDiffuseColor nicht mehr)"),
     (r"import net\.minecraft\.world\.entity\.EntityTypes;",
      "import net.minecraft.world.entity.EntityType;",
      "EntityTypes gibt es erst ab 26.2"),

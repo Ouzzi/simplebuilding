@@ -1,0 +1,182 @@
+plugins {
+	id 'net.fabricmc.fabric-loom'
+}
+
+// EXPERIMENTAL Minecraft 26.4 SNAPSHOT line, Fabric - NOT for release (only in the build with
+// -Pmc264=true, see settings.gradle). Like the 26.3 line it compiles the shared trees
+// (common/src/shared/java, the root Fabric sources, the JEI plugin), plus the overlay chain from
+// mc26_4/chain.gradle: every 26.3 overlay file, each replaced by its 26.4 twin where one exists.
+version = rootProject.version
+group = rootProject.group
+
+base {
+	archivesName = "${rootProject.archives_base_name}-${project.mc264_minecraft_version}"
+}
+
+def root = rootProject.layout.projectDirectory
+
+apply from: rootProject.file('mc26_4/chain.gradle')
+
+def overlayJava = mc264OverlayTree('java', 'mc26_3/overlay/java', 'mc26_4/overlay/java')
+def overlayFabric = mc264OverlayTree('fabric', 'mc26_3/fabric/src/main/java', 'mc26_4/fabric/src/main/java')
+def overlayClientTest = mc264OverlayTree('clientgametest', 'mc26_3/overlay/clientgametest/java', 'mc26_4/overlay/clientgametest/java')
+
+sourceSets {
+	main {
+		java {
+			srcDir root.dir('common/src/shared/java')
+			srcDir root.dir('common/src/jei/java')
+			srcDir root.dir('src/main/java')
+			srcDir overlayJava
+			srcDir overlayFabric
+		}
+	}
+}
+
+// Resources: shared trees + 26.3 overlays + 26.4 overlays, newest wins (mc26_4/chain.gradle).
+mc264ConfigureResources(sourceSets.main, [])
+
+// 26.4 datagen writes its full output to build/datagen264; syncGenerated264 keeps in mc26_4/generated
+// only what differs from the 26.3 resources as the 26.3 line ships them (mc26_3/generated over
+// src/main/generated), and lists 26.3 files that 26.4 no longer generates in
+// mc26_4/generated/removed-on-26.4.txt.
+def datagenOut = layout.buildDirectory.dir('datagen264').get().asFile
+fabricApi {
+	configureDataGeneration {
+		client = true
+		outputDirectory = datagenOut
+		// Not a resource dir (same trap as on 26.3, see mc26_3/fabric/build.gradle).
+		addToResources = false
+	}
+
+	configureTests {
+		createSourceSet = true
+		modId = "simplebuilding-test"
+		enableGameTests = false
+	}
+}
+
+sourceSets.named('gametest') {
+	java.srcDir root.dir('common/src/shared/clientgametest/java')
+	java.srcDir overlayClientTest
+	java.srcDir root.dir('src/gametest/java')
+	resources.srcDir root.dir('src/gametest/resources')
+}
+
+loom {
+	runs {
+		gametest {
+			server()
+			name = "Game Test 26.4 snapshot"
+			vmArg "-Dfabric-api.gametest"
+			vmArg "-Dfabric-api.gametest.report-file=${project.layout.buildDirectory.get()}/junit.xml"
+			def gametestFilter = project.findProperty('gametestFilter')
+			if (gametestFilter) {
+				vmArg "-Dfabric-api.gametest.filter=${gametestFilter}"
+			}
+			runDir "build/gametest"
+		}
+	}
+}
+
+repositories {
+	maven { url = "https://maven.shedaniel.me/" }
+	maven { url = "https://maven.terraformersmc.com/releases/" }
+	maven { url = "https://maven.blamejared.com/" }
+}
+
+// No dev-only runtime mods (JEI, Jade, Mouse Tweaks, AppleSkin) on the snapshot: none of them has a
+// 26.4 build yet. The JEI plugin still compiles against the 26.3 JEI API (compileOnly, only ever
+// loaded by JEI itself).
+dependencies {
+	implementation project(':common')
+	minecraft "com.mojang:minecraft:${project.mc264_minecraft_version}"
+	implementation "net.fabricmc:fabric-loader:${project.mc264_loader_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.mc264_fabric_version}"
+	// Cloth Config has no 26.4 build yet; the 26.3 one declares minecraft >=26.3- and so loads on the
+	// snapshot. Swap mc264_cloth_version once a 26.4 build appears.
+	implementation("me.shedaniel.cloth:cloth-config-fabric:${project.mc264_cloth_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+	implementation "com.terraformersmc:modmenu:${project.mc264_modmenu_version}"
+
+	compileOnly "mezz.jei:jei-${project.mc263_minecraft_version}-common-api:${project.mc263_jei_version}"
+
+	implementation fabricApi.module("fabric-gametest-api-v1", project.mc264_fabric_version)
+}
+
+processResources {
+	inputs.property "version", project.version
+	// fabric.mod.json is shared with the 26.2 line; only the Minecraft and Cloth Config ranges
+	// differ. "~26.4-" also accepts the 26.4 snapshots/pre-releases.
+	filesMatching("fabric.mod.json") {
+		expand "version": inputs.properties.version
+		filter { String line ->
+			line.replace('"minecraft": "~26.2"', '"minecraft": "~26.4-"')
+				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3"')
+		}
+	}
+}
+
+def syncGenerated264 = tasks.register('syncGenerated264') {
+	group = 'fabric'
+	description = 'Keeps in mc26_4/generated only the 26.4 datagen files that differ from the 26.3 line.'
+	doLast {
+		File shared = rootProject.file('src/main/generated')
+		File gen263 = rootProject.file('mc26_3/generated')
+		File target = rootProject.file('mc26_4/generated')
+		File removedList = mc264Layer.removed
+		def norm = { File f -> f.getText('UTF-8').replace('\r\n', '\n') }
+		def skip = { String rel -> rel.startsWith('.cache') || rel.startsWith('wiki/') || rel ==~ /removed-on-[^\/]*\.txt/ }
+		Set<String> removed263 = mc263RemovedList.isFile()
+				? (mc263RemovedList.readLines().findAll { it.trim() && !it.startsWith('#') } as Set) : ([] as Set)
+		// What the 26.3 line ships per path (mc26_3/generated over src/main/generated).
+		Map<String, File> effective263 = [:]
+		mc263RelativeFiles(shared).findAll { !skip(it) && !removed263.contains(it) }.each { effective263[it] = new File(shared, it) }
+		mc263RelativeFiles(gen263).findAll { !skip(it) }.each { effective263[it] = new File(gen263, it) }
+
+		Set<String> produced = mc263RelativeFiles(datagenOut).findAll { !skip(it) } as Set
+		if (produced.isEmpty()) {
+			throw new GradleException("runDatagen produced nothing in ${datagenOut}")
+		}
+		Set<String> kept = [] as Set
+		produced.each { String rel ->
+			File out = new File(datagenOut, rel)
+			File twin = effective263[rel]
+			File dest = new File(target, rel)
+			if (twin != null && norm(twin) == norm(out)) {
+				dest.delete()
+			} else {
+				dest.parentFile.mkdirs()
+				dest.setText(norm(out), 'UTF-8')
+				kept << rel
+			}
+		}
+		mc263RelativeFiles(target).each { String rel ->
+			if (rel != removedList.name && !kept.contains(rel)) new File(target, rel).delete()
+		}
+		List<String> removed = (effective263.keySet() - produced).toSorted()
+		removedList.parentFile.mkdirs()
+		removedList.setText('# 26.3 datagen files that the 26.4 datagen does not produce; hidden on 26.4.\n'
+				+ '# Written by :mc26_4:fabric:syncGenerated264 - do not edit.\n'
+				+ removed.collect { it + '\n' }.join(''), 'UTF-8')
+		def dirs = []
+		target.eachDirRecurse { dirs << it }
+		dirs.reverse().each { if (it.list().length == 0) it.delete() }
+		logger.lifecycle("mc26_4/generated: ${kept.size()} files differ from 26.3, ${removed.size()} 26.3 files removed")
+	}
+}
+tasks.matching { it.name == 'runDatagen' }.configureEach {
+	doFirst { project.delete(datagenOut) }
+	finalizedBy syncGenerated264
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 25
+	it.options.compilerArgs.addAll(['-Xmaxerrs', '5000'])
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
+}
