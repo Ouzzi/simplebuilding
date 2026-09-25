@@ -12,16 +12,18 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
+import net.minecraft.world.level.ItemLike;
 
 import java.util.List;
 import java.util.function.Supplier;
 
 /**
- * Inhalt der vier Kreativ-Tabs der Mod. Jeder Loader registriert je {@link Tab} einen Tab mit der
+ * Inhalt der vier Kreativ-Tabs der Mod. SimpleTools und SimpleMachines sind zeilenweise angelegt
+ * ({@link CreativeTabLayout}): eine Kategorie je Zeile, der Rest der Zeile bleibt leer. Jeder Loader registriert je {@link Tab} einen Tab mit der
  * Id {@code simplebuilding:<id>}, dem Titel {@code itemgroup.simplebuilding.<id>} und
  * {@link #populate(Tab, CreativeModeTab.Output, HolderLookup.Provider)} als Inhalt. Jedes Item der
  * Mod steht in genau einem Tab ({@code DataIntegrityTests#everyModItemIsInExactlyOneCreativeTab}) -
- * ausser dem Layout-Platzhalter {@link ModItems#CREATIVE_SPACER} (nur Fueller, nie im Suchtab, siehe
+ * ausser dem Oktanten und den Baustaeben (auch in der Zeile Bauplanung von SimpleMachines), dem Layout-Platzhalter {@link ModItems#CREATIVE_SPACER} (nur Fueller, nie im Suchtab, siehe
  * {@link CreativeTabLayout}) und den Duplikaten des Entwickler-Tabs {@link DevEnchantedTab}, der
  * kein {@link Tab} ist, weil er nur in Entwicklungsumgebungen oder per Konfig gefuellt wird.
  */
@@ -65,93 +67,109 @@ public final class ModItemGroupsContent {
     }
 
     private static void tools(CreativeModeTab.Output entries, HolderLookup<Enchantment> enchantmentRegistry) {
-        // --- Chisels ---
-        entries.accept(ModItems.STONE_CHISEL);
-        entries.accept(ModItems.COPPER_CHISEL);
-        entries.accept(ModItems.IRON_CHISEL);
-        entries.accept(ModItems.GOLD_CHISEL);
-        entries.accept(ModItems.DIAMOND_CHISEL);
-        entries.accept(ModItems.NETHERITE_CHISEL);
-        entries.accept(ModItems.ENDERITE_CHISEL);
+        CreativeTabLayout.emit(entries, toolsRows(enchantmentRegistry));
+    }
 
-        // --- Wands ---
-        entries.accept(ModItems.COPPER_BUILDING_WAND);
-        entries.accept(ModItems.IRON_BUILDING_WAND);
-        entries.accept(ModItems.GOLD_BUILDING_WAND);
-        entries.accept(ModItems.DIAMOND_BUILDING_WAND);
-        entries.accept(ModItems.NETHERITE_BUILDING_WAND);
-        entries.accept(ModItems.ENDERITE_BUILDING_WAND);
+    /**
+     * Zeilen des Tabs "SimpleTools": je Familie eine Zeile von der niedrigsten Stufe bis Enderit -
+     * erst die Werkzeuge (Meissel, Baustab, Vorschlaghammer, Spitzhacke, Schaufel, Hacke, Axt), dann
+     * die Waffen (Schwert, Speer), die Ruestung (Helm, Brust, Hose, Stiefel), die Geraete (Oktant,
+     * Geschwindigkeitsmesser, Erzdetektor, Magnet, Rotator), die gefaerbten Oktanten und zuletzt die
+     * verzauberten Buecher. Die Vanilla-Werkzeuge, -Waffen und -Ruestungen aller Stufen stehen mit
+     * darin, damit alles griffbereit ist.
+     */
+    public static List<CreativeTabLayout.Row> toolsRows(HolderLookup<Enchantment> enchantmentRegistry) {
+        List<CreativeTabLayout.Row> rows = new java.util.ArrayList<>(List.of(
+                // --- Werkzeuge ---
+                CreativeTabLayout.Row.of("chisels",
+                        ModItems.STONE_CHISEL, ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL, ModItems.GOLD_CHISEL,
+                        ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL, ModItems.ENDERITE_CHISEL),
+                CreativeTabLayout.Row.of("building_wands", buildingWands()),
+                CreativeTabLayout.Row.of("sledgehammers",
+                        ModItems.STONE_SLEDGEHAMMER, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER,
+                        ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_SLEDGEHAMMER,
+                        ModItems.ENDERITE_SLEDGEHAMMER),
+                CreativeTabLayout.Row.of("pickaxes",
+                        Items.WOODEN_PICKAXE, Items.STONE_PICKAXE, Items.COPPER_PICKAXE, Items.IRON_PICKAXE,
+                        Items.GOLDEN_PICKAXE, Items.DIAMOND_PICKAXE, Items.NETHERITE_PICKAXE, ModItems.ENDERITE_PICKAXE),
+                CreativeTabLayout.Row.of("shovels",
+                        Items.WOODEN_SHOVEL, Items.STONE_SHOVEL, Items.COPPER_SHOVEL, Items.IRON_SHOVEL,
+                        Items.GOLDEN_SHOVEL, Items.DIAMOND_SHOVEL, Items.NETHERITE_SHOVEL, ModItems.ENDERITE_SHOVEL),
+                CreativeTabLayout.Row.of("hoes",
+                        Items.WOODEN_HOE, Items.STONE_HOE, Items.COPPER_HOE, Items.IRON_HOE,
+                        Items.GOLDEN_HOE, Items.DIAMOND_HOE, Items.NETHERITE_HOE, ModItems.ENDERITE_HOE),
+                CreativeTabLayout.Row.of("axes",
+                        Items.WOODEN_AXE, Items.STONE_AXE, Items.COPPER_AXE, Items.IRON_AXE,
+                        Items.GOLDEN_AXE, Items.DIAMOND_AXE, Items.NETHERITE_AXE, ModItems.ENDERITE_AXE),
+                // --- Waffen ---
+                CreativeTabLayout.Row.of("swords",
+                        Items.WOODEN_SWORD, Items.STONE_SWORD, Items.COPPER_SWORD, Items.IRON_SWORD,
+                        Items.GOLDEN_SWORD, Items.DIAMOND_SWORD, Items.NETHERITE_SWORD, ModItems.ENDERITE_SWORD),
+                CreativeTabLayout.Row.of("spears",
+                        Items.WOODEN_SPEAR, Items.STONE_SPEAR, Items.COPPER_SPEAR, Items.IRON_SPEAR,
+                        Items.GOLDEN_SPEAR, Items.DIAMOND_SPEAR, Items.NETHERITE_SPEAR, ModItems.ENDERITE_SPEAR),
+                // --- Ruestung ---
+                CreativeTabLayout.Row.of("helmets",
+                        Items.LEATHER_HELMET, Items.CHAINMAIL_HELMET, Items.COPPER_HELMET, Items.IRON_HELMET,
+                        Items.GOLDEN_HELMET, Items.DIAMOND_HELMET, Items.NETHERITE_HELMET, ModItems.ENDERITE_HELMET),
+                CreativeTabLayout.Row.of("chestplates",
+                        Items.LEATHER_CHESTPLATE, Items.CHAINMAIL_CHESTPLATE, Items.COPPER_CHESTPLATE, Items.IRON_CHESTPLATE,
+                        Items.GOLDEN_CHESTPLATE, Items.DIAMOND_CHESTPLATE, Items.NETHERITE_CHESTPLATE, ModItems.ENDERITE_CHESTPLATE),
+                CreativeTabLayout.Row.of("leggings",
+                        Items.LEATHER_LEGGINGS, Items.CHAINMAIL_LEGGINGS, Items.COPPER_LEGGINGS, Items.IRON_LEGGINGS,
+                        Items.GOLDEN_LEGGINGS, Items.DIAMOND_LEGGINGS, Items.NETHERITE_LEGGINGS, ModItems.ENDERITE_LEGGINGS),
+                CreativeTabLayout.Row.of("boots",
+                        Items.LEATHER_BOOTS, Items.CHAINMAIL_BOOTS, Items.COPPER_BOOTS, Items.IRON_BOOTS,
+                        Items.GOLDEN_BOOTS, Items.DIAMOND_BOOTS, Items.NETHERITE_BOOTS, ModItems.ENDERITE_BOOTS),
+                // --- Geraete ---
+                CreativeTabLayout.Row.of("gadgets",
+                        ModItems.OCTANT, ModItems.VELOCITY_GAUGE, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR)));
 
-        // --- Sledgehammers ---
-        entries.accept(ModItems.STONE_SLEDGEHAMMER);
-        entries.accept(ModItems.COPPER_SLEDGEHAMMER);
-        entries.accept(ModItems.IRON_SLEDGEHAMMER);
-        entries.accept(ModItems.GOLD_SLEDGEHAMMER);
-        entries.accept(ModItems.DIAMOND_SLEDGEHAMMER);
-        entries.accept(ModItems.NETHERITE_SLEDGEHAMMER);
-        entries.accept(ModItems.ENDERITE_SLEDGEHAMMER);
-
-        // --- Rangefinders ---
-        entries.accept(ModItems.OCTANT);
+        // Die 16 gefaerbten Oktanten: eine eigene Kategorie, laeuft ueber zwei Zeilen.
+        List<ItemStack> coloredOctants = new java.util.ArrayList<>();
         for (DyeColor color : DyeColor.values()) {
             Item coloredItem = ModItems.COLORED_OCTANT_ITEMS.get(color);
             if (coloredItem != null) {
-                entries.accept(coloredItem);
+                coloredOctants.add(new ItemStack(coloredItem));
             }
         }
+        rows.add(new CreativeTabLayout.Row("colored_octants", coloredOctants));
 
-        // --- Blueprint ---
-        entries.accept(ModItems.BLUEPRINT);
-
-        // --- Gadgets ---
-        entries.accept(ModItems.VELOCITY_GAUGE);
-        entries.accept(ModItems.ORE_DETECTOR);
-        entries.accept(ModItems.MAGNET);
-        entries.accept(ModItems.ROTATOR);
-
-        // --- Enderite Tools & Armor ---
-        entries.accept(ModItems.ENDERITE_SWORD);
-        entries.accept(ModItems.ENDERITE_SPEAR);
-        entries.accept(ModItems.ENDERITE_PICKAXE);
-        entries.accept(ModItems.ENDERITE_AXE);
-        entries.accept(ModItems.ENDERITE_SHOVEL);
-        entries.accept(ModItems.ENDERITE_HOE);
-        entries.accept(ModItems.ENDERITE_HELMET);
-        entries.accept(ModItems.ENDERITE_CHESTPLATE);
-        entries.accept(ModItems.ENDERITE_LEGGINGS);
-        entries.accept(ModItems.ENDERITE_BOOTS);
-
-        // --- Enchanted Books ---
+        // --- Verzauberte Buecher, wie bisher ---
+        List<ItemStack> books = new java.util.ArrayList<>();
         // 1. Tool Utilities
-        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.FAST_CHISELING);
-        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.CONSTRUCTORS_TOUCH);
-        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.RANGE);
-        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.STRIP_MINER);
-        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.VEIN_MINER);
-        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.VERSATILITY);
-
+        addEnchantAtMax(books, enchantmentRegistry, ModEnchantments.FAST_CHISELING);
+        addEnchantAtMax(books, enchantmentRegistry, ModEnchantments.CONSTRUCTORS_TOUCH);
+        addEnchantAtMax(books, enchantmentRegistry, ModEnchantments.RANGE);
+        addEnchantAtMax(books, enchantmentRegistry, ModEnchantments.STRIP_MINER);
+        addEnchantAtMax(books, enchantmentRegistry, ModEnchantments.VEIN_MINER);
+        addEnchantAtMax(books, enchantmentRegistry, ModEnchantments.VERSATILITY);
         // 2. Sledgehammer Specific
-        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.BREAK_THROUGH);
-        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.RADIUS);
-        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.OVERRIDE);
-
+        addEnchantAtMax(books, enchantmentRegistry, ModEnchantments.BREAK_THROUGH);
+        addEnchantAtMax(books, enchantmentRegistry, ModEnchantments.RADIUS);
+        addEnchantAtMax(books, enchantmentRegistry, ModEnchantments.OVERRIDE);
         // 3. Bundle/Container Utilities
-        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.DEEP_POCKETS);
-        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.FUNNEL);
-        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.DRAWER);
-
+        addEnchantAtMax(books, enchantmentRegistry, ModEnchantments.DEEP_POCKETS);
+        addEnchantAtMax(books, enchantmentRegistry, ModEnchantments.FUNNEL);
+        addEnchantAtMax(books, enchantmentRegistry, ModEnchantments.DRAWER);
         // 4. Wand/Construction Utilities
-        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.MASTER_BUILDER);
-        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.COLOR_PALETTE);
-        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.COVER);
-        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.BRIDGE);
-        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.LINEAR);
-
+        addEnchantAtMax(books, enchantmentRegistry, ModEnchantments.MASTER_BUILDER);
+        addEnchantAtMax(books, enchantmentRegistry, ModEnchantments.COLOR_PALETTE);
+        addEnchantAtMax(books, enchantmentRegistry, ModEnchantments.COVER);
+        addEnchantAtMax(books, enchantmentRegistry, ModEnchantments.BRIDGE);
+        addEnchantAtMax(books, enchantmentRegistry, ModEnchantments.LINEAR);
         // 5. Armor Utilities
-        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.DOUBLE_JUMP);
-
+        addEnchantAtMax(books, enchantmentRegistry, ModEnchantments.DOUBLE_JUMP);
         // 6. Miscellaneous
-        addEnchantAtMax(entries, enchantmentRegistry, ModEnchantments.KINETIC_PROTECTION);
+        addEnchantAtMax(books, enchantmentRegistry, ModEnchantments.KINETIC_PROTECTION);
+        rows.add(new CreativeTabLayout.Row("enchanted_books", books));
+        return rows;
+    }
+
+    /** Alle Baustab-Stufen, aufsteigend - in SimpleTools und in der Zeile Bauplanung von SimpleMachines. */
+    private static ItemLike[] buildingWands() {
+        return new ItemLike[]{ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND,
+                ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND};
     }
 
     private static void buildingBlocks(CreativeModeTab.Output entries) {
@@ -209,6 +227,7 @@ public final class ModItemGroupsContent {
         entries.accept(ModItems.RESIN_QUARTZ_CHECKER);
         entries.accept(ModItems.NIHILITH_QUARTZ_CHECKER);
         entries.accept(ModItems.ASTRALIT_QUARTZ_CHECKER);
+        entries.accept(ModItems.ENDER_QUARTZ_CHECKER);
 
         // --- Gravity Blocks ---
         entries.accept(ModItems.SUSPENDED_SAND);
@@ -291,16 +310,28 @@ public final class ModItemGroupsContent {
                 CreativeTabLayout.Row.of("quivers",
                         ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER),
                 CreativeTabLayout.Row.of("backpacks",
-                        ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK));
+                        ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK),
+                // Bauplanung: Blaupause, Kartografentisch (dort wird sie beschrieben), ein Oktant fuer die
+                // Flaeche und alle Baustaebe. Oktant und Baustaebe stehen damit auch in SimpleTools.
+                buildingPlanningRow());
     }
 
-    private static void addEnchantAtMax(CreativeModeTab.Output entries, HolderLookup<Enchantment> registry, ResourceKey<Enchantment> key) {
+    public static CreativeTabLayout.Row buildingPlanningRow() {
+        List<ItemStack> stacks = new java.util.ArrayList<>(List.of(new ItemStack(ModItems.BLUEPRINT),
+                new ItemStack(Items.CARTOGRAPHY_TABLE), new ItemStack(ModItems.OCTANT)));
+        for (ItemLike wand : buildingWands()) {
+            stacks.add(new ItemStack(wand));
+        }
+        return new CreativeTabLayout.Row("building_planning", stacks);
+    }
+
+    private static void addEnchantAtMax(List<ItemStack> entries, HolderLookup<Enchantment> registry, ResourceKey<Enchantment> key) {
         registry.get(key).ifPresent(enchantmentEntry -> {
             ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
             ItemEnchantments.Mutable builder = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
             builder.upgrade(enchantmentEntry, enchantmentEntry.value().getMaxLevel());
             book.set(DataComponents.STORED_ENCHANTMENTS, builder.toImmutable());
-            entries.accept(book);
+            entries.add(book);
         });
     }
 }

@@ -101,6 +101,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_machines_and_storage_tab_is_laid_out_in_rows_of_nine", DataIntegrityTests::machinesAndStorageTabIsLaidOutInRowsOfNine)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_tools_tab_is_laid_out_in_rows_of_nine", DataIntegrityTests::toolsTabIsLaidOutInRowsOfNine)
+                    .build(),
             GameTestSpec.named("data_integrity_game_test_creative_spacer_cannot_be_taken_or_kept", DataIntegrityTests::creativeSpacerCannotBeTakenOrKept)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_dev_enchanted_tab_offers_every_exclusive_choice_at_max_level_on_top_tiers", DataIntegrityTests::devEnchantedTabOffersEveryExclusiveChoiceAtMaxLevelOnTopTiers)

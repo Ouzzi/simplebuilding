@@ -669,6 +669,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // End-Schachbretter: Splitter bzw. Staub stehen direkt fuer den farbigen Block
                 createCheckerRecipe(output, ModBlocks.NIHILITH_QUARTZ_CHECKER, ModItems.NIHILITH_SHARD);
                 createCheckerRecipe(output, ModBlocks.ASTRALIT_QUARTZ_CHECKER, ModItems.ASTRALIT_DUST);
+                createCheckerRecipe(output, ModBlocks.ENDER_QUARTZ_CHECKER, ModItems.ENDER_QUARTZ);
 
                 // --- ASTRAL / NIHIL BLOCKS (8 Block + 1 Powder/Shard) ---
                 createCoatingRecipe(output, ModBlocks.ASTRAL_PURPUR_BLOCK, Items.PURPUR_BLOCK, ModItems.ASTRALIT_DUST);

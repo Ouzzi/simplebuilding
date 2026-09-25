@@ -1104,6 +1104,24 @@ ASTRALIT_CHECKER_PAL = {
     "5": "#b16086", "6": "#a8527a", "7": "#8a3f63",
 }
 
+# Enderquarz: dunkelvioletter Kristall - schraege Facetten, die von oben links (hell, mit einem
+# Funken) nach unten rechts abdunkeln; Farben aus der Enderquarz-Palette (END_PALETTE_RAMPS),
+# dazu der hellste Funkenton des Items und ein tiefer Randton.
+ENDER_QUARTZ_CHECKER_FIELD = [
+    "34454432",
+    "47654532",
+    "46543421",
+    "55432132",
+    "44321543",
+    "43215642",
+    "32156431",
+    "21212118",
+]
+ENDER_QUARTZ_CHECKER_PAL = {
+    "1": "#4e3269", "2": "#5f3f80", "3": "#714f96", "4": "#8461aa",
+    "5": "#9774bb", "6": "#ab8aca", "7": "#d4bce6", "8": "#3e2656",
+}
+
 
 def checker_rows(field):
     """Setzt Quarz- und Materialfeld zum 16x16-Schachbrett zusammen (Quarz oben links)."""
@@ -1113,7 +1131,8 @@ def checker_rows(field):
 def checker_textures():
     tex = {}
     for name, field, pal in (("nihilith_quartz_checker", NIHILITH_CHECKER_FIELD, NIHILITH_CHECKER_PAL),
-                             ("astralit_quartz_checker", ASTRALIT_CHECKER_FIELD, ASTRALIT_CHECKER_PAL)):
+                             ("astralit_quartz_checker", ASTRALIT_CHECKER_FIELD, ASTRALIT_CHECKER_PAL),
+                             ("ender_quartz_checker", ENDER_QUARTZ_CHECKER_FIELD, ENDER_QUARTZ_CHECKER_PAL)):
         palette = dict(CHECKER_QUARTZ_PAL)
         palette.update(pal)
         img = render(name, checker_rows(field), palette, True)
@@ -2345,8 +2364,10 @@ def build_preview(tex):
     groups += machine_preview_groups(tex)
     groups.append(("Quarz-Schachbrett", [("block/lapis_quartz_checker.png", None)]
                    + [(k, tex[k]) for k in ("block/nihilith_quartz_checker.png", "block/nihilith_quartz_checker_mirror.png",
-                                            "block/astralit_quartz_checker.png", "block/astralit_quartz_checker_mirror.png")],
-                   [checker_wall(tex[f"block/{n}_quartz_checker.png"]) for n in ("nihilith", "astralit")]))
+                                            "block/astralit_quartz_checker.png", "block/astralit_quartz_checker_mirror.png",
+                                            "block/ender_quartz_checker.png", "block/ender_quartz_checker_mirror.png")],
+                   [checker_wall(tex[f"block/{n}_quartz_checker.png"]) for n in ("nihilith", "astralit")]
+                   + [checker_wall(tex["block/ender_quartz_checker.png"])]))
     groups.append(("Vergleich Endstein/Purpur", [(f"block/{n}.png", None) for n in (
         "astral_end_stone", "nihil_end_stone", "astral_purpur_block", "nihil_purpur_block")], []))
     for mat in END_PALETTE_RAMPS:

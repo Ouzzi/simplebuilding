@@ -95,6 +95,11 @@ public final class DataIntegrityGameTest {
     }
 
     @GameTest
+    public void toolsTabIsLaidOutInRowsOfNine(GameTestHelper helper) {
+        DataIntegrityTests.toolsTabIsLaidOutInRowsOfNine(helper);
+    }
+
+    @GameTest
     public void creativeSpacerCannotBeTakenOrKept(GameTestHelper helper) {
         DataIntegrityTests.creativeSpacerCannotBeTakenOrKept(helper);
     }
