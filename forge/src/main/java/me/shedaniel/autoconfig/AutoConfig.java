@@ -23,7 +23,9 @@ public final class AutoConfig {
 
     private static ConfigData instantiate(Class<?> configClass) {
         try {
-            return (ConfigData) configClass.getDeclaredConstructor().newInstance();
+            ConfigData config = (ConfigData) configClass.getDeclaredConstructor().newInstance();
+            config.validatePostLoad();
+            return config;
         } catch (ReflectiveOperationException e) {
             throw new IllegalStateException("Failed to instantiate config " + configClass.getName(), e);
         }

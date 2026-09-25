@@ -7,4 +7,7 @@ package me.shedaniel.autoconfig;
  * and running (with default values) on Forge.
  */
 public interface ConfigData {
+    /** Wie in Cloth Config: nach dem Anlegen bzw. Laden aufgerufen. */
+    default void validatePostLoad() {
+    }
 }

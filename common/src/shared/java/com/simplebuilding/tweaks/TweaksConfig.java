@@ -82,9 +82,20 @@ public class TweaksConfig {
         @ConfigEntry.Gui.Tooltip
         public int zCoordSpawnPoint = 0;
 
-        /** 0..64 Spawn-Teleporter und Elytra-Pads beim ersten Betreten. */
+        /** 0..64 Spawn-Teleporter beim ersten Betreten; 0 = keine (Besitzer-Wunsch 2026-09-26). */
         @ConfigEntry.Gui.Tooltip
-        public int spawnTeleporterCount = 1;
+        public int firstJoinTeleporterCount = 0;
+        /** 0..64 Elytra-Pads beim ersten Betreten; 0 = keine. */
+        @ConfigEntry.Gui.Tooltip
+        public int firstJoinElytraPadCount = 0;
+        /**
+         * Alter Schluessel aus Simple Tweaks: EIN Wert fuer Teleporter und Pads, Standard 1. Wird nur
+         * noch gelesen und von {@link #migrateLegacyFirstJoinCount()} auf die zwei neuen Werte
+         * verteilt; {@code null} laesst Gson beim Speichern weg, der Schluessel verschwindet also
+         * mit dem naechsten Speichern aus der Datei.
+         */
+        @ConfigEntry.Gui.Excluded
+        public Integer spawnTeleporterCount = null;
 
         @ConfigEntry.Gui.Tooltip
         public boolean giveElytraOnSpawn = false;
@@ -108,6 +119,27 @@ public class TweaksConfig {
         public int spawn2X = 0, spawn2Y = -1000, spawn2Z = 0;
         public int spawn3X = 0, spawn3Y = -1000, spawn3Z = 0;
         public int spawn4X = 0, spawn4Y = -1000, spawn4Z = 0;
+
+        /**
+         * Uebernimmt einen alten {@code spawnTeleporterCount} aus einer bestehenden Config-Datei.
+         * Ein vom Spieler geaenderter Wert (nicht der alte Standard 1) gilt wie frueher fuer beide
+         * Geschenke; der alte Standard 1 wird zum neuen Standard 0, sonst bekaeme jede bestehende
+         * Installation die Geschenke weiter, obwohl sie nie jemand eingestellt hat.
+         *
+         * @return ob ein alter Wert da war
+         */
+        public boolean migrateLegacyFirstJoinCount() {
+            if (spawnTeleporterCount == null) {
+                return false;
+            }
+            int legacy = Math.max(0, Math.min(64, spawnTeleporterCount));
+            if (legacy != 1) {
+                firstJoinTeleporterCount = legacy;
+                firstJoinElytraPadCount = legacy;
+            }
+            spawnTeleporterCount = null;
+            return true;
+        }
     }
 
     public static class Commands {

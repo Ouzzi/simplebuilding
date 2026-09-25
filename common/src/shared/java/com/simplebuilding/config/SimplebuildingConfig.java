@@ -21,6 +21,14 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean enableDoubleJump = true;
 
+    /** Nach dem Laden (und fuer eine neue Datei): alte Schluessel auf ihre Nachfolger verteilen. */
+    @Override
+    public void validatePostLoad() {
+        if (tweaks != null && tweaks.spawn != null) {
+            tweaks.spawn.migrateLegacyFirstJoinCount();
+        }
+    }
+
     // Air-jump cooldown (ticks) at DOUBLE_JUMP level 1; level 2 uses half of this. 20 ticks = 1s.
     @ConfigEntry.Gui.Tooltip
     public int airJumpCooldownTicks = 100;

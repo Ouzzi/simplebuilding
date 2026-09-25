@@ -23,5 +23,10 @@ public interface ConfigEntry {
         @interface CollapsibleObject {
             boolean startExpanded() default false;
         }
+
+        @Retention(RetentionPolicy.RUNTIME)
+        @Target(ElementType.FIELD)
+        @interface Excluded {
+        }
     }
 }

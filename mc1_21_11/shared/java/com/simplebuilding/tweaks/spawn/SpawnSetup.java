@@ -33,26 +33,50 @@ public final class SpawnSetup {
         if (player.getTags().contains(FIRST_JOIN_TAG)) {
             return;
         }
-        int amount = Math.max(0, Math.min(64, SimpleTweaks.config().spawn.spawnTeleporterCount));
-        if (amount > 0) {
-            giveStarterItems(player, amount);
-        }
+        TweaksConfig config = SimpleTweaks.config();
+        // Eine abgeschaltete Familie (pads.enable...) wird auch nicht verschenkt.
+        int teleporters = config.pads.enableSpawnTeleporters ? clampGift(config.spawn.firstJoinTeleporterCount) : 0;
+        int elytraPads = config.pads.enableElytraPads ? clampGift(config.spawn.firstJoinElytraPadCount) : 0;
+        giveStarterItems(player, teleporters, elytraPads);
         player.addTag(FIRST_JOIN_TAG);
     }
 
-    public static void giveStarterItems(ServerPlayer player, int amount) {
-        ItemStack teleporter = new ItemStack(TweaksBlocks.SPAWN_TELEPORTER, amount);
-        teleporter.set(DataComponents.CUSTOM_NAME,
-                Component.translatable("item.simplebuilding.home_teleporter").withStyle(ChatFormatting.AQUA));
-        ItemStack elytraPad = new ItemStack(TweaksBlocks.ELYTRA_PAD, amount);
+    /** Config-Menge auf 0..64 begrenzt, wie im Befehl {@code /simplebuilding tweaks spawn}. */
+    public static int clampGift(int amount) {
+        return Math.max(0, Math.min(64, amount));
+    }
+
+    /**
+     * Gibt {@code teleporters} Spawn-Teleporter und {@code elytraPads} Elytra-Pads (je 0 = keine);
+     * seit 2026-09-26 zwei getrennte Werte, beide standardmaessig 0.
+     */
+    public static void giveStarterItems(ServerPlayer player, int teleporters, int elytraPads) {
+        if (teleporters > 0) {
+            ItemStack teleporter = new ItemStack(TweaksBlocks.SPAWN_TELEPORTER, teleporters);
+            teleporter.set(DataComponents.CUSTOM_NAME,
+                    Component.translatable("item.simplebuilding.home_teleporter").withStyle(ChatFormatting.AQUA));
+            if (!player.getInventory().add(teleporter)) {
+                player.drop(teleporter, false);
+            }
+        }
         // Simple Tweaks gab das Pad nur, wenn der Teleporter NICHT ins Inventar passte; behoben.
-        if (!player.getInventory().add(teleporter)) {
-            player.drop(teleporter, false);
+        if (elytraPads > 0) {
+            ItemStack elytraPad = new ItemStack(TweaksBlocks.ELYTRA_PAD, elytraPads);
+            if (!player.getInventory().add(elytraPad)) {
+                player.drop(elytraPad, false);
+            }
         }
-        if (!player.getInventory().add(elytraPad)) {
-            player.drop(elytraPad, false);
+        Component message;
+        if (teleporters > 0 && elytraPads > 0) {
+            message = Component.translatable("message.simplebuilding.first_join", teleporters, elytraPads);
+        } else if (teleporters > 0) {
+            message = Component.translatable("message.simplebuilding.first_join.teleporters", teleporters);
+        } else if (elytraPads > 0) {
+            message = Component.translatable("message.simplebuilding.first_join.elytra_pads", elytraPads);
+        } else {
+            return;
         }
-        player.sendSystemMessage(Component.translatable("message.simplebuilding.first_join", amount).withStyle(ChatFormatting.GREEN));
+        player.sendSystemMessage(message.copy().withStyle(ChatFormatting.GREEN));
     }
 
     /** Beim Laden der Oberwelt: Weltspawn auf die Config-Koordinaten setzen (y = -1: oberster Block). */
