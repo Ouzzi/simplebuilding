@@ -26,10 +26,10 @@ Verlauf im Detail: git log.
 ## Laeuft
 - [ ] Welle 9: MC 26.3 als dritte Linie (gemeinsamer Code + Overlays, Fabric + NeoForge)
 
-## Welle 10 (laeuft, Agent)
-- [ ] Ausstehende Gegenproben: Hammer-Risse (Client), Anstossen schwebender Bloecke am Sand, Vorwaerts-Umformen Bretter/Ziegel
-- [ ] Blaupause: Bauauftrag ueberlebt Logout/Neustart (fortsetzen), Materialliste fuer Mehrfach-Bloecke (Kerzen, Seegurken, Schneeschichten), Fehlstellen-Pruefung ohne 400.000er-Grenze
-- [ ] Kleinkram: ungenutzte Farbwerte des Entfernungsmessers entfernen, Platzhalter-Item aus /give-Vorschlaegen, leerer Tab-Platz des Dev-Tabs auf Fabric pruefen, Wiki-Texturreste aus 1.21.11-Laeufen
+## Welle 10 (erledigt, auf master, noch nicht gepusht)
+- [x] Ausstehende Gegenproben: Hammer-Risse (Client), Anstossen schwebender Bloecke am Sand, Vorwaerts-Umformen Bretter/Ziegel
+- [x] Blaupause: Bauauftrag ueberlebt Logout/Neustart (fortsetzen), Materialliste fuer Mehrfach-Bloecke (Kerzen, Seegurken, Schneeschichten), Fehlstellen-Pruefung ohne 400.000er-Grenze
+- [x] Kleinkram: ungenutzte Farbwerte des Entfernungsmessers entfernen, Platzhalter-Item aus /give-Vorschlaegen, leerer Tab-Platz des Dev-Tabs auf Fabric pruefen, Wiki-Texturreste aus 1.21.11-Laeufen
 
 ## Welle 11 (laeuft)
 - [ ] Visual Armor Trims: Muster auf Ruestungs-Icons (erst Mod-Ruestung, dann Vanilla), Farbe nach Material
