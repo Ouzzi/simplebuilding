@@ -522,6 +522,7 @@ public class BuildingWandItem extends Item {
                 getConfiguredRadius(nbt, (this.maxDiameter - 1) / 2), nbt.getIntOr("SettingsAxis", 0));
         if (plan.steps() == 0) return InteractionResult.FAIL;
         nbt.putBoolean("Active", true);
+        nbt.putInt("HungerCount", 0); // neuer Bauvorgang: Freibetrag von vorn (WandHunger)
         nbt.putInt("CurrentRadius", 0);
         nbt.putInt("Timer", 0);
         nbt.putInt("OriginX", clickedPos.getX());
@@ -572,6 +573,7 @@ public class BuildingWandItem extends Item {
 
         Block buildBlock = preview != null ? preview.stateToPlace.getBlock() : Blocks.AIR;
         nbt.putBoolean("Active", true);
+        nbt.putInt("HungerCount", 0); // die Bruecke ist ein eigener Bauvorgang: Freibetrag von vorn (WandHunger)
         nbt.putInt("CurrentRadius", 0);
         nbt.putInt("Timer", 0);
         nbt.putInt("OriginX", plan.origin.getX());
@@ -665,6 +667,10 @@ public class BuildingWandItem extends Item {
                     // Billed to the slot the wand is ticking in: it builds from the off hand too,
                     // and naming MAINHAND here made a break in the off hand take the main hand
                     // item's attribute modifiers with it (LivingEntity#onEquippedItemBroken).
+                    // EXPERIMENTELL: Bloecke ueber dem Freibetrag des Klicks kosten Erschoepfung (WandHunger).
+                    int hungerCount = nbt.getIntOr("HungerCount", 0) + 1;
+                    nbt.putInt("HungerCount", hungerCount);
+                    com.simplebuilding.util.WandHunger.exhaust(player, this, hungerCount);
                     stack.hurtAndBreak(1, player, slot);
                 }
             }

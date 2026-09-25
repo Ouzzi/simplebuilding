@@ -65,4 +65,9 @@ public final class OreDetectorGameTest {
     public void calibratedDetectorGlimmersInTheColourOfItsTarget(GameTestHelper helper) {
         OreDetectorTests.calibratedDetectorGlimmersInTheColourOfItsTarget(helper);
     }
+
+    @GameTest
+    public void theOreDetectorRecipeCraftsFromItsDocumentedPattern(GameTestHelper helper) {
+        OreDetectorTests.theOreDetectorRecipeCraftsFromItsDocumentedPattern(helper);
+    }
 }

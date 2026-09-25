@@ -79,7 +79,8 @@ import net.minecraft.world.phys.Vec3;
  * pass either way. The exception since 2026-09 is {@code pistonsBreachEndPortalFrames}, read
  * server side by {@code PistonBreach}; its behaviour is driven in
  * {@code PistonBreachTests#endPortalFramesBreachOnlyWhileTheirConfigOptionIsOn}, and only its name
- * and default are pinned here.
+ * and default are pinned here. The same holds for {@code tools.buildingWandHungerCost} (read by
+ * {@code WandHunger}); its behaviour is driven in {@code BuildingWandTests}.
  */
 public final class ConfigOptionTests {
 
@@ -399,6 +400,7 @@ public final class ConfigOptionTests {
             "root.enableArmorTrimBenefits boolean=true",
             "root.pistonsBreachEndPortalFrames boolean=true",
             "root.showDevEnchantedTab boolean=false",
+            "root.vanillaEnchantedBookTextures boolean=true",
             "root.trimBenefitBaseMultiplier double runtime-only(static)",
             "root.maxMultiplierLimit double runtime-only(static)",
             "tools.invertOctantSneak boolean=false",
@@ -406,6 +408,7 @@ public final class ConfigOptionTests {
             "tools.enableToolAnimations boolean=true",
             "tools.enableChiselAnimation boolean=true",
             "tools.invertBundleInteractions boolean=false",
+            "tools.buildingWandHungerCost boolean=true",
             "worldGen.enableVillagerTrades boolean=true",
             "worldGen.enableWanderingTrades boolean=true",
             "worldGen.enableLootTableChanges boolean=true");

@@ -1124,4 +1124,62 @@ public final class OctantTests {
             this.pools.add(pool);
         }
     }
+
+    /** The plain (unweathered) lightning rod; 26.2 keeps the copper variants in a collection. */
+    private static final Item ROD = Items.LIGHTNING_ROD.weathering().unaffected();
+
+    /**
+     * The octant's crafting recipe as the owner set it on 2026-09-25: two light weighted pressure
+     * plates where the gold ingots were, lightning rods where the gold nuggets were, a heavy
+     * weighted pressure plate where the copper ingot was, compass in the middle and the lead top
+     * right - resolved through the server's recipe manager the way a crafting table does. The old
+     * gold/copper pattern and a grid with the two plate kinds swapped must not craft an octant.
+     *
+     * <p>What breaks this test: any change to {@code recipe/octant.json} - pattern, key, result or
+     * count - or the recipe failing to load.
+     */
+    public static void theOctantRecipeCraftsFromItsDocumentedPattern(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        // " RL" / "PCR" / "HP " with R=lightning rod, L=lead, P=light and H=heavy weighted
+        // pressure plate, C=compass.
+        CraftingInput grid = documentedGrid(
+                null, ROD, Items.LEAD,
+                Items.LIGHT_WEIGHTED_PRESSURE_PLATE, Items.COMPASS, ROD,
+                Items.HEAVY_WEIGHTED_PRESSURE_PLATE, Items.LIGHT_WEIGHTED_PRESSURE_PLATE, null);
+        Optional<RecipeHolder<CraftingRecipe>> match = level.getServer().getRecipeManager()
+                .getRecipeFor(RecipeType.CRAFTING, grid, level);
+        helper.assertTrue(match.isPresent(), "the documented octant pattern does not match any crafting recipe");
+        helper.assertValueEqual(match.get().id().identifier().toString(), "simplebuilding:octant",
+                "recipe matched by the documented octant pattern");
+        ItemStack result = match.get().value().assemble(grid);
+        helper.assertTrue(result.is(ModItems.OCTANT), "the octant recipe produced " + result + " instead of an octant");
+        helper.assertValueEqual(result.getCount(), 1, "octants produced per craft");
+
+        // --- the old gold/copper pattern and swapped plates must not craft an octant ---
+        CraftingInput old = documentedGrid(
+                null, Items.GOLD_NUGGET, Items.LEAD,
+                Items.GOLD_INGOT, Items.COMPASS, Items.GOLD_NUGGET,
+                Items.COPPER_INGOT, Items.GOLD_INGOT, null);
+        CraftingInput swapped = documentedGrid(
+                null, ROD, Items.LEAD,
+                Items.HEAVY_WEIGHTED_PRESSURE_PLATE, Items.COMPASS, ROD,
+                Items.LIGHT_WEIGHTED_PRESSURE_PLATE, Items.HEAVY_WEIGHTED_PRESSURE_PLATE, null);
+        for (CraftingInput wrong : List.of(old, swapped)) {
+            Optional<RecipeHolder<CraftingRecipe>> wrongMatch = level.getServer().getRecipeManager()
+                    .getRecipeFor(RecipeType.CRAFTING, wrong, level);
+            helper.assertTrue(wrongMatch.isEmpty() || !wrongMatch.get().value().assemble(wrong).is(ModItems.OCTANT),
+                    (wrong == old ? "the old gold and copper pattern" : "the grid with light and heavy plates swapped")
+                            + " still crafts an octant");
+        }
+        helper.succeed();
+    }
+
+    /** A 3x3 crafting grid, row by row; {@code null} is an empty slot. */
+    private static CraftingInput documentedGrid(Item... items) {
+        List<ItemStack> stacks = new ArrayList<>(items.length);
+        for (Item item : items) {
+            stacks.add(item == null ? ItemStack.EMPTY : new ItemStack(item));
+        }
+        return CraftingInput.of(3, 3, stacks);
+    }
 }

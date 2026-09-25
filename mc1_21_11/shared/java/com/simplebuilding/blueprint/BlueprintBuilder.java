@@ -712,6 +712,7 @@ public final class BlueprintBuilder {
         Job[] holder = new Job[1];
         // Rueckgaengig: jeder Auftrag (auch ein nach Logout fortgesetzter) ist eine neue Aktion.
         com.simplebuilding.util.WandUndo.begin(player, level);
+        long[] hungerCount = {Math.max(0, placedBefore)};
         Placer placer = new Placer() {
             @Override
             public boolean place(BlockPos pos, BlockState state) {
@@ -729,6 +730,9 @@ public final class BlueprintBuilder {
                     holder[0].sound = state.getSoundType();
                 }
                 if (!creative) {
+                    // EXPERIMENTELL: Bloecke ueber dem Freibetrag des Blaupausen-Baus kosten Erschoepfung
+                    // (WandHunger); ein fortgesetzter Auftrag zaehlt mit seinen schon gesetzten weiter.
+                    com.simplebuilding.util.WandHunger.exhaust(player, wand.getItem(), ++hungerCount[0]);
                     wand.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
                 }
                 return true;

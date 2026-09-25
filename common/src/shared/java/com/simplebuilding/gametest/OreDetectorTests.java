@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -17,16 +18,22 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -1054,5 +1061,53 @@ public final class OreDetectorTests {
         Vec3 hit = new Vec3(pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5);
         BlockHitResult hitResult = new BlockHitResult(hit, Direction.UP, pos, false);
         return stack.getItem().useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hitResult));
+    }
+
+    /**
+     * The ore detector's crafting recipe as the owner set it on 2026-09-25: the calibrated sculk
+     * sensor on top, the vanilla compass in the middle flanked by an echo shard on each side, and
+     * the Gold Core at the bottom - resolved through the server's recipe manager the way a
+     * crafting table does. The old pattern without the echo shards must no longer craft it.
+     *
+     * <p>What breaks this test: any change to {@code recipe/ore_detector.json} - pattern, key,
+     * result or count - or the recipe failing to load.
+     */
+    public static void theOreDetectorRecipeCraftsFromItsDocumentedPattern(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        // " S " / "ECE" / " G " with S=calibrated sculk sensor, E=echo shard, C=compass, G=Gold Core.
+        CraftingInput grid = documentedGrid(
+                null, Items.CALIBRATED_SCULK_SENSOR, null,
+                Items.ECHO_SHARD, Items.COMPASS, Items.ECHO_SHARD,
+                null, ModItems.GOLD_CORE, null);
+        Optional<RecipeHolder<CraftingRecipe>> match = level.getServer().getRecipeManager()
+                .getRecipeFor(RecipeType.CRAFTING, grid, level);
+        helper.assertTrue(match.isPresent(),
+                "the documented ore detector pattern does not match any crafting recipe");
+        helper.assertValueEqual(match.get().id().identifier().toString(), "simplebuilding:ore_detector",
+                "recipe matched by the documented ore detector pattern");
+        ItemStack result = match.get().value().assemble(grid);
+        helper.assertTrue(result.is(ModItems.ORE_DETECTOR),
+                "the ore detector recipe produced " + result + " instead of an ore detector");
+        helper.assertValueEqual(result.getCount(), 1, "ore detectors produced per craft");
+
+        // --- the pattern from before the echo shards must not craft it any more ---
+        CraftingInput old = documentedGrid(
+                null, Items.CALIBRATED_SCULK_SENSOR, null,
+                null, Items.COMPASS, null,
+                null, ModItems.GOLD_CORE, null);
+        Optional<RecipeHolder<CraftingRecipe>> oldMatch = level.getServer().getRecipeManager()
+                .getRecipeFor(RecipeType.CRAFTING, old, level);
+        helper.assertTrue(oldMatch.isEmpty() || !oldMatch.get().value().assemble(old).is(ModItems.ORE_DETECTOR),
+                "the ore detector still crafts without the two echo shards");
+        helper.succeed();
+    }
+
+    /** A 3x3 crafting grid, row by row; {@code null} is an empty slot. */
+    private static CraftingInput documentedGrid(Item... items) {
+        List<ItemStack> stacks = new ArrayList<>(items.length);
+        for (Item item : items) {
+            stacks.add(item == null ? ItemStack.EMPTY : new ItemStack(item));
+        }
+        return CraftingInput.of(3, 3, stacks);
     }
 }

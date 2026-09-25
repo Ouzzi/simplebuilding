@@ -155,16 +155,18 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // =================================================================
                 // RANGEFINDER (Antik / Octant Style)
                 // =================================================================
+                // Besitzer 2026-09-25: Goldbarren -> leichte Waegeplatten (Gold), Goldnugget ->
+                // Blitzableiter (gleiche Felder), Kupferbarren unten -> schwere Waegeplatte (Eisen).
                 shaped(RecipeCategory.TOOLS, ModItems.OCTANT)
-                        .pattern(" GL")
-                        .pattern("IPG")
-                        .pattern("CI ")
-                        .define('I', Items.GOLD_INGOT)
-                        .define('G', Items.GOLD_NUGGET)
-                        .define('C', Items.COPPER_INGOT)
-                        .define('P', Items.COMPASS)
+                        .pattern(" RL")
+                        .pattern("PCR")
+                        .pattern("HP ")
+                        .define('P', Items.LIGHT_WEIGHTED_PRESSURE_PLATE)
+                        .define('R', Items.LIGHTNING_ROD)
+                        .define('H', Items.HEAVY_WEIGHTED_PRESSURE_PLATE)
+                        .define('C', Items.COMPASS)
                         .define('L', Items.LEAD)
-                        .unlockedBy(getHasName(Items.COPPER_INGOT), has(Items.COPPER_INGOT))
+                        .unlockedBy(getHasName(Items.COMPASS), has(Items.COMPASS))
                         .save(output);
                 for (DyeColor color : DyeColor.values()) {
                     Item resultItem = ModItems.COLORED_OCTANT_ITEMS.get(color);
@@ -325,8 +327,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // =================================================================
                 shaped(RecipeCategory.TOOLS, ModItems.ORE_DETECTOR)
                         .pattern(" S ")
-                        .pattern(" C ")
+                        .pattern("ECE")
                         .pattern(" G ")
+                        .define('E', Items.ECHO_SHARD)
                         .define('C', Items.COMPASS)
                         .define('G', ModItems.GOLD_CORE)
                         .define('S', Items.CALIBRATED_SCULK_SENSOR)

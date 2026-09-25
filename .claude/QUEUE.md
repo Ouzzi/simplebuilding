@@ -24,7 +24,8 @@ Verlauf im Detail: git log.
 - [x] Test-Infrastruktur: Server-Ziele parallel, Paket-Barriere in allen Client-Treibern, Port-Werkzeug-Regeln
 
 ## Laeuft
-- [ ] Welle 9: MC 26.3 als dritte Linie (gemeinsamer Code + Overlays, Fabric + NeoForge)
+- [ ] Welle 9: MC 26.3 als dritte Linie - fertig auf eigenem Branch (Server 2629/2629, Clients 116/117 je Loader: Glimmer-Test-Timing), integriert jetzt master (Besatzmuster, Buecher, Hunger ...)
+- [ ] 26.3-Reste: Wiki-Umschalter 26.3, Erzdetektor-Kalibrierung aus 26.2-Welten (id statt Name), dunklere Trim-Variante, Jade/AppleSkin/Mouse Tweaks fuer 26.3, NeoForge-Upload als Beta
 
 ## Welle 10 (erledigt, auf master, noch nicht gepusht)
 - [x] Ausstehende Gegenproben: Hammer-Risse (Client), Anstossen schwebender Bloecke am Sand, Vorwaerts-Umformen Bretter/Ziegel
@@ -33,6 +34,7 @@ Verlauf im Detail: git log.
 
 ## Welle 11 (laeuft)
 - [x] Visual Armor Trims: Muster auf Ruestungs-Icons (erst Mod-Ruestung, dann Vanilla), Farbe nach Material
+- [x] Besatzmuster nachbessern (laeuft): Randpixel dunkler/ausgespart, exakt mittig (z. B. Flow-Brust), nur Overlays
 - [x] Radiance-Partikel stark reduzieren; Tooltip "Radiance: 5" statt "5/5"
 - [ ] Texturen: Enderit-Aufwertung (Enderit-Farbe, Netherit innen + im Pfeil), Einfache Aufwertung (Gold-Stil, Eisenblock innen), Umbenennung "Basic Upgrade"/"Enderite Upgrade", Barren 2 px schmaler, Schrott 1 px breiter, Diamant-Kiesel schaerfer, Lederplatte schoener
 
@@ -41,19 +43,23 @@ Verlauf im Detail: git log.
 - [ ] SimpleMachines: Zeile Bauplanung (Blaupause, Kartografentisch, Oktant, alle Baustaebe)
 - [ ] Enderquarz-Schachbrett (Bodenblock)
 
-- [ ] Texturen Runde 8: Barren-Kante parallel, Aufwertungen = Umfaerbung der alten Besitzer-Umfaerbung, Enderit-Set B mit braunen Griffen uebernehmen
-- [ ] Texturen Runde 9: eigenes Buch-Icon fuer jede Vanilla-Verzauberung + Config-Schalter (Konflikte mit Ressourcenpaketen)
-- [ ] Rezepte: Erzdetektor + Echosplitter links/rechts vom Kompass; Oktant mit Gold-/Eisen-Waegeplatten und Blitzableiter
-- [ ] Experimentell: Hunger-Kosten beim Bauen mit Baustab/Blaupause (Kupfer 16^3 = 1/4 Balken, Enderit 128^3 = voller Balken), per Config abschaltbar
+- [x] Texturen Runde 8: Barren-Kante parallel, Aufwertungen = Umfaerbung der alten Besitzer-Umfaerbung, Enderit-Set B mit braunen Griffen uebernehmen
+- [x] Texturen Runde 9: eigenes Buch-Icon fuer jede Vanilla-Verzauberung + Config-Schalter (Konflikte mit Ressourcenpaketen)
+- [x] Rezepte: Erzdetektor + Echosplitter links/rechts vom Kompass; Oktant mit Gold-/Eisen-Waegeplatten und Blitzableiter
+- [x] Experimentell: Hunger-Kosten beim Bauen mit Baustab/Blaupause (Kupfer 16^3 = 1/4 Balken, Enderit 128^3 = voller Balken), per Config abschaltbar
 - [x] Doku docs/BAUWERKZEUGE-INTERAKTIONEN.md: Zusammenspiel Baustab/Blaupause/Oktant/Hammer/Meissel/Buendel/Rucksack mit und ohne Constructor's Touch, Verbesserungsvorschlaege, Vorschlaege fuer die Kerne -> danach Besitzer entscheidet, dann Wiki-Kapitel
 
-- [ ] Baustab (laeuft): Linear/Bridge/Cover/Color Palette wirken, Ausrichtung wie ein Spieler, Rueckgaengig nur in derselben Sitzung, Oktant-Form fuellen, Dach-Modus
-- [ ] Koecher: 3D auf dem Ruecken (flach mit Tiefe); aktuelles Verhalten dokumentieren
+- [ ] Baustab (fertig auf Branch, integriert master): Linear/Bridge/Cover/Color Palette wirken, Ausrichtung wie ein Spieler, Rueckgaengig nur in derselben Sitzung, Oktant-Form fuellen, Dach-Modus
+- [x] Koecher: 3D auf dem Ruecken (flach mit Tiefe); aktuelles Verhalten dokumentieren
+
+- [x] Hunger beim Bauen entschaerfen: Freibetrag pro Vorgang (>=256 Bloecke), nur sichtbare Hungerleiste als Massstab
+- [x] Texturen Runde 10: Barren wie Netherit (1 px niedriger, Glimmer), Werkzeug-Griffe wie Netherit mit lila statt schwarz + Glow, analog Hammer/Baustab/Meissel
 
 ## Wartet auf den Besitzer
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
 
 ## Spaeter
+- [ ] Baustab V1: normale Flaechen ueber den Blaupausen-Planer (Schutzpruefung pro Position) - ca. 40 Tests pinnen das heutige Verhalten
 - [ ] Kerne als Baustab-Module + eigene Funktionen (Vorschlaege in docs/BAUWERKZEUGE-INTERAKTIONEN.md) - Besitzer: erst spaeter
 - [ ] Kerne: Netherstern nur ab Diamant, Netherit-/Enderit-Baustab aus Kern, goldener Baustab mehr Haltbarkeit - nicht gewaehlt, spaeter neu besprechen
 - [ ] Rucksack-Sortierung (Reihenfolge vorbereitet), sobald eine Sortierfunktion kommt
