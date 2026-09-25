@@ -892,15 +892,15 @@ public final class BuildingEnchantmentTests {
     // =====================================================================================
 
     /**
-     * Linear does not do what its name suggests. The building wand reads it in exactly one
-     * place: it picks {@code DELAY_TICKS_LINE} instead of {@code DELAY_TICKS} for the pause
-     * between two rings. The shape it builds is position for position the same square plane.
+     * Linear <em>without sneaking</em> (the name of this test predates the line mode, which
+     * {@code WandModeTests#linearWhileSneakingBuildsTheLineAwayFromTheClickedFace} owns): the
+     * wand picks {@code DELAY_TICKS_LINE} instead of {@code DELAY_TICKS} for the pause between two
+     * rings, and the shape it builds is position for position the same square plane.
      *
-     * <p>This test pins both halves of that. The two runs are compared position by position, so
-     * the day Linear grows an actual line shape this test fails and has to be rewritten - which
-     * is the honest way to record that the enchantment is currently only a speed up. And the
-     * tick counts are measured, so removing the branch (or swapping the two constants) is caught
-     * as well.
+     * <p>This test pins both halves of that. The two runs are compared position by position, so a
+     * Linear branch that changed the shape of a click without sneaking fails here. And the tick
+     * counts are measured, so removing the branch (or swapping the two constants) is caught as
+     * well.
      *
      * <p>The wand's {@code inventoryTick} is called directly instead of through the player tick:
      * a gametest server never pumps a mock player's connection, and driving the item hook is the

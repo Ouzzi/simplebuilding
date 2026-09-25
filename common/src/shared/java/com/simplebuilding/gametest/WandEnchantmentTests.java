@@ -125,7 +125,7 @@ import net.minecraft.world.phys.Vec3;
  *       both the rare and the ominous trial chamber vault) - and mentions
  *       {@code simplebuilding:bridge} nowhere, and no
  *       {@code weighted_enchant} pool under {@code data/simplebuilding/villager_trade/} names it
- *       either. {@code EnchantmentEffectTests#coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown}
+ *       either. the former Cover/Bridge marker (replaced by {@code WandModeTests} on 2026-09-25)
  *       already records that Bridge does nothing; it is also unobtainable.</li>
  * </ul>
  *

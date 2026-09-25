@@ -481,7 +481,7 @@ public final class RotatorTests {
      * {@code horizontal_facing} and {@code hopper_facing}. No block in the registry - vanilla or
      * this mod - carries either name, so those two branches never run; the rotator's entire
      * support for directional blocks rests on the single name {@code facing}. Pinning it the way
-     * {@code EnchantmentEffectTests#coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown} pins the
+     * the former Cover/Bridge marker (replaced by {@code WandModeTests} on 2026-09-25) pins the
      * inert enchantments means that the day such a block does appear, this test says so and the
      * branch gets real coverage instead of staying decorative.
      *

@@ -90,11 +90,11 @@ import net.minecraft.world.phys.Vec3;
  *   <li><b>{@code Hollow}, {@code LayerMode} and {@code FillOrder} are stored and no server path
  *       reads them.</b> The octant screen sends them, {@code handleOctantConfigure} writes them
  *       into the item, and the only code that reads them back is {@code client/gui/OctantScreen},
- *       which restores its own controls from them ({@code OctantScreen#loadDataFromStack}).
- *       Nothing on the server and no placement path ever looks at them - the octant builds nothing
- *       at all. {@link #theOctantOnlyMeasuresAndPlacesNothing} is the marker for that, in the same
+ *       which restores its own controls from them ({@code OctantScreen#loadDataFromStack}); since
+ *       2026-09-25 {@code ShapeFill} reads them when a building wand fills the shape
+ *       ({@code WandModeTests}). The octant on its own still builds nothing. {@link #theOctantOnlyMeasuresAndPlacesNothing} is the marker for that, in the same
  *       spirit as
- *       {@code EnchantmentEffectTests#coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown}.</li>
+ *       the former Cover/Bridge marker (replaced by {@code WandModeTests} on 2026-09-25).</li>
  * </ul>
  *
  * <h2>Not covered</h2>
@@ -816,9 +816,10 @@ public final class OctantTests {
      * written down, and three of the settings the octant screen sends - {@code Hollow},
      * {@code LayerMode} and {@code FillOrder} - are stored in the item and read back by nothing
      * but the screen that sent them ({@code OctantScreen#loadDataFromStack}, which restores its
-     * own controls). No server path and no placement path looks at them. This is the marker for
-     * that, in the same spirit as
-     * {@code EnchantmentEffectTests#coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown}: it is
+     * own controls) - and, since 2026-09-25, by {@code ShapeFill} when a building wand in the main
+     * hand fills the shape ({@code WandModeTests}). The octant on its own still builds nothing;
+     * this is the marker for that, in the same spirit as
+     * the former Cover/Bridge marker (replaced by {@code WandModeTests} on 2026-09-25): it is
      * <em>not</em> a claim that the current state is finished, it is a tripwire that goes off the
      * moment the octant grows a build step, at which point a real behaviour test has to replace
      * it.

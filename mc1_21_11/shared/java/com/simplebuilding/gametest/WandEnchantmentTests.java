@@ -126,7 +126,7 @@ import net.minecraft.world.phys.Vec3;
  *       {@code ModTradeDefinitions} names it either - this line builds its merchant offers
  *       in code, so the search the 26.2 twin runs over
  *       {@code data/simplebuilding/villager_trade/} is a search over that table here.
- *       {@code EnchantmentEffectTests#coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown}
+ *       the former Cover/Bridge marker (replaced by {@code WandModeTests} on 2026-09-25)
  *       already records that Bridge does nothing; it is also unobtainable.</li>
  * </ul>
  *
