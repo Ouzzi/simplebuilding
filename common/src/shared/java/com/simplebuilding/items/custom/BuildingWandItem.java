@@ -529,7 +529,7 @@ public class BuildingWandItem extends Item {
         nbt.putInt("OriginY", clickedPos.getY());
         nbt.putInt("OriginZ", clickedPos.getZ());
         nbt.putInt("Face", clickedFace.ordinal());
-        nbt.putInt("BuildBlockRawId", BuiltInRegistries.BLOCK.getId(buildBlock));
+        putBlock(nbt, BUILD_BLOCK_KEY, buildBlock);
 
         var hitPos = context.getClickLocation().subtract(clickedPos.getX(), clickedPos.getY(), clickedPos.getZ());
         nbt.putFloat("HitX", (float) hitPos.x); nbt.putFloat("HitY", (float) hitPos.y); nbt.putFloat("HitZ", (float) hitPos.z);
@@ -566,10 +566,23 @@ public class BuildingWandItem extends Item {
 
         boolean hasMasterBuilder = hasEnchantment(wandStack, world, ModEnchantments.MASTER_BUILDER);
         MaterialResult preview = findFirstBuildingBlock(player, wandStack, hasMasterBuilder);
-        if (preview == null && !player.getAbilities().instabuild) return InteractionResult.FAIL;
+        // Jede Absage sagt in der Aktionsleiste, warum: frueher blieb ein Klick auf flachem Boden
+        // (die Testzentrale ist ueberall flach) stumm, und die Bruecke wirkte kaputt.
+        if (preview == null && !player.getAbilities().instabuild) {
+            player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.wand.bridge.no_material").withStyle(net.minecraft.ChatFormatting.RED));
+            return InteractionResult.FAIL;
+        }
         CompoundTag nbt = getOrInitNbt(wandStack);
-        Plan plan = Plan.forBridge(world, player, getConfiguredRadius(nbt, (this.maxDiameter - 1) / 2));
-        if (plan == null || plan.steps() == 0) return InteractionResult.FAIL;
+        int bridgeRadius = getConfiguredRadius(nbt, (this.maxDiameter - 1) / 2);
+        Plan plan = Plan.forBridge(world, player, bridgeRadius);
+        if (plan == null) {
+            player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.wand.bridge.no_ground").withStyle(net.minecraft.ChatFormatting.YELLOW));
+            return InteractionResult.FAIL;
+        }
+        if (plan.steps() == 0) {
+            player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.wand.bridge.no_gap", lineLength(bridgeRadius)).withStyle(net.minecraft.ChatFormatting.YELLOW));
+            return InteractionResult.FAIL;
+        }
 
         Block buildBlock = preview != null ? preview.stateToPlace.getBlock() : Blocks.AIR;
         nbt.putBoolean("Active", true);
@@ -580,7 +593,7 @@ public class BuildingWandItem extends Item {
         nbt.putInt("OriginY", plan.origin.getY());
         nbt.putInt("OriginZ", plan.origin.getZ());
         nbt.putInt("Face", plan.face.ordinal());
-        nbt.putInt("BuildBlockRawId", BuiltInRegistries.BLOCK.getId(buildBlock));
+        putBlock(nbt, BUILD_BLOCK_KEY, buildBlock);
         nbt.putFloat("HitX", (float) plan.hitRel.x); nbt.putFloat("HitY", (float) plan.hitRel.y); nbt.putFloat("HitZ", (float) plan.hitRel.z);
         plan.writeTo(nbt);
         setNbt(wandStack, nbt);
@@ -597,6 +610,13 @@ public class BuildingWandItem extends Item {
         if (!getBlockBoolean(nbt)) return;
 
         if (slot != EquipmentSlot.MAINHAND && slot != EquipmentSlot.OFFHAND) { nbt.putBoolean("Active", false); setNbt(stack, nbt); return; }
+        // A build that was running when the world was saved by an older version: its block was
+        // stored as a numeric registry id, which a Minecraft update shifts (26.3 added blocks).
+        // Rather than build on with whatever block now has that number, stop; one click resumes.
+        if (hasLegacyRawBlockIds(nbt)) {
+            nbt.putBoolean("Active", false); nbt.remove(LEGACY_BUILD_BLOCK_KEY); nbt.remove(LEGACY_COVER_BLOCK_KEY);
+            setNbt(stack, nbt); return;
+        }
 
         int timer = getBlockInt(nbt, "Timer");
         if (timer > 0) { nbt.putInt("Timer", timer - 1); setNbt(stack, nbt); return; }
@@ -615,8 +635,7 @@ public class BuildingWandItem extends Item {
         BlockPos originPos = new BlockPos(ox, oy, oz);
         Direction face = Direction.values()[getBlockInt(nbt, "Face")];
 
-        int blockId = nbt.getIntOr("BuildBlockRawId", BuiltInRegistries.BLOCK.getId(Blocks.AIR));
-        Block targetBlock = BuiltInRegistries.BLOCK.byId(blockId);
+        Block targetBlock = readBlock(nbt, BUILD_BLOCK_KEY);
 
         // Wenn kein Color Palette, brauchen wir einen festen Block
         if (!hasColorPalette && targetBlock == Blocks.AIR) {
@@ -810,14 +829,24 @@ public class BuildingWandItem extends Item {
             return new Plan(MODE_SQUARE, clicked, face, face, hitRel, radius, axis, 0, Blocks.AIR);
         }
 
-        /** Bruecke ab dem Block unter den Fuessen; {@code null}, wenn dort nichts Festes steht. */
+        /**
+         * Bruecke ab dem Block unter den Fuessen; {@code null}, wenn dort nichts Festes steht. Steht vor den
+         * Fuessen noch Boden derselben Hoehe, beginnt die Bruecke an dessen Kante (hoechstens
+         * {@link #lineLength} weit gesucht): wer ein paar Schritte vor dem Abgrund klickt, bekommt trotzdem
+         * seine Bruecke. Frueher hiess "Boden direkt voraus" Laenge 0 - der Klick tat stumm nichts.
+         */
         static Plan forBridge(Level level, Player player, int radius) {
             BlockPos start = player.getOnPos();
             if (level.getBlockState(start).canBeReplaced()) return null;
             Direction facing = player.getDirection();
+            int max = lineLength(radius);
+            int solid = 0;
+            while (solid < max && !level.getBlockState(start.relative(facing, solid + 1)).canBeReplaced()) solid++;
+            BlockPos edge = start.relative(facing, solid);
+            int length = solid >= max ? 0 : freeRun(level, edge, facing, max);
             // Als setzte man jeden Block an die Stirnseite des vorigen, untere Haelfte (Stufen unten).
             Vec3 hit = new Vec3(0.5 + facing.getStepX() * 0.5, 0.25, 0.5 + facing.getStepZ() * 0.5);
-            return new Plan(MODE_BRIDGE, start, facing, facing, hit, radius, 0, freeRun(level, start, facing, lineLength(radius)), Blocks.AIR);
+            return new Plan(MODE_BRIDGE, edge, facing, facing, hit, radius, 0, length, Blocks.AIR);
         }
 
         /** Wie viele Stellen ab {@code from} in Richtung {@code dir} frei sind, hoechstens {@code max}. */
@@ -829,14 +858,14 @@ public class BuildingWandItem extends Item {
 
         static Plan read(CompoundTag nbt, BlockPos origin, Direction face, Vec3 hitRel, int radius, int axis) {
             int mode = nbt.getIntOr("Mode", MODE_SQUARE);
-            Block cover = BuiltInRegistries.BLOCK.byId(nbt.getIntOr("CoverBlockRawId", BuiltInRegistries.BLOCK.getId(Blocks.AIR)));
+            Block cover = readBlock(nbt, COVER_BLOCK_KEY);
             return new Plan(mode, origin, face, face, hitRel, radius, mode == MODE_SQUARE ? axis : 0, nbt.getIntOr("Length", 0), cover);
         }
 
         void writeTo(CompoundTag nbt) {
             nbt.putInt("Mode", mode);
             nbt.putInt("Length", length);
-            nbt.putInt("CoverBlockRawId", BuiltInRegistries.BLOCK.getId(coverBlock));
+            putBlock(nbt, COVER_BLOCK_KEY, coverBlock);
         }
 
         /** Der angeklickte Block (fuer die Ausrichtungs-Uebernahme); bei der Bruecke keiner. */
@@ -920,6 +949,34 @@ public class BuildingWandItem extends Item {
 
     private boolean getBlockBoolean(CompoundTag nbt) { if (!nbt.contains("Active")) return false; return nbt.getBooleanOr("Active", false); }
     private int getBlockInt(CompoundTag nbt, String key) { if (!nbt.contains(key)) return 0; return nbt.getIntOr(key, 0); }
+    /**
+     * The running build's block and the cover mode's block, by registry name. Until 2026-09 they
+     * were numeric registry ids ({@code BuildBlockRawId}/{@code CoverBlockRawId}), which are not
+     * stable across Minecraft versions; see {@link #hasLegacyRawBlockIds}.
+     */
+    static final String BUILD_BLOCK_KEY = "BuildBlock";
+    static final String COVER_BLOCK_KEY = "CoverBlock";
+    static final String LEGACY_BUILD_BLOCK_KEY = "BuildBlockRawId";
+    static final String LEGACY_COVER_BLOCK_KEY = "CoverBlockRawId";
+
+    static void putBlock(CompoundTag nbt, String key, Block block) {
+        nbt.putString(key, BuiltInRegistries.BLOCK.getKey(block).toString());
+    }
+
+    /** The named block, or air when absent or unknown. */
+    static Block readBlock(CompoundTag nbt, String key) {
+        return nbt.getString(key)
+                .map(net.minecraft.resources.Identifier::tryParse)
+                .flatMap(BuiltInRegistries.BLOCK::getOptional)
+                .orElse(Blocks.AIR);
+    }
+
+    /** A build state written before the switch to names: numeric ids only. */
+    static boolean hasLegacyRawBlockIds(CompoundTag nbt) {
+        return (nbt.contains(LEGACY_BUILD_BLOCK_KEY) && !nbt.contains(BUILD_BLOCK_KEY))
+                || (nbt.contains(LEGACY_COVER_BLOCK_KEY) && !nbt.contains(COVER_BLOCK_KEY));
+    }
+
     private CompoundTag getOrInitNbt(ItemStack stack) { CustomData component = stack.get(DataComponents.CUSTOM_DATA); return component != null ? component.copyTag() : new CompoundTag(); }
     private void setNbt(ItemStack stack, CompoundTag nbt) { stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt)); }
 }

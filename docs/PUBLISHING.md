@@ -46,6 +46,15 @@ Do not tick 26.2 on a 26.3 file (or the other way round): the 26.3 jars check `~
 `[26.3,26.4)` (NeoForge), the 26.2 jars `~26.2` / `[26.2,26.3)`,
 at startup and refuse the other version.
 
+### 26.4 snapshot builds: NEVER upload
+
+`:mc26_4:fabric` (only built with `-Pmc264=true`) produces `simplebuilding-26.4-snapshot-N-<v>.jar`
+for local testing of the next Minecraft drop. Do not upload it to Modrinth or CurseForge, not even as
+alpha: it runs on the 26.3 Cloth Config (no 26.4 build exists yet), has no JEI/Jade/AppleSkin, and
+every new snapshot can break it again. Snapshot targets are not part of the release gate
+(`run.py --release-gate`), so a green gate says nothing about 26.4. The first 26.4 upload happens
+once 26.4 is a release, with its own row in the tables above.
+
 ## Optional / recommended ("Optional dependency" on Modrinth, "Optional Dependency" on CurseForge)
 
 | Mod | Why | Fabric 26.2 | NeoForge 26.2 | Forge 26.2 | Fabric 1.21.11 | NeoForge 1.21.11 | Fabric 26.3 | NeoForge 26.3 |

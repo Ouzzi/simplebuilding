@@ -17,6 +17,13 @@ public final class ClientTestVersion {
      */
     public static final boolean SET_COMMANDS_REJECT_NO_CHANGE = false;
 
+    /**
+     * Whether Cloth Config's screen works on this line. The 26.4 snapshots run on the 26.3 Cloth Config
+     * (no 26.4 build yet), whose screen crashes there (RenderPipeline moved back to blaze3d), so the
+     * 26.4 build hides the ModMenu button and the client test skips the screen.
+     */
+    public static final boolean CLOTH_CONFIG_SCREEN = true;
+
     private ClientTestVersion() {
     }
 

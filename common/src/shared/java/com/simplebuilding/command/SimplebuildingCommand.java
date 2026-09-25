@@ -29,6 +29,8 @@ public final class SimplebuildingCommand {
     }
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
+        // Eigene Wurzel /sbtestcentre (Befehlsrechte statt nur Operator-Spieler, damit Befehlsbloecke ihn nutzen).
+        com.simplebuilding.dev.testcentre.TestCentreCommand.register(dispatcher);
         dispatcher.register(Commands.literal("simplebuilding")
                 .requires(OPERATOR_ONLY)
                 .then(Commands.literal("config")

@@ -1,0 +1,16 @@
+{
+    DataVersion: 4903,
+    data: {
+        jobs: [
+            {
+                code_hash: "c0ffee",
+                index: 17,
+                placed: 12,
+                player: [I; 0, 4660, 0, 22136],
+                rotation: 2,
+                target: [I; 10, 64, -20],
+                title: "Hut"
+            }
+        ]
+    }
+}

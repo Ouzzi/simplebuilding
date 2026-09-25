@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_enderite_quiver": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:enderite_quiver"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:enderite_quiver_dyed"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_enderite_quiver"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:enderite_quiver_dyed"
+    ]
+  }
+}

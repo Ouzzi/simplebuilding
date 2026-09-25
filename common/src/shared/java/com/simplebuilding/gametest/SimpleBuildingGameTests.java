@@ -33,6 +33,10 @@ public final class SimpleBuildingGameTests {
     private static final List<GameTestSpec> ALL = List.of(
             GameTestSpec.named("smoke_game_test_mod_items_are_registered", SmokeTests::modItemsAreRegistered)
                     .build(),
+            GameTestSpec.named("test_centre_game_test_every_mod_item_and_block_has_its_place_in_the_test_centre", TestCentreTests::everyModItemAndBlockHasItsPlaceInTheTestCentre)
+                    .build(),
+            GameTestSpec.named("test_centre_game_test_the_whole_centre_builds_and_matches_its_plan", TestCentreTests::theWholeCentreBuildsAndMatchesItsPlan)
+                    .build(),
             GameTestSpec.named("trade_registry_game_test_all_mod_trades_reach_the_registry", TradeRegistryTests::allModTradesReachTheRegistry)
                     .build(),
             GameTestSpec.named("block_behaviour_game_test_reinforced_and_netherite_furnaces_smelt_faster_than_vanilla", BlockBehaviourTests::reinforcedAndNetheriteFurnacesSmeltFasterThanVanilla)
@@ -114,6 +118,10 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("data_integrity_game_test_every_vanilla_enchantment_has_its_own_book_model", DataIntegrityTests::everyVanillaEnchantmentHasItsOwnBookModel)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_vanilla_book_texture_follows_the_client_option", DataIntegrityTests::vanillaBookTextureFollowsTheClientOption)
+                    .build(),
+            GameTestSpec.named("data_integrity_game_test_mod_book_texture_follows_the_client_option", DataIntegrityTests::modBookTextureFollowsTheClientOption)
+                    .build(),
+            GameTestSpec.named("data_integrity_game_test_visible_trim_icons_follow_the_client_options", DataIntegrityTests::visibleTrimIconsFollowTheClientOptions)
                     .build(),
             GameTestSpec.named("tool_behaviour_game_test_sledgehammer_breaks_three_by_three_around_origin", ToolBehaviourTests::sledgehammerBreaksThreeByThreeAroundOrigin)
                     .rotation(Rotation.NONE)
@@ -227,6 +235,12 @@ public final class SimpleBuildingGameTests {
                     .rotation(Rotation.NONE)
                     .build(),
             GameTestSpec.named("wand_mode_game_test_roof_mode_lays_stairs_towards_the_ridge_with_slabs_on_top", WandModeTests::roofModeLaysStairsTowardsTheRidgeWithSlabsOnTop)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_bridge_from_the_use_packet_starts_at_the_edge_of_the_floor_ahead", WandModeTests::bridgeFromTheUsePacketStartsAtTheEdgeOfTheFloorAhead)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_roof_mode_works_with_the_test_centre_kit_enderite_wand", WandModeTests::roofModeWorksWithTheTestCentreKitEnderiteWand)
                     .rotation(Rotation.NONE)
                     .build(),
             GameTestSpec.named("hopper_and_trim_game_test_hopper_filter_modes_gate_what_may_enter", HopperAndTrimTests::hopperFilterModesGateWhatMayEnter)
@@ -931,6 +945,22 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("trade_offer_game_test_spatulas_in_containers_survive_the_world_scan", TradeOfferTests::spatulasInContainersSurviveTheWorldScan)
                     .build(),
             GameTestSpec.named("trade_offer_game_test_no_recipe_references_the_legacy_spatulas", TradeOfferTests::noRecipeReferencesTheLegacySpatulas)
+                    .build(),
+            GameTestSpec.named("world_upgrade_game_test_fixtures_are_what_twenty_six_two_writes", WorldUpgradeTests::fixturesAreWhatTwentySixTwoWrites)
+                    .build(),
+            GameTestSpec.named("world_upgrade_game_test_mod_block_entities_survive_the_upgrade", WorldUpgradeTests::modBlockEntitiesSurviveTheUpgrade)
+                    .build(),
+            GameTestSpec.named("world_upgrade_game_test_mod_items_survive_the_upgrade", WorldUpgradeTests::modItemsSurviveTheUpgrade)
+                    .build(),
+            GameTestSpec.named("world_upgrade_game_test_mod_entities_survive_the_upgrade", WorldUpgradeTests::modEntitiesSurviveTheUpgrade)
+                    .build(),
+            GameTestSpec.named("world_upgrade_game_test_player_data_survives_the_upgrade", WorldUpgradeTests::playerDataSurvivesTheUpgrade)
+                    .build(),
+            GameTestSpec.named("world_upgrade_game_test_saved_data_survives_the_upgrade", WorldUpgradeTests::savedDataSurvivesTheUpgrade)
+                    .build(),
+            GameTestSpec.named("world_upgrade_game_test_wand_mid_build_from_an_older_version_stops_instead_of_building_on_with_shifted_ids", WorldUpgradeTests::wandMidBuildFromAnOlderVersionStopsInsteadOfBuildingOnWithShiftedIds)
+                    .build(),
+            GameTestSpec.named("world_upgrade_game_test_backpack_with_an_unreadable_entry_keeps_the_rest", WorldUpgradeTests::backpackWithAnUnreadableEntryKeepsTheRest)
                     .build(),
             // --- tweaks (generated) ---
             GameTestSpec.named("tweaks_game_test_pad_tiers_grow_and_enderite_sits_between_netherite_and_the_nether_star_tier", TweaksTests::padTiersGrowAndEnderiteSitsBetweenNetheriteAndTheNetherStarTier)

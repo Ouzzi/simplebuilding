@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.items.ModArmorMaterials;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.items.VisibleTrimIcons;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -53,6 +54,11 @@ import java.util.concurrent.CompletableFuture;
  *
  * <p>Muster und Materialien kommen aus der Registry (Vanilla + {@code ModTrimMaterials}); die
  * Holder im Fallwert loest das Spiel beim Laden ueber den Registry-Tauscher des Clients auf.
+ * <p>Um das Ganze liegt ein {@code minecraft:select} ueber {@code simplebuilding:visible_trim_icons}
+ * (Client-Optionen {@code visibleTrimIconsVanillaArmor}/{@code visibleTrimIconsModArmor}, siehe
+ * {@code VisibleTrimIcons}): nur der Wert {@code visible} zeigt die Muster-Ebenen, sonst greift
+ * Vanillas Auswahl nach Material als {@code fallback}.
+ *
  * Geprueft von {@code DataIntegrityTests#everyTrimmableArmourShowsEveryTrimPatternOnItsIcon}.
  */
 public class ArmorTrimModelProvider implements DataProvider {
@@ -151,8 +157,20 @@ public class ArmorTrimModelProvider implements DataProvider {
                 JsonObject composite = new JsonObject();
                 composite.addProperty("type", "minecraft:composite");
                 composite.add("models", layers);
+                // Ganz aussen die Client-Option (VisibleTrimIcons): "visible" zeigt die Muster-Ebenen,
+                // jeder andere Wert faellt auf Vanillas Auswahl nach Material zurueck.
+                JsonObject visibleCase = new JsonObject();
+                visibleCase.add("model", composite);
+                visibleCase.addProperty("when", VisibleTrimIcons.VISIBLE);
+                JsonArray optionCases = new JsonArray();
+                optionCases.add(visibleCase);
+                JsonObject option = new JsonObject();
+                option.addProperty("type", "minecraft:select");
+                option.addProperty("property", Simplebuilding.MOD_ID + ":visible_trim_icons");
+                option.add("cases", optionCases);
+                option.add("fallback", vanillaTrimSelect(armour));
                 JsonObject definition = new JsonObject();
-                definition.add("model", composite);
+                definition.add("model", option);
                 writes.add(DataProvider.saveStable(cache, definition, items.json(armour.id())));
             }
             overlayModels.forEach((id, json) -> writes.add(DataProvider.saveStable(cache, json, models.json(id))));

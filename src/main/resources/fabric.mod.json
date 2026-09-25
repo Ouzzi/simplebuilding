@@ -34,6 +34,8 @@
     ],
     "fabric-gametest": [
       "com.simplebuilding.gametest.SmokeGameTest",
+      "com.simplebuilding.gametest.WorldUpgradeGameTest",
+      "com.simplebuilding.gametest.TestCentreGameTest",
       "com.simplebuilding.gametest.BlueprintGameTest",
       "com.simplebuilding.gametest.TradeAndMigrationGameTest",
       "com.simplebuilding.gametest.ToolBehaviourGameTest",

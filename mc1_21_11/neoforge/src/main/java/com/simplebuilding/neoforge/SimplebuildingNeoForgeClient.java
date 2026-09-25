@@ -9,6 +9,7 @@ import com.simplebuilding.client.gui.BuildingWandScreen;
 import com.simplebuilding.client.gui.NetheriteHopperScreen;
 import com.simplebuilding.client.gui.OctantScreen;
 import com.simplebuilding.client.property.EnchantmentModelProperty;
+import com.simplebuilding.client.property.TrimIconsModelProperty;
 import com.simplebuilding.client.render.BlockHighlightRenderer;
 import com.simplebuilding.client.render.BuildingWandPreviewRenderer;
 import com.simplebuilding.client.render.MultiBlockBreakingSupport;
@@ -170,6 +171,8 @@ public final class SimplebuildingNeoForgeClient {
         ENCHANTMENT_PROPERTY_TYPE = SelectItemModelProperty.Type.create(EnchantmentModelProperty.CODEC, Codec.STRING);
         EnchantmentModelProperty.PROPERTY_TYPE = ENCHANTMENT_PROPERTY_TYPE;
         event.register(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "enchant_type"), ENCHANTMENT_PROPERTY_TYPE);
+        TrimIconsModelProperty.PROPERTY_TYPE = SelectItemModelProperty.Type.create(TrimIconsModelProperty.CODEC, Codec.STRING);
+        event.register(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "visible_trim_icons"), TrimIconsModelProperty.PROPERTY_TYPE);
     }
 
     /** Abgestellter gefaerbter Rucksack; Cutout kommt hier aus render_type in template_backpack_dyed.json. */

@@ -269,10 +269,17 @@ def overlayPairs = [
 		['neoforge/src/mc26_2/clientGameTest/java', 'mc26_3/neoforge/src/clientGameTest/java',
 		 ['common/src/shared/clientgametest/java', 'neoforge/src/clientGameTest/java']],
 ]
+// MC 26.4 snapshot line: <26.3 overlay> / <26.4 overlay that replaces files of it>. Checked even
+// when the mc26_4 modules are not part of the build (-Pmc264=true), it only reads files.
+def chainPairs264 = [
+		['mc26_3/overlay/java', 'mc26_4/overlay/java'],
+		['mc26_3/fabric/src/main/java', 'mc26_4/fabric/src/main/java'],
+		['mc26_3/overlay/clientgametest/java', 'mc26_4/overlay/clientgametest/java'],
+]
 tasks.register('checkOverlays') {
 	group = 'verification'
-	description = 'Fails when a class exists both in a shared tree and in an MC 26.2/26.3 overlay, or lacks its twin.'
-	overlayPairs.collectMany { pair -> [pair[0], pair[1]] + pair[2] }.unique().each { dir ->
+	description = 'Fails when a class exists both in a shared tree and in an MC 26.2/26.3 overlay, lacks its twin, or a 26.4 overlay file does not replace a 26.3 one.'
+	(overlayPairs.collectMany { pair -> [pair[0], pair[1]] + pair[2] } + chainPairs264.flatten()).unique().each { dir ->
 		def f = file(dir)
 		if (f.isDirectory()) inputs.dir(f).withPropertyName('tree_' + dir.replaceAll('[^A-Za-z0-9]', '_'))
 	}
@@ -297,11 +304,22 @@ tasks.register('checkOverlays') {
 			(old - neu).each { problems << "${pair[0]}/${it} has no 26.3 twin in ${pair[1]}" }
 			(neu - old).each { problems << "${pair[1]}/${it} has no 26.2 twin in ${pair[0]}" }
 		}
+		// 26.4 snapshot chain (mc26_4/chain.gradle): a 26.4 overlay file replaces its 26.3 twin, so it
+		// must have one (a still-shared file moves into the 26.2/26.3 pair first), and it must really
+		// differ from it (an identical copy would only drift).
+		def norm = { File f -> f.getText('UTF-8').replace('\r\n', '\n').trim() }
+		chainPairs264.each { pair ->
+			def base = rel(new File(root, pair[0]))
+			rel(new File(root, pair[1])).each { f ->
+				if (!base.contains(f)) problems << "${pair[1]}/${f} has no 26.3 twin in ${pair[0]} (a 26.4 overlay may only replace 26.3 overlay files)"
+				else if (norm(new File(root, "${pair[1]}/${f}")) == norm(new File(root, "${pair[0]}/${f}"))) problems << "${pair[1]}/${f} is identical to its 26.3 twin - delete it"
+			}
+		}
 		if (problems) {
 			throw new GradleException("Overlay check failed:" + System.lineSeparator() + "  "
 					+ problems.join(System.lineSeparator() + "  "))
 		}
-		logger.lifecycle("checkOverlays: ${overlayPairs.sum { rel(new File(root, it[1])).size() }} overlay files, each with its twin, none shadowing a shared class")
+		logger.lifecycle("checkOverlays: ${overlayPairs.sum { rel(new File(root, it[1])).size() }} overlay files, each with its twin, none shadowing a shared class; ${chainPairs264.sum { rel(new File(root, it[1])).size() }} 26.4 snapshot overlay files replacing 26.3 twins")
 	}
 }
 tasks.named('check') { dependsOn 'checkOverlays' }

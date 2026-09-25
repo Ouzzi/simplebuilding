@@ -7,6 +7,7 @@ import com.simplebuilding.component.BackpackContents;
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.items.custom.QuiverItem;
 import com.simplebuilding.items.tooltip.ReinforcedBundleTooltipData;
 import com.simplebuilding.screen.BackpackMenuProviders;
 import com.simplebuilding.screen.BackpackOpenData;
@@ -52,10 +53,11 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Dyed backpacks and bundles: the four backpacks and the three mod bundles take the vanilla
+ * Dyed backpacks, bundles and quivers: the four backpacks, the three mod bundles and the four
+ * quivers take the vanilla
  * {@code minecraft:dyed_color} component the way leather armour does (see {@link DyedStorage}).
  *
- * <p>Covered here: the dye recipe for all seven items (colour, re-dyeing, and every other
+ * <p>Covered here: the dye recipe for all eleven items (colour, re-dyeing, and every other
  * component - contents, name, enchantments - untouched), the water cauldron that washes the
  * colour off again and nothing else, and the colour reaching the two places the client tints
  * by it: the backpack menu's open data (worn and placed) and the bundle tooltip. The placed
@@ -68,23 +70,24 @@ public final class DyedStorageTests {
     private DyedStorageTests() {
     }
 
-    /** The seven dyeable items, backpacks first. */
+    /** The eleven dyeable items: backpacks, bundles, quivers. */
     private static final Item[] DYEABLE = {ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK,
-            ModItems.ENDERITE_BACKPACK, ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE};
+            ModItems.ENDERITE_BACKPACK, ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE,
+            ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER};
 
     /**
-     * Each of the seven items plus red dye, resolved through the live recipe manager the way a
+     * Each of the eleven items plus red dye, resolved through the live recipe manager the way a
      * crafting table resolves it: the result is the same item, coloured exactly red, and its
      * component patch is the original's plus {@code dyed_color} - contents, custom name and the
      * Funnel enchantment all still there. A second pass with blue dye on the red result mixes
      * the colours (re-dyeing works like leather) and again leaves the rest alone.
      *
-     * <p>The negative: a quiver - a {@code ReinforcedBundleItem} as well - plus dye crafts
-     * nothing, so the dyeing is bound to the seven items and not to the class.
+     * <p>The negative: an iron chisel plus dye crafts nothing, so the dyeing is bound to the
+     * eleven items and not to every mod item.
      *
      * <p>What breaks this test: a missing dye recipe (26.2: {@code <id>_dyed}; 1.21.11: an item
      * missing from {@code minecraft:dyeable}), a recipe that builds a fresh stack instead of
-     * carrying the components over, or one that is too wide and takes the quiver.
+     * carrying the components over, or one that is too wide and takes the chisel.
      */
     public static void dyeingColoursEveryBackpackAndBundleAndKeepsItsComponents(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
@@ -130,9 +133,9 @@ public final class DyedStorageTests {
         }
         helper.assertTrue(problems.isEmpty(), "dyeing problems: " + problems);
 
-        CraftingInput quiver = CraftingInput.of(2, 1, List.of(new ItemStack(ModItems.QUIVER), dye(DyeColor.RED)));
-        helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, quiver, level).isEmpty(),
-                "a quiver plus red dye crafts something; only the four backpacks and three bundles are dyeable");
+        CraftingInput chisel = CraftingInput.of(2, 1, List.of(new ItemStack(ModItems.IRON_CHISEL), dye(DyeColor.RED)));
+        helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, chisel, level).isEmpty(),
+                "an iron chisel plus red dye crafts something; only the backpacks, bundles and quivers are dyeable");
         TestCleanup.succeed(helper);
     }
 
@@ -142,7 +145,7 @@ public final class DyedStorageTests {
      * the statistic counts the wash like leather armour. An undyed one is not an interaction at
      * all: the cauldron answers the way it answers an item it does not know, and keeps its water.
      *
-     * <p>What breaks this test: one of the seven not reaching the wash (26.2: missing from
+     * <p>What breaks this test: one of the eleven not reaching the wash (26.2: missing from
      * {@code minecraft:cauldron_can_remove_dye}; 1.21.11: not registered in
      * {@code DyedStorageWashing}), a wash that rebuilds the stack (contents or name gone), a
      * wash that does not lower the water, and one that also takes water for an undyed item.
@@ -269,6 +272,9 @@ public final class DyedStorageTests {
         Assertions.valueEqual(helper, tooltipColour(helper, bundle), DyedStorage.UNDYED, "tooltip colour of an undyed netherite bundle");
         bundle.set(DataComponents.DYED_COLOR, new DyedItemColor(purple));
         Assertions.valueEqual(helper, tooltipColour(helper, bundle), purple, "tooltip colour of a purple netherite bundle");
+        ItemStack quiver = filled(helper, ModItems.ENDERITE_QUIVER);
+        quiver.set(DataComponents.DYED_COLOR, new DyedItemColor(purple));
+        Assertions.valueEqual(helper, tooltipColour(helper, quiver), purple, "tooltip colour of a purple enderite quiver");
 
         // --- the tints stay subtle and leave undyed items alone ---
         Assertions.valueEqual(helper, DyedStorage.slotTint(purple, 0x1CA0602A), 0x30000000 | purple, "slot fill for purple");
@@ -287,6 +293,8 @@ public final class DyedStorageTests {
         ItemStack stack = new ItemStack(item);
         if (item == ModItems.REINFORCED_BUNDLE || item == ModItems.NETHERITE_BUNDLE || item == ModItems.ENDERITE_BUNDLE) {
             stack.set(DataComponents.BUNDLE_CONTENTS, bundleContents(new ItemStack(Items.COBBLESTONE, 16)));
+        } else if (item instanceof QuiverItem) {
+            stack.set(DataComponents.BUNDLE_CONTENTS, bundleContents(new ItemStack(Items.ARROW, 16)));
         } else {
             stack.set(ModDataComponentTypes.BACKPACK_CONTENTS, new BackpackContents(List.of(
                     BackpackContents.Entry.of(0, new ItemStack(Items.COBBLESTONE, 64)),

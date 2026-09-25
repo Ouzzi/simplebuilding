@@ -418,9 +418,9 @@ public class ModModelProvider extends FabricModelProvider {
 
         generateDyeableBundle(itemModelGenerator, ModItems.REINFORCED_BUNDLE);
         generateDyeableBundle(itemModelGenerator, ModItems.NETHERITE_BUNDLE);
-        itemModelGenerator.generateFlatItem(ModItems.QUIVER, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.REINFORCED_QUIVER, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.NETHERITE_QUIVER, ModelTemplates.FLAT_ITEM);
+        generateDyeableItem(itemModelGenerator, ModItems.QUIVER);
+        generateDyeableItem(itemModelGenerator, ModItems.REINFORCED_QUIVER);
+        generateDyeableItem(itemModelGenerator, ModItems.NETHERITE_QUIVER);
         itemModelGenerator.generateFlatItem(ModItems.LEATHER_SHEET, ModelTemplates.FLAT_ITEM);
         // Layout-Platzhalter der Kreativ-Tabs: zeichnet nichts (minecraft:empty).
         itemModelGenerator.itemModelOutput.accept(ModItems.CREATIVE_SPACER, new net.minecraft.client.renderer.item.EmptyModel.Unbaked());
@@ -468,7 +468,7 @@ public class ModModelProvider extends FabricModelProvider {
         }
 
         generateDyeableBundle(itemModelGenerator, ModItems.ENDERITE_BUNDLE);
-        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_QUIVER, ModelTemplates.FLAT_ITEM);
+        generateDyeableItem(itemModelGenerator, ModItems.ENDERITE_QUIVER);
         // Rucksaecke: flaches Symbol im Inventar (textures/item/<id>.png), nicht das Blockmodell.
         generateDyeableItem(itemModelGenerator, ModItems.BACKPACK);
         generateDyeableItem(itemModelGenerator, ModItems.REINFORCED_BACKPACK);

@@ -183,7 +183,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 }
 
                 // =================================================================
-                // GEFAERBTE RUCKSAECKE UND BUENDEL: Vanillas Farbstoff-Rezept wie fuer
+                // GEFAERBTE RUCKSAECKE, BUENDEL UND KOECHER: Vanillas Farbstoff-Rezept wie fuer
                 // Lederruestung (crafting_dye, <item>_dyed) - Item + ein oder mehrere Farbstoffe,
                 // Farben mischen sich, alle anderen Komponenten (Inhalt, Name, Verzauberungen)
                 // bleiben. Gewaschen wird im Kessel (Tag cauldron_can_remove_dye).
@@ -196,6 +196,10 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 }
                 for (Item bundle : new Item[]{ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE}) {
                     modDyedItem(bundle, "dyed_bundle");
+                }
+                for (Item quiver : new Item[]{ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER,
+                        ModItems.ENDERITE_QUIVER}) {
+                    modDyedItem(quiver, "dyed_quiver");
                 }
 
                 // =================================================================

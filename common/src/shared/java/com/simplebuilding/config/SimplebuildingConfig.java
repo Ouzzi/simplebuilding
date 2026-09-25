@@ -45,6 +45,18 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean vanillaEnchantedBookTextures = true;
 
+    // Client: eigene Buch-Texturen fuer die Mod-Verzauberungen (VanillaBookTextures.select). Aus: das
+    // schlichte Vanilla-Buch (Paritaet mit Vanilla).
+    @ConfigEntry.Gui.Tooltip
+    public boolean modEnchantedBookTextures = true;
+
+    // Client: sichtbare Besatzmuster auf den Icons von Vanilla- bzw. Mod-Ruestung (VisibleTrimIcons).
+    // Aus: Vanillas Icon mit nur dem Materialfleck. Beide wirken sofort.
+    @ConfigEntry.Gui.Tooltip
+    public boolean visibleTrimIconsVanillaArmor = true;
+    @ConfigEntry.Gui.Tooltip
+    public boolean visibleTrimIconsModArmor = true;
+
     @ConfigEntry.Gui.Tooltip
     public static double trimBenefitBaseMultiplier = 2.0;
     @ConfigEntry.Gui.Tooltip

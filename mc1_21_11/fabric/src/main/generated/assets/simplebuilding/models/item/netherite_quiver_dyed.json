@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "simplebuilding:item/netherite_quiver_dyed",
+    "layer1": "simplebuilding:item/netherite_quiver_dyed_overlay"
+  }
+}

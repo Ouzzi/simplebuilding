@@ -1,6 +1,9 @@
 package com.simplebuilding.component;
 
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.handler.codec.DecoderException;
 import java.util.ArrayList;
@@ -15,6 +18,8 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Inhalt eines Rucksacks als Item-Komponente {@code simplebuilding:backpack_contents}.
@@ -63,8 +68,42 @@ public final class BackpackContents {
             DataComponentPatch.CODEC.optionalFieldOf("components", DataComponentPatch.EMPTY).forGetter(e -> e.stack().components())
     ).apply(i, (slot, item, count, patch) -> new Entry(slot, new ItemStackTemplate(item, count, patch))));
 
-    public static final Codec<BackpackContents> CODEC = ENTRY_CODEC.sizeLimitedListOf(MAX_SLOT + 1)
+    private static final Codec<List<Entry>> STRICT_LIST_CODEC = ENTRY_CODEC.sizeLimitedListOf(MAX_SLOT + 1);
+
+    /**
+     * Writes exactly like a plain list of entries; reads entry by entry. One entry that no longer
+     * decodes (an item id that is gone - a removed mod, or a vanilla item renamed by a Minecraft
+     * update that did not pass through {@link com.simplebuilding.datafix.ModDataFixer}) used to fail
+     * the whole list, and the backpack opened empty. Now only that entry is dropped, with a warning.
+     */
+    private static final Codec<List<Entry>> LENIENT_LIST_CODEC = new Codec<>() {
+        @Override
+        public <T> DataResult<T> encode(List<Entry> input, DynamicOps<T> ops, T prefix) {
+            return STRICT_LIST_CODEC.encode(input, ops, prefix);
+        }
+
+        @Override
+        public <T> DataResult<Pair<List<Entry>, T>> decode(DynamicOps<T> ops, T input) {
+            return ops.getStream(input).flatMap(stream -> {
+                List<T> raw = stream.toList();
+                if (raw.size() > MAX_SLOT + 1) {
+                    return DataResult.error(() -> "Backpack contents too long: " + raw.size() + " > " + (MAX_SLOT + 1));
+                }
+                List<Entry> entries = new ArrayList<>(raw.size());
+                for (T element : raw) {
+                    ENTRY_CODEC.parse(ops, element)
+                            .resultOrPartial(error -> LOGGER.warn("Dropping unreadable backpack entry {}: {}", element, error))
+                            .ifPresent(entries::add);
+                }
+                return DataResult.success(Pair.of(entries, ops.empty()));
+            });
+        }
+    };
+
+    public static final Codec<BackpackContents> CODEC = LENIENT_LIST_CODEC
             .xmap(BackpackContents::new, BackpackContents::entries);
+
+    private static final Logger LOGGER = LoggerFactory.getLogger("simplebuilding");
 
     private static final StreamCodec<RegistryFriendlyByteBuf, Entry> ENTRY_STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.VAR_INT, Entry::slot,

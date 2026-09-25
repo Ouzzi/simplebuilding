@@ -26,5 +26,12 @@ include 'mc1_21_11:fabric'
 include 'mc1_21_11:neoforge'
 include 'mc26_3:fabric'
 include 'mc26_3:neoforge'
+// MC 26.4 SNAPSHOT line - experimental, only with -Pmc264=true: keeps the snapshot out of the normal
+// build and the release gate. :mc26_4:forge additionally needs mc264_forge_version (Forge ships no
+// snapshot builds).
+if (providers.gradleProperty('mc264').getOrElse('false').toBoolean()) {
+	include 'mc26_4:fabric'
+	if (providers.gradleProperty('mc264_forge_version').getOrElse('')) include 'mc26_4:forge'
+}
 // Loaders: Fabric (root project, Fabric Loom) + NeoForge (:neoforge, ModDevGradle).
 // Each applies its own loader plugin to its own project; both build under Gradle 9.

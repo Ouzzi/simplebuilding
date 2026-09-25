@@ -651,7 +651,7 @@ public final class BuildingWandTests {
      * <p>The third leg also asserts that the player's inventory is still empty afterwards: the
      * fallback must not be a stone that was taken from somewhere.
      *
-     * <p>The fourth leg is what makes the {@code BuildBlockRawId} the click writes observable at
+     * <p>The fourth leg is what makes the {@code BuildBlock} the click writes observable at
      * all. Every other wand run in the repository holds one kind of block from the click to the
      * last placed position, so the block the click remembered and the block a fresh search would
      * return are the same and the key could be dropped without a single assertion moving. Here they
@@ -667,7 +667,7 @@ public final class BuildingWandTests {
      * re-search (leg one builds nothing), dropping the {@code Active = false} in its else branch
      * (leg two never ends and hits the loop guard), extending the air check to palette wands (leg
      * three builds nothing), replacing the {@code Blocks.STONE} fallback with the target block,
-     * which is air here and would place nothing at all, or dropping the {@code BuildBlockRawId}
+     * which is air here and would place nothing at all, or dropping the {@code BuildBlock}
      * that {@code useOn} writes, or reading it back under another key - the tick would then fall
      * into the air branch for every wand and leg four would build out of the off hand.
      */

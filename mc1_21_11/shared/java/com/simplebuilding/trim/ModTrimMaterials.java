@@ -36,13 +36,13 @@ public class ModTrimMaterials {
 
     public static final Holder<TrimMaterial> NIHILITH_HOLDER = holder(NIHILITH, Style.EMPTY.withColor(TextColor.fromRgb(0xAA00AA)));
     public static final Holder<TrimMaterial> ASTRALIT_HOLDER = holder(ASTRALIT, Style.EMPTY.withColor(TextColor.fromRgb(0xFFFF55)));
-    public static final Holder<TrimMaterial> ENDERITE_HOLDER = holder(ENDERITE, Style.EMPTY.withColor(TextColor.fromRgb(0x111111)));
+    public static final Holder<TrimMaterial> ENDERITE_HOLDER = holder(ENDERITE, Style.EMPTY.withColor(TextColor.fromRgb(0x9A7BD8)));
 
     public static void bootstrap(BootstrapContext<TrimMaterial> context) {
         // itemModelIndex (der float Wert) wurde entfernt, wir übergeben nur noch Style/Farbe
         register(context, ASTRALIT, Style.EMPTY.withColor(TextColor.fromRgb(0xFFFF55)));
         register(context, NIHILITH, Style.EMPTY.withColor(TextColor.fromRgb(0xAA00AA)));
-        register(context, ENDERITE, Style.EMPTY.withColor(TextColor.fromRgb(0x111111)));
+        register(context, ENDERITE, Style.EMPTY.withColor(TextColor.fromRgb(0x9A7BD8)));
     }
 
     private static void register(BootstrapContext<TrimMaterial> context, ResourceKey<TrimMaterial> key, Style style) {

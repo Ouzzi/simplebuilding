@@ -110,9 +110,10 @@ import net.minecraft.world.item.ItemStack;
  *       texture, a texture file missing, or a layer that submits nothing.</li>
  * </ul>
  *
- * <p><b>Not covered:</b> closing the backpack screen with its own key. The NeoForge drivers press
- * keys through the binding layer ({@code KeyMapping.click}), which never reaches an open screen,
- * so that step would pass on Fabric and fail on NeoForge for a reason in the harness; the screens
+ * <p>The backpack key closes what it opened (the vanilla inventory without a worn backpack, every
+ * tier's backpack screen): the key event is handed to the open screen's {@code keyPressed} directly,
+ * as {@code KeyboardHandler} does. Not through the harness: the NeoForge drivers press keys through
+ * the binding layer ({@code KeyMapping.click}), which never reaches an open screen. The other screens
  * are closed through {@code Screen#onClose}, the path Escape takes. Also not covered here: moving
  * items (the server tests drive the menu's clicks), the recipe book with a wide backpack screen,
  * and Deep Pockets counts in the slots.
@@ -247,7 +248,7 @@ public final class BackpackClientTest {
 
         assertStillOpen(script, InventoryScreen.class, "vanilla inventory via the backpack key");
         assertVanillaInventoryMenu(script, "the backpack key without a worn backpack");
-        closeScreen(script, "vanilla inventory");
+        closeWithBackpackKey(script, "vanilla inventory");
     }
 
     /**
@@ -325,7 +326,7 @@ public final class BackpackClientTest {
             script.shot(tier.shot());
         }
 
-        closeScreen(script, label);
+        closeWithBackpackKey(script, label);
     }
 
     /**
@@ -781,6 +782,32 @@ public final class BackpackClientTest {
         script.await("wait until no screen is open any more", SCREEN_TIMEOUT_TICKS,
                 client -> client.screen == null,
                 client -> "a screen is still open after closing the " + label + ": " + describeScreen(client));
+        script.awaitPackets();
+        script.idle("let the server process the close", 10);
+    }
+
+    /**
+     * Presses the backpack key in the open screen, as {@code KeyboardHandler} hands a key to a screen,
+     * and waits until the screen is gone and the server has seen the close. B toggles like E: before
+     * 2026-09-25 only the backpack screen listened, and the vanilla inventory B opens without a worn
+     * backpack stayed open (owner report).
+     */
+    private static void closeWithBackpackKey(Script script, String label) {
+        script.act("press the backpack key in the " + label, client -> {
+            Screen screen = client.screen;
+
+            if (screen == null) {
+                throw new AssertionError("No screen is open to close with the backpack key (" + label + ").");
+            }
+            boolean handled = screen.keyPressed(new net.minecraft.client.input.KeyEvent(BACKPACK_KEY, 0, 0));
+            if (!handled) {
+                throw new AssertionError("The " + label + " (" + screen.getClass().getName()
+                        + ") ignored the backpack key; it has to close like the inventory key closes the inventory.");
+            }
+        });
+        script.await("wait until the backpack key closed the " + label, SCREEN_TIMEOUT_TICKS,
+                client -> client.screen == null,
+                client -> "the backpack key did not close the " + label + ": " + describeScreen(client));
         script.awaitPackets();
         script.idle("let the server process the close", 10);
     }

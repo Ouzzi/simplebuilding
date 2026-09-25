@@ -56,10 +56,10 @@ Verlauf im Detail: git log.
 - [x] Texturen Runde 10: Barren wie Netherit (1 px niedriger, Glimmer), Werkzeug-Griffe wie Netherit mit lila statt schwarz + Glow, analog Hammer/Baustab/Meissel
 
 ## Welle 13 (laeuft)
-- [ ] Config-Schalter: Vanilla-Buecher (gibt es), Mod-Buecher custom/vanilla, sichtbare Besatzmuster Vanilla-Ruestung, sichtbare Besatzmuster Enderit-Ruestung
+- [x] Config-Schalter: Vanilla-Buecher (gibt es), Mod-Buecher custom/vanilla, sichtbare Besatzmuster Vanilla-Ruestung, sichtbare Besatzmuster Enderit-Ruestung
 
-- [ ] 26.4-Snapshot-Linie vorbereiten (Fabric, Forge falls vorhanden), experimentell, blockiert das Gate nicht
-- [ ] Nahtloses Welt-Upgrade 26.2 -> 26.3: Audit aller Mod-Daten, tolerante Leser, Fixture-Rundlauftest, docs/UPGRADE-26.2-26.3.md
+- [x] 26.4-Snapshot-Linie vorbereiten (Fabric, Forge falls vorhanden), experimentell, blockiert das Gate nicht
+- [x] Nahtloses Welt-Upgrade 26.2 -> 26.3: Audit aller Mod-Daten, tolerante Leser, Fixture-Rundlauftest, docs/UPGRADE-26.2-26.3.md
 
 ## Welle 14 (laeuft): Simple Tweaks uebernehmen
 - [ ] Inventur + docs/SIMPLETWEAKS-UEBERNAHME.md (inkl. vollstaendiger Claim-Notiz, Claims NICHT portieren)
@@ -68,10 +68,24 @@ Verlauf im Detail: git log.
 - [ ] Echo-Kompass: Rezept Bergungskompass + Enderit-Kern + Netherit-Druckplatte links/rechts; Unbreaking-Bug fixen
 - [ ] Tests alle Linien; danach in simpletweaks Branch remove-ported-features (nicht gepusht)
 
+## Welle 15 (laeuft): Testzentrale
+- [x] /sbtestcentre build: reproduzierbare Testwelt aus Code (Ruestung/Trims/Upgrades, alle Buecher, Werkzeuge plain+verzaubert, Meissel-Tuerme + In-World-Stationen, Lager, Bloecke, Maschinen-Demos, Erzdetektor-Feld, Essen, Oktant/Blaupause/Baustab-Modi, Versatility/Vein/Strip, Command-Block-Knoepfe)
+- [x] Abdeckungstest: jedes Mod-Item/-Block steht in der Zentrale (neue Features fallen automatisch auf); docs/TESTZENTRALE.md; Regel: am Ende jedes Runs pruefen
+
+## Welle 16 (erledigt, auf master, Gate offen): Fehler + Optik aus dem Testen
+- [x] Enderit-Besatzfarbe im Tooltip lesbar (#9A7BD8)
+- [x] Bridge geht nicht; B-Taste schliesst Rucksack-Inventar nicht; Dach-Modus mit Enderit-Baustab; Testzentrale-Command-Blocks feuern doppelt/versetzt; Enderit-Kolben in der Zentrale pruefen
+- [x] Koecher faerbbar und richtig dargestellt; Faerbe-Tönung sanfter, Stufen bleiben unterscheidbar
+- [x] Enderit-Trichter-Item vanilla-nah; verst. klebriger Kolben mit Vanilla-Schleim
+- [x] Enderit-Glimmer: Apfel, Karotte, Koecher, Rucksack, Buendel; Enderit-Maschinen und -Kolben im Barren-Look
+
 ## Wartet auf den Besitzer
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
+- [ ] Eigene Kolbenkoepfe fuer verstaerkt/Netherite/Enderit (zeigen ausgefahren den Vanilla-Kopf; braucht Kopf-Block + Moving-Piston auf allen Loadern)
 
 ## Spaeter
+- [ ] Enderit-Kolben: 3 Bloecke Abbau macht Tunnelbohrer zu leicht - spaeter Balance (z. B. Verschleiss/Schadenszustand)
+- [ ] 26.4: Forge einschalten sobald Build da (-Pmc264_forge_version), Cloth-Config-Screen/Dev-Mods sobald 26.4-Builds da, NeoForge-26.4-Linie
 - [ ] Baustab V1: normale Flaechen ueber den Blaupausen-Planer (Schutzpruefung pro Position) - ca. 40 Tests pinnen das heutige Verhalten
 - [ ] Kerne als Baustab-Module + eigene Funktionen (Vorschlaege in docs/BAUWERKZEUGE-INTERAKTIONEN.md) - Besitzer: erst spaeter
 - [ ] Kerne: Netherstern nur ab Diamant, Netherit-/Enderit-Baustab aus Kern, goldener Baustab mehr Haltbarkeit - nicht gewaehlt, spaeter neu besprechen

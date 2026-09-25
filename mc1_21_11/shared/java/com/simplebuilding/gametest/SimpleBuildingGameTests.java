@@ -29,6 +29,10 @@ public final class SimpleBuildingGameTests {
     private static final List<GameTestSpec> ALL = List.of(
             GameTestSpec.named("smoke_game_test_mod_items_are_registered", SmokeTests::modItemsAreRegistered)
                     .build(),
+            GameTestSpec.named("test_centre_game_test_every_mod_item_and_block_has_its_place_in_the_test_centre", TestCentreTests::everyModItemAndBlockHasItsPlaceInTheTestCentre)
+                    .build(),
+            GameTestSpec.named("test_centre_game_test_the_whole_centre_builds_and_matches_its_plan", TestCentreTests::theWholeCentreBuildsAndMatchesItsPlan)
+                    .build(),
             GameTestSpec.named("trade_registry_game_test_all_mod_trades_resolve_against_the_server_registries",
                             TradeRegistryTests::allModTradesResolveAgainstTheServerRegistries)
                     .build(),
@@ -111,6 +115,10 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("data_integrity_game_test_every_vanilla_enchantment_has_its_own_book_model", DataIntegrityTests::everyVanillaEnchantmentHasItsOwnBookModel)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_vanilla_book_texture_follows_the_client_option", DataIntegrityTests::vanillaBookTextureFollowsTheClientOption)
+                    .build(),
+            GameTestSpec.named("data_integrity_game_test_mod_book_texture_follows_the_client_option", DataIntegrityTests::modBookTextureFollowsTheClientOption)
+                    .build(),
+            GameTestSpec.named("data_integrity_game_test_visible_trim_icons_follow_the_client_options", DataIntegrityTests::visibleTrimIconsFollowTheClientOptions)
                     .build(),
             GameTestSpec.named("tool_behaviour_game_test_sledgehammer_breaks_three_by_three_around_origin", ToolBehaviourTests::sledgehammerBreaksThreeByThreeAroundOrigin)
                     .rotation(Rotation.NONE)
@@ -222,6 +230,12 @@ public final class SimpleBuildingGameTests {
                     .rotation(Rotation.NONE)
                     .build(),
             GameTestSpec.named("wand_mode_game_test_roof_mode_lays_stairs_towards_the_ridge_with_slabs_on_top", WandModeTests::roofModeLaysStairsTowardsTheRidgeWithSlabsOnTop)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_bridge_from_the_use_packet_starts_at_the_edge_of_the_floor_ahead", WandModeTests::bridgeFromTheUsePacketStartsAtTheEdgeOfTheFloorAhead)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_roof_mode_works_with_the_test_centre_kit_enderite_wand", WandModeTests::roofModeWorksWithTheTestCentreKitEnderiteWand)
                     .rotation(Rotation.NONE)
                     .build(),
             GameTestSpec.named("hopper_and_trim_game_test_hopper_filter_modes_gate_what_may_enter", HopperAndTrimTests::hopperFilterModesGateWhatMayEnter)

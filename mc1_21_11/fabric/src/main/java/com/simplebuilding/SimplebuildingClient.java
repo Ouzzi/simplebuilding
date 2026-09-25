@@ -6,6 +6,7 @@ import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.client.gui.*;
 import com.simplebuilding.client.gui.tooltip.ReinforcedBundleTooltipSubmenuHandler;
 import com.simplebuilding.client.property.EnchantmentModelProperty;
+import com.simplebuilding.client.property.TrimIconsModelProperty;
 import com.simplebuilding.client.render.BlockHighlightRenderer;
 import com.simplebuilding.client.render.BlockOutlineSupport;
 import com.simplebuilding.client.render.BuildingWandPreviewRenderer;
@@ -215,6 +216,11 @@ public class SimplebuildingClient implements ClientModInitializer {
         SelectItemModelProperties.ID_MAPPER.put(
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "enchant_type"),
                 ENCHANTMENT_PROPERTY_TYPE
+        );
+        TrimIconsModelProperty.PROPERTY_TYPE = SelectItemModelProperty.Type.create(TrimIconsModelProperty.CODEC, Codec.STRING);
+        SelectItemModelProperties.ID_MAPPER.put(
+                Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "visible_trim_icons"),
+                TrimIconsModelProperty.PROPERTY_TYPE
         );
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {

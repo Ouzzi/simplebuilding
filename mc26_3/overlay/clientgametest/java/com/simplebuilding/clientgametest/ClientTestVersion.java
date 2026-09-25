@@ -9,6 +9,9 @@ public final class ClientTestVersion {
     /** 26.3: gamerule / time set / weather without a change are command errors. */
     public static final boolean SET_COMMANDS_REJECT_NO_CHANGE = true;
 
+    /** Cloth Config 26.3 draws its screen fine on 26.3 (see the 26.2 twin). */
+    public static final boolean CLOTH_CONFIG_SCREEN = true;
+
     private ClientTestVersion() {
     }
 

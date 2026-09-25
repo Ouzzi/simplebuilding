@@ -1,0 +1,43 @@
+// Overlay chain of the MC 26.4 SNAPSHOT modules (applied by mc26_4/fabric and mc26_4/forge).
+//
+//   shared 26.2 trees  ->  26.3 overlay (mc26_3/...)  ->  26.4 overlay (mc26_4/...)
+//
+// The 26.4 line is built from the 26.3 line, not from 26.2: a file in a 26.4 overlay directory
+// REPLACES its twin in the matching 26.3 overlay directory; every 26.3 overlay file without a 26.4
+// twin is used unchanged. So a 26.4 overlay may only contain files the 26.3 overlay has (checked by
+// checkOverlays in the root build). When 26.4 breaks a file that is still shared, move it into the
+// 26.2/26.3 pair first (common/src/mc26_2/java + mc26_3/overlay/java), then add the 26.4 twin.
+//
+// Java: mc264OverlayTree merges one 26.3 overlay directory with its 26.4 directory into
+// build/overlay264/<name> (a generated tree; edit the sources in mc26_3/ or mc26_4/, never the copy).
+// Resources: mc264ConfigureResources stacks mc26_4/overlay/resources + mc26_4/generated on top of
+// the 26.3 layers (see mcLayeredResources in mc26_3/resources.gradle).
+
+apply from: rootProject.file('mc26_3/resources.gradle')
+
+def rootDirFile = rootProject.projectDir
+
+ext.mc264Layer = [overlay  : new File(rootDirFile, 'mc26_4/overlay/resources'),
+                  generated: new File(rootDirFile, 'mc26_4/generated'),
+                  removed  : new File(rootDirFile, 'mc26_4/generated/removed-on-26.4.txt')]
+
+ext.mc264ConfigureResources = { SourceSet sourceSet, List<String> extraSharedDirs ->
+    mcLayeredResources(sourceSet, extraSharedDirs, '264', [mc264Layer, mc263Layer])
+}
+
+// Returns a Sync task whose output is the 26.3 overlay dir with every file replaced by its 26.4
+// twin; usable directly as srcDir (carries the task dependency).
+ext.mc264OverlayTree = { String name, String dir263, String dir264 ->
+    File base = new File(rootDirFile, dir263)
+    File over = new File(rootDirFile, dir264)
+    tasks.register('overlay264' + name.capitalize(), Sync) {
+        description = "Builds the 26.4 view of ${dir263}: its files, each replaced by its twin in ${dir264}."
+        into layout.buildDirectory.dir('overlay264/' + name)
+        if (base.isDirectory()) inputs.dir(base).withPropertyName('base')
+        if (over.isDirectory()) inputs.dir(over).withPropertyName('over')
+        from(base) {
+            exclude { FileTreeElement e -> !e.directory && new File(over, e.relativePath.pathString).isFile() }
+        }
+        from(over)
+    }
+}
