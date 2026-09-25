@@ -1513,31 +1513,31 @@ ENDER_QUARTZ_ITEM_PAL = {
     "S": "#fbefff",
 }
 
-# Enderitbarren: Lage und Perspektive des Vanilla-Netheritbarrens, 14 Pixel breit, 4 Pixel dick. Hintere
-# Oberkante, vordere Lichtkante und Unterkante steigen gleich steil (3 Pixel je Zeile), die kurzen
-# Kanten 1 Pixel je Zeile - alle Linien gerade und parallel. O Umriss, R Randton, 5..6 Deckflaeche,
-# h Lichtkanten, 1..2 Vorderflaeche, 3 Stirnseite links, 7 Glanzpunkt.
+# Enderitbarren: Form, Perspektive und Silhouette des Vanilla-Netheritbarrens, 1 Pixel weniger hoch,
+# in Enderit-Farben mit wenigen Ender-Glimmerpunkten wie bei der Enderit-Ruestung (Set B).
+# O Umriss, R Randton, 5..6 Deckflaeche, h Lichtkanten, 1..2 Vorderflaeche, 3 Stirnseite links,
+# 7 Glanzpunkt, g/v Ender-Glimmer (heller Kern, violetter Schein).
 ENDERITE_INGOT = [
     "................",
     "................",
-    "...........R....",
-    "........RRR7O...",
-    ".....RRR66555O..",
-    "..RRR665555554O.",
-    ".R6555555544hhO.",
-    ".3h555544hhh22O.",
-    ".33h44hhh22211O.",
-    ".O33hh222111OO..",
-    "..O322111OOO....",
-    "...O11OOO.......",
-    "....OO..........",
+    "..........RR....",
+    ".......RRR76O...",
+    "....RRR665555O..",
+    ".RRR665g555544O.",
+    "Rh655555v544hh1O",
+    "R3h55544hhhh221O",
+    "R33h44hh22g2111O",
+    "O333hh22v1111OO.",
+    ".O33221111OOO...",
+    "..O3111OOO......",
+    "...OOOO.........",
     "................",
     "................",
     "................",
 ]
 ENDERITE_INGOT_PAL = {
     "O": "#1c0a33", "R": "#472480", "1": "#3e2173", "2": "#55309a", "3": "#6d45b8", "4": "#7b51c9",
-    "5": "#8e63dc", "6": "#a57de9", "h": "#cfb2fb", "7": "#f1e8ff",
+    "5": "#8e63dc", "6": "#a57de9", "h": "#cfb2fb", "7": "#f1e8ff", "g": "#f4d2ff", "v": "#c77dff",
 }
 
 # Enderitschrott: Mischung aus der urspruenglichen Textur des Besitzers (Grundform, Maserung) und
@@ -1669,6 +1669,7 @@ def end_palette_textures():
                                                      BASIC_UPGRADE_TEMPLATE_PAL, False)
     tex["item/diamond_pebble.png"] = render("diamond_pebble", DIAMOND_PEBBLE, DIAMOND_PEBBLE_PAL, False)
     tex.update(enderite_gear_variant(ENDERITE_GEAR_ACTIVE))
+    apply_enderite_handles(tex)
     tex.update(vanilla_book_textures())
     return tex
 
@@ -3049,6 +3050,203 @@ def vanilla_book(name):
 
 def vanilla_book_textures():
     return {f"item/enchanted_book_vanilla_{n}.png": vanilla_book(n) for n in BOOK_SYMBOLS}
+
+
+
+# Griffe der Enderit-Werkzeuge (Runde 10): Pixel und Brauntoene exakt wie beim Netherit-Vorbild (Vanilla
+# bzw. Netherit-Werkzeug der Mod); nur die schwarzen Wicklungen/Beschlaege werden Enderit-Violett:
+# W Wicklung, G Glow-Pixel in der Mitte einer 3 Pixel breiten Wicklung, H Hauch von Glow bei einzelnen
+# Punkten (z. B. Schwertknauf). 'a'..'q' sind die Brauntoene je Werkzeug (ENDERITE_HANDLE_PALS).
+ENDERITE_HANDLE_WRAP = {"W": "#55309a", "G": "#c77dff", "H": "#7b51c9"}
+ENDERITE_HANDLE_MAPS = {
+    "pickaxe": [
+        "................",
+        "................",
+        "................",
+        "............ab..",
+        "............cd..",
+        "..........b.....",
+        ".........bed....",
+        "........bcd.....",
+        ".......bed......",
+        "......bcd.......",
+        ".....bWd........",
+        "....bGd.........",
+        "...bWd..........",
+        "..bcd...........",
+        "..dd............",
+        "................",
+    ],
+    "axe": [
+        "................",
+        "................",
+        "................",
+        "................",
+        "...........ab...",
+        "............c...",
+        ".........a......",
+        "........dbc.....",
+        ".......dec......",
+        "......dbc.......",
+        ".....dWc........",
+        "....dGc.........",
+        "...dWc..........",
+        "..dec...........",
+        "..cc............",
+        "................",
+    ],
+    "shovel": [
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+        ".........a......",
+        "........abc.....",
+        ".......abc......",
+        "......adc.......",
+        ".....aWc........",
+        "....aGc.........",
+        "..aaWc..........",
+        "..abc...........",
+        "...cc...........",
+        "................",
+    ],
+    "hoe": [
+        "................",
+        "................",
+        "................",
+        "............ab..",
+        "............c...",
+        "..........a.....",
+        ".........ab.....",
+        "........ac......",
+        ".......ab.......",
+        "......ac........",
+        ".....aW.........",
+        "....aG..........",
+        "...aW...........",
+        "..ac............",
+        "................",
+        "................",
+    ],
+    "sword": [
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+        "...ab...........",
+        "..acd...........",
+        "..Hd............",
+        "................",
+        "H...............",
+    ],
+    "spear": [
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+        "........a.......",
+        ".......abc......",
+        "......adc.......",
+        ".....adc........",
+        "....adc.........",
+        "...adc..........",
+        "..adc...........",
+        ".aWc............",
+        "aGc.............",
+        "Wc..............",
+    ],
+    "sledgehammer": [
+        "................",
+        "................",
+        "................",
+        "...........ab...",
+        "...........cd...",
+        "................",
+        "................",
+        ".......a........",
+        "......ace.......",
+        ".....ace........",
+        "....afe.........",
+        "...afe..........",
+        "..age...........",
+        "aafe............",
+        "afe.............",
+        ".ee.............",
+    ],
+    "building_wand": [
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+        "........H.......",
+        ".......abH......",
+        "......abc.......",
+        ".....adc........",
+        "....abc.........",
+        "...adc..........",
+        ".aabc...........",
+        ".abc............",
+        "..cc............",
+        "................",
+    ],
+    "chisel": [
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+        "................",
+        "....aa..........",
+        "..aabcd.........",
+        ".aebfgd.........",
+        ".abhhd..........",
+        ".abggd..........",
+        "..add...........",
+        "................",
+    ],
+}
+ENDERITE_HANDLE_PALS = {
+    "pickaxe": {"a": "#4a2940", "b": "#2f2122", "c": "#734543", "d": "#231012", "e": "#603432"},
+    "axe": {"a": "#5d565d", "b": "#603432", "c": "#231012", "d": "#2f2122", "e": "#734543"},
+    "shovel": {"a": "#2f2122", "b": "#734543", "c": "#231012", "d": "#603432"},
+    "hoe": {"a": "#2f2122", "b": "#603432", "c": "#734543"},
+    "sword": {"a": "#2f2122", "b": "#603432", "c": "#734543", "d": "#231012"},
+    "spear": {"a": "#2f2122", "b": "#603432", "c": "#231012", "d": "#734543"},
+    "sledgehammer": {"a": "#483515", "b": "#594828", "c": "#7b6235", "d": "#281e0b", "e": "#271e0b", "f": "#876627", "g": "#674d1e"},
+    "building_wand": {"a": "#483515", "b": "#876627", "c": "#271e0b", "d": "#674d1e"},
+    "chisel": {"a": "#483515", "b": "#846426", "c": "#3c2c12", "d": "#2b210e", "e": "#926e2b", "f": "#584219", "g": "#745721", "h": "#6a501f"},
+}
+
+
+def apply_enderite_handles(tex):
+    """Ersetzt in den Enderit-Werkzeug-Icons die Griffpixel durch die Netherit-Griffe mit violetten Wicklungen."""
+    for name, rows in ENDERITE_HANDLE_MAPS.items():
+        rel = f"item/enderite_{name}.png"
+        img = tex[rel].copy()
+        colours = dict(ENDERITE_HANDLE_PALS[name])
+        colours.update(ENDERITE_HANDLE_WRAP)
+        for y, row in enumerate(rows):
+            for x, c in enumerate(row):
+                if c != ".":
+                    img.putpixel((x, y), hexrgb(colours[c]) + (255,))
+        tex[rel] = img
 
 
 
