@@ -179,83 +179,38 @@ public class guiDrawHelper {
         return new RenderColors(r1, g1, b1, r2, g2, b2, r3, g3, b3);
     }
 
-    // --- HUD Colors ---
-    private static final int DEFAULT_BACKGROUND = 0xF0100010;
-    private static final int DEFAULT_BORDER_START = 0xF05000FF;
-    private static final int DEFAULT_BORDER_END = 0xF028007F;
+    // --- HUD-Farben des Entfernungsmessers ---
+    // Nur noch die Textfarben: der HUD-Kasten ist seit dem Umbau Vanillas Tooltip-Hintergrund
+    // (RangefinderHudOverlay), die frueheren Rahmen- und Hintergrundfarben je Farbstoff las niemand mehr.
     private static final int DEFAULT_POS_1 = 0xFFFFAA00;
     private static final int DEFAULT_POS_2 = 0xFFFFFF55;
 
-    public record ColorTheme(int pos1, int pos2, int borderStart, int borderEnd, int background) {}
+    /** Textfarben der HUD-Zeilen: Pos 1 (hell, auch das Ergebnis) und Pos 2. */
+    public record ColorTheme(int pos1, int pos2) {}
 
-    /**
-     * Gibt ein Farb-Theme für das HUD zurück.
-     * - Pos1 (Hell)
-     * - Pos2 (Mittel)
-     * - Border (Passend zur Farbe)
-     * - Background (Sehr dunkel, passend zur Farbe)
-     */
+    /** Das Farb-Theme fuer das HUD eines (gefaerbten) Entfernungsmessers; {@code null} = ungefaerbt. */
     public static ColorTheme getColorTheme(DyeColor color) {
         if (color == null) {
-            // Standard: Lila/Schwarz (Vanilla Style)
-            return new ColorTheme(DEFAULT_POS_1, DEFAULT_POS_2, DEFAULT_BORDER_START, DEFAULT_BORDER_END, DEFAULT_BACKGROUND);
+            return new ColorTheme(DEFAULT_POS_1, DEFAULT_POS_2);
         }
-
-        // Hintergrundfarben sind immer sehr dunkel (F0 Alpha + dunkle RGB Werte), damit Text lesbar bleibt.
-
-        switch (color) {
-            case WHITE -> {
-                return new ColorTheme(0xFFFFFF, 0xAAAAAA, 0xF0FFFFFF, 0xF0AAAAAA, 0xF0252525);
-            }
-            case ORANGE -> {
-                return new ColorTheme(0xFFAD33, 0xFF7F00, 0xF0FFAA00, 0xF0AA5500, 0xF02A1500);
-            }
-            case MAGENTA -> {
-                return new ColorTheme(0xFF55FF, 0xAA00AA, 0xF0FF55FF, 0xF0AA00AA, 0xF01A001A);
-            }
-            case LIGHT_BLUE -> {
-                return new ColorTheme(0x66FFFF, 0x3388FF, 0xF066FFFF, 0xF03388FF, 0xF0001020);
-            }
-            case YELLOW -> {
-                return new ColorTheme(0xFFFF66, 0xDDDD00, 0xF0FFFF66, 0xF0DDDD00, 0xF0252500);
-            }
-            case LIME -> {
-                return new ColorTheme(0x88FF33, 0x44CC00, 0xF088FF33, 0xF044CC00, 0xF0102000);
-            }
-            case PINK -> {
-                return new ColorTheme(0xFF99CC, 0xFF6699, 0xF0FF99CC, 0xF0FF6699, 0xF0201015);
-            }
-            case GRAY -> {
-                return new ColorTheme(0xAAAAAA, 0x666666, 0xF0AAAAAA, 0xF0555555, 0xF0151515);
-            }
-            case LIGHT_GRAY -> {
-                return new ColorTheme(0xDDDDDD, 0x999999, 0xF0DDDDDD, 0xF0999999, 0xF0202020);
-            }
-            case CYAN -> {
-                return new ColorTheme(0x00FFFF, 0x00AAAA, 0xF000FFFF, 0xF000AAAA, 0xF0001515);
-            }
-            case PURPLE -> {
-                return new ColorTheme(0xCC66FF, 0x9933CC, 0xF0CC66FF, 0xF09933CC, 0xF0150020);
-            }
-            case BLUE -> {
-                return new ColorTheme(0x6699FF, 0x3344FF, 0xF06699FF, 0xF03344FF, 0xF0000520);
-            }
-            case BROWN -> {
-                return new ColorTheme(0xCC9966, 0x885533, 0xF0CC9966, 0xF0885533, 0xF01A1005);
-            }
-            case GREEN -> {
-                return new ColorTheme(0x66FF66, 0x00AA00, 0xF066FF66, 0xF000AA00, 0xF0001A00);
-            }
-            case RED -> {
-                return new ColorTheme(0xFF6666, 0xCC0000, 0xF0FF6666, 0xF0CC0000, 0xF0200000);
-            }
-            case BLACK -> {
-                return new ColorTheme(0xAAAAAA, 0x555555, 0xF0555555, 0xF0333333, 0xF0050505);
-            }
-            default -> {
-                return new ColorTheme(DEFAULT_POS_1, DEFAULT_POS_2, DEFAULT_BORDER_START, DEFAULT_BORDER_END, DEFAULT_BACKGROUND);
-            }
-        }
+        return switch (color) {
+            case WHITE -> new ColorTheme(0xFFFFFF, 0xAAAAAA);
+            case ORANGE -> new ColorTheme(0xFFAD33, 0xFF7F00);
+            case MAGENTA -> new ColorTheme(0xFF55FF, 0xAA00AA);
+            case LIGHT_BLUE -> new ColorTheme(0x66FFFF, 0x3388FF);
+            case YELLOW -> new ColorTheme(0xFFFF66, 0xDDDD00);
+            case LIME -> new ColorTheme(0x88FF33, 0x44CC00);
+            case PINK -> new ColorTheme(0xFF99CC, 0xFF6699);
+            case GRAY -> new ColorTheme(0xAAAAAA, 0x666666);
+            case LIGHT_GRAY -> new ColorTheme(0xDDDDDD, 0x999999);
+            case CYAN -> new ColorTheme(0x00FFFF, 0x00AAAA);
+            case PURPLE -> new ColorTheme(0xCC66FF, 0x9933CC);
+            case BLUE -> new ColorTheme(0x6699FF, 0x3344FF);
+            case BROWN -> new ColorTheme(0xCC9966, 0x885533);
+            case GREEN -> new ColorTheme(0x66FF66, 0x00AA00);
+            case RED -> new ColorTheme(0xFF6666, 0xCC0000);
+            case BLACK -> new ColorTheme(0xAAAAAA, 0x555555);
+        };
     }
 
 }

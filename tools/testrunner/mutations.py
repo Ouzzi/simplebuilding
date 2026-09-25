@@ -1878,6 +1878,13 @@ P11_MUTATIONS: list[Mutation] = [
              'blueprint_game_test_missing_blocks_check_has_no_cap_and_runs_over_several_ticks',
              "the check should go on after the click's budget",
              'the missing-blocks check goes on past its click budget instead of stopping there', kind="server"),
+    Mutation('p11-spacer-suggested',
+             f'{SHARED}/mixin/ItemParserStateMixin.java',
+             '        return ids.filter(id -> !SIMPLEBUILDING$SPACER.equals(id));',
+             '        return ids;',
+             _DI + 'creative_spacer_cannot_be_taken_or_kept',
+             '/give suggests simplebuilding:creative_spacer',
+             'item command suggestions leave the layout spacer out', kind="server"),
 ]
 
 #: The 1.21.11 line keeps its own copy of the shared mod sources (mc1_21_11/shared/java, mirrored
