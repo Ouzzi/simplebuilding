@@ -178,14 +178,60 @@ public final class BlueprintBuilder {
      * Bettkopfteile), damit deren Partner schon steht. Schlank gespeichert (ein {@code int} je
      * Stelle), Position und Zustand werden erst beim Zugriff ausgerechnet.
      */
-    public static final class Layout {
+    public abstract static class Layout {
+        public abstract int size();
+
+        public abstract BlockPos pos(int i);
+
+        /** Zustand an Stelle {@code i}, schon mitgedreht. */
+        public abstract BlockState state(int i);
+
+        /** Zustand fuer die Kosten (bei Blaupausen ungedreht, die Kosten aendern sich beim Drehen nicht). */
+        abstract BlockState rawState(int i);
+    }
+
+    /**
+     * Eine fertige Liste aus Stellen und Zustaenden in Bau-Reihenfolge - fuer Bauten, die nicht aus
+     * einer Blaupause kommen (Oktant-Fuellung, Dach; {@link ShapeFill}).
+     */
+    public static final class ListLayout extends Layout {
+        private final long[] positions;
+        private final BlockState[] states;
+
+        public ListLayout(long[] positions, BlockState[] states) {
+            this.positions = positions;
+            this.states = states;
+        }
+
+        @Override
+        public int size() {
+            return positions.length;
+        }
+
+        @Override
+        public BlockPos pos(int i) {
+            return BlockPos.of(positions[i]);
+        }
+
+        @Override
+        public BlockState state(int i) {
+            return states[i];
+        }
+
+        @Override
+        BlockState rawState(int i) {
+            return states[i];
+        }
+    }
+
+    public static final class ModelLayout extends Layout {
         private final BlueprintModel model;
         private final int[] order;
         private final BlockPos target;
         private final Rotation rotation;
         private final int minX, minY, minZ, half;
 
-        Layout(BlueprintModel model, BlockPos target, Rotation rotation) {
+        ModelLayout(BlueprintModel model, BlockPos target, Rotation rotation) {
             this.model = model;
             this.target = target;
             this.rotation = rotation;
@@ -196,10 +242,12 @@ public final class BlueprintBuilder {
             this.order = orderOf(model);
         }
 
+        @Override
         public int size() {
             return order.length;
         }
 
+        @Override
         public BlockPos pos(int i) {
             int k = order[i];
             int lx = BlueprintModel.keyX(k) - minX - half;
@@ -215,12 +263,12 @@ public final class BlueprintBuilder {
             return target.offset(rx, ly, rz);
         }
 
-        /** Zustand an Stelle {@code i}, schon mitgedreht. */
+        @Override
         public BlockState state(int i) {
             return model.blocks().get(order[i]).rotate(rotation);
         }
 
-        /** Unveraenderter Zustand (fuer die Kosten, die sich beim Drehen nicht aendern). */
+        @Override
         BlockState rawState(int i) {
             return model.blocks().get(order[i]);
         }
@@ -271,7 +319,7 @@ public final class BlueprintBuilder {
     }
 
     public static Layout layout(BlueprintModel model, BlockPos target, Rotation rotation) {
-        return new Layout(model, target, rotation);
+        return new ModelLayout(model, target, rotation);
     }
 
     // =====================================================================================
@@ -527,6 +575,42 @@ public final class BlueprintBuilder {
         if (level instanceof ServerLevel serverLevel) {
             BlueprintJobs.clear(serverLevel, player.getUUID());
         }
+        return begin(level, player, wand, blueprint, layout, target, rotation, content, creative);
+    }
+
+    /**
+     * Baut eine fertige Stellenliste mit dem Baustab (Oktant-Fuellung, Dach): dieselbe Zwei-Klick-Regel,
+     * dieselbe Staffelung, Haltbarkeit je Block und derselbe Abbruch, sobald Stab (Haupthand) oder
+     * {@code offHand} (der Oktant) nicht mehr gehalten werden. Wird nicht gespeichert: nach Logout ist
+     * ein solcher Auftrag vorbei.
+     */
+    public static Result buildLayout(Level level, Player player, ItemStack wand, ItemStack offHand, Layout layout) {
+        if (layout.size() == 0) {
+            return null;
+        }
+        JOBS.remove(player.getUUID());
+        CHECKS.remove(player.getUUID());
+        JOBS.values().removeIf(j -> j.player.isRemoved());
+        CHECKS.values().removeIf(c -> c.player.isRemoved());
+        if (level instanceof ServerLevel serverLevel) {
+            BlueprintJobs.clear(serverLevel, player.getUUID());
+        }
+        return begin(level, player, wand, offHand, layout, layout.pos(0), Rotation.NONE, null, player.getAbilities().instabuild);
+    }
+
+    /** Bricht einen laufenden Auftrag (und seine Pruefung) des Spielers ab, ohne Meldung; {@code true} = es lief einer. */
+    public static boolean cancel(Player player) {
+        boolean running = JOBS.remove(player.getUUID()) != null;
+        running |= CHECKS.remove(player.getUUID()) != null;
+        if (player.level() instanceof ServerLevel serverLevel) {
+            BlueprintJobs.clear(serverLevel, player.getUUID());
+        }
+        return running;
+    }
+
+    /** Zwei-Klick-Regel und Start; {@code content == null} = kein Blaupausen-Bau (nicht gespeichert). */
+    private static Result begin(Level level, Player player, ItemStack wand, ItemStack blueprint, Layout layout,
+                                BlockPos target, Rotation rotation, BlueprintContent content, boolean creative) {
         if (!creative) {
             // Zwei-Klick-Regel: fehlt Material, warnt der erste Klick nur (Ton + Meldung, die roten
             // Stellen leuchten im Client auf); ein zweiter Klick binnen 3 s baut alles Vorhandene.
@@ -626,12 +710,21 @@ public final class BlueprintBuilder {
                                    BlockPos target, Rotation rotation, BlueprintContent content, boolean creative,
                                    int index, int placedBefore) {
         Job[] holder = new Job[1];
+        // Rueckgaengig: jeder Auftrag (auch ein nach Logout fortgesetzter) ist eine neue Aktion.
+        com.simplebuilding.util.WandUndo.begin(player, level);
         Placer placer = new Placer() {
             @Override
             public boolean place(BlockPos pos, BlockState state) {
+                if (content == null) {
+                    // Oktant-Fuellung/Dach: Zaeune, Treppenecken und Mauern an die Nachbarn anpassen,
+                    // die inzwischen stehen (die Liste wurde vor dem Bau berechnet).
+                    state = Block.updateFromNeighbourShapes(state, level, pos);
+                }
                 if (!level.setBlock(pos, state, Block.UPDATE_ALL)) {
                     return false;
                 }
+                BlueprintMaterials.Cost paid = BlueprintMaterials.cost(state);
+                com.simplebuilding.util.WandUndo.record(player, level, pos, state, paid.item(), paid.count());
                 if (holder[0] != null && holder[0].sound == null) {
                     holder[0].sound = state.getSoundType();
                 }
@@ -648,7 +741,8 @@ public final class BlueprintBuilder {
         };
         Planner planner = new Planner(level, player, wand, layout, realSupply(player, wand), creative, false);
         planner.resumeAt(index, placedBefore);
-        Job job = new Job(planner, player, wand, blueprint, placer, target, BlueprintJobs.hash(content.code()), content.title(), rotation);
+        Job job = new Job(planner, player, wand, blueprint, placer, target,
+                content == null ? null : BlueprintJobs.hash(content.code()), content == null ? "" : content.title(), rotation);
         job.visitsPerTick = BlueprintScanner.smallBudget(player) ? 3 : visitsPerTick(planner.layout.size());
         holder[0] = job;
         job.lastTick = level.getGameTime();
@@ -697,8 +791,8 @@ public final class BlueprintBuilder {
             if (level instanceof ServerLevel serverLevel) {
                 BlueprintJobs.clear(serverLevel, id);
             }
-            tell(player, Component.translatable("simplebuilding.blueprint.build.stopped", job.planner.result().placed())
-                    .withStyle(ChatFormatting.YELLOW));
+            tell(player, Component.translatable(job.codeHash == null ? "simplebuilding.wand.shape.stopped"
+                    : "simplebuilding.blueprint.build.stopped", job.planner.result().placed()).withStyle(ChatFormatting.YELLOW));
             return;
         }
         if (level.getGameTime() == job.lastTick) {
@@ -718,7 +812,8 @@ public final class BlueprintBuilder {
         }
         if (!inMainHand || player.getMainHandItem() != wandStack || player.getOffhandItem() != check.blueprint) {
             CHECKS.remove(player.getUUID());
-            tell(player, Component.translatable("simplebuilding.blueprint.build.stopped", 0).withStyle(ChatFormatting.YELLOW));
+            tell(player, Component.translatable(check.content == null ? "simplebuilding.wand.shape.stopped"
+                    : "simplebuilding.blueprint.build.stopped", 0).withStyle(ChatFormatting.YELLOW));
             return;
         }
         if (level.getGameTime() == check.lastTick) {
@@ -843,7 +938,7 @@ public final class BlueprintBuilder {
             SoundType sound = job.sound;
             level.playSound(null, job.target, sound.getPlaceSound(), SoundSource.BLOCKS, (sound.getVolume() + 1.0F) / 2.0F, sound.getPitch() * 0.8F);
         }
-        if (level instanceof ServerLevel serverLevel) {
+        if (level instanceof ServerLevel serverLevel && job.codeHash != null) {
             if (result.finished()) {
                 BlueprintJobs.clear(serverLevel, player.getUUID());
             } else {
@@ -884,8 +979,12 @@ public final class BlueprintBuilder {
      * sonst ist es der bestaetigende Klick.
      */
     private static void clientClick(Level level, Player player, ItemStack wand, ItemStack blueprint, BlockHitResult hit) {
+        clientWarnClick(player, preview(level, player, wand, blueprint, hit));
+    }
+
+    /** Client-Seite eines Bau-Klicks mit Vorschau (Blaupause, Oktant-Fuellung): Warnklick oder Bestaetigung. */
+    public static void clientWarnClick(Player player, Preview preview) {
         long now = net.minecraft.util.Util.getMillis();
-        Preview preview = preview(level, player, wand, blueprint, hit);
         if (!preview.missing().isEmpty() && !player.getAbilities().instabuild && now - lastClientWarn > CONFIRM_TICKS * 50L) {
             lastClientWarn = now;
             flashUntil = now + 1500;
