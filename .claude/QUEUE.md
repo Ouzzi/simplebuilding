@@ -83,10 +83,11 @@ Verlauf im Detail: git log.
 - [ ] Eigene Kolbenkoepfe je Stufe (+ klebrig); beim Kolben-Abbau Partikel, Block-Abbau-Sound + eigener Bohr-Sound
 - [ ] Erstbeitritt: Spawn-Teleporter und Pad standardmaessig 0 (zwei Config-Werte)
 - [ ] Enderit-Tweaks-Bloecke: neue Pixelart statt Umfaerbung
-- [ ] Audit: alle Auffaelligkeiten der Mod auflisten
+- [x] Audit: alle Auffaelligkeiten der Mod auflisten -> docs/AUDIT-2026-09-26.md (52 Punkte)
 - [ ] Client-Gate (6 Ziele) sobald Besitzer-Client/-Server geschlossen; Testzentrale neu bauen
 
 ## Wartet auf den Besitzer
+- [ ] Audit-Fixes freigeben (Vorschlag: P1+P2 sofort, P3 danach); Entscheidungen: Trim-Multiplikator speichern? Endportalrahmen-Standard aus?
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
 
 ## Spaeter
