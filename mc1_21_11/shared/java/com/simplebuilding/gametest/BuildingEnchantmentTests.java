@@ -795,22 +795,30 @@ public final class BuildingEnchantmentTests {
         paletteWand.enchant(enchantment(helper, ModEnchantments.COLOR_PALETTE), 1);
 
         // --- with enough of both, the placed plane is the preview, position by position ---
-        stageInventory(player, paletteWand, new ItemStack(Items.OAK_PLANKS, 16), new ItemStack(Items.GLASS, 16));
-        Map<BlockPos, BlockState> preview = BuildingWandItem.getPreviewStates(helper.getLevel(), player, paletteWand,
-                helper.absolutePos(paletteAnchor), Direction.UP, ModItems.DIAMOND_BUILDING_WAND.getWandSquareDiameter());
-        runWandUntilIdle(helper, player, paletteWand, paletteAnchor,
-                new ItemStack(Items.OAK_PLANKS, 16), new ItemStack(Items.GLASS, 16));
-        Assertions.valueEqual(helper, preview.size(), 9, "the Color Palette preview is not the 3x3");
+        // A 5x5 so that the preview is practically never a single colour (that would make the
+        // comparison blind to "always the first block"); the inner 3x3 is the plane the run
+        // below builds with only three planks.
+        ItemStack wideWand = wandWithRadius(new ItemStack(ModItems.DIAMOND_BUILDING_WAND), 2);
+        wideWand.enchant(enchantment(helper, ModEnchantments.COLOR_PALETTE), 1);
+        stageInventory(player, wideWand, new ItemStack(Items.OAK_PLANKS, 32), new ItemStack(Items.GLASS, 32));
+        BlockPos paletteOrigin = helper.absolutePos(paletteAnchor);
+        Map<BlockPos, BlockState> preview = BuildingWandItem.getPreviewStates(helper.getLevel(), player, wideWand,
+                paletteOrigin, Direction.UP, ModItems.DIAMOND_BUILDING_WAND.getWandSquareDiameter());
+        runWandUntilIdle(helper, player, wideWand, paletteAnchor,
+                new ItemStack(Items.OAK_PLANKS, 32), new ItemStack(Items.GLASS, 32));
+        Assertions.valueEqual(helper, preview.size(), 25, "the Color Palette preview is not the 5x5");
+        Assertions.valueEqual(helper, distinctBlocks(preview).size(), 2, "the 5x5 Color Palette preview drew only one of the two blocks");
         int previewedPlanks = 0;
         for (Map.Entry<BlockPos, BlockState> entry : preview.entrySet()) {
             Assertions.valueEqual(helper, helper.getLevel().getBlockState(entry.getKey()).getBlock(), entry.getValue().getBlock(),
                     "Color Palette placed a different block than its preview showed at " + entry.getKey());
-            if (entry.getValue().is(Blocks.OAK_PLANKS)) {
+            BlockPos off = entry.getKey().subtract(paletteOrigin);
+            if (entry.getValue().is(Blocks.OAK_PLANKS) && Math.abs(off.getX()) <= 1 && Math.abs(off.getZ()) <= 1) {
                 previewedPlanks++;
             }
         }
-        for (int dx = -1; dx <= 1; dx++) {
-            for (int dz = -1; dz <= 1; dz++) {
+        for (int dx = -2; dx <= 2; dx++) {
+            for (int dz = -2; dz <= 2; dz++) {
                 helper.setBlock(paletteAnchor.offset(dx, 1, dz), Blocks.AIR);
             }
         }
