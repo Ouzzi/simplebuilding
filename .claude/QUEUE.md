@@ -157,3 +157,8 @@ F Trims & UI (nach A-D, eigener Agent):
   - GEAENDERT: Beispiel nur per Knopf "Beispiel einfuegen" in der leeren Vorschau, zufaellig Dorfhaus oder biomtypisches Bauwerk (<=16^3), keine Automatik; Autospeichern beim Schliessen + entprellt beim Tippen
   - Sign/Done so breit wie die Vorschau; Kartografentisch kopiert signierte Blaupause als unsignierte Kopie (Original bleibt); Bauen nur mit signierter Blaupause
 - Gate Welle 7/8: Server gruen (1832), Clients rot: SurvivalSync-Zaehler, Trichter-Ghost-Overlay, Rucksack-Grenzwert -> F behebt (Client-Laeufe einzeln)
+
+## Stand 2026-09-25 abends
+- ERLEDIGT + gepusht (5eb3bbb): Wellen 7/8 komplett, Gate 2345/2345
+- LAEUFT: Welle 9 MC 26.3 (Agent, Overlay-Struktur, Fabric+NeoForge)
+- WARTET auf Besitzer: Zeilen-Layout SimpleMachines freigeben
