@@ -738,6 +738,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("blueprint_game_test_material_list_counts_items_sorted_by_amount", BlueprintTests::materialListCountsItemsSortedByAmount)
                     .build(),
+            GameTestSpec.named("blueprint_game_test_material_list_counts_multi_item_blocks_by_their_state", BlueprintTests::materialListCountsMultiItemBlocksByTheirState)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_build_consumes_every_candle_and_pickle_it_needs", BlueprintTests::buildConsumesEveryCandleAndPickleItNeeds)
+                    .build(),
             GameTestSpec.named("blueprint_game_test_cartography_table_scans_the_octant_selection", BlueprintTests::cartographyTableScansTheOctantSelection)
                     .build(),
             GameTestSpec.named("blueprint_game_test_scan_follows_the_octant_shape", BlueprintTests::scanFollowsTheOctantShape)
@@ -763,6 +767,10 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("blueprint_game_test_build_stops_when_the_wand_leaves_the_main_hand", BlueprintTests::buildStopsWhenTheWandLeavesTheMainHand)
                     .build(),
             GameTestSpec.named("blueprint_game_test_missing_blocks_need_the_second_click", BlueprintTests::missingBlocksNeedTheSecondClick)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_missing_blocks_check_has_no_cap_and_runs_over_several_ticks", BlueprintTests::missingBlocksCheckHasNoCapAndRunsOverSeveralTicks)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_running_build_survives_logout_and_resumes_with_the_same_blueprint", BlueprintTests::runningBuildSurvivesLogoutAndResumesWithTheSameBlueprint)
                     .build(),
             GameTestSpec.named("blueprint_game_test_build_places_only_available_blocks_and_skips_existing_ones", BlueprintTests::buildPlacesOnlyAvailableBlocksAndSkipsExistingOnes)
                     .build(),
