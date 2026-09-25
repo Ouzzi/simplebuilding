@@ -25,7 +25,7 @@ Verlauf im Detail: git log.
 
 ## Laeuft
 - [x] Welle 9: MC 26.3 als dritte Linie (Fabric + NeoForge), alle 13 Ziele gruen, gepusht
-- [ ] 26.3-Reste: Wiki-Umschalter 26.3, Erzdetektor-Kalibrierung aus 26.2-Welten (id statt Name), dunklere Trim-Variante, Jade/AppleSkin/Mouse Tweaks fuer 26.3, NeoForge-Upload als Beta
+- [ ] Welle 12 (laeuft) 26.3-Reste: Wiki-Umschalter 26.3, Erzdetektor-Kalibrierung aus 26.2-Welten (id statt Name), dunklere Trim-Variante, Jade/AppleSkin/Mouse Tweaks fuer 26.3, NeoForge-Upload als Beta
 
 ## Welle 10 (erledigt, auf master, noch nicht gepusht)
 - [x] Ausstehende Gegenproben: Hammer-Risse (Client), Anstossen schwebender Bloecke am Sand, Vorwaerts-Umformen Bretter/Ziegel
