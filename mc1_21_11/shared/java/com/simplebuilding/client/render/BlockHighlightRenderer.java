@@ -1,5 +1,7 @@
 package com.simplebuilding.client.render;
 
+import com.simplebuilding.util.OctantShape;
+
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.client.ClientState;
 import com.simplebuilding.enchantment.ModEnchantments;
@@ -157,19 +159,9 @@ public class BlockHighlightRenderer {
         BlockPos pos1 = getPos(nbt, "Pos1");
         BlockPos pos2 = getPos(nbt, "Pos2");
 
-        String shapeName = nbt.getStringOr("Shape", "");
-        OctantItem.SelectionShape shape = OctantItem.SelectionShape.CUBOID;
-        try { if (!shapeName.isEmpty()) shape = OctantItem.SelectionShape.valueOf(shapeName); } catch (Exception ignored) {}
-
-        int orientIdx = nbt.getIntOr("Orientation", 1); // 0=+X, 1=+Y, 2=+Z, 3=-X, 4=-Y, 5=-Z
-        Direction orientation = switch (orientIdx) {
-            case 0 -> Direction.EAST;
-            case 2 -> Direction.SOUTH;
-            case 3 -> Direction.WEST;
-            case 4 -> Direction.DOWN;
-            case 5 -> Direction.NORTH;
-            default -> Direction.UP;
-        };
+        // Form und Ausrichtung aus derselben Quelle wie der Blaupausen-Scan (OctantShape).
+        OctantItem.SelectionShape shape = OctantShape.shape(nbt);
+        Direction orientation = OctantShape.orientation(nbt);
 
         if (pos1 == null && pos2 == null) return;
 
@@ -194,29 +186,7 @@ public class BlockHighlightRenderer {
         if (pos1 != null && pos2 != null && showFill && (ClientState.showOctantFigure || octantFromTable)) {
             AABB bounds = getFullArea(pos1, pos2);
 
-            Predicate<BlockPos> shapeFunc = switch (shape) {
-                // Fix: Uses strict < bounds.maxY to exclude the block above the selection
-                case CYLINDER, ELLIPSE -> p -> {
-                    // Normalize point relative to bounds center
-                    AABB tBounds = transformToY(bounds, orientation.getAxis());
-                    BlockPos transformed = transformToY(p, orientation, tBounds);
-                    // Check Height (Y in transformed space)
-                    if (transformed.getY() < tBounds.minY || transformed.getY() >= tBounds.maxY) return false;
-                    return isPointInEllipse(transformed.getX() + 0.5, transformed.getZ() + 0.5, tBounds);
-                };
-                case SPHERE -> p -> isPointInEllipsoid(p.getX() + 0.5, p.getY() + 0.5, p.getZ() + 0.5, bounds);
-                case PYRAMID -> p -> {
-                     AABB tBounds = transformToY(bounds, orientation.getAxis());
-                     BlockPos transformed = transformToY(p, orientation, tBounds);
-                     return isPointInPyramid(transformed.getX() + 0.5, transformed.getY() + 0.5, transformed.getZ() + 0.5, tBounds);
-                };
-                case TRIANGLE -> p -> { // Prism
-                     AABB tBounds = transformToY(bounds, orientation.getAxis());
-                     BlockPos transformed = transformToY(p, orientation, tBounds);
-                     return isPointInPrism(transformed.getX() + 0.5, transformed.getY() + 0.5, transformed.getZ() + 0.5, tBounds);
-                };
-                case RECTANGLE, CUBOID -> p -> true;
-            };
+            Predicate<BlockPos> shapeFunc = OctantShape.predicate(shape, orientation, bounds);
 
             if (shape == OctantItem.SelectionShape.CUBOID || shape == OctantItem.SelectionShape.RECTANGLE) {
                 drawBoxOutline(matrices, lines, bounds.inflate(0.003), colors.r3(), colors.g3(), colors.b3(), lineAlpha);
@@ -240,27 +210,6 @@ public class BlockHighlightRenderer {
         if (!fill.isEmpty()) {
             collector.submitCustomGeometry(matrices, RenderTypes.debugQuads(), (pose, buffer) -> fill.replay(buffer));
         }
-    }
-
-    // --- TRANSFORM HELPERS (Rotate space to Y-up) ---
-    private static BlockPos transformToY(BlockPos p, Direction orientation, AABB transformedBounds) {
-        BlockPos transformed = switch (orientation.getAxis()) {
-            case Y -> p;
-            case X -> new BlockPos(p.getY(), p.getX(), p.getZ());
-            case Z -> new BlockPos(p.getX(), p.getZ(), p.getY());
-        };
-
-        if (orientation.getAxisDirection() == Direction.AxisDirection.NEGATIVE) {
-            int flippedY = (int) (transformedBounds.minY + transformedBounds.maxY - 1 - transformed.getY());
-            return new BlockPos(transformed.getX(), flippedY, transformed.getZ());
-        }
-
-        return transformed;
-    }
-    private static AABB transformToY(AABB b, Direction.Axis orientation) {
-        if (orientation == Direction.Axis.Y) return b;
-        if (orientation == Direction.Axis.X) return new AABB(b.minY, b.minX, b.minZ, b.maxY, b.maxX, b.maxZ);
-        return new AABB(b.minX, b.minZ, b.minY, b.maxX, b.maxZ, b.maxY);
     }
 
     // =================================================================================
@@ -330,45 +279,6 @@ public class BlockHighlightRenderer {
         if (face.getAxis() != Direction.Axis.Z && edgeDir.getAxis() != Direction.Axis.Z) { z1 = pos.getZ(); z2 = pos.getZ() + 1; }
 
         drawLineWithNormal(builder, matrices.last().pose(), x1, y1, z1, x2, y2, z2, r, g, b, a);
-    }
-
-    // --- MATH HELPERS ---
-    private static boolean isPointInEllipse(double x, double z, AABB b) {
-        double width = b.maxX - b.minX; double length = b.maxZ - b.minZ;
-        double cx = b.minX + width / 2.0; double cz = b.minZ + length / 2.0;
-        double rx = width / 2.0; double rz = length / 2.0;
-        if (rx <= 0 || rz <= 0) return false;
-        return Math.pow(x - cx, 2) / Math.pow(rx, 2) + Math.pow(z - cz, 2) / Math.pow(rz, 2) <= 1.0;
-    }
-    private static boolean isPointInEllipsoid(double x, double y, double z, AABB b) {
-        double w = b.maxX - b.minX; double h = b.maxY - b.minY; double l = b.maxZ - b.minZ;
-        double cx = b.minX + w/2.0; double cy = b.minY + h/2.0; double cz = b.minZ + l/2.0;
-        double rx = w/2.0; double ry = h/2.0; double rz = l/2.0;
-        if (rx<=0||ry<=0||rz<=0) return false;
-        return Math.pow(x-cx,2)/Math.pow(rx,2) + Math.pow(y-cy,2)/Math.pow(ry,2) + Math.pow(z-cz,2)/Math.pow(rz,2) <= 1.0;
-    }
-    private static boolean isPointInPyramid(double x, double y, double z, AABB b) {
-        double w = b.maxX - b.minX; double h = b.maxY - b.minY; double l = b.maxZ - b.minZ;
-        double cx = b.minX + w/2.0; double cz = b.minZ + l/2.0;
-        double rx = w/2.0; double rz = l/2.0;
-        if (y < b.minY || y >= b.maxY) return false;
-        double progress = (y - b.minY) / h;
-        double crx = rx * (1.0 - progress);
-        double crz = rz * (1.0 - progress);
-        return Math.abs(x - cx) <= crx && Math.abs(z - cz) <= crz;
-    }
-    private static boolean isPointInPrism(double x, double y, double z, AABB b) {
-        double wX = b.maxX - b.minX; double h = b.maxY - b.minY; double wZ = b.maxZ - b.minZ;
-        if (y < b.minY || y >= b.maxY) return false;
-        boolean alongZ = wZ > wX;
-        double progress = (y - b.minY) / h;
-        if (alongZ) {
-            double cx = b.minX + wX / 2.0;
-            return Math.abs(x - cx) <= (wX / 2.0) * (1.0 - progress);
-        } else {
-            double cz = b.minZ + wZ / 2.0;
-            return Math.abs(z - cz) <= (wZ / 2.0) * (1.0 - progress);
-        }
     }
 
     /**

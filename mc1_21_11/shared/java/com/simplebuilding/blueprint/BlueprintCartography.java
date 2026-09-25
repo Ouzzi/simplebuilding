@@ -38,20 +38,94 @@ public final class BlueprintCartography {
         return BlueprintScanner.isOctant(map) || additional.getItem() instanceof com.simplebuilding.items.custom.BlueprintItem;
     }
 
-    /** Das Scan-Ergebnis fuer den Tisch; meldet einen Ablehnungsgrund in der Aktionsleiste. */
-    public static ItemStack result(net.minecraft.world.level.Level level, net.minecraft.core.BlockPos table,
-                                   ItemStack map, ItemStack additional, Player player) {
-        if (!BlueprintScanner.isOctant(map) || !BlueprintScanner.isWritableBlueprint(additional)) {
-            if (player != null && BlueprintScanner.isOctant(map) && additional.getItem() instanceof com.simplebuilding.items.custom.BlueprintItem) {
-                player.displayClientMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.blueprint.scan.signed").withStyle(ChatFormatting.RED), true);
+    /**
+     * Der Scan-Zustand eines offenen Kartentischs (ein Feld im Mixin). {@link #inputsChanged} startet
+     * einen Scan oder verwirft ihn, {@link #tick} fuehrt ihn Tick fuer Tick fort (aus
+     * {@code broadcastChanges}, das der Server fuer das offene Menue jeden Tick ruft) und meldet den
+     * Fortschritt in der Aktionsleiste. Liegt etwas anderes im Tisch, wird der Scan abgebrochen.
+     */
+    public static final class TableScan {
+        private BlueprintScanner.Job job;
+        private long lastTick = Long.MIN_VALUE;
+        private int budget = BlueprintScanner.DEFAULT_BUDGET_PER_TICK;
+
+        public boolean running() {
+            return job != null;
+        }
+
+        /** Die Eingaben haben sich geaendert: neu starten, weiterlaufen lassen oder ablehnen. */
+        public void inputsChanged(net.minecraft.world.level.Level level, net.minecraft.core.BlockPos table,
+                                  ItemStack map, ItemStack additional, Player player, java.util.function.Consumer<ItemStack> result) {
+            if (job != null && job.matches(map, additional)) {
+                return;
             }
-            return ItemStack.EMPTY;
+            job = null;
+            if (!BlueprintScanner.isOctant(map) || !BlueprintScanner.isWritableBlueprint(additional)) {
+                if (player != null && BlueprintScanner.isOctant(map) && additional.getItem() instanceof com.simplebuilding.items.custom.BlueprintItem) {
+                    player.displayClientMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.blueprint.scan.signed").withStyle(ChatFormatting.RED), true);
+                }
+                result.accept(ItemStack.EMPTY);
+                return;
+            }
+            Object started = BlueprintScanner.start(level, table, map, additional);
+            if (started instanceof BlueprintScanner.Outcome outcome) {
+                finish(outcome, player, result);
+                return;
+            }
+            BlueprintScanner.Job next = (BlueprintScanner.Job) started;
+            result.accept(ItemStack.EMPTY);
+            budget = BlueprintScanner.budgetFor(player);
+            if (next.total() <= budget) {
+                next.step(level, budget);
+                finish(next.outcome(), player, result);
+                return;
+            }
+            job = next;
+            lastTick = level.getGameTime();
+            next.step(level, budget);
+            progress(player);
         }
-        BlueprintScanner.Outcome outcome = BlueprintScanner.scanAtTable(level, table, map, additional);
-        if (outcome.error() != null && player != null) {
-            player.displayClientMessage(outcome.error().copy().withStyle(ChatFormatting.RED), true);
+
+        /** Ein Tick des laufenden Scans (hoechstens einmal je Spieltick). */
+        public void tick(net.minecraft.world.level.Level level, ItemStack map, ItemStack additional, Player player,
+                         java.util.function.Consumer<ItemStack> result) {
+            if (job == null || level.getGameTime() == lastTick) {
+                return;
+            }
+            if (!job.matches(map, additional)) {
+                job = null;
+                return;
+            }
+            lastTick = level.getGameTime();
+            if (job.step(level, budget)) {
+                BlueprintScanner.Outcome outcome = job.outcome();
+                job = null;
+                finish(outcome, player, result);
+            } else {
+                progress(player);
+            }
         }
-        return outcome.result();
+
+        private void progress(Player player) {
+            if (player != null && job != null) {
+                player.displayClientMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.blueprint.scan.progress", job.percent())
+                        .withStyle(ChatFormatting.AQUA), true);
+            }
+        }
+
+        private static void finish(BlueprintScanner.Outcome outcome, Player player, java.util.function.Consumer<ItemStack> result) {
+            if (outcome.error() != null) {
+                if (player != null) {
+                    player.displayClientMessage(outcome.error().copy().withStyle(ChatFormatting.RED), true);
+                }
+                result.accept(ItemStack.EMPTY);
+                return;
+            }
+            if (player != null) {
+                player.displayClientMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.blueprint.scan.done").withStyle(ChatFormatting.GREEN), true);
+            }
+            result.accept(outcome.result());
+        }
     }
 
     static final class InputSlot extends Slot {

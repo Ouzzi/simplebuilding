@@ -5,6 +5,7 @@ import com.simplebuilding.blueprint.BlueprintCode;
 import com.simplebuilding.blueprint.BlueprintContent;
 import com.simplebuilding.blueprint.BlueprintMaterials;
 import com.simplebuilding.blueprint.BlueprintModel;
+import com.simplebuilding.blueprint.BlueprintScanner;
 import com.simplebuilding.blueprint.BlueprintTiers;
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.items.ModItems;
@@ -12,6 +13,7 @@ import com.simplebuilding.items.custom.BlueprintItem;
 import com.simplebuilding.networking.BlueprintEditPayload;
 import com.simplebuilding.networking.BlueprintRotatePayload;
 import com.simplebuilding.networking.ModMessageHandlers;
+import com.simplebuilding.util.OctantShape;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
@@ -22,6 +24,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.inventory.CartographyTableMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.Item;
@@ -106,7 +109,7 @@ public final class BlueprintTests {
         helper.assertTrue(m.size() == expected, "hut has " + m.size() + " blocks instead of " + expected);
 
         // Fehler: unbekannter Block, Koordinate ausserhalb, falsche Eigenschaft - mit Schluessel und Zeile.
-        BlueprintCode.ParseResult bad = BlueprintCode.parse("stne 0,0,0\nstone 0,0,128\noak_stairs[facing=up] 0,0,0\nstone");
+        BlueprintCode.ParseResult bad = BlueprintCode.parse("stne 0,0,0\nstone 0,0,256\noak_stairs[facing=up] 0,0,0\nstone");
         List<String> keys = bad.problems().stream().map(BlueprintCode.Problem::key).toList();
         helper.assertTrue(keys.equals(List.of("unknown_block", "coordinate_range", "bad_value", "no_region")),
                 "unexpected problems " + keys);
@@ -129,38 +132,67 @@ public final class BlueprintTests {
     }
 
     /**
-     * Grenzen: der Code hat eine Hoechstlaenge (sonst passt er nicht mehr in das Item), die
-     * Ausroll-Obergrenze faengt Riesen-Wiederholungen ab, und die Baustab-Stufen schaffen je einen
-     * Wuerfel: 16, 32, 48, 64, 96, 128.
+     * Grenzen: der Code hat eine Hoechstlaenge (sonst passt er nicht mehr in das Item), das Raster
+     * reicht von 0 bis 255, das Ausroll-Budget (4 194 304 Stellen) faengt Riesen-Wiederholungen vor
+     * dem Ausrollen ab, die Baustab-Stufen schaffen je einen Wuerfel (16, 32, 48, 64, 128, 256), und
+     * der Kartentisch nimmt Auswahlen bis 256 je Kante an, 257 nicht.
      *
-     * <p><strong>Was diesen Test bricht:</strong> eine fehlende Laengenpruefung, eine
-     * Wiederholung, die erst ausgerollt und dann gezaehlt wird, eine vertauschte Stufenzuordnung.
+     * <p><strong>Was diesen Test bricht:</strong> eine fehlende Laengenpruefung, ein Raster, das
+     * nicht bis 255 reicht oder darueber hinaus, eine Wiederholung, die erst ausgerollt und dann
+     * gezaehlt wird, eine vertauschte Stufenzuordnung, eine falsche Scan-Grenze.
      */
     public static void sizeLimitsCapTheCodeAndMapWandTiers(GameTestHelper helper) {
         String tooLong = "stone 0,0,0\n" + "#".repeat(BlueprintCode.MAX_CODE_LENGTH);
         List<String> keys = BlueprintCode.parse(tooLong).problems().stream().map(BlueprintCode.Problem::key).toList();
         helper.assertTrue(keys.contains("too_long"), "an over-long code was accepted: " + keys);
 
+        BlueprintCode.ParseResult corner = BlueprintCode.parse("stone 255,255,255 0,0,0");
+        helper.assertTrue(corner.ok() && corner.model().maxEdge() == 256, "the far corner 255,255,255 is not part of the grid: " + corner.problems());
+        List<String> outside = BlueprintCode.parse("stone 0,256,0").problems().stream().map(BlueprintCode.Problem::key).toList();
+        helper.assertTrue(outside.equals(List.of("coordinate_range")), "256 was accepted as a coordinate: " + outside);
+
         long start = System.nanoTime();
-        BlueprintCode.ParseResult huge = BlueprintCode.parse("stone 0..127,0..127,0..127*3@0,0,0");
+        BlueprintCode.ParseResult huge = BlueprintCode.parse("stone 0..255,0..255,0..64");
         helper.assertTrue(huge.problems().stream().anyMatch(p -> p.key().equals("too_many_cells")),
-                "three full 128-cubes were not refused: " + huge.problems());
-        helper.assertTrue(huge.model().isEmpty(), "the refused repetition was applied anyway");
-        helper.assertTrue(System.nanoTime() - start < 2_000_000_000L, "refusing the giant took too long - it was expanded first");
+                "a 256x256x65 block (over the budget) was not refused: " + huge.problems());
+        helper.assertTrue(huge.model().isEmpty(), "the refused region was applied anyway");
+        BlueprintCode.ParseResult repeated = BlueprintCode.parse("stone 0..255,0..255,0..15*5@0,0,16");
+        helper.assertTrue(repeated.problems().stream().anyMatch(p -> p.key().equals("too_many_cells")) && repeated.model().isEmpty(),
+                "a repetition over the budget was not refused before expanding: " + repeated.problems());
+        helper.assertTrue(System.nanoTime() - start < 2_000_000_000L, "refusing the giants took too long - they were expanded first");
 
         int[][] expected = {
                 {edge(ModItems.COPPER_BUILDING_WAND), 16}, {edge(ModItems.IRON_BUILDING_WAND), 32},
                 {edge(ModItems.GOLD_BUILDING_WAND), 48}, {edge(ModItems.DIAMOND_BUILDING_WAND), 64},
-                {edge(ModItems.NETHERITE_BUILDING_WAND), 96}, {edge(ModItems.ENDERITE_BUILDING_WAND), 128}};
+                {edge(ModItems.NETHERITE_BUILDING_WAND), 128}, {edge(ModItems.ENDERITE_BUILDING_WAND), 256}};
         for (int[] pair : expected) {
             helper.assertTrue(pair[0] == pair[1], "wand edge " + pair[0] + " instead of " + pair[1]);
         }
         helper.assertTrue(BlueprintTiers.tierIndexFor(16) == 0 && BlueprintTiers.tierIndexFor(17) == 1
-                        && BlueprintTiers.tierIndexFor(128) == 5 && BlueprintTiers.tierIndexFor(129) == -1,
+                        && BlueprintTiers.tierIndexFor(128) == 4 && BlueprintTiers.tierIndexFor(129) == 5
+                        && BlueprintTiers.tierIndexFor(256) == 5 && BlueprintTiers.tierIndexFor(257) == -1,
                 "tier lookup is off");
         BlueprintModel line = BlueprintCode.parse("stone 0..16,0,0").model();
         helper.assertTrue(line.maxEdge() == 17 && line.sizeX() == 17 && line.sizeY() == 1, "bounding box of a 17 line is wrong");
+
+        // Scan-Grenze: 256 je Kante geht (hoechstens "nicht geladen"), 257 ist zu gross.
+        BlockPos table = helper.absolutePos(new BlockPos(3, 1, 3));
+        Object ok = BlueprintScanner.start(helper.getLevel(), table,
+                octant(helper, new BlockPos(0, 1, 0), new BlockPos(255, 1, 0)), new ItemStack(ModItems.BLUEPRINT));
+        helper.assertTrue(!"too_large".equals(scanError(ok)), "a 256 wide selection was refused as too large");
+        Object big = BlueprintScanner.start(helper.getLevel(), table,
+                octant(helper, new BlockPos(0, 1, 0), new BlockPos(256, 1, 0)), new ItemStack(ModItems.BLUEPRINT));
+        helper.assertTrue("too_large".equals(scanError(big)), "a 257 wide selection was accepted: " + scanError(big));
         helper.succeed();
+    }
+
+    /** Der Schluessel einer Scan-Ablehnung ("too_large" ...), sonst {@code null}. */
+    private static String scanError(Object started) {
+        if (started instanceof BlueprintScanner.Outcome outcome && outcome.error() != null
+                && outcome.error().getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents t) {
+            return t.getKey().substring(t.getKey().lastIndexOf('.') + 1);
+        }
+        return null;
     }
 
     private static int edge(Item wand) {
@@ -300,14 +332,14 @@ public final class BlueprintTests {
         helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.STONE), "the free stone position was not built");
         helper.assertTrue(helper.getBlockState(TARGET.east()).is(Blocks.DIRT), "an occupied position was overwritten");
         helper.assertTrue(helper.getBlockState(TARGET.above()).isAir(), "glass appeared without glass in the inventory");
-        helper.assertTrue(first.placed().size() == 1 && first.already() == 1 && first.occupied() == 1 && first.missing() == 1,
+        helper.assertTrue(first.placed() == 1 && first.already() == 1 && first.occupied() == 1 && first.missing() == 1,
                 "unexpected tally " + first);
         helper.assertTrue(stone.getCount() == 4, "stone count " + stone.getCount() + " instead of 4");
         helper.assertTrue(wand.getDamageValue() == 1, "wand damage " + wand.getDamageValue() + " instead of 1");
 
         player.getInventory().setItem(2, new ItemStack(Items.GLASS, 3));
         BlueprintBuilder.Result second = build(helper, player, wand, blueprint);
-        helper.assertTrue(second != null && second.placed().size() == 1, "coming back did not fill the gap: " + second);
+        helper.assertTrue(second != null && second.placed() == 1, "coming back did not fill the gap: " + second);
         helper.assertTrue(helper.getBlockState(TARGET.above()).is(Blocks.GLASS), "the missing glass was not placed on the second click");
         helper.assertTrue(stone.getCount() == 4, "the second click spent stone on positions that were already right");
         helper.assertTrue(player.getInventory().getItem(2).getCount() == 2, "glass not consumed");
@@ -395,12 +427,149 @@ public final class BlueprintTests {
         ItemStack iron = new ItemStack(ModItems.IRON_BUILDING_WAND);
         hold(player, iron, blueprint);
         BlueprintBuilder.Result result = build(helper, player, iron, blueprint);
-        helper.assertTrue(result != null && result.placed().size() == 2, "the iron wand did not build the 17 block blueprint: " + result);
+        helper.assertTrue(result != null && result.placed() == 2, "the iron wand did not build the 17 block blueprint: " + result);
         helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.STONE) && helper.getBlockState(TARGET.above(16)).is(Blocks.STONE),
                 "the iron wand's build is not where it should be");
         helper.setBlock(TARGET.above(16), Blocks.AIR);
         clear(helper);
         helper.succeed();
+    }
+
+    /**
+     * Der Scan folgt der Figur des Oktanten, nicht seinem Rahmen: in einem massiven 5x5x5-Steinwuerfel
+     * nimmt eine Kugel-Auswahl genau die Bloecke auf, die {@code OctantShape} (dieselbe Quelle wie die
+     * Vorschau im Client) zur Kugel zaehlt - die Ecken fehlen, die Mitte ist da; ein liegender
+     * Zylinder (Ausrichtung +X) ebenso.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Scan, der die Bounding Box statt der Figur
+     * nimmt, eine Form- oder Ausrichtungs-Abfrage, die von der Vorschau abweicht.
+     */
+    public static void scanFollowsTheOctantShape(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        clear(helper);
+        for (int x = 1; x <= 5; x++) {
+            for (int y = 1; y <= 5; y++) {
+                for (int z = 1; z <= 5; z++) {
+                    helper.setBlock(new BlockPos(x, y, z), Blocks.STONE);
+                }
+            }
+        }
+        BlockPos table = helper.absolutePos(new BlockPos(7, 1, 7));
+        for (String[] shape : new String[][]{{"SPHERE", "1"}, {"CYLINDER", "0"}}) {
+            ItemStack octant = octant(helper, new BlockPos(1, 1, 1), new BlockPos(5, 5, 5));
+            CompoundTag nbt = OctantShape.data(octant);
+            nbt.putString("Shape", shape[0]);
+            nbt.putInt("Orientation", Integer.parseInt(shape[1]));
+            octant.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
+            java.util.function.Predicate<BlockPos> inShape = OctantShape.of(octant);
+            BlueprintModel expected = new BlueprintModel();
+            for (int x = 0; x < 5; x++) {
+                for (int y = 0; y < 5; y++) {
+                    for (int z = 0; z < 5; z++) {
+                        if (inShape.test(helper.absolutePos(new BlockPos(x + 1, y + 1, z + 1)))) {
+                            expected.set(x, y, z, Blocks.STONE.defaultBlockState());
+                        }
+                    }
+                }
+            }
+            helper.assertTrue(expected.size() > 0 && expected.size() < 125, shape[0] + ": the shape predicate selects "
+                    + expected.size() + " of 125 blocks - nothing to tell apart from the frame");
+            BlueprintScanner.Outcome outcome = BlueprintScanner.scanAtTable(level, table, octant, new ItemStack(ModItems.BLUEPRINT));
+            helper.assertTrue(outcome.error() == null, shape[0] + ": scan refused: " + outcome.error());
+            BlueprintModel scanned = BlueprintCode.parse(BlueprintItem.content(outcome.result()).code()).model();
+            helper.assertTrue(scanned.equals(expected.normalized()), shape[0] + ": scanned " + scanned.size()
+                    + " blocks, the octant's figure has " + expected.size());
+            if (shape[0].equals("SPHERE")) {
+                helper.assertTrue(scanned.get(0, 0, 0) == null && scanned.get(2, 2, 2) != null,
+                        "sphere: a corner was scanned or the centre is missing");
+            }
+        }
+        clear(helper);
+        helper.succeed();
+    }
+
+    /**
+     * Grosse Scans laufen ueber mehrere Ticks: mit einem Budget von 20 Stellen je Tick liegt nach dem
+     * Einlegen noch kein Ergebnis im Tisch, der Scan laeuft; die folgenden Ticks (das offene Menue ruft
+     * jeden Tick {@code broadcastChanges}) bringen die fertige Blaupause mit genau der Auswahl.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Scan, der das Tick-Budget ignoriert (alles in
+     * einem Zug), ein Auftrag, der nie weiterlaeuft oder nie fertig wird, ein Ergebnis, das beim
+     * Stueckeln Stellen verliert.
+     */
+    public static void largeScanRunsOverSeveralTicks(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = mockPlayer(helper, false);
+        clear(helper);
+        helper.setBlock(new BlockPos(1, 1, 1), Blocks.STONE);
+        helper.setBlock(new BlockPos(5, 3, 5), Blocks.GLASS);
+        BlueprintModel expected = new BlueprintModel();
+        expected.set(0, 0, 0, Blocks.STONE.defaultBlockState());
+        expected.set(4, 2, 4, Blocks.GLASS.defaultBlockState());
+        expected.set(2, 0, 2, Blocks.OBSIDIAN.defaultBlockState()); // der geklickte Block aus clear()
+        player.addTag(BlueprintScanner.SMALL_BUDGET_TAG);
+        CartographyTableMenu menu = new CartographyTableMenu(11, player.getInventory(),
+                ContainerLevelAccess.create(level, helper.absolutePos(new BlockPos(7, 1, 7))));
+        menu.getSlot(0).set(octant(helper, new BlockPos(1, 1, 1), new BlockPos(5, 3, 5)));
+        menu.getSlot(1).set(new ItemStack(ModItems.BLUEPRINT));
+        helper.assertTrue(menu.getSlot(2).getItem().isEmpty(), "75 positions at 20 per tick finished in the first tick");
+        helper.startSequence()
+                .thenWaitUntil(() -> {
+                    menu.broadcastChanges();
+                    helper.assertTrue(!menu.getSlot(2).getItem().isEmpty(), "the scan has not finished yet");
+                })
+                .thenExecute(() -> {
+                    BlueprintModel scanned = BlueprintCode.parse(BlueprintItem.content(menu.getSlot(2).getItem()).code()).model();
+                    helper.assertTrue(scanned.equals(expected), "the scan in slices lost or moved blocks: " + scanned.describe());
+                })
+                .thenSucceed();
+    }
+
+    /**
+     * Grosse Bauten laufen ueber mehrere Ticks: mit 3 Bloecken je Tick setzt der Klick die ersten drei,
+     * die Ticks des Baustabs in der Haupthand den Rest; legt der Spieler die Blaupause weg, bricht
+     * der Auftrag ab und setzt nichts mehr.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Bau, der das Tick-Budget ignoriert, ein Auftrag,
+     * der nie weiterlaeuft, einer, der ohne Blaupause in der Nebenhand weiterbaut.
+     */
+    public static void largeBuildRunsOverSeveralTicks(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = mockPlayer(helper, true);
+        clear(helper);
+        player.addTag(BlueprintScanner.SMALL_BUDGET_TAG);
+        ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
+        ItemStack blueprint = blueprint("stone 0,0,0..0,0,4");
+        hold(player, wand, blueprint);
+        BlueprintBuilder.Result first = build(helper, player, wand, blueprint);
+        helper.assertTrue(first != null && first.placed() == 3 && !first.finished() && BlueprintBuilder.building(player),
+                "the first slice is not three blocks with a job left over: " + first);
+        helper.startSequence()
+                .thenExecuteAfter(1, () -> wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND))
+                .thenExecuteAfter(1, () -> wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND))
+                .thenExecute(() -> {
+                    for (int z = 0; z <= 4; z++) {
+                        helper.assertTrue(helper.getBlockState(TARGET.south(z)).is(Blocks.STONE), "block " + z + " was not built by the job");
+                    }
+                    helper.assertTrue(!BlueprintBuilder.building(player), "the finished job is still registered");
+                    clear(helper);
+                    BlueprintBuilder.Result again = build(helper, player, wand, blueprint);
+                    helper.assertTrue(again != null && again.placed() == 3, "the second build did not start with three blocks");
+                    player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+                    helper.assertTrue(player.getOffhandItem().isEmpty(), "the off hand could not be emptied");
+                })
+                .thenExecuteAfter(1, () -> wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND))
+                .thenExecute(() -> {
+                    StringBuilder built = new StringBuilder();
+                    for (int z = 0; z <= 4; z++) {
+                        built.append(helper.getBlockState(TARGET.south(z)).is(Blocks.STONE) ? '#' : '.');
+                    }
+                    helper.assertTrue(helper.getBlockState(TARGET.south(3)).isAir(),
+                            "the job went on without the blueprint in the off hand: " + built + " offhand=" + player.getOffhandItem());
+                    helper.assertTrue(!BlueprintBuilder.building(player), "the cancelled job is still registered");
+                    clear(helper);
+                })
+                .thenSucceed();
     }
 
     // =====================================================================================
