@@ -21,6 +21,9 @@ sourceSets {
 			// compiled only by the 26.2 modules (this one, :neoforge, :forge); the 26.3 twins live in
 			// mc26_3/overlay/java. checkOverlays below keeps the two sets in step.
 			srcDir "common/src/mc26_2/java"
+			// Fabric-only files that differ on 26.3 (e.g. recipe datagen plumbing); 26.3 twins in
+			// mc26_3/fabric/src/main/java.
+			srcDir "src/mc26_2/java"
 			// JEI plugin (compileOnly JEI API, only ever loaded by JEI itself). Its own tree
 			// because the forge module compiles common/src/shared/java too and there is no JEI
 			// for Forge 26.2.
@@ -107,6 +110,8 @@ fabricApi {
 // Only the client test source sets pull this in, so none of it can reach a shipped jar.
 sourceSets.named('gametest') {
 	java.srcDir 'common/src/shared/clientgametest/java'
+	// 26.2 side of the client-test version shim (26.3 twin: mc26_3/overlay/clientgametest/java)
+	java.srcDir 'common/src/mc26_2/clientgametest/java'
 }
 
 loom {

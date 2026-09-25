@@ -1,5 +1,7 @@
 package com.simplebuilding.datagen;
 
+import com.simplebuilding.version.LootNumbers;
+
 import com.simplebuilding.loot.ModLootTableModifications;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.ModBlocks;
@@ -21,15 +23,11 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction;
 import net.minecraft.world.level.storage.loot.functions.SetComponentsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.providers.number.BinomialDistributionGenerator;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import java.util.concurrent.CompletableFuture;
 
 // List all Loot Table types:
@@ -127,7 +125,7 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
 
     private static LootTable.Builder backpackDrop(Block block) {
         return LootTable.lootTable().withPool(LootPool.lootPool()
-                .setRolls(ConstantValue.exactly(1.0F))
+                .setRolls(LootNumbers.exactly(1))
                 .add(LootItem.lootTableItem(block)
                         .apply(CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY))));
     }

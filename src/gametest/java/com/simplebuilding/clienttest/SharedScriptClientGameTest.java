@@ -1,5 +1,7 @@
 package com.simplebuilding.clienttest;
 
+import com.simplebuilding.clientgametest.ClientTestVersion;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -287,7 +289,7 @@ public final class SharedScriptClientGameTest implements FabricClientGameTest {
             // pixels changed, two attempts out of four in one mutation round). The section under
             // the player has to have a mesh again before a picture means anything.
             return context.computeOnClient(client -> client.player != null
-                    && client.levelRenderer.isSectionCompiledAndVisible(client.player.blockPosition())
+                    && ClientTestVersion.isSectionCompiledAndVisible(client, client.player.blockPosition())
                     && client.levelRenderer.hasRenderedAllSections());
         }
 

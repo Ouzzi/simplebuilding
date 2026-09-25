@@ -367,10 +367,10 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_HOE, ModelTemplates.FLAT_HANDHELD_ITEM);
 
         // --- NEW: ENDERITE ARMOR (TRIM-AWARE) ---
-        itemModelGenerator.generateTrimmableItem(ModItems.ENDERITE_HELMET, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerators.TRIM_PREFIX_HELMET, false);
-        itemModelGenerator.generateTrimmableItem(ModItems.ENDERITE_CHESTPLATE, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerators.TRIM_PREFIX_CHESTPLATE, false);
-        itemModelGenerator.generateTrimmableItem(ModItems.ENDERITE_LEGGINGS, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerators.TRIM_PREFIX_LEGGINGS, false);
-        itemModelGenerator.generateTrimmableItem(ModItems.ENDERITE_BOOTS, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerators.TRIM_PREFIX_BOOTS, false);
+        ModelGenCompat.trimmableArmorItem(itemModelGenerator, ModItems.ENDERITE_HELMET, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerators.TRIM_PREFIX_HELMET);
+        ModelGenCompat.trimmableArmorItem(itemModelGenerator, ModItems.ENDERITE_CHESTPLATE, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerators.TRIM_PREFIX_CHESTPLATE);
+        ModelGenCompat.trimmableArmorItem(itemModelGenerator, ModItems.ENDERITE_LEGGINGS, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerators.TRIM_PREFIX_LEGGINGS);
+        ModelGenCompat.trimmableArmorItem(itemModelGenerator, ModItems.ENDERITE_BOOTS, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerators.TRIM_PREFIX_BOOTS);
 
         // --- NEW: ENDERITE MATERIALS (GENERATED) ---
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_CORE, ModelTemplates.FLAT_ITEM);

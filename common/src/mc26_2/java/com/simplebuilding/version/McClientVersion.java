@@ -25,6 +25,11 @@ public final class McClientVersion {
         return InputConstants.Type.KEYSYM;
     }
 
+    /** Whether a keyboard key is held right now (26.3 dropped the window parameter). */
+    public static boolean isKeyDown(net.minecraft.client.Minecraft client, int keyCode) {
+        return InputConstants.isKeyDown(client.getWindow(), keyCode);
+    }
+
     /** Whether a baked quad asks for directional shading (26.3: no UP shade override). */
     public static boolean quadShaded(BakedQuad quad) {
         return quad.materialInfo().shade();

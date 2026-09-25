@@ -1739,7 +1739,7 @@ public final class ClientBootstrapClientTest {
      */
     private static void assertModifierIsVisibleToTheMixin(Script script, String label, int glfwKeyCode) {
         script.act("the held " + label + " is visible to InputConstants.isKeyDown", client -> {
-            if (!InputConstants.isKeyDown(client.getWindow(), glfwKeyCode)) {
+            if (!McClientVersion.isKeyDown(client, glfwKeyCode)) {
                 throw new AssertionError("Setup failed: the harness holds GLFW key " + glfwKeyCode + " ("
                         + label + ") but InputConstants.isKeyDown says it is up, and that is the exact call "
                         + "MouseMixin uses for Control and Alt. This driver's input does not reach the real "

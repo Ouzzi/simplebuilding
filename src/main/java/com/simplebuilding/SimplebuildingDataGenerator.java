@@ -36,7 +36,7 @@ public class SimplebuildingDataGenerator implements DataGeneratorEntrypoint {
     public void buildRegistry(RegistrySetBuilder registryBuilder) {
         registryBuilder.add(Registries.ENCHANTMENT, ModEnchantments::bootstrap);
 
-        registryBuilder.add(Registries.CONFIGURED_FEATURE, ModWorldGen::bootstrapConfiguredFeatures);
+        registryBuilder.add(ModWorldGen.FEATURE_REGISTRY, ModWorldGen::bootstrapConfiguredFeatures);
         registryBuilder.add(Registries.PLACED_FEATURE, ModWorldGen::bootstrapPlacedFeatures);
 
         // NEU: Trim Materials registrieren!

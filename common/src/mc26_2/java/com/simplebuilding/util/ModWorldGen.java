@@ -28,7 +28,15 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTes
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import java.util.List;
 
+/**
+ * End ore generation, MC 26.2 side (twin: mc26_3/overlay/java/.../ModWorldGen.java). 26.3 replaced
+ * ConfiguredFeature + FeatureConfiguration by self-configured Feature records in the
+ * worldgen/feature registry; the placements and the numbers are identical on both lines.
+ */
 public class ModWorldGen {
+
+    /** The registry the ore features live in; datagen and NeoForge register through this. */
+    public static final ResourceKey<net.minecraft.core.Registry<ConfiguredFeature<?, ?>>> FEATURE_REGISTRY = Registries.CONFIGURED_FEATURE;
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> ASTRALIT_ORE_KEY = registerConfiguredKey("astralit_ore");
     public static final ResourceKey<ConfiguredFeature<?, ?>> NIHILITH_ORE_KEY = registerConfiguredKey("nihilith_ore");

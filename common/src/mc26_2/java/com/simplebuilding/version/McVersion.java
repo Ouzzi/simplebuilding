@@ -108,6 +108,15 @@ public final class McVersion {
         return new TrimMaterial(MaterialAssetGroup.create(paletteName), description);
     }
 
+    /** Gametest metadata (26.3 added the test dimension; the 26.2 tests run in the overworld). */
+    public static <E> net.minecraft.gametest.framework.TestData<E> testData(
+            E environment, net.minecraft.resources.Identifier structure, int maxTicks, int setupTicks, boolean required,
+            net.minecraft.world.level.block.Rotation rotation, boolean manualOnly, int maxAttempts, int requiredSuccesses,
+            boolean skyAccess, int padding) {
+        return new net.minecraft.gametest.framework.TestData<>(environment, structure, maxTicks, setupTicks, required,
+                rotation, manualOnly, maxAttempts, requiredSuccesses, skyAccess, padding);
+    }
+
     /** Block properties that never block the view (26.3 added a near-plane box parameter). */
     public static BlockBehaviour.Properties neverViewBlocking(BlockBehaviour.Properties properties) {
         return properties.isViewBlocking((state, level, pos) -> false);

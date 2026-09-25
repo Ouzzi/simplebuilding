@@ -15,6 +15,7 @@ import net.minecraft.advancements.AdvancementRewards;
 // net.minecraft.advancements.triggers verschoben (Criterion liegt jetzt ebenfalls dort).
 import net.minecraft.advancements.triggers.InventoryChangeTrigger;
 import net.minecraft.advancements.triggers.RecipeUnlockedTrigger;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -47,7 +48,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-public class ModRecipeProvider extends FabricRecipeProvider {
+// Extends RecipeProviderCompat (26.2: src/mc26_2/java, 26.3: mc26_3/fabric/src/main/java) so that
+// this file compiles unchanged against both Minecraft lines.
+public class ModRecipeProvider extends RecipeProviderCompat {
 
     // WICHTIG: Diesen Tag manuell definieren, da er in 1.21.2+ Code fehlt
     private static final TagKey<Item> TRIM_TEMPLATES = TagKey.create(Registries.ITEM, Identifier.withDefaultNamespace("trim_templates"));
@@ -57,15 +60,15 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     @Override
-    protected RecipeProvider createRecipeProvider(HolderLookup.Provider wrapperLookup, RecipeOutput recipeExporter) {
-        return new RecipeProvider(wrapperLookup, recipeExporter) {
+    protected RecipeProvider createGenerator(Object first, Object second) {
+        return new Generator(first, second) {
             @Override
             public void buildRecipes() {
 
                 // ---------------------------------------------------------
                 // WICHTIG: Registry Zugriff für Tags vorbereiten (für 1.21.2+)
                 // ---------------------------------------------------------
-                HolderLookup.RegistryLookup<Item> itemRegistry = registries.lookupOrThrow(Registries.ITEM);
+                HolderGetter<Item> itemRegistry = items();
 
                 // =================================================================
                 // FIX: DUMMY REZEPT FÜR SCHMIEDETISCH (Glowing Ink)
@@ -167,7 +170,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
                     if (resultItem != null && dyeItem != null) {
 
-                        ShapelessRecipeBuilder.shapeless(registries.lookupOrThrow(Registries.ITEM), RecipeCategory.TOOLS, resultItem)
+                        ShapelessRecipeBuilder.shapeless(items(), RecipeCategory.TOOLS, resultItem)
                                 .requires(ModItems.OCTANT)
                                 .requires(dyeItem)
                                 .unlockedBy(getHasName(dyeItem), has(dyeItem))
@@ -376,7 +379,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // HOPPER REINFORCED & NETHERITE
                 // =================================================================
                 // 1. Reinforced Hopper
-                ShapedRecipeBuilder.shaped(registries.lookupOrThrow(Registries.ITEM), RecipeCategory.REDSTONE, ModItems.REINFORCED_HOPPER, 5)
+                ShapedRecipeBuilder.shaped(items(), RecipeCategory.REDSTONE, ModItems.REINFORCED_HOPPER, 5)
                         .pattern("HNH")
                         .pattern("DDD")
                         .pattern("HHH")
@@ -394,7 +397,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // =================================================================
                 // PISTON REINFORCED & NETHERITE
                 // =================================================================
-                ShapedRecipeBuilder.shaped(registries.lookupOrThrow(Registries.ITEM), RecipeCategory.REDSTONE, ModItems.REINFORCED_PISTON, 2)
+                ShapedRecipeBuilder.shaped(items(), RecipeCategory.REDSTONE, ModItems.REINFORCED_PISTON, 2)
                         .pattern("DDD")
                         .pattern("PIP")
                         .pattern("III")
@@ -404,7 +407,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .unlockedBy(getHasName(Items.PISTON), has(Items.PISTON))
                         .save(output);
                 // Klebrig wie bei Vanilla: Schleimball ueber dem Kolben.
-                ShapedRecipeBuilder.shaped(registries.lookupOrThrow(Registries.ITEM), RecipeCategory.REDSTONE, ModItems.REINFORCED_STICKY_PISTON)
+                ShapedRecipeBuilder.shaped(items(), RecipeCategory.REDSTONE, ModItems.REINFORCED_STICKY_PISTON)
                         .pattern("S")
                         .pattern("P")
                         .define('S', Items.SLIME_BALL)
@@ -416,7 +419,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // =================================================================
                 // BLAST FURNACE REINFORCED & NETHERITE
                 // =================================================================
-                ShapedRecipeBuilder.shaped(registries.lookupOrThrow(Registries.ITEM), RecipeCategory.REDSTONE, ModItems.REINFORCED_BLAST_FURNACE, 3)
+                ShapedRecipeBuilder.shaped(items(), RecipeCategory.REDSTONE, ModItems.REINFORCED_BLAST_FURNACE, 3)
                         .pattern("DDD")
                         .pattern("BBB")
                         .pattern("DDD")
@@ -429,7 +432,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // =================================================================
                 // FURNACE REINFORCED & NETHERITE
                 // =================================================================
-                ShapedRecipeBuilder.shaped(registries.lookupOrThrow(Registries.ITEM), RecipeCategory.REDSTONE, ModItems.REINFORCED_FURNACE, 3)
+                ShapedRecipeBuilder.shaped(items(), RecipeCategory.REDSTONE, ModItems.REINFORCED_FURNACE, 3)
                         .pattern("DDD")
                         .pattern("FFF")
                         .pattern("DDD")
@@ -442,7 +445,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // =================================================================
                 // SMOKER REINFORCED & NETHERITE
                 // =================================================================
-                ShapedRecipeBuilder.shaped(registries.lookupOrThrow(Registries.ITEM), RecipeCategory.REDSTONE, ModItems.REINFORCED_SMOKER, 3)
+                ShapedRecipeBuilder.shaped(items(), RecipeCategory.REDSTONE, ModItems.REINFORCED_SMOKER, 3)
                         .pattern("DDD")
                         .pattern("SSS")
                         .pattern("DDD")
@@ -540,52 +543,52 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // Ziel-Werkzeug verlangt. Aufwerten behaelt Verzauberungen, Schaden und Namen - dafuer ist
                 // es teurer als neu bauen.
                 // Spitzhacken und Aexte (Werkbank: 3 -> Aufwerten: 6)
-                createUpgradeRecipe(registries, output, Items.WOODEN_PICKAXE, Items.STONE_PICKAXE, Items.COBBLESTONE, 6);
-                createUpgradeRecipe(registries, output, Items.STONE_PICKAXE, Items.IRON_PICKAXE, Items.IRON_INGOT, 6);
-                createUpgradeRecipe(registries, output, Items.IRON_PICKAXE, Items.GOLDEN_PICKAXE, Items.GOLD_INGOT, 6);
-                createUpgradeRecipe(registries, output, Items.GOLDEN_PICKAXE, Items.DIAMOND_PICKAXE, Items.DIAMOND, 6);
-                createUpgradeRecipe(registries, output, Items.COPPER_PICKAXE, Items.IRON_PICKAXE, Items.IRON_INGOT, 6);
-                createUpgradeRecipe(registries, output, Items.COPPER_AXE, Items.IRON_AXE, Items.IRON_INGOT, 6);
-                createUpgradeRecipe(registries, output, Items.WOODEN_AXE, Items.STONE_AXE, Items.COBBLESTONE, 6);
-                createUpgradeRecipe(registries, output, Items.STONE_AXE, Items.IRON_AXE, Items.IRON_INGOT, 6);
-                createUpgradeRecipe(registries, output, Items.IRON_AXE, Items.GOLDEN_AXE, Items.GOLD_INGOT, 6);
-                createUpgradeRecipe(registries, output, Items.GOLDEN_AXE, Items.DIAMOND_AXE, Items.DIAMOND, 6);
+                createUpgradeRecipe(items(), output, Items.WOODEN_PICKAXE, Items.STONE_PICKAXE, Items.COBBLESTONE, 6);
+                createUpgradeRecipe(items(), output, Items.STONE_PICKAXE, Items.IRON_PICKAXE, Items.IRON_INGOT, 6);
+                createUpgradeRecipe(items(), output, Items.IRON_PICKAXE, Items.GOLDEN_PICKAXE, Items.GOLD_INGOT, 6);
+                createUpgradeRecipe(items(), output, Items.GOLDEN_PICKAXE, Items.DIAMOND_PICKAXE, Items.DIAMOND, 6);
+                createUpgradeRecipe(items(), output, Items.COPPER_PICKAXE, Items.IRON_PICKAXE, Items.IRON_INGOT, 6);
+                createUpgradeRecipe(items(), output, Items.COPPER_AXE, Items.IRON_AXE, Items.IRON_INGOT, 6);
+                createUpgradeRecipe(items(), output, Items.WOODEN_AXE, Items.STONE_AXE, Items.COBBLESTONE, 6);
+                createUpgradeRecipe(items(), output, Items.STONE_AXE, Items.IRON_AXE, Items.IRON_INGOT, 6);
+                createUpgradeRecipe(items(), output, Items.IRON_AXE, Items.GOLDEN_AXE, Items.GOLD_INGOT, 6);
+                createUpgradeRecipe(items(), output, Items.GOLDEN_AXE, Items.DIAMOND_AXE, Items.DIAMOND, 6);
 
                 // Schwerter und Hacken (Werkbank: 2 -> Aufwerten: 4)
-                createUpgradeRecipe(registries, output, Items.WOODEN_SWORD, Items.STONE_SWORD, Items.COBBLESTONE, 4);
-                createUpgradeRecipe(registries, output, Items.STONE_SWORD, Items.IRON_SWORD, Items.IRON_INGOT, 4);
-                createUpgradeRecipe(registries, output, Items.IRON_SWORD, Items.GOLDEN_SWORD, Items.GOLD_INGOT, 4);
-                createUpgradeRecipe(registries, output, Items.GOLDEN_SWORD, Items.DIAMOND_SWORD, Items.DIAMOND, 4);
-                createUpgradeRecipe(registries, output, Items.COPPER_SWORD, Items.IRON_SWORD, Items.IRON_INGOT, 4);
-                createUpgradeRecipe(registries, output, Items.WOODEN_HOE, Items.STONE_HOE, Items.COBBLESTONE, 4);
-                createUpgradeRecipe(registries, output, Items.STONE_HOE, Items.IRON_HOE, Items.IRON_INGOT, 4);
-                createUpgradeRecipe(registries, output, Items.IRON_HOE, Items.GOLDEN_HOE, Items.GOLD_INGOT, 4);
-                createUpgradeRecipe(registries, output, Items.GOLDEN_HOE, Items.DIAMOND_HOE, Items.DIAMOND, 4);
-                createUpgradeRecipe(registries, output, Items.COPPER_HOE, Items.IRON_HOE, Items.IRON_INGOT, 4);
+                createUpgradeRecipe(items(), output, Items.WOODEN_SWORD, Items.STONE_SWORD, Items.COBBLESTONE, 4);
+                createUpgradeRecipe(items(), output, Items.STONE_SWORD, Items.IRON_SWORD, Items.IRON_INGOT, 4);
+                createUpgradeRecipe(items(), output, Items.IRON_SWORD, Items.GOLDEN_SWORD, Items.GOLD_INGOT, 4);
+                createUpgradeRecipe(items(), output, Items.GOLDEN_SWORD, Items.DIAMOND_SWORD, Items.DIAMOND, 4);
+                createUpgradeRecipe(items(), output, Items.COPPER_SWORD, Items.IRON_SWORD, Items.IRON_INGOT, 4);
+                createUpgradeRecipe(items(), output, Items.WOODEN_HOE, Items.STONE_HOE, Items.COBBLESTONE, 4);
+                createUpgradeRecipe(items(), output, Items.STONE_HOE, Items.IRON_HOE, Items.IRON_INGOT, 4);
+                createUpgradeRecipe(items(), output, Items.IRON_HOE, Items.GOLDEN_HOE, Items.GOLD_INGOT, 4);
+                createUpgradeRecipe(items(), output, Items.GOLDEN_HOE, Items.DIAMOND_HOE, Items.DIAMOND, 4);
+                createUpgradeRecipe(items(), output, Items.COPPER_HOE, Items.IRON_HOE, Items.IRON_INGOT, 4);
 
                 // Schaufeln (Werkbank: 1 -> Aufwerten: 2)
-                createUpgradeRecipe(registries, output, Items.WOODEN_SHOVEL, Items.STONE_SHOVEL, Items.COBBLESTONE, 2);
-                createUpgradeRecipe(registries, output, Items.STONE_SHOVEL, Items.IRON_SHOVEL, Items.IRON_INGOT, 2);
-                createUpgradeRecipe(registries, output, Items.IRON_SHOVEL, Items.GOLDEN_SHOVEL, Items.GOLD_INGOT, 2);
-                createUpgradeRecipe(registries, output, Items.GOLDEN_SHOVEL, Items.DIAMOND_SHOVEL, Items.DIAMOND, 2);
-                createUpgradeRecipe(registries, output, Items.COPPER_SHOVEL, Items.IRON_SHOVEL, Items.IRON_INGOT, 2);
+                createUpgradeRecipe(items(), output, Items.WOODEN_SHOVEL, Items.STONE_SHOVEL, Items.COBBLESTONE, 2);
+                createUpgradeRecipe(items(), output, Items.STONE_SHOVEL, Items.IRON_SHOVEL, Items.IRON_INGOT, 2);
+                createUpgradeRecipe(items(), output, Items.IRON_SHOVEL, Items.GOLDEN_SHOVEL, Items.GOLD_INGOT, 2);
+                createUpgradeRecipe(items(), output, Items.GOLDEN_SHOVEL, Items.DIAMOND_SHOVEL, Items.DIAMOND, 2);
+                createUpgradeRecipe(items(), output, Items.COPPER_SHOVEL, Items.IRON_SHOVEL, Items.IRON_INGOT, 2);
 
                 // Mod-Werkzeuge
                 // Meissel (Werkbank: 1 Barren/Diamant -> Aufwerten: 2)
-                createUpgradeRecipe(registries, output, ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL, Items.IRON_INGOT, 2);
-                createUpgradeRecipe(registries, output, ModItems.IRON_CHISEL, ModItems.GOLD_CHISEL, Items.GOLD_INGOT, 2);
-                createUpgradeRecipe(registries, output, ModItems.GOLD_CHISEL, ModItems.DIAMOND_CHISEL, Items.DIAMOND, 2);
+                createUpgradeRecipe(items(), output, ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL, Items.IRON_INGOT, 2);
+                createUpgradeRecipe(items(), output, ModItems.IRON_CHISEL, ModItems.GOLD_CHISEL, Items.GOLD_INGOT, 2);
+                createUpgradeRecipe(items(), output, ModItems.GOLD_CHISEL, ModItems.DIAMOND_CHISEL, Items.DIAMOND, 2);
 
                 // Vorschlaghammer (Werkbank: 1 Block + 2 Barren = 11 Barren -> Aufwerten: 22)
-                createUpgradeRecipe(registries, output, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER, Items.IRON_INGOT, 22);
-                createUpgradeRecipe(registries, output, ModItems.IRON_SLEDGEHAMMER, ModItems.GOLD_SLEDGEHAMMER, Items.GOLD_INGOT, 22);
-                createUpgradeRecipe(registries, output, ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, Items.DIAMOND, 22);
+                createUpgradeRecipe(items(), output, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER, Items.IRON_INGOT, 22);
+                createUpgradeRecipe(items(), output, ModItems.IRON_SLEDGEHAMMER, ModItems.GOLD_SLEDGEHAMMER, Items.GOLD_INGOT, 22);
+                createUpgradeRecipe(items(), output, ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, Items.DIAMOND, 22);
 
                 // Baustab: kein Barren-Preis - ein Baustab braucht einen Kern (Late-Game), also kostet das
                 // Aufwerten genau einen Kern der Zielstufe (Entscheidung des Besitzers, 2026-09-25).
-                createUpgradeRecipe(registries, output, ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.IRON_CORE, 1);
-                createUpgradeRecipe(registries, output, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND, ModItems.GOLD_CORE, 1);
-                createUpgradeRecipe(registries, output, ModItems.GOLD_BUILDING_WAND, ModItems.DIAMOND_BUILDING_WAND, ModItems.DIAMOND_CORE, 1);
+                createUpgradeRecipe(items(), output, ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.IRON_CORE, 1);
+                createUpgradeRecipe(items(), output, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND, ModItems.GOLD_CORE, 1);
+                createUpgradeRecipe(items(), output, ModItems.GOLD_BUILDING_WAND, ModItems.DIAMOND_BUILDING_WAND, ModItems.DIAMOND_CORE, 1);
 
 
 
@@ -964,7 +967,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         RecipeBuilder.determineCraftingBookCategory(RecipeCategory.TOOLS), pattern, new ItemStackTemplate(result));
 
                 Advancement.Builder advancement = output.advancement()
-                        .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeKey))
+                        .addCriterion("has_the_recipe", unlockedRecipe(recipeKey))
                         .rewards(AdvancementRewards.Builder.recipe(recipeKey))
                         .requirements(AdvancementRequirements.Strategy.OR)
                         .addCriterion(getHasName(unlockedBy), has(unlockedBy));
@@ -975,14 +978,14 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         };
     }
 
-    private void createUpgradeRecipe(HolderLookup.Provider registries, RecipeOutput exporter, Item base, Item result, Item material, int count) {
+    private void createUpgradeRecipe(HolderGetter<Item> items, RecipeOutput exporter, Item base, Item result, Item material, int count) {
         Identifier recipeId = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "upgrade_" + getItemName(base) + "_to_" + getItemName(result));
 
         ResourceKey<Recipe<?>> recipeKey = ResourceKey.create(Registries.RECIPE, recipeId);
 
         ResourceKey<Item> resultKey = BuiltInRegistries.ITEM.getResourceKey(result).orElseThrow();
         ItemStackTemplate resultTemplate = new ItemStackTemplate(
-                registries.lookupOrThrow(Registries.ITEM).getOrThrow(resultKey),
+                items.getOrThrow(resultKey),
                 1,
                 DataComponentPatch.EMPTY
         );

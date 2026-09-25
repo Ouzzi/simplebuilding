@@ -1,8 +1,8 @@
 package com.simplebuilding.client.blueprint;
 
 import com.simplebuilding.version.McClientVersion;
+import com.simplebuilding.version.TexturedGuiElementState;
 
-import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simplebuilding.blueprint.BlueprintModel;
 import com.simplebuilding.mixin.client.GuiGraphicsExtractorAccessor;
@@ -21,7 +21,6 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.gui.render.TextureSetup;
 import net.minecraft.client.model.geom.builders.UVPair;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 import net.minecraft.client.renderer.block.dispatch.BlockStateModelPart;
 import net.minecraft.client.renderer.state.gui.GuiElementRenderState;
@@ -326,7 +325,7 @@ public final class BlueprintView {
     }
 
     private record MeshState(float[] screen, float[] uv, int[] color, int[] order, Matrix3x2f pose,
-                             TextureSetup textureSetup, ScreenRectangle area) implements GuiElementRenderState {
+                             TextureSetup textureSetup, ScreenRectangle area) implements TexturedGuiElementState {
         @Override
         public void buildVertices(VertexConsumer consumer) {
             for (int q : order) {
@@ -337,11 +336,6 @@ public final class BlueprintView {
                             .setColor(c);
                 }
             }
-        }
-
-        @Override
-        public RenderPipeline pipeline() {
-            return RenderPipelines.GUI_TEXTURED;
         }
 
         @Override

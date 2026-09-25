@@ -22,6 +22,10 @@ public final class McClientVersion {
         return InputConstants.Type.KEYBOARD;
     }
 
+    public static boolean isKeyDown(net.minecraft.client.Minecraft client, int keyCode) {
+        return InputConstants.isKeyDown(keyCode);
+    }
+
     /** 26.3 replaced the shade flag with a shade direction override; UP is the old "shade": false. */
     public static boolean quadShaded(BakedQuad quad) {
         return quad.materialInfo().shadeDirectionOverride() != Direction.UP;

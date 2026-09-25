@@ -5,7 +5,7 @@ import com.simplebuilding.version.LootNumbers;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -41,7 +41,9 @@ public final class ModLootTableModifications {
     private ModLootTableModifications() {
     }
 
-    public static void apply(ResourceKey<LootTable> key, Editor editor, HolderLookup.Provider registry) {
+    // HolderGetter.Provider, not HolderLookup.Provider: NeoForge 26.3 hands its loot event a plain
+    // getter provider; every HolderLookup.Provider is one as well.
+    public static void apply(ResourceKey<LootTable> key, Editor editor, HolderGetter.Provider registry) {
         if (!Simplebuilding.getConfig().worldGen.enableLootTableChanges) {
             return;
         }
@@ -296,7 +298,7 @@ public final class ModLootTableModifications {
     private static LootPoolEntryContainer.Builder<?> enchantedBook(
             ResourceKey<Enchantment> enchantKey,
             int level,
-            HolderLookup<Enchantment> registry,
+            HolderGetter<Enchantment> registry,
             int weight) {
 
         ItemEnchantments.Mutable builder = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);

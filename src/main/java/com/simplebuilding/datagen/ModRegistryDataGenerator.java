@@ -1,5 +1,7 @@
 package com.simplebuilding.datagen;
 
+import com.simplebuilding.util.ModWorldGen;
+
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.HolderLookup;
@@ -17,7 +19,7 @@ public class ModRegistryDataGenerator extends FabricDynamicRegistryProvider {
 
         entries.addAll(registries.lookupOrThrow(Registries.TRIM_MATERIAL));
         entries.addAll(registries.lookupOrThrow(Registries.TRIM_PATTERN));
-        entries.addAll(registries.lookupOrThrow(Registries.CONFIGURED_FEATURE));
+        entries.addAll(registries.lookupOrThrow(ModWorldGen.FEATURE_REGISTRY));
         entries.addAll(registries.lookupOrThrow(Registries.PLACED_FEATURE));
     }
 

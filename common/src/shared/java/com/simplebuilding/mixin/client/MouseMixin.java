@@ -1,5 +1,7 @@
 package com.simplebuilding.mixin.client;
 
+import com.simplebuilding.version.McClientVersion;
+
 import com.mojang.blaze3d.platform.InputConstants;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.networking.OctantScrollPayload;
@@ -24,8 +26,8 @@ public class MouseMixin {
             if (vertical != 0
                     && client.player.getMainHandItem().getItem() instanceof com.simplebuilding.items.custom.BuildingWandItem
                     && client.player.getOffhandItem().getItem() instanceof com.simplebuilding.items.custom.BlueprintItem
-                    && (InputConstants.isKeyDown(client.getWindow(), InputConstants.KEY_LCONTROL)
-                        || InputConstants.isKeyDown(client.getWindow(), InputConstants.KEY_RCONTROL))) {
+                    && (McClientVersion.isKeyDown(client, InputConstants.KEY_LCONTROL)
+                        || McClientVersion.isKeyDown(client, InputConstants.KEY_RCONTROL))) {
                 ClientNetworking.send(new com.simplebuilding.networking.BlueprintRotatePayload((int) Math.signum(vertical)));
                 ci.cancel();
                 return;
@@ -47,10 +49,10 @@ public class MouseMixin {
                 // -----------------------
 
                 boolean isShift = client.options.keyShift.isDown();
-                boolean isControl = InputConstants.isKeyDown(client.getWindow(), InputConstants.KEY_LCONTROL)
-                        || InputConstants.isKeyDown(client.getWindow(), InputConstants.KEY_RCONTROL);
-                boolean isAlt = InputConstants.isKeyDown(client.getWindow(), InputConstants.KEY_LALT)
-                        || InputConstants.isKeyDown(client.getWindow(), InputConstants.KEY_RALT);
+                boolean isControl = McClientVersion.isKeyDown(client, InputConstants.KEY_LCONTROL)
+                        || McClientVersion.isKeyDown(client, InputConstants.KEY_RCONTROL);
+                boolean isAlt = McClientVersion.isKeyDown(client, InputConstants.KEY_LALT)
+                        || McClientVersion.isKeyDown(client, InputConstants.KEY_RALT);
 
                 if ((isShift || isControl || isAlt) && vertical != 0) {
                     int amount = (int) Math.signum(vertical);

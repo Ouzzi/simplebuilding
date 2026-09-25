@@ -60,6 +60,8 @@ sourceSets {
         // Minecraft line, the same way the server tests share common/src/shared/java.
         // Only this source set pulls them in, so they stay out of every shipped jar.
         java.srcDir '../common/src/shared/clientgametest/java'
+        // 26.2 side of the client-test version shim (26.3 twin: mc26_3/overlay/clientgametest/java)
+        java.srcDir '../common/src/mc26_2/clientgametest/java'
     }
 }
 

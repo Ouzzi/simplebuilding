@@ -1,5 +1,7 @@
 package com.simplebuilding.neoforge.clienttest;
 
+import com.simplebuilding.clientgametest.ClientTestVersion;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -254,7 +256,7 @@ final class SharedScriptRun implements Harness {
         // section the player stands in compiled and on screen. That is false from allChanged
         // until the rebuild has actually produced a mesh, and it is false on a fresh join too.
         return client.level.hasChunkAt(client.player.blockPosition())
-                && client.levelRenderer.isSectionCompiledAndVisible(client.player.blockPosition())
+                && ClientTestVersion.isSectionCompiledAndVisible(client, client.player.blockPosition())
                 && client.levelRenderer.hasRenderedAllSections();
     }
 

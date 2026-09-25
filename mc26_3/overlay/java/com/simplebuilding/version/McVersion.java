@@ -92,6 +92,15 @@ public final class McVersion {
         return new TrimMaterial(Identifier.fromNamespaceAndPath("simplebuilding", "trim/" + paletteName), description);
     }
 
+    public static <E> net.minecraft.gametest.framework.TestData<E> testData(
+            E environment, Identifier structure, int maxTicks, int setupTicks, boolean required,
+            net.minecraft.world.level.block.Rotation rotation, boolean manualOnly, int maxAttempts, int requiredSuccesses,
+            boolean skyAccess, int padding) {
+        return new net.minecraft.gametest.framework.TestData<>(environment, net.minecraft.world.level.Level.OVERWORLD,
+                structure, maxTicks, setupTicks, required, rotation, manualOnly, maxAttempts, requiredSuccesses,
+                skyAccess, padding);
+    }
+
     public static BlockBehaviour.Properties neverViewBlocking(BlockBehaviour.Properties properties) {
         return properties.isViewBlocking((state, level, pos, nearPlane) -> false);
     }

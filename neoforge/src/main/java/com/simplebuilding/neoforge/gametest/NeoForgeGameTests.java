@@ -1,5 +1,7 @@
 package com.simplebuilding.neoforge.gametest;
 
+import com.simplebuilding.version.McVersion;
+
 import com.simplebuilding.gametest.GameTestSpec;
 import com.simplebuilding.gametest.SimpleBuildingGameTests;
 import java.util.List;
@@ -82,7 +84,7 @@ public final class NeoForgeGameTests {
 
     private static TestData<Holder<TestEnvironmentDefinition<?>>> testData(
             GameTestSpec spec, Holder<TestEnvironmentDefinition<?>> environment) {
-        return new TestData<>(
+        return McVersion.testData(
                 environment,
                 spec.structure() == null ? DEFAULT_STRUCTURE : Identifier.parse(spec.structure()),
                 spec.maxTicks(),

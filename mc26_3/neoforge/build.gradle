@@ -47,6 +47,7 @@ sourceSets {
         runtimeClasspath += sourceSets.main.output
         java.srcDir root.dir('neoforge/src/clientGameTest/java')
         java.srcDir root.dir('common/src/shared/clientgametest/java')
+        java.srcDir root.dir('mc26_3/overlay/clientgametest/java')
         resources.srcDir root.dir('neoforge/src/clientGameTest/resources')
     }
 }

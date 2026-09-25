@@ -43,6 +43,7 @@ fabricApi {
 
 sourceSets.named('gametest') {
 	java.srcDir root.dir('common/src/shared/clientgametest/java')
+	java.srcDir root.dir('mc26_3/overlay/clientgametest/java')
 	java.srcDir root.dir('src/gametest/java')
 	resources.srcDir root.dir('src/gametest/resources')
 }

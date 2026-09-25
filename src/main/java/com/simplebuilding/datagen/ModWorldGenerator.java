@@ -1,5 +1,7 @@
 package com.simplebuilding.datagen;
 
+import com.simplebuilding.util.ModWorldGen;
+
 import com.simplebuilding.Simplebuilding;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
@@ -20,7 +22,7 @@ public class ModWorldGenerator extends FabricDynamicRegistryProvider {
         
         // Da wir die Bootstraps in 'DataGeneration.java' registrieren (siehe unten),
         // fügt dieser Provider alles automatisch hinzu, was in der Registry ist.
-        entries.addAll(registries.lookupOrThrow(Registries.CONFIGURED_FEATURE));
+        entries.addAll(registries.lookupOrThrow(ModWorldGen.FEATURE_REGISTRY));
         entries.addAll(registries.lookupOrThrow(Registries.PLACED_FEATURE));
     }
 

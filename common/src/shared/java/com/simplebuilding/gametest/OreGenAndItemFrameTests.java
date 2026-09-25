@@ -29,7 +29,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -50,9 +49,6 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.placement.BiomeFilter;
 import net.minecraft.world.level.levelgen.placement.BlockPredicateFilter;
 import net.minecraft.world.level.levelgen.placement.CountPlacement;
@@ -62,7 +58,6 @@ import net.minecraft.world.level.levelgen.placement.InSquarePlacement;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementContext;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
-import net.minecraft.world.level.levelgen.placement.RandomOffsetPlacement;
 import net.minecraft.world.level.storage.TagValueInput;
 import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.world.phys.Vec3;
@@ -156,8 +151,8 @@ public final class OreGenAndItemFrameTests {
      * the vein sizes in {@code ModWorldGen} and ships the old JSON.
      */
     public static void endOreFeaturesCarryTheRightOreBlockAndVeinSize(GameTestHelper helper) {
-        assertOreFeature(helper, ModWorldGen.ASTRALIT_ORE_KEY, ModBlocks.ASTRALIT_ORE, 4);
-        assertOreFeature(helper, ModWorldGen.NIHILITH_ORE_KEY, ModBlocks.NIHILITH_ORE, 5);
+        OreGenChecks.assertOreFeature(helper, ModWorldGen.ASTRALIT_ORE_KEY, ModBlocks.ASTRALIT_ORE, 4);
+        OreGenChecks.assertOreFeature(helper, ModWorldGen.NIHILITH_ORE_KEY, ModBlocks.NIHILITH_ORE, 5);
         helper.succeed();
     }
 
@@ -186,7 +181,7 @@ public final class OreGenAndItemFrameTests {
                 CountPlacement.of(1),
                 InSquarePlacement.spread(),
                 HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING),
-                BlockPredicateFilter.forPredicate(BlockPredicate.replaceable(Direction.UP.getUnitVec3i())),
+                BlockPredicateFilter.forPredicate(OreGenChecks.replaceableAt(Direction.UP)),
                 BiomeFilter.biome()));
 
         assertPlacement(helper, ModWorldGen.NIHILITH_ORE_PLACED_KEY, ModWorldGen.NIHILITH_ORE_KEY, List.of(
@@ -195,8 +190,8 @@ public final class OreGenAndItemFrameTests {
                 HeightRangePlacement.uniform(VerticalAnchor.absolute(0), VerticalAnchor.absolute(60)),
                 BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
                         BlockPredicate.matchesBlocks(Blocks.END_STONE),
-                        BlockPredicate.replaceable(Direction.DOWN.getUnitVec3i()))),
-                RandomOffsetPlacement.vertical(ConstantInt.of(1)),
+                        OreGenChecks.replaceableAt(Direction.DOWN))),
+                OreGenChecks.verticalOffset(1),
                 BiomeFilter.biome()));
 
         helper.succeed();
@@ -274,7 +269,7 @@ public final class OreGenAndItemFrameTests {
             if (filter == null && modifier instanceof BlockPredicateFilter) {
                 filter = modifier;
             }
-            if (offset == null && modifier instanceof RandomOffsetPlacement) {
+            if (offset == null && OreGenChecks.isOffset(modifier)) {
                 offset = modifier;
             }
         }
@@ -304,7 +299,7 @@ public final class OreGenAndItemFrameTests {
         helper.assertTrue(!passes(filter, context, helper.absolutePos(inTheVoid)),
                 "the nihilith filter accepted a position in the void");
 
-        List<BlockPos> moved = offset.getPositions(context, RandomSource.create(1L), helper.absolutePos(underside)).toList();
+        List<BlockPos> moved = OreGenChecks.positions(offset, context, RandomSource.create(1L), helper.absolutePos(underside));
         helper.assertTrue(moved.equals(List.of(helper.absolutePos(underside).above())),
                 "the nihilith offset did not move the underside exactly one block up, it gave " + moved);
 
@@ -312,7 +307,7 @@ public final class OreGenAndItemFrameTests {
     }
 
     private static boolean passes(PlacementModifier filter, PlacementContext context, BlockPos absolute) {
-        return filter.getPositions(context, RandomSource.create(0L), absolute).findAny().isPresent();
+        return !OreGenChecks.positions(filter, context, RandomSource.create(0L), absolute).isEmpty();
     }
 
     // =====================================================================================
@@ -727,41 +722,8 @@ public final class OreGenAndItemFrameTests {
     // HELPERS: ORE GENERATION
     // =====================================================================================
 
-    private static void assertOreFeature(GameTestHelper helper, ResourceKey<ConfiguredFeature<?, ?>> key,
-                                         Block ore, int veinSize) {
-        Registry<ConfiguredFeature<?, ?>> registry =
-                helper.getLevel().registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE);
-        ConfiguredFeature<?, ?> configured = registry.getValue(key);
-        helper.assertTrue(configured != null,
-                key.identifier() + " is not in the configured feature registry; the generated worldgen JSON is "
-                        + "missing from the jar or was never regenerated");
-
-        // Ueber Feature<?> statt direkt, sonst vergleicht javac zwei Capture-Typen miteinander.
-        Feature<?> feature = configured.feature();
-        helper.assertTrue(feature == Feature.ORE, key.identifier() + " is no longer an ore feature");
-        helper.assertTrue(configured.config() instanceof OreConfiguration,
-                key.identifier() + " no longer carries an OreConfiguration");
-        OreConfiguration config = (OreConfiguration) configured.config();
-
-        helper.assertValueEqual(config.size, veinSize, key.identifier() + " vein size");
-        helper.assertValueEqual(config.targetStates.size(), 1, key.identifier() + " target count");
-        helper.assertTrue(config.discardChanceOnAirExposure == 0.0F,
-                key.identifier() + " now discards ore on air exposure, which changes how much of it is reachable");
-
-        OreConfiguration.TargetBlockState target = config.targetStates.get(0);
-        helper.assertTrue(target.state.is(ore),
-                key.identifier() + " places " + target.state + " instead of the mod's ore block");
-
-        // Das Ersetzungs-Muster wird gefahren, nicht nur verglichen: End-Stein ja, alles andere nein.
-        RandomSource random = RandomSource.create();
-        helper.assertTrue(target.target.test(Blocks.END_STONE.defaultBlockState(), random),
-                key.identifier() + " no longer replaces end stone, so it cannot generate in the End");
-        helper.assertFalse(target.target.test(Blocks.STONE.defaultBlockState(), random),
-                key.identifier() + " also replaces overworld stone, so the ore leaks out of the End");
-    }
-
     private static void assertPlacement(GameTestHelper helper, ResourceKey<PlacedFeature> placedKey,
-                                        ResourceKey<ConfiguredFeature<?, ?>> configuredKey,
+                                        ResourceKey<?> configuredKey,
                                         List<PlacementModifier> expectedModifiers) {
         Registry<PlacedFeature> registry =
                 helper.getLevel().registryAccess().lookupOrThrow(Registries.PLACED_FEATURE);
@@ -769,7 +731,7 @@ public final class OreGenAndItemFrameTests {
         helper.assertTrue(placed != null,
                 placedKey.identifier() + " is not in the placed feature registry");
 
-        helper.assertTrue(placed.feature().is(configuredKey),
+        helper.assertTrue(placed.feature().unwrapKey().map(configuredKey::equals).orElse(false),
                 placedKey.identifier() + " points at " + placed.feature().getRegisteredName()
                         + " instead of " + configuredKey.identifier());
 
