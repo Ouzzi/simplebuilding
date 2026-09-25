@@ -118,6 +118,15 @@ public final class McVersion {
         return new TrimMaterial(MaterialAssetGroup.create(paletteName), description);
     }
 
+    /**
+     * The palette suffix a trim material shows on armour of the given equipment asset, e.g. "iron"
+     * or "iron_darker" (iron trim on iron armour). 26.2: the material's asset group decides.
+     */
+    public static String trimColourSuffix(TrimMaterial material,
+                                          ResourceKey<net.minecraft.world.item.equipment.EquipmentAsset> asset) {
+        return material.assets().assetId(asset).suffix();
+    }
+
     /** Gametest metadata (26.3 added the test dimension; the 26.2 tests run in the overworld). */
     public static <E> net.minecraft.gametest.framework.TestData<E> testData(
             E environment, net.minecraft.resources.Identifier structure, int maxTicks, int setupTicks, boolean required,

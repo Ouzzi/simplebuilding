@@ -34,6 +34,16 @@ import java.util.Set;
  * ({@code CreativeModeTab#shouldDisplay}) gar nicht angezeigt. Die Einträge sind
  * {@code PARENT_TAB_ONLY}, erscheinen also nie im Suchtab.
  *
+ * <p><b>Keine Luecke auf Fabrics Tab-Seiten</b> (geprueft 2026-09-25 am Bytecode von
+ * fabric-creative-tab-api-v1 5.0.21 fuer 26.2 und fabric-item-group-api-v1 4.2.36 fuer 1.21.11):
+ * Fabric verteilt die Mod-Tabs nach jedem {@code CreativeModeTabs#buildAllTabContents} neu auf Seiten
+ * ({@code CreativeModeTabsMixin#paginateTabs}) und sortiert dabei die angezeigten Tabs vor die
+ * leeren. Ein leerer Dev-Tab landet also hinter allen sichtbaren Tabs statt zwischen ihnen, und weil
+ * die Seitenzahl ({@code FabricCreativeGuiComponents#getPageCount}) nur {@code CreativeModeTabs#tabs()}
+ * zaehlt - die angezeigten -, macht er auch keine Seite auf. Ihn ausserhalb der Entwicklung gar nicht
+ * zu registrieren braucht es deshalb nicht (sie muesste sonst auf allen drei
+ * Loadern eigens an Entwicklungsumgebung und Konfig gebunden werden).
+ *
  * <p><b>Inhalt, vollstaendig aus Registern abgeleitet.</b>
  * <ul>
  *   <li>Traeger: jedes Mod-Item aus den vier normalen Tabs, das irgendeine (nicht verfluchte)

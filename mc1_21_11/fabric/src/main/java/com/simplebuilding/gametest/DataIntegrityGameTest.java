@@ -95,6 +95,11 @@ public final class DataIntegrityGameTest {
     }
 
     @GameTest
+    public void toolsTabIsLaidOutInRowsOfNine(GameTestHelper helper) {
+        DataIntegrityTests.toolsTabIsLaidOutInRowsOfNine(helper);
+    }
+
+    @GameTest
     public void creativeSpacerCannotBeTakenOrKept(GameTestHelper helper) {
         DataIntegrityTests.creativeSpacerCannotBeTakenOrKept(helper);
     }
@@ -107,5 +112,20 @@ public final class DataIntegrityGameTest {
     @GameTest
     public void devEnchantedTabIsOnlyFilledInDevelopmentOrWhenConfigured(GameTestHelper helper) {
         DataIntegrityTests.devEnchantedTabIsOnlyFilledInDevelopmentOrWhenConfigured(helper);
+    }
+
+    @GameTest
+    public void everyTrimmableArmourShowsEveryTrimPatternOnItsIcon(GameTestHelper helper) {
+        DataIntegrityTests.everyTrimmableArmourShowsEveryTrimPatternOnItsIcon(helper);
+    }
+
+    @GameTest
+    public void everyVanillaEnchantmentHasItsOwnBookModel(GameTestHelper helper) {
+        DataIntegrityTests.everyVanillaEnchantmentHasItsOwnBookModel(helper);
+    }
+
+    @GameTest
+    public void vanillaBookTextureFollowsTheClientOption(GameTestHelper helper) {
+        DataIntegrityTests.vanillaBookTextureFollowsTheClientOption(helper);
     }
 }

@@ -18,6 +18,7 @@
     "HostileEntityMixin",
     "ItemEntityMixin",
     "ItemFrameEntityMixin",
+    "ItemParserStateMixin",
     "LivingEntityMixin",
     "MovingPistonExplosionMixin",
     "PistonBlockMixin",

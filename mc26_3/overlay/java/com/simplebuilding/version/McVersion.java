@@ -107,6 +107,27 @@ public final class McVersion {
         return new TrimMaterial(Identifier.fromNamespaceAndPath("simplebuilding", "trim/" + paletteName), description);
     }
 
+    /** Vanilla equipment assets whose own trim material shows the "_darker" palette (26.3 trim_overrides). */
+    private static final java.util.Set<String> DARKER_ON_OWN_MATERIAL =
+            java.util.Set.of("iron", "gold", "diamond", "netherite", "copper");
+
+    /**
+     * 26.3: the material names a palette (trim/<suffix>); the "_darker" variant comes from the
+     * equipment asset's trim_overrides, which vanilla sets for exactly the five materials above on
+     * their own armour - the same pairs 26.2's MaterialAssetGroup overrides.
+     */
+    public static String trimColourSuffix(TrimMaterial material,
+                                          ResourceKey<net.minecraft.world.item.equipment.EquipmentAsset> asset) {
+        String path = material.paletteId().getPath();
+        String suffix = path.startsWith("trim/") ? path.substring("trim/".length()) : path;
+        Identifier armour = asset.identifier();
+        if (armour.getNamespace().equals("minecraft") && material.paletteId().getNamespace().equals("minecraft")
+                && suffix.equals(armour.getPath()) && DARKER_ON_OWN_MATERIAL.contains(suffix)) {
+            return suffix + "_darker";
+        }
+        return suffix;
+    }
+
     public static <E> net.minecraft.gametest.framework.TestData<E> testData(
             E environment, Identifier structure, int maxTicks, int setupTicks, boolean required,
             net.minecraft.world.level.block.Rotation rotation, boolean manualOnly, int maxAttempts, int requiredSuccesses,

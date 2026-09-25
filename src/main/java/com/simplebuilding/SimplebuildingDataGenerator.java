@@ -21,6 +21,8 @@ public class SimplebuildingDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(ModItemTagProvider::new);
         pack.addProvider(ModLootTableProvider::new);
         pack.addProvider(ModModelProvider::new);
+        // Sichtbare Besatzmuster auf den Ruestungs-Icons (Vanilla- und Enderit-Ruestung)
+        pack.addProvider((FabricPackOutput out, CompletableFuture<HolderLookup.Provider> reg) -> new ArmorTrimModelProvider(out, reg));
         pack.addProvider(ModRecipeProvider::new);
         pack.addProvider(ModRegistryDataGenerator::new);
         pack.addProvider(ModEnchantmentTagProvider::new);

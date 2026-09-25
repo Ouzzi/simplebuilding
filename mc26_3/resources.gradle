@@ -4,7 +4,7 @@
 // what must differ, the same way the Java sources work:
 //
 //   src/main/resources          hand-written assets/data of the mod (shared)
-//   mc26_3/overlay/resources    hand-written files that must differ on 26.3; a file here hides the
+//   mc26_3/overlay/resources    (currently empty) hand-written files that must differ on 26.3; hides the
 //                               file with the same path in src/main/resources
 //   src/main/generated          26.2 datagen output (shared where 26.3 would write the same)
 //   mc26_3/generated            26.3 datagen output, ONLY the files that differ from
@@ -60,10 +60,22 @@ ext.mc263ConfigureResources = { SourceSet sourceSet, List<String> extraSharedDir
     // 26.3 trims read their colours from palette textures (textures/palettes/<id>.png) instead of
     // the armor trim atlas. The mod's palettes are copied, not duplicated in the repository: the
     // trim materials name simplebuilding:trim/<name> (McVersion.trimMaterial) and the items atlas
-    // override in mc26_3/overlay/resources points its permutations there as well.
+    // (rewritten below) points its permutations there as well.
     tasks.named(sourceSet.processResourcesTaskName, ProcessResources).configure {
         from(new File(sharedResources, 'assets/simplebuilding/textures/trims/color_palettes')) {
             into 'assets/simplebuilding/textures/palettes/trim'
+        }
+        // The items atlas (vanilla trim layers + the mod's 72 trim pattern masks) is written once, in
+        // 26.2 terms, in src/main/resources. 26.3 names the palettes differently: key palette
+        // minecraft:trim_base (pixel for pixel the 26.2 trim_palette) and palettes under
+        // textures/palettes/trim - minecraft:trim/<x> for vanilla, simplebuilding:trim/<x> for the
+        // mod's materials (copied above). Rewritten line by line at build time.
+        filesMatching('assets/minecraft/atlases/items.json') {
+            filter { String line ->
+                line.replace('"minecraft:trims/color_palettes/trim_palette"', '"minecraft:trim_base"')
+                        .replaceAll(/"minecraft:trims\/color_palettes\/((?:astralit|enderite|nihilith)(?:_darker)?)"/, '"simplebuilding:trim/$1"')
+                        .replace('"minecraft:trims/color_palettes/', '"minecraft:trim/')
+            }
         }
         // The hand-written villager trades (src/main/resources/data/simplebuilding/villager_trade)
         // use the 26.2 keys. 26.3 renamed "given_item_modifiers" to "given_item_modifier" and

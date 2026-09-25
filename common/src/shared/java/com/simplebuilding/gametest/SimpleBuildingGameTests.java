@@ -101,11 +101,19 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_machines_and_storage_tab_is_laid_out_in_rows_of_nine", DataIntegrityTests::machinesAndStorageTabIsLaidOutInRowsOfNine)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_tools_tab_is_laid_out_in_rows_of_nine", DataIntegrityTests::toolsTabIsLaidOutInRowsOfNine)
+                    .build(),
             GameTestSpec.named("data_integrity_game_test_creative_spacer_cannot_be_taken_or_kept", DataIntegrityTests::creativeSpacerCannotBeTakenOrKept)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_dev_enchanted_tab_offers_every_exclusive_choice_at_max_level_on_top_tiers", DataIntegrityTests::devEnchantedTabOffersEveryExclusiveChoiceAtMaxLevelOnTopTiers)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_dev_enchanted_tab_is_only_filled_in_development_or_when_configured", DataIntegrityTests::devEnchantedTabIsOnlyFilledInDevelopmentOrWhenConfigured)
+                    .build(),
+            GameTestSpec.named("data_integrity_game_test_every_trimmable_armour_shows_every_trim_pattern_on_its_icon", DataIntegrityTests::everyTrimmableArmourShowsEveryTrimPatternOnItsIcon)
+                    .build(),
+            GameTestSpec.named("data_integrity_game_test_every_vanilla_enchantment_has_its_own_book_model", DataIntegrityTests::everyVanillaEnchantmentHasItsOwnBookModel)
+                    .build(),
+            GameTestSpec.named("data_integrity_game_test_vanilla_book_texture_follows_the_client_option", DataIntegrityTests::vanillaBookTextureFollowsTheClientOption)
                     .build(),
             GameTestSpec.named("tool_behaviour_game_test_sledgehammer_breaks_three_by_three_around_origin", ToolBehaviourTests::sledgehammerBreaksThreeByThreeAroundOrigin)
                     .rotation(Rotation.NONE)
@@ -334,6 +342,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("dynamic_light_game_test_mobs_wearing_radiant_armour_light_the_block_above_them", DynamicLightTests::mobsWearingRadiantArmourLightTheBlockAboveThem)
                     .build(),
+            GameTestSpec.named("dynamic_light_game_test_the_radiance_tooltip_shows_only_the_level", DynamicLightTests::theRadianceTooltipShowsOnlyTheLevel)
+                    .build(),
+            GameTestSpec.named("dynamic_light_game_test_radiance_glints_stay_rare_and_full_sets_do_not_add_up", DynamicLightTests::radianceGlintsStayRareAndFullSetsDoNotAddUp)
+                    .build(),
             GameTestSpec.named("ore_detector_game_test_detector_reports_the_nearest_target_inside_its_budget", OreDetectorTests::detectorReportsTheNearestTargetInsideItsBudget)
                     .build(),
             GameTestSpec.named("ore_detector_game_test_detector_modes_match_their_ore_tags", OreDetectorTests::detectorModesMatchTheirOreTags)
@@ -353,6 +365,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("ore_detector_game_test_open_air_reach_ends_at_the_range_of_each_ore_class", OreDetectorTests::openAirReachEndsAtTheRangeOfEachOreClass)
                     .build(),
             GameTestSpec.named("ore_detector_game_test_calibrated_detector_glimmers_in_the_colour_of_its_target", OreDetectorTests::calibratedDetectorGlimmersInTheColourOfItsTarget)
+                    .build(),
+            GameTestSpec.named("ore_detector_game_test_the_ore_detector_recipe_crafts_from_its_documented_pattern", OreDetectorTests::theOreDetectorRecipeCraftsFromItsDocumentedPattern)
                     .build(),
             GameTestSpec.named("quiver_game_test_right_clicks_do_nothing_even_with_master_builder", QuiverTests::rightClicksDoNothingEvenWithMasterBuilder)
                     .build(),
@@ -690,6 +704,12 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("building_wand_game_test_iron_wand_drops_in_the_mansion_and_the_diamond_wand_in_the_end_city", BuildingWandTests::ironWandDropsInTheMansionAndTheDiamondWandInTheEndCity)
                     .build(),
+            GameTestSpec.named("building_wand_game_test_wand_hunger_rates_follow_the_calibrated_tier_table", BuildingWandTests::wandHungerRatesFollowTheCalibratedTierTable)
+                    .build(),
+            GameTestSpec.named("building_wand_game_test_survival_wand_builds_cost_exhaustion_only_past_the_allowance", BuildingWandTests::survivalWandBuildsCostExhaustionOnlyPastTheAllowance)
+                    .build(),
+            GameTestSpec.named("building_wand_game_test_wand_hunger_cost_skips_creative_and_the_switched_off_option", BuildingWandTests::wandHungerCostSkipsCreativeAndTheSwitchedOffOption)
+                    .build(),
             GameTestSpec.named("wand_enchantment_game_test_master_builder_opens_the_backpack_and_the_bundles_inside_it_to_the_wand", WandEnchantmentTests::masterBuilderOpensTheBackpackAndTheBundlesInsideItToTheWand)
                     .build(),
             GameTestSpec.named("wand_enchantment_game_test_master_builder_moves_the_preview_sources_the_same_way_it_moves_the_placement", WandEnchantmentTests::masterBuilderMovesThePreviewSourcesTheSameWayItMovesThePlacement)
@@ -732,11 +752,17 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("octant_game_test_the_octant_only_measures_and_places_nothing", OctantTests::theOctantOnlyMeasuresAndPlacesNothing)
                     .build(),
+            GameTestSpec.named("octant_game_test_the_octant_recipe_crafts_from_its_documented_pattern", OctantTests::theOctantRecipeCraftsFromItsDocumentedPattern)
+                    .build(),
             GameTestSpec.named("blueprint_game_test_code_round_trips_and_parses_the_spec_examples", BlueprintTests::codeRoundTripsAndParsesTheSpecExamples)
                     .build(),
             GameTestSpec.named("blueprint_game_test_size_limits_cap_the_code_and_map_wand_tiers", BlueprintTests::sizeLimitsCapTheCodeAndMapWandTiers)
                     .build(),
             GameTestSpec.named("blueprint_game_test_material_list_counts_items_sorted_by_amount", BlueprintTests::materialListCountsItemsSortedByAmount)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_material_list_counts_multi_item_blocks_by_their_state", BlueprintTests::materialListCountsMultiItemBlocksByTheirState)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_build_consumes_every_candle_and_pickle_it_needs", BlueprintTests::buildConsumesEveryCandleAndPickleItNeeds)
                     .build(),
             GameTestSpec.named("blueprint_game_test_cartography_table_scans_the_octant_selection", BlueprintTests::cartographyTableScansTheOctantSelection)
                     .build(),
@@ -763,6 +789,10 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("blueprint_game_test_build_stops_when_the_wand_leaves_the_main_hand", BlueprintTests::buildStopsWhenTheWandLeavesTheMainHand)
                     .build(),
             GameTestSpec.named("blueprint_game_test_missing_blocks_need_the_second_click", BlueprintTests::missingBlocksNeedTheSecondClick)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_missing_blocks_check_has_no_cap_and_runs_over_several_ticks", BlueprintTests::missingBlocksCheckHasNoCapAndRunsOverSeveralTicks)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_running_build_survives_logout_and_resumes_with_the_same_blueprint", BlueprintTests::runningBuildSurvivesLogoutAndResumesWithTheSameBlueprint)
                     .build(),
             GameTestSpec.named("blueprint_game_test_build_places_only_available_blocks_and_skips_existing_ones", BlueprintTests::buildPlacesOnlyAvailableBlocksAndSkipsExistingOnes)
                     .build(),

@@ -161,6 +161,10 @@ public class ModBlocks {
     public static final Block POLISHED_ENDER_QUARTZ_WALL = registerBlock("polished_ender_quartz_wall", POLISHED_ENDER_QUARTZ, s -> new WallBlock(s.forceSolidOn()));
     public static final Block ENDER_QUARTZ_PILLAR = registerBlock("ender_quartz_pillar", ENDER_QUARTZ_BLOCK, RotatedPillarBlock::new);
     public static final Block CHISELED_ENDER_QUARTZ_BRICKS = registerBlock("chiseled_ender_quartz_bricks", ENDER_QUARTZ_BLOCK, Block::new);
+    // Enderquarz-Schachbrett: wie die uebrigen Quarz-Schachbretter (Saeulenblock, keine Spawns),
+    // Eigenschaften vom Enderquarzblock.
+    public static final Block ENDER_QUARTZ_CHECKER = registerBlock("ender_quartz_checker", ENDER_QUARTZ_BLOCK,
+            s -> new RotatedPillarBlock(s.isValidSpawn((state, world, pos, type) -> false)));
     // Wie quartz_stairs/quartz_slab am Quarzblock: Treppe und Stufe direkt am Grundblock (2026-09-25).
     public static final Block ENDER_QUARTZ_STAIRS = registerBlock("ender_quartz_stairs", ENDER_QUARTZ_BLOCK, s -> new StairBlock(ENDER_QUARTZ_BLOCK.defaultBlockState(), s));
     public static final Block ENDER_QUARTZ_SLAB = registerBlock("ender_quartz_slab", ENDER_QUARTZ_BLOCK, SlabBlock::new);

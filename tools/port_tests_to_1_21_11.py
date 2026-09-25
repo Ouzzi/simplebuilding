@@ -153,6 +153,8 @@ DRIFT_EXPLAINED: dict[str, str] = {
                          "der Forge-Bedingungsklasse hat auf 1.21.11 kein Gegenstueck",
     "HopperTests": "ContainerInput heisst auf 1.21.11 ClickType, assemble nimmt den Registry-Zugriff; "
                    "sonst dieselben Zeilen",
+    "OctantTests": "assemble nimmt auf 1.21.11 den Registry-Zugriff, und der Blitzableiter ist dort eine "
+                   "einzelne Konstante statt einer WeatheringCopperCollection; sonst dieselben Zeilen",
 }
 
 #: How many lines a class may have on one side only before the drift check calls it drift.

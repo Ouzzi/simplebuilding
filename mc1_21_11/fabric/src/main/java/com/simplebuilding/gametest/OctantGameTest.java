@@ -60,4 +60,9 @@ public final class OctantGameTest {
     public void theOctantOnlyMeasuresAndPlacesNothing(GameTestHelper helper) {
         OctantTests.theOctantOnlyMeasuresAndPlacesNothing(helper);
     }
+
+    @GameTest
+    public void theOctantRecipeCraftsFromItsDocumentedPattern(GameTestHelper helper) {
+        OctantTests.theOctantRecipeCraftsFromItsDocumentedPattern(helper);
+    }
 }

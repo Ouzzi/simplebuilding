@@ -55,4 +55,19 @@ public final class BuildingWandGameTest {
     public void ironWandDropsInTheMansionAndTheDiamondWandInTheEndCity(GameTestHelper helper) {
         BuildingWandTests.ironWandDropsInTheMansionAndTheDiamondWandInTheEndCity(helper);
     }
+
+    @GameTest
+    public void wandHungerRatesFollowTheCalibratedTierTable(GameTestHelper helper) {
+        BuildingWandTests.wandHungerRatesFollowTheCalibratedTierTable(helper);
+    }
+
+    @GameTest
+    public void survivalWandBuildsCostExhaustionOnlyPastTheAllowance(GameTestHelper helper) {
+        BuildingWandTests.survivalWandBuildsCostExhaustionOnlyPastTheAllowance(helper);
+    }
+
+    @GameTest
+    public void wandHungerCostSkipsCreativeAndTheSwitchedOffOption(GameTestHelper helper) {
+        BuildingWandTests.wandHungerCostSkipsCreativeAndTheSwitchedOffOption(helper);
+    }
 }

@@ -1,5 +1,7 @@
 package com.simplebuilding.datagen;
 
+import net.minecraft.client.renderer.item.ClientItem;
+import net.minecraft.client.data.models.ItemModelOutput;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.custom.BackpackBlock;
@@ -73,6 +75,7 @@ public class ModModelProvider extends FabricModelProvider {
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.RESIN_QUARTZ_CHECKER);
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.NIHILITH_QUARTZ_CHECKER);
         registerMirroredChecker(blockStateModelGenerator, ModBlocks.ASTRALIT_QUARTZ_CHECKER);
+        registerMirroredChecker(blockStateModelGenerator, ModBlocks.ENDER_QUARTZ_CHECKER);
 
         blockStateModelGenerator.createTrivialCube(ModBlocks.ASTRAL_PURPUR_BLOCK);
         blockStateModelGenerator.createTrivialCube(ModBlocks.NIHIL_PURPUR_BLOCK);
@@ -369,11 +372,23 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_SHOVEL, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_HOE, ModelTemplates.FLAT_HANDHELD_ITEM);
 
-        // --- NEW: ENDERITE ARMOR (TRIM-AWARE) ---
-        itemModelGenerator.generateTrimmableItem(ModItems.ENDERITE_HELMET, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerators.TRIM_PREFIX_HELMET, false);
-        itemModelGenerator.generateTrimmableItem(ModItems.ENDERITE_CHESTPLATE, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerators.TRIM_PREFIX_CHESTPLATE, false);
-        itemModelGenerator.generateTrimmableItem(ModItems.ENDERITE_LEGGINGS, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerators.TRIM_PREFIX_LEGGINGS, false);
-        itemModelGenerator.generateTrimmableItem(ModItems.ENDERITE_BOOTS, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerators.TRIM_PREFIX_BOOTS, false);
+        // --- ENDERITE ARMOR (TRIM-AWARE) ---
+        // Nur die Modelle (unbesetzt + je Material): die Item-Definition schreibt
+        // ArmorTrimModelProvider, weil sie zusaetzlich nach dem Besatz-MUSTER waehlt und dieser
+        // Auswahl als Rueckfall die Vanilla-Auswahl nach Material mitgibt.
+        ItemModelGenerators trimModelsOnly = new ItemModelGenerators(new ItemModelOutput() {
+            @Override
+            public void accept(Item item, ItemModel.Unbaked model, ClientItem.Properties properties) {
+            }
+
+            @Override
+            public void copy(Item donor, Item acceptor) {
+            }
+        }, itemModelGenerator.modelOutput);
+        trimModelsOnly.generateTrimmableItem(ModItems.ENDERITE_HELMET, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerators.TRIM_PREFIX_HELMET, false);
+        trimModelsOnly.generateTrimmableItem(ModItems.ENDERITE_CHESTPLATE, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerators.TRIM_PREFIX_CHESTPLATE, false);
+        trimModelsOnly.generateTrimmableItem(ModItems.ENDERITE_LEGGINGS, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerators.TRIM_PREFIX_LEGGINGS, false);
+        trimModelsOnly.generateTrimmableItem(ModItems.ENDERITE_BOOTS, ModArmorMaterials.ENDERITE_ASSET_KEY, ItemModelGenerators.TRIM_PREFIX_BOOTS, false);
 
         // --- NEW: ENDERITE MATERIALS (GENERATED) ---
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_CORE, ModelTemplates.FLAT_ITEM);
@@ -440,6 +455,13 @@ public class ModModelProvider extends FabricModelProvider {
                     TextureMapping.layer0(textureId),
                     itemModelGenerator.modelOutput
             );
+        }
+
+        // Eigene Buecher fuer die Vanilla-Verzauberungen (Auswahl in assets/minecraft/items/enchanted_book.json).
+        for (String vanilla : com.simplebuilding.enchantment.VanillaBookTextures.VANILLA) {
+            Identifier bookId = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID,
+                    com.simplebuilding.enchantment.VanillaBookTextures.modelPath(vanilla));
+            ModelTemplates.FLAT_ITEM.create(bookId, TextureMapping.layer0(bookId), itemModelGenerator.modelOutput);
         }
 
         generateDyeableBundle(itemModelGenerator, ModItems.ENDERITE_BUNDLE);
