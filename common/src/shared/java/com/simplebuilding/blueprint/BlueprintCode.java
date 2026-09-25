@@ -29,18 +29,23 @@ import net.minecraft.world.level.block.state.properties.Property;
  * oak_fence 0,1,0*5@2,0,0                       Wiederholung: 5 Stueck im Abstand 2,0,0
  * air 1..3,1..3,1..3                            air raeumt, was davor gesetzt wurde
  * </pre>
- * Spaetere Anweisungen ueberschreiben fruehere. Koordinaten liegen im Raster {@code 0..127}.
+ * Spaetere Anweisungen ueberschreiben fruehere. Koordinaten liegen im Raster {@code 0..255}.
  */
 public final class BlueprintCode {
 
-    /** Kantenlaenge des lokalen Rasters (= Obergrenze der groessten Baustab-Stufe). */
-    public static final int GRID = 128;
+    /** Kantenlaenge des lokalen Rasters (= Obergrenze der groessten Baustab-Stufe, Enderit). */
+    public static final int GRID = 256;
     /** Laengste erlaubte Bausprache in Zeichen; passt in {@code ByteBufCodecs.STRING_UTF8}. */
     public static final int MAX_CODE_LENGTH = 32000;
     /** Laengster Titel einer signierten Blaupause (wie beim Buch). */
     public static final int MAX_TITLE_LENGTH = 32;
-    /** Obergrenze fuer ausgerollte Stellen ueber alle Anweisungen (Schutz vor Riesen-Wiederholungen). */
-    public static final int MAX_EXPANDED_CELLS = GRID * GRID * GRID * 2;
+    /**
+     * Budget fuer ausgerollte Stellen ueber alle Anweisungen (vor dem Ausrollen geprueft) und damit
+     * auch die Hoechstzahl belegter Stellen eines Modells, beim Scan wie beim Schreiben: 4 194 304
+     * (= 256 x 256 x 64). Ein 256er-Wuerfel darf also aufgespannt, aber nicht massiv gefuellt werden -
+     * so bleiben Speicher (rund 60 MB fuer ein volles Modell) und Parse-Zeit beherrschbar.
+     */
+    public static final int MAX_EXPANDED_CELLS = 4_194_304;
     /** Hoechstzahl an Wiederholungen einer Region. */
     public static final int MAX_REPEAT = GRID;
     /** Zeilenlaenge, ab der der Serialisierer umbricht. */

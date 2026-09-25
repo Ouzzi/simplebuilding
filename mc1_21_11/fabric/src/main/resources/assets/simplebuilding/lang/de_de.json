@@ -560,5 +560,10 @@
   "simplebuilding.blueprint.scan.not_loaded": "Die Auswahl ist nicht geladen",
   "simplebuilding.blueprint.scan.nothing": "Die Auswahl enthält nur Luft",
   "simplebuilding.blueprint.scan.too_complex": "Zu komplex für eine Blaupause (%s von %s Zeichen)",
-  "simplebuilding.blueprint.scan.signed": "Eine signierte Blaupause kann nicht überschrieben werden"
+  "simplebuilding.blueprint.scan.signed": "Eine signierte Blaupause kann nicht überschrieben werden",
+  "simplebuilding.blueprint.scan.progress": "Scanne... %s%%",
+  "simplebuilding.blueprint.scan.done": "Scan fertig",
+  "simplebuilding.blueprint.scan.too_many_blocks": "Zu viele Blöcke für eine Blaupause (Grenze %s)",
+  "simplebuilding.blueprint.build.progress": "Baue... %s / %s geprüft, %s gesetzt",
+  "simplebuilding.blueprint.build.stopped": "Bau nach %s Blöcken abgebrochen (Baustab oder Blaupause weggelegt)"
 }

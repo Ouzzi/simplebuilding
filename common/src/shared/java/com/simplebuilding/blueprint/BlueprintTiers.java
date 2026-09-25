@@ -5,16 +5,16 @@ import net.minecraft.network.chat.Component;
 
 /**
  * Wie gross ein Bauwerk sein darf, das ein Baustab aus einer Blaupause baut: die laengste Kante
- * der Bounding Box, je Stufe ein Wuerfel. Vorgabe des Besitzers: "bei 16 anfangen, Wuerfel";
- * die Zwischenstufen sind ein Vorschlag (docs/BLUEPRINT.md).
+ * der Bounding Box, je Stufe ein Wuerfel. Vom Besitzer entschieden (2026-09-25):
+ * 16, 32, 48, 64, 128, 256 (docs/BLUEPRINT.md).
  */
 public final class BlueprintTiers {
     public static final int COPPER = 16;
     public static final int IRON = 32;
     public static final int GOLD = 48;
     public static final int DIAMOND = 64;
-    public static final int NETHERITE = 96;
-    public static final int ENDERITE = 128;
+    public static final int NETHERITE = 128;
+    public static final int ENDERITE = 256;
 
     /** Stufen aufsteigend, parallel zu {@link #NAMES}. */
     public static final int[] EDGES = {COPPER, IRON, GOLD, DIAMOND, NETHERITE, ENDERITE};

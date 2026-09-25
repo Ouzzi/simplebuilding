@@ -508,6 +508,8 @@ public class BuildingWandItem extends Item {
     @Override
     public void inventoryTick(ItemStack stack, ServerLevel world, Entity entity, EquipmentSlot slot) {
         if (!(entity instanceof ServerPlayer player)) return;
+        // Grosse Blaupausen bauen ueber mehrere Ticks weiter (BlueprintBuilder-Auftrag).
+        if (slot == EquipmentSlot.MAINHAND) com.simplebuilding.blueprint.BlueprintBuilder.tick(world, player, stack);
         CompoundTag nbt = getOrInitNbt(stack);
         if (!getBlockBoolean(nbt)) return;
 

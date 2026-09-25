@@ -50,11 +50,13 @@ import org.joml.Vector3fc;
 public final class BlueprintView {
     /** Obergrenze der Vierecke eines Netzes; darueber zeigt die Ansicht nur einen Teil. */
     public static final int MAX_QUADS = 60000;
+    /** Mehr Bloecke werden nicht mehr zu einem Netz gebaut (das liefe spuerbar lange auf dem Render-Thread). */
+    public static final int MAX_MESH_BLOCKS = 300_000;
     private static final Direction[] DIRECTIONS = Direction.values();
 
-    private static final Map<BlueprintModel, Mesh> CACHE = new LinkedHashMap<>(8, 0.75f, true) {
+    private static final Map<BlueprintModel.Identity, Mesh> CACHE = new LinkedHashMap<>(8, 0.75f, true) {
         @Override
-        protected boolean removeEldestEntry(Map.Entry<BlueprintModel, Mesh> eldest) {
+        protected boolean removeEldestEntry(Map.Entry<BlueprintModel.Identity, Mesh> eldest) {
             return size() > 6;
         }
     };
@@ -93,10 +95,10 @@ public final class BlueprintView {
 
     public static Mesh mesh(BlueprintModel model) {
         synchronized (CACHE) {
-            Mesh mesh = CACHE.get(model);
+            Mesh mesh = CACHE.get(new BlueprintModel.Identity(model));
             if (mesh == null) {
                 mesh = build(model);
-                CACHE.put(model, mesh);
+                CACHE.put(new BlueprintModel.Identity(model), mesh);
             }
             return mesh;
         }
@@ -116,6 +118,11 @@ public final class BlueprintView {
         int quads = 0;
         boolean truncated = false;
         List<BlockStateModelPart> parts = new ArrayList<>();
+        if (model.size() > MAX_MESH_BLOCKS) {
+            float sx0 = model.sizeX(), sy0 = model.sizeY(), sz0 = model.sizeZ();
+            return new Mesh(new float[0], new float[0], new int[0], new float[0], 0,
+                    Math.max(1f, 0.5f * (float) Math.sqrt(sx0 * sx0 + sy0 * sy0 + sz0 * sz0)), true);
+        }
         outer:
         for (Int2ObjectMap.Entry<BlockState> e : model.blocks().int2ObjectEntrySet()) {
             int k = e.getIntKey();

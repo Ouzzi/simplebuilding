@@ -560,5 +560,10 @@
   "simplebuilding.blueprint.scan.not_loaded": "The selection is not loaded",
   "simplebuilding.blueprint.scan.nothing": "The selection only contains air",
   "simplebuilding.blueprint.scan.too_complex": "Too complex for one blueprint (%s of %s characters)",
-  "simplebuilding.blueprint.scan.signed": "A signed blueprint cannot be overwritten"
+  "simplebuilding.blueprint.scan.signed": "A signed blueprint cannot be overwritten",
+  "simplebuilding.blueprint.scan.progress": "Scanning... %s%%",
+  "simplebuilding.blueprint.scan.done": "Scan finished",
+  "simplebuilding.blueprint.scan.too_many_blocks": "Too many blocks for one blueprint (limit %s)",
+  "simplebuilding.blueprint.build.progress": "Building... %s / %s checked, %s placed",
+  "simplebuilding.blueprint.build.stopped": "Building stopped after %s blocks (wand or blueprint put away)"
 }
