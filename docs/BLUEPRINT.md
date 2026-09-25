@@ -1,6 +1,6 @@
 # Blaupause / Blueprint – Spezifikation
 
-Stand 2026-09-25. Code: `common/src/shared/java/com/simplebuilding/blueprint/` (26.2) und
+Stand 2026-09-25 (zweite Runde: Raster 256, Form-Scan, Mehr-Tick-Auftraege). Code: `common/src/shared/java/com/simplebuilding/blueprint/` (26.2) und
 `mc1_21_11/shared/java/com/simplebuilding/blueprint/` (1.21.11), Spieltests `BlueprintTests`.
 
 Die Blaupause (`simplebuilding:blueprint`, en "Blueprint", de "Blaupause") speichert ein Bauwerk
@@ -15,8 +15,8 @@ ein Buch.
 
 ## 1. Die Bausprache
 
-Ein Bauwerk liegt in einem lokalen Raster von **128 × 128 × 128** Feldern, jede Koordinate liegt
-in `0..127`. x zeigt nach Osten, y nach oben, z nach Süden (so, wie gescannt wird).
+Ein Bauwerk liegt in einem lokalen Raster von **256 × 256 × 256** Feldern, jede Koordinate liegt
+in `0..255`. x zeigt nach Osten, y nach oben, z nach Süden (so, wie gescannt wird).
 
 ### 1.1 Grammatik
 
@@ -54,7 +54,7 @@ name        = letter { letter | digit | "_" } ;             (höchstens 24 Zeich
 - **Reihenfolge**: spätere Anweisungen überschreiben frühere an derselben Stelle.
 - **Eigenschaften**: nicht genannte Eigenschaften haben den Standardwert des Blocks.
 - **Bereiche** dürfen rückwärts stehen (`4..0` = `0..4`).
-- **Wiederholung**: `count` 1..128; `dx,dy,dz` dürfen negativ sein; jede Kopie muss ganz im
+- **Wiederholung**: `count` 1..256; `dx,dy,dz` dürfen negativ sein; jede Kopie muss ganz im
   Raster bleiben.
 - **Leerraum**: Leerzeichen/Tabs trennen Wörter; innerhalb von `[...]` sind sie erlaubt.
 
@@ -78,9 +78,10 @@ oak_fence 0,5,0*3@2,0,0
 | Grenze | Wert | Wo |
 |---|---|---|
 | Codelänge | 32 000 Zeichen | `BlueprintCode.MAX_CODE_LENGTH` – passt in `STRING_UTF8`, Fehler `too_long` |
-| Koordinaten | 0..127 | Fehler `coordinate_range` |
-| Wiederholungen | 1..128 | Fehler `repeat_range` |
-| ausgerollte Stellen gesamt | 4 194 304 (2 × 128³) | Fehler `too_many_cells`, geprüft *vor* dem Ausrollen |
+| Koordinaten | 0..255 | Fehler `coordinate_range` |
+| Wiederholungen | 1..256 | Fehler `repeat_range` |
+| ausgerollte Stellen gesamt = belegte Stellen | 4 194 304 (256 × 256 × 64) | Fehler `too_many_cells`, geprüft *vor* dem Ausrollen; beim Scan `too_many_blocks` |
+| Item-Daten | ≤ 32 000 Zeichen Code ≈ 32 KB je Blaupause | durch die Codelänge begrenzt, nicht durch die Blockzahl |
 | Titel | 1..32 Zeichen | Editor und Server |
 
 ### 1.5 Fehler
@@ -132,7 +133,7 @@ Benutzen öffnet den Editor (nicht im Baumodus, siehe 4). Ein Kartenblatt, grö�
 - **rechts** das **Bauwerk in 3D**: Ziehen dreht frei in jede Richtung (Trackball, auch kopfüber),
   Mausrad zoomt, Doppelklick setzt zurück.
 - **unten** die **Größenanzeige**: Bounding Box, Blockzahl, der kleinste Baustab, der sie baut,
-  und ein Balken bis 128 mit den Stufenmarken 16/32/48/64/96/128.
+  und ein Balken bis 256 mit den Stufenmarken 16/32/48/64/128/256.
 - **Signieren** wie beim Buch: Titel (1–32 Zeichen), danach schreibgeschützt; Titel wird zum
   Namen, der Autor steht im Tooltip. Signieren geht nur mit fehlerfreiem, nicht leerem Code.
 - Beim Schließen geht der geänderte Code per `BlueprintEditPayload` an den Server, der Slot,
@@ -143,7 +144,8 @@ Technik: Die 3D-Ansicht (Editor und Tooltip) setzt die Blockmodelle zu einem Net
 sortiert von hinten nach vorn und reicht es als **ein** `GuiElementRenderState` mit dem
 Block-Atlas ein – ohne eigenen Picture-in-Picture-Renderer, deshalb auf allen Loadern gleich.
 Blöcke ohne Blockmodell (Truhe, Schild, Flüssigkeiten) erscheinen als Würfel mit ihrem
-Partikelbild. Über 60 000 Flächen zeigt die Ansicht nur einen Teil.
+Partikelbild. Über 60 000 Flächen zeigt die Ansicht nur einen Teil, über 300 000 Blöcke gar kein Netz
+(der Aufbau liefe sonst spürbar lange auf dem Render-Thread).
 
 ## 3. Tooltip
 
@@ -175,15 +177,19 @@ Mit **Umschalt** die Materialliste (bis 8 Zeilen mit Symbol, dann "… und N wei
     geschützte Stellen (`mayInteract`, `mayUseItemAt`, Weltgrenze, Bauhöhe, nicht geladen).
   - Fehlendes Material → Stelle bleibt frei; später erneut klicken füllt nach.
   - Je gesetztem Block 1 Haltbarkeit (wie der Baustab), Abbruch wenn der Stab bricht.
-  - Kreativ setzt alles. Höchstens 32 768 Blöcke je Klick.
+  - Kreativ setzt alles.
+  - **Mehrere Ticks**: je Tick höchstens 4096 gesetzte und 131 072 geprüfte Stellen; der Rest läuft
+    als Auftrag des Spielers weiter (angetrieben vom Baustab in der Haupthand), Fortschritt
+    "Baue… geprüft / gesamt, gesetzt" in der Aktionsleiste. Baustab oder Blaupause weglegen bricht
+    ab. Ein neuer Klick ersetzt einen laufenden Auftrag.
   - Meldung in der Aktionsleiste: gesetzt / ausgelassen.
 - **Stufengrenze** (längste Kante der Bounding Box, Würfel):
 
   | Baustab | Kupfer | Eisen | Gold | Diamant | Netherit | Enderit |
   |---|---|---|---|---|---|---|
-  | Kante | 16 | 32 | 48 | 64 | 96 | 128 |
+  | Kante | 16 | 32 | 48 | 64 | 128 | 256 |
 
-  Vorgabe des Besitzers: "bei 16 anfangen, Würfel"; die Zwischenstufen sind ein **Vorschlag**.
+  Vom Besitzer entschieden (2026-09-25).
   Ein zu kleiner Stab lehnt ab ("braucht Eisen-Baustab").
 
 ## 5. Scannen am Kartentisch
@@ -192,9 +198,14 @@ Oktant mit beiden Ecken in den **oberen** Slot, leere oder unsignierte Blaupause
 **unteren** → rechts die gefüllte Blaupause. Nehmen verbraucht nur die Blaupause, der Oktant
 bleibt. Umschalt-Klick legt beide in ihre Slots.
 
-- Gescannt wird die Bounding Box von Pos1/Pos2 (auch bei Kugel/Zylinder-Form des Oktanten),
-  höchstens 128 je Kante, nur wenn geladen; der Tisch steht höchstens 32 Blöcke von der Box
-  entfernt.
+- Gescannt wird genau die **Figur** des Oktanten (Quader, Rechteck, Zylinder, Ellipse, Kugel,
+  Pyramide, Prisma, mit seiner Ausrichtung) – dieselben Blöcke, die seine Vorschau im Client zeigt
+  (`OctantShape`, eine Quelle für beide). Die Bounding Box ist höchstens 256 je Kante groß und
+  geladen; der Tisch steht höchstens 32 Blöcke von ihr entfernt.
+- **Mehrere Ticks**: bis 262 144 Stellen fertig im selben Tick, größere Auswahlen je Tick 262 144
+  Stellen weiter (ein voller 256er-Würfel in 64 Ticks, gut 3 s), angetrieben vom offenen Menü;
+  Fortschritt "Scanne… n %" in der Aktionsleiste. Anderes in den Tisch legen bricht ab. Mehr als
+  4 194 304 belegte Stellen → Abbruch (`too_many_blocks`).
 - Luft (und `moving_piston`) wird übersprungen; von Block-Entities wird nur der Zustand
   übernommen, kein Inhalt. Koordinaten beginnen an der kleinsten belegten Stelle.
 - Ergebnis-Code länger als 32 000 Zeichen → kein Ergebnis ("zu komplex").
@@ -207,8 +218,8 @@ Blaupause unten liegt.
 
 ## 6. Offene Entscheidungen
 
-- Zwischenstufen der Baustab-Grenzen (32/48/64/96) – Vorschlag.
-- Scan nur der Bounding Box, nicht der Oktant-Form (Kugel usw.).
+- Große Codes (Millionen Stellen) parsen spürbar lange (einmal je Code, danach zwischengespeichert);
+  der Serialisierer am Scan-Ende läuft in einem Tick.
 - Kosten je Block ohne Rücksicht auf Sonderfälle wie Kerzen-/Seegurken-Anzahl, Schnee-Schichten.
 - Konstrukteurs-Berührung spielt beim Bauen keine eigene Rolle (die Materialsuche ist die des
   Baustabs, also Meisterbauer).
