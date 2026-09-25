@@ -73,7 +73,8 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(key(ModBlocks.BLACKSTONE_QUARTZ_CHECKER))
                 .add(key(ModBlocks.RESIN_QUARTZ_CHECKER))
                 .add(key(ModBlocks.NIHILITH_QUARTZ_CHECKER))
-                .add(key(ModBlocks.ASTRALIT_QUARTZ_CHECKER));
+                .add(key(ModBlocks.ASTRALIT_QUARTZ_CHECKER))
+                .add(key(ModBlocks.ENDER_QUARTZ_CHECKER));
 
         // Endstein-Familie: alle kopieren den polierten Endstein bzw. Purpur und verlangen damit
         // eine Spitzhacke fuer ihren Drop - ohne diesen Tag fiele beim Abbau nichts heraus.

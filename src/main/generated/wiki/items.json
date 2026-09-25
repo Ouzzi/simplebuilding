@@ -22,6 +22,7 @@
     "simplebuilding:ender_quartz_brick_stairs",
     "simplebuilding:ender_quartz_brick_wall",
     "simplebuilding:ender_quartz_bricks",
+    "simplebuilding:ender_quartz_checker",
     "simplebuilding:ender_quartz_pillar",
     "simplebuilding:ender_quartz_slab",
     "simplebuilding:ender_quartz_stairs",
@@ -247,6 +248,9 @@
     },
     {
       "id": "simplebuilding:ender_quartz_bricks"
+    },
+    {
+      "id": "simplebuilding:ender_quartz_checker"
     },
     {
       "id": "simplebuilding:ender_quartz_pillar"

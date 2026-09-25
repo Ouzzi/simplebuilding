@@ -175,6 +175,7 @@ public class ModItems {
     public static final Item NIHILITH_QUARTZ_CHECKER = registerItem("nihilith_quartz_checker", s -> new BlockItem(ModBlocks.NIHILITH_QUARTZ_CHECKER, s));
 
     public static final Item ASTRALIT_QUARTZ_CHECKER = registerItem("astralit_quartz_checker", s -> new BlockItem(ModBlocks.ASTRALIT_QUARTZ_CHECKER, s));
+    public static final Item ENDER_QUARTZ_CHECKER = registerItem("ender_quartz_checker", s -> new BlockItem(ModBlocks.ENDER_QUARTZ_CHECKER, s));
 
     // Astralit-/Nihilith-Bausatz (siehe ModBlocks)
     public static final Item ASTRALIT_BRICKS = registerItem("astralit_bricks", s -> new BlockItem(ModBlocks.ASTRALIT_BRICKS, s));

@@ -1515,11 +1515,11 @@ public final class DataIntegrityTests {
     }
 
     /**
-     * All six quartz checkers - purpur, lapis, blackstone, resin and the new nihilith and astralit
-     * ones - are mined with a pickaxe and drop themselves. They copy blocks that need the right
+     * All seven quartz checkers - purpur, lapis, blackstone, resin, nihilith, astralit and ender
+     * quartz - are mined with a pickaxe and drop themselves. They copy blocks that need the right
      * tool, so without {@code minecraft:mineable/pickaxe} breaking one gave nothing. The two new
      * ones are crafted like the others, two of the material diagonal to two quartz blocks, four at
-     * a time: nihilith shards and astralit dust stand in for the coloured block.
+     * a time: nihilith shards, astralit dust and ender quartz stand in for the coloured block.
      *
      * <p>What breaks this test: a checker missing from the pickaxe tag or its loot table, and a
      * missing or changed recipe for the new checkers.
@@ -1531,7 +1531,7 @@ public final class DataIntegrityTests {
         StringBuilder expected = new StringBuilder();
         for (Block checker : List.of(ModBlocks.PURPUR_QUARTZ_CHECKER, ModBlocks.LAPIS_QUARTZ_CHECKER,
                 ModBlocks.BLACKSTONE_QUARTZ_CHECKER, ModBlocks.RESIN_QUARTZ_CHECKER,
-                ModBlocks.NIHILITH_QUARTZ_CHECKER, ModBlocks.ASTRALIT_QUARTZ_CHECKER)) {
+                ModBlocks.NIHILITH_QUARTZ_CHECKER, ModBlocks.ASTRALIT_QUARTZ_CHECKER, ModBlocks.ENDER_QUARTZ_CHECKER)) {
             BlockState state = checker.defaultBlockState();
             Identifier id = BuiltInRegistries.BLOCK.getKey(checker);
             StringBuilder drops = new StringBuilder();
@@ -1545,7 +1545,11 @@ public final class DataIntegrityTests {
         helper.assertValueEqual(actual.toString(), expected.toString(), "how the quartz checkers are mined");
 
         ItemStack quartz = new ItemStack(Items.QUARTZ_BLOCK);
-        for (Item material : List.of(ModItems.NIHILITH_SHARD, ModItems.ASTRALIT_DUST)) {
+        Map<Item, String> checkerOf = new LinkedHashMap<>();
+        checkerOf.put(ModItems.NIHILITH_SHARD, "simplebuilding:nihilith_quartz_checker");
+        checkerOf.put(ModItems.ASTRALIT_DUST, "simplebuilding:astralit_quartz_checker");
+        checkerOf.put(ModItems.ENDER_QUARTZ, "simplebuilding:ender_quartz_checker");
+        for (Item material : checkerOf.keySet()) {
             ItemStack m = new ItemStack(material);
             CraftingInput grid = CraftingInput.of(2, 2, List.of(m, quartz, quartz, m));
             Optional<RecipeHolder<CraftingRecipe>> match =
@@ -1553,8 +1557,7 @@ public final class DataIntegrityTests {
             helper.assertTrue(match.isPresent(), BuiltInRegistries.ITEM.getKey(material) + " and quartz blocks craft nothing");
             ItemStack result = match.get().value().assemble(grid);
             helper.assertValueEqual(result.getCount() + " " + BuiltInRegistries.ITEM.getKey(result.getItem()),
-                    "4 " + BuiltInRegistries.ITEM.getKey(material).getPath().replaceFirst("_(shard|dust)$", "")
-                            .replaceFirst("^", "simplebuilding:") + "_quartz_checker",
+                    "4 " + checkerOf.get(material),
                     "what " + BuiltInRegistries.ITEM.getKey(material) + " diagonal to two quartz blocks crafts");
         }
         helper.succeed();
@@ -2134,15 +2137,26 @@ public final class DataIntegrityTests {
                 modItems.add(id);
             }
         }
-        // Bisher nutzt nur Maschinen & Lager das Zeilen-Layout (Konzept, weitere Tabs nach Freigabe).
-        if (!spacers.keySet().equals(Set.of(ModItemGroupsContent.Tab.FUNCTIONAL))) {
-            problems.add("creative_spacer fills " + spacers.keySet() + " instead of only FUNCTIONAL");
+        // Das Zeilen-Layout nutzen SimpleTools und SimpleMachines.
+        if (!spacers.keySet().equals(Set.of(ModItemGroupsContent.Tab.TOOLS, ModItemGroupsContent.Tab.FUNCTIONAL))) {
+            problems.add("creative_spacer fills " + spacers.keySet() + " instead of TOOLS and FUNCTIONAL");
         }
+        // Bewusst doppelt (Besitzer, 2026-09-25): der Oktant und alle Baustaebe stehen in SimpleTools und
+        // in der Zeile Bauplanung von SimpleMachines - genau dort, je einmal. Sonst kein Mod-Item doppelt.
+        Set<Item> allowedTwice = Set.of(ModItems.OCTANT, ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND,
+                ModItems.GOLD_BUILDING_WAND, ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND,
+                ModItems.ENDERITE_BUILDING_WAND);
         for (Identifier id : modItems) {
             if (id.equals(BuiltInRegistries.ITEM.getKey(ModItems.CREATIVE_SPACER))) {
                 continue;
             }
             List<ModItemGroupsContent.Tab> tabs = where.getOrDefault(BuiltInRegistries.ITEM.getValue(id), List.of());
+            if (allowedTwice.contains(BuiltInRegistries.ITEM.getValue(id))) {
+                if (!tabs.equals(List.of(ModItemGroupsContent.Tab.TOOLS, ModItemGroupsContent.Tab.FUNCTIONAL))) {
+                    problems.add(id + " belongs once in TOOLS and once in FUNCTIONAL but is in " + tabs);
+                }
+                continue;
+            }
             int expected = ITEMS_NOT_IN_THE_CREATIVE_TAB.contains(id.getPath()) ? 0 : 1;
             if (tabs.size() != expected) {
                 problems.add(id + " is offered " + tabs.size() + "x " + tabs + " instead of " + expected + "x");
@@ -2150,14 +2164,33 @@ public final class DataIntegrityTests {
         }
         // Der Besitzer will neben den Mod-Maschinen auch ihre Vanilla-Vorbilder im Tab Maschinen & Lager
         // sehen - genau diese, genau dort, genau einmal. Jedes andere Vanilla-Item in einem Mod-Tab ist falsch.
-        Set<Item> vanillaCounterparts = Set.of(Items.HOPPER, Items.PISTON, Items.STICKY_PISTON,
-                Items.FURNACE, Items.SMOKER, Items.BLAST_FURNACE, Items.BUNDLE);
-        for (Item counterpart : vanillaCounterparts) {
-            List<ModItemGroupsContent.Tab> tabs = where.getOrDefault(counterpart, List.of());
-            if (!tabs.equals(List.of(ModItemGroupsContent.Tab.FUNCTIONAL))) {
-                problems.add(BuiltInRegistries.ITEM.getKey(counterpart) + " belongs once in FUNCTIONAL but is in " + tabs);
+        // Dazu der Kartografentisch in der Zeile Bauplanung und, in SimpleTools, die Vanilla-Werkzeuge,
+        // -Waffen und -Ruestungen aller Stufen.
+        Map<Item, ModItemGroupsContent.Tab> vanillaHome = new HashMap<>();
+        for (Item counterpart : List.of(Items.HOPPER, Items.PISTON, Items.STICKY_PISTON,
+                Items.FURNACE, Items.SMOKER, Items.BLAST_FURNACE, Items.BUNDLE, Items.CARTOGRAPHY_TABLE)) {
+            vanillaHome.put(counterpart, ModItemGroupsContent.Tab.FUNCTIONAL);
+        }
+        for (String kind : List.of("pickaxe", "shovel", "hoe", "axe", "sword", "spear")) {
+            for (String tier : List.of("wooden", "stone", "copper", "iron", "golden", "diamond", "netherite")) {
+                vanillaHome.put(BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(tier + "_" + kind)), ModItemGroupsContent.Tab.TOOLS);
             }
         }
+        for (String kind : List.of("helmet", "chestplate", "leggings", "boots")) {
+            for (String tier : List.of("leather", "chainmail", "copper", "iron", "golden", "diamond", "netherite")) {
+                vanillaHome.put(BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(tier + "_" + kind)), ModItemGroupsContent.Tab.TOOLS);
+            }
+        }
+        if (vanillaHome.size() != 8 + 42 + 28 || vanillaHome.containsKey(Items.AIR)) {
+            problems.add("the vanilla tool and armour list names an item that does not exist: " + vanillaHome.size() + " entries");
+        }
+        Set<Item> vanillaCounterparts = vanillaHome.keySet();
+        vanillaHome.forEach((counterpart, home) -> {
+            List<ModItemGroupsContent.Tab> tabs = where.getOrDefault(counterpart, List.of());
+            if (!tabs.equals(List.of(home))) {
+                problems.add(BuiltInRegistries.ITEM.getKey(counterpart) + " belongs once in " + home + " but is in " + tabs);
+            }
+        });
         for (Item item : where.keySet()) {
             if (!MOD_ID.equals(BuiltInRegistries.ITEM.getKey(item).getNamespace()) && !vanillaCounterparts.contains(item)) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not a mod item but sits in a mod tab");
@@ -2172,17 +2205,17 @@ public final class DataIntegrityTests {
                 ModItems.NIHILITH_BRICK_WALL, ModItems.NIHILITH_PILLAR, ModItems.CHISELED_NIHILITH_BRICKS,
                 ModItems.ASTRALIT_BLOCK, ModItems.POLISHED_NIHILITH_WALL, ModItems.ENDER_QUARTZ_BLOCK,
                 ModItems.POLISHED_ENDER_QUARTZ_SLAB, ModItems.CHISELED_ENDER_QUARTZ_BRICKS,
-                ModItems.ASTRAL_END_STONE, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.LEVITATING_SAND));
+                ModItems.ASTRAL_END_STONE, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.ENDER_QUARTZ_CHECKER, ModItems.LEVITATING_SAND));
         pinned.put(ModItemGroupsContent.Tab.TOOLS, List.of(
                 ModItems.ORE_DETECTOR, ModItems.IRON_CHISEL, ModItems.ENDERITE_SLEDGEHAMMER,
-                ModItems.DIAMOND_BUILDING_WAND, ModItems.OCTANT, ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_HELMET));
+                ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_HELMET, ModItems.ROTATOR));
         pinned.put(ModItemGroupsContent.Tab.MATERIALS, List.of(
                 ModItems.ENDERITE_INGOT, ModItems.ASTRALIT_DUST, ModItems.ENDER_QUARTZ, ModItems.NIHILITH_ORE_ITEM, ModItems.IRON_CORE,
                 ModItems.BASIC_UPGRADE_TEMPLATE, ModItems.GLOWING_TRIM_TEMPLATE,
                 ModItems.ENCHANTED_NETHERITE_APPLE, ModItems.ENCHANTED_ENDERITE_APPLE));
         pinned.put(ModItemGroupsContent.Tab.FUNCTIONAL, List.of(
                 ModItems.NETHERITE_HOPPER, ModItems.ENDERITE_PISTON, ModItems.REINFORCED_FURNACE,
-                ModItems.ENDERITE_BUNDLE, ModItems.QUIVER, ModItems.BACKPACK, ModItems.ENDERITE_BACKPACK));
+                ModItems.ENDERITE_BUNDLE, ModItems.QUIVER, ModItems.BACKPACK, ModItems.ENDERITE_BACKPACK, ModItems.BLUEPRINT));
         pinned.forEach((tab, items) -> {
             for (Item item : items) {
                 List<ModItemGroupsContent.Tab> tabs = where.getOrDefault(item, List.of());
@@ -2208,16 +2241,16 @@ public final class DataIntegrityTests {
     // =================================================================================
 
     /**
-     * The "Machines &amp; Storage" tab is laid out in rows of nine, one category per row: hoppers,
-     * pistons, furnaces, smokers, blast furnaces, bundles, quivers, backpacks, each vanilla first and
-     * then the tiers. The rest of a row is filled with {@code simplebuilding:creative_spacer}.
+     * SimpleMachines is laid out in rows of nine, one category per row: hoppers, pistons, furnaces,
+     * smokers, blast furnaces, bundles, quivers, backpacks - each vanilla first and then the tiers -
+     * and the building planning row: blueprint, cartography table, an octant and every building
+     * wand. The rest of a row is filled with {@code simplebuilding:creative_spacer}.
      *
-     * <p>The categories are read back from what the tab really emits: a category is a run of real
-     * items, the spacers after it are its padding. Each category has to start in the first column
-     * (slot index divisible by nine), its first entries have to be the expected ones in the expected
-     * order (entries appended at the end of a row - dyed variants, say - are allowed), every spacer
-     * is only visible in its own tab ({@code PARENT_TAB_ONLY}, so never in the search tab), no row is
-     * spacers only, and the tab does not end on spacers.
+     * <p>The categories are read back from what the tab really emits (see {@link #rowLayout}): each
+     * has to start in the first column, its first entries have to be the expected ones in the
+     * expected order (entries appended at the end of a row - dyed variants, say - are allowed), every
+     * spacer is only visible in its own tab, no row is spacers only, and the tab does not end on
+     * spacers.
      *
      * <p>What breaks this: a missing or extra spacer (the next category no longer starts in column
      * one), a category moved or reordered, a spacer that is visible in the search tab, or trailing
@@ -2225,15 +2258,6 @@ public final class DataIntegrityTests {
      */
     public static void machinesAndStorageTabIsLaidOutInRowsOfNine(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
-        List<ItemStack> slots = new ArrayList<>();
-        ModItemGroupsContent.populate(ModItemGroupsContent.Tab.FUNCTIONAL, (CreativeModeTab.Output) (stack, visibility) -> {
-            slots.add(stack);
-            if (stack.is(ModItems.CREATIVE_SPACER) && visibility != CreativeModeTab.TabVisibility.PARENT_TAB_ONLY) {
-                problems.add("spacer at slot " + (slots.size() - 1) + " is visible as " + visibility
-                        + ", so it would show up in the search tab");
-            }
-        }, helper.getLevel().registryAccess());
-
         List<List<Item>> expected = List.of(
                 List.of(Items.HOPPER, ModItems.REINFORCED_HOPPER, ModItems.NETHERITE_HOPPER, ModItems.ENDERITE_HOPPER),
                 List.of(Items.PISTON, Items.STICKY_PISTON, ModItems.REINFORCED_PISTON, ModItems.REINFORCED_STICKY_PISTON,
@@ -2244,47 +2268,85 @@ public final class DataIntegrityTests {
                         ModItems.ENDERITE_BLAST_FURNACE),
                 List.of(Items.BUNDLE, ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE),
                 List.of(ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER),
-                List.of(ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK));
+                List.of(ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK),
+                List.of(ModItems.BLUEPRINT, Items.CARTOGRAPHY_TABLE, ModItems.OCTANT, ModItems.COPPER_BUILDING_WAND,
+                        ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND, ModItems.DIAMOND_BUILDING_WAND,
+                        ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND));
+        List<List<Item>> categories = rowLayout(helper, ModItemGroupsContent.Tab.FUNCTIONAL, problems);
+        expectRows(categories, expected, problems);
+        if (categories.size() != expected.size()) {
+            problems.add("SimpleMachines has " + categories.size() + " rows instead of " + expected.size() + ": " + categories);
+        }
+        helper.assertTrue(problems.isEmpty(), "machines and storage layout: " + problems);
+        helper.succeed();
+    }
 
-        // Read the categories back: a run of real items, then its padding.
-        List<Integer> starts = new ArrayList<>();
-        List<List<Item>> categories = new ArrayList<>();
-        int i = 0;
-        while (i < slots.size()) {
-            if (slots.get(i).is(ModItems.CREATIVE_SPACER)) {
-                problems.add("slot " + i + " starts with a spacer instead of an item");
-                i++;
-                continue;
+    /**
+     * SimpleTools is laid out in rows of nine, one family per row from the lowest tier up to
+     * enderite, the vanilla tools, weapons and armour of every tier included: chisel, building wand,
+     * sledgehammer, pickaxe, shovel, hoe, axe, then sword and spear, then helmet, chestplate,
+     * leggings and boots, then the gadgets (octant, velocity gauge, ore detector, magnet, rotator),
+     * the sixteen coloured octants (one category over two rows) and last the enchanted books, one
+     * per mod enchantment.
+     *
+     * <p>Same reading as {@link #machinesAndStorageTabIsLaidOutInRowsOfNine}: every category starts
+     * in the first column and holds exactly the expected items in order.
+     *
+     * <p>What breaks this: a family moved, reordered or missing a tier, a vanilla tier dropped, a
+     * missing spacer, books spread into another row or a book missing.
+     */
+    public static void toolsTabIsLaidOutInRowsOfNine(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        List<String> vanillaTools = List.of("wooden", "stone", "copper", "iron", "golden", "diamond", "netherite");
+        List<String> vanillaArmour = List.of("leather", "chainmail", "copper", "iron", "golden", "diamond", "netherite");
+        List<List<Item>> expected = new ArrayList<>();
+        expected.add(List.of(ModItems.STONE_CHISEL, ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL, ModItems.GOLD_CHISEL,
+                ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL, ModItems.ENDERITE_CHISEL));
+        expected.add(List.of(ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND,
+                ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND));
+        expected.add(List.of(ModItems.STONE_SLEDGEHAMMER, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER,
+                ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_SLEDGEHAMMER,
+                ModItems.ENDERITE_SLEDGEHAMMER));
+        Map<String, Item> enderite = new LinkedHashMap<>();
+        enderite.put("pickaxe", ModItems.ENDERITE_PICKAXE);
+        enderite.put("shovel", ModItems.ENDERITE_SHOVEL);
+        enderite.put("hoe", ModItems.ENDERITE_HOE);
+        enderite.put("axe", ModItems.ENDERITE_AXE);
+        enderite.put("sword", ModItems.ENDERITE_SWORD);
+        enderite.put("spear", ModItems.ENDERITE_SPEAR);
+        enderite.put("helmet", ModItems.ENDERITE_HELMET);
+        enderite.put("chestplate", ModItems.ENDERITE_CHESTPLATE);
+        enderite.put("leggings", ModItems.ENDERITE_LEGGINGS);
+        enderite.put("boots", ModItems.ENDERITE_BOOTS);
+        enderite.forEach((kind, top) -> {
+            List<Item> family = new ArrayList<>();
+            boolean armour = List.of("helmet", "chestplate", "leggings", "boots").contains(kind);
+            for (String tier : armour ? vanillaArmour : vanillaTools) {
+                family.add(BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(tier + "_" + kind)));
             }
-            starts.add(i);
-            List<Item> category = new ArrayList<>();
-            while (i < slots.size() && !slots.get(i).is(ModItems.CREATIVE_SPACER)) {
-                category.add(slots.get(i).getItem());
-                i++;
-            }
-            categories.add(category);
-            int padding = 0;
-            while (i < slots.size() && slots.get(i).is(ModItems.CREATIVE_SPACER)) {
-                padding++;
-                i++;
-            }
-            if (padding >= 9) {
-                problems.add("after " + category + " come " + padding + " spacers, a whole empty row");
-            }
-            if (i == slots.size() && padding > 0) {
-                problems.add("the tab ends on " + padding + " spacers after its last row");
-            }
+            family.add(top);
+            expected.add(family);
+        });
+        expected.add(List.of(ModItems.OCTANT, ModItems.VELOCITY_GAUGE, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR));
+        List<Item> colored = new ArrayList<>();
+        for (DyeColor color : DyeColor.values()) {
+            colored.add(ModItems.COLORED_OCTANT_ITEMS.get(color));
         }
+        expected.add(colored);
+        int modEnchantments = (int) helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
+                .listElements().filter(h -> MOD_ID.equals(h.key().identifier().getNamespace())).count();
+        expected.add(Collections.nCopies(modEnchantments, Items.ENCHANTED_BOOK));
 
-        for (int c = 0; c < categories.size(); c++) {
-            if (starts.get(c) % 9 != 0) {
-                problems.add("category " + categories.get(c) + " starts in column " + (starts.get(c) % 9 + 1)
-                        + " instead of the first column");
-            }
+        List<List<Item>> categories = rowLayout(helper, ModItemGroupsContent.Tab.TOOLS, problems);
+        if (!categories.equals(expected)) {
+            problems.add("SimpleTools rows are " + categories + " instead of " + expected);
         }
-        if (categories.size() < expected.size()) {
-            problems.add("the tab has " + categories.size() + " rows instead of at least " + expected.size() + ": " + categories);
-        }
+        helper.assertTrue(problems.isEmpty(), "tools layout: " + problems);
+        helper.succeed();
+    }
+
+    /** Every category has to start with its expected items in order (more may follow at its end). */
+    private static void expectRows(List<List<Item>> categories, List<List<Item>> expected, List<String> problems) {
         for (int c = 0; c < Math.min(categories.size(), expected.size()); c++) {
             List<Item> actual = categories.get(c);
             List<Item> head = actual.subList(0, Math.min(actual.size(), expected.get(c).size()));
@@ -2292,9 +2354,55 @@ public final class DataIntegrityTests {
                 problems.add("row " + (c + 1) + " is " + actual + " but has to start with " + expected.get(c));
             }
         }
+    }
 
-        helper.assertTrue(problems.isEmpty(), "machines and storage layout: " + problems);
-        helper.succeed();
+    /**
+     * Reads a row laid out tab back into its categories: a run of real items, then its spacer padding.
+     * Reports a category that does not start in the first column, a spacer visible in the search tab,
+     * a row of spacers only and trailing filler.
+     */
+    private static List<List<Item>> rowLayout(GameTestHelper helper, ModItemGroupsContent.Tab tab, List<String> problems) {
+        List<ItemStack> slots = new ArrayList<>();
+        ModItemGroupsContent.populate(tab, (CreativeModeTab.Output) (stack, visibility) -> {
+            slots.add(stack);
+            if (stack.is(ModItems.CREATIVE_SPACER) && visibility != CreativeModeTab.TabVisibility.PARENT_TAB_ONLY) {
+                problems.add(tab + ": spacer at slot " + (slots.size() - 1) + " is visible as " + visibility
+                        + ", so it would show up in the search tab");
+            }
+        }, helper.getLevel().registryAccess());
+
+        List<List<Item>> categories = new ArrayList<>();
+        int i = 0;
+        while (i < slots.size()) {
+            if (slots.get(i).is(ModItems.CREATIVE_SPACER)) {
+                problems.add(tab + ": slot " + i + " starts with a spacer instead of an item");
+                i++;
+                continue;
+            }
+            int start = i;
+            List<Item> category = new ArrayList<>();
+            while (i < slots.size() && !slots.get(i).is(ModItems.CREATIVE_SPACER)) {
+                category.add(slots.get(i).getItem());
+                i++;
+            }
+            categories.add(category);
+            if (start % 9 != 0) {
+                problems.add(tab + ": category " + category + " starts in column " + (start % 9 + 1)
+                        + " instead of the first column");
+            }
+            int padding = 0;
+            while (i < slots.size() && slots.get(i).is(ModItems.CREATIVE_SPACER)) {
+                padding++;
+                i++;
+            }
+            if (padding >= 9) {
+                problems.add(tab + ": after " + category + " come " + padding + " spacers, a whole empty row");
+            }
+            if (i == slots.size() && padding > 0) {
+                problems.add(tab + ": the tab ends on " + padding + " spacers after its last row");
+            }
+        }
+        return categories;
     }
 
     /**
