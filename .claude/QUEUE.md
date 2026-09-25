@@ -33,7 +33,7 @@ Verlauf im Detail: git log.
 
 ## Welle 11 (laeuft)
 - [x] Visual Armor Trims: Muster auf Ruestungs-Icons (erst Mod-Ruestung, dann Vanilla), Farbe nach Material
-- [ ] Besatzmuster nachbessern (laeuft): Randpixel dunkler/ausgespart, exakt mittig (z. B. Flow-Brust), nur Overlays
+- [x] Besatzmuster nachbessern (laeuft): Randpixel dunkler/ausgespart, exakt mittig (z. B. Flow-Brust), nur Overlays
 - [x] Radiance-Partikel stark reduzieren; Tooltip "Radiance: 5" statt "5/5"
 - [ ] Texturen: Enderit-Aufwertung (Enderit-Farbe, Netherit innen + im Pfeil), Einfache Aufwertung (Gold-Stil, Eisenblock innen), Umbenennung "Basic Upgrade"/"Enderite Upgrade", Barren 2 px schmaler, Schrott 1 px breiter, Diamant-Kiesel schaerfer, Lederplatte schoener
 
