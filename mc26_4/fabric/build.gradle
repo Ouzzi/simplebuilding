@@ -109,11 +109,17 @@ processResources {
 	inputs.property "version", project.version
 	// fabric.mod.json is shared with the 26.2 line; only the Minecraft and Cloth Config ranges
 	// differ. "~26.4-" also accepts the 26.4 snapshots/pre-releases.
+	// The ModMenu entrypoint is dropped: the 26.3 Cloth Config (no 26.4 build yet) stores the config
+	// fine but crashes drawing its screen on 26.4 (NoSuchFieldError RenderPipelines.GUI_TEXTURED, the
+	// RenderPipeline class moved back to blaze3d) - better no config button than a crash. Remove this
+	// once mc264_cloth_version is a real 26.4 build (and ClientTestVersion.CLOTH_CONFIG_SCREEN in
+	// mc26_4/overlay/clientgametest with it).
 	filesMatching("fabric.mod.json") {
 		expand "version": inputs.properties.version
 		filter { String line ->
 			line.replace('"minecraft": "~26.2"', '"minecraft": "~26.4-"')
 				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3"')
+				.replace('"com.simplebuilding.compat.ModMenuIntegration"', '')
 		}
 	}
 }

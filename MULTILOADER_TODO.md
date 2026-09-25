@@ -217,7 +217,12 @@ ItemStack#useOn setzt heldItemTransformedTo in jedes Success.
 
 Vorbereitung auf den naechsten Drop. Stand: **26.4-snapshot-1** (Mojang-Manifest, 2026-09-22), Fabric
 Loader 0.19.5, Fabric API 0.161.1+26.4, Loom 1.17.20, ModMenu 22.0.0-alpha.1. **Cloth Config** hat noch
-keinen 26.4-Build; die 26.3-Version (26.3.159, `minecraft >=26.3-`) laeuft auf dem Snapshot. JEI, Jade,
+keinen 26.4-Build; die 26.3-Version (26.3.159, `minecraft >=26.3-`) laedt und speichert die Config auf
+dem Snapshot, **stuerzt aber beim Zeichnen ihres Screens ab** (NoSuchFieldError
+`RenderPipelines.GUI_TEXTURED`, RenderPipeline-Paketwechsel). Deshalb: der 26.4-Build entfernt den
+ModMenu-Entrypoint aus fabric.mod.json (kein Config-Knopf), der Client-Test ueberspringt den Screen
+(`ClientTestVersion.CLOTH_CONFIG_SCREEN`, run.py `SKIPPED_SHOTS`). Beides zuruecknehmen, sobald Cloth 26.4
+erscheint. JEI, Jade,
 AppleSkin, Mouse Tweaks: keine 26.4-Builds -> keine Dev-Mods (JEI-Plugin kompiliert gegen die 26.3-API).
 **Forge:** kein Snapshot-Build (neuestes 26.3-66.0.3). `mc26_4/forge/build.gradle` ist ein ungetestetes
 Geruest, eingeschaltet mit `-Pmc264_forge_version=<v>` (Forge-Quellen waren nie auf 26.3, also mit
@@ -246,10 +251,18 @@ src/main/generated) unterscheiden; `:mc26_4:fabric:runDatagen` -> `syncGenerated
 - `DyeColor` hat keine Farbwerte mehr (getTextureDiffuseColor/getMapColor/getTextColor/getFireworkColor
   weg; Farben privat in DyedItemColor.DYE_COLORS) -> Test-Shim `gametest/DyeRgb` (neues Paar
   26.2/26.3/26.4; 26.4 ueber `DyedItemColor.applyDyes(null, List.of(dye))`).
+- `EquipmentLayerRenderer.renderLayers` liefert `int` statt `void` -> 26.4-Zwilling von
+  EquipmentRendererMixin (Deskriptor endet auf `I`). Ohne ihn scheitert die Klasse beim Laden und der
+  Client baut keine Chunks mehr (jeder Client-Test: "Timed out waiting for predicate").
 - Datagen: 0 Abweichungen zu 26.3.
 
-Teststand 2026-09-25 (26.4-snapshot-1): Server `fabric-264` 400/400 gruen.
+Teststand 2026-09-25 (26.4-snapshot-1): Server `fabric-264` 400/400 gruen; `client-fabric-264` 13 Skripte
+gruen, 116/116 erwartete Screenshots (117 minus Config-Screen). `-Pmc264=true :mc26_4:fabric:build` baut
+`simplebuilding-26.4-snapshot-1-<v>.jar`. Forge-Geruest: mit Fantasie-Version konfiguriert es bis zur
+Abhaengigkeitsaufloesung (Mavenizer: Artefakt fehlt) - mehr ist ohne Forge-26.4 nicht pruefbar.
 
 Bei jedem neuen Snapshot: `mc264_minecraft_version` / `mc264_fabric_version` heben, kompilieren,
-Brueche als 26.4-Zwillinge, `runDatagen`, `run.py --targets snapshot`. Sobald Cloth Config 26.4
+Brueche als 26.4-Zwillinge, `python mc26_4/mixin_audit.py` (Mixin-Ziele/Shadows gegen das neue Jar -
+javac prueft sie nicht, ein kaputter Mixin kostet sonst einen Client-Boot), `runDatagen`,
+`run.py --targets snapshot`. Sobald Cloth Config 26.4
 erscheint: `mc264_cloth_version` heben.

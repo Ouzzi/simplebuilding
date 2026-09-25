@@ -497,7 +497,15 @@ LOGGER_NAME = re.compile(r'getLogger\(\s*"([^"]+)"')
 SHARED_CLIENT_SOURCES = {
     "26.2": "common/src/shared/clientgametest/java/com/simplebuilding/clientgametest",
     "26.3": "common/src/shared/clientgametest/java/com/simplebuilding/clientgametest",
+    "26.4-snapshot": "common/src/shared/clientgametest/java/com/simplebuilding/clientgametest",
     "1.21.11": "mc1_21_11/shared/clientgametest/java/com/simplebuilding/clientgametest",
+}
+
+
+#: Screenshots a line's shared client tests skip on purpose (ClientTestVersion flags).
+SKIPPED_SHOTS = {
+    # No Cloth Config for 26.4 yet: the config screen is hidden and not tested there.
+    "26.4-snapshot": {"screen-h-mod-config"},
 }
 
 
@@ -528,7 +536,7 @@ def expected_shots(target: Target) -> list[str]:
                 continue
             names.update(SHOT_NAME.findall(text))
             names.difference_update(LOGGER_NAME.findall(text))
-    return sorted(names)
+    return sorted(names - SKIPPED_SHOTS.get(target.mc_line, set()))
 
 
 def taken_shots(target: Target, not_older_than: float) -> tuple[list[str], list[str]]:
