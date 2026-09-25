@@ -1465,26 +1465,26 @@ def ring(x, y):
     return min(x, y, 15 - x, 15 - y)
 
 
-# Enderquarz (Item): Kristallstern - kleiner Hauptkoerper als vierzackiger Stern (oben, unten,
-# links, rechts), dazu an den vier Diagonalen je ein herausragender Spike, der in einem kleinen
-# vierzackigen Stern endet. Sehr dunkles Violett, 1..5 dunkel -> hell (Licht von oben links),
-# s Funken, S Glanzpunkt; ohne eigene Konturfarbe, damit die Spitzen klar bleiben.
+# Enderquarz (Item): kompakter Kristallstern (10x10) - kleiner Hauptkoerper als vierzackiger Stern
+# (oben, unten, links, rechts), dazu nah am Hauptstern an den vier Diagonalen je ein Spike, der
+# sich zu einer 1-Pixel-Spitze zu den Rahmenecken verjuengt. Sehr dunkles Violett, 1..5 dunkel ->
+# hell (Licht von oben links), s Funken, S Glanzpunkt; ohne eigene Konturfarbe.
 ENDER_QUARTZ_ITEM = [
     "................",
-    "..5.....5....3..",
-    ".5s4....4...4s2.",
-    "..545..54..432..",
-    "...455.54.332...",
-    "....45554433....",
-    ".....55S443.....",
-    "..5554444433....",
-    ".54443443322221.",
-    "..4333332211....",
-    ".....43322......",
-    "...344.32.221...",
-    "..343..32..212..",
-    ".343....1...121.",
-    "..3.....1....1..",
+    "................",
+    "................",
+    "...5....5...3...",
+    "....s..554.3....",
+    "....55.54.33....",
+    ".....5554433....",
+    "...55554S4332...",
+    "....444433222...",
+    ".....4433222....",
+    "....33.s32.22...",
+    "....3..32..2....",
+    "...3...2....2...",
+    "................",
+    "................",
     "................",
 ]
 ENDER_QUARTZ_ITEM_PAL = {
