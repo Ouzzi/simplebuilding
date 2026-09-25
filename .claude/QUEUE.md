@@ -55,18 +55,18 @@ Verlauf im Detail: git log.
 - [x] Hunger beim Bauen entschaerfen: Freibetrag pro Vorgang (>=256 Bloecke), nur sichtbare Hungerleiste als Massstab
 - [x] Texturen Runde 10: Barren wie Netherit (1 px niedriger, Glimmer), Werkzeug-Griffe wie Netherit mit lila statt schwarz + Glow, analog Hammer/Baustab/Meissel
 
-## Welle 13 (laeuft)
+## Welle 13 (erledigt, gepusht)
 - [x] Config-Schalter: Vanilla-Buecher (gibt es), Mod-Buecher custom/vanilla, sichtbare Besatzmuster Vanilla-Ruestung, sichtbare Besatzmuster Enderit-Ruestung
 
 - [x] 26.4-Snapshot-Linie vorbereiten (Fabric, Forge falls vorhanden), experimentell, blockiert das Gate nicht
 - [x] Nahtloses Welt-Upgrade 26.2 -> 26.3: Audit aller Mod-Daten, tolerante Leser, Fixture-Rundlauftest, docs/UPGRADE-26.2-26.3.md
 
 ## Welle 14 (erledigt, gepusht): Simple Tweaks uebernehmen
-- [ ] Inventur + docs/SIMPLETWEAKS-UEBERNAHME.md (inkl. vollstaendiger Claim-Notiz, Claims NICHT portieren)
-- [ ] Port aller Druckplatten (Chunkloader, Elytra-Pad, Fly-Pad, Spawn-Teleporter + Modi), Spawn-/Erstbeitritt, Spawn-Elytra, XP-Kugeln, Laser, Echo-Kompass, Befehle, Config (jede Variante abschaltbar) - alle Linien/Loader
-- [ ] Enderit-Stufe nach Netherit, Netherstern-Stufe rueckt eins hoch (z. B. Enderite Elytra Pad IV, Fine Elytra Pad V); Enderit-Platte mit Zusatzfunktion
-- [ ] Echo-Kompass: Rezept Bergungskompass + Enderit-Kern + Netherit-Druckplatte links/rechts; Unbreaking-Bug fixen
-- [ ] Tests alle Linien; danach in simpletweaks Branch remove-ported-features (nicht gepusht)
+- [x] Inventur + docs/SIMPLETWEAKS-UEBERNAHME.md (inkl. vollstaendiger Claim-Notiz, Claims NICHT portieren)
+- [x] Port aller Druckplatten (Chunkloader, Elytra-Pad, Fly-Pad, Spawn-Teleporter + Modi), Spawn-/Erstbeitritt, Spawn-Elytra, XP-Kugeln, Laser, Echo-Kompass, Befehle, Config (jede Variante abschaltbar) - alle Linien/Loader
+- [x] Enderit-Stufe nach Netherit, Netherstern-Stufe rueckt eins hoch (z. B. Enderite Elytra Pad IV, Fine Elytra Pad V); Enderit-Platte mit Zusatzfunktion
+- [x] Echo-Kompass: Rezept Bergungskompass + Enderit-Kern + Netherit-Druckplatte links/rechts; Unbreaking-Bug fixen
+- [x] Tests alle Linien; danach in simpletweaks Branch remove-ported-features (nicht gepusht)
 
 ## Welle 15 (erledigt, gepusht): Testzentrale
 - [x] /sbtestcentre build: reproduzierbare Testwelt aus Code (Ruestung/Trims/Upgrades, alle Buecher, Werkzeuge plain+verzaubert, Meissel-Tuerme + In-World-Stationen, Lager, Bloecke, Maschinen-Demos, Erzdetektor-Feld, Essen, Oktant/Blaupause/Baustab-Modi, Versatility/Vein/Strip, Command-Block-Knoepfe)
