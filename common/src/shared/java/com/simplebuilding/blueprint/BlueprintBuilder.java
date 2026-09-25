@@ -500,6 +500,8 @@ public final class BlueprintBuilder {
                     holder[0].sound = state.getSoundType();
                 }
                 if (!creative) {
+                    // EXPERIMENTELL: Erschoepfung je Block wie beim Flaechenbauen (WandHunger, abschaltbar).
+                    com.simplebuilding.util.WandHunger.exhaust(player, wandItem, 1);
                     wand.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
                 }
                 return true;

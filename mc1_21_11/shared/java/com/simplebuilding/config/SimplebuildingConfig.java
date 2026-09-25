@@ -52,6 +52,11 @@ public class SimplebuildingConfig implements ConfigData {
 
         @ConfigEntry.Gui.Tooltip
         public boolean invertBundleInteractions = false;
+
+        // EXPERIMENTELL: Bauen mit dem Baustab (Flaeche und Blaupause) kostet Erschoepfung je Block,
+        // billiger fuer staerkere Staebe; Kreativmodus ausgenommen. Tabelle in util/WandHunger.
+        @ConfigEntry.Gui.Tooltip
+        public boolean buildingWandHungerCost = true;
     }
 
     public static class WorldGen {

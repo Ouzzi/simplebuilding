@@ -470,9 +470,9 @@ window.WIKI_DATA = {
           "As soon as you have an iron ingot to spare, craft the Stone Sledgehammer: an iron ingot top left, two cobblestone next to it, two sticks in the middle column below. It mines like a stone pickaxe but takes a whole 3x3 face of identical blocks per swing, and holding right-click turns a full block into stairs and stairs into a slab. Every extra block broken costs 1 durability, so keep an eye on those 760 points.",
           "Sneaking is the mod's universal modifier: on the Chisel it reverses the direction, on the Sledgehammer it mines a single block, on enchanted pickaxes and axes it triggers Vein Miner, Strip Miner and Versatility, on the Octant it sets Pos 2, and the Magnet and a Funnel bundle pause while you do it.",
           "More room: the Reinforced Bundle is made from a bundle in the middle with a Diamond Pebble beside it, string on top and a Leather Sheet (nine leather in the crafting grid) below, and holds 96 items (at a stack size of 64); whatever the bundle held, its enchantments and its name carry over. The Quiver (bundle, string, leather, copper nugget) only takes arrows and feeds the bow automatically when it is in your offhand, in your chest slot or on your hotbar; the same crafting upgrade with a Quiver, a Leather Sheet and a Diamond Pebble makes the Reinforced Quiver (96 arrows, arrows and enchantments kept). The Diamond Pebble has one source, the Sledgehammer crushing a diamond block (see below).",
-          "For planning the build site: the Octant needs gold nuggets, a lead, gold ingots, a compass and a copper ingot; alternatively the Wandering Trader sells it for 10 emeralds. Right-click sets Pos 1, sneak + right-click sets Pos 2, the HUD shows you distance, area or volume; G opens the Octant Manager.",
+          "For planning the build site: the Octant needs two light and one heavy weighted pressure plate, two lightning rods, a lead and a compass; alternatively the Wandering Trader sells it for 10 emeralds. Right-click sets Pos 1, sneak + right-click sets Pos 2, the HUD shows you distance, area or volume; G opens the Octant Manager.",
           "The Building Wand is your first area tool: the Copper Building Wand is built from a Copper Core (top right) and two sticks diagonally below it. The Mason sells Copper Cores from level 2 for 25 emeralds (2 uses) and the Wandering Trader for 46 emeralds as a pair; the finished Copper Building Wand is also available from the Mason at level 4 for 62 emeralds. With blocks in your offhand or on your hotbar, right-click places a 3x3 face against the side of the block you clicked.",
-          "A bit of iron brings the helpers: the Magnet (4 iron ingots, a lodestone, redstone, lapis lazuli; pulls in items within 4 blocks and never wears out) and the Rotator (5 iron ingots + an ender pearl; turns logs, furnaces, pistons and hoppers in place with a right-click). The Ore Detector (calibrated sculk sensor on top, compass in the middle, Gold Core at the bottom) is worth it once you have a Gold Core; the Wandering Trader sells a Gold Core for 30 emeralds.",
+          "A bit of iron brings the helpers: the Magnet (4 iron ingots, a lodestone, redstone, lapis lazuli; pulls in items within 4 blocks and never wears out) and the Rotator (5 iron ingots + an ender pearl; turns logs, furnaces, pistons and hoppers in place with a right-click). The Ore Detector (calibrated sculk sensor on top, compass in the middle with an echo shard on each side, Gold Core at the bottom) is worth it once you have a Gold Core; the Wandering Trader sells a Gold Core for 30 emeralds.",
           "Material tiers for the Sledgehammer and Chisel: stone, copper, iron, gold, diamond, netherite, enderite; for the Building Wand the series starts at copper (3x3) and grows through iron (5x5), gold (7x7), diamond (9x9) and netherite (11x11) up to enderite (13x13). Higher hammer tiers are crafted with the matching block plus two ingots or diamonds, chisels with the ingot or diamond in the middle, building wands with the core of that tier.",
           "Upgrade instead of rebuild: with the Basic Upgrade at the smithing table, copper becomes iron, iron becomes gold and gold becomes diamond (vanilla tools: wood to stone with cobblestone, then stone to iron, iron to gold, gold to diamond, and the copper pickaxe, axe, shovel, sword and hoe to iron). It costs twice the material the crafting table asks for the new tool: a pickaxe or axe 6, a sword or hoe 4, a shovel 2, a chisel 2 and a sledgehammer 22 ingots or diamonds; a building wand takes one core of the new tier instead. Enchantments, damage and the name are kept. The Stone Sledgehammer cannot be upgraded, and the Diamond Core for the Diamond Building Wand is sold by the Mason (level 2) for 3 netherite ingots.",
           "Netherite and enderite only exist at the smithing table: Netherite Upgrade Smithing Template + diamond tool + netherite ingot, then Enderite Upgrade + netherite tool + Enderite Ingot. Enderite items are not lost in the void; the Enderite Bundle and the Enderite Quiver take the mod's enchantments at an anvil like the tiers below them, while the Enderite building wand, chisel and sledgehammer are still missing from the enchantment tags and cannot be given them by normal means.",
@@ -493,9 +493,9 @@ window.WIKI_DATA = {
           "Sobald du einen Eisenbarren übrig hast, baust du den Stein-Vorschlaghammer: Eisenbarren oben links, daneben zwei Bruchstein, darunter zwei Stöcke mittig. Er baut wie eine Steinspitzhacke, nimmt aber pro Schlag ein ganzes 3x3-Feld gleicher Blöcke mit, und mit gedrücktem Rechtsklick machst du aus einem vollen Block eine Treppe und aus der Treppe eine Stufe. Jeder zusätzlich abgebaute Block kostet 1 Haltbarkeit, also behalte die 760 Punkte im Blick.",
           "Schleichen ist der Universal-Modifikator der Mod: Beim Meißel kehrt es die Richtung um, beim Vorschlaghammer baut es nur einen Block ab, bei verzauberten Spitzhacken und Äxten löst es Aderabbau, Tunnelgräber und Vielseitigkeit aus, beim Oktanten setzt es Pos 2, und Magnet sowie Trichter-Bündel pausieren dabei.",
           "Mehr Platz: Das Verstärkte Bündel entsteht aus einem Bündel in der Mitte mit einem Diamantkiesel daneben, Faden oben und einer Lederplatte (neun Leder in der Werkbank) unten und fasst 96 Gegenstände (bei 64er-Stapeln); Inhalt, Verzauberungen und Name des Bündels bleiben dabei erhalten. Der Köcher (Bündel, Faden, Leder, Kupfer-Nugget) nimmt nur Pfeile auf und versorgt den Bogen automatisch, wenn er in der Nebenhand, im Brustpanzer-Slot oder der Schnellzugriffsleiste liegt; dieselbe Werkbank-Aufwertung mit Köcher, Lederplatte und Diamantkiesel ergibt den Verstärkten Köcher (96 Pfeile, Pfeile und Verzauberungen bleiben). Den Diamantkiesel gibt es nur auf einem Weg: der Vorschlaghammer zerkleinert einen Diamantblock (siehe unten).",
-          "Zum Planen der Baustelle: Der Oktant braucht Goldklumpen, Leine, Goldbarren, Kompass und Kupferbarren; alternativ verkauft ihn der fahrende Händler für 10 Smaragde. Rechtsklick setzt Pos 1, Schleichen + Rechtsklick Pos 2, das HUD zeigt dir Abstand, Fläche oder Volumen; mit G öffnest du den Oktant-Manager.",
+          "Zum Planen der Baustelle: Der Oktant braucht zwei leichte und eine schwere Wägeplatte, zwei Blitzableiter, eine Leine und einen Kompass; alternativ verkauft ihn der fahrende Händler für 10 Smaragde. Rechtsklick setzt Pos 1, Schleichen + Rechtsklick Pos 2, das HUD zeigt dir Abstand, Fläche oder Volumen; mit G öffnest du den Oktant-Manager.",
           "Der Baustab ist dein erstes Flächenwerkzeug: Der Kupfer-Baustab wird aus einem Kupferkern (oben rechts) und zwei Stöcken diagonal darunter gebaut. Kupferkerne verkauft der Steinmetz ab Stufe 2 für 25 Smaragde (2 Nutzungen) und der fahrende Händler für 46 Smaragde im Doppelpack; den fertigen Kupfer-Baustab gibt es auch beim Steinmetz ab Stufe 4 für 62 Smaragde. Mit Blöcken in Zweithand oder Hotbar setzt er per Rechtsklick eine 3x3-Fläche vor die angeklickte Blockseite.",
-          "Mit etwas Eisen kommen die Helfer dazu: der Magnet (4 Eisenbarren, Leitstein, Redstone, Lapislazuli; zieht Items im Umkreis von 4 Blöcken an und nutzt sich nie ab) und der Rotator (5 Eisenbarren + Enderperle; dreht Stämme, Öfen, Kolben und Trichter per Rechtsklick an Ort und Stelle). Der Erzdetektor (kalibrierter Sculk-Sensor oben, Kompass in der Mitte, Goldkern unten) lohnt sich, sobald du einen Goldkern hast; den verkauft der fahrende Händler für 30 Smaragde.",
+          "Mit etwas Eisen kommen die Helfer dazu: der Magnet (4 Eisenbarren, Leitstein, Redstone, Lapislazuli; zieht Items im Umkreis von 4 Blöcken an und nutzt sich nie ab) und der Rotator (5 Eisenbarren + Enderperle; dreht Stämme, Öfen, Kolben und Trichter per Rechtsklick an Ort und Stelle). Der Erzdetektor (kalibrierter Sculk-Sensor oben, Kompass in der Mitte mit je einer Echoscherbe links und rechts, Goldkern unten) lohnt sich, sobald du einen Goldkern hast; den verkauft der fahrende Händler für 30 Smaragde.",
           "Materialstufen bei Vorschlaghammer und Meißel: Stein, Kupfer, Eisen, Gold, Diamant, Netherit, Enderit; beim Baustab beginnt die Reihe bei Kupfer (3x3) und wächst über Eisen (5x5), Gold (7x7), Diamant (9x9) und Netherit (11x11) bis Enderit (13x13). Höhere Hammerstufen werden mit dem jeweiligen Block plus zwei Barren bzw. Diamanten gebaut, Meißel mit dem Barren bzw. Diamanten in der Mitte, Baustäbe mit dem Kern der Stufe.",
           "Aufwerten statt neu bauen: Mit der Basisaufwertung am Schmiedetisch wird Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant (Vanilla-Werkzeuge: Holz mit Bruchstein zu Stein, dann Stein zu Eisen, Eisen zu Gold, Gold zu Diamant, dazu Kupferspitzhacke, -axt, -schaufel, -schwert und -hacke zu Eisen). Es kostet das Doppelte des Materials, das die Werkbank für das neue Werkzeug verlangt: Spitzhacke oder Axt 6, Schwert oder Hacke 4, Schaufel 2, Meißel 2 und Vorschlaghammer 22 Barren bzw. Diamanten; ein Baustab kostet stattdessen einen Kern der neuen Stufe. Verzauberungen, Schaden und Name bleiben dabei erhalten. Der Stein-Vorschlaghammer lässt sich nicht aufwerten, und den Diamantkern für den Diamant-Baustab verkauft der Steinmetz (Stufe 2) für 3 Netheritbarren.",
           "Netherit und Enderit gibt es nur am Schmiedetisch: Netherit-Aufwertungs-Schmiedevorlage + Diamant-Werkzeug + Netheritbarren, danach Enderitaufwertung + Netherit-Werkzeug + Enderite Ingot. Enderit-Gegenstände gehen in der Leere nicht verloren; Enderite Bundle und Enderite Quiver nehmen die Mod-Verzauberungen am Amboss an wie die Stufen darunter, während Enderit-Baustab, -Meißel und -Vorschlaghammer weiterhin in den Verzauberungs-Tags fehlen und sich auf normalem Weg nicht verzaubern lassen.",
@@ -827,7 +827,8 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/gametest/EnchantmentEffectTests.java",
         "src/main/resources/assets/minecraft/items/enchanted_book.json",
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
-        "src/main/resources/assets/simplebuilding/lang/en_us.json"
+        "src/main/resources/assets/simplebuilding/lang/en_us.json",
+        "common/src/shared/java/com/simplebuilding/util/WandHunger.java"
       ],
       "en": {
         "title": "Building Wand: whole areas in one click",
@@ -837,6 +838,7 @@ window.WIKI_DATA = {
           "The area appears one block in front of the clicked face and by default lies flush with it: clicking the floor builds a flat layer, clicking a wall a vertical plane.",
           "Building runs ring by ring from the centre outwards, the centre block on the next tick and every further ring after a 4-tick pause; with the Linear enchantment only 2 ticks.",
           "The wand takes the first block it finds in the off-hand or hotbar and uses that kind for the whole area; every placed block costs one item and 1 durability (nothing in creative).",
+          "EXPERIMENTAL - hunger cost (config tools.buildingWandHungerCost, default on): in survival every block the wand places, on a normal face as well as in a blueprint build, adds food exhaustion, and the stronger the wand the less per block. Vanilla units: 4.0 exhaustion is one point, saturation drains before the hunger bar. Calibration: a Copper wand filling its largest cube (16x16x16 = 4096 blocks) costs a quarter of a full bar (40 exhaustion, the full bar being 20 food plus 20 saturation = 160), an Enderite wand building 128x128x128 costs the whole bar; the tiers in between step down geometrically by the factor 0.379. Exhaustion per block: copper 0.00977, iron 0.00370, gold 0.00140, diamond 0.000531, netherite 0.000201, enderite 0.0000763 (one food point every 410, 1081, 2853, 7528, 19867 and 52429 blocks). A normal 3x3 face with the Copper wand costs 0.088. Creative mode is exempt. The feature never deals damage itself; if the bar runs empty, starving is vanilla behaviour (depending on difficulty).",
           "Occupied positions are skipped; only positions holding a replaceable block (e.g. air) are built.",
           "While the wand is in your main hand and you are looking at a block, a semi-transparent, shrunken ghost preview shows where it would build.",
           "Tiers and maximum area: copper 3x3, iron 5x5, gold 7x7, diamond 9x9, netherite 11x11, enderite 13x13.",
@@ -858,6 +860,7 @@ window.WIKI_DATA = {
           "Die Fläche entsteht einen Block vor der angeklickten Seite und liegt standardmäßig senkrecht zu ihr: Klick auf den Boden baut eine waagerechte Schicht, Klick auf eine Wand eine senkrechte Ebene.",
           "Gebaut wird ringweise von der Mitte nach außen, der Mittelblock beim nächsten Tick und jeder weitere Ring nach 4 Ticks Pause; mit der Verzauberung Linear nur 2 Ticks.",
           "Der Stab nimmt den ersten Block, den er in Zweithand oder Hotbar findet, und verwendet diese Sorte für die ganze Fläche; jeder gesetzte Block kostet einen Gegenstand und 1 Haltbarkeit (im Kreativmodus nichts).",
+          "EXPERIMENTELL - Hungerkosten (Config tools.buildingWandHungerCost, Standard an): Im Überlebensmodus erzeugt jeder Block, den der Baustab setzt - auf einer normalen Fläche wie bei einem Blaupausen-Bau -, Erschöpfung, und je stärker der Stab, desto weniger pro Block. Vanilla-Einheiten: 4,0 Erschöpfung sind ein Punkt, die Sättigung sinkt vor der Hungerleiste. Eichung: Ein Kupfer-Baustab, der seinen größten Würfel füllt (16x16x16 = 4096 Blöcke), kostet ein Viertel der vollen Leiste (40 Erschöpfung; die volle Leiste sind 20 Hunger plus 20 Sättigung = 160), ein Enderit-Baustab mit 128x128x128 die ganze Leiste; die Stufen dazwischen sinken geometrisch um den Faktor 0,379. Erschöpfung pro Block: Kupfer 0,00977, Eisen 0,00370, Gold 0,00140, Diamant 0,000531, Netherit 0,000201, Enderit 0,0000763 (ein Hungerpunkt alle 410, 1081, 2853, 7528, 19867 bzw. 52429 Blöcke). Eine normale 3x3-Fläche mit dem Kupfer-Baustab kostet 0,088. Der Kreativmodus ist ausgenommen. Die Funktion verursacht nie selbst Schaden; läuft die Leiste leer, ist das Verhungern Vanilla-Verhalten (je nach Schwierigkeitsgrad).",
           "Belegte Positionen werden übersprungen; nur Positionen mit ersetzbarem Block (z. B. Luft) werden bebaut.",
           "Solange der Stab in der Haupthand liegt und du auf einen Block zielst, zeigt eine halbtransparente, verkleinerte Geister-Vorschau, wo gebaut würde.",
           "Stufen und maximale Fläche: Kupfer 3x3, Eisen 5x5, Gold 7x7, Diamant 9x9, Netherit 11x11, Enderit 13x13.",
@@ -919,7 +922,7 @@ window.WIKI_DATA = {
         "title": "Octant: Measuring and Planning Shapes",
         "summary": "The Octant is SimpleBuilding's tape measure and planning tool. Two clicks mark two corner points, the HUD works out distance, area or volume for you, and in the world you see coloured outlines of your selection. Anyone with the Constructor's Touch enchantment on the octant additionally gets the complete shape (cuboid, cylinder, sphere, pyramid, prism) drawn in as a translucent preview.",
         "details": [
-          "Getting started: craft an octant (gold nuggets, lead, gold ingots, compass, copper ingot) or buy one from the wandering trader for 10 emeralds; it is also found in ancient cities, nether fortresses and pillager outposts (trading and loot can each be switched off in the config).",
+          "Getting started: craft an octant (two light weighted pressure plates, two lightning rods, a heavy weighted pressure plate, a lead and a compass) or buy one from the wandering trader for 10 emeralds; it is also found in ancient cities, nether fortresses and pillager outposts (trading and loot can each be switched off in the config).",
           "Step 1: right-clicking a block sets Pos 1, sneak + right-click sets Pos 2. Every click costs 1 durability (the plain octant has 128).",
           "Step 2: the HUD on the left shows both positions and the measurement: distance in blocks for a line, area with width x depth for a plane, volume with width x height x depth for a box. Both corner blocks count.",
           "Step 3: G opens the Octant Manager: adjust positions and size with the edit fields or the +/- buttons, pick shape and axis, lock the selection. Alt + mouse wheel switches the shape, Ctrl + wheel and sneak key + wheel move Pos 1 and Pos 2 in the direction you are facing without opening the menu.",
@@ -936,7 +939,7 @@ window.WIKI_DATA = {
         "title": "Oktant: Messen und Formen planen",
         "summary": "Der Oktant ist das Maßband und Planungswerkzeug von SimpleBuilding. Mit zwei Klicks markierst du zwei Eckpunkte, das HUD rechnet dir Abstand, Fläche oder Volumen aus, und in der Welt siehst du farbige Umrisse deiner Auswahl. Wer die Verzauberung Berührung des Konstrukteurs auf dem Oktanten hat, bekommt zusätzlich die komplette Form (Quader, Zylinder, Kugel, Pyramide, Prisma) als durchscheinende Vorschau eingeblendet.",
         "details": [
-          "Einstieg: Oktant craften (Goldklumpen, Leine, Goldbarren, Kompass, Kupferbarren) oder beim fahrenden Händler für 10 Smaragde kaufen; auch in Antiken Städten, Netherfestungen und Plünderer-Außenposten zu finden (Handel und Beute jeweils per Config abschaltbar).",
+          "Einstieg: Oktant craften (zwei leichte Wägeplatten, zwei Blitzableiter, eine schwere Wägeplatte, Leine und Kompass) oder beim fahrenden Händler für 10 Smaragde kaufen; auch in Antiken Städten, Netherfestungen und Plünderer-Außenposten zu finden (Handel und Beute jeweils per Config abschaltbar).",
           "Schritt 1: Rechtsklick auf einen Block setzt Pos 1, Schleichen + Rechtsklick setzt Pos 2. Jeder Klick kostet 1 Haltbarkeit (128 beim normalen Oktanten).",
           "Schritt 2: Das HUD links zeigt beide Positionen und den Messwert: Abstand in Blöcken bei einer Linie, Fläche mit Breite x Tiefe bei einer Ebene, Volumen mit Breite x Höhe x Tiefe bei einem Kasten. Beide Eckblöcke zählen mit.",
           "Schritt 3: Mit G öffnest du den Oktant-Manager: Positionen und Größe per Eingabefeld oder +/- Knöpfen anpassen, Form und Achse wählen, Auswahl sperren. Mit Alt + Mausrad wechselst du die Form, mit Strg + Mausrad bzw. Schleichen-Taste + Mausrad verschiebst du Pos 1 bzw. Pos 2 in Blickrichtung, ohne das Menü zu öffnen.",
@@ -981,7 +984,8 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/util/OctantShape.java",
         "common/src/shared/java/com/simplebuilding/blueprint/BlueprintExamples.java",
         "common/src/shared/java/com/simplebuilding/blueprint/BlueprintBlockSearch.java",
-        "src/main/resources/data/simplebuilding/blueprint_examples/plains_house.sbp"
+        "src/main/resources/data/simplebuilding/blueprint_examples/plains_house.sbp",
+        "common/src/shared/java/com/simplebuilding/util/WandHunger.java"
       ],
       "en": {
         "title": "Blueprint: Writing, Scanning and Building Structures",
@@ -1002,7 +1006,8 @@ window.WIKI_DATA = {
           "Autosave: edits are sent to the server 1.5 seconds after you stop typing and again when the editor closes (also when you leave the world or lose the connection); the server stores them on the item immediately.",
           "Only a signed blueprint builds; an unsigned one shows \"Sign the blueprint to build it\". To edit a signed blueprint again, copy it at a cartography table: signed blueprint on top, empty blueprint below gives an unsigned copy with the same code and title (the original stays, only the empty one is used).",
           "The build grows visibly like the building wand, only faster: layer by layer from the bottom, each layer from the centre outwards, taking about 1 second for a small house and at most 9 seconds for the largest structure. Blocks you do not have show red in the preview; then the first right-click only makes them flash and plays a warning sound, a second click within 3 seconds builds everything you have. Switching the main-hand item, taking the blueprint out of the off hand or breaking the wand stops the build.",
-          "Loader note: identical on Fabric, NeoForge and Forge (26.2) and on Fabric and NeoForge (1.21.11)."
+          "Loader note: identical on Fabric, NeoForge and Forge (26.2) and on Fabric and NeoForge (1.21.11).",
+          "EXPERIMENTAL: in survival a blueprint build costs hunger like the Building Wand itself - every placed block adds the wand tier's exhaustion (see Building Wand; config tools.buildingWandHungerCost). An Enderite wand building 128x128x128 empties a full bar, larger builds also just empty it."
         ]
       },
       "de": {
@@ -1025,7 +1030,8 @@ window.WIKI_DATA = {
           "Autospeichern: Änderungen gehen 1,5 Sekunden nach der letzten Eingabe an den Server und noch einmal beim Schließen (auch beim Verlassen der Welt oder Verbindungsabbruch); der Server speichert sie sofort am Item.",
           "Bauen geht nur mit einer signierten Blaupause; eine unsignierte meldet „Blaupause signieren, um sie zu bauen“. Zum Weiterbearbeiten eine Kopie am Kartentisch machen: signierte Blaupause oben, leere unten ergibt eine unsignierte Kopie mit demselben Code und Titel (das Original bleibt, verbraucht wird nur die leere).",
           "Der Bau wächst sichtbar wie beim Baustab, nur schneller: Schicht für Schicht von unten, jede Schicht von der Mitte nach außen, rund 1 Sekunde für ein kleines Haus und höchstens 9 Sekunden für das größte Bauwerk. Blöcke, die dir fehlen, erscheinen in der Vorschau rot; dann lässt der erste Rechtsklick sie nur aufleuchten und spielt einen Warnton, ein zweiter Klick binnen 3 Sekunden baut alles Vorhandene. Werkzeugwechsel in der Haupthand, Blaupause aus der Nebenhand nehmen oder ein zerbrochener Baustab stoppen den Bau.",
-          "Loader-Hinweis: gleich auf Fabric, NeoForge und Forge (26.2) sowie Fabric und NeoForge (1.21.11)."
+          "Loader-Hinweis: gleich auf Fabric, NeoForge und Forge (26.2) sowie Fabric und NeoForge (1.21.11).",
+          "EXPERIMENTELL: Im Überlebensmodus kostet ein Blaupausen-Bau Hunger wie der Baustab selbst - jeder gesetzte Block erzeugt die Erschöpfung der Stab-Stufe (siehe Baustab; Config tools.buildingWandHungerCost). Ein Enderit-Baustab mit 128x128x128 leert eine volle Leiste, größere Bauten leeren sie ebenfalls nur."
         ]
       }
     },
@@ -1105,7 +1111,7 @@ window.WIKI_DATA = {
         "title": "Ore Detector",
         "summary": "The Ore Detector is sonar for mining: hold it in your hand and once every 20 ticks it looks for the nearest ore in a sphere around you and points it out with a sound and a particle trail that runs from your eyes to the find; which of the twenty ticks that falls on depends on the player, so that the detectors of several players do not all scan in the same tick. Six modes decide what it looks for, from iron to ancient debris or any block you calibrate it to yourself. Every block between you and the ore damps the ore's signal - soft rock such as netherrack a little, stone more, deepslate and obsidian a lot - and the rarer the ore, the weaker its signal: common ores are read through 4 blocks of stone, diamonds through 2, ancient debris only through 2 netherrack. Through open cave air it finds ores 16 to 24 blocks away. The Radius enchantment roughly doubles how much rock the rare ores get through, Constructor's Touch halves every block's loss.",
         "details": [
-          "Crafting: calibrated sculk sensor over compass over Gold Core, vertically in the middle column of the crafting table; unlocked with your first compass.",
+          "Crafting: calibrated sculk sensor on top, the compass in the middle with an echo shard to its left and right, Gold Core at the bottom; unlocked with your first compass.",
           "Controls: sneak + right-click without a block targeted switches the mode (costs 1 durability, not in creative mode), sneak + right-click on a block calibrates Custom mode to exactly that block type.",
           "Signal and range by ore class, not by mode: common ores (coal, copper, iron, redstone, lapis, nether quartz) signal 18 and range 24, gold 13 and 20, diamond and emerald 9 and 16, ancient debris, Astralit Ore and Nihilith Ore 5 and 16. Iron, Gold, Diamond and Netherite mode each search one class; All Ores finds all twelve kinds, each with its own signal and range; Custom uses the class of the calibrated block (a block that is none of these ores counts as common). The range is at once the scan radius in blocks around the block your eyes are in; the tooltip shows it as \"Signal: <signal>, Range: <range>\" (All Ores: the common class plus a line with the rarer classes as signal/range).",
           "Material damping: every block the line of sight crosses between the block your eyes are in and the ore costs the signal a fixed amount by its mining hardness - air and blocks that do not occlude (glass, leaves, water) 0.125; hardness below 1.0 (netherrack, dirt, sand, gravel) and end stone, the host rock of the End ores, 2; hardness 1.0 to below 3.0 (stone, cobblestone, tuff, basalt, blackstone, logs) 4; hardness 3.0 to below 10 (deepslate, ores) 6; hardness 10 and up or unbreakable (obsidian, ancient debris, bedrock) 16. The ore is found if the total stays at or below its signal. Without Radius that means: common ores through 4 stone, gold through 3, diamond and emerald through 2, ancient debris through 2 netherrack (the End ores through 2 end stone) or 1 stone - each with up to 8 blocks of air on top.",
@@ -1122,7 +1128,7 @@ window.WIKI_DATA = {
         "title": "Erzdetektor",
         "summary": "Der Erzdetektor ist ein Sonar für den Bergbau: Hältst du ihn in der Hand, sucht er alle 20 Ticks das nächstgelegene Erz in einer Kugel um dich herum und zeigt es mit einem Klang und einer Partikelspur an, die von deinen Augen bis zum Fund reicht; auf welchen der zwanzig Ticks die Suche fällt, hängt am Spieler, damit nicht die Detektoren mehrerer Spieler alle im selben Tick suchen. Über sechs Modi legst du fest, wonach gesucht wird, von Eisen bis Antikem Schrott oder einem beliebigen selbst kalibrierten Block. Jeder Block zwischen dir und dem Erz dämpft dessen Signal - weiches Gestein wie Netherrack wenig, Stein mehr, Tiefenschiefer und Obsidian stark - und je seltener das Erz, desto schwächer sein Signal: gewöhnliche Erze liest er durch 4 Blöcke Stein, Diamanten durch 2, Antiken Schrott nur durch 2 Netherrack. Durch offene Höhlenluft findet er Erze in 16 bis 24 Blöcken Entfernung. Die Verzauberung Radius verdoppelt ungefähr, wie viel Gestein die seltenen Erze durchdringen, Berührung des Konstrukteurs halbiert den Verlust jedes Blocks.",
         "details": [
-          "Herstellung: kalibrierter Sculk-Sensor über Kompass über Goldkern, senkrecht in der mittleren Spalte der Werkbank; freigeschaltet mit dem ersten Kompass.",
+          "Herstellung: kalibrierter Sculk-Sensor oben, in der Mitte der Kompass mit je einer Echoscherbe links und rechts, unten der Goldkern; freigeschaltet mit dem ersten Kompass.",
           "Bedienung: Schleichen + Rechtsklick ohne anvisierten Block wechselt den Modus (kostet 1 Haltbarkeit, nicht im Kreativmodus), Schleichen + Rechtsklick auf einen Block kalibriert den Modus Custom auf genau diesen Blocktyp.",
           "Signal und Reichweite nach Erzklasse statt nach Modus: gewöhnliche Erze (Kohle, Kupfer, Eisen, Redstone, Lapis, Netherquarz) Signal 18 und Reichweite 24, Gold 13 und 20, Diamant und Smaragd 9 und 16, Antiker Schrott, Astraliterz und Nihiliterz 5 und 16. Die Modi Iron, Gold, Diamond und Netherite suchen je eine Klasse; All Ores findet alle zwölf Sorten, jede mit ihrem eigenen Signal und ihrer eigenen Reichweite; Custom nimmt die Klasse des kalibrierten Blocks (ein Block, der keines dieser Erze ist, zählt als gewöhnlich). Die Reichweite ist zugleich der Suchradius in Blöcken um den Block deiner Augen; der Tooltip zeigt beides als \"Signal: <Signal>, Range: <Reichweite>\" (All Ores: die gewöhnliche Klasse und eine Zeile mit den selteneren Klassen als Signal/Reichweite).",
           "Materialdämpfung: Jeder Block, den die Sichtlinie zwischen dem Block deiner Augen und dem Erz schneidet, kostet das Signal einen festen Betrag nach seiner Abbauhärte - Luft und nicht verdeckende Blöcke (Glas, Laub, Wasser) 0.125; Härte unter 1.0 (Netherrack, Erde, Sand, Kies) und Endstein, das Wirtsgestein der End-Erze, 2; Härte 1.0 bis unter 3.0 (Stein, Bruchstein, Tuff, Basalt, Schwarzstein, Stämme) 4; Härte 3.0 bis unter 10 (Tiefenschiefer, Erze) 6; Härte ab 10 oder unzerstörbar (Obsidian, Antiker Schrott, Grundgestein) 16. Das Erz wird gefunden, wenn die Summe sein Signal nicht übersteigt. Ohne Radius heißt das: gewöhnliche Erze durch 4 Stein, Gold durch 3, Diamant und Smaragd durch 2, Antiker Schrott durch 2 Netherrack (die End-Erze durch 2 Endstein) oder 1 Stein - jeweils mit bis zu 8 Blöcken Luft dazu.",
@@ -3169,7 +3175,8 @@ window.WIKI_DATA = {
         "src/main/java/com/simplebuilding/world/gen/ModOreGeneration.java",
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
         "src/main/resources/assets/simplebuilding/lang/en_us.json",
-        "common/src/shared/java/com/simplebuilding/items/DevEnchantedTab.java"
+        "common/src/shared/java/com/simplebuilding/items/DevEnchantedTab.java",
+        "common/src/shared/java/com/simplebuilding/util/WandHunger.java"
       ],
       "en": {
         "title": "Configuration",
@@ -3186,6 +3193,7 @@ window.WIKI_DATA = {
           "Tool Settings → Building Wand Highlight Opacity (buildingHighlightOpacity, default 40): opacity of the Sledgehammer and Octant preview faces; the code reads the value as a percentage from 0 to 100 (and clamps it), even though the tooltip says \"0.0 - 1.0\".",
           "Tool Settings → Enable Tool Animations (enableToolAnimations, default on) and Enable Chisel Animation (enableChiselAnimation, default on): the hand animation for the Chisel and Sledgehammer only plays when both are on.",
           "Tool Settings → Invert Bundle Interactions (invertBundleInteractions, default off): swaps insert (left click) and extract (right click) on the mod's bundles (Reinforced, Netherite, Enderite); the tooltip talks about sneaking, but the code only checks the click type.",
+          "Tool Settings → Building Wand Hunger Cost (Experimental) (buildingWandHungerCost, default on): EXPERIMENTAL. Every block a Building Wand places in survival - face build or blueprint build - adds food exhaustion, less per block for stronger wands (table under Building Wand); creative mode is exempt. Read on the server by WandHunger; it never deals damage itself.",
           "World Generation & Economy → Enable Villager Trades (enableVillagerTrades, default on): loads the Librarian, Mason and Toolsmith offers; evaluated when datapacks load (world start, /reload).",
           "World Generation & Economy → Enable Wandering Trader (enableWanderingTrades, default on): loads the Wandering Trader offers; evaluated when datapacks load as well.",
           "World Generation & Economy → Enable Loot Chests (enableLootTableChanges, default on): adds the mod pools to the stronghold library, end city treasure, ancient city, bastion (treasure and other), nether fortress, pillager outpost, woodland mansion, buried treasure, dungeon, shipwreck treasure, igloo, abandoned mineshaft, ruined portal, the trial chamber vaults (common, rare, ominous) and the fishing treasure.",
@@ -3209,6 +3217,7 @@ window.WIKI_DATA = {
           "Werkzeugeinstellungen → Baustab Hervorhebung Deckkraft (buildingHighlightOpacity, Standard 40): Deckkraft der Vorschau-Flächen von Vorschlaghammer und Oktant; der Code wertet den Wert als Prozent von 0 bis 100 aus (wird begrenzt), obwohl der Tooltip „0.0 – 1.0“ nennt.",
           "Werkzeugeinstellungen → Werkzeuganimationen aktivieren (enableToolAnimations, Standard an) und Meißel-Animation aktivieren (enableChiselAnimation, Standard an): nur wenn beide an sind, wird die Handanimation für Meißel und Vorschlaghammer abgespielt.",
           "Werkzeugeinstellungen → Bündel-Interaktion umkehren (invertBundleInteractions, Standard aus): tauscht beim Verstärkten Bündel Einfügen (Linksklick) und Entnehmen (Rechtsklick); der Tooltip spricht von Schleichen, der Code prüft aber nur die Klickart.",
+          "Werkzeugeinstellungen → Hungerkosten des Baustabs (experimentell) (buildingWandHungerCost, Standard an): EXPERIMENTELL. Jeder Block, den ein Baustab im Überlebensmodus setzt - Flächenbau oder Blaupausen-Bau -, erzeugt Erschöpfung, bei stärkeren Stäben weniger pro Block (Tabelle unter Baustab); der Kreativmodus ist ausgenommen. Wird serverseitig von WandHunger gelesen; verursacht nie selbst Schaden.",
           "Weltgenerierung & Wirtschaft → Dorfbewohner-Handel aktivieren (enableVillagerTrades, Standard an): lädt die Angebote von Bibliothekar, Steinmetz und Werkzeugschmied; wird beim Laden der Datenpakete ausgewertet (Weltstart, /reload).",
           "Weltgenerierung & Wirtschaft → Fahrender Händler aktivieren (enableWanderingTrades, Standard an): lädt die Angebote des fahrenden Händlers; ebenfalls beim Laden der Datenpakete ausgewertet.",
           "Weltgenerierung & Wirtschaft → Beutetruhen aktivieren (enableLootTableChanges, Standard an): fügt die Mod-Pools zu Festungsbibliothek, Endsiedlung, Tiefe Stadt, Bastion (Schatz und Sonstige), Netherfestung, Plünderer-Außenposten, Waldanwesen, vergrabenem Schatz, Verlies, Schiffswrack-Schatz, Iglu, verlassener Mine, Portalruine, den Tresoren der Prüfungskammern (normal, selten, unheilvoll) und dem Angel-Schatz hinzu.",
@@ -11443,7 +11452,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "The Octant is a measuring and planning tool: you mark two corner points in the world, read distance, area or volume off the HUD, and can have the selection sketched into the world as a cuboid, cylinder, sphere, pyramid or prism.",
           "details": [
-            "Crafting (shaped, 3x3): row 1 \" GL\", row 2 \"IPG\", row 3 \"CI \" with G = gold nugget, L = lead, I = gold ingot, P = compass, C = copper ingot; the recipe is unlocked by a copper ingot in your inventory.",
+            "Crafting (shaped, 3x3): row 1 \" RL\", row 2 \"PCR\", row 3 \"HP \" with R = lightning rod, L = lead, P = light weighted pressure plate (gold), C = compass, H = heavy weighted pressure plate (iron); the recipe is unlocked by a compass in your inventory.",
             "Durability 128; enchantability 15 (the same as the netherite tier of the mod's other tools).",
             "Every click on a block that sets a corner costs 1 durability, except in Creative mode.",
             "Right-clicking a block sets Pos 1 (sound: copper step, volume 0.3, pitch 2.0); sneak + right-click on a block sets Pos 2 (same sound, pitch 1.5).",
@@ -11506,7 +11515,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Der Oktant ist ein Mess- und Planungswerkzeug: Du markierst zwei Eckpunkte in der Welt, siehst Abstand, Fläche oder Volumen im HUD und kannst dir die Auswahl als Quader, Zylinder, Kugel, Pyramide oder Prisma in der Welt vorzeichnen lassen.",
           "details": [
-            "Herstellung (geformt, 3x3): Reihe 1 \" GL\", Reihe 2 \"IPG\", Reihe 3 \"CI \" mit G = Goldklumpen, L = Leine, I = Goldbarren, P = Kompass, C = Kupferbarren; das Rezept wird durch einen Kupferbarren im Inventar freigeschaltet.",
+            "Herstellung (geformt, 3x3): Reihe 1 \" RL\", Reihe 2 \"PCR\", Reihe 3 \"HP \" mit R = Blitzableiter, L = Leine, P = leichte Wägeplatte (Gold), C = Kompass, H = schwere Wägeplatte (Eisen); das Rezept wird durch einen Kompass im Inventar freigeschaltet.",
             "Haltbarkeit 128; Verzauberbarkeit 15 (derselbe Wert wie die Netherit-Stufe der anderen Werkzeuge).",
             "Jeder Klick auf einen Block, der einen Eckpunkt setzt, kostet 1 Haltbarkeit; im Kreativmodus nicht.",
             "Rechtsklick auf einen Block setzt Pos 1 (Ton: Kupfer-Schritt, Lautstärke 0,3, Tonhöhe 2,0); Schleichen + Rechtsklick auf einen Block setzt Pos 2 (gleicher Ton, Tonhöhe 1,5).",
@@ -11945,7 +11954,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "The Ore Detector is a hand tool that points out the nearest reachable ore around you once a second with a sound and a particle trail, as long as you hold it in your hand.",
           "details": [
-            "Crafted at a crafting table, vertically in the middle column: a calibrated sculk sensor on top (minecraft:calibrated_sculk_sensor), a compass in the middle, a Gold Core at the bottom (simplebuilding:gold_core); recipe category \"equipment\" (RecipeCategory.TOOLS).",
+            "Crafted at a crafting table (pattern \" S \" / \"ECE\" / \" G \"): a calibrated sculk sensor on top (minecraft:calibrated_sculk_sensor), a compass in the middle with an echo shard (minecraft:echo_shard) on each side, a Gold Core at the bottom (simplebuilding:gold_core); recipe category \"equipment\" (RecipeCategory.TOOLS).",
             "The recipe is unlocked as soon as a compass is in your inventory (criterion has_compass).",
             "Sits in the creative tab \"SimpleTools\" (id simplebuilding:tools) right after the Velocity Gauge and before the Magnet.",
             "Does not stack (stacksTo(1)) and has rarity RARE.",
@@ -12003,7 +12012,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Der Erzdetektor ist ein Handwerkzeug, das im Sekundentakt das nächstgelegene erreichbare Erz um dich herum mit einem Ton und einer Partikelspur anzeigt, solange du es in der Hand hältst.",
           "details": [
-            "Wird in der Werkbank hergestellt, senkrecht in der mittleren Spalte: oben ein kalibrierter Sculk-Sensor (minecraft:calibrated_sculk_sensor), in der Mitte ein Kompass, unten ein Goldkern (simplebuilding:gold_core); Rezeptkategorie \"equipment\" (RecipeCategory.TOOLS).",
+            "Wird in der Werkbank hergestellt (Muster \" S \" / \"ECE\" / \" G \"): oben ein kalibrierter Sculk-Sensor (minecraft:calibrated_sculk_sensor), in der Mitte ein Kompass mit je einer Echoscherbe (minecraft:echo_shard) links und rechts, unten ein Goldkern (simplebuilding:gold_core); Rezeptkategorie \"equipment\" (RecipeCategory.TOOLS).",
             "Das Rezept wird freigeschaltet, sobald ein Kompass im Inventar liegt (Fortschritt-Kriterium has_compass).",
             "Liegt im Kreativ-Tab „SimpleTools“ (Id simplebuilding:tools) direkt nach dem Geschwindigkeitsmesser und vor dem Magneten.",
             "Stapelt nicht (stacksTo(1)) und hat die Seltenheitsstufe RARE.",
@@ -24117,31 +24126,31 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/recipe/octant.json",
       "ingredients": [
         "minecraft:compass",
-        "minecraft:copper_ingot",
-        "minecraft:gold_ingot",
-        "minecraft:gold_nugget",
-        "minecraft:lead"
+        "minecraft:heavy_weighted_pressure_plate",
+        "minecraft:lead",
+        "minecraft:light_weighted_pressure_plate",
+        "minecraft:lightning_rod"
       ],
       "pattern": [
-        " GL",
-        "IPG",
-        "CI "
+        " RL",
+        "PCR",
+        "HP "
       ],
       "key": {
         "C": [
-          "minecraft:copper_ingot"
+          "minecraft:compass"
         ],
-        "G": [
-          "minecraft:gold_nugget"
-        ],
-        "I": [
-          "minecraft:gold_ingot"
+        "H": [
+          "minecraft:heavy_weighted_pressure_plate"
         ],
         "L": [
           "minecraft:lead"
         ],
         "P": [
-          "minecraft:compass"
+          "minecraft:light_weighted_pressure_plate"
+        ],
+        "R": [
+          "minecraft:lightning_rod"
         ]
       },
       "lines": [
@@ -24594,16 +24603,20 @@ window.WIKI_DATA = {
       "ingredients": [
         "minecraft:calibrated_sculk_sensor",
         "minecraft:compass",
+        "minecraft:echo_shard",
         "simplebuilding:gold_core"
       ],
       "pattern": [
         " S ",
-        " C ",
+        "ECE",
         " G "
       ],
       "key": {
         "C": [
           "minecraft:compass"
+        ],
+        "E": [
+          "minecraft:echo_shard"
         ],
         "G": [
           "simplebuilding:gold_core"
@@ -32569,6 +32582,13 @@ window.WIKI_DATA = {
       "name": "invertBundleInteractions",
       "type": "boolean",
       "default": "false",
+      "note": null,
+      "tooltip": ""
+    },
+    {
+      "name": "buildingWandHungerCost",
+      "type": "boolean",
+      "default": "true",
       "note": null,
       "tooltip": ""
     },
@@ -42749,7 +42769,7 @@ window.WIKI_DATA = {
     "trades": 21,
     "enchantments": 19,
     "tags": 27,
-    "config": 15,
+    "config": 16,
     "inWorld": 343,
     "features": 36,
     "undocumented": 0,
