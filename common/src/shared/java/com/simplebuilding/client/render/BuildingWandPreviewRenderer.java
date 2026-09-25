@@ -61,7 +61,20 @@ public final class BuildingWandPreviewRenderer {
         }
 
         HitResult hit = client.hitResult;
+        // Oktant mit Auswahl in der Nebenhand: die Fuellung (oder das Dach) der Figur, unabhaengig vom
+        // Fadenkreuz - ein Klick auf irgendeinen Block baut genau das. Fehlendes Material rot.
+        ItemStack octant = player.getOffhandItem();
+        if (com.simplebuilding.blueprint.ShapeFill.hasSelection(octant)) {
+            renderPreview(collector, poseStack, cameraPos, client, level,
+                    com.simplebuilding.blueprint.ShapeFill.preview(level, player, stack, octant));
+            return;
+        }
         if (!(hit instanceof BlockHitResult blockHit) || hit.getType() != HitResult.Type.BLOCK) {
+            // Bruecke: ein Rechtsklick in die Luft baut vom Block unter den Fuessen geradeaus.
+            if (!(octant.getItem() instanceof com.simplebuilding.items.custom.BlueprintItem)) {
+                renderGhosts(collector, poseStack, cameraPos, client, level,
+                        BuildingWandItem.getBridgePreview(level, player, stack, wandItem.getWandSquareDiameter()), 0xFFFFFF, GHOST_ALPHA);
+            }
             return;
         }
 
@@ -70,19 +83,28 @@ public final class BuildingWandPreviewRenderer {
         // Material fehlt, rot - nach einem Warn-Klick kurz kraeftig pulsierend.
         ItemStack offHand = player.getOffhandItem();
         if (offHand.getItem() instanceof com.simplebuilding.items.custom.BlueprintItem) {
-            com.simplebuilding.blueprint.BlueprintBuilder.Preview preview =
-                    com.simplebuilding.blueprint.BlueprintBuilder.preview(level, player, stack, offHand, blockHit);
-            renderGhosts(collector, poseStack, cameraPos, client, level, preview.placed(), 0xFFFFFF, GHOST_ALPHA);
-            int alpha = GHOST_ALPHA;
-            if (com.simplebuilding.blueprint.BlueprintBuilder.flashing()) {
-                alpha = 150 + (int) (105 * Math.abs(Math.sin(net.minecraft.util.Util.getMillis() / 90.0)));
-            }
-            renderGhosts(collector, poseStack, cameraPos, client, level, preview.missing(), 0xFF3030, alpha);
+            renderPreview(collector, poseStack, cameraPos, client, level,
+                    com.simplebuilding.blueprint.BlueprintBuilder.preview(level, player, stack, offHand, blockHit));
             return;
         }
+        // Flaeche, Abdeckung oder (Linear + Schleichen) Linie - ausgerichtet wie beim Bau, deshalb mit
+        // der echten Trefferposition (obere/untere Blockhaelfte entscheidet ueber Treppen und Stufen).
+        BlockPos clicked = blockHit.getBlockPos();
+        Vec3 hitRel = blockHit.getLocation().subtract(clicked.getX(), clicked.getY(), clicked.getZ());
         Map<BlockPos, BlockState> previewMap = BuildingWandItem.getPreviewStates(
-                level, player, stack, blockHit.getBlockPos(), blockHit.getDirection(), wandItem.getWandSquareDiameter());
+                level, player, stack, clicked, blockHit.getDirection(), hitRel, wandItem.getWandSquareDiameter());
         renderGhosts(collector, poseStack, cameraPos, client, level, previewMap, 0xFFFFFF, GHOST_ALPHA);
+    }
+
+    /** Geisterbloecke eines Planer-Baus: setzbar weiss, ohne Material rot (nach einem Warnklick pulsierend). */
+    private static void renderPreview(SubmitNodeCollector collector, PoseStack poseStack, Vec3 cameraPos, Minecraft client,
+                                      ClientLevel level, com.simplebuilding.blueprint.BlueprintBuilder.Preview preview) {
+        renderGhosts(collector, poseStack, cameraPos, client, level, preview.placed(), 0xFFFFFF, GHOST_ALPHA);
+        int alpha = GHOST_ALPHA;
+        if (com.simplebuilding.blueprint.BlueprintBuilder.flashing()) {
+            alpha = 150 + (int) (105 * Math.abs(Math.sin(net.minecraft.util.Util.getMillis() / 90.0)));
+        }
+        renderGhosts(collector, poseStack, cameraPos, client, level, preview.missing(), 0xFF3030, alpha);
     }
 
     /** Zeichnet Geisterbloecke; {@code tint} faerbt sie zusaetzlich ein (weiss = unveraendert). */

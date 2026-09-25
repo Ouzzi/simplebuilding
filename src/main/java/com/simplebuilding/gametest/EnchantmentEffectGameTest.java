@@ -36,8 +36,4 @@ public final class EnchantmentEffectGameTest {
         EnchantmentEffectTests.dataDrivenEnchantmentEffectsSurviveDatagen(helper);
     }
 
-    @GameTest
-    public void coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown(GameTestHelper helper) {
-        EnchantmentEffectTests.coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown(helper);
-    }
 }

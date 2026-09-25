@@ -27,6 +27,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
+import com.simplebuilding.util.WandPlacement;
+import com.simplebuilding.util.WandUndo;
 
 import static com.simplebuilding.util.EnchantmentHelper.hasEnchantment;
 
@@ -42,6 +45,20 @@ public class BuildingWandItem extends Item {
     public static final int DELAY_TICKS = 4; // Etwas schneller
     public static final int DELAY_TICKS_LINE = 2;
 
+    /** Bauformen eines Klicks (NBT {@code Mode}). */
+    public static final int MODE_SQUARE = 0;
+    /** Abdeckung: nur vor Bloecken derselben Sorte wie der angeklickte, zusammenhaengend. */
+    public static final int MODE_COVER = 1;
+    /** Linear + Schleichen: eine Linie von der Klickseite weg. */
+    public static final int MODE_LINE = 2;
+    /** Bruecke: Rechtsklick in die Luft, vom Block unter den Fuessen geradeaus. */
+    public static final int MODE_BRIDGE = 3;
+
+    /** Laenge von Linie und Bruecke: doppelter Durchmesser der eingestellten Flaeche (Kupfer 6 ... Enderit 26). */
+    public static int lineLength(int radius) {
+        return 2 * (2 * Math.max(0, radius) + 1);
+    }
+
     private int maxDiameter; // Maximaler Durchmesser (Tier-abhängig)
 
     private static class MaterialResult {
@@ -51,6 +68,8 @@ public class BuildingWandItem extends Item {
         // Getragener Rucksack: sourceStack ist der Rucksack, bundleIndex der Eintrag in seiner Komponente.
         boolean fromBackpack;
         BlockState stateToPlace;
+        /** Ein Stueck des verbrauchten Items (mit Komponenten) - fuer den Platzier-Kontext. */
+        ItemStack item = ItemStack.EMPTY;
         public void consume() {
             if (fromBackpack) BackpackItem.consumeOne(sourceStack, bundleIndex);
             else if (fromBundle) removeOneFromBundle(sourceStack, bundleIndex);
@@ -90,51 +109,45 @@ public class BuildingWandItem extends Item {
     }
 
     /**
-     * Gibt eine Map zurück, die jeder Position den BlockState zuweist, der dort platziert würde.
-     * Berücksichtigt Color Palette (Zufall) und Inventar-Priorität.
+     * Gibt eine Map zurück, die jeder Position den BlockState zuweist, der dort platziert würde -
+     * dieselbe Form ({@link Plan}), dieselbe Ausrichtung ({@link WandPlacement}) und dieselbe
+     * Farbpalette ({@link #paletteIndex}) wie beim Bau. Trefferpunkt: Mitte der Klickseite.
      */
     public static Map<BlockPos, BlockState> getPreviewStates(Level world, Player player, ItemStack wandStack, BlockPos originPos, Direction face, int maxDiameter) {
-        Map<BlockPos, BlockState> previewMap = new HashMap<>();
+        Vec3 hit = new Vec3(0.5 + face.getStepX() * 0.5, 0.5 + face.getStepY() * 0.5, 0.5 + face.getStepZ() * 0.5);
+        return getPreviewStates(world, player, wandStack, originPos, face, hit, maxDiameter);
+    }
 
-        // 1. Positionen berechnen
-        CustomData comp = wandStack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
-        CompoundTag nbt = comp.copyTag();
-        int maxTierRadius = (maxDiameter - 1) / 2;
-        int userRadius = getConfiguredRadius(nbt, maxTierRadius);
-        int axisMode = nbt.getIntOr("SettingsAxis", 0);
+    /** Wie oben, mit der echten Trefferposition relativ zum angeklickten Block (Treppen-/Stufenhaelfte). */
+    public static Map<BlockPos, BlockState> getPreviewStates(Level world, Player player, ItemStack wandStack, BlockPos originPos, Direction face, Vec3 hitRel, int maxDiameter) {
+        CompoundTag nbt = wandStack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        int userRadius = getConfiguredRadius(nbt, (maxDiameter - 1) / 2);
+        Plan plan = Plan.forClick(world, player, wandStack, originPos, face, hitRel, userRadius, nbt.getIntOr("SettingsAxis", 0));
+        return previewOf(world, player, wandStack, plan);
+    }
 
-        List<BlockPos> positions = collectPlacementPositions(originPos, face, userRadius, axisMode);
+    /** Vorschau der Bruecke (Rechtsklick in die Luft); leer ohne Bruecke-Verzauberung oder ohne Boden unter den Fuessen. */
+    public static Map<BlockPos, BlockState> getBridgePreview(Level world, Player player, ItemStack wandStack, int maxDiameter) {
+        if (!hasEnchantment(wandStack, world, ModEnchantments.BRIDGE) || player.isShiftKeyDown()) return new LinkedHashMap<>();
+        CompoundTag nbt = wandStack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        Plan plan = Plan.forBridge(world, player, getConfiguredRadius(nbt, (maxDiameter - 1) / 2));
+        return plan == null ? new LinkedHashMap<>() : previewOf(world, player, wandStack, plan);
+    }
 
-        if (positions.isEmpty()) return previewMap;
-
+    private static Map<BlockPos, BlockState> previewOf(Level world, Player player, ItemStack wandStack, Plan plan) {
+        Map<BlockPos, BlockState> previewMap = new LinkedHashMap<>();
         boolean hasMasterBuilder = hasEnchantment(wandStack, world, ModEnchantments.MASTER_BUILDER);
         boolean hasColorPalette = hasEnchantment(wandStack, world, ModEnchantments.COLOR_PALETTE);
-
-        if (hasColorPalette) {
-            // --- Color Palette Logic: Sammle ALLE Blöcke und verteile sie zufällig ---
-            List<BlockState> palette = findAllBuildingBlocks(player, wandStack, hasMasterBuilder);
-
-            if (palette.isEmpty()) return previewMap;
-
-            for (BlockPos pos : positions) {
-                // Nutze die Position als Seed für Determinismus (kein Flackern)
-                long seed = pos.asLong();
-                int index = Math.abs((int)(seed % palette.size()));
-                previewMap.put(pos, palette.get(index));
-            }
-
-        } else {
-            // --- Standard Logic: Erster gefundener Block für alle ---
-            // WICHTIG: Hier rufen wir die statische Client-taugliche Suche auf
-            BlockState state = findFirstBlockStateClient(player, wandStack, hasMasterBuilder);
-
-            if (state != null) {
-                for (BlockPos pos : positions) {
-                    previewMap.put(pos, state);
-                }
-            }
+        // Color Palette: jede Stelle nimmt den Eintrag, den paletteIndex ihr zuweist - genau wie der Bau.
+        List<ItemStack> palette = hasColorPalette ? findAllBuildingBlocks(player, wandStack, hasMasterBuilder) : List.of();
+        ItemStack first = hasColorPalette ? null : findFirstBlockStateClient(player, wandStack, hasMasterBuilder);
+        if (hasColorPalette ? palette.isEmpty() : first == null) return previewMap;
+        BlockState clicked = plan.clickedState(world);
+        for (BlockPos pos : plan.all(world)) {
+            ItemStack item = hasColorPalette ? palette.get(paletteIndex(pos, palette.size())) : first;
+            BlockState state = WandPlacement.stateFor(world, player, item, pos, plan.placeFace, plan.hitRel, clicked);
+            if (state != null) previewMap.put(pos, state);
         }
-
         return previewMap;
     }
 
@@ -144,29 +157,21 @@ public class BuildingWandItem extends Item {
         return Math.min(userRadius, maxTierRadius);
     }
 
-    private static List<BlockPos> collectPlacementPositions(BlockPos originPos, Direction face, int userRadius, int axisMode) {
-        List<BlockPos> positions = new ArrayList<>();
-        for (int r = 0; r <= userRadius; r++) {
-            positions.addAll(calculatePositions(originPos, face, r, axisMode));
-        }
-        return positions;
-    }
-
-    // Client-Helper: Findet den ersten BlockState, ohne ItemStack zu verändern
-    private static BlockState findFirstBlockStateClient(Player player, ItemStack wandStack, boolean hasMasterBuilder) {
+    // Client-Helper: Findet den ersten Baublock (ein Stueck, mit Komponenten), ohne ItemStack zu verändern
+    private static ItemStack findFirstBlockStateClient(Player player, ItemStack wandStack, boolean hasMasterBuilder) {
         Level world = player.level();
         // 1. Offhand
-        BlockState off = checkStackIsBlockState(player.getOffhandItem(), world, hasMasterBuilder);
+        ItemStack off = checkStackIsBlockState(player.getOffhandItem(), world, hasMasterBuilder);
         if (off != null) return off;
         // 2. Hotbar
         for (int i = 0; i < 9; i++) {
-            BlockState res = checkStackIsBlockState(player.getInventory().getItem(i), world, hasMasterBuilder);
+            ItemStack res = checkStackIsBlockState(player.getInventory().getItem(i), world, hasMasterBuilder);
             if (res != null) return res;
         }
         // 3. Inv
         if (hasMasterBuilder) {
             for (int i = 9; i < player.getInventory().getNonEquipmentItems().size(); i++) {
-                BlockState res = checkStackIsBlockState(player.getInventory().getItem(i), world, hasMasterBuilder);
+                ItemStack res = checkStackIsBlockState(player.getInventory().getItem(i), world, hasMasterBuilder);
                 if (res != null) return res;
             }
         }
@@ -174,14 +179,39 @@ public class BuildingWandItem extends Item {
         ItemStack backpack = masterBuilderBackpack(player);
         if (!backpack.isEmpty()) {
             int index = BackpackItem.findEntry(backpack, BuildingWandItem::isBuildingBlock);
-            if (index >= 0) return ((BlockItem) BackpackItem.entryStack(backpack, index).getItem()).getBlock().defaultBlockState();
+            if (index >= 0) return BackpackItem.entryStack(backpack, index).copyWithCount(1);
         }
         return null;
     }
 
+    /**
+     * Der Baublock, den ein Klick jetzt nehmen wuerde (erster Fund in Nebenhand, Hotbar, mit
+     * Meisterbauer Inventar, Meisterbauer-Rucksack), als ein Stueck; {@code null} ohne Material.
+     */
+    public static ItemStack firstBuildingStack(Player player, ItemStack wandStack) {
+        return findFirstBlockStateClient(player, wandStack, hasEnchantment(wandStack, player.level(), ModEnchantments.MASTER_BUILDER));
+    }
+
+    /**
+     * Die Farbpalette: alle mitgefuehrten Baubloecke in Suchreihenfolge (je Stapel ein Eintrag, zwei
+     * Stapel derselben Sorte zaehlen also doppelt), je ein Stueck mit Komponenten.
+     */
+    public static List<ItemStack> paletteStacks(Player player, ItemStack wandStack) {
+        return findAllBuildingBlocks(player, wandStack, hasEnchantment(wandStack, player.level(), ModEnchantments.MASTER_BUILDER));
+    }
+
+    /**
+     * Welcher Paletten-Eintrag an einer Stelle gesetzt wird: ein Hash der Position, gleich in
+     * Vorschau und Bau und stabil zwischen zwei Aufrufen (kein Flackern), in allen drei Achsen
+     * gemischt - auch ein flacher Boden wird bunt.
+     */
+    public static int paletteIndex(BlockPos pos, int size) {
+        return size <= 0 ? -1 : (int) Math.floorMod(net.minecraft.util.Mth.getSeed(pos), (long) size);
+    }
+
     // Hilfsmethode: Holt ALLE Baublöcke für Color Palette
-    private static List<BlockState> findAllBuildingBlocks(Player player, ItemStack wandStack, boolean hasMasterBuilder) {
-        List<BlockState> blocks = new ArrayList<>();
+    private static List<ItemStack> findAllBuildingBlocks(Player player, ItemStack wandStack, boolean hasMasterBuilder) {
+        List<ItemStack> blocks = new ArrayList<>();
         Level world = player.level();
 
         // Helper Lambda oder Loop
@@ -196,24 +226,24 @@ public class BuildingWandItem extends Item {
         ItemStack backpack = masterBuilderBackpack(player);
         if (!backpack.isEmpty()) {
             for (ItemStack s : BackpackItem.entryStacks(backpack)) {
-                if (isBuildingBlock(s)) blocks.add(((BlockItem) s.getItem()).getBlock().defaultBlockState());
+                if (isBuildingBlock(s)) blocks.add(s.copyWithCount(1));
             }
         }
         return blocks;
     }
 
-    private static void collectBlocksFromStack(ItemStack stack, Level world, boolean masterBuilder, List<BlockState> list) {
+    private static void collectBlocksFromStack(ItemStack stack, Level world, boolean masterBuilder, List<ItemStack> list) {
         if (stack.isEmpty()) return;
         if (isBuildingBlock(stack)) {
-            list.add(((BlockItem) stack.getItem()).getBlock().defaultBlockState());
+            list.add(stack.copyWithCount(1));
         } else if (stack.getItem() instanceof ReinforcedBundleItem) {
             boolean bundleHasMB = hasEnchantment(stack, world, ModEnchantments.MASTER_BUILDER);
             if (masterBuilder || bundleHasMB) {
                 BundleContents contents = stack.get(DataComponents.BUNDLE_CONTENTS);
                 if (contents != null) {
                     for (ItemStack s : contents.itemsCopy()) {
-                        if (s.getItem() instanceof BlockItem bi) {
-                            list.add(bi.getBlock().defaultBlockState());
+                        if (s.getItem() instanceof BlockItem) {
+                            list.add(s.copyWithCount(1));
                         }
                     }
                 }
@@ -221,10 +251,10 @@ public class BuildingWandItem extends Item {
         }
     }
 
-    private static BlockState checkStackIsBlockState(ItemStack stack, Level world, boolean wandHasMasterBuilder) {
+    private static ItemStack checkStackIsBlockState(ItemStack stack, Level world, boolean wandHasMasterBuilder) {
         if (stack.isEmpty()) return null;
         if (isBuildingBlock(stack)) {
-            return ((BlockItem) stack.getItem()).getBlock().defaultBlockState();
+            return stack.copyWithCount(1);
         }
         if (stack.getItem() instanceof ReinforcedBundleItem) {
             boolean bundleHasMasterBuilder = hasEnchantment(stack, world, ModEnchantments.MASTER_BUILDER);
@@ -233,7 +263,7 @@ public class BuildingWandItem extends Item {
                 if (contents != null && !contents.isEmpty()) {
                     // Nimmt den ersten Block aus dem Bundle
                     for (ItemStack s : contents.itemsCopy()) {
-                        if (s.getItem() instanceof BlockItem bi) return bi.getBlock().defaultBlockState();
+                        if (s.getItem() instanceof BlockItem) return s.copyWithCount(1);
                     }
                 }
             }
@@ -276,6 +306,7 @@ public class BuildingWandItem extends Item {
         res.fromBackpack = true;
         res.bundleIndex = index;
         res.stateToPlace = ((BlockItem) BackpackItem.entryStack(backpack, index).getItem()).getBlock().defaultBlockState();
+        res.item = BackpackItem.entryStack(backpack, index).copyWithCount(1);
         return res;
     }
 
@@ -288,6 +319,7 @@ public class BuildingWandItem extends Item {
             res.sourceStack = stack;
             res.fromBundle = false;
             res.stateToPlace = ((BlockItem) stack.getItem()).getBlock().defaultBlockState();
+            res.item = stack.copyWithCount(1);
             return res;
         }
 
@@ -314,20 +346,12 @@ public class BuildingWandItem extends Item {
                 res.fromBundle = true;
                 res.bundleIndex = i;
                 res.stateToPlace = bi.getBlock().defaultBlockState();
+                res.item = s.copyWithCount(1);
                 return res;
             }
             i++;
         }
         return null;
-    }
-
-    private MaterialResult findMaterialForPlacement(Player player, ItemStack wand, Block targetBlock, boolean wandHasMasterBuilder, boolean colorPaletteActive) {
-        // Wenn Color Palette aktiv ist, ist targetBlock egal, wir nehmen den nächsten verfügbaren.
-        if (colorPaletteActive) {
-            return findFirstBuildingBlock(player, wand, wandHasMasterBuilder);
-        } else {
-            return findSpecificMaterial(player, wand, targetBlock, wandHasMasterBuilder);
-        }
     }
 
     private MaterialResult findSpecificMaterial(Player player, ItemStack wand, Block targetBlock, boolean wandHasMasterBuilder) {
@@ -355,7 +379,7 @@ public class BuildingWandItem extends Item {
     private MaterialResult checkStackForSpecificBlock(ItemStack stack, Block targetBlock, ItemStack wandStack, Level world, boolean wandHasMasterBuilder) {
         if (stack.isEmpty()) return null;
         if (isBuildingBlock(stack) && stack.getItem() instanceof BlockItem bi && bi.getBlock() == targetBlock) {
-            MaterialResult res = new MaterialResult(); res.sourceStack = stack; res.fromBundle = false; res.stateToPlace = bi.getBlock().defaultBlockState(); return res;
+            MaterialResult res = new MaterialResult(); res.sourceStack = stack; res.fromBundle = false; res.stateToPlace = bi.getBlock().defaultBlockState(); res.item = stack.copyWithCount(1); return res;
         }
         if (stack.getItem() instanceof ReinforcedBundleItem) {
             boolean bundleHasMasterBuilder = hasEnchantment(stack, world, ModEnchantments.MASTER_BUILDER);
@@ -370,7 +394,7 @@ public class BuildingWandItem extends Item {
         int i = 0;
         for (ItemStack s : contents.itemsCopy()) {
             if (!s.isEmpty() && s.getItem() instanceof BlockItem bi && bi.getBlock() == targetBlock) {
-                MaterialResult res = new MaterialResult(); res.sourceStack = bundle; res.fromBundle = true; res.bundleIndex = i; res.stateToPlace = bi.getBlock().defaultBlockState(); return res;
+                MaterialResult res = new MaterialResult(); res.sourceStack = bundle; res.fromBundle = true; res.bundleIndex = i; res.stateToPlace = bi.getBlock().defaultBlockState(); res.item = s.copyWithCount(1); return res;
             }
             i++;
         }
@@ -465,6 +489,10 @@ public class BuildingWandItem extends Item {
         if (context.getPlayer() != null && context.getPlayer().getOffhandItem().getItem() instanceof BlueprintItem) {
             return com.simplebuilding.blueprint.BlueprintBuilder.useWand(context);
         }
+        // Baustab in der Haupthand + Oktant mit Auswahl in der Nebenhand = Figur fuellen bzw. Dach.
+        if (context.getPlayer() != null && com.simplebuilding.blueprint.ShapeFill.hasSelection(context.getPlayer().getOffhandItem())) {
+            return com.simplebuilding.blueprint.ShapeFill.useWand(context);
+        }
         Level world = context.getLevel();
         Player player = context.getPlayer();
         BlockPos clickedPos = context.getClickedPos();
@@ -483,6 +511,10 @@ public class BuildingWandItem extends Item {
 
         Direction clickedFace = context.getClickedFace();
         CompoundTag nbt = getOrInitNbt(wandStack);
+        var hitRel = context.getClickLocation().subtract(clickedPos.getX(), clickedPos.getY(), clickedPos.getZ());
+        Plan plan = Plan.forClick(world, player, wandStack, clickedPos, clickedFace, hitRel,
+                getConfiguredRadius(nbt, (this.maxDiameter - 1) / 2), nbt.getIntOr("SettingsAxis", 0));
+        if (plan.steps() == 0) return InteractionResult.FAIL;
         nbt.putBoolean("Active", true);
         nbt.putInt("HungerCount", 0); // neuer Bauvorgang: Freibetrag von vorn (WandHunger)
         nbt.putInt("CurrentRadius", 0);
@@ -495,9 +527,59 @@ public class BuildingWandItem extends Item {
 
         var hitPos = context.getClickLocation().subtract(clickedPos.getX(), clickedPos.getY(), clickedPos.getZ());
         nbt.putFloat("HitX", (float) hitPos.x); nbt.putFloat("HitY", (float) hitPos.y); nbt.putFloat("HitZ", (float) hitPos.z);
+        plan.writeTo(nbt);
         setNbt(wandStack, nbt);
+        WandUndo.begin(player, world);
 
         return InteractionResult.CONSUME;
+    }
+
+    /**
+     * Rechtsklick in die Luft (Haupthand): Schleichen = die letzte Bau-Aktion rueckgaengig machen
+     * ({@link WandUndo}); ohne Schleichen mit der Verzauberung <b>Bruecke</b> = eine Bruecke vom Block
+     * unter den Fuessen aus geradeaus in Blickrichtung. Sonst PASS (die Nebenhand ist dran).
+     */
+    @Override
+    public InteractionResult use(Level world, Player player, InteractionHand hand) {
+        if (hand != InteractionHand.MAIN_HAND) return InteractionResult.PASS;
+        ItemStack wandStack = player.getItemInHand(hand);
+        if (player.isShiftKeyDown()) {
+            if (world.isClientSide()) return InteractionResult.SUCCESS;
+            // Was gerade noch baut, gehoert zur letzten Aktion: erst anhalten, dann zuruecknehmen.
+            CompoundTag running = getOrInitNbt(wandStack);
+            if (getBlockBoolean(running)) { running.putBoolean("Active", false); setNbt(wandStack, running); }
+            com.simplebuilding.blueprint.BlueprintBuilder.cancel(player);
+            if (WandUndo.undo(player, world) < 0) {
+                player.displayClientMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.wand.undo.nothing")
+                        .withStyle(net.minecraft.ChatFormatting.GRAY), true);
+            }
+            return InteractionResult.SUCCESS;
+        }
+        if (!hasEnchantment(wandStack, world, ModEnchantments.BRIDGE)) return InteractionResult.PASS;
+        if (world.isClientSide()) return InteractionResult.SUCCESS;
+
+        boolean hasMasterBuilder = hasEnchantment(wandStack, world, ModEnchantments.MASTER_BUILDER);
+        MaterialResult preview = findFirstBuildingBlock(player, wandStack, hasMasterBuilder);
+        if (preview == null && !player.getAbilities().instabuild) return InteractionResult.FAIL;
+        CompoundTag nbt = getOrInitNbt(wandStack);
+        Plan plan = Plan.forBridge(world, player, getConfiguredRadius(nbt, (this.maxDiameter - 1) / 2));
+        if (plan == null || plan.steps() == 0) return InteractionResult.FAIL;
+
+        Block buildBlock = preview != null ? preview.stateToPlace.getBlock() : Blocks.AIR;
+        nbt.putBoolean("Active", true);
+        nbt.putInt("HungerCount", 0); // die Bruecke ist ein eigener Bauvorgang: Freibetrag von vorn (WandHunger)
+        nbt.putInt("CurrentRadius", 0);
+        nbt.putInt("Timer", 0);
+        nbt.putInt("OriginX", plan.origin.getX());
+        nbt.putInt("OriginY", plan.origin.getY());
+        nbt.putInt("OriginZ", plan.origin.getZ());
+        nbt.putInt("Face", plan.face.ordinal());
+        nbt.putInt("BuildBlockRawId", BuiltInRegistries.BLOCK.getId(buildBlock));
+        nbt.putFloat("HitX", (float) plan.hitRel.x); nbt.putFloat("HitY", (float) plan.hitRel.y); nbt.putFloat("HitZ", (float) plan.hitRel.z);
+        plan.writeTo(nbt);
+        setNbt(wandStack, nbt);
+        WandUndo.begin(player, world);
+        return InteractionResult.SUCCESS;
     }
 
     @Override
@@ -540,22 +622,38 @@ public class BuildingWandItem extends Item {
         // Settings
         int axisMode = nbt.getIntOr("SettingsAxis", 0);
 
-        // Positionen berechnen
-        List<BlockPos> stepPositions = calculatePositions(originPos, face, currentRadius, axisMode);
+        // Positionen berechnen: Flaeche, Abdeckung, Linie oder Bruecke (beim Klick festgelegt)
+        Vec3 hitRel = new Vec3(nbt.getFloatOr("HitX", 0.5F), nbt.getFloatOr("HitY", 0.5F), nbt.getFloatOr("HitZ", 0.5F));
+        Plan plan = Plan.read(nbt, originPos, face, hitRel, userRadius, axisMode);
+        List<BlockPos> stepPositions = plan.step(world, currentRadius);
+        BlockState clicked = plan.clickedState(world);
 
         for (BlockPos rawPos : stepPositions) {
             if (!world.getBlockState(rawPos).canBeReplaced()) continue;
 
-            // Finde Material: Bei Color Palette irgendeins, sonst spezifisch
-            MaterialResult material = findMaterialForPlacement(player, stack, targetBlock, hasMasterBuilder, hasColorPalette);
+            // Finde Material: mit Color Palette den Eintrag, den die Vorschau an dieser Stelle zeigt
+            // (paletteIndex ueber die jetzt noch vorhandenen Stapel), sonst den Block vom Klick.
+            Block want = targetBlock;
+            if (hasColorPalette) {
+                List<ItemStack> palette = findAllBuildingBlocks(player, stack, hasMasterBuilder);
+                want = palette.isEmpty() ? null : ((BlockItem) palette.get(paletteIndex(rawPos, palette.size())).getItem()).getBlock();
+            }
+            MaterialResult material = want == null ? null : findSpecificMaterial(player, stack, want, hasMasterBuilder);
 
             if (material == null && !player.getAbilities().instabuild) {
                 nbt.putBoolean("Active", false); setNbt(stack, nbt); return;
             }
 
-            BlockState stateToPlace = material != null ? material.stateToPlace : (hasColorPalette ? Blocks.STONE.defaultBlockState() : targetBlock.defaultBlockState());
+            ItemStack placeItem = material != null ? material.item : new ItemStack(want != null ? want : Blocks.STONE);
+            // Wie ein Spieler: ausgerichtet, verbunden, mit Komponenten; wo ein Spieler nicht setzen
+            // koennte (kein Halt, Entity im Weg), bleibt die Stelle frei und kostet nichts.
+            BlockState stateToPlace = WandPlacement.stateFor(world, player, placeItem, rawPos, plan.placeFace, plan.hitRel, clicked);
+            if (stateToPlace == null) continue;
 
             if (world.setBlock(rawPos, stateToPlace, 3)) {
+                WandPlacement.afterPlace(world, player, rawPos, stateToPlace, placeItem);
+                WandUndo.record(player, world, rawPos, stateToPlace, placeItem.getItem(),
+                        !player.getAbilities().instabuild && material != null ? 1 : 0);
                 SoundType soundGroup = stateToPlace.getSoundType();
                 world.playSound(null, rawPos, soundGroup.getPlaceSound(), SoundSource.BLOCKS, (soundGroup.getVolume() + 1.0F) / 2.0F, soundGroup.getPitch() * 0.8F);
                 if (!player.getAbilities().instabuild && material != null) {
@@ -572,7 +670,7 @@ public class BuildingWandItem extends Item {
             }
         }
 
-        if (currentRadius < userRadius) {
+        if (currentRadius < plan.steps() - 1) {
             nbt.putInt("CurrentRadius", currentRadius + 1);
             nbt.putInt("Timer", isLinePlace ? DELAY_TICKS_LINE : DELAY_TICKS);
         } else {
@@ -653,6 +751,151 @@ public class BuildingWandItem extends Item {
             case Z -> new BlockPos(u, v, 0); // Ebene X/Y (Wand)
             case X -> new BlockPos(0, u, v); // Ebene Y/Z (Wand)
         };
+    }
+
+    /**
+     * Was ein Klick baut: Form, Ursprung und Schritte (je Schritt ein Ring bzw. ein Stueck Linie).
+     * Der Server legt ihn beim Klick fest und liest ihn je Schritt aus dem NBT zurueck; die Vorschau
+     * rechnet ihn aus demselben Klick. Beide sehen dieselben Stellen.
+     *
+     * <ul>
+     *   <li><b>Flaeche</b> (Standard): quadratisch vor der Klickseite, Ring fuer Ring.</li>
+     *   <li><b>Abdeckung</b>: dieselbe Flaeche, aber nur Stellen, hinter denen (gegen die Klickseite)
+     *       ein Block derselben Sorte wie der angeklickte steht, und die mit dem Mittelfeld ueber
+     *       solche Stellen zusammenhaengen (4er-Nachbarschaft). Die Achsen-Einstellung gilt hier nicht.</li>
+     *   <li><b>Linie</b> (Linear + Schleichen): von der Klickseite gerade weg, {@link #lineLength} lang,
+     *       endet vor dem ersten belegten Block.</li>
+     *   <li><b>Bruecke</b>: vom Block unter den Fuessen waagerecht in Blickrichtung, gleiche Laenge,
+     *       endet vor dem ersten belegten Block.</li>
+     * </ul>
+     * Linie und Bruecke werden in so vielen Schritten gebaut wie die Flaeche Ringe haette.
+     */
+    static final class Plan {
+        final int mode;
+        final BlockPos origin;
+        final Direction face;
+        /** Klickseite fuer den Platzier-Kontext (Ausrichtung). */
+        final Direction placeFace;
+        final Vec3 hitRel;
+        final int radius;
+        final int axis;
+        final int length;
+        final Block coverBlock;
+
+        private Plan(int mode, BlockPos origin, Direction face, Direction placeFace, Vec3 hitRel, int radius, int axis, int length, Block coverBlock) {
+            this.mode = mode;
+            this.origin = origin;
+            this.face = face;
+            this.placeFace = placeFace;
+            this.hitRel = hitRel;
+            this.radius = radius;
+            this.axis = axis;
+            this.length = length;
+            this.coverBlock = coverBlock;
+        }
+
+        static Plan forClick(Level level, Player player, ItemStack wand, BlockPos clicked, Direction face, Vec3 hitRel, int radius, int axis) {
+            if (hasEnchantment(wand, level, ModEnchantments.COVER)) {
+                return new Plan(MODE_COVER, clicked, face, face, hitRel, radius, 0, 0, level.getBlockState(clicked).getBlock());
+            }
+            if (player.isShiftKeyDown() && hasEnchantment(wand, level, ModEnchantments.LINEAR)) {
+                return new Plan(MODE_LINE, clicked, face, face, hitRel, radius, 0, freeRun(level, clicked, face, lineLength(radius)), Blocks.AIR);
+            }
+            return new Plan(MODE_SQUARE, clicked, face, face, hitRel, radius, axis, 0, Blocks.AIR);
+        }
+
+        /** Bruecke ab dem Block unter den Fuessen; {@code null}, wenn dort nichts Festes steht. */
+        static Plan forBridge(Level level, Player player, int radius) {
+            BlockPos start = player.getOnPos();
+            if (level.getBlockState(start).canBeReplaced()) return null;
+            Direction facing = player.getDirection();
+            // Als setzte man jeden Block an die Stirnseite des vorigen, untere Haelfte (Stufen unten).
+            Vec3 hit = new Vec3(0.5 + facing.getStepX() * 0.5, 0.25, 0.5 + facing.getStepZ() * 0.5);
+            return new Plan(MODE_BRIDGE, start, facing, facing, hit, radius, 0, freeRun(level, start, facing, lineLength(radius)), Blocks.AIR);
+        }
+
+        /** Wie viele Stellen ab {@code from} in Richtung {@code dir} frei sind, hoechstens {@code max}. */
+        private static int freeRun(Level level, BlockPos from, Direction dir, int max) {
+            int n = 0;
+            while (n < max && level.getBlockState(from.relative(dir, n + 1)).canBeReplaced()) n++;
+            return n;
+        }
+
+        static Plan read(CompoundTag nbt, BlockPos origin, Direction face, Vec3 hitRel, int radius, int axis) {
+            int mode = nbt.getIntOr("Mode", MODE_SQUARE);
+            Block cover = BuiltInRegistries.BLOCK.byId(nbt.getIntOr("CoverBlockRawId", BuiltInRegistries.BLOCK.getId(Blocks.AIR)));
+            return new Plan(mode, origin, face, face, hitRel, radius, mode == MODE_SQUARE ? axis : 0, nbt.getIntOr("Length", 0), cover);
+        }
+
+        void writeTo(CompoundTag nbt) {
+            nbt.putInt("Mode", mode);
+            nbt.putInt("Length", length);
+            nbt.putInt("CoverBlockRawId", BuiltInRegistries.BLOCK.getId(coverBlock));
+        }
+
+        /** Der angeklickte Block (fuer die Ausrichtungs-Uebernahme); bei der Bruecke keiner. */
+        BlockState clickedState(Level level) {
+            return mode == MODE_BRIDGE ? null : level.getBlockState(origin);
+        }
+
+        int steps() {
+            int rings = Math.max(0, radius) + 1;
+            if (mode == MODE_LINE || mode == MODE_BRIDGE) return Math.min(rings, length);
+            return rings;
+        }
+
+        List<BlockPos> step(Level level, int k) {
+            switch (mode) {
+                case MODE_LINE, MODE_BRIDGE -> {
+                    int steps = steps();
+                    List<BlockPos> out = new ArrayList<>();
+                    if (steps == 0) return out;
+                    int chunk = (length + steps - 1) / steps;
+                    for (int i = k * chunk; i < Math.min(length, (k + 1) * chunk); i++) out.add(origin.relative(face, i + 1));
+                    return out;
+                }
+                case MODE_COVER -> {
+                    Set<BlockPos> region = coverRegion(level);
+                    List<BlockPos> out = new ArrayList<>();
+                    for (BlockPos pos : calculatePositions(origin, face, k, 0)) if (region.contains(pos)) out.add(pos);
+                    return out;
+                }
+                default -> {
+                    return calculatePositions(origin, face, k, axis);
+                }
+            }
+        }
+
+        List<BlockPos> all(Level level) {
+            List<BlockPos> out = new ArrayList<>();
+            for (int k = 0; k < steps(); k++) out.addAll(step(level, k));
+            return out;
+        }
+
+        /** Flutfuellung in der Ebene vor der Klickseite ueber Stellen, hinter denen ein Block der Klick-Sorte steht. */
+        private Set<BlockPos> coverRegion(Level level) {
+            Set<BlockPos> region = new HashSet<>();
+            BlockPos start = origin.relative(face);
+            int r = Math.max(0, radius);
+            List<Direction> inPlane = new ArrayList<>();
+            for (Direction d : Direction.values()) if (d.getAxis() != face.getAxis()) inPlane.add(d);
+            Deque<BlockPos> queue = new ArrayDeque<>();
+            region.add(start);
+            queue.add(start);
+            while (!queue.isEmpty()) {
+                BlockPos p = queue.poll();
+                for (Direction d : inPlane) {
+                    BlockPos q = p.relative(d);
+                    BlockPos off = q.subtract(start);
+                    if (Math.abs(off.getX()) > r || Math.abs(off.getY()) > r || Math.abs(off.getZ()) > r) continue;
+                    if (region.contains(q)) continue;
+                    if (level.getBlockState(q.relative(face.getOpposite())).getBlock() != coverBlock) continue;
+                    region.add(q);
+                    queue.add(q);
+                }
+            }
+            return region;
+        }
     }
 
     private static void removeOneFromBundle(ItemStack bundle, int indexToRemove) {

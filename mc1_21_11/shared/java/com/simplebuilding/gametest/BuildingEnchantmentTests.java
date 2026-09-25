@@ -607,21 +607,18 @@ public final class BuildingEnchantmentTests {
      * across the whole plane, {@code BuildingWandItem#getPreviewStates} spreads every building
      * block the player is carrying over it. That is the branch the client side highlight draws
      * from; what the server actually places is a different branch and is pinned separately in
-     * {@link #colorPaletteKeepsTheWandBuildingWhenOneBlockRunsOut}. The two do not agree, and
-     * saying so is the honest description of this feature.
+     * {@link #colorPaletteKeepsTheWandBuildingWhenOneBlockRunsOut}. Since 2026-09-25 the two agree
+     * position by position: both ask {@code BuildingWandItem#paletteIndex}.
      *
      * <p>Pinned here: the plain wand still paints one single block, the enchanted one really
      * reaches for more than one, the result is stable across calls (the wand seeds itself from
      * the position so the preview does not flicker), and an empty inventory produces an empty
      * preview instead of a modulo by a palette size of zero.
      *
-     * <p><strong>Also pinned, deliberately, as a quirk rather than as an endorsement:</strong>
-     * the seed is {@code BlockPos#asLong}, whose lowest bit is the Y coordinate (Y sits at shift
-     * 0 in the packed long). With two blocks to choose from the palette therefore stripes by
-     * height - and a flat floor, where every position shares one Y, comes out in a single
-     * colour. That is why the interesting case below clicks a vertical face. If this ever becomes
-     * real randomness the horizontal assertion fails, which is the point at which this paragraph
-     * should be deleted.
+     * <p><strong>Also pinned: the index is a hash of the whole position.</strong> Until 2026-09-25
+     * it was {@code BlockPos#asLong} modulo the palette size, whose lowest bit is the Y coordinate,
+     * so a flat floor came out in one single colour. Now every position - on a floor as well - takes
+     * the entry {@code paletteIndex} assigns it, which is what the floor case below states.
      *
      * <p><strong>Also pinned: where "carried" starts.</strong> Both preview branches read the off
      * hand before the hotbar ({@code findFirstBlockStateClient} and {@code findAllBuildingBlocks}
@@ -691,15 +688,15 @@ public final class BuildingEnchantmentTests {
         Assertions.valueEqual(helper, again, palette,
                 "the Color Palette preview is not stable between two calls, so it would flicker");
 
-        // --- the striping quirk described in the javadoc ---
-        // Which of the two blocks wins depends on the parity of the structure's absolute Y, so
-        // only the count is asserted here, not the colour.
+        // --- every position takes the entry paletteIndex assigns it, on a floor as well ---
         Map<BlockPos, BlockState> floor = BuildingWandItem.getPreviewStates(
                 helper.getLevel(), player, paletteWand, origin, Direction.UP, diameter);
-        Assertions.valueEqual(helper, distinctBlocks(floor).size(), 1,
-                "Color Palette now varies within one horizontal layer. That is very likely an "
-                        + "improvement, but the palette index is documented here as a function of Y "
-                        + "only - re-read the javadoc and update it.");
+        Assertions.valueEqual(helper, floor.size(), 9, "Color Palette changed how many blocks the floor preview holds");
+        for (Map.Entry<BlockPos, BlockState> entry : floor.entrySet()) {
+            Block expectedHere = BuildingWandItem.paletteIndex(entry.getKey(), 2) == 0 ? Blocks.OAK_PLANKS : Blocks.GLASS;
+            Assertions.valueEqual(helper, entry.getValue().getBlock(), expectedHere,
+                    "the floor preview at " + entry.getKey() + " does not show the palette entry paletteIndex assigns it");
+        }
 
         // --- the off hand is the first place both branches look ---
         // Only the off hand carries a building block here, so a preview that skipped it would come
@@ -736,12 +733,12 @@ public final class BuildingEnchantmentTests {
                         + "; findAllBuildingBlocks stopped collecting from the off hand");
 
         // A set cannot see the *order* of that list, and the order is what decides which block
-        // lands where: the index is Math.abs(pos.asLong() % size), so with two entries the first
-        // one is drawn on every evenly seeded position. Collecting the off hand after the hotbar
-        // instead of before it leaves the set above completely untouched while repainting every
-        // single position with the other block.
+        // lands where: the index is paletteIndex(pos, size), so with two entries the first one is
+        // drawn wherever it answers 0. Collecting the off hand after the hotbar instead of before
+        // it leaves the set above completely untouched while repainting every single position
+        // with the other block.
         for (Map.Entry<BlockPos, BlockState> entry : offhandPalette.entrySet()) {
-            Block expectedHere = Math.abs((int) (entry.getKey().asLong() % 2)) == 0
+            Block expectedHere = BuildingWandItem.paletteIndex(entry.getKey(), 2) == 0
                     ? Blocks.BRICKS
                     : Blocks.OAK_PLANKS;
             Assertions.valueEqual(helper, entry.getValue().getBlock(), expectedHere,
@@ -760,26 +757,22 @@ public final class BuildingEnchantmentTests {
     // =====================================================================================
 
     /**
-     * What Color Palette does on the <em>server</em>, which is not what its preview shows.
-     * {@code BuildingWandItem#inventoryTick} does not stripe anything: with the enchantment,
-     * {@code findMaterialForPlacement} stops asking for the one block the wand was armed with
-     * and takes whatever building block comes first instead. The visible consequence is that an
-     * enchanted wand keeps going when its first stack runs out, while a plain wand gives up.
+     * What Color Palette does on the <em>server</em> (since 2026-09-25): every position gets the
+     * palette entry {@code paletteIndex} assigns it over the stacks still carried - exactly the
+     * block the preview drew there. When one stack runs out the palette shrinks to what is left,
+     * so an enchanted wand keeps going while a plain wand gives up.
      *
-     * <p>The setup makes that difference the whole result. Three oak planks and a stack of glass
-     * against a 3x3 plane: the plain wand places three planks and then switches itself off,
-     * because {@code findSpecificMaterial} only ever matches oak planks. The enchanted wand
-     * places the same three planks and then six glass, filling all nine.
+     * <p>Three runs. With plenty of both blocks the enchanted plane is compared with its preview
+     * position by position. Three oak planks and a stack of glass against a 3x3 plane: the plain
+     * wand places three planks and then switches itself off, because {@code findSpecificMaterial}
+     * only ever matches oak planks; the enchanted wand fills all nine, planks wherever the preview
+     * put planks until the three are gone ({@code min(3, planks in the preview)}), glass elsewhere.
      *
-     * <p><strong>What breaks this test:</strong> deleting the {@code colorPaletteActive} branch
-     * in {@code findMaterialForPlacement} (the enchanted run would abort at three blocks like
-     * the plain one), making the plain branch fall back to any block (the plain run would fill
-     * all nine), or removing the {@code material == null && !instabuild} abort (the plain run
-     * would place air or free blocks for the remaining six).
-     *
-     * <p>It also fails, deliberately, if Color Palette ever grows the per-position spread its
-     * preview already draws: the placed plane would then mix planks and glass in a different
-     * ratio than 3 to 6, and this test has to be rewritten to state the new rule.
+     * <p><strong>What breaks this test:</strong> placing the first block found instead of the
+     * previewed entry (the first run disagrees with its preview), letting the palette keep an empty
+     * stack (the enchanted run aborts), making the plain branch fall back to any block (the plain
+     * run would fill all nine), or removing the {@code material == null && !instabuild} abort (the
+     * plain run would place air or free blocks for the remaining six).
      *
      * <p>The tail pins the <em>other</em> end of the material search, which both branches share:
      * the wand looks in the off hand before it looks anywhere else. Every other wand test in the
@@ -801,10 +794,40 @@ public final class BuildingEnchantmentTests {
         ItemStack paletteWand = wandWithRadiusOne(new ItemStack(ModItems.DIAMOND_BUILDING_WAND));
         paletteWand.enchant(enchantment(helper, ModEnchantments.COLOR_PALETTE), 1);
 
+        // --- with enough of both, the placed plane is the preview, position by position ---
+        // A 5x5 so that the preview is practically never a single colour (that would make the
+        // comparison blind to "always the first block"); the inner 3x3 is the plane the run
+        // below builds with only three planks.
+        ItemStack wideWand = wandWithRadius(new ItemStack(ModItems.DIAMOND_BUILDING_WAND), 2);
+        wideWand.enchant(enchantment(helper, ModEnchantments.COLOR_PALETTE), 1);
+        stageInventory(player, wideWand, new ItemStack(Items.OAK_PLANKS, 32), new ItemStack(Items.GLASS, 32));
+        BlockPos paletteOrigin = helper.absolutePos(paletteAnchor);
+        Map<BlockPos, BlockState> preview = BuildingWandItem.getPreviewStates(helper.getLevel(), player, wideWand,
+                paletteOrigin, Direction.UP, ModItems.DIAMOND_BUILDING_WAND.getWandSquareDiameter());
+        runWandUntilIdle(helper, player, wideWand, paletteAnchor,
+                new ItemStack(Items.OAK_PLANKS, 32), new ItemStack(Items.GLASS, 32));
+        Assertions.valueEqual(helper, preview.size(), 25, "the Color Palette preview is not the 5x5");
+        Assertions.valueEqual(helper, distinctBlocks(preview).size(), 2, "the 5x5 Color Palette preview drew only one of the two blocks");
+        int previewedPlanks = 0;
+        for (Map.Entry<BlockPos, BlockState> entry : preview.entrySet()) {
+            Assertions.valueEqual(helper, helper.getLevel().getBlockState(entry.getKey()).getBlock(), entry.getValue().getBlock(),
+                    "Color Palette placed a different block than its preview showed at " + entry.getKey());
+            BlockPos off = entry.getKey().subtract(paletteOrigin);
+            if (entry.getValue().is(Blocks.OAK_PLANKS) && Math.abs(off.getX()) <= 1 && Math.abs(off.getZ()) <= 1) {
+                previewedPlanks++;
+            }
+        }
+        for (int dx = -2; dx <= 2; dx++) {
+            for (int dz = -2; dz <= 2; dz++) {
+                helper.setBlock(paletteAnchor.offset(dx, 1, dz), Blocks.AIR);
+            }
+        }
+
         runWandUntilIdle(helper, player, plainWand, plainAnchor,
                 new ItemStack(Items.OAK_PLANKS, 3), new ItemStack(Items.GLASS, 16));
         runWandUntilIdle(helper, player, paletteWand, paletteAnchor,
                 new ItemStack(Items.OAK_PLANKS, 3), new ItemStack(Items.GLASS, 16));
+        int expectedPlanks = Math.min(3, previewedPlanks);
 
         // --- the plain wand stops when its one block is gone ---
         Assertions.valueEqual(helper, placedOffsets(helper, plainAnchor).size(), 3,
@@ -817,13 +840,10 @@ public final class BuildingEnchantmentTests {
         // --- the enchanted one carries on with whatever is left ---
         Assertions.valueEqual(helper, placedOffsets(helper, paletteAnchor).size(), 9,
                 "Color Palette did not let the wand finish the plane out of a second stack");
-        Set<Block> paletteBlocks = distinctPlaced(helper, paletteAnchor);
-        Assertions.valueEqual(helper, paletteBlocks, Set.of(Blocks.OAK_PLANKS, Blocks.GLASS),
-                "the Color Palette run did not draw on both stacks, it placed " + paletteBlocks);
-        Assertions.valueEqual(helper, countPlaced(helper, paletteAnchor, Blocks.OAK_PLANKS), 3,
-                "the Color Palette run did not spend exactly the three planks it was given");
-        Assertions.valueEqual(helper, countPlaced(helper, paletteAnchor, Blocks.GLASS), 6,
-                "the Color Palette run did not fall through to the glass for the remaining six");
+        Assertions.valueEqual(helper, countPlaced(helper, paletteAnchor, Blocks.OAK_PLANKS), expectedPlanks,
+                "the Color Palette run did not put planks where the preview had them until the three were gone");
+        Assertions.valueEqual(helper, countPlaced(helper, paletteAnchor, Blocks.GLASS), 9 - expectedPlanks,
+                "the Color Palette run did not fall through to the glass for the rest");
 
         // --- material carried in the off hand, which is the first place the wand looks ---
         // A third layer of its own, so its 5x5 read back window cannot reach the two runs above.
@@ -872,15 +892,15 @@ public final class BuildingEnchantmentTests {
     // =====================================================================================
 
     /**
-     * Linear does not do what its name suggests. The building wand reads it in exactly one
-     * place: it picks {@code DELAY_TICKS_LINE} instead of {@code DELAY_TICKS} for the pause
-     * between two rings. The shape it builds is position for position the same square plane.
+     * Linear <em>without sneaking</em> (the name of this test predates the line mode, which
+     * {@code WandModeTests#linearWhileSneakingBuildsTheLineAwayFromTheClickedFace} owns): the
+     * wand picks {@code DELAY_TICKS_LINE} instead of {@code DELAY_TICKS} for the pause between two
+     * rings, and the shape it builds is position for position the same square plane.
      *
-     * <p>This test pins both halves of that. The two runs are compared position by position, so
-     * the day Linear grows an actual line shape this test fails and has to be rewritten - which
-     * is the honest way to record that the enchantment is currently only a speed up. And the
-     * tick counts are measured, so removing the branch (or swapping the two constants) is caught
-     * as well.
+     * <p>This test pins both halves of that. The two runs are compared position by position, so a
+     * Linear branch that changed the shape of a click without sneaking fails here. And the tick
+     * counts are measured, so removing the branch (or swapping the two constants) is caught as
+     * well.
      *
      * <p>The wand's {@code inventoryTick} is called directly instead of through the player tick:
      * a gametest server never pumps a mock player's connection, and driving the item hook is the
@@ -1153,6 +1173,17 @@ public final class BuildingEnchantmentTests {
         helper.assertTrue(ticks < COOLDOWN_TICK_CAP,
                 "the chisel cooldown never ran out within " + COOLDOWN_TICK_CAP + " ticks");
         return ticks;
+    }
+
+    /** The inventory {@link #runWandTickByTick} hands out, without arming - for a preview first. */
+    private static void stageInventory(ServerPlayer player, ItemStack wand, ItemStack... supplies) {
+        player.getInventory().clearContent();
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        player.getInventory().setSelectedSlot(0);
+        player.getInventory().setItem(0, wand);
+        for (int i = 0; i < supplies.length; i++) {
+            player.getInventory().setItem(i + 1, supplies[i]);
+        }
     }
 
     /**

@@ -203,7 +203,26 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("enchantment_effect_game_test_data_driven_enchantment_effects_survive_datagen", EnchantmentEffectTests::dataDrivenEnchantmentEffectsSurviveDatagen)
                     .build(),
-            GameTestSpec.named("enchantment_effect_game_test_cover_and_bridge_are_inert_and_this_is_deliberately_pinned_down", EnchantmentEffectTests::coverAndBridgeAreInertAndThisIsDeliberatelyPinnedDown)
+            GameTestSpec.named("wand_mode_game_test_linear_while_sneaking_builds_the_line_away_from_the_clicked_face", WandModeTests::linearWhileSneakingBuildsTheLineAwayFromTheClickedFace)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_bridge_runs_from_the_block_underfoot_in_the_facing_direction", WandModeTests::bridgeRunsFromTheBlockUnderfootInTheFacingDirection)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_cover_only_grows_the_surface_of_the_clicked_kind", WandModeTests::coverOnlyGrowsTheSurfaceOfTheClickedKind)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_wand_sets_stairs_and_logs_like_the_player_would", WandModeTests::wandSetsStairsAndLogsLikeThePlayerWould)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_undo_takes_back_only_the_last_action_and_only_unchanged_blocks", WandModeTests::undoTakesBackOnlyTheLastActionAndOnlyUnchangedBlocks)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_octant_in_the_off_hand_fills_its_shape_with_the_wand", WandModeTests::octantInTheOffHandFillsItsShapeWithTheWand)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_roof_mode_lays_stairs_towards_the_ridge_with_slabs_on_top", WandModeTests::roofModeLaysStairsTowardsTheRidgeWithSlabsOnTop)
+                    .rotation(Rotation.NONE)
                     .build(),
             GameTestSpec.named("hopper_and_trim_game_test_hopper_filter_modes_gate_what_may_enter", HopperAndTrimTests::hopperFilterModesGateWhatMayEnter)
                     .rotation(Rotation.NONE)

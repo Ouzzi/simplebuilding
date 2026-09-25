@@ -66,7 +66,7 @@ public class SimplebuildingClient implements ClientModInitializer {
 
         // Der aufsteigende Block wird wie fallender Sand gezeichnet.
         EntityRendererRegistry.register(ModEntities.LEVITATING_BLOCK, FallingBlockRenderer::new);
-        // Der getragene Rucksack auf dem Ruecken - auf jedem Avatar-Renderer (beide Spielermodelle, Mannequins).
+        // Der getragene Rucksack bzw. Koecher auf dem Ruecken - auf jedem Avatar-Renderer (beide Spielermodelle, Mannequins).
         // Abgestellter gefaerbter Rucksack: Leder-Ebene in der Farbe der Block-Entity.
         net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(
                 java.util.List.of(com.simplebuilding.client.render.BackpackBlockTint.INSTANCE),
@@ -75,6 +75,7 @@ public class SimplebuildingClient implements ClientModInitializer {
         LivingEntityRenderLayerRegistrationCallback.EVENT.register((entityType, renderer, helper, context) -> {
             if (renderer instanceof net.minecraft.client.renderer.entity.player.AvatarRenderer<?> avatar) {
                 helper.register(new com.simplebuilding.client.render.BackpackLayer(avatar));
+                helper.register(new com.simplebuilding.client.render.QuiverLayer(avatar));
             }
         });
         ClientState.highlightToggleKey = KeyMappingHelper.registerKeyMapping(new KeyMapping(

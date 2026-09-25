@@ -623,5 +623,14 @@
   "simplebuilding.blueprint.help.guide.8": "Alias: $dach = oak_stairs[facing=north], danach als $dach 0..4,4,0 benutzen.",
   "simplebuilding.blueprint.help.guide.9": "Spätere Zeilen überschreiben frühere. minecraft: darf fehlen; Blöcke anderer Mods brauchen ihr Präfix.",
   "simplebuilding.blueprint.help.guide.10": "Der Reiter Blöcke und die Suche unter dem Code zeigen die ID jedes Blocks: auswählen, dann Einfügen drücken.",
-  "simplebuilding.blueprint.build.missing_warning": "%s Blöcke fehlen (rot markiert) - erneut klicken, um den Rest zu bauen"
+  "simplebuilding.blueprint.build.missing_warning": "%s Blöcke fehlen (rot markiert) - erneut klicken, um den Rest zu bauen",
+  "simplebuilding.wand.undo.done": "Rückgängig: %s Blöcke zurück, %s bleiben stehen (inzwischen verändert)",
+  "simplebuilding.wand.undo.nothing": "Nichts rückgängig zu machen",
+  "simplebuilding.wand.undo.too_big": "Die letzte Aktion war zu groß zum Rückgängigmachen (mehr als %s Blöcke)",
+  "simplebuilding.wand.undo.other_dimension": "Die letzte Aktion war in einer anderen Dimension",
+  "simplebuilding.wand.shape.stopped": "Bau nach %s Blöcken angehalten (Stab oder Oktant weggelegt)",
+  "simplebuilding.wand.shape.nothing": "Nichts zu bauen - die Figur ist schon gefüllt",
+  "simplebuilding.wand.shape.no_selection": "Der Oktant braucht beide Ecken",
+  "simplebuilding.wand.shape.no_material": "Keine Baublöcke für die Figur (die Nebenhand hält den Oktanten - leg sie in die Hotbar)",
+  "simplebuilding.wand.shape.too_many": "Die Box der Figur hat %s Stellen, gefüllt werden höchstens %s"
 }

@@ -623,5 +623,14 @@
   "simplebuilding.blueprint.help.guide.8": "Alias: $roof = oak_stairs[facing=north], then use it as $roof 0..4,4,0.",
   "simplebuilding.blueprint.help.guide.9": "Later lines overwrite earlier ones. minecraft: may be left out; blocks of other mods need their prefix.",
   "simplebuilding.blueprint.help.guide.10": "The Blocks tab and the search below the code show every block's ID: select one, then press Insert.",
-  "simplebuilding.blueprint.build.missing_warning": "%s blocks are missing (marked red) - click again to build the rest"
+  "simplebuilding.blueprint.build.missing_warning": "%s blocks are missing (marked red) - click again to build the rest",
+  "simplebuilding.wand.undo.done": "Undone: %s blocks back, %s left in place (changed since)",
+  "simplebuilding.wand.undo.nothing": "Nothing to undo",
+  "simplebuilding.wand.undo.too_big": "The last action was too big to undo (more than %s blocks)",
+  "simplebuilding.wand.undo.other_dimension": "The last action was in another dimension",
+  "simplebuilding.wand.shape.stopped": "Building stopped after %s blocks (wand or octant put away)",
+  "simplebuilding.wand.shape.nothing": "Nothing to build - the shape is already filled",
+  "simplebuilding.wand.shape.no_selection": "The octant needs both corners",
+  "simplebuilding.wand.shape.no_material": "No building blocks to fill the shape with (the off hand holds the octant - put them in the hotbar)",
+  "simplebuilding.wand.shape.too_many": "The shape's box holds %s positions, at most %s can be filled"
 }
