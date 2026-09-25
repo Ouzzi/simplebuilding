@@ -83,7 +83,7 @@ public abstract class CartographyTableMenuMixin extends AbstractContainerMenu {
         }
         Slot slot = this.slots.get(slotIndex);
         ItemStack stack = slot.getItem();
-        int target = BlueprintScanner.isOctant(stack) ? BlueprintCartography.MAP_SLOT
+        int target = BlueprintScanner.isOctant(stack) || BlueprintCartography.isSigned(stack) ? BlueprintCartography.MAP_SLOT
                 : stack.getItem() instanceof BlueprintItem ? BlueprintCartography.ADDITIONAL_SLOT : -1;
         if (target < 0) {
             return;

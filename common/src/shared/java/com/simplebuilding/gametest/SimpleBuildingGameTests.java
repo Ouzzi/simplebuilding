@@ -746,6 +746,16 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("blueprint_game_test_large_build_runs_over_several_ticks", BlueprintTests::largeBuildRunsOverSeveralTicks)
                     .build(),
+            GameTestSpec.named("blueprint_game_test_examples_parse_fit_and_list_their_materials", BlueprintTests::examplesParseFitAndListTheirMaterials)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_block_search_finds_by_name_and_id", BlueprintTests::blockSearchFindsByNameAndId)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_cartography_table_copies_asigned_blueprint", BlueprintTests::cartographyTableCopiesASignedBlueprint)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_build_needs_asigned_blueprint", BlueprintTests::buildNeedsASignedBlueprint)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_edit_packets_save_immediately_and_survive_adisconnect", BlueprintTests::editPacketsSaveImmediatelyAndSurviveADisconnect)
+                    .build(),
             GameTestSpec.named("blueprint_game_test_build_places_only_available_blocks_and_skips_existing_ones", BlueprintTests::buildPlacesOnlyAvailableBlocksAndSkipsExistingOnes)
                     .build(),
             GameTestSpec.named("blueprint_game_test_rotation_turns_the_build_and_the_scroll_packet_steps_it", BlueprintTests::rotationTurnsTheBuildAndTheScrollPacketStepsIt)

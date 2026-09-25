@@ -1,0 +1,14 @@
+# Beispiel: Marktstand der Savanne, 5 x 4 x 4
+# Vier Akazienpfosten, ein Tuchdach aus Wolle und eine Theke aus Stufen.
+
+# Pfosten an den Ecken: eine Wiederholung ueber x mal zwei Reihen in z
+acacia_fence 0,0..2,0*2@4,0,0 0,0..2,3*2@4,0,0
+
+# Dach aus oranger und gelber Wolle im Wechsel
+orange_wool 0..4,3,0..3
+yellow_wool 0,3,0..3*3@2,0,0
+
+# Theke vorne und Faesser hinten
+acacia_slab[type=top] 1..3,0,0
+barrel[facing=up] 1,0,3 3,0,3
+orange_carpet 2,0,2

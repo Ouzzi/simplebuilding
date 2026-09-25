@@ -73,4 +73,29 @@ public final class BlueprintGameTest {
     public void largeBuildRunsOverSeveralTicks(GameTestHelper helper) {
         BlueprintTests.largeBuildRunsOverSeveralTicks(helper);
     }
+
+    @GameTest
+    public void examplesParseFitAndListTheirMaterials(GameTestHelper helper) {
+        BlueprintTests.examplesParseFitAndListTheirMaterials(helper);
+    }
+
+    @GameTest
+    public void blockSearchFindsByNameAndId(GameTestHelper helper) {
+        BlueprintTests.blockSearchFindsByNameAndId(helper);
+    }
+
+    @GameTest
+    public void cartographyTableCopiesASignedBlueprint(GameTestHelper helper) {
+        BlueprintTests.cartographyTableCopiesASignedBlueprint(helper);
+    }
+
+    @GameTest
+    public void buildNeedsASignedBlueprint(GameTestHelper helper) {
+        BlueprintTests.buildNeedsASignedBlueprint(helper);
+    }
+
+    @GameTest
+    public void editPacketsSaveImmediatelyAndSurviveADisconnect(GameTestHelper helper) {
+        BlueprintTests.editPacketsSaveImmediatelyAndSurviveADisconnect(helper);
+    }
 }

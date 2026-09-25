@@ -118,6 +118,21 @@ public final class BlueprintCodeArea extends AbstractWidget {
         return field.cursor();
     }
 
+    /** Fuegt Text an der Cursorposition ein (Einfuege-Leiste). */
+    public void insert(String text) {
+        if (!readOnly) {
+            field.insertText(text);
+        }
+    }
+
+    /** Ersetzt den ganzen Code (Beispiel einfuegen); der Aenderungs-Hoerer wird benachrichtigt. */
+    public void replaceAll(String text) {
+        if (!readOnly) {
+            field.setValue(text, true);
+            setScroll(0);
+        }
+    }
+
     private int textLeft() {
         return getX() + gutterWidth + PAD;
     }

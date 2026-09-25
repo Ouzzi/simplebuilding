@@ -1,0 +1,31 @@
+# Beispiel: kleines Taiga-Haus, 7 x 8 x 7
+# Bruchsteinsockel, Fichtenholz, steiles Satteldach.
+
+$dach_s = spruce_stairs[facing=south]
+$dach_n = spruce_stairs[facing=north]
+
+# Sockel: eine Lage Bruchstein, darauf ein Bretterboden
+cobblestone 0..6,0..1,0..6
+spruce_planks 1..5,1,1..5
+
+# Waende aus Fichtenbrettern, innen hohl
+spruce_planks 0..6,2..4,0..6
+air 1..5,2..4,1..5
+
+# Eckpfosten aus Fichtenstamm ueber die ganze Wandhoehe
+spruce_log 0,1..4,0 6,1..4,0 0,1..4,6 6,1..4,6
+
+# Tuer (auf dem Sockel) und Fenster
+spruce_door 3,2,0
+spruce_door[half=upper] 3,3,0
+glass_pane[north=true,south=true] 0,3,2*2@0,0,2 6,3,2*2@0,0,2
+
+# Steiles Satteldach: jede Treppenreihe eine Stufe hoeher und weiter innen
+$dach_s 0..6,5,0*3@0,1,1
+$dach_n 0..6,5,6*3@0,1,-1
+spruce_planks 0..6,5,1..5 0..6,6,2..4 0..6,7,3
+spruce_slab[type=bottom] 0..6,8,3
+
+# Innen: Laterne unter dem Dach, Ofen
+lantern[hanging=true] 3,4,3
+furnace[facing=south] 1,2,5
