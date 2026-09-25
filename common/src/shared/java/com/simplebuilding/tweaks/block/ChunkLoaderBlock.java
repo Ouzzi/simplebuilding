@@ -7,7 +7,6 @@ import com.simplebuilding.tweaks.block.entity.ChunkLoaderBlockEntity;
 import com.simplebuilding.tweaks.block.entity.TweaksBlockEntities;
 import com.simplebuilding.version.BlockCodecs;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -20,9 +19,7 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Chunk-Loader (Simple Tweaks): haelt den eigenen Chunk geladen; die Enderit-Stufe ({@code radius} 1)
- * die 3x3 Chunks darum. Neu: das Erzwingen haengt am Setzen/Entfernen des Blocks statt am Laden der
- * Block-Entity - in Simple Tweaks gab das Entladen beim Serverstopp den Chunk frei, und nach dem
- * Neustart tickte der Loader nie wieder.
+ * die 3x3 Chunks darum. Erzwingen und Freigeben regelt {@link ChunkLoaderBlockEntity}.
  */
 public class ChunkLoaderBlock extends PadBlock {
     public static final MapCodec<ChunkLoaderBlock> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
@@ -55,19 +52,5 @@ public class ChunkLoaderBlock extends PadBlock {
     @Override
     public <T extends BlockEntity> @Nullable BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         return level.isClientSide() ? null : createTickerHelper(type, TweaksBlockEntities.CHUNK_LOADER, ChunkLoaderBlockEntity::serverTick);
-    }
-
-    @Override
-    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
-        super.onPlace(state, level, pos, oldState, movedByPiston);
-        if (level instanceof ServerLevel serverLevel && !oldState.is(state.getBlock())) {
-            ChunkLoaderBlockEntity.setForced(serverLevel, pos, radius, ChunkLoaderBlockEntity.enabled());
-        }
-    }
-
-    @Override
-    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
-        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
-        ChunkLoaderBlockEntity.setForced(level, pos, radius, false);
     }
 }

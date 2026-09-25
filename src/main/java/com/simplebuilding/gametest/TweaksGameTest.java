@@ -116,8 +116,8 @@ public final class TweaksGameTest {
     }
 
     @GameTest
-    public void chunkLoadersForceTheirChunksAndReleaseThemWhenBroken(GameTestHelper helper) {
-        TweaksTests.chunkLoadersForceTheirChunksAndReleaseThemWhenBroken(helper);
+    public void chunkLoadersForceTheirChunksAndReleaseOnlyTheirOwn(GameTestHelper helper) {
+        TweaksTests.chunkLoadersForceTheirChunksAndReleaseOnlyTheirOwn(helper);
     }
 
     @GameTest

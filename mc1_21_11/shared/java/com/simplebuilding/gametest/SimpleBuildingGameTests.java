@@ -971,7 +971,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tweaks_game_test_placing_pads_makes_the_placer_the_owner", TweaksTests::placingPadsMakesThePlacerTheOwner)
                     .build(),
-            GameTestSpec.named("tweaks_game_test_chunk_loaders_force_their_chunks_and_release_them_when_broken", TweaksTests::chunkLoadersForceTheirChunksAndReleaseThemWhenBroken)
+            GameTestSpec.named("tweaks_game_test_chunk_loaders_force_their_chunks_and_release_only_their_own", TweaksTests::chunkLoadersForceTheirChunksAndReleaseOnlyTheirOwn)
                     .build(),
             GameTestSpec.named("tweaks_game_test_launchpads_hold_sixteen_wind_charges_and_the_enderite_one_thirty_two", TweaksTests::launchpadsHoldSixteenWindChargesAndTheEnderiteOneThirtyTwo)
                     .build(),

@@ -418,13 +418,16 @@ public final class TweaksTests {
         Vec3 start = player.position();
         helper.assertValueEqual(SpawnTeleporterBlockEntity.requiredTicks(2), 100, "standing time of the spawn teleporter");
         helper.assertValueEqual(SpawnTeleporterBlockEntity.requiredTicks(5), 60, "standing time of the enderite spawn teleporter");
-        helper.runAfterDelay(SpawnTeleporterBlockEntity.STANDARD_TICKS - 20, () ->
-                helper.assertTrue(player.position().distanceTo(start) < 0.5, "the player was teleported before the countdown ended"));
-        helper.succeedWhen(() -> {
-            Vec3 expected = Vec3.atBottomCenterOf(target).add(0, 2.0, 0);
-            helper.assertTrue(player.position().distanceTo(expected) < 1.5,
-                    "the player is at " + player.position() + ", not two blocks above spawn 2 at " + expected);
-        });
+        helper.startSequence()
+                .thenExecuteAfter(SpawnTeleporterBlockEntity.STANDARD_TICKS - 20, () ->
+                        helper.assertTrue(player.position().distanceTo(start) < 0.5, "the player was teleported before the countdown ended"))
+                .thenWaitUntil(() -> {
+                    Vec3 expected = Vec3.atBottomCenterOf(target).add(0, 2.0, 0);
+                    helper.assertTrue(player.position().distanceTo(expected) < 1.5,
+                            "the player is at " + player.position() + ", not two blocks above spawn 2 at " + expected);
+                })
+                .thenExecute(() -> TestCleanup.run(helper))
+                .thenSucceed();
     }
 
     /** Ohne gesetztes Ziel geht es zum Weltspawn; Stufe V faellt ohne Wiedereinstiegspunkt auf Spawn 1 zurueck. */
@@ -456,10 +459,13 @@ public final class TweaksTests {
         BlockPos plate = new BlockPos(3, 1, 3);
         helper.setBlock(plate, TweaksBlocks.COPPER_PRESSURE_PLATE);
         mockPlayer(helper, new Vec3(3.5, 1.05, 3.5));
-        helper.runAfterDelay(10, () -> helper.assertFalse(helper.getBlockState(plate).getValue(CopperPressurePlateBlock.POWERED),
-                "the copper plate powered after half a second"));
-        helper.succeedWhen(() -> helper.assertTrue(helper.getBlockState(plate).getValue(CopperPressurePlateBlock.POWERED),
-                "the copper plate never powered"));
+        helper.startSequence()
+                .thenExecuteAfter(10, () -> helper.assertFalse(helper.getBlockState(plate).getValue(CopperPressurePlateBlock.POWERED),
+                        "the copper plate powered after half a second"))
+                .thenWaitUntil(() -> helper.assertTrue(helper.getBlockState(plate).getValue(CopperPressurePlateBlock.POWERED),
+                        "the copper plate never powered"))
+                .thenExecute(() -> TestCleanup.run(helper))
+                .thenSucceed();
     }
 
     /** Oxidation folgt der Kette, behaelt den Besitzer; die Axt kratzt eine Stufe ab. */
@@ -506,12 +512,14 @@ public final class TweaksTests {
         // Gegenstand bewegen sich echt und liegen die ganze Zeit auf der ersten Platte.
         com.simplebuilding.tweaks.block.DiamondPressurePlateBlock block =
                 (com.simplebuilding.tweaks.block.DiamondPressurePlateBlock) TweaksBlocks.DIAMOND_PRESSURE_PLATE;
-        helper.runAfterDelay(20, () -> {
-            helper.assertFalse(helper.getBlockState(plate).getValue(powered), "the diamond plate reacted to a zombie or an item");
-            helper.assertValueEqual(block.signalAt(helper.getLevel(), helper.absolutePos(plate)), 0, "signal of the plate under a zombie and an item");
-            helper.assertValueEqual(block.signalAt(helper.getLevel(), helper.absolutePos(other)), 15, "signal of the plate under a player");
-            TestCleanup.succeed(helper);
-        });
+        helper.startSequence()
+                .thenExecuteAfter(20, () -> {
+                    helper.assertFalse(helper.getBlockState(plate).getValue(powered), "the diamond plate reacted to a zombie or an item");
+                    helper.assertValueEqual(block.signalAt(helper.getLevel(), helper.absolutePos(plate)), 0, "signal of the plate under a zombie and an item");
+                    helper.assertValueEqual(block.signalAt(helper.getLevel(), helper.absolutePos(other)), 15, "signal of the plate under a player");
+                })
+                .thenExecute(() -> TestCleanup.run(helper))
+                .thenSucceed();
     }
 
     /** Netherit-Druckplatte: ohne Fass jeder Spieler, mit Fass nur wer einen Gegenstand daraus traegt. */
@@ -587,23 +595,44 @@ public final class TweaksTests {
     // Chunk-Loader, Launchpad
     // =====================================================================================
 
-    /** Chunk-Loader erzwingt seinen Chunk, der Enderit-Loader 3x3; beim Abbau werden sie frei. */
-    public static void chunkLoadersForceTheirChunksAndReleaseThemWhenBroken(GameTestHelper helper) {
+    /**
+     * Chunk-Loader erzwingt seinen Chunk, der Enderit-Loader 3x3; beim Abbau gibt er genau die Chunks
+     * frei, die ER erzwungen hat - fremde Erzwingungen (hier die der Spieltest-Umgebung) bleiben.
+     */
+    public static void chunkLoadersForceTheirChunksAndReleaseOnlyTheirOwn(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         BlockPos pos = new BlockPos(3, 1, 3);
-        helper.setBlock(pos, TweaksBlocks.ENDERITE_CHUNK_LOADER);
         BlockPos abs = helper.absolutePos(pos);
         int cx = abs.getX() >> 4;
         int cz = abs.getZ() >> 4;
+        Set<Long> foreign = new java.util.HashSet<>();
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dz = -1; dz <= 1; dz++) {
+                if (level.getForceLoadedChunks().contains(ChunkPos.asLong(cx + dx, cz + dz))) {
+                    foreign.add(ChunkLoaderBlockEntity.key(cx + dx, cz + dz));
+                }
+            }
+        }
+        helper.setBlock(pos, TweaksBlocks.ENDERITE_CHUNK_LOADER);
+        ChunkLoaderBlockEntity be = helper.getBlockEntity(pos, ChunkLoaderBlockEntity.class);
+        be.update(level, ChunkLoaderBlockEntity.radiusOf(helper.getBlockState(pos)));
         for (int dx = -1; dx <= 1; dx++) {
             for (int dz = -1; dz <= 1; dz++) {
                 helper.assertTrue(level.getForceLoadedChunks().contains(ChunkPos.asLong(cx + dx, cz + dz)),
                         "the enderite chunk loader does not force chunk " + (cx + dx) + "," + (cz + dz));
             }
         }
+        helper.assertValueEqual(be.ownForced().size(), 9 - foreign.size(), "chunks the enderite loader claims as its own");
+        helper.assertTrue(java.util.Collections.disjoint(be.ownForced(), foreign), "the loader claims chunks that were forced before it");
+        Set<Long> own = new java.util.HashSet<>(be.ownForced());
         helper.setBlock(pos, Blocks.AIR);
-        helper.assertFalse(level.getForceLoadedChunks().contains(ChunkPos.asLong(cx + 1, cz + 1)), "a broken enderite chunk loader keeps its chunks forced");
-        helper.assertFalse(level.getForceLoadedChunks().contains(ChunkPos.asLong(cx, cz)), "a broken chunk loader keeps its chunk forced");
+        for (long key : own) {
+            helper.assertFalse(level.getForceLoadedChunks().contains(ChunkPos.asLong((int) key, (int) (key >> 32))), "a broken chunk loader keeps its own chunk forced");
+        }
+        for (long key : foreign) {
+            helper.assertTrue(level.getForceLoadedChunks().contains(ChunkPos.asLong((int) key, (int) (key >> 32))), "breaking a chunk loader released a chunk someone else had forced");
+        }
+        helper.assertValueEqual(ChunkLoaderBlockEntity.radiusOf(TweaksBlocks.CHUNK_LOADER.defaultBlockState()), 0, "radius of the plain chunk loader");
         TestCleanup.succeed(helper);
     }
 
