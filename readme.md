@@ -313,12 +313,12 @@ Operator Command:
 
 ## Upgrade-Systeme
 
-### Basic Upgrade Template
+### Basic Upgrade
 
 - Tier-Upgrades fuer Werkzeuge mit Daten-/NBT-Erhalt.
 - Eigene Smithing-Rezeptlogik mit count-basiertem Input.
 
-### Enderite Upgrade Template
+### Enderite Upgrade
 
 - Upgrade von Netherite-Equipment auf Enderite.
 

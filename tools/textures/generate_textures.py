@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Erzeugt die handgezeichneten 16x16-Texturen fuer Rucksack, Lederbogen, verstaerkten
 Koecher, verstaerkten klebrigen Kolben, Enderit-Kolben, Spachtel, die Enderit-Maschinen, die
-Nihilith-/Astralit-Quarz-Schachbretter, Enderquarz, Enderitbarren, -schrott, -klumpen und die
+Nihilith-/Astralit-Quarz-Schachbretter, Enderquarz, Enderitbarren, -schrott, -klumpen, die beiden Aufwertungen, den Diamant-Kiesel und die
 Blaupause; dazu aus Code (nicht aus
 Pixelkarten) die drei End-Paletten Astralit, Nihilith und Enderquarz (Grundblock, Ziegel, polierter
 Block, Saeule, gemeisselte Ziegel), die Rueckentextur des getragenen Rucksacks (entity/backpack/*, aus
@@ -137,19 +137,19 @@ CHISEL_WOOD = {"1": "#2b210e", "2": "#3c2c12", "3": "#483515", "4": "#584219",
 LEATHER_SHEET = [
     "................",
     "................",
-    ".....RRRRRRRRRO.",
-    ".....R5t4t4t43O.",
-    ".....R54444433O.",
-    "....R54444433O..",
-    "....R44444432O..",
-    "....R44444332O..",
-    "...R444443UUO...",
-    "...R443UUUSO....",
-    "...R333USVO.....",
-    "..R3332UVO......",
-    "..Rt2t2SO.......",
-    "..OOOOOO........",
-    "................",
+    "....RRRRRRRR....",
+    "...R55555544O...",
+    "...R5t4t4t44O...",
+    "...R544434t3O...",
+    "...R5t434443O...",
+    "...R444344t3O...",
+    "...R4t443433O...",
+    "...R444434t3O...",
+    "...R4t4433USO...",
+    "...R4443USVO....",
+    "...R4t3USVO.....",
+    "...R333VVO......",
+    "....OOOOO.......",
     "................",
 ]
 LEATHER_SHEET_PAL = {
@@ -1498,17 +1498,17 @@ ENDER_QUARTZ_ITEM_PAL = {
 ENDERITE_INGOT = [
     "................",
     "................",
-    "..........RR....",
-    ".......RRR76O...",
-    "....RRR665555O..",
-    ".RRR6655555544O.",
-    "Rh6555555544hh1O",
-    "R3h55544hhhh221O",
-    "R33h44hh2222111O",
-    "O333hh2211111OO.",
-    ".O33221111OOO...",
-    "..O3111OOO......",
-    "...OOOO.........",
+    "..........R.....",
+    "........RR7O....",
+    ".....RRR6555O...",
+    "..RRR66555544O..",
+    ".Rh65555554hh1O.",
+    ".R3h55544hh221O.",
+    ".R33h44hh22111O.",
+    ".O333hh22111OO..",
+    "..O3322111OO....",
+    "...O3111OO......",
+    "....OOOO........",
     "................",
     "................",
     "................",
@@ -1525,17 +1525,17 @@ ENDERITE_SCRAP = [
     "................",
     "................",
     ".........HHO....",
-    ".......HHA63O...",
-    ".....HHA6622O...",
-    "....HA6522A65O..",
-    "...HA642A6622O..",
-    "...B42AA622AAO..",
-    "....OA464AA65O..",
-    "...HA642A4653O..",
-    "...B42AA3653O...",
-    "....OA46553O....",
-    ".....O5534O.....",
-    "......OOOO......",
+    "......HHHA63O...",
+    "....HHAA6622O...",
+    "...HA65522A65O..",
+    "..HA6422A6622O..",
+    "..B42AAA622AAO..",
+    "...OA4664AA65O..",
+    "..HA6422A4653O..",
+    "..B42AAA3653O...",
+    "...OA466553O....",
+    "....O55534O.....",
+    ".....OOOOO......",
     "................",
     "................",
 ]
@@ -1570,6 +1570,63 @@ ENDERITE_NUGGET_PAL = {
 }
 
 
+# Aufwertungen (basic_upgrade_template, enderite_upgrade_template): eigene Kartenform mit Nieten in
+# den Ecken und einem Pfeil nach oben. R Randton, O Umriss, 1..4 Karte dunkel -> hell, a..d Pfeil
+# dunkel -> hell, e Pfeilmitte. Enderit: Karte in den Farben des Enderitbarrens, Pfeil aus Netherit
+# (die Mitte, wo Vanilla einen Diamanten zeigt, ist Netherit). Basis: Karte wie Goldbarren/Goldruestung,
+# Pfeil wie ein Eisenblock.
+UPGRADE_TEMPLATE = [
+    "................",
+    "....RRRRRRRRR...",
+    "...R344444443O..",
+    "...R342222241O..",
+    "...R3122d2211O..",
+    "...R322dcb221O..",
+    "...R32dceba11O..",
+    "...R3dccebba1O..",
+    "...R322cea221O..",
+    "...R122cba221O..",
+    "...R322cba211O..",
+    "...R312baa211O..",
+    "...R241111141O..",
+    "....O1111111O...",
+    ".....OOOOOOO....",
+    "................",
+]
+ENDERITE_UPGRADE_TEMPLATE_PAL = {
+    "O": "#1c0a33", "R": "#472480", "1": "#55309a", "2": "#6d45b8", "3": "#8e63dc", "4": "#a57de9",
+    "a": "#271c1d", "b": "#3b393b", "c": "#5a575a", "d": "#8a878a", "e": "#737173",
+}
+BASIC_UPGRADE_TEMPLATE_PAL = {
+    "O": "#752802", "R": "#b26411", "1": "#dc9613", "2": "#e9b115", "3": "#fad64a", "4": "#fdf55f",
+    "a": "#b1b0b0", "b": "#d6d6d6", "c": "#ececec", "d": "#ffffff", "e": "#dcdcdc",
+}
+
+# Diamant-Kiesel: kleiner, scharf geschliffener Edelstein (Raute), Licht von oben links.
+DIAMOND_PEBBLE = [
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    ".......RO.......",
+    "......RW4O......",
+    ".....RW4432.....",
+    ".....R43321O....",
+    "......O321O.....",
+    ".......O1O......",
+    "........O.......",
+    "................",
+    "................",
+    "................",
+    "................",
+]
+DIAMOND_PEBBLE_PAL = {
+    "O": "#0a4f53", "R": "#0fa8ad", "1": "#0b858a", "2": "#0cc0c6", "3": "#2de0e0", "4": "#78f4f4",
+    "W": "#eafffc",
+}
+
+
 def end_palette_textures():
     tex = {}
     for mat in END_PALETTE_RAMPS:
@@ -1583,6 +1640,11 @@ def end_palette_textures():
     tex["item/enderite_ingot.png"] = render("enderite_ingot", ENDERITE_INGOT, ENDERITE_INGOT_PAL, False)
     tex["item/enderite_scrap.png"] = render("enderite_scrap", ENDERITE_SCRAP, ENDERITE_SCRAP_PAL, False)
     tex["item/enderite_nugget.png"] = render("enderite_nugget", ENDERITE_NUGGET, ENDERITE_NUGGET_PAL, False)
+    tex["item/enderite_upgrade_template.png"] = render("enderite_upgrade_template", UPGRADE_TEMPLATE,
+                                                        ENDERITE_UPGRADE_TEMPLATE_PAL, False)
+    tex["item/basic_upgrade_template.png"] = render("basic_upgrade_template", UPGRADE_TEMPLATE,
+                                                     BASIC_UPGRADE_TEMPLATE_PAL, False)
+    tex["item/diamond_pebble.png"] = render("diamond_pebble", DIAMOND_PEBBLE, DIAMOND_PEBBLE_PAL, False)
     return tex
 
 
@@ -2356,7 +2418,8 @@ def build_preview(tex):
                        [checker_wall(tex[names[1]]), checker_wall(tex[names[2]])]))
     groups.append(("Enderquarz und Enderit", [(k, tex[k]) for k in (
         "item/ender_quartz.png", "item/enderite_ingot.png", "item/enderite_scrap.png",
-        "item/enderite_nugget.png")], []))
+        "item/enderite_nugget.png", "item/enderite_upgrade_template.png", "item/basic_upgrade_template.png",
+        "item/diamond_pebble.png")], []))
     width = max(pad + len(items) * (cell + pad) + sum(iso.width + pad for iso in isos) + pad
                 for _, items, isos in groups)
     height = pad + len(groups) * (16 + cell + label_h + pad + 4)

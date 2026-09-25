@@ -181,7 +181,7 @@ Fackel, Härte 0,3, Glasgeräusch; **nicht** „beim ersten Antippen weg", von H
 **Ton:** Handwerker-Almanach: Sprichwörter, kurze Verse, Rätsel.
 **Kapitel:** Meißel · Vorschlaghammer · Über Kerne · Baustab · Oktant (1 schlichter + 16 gefärbte;
 Tastenbelegung als Komponente) · Rotator · Magnet · Der lauschende Kompass (Erzdetektor) ·
-Geschwindigkeitsmesser · Aufstieg ohne Abschied (Basis-Upgrade-Vorlage: „behält Name, Abnutzung und
+Geschwindigkeitsmesser · Aufstieg ohne Abschied (Basisaufwertung: „behält Name, Abnutzung und
 Verzauberungen") · Werkstatt-Tricks (Rahmen: Glasscheibe sperrt, Schere versteckt).
 
 > **EN – On Cores** *(Quelle: `copper/iron/gold/diamond_core_plus.json` = 4 × Material um einen

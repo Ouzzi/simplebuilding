@@ -1861,7 +1861,7 @@ public final class DataIntegrityTests {
     }
 
     /**
-     * The Basic Upgrade Template costs twice the material the crafting table asks for the target
+     * The Basic Upgrade costs twice the material the crafting table asks for the target
      * tool (the owner's decision): a pickaxe or an axe takes 6, a sword or a hoe 4, a shovel 2 -
      * the vanilla recipes use 3, 2 and 1; the copper tools go to iron at the same prices. The mod's
      * tools follow the same rule: the chisel takes 2 (one ingot or diamond in its recipe) and the
