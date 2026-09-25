@@ -1,5 +1,7 @@
 package com.simplebuilding.util;
 
+import com.simplebuilding.version.McVersion;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -176,7 +178,7 @@ public final class WandUndo {
             count -= part;
             ItemStack stack = new ItemStack(item, part);
             if (!player.getInventory().add(stack) || !stack.isEmpty()) {
-                player.drop(stack, false);
+                McVersion.drop(player, stack, false, false);
             }
         }
     }

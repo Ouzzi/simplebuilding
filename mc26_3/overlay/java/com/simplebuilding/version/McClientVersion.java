@@ -26,6 +26,10 @@ public final class McClientVersion {
         return InputConstants.isKeyDown(keyCode);
     }
 
+    public static void rotate(PoseStack poseStack, org.joml.Quaternionfc rotation) {
+        poseStack.rotate(rotation);
+    }
+
     /** 26.3 replaced the shade flag with a shade direction override; UP is the old "shade": false. */
     public static boolean quadShaded(BakedQuad quad) {
         return quad.materialInfo().shadeDirectionOverride() != Direction.UP;

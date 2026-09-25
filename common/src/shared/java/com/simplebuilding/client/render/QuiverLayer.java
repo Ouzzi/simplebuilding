@@ -1,5 +1,7 @@
 package com.simplebuilding.client.render;
 
+import com.simplebuilding.version.McClientVersion;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.simplebuilding.items.custom.QuiverItem;
@@ -73,7 +75,7 @@ public class QuiverLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
         // 180 Grad um die Vorwaertsachse: Modell-y zeigt nach unten und Modell-x nach links, das
         // Item-Modell erwartet beides umgekehrt. So sieht man die Grafik von hinten aufrecht und
         // ungespiegelt; TILT_DEGREES kommt obendrauf.
-        poseStack.mulPose(Axis.ZP.rotationDegrees(180.0F + TILT_DEGREES));
+        McClientVersion.rotate(poseStack, Axis.ZP.rotationDegrees(180.0F + TILT_DEGREES));
         poseStack.scale(SCALE, SCALE, SCALE * DEPTH);
         // Das Item-Modell fuellt den Einheitswuerfel; seine Mitte auf den Ursprung.
         poseStack.translate(-0.5F, -0.5F, -0.5F);

@@ -30,6 +30,11 @@ public final class McClientVersion {
         return InputConstants.isKeyDown(client.getWindow(), keyCode);
     }
 
+    /** Multiplies a rotation onto the pose (26.2: mulPose, 26.3: rotate). */
+    public static void rotate(PoseStack poseStack, org.joml.Quaternionfc rotation) {
+        poseStack.mulPose(rotation);
+    }
+
     /** Whether a baked quad asks for directional shading (26.3: no UP shade override). */
     public static boolean quadShaded(BakedQuad quad) {
         return quad.materialInfo().shade();
