@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "src/main/generated/wiki/items.json",
       "present": true,
-      "count": 167,
+      "count": 168,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -944,6 +944,70 @@
           "Schleichen + Rechtsklick in die Luft setzt den Oktanten komplett zurück. Die Sperre schützt die Auswahl vor versehentlichem Klicken und Scrollen (nicht vor Änderungen im Manager).",
           "Wichtig: Der Oktant baut nichts. Er misst und zeigt nur an. Die Fülloptionen Hohl, Ebenenmodus und Reihenfolge auf Seite 2 des Managers werden zwar gespeichert, aber von keinem Teil der Mod ausgewertet.",
           "Loader-Hinweis: HUD und Weltmarkierungen gibt es auf Fabric, NeoForge und Forge gleichermaßen."
+        ]
+      }
+    },
+    {
+      "id": "blueprint",
+      "related": [
+        "simplebuilding:blueprint",
+        "simplebuilding:octant",
+        "simplebuilding:copper_building_wand",
+        "simplebuilding:iron_building_wand",
+        "simplebuilding:gold_building_wand",
+        "simplebuilding:diamond_building_wand",
+        "simplebuilding:netherite_building_wand",
+        "simplebuilding:enderite_building_wand",
+        "simplebuilding:ender_quartz",
+        "simplebuilding:master_builder"
+      ],
+      "sources": [
+        "docs/BLUEPRINT.md",
+        "common/src/shared/java/com/simplebuilding/blueprint/BlueprintCode.java",
+        "common/src/shared/java/com/simplebuilding/blueprint/BlueprintBuilder.java",
+        "common/src/shared/java/com/simplebuilding/blueprint/BlueprintScanner.java",
+        "common/src/shared/java/com/simplebuilding/blueprint/BlueprintCartography.java",
+        "common/src/shared/java/com/simplebuilding/blueprint/BlueprintMaterials.java",
+        "common/src/shared/java/com/simplebuilding/blueprint/BlueprintTiers.java",
+        "common/src/shared/java/com/simplebuilding/items/custom/BlueprintItem.java",
+        "common/src/shared/java/com/simplebuilding/client/blueprint/BlueprintScreen.java",
+        "common/src/shared/java/com/simplebuilding/client/blueprint/BlueprintTooltip.java",
+        "common/src/shared/java/com/simplebuilding/mixin/CartographyTableMenuMixin.java",
+        "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java"
+      ],
+      "en": {
+        "title": "Blueprint: Writing, Scanning and Building Structures",
+        "summary": "A Blueprint stores a whole structure as a short, readable build code. You can write the code yourself in a map-style editor with a live 3D preview, scan an existing building with an Octant at a cartography table, and build it again anywhere with a building wand - using only the blocks you carry.",
+        "details": [
+          "Recipe (shapeless): 1 Ender Quartz + 1 Paper + 1 Ink Sac give one empty Blueprint. Empty blueprints stack to 16.",
+          "Using a blueprint opens the editor: materials on the left (item icon and amount, largest first), the code in the middle with syntax colours, line numbers and underlined errors, the finished structure in 3D on the right (drag to rotate in any direction, mouse wheel to zoom, double-click to reset). The bar below shows the bounding box and which building wand can build it.",
+          "The code, one statement per line: a block followed by positions. stone 0..4,0,0..4 is a 5x1x5 plate (x,y,z, a..b is an inclusive range per axis); stone 1,1,1..1,1,5 is the same thing written corner to corner; oak_stairs[facing=east,half=top] 0,3,0 sets block state properties; oak_fence 0,1,0*5@2,0,0 repeats a position five times two blocks apart; air 1..3,1..3,1..3 clears what earlier lines placed; $roof = oak_stairs[facing=north] defines an alias used as $roof 0..4,4,0. The minecraft: namespace is optional, # starts a comment, later lines overwrite earlier ones, coordinates run from 0 to 127.",
+          "Limits: at most 32000 characters of code and a 128 x 128 x 128 grid. Errors are shown inline; the line under the cursor (or the first error) is explained below the editor.",
+          "Signing works like a book: enter a title and sign - afterwards the blueprint is read-only and shows title and author. The server checks every edit again.",
+          "Scanning: put an Octant with both corners set into the top slot of a cartography table and an empty or unsigned blueprint into the bottom slot. The result is the filled blueprint; taking it uses up only the blueprint, the octant stays. The selection must be loaded, at most 128 blocks per edge, and the table within 32 blocks of it. Air is skipped, and of chests and other block entities only the block itself is copied, not the contents. While the octant lies in the table its selection is drawn in the world.",
+          "Building: hold a building wand in the main hand and the blueprint in the off hand. A ghost preview shows exactly what a click would place at the block you aim at; the structure stands in front of you, centred, and grows in your viewing direction. Ctrl + mouse wheel turns it by 90 degrees.",
+          "A right-click places everything you have: blocks come out of the off hand, the hotbar and, with Master Builder on the wand, the whole inventory, Master Builder bundles and a worn Master Builder backpack - the same search the wand uses. Positions that already hold the right block and occupied positions are skipped, missing blocks are left out so you can come back later. Every placed block costs 1 wand durability. In creative mode everything is placed.",
+          "Wand size limits (longest edge of the bounding box): copper 16, iron 32, gold 48, diamond 64, netherite 96, enderite 128. A wand that is too small refuses with a hint.",
+          "Tooltip: hovering a filled blueprint shows the structure as a slowly turning 3D miniature; hold Shift for the material list.",
+          "Loader note: identical on Fabric, NeoForge and Forge (26.2) and on Fabric and NeoForge (1.21.11)."
+        ]
+      },
+      "de": {
+        "title": "Blaupause: Bauwerke schreiben, scannen und bauen",
+        "summary": "Eine Blaupause speichert ein ganzes Bauwerk als kurzen, lesbaren Bau-Code. Du kannst den Code selbst in einem Editor im Kartenstil mit 3D-Vorschau schreiben, ein bestehendes Gebäude am Kartentisch mit einem Oktanten scannen und es mit einem Baustab überall wieder aufbauen - nur mit den Blöcken, die du dabeihast.",
+        "details": [
+          "Rezept (formlos): 1 Enderquarz + 1 Papier + 1 Tintenbeutel ergeben eine leere Blaupause. Leere Blaupausen stapeln bis 16.",
+          "Benutzen öffnet den Editor: links die Materialien (Item-Symbol und Menge, größte zuerst), in der Mitte der Code mit Syntax-Farben, Zeilennummern und unterstrichenen Fehlern, rechts das fertige Bauwerk in 3D (Ziehen dreht in jede Richtung, Mausrad zoomt, Doppelklick setzt zurück). Die Leiste darunter zeigt die Bounding Box und welcher Baustab es bauen kann.",
+          "Der Code, eine Anweisung pro Zeile: ein Block, dann Positionen. stone 0..4,0,0..4 ist eine 5x1x5-Platte (x,y,z, a..b ist ein Bereich je Achse, beide Enden inklusive); stone 1,1,1..1,1,5 ist dasselbe von Ecke zu Ecke geschrieben; oak_stairs[facing=east,half=top] 0,3,0 setzt Blockzustands-Eigenschaften; oak_fence 0,1,0*5@2,0,0 wiederholt eine Position fünfmal im Abstand von zwei Blöcken; air 1..3,1..3,1..3 räumt, was frühere Zeilen gesetzt haben; $dach = oak_stairs[facing=north] definiert einen Alias, benutzt als $dach 0..4,4,0. Der Namensraum minecraft: ist optional, # beginnt einen Kommentar, spätere Zeilen überschreiben frühere, Koordinaten laufen von 0 bis 127.",
+          "Grenzen: höchstens 32000 Zeichen Code und ein Raster von 128 x 128 x 128. Fehler stehen direkt im Code; die Zeile unter dem Cursor (sonst der erste Fehler) wird unter dem Editor erklärt.",
+          "Signieren wie beim Buch: Titel eingeben und signieren - danach ist die Blaupause schreibgeschützt und zeigt Titel und Autor. Der Server prüft jede Änderung selbst.",
+          "Scannen: einen Oktanten mit beiden Ecken oben in den Kartentisch legen, eine leere oder nicht signierte Blaupause unten. Rechts kommt die gefüllte Blaupause heraus; Nehmen verbraucht nur die Blaupause, der Oktant bleibt liegen. Die Auswahl muss geladen sein, höchstens 128 Blöcke je Kante, und der Tisch höchstens 32 Blöcke von ihr entfernt. Luft wird übersprungen, von Truhen und anderen Block-Entities wird nur der Block übernommen, nicht der Inhalt. Solange der Oktant im Tisch liegt, wird seine Auswahl in der Welt gezeichnet.",
+          "Bauen: Baustab in die Haupthand, Blaupause in die Nebenhand. Eine Geistervorschau zeigt genau das, was ein Klick am anvisierten Block setzen würde; das Bauwerk steht mittig vor dir und wächst in Blickrichtung. Strg + Mausrad dreht es um 90 Grad.",
+          "Ein Rechtsklick setzt alles, was du hast: Blöcke kommen aus der Nebenhand, der Hotbar und mit Meisterbauer auf dem Stab aus dem ganzen Inventar, aus Meisterbauer-Bündeln und einem getragenen Meisterbauer-Rucksack - dieselbe Suche wie beim Baustab. Stellen, an denen schon der richtige Block steht, und belegte Stellen werden übersprungen, fehlende Blöcke ausgelassen - du kannst später weiterbauen. Jeder gesetzte Block kostet 1 Haltbarkeit des Stabs. Im Kreativmodus wird alles gesetzt.",
+          "Größengrenzen der Baustäbe (längste Kante der Bounding Box): Kupfer 16, Eisen 32, Gold 48, Diamant 64, Netherit 96, Enderit 128. Ein zu kleiner Stab lehnt mit einem Hinweis ab.",
+          "Tooltip: über einer gefüllten Blaupause dreht sich das Bauwerk langsam als 3D-Miniatur; mit Umschalt erscheint die Materialliste.",
+          "Loader-Hinweis: gleich auf Fabric, NeoForge und Forge (26.2) sowie Fabric und NeoForge (1.21.11)."
         ]
       }
     },
@@ -3634,6 +3698,49 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:blueprint",
+      "name": {
+        "en_us": "Blueprint",
+        "de_de": "Blaupause"
+      },
+      "texture": "assets/textures/item/blueprint.png",
+      "craftedBy": [
+        "simplebuilding:blueprint"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "note": {
+        "en": {
+          "summary": "The Blueprint holds a structure as readable build code: write it in the editor, fill it by scanning an Octant selection at a cartography table, and build it with a building wand held in the other hand.",
+          "details": [
+            "Crafting (shapeless): 1 Ender Quartz + 1 Paper + 1 Ink Sac -> 1 empty Blueprint, unlocked by Ender Quartz. Stacks to 16 while empty; editing one from a stack splits it off.",
+            "Right-click opens the editor (not while a building wand is in the main hand and the blueprint in the off hand - that is build mode).",
+            "Build code example: $roof = oak_stairs[facing=north] / cobblestone 0..4,0,0..4 / oak_planks 0..4,1..3,0..4 / air 1..3,1..3,1..3 / $roof 0..4,4,0 / oak_fence 0,5,0*3@2,0,0. Full grammar in docs/BLUEPRINT.md.",
+            "Limits: 32000 characters, coordinates 0..127, title up to 32 characters. A signed blueprint is named after its title, shows its author and can no longer be edited or overwritten by a scan.",
+            "Tooltip: size (width x height x depth, block count), the smallest building wand that can build it, error count, a turning 3D miniature, and with Shift the material list.",
+            "Material cost: one item per block; a double slab costs two slabs, the upper half of a door or tall plant and the head of a bed cost nothing; blocks without an item (water, fire, piston head) are creative-only.",
+            "Building wand size per tier (longest edge): copper 16, iron 32, gold 48, diamond 64, netherite 96, enderite 128. Up to 32768 blocks are placed per click."
+          ]
+        },
+        "de": {
+          "summary": "Die Blaupause trägt ein Bauwerk als lesbaren Bau-Code: im Editor schreiben, am Kartentisch per Oktant-Auswahl füllen und mit einem Baustab in der anderen Hand bauen.",
+          "details": [
+            "Rezept (formlos): 1 Enderquarz + 1 Papier + 1 Tintenbeutel -> 1 leere Blaupause, freigeschaltet durch Enderquarz. Leer bis 16 stapelbar; wird eine aus einem Stapel bearbeitet, wird sie abgespalten.",
+            "Rechtsklick öffnet den Editor (nicht, wenn ein Baustab in der Haupthand und die Blaupause in der Nebenhand liegt - das ist der Baumodus).",
+            "Beispiel-Code: $dach = oak_stairs[facing=north] / cobblestone 0..4,0,0..4 / oak_planks 0..4,1..3,0..4 / air 1..3,1..3,1..3 / $dach 0..4,4,0 / oak_fence 0,5,0*3@2,0,0. Die vollständige Grammatik steht in docs/BLUEPRINT.md.",
+            "Grenzen: 32000 Zeichen, Koordinaten 0..127, Titel bis 32 Zeichen. Eine signierte Blaupause heißt wie ihr Titel, zeigt ihren Autor und lässt sich weder bearbeiten noch durch einen Scan überschreiben.",
+            "Tooltip: Größe (Breite x Höhe x Tiefe, Blockzahl), der kleinste Baustab, der sie bauen kann, Fehlerzahl, eine drehende 3D-Miniatur und mit Umschalt die Materialliste.",
+            "Materialkosten: ein Item pro Block; eine doppelte Stufe kostet zwei Stufen, die obere Hälfte einer Tür oder hohen Pflanze und das Kopfteil eines Bettes kosten nichts; Blöcke ohne Item (Wasser, Feuer, Kolbenkopf) gibt es nur im Kreativmodus.",
+            "Baustab-Größe je Stufe (längste Kante): Kupfer 16, Eisen 32, Gold 48, Diamant 64, Netherit 96, Enderit 128. Pro Klick werden bis zu 32768 Blöcke gesetzt."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:chiseled_astralit_bricks",
       "name": {
         "en_us": "Chiseled Astralit Bricks",
@@ -5424,6 +5531,7 @@
         "simplebuilding:ender_quartz"
       ],
       "usedIn": [
+        "simplebuilding:blueprint",
         "simplebuilding:chiseled_ender_quartz_bricks_from_chiseled_quartz_block",
         "simplebuilding:ender_quartz_block",
         "simplebuilding:ender_quartz_block_from_end_stone",
@@ -19497,6 +19605,37 @@
           "minecraft:quartz_block"
         ]
       },
+      "lines": [
+        "1.21.11",
+        "26.2"
+      ]
+    },
+    {
+      "id": "simplebuilding:blueprint",
+      "type": "minecraft:crafting_shapeless",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:blueprint",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/blueprint.json",
+      "ingredients": [
+        "minecraft:ink_sac",
+        "minecraft:paper",
+        "simplebuilding:ender_quartz"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:ender_quartz"
+        ],
+        [
+          "minecraft:paper"
+        ],
+        [
+          "minecraft:ink_sac"
+        ]
+      ],
       "lines": [
         "1.21.11",
         "26.2"
@@ -42376,16 +42515,16 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 161,
+    "items": 162,
     "blocks": 76,
-    "recipes": 309,
+    "recipes": 310,
     "lootTables": 75,
     "trades": 21,
     "enchantments": 19,
     "tags": 27,
     "config": 15,
     "inWorld": 343,
-    "features": 35,
+    "features": 36,
     "undocumented": 0,
     "incompleteProse": 0
   },

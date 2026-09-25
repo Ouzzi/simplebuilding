@@ -686,6 +686,15 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .unlockedBy(getHasName(ModItems.NIHILITH_SHARD), has(ModItems.NIHILITH_SHARD))
                         .save(output);
 
+                // --- BLAUPAUSE ---
+                // Formlos 1 Enderquarz + 1 Papier + 1 Tintenbeutel -> 1 leere Blaupause (spaet, aber leicht).
+                shapeless(RecipeCategory.TOOLS, ModItems.BLUEPRINT)
+                        .requires(ModItems.ENDER_QUARTZ)
+                        .requires(Items.PAPER)
+                        .requires(Items.INK_SAC)
+                        .unlockedBy(getHasName(ModItems.ENDER_QUARTZ), has(ModItems.ENDER_QUARTZ))
+                        .save(output);
+
                 // --- END-PALETTEN (Astralit, Nihilith, Enderquarz) ---
                 // Werkbank wie Vanilla: 4 Material im Quadrat -> 1 Grundblock (wie Quarz- und
                 // Amethystblock), Grundblock 2x2 -> 4 poliert, poliert 2x2 -> 4 Ziegel (Kette wie bei

@@ -377,9 +377,94 @@ public class BuildingWandItem extends Item {
         return null;
     }
 
+    // =====================================================================================
+    // Materialquellen fuer den Blaupausen-Baumodus: dieselbe Suche wie oben (Nebenhand, Hotbar,
+    // mit Meisterbauer das ganze Inventar, Buendel mit Meisterbauer auf Stab oder Buendel, der
+    // getragene Meisterbauer-Rucksack), aber nach Item statt nach Block - eine Wandfackel kostet
+    // eine Fackel, eine Tuer ihr Tuer-Item.
+    // =====================================================================================
+
+    /** Erste Quelle fuer ein Item, oder {@code null}. {@link Runnable#run()} verbraucht ein Stueck. */
+    public static Runnable findSupply(Player player, ItemStack wand, Item item) {
+        Level world = player.level();
+        boolean mb = hasEnchantment(wand, world, ModEnchantments.MASTER_BUILDER);
+        java.util.function.Predicate<ItemStack> test = s -> s.is(item) && !(s.getItem() instanceof BackpackItem);
+        MaterialResult res = supplyIn(player.getOffhandItem(), test, world, mb);
+        if (res != null) return res::consume;
+        int limit = mb ? player.getInventory().getNonEquipmentItems().size() : 9;
+        for (int i = 0; i < limit; i++) {
+            res = supplyIn(player.getInventory().getItem(i), test, world, mb);
+            if (res != null) return res::consume;
+        }
+        res = findInBackpack(player, test);
+        return res != null ? res::consume : null;
+    }
+
+    /** Wie viele Stueck eines Items {@link #findSupply} insgesamt fande. */
+    public static int countSupply(Player player, ItemStack wand, Item item) {
+        Level world = player.level();
+        boolean mb = hasEnchantment(wand, world, ModEnchantments.MASTER_BUILDER);
+        int total = countIn(player.getOffhandItem(), item, world, mb);
+        int limit = mb ? player.getInventory().getNonEquipmentItems().size() : 9;
+        for (int i = 0; i < limit; i++) {
+            total += countIn(player.getInventory().getItem(i), item, world, mb);
+        }
+        ItemStack backpack = masterBuilderBackpack(player);
+        if (!backpack.isEmpty()) {
+            for (ItemStack s : BackpackItem.entryStacks(backpack)) {
+                if (s.is(item)) total += s.getCount();
+            }
+        }
+        return total;
+    }
+
+    private static MaterialResult supplyIn(ItemStack stack, java.util.function.Predicate<ItemStack> test, Level world, boolean wandMb) {
+        if (stack.isEmpty()) return null;
+        if (test.test(stack)) {
+            MaterialResult res = new MaterialResult();
+            res.sourceStack = stack;
+            return res;
+        }
+        if (stack.getItem() instanceof ReinforcedBundleItem && (wandMb || hasEnchantment(stack, world, ModEnchantments.MASTER_BUILDER))) {
+            BundleContents contents = stack.get(DataComponents.BUNDLE_CONTENTS);
+            if (contents == null) return null;
+            int i = 0;
+            for (ItemStack template : contents.itemsCopy()) {
+                if (test.test(template)) {
+                    MaterialResult res = new MaterialResult();
+                    res.sourceStack = stack;
+                    res.fromBundle = true;
+                    res.bundleIndex = i;
+                    return res;
+                }
+                i++;
+            }
+        }
+        return null;
+    }
+
+    private static int countIn(ItemStack stack, Item item, Level world, boolean wandMb) {
+        if (stack.isEmpty()) return 0;
+        if (stack.is(item)) return stack.getCount();
+        int total = 0;
+        if (stack.getItem() instanceof ReinforcedBundleItem && (wandMb || hasEnchantment(stack, world, ModEnchantments.MASTER_BUILDER))) {
+            BundleContents contents = stack.get(DataComponents.BUNDLE_CONTENTS);
+            if (contents != null) {
+                for (ItemStack s : contents.itemsCopy()) {
+                    if (s.is(item)) total += s.getCount();
+                }
+            }
+        }
+        return total;
+    }
+
     @Override
     public InteractionResult useOn(UseOnContext context) {
         if (context.getHand() != InteractionHand.MAIN_HAND) return InteractionResult.PASS;
+        // Baustab in der Haupthand + Blaupause in der Nebenhand = Blaupausen-Baumodus.
+        if (context.getPlayer() != null && context.getPlayer().getOffhandItem().getItem() instanceof BlueprintItem) {
+            return com.simplebuilding.blueprint.BlueprintBuilder.useWand(context);
+        }
         Level world = context.getLevel();
         Player player = context.getPlayer();
         BlockPos clickedPos = context.getClickedPos();

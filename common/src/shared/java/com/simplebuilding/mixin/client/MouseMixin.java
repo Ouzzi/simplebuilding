@@ -21,6 +21,16 @@ public class MouseMixin {
         Minecraft client = Minecraft.getInstance();
 
         if (client.player != null && client.gui.screen() == null) {
+            // Blaupausen-Baumodus: Strg+Mausrad dreht das Bauwerk in Viertelschritten.
+            if (vertical != 0
+                    && client.player.getMainHandItem().getItem() instanceof com.simplebuilding.items.custom.BuildingWandItem
+                    && client.player.getOffhandItem().getItem() instanceof com.simplebuilding.items.custom.BlueprintItem
+                    && (InputConstants.isKeyDown(client.getWindow(), GLFW.GLFW_KEY_LEFT_CONTROL)
+                        || InputConstants.isKeyDown(client.getWindow(), GLFW.GLFW_KEY_RIGHT_CONTROL))) {
+                ClientNetworking.send(new com.simplebuilding.networking.BlueprintRotatePayload((int) Math.signum(vertical)));
+                ci.cancel();
+                return;
+            }
             if (client.player.getMainHandItem().getItem() instanceof OctantItem) {
 
                 // --- FIX: Lock Check ---

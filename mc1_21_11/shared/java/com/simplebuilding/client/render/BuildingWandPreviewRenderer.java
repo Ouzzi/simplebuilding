@@ -65,8 +65,13 @@ public final class BuildingWandPreviewRenderer {
             return;
         }
 
-        Map<BlockPos, BlockState> previewMap = BuildingWandItem.getPreviewStates(
-                level, player, stack, blockHit.getBlockPos(), blockHit.getDirection(), wandItem.getWandSquareDiameter());
+        // Blaupause in der Nebenhand: statt der Flaeche die Geisterbloecke des Bauwerks, genau die,
+        // die ein Klick jetzt setzen wuerde (vorhandenes Material, freie Stellen).
+        ItemStack offHand = player.getOffhandItem();
+        Map<BlockPos, BlockState> previewMap = offHand.getItem() instanceof com.simplebuilding.items.custom.BlueprintItem
+                ? com.simplebuilding.blueprint.BlueprintBuilder.preview(level, player, stack, offHand, blockHit)
+                : BuildingWandItem.getPreviewStates(
+                        level, player, stack, blockHit.getBlockPos(), blockHit.getDirection(), wandItem.getWandSquareDiameter());
         if (previewMap.isEmpty()) {
             return;
         }

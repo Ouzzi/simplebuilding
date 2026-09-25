@@ -728,6 +728,24 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("octant_game_test_the_octant_only_measures_and_places_nothing", OctantTests::theOctantOnlyMeasuresAndPlacesNothing)
                     .build(),
+            GameTestSpec.named("blueprint_game_test_code_round_trips_and_parses_the_spec_examples", BlueprintTests::codeRoundTripsAndParsesTheSpecExamples)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_size_limits_cap_the_code_and_map_wand_tiers", BlueprintTests::sizeLimitsCapTheCodeAndMapWandTiers)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_material_list_counts_items_sorted_by_amount", BlueprintTests::materialListCountsItemsSortedByAmount)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_cartography_table_scans_the_octant_selection", BlueprintTests::cartographyTableScansTheOctantSelection)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_build_places_only_available_blocks_and_skips_existing_ones", BlueprintTests::buildPlacesOnlyAvailableBlocksAndSkipsExistingOnes)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_rotation_turns_the_build_and_the_scroll_packet_steps_it", BlueprintTests::rotationTurnsTheBuildAndTheScrollPacketStepsIt)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_wand_tier_refuses_blueprints_larger_than_its_cube", BlueprintTests::wandTierRefusesBlueprintsLargerThanItsCube)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_edit_packet_saves_signs_and_locks_the_blueprint", BlueprintTests::editPacketSavesSignsAndLocksTheBlueprint)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_recipe_crafts_one_blank_blueprint", BlueprintTests::recipeCraftsOneBlankBlueprint)
+                    .build(),
             GameTestSpec.named("furnace_game_test_boost_only_runs_while_the_furnace_burns_and_cooks", FurnaceTests::boostOnlyRunsWhileTheFurnaceBurnsAndCooks)
                     .maxTicks(FurnaceTests.BOOST_GUARD_MAX_TICKS)
                     .build(),

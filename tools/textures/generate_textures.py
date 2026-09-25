@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Erzeugt die handgezeichneten 16x16-Texturen fuer Rucksack, Lederbogen, verstaerkten
 Koecher, verstaerkten klebrigen Kolben, Enderit-Kolben, Spachtel, die Enderit-Maschinen, die
-Nihilith-/Astralit-Quarz-Schachbretter und das Enderquarz-Item; dazu aus Code (nicht aus
+Nihilith-/Astralit-Quarz-Schachbretter, das Enderquarz-Item und die Blaupause; dazu aus Code (nicht aus
 Pixelkarten) die drei End-Paletten Astralit, Nihilith und Enderquarz (Grundblock, Ziegel, polierter
 Block, Saeule, gemeisselte Ziegel), die Rueckentextur des getragenen Rucksacks (entity/backpack/*, aus
 den Blockflaechen), die Fenster des Rucksack-Bildschirms (gui/container/backpack/*) und die
@@ -154,6 +154,34 @@ LEATHER_SHEET_PAL = {
     "1": "#893b25", "2": "#9e492a", "3": "#b85632", "4": "#c65c35", "5": "#d76b43",
     "t": "#e6b58a",
     "U": "#dcb09a", "S": "#c19382", "V": "#a26f5c",
+}
+
+# --- Blaupause: ein Kartenblatt (kein Buch) in Cyanotypie-Blau - Raster, ein weiss gezeichnetes
+# Haus mit Fenster und Tuer, Masslinie darunter, rechts unten ein umgeschlagenes Eck. Licht
+# von oben links: der Blattgrund wird zur Ecke rechts unten dunkler.
+BLUEPRINT = [
+    "................",
+    ".TTTTTTTTTTTTTT.",
+    ".T443g33g33g22O.",
+    ".T433g3ww32g22O.",
+    ".T333gw3gw2g22O.",
+    ".TgggwggggwgggO.",
+    ".T33wwwwwwww22O.",
+    ".T333w22g2wg22O.",
+    ".TgggwglggwgggO.",
+    ".T332w22l2wg11O.",
+    ".T322w22l2wg11O.",
+    ".TggwwwwwwwwggO.",
+    ".T22lgl2l1ll1kO.",
+    ".T222g22g11gkcO.",
+    ".TOOOOOOOOOOOO..",
+    "................",
+]
+BLUEPRINT_PAL = {
+    "T": "#4a7fc4", "O": "#142b52",
+    "4": "#5b93d6", "3": "#3f76bf", "2": "#3366ad", "1": "#2a5696",
+    "g": "#4d88cd", "w": "#eef5fc", "l": "#a9cdef",
+    "c": "#86b0e0", "k": "#1d3b6e",
 }
 
 # --- Verstaerkter Koecher: gleiche 100-px-Silhouette wie quiver/netherite_quiver/
@@ -1941,6 +1969,7 @@ def build():
     tex = {}  # relpath -> Image
     tex["item/leather_sheet.png"] = render("leather_sheet", LEATHER_SHEET, LEATHER_SHEET_PAL, False)
     tex["item/reinforced_quiver.png"] = render("reinforced_quiver", REINFORCED_QUIVER, REINFORCED_QUIVER_PAL, False)
+    tex["item/blueprint.png"] = render("blueprint", BLUEPRINT, BLUEPRINT_PAL, False)
 
     for tier, prefix in (("basic", ""), ("reinforced", "reinforced_"), ("netherite", "netherite_"), ("enderite", "enderite_")):
         pal = LEATHER_TIERS[tier]

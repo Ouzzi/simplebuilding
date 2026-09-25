@@ -158,10 +158,14 @@ public class SimplebuildingClient implements ClientModInitializer {
             if (data instanceof ReinforcedBundleTooltipData reinforcedData) {
                 return ReinforcedBundleTooltips.create(reinforcedData);
             }
+            if (data instanceof com.simplebuilding.items.tooltip.BlueprintTooltipData blueprintData) {
+                return com.simplebuilding.client.blueprint.BlueprintTooltip.create(blueprintData);
+            }
             return null;
         });
 
         registerDoubleJumpClient();
+        com.simplebuilding.client.blueprint.BlueprintClient.init();
 
         // --- World Render ---
         // Seit MC 26.2 wird Geometrie nicht mehr direkt gezeichnet, sondern über den

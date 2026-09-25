@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "simplebuilding:ender_quartz",
+    "minecraft:paper",
+    "minecraft:ink_sac"
+  ],
+  "result": {
+    "id": "simplebuilding:blueprint"
+  }
+}

@@ -123,6 +123,10 @@
       "id": "simplebuilding:blackstone_quartz_checker"
     },
     {
+      "id": "simplebuilding:blueprint",
+      "maxStackSize": 16
+    },
+    {
       "id": "simplebuilding:chiseled_astralit_bricks"
     },
     {

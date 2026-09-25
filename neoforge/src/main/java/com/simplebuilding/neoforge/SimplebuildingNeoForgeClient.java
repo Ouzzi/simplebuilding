@@ -110,6 +110,7 @@ public final class SimplebuildingNeoForgeClient {
     }
 
     private void onClientSetup(FMLClientSetupEvent event) {
+        com.simplebuilding.client.blueprint.BlueprintClient.init();
         ClientNetworking.setSender(ClientPacketDistributor::sendToServer);
     }
 
@@ -178,6 +179,7 @@ public final class SimplebuildingNeoForgeClient {
 
     public static void registerTooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {
         event.register(ReinforcedBundleTooltipData.class, ReinforcedBundleTooltips::create);
+        event.register(com.simplebuilding.items.tooltip.BlueprintTooltipData.class, com.simplebuilding.client.blueprint.BlueprintTooltip::create);
     }
 
     private void onPlayerLogin(ClientPlayerNetworkEvent.LoggingIn event) {

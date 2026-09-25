@@ -283,4 +283,70 @@ public final class ModMessageHandlers {
         }
         BackpackMenus.openWorn(player);
     }
+
+    // =====================================================================================
+    // BLAUPAUSE
+    // =====================================================================================
+
+    /**
+     * Neuer Code aus dem Editor. Wie beim Buch prueft der Server alles selbst: Slot (Hotbar oder
+     * Nebenhand), eine unsignierte Blaupause darin, Laenge des Codes; beim Signieren zusaetzlich
+     * Titel (1-32 Zeichen) und fehlerfreien, nicht leeren Code. Liegen mehrere leere Blaupausen
+     * im Slot, wird nur eine beschrieben und abgespalten.
+     */
+    public static void handleBlueprintEdit(BlueprintEditPayload payload, ServerPlayer player) {
+        int slot = payload.slot();
+        if (!(net.minecraft.world.entity.player.Inventory.isHotbarSlot(slot) || slot == net.minecraft.world.entity.player.Inventory.SLOT_OFFHAND)) {
+            return;
+        }
+        ItemStack stack = player.getInventory().getItem(slot);
+        if (!(stack.getItem() instanceof com.simplebuilding.items.custom.BlueprintItem)) {
+            return;
+        }
+        com.simplebuilding.blueprint.BlueprintContent old = com.simplebuilding.items.custom.BlueprintItem.content(stack);
+        if (old.signed()) {
+            return;
+        }
+        String code = payload.code().replace("\r", "");
+        if (code.length() > com.simplebuilding.blueprint.BlueprintCode.MAX_CODE_LENGTH) {
+            return;
+        }
+        com.simplebuilding.blueprint.BlueprintContent written;
+        if (payload.sign()) {
+            String title = payload.title().strip();
+            if (title.isEmpty() || title.length() > com.simplebuilding.blueprint.BlueprintCode.MAX_TITLE_LENGTH) {
+                return;
+            }
+            com.simplebuilding.blueprint.BlueprintCode.ParseResult parsed = com.simplebuilding.blueprint.BlueprintCode.parse(code);
+            if (!parsed.ok() || parsed.model().isEmpty()) {
+                return;
+            }
+            written = new com.simplebuilding.blueprint.BlueprintContent(code, title, player.getName().getString(), true);
+        } else {
+            if (code.equals(old.code())) {
+                return;
+            }
+            written = new com.simplebuilding.blueprint.BlueprintContent(code, old.title(), "", false);
+        }
+        if (stack.getCount() > 1) {
+            ItemStack single = stack.split(1);
+            single.set(com.simplebuilding.component.ModDataComponentTypes.BLUEPRINT, written);
+            if (!player.getInventory().add(single)) {
+                player.drop(single, false);
+            }
+            return;
+        }
+        stack.set(com.simplebuilding.component.ModDataComponentTypes.BLUEPRINT, written);
+    }
+
+    /** Strg+Mausrad im Baumodus: nur mit Baustab in der Haupthand und Blaupause in der Nebenhand. */
+    public static void handleBlueprintRotate(BlueprintRotatePayload payload, ServerPlayer player) {
+        ItemStack blueprint = player.getOffhandItem();
+        if (!(blueprint.getItem() instanceof com.simplebuilding.items.custom.BlueprintItem)
+                || !(player.getMainHandItem().getItem() instanceof BuildingWandItem) || payload.amount() == 0) {
+            return;
+        }
+        int steps = Math.floorMod(com.simplebuilding.blueprint.BlueprintBuilder.rotationSteps(blueprint) + Integer.signum(payload.amount()), 4);
+        blueprint.set(com.simplebuilding.component.ModDataComponentTypes.BLUEPRINT_ROTATION, steps);
+    }
 }
