@@ -1,5 +1,6 @@
 package com.simplebuilding.dev.testcentre;
 
+import com.simplebuilding.version.McVersion;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.BlockPos;
@@ -19,7 +20,6 @@ import net.minecraft.world.level.block.WallSignBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.CommandBlockEntity;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
-import net.minecraft.world.level.block.entity.SignText;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.chunk.LevelChunk;
@@ -174,7 +174,7 @@ public final class TestCentreBuilder {
                 case TcOp.Frame frame -> {
                     ItemFrame entity = new ItemFrame(level, frame.pos(), frame.facing());
                     entity.setItem(frame.stack().copy(), false);
-                    entity.setInvulnerable(true);
+                    McVersion.setInvulnerable(entity, true);
                     level.addFreshEntity(entity);
                     entities++;
                     count++;
@@ -192,7 +192,7 @@ public final class TestCentreBuilder {
                     }
                     entity.setCustomName(stand.name());
                     entity.setCustomNameVisible(true);
-                    entity.setInvulnerable(true);
+                    McVersion.setInvulnerable(entity, true);
                     level.addFreshEntity(entity);
                     entities++;
                     count++;
@@ -207,11 +207,7 @@ public final class TestCentreBuilder {
     private static void placeSign(ServerLevel level, BlockPos pos, Direction facing, List<net.minecraft.network.chat.Component> lines) {
         level.setBlock(pos, Blocks.OAK_WALL_SIGN.defaultBlockState().setValue(WallSignBlock.FACING, facing), QUIET);
         if (level.getBlockEntity(pos) instanceof SignBlockEntity sign) {
-            SignText text = new SignText();
-            for (int i = 0; i < lines.size() && i < 4; i++) {
-                text = text.setMessage(i, lines.get(i));
-            }
-            sign.setText(text, true);
+            McVersion.setSignFrontText(sign, lines);
             sign.setWaxed(true);
         }
     }

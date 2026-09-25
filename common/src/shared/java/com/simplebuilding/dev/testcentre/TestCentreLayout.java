@@ -69,6 +69,20 @@ public final class TestCentreLayout {
             throw new IllegalArgumentException("unknown test centre section " + id);
         }
 
+        /** Eine Zeile je Abschnitt: Lage, Groesse, Rahmen/Staender - fuer Log und Doku. */
+        public String summary() {
+            StringBuilder out = new StringBuilder("test centre " + (bounds.getXSpan()) + "x" + bounds.getZSpan()
+                    + " blocks, " + sections.size() + " sections:");
+            for (Section section : sections) {
+                long frames = section.ops().stream().filter(op -> op instanceof TcOp.Frame).count();
+                long stands = section.ops().stream().filter(op -> op instanceof TcOp.Stand).count();
+                out.append(String.format("%n  %-10s at +%d/+%d, %dx%dx%d, %d frames, %d stands", section.id(),
+                        section.offset().getX(), section.offset().getZ(), section.width(), section.depth(), section.height(),
+                        frames, stands));
+            }
+            return out.toString();
+        }
+
         /** Wo ein Spieler nach dem Bau abgesetzt wird: im ersten Gang, Blick auf die Abschnitte. */
         public BlockPos entrance() {
             return origin.offset(2, 0, -3);

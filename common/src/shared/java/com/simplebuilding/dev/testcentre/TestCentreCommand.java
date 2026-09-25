@@ -139,7 +139,7 @@ public final class TestCentreCommand {
         List<ItemStack> kit = kitItems(new TcContext(source.getLevel().registryAccess()));
         for (ServerPlayer player : players) {
             for (ItemStack stack : kit) {
-                player.getInventory().placeItemBackInInventory(stack.copy());
+                com.simplebuilding.version.McVersion.placeItemBackInInventory(player, stack.copy());
             }
         }
         source.sendSuccess(() -> TcText.t("command.kit", "Kit given to %s player(s)", players.size()), true);

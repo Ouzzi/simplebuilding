@@ -74,7 +74,9 @@ public final class TestCentreTests {
         ServerLevel level = helper.getLevel();
         BlockPos origin = new BlockPos(20000, helper.absolutePos(BlockPos.ZERO).getY() + 1, 20000);
         TestCentreLayout.Plan plan = TestCentreLayout.plan(level.registryAccess(), origin);
-        TestCentreBuilder.build(level, plan);
+        TestCentreBuilder.Result result = TestCentreBuilder.build(level, plan);
+        com.simplebuilding.Simplebuilding.LOGGER.info("{} | built in {} ms ({} steps, {} entities)", plan.summary(),
+                result.millis(), result.ops(), result.entities());
         try {
             Map<BlockPos, BlockState> expected = new HashMap<>();
             int frames = 0;
@@ -103,7 +105,7 @@ public final class TestCentreTests {
             helper.assertTrue(wrong.isEmpty(), "blocks differ from the plan: " + String.join("; ", wrong));
             for (BlockPos pos : signs) {
                 helper.assertTrue(level.getBlockEntity(pos) instanceof SignBlockEntity sign
-                        && !sign.getFrontText().getMessage(0, false).getString().isEmpty(), "no labelled sign at " + pos);
+                        && !com.simplebuilding.version.McVersion.signFrontLine(sign, 0).getString().isEmpty(), "no labelled sign at " + pos);
             }
             AABB area = AABB.of(plan.bounds());
             int placedFrames = level.getEntitiesOfClass(ItemFrame.class, area).size();

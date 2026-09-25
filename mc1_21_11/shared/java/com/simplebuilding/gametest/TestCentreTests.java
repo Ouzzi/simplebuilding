@@ -74,7 +74,9 @@ public final class TestCentreTests {
         ServerLevel level = helper.getLevel();
         BlockPos origin = new BlockPos(20000, helper.absolutePos(BlockPos.ZERO).getY() + 1, 20000);
         TestCentreLayout.Plan plan = TestCentreLayout.plan(level.registryAccess(), origin);
-        TestCentreBuilder.build(level, plan);
+        TestCentreBuilder.Result result = TestCentreBuilder.build(level, plan);
+        com.simplebuilding.Simplebuilding.LOGGER.info("{} | built in {} ms ({} steps, {} entities)", plan.summary(),
+                result.millis(), result.ops(), result.entities());
         try {
             Map<BlockPos, BlockState> expected = new HashMap<>();
             int frames = 0;
