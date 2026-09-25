@@ -1463,24 +1463,24 @@ def ring(x, y):
     return min(x, y, 15 - x, 15 - y)
 
 
-# Enderquarz (Item): ein gezackter, sternfoermiger Splitter, als haette der Quarz Zacken gebildet;
-# sehr dunkles Violett mit seltenen Funken, ringsum Abstand zum Rand wie bei Vanilla-Items.
+# Enderquarz (Item): kompakter Kristall-/Sternhaufen mit sieben Zacken in verschiedene Richtungen,
+# sehr dunkles Violett mit seltenen Funken, ringsum Abstand zum Rand.
 # O Umriss unten/rechts, R Randton oben/links, 1..5 Facetten dunkel -> hell, s Funke, S Glanzpunkt.
 ENDER_QUARTZ_ITEM = [
     "................",
     "................",
     ".......R........",
-    "......R5O..R....",
-    "......RS4OR4O...",
-    ".....R554O43O...",
-    "....R554443O....",
-    "...R55s4433OR...",
-    "..R5444333322O..",
-    "...O34333221O...",
-    "...R3332221O....",
-    "..R3OO322OO.....",
-    "...O..O2O.......",
-    ".......O........",
+    "...R..R5O...R...",
+    "..R5O.R54O.R4O..",
+    "..R54O554OR43O..",
+    "...O55554433O...",
+    "..R554s443332O..",
+    ".R554S44333321O.",
+    "..O4343332222O..",
+    "...O433322221O..",
+    "....OO322OO21O..",
+    "......OO2O.OO1O.",
+    "........O....O..",
     "................",
     "................",
 ]
@@ -1489,23 +1489,23 @@ ENDER_QUARTZ_ITEM_PAL = {
     "5": "#8446b8", "s": "#c68cff", "S": "#fbefff",
 }
 
-# Enderitbarren: flacher Quader mit geraden, parallelen Kanten (waagerechte Laengskanten, 45-Grad-
-# Stirnkanten), Abstand zum Rand. O Umriss, R Randton, 5..6 Deckflaeche, h Lichtkante, 1..2
-# Vorderflaeche, 3..1 rechte Stirnseite, 7 Glanzpunkt.
+# Enderitbarren: Lage, Perspektive und Silhouette des Vanilla-Netheritbarrens (Massvorlage), aber
+# 4 statt 5 Pixel dick und neu schattiert. O Umriss, R Randton, 5..6 Deckflaeche, h Lichtkanten,
+# 1..2 Vorderflaeche, 3 Stirnseite links, 7 Glanzpunkt.
 ENDERITE_INGOT = [
     "................",
     "................",
-    "................",
-    "................",
-    "................",
-    ".....RRRRRRRRRO.",
-    "....R766666663O.",
-    "...R5555555532O.",
-    "..Rhhhhhhhh321O.",
-    "..R2222222221O..",
-    "..O111111111O...",
-    "..OOOOOOOOOO....",
-    "................",
+    "..........RR....",
+    ".......RRR76O...",
+    "....RRR665555O..",
+    ".RRR6655555544O.",
+    "Rh6555555544hh1O",
+    "R3h55544hhhh221O",
+    "R33h44hh2222111O",
+    "O333hh2211111OO.",
+    ".O33221111OOO...",
+    "..O3111OOO......",
+    "...OOOO.........",
     "................",
     "................",
     "................",
@@ -1515,54 +1515,55 @@ ENDERITE_INGOT_PAL = {
     "5": "#8e63dc", "6": "#a57de9", "h": "#cfb2fb", "7": "#f1e8ff",
 }
 
-# Enderitschrott: Form, Farben und Maserung der urspruenglichen Textur des Besitzers, nur mit
-# sauberem Umriss (O unten/rechts, R oben/links) und ruhigerer linker Kante.
+# Enderitschrott: pixelgenau die Grundform der urspruenglichen Textur des Besitzers; drei
+# uebereinanderliegende Lagen wie ein Kratzer mit drei Krallen, jede links spitz auslaufend.
+# O Umriss, H/B Lichtkante, A Oberkante einer Lage, 6..5 Lage, 3 Schatten, 2 Fuge.
 ENDERITE_SCRAP = [
     "................",
-    ".........RRR....",
-    ".......RRBAHO...",
-    ".....RRAHA636O..",
-    "....RHBA66336O..",
-    "...RBA65242654O.",
-    "..RHA662366542O.",
-    "..RB6523655366O.",
-    "..RB4326632652O.",
-    "..RBE665326532O.",
-    "..RA653236534O..",
-    "..R442265532O...",
-    "...OAA55343O....",
-    "....OO4332O.....",
+    "................",
+    ".........HHO....",
+    ".......HH633O...",
+    ".....HH63322O...",
+    "....H53322A33O..",
+    "...H3322A3322O..",
+    "...B22AA322AAO..",
+    "....OA332AA66O..",
+    "...H3322A6666O..",
+    "...B22AA6665O...",
+    "....OA66655O....",
+    "....OO6655O.....",
     "......OOOO......",
+    "................",
     "................",
 ]
 ENDERITE_SCRAP_PAL = {
-    "O": "#1f0c3d", "R": "#4a2a86", "H": "#b58ef6", "A": "#a67aef", "B": "#9d7ad5", "E": "#ae83f4",
-    "6": "#6841a9", "5": "#553190", "4": "#442871", "3": "#3c1a74", "2": "#3c1f6c",
+    "O": "#1f0c3d", "H": "#b58ef6", "A": "#a67aef", "B": "#9d7ad5", "6": "#6841a9", "5": "#553190",
+    "3": "#442871", "2": "#2c1356",
 }
 
-# Enderitklumpen: nach der urspruenglichen Textur des Besitzers - runder Klumpen mit Tropfen nach
-# unten, etwas kleiner und mit sauberem Umriss.
+# Enderitklumpen: die urspruengliche Textur des Besitzers (Klumpen mit Tropfen und seitlichen
+# Tropfspuren), nur auf sieben Toene vereinheitlicht und mit sauberem Umriss.
 ENDERITE_NUGGET = [
     "................",
     "................",
     "................",
-    "................",
-    ".......RRO......",
-    "......RH75O.....",
-    ".....RH7665O....",
-    ".....R765543O...",
-    ".....R655433O...",
-    "......O54332O...",
-    ".......O432O....",
-    "........3O......",
-    "........2.......",
+    "........77O.....",
+    "......H7665OO...",
+    ".....7676553O...",
+    ".....766555O....",
+    "....O.55555O....",
+    "....O.3555O.O...",
+    "......3663O.....",
+    ".......55OO.....",
+    ".......33O.O....",
+    ".......O4..O....",
+    "........3.......",
     "........O.......",
-    "................",
     "................",
 ]
 ENDERITE_NUGGET_PAL = {
-    "O": "#2a0e3a", "R": "#4d3476", "H": "#a881eb", "7": "#8a6bc0", "6": "#7257a1", "5": "#5d4088",
-    "4": "#4a2f70", "3": "#3e2160", "2": "#331650",
+    "O": "#341145", "H": "#a881eb", "7": "#8464bc", "6": "#765aa6", "5": "#543487", "4": "#513279",
+    "3": "#3e2263",
 }
 
 
