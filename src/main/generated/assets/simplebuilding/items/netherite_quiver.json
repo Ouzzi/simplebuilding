@@ -1,6 +1,21 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "simplebuilding:item/netherite_quiver"
+    "type": "minecraft:condition",
+    "component": "minecraft:dyed_color",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "simplebuilding:item/netherite_quiver"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "simplebuilding:item/netherite_quiver_dyed",
+      "tints": [
+        {
+          "type": "minecraft:dye",
+          "default": -1
+        }
+      ]
+    },
+    "property": "minecraft:has_component"
   }
 }

@@ -7413,6 +7413,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/item/enderite_quiver.png",
       "craftedBy": [
+        "simplebuilding:enderite_quiver_dyed",
         "simplebuilding:enderite_quiver_smithing"
       ],
       "usedIn": [],
@@ -11081,6 +11082,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/item/netherite_quiver.png",
       "craftedBy": [
+        "simplebuilding:netherite_quiver_dyed",
         "simplebuilding:netherite_quiver_smithing"
       ],
       "usedIn": [
@@ -12758,7 +12760,8 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/item/quiver.png",
       "craftedBy": [
-        "simplebuilding:quiver"
+        "simplebuilding:quiver",
+        "simplebuilding:quiver_dyed"
       ],
       "usedIn": [
         "simplebuilding:reinforced_quiver"
@@ -13663,7 +13666,8 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/item/reinforced_quiver.png",
       "craftedBy": [
-        "simplebuilding:reinforced_quiver"
+        "simplebuilding:reinforced_quiver",
+        "simplebuilding:reinforced_quiver_dyed"
       ],
       "usedIn": [
         "simplebuilding:netherite_quiver_smithing"
@@ -22694,6 +22698,22 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:enderite_quiver_dyed",
+      "type": "minecraft:crafting_dye",
+      "category": null,
+      "group": "dyed_quiver",
+      "result": {
+        "id": "simplebuilding:enderite_quiver",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_quiver_dyed.json",
+      "ingredients": [],
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:enderite_quiver_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -23671,6 +23691,22 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:netherite_quiver_dyed",
+      "type": "minecraft:crafting_dye",
+      "category": null,
+      "group": "dyed_quiver",
+      "result": {
+        "id": "simplebuilding:netherite_quiver",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/netherite_quiver_dyed.json",
+      "ingredients": [],
+      "lines": [
         "26.2",
         "26.3"
       ]
@@ -26513,6 +26549,22 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:quiver_dyed",
+      "type": "minecraft:crafting_dye",
+      "category": null,
+      "group": "dyed_quiver",
+      "result": {
+        "id": "simplebuilding:quiver",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/quiver_dyed.json",
+      "ingredients": [],
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:raw_enderite_synthesis",
       "type": "minecraft:crafting_shapeless",
       "category": null,
@@ -26857,6 +26909,22 @@ window.WIKI_DATA = {
       },
       "lines": [
         "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:reinforced_quiver_dyed",
+      "type": "minecraft:crafting_dye",
+      "category": null,
+      "group": "dyed_quiver",
+      "result": {
+        "id": "simplebuilding:reinforced_quiver",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_quiver_dyed.json",
+      "ingredients": [],
+      "lines": [
         "26.2",
         "26.3"
       ]
@@ -43800,7 +43868,7 @@ window.WIKI_DATA = {
   "counts": {
     "items": 163,
     "blocks": 77,
-    "recipes": 311,
+    "recipes": 315,
     "lootTables": 76,
     "trades": 21,
     "enchantments": 19,

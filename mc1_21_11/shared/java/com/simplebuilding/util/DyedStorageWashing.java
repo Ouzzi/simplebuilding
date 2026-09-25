@@ -34,10 +34,11 @@ public final class DyedStorageWashing {
     private DyedStorageWashing() {
     }
 
-    /** Die sieben faerbbaren Items: vier Rucksaecke, drei Buendel. */
+    /** Die elf faerbbaren Items: vier Rucksaecke, drei Buendel, vier Koecher. */
     public static Item[] dyeableItems() {
         return new Item[]{ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK,
-                ModItems.ENDERITE_BACKPACK, ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE};
+                ModItems.ENDERITE_BACKPACK, ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE,
+                ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER};
     }
 
     public static void register() {

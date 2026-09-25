@@ -151,13 +151,17 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         builder(ModTags.Items.MASTER_BUILDER_ENCHANTABLE)
                 .addTag(ModTags.Items.EXTRA_INVENTORY_ITEMS_ENCHANTABLE)
                 .addTag(ModTags.Items.BACKPACKS);
-        // Gefaerbte Rucksaecke und Buendel (minecraft:dyed_color) waescht der Wasserkessel wie
+        // Gefaerbte Rucksaecke, Buendel und Koecher (minecraft:dyed_color) waescht der Wasserkessel wie
         // Lederruestung: Vanillas Kessel-Verhalten fuer diesen Tag nimmt nur die Farbe weg.
         builder(ItemTags.CAULDRON_CAN_REMOVE_DYE)
                 .addTag(ModTags.Items.BACKPACKS)
                 .add(key(ModItems.REINFORCED_BUNDLE))
                 .add(key(ModItems.NETHERITE_BUNDLE))
-                .add(key(ModItems.ENDERITE_BUNDLE));
+                .add(key(ModItems.ENDERITE_BUNDLE))
+                .add(key(ModItems.QUIVER))
+                .add(key(ModItems.REINFORCED_QUIVER))
+                .add(key(ModItems.NETHERITE_QUIVER))
+                .add(key(ModItems.ENDERITE_QUIVER));
         builder(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)
                 .add(key(ModItems.STONE_SLEDGEHAMMER))
                 .add(key(ModItems.COPPER_SLEDGEHAMMER))

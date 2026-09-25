@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_dye",
+  "dye": "#minecraft:dyes",
+  "group": "dyed_quiver",
+  "result": {
+    "id": "simplebuilding:reinforced_quiver"
+  },
+  "target": "simplebuilding:reinforced_quiver"
+}

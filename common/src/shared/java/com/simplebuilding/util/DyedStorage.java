@@ -5,7 +5,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.component.DyedItemColor;
 
 /**
- * Gefaerbte Rucksaecke und Buendel.
+ * Gefaerbte Rucksaecke, Buendel und Koecher.
  *
  * <p>Gefaerbt wird wie Vanillas Lederruestung ueber die Komponente {@code minecraft:dyed_color},
  * nicht ueber eigene Items je Farbe wie beim Oktanten: Rucksaecke sind zugleich Bloecke, haben

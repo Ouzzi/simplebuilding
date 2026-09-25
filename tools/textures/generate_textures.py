@@ -6,7 +6,9 @@ Blaupause; dazu aus Code (nicht aus
 Pixelkarten) die drei End-Paletten Astralit, Nihilith und Enderquarz (Grundblock, Ziegel, polierter
 Block, Saeule, gemeisselte Ziegel), die Rueckentextur des getragenen Rucksacks (entity/backpack/*, aus
 den Blockflaechen), die Fenster des Rucksack-Bildschirms (gui/container/backpack/*) und die
-Leder- und Beschlag-Ebenen gefaerbter Rucksaecke und Buendel (*_dyed.png, *_dyed_overlay.png).
+Farb- und Beschlag-Ebenen gefaerbter Rucksaecke, Buendel und Koecher (*_dyed.png,
+*_dyed_overlay.png), den Ender-Glimmer der Enderit-Nahrung und -Behaelter (handgemalte Vorlagen in
+tools/textures/hand/).
 
 Aufruf (aus dem Repo-Wurzelverzeichnis oder von ueberall):
 
@@ -64,6 +66,7 @@ TREES = [
 ]
 PREVIEW = os.path.join(HERE, "preview.png")
 GEAR_PREVIEW = os.path.join(HERE, "gear_preview.png")
+HAND = os.path.join(HERE, "hand")  # unveraenderte Vorlagen handgemalter Texturen, die der Generator nachbearbeitet
 
 
 def hexrgb(h):
@@ -314,41 +317,45 @@ BACKPACK_TOP = [
     "333dddddddddd333",
 ]
 
-# --- Verstaerkter klebriger Kolben: '*' = Pixel aus reinforced_piston_top.png (Rahmen,
-# Beschlaege, Bretter), Ziffern = gedaempftes Schleimkissen
+# --- Verstaerkter klebriger Kolben: wie Vanillas piston_top_sticky eine Schleimschicht auf der
+# Kopfplatte, die den Brettern folgt (dunklere Fugen in Zeilen 3, 6, 9, 12, Glanz oben links)
+# und am Rand unregelmaessig ausfranst, so dass dort Bretter durchscheinen. '*' = Pixel aus
+# reinforced_piston_top.png (Rahmen, Eisenbeschlaege, Bretter), Ziffern = Schleim.
 PISTON_STICKY_PAD = [
     "****************",
-    "***2333**3333***",
-    "**356665444443**",
-    "*35665444444432*",
-    "*35654444444432*",
-    "*35444444444432*",
-    "*34444444444332*",
-    "**344444444332**",
-    "**344444443322**",
-    "*34444444333221*",
-    "*24444433332221*",
-    "*23333333222211*",
-    "**122222222111**",
-    "***121****11****",
-    "****1*****1*****",
+    "***45*****453***",
+    "*3565432*456543*",
+    "*23332212213322*",
+    "*34566432456653*",
+    "**3454322345432*",
+    "***13122223432**",
+    "**45*565445443**",
+    "**43235344153***",
+    "**22111213211***",
+    "***46551455653**",
+    "**455541*3453***",
+    "**225121211211**",
+    "***3463*23643***",
+    "****33****33****",
     "****************",
 ]
 PISTON_STICKY_PAL = {
-    "1": "#2d4726", "2": "#3a5f2f", "3": "#4b773d", "4": "#5b8c4a", "5": "#72a45e", "6": "#9cc98a",
+    "1": "#336128", "2": "#3f7432", "3": "#5e9c4f", "4": "#6bb959", "5": "#84c774", "6": "#abeb9c",
 }
 
 # --- Enderit-Kolben: Anordnung wie die netherite_piston_*-Flaechen (Deckplatte mit
 # Beschlaegen, Seitenkante des Kolbenkopfs in Zeilen 0-3, Sockel ab Zeile 4)
 ENDERITE_PISTON_PAL = {
+    # dieselben Barrenfarben wie ENDERITE_MACHINE_PAL
     # Rahmen
-    "G": "#2a1b35", "F": "#170e1d",
-    # Bretter der Deckplatte
-    "S": "#170d1e", "p": "#231731", "q": "#2d1e3d", "Q": "#38284b", "W": "#46335b",
-    # Enderit-Beschlaege
-    "m": "#312238", "M": "#50355d", "N": "#71587b", "L": "#9d7ad5",
-    # Sockelstein
-    "1": "#130a19", "2": "#1d1228", "3": "#271935", "4": "#322142", "5": "#3e2a51", "6": "#62409a",
+    "G": "#3e2173", "F": "#1c0a33",
+    # Bretter der Deckplatte: hell wie die Deckflaeche des Barrens, damit die Platte sich wie
+    # Vanillas Holzplatte vom dunklen Sockel abhebt
+    "S": "#2d1656", "p": "#4a2888", "q": "#55309a", "Q": "#6d45b8", "W": "#7b51c9",
+    # Enderit-Beschlaege, L = Glimmer-Niete
+    "m": "#55309a", "M": "#a57de9", "N": "#cfb2fb", "L": "#f4d2ff",
+    # Sockelstein wie das Maschinen-Mauerwerk, 6 = Ender-Glimmerpunkt
+    "1": "#170e23", "2": "#211530", "3": "#2b1c3e", "4": "#36244d", "5": "#422d5e", "6": "#f4d2ff",
 }
 ENDERITE_PISTON_TOP = [
     "LMGGGGGNMGGGGGNM",
@@ -425,17 +432,18 @@ SPATULA = [
 # Karten mit '_' sind Overlays: '_' laesst das Mauerwerk der Flaeche durchscheinen, das aus
 # einer eigenen 14x14-Steinlage (Zeilen/Spalten 1-14 der Flaeche) schattiert wird.
 ENDERITE_MACHINE_PAL = {
+    # Farben des Enderitbarrens (ENDERITE_INGOT_PAL) und der Enderit-Ruestung (Set B):
     # Hohlraum (Ofenmaul, Schlitze, Schornstein), nie reines Schwarz
-    "0": "#0b0612",
-    # Mauerwerk dunkel -> hell, eine Stufe heller als der Kolbensockel, damit Ofenmaul und
-    # Schlitze sich abheben; 6 = Leuchtpunkt
-    "1": "#170d1f", "2": "#221630", "3": "#2d1e3d", "4": "#3a284c", "5": "#48345b", "6": "#6a45a6",
-    # Rahmen
-    "G": "#3b2a4d", "F": "#170e1d",
-    # Enderit-Beschlaege: m Schatten, M Grund, N hell, O Glanz/Niete, L leuchtende Niete
-    "m": "#312238", "M": "#50355d", "N": "#71587b", "O": "#927c9c", "L": "#9d7ad5",
+    "0": "#0e0419",
+    # Mauerwerk dunkel -> hell: tiefes Enderit-Violett wie die Schattenseite des Barrens;
+    # 6 = Ender-Glimmerpunkt (heller Kern wie am Barren)
+    "1": "#1a1027", "2": "#241734", "3": "#2e1e43", "4": "#3a2754", "5": "#473167", "6": "#f4d2ff",
+    # Rahmen: R- und O-Ton des Barrens
+    "G": "#3e2173", "F": "#1c0a33",
+    # Enderit-Beschlaege in der Barrenrampe: m Schatten, M Grund, N hell, O Lichtkante, L Glimmer-Niete
+    "m": "#3e2173", "M": "#6d45b8", "N": "#8e63dc", "O": "#cfb2fb", "L": "#f4d2ff",
     # Enderit-Bretter wie die Kolben-Deckplatte (S Fuge, p..W dunkel -> hell)
-    "S": "#170d1e", "p": "#231731", "q": "#2d1e3d", "Q": "#38284b", "W": "#46335b",
+    "S": "#2d1656", "p": "#4a2888", "q": "#55309a", "Q": "#6d45b8", "W": "#7b51c9",
     # Enderflamme dunkel -> hell (Glut, Flammenkoerper, Kern)
     "a": "#2c0f4e", "b": "#4b1b86", "c": "#7329c4", "d": "#a44ff0", "e": "#d08eff", "f": "#f4ddff",
 }
@@ -882,25 +890,30 @@ ENDERITE_HOPPER_INSIDE = [
     "m22222222222222m",
     "mmmmmmmmmmmmmmmm",
 ]
-# Item: breiter Trichterrand mit Blick in die Schale, genieteter Kegel, Auslauf
+# Item: Form und Perspektive des Vanilla-Trichter-Items (Rand mit Blick in die Schale, Kegel,
+# Auslauf), in der Rampe des Enderitbarrens mit zwei Glimmerpunkten g und einer Lichtkante h.
 ENDERITE_HOPPER_ITEM = [
     "................",
     "................",
-    "..mmmmmmmmmmmm..",
-    ".mONNNNNNNNNNMF.",
-    ".mN1111111111MF.",
-    ".mN0000000000MF.",
-    "..mmmmmmmmmmmF..",
-    "...mNMLMMLMmF...",
-    "...mNMMMMMMmF...",
-    "....mNMMMMmF....",
-    "....mNMMMMmF....",
-    ".....mNMMmF.....",
-    ".....mNMMmF.....",
-    "......mNmF......",
-    "......mNmF......",
-    "......FFFF......",
+    "....45555554....",
+    "..2h1111111154..",
+    ".2511000000115O.",
+    ".22550000035522.",
+    "..22366g6653O2..",
+    "...242222223O...",
+    "....2455433O....",
+    "....256g643O....",
+    ".....26654O.....",
+    ".....25663O.....",
+    "......264O......",
+    "......253O......",
+    ".......2O.......",
+    "................",
 ]
+ENDERITE_HOPPER_ITEM_PAL = {
+    "0": "#0e0419", "O": "#1c0a33", "1": "#2d1656", "2": "#3e2173", "3": "#4a2888", "4": "#6d45b8",
+    "5": "#8e63dc", "6": "#a57de9", "h": "#cfb2fb", "g": "#f4d2ff",
+}
 
 
 # ---------------------------------------------------------------------------
@@ -1691,7 +1704,7 @@ def enderite_machine_textures():
     tex["block/enderite_hopper_top.png"] = render("enderite_hopper_top", ENDERITE_HOPPER_TOP, pal, False)
     block("enderite_hopper_outside", ENDERITE_HOPPER_OUTSIDE)
     block("enderite_hopper_inside", ENDERITE_HOPPER_INSIDE)
-    tex["item/enderite_hopper.png"] = render("enderite_hopper", ENDERITE_HOPPER_ITEM, pal, False)
+    tex["item/enderite_hopper.png"] = render("enderite_hopper", ENDERITE_HOPPER_ITEM, ENDERITE_HOPPER_ITEM_PAL, False)
 
     # Ofen
     sp = ENDERITE_FURNACE_SPECKS
@@ -1942,108 +1955,226 @@ def backpack_worn_textures(tex):
 
 
 # ---------------------------------------------------------------------------
-# Gefaerbte Rucksaecke und Buendel (Komponente minecraft:dyed_color)
+# Gefaerbte Rucksaecke, Buendel und Koecher (Komponente minecraft:dyed_color)
 # ---------------------------------------------------------------------------
-# Wie Vanillas Lederruestung zwei Ebenen je Textur: *_dyed.png traegt das Leder in Grau - das
-# Item-Modell (Farbquelle minecraft:dye) bzw. BackpackLayer multipliziert es mit der Farbe -,
-# *_dyed_overlay.png alles, was die Farbe nicht annimmt (Umriss, Riemen, Schnalle, Beschlaege,
-# Nieten), unveraendert. Die Ebenen ergaenzen sich pixelgenau: jedes deckende Pixel des
-# Originals steht in genau einer von beiden.
+# Wie Vanillas Lederruestung zwei Ebenen je Textur: *_dyed.png wird vom Item-Modell (Farbquelle
+# minecraft:dye), von BackpackLayer bzw. BackpackBlockTint mit der Farbe MULTIPLIZIERT,
+# *_dyed_overlay.png liegt ungefaerbt darueber. Die Ebenen ergaenzen sich pixelgenau: jedes
+# deckende Pixel des Originals steht in genau einer von beiden.
 #
-# Rucksack: getoent werden Randton, Schlagschatten und die Lederrampe (R d 1-5), bei der
-# Grundstufe auch die Eckkappen (dort Leder). Die Grauwerte behalten die Rangfolge der Rampe;
-# dunklere Stufen sind etwas dunkler, damit ein gefaerbter Netheritrucksack schwerer wirkt
-# als ein gefaerbter Lederrucksack.
-DYE_GREYS = {"d": 0x6a, "R": 0x7e, "1": 0x92, "2": 0xa6, "3": 0xbc, "4": 0xd0, "5": 0xe6}
-DYE_SHADE = {"basic": 1.0, "reinforced": 0.92, "netherite": 0.78, "enderite": 0.8}
+# Damit eine Farbe nicht grell wirkt und die Stufen gefaerbt unterscheidbar bleiben, ist die
+# Farb-Ebene nicht neutral grau, sondern traegt die Stufe schon in sich (DYE_STYLE):
+# - Helligkeit: die Schattierung des Originals, auf die Spanne lo..hi der Stufe gelegt - dunkle
+#   Stufen bleiben gefaerbt dunkel (Netherit schwer, Enderit tiefviolett);
+# - Farbton: zu sat Anteilen der Ton der Stufe (Leder warm, Netherit pflaumengrau, Enderit
+#   violett). Weiss gefaerbt sieht so wie die Stufe aus, andere Farben mischen sich mit ihr -
+#   die Farbe wirkt wie eine halbdurchsichtige Lasur ueber dem Material.
+# Ungefaerbt (Beschlag-Ebene) bleiben ausser Umriss, Riemen, Schnallen, Nieten und Pfeilen ab
+# der verstaerkten Stufe auch Randton und Schlagschatten des Materials - dort scheint die Stufe
+# durch, ebenso die dunkelsten Ledertoene (keep: Anteil der Helligkeitsspanne) - und die Ender-Glimmerpunkte der Enderit-Stufe. Die Grundstufe ist schlichtes Leder und
+# nimmt die Farbe wie Vanillas Lederruestung ganz an.
+DYE_STYLE = {
+    "basic":      {"lo": 0x68, "hi": 0xd0, "hue": "#e0a878", "sat": 0.45, "keep": 0.0},
+    "reinforced": {"lo": 0x4c, "hi": 0xb0, "hue": "#c07850", "sat": 0.55, "keep": 0.12},
+    "netherite":  {"lo": 0x3c, "hi": 0x98, "hue": "#9c8aa4", "sat": 0.45, "keep": 0.2},
+    "enderite":   {"lo": 0x40, "hi": 0xa4, "hue": "#a07ae0", "sat": 0.6, "keep": 0.2},
+}
 
 
-def grey(value):
-    return "#%02x%02x%02x" % (value, value, value)
+def luminance(rgb):
+    return 0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]
 
 
-def backpack_dye_palettes(tier):
-    """(Leder-Palette, Beschlag-Palette) einer Stufe; None = in dieser Ebene durchsichtig."""
-    pal = LEATHER_TIERS[tier]
-    dyed = set(DYE_GREYS)
-    if pal["x"] == pal["2"]:  # Grundstufe: die Eckkappen sind aus Leder
-        dyed.add("x")
-    leather, fittings = {}, {}
-    for key, colour in pal.items():
-        if key in dyed:
-            leather[key] = grey(round(DYE_GREYS["2" if key == "x" else key] * DYE_SHADE[tier]))
-            fittings[key] = None
-        else:
-            leather[key] = None
-            fittings[key] = colour
-    return leather, fittings
+def dye_base(tier, t):
+    """Farbe der Farb-Ebene fuer die relative Helligkeit t (0 dunkelstes, 1 hellstes Leder)."""
+    st = DYE_STYLE[tier]
+    v = st["lo"] + (st["hi"] - st["lo"]) * max(0.0, min(1.0, t))
+    hue = hexrgb(st["hue"])
+    lh = luminance(hue)
+    return tuple(min(255, round(v * ((1 - st["sat"]) + st["sat"] * c / lh))) for c in hue)
 
 
-def render_layer(name, rows, palette):
-    """Wie render() fuer Items, aber Schluessel mit None bleiben durchsichtig."""
-    check_map(name, rows, palette, allow_transparent=True)
-    img = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
-    px = img.load()
-    for y, row in enumerate(rows):
-        for x, ch in enumerate(row):
-            if ch != "." and palette[ch]:
-                px[x, y] = hexrgb(palette[ch]) + (255,)
+def split_dyed(img, tinted, tier, lum_range=None):
+    """(Farb-Ebene, Beschlag-Ebene) aus einer ungefaerbten Textur: die Positionen in tinted
+    werden nach ihrer Helligkeit (relativ zu lum_range, sonst zu den getoenten Pixeln selbst)
+    auf dye_base gelegt, alles andere Deckende bleibt unveraendert in der Beschlag-Ebene."""
+    src = img.convert("RGBA")
+    px = src.load()
+    tinted = {p for p in tinted if px[p][3] > 0}
+    if lum_range is None:
+        lums = [luminance(px[p]) for p in tinted]
+        lum_range = (min(lums), max(lums))
+    lmin, lmax = lum_range
+    dyed = Image.new("RGBA", src.size, (0, 0, 0, 0))
+    overlay = Image.new("RGBA", src.size, (0, 0, 0, 0))
+    for y in range(src.height):
+        for x in range(src.width):
+            c = px[x, y]
+            if c[3] == 0:
+                continue
+            t = (luminance(c) - lmin) / (lmax - lmin) if lmax > lmin else 1.0
+            if (x, y) in tinted and t >= DYE_STYLE[tier]["keep"]:
+                dyed.putpixel((x, y), dye_base(tier, t) + (255,))
+            else:
+                overlay.putpixel((x, y), c[:3] + (255,))
+    return dyed, overlay
+
+
+# Ender-Glimmer wie am Enderitbarren und an der Enderit-Ruestung (Set B): wenige leuchtende
+# Punkte, g heller Kern, v violetter Schein. Je Textur (x, y, Art); die Punkte liegen auf dem
+# Material, nie auf Umriss oder Beschlag.
+GLIMMER = {"g": "#f4d2ff", "v": "#c77dff"}
+GLIMMER_DONE = {}  # rel -> gesetzte Glimmer-Pixel (Kern und Schein), fuer die Farb-Ebenen
+ENDERITE_GLIMMER = {
+    "item/enderite_backpack.png": [(4, 5, "g"), (11, 11, "v"), (5, 11, "g")],
+    "block/enderite_backpack_front.png": [(5, 4, "g"), (11, 12, "v"), (5, 13, "g")],
+    "block/enderite_backpack_back.png": [(5, 4, "v"), (9, 11, "g")],
+    "block/enderite_backpack_side.png": [(6, 4, "g"), (7, 13, "v")],
+    "block/enderite_backpack_top.png": [(5, 4, "g"), (10, 7, "v"), (8, 12, "g")],
+    "item/enderite_bundle.png": [(4, 9, "g"), (10, 11, "v"), (6, 12, "g")],
+    "item/enderite_quiver.png": [(8, 5, "g"), (6, 8, "v"), (4, 11, "g")],
+    "item/enderite_apple.png": [(5, 8, "g"), (10, 10, "v"), (9, 6, "g")],
+    "item/enderite_carrot.png": [(6, 7, "g"), (4, 10, "v"), (8, 8, "v")],
+}
+
+
+def glimmer_pixels(img, rel):
+    """{(x, y): Farbe} des Glimmers einer Textur: jeder Kern g bekommt rechts und unten einen
+    Schein (Mitte aus Material und v), soweit dort Material liegt (Pixel mit vier deckenden
+    Nachbarn, kein anderer Glimmerpunkt)."""
+    src = img.convert("RGBA")
+    inner = interior(src)
+    points = {(x, y): kind for x, y, kind in ENDERITE_GLIMMER.get(rel, ())}
+    out = {}
+    for (x, y), kind in points.items():
+        if src.getpixel((x, y))[3] == 0:
+            raise ValueError(f"{rel}: Glimmerpunkt ({x},{y}) liegt auf durchsichtigem Pixel")
+        out[(x, y)] = hexrgb(GLIMMER[kind])
+        if kind == "g":
+            for q in ((x + 1, y), (x, y + 1)):
+                if q in inner and q not in points:
+                    base, glow = src.getpixel(q)[:3], hexrgb(GLIMMER["v"])
+                    out.setdefault(q, tuple((a + b) // 2 for a, b in zip(base, glow)))
+    return out
+
+
+def apply_glimmer(img, rel):
+    img = img.convert("RGBA").copy()
+    pixels = glimmer_pixels(img, rel)
+    GLIMMER_DONE[rel] = set(pixels)
+    for q, colour in pixels.items():
+        img.putpixel(q, colour + (255,))
     return img
 
 
-def backpack_dyed_textures():
+def glimmer_points(rel):
+    return set(GLIMMER_DONE.get(rel, ()))
+
+
+def hand_drawn(tex, rel):
+    """Eine handgemalte Textur des Mods (nicht aus Pixelkarten), mit Glimmer falls vorgesehen.
+    Texturen mit Glimmer lesen die unveraenderte Vorlage aus tools/textures/hand/ (der Schein
+    mischt sich mit dem Pixel darunter, der Generator bleibt so wiederholbar)."""
+    if rel not in tex:
+        hand = os.path.join(HAND, os.path.basename(rel))
+        path = hand if rel in ENDERITE_GLIMMER else os.path.join(TREES[0], *rel.split("/"))
+        img = Image.open(path).convert("RGBA")
+        tex[rel] = apply_glimmer(img, rel)
+    return tex[rel]
+
+
+# Rucksack: getoent wird die Lederrampe 1-5 (Grundstufe: auch Randton R, Schlagschatten d und
+# die Eckkappen x aus Leder).
+def backpack_tinted_keys(tier):
+    keys = set("12345")
+    if tier == "basic":
+        keys |= {"R", "d", "x"}
+    return keys
+
+
+def backpack_dyed_textures(tex):
     out = {}
     faces_rows = (("front", BACKPACK_FRONT), ("back", BACKPACK_BACK), ("side", BACKPACK_SIDE), ("top", BACKPACK_TOP))
     for tier, prefix in (("basic", ""), ("reinforced", "reinforced_"), ("netherite", "netherite_"), ("enderite", "enderite_")):
-        for suffix, pal in zip(("_dyed", "_dyed_overlay"), backpack_dye_palettes(tier)):
-            out[f"item/{prefix}backpack{suffix}.png"] = render_layer(f"{prefix}backpack{suffix}", BACKPACK_ITEM, pal)
-            faces = {face: render_layer(f"{prefix}backpack_{face}{suffix}", rows, pal) for face, rows in faces_rows}
-            out[f"entity/backpack/{prefix}backpack{suffix}.png"] = backpack_entity_texture(faces, pal)
+        pal = LEATHER_TIERS[tier]
+        keys = backpack_tinted_keys(tier)
+        lums = [luminance(hexrgb(pal[k])) for k in keys]
+        lum_range = (min(lums), max(lums))
+
+        def split(rel, rows):
+            tinted = {(x, y) for y, row in enumerate(rows) for x, ch in enumerate(row) if ch in keys}
+            return split_dyed(tex[rel], tinted - glimmer_points(rel), tier, lum_range)
+
+        item = split(f"item/{prefix}backpack.png", BACKPACK_ITEM)
+        faces = {face: split(f"block/{prefix}backpack_{face}.png", rows) for face, rows in faces_rows}
+        filler = dye_base(tier, (luminance(hexrgb(pal["2"])) - lum_range[0]) / (lum_range[1] - lum_range[0]))
+        for i, suffix in enumerate(("_dyed", "_dyed_overlay")):
+            out[f"item/{prefix}backpack{suffix}.png"] = item[i]
+            layer = {face: pair[i] for face, pair in faces.items()}
+            out[f"entity/backpack/{prefix}backpack{suffix}.png"] = backpack_entity_texture(
+                layer, {"2": "#%02x%02x%02x" % filler if i == 0 else None})
             # Der abgestellte gefaerbte Rucksack (block/template_backpack_dyed) nimmt dieselben
             # Flaechen als zwei Ebenen: Leder mit Farbe (tintindex 0), Beschlaege darueber.
-            for face, img in faces.items():
+            for face, img in layer.items():
                 out[f"block/{prefix}backpack_{face}{suffix}.png"] = img
     return out
 
 
 # Buendel: die drei handgemalten Texturen des Mods (reinforced/netherite/enderite_bundle.png)
 # teilen sich einen Umriss. Ungefaerbt bleiben der Umriss (jedes Pixel mit durchsichtigem
-# Nachbarn) und Riemen samt Schliesse in der Mitte (BUNDLE_STRAP, an allen drei Texturen
-# nachgezaehlt); der Rest ist Leder und wird nach seiner Helligkeit auf dieselbe Grau-Spanne
-# wie beim Rucksack gelegt.
+# Nachbarn), Riemen samt Schliesse in der Mitte (BUNDLE_STRAP, an allen drei Texturen
+# nachgezaehlt) und der Glimmer; der Rest ist Leder.
 BUNDLE_STRAP = {(6, 5), (7, 6), (8, 6), (9, 6), (10, 6), (7, 7), (8, 7), (9, 7), (10, 7),
                 (8, 8), (9, 8), (8, 9), (9, 9), (10, 9), (9, 10), (9, 11)}
-BUNDLE_DYE_SHADE = {"reinforced": 1.0, "netherite": 0.8, "enderite": 0.82}
+BUNDLE_TIERS = ("reinforced", "netherite", "enderite")
 
 
-def bundle_dyed_textures():
+def interior(img):
+    """Deckende Pixel, deren vier Nachbarn ebenfalls deckend sind."""
+    px = img.load()
+
+    def opaque(x, y):
+        return 0 <= x < img.width and 0 <= y < img.height and px[x, y][3] > 0
+
+    return {(x, y) for y in range(img.height) for x in range(img.width)
+            if opaque(x, y) and all(opaque(x + dx, y + dy) for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))}
+
+
+def bundle_dyed_textures(tex):
     out = {}
-    lo, hi = DYE_GREYS["d"], DYE_GREYS["5"]
-    for tier, shade in BUNDLE_DYE_SHADE.items():
-        src = Image.open(os.path.join(TREES[0], "item", f"{tier}_bundle.png")).convert("RGBA")
-        spx = src.load()
+    for tier in BUNDLE_TIERS:
+        rel = f"item/{tier}_bundle.png"
+        src = hand_drawn(tex, rel)
+        tinted = interior(src) - BUNDLE_STRAP - glimmer_points(rel)
+        out[f"item/{tier}_bundle_dyed.png"], out[f"item/{tier}_bundle_dyed_overlay.png"] = split_dyed(src, tinted, tier)
+    return out
 
-        def opaque(x, y):
-            return 0 <= x < 16 and 0 <= y < 16 and spx[x, y][3] > 0
 
-        leather = {(x, y) for y in range(16) for x in range(16)
-                   if opaque(x, y) and (x, y) not in BUNDLE_STRAP
-                   and all(opaque(x + dx, y + dy) for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))}
-        lum = {p: 0.299 * spx[p][0] + 0.587 * spx[p][1] + 0.114 * spx[p][2] for p in leather}
-        lmin, lmax = min(lum.values()), max(lum.values())
-        dyed = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
-        overlay = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
-        for y in range(16):
-            for x in range(16):
-                if not opaque(x, y):
-                    continue
-                if (x, y) in leather:
-                    value = round((lo + (hi - lo) * (lum[(x, y)] - lmin) / (lmax - lmin)) * shade)
-                    dyed.putpixel((x, y), (value, value, value, 255))
-                else:
-                    overlay.putpixel((x, y), spx[x, y][:3] + (255,))
-        out[f"item/{tier}_bundle_dyed.png"] = dyed
-        out[f"item/{tier}_bundle_dyed_overlay.png"] = overlay
+# Koecher: vier Stufen mit derselben Silhouette (quiver/netherite_quiver/enderite_quiver sind
+# handgemalt, reinforced_quiver kommt aus REINFORCED_QUIVER). Getoent wird das Leder des
+# Rohrs - je Stufe die Lederfarben der Textur; ungefaerbt bleiben Umriss, Tragriemen, Pfeile,
+# Baender, Kappe und Glimmer.
+QUIVER_LEATHER = {
+    "basic": {"#d06740", "#c65c35", "#c55c35", "#b85632", "#ba5632", "#964528", "#9e492a", "#8f4226", "#7f2d14"},
+    "reinforced": {REINFORCED_QUIVER_PAL[k] for k in "dmnlh"},
+    "netherite": {"#45364b", "#3e3143", "#3e3142", "#392d3d", "#392e3e", "#2d2430", "#2f2633", "#2a222d"},
+    "enderite": {"#533a5d", "#44314c", "#493451", "#3e3142", "#3e3143", "#4e3658", "#44314b", "#412e48",
+                 "#392e3e", "#2d2430", "#302136", "#412f48", "#4b3454", "#2a222d", "#442f4d", "#402c49",
+                 "#3a2941", "#2e2034", "#36263d"},
+}
+QUIVER_TIERS = (("basic", ""), ("reinforced", "reinforced_"), ("netherite", "netherite_"), ("enderite", "enderite_"))
+
+
+def quiver_dyed_textures(tex):
+    out = {}
+    for tier, prefix in QUIVER_TIERS:
+        rel = f"item/{prefix}quiver.png"
+        src = hand_drawn(tex, rel)
+        px = src.load()
+        tinted = {(x, y) for y in range(16) for x in range(16)
+                  if px[x, y][3] and "#%02x%02x%02x" % px[x, y][:3] in QUIVER_LEATHER[tier]}
+        tinted -= glimmer_points(rel)
+        out[f"item/{prefix}quiver_dyed.png"], out[f"item/{prefix}quiver_dyed_overlay.png"] = split_dyed(src, tinted, tier)
     return out
 
 
@@ -2104,19 +2235,19 @@ BUNDLE_OPEN_PALETTES = {
 
 
 def bundle_open_textures():
-    """Offen-Texturen je Stufe plus Leder-/Beschlag-Ebene fuer gefaerbte Buendel: getoent
-    werden d und die Rampe 1-5 (Grau wie beim geschlossenen Buendel), Umriss O, Kordel,
-    Riemen und Schliesse bleiben in der Farbe der Stufe."""
+    """Offen-Texturen je Stufe plus Farb-/Beschlag-Ebene fuer gefaerbte Buendel: getoent wird
+    die Lederrampe 1-5 (nach DYE_STYLE wie beim geschlossenen Buendel), Umriss O, Schatten d,
+    Kordel, Riemen und Schliesse bleiben in der Farbe der Stufe."""
     out = {}
     for tier, pal in BUNDLE_OPEN_PALETTES.items():
-        shade = BUNDLE_DYE_SHADE[tier]
-        leather = {k: (grey(round(DYE_GREYS[k] * shade)) if k in "d12345" else None) for k in pal}
-        fittings = {k: (None if k in "d12345" else v) for k, v in pal.items()}
+        lums = [luminance(hexrgb(pal[k])) for k in "12345"]
         for part, rows in (("front", BUNDLE_OPEN_FRONT), ("back", BUNDLE_OPEN_BACK)):
             name = f"{tier}_bundle_open_{part}"
-            out[f"item/{name}.png"] = render(name, rows, pal, False)
-            out[f"item/{name}_dyed.png"] = render_layer(f"{name}_dyed", rows, leather)
-            out[f"item/{name}_dyed_overlay.png"] = render_layer(f"{name}_dyed_overlay", rows, fittings)
+            img = render(name, rows, pal, False)
+            out[f"item/{name}.png"] = img
+            tinted = {(x, y) for y, row in enumerate(rows) for x, ch in enumerate(row) if ch in "12345"}
+            out[f"item/{name}_dyed.png"], out[f"item/{name}_dyed_overlay.png"] = split_dyed(
+                img, tinted, tier, (min(lums), max(lums)))
     return out
 
 
@@ -2134,7 +2265,7 @@ def dye_sample(tex, base, rgb):
 
 
 # Vanillas Farbstoff-Farben (DyeColor#getTextureDiffuseColor) fuer die Vorschau
-PREVIEW_DYES = {"red": (0xB0, 0x2E, 0x26), "blue": (0x3C, 0x44, 0xAA), "lime": (0x80, 0xC7, 0x1F),
+PREVIEW_DYES = {"red": (0xB0, 0x2E, 0x26), "blue": (0x3C, 0x44, 0xAA), "green": (0x5E, 0x7C, 0x16),
                 "yellow": (0xFE, 0xD8, 0x3D), "white": (0xF9, 0xFF, 0xFE), "black": (0x1D, 0x1D, 0x21)}
 
 
@@ -2146,9 +2277,13 @@ def build():
 
     for tier, prefix in (("basic", ""), ("reinforced", "reinforced_"), ("netherite", "netherite_"), ("enderite", "enderite_")):
         pal = LEATHER_TIERS[tier]
-        tex[f"item/{prefix}backpack.png"] = render(f"{prefix}backpack", BACKPACK_ITEM, pal, False)
+        rel = f"item/{prefix}backpack.png"
+        tex[rel] = apply_glimmer(render(f"{prefix}backpack", BACKPACK_ITEM, pal, False), rel)
         for face, rows in (("front", BACKPACK_FRONT), ("back", BACKPACK_BACK), ("side", BACKPACK_SIDE), ("top", BACKPACK_TOP)):
-            tex[f"block/{prefix}backpack_{face}.png"] = render(f"{prefix}backpack_{face}", rows, pal, True)
+            rel = f"block/{prefix}backpack_{face}.png"
+            tex[rel] = apply_glimmer(render(f"{prefix}backpack_{face}", rows, pal, True), rel).convert("RGB")
+    for rel in ("item/enderite_apple.png", "item/enderite_carrot.png"):
+        hand_drawn(tex, rel)
 
     template = Image.open(os.path.join(TREES[0], "block", "reinforced_piston_top.png")).convert("RGB")
     tex["block/reinforced_piston_top_sticky.png"] = render(
@@ -2166,8 +2301,9 @@ def build():
     tex.update(enderite_machine_textures())
     tex.update(checker_textures())
     tex.update(backpack_worn_textures(tex))
-    tex.update(backpack_dyed_textures())
-    tex.update(bundle_dyed_textures())
+    tex.update(backpack_dyed_textures(tex))
+    tex.update(bundle_dyed_textures(tex))
+    tex.update(quiver_dyed_textures(tex))
     tex.update(bundle_open_textures())
     tex.update(backpack_gui_textures())
     tex.update(end_palette_textures())
@@ -2418,7 +2554,8 @@ def build_preview(tex):
                                                   for f in ("front", "back", "side", "top")],
                        [render_iso(faces, back) for back in (False, True)]))
     for base in ("item/backpack", "item/reinforced_backpack", "item/netherite_backpack", "item/enderite_backpack",
-                 "item/reinforced_bundle", "item/netherite_bundle", "item/enderite_bundle"):
+                 "item/reinforced_bundle", "item/netherite_bundle", "item/enderite_bundle",
+                 "item/quiver", "item/reinforced_quiver", "item/netherite_quiver", "item/enderite_quiver"):
         groups.append((f"{base[5:]} gefaerbt", [(f"{base}_{dye}.png", dye_sample(tex, base, rgb))
                                                for dye, rgb in PREVIEW_DYES.items()], []))
     for tier in BUNDLE_OPEN_PALETTES:
