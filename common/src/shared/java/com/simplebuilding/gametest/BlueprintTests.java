@@ -355,14 +355,23 @@ public final class BlueprintTests {
         player.setItemInHand(InteractionHand.MAIN_HAND, wand);
         blueprint.remove(ModDataComponentTypes.BLUEPRINT_ROTATION);
 
-        player.setYRot(-90f);
-        helper.assertTrue(player.getDirection() == Direction.EAST, "mock player does not face east");
-        clear(helper);
-        build(helper, player, wand, blueprint);
-        for (int d = 0; d <= 2; d++) {
-            helper.assertTrue(helper.getBlockState(TARGET.east(d)).is(Blocks.STONE), "facing east: no stone at +x " + d);
+        // Jede Blickrichtung: die lokale z-Achse zeigt dorthin, die Treppe (lokal nach Sueden)
+        // dreht mit - Osten, Westen und Norden, damit keine Zuordnung unbemerkt kippt.
+        float[] yaws = {-90f, 90f, 180f};
+        Direction[] facings = {Direction.EAST, Direction.WEST, Direction.NORTH};
+        for (int i = 0; i < yaws.length; i++) {
+            Direction facing = facings[i];
+            player.setYRot(yaws[i]);
+            helper.assertTrue(player.getDirection() == facing, "mock player does not face " + facing);
+            clear(helper);
+            build(helper, player, wand, blueprint);
+            for (int d = 0; d <= 2; d++) {
+                helper.assertTrue(helper.getBlockState(TARGET.relative(facing, d)).is(Blocks.STONE),
+                        "facing " + facing + ": no stone " + d + " blocks ahead");
+            }
+            helper.assertTrue(stairFacing(helper, TARGET.relative(facing, 2).above()) == facing,
+                    "facing " + facing + ": stair not turned to " + facing);
         }
-        helper.assertTrue(stairFacing(helper, TARGET.east(2).above()) == Direction.EAST, "facing east: stair not facing east");
         clear(helper);
         helper.succeed();
     }
