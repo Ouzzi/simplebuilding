@@ -293,7 +293,10 @@ public final class ModScreensClientTest {
         netheriteHopperMenu(script);
         smithingTrimReferenceButton(script);
         trimReferenceRowsMatchTheServer(script);
-        modConfigScreenBuildsAndRenders(script);
+        // Not on the 26.4 snapshot line: no Cloth Config for it yet (ClientTestVersion.CLOTH_CONFIG_SCREEN).
+        if (ClientTestVersion.CLOTH_CONFIG_SCREEN) {
+            modConfigScreenBuildsAndRenders(script);
+        }
         creativeInventoryShowsTheModTab(script);
 
         putTheWorldBack(script);

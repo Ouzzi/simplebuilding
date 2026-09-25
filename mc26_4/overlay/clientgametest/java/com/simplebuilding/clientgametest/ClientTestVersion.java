@@ -3,14 +3,18 @@ package com.simplebuilding.clientgametest;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 
-/** MC 26.3 side of {@code ClientTestVersion} (see the 26.2 twin). */
+/** MC 26.4 snapshot side of {@code ClientTestVersion}: the 26.3 one, but without the Cloth Config screen. */
 public final class ClientTestVersion {
 
     /** 26.3: gamerule / time set / weather without a change are command errors. */
     public static final boolean SET_COMMANDS_REJECT_NO_CHANGE = true;
 
-    /** Cloth Config 26.3 draws its screen fine on 26.3 (see the 26.2 twin). */
-    public static final boolean CLOTH_CONFIG_SCREEN = true;
+    /**
+     * No Cloth Config for 26.4 yet; the 26.3 build crashes drawing its screen (NoSuchFieldError on
+     * RenderPipelines.GUI_TEXTURED - RenderPipeline moved back to blaze3d). The 26.4 build hides the
+     * ModMenu button (mc26_4/fabric/build.gradle), so the test does not open the screen either.
+     */
+    public static final boolean CLOTH_CONFIG_SCREEN = false;
 
     private ClientTestVersion() {
     }

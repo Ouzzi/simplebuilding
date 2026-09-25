@@ -1,0 +1,117 @@
+plugins {
+    id 'java'
+    id 'net.minecraftforge.gradle' version '7.0.36'
+}
+
+// SKELETON - MinecraftForge on the 26.4 SNAPSHOT line. Forge publishes no snapshot builds
+// (files.minecraftforge.net / maven.minecraftforge.net, 2026-09-25: newest is 26.3-66.0.3), so this
+// module has never been configured or compiled. It is only part of the build with
+//   -Pmc264=true -Pmc264_forge_version=<Forge version for 26.4, e.g. 67.0.0>
+// and mirrors forge/build.gradle (the 26.2 Forge module): same Forge sources (forge/src/main/java,
+// incl. the bundled me.shedaniel.autoconfig shim), shared trees + the 26.4 overlay chain from
+// mc26_4/chain.gradle instead of common/src/mc26_2/java.
+//
+// Expect work when switching it on: forge/src/main/java was only ever compiled against 26.2 (there
+// is no 26.3 Forge line), so its 26.3/26.4 breaks need a new overlay pair (forge/src/mc26_2/java <->
+// mc26_4/forge/src/main/java, registered in overlayPairs/chainPairs264 of the root build.gradle).
+// Runs (client/server/gameTestServer) follow the forge module: -Pforge_runs=true plus a Java 8.
+
+def minecraftVersion = project.mc264_minecraft_version
+def forgeVersion = project.mc264_forge_version
+def forgeRunsEnabled = Boolean.parseBoolean((project.findProperty('forge_runs') ?: 'false').toString())
+
+group = rootProject.group
+version = rootProject.version
+
+base {
+    archivesName = "${rootProject.archives_base_name}-forge-${minecraftVersion}"
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+def root = rootProject.layout.projectDirectory
+
+apply from: rootProject.file('mc26_4/chain.gradle')
+def overlayJava = mc264OverlayTree('java', 'mc26_3/overlay/java', 'mc26_4/overlay/java')
+
+sourceSets {
+    main {
+        java {
+            srcDir root.dir('forge/src/main/java')
+            srcDir root.dir('common/src/shared/java')
+            srcDir overlayJava
+        }
+    }
+}
+mc264ConfigureResources(sourceSets.main, ['forge/src/main/resources'])
+sourceSets.main.resources.exclude 'fabric.mod.json'
+
+// Forge loads a classpath mod as ONE directory (see forge/build.gradle).
+sourceSets.each {
+    def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
+    it.output.resourcesDir = dir
+    it.java.destinationDirectory = dir
+}
+
+minecraft {
+    runs {
+        configureEach {
+            workingDir = layout.projectDirectory.dir('run')
+            systemProperty 'forge.enabledGameTestNamespaces', rootProject.archives_base_name
+            args '-mixin.config=simplebuilding.mixins.json', '-mixin.config=simplebuilding.client.mixins.json', '-mixin.config=simplebuilding.forge.mixins.json'
+        }
+        if (forgeRunsEnabled) {
+            register('client')
+            register('server') {
+                args '--nogui'
+            }
+            register('gameTestServer') {
+                workingDir = layout.projectDirectory.dir('run-gametest')
+                args '--tests', (project.findProperty('gametestFilter') ?: "${rootProject.archives_base_name}:*").toString(),
+                        '--report', layout.buildDirectory.file('forge-junit.xml').get().asFile.absolutePath
+            }
+        }
+    }
+}
+
+repositories {
+    minecraft.mavenizer(it)
+    maven fg.forgeMaven
+    maven fg.minecraftLibsMaven
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':common')
+    implementation minecraft.dependency("net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}")
+}
+
+tasks.named('processResources', ProcessResources).configure {
+    def replaceProperties = [
+            modVersion           : project.version,
+            modId                : rootProject.archives_base_name,
+            loaderVersionRange   : "[${forgeVersion.tokenize('.')[0]},)".toString(),
+            minecraftVersionRange: "[${minecraftVersion},26.5)".toString(),
+    ]
+    inputs.properties replaceProperties
+    filesMatching('META-INF/mods.toml') {
+        expand replaceProperties
+    }
+    filesMatching('*.mixins.json') {
+        filter { String line -> line.replace('"JAVA_25"', '"JAVA_21"') }
+    }
+}
+
+tasks.named('jar').configure {
+    manifest {
+        attributes([
+                'Implementation-Title'  : project.name,
+                'Implementation-Version': project.version,
+                'MixinConfigs'          : 'simplebuilding.mixins.json,simplebuilding.client.mixins.json,simplebuilding.forge.mixins.json',
+        ])
+    }
+}

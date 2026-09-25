@@ -89,8 +89,8 @@ public final class DyedStorageTests {
      */
     public static void dyeingColoursEveryBackpackAndBundleAndKeepsItsComponents(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
-        int red = DyeColor.RED.getTextureDiffuseColor() & 0xFFFFFF;
-        int blue = DyeColor.BLUE.getTextureDiffuseColor() & 0xFFFFFF;
+        int red = DyeRgb.of(DyeColor.RED);
+        int blue = DyeRgb.of(DyeColor.BLUE);
         List<String> problems = new ArrayList<>();
 
         for (Item item : DYEABLE) {
@@ -158,7 +158,7 @@ public final class DyedStorageTests {
             fillCauldron(helper, cauldron, 3);
             ItemStack clean = filled(helper, item);
             ItemStack dyed = clean.copy();
-            dyed.set(DataComponents.DYED_COLOR, new DyedItemColor(DyeColor.LIME.getTextureDiffuseColor() & 0xFFFFFF));
+            dyed.set(DataComponents.DYED_COLOR, new DyedItemColor(DyeRgb.of(DyeColor.LIME)));
             player.setItemInHand(InteractionHand.MAIN_HAND, dyed);
 
             InteractionResult washed = useBlockWithHeldItem(helper, player, cauldron);
@@ -206,7 +206,7 @@ public final class DyedStorageTests {
     public static void theDyeColourReachesTheBackpackMenuAndTheBundleTooltip(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper);
-        int purple = DyeColor.PURPLE.getTextureDiffuseColor() & 0xFFFFFF;
+        int purple = DyeRgb.of(DyeColor.PURPLE);
 
         // --- worn ---
         ItemStack worn = filled(helper, ModItems.NETHERITE_BACKPACK);
