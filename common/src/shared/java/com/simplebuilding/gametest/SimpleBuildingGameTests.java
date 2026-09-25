@@ -935,6 +935,22 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("trade_offer_game_test_spatulas_in_containers_survive_the_world_scan", TradeOfferTests::spatulasInContainersSurviveTheWorldScan)
                     .build(),
             GameTestSpec.named("trade_offer_game_test_no_recipe_references_the_legacy_spatulas", TradeOfferTests::noRecipeReferencesTheLegacySpatulas)
+                    .build(),
+            GameTestSpec.named("world_upgrade_game_test_fixtures_are_what_twenty_six_two_writes", WorldUpgradeTests::fixturesAreWhatTwentySixTwoWrites)
+                    .build(),
+            GameTestSpec.named("world_upgrade_game_test_mod_block_entities_survive_the_upgrade", WorldUpgradeTests::modBlockEntitiesSurviveTheUpgrade)
+                    .build(),
+            GameTestSpec.named("world_upgrade_game_test_mod_items_survive_the_upgrade", WorldUpgradeTests::modItemsSurviveTheUpgrade)
+                    .build(),
+            GameTestSpec.named("world_upgrade_game_test_mod_entities_survive_the_upgrade", WorldUpgradeTests::modEntitiesSurviveTheUpgrade)
+                    .build(),
+            GameTestSpec.named("world_upgrade_game_test_player_data_survives_the_upgrade", WorldUpgradeTests::playerDataSurvivesTheUpgrade)
+                    .build(),
+            GameTestSpec.named("world_upgrade_game_test_saved_data_survives_the_upgrade", WorldUpgradeTests::savedDataSurvivesTheUpgrade)
+                    .build(),
+            GameTestSpec.named("world_upgrade_game_test_wand_mid_build_from_an_older_version_stops_instead_of_building_on_with_shifted_ids", WorldUpgradeTests::wandMidBuildFromAnOlderVersionStopsInsteadOfBuildingOnWithShiftedIds)
+                    .build(),
+            GameTestSpec.named("world_upgrade_game_test_backpack_with_an_unreadable_entry_keeps_the_rest", WorldUpgradeTests::backpackWithAnUnreadableEntryKeepsTheRest)
                     .build());
 
     private SimpleBuildingGameTests() {

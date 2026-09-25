@@ -1,0 +1,96 @@
+{
+    DataVersion: 4903,
+    Entities: [
+        {
+            Air: 300s,
+            BlockState: {
+                Name: "minecraft:oak_stairs",
+                Properties: {
+                    facing: "east",
+                    half: "top",
+                    shape: "straight",
+                    waterlogged: "false"
+                }
+            },
+            CancelDrop: 0b,
+            DropItem: 1b,
+            FallHurtAmount: 0.0f,
+            FallHurtMax: 40,
+            Fire: 0s,
+            HurtEntities: 0b,
+            Invulnerable: 0b,
+            Motion: [
+                0.0d,
+                0.0d,
+                0.0d
+            ],
+            OnGround: 0b,
+            PortalCooldown: 0,
+            Pos: [
+                4.5d,
+                66.0d,
+                1.5d
+            ],
+            Rotation: [
+                0.0f,
+                0.0f
+            ],
+            Time: 7,
+            UUID: [I; 0, 23296, 0, 1],
+            fall_distance: 0.0d,
+            id: "simplebuilding:levitating_block"
+        },
+        {
+            Air: 300s,
+            Facing: 2b,
+            Fire: 0s,
+            Fixed: 0b,
+            Invisible: 0b,
+            Invulnerable: 0b,
+            Item: {
+                components: {
+                    "minecraft:item_name": {
+                        translate: "filled_map.monument"
+                    },
+                    "minecraft:map_color": 3830373,
+                    "minecraft:map_decorations": {
+                        +: {
+                            rotation: 180.0f,
+                            type: "minecraft:monument",
+                            x: 128.0d,
+                            z: -256.0d
+                        }
+                    },
+                    "minecraft:map_id": 7
+                },
+                count: 1,
+                id: "minecraft:filled_map"
+            },
+            ItemDropChance: 1.0f,
+            ItemRotation: 0b,
+            Motion: [
+                0.0d,
+                0.0d,
+                0.0d
+            ],
+            OnGround: 0b,
+            PortalCooldown: 0,
+            Pos: [
+                5.5d,
+                65.5d,
+                2.96875d
+            ],
+            Rotation: [
+                180.0f,
+                0.0f
+            ],
+            SimpleBuildingLocked: 1b,
+            SimpleBuildingOwnedLight: [I; 7, 65, 8],
+            UUID: [I; 0, 23296, 0, 2],
+            block_pos: [I; 5, 65, 2],
+            fall_distance: 0.0d,
+            id: "minecraft:item_frame"
+        }
+    ],
+    Position: [I; 0, 0]
+}

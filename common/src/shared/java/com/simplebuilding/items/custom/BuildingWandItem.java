@@ -529,7 +529,7 @@ public class BuildingWandItem extends Item {
         nbt.putInt("OriginY", clickedPos.getY());
         nbt.putInt("OriginZ", clickedPos.getZ());
         nbt.putInt("Face", clickedFace.ordinal());
-        nbt.putInt("BuildBlockRawId", BuiltInRegistries.BLOCK.getId(buildBlock));
+        putBlock(nbt, BUILD_BLOCK_KEY, buildBlock);
 
         var hitPos = context.getClickLocation().subtract(clickedPos.getX(), clickedPos.getY(), clickedPos.getZ());
         nbt.putFloat("HitX", (float) hitPos.x); nbt.putFloat("HitY", (float) hitPos.y); nbt.putFloat("HitZ", (float) hitPos.z);
@@ -580,7 +580,7 @@ public class BuildingWandItem extends Item {
         nbt.putInt("OriginY", plan.origin.getY());
         nbt.putInt("OriginZ", plan.origin.getZ());
         nbt.putInt("Face", plan.face.ordinal());
-        nbt.putInt("BuildBlockRawId", BuiltInRegistries.BLOCK.getId(buildBlock));
+        putBlock(nbt, BUILD_BLOCK_KEY, buildBlock);
         nbt.putFloat("HitX", (float) plan.hitRel.x); nbt.putFloat("HitY", (float) plan.hitRel.y); nbt.putFloat("HitZ", (float) plan.hitRel.z);
         plan.writeTo(nbt);
         setNbt(wandStack, nbt);
@@ -597,6 +597,13 @@ public class BuildingWandItem extends Item {
         if (!getBlockBoolean(nbt)) return;
 
         if (slot != EquipmentSlot.MAINHAND && slot != EquipmentSlot.OFFHAND) { nbt.putBoolean("Active", false); setNbt(stack, nbt); return; }
+        // A build that was running when the world was saved by an older version: its block was
+        // stored as a numeric registry id, which a Minecraft update shifts (26.3 added blocks).
+        // Rather than build on with whatever block now has that number, stop; one click resumes.
+        if (hasLegacyRawBlockIds(nbt)) {
+            nbt.putBoolean("Active", false); nbt.remove(LEGACY_BUILD_BLOCK_KEY); nbt.remove(LEGACY_COVER_BLOCK_KEY);
+            setNbt(stack, nbt); return;
+        }
 
         int timer = getBlockInt(nbt, "Timer");
         if (timer > 0) { nbt.putInt("Timer", timer - 1); setNbt(stack, nbt); return; }
@@ -615,8 +622,7 @@ public class BuildingWandItem extends Item {
         BlockPos originPos = new BlockPos(ox, oy, oz);
         Direction face = Direction.values()[getBlockInt(nbt, "Face")];
 
-        int blockId = nbt.getIntOr("BuildBlockRawId", BuiltInRegistries.BLOCK.getId(Blocks.AIR));
-        Block targetBlock = BuiltInRegistries.BLOCK.byId(blockId);
+        Block targetBlock = readBlock(nbt, BUILD_BLOCK_KEY);
 
         // Wenn kein Color Palette, brauchen wir einen festen Block
         if (!hasColorPalette && targetBlock == Blocks.AIR) {
@@ -829,14 +835,14 @@ public class BuildingWandItem extends Item {
 
         static Plan read(CompoundTag nbt, BlockPos origin, Direction face, Vec3 hitRel, int radius, int axis) {
             int mode = nbt.getIntOr("Mode", MODE_SQUARE);
-            Block cover = BuiltInRegistries.BLOCK.byId(nbt.getIntOr("CoverBlockRawId", BuiltInRegistries.BLOCK.getId(Blocks.AIR)));
+            Block cover = readBlock(nbt, COVER_BLOCK_KEY);
             return new Plan(mode, origin, face, face, hitRel, radius, mode == MODE_SQUARE ? axis : 0, nbt.getIntOr("Length", 0), cover);
         }
 
         void writeTo(CompoundTag nbt) {
             nbt.putInt("Mode", mode);
             nbt.putInt("Length", length);
-            nbt.putInt("CoverBlockRawId", BuiltInRegistries.BLOCK.getId(coverBlock));
+            putBlock(nbt, COVER_BLOCK_KEY, coverBlock);
         }
 
         /** Der angeklickte Block (fuer die Ausrichtungs-Uebernahme); bei der Bruecke keiner. */
@@ -920,6 +926,34 @@ public class BuildingWandItem extends Item {
 
     private boolean getBlockBoolean(CompoundTag nbt) { if (!nbt.contains("Active")) return false; return nbt.getBooleanOr("Active", false); }
     private int getBlockInt(CompoundTag nbt, String key) { if (!nbt.contains(key)) return 0; return nbt.getIntOr(key, 0); }
+    /**
+     * The running build's block and the cover mode's block, by registry name. Until 2026-09 they
+     * were numeric registry ids ({@code BuildBlockRawId}/{@code CoverBlockRawId}), which are not
+     * stable across Minecraft versions; see {@link #hasLegacyRawBlockIds}.
+     */
+    static final String BUILD_BLOCK_KEY = "BuildBlock";
+    static final String COVER_BLOCK_KEY = "CoverBlock";
+    static final String LEGACY_BUILD_BLOCK_KEY = "BuildBlockRawId";
+    static final String LEGACY_COVER_BLOCK_KEY = "CoverBlockRawId";
+
+    static void putBlock(CompoundTag nbt, String key, Block block) {
+        nbt.putString(key, BuiltInRegistries.BLOCK.getKey(block).toString());
+    }
+
+    /** The named block, or air when absent or unknown. */
+    static Block readBlock(CompoundTag nbt, String key) {
+        return nbt.getString(key)
+                .map(net.minecraft.resources.Identifier::tryParse)
+                .flatMap(BuiltInRegistries.BLOCK::getOptional)
+                .orElse(Blocks.AIR);
+    }
+
+    /** A build state written before the switch to names: numeric ids only. */
+    static boolean hasLegacyRawBlockIds(CompoundTag nbt) {
+        return (nbt.contains(LEGACY_BUILD_BLOCK_KEY) && !nbt.contains(BUILD_BLOCK_KEY))
+                || (nbt.contains(LEGACY_COVER_BLOCK_KEY) && !nbt.contains(COVER_BLOCK_KEY));
+    }
+
     private CompoundTag getOrInitNbt(ItemStack stack) { CustomData component = stack.get(DataComponents.CUSTOM_DATA); return component != null ? component.copyTag() : new CompoundTag(); }
     private void setNbt(ItemStack stack, CompoundTag nbt) { stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt)); }
 }
