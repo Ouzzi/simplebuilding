@@ -451,6 +451,10 @@ en: {
   slotTemplate: 'Template', slotBase: 'Base', slotAddition: 'Addition', slotInput: 'Input',
   cookTicks: '{0} ticks ({1} s)',
   cookTicksDefault: '{0} ticks ({1} s, default)',
+  cookStored: 'The recipe file of Minecraft 26.3 stores {0} ticks: from 26.3 on blasting and smoking recipes name the furnace time, and the blast furnace or smoker halves it.',
+  lineVariant: 'Minecraft {0} differs:',
+  lineVariantField: '{0}: {1} here, {2} there',
+  lineVariantNone: 'none',
   cookNoXp: 'no XP given',
   metaDuration: 'Duration: {0}',
   metaExperience: 'Experience: {0}',
@@ -727,9 +731,9 @@ en: {
   /* Alle Rezepte, JEI-Ansicht, Maschinen */
   navAllRecipes: 'All recipes',
   arTitle: 'All recipes',
-  arIntro: 'Every way to make something, as cards: crafting, cooking, smithing, the stonecutter and in-world transformations - from this mod and from vanilla, for both Minecraft lines. Click any ingredient to see its recipes.',
+  arIntro: 'Every way to make something, as cards: crafting, cooking, smithing, the stonecutter and in-world transformations - from this mod and from vanilla, for every Minecraft line. Click any ingredient to see its recipes.',
   arStation: 'Station', arSource: 'Source', arLine: 'Minecraft', arSearch: 'Filter recipes: item, ingredient, id …',
-  arAll: 'All', arSrcMod: 'SimpleBuilding', arSrcVanilla: 'Vanilla', arLineBoth: 'Both',
+  arAll: 'All', arSrcMod: 'SimpleBuilding', arSrcVanilla: 'Vanilla', arLineBoth: 'All lines',
   arMerge: 'Merge variants (colours, wood types)',
   arCount: '{0} cards · {1} recipes',
   arMore: 'Show more ({0} left)',
@@ -818,6 +822,10 @@ de: {
   slotTemplate: 'Vorlage', slotBase: 'Basis', slotAddition: 'Zusatz', slotInput: 'Eingang',
   cookTicks: '{0} Ticks ({1} s)',
   cookTicksDefault: '{0} Ticks ({1} s, Standard)',
+  cookStored: 'Die Rezeptdatei von Minecraft 26.3 speichert {0} Ticks: ab 26.3 nennen Hochofen- und Räucherofen-Rezepte die Ofenzeit, Hochofen und Räucherofen halbieren sie.',
+  lineVariant: 'In Minecraft {0} anders:',
+  lineVariantField: '{0}: hier {1}, dort {2}',
+  lineVariantNone: 'nichts',
   cookNoXp: 'keine XP-Angabe',
   metaDuration: 'Dauer: {0}',
   metaExperience: 'Erfahrung: {0}',
@@ -1094,9 +1102,9 @@ de: {
   /* Alle Rezepte, JEI-Ansicht, Maschinen */
   navAllRecipes: 'Alle Rezepte',
   arTitle: 'Alle Rezepte',
-  arIntro: 'Jeder Weg, etwas herzustellen, als Karte: Werkbank, Öfen, Schmiedetisch, Steinsäge und Umwandlungen in der Welt - aus dieser Mod und aus Vanilla, für beide Minecraft-Linien. Ein Klick auf eine Zutat zeigt deren Rezepte.',
+  arIntro: 'Jeder Weg, etwas herzustellen, als Karte: Werkbank, Öfen, Schmiedetisch, Steinsäge und Umwandlungen in der Welt - aus dieser Mod und aus Vanilla, für jede Minecraft-Linie. Ein Klick auf eine Zutat zeigt deren Rezepte.',
   arStation: 'Station', arSource: 'Herkunft', arLine: 'Minecraft', arSearch: 'Rezepte filtern: Item, Zutat, Id …',
-  arAll: 'Alle', arSrcMod: 'SimpleBuilding', arSrcVanilla: 'Vanilla', arLineBoth: 'Beide',
+  arAll: 'Alle', arSrcMod: 'SimpleBuilding', arSrcVanilla: 'Vanilla', arLineBoth: 'Alle Linien',
   arMerge: 'Varianten zusammenfassen (Farben, Holzarten)',
   arCount: '{0} Karten · {1} Rezepte',
   arMore: 'Mehr zeigen (noch {0})',
@@ -1524,7 +1532,20 @@ function renderCooking(r) {
   var xp = r.experience != null ? fmtNum(r.experience) + ' XP' : T('cookNoXp');
   var h = slotCol(input, 1, T('slotInput')) + '<span class="arrow">→</span>' + resultSlot(r);
   h += '<div class="recipe-meta"><span>' + esc(recipeTypeLabel(r.type)) + '</span><span>' + esc(T('metaDuration', timeTxt)) + '</span><span>' + esc(T('metaExperience', xp)) + '</span></div>';
+  if (r.storedCookingtime != null) h += '<div class="tiny muted">' + esc(T('cookStored', num(r.storedCookingtime, 0))) + '</div>';
   return h;
+}
+/* Dieselbe Rezept-Id mit anderem Inhalt in einer anderen Minecraft-Linie (generate.py:
+   cross_line_presence) - je Linie die geaenderten Felder. */
+function lineVariantsHtml(r) {
+  var vs = arr(r && r.variants).filter(isObj);
+  if (!vs.length) return '';
+  function val(v) { return v == null ? T('lineVariantNone') : typeof v === 'string' ? v : JSON.stringify(v); }
+  return vs.map(function (v) {
+    return '<div class="tiny line-variant">' + badge(T('lineVariant', arr(v.lines).join(' / ')), 'line') + ' ' +
+      arr(v.changes).map(function (c) { return esc(T('lineVariantField', c.field, val(c['this']), val(c.other))); }).join(' · ') +
+      (v.source ? ' <code>' + esc(v.source) + '</code>' : '') + '</div>';
+  }).join('');
 }
 function renderGeneric(r) {
   /* Steinsaege, Umfaerben (transmute) und die Sonderrezepte aus Vanilla tragen ihre
@@ -1548,6 +1569,7 @@ function recipeCard(r, opts) {
   if (res) h += esc(T('footResult')) + ' ' + (res.count > 1 ? res.count + '× ' : '') + refLink(res.id) + '<br>';
   if (ic.length) h += esc(T('footIngredients')) + ' <span class="reflist">' + ic.map(function (e) { return '<span>' + (e.n > 1 ? e.n + '× ' : '') + e.ref.map(function (x) { return refLink(x, { hint: 'item' }); }).join(' <em class="muted">' + esc(T('orSep')) + '</em> ') + '</span>'; }).join('') + '</span>';
   h += '</div>';
+  h += lineVariantsHtml(r);
   if (!opts.noSource) h += sourceLine(r.source);
   return h + '</article>';
 }
@@ -1966,7 +1988,7 @@ function sortAlts(v) {
 }
 function vanSig(r) {
   var c = {};
-  Object.keys(r).forEach(function (k) { if (k !== 'vanilla') c[k] = k === 'pattern' ? r[k] : sortAlts(r[k]); });
+  Object.keys(r).forEach(function (k) { if (k !== 'vanilla' && k !== 'storedCookingtime') c[k] = k === 'pattern' ? r[k] : sortAlts(r[k]); });
   if (c.cookingtime == null && COOK_DEFAULT[r.type] != null) c.cookingtime = COOK_DEFAULT[r.type];
   return Object.keys(c).sort().map(function (k) { return JSON.stringify(k) + ':' + JSON.stringify(c[k]); }).join(',');
 }
@@ -2113,7 +2135,8 @@ function rcInner(en, g) {
   var prev = LINKMODE; LINKMODE = 'make';
   var r = en.r, e = en.e;
   var h = '<div class="rc-head"><a class="rc-name" href="#/make/' + esc(encodeURIComponent(en.res)) + '" data-id="' + esc(en.res) + '">' + esc(displayName(en.res)) + (en.cnt > 1 ? ' <span class="muted">×' + en.cnt + '</span>' : '') + '</a>' +
-    badge(stationLabel(en.st)) + (en.src === 'mod' ? badge(T('arSrcMod'), 'mod') : badge(T('arSrcVanilla'))) + lineBadge(en.lines) + (g ? badge(T('arVariants', g.members.length)) : '') + '</div>';
+    /* Vanilla-Karten kennen bei gesetztem Linienfilter nur die geladene Linie - kein "nur X" behaupten. */
+    badge(stationLabel(en.st)) + (en.src === 'mod' ? badge(T('arSrcMod'), 'mod') : badge(T('arSrcVanilla'))) + (en.src === 'vanilla' && RV.line !== 'all' ? '' : lineBadge(en.lines)) + (g ? badge(T('arVariants', g.members.length)) : '') + '</div>';
   h += r ? '<div class="recipe-body">' + recipeBodyHtml(r) + '</div>' : iwCardBody(e);
   var foot = [];
   if (r && en.src === 'mod' && IX.recipes.has(r.id)) foot.push('<a href="#/recipes/' + esc(r.id) + '">' + esc(T('arRecipePage')) + '</a>');
@@ -2528,7 +2551,7 @@ function normVanilla(raw, line) {
     if (r.pattern) { n.pattern = r.pattern; n.key = {}; Object.keys(r.key || {}).forEach(function (c) { n.key[c] = ids(r.key[c]); }); }
     if (r.ingredientGroups) n.ingredientGroups = r.ingredientGroups.map(ids);
     if (r.slots) { n.slots = {}; Object.keys(r.slots).forEach(function (s) { n.slots[s] = ids(r.slots[s]); }); }
-    ['cookingtime', 'experience', 'count', 'addition_count'].forEach(function (k) { if (r[k] != null) n[k] = r[k]; });
+    ['cookingtime', 'storedCookingtime', 'experience', 'count', 'addition_count'].forEach(function (k) { if (r[k] != null) n[k] = r[k]; });
     push(out.byResult, n.result.id, n);
     out.count++;
   });

@@ -16,6 +16,7 @@ pre-release check should use.
 Usage
     python wiki/generate.py                 # regenerate from the 26.2 line
     python wiki/generate.py --line 1.21.11  # regenerate from the 1.21.11 line
+    python wiki/generate.py --line 26.3     # regenerate from the 26.3 line
     python wiki/generate.py --strict        # fail if anything is undocumented
 
 Outputs
@@ -45,8 +46,19 @@ REPO = Path(__file__).resolve().parent.parent
 WIKI = REPO / "wiki"
 NS = "simplebuilding"
 
-# Where each Minecraft line keeps its data. Both are generated from the same
-# providers, so the wiki can be built from either one.
+# Where each Minecraft line keeps its data. All are generated from the same
+# providers, so the wiki can be built from any one.
+#
+# 26.3 has no tree of its own: its datagen output is src/main/generated overlaid by
+# mc26_3/generated (only the files that differ) minus mc26_3/generated/removed-on-26.3.txt -
+# the same precedence mergeResources263 (mc26_3/resources.gradle) applies to the jar.
+# merge_overlay_lines() builds that merged tree under build/wiki-lines/ before a run;
+# "source" fields still name the real file (SOURCE_MAP).
+#
+# "furnace_cooking_time": 26.3 blasting/smoking recipes store the FURNACE time and the
+# blast furnace/smoker halves it (26.2 stores the real time and leaves the default out).
+# recipe_entry() turns the stored value into the real one (cookingtime) and keeps the
+# stored one as storedCookingtime, so recipes of both lines compare and render alike.
 LINES = {
     "26.2": {
         "generated_data": "src/main/generated/data/simplebuilding",
@@ -77,7 +89,70 @@ LINES = {
             "mc1_21_11/neoforge/src/main/java/com/simplebuilding",
         ],
     },
+    "26.3": {
+        "generated_data": "build/wiki-lines/26.3/data/simplebuilding",
+        "generated_assets": "build/wiki-lines/26.3/assets/simplebuilding",
+        "resource_data": "src/main/resources/data/simplebuilding",
+        "resource_assets": "src/main/resources/assets/simplebuilding",
+        "config": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+        # WikiDataProvider's export is not kept per line (syncGenerated263 skips wiki/**);
+        # the item constants are the same shared Java code on 26.2 and 26.3.
+        "item_properties": "src/main/generated/wiki/items.json",
+        "client_jar_version": "26.3",
+        "furnace_cooking_time": True,
+        "overlay": {
+            "base": "src/main/generated",
+            "generated": "mc26_3/generated",
+            "removed": "mc26_3/generated/removed-on-26.3.txt",
+            "into": "build/wiki-lines/26.3",
+        },
+        "code_roots": [
+            "common/src/shared/java/com/simplebuilding",
+            "src/main/java/com/simplebuilding",
+            "neoforge/src/main/java/com/simplebuilding",
+            "mc26_3/overlay/java/com/simplebuilding",
+        ],
+    },
 }
+
+# Merged file (absolute) -> the file it was copied from (repo relative), for "source" fields.
+SOURCE_MAP: dict[Path, str] = {}
+
+
+def merge_overlay_lines() -> None:
+    """
+    Materialises the datagen tree of every overlay line (26.3) under build/wiki-lines/:
+    the overlay's files win over the base tree per path, and the removed list hides base
+    files the line does not generate. Rebuilt from scratch on every run.
+    """
+    import shutil
+    for cfg in LINES.values():
+        overlay = cfg.get("overlay")
+        if not overlay:
+            continue
+        into = REPO / overlay["into"]
+        if into.exists():
+            shutil.rmtree(into)
+        base, top = REPO / overlay["base"], REPO / overlay["generated"]
+        removed_file = REPO / overlay["removed"]
+        removed = set()
+        if removed_file.exists():
+            removed = {l.strip() for l in removed_file.read_text(encoding="utf-8").splitlines()
+                       if l.strip() and not l.startswith("#")}
+        chosen: dict[str, Path] = {}
+        for path in sorted(base.rglob("*")):
+            relpath = path.relative_to(base).as_posix()
+            if path.is_file() and not relpath.startswith((".cache/", "wiki/")) and relpath not in removed:
+                chosen[relpath] = path
+        for path in sorted(top.rglob("*")):
+            relpath = path.relative_to(top).as_posix()
+            if path.is_file() and relpath != removed_file.name and not relpath.startswith(".cache/"):
+                chosen[relpath] = path
+        for relpath, path in chosen.items():
+            target = into / relpath
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(path, target)
+            SOURCE_MAP[target.resolve()] = rel(path)
 
 
 # ---------------------------------------------------------------------------
@@ -99,7 +174,8 @@ def write_atomic(path: Path, text: str) -> None:
 
 
 def rel(path: Path) -> str:
-    return path.relative_to(REPO).as_posix()
+    mapped = SOURCE_MAP.get(Path(path).resolve()) if SOURCE_MAP else None
+    return mapped or path.relative_to(REPO).as_posix()
 
 
 def short(identifier: str) -> str:
@@ -419,8 +495,15 @@ def ingredient_ids(value) -> list[str]:
     return []
 
 
-def recipe_entry(data: dict, recipe_id: str, source: str | None) -> dict:
-    """One recipe file in the wiki's shape. Shared by the mod's recipes and the vanilla export."""
+FURNACE_HALVED_TYPES = ("minecraft:blasting", "minecraft:smoking")
+
+
+def recipe_entry(data: dict, recipe_id: str, source: str | None, furnace_cooking_time: bool = False) -> dict:
+    """
+    One recipe file in the wiki's shape. Shared by the mod's recipes and the vanilla export.
+    furnace_cooking_time: the line stores blasting/smoking times as furnace times (26.3, see
+    LINES) - cookingtime becomes the real time, storedCookingtime keeps the file's value.
+    """
     result = data.get("result", {})
     if isinstance(result, str):
         result = {"id": result}
@@ -457,6 +540,9 @@ def recipe_entry(data: dict, recipe_id: str, source: str | None) -> dict:
         for key in ("cookingtime", "experience", "count", "base_count", "addition_count"):
             if key in data:
                 entry[key] = data[key]
+        if furnace_cooking_time and entry["type"] in FURNACE_HALVED_TYPES and "cookingtime" in data:
+            entry["storedCookingtime"] = data["cookingtime"]
+            entry["cookingtime"] = data["cookingtime"] // 2
 
     entry["ingredients"] = sorted(set(entry["ingredients"]))
     return entry
@@ -474,7 +560,7 @@ def collect_recipes(roots: dict) -> list[dict]:
             except json.JSONDecodeError:
                 continue
             recipe_id = f"{NS}:{path.relative_to(root).with_suffix('').as_posix()}"
-            recipes.append(recipe_entry(data, recipe_id, rel(path)))
+            recipes.append(recipe_entry(data, recipe_id, rel(path), roots.get("furnace_cooking_time", False)))
     recipes.sort(key=lambda r: r["id"])
     return recipes
 
@@ -1187,7 +1273,7 @@ def vanilla_recipe_payload(line: str) -> str | None:
                 except (json.JSONDecodeError, UnicodeDecodeError):
                     continue
                 recipe_id = "minecraft:" + name[len("data/minecraft/recipe/"):-len(".json")]
-                entry = recipe_entry(data, recipe_id, None)
+                entry = recipe_entry(data, recipe_id, None, LINES[line].get("furnace_cooking_time", False))
                 if not entry["result"]["id"]:
                     continue  # special recipes (map cloning, trims) have no fixed result
                 compact = {k: v for k, v in entry.items()
@@ -1539,22 +1625,39 @@ def cross_line_presence(line: str, recipes: list[dict], in_world: dict, manual: 
                         item_ids: set[str]) -> list[dict]:
     """
     Marks every recipe and in-world entry of this line with the Minecraft lines it exists
-    in (same id), in place, and returns the recipes that only the other lines have -
-    each with its own "lines". Content is taken from this line where both have it;
-    the two lines share their providers, so a same-id recipe is the same recipe.
+    in, in place, and returns the recipes that only the other lines have - each with its
+    own "lines". A recipe counts as the same in another line when id AND content match
+    (recipe_signature: everything but the source file, the recipe book tab and the stored
+    furnace time). A
+    same-id recipe whose content differs is a variant: this line's recipe lists it under
+    "variants" (lines, changed fields, source) and the other line's version is returned
+    as well, so the recipe tab shows both cards with their lines.
     """
     others = [other for other in sorted(LINES) if other != line]
+    by_id = {r["id"]: r for r in recipes}
     recipe_lines = {r["id"]: [line] for r in recipes}
-    only_elsewhere: dict[str, dict] = {}
+    only_elsewhere: dict[tuple, dict] = {}
     iw_lines = {e["id"]: [line] for e in in_world["entries"]}
     for other in others:
         for recipe in collect_recipes(LINES[other]):
-            if recipe["id"] in recipe_lines:
+            mine = by_id.get(recipe["id"])
+            if mine is not None and recipe_signature(mine) == recipe_signature(recipe):
                 recipe_lines[recipe["id"]].append(other)
-            elif recipe["id"] in only_elsewhere:
-                only_elsewhere[recipe["id"]]["lines"].append(other)
+                continue
+            key = (recipe["id"], recipe_signature(recipe))
+            if key in only_elsewhere:
+                only_elsewhere[key]["lines"].append(other)
             else:
-                only_elsewhere[recipe["id"]] = dict(recipe, lines=[other])
+                only_elsewhere[key] = dict(recipe, lines=[other])
+            if mine is not None:
+                changes = recipe_changes(mine, recipe)
+                variants = mine.setdefault("variants", [])
+                for variant in variants:
+                    if variant["changes"] == changes:
+                        variant["lines"] = sorted(variant["lines"] + [other])
+                        break
+                else:
+                    variants.append({"lines": [other], "changes": changes, "source": recipe["source"]})
         other_in_world, _ = collect_in_world(LINES[other], manual, item_ids)
         for entry in other_in_world["entries"]:
             if entry["id"] in iw_lines:
@@ -1563,10 +1666,37 @@ def cross_line_presence(line: str, recipes: list[dict], in_world: dict, manual: 
         recipe["lines"] = sorted(recipe_lines[recipe["id"]])
     for entry in in_world["entries"]:
         entry["lines"] = sorted(iw_lines[entry["id"]])
-    extra = sorted(only_elsewhere.values(), key=lambda r: r["id"])
+    extra = sorted(only_elsewhere.values(), key=lambda r: (r["id"], r["lines"]))
     for recipe in extra:
         recipe["lines"] = sorted(recipe["lines"])
     return extra
+
+
+# category only picks the recipe book tab (1.21.11 writes "misc" where 26.2 writes none).
+RECIPE_IGNORED_KEYS = ("source", "lines", "variants", "storedCookingtime", "category")
+
+# 26.2 leaves the default cooking time out of the file, 1.21.11 and 26.3 write it.
+COOKING_DEFAULT_TICKS = {"minecraft:smelting": 200, "minecraft:blasting": 100,
+                         "minecraft:smoking": 100, "minecraft:campfire_cooking": 600}
+
+
+def recipe_view(recipe: dict) -> dict:
+    view = {k: v for k, v in recipe.items() if k not in RECIPE_IGNORED_KEYS}
+    if "cookingtime" not in view and view.get("type") in COOKING_DEFAULT_TICKS:
+        view["cookingtime"] = COOKING_DEFAULT_TICKS[view["type"]]
+    return view
+
+
+def recipe_signature(recipe: dict) -> str:
+    """What a recipe does, without where it is written down (and how a line stores furnace times)."""
+    return json.dumps(recipe_view(recipe), sort_keys=True)
+
+
+def recipe_changes(mine: dict, other: dict) -> list[dict]:
+    """The fields another line's version of a recipe changes: [{field, this, other}], sorted."""
+    a, b = recipe_view(mine), recipe_view(other)
+    return [{"field": k, "this": a.get(k), "other": b.get(k)}
+            for k in sorted(set(a) | set(b)) if a.get(k) != b.get(k)]
 
 
 def build(line: str) -> tuple[dict, list[str]]:
@@ -1763,6 +1893,7 @@ def main() -> int:
                              "the Gradle checkWiki task runs.")
     args = parser.parse_args()
 
+    merge_overlay_lines()
     data, undocumented, vanilla, incomplete, enchantment_warnings, phantom, unnamed, in_world_problems = build(args.line)
     vanilla_problems = sync_vanilla_recipes(check=args.check)
     for problem in in_world_problems + vanilla_problems:

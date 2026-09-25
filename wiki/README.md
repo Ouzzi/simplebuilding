@@ -89,11 +89,11 @@ in der Welt, Drops, Handel – und klappt die Zutaten rekursiv auf. Varianten (b
 Bretter) werden zu einem Zweig zusammengefasst. Linksklick bleibt, wie er war.
 
 Die Vanilla-Rezepte liest `generate.py` je Linie aus dem Client-Jar im Gradle-Cache und
-schreibt sie nach `wiki/data/vanilla-26.2.js` bzw. `vanilla-1.21.11.js` – nur Rezeptdaten
+schreibt sie nach `wiki/data/vanilla-26.2.js`, `vanilla-26.3.js` bzw. `vanilla-1.21.11.js` – nur Rezeptdaten
 und die Item-Tags, keine Texturen, keine Sprachdateien. Die Dateien sind committet, weil
 CI keinen Gradle-Cache hat: ohne Jar bleibt die vorhandene Datei stehen, mit Jar prüft
 `--check`, dass sie aktuell ist. Die Seite lädt die Datei der gewählten Linie erst, wenn
-der Baum sie braucht; `tools/wiki_site.py` veröffentlicht beide mit.
+der Baum sie braucht; `tools/wiki_site.py` veröffentlicht alle mit.
 
 ### 3D-Ansicht der Blöcke
 
@@ -124,10 +124,18 @@ Steinsäge und die Umwandlungen in der Welt mit Zeit, Schlägen und Haltbarkeit.
 Filter nach Station, Herkunft (Mod/Vanilla), Minecraft-Linie und Text.
 
 * **Linien:** jedes Mod-Rezept und jede Umwandlung trägt `lines` – in welchen
-  Linien es dieselbe Id gibt; was nur die andere Linie hat, steht unter
-  `recipesOtherLines`. Vanilla-Rezepte kommen aus `data/vanilla-<linie>.js`;
-  dasselbe Rezept in beiden Linien wird eine Karte (1.21.11 schreibt die
+  Linien es dasselbe Rezept gibt (gleiche Id UND gleicher Inhalt; der
+  Rezeptbuch-Reiter `category` zählt nicht). Hat eine andere Linie dieselbe Id
+  mit anderem Inhalt, listet das Rezept sie unter `variants` (Linien, geänderte
+  Felder, Quelle) – Rezeptseite und Itemseite zeigen das als "In Minecraft X
+  anders" –, und die andere Fassung steht zusätzlich unter `recipesOtherLines`.
+  Vanilla-Rezepte kommen aus `data/vanilla-<linie>.js`; dasselbe Rezept in
+  mehreren Linien wird eine Karte (1.21.11 und 26.3 schreiben die
   Standard-Garzeit aus, 26.2 nicht – für den Vergleich gleichgezogen).
+* **26.3-Garzeiten:** ab 26.3 speichern Hochofen- und Räucherofen-Rezepte die
+  Ofenzeit, der Hochofen/Räucherofen halbiert sie. `generate.py` schreibt die
+  echte Zeit nach `cookingtime` und den Dateiwert nach `storedCookingtime`; die
+  Seite zeigt die echte Zeit und einen Hinweis auf den gespeicherten Wert.
 * **Varianten:** Karten, die sich nur in einer Farbe oder Holzart unterscheiden
   (als ganzes Glied einer Id), werden eine Karte, die reihum wechselt; ein Klick
   auf eine Variante hält sie fest. Tag-Zutaten zeigen reihum ihre Mitglieder.
@@ -305,15 +313,19 @@ direkt am Eintrag) als Deutsch. Diese Nachsicht steht noch in
 `prose_languages()`; eine Datei, die versehentlich in die alte Form zurückfällt,
 wird deshalb als „nur Deutsch" gemeldet statt als undokumentiert.
 
-### Beide Minecraft-Linien
+### Die Minecraft-Linien
 
 ```bash
 python wiki/generate.py                 # 26.2 (Standard)
 python wiki/generate.py --line 1.21.11  # 1.21.11
+python wiki/generate.py --line 26.3     # 26.3
 ```
 
-Die Datengrundlage beider Linien stammt aus denselben Providern; das Wiki zeigt die gewählte
-Linie im Kopf an.
+Die Datengrundlage aller Linien stammt aus denselben Providern; das Wiki zeigt die gewählte
+Linie im Kopf an. 26.3 hat keinen eigenen Datagen-Baum: `generate.py` legt ihn vor jedem Lauf
+unter `build/wiki-lines/26.3/` an – `src/main/generated`, darüber `mc26_3/generated`, ohne die
+Dateien aus `mc26_3/generated/removed-on-26.3.txt` (derselbe Vorrang wie `mergeResources263`);
+die `source`-Felder nennen weiter die echte Datei.
 
 ## Dateien
 
