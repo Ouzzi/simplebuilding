@@ -83,9 +83,13 @@ repositories {
 	maven { url = "https://maven.shedaniel.me/" }
 	maven { url = "https://maven.terraformersmc.com/releases/" }
 	maven { url = "https://maven.blamejared.com/" }
+	exclusiveContent {
+		forRepository { maven { url = "https://api.modrinth.com/maven" } }
+		filter { includeGroup "maven.modrinth" }
+	}
 }
 
-// Dev-only runtime mods (only JEI is pinned for 26.3 so far): synced into build/devMods and handed
+// Dev-only runtime mods (JEI, Jade, Mouse Tweaks, AppleSkin): synced into build/devMods and handed
 // to runClient/runServer with -Dfabric.addMods, never to gametest/clientGameTest - same scheme as
 // the root build.gradle. Switch off: -Pdev_mods=false.
 def devModsEnabled = (project.findProperty('dev_mods') ?: 'true').toString().toBoolean()
@@ -120,6 +124,9 @@ dependencies {
 
 	compileOnly "mezz.jei:jei-${project.mc263_minecraft_version}-common-api:${project.mc263_jei_version}"
 	devMods "mezz.jei:jei-${project.mc263_minecraft_version}-fabric:${project.mc263_jei_version}"
+	devMods "maven.modrinth:jade:${project.mc263_dev_jade_fabric}"
+	devMods "maven.modrinth:mouse-tweaks:${project.mc263_dev_mousetweaks_fabric}"
+	devMods "maven.modrinth:appleskin:${project.mc263_dev_appleskin_fabric}"
 
 	implementation fabricApi.module("fabric-gametest-api-v1", project.mc263_fabric_version)
 }

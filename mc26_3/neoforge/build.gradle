@@ -127,9 +127,13 @@ neoForge {
 repositories {
     maven { url = 'https://maven.shedaniel.me/' }
     maven { url = 'https://maven.blamejared.com/' }
+    exclusiveContent {
+        forRepository { maven { url = 'https://api.modrinth.com/maven' } }
+        filter { includeGroup 'maven.modrinth' }
+    }
 }
 
-// Dev-only runtime mods (only JEI is pinned for 26.3), for the 'client' and 'server' runs only -
+// Dev-only runtime mods (JEI, Jade, Mouse Tweaks, AppleSkin), for the 'client' and 'server' runs only -
 // same source-less 'devRuns' scheme as the 26.2 :neoforge module. Switch off: -Pdev_mods=false.
 def devModsEnabled = (project.findProperty('dev_mods') ?: 'true').toString().toBoolean()
 configurations {
@@ -159,6 +163,9 @@ dependencies {
 
     compileOnly "mezz.jei:jei-${rootProject.mc263_minecraft_version}-common-api:${rootProject.mc263_jei_version}"
     devMods("mezz.jei:jei-${rootProject.mc263_minecraft_version}-neoforge:${rootProject.mc263_jei_version}") { transitive = false }
+    devMods("maven.modrinth:jade:${rootProject.mc263_dev_jade_neoforge}") { transitive = false }
+    devMods("maven.modrinth:mouse-tweaks:${rootProject.mc263_dev_mousetweaks_neoforge}") { transitive = false }
+    devMods("maven.modrinth:appleskin:${rootProject.mc263_dev_appleskin_neoforge}") { transitive = false }
 }
 
 tasks.named('processResources', ProcessResources).configure {
