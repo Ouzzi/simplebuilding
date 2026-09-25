@@ -398,7 +398,8 @@ public final class BackpackClientTest {
      * for every tier the layer picks exactly that tier's texture from the player's render state -
      * which the resource manager has to know. Then the picture: third person from behind, one shot
      * without a backpack, a second one to measure the noise floor, one with the enderite backpack.
-     * The backpack has to change far more pixels than the noise floor.
+     * With the pixels the noise shot also changed taken out, the backpack has to change at least half
+     * of the area its back face is expected to cover at the camera distance.
      *
      * <p><b>What breaks this case:</b> a missing or doubled registration, a wrong texture table
      * ({@code BackpackLayer#textureFor}), a missing texture file, and a layer that never submits its
@@ -466,14 +467,57 @@ public final class BackpackClientTest {
         script.awaitPackets();
         script.idle("let the worn enderite backpack arrive", 10);
         assertWorn(script, "simplebuilding:enderite_backpack");
+        Later<Double> expectedArea = expectedBackpackArea(script);
         Later<Path> with = script.shot("backpack-e-back-enderite");
 
+        // The frame of the unchanged scene is not still: the player's idle arm sway moves a few
+        // hundred pixels between two shots, right beside the torso the backpack sits on. The
+        // generic "ten times the noise" rule therefore failed on good frames (the backpack itself
+        // has always drawn 2500-2900 pixels). Instead, the pixels the noise shot also changed are
+        // taken out (grown by two pixels), and what is left has to cover at least half of the area
+        // the backpack's back face is expected to take on screen at this camera distance.
         script.verify("the worn backpack reached the back view", () -> {
             ScreenshotDiff.Diff noiseFloor = ScreenshotDiff.compare("back view, nothing changed", without.get(), again.get());
             ScreenshotDiff.Diff signal = ScreenshotDiff.compare("back view with the enderite backpack", without.get(), with.get());
-            ScreenshotDiff.assertDrew("backpack layer", noiseFloor, signal);
+            int clean = ScreenshotDiff.changedOutsideNoise("back view with the enderite backpack, noise removed",
+                    without.get(), with.get(), again.get(), 2);
+            double expected = expectedArea.get();
+            if (noiseFloor.changedPixels() > expected) {
+                throw new AssertionError("The unchanged back view moved " + noiseFloor.changedPixels()
+                        + " pixels between two shots, more than the whole backpack is expected to cover ("
+                        + Math.round(expected) + "); the scene is too restless to measure anything.");
+            }
+            if (clean < expected * 0.5) {
+                throw new AssertionError("backpack layer did not draw its back: " + clean + " pixels changed "
+                        + "outside the noise mask (" + signal + ", noise floor " + noiseFloor.changedPixels()
+                        + "), but the back face of the backpack is expected to cover about "
+                        + Math.round(expected) + " pixels at this camera distance and at least half of that "
+                        + "has to change.");
+            }
+            TestLog.info("backpack layer drew " + clean + " clean pixels of about " + Math.round(expected) + " expected");
         });
         script.act("back to first person", client -> client.options.setCameraType(CameraType.FIRST_PERSON));
+    }
+
+    /**
+     * How many screen pixels the back face of the worn backpack should cover right now: its model
+     * box ({@code BackpackLayer}: 10 model pixels wide, 13 tall with the lid, scaled by
+     * {@link BackpackLayer#SCALE}) projected at the distance between the camera and the player's
+     * back, with the vertical field of view and the screenshot height (the window height).
+     */
+    private static Later<Double> expectedBackpackArea(Script script) {
+        Later<Double> area = new Later<>("the expected on-screen area of the backpack");
+        script.act("work out the expected on-screen area of the backpack", client -> {
+            double width = 10.0 / 16.0 * BackpackLayer.SCALE;
+            double height = 13.0 / 16.0 * BackpackLayer.SCALE;
+            // The backpack's back face: torso centre height, a quarter block behind the body axis.
+            double distance = client.gameRenderer.mainCamera().position()
+                    .distanceTo(client.player.position().add(0.0, 1.1, 0.0)) - 0.25;
+            double halfFov = Math.toRadians(client.options.fov().get()) / 2.0;
+            double pixelsPerBlock = (client.getWindow().getHeight() / 2.0) / Math.tan(halfFov) / distance;
+            area.set(width * height * pixelsPerBlock * pixelsPerBlock);
+        });
+        return area;
     }
 
     // =================================================================================
