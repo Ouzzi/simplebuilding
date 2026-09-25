@@ -247,6 +247,8 @@
   "text.autoconfig.simplebuilding.option.pistonsBreachEndPortalFrames.@Tooltip": "Wenn aktiviert, behandeln die Kolben der Mod Endportalrahmen wie andere unzerstörbare Blöcke: Ein mit einem Redstoneblock bezahlter Verstärkter Kolben kann einen schieben, ein Netherit- oder Enderitkolben kann ihn zerstören. Wenn deaktiviert, bleiben Endportalrahmen unangetastet.",
   "text.autoconfig.simplebuilding.option.showDevEnchantedTab": "Kreativ-Tab „Verzaubert (Dev)“ zeigen",
   "text.autoconfig.simplebuilding.option.showDevEnchantedTab.@Tooltip": "Wenn aktiviert, erscheint der Kreativ-Tab „SimpleEnchants (Dev)“ auch außerhalb von Entwicklungsumgebungen: die beste Stufe jedes verzauberbaren Gegenstands, vorverzaubert auf Höchststufe, je Wahl unter sich ausschließenden Verzauberungen eine Variante. Wirkt beim nächsten Neuaufbau der Kreativ-Tabs (spätestens nach erneutem Betreten der Welt).",
+  "text.autoconfig.simplebuilding.option.vanillaEnchantedBookTextures": "Eigene Texturen für Vanilla-Zauberbücher",
+  "text.autoconfig.simplebuilding.option.vanillaEnchantedBookTextures.@Tooltip": "Wenn aktiviert, bekommt jede Vanilla-Verzauberung ihr eigenes Buch. Aus: wieder das Vanilla-Buch, etwa wenn ein Ressourcenpaket oder eine andere Mod die Bücher neu gestaltet.",
   "item.simplebuilding.glowing_trim_template": "Leuchtende Schmiedevorlage",
   "item.simplebuilding.emitting_trim_template": "Strahlende Schmiedevorlage",
   "item.simplebuilding.enderite_spear": "Enderit-Speer",

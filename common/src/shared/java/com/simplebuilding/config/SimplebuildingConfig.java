@@ -35,6 +35,12 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean showDevEnchantedTab = false;
 
+    // Client: eigene Buch-Texturen fuer die Vanilla-Verzauberungen (VanillaBookTextures). Aus: das
+    // verzauberte Buch zeigt fuer Vanilla-Verzauberungen wieder das Vanilla-Modell, damit
+    // Ressourcenpakete oder andere Mods, die dieselben Buecher ueberschreiben, gewinnen.
+    @ConfigEntry.Gui.Tooltip
+    public boolean vanillaEnchantedBookTextures = true;
+
     @ConfigEntry.Gui.Tooltip
     public static double trimBenefitBaseMultiplier = 2.0;
     @ConfigEntry.Gui.Tooltip

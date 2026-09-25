@@ -3222,6 +3222,7 @@ window.WIKI_DATA = {
           "Enable Armor Trim Benefits (enableArmorTrimBenefits, default on): reported by the client to the server when joining a world, and switches the pattern and material bonuses for that player; a change only takes effect after rejoining, because the value is only sent at login.",
           "Pistons Breach End Portal Frames (pistonsBreachEndPortalFrames, default on): whether the mod's pistons treat End Portal Frames as breachable unbreakable blocks (a paid Reinforced Piston pushes one, a Netherite or Enderite Piston destroys it); off, the frame counts as immune. Read on the server by PistonBreach.",
           "Show Enchanted (Dev) Creative Tab (showDevEnchantedTab, default off): shows the creative tab \"SimpleEnchants (Dev)\" outside a development environment too (in one it is always there). Read whenever the creative tabs are rebuilt, so a change takes effect at the latest after rejoining the world (DevEnchantedTab.isShown).",
+          "Own Textures for Vanilla Enchanted Books (vanillaEnchantedBookTextures, default on, client side): every vanilla enchantment gets its own enchanted book in the style of the mod books - a cover colour and a symbol that fits the enchantment (shield for Protection, flame for Fire Protection, feather for Feather Falling, clover for Fortune, heart for Mending and so on). A book with several enchantments shows the first vanilla one; a mod enchantment always wins. Off, vanilla enchantments show the vanilla book again, so a resource pack or another mod that retextures the books is not overridden.",
           "Trim Benefit Base Multiplier (trimBenefitBaseMultiplier, default 2.0): base of the resonance multiplier; changeable at runtime with /simplebuilding config setTrimMultiplier <value> (operators only), /simplebuilding config getTrimMultiplier shows it; the command does not write the value back into the config file.",
           "Max Multiplier Limit (maxMultiplierLimit, default 10.0): upper bound for the value in the setTrimMultiplier command (read when the command is registered); otherwise it has no effect.",
           "Tool Settings → Invert Octant Sneak (invertOctantSneak, default off): inverts whether the Octant's area fill is shown with or without Constructor's Touch (showFill = inverted XOR enchantment present).",
@@ -3245,6 +3246,7 @@ window.WIKI_DATA = {
           "Rüstungsbesatz-Vorteile aktivieren (enableArmorTrimBenefits, Standard an): wird beim Betreten einer Welt vom Client an den Server gemeldet und schaltet die Muster- und Material-Boni für diesen Spieler; eine Änderung wirkt erst nach erneutem Betreten, da der Wert nur beim Login gesendet wird.",
           "Kolben durchbrechen Endportalrahmen (pistonsBreachEndPortalFrames, Standard an): ob die Kolben der Mod Endportalrahmen als durchbrechbare unzerstörbare Blöcke behandeln (ein bezahlter Verstärkter Kolben schiebt einen, ein Netherit- oder Enderitkolben zerstört ihn); aus, gilt der Rahmen als immun. Wird serverseitig von PistonBreach gelesen.",
           "Kreativ-Tab „Verzaubert (Dev)“ zeigen (showDevEnchantedTab, Standard aus): zeigt den Kreativ-Reiter „SimpleEnchants (Dev)“ auch außerhalb einer Entwicklungsumgebung (dort ist er immer da). Gelesen, wenn die Kreativ-Reiter neu aufgebaut werden; eine Änderung wirkt also spätestens nach erneutem Betreten der Welt (DevEnchantedTab.isShown).",
+          "Eigene Texturen für Vanilla-Zauberbücher (vanillaEnchantedBookTextures, Standard an, clientseitig): jede Vanilla-Verzauberung bekommt ein eigenes verzaubertes Buch im Stil der Mod-Bücher - eine Einbandfarbe und ein passendes Symbol (Schild für Schutz, Flamme für Feuerschutz, Feder für Federfall, Kleeblatt für Glück, Herz für Reparatur und so weiter). Ein Buch mit mehreren Verzauberungen zeigt die erste Vanilla-Verzauberung; eine Mod-Verzauberung hat immer Vorrang. Aus: Vanilla-Verzauberungen zeigen wieder das Vanilla-Buch, damit ein Ressourcenpaket oder eine andere Mod, die die Bücher neu gestaltet, nicht überschrieben wird.",
           "trimBenefitBaseMultiplier (Standard 2,0): Basis des Resonanz-Multiplikators; per Befehl /simplebuilding config setTrimMultiplier <Wert> (nur Operatoren) zur Laufzeit änderbar, /simplebuilding config getTrimMultiplier zeigt ihn; der Befehl schreibt den Wert nicht in die Konfigurationsdatei zurück.",
           "maxMultiplierLimit (Standard 10,0): Obergrenze für den Wert im Befehl setTrimMultiplier (wird bei der Befehlsregistrierung ausgelesen); sonst ohne Wirkung.",
           "Werkzeugeinstellungen → Oktant Schleichen umkehren (invertOctantSneak, Standard aus): kehrt um, ob die Oktant-Flächenfüllung mit oder ohne „Berührung des Konstrukteurs“ angezeigt wird (showFill = invertiert XOR Verzauberung vorhanden).",
@@ -32566,6 +32568,13 @@ window.WIKI_DATA = {
       "tooltip": "Show Enchanted (Dev) Creative Tab"
     },
     {
+      "name": "vanillaEnchantedBookTextures",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "tooltip": "Own Textures for Vanilla Enchanted Books"
+    },
+    {
       "name": "trimBenefitBaseMultiplier",
       "type": "double",
       "default": "2.0",
@@ -42791,7 +42800,7 @@ window.WIKI_DATA = {
     "trades": 21,
     "enchantments": 19,
     "tags": 27,
-    "config": 15,
+    "config": 16,
     "inWorld": 343,
     "features": 37,
     "undocumented": 0,
