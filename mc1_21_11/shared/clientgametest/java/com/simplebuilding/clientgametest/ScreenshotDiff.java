@@ -283,6 +283,54 @@ public final class ScreenshotDiff {
         return Math.max(noiseFloor.changedPixels() * 4 + 200, diff.totalPixels() / 20000);
     }
 
+    /**
+     * Pixels that changed between {@code base} and {@code withSignal} but NOT between {@code base}
+     * and {@code noiseShot} (the latter grown by {@code grow} pixels in every direction). What is
+     * left can only be explained by the one thing that differs between the two later shots.
+     *
+     * <p>Needed where the noise sits on the very object under test: the idle arm sway of a player
+     * seen from behind changes a few hundred pixels between two shots of the same scene, right next
+     * to the backpack. A count that multiplies that noise by ten against the backpack's whole area
+     * fails on a good frame; subtracting the noise pixels instead keeps the claim exact.
+     */
+    public static int changedOutsideNoise(String label, Path base, Path withSignal, Path noiseShot, int grow) {
+        BufferedImage a = read(base);
+        BufferedImage s = read(withSignal);
+        BufferedImage n = read(noiseShot);
+        int w = a.getWidth();
+        int h = a.getHeight();
+        if (s.getWidth() != w || s.getHeight() != h || n.getWidth() != w || n.getHeight() != h) {
+            throw new AssertionError("Screenshot sizes differ between " + base + ", " + withSignal + " and " + noiseShot);
+        }
+        boolean[] noisy = new boolean[w * h];
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
+                if (!differs(a.getRGB(x, y), n.getRGB(x, y))) {
+                    continue;
+                }
+                for (int dy = -grow; dy <= grow; dy++) {
+                    for (int dx = -grow; dx <= grow; dx++) {
+                        int nx = x + dx;
+                        int ny = y + dy;
+                        if (nx >= 0 && ny >= 0 && nx < w && ny < h) {
+                            noisy[ny * w + nx] = true;
+                        }
+                    }
+                }
+            }
+        }
+        int changed = 0;
+        for (int y = 0; y < h; y++) {
+            for (int x = 0; x < w; x++) {
+                if (!noisy[y * w + x] && differs(a.getRGB(x, y), s.getRGB(x, y))) {
+                    changed++;
+                }
+            }
+        }
+        TestLog.info(label + ": " + changed + " changed pixels outside the noise mask");
+        return changed;
+    }
+
     private static BufferedImage read(Path path) {
         try {
             BufferedImage image = ImageIO.read(path.toFile());

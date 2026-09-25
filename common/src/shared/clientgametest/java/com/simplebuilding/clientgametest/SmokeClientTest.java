@@ -450,13 +450,19 @@ public final class SmokeClientTest {
      *
      * <p>All three are asserted over a sixty tick window:
      * <ul>
-     *   <li>the client side play time counter moved at all, so at least one payload arrived;</li>
+     *   <li>the client side time counter moved at all, so at least one payload arrived;</li>
      *   <li>it moved by roughly sixty ticks, so payloads kept arriving - a single sync followed by
      *       silence lands far below the lower bound;</li>
-     *   <li>it is within twenty five ticks of the server's own {@code PLAY_TIME} statistic, so the
-     *       payload carries the real counter and not a constant. Twenty of those twenty five are
-     *       the sync period itself: the client is always up to one second stale.</li>
+     *   <li>it is within twenty five ticks of the server's own counter, so the payload carries the
+     *       real counter and not a constant. Twenty of those twenty five are the sync period itself:
+     *       the client is always up to one second stale.</li>
      * </ul>
+     *
+     * <p>Since 2026-09 the time field carries the ACTIVE time the resonance reads (20 ticks per
+     * 20 ticks while the player's distance changed within the last minute), not the vanilla
+     * {@code PLAY_TIME} statistic - a player who stands still earns none. So the player walks for a
+     * moment first, which keeps the clock running for a full minute, far longer than the window;
+     * and the comparison is against the server player's own active counter.
      *
      * <p>The third one is the reason {@link #askTheServer} exists. It is the only assertion in this
      * class that needs a number the client cannot know, and the Fabric-only ancestor used
@@ -481,13 +487,21 @@ public final class SmokeClientTest {
                         + "observed at all",
                 client -> client.player instanceof SurvivalTracerAccessor);
 
+        // Walk a little: moving is what starts the active clock (the grace minute covers the window).
+        script.harness("hold the forward key to start the active clock", harness -> harness.holdKey(InputConstants.KEY_W));
+        script.idle("walk for a moment", 15);
+        script.harness("release the forward key", harness -> harness.releaseKey(InputConstants.KEY_W));
+        // Two sync periods, so the first look after the walk has counted and reached the client.
+        script.idle("let the active clock start and one sync arrive", 45);
+
         Later<Integer> before = readClientPlayTime(script, "before the 60 tick window");
         script.idle("let the survival sync run for 60 ticks", 60);
         Later<Integer> after = readClientPlayTime(script, "after the 60 tick window");
 
-        Later<Integer> onTheServer = askTheServer(script, "the server's PLAY_TIME statistic", server -> {
+        Later<Integer> onTheServer = askTheServer(script, "the server's active time counter", server -> {
             List<ServerPlayer> players = server.getPlayerList().getPlayers();
-            return players.isEmpty() ? -1 : players.get(0).getStats().getValue(Stats.CUSTOM.get(Stats.PLAY_TIME));
+            return players.isEmpty() ? -1
+                    : ((SurvivalTracerAccessor) players.get(0)).simplebuilding$getCurrentTime();
         });
 
         script.verify("the client's play time counter follows the server's", () -> {
@@ -500,27 +514,31 @@ public final class SmokeClientTest {
             int moved = after.get() - before.get();
 
             if (moved <= 0) {
-                throw new AssertionError("No SurvivalSyncPayload arrived: the client side play time "
+                throw new AssertionError("No SurvivalSyncPayload arrived: the client side active time "
                         + "counter stayed at " + before.get() + " over 60 ticks while the server "
-                        + "statistic is at " + server + ".");
+                        + "counter is at " + server + " (the player walked right before the window, so "
+                        + "the active clock was running).");
             }
 
             if (moved < 40 || moved > 80) {
                 throw new AssertionError("SurvivalSyncPayload does not arrive once a second: the client "
-                        + "side play time counter moved by " + moved + " ticks over a 60 tick window ("
+                        + "side active time counter moved by " + moved + " ticks over a 60 tick window ("
                         + before.get() + " -> " + after.get() + "), expected roughly 60 from three syncs.");
             }
 
             if (Math.abs(server - after.get()) > 25) {
                 throw new AssertionError("SurvivalSyncPayload carries the wrong number: the client says "
-                        + after.get() + " play time ticks, the server statistic says " + server
+                        + after.get() + " active ticks, the server counter says " + server
                         + ". At most 25 ticks of difference are explainable by the 20 tick sync period.");
             }
 
             TestLog.info("survival sync: client " + before.get() + " -> " + after.get()
-                    + " over 60 ticks, server statistic " + server);
+                    + " active ticks over 60 ticks, server counter " + server);
         });
 
+        // Back to the scene's standing spot: the walk above ended at the wall, and the next case walks
+        // again to count distance.
+        TestScene.build(script, "minecraft:stone", "creative");
         everyFieldOfTheSyncCarriesItsOwnNumber(script);
     }
 
@@ -606,7 +624,7 @@ public final class SmokeClientTest {
         script.verify("every field of the survival sync carries its own number", () -> {
             int[] client = onTheClient.get();
             int[] server = onTheServer.get();
-            String[] names = {"distance", "play time", "hostile kills", "passive kills", "damage taken"};
+            String[] names = {"distance", "active time", "hostile kills", "passive kills", "damage taken"};
 
             int[] before = serverBefore.get();
 
@@ -642,7 +660,7 @@ public final class SmokeClientTest {
             List<String> wrong = new ArrayList<>();
 
             for (int i = 0; i < 5; i++) {
-                // Play time and distance keep moving between the sync and the read, so those two
+                // Active time and distance keep moving between the sync and the read, so those two
                 // get the same slack the play time check above uses; the counters are exact.
                 int slack = (i == 0 || i == 1) ? 25 : 0;
 
@@ -664,7 +682,7 @@ public final class SmokeClientTest {
         script.command("kill @e[type=!minecraft:player]", true);
     }
 
-    /** The five counters the sync is built from, read on the server the way the mixin reads them. */
+    /** The five counters the sync is built from, read on the server the way the mixin reads them (time = active time). */
     private static int[] fiveServerCounters(MinecraftServer server) {
         List<ServerPlayer> players = server.getPlayerList().getPlayers();
 
@@ -681,7 +699,7 @@ public final class SmokeClientTest {
                 + player.getStats().getValue(Stats.CUSTOM.get(Stats.CLIMB_ONE_CM)) / 100;
         return new int[] {
                 distance,
-                player.getStats().getValue(Stats.CUSTOM.get(Stats.PLAY_TIME)),
+                accessor.simplebuilding$getCurrentTime(),
                 accessor.simplebuilding$getCurrentHostileKills(),
                 accessor.simplebuilding$getCurrentPassiveKills(),
                 player.getStats().getValue(Stats.CUSTOM.get(Stats.DAMAGE_TAKEN))};

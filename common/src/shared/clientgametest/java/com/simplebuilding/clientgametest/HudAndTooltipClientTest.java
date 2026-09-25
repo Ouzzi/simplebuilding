@@ -1267,6 +1267,7 @@ public final class HudAndTooltipClientTest {
                         type.get(), ghost.get())));
 
         assertGhostSlotOverlay(script);
+        assertTheOverlayDoesNotCoverTheGhostIcon(script);
         assertTheGhostIconStaysOutOfAnOccupiedSlot(script);
         hotbarClicksStayHotbarClicks(script);
 
@@ -1555,7 +1556,10 @@ public final class HudAndTooltipClientTest {
             throw new AssertionError("No screen is open, so there is nothing to extract.");
         }
 
-        screen.extractRenderState(graphics, -1, -1, 0.0f);
+        // The game's own entry point: background pass, then the rest. The hopper draws its ghost
+        // overlay and icon in the background pass (under real items), so a plain extractRenderState
+        // would not see them.
+        screen.extractRenderStateWithTooltipAndSubtitles(graphics, -1, -1, 0.0f);
         return state;
     }
 
@@ -1761,6 +1765,50 @@ public final class HudAndTooltipClientTest {
                     + ". Rectangles drawn near that corner: " + near + ". The screenshot check "
                     + "only asks whether anything changed there, so any other colour - including "
                     + "one opaque enough to hide the ghost icon - passes it.");
+        });
+    }
+
+
+    /**
+     * The overlay is drawn BEFORE the ghost icon in the screen's real draw order (background pass,
+     * then everything else), so the icon sits on top of the tint instead of under it. Recorded with
+     * a {@code GuiGraphicsExtractor} that logs the fills and items the screen submits, in order, while still
+     * performing them.
+     */
+    private static void assertTheOverlayDoesNotCoverTheGhostIcon(Script script) {
+        script.act("the orange overlay is drawn under the ghost icon, not over it", client -> {
+            AbstractContainerScreen<?> screen = containerScreen(client);
+            Slot slot = screen.getMenu().slots.get(0);
+            int slotX = leftPos(screen) + slot.x;
+            int slotY = topPos(screen) + slot.y;
+            List<String> order = new ArrayList<>();
+            GuiGraphicsExtractor graphics = new GuiGraphicsExtractor(client, new GuiRenderState(),
+                    client.getWindow().getGuiScaledWidth(), client.getWindow().getGuiScaledHeight()) {
+                @Override
+                public void fill(int x0, int y0, int x1, int y1, int color) {
+                    if (Math.min(x0, x1) == slotX && Math.min(y0, y1) == slotY && color == GHOST_SLOT_OVERLAY) {
+                        order.add("overlay");
+                    }
+                    super.fill(x0, y0, x1, y1, color);
+                }
+
+                @Override
+                public void item(ItemStack stack, int x, int y) {
+                    if (x == slotX && y == slotY) {
+                        order.add("icon");
+                    }
+                    super.item(stack, x, y);
+                }
+            };
+            screen.extractRenderStateWithTooltipAndSubtitles(graphics, -1, -1, 0.0f);
+
+            int overlay = order.indexOf("overlay");
+            int icon = order.indexOf("icon");
+            if (overlay < 0 || icon < 0 || overlay > icon) {
+                throw new AssertionError("The filtered slot's draw order is " + order + "; the orange "
+                        + "overlay has to come first so that the ghost icon is drawn on top of it and "
+                        + "stays readable (and both belong to the background pass, under real items).");
+            }
         });
     }
 
