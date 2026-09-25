@@ -112,6 +112,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_vanilla_book_texture_follows_the_client_option", DataIntegrityTests::vanillaBookTextureFollowsTheClientOption)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_mod_book_texture_follows_the_client_option", DataIntegrityTests::modBookTextureFollowsTheClientOption)
+                    .build(),
+            GameTestSpec.named("data_integrity_game_test_visible_trim_icons_follow_the_client_options", DataIntegrityTests::visibleTrimIconsFollowTheClientOptions)
+                    .build(),
             GameTestSpec.named("tool_behaviour_game_test_sledgehammer_breaks_three_by_three_around_origin", ToolBehaviourTests::sledgehammerBreaksThreeByThreeAroundOrigin)
                     .rotation(Rotation.NONE)
                     .build(),

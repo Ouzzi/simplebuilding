@@ -128,4 +128,14 @@ public final class DataIntegrityGameTest {
     public void vanillaBookTextureFollowsTheClientOption(GameTestHelper helper) {
         DataIntegrityTests.vanillaBookTextureFollowsTheClientOption(helper);
     }
+
+    @GameTest
+    public void modBookTextureFollowsTheClientOption(GameTestHelper helper) {
+        DataIntegrityTests.modBookTextureFollowsTheClientOption(helper);
+    }
+
+    @GameTest
+    public void visibleTrimIconsFollowTheClientOptions(GameTestHelper helper) {
+        DataIntegrityTests.visibleTrimIconsFollowTheClientOptions(helper);
+    }
 }
