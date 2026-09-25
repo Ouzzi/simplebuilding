@@ -823,15 +823,16 @@ public final class BlueprintBuilder {
     }
 
     /**
-     * Vergisst alles, was nur im Speicher liegt (laufende Auftraege, Pruefungen, Warnungen) - genau
-     * das, was ein Serverneustart verliert. Gespeichertes in {@link BlueprintJobs} bleibt. Fuer
-     * Spieltests, die das Fortsetzen nach einem Neustart pruefen.
+     * Vergisst, was fuer diesen Spieler nur im Speicher liegt (laufender Auftrag, Pruefung, Warnung) -
+     * genau das, was ein Serverneustart verliert. Gespeichertes in {@link BlueprintJobs} bleibt. Fuer
+     * Spieltests, die das Fortsetzen nach einem Neustart pruefen; nur dieser eine Spieler, weil
+     * andere Tests zur selben Zeit eigene Auftraege laufen haben.
      */
-    public static void forgetRunningJobs() {
-        JOBS.clear();
-        CHECKS.clear();
-        WARNED.clear();
-        HINTED.clear();
+    public static void forgetRunningJob(UUID player) {
+        JOBS.remove(player);
+        CHECKS.remove(player);
+        WARNED.remove(player);
+        HINTED.remove(player);
     }
 
     private static void step(Level level, Player player, Job job) {

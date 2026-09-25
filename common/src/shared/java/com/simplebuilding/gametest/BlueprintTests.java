@@ -1108,7 +1108,7 @@ public final class BlueprintTests {
         helper.assertTrue(reloaded.pending().contains(saved), "the saved job did not come back from its file: " + reloaded.pending());
 
         // Neustart: alles im Speicher ist weg; der Spieler kommt mit neuen Stapeln zurueck.
-        BlueprintBuilder.forgetRunningJobs();
+        BlueprintBuilder.forgetRunningJob(player.getUUID());
         helper.assertTrue(!BlueprintBuilder.building(player), "forgetting the running jobs left one behind");
         ItemStack wandAgain = wand.copy();
         ItemStack stoneAgain = stone.copy();
