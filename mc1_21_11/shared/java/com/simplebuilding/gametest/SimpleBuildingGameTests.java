@@ -104,6 +104,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_dev_enchanted_tab_is_only_filled_in_development_or_when_configured", DataIntegrityTests::devEnchantedTabIsOnlyFilledInDevelopmentOrWhenConfigured)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_every_trimmable_armour_shows_every_trim_pattern_on_its_icon", DataIntegrityTests::everyTrimmableArmourShowsEveryTrimPatternOnItsIcon)
+                    .build(),
             GameTestSpec.named("tool_behaviour_game_test_sledgehammer_breaks_three_by_three_around_origin", ToolBehaviourTests::sledgehammerBreaksThreeByThreeAroundOrigin)
                     .rotation(Rotation.NONE)
                     .build(),
@@ -326,6 +328,10 @@ public final class SimpleBuildingGameTests {
                     .maxTicks(DynamicLightTests.HOLDER_MAX_TICKS)
                     .build(),
             GameTestSpec.named("dynamic_light_game_test_mobs_wearing_radiant_armour_light_the_block_above_them", DynamicLightTests::mobsWearingRadiantArmourLightTheBlockAboveThem)
+                    .build(),
+            GameTestSpec.named("dynamic_light_game_test_the_radiance_tooltip_shows_only_the_level", DynamicLightTests::theRadianceTooltipShowsOnlyTheLevel)
+                    .build(),
+            GameTestSpec.named("dynamic_light_game_test_radiance_glints_stay_rare_and_full_sets_do_not_add_up", DynamicLightTests::radianceGlintsStayRareAndFullSetsDoNotAddUp)
                     .build(),
             GameTestSpec.named("ore_detector_game_test_detector_reports_the_nearest_target_inside_its_budget", OreDetectorTests::detectorReportsTheNearestTargetInsideItsBudget)
                     .build(),

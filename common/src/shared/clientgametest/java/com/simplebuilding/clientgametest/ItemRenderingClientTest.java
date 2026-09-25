@@ -529,7 +529,7 @@ public final class ItemRenderingClientTest {
                 GlowingTrimUtils.incrementEmissionLevel(radiant);
             }
 
-            requireTooltipLine(client, "Radiance and glow tooltips", radiant, "Radiance Level: 3/5",
+            requireTooltipLine(client, "Radiance and glow tooltips", radiant, "Radiance: 3",
                     TextColor.GOLD);
 
             ItemStack glowing = new ItemStack(Items.DIAMOND_CHESTPLATE);
@@ -543,7 +543,7 @@ public final class ItemRenderingClientTest {
             List<String> plain = tooltipTexts(client, new ItemStack(Items.DIAMOND_CHESTPLATE));
 
             for (String line : plain) {
-                if (line.startsWith("Radiance Level") || line.equals("Glowing") || line.equals("Glowing II")) {
+                if (line.startsWith("Radiance:") || line.equals("Glowing") || line.equals("Glowing II")) {
                     throw tooltipFailure("Radiance and glow tooltips",
                             "a plain diamond chestplate already carries the line " + line
                                     + ", so the lines above prove nothing about the upgrades");

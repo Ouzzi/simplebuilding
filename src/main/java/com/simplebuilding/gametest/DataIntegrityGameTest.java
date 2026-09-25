@@ -115,4 +115,9 @@ public final class DataIntegrityGameTest {
     public void devEnchantedTabIsOnlyFilledInDevelopmentOrWhenConfigured(GameTestHelper helper) {
         DataIntegrityTests.devEnchantedTabIsOnlyFilledInDevelopmentOrWhenConfigured(helper);
     }
+
+    @GameTest
+    public void everyTrimmableArmourShowsEveryTrimPatternOnItsIcon(GameTestHelper helper) {
+        DataIntegrityTests.everyTrimmableArmourShowsEveryTrimPatternOnItsIcon(helper);
+    }
 }

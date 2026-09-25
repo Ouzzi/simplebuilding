@@ -273,7 +273,7 @@
   "item.simplebuilding.emitting_trim_template": "Emitting Trim Upgrade Template",
   "tooltip.simplebuilding.glowing_trim": "✨ Glowing Trim",
   "tooltip.simplebuilding.emits_light": "💡 Emits Light",
-  "tooltip.simplebuilding.radiance_level": "Radiance Level: %s/5",
+  "tooltip.simplebuilding.radiance_level": "Radiance: %s",
   "tooltip.simplebuilding.glow_level": "Glowing",
   "tooltip.simplebuilding.glow_level_2": "Glowing II",
   "simplebuilding.gui.label.pos1": "P1",

@@ -1,5 +1,15 @@
 package com.simplebuilding.gametest;
 
+import java.util.Enumeration;
+import java.nio.charset.StandardCharsets;
+import java.net.URL;
+import java.io.InputStreamReader;
+import java.io.InputStream;
+import net.minecraft.world.item.equipment.trim.TrimPattern;
+import net.minecraft.world.item.equipment.trim.TrimMaterial;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.Lifecycle;
@@ -2535,5 +2545,183 @@ public final class DataIntegrityTests {
         }
         helper.assertTrue(problems.isEmpty(), "dev tab gate: " + problems);
         TestCleanup.succeed(helper);
+    }
+
+    /** The 18 trim patterns vanilla ships, spelled out so an empty registry cannot pass the icon test. */
+    private static final List<String> VANILLA_TRIM_PATTERNS = List.of(
+            "bolt", "coast", "dune", "eye", "flow", "host", "raiser", "rib", "sentry",
+            "shaper", "silence", "snout", "spire", "tide", "vex", "ward", "wayfinder", "wild");
+
+    /**
+     * Visible armour trims: every trimmable armour piece shows the PATTERN of its trim on the item
+     * icon, in the colours of the trim material - for every pattern and every material the server
+     * knows, vanilla and mod alike.
+     *
+     * <p>The item model is client data, so this reads the shipped JSON and PNG files off the
+     * classpath, the same files the resource manager loads. For each item in
+     * {@code #minecraft:trimmable_armor} (vanilla armour, the turtle shell, Enderite armour) it
+     * finds the item definition the mod ships - the one whose root is a {@code minecraft:composite};
+     * vanilla's own copy in the client jar is a plain {@code minecraft:select} - and checks:
+     * <ul>
+     *   <li>layer 1 is a {@code minecraft:component} select on {@code minecraft:trim} with ONE case
+     *       listing every pattern x material, whose model is the untrimmed piece (no vanilla colour
+     *       blob under the pattern), and a fallback (vanilla look without a trim or with a trim the
+     *       mod has no picture for);</li>
+     *   <li>layer 2 is the same select with a case per pattern x material pointing at
+     *       {@code simplebuilding:item/trim_overlay/<slot>_<pattern>_<colour>}, where the colour is
+     *       what the material's {@code MaterialAssetGroup} names for this armour (so iron on iron is
+     *       {@code iron_darker}, exactly as on the worn armour), and {@code minecraft:empty} as
+     *       fallback;</li>
+     *   <li>that overlay model exists and uses the sprite {@code simplebuilding:trims/items/...} of
+     *       the same name, whose grey source PNG exists, and the items atlas the mod ships lists
+     *       that PNG in a {@code paletted_permutations} source together with the colour.</li>
+     * </ul>
+     *
+     * <p>What breaks this: a new armour or trim material without re-running datagen; a pattern
+     * without a drawn overlay (tools/textures/generate_trim_overlays.py); a palette missing from
+     * the atlas (the icon would show the missing-texture checkerboard); the darker variant
+     * computed from the base colour only; or the datagen dropping the fallback.
+     */
+    public static void everyTrimmableArmourShowsEveryTrimPatternOnItsIcon(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        var access = helper.getLevel().registryAccess();
+        List<Holder.Reference<TrimPattern>> patterns = access.lookupOrThrow(Registries.TRIM_PATTERN).listElements().toList();
+        List<Holder.Reference<TrimMaterial>> materials = access.lookupOrThrow(Registries.TRIM_MATERIAL).listElements().toList();
+        Set<String> patternIds = new TreeSet<>();
+        patterns.forEach(p -> patternIds.add(p.key().identifier().toString()));
+        for (String vanilla : VANILLA_TRIM_PATTERNS) {
+            if (!patternIds.contains("minecraft:" + vanilla)) {
+                problems.add("trim pattern minecraft:" + vanilla + " is not in the registry");
+            }
+        }
+        helper.assertTrue(materials.size() >= 14, "expected the 11 vanilla and 3 mod trim materials, found " + materials.size());
+
+        JsonObject atlas = shippedJson("assets/minecraft/atlases/items.json",
+                json -> json.toString().contains("simplebuilding:trims/items/"));
+        Map<String, Set<String>> atlasPalettes = new HashMap<>();
+        if (atlas == null) {
+            problems.add("no assets/minecraft/atlases/items.json on the classpath lists simplebuilding:trims/items/*");
+        } else {
+            for (JsonElement source : atlas.getAsJsonArray("sources")) {
+                JsonObject s = source.getAsJsonObject();
+                if (!"minecraft:paletted_permutations".equals(s.get("type").getAsString())) continue;
+                Set<String> palettes = s.getAsJsonObject("permutations").keySet();
+                for (JsonElement texture : s.getAsJsonArray("textures")) {
+                    atlasPalettes.computeIfAbsent(texture.getAsString(), k -> new HashSet<>()).addAll(palettes);
+                }
+            }
+        }
+
+        int armourPieces = 0;
+        int cells = 0;
+        for (Holder<Item> holder : BuiltInRegistries.ITEM.getTagOrEmpty(ItemTags.TRIMMABLE_ARMOR)) {
+            Item item = holder.value();
+            Identifier id = BuiltInRegistries.ITEM.getKey(item);
+            String slot = holder.is(ItemTags.HEAD_ARMOR) ? "helmet" : holder.is(ItemTags.CHEST_ARMOR) ? "chestplate"
+                    : holder.is(ItemTags.LEG_ARMOR) ? "leggings" : holder.is(ItemTags.FOOT_ARMOR) ? "boots" : null;
+            var equippable = new ItemStack(item).get(DataComponents.EQUIPPABLE);
+            if (slot == null || equippable == null || equippable.assetId().isEmpty()) {
+                problems.add(id + " is trimmable armour without an armour slot tag or an equipment asset");
+                continue;
+            }
+            armourPieces++;
+            String definitionPath = "assets/" + id.getNamespace() + "/items/" + id.getPath() + ".json";
+            JsonObject definition = shippedJson(definitionPath,
+                    json -> "minecraft:composite".equals(json.getAsJsonObject("model").get("type").getAsString()));
+            if (definition == null) {
+                problems.add(id + ": the mod ships no trim-pattern item definition (" + definitionPath + ")");
+                continue;
+            }
+            JsonArray layers = definition.getAsJsonObject("model").getAsJsonArray("models");
+            JsonObject base = layers.get(0).getAsJsonObject();
+            JsonObject overlay = layers.get(1).getAsJsonObject();
+            for (JsonObject select : List.of(base, overlay)) {
+                if (!"minecraft:component".equals(select.get("property").getAsString())
+                        || !"minecraft:trim".equals(select.get("component").getAsString())
+                        || !select.has("fallback")) {
+                    problems.add(id + ": a layer does not select on the whole minecraft:trim component with a fallback");
+                }
+            }
+            if (!"minecraft:empty".equals(overlay.getAsJsonObject("fallback").get("type").getAsString())) {
+                problems.add(id + ": the pattern layer draws something when the trim is unknown or missing");
+            }
+            Set<String> untrimmed = new HashSet<>();
+            JsonArray baseCases = base.getAsJsonArray("cases");
+            JsonObject baseModel = baseCases.get(0).getAsJsonObject().getAsJsonObject("model");
+            if (baseCases.size() != 1 || !baseModel.get("model").getAsString().equals(id.withPrefix("item/").toString())) {
+                problems.add(id + ": a known trim does not show the untrimmed piece under the pattern (" + baseModel + ")");
+            }
+            for (JsonElement when : baseCases.get(0).getAsJsonObject().getAsJsonArray("when")) {
+                untrimmed.add(trimKey(when.getAsJsonObject()));
+            }
+            Map<String, String> overlays = new HashMap<>();
+            for (JsonElement c : overlay.getAsJsonArray("cases")) {
+                JsonObject entry = c.getAsJsonObject();
+                overlays.put(trimKey(entry.getAsJsonObject("when")), entry.getAsJsonObject("model").get("model").getAsString());
+            }
+
+            for (Holder.Reference<TrimPattern> pattern : patterns) {
+                for (Holder.Reference<TrimMaterial> material : materials) {
+                    String key = material.key().identifier() + "|" + pattern.key().identifier();
+                    String colour = material.value().assets().assetId(equippable.assetId().get()).suffix();
+                    String sprite = slot + "_" + pattern.value().assetId().getPath() + "_" + colour;
+                    String expected = MOD_ID + ":item/trim_overlay/" + sprite;
+                    cells++;
+                    if (!untrimmed.contains(key)) {
+                        problems.add(id + " " + key + ": not drawn untrimmed under the pattern");
+                    }
+                    if (!expected.equals(overlays.get(key))) {
+                        problems.add(id + " " + key + ": pattern layer " + overlays.get(key) + ", expected " + expected);
+                        continue;
+                    }
+                    JsonObject model = shippedJson("assets/" + MOD_ID + "/models/item/trim_overlay/" + sprite + ".json", json -> true);
+                    String texture = model == null ? null : model.getAsJsonObject("textures").get("layer0").getAsString();
+                    if (!(MOD_ID + ":trims/items/" + sprite).equals(texture)) {
+                        problems.add(expected + ": model missing or layer0 is " + texture);
+                    }
+                    String grey = MOD_ID + ":trims/items/" + slot + "_" + pattern.value().assetId().getPath();
+                    if (DataIntegrityTests.class.getClassLoader().getResource("assets/" + MOD_ID + "/textures/trims/items/"
+                            + slot + "_" + pattern.value().assetId().getPath() + ".png") == null) {
+                        problems.add(grey + ".png is missing (tools/textures/generate_trim_overlays.py)");
+                    }
+                    if (!atlasPalettes.getOrDefault(grey, Set.of()).contains(colour)) {
+                        problems.add("the items atlas does not colour " + grey + " as " + colour);
+                    }
+                }
+            }
+        }
+        helper.assertTrue(armourPieces >= 33, "expected 33 trimmable armour pieces (7 vanilla sets, turtle shell, Enderite), found " + armourPieces);
+        if (problems.size() > 20) {
+            int more = problems.size() - 20;
+            problems = new ArrayList<>(problems.subList(0, 20));
+            problems.add("... and " + more + " more");
+        }
+        helper.assertTrue(problems.isEmpty(), "visible armour trims (" + cells + " icon cells): " + problems);
+        helper.succeed();
+    }
+
+    private static String trimKey(JsonObject when) {
+        return when.get("material").getAsString() + "|" + when.get("pattern").getAsString();
+    }
+
+    /**
+     * The copy of a client resource that the mod ships: the classpath holds the vanilla client jar
+     * too, so every copy is read and the one {@code isOurs} accepts is returned (null if none is).
+     */
+    private static JsonObject shippedJson(String path, java.util.function.Predicate<JsonObject> isOurs) {
+        try {
+            Enumeration<URL> urls = DataIntegrityTests.class.getClassLoader().getResources(path);
+            while (urls.hasMoreElements()) {
+                try (InputStream in = urls.nextElement().openStream()) {
+                    JsonObject json = JsonParser.parseReader(new InputStreamReader(in, StandardCharsets.UTF_8)).getAsJsonObject();
+                    if (isOurs.test(json)) {
+                        return json;
+                    }
+                }
+            }
+        } catch (java.io.IOException | RuntimeException e) {
+            throw new IllegalStateException("cannot read " + path + ": " + e, e);
+        }
+        return null;
     }
 }

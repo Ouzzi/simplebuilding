@@ -1229,4 +1229,71 @@ public final class DynamicLightTests {
         helper.assertTrue(state.is(expected),
                 what + ": expected " + expected + " at " + pos + " but found " + state);
     }
+
+    /**
+     * The radiance glints stay rare: a hint that a piece shines, not a cloud around the wearer.
+     *
+     * <p>{@code tickGlowMotes} rolls {@link DynamicLightHandler#moteChance} once per client tick
+     * with the summed radiance of the whole wearer. The owner's numbers: about one glint every
+     * 8-10 seconds for one piece at level 1, at most about one every 2 seconds, and more pieces
+     * must not add up to a shower. Checked here as mean ticks between glints (1 / chance), with half
+     * a tick of slack for float rounding (0.025f is a hair above 1/40).
+     *
+     * <p>What breaks this: raising {@code MOTE_CHANCE_PER_LEVEL} or {@code MAX_MOTE_CHANCE} back to
+     * the old 0.02 / 0.12 (a glint every 2.5 s at level 1, 2.4 per second at full kit), dropping the
+     * cap (a full set at level 5 would glint four times as often as one piece), or letting a
+     * wearer without radiance glint at all.
+     */
+    public static void radianceGlintsStayRareAndFullSetsDoNotAddUp(GameTestHelper helper) {
+        helper.assertValueEqual(DynamicLightHandler.moteChance(0), 0.0f, "glint chance without radiance");
+        helper.assertValueEqual(DynamicLightHandler.moteChance(-3), 0.0f, "glint chance for a negative level");
+        double levelOne = 1.0 / DynamicLightHandler.moteChance(1);
+        helper.assertTrue(levelOne >= 160 && levelOne <= 200.5,
+                "one piece at radiance 1 glints every " + levelOne + " ticks on average, wanted 160-200 (8-10 s)");
+        double levelFive = 1.0 / DynamicLightHandler.moteChance(5);
+        helper.assertTrue(levelFive >= 39.5,
+                "one piece at radiance 5 glints every " + levelFive + " ticks on average, wanted at least 40 (2 s)");
+        for (int points = 1; points <= 20; points++) {
+            float chance = DynamicLightHandler.moteChance(points);
+            helper.assertTrue(chance >= DynamicLightHandler.moteChance(points - 1),
+                    "more radiance must never glint less often (level " + points + ")");
+            helper.assertTrue(chance <= DynamicLightHandler.MAX_MOTE_CHANCE,
+                    "radiance " + points + " glints above the cap: " + chance);
+        }
+        helper.assertTrue(1.0 / DynamicLightHandler.MAX_MOTE_CHANCE >= 39.5,
+                "the cap allows a glint every " + (1.0 / DynamicLightHandler.MAX_MOTE_CHANCE) + " ticks, wanted at least 40");
+        // Four pieces at level 5 (20 points) are capped: per piece far rarer than one piece alone.
+        helper.assertTrue(DynamicLightHandler.moteChance(20) / 4 < DynamicLightHandler.moteChance(5),
+                "a full set at radiance 5 glints as often per piece as a single piece - the cap is gone");
+        helper.succeed();
+    }
+
+    /**
+     * The radiance tooltip line names the level only: "Radiance: 3", "Strahlkraft: 3" - not the old
+     * "Radiance Level: 3/5", which read like a progress bar and disagreed with the glow line.
+     *
+     * <p>The line itself is client code ({@code ItemMixin} passes the level as the only argument
+     * of {@code tooltip.simplebuilding.radiance_level}); the client test pins the rendered text.
+     * This reads the shipped language files off the classpath, so both languages are covered on
+     * every server run.
+     *
+     * <p>What breaks this: a translation that brings the maximum back ("/5", "of 5", "von 5"), a
+     * renamed key, or a second placeholder the mixin does not fill.
+     */
+    public static void theRadianceTooltipShowsOnlyTheLevel(GameTestHelper helper) {
+        for (String[] expected : List.of(new String[]{"en_us", "Radiance: 3"}, new String[]{"de_de", "Strahlkraft: 3"})) {
+            String path = "assets/simplebuilding/lang/" + expected[0] + ".json";
+            String pattern;
+            try (java.io.InputStream in = DynamicLightTests.class.getClassLoader().getResourceAsStream(path)) {
+                helper.assertTrue(in != null, path + " is not on the classpath");
+                pattern = com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8))
+                        .getAsJsonObject().get("tooltip.simplebuilding.radiance_level").getAsString();
+            } catch (java.io.IOException e) {
+                throw new IllegalStateException("cannot read " + path, e);
+            }
+            helper.assertValueEqual(pattern.replace("%s", "3"), expected[1], expected[0] + " radiance tooltip line at level 3");
+            helper.assertTrue(pattern.indexOf('%') == pattern.lastIndexOf('%'), expected[0] + " radiance line has more than one placeholder: " + pattern);
+        }
+        helper.succeed();
+    }
 }

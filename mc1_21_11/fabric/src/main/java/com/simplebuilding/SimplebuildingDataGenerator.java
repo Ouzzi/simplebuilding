@@ -7,7 +7,9 @@ import com.simplebuilding.util.ModWorldGen;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
+import java.util.concurrent.CompletableFuture;
 import net.minecraft.core.registries.Registries;
 
 public class SimplebuildingDataGenerator implements DataGeneratorEntrypoint {
@@ -19,6 +21,8 @@ public class SimplebuildingDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(ModItemTagProvider::new);
         pack.addProvider(ModLootTableProvider::new);
         pack.addProvider(ModModelProvider::new);
+        // Sichtbare Besatzmuster auf den Ruestungs-Icons (Vanilla- und Enderit-Ruestung)
+        pack.addProvider((FabricDataOutput out, CompletableFuture<HolderLookup.Provider> reg) -> new ArmorTrimModelProvider(out, reg));
         pack.addProvider(ModRecipeProvider::new);
         pack.addProvider(ModRegistryDataGenerator::new);
         pack.addProvider(ModEnchantmentTagProvider::new);
