@@ -180,4 +180,4 @@ Nicht Teil der Balance, aber in derselben Runde geändert: Rüstungsständer und
 strahlenden Teilen setzen jetzt auch Licht (`DynamicLightHandler.tickWearer`/`tickItemFrame`,
 Position über `OwnedLightHolder` mit der Entity gespeichert, Aufräumen in `Entity.setRemoved`), und
 getragene/ausgestellte strahlende Teile geben feine Wachs-Glanz-Partikel ab (Chance je Tick
-2 % × Strahlkraft, höchstens 12 %). Seit der zweiten Runde setzen auch Mobs Licht (`DynamicLightHandler.tickWearer`, alle 4 Ticks, Position mit dem Mob gespeichert; Rüstungsständer alle 10 Ticks).
+0,5 % × Strahlkraft des ganzen Trägers, höchstens 2,5 % – Stufe 1 etwa alle 10 s, höchstens alle 2 s; bis 2026-09: 2 % / 12 %). Der Tooltip zeigt nur die Stufe („Strahlkraft: 3“). Seit der zweiten Runde setzen auch Mobs Licht (`DynamicLightHandler.tickWearer`, alle 4 Ticks, Position mit dem Mob gespeichert; Rüstungsständer alle 10 Ticks).

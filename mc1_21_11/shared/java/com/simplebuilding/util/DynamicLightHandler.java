@@ -190,7 +190,7 @@ public class DynamicLightHandler {
      * Leuchtende Teile sehen sonst genauso aus wie normale: feine, warme Schimmer-Partikel
      * (Wachs-Glanz: kurzlebig, selbstleuchtend, goldgelb wie der Glowstone-Staub der Aufwertung).
      * Die Chance je Tick waechst mit der Emission und ist gedeckelt, damit volle Ausruestung
-     * nicht qualmt. Unsichtbare Traeger zeigen nichts. Nur clientseitig wirksam.
+     * nicht qualmt - bewusst selten, ein Funke soll auffallen, nicht stoeren. Unsichtbare Traeger zeigen nichts. Nur clientseitig wirksam.
      */
     public static void tickGlowMotes(Entity entity, IntSupplier emissionPoints) {
         Level level = entity.level();
@@ -216,10 +216,22 @@ public class DynamicLightHandler {
         level.addParticle(ParticleTypes.WAX_ON, x, y, z, 0.0, 0.01, 0.0);
     }
 
-    public static final float MAX_MOTE_CHANCE = 0.12f;
+    /**
+     * Chance je Tick und Strahlkraft-Stufe des ganzen Traegers: Stufe 1 = im Mittel ein Funke alle
+     * 200 Ticks (10 s). Bis 2026-09 waren es 0,02 (alle 2,5 s) - an jedem strahlenden Teil funkelte es
+     * staendig.
+     */
+    public static final float MOTE_CHANCE_PER_LEVEL = 0.005f;
 
-    /** 1 Level: ein Funke etwa alle 2,5 s; ab 6 Level gedeckelt bei gut 2 pro Sekunde. */
+    /**
+     * Deckel fuer den ganzen Traeger: im Mittel hoechstens ein Funke alle 40 Ticks (2 s). Ein Teil auf
+     * Stufe 5 erreicht ihn schon, weitere Teile machen es also nicht dichter - je mehr strahlende Teile,
+     * desto seltener funkelt das einzelne. Bis 2026-09: 0,12 (gut 2 pro Sekunde).
+     */
+    public static final float MAX_MOTE_CHANCE = 0.025f;
+
+    /** Summe der Strahlkraft-Stufen des Traegers -> Chance je Tick; siehe die beiden Konstanten. */
     public static float moteChance(int emissionPoints) {
-        return Math.min(MAX_MOTE_CHANCE, 0.02f * Math.max(0, emissionPoints));
+        return Math.min(MAX_MOTE_CHANCE, MOTE_CHANCE_PER_LEVEL * Math.max(0, emissionPoints));
     }
 }

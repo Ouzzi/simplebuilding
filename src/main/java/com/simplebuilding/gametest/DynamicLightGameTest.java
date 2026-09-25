@@ -65,4 +65,14 @@ public final class DynamicLightGameTest {
     public void mobsWearingRadiantArmourLightTheBlockAboveThem(GameTestHelper helper) {
         DynamicLightTests.mobsWearingRadiantArmourLightTheBlockAboveThem(helper);
     }
+
+    @GameTest
+    public void radianceGlintsStayRareAndFullSetsDoNotAddUp(GameTestHelper helper) {
+        DynamicLightTests.radianceGlintsStayRareAndFullSetsDoNotAddUp(helper);
+    }
+
+    @GameTest
+    public void theRadianceTooltipShowsOnlyTheLevel(GameTestHelper helper) {
+        DynamicLightTests.theRadianceTooltipShowsOnlyTheLevel(helper);
+    }
 }
