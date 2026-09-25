@@ -110,6 +110,18 @@ CHAT_FIELD_DECLARATION = (
 #: muessen vor den allgemeineren stehen, sonst frisst client.gui.hud die
 #: getChat()-Regel auf.
 RULES: list[tuple[str, str, str]] = [
+    # Version shim of the 26.2/26.3 lines (com.simplebuilding.version.McClientVersion, in
+    # common/src/mc26_2 + mc26_3/overlay). 1.21.11 has no shim; these are the plain calls it stands for
+    # on 26.2, which exist on 1.21.11 too. First, so the matches(...getOrCreate(...)) rule below still
+    # sees its pattern.
+    (r"McClientVersion\.keyboardKey\(", "InputConstants.Type.KEYSYM.getOrCreate(",
+     "Versions-Shim 26.2/26.3: auf 1.21.11 wie auf 26.2 KEYSYM"),
+    (r"McClientVersion\.keyboardType\(\)", "InputConstants.Type.KEYSYM",
+     "dito"),
+    (r"McClientVersion\.isKeyDown\(client, ", "InputConstants.isKeyDown(client.getWindow(), ",
+     "dito, 26.3 hat den Fenster-Parameter gestrichen"),
+    (r"\nimport com\.simplebuilding\.version\.McClientVersion;\n", "",
+     "dito"),
     (r"client\.gui\.screen\(\)", "client.screen",
      "der Bildschirm haengt auf 1.21.11 noch an Minecraft"),
     (r"client\.gui\.setScreen\(", "client.setScreen(",

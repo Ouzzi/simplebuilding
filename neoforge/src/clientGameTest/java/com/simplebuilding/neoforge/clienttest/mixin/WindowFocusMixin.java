@@ -25,7 +25,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Window.class)
 public abstract class WindowFocusMixin {
 
-    @Inject(method = {"onFocus", "onEnter", "onIconify"}, at = @At("HEAD"), cancellable = true)
+    // onEnter/onIconify are the GLFW callbacks of MC 26.2; the SDL window of 26.3 has onFocus and
+    // onIconified. Unknown names in the list are skipped, the injector only needs one target.
+    @Inject(method = {"onFocus", "onEnter", "onIconify", "onIconified"}, at = @At("HEAD"), cancellable = true)
     private void simplebuilding$keepTheWindowActive(CallbackInfo ci) {
         ci.cancel();
     }

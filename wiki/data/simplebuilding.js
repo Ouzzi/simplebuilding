@@ -15531,7 +15531,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "cooking",
         "vanilla": "minecraft:blast_furnace",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:102",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:115",
         "extraTicks": 7,
         "cookingTicksPerTick": 8
       },
@@ -15915,7 +15915,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "cooking",
         "vanilla": "minecraft:smoker",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModSmokerBlockEntity.java:70",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModSmokerBlockEntity.java:85",
         "extraTicks": 7,
         "cookingTicksPerTick": 8
       },
@@ -16429,7 +16429,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "cooking",
         "vanilla": "minecraft:blast_furnace",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:97",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:110",
         "extraTicks": 3,
         "cookingTicksPerTick": 4
       },
@@ -16938,7 +16938,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "cooking",
         "vanilla": "minecraft:smoker",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModSmokerBlockEntity.java:65",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModSmokerBlockEntity.java:80",
         "extraTicks": 3,
         "cookingTicksPerTick": 4
       },
@@ -17911,7 +17911,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "cooking",
         "vanilla": "minecraft:blast_furnace",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:99",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:112",
         "extraTicks": 1,
         "cookingTicksPerTick": 2
       },
@@ -18340,7 +18340,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "cooking",
         "vanilla": "minecraft:smoker",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModSmokerBlockEntity.java:67",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModSmokerBlockEntity.java:82",
         "extraTicks": 1,
         "cookingTicksPerTick": 2
       },

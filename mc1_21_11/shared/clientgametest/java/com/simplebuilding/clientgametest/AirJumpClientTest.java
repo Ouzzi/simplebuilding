@@ -1,7 +1,6 @@
 package com.simplebuilding.clientgametest;
 
 import net.minecraft.resources.Identifier;
-import com.mojang.blaze3d.pipeline.RenderPipeline;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -1929,14 +1928,14 @@ public final class AirJumpClientTest {
      * and {@code guiHeight} are inherited, and those are the real window's values, which is exactly
      * what the overlay bases its layout on.
      */
-    private static final class HudRecorder extends GuiGraphics {
+    private static final class HudRecorder extends SpriteRecordingGraphics {
 
         private final List<HudFill> fills = new ArrayList<>();
         private final List<HudText> texts = new ArrayList<>();
         private final List<HudSprite> sprites = new ArrayList<>();
 
         private HudRecorder(Minecraft client) {
-            super(client, new GuiRenderState(), 0, 0);
+            super(client);
         }
 
         @Override
@@ -1944,14 +1943,9 @@ public final class AirJumpClientTest {
             fills.add(new HudFill(x1, y1, x2, y2, color));
         }
 
+        // Both blitSprite overloads the overlay uses end up here (see SpriteRecordingGraphics).
         @Override
-        public void blitSprite(RenderPipeline pipeline, Identifier sprite, int x, int y, int width, int height) {
-            sprites.add(new HudSprite(sprite.toString(), x, y, width, height));
-        }
-
-        @Override
-        public void blitSprite(RenderPipeline pipeline, Identifier sprite, int textureWidth, int textureHeight,
-                               int u, int v, int x, int y, int width, int height) {
+        protected void recordSprite(Identifier sprite, int x, int y, int width, int height) {
             sprites.add(new HudSprite(sprite.toString(), x, y, width, height));
         }
 

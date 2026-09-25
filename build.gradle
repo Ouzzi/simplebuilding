@@ -250,6 +250,62 @@ tasks.register('checkWiki', Exec) {
 }
 tasks.named('check') { dependsOn 'checkWiki' }
 
+// The Minecraft 26.3 line compiles the 26.2 trees plus small overlays instead of a copy of its own.
+// Two things keep that honest:
+//   1. No class may exist both in a shared tree and in an overlay - it would be two classes with one
+//      name on the 26.3 classpath (javac fails, or worse, the wrong one wins).
+//   2. Every overlay file has its twin on the other line: whatever is swapped out for 26.3 must
+//      still exist for 26.2 (and the other way round), or one line silently loses it.
+// Pairs: <26.2 side> / <26.3 side> / <shared trees both sides compile>.
+def overlayPairs = [
+		['common/src/mc26_2/java', 'mc26_3/overlay/java',
+		 ['common/src/shared/java', 'common/src/jei/java', 'src/main/java', 'neoforge/src/main/java']],
+		['src/mc26_2/java', 'mc26_3/fabric/src/main/java',
+		 ['common/src/shared/java', 'common/src/jei/java', 'src/main/java']],
+		['neoforge/src/mc26_2/java', 'mc26_3/neoforge/src/main/java',
+		 ['common/src/shared/java', 'common/src/jei/java', 'neoforge/src/main/java']],
+		['common/src/mc26_2/clientgametest/java', 'mc26_3/overlay/clientgametest/java',
+		 ['common/src/shared/clientgametest/java', 'src/gametest/java', 'neoforge/src/clientGameTest/java']],
+		['neoforge/src/mc26_2/clientGameTest/java', 'mc26_3/neoforge/src/clientGameTest/java',
+		 ['common/src/shared/clientgametest/java', 'neoforge/src/clientGameTest/java']],
+]
+tasks.register('checkOverlays') {
+	group = 'verification'
+	description = 'Fails when a class exists both in a shared tree and in an MC 26.2/26.3 overlay, or lacks its twin.'
+	overlayPairs.collectMany { pair -> [pair[0], pair[1]] + pair[2] }.unique().each { dir ->
+		def f = file(dir)
+		if (f.isDirectory()) inputs.dir(f).withPropertyName('tree_' + dir.replaceAll('[^A-Za-z0-9]', '_'))
+	}
+	outputs.upToDateWhen { true }
+	def root = projectDir
+	doLast {
+		def rel = { File dir ->
+			def out = [] as Set
+			if (dir.isDirectory()) dir.eachFileRecurse(groovy.io.FileType.FILES) { f ->
+				if (f.name.endsWith('.java')) out << dir.toPath().relativize(f.toPath()).toString().replace(File.separator, '/')
+			}
+			out
+		}
+		def problems = []
+		overlayPairs.each { pair ->
+			def old = rel(new File(root, pair[0]))
+			def neu = rel(new File(root, pair[1]))
+			pair[2].each { shared ->
+				def inShared = rel(new File(root, shared))
+				(old + neu).intersect(inShared).each { problems << "${it} is in ${shared} AND in an overlay (${pair[0]} / ${pair[1]})" }
+			}
+			(old - neu).each { problems << "${pair[0]}/${it} has no 26.3 twin in ${pair[1]}" }
+			(neu - old).each { problems << "${pair[1]}/${it} has no 26.2 twin in ${pair[0]}" }
+		}
+		if (problems) {
+			throw new GradleException("Overlay check failed:" + System.lineSeparator() + "  "
+					+ problems.join(System.lineSeparator() + "  "))
+		}
+		logger.lifecycle("checkOverlays: ${overlayPairs.sum { rel(new File(root, it[1])).size() }} overlay files, each with its twin, none shadowing a shared class")
+	}
+}
+tasks.named('check') { dependsOn 'checkOverlays' }
+
 java {
 	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
 	// if it is present.

@@ -62,6 +62,8 @@ sourceSets {
         java.srcDir '../common/src/shared/clientgametest/java'
         // 26.2 side of the client-test version shim (26.3 twin: mc26_3/overlay/clientgametest/java)
         java.srcDir '../common/src/mc26_2/clientgametest/java'
+        // NeoForge-only client test files that differ on 26.3 (twins: mc26_3/neoforge/src/clientGameTest/java)
+        java.srcDir 'src/mc26_2/clientGameTest/java'
     }
 }
 

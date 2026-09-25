@@ -4,7 +4,6 @@ import com.simplebuilding.version.McClientVersion;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
-import com.simplebuilding.neoforge.clienttest.mixin.MouseHandlerAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.input.MouseButtonInfo;
 
@@ -84,14 +83,12 @@ final class Input {
      */
     private static void onButton(int button, int action) {
         Minecraft client = Minecraft.getInstance();
-        ((MouseHandlerAccessor) client.mouseHandler).simplebuilding$onButton(
-                client.getWindow().handle(), new MouseButtonInfo(button, 0), action);
+        MouseEvents.button(client, new MouseButtonInfo(button, 0), action);
     }
 
     static void scroll(double amount) {
         Minecraft client = Minecraft.getInstance();
-        ((MouseHandlerAccessor) client.mouseHandler)
-                .simplebuilding$onScroll(client.getWindow().handle(), 0.0, amount);
+        MouseEvents.scroll(client, amount);
     }
 
     static void setCursorPos(double x, double y) {
@@ -102,7 +99,6 @@ final class Input {
         // moveCursorToGui does the GUI-to-window arithmetic itself, because that has to happen on
         // the client thread while the harness call does not. Scaling again put the cursor off the
         // inventory entirely and no slot ever reported itself hovered.
-        ((MouseHandlerAccessor) client.mouseHandler)
-                .simplebuilding$onMove(client.getWindow().handle(), x, y);
+        MouseEvents.move(client, x, y);
     }
 }

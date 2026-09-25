@@ -13,7 +13,7 @@ group = rootProject.group
 version = rootProject.version
 
 base {
-    archivesName = "${rootProject.archives_base_name}-neoforge-${rootProject.mc263_minecraft_version}"
+    archivesName = "${rootProject.archives_base_name}-${rootProject.mc263_minecraft_version}-neoforge"
 }
 
 java {

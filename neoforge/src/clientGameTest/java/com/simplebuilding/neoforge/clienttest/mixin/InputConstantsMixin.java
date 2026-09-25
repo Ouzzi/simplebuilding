@@ -1,7 +1,7 @@
 package com.simplebuilding.neoforge.clienttest.mixin;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.blaze3d.platform.Window;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.simplebuilding.neoforge.clienttest.HeldKeys;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,8 +23,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class InputConstantsMixin {
 
     @Inject(method = "isKeyDown", at = @At("HEAD"), cancellable = true)
-    private static void simplebuilding$reportHarnessHeldKeys(Window window, int key,
-                                                             CallbackInfoReturnable<Boolean> cir) {
+    // The key code through @Local instead of the parameter list: MC 26.2 has isKeyDown(Window, int),
+    // 26.3 (SDL) isKeyDown(int) - one handler fits both.
+    private static void simplebuilding$reportHarnessHeldKeys(CallbackInfoReturnable<Boolean> cir,
+                                                             @Local(argsOnly = true) int key) {
         if (HeldKeys.anyHeld() && HeldKeys.isHeld(key)) {
             cir.setReturnValue(true);
         }

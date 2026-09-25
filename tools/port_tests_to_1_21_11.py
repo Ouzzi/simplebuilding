@@ -161,6 +161,27 @@ DRIFT_EXPLAINED: dict[str, str] = {
 DRIFT_TOLERANCE = 12
 
 
+#: The 26.2 test bodies are compiled against MC 26.3 as well (the mc26_3 modules); where the two
+#: versions disagree they call the version shim com.simplebuilding.version.McVersion instead of the
+#: API. For the drift comparison those calls are folded back into the plain 26.2 spelling, which is
+#: what the 1.21.11 copy says too. _ARG matches one level of nested parentheses.
+_ARG = r"((?:[^()]|\([^()]*\))+?)"
+SHIM_FOLDS: list[tuple[str, str]] = [
+    (r"McVersion\.resetInvulnerableTime\(" + _ARG + r"\);", r"\1.invulnerableTime = 0;"),
+    (r"McVersion\.setInvulnerable\(" + _ARG + r", (true|false)\);", r"\1.setInvulnerable(\2);"),
+    (r"McVersion\.visibilityPercent\(" + _ARG + r", ", r"\1.getVisibilityPercent("),
+    (r"McVersion\.bundleItemCopies\(" + _ARG + r"\)", r"\1.itemCopyStream()"),
+    (r"McVersion\.emptyBundleMutable\(\)", "new BundleContents.Mutable(BundleContents.EMPTY)"),
+    (r"McVersion\.tradeSetTrades\(" + _ARG + r"\)", r"\1.getTrades()"),
+]
+
+
+def fold_version_shim(text: str) -> str:
+    for pattern, replacement in SHIM_FOLDS:
+        text = re.sub(pattern, replacement, text)
+    return text
+
+
 def normalised_body(text: str) -> set[str]:
     """The lines of a test class that mean something, in 26.2 spelling, as a set.
 
@@ -174,6 +195,7 @@ def normalised_body(text: str) -> set[str]:
     text = re.sub(r"TestCleanup\.before\(helper, ", "helper.runBeforeTestEnd(", text)
     text = text.replace(".thenExecute(() -> TestCleanup.run(helper))\n                .thenSucceed();", ".thenSucceed();")
     text = re.sub(r"\bEntityType\.", "EntityTypes.", text)
+    text = fold_version_shim(text)
     text = re.sub(r"^import .*\n", "", text, flags=re.M)
     return {line.strip() for line in text.split("\n")
             if line.strip() and not line.strip().startswith(("*", "//", "/*"))}

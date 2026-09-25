@@ -826,7 +826,7 @@ public final class ItemRenderingClientTest {
 
     /** A float field {@code HeldItemRendererMixin} adds to the item in hand renderer, by name. */
     private static float rendererFloat(Minecraft client, String fieldName, String what) {
-        Object renderer = client.getEntityRenderDispatcher().getItemInHandRenderer();
+        Object renderer = ClientTestVersion.firstPersonItemRenderer(client);
         List<String> names = new ArrayList<>();
 
         for (java.lang.reflect.Field field : renderer.getClass().getDeclaredFields()) {

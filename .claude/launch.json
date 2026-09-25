@@ -128,6 +128,46 @@
         "Set-Location -LiteralPath 'C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding'; .\\gradlew.bat :mc1_21_11:neoforge:runServer"
       ],
       "port": 25565
+    },
+    {
+      "name": "fabric-client 26.3",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-Command",
+        "Set-Location -LiteralPath 'C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding'; .\\gradlew.bat :mc26_3:fabric:runClient"
+      ],
+      "port": 25605
+    },
+    {
+      "name": "fabric-server 26.3",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-Command",
+        "Set-Location -LiteralPath 'C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding'; .\\gradlew.bat :mc26_3:fabric:runServer"
+      ],
+      "port": 25565
+    },
+    {
+      "name": "neoforge-client 26.3",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-Command",
+        "Set-Location -LiteralPath 'C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding'; .\\gradlew.bat :mc26_3:neoforge:runClient"
+      ],
+      "port": 25606
+    },
+    {
+      "name": "neoforge-server 26.3",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-Command",
+        "Set-Location -LiteralPath 'C:\\Users\\oussa\\Downloads\\Minecraft\\Mine\\custom created mods\\simplebuilding'; .\\gradlew.bat :mc26_3:neoforge:runServer"
+      ],
+      "port": 25565
     }
   ]
 }
