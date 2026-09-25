@@ -103,6 +103,8 @@ public final class ForgeGameplayEvents {
     public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getEntity() instanceof ServerPlayer serverPlayer) {
             LegacySpatulaMigration.migratePlayer(serverPlayer);
+            com.simplebuilding.dev.testcentre.TestCentreCommand.onPlayerJoin(serverPlayer,
+                    com.simplebuilding.platform.ModEnvironment.isDevelopmentEnvironment());
             // Wie Fabric (ModMessages, JOIN) und NeoForge (NeoForgeNetworkRegistration): die
             // Todes-Basiswerte der Resonanz an den Client. Ohne das rechnet der Forge-Client bis zum
             // ersten Respawn mit Basis 0, also mit der ganzen Lebenszeit-Statistik - Tooltips und die

@@ -102,6 +102,8 @@ public final class NeoForgeGameplayEvents {
     public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getEntity() instanceof ServerPlayer serverPlayer) {
             LegacySpatulaMigration.migratePlayer(serverPlayer);
+            com.simplebuilding.dev.testcentre.TestCentreCommand.onPlayerJoin(serverPlayer,
+                    com.simplebuilding.platform.ModEnvironment.isDevelopmentEnvironment());
         }
     }
 

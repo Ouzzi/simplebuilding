@@ -161,4 +161,25 @@ public final class McVersion {
     public static BlockBehaviour.Properties neverViewBlocking(BlockBehaviour.Properties properties) {
         return properties.isViewBlocking((state, level, pos, nearPlane) -> false);
     }
+
+    /** Front text of a sign, up to four lines (26.3: list constructor and SignTextSlot instead of setMessage/boolean). */
+    public static void setSignFrontText(net.minecraft.world.level.block.entity.SignBlockEntity sign,
+            java.util.List<Component> lines) {
+        java.util.List<Component> padded = new java.util.ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            padded.add(i < lines.size() ? lines.get(i) : Component.empty());
+        }
+        sign.setText(new net.minecraft.world.level.block.entity.SignText(padded, padded,
+                net.minecraft.world.item.DyeColor.BLACK, false), net.minecraft.world.level.block.entity.SignTextSlot.FRONT);
+    }
+
+    /** One line of a sign's front text (26.3: getText(SignTextSlot).getMessages). */
+    public static Component signFrontLine(net.minecraft.world.level.block.entity.SignBlockEntity sign, int index) {
+        return sign.getText(net.minecraft.world.level.block.entity.SignTextSlot.FRONT).getMessages(false).get(index);
+    }
+
+    /** Puts a stack into the inventory or drops it at the player (26.3 added a Prediction argument). */
+    public static void placeItemBackInInventory(Player player, ItemStack stack) {
+        player.getInventory().placeItemBackInInventory(stack, Prediction.SERVER_ONLY);
+    }
 }
