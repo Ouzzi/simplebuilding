@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:netherite_ingot",
+  "base": "simplebuilding:diamond_pressure_plate",
+  "result": {
+    "id": "simplebuilding:netherite_pressure_plate"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

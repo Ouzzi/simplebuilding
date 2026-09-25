@@ -16,10 +16,12 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.simplebuilding.Simplebuilding"
+      "com.simplebuilding.Simplebuilding",
+      "com.simplebuilding.tweaks.fabric.TweaksFabric"
     ],
     "client": [
-      "com.simplebuilding.SimplebuildingClient"
+      "com.simplebuilding.SimplebuildingClient",
+      "com.simplebuilding.tweaks.fabric.TweaksFabricClient"
     ],
     "fabric-datagen": [
       "com.simplebuilding.SimplebuildingDataGenerator"
@@ -78,11 +80,13 @@
       "com.simplebuilding.gametest.InWorldExportGameTest",
       "com.simplebuilding.gametest.EnderiteMachineGameTest",
       "com.simplebuilding.gametest.SmeltingGameTest",
-      "com.simplebuilding.gametest.TradeOfferGameTest"
+      "com.simplebuilding.gametest.TradeOfferGameTest",
+      "com.simplebuilding.gametest.TweaksGameTest"
     ]
   },
   "mixins": [
     "simplebuilding.mixins.json",
+    "simplebuilding.tweaks.mixins.json",
     {
       "config": "simplebuilding.client.mixins.json",
       "environment": "client"

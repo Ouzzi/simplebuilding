@@ -394,6 +394,8 @@ public final class ConfigOptionTests {
     private static final Set<String> EXPECTED_OPTIONS = Set.of(
             "root.tools group:Tools",
             "root.worldGen group:WorldGen",
+            // Simple-Tweaks-Abschnitt; seine Optionen prueft TweaksTests#tweaksConfigKeepsItsNamesAndDefaults.
+            "root.tweaks group:TweaksConfig",
             "root.enableDoubleJump boolean=true",
             "root.airJumpCooldownTicks int=100",
             "root.enableArmorTrimBenefits boolean=true",
@@ -1561,7 +1563,8 @@ public final class ConfigOptionTests {
             String type = field.getType().getSimpleName();
             if (Modifier.isStatic(field.getModifiers())) {
                 into.add(name + " " + type + " runtime-only(static)");
-            } else if (field.getType().getEnclosingClass() == SimplebuildingConfig.class) {
+            } else if (field.getType().getEnclosingClass() == SimplebuildingConfig.class
+                    || field.getType() == com.simplebuilding.tweaks.TweaksConfig.class) {
                 into.add(name + " group:" + type);
             } else {
                 try {

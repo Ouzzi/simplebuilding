@@ -292,6 +292,15 @@ public final class ModItemGroupsContent {
      * eine Zeile mit mehr als neun Eintraegen laeuft in die naechste weiter.
      */
     public static List<CreativeTabLayout.Row> functionalRows() {
+        List<CreativeTabLayout.Row> rows = new java.util.ArrayList<>(baseFunctionalRows());
+        // Aus Simple Tweaks: Druckplatten, Pads, Teleporter, Launchpads/Chunk-Loader - vor der
+        // Bauplanung, die als volle Neunerzeile am Ende bleibt.
+        rows.addAll(com.simplebuilding.tweaks.item.TweaksItems.functionalRows());
+        rows.add(buildingPlanningRow());
+        return List.copyOf(rows);
+    }
+
+    private static List<CreativeTabLayout.Row> baseFunctionalRows() {
         return List.of(
                 CreativeTabLayout.Row.of("hoppers",
                         Items.HOPPER, ModItems.REINFORCED_HOPPER, ModItems.NETHERITE_HOPPER, ModItems.ENDERITE_HOPPER),
@@ -310,10 +319,10 @@ public final class ModItemGroupsContent {
                 CreativeTabLayout.Row.of("quivers",
                         ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER),
                 CreativeTabLayout.Row.of("backpacks",
-                        ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK),
-                // Bauplanung: Blaupause, Kartografentisch (dort wird sie beschrieben), ein Oktant fuer die
-                // Flaeche und alle Baustaebe. Oktant und Baustaebe stehen damit auch in SimpleTools.
-                buildingPlanningRow());
+                        ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK));
+        // Bauplanung (in functionalRows angehaengt): Blaupause, Kartografentisch (dort wird sie
+        // beschrieben), ein Oktant fuer die Flaeche und alle Baustaebe. Oktant und Baustaebe stehen
+        // damit auch in SimpleTools.
     }
 
     public static CreativeTabLayout.Row buildingPlanningRow() {

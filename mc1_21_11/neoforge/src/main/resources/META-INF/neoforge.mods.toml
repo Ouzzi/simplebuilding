@@ -8,6 +8,9 @@ config="simplebuilding.mixins.json"
 [[mixins]]
 config="simplebuilding.client.mixins.json"
 
+[[mixins]]
+config="simplebuilding.tweaks.mixins.json"
+
 # Oeffnet LevelRenderer#submitNodeStorage; NeoForge 21.11.45 hat noch kein
 # SubmitCustomGeometryEvent (siehe SimplebuildingNeoForgeClient#onRenderLevelStage).
 [[accessTransformers]]

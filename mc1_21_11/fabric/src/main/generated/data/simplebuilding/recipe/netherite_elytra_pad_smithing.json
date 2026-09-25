@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:netherite_ingot",
+  "base": "simplebuilding:reinforced_elytra_pad",
+  "result": {
+    "id": "simplebuilding:netherite_elytra_pad"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

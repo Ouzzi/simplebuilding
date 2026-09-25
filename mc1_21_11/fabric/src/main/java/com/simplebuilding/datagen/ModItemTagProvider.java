@@ -61,6 +61,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .forceAddTag(ModTags.Items.OCTANTS_ENCHANTABLE);
 
         builder(ItemTags.DURABILITY_ENCHANTABLE)
+                // Echo-Kompass (Simple Tweaks): Unbreaking/Mending wirken, siehe EchoCompassItem.
+                .add(key(com.simplebuilding.tweaks.item.TweaksItems.ECHO_COMPASS))
                 .addTag(ModTags.Items.CHISEL_TOOLS)
                 .addTag(ModTags.Items.OCTANTS_ENCHANTABLE)
                 .add(key(ModItems.ORE_DETECTOR))

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "simplebuilding:block/enderite_chunk_loader"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": "minecraft:netherite_block",
+    "D": "minecraft:diamond_block",
+    "E": "minecraft:enchanted_golden_apple",
+    "F": "simplebuilding:reinforced_flypad",
+    "K": "minecraft:ominous_trial_key",
+    "S": "minecraft:nether_star"
+  },
+  "pattern": [
+    "DBD",
+    "ESE",
+    "KFK"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:netherite_flypad"
+  }
+}

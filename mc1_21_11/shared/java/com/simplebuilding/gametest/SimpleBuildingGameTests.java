@@ -924,7 +924,77 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("trade_offer_game_test_spatulas_in_containers_survive_the_world_scan", TradeOfferTests::spatulasInContainersSurviveTheWorldScan)
                     .build(),
             GameTestSpec.named("trade_offer_game_test_no_recipe_references_the_legacy_spatulas", TradeOfferTests::noRecipeReferencesTheLegacySpatulas)
-                    .build());
+                    .build(),
+            // --- tweaks (generated) ---
+            GameTestSpec.named("tweaks_game_test_pad_tiers_grow_and_enderite_sits_between_netherite_and_the_nether_star_tier", TweaksTests::padTiersGrowAndEnderiteSitsBetweenNetheriteAndTheNetherStarTier)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_enderite_tiers_are_smithed_from_the_netherite_tier_and_the_nether_star_tiers_from_enderite", TweaksTests::enderiteTiersAreSmithedFromTheNetheriteTierAndTheNetherStarTiersFromEnderite)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_stellar_flypad_is_crafted_from_enderite_flypads", TweaksTests::theStellarFlypadIsCraftedFromEnderiteFlypads)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_echo_compass_is_crafted_from_the_recovery_compass_the_enderite_core_and_netherite_plates", TweaksTests::theEchoCompassIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndNetheritePlates)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_elytra_pads_equip_an_unsafe_spawn_elytra_in_their_area", TweaksTests::elytraPadsEquipAnUnsafeSpawnElytraInTheirArea)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_elytra_pads_recharge_boosts_in_the_column_and_from_enderite_on_in_the_whole_area", TweaksTests::elytraPadsRechargeBoostsInTheColumnAndFromEnderiteOnInTheWholeArea)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_spawn_elytra_boost_spends_one_charge_and_only_while_gliding", TweaksTests::theSpawnElytraBoostSpendsOneChargeAndOnlyWhileGliding)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_safe_spawn_elytras_and_enderite_launches_prevent_fall_damage", TweaksTests::safeSpawnElytrasAndEnderiteLaunchesPreventFallDamage)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_pad_elytras_expire_even_with_the_spawn_elytra_switched_off", TweaksTests::padElytrasExpireEvenWithTheSpawnElytraSwitchedOff)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_flypads_grant_flight_inside_and_take_it_back_outside", TweaksTests::flypadsGrantFlightInsideAndTakeItBackOutside)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_enderite_flypads_catch_flyers_leaving_their_area_with_slow_falling", TweaksTests::enderiteFlypadsCatchFlyersLeavingTheirAreaWithSlowFalling)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_switched_off_flypads_grant_no_flight", TweaksTests::switchedOffFlypadsGrantNoFlight)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_spawn_teleporters_send_still_players_to_their_spawn_point", TweaksTests::spawnTeleportersSendStillPlayersToTheirSpawnPoint)
+                    .maxTicks(TweaksTests.TELEPORTER_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_spawn_teleporter_targets_fall_back_to_the_world_spawn", TweaksTests::spawnTeleporterTargetsFallBackToTheWorldSpawn)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_copper_plates_wait_longer_the_more_they_oxidized", TweaksTests::copperPlatesWaitLongerTheMoreTheyOxidized)
+                    .maxTicks(TweaksTests.COPPER_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_copper_plates_oxidize_in_order_and_the_axe_scrapes_them_back", TweaksTests::copperPlatesOxidizeInOrderAndTheAxeScrapesThemBack)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_diamond_pressure_plates_react_to_players_only", TweaksTests::diamondPressurePlatesReactToPlayersOnly)
+                    .maxTicks(TweaksTests.COPPER_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_netherite_plates_admit_only_holders_of_barrel_items", TweaksTests::netheritePlatesAdmitOnlyHoldersOfBarrelItems)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_enderite_plates_lock_to_their_owner_and_named_tags", TweaksTests::enderitePlatesLockToTheirOwnerAndNamedTags)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_owners_break_their_pads_fast_and_strangers_slowly", TweaksTests::ownersBreakTheirPadsFastAndStrangersSlowly)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_placing_pads_makes_the_placer_the_owner", TweaksTests::placingPadsMakesThePlacerTheOwner)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_chunk_loaders_force_their_chunks_and_release_them_when_broken", TweaksTests::chunkLoadersForceTheirChunksAndReleaseThemWhenBroken)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_launchpads_hold_sixteen_wind_charges_and_the_enderite_one_thirty_two", TweaksTests::launchpadsHoldSixteenWindChargesAndTheEnderiteOneThirtyTwo)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_echo_compass_links_to_the_lodestone_and_teleports_for_one_pearl", TweaksTests::theEchoCompassLinksToTheLodestoneAndTeleportsForOnePearl)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_unbreaking_protects_the_echo_compass", TweaksTests::unbreakingProtectsTheEchoCompass)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_first_join_gift_comes_once_and_honours_simple_tweaks_players", TweaksTests::theFirstJoinGiftComesOnceAndHonoursSimpleTweaksPlayers)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_nether_and_the_end_can_be_locked_by_config", TweaksTests::theNetherAndTheEndCanBeLockedByConfig)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_xp_orbs_clump_without_losing_experience", TweaksTests::xpOrbsClumpWithoutLosingExperience)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_rocket_stack_size_follows_the_config", TweaksTests::theRocketStackSizeFollowsTheConfig)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_kill_boats_removes_boats_by_mode", TweaksTests::killBoatsRemovesBoatsByMode)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_tweaks_config_keeps_its_names_and_defaults", TweaksTests::tweaksConfigKeepsItsNamesAndDefaults)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_tweaks_commands_write_the_config", TweaksTests::theTweaksCommandsWriteTheConfig)
+                    .build()
+            // --- /tweaks ---
+            );
 
     private SimpleBuildingGameTests() {
     }

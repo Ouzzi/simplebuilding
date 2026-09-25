@@ -14,6 +14,10 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     public WorldGen worldGen = new WorldGen();
 
+    // Aus Simple Tweaks uebernommen (Druckplatten/Pads, Spawn, XP, Laser...), siehe TweaksConfig.
+    @ConfigEntry.Gui.CollapsibleObject
+    public com.simplebuilding.tweaks.TweaksConfig tweaks = new com.simplebuilding.tweaks.TweaksConfig();
+
     @ConfigEntry.Gui.Tooltip
     public boolean enableDoubleJump = true;
 

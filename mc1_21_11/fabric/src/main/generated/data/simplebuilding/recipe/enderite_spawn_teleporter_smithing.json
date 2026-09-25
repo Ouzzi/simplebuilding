@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "simplebuilding:enderite_ingot",
+  "base": "simplebuilding:spawn_teleporter_tier_4",
+  "result": {
+    "id": "simplebuilding:enderite_spawn_teleporter"
+  },
+  "template": "simplebuilding:enderite_upgrade_template"
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_reinforced_flypad": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:reinforced_flypad"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "simplebuilding:netherite_flypad_crafting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_reinforced_flypad"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:netherite_flypad_crafting"
+    ]
+  }
+}

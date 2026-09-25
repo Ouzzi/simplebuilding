@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "simplebuilding:enderite_ingot",
+  "base": "simplebuilding:launchpad",
+  "result": {
+    "id": "simplebuilding:enderite_launchpad"
+  },
+  "template": "simplebuilding:enderite_upgrade_template"
+}

@@ -1302,6 +1302,8 @@ public final class TrimWiringTests {
                             + "SimplebuildingCommand.OPERATOR_ONLY, so the loader builds its own tree again");
             CommandDispatcher<CommandSourceStack> reference = new CommandDispatcher<>();
             SimplebuildingCommand.register(reference);
+            // /simplebuilding tweaks ... haengt der Simple-Tweaks-Teil an denselben Knoten.
+            com.simplebuilding.tweaks.command.TweaksCommands.register(reference);
             CommandSourceStack source = player.createCommandSourceStack();
             Assertions.valueEqual(helper, List.of(dispatcher.getAllUsage(live, source, false)),
                     List.of(reference.getAllUsage(reference.getRoot().getChild("simplebuilding"), source, false)),
