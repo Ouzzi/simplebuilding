@@ -3162,6 +3162,7 @@
           "The colors come from the same trim palettes vanilla uses for the worn armor, including the darker variant when material and armor match (an iron trim on iron armor, gold on gold, and so on).",
           "Without a trim - and with trim patterns or materials from other mods, which this mod has no picture for - the icon looks exactly like in vanilla.",
           "Armor stands, item frames, dropped items and the item in hand use the same item model and show the pattern too.",
+          "Two client settings switch the patterns off - one for vanilla armor (visibleTrimIconsVanillaArmor), one for Enderite armor (visibleTrimIconsModArmor); the icon then looks like in vanilla. The change shows immediately.",
           "The glowing and emitting upgrade templates are not trim patterns (they raise glow and radiance) and therefore have no picture of their own."
         ]
       },
@@ -3173,6 +3174,7 @@
           "Die Farben stammen aus denselben Besatz-Paletten, die Vanilla für die getragene Rüstung nutzt, samt der dunkleren Stufe, wenn Material und Rüstung gleich sind (Eisenbesatz auf Eisenrüstung, Gold auf Gold usw.).",
           "Ohne Besatz – und bei Mustern oder Materialien anderer Mods, für die der Mod kein Bild hat – sieht das Symbol genau wie in Vanilla aus.",
           "Rüstungsständer, Rahmen, fallengelassene Items und das Item in der Hand benutzen dasselbe Item-Modell und zeigen das Muster ebenfalls.",
+          "Zwei Client-Einstellungen schalten die Muster ab – eine für Vanilla-Rüstung (visibleTrimIconsVanillaArmor), eine für Enderit-Rüstung (visibleTrimIconsModArmor); das Symbol sieht dann wie in Vanilla aus. Die Änderung wirkt sofort.",
           "Die leuchtende und die strahlende Schmiedevorlage sind keine Besatzmuster (sie erhöhen Leuchten und Strahlkraft) und haben deshalb kein eigenes Bild."
         ]
       }
@@ -3407,7 +3409,10 @@
           "Enable Armor Trim Benefits (enableArmorTrimBenefits, default on): reported by the client to the server when joining a world, and switches the pattern and material bonuses for that player; a change only takes effect after rejoining, because the value is only sent at login.",
           "Pistons Breach End Portal Frames (pistonsBreachEndPortalFrames, default on): whether the mod's pistons treat End Portal Frames as breachable unbreakable blocks (a paid Reinforced Piston pushes one, a Netherite or Enderite Piston destroys it); off, the frame counts as immune. Read on the server by PistonBreach.",
           "Show Enchanted (Dev) Creative Tab (showDevEnchantedTab, default off): shows the creative tab \"SimpleEnchants (Dev)\" outside a development environment too (in one it is always there). Read whenever the creative tabs are rebuilt, so a change takes effect at the latest after rejoining the world (DevEnchantedTab.isShown).",
-          "Own Textures for Vanilla Enchanted Books (vanillaEnchantedBookTextures, default on, client side): every vanilla enchantment gets its own enchanted book in the style of the mod books - a cover colour and a symbol that fits the enchantment (shield for Protection, flame for Fire Protection, feather for Feather Falling, clover for Fortune, heart for Mending and so on). A book with several enchantments shows the first vanilla one; a mod enchantment always wins. Off, vanilla enchantments show the vanilla book again, so a resource pack or another mod that retextures the books is not overridden.",
+          "Own Textures for Vanilla Enchanted Books (vanillaEnchantedBookTextures, default on, client side): every vanilla enchantment gets its own enchanted book in the style of the mod books - a cover colour and a symbol that fits the enchantment (shield for Protection, flame for Fire Protection, feather for Feather Falling, clover for Fortune, heart for Mending and so on). A book with several enchantments shows the first vanilla one; a mod enchantment always wins. Off, vanilla enchantments show the vanilla book again, so a resource pack or another mod that retextures the books is not overridden. Like the other texture switches below it takes effect immediately, without a resource reload.",
+          "Own Textures for Mod Enchanted Books (modEnchantedBookTextures, default on, client side): every enchantment of this mod shows its own enchanted book. Off, mod enchantments show the plain vanilla enchanted book (vanilla parity); a book that also carries a vanilla enchantment then shows that one's book, as long as the switch above is on. Takes effect immediately.",
+          "Visible Trim Patterns on Vanilla Armor Icons (visibleTrimIconsVanillaArmor, default on, client side): trimmed vanilla armor (and the turtle shell) shows the trim pattern on its item icon, see Visible Armor Trims in the Inventory. Off, the icon is vanilla's own, with only the material's colour mark - for resource packs or mods that draw their own trim icons. Takes effect immediately.",
+          "Visible Trim Patterns on Enderite Armor Icons (visibleTrimIconsModArmor, default on, client side): the same switch for the mod's Enderite armor, independent of the vanilla one. Takes effect immediately.",
           "Trim Benefit Base Multiplier (trimBenefitBaseMultiplier, default 2.0): base of the resonance multiplier; changeable at runtime with /simplebuilding config setTrimMultiplier <value> (operators only), /simplebuilding config getTrimMultiplier shows it; the command does not write the value back into the config file.",
           "Max Multiplier Limit (maxMultiplierLimit, default 10.0): upper bound for the value in the setTrimMultiplier command (read when the command is registered); otherwise it has no effect.",
           "Tool Settings → Invert Octant Sneak (invertOctantSneak, default off): inverts whether the Octant's area fill is shown with or without Constructor's Touch (showFill = inverted XOR enchantment present).",
@@ -3431,7 +3436,10 @@
           "Rüstungsbesatz-Vorteile aktivieren (enableArmorTrimBenefits, Standard an): wird beim Betreten einer Welt vom Client an den Server gemeldet und schaltet die Muster- und Material-Boni für diesen Spieler; eine Änderung wirkt erst nach erneutem Betreten, da der Wert nur beim Login gesendet wird.",
           "Kolben durchbrechen Endportalrahmen (pistonsBreachEndPortalFrames, Standard an): ob die Kolben der Mod Endportalrahmen als durchbrechbare unzerstörbare Blöcke behandeln (ein bezahlter Verstärkter Kolben schiebt einen, ein Netherit- oder Enderitkolben zerstört ihn); aus, gilt der Rahmen als immun. Wird serverseitig von PistonBreach gelesen.",
           "Kreativ-Tab „Verzaubert (Dev)“ zeigen (showDevEnchantedTab, Standard aus): zeigt den Kreativ-Reiter „SimpleEnchants (Dev)“ auch außerhalb einer Entwicklungsumgebung (dort ist er immer da). Gelesen, wenn die Kreativ-Reiter neu aufgebaut werden; eine Änderung wirkt also spätestens nach erneutem Betreten der Welt (DevEnchantedTab.isShown).",
-          "Eigene Texturen für Vanilla-Zauberbücher (vanillaEnchantedBookTextures, Standard an, clientseitig): jede Vanilla-Verzauberung bekommt ein eigenes verzaubertes Buch im Stil der Mod-Bücher - eine Einbandfarbe und ein passendes Symbol (Schild für Schutz, Flamme für Feuerschutz, Feder für Federfall, Kleeblatt für Glück, Herz für Reparatur und so weiter). Ein Buch mit mehreren Verzauberungen zeigt die erste Vanilla-Verzauberung; eine Mod-Verzauberung hat immer Vorrang. Aus: Vanilla-Verzauberungen zeigen wieder das Vanilla-Buch, damit ein Ressourcenpaket oder eine andere Mod, die die Bücher neu gestaltet, nicht überschrieben wird.",
+          "Eigene Texturen für Vanilla-Zauberbücher (vanillaEnchantedBookTextures, Standard an, clientseitig): jede Vanilla-Verzauberung bekommt ein eigenes verzaubertes Buch im Stil der Mod-Bücher - eine Einbandfarbe und ein passendes Symbol (Schild für Schutz, Flamme für Feuerschutz, Feder für Federfall, Kleeblatt für Glück, Herz für Reparatur und so weiter). Ein Buch mit mehreren Verzauberungen zeigt die erste Vanilla-Verzauberung; eine Mod-Verzauberung hat immer Vorrang. Aus: Vanilla-Verzauberungen zeigen wieder das Vanilla-Buch, damit ein Ressourcenpaket oder eine andere Mod, die die Bücher neu gestaltet, nicht überschrieben wird. Wie die übrigen Textur-Schalter darunter wirkt er sofort, ohne Neuladen der Ressourcen.",
+          "Eigene Texturen für Mod-Zauberbücher (modEnchantedBookTextures, Standard an, clientseitig): jede Verzauberung dieser Mod zeigt ihr eigenes verzaubertes Buch. Aus: Mod-Verzauberungen zeigen das schlichte Vanilla-Zauberbuch (wie in Vanilla); trägt das Buch zusätzlich eine Vanilla-Verzauberung, zeigt es deren Buch, solange der Schalter darüber an ist. Wirkt sofort.",
+          "Sichtbare Besatzmuster auf Vanilla-Rüstungs-Icons (visibleTrimIconsVanillaArmor, Standard an, clientseitig): besetzte Vanilla-Rüstung (auch der Schildkrötenpanzer) zeigt das Besatzmuster auf dem Item-Symbol, siehe Sichtbare Rüstungsbesätze im Inventar. Aus: das Vanilla-Symbol mit nur dem Farbfleck des Materials – für Ressourcenpakete oder Mods mit eigenen Besatz-Symbolen. Wirkt sofort.",
+          "Sichtbare Besatzmuster auf Enderit-Rüstungs-Icons (visibleTrimIconsModArmor, Standard an, clientseitig): derselbe Schalter für die Enderit-Rüstung der Mod, unabhängig vom Vanilla-Schalter. Wirkt sofort.",
           "trimBenefitBaseMultiplier (Standard 2,0): Basis des Resonanz-Multiplikators; per Befehl /simplebuilding config setTrimMultiplier <Wert> (nur Operatoren) zur Laufzeit änderbar, /simplebuilding config getTrimMultiplier zeigt ihn; der Befehl schreibt den Wert nicht in die Konfigurationsdatei zurück.",
           "maxMultiplierLimit (Standard 10,0): Obergrenze für den Wert im Befehl setTrimMultiplier (wird bei der Befehlsregistrierung ausgelesen); sonst ohne Wirkung.",
           "Werkzeugeinstellungen → Oktant Schleichen umkehren (invertOctantSneak, Standard aus): kehrt um, ob die Oktant-Flächenfüllung mit oder ohne „Berührung des Konstrukteurs“ angezeigt wird (showFill = invertiert XOR Verzauberung vorhanden).",
@@ -33197,6 +33205,27 @@
       "tooltip": "Own Textures for Vanilla Enchanted Books"
     },
     {
+      "name": "modEnchantedBookTextures",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "tooltip": "Own Textures for Mod Enchanted Books"
+    },
+    {
+      "name": "visibleTrimIconsVanillaArmor",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "tooltip": "Visible Trim Patterns on Vanilla Armor Icons"
+    },
+    {
+      "name": "visibleTrimIconsModArmor",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "tooltip": "Visible Trim Patterns on Enderite Armor Icons"
+    },
+    {
       "name": "trimBenefitBaseMultiplier",
       "type": "double",
       "default": "2.0",
@@ -43773,7 +43802,7 @@
     "trades": 21,
     "enchantments": 19,
     "tags": 27,
-    "config": 17,
+    "config": 20,
     "inWorld": 343,
     "features": 39,
     "undocumented": 0,
