@@ -32,8 +32,8 @@ Verlauf im Detail: git log.
 - [x] Kleinkram: ungenutzte Farbwerte des Entfernungsmessers entfernen, Platzhalter-Item aus /give-Vorschlaegen, leerer Tab-Platz des Dev-Tabs auf Fabric pruefen, Wiki-Texturreste aus 1.21.11-Laeufen
 
 ## Welle 11 (laeuft)
-- [ ] Visual Armor Trims: Muster auf Ruestungs-Icons (erst Mod-Ruestung, dann Vanilla), Farbe nach Material
-- [ ] Radiance-Partikel stark reduzieren; Tooltip "Radiance: 5" statt "5/5"
+- [x] Visual Armor Trims: Muster auf Ruestungs-Icons (erst Mod-Ruestung, dann Vanilla), Farbe nach Material
+- [x] Radiance-Partikel stark reduzieren; Tooltip "Radiance: 5" statt "5/5"
 - [ ] Texturen: Enderit-Aufwertung (Enderit-Farbe, Netherit innen + im Pfeil), Einfache Aufwertung (Gold-Stil, Eisenblock innen), Umbenennung "Basic Upgrade"/"Enderite Upgrade", Barren 2 px schmaler, Schrott 1 px breiter, Diamant-Kiesel schaerfer, Lederplatte schoener
 
 - [ ] Texturen Runde 7: zwei Alternativ-Sets fuer alle Enderit-Werkzeuge/-Waffen/-Ruestung (Icons + getragen), Hammer, Baustab, Meissel - Besitzer waehlt
@@ -45,12 +45,17 @@ Verlauf im Detail: git log.
 - [ ] Texturen Runde 9: eigenes Buch-Icon fuer jede Vanilla-Verzauberung + Config-Schalter (Konflikte mit Ressourcenpaketen)
 - [ ] Rezepte: Erzdetektor + Echosplitter links/rechts vom Kompass; Oktant mit Gold-/Eisen-Waegeplatten und Blitzableiter
 - [ ] Experimentell: Hunger-Kosten beim Bauen mit Baustab/Blaupause (Kupfer 16^3 = 1/4 Balken, Enderit 128^3 = voller Balken), per Config abschaltbar
-- [ ] Doku docs/BAUWERKZEUGE-INTERAKTIONEN.md: Zusammenspiel Baustab/Blaupause/Oktant/Hammer/Meissel/Buendel/Rucksack mit und ohne Constructor's Touch, Verbesserungsvorschlaege, Vorschlaege fuer die Kerne -> danach Besitzer entscheidet, dann Wiki-Kapitel
+- [x] Doku docs/BAUWERKZEUGE-INTERAKTIONEN.md: Zusammenspiel Baustab/Blaupause/Oktant/Hammer/Meissel/Buendel/Rucksack mit und ohne Constructor's Touch, Verbesserungsvorschlaege, Vorschlaege fuer die Kerne -> danach Besitzer entscheidet, dann Wiki-Kapitel
+
+- [ ] Baustab (laeuft): Linear/Bridge/Cover/Color Palette wirken, Ausrichtung wie ein Spieler, Rueckgaengig nur in derselben Sitzung, Oktant-Form fuellen, Dach-Modus
+- [ ] Koecher: 3D auf dem Ruecken (flach mit Tiefe); aktuelles Verhalten dokumentieren
 
 ## Wartet auf den Besitzer
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
 
 ## Spaeter
+- [ ] Kerne als Baustab-Module + eigene Funktionen (Vorschlaege in docs/BAUWERKZEUGE-INTERAKTIONEN.md) - Besitzer: erst spaeter
+- [ ] Kerne: Netherstern nur ab Diamant, Netherit-/Enderit-Baustab aus Kern, goldener Baustab mehr Haltbarkeit - nicht gewaehlt, spaeter neu besprechen
 - [ ] Rucksack-Sortierung (Reihenfolge vorbereitet), sobald eine Sortierfunktion kommt
 - [ ] Blaupausen-Code: Formen (sphere(...)) und Variablen
 - [ ] JEI-Infoseiten fuer Items ohne Rezept
