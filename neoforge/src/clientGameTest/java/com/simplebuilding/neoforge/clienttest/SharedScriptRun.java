@@ -1,5 +1,7 @@
 package com.simplebuilding.neoforge.clienttest;
 
+import com.mojang.blaze3d.platform.InputConstants;
+
 import com.simplebuilding.clientgametest.ClientTestVersion;
 
 import java.nio.file.Files;
@@ -309,9 +311,9 @@ final class SharedScriptRun implements Harness {
             // attack binding and registers the click itself, so nothing else is needed - and it
             // sets MouseHandler.isLeftPressed, which the binding layer cannot. That last one is
             // not decoration: it is what tells vanilla the button is still held.
-            Input.holdMouse(0);
+            Input.holdMouse(InputConstants.MOUSE_BUTTON_LEFT);
         } else {
-            Input.releaseMouse(0);
+            Input.releaseMouse(InputConstants.MOUSE_BUTTON_LEFT);
             client.mouseHandler.releaseMouse();
             // Releasing the button is not enough: vanilla keeps destroying until it is told to
             // stop, so without this the block keeps breaking after the test moved on - and the

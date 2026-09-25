@@ -1,5 +1,7 @@
 package com.simplebuilding.clienttest;
 
+import com.mojang.blaze3d.platform.InputConstants;
+
 import com.simplebuilding.clientgametest.ClientTestVersion;
 
 import java.util.ArrayList;
@@ -141,7 +143,7 @@ public final class SharedScriptClientGameTest implements FabricClientGameTest {
 
         boolean poll() {
             if (error != null) {
-                throw new AssertionError("command failed: " + command, error);
+                throw new AssertionError("command failed: " + command + " (" + error + ")", error);
             }
             if (done) {
                 return true;
@@ -314,9 +316,9 @@ public final class SharedScriptClientGameTest implements FabricClientGameTest {
         public void setAttacking(boolean attacking) {
             // Fabric's input goes through the real mouse path, so the held button is all it takes.
             if (attacking) {
-                holdMouse(0);
+                holdMouse(InputConstants.MOUSE_BUTTON_LEFT);
             } else {
-                releaseMouse(0);
+                releaseMouse(InputConstants.MOUSE_BUTTON_LEFT);
             }
         }
 

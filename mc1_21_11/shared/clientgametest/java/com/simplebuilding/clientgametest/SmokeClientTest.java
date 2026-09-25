@@ -721,7 +721,7 @@ public final class SmokeClientTest {
                 client -> client.hitResult != null && client.hitResult.getType() == HitResult.Type.ENTITY,
                 client -> "The crosshair never landed on " + label + ". " + TestScene.describeAim(client));
 
-        script.harness("hit " + label, harness -> harness.pressMouse(0));
+        script.harness("hit " + label, harness -> harness.pressMouse(InputConstants.MOUSE_BUTTON_LEFT));
         script.await(label + " is dead", 60,
                 client -> client.hitResult == null || client.hitResult.getType() != HitResult.Type.ENTITY,
                 client -> label + " survived a fist although it had one health point. "
@@ -791,6 +791,10 @@ public final class SmokeClientTest {
         script.idle("let the restored target block reach the client", 10);
     }
 
+    private static InteractionResult withoutHeldStack(InteractionResult result) {
+        return result instanceof InteractionResult.Success success ? success.heldItemTransformedTo(null) : result;
+    }
+
     private static boolean inAnyStoneTable(Block block) {
         return ChiselItem.FINAL_STONE_FWD.containsKey(block)
                 || ChiselItem.FINAL_STONE_BWD.containsKey(block)
@@ -830,7 +834,9 @@ public final class SmokeClientTest {
             InteractionResult answer = client.player.getMainHandItem()
                     .useOn(new UseOnContext(client.player, InteractionHand.MAIN_HAND, hit));
 
-            if (answer != expected) {
+            // MC 26.3's ItemStack#useOn stamps the held stack onto every item-interaction success
+            // (heldItemTransformedTo); which stack the hand ends up with is not what this asks.
+            if (!withoutHeldStack(answer).equals(withoutHeldStack(expected))) {
                 throw new AssertionError("ChiselItem#useOn answered " + answer + " on the client for "
                         + blockId + ", " + why + "; expected " + expected + ". "
                         + TestScene.describeAim(client));
@@ -981,7 +987,7 @@ public final class SmokeClientTest {
 
         Later<List<SoundRecorder.Heard>> rotated = new Later<>("the sounds heard while rotating");
         script.verify("start recording sounds for the rotator", SoundRecorder::arm);
-        script.harness("right click the log with the rotator", harness -> harness.pressMouse(1));
+        script.harness("right click the log with the rotator", harness -> harness.pressMouse(InputConstants.MOUSE_BUTTON_RIGHT));
         script.await("the log under the crosshair turned", 60,
                 client -> client.level.getBlockState(TestScene.TARGET).is(Blocks.OAK_LOG)
                         && client.level.getBlockState(TestScene.TARGET)
@@ -1020,12 +1026,12 @@ public final class SmokeClientTest {
 
         Later<List<SoundRecorder.Heard>> transformed = new Later<>("the sounds heard while transforming");
         script.verify("start recording sounds for the sledgehammer", SoundRecorder::arm);
-        script.harness("hold the right mouse button on the stone", harness -> harness.holdMouse(1));
+        script.harness("hold the right mouse button on the stone", harness -> harness.holdMouse(InputConstants.MOUSE_BUTTON_RIGHT));
         script.await("the stone under the crosshair became stairs", 120,
                 client -> client.level.getBlockState(TestScene.TARGET).is(Blocks.STONE_STAIRS),
                 client -> "the stone never became stairs while the right button was held, so the "
                         + "sledgehammer's use never finished. " + TestScene.describeAim(client));
-        script.harness("release the right mouse button", harness -> harness.releaseMouse(1));
+        script.harness("release the right mouse button", harness -> harness.releaseMouse(InputConstants.MOUSE_BUTTON_RIGHT));
         script.idle("let the sound packet catch up with the block update", 5);
         script.verify("stop recording sounds for the sledgehammer", () -> {
             transformed.set(SoundRecorder.heard());
@@ -1064,7 +1070,7 @@ public final class SmokeClientTest {
         script.act("count the stone in front of the wall before the wand builds",
                 client -> placedBefore[0] = stoneInFrontOfTheWall(client));
         script.verify("start recording sounds for the wand", SoundRecorder::arm);
-        script.harness("right click the wall with the wand", harness -> harness.pressMouse(1));
+        script.harness("right click the wall with the wand", harness -> harness.pressMouse(InputConstants.MOUSE_BUTTON_RIGHT));
         script.await("the wand placed its plane in front of the wall", 120,
                 client -> stoneInFrontOfTheWall(client) - placedBefore[0] >= 8,
                 client -> "the wand placed " + (stoneInFrontOfTheWall(client) - placedBefore[0])
@@ -1132,7 +1138,7 @@ public final class SmokeClientTest {
 
         Later<List<SoundRecorder.Heard>> switched = new Later<>("the sounds heard while the detector switched mode");
         script.verify("start recording sounds for the detector", SoundRecorder::arm);
-        script.harness("sneak-use the detector into the air", harness -> harness.pressMouse(1));
+        script.harness("sneak-use the detector into the air", harness -> harness.pressMouse(InputConstants.MOUSE_BUTTON_RIGHT));
         script.idle("let the mode switch and its sound arrive", 15);
         script.verify("stop recording sounds for the detector", () -> {
             switched.set(SoundRecorder.heard());
@@ -1234,7 +1240,7 @@ public final class SmokeClientTest {
                     client -> modeBefore[0] = detectorMode(client.player.getMainHandItem()));
             script.harness("hold the sneak key", harness -> harness.holdKey(InputConstants.KEY_LSHIFT));
             script.idle("let the sneak state reach the server", 5);
-            script.harness("right click with the ore detector", harness -> harness.pressMouse(1));
+            script.harness("right click with the ore detector", harness -> harness.pressMouse(InputConstants.MOUSE_BUTTON_RIGHT));
             script.await("the switched detector came back with " + expectedDamage + " damage", 60,
                     client -> client.player.getMainHandItem().getDamageValue() == expectedDamage
                             && detectorMode(client.player.getMainHandItem()) != modeBefore[0],
@@ -1319,7 +1325,7 @@ public final class SmokeClientTest {
         TestScene.assertAimedAt(script, TestScene.TARGET, TestScene.TARGET_FACE);
 
         script.verify("start recording sounds for " + itemId, SoundRecorder::arm);
-        script.harness("right click the sandstone with " + itemId, harness -> harness.pressMouse(1));
+        script.harness("right click the sandstone with " + itemId, harness -> harness.pressMouse(InputConstants.MOUSE_BUTTON_RIGHT));
 
         script.await("the sandstone under the crosshair changed with " + itemId, 60,
                 client -> !client.level.getBlockState(TestScene.TARGET).is(Blocks.SANDSTONE),
@@ -1604,7 +1610,7 @@ public final class SmokeClientTest {
         equip(script, "minecraft:item_frame");
         TestScene.assertAimedAt(script, TestScene.TARGET, TestScene.TARGET_FACE);
 
-        script.harness("right click the wall with the item frame", harness -> harness.pressMouse(1));
+        script.harness("right click the wall with the item frame", harness -> harness.pressMouse(InputConstants.MOUSE_BUTTON_RIGHT));
         script.idle("let the item frame be placed", 15);
 
         Later<FrameState> placed = askTheServer(script, "the item frame at " + FRAME_POS,
@@ -1629,7 +1635,7 @@ public final class SmokeClientTest {
         equip(script, "minecraft:stone");
         assertCrosshairIsOnTheItemFrame(script);
 
-        script.harness("right click the item frame with a stone", harness -> harness.pressMouse(1));
+        script.harness("right click the item frame with a stone", harness -> harness.pressMouse(InputConstants.MOUSE_BUTTON_RIGHT));
         script.idle("let the stone go into the frame", 15);
 
         Later<FrameState> filled = askTheServer(script, "the filled item frame at " + FRAME_POS,
@@ -1671,7 +1677,7 @@ public final class SmokeClientTest {
         Later<List<SoundRecorder.Heard>> heard = new Later<>("the sounds heard while the item frame "
                 + "step \"" + step + "\" ran");
         script.verify("start recording sounds for \"" + step + "\"", SoundRecorder::arm);
-        script.harness("right click the item frame to " + step, harness -> harness.pressMouse(1));
+        script.harness("right click the item frame to " + step, harness -> harness.pressMouse(InputConstants.MOUSE_BUTTON_RIGHT));
 
         script.await("the item frame step \"" + step + "\" reaches the client", 40,
                 client -> expected.equals(currentActionBarMessage(client)),

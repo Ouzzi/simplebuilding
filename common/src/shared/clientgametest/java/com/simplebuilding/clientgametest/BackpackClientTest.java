@@ -367,7 +367,7 @@ public final class BackpackClientTest {
         script.idle("let the view angles reach the client", 10);
         TestScene.assertAimedAt(script, PLACED_POS, Direction.NORTH);
 
-        script.harness("right click the placed backpack", harness -> harness.pressMouse(1));
+        script.harness("right click the placed backpack", harness -> harness.pressMouse(InputConstants.MOUSE_BUTTON_RIGHT));
         awaitScreen(script, BackpackScreen.class, label);
         script.idle("let the " + label + " render " + RENDER_TICKS + " frames", RENDER_TICKS);
         assertStillOpen(script, BackpackScreen.class, label);

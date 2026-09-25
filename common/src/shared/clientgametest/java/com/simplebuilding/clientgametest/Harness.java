@@ -1,5 +1,7 @@
 package com.simplebuilding.clientgametest;
 
+import com.mojang.blaze3d.platform.InputConstants;
+
 /**
  * The few things a client test needs from its loader, and nothing else.
  *
@@ -97,7 +99,7 @@ public interface Harness {
     /**
      * Holds or releases the attack input - the one that mines a block.
      *
-     * <p>Its own method rather than {@code holdMouse(0)}, because mining is the place where the
+     * <p>Its own method rather than {@code holdMouse(InputConstants.MOUSE_BUTTON_LEFT)}, because mining is the place where the
      * two loaders differ most. Fabric drives the real mouse path and vanilla does the rest. On
      * NeoForge three things have to be true at once, and none of them follows from a held button:
      * the mouse has to be grabbed (an ungrabbed mouse leaves the crosshair pointing at nothing),

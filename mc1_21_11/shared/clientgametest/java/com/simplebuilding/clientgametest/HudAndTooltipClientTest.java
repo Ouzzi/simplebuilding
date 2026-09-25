@@ -952,7 +952,7 @@ public final class HudAndTooltipClientTest {
             }
         });
 
-        script.harness("right click the chest", harness -> harness.pressMouse(1));
+        script.harness("right click the chest", harness -> harness.pressMouse(InputConstants.MOUSE_BUTTON_RIGHT));
         awaitScreen(script, ContainerScreen.class, "the vanilla chest screen");
         script.idle("let the chest screen settle", 20);
 
@@ -1210,7 +1210,7 @@ public final class HudAndTooltipClientTest {
         // Slightly upwards so the ray enters the hopper's top plate head on.
         aimAt(script, "0.0", "-4.0", CONTAINER_POS, Direction.NORTH);
 
-        script.harness("right click the hopper", harness -> harness.pressMouse(1));
+        script.harness("right click the hopper", harness -> harness.pressMouse(InputConstants.MOUSE_BUTTON_RIGHT));
         awaitScreen(script, NetheriteHopperScreen.class, "the netherite hopper screen");
         script.idle("let the hopper screen settle", 20);
 
@@ -1333,7 +1333,7 @@ public final class HudAndTooltipClientTest {
             Slot slot = menu.slots.get(0);
             double x = leftPos(screen) + slot.x + 8;
             double y = topPos(screen) + slot.y + 8;
-            screen.mouseClicked(new MouseButtonEvent(x, y, new MouseButtonInfo(0, 0)), false);
+            screen.mouseClicked(new MouseButtonEvent(x, y, new MouseButtonInfo(InputConstants.MOUSE_BUTTON_LEFT, 0)), false);
 
             ItemStack ghost = blockEntity.getGhostItem(0);
 
@@ -1979,7 +1979,7 @@ public final class HudAndTooltipClientTest {
             return new int[] {found.getX() + found.getWidth() / 2, found.getY() + found.getHeight() / 2};
         });
 
-        script.harness("click the filter button", harness -> harness.pressMouse(0));
+        script.harness("click the filter button", harness -> harness.pressMouse(InputConstants.MOUSE_BUTTON_LEFT));
         script.idle("let the click reach the button", 5);
         parkCursor(script);
         clearWidgetFocus(script);
@@ -2518,7 +2518,7 @@ public final class HudAndTooltipClientTest {
     /** Clicks a GUI position, parks the cursor again and lets the screen settle for the next shot. */
     private static void clickAndPark(Script script, Later<int[]> guiPoint) {
         moveCursorToGui(script, "the armor trim stats button", client -> guiPoint.get());
-        script.harness("click the armor trim stats button", harness -> harness.pressMouse(0));
+        script.harness("click the armor trim stats button", harness -> harness.pressMouse(InputConstants.MOUSE_BUTTON_LEFT));
         script.idle("let the click reach the button", 5);
         parkCursor(script);
         clearWidgetFocus(script);
@@ -2598,7 +2598,7 @@ public final class HudAndTooltipClientTest {
 
     private static void clickSlot(Script script, Later<Integer> slotIndex, String what) {
         hoverSlot(script, slotIndex, what);
-        script.harness("click " + what, harness -> harness.pressMouse(0));
+        script.harness("click " + what, harness -> harness.pressMouse(InputConstants.MOUSE_BUTTON_LEFT));
         script.idle("let the click on " + what + " be handled", 10);
     }
 

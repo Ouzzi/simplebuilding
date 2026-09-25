@@ -73,10 +73,11 @@ public final class TestScene {
                 "spawn_monsters false", "spawn_phantoms false", "spawn_patrols false",
                 "spawn_wandering_traders false", "fire_spread_radius_around_player 0",
                 "mob_griefing false", "random_tick_speed 0"}) {
-            script.command("gamerule " + rule);
+            // 26.3 rejects a setting that changes nothing (see ClientTestVersion).
+            script.command("gamerule " + rule, ClientTestVersion.SET_COMMANDS_REJECT_NO_CHANGE);
         }
-        script.command("time set noon");
-        script.command("weather clear");
+        script.command("time set noon", ClientTestVersion.SET_COMMANDS_REJECT_NO_CHANGE);
+        script.command("weather clear", ClientTestVersion.SET_COMMANDS_REJECT_NO_CHANGE);
         // Explicit, because the two drivers create their worlds differently: NeoForge's opens the
         // world in Peaceful, Fabric's does not, and /summon refuses a monster in Peaceful with
         // "commands.summon.failed.peaceful" - which is how the smoke test's creeper existed on one

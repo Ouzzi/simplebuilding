@@ -214,7 +214,7 @@ public final class ClientBootstrapClientTest {
     private static final int ALT_KEY = InputConstants.KEY_LALT;
 
     /** Vanilla ships pick block on the middle mouse button, not on a keyboard key. */
-    private static final int PICK_MOUSE_BUTTON = 2;
+    private static final int PICK_MOUSE_BUTTON = InputConstants.MOUSE_BUTTON_MIDDLE;
 
     /**
      * The config value {@link #beforeWorld} switched off, so {@link #inWorld} can put it back.
@@ -304,8 +304,8 @@ public final class ClientBootstrapClientTest {
             harness.releaseKey(SHIFT_KEY);
             harness.releaseKey(ALT_KEY);
             harness.releaseKey(JUMP_KEY);
-            harness.releaseMouse(0);
-            harness.releaseMouse(1);
+            harness.releaseMouse(InputConstants.MOUSE_BUTTON_LEFT);
+            harness.releaseMouse(InputConstants.MOUSE_BUTTON_RIGHT);
             harness.releaseMouse(PICK_MOUSE_BUTTON);
             // Not the same as releasing button 0: on NeoForge this also tells the game mode to
             // stop destroying and lets the mouse go. Nothing here mines, so it is a belt and

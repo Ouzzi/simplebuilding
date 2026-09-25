@@ -9,6 +9,9 @@ import net.minecraft.core.BlockPos;
  */
 public final class ClientTestVersion {
 
+    /** 1.21.11 accepts setting commands that change nothing (like 26.2). */
+    public static final boolean SET_COMMANDS_REJECT_NO_CHANGE = false;
+
     private ClientTestVersion() {
     }
 

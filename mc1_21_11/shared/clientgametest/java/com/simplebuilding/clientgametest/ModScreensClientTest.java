@@ -445,7 +445,7 @@ public final class ModScreensClientTest {
         // head on instead of grazing the funnel below it.
         aimAt(script, "0.0", "-4.0", INTERACTION_POS, Direction.NORTH);
 
-        script.harness("right click the netherite hopper", harness -> harness.pressMouse(1));
+        script.harness("right click the netherite hopper", harness -> harness.pressMouse(InputConstants.MOUSE_BUTTON_RIGHT));
         awaitScreen(script, NetheriteHopperScreen.class, "netherite hopper menu");
         script.idle("let the netherite hopper menu render " + RENDER_TICKS + " frames", RENDER_TICKS);
 
@@ -498,7 +498,7 @@ public final class ModScreensClientTest {
 
         aimAt(script, "0.0", "0.0", INTERACTION_POS, Direction.NORTH);
 
-        script.harness("right click the smithing table", harness -> harness.pressMouse(1));
+        script.harness("right click the smithing table", harness -> harness.pressMouse(InputConstants.MOUSE_BUTTON_RIGHT));
         awaitScreen(script, SmithingScreen.class, "vanilla smithing screen");
         script.idle("let the smithing screen render " + RENDER_TICKS + " frames", RENDER_TICKS);
 
@@ -537,7 +537,7 @@ public final class ModScreensClientTest {
         script.harness("move the cursor onto the trim button", harness ->
                 harness.setCursorPos(cursor.get()[0], cursor.get()[1]));
         script.idle("let the moved cursor be picked up by the screen", 2);
-        script.harness("click the trim button", harness -> harness.pressMouse(0));
+        script.harness("click the trim button", harness -> harness.pressMouse(InputConstants.MOUSE_BUTTON_LEFT));
         script.idle("let the trim reference screen open", 10);
 
         assertStillOpen(script, TrimReferenceScreen.class, "trim reference screen");

@@ -9,6 +9,14 @@ import net.minecraft.core.BlockPos;
  */
 public final class ClientTestVersion {
 
+    /**
+     * Whether a setting command fails when nothing would change. 26.3 answers "/gamerule x v" with x
+     * already v ("already set"), "/time set noon" at noon and "/weather clear" in clear weather with a
+     * command error; 26.2 accepts all three. Scene set-up passes this as "may match nothing", so the
+     * commands stay strict (a misspelled rule still fails) wherever the game allows it.
+     */
+    public static final boolean SET_COMMANDS_REJECT_NO_CHANGE = false;
+
     private ClientTestVersion() {
     }
 

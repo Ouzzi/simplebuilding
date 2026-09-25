@@ -6,6 +6,9 @@ import net.minecraft.core.BlockPos;
 /** MC 26.3 side of {@code ClientTestVersion} (see the 26.2 twin). */
 public final class ClientTestVersion {
 
+    /** 26.3: gamerule / time set / weather without a change are command errors. */
+    public static final boolean SET_COMMANDS_REJECT_NO_CHANGE = true;
+
     private ClientTestVersion() {
     }
 

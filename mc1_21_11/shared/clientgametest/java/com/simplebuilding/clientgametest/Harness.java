@@ -1,5 +1,7 @@
 package com.simplebuilding.clientgametest;
 
+import com.mojang.blaze3d.platform.InputConstants;
+
 /**
  * The few things a client test needs from its loader, and nothing else.
  *
@@ -57,14 +59,12 @@ public interface Harness {
     /**
      * Works towards "everything the server sent has arrived and been handled"; true when settled.
      *
-     * <p>On this Minecraft line neither loader offers an exact answer: NeoForge has no knowledge of
-     * the queues at all, and Fabric here runs against fabric-client-gametest-api-v1 4.3.5, which
-     * does not yet expose {@code TestSingleplayerContext#getConnection()} or
-     * {@code waitForClientboundPackets()} (the 26.2 line does). Until 2026-09-24 both drivers
-     * therefore answered true straight away and left the waiting to the {@code idle} steps around
-     * the call - a race the NeoForge 26.2 driver lost on a loaded machine. Both now build their own
-     * barrier, the same one the NeoForge 26.2 driver uses: two server ticks, then a ping round
-     * the client handles in order (see each driver's {@code PacketBarrier}).
+     * <p>Fabric answers this exactly, because its framework runs the client and server task queues
+     * in a fixed order and knows when they are empty. NeoForge 26.2 builds its own barrier since
+     * 2026-09-24 (two server ticks, then a ping round the client handles in order - see its
+     * {@code PacketBarrier}); before that it answered true straight away, and on a loaded machine
+     * that race was lost. The 1.21.11 drivers (Fabric on API 4.3.5, NeoForge) build the same
+     * barrier since the same day.
      */
     boolean packetsSettled() throws Exception;
 
@@ -99,7 +99,7 @@ public interface Harness {
     /**
      * Holds or releases the attack input - the one that mines a block.
      *
-     * <p>Its own method rather than {@code holdMouse(0)}, because mining is the place where the
+     * <p>Its own method rather than {@code holdMouse(InputConstants.MOUSE_BUTTON_LEFT)}, because mining is the place where the
      * two loaders differ most. Fabric drives the real mouse path and vanilla does the rest. On
      * NeoForge three things have to be true at once, and none of them follows from a held button:
      * the mouse has to be grabbed (an ungrabbed mouse leaves the crosshair pointing at nothing),

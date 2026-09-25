@@ -1,5 +1,7 @@
 package com.simplebuilding.clientgametest;
 
+import com.mojang.blaze3d.platform.InputConstants;
+
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.client.property.EnchantmentModelProperty;
 import com.simplebuilding.config.SimplebuildingConfig;
@@ -1077,7 +1079,7 @@ public final class ItemRenderingClientTest {
         // --- 2. the draw back --------------------------------------------------------------
         float[] drawBack = {0.0f, 0.0f, 0.0f}; // last, highest, highest after a strike was seen
         boolean[] struck = {false};
-        script.harness("hold the right mouse button on the furnace", harness -> harness.holdMouse(1));
+        script.harness("hold the right mouse button on the furnace", harness -> harness.holdMouse(InputConstants.MOUSE_BUTTON_RIGHT));
         // Well back, and the hint tilt (switched off while hammering) all the way gone, so the shot
         // below differs from the hand at rest by the draw back alone.
         script.await("the hammer is well drawn back and no longer tilted", 60, client -> {
@@ -1096,7 +1098,7 @@ public final class ItemRenderingClientTest {
             return storedBlows(client) >= 2;
         }, client -> "the server recorded " + storedBlows(client) + " blows instead of two. "
                 + TestScene.describeAim(client));
-        script.harness("let go of the right mouse button", harness -> harness.releaseMouse(1));
+        script.harness("let go of the right mouse button", harness -> harness.releaseMouse(InputConstants.MOUSE_BUTTON_RIGHT));
         script.verify("the hammer drew back and swung forward between the blows", () -> {
             if (drawBack[1] < 0.9f || !struck[0]) {
                 throw new AssertionError("While hammering the draw back reached " + drawBack[1]
@@ -1124,13 +1126,13 @@ public final class ItemRenderingClientTest {
                                 cracked.get())));
 
         // --- 4. the resume ------------------------------------------------------------------
-        script.harness("hold the right mouse button on the furnace again", harness -> harness.holdMouse(1));
+        script.harness("hold the right mouse button on the furnace again", harness -> harness.holdMouse(InputConstants.MOUSE_BUTTON_RIGHT));
         script.await("the furnace became netherite before a fresh upgrade could have", 85,
                 client -> client.level.getBlockState(TestScene.TARGET).getBlock().getDescriptionId()
                         .equals("block.simplebuilding.netherite_furnace"),
                 client -> "the half hammered furnace is " + client.level.getBlockState(TestScene.TARGET)
                         + " after 85 ticks of hammering again - a resume takes 60, a fresh upgrade 100");
-        script.harness("let go of the right mouse button again", harness -> harness.releaseMouse(1));
+        script.harness("let go of the right mouse button again", harness -> harness.releaseMouse(InputConstants.MOUSE_BUTTON_RIGHT));
         script.command("clear @a", true);
         script.awaitPackets();
     }
@@ -1282,10 +1284,10 @@ public final class ItemRenderingClientTest {
      * far enough to frame the armour stand.
      */
     private static void buildDarkRoom(Script script) {
-        script.command("gamerule advance_time false");
-        script.command("gamerule random_tick_speed 0");
-        script.command("time set midnight");
-        script.command("weather clear");
+        script.command("gamerule advance_time false", ClientTestVersion.SET_COMMANDS_REJECT_NO_CHANGE);
+        script.command("gamerule random_tick_speed 0", ClientTestVersion.SET_COMMANDS_REJECT_NO_CHANGE);
+        script.command("time set midnight", ClientTestVersion.SET_COMMANDS_REJECT_NO_CHANGE);
+        script.command("weather clear", ClientTestVersion.SET_COMMANDS_REJECT_NO_CHANGE);
         // Tolerant, exactly as in TestScene: an empty inventory and an empty room are both
         // perfectly good states to already be in, and vanilla reports them as command failures.
         script.command("clear @a", true);
