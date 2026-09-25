@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Entwickler-Tab "SimpleBuilding: Enchanted (Dev)": vorverzauberte Gegenstaende auf Hoechststufe.
+ * Entwickler-Tab "SimpleEnchants (Dev)": vorverzauberte Gegenstaende auf Hoechststufe.
  *
  * <p><b>Sichtbarkeit.</b> Der Tab ist auf jedem Loader immer registriert, wird aber nur gefuellt,
  * wenn {@link #isShown()} gilt - in einer Entwicklungsumgebung oder mit der Konfigoption

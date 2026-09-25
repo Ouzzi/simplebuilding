@@ -29,7 +29,7 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean pistonsBreachEndPortalFrames = true;
 
-    // Zeigt den Kreativ-Tab "SimpleBuilding: Enchanted (Dev)" auch ausserhalb einer
+    // Zeigt den Kreativ-Tab "SimpleEnchants (Dev)" auch ausserhalb einer
     // Entwicklungsumgebung (dort ist er immer da), siehe DevEnchantedTab. Wirkt beim naechsten
     // Neuaufbau der Kreativ-Tabs, also spaetestens nach dem erneuten Betreten der Welt.
     @ConfigEntry.Gui.Tooltip

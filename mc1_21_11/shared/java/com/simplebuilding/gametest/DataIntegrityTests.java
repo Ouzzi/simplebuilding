@@ -2359,7 +2359,7 @@ public final class DataIntegrityTests {
     }
 
     /**
-     * The development tab "SimpleBuilding: Enchanted (Dev)" holds the best tier of every enchantable
+     * The development tab "SimpleEnchants (Dev)" holds the best tier of every enchantable
      * item family, pre-enchanted at max level, with one variant per choice among mutually exclusive
      * enchantments.
      *

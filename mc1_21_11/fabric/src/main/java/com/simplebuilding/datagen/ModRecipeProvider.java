@@ -282,8 +282,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .define('N', Items.COPPER_NUGGET)
                         .define('S', Items.STRING)
                         .define('P', ModItems.LEATHER_SHEET)
-                        // Holzdruckplatten als steifer Boden: jede Holzart per Tag, billiger als Eisengitter
-                        .define('W', tag(ItemTags.WOODEN_PRESSURE_PLATES))
+                        // Schwere Waegeplatten (Eisen) als steifer Boden
+                        .define('W', Items.HEAVY_WEIGHTED_PRESSURE_PLATE)
                         .unlockedBy(getHasName(ModItems.LEATHER_SHEET), has(ModItems.LEATHER_SHEET))
                         .save(output);
 
