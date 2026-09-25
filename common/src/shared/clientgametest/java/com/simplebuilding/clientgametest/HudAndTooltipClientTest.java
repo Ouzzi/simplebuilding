@@ -2178,13 +2178,19 @@ public final class HudAndTooltipClientTest {
         // The inventory animates its player model; the same mask the trim panel test uses keeps
         // it out of every comparison (it sits far from the hotbar row the glimmer is drawn in).
         Later<int[]> modelBox = playerModelBox(script);
+        // Everything outside the inventory panel is the dimmed world behind the screen. On MC 26.3
+        // it keeps changing while the screen is open (a chunk section finishing late, farther
+        // sections appearing), independent of the glimmer, so the pixel comparisons read the panel
+        // only - every slot and its decorations live there. That the glimmer is drawn nowhere
+        // outside it is carried by the render state check above, which looks at the whole screen.
+        Later<int[]> panelBox = inventoryPanelBox(script);
         Later<Path> plain = script.shot("glint-a-uncalibrated");
         script.idle("let twenty ticks pass between the two baseline shots", 20);
         Later<Path> plainAgain = script.shot("glint-b-uncalibrated-again");
         Later<ScreenshotDiff.Diff> noiseFloor = new Later<>("the noise floor of the glimmer scene");
         script.verify("measure the noise floor of the glimmer scene", () -> {
             ScreenshotDiff.Diff diff = ScreenshotDiff.compare("noise floor (two uncalibrated detectors, twice)",
-                    withoutPlayerModel(plain.get(), modelBox.get()), withoutPlayerModel(plainAgain.get(), modelBox.get()));
+                    onlyThePanel(plain.get(), panelBox.get(), modelBox.get()), onlyThePanel(plainAgain.get(), panelBox.get(), modelBox.get()));
             ScreenshotDiff.assertUnchanged(diff);
             noiseFloor.set(diff);
         });
@@ -2197,7 +2203,7 @@ public final class HudAndTooltipClientTest {
         Later<Path> calibrated = script.shot("glint-c-calibrated");
         script.verify("the glimmer reached the screen at the calibrated slot's edge and nowhere else", () -> {
             ScreenshotDiff.ChangedArea area = ScreenshotDiff.changedArea("glimmer",
-                    withoutPlayerModel(plain.get(), modelBox.get()), withoutPlayerModel(calibrated.get(), modelBox.get()));
+                    onlyThePanel(plain.get(), panelBox.get(), modelBox.get()), onlyThePanel(calibrated.get(), panelBox.get(), modelBox.get()));
             int[] box = column.get();
             if (area.changedPixels() == 0 || area.left() < box[0] || area.top() < box[1]
                     || area.right() > box[2] || area.bottom() > box[3]) {
@@ -2213,8 +2219,8 @@ public final class HudAndTooltipClientTest {
         Later<Path> control = script.shot("glint-d-uncalibrated-control");
         script.verify("taking the target away removes the glimmer again", () ->
                 ScreenshotDiff.assertBackToBaseline("resetting the detector to no target", noiseFloor.get(),
-                        ScreenshotDiff.compare("control (target removed again)", withoutPlayerModel(plain.get(), modelBox.get()),
-                                withoutPlayerModel(control.get(), modelBox.get()))));
+                        ScreenshotDiff.compare("control (target removed again)", onlyThePanel(plain.get(), panelBox.get(), modelBox.get()),
+                                onlyThePanel(control.get(), panelBox.get(), modelBox.get()))));
 
         closeScreen(script);
         script.act("let the glimmer clock run again", client -> OreDetectorGlint.clock = Util::getMillis);
@@ -2251,6 +2257,24 @@ public final class HudAndTooltipClientTest {
                 for (int i = 0; i < alpha.length; i++) {
                     expected.add(String.format("slot %d +0/+%d 0x%08X", GLINT_SLOT, i, (alpha[i] << 24) | GLINT_DIAMOND_RGB));
                 }
+            }
+            // Anywhere on the screen, not only in the two slots: a glimmer drawn at any other place is
+            // a 1x1 rectangle in the target colour, and there must be none besides the three above.
+            // This carries the "nowhere else" half of the claim for the whole window; the pixel
+            // comparison below only needs to show that the three reach the screen (see there).
+            List<String> elsewhere = new ArrayList<>();
+            for (ColoredRectangleRenderState rectangle : filledRectangles(extractScreenState(client))) {
+                if (Math.abs(rectangle.x1() - rectangle.x0()) != 1 || Math.abs(rectangle.y1() - rectangle.y0()) != 1
+                        || (rectangle.col1() & 0xFFFFFF) != GLINT_DIAMOND_RGB) {
+                    continue;
+                }
+                Vector2f corner = rectangle.pose().transformPosition(Math.min(rectangle.x0(), rectangle.x1()),
+                        Math.min(rectangle.y0(), rectangle.y1()), new Vector2f());
+                elsewhere.add(Math.round(corner.x) + "/" + Math.round(corner.y));
+            }
+            if (elsewhere.size() != expected.size()) {
+                throw new AssertionError("The screen holds " + elsewhere.size() + " one pixel rectangles in the glimmer "
+                        + "colour (" + elsewhere + "), expected exactly the " + expected.size() + " at slot " + GLINT_SLOT);
             }
             if (!found.equals(expected)) {
                 throw new AssertionError("The ore detector glimmer rectangles are " + found + " instead of " + expected
@@ -2329,6 +2353,57 @@ public final class HudAndTooltipClientTest {
         });
 
         return box;
+    }
+
+    /**
+     * The window pixel rectangle of the inventory panel itself ({@code leftPos/topPos}, 176 by 166
+     * GUI pixels - the survival inventory's fixed image size). Checked to contain the glimmer's slot,
+     * so masking the rest can never hide the signal.
+     */
+    private static Later<int[]> inventoryPanelBox(Script script) {
+        Later<int[]> box = new Later<>("the window pixel box of the inventory panel");
+        script.act("work out the inventory panel and prove it holds the glimmer slot", client -> {
+            AbstractContainerScreen<?> screen = containerScreen(client);
+            double scaleX = client.getWindow().getScreenWidth() / (double) client.getWindow().getGuiScaledWidth();
+            double scaleY = client.getWindow().getScreenHeight() / (double) client.getWindow().getGuiScaledHeight();
+            int[] panel = {
+                    (int) Math.floor(leftPos(screen) * scaleX),
+                    (int) Math.floor(topPos(screen) * scaleY),
+                    (int) Math.ceil((leftPos(screen) + 176) * scaleX),
+                    (int) Math.ceil((topPos(screen) + 166) * scaleY),
+            };
+            Slot slot = screen.getMenu().slots.get(GLINT_SLOT);
+            int slotLeft = (int) Math.floor((leftPos(screen) + slot.x) * scaleX);
+            int slotTop = (int) Math.floor((topPos(screen) + slot.y) * scaleY);
+            if (slotLeft - 1 < panel[0] || slotTop - 1 < panel[1]
+                    || slotLeft + 16 * scaleX > panel[2] || slotTop + 16 * scaleY > panel[3]) {
+                throw new AssertionError("The inventory panel " + describeBox(panel) + " does not contain slot "
+                        + GLINT_SLOT + " at " + slotLeft + "/" + slotTop + "; masking the rest would hide the glimmer.");
+            }
+            box.set(panel);
+        });
+        return box;
+    }
+
+    /** {@link #withoutPlayerModel}, and additionally everything outside {@code panel} painted over. */
+    private static Path onlyThePanel(Path screenshot, int[] panel, int[] model) {
+        Path masked = withoutPlayerModel(screenshot, model);
+        try {
+            BufferedImage image = ImageIO.read(masked.toFile());
+            Graphics2D graphics = image.createGraphics();
+            graphics.setColor(Color.BLACK);
+            int w = image.getWidth();
+            int h = image.getHeight();
+            graphics.fillRect(0, 0, w, Math.max(0, panel[1]));
+            graphics.fillRect(0, panel[3], w, Math.max(0, h - panel[3]));
+            graphics.fillRect(0, 0, Math.max(0, panel[0]), h);
+            graphics.fillRect(panel[2], 0, Math.max(0, w - panel[2]), h);
+            graphics.dispose();
+            ImageIO.write(image, "png", masked.toFile());
+            return masked;
+        } catch (IOException e) {
+            throw new AssertionError("Could not mask the world around the inventory in " + screenshot, e);
+        }
     }
 
     private static String describeBox(int[] box) {
