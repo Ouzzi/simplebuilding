@@ -41,6 +41,11 @@ fabricApi {
 	configureDataGeneration {
 		client = true
 		outputDirectory = datagenOut
+		// Not a resource dir: the full output lives only here until syncGenerated263 keeps the
+		// differing part in mc26_3/generated. Loom would otherwise put build/datagen263 in front of
+		// every other resource dir - which hid a broken resource precedence in checkouts that had
+		// run datagen (the 26.2 files won wherever build/datagen263 did not exist).
+		addToResources = false
 	}
 
 	// Same client test shape as the 26.2 root project (task :mc26_3:fabric:runClientGameTest).

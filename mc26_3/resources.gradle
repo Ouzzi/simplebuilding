@@ -13,8 +13,8 @@
 //                               mc26_3/generated/removed-on-26.3.txt lists 26.2 files that 26.3 does
 //                               not generate at all (they are hidden as well).
 //
-// Precedence comes from the order of the source directories (overlays first) plus
-// DuplicatesStrategy.EXCLUDE, which keeps the first file Gradle meets for a path.
+// Precedence is decided per path by mergeResources263 (one merged tree per module), and
+// checkResources263 (part of check) verifies the shipped result.
 
 import groovy.io.FileType
 
@@ -38,24 +38,75 @@ ext.mc263ConfigureResources = { SourceSet sourceSet, List<String> extraSharedDir
     File sharedGenerated = new File(rootDirFile, 'src/main/generated')
     File generated = new File(rootDirFile, 'mc26_3/generated')
 
-    // Overlays first, shared trees after, and duplicates resolved as EXCLUDE: Gradle keeps the
-    // first file it meets for a path, so an overlay file always wins over its shared twin.
-    sourceSet.resources.srcDir(overlayResources)
-    sourceSet.resources.srcDir(generated)
-    extraSharedDirs.each { sourceSet.resources.srcDir(new File(rootDirFile, it)) }
-    sourceSet.resources.srcDir(sharedResources)
-    sourceSet.resources.srcDir(sharedGenerated)
-    tasks.named(sourceSet.processResourcesTaskName, ProcessResources).configure {
-        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    }
-    // 26.2 datagen files that 26.3 does not generate at all.
-    if (mc263RemovedList.isFile()) {
-        mc263RemovedList.eachLine { String line ->
-            if (line.trim() && !line.startsWith('#')) sourceSet.resources.exclude(line.trim())
+    // One merged tree per module instead of several source directories with "first file wins":
+    // with DuplicatesStrategy.EXCLUDE the winner depended on the order Gradle visited the
+    // directories, and in one checkout the 26.2 datagen files won over their 26.3 twins (Fabric 26.3
+    // then failed to load its registries). mergeResources263 decides per path, explicitly:
+    //   overlay resources  >  shared resources (src/main/resources, + the loader's own dirs)
+    //   mc26_3/generated   >  src/main/generated, minus removed-on-26.3.txt
+    // checkResources263 verifies the processed output afterwards (hooked into check).
+    String taskSuffix = sourceSet.name == 'main' ? '' : sourceSet.name.capitalize()
+    File merged = layout.buildDirectory.dir('merged263' + taskSuffix).get().asFile
+    def merge = tasks.register('mergeResources263' + taskSuffix, Sync) {
+        description = 'Merges the shared and the 26.3 overlay resources into one tree (overlay wins per path).'
+        into merged
+        duplicatesStrategy = DuplicatesStrategy.FAIL
+        List<File> sharedDirs = extraSharedDirs.collect { new File(rootDirFile, it) } + [sharedResources]
+        [overlayResources, generated, sharedGenerated].plus(sharedDirs).each { if (it.isDirectory()) inputs.dir(it) }
+        from(overlayResources)
+        sharedDirs.each { dir ->
+            from(dir) {
+                exclude { FileTreeElement e -> !e.directory && mc263RelativeFiles(overlayResources).contains(e.relativePath.pathString) }
+            }
+        }
+        from(generated) {
+            exclude 'removed-on-26.3.txt', '.cache/**'
+        }
+        from(sharedGenerated) {
+            exclude '.cache/**', 'wiki/**'
+            exclude { FileTreeElement e ->
+                if (e.directory) return false
+                String rel = e.relativePath.pathString
+                if (new File(generated, rel).isFile()) return true
+                return mc263RemovedList.isFile() && mc263RemovedList.readLines().contains(rel)
+            }
         }
     }
-    sourceSet.resources.exclude 'removed-on-26.3.txt', '.cache/**'
+    sourceSet.resources.setSrcDirs([merged])
     sourceSet.resources.exclude 'wiki/**'
+    tasks.named(sourceSet.processResourcesTaskName, ProcessResources).configure {
+        dependsOn merge
+    }
+
+    // Every 26.3 file must reach the processed resources unchanged in content, and none of the
+    // removed 26.2 files may. Catches a precedence mistake like the one described above.
+    def check263 = tasks.register('checkResources263' + taskSuffix) {
+        group = 'verification'
+        description = 'Checks that the 26.3 datagen and overlay files are what the module actually ships.'
+        dependsOn sourceSet.processResourcesTaskName
+        File out = sourceSet.output.resourcesDir
+        doLast {
+            def norm = { File f -> f.getText('UTF-8').replace('\r\n', '\n').trim() }
+            List<String> problems = []
+            int checked = 0
+            mc263RelativeFiles(generated).findAll { it != 'removed-on-26.3.txt' && !it.startsWith('.cache') }.each { rel ->
+                File shipped = new File(out, rel)
+                checked++
+                if (!shipped.isFile()) problems << "missing: ${rel}"
+                else if (norm(shipped) != norm(new File(generated, rel))) problems << "not the 26.3 version: ${rel}"
+            }
+            if (mc263RemovedList.isFile()) {
+                mc263RemovedList.readLines().findAll { it.trim() && !it.startsWith('#') }.each { rel ->
+                    if (new File(out, rel).isFile()) problems << "removed on 26.3 but shipped: ${rel}"
+                }
+            }
+            if (problems) {
+                throw new GradleException("26.3 resources of ${project.path} are wrong:\n  " + problems.take(20).join('\n  '))
+            }
+            logger.lifecycle("checkResources263: ${checked} 26.3 datagen files shipped as generated")
+        }
+    }
+    tasks.named('check') { dependsOn check263 }
 
     // 26.3 trims read their colours from palette textures (textures/palettes/<id>.png) instead of
     // the armor trim atlas. The mod's palettes are copied, not duplicated in the repository: the
