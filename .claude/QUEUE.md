@@ -147,3 +147,8 @@ F Trims & UI (nach A-D, eigener Agent):
 - F (Agent): Radiance-Licht in Rahmen/Ruestungsstaender + Partikel; Besatz-Balance (docs/TRIM-BALANCE.md); Resonanz/Multiplikatoren; UI-Review
 - WARTET auf Besitzer: Zeilen-Layout Maschinen & Lager freigeben -> dann alle Tabs
 - DANN: volles Gate, Push
+
+## Welle 9: MC 26.3 (nach Blaupause + Gate)
+- 26.3 ist seit 2026-09-15 released; Fabric 0.19.5 / API 0.161.0+26.3 stabil, NeoForge 26.3.0.16-beta, Cloth 26.3.159, Mod Menu 21.0.0, JEI 31.7.0.34 beta
+- Besitzer: gemeinsamer Code + Overlays (26.3-Module kompilieren common/src/shared; nur Abweichungen in mc26_3/overlay bzw. common/src/mc26_2), Loader Fabric + NeoForge; Forge bleibt 26.2
+- Schritte: GLFW -> InputConstants (auch auf 26.2), Rezept-Serializer (reloadbare Registries), Worldgen-Pfade, Overlay-Gradle-Check, Tests/Katalog/run.py-Ziele 26.3, Dev-Knoepfe 26.3, Wiki-Linie
