@@ -183,7 +183,7 @@ public final class TestCentreBuilder {
                     count++;
                 }
                 case TcOp.OctantFrame frame -> {
-                    spawnFrame(level, frame.pos(), frame.facing(), octant(frame.cornerA(), frame.cornerB()));
+                    spawnFrame(level, frame.pos(), frame.facing(), octant(frame.cornerA(), frame.cornerB(), frame.shape()));
                     entities++;
                     count++;
                 }
@@ -233,10 +233,17 @@ public final class TestCentreBuilder {
 
     /** Ein Oktant mit gesetzter Quader-Auswahl (dieselben Schluessel, die der Oktant selbst schreibt). */
     static ItemStack octant(BlockPos cornerA, BlockPos cornerB) {
+        return octant(cornerA, cornerB, "CUBOID");
+    }
+
+    /** Wie oben, mit Figur; Ausrichtung +Y (so zeigt ein Prisma seine Spitze nach oben: Dachmodus). */
+    static ItemStack octant(BlockPos cornerA, BlockPos cornerB, String shape) {
         ItemStack octant = new ItemStack(ModItems.OCTANT);
         CompoundTag nbt = new CompoundTag();
         nbt.putIntArray("Pos1", new int[]{cornerA.getX(), cornerA.getY(), cornerA.getZ()});
         nbt.putIntArray("Pos2", new int[]{cornerB.getX(), cornerB.getY(), cornerB.getZ()});
+        nbt.putString("Shape", shape);
+        nbt.putInt("Orientation", 1);
         octant.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
         return octant;
     }

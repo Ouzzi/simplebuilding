@@ -20,6 +20,8 @@ import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.world.level.block.entity.CommandBlockEntity;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
@@ -73,6 +75,45 @@ public final class TestCentreTests {
      * Staender sind genau so viele wie geplant, nichts liegt als Drop herum. Danach wird ein Abschnitt
      * neu gebaut - das darf keine Rahmen verdoppeln.
      */
+    /**
+     * Steuerwand: jeder Knopf versorgt genau seinen eigenen Befehlsblock. Frueher standen die Bloecke dicht
+     * an dicht; der Knopf versorgt seinen Traegerblock stark, der die Nachbarn mit - "Survival" loeste auch
+     * "Creative" aus. Gedrueckt wird ueber {@link ButtonBlock#press} wie von Hand; ausgewertet wird
+     * {@link CommandBlockEntity#isPowered()} (das setzt {@code neighborChanged} sofort, die Ausfuehrung selbst
+     * kaeme erst einen Tick spaeter - und faellt aus, weil der Test die Zentrale vorher abraeumt).
+     */
+    static void eachButtonPowersOnlyItsOwnCommandBlock(GameTestHelper helper, ServerLevel level, TestCentreLayout.Plan plan) {
+        List<TcOp.Command> commands = new ArrayList<>();
+        for (TcOp op : plan.section("controls").ops()) {
+            if (op instanceof TcOp.Command command) {
+                commands.add(command);
+            }
+        }
+        helper.assertTrue(commands.size() > 10, "suspiciously few control buttons: " + commands.size());
+        for (TcOp.Command pressed : commands) {
+            BlockPos buttonPos = pressed.pos().relative(pressed.facing());
+            BlockState button = level.getBlockState(buttonPos);
+            helper.assertTrue(button.getBlock() instanceof ButtonBlock, "no button in front of the command block at " + pressed.pos());
+            ((ButtonBlock) button.getBlock()).press(button, level, buttonPos, null);
+            List<String> fired = new ArrayList<>();
+            for (TcOp.Command other : commands) {
+                if (level.getBlockEntity(other.pos()) instanceof CommandBlockEntity entity && entity.isPowered()) {
+                    fired.add("'" + other.command() + "'");
+                }
+            }
+            helper.assertTrue(fired.equals(List.of("'" + pressed.command() + "'")),
+                    "the button for '" + pressed.command() + "' powers " + fired);
+            // Loslassen wie der geplante Tick des Knopfs: Zustand zurueck, Traeger und Nachbarn benachrichtigen.
+            level.setBlock(buttonPos, button.setValue(ButtonBlock.POWERED, false), Block.UPDATE_ALL);
+            level.updateNeighborsAt(pressed.pos(), button.getBlock());
+            for (TcOp.Command other : commands) {
+                if (level.getBlockEntity(other.pos()) instanceof CommandBlockEntity entity) {
+                    helper.assertTrue(!entity.isPowered(), "command block '" + other.command() + "' stays powered after releasing");
+                }
+            }
+        }
+    }
+
     public static void theWholeCentreBuildsAndMatchesItsPlan(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         BlockPos origin = new BlockPos(20000, helper.absolutePos(BlockPos.ZERO).getY() + 1, 20000);
@@ -134,6 +175,7 @@ public final class TestCentreTests {
                     }
                 }
             }
+            eachButtonPowersOnlyItsOwnCommandBlock(helper, level, plan);
             int drops = level.getEntitiesOfClass(ItemEntity.class, area).size();
             helper.assertTrue(drops == 0, drops + " dropped items lie in the test centre after the build");
 

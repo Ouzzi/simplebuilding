@@ -232,6 +232,12 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("wand_mode_game_test_roof_mode_lays_stairs_towards_the_ridge_with_slabs_on_top", WandModeTests::roofModeLaysStairsTowardsTheRidgeWithSlabsOnTop)
                     .rotation(Rotation.NONE)
                     .build(),
+            GameTestSpec.named("wand_mode_game_test_bridge_from_the_use_packet_starts_at_the_edge_of_the_floor_ahead", WandModeTests::bridgeFromTheUsePacketStartsAtTheEdgeOfTheFloorAhead)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_roof_mode_works_with_the_test_centre_kit_enderite_wand", WandModeTests::roofModeWorksWithTheTestCentreKitEnderiteWand)
+                    .rotation(Rotation.NONE)
+                    .build(),
             GameTestSpec.named("hopper_and_trim_game_test_hopper_filter_modes_gate_what_may_enter", HopperAndTrimTests::hopperFilterModesGateWhatMayEnter)
                     .rotation(Rotation.NONE)
                     .build(),

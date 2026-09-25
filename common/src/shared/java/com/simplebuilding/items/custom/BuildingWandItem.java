@@ -566,10 +566,23 @@ public class BuildingWandItem extends Item {
 
         boolean hasMasterBuilder = hasEnchantment(wandStack, world, ModEnchantments.MASTER_BUILDER);
         MaterialResult preview = findFirstBuildingBlock(player, wandStack, hasMasterBuilder);
-        if (preview == null && !player.getAbilities().instabuild) return InteractionResult.FAIL;
+        // Jede Absage sagt in der Aktionsleiste, warum: frueher blieb ein Klick auf flachem Boden
+        // (die Testzentrale ist ueberall flach) stumm, und die Bruecke wirkte kaputt.
+        if (preview == null && !player.getAbilities().instabuild) {
+            player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.wand.bridge.no_material").withStyle(net.minecraft.ChatFormatting.RED));
+            return InteractionResult.FAIL;
+        }
         CompoundTag nbt = getOrInitNbt(wandStack);
-        Plan plan = Plan.forBridge(world, player, getConfiguredRadius(nbt, (this.maxDiameter - 1) / 2));
-        if (plan == null || plan.steps() == 0) return InteractionResult.FAIL;
+        int bridgeRadius = getConfiguredRadius(nbt, (this.maxDiameter - 1) / 2);
+        Plan plan = Plan.forBridge(world, player, bridgeRadius);
+        if (plan == null) {
+            player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.wand.bridge.no_ground").withStyle(net.minecraft.ChatFormatting.YELLOW));
+            return InteractionResult.FAIL;
+        }
+        if (plan.steps() == 0) {
+            player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.wand.bridge.no_gap", lineLength(bridgeRadius)).withStyle(net.minecraft.ChatFormatting.YELLOW));
+            return InteractionResult.FAIL;
+        }
 
         Block buildBlock = preview != null ? preview.stateToPlace.getBlock() : Blocks.AIR;
         nbt.putBoolean("Active", true);
@@ -816,14 +829,24 @@ public class BuildingWandItem extends Item {
             return new Plan(MODE_SQUARE, clicked, face, face, hitRel, radius, axis, 0, Blocks.AIR);
         }
 
-        /** Bruecke ab dem Block unter den Fuessen; {@code null}, wenn dort nichts Festes steht. */
+        /**
+         * Bruecke ab dem Block unter den Fuessen; {@code null}, wenn dort nichts Festes steht. Steht vor den
+         * Fuessen noch Boden derselben Hoehe, beginnt die Bruecke an dessen Kante (hoechstens
+         * {@link #lineLength} weit gesucht): wer ein paar Schritte vor dem Abgrund klickt, bekommt trotzdem
+         * seine Bruecke. Frueher hiess "Boden direkt voraus" Laenge 0 - der Klick tat stumm nichts.
+         */
         static Plan forBridge(Level level, Player player, int radius) {
             BlockPos start = player.getOnPos();
             if (level.getBlockState(start).canBeReplaced()) return null;
             Direction facing = player.getDirection();
+            int max = lineLength(radius);
+            int solid = 0;
+            while (solid < max && !level.getBlockState(start.relative(facing, solid + 1)).canBeReplaced()) solid++;
+            BlockPos edge = start.relative(facing, solid);
+            int length = solid >= max ? 0 : freeRun(level, edge, facing, max);
             // Als setzte man jeden Block an die Stirnseite des vorigen, untere Haelfte (Stufen unten).
             Vec3 hit = new Vec3(0.5 + facing.getStepX() * 0.5, 0.25, 0.5 + facing.getStepZ() * 0.5);
-            return new Plan(MODE_BRIDGE, start, facing, facing, hit, radius, 0, freeRun(level, start, facing, lineLength(radius)), Blocks.AIR);
+            return new Plan(MODE_BRIDGE, edge, facing, facing, hit, radius, 0, length, Blocks.AIR);
         }
 
         /** Wie viele Stellen ab {@code from} in Richtung {@code dir} frei sind, hoechstens {@code max}. */

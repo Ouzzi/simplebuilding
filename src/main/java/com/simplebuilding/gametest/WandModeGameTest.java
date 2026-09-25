@@ -45,4 +45,14 @@ public final class WandModeGameTest {
     public void roofModeLaysStairsTowardsTheRidgeWithSlabsOnTop(GameTestHelper helper) {
         WandModeTests.roofModeLaysStairsTowardsTheRidgeWithSlabsOnTop(helper);
     }
+
+    @GameTest(rotation = Rotation.NONE)
+    public void bridgeFromTheUsePacketStartsAtTheEdgeOfTheFloorAhead(GameTestHelper helper) {
+        WandModeTests.bridgeFromTheUsePacketStartsAtTheEdgeOfTheFloorAhead(helper);
+    }
+
+    @GameTest(rotation = Rotation.NONE)
+    public void roofModeWorksWithTheTestCentreKitEnderiteWand(GameTestHelper helper) {
+        WandModeTests.roofModeWorksWithTheTestCentreKitEnderiteWand(helper);
+    }
 }

@@ -99,7 +99,12 @@ public final class TcCanvas {
 
     /** Rahmen mit einem Oktanten, dessen Auswahl (lokal) schon gesetzt ist. */
     public void octantFrame(int x, int y, int z, Direction facing, BlockPos cornerA, BlockPos cornerB) {
-        add(new TcOp.OctantFrame(new BlockPos(x, y, z), facing, cornerA, cornerB));
+        octantFrame(x, y, z, facing, cornerA, cornerB, "CUBOID");
+    }
+
+    /** Wie oben, mit Figur ({@code OctantItem.SelectionShape}-Name, Spitze nach oben). */
+    public void octantFrame(int x, int y, int z, Direction facing, BlockPos cornerA, BlockPos cornerB, String shape) {
+        add(new TcOp.OctantFrame(new BlockPos(x, y, z), facing, cornerA, cornerB, shape));
     }
 
     /** Rahmen mit einer Blaupause, gescannt beim Bau aus der Auswahl vom Kartentisch {@code table} aus. */
