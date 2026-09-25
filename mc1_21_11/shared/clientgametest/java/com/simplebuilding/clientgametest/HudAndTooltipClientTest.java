@@ -2371,6 +2371,8 @@ public final class HudAndTooltipClientTest {
      * GUI pixels - the survival inventory's fixed image size). Checked to contain the glimmer's slot,
      * so masking the rest can never hide the signal.
      */
+    private static final int PANEL_INSET = 4;
+
     private static Later<int[]> inventoryPanelBox(Script script) {
         Later<int[]> box = new Later<>("the window pixel box of the inventory panel");
         script.act("work out the inventory panel and prove it holds the glimmer slot", client -> {
@@ -2378,10 +2380,12 @@ public final class HudAndTooltipClientTest {
             double scaleX = client.getWindow().getScreenWidth() / (double) client.getWindow().getGuiScaledWidth();
             double scaleY = client.getWindow().getScreenHeight() / (double) client.getWindow().getGuiScaledHeight();
             int[] panel = {
-                    (int) Math.floor(leftPos(screen) * scaleX),
-                    (int) Math.floor(topPos(screen) * scaleY),
-                    (int) Math.ceil((leftPos(screen) + 176) * scaleX),
-                    (int) Math.ceil((topPos(screen) + 166) * scaleY),
+                    // Inset by the texture's rounded, transparent corners (the world shows through
+                    // there): PANEL_INSET GUI pixels on every side.
+                    (int) Math.ceil((leftPos(screen) + PANEL_INSET) * scaleX),
+                    (int) Math.ceil((topPos(screen) + PANEL_INSET) * scaleY),
+                    (int) Math.floor((leftPos(screen) + 176 - PANEL_INSET) * scaleX),
+                    (int) Math.floor((topPos(screen) + 166 - PANEL_INSET) * scaleY),
             };
             Slot slot = screen.getMenu().slots.get(GLINT_SLOT);
             int slotLeft = (int) Math.floor((leftPos(screen) + slot.x) * scaleX);

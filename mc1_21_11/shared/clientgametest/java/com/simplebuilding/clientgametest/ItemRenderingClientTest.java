@@ -415,12 +415,31 @@ public final class ItemRenderingClientTest {
                         + "below can tell two models apart");
             }
 
-            List<Object> vanillaEnchanted = modelIdentity(client, enchantedBook(client, Enchantments.UNBREAKING));
+            // Vanilla enchantments follow the client option vanillaEnchantedBookTextures (on by
+            // default): on, the book gets its own vanilla-style model; off, it must fall back to the
+            // plain enchanted book - the mod's property may not grab books it has no case for.
+            SimplebuildingConfig config = Simplebuilding.getConfig();
+            boolean option = config.vanillaEnchantedBookTextures;
+            List<Object> vanillaOff;
+            List<Object> vanillaOn;
+            try {
+                config.vanillaEnchantedBookTextures = false;
+                vanillaOff = modelIdentity(client, enchantedBook(client, Enchantments.UNBREAKING));
+                config.vanillaEnchantedBookTextures = true;
+                vanillaOn = modelIdentity(client, enchantedBook(client, Enchantments.UNBREAKING));
+            } finally {
+                config.vanillaEnchantedBookTextures = option;
+            }
 
-            if (!plain.equals(vanillaEnchanted)) {
-                throw bookFailure("a book with a vanilla enchantment did not resolve to the same fallback model "
-                        + "as a plain enchanted book, so the mod's select property is grabbing books "
-                        + "it has no case for");
+            if (!plain.equals(vanillaOff)) {
+                throw bookFailure("with vanillaEnchantedBookTextures off, a book with a vanilla enchantment did "
+                        + "not resolve to the same fallback model as a plain enchanted book, so the mod's "
+                        + "select property is grabbing books it has no case for");
+            }
+
+            if (plain.equals(vanillaOn)) {
+                throw bookFailure("with vanillaEnchantedBookTextures on, a book with unbreaking still resolved "
+                        + "to the plain enchanted book, so the vanilla book textures never apply");
             }
 
             for (Map.Entry<String, List<Object>> entry : identities.entrySet()) {
