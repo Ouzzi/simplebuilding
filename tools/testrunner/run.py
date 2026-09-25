@@ -247,7 +247,39 @@ TARGETS: tuple[Target, ...] = (
     ),
 )
 
-BY_ID = {t.id: t for t in TARGETS}
+#: EXPERIMENTAL Minecraft 26.4 SNAPSHOT line (mc26_4/, only in the Gradle build with -Pmc264=true).
+#: Deliberately NOT in TARGETS: never part of 'all', 'client', 'everything' or --release-gate, so a
+#: broken snapshot can never block a release. Selected by id, with 'snapshot' or with
+#: 'everything-plus-snapshot'. Same catalogue and test bodies as 26.2/26.3.
+SNAPSHOT_TARGETS: tuple[Target, ...] = (
+    Target(
+        id="fabric-264",
+        label="Fabric - MC 26.4 Snapshot",
+        loader="fabric",
+        mc_line="26.4-snapshot",
+        gradle_task=":mc26_4:fabric:runGametest",
+        report="mc26_4/fabric/build/junit.xml",
+        catalogue="common/src/shared/java/com/simplebuilding/gametest/SimpleBuildingGameTests.java",
+        gradle_args=("-Pmc264=true",),
+    ),
+    Target(
+        id="client-fabric-264",
+        label="Client Fabric - MC 26.4 Snapshot",
+        loader="fabric",
+        mc_line="26.4-snapshot",
+        gradle_task=":mc26_4:fabric:runClientGameTest",
+        report="",
+        catalogue="",
+        kind="client",
+        sources="src/gametest/java/com/simplebuilding/clienttest",
+        screenshots="mc26_4/fabric/build/run/clientGameTest/screenshots",
+        gradle_args=("-Pmc264=true",),
+    ),
+)
+
+ALL_TARGETS: tuple[Target, ...] = TARGETS + SNAPSHOT_TARGETS
+
+BY_ID = {t.id: t for t in ALL_TARGETS}
 
 #: The sweep a plain run does. Client targets are opt in, see their comment above.
 DEFAULT_TARGETS = tuple(t for t in TARGETS if t.kind == "server")
@@ -354,8 +386,8 @@ def read_catalogue() -> dict[str, list[dict]]:
     interface apart a test that passed from one that was filtered out.
     """
     out: dict[str, list[dict]] = {}
-    for line in ("26.2", "1.21.11", "26.3"):
-        target = next(t for t in TARGETS if t.mc_line == line)
+    for line in ("26.2", "1.21.11", "26.3", "26.4-snapshot"):
+        target = next(t for t in ALL_TARGETS if t.mc_line == line and t.catalogue)
         path = REPO / target.catalogue
         entries: list[dict] = []
         if path.exists():
@@ -836,7 +868,7 @@ def execute(
                     "warning": None,
                 }
             )
-    order = {t.id: i for i, t in enumerate(TARGETS)}
+    order = {t.id: i for i, t in enumerate(ALL_TARGETS)}
     target_records.sort(key=lambda r: order[r["id"]])
 
     ran = [r for r in target_records if r["selected"]]
@@ -855,6 +887,7 @@ def execute(
             "26.2": props.get("minecraft_version", "26.2"),
             "1.21.11": props.get("mc11_minecraft_version", "1.21.11"),
             "26.3": props.get("mc263_minecraft_version", "26.3"),
+            "26.4-snapshot": props.get("mc264_minecraft_version", "26.4-snapshot"),
         },
         "targets": target_records,
         "totals": {
@@ -986,8 +1019,9 @@ def print_table(record: dict) -> None:
 def print_list() -> None:
     print()
     print("  Ziele")
-    for target in TARGETS:
-        print(f"    {target.id:<23}{target.label:<28}{target.gradle_task}")
+    for target in ALL_TARGETS:
+        flag = "  (experimentell, nicht im Release-Tor)" if target in SNAPSHOT_TARGETS else ""
+        print(f"    {target.id:<23}{target.label:<34}{target.gradle_task}{flag}")
     catalogue = read_catalogue()
     print()
     print("  Testkatalog")
@@ -1303,7 +1337,9 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         "--targets",
         default="all",
         help=("comma separated target ids; 'all' (default) runs the four server targets, "
-              "'client' only the client ones, 'everything' both: " + ", ".join(t.id for t in TARGETS)),
+              "'client' only the client ones, 'everything' both; the experimental 26.4 snapshot "
+              "targets only by id, 'snapshot' or 'everything-plus-snapshot': "
+              + ", ".join(t.id for t in ALL_TARGETS)),
     )
     parser.add_argument(
         "--filter",
@@ -1327,6 +1363,10 @@ def select_targets(spec: str) -> list[Target]:
         return [t for t in TARGETS if t.kind == "client"]
     if spec.strip() == "everything":
         return list(TARGETS)
+    if spec.strip() == "snapshot":
+        return list(SNAPSHOT_TARGETS)
+    if spec.strip() == "everything-plus-snapshot":
+        return list(ALL_TARGETS)
     chosen: list[Target] = []
     for part in spec.split(","):
         key = part.strip()

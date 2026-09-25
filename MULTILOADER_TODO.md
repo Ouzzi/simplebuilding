@@ -212,3 +212,44 @@ client-neoforge-263 und client-fabric-262 je 117/117. Der Glimmer-Test vergleich
 Client-Unterschiede 26.3, die das Geruest jetzt abdeckt: SDL-Maustasten (links 1, rechts 3 -> immer
 InputConstants.MOUSE_BUTTON_*), gamerule/time set/weather ohne Aenderung sind Befehlsfehler,
 ItemStack#useOn setzt heldItemTransformedTo in jedes Success.
+
+## MC-26.4-Snapshot-Linie (Stand 2026-09-25) - EXPERIMENTELL, nicht fuer Releases
+
+Vorbereitung auf den naechsten Drop. Stand: **26.4-snapshot-1** (Mojang-Manifest, 2026-09-22), Fabric
+Loader 0.19.5, Fabric API 0.161.1+26.4, Loom 1.17.20, ModMenu 22.0.0-alpha.1. **Cloth Config** hat noch
+keinen 26.4-Build; die 26.3-Version (26.3.159, `minecraft >=26.3-`) laeuft auf dem Snapshot. JEI, Jade,
+AppleSkin, Mouse Tweaks: keine 26.4-Builds -> keine Dev-Mods (JEI-Plugin kompiliert gegen die 26.3-API).
+**Forge:** kein Snapshot-Build (neuestes 26.3-66.0.3). `mc26_4/forge/build.gradle` ist ein ungetestetes
+Geruest, eingeschaltet mit `-Pmc264_forge_version=<v>` (Forge-Quellen waren nie auf 26.3, also mit
+eigenem Overlay-Paar rechnen). NeoForge-26.4 war nicht Teil des Auftrags.
+
+**Nur im Build mit `-Pmc264=true`** (settings.gradle): ein normales `gradlew check` laedt und
+kompiliert den Snapshot nie. `run.py`: Ziele `fabric-264` und `client-fabric-264`, nur per Id,
+`--targets snapshot` oder `--targets everything-plus-snapshot` - nie in `all`/`everything`/`--release-gate`.
+Launch-Knoepfe "fabric-client 26.4-snapshot" / "fabric-server 26.4-snapshot".
+
+**Overlay-Kette** (`mc26_4/chain.gradle`): gemeinsame Baeume -> 26.3-Overlay -> 26.4-Overlay. Eine Datei
+in `mc26_4/overlay/java` (bzw. `mc26_4/fabric/src/main/java`, `mc26_4/overlay/clientgametest/java`)
+ERSETZT ihren Zwilling im entsprechenden 26.3-Overlay; alle anderen 26.3-Overlay-Dateien gelten
+unveraendert. Der zusammengesetzte Baum entsteht in `mc26_4/fabric/build/overlay264/<name>`
+(Compilerfehler zeigen dorthin - bearbeitet wird die Quelle in mc26_3/ bzw. mc26_4/). `checkOverlays`
+(an `check`, auch ohne -Pmc264) verlangt: jede 26.4-Datei hat einen 26.3-Zwilling und unterscheidet sich
+von ihm. Bricht 26.4 eine noch gemeinsame Datei, zuerst ins 26.2/26.3-Paar ziehen, dann den 26.4-Zwilling
+anlegen. Ressourcen: `mcLayeredResources` (mc26_3/resources.gradle) stapelt `mc26_4/overlay/resources`
+und `mc26_4/generated` ueber die 26.3-Schichten (`mergeResources264`/`checkResources264`).
+`mc26_4/generated` = nur Datagen-Dateien, die sich vom 26.3-Stand (mc26_3/generated ueber
+src/main/generated) unterscheiden; `:mc26_4:fabric:runDatagen` -> `syncGenerated264`.
+
+**Brueche 26.3 -> 26.4-snapshot-1 (am Jar belegt):**
+- `RenderPipeline` ist zurueck in `com.mojang.blaze3d.pipeline` (26.3: renderpearl) -> 26.4-Zwillinge von
+  TexturedGuiElementState, BundleTooltipComponentMixin (auch das @At-Target), SpriteRecordingGraphics.
+- `DyeColor` hat keine Farbwerte mehr (getTextureDiffuseColor/getMapColor/getTextColor/getFireworkColor
+  weg; Farben privat in DyedItemColor.DYE_COLORS) -> Test-Shim `gametest/DyeRgb` (neues Paar
+  26.2/26.3/26.4; 26.4 ueber `DyedItemColor.applyDyes(null, List.of(dye))`).
+- Datagen: 0 Abweichungen zu 26.3.
+
+Teststand 2026-09-25 (26.4-snapshot-1): Server `fabric-264` 400/400 gruen.
+
+Bei jedem neuen Snapshot: `mc264_minecraft_version` / `mc264_fabric_version` heben, kompilieren,
+Brueche als 26.4-Zwillinge, `runDatagen`, `run.py --targets snapshot`. Sobald Cloth Config 26.4
+erscheint: `mc264_cloth_version` heben.
