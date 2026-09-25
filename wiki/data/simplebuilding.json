@@ -3283,6 +3283,70 @@
       }
     },
     {
+      "id": "simple_tweaks",
+      "related": [
+        "simplebuilding:elytra_pad",
+        "simplebuilding:enderite_elytra_pad",
+        "simplebuilding:fine_elytra_pad",
+        "simplebuilding:flypad",
+        "simplebuilding:enderite_flypad",
+        "simplebuilding:stellar_flypad",
+        "simplebuilding:spawn_teleporter",
+        "simplebuilding:enderite_spawn_teleporter",
+        "simplebuilding:chunk_loader",
+        "simplebuilding:enderite_chunk_loader",
+        "simplebuilding:launchpad",
+        "simplebuilding:enderite_launchpad",
+        "simplebuilding:diamond_pressure_plate",
+        "simplebuilding:netherite_pressure_plate",
+        "simplebuilding:enderite_pressure_plate",
+        "simplebuilding:copper_pressure_plate",
+        "simplebuilding:spawn_elytra",
+        "simplebuilding:laser_pointer",
+        "simplebuilding:echo_compass"
+      ],
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/TweaksBlocks.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/item/TweaksItems.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/command/TweaksCommands.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/spawn/SpawnSetup.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/spawn/SpawnRules.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/xp/XpClumping.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/xp/StackLimits.java",
+        "docs/SIMPLETWEAKS-UEBERNAHME.md",
+        "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "src/main/resources/assets/simplebuilding/lang/en_us.json",
+        "src/main/resources/assets/simplebuilding/lang/de_de.json"
+      ],
+      "en": {
+        "title": "Simple Tweaks: pads, spawn and server tweaks",
+        "summary": "Almost everything from the Simple Tweaks mod lives in SimpleBuilding now (the claim system stays in Simple Tweaks): pressure plates and pads with an Enderite tier, spawn elytra and spawn teleporters, the echo compass, the laser pointer and a few server options.",
+        "details": [
+          "Tier ladder of every plate family: after Netherite comes Enderite (enderite upgrade template + netherite tier + enderite ingot), and the nether star tier moves up one: Netherite Elytra Pad III, Enderite Elytra Pad IV, Fine Elytra Pad V; the same for flypads. Each Enderite tier adds one function (see the items).",
+          "XP orbs merge into one orb once a second within 2 blocks and can be picked up without the vanilla delay (tweaks.optimization.enableXpClumps); orbs worth more look bigger (scaleXpOrbs, client).",
+          "Firework rockets can be limited to a smaller stack size (tweaks.balancing.rocketStackSize).",
+          "The Nether and the End can be locked (tweaks.dimensions); exact spawn without random offset and a custom world spawn are off by default so existing worlds do not change.",
+          "Commands (operators): /killboats and /killcarts [standard|empty|all] remove unoccupied boats/minecarts within 100 blocks; /simplebuilding tweaks ... changes the config in game (what was /simpletweaks ...).",
+          "Every pad family can be switched off in the config section tweaks.pads."
+        ]
+      },
+      "de": {
+        "title": "Simple Tweaks: Pads, Spawn und Server-Einstellungen",
+        "summary": "Fast alles aus der Mod Simple Tweaks steckt jetzt in SimpleBuilding (das Claim-System bleibt in Simple Tweaks): Druckplatten und Pads mit einer Enderit-Stufe, Spawn-Elytra und Spawn-Teleporter, der Echo-Kompass, der Laserpointer und einige Server-Optionen.",
+        "details": [
+          "Stufenleiter aller Platten-Familien: nach Netherit kommt Enderit (Enderit-Aufwertungsvorlage + Netherit-Stufe + Enderitbarren), die Netherstern-Stufe rückt eins auf: Netherit-Elytra-Pad III, Enderit-Elytra-Pad IV, Feines Elytra-Pad V; ebenso bei den Flugpads. Jede Enderit-Stufe bringt eine Zusatzfunktion (siehe die Gegenstände).",
+          "XP-Kugeln verschmelzen einmal pro Sekunde im Umkreis von 2 Blöcken zu einer und lassen sich ohne die Vanilla-Verzögerung aufheben (tweaks.optimization.enableXpClumps); wertvollere Kugeln sehen größer aus (scaleXpOrbs, Client).",
+          "Feuerwerksraketen lassen sich auf eine kleinere Stapelgröße begrenzen (tweaks.balancing.rocketStackSize).",
+          "Nether und End lassen sich sperren (tweaks.dimensions); exakter Spawn ohne Zufallsversatz und ein eigener Weltspawn sind standardmäßig aus, damit bestehende Welten unverändert bleiben.",
+          "Befehle (Operatoren): /killboats und /killcarts [standard|empty|all] entfernen unbesetzte Boote/Loren im Umkreis von 100 Blöcken; /simplebuilding tweaks ... ändert die Config im Spiel (früher /simpletweaks ...).",
+          "Jede Pad-Familie lässt sich im Config-Abschnitt tweaks.pads abschalten."
+        ]
+      }
+    },
+    {
       "id": "configuration",
       "related": [
         "simplebuilding:double_jump",
@@ -5812,6 +5876,34 @@
         "durability": 64,
         "enchantability": 15,
         "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "The Echo Compass links to a lodestone and teleports you on top of it for one ender pearl per use; the compass itself stays (64 durability, Unbreaking and Mending work).",
+          "details": [
+            "Right-click a lodestone to link it; the needle then points there. If the lodestone is removed the link is lost.",
+            "Right-click to teleport: needs an ender pearl (not in creative), costs 1 durability, 6 seconds cooldown; afterwards blindness, glowing, slow falling, slowness and nausea for a moment. Works into any dimension the server knows.",
+            "Recipe (crafting, shaped): enderite core on top; netherite pressure plate, recovery compass, netherite pressure plate below.",
+            "Replaces the 'Echo Compass' data pack Simple Tweaks shipped; the data pack took durability off directly, so Unbreaking did nothing - fixed."
+          ]
+        },
+        "de": {
+          "summary": "Der Echo-Kompass verknüpft sich mit einem Leitstein und teleportiert dich für eine Enderperle pro Benutzung darauf; der Kompass selbst bleibt (64 Haltbarkeit, Haltbarkeit und Reparatur wirken).",
+          "details": [
+            "Rechtsklick auf einen Leitstein verknüpft; die Nadel zeigt dann dorthin. Wird der Leitstein entfernt, ist die Verknüpfung weg.",
+            "Rechtsklick teleportiert: braucht eine Enderperle (nicht im Kreativmodus), kostet 1 Haltbarkeit, 6 Sekunden Abklingzeit; danach kurz Blindheit, Leuchten, Sanfter Fall, Langsamkeit und Übelkeit. Funktioniert in jede Dimension, die der Server kennt.",
+            "Rezept (Werkbank, geformt): Enderit-Kern oben; darunter Netherit-Druckplatte, Bergungskompass, Netherit-Druckplatte.",
+            "Ersetzt das Datenpaket 'Echo Compass' aus Simple Tweaks; das zog die Haltbarkeit direkt ab, Haltbarkeit (Unbreaking) wirkte deshalb nicht - behoben."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/item/EchoCompassItem.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
       },
       "hasCustomBehaviour": false
     },
@@ -9556,6 +9648,33 @@
       "properties": {
         "durability": 500,
         "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "The Laser Pointer (from Simple Tweaks) shows a red dot where you aim while you hold right-click, visible to every player in the same world, and the distance next to the crosshair.",
+          "details": [
+            "Range, colour and dot size come from the config section tweaks.laserPointer (default 512 blocks, red); the dot grows with distance.",
+            "Has no recipe (creative only), as in Simple Tweaks."
+          ]
+        },
+        "de": {
+          "summary": "Der Laserpointer (aus Simple Tweaks) zeigt einen roten Punkt, wohin du bei gedrücktem Rechtsklick zielst - für alle Spieler derselben Welt sichtbar - und die Entfernung neben dem Fadenkreuz.",
+          "details": [
+            "Reichweite, Farbe und Punktgröße stehen in der Config unter tweaks.laserPointer (Standard 512 Blöcke, rot); der Punkt wächst mit der Entfernung.",
+            "Hat kein Rezept (nur Kreativ), wie in Simple Tweaks."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/item/LaserPointerItem.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/client/LaserRenderer.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/client/TweaksClient.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/network/LaserPayload.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
       },
       "hasCustomBehaviour": false
     },
@@ -14149,6 +14268,38 @@
       "properties": {
         "maxStackSize": 1
       },
+      "note": {
+        "en": {
+          "summary": "The Spawn Elytra (from Simple Tweaks) is a temporary elytra from the spawn area or an Elytra Pad: it exists only in the chest slot, has a flight timer and boosts, and replaces the experience bar with a blue boost bar and the remaining time.",
+          "details": [
+            "With tweaks.spawn.giveElytraOnSpawn on, a player with an empty chest slot inside the spawn radius (square, default 25 blocks around the configured centre) gets one; it protects against fall and wall damage there, and the area gives Regeneration.",
+            "Outside the area the timer (default 300 s) runs while gliding; landing outside the spawn area and without a pad nearby, or running out of time, removes it. It never stays in the inventory or on the cursor.",
+            "Press jump while gliding for a boost; each costs 1/maxBoosts (default 3) of the bar.",
+            "Wearers glow."
+          ]
+        },
+        "de": {
+          "summary": "Die Spawn-Elytra (aus Simple Tweaks) ist eine Leih-Elytra aus dem Spawnbereich oder von einem Elytra-Pad: sie existiert nur im Brust-Slot, hat einen Flugtimer und Boosts, und statt der Erfahrungsleiste zeigt der HUD eine blaue Boost-Leiste und die Restzeit.",
+          "details": [
+            "Mit tweaks.spawn.giveElytraOnSpawn bekommt ein Spieler mit leerem Brust-Slot im Spawnradius (Quadrat, Standard 25 Blöcke um die eingestellte Mitte) eine; dort schützt sie vor Fall- und Aufprallschaden, und der Bereich gibt Regeneration.",
+            "Außerhalb läuft der Timer (Standard 300 s) im Gleitflug; Landen außerhalb des Spawnbereichs und ohne Pad in der Nähe oder abgelaufene Zeit entfernt sie. Im Inventar oder am Mauszeiger bleibt sie nie.",
+            "Springen im Gleitflug gibt einen Boost; jeder kostet 1/maxBoosts (Standard 3) der Leiste.",
+            "Träger leuchten."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/item/SpawnElytraItem.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/spawn/SpawnElytra.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/spawn/ElytraDamageRules.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/network/TweaksNetwork.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/client/SpawnElytraHud.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -15483,6 +15634,33 @@
       "drops": [
         "simplebuilding:chunk_loader"
       ],
+      "note": {
+        "en": {
+          "summary": "The Chunk Loader (from Simple Tweaks) keeps its own chunk loaded; the Enderite Chunk Loader keeps the 3x3 chunks around it loaded.",
+          "details": [
+            "It remembers which chunks it forced itself and releases exactly those when it is broken or switched off (tweaks.pads.enableChunkLoaders) - chunks forced by /forceload or anything else stay forced. It keeps working after a server restart (in Simple Tweaks it stopped).",
+            "Recipes (smithing): netherite upgrade + Copper Pressure Plate + netherite ingot; Enderite: enderite upgrade template + Chunk Loader + enderite ingot.",
+            "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
+          ]
+        },
+        "de": {
+          "summary": "Der Chunk-Lader (aus Simple Tweaks) hält seinen eigenen Chunk geladen; der Enderit-Chunk-Lader die 3x3 Chunks darum.",
+          "details": [
+            "Er merkt sich, welche Chunks er selbst erzwungen hat, und gibt genau diese frei, wenn er abgebaut oder abgeschaltet wird (tweaks.pads.enableChunkLoaders) - von /forceload oder anderem erzwungene Chunks bleiben erzwungen. Er arbeitet auch nach einem Neustart weiter (in Simple Tweaks nicht).",
+            "Rezepte (Schmiede): Netherit-Aufwertung + Kupfer-Druckplatte + Netheritbarren; Enderit: Enderit-Aufwertungsvorlage + Chunk-Lader + Enderitbarren.",
+            "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/ChunkLoaderBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -15552,6 +15730,33 @@
       "drops": [
         "simplebuilding:copper_pressure_plate"
       ],
+      "note": {
+        "en": {
+          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized.",
+          "details": [
+            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes or is scraped.",
+            "Crafting: two copper blocks side by side. Pistons destroy them. Can be switched off with tweaks.pads.enableTimedCopperPlates.",
+            "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
+          ]
+        },
+        "de": {
+          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert.",
+          "details": [
+            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren und Abkratzen erhalten.",
+            "Werkbank: zwei Kupferblöcke nebeneinander. Kolben zerstören sie. Abschaltbar über tweaks.pads.enableTimedCopperPlates.",
+            "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -15599,6 +15804,30 @@
       "drops": [
         "simplebuilding:diamond_pressure_plate"
       ],
+      "note": {
+        "en": {
+          "summary": "The Diamond Pressure Plate (from Simple Tweaks) reacts to players only - mobs and items do not press it.",
+          "details": [
+            "Crafting: two diamonds side by side. Waterloggable. Pistons cannot move it.",
+            "Players who ignore block triggers (spectators) do not press it either."
+          ]
+        },
+        "de": {
+          "summary": "Die Diamant-Druckplatte (aus Simple Tweaks) reagiert nur auf Spieler - Mobs und Gegenstände drücken sie nicht.",
+          "details": [
+            "Werkbank: zwei Diamanten nebeneinander. Wasserfüllbar. Kolben bewegen sie nicht.",
+            "Spieler, die Auslöser ignorieren (Zuschauer), drücken sie auch nicht."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/DiamondPressurePlateBlock.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -15619,6 +15848,44 @@
       "drops": [
         "simplebuilding:elytra_pad"
       ],
+      "note": {
+        "en": {
+          "summary": "Elytra Pads (from Simple Tweaks) hand a Spawn Elytra to every player with an empty chest slot inside their area and keep it charged; five tiers, from Elytra Pad I to Fine Elytra Pad V.",
+          "details": [
+            "Every half second the pad checks all players in its area. An empty chest slot gets a Spawn Elytra with full flight time and full boosts; a pad elytra does NOT protect against fall or kinetic damage (only an elytra from the spawn area does). A worn chestplate is never replaced.",
+            "A player already wearing a Spawn Elytra in the area gets full flight time again, a short glowing effect, and the pad remembers the time so the elytra does not vanish for 3 seconds after leaving the area.",
+            "Boosts (press jump while gliding) recharge only in the 3x3 column up to 4 blocks above the pad - from the Enderite tier (IV) on, in the whole area.",
+            "Area per tier (width x width x height): I 5x5x15, II 15x15x31, III 31x31x63, IV (Enderite) 47x47x95, V (Fine) 63x63x127. The area reaches one block below the pad.",
+            "Recipes (smithing table): I = any trim template or netherite upgrade + Diamond Pressure Plate + diamond; II = template + pad I + diamond block; III = netherite upgrade + pad II + netherite ingot; IV = enderite upgrade template + pad III + enderite ingot; V = netherite upgrade + pad IV + nether star.",
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
+            "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing."
+          ]
+        },
+        "de": {
+          "summary": "Elytra-Pads (aus Simple Tweaks) geben jedem Spieler mit leerem Brust-Slot in ihrem Bereich eine Spawn-Elytra und halten sie geladen; fünf Stufen, vom Elytra-Pad I bis zum Feinen Elytra-Pad V.",
+          "details": [
+            "Jede halbe Sekunde prüft das Pad alle Spieler im Bereich. Ein leerer Brust-Slot bekommt eine Spawn-Elytra mit voller Flugzeit und vollen Boosts; eine Pad-Elytra schützt NICHT vor Fall- oder Aufprallschaden (das tut nur eine Elytra aus dem Spawnbereich). Eine getragene Brustplatte wird nie ersetzt.",
+            "Wer im Bereich schon eine Spawn-Elytra trägt, bekommt wieder volle Flugzeit und kurz Leuchten; das Pad merkt sich die Zeit, sodass die Elytra nach dem Verlassen des Bereichs 3 Sekunden lang nicht verschwindet.",
+            "Boosts (Springen im Gleitflug) laden nur in der 3x3-Säule bis 4 Blöcke über dem Pad - ab der Enderit-Stufe (IV) im ganzen Bereich.",
+            "Bereich je Stufe (Breite x Breite x Höhe): I 5x5x15, II 15x15x31, III 31x31x63, IV (Enderit) 47x47x95, V (Fein) 63x63x127. Der Bereich reicht einen Block unter das Pad.",
+            "Rezepte (Schmiedetisch): I = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Diamant-Druckplatte + Diamant; II = Vorlage + Pad I + Diamantblock; III = Netherit-Aufwertung + Pad II + Netheritbarren; IV = Enderit-Aufwertungsvorlage + Pad III + Enderitbarren; V = Netherit-Aufwertung + Pad IV + Netherstern.",
+            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
+            "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/ElytraPadBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ElytraPadBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/spawn/SpawnElytra.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/TweaksBlocks.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -16204,6 +16471,33 @@
       "drops": [
         "simplebuilding:enderite_chunk_loader"
       ],
+      "note": {
+        "en": {
+          "summary": "The Chunk Loader (from Simple Tweaks) keeps its own chunk loaded; the Enderite Chunk Loader keeps the 3x3 chunks around it loaded.",
+          "details": [
+            "It remembers which chunks it forced itself and releases exactly those when it is broken or switched off (tweaks.pads.enableChunkLoaders) - chunks forced by /forceload or anything else stay forced. It keeps working after a server restart (in Simple Tweaks it stopped).",
+            "Recipes (smithing): netherite upgrade + Copper Pressure Plate + netherite ingot; Enderite: enderite upgrade template + Chunk Loader + enderite ingot.",
+            "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
+          ]
+        },
+        "de": {
+          "summary": "Der Chunk-Lader (aus Simple Tweaks) hält seinen eigenen Chunk geladen; der Enderit-Chunk-Lader die 3x3 Chunks darum.",
+          "details": [
+            "Er merkt sich, welche Chunks er selbst erzwungen hat, und gibt genau diese frei, wenn er abgebaut oder abgeschaltet wird (tweaks.pads.enableChunkLoaders) - von /forceload oder anderem erzwungene Chunks bleiben erzwungen. Er arbeitet auch nach einem Neustart weiter (in Simple Tweaks nicht).",
+            "Rezepte (Schmiede): Netherit-Aufwertung + Kupfer-Druckplatte + Netheritbarren; Enderit: Enderit-Aufwertungsvorlage + Chunk-Lader + Enderitbarren.",
+            "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/ChunkLoaderBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -16224,6 +16518,44 @@
       "drops": [
         "simplebuilding:enderite_elytra_pad"
       ],
+      "note": {
+        "en": {
+          "summary": "Elytra Pads (from Simple Tweaks) hand a Spawn Elytra to every player with an empty chest slot inside their area and keep it charged; five tiers, from Elytra Pad I to Fine Elytra Pad V.",
+          "details": [
+            "Every half second the pad checks all players in its area. An empty chest slot gets a Spawn Elytra with full flight time and full boosts; a pad elytra does NOT protect against fall or kinetic damage (only an elytra from the spawn area does). A worn chestplate is never replaced.",
+            "A player already wearing a Spawn Elytra in the area gets full flight time again, a short glowing effect, and the pad remembers the time so the elytra does not vanish for 3 seconds after leaving the area.",
+            "Boosts (press jump while gliding) recharge only in the 3x3 column up to 4 blocks above the pad - from the Enderite tier (IV) on, in the whole area.",
+            "Area per tier (width x width x height): I 5x5x15, II 15x15x31, III 31x31x63, IV (Enderite) 47x47x95, V (Fine) 63x63x127. The area reaches one block below the pad.",
+            "Recipes (smithing table): I = any trim template or netherite upgrade + Diamond Pressure Plate + diamond; II = template + pad I + diamond block; III = netherite upgrade + pad II + netherite ingot; IV = enderite upgrade template + pad III + enderite ingot; V = netherite upgrade + pad IV + nether star.",
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
+            "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing."
+          ]
+        },
+        "de": {
+          "summary": "Elytra-Pads (aus Simple Tweaks) geben jedem Spieler mit leerem Brust-Slot in ihrem Bereich eine Spawn-Elytra und halten sie geladen; fünf Stufen, vom Elytra-Pad I bis zum Feinen Elytra-Pad V.",
+          "details": [
+            "Jede halbe Sekunde prüft das Pad alle Spieler im Bereich. Ein leerer Brust-Slot bekommt eine Spawn-Elytra mit voller Flugzeit und vollen Boosts; eine Pad-Elytra schützt NICHT vor Fall- oder Aufprallschaden (das tut nur eine Elytra aus dem Spawnbereich). Eine getragene Brustplatte wird nie ersetzt.",
+            "Wer im Bereich schon eine Spawn-Elytra trägt, bekommt wieder volle Flugzeit und kurz Leuchten; das Pad merkt sich die Zeit, sodass die Elytra nach dem Verlassen des Bereichs 3 Sekunden lang nicht verschwindet.",
+            "Boosts (Springen im Gleitflug) laden nur in der 3x3-Säule bis 4 Blöcke über dem Pad - ab der Enderit-Stufe (IV) im ganzen Bereich.",
+            "Bereich je Stufe (Breite x Breite x Höhe): I 5x5x15, II 15x15x31, III 31x31x63, IV (Enderit) 47x47x95, V (Fein) 63x63x127. Der Bereich reicht einen Block unter das Pad.",
+            "Rezepte (Schmiedetisch): I = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Diamant-Druckplatte + Diamant; II = Vorlage + Pad I + Diamantblock; III = Netherit-Aufwertung + Pad II + Netheritbarren; IV = Enderit-Aufwertungsvorlage + Pad III + Enderitbarren; V = Netherit-Aufwertung + Pad IV + Netherstern.",
+            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
+            "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/ElytraPadBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ElytraPadBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/spawn/SpawnElytra.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/TweaksBlocks.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -16244,6 +16576,40 @@
       "drops": [
         "simplebuilding:enderite_flypad"
       ],
+      "note": {
+        "en": {
+          "summary": "Flypads (from Simple Tweaks) grant creative flight inside their area and take it back when you leave; five tiers, from Flypad I to Stellar Flypad V.",
+          "details": [
+            "Every 5 ticks: players in the area may fly and glow briefly. A survival player who leaves the area loses flight; creative and spectator players are left alone.",
+            "Enderite tier (IV) and up: a safety net - whoever leaves the area while flying gets 10 seconds of Slow Falling instead of crashing.",
+            "Breaking the pad, unloading it or switching flypads off (tweaks.pads.enableFlypads) takes flight back from everyone it had granted it to (in Simple Tweaks they kept it forever).",
+            "Area per tier (width x width x height, starting at the pad): I 5x5x15, II 15x15x31, III 31x31x63, IV 47x47x95, V 63x63x127.",
+            "Recipes: I = netherite upgrade + Fine Elytra Pad V + netherite ingot (smithing); II = netherite upgrade + flypad I + netherite block (smithing); III = crafting DBD / ESE / KFK (diamond block, netherite block, enchanted golden apple, nether star, ominous trial key, flypad II); IV = enderite upgrade template + flypad III + enderite ingot (smithing); V = crafting KKK / ESE / FFF with three Enderite Flypads.",
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it."
+          ]
+        },
+        "de": {
+          "summary": "Flugpads (aus Simple Tweaks) geben im Bereich Kreativflug und nehmen ihn beim Verlassen wieder; fünf Stufen, vom Flugpad I bis zum Stellaren Flugpad V.",
+          "details": [
+            "Alle 5 Ticks: Spieler im Bereich dürfen fliegen und leuchten kurz. Ein Überlebensspieler, der den Bereich verlässt, verliert den Flug; Kreativ- und Zuschauerspieler bleiben unberührt.",
+            "Ab der Enderit-Stufe (IV): ein Sicherheitsnetz - wer den Bereich fliegend verlässt, bekommt 10 Sekunden Sanften Fall statt abzustürzen.",
+            "Abbauen, Entladen oder Abschalten (tweaks.pads.enableFlypads) nimmt allen, denen das Pad Flug gegeben hat, den Flug wieder (in Simple Tweaks behielten sie ihn für immer).",
+            "Bereich je Stufe (Breite x Breite x Höhe, ab dem Pad): I 5x5x15, II 15x15x31, III 31x31x63, IV 47x47x95, V 63x63x127.",
+            "Rezepte: I = Netherit-Aufwertung + Feines Elytra-Pad V + Netheritbarren (Schmiede); II = Netherit-Aufwertung + Flugpad I + Netheritblock (Schmiede); III = Werkbank DBD / ESE / KFK (Diamantblock, Netheritblock, Verzauberter Goldapfel, Netherstern, Unheilvoller Prüfungsschlüssel, Flugpad II); IV = Enderit-Aufwertungsvorlage + Flugpad III + Enderitbarren (Schmiede); V = Werkbank KKK / ESE / FFF mit drei Enderit-Flugpads.",
+            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/FlypadBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/FlypadBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -16443,6 +16809,40 @@
       "drops": [
         "simplebuilding:enderite_launchpad"
       ],
+      "note": {
+        "en": {
+          "summary": "Launchpads (from Simple Tweaks) are charged with wind charges and launch you after 3 seconds of standing on them; the more charges, the higher.",
+          "details": [
+            "Right-click with a wind charge adds one charge (consumed outside creative); right-click without shows the count. A Launchpad holds 16, the Enderite Launchpad 32.",
+            "Standing on a charged pad starts a 3-second countdown with a particle spiral; then you get 1.5 + 0.4 per charge blocks per tick of upward speed and the pad is empty again.",
+            "Enderite Launchpad: no fall damage until your next landing.",
+            "Recipes (smithing): any template + heavy weighted pressure plate + diamond block, or netherite upgrade + heavy weighted pressure plate + netherite ingot; Enderite: enderite upgrade template + Launchpad + enderite ingot.",
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
+            "Can be switched off with tweaks.pads.enableLaunchpads."
+          ]
+        },
+        "de": {
+          "summary": "Startrampen (aus Simple Tweaks) werden mit Windkugeln geladen und schießen dich nach 3 Sekunden Stehen hoch; je mehr Ladungen, desto höher.",
+          "details": [
+            "Rechtsklick mit einer Windkugel fügt eine Ladung hinzu (außer im Kreativmodus verbraucht); Rechtsklick ohne zeigt den Stand. Eine Startrampe fasst 16, die Enderit-Startrampe 32.",
+            "Auf einer geladenen Rampe läuft ein 3-Sekunden-Countdown mit Partikelspirale; dann gibt es 1,5 + 0,4 je Ladung Blöcke pro Tick Aufwärtsgeschwindigkeit, und die Rampe ist wieder leer.",
+            "Enderit-Startrampe: kein Fallschaden bis zur nächsten Landung.",
+            "Rezepte (Schmiede): beliebige Vorlage + schwere Wägeplatte + Diamantblock oder Netherit-Aufwertung + schwere Wägeplatte + Netheritbarren; Enderit: Enderit-Aufwertungsvorlage + Startrampe + Enderitbarren.",
+            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
+            "Abschaltbar über tweaks.pads.enableLaunchpads."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/LaunchpadBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/LaunchpadBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/spawn/LaunchSafety.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -16543,6 +16943,33 @@
       "drops": [
         "simplebuilding:enderite_pressure_plate"
       ],
+      "note": {
+        "en": {
+          "summary": "The Enderite Pressure Plate is new: a Netherite plate with a player lock. Its owner always presses it; without a barrel nobody else does; with a barrel below, also everyone whose name is on a renamed name tag in the barrel, or who carries one of the other items in it.",
+          "details": [
+            "Smithing: enderite upgrade template + Netherite Pressure Plate + enderite ingot.",
+            "A named name tag in the barrel counts as a name, not as a whitelisted item.",
+            "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
+          ]
+        },
+        "de": {
+          "summary": "Die Enderit-Druckplatte ist neu: eine Netherit-Platte mit Spielerschloss. Ihr Besitzer löst sie immer aus; ohne Fass sonst niemand; mit Fass darunter auch jeder, dessen Name auf einem umbenannten Namensschild im Fass steht oder der einen der anderen Gegenstände daraus trägt.",
+          "details": [
+            "Schmiede: Enderit-Aufwertungsvorlage + Netherit-Druckplatte + Enderitbarren.",
+            "Ein benanntes Namensschild im Fass zählt als Name, nicht als Whitelist-Gegenstand.",
+            "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/FilterPressurePlateBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/FilterPlateBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -16656,6 +17083,44 @@
       "drops": [
         "simplebuilding:enderite_spawn_teleporter"
       ],
+      "note": {
+        "en": {
+          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), the Enderite Spawn Teleporter V takes you to your own respawn point.",
+          "details": [
+            "Tier I goes to Spawn 1, II to Spawn 2, III to Spawn 3, IV to Spawn 4. Operators set them with /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (their own position). An unset target means the world spawn.",
+            "Enderite Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
+            "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
+            "The owner sees enchanting particles over their own teleporter. Waterloggable.",
+            "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + netherite ingot; V = enderite upgrade template + IV + enderite ingot.",
+            "On their first join players get the configured number (spawnTeleporterCount, default 1) of Spawn Teleporters named 'Home Teleporter' plus as many Elytra Pads - once; the player tag is the one Simple Tweaks used, so nobody gets them twice after switching.",
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
+            "Can be switched off with tweaks.pads.enableSpawnTeleporters."
+          ]
+        },
+        "de": {
+          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), der Enderit-Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
+          "details": [
+            "Stufe I führt zu Spawn 1, II zu Spawn 2, III zu Spawn 3, IV zu Spawn 4. Operatoren setzen sie mit /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (eigene Position). Ohne gesetztes Ziel geht es zum Weltspawn.",
+            "Enderit-Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
+            "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
+            "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
+            "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netheritbarren; V = Enderit-Aufwertungsvorlage + IV + Enderitbarren.",
+            "Beim ersten Betreten bekommen Spieler die eingestellte Zahl (spawnTeleporterCount, Standard 1) Spawn-Teleporter mit dem Namen 'Heim-Teleporter' und ebenso viele Elytra-Pads - einmal; der Spieler-Tag ist derselbe wie in Simple Tweaks, nach dem Umstieg gibt es sie also nicht doppelt.",
+            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
+            "Abschaltbar über tweaks.pads.enableSpawnTeleporters."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/SpawnTeleporterBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/SpawnTeleporterBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/command/TweaksCommands.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -16672,6 +17137,33 @@
       "drops": [
         "simplebuilding:exposed_copper_pressure_plate"
       ],
+      "note": {
+        "en": {
+          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized.",
+          "details": [
+            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes or is scraped.",
+            "Crafting: two copper blocks side by side. Pistons destroy them. Can be switched off with tweaks.pads.enableTimedCopperPlates.",
+            "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
+          ]
+        },
+        "de": {
+          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert.",
+          "details": [
+            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren und Abkratzen erhalten.",
+            "Werkbank: zwei Kupferblöcke nebeneinander. Kolben zerstören sie. Abschaltbar über tweaks.pads.enableTimedCopperPlates.",
+            "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -16692,6 +17184,44 @@
       "drops": [
         "simplebuilding:fine_elytra_pad"
       ],
+      "note": {
+        "en": {
+          "summary": "Elytra Pads (from Simple Tweaks) hand a Spawn Elytra to every player with an empty chest slot inside their area and keep it charged; five tiers, from Elytra Pad I to Fine Elytra Pad V.",
+          "details": [
+            "Every half second the pad checks all players in its area. An empty chest slot gets a Spawn Elytra with full flight time and full boosts; a pad elytra does NOT protect against fall or kinetic damage (only an elytra from the spawn area does). A worn chestplate is never replaced.",
+            "A player already wearing a Spawn Elytra in the area gets full flight time again, a short glowing effect, and the pad remembers the time so the elytra does not vanish for 3 seconds after leaving the area.",
+            "Boosts (press jump while gliding) recharge only in the 3x3 column up to 4 blocks above the pad - from the Enderite tier (IV) on, in the whole area.",
+            "Area per tier (width x width x height): I 5x5x15, II 15x15x31, III 31x31x63, IV (Enderite) 47x47x95, V (Fine) 63x63x127. The area reaches one block below the pad.",
+            "Recipes (smithing table): I = any trim template or netherite upgrade + Diamond Pressure Plate + diamond; II = template + pad I + diamond block; III = netherite upgrade + pad II + netherite ingot; IV = enderite upgrade template + pad III + enderite ingot; V = netherite upgrade + pad IV + nether star.",
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
+            "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing."
+          ]
+        },
+        "de": {
+          "summary": "Elytra-Pads (aus Simple Tweaks) geben jedem Spieler mit leerem Brust-Slot in ihrem Bereich eine Spawn-Elytra und halten sie geladen; fünf Stufen, vom Elytra-Pad I bis zum Feinen Elytra-Pad V.",
+          "details": [
+            "Jede halbe Sekunde prüft das Pad alle Spieler im Bereich. Ein leerer Brust-Slot bekommt eine Spawn-Elytra mit voller Flugzeit und vollen Boosts; eine Pad-Elytra schützt NICHT vor Fall- oder Aufprallschaden (das tut nur eine Elytra aus dem Spawnbereich). Eine getragene Brustplatte wird nie ersetzt.",
+            "Wer im Bereich schon eine Spawn-Elytra trägt, bekommt wieder volle Flugzeit und kurz Leuchten; das Pad merkt sich die Zeit, sodass die Elytra nach dem Verlassen des Bereichs 3 Sekunden lang nicht verschwindet.",
+            "Boosts (Springen im Gleitflug) laden nur in der 3x3-Säule bis 4 Blöcke über dem Pad - ab der Enderit-Stufe (IV) im ganzen Bereich.",
+            "Bereich je Stufe (Breite x Breite x Höhe): I 5x5x15, II 15x15x31, III 31x31x63, IV (Enderit) 47x47x95, V (Fein) 63x63x127. Der Bereich reicht einen Block unter das Pad.",
+            "Rezepte (Schmiedetisch): I = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Diamant-Druckplatte + Diamant; II = Vorlage + Pad I + Diamantblock; III = Netherit-Aufwertung + Pad II + Netheritbarren; IV = Enderit-Aufwertungsvorlage + Pad III + Enderitbarren; V = Netherit-Aufwertung + Pad IV + Netherstern.",
+            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
+            "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/ElytraPadBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ElytraPadBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/spawn/SpawnElytra.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/TweaksBlocks.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -16712,6 +17242,40 @@
       "drops": [
         "simplebuilding:flypad"
       ],
+      "note": {
+        "en": {
+          "summary": "Flypads (from Simple Tweaks) grant creative flight inside their area and take it back when you leave; five tiers, from Flypad I to Stellar Flypad V.",
+          "details": [
+            "Every 5 ticks: players in the area may fly and glow briefly. A survival player who leaves the area loses flight; creative and spectator players are left alone.",
+            "Enderite tier (IV) and up: a safety net - whoever leaves the area while flying gets 10 seconds of Slow Falling instead of crashing.",
+            "Breaking the pad, unloading it or switching flypads off (tweaks.pads.enableFlypads) takes flight back from everyone it had granted it to (in Simple Tweaks they kept it forever).",
+            "Area per tier (width x width x height, starting at the pad): I 5x5x15, II 15x15x31, III 31x31x63, IV 47x47x95, V 63x63x127.",
+            "Recipes: I = netherite upgrade + Fine Elytra Pad V + netherite ingot (smithing); II = netherite upgrade + flypad I + netherite block (smithing); III = crafting DBD / ESE / KFK (diamond block, netherite block, enchanted golden apple, nether star, ominous trial key, flypad II); IV = enderite upgrade template + flypad III + enderite ingot (smithing); V = crafting KKK / ESE / FFF with three Enderite Flypads.",
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it."
+          ]
+        },
+        "de": {
+          "summary": "Flugpads (aus Simple Tweaks) geben im Bereich Kreativflug und nehmen ihn beim Verlassen wieder; fünf Stufen, vom Flugpad I bis zum Stellaren Flugpad V.",
+          "details": [
+            "Alle 5 Ticks: Spieler im Bereich dürfen fliegen und leuchten kurz. Ein Überlebensspieler, der den Bereich verlässt, verliert den Flug; Kreativ- und Zuschauerspieler bleiben unberührt.",
+            "Ab der Enderit-Stufe (IV): ein Sicherheitsnetz - wer den Bereich fliegend verlässt, bekommt 10 Sekunden Sanften Fall statt abzustürzen.",
+            "Abbauen, Entladen oder Abschalten (tweaks.pads.enableFlypads) nimmt allen, denen das Pad Flug gegeben hat, den Flug wieder (in Simple Tweaks behielten sie ihn für immer).",
+            "Bereich je Stufe (Breite x Breite x Höhe, ab dem Pad): I 5x5x15, II 15x15x31, III 31x31x63, IV 47x47x95, V 63x63x127.",
+            "Rezepte: I = Netherit-Aufwertung + Feines Elytra-Pad V + Netheritbarren (Schmiede); II = Netherit-Aufwertung + Flugpad I + Netheritblock (Schmiede); III = Werkbank DBD / ESE / KFK (Diamantblock, Netheritblock, Verzauberter Goldapfel, Netherstern, Unheilvoller Prüfungsschlüssel, Flugpad II); IV = Enderit-Aufwertungsvorlage + Flugpad III + Enderitbarren (Schmiede); V = Werkbank KKK / ESE / FFF mit drei Enderit-Flugpads.",
+            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/FlypadBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/FlypadBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -16785,6 +17349,40 @@
       "drops": [
         "simplebuilding:launchpad"
       ],
+      "note": {
+        "en": {
+          "summary": "Launchpads (from Simple Tweaks) are charged with wind charges and launch you after 3 seconds of standing on them; the more charges, the higher.",
+          "details": [
+            "Right-click with a wind charge adds one charge (consumed outside creative); right-click without shows the count. A Launchpad holds 16, the Enderite Launchpad 32.",
+            "Standing on a charged pad starts a 3-second countdown with a particle spiral; then you get 1.5 + 0.4 per charge blocks per tick of upward speed and the pad is empty again.",
+            "Enderite Launchpad: no fall damage until your next landing.",
+            "Recipes (smithing): any template + heavy weighted pressure plate + diamond block, or netherite upgrade + heavy weighted pressure plate + netherite ingot; Enderite: enderite upgrade template + Launchpad + enderite ingot.",
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
+            "Can be switched off with tweaks.pads.enableLaunchpads."
+          ]
+        },
+        "de": {
+          "summary": "Startrampen (aus Simple Tweaks) werden mit Windkugeln geladen und schießen dich nach 3 Sekunden Stehen hoch; je mehr Ladungen, desto höher.",
+          "details": [
+            "Rechtsklick mit einer Windkugel fügt eine Ladung hinzu (außer im Kreativmodus verbraucht); Rechtsklick ohne zeigt den Stand. Eine Startrampe fasst 16, die Enderit-Startrampe 32.",
+            "Auf einer geladenen Rampe läuft ein 3-Sekunden-Countdown mit Partikelspirale; dann gibt es 1,5 + 0,4 je Ladung Blöcke pro Tick Aufwärtsgeschwindigkeit, und die Rampe ist wieder leer.",
+            "Enderit-Startrampe: kein Fallschaden bis zur nächsten Landung.",
+            "Rezepte (Schmiede): beliebige Vorlage + schwere Wägeplatte + Diamantblock oder Netherit-Aufwertung + schwere Wägeplatte + Netheritbarren; Enderit: Enderit-Aufwertungsvorlage + Startrampe + Enderitbarren.",
+            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
+            "Abschaltbar über tweaks.pads.enableLaunchpads."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/LaunchpadBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/LaunchpadBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/spawn/LaunchSafety.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -17271,6 +17869,44 @@
       "drops": [
         "simplebuilding:netherite_elytra_pad"
       ],
+      "note": {
+        "en": {
+          "summary": "Elytra Pads (from Simple Tweaks) hand a Spawn Elytra to every player with an empty chest slot inside their area and keep it charged; five tiers, from Elytra Pad I to Fine Elytra Pad V.",
+          "details": [
+            "Every half second the pad checks all players in its area. An empty chest slot gets a Spawn Elytra with full flight time and full boosts; a pad elytra does NOT protect against fall or kinetic damage (only an elytra from the spawn area does). A worn chestplate is never replaced.",
+            "A player already wearing a Spawn Elytra in the area gets full flight time again, a short glowing effect, and the pad remembers the time so the elytra does not vanish for 3 seconds after leaving the area.",
+            "Boosts (press jump while gliding) recharge only in the 3x3 column up to 4 blocks above the pad - from the Enderite tier (IV) on, in the whole area.",
+            "Area per tier (width x width x height): I 5x5x15, II 15x15x31, III 31x31x63, IV (Enderite) 47x47x95, V (Fine) 63x63x127. The area reaches one block below the pad.",
+            "Recipes (smithing table): I = any trim template or netherite upgrade + Diamond Pressure Plate + diamond; II = template + pad I + diamond block; III = netherite upgrade + pad II + netherite ingot; IV = enderite upgrade template + pad III + enderite ingot; V = netherite upgrade + pad IV + nether star.",
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
+            "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing."
+          ]
+        },
+        "de": {
+          "summary": "Elytra-Pads (aus Simple Tweaks) geben jedem Spieler mit leerem Brust-Slot in ihrem Bereich eine Spawn-Elytra und halten sie geladen; fünf Stufen, vom Elytra-Pad I bis zum Feinen Elytra-Pad V.",
+          "details": [
+            "Jede halbe Sekunde prüft das Pad alle Spieler im Bereich. Ein leerer Brust-Slot bekommt eine Spawn-Elytra mit voller Flugzeit und vollen Boosts; eine Pad-Elytra schützt NICHT vor Fall- oder Aufprallschaden (das tut nur eine Elytra aus dem Spawnbereich). Eine getragene Brustplatte wird nie ersetzt.",
+            "Wer im Bereich schon eine Spawn-Elytra trägt, bekommt wieder volle Flugzeit und kurz Leuchten; das Pad merkt sich die Zeit, sodass die Elytra nach dem Verlassen des Bereichs 3 Sekunden lang nicht verschwindet.",
+            "Boosts (Springen im Gleitflug) laden nur in der 3x3-Säule bis 4 Blöcke über dem Pad - ab der Enderit-Stufe (IV) im ganzen Bereich.",
+            "Bereich je Stufe (Breite x Breite x Höhe): I 5x5x15, II 15x15x31, III 31x31x63, IV (Enderit) 47x47x95, V (Fein) 63x63x127. Der Bereich reicht einen Block unter das Pad.",
+            "Rezepte (Schmiedetisch): I = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Diamant-Druckplatte + Diamant; II = Vorlage + Pad I + Diamantblock; III = Netherit-Aufwertung + Pad II + Netheritbarren; IV = Enderit-Aufwertungsvorlage + Pad III + Enderitbarren; V = Netherit-Aufwertung + Pad IV + Netherstern.",
+            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
+            "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/ElytraPadBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ElytraPadBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/spawn/SpawnElytra.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/TweaksBlocks.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -17291,6 +17927,40 @@
       "drops": [
         "simplebuilding:netherite_flypad"
       ],
+      "note": {
+        "en": {
+          "summary": "Flypads (from Simple Tweaks) grant creative flight inside their area and take it back when you leave; five tiers, from Flypad I to Stellar Flypad V.",
+          "details": [
+            "Every 5 ticks: players in the area may fly and glow briefly. A survival player who leaves the area loses flight; creative and spectator players are left alone.",
+            "Enderite tier (IV) and up: a safety net - whoever leaves the area while flying gets 10 seconds of Slow Falling instead of crashing.",
+            "Breaking the pad, unloading it or switching flypads off (tweaks.pads.enableFlypads) takes flight back from everyone it had granted it to (in Simple Tweaks they kept it forever).",
+            "Area per tier (width x width x height, starting at the pad): I 5x5x15, II 15x15x31, III 31x31x63, IV 47x47x95, V 63x63x127.",
+            "Recipes: I = netherite upgrade + Fine Elytra Pad V + netherite ingot (smithing); II = netherite upgrade + flypad I + netherite block (smithing); III = crafting DBD / ESE / KFK (diamond block, netherite block, enchanted golden apple, nether star, ominous trial key, flypad II); IV = enderite upgrade template + flypad III + enderite ingot (smithing); V = crafting KKK / ESE / FFF with three Enderite Flypads.",
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it."
+          ]
+        },
+        "de": {
+          "summary": "Flugpads (aus Simple Tweaks) geben im Bereich Kreativflug und nehmen ihn beim Verlassen wieder; fünf Stufen, vom Flugpad I bis zum Stellaren Flugpad V.",
+          "details": [
+            "Alle 5 Ticks: Spieler im Bereich dürfen fliegen und leuchten kurz. Ein Überlebensspieler, der den Bereich verlässt, verliert den Flug; Kreativ- und Zuschauerspieler bleiben unberührt.",
+            "Ab der Enderit-Stufe (IV): ein Sicherheitsnetz - wer den Bereich fliegend verlässt, bekommt 10 Sekunden Sanften Fall statt abzustürzen.",
+            "Abbauen, Entladen oder Abschalten (tweaks.pads.enableFlypads) nimmt allen, denen das Pad Flug gegeben hat, den Flug wieder (in Simple Tweaks behielten sie ihn für immer).",
+            "Bereich je Stufe (Breite x Breite x Höhe, ab dem Pad): I 5x5x15, II 15x15x31, III 31x31x63, IV 47x47x95, V 63x63x127.",
+            "Rezepte: I = Netherit-Aufwertung + Feines Elytra-Pad V + Netheritbarren (Schmiede); II = Netherit-Aufwertung + Flugpad I + Netheritblock (Schmiede); III = Werkbank DBD / ESE / KFK (Diamantblock, Netheritblock, Verzauberter Goldapfel, Netherstern, Unheilvoller Prüfungsschlüssel, Flugpad II); IV = Enderit-Aufwertungsvorlage + Flugpad III + Enderitbarren (Schmiede); V = Werkbank KKK / ESE / FFF mit drei Enderit-Flugpads.",
+            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/FlypadBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/FlypadBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -17715,6 +18385,33 @@
       "drops": [
         "simplebuilding:netherite_pressure_plate"
       ],
+      "note": {
+        "en": {
+          "summary": "The Netherite Pressure Plate (from Simple Tweaks) reacts to every player - unless a barrel sits below it: then only players carrying one of the items in the barrel press it.",
+          "details": [
+            "Smithing: netherite upgrade + Diamond Pressure Plate + netherite ingot.",
+            "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally.",
+            "Can be switched off together with the Enderite plate (tweaks.pads.enableFilterPlates)."
+          ]
+        },
+        "de": {
+          "summary": "Die Netherit-Druckplatte (aus Simple Tweaks) reagiert auf jeden Spieler - außer ein Fass steht darunter: dann nur auf Spieler, die einen der Gegenstände aus dem Fass bei sich tragen.",
+          "details": [
+            "Schmiede: Netherit-Aufwertung + Diamant-Druckplatte + Netheritbarren.",
+            "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt.",
+            "Zusammen mit der Enderit-Platte abschaltbar (tweaks.pads.enableFilterPlates)."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/FilterPressurePlateBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/FilterPlateBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -18143,6 +18840,33 @@
       "drops": [
         "simplebuilding:oxidized_copper_pressure_plate"
       ],
+      "note": {
+        "en": {
+          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized.",
+          "details": [
+            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes or is scraped.",
+            "Crafting: two copper blocks side by side. Pistons destroy them. Can be switched off with tweaks.pads.enableTimedCopperPlates.",
+            "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
+          ]
+        },
+        "de": {
+          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert.",
+          "details": [
+            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren und Abkratzen erhalten.",
+            "Werkbank: zwei Kupferblöcke nebeneinander. Kolben zerstören sie. Abschaltbar über tweaks.pads.enableTimedCopperPlates.",
+            "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -18838,6 +19562,44 @@
       "drops": [
         "simplebuilding:reinforced_elytra_pad"
       ],
+      "note": {
+        "en": {
+          "summary": "Elytra Pads (from Simple Tweaks) hand a Spawn Elytra to every player with an empty chest slot inside their area and keep it charged; five tiers, from Elytra Pad I to Fine Elytra Pad V.",
+          "details": [
+            "Every half second the pad checks all players in its area. An empty chest slot gets a Spawn Elytra with full flight time and full boosts; a pad elytra does NOT protect against fall or kinetic damage (only an elytra from the spawn area does). A worn chestplate is never replaced.",
+            "A player already wearing a Spawn Elytra in the area gets full flight time again, a short glowing effect, and the pad remembers the time so the elytra does not vanish for 3 seconds after leaving the area.",
+            "Boosts (press jump while gliding) recharge only in the 3x3 column up to 4 blocks above the pad - from the Enderite tier (IV) on, in the whole area.",
+            "Area per tier (width x width x height): I 5x5x15, II 15x15x31, III 31x31x63, IV (Enderite) 47x47x95, V (Fine) 63x63x127. The area reaches one block below the pad.",
+            "Recipes (smithing table): I = any trim template or netherite upgrade + Diamond Pressure Plate + diamond; II = template + pad I + diamond block; III = netherite upgrade + pad II + netherite ingot; IV = enderite upgrade template + pad III + enderite ingot; V = netherite upgrade + pad IV + nether star.",
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
+            "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing."
+          ]
+        },
+        "de": {
+          "summary": "Elytra-Pads (aus Simple Tweaks) geben jedem Spieler mit leerem Brust-Slot in ihrem Bereich eine Spawn-Elytra und halten sie geladen; fünf Stufen, vom Elytra-Pad I bis zum Feinen Elytra-Pad V.",
+          "details": [
+            "Jede halbe Sekunde prüft das Pad alle Spieler im Bereich. Ein leerer Brust-Slot bekommt eine Spawn-Elytra mit voller Flugzeit und vollen Boosts; eine Pad-Elytra schützt NICHT vor Fall- oder Aufprallschaden (das tut nur eine Elytra aus dem Spawnbereich). Eine getragene Brustplatte wird nie ersetzt.",
+            "Wer im Bereich schon eine Spawn-Elytra trägt, bekommt wieder volle Flugzeit und kurz Leuchten; das Pad merkt sich die Zeit, sodass die Elytra nach dem Verlassen des Bereichs 3 Sekunden lang nicht verschwindet.",
+            "Boosts (Springen im Gleitflug) laden nur in der 3x3-Säule bis 4 Blöcke über dem Pad - ab der Enderit-Stufe (IV) im ganzen Bereich.",
+            "Bereich je Stufe (Breite x Breite x Höhe): I 5x5x15, II 15x15x31, III 31x31x63, IV (Enderit) 47x47x95, V (Fein) 63x63x127. Der Bereich reicht einen Block unter das Pad.",
+            "Rezepte (Schmiedetisch): I = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Diamant-Druckplatte + Diamant; II = Vorlage + Pad I + Diamantblock; III = Netherit-Aufwertung + Pad II + Netheritbarren; IV = Enderit-Aufwertungsvorlage + Pad III + Enderitbarren; V = Netherit-Aufwertung + Pad IV + Netherstern.",
+            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
+            "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/ElytraPadBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ElytraPadBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/spawn/SpawnElytra.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/TweaksBlocks.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -18858,6 +19620,40 @@
       "drops": [
         "simplebuilding:reinforced_flypad"
       ],
+      "note": {
+        "en": {
+          "summary": "Flypads (from Simple Tweaks) grant creative flight inside their area and take it back when you leave; five tiers, from Flypad I to Stellar Flypad V.",
+          "details": [
+            "Every 5 ticks: players in the area may fly and glow briefly. A survival player who leaves the area loses flight; creative and spectator players are left alone.",
+            "Enderite tier (IV) and up: a safety net - whoever leaves the area while flying gets 10 seconds of Slow Falling instead of crashing.",
+            "Breaking the pad, unloading it or switching flypads off (tweaks.pads.enableFlypads) takes flight back from everyone it had granted it to (in Simple Tweaks they kept it forever).",
+            "Area per tier (width x width x height, starting at the pad): I 5x5x15, II 15x15x31, III 31x31x63, IV 47x47x95, V 63x63x127.",
+            "Recipes: I = netherite upgrade + Fine Elytra Pad V + netherite ingot (smithing); II = netherite upgrade + flypad I + netherite block (smithing); III = crafting DBD / ESE / KFK (diamond block, netherite block, enchanted golden apple, nether star, ominous trial key, flypad II); IV = enderite upgrade template + flypad III + enderite ingot (smithing); V = crafting KKK / ESE / FFF with three Enderite Flypads.",
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it."
+          ]
+        },
+        "de": {
+          "summary": "Flugpads (aus Simple Tweaks) geben im Bereich Kreativflug und nehmen ihn beim Verlassen wieder; fünf Stufen, vom Flugpad I bis zum Stellaren Flugpad V.",
+          "details": [
+            "Alle 5 Ticks: Spieler im Bereich dürfen fliegen und leuchten kurz. Ein Überlebensspieler, der den Bereich verlässt, verliert den Flug; Kreativ- und Zuschauerspieler bleiben unberührt.",
+            "Ab der Enderit-Stufe (IV): ein Sicherheitsnetz - wer den Bereich fliegend verlässt, bekommt 10 Sekunden Sanften Fall statt abzustürzen.",
+            "Abbauen, Entladen oder Abschalten (tweaks.pads.enableFlypads) nimmt allen, denen das Pad Flug gegeben hat, den Flug wieder (in Simple Tweaks behielten sie ihn für immer).",
+            "Bereich je Stufe (Breite x Breite x Höhe, ab dem Pad): I 5x5x15, II 15x15x31, III 31x31x63, IV 47x47x95, V 63x63x127.",
+            "Rezepte: I = Netherit-Aufwertung + Feines Elytra-Pad V + Netheritbarren (Schmiede); II = Netherit-Aufwertung + Flugpad I + Netheritblock (Schmiede); III = Werkbank DBD / ESE / KFK (Diamantblock, Netheritblock, Verzauberter Goldapfel, Netherstern, Unheilvoller Prüfungsschlüssel, Flugpad II); IV = Enderit-Aufwertungsvorlage + Flugpad III + Enderitbarren (Schmiede); V = Werkbank KKK / ESE / FFF mit drei Enderit-Flugpads.",
+            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/FlypadBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/FlypadBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -19445,6 +20241,44 @@
       "drops": [
         "simplebuilding:spawn_teleporter"
       ],
+      "note": {
+        "en": {
+          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), the Enderite Spawn Teleporter V takes you to your own respawn point.",
+          "details": [
+            "Tier I goes to Spawn 1, II to Spawn 2, III to Spawn 3, IV to Spawn 4. Operators set them with /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (their own position). An unset target means the world spawn.",
+            "Enderite Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
+            "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
+            "The owner sees enchanting particles over their own teleporter. Waterloggable.",
+            "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + netherite ingot; V = enderite upgrade template + IV + enderite ingot.",
+            "On their first join players get the configured number (spawnTeleporterCount, default 1) of Spawn Teleporters named 'Home Teleporter' plus as many Elytra Pads - once; the player tag is the one Simple Tweaks used, so nobody gets them twice after switching.",
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
+            "Can be switched off with tweaks.pads.enableSpawnTeleporters."
+          ]
+        },
+        "de": {
+          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), der Enderit-Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
+          "details": [
+            "Stufe I führt zu Spawn 1, II zu Spawn 2, III zu Spawn 3, IV zu Spawn 4. Operatoren setzen sie mit /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (eigene Position). Ohne gesetztes Ziel geht es zum Weltspawn.",
+            "Enderit-Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
+            "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
+            "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
+            "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netheritbarren; V = Enderit-Aufwertungsvorlage + IV + Enderitbarren.",
+            "Beim ersten Betreten bekommen Spieler die eingestellte Zahl (spawnTeleporterCount, Standard 1) Spawn-Teleporter mit dem Namen 'Heim-Teleporter' und ebenso viele Elytra-Pads - einmal; der Spieler-Tag ist derselbe wie in Simple Tweaks, nach dem Umstieg gibt es sie also nicht doppelt.",
+            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
+            "Abschaltbar über tweaks.pads.enableSpawnTeleporters."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/SpawnTeleporterBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/SpawnTeleporterBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/command/TweaksCommands.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -19465,6 +20299,44 @@
       "drops": [
         "simplebuilding:spawn_teleporter_tier_2"
       ],
+      "note": {
+        "en": {
+          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), the Enderite Spawn Teleporter V takes you to your own respawn point.",
+          "details": [
+            "Tier I goes to Spawn 1, II to Spawn 2, III to Spawn 3, IV to Spawn 4. Operators set them with /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (their own position). An unset target means the world spawn.",
+            "Enderite Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
+            "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
+            "The owner sees enchanting particles over their own teleporter. Waterloggable.",
+            "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + netherite ingot; V = enderite upgrade template + IV + enderite ingot.",
+            "On their first join players get the configured number (spawnTeleporterCount, default 1) of Spawn Teleporters named 'Home Teleporter' plus as many Elytra Pads - once; the player tag is the one Simple Tweaks used, so nobody gets them twice after switching.",
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
+            "Can be switched off with tweaks.pads.enableSpawnTeleporters."
+          ]
+        },
+        "de": {
+          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), der Enderit-Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
+          "details": [
+            "Stufe I führt zu Spawn 1, II zu Spawn 2, III zu Spawn 3, IV zu Spawn 4. Operatoren setzen sie mit /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (eigene Position). Ohne gesetztes Ziel geht es zum Weltspawn.",
+            "Enderit-Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
+            "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
+            "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
+            "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netheritbarren; V = Enderit-Aufwertungsvorlage + IV + Enderitbarren.",
+            "Beim ersten Betreten bekommen Spieler die eingestellte Zahl (spawnTeleporterCount, Standard 1) Spawn-Teleporter mit dem Namen 'Heim-Teleporter' und ebenso viele Elytra-Pads - einmal; der Spieler-Tag ist derselbe wie in Simple Tweaks, nach dem Umstieg gibt es sie also nicht doppelt.",
+            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
+            "Abschaltbar über tweaks.pads.enableSpawnTeleporters."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/SpawnTeleporterBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/SpawnTeleporterBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/command/TweaksCommands.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -19485,6 +20357,44 @@
       "drops": [
         "simplebuilding:spawn_teleporter_tier_3"
       ],
+      "note": {
+        "en": {
+          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), the Enderite Spawn Teleporter V takes you to your own respawn point.",
+          "details": [
+            "Tier I goes to Spawn 1, II to Spawn 2, III to Spawn 3, IV to Spawn 4. Operators set them with /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (their own position). An unset target means the world spawn.",
+            "Enderite Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
+            "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
+            "The owner sees enchanting particles over their own teleporter. Waterloggable.",
+            "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + netherite ingot; V = enderite upgrade template + IV + enderite ingot.",
+            "On their first join players get the configured number (spawnTeleporterCount, default 1) of Spawn Teleporters named 'Home Teleporter' plus as many Elytra Pads - once; the player tag is the one Simple Tweaks used, so nobody gets them twice after switching.",
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
+            "Can be switched off with tweaks.pads.enableSpawnTeleporters."
+          ]
+        },
+        "de": {
+          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), der Enderit-Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
+          "details": [
+            "Stufe I führt zu Spawn 1, II zu Spawn 2, III zu Spawn 3, IV zu Spawn 4. Operatoren setzen sie mit /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (eigene Position). Ohne gesetztes Ziel geht es zum Weltspawn.",
+            "Enderit-Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
+            "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
+            "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
+            "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netheritbarren; V = Enderit-Aufwertungsvorlage + IV + Enderitbarren.",
+            "Beim ersten Betreten bekommen Spieler die eingestellte Zahl (spawnTeleporterCount, Standard 1) Spawn-Teleporter mit dem Namen 'Heim-Teleporter' und ebenso viele Elytra-Pads - einmal; der Spieler-Tag ist derselbe wie in Simple Tweaks, nach dem Umstieg gibt es sie also nicht doppelt.",
+            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
+            "Abschaltbar über tweaks.pads.enableSpawnTeleporters."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/SpawnTeleporterBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/SpawnTeleporterBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/command/TweaksCommands.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -19505,6 +20415,44 @@
       "drops": [
         "simplebuilding:spawn_teleporter_tier_4"
       ],
+      "note": {
+        "en": {
+          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), the Enderite Spawn Teleporter V takes you to your own respawn point.",
+          "details": [
+            "Tier I goes to Spawn 1, II to Spawn 2, III to Spawn 3, IV to Spawn 4. Operators set them with /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (their own position). An unset target means the world spawn.",
+            "Enderite Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
+            "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
+            "The owner sees enchanting particles over their own teleporter. Waterloggable.",
+            "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + netherite ingot; V = enderite upgrade template + IV + enderite ingot.",
+            "On their first join players get the configured number (spawnTeleporterCount, default 1) of Spawn Teleporters named 'Home Teleporter' plus as many Elytra Pads - once; the player tag is the one Simple Tweaks used, so nobody gets them twice after switching.",
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
+            "Can be switched off with tweaks.pads.enableSpawnTeleporters."
+          ]
+        },
+        "de": {
+          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), der Enderit-Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
+          "details": [
+            "Stufe I führt zu Spawn 1, II zu Spawn 2, III zu Spawn 3, IV zu Spawn 4. Operatoren setzen sie mit /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (eigene Position). Ohne gesetztes Ziel geht es zum Weltspawn.",
+            "Enderit-Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
+            "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
+            "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
+            "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netheritbarren; V = Enderit-Aufwertungsvorlage + IV + Enderitbarren.",
+            "Beim ersten Betreten bekommen Spieler die eingestellte Zahl (spawnTeleporterCount, Standard 1) Spawn-Teleporter mit dem Namen 'Heim-Teleporter' und ebenso viele Elytra-Pads - einmal; der Spieler-Tag ist derselbe wie in Simple Tweaks, nach dem Umstieg gibt es sie also nicht doppelt.",
+            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
+            "Abschaltbar über tweaks.pads.enableSpawnTeleporters."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/SpawnTeleporterBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/SpawnTeleporterBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/command/TweaksCommands.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -19523,6 +20471,40 @@
       "drops": [
         "simplebuilding:stellar_flypad"
       ],
+      "note": {
+        "en": {
+          "summary": "Flypads (from Simple Tweaks) grant creative flight inside their area and take it back when you leave; five tiers, from Flypad I to Stellar Flypad V.",
+          "details": [
+            "Every 5 ticks: players in the area may fly and glow briefly. A survival player who leaves the area loses flight; creative and spectator players are left alone.",
+            "Enderite tier (IV) and up: a safety net - whoever leaves the area while flying gets 10 seconds of Slow Falling instead of crashing.",
+            "Breaking the pad, unloading it or switching flypads off (tweaks.pads.enableFlypads) takes flight back from everyone it had granted it to (in Simple Tweaks they kept it forever).",
+            "Area per tier (width x width x height, starting at the pad): I 5x5x15, II 15x15x31, III 31x31x63, IV 47x47x95, V 63x63x127.",
+            "Recipes: I = netherite upgrade + Fine Elytra Pad V + netherite ingot (smithing); II = netherite upgrade + flypad I + netherite block (smithing); III = crafting DBD / ESE / KFK (diamond block, netherite block, enchanted golden apple, nether star, ominous trial key, flypad II); IV = enderite upgrade template + flypad III + enderite ingot (smithing); V = crafting KKK / ESE / FFF with three Enderite Flypads.",
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it."
+          ]
+        },
+        "de": {
+          "summary": "Flugpads (aus Simple Tweaks) geben im Bereich Kreativflug und nehmen ihn beim Verlassen wieder; fünf Stufen, vom Flugpad I bis zum Stellaren Flugpad V.",
+          "details": [
+            "Alle 5 Ticks: Spieler im Bereich dürfen fliegen und leuchten kurz. Ein Überlebensspieler, der den Bereich verlässt, verliert den Flug; Kreativ- und Zuschauerspieler bleiben unberührt.",
+            "Ab der Enderit-Stufe (IV): ein Sicherheitsnetz - wer den Bereich fliegend verlässt, bekommt 10 Sekunden Sanften Fall statt abzustürzen.",
+            "Abbauen, Entladen oder Abschalten (tweaks.pads.enableFlypads) nimmt allen, denen das Pad Flug gegeben hat, den Flug wieder (in Simple Tweaks behielten sie ihn für immer).",
+            "Bereich je Stufe (Breite x Breite x Höhe, ab dem Pad): I 5x5x15, II 15x15x31, III 31x31x63, IV 47x47x95, V 63x63x127.",
+            "Rezepte: I = Netherit-Aufwertung + Feines Elytra-Pad V + Netheritbarren (Schmiede); II = Netherit-Aufwertung + Flugpad I + Netheritblock (Schmiede); III = Werkbank DBD / ESE / KFK (Diamantblock, Netheritblock, Verzauberter Goldapfel, Netherstern, Unheilvoller Prüfungsschlüssel, Flugpad II); IV = Enderit-Aufwertungsvorlage + Flugpad III + Enderitbarren (Schmiede); V = Werkbank KKK / ESE / FFF mit drei Enderit-Flugpads.",
+            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/FlypadBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/FlypadBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     },
     {
@@ -19693,6 +20675,33 @@
       "drops": [
         "simplebuilding:weathered_copper_pressure_plate"
       ],
+      "note": {
+        "en": {
+          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized.",
+          "details": [
+            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes or is scraped.",
+            "Crafting: two copper blocks side by side. Pistons destroy them. Can be switched off with tweaks.pads.enableTimedCopperPlates.",
+            "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
+          ]
+        },
+        "de": {
+          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert.",
+          "details": [
+            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren und Abkratzen erhalten.",
+            "Werkbank: zwei Kupferblöcke nebeneinander. Kolben zerstören sie. Abschaltbar über tweaks.pads.enableTimedCopperPlates.",
+            "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
       "hasCustomBehaviour": false
     }
   ],
@@ -45853,7 +46862,7 @@
     "tags": 27,
     "config": 17,
     "inWorld": 343,
-    "features": 39,
+    "features": 40,
     "undocumented": 0,
     "incompleteProse": 0
   },

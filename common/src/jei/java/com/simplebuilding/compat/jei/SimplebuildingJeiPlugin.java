@@ -9,7 +9,13 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
+import com.simplebuilding.tweaks.item.TweaksJeiInfo;
+import java.util.List;
+import java.util.Map;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.item.Item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,6 +73,11 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         for (InWorldRecipeCatalog.Kind kind : InWorldRecipeCatalog.Kind.values()) {
             registration.addRecipes(InWorldCategory.recipeType(kind), catalog().of(kind));
+        }
+        // Infoseiten der aus Simple Tweaks uebernommenen Pads, Platten und Werkzeuge.
+        for (Map.Entry<String, List<ItemLike>> family : TweaksJeiInfo.families().entrySet()) {
+            List<ItemStack> stacks = family.getValue().stream().map(ItemStack::new).toList();
+            registration.addItemStackInfo(stacks, Component.translatable(TweaksJeiInfo.KEY_PREFIX + family.getKey()));
         }
     }
 

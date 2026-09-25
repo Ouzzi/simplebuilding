@@ -763,5 +763,17 @@
   "text.autoconfig.simplebuilding.option.tweaks.laserPointer.range": "Max Range",
   "text.autoconfig.simplebuilding.option.tweaks.laserPointer.range.@Tooltip": "How far the laser reaches.",
   "text.autoconfig.simplebuilding.option.tweaks.laserPointer.showLine": "Show Laser Beam",
-  "text.autoconfig.simplebuilding.option.tweaks.laserPointer.showLine.@Tooltip": "No effect yet (already without effect in Simple Tweaks)."
+  "text.autoconfig.simplebuilding.option.tweaks.laserPointer.showLine.@Tooltip": "No effect yet (already without effect in Simple Tweaks).",
+  "jei.simplebuilding.info.elytra_pad": "Hands a Spawn Elytra to players with an empty chest slot in its area and recharges it. Area grows with the tier (5x5x15 up to 63x63x127); from Enderite (IV) on, boosts recharge in the whole area.",
+  "jei.simplebuilding.info.flypad": "Grants creative flight inside its area and takes it back outside. From Enderite (IV) on, leaving the area while flying gives 10 s of Slow Falling.",
+  "jei.simplebuilding.info.spawn_teleporter": "Stand still on it for 5 s to reach its target: Spawn 1-4 for tiers I-IV (set by operators), your own respawn point for the Enderite tier (3 s).",
+  "jei.simplebuilding.info.chunk_loader": "Keeps its chunk loaded (Enderite: 3x3 chunks) and releases only the chunks it forced itself.",
+  "jei.simplebuilding.info.launchpad": "Right-click with wind charges to charge it (16, Enderite 32), stand on it for 3 s to be launched. Enderite: no fall damage until the next landing.",
+  "jei.simplebuilding.info.diamond_pressure_plate": "Only players press it; mobs and items do not.",
+  "jei.simplebuilding.info.netherite_pressure_plate": "With a barrel below it, only players carrying one of the barrel's items press it.",
+  "jei.simplebuilding.info.enderite_pressure_plate": "Owner-locked: the owner always presses it; with a barrel below also players named on a renamed name tag in it or carrying one of its items.",
+  "jei.simplebuilding.info.copper_pressure_plate": "Powers only after a player has stood on it for 1-4 s, longer the more oxidized it is. An axe scrapes one stage off.",
+  "jei.simplebuilding.info.spawn_elytra": "Temporary elytra from the spawn area or an Elytra Pad; flight timer, boosts with jump while gliding.",
+  "jei.simplebuilding.info.laser_pointer": "Hold right-click to show a dot where you aim, visible to every player in the world.",
+  "jei.simplebuilding.info.echo_compass": "Right-click a lodestone to link it, then use to teleport onto it for one ender pearl. The compass stays; Unbreaking and Mending work."
 }

@@ -47,8 +47,8 @@ Status: **port** = uebernommen, **neu** = in SimpleBuilding neu hinzugekommen (B
 | Schadensschutz der Spawn-Elytra (Fall + Kinetik, `IS_SAFE_ELYTRA`) | port | Mixin auf LivingEntity |
 | Kein Fallschaden im Spawnbereich (`disableFallDamageInSpawn`) | port | |
 | Erstbeitritt: Spawn-Teleporter + Elytra-Pad geschenkt | port | `spawnTeleporterCount` |
-| Exakter Spawn (kein Zufallsradius, Bett-Mitte) | port | Mixin auf ServerPlayer |
-| Eigener Weltspawn aus der Config beim Laden der Oberwelt | port | |
+| Exakter Spawn (kein Zufallsradius, Bett-Mitte) | port | Mixin auf ServerPlayer; `forceExactSpawn` jetzt Standard **aus** |
+| Eigener Weltspawn aus der Config beim Laden der Oberwelt | port | `useCustomWorldSpawn`, Standard **aus** |
 | Nether/End sperren | port | Mixin auf den Dimensionswechsel |
 
 ### Items, Optimierung, Befehle
@@ -217,6 +217,56 @@ Simple Tweaks, dazu Schalter je Druckplatten-Familie:
 
 ## 6. Was in Simple Tweaks bleibt
 
-Nach der Uebernahme bleibt im Branch `remove-ported-features` von Simple Tweaks nur das Claim-System
-(ClaimState, ClaimProtectionHandler, Claim-Urkunde samt Textur/Modell/Lang, `/claim`-Befehle) und
-das Geruest (Hauptklasse, Config-Rest, ModMenu). Die Liste des Entfernten steht im Commit dort.
+Branch `remove-ported-features` im Repo `simpletweaks` (abgezweigt von `1.21.11`; `master` und
+`1.21.11` unberuehrt, nichts gepusht):
+
+- `d56621b` - uebernimmt die bis dahin uncommitteten Aenderungen des Arbeitsbaums unveraendert,
+  damit das Entfernen auf dem Stand aufsetzt, der auch portiert wurde.
+- `9882906` - entfernt alles Portierte. Es bleiben: `Simpletweaks` (nur noch Items, Claim-Schutz,
+  Befehle), `ClaimState`, `ClaimProtectionHandler`, `ClaimDeedItem`, `ModItems` (nur `claim_deed`),
+  `ModCommands` (nur `/claim`), `ModModelProvider` (nur das Urkunden-Modell), Textur/Lang der Urkunde,
+  Icon und Readme-Bilder. Cloth Config, Mod Menu, die Client-Einstiegsklasse und die Mixins
+  entfallen. `gradlew build` und `runDatagen` laufen gruen.
+
+## 7. Abweichungen von Simple Tweaks und behobene Fehler
+
+- Exakter Spawn und eigener Weltspawn sind standardmaessig **aus** (in Simple Tweaks an); sonst
+  haette das Einspielen von SimpleBuilding jeden bestehenden Server umgestellt.
+- Kein Fallschaden im Spawnbereich gilt nur, wenn auch `giveElytraOnSpawn` an ist (sonst waere der
+  Spawn ohne Elytra-Funktion fallschadenfrei).
+- Boost-Paket: der Server prueft, ob der Spieler wirklich gleitet (vorher konnte ein manipulierter
+  Client jederzeit boosten).
+- Der Flugzeit-Timer einer Pad-Elytra laeuft auch, wenn die Spawn-Elytra abgeschaltet ist (vorher
+  blieb sie dann ewig).
+- Erstbeitritt schenkt Teleporter **und** Elytra-Pad (vorher ueberschrieb das zweite Geschenk das erste
+  bei vollem Slot).
+- Flypad: wird es abgebaut oder abgeschaltet, verlieren Spieler im Bereich den Flug (vorher behielten
+  sie ihn).
+- Chunk-Loader: nach Serverneustart wieder aktiv, und er gibt nur Chunks frei, die er selbst erzwungen
+  hat (vorher konnte er fremd erzwungene Chunks freigeben).
+- XP-Verklumpen: beim Zusammenlegen ging Erfahrung verloren (Anzahl der Kugeln wurde ignoriert) -
+  behoben, Obergrenze `Short.MAX_VALUE` je Kugel.
+- Kupfer-Druckplatten behalten beim Oxidieren/Abkratzen ihren Besitzer und melden den Block darunter an.
+- Echo-Kompass neu geschrieben (kein AGPL-Code), Unbreaking/Mending wirken, jede Dimension.
+- Enderit-Texturen sind Helligkeits-Umfaerbungen der Stufe-III-Texturen - Pruefung durch den Besitzer
+  offen.
+- Nicht uebernommen: die Timer-Anzeige der Spawn-Elytra ueber der Hungerleiste (doppelt zur
+  Boost-Leiste) und die Ergaenzung von `TRIMMABLE_ARMOR`/`TRIM_MATERIALS`-Tags.
+- JEI: jede Familie (Pads, Platten, Teleporter, Chunk-Loader, Launchpad, Spawn-Elytra, Laser,
+  Echo-Kompass) hat eine Infoseite (`jei.simplebuilding.info.*`), das Wiki einen Abschnitt
+  "Simple Tweaks" mit Notizen je Block.
+
+## 8. Tests
+
+`TweaksTests` (Katalog `SimpleBuildingGameTests`, Fabric-Adapter `TweaksGameTest`, Methode = Test-ID
+`simplebuilding:tweaks_*`), in beiden Codelinien: Besitzer und Abbau, Pad-Bereiche je Stufe,
+Elytra-Pad/Flypad/Teleporter/Launchpad/Chunk-Loader inklusive Enderit-Zusatz, Filter- und
+Kupferplatten, Echo-Kompass (Verknuepfen, Perle, Unbreaking), XP-Verklumpen, Stapelgroessen,
+Spawn-Regeln, Befehle, Config-Schalter je Familie. Jeder Test wurde gegengeprueft (Mutation des
+geprueften Verhaltens macht ihn rot).
+
+## 9. Offene Punkte
+
+- Laser-Option `showLine` hat weiter keine Wirkung (wie in Simple Tweaks).
+- Enderit-Texturen vom Besitzer pruefen lassen.
+- Claim-System (Abschnitt 4) bei Bedarf spaeter portieren.

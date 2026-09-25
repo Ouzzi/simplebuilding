@@ -763,5 +763,17 @@
   "text.autoconfig.simplebuilding.option.tweaks.laserPointer.range": "Reichweite",
   "text.autoconfig.simplebuilding.option.tweaks.laserPointer.range.@Tooltip": "Wie weit der Laser reicht.",
   "text.autoconfig.simplebuilding.option.tweaks.laserPointer.showLine": "Laserstrahl zeigen",
-  "text.autoconfig.simplebuilding.option.tweaks.laserPointer.showLine.@Tooltip": "Noch ohne Wirkung (war es schon in Simple Tweaks)."
+  "text.autoconfig.simplebuilding.option.tweaks.laserPointer.showLine.@Tooltip": "Noch ohne Wirkung (war es schon in Simple Tweaks).",
+  "jei.simplebuilding.info.elytra_pad": "Gibt Spielern mit leerem Brust-Slot im Bereich eine Spawn-Elytra und lädt sie. Der Bereich wächst mit der Stufe (5x5x15 bis 63x63x127); ab Enderit (IV) laden Boosts im ganzen Bereich.",
+  "jei.simplebuilding.info.flypad": "Gibt im Bereich Kreativflug und nimmt ihn außerhalb wieder. Ab Enderit (IV) gibt fliegendes Verlassen 10 s Sanften Fall.",
+  "jei.simplebuilding.info.spawn_teleporter": "5 s still darauf stehen bringt zum Ziel: Spawn 1-4 für die Stufen I-IV (von Operatoren gesetzt), der eigene Wiedereinstiegspunkt für die Enderit-Stufe (3 s).",
+  "jei.simplebuilding.info.chunk_loader": "Hält seinen Chunk geladen (Enderit: 3x3 Chunks) und gibt nur selbst erzwungene Chunks frei.",
+  "jei.simplebuilding.info.launchpad": "Rechtsklick mit Windkugeln lädt sie (16, Enderit 32), 3 s darauf stehen startet. Enderit: kein Fallschaden bis zur nächsten Landung.",
+  "jei.simplebuilding.info.diamond_pressure_plate": "Nur Spieler lösen sie aus, Mobs und Gegenstände nicht.",
+  "jei.simplebuilding.info.netherite_pressure_plate": "Mit einem Fass darunter lösen nur Spieler aus, die einen Gegenstand aus dem Fass tragen.",
+  "jei.simplebuilding.info.enderite_pressure_plate": "Mit Besitzerschloss: der Besitzer immer; mit Fass darunter auch Spieler, deren Name auf einem umbenannten Namensschild darin steht oder die einen Gegenstand daraus tragen.",
+  "jei.simplebuilding.info.copper_pressure_plate": "Löst erst nach 1-4 s Stehen aus, je oxidierter desto länger. Eine Axt kratzt eine Stufe ab.",
+  "jei.simplebuilding.info.spawn_elytra": "Leih-Elytra aus dem Spawnbereich oder von einem Elytra-Pad; Flugtimer, Boosts mit Springen im Gleitflug.",
+  "jei.simplebuilding.info.laser_pointer": "Rechtsklick halten zeigt einen Punkt, wohin du zielst - für alle Spieler der Welt sichtbar.",
+  "jei.simplebuilding.info.echo_compass": "Rechtsklick auf einen Leitstein verknüpft, danach teleportiert Benutzen für eine Enderperle darauf. Der Kompass bleibt; Haltbarkeit und Reparatur wirken."
 }
