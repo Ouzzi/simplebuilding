@@ -61,6 +61,13 @@ Verlauf im Detail: git log.
 - [ ] 26.4-Snapshot-Linie vorbereiten (Fabric, Forge falls vorhanden), experimentell, blockiert das Gate nicht
 - [ ] Nahtloses Welt-Upgrade 26.2 -> 26.3: Audit aller Mod-Daten, tolerante Leser, Fixture-Rundlauftest, docs/UPGRADE-26.2-26.3.md
 
+## Welle 14 (laeuft): Simple Tweaks uebernehmen
+- [ ] Inventur + docs/SIMPLETWEAKS-UEBERNAHME.md (inkl. vollstaendiger Claim-Notiz, Claims NICHT portieren)
+- [ ] Port aller Druckplatten (Chunkloader, Elytra-Pad, Fly-Pad, Spawn-Teleporter + Modi), Spawn-/Erstbeitritt, Spawn-Elytra, XP-Kugeln, Laser, Echo-Kompass, Befehle, Config (jede Variante abschaltbar) - alle Linien/Loader
+- [ ] Enderit-Stufe nach Netherit, Netherstern-Stufe rueckt eins hoch (z. B. Enderite Elytra Pad IV, Fine Elytra Pad V); Enderit-Platte mit Zusatzfunktion
+- [ ] Echo-Kompass: Rezept Bergungskompass + Enderit-Kern + Netherit-Druckplatte links/rechts; Unbreaking-Bug fixen
+- [ ] Tests alle Linien; danach in simpletweaks Branch remove-ported-features (nicht gepusht)
+
 ## Wartet auf den Besitzer
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
 
