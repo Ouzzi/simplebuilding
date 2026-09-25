@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Erzeugt die handgezeichneten 16x16-Texturen fuer Rucksack, Lederbogen, verstaerkten
 Koecher, verstaerkten klebrigen Kolben, Enderit-Kolben, Spachtel, die Enderit-Maschinen, die
-Nihilith-/Astralit-Quarz-Schachbretter, Enderquarz, Enderitbarren, -schrott, -klumpen und die
+Nihilith-/Astralit-Quarz-Schachbretter, Enderquarz, Enderitbarren, -schrott, -klumpen, die beiden Aufwertungen, den Diamant-Kiesel und die
 Blaupause; dazu aus Code (nicht aus
 Pixelkarten) die drei End-Paletten Astralit, Nihilith und Enderquarz (Grundblock, Ziegel, polierter
 Block, Saeule, gemeisselte Ziegel), die Rueckentextur des getragenen Rucksacks (entity/backpack/*, aus
@@ -62,6 +62,7 @@ TREES = [
     os.path.join(REPO, "mc1_21_11", "fabric", "src", "main", "resources", "assets", "simplebuilding", "textures"),
 ]
 PREVIEW = os.path.join(HERE, "preview.png")
+GEAR_PREVIEW = os.path.join(HERE, "gear_preview.png")
 
 
 def hexrgb(h):
@@ -137,19 +138,19 @@ CHISEL_WOOD = {"1": "#2b210e", "2": "#3c2c12", "3": "#483515", "4": "#584219",
 LEATHER_SHEET = [
     "................",
     "................",
-    ".....RRRRRRRRRO.",
-    ".....R5t4t4t43O.",
-    ".....R54444433O.",
-    "....R54444433O..",
-    "....R44444432O..",
-    "....R44444332O..",
-    "...R444443UUO...",
-    "...R443UUUSO....",
-    "...R333USVO.....",
-    "..R3332UVO......",
-    "..Rt2t2SO.......",
-    "..OOOOOO........",
-    "................",
+    "....RRRRRRRR....",
+    "...R55555544O...",
+    "...R5t4t4t44O...",
+    "...R544434t3O...",
+    "...R5t434443O...",
+    "...R444344t3O...",
+    "...R4t443433O...",
+    "...R444434t3O...",
+    "...R4t4433USO...",
+    "...R4443USVO....",
+    "...R4t3USVO.....",
+    "...R333VVO......",
+    "....OOOOO.......",
     "................",
 ]
 LEATHER_SHEET_PAL = {
@@ -1498,17 +1499,17 @@ ENDER_QUARTZ_ITEM_PAL = {
 ENDERITE_INGOT = [
     "................",
     "................",
-    "..........RR....",
-    ".......RRR76O...",
-    "....RRR665555O..",
-    ".RRR6655555544O.",
-    "Rh6555555544hh1O",
-    "R3h55544hhhh221O",
-    "R33h44hh2222111O",
-    "O333hh2211111OO.",
-    ".O33221111OOO...",
-    "..O3111OOO......",
-    "...OOOO.........",
+    "..........R.....",
+    "........RR7O....",
+    ".....RRR6555O...",
+    "..RRR66555544O..",
+    ".Rh65555554hh1O.",
+    ".R3h55544hh221O.",
+    ".R33h44hh22111O.",
+    ".O333hh22111OO..",
+    "..O3322111OO....",
+    "...O3111OO......",
+    "....OOOO........",
     "................",
     "................",
     "................",
@@ -1525,17 +1526,17 @@ ENDERITE_SCRAP = [
     "................",
     "................",
     ".........HHO....",
-    ".......HHA63O...",
-    ".....HHA6622O...",
-    "....HA6522A65O..",
-    "...HA642A6622O..",
-    "...B42AA622AAO..",
-    "....OA464AA65O..",
-    "...HA642A4653O..",
-    "...B42AA3653O...",
-    "....OA46553O....",
-    ".....O5534O.....",
-    "......OOOO......",
+    "......HHHA63O...",
+    "....HHAA6622O...",
+    "...HA65522A65O..",
+    "..HA6422A6622O..",
+    "..B42AAA622AAO..",
+    "...OA4664AA65O..",
+    "..HA6422A4653O..",
+    "..B42AAA3653O...",
+    "...OA466553O....",
+    "....O55534O.....",
+    ".....OOOOO......",
     "................",
     "................",
 ]
@@ -1570,6 +1571,63 @@ ENDERITE_NUGGET_PAL = {
 }
 
 
+# Aufwertungen (basic_upgrade_template, enderite_upgrade_template): eigene Kartenform mit Nieten in
+# den Ecken und einem Pfeil nach oben. R Randton, O Umriss, 1..4 Karte dunkel -> hell, a..d Pfeil
+# dunkel -> hell, e Pfeilmitte. Enderit: Karte in den Farben des Enderitbarrens, Pfeil aus Netherit
+# (die Mitte, wo Vanilla einen Diamanten zeigt, ist Netherit). Basis: Karte wie Goldbarren/Goldruestung,
+# Pfeil wie ein Eisenblock.
+UPGRADE_TEMPLATE = [
+    "................",
+    "....RRRRRRRRR...",
+    "...R344444443O..",
+    "...R342222241O..",
+    "...R3122d2211O..",
+    "...R322dcb221O..",
+    "...R32dceba11O..",
+    "...R3dccebba1O..",
+    "...R322cea221O..",
+    "...R122cba221O..",
+    "...R322cba211O..",
+    "...R312baa211O..",
+    "...R241111141O..",
+    "....O1111111O...",
+    ".....OOOOOOO....",
+    "................",
+]
+ENDERITE_UPGRADE_TEMPLATE_PAL = {
+    "O": "#1c0a33", "R": "#472480", "1": "#55309a", "2": "#6d45b8", "3": "#8e63dc", "4": "#a57de9",
+    "a": "#271c1d", "b": "#3b393b", "c": "#5a575a", "d": "#8a878a", "e": "#737173",
+}
+BASIC_UPGRADE_TEMPLATE_PAL = {
+    "O": "#752802", "R": "#b26411", "1": "#dc9613", "2": "#e9b115", "3": "#fad64a", "4": "#fdf55f",
+    "a": "#b1b0b0", "b": "#d6d6d6", "c": "#ececec", "d": "#ffffff", "e": "#dcdcdc",
+}
+
+# Diamant-Kiesel: kleiner, scharf geschliffener Edelstein (Raute), Licht von oben links.
+DIAMOND_PEBBLE = [
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    ".......RO.......",
+    "......RW4O......",
+    ".....RW4432.....",
+    ".....R43321O....",
+    "......O321O.....",
+    ".......O1O......",
+    "........O.......",
+    "................",
+    "................",
+    "................",
+    "................",
+]
+DIAMOND_PEBBLE_PAL = {
+    "O": "#0a4f53", "R": "#0fa8ad", "1": "#0b858a", "2": "#0cc0c6", "3": "#2de0e0", "4": "#78f4f4",
+    "W": "#eafffc",
+}
+
+
 def end_palette_textures():
     tex = {}
     for mat in END_PALETTE_RAMPS:
@@ -1583,6 +1641,11 @@ def end_palette_textures():
     tex["item/enderite_ingot.png"] = render("enderite_ingot", ENDERITE_INGOT, ENDERITE_INGOT_PAL, False)
     tex["item/enderite_scrap.png"] = render("enderite_scrap", ENDERITE_SCRAP, ENDERITE_SCRAP_PAL, False)
     tex["item/enderite_nugget.png"] = render("enderite_nugget", ENDERITE_NUGGET, ENDERITE_NUGGET_PAL, False)
+    tex["item/enderite_upgrade_template.png"] = render("enderite_upgrade_template", UPGRADE_TEMPLATE,
+                                                        ENDERITE_UPGRADE_TEMPLATE_PAL, False)
+    tex["item/basic_upgrade_template.png"] = render("basic_upgrade_template", UPGRADE_TEMPLATE,
+                                                     BASIC_UPGRADE_TEMPLATE_PAL, False)
+    tex["item/diamond_pebble.png"] = render("diamond_pebble", DIAMOND_PEBBLE, DIAMOND_PEBBLE_PAL, False)
     return tex
 
 
@@ -2356,7 +2419,8 @@ def build_preview(tex):
                        [checker_wall(tex[names[1]]), checker_wall(tex[names[2]])]))
     groups.append(("Enderquarz und Enderit", [(k, tex[k]) for k in (
         "item/ender_quartz.png", "item/enderite_ingot.png", "item/enderite_scrap.png",
-        "item/enderite_nugget.png")], []))
+        "item/enderite_nugget.png", "item/enderite_upgrade_template.png", "item/basic_upgrade_template.png",
+        "item/diamond_pebble.png")], []))
     width = max(pad + len(items) * (cell + pad) + sum(iso.width + pad for iso in isos) + pad
                 for _, items, isos in groups)
     height = pad + len(groups) * (16 + cell + label_h + pad + 4)
@@ -2388,13 +2452,441 @@ def build_preview(tex):
     return sheet
 
 
+
+# ---------------------------------------------------------------------------
+# Alternative Enderit-Ausruestung (Runde 7) - NICHT Teil von build(): nur mit --gear-preview (Vorschau)
+# oder --apply-gear A|B (schreibt die Variante in beide Baeume). Die Karten halten Silhouette und
+# Helligkeitsstufe: '0'..'7' Klinge/Kopf/Ruestung dunkel -> hell, 'a'..'f' Griff dunkel -> hell.
+# Variante A: netheritnahes dunkles Metall mit violetten Lichtkanten (getragen: violette Zierleisten
+# auf den Plattenkanten). Variante B: Enderit-Violett des Barrens mit leuchtenden Ender-Adern.
+# Griffe beider Varianten: dunkles Ebenholz-Violett mit hellerer Wicklung.
+# ---------------------------------------------------------------------------
+ENDERITE_GEAR_MAPS = {
+    "pickaxe": [
+        "................",
+        "................",
+        "......33333.....",
+        ".....377765332..",
+        "......311135c1..",
+        "..........2351..",
+        ".........2b1351.",
+        "........2c1.161.",
+        ".......2b1..171.",
+        "......2c1...171.",
+        ".....231....171.",
+        "....231......1..",
+        "...231..........",
+        "..2c1...........",
+        "..11............",
+        "................",
+    ],
+    "axe": [
+        "................",
+        ".........33.....",
+        "........3773....",
+        ".......37333....",
+        "......363335b...",
+        "......1633531...",
+        ".......1153231..",
+        "........2b1331..",
+        ".......2c1.11...",
+        "......2b1.......",
+        ".....231........",
+        "....231.........",
+        "...231..........",
+        "..2c1...........",
+        "..11............",
+        "................",
+    ],
+    "shovel": [
+        "................",
+        "................",
+        "...........333..",
+        "..........37771.",
+        ".........375561.",
+        "........3653561.",
+        ".........23561..",
+        "........2c161...",
+        ".......2c1.1....",
+        "......2b1.......",
+        ".....231........",
+        "....231.........",
+        "..2231..........",
+        "..2c1...........",
+        "...11...........",
+        "................",
+    ],
+    "hoe": [
+        "................",
+        ".......333......",
+        "......37773.....",
+        ".......116722b..",
+        ".........156c1..",
+        "..........2531..",
+        ".........2b11...",
+        "........2c1.....",
+        ".......2b1......",
+        "......2c1.......",
+        ".....231........",
+        "....231.........",
+        "...231..........",
+        "..2c1...........",
+        "..11............",
+        "................",
+    ],
+    "sword": [
+        ".............333",
+        "............3771",
+        "...........37671",
+        "..........37471.",
+        ".........36461..",
+        "........35451...",
+        "..33...34231....",
+        "..353.34231.....",
+        "...3633231......",
+        "...366231.......",
+        "....3541........",
+        "...2b1321.......",
+        "..2c1.1121......",
+        "3331....11......",
+        "321.............",
+        "011.............",
+    ],
+    "spear": [
+        ".............333",
+        "...........33571",
+        ".........3355731",
+        ".......33455731.",
+        ".......34557321.",
+        "........357321..",
+        "........272221..",
+        ".......2b1121...",
+        "......2c1..11...",
+        ".....2c1........",
+        "....2c1.........",
+        "...2c1..........",
+        "..2c1...........",
+        ".231............",
+        "231.............",
+        "31..............",
+    ],
+    "sledgehammer": [
+        "........2.......",
+        ".......271......",
+        "......27771.....",
+        ".....2777713c...",
+        "....2777777d1...",
+        ".....27777531...",
+        "......22577531..",
+        ".......3257531..",
+        "......3d1557531.",
+        ".....3d1.155731.",
+        "....3d1...15551.",
+        "...3d1.....1351.",
+        "..3c1.......131.",
+        "33d1.........1..",
+        "3d1.............",
+        ".11.............",
+    ],
+    "building_wand": [
+        "................",
+        "..........22....",
+        "..........12....",
+        ".........4764...",
+        ".......21755622.",
+        ".......22655411.",
+        "........04641...",
+        ".......3d012....",
+        "......3d1.21....",
+        ".....3c1........",
+        "....3d1.........",
+        "...3c1..........",
+        ".33d1...........",
+        ".3d1............",
+        "..11............",
+        "................",
+    ],
+    "chisel": [
+        "................",
+        "..........2.....",
+        ".........272....",
+        "........25771...",
+        ".......2457771..",
+        ".......24575771.",
+        "......24575431..",
+        ".....24575431...",
+        ".....2574311....",
+        "....334431......",
+        "..33d2111.......",
+        ".3ddbc1.........",
+        ".3dcc1..........",
+        ".3dcc1..........",
+        "..311...........",
+        "................",
+    ],
+    "helmet": [
+        "................",
+        "................",
+        "................",
+        ".....111111.....",
+        "....13444420....",
+        "...1347544320...",
+        "...1444443330...",
+        "...1411541130...",
+        "...1410440130...",
+        "...1441000420...",
+        "...1341000320...",
+        "....10....00....",
+        "................",
+        "................",
+        "................",
+        "................",
+    ],
+    "chestplate": [
+        "................",
+        "................",
+        ".11111....11111.",
+        ".14331....13341.",
+        ".133411..114331.",
+        ".13234111143231.",
+        ".15735711753751.",
+        ".10233577533200.",
+        "...0354554530...",
+        "...0335775330...",
+        "...0333333330...",
+        "...0335775330...",
+        "...0223553220...",
+        "....00233200....",
+        ".....000000.....",
+        "................",
+    ],
+    "leggings": [
+        "................",
+        "................",
+        "....11111110....",
+        "...1577554420...",
+        "...1554444430...",
+        "...1544334430...",
+        "...1543002430...",
+        "...1440..0430...",
+        "...1430..1430...",
+        "...1430..1430...",
+        "...1330..0330...",
+        "...1320..0320...",
+        "...0220..0220...",
+        "...0000..0000...",
+        "................",
+        "................",
+    ],
+    "boots": [
+        "................",
+        "................",
+        "................",
+        "...21......12...",
+        "...171....170...",
+        "...151....140...",
+        "...1530..1340...",
+        "...1440..1440...",
+        "...1440..1440...",
+        "..14430..13430..",
+        ".144320..123430.",
+        ".133200..003320.",
+        ".1000......0000.",
+        "................",
+        "................",
+        "................",
+    ],
+    "humanoid": [
+        "........22374322................................................",
+        "........23355332................................................",
+        "........12375321................................................",
+        "........12275221................................................",
+        "........33354333................................................",
+        "........33375333................................................",
+        "........13475431................................................",
+        "........24455442................................................",
+        "33333433345755433343333311145111................................",
+        "45555775557777555775555433557543................................",
+        "23434554233773324554343223455433................................",
+        "233233332..75..23333233223333332................................",
+        "1111..233..53..332..111122333322................................",
+        ".......33......33.......11222211................................",
+        ".......345....543.........1111..................................",
+        ".......034....430...............................................",
+        "........1111................................5535................",
+        "........1001................................7735................",
+        "........1001................................3435................",
+        "........1111................................5535................",
+        "................343313....313433134554315745553511115355........",
+        "................454331....134543317777134735543411114345........",
+        "................3433433..3343433445775444544432411114234........",
+        "................3333345445433333354554533443321511115123........",
+        "................2332357777532332357777535775545511115545........",
+        "................343333577533343333577533121121211..11211........",
+        "...212322.......233235455453233234455443.23.2.2......2..........",
+        "3333344233333333333333577533333333344333........................",
+        "3433454334333433233233333333233233333333........................",
+        "2321475323212321....33577533....33444433........................",
+        "1221255212211221.....235532......234432.........................",
+        "1111122111111111......2332........2332..........................",
+    ],
+    "humanoid_leggings": [
+        "................................................................",
+        "................................................................",
+        "................................................................",
+        "................................................................",
+        "................................................................",
+        "................................................................",
+        "................................................................",
+        "................................................................",
+        "................................................................",
+        "................................................................",
+        "................................................................",
+        "................................................................",
+        "................................................................",
+        "................................................................",
+        "................................................................",
+        "................................................................",
+        "....2222........................................................",
+        "....2222........................................................",
+        "....2222........................................................",
+        "....2222........................................................",
+        "1200521012001125................................................",
+        "2321572123212275................................................",
+        "4532357245324753................................................",
+        "3454357434543753................................................",
+        "3443335334433533................................................",
+        "2343334323432433................................................",
+        "1232123212321232................................................",
+        "022102210221022177....7777....7777777777........................",
+        "0110011001100110457777544577775423444432........................",
+        "................422333444433322432344323........................",
+        "................332233344333223313222231........................",
+        "................110011000011001101111110........................",
+    ],
+}
+ENDERITE_GEAR_FILES = {
+    "pickaxe": "item/enderite_pickaxe.png",
+    "axe": "item/enderite_axe.png",
+    "shovel": "item/enderite_shovel.png",
+    "hoe": "item/enderite_hoe.png",
+    "sword": "item/enderite_sword.png",
+    "spear": "item/enderite_spear.png",
+    "sledgehammer": "item/enderite_sledgehammer.png",
+    "building_wand": "item/enderite_building_wand.png",
+    "chisel": "item/enderite_chisel.png",
+    "helmet": "item/enderite_helmet.png",
+    "chestplate": "item/enderite_chestplate.png",
+    "leggings": "item/enderite_leggings.png",
+    "boots": "item/enderite_boots.png",
+    "humanoid": "entity/equipment/humanoid/enderite.png",
+    "humanoid_leggings": "entity/equipment/humanoid_leggings/enderite_leggings.png",
+}
+ENDERITE_GEAR_HANDLE = ["#1d1226", "#2e1f3d", "#433059", "#5a4175", "#72548f", "#8a69a8"]
+ENDERITE_GEAR_VARIANTS = {
+    "A": {"head": ["#150b1d", "#221a26", "#2d2530", "#39333c", "#48424b", "#58535b", "#6d6871", "#89838e"], "rim": "#a57de9", "rim2": "#7b51c9", "contour": "#2a1250"},
+    "B": {"head": ["#1c0a33", "#2d1656", "#3e2173", "#4a2888", "#55309a", "#6d45b8", "#8e63dc", "#a57de9"], "vein": "#f4d2ff", "glow": "#c77dff"},
+}
+
+
+def enderite_gear_variant(variant):
+    """Malt die Ausruestungskarten in Variante A oder B; Rueckgabe {relativer Pfad: Bild}."""
+    v = ENDERITE_GEAR_VARIANTS[variant]
+    head_t, handle_t = "01234567", "abcdef"
+    out = {}
+    for name, rows in ENDERITE_GEAR_MAPS.items():
+        kind = "layer" if name.startswith("humanoid") else "item"
+        h, w = len(rows), len(rows[0])
+        img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+
+        def at(x, y):
+            return rows[y][x] if 0 <= x < w and 0 <= y < h else "."
+
+        def head(x, y):
+            return at(x, y) in head_t
+
+        for y in range(h):
+            for x in range(w):
+                c = rows[y][x]
+                if c == ".":
+                    continue
+                if c in handle_t:
+                    ti = handle_t.index(c)
+                    # Wicklung: jede vierte Diagonale des Griffs eine Stufe heller
+                    col = ENDERITE_GEAR_HANDLE[min(len(ENDERITE_GEAR_HANDLE) - 1, ti + 1)] if (x + y) % 4 == 0 \
+                        else ENDERITE_GEAR_HANDLE[ti]
+                else:
+                    tone = head_t.index(c)
+                    col = v["head"][tone]
+                    open_tl = at(x - 1, y) == "." or at(x, y - 1) == "."
+                    open_br = at(x + 1, y) == "." or at(x, y + 1) == "."
+                    n4 = sum(head(x + dx, y + dy) for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+                    if variant == "A" and kind == "layer":
+                        # getragen sind UV-Kanten Naehte, darum liegt das Violett auf den Plattenkanten
+                        if tone >= 6:
+                            col = v["rim"]
+                        elif tone == 5 and (x + y) % 2 == 0:
+                            col = v["rim2"]
+                    elif variant == "A":
+                        if tone <= 1 and open_br:
+                            col = v["contour"]
+                        elif open_tl and n4 >= 1:
+                            col = v["rim"] if tone >= 3 else v["rim2"]
+                    elif variant == "B" and n4 == 4 and tone >= 3:
+                        period = 11 if kind == "item" else 17
+                        k = (x + 2 * y) % period
+                        if k == 0:
+                            col = v["vein"]
+                        elif k in (1, period - 1) and (x - y) % 2 == 0:
+                            col = v["glow"]
+                img.putpixel((x, y), hexrgb(col) + (255,))
+        out[ENDERITE_GEAR_FILES[name]] = img
+    return out
+
+
+def build_gear_preview():
+    """Aktueller Stand und beide Varianten nebeneinander (Items gross, getragene Ebenen flach)."""
+    names = [n for n in ENDERITE_GEAR_FILES if not n.startswith("humanoid")]
+    scale, pad = 5, 8
+    cell = 16 * scale
+    sets = [("aktuell", None)] + [(f"Variante {k}", enderite_gear_variant(k)) for k in ENDERITE_GEAR_VARIANTS]
+    width = 90 + len(names) * (cell + pad) + 2 * (64 * 3 + pad)
+    height = pad + len(sets) * (max(cell, 32 * 3) + 20)
+    sheet = Image.new("RGB", (width, height), (198, 198, 198))
+    draw = ImageDraw.Draw(sheet)
+    font = ImageFont.load_default()
+    y = pad
+    for title, tex in sets:
+        draw.text((pad, y + 4), title, fill=(20, 20, 20), font=font)
+        for i, n in enumerate(names + ["humanoid", "humanoid_leggings"]):
+            rel = ENDERITE_GEAR_FILES[n]
+            img = tex[rel] if tex else Image.open(os.path.join(TREES[0], *rel.split("/"))).convert("RGBA")
+            s = scale if not n.startswith("humanoid") else 3
+            x0 = 90 + i * (cell + pad) if i < len(names) else 90 + len(names) * (cell + pad) + (i - len(names)) * (64 * 3 + pad)
+            draw.rectangle([x0, y, x0 + img.width * s - 1, y + img.height * s - 1], fill=(139, 139, 139))
+            big = img.resize((img.width * s, img.height * s), Image.NEAREST)
+            sheet.paste(big, (x0, y), big)
+        y += max(cell, 32 * 3) + 20
+    return sheet
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--check", action="store_true", help="nur pruefen, ob die PNGs in beiden Baeumen aktuell sind")
     ap.add_argument("--no-preview", action="store_true", help="preview.png nicht neu zeichnen")
+    ap.add_argument("--gear-preview", action="store_true",
+                    help="nur tools/textures/gear_preview.png (alternative Enderit-Ausruestung A/B) zeichnen")
+    ap.add_argument("--apply-gear", choices=sorted(ENDERITE_GEAR_VARIANTS),
+                    help="Variante der Enderit-Ausruestung zusaetzlich in beide Baeume schreiben")
     args = ap.parse_args()
 
+    if args.gear_preview:
+        build_gear_preview().save(GEAR_PREVIEW)
+        print(f"Vorschau: {os.path.relpath(GEAR_PREVIEW, REPO)}")
+        return 0
     tex = build()
+    if args.apply_gear:
+        tex.update(enderite_gear_variant(args.apply_gear))
     stale = []
     for rel, img in sorted(tex.items()):
         data = png_bytes(img)
