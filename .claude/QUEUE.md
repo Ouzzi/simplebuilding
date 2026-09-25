@@ -58,8 +58,10 @@ Verlauf im Detail: git log.
 ## Welle 13 (laeuft)
 - [ ] Config-Schalter: Vanilla-Buecher (gibt es), Mod-Buecher custom/vanilla, sichtbare Besatzmuster Vanilla-Ruestung, sichtbare Besatzmuster Enderit-Ruestung
 
+- [ ] 26.4-Snapshot-Linie vorbereiten (Fabric, Forge falls vorhanden), experimentell, blockiert das Gate nicht
+- [ ] Nahtloses Welt-Upgrade 26.2 -> 26.3: Audit aller Mod-Daten, tolerante Leser, Fixture-Rundlauftest, docs/UPGRADE-26.2-26.3.md
+
 ## Wartet auf den Besitzer
-- [ ] Naechste MC-Version (26.4, Snapshots seit 2026-09-22; Livestream 2026-09-26 19 Uhr): Snapshot-Linie jetzt vorbereiten oder Release abwarten?
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
 
 ## Spaeter
