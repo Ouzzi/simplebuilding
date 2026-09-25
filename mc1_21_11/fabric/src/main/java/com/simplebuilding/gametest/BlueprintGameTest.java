@@ -98,4 +98,24 @@ public final class BlueprintGameTest {
     public void editPacketsSaveImmediatelyAndSurviveTheDisconnect(GameTestHelper helper) {
         BlueprintTests.editPacketsSaveImmediatelyAndSurviveTheDisconnect(helper);
     }
+
+    @GameTest
+    public void buildGrowsLayerByLayerFromTheCentre(GameTestHelper helper) {
+        BlueprintTests.buildGrowsLayerByLayerFromTheCentre(helper);
+    }
+
+    @GameTest
+    public void buildStopsWhenTheWandBreaks(GameTestHelper helper) {
+        BlueprintTests.buildStopsWhenTheWandBreaks(helper);
+    }
+
+    @GameTest
+    public void buildStopsWhenTheWandLeavesTheMainHand(GameTestHelper helper) {
+        BlueprintTests.buildStopsWhenTheWandLeavesTheMainHand(helper);
+    }
+
+    @GameTest
+    public void missingBlocksNeedTheSecondClick(GameTestHelper helper) {
+        BlueprintTests.missingBlocksNeedTheSecondClick(helper);
+    }
 }

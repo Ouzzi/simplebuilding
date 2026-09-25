@@ -57,6 +57,28 @@ public final class BlueprintBuilder {
     public static final int DEFAULT_PLACE_BUDGET = 4096;
     /** Gepruefte Stellen je Tick (Lesen ist billig, Setzen nicht). */
     public static final int VISITS_PER_TICK = 131_072;
+    /** Kuerzeste und laengste Bauzeit in Ticks (1 s bis 9 s). */
+    public static final int MIN_BUILD_TICKS = 20;
+    public static final int MAX_BUILD_TICKS = 180;
+
+    /**
+     * Bauzeit in Ticks, gedaempft mit der Zahl der Stellen: ein kleines Haus steht in etwa einer
+     * Sekunde, ein Bauwerk am Blockbudget (4 194 304) in neun. Je Tick wird der passende Anteil gebaut.
+     */
+    public static int ticksFor(int total) {
+        double t = MIN_BUILD_TICKS + (MAX_BUILD_TICKS - MIN_BUILD_TICKS)
+                * Math.log1p(total / 64.0) / Math.log1p(BlueprintCode.MAX_EXPANDED_CELLS / 64.0);
+        return (int) Math.max(MIN_BUILD_TICKS, Math.min(MAX_BUILD_TICKS, Math.round(t)));
+    }
+
+    /** Stellen je Tick fuer {@code total} Stellen: der Anteil aus {@link #ticksFor}. */
+    public static int visitsPerTick(int total) {
+        return Math.max(1, (total + ticksFor(total) - 1) / ticksFor(total));
+    }
+
+    /** Zwei-Klick-Regel: so viele Ticks nach der Warnung baut ein zweiter Klick trotz Luecken. */
+    public static final int CONFIRM_TICKS = 60;
+    private static final Map<UUID, Long> WARNED = new HashMap<>();
     /** Obergrenze der Geisterbloecke in der Vorschau. */
     public static final int MAX_PREVIEW = 4096;
     /** So viele Stellen prueft die Vorschau hoechstens je Neuberechnung. */
@@ -69,7 +91,12 @@ public final class BlueprintBuilder {
 
     /** Zwischen- oder Endstand eines Bauauftrags. */
     public record Result(int placed, int already, int occupied, int blocked, int missing,
-                         Map<Item, Integer> missingItems, boolean wandBroke, boolean finished, int total) {
+                         Map<Item, Integer> missingItems, boolean wandBroke, boolean finished, int total, boolean warned) {
+    }
+
+    /** Vorschau: was ein Klick setzen wuerde, und wofuer Material fehlt (rot). */
+    public record Preview(Map<BlockPos, BlockState> placed, Map<BlockPos, BlockState> missing) {
+        public static final Preview EMPTY = new Preview(Map.of(), Map.of());
     }
 
     /** Materialquelle der Planung: {@code take} bucht {@code count} Stueck ab, wenn sie reichen. */
@@ -187,13 +214,26 @@ public final class BlueprintBuilder {
                 return cached;
             }
         }
-        IntArrayList first = new IntArrayList(model.size());
-        IntArrayList partners = new IntArrayList();
-        for (int k : model.sortedKeys()) {
-            (BlueprintMaterials.cost(model.blocks().get(k)).count() == 0 ? partners : first).add(k);
+        // Schicht fuer Schicht von unten nach oben, in jeder Schicht von der Mitte nach aussen (wie
+        // der Baustab); kostenlose Gegenstuecke (Bettkopf) ans Ende ihrer Schicht, obere Tuerhaelften
+        // liegen ohnehin eine Schicht hoeher als ihr Partner.
+        int twiceCx = model.minX() + model.maxX();
+        int twiceCz = model.minZ() + model.maxZ();
+        int[] keys = model.sortedKeys();
+        long[] sortable = new long[keys.length];
+        for (int i = 0; i < keys.length; i++) {
+            int k = keys[i];
+            int dx = 2 * BlueprintModel.keyX(k) - twiceCx;
+            int dz = 2 * BlueprintModel.keyZ(k) - twiceCz;
+            long dist = Math.min((long) dx * dx + (long) dz * dz, 0x3FFFFL);
+            long partner = BlueprintMaterials.cost(model.blocks().get(k)).count() == 0 ? 1 : 0;
+            sortable[i] = ((long) BlueprintModel.keyY(k) << 44) | (partner << 43) | (dist << 24) | (i & 0xFFFFFFL);
         }
-        first.addAll(partners);
-        int[] order = first.toIntArray();
+        java.util.Arrays.sort(sortable);
+        int[] order = new int[keys.length];
+        for (int i = 0; i < sortable.length; i++) {
+            order[i] = keys[(int) (sortable[i] & 0xFFFFFFL)];
+        }
         synchronized (ORDER_CACHE) {
             ORDER_CACHE.put(new BlueprintModel.Identity(model), order);
         }
@@ -213,7 +253,7 @@ public final class BlueprintBuilder {
         private final Level level;
         private final Player player;
         private final ItemStack wand;
-        private final Layout layout;
+        final Layout layout;
         private final Supply supply;
         private final boolean creative;
         private final LongOpenHashSet simulated;
@@ -221,6 +261,14 @@ public final class BlueprintBuilder {
         private int placed, already, occupied, blocked, missing;
         private final Map<Item, Integer> missingItems = new LinkedHashMap<>();
         private boolean broke;
+        private java.util.function.BiConsumer<BlockPos, BlockState> onMissing = (pos, state) -> {
+        };
+
+        /** Fuer die Vorschau: meldet jede Stelle, fuer die Material fehlt. */
+        public Planner onMissing(java.util.function.BiConsumer<BlockPos, BlockState> sink) {
+            this.onMissing = sink;
+            return this;
+        }
 
         /** {@code simulate}: gesetzte Stellen merken, weil die Vorschau die Welt nicht aendert. */
         public Planner(Level level, Player player, ItemStack wand, Layout layout, Supply supply, boolean creative, boolean simulate) {
@@ -242,7 +290,7 @@ public final class BlueprintBuilder {
         }
 
         public Result result() {
-            return new Result(placed, already, occupied, blocked, missing, Map.copyOf(missingItems), broke, finished(), layout.size());
+            return new Result(placed, already, occupied, blocked, missing, Map.copyOf(missingItems), broke, finished(), layout.size(), false);
         }
 
         /** Bearbeitet hoechstens {@code maxVisits} Stellen und setzt hoechstens {@code maxPlaced} Bloecke. */
@@ -280,6 +328,7 @@ public final class BlueprintBuilder {
                     if (cost.creativeOnly() || !supply.take(cost.item(), cost.count())) {
                         missing++;
                         missingItems.merge(cost.item(), cost.count(), Integer::sum);
+                        onMissing.accept(pos, state);
                         continue;
                     }
                 }
@@ -355,11 +404,13 @@ public final class BlueprintBuilder {
         if (player == null) {
             return InteractionResult.PASS;
         }
-        if (level.isClientSide()) {
-            return InteractionResult.SUCCESS;
-        }
         ItemStack wand = context.getItemInHand();
         ItemStack blueprint = player.getOffhandItem();
+        if (level.isClientSide()) {
+            clientClick(level, player, wand, blueprint,
+                    new BlockHitResult(context.getClickLocation(), context.getClickedFace(), context.getClickedPos(), false));
+            return InteractionResult.SUCCESS;
+        }
         Result result = build(level, player, wand, blueprint, context.getClickedPos(), context.getClickedFace());
         return result == null ? InteractionResult.FAIL : InteractionResult.SUCCESS;
     }
@@ -372,6 +423,7 @@ public final class BlueprintBuilder {
         final Placer placer;
         final BlockPos target;
         final Player player;
+        int visitsPerTick;
         long lastTick;
         SoundType sound;
 
@@ -419,6 +471,24 @@ public final class BlueprintBuilder {
         BlockPos target = targetFor(level, clicked, face);
         Rotation rotation = rotationFor(player.getDirection(), rotationSteps(blueprint));
         boolean creative = player.getAbilities().instabuild;
+        Layout layout = layout(parsed.model(), target, rotation);
+        if (!creative) {
+            // Zwei-Klick-Regel: fehlt Material, warnt der erste Klick nur (Ton + Meldung, die roten
+            // Stellen leuchten im Client auf); ein zweiter Klick binnen 3 s baut alles Vorhandene.
+            Planner check = new Planner(level, player, wand, layout, simulatedSupply(player, wand), false, true);
+            check.run(PREVIEW_VISITS * 2, Integer.MAX_VALUE, (pos, state) -> true);
+            int missingNow = check.result().missing();
+            Long warnedAt = WARNED.get(player.getUUID());
+            long now = level.getGameTime();
+            if (missingNow > 0 && (warnedAt == null || now - warnedAt > CONFIRM_TICKS)) {
+                WARNED.put(player.getUUID(), now);
+                level.playSound(null, player.blockPosition(), net.minecraft.sounds.SoundEvents.NOTE_BLOCK_BASS.value(),
+                        SoundSource.PLAYERS, 1.0F, 0.6F);
+                tell(player, Component.translatable("simplebuilding.blueprint.build.missing_warning", missingNow).withStyle(ChatFormatting.GOLD));
+                return new Result(0, 0, 0, 0, missingNow, Map.of(), false, false, layout.size(), true);
+            }
+            WARNED.remove(player.getUUID());
+        }
         Job[] holder = new Job[1];
         Placer placer = new Placer() {
             @Override
@@ -440,9 +510,9 @@ public final class BlueprintBuilder {
                 return wand.isEmpty();
             }
         };
-        Planner planner = new Planner(level, player, wand, layout(parsed.model(), target, rotation),
-                realSupply(player, wand), creative, false);
+        Planner planner = new Planner(level, player, wand, layout, realSupply(player, wand), creative, false);
         Job job = new Job(planner, player, wand, blueprint, placer, target);
+        job.visitsPerTick = BlueprintScanner.smallBudget(player) ? 3 : visitsPerTick(planner.layout.size());
         holder[0] = job;
         JOBS.remove(player.getUUID());
         JOBS.values().removeIf(j -> j.player.isRemoved());
@@ -458,15 +528,18 @@ public final class BlueprintBuilder {
      * Fuehrt den Bauauftrag des Spielers einen Tick weiter (aus {@code BuildingWandItem#inventoryTick}
      * fuer den Stab in der Haupthand). Bricht ab, wenn Stab oder Blaupause nicht mehr gehalten werden.
      */
-    public static void tick(Level level, Player player, ItemStack wandInHand) {
+    public static void tick(Level level, Player player, ItemStack wandStack, boolean inMainHand) {
         Job job = JOBS.get(player.getUUID());
-        if (job == null || level.getGameTime() == job.lastTick) {
+        if (job == null || job.wand != wandStack) {
             return;
         }
-        if (job.wand != wandInHand || player.getMainHandItem() != wandInHand || player.getOffhandItem() != job.blueprint) {
+        if (!inMainHand || player.getMainHandItem() != wandStack || player.getOffhandItem() != job.blueprint) {
             JOBS.remove(player.getUUID());
             tell(player, Component.translatable("simplebuilding.blueprint.build.stopped", job.planner.result().placed())
                     .withStyle(ChatFormatting.YELLOW));
+            return;
+        }
+        if (level.getGameTime() == job.lastTick) {
             return;
         }
         job.lastTick = level.getGameTime();
@@ -476,6 +549,22 @@ public final class BlueprintBuilder {
         }
     }
 
+    /**
+     * Baut den laufenden Auftrag des Spielers sofort zu Ende (ohne Tick-Staffel) und liefert den
+     * Endstand; ohne Auftrag {@code null}. Fuer Spieltests, die das Ergebnis eines Baus pruefen
+     * und nicht seine Staffelung.
+     */
+    public static Result completeJob(Player player) {
+        Job job = JOBS.remove(player.getUUID());
+        if (job == null) {
+            return null;
+        }
+        while (!job.planner.finished()) {
+            job.planner.run(Integer.MAX_VALUE, Integer.MAX_VALUE, job.placer);
+        }
+        return job.planner.result();
+    }
+
     /** Laeuft fuer diesen Spieler gerade ein Bauauftrag? */
     public static boolean building(Player player) {
         return JOBS.containsKey(player.getUUID());
@@ -483,7 +572,7 @@ public final class BlueprintBuilder {
 
     private static void step(Level level, Player player, Job job) {
         int before = job.planner.result().placed();
-        job.planner.run(VISITS_PER_TICK, BlueprintScanner.smallBudget(player) ? 3 : DEFAULT_PLACE_BUDGET, job.placer);
+        job.planner.run(job.visitsPerTick, Integer.MAX_VALUE, job.placer);
         Result result = job.planner.result();
         if (result.placed() > before && job.sound != null) {
             SoundType sound = job.sound;
@@ -507,7 +596,30 @@ public final class BlueprintBuilder {
     // =====================================================================================
 
     private static Object previewKey;
-    private static Map<BlockPos, BlockState> previewCache = Map.of();
+    private static Preview previewCache = Preview.EMPTY;
+    private static long flashUntil;
+    private static long lastClientWarn;
+
+    /** Leuchten die roten Stellen gerade nach einem Warn-Klick auf? (Client) */
+    public static boolean flashing() {
+        return net.minecraft.util.Util.getMillis() < flashUntil;
+    }
+
+    /**
+     * Client-Seite eines Klicks im Baumodus: fehlt laut Vorschau Material und war der letzte
+     * Warn-Klick laenger als 3 s her, leuchten die roten Stellen auf (der Server warnt parallel);
+     * sonst ist es der bestaetigende Klick.
+     */
+    private static void clientClick(Level level, Player player, ItemStack wand, ItemStack blueprint, BlockHitResult hit) {
+        long now = net.minecraft.util.Util.getMillis();
+        Preview preview = preview(level, player, wand, blueprint, hit);
+        if (!preview.missing().isEmpty() && !player.getAbilities().instabuild && now - lastClientWarn > CONFIRM_TICKS * 50L) {
+            lastClientWarn = now;
+            flashUntil = now + 1500;
+        } else {
+            lastClientWarn = 0;
+        }
+    }
 
     /**
      * Die Geisterbloecke fuer die Vorschau: genau das, was ein Klick jetzt setzen wuerde (mit
@@ -515,9 +627,9 @@ public final class BlueprintBuilder {
      * {@link #PREVIEW_VISITS} Stellen. Leer, wenn die Blaupause fehlerhaft oder fuer den Stab zu
      * gross ist. Zwischengespeichert und nur alle vier Ticks neu berechnet.
      */
-    public static Map<BlockPos, BlockState> preview(Level level, Player player, ItemStack wand, ItemStack blueprint, BlockHitResult hit) {
+    public static Preview preview(Level level, Player player, ItemStack wand, ItemStack blueprint, BlockHitResult hit) {
         if (!(wand.getItem() instanceof BuildingWandItem wandItem)) {
-            return Map.of();
+            return Preview.EMPTY;
         }
         BlueprintContent content = blueprint.getOrDefault(ModDataComponentTypes.BLUEPRINT, BlueprintContent.EMPTY);
         BlockPos target = targetFor(level, hit.getBlockPos(), hit.getDirection());
@@ -530,23 +642,28 @@ public final class BlueprintBuilder {
         if (!content.signed()) {
             // Gebaut wird nur eine signierte Blaupause: keine Vorschau, nur der Hinweis.
             tell(player, Component.translatable("simplebuilding.blueprint.build.sign_first").withStyle(ChatFormatting.YELLOW));
-            previewCache = Map.of();
+            previewCache = Preview.EMPTY;
             return previewCache;
         }
         BlueprintCode.ParseResult parsed = BlueprintCode.parseCached(content.code());
         if (!parsed.ok() || parsed.model().isEmpty() || parsed.model().maxEdge() > BlueprintTiers.edgeFor(wandItem)) {
-            previewCache = Map.of();
+            previewCache = Preview.EMPTY;
             return previewCache;
         }
         boolean creative = player.getAbilities().instabuild;
         Map<BlockPos, BlockState> map = new LinkedHashMap<>();
+        Map<BlockPos, BlockState> missing = new LinkedHashMap<>();
         Planner planner = new Planner(level, player, wand, layout(parsed.model(), target, rotation),
-                simulatedSupply(player, wand), creative, true);
+                simulatedSupply(player, wand), creative, true).onMissing((pos, state) -> {
+                    if (missing.size() < MAX_PREVIEW) {
+                        missing.put(pos, state);
+                    }
+                });
         planner.run(PREVIEW_VISITS, MAX_PREVIEW, (pos, state) -> {
             map.put(pos, state);
             return true;
         });
-        previewCache = map;
-        return map;
+        previewCache = new Preview(map, missing);
+        return previewCache;
     }
 }

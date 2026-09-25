@@ -613,5 +613,6 @@
   "simplebuilding.blueprint.help.guide.7": "air clears what earlier lines placed: air 1..3,1..3,1..3 hollows out a box.",
   "simplebuilding.blueprint.help.guide.8": "Alias: $roof = oak_stairs[facing=north], then use it as $roof 0..4,4,0.",
   "simplebuilding.blueprint.help.guide.9": "Later lines overwrite earlier ones. minecraft: may be left out; blocks of other mods need their prefix.",
-  "simplebuilding.blueprint.help.guide.10": "The Blocks tab and the search below the code show every block's ID: select one, then press Insert."
+  "simplebuilding.blueprint.help.guide.10": "The Blocks tab and the search below the code show every block's ID: select one, then press Insert.",
+  "simplebuilding.blueprint.build.missing_warning": "%s blocks are missing (marked red) - click again to build the rest"
 }

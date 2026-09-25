@@ -66,12 +66,28 @@ public final class BuildingWandPreviewRenderer {
         }
 
         // Blaupause in der Nebenhand: statt der Flaeche die Geisterbloecke des Bauwerks, genau die,
-        // die ein Klick jetzt setzen wuerde (vorhandenes Material, freie Stellen).
+        // die ein Klick jetzt setzen wuerde (vorhandenes Material, freie Stellen); Stellen, fuer die
+        // Material fehlt, rot - nach einem Warn-Klick kurz kraeftig pulsierend.
         ItemStack offHand = player.getOffhandItem();
-        Map<BlockPos, BlockState> previewMap = offHand.getItem() instanceof com.simplebuilding.items.custom.BlueprintItem
-                ? com.simplebuilding.blueprint.BlueprintBuilder.preview(level, player, stack, offHand, blockHit)
-                : BuildingWandItem.getPreviewStates(
-                        level, player, stack, blockHit.getBlockPos(), blockHit.getDirection(), wandItem.getWandSquareDiameter());
+        if (offHand.getItem() instanceof com.simplebuilding.items.custom.BlueprintItem) {
+            com.simplebuilding.blueprint.BlueprintBuilder.Preview preview =
+                    com.simplebuilding.blueprint.BlueprintBuilder.preview(level, player, stack, offHand, blockHit);
+            renderGhosts(collector, poseStack, cameraPos, client, level, preview.placed(), 0xFFFFFF, GHOST_ALPHA);
+            int alpha = GHOST_ALPHA;
+            if (com.simplebuilding.blueprint.BlueprintBuilder.flashing()) {
+                alpha = 150 + (int) (105 * Math.abs(Math.sin(net.minecraft.util.Util.getMillis() / 90.0)));
+            }
+            renderGhosts(collector, poseStack, cameraPos, client, level, preview.missing(), 0xFF3030, alpha);
+            return;
+        }
+        Map<BlockPos, BlockState> previewMap = BuildingWandItem.getPreviewStates(
+                level, player, stack, blockHit.getBlockPos(), blockHit.getDirection(), wandItem.getWandSquareDiameter());
+        renderGhosts(collector, poseStack, cameraPos, client, level, previewMap, 0xFFFFFF, GHOST_ALPHA);
+    }
+
+    /** Zeichnet Geisterbloecke; {@code tint} faerbt sie zusaetzlich ein (weiss = unveraendert). */
+    private static void renderGhosts(SubmitNodeCollector collector, PoseStack poseStack, Vec3 cameraPos, Minecraft client,
+                                     ClientLevel level, Map<BlockPos, BlockState> previewMap, int tint, int alpha) {
         if (previewMap.isEmpty()) {
             return;
         }
@@ -110,9 +126,9 @@ public final class BuildingWandPreviewRenderer {
             collector.submitCustomGeometry(poseStack, renderType, (pose, buffer) -> {
                 for (BlockStateModelPart part : parts) {
                     for (Direction direction : DIRECTIONS) {
-                        putQuads(part.getQuads(direction), pose, quadInstance, renderState, level, pos, blockColors, buffer);
+                        putQuads(part.getQuads(direction), pose, quadInstance, renderState, level, pos, blockColors, buffer, tint, alpha);
                     }
-                    putQuads(part.getQuads(null), pose, quadInstance, renderState, level, pos, blockColors, buffer);
+                    putQuads(part.getQuads(null), pose, quadInstance, renderState, level, pos, blockColors, buffer, tint, alpha);
                 }
             });
 
@@ -122,7 +138,7 @@ public final class BuildingWandPreviewRenderer {
 
     private static void putQuads(List<BakedQuad> quads, PoseStack.Pose pose, QuadInstance quadInstance,
                                  BlockState state, ClientLevel level, BlockPos pos, BlockColors blockColors,
-                                 VertexConsumer buffer) {
+                                 VertexConsumer buffer, int tint, int alpha) {
         for (BakedQuad quad : quads) {
             int rgb = 0xFFFFFF;
             int tintIndex = quad.materialInfo().tintIndex();
@@ -132,7 +148,7 @@ public final class BuildingWandPreviewRenderer {
                     rgb = tintSource.colorInWorld(state, level, pos) & 0xFFFFFF;
                 }
             }
-            quadInstance.setColor(ARGB.color(GHOST_ALPHA, rgb));
+            quadInstance.setColor(ARGB.color(alpha, ARGB.multiply(rgb | 0xFF000000, tint | 0xFF000000) & 0xFFFFFF));
             buffer.putBakedQuad(pose, quad, quadInstance);
         }
     }

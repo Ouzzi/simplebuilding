@@ -613,5 +613,6 @@
   "simplebuilding.blueprint.help.guide.7": "air räumt, was frühere Zeilen gesetzt haben: air 1..3,1..3,1..3 höhlt einen Kasten aus.",
   "simplebuilding.blueprint.help.guide.8": "Alias: $dach = oak_stairs[facing=north], danach als $dach 0..4,4,0 benutzen.",
   "simplebuilding.blueprint.help.guide.9": "Spätere Zeilen überschreiben frühere. minecraft: darf fehlen; Blöcke anderer Mods brauchen ihr Präfix.",
-  "simplebuilding.blueprint.help.guide.10": "Der Reiter Blöcke und die Suche unter dem Code zeigen die ID jedes Blocks: auswählen, dann Einfügen drücken."
+  "simplebuilding.blueprint.help.guide.10": "Der Reiter Blöcke und die Suche unter dem Code zeigen die ID jedes Blocks: auswählen, dann Einfügen drücken.",
+  "simplebuilding.blueprint.build.missing_warning": "%s Blöcke fehlen (rot markiert) - erneut klicken, um den Rest zu bauen"
 }

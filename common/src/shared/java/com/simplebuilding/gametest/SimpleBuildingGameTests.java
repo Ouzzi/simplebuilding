@@ -756,6 +756,14 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("blueprint_game_test_edit_packets_save_immediately_and_survive_the_disconnect", BlueprintTests::editPacketsSaveImmediatelyAndSurviveTheDisconnect)
                     .build(),
+            GameTestSpec.named("blueprint_game_test_build_grows_layer_by_layer_from_the_centre", BlueprintTests::buildGrowsLayerByLayerFromTheCentre)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_build_stops_when_the_wand_breaks", BlueprintTests::buildStopsWhenTheWandBreaks)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_build_stops_when_the_wand_leaves_the_main_hand", BlueprintTests::buildStopsWhenTheWandLeavesTheMainHand)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_missing_blocks_need_the_second_click", BlueprintTests::missingBlocksNeedTheSecondClick)
+                    .build(),
             GameTestSpec.named("blueprint_game_test_build_places_only_available_blocks_and_skips_existing_ones", BlueprintTests::buildPlacesOnlyAvailableBlocksAndSkipsExistingOnes)
                     .build(),
             GameTestSpec.named("blueprint_game_test_rotation_turns_the_build_and_the_scroll_packet_steps_it", BlueprintTests::rotationTurnsTheBuildAndTheScrollPacketStepsIt)

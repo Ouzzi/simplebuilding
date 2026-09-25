@@ -328,8 +328,11 @@ public final class BlueprintTests {
         ItemStack blueprint = blueprint("stone 0..2,0,0\nglass 1,1,0");
         hold(player, wand, blueprint, stone);
 
+        // Glas fehlt: der erste Klick warnt nur (Zwei-Klick-Regel), der zweite baut das Vorhandene.
+        BlueprintBuilder.Result warning = build(helper, player, wand, blueprint);
+        helper.assertTrue(warning != null && warning.warned() && helper.getBlockState(TARGET).isAir(), "the first click did not only warn: " + warning);
         BlueprintBuilder.Result first = build(helper, player, wand, blueprint);
-        helper.assertTrue(first != null, "the build was refused");
+        helper.assertTrue(first != null && !first.warned(), "the build was refused");
         helper.assertTrue(helper.getBlockState(TARGET).is(Blocks.STONE), "the free stone position was not built");
         helper.assertTrue(helper.getBlockState(TARGET.east()).is(Blocks.DIRT), "an occupied position was overwritten");
         helper.assertTrue(helper.getBlockState(TARGET.above()).isAir(), "glass appeared without glass in the inventory");
@@ -543,7 +546,7 @@ public final class BlueprintTests {
         ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
         ItemStack blueprint = blueprint("stone 0,0,0..0,0,4");
         hold(player, wand, blueprint);
-        BlueprintBuilder.Result first = build(helper, player, wand, blueprint);
+        BlueprintBuilder.Result first = click(helper, player, wand, blueprint);
         helper.assertTrue(first != null && first.placed() == 3 && !first.finished() && BlueprintBuilder.building(player),
                 "the first slice is not three blocks with a job left over: " + first);
         helper.startSequence()
@@ -555,7 +558,7 @@ public final class BlueprintTests {
                     }
                     helper.assertTrue(!BlueprintBuilder.building(player), "the finished job is still registered");
                     clear(helper);
-                    BlueprintBuilder.Result again = build(helper, player, wand, blueprint);
+                    BlueprintBuilder.Result again = click(helper, player, wand, blueprint);
                     helper.assertTrue(again != null && again.placed() == 3, "the second build did not start with three blocks");
                     player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
                     helper.assertTrue(player.getOffhandItem().isEmpty(), "the off hand could not be emptied");
@@ -566,7 +569,8 @@ public final class BlueprintTests {
                     for (int z = 0; z <= 4; z++) {
                         built.append(helper.getBlockState(TARGET.south(z)).is(Blocks.STONE) ? '#' : '.');
                     }
-                    helper.assertTrue(helper.getBlockState(TARGET.south(3)).isAir(),
+                    // Von der Mitte nach aussen: die ersten drei waren z = 1..3, uebrig sind z = 0 und 4.
+                    helper.assertTrue(helper.getBlockState(TARGET.south(0)).isAir() && helper.getBlockState(TARGET.south(4)).isAir(),
                             "the job went on without the blueprint in the off hand: " + built + " offhand=" + player.getOffhandItem());
                     helper.assertTrue(!BlueprintBuilder.building(player), "the cancelled job is still registered");
                     clear(helper);
@@ -819,6 +823,156 @@ public final class BlueprintTests {
     }
 
     // =====================================================================================
+    // RUNDE 3 G: SICHTBAR WACHSENDER BAU
+    // =====================================================================================
+
+    /**
+     * Der Bau waechst sichtbar: Schicht fuer Schicht von unten nach oben, in jeder Schicht von der
+     * Mitte nach aussen. Mit 3 Stellen je Tick (Test-Tag) steht nach dem Klick die Mitte der unteren
+     * Schicht und zwei Kantenmitten, keine Ecke; nach drei Scheiben die ganze untere Schicht und noch
+     * nichts oben; am Ende alles. Die Bauzeit waechst gedaempft: 1 s fuer kleine Bauten, hoechstens 9 s.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> eine Reihenfolge ohne Mitte-nach-aussen oder ohne
+     * Schichten, ein Bau in einem Zug, eine Bauzeit, die nicht gedaempft oder nicht begrenzt ist.
+     */
+    public static void buildGrowsLayerByLayerFromTheCentre(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = mockPlayer(helper, true);
+        player.addTag(BlueprintScanner.SMALL_BUDGET_TAG);
+        clear(helper);
+        helper.assertTrue(BlueprintBuilder.ticksFor(20) <= 25 && BlueprintBuilder.ticksFor(BlueprintCode.MAX_EXPANDED_CELLS) == 180,
+                "build time is not 1 s for small and 9 s for the largest builds: " + BlueprintBuilder.ticksFor(20) + " / "
+                        + BlueprintBuilder.ticksFor(BlueprintCode.MAX_EXPANDED_CELLS));
+        helper.assertTrue(BlueprintBuilder.ticksFor(1000) > 20 && BlueprintBuilder.ticksFor(1000) < BlueprintBuilder.ticksFor(100_000),
+                "build time does not grow with the size");
+        ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
+        ItemStack blueprint = blueprint("stone 0..2,0..1,0..2");
+        hold(player, wand, blueprint);
+        BlueprintBuilder.Result first = click(helper, player, wand, blueprint);
+        helper.assertTrue(first != null && first.placed() == 3 && !first.finished(), "the first slice is not three blocks: " + first);
+        // Welt: x -1..1 um TARGET, z 0..2 vor TARGET; Mitte der Schicht = TARGET.south(1)
+        helper.assertTrue(helper.getBlockState(TARGET.south(1)).is(Blocks.STONE), "the centre of the bottom layer did not come first");
+        for (BlockPos corner : new BlockPos[]{TARGET.west(), TARGET.east(), TARGET.south(2).west(), TARGET.south(2).east()}) {
+            helper.assertTrue(helper.getBlockState(corner).isAir(), "a corner came before the edge centres: " + corner);
+        }
+        helper.startSequence()
+                .thenExecuteAfter(1, () -> wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND))
+                .thenExecuteAfter(1, () -> {
+                    wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND);
+                    int bottom = 0, top = 0;
+                    for (int x = -1; x <= 1; x++) {
+                        for (int z = 0; z <= 2; z++) {
+                            bottom += helper.getBlockState(TARGET.offset(x, 0, z)).is(Blocks.STONE) ? 1 : 0;
+                            top += helper.getBlockState(TARGET.offset(x, 1, z)).is(Blocks.STONE) ? 1 : 0;
+                        }
+                    }
+                    helper.assertTrue(bottom == 9 && top == 0, "after three slices: bottom " + bottom + ", top " + top);
+                })
+                .thenExecuteAfter(1, () -> wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND))
+                .thenExecuteAfter(1, () -> wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND))
+                .thenExecuteAfter(1, () -> {
+                    wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND);
+                    helper.assertTrue(helper.getBlockState(TARGET.offset(1, 1, 2)).is(Blocks.STONE) && !BlueprintBuilder.building(player),
+                            "the build did not finish");
+                    clear(helper);
+                })
+                .thenExecute(() -> TestCleanup.run(helper))
+                .thenSucceed();
+    }
+
+    /**
+     * Jeder gesetzte Block kostet den Baustab einen Haltbarkeitspunkt; bricht er, stoppt der Bau
+     * sofort - kein Block ueber die Haltbarkeit hinaus.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Bau, der mit zerbrochenem Stab weitersetzt.
+     */
+    public static void buildStopsWhenTheWandBreaks(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        player.addTag(BlueprintScanner.SMALL_BUDGET_TAG);
+        clear(helper);
+        ItemStack wand = new ItemStack(ModItems.COPPER_BUILDING_WAND);
+        wand.setDamageValue(wand.getMaxDamage() - 2);
+        ItemStack stone = new ItemStack(Items.STONE, 20);
+        ItemStack blueprint = blueprint("stone 0,0,0..0,0,6");
+        hold(player, wand, blueprint, stone);
+        BlueprintBuilder.Result result = click(helper, player, wand, blueprint);
+        int placed = 0;
+        for (int z = 0; z <= 6; z++) {
+            placed += helper.getBlockState(TARGET.south(z)).is(Blocks.STONE) ? 1 : 0;
+        }
+        helper.assertTrue(wand.isEmpty(), "the wand did not break");
+        helper.assertTrue(placed == 2 && result.placed() == 2 && result.wandBroke(), "placed " + placed + " blocks with 2 durability left: " + result);
+        helper.assertTrue(!BlueprintBuilder.building(player), "a job is still registered for the broken wand");
+        clear(helper);
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Wechselt der Spieler waehrend des Baus das Werkzeug in der Haupthand, bricht der Bau ab (wie
+     * beim normalen Baustab) und nimmt ihn auch nicht wieder auf, wenn der Stab zurueckkommt.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Auftrag, der nur tickt, solange der Stab in
+     * der Hand ist, und deshalb liegen bleibt und spaeter weiterbaut.
+     */
+    public static void buildStopsWhenTheWandLeavesTheMainHand(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = mockPlayer(helper, true);
+        player.addTag(BlueprintScanner.SMALL_BUDGET_TAG);
+        clear(helper);
+        ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
+        ItemStack blueprint = blueprint("stone 0,0,0..0,0,6");
+        hold(player, wand, blueprint);
+        BlueprintBuilder.Result first = click(helper, player, wand, blueprint);
+        helper.assertTrue(first != null && first.placed() == 3 && BlueprintBuilder.building(player), "no job after the first slice: " + first);
+        player.getInventory().setSelectedSlot(1);
+        wand.getItem().inventoryTick(wand, level, player, null);
+        helper.assertTrue(!BlueprintBuilder.building(player), "switching the main hand did not stop the build");
+        player.getInventory().setSelectedSlot(0);
+        helper.startSequence()
+                .thenExecuteAfter(2, () -> {
+                    wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND);
+                    int placed = 0;
+                    for (int z = 0; z <= 6; z++) {
+                        placed += helper.getBlockState(TARGET.south(z)).is(Blocks.STONE) ? 1 : 0;
+                    }
+                    helper.assertTrue(placed == 3, "the cancelled build went on after the wand came back: " + placed);
+                    clear(helper);
+                })
+                .thenExecute(() -> TestCleanup.run(helper))
+                .thenSucceed();
+    }
+
+    /**
+     * Zwei-Klick-Regel: fehlt Material, baut der erste Klick nichts (er warnt nur, die roten Stellen
+     * leuchten auf); ein zweiter Klick kurz danach baut alles Vorhandene. Fehlt nichts, baut schon
+     * der erste Klick.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Bau ohne Warnung trotz Luecken, eine Warnung,
+     * die jeden Klick blockiert, eine Warnung, obwohl nichts fehlt.
+     */
+    public static void missingBlocksNeedTheSecondClick(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        clear(helper);
+        ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
+        ItemStack stone = new ItemStack(Items.STONE, 2);
+        ItemStack blueprint = blueprint("stone 0,0,0..0,0,3");
+        hold(player, wand, blueprint, stone);
+        BlueprintBuilder.Result warned = build(helper, player, wand, blueprint);
+        helper.assertTrue(warned != null && warned.warned() && warned.placed() == 0 && warned.missing() == 2 && stone.getCount() == 2,
+                "the first click with missing blocks did not only warn: " + warned);
+        BlueprintBuilder.Result second = build(helper, player, wand, blueprint);
+        helper.assertTrue(second != null && !second.warned() && second.placed() == 2 && second.missing() == 2,
+                "the confirming click did not build what is there: " + second);
+
+        clear(helper);
+        player.getInventory().setItem(1, new ItemStack(Items.STONE, 10));
+        BlueprintBuilder.Result complete = build(helper, player, wand, blueprint);
+        helper.assertTrue(complete != null && !complete.warned() && complete.placed() == 4, "nothing missing, but the first click did not build: " + complete);
+        clear(helper);
+        TestCleanup.succeed(helper);
+    }
+
+    // =====================================================================================
     // HILFEN
     // =====================================================================================
 
@@ -871,7 +1025,18 @@ public final class BlueprintTests {
         }
     }
 
+    /** Ein Klick und, falls ein Auftrag bleibt, dessen sofortiger Abschluss: das Ergebnis des ganzen Baus. */
     private static BlueprintBuilder.Result build(GameTestHelper helper, ServerPlayer player, ItemStack wand, ItemStack blueprint) {
+        BlueprintBuilder.Result result = click(helper, player, wand, blueprint);
+        if (result != null && !result.warned() && !result.finished()) {
+            BlueprintBuilder.Result rest = BlueprintBuilder.completeJob(player);
+            return rest != null ? rest : result;
+        }
+        return result;
+    }
+
+    /** Nur der Klick: die erste Scheibe, der Rest bleibt als Auftrag stehen. */
+    private static BlueprintBuilder.Result click(GameTestHelper helper, ServerPlayer player, ItemStack wand, ItemStack blueprint) {
         return BlueprintBuilder.build(helper.getLevel(), player, wand, blueprint, helper.absolutePos(CLICKED), Direction.UP);
     }
 
