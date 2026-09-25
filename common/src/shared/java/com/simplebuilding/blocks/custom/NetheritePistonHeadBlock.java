@@ -1,5 +1,7 @@
 package com.simplebuilding.blocks.custom;
 
+import com.simplebuilding.version.BlockCodecs;
+
 import com.mojang.serialization.MapCodec;
 import com.simplebuilding.blocks.ModBlocks;
 import net.minecraft.core.BlockPos;
@@ -18,7 +20,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class NetheritePistonHeadBlock extends DirectionalBlock {
-    public static final MapCodec<NetheritePistonHeadBlock> CODEC = simpleCodec(NetheritePistonHeadBlock::new);
+    public static final MapCodec<NetheritePistonHeadBlock> CODEC = BlockCodecs.simple(NetheritePistonHeadBlock::new);
 
     protected static final VoxelShape EAST_HEAD_SHAPE = Block.box(0.0D, 6.0D, 6.0D, 16.0D, 10.0D, 10.0D); // Beispielwerte, anpassen!
     protected static final VoxelShape WEST_HEAD_SHAPE = Block.box(0.0D, 6.0D, 6.0D, 16.0D, 10.0D, 10.0D);
@@ -28,7 +30,7 @@ public class NetheritePistonHeadBlock extends DirectionalBlock {
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
-    @Override
+    // No @Override: MC 26.3 removed block codecs; this only overrides on 26.2.
     protected MapCodec<? extends DirectionalBlock> codec() {
         return CODEC;
     }

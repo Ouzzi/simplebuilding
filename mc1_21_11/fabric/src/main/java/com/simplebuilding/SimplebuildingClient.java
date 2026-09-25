@@ -47,7 +47,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
-import org.lwjgl.glfw.GLFW;
 
 import static com.simplebuilding.util.EnchantmentHelper.getEnchantmentLevel;
 import static com.simplebuilding.util.EnchantmentHelper.hasEnchantment;
@@ -86,7 +85,7 @@ public class SimplebuildingClient implements ClientModInitializer {
         ClientState.highlightToggleKey = KeyBindingHelper.registerKeyBinding(new KeyMapping(
                 "key.simplebuilding.toggle_highlight",
             InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_H,
+            InputConstants.KEY_H,
             KEY_CATEGORY_SIMPLEMODS
         ));
         ClientState.octantFigureToggleKey = KeyBindingHelper.registerKeyBinding(new KeyMapping(
@@ -97,13 +96,13 @@ public class SimplebuildingClient implements ClientModInitializer {
         ));
         ClientState.settingsKey = KeyBindingHelper.registerKeyBinding(new KeyMapping(
                 "key.simplebuilding.simple_settings",
-                GLFW.GLFW_KEY_G,
+                InputConstants.KEY_G,
             KEY_CATEGORY_SIMPLEMODS
         ));
         ClientState.backpackKey = KeyBindingHelper.registerKeyBinding(new KeyMapping(
                 "key.simplebuilding.open_backpack",
                 InputConstants.Type.KEYSYM,
-                GLFW.GLFW_KEY_B,
+                InputConstants.KEY_B,
                 KEY_CATEGORY_SIMPLEMODS
         ));
         // Rucksack-Taste: gemeinsamer Handler mit NeoForge (BackpackKeyHandler).

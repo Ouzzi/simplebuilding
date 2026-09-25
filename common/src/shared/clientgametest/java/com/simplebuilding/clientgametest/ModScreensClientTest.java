@@ -1,5 +1,7 @@
 package com.simplebuilding.clientgametest;
 
+import com.simplebuilding.version.McClientVersion;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -941,7 +943,7 @@ public final class ModScreensClientTest {
                         + "building wand screen.");
             }
 
-            if (!binding.matches(InputConstants.Type.KEYSYM.getOrCreate(SETTINGS_KEY))) {
+            if (!binding.matches(McClientVersion.keyboardKey(SETTINGS_KEY))) {
                 throw new AssertionError("The mod's settings binding is not on GLFW key " + SETTINGS_KEY
                         + " any more (it says \"" + binding.saveString() + "\"), so the key the harness "
                         + "presses would open nothing and the screens below would be reported as broken "
@@ -953,7 +955,7 @@ public final class ModScreensClientTest {
     /** The same control for vanilla's inventory binding, for the same reason. */
     private static void assertInventoryKeyIsBound(Script script) {
         script.act("the inventory binding sits on the key the harness presses", client -> {
-            if (!client.options.keyInventory.matches(InputConstants.Type.KEYSYM.getOrCreate(INVENTORY_KEY))) {
+            if (!client.options.keyInventory.matches(McClientVersion.keyboardKey(INVENTORY_KEY))) {
                 throw new AssertionError("The inventory binding is not on GLFW key " + INVENTORY_KEY
                         + " any more (it says \"" + client.options.keyInventory.saveString() + "\"), so "
                         + "the key the harness presses would not open the creative inventory.");

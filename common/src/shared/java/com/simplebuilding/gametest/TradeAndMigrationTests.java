@@ -1,5 +1,7 @@
 package com.simplebuilding.gametest;
 
+import com.simplebuilding.version.McVersion;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.simplebuilding.enchantment.ModEnchantments;
@@ -1056,7 +1058,7 @@ public final class TradeAndMigrationTests {
                 "trade set of " + professionKey.identifier() + " at level " + level);
 
         TradeSet tradeSet = registries.lookupOrThrow(Registries.TRADE_SET).getOrThrow(tradeSetKey).value();
-        Optional<TagKey<VillagerTrade>> backing = tradeSet.getTrades().unwrapKey();
+        Optional<TagKey<VillagerTrade>> backing = McVersion.tradeSetTrades(tradeSet).unwrapKey();
         helper.assertTrue(backing.isPresent(),
                 "trade set " + tradeSetKey.identifier() + " no longer draws from a tag, so no datapack "
                         + "- ours included - can put a trade into it");
@@ -1076,7 +1078,7 @@ public final class TradeAndMigrationTests {
                 "trade set of " + professionKey.identifier() + " at level " + level);
 
         TradeSet tradeSet = registries.lookupOrThrow(Registries.TRADE_SET).getOrThrow(tradeSetKey).value();
-        HolderSet<VillagerTrade> pool = tradeSet.getTrades();
+        HolderSet<VillagerTrade> pool = McVersion.tradeSetTrades(tradeSet);
 
         Set<String> actual = new LinkedHashSet<>();
         for (Holder<VillagerTrade> holder : pool) {

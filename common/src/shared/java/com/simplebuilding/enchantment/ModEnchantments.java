@@ -1,5 +1,7 @@
 package com.simplebuilding.enchantment;
 
+import com.simplebuilding.version.McVersion;
+
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.enchantment.ModEnchantmentTags;
 import com.simplebuilding.util.ModTags;
@@ -290,7 +292,7 @@ public class ModEnchantments {
                         EquipmentSlotGroup.ARMOR
                 ))
                 .exclusiveWith(enchantmentsLookup.getOrThrow(EnchantmentTags.ARMOR_EXCLUSIVE))
-                .withEffect(EnchantmentEffectComponents.DAMAGE_PROTECTION, new AddValue(LevelBasedValue.perLevel(2.5f, 2.5f)), DamageSourceCondition.hasDamageSource(DamageSourcePredicate.Builder.damageType().tag(TagPredicate.is(KINETIC_DAMAGE_TAG)))));
+                .withEffect(EnchantmentEffectComponents.DAMAGE_PROTECTION, new AddValue(LevelBasedValue.perLevel(2.5f, 2.5f)), DamageSourceCondition.hasDamageSource(DamageSourcePredicate.Builder.damageType().tag(McVersion.tagPredicate(registerable, Registries.DAMAGE_TYPE, KINETIC_DAMAGE_TAG)))));
 
         register(registerable, VERSATILITY, Enchantment.enchantment(
                 Enchantment.definition(

@@ -17,6 +17,10 @@ sourceSets {
 			// every loader module against its own Minecraft jar. Only Fabric-specific
 			// classes (entrypoints, registration, datagen) stay in this module's src/main/java.
 			srcDir "common/src/shared/java"
+			// Files that must differ between Minecraft 26.2 and 26.3: the 26.2 side lives here and is
+			// compiled only by the 26.2 modules (this one, :neoforge, :forge); the 26.3 twins live in
+			// mc26_3/overlay/java. checkOverlays below keeps the two sets in step.
+			srcDir "common/src/mc26_2/java"
 			// JEI plugin (compileOnly JEI API, only ever loaded by JEI itself). Its own tree
 			// because the forge module compiles common/src/shared/java too and there is no JEI
 			// for Forge 26.2.

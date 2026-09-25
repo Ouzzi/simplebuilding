@@ -1,5 +1,7 @@
 package com.simplebuilding.gametest;
 
+import com.simplebuilding.version.McVersion;
+
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
@@ -1196,7 +1198,7 @@ public final class QuiverTests {
     /** How many of {@code item} the container holds, across all of its stacks. */
     private static int countInBundle(ItemStack container, Item item) {
         int total = 0;
-        for (ItemStack stack : contentsOf(container).itemCopyStream().toList()) {
+        for (ItemStack stack : McVersion.bundleItemCopies(contentsOf(container)).toList()) {
             if (stack.is(item)) {
                 total += stack.getCount();
             }
@@ -1207,7 +1209,7 @@ public final class QuiverTests {
     /** Everything the container holds, whatever it is - used where the point is that stone got in. */
     private static int totalInBundle(ItemStack container) {
         int total = 0;
-        for (ItemStack stack : contentsOf(container).itemCopyStream().toList()) {
+        for (ItemStack stack : McVersion.bundleItemCopies(contentsOf(container)).toList()) {
             total += stack.getCount();
         }
         return total;

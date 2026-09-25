@@ -1,5 +1,7 @@
 package com.simplebuilding.client.blueprint;
 
+import com.simplebuilding.version.McClientVersion;
+
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simplebuilding.blueprint.BlueprintModel;
@@ -207,7 +209,7 @@ public final class BlueprintView {
                 rgb = tint.color(state) & 0xFFFFFF;
             }
         }
-        float shade = quad.materialInfo().shade() ? shade(n) : 1f;
+        float shade = McClientVersion.quadShaded(quad) ? shade(n) : 1f;
         colors.add(ARGB.color(255, (int) (ARGB.red(rgb) * shade), (int) (ARGB.green(rgb) * shade), (int) (ARGB.blue(rgb) * shade)));
     }
 

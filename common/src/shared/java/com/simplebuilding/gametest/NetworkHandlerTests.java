@@ -1,5 +1,7 @@
 package com.simplebuilding.gametest;
 
+import com.simplebuilding.version.McVersion;
+
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OctantItem;
@@ -671,7 +673,7 @@ public final class NetworkHandlerTests {
             return 0;
         }
         int total = 0;
-        for (ItemStack stack : contents.itemCopyStream().toList()) {
+        for (ItemStack stack : McVersion.bundleItemCopies(contents).toList()) {
             if (stack.is(item)) {
                 total += stack.getCount();
             }

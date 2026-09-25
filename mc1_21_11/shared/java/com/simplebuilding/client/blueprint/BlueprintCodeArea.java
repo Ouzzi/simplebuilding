@@ -1,5 +1,7 @@
 package com.simplebuilding.client.blueprint;
 
+import com.mojang.blaze3d.platform.InputConstants;
+
 import com.simplebuilding.blueprint.BlueprintCode;
 import com.simplebuilding.mixin.client.MultilineTextFieldAccessor;
 import java.util.List;
@@ -15,7 +17,6 @@ import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Util;
-import org.lwjgl.glfw.GLFW;
 
 /**
  * Das Code-Feld des Blaupausen-Editors: ein mehrzeiliges Textfeld mit Syntax-Einfaerbung,
@@ -327,15 +328,15 @@ public final class BlueprintCodeArea extends AbstractWidget {
         }
         int key = event.key();
         if (readOnly) {
-            boolean editing = key == GLFW.GLFW_KEY_BACKSPACE || key == GLFW.GLFW_KEY_DELETE || key == GLFW.GLFW_KEY_ENTER
-                    || key == GLFW.GLFW_KEY_KP_ENTER || key == GLFW.GLFW_KEY_TAB
-                    || (event.hasControlDown() && (key == GLFW.GLFW_KEY_V || key == GLFW.GLFW_KEY_X));
+            boolean editing = key == InputConstants.KEY_BACKSPACE || key == InputConstants.KEY_DELETE || key == InputConstants.KEY_RETURN
+                    || key == InputConstants.KEY_NUMPADENTER || key == InputConstants.KEY_TAB
+                    || (event.hasControlDown() && (key == InputConstants.KEY_V || key == InputConstants.KEY_X));
             if (editing) {
-                return key != GLFW.GLFW_KEY_TAB;
+                return key != InputConstants.KEY_TAB;
             }
             return field.keyPressed(event);
         }
-        if (key == GLFW.GLFW_KEY_TAB && !event.hasControlDown()) {
+        if (key == InputConstants.KEY_TAB && !event.hasControlDown()) {
             field.insertText("  ");
             return true;
         }

@@ -1450,7 +1450,17 @@ public final class DataIntegrityTests {
 
         Map<ResourceKey<Enchantment>, Enchantment> fromSource = new LinkedHashMap<>();
         ModEnchantments.bootstrap(new BootstrapContext<Enchantment>() {
-            @Override
+            // register(k, v, Lifecycle) is abstract on 26.2, register(k, v) and listContextElements on
+            // 26.3 - all three are implemented, none with @Override, so one source fits both.
+            public Holder.Reference<Enchantment> register(ResourceKey<Enchantment> key, Enchantment value) {
+                return register(key, value, Lifecycle.stable());
+            }
+
+            public <S> java.util.stream.Stream<Holder.Reference<S>> listContextElements(
+                    ResourceKey<? extends Registry<? extends S>> key) {
+                throw new UnsupportedOperationException("not used by ModEnchantments.bootstrap");
+            }
+
             public Holder.Reference<Enchantment> register(ResourceKey<Enchantment> key,
                                                           Enchantment value, Lifecycle lifecycle) {
                 fromSource.put(key, value);

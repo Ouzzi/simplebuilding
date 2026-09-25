@@ -1,5 +1,9 @@
 package com.simplebuilding.gametest;
 
+import com.simplebuilding.version.LootNumbers;
+
+import com.simplebuilding.version.McVersion;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
@@ -60,9 +64,6 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
-import net.minecraft.world.level.storage.loot.providers.number.NumberProviders;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -724,7 +725,7 @@ public final class WorldAndPlayerTests {
         // --- the damage type filter: an ordinary hit is not rationed, full set or not ---
         wearEnderite(player, ENDERITE_PIECES.length);
         player.setHealth(player.getMaxHealth());
-        player.invulnerableTime = 0;
+        McVersion.resetInvulnerableTime(player);
         player.tickCount = VOID_UNPROTECTED_TICK;
         player.hurtServer(level, level.damageSources().generic(), UNRELATED_HIT_DAMAGE);
         helper.assertTrue(player.getHealth() < player.getMaxHealth(),
@@ -897,11 +898,11 @@ public final class WorldAndPlayerTests {
 
             // --- the air jump books, with the level and the weight they were given ---
             assertAirJumpBook(helper, ops, BuiltInLootTables.END_CITY_TREASURE, 2, 5,
-                    UniformGenerator.between(0.0F, 3.0F));
+                    0, 3);
             assertAirJumpBook(helper, ops, BuiltInLootTables.TRIAL_CHAMBERS_REWARD_RARE, 1, 7,
-                    UniformGenerator.between(0.0F, 1.0F));
+                    0, 1);
             assertAirJumpBook(helper, ops, BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS, 1, 7,
-                    UniformGenerator.between(0.0F, 1.0F));
+                    0, 1);
         } finally {
             Simplebuilding.getConfig().worldGen.enableLootTableChanges = original;
         }
@@ -1165,7 +1166,7 @@ public final class WorldAndPlayerTests {
     private static ServerPlayer vulnerablePlayer(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 3.0, 3.5));
         player.getAbilities().invulnerable = false;
-        player.setInvulnerable(false);
+        McVersion.setInvulnerable(player, false);
         player.connection.handleAcceptPlayerLoad(new ServerboundPlayerLoadedPacket());
         player.setAbsorptionAmount(0.0F);
         return player;
@@ -1188,7 +1189,7 @@ public final class WorldAndPlayerTests {
         Set<Integer> hit = new TreeSet<>();
         for (int tick : VOID_PROBE_TICKS) {
             player.setHealth(player.getMaxHealth());
-            player.invulnerableTime = 0;
+            McVersion.resetInvulnerableTime(player);
             player.tickCount = tick;
             player.hurtServer(helper.getLevel(), source, VOID_HIT_DAMAGE);
             if (player.getHealth() < player.getMaxHealth()) {
@@ -1321,9 +1322,9 @@ public final class WorldAndPlayerTests {
      */
     private static void assertAirJumpBook(GameTestHelper helper, RegistryOps<JsonElement> ops,
                                           ResourceKey<LootTable> key, int level, int weight,
-                                          NumberProvider rolls) {
+                                          int minRolls, int maxRolls) {
         String name = key.identifier().toString();
-        JsonElement expectedRolls = NumberProviders.CODEC.encodeStart(ops, rolls).getOrThrow();
+        JsonElement expectedRolls = LootNumbers.encodeBetween(ops, minRolls, maxRolls);
         int found = 0;
 
         for (LootPool pool : recordPools(helper, key)) {

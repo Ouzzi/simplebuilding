@@ -23,7 +23,6 @@ import net.minecraftforge.client.gui.overlay.ForgeLayeredDraw;
 import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import org.lwjgl.glfw.GLFW;
 
 /**
  * Forge client wiring on the mod bus (client dist): networking sender, key
@@ -94,7 +93,7 @@ public final class SimplebuildingForgeClient {
         ClientState.highlightToggleKey = new KeyMapping(
                 "key.simplebuilding.toggle_highlight",
                 InputConstants.Type.KEYSYM,
-                GLFW.GLFW_KEY_H,
+                InputConstants.KEY_H,
                 KEY_CATEGORY_SIMPLEMODS
         );
         ClientState.octantFigureToggleKey = new KeyMapping(
@@ -105,13 +104,13 @@ public final class SimplebuildingForgeClient {
         );
         ClientState.settingsKey = new KeyMapping(
                 "key.simplebuilding.simple_settings",
-                GLFW.GLFW_KEY_G,
+                InputConstants.KEY_G,
                 KEY_CATEGORY_SIMPLEMODS
         );
         ClientState.backpackKey = new KeyMapping(
                 "key.simplebuilding.open_backpack",
                 InputConstants.Type.KEYSYM,
-                GLFW.GLFW_KEY_B,
+                InputConstants.KEY_B,
                 KEY_CATEGORY_SIMPLEMODS
         );
         event.register(ClientState.highlightToggleKey);

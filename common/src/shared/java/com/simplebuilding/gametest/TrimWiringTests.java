@@ -1,5 +1,7 @@
 package com.simplebuilding.gametest;
 
+import com.simplebuilding.version.McVersion;
+
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.tree.CommandNode;
@@ -855,7 +857,7 @@ public final class TrimWiringTests {
         try {
             ServerPlayer player = mockPlayer(helper);
             player.getAbilities().invulnerable = false;
-            player.setInvulnerable(false);
+            McVersion.setInvulnerable(player, false);
             // Without this ServerPlayer#isInvulnerableTo keeps returning true for 60 ticks.
             player.connection.handleAcceptPlayerLoad(new ServerboundPlayerLoadedPacket());
             player.setAbsorptionAmount(0.0F);
@@ -968,7 +970,7 @@ public final class TrimWiringTests {
 
             // --- visibility: same armour in both readings, only the pattern differs ---
             wear(player, copper, blank, 4);
-            double plainVisibility = player.getVisibilityPercent(null);
+            double plainVisibility = McVersion.visibilityPercent(player, null);
             helper.assertTrue(plainVisibility > 0.0,
                     "the wearer is already invisible to everything at " + plainVisibility
                             + ", so multiplying it could not be detected");
@@ -976,11 +978,11 @@ public final class TrimWiringTests {
             float stealth = TrimEffectUtil.getStealthMultiplier(player);
             helper.assertTrue(stealth < 1.0F && stealth > 0.0F,
                     "test setup broken: a full silence set is worth a stealth factor of " + stealth);
-            assertClose(helper, player.getVisibilityPercent(null), plainVisibility * stealth,
+            assertClose(helper, McVersion.visibilityPercent(player, null), plainVisibility * stealth,
                     "LivingEntity.getVisibilityPercent did not pick the silence trim up; mobs still "
                             + "spot the wearer from just as far away");
             wear(player, copper, blank, 4);
-            assertClose(helper, player.getVisibilityPercent(null), plainVisibility,
+            assertClose(helper, McVersion.visibilityPercent(player, null), plainVisibility,
                     "an untrimmed wearer's visibility was modified as well");
 
             bare(player);
@@ -1512,7 +1514,7 @@ public final class TrimWiringTests {
     /** Health lost to one hit, with the damage cooldown cleared so repeated hits all land. */
     private static float damageTaken(GameTestHelper helper, ServerPlayer player, DamageSource source) {
         player.setHealth(player.getMaxHealth());
-        player.invulnerableTime = 0;
+        McVersion.resetInvulnerableTime(player);
         player.hurtServer(helper.getLevel(), source, HIT_DAMAGE);
         return player.getMaxHealth() - player.getHealth();
     }
@@ -1832,7 +1834,17 @@ public final class TrimWiringTests {
 
         private final Map<ResourceKey<TrimMaterial>, TrimMaterial> registered = new HashMap<>();
 
-        @Override
+        // register(k, v, Lifecycle) is abstract on 26.2, register(k, v) and listContextElements on
+        // 26.3 - all three are implemented, none with @Override, so one source fits both.
+        public Holder.Reference<TrimMaterial> register(ResourceKey<TrimMaterial> key, TrimMaterial value) {
+            return register(key, value, Lifecycle.stable());
+        }
+
+        public <S> java.util.stream.Stream<Holder.Reference<S>> listContextElements(
+                ResourceKey<? extends Registry<? extends S>> key) {
+            throw new UnsupportedOperationException("not used by ModTrimMaterials.bootstrap");
+        }
+
         public Holder.Reference<TrimMaterial> register(ResourceKey<TrimMaterial> key,
                                                       TrimMaterial value, Lifecycle lifecycle) {
             registered.put(key, value);

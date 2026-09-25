@@ -1,5 +1,7 @@
 package com.simplebuilding.screen;
 
+import com.simplebuilding.version.McVersion;
+
 import com.simplebuilding.items.custom.BackpackTier;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -260,7 +262,7 @@ public class BackpackMenu extends AbstractCraftingMenu {
         }
         slot.onTake(player, stack);
         if (slotIndex == RESULT_SLOT) {
-            player.drop(stack, false);
+            McVersion.drop(player, stack, false, false);
         }
         return clicked;
     }

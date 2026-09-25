@@ -1,5 +1,7 @@
 package com.simplebuilding.mixin;
 
+import com.simplebuilding.version.McVersion;
+
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.util.OwnedLightHolder;
 import net.minecraft.core.BlockPos;
@@ -103,7 +105,7 @@ public abstract class ItemFrameEntityMixin implements OwnedLightHolder {
             if (this.simplebuilding$locked) {
                 if (!isClient) {
                     this.simplebuilding$locked = false;
-                    player.drop(new ItemStack(Items.GLASS_PANE), false);
+                    McVersion.drop(player, new ItemStack(Items.GLASS_PANE), false, false);
                     player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GLASS_BREAK, player.getSoundSource(), 1.0f, 1.0f);
                     player.sendOverlayMessage(Component.literal("Item Frame entsperrt.").withStyle(ChatFormatting.GREEN));
                 }

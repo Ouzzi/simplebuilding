@@ -1,0 +1,186 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.147'
+}
+
+// Third supported Minecraft line (26.3), NeoForge. NOT a copy: it compiles the same trees as the
+// 26.2 :neoforge module - common/src/shared/java, neoforge/src/main/java and the JEI plugin - plus
+// mc26_3/overlay/java, which holds only the files that must differ on 26.3 (their 26.2
+// counterparts live in common/src/mc26_2/java). See mc26_3/fabric/build.gradle.
+description = 'NeoForge 26.3 loader module for SimpleBuilding'
+
+group = rootProject.group
+version = rootProject.version
+
+base {
+    archivesName = "${rootProject.archives_base_name}-neoforge-${rootProject.mc263_minecraft_version}"
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+def root = rootProject.layout.projectDirectory
+
+sourceSets {
+    main {
+        java {
+            srcDir root.dir('common/src/shared/java')
+            srcDir root.dir('common/src/jei/java')
+            srcDir root.dir('neoforge/src/main/java')
+            srcDir root.dir('mc26_3/overlay/java')
+        }
+        resources {
+            srcDir root.dir('neoforge/src/main/resources')
+            srcDir root.dir('src/main/resources')
+            srcDir root.dir('src/main/generated')
+            exclude 'fabric.mod.json'
+            exclude 'wiki/**'
+        }
+    }
+
+    // Automated in-world renderer proof, same shape as the 26.2 :neoforge module.
+    clientGameTest {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+        java.srcDir root.dir('neoforge/src/clientGameTest/java')
+        java.srcDir root.dir('common/src/shared/clientgametest/java')
+        resources.srcDir root.dir('neoforge/src/clientGameTest/resources')
+    }
+}
+
+configurations {
+    clientGameTestImplementation.extendsFrom implementation
+    clientGameTestRuntimeOnly.extendsFrom runtimeOnly
+}
+
+neoForge {
+    version = rootProject.mc263_neoforge_version
+
+    mods {
+        "${archives_base_name}" {
+            sourceSet sourceSets.main
+        }
+        "${archives_base_name}clienttest" {
+            sourceSet sourceSets.clientGameTest
+        }
+    }
+}
+
+neoForge.addModdingDependenciesTo(sourceSets.clientGameTest)
+
+def mainMod = neoForge.mods.getByName(project.archives_base_name.toString())
+def clientTestMod = neoForge.mods.getByName(project.archives_base_name.toString() + 'clienttest')
+
+def seedClientGameTestConfig = tasks.register('seedClientGameTestConfig') {
+    description = 'Writes the NeoForge client config the automated renderer proof needs.'
+    def configFile = layout.buildDirectory.file('run/clientGameTest/config/neoforge-client.toml')
+    outputs.upToDateWhen { false }
+    doLast {
+        def file = configFile.get().asFile
+        file.parentFile.mkdirs()
+        def text = file.exists() ? file.text : ''
+        if (text.contains('showLoadWarnings')) {
+            file.text = text.replaceAll(/(?m)^showLoadWarnings\s*=.*$/, 'showLoadWarnings = false')
+        } else {
+            file.text = 'showLoadWarnings = false\n' + text
+        }
+    }
+}
+
+neoForge {
+    runs {
+        client {
+            client()
+            loadedMods = [mainMod]
+        }
+        // Task name: :mc26_3:neoforge:runClientGameTest
+        clientGameTest {
+            client()
+            sourceSet = sourceSets.clientGameTest
+            loadedMods = [mainMod, clientTestMod]
+            gameDirectory = layout.buildDirectory.dir('run/clientGameTest')
+            taskBefore seedClientGameTestConfig
+            systemProperty 'simplebuilding.clienttest', 'true'
+            programArguments.addAll '--width', '854', '--height', '480'
+        }
+        server {
+            server()
+            loadedMods = [mainMod]
+            programArgument '--nogui'
+        }
+        // Task name: :mc26_3:neoforge:runGameTest
+        gameTest {
+            type = 'gameTestServer'
+            loadedMods = [mainMod]
+            programArguments.addAll '--tests',
+                    (project.findProperty('gametestFilter') ?: "${project.archives_base_name}:*").toString(),
+                    '--report', layout.buildDirectory.file('neoforge-junit.xml').get().asFile.absolutePath
+        }
+        configureEach {
+            logLevel = org.slf4j.event.Level.INFO
+        }
+    }
+}
+
+repositories {
+    maven { url = 'https://maven.shedaniel.me/' }
+    maven { url = 'https://maven.blamejared.com/' }
+}
+
+// Dev-only runtime mods (only JEI is pinned for 26.3), for the 'client' and 'server' runs only -
+// same source-less 'devRuns' scheme as the 26.2 :neoforge module. Switch off: -Pdev_mods=false.
+def devModsEnabled = (project.findProperty('dev_mods') ?: 'true').toString().toBoolean()
+configurations {
+    devMods {
+        canBeConsumed = false
+        canBeResolved = false
+    }
+}
+if (devModsEnabled) {
+    sourceSets {
+        devRuns {
+        }
+    }
+    configurations {
+        devRunsImplementation.extendsFrom implementation
+        devRunsRuntimeOnly.extendsFrom runtimeOnly, devMods
+    }
+    neoForge.addModdingDependenciesTo(sourceSets.devRuns)
+    ['client', 'server'].each { runName ->
+        neoForge.runs.getByName(runName).sourceSet = sourceSets.devRuns
+    }
+}
+
+dependencies {
+    implementation project(':common')
+    implementation "me.shedaniel.cloth:cloth-config-neoforge:${rootProject.mc263_cloth_version}"
+
+    compileOnly "mezz.jei:jei-${rootProject.mc263_minecraft_version}-common-api:${rootProject.mc263_jei_version}"
+    devMods("mezz.jei:jei-${rootProject.mc263_minecraft_version}-neoforge:${rootProject.mc263_jei_version}") { transitive = false }
+}
+
+tasks.named('processResources', ProcessResources).configure {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    def replaceProperties = [
+            modVersion           : project.version,
+            modId                : project.archives_base_name,
+            loaderVersionRange   : rootProject.findProperty('neoforge_loader_version_range') ?: '[11,)',
+            minecraftVersionRange: rootProject.mc263_minecraft_version_range,
+    ]
+    inputs.properties replaceProperties
+    filesMatching('META-INF/neoforge.mods.toml') {
+        expand replaceProperties
+        filter { String line -> line.replace('SimpleBuilding for NeoForge 26.2', 'SimpleBuilding for NeoForge 26.3') }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.compilerArgs.addAll(['-Xmaxerrs', '5000'])
+}
+
+tasks.withType(Jar).configureEach {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}

@@ -1,5 +1,9 @@
 package com.simplebuilding.blocks.custom;
 
+import com.simplebuilding.version.BlockCodecs;
+
+import com.simplebuilding.version.McVersion;
+
 import com.mojang.serialization.MapCodec;
 import com.simplebuilding.util.ModTags;
 import com.simplebuilding.util.PistonBreach;
@@ -30,7 +34,7 @@ import net.minecraft.world.level.material.PushReaction;
  * Danach verschwinden der Redstoneblock und der Kolben selbst, wie beim Netheritkolben.
  */
 public class EnderitePistonBlock extends NetheriteBreakerPistonBlock {
-    public static final MapCodec<EnderitePistonBlock> CODEC = simpleCodec(EnderitePistonBlock::new);
+    public static final MapCodec<EnderitePistonBlock> CODEC = BlockCodecs.simple(EnderitePistonBlock::new);
 
     /** Wie viele Zellen vor der Front der Durchbruch hoechstens reicht. */
     public static final int BREACH_DEPTH = 3;
@@ -39,7 +43,7 @@ public class EnderitePistonBlock extends NetheriteBreakerPistonBlock {
         super(settings);
     }
 
-    @Override
+    // No @Override: MC 26.3 removed block codecs; this only overrides on 26.2.
     @SuppressWarnings("unchecked")
     public MapCodec<PistonBaseBlock> codec() {
         return (MapCodec<PistonBaseBlock>) (Object) CODEC;
@@ -72,6 +76,6 @@ public class EnderitePistonBlock extends NetheriteBreakerPistonBlock {
     /** Die Regel des normalen Brechers aus {@link NetheriteBreakerPistonBlock#triggerEvent}. */
     private static boolean breakerCanBreak(BlockState state, Level world, BlockPos pos, float breakThreshold) {
         float hardness = state.getDestroySpeed(world, pos);
-        return hardness >= 0 && hardness <= breakThreshold && state.getPistonPushReaction() != PushReaction.BLOCK;
+        return hardness >= 0 && hardness <= breakThreshold && state.getPistonPushReaction() != McVersion.PUSH_BLOCKED;
     }
 }

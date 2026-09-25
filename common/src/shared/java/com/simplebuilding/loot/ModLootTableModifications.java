@@ -1,5 +1,7 @@
 package com.simplebuilding.loot;
 
+import com.simplebuilding.version.LootNumbers;
+
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
@@ -16,13 +18,10 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction;
 import net.minecraft.world.level.storage.loot.functions.SetComponentsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.providers.number.BinomialDistributionGenerator;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 /**
  * Die Pools, die die Mod an Vanilla-Kisten, Vaults und die Angel-Schatztabelle haengt.
@@ -52,7 +51,7 @@ public final class ModLootTableModifications {
         // 1. STRONGHOLD LIBRARY - Bau-Buecher (eine bis zwei Kisten pro Stronghold)
         if (BuiltInLootTables.STRONGHOLD_LIBRARY.equals(key)) {
             editor.addPool(LootPool.lootPool()
-                    .setRolls(UniformGenerator.between(0, 2))
+                    .setRolls(LootNumbers.between(0, 2))
                     .add(enchantedBook(ModEnchantments.RANGE, 2, enchantments, 4))
                     .add(enchantedBook(ModEnchantments.MASTER_BUILDER, 1, enchantments, 3))
                     .add(enchantedBook(ModEnchantments.VERSATILITY, 1, enchantments, 4))
@@ -65,18 +64,18 @@ public final class ModLootTableModifications {
             // Scrap (selten)
             editor.addBuiltPool(LootPool.lootPool()
                     .add(LootItem.lootTableItem(ModItems.ENDERITE_SCRAP))
-                    .setRolls(BinomialDistributionGenerator.binomial(1, 0.15f)) // 15% pro Kiste
+                    .setRolls(LootNumbers.binomial(1, 0.15f)) // 15% pro Kiste
                     .build());
 
             // Template: 30% pro Kiste - bei vier bis acht Kisten pro Stadt meist eins bis zwei
             editor.addBuiltPool(LootPool.lootPool()
                     .add(LootItem.lootTableItem(ModItems.ENDERITE_UPGRADE_TEMPLATE))
-                    .setRolls(BinomialDistributionGenerator.binomial(1, 0.3f))
+                    .setRolls(LootNumbers.binomial(1, 0.3f))
                     .build());
 
             // End-Rohstoffe: genau ein Wurf, rund 60% Treffer
             editor.addPool(LootPool.lootPool()
-                    .setRolls(ConstantValue.exactly(1))
+                    .setRolls(LootNumbers.exactly(1))
                     .add(counted(ModItems.RAW_ENDERITE, 4, 1, 2))
                     .add(counted(ModItems.ENDERITE_NUGGET, 6, 2, 5))
                     .add(counted(ModItems.ASTRALIT_DUST, 6, 2, 6))
@@ -84,7 +83,7 @@ public final class ModLootTableModifications {
                     .add(EmptyLootItem.emptyItem().setWeight(14)));
 
             editor.addPool(LootPool.lootPool()
-                    .setRolls(UniformGenerator.between(0, 3))
+                    .setRolls(LootNumbers.between(0, 3))
                     .add(enchantedBook(ModEnchantments.RANGE, 3, enchantments, 4))
                     .add(enchantedBook(ModEnchantments.MASTER_BUILDER, 1, enchantments, 3))
                     .add(enchantedBook(ModEnchantments.OVERRIDE, 2, enchantments, 5))
@@ -101,7 +100,7 @@ public final class ModLootTableModifications {
         // 3. ANCIENT CITY - viele Kisten pro Stadt, daher 0-2 Wuerfe mit viel Leere
         if (BuiltInLootTables.ANCIENT_CITY.equals(key)) {
             editor.addPool(LootPool.lootPool()
-                    .setRolls(UniformGenerator.between(0, 2))
+                    .setRolls(LootNumbers.between(0, 2))
                     .add(enchantedBook(ModEnchantments.DEEP_POCKETS, 2, enchantments, 5))
                     .add(enchantedBook(ModEnchantments.RADIUS, 1, enchantments, 4))
                     .add(LootItem.lootTableItem(ModItems.OCTANT).setWeight(5).apply(EnchantRandomlyFunction.randomEnchantment()))
@@ -117,7 +116,7 @@ public final class ModLootTableModifications {
         // 4. BASTION - ein gemeinsamer Pool fuer jede Bastion-Kiste ...
         if (BuiltInLootTables.BASTION_TREASURE.equals(key) || BuiltInLootTables.BASTION_OTHER.equals(key)) {
             editor.addPool(LootPool.lootPool()
-                    .setRolls(UniformGenerator.between(0, 2))
+                    .setRolls(LootNumbers.between(0, 2))
                     .add(enchantedBook(ModEnchantments.FUNNEL, 1, enchantments, 5))
                     .add(enchantedBook(ModEnchantments.BREAK_THROUGH, 1, enchantments, 5))
                     .add(item(ModItems.GOLD_SLEDGEHAMMER, 6))
@@ -129,7 +128,7 @@ public final class ModLootTableModifications {
         // ... und der Schatzraum (eine Kiste pro Schatz-Bastion) zusaetzlich die grossen Sachen
         if (BuiltInLootTables.BASTION_TREASURE.equals(key)) {
             editor.addPool(LootPool.lootPool()
-                    .setRolls(ConstantValue.exactly(1))
+                    .setRolls(LootNumbers.exactly(1))
                     .add(item(ModItems.NETHERITE_CORE, 2))
                     .add(item(ModItems.NETHERITE_APPLE, 4))
                     .add(item(ModItems.ENCHANTED_NETHERITE_APPLE, 2))
@@ -140,7 +139,7 @@ public final class ModLootTableModifications {
         // 5. NETHER BRIDGE
         if (BuiltInLootTables.NETHER_BRIDGE.equals(key)) {
             editor.addPool(LootPool.lootPool()
-                    .setRolls(UniformGenerator.between(0, 2))
+                    .setRolls(LootNumbers.between(0, 2))
                     .add(enchantedBook(ModEnchantments.STRIP_MINER, 1, enchantments, 6))
                     .add(enchantedBook(ModEnchantments.STRIP_MINER, 2, enchantments, 3))
                     .add(enchantedBook(ModEnchantments.FUNNEL, 1, enchantments, 2))
@@ -155,7 +154,7 @@ public final class ModLootTableModifications {
         // 6. PILLAGER OUTPOST - eine Kiste pro Aussenposten
         if (BuiltInLootTables.PILLAGER_OUTPOST.equals(key)) {
             editor.addPool(LootPool.lootPool()
-                    .setRolls(UniformGenerator.between(0, 2))
+                    .setRolls(LootNumbers.between(0, 2))
                     .add(enchantedBook(ModEnchantments.COLOR_PALETTE, 1, enchantments, 6))
                     .add(enchantedBook(ModEnchantments.COVER, 1, enchantments, 8))
                     .add(enchantedBook(ModEnchantments.LINEAR, 1, enchantments, 8))
@@ -168,7 +167,7 @@ public final class ModLootTableModifications {
         // 7. WOODLAND MANSION - sehr viele Kisten, daher sparsam; Vein Miner V bleibt der Jackpot
         if (BuiltInLootTables.WOODLAND_MANSION.equals(key)) {
             editor.addPool(LootPool.lootPool()
-                    .setRolls(UniformGenerator.between(0, 2))
+                    .setRolls(LootNumbers.between(0, 2))
                     .add(enchantedBook(ModEnchantments.COLOR_PALETTE, 1, enchantments, 3))
                     .add(enchantedBook(ModEnchantments.COVER, 1, enchantments, 5))
                     .add(enchantedBook(ModEnchantments.LINEAR, 1, enchantments, 5))
@@ -183,7 +182,7 @@ public final class ModLootTableModifications {
         // 8. BURIED TREASURE - Einzelkiste, darf grosszuegig sein
         if (BuiltInLootTables.BURIED_TREASURE.equals(key)) {
             editor.addPool(LootPool.lootPool()
-                    .setRolls(UniformGenerator.between(0, 2))
+                    .setRolls(LootNumbers.between(0, 2))
                     .add(enchantedBook(ModEnchantments.CONSTRUCTORS_TOUCH, 1, enchantments, 3))
                     .add(enchantedBook(ModEnchantments.FAST_CHISELING, 2, enchantments, 2))
                     .add(item(ModItems.GOLD_CHISEL, 10))
@@ -195,7 +194,7 @@ public final class ModLootTableModifications {
         // 9. SIMPLE DUNGEON
         if (BuiltInLootTables.SIMPLE_DUNGEON.equals(key)) {
             editor.addPool(LootPool.lootPool()
-                    .setRolls(UniformGenerator.between(0, 2))
+                    .setRolls(LootNumbers.between(0, 2))
                     .add(enchantedBook(ModEnchantments.FAST_CHISELING, 1, enchantments, 5))
                     .add(enchantedBook(ModEnchantments.FUNNEL, 1, enchantments, 8))
                     .add(enchantedBook(ModEnchantments.BREAK_THROUGH, 1, enchantments, 8))
@@ -211,7 +210,7 @@ public final class ModLootTableModifications {
         // 10. SHIPWRECK TREASURE
         if (BuiltInLootTables.SHIPWRECK_TREASURE.equals(key)) {
             editor.addPool(LootPool.lootPool()
-                    .setRolls(UniformGenerator.between(0, 1))
+                    .setRolls(LootNumbers.between(0, 1))
                     .add(enchantedBook(ModEnchantments.FAST_CHISELING, 1, enchantments, 10))
                     .add(item(ModItems.REINFORCED_BUNDLE, 8))
                     .add(counted(ModItems.DIAMOND_PEBBLE, 10, 1, 4))
@@ -221,7 +220,7 @@ public final class ModLootTableModifications {
         // 11. IGLOO
         if (BuiltInLootTables.IGLOO_CHEST.equals(key)) {
             editor.addPool(LootPool.lootPool()
-                    .setRolls(UniformGenerator.between(0, 1))
+                    .setRolls(LootNumbers.between(0, 1))
                     .add(enchantedBook(ModEnchantments.CONSTRUCTORS_TOUCH, 1, enchantments, 3))
                     .add(enchantedBook(ModEnchantments.FAST_CHISELING, 1, enchantments, 3))
                     .add(item(ModItems.DIAMOND_CHISEL, 6))
@@ -231,7 +230,7 @@ public final class ModLootTableModifications {
         // 12. ABANDONED MINESHAFT - sehr viele Kisten, Bergbau-Buecher als Hauptquelle
         if (BuiltInLootTables.ABANDONED_MINESHAFT.equals(key)) {
             editor.addPool(LootPool.lootPool()
-                    .setRolls(UniformGenerator.between(0, 2))
+                    .setRolls(LootNumbers.between(0, 2))
                     .add(enchantedBook(ModEnchantments.FAST_CHISELING, 1, enchantments, 2))
                     .add(enchantedBook(ModEnchantments.STRIP_MINER, 1, enchantments, 8))
                     .add(enchantedBook(ModEnchantments.STRIP_MINER, 3, enchantments, 3))
@@ -245,7 +244,7 @@ public final class ModLootTableModifications {
         // 13. VAULT (Trial Chambers)
         if (BuiltInLootTables.TRIAL_CHAMBERS_REWARD_COMMON.equals(key) || BuiltInLootTables.TRIAL_CHAMBERS_REWARD_RARE.equals(key)) {
             editor.addPool(LootPool.lootPool()
-                    .setRolls(UniformGenerator.between(0, 1))
+                    .setRolls(LootNumbers.between(0, 1))
                     .add(enchantedBook(ModEnchantments.CONSTRUCTORS_TOUCH, 1, enchantments, 3))
                     .add(enchantedBook(ModEnchantments.FAST_CHISELING, 2, enchantments, 2))
                     .add(counted(ModItems.DIAMOND_PEBBLE, 3, 2, 4))
@@ -253,7 +252,7 @@ public final class ModLootTableModifications {
         }
         if (BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS.equals(key) || BuiltInLootTables.TRIAL_CHAMBERS_REWARD_RARE.equals(key)) {
             editor.addPool(LootPool.lootPool()
-                    .setRolls(UniformGenerator.between(0, 1))
+                    .setRolls(LootNumbers.between(0, 1))
                     .add(enchantedBook(ModEnchantments.MASTER_BUILDER, 1, enchantments, 10))
                     .add(enchantedBook(ModEnchantments.DOUBLE_JUMP, 1, enchantments, 7))
                     .add(item(ModItems.DIAMOND_CORE, 2))
@@ -265,7 +264,7 @@ public final class ModLootTableModifications {
         // 14. RUINED PORTAL - kleiner Nether-Vorgeschmack an der Oberflaeche
         if (BuiltInLootTables.RUINED_PORTAL.equals(key)) {
             editor.addPool(LootPool.lootPool()
-                    .setRolls(UniformGenerator.between(0, 1))
+                    .setRolls(LootNumbers.between(0, 1))
                     .add(counted(ModItems.NETHERITE_NUGGET, 3, 1, 2))
                     .add(item(ModItems.GOLD_CHISEL, 3))
                     .add(item(ModItems.NETHERITE_CARROT, 2))
@@ -275,7 +274,7 @@ public final class ModLootTableModifications {
         // 15. ANGELN (Schatz-Kategorie) - jeder Schatzfang wuerfelt hier einmal zusaetzlich
         if (BuiltInLootTables.FISHING_TREASURE.equals(key)) {
             editor.addPool(LootPool.lootPool()
-                    .setRolls(ConstantValue.exactly(1))
+                    .setRolls(LootNumbers.exactly(1))
                     .add(enchantedBook(ModEnchantments.FAST_CHISELING, 1, enchantments, 3))
                     .add(enchantedBook(ModEnchantments.CONSTRUCTORS_TOUCH, 1, enchantments, 2))
                     .add(enchantedBook(ModEnchantments.DEEP_POCKETS, 1, enchantments, 2))
@@ -285,16 +284,16 @@ public final class ModLootTableModifications {
         }
     }
 
-    private static LootPoolSingletonContainer.Builder<?> item(ItemLike item, int weight) {
+    private static LootPoolEntryContainer.Builder<?> item(ItemLike item, int weight) {
         return LootItem.lootTableItem(item).setWeight(weight);
     }
 
-    private static LootPoolSingletonContainer.Builder<?> counted(ItemLike item, int weight, int min, int max) {
+    private static LootPoolEntryContainer.Builder<?> counted(ItemLike item, int weight, int min, int max) {
         return LootItem.lootTableItem(item).setWeight(weight)
-                .apply(SetItemCountFunction.setCount(UniformGenerator.between(min, max)));
+                .apply(SetItemCountFunction.setCount(LootNumbers.between(min, max)));
     }
 
-    private static LootPoolSingletonContainer.Builder<?> enchantedBook(
+    private static LootPoolEntryContainer.Builder<?> enchantedBook(
             ResourceKey<Enchantment> enchantKey,
             int level,
             HolderLookup<Enchantment> registry,

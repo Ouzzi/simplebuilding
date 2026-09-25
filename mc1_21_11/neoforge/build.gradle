@@ -1,6 +1,6 @@
 plugins {
     id 'java-library'
-    id 'net.neoforged.moddev' version '2.0.141'
+    id 'net.neoforged.moddev' version '2.0.147'
 }
 
 description = 'NeoForge loader module for SimpleBuilding, Minecraft 1.21.11 line'

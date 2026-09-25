@@ -82,3 +82,4 @@ __pycache__/
 .claude/settings.local.json
 # Forge-Spieltestwelt (forge/build.gradle, Run gameTestServer)
 run-gametest/
+scratchpad/

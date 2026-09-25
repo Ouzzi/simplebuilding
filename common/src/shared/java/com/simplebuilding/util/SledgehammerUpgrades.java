@@ -1,5 +1,7 @@
 package com.simplebuilding.util;
 
+import com.simplebuilding.version.McVersion;
+
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.SledgehammerItem;
@@ -442,7 +444,7 @@ public final class SledgehammerUpgrades {
         // Im Kreativmodus verbraucht consume nichts, hurtAndBreak kostet nichts.
         player.getOffhandItem().consume(1, player);
         finishEffects(serverLevel, job, old);
-        player.swing(InteractionHand.MAIN_HAND, true);
+        McVersion.swing(player, InteractionHand.MAIN_HAND, true);
         hammer.hurtAndBreak(job.upgrade.damagePerHit(), player, EquipmentSlot.MAINHAND);
         if (!hammer.isEmpty() && hasConnection(player)) {
             player.getCooldowns().addCooldown(hammer, FINISH_COOLDOWN_TICKS);
@@ -511,7 +513,7 @@ public final class SledgehammerUpgrades {
         // Erst merken, dann bezahlen: der Schlag ist gefallen, auch wenn der Hammer dabei zerbricht.
         SledgehammerProgress.record(level, job.pos, job.upgrade.from(), hitNumber);
 
-        player.swing(InteractionHand.MAIN_HAND, true);
+        McVersion.swing(player, InteractionHand.MAIN_HAND, true);
         hammer.hurtAndBreak(job.upgrade.damagePerHit(), player, EquipmentSlot.MAINHAND);
         if (hammer.isEmpty()) {
             // Zerbrochen: Auftrag und Benutzung enden hier. Von selbst endete die Benutzung nicht -

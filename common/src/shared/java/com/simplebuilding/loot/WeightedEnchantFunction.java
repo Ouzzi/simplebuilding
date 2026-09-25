@@ -42,10 +42,17 @@ public class WeightedEnchantFunction extends LootItemConditionalFunction {
     private final List<PoolEntry> pool;
     private final float secondChance;
 
-    private WeightedEnchantFunction(List<LootItemCondition> predicates, List<PoolEntry> pool, float secondChance) {
-        super(predicates);
+    // The first parameter is whatever commonFields() yields: List<LootItemCondition> on 26.2,
+    // Optional<Holder<LootItemCondition>> on 26.3. Object + unchecked cast keeps one source for both.
+    private WeightedEnchantFunction(Object predicates, List<PoolEntry> pool, float secondChance) {
+        super(uncheckedConditions(predicates));
         this.pool = pool;
         this.secondChance = secondChance;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> T uncheckedConditions(Object conditions) {
+        return (T) conditions;
     }
 
     @Override

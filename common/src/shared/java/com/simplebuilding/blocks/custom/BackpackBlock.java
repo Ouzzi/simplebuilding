@@ -1,5 +1,7 @@
 package com.simplebuilding.blocks.custom;
 
+import com.simplebuilding.version.BlockCodecs;
+
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -56,7 +58,7 @@ public class BackpackBlock extends BaseEntityBlock {
     private static final Codec<BackpackTier> TIER_CODEC = Codec.INT.xmap(BackpackTier::byId, BackpackTier::ordinal);
     public static final MapCodec<BackpackBlock> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
             TIER_CODEC.fieldOf("tier").forGetter(BackpackBlock::getTier),
-            propertiesCodec()
+            BlockCodecs.propertiesField()
     ).apply(i, BackpackBlock::new));
 
     private static final Map<Direction, VoxelShape> SHAPES = Shapes.rotateHorizontal(Shapes.or(
@@ -75,7 +77,7 @@ public class BackpackBlock extends BaseEntityBlock {
         return this.tier;
     }
 
-    @Override
+    // No @Override: MC 26.3 removed block codecs; this only overrides on 26.2.
     protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }

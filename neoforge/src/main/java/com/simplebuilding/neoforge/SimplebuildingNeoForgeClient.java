@@ -59,7 +59,6 @@ import net.neoforged.neoforge.client.event.RegisterSelectItemModelPropertyEvent;
 import net.neoforged.neoforge.client.event.SubmitCustomGeometryEvent;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.common.NeoForge;
-import org.lwjgl.glfw.GLFW;
 
 @Mod(value = Simplebuilding.MOD_ID, dist = Dist.CLIENT)
 public final class SimplebuildingNeoForgeClient {
@@ -133,25 +132,22 @@ public final class SimplebuildingNeoForgeClient {
     public static void registerKeys(RegisterKeyMappingsEvent event) {
         ClientState.highlightToggleKey = new KeyMapping(
                 "key.simplebuilding.toggle_highlight",
-                InputConstants.Type.KEYSYM,
-                GLFW.GLFW_KEY_H,
+                InputConstants.KEY_H,
                 KEY_CATEGORY_SIMPLEMODS
         );
         ClientState.octantFigureToggleKey = new KeyMapping(
                 "key.simplebuilding.toggle_octant_figure",
-                InputConstants.Type.KEYSYM,
                 InputConstants.UNKNOWN.getValue(),
                 KEY_CATEGORY_SIMPLEMODS
         );
         ClientState.settingsKey = new KeyMapping(
                 "key.simplebuilding.simple_settings",
-                GLFW.GLFW_KEY_G,
+                InputConstants.KEY_G,
                 KEY_CATEGORY_SIMPLEMODS
         );
         ClientState.backpackKey = new KeyMapping(
                 "key.simplebuilding.open_backpack",
-                InputConstants.Type.KEYSYM,
-                GLFW.GLFW_KEY_B,
+                InputConstants.KEY_B,
                 KEY_CATEGORY_SIMPLEMODS
         );
         event.register(ClientState.highlightToggleKey);

@@ -1,5 +1,7 @@
 package com.simplebuilding.networking;
 
+import com.simplebuilding.version.McVersion;
+
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.custom.BackpackItem;
@@ -337,7 +339,7 @@ public final class ModMessageHandlers {
             stack.setCount(1);
             stack.set(com.simplebuilding.component.ModDataComponentTypes.BLUEPRINT, written);
             if (!player.getInventory().add(rest)) {
-                player.drop(rest, false);
+                McVersion.drop(player, rest, false, false);
             }
             return;
         }

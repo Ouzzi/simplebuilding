@@ -235,7 +235,7 @@ public class BlockHighlightRenderer {
                                 drawQuadFace(matrices, fill, new AABB(pos).inflate(0.002), dir, r, g, b, fa);
                                 for (Direction edgeDir : Direction.values()) {
                                     if (edgeDir == dir || edgeDir == dir.getOpposite()) continue;
-                                    BlockPos sideNeighbor = new BlockPos(pos).offset(edgeDir.getUnitVec3i());
+                                    BlockPos sideNeighbor = pos.immutable().offset(edgeDir.getUnitVec3i());
                                     diagPos.set(neighborPos).move(edgeDir);
                                     boolean sideIsShape = inShape.test(sideNeighbor);
                                     boolean diagIsShape = inShape.test(diagPos);
@@ -368,6 +368,11 @@ public class BlockHighlightRenderer {
 
         @Override
         public VertexConsumer setUv(float u, float v) {
+            return this;
+        }
+
+        // Abstract in VertexConsumer since MC 26.3; a plain extra method on 26.2 (hence no @Override).
+        public VertexConsumer setUv3(float u, float v) {
             return this;
         }
 

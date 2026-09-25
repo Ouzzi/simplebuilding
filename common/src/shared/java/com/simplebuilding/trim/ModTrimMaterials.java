@@ -1,5 +1,7 @@
 package com.simplebuilding.trim;
 
+import com.simplebuilding.version.McVersion;
+
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -9,7 +11,6 @@ import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Util;
-import net.minecraft.world.item.equipment.trim.MaterialAssetGroup;
 import net.minecraft.world.item.equipment.trim.TrimMaterial;
 
 public class ModTrimMaterials {
@@ -31,23 +32,16 @@ public class ModTrimMaterials {
 
     private static void register(BootstrapContext<TrimMaterial> context, ResourceKey<TrimMaterial> key, Style style) {
         // FIX: Nutze die statische Factory-Methode 'of', die den String automatisch in eine AssetId umwandelt
-        MaterialAssetGroup assets = MaterialAssetGroup.create(key.identifier().getPath());
-
-        // Erstelle das Material nur mit Assets und Beschreibung
-        TrimMaterial trimMaterial = new TrimMaterial(
-                assets,
-                Component.translatable(Util.makeDescriptionId("trim_material", key.identifier())).setStyle(style)
-        );
+        // 26.2: Asset-Gruppe, 26.3: Paletten-Id - beides aus dem Pfad, siehe McVersion.trimMaterial.
+        TrimMaterial trimMaterial = McVersion.trimMaterial(key.identifier().getPath(),
+                Component.translatable(Util.makeDescriptionId("trim_material", key.identifier())).setStyle(style));
 
         context.register(key, trimMaterial);
     }
 
     private static Holder<TrimMaterial> holder(ResourceKey<TrimMaterial> key, Style style) {
-        MaterialAssetGroup assets = MaterialAssetGroup.create(key.identifier().getPath());
-        return Holder.direct(new TrimMaterial(
-                assets,
-                Component.translatable(Util.makeDescriptionId("trim_material", key.identifier())).setStyle(style)
-        ));
+        return Holder.direct(McVersion.trimMaterial(key.identifier().getPath(),
+                Component.translatable(Util.makeDescriptionId("trim_material", key.identifier())).setStyle(style)));
     }
 
     private static ResourceKey<TrimMaterial> of(String name) {

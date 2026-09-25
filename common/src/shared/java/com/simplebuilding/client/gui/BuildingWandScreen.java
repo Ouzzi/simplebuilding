@@ -1,5 +1,7 @@
 package com.simplebuilding.client.gui;
 
+import com.mojang.blaze3d.platform.InputConstants;
+
 import com.simplebuilding.client.ClientState;
 import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.networking.BuildingWandConfigurePayload;
@@ -14,7 +16,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
-import org.lwjgl.glfw.GLFW;
 
 public class BuildingWandScreen extends Screen {
     private final ItemStack stack;
@@ -134,8 +135,8 @@ public class BuildingWandScreen extends Screen {
 
         // KORREKTUR: Übergib das 'input' Objekt direkt an matchesKey
         if (ClientState.settingsKey.matches(input)
-                || keyCode == GLFW.GLFW_KEY_E
-                || keyCode == GLFW.GLFW_KEY_ESCAPE) {
+                || keyCode == InputConstants.KEY_E
+                || keyCode == InputConstants.KEY_ESCAPE) {
             this.onClose();
             return true;
         }

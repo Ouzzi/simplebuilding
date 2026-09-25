@@ -1,5 +1,7 @@
 package com.simplebuilding.clientgametest;
 
+import com.simplebuilding.version.McClientVersion;
+
 import net.minecraft.resources.Identifier;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import java.awt.image.BufferedImage;
@@ -1268,7 +1270,7 @@ public final class AirJumpClientTest {
      */
     private static void assertJumpKeyIsBound(Script script) {
         script.act("the jump binding sits on the key the harness presses", client -> {
-            if (!client.options.keyJump.matches(InputConstants.Type.KEYSYM.getOrCreate(JUMP_KEY))) {
+            if (!client.options.keyJump.matches(McClientVersion.keyboardKey(JUMP_KEY))) {
                 throw new AssertionError("The jump binding is not on GLFW key " + JUMP_KEY
                         + " any more (it says \"" + client.options.keyJump.saveString() + "\"), so holding "
                         + "that key would not make the player jump - and every case in this file that "

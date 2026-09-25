@@ -1,5 +1,7 @@
 package com.simplebuilding.gametest;
 
+import com.simplebuilding.version.McVersion;
+
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
@@ -231,7 +233,7 @@ public final class LeatherAndQuiverTests {
 
         // --- vanilla bundle -> reinforced bundle ---
         ItemStack vanillaBundle = new ItemStack(Items.BUNDLE);
-        BundleContents.Mutable stones = new BundleContents.Mutable(BundleContents.EMPTY);
+        BundleContents.Mutable stones = McVersion.emptyBundleMutable();
         stones.tryInsert(new ItemStack(Items.STONE, 5));
         vanillaBundle.set(DataComponents.BUNDLE_CONTENTS, stones.toImmutable());
         vanillaBundle.set(DataComponents.CUSTOM_NAME, Component.literal("Rocks"));
@@ -355,8 +357,8 @@ public final class LeatherAndQuiverTests {
 
     private static int countIn(ItemStack container, Item item) {
         int total = 0;
-        for (ItemStack stack : container.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY)
-                .itemCopyStream().toList()) {
+        for (ItemStack stack : McVersion.bundleItemCopies(
+                container.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY)).toList()) {
             if (stack.is(item)) {
                 total += stack.getCount();
             }

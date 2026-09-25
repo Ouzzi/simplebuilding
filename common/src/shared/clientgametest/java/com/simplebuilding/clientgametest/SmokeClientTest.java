@@ -1,5 +1,7 @@
 package com.simplebuilding.clientgametest;
 
+import com.simplebuilding.version.McClientVersion;
+
 import com.mojang.blaze3d.platform.InputConstants;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.items.ModItems;
@@ -1819,7 +1821,7 @@ public final class SmokeClientTest {
      */
     private static void assertSneakKeyIsBound(Script script) {
         script.act("the sneak binding sits on the key the harness presses", client -> {
-            if (!client.options.keyShift.matches(InputConstants.Type.KEYSYM.getOrCreate(SNEAK_KEY))) {
+            if (!client.options.keyShift.matches(McClientVersion.keyboardKey(SNEAK_KEY))) {
                 throw new AssertionError("The sneak binding is not on GLFW key " + SNEAK_KEY
                         + " any more (it says \"" + client.options.keyShift.saveString() + "\"), so "
                         + "holding that key would not make the player sneak and none of the item "

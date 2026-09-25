@@ -1,5 +1,8 @@
 package com.simplebuilding.util;
 
+import com.simplebuilding.version.McVersion;
+import net.minecraft.world.level.material.PushReaction;
+
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.config.SimplebuildingConfig;
 import net.minecraft.core.BlockPos;
@@ -97,15 +100,16 @@ public final class PistonBreach {
         if (direction == Direction.UP && pos.getY() == level.getMaxY()) {
             return false;
         }
-        switch (state.getPistonPushReaction()) {
-            case BLOCK:
-                return false;
-            case DESTROY:
-                return allowDestroyable;
-            case PUSH_ONLY:
-                return direction == connectionDirection;
-            default:
-                break;
+        // if-chain instead of a switch: the enum constants were renamed in 26.3, see McVersion.
+        PushReaction reaction = state.getPistonPushReaction();
+        if (reaction == McVersion.PUSH_BLOCKED) {
+            return false;
+        }
+        if (reaction == McVersion.PUSH_DESTROYS) {
+            return allowDestroyable;
+        }
+        if (reaction == McVersion.PUSH_ONLY) {
+            return direction == connectionDirection;
         }
         return !state.hasBlockEntity();
     }

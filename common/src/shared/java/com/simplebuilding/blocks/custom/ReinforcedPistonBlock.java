@@ -1,5 +1,7 @@
 package com.simplebuilding.blocks.custom;
 
+import com.simplebuilding.version.BlockCodecs;
+
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -30,7 +32,7 @@ public class ReinforcedPistonBlock extends PistonBaseBlock {
     public static final MapCodec<ReinforcedPistonBlock> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(
                     Codec.BOOL.fieldOf("sticky").forGetter(ReinforcedPistonBlock::isStickyPiston),
-                    propertiesCodec()
+                    BlockCodecs.propertiesField()
             ).apply(instance, ReinforcedPistonBlock::new));
 
     private final boolean sticky;
@@ -45,7 +47,7 @@ public class ReinforcedPistonBlock extends PistonBaseBlock {
         return this.sticky;
     }
 
-    @Override
+    // No @Override: MC 26.3 removed block codecs; this only overrides on 26.2.
     @SuppressWarnings("unchecked")
     public MapCodec<PistonBaseBlock> codec() {
         return (MapCodec<PistonBaseBlock>) (Object) CODEC;

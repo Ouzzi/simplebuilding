@@ -1,0 +1,133 @@
+plugins {
+	id 'net.fabricmc.fabric-loom'
+}
+
+// Third supported Minecraft line (26.3), Fabric. NOT a copy: it compiles the same trees as the
+// 26.2 root project - common/src/shared/java, the Fabric sources in the root src/main/java and the
+// JEI plugin - plus mc26_3/overlay/java, which holds only the files that must differ on 26.3.
+// Their 26.2 counterparts live in common/src/mc26_2/java, which only the 26.2 modules compile.
+// checkOverlays (root build) guarantees that no class exists both in a shared tree and in an
+// overlay.
+version = rootProject.version
+group = rootProject.group
+
+base {
+	archivesName = "${rootProject.archives_base_name}-${project.mc263_minecraft_version}"
+}
+
+def root = rootProject.layout.projectDirectory
+
+sourceSets {
+	main {
+		java {
+			srcDir root.dir('common/src/shared/java')
+			srcDir root.dir('common/src/jei/java')
+			srcDir root.dir('src/main/java')
+			srcDir root.dir('mc26_3/overlay/java')
+		}
+		resources {
+			srcDir root.dir('src/main/resources')
+			srcDir root.dir('src/main/generated')
+		}
+	}
+}
+
+fabricApi {
+	// Same client test shape as the 26.2 root project (task :mc26_3:fabric:runClientGameTest).
+	configureTests {
+		createSourceSet = true
+		modId = "simplebuilding-test"
+		enableGameTests = false
+	}
+}
+
+sourceSets.named('gametest') {
+	java.srcDir root.dir('common/src/shared/clientgametest/java')
+	java.srcDir root.dir('src/gametest/java')
+	resources.srcDir root.dir('src/gametest/resources')
+}
+
+loom {
+	runs {
+		gametest {
+			server()
+			name = "Game Test 26.3"
+			vmArg "-Dfabric-api.gametest"
+			vmArg "-Dfabric-api.gametest.report-file=${project.layout.buildDirectory.get()}/junit.xml"
+			def gametestFilter = project.findProperty('gametestFilter')
+			if (gametestFilter) {
+				vmArg "-Dfabric-api.gametest.filter=${gametestFilter}"
+			}
+			runDir "build/gametest"
+		}
+	}
+}
+
+repositories {
+	maven { url = "https://maven.shedaniel.me/" }
+	maven { url = "https://maven.terraformersmc.com/releases/" }
+	maven { url = "https://maven.blamejared.com/" }
+}
+
+// Dev-only runtime mods (only JEI is pinned for 26.3 so far): synced into build/devMods and handed
+// to runClient/runServer with -Dfabric.addMods, never to gametest/clientGameTest - same scheme as
+// the root build.gradle. Switch off: -Pdev_mods=false.
+def devModsEnabled = (project.findProperty('dev_mods') ?: 'true').toString().toBoolean()
+configurations {
+	devMods {
+		canBeConsumed = false
+		canBeResolved = true
+		transitive = false
+	}
+}
+def syncDevMods = tasks.register('syncDevMods', Sync) {
+	from configurations.devMods
+	into layout.buildDirectory.dir('devMods')
+}
+if (devModsEnabled) {
+	def devModsDir = layout.buildDirectory.dir('devMods').get().asFile.absolutePath
+	tasks.matching { it.name in ['runClient', 'runServer'] }.configureEach {
+		dependsOn syncDevMods
+		systemProperty 'fabric.addMods', devModsDir
+	}
+}
+
+dependencies {
+	implementation project(':common')
+	minecraft "com.mojang:minecraft:${project.mc263_minecraft_version}"
+	implementation "net.fabricmc:fabric-loader:${project.mc263_loader_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.mc263_fabric_version}"
+	implementation("me.shedaniel.cloth:cloth-config-fabric:${project.mc263_cloth_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+	implementation "com.terraformersmc:modmenu:${project.mc263_modmenu_version}"
+
+	compileOnly "mezz.jei:jei-${project.mc263_minecraft_version}-common-api:${project.mc263_jei_version}"
+	devMods "mezz.jei:jei-${project.mc263_minecraft_version}-fabric:${project.mc263_jei_version}"
+
+	implementation fabricApi.module("fabric-gametest-api-v1", project.mc263_fabric_version)
+}
+
+processResources {
+	inputs.property "version", project.version
+	// fabric.mod.json is shared with the 26.2 line; only the Minecraft and Cloth Config ranges
+	// differ.
+	filesMatching("fabric.mod.json") {
+		expand "version": inputs.properties.version
+		filter { String line ->
+			line.replace('"minecraft": "~26.2"', '"minecraft": "~26.3"')
+				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3"')
+		}
+	}
+	exclude "wiki/**"
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 25
+	it.options.compilerArgs.addAll(['-Xmaxerrs', '5000'])
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
+}

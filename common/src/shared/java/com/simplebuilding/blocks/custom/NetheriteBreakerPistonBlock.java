@@ -1,5 +1,9 @@
 package com.simplebuilding.blocks.custom;
 
+import com.simplebuilding.version.BlockCodecs;
+
+import com.simplebuilding.version.McVersion;
+
 import com.mojang.serialization.MapCodec;
 import com.simplebuilding.util.PistonBreach;
 import net.minecraft.core.BlockPos;
@@ -15,13 +19,13 @@ import net.minecraft.world.level.redstone.Orientation;
 import org.jetbrains.annotations.Nullable;
 
 public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
-    public static final MapCodec<NetheriteBreakerPistonBlock> CODEC = simpleCodec(NetheriteBreakerPistonBlock::new);
+    public static final MapCodec<NetheriteBreakerPistonBlock> CODEC = BlockCodecs.simple(NetheriteBreakerPistonBlock::new);
 
     public NetheriteBreakerPistonBlock(Properties settings) {
         super(false, settings);
     }
 
-    @Override
+    // No @Override: MC 26.3 removed block codecs; this only overrides on 26.2.
     @SuppressWarnings("unchecked")
     public MapCodec<PistonBaseBlock> codec() {
         return (MapCodec<PistonBaseBlock>) (Object) CODEC;
@@ -110,7 +114,7 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
                     // Nur brechen, wenn das Signal stark genug ist!
                     if (blockHardness <= breakThreshold) {
 
-                        if (targetState.getPistonPushReaction() != PushReaction.BLOCK) {
+                        if (targetState.getPistonPushReaction() != McVersion.PUSH_BLOCKED) {
                             world.destroyBlock(targetPos, true);
                             if (!world.isClientSide()) {
                                 world.playSound(null, pos, SoundEvents.ZOMBIE_ATTACK_IRON_DOOR, SoundSource.BLOCKS, 0.5f, 0.8f);

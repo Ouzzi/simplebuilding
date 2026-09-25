@@ -1,5 +1,7 @@
 package com.simplebuilding.items.custom;
 
+import com.simplebuilding.version.McVersion;
+
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
@@ -220,7 +222,7 @@ public class ReinforcedBundleItem extends BundleItem {
 
             if (!world.isClientSide()) {
                 ItemStack removed = removeSelectedOrFirstItem(stack, contents);
-                user.drop(removed, true);
+                McVersion.drop(user, removed, true, true);
                 this.playRemoveOneSound(user);
             }
             return net.minecraft.world.InteractionResult.SUCCESS;

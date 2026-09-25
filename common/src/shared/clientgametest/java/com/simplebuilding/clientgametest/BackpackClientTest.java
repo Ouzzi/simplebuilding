@@ -1,5 +1,7 @@
 package com.simplebuilding.clientgametest;
 
+import com.simplebuilding.version.McClientVersion;
+
 import java.lang.reflect.Field;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -265,7 +267,7 @@ public final class BackpackClientTest {
         assertWorn(script, "simplebuilding:enderite_backpack");
 
         script.act("the inventory binding sits on the key the harness presses", client -> {
-            if (!client.options.keyInventory.matches(InputConstants.Type.KEYSYM.getOrCreate(INVENTORY_KEY))) {
+            if (!client.options.keyInventory.matches(McClientVersion.keyboardKey(INVENTORY_KEY))) {
                 throw new AssertionError("The inventory binding is not on GLFW key " + INVENTORY_KEY
                         + " any more (it says \"" + client.options.keyInventory.saveString() + "\"), so "
                         + "the key the harness presses would not open the inventory.");
@@ -726,7 +728,7 @@ public final class BackpackClientTest {
                         + "backpack binding and no key press could open the backpack.");
             }
 
-            if (!binding.matches(InputConstants.Type.KEYSYM.getOrCreate(BACKPACK_KEY))) {
+            if (!binding.matches(McClientVersion.keyboardKey(BACKPACK_KEY))) {
                 throw new AssertionError("The backpack binding is not on GLFW key " + BACKPACK_KEY
                         + " any more (it says \"" + binding.saveString() + "\"), so the key the harness presses "
                         + "would open nothing and the backpack would be reported as broken.");

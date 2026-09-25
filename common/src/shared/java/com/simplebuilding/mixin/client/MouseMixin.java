@@ -8,7 +8,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.component.CustomData;
-import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -25,8 +24,8 @@ public class MouseMixin {
             if (vertical != 0
                     && client.player.getMainHandItem().getItem() instanceof com.simplebuilding.items.custom.BuildingWandItem
                     && client.player.getOffhandItem().getItem() instanceof com.simplebuilding.items.custom.BlueprintItem
-                    && (InputConstants.isKeyDown(client.getWindow(), GLFW.GLFW_KEY_LEFT_CONTROL)
-                        || InputConstants.isKeyDown(client.getWindow(), GLFW.GLFW_KEY_RIGHT_CONTROL))) {
+                    && (InputConstants.isKeyDown(client.getWindow(), InputConstants.KEY_LCONTROL)
+                        || InputConstants.isKeyDown(client.getWindow(), InputConstants.KEY_RCONTROL))) {
                 ClientNetworking.send(new com.simplebuilding.networking.BlueprintRotatePayload((int) Math.signum(vertical)));
                 ci.cancel();
                 return;
@@ -48,10 +47,10 @@ public class MouseMixin {
                 // -----------------------
 
                 boolean isShift = client.options.keyShift.isDown();
-                boolean isControl = InputConstants.isKeyDown(client.getWindow(), GLFW.GLFW_KEY_LEFT_CONTROL)
-                        || InputConstants.isKeyDown(client.getWindow(), GLFW.GLFW_KEY_RIGHT_CONTROL);
-                boolean isAlt = InputConstants.isKeyDown(client.getWindow(), GLFW.GLFW_KEY_LEFT_ALT)
-                        || InputConstants.isKeyDown(client.getWindow(), GLFW.GLFW_KEY_RIGHT_ALT);
+                boolean isControl = InputConstants.isKeyDown(client.getWindow(), InputConstants.KEY_LCONTROL)
+                        || InputConstants.isKeyDown(client.getWindow(), InputConstants.KEY_RCONTROL);
+                boolean isAlt = InputConstants.isKeyDown(client.getWindow(), InputConstants.KEY_LALT)
+                        || InputConstants.isKeyDown(client.getWindow(), InputConstants.KEY_RALT);
 
                 if ((isShift || isControl || isAlt) && vertical != 0) {
                     int amount = (int) Math.signum(vertical);

@@ -1,5 +1,7 @@
 package com.simplebuilding.blocks;
 
+import com.simplebuilding.version.McVersion;
+
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.custom.*;
 import net.minecraft.core.Registry;
@@ -33,7 +35,8 @@ public class ModBlocks {
     // --- 4. INDUSTRIAL BLOCKS ---
     public static final Block CONSTRUCTION_LIGHT = registerBlock("construction_light",
             // Wir ignorieren das 'settings' Argument der Factory
-            unused -> new Block(BlockBehaviour.Properties.of()
+            // neverViewBlocking: Laesst Licht durch (optisch); die Praedikat-Signatur unterscheidet sich je MC-Version.
+            unused -> new Block(McVersion.neverViewBlocking(BlockBehaviour.Properties.of())
                     .setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "construction_light")))
                     .mapColor(net.minecraft.world.level.material.MapColor.DIAMOND)
                     .strength(0.3F) // Zerbricht schnell
@@ -41,7 +44,6 @@ public class ModBlocks {
                     .lightLevel(state -> 15) // Leuchtet hell
                     .isValidSpawn((state, world, pos, type) -> true) // Erlaubt Spawns
                     .isRedstoneConductor((state, world, pos) -> true) // WICHTIG: Gilt als voller Block für Mobs
-                    .isViewBlocking((state, world, pos) -> false) // WICHTIG: Lässt Licht durch (optisch)
                     .isSuffocating((state, world, pos) -> false) // Man erstickt nicht darin
             )
     );
@@ -247,7 +249,7 @@ public class ModBlocks {
         return settings.strength(0.8F, blastProof ? 1200.0F : 0.8F)
                 .sound(SoundType.WOOL)
                 .mapColor(MapColor.COLOR_BROWN)
-                .pushReaction(PushReaction.DESTROY);
+                .pushReaction(McVersion.PUSH_DESTROYS);
     }
 
     private static ResourceKey<Block> keyOf(String name) {

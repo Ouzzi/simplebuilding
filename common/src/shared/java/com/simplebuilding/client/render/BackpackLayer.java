@@ -1,5 +1,7 @@
 package com.simplebuilding.client.render;
 
+import com.simplebuilding.version.McClientVersion;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.items.custom.BackpackItem;
@@ -114,8 +116,8 @@ public class BackpackLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
             submitNodeCollector.submitModelPart(this.model, poseStack, RenderTypes.entityCutout(TEXTURES[tier]), lightCoords,
                     overlay, null);
         } else {
-            submitNodeCollector.submitModelPart(this.model, poseStack, RenderTypes.entityCutout(DYED_TEXTURES[tier]), lightCoords,
-                    overlay, null, ARGB.opaque(dyeColor), null);
+            McClientVersion.submitTintedModelPart(submitNodeCollector, this.model, poseStack,
+                    RenderTypes.entityCutout(DYED_TEXTURES[tier]), lightCoords, overlay, ARGB.opaque(dyeColor));
             submitNodeCollector.submitModelPart(this.model, poseStack, RenderTypes.entityCutout(DYED_OVERLAY_TEXTURES[tier]),
                     lightCoords, overlay, null);
         }

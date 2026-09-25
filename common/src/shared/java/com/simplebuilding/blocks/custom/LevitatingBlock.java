@@ -1,5 +1,7 @@
 package com.simplebuilding.blocks.custom;
 
+import com.simplebuilding.version.BlockCodecs;
+
 import com.mojang.serialization.MapCodec;
 import com.simplebuilding.entity.LevitatingBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -24,7 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
  * jetzt in der Entity.
  */
 public class LevitatingBlock extends Block {
-    public static final MapCodec<LevitatingBlock> CODEC = simpleCodec(LevitatingBlock::new);
+    public static final MapCodec<LevitatingBlock> CODEC = BlockCodecs.simple(LevitatingBlock::new);
 
     /** Wie Vanilla: zwei Ticks Vorlauf, damit ein frisch gesetzter Block nicht sofort losfliegt. */
     private static final int DELAY_AFTER_PLACE = 2;
@@ -33,7 +35,7 @@ public class LevitatingBlock extends Block {
         super(settings);
     }
 
-    @Override
+    // No @Override: MC 26.3 removed block codecs; this only overrides on 26.2.
     protected MapCodec<? extends Block> codec() {
         return CODEC;
     }

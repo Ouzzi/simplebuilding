@@ -24,5 +24,7 @@ include 'neoforge'
 include 'forge'
 include 'mc1_21_11:fabric'
 include 'mc1_21_11:neoforge'
+include 'mc26_3:fabric'
+include 'mc26_3:neoforge'
 // Loaders: Fabric (root project, Fabric Loom) + NeoForge (:neoforge, ModDevGradle).
 // Each applies its own loader plugin to its own project; both build under Gradle 9.

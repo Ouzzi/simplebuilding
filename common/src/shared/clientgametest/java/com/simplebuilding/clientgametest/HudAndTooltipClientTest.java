@@ -1,5 +1,7 @@
 package com.simplebuilding.clientgametest;
 
+import com.simplebuilding.version.McClientVersion;
+
 import com.mojang.blaze3d.platform.InputConstants;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.client.gui.NetheriteHopperScreen;
@@ -2554,7 +2556,7 @@ public final class HudAndTooltipClientTest {
      */
     private static void assertInventoryKeyIsBound(Script script) {
         script.act("the inventory binding sits on the key the harness presses", client -> {
-            if (!client.options.keyInventory.matches(InputConstants.Type.KEYSYM.getOrCreate(INVENTORY_KEY))) {
+            if (!client.options.keyInventory.matches(McClientVersion.keyboardKey(INVENTORY_KEY))) {
                 throw new AssertionError("The inventory binding is not on GLFW key " + INVENTORY_KEY
                         + " any more (it says \"" + client.options.keyInventory.saveString() + "\"), so "
                         + "pressing that key would open nothing and every screen measurement below would "

@@ -1,5 +1,7 @@
 package com.simplebuilding.mixin;
 
+import com.simplebuilding.version.McVersion;
+
 import com.mojang.datafixers.util.Pair;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.custom.SledgehammerItem;
@@ -238,11 +240,11 @@ public abstract class AnvilScreenHandlerMixin extends ItemCombinerMenu {
     private static final Map<Item, StructureConfig> STRUCTURE_RECIPES = Map.ofEntries(
             // Bestehende
             Map.entry(Items.ECHO_SHARD,       new StructureConfig(ANCIENT_CITY_TAG, "Ancient City Locator", ChatFormatting.DARK_AQUA)),
-            Map.entry(Items.TOTEM_OF_UNDYING, new StructureConfig(StructureTags.ON_WOODLAND_EXPLORER_MAPS, "Mansion Seeker", ChatFormatting.DARK_GREEN)),
-            Map.entry(Items.HEART_OF_THE_SEA, new StructureConfig(StructureTags.ON_OCEAN_EXPLORER_MAPS, "Monument Tracker", ChatFormatting.AQUA)),
+            Map.entry(Items.TOTEM_OF_UNDYING, new StructureConfig(McVersion.MANSION_MAP_STRUCTURES, "Mansion Seeker", ChatFormatting.DARK_GREEN)),
+            Map.entry(Items.HEART_OF_THE_SEA, new StructureConfig(McVersion.MONUMENT_MAP_STRUCTURES, "Monument Tracker", ChatFormatting.AQUA)),
             Map.entry(Items.BLAZE_ROD,        new StructureConfig(FORTRESS_TAG, "Fortress Finder", ChatFormatting.RED)),
             Map.entry(Items.GOLD_BLOCK,       new StructureConfig(BASTION_TAG, "Bastion Compass", ChatFormatting.GOLD)),
-            Map.entry(Items.TRIAL_KEY,        new StructureConfig(StructureTags.ON_TRIAL_CHAMBERS_MAPS, "Trial Key Compass", ChatFormatting.LIGHT_PURPLE)),
+            Map.entry(Items.TRIAL_KEY,        new StructureConfig(McVersion.TRIAL_CHAMBERS_MAP_STRUCTURES, "Trial Key Compass", ChatFormatting.LIGHT_PURPLE)),
             Map.entry(Items.OMINOUS_BOTTLE,   new StructureConfig(OUTPOST_TAG, "Outpost Tracker", ChatFormatting.GRAY)),
 
             // Neue Strukturen (Balanced Kosten)

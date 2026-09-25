@@ -1,5 +1,7 @@
 package com.simplebuilding.gametest;
 
+import com.simplebuilding.version.McVersion;
+
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.util.ModTags;
@@ -209,7 +211,7 @@ public final class ProtectionAndRangeTests {
         ServerPlayer player = mockPlayer(helper);
         // See the javadoc: these are the switches the damage path reads, not the game mode.
         player.getAbilities().invulnerable = false;
-        player.setInvulnerable(false);
+        McVersion.setInvulnerable(player, false);
         // The same packet a real client sends once it has finished loading; without it
         // ServerPlayer#isInvulnerableTo keeps returning true for the first 60 ticks.
         player.connection.handleAcceptPlayerLoad(new ServerboundPlayerLoadedPacket());
@@ -605,7 +607,7 @@ public final class ProtectionAndRangeTests {
                                      DamageSource source) {
         player.setItemSlot(EquipmentSlot.HEAD, helmet);
         player.setHealth(player.getMaxHealth());
-        player.invulnerableTime = 0;
+        McVersion.resetInvulnerableTime(player);
         player.hurtServer(helper.getLevel(), source, HIT_DAMAGE);
         return player.getMaxHealth() - player.getHealth();
     }

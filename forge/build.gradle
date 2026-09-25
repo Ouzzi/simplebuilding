@@ -37,6 +37,8 @@ sourceSets {
         java {
             srcDir 'src/main/java'
             srcDir rootProject.layout.projectDirectory.dir('common/src/shared/java')
+            // 26.2 side of the version shim (26.3 twin: mc26_3/overlay/java)
+            srcDir rootProject.layout.projectDirectory.dir('common/src/mc26_2/java')
         }
         resources {
             srcDir 'src/main/resources'

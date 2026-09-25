@@ -1,5 +1,7 @@
 package com.simplebuilding.gametest;
 
+import com.simplebuilding.version.McVersion;
+
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
@@ -1218,7 +1220,7 @@ public final class ReinforcedBundleTests {
 
     /** The container's entries, in the order it keeps them - index 0 is the top of the pile. */
     private static List<ItemStack> entries(ItemStack container) {
-        return contentsOf(container).itemCopyStream().toList();
+        return McVersion.bundleItemCopies(contentsOf(container)).toList();
     }
 
     private static int selectedIndex(ItemStack container) {

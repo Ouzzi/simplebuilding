@@ -1,5 +1,7 @@
 package com.simplebuilding.clientgametest;
 
+import com.simplebuilding.version.McClientVersion;
+
 import com.mojang.blaze3d.platform.InputConstants;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.client.ClientState;
@@ -35,7 +37,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
-import org.lwjgl.glfw.GLFW;
 
 /**
  * Covers the client side bootstrap of the mod: the key mappings both loaders register, the client
@@ -199,9 +200,9 @@ public final class ClientBootstrapClientTest {
      * binding by {@link #assertBindingOnKey} before it is pressed - see the class javadoc for why
      * a raw code needs that control at all.
      */
-    private static final int SETTINGS_KEY = GLFW.GLFW_KEY_G;
-    private static final int HIGHLIGHT_TOGGLE_KEY = GLFW.GLFW_KEY_H;
-    private static final int JUMP_KEY = GLFW.GLFW_KEY_SPACE;
+    private static final int SETTINGS_KEY = InputConstants.KEY_G;
+    private static final int HIGHLIGHT_TOGGLE_KEY = InputConstants.KEY_H;
+    private static final int JUMP_KEY = InputConstants.KEY_SPACE;
 
     /**
      * The three modifiers {@code MouseMixin} reads, on the same keys the mixin asks GLFW about.
@@ -211,9 +212,9 @@ public final class ClientBootstrapClientTest {
      * which asks GLFW about the real window. That difference is the single biggest portability
      * hazard in this file and is why {@link #assertModifierIsVisibleToTheMixin} exists.
      */
-    private static final int CONTROL_KEY = GLFW.GLFW_KEY_LEFT_CONTROL;
-    private static final int SHIFT_KEY = GLFW.GLFW_KEY_LEFT_SHIFT;
-    private static final int ALT_KEY = GLFW.GLFW_KEY_LEFT_ALT;
+    private static final int CONTROL_KEY = InputConstants.KEY_LCONTROL;
+    private static final int SHIFT_KEY = InputConstants.KEY_LSHIFT;
+    private static final int ALT_KEY = InputConstants.KEY_LALT;
 
     /** Vanilla ships pick block on the middle mouse button, not on a keyboard key. */
     private static final int PICK_MOUSE_BUTTON = 2;
@@ -1690,7 +1691,7 @@ public final class ClientBootstrapClientTest {
 
     private static void assertBindingOnKey(Script script, String label,
                                            Function<Minecraft, KeyMapping> mapping, int glfwKeyCode) {
-        assertBindingOnKey(script, label, mapping, InputConstants.Type.KEYSYM, glfwKeyCode);
+        assertBindingOnKey(script, label, mapping, McClientVersion.keyboardType(), glfwKeyCode);
     }
 
     /**

@@ -1,5 +1,7 @@
 package com.simplebuilding.clientgametest;
 
+import com.simplebuilding.version.McClientVersion;
+
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -105,7 +107,7 @@ public final class MultiBlockBreakingClientTest {
      * <p>The shared {@link Harness} takes a raw GLFW code, where the Fabric-only version of this
      * test handed over the key <em>binding</em> ({@code options -> options.keyShift}) and let the
      * framework resolve it. A raw code is the only thing both loaders can serve - NeoForge drives
-     * input through {@code KeyMapping.set(InputConstants.Type.KEYSYM.getOrCreate(code), ...)} - but
+     * input through {@code KeyMapping.set(McClientVersion.keyboardKey(code), ...)} - but
      * it silently assumes the binding still sits on this key. {@link #assertSneakKeyIsBound} is the
      * control that closes that hole: without it, a changed or unbound sneak key would turn the
      * sneaking measurement into a second standing one, and the test would report the mod as broken.
@@ -904,7 +906,7 @@ public final class MultiBlockBreakingClientTest {
      */
     private static void assertSneakKeyIsBound(Script script) {
         script.act("the sneak binding sits on the key the harness presses", client -> {
-            if (!client.options.keyShift.matches(InputConstants.Type.KEYSYM.getOrCreate(SNEAK_KEY))) {
+            if (!client.options.keyShift.matches(McClientVersion.keyboardKey(SNEAK_KEY))) {
                 throw new AssertionError("The sneak binding is not on GLFW key " + SNEAK_KEY
                         + " any more (it says \"" + client.options.keyShift.saveString() + "\"), so holding "
                         + "that key would not make the player sneak and the Strip Miner measurement would "
