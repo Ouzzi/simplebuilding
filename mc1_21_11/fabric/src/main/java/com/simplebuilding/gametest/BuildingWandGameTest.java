@@ -62,8 +62,8 @@ public final class BuildingWandGameTest {
     }
 
     @GameTest
-    public void survivalWandBuildsCostExhaustionPerPlacedBlock(GameTestHelper helper) {
-        BuildingWandTests.survivalWandBuildsCostExhaustionPerPlacedBlock(helper);
+    public void survivalWandBuildsCostExhaustionOnlyPastTheAllowance(GameTestHelper helper) {
+        BuildingWandTests.survivalWandBuildsCostExhaustionOnlyPastTheAllowance(helper);
     }
 
     @GameTest

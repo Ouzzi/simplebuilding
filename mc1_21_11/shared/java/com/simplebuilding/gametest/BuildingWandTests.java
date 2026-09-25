@@ -967,59 +967,68 @@ public final class BuildingWandTests {
     // =====================================================================================
 
     /**
-     * The per-block exhaustion table the owner calibrated on 2026-09-25, pinned as literal numbers:
-     * a copper wand filling its largest cube (16³ = 4096 blocks) costs a quarter of a full bar, an
-     * enderite wand building 128³ (2 097 152 blocks) costs the whole bar, and the tiers in between
-     * lie geometrically between those two rates. "Full bar" is vanilla's 20 food points plus the
-     * 20 saturation points that can sit on top of them, at 4.0 exhaustion per point: 160.
+     * The per-operation allowance and the per-block exhaustion table the owner set on 2026-09-25,
+     * pinned as literal numbers. One click of the wand or one blueprint build is one operation; its
+     * first {@code max(256, edge³/16)} blocks are free. Past that, a copper wand filling 16³ (3840
+     * paid blocks) costs a quarter of the visible bar (20 exhaustion of 80), an enderite wand
+     * building 128³ (1 048 576 paid blocks) costs the whole visible bar, and the tiers in between
+     * lie geometrically between those two rates.
      *
-     * <p>What breaks it: a changed calibration or table entry, a tier mapped to the wrong wand, a
-     * table that stops getting cheaper with the stronger wand, or a unit slip (points instead of
-     * exhaustion).
+     * <p>What breaks it: a changed allowance, calibration or table entry, a tier mapped to the
+     * wrong wand, a table that stops getting cheaper with the stronger wand, the allowance billed
+     * after all, or a unit slip (points instead of exhaustion, saturation counted into the bar).
      */
     public static void wandHungerRatesFollowTheCalibratedTierTable(GameTestHelper helper) {
         Item[] wands = {ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND,
                 ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND};
-        double[] expected = HUNGER_PER_BLOCK;
-        helper.assertTrue(WandHunger.PER_BLOCK.length == expected.length,
+        helper.assertTrue(WandHunger.PER_BLOCK.length == HUNGER_PER_BLOCK.length,
                 "the hunger table has " + WandHunger.PER_BLOCK.length + " tiers instead of six");
         for (int i = 0; i < wands.length; i++) {
+            String tier = WandHunger.TIERS[i];
             helper.assertTrue(WandHunger.tierOf(wands[i]) == i,
-                    WandHunger.TIERS[i] + " wand maps to hunger tier " + WandHunger.tierOf(wands[i]));
-            double rate = WandHunger.exhaustionFor(wands[i], 1);
-            helper.assertTrue(Math.abs(rate / expected[i] - 1.0) < 1.0e-6,
-                    WandHunger.TIERS[i] + " wand costs " + rate + " exhaustion per block instead of " + expected[i]);
+                    tier + " wand maps to hunger tier " + WandHunger.tierOf(wands[i]));
+            long allowance = HUNGER_ALLOWANCE[i];
+            helper.assertTrue(WandHunger.allowanceFor(wands[i]) == allowance,
+                    tier + " wand has an allowance of " + WandHunger.allowanceFor(wands[i]) + " instead of " + allowance);
+            helper.assertTrue(WandHunger.exhaustionFor(wands[i], allowance) == 0.0,
+                    tier + " wand bills blocks inside its free allowance of " + allowance);
+            // The largest normal face (13x13) never costs anything, whatever the wand.
+            helper.assertTrue(WandHunger.exhaustionFor(wands[i], 13 * 13) == 0.0,
+                    tier + " wand bills a normal 13x13 face");
+            double rate = WandHunger.exhaustionFor(wands[i], allowance + 1);
+            helper.assertTrue(Math.abs(rate / HUNGER_PER_BLOCK[i] - 1.0) < 1.0e-6,
+                    tier + " wand costs " + rate + " exhaustion per paid block instead of " + HUNGER_PER_BLOCK[i]);
             if (i > 0) {
-                double step = expected[i] / expected[i - 1];
-                helper.assertTrue(Math.abs(rate / WandHunger.exhaustionFor(wands[i - 1], 1) - step) < 1.0e-6,
-                        "the step from " + WandHunger.TIERS[i - 1] + " to " + WandHunger.TIERS[i]
-                                + " is not the geometric factor " + step);
+                helper.assertTrue(rate < WandHunger.exhaustionFor(wands[i - 1], WandHunger.allowanceFor(wands[i - 1]) + 1),
+                        "the " + tier + " wand is not cheaper per paid block than the " + WandHunger.TIERS[i - 1] + " wand");
             }
         }
-        helper.assertTrue(WandHunger.tierOf(Items.STICK) == -1 && WandHunger.exhaustionFor(Items.STICK, 100) == 0.0,
+        helper.assertTrue(WandHunger.tierOf(Items.STICK) == -1 && WandHunger.exhaustionFor(Items.STICK, 100_000) == 0.0,
                 "something that is not a building wand costs hunger");
 
-        double fullBar = (20 + 20) * 4.0;
+        double visibleBar = 20 * 4.0;
         double copperCube = WandHunger.exhaustionFor(ModItems.COPPER_BUILDING_WAND, 16 * 16 * 16);
-        helper.assertTrue(Math.abs(copperCube - fullBar / 4) < 1.0e-9,
-                "a copper wand filling 16^3 costs " + copperCube + " exhaustion instead of a quarter bar (40)");
+        helper.assertTrue(Math.abs(copperCube - visibleBar / 4) < 1.0e-9,
+                "a copper wand filling 16^3 costs " + copperCube + " exhaustion instead of a quarter of the visible bar (20)");
         double enderiteCube = WandHunger.exhaustionFor(ModItems.ENDERITE_BUILDING_WAND, 128L * 128 * 128);
-        helper.assertTrue(Math.abs(enderiteCube - fullBar) < 1.0e-9,
-                "an enderite wand building 128^3 costs " + enderiteCube + " exhaustion instead of the full bar (160)");
-        helper.assertTrue(WandHunger.exhaustionFor(ModItems.ENDERITE_BUILDING_WAND, 256L * 256 * 256) > fullBar,
+        helper.assertTrue(Math.abs(enderiteCube - visibleBar) < 1.0e-9,
+                "an enderite wand building 128^3 costs " + enderiteCube + " exhaustion instead of the visible bar (80)");
+        helper.assertTrue(WandHunger.exhaustionFor(ModItems.ENDERITE_BUILDING_WAND, 256L * 256 * 256) > visibleBar,
                 "an enderite build larger than 128^3 no longer reaches an empty bar");
         TestCleanup.succeed(helper);
     }
 
     /**
-     * In survival every block the wand really places adds its tier's exhaustion to the player's
-     * food data - through the normal face build and through a blueprint build - and a stronger
-     * wand is billed less for the same nine blocks.
+     * In survival a normal click costs nothing - it stays inside the operation's free allowance -
+     * and only the blocks past the allowance are billed, one rate per placed block: on the face
+     * build (the click's counter is moved up to the allowance, so the nine blocks of the plane are
+     * the 257th to 265th) and on a blueprint build of 294 blocks (38 over the copper allowance).
      *
      * <p>What breaks it: the hook dropped from {@code BuildingWandItem#inventoryTick} or from the
-     * blueprint placer, billing per click instead of per placed block, or the wrong tier's rate.
+     * blueprint placer, a counter that is not reset per click or not counted per placed block, the
+     * allowance billed, or the wrong tier's rate.
      */
-    public static void survivalWandBuildsCostExhaustionPerPlacedBlock(GameTestHelper helper) {
+    public static void survivalWandBuildsCostExhaustionOnlyPastTheAllowance(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, false);
         boolean original = Simplebuilding.getConfig().tools.buildingWandHungerCost;
         TestCleanup.before(helper, () -> Simplebuilding.getConfig().tools.buildingWandHungerCost = original);
@@ -1027,25 +1036,27 @@ public final class BuildingWandTests {
             Simplebuilding.getConfig().tools.buildingWandHungerCost = true;
 
             setExhaustion(player, 0.0F);
-            Set<BlockPos> copperPlane = buildPlane(helper, player, tunedWand(ModItems.COPPER_BUILDING_WAND, 1, 0),
-                    Direction.UP, SMALL_SITE);
-            Assertions.valueEqual(helper, copperPlane.size(), 9, "blocks the copper wand placed");
-            float copper = exhaustion(player);
-            assertNear(helper, copper, 9 * HUNGER_PER_BLOCK[0], "exhaustion after the copper wand placed 9 blocks");
+            Assertions.valueEqual(helper, faceBuild(helper, player, ModItems.COPPER_BUILDING_WAND, -1), 9,
+                    "blocks a normal copper wand click placed");
+            Assertions.valueEqual(helper, exhaustion(player), 0.0F, "exhaustion after a normal 3x3 click");
 
             setExhaustion(player, 0.0F);
-            Set<BlockPos> diamondPlane = buildPlane(helper, player, tunedWand(ModItems.DIAMOND_BUILDING_WAND, 1, 0),
-                    Direction.UP, SMALL_SITE);
-            Assertions.valueEqual(helper, diamondPlane.size(), 9, "blocks the diamond wand placed");
-            float diamond = exhaustion(player);
-            assertNear(helper, diamond, 9 * HUNGER_PER_BLOCK[3], "exhaustion after the diamond wand placed 9 blocks");
-            helper.assertTrue(diamond < copper, "the diamond wand was not cheaper than the copper wand");
+            Assertions.valueEqual(helper, faceBuild(helper, player, ModItems.COPPER_BUILDING_WAND, 256), 9,
+                    "blocks the copper wand placed past its allowance");
+            assertNear(helper, exhaustion(player), 9 * HUNGER_PER_BLOCK[0],
+                    "exhaustion after the copper wand placed 9 blocks past its allowance");
 
             setExhaustion(player, 0.0F);
-            Assertions.valueEqual(helper, blueprintBuild(helper, player, ModItems.DIAMOND_BUILDING_WAND), 3,
-                    "stone blocks the blueprint build placed");
-            assertNear(helper, exhaustion(player), 3 * HUNGER_PER_BLOCK[3],
-                    "exhaustion after a diamond wand blueprint build placed 3 blocks");
+            Assertions.valueEqual(helper, faceBuild(helper, player, ModItems.DIAMOND_BUILDING_WAND, (int) HUNGER_ALLOWANCE[3]), 9,
+                    "blocks the diamond wand placed past its allowance");
+            assertNear(helper, exhaustion(player), 9 * HUNGER_PER_BLOCK[3],
+                    "exhaustion after the diamond wand placed 9 blocks past its allowance");
+
+            setExhaustion(player, 0.0F);
+            Assertions.valueEqual(helper, largeBlueprintBuild(helper, player, ModItems.COPPER_BUILDING_WAND), LARGE_BLUEPRINT_BLOCKS,
+                    "stone blocks the large blueprint build placed");
+            assertNear(helper, exhaustion(player), (LARGE_BLUEPRINT_BLOCKS - 256) * HUNGER_PER_BLOCK[0],
+                    "exhaustion after a copper wand blueprint build of " + LARGE_BLUEPRINT_BLOCKS + " blocks");
         } finally {
             Simplebuilding.getConfig().tools.buildingWandHungerCost = original;
         }
@@ -1054,8 +1065,9 @@ public final class BuildingWandTests {
 
     /**
      * Two exemptions: with {@code tools.buildingWandHungerCost} switched off, and in creative
-     * ({@code instabuild}), neither the face build nor the blueprint build touches the food data -
-     * while both still place their blocks, so the zero is measured and not a build that did nothing.
+     * ({@code instabuild}), neither a face build past the allowance nor a large blueprint build
+     * touches the food data - while both still place their blocks, so the zero is measured and not
+     * a build that did nothing.
      *
      * <p>What breaks it: a hook that ignores the option or the creative flag on either path.
      */
@@ -1066,18 +1078,18 @@ public final class BuildingWandTests {
             ServerPlayer survival = mockPlayer(helper, false);
             Simplebuilding.getConfig().tools.buildingWandHungerCost = false;
             setExhaustion(survival, 0.0F);
-            Assertions.valueEqual(helper, buildPlane(helper, survival, tunedWand(ModItems.COPPER_BUILDING_WAND, 1, 0),
-                    Direction.UP, SMALL_SITE).size(), 9, "blocks placed with the option off");
-            Assertions.valueEqual(helper, blueprintBuild(helper, survival, ModItems.COPPER_BUILDING_WAND), 3,
+            Assertions.valueEqual(helper, faceBuild(helper, survival, ModItems.COPPER_BUILDING_WAND, 256), 9,
+                    "blocks placed with the option off");
+            Assertions.valueEqual(helper, largeBlueprintBuild(helper, survival, ModItems.COPPER_BUILDING_WAND), LARGE_BLUEPRINT_BLOCKS,
                     "blueprint blocks placed with the option off");
             Assertions.valueEqual(helper, exhaustion(survival), 0.0F, "exhaustion with buildingWandHungerCost off");
 
             ServerPlayer creative = mockPlayer(helper, true);
             Simplebuilding.getConfig().tools.buildingWandHungerCost = true;
             setExhaustion(creative, 0.0F);
-            Assertions.valueEqual(helper, buildPlane(helper, creative, tunedWand(ModItems.COPPER_BUILDING_WAND, 1, 0),
-                    Direction.UP, SMALL_SITE).size(), 9, "blocks placed in creative");
-            Assertions.valueEqual(helper, blueprintBuild(helper, creative, ModItems.COPPER_BUILDING_WAND), 3,
+            Assertions.valueEqual(helper, faceBuild(helper, creative, ModItems.COPPER_BUILDING_WAND, 256), 9,
+                    "blocks placed in creative");
+            Assertions.valueEqual(helper, largeBlueprintBuild(helper, creative, ModItems.COPPER_BUILDING_WAND), LARGE_BLUEPRINT_BLOCKS,
                     "blueprint blocks placed in creative");
             Assertions.valueEqual(helper, exhaustion(creative), 0.0F, "exhaustion in creative");
         } finally {
@@ -1086,9 +1098,16 @@ public final class BuildingWandTests {
         TestCleanup.succeed(helper);
     }
 
-    /** Owner's table, exhaustion per placed block: copper, iron, gold, diamond, netherite, enderite. */
+    /** Owner's table, exhaustion per paid block: copper, iron, gold, diamond, netherite, enderite. */
     private static final double[] HUNGER_PER_BLOCK = {
-            9.765625e-3, 3.700480e-3, 1.402220e-3, 5.313419e-4, 2.013409e-4, 7.629395e-5};
+            5.208333e-3, 2.237984e-3, 9.616461e-4, 4.132126e-4, 1.775546e-4, 7.629395e-5};
+
+    /** Free blocks per operation, same order: max(256, edge^3 / 16) of 16, 32, 48, 64, 128, 256. */
+    private static final long[] HUNGER_ALLOWANCE = {256, 2048, 6912, 16384, 131072, 1048576};
+
+    /** The large blueprint: a 7x6x7 block of stone, 38 blocks past the copper allowance. */
+    private static final String LARGE_BLUEPRINT = "stone 0..6,0..5,0..6";
+    private static final int LARGE_BLUEPRINT_BLOCKS = 7 * 6 * 7;
 
     private static void assertNear(GameTestHelper helper, float actual, double expected, String what) {
         helper.assertTrue(Math.abs(actual - expected) <= Math.max(1.0e-6, Math.abs(expected) * 1.0e-4),
@@ -1096,25 +1115,73 @@ public final class BuildingWandTests {
     }
 
     /**
-     * Builds the three stone blueprint {@code stone 0..2,0,0} on top of the anchor with the wand in
-     * the main hand and the blueprint in the off hand, finishes the job and returns how many stone
-     * blocks now stand in the site.
+     * One click of a radius 1 wand on top of the anchor, driven to a stop; returns the glass blocks
+     * in the site. {@code presetCount >= 0} moves the click's own block counter up to that value
+     * right after the click armed the wand, so the plane lands past the free allowance.
      */
-    private static int blueprintBuild(GameTestHelper helper, ServerPlayer player, Item wandItem) {
+    private static int faceBuild(GameTestHelper helper, ServerPlayer player, Item wandItem, int presetCount) {
         resetSite(helper, SMALL_SITE);
+        ItemStack wand = tunedWand(wandItem, 1, 0);
+        stock(player, wand, new ItemStack(Items.GLASS, 64));
+        InteractionResult armed = useOn(helper, player, wand, Direction.UP, InteractionHand.MAIN_HAND);
+        helper.assertTrue(armed == InteractionResult.CONSUME, "the wand did not arm itself, it returned " + armed);
+        CompoundTag data = customData(wand);
+        helper.assertTrue(data.getIntOr("HungerCount", -1) == 0,
+                "arming the wand did not start a new operation (HungerCount " + data.getIntOr("HungerCount", -1) + ")");
+        if (presetCount >= 0) {
+            data.putInt("HungerCount", presetCount);
+            wand.set(DataComponents.CUSTOM_DATA, CustomData.of(data));
+        }
+        driveUntilIdle(helper, player, wand, EquipmentSlot.MAINHAND);
+        return blocksIn(helper, SMALL_SITE, Blocks.GLASS).size();
+    }
+
+    /**
+     * Builds {@link #LARGE_BLUEPRINT} from the floor block at (3, 0, 0) - x 0..6, y 1..6, z 0..6,
+     * inside the empty room - with the wand in the main hand and the blueprint in the off hand,
+     * finishes the job, counts the stone and clears the volume again.
+     */
+    private static int largeBlueprintBuild(GameTestHelper helper, ServerPlayer player, Item wandItem) {
+        clearLargeVolume(helper);
+        BlockPos clicked = new BlockPos(3, 0, 0);
+        helper.setBlock(clicked, Blocks.OBSIDIAN);
+        Vec3 away = helper.absoluteVec(new Vec3(7.5, 1.0, 7.5));
+        player.snapTo(away.x, away.y, away.z, 0.0F, 0.0F);
         ItemStack wand = new ItemStack(wandItem);
         ItemStack blueprint = new ItemStack(ModItems.BLUEPRINT);
-        blueprint.set(ModDataComponentTypes.BLUEPRINT, new BlueprintContent("stone 0..2,0,0", "Test", "Tester", true));
-        stock(player, wand, new ItemStack(Items.STONE, 16));
+        blueprint.set(ModDataComponentTypes.BLUEPRINT, new BlueprintContent(LARGE_BLUEPRINT, "Test", "Tester", true));
+        stock(player, wand, new ItemStack(Items.STONE, 64), new ItemStack(Items.STONE, 64), new ItemStack(Items.STONE, 64),
+                new ItemStack(Items.STONE, 64), new ItemStack(Items.STONE, 64));
         player.setItemInHand(InteractionHand.OFF_HAND, blueprint);
         BlueprintBuilder.Result first = BlueprintBuilder.build(helper.getLevel(), player, wand, blueprint,
-                helper.absolutePos(ANCHOR), Direction.UP);
+                helper.absolutePos(clicked), Direction.UP);
         helper.assertTrue(first != null && !first.warned(), "the blueprint build was refused: " + first);
         if (!first.finished()) {
             BlueprintBuilder.completeJob(player);
         }
         player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
-        return blocksIn(helper, SMALL_SITE, Blocks.STONE).size();
+        int stone = 0;
+        for (int x = 0; x <= 6; x++) {
+            for (int y = 1; y <= 6; y++) {
+                for (int z = 0; z <= 6; z++) {
+                    if (helper.getBlockState(new BlockPos(x, y, z)).is(Blocks.STONE)) {
+                        stone++;
+                    }
+                }
+            }
+        }
+        clearLargeVolume(helper);
+        return stone;
+    }
+
+    private static void clearLargeVolume(GameTestHelper helper) {
+        for (int x = 0; x <= 6; x++) {
+            for (int y = 1; y <= 6; y++) {
+                for (int z = 0; z <= 6; z++) {
+                    helper.setBlock(new BlockPos(x, y, z), Blocks.AIR);
+                }
+            }
+        }
     }
 
     /** {@code FoodData} has no getter for its exhaustion, so the tests read the field itself. */

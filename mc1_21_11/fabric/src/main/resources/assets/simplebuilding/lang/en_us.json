@@ -146,7 +146,7 @@
   "text.autoconfig.simplebuilding.option.tools.invertBundleInteractions": "Invert Bundle Interactions",
   "text.autoconfig.simplebuilding.option.tools.invertBundleInteractions.@Tooltip": "If true sneaking while using bundles will perform the opposite action (insert vs extract).",
   "text.autoconfig.simplebuilding.option.tools.buildingWandHungerCost": "Building Wand Hunger Cost (Experimental)",
-  "text.autoconfig.simplebuilding.option.tools.buildingWandHungerCost.@Tooltip": "Experimental. Every block a Building Wand places - a normal face or a blueprint build - adds food exhaustion; stronger wands cost less per block (a Copper Wand filling 16x16x16 takes about a quarter of a full bar, an Enderite Wand building 128x128x128 the whole bar). Creative mode is exempt. It never deals damage itself; an empty bar starves you only the vanilla way.",
+  "text.autoconfig.simplebuilding.option.tools.buildingWandHungerCost.@Tooltip": "Experimental. Building a lot at once makes you hungry: per click or blueprint build the first blocks are free (1/16 of the wand's largest cube, at least 256 - normal faces never cost anything); every block past that adds food exhaustion, less for stronger wands (a Copper Wand filling 16x16x16 takes about a quarter of the hunger bar, an Enderite Wand building 128x128x128 the whole bar). Creative mode is exempt. It never deals damage itself; an empty bar starves you only the vanilla way.",
   "text.autoconfig.simplebuilding.option.enableDoubleJump": "Enable Double Jump Enchantment",
   "text.autoconfig.simplebuilding.option.enableDoubleJump.@Tooltip": "Toggles the Double Jump enchantment functionality.",
   "text.autoconfig.simplebuilding.option.airJumpCooldownTicks": "Air Jump Cooldown (Ticks)",
