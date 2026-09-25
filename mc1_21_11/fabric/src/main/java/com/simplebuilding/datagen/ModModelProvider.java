@@ -443,6 +443,13 @@ public class ModModelProvider extends FabricModelProvider {
             );
         }
 
+        // Eigene Buecher fuer die Vanilla-Verzauberungen (Auswahl in assets/minecraft/items/enchanted_book.json).
+        for (String vanilla : com.simplebuilding.enchantment.VanillaBookTextures.VANILLA) {
+            Identifier bookId = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID,
+                    com.simplebuilding.enchantment.VanillaBookTextures.modelPath(vanilla));
+            ModelTemplates.FLAT_ITEM.create(bookId, TextureMapping.layer0(bookId), itemModelGenerator.modelOutput);
+        }
+
         generateDyeableBundle(itemModelGenerator, ModItems.ENDERITE_BUNDLE);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_QUIVER, ModelTemplates.FLAT_ITEM);
         // Rucksaecke: flaches Symbol im Inventar (textures/item/<id>.png), nicht das Blockmodell.

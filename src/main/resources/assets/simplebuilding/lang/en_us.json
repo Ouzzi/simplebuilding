@@ -264,6 +264,8 @@
   "text.autoconfig.simplebuilding.option.pistonsBreachEndPortalFrames.@Tooltip": "If enabled, the mod's pistons treat End Portal Frames like other unbreakable blocks: a Reinforced Piston paid with a Redstone Block can push one, a Netherite or Enderite Piston can destroy it. If disabled, End Portal Frames are left alone.",
   "text.autoconfig.simplebuilding.option.showDevEnchantedTab": "Show Enchanted (Dev) Creative Tab",
   "text.autoconfig.simplebuilding.option.showDevEnchantedTab.@Tooltip": "If enabled, the creative tab \"SimpleEnchants (Dev)\" is shown outside development environments too: the best tier of every enchantable item, pre-enchanted at max level, one variant per choice of mutually exclusive enchantments. Takes effect the next time the creative tabs are rebuilt (at the latest after rejoining the world).",
+  "text.autoconfig.simplebuilding.option.vanillaEnchantedBookTextures": "Own Textures for Vanilla Enchanted Books",
+  "text.autoconfig.simplebuilding.option.vanillaEnchantedBookTextures.@Tooltip": "If enabled, every vanilla enchantment gets its own enchanted book texture. Turn it off to see the vanilla book again, e.g. when a resource pack or another mod retextures the books.",
   "text.autoconfig.simplebuilding.option.trimBenefitBaseMultiplier": "Trim Benefit Base Multiplier",
   "text.autoconfig.simplebuilding.option.trimBenefitBaseMultiplier.@Tooltip": "Base multiplier for armor trim benefits. Higher values increase the effectiveness of armor trims.",
   "text.autoconfig.simplebuilding.option.maxMultiplierLimit": "Max Multiplier Limit",

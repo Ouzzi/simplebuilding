@@ -398,6 +398,7 @@ public final class ConfigOptionTests {
             "root.enableArmorTrimBenefits boolean=true",
             "root.pistonsBreachEndPortalFrames boolean=true",
             "root.showDevEnchantedTab boolean=false",
+            "root.vanillaEnchantedBookTextures boolean=true",
             "root.trimBenefitBaseMultiplier double runtime-only(static)",
             "root.maxMultiplierLimit double runtime-only(static)",
             "tools.invertOctantSneak boolean=false",

@@ -2644,4 +2644,100 @@ public final class DataIntegrityTests {
         helper.assertTrue(problems.isEmpty(), "dev tab gate: " + problems);
         TestCleanup.succeed(helper);
     }
+
+    /**
+     * Every vanilla enchantment has its own enchanted book: an entry in
+     * {@code VanillaBookTextures.VANILLA}, a case {@code minecraft_<id>} in
+     * {@code assets/minecraft/items/enchanted_book.json} that points at
+     * {@code simplebuilding:item/enchanted_book_vanilla_<id>}, and that model and its texture in the
+     * mod's resources. The list holds nothing that is not a vanilla enchantment any more.
+     *
+     * <p>What breaks this: a vanilla enchantment added by a Minecraft update without a book, a typo
+     * in a case or model name, a texture the generator no longer writes, or a stale list entry.
+     */
+    public static void everyVanillaEnchantmentHasItsOwnBookModel(GameTestHelper helper) {
+        var enchantments = helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
+        List<String> vanilla = enchantments.listElementIds()
+                .map(key -> key.identifier())
+                .filter(id -> "minecraft".equals(id.getNamespace()))
+                .map(Identifier::getPath)
+                .sorted()
+                .toList();
+        List<String> problems = new ArrayList<>();
+        String itemModel = vanillaBookResource("/assets/minecraft/items/enchanted_book.json", problems);
+        for (String path : vanilla) {
+            if (!com.simplebuilding.enchantment.VanillaBookTextures.VANILLA.contains(path)) {
+                problems.add(path + " is missing from VanillaBookTextures.VANILLA");
+            }
+            String model = com.simplebuilding.enchantment.VanillaBookTextures.modelPath(path);
+            String caseEntry = "\"when\": \"" + com.simplebuilding.enchantment.VanillaBookTextures.caseKey(path)
+                    + "\", \"model\": { \"type\": \"minecraft:model\", \"model\": \"simplebuilding:" + model + "\" }";
+            if (itemModel != null && !itemModel.contains(caseEntry)) {
+                problems.add("enchanted_book.json has no case for minecraft:" + path);
+            }
+            vanillaBookResource("/assets/simplebuilding/models/" + model + ".json", problems);
+            vanillaBookResource("/assets/simplebuilding/textures/" + model + ".png", problems);
+        }
+        for (String listed : com.simplebuilding.enchantment.VanillaBookTextures.VANILLA) {
+            if (!vanilla.contains(listed)) {
+                problems.add(listed + " is listed but is no vanilla enchantment");
+            }
+        }
+        helper.assertTrue(vanilla.size() >= 40, "only " + vanilla.size() + " vanilla enchantments in the registry");
+        helper.assertTrue(problems.isEmpty(), "vanilla enchanted books: " + problems);
+        helper.succeed();
+    }
+
+    /** Reads a resource of the mod as text, or notes it as missing. */
+    private static String vanillaBookResource(String path, List<String> problems) {
+        try (java.io.InputStream in = com.simplebuilding.enchantment.VanillaBookTextures.class.getResourceAsStream(path)) {
+            if (in == null) {
+                problems.add("missing resource " + path);
+                return null;
+            }
+            return new String(in.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8);
+        } catch (java.io.IOException e) {
+            problems.add("unreadable resource " + path + ": " + e);
+            return null;
+        }
+    }
+
+    /**
+     * The book select value follows the client option {@code vanillaEnchantedBookTextures}: on, a
+     * book with Sharpness selects {@code minecraft_sharpness}; off, it selects {@code none} and falls
+     * back to the vanilla model. A book with only a mod enchantment never selects a vanilla book (the
+     * property picks the mod book before it asks for a vanilla one). The option itself flips
+     * {@code VanillaBookTextures.enabled()} and is restored in {@code finally}.
+     *
+     * <p>What breaks this: the option ignored, the fallback value renamed, or a mod enchantment
+     * mistaken for a vanilla one.
+     */
+    public static void vanillaBookTextureFollowsTheClientOption(GameTestHelper helper) {
+        var enchantments = helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
+        net.minecraft.world.item.enchantment.ItemEnchantments.Mutable sharp =
+                new net.minecraft.world.item.enchantment.ItemEnchantments.Mutable(net.minecraft.world.item.enchantment.ItemEnchantments.EMPTY);
+        sharp.set(enchantments.getOrThrow(net.minecraft.world.item.enchantment.Enchantments.SHARPNESS), 3);
+        net.minecraft.world.item.enchantment.ItemEnchantments.Mutable mod =
+                new net.minecraft.world.item.enchantment.ItemEnchantments.Mutable(net.minecraft.world.item.enchantment.ItemEnchantments.EMPTY);
+        mod.set(enchantments.getOrThrow(ModEnchantments.FUNNEL), 1);
+        helper.assertValueEqual(com.simplebuilding.enchantment.VanillaBookTextures.key(sharp.toImmutable(), true),
+                "minecraft_sharpness", "select value of a Sharpness book with the option on");
+        helper.assertValueEqual(com.simplebuilding.enchantment.VanillaBookTextures.key(sharp.toImmutable(), false),
+                com.simplebuilding.enchantment.VanillaBookTextures.NONE, "select value of a Sharpness book with the option off");
+        helper.assertValueEqual(com.simplebuilding.enchantment.VanillaBookTextures.key(mod.toImmutable(), true),
+                com.simplebuilding.enchantment.VanillaBookTextures.NONE, "select value of a book with only a mod enchantment");
+
+        com.simplebuilding.config.SimplebuildingConfig config = Simplebuilding.getConfig();
+        helper.assertTrue(config != null, "no config loaded, so the option cannot be tested");
+        boolean option = config.vanillaEnchantedBookTextures;
+        try {
+            config.vanillaEnchantedBookTextures = false;
+            helper.assertTrue(!com.simplebuilding.enchantment.VanillaBookTextures.enabled(), "option off, but enabled() is true");
+            config.vanillaEnchantedBookTextures = true;
+            helper.assertTrue(com.simplebuilding.enchantment.VanillaBookTextures.enabled(), "option on, but enabled() is false");
+        } finally {
+            config.vanillaEnchantedBookTextures = option;
+        }
+        helper.succeed();
+    }
 }

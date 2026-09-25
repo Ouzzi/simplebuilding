@@ -3,6 +3,7 @@ package com.simplebuilding.client.property;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.simplebuilding.enchantment.ModEnchantments;
+import com.simplebuilding.enchantment.VanillaBookTextures;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperty;
 import net.minecraft.core.component.DataComponents;
@@ -65,7 +66,9 @@ public record EnchantmentModelProperty() implements SelectItemModelProperty<Stri
         if (enchants.getLevel(reg.getOrThrow(ModEnchantments.FUNNEL)) > 0) return "funnel";
         if (enchants.getLevel(reg.getOrThrow(ModEnchantments.RANGE)) > 0) return "range";
 
-        return "none";
+        // Vanilla-Verzauberungen: eigenes Buch, solange die Client-Option an ist, sonst "none"
+        // und damit das Vanilla-Modell.
+        return VanillaBookTextures.key(enchants, VanillaBookTextures.enabled());
     }
 
     @Override

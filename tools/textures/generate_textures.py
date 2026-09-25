@@ -48,6 +48,7 @@ Der Seitenstreifen der Vordertasche (Spalten 0-1) ist auf den Zeilen 9-15 gemalt
 isometrisch aus genau diesen Flaechen.
 """
 import argparse
+import colorsys
 import io
 import json
 import os
@@ -1668,6 +1669,7 @@ def end_palette_textures():
                                                      BASIC_UPGRADE_TEMPLATE_PAL, False)
     tex["item/diamond_pebble.png"] = render("diamond_pebble", DIAMOND_PEBBLE, DIAMOND_PEBBLE_PAL, False)
     tex.update(enderite_gear_variant(ENDERITE_GEAR_ACTIVE))
+    tex.update(vanilla_book_textures())
     return tex
 
 
@@ -2895,6 +2897,159 @@ def build_gear_preview():
             sheet.paste(big, (x0, y), big)
         y += max(cell, 32 * 3) + 20
     return sheet
+
+
+# ---------------------------------------------------------------------------
+# Verzauberte Buecher der Vanilla-Verzauberungen (item/enchanted_book_vanilla_<id>.png), ausgewaehlt ueber
+# assets/minecraft/items/enchanted_book.json und die Client-Option vanillaEnchantedBookTextures.
+# Grundbuch in der Silhouette der Mod-Buecher: O Umriss, 1..4 Einband dunkel -> hell, P/Q/W Seiten.
+# Je Verzauberung eine Einbandfarbe (Farbton, Saettigung) und ein 7x6-Symbol auf dem Deckel:
+# '#' Symbol hell, '+' Symbol mittel, '-' Gravur dunkel; unter hellen Symbolpixeln ein Schatten.
+# ---------------------------------------------------------------------------
+BOOK_BASE = [
+    "................",
+    "........444.....",
+    "......443224....",
+    "....442322224...",
+    "..442232222324..",
+    "44222322223222O.",
+    "412232222322223O",
+    "41232222322221P.",
+    "41Q222232221QQQ.",
+    "O1WQ111111QQQQ1O",
+    ".O1WQ111QQQQ11OO",
+    "..O1WQQQQQQ1OO..",
+    "...O1WQQ11OO....",
+    "....O111OO......",
+    ".....OOO........",
+    "................",
+]
+BOOK_PAGES = {"P": "#5b5b5b", "Q": "#b7b7b7", "W": "#e6e6e6"}
+BOOK_SYMBOL_ORIGIN = (5, 2)
+BOOK_SYMBOLS = {
+    "aqua_affinity": ["...#...", "..#+#..", ".#+++#.", ".#+++#.", "..###..", "......."],
+    "bane_of_arthropods": ["#.....#", ".#.#.#.", "..###..", "#.###.#", ".#...#.", "#.....#"],
+    "binding_curse": [".##.##.", "#..#..#", "#..#..#", ".##.##.", ".......", "......."],
+    "blast_protection": ["#..#..#", ".#.#.#.", "..###..", "###+###", "..###..", ".#.#.#."],
+    "breach": ["#..#..#", ".#.#.#.", "..#....", ".#.#...", "#...#..", "....#.."],
+    "channeling": ["....##.", "...##..", "..####.", "...##..", "..##...", ".#....."],
+    "density": ["..###..", ".#+++#.", ".#+++#.", "..###..", "...#...", "...#..."],
+    "depth_strider": [".......", ".##..##", "#..##..", ".......", ".##..##", "#..##.."],
+    "efficiency": ["#####..", "..#.#..", ".#..#..", "#..###.", "....#..", "...#..."],
+    "feather_falling": ["....###", "...##+#", "..##+#.", ".##+#..", ".#+#...", "#......"],
+    "fire_aspect": [".....##", "....##.", "+.##...", "+##....", ".##....", "#.#...."],
+    "fire_protection": ["...#...", "..##...", "..#+#..", ".#+#+#.", ".#+++#.", "..###.."],
+    "flame": ["....#..", "...#+#.", "..#+#..", ".#.#...", "#......", "......."],
+    "fortune": [".##.##.", "#++#++#", ".##+##.", "#++#++#", ".##.##.", "...#..."],
+    "frost_walker": ["...#...", ".#.#.#.", "..###..", "###+###", "..###..", ".#.#.#."],
+    "impaling": ["#.#.#..", "#.#.#..", ".###...", "..#....", "..#....", "..#...."],
+    "infinity": [".......", ".##.##.", "#..#..#", "#..#..#", ".##.##.", "......."],
+    "knockback": ["...#...", "..##...", ".######", "..##...", "...#...", "......."],
+    "looting": ["..###..", ".#+++#.", ".#+#+#.", ".#+++#.", "..###..", "......."],
+    "loyalty": [".##.##.", "#++#++#", "#+++++#", ".#+++#.", "..#+#..", "...#..."],
+    "luck_of_the_sea": ["..###.#", ".#+++##", "#+#++#.", ".#+++##", "..###.#", "......."],
+    "lunge": ["##.....", ".##....", "..##...", "...##.#", "....###", "...####"],
+    "lure": ["...#...", "...#...", "...#...", "#..#...", "#.#....", ".#....."],
+    "mending": [".##.##.", "#++#++#", "#+++++#", ".#+++#.", "..#+#..", "...#..."],
+    "multishot": ["#..#..#", "#..#..#", "#..#..#", "#..#..#", "...#...", "..###.."],
+    "piercing": ["....###", ".#...##", ".#..#.#", ".#.#...", "##.....", "#......"],
+    "power": ["..#....", ".#.#...", "#...#..", "#...###", ".#.#...", "..#...."],
+    "projectile_protection": ["......#", ".....#.", "#+++#..", ".#+#...", "..#....", "......."],
+    "protection": ["..###..", ".#+++#.", ".#+#+#.", ".#+++#.", "..#+#..", "...#..."],
+    "punch": [".####..", "#++++#.", "#++++#.", "#++++#.", ".####..", "......."],
+    "quick_charge": ["#####..", ".#+#...", "..#....", ".#+#...", "#####..", "......."],
+    "respiration": ["....#..", "...#+#.", "....#..", ".#.....", "#+#....", ".#..#.."],
+    "riptide": [".####..", "#....#.", "#.##.#.", "#.#..#.", "#..##..", ".#....."],
+    "sharpness": [".....##", "....##.", "...##..", "#.##...", ".##....", "#.#...."],
+    "silk_touch": ["..##...", ".#..#..", ".#..#..", "..##...", ".#..#..", "#....#."],
+    "smite": ["...#...", "...#...", "#######", "...#...", "...#...", "...#..."],
+    "soul_speed": ["...#...", "..#+#..", ".#+-+#.", ".#+++#.", "..#+#..", "......."],
+    "sweeping_edge": ["..####.", ".##....", "##.....", "#......", "##.....", ".##...."],
+    "swift_sneak": ["##.....", "##.....", ".#.....", "...##..", "...##..", "....#.."],
+    "thorns": ["#.....#", ".#...#.", "..#+#..", "..#+#..", ".#...#.", "#.....#"],
+    "unbreaking": ["######.", ".#####.", "..###..", "..###..", ".#####.", "......."],
+    "vanishing_curse": ["..###..", ".#+++#.", "#+-+-+#", ".#+++#.", ".#.#.#.", "......."],
+    "wind_burst": [".###...", "#...#..", "..###.#", ".#...#.", "#.##..#", ".#..##."],
+}
+# Farbton, Saettigung des Einbands; Symbolfarbe hell, mittel
+BOOK_STYLE = {
+    "aqua_affinity": (0.52, 0.65, "#b4f0ff", "#3fb6e0"),
+    "bane_of_arthropods": (0.27, 0.55, "#f0f0a0", "#a0c050"),
+    "binding_curse": (0.98, 0.7, "#c0c0c0", "#707070"),
+    "blast_protection": (0.08, 0.25, "#ffb347", "#d06a2a"),
+    "breach": (0.5, 0.4, "#e0fff8", "#80c0b8"),
+    "channeling": (0.64, 0.45, "#fff480", "#f0d030"),
+    "density": (0.62, 0.1, "#b0b0b8", "#707078"),
+    "depth_strider": (0.62, 0.7, "#8fd0ff", "#3a80d0"),
+    "efficiency": (0.14, 0.6, "#fff6a0", "#f0c030"),
+    "feather_falling": (0.55, 0.25, "#ffffff", "#d4dde4"),
+    "fire_aspect": (0.0, 0.7, "#ffe070", "#ff6a20"),
+    "fire_protection": (0.03, 0.7, "#ffd27a", "#ff8a3a"),
+    "flame": (0.05, 0.65, "#ffe070", "#ff7020"),
+    "fortune": (0.33, 0.6, "#b8ff90", "#4ad04a"),
+    "frost_walker": (0.55, 0.3, "#f0ffff", "#a8e4f4"),
+    "impaling": (0.48, 0.55, "#d0fff0", "#60d0b0"),
+    "infinity": (0.78, 0.55, "#f0d0ff", "#c080f0"),
+    "knockback": (0.07, 0.55, "#fff4e0", "#f0b070"),
+    "looting": (0.12, 0.65, "#fff080", "#e0a820"),
+    "loyalty": (0.58, 0.55, "#ffb0c0", "#e05070"),
+    "luck_of_the_sea": (0.55, 0.6, "#ffd080", "#f09040"),
+    "lunge": (0.6, 0.2, "#ffffff", "#b8c0d0"),
+    "lure": (0.58, 0.5, "#e0e0e0", "#a0a0a0"),
+    "mending": (0.32, 0.55, "#ffb8c8", "#e04a6a"),
+    "multishot": (0.09, 0.4, "#f0e0c0", "#b89060"),
+    "piercing": (0.6, 0.1, "#ffffff", "#b0b0b0"),
+    "power": (0.08, 0.5, "#fff4d8", "#e0b870"),
+    "projectile_protection": (0.1, 0.45, "#ffffff", "#e8d0a8"),
+    "protection": (0.6, 0.35, "#ffffff", "#c8d8f0"),
+    "punch": (0.06, 0.45, "#f8d0b0", "#d09070"),
+    "quick_charge": (0.11, 0.5, "#fff0a0", "#d0a040"),
+    "respiration": (0.5, 0.55, "#c8fbff", "#67d4e6"),
+    "riptide": (0.5, 0.6, "#d0ffff", "#50c8e0"),
+    "sharpness": (0.6, 0.12, "#ffffff", "#c8c8d0"),
+    "silk_touch": (0.9, 0.25, "#ffffff", "#f4c8e0"),
+    "smite": (0.13, 0.55, "#fff4b0", "#e0c050"),
+    "soul_speed": (0.08, 0.45, "#7ff0f0", "#2fa8b0"),
+    "sweeping_edge": (0.58, 0.2, "#ffffff", "#b8c8e0"),
+    "swift_sneak": (0.75, 0.25, "#ffffff", "#c8b8e8"),
+    "thorns": (0.3, 0.55, "#d8f0a0", "#7ab04a"),
+    "unbreaking": (0.62, 0.15, "#d0d8e0", "#8890a0"),
+    "vanishing_curse": (0.78, 0.2, "#e8e0f0", "#9080a8"),
+    "wind_burst": (0.47, 0.25, "#f0fffc", "#b0e0d8"),
+}
+
+
+def book_ramp(hue, sat, dark=0.16, light=0.74):
+    vals = [dark + (light - dark) * f for f in (0.0, 0.22, 0.45, 0.7, 1.0)]
+    return ["#%02x%02x%02x" % tuple(int(c * 255) for c in colorsys.hsv_to_rgb(hue, sat, v)) for v in vals]
+
+
+def vanilla_book(name):
+    hue, sat, lite, mid = BOOK_STYLE[name]
+    ramp = book_ramp(hue, sat)
+    pal = {"O": ramp[0], "1": ramp[1], "2": ramp[2], "3": ramp[3], "4": ramp[4]}
+    pal.update(BOOK_PAGES)
+    img = render(f"enchanted_book_vanilla_{name}", BOOK_BASE, pal, False)
+    ox, oy = BOOK_SYMBOL_ORIGIN
+    sym = BOOK_SYMBOLS[name]
+    for y, row in enumerate(sym):
+        for x, c in enumerate(row):
+            if c == ".":
+                continue
+            px, py = ox + x, oy + y
+            if BOOK_BASE[py][px] not in "234":
+                continue          # Symbole bleiben auf dem hellen Deckel
+            img.putpixel((px, py), hexrgb({"#": lite, "+": mid, "-": ramp[0]}[c]) + (255,))
+            sx, sy = px + 1, py + 1
+            if c == "#" and sy < 16 and sx < 16 and BOOK_BASE[sy][sx] in "234" and \
+                    (sy - oy >= len(sym) or sx - ox >= 7 or sym[sy - oy][sx - ox] == "."):
+                img.putpixel((sx, sy), hexrgb(ramp[1]) + (255,))
+    return img
+
+
+def vanilla_book_textures():
+    return {f"item/enchanted_book_vanilla_{n}.png": vanilla_book(n) for n in BOOK_SYMBOLS}
+
 
 
 def main():

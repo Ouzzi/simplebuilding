@@ -113,4 +113,14 @@ public final class DataIntegrityGameTest {
     public void devEnchantedTabIsOnlyFilledInDevelopmentOrWhenConfigured(GameTestHelper helper) {
         DataIntegrityTests.devEnchantedTabIsOnlyFilledInDevelopmentOrWhenConfigured(helper);
     }
+
+    @GameTest
+    public void everyVanillaEnchantmentHasItsOwnBookModel(GameTestHelper helper) {
+        DataIntegrityTests.everyVanillaEnchantmentHasItsOwnBookModel(helper);
+    }
+
+    @GameTest
+    public void vanillaBookTextureFollowsTheClientOption(GameTestHelper helper) {
+        DataIntegrityTests.vanillaBookTextureFollowsTheClientOption(helper);
+    }
 }
