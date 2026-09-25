@@ -2694,9 +2694,13 @@ public final class DataIntegrityTests {
      * <p>The item model is client data, so this reads the shipped JSON and PNG files off the
      * classpath, the same files the resource manager loads. For each item in
      * {@code #minecraft:trimmable_armor} (vanilla armour, the turtle shell, Enderite armour) it
-     * finds the item definition the mod ships - the one whose root is a {@code minecraft:composite};
-     * vanilla's own copy in the client jar is a plain {@code minecraft:select} - and checks:
+     * finds the item definition the mod ships - the one whose root selects on
+     * {@code simplebuilding:visible_trim_icons}; vanilla's own copy in the client jar selects on
+     * {@code minecraft:trim_material} - and checks:
      * <ul>
+     *   <li>the root has one case {@code visible} holding a {@code minecraft:composite} and, as
+     *       fallback (client option off), vanilla's selection by trim material - for vanilla armour
+     *       identical to vanilla's own definition when the client jar is on the classpath;</li>
      *   <li>layer 1 is a {@code minecraft:component} select on {@code minecraft:trim} with ONE case
      *       listing every pattern x material, whose model is the untrimmed piece (no vanilla colour
      *       blob under the pattern), and a fallback (vanilla look without a trim or with a trim the
@@ -2716,6 +2720,9 @@ public final class DataIntegrityTests {
      * the atlas (the icon would show the missing-texture checkerboard); the darker variant
      * computed from the base colour only; or the datagen dropping the fallback.
      */
+    /** Select property of the client options visibleTrimIconsVanillaArmor/visibleTrimIconsModArmor. */
+    private static final String TRIM_ICON_PROPERTY = MOD_ID + ":visible_trim_icons";
+
     public static void everyTrimmableArmourShowsEveryTrimPatternOnItsIcon(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
         var access = helper.getLevel().registryAccess();
@@ -2760,13 +2767,37 @@ public final class DataIntegrityTests {
             }
             armourPieces++;
             String definitionPath = "assets/" + id.getNamespace() + "/items/" + id.getPath() + ".json";
-            JsonObject definition = shippedJson(definitionPath,
-                    json -> "minecraft:composite".equals(json.getAsJsonObject("model").get("type").getAsString()));
+            JsonObject definition = shippedJson(definitionPath, json -> json.getAsJsonObject("model").has("property")
+                    && TRIM_ICON_PROPERTY.equals(json.getAsJsonObject("model").get("property").getAsString()));
             if (definition == null) {
-                problems.add(id + ": the mod ships no trim-pattern item definition (" + definitionPath + ")");
+                problems.add(id + ": the mod ships no trim-pattern item definition selecting on " + TRIM_ICON_PROPERTY
+                        + " (" + definitionPath + ")");
                 continue;
             }
-            JsonArray layers = definition.getAsJsonObject("model").getAsJsonArray("models");
+            // Outermost: the client option. "visible" shows the pattern layers, anything else falls
+            // back to vanilla's selection by material - for vanilla armour exactly vanilla's own
+            // definition from the client jar, when that is on the classpath.
+            JsonObject option = definition.getAsJsonObject("model");
+            JsonArray optionCases = option.getAsJsonArray("cases");
+            JsonObject optionCase = optionCases.size() == 1 ? optionCases.get(0).getAsJsonObject() : null;
+            if (optionCase == null || !com.simplebuilding.items.VisibleTrimIcons.VISIBLE.equals(optionCase.get("when").getAsString())
+                    || !"minecraft:composite".equals(optionCase.getAsJsonObject("model").get("type").getAsString())) {
+                problems.add(id + ": the option select needs exactly one case \"visible\" with the composite pattern model");
+                continue;
+            }
+            JsonObject optionFallback = option.getAsJsonObject("fallback");
+            if (optionFallback == null || !"minecraft:trim_material".equals(optionFallback.get("property").getAsString())) {
+                problems.add(id + ": with the option off the icon does not fall back to vanilla's selection by trim material");
+            } else if ("minecraft".equals(id.getNamespace())) {
+                // Vanilla's copy selects on minecraft:trim_material. NeoForge 26.x ships its own copy
+                // (neoforge:trimmed_armor) on the classpath too; that one is not the reference.
+                JsonObject vanilla = shippedJson(definitionPath, json -> json.getAsJsonObject("model").has("property")
+                        && "minecraft:trim_material".equals(json.getAsJsonObject("model").get("property").getAsString()));
+                if (vanilla != null && !vanilla.getAsJsonObject("model").equals(optionFallback)) {
+                    problems.add(id + ": the option-off fallback differs from vanilla's own item definition");
+                }
+            }
+            JsonArray layers = optionCase.getAsJsonObject("model").getAsJsonArray("models");
             JsonObject base = layers.get(0).getAsJsonObject();
             JsonObject overlay = layers.get(1).getAsJsonObject();
             for (JsonObject select : List.of(base, overlay)) {
@@ -2951,6 +2982,122 @@ public final class DataIntegrityTests {
             helper.assertTrue(com.simplebuilding.enchantment.VanillaBookTextures.enabled(), "option on, but enabled() is false");
         } finally {
             config.vanillaEnchantedBookTextures = option;
+        }
+        helper.succeed();
+    }
+
+    /**
+     * The mod's own enchanted books follow the client option {@code modEnchantedBookTextures}: on, a
+     * Funnel book selects {@code funnel}; off, it selects {@code none} and shows the plain vanilla
+     * book. A book with Funnel AND Sharpness shows the Funnel book while the option is on and the
+     * Sharpness book while it is off (the vanilla option still applies), and nothing at all when
+     * both options are off. Every entry of {@code VanillaBookTextures.MOD_BOOKS} is a mod
+     * enchantment of the registry with its own case in {@code assets/minecraft/items/enchanted_book.json}
+     * and its own model. The option itself flips {@code modEnabled()} and is restored in
+     * {@code finally}.
+     *
+     * <p>What breaks this: the option ignored, mod books checked after vanilla ones, a book case
+     * without an entry in the list, or the vanilla option switched off together with the mod one.
+     */
+    public static void modBookTextureFollowsTheClientOption(GameTestHelper helper) {
+        var enchantments = helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
+        net.minecraft.world.item.enchantment.ItemEnchantments.Mutable funnel =
+                new net.minecraft.world.item.enchantment.ItemEnchantments.Mutable(net.minecraft.world.item.enchantment.ItemEnchantments.EMPTY);
+        funnel.set(enchantments.getOrThrow(ModEnchantments.FUNNEL), 1);
+        net.minecraft.world.item.enchantment.ItemEnchantments.Mutable both =
+                new net.minecraft.world.item.enchantment.ItemEnchantments.Mutable(net.minecraft.world.item.enchantment.ItemEnchantments.EMPTY);
+        both.set(enchantments.getOrThrow(net.minecraft.world.item.enchantment.Enchantments.SHARPNESS), 2);
+        both.set(enchantments.getOrThrow(ModEnchantments.FUNNEL), 1);
+        String none = com.simplebuilding.enchantment.VanillaBookTextures.NONE;
+        helper.assertValueEqual(com.simplebuilding.enchantment.VanillaBookTextures.select(funnel.toImmutable(), true, true),
+                "funnel", "select value of a Funnel book with the mod option on");
+        helper.assertValueEqual(com.simplebuilding.enchantment.VanillaBookTextures.select(funnel.toImmutable(), false, true),
+                none, "select value of a Funnel book with the mod option off");
+        helper.assertValueEqual(com.simplebuilding.enchantment.VanillaBookTextures.select(both.toImmutable(), true, true),
+                "funnel", "select value of a Funnel + Sharpness book with both options on");
+        helper.assertValueEqual(com.simplebuilding.enchantment.VanillaBookTextures.select(both.toImmutable(), false, true),
+                "minecraft_sharpness", "select value of a Funnel + Sharpness book with only the vanilla option on");
+        helper.assertValueEqual(com.simplebuilding.enchantment.VanillaBookTextures.select(both.toImmutable(), false, false),
+                none, "select value of a Funnel + Sharpness book with both options off");
+        helper.assertValueEqual(com.simplebuilding.enchantment.VanillaBookTextures.select(null, true, true),
+                none, "select value of an item without enchantments");
+
+        List<String> problems = new ArrayList<>();
+        String book = vanillaBookResource("/assets/minecraft/items/enchanted_book.json", problems);
+        for (ResourceKey<net.minecraft.world.item.enchantment.Enchantment> key : com.simplebuilding.enchantment.VanillaBookTextures.MOD_BOOKS) {
+            String path = key.identifier().getPath();
+            if (!MOD_ID.equals(key.identifier().getNamespace()) || enchantments.get(key).isEmpty()) {
+                problems.add(key.identifier() + " is not a mod enchantment of the registry");
+            }
+            if (book != null && !book.contains("\"when\": \"" + path + "\"")) {
+                problems.add("enchanted_book.json has no case " + path);
+            }
+            if (DataIntegrityTests.class.getResource("/assets/" + MOD_ID + "/models/item/enchanted_book_" + path + ".json") == null) {
+                problems.add("missing model " + MOD_ID + ":item/enchanted_book_" + path);
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), "mod enchanted books: " + problems);
+
+        com.simplebuilding.config.SimplebuildingConfig config = Simplebuilding.getConfig();
+        helper.assertTrue(config != null, "no config loaded, so the option cannot be tested");
+        boolean option = config.modEnchantedBookTextures;
+        try {
+            config.modEnchantedBookTextures = false;
+            helper.assertTrue(!com.simplebuilding.enchantment.VanillaBookTextures.modEnabled(), "option off, but modEnabled() is true");
+            config.modEnchantedBookTextures = true;
+            helper.assertTrue(com.simplebuilding.enchantment.VanillaBookTextures.modEnabled(), "option on, but modEnabled() is false");
+        } finally {
+            config.modEnchantedBookTextures = option;
+        }
+        helper.succeed();
+    }
+
+    /**
+     * The visible trim patterns on armour icons follow two client options: vanilla armour (here the
+     * iron chestplate and the turtle shell) follows {@code visibleTrimIconsVanillaArmor}, the mod's
+     * Enderite armour follows {@code visibleTrimIconsModArmor}, each independently of the other.
+     * On, the select property yields {@code visible} (the pattern layers); off, it yields
+     * {@code vanilla}, which no case matches, so the icon falls back to vanilla's look. Both options
+     * are flipped on the loaded config and restored in {@code finally}.
+     *
+     * <p>What breaks this: an option ignored, the two options swapped, or mod armour recognised by
+     * anything but its namespace.
+     */
+    public static void visibleTrimIconsFollowTheClientOptions(GameTestHelper helper) {
+        Identifier iron = BuiltInRegistries.ITEM.getKey(Items.IRON_CHESTPLATE);
+        Identifier turtle = BuiltInRegistries.ITEM.getKey(Items.TURTLE_HELMET);
+        Identifier enderite = BuiltInRegistries.ITEM.getKey(com.simplebuilding.items.ModItems.ENDERITE_CHESTPLATE);
+        String visible = com.simplebuilding.items.VisibleTrimIcons.VISIBLE;
+        String vanilla = com.simplebuilding.items.VisibleTrimIcons.VANILLA;
+        helper.assertTrue(!vanilla.equals(visible), "the fallback value must not be the visible case");
+        for (boolean vanillaOn : new boolean[]{false, true}) {
+            for (boolean modOn : new boolean[]{false, true}) {
+                String settings = " with vanilla armour " + (vanillaOn ? "on" : "off") + ", mod armour " + (modOn ? "on" : "off");
+                helper.assertValueEqual(com.simplebuilding.items.VisibleTrimIcons.key(iron, vanillaOn, modOn),
+                        vanillaOn ? visible : vanilla, "iron chestplate" + settings);
+                helper.assertValueEqual(com.simplebuilding.items.VisibleTrimIcons.key(turtle, vanillaOn, modOn),
+                        vanillaOn ? visible : vanilla, "turtle shell" + settings);
+                helper.assertValueEqual(com.simplebuilding.items.VisibleTrimIcons.key(enderite, vanillaOn, modOn),
+                        modOn ? visible : vanilla, "enderite chestplate" + settings);
+            }
+        }
+
+        com.simplebuilding.config.SimplebuildingConfig config = Simplebuilding.getConfig();
+        helper.assertTrue(config != null, "no config loaded, so the options cannot be tested");
+        boolean vanillaOption = config.visibleTrimIconsVanillaArmor;
+        boolean modOption = config.visibleTrimIconsModArmor;
+        try {
+            config.visibleTrimIconsVanillaArmor = false;
+            config.visibleTrimIconsModArmor = true;
+            helper.assertValueEqual(com.simplebuilding.items.VisibleTrimIcons.key(iron), vanilla, "iron chestplate, config vanilla off");
+            helper.assertValueEqual(com.simplebuilding.items.VisibleTrimIcons.key(enderite), visible, "enderite chestplate, config mod on");
+            config.visibleTrimIconsVanillaArmor = true;
+            config.visibleTrimIconsModArmor = false;
+            helper.assertValueEqual(com.simplebuilding.items.VisibleTrimIcons.key(iron), visible, "iron chestplate, config vanilla on");
+            helper.assertValueEqual(com.simplebuilding.items.VisibleTrimIcons.key(enderite), vanilla, "enderite chestplate, config mod off");
+        } finally {
+            config.visibleTrimIconsVanillaArmor = vanillaOption;
+            config.visibleTrimIconsModArmor = modOption;
         }
         helper.succeed();
     }

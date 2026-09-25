@@ -19,7 +19,9 @@ import java.util.Optional;
  * {@code simplebuilding:item/enchanted_book_vanilla_<pfad>} zeigt. Ist die Client-Option
  * {@code vanillaEnchantedBookTextures} aus, liefert sie {@link #NONE} - das Buch faellt auf das
  * Vanilla-Modell zurueck, und Ressourcenpakete oder andere Mods, die dieselben Buecher
- * ueberschreiben, bleiben unberuehrt.
+ * ueberschreiben, bleiben unberuehrt. Dasselbe gilt fuer die Mod-Verzauberungen mit der Option
+ * {@code modEnchantedBookTextures} ({@link #select}). Die Eigenschaft wird bei jedem Zeichnen neu
+ * ausgewertet, ein Umschalten wirkt also sofort, ohne Neuladen der Ressourcen.
  *
  * <p>Ohne Client-Klassen, damit die Servertests die Auswahl pruefen koennen.
  */
@@ -37,6 +39,18 @@ public final class VanillaBookTextures {
             "punch", "quick_charge", "respiration", "riptide", "sharpness", "silk_touch", "smite", "soul_speed",
             "sweeping_edge", "swift_sneak", "thorns", "unbreaking", "vanishing_curse", "wind_burst");
 
+    /**
+     * Mod-Verzauberungen mit eigenem Buch, in der Vorrang-Reihenfolge der Select-Eigenschaft: traegt
+     * ein Buch mehrere, zeigt es das erste. Der Case-Wert ist der Pfad des Schluessels.
+     */
+    public static final List<ResourceKey<Enchantment>> MOD_BOOKS = List.of(
+            ModEnchantments.FAST_CHISELING, ModEnchantments.CONSTRUCTORS_TOUCH, ModEnchantments.COLOR_PALETTE,
+            ModEnchantments.MASTER_BUILDER, ModEnchantments.BREAK_THROUGH, ModEnchantments.RADIUS,
+            ModEnchantments.COVER, ModEnchantments.BRIDGE, ModEnchantments.LINEAR, ModEnchantments.VEIN_MINER,
+            ModEnchantments.DEEP_POCKETS, ModEnchantments.STRIP_MINER, ModEnchantments.VERSATILITY,
+            ModEnchantments.DRAWER, ModEnchantments.KINETIC_PROTECTION, ModEnchantments.DOUBLE_JUMP,
+            ModEnchantments.OVERRIDE, ModEnchantments.FUNNEL, ModEnchantments.RANGE);
+
     private VanillaBookTextures() {
     }
 
@@ -44,6 +58,37 @@ public final class VanillaBookTextures {
     public static boolean enabled() {
         SimplebuildingConfig config = Simplebuilding.getConfig();
         return config == null || config.vanillaEnchantedBookTextures;
+    }
+
+    /**
+     * Die Client-Option {@code modEnchantedBookTextures} (Standard an): an zeigen Mod-Verzauberungen
+     * ihr eigenes Buch, aus das schlichte Vanilla-Buch.
+     */
+    public static boolean modEnabled() {
+        SimplebuildingConfig config = Simplebuilding.getConfig();
+        return config == null || config.modEnchantedBookTextures;
+    }
+
+    /**
+     * Der ganze Select-Wert von {@code simplebuilding:enchant_type}: zuerst die erste Mod-Verzauberung
+     * aus {@link #MOD_BOOKS} (nur wenn {@code modBooks}), sonst die erste Vanilla-Verzauberung (nur
+     * wenn {@code vanillaBooks}), sonst {@link #NONE} und damit das Vanilla-Modell. Ist die
+     * Mod-Option aus, zeigt ein Buch mit Mod- und Vanilla-Verzauberung das Vanilla-Verzauberungsbuch.
+     */
+    public static String select(ItemEnchantments enchantments, boolean modBooks, boolean vanillaBooks) {
+        if (enchantments == null) {
+            return NONE;
+        }
+        if (modBooks) {
+            for (ResourceKey<Enchantment> book : MOD_BOOKS) {
+                for (Holder<Enchantment> holder : enchantments.keySet()) {
+                    if (holder.is(book)) {
+                        return book.identifier().getPath();
+                    }
+                }
+            }
+        }
+        return key(enchantments, vanillaBooks);
     }
 
     /** Case-Wert im Item-Modell fuer die Vanilla-Verzauberung {@code minecraft:<path>}. */
