@@ -79,13 +79,13 @@ public final class TrimStatsPanel {
 
         // --- S (Blau - guter Kontrast) ---
         context.text(font, Component.literal("S").withStyle(ChatFormatting.BLUE, ChatFormatting.BOLD), colLabelX, currentY, 0xFFFFFFFF, false);
-        context.text(font, "x", colOpX, currentY, 0xFF707070, false);
+        context.text(font, "+", colOpX, currentY, 0xFF707070, false);
         context.text(font, String.format("%.2f", survMult), colValX, currentY, colorText, false);
         currentY += lineHeight;
 
         // --- C (Rot) ---
         context.text(font, Component.literal("C").withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD), colLabelX, currentY, 0xFFFFFFFF, false);
-        context.text(font, "x", colOpX, currentY, 0xFF707070, false);
+        context.text(font, "+", colOpX, currentY, 0xFF707070, false);
         context.text(font, String.format("%.2f", combatMult), colValX, currentY, colorText, false);
         currentY += lineHeight - 2;
 
@@ -126,6 +126,8 @@ public final class TrimStatsPanel {
         int damageDiff = Math.max(0, accessor.simplebuilding$getCurrentDamageTaken() - accessor.simplebuilding$getBaseDamageTaken());
 
         tooltip.add(Component.literal("Statistic Details").withStyle(ChatFormatting.BLUE, ChatFormatting.UNDERLINE));
+        // Resonanz = Mittelwert der drei Faktoren mal konfigurierte Basis (TrimMultiplierLogic)
+        tooltip.add(Component.literal("(L + S + C) / 3 x " + String.format("%.1f", com.simplebuilding.config.SimplebuildingConfig.trimBenefitBaseMultiplier)).withStyle(ChatFormatting.DARK_GRAY));
         tooltip.add(Component.empty());
 
         // Level
@@ -144,7 +146,7 @@ public final class TrimStatsPanel {
         tooltip.add(Component.literal(" Hostiles: " + hostileDiff).withStyle(ChatFormatting.GRAY));
         tooltip.add(Component.literal(" Passives: " + passiveDiff).withStyle(ChatFormatting.GRAY));
         // Damage Taken Anzeige
-        tooltip.add(Component.literal(" Dmg Taken: " + (damageDiff / 10) + " Hearts").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.literal(" Dmg Taken: " + (damageDiff / 20) + " Hearts").withStyle(ChatFormatting.GRAY));
 
         context.setComponentTooltipForNextFrame(font, tooltip, mouseX, mouseY);
     }

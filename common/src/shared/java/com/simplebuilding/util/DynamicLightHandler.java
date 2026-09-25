@@ -3,19 +3,50 @@ package com.simplebuilding.util;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.IntSupplier;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LightBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
+/**
+ * Leuchtende (emittierende, "Radiance") Ruestung setzt einen unsichtbaren Lichtblock. Traeger
+ * sind Spieler (Position wandert jeden Tick mit), Ruestungsstaender und Gegenstandsrahmen
+ * (ruhende Traeger, die ihren Lichtblock ueber {@link OwnedLightHolder} mit der Entity speichern).
+ */
 public class DynamicLightHandler {
     private static final Map<UUID, BlockPos> lightSources = new HashMap<>();
+
+    /** Ruhende Traeger pruefen nur alle so viele Ticks (versetzt nach Entity-ID). */
+    public static final int HOLDER_INTERVAL = 10;
+
+    /** Ein Aufwertungslevel bringt 3 Lichtpunkte -> 5 Level = 15 (Max). */
+    public static int lightLevelFor(int emissionPoints) {
+        return Math.min(15, Math.max(0, emissionPoints) * 3);
+    }
+
+    /** Summe der Emissionslevel aller getragenen Ruestungsteile. */
+    public static int wornEmission(LivingEntity entity) {
+        int total = 0;
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            if (slot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) {
+                total += GlowingTrimUtils.getEmissionLevel(entity.getItemBySlot(slot));
+            }
+        }
+        return total;
+    }
 
     public static void tick(Player player) {
         if (player.level().isClientSide()) return;
@@ -25,18 +56,8 @@ public class DynamicLightHandler {
         UUID uuid = player.getUUID();
         BlockPos currentPos = player.blockPosition().above(); // Kopfhöhe für bessere Ausleuchtung
 
-        // 1. Berechne das Licht-Level NUR basierend auf Emission (nicht Visual Glow)
-        int totalEmissionPoints = 0;
-        for (EquipmentSlot slot : EquipmentSlot.values()) {
-            if (slot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) {
-                ItemStack stack = player.getItemBySlot(slot);
-                // WICHTIG: Hier rufen wir jetzt getEmissionLevel auf
-                totalEmissionPoints += GlowingTrimUtils.getEmissionLevel(stack);
-            }
-        }
-
-        // Berechnung: Ein Level bringt 3 Lichtpunkte -> 5 Upgrades = 15 (Max)
-        int lightLevel = Math.min(15, totalEmissionPoints * 3);
+        // 1. Licht-Level NUR aus der Emission (nicht Visual Glow)
+        int lightLevel = lightLevelFor(wornEmission(player));
 
         BlockPos oldPos = lightSources.get(uuid);
 
@@ -48,32 +69,7 @@ public class DynamicLightHandler {
 
         // 3. Neues Licht setzen
         if (lightLevel > 0) {
-            BlockState currentState = world.getBlockState(currentPos);
-            boolean isWater = currentState.getFluidState().is(FluidTags.WATER);
-
-            // Wir setzen Licht nur in Luft oder Wasser (um nichts zu zerstören)
-            // Blocks.LIGHT ist replaceable, aber NICHT air, und ein trockener Lichtblock meldet
-            // eine leere Fluidstate - er faellt also durch beide anderen Zweige. Ohne den dritten
-            // Zweig bleibt der schon stehende Lichtblock unangetastet und die Helligkeit aendert
-            // sich erst beim naechsten Schritt (der untere is(Blocks.LIGHT)-Zweig war toter Code).
-            // isWater stammt weiter aus currentState und ist fuer einen waterlogged Lichtblock
-            // true, das Wasser bleibt beim Aktualisieren also erhalten.
-            if (currentState.isAir() || currentState.is(Blocks.LIGHT)
-                    || (isWater && currentState.getFluidState().isSource())) {
-
-                // Prüfen ob wir updaten müssen (nur wenn Level sich ändert)
-                if (currentState.is(Blocks.LIGHT)) {
-                    int currentLightInBlock = currentState.getValue(LightBlock.LEVEL);
-                    if (currentLightInBlock != lightLevel) {
-                        world.setBlock(currentPos, Blocks.LIGHT.defaultBlockState()
-                                .setValue(LightBlock.LEVEL, lightLevel)
-                                .setValue(LightBlock.WATERLOGGED, isWater), 3);
-                    }
-                } else {
-                    world.setBlock(currentPos, Blocks.LIGHT.defaultBlockState()
-                            .setValue(LightBlock.LEVEL, lightLevel)
-                            .setValue(LightBlock.WATERLOGGED, isWater), 3);
-                }
+            if (placeOrUpdate(world, currentPos, lightLevel)) {
                 lightSources.put(uuid, currentPos);
             }
         } else if (oldPos != null) {
@@ -81,6 +77,63 @@ public class DynamicLightHandler {
             removeLight(world, oldPos);
             lightSources.remove(uuid);
         }
+    }
+
+    /**
+     * Ruestungsstaender: Licht auf Kopfhoehe wie beim Spieler. Aufruf jeden Tick aus dem
+     * LivingEntityMixin, gearbeitet wird nur alle {@link #HOLDER_INTERVAL} Ticks.
+     */
+    public static void tickArmorStand(ArmorStand stand) {
+        if (!(stand instanceof OwnedLightHolder holder) || !isHolderTick(stand)) return;
+        tickHolder(stand.level(), holder, stand.blockPosition().above(), wornEmission(stand));
+    }
+
+    /** Gegenstandsrahmen: Licht im Block des Rahmens, gespeist vom eingelegten Gegenstand. */
+    public static void tickItemFrame(ItemFrame frame) {
+        if (!(frame instanceof OwnedLightHolder holder) || !isHolderTick(frame)) return;
+        tickHolder(frame.level(), holder, frame.getPos(), GlowingTrimUtils.getEmissionLevel(frame.getItem()));
+    }
+
+    private static boolean isHolderTick(Entity entity) {
+        return !entity.level().isClientSide() && !entity.isRemoved()
+                && Math.floorMod(entity.level().getGameTime() + entity.getId(), HOLDER_INTERVAL) == 0;
+    }
+
+    static void tickHolder(Level level, OwnedLightHolder holder, BlockPos target, int emissionPoints) {
+        int lightLevel = lightLevelFor(emissionPoints);
+        BlockPos owned = holder.simplebuilding$getOwnedLight();
+        if (owned != null && (lightLevel == 0 || !owned.equals(target))) {
+            removeLight(level, owned);
+            holder.simplebuilding$setOwnedLight(null);
+        }
+        if (lightLevel > 0 && placeOrUpdate(level, target, lightLevel)) {
+            holder.simplebuilding$setOwnedLight(target);
+        }
+    }
+
+    /**
+     * Setzt oder aktualisiert den Lichtblock - nur in Luft, einem schon stehenden Lichtblock
+     * oder einer Wasserquelle (um nichts zu zerstören).
+     * Blocks.LIGHT ist replaceable, aber NICHT air, und ein trockener Lichtblock meldet eine
+     * leere Fluidstate - ohne den is(Blocks.LIGHT)-Zweig bliebe ein schon stehender Lichtblock
+     * unangetastet und die Helligkeit aenderte sich erst beim naechsten Schritt. isWater stammt
+     * aus dem aktuellen Zustand und ist fuer einen waterlogged Lichtblock true, das Wasser
+     * bleibt beim Aktualisieren also erhalten.
+     */
+    private static boolean placeOrUpdate(Level world, BlockPos pos, int lightLevel) {
+        BlockState currentState = world.getBlockState(pos);
+        boolean isWater = currentState.getFluidState().is(FluidTags.WATER);
+        if (!(currentState.isAir() || currentState.is(Blocks.LIGHT)
+                || (isWater && currentState.getFluidState().isSource()))) {
+            return false;
+        }
+        // Nur schreiben, wenn sich das Level aendert
+        if (!currentState.is(Blocks.LIGHT) || currentState.getValue(LightBlock.LEVEL) != lightLevel) {
+            world.setBlock(pos, Blocks.LIGHT.defaultBlockState()
+                    .setValue(LightBlock.LEVEL, lightLevel)
+                    .setValue(LightBlock.WATERLOGGED, isWater), 3);
+        }
+        return true;
     }
 
     private static void removeLight(Level world, BlockPos pos) {
@@ -99,5 +152,68 @@ public class DynamicLightHandler {
         if (pos != null) {
             removeLight(player.level(), pos);
         }
+    }
+
+    /**
+     * Aus Entity.setRemoved (HEAD) - die Entity steht also noch in ihrer alten Welt.
+     * Ruhende Traeger raeumen nur auf, wenn sie wirklich zerstoert werden; beim Entladen des
+     * Chunks bleibt ihr Lichtblock samt gespeicherter Position erhalten. Ein Spieler raeumt bei
+     * jedem Grund auf, auch beim Dimensionswechsel (sonst bliebe das Licht in der alten Dimension
+     * stehen, weil sein naechster Tick schon in der neuen Welt arbeitet).
+     */
+    public static void onEntityRemoved(Entity entity, Entity.RemovalReason reason) {
+        Level level = entity.level();
+        if (level == null || level.isClientSide()) return;
+        if (entity instanceof OwnedLightHolder holder) {
+            BlockPos owned = holder.simplebuilding$getOwnedLight();
+            if (owned != null && reason.shouldDestroy()) {
+                removeLight(level, owned);
+                holder.simplebuilding$setOwnedLight(null);
+            }
+        } else if (entity instanceof ServerPlayer) {
+            BlockPos pos = lightSources.remove(entity.getUUID());
+            if (pos != null) {
+                removeLight(level, pos);
+            }
+        }
+    }
+
+    // --- PARTIKEL (Client) ---
+
+    /**
+     * Leuchtende Teile sehen sonst genauso aus wie normale: feine, warme Schimmer-Partikel
+     * (Wachs-Glanz: kurzlebig, selbstleuchtend, goldgelb wie der Glowstone-Staub der Aufwertung).
+     * Die Chance je Tick waechst mit der Emission und ist gedeckelt, damit volle Ausruestung
+     * nicht qualmt. Unsichtbare Traeger zeigen nichts. Nur clientseitig wirksam.
+     */
+    public static void tickGlowMotes(Entity entity, IntSupplier emissionPoints) {
+        Level level = entity.level();
+        if (!level.isClientSide() || (entity.isInvisible() && !(entity instanceof ItemFrame))) return;
+        RandomSource random = entity.getRandom();
+        // Erst wuerfeln, dann die Emission lesen: die meisten Ticks kosten so keinen NBT-Zugriff.
+        float roll = random.nextFloat();
+        if (roll >= MAX_MOTE_CHANCE) return;
+        if (roll >= moteChance(emissionPoints.getAsInt())) return;
+        double x;
+        double y;
+        double z;
+        if (entity instanceof ItemFrame frame) {
+            Direction face = frame.getDirection();
+            x = frame.getX() + face.getStepX() * 0.15 + (random.nextDouble() - 0.5) * 0.6;
+            y = frame.getY() + face.getStepY() * 0.15 + (random.nextDouble() - 0.5) * 0.6;
+            z = frame.getZ() + face.getStepZ() * 0.15 + (random.nextDouble() - 0.5) * 0.6;
+        } else {
+            x = entity.getRandomX(0.6);
+            y = entity.getRandomY();
+            z = entity.getRandomZ(0.6);
+        }
+        level.addParticle(ParticleTypes.WAX_ON, x, y, z, 0.0, 0.01, 0.0);
+    }
+
+    public static final float MAX_MOTE_CHANCE = 0.12f;
+
+    /** 1 Level: ein Funke etwa alle 2,5 s; ab 6 Level gedeckelt bei gut 2 pro Sekunde. */
+    public static float moteChance(int emissionPoints) {
+        return Math.min(MAX_MOTE_CHANCE, 0.02f * Math.max(0, emissionPoints));
     }
 }

@@ -1,5 +1,7 @@
 package com.simplebuilding.mixin;
 
+import com.simplebuilding.util.DynamicLightHandler;
+import com.simplebuilding.util.GlowingTrimUtils;
 import com.simplebuilding.util.LockedFrameExtensions;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -22,6 +24,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BlockAttachedEntity.class)
 public class BlockAttachedEntityTickMixin {
+
+    // Radiance: ein Rahmen mit emittierender Ruestung leuchtet wie getragene Ruestung und schimmert.
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void simplebuilding$tickRadiance(CallbackInfo ci) {
+        if ((Object) this instanceof ItemFrame frame) {
+            if (frame.level().isClientSide()) {
+                DynamicLightHandler.tickGlowMotes(frame, () -> GlowingTrimUtils.getEmissionLevel(frame.getItem()));
+            } else {
+                DynamicLightHandler.tickItemFrame(frame);
+            }
+        }
+    }
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void simplebuilding$tickBrush(CallbackInfo ci) {

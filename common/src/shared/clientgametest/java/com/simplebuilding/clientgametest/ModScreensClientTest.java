@@ -92,13 +92,15 @@ import net.minecraft.world.level.block.Blocks;
  *
  * <h2>The trim reference rows</h2>
  *
- * <p>{@code TrimReferenceScreen} lists hard coded base values. Until 2026-09 three of them
+ * <p>{@code TrimReferenceScreen} listed hard coded base values. Until 2026-09 three of them
  * disagreed with {@code TrimEffectUtil}: Enderite showed 10% "Void Shield (4x Pattern Boost!)"
  * (the server gives 5% against all damage and counts an Enderite piece 3.5 times), Netherite 5%
  * "Pattern Boost" (the 5% is its resistance to enchantment-bypassing damage and the Wither, the
  * boost is the 1.75 count), and Rib 2.0 "Wither Resist (Sec.)" (the server takes 10% off wither
- * damage). {@link #trimReferenceRowsMatchTheServer} pins the three corrected rows; the server
- * numbers themselves are pinned by {@code TrimEffectTests} and {@code TrimBonusTests}.
+ * damage). Since the balance pass of 2026-09 the screen reads every number from
+ * {@code TrimBonusCatalog} and shows it at the player's resonance;
+ * {@link #trimReferenceRowsMatchTheServer} still pins the three rows against literal server rates,
+ * which are themselves pinned by {@code TrimEffectTests} and {@code TrimBonusTests}.
  *
  * <h2>The config button</h2>
  *
@@ -552,15 +554,14 @@ public final class ModScreensClientTest {
      * <p>The screen is constructed directly on the client thread instead of through the smithing
      * button, so this runs on every target whether or not the driver can click; the button path is
      * {@link #smithingTrimReferenceButton}. The rows are read out of the private {@code entries}
-     * list reflectively - the screen has no accessor and should not grow one for a test. Every
-     * number is formatted with {@code String.format("%.1f%%", ...)} exactly like the screen, so a
-     * client running in a locale with a decimal comma compares like with like.
+     * list reflectively - the screen has no accessor and should not grow one for a test.
      *
-     * <p>Each row's base value is the {@code TrimEffectUtil} literal: Enderite
-     * {@code enderiteParts * 0.05f} and pattern count 3.5, Netherite {@code netheriteParts * 0.05f}
-     * and count 1.75, Rib {@code calculateReduction(entity, "rib", 0.10f, ...)}.
+     * <p>Each row shows the per piece value at the player's resonance, read from
+     * {@code TrimMultiplierLogic} exactly like the screen does. The rates are the server literals:
+     * Enderite 5% against all damage and a pattern weight of 2 ({@code PATTERN_WEIGHT_ENDERITE},
+     * 3.5 until 2026-09), Netherite 5% and a weight of 1.75, Rib 10% against wither damage.
      *
-     * <p><b>What breaks this test:</b> one of the three rows going back to its old value or label,
+     * <p><b>What breaks this test:</b> one of the three rows going back to an old value or label,
      * a row disappearing (the Enderite row only appears while the mod's ingot is registered), or
      * the row layout changing so that the stat text no longer sits in the entry's info component.
      */
@@ -568,9 +569,10 @@ public final class ModScreensClientTest {
         script.act("the trim reference rows carry the server's base rates", client -> {
             TrimReferenceScreen screen = new TrimReferenceScreen(null);
             List<String[]> rows = trimReferenceRows(screen);
+            float resonance = (float) com.simplebuilding.util.TrimMultiplierLogic.getMultiplier(client.player);
 
-            String fivePercent = String.format("%.1f%%", 5.0) + " -> ";
-            String tenPercent = String.format("%.1f%%", 10.0) + " -> ";
+            String fivePercent = "+" + com.simplebuilding.util.TrimBonusCatalog.format(5.0f * resonance) + "% ";
+            String tenPercent = "+" + com.simplebuilding.util.TrimBonusCatalog.format(10.0f * resonance) + "% ";
             List<String> problems = new ArrayList<>();
 
             String[] enderite = rowNamed(rows, "Enderite");
@@ -579,31 +581,29 @@ public final class ModScreensClientTest {
             } else {
                 if (!enderite[1].contains(fivePercent)) {
                     problems.add("the Enderite row reads \"" + enderite[1] + "\" - the server gives 5% "
-                            + "against all damage per piece (TrimEffectUtil: enderiteParts * 0.05f)");
+                            + "against all damage per piece, times the resonance (" + fivePercent + ")");
                 }
-                if (!enderite[1].contains("x3.5") || enderite[1].contains("4x")) {
+                if (!enderite[1].contains("x2 ") || enderite[1].contains("x3.5")) {
                     problems.add("the Enderite row reads \"" + enderite[1] + "\" - an Enderite piece "
-                            + "counts 3.5 times for its pattern, not 4 times");
+                            + "counts 2 times for its pattern");
                 }
             }
 
             String[] netherite = rowNamed(rows, "Netherite");
             if (netherite == null) {
                 problems.add("no Netherite row at all (rows: " + describeRows(rows) + ")");
-            } else if (!netherite[1].contains(fivePercent) || !netherite[1].contains("x1.75")
-                    || netherite[1].startsWith("Pattern Boost")) {
+            } else if (!netherite[1].contains(fivePercent) || !netherite[1].contains("x1.75")) {
                 problems.add("the Netherite row reads \"" + netherite[1] + "\" - the server gives 5% "
                         + "against enchantment-bypassing damage and the Wither, and counts a Netherite "
                         + "piece 1.75 times for its pattern");
             }
 
-            String[] rib = rowNamed(rows, "Rib Trim");
+            String[] rib = rowNamed(rows, "Rib Armor Trim");
             if (rib == null) {
-                problems.add("no Rib Trim row at all (rows: " + describeRows(rows) + ")");
+                problems.add("no Rib Armor Trim row at all (rows: " + describeRows(rows) + ")");
             } else if (!rib[1].contains(tenPercent)) {
-                problems.add("the Rib Trim row reads \"" + rib[1] + "\" - the server takes 10% off "
-                        + "wither damage per piece (TrimEffectUtil: calculateReduction(entity, \"rib\", "
-                        + "0.10f, ...))");
+                problems.add("the Rib Armor Trim row reads \"" + rib[1] + "\" - the server takes 10% off "
+                        + "wither damage per piece, times the resonance (" + tenPercent + ")");
             }
 
             if (!problems.isEmpty()) {

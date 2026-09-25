@@ -13,6 +13,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import com.simplebuilding.util.DynamicLightHandler;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -101,6 +103,17 @@ public abstract class LivingEntityMixin {
                     entity.heal(1.0f);
                 }
             }
+        }
+    }
+
+    // --- RADIANCE (emittierende Ruestung): Licht am Ruestungsstaender, Schimmer an jedem Traeger ---
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void simplebuilding$radianceTick(CallbackInfo ci) {
+        LivingEntity entity = (LivingEntity) (Object) this;
+        if (entity.level().isClientSide()) {
+            DynamicLightHandler.tickGlowMotes(entity, () -> DynamicLightHandler.wornEmission(entity));
+        } else if (entity instanceof ArmorStand stand) {
+            DynamicLightHandler.tickArmorStand(stand);
         }
     }
 

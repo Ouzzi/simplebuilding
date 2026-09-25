@@ -146,6 +146,6 @@ public class BuildingWandScreen extends Screen {
     public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
         context.fill(0, 0, width, height, 0x15000000);
         super.render(context, mouseX, mouseY, delta);
-        context.drawCenteredString(font, Component.translatable("simplebuilding.gui.wand_settings"), columnCenterX, startY - 20, 0xFFFFFF);
+        context.drawCenteredString(font, Component.translatable("simplebuilding.gui.wand_settings"), columnCenterX, startY - 20, 0xFFFFFFFF);
     }
 }

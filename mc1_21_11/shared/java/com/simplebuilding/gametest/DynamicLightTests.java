@@ -5,10 +5,12 @@ import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.util.DynamicLightHandler;
 import com.simplebuilding.util.GlowingTrimUtils;
+import com.simplebuilding.util.OwnedLightHolder;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -21,10 +23,14 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.Container;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.SmithingMenu;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.SmithingMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -183,6 +189,15 @@ public final class DynamicLightTests {
 
     /** Light points one emission level is worth. */
     private static final int LIGHT_PER_EMISSION_LEVEL = 3;
+
+    /**
+     * Tick budget for {@link #armourStandsAndItemFramesLightTheirBlockAndCleanUp}: three waits of
+     * {@link #HOLDER_SETTLE} ticks plus headroom.
+     */
+    public static final int HOLDER_MAX_TICKS = 120;
+
+    /** Two full holder periods, so at least one holder tick falls into every wait whatever the phase. */
+    private static final int HOLDER_SETTLE = 2 * DynamicLightHandler.HOLDER_INTERVAL + 1;
 
     /** The four slots {@code DynamicLightHandler} sums, i.e. {@code Type.HUMANOID_ARMOR}. */
     private static final List<EquipmentSlot> ARMOUR_SLOTS =
@@ -964,6 +979,79 @@ public final class DynamicLightTests {
                 })
                 .thenExecute(() -> TestCleanup.run(helper))
                 .thenSucceed();
+    }
+
+    /**
+     * Radiance on the two resting carriers: an armour stand lights the block over its head like a
+     * player does, an item frame lights its own block from the piece it holds. Both work on a
+     * {@value DynamicLightHandler#HOLDER_INTERVAL} tick clock, both put the light out when the piece
+     * goes, and both clean up when the entity is destroyed - but NOT when its chunk merely unloads,
+     * because the light block and the remembered position are saved with the chunk.
+     *
+     * <p>What breaks this: either tick hook (LivingEntityMixin for the stand,
+     * BlockAttachedEntityTickMixin for the frame) leaving its mixin, the removal hook on
+     * Entity#setRemoved going away or ignoring the removal reason, or the holders forgetting the
+     * block they placed.
+     */
+    public static void armourStandsAndItemFramesLightTheirBlockAndCleanUp(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        int settle = HOLDER_SETTLE;
+
+        ArmorStand stand = helper.spawn(EntityType.ARMOR_STAND, new BlockPos(1, 2, 6));
+        level.setBlock(stand.blockPosition().above(), Blocks.AIR.defaultBlockState(), 3);
+        stand.setItemSlot(EquipmentSlot.HEAD, emitting(ModItems.ENDERITE_HELMET, 2));
+
+        BlockPos frameRel = new BlockPos(5, 3, 6);
+        helper.setBlock(frameRel.relative(Direction.NORTH), Blocks.STONE);
+        ItemFrame frame = new ItemFrame(level, helper.absolutePos(frameRel), Direction.SOUTH);
+        level.addFreshEntity(frame);
+        level.setBlock(frame.getPos(), Blocks.AIR.defaultBlockState(), 3);
+        frame.setItem(emitting(ModItems.ENDERITE_CHESTPLATE, 3), false);
+        TestCleanup.before(helper, frame::discard);
+
+        helper.startSequence()
+                .thenExecuteAfter(settle, () -> {
+                    BlockPos head = stand.blockPosition().above();
+                    assertLight(helper, head, 2 * LIGHT_PER_EMISSION_LEVEL, false,
+                            "the block over an armour stand wearing an emission level II helmet");
+                    helper.assertValueEqual(((OwnedLightHolder) stand).simplebuilding$getOwnedLight(), head,
+                            "the light block the armour stand remembers");
+                    assertLight(helper, frame.getPos(), 3 * LIGHT_PER_EMISSION_LEVEL, false,
+                            "the block of an item frame holding an emission level III chestplate");
+                    stand.setItemSlot(EquipmentSlot.HEAD, ItemStack.EMPTY);
+                    frame.setItem(ItemStack.EMPTY, false);
+                })
+                .thenExecuteAfter(settle, () -> {
+                    assertBlockIs(helper, stand.blockPosition().above(), Blocks.AIR,
+                            "the light over an armour stand whose emitting helmet was taken off");
+                    helper.assertTrue(((OwnedLightHolder) stand).simplebuilding$getOwnedLight() == null,
+                            "the armour stand still remembers a light it no longer has");
+                    assertBlockIs(helper, frame.getPos(), Blocks.AIR,
+                            "the light of an item frame whose emitting piece was taken out");
+                    stand.setItemSlot(EquipmentSlot.HEAD, emitting(ModItems.ENDERITE_HELMET, 1));
+                    frame.setItem(emitting(ModItems.ENDERITE_CHESTPLATE, 1), false);
+                })
+                .thenExecuteAfter(settle, () -> {
+                    BlockPos head = stand.blockPosition().above();
+                    assertLight(helper, head, LIGHT_PER_EMISSION_LEVEL, false,
+                            "the armour stand's light after an emission level I helmet went back on");
+                    BlockPos framePos = frame.getPos();
+                    assertLight(helper, framePos, LIGHT_PER_EMISSION_LEVEL, false,
+                            "the item frame's light after an emission level I piece went back in");
+
+                    // A chunk unload is not a destruction: the light and the remembered position stay.
+                    DynamicLightHandler.onEntityRemoved(stand, Entity.RemovalReason.UNLOADED_TO_CHUNK);
+                    assertLight(helper, head, LIGHT_PER_EMISSION_LEVEL, false,
+                            "the armour stand's light after its chunk unloaded - it is saved with the chunk");
+
+                    stand.discard();
+                    assertBlockIs(helper, head, Blocks.AIR,
+                            "the light of an armour stand that was destroyed");
+                    frame.discard();
+                    assertBlockIs(helper, framePos, Blocks.AIR,
+                            "the light of an item frame that was destroyed");
+                })
+                .thenExecute(() -> TestCleanup.run(helper)).thenSucceed();
     }
 
     // =====================================================================================

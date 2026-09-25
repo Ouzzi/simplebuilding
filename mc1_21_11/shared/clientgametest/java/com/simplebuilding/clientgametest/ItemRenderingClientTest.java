@@ -6,6 +6,8 @@ import com.simplebuilding.config.SimplebuildingConfig;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.custom.ChiselItem;
 import com.simplebuilding.util.GlowingTrimUtils;
+import com.simplebuilding.util.TrimBonusCatalog;
+import com.simplebuilding.util.TrimMultiplierLogic;
 import com.simplebuilding.util.SledgehammerProgress;
 import com.simplebuilding.util.SledgehammerUpgrades;
 import java.nio.file.Path;
@@ -203,17 +205,12 @@ import net.minecraft.world.phys.AABB;
  *
  * <h2>Known defect</h2>
  * <ul>
- *   <li><b>The armour tooltip numbers are not the numbers the server uses.</b>
- *       {@code TrimEffectUtil.getGlobalMultiplier} returns the real, progress dependent multiplier
- *       only for a {@code ServerPlayer}; on the client it always returns the fixed 0.2. On top of
- *       that the tooltip carries its own base values, which are not the ones the damage code
- *       applies - it advertises 2.5 % for sentry while {@code TrimEffectUtil} reduces with a base
- *       of 5 %. The displayed percentage therefore has no relation to the effect in play. The test
- *       pins what the client actually prints today and does not endorse it.</li>
- *   <li><b>Those tooltip numbers are formatted with the default locale.</b> {@code ItemMixin} calls
- *       {@code String.format} without a {@code Locale}, so the same item reads "0.3" on an English
- *       client and "0,3" on a German one. The test formats its expectation the same way, so it is
- *       locale independent - it cannot catch this one.</li>
+ *   <li><b>Fixed 2026-09: the armour tooltip numbers were not the numbers the server uses.</b>
+ *       The client used a fixed 0.2 multiplier and carried its own, partly halved base values.
+ *       The tooltip now reads the rates from {@code TrimBonusCatalog} (the constants
+ *       {@code TrimEffectUtil} applies) and the player's real resonance, formatted with
+ *       {@code Locale.ROOT} like vanilla attribute lines. {@link #armourTrimTooltipNumbers} spells
+ *       the server rates out as literals, so the two cannot agree by construction.</li>
  *   <li><b>The pulse never reaches the low end of its own range.</b>
  *       {@code simplebuilding$calculatePulsingLight} interpolates towards {@code maxLight = 20.0}
  *       and then clamps to 15, so roughly a third of every cycle sits flat at full bright, and the
@@ -287,12 +284,9 @@ public final class ItemRenderingClientTest {
      */
     private static final String DARK_ROOM_VOLUME = "4 -1 9 17 7 23";
 
-    /** The client side multiplier {@code TrimEffectUtil.getGlobalMultiplier} falls back to. */
-    private static final float CLIENT_TRIM_FACTOR = 0.2f;
-
-    /** Base percentages {@code ItemMixin} prints before that factor is applied. */
-    private static final float DIAMOND_MATERIAL_BASE_PERCENT = 1.5f;
-    private static final float SENTRY_PATTERN_BASE_PERCENT = 2.5f;
+    /** Per piece rates the server applies (TrimEffectUtil.DIAMOND_PHYSICAL / SENTRY_PROJECTILE), in percent. */
+    private static final float DIAMOND_MATERIAL_BASE_PERCENT = 3.0f;
+    private static final float SENTRY_PATTERN_BASE_PERCENT = 5.0f;
 
     /**
      * Every case {@code EnchantmentModelProperty} can return, paired with the enchantment that
@@ -566,34 +560,33 @@ public final class ItemRenderingClientTest {
     // =====================================================================================
 
     /**
-     * Pins the numbers the armour tooltip prints. Both are the mixin's own base value scaled by the
-     * client side fallback multiplier; see the Known defect note in the class javadoc for what
-     * those numbers are worth.
+     * Pins the numbers the armour tooltip prints: the server's per piece rate times the player's
+     * resonance, as a blue vanilla attribute line ("+x% Name") under a grey header.
      *
-     * <p>The expectations are formatted with the same {@code String.format} call the mixin uses, so
-     * the decimal separator of the run's default locale cancels out on both sides. That is what
-     * makes this test locale independent - and also what stops it from ever noticing the missing
-     * {@code Locale} argument.
+     * <p>The resonance is read from {@code TrimMultiplierLogic} on the client player - the same
+     * call the server makes, fed by the synchronised statistics - and the rates are literals here.
      */
     private static void armourTrimTooltipNumbers(Script script) {
-        String expectedMaterialLine = String.format("Material: Hard Shell (-%.1f%% Dmg)",
-                DIAMOND_MATERIAL_BASE_PERCENT * CLIENT_TRIM_FACTOR);
-        String expectedPatternLine = String.format("Trim Bonus: Projectile Dampening (-%.1f%%)",
-                SENTRY_PATTERN_BASE_PERCENT * CLIENT_TRIM_FACTOR);
-
-        script.act("the armour trim tooltip prints the client side estimate", client -> {
+        script.act("the armour trim tooltip prints the server rates at the player's resonance", client -> {
             if (client.player == null || client.level == null) {
                 throw tooltipFailure("Armour trim tooltip", "no client player or level");
             }
+            float resonance = (float) TrimMultiplierLogic.getMultiplier(client.player);
+            String expectedMaterialLine = "+" + TrimBonusCatalog.format(DIAMOND_MATERIAL_BASE_PERCENT * resonance)
+                    + "% Protection";
+            String expectedPatternLine = "+" + TrimBonusCatalog.format(SENTRY_PATTERN_BASE_PERCENT * resonance)
+                    + "% Projectile Protection";
+            String expectedHeader = "Trim bonus (resonance " + TrimBonusCatalog.format(resonance) + "\u00d7):";
 
             ItemStack trimmed = new ItemStack(Items.DIAMOND_CHESTPLATE);
             trimmed.set(DataComponents.TRIM, trim(client, TrimMaterials.DIAMOND, TrimPatterns.SENTRY));
 
-            requireTooltipLine(client, "Armour trim tooltip", trimmed, expectedMaterialLine, TextColor.fromLegacyFormat(ChatFormatting.AQUA));
+            requireTooltipLine(client, "Armour trim tooltip", trimmed, expectedHeader, TextColor.fromLegacyFormat(net.minecraft.ChatFormatting.GRAY));
+            requireTooltipLine(client, "Armour trim tooltip", trimmed, expectedMaterialLine, TextColor.fromLegacyFormat(ChatFormatting.BLUE));
             requireTooltipLine(client, "Armour trim tooltip", trimmed, expectedPatternLine, TextColor.fromLegacyFormat(ChatFormatting.BLUE));
 
             for (String line : tooltipTexts(client, new ItemStack(Items.DIAMOND_CHESTPLATE))) {
-                if (line.startsWith("Material: ") || line.startsWith("Trim Bonus: ")) {
+                if (line.startsWith("Trim bonus") || line.endsWith("% Protection")) {
                     throw tooltipFailure("Armour trim tooltip",
                             "an untrimmed diamond chestplate already carries the line " + line);
                 }

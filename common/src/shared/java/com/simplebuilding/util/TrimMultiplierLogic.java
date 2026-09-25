@@ -6,7 +6,19 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 
+/**
+ * Die "Resonanz" der Besatz-Boni: waechst mit Erfahrungsstufe, Ueberleben (Weg und Zeit seit dem
+ * letzten Tod) und Kampf (Kills und eingesteckter Schaden seit dem letzten Tod).
+ *
+ * <p>Jeder der drei Faktoren liegt in 0,1..1,0; die Resonanz ist ihr MITTELWERT mal der
+ * konfigurierten Basis (Standard 2,0), also 0,2..2,0. Frueher war es das Produkt - ein frischer
+ * Spieler lag dann bei 0,002 und selbst ein ordentlich gespielter (Stufe 30, eine Stunde am Leben,
+ * 50 Kills) bei rund 0,23, die Boni waren praktisch unsichtbar. Siehe docs/TRIM-BALANCE.md.
+ */
 public class TrimMultiplierLogic {
+
+    /** Ab dieser Stufe ist der Erfahrungsfaktor voll - die hoechste, die Vanilla je verlangt (Zaubertisch). */
+    public static final int XP_LEVEL_FOR_FULL_FACTOR = 30;
 
     public static double getMultiplier(Player player) {
         double xpMult = calculateXPMultiplier(player);
@@ -14,12 +26,17 @@ public class TrimMultiplierLogic {
         double combatMult = calculateCombatMultiplier(player);
         double globalMult = SimplebuildingConfig.trimBenefitBaseMultiplier;
 
-        return globalMult * xpMult * survivalMult * combatMult;
+        return globalMult * (xpMult + survivalMult + combatMult) / 3.0d;
+    }
+
+    /** Der Anteil an der vollen Resonanz (0,1..1,0), ohne die konfigurierte Basis. */
+    public static double getResonanceFraction(Player player) {
+        return (calculateXPMultiplier(player) + calculateSurvivalMultiplier(player) + calculateCombatMultiplier(player)) / 3.0d;
     }
 
     public static double calculateXPMultiplier(Player player) {
         int level = player.experienceLevel;
-        double result = 0.1d + ((double) level / 100.0d) * 0.9d;
+        double result = 0.1d + ((double) level / XP_LEVEL_FOR_FULL_FACTOR) * 0.9d;
         return Mth.clamp(result, 0.1d, 1.0d);
     }
 
