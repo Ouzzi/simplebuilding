@@ -53,10 +53,11 @@ public sealed interface TcOp {
      * Ein Rahmen mit einem Oktanten, dessen Ecken schon gesetzt sind ({@code cornerA}/{@code cornerB}).
      * Die Ecken sind Weltkoordinaten, deshalb entsteht der Stapel erst beim Bau.
      */
-    record OctantFrame(BlockPos pos, Direction facing, BlockPos cornerA, BlockPos cornerB) implements TcOp {
+    /** {@code shape}: Name aus {@code OctantItem.SelectionShape} (Spitze immer nach oben). */
+    record OctantFrame(BlockPos pos, Direction facing, BlockPos cornerA, BlockPos cornerB, String shape) implements TcOp {
         @Override
         public TcOp moved(BlockPos offset) {
-            return new OctantFrame(pos.offset(offset), facing, cornerA.offset(offset), cornerB.offset(offset));
+            return new OctantFrame(pos.offset(offset), facing, cornerA.offset(offset), cornerB.offset(offset), shape);
         }
 
         @Override

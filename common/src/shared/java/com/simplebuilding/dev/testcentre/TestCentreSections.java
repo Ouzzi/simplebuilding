@@ -731,13 +731,15 @@ public final class TestCentreSections {
         }
         c.backWall(0, x, wallZ, 7);
 
-        // Kolben: jede Stufe mit Hebel obenauf, Bahn nach Sueden.
-        int pz = wallZ + 3;
-        int px = 1;
-        c.sign(0, 1, pz - 1, Direction.NORTH, TcText.bold(TcText.t("machines.pistons", "Pistons")),
+        // Kolben: jede Stufe mit Hebel obenauf, Bahn nach Sueden. Die Reihe steht NEBEN den Maschinen
+        // an der Gangkante - hinter der Rueckwand (frueher wallZ + 3) sah sie vom Gang aus niemand.
+        int pz = 1;
+        int px0 = x + 2;
+        int px = px0 + 1;
+        c.sign(px0, 1, pz - 1, Direction.NORTH, TcText.bold(TcText.t("machines.pistons", "Pistons")),
                 TcText.t("machines.pistons.sub", "flip the lever"), TcText.t("machines.pistons.sub2", "13 blocks: vanilla fails"));
-        c.place(0, 1, pz, TcCanvas.TRIM);
-        c.place(0, 0, pz, TcCanvas.TRIM);
+        c.place(px0, 1, pz, TcCanvas.TRIM);
+        c.place(px0, 0, pz, TcCanvas.TRIM);
         for (Item item : ctx.rowItems("pistons")) {
             if (!(item instanceof BlockItem blockItem)) {
                 continue;
@@ -873,7 +875,22 @@ public final class TestCentreSections {
             post(c, px, pz, stack, TcText.bold(TcText.t("planning.mode." + mode.key(), mode.fallback())),
                     TcText.t("planning.mode." + mode.key() + ".sub", "try the wand here"));
             c.fill(px + 1, -1, pz + 2, px + 5, -1, pz + 6, vanilla("white_concrete").defaultBlockState());
-            c.place(px + 3, 0, pz + 4, Blocks.STONE_BRICKS);
+            if (mode.key().equals("bridge")) {
+                // Ein Graben vor der Kante: die Bruecke baut auf Hoehe des Bodens unter den Fuessen -
+                // auf durchgehend flachem Boden gaebe es nichts zu ueberbruecken.
+                c.fill(px + 1, -1, pz + 3, px + 5, -1, pz + 6, Blocks.AIR.defaultBlockState());
+            } else if (!mode.key().equals("roof")) {
+                c.place(px + 3, 0, pz + 4, Blocks.STONE_BRICKS);
+            }
+            if (mode.key().equals("roof")) {
+                // Prisma mit Spitze oben (3 breit, 2 hoch, 5 lang) und Treppen/Stufen in der Truhe:
+                // Oktant in die Nebenhand, Treppen als ersten Baublock in die Hotbar, auf den Boden klicken.
+                c.octantFrame(px, 2, pz + 2, Direction.UP, new BlockPos(px + 2, 0, pz + 2), new BlockPos(px + 4, 1, pz + 6), "TRIANGLE");
+                c.place(px, 1, pz + 2, TcCanvas.TRIM);
+                c.place(px, 0, pz + 2, TcCanvas.TRIM);
+                c.place(px, 0, pz + 3, facing(Blocks.CHEST.defaultBlockState(), Direction.EAST));
+                c.contents(px, 0, pz + 3, List.of(new ItemStack(Items.OAK_STAIRS, 64), new ItemStack(Items.OAK_SLAB, 64)));
+            }
             if (mode.key().equals("octant")) {
                 // Auswahl schon gesetzt: ein 3x3x3-Wuerfel ueber der Flaeche.
                 c.octantFrame(px, 2, pz + 2, Direction.UP, new BlockPos(px + 2, 0, pz + 3), new BlockPos(px + 4, 2, pz + 5));
@@ -986,7 +1003,13 @@ public final class TestCentreSections {
         for (Control control : controls) {
             c.place(x, 0, z, TcCanvas.TRIM);
             c.command(x, 1, z, Direction.NORTH, control.command(), control.label(), control.sub());
-            x++;
+            // Ein Knopf versorgt den Block, an dem er haengt, STARK - und ein stark versorgter
+            // Befehlsblock (ein Leiter) versorgt seine Nachbarn mit. Dicht an dicht loeste darum jeder
+            // Knopf auch den Nachbarbefehl aus. Zwischen zwei Befehlsbloecken steht deshalb Glas
+            // (leitet nicht).
+            c.place(x + 1, 0, z, TcCanvas.TRIM);
+            c.place(x + 1, 1, z, Blocks.GLASS.defaultBlockState());
+            x += 2;
         }
         return c;
     }

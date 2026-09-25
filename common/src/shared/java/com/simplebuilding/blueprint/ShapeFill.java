@@ -103,6 +103,11 @@ public final class ShapeFill {
             player.sendOverlayMessage(plan.problem());
             return InteractionResult.FAIL;
         }
+        // Vor dem Bau: Warnungen des Bauauftrags (fehlendes Material) ueberschreiben diesen Hinweis.
+        Component hint = roofHint(player, wand, octant);
+        if (hint != null) {
+            player.sendOverlayMessage(hint);
+        }
         BlueprintBuilder.Result result = BlueprintBuilder.buildLayout(level, player, wand, octant, plan.layout());
         if (result == null) {
             player.sendOverlayMessage(Component.translatable("simplebuilding.wand.shape.nothing").withStyle(ChatFormatting.GRAY));
@@ -153,10 +158,11 @@ public final class ShapeFill {
         OctantItem.SelectionShape shape = OctantShape.shape(nbt);
         Direction orientation = OctantShape.orientation(nbt);
         Predicate<BlockPos> inside = OctantShape.predicate(shape, orientation, bounds);
-        Block stairBlock = !palette && materials.get(0).getItem() instanceof BlockItem bi && bi.getBlock() instanceof StairBlock
-                ? bi.getBlock() : null;
-        boolean roof = stairBlock != null && orientation == Direction.UP
-                && (shape == OctantItem.SelectionShape.TRIANGLE || shape == OctantItem.SelectionShape.PYRAMID);
+        // Dach: die Treppe ist der erste Baublock in Suchreihenfolge (Nebenhand, Hotbar, ...) - auch mit
+        // Farbpalette. Frueher schaltete die Palette das Dach ab; der Enderit-Stab aus dem Kit traegt sie,
+        // und statt eines Dachs kam eine bunt gefuellte Figur (Besitzer-Befund 2026-09-25).
+        Block stairBlock = roofStair(player, wand, shape, orientation);
+        boolean roof = stairBlock != null;
         boolean hollow = nbt.getBooleanOr("Hollow", false);
         // Prisma: Gefaelle quer zur laengeren Grundkante (wie OctantShape#isPointInPrism).
         boolean prismAlongZ = sz > sx;
@@ -257,6 +263,46 @@ public final class ShapeFill {
             outStates.add(state);
         }
         return new Plan(new BlueprintBuilder.ListLayout(outPos.toLongArray(), outStates.toArray(new BlockState[0])), null, roof);
+    }
+
+    /** Figur mit Spitze nach oben, die ein Dach werden kann (Prisma oder Pyramide)? */
+    static boolean isRoofShape(OctantItem.SelectionShape shape, Direction orientation) {
+        return orientation == Direction.UP
+                && (shape == OctantItem.SelectionShape.TRIANGLE || shape == OctantItem.SelectionShape.PYRAMID);
+    }
+
+    /** Die Treppe fuer den Dachmodus, oder {@code null} (keine Dachfigur, oder der erste Baublock ist keine Treppe). */
+    static Block roofStair(Player player, ItemStack wand, OctantItem.SelectionShape shape, Direction orientation) {
+        if (!isRoofShape(shape, orientation)) {
+            return null;
+        }
+        ItemStack first = BuildingWandItem.firstBuildingStack(player, wand);
+        return first != null && first.getItem() instanceof BlockItem bi && bi.getBlock() instanceof StairBlock ? bi.getBlock() : null;
+    }
+
+    /**
+     * Aktionsleisten-Hinweis zum Dachmodus: bei einer Dachfigur entweder, dass ein Dach entsteht (Treppe
+     * und First), oder warum nicht (der erste Baublock ist keine Treppe). Bei anderen Figuren {@code null}.
+     */
+    public static Component roofHint(Player player, ItemStack wand, ItemStack octant) {
+        if (!hasSelection(octant)) {
+            return null;
+        }
+        CompoundTag nbt = OctantShape.data(octant);
+        OctantItem.SelectionShape shape = OctantShape.shape(nbt);
+        Direction orientation = OctantShape.orientation(nbt);
+        if (!isRoofShape(shape, orientation)) {
+            return null;
+        }
+        Block stair = roofStair(player, wand, shape, orientation);
+        if (stair == null) {
+            ItemStack first = BuildingWandItem.firstBuildingStack(player, wand);
+            Component found = first == null ? Component.literal("-") : first.getHoverName();
+            return Component.translatable("simplebuilding.wand.roof.needs_stairs", found).withStyle(ChatFormatting.YELLOW);
+        }
+        Block slab = slabFor(stair);
+        return Component.translatable("simplebuilding.wand.roof.active", stair.getName(),
+                (slab != null ? slab : stair).getName()).withStyle(ChatFormatting.AQUA);
     }
 
     private static int layerOf(BlockPos c, Direction dir, int minX, int minY, int minZ, int sx, int sy, int sz) {

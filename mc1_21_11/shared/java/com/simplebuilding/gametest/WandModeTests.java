@@ -1,6 +1,10 @@
 package com.simplebuilding.gametest;
 
 import com.simplebuilding.blueprint.BlueprintBuilder;
+import com.simplebuilding.blueprint.ShapeFill;
+import com.simplebuilding.dev.testcentre.TcContext;
+import net.minecraft.network.protocol.game.ServerboundPlayerLoadedPacket;
+import net.minecraft.network.protocol.game.ServerboundUseItemPacket;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.BuildingWandItem;
@@ -439,6 +443,112 @@ public final class WandModeTests {
         Assertions.valueEqual(helper, countIn(player, Items.OAK_STAIRS), 64 - 10, "the roof did not use ten stairs");
         Assertions.valueEqual(helper, countIn(player, Items.OAK_SLAB), 64 - 5, "the ridge did not use five slabs");
         TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Bridge through the real use path, the way the owner met it: the player stands on a floor that
+     * still runs on for two blocks, looks east into the air and right-clicks. The client sends a
+     * {@code ServerboundUseItemPacket}; the server hands it to {@code ServerPlayerGameMode#useItem} and
+     * so to {@code BuildingWandItem#use}. The bridge starts at the edge of the floor ahead and spans the
+     * gap up to the obstacle.
+     *
+     * <p>Before 2026-09-25 the bridge only counted the cells right in front of the block underfoot:
+     * floor there meant length 0, and the click did nothing and said nothing - on the everywhere-flat
+     * test centre the Bridge wand looked broken.
+     *
+     * <p><strong>What breaks this test:</strong> a bridge that stops at the floor ahead instead of
+     * starting at its edge, a use path that never reaches {@code use} (the packet handler, a cooldown,
+     * a client-only gate), or a bridge running past the obstacle.
+     */
+    public static void bridgeFromTheUsePacketStartsAtTheEdgeOfTheFloorAhead(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        player.connection.handleAcceptPlayerLoad(new ServerboundPlayerLoadedPacket());
+        clearRoom(helper);
+        for (int x = 0; x <= 2; x++) {
+            helper.setBlock(new BlockPos(x, 1, 3), Blocks.STONE); // the floor: underfoot at x = 0, two more ahead
+        }
+        helper.setBlock(new BlockPos(7, 1, 3), Blocks.STONE); // far bank: the gap is x = 3..6
+        Vec3 feet = helper.absoluteVec(new Vec3(0.5, 2.0, 3.5));
+        player.snapTo(feet.x, feet.y, feet.z, 0.0F, 0.0F);
+
+        ItemStack wand = wand(helper, ModItems.ENDERITE_BUILDING_WAND, 1, ModEnchantments.BRIDGE);
+        stock(player, wand, new ItemStack(Items.GLASS, 64));
+        // yaw 270 = facing east, as the client puts it into the packet
+        player.connection.handleUseItem(new ServerboundUseItemPacket(InteractionHand.MAIN_HAND, 1, 270.0F, 0.0F));
+        runUntilIdle(helper, player, wand);
+
+        Set<BlockPos> expected = new HashSet<>();
+        for (int x = 3; x <= 6; x++) {
+            expected.add(new BlockPos(x, 1, 3));
+        }
+        Set<BlockPos> placed = placedGlass(helper);
+        helper.assertTrue(placed.equals(expected), "the use packet did not bridge the gap x=3..6 beyond the floor ahead: " + placed);
+
+        // --- a floor without a gap in reach: refused, nothing built ---
+        clearRoom(helper);
+        for (int x = 0; x <= 7; x++) {
+            helper.setBlock(new BlockPos(x, 1, 3), Blocks.STONE);
+        }
+        stock(player, wand, new ItemStack(Items.GLASS, 64));
+        helper.assertTrue(wand.getItem().use(helper.getLevel(), player, InteractionHand.MAIN_HAND) == InteractionResult.FAIL,
+                "Bridge accepted a click on a floor that has no gap within reach");
+        helper.assertTrue(placedGlass(helper).isEmpty(), "Bridge built on a floor without a gap");
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Roof mode with the enderite wand exactly as the test centre kit hands it out (every enchantment
+     * the wand can carry at once - Color Palette and Master Builder among them), stairs and slabs in
+     * the hotbar because the off hand holds the octant. The roof is the same as with a bare wand, and
+     * the action bar says so; with a non-stair block first it says why there is no roof.
+     *
+     * <p>Before 2026-09-25 Color Palette switched the roof off: the kit wand filled the prism with a
+     * random mix of everything in the hotbar (owner report).
+     *
+     * <p><strong>What breaks this test:</strong> any enchantment on the wand that disables the roof, the
+     * roof stair taken from anywhere but the first building block, or a missing or wrong hint.
+     */
+    public static void roofModeWorksWithTheTestCentreKitEnderiteWand(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        clearRoom(helper);
+        BlockPos anchor = new BlockPos(6, 1, 6);
+        helper.setBlock(anchor, Blocks.STONE);
+        ItemStack wand = new TcContext(helper.getLevel().registryAccess()).maxEnchanted(new ItemStack(ModItems.ENDERITE_BUILDING_WAND));
+        helper.assertTrue(wand.isEnchanted(), "the kit enderite wand carries no enchantments - the case would test a bare wand");
+        ItemStack prism = octant(helper, new BlockPos(2, 1, 1), new BlockPos(4, 2, 5), "TRIANGLE", false, false);
+
+        // --- stone first: no roof, and the hint says why ---
+        stock(player, wand, new ItemStack(Items.STONE, 64), new ItemStack(Items.OAK_STAIRS, 64), new ItemStack(Items.OAK_SLAB, 64));
+        player.setItemInHand(InteractionHand.OFF_HAND, prism);
+        String refused = hintKey(ShapeFill.roofHint(player, wand, prism));
+        helper.assertTrue("simplebuilding.wand.roof.needs_stairs".equals(refused), "with stone first the roof hint is " + refused);
+
+        // --- stairs first: a roof ---
+        stock(player, wand, new ItemStack(Items.OAK_STAIRS, 64), new ItemStack(Items.OAK_SLAB, 64), new ItemStack(Items.STONE, 64));
+        player.setItemInHand(InteractionHand.OFF_HAND, prism);
+        String active = hintKey(ShapeFill.roofHint(player, wand, prism));
+        helper.assertTrue("simplebuilding.wand.roof.active".equals(active), "with stairs first the roof hint is " + active);
+        click(helper, player, wand, anchor, Direction.UP, new Vec3(0.5, 1.0, 0.5));
+        BlueprintBuilder.completeJob(player);
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+
+        for (int z = 1; z <= 5; z++) {
+            BlockState west = helper.getBlockState(new BlockPos(2, 1, z));
+            BlockState east = helper.getBlockState(new BlockPos(4, 1, z));
+            BlockState ridge = helper.getBlockState(new BlockPos(3, 2, z));
+            helper.assertTrue(west.is(Blocks.OAK_STAIRS) && west.getValue(StairBlock.FACING) == Direction.EAST,
+                    "kit wand " + wand.getEnchantments() + ": the west slope at z=" + z + " is not a stair rising east: " + west);
+            helper.assertTrue(east.is(Blocks.OAK_STAIRS) && east.getValue(StairBlock.FACING) == Direction.WEST,
+                    "kit wand: the east slope at z=" + z + " is not a stair rising west: " + east);
+            helper.assertTrue(ridge.is(Blocks.OAK_SLAB) && ridge.getValue(BlockStateProperties.SLAB_TYPE) == SlabType.BOTTOM,
+                    "kit wand: the ridge at z=" + z + " is not a bottom oak slab: " + ridge);
+            helper.assertTrue(helper.getBlockState(new BlockPos(3, 1, z)).isAir(), "kit wand: the roof was filled underneath at z=" + z);
+        }
+        TestCleanup.succeed(helper);
+    }
+
+    private static String hintKey(net.minecraft.network.chat.Component hint) {
+        return hint != null && hint.getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents t ? t.getKey() : String.valueOf(hint);
     }
 
     // =====================================================================================

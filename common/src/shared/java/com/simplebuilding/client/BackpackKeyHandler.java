@@ -26,6 +26,20 @@ public final class BackpackKeyHandler {
     private BackpackKeyHandler() {
     }
 
+    /**
+     * Schliesst die Rucksack-Taste diesen Bildschirm? Ja fuer die Bildschirme, die sie oeffnet: Rucksack,
+     * Vanilla-Inventar und das Kreativ-Inventar, an das Vanilla im Kreativmodus weiterreicht. Andere
+     * Behaelter (Truhe, Ofen) bleiben offen - B ist dort keine Inventartaste.
+     */
+    public static boolean closesOnBackpackKey(net.minecraft.client.gui.screens.Screen screen, net.minecraft.client.input.KeyEvent event) {
+        if (ClientState.backpackKey == null || !ClientState.backpackKey.matches(event)) {
+            return false;
+        }
+        return screen instanceof InventoryScreen
+                || screen instanceof net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen
+                || screen instanceof com.simplebuilding.client.gui.BackpackScreen;
+    }
+
     public static void tick(Minecraft client) {
         while (ClientState.backpackKey != null && ClientState.backpackKey.consumeClick()) {
             LocalPlayer player = client.player;

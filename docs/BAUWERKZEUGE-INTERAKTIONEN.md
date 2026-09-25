@@ -238,7 +238,21 @@ Nachfüllen aus dem Rucksack. Auf Bündeln und Shulkerkisten bewirkt sie derzeit
 
 Stab in die Haupthand, Oktant mit beiden Ecken in die Nebenhand: Die Vorschau zeigt die gefüllte
 Figur, ein Klick baut sie (Hohl, Ebenenmodus und Reihenfolge des Oktanten gelten). Mit Treppen als
-Material wird aus Prisma oder Pyramide ein Dach.
+Material wird aus Prisma oder Pyramide ein Dach: Figur mit Spitze nach oben (Ausrichtung +Y), und
+der **erste Baublock** in Suchreihenfolge (Nebenhand, Hotbar, mit Meisterbauer Inventar) ist eine
+Treppe. Weil die Nebenhand den Oktanten hält, heißt das praktisch: Treppen in den vordersten
+Hotbar-Platz mit Blöcken. Die Farbpalette schaltet das Dach nicht ab (seit 2026-09-25; vorher füllte
+der Enderit-Stab aus dem Testzentrale-Kit die Figur bunt statt ein Dach zu decken). Die
+Aktionsleiste sagt beim Klick, ob ein Dach entsteht („Dach: Eichentreppe an den Hängen, Eichenstufe
+am First") oder warum nicht (erster Baublock ist keine Treppe).
+
+### Stab und Brücke
+
+Rechtsklick in die Luft mit der Verzauberung Brücke baut auf Höhe des Blocks unter den Füßen
+geradeaus in Blickrichtung. Steht vor den Füßen noch Boden, beginnt die Brücke an dessen Kante
+(bis zur Stablänge weit gesucht), und sie endet vor dem nächsten festen Block. Auf durchgehend
+flachem Boden gibt es nichts zu überbrücken; die Aktionsleiste sagt dann „keine Lücke voraus"
+(seit 2026-09-25; vorher blieb der Klick stumm, und die Brücke wirkte kaputt).
 
 ### Was (noch) nicht zusammenspielt
 
@@ -507,3 +521,18 @@ Dazu gehört:
 **Kleinster sinnvoller Einstieg:** (1) Stab-Schmiederezepte auf Kerne umstellen (S). (2) V1 + V6
 als Grundlage (M). (3) M2-Steckplatz mit Kupfer (Anbauen) und Diamant (Figuren) als ersten zwei
 Modulen. Alles Weitere lässt sich danach einzeln entscheiden.
+
+---
+
+## Teil 5 – Notizen für später (nicht umgesetzt)
+
+### Enderit-Kolben: Tunnelbohren zu leicht
+
+Besitzer-Befund 2026-09-25: Der Enderit-Kolben bricht bis zu drei Blöcke vor sich durch
+(Durchbruch mit Redstoneblock als Brennstoff). Mit einer Hebelschaltung bohrt er damit Tunnel fast
+ohne Aufwand - das nimmt Spitzhacke, Vorschlaghammer und Strip Miner die Aufgabe weg.
+
+Balance-Idee, **noch nicht entschieden**: ein Verschleiß- bzw. Schadenszustand am Kolben (z. B.
+Abnutzungsstufen im Blockzustand, je Durchbruch eine Stufe, bei der letzten wird er zum
+gewöhnlichen Netherit-Kolben oder muss mit Enderit repariert werden), alternativ ein höherer
+Brennstoffpreis je Durchbruch oder eine Abklingzeit. Vor der Umsetzung mit dem Besitzer klären.
