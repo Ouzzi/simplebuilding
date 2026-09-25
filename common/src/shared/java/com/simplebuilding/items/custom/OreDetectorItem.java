@@ -17,6 +17,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -528,12 +529,38 @@ public class OreDetectorItem extends Item {
         if (nbt.contains("CustomBlock")) {
             var blockRegistry = registryLookup.lookupOrThrow(Registries.BLOCK);
             try {
-                return NbtUtils.readBlockState(blockRegistry, nbt.getCompoundOrEmpty("CustomBlock"));
+                BlockState state = NbtUtils.readBlockState(blockRegistry,
+                        withBothBlockStateKeys(nbt.getCompoundOrEmpty("CustomBlock")));
+                // readBlockState falls back to air when the block key is missing or unknown.
+                return state.isAir() ? null : state;
             } catch (Exception e) {
                 return null;
             }
         }
         return null;
+    }
+
+    /**
+     * NbtUtils names the block under "Name"/"Properties" on MC 26.2 and under "id"/"properties" on
+     * 26.3, and reads only its own spelling. Custom data is never touched by the DataFixers, so a
+     * detector calibrated in a 26.2 world still carries the old keys on 26.3 (and vice versa) -
+     * hand readBlockState a copy that has both.
+     */
+    private static CompoundTag withBothBlockStateKeys(CompoundTag stored) {
+        CompoundTag tag = stored.copy();
+        alias(tag, "Name", "id");
+        alias(tag, "Properties", "properties");
+        return tag;
+    }
+
+    private static void alias(CompoundTag tag, String a, String b) {
+        Tag valueA = tag.get(a);
+        Tag valueB = tag.get(b);
+        if (valueA != null && valueB == null) {
+            tag.put(b, valueA.copy());
+        } else if (valueB != null && valueA == null) {
+            tag.put(a, valueB.copy());
+        }
     }
 
     private static CompoundTag getCustomData(ItemStack stack) {
