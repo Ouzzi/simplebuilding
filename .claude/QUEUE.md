@@ -24,7 +24,8 @@ Verlauf im Detail: git log.
 - [x] Test-Infrastruktur: Server-Ziele parallel, Paket-Barriere in allen Client-Treibern, Port-Werkzeug-Regeln
 
 ## Laeuft
-- [ ] Welle 9: MC 26.3 als dritte Linie (gemeinsamer Code + Overlays, Fabric + NeoForge)
+- [ ] Welle 9: MC 26.3 als dritte Linie - fertig auf eigenem Branch (Server 2629/2629, Clients 116/117 je Loader: Glimmer-Test-Timing), integriert jetzt master (Besatzmuster, Buecher, Hunger ...)
+- [ ] 26.3-Reste: Wiki-Umschalter 26.3, Erzdetektor-Kalibrierung aus 26.2-Welten (id statt Name), dunklere Trim-Variante, Jade/AppleSkin/Mouse Tweaks fuer 26.3, NeoForge-Upload als Beta
 
 ## Welle 10 (erledigt, auf master, noch nicht gepusht)
 - [x] Ausstehende Gegenproben: Hammer-Risse (Client), Anstossen schwebender Bloecke am Sand, Vorwaerts-Umformen Bretter/Ziegel
