@@ -5,7 +5,7 @@
     "N": "minecraft:copper_nugget",
     "P": "simplebuilding:leather_sheet",
     "S": "minecraft:string",
-    "W": "#minecraft:wooden_pressure_plates"
+    "W": "minecraft:heavy_weighted_pressure_plate"
   },
   "pattern": [
     "NSN",

@@ -268,9 +268,9 @@ public final class BackpackTests {
      * Crafting and smithing a backpack up keeps everything it carries.
      *
      * <ul>
-     *   <li><b>Basic recipe:</b> {@code NSN / PPP / WWW} (copper nuggets, string, leather sheets, any
-     *       wooden pressure plates, mixed woods allowed) crafts one empty backpack; the former iron
-     *       bars no longer do.</li>
+     *   <li><b>Basic recipe:</b> {@code NSN / PPP / WWW} (copper nuggets, string, leather sheets, three
+     *       heavy weighted pressure plates) crafts one empty backpack; wooden pressure plates (the
+     *       previous bottom row) and the former iron bars no longer do.</li>
      *   <li><b>Reinforced recipe</b> ({@code simplebuilding:backpack_upgrade}, {@code " S " / DBD / LLL}):
      *       contents, name and enchantments of the backpack in the middle arrive on the reinforced one.
      *       The same items with the backpack in a corner craft nothing.</li>
@@ -290,11 +290,13 @@ public final class BackpackTests {
         ItemStack n = new ItemStack(Items.COPPER_NUGGET);
         ItemStack s = new ItemStack(Items.STRING);
         ItemStack p = new ItemStack(ModItems.LEATHER_SHEET);
+        ItemStack heavy = new ItemStack(Items.HEAVY_WEIGHTED_PRESSURE_PLATE);
+        ItemStack basic = craft(helper, level, CraftingInput.of(3, 3, List.of(n, s, n, p, p, p, heavy, heavy, heavy)),
+                "copper nuggets, string, leather sheets and heavy weighted pressure plates", "simplebuilding:backpack");
         ItemStack oak = new ItemStack(Items.OAK_PRESSURE_PLATE);
-        ItemStack cherry = new ItemStack(Items.CHERRY_PRESSURE_PLATE);
-        ItemStack crimson = new ItemStack(Items.CRIMSON_PRESSURE_PLATE);
-        ItemStack basic = craft(helper, level, CraftingInput.of(3, 3, List.of(n, s, n, p, p, p, oak, cherry, crimson)),
-                "copper nuggets, string, leather sheets and mixed wooden pressure plates", "simplebuilding:backpack");
+        helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING,
+                        CraftingInput.of(3, 3, List.of(n, s, n, p, p, p, oak, oak, oak)), level).isEmpty(),
+                "the backpack pattern with wooden pressure plates still crafts something");
         ItemStack bars = new ItemStack(Items.IRON_BARS);
         helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING,
                         CraftingInput.of(3, 3, List.of(n, s, n, p, p, p, bars, bars, bars)), level).isEmpty(),

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Erzeugt die handgezeichneten 16x16-Texturen fuer Rucksack, Lederbogen, verstaerkten
 Koecher, verstaerkten klebrigen Kolben, Enderit-Kolben, Spachtel, die Enderit-Maschinen, die
-Nihilith-/Astralit-Quarz-Schachbretter, das Enderquarz-Item und die Blaupause; dazu aus Code (nicht aus
+Nihilith-/Astralit-Quarz-Schachbretter, Enderquarz (Staub), Enderitbarren, Enderitschrott und die
+Blaupause; dazu aus Code (nicht aus
 Pixelkarten) die drei End-Paletten Astralit, Nihilith und Enderquarz (Grundblock, Ziegel, polierter
 Block, Saeule, gemeisselte Ziegel), die Rueckentextur des getragenen Rucksacks (entity/backpack/*, aus
 den Blockflaechen), die Fenster des Rucksack-Bildschirms (gui/container/backpack/*) und die
@@ -1462,29 +1463,83 @@ def ring(x, y):
     return min(x, y, 15 - x, 15 - y)
 
 
-# Enderquarz (Item): zwei Kristalle wie ein Quarzbrocken, violett, mit einem rosa (Astralit) und
-# einem tuerkisen (Nihilith) Lichtpunkt.
+# Enderquarz (Item): ein Haeufchen sehr dunkel-violetter Staub wie Glowstone-Staub oder Redstone,
+# aber tiefer und exotischer: 1 Umriss, R Randton, 1..6 Koerner dunkel -> hell, s seltene helle
+# Funken (auch zwei lose Koernchen neben dem Haufen), S ein weisser Glanzpunkt, a/b je ein rosa
+# (Astralit) und tuerkiser (Nihilith) Lichtpunkt wie beim frueheren Kristall.
 ENDER_QUARTZ_ITEM = [
     "................",
-    "..........1.....",
-    ".........154....",
-    "...1....15641...",
-    "..163..1566421..",
-    "..1653.1565321..",
-    "..16543156432...",
-    "...1543545321...",
-    "...15443443a1...",
-    "..1b54334321....",
-    "..155433432101..",
-    "...1443332110...",
-    "....13321100....",
-    ".....1100.......",
-    "......00........",
+    "................",
+    "................",
+    ".........s......",
+    "......RR....5...",
+    ".....R64O.......",
+    "....R4S53O......",
+    "...R465432O..5..",
+    "..R43254632O....",
+    ".R6325435s32O...",
+    ".R3254a24s321O..",
+    "R3243525432b21O.",
+    "R2132432342312O.",
+    ".O21212321211O..",
+    "..OOO111111OOO..",
     "................",
 ]
 ENDER_QUARTZ_ITEM_PAL = {
-    "0": "#2f1d42", "1": "#4a2d68", "2": "#6a4290", "3": "#8a5db4", "4": "#a97fd0",
-    "5": "#c9a8e6", "6": "#f1e6fb", "a": "#f4a6dc", "b": "#8fd3d0",
+    "O": "#12071c", "R": "#2e1442", "1": "#1f0c2e", "2": "#2d1342", "3": "#3f1d5c", "4": "#552a7a",
+    "5": "#733b9f", "6": "#8f4fc6", "s": "#c68cff", "S": "#fbefff", "a": "#f4a6dc", "b": "#8fd3d0",
+}
+
+# Enderitbarren: klassische Barrenform (Deckflaeche, lange Vorderflaeche, kurze Stirnseite links),
+# Enderit-Violett. O Umriss unten/rechts, R Randton oben/links, 1..2 Vorderflaeche, 3 Stirnseite,
+# 4..6 Deckflaeche, h Lichtkante zwischen Deck- und Vorderflaeche, 7 Glanzpunkt.
+ENDERITE_INGOT = [
+    "................",
+    "................",
+    "..........RRO...",
+    "........RR7665O.",
+    ".....RRR6655554O",
+    "..RRR6655555544O",
+    "RR66555555544hhO",
+    "R3655555554hh21O",
+    "R33655544hh2221O",
+    "R3326547h222211O",
+    ".O3226h2221111O.",
+    "..O32221111OO...",
+    "...O2111OO......",
+    "....OOO.........",
+    "................",
+    "................",
+]
+ENDERITE_INGOT_PAL = {
+    "O": "#1c0a33", "R": "#472480", "1": "#3e2173", "2": "#55309a", "3": "#6d45b8", "4": "#7b51c9",
+    "5": "#8e63dc", "6": "#a57de9", "h": "#cfb2fb", "7": "#f1e8ff",
+}
+
+# Enderitschrott: kantiger Brocken aus grauviolettem Gestein, oben eine helle Bruchflaeche,
+# durchzogen von leuchtenden Enderit-Adern (v, w Glanz) - dunkler und matter als der Barren.
+# O Umriss, R Randton, 0..6 Gestein dunkel -> hell.
+ENDERITE_SCRAP = [
+    "................",
+    "................",
+    ".......RRRO.....",
+    ".....RR6665O....",
+    "...RR665v5543O..",
+    "..R6655vw554322O",
+    ".R6555v5554432O.",
+    "R444v44v3312211O",
+    "R33v43v3w312210O",
+    ".R3vw3333v32210O",
+    "..R2v23322v2110O",
+    "...R22v222110O..",
+    "...O111221100O..",
+    "....OO11100OO...",
+    "......OOOO......",
+    "................",
+]
+ENDERITE_SCRAP_PAL = {
+    "O": "#190b25", "R": "#3f2757", "0": "#231330", "1": "#2e1c40", "2": "#3e2a55", "3": "#52396d",
+    "4": "#684c88", "5": "#8064a2", "6": "#a48cc0", "v": "#9160dd", "w": "#d6b4ff",
 }
 
 
@@ -1498,6 +1553,8 @@ def end_palette_textures():
         tex[f"block/{mat}_pillar_top.png"] = end_palette_pillar_top(mat)
         tex[f"block/chiseled_{mat}_bricks.png"] = end_palette_chiseled(mat)
     tex["item/ender_quartz.png"] = render("ender_quartz", ENDER_QUARTZ_ITEM, ENDER_QUARTZ_ITEM_PAL, False)
+    tex["item/enderite_ingot.png"] = render("enderite_ingot", ENDERITE_INGOT, ENDERITE_INGOT_PAL, False)
+    tex["item/enderite_scrap.png"] = render("enderite_scrap", ENDERITE_SCRAP, ENDERITE_SCRAP_PAL, False)
     return tex
 
 
@@ -2269,7 +2326,8 @@ def build_preview(tex):
                  f"block/{mat}_pillar.png", f"block/{mat}_pillar_top.png", f"block/chiseled_{mat}_bricks.png"]
         groups.append((f"{mat}-Palette", [(k, tex[k]) for k in names],
                        [checker_wall(tex[names[1]]), checker_wall(tex[names[2]])]))
-    groups.append(("Enderquarz", [("item/ender_quartz.png", tex["item/ender_quartz.png"])], []))
+    groups.append(("Enderquarz und Enderit", [(k, tex[k]) for k in (
+        "item/ender_quartz.png", "item/enderite_ingot.png", "item/enderite_scrap.png")], []))
     width = max(pad + len(items) * (cell + pad) + sum(iso.width + pad for iso in isos) + pad
                 for _, items, isos in groups)
     height = pad + len(groups) * (16 + cell + label_h + pad + 4)
