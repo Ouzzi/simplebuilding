@@ -29,6 +29,10 @@ public final class SimpleBuildingGameTests {
     private static final List<GameTestSpec> ALL = List.of(
             GameTestSpec.named("smoke_game_test_mod_items_are_registered", SmokeTests::modItemsAreRegistered)
                     .build(),
+            GameTestSpec.named("test_centre_game_test_every_mod_item_and_block_has_its_place_in_the_test_centre", TestCentreTests::everyModItemAndBlockHasItsPlaceInTheTestCentre)
+                    .build(),
+            GameTestSpec.named("test_centre_game_test_the_whole_centre_builds_and_matches_its_plan", TestCentreTests::theWholeCentreBuildsAndMatchesItsPlan)
+                    .build(),
             GameTestSpec.named("trade_registry_game_test_all_mod_trades_resolve_against_the_server_registries",
                             TradeRegistryTests::allModTradesResolveAgainstTheServerRegistries)
                     .build(),

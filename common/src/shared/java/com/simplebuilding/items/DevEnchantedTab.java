@@ -123,7 +123,7 @@ public final class DevEnchantedTab {
     }
 
     /** Alle Verzauberungen ausser Fluechen, in Registerreihenfolge. */
-    private static List<Holder<Enchantment>> enchantments(HolderLookup.Provider lookup) {
+    public static List<Holder<Enchantment>> enchantments(HolderLookup.Provider lookup) {
         List<Holder<Enchantment>> out = new ArrayList<>();
         lookup.lookupOrThrow(Registries.ENCHANTMENT).listElements()
                 .filter(holder -> !holder.is(EnchantmentTags.CURSE))
