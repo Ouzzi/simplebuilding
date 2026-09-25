@@ -938,7 +938,7 @@ public final class BuildingWandTests {
         JsonObject endCity = lootEntry(helper, registries, BuiltInLootTables.END_CITY_TREASURE, diamondId);
         helper.assertTrue(endCity != null,
                 "the diamond building wand is no longer in the end city treasure loot");
-        helper.assertTrue(endCity.has("functions"),
+        helper.assertTrue(!LootJsonShape.functions(endCity).isEmpty(),
                 "the end city wand lost its loot functions; it is the entry that is handed out "
                         + "randomly enchanted, entry is " + endCity);
 

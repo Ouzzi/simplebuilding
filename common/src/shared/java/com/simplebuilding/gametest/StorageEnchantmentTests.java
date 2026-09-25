@@ -1119,17 +1119,8 @@ public final class StorageEnchantmentTests {
 
     /** The loot function of the given id hanging off one entry, or {@code null}. */
     private static JsonObject functionNamed(JsonObject entry, String id) {
-        JsonElement functions = entry.get("functions");
-        if (functions == null || !functions.isJsonArray()) {
-            return null;
-        }
-        for (JsonElement element : functions.getAsJsonArray()) {
-            if (!element.isJsonObject()) {
-                continue;
-            }
-            JsonObject function = element.getAsJsonObject();
-            JsonElement type = function.get("function");
-            if (type != null && type.isJsonPrimitive() && id.equals(type.getAsString())) {
+        for (JsonObject function : LootJsonShape.functions(entry)) {
+            if (id.equals(LootJsonShape.type(function))) {
                 return function;
             }
         }

@@ -114,7 +114,7 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
                     // Nur brechen, wenn das Signal stark genug ist!
                     if (blockHardness <= breakThreshold) {
 
-                        if (targetState.getPistonPushReaction() != McVersion.PUSH_BLOCKED) {
+                        if (McVersion.pushReaction(targetState) != McVersion.PUSH_BLOCKED) {
                             world.destroyBlock(targetPos, true);
                             if (!world.isClientSide()) {
                                 world.playSound(null, pos, SoundEvents.ZOMBIE_ATTACK_IRON_DOOR, SoundSource.BLOCKS, 0.5f, 0.8f);

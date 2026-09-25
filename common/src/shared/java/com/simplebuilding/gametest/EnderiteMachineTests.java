@@ -154,12 +154,13 @@ public final class EnderiteMachineTests {
         int smeltTime = level.getServer().getRecipeManager()
                 .getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(new ItemStack(Items.RAW_IRON)), level)
                 .orElseThrow().value().cookingTime();
-        int smokeTime = level.getServer().getRecipeManager()
+        // Smoker and blast furnace: what the VANILLA machine needs for the recipe (26.3 halves it via the fuel).
+        int smokeTime = CookingChecks.vanillaCookTime(level.getServer().getRecipeManager()
                 .getRecipeFor(RecipeType.SMOKING, new SingleRecipeInput(new ItemStack(Items.BEEF)), level)
-                .orElseThrow().value().cookingTime();
-        int blastTime = level.getServer().getRecipeManager()
+                .orElseThrow().value().cookingTime(), true);
+        int blastTime = CookingChecks.vanillaCookTime(level.getServer().getRecipeManager()
                 .getRecipeFor(RecipeType.BLASTING, new SingleRecipeInput(new ItemStack(Items.RAW_IRON)), level)
-                .orElseThrow().value().cookingTime();
+                .orElseThrow().value().cookingTime(), true);
 
         List<BlockPos> devices = List.of(furnace, smoker, blast);
         int[] lit = newTimings(3);

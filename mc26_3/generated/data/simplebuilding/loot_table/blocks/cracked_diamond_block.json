@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:cracked_diamond_block"
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

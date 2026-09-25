@@ -1,0 +1,80 @@
+// Shared resource layout of the MC 26.3 modules (applied by mc26_3/fabric and mc26_3/neoforge).
+//
+// The 26.3 line reuses the 26.2 resources and datagen output wherever they are valid and only adds
+// what must differ, the same way the Java sources work:
+//
+//   src/main/resources          hand-written assets/data of the mod (shared)
+//   mc26_3/overlay/resources    hand-written files that must differ on 26.3; a file here hides the
+//                               file with the same path in src/main/resources
+//   src/main/generated          26.2 datagen output (shared where 26.3 would write the same)
+//   mc26_3/generated            26.3 datagen output, ONLY the files that differ from
+//                               src/main/generated; syncGenerated263 (after :mc26_3:fabric:runDatagen)
+//                               keeps it that way. A file here hides its 26.2 twin, and
+//                               mc26_3/generated/removed-on-26.3.txt lists 26.2 files that 26.3 does
+//                               not generate at all (they are hidden as well).
+//
+// Precedence comes from the order of the source directories (overlays first) plus
+// DuplicatesStrategy.EXCLUDE, which keeps the first file Gradle meets for a path.
+
+import groovy.io.FileType
+
+def rootDirFile = rootProject.projectDir
+
+ext.mc263RelativeFiles = { File dir ->
+    Set<String> out = [] as Set
+    if (dir.isDirectory()) {
+        dir.eachFileRecurse(FileType.FILES) { f ->
+            out << dir.toPath().relativize(f.toPath()).toString().replace('\\', '/')
+        }
+    }
+    return out
+}
+
+ext.mc263RemovedList = new File(rootDirFile, 'mc26_3/generated/removed-on-26.3.txt')
+
+ext.mc263ConfigureResources = { SourceSet sourceSet, List<String> extraSharedDirs ->
+    File sharedResources = new File(rootDirFile, 'src/main/resources')
+    File overlayResources = new File(rootDirFile, 'mc26_3/overlay/resources')
+    File sharedGenerated = new File(rootDirFile, 'src/main/generated')
+    File generated = new File(rootDirFile, 'mc26_3/generated')
+
+    // Overlays first, shared trees after, and duplicates resolved as EXCLUDE: Gradle keeps the
+    // first file it meets for a path, so an overlay file always wins over its shared twin.
+    sourceSet.resources.srcDir(overlayResources)
+    sourceSet.resources.srcDir(generated)
+    extraSharedDirs.each { sourceSet.resources.srcDir(new File(rootDirFile, it)) }
+    sourceSet.resources.srcDir(sharedResources)
+    sourceSet.resources.srcDir(sharedGenerated)
+    tasks.named(sourceSet.processResourcesTaskName, ProcessResources).configure {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
+    // 26.2 datagen files that 26.3 does not generate at all.
+    if (mc263RemovedList.isFile()) {
+        mc263RemovedList.eachLine { String line ->
+            if (line.trim() && !line.startsWith('#')) sourceSet.resources.exclude(line.trim())
+        }
+    }
+    sourceSet.resources.exclude 'removed-on-26.3.txt', '.cache/**'
+    sourceSet.resources.exclude 'wiki/**'
+
+    // 26.3 trims read their colours from palette textures (textures/palettes/<id>.png) instead of
+    // the armor trim atlas. The mod's palettes are copied, not duplicated in the repository: the
+    // trim materials name simplebuilding:trim/<name> (McVersion.trimMaterial) and the items atlas
+    // override in mc26_3/overlay/resources points its permutations there as well.
+    tasks.named(sourceSet.processResourcesTaskName, ProcessResources).configure {
+        from(new File(sharedResources, 'assets/simplebuilding/textures/trims/color_palettes')) {
+            into 'assets/simplebuilding/textures/palettes/trim'
+        }
+        // The hand-written villager trades (src/main/resources/data/simplebuilding/villager_trade)
+        // use the 26.2 keys. 26.3 renamed "given_item_modifiers" to "given_item_modifier" and
+        // dispatches item modifiers on "type" instead of "function"; nothing else in these files
+        // uses either key (the load conditions say "condition"/"type"). One source, rewritten at
+        // build time - TradeRegistryGameTest checks the result on 26.3.
+        filesMatching('data/simplebuilding/villager_trade/**/*.json') {
+            filter { String line ->
+                line.replace('"given_item_modifiers":', '"given_item_modifier":')
+                        .replace('"function":', '"type":')
+            }
+        }
+    }
+}

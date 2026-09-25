@@ -1,0 +1,4 @@
+# 26.2 datagen files that the 26.3 datagen does not produce; hidden on 26.3.
+# Written by :mc26_3:fabric:syncGenerated263 - do not edit.
+data/simplebuilding/worldgen/configured_feature/astralit_ore.json
+data/simplebuilding/worldgen/configured_feature/nihilith_ore.json

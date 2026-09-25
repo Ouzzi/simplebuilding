@@ -82,6 +82,19 @@ public class ModBlastFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
         }
     }
 
+    /**
+     * MC 26.3 only (no @Override: 26.2 has no such hook, and there this method is simply unused).
+     * 26.3 dropped the blasting/smoking recipes to the furnace's cooking time and speeds the vanilla
+     * blast furnace and smoker up through the fuel instead - but only blocks in the
+     * minecraft:block/fast_cooking predicate get the fast multiplier (2.0), and that list names the
+     * two vanilla blocks. Without this the mod's machines would cook at half the vanilla speed on
+     * 26.3; with it they keep the 26.2 relation (base speed of the vanilla machine, burn time
+     * unchanged, tier bonus on top).
+     */
+    protected float getSpeedMultiplier(ServerLevel level, ItemStack fuelItem) {
+        return 2.0F;
+    }
+
     public static void tick(ServerLevel world, BlockPos pos, BlockState state, ModBlastFurnaceBlockEntity blockEntity) {
         AbstractFurnaceBlockEntity.serverTick(world, pos, state, blockEntity);
 

@@ -32,13 +32,6 @@ sourceSets {
             srcDir root.dir('neoforge/src/main/java')
             srcDir root.dir('mc26_3/overlay/java')
         }
-        resources {
-            srcDir root.dir('neoforge/src/main/resources')
-            srcDir root.dir('src/main/resources')
-            srcDir root.dir('src/main/generated')
-            exclude 'fabric.mod.json'
-            exclude 'wiki/**'
-        }
     }
 
     // Automated in-world renderer proof, same shape as the 26.2 :neoforge module.
@@ -51,6 +44,11 @@ sourceSets {
         resources.srcDir root.dir('neoforge/src/clientGameTest/resources')
     }
 }
+
+// Resources: shared trees plus the 26.3 overlays, see mc26_3/resources.gradle.
+apply from: rootProject.file('mc26_3/resources.gradle')
+mc263ConfigureResources(sourceSets.main, ['neoforge/src/main/resources'])
+sourceSets.main.resources.exclude 'fabric.mod.json'
 
 configurations {
     clientGameTestImplementation.extendsFrom implementation

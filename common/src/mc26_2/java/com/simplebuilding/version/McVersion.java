@@ -47,6 +47,16 @@ public final class McVersion {
     public static final PushReaction PUSH_DESTROYS = PushReaction.DESTROY;
     public static final PushReaction PUSH_ONLY = PushReaction.PUSH_ONLY;
 
+    /**
+     * A block's piston push reaction as the 26.2 rules see it. 26.3 folded vanilla's hard-coded
+     * "never push" list (obsidian, crying obsidian, respawn anchor, reinforced deepslate) into the
+     * IMMOVEABLE reaction; the mod's pistons treat that list separately, so they ask this instead of
+     * {@code getPistonPushReaction()}.
+     */
+    public static PushReaction pushReaction(net.minecraft.world.level.block.state.BlockState state) {
+        return state.getPistonPushReaction();
+    }
+
     /** Explorer-map structure tags (26.3 renamed them after the structure). */
     public static final TagKey<Structure> MANSION_MAP_STRUCTURES = StructureTags.ON_WOODLAND_EXPLORER_MAPS;
     public static final TagKey<Structure> MONUMENT_MAP_STRUCTURES = StructureTags.ON_OCEAN_EXPLORER_MAPS;

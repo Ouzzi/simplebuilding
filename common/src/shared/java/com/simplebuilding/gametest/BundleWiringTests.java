@@ -817,7 +817,7 @@ public final class BundleWiringTests {
         JsonObject mineshaft = bundleEntry(helper, registries, BuiltInLootTables.ABANDONED_MINESHAFT);
         helper.assertTrue(mineshaft != null,
                 "the reinforced bundle is no longer in the abandoned mineshaft loot");
-        helper.assertTrue(mineshaft.has("functions"),
+        helper.assertTrue(!LootJsonShape.functions(mineshaft).isEmpty(),
                 "the mineshaft bundle lost its loot functions; it is the one entry that is handed "
                         + "out enchanted, entry is " + mineshaft);
         // Naming the function, not just counting the key: every other loot function - a set_count,
@@ -1222,16 +1222,8 @@ public final class BundleWiringTests {
      * some function" from "this entry still enchants what it hands out".
      */
     private static boolean hasLootFunction(JsonObject entry, String functionId) {
-        JsonElement functions = entry.get("functions");
-        if (functions == null || !functions.isJsonArray()) {
-            return false;
-        }
-        for (JsonElement function : functions.getAsJsonArray()) {
-            if (!function.isJsonObject()) {
-                continue;
-            }
-            JsonElement id = function.getAsJsonObject().get("function");
-            if (id != null && id.isJsonPrimitive() && functionId.equals(id.getAsString())) {
+        for (JsonObject function : LootJsonShape.functions(entry)) {
+            if (functionId.equals(LootJsonShape.type(function))) {
                 return true;
             }
         }

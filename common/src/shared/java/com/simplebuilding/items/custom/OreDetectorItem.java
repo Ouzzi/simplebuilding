@@ -455,7 +455,9 @@ public class OreDetectorItem extends Item {
     private static Block getCustomTargetBlock(ItemStack stack) {
         CompoundTag nbt = getCustomData(stack);
         if (!nbt.contains("CustomBlock")) return null;
-        String name = nbt.getCompoundOrEmpty("CustomBlock").getStringOr("Name", "");
+        // NbtUtils.writeBlockState names the block under "Name" on MC 26.2 and under "id" on 26.3.
+        CompoundTag stored = nbt.getCompoundOrEmpty("CustomBlock");
+        String name = stored.getStringOr("Name", stored.getStringOr("id", ""));
         Identifier id = Identifier.tryParse(name);
         if (id == null) return null;
         return BuiltInRegistries.BLOCK.getOptional(id).orElse(null);

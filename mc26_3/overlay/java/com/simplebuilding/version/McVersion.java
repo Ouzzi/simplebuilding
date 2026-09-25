@@ -41,6 +41,17 @@ public final class McVersion {
     public static final PushReaction PUSH_DESTROYS = PushReaction.POPPED;
     public static final PushReaction PUSH_ONLY = PushReaction.PUSH;
 
+    /** 26.2 semantics: the former name list counts as a normal block again (see the 26.2 twin). */
+    public static PushReaction pushReaction(net.minecraft.world.level.block.state.BlockState state) {
+        if (state.is(net.minecraft.world.level.block.Blocks.OBSIDIAN)
+                || state.is(net.minecraft.world.level.block.Blocks.CRYING_OBSIDIAN)
+                || state.is(net.minecraft.world.level.block.Blocks.RESPAWN_ANCHOR)
+                || state.is(net.minecraft.world.level.block.Blocks.REINFORCED_DEEPSLATE)) {
+            return PushReaction.PUSH_PULL;
+        }
+        return state.getPistonPushReaction();
+    }
+
     public static final TagKey<Structure> MANSION_MAP_STRUCTURES = StructureTags.ON_WOODLAND_MANSION_MAPS;
     public static final TagKey<Structure> MONUMENT_MAP_STRUCTURES = StructureTags.ON_OCEAN_MONUMENT_MAPS;
     public static final TagKey<Structure> TRIAL_CHAMBERS_MAP_STRUCTURES = StructureTags.ON_BURIED_TRIAL_CHAMBERS_MAPS;
@@ -59,8 +70,12 @@ public final class McVersion {
         entity.setPermanentlyInvulnerable(invulnerable);
     }
 
+    /** 26.3 split the damage cooldown (LivingEntity#damageCooldownTime) from Entity#invulnerableTime. */
     public static void resetInvulnerableTime(Entity entity) {
         entity.setInvulnerableTime(0);
+        if (entity instanceof LivingEntity living) {
+            living.damageCooldownTime = 0;
+        }
     }
 
     public static double visibilityPercent(LivingEntity entity, @Nullable Entity targeting) {

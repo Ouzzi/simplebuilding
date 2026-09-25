@@ -649,7 +649,7 @@ public final class TradeOfferTests {
         HolderLookup.Provider registries = helper.getLevel().registryAccess();
         RegistryOps<JsonElement> ops = registries.createSerializationContext(JsonOps.INSTANCE);
 
-        String json = "{ \"function\": \"" + NAMESPACE + ":weighted_enchant\""
+        String json = "{ \"" + LootJsonShape.TYPE_KEY + "\": \"" + NAMESPACE + ":weighted_enchant\""
                 + (secondChance == null ? "" : ", \"second_chance\": " + secondChance)
                 + ", \"pool\": [" + poolEntries + "] }";
         LootItemFunction function = LootItemFunctions.TYPED_CODEC

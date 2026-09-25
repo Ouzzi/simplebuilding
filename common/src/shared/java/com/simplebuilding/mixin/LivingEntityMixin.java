@@ -136,7 +136,8 @@ public abstract class LivingEntityMixin implements OwnedLightHolder {
     // Diese Methode berechnet Faktoren wie Sneaking (0.8) oder MobHeads (0.5).
     // Wir multiplizieren unseren Stealth-Faktor dazu.
     @Inject(method = "getVisibilityPercent", at = @At("RETURN"), cancellable = true)
-    private void simplebuilding$modifyVisibility(Entity observer, CallbackInfoReturnable<Double> cir) {
+    // Nur der Callback, keine Zielparameter: 26.3 hat getVisibilityPercent um ein ServerLevel erweitert.
+    private void simplebuilding$modifyVisibility(CallbackInfoReturnable<Double> cir) {
         LivingEntity entity = (LivingEntity) (Object) this;
         float mult = TrimEffectUtil.getStealthMultiplier(entity);
 

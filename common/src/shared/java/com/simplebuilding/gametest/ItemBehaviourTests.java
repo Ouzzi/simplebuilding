@@ -309,7 +309,9 @@ public final class ItemBehaviourTests {
         CompoundTag nbt = customData(detector);
         helper.assertTrue(nbt.contains("CustomBlock"),
                 "sneak-clicking a block did not teach the detector a custom target");
-        helper.assertTrue(nbt.getCompoundOrEmpty("CustomBlock").getString("Name").orElse("")
+        // NbtUtils.writeBlockState: "Name" on MC 26.2, "id" on 26.3.
+        CompoundTag stored = nbt.getCompoundOrEmpty("CustomBlock");
+        helper.assertTrue(stored.getString("Name").or(() -> stored.getString("id")).orElse("")
                         .contains("diamond_ore"),
                 "the detector stored the wrong custom block: " + nbt.getCompoundOrEmpty("CustomBlock"));
 

@@ -76,6 +76,6 @@ public class EnderitePistonBlock extends NetheriteBreakerPistonBlock {
     /** Die Regel des normalen Brechers aus {@link NetheriteBreakerPistonBlock#triggerEvent}. */
     private static boolean breakerCanBreak(BlockState state, Level world, BlockPos pos, float breakThreshold) {
         float hardness = state.getDestroySpeed(world, pos);
-        return hardness >= 0 && hardness <= breakThreshold && state.getPistonPushReaction() != McVersion.PUSH_BLOCKED;
+        return hardness >= 0 && hardness <= breakThreshold && McVersion.pushReaction(state) != McVersion.PUSH_BLOCKED;
     }
 }

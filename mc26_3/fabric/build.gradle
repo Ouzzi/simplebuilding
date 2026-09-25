@@ -25,14 +25,24 @@ sourceSets {
 			srcDir root.dir('src/main/java')
 			srcDir root.dir('mc26_3/overlay/java')
 		}
-		resources {
-			srcDir root.dir('src/main/resources')
-			srcDir root.dir('src/main/generated')
-		}
 	}
 }
 
+// Resources: shared trees plus the 26.3 overlays, see mc26_3/resources.gradle.
+apply from: rootProject.file('mc26_3/resources.gradle')
+mc263ConfigureResources(sourceSets.main, [])
+
+// 26.3 datagen writes its full output to build/datagen263; syncGenerated263 then keeps in
+// mc26_3/generated only what differs from the 26.2 output in src/main/generated (loot tables,
+// advancements, worldgen features, trim materials, ...), and lists 26.2 files that 26.3 no longer
+// generates in mc26_3/generated/removed-on-26.3.txt.
+def datagenOut = layout.buildDirectory.dir('datagen263').get().asFile
 fabricApi {
+	configureDataGeneration {
+		client = true
+		outputDirectory = datagenOut
+	}
+
 	// Same client test shape as the 26.2 root project (task :mc26_3:fabric:runClientGameTest).
 	configureTests {
 		createSourceSet = true
@@ -120,7 +130,51 @@ processResources {
 				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3"')
 		}
 	}
-	exclude "wiki/**"
+}
+
+def syncGenerated263 = tasks.register('syncGenerated263') {
+	group = 'fabric'
+	description = 'Keeps in mc26_3/generated only the 26.3 datagen files that differ from src/main/generated.'
+	doLast {
+		File shared = rootProject.file('src/main/generated')
+		File target = rootProject.file('mc26_3/generated')
+		def norm = { File f -> f.getText('UTF-8').replace('\r\n', '\n') }
+		Set<String> produced = mc263RelativeFiles(datagenOut).findAll { !it.startsWith('.cache') && !it.startsWith('wiki/') } as Set
+		if (produced.isEmpty()) {
+			throw new GradleException("runDatagen produced nothing in ${datagenOut}")
+		}
+		Set<String> kept = [] as Set
+		produced.each { String rel ->
+			File out = new File(datagenOut, rel)
+			File twin = new File(shared, rel)
+			File dest = new File(target, rel)
+			if (twin.isFile() && norm(twin) == norm(out)) {
+				dest.delete()
+			} else {
+				dest.parentFile.mkdirs()
+				dest.setText(norm(out), 'UTF-8')
+				kept << rel
+			}
+		}
+		// Stale files of an earlier run.
+		mc263RelativeFiles(target).each { String rel ->
+			if (rel != 'removed-on-26.3.txt' && !kept.contains(rel)) new File(target, rel).delete()
+		}
+		List<String> removed = (mc263RelativeFiles(shared).findAll { !it.startsWith('.cache') && !it.startsWith('wiki/') }
+				- produced).toSorted()
+		mc263RemovedList.setText('# 26.2 datagen files that the 26.3 datagen does not produce; hidden on 26.3.\n'
+				+ '# Written by :mc26_3:fabric:syncGenerated263 - do not edit.\n'
+				+ removed.collect { it + '\n' }.join(''), 'UTF-8')
+		// Empty directories left behind.
+		def dirs = []
+		target.eachDirRecurse { dirs << it }
+		dirs.reverse().each { if (it.list().length == 0) it.delete() }
+		logger.lifecycle("mc26_3/generated: ${kept.size()} files differ from 26.2, ${removed.size()} 26.2 files removed")
+	}
+}
+tasks.matching { it.name == 'runDatagen' }.configureEach {
+	doFirst { project.delete(datagenOut) }
+	finalizedBy syncGenerated263
 }
 
 tasks.withType(JavaCompile).configureEach {

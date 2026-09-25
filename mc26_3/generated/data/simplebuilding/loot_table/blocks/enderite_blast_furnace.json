@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:enderite_blast_furnace"
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

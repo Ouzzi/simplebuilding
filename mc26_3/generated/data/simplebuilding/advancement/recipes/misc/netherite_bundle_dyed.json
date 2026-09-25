@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_netherite_bundle": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:netherite_bundle"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:netherite_bundle_dyed"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_netherite_bundle"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:netherite_bundle_dyed"
+    ]
+  }
+}

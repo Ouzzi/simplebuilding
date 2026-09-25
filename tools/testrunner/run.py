@@ -149,6 +149,26 @@ TARGETS: tuple[Target, ...] = (
         report="mc1_21_11/neoforge/build/neoforge-junit.xml",
         catalogue="mc1_21_11/shared/java/com/simplebuilding/gametest/SimpleBuildingGameTests.java",
     ),
+    # MC 26.3: no copy of its own. The mc26_3 modules compile the 26.2 trees plus the small
+    # overlay in mc26_3/overlay, so the catalogue (and every test body) is the 26.2 one.
+    Target(
+        id="fabric-263",
+        label="Fabric - MC 26.3",
+        loader="fabric",
+        mc_line="26.3",
+        gradle_task=":mc26_3:fabric:runGametest",
+        report="mc26_3/fabric/build/junit.xml",
+        catalogue="common/src/shared/java/com/simplebuilding/gametest/SimpleBuildingGameTests.java",
+    ),
+    Target(
+        id="neoforge-263",
+        label="NeoForge - MC 26.3",
+        loader="neoforge",
+        mc_line="26.3",
+        gradle_task=":mc26_3:neoforge:runGameTest",
+        report="mc26_3/neoforge/build/neoforge-junit.xml",
+        catalogue="common/src/shared/java/com/simplebuilding/gametest/SimpleBuildingGameTests.java",
+    ),
     # The client targets are not in the default selection: each boots a real Minecraft
     # client and takes minutes, where the whole server sweep takes about two. They run
     # on --release-gate, or when asked for by id.
@@ -199,6 +219,31 @@ TARGETS: tuple[Target, ...] = (
         kind="client",
         sources="mc1_21_11/neoforge/src/clientGameTest/java/com/simplebuilding/neoforge/clienttest",
         screenshots="mc1_21_11/neoforge/build/run/clientGameTest/screenshots",
+    ),
+    # 26.3: same drivers and test bodies as 26.2 (compiled against 26.3), own run directories.
+    Target(
+        id="client-fabric-263",
+        label="Client Fabric - MC 26.3",
+        loader="fabric",
+        mc_line="26.3",
+        gradle_task=":mc26_3:fabric:runClientGameTest",
+        report="",
+        catalogue="",
+        kind="client",
+        sources="src/gametest/java/com/simplebuilding/clienttest",
+        screenshots="mc26_3/fabric/build/run/clientGameTest/screenshots",
+    ),
+    Target(
+        id="client-neoforge-263",
+        label="Client NeoForge - MC 26.3",
+        loader="neoforge",
+        mc_line="26.3",
+        gradle_task=":mc26_3:neoforge:runClientGameTest",
+        report="",
+        catalogue="",
+        kind="client",
+        sources="neoforge/src/clientGameTest/java/com/simplebuilding/neoforge/clienttest",
+        screenshots="mc26_3/neoforge/build/run/clientGameTest/screenshots",
     ),
 )
 
@@ -309,7 +354,7 @@ def read_catalogue() -> dict[str, list[dict]]:
     interface apart a test that passed from one that was filtered out.
     """
     out: dict[str, list[dict]] = {}
-    for line in ("26.2", "1.21.11"):
+    for line in ("26.2", "1.21.11", "26.3"):
         target = next(t for t in TARGETS if t.mc_line == line)
         path = REPO / target.catalogue
         entries: list[dict] = []
@@ -419,6 +464,7 @@ LOGGER_NAME = re.compile(r'getLogger\(\s*"([^"]+)"')
 #: counted for every client target - otherwise a shared test would look like a promise nobody made.
 SHARED_CLIENT_SOURCES = {
     "26.2": "common/src/shared/clientgametest/java/com/simplebuilding/clientgametest",
+    "26.3": "common/src/shared/clientgametest/java/com/simplebuilding/clientgametest",
     "1.21.11": "mc1_21_11/shared/clientgametest/java/com/simplebuilding/clientgametest",
 }
 
@@ -808,6 +854,7 @@ def execute(
         "mcVersions": {
             "26.2": props.get("minecraft_version", "26.2"),
             "1.21.11": props.get("mc11_minecraft_version", "1.21.11"),
+            "26.3": props.get("mc263_minecraft_version", "26.3"),
         },
         "targets": target_records,
         "totals": {
@@ -1071,6 +1118,20 @@ def check_parity() -> tuple[bool, list[str]]:
     ok = True
 
     catalogue = read_catalogue()
+    # The 26.3 line has no catalogue of its own - it compiles the 26.2 one. Should it ever grow a
+    # 26.3-only catalogue (an overlay test), the two must still name the same tests.
+    third = catalogue.pop("26.3", None)
+    if third is None:
+        ok = False
+        notes.append("Server-Paritaet: kein Katalog fuer MC 26.3 gefunden")
+    elif {e["id"] for e in third} != {e["id"] for e in catalogue.get("26.2", [])}:
+        ok = False
+        diff = sorted({e["id"] for e in third} ^ {e["id"] for e in catalogue.get("26.2", [])})
+        notes.append("Server-Paritaet: MC 26.3 und MC 26.2 registrieren verschiedene Tests: "
+                     + ", ".join(diff[:10]))
+    else:
+        notes.append(f"Server-Paritaet: MC 26.3 registriert dieselben {len(third)} Tests wie MC 26.2 "
+                     "(gemeinsamer Katalog)")
     # read_catalogue keys its result by these two names, and the declarations below are written
     # in that order - side A is the newer line, side B the older one.
     newer, older = "26.2", "1.21.11"

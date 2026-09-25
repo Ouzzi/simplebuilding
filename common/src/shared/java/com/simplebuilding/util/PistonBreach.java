@@ -101,7 +101,7 @@ public final class PistonBreach {
             return false;
         }
         // if-chain instead of a switch: the enum constants were renamed in 26.3, see McVersion.
-        PushReaction reaction = state.getPistonPushReaction();
+        PushReaction reaction = McVersion.pushReaction(state);
         if (reaction == McVersion.PUSH_BLOCKED) {
             return false;
         }
