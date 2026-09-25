@@ -2789,8 +2789,10 @@ public final class DataIntegrityTests {
             if (optionFallback == null || !"minecraft:trim_material".equals(optionFallback.get("property").getAsString())) {
                 problems.add(id + ": with the option off the icon does not fall back to vanilla's selection by trim material");
             } else if ("minecraft".equals(id.getNamespace())) {
-                JsonObject vanilla = shippedJson(definitionPath, json -> !json.getAsJsonObject("model").has("property")
-                        || !TRIM_ICON_PROPERTY.equals(json.getAsJsonObject("model").get("property").getAsString()));
+                // Vanilla's copy selects on minecraft:trim_material. NeoForge 26.x ships its own copy
+                // (neoforge:trimmed_armor) on the classpath too; that one is not the reference.
+                JsonObject vanilla = shippedJson(definitionPath, json -> json.getAsJsonObject("model").has("property")
+                        && "minecraft:trim_material".equals(json.getAsJsonObject("model").get("property").getAsString()));
                 if (vanilla != null && !vanilla.getAsJsonObject("model").equals(optionFallback)) {
                     problems.add(id + ": the option-off fallback differs from vanilla's own item definition");
                 }
