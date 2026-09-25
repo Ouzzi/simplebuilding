@@ -203,3 +203,13 @@ Offen / bewusst nicht gemacht:
   trim_overrides im Equipment-Asset, nicht mehr ueber die MaterialAssetGroup - nicht nachgebaut.
 - Wiki: kein 26.3-Linienschalter (generate.py erwartet je Linie einen vollstaendigen Baum).
 - Jade / AppleSkin / Mouse Tweaks fuer 26.3 nicht als Dev-Mods eingebunden (nur JEI).
+
+Teststand 2026-09-25: Server fabric-263 376/376, neoforge-263 376/376 (Gesamtlauf aller 7 Server-Ziele
+2629/2629). Client client-fabric-263 116/117, client-neoforge-263 116/117 - rot ist auf beiden nur
+hud-and-tooltip "glimmer ... nowhere else": der Schimmer sitzt nachweislich auf den richtigen Pixeln
+(265/358..363 im Screenshot glint-c), aber zwischen glint-b und glint-c aendern sich auf 26.3 auch
+Hintergrund-Pixel (Arme der Spielerfigur in der Inventar-Vorschau, ein spaet gerenderter Chunk-Abschnitt
+unten links). Testgeruest-Frage auf 26.3, kein Mod-Fehler - offen.
+Client-Unterschiede 26.3, die das Geruest jetzt abdeckt: SDL-Maustasten (links 1, rechts 3 -> immer
+InputConstants.MOUSE_BUTTON_*), gamerule/time set/weather ohne Aenderung sind Befehlsfehler,
+ItemStack#useOn setzt heldItemTransformedTo in jedes Success.
