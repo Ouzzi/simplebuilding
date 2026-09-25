@@ -3,6 +3,8 @@ package com.simplebuilding.datagen;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.tweaks.block.TweaksBlocks;
+import com.simplebuilding.tweaks.item.TweaksItems;
 import com.simplebuilding.recipe.BackpackUpgradeRecipe;
 import com.simplebuilding.recipe.CountBasedSmithingRecipe;
 import com.simplebuilding.recipe.ReinforcedBundleRecipe;
@@ -344,6 +346,9 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .define('S', Items.CALIBRATED_SCULK_SENSOR)
                         .unlockedBy(getHasName(Items.COMPASS), has(Items.COMPASS))
                         .save(output);
+
+                // Aus Simple Tweaks: Druckplatten, Pads, Teleporter, Echo-Kompass
+                buildTweaksRecipes();
 
 
                 shaped(RecipeCategory.MISC, ModItems.CRACKED_DIAMOND)
@@ -871,6 +876,108 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .define('M', material)
                         .unlockedBy(getHasName(material), has(material))
                         .save(exporter);
+            }
+
+            /**
+             * Rezepte aus Simple Tweaks (ModRecipeProvider dort) plus die Enderit-Stufen und das neue
+             * Echo-Kompass-Rezept (docs/SIMPLETWEAKS-UEBERNAHME.md, Abschnitte 2 und 3). Rezept-IDs
+             * wie in Simple Tweaks.
+             */
+            private void buildTweaksRecipes() {
+                Ingredient anyTemplate = Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE,
+                        Items.SENTRY_ARMOR_TRIM_SMITHING_TEMPLATE, Items.DUNE_ARMOR_TRIM_SMITHING_TEMPLATE,
+                        Items.COAST_ARMOR_TRIM_SMITHING_TEMPLATE, Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE,
+                        Items.WARD_ARMOR_TRIM_SMITHING_TEMPLATE, Items.EYE_ARMOR_TRIM_SMITHING_TEMPLATE,
+                        Items.VEX_ARMOR_TRIM_SMITHING_TEMPLATE, Items.TIDE_ARMOR_TRIM_SMITHING_TEMPLATE,
+                        Items.SNOUT_ARMOR_TRIM_SMITHING_TEMPLATE, Items.RIB_ARMOR_TRIM_SMITHING_TEMPLATE,
+                        Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE, Items.WAYFINDER_ARMOR_TRIM_SMITHING_TEMPLATE,
+                        Items.SHAPER_ARMOR_TRIM_SMITHING_TEMPLATE, Items.SILENCE_ARMOR_TRIM_SMITHING_TEMPLATE,
+                        Items.RAISER_ARMOR_TRIM_SMITHING_TEMPLATE, Items.HOST_ARMOR_TRIM_SMITHING_TEMPLATE,
+                        Items.FLOW_ARMOR_TRIM_SMITHING_TEMPLATE, Items.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE);
+                Item netheriteTemplate = Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE;
+                Item enderiteTemplate = ModItems.ENDERITE_UPGRADE_TEMPLATE;
+
+                // Spawn-Teleporter I-IV (Modi Spawn 1-4) und V (Enderit, eigener Wiedereinstiegspunkt)
+                tweaksSmithing(anyTemplate, Items.LIGHT_WEIGHTED_PRESSURE_PLATE, Items.DIAMOND_BLOCK, TweaksBlocks.SPAWN_TELEPORTER, "spawn_teleporter_smithing");
+                tweaksSmithing(Ingredient.of(netheriteTemplate), Items.LIGHT_WEIGHTED_PRESSURE_PLATE, Items.NETHERITE_INGOT, TweaksBlocks.SPAWN_TELEPORTER, "spawn_teleporter_smithing_alternative");
+                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.SPAWN_TELEPORTER, Items.NETHERITE_INGOT, TweaksBlocks.SPAWN_TELEPORTER_TIER_2, "spawn_teleporter_tier2_smithing");
+                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.SPAWN_TELEPORTER_TIER_2, Items.NETHERITE_INGOT, TweaksBlocks.SPAWN_TELEPORTER_TIER_3, "spawn_teleporter_tier3_smithing");
+                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.SPAWN_TELEPORTER_TIER_3, Items.NETHERITE_INGOT, TweaksBlocks.SPAWN_TELEPORTER_TIER_4, "spawn_teleporter_tier4_smithing");
+                tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.SPAWN_TELEPORTER_TIER_4, ModItems.ENDERITE_INGOT, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER, "enderite_spawn_teleporter_smithing");
+
+                // Launchpads
+                tweaksSmithing(anyTemplate, Items.HEAVY_WEIGHTED_PRESSURE_PLATE, Items.DIAMOND_BLOCK, TweaksBlocks.LAUNCHPAD, "launchpad_smithing");
+                tweaksSmithing(Ingredient.of(netheriteTemplate), Items.HEAVY_WEIGHTED_PRESSURE_PLATE, Items.NETHERITE_INGOT, TweaksBlocks.LAUNCHPAD, "launchpad_smithing_alternative");
+                tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.LAUNCHPAD, ModItems.ENDERITE_INGOT, TweaksBlocks.ENDERITE_LAUNCHPAD, "enderite_launchpad_smithing");
+
+                // Druckplatten: Diamant -> Netherit -> Enderit
+                shaped(RecipeCategory.REDSTONE, TweaksBlocks.DIAMOND_PRESSURE_PLATE)
+                        .pattern("DD")
+                        .define('D', Items.DIAMOND)
+                        .unlockedBy(getHasName(Items.DIAMOND), has(Items.DIAMOND))
+                        .save(output);
+                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.DIAMOND_PRESSURE_PLATE, Items.NETHERITE_INGOT, TweaksBlocks.NETHERITE_PRESSURE_PLATE, "netherite_pressure_plate_smithing");
+                tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.NETHERITE_PRESSURE_PLATE, ModItems.ENDERITE_INGOT, TweaksBlocks.ENDERITE_PRESSURE_PLATE, "enderite_pressure_plate_smithing");
+
+                // Elytra-Pads I-V: Enderit IV neu, der Netherstern (Fine) rueckt auf V
+                tweaksSmithing(anyTemplate, TweaksBlocks.DIAMOND_PRESSURE_PLATE, Items.DIAMOND, TweaksBlocks.ELYTRA_PAD, "elytra_pad_smithing");
+                tweaksSmithing(anyTemplate, TweaksBlocks.ELYTRA_PAD, Items.DIAMOND_BLOCK, TweaksBlocks.REINFORCED_ELYTRA_PAD, "reinforced_elytra_pad_smithing");
+                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.REINFORCED_ELYTRA_PAD, Items.NETHERITE_INGOT, TweaksBlocks.NETHERITE_ELYTRA_PAD, "netherite_elytra_pad_smithing");
+                tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.NETHERITE_ELYTRA_PAD, ModItems.ENDERITE_INGOT, TweaksBlocks.ENDERITE_ELYTRA_PAD, "enderite_elytra_pad_smithing");
+                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.ENDERITE_ELYTRA_PAD, Items.NETHER_STAR, TweaksBlocks.FINE_ELYTRA_PAD, "fine_elytra_pad_smithing");
+
+                // Flypads I-V: Enderit IV neu, Stellar (Netherstern) rueckt auf V
+                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.FINE_ELYTRA_PAD, Items.NETHERITE_INGOT, TweaksBlocks.FLYPAD, "flypad_tier1_smithing");
+                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.FLYPAD, Items.NETHERITE_BLOCK, TweaksBlocks.REINFORCED_FLYPAD, "flypad_tier2_smithing");
+                shaped(RecipeCategory.TOOLS, TweaksBlocks.NETHERITE_FLYPAD)
+                        .pattern("DBD")
+                        .pattern("ESE")
+                        .pattern("KFK")
+                        .define('D', Items.DIAMOND_BLOCK)
+                        .define('B', Items.NETHERITE_BLOCK)
+                        .define('E', Items.ENCHANTED_GOLDEN_APPLE)
+                        .define('S', Items.NETHER_STAR)
+                        .define('K', Items.OMINOUS_TRIAL_KEY)
+                        .define('F', TweaksBlocks.REINFORCED_FLYPAD)
+                        .unlockedBy("has_reinforced_flypad", has(TweaksBlocks.REINFORCED_FLYPAD))
+                        .save(output, Simplebuilding.MOD_ID + ":netherite_flypad_crafting");
+                tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.NETHERITE_FLYPAD, ModItems.ENDERITE_INGOT, TweaksBlocks.ENDERITE_FLYPAD, "enderite_flypad_smithing");
+                shaped(RecipeCategory.TOOLS, TweaksBlocks.STELLAR_FLYPAD)
+                        .pattern("KKK")
+                        .pattern("ESE")
+                        .pattern("FFF")
+                        .define('K', Items.OMINOUS_TRIAL_KEY)
+                        .define('E', Items.ENCHANTED_GOLDEN_APPLE)
+                        .define('S', Items.NETHER_STAR)
+                        .define('F', TweaksBlocks.ENDERITE_FLYPAD)
+                        .unlockedBy("has_enderite_flypad", has(TweaksBlocks.ENDERITE_FLYPAD))
+                        .save(output, Simplebuilding.MOD_ID + ":stellar_flypad_crafting");
+
+                // Kupfer-Druckplatte (2 Kupferbloecke) und Chunk-Loader
+                shaped(RecipeCategory.REDSTONE, TweaksBlocks.COPPER_PRESSURE_PLATE)
+                        .pattern("CC")
+                        .define('C', Items.COPPER_BLOCK.weathering().unaffected())
+                        .unlockedBy("has_copper_block", has(Items.COPPER_BLOCK.weathering().unaffected()))
+                        .save(output);
+                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.COPPER_PRESSURE_PLATE, Items.NETHERITE_INGOT, TweaksBlocks.CHUNK_LOADER, "chunk_loader_smithing");
+                tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.CHUNK_LOADER, ModItems.ENDERITE_INGOT, TweaksBlocks.ENDERITE_CHUNK_LOADER, "enderite_chunk_loader_smithing");
+
+                // Echo-Kompass: Bergungskompass in der Mitte, Enderit-Kern darueber, Netherit-Druckplatten links/rechts
+                shaped(RecipeCategory.TOOLS, TweaksItems.ECHO_COMPASS)
+                        .pattern(" E ")
+                        .pattern("PRP")
+                        .define('E', ModItems.ENDERITE_CORE)
+                        .define('P', TweaksBlocks.NETHERITE_PRESSURE_PLATE)
+                        .define('R', Items.RECOVERY_COMPASS)
+                        .unlockedBy(getHasName(Items.RECOVERY_COMPASS), has(Items.RECOVERY_COMPASS))
+                        .save(output);
+            }
+
+            private void tweaksSmithing(Ingredient template, ItemLike base, ItemLike addition, ItemLike result, String name) {
+                SmithingTransformRecipeBuilder.smithing(template, Ingredient.of(base), Ingredient.of(addition),
+                                RecipeCategory.TOOLS, result.asItem())
+                        .unlocks(getHasName(base), has(base))
+                        .save(output, Simplebuilding.MOD_ID + ":" + name);
             }
 
             // --- Helpers ---

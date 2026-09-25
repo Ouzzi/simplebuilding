@@ -96,7 +96,7 @@ minecraft {
             systemProperty 'eventbus.api.strictRuntimeChecks', 'true'
             systemProperty 'forge.enabledGameTestNamespaces', rootProject.archives_base_name
             // Im Dev-Lauf gibt es kein Jar-Manifest: die Mixin-Konfigs direkt an den Launcher geben.
-            args '-mixin.config=simplebuilding.mixins.json', '-mixin.config=simplebuilding.client.mixins.json', '-mixin.config=simplebuilding.forge.mixins.json'
+            args '-mixin.config=simplebuilding.mixins.json', '-mixin.config=simplebuilding.client.mixins.json', '-mixin.config=simplebuilding.forge.mixins.json', '-mixin.config=simplebuilding.tweaks.mixins.json', '-mixin.config=simplebuilding.tweaks.stack.mixins.json', '-mixin.config=simplebuilding.tweaks.forge.mixins.json'
         }
         if (forgeRunsEnabled) {
             register('client')
@@ -200,7 +200,7 @@ tasks.named('jar').configure {
                 'Implementation-Title'  : project.name,
                 'Implementation-Version': project.version,
                 // Forge 65 liest Mixin-Konfigs nur aus diesem Manifest-Attribut, nicht aus [[mixins]] der mods.toml.
-                'MixinConfigs'          : 'simplebuilding.mixins.json,simplebuilding.client.mixins.json,simplebuilding.forge.mixins.json',
+                'MixinConfigs'          : 'simplebuilding.mixins.json,simplebuilding.client.mixins.json,simplebuilding.forge.mixins.json,simplebuilding.tweaks.mixins.json,simplebuilding.tweaks.stack.mixins.json,simplebuilding.tweaks.forge.mixins.json',
         ])
     }
 }

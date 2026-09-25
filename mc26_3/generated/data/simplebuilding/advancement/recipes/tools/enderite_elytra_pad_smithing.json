@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_netherite_elytra_pad": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:netherite_elytra_pad"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "simplebuilding:enderite_elytra_pad_smithing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_netherite_elytra_pad"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:enderite_elytra_pad_smithing"
+    ]
+  }
+}

@@ -41,6 +41,7 @@ public final class SimplebuildingForge {
         RegisterEvent.getBus(modBus).addListener(ForgeRegistryBootstrap::onRegister);
         FMLCommonSetupEvent.getBus(modBus).addListener(this::commonSetup);
         ForgeNetworkRegistration.register();
+        com.simplebuilding.tweaks.forge.TweaksForge.register(modBus);
         com.simplebuilding.forge.gametest.ForgeGameTests.register(modBus);
         ForgeItemAutomation.install();
         configure();

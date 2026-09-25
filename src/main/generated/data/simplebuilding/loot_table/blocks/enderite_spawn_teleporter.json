@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:enderite_spawn_teleporter"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

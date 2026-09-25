@@ -162,6 +162,9 @@ public class ModModelProvider extends FabricModelProvider {
         registerBackpack(blockStateModelGenerator, ModBlocks.REINFORCED_BACKPACK);
         registerBackpack(blockStateModelGenerator, ModBlocks.NETHERITE_BACKPACK);
         registerBackpack(blockStateModelGenerator, ModBlocks.ENDERITE_BACKPACK);
+
+        // --- 7. Aus Simple Tweaks: Druckplatten und Pads ---
+        com.simplebuilding.tweaks.datagen.TweaksModelGen.blocks(blockStateModelGenerator);
     }
 
     /** Ein Blockmodell je Stufe aus der Vorlage, gedreht nach HORIZONTAL_FACING (Norden = 0). */
@@ -479,6 +482,9 @@ public class ModModelProvider extends FabricModelProvider {
         // ModLootTableModifications erreichbar, der Fehler waere also sichtbar gewesen.
         itemModelGenerator.generateFlatItem(ModItems.ENCHANTED_NETHERITE_APPLE, ModItems.NETHERITE_APPLE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_APPLE, ModelTemplates.FLAT_ITEM);
+
+        // Aus Simple Tweaks: Spawn-Elytra, Laserpointer, Echo-Kompass
+        com.simplebuilding.tweaks.datagen.TweaksModelGen.items(itemModelGenerator);
     }
 
     /** Grundblock und gemeisselte Ziegel als Wuerfel, Ziegel und polierter Block je als Familie, Saeule mit Stirnseite. */

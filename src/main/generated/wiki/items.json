@@ -15,8 +15,12 @@
     "simplebuilding:chiseled_astralit_bricks",
     "simplebuilding:chiseled_ender_quartz_bricks",
     "simplebuilding:chiseled_nihilith_bricks",
+    "simplebuilding:chunk_loader",
     "simplebuilding:construction_light",
+    "simplebuilding:copper_pressure_plate",
     "simplebuilding:cracked_diamond_block",
+    "simplebuilding:diamond_pressure_plate",
+    "simplebuilding:elytra_pad",
     "simplebuilding:ender_quartz_block",
     "simplebuilding:ender_quartz_brick_slab",
     "simplebuilding:ender_quartz_brick_stairs",
@@ -29,19 +33,32 @@
     "simplebuilding:enderite_backpack",
     "simplebuilding:enderite_blast_furnace",
     "simplebuilding:enderite_block",
+    "simplebuilding:enderite_chunk_loader",
+    "simplebuilding:enderite_elytra_pad",
+    "simplebuilding:enderite_flypad",
     "simplebuilding:enderite_furnace",
     "simplebuilding:enderite_hopper",
+    "simplebuilding:enderite_launchpad",
     "simplebuilding:enderite_piston",
+    "simplebuilding:enderite_pressure_plate",
     "simplebuilding:enderite_smoker",
+    "simplebuilding:enderite_spawn_teleporter",
+    "simplebuilding:exposed_copper_pressure_plate",
+    "simplebuilding:fine_elytra_pad",
+    "simplebuilding:flypad",
     "simplebuilding:lapis_quartz_checker",
+    "simplebuilding:launchpad",
     "simplebuilding:levitating_gravel",
     "simplebuilding:levitating_sand",
     "simplebuilding:netherite_backpack",
     "simplebuilding:netherite_blast_furnace",
+    "simplebuilding:netherite_elytra_pad",
+    "simplebuilding:netherite_flypad",
     "simplebuilding:netherite_furnace",
     "simplebuilding:netherite_hopper",
     "simplebuilding:netherite_piston",
     "simplebuilding:netherite_piston_head",
+    "simplebuilding:netherite_pressure_plate",
     "simplebuilding:netherite_smoker",
     "simplebuilding:nihil_end_stone",
     "simplebuilding:nihil_purpur_block",
@@ -53,6 +70,7 @@
     "simplebuilding:nihilith_ore",
     "simplebuilding:nihilith_pillar",
     "simplebuilding:nihilith_quartz_checker",
+    "simplebuilding:oxidized_copper_pressure_plate",
     "simplebuilding:polished_astralit",
     "simplebuilding:polished_astralit_slab",
     "simplebuilding:polished_astralit_stairs",
@@ -69,14 +87,22 @@
     "simplebuilding:purpur_quartz_checker",
     "simplebuilding:reinforced_backpack",
     "simplebuilding:reinforced_blast_furnace",
+    "simplebuilding:reinforced_elytra_pad",
+    "simplebuilding:reinforced_flypad",
     "simplebuilding:reinforced_furnace",
     "simplebuilding:reinforced_hopper",
     "simplebuilding:reinforced_piston",
     "simplebuilding:reinforced_smoker",
     "simplebuilding:reinforced_sticky_piston",
     "simplebuilding:resin_quartz_checker",
+    "simplebuilding:spawn_teleporter",
+    "simplebuilding:spawn_teleporter_tier_2",
+    "simplebuilding:spawn_teleporter_tier_3",
+    "simplebuilding:spawn_teleporter_tier_4",
+    "simplebuilding:stellar_flypad",
     "simplebuilding:suspended_gravel",
-    "simplebuilding:suspended_sand"
+    "simplebuilding:suspended_sand",
+    "simplebuilding:weathered_copper_pressure_plate"
   ],
   "generator": "com.simplebuilding.datagen.WikiDataProvider",
   "items": [
@@ -137,6 +163,9 @@
       "id": "simplebuilding:chiseled_nihilith_bricks"
     },
     {
+      "id": "simplebuilding:chunk_loader"
+    },
+    {
       "id": "simplebuilding:construction_light"
     },
     {
@@ -157,6 +186,9 @@
     {
       "id": "simplebuilding:copper_core",
       "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:copper_pressure_plate"
     },
     {
       "attackDamage": 6.0,
@@ -207,6 +239,9 @@
       "id": "simplebuilding:diamond_pebble"
     },
     {
+      "id": "simplebuilding:diamond_pressure_plate"
+    },
+    {
       "attackDamage": 11.0,
       "attackSpeed": 0.8,
       "durability": 6244,
@@ -221,6 +256,15 @@
       "enchantability": 10,
       "id": "simplebuilding:diamond_spatula",
       "maxStackSize": 1
+    },
+    {
+      "durability": 64,
+      "enchantability": 15,
+      "id": "simplebuilding:echo_compass",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:elytra_pad"
     },
     {
       "id": "simplebuilding:emitting_trim_template"
@@ -318,8 +362,17 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:enderite_chunk_loader"
+    },
+    {
       "id": "simplebuilding:enderite_core",
       "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:enderite_elytra_pad"
+    },
+    {
+      "id": "simplebuilding:enderite_flypad"
     },
     {
       "id": "simplebuilding:enderite_furnace"
@@ -345,6 +398,9 @@
       "id": "simplebuilding:enderite_ingot"
     },
     {
+      "id": "simplebuilding:enderite_launchpad"
+    },
+    {
       "durability": 630,
       "enchantability": 18,
       "id": "simplebuilding:enderite_leggings",
@@ -363,6 +419,9 @@
     },
     {
       "id": "simplebuilding:enderite_piston"
+    },
+    {
+      "id": "simplebuilding:enderite_pressure_plate"
     },
     {
       "bundleCapacityItems": 192,
@@ -392,6 +451,9 @@
       "id": "simplebuilding:enderite_smoker"
     },
     {
+      "id": "simplebuilding:enderite_spawn_teleporter"
+    },
+    {
       "attackDamage": 6.0,
       "attackSpeed": 0.87,
       "durability": 2530,
@@ -409,6 +471,15 @@
     },
     {
       "id": "simplebuilding:enderite_upgrade_template"
+    },
+    {
+      "id": "simplebuilding:exposed_copper_pressure_plate"
+    },
+    {
+      "id": "simplebuilding:fine_elytra_pad"
+    },
+    {
+      "id": "simplebuilding:flypad"
     },
     {
       "id": "simplebuilding:glowing_trim_template"
@@ -487,6 +558,14 @@
       "id": "simplebuilding:lapis_quartz_checker"
     },
     {
+      "durability": 500,
+      "id": "simplebuilding:laser_pointer",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:launchpad"
+    },
+    {
       "id": "simplebuilding:leather_sheet"
     },
     {
@@ -537,6 +616,12 @@
       "maxStackSize": 16
     },
     {
+      "id": "simplebuilding:netherite_elytra_pad"
+    },
+    {
+      "id": "simplebuilding:netherite_flypad"
+    },
+    {
       "id": "simplebuilding:netherite_furnace"
     },
     {
@@ -547,6 +632,9 @@
     },
     {
       "id": "simplebuilding:netherite_piston"
+    },
+    {
+      "id": "simplebuilding:netherite_pressure_plate"
     },
     {
       "bundleCapacityItems": 128,
@@ -714,6 +802,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:oxidized_copper_pressure_plate"
+    },
+    {
       "id": "simplebuilding:polished_astralit"
     },
     {
@@ -776,6 +867,12 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:reinforced_elytra_pad"
+    },
+    {
+      "id": "simplebuilding:reinforced_flypad"
+    },
+    {
       "id": "simplebuilding:reinforced_furnace"
     },
     {
@@ -803,6 +900,25 @@
       "enchantability": 15,
       "id": "simplebuilding:rotator",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:spawn_elytra",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:spawn_teleporter"
+    },
+    {
+      "id": "simplebuilding:spawn_teleporter_tier_2"
+    },
+    {
+      "id": "simplebuilding:spawn_teleporter_tier_3"
+    },
+    {
+      "id": "simplebuilding:spawn_teleporter_tier_4"
+    },
+    {
+      "id": "simplebuilding:stellar_flypad"
     },
     {
       "cooldownTicks": 30,
@@ -837,6 +953,9 @@
     {
       "id": "simplebuilding:velocity-gauge",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:weathered_copper_pressure_plate"
     }
   ],
   "note": "Aus der Item-Registry erzeugt (gradlew runDatagen) - nicht von Hand aendern.",

@@ -1,6 +1,8 @@
 package com.simplebuilding.tweaks.network;
 
+import com.simplebuilding.platform.ClientNetworking;
 import com.simplebuilding.platform.PlatformServices;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import com.simplebuilding.tweaks.SimpleTweaks;
 import com.simplebuilding.tweaks.component.TweaksComponents;
 import com.simplebuilding.tweaks.item.TweaksItems;
@@ -25,7 +27,33 @@ public final class TweaksNetwork {
     public record LaserDot(float x, float y, float z, long timestamp) {
     }
 
+    /**
+     * Wie Pakete dieses Teils verschickt werden. Standard: die gemeinsamen Wege der Mod
+     * (PlatformServices/ClientNetworking); Forge setzt eigene, weil sein Kanal "simplebuilding:main"
+     * nur die aelteren Pakete kennt.
+     */
+    private static PlayerSender toPlayer = (player, payload) -> {
+        if (PlatformServices.canSendToPlayer(player, payload.type())) {
+            PlatformServices.sendToPlayer(player, payload);
+        }
+    };
+    private static java.util.function.Consumer<CustomPacketPayload> toServer = ClientNetworking::send;
+
+    @FunctionalInterface
+    public interface PlayerSender {
+        void send(ServerPlayer player, CustomPacketPayload payload);
+    }
+
     private TweaksNetwork() {
+    }
+
+    public static void setSenders(PlayerSender playerSender, java.util.function.Consumer<CustomPacketPayload> serverSender) {
+        toPlayer = playerSender;
+        toServer = serverSender;
+    }
+
+    public static void sendToServer(CustomPacketPayload payload) {
+        toServer.accept(payload);
     }
 
     /**
@@ -61,8 +89,8 @@ public final class TweaksNetwork {
         LaserPayload checked = new LaserPayload(sender.getUUID(), payload.x(), payload.y(), payload.z(), payload.active());
         ServerLevel level = sender.level();
         for (ServerPlayer player : level.players()) {
-            if (player != sender && PlatformServices.canSendToPlayer(player, LaserPayload.ID)) {
-                PlatformServices.sendToPlayer(player, checked);
+            if (player != sender) {
+                toPlayer.send(player, checked);
             }
         }
     }

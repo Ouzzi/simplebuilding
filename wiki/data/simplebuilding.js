@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "src/main/generated/wiki/items.json",
       "present": true,
-      "count": 169,
+      "count": 198,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -5800,6 +5800,25 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:echo_compass",
+      "name": {
+        "en_us": "Echo Compass",
+        "de_de": "Echo-Kompass"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:echo_compass"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "durability": 64,
+        "enchantability": 15,
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:emitting_trim_template",
       "name": {
         "en_us": "Emitting Trim Upgrade Template",
@@ -7027,7 +7046,9 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:enderite_core_smithing"
       ],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:echo_compass"
+      ],
       "trades": [],
       "properties": {
         "maxStackSize": 16
@@ -7247,15 +7268,21 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_bundle_smithing",
         "simplebuilding:enderite_chestplate_smithing",
         "simplebuilding:enderite_chisel_smithing",
+        "simplebuilding:enderite_chunk_loader_smithing",
         "simplebuilding:enderite_core_smithing",
+        "simplebuilding:enderite_elytra_pad_smithing",
+        "simplebuilding:enderite_flypad_smithing",
         "simplebuilding:enderite_helmet_smithing",
         "simplebuilding:enderite_hoe_smithing",
+        "simplebuilding:enderite_launchpad_smithing",
         "simplebuilding:enderite_leggings_smithing",
         "simplebuilding:enderite_nugget_from_ingot",
         "simplebuilding:enderite_pickaxe_smithing",
+        "simplebuilding:enderite_pressure_plate_smithing",
         "simplebuilding:enderite_quiver_smithing",
         "simplebuilding:enderite_shovel_smithing",
         "simplebuilding:enderite_sledgehammer_smithing",
+        "simplebuilding:enderite_spawn_teleporter_smithing",
         "simplebuilding:enderite_sword_smithing"
       ],
       "trades": [],
@@ -7924,14 +7951,20 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_bundle_smithing",
         "simplebuilding:enderite_chestplate_smithing",
         "simplebuilding:enderite_chisel_smithing",
+        "simplebuilding:enderite_chunk_loader_smithing",
         "simplebuilding:enderite_core_smithing",
+        "simplebuilding:enderite_elytra_pad_smithing",
+        "simplebuilding:enderite_flypad_smithing",
         "simplebuilding:enderite_helmet_smithing",
         "simplebuilding:enderite_hoe_smithing",
+        "simplebuilding:enderite_launchpad_smithing",
         "simplebuilding:enderite_leggings_smithing",
         "simplebuilding:enderite_pickaxe_smithing",
+        "simplebuilding:enderite_pressure_plate_smithing",
         "simplebuilding:enderite_quiver_smithing",
         "simplebuilding:enderite_shovel_smithing",
         "simplebuilding:enderite_sledgehammer_smithing",
+        "simplebuilding:enderite_spawn_teleporter_smithing",
         "simplebuilding:enderite_sword_smithing",
         "simplebuilding:enderite_upgrade_template"
       ],
@@ -9510,6 +9543,22 @@ window.WIKI_DATA = {
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
           ]
         }
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:laser_pointer",
+      "name": {
+        "en_us": "Laser Pointer",
+        "de_de": "Laserpointer"
+      },
+      "texture": "assets/textures/item/laser_pointer.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "durability": 500,
+        "maxStackSize": 1
       },
       "hasCustomBehaviour": false
     },
@@ -14091,6 +14140,21 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:spawn_elytra",
+      "name": {
+        "en_us": "Spawn Elytra",
+        "de_de": "Spawn-Elytra"
+      },
+      "texture": "assets/textures/item/spawn_elytra.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stone_chisel",
       "name": {
         "en_us": "Stone Chisel",
@@ -15405,6 +15469,26 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:chunk_loader",
+      "name": {
+        "en_us": "Chunk Loader",
+        "de_de": "Chunk-Lader"
+      },
+      "texture": "assets/textures/block/chunk_loader.png",
+      "craftedBy": [
+        "simplebuilding:chunk_loader_smithing"
+      ],
+      "usedIn": [
+        "simplebuilding:enderite_chunk_loader_smithing"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/chunk_loader",
+      "drops": [
+        "simplebuilding:chunk_loader"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:construction_light",
       "name": {
         "en_us": "Construction Light",
@@ -15454,6 +15538,26 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:copper_pressure_plate",
+      "name": {
+        "en_us": "Copper Pressure Plate",
+        "de_de": "Kupfer-Druckplatte"
+      },
+      "texture": "assets/textures/block/copper_pressure_plate.png",
+      "craftedBy": [
+        "simplebuilding:copper_pressure_plate"
+      ],
+      "usedIn": [
+        "simplebuilding:chunk_loader_smithing"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/copper_pressure_plate",
+      "drops": [
+        "simplebuilding:copper_pressure_plate"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:cracked_diamond_block",
       "name": {
         "en_us": "Cracked Diamond Block",
@@ -15476,6 +15580,47 @@ window.WIKI_DATA = {
       "lootTable": "simplebuilding:blocks/cracked_diamond_block",
       "drops": [
         "simplebuilding:cracked_diamond_block"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:diamond_pressure_plate",
+      "name": {
+        "en_us": "Diamond Pressure Plate",
+        "de_de": "Diamant-Druckplatte"
+      },
+      "texture": "assets/textures/block/diamond_pressure_plate.png",
+      "craftedBy": [
+        "simplebuilding:diamond_pressure_plate"
+      ],
+      "usedIn": [
+        "simplebuilding:elytra_pad_smithing",
+        "simplebuilding:netherite_pressure_plate_smithing"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/diamond_pressure_plate",
+      "drops": [
+        "simplebuilding:diamond_pressure_plate"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:elytra_pad",
+      "name": {
+        "en_us": "Elytra Pad I",
+        "de_de": "Elytra-Pad I"
+      },
+      "texture": "assets/textures/block/elytra_pad.png",
+      "craftedBy": [
+        "simplebuilding:elytra_pad_smithing"
+      ],
+      "usedIn": [
+        "simplebuilding:reinforced_elytra_pad_smithing"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/elytra_pad",
+      "drops": [
+        "simplebuilding:elytra_pad"
       ],
       "hasCustomBehaviour": false
     },
@@ -16047,6 +16192,64 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:enderite_chunk_loader",
+      "name": {
+        "en_us": "Enderite Chunk Loader",
+        "de_de": "Enderit-Chunk-Lader"
+      },
+      "texture": "assets/textures/block/enderite_chunk_loader.png",
+      "craftedBy": [
+        "simplebuilding:enderite_chunk_loader_smithing"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/enderite_chunk_loader",
+      "drops": [
+        "simplebuilding:enderite_chunk_loader"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:enderite_elytra_pad",
+      "name": {
+        "en_us": "Enderite Elytra Pad IV",
+        "de_de": "Enderit-Elytra-Pad IV"
+      },
+      "texture": "assets/textures/block/enderite_elytra_pad.png",
+      "craftedBy": [
+        "simplebuilding:enderite_elytra_pad_smithing"
+      ],
+      "usedIn": [
+        "simplebuilding:fine_elytra_pad_smithing"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/enderite_elytra_pad",
+      "drops": [
+        "simplebuilding:enderite_elytra_pad"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:enderite_flypad",
+      "name": {
+        "en_us": "Enderite Flypad IV",
+        "de_de": "Enderit-Flugpad IV"
+      },
+      "texture": "assets/textures/block/enderite_flypad.png",
+      "craftedBy": [
+        "simplebuilding:enderite_flypad_smithing"
+      ],
+      "usedIn": [
+        "simplebuilding:stellar_flypad_crafting"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/enderite_flypad",
+      "drops": [
+        "simplebuilding:enderite_flypad"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:enderite_furnace",
       "name": {
         "en_us": "Enderite Furnace",
@@ -16228,6 +16431,24 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:enderite_launchpad",
+      "name": {
+        "en_us": "Enderite Launchpad",
+        "de_de": "Enderit-Startrampe"
+      },
+      "texture": "assets/textures/block/enderite_launchpad.png",
+      "craftedBy": [
+        "simplebuilding:enderite_launchpad_smithing"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/enderite_launchpad",
+      "drops": [
+        "simplebuilding:enderite_launchpad"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:enderite_piston",
       "name": {
         "en_us": "Enderite Piston",
@@ -16308,6 +16529,24 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:enderite_pressure_plate",
+      "name": {
+        "en_us": "Enderite Pressure Plate",
+        "de_de": "Enderit-Druckplatte"
+      },
+      "texture": "assets/textures/block/enderite_pressure_plate.png",
+      "craftedBy": [
+        "simplebuilding:enderite_pressure_plate_smithing"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/enderite_pressure_plate",
+      "drops": [
+        "simplebuilding:enderite_pressure_plate"
+      ],
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:enderite_smoker",
@@ -16405,6 +16644,80 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:enderite_spawn_teleporter",
+      "name": {
+        "en_us": "Enderite Spawn Teleporter V",
+        "de_de": "Enderit-Spawn-Teleporter V"
+      },
+      "texture": "assets/textures/block/enderite_spawn_teleporter.png",
+      "craftedBy": [
+        "simplebuilding:enderite_spawn_teleporter_smithing"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/enderite_spawn_teleporter",
+      "drops": [
+        "simplebuilding:enderite_spawn_teleporter"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:exposed_copper_pressure_plate",
+      "name": {
+        "en_us": "Exposed Copper Pressure Plate",
+        "de_de": "Angelaufene Kupfer-Druckplatte"
+      },
+      "texture": "assets/textures/block/exposed_copper_pressure_plate.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/exposed_copper_pressure_plate",
+      "drops": [
+        "simplebuilding:exposed_copper_pressure_plate"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:fine_elytra_pad",
+      "name": {
+        "en_us": "Fine Elytra Pad V",
+        "de_de": "Feines Elytra-Pad V"
+      },
+      "texture": "assets/textures/block/fine_elytra_pad.png",
+      "craftedBy": [
+        "simplebuilding:fine_elytra_pad_smithing"
+      ],
+      "usedIn": [
+        "simplebuilding:flypad_tier1_smithing"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/fine_elytra_pad",
+      "drops": [
+        "simplebuilding:fine_elytra_pad"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:flypad",
+      "name": {
+        "en_us": "Flypad I",
+        "de_de": "Flugpad I"
+      },
+      "texture": "assets/textures/block/flypad.png",
+      "craftedBy": [
+        "simplebuilding:flypad_tier1_smithing"
+      ],
+      "usedIn": [
+        "simplebuilding:flypad_tier2_smithing"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/flypad",
+      "drops": [
+        "simplebuilding:flypad"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:lapis_quartz_checker",
       "name": {
         "en_us": "Lapis Quartz Checker",
@@ -16454,6 +16767,27 @@ window.WIKI_DATA = {
           ]
         }
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:launchpad",
+      "name": {
+        "en_us": "Launchpad",
+        "de_de": "Startrampe"
+      },
+      "texture": "assets/textures/block/launchpad.png",
+      "craftedBy": [
+        "simplebuilding:launchpad_smithing",
+        "simplebuilding:launchpad_smithing_alternative"
+      ],
+      "usedIn": [
+        "simplebuilding:enderite_launchpad_smithing"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/launchpad",
+      "drops": [
+        "simplebuilding:launchpad"
+      ],
       "hasCustomBehaviour": false
     },
     {
@@ -16923,6 +17257,46 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:netherite_elytra_pad",
+      "name": {
+        "en_us": "Netherite Elytra Pad III",
+        "de_de": "Netherit-Elytra-Pad III"
+      },
+      "texture": "assets/textures/block/netherite_elytra_pad.png",
+      "craftedBy": [
+        "simplebuilding:netherite_elytra_pad_smithing"
+      ],
+      "usedIn": [
+        "simplebuilding:enderite_elytra_pad_smithing"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/netherite_elytra_pad",
+      "drops": [
+        "simplebuilding:netherite_elytra_pad"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:netherite_flypad",
+      "name": {
+        "en_us": "Netherite Flypad III",
+        "de_de": "Netherit-Flugpad III"
+      },
+      "texture": "assets/textures/block/netherite_flypad.png",
+      "craftedBy": [
+        "simplebuilding:netherite_flypad_crafting"
+      ],
+      "usedIn": [
+        "simplebuilding:enderite_flypad_smithing"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/netherite_flypad",
+      "drops": [
+        "simplebuilding:netherite_flypad"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:netherite_furnace",
       "name": {
         "en_us": "Netherite Furnace",
@@ -17324,6 +17698,27 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:netherite_pressure_plate",
+      "name": {
+        "en_us": "Netherite Pressure Plate",
+        "de_de": "Netherit-Druckplatte"
+      },
+      "texture": "assets/textures/block/netherite_pressure_plate.png",
+      "craftedBy": [
+        "simplebuilding:netherite_pressure_plate_smithing"
+      ],
+      "usedIn": [
+        "simplebuilding:echo_compass",
+        "simplebuilding:enderite_pressure_plate_smithing"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/netherite_pressure_plate",
+      "drops": [
+        "simplebuilding:netherite_pressure_plate"
+      ],
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:netherite_smoker",
@@ -17735,6 +18130,22 @@ window.WIKI_DATA = {
           ]
         }
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:oxidized_copper_pressure_plate",
+      "name": {
+        "en_us": "Oxidized Copper Pressure Plate",
+        "de_de": "Oxidierte Kupfer-Druckplatte"
+      },
+      "texture": "assets/textures/block/oxidized_copper_pressure_plate.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/oxidized_copper_pressure_plate",
+      "drops": [
+        "simplebuilding:oxidized_copper_pressure_plate"
+      ],
       "hasCustomBehaviour": false
     },
     {
@@ -18413,6 +18824,46 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": true
     },
     {
+      "id": "simplebuilding:reinforced_elytra_pad",
+      "name": {
+        "en_us": "Reinforced Elytra Pad II",
+        "de_de": "Verstärktes Elytra-Pad II"
+      },
+      "texture": "assets/textures/block/reinforced_elytra_pad.png",
+      "craftedBy": [
+        "simplebuilding:reinforced_elytra_pad_smithing"
+      ],
+      "usedIn": [
+        "simplebuilding:netherite_elytra_pad_smithing"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/reinforced_elytra_pad",
+      "drops": [
+        "simplebuilding:reinforced_elytra_pad"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:reinforced_flypad",
+      "name": {
+        "en_us": "Reinforced Flypad II",
+        "de_de": "Verstärktes Flugpad II"
+      },
+      "texture": "assets/textures/block/reinforced_flypad.png",
+      "craftedBy": [
+        "simplebuilding:flypad_tier2_smithing"
+      ],
+      "usedIn": [
+        "simplebuilding:netherite_flypad_crafting"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/reinforced_flypad",
+      "drops": [
+        "simplebuilding:reinforced_flypad"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:reinforced_furnace",
       "name": {
         "en_us": "Reinforced Furnace",
@@ -18979,6 +19430,105 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:spawn_teleporter",
+      "name": {
+        "en_us": "Spawn Teleporter I",
+        "de_de": "Spawn-Teleporter I"
+      },
+      "texture": "assets/textures/block/spawn_teleporter.png",
+      "craftedBy": [
+        "simplebuilding:spawn_teleporter_smithing",
+        "simplebuilding:spawn_teleporter_smithing_alternative"
+      ],
+      "usedIn": [
+        "simplebuilding:spawn_teleporter_tier2_smithing"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/spawn_teleporter",
+      "drops": [
+        "simplebuilding:spawn_teleporter"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:spawn_teleporter_tier_2",
+      "name": {
+        "en_us": "Spawn Teleporter II",
+        "de_de": "Spawn-Teleporter II"
+      },
+      "texture": "assets/textures/block/spawn_teleporter_tier_2.png",
+      "craftedBy": [
+        "simplebuilding:spawn_teleporter_tier2_smithing"
+      ],
+      "usedIn": [
+        "simplebuilding:spawn_teleporter_tier3_smithing"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/spawn_teleporter_tier_2",
+      "drops": [
+        "simplebuilding:spawn_teleporter_tier_2"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:spawn_teleporter_tier_3",
+      "name": {
+        "en_us": "Spawn Teleporter III",
+        "de_de": "Spawn-Teleporter III"
+      },
+      "texture": "assets/textures/block/spawn_teleporter_tier_3.png",
+      "craftedBy": [
+        "simplebuilding:spawn_teleporter_tier3_smithing"
+      ],
+      "usedIn": [
+        "simplebuilding:spawn_teleporter_tier4_smithing"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/spawn_teleporter_tier_3",
+      "drops": [
+        "simplebuilding:spawn_teleporter_tier_3"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:spawn_teleporter_tier_4",
+      "name": {
+        "en_us": "Spawn Teleporter IV",
+        "de_de": "Spawn-Teleporter IV"
+      },
+      "texture": "assets/textures/block/spawn_teleporter_tier_4.png",
+      "craftedBy": [
+        "simplebuilding:spawn_teleporter_tier4_smithing"
+      ],
+      "usedIn": [
+        "simplebuilding:enderite_spawn_teleporter_smithing"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/spawn_teleporter_tier_4",
+      "drops": [
+        "simplebuilding:spawn_teleporter_tier_4"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:stellar_flypad",
+      "name": {
+        "en_us": "Stellar Flypad V",
+        "de_de": "Stellares Flugpad V"
+      },
+      "texture": "assets/textures/block/stellar_flypad.png",
+      "craftedBy": [
+        "simplebuilding:stellar_flypad_crafting"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/stellar_flypad",
+      "drops": [
+        "simplebuilding:stellar_flypad"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:suspended_gravel",
       "name": {
         "en_us": "Suspended Gravel",
@@ -19130,6 +19680,22 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/gametest/GravityBlockTests.java"
         ]
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:weathered_copper_pressure_plate",
+      "name": {
+        "en_us": "Weathered Copper Pressure Plate",
+        "de_de": "Verwitterte Kupfer-Druckplatte"
+      },
+      "texture": "assets/textures/block/weathered_copper_pressure_plate.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/weathered_copper_pressure_plate",
+      "drops": [
+        "simplebuilding:weathered_copper_pressure_plate"
+      ],
       "hasCustomBehaviour": false
     }
   ],
@@ -20594,6 +21160,37 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:chunk_loader_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:chunk_loader",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/chunk_loader_smithing.json",
+      "ingredients": [
+        "minecraft:netherite_ingot",
+        "minecraft:netherite_upgrade_smithing_template",
+        "simplebuilding:copper_pressure_plate"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:copper_pressure_plate"
+        ],
+        "addition": [
+          "minecraft:netherite_ingot"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:construction_light",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -20729,6 +21326,32 @@ window.WIKI_DATA = {
       },
       "lines": [
         "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:copper_pressure_plate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:copper_pressure_plate",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/copper_pressure_plate.json",
+      "ingredients": [
+        "minecraft:copper_block"
+      ],
+      "pattern": [
+        "CC"
+      ],
+      "key": {
+        "C": [
+          "minecraft:copper_block"
+        ]
+      },
+      "lines": [
         "26.2",
         "26.3"
       ]
@@ -20981,6 +21604,32 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:diamond_pressure_plate",
+      "type": "minecraft:crafting_shaped",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:diamond_pressure_plate",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/diamond_pressure_plate.json",
+      "ingredients": [
+        "minecraft:diamond"
+      ],
+      "pattern": [
+        "DD"
+      ],
+      "key": {
+        "D": [
+          "minecraft:diamond"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:diamond_sledgehammer",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -21013,6 +21662,108 @@ window.WIKI_DATA = {
       },
       "lines": [
         "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:echo_compass",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:echo_compass",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/echo_compass.json",
+      "ingredients": [
+        "minecraft:recovery_compass",
+        "simplebuilding:enderite_core",
+        "simplebuilding:netherite_pressure_plate"
+      ],
+      "pattern": [
+        " E ",
+        "PRP"
+      ],
+      "key": {
+        "E": [
+          "simplebuilding:enderite_core"
+        ],
+        "P": [
+          "simplebuilding:netherite_pressure_plate"
+        ],
+        "R": [
+          "minecraft:recovery_compass"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:elytra_pad_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:elytra_pad",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/elytra_pad_smithing.json",
+      "ingredients": [
+        "minecraft:bolt_armor_trim_smithing_template",
+        "minecraft:coast_armor_trim_smithing_template",
+        "minecraft:diamond",
+        "minecraft:dune_armor_trim_smithing_template",
+        "minecraft:eye_armor_trim_smithing_template",
+        "minecraft:flow_armor_trim_smithing_template",
+        "minecraft:host_armor_trim_smithing_template",
+        "minecraft:netherite_upgrade_smithing_template",
+        "minecraft:raiser_armor_trim_smithing_template",
+        "minecraft:rib_armor_trim_smithing_template",
+        "minecraft:sentry_armor_trim_smithing_template",
+        "minecraft:shaper_armor_trim_smithing_template",
+        "minecraft:silence_armor_trim_smithing_template",
+        "minecraft:snout_armor_trim_smithing_template",
+        "minecraft:spire_armor_trim_smithing_template",
+        "minecraft:tide_armor_trim_smithing_template",
+        "minecraft:vex_armor_trim_smithing_template",
+        "minecraft:ward_armor_trim_smithing_template",
+        "minecraft:wayfinder_armor_trim_smithing_template",
+        "minecraft:wild_armor_trim_smithing_template",
+        "simplebuilding:diamond_pressure_plate"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template",
+          "minecraft:sentry_armor_trim_smithing_template",
+          "minecraft:dune_armor_trim_smithing_template",
+          "minecraft:coast_armor_trim_smithing_template",
+          "minecraft:wild_armor_trim_smithing_template",
+          "minecraft:ward_armor_trim_smithing_template",
+          "minecraft:eye_armor_trim_smithing_template",
+          "minecraft:vex_armor_trim_smithing_template",
+          "minecraft:tide_armor_trim_smithing_template",
+          "minecraft:snout_armor_trim_smithing_template",
+          "minecraft:rib_armor_trim_smithing_template",
+          "minecraft:spire_armor_trim_smithing_template",
+          "minecraft:wayfinder_armor_trim_smithing_template",
+          "minecraft:shaper_armor_trim_smithing_template",
+          "minecraft:silence_armor_trim_smithing_template",
+          "minecraft:raiser_armor_trim_smithing_template",
+          "minecraft:host_armor_trim_smithing_template",
+          "minecraft:flow_armor_trim_smithing_template",
+          "minecraft:bolt_armor_trim_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:diamond_pressure_plate"
+        ],
+        "addition": [
+          "minecraft:diamond"
+        ]
+      },
+      "lines": [
         "26.2",
         "26.3"
       ]
@@ -22412,6 +23163,37 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:enderite_chunk_loader_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_chunk_loader",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_chunk_loader_smithing.json",
+      "ingredients": [
+        "simplebuilding:chunk_loader",
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:enderite_upgrade_template"
+        ],
+        "base": [
+          "simplebuilding:chunk_loader"
+        ],
+        "addition": [
+          "simplebuilding:enderite_ingot"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:enderite_core_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -22439,6 +23221,68 @@ window.WIKI_DATA = {
       },
       "lines": [
         "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:enderite_elytra_pad_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_elytra_pad",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_elytra_pad_smithing.json",
+      "ingredients": [
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_elytra_pad"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:enderite_upgrade_template"
+        ],
+        "base": [
+          "simplebuilding:netherite_elytra_pad"
+        ],
+        "addition": [
+          "simplebuilding:enderite_ingot"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:enderite_flypad_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_flypad",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_flypad_smithing.json",
+      "ingredients": [
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_flypad"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:enderite_upgrade_template"
+        ],
+        "base": [
+          "simplebuilding:netherite_flypad"
+        ],
+        "addition": [
+          "simplebuilding:enderite_ingot"
+        ]
+      },
+      "lines": [
         "26.2",
         "26.3"
       ]
@@ -22598,6 +23442,37 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:enderite_launchpad_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_launchpad",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_launchpad_smithing.json",
+      "ingredients": [
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:launchpad"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:enderite_upgrade_template"
+        ],
+        "base": [
+          "simplebuilding:launchpad"
+        ],
+        "addition": [
+          "simplebuilding:enderite_ingot"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:enderite_leggings_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -22681,6 +23556,37 @@ window.WIKI_DATA = {
       },
       "lines": [
         "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:enderite_pressure_plate_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_pressure_plate",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_pressure_plate_smithing.json",
+      "ingredients": [
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:netherite_pressure_plate"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:enderite_upgrade_template"
+        ],
+        "base": [
+          "simplebuilding:netherite_pressure_plate"
+        ],
+        "addition": [
+          "simplebuilding:enderite_ingot"
+        ]
+      },
+      "lines": [
         "26.2",
         "26.3"
       ]
@@ -22808,6 +23714,37 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:enderite_spawn_teleporter_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:enderite_spawn_teleporter",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_spawn_teleporter_smithing.json",
+      "ingredients": [
+        "simplebuilding:enderite_ingot",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:spawn_teleporter_tier_4"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:enderite_upgrade_template"
+        ],
+        "base": [
+          "simplebuilding:spawn_teleporter_tier_4"
+        ],
+        "addition": [
+          "simplebuilding:enderite_ingot"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:enderite_sword_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -22872,6 +23809,99 @@ window.WIKI_DATA = {
       },
       "lines": [
         "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:fine_elytra_pad_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:fine_elytra_pad",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/fine_elytra_pad_smithing.json",
+      "ingredients": [
+        "minecraft:nether_star",
+        "minecraft:netherite_upgrade_smithing_template",
+        "simplebuilding:enderite_elytra_pad"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:enderite_elytra_pad"
+        ],
+        "addition": [
+          "minecraft:nether_star"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:flypad_tier1_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:flypad",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/flypad_tier1_smithing.json",
+      "ingredients": [
+        "minecraft:netherite_ingot",
+        "minecraft:netherite_upgrade_smithing_template",
+        "simplebuilding:fine_elytra_pad"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:fine_elytra_pad"
+        ],
+        "addition": [
+          "minecraft:netherite_ingot"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:flypad_tier2_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:reinforced_flypad",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/flypad_tier2_smithing.json",
+      "ingredients": [
+        "minecraft:netherite_block",
+        "minecraft:netherite_upgrade_smithing_template",
+        "simplebuilding:flypad"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:flypad"
+        ],
+        "addition": [
+          "minecraft:netherite_block"
+        ]
+      },
+      "lines": [
         "26.2",
         "26.3"
       ]
@@ -23216,6 +24246,104 @@ window.WIKI_DATA = {
       },
       "lines": [
         "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:launchpad_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:launchpad",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/launchpad_smithing.json",
+      "ingredients": [
+        "minecraft:bolt_armor_trim_smithing_template",
+        "minecraft:coast_armor_trim_smithing_template",
+        "minecraft:diamond_block",
+        "minecraft:dune_armor_trim_smithing_template",
+        "minecraft:eye_armor_trim_smithing_template",
+        "minecraft:flow_armor_trim_smithing_template",
+        "minecraft:heavy_weighted_pressure_plate",
+        "minecraft:host_armor_trim_smithing_template",
+        "minecraft:netherite_upgrade_smithing_template",
+        "minecraft:raiser_armor_trim_smithing_template",
+        "minecraft:rib_armor_trim_smithing_template",
+        "minecraft:sentry_armor_trim_smithing_template",
+        "minecraft:shaper_armor_trim_smithing_template",
+        "minecraft:silence_armor_trim_smithing_template",
+        "minecraft:snout_armor_trim_smithing_template",
+        "minecraft:spire_armor_trim_smithing_template",
+        "minecraft:tide_armor_trim_smithing_template",
+        "minecraft:vex_armor_trim_smithing_template",
+        "minecraft:ward_armor_trim_smithing_template",
+        "minecraft:wayfinder_armor_trim_smithing_template",
+        "minecraft:wild_armor_trim_smithing_template"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template",
+          "minecraft:sentry_armor_trim_smithing_template",
+          "minecraft:dune_armor_trim_smithing_template",
+          "minecraft:coast_armor_trim_smithing_template",
+          "minecraft:wild_armor_trim_smithing_template",
+          "minecraft:ward_armor_trim_smithing_template",
+          "minecraft:eye_armor_trim_smithing_template",
+          "minecraft:vex_armor_trim_smithing_template",
+          "minecraft:tide_armor_trim_smithing_template",
+          "minecraft:snout_armor_trim_smithing_template",
+          "minecraft:rib_armor_trim_smithing_template",
+          "minecraft:spire_armor_trim_smithing_template",
+          "minecraft:wayfinder_armor_trim_smithing_template",
+          "minecraft:shaper_armor_trim_smithing_template",
+          "minecraft:silence_armor_trim_smithing_template",
+          "minecraft:raiser_armor_trim_smithing_template",
+          "minecraft:host_armor_trim_smithing_template",
+          "minecraft:flow_armor_trim_smithing_template",
+          "minecraft:bolt_armor_trim_smithing_template"
+        ],
+        "base": [
+          "minecraft:heavy_weighted_pressure_plate"
+        ],
+        "addition": [
+          "minecraft:diamond_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:launchpad_smithing_alternative",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:launchpad",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/launchpad_smithing_alternative.json",
+      "ingredients": [
+        "minecraft:heavy_weighted_pressure_plate",
+        "minecraft:netherite_ingot",
+        "minecraft:netherite_upgrade_smithing_template"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "minecraft:heavy_weighted_pressure_plate"
+        ],
+        "addition": [
+          "minecraft:netherite_ingot"
+        ]
+      },
+      "lines": [
         "26.2",
         "26.3"
       ]
@@ -23615,6 +24743,85 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:netherite_elytra_pad_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:netherite_elytra_pad",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/netherite_elytra_pad_smithing.json",
+      "ingredients": [
+        "minecraft:netherite_ingot",
+        "minecraft:netherite_upgrade_smithing_template",
+        "simplebuilding:reinforced_elytra_pad"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:reinforced_elytra_pad"
+        ],
+        "addition": [
+          "minecraft:netherite_ingot"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:netherite_flypad_crafting",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:netherite_flypad",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/netherite_flypad_crafting.json",
+      "ingredients": [
+        "minecraft:diamond_block",
+        "minecraft:enchanted_golden_apple",
+        "minecraft:nether_star",
+        "minecraft:netherite_block",
+        "minecraft:ominous_trial_key",
+        "simplebuilding:reinforced_flypad"
+      ],
+      "pattern": [
+        "DBD",
+        "ESE",
+        "KFK"
+      ],
+      "key": {
+        "B": [
+          "minecraft:netherite_block"
+        ],
+        "D": [
+          "minecraft:diamond_block"
+        ],
+        "E": [
+          "minecraft:enchanted_golden_apple"
+        ],
+        "F": [
+          "simplebuilding:reinforced_flypad"
+        ],
+        "K": [
+          "minecraft:ominous_trial_key"
+        ],
+        "S": [
+          "minecraft:nether_star"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:netherite_ingot",
       "type": "minecraft:crafting_shaped",
       "category": null,
@@ -23663,6 +24870,37 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:netherite_pressure_plate_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:netherite_pressure_plate",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/netherite_pressure_plate_smithing.json",
+      "ingredients": [
+        "minecraft:netherite_ingot",
+        "minecraft:netherite_upgrade_smithing_template",
+        "simplebuilding:diamond_pressure_plate"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:diamond_pressure_plate"
+        ],
+        "addition": [
+          "minecraft:netherite_ingot"
+        ]
+      },
+      "lines": [
         "26.2",
         "26.3"
       ]
@@ -26702,6 +27940,73 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:reinforced_elytra_pad_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:reinforced_elytra_pad",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_elytra_pad_smithing.json",
+      "ingredients": [
+        "minecraft:bolt_armor_trim_smithing_template",
+        "minecraft:coast_armor_trim_smithing_template",
+        "minecraft:diamond_block",
+        "minecraft:dune_armor_trim_smithing_template",
+        "minecraft:eye_armor_trim_smithing_template",
+        "minecraft:flow_armor_trim_smithing_template",
+        "minecraft:host_armor_trim_smithing_template",
+        "minecraft:netherite_upgrade_smithing_template",
+        "minecraft:raiser_armor_trim_smithing_template",
+        "minecraft:rib_armor_trim_smithing_template",
+        "minecraft:sentry_armor_trim_smithing_template",
+        "minecraft:shaper_armor_trim_smithing_template",
+        "minecraft:silence_armor_trim_smithing_template",
+        "minecraft:snout_armor_trim_smithing_template",
+        "minecraft:spire_armor_trim_smithing_template",
+        "minecraft:tide_armor_trim_smithing_template",
+        "minecraft:vex_armor_trim_smithing_template",
+        "minecraft:ward_armor_trim_smithing_template",
+        "minecraft:wayfinder_armor_trim_smithing_template",
+        "minecraft:wild_armor_trim_smithing_template",
+        "simplebuilding:elytra_pad"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template",
+          "minecraft:sentry_armor_trim_smithing_template",
+          "minecraft:dune_armor_trim_smithing_template",
+          "minecraft:coast_armor_trim_smithing_template",
+          "minecraft:wild_armor_trim_smithing_template",
+          "minecraft:ward_armor_trim_smithing_template",
+          "minecraft:eye_armor_trim_smithing_template",
+          "minecraft:vex_armor_trim_smithing_template",
+          "minecraft:tide_armor_trim_smithing_template",
+          "minecraft:snout_armor_trim_smithing_template",
+          "minecraft:rib_armor_trim_smithing_template",
+          "minecraft:spire_armor_trim_smithing_template",
+          "minecraft:wayfinder_armor_trim_smithing_template",
+          "minecraft:shaper_armor_trim_smithing_template",
+          "minecraft:silence_armor_trim_smithing_template",
+          "minecraft:raiser_armor_trim_smithing_template",
+          "minecraft:host_armor_trim_smithing_template",
+          "minecraft:flow_armor_trim_smithing_template",
+          "minecraft:bolt_armor_trim_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:elytra_pad"
+        ],
+        "addition": [
+          "minecraft:diamond_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:reinforced_furnace",
       "type": "minecraft:crafting_shaped",
       "category": "redstone",
@@ -26979,6 +28284,237 @@ window.WIKI_DATA = {
       },
       "lines": [
         "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:spawn_teleporter_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:spawn_teleporter",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/spawn_teleporter_smithing.json",
+      "ingredients": [
+        "minecraft:bolt_armor_trim_smithing_template",
+        "minecraft:coast_armor_trim_smithing_template",
+        "minecraft:diamond_block",
+        "minecraft:dune_armor_trim_smithing_template",
+        "minecraft:eye_armor_trim_smithing_template",
+        "minecraft:flow_armor_trim_smithing_template",
+        "minecraft:host_armor_trim_smithing_template",
+        "minecraft:light_weighted_pressure_plate",
+        "minecraft:netherite_upgrade_smithing_template",
+        "minecraft:raiser_armor_trim_smithing_template",
+        "minecraft:rib_armor_trim_smithing_template",
+        "minecraft:sentry_armor_trim_smithing_template",
+        "minecraft:shaper_armor_trim_smithing_template",
+        "minecraft:silence_armor_trim_smithing_template",
+        "minecraft:snout_armor_trim_smithing_template",
+        "minecraft:spire_armor_trim_smithing_template",
+        "minecraft:tide_armor_trim_smithing_template",
+        "minecraft:vex_armor_trim_smithing_template",
+        "minecraft:ward_armor_trim_smithing_template",
+        "minecraft:wayfinder_armor_trim_smithing_template",
+        "minecraft:wild_armor_trim_smithing_template"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template",
+          "minecraft:sentry_armor_trim_smithing_template",
+          "minecraft:dune_armor_trim_smithing_template",
+          "minecraft:coast_armor_trim_smithing_template",
+          "minecraft:wild_armor_trim_smithing_template",
+          "minecraft:ward_armor_trim_smithing_template",
+          "minecraft:eye_armor_trim_smithing_template",
+          "minecraft:vex_armor_trim_smithing_template",
+          "minecraft:tide_armor_trim_smithing_template",
+          "minecraft:snout_armor_trim_smithing_template",
+          "minecraft:rib_armor_trim_smithing_template",
+          "minecraft:spire_armor_trim_smithing_template",
+          "minecraft:wayfinder_armor_trim_smithing_template",
+          "minecraft:shaper_armor_trim_smithing_template",
+          "minecraft:silence_armor_trim_smithing_template",
+          "minecraft:raiser_armor_trim_smithing_template",
+          "minecraft:host_armor_trim_smithing_template",
+          "minecraft:flow_armor_trim_smithing_template",
+          "minecraft:bolt_armor_trim_smithing_template"
+        ],
+        "base": [
+          "minecraft:light_weighted_pressure_plate"
+        ],
+        "addition": [
+          "minecraft:diamond_block"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:spawn_teleporter_smithing_alternative",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:spawn_teleporter",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/spawn_teleporter_smithing_alternative.json",
+      "ingredients": [
+        "minecraft:light_weighted_pressure_plate",
+        "minecraft:netherite_ingot",
+        "minecraft:netherite_upgrade_smithing_template"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "minecraft:light_weighted_pressure_plate"
+        ],
+        "addition": [
+          "minecraft:netherite_ingot"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:spawn_teleporter_tier2_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:spawn_teleporter_tier_2",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/spawn_teleporter_tier2_smithing.json",
+      "ingredients": [
+        "minecraft:netherite_ingot",
+        "minecraft:netherite_upgrade_smithing_template",
+        "simplebuilding:spawn_teleporter"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:spawn_teleporter"
+        ],
+        "addition": [
+          "minecraft:netherite_ingot"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:spawn_teleporter_tier3_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:spawn_teleporter_tier_3",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/spawn_teleporter_tier3_smithing.json",
+      "ingredients": [
+        "minecraft:netherite_ingot",
+        "minecraft:netherite_upgrade_smithing_template",
+        "simplebuilding:spawn_teleporter_tier_2"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:spawn_teleporter_tier_2"
+        ],
+        "addition": [
+          "minecraft:netherite_ingot"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:spawn_teleporter_tier4_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:spawn_teleporter_tier_4",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/spawn_teleporter_tier4_smithing.json",
+      "ingredients": [
+        "minecraft:netherite_ingot",
+        "minecraft:netherite_upgrade_smithing_template",
+        "simplebuilding:spawn_teleporter_tier_3"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:spawn_teleporter_tier_3"
+        ],
+        "addition": [
+          "minecraft:netherite_ingot"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:stellar_flypad_crafting",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:stellar_flypad",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/stellar_flypad_crafting.json",
+      "ingredients": [
+        "minecraft:enchanted_golden_apple",
+        "minecraft:nether_star",
+        "minecraft:ominous_trial_key",
+        "simplebuilding:enderite_flypad"
+      ],
+      "pattern": [
+        "KKK",
+        "ESE",
+        "FFF"
+      ],
+      "key": {
+        "E": [
+          "minecraft:enchanted_golden_apple"
+        ],
+        "F": [
+          "simplebuilding:enderite_flypad"
+        ],
+        "K": [
+          "minecraft:ominous_trial_key"
+        ],
+        "S": [
+          "minecraft:nether_star"
+        ]
+      },
+      "lines": [
         "26.2",
         "26.3"
       ]
@@ -28555,6 +30091,24 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/chiseled_nihilith_bricks.json"
     },
     {
+      "id": "simplebuilding:blocks/chunk_loader",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:chunk_loader"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/chunk_loader.json"
+    },
+    {
       "id": "simplebuilding:blocks/construction_light",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -28573,6 +30127,24 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/construction_light.json"
     },
     {
+      "id": "simplebuilding:blocks/copper_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:copper_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/copper_pressure_plate.json"
+    },
+    {
       "id": "simplebuilding:blocks/cracked_diamond_block",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -28589,6 +30161,42 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/cracked_diamond_block.json"
+    },
+    {
+      "id": "simplebuilding:blocks/diamond_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:diamond_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/diamond_pressure_plate.json"
+    },
+    {
+      "id": "simplebuilding:blocks/elytra_pad",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:elytra_pad"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/elytra_pad.json"
     },
     {
       "id": "simplebuilding:blocks/ender_quartz_block",
@@ -28801,6 +30409,60 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_block.json"
     },
     {
+      "id": "simplebuilding:blocks/enderite_chunk_loader",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:enderite_chunk_loader"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_chunk_loader.json"
+    },
+    {
+      "id": "simplebuilding:blocks/enderite_elytra_pad",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:enderite_elytra_pad"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_elytra_pad.json"
+    },
+    {
+      "id": "simplebuilding:blocks/enderite_flypad",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:enderite_flypad"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_flypad.json"
+    },
+    {
       "id": "simplebuilding:blocks/enderite_furnace",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -28837,6 +30499,24 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_hopper.json"
     },
     {
+      "id": "simplebuilding:blocks/enderite_launchpad",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:enderite_launchpad"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_launchpad.json"
+    },
+    {
       "id": "simplebuilding:blocks/enderite_piston",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -28853,6 +30533,24 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_piston.json"
+    },
+    {
+      "id": "simplebuilding:blocks/enderite_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:enderite_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_pressure_plate.json"
     },
     {
       "id": "simplebuilding:blocks/enderite_smoker",
@@ -28873,6 +30571,78 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_smoker.json"
     },
     {
+      "id": "simplebuilding:blocks/enderite_spawn_teleporter",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:enderite_spawn_teleporter"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_spawn_teleporter.json"
+    },
+    {
+      "id": "simplebuilding:blocks/exposed_copper_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:exposed_copper_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/exposed_copper_pressure_plate.json"
+    },
+    {
+      "id": "simplebuilding:blocks/fine_elytra_pad",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:fine_elytra_pad"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/fine_elytra_pad.json"
+    },
+    {
+      "id": "simplebuilding:blocks/flypad",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:flypad"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/flypad.json"
+    },
+    {
       "id": "simplebuilding:blocks/lapis_quartz_checker",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -28889,6 +30659,24 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/lapis_quartz_checker.json"
+    },
+    {
+      "id": "simplebuilding:blocks/launchpad",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:launchpad"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/launchpad.json"
     },
     {
       "id": "simplebuilding:blocks/levitating_gravel",
@@ -28961,6 +30749,42 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_blast_furnace.json"
     },
     {
+      "id": "simplebuilding:blocks/netherite_elytra_pad",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:netherite_elytra_pad"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_elytra_pad.json"
+    },
+    {
+      "id": "simplebuilding:blocks/netherite_flypad",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:netherite_flypad"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_flypad.json"
+    },
+    {
       "id": "simplebuilding:blocks/netherite_furnace",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -29013,6 +30837,24 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_piston.json"
+    },
+    {
+      "id": "simplebuilding:blocks/netherite_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:netherite_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_pressure_plate.json"
     },
     {
       "id": "simplebuilding:blocks/netherite_smoker",
@@ -29208,6 +31050,24 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/nihilith_quartz_checker.json"
+    },
+    {
+      "id": "simplebuilding:blocks/oxidized_copper_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:oxidized_copper_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/oxidized_copper_pressure_plate.json"
     },
     {
       "id": "simplebuilding:blocks/polished_astralit",
@@ -29490,6 +31350,42 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_blast_furnace.json"
     },
     {
+      "id": "simplebuilding:blocks/reinforced_elytra_pad",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:reinforced_elytra_pad"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_elytra_pad.json"
+    },
+    {
+      "id": "simplebuilding:blocks/reinforced_flypad",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:reinforced_flypad"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_flypad.json"
+    },
+    {
       "id": "simplebuilding:blocks/reinforced_furnace",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -29598,6 +31494,96 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/resin_quartz_checker.json"
     },
     {
+      "id": "simplebuilding:blocks/spawn_teleporter",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:spawn_teleporter"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/spawn_teleporter.json"
+    },
+    {
+      "id": "simplebuilding:blocks/spawn_teleporter_tier_2",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:spawn_teleporter_tier_2"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/spawn_teleporter_tier_2.json"
+    },
+    {
+      "id": "simplebuilding:blocks/spawn_teleporter_tier_3",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:spawn_teleporter_tier_3"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/spawn_teleporter_tier_3.json"
+    },
+    {
+      "id": "simplebuilding:blocks/spawn_teleporter_tier_4",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:spawn_teleporter_tier_4"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/spawn_teleporter_tier_4.json"
+    },
+    {
+      "id": "simplebuilding:blocks/stellar_flypad",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:stellar_flypad"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/stellar_flypad.json"
+    },
+    {
       "id": "simplebuilding:blocks/suspended_gravel",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -29632,6 +31618,24 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/suspended_sand.json"
+    },
+    {
+      "id": "simplebuilding:blocks/weathered_copper_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:weathered_copper_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/weathered_copper_pressure_plate.json"
     }
   ],
   "trades": [
@@ -32731,7 +34735,19 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_chunk_loader",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_core",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_elytra_pad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_flypad",
           "required": true
         },
         {
@@ -32755,6 +34771,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_launchpad",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_leggings",
           "required": true
         },
@@ -32771,6 +34791,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_pressure_plate",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_quiver",
           "required": true
         },
@@ -32784,6 +34808,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_smoker",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_spawn_teleporter",
           "required": true
         },
         {
@@ -33066,7 +35094,19 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_chunk_loader",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_core",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_elytra_pad",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_flypad",
           "required": true
         },
         {
@@ -33090,6 +35130,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:enderite_launchpad",
+          "required": true
+        },
+        {
           "id": "simplebuilding:enderite_leggings",
           "required": true
         },
@@ -33103,6 +35147,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_piston",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_pressure_plate",
           "required": true
         },
         {
@@ -33123,6 +35171,10 @@ window.WIKI_DATA = {
         },
         {
           "id": "simplebuilding:enderite_smoker",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_spawn_teleporter",
           "required": true
         },
         {
@@ -43769,10 +45821,10 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 163,
-    "blocks": 77,
-    "recipes": 311,
-    "lootTables": 76,
+    "items": 166,
+    "blocks": 103,
+    "recipes": 337,
+    "lootTables": 102,
     "trades": 21,
     "enchantments": 19,
     "tags": 27,

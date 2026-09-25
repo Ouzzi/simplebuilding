@@ -8,6 +8,12 @@ config="simplebuilding.mixins.json"
 [[mixins]]
 config="simplebuilding.client.mixins.json"
 
+[[mixins]]
+config="simplebuilding.tweaks.mixins.json"
+
+[[mixins]]
+config="simplebuilding.tweaks.neoforge.mixins.json"
+
 [[mods]]
 modId="${modId}"
 version="${modVersion}"

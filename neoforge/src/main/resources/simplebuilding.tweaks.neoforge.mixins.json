@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "com.simplebuilding.tweaks.neoforge.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "TweaksNeoForgeItemStackMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

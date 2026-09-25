@@ -33,11 +33,17 @@ public final class TweaksItems {
     static {
         for (Block block : TweaksBlocks.all()) {
             String path = BuiltInRegistries.BLOCK.getKey(block).getPath();
-            boolean enderite = path.startsWith("enderite_") || path.equals("fine_elytra_pad") || path.equals("stellar_flypad");
+            // Enderit und die Netherstern-Stufen: episch; alles aus Netherit/Enderit brennt nicht
+            // (wie Netherit-Gegenstaende, vgl. EnderiteMachineTests#enderiteGearInheritsEveryNetheriteTrait).
+            boolean epic = path.startsWith("enderite_") || path.equals("fine_elytra_pad") || path.equals("stellar_flypad");
+            boolean fireproof = epic || path.startsWith("netherite_");
             Item item = register(path, p -> {
                 Item.Properties props = p.useBlockDescriptionPrefix();
-                if (enderite) {
-                    props = props.fireResistant().rarity(Rarity.EPIC);
+                if (fireproof) {
+                    props = props.fireResistant();
+                }
+                if (epic) {
+                    props = props.rarity(Rarity.EPIC);
                 }
                 return new BlockItem(block, props);
             });

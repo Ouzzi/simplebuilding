@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_fine_elytra_pad": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:fine_elytra_pad"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "simplebuilding:flypad_tier1_smithing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_fine_elytra_pad"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "simplebuilding:flypad_tier1_smithing"
+    ]
+  }
+}

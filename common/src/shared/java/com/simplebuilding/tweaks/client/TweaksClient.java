@@ -1,6 +1,5 @@
 package com.simplebuilding.tweaks.client;
 
-import com.simplebuilding.platform.ClientNetworking;
 import com.simplebuilding.tweaks.SimpleTweaks;
 import com.simplebuilding.tweaks.TweaksClientHooks;
 import com.simplebuilding.tweaks.item.LaserPointerItem;
@@ -44,14 +43,14 @@ public final class TweaksClient {
 
         boolean jumpDown = client.options.keyJump.isDown();
         if (jumpDown && !jumpWasDown && player.isFallFlying() && SpawnElytraHud.wearsSpawnElytra(player)) {
-            ClientNetworking.send(new ElytraBoostPayload());
+            TweaksNetwork.sendToServer(new ElytraBoostPayload());
         }
         jumpWasDown = jumpDown;
 
         if (isAimingLaser(player) && laserTicks++ % 2 == 0) {
             Vec3 hit = laserHit(player, 1.0f);
             if (hit != null) {
-                ClientNetworking.send(new LaserPayload(player.getUUID(), (float) hit.x, (float) hit.y, (float) hit.z, true));
+                TweaksNetwork.sendToServer(new LaserPayload(player.getUUID(), (float) hit.x, (float) hit.y, (float) hit.z, true));
             }
         }
     }

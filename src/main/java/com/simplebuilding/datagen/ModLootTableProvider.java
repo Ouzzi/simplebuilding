@@ -52,6 +52,9 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
 
     @Override
     public void generate() {
+        // Aus Simple Tweaks: jede Platte droppt sich selbst (wie dort).
+        com.simplebuilding.tweaks.block.TweaksBlocks.all().forEach(this::dropSelf);
+
         // Definiert, dass diese Blöcke sich selbst droppen, wenn sie abgebaut werden
         dropSelf(ModBlocks.CONSTRUCTION_LIGHT);
         dropSelf(ModBlocks.CRACKED_DIAMOND_BLOCK);

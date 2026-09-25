@@ -30,6 +30,9 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider arg) {
+        // Aus Simple Tweaks: alle Platten mit der Spitzhacke (Abbautempo regelt sonst der Besitz).
+        com.simplebuilding.tweaks.block.TweaksBlocks.all().forEach(block -> builder(BlockTags.MINEABLE_WITH_PICKAXE).add(key(block)));
+
         // 1. Der Block soll mit einer Spitzhacke SCHNELLER abbaubar sein
         // Das behalten wir bei.
         builder(BlockTags.MINEABLE_WITH_PICKAXE)
