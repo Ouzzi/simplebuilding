@@ -97,6 +97,16 @@ public final class TcCanvas {
         add(new TcOp.Frame(new BlockPos(x, y, z), facing, stack.copy()));
     }
 
+    /** Rahmen mit einem Oktanten, dessen Auswahl (lokal) schon gesetzt ist. */
+    public void octantFrame(int x, int y, int z, Direction facing, BlockPos cornerA, BlockPos cornerB) {
+        add(new TcOp.OctantFrame(new BlockPos(x, y, z), facing, cornerA, cornerB));
+    }
+
+    /** Rahmen mit einer Blaupause, gescannt beim Bau aus der Auswahl vom Kartentisch {@code table} aus. */
+    public void blueprintFrame(int x, int y, int z, Direction facing, BlockPos cornerA, BlockPos cornerB, BlockPos table) {
+        add(new TcOp.BlueprintFrame(new BlockPos(x, y, z), facing, cornerA, cornerB, table));
+    }
+
     public void sign(int x, int y, int z, Direction facing, Component... lines) {
         add(new TcOp.Sign(new BlockPos(x, y, z), facing, List.of(Arrays.copyOf(lines, Math.min(4, lines.length)))));
     }

@@ -861,7 +861,8 @@ public final class TestCentreSections {
             c.fill(px + 1, -1, pz + 2, px + 5, -1, pz + 6, vanilla("white_concrete").defaultBlockState());
             c.place(px + 3, 0, pz + 4, Blocks.STONE_BRICKS);
             if (mode.key().equals("octant")) {
-                c.frame(px, 2, pz + 2, Direction.UP, new ItemStack(ModItems.OCTANT));
+                // Auswahl schon gesetzt: ein 3x3x3-Wuerfel ueber der Flaeche.
+                c.octantFrame(px, 2, pz + 2, Direction.UP, new BlockPos(px + 2, 0, pz + 3), new BlockPos(px + 4, 2, pz + 5));
                 c.place(px, 1, pz + 2, TcCanvas.TRIM);
                 c.place(px, 0, pz + 2, TcCanvas.TRIM);
             }
@@ -884,6 +885,13 @@ public final class TestCentreSections {
             }
         }
         c.place(hx + 6, 0, pz + 2, Blocks.CARTOGRAPHY_TABLE);
+        // Oktant mit der Hausauswahl und die daraus gescannte Blaupause, auf Pfosten neben dem Tisch.
+        BlockPos houseMin = new BlockPos(hx, 0, pz + 2);
+        BlockPos houseMax = new BlockPos(hx + 4, 3, pz + 6);
+        c.place(hx + 6, 0, pz + 4, TcCanvas.TRIM);
+        c.octantFrame(hx + 6, 1, pz + 4, Direction.UP, houseMin, houseMax);
+        c.place(hx + 6, 0, pz + 5, TcCanvas.TRIM);
+        c.blueprintFrame(hx + 6, 1, pz + 5, Direction.UP, houseMin, houseMax, new BlockPos(hx + 6, 0, pz + 2));
         post(c, hx + 7, pz, new ItemStack(ModItems.BLUEPRINT), TcText.bold(TcText.t("planning.blueprint", "Blueprint")),
                 TcText.t("planning.blueprint.sub", "mark house with octant"), TcText.t("planning.blueprint.sub2", "then cartography table"));
         return c;
@@ -902,6 +910,7 @@ public final class TestCentreSections {
             c.place(1 + i % 6, i / 6, 3, mixed.get(i));
             c.place(1 + i % 6, 2, 3, mixed.get((i + 5) % mixed.size()));
         }
+        postSign(c, 8, 0, TcText.bold(TcText.t("section.mining", "Mining")), TcText.t("section.mining.sub", "tool enchantments"));
         post(c, 0, 0, toolWith(ctx, ModEnchantments.VERSATILITY), TcText.bold(TcText.t("mining.versatility", "Versatility")),
                 TcText.t("mining.versatility.sub", "mine the mixed wall"));
 
@@ -965,6 +974,56 @@ public final class TestCentreSections {
             c.command(x, 1, z, Direction.NORTH, control.command(), control.label(), control.sub());
             x++;
         }
+        return c;
+    }
+
+    // =====================================================================================
+    // 14. Weitere Geraete: Tab-Zeilen, die kein Abschnitt eigens liest
+    // =====================================================================================
+
+    /** Zeilen aus SimpleTools, die eigene Abschnitte zeigen (Werkzeuge, Ruestung, Oktanten, Buecher). */
+    static final Set<String> KNOWN_TOOL_ROWS = Set.of("chisels", "building_wands", "sledgehammers", "pickaxes", "shovels",
+            "hoes", "axes", "swords", "spears", "gadgets", "helmets", "chestplates", "leggings", "boots", "colored_octants",
+            "enchanted_books");
+    /** Zeilen aus Maschinen &amp; Lager, die eigene Abschnitte zeigen. */
+    static final Set<String> KNOWN_FUNCTIONAL_ROWS = Set.of("hoppers", "pistons", "furnaces", "smokers", "blast_furnaces",
+            "bundles", "quivers", "backpacks", "building_planning");
+
+    /**
+     * Neue Tab-Zeilen erscheinen hier von selbst - als Rahmen an der Wand und, wenn es Bloecke sind,
+     * zum Ausprobieren auf dem Boden davor. Das ist die Grundversorgung; ein Feature, das mehr als
+     * Anschauen braucht, bekommt besser eine eigene Station.
+     */
+    public static TcCanvas devices(TcContext ctx) {
+        TcCanvas c = new TcCanvas();
+        int wallZ = 3;
+        List<TcCanvas.Line> lines = new ArrayList<>();
+        int bx = 1;
+        List<com.simplebuilding.items.CreativeTabLayout.Row> rows = new ArrayList<>();
+        for (com.simplebuilding.items.CreativeTabLayout.Row row : ctx.toolRows()) {
+            if (!KNOWN_TOOL_ROWS.contains(row.name())) {
+                rows.add(row);
+            }
+        }
+        for (com.simplebuilding.items.CreativeTabLayout.Row row : ModItemGroupsContent.functionalRows()) {
+            if (!KNOWN_FUNCTIONAL_ROWS.contains(row.name())) {
+                rows.add(row);
+            }
+        }
+        for (com.simplebuilding.items.CreativeTabLayout.Row row : rows) {
+            List<ItemStack> stacks = row.stacks().stream().filter(s -> !s.isEmpty() && !TcContext.isSpacer(s.getItem())).toList();
+            lines.add(new TcCanvas.Line(TcText.t("devices." + row.name(), pretty(row.name())), stacks));
+            for (ItemStack stack : stacks) {
+                if (stack.getItem() instanceof BlockItem blockItem) {
+                    c.place(bx, 0, 1, facing(blockItem.getBlock().defaultBlockState(), Direction.NORTH));
+                    bx += 2;
+                }
+            }
+        }
+        c.title(0, lines.size() + 1, wallZ, TcText.t("section.devices", "More devices"),
+                TcText.t("section.devices.sub", "new tab rows"));
+        int end = c.rowsPanel(0, lines.size(), wallZ, lines);
+        c.backWall(0, Math.max(end, bx), wallZ, lines.size() + 3);
         return c;
     }
 

@@ -1,8 +1,11 @@
 package com.simplebuilding.gametest;
 
+import com.simplebuilding.blueprint.BlueprintContent;
+import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.dev.testcentre.TcOp;
 import com.simplebuilding.dev.testcentre.TestCentreBuilder;
 import com.simplebuilding.dev.testcentre.TestCentreLayout;
+import com.simplebuilding.util.OctantShape;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -84,9 +87,11 @@ public final class TestCentreTests {
             List<BlockPos> signs = new ArrayList<>();
             for (TestCentreLayout.Section section : plan.sections()) {
                 for (TcOp op : section.ops()) {
+                    if (op.spawnsFrame()) {
+                        frames++;
+                    }
                     switch (op) {
                         case TcOp.Place place -> expected.put(place.pos(), place.state());
-                        case TcOp.Frame frame -> frames++;
                         case TcOp.Stand stand -> stands++;
                         case TcOp.Sign sign -> signs.add(sign.pos());
                         default -> {
@@ -113,6 +118,22 @@ public final class TestCentreTests {
             helper.assertTrue(placedFrames == frames, "item frames: planned " + frames + ", placed " + placedFrames);
             helper.assertTrue(placedStands == stands, "armour stands: planned " + stands + ", placed " + placedStands);
             helper.assertTrue(frames > 300, "suspiciously few frames planned: " + frames);
+            // Die Blaupause im Rahmen wurde beim Bau wirklich gescannt, der Oktant daneben traegt seine Auswahl.
+            for (TestCentreLayout.Section section : plan.sections()) {
+                for (TcOp op : section.ops()) {
+                    if (op instanceof TcOp.BlueprintFrame frame) {
+                        List<ItemFrame> found = level.getEntitiesOfClass(ItemFrame.class, new AABB(frame.pos()));
+                        helper.assertTrue(!found.isEmpty() && !found.getFirst().getItem()
+                                        .getOrDefault(ModDataComponentTypes.BLUEPRINT, BlueprintContent.EMPTY).equals(BlueprintContent.EMPTY),
+                                "the blueprint frame at " + frame.pos() + " holds no scanned blueprint");
+                    }
+                    if (op instanceof TcOp.OctantFrame frame) {
+                        List<ItemFrame> found = level.getEntitiesOfClass(ItemFrame.class, new AABB(frame.pos()));
+                        helper.assertTrue(!found.isEmpty() && OctantShape.bounds(OctantShape.data(found.getFirst().getItem())) != null,
+                                "the octant frame at " + frame.pos() + " holds no octant with both corners");
+                    }
+                }
+            }
             int drops = level.getEntitiesOfClass(ItemEntity.class, area).size();
             helper.assertTrue(drops == 0, drops + " dropped items lie in the test centre after the build");
 

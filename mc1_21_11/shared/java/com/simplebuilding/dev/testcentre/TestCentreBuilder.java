@@ -1,9 +1,14 @@
 package com.simplebuilding.dev.testcentre;
 
+import com.simplebuilding.Simplebuilding;
+import com.simplebuilding.blueprint.BlueprintScanner;
+import com.simplebuilding.items.ModItems;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
@@ -11,6 +16,8 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ButtonBlock;
@@ -19,7 +26,6 @@ import net.minecraft.world.level.block.WallSignBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.CommandBlockEntity;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
-import net.minecraft.world.level.block.entity.SignText;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.chunk.LevelChunk;
@@ -172,10 +178,24 @@ public final class TestCentreBuilder {
         for (TcOp op : ops) {
             switch (op) {
                 case TcOp.Frame frame -> {
-                    ItemFrame entity = new ItemFrame(level, frame.pos(), frame.facing());
-                    entity.setItem(frame.stack().copy(), false);
-                    entity.setInvulnerable(true);
-                    level.addFreshEntity(entity);
+                    spawnFrame(level, frame.pos(), frame.facing(), frame.stack());
+                    entities++;
+                    count++;
+                }
+                case TcOp.OctantFrame frame -> {
+                    spawnFrame(level, frame.pos(), frame.facing(), octant(frame.cornerA(), frame.cornerB()));
+                    entities++;
+                    count++;
+                }
+                case TcOp.BlueprintFrame frame -> {
+                    // Der gescannte Bereich steht schon: alle Bloecke kommen vor den Rahmen.
+                    BlueprintScanner.Outcome outcome = BlueprintScanner.scanAtTable(level, frame.table(),
+                            octant(frame.cornerA(), frame.cornerB()), new ItemStack(ModItems.BLUEPRINT));
+                    if (outcome.error() != null) {
+                        Simplebuilding.LOGGER.warn("Test centre blueprint scan refused: {}", outcome.error().getString());
+                    }
+                    spawnFrame(level, frame.pos(), frame.facing(),
+                            outcome.error() == null ? outcome.result() : new ItemStack(ModItems.BLUEPRINT));
                     entities++;
                     count++;
                 }
@@ -204,10 +224,27 @@ public final class TestCentreBuilder {
         return new int[]{count, entities};
     }
 
+    private static void spawnFrame(ServerLevel level, BlockPos pos, Direction facing, ItemStack stack) {
+        ItemFrame entity = new ItemFrame(level, pos, facing);
+        entity.setItem(stack.copy(), false);
+        entity.setInvulnerable(true);
+        level.addFreshEntity(entity);
+    }
+
+    /** Ein Oktant mit gesetzter Quader-Auswahl (dieselben Schluessel, die der Oktant selbst schreibt). */
+    static ItemStack octant(BlockPos cornerA, BlockPos cornerB) {
+        ItemStack octant = new ItemStack(ModItems.OCTANT);
+        CompoundTag nbt = new CompoundTag();
+        nbt.putIntArray("Pos1", new int[]{cornerA.getX(), cornerA.getY(), cornerA.getZ()});
+        nbt.putIntArray("Pos2", new int[]{cornerB.getX(), cornerB.getY(), cornerB.getZ()});
+        octant.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
+        return octant;
+    }
+
     private static void placeSign(ServerLevel level, BlockPos pos, Direction facing, List<net.minecraft.network.chat.Component> lines) {
         level.setBlock(pos, Blocks.OAK_WALL_SIGN.defaultBlockState().setValue(WallSignBlock.FACING, facing), QUIET);
         if (level.getBlockEntity(pos) instanceof SignBlockEntity sign) {
-            SignText text = new SignText();
+            net.minecraft.world.level.block.entity.SignText text = new net.minecraft.world.level.block.entity.SignText();
             for (int i = 0; i < lines.size() && i < 4; i++) {
                 text = text.setMessage(i, lines.get(i));
             }

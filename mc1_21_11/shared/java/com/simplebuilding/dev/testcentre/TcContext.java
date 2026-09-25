@@ -58,6 +58,11 @@ public record TcContext(HolderLookup.Provider lookup) {
         return List.of();
     }
 
+    /** Alle Zeilen des Tabs SimpleTools. */
+    public List<CreativeTabLayout.Row> toolRows() {
+        return ModItemGroupsContent.toolsRows(enchantmentLookup());
+    }
+
     public List<Item> rowItems(String name) {
         return row(name).stream().map(ItemStack::getItem).toList();
     }

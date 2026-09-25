@@ -23,6 +23,11 @@ public sealed interface TcOp {
     /** Derselbe Schritt, um {@code offset} verschoben. */
     TcOp moved(BlockPos offset);
 
+    /** Ob der Schritt einen Rahmen erzeugt (fuer Zaehlungen in Test und Zusammenfassung). */
+    default boolean spawnsFrame() {
+        return false;
+    }
+
     /** Setzt einen Block. */
     record Place(BlockPos pos, BlockState state) implements TcOp {
         @Override
@@ -36,6 +41,40 @@ public sealed interface TcOp {
         @Override
         public TcOp moved(BlockPos offset) {
             return new Frame(pos.offset(offset), facing, stack);
+        }
+
+        @Override
+        public boolean spawnsFrame() {
+            return true;
+        }
+    }
+
+    /**
+     * Ein Rahmen mit einem Oktanten, dessen Ecken schon gesetzt sind ({@code cornerA}/{@code cornerB}).
+     * Die Ecken sind Weltkoordinaten, deshalb entsteht der Stapel erst beim Bau.
+     */
+    record OctantFrame(BlockPos pos, Direction facing, BlockPos cornerA, BlockPos cornerB) implements TcOp {
+        @Override
+        public TcOp moved(BlockPos offset) {
+            return new OctantFrame(pos.offset(offset), facing, cornerA.offset(offset), cornerB.offset(offset));
+        }
+
+        @Override
+        public boolean spawnsFrame() {
+            return true;
+        }
+    }
+
+    /** Ein Rahmen mit einer Blaupause, die beim Bau vom Kartentisch {@code table} aus dem Bereich gescannt wird. */
+    record BlueprintFrame(BlockPos pos, Direction facing, BlockPos cornerA, BlockPos cornerB, BlockPos table) implements TcOp {
+        @Override
+        public TcOp moved(BlockPos offset) {
+            return new BlueprintFrame(pos.offset(offset), facing, cornerA.offset(offset), cornerB.offset(offset), table.offset(offset));
+        }
+
+        @Override
+        public boolean spawnsFrame() {
+            return true;
         }
     }
 

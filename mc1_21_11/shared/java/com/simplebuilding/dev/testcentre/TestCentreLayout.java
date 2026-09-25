@@ -1,5 +1,6 @@
 package com.simplebuilding.dev.testcentre;
 
+import com.simplebuilding.items.ModItems;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -33,7 +34,7 @@ public final class TestCentreLayout {
 
     /** Reihenfolge der Abschnitte = Reihenfolge in der Welt. */
     public static final List<String> SECTION_IDS = List.of("controls", "armour", "books", "tools", "storage", "food",
-            "materials", "chisel", "inworld", "blocks", "lightroom", "machines", "ores", "planning", "mining", "unsorted");
+            "materials", "chisel", "inworld", "blocks", "lightroom", "machines", "ores", "planning", "mining", "devices", "unsorted");
 
     /**
      * Mod-Items und -Bloecke, die bewusst NICHT in der Zentrale stehen, mit Grund. Jede Ausnahme muss
@@ -74,7 +75,7 @@ public final class TestCentreLayout {
             StringBuilder out = new StringBuilder("test centre " + (bounds.getXSpan()) + "x" + bounds.getZSpan()
                     + " blocks, " + sections.size() + " sections:");
             for (Section section : sections) {
-                long frames = section.ops().stream().filter(op -> op instanceof TcOp.Frame).count();
+                long frames = section.ops().stream().filter(TcOp::spawnsFrame).count();
                 long stands = section.ops().stream().filter(op -> op instanceof TcOp.Stand).count();
                 out.append(String.format("%n  %-10s at +%d/+%d, %dx%dx%d, %d frames, %d stands", section.id(),
                         section.offset().getX(), section.offset().getZ(), section.width(), section.depth(), section.height(),
@@ -109,6 +110,7 @@ public final class TestCentreLayout {
         builders.put("ores", TestCentreSections::ores);
         builders.put("planning", TestCentreSections::planning);
         builders.put("mining", TestCentreSections::mining);
+        builders.put("devices", TestCentreSections::devices);
 
         Map<String, TcCanvas> canvases = new LinkedHashMap<>();
         for (Map.Entry<String, Function<TcContext, TcCanvas>> entry : builders.entrySet()) {
@@ -168,6 +170,8 @@ public final class TestCentreLayout {
                     }
                 }
                 case TcOp.Frame frame -> items.add(frame.stack().getItem());
+                case TcOp.OctantFrame frame -> items.add(ModItems.OCTANT);
+                case TcOp.BlueprintFrame frame -> items.add(ModItems.BLUEPRINT);
                 case TcOp.Stand stand -> stand.gear().forEach(stack -> items.add(stack.getItem()));
                 case TcOp.Fill fill -> fill.contents().forEach(stack -> items.add(stack.getItem()));
                 case TcOp.Sign sign -> {
