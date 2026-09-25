@@ -964,6 +964,12 @@ public final class BlueprintTests {
         helper.assertTrue(second != null && !second.warned() && second.placed() == 2 && second.missing() == 2,
                 "the confirming click did not build what is there: " + second);
 
+        // Die Bestaetigung gilt nur fuer diesen einen Bau: der naechste Bau mit Luecken warnt wieder.
+        clear(helper);
+        player.getInventory().setItem(1, new ItemStack(Items.STONE, 2));
+        BlueprintBuilder.Result again = build(helper, player, wand, blueprint);
+        helper.assertTrue(again != null && again.warned() && again.placed() == 0, "the next build with gaps did not warn again: " + again);
+
         clear(helper);
         player.getInventory().setItem(1, new ItemStack(Items.STONE, 10));
         BlueprintBuilder.Result complete = build(helper, player, wand, blueprint);
