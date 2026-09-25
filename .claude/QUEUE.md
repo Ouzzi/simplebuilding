@@ -36,6 +36,11 @@ Verlauf im Detail: git log.
 - [ ] Radiance-Partikel stark reduzieren; Tooltip "Radiance: 5" statt "5/5"
 - [ ] Texturen: Enderit-Aufwertung (Enderit-Farbe, Netherit innen + im Pfeil), Einfache Aufwertung (Gold-Stil, Eisenblock innen), Umbenennung "Basic Upgrade"/"Enderite Upgrade", Barren 2 px schmaler, Schrott 1 px breiter, Diamant-Kiesel schaerfer, Lederplatte schoener
 
+- [ ] Texturen Runde 7: zwei Alternativ-Sets fuer alle Enderit-Werkzeuge/-Waffen/-Ruestung (Icons + getragen), Hammer, Baustab, Meissel - Besitzer waehlt
+- [ ] SimpleTools: Vanilla-Werkzeuge/-Waffen/-Ruestungen aller Stufen, Reihenfolge Werkzeuge > Waffen > Ruestung > Geraete > Buecher, zeilenweise
+- [ ] SimpleMachines: Zeile Bauplanung (Blaupause, Kartografentisch, Oktant, alle Baustaebe)
+- [ ] Enderquarz-Schachbrett (Bodenblock)
+
 ## Wartet auf den Besitzer
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
 
