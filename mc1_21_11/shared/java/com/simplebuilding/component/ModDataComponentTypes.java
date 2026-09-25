@@ -31,6 +31,19 @@ public class ModDataComponentTypes {
                     .networkSynchronized(BackpackContents.STREAM_CODEC)
                     .cacheEncoding());
 
+    // Blaupause: Bau-Code + Titel/Autor/signiert (docs/BLUEPRINT.md).
+    public static final DataComponentType<com.simplebuilding.blueprint.BlueprintContent> BLUEPRINT =
+            register("blueprint", builder -> builder
+                    .persistent(com.simplebuilding.blueprint.BlueprintContent.CODEC)
+                    .networkSynchronized(com.simplebuilding.blueprint.BlueprintContent.STREAM_CODEC)
+                    .cacheEncoding());
+
+    // Drehung der Blaupause im Baumodus (Viertelumdrehungen im Uhrzeigersinn, 0..3; Strg+Mausrad).
+    public static final DataComponentType<Integer> BLUEPRINT_ROTATION =
+            register("blueprint_rotation", builder -> builder
+                    .persistent(Codec.intRange(0, 3))
+                    .networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT));
+
 
     private static <T> DataComponentType<T> register(String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
         return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name), (builderOperator.apply(DataComponentType.builder())).build());

@@ -320,6 +320,7 @@ public class ModModelProvider extends FabricModelProvider {
 
         // --- 1. RANGEFINDER (Generated / Flach) ---
         itemModelGenerator.generateFlatItem(ModItems.OCTANT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.BLUEPRINT, ModelTemplates.FLAT_ITEM);
         for (DyeColor color : DyeColor.values()) {
             Item item = ModItems.COLORED_OCTANT_ITEMS.get(color);
             if (item != null) itemModelGenerator.generateFlatItem(item, ModelTemplates.FLAT_ITEM);

@@ -66,10 +66,21 @@ public class BlockHighlightRenderer {
         }
     }
 
+    /** Der Oktant liegt im Kartentisch: seine Auswahl wird voll gezeigt, damit man sieht, was gescannt wird. */
+    private static boolean octantFromTable;
+
     private static ItemStack findOctantStack() {
         Minecraft client = Minecraft.getInstance();
+        octantFromTable = false;
         if (client.player == null) {
             return ItemStack.EMPTY;
+        }
+        if (client.screen instanceof net.minecraft.client.gui.screens.inventory.CartographyTableScreen table) {
+            ItemStack inTable = table.getMenu().getSlot(0).getItem();
+            if (inTable.getItem() instanceof OctantItem) {
+                octantFromTable = true;
+                return inTable;
+            }
         }
         ItemStack stack = client.player.getMainHandItem();
         if (stack.getItem() instanceof OctantItem) {
@@ -165,7 +176,7 @@ public class BlockHighlightRenderer {
         boolean isInverted = Simplebuilding.getConfig().tools.invertOctantSneak;
         int opacityPercent = Simplebuilding.getConfig().tools.buildingHighlightOpacity;
         boolean hasConstructorsTouch = hasEnchantment(stack, Minecraft.getInstance(), ModEnchantments.CONSTRUCTORS_TOUCH);
-        boolean showFill = isInverted ^ hasConstructorsTouch;
+        boolean showFill = (isInverted ^ hasConstructorsTouch) || octantFromTable;
         float baseAlpha = Math.max(0, Math.min(100, opacityPercent)) / 100.0f;
 
         OctantItem octant = (OctantItem) stack.getItem();
@@ -180,7 +191,7 @@ public class BlockHighlightRenderer {
         if (pos1 != null) drawBoxOutline(matrices, lines, new AABB(pos1).inflate(0.001), colors.r1(), colors.g1(), colors.b1(), lineAlpha);
         if (pos2 != null) drawBoxOutline(matrices, lines, new AABB(pos2).inflate(0.002), colors.r2(), colors.g2(), colors.b2(), lineAlpha);
 
-        if (pos1 != null && pos2 != null && showFill && ClientState.showOctantFigure) {
+        if (pos1 != null && pos2 != null && showFill && (ClientState.showOctantFigure || octantFromTable)) {
             AABB bounds = getFullArea(pos1, pos2);
 
             Predicate<BlockPos> shapeFunc = switch (shape) {

@@ -417,6 +417,10 @@ public class ModItems {
 
     public static final OctantItem OCTANT = (OctantItem) registerItem("octant", settings -> new OctantItem(settings.durability(DURABILITY_OCTANT).enchantable(ENCHANTABILITY_NETHERITE), null));
 
+    // Blaupause (docs/BLUEPRINT.md): leer stapelbar wie Karten, gefuellt einzeln verschieden.
+    public static final com.simplebuilding.items.custom.BlueprintItem BLUEPRINT = (com.simplebuilding.items.custom.BlueprintItem) registerItem("blueprint",
+            settings -> new com.simplebuilding.items.custom.BlueprintItem(settings.stacksTo(16).rarity(UNCOMMON)));
+
     // EnumMap, not HashMap: datagen iterates this to build the octants_enchantable tag, and a
     // HashMap keyed by an enum orders by identity hash -- i.e. differently on every JVM run,
     // which made the generated tag churn on every datagen run.
