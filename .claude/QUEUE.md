@@ -1,4 +1,4 @@
-# Warteschlange SimpleBuilding (Stand 2026-09-25 abends)
+# Warteschlange SimpleBuilding (Stand 2026-09-25 spaet, alles gepusht)
 
 Regeln: Umsetzung mit Teiltests (Kompilierung + gefilterte Server-Tests), volles Gate einmal am Ende einer Welle, gruen = direkt pushen.
 Verlauf im Detail: git log.
@@ -24,7 +24,7 @@ Verlauf im Detail: git log.
 - [x] Test-Infrastruktur: Server-Ziele parallel, Paket-Barriere in allen Client-Treibern, Port-Werkzeug-Regeln
 
 ## Laeuft
-- [x] Welle 9: MC 26.3 als dritte Linie auf master (Server 2776/2776 ueber 7 Ziele); letzter Punkt: Glimmer-Client-Test 26.3
+- [x] Welle 9: MC 26.3 als dritte Linie (Fabric + NeoForge), alle 13 Ziele gruen, gepusht
 - [ ] 26.3-Reste: Wiki-Umschalter 26.3, Erzdetektor-Kalibrierung aus 26.2-Welten (id statt Name), dunklere Trim-Variante, Jade/AppleSkin/Mouse Tweaks fuer 26.3, NeoForge-Upload als Beta
 
 ## Welle 10 (erledigt, auf master, noch nicht gepusht)
@@ -32,16 +32,16 @@ Verlauf im Detail: git log.
 - [x] Blaupause: Bauauftrag ueberlebt Logout/Neustart (fortsetzen), Materialliste fuer Mehrfach-Bloecke (Kerzen, Seegurken, Schneeschichten), Fehlstellen-Pruefung ohne 400.000er-Grenze
 - [x] Kleinkram: ungenutzte Farbwerte des Entfernungsmessers entfernen, Platzhalter-Item aus /give-Vorschlaegen, leerer Tab-Platz des Dev-Tabs auf Fabric pruefen, Wiki-Texturreste aus 1.21.11-Laeufen
 
-## Welle 11 (laeuft)
+## Welle 11 (erledigt, gepusht a33b420b, Gate 3010/3010)
 - [x] Visual Armor Trims: Muster auf Ruestungs-Icons (erst Mod-Ruestung, dann Vanilla), Farbe nach Material
 - [x] Besatzmuster nachbessern (laeuft): Randpixel dunkler/ausgespart, exakt mittig (z. B. Flow-Brust), nur Overlays
 - [x] Radiance-Partikel stark reduzieren; Tooltip "Radiance: 5" statt "5/5"
-- [ ] Texturen: Enderit-Aufwertung (Enderit-Farbe, Netherit innen + im Pfeil), Einfache Aufwertung (Gold-Stil, Eisenblock innen), Umbenennung "Basic Upgrade"/"Enderite Upgrade", Barren 2 px schmaler, Schrott 1 px breiter, Diamant-Kiesel schaerfer, Lederplatte schoener
+- [x] Texturen: Enderit-Aufwertung (Enderit-Farbe, Netherit innen + im Pfeil), Einfache Aufwertung (Gold-Stil, Eisenblock innen), Umbenennung "Basic Upgrade"/"Enderite Upgrade", Barren 2 px schmaler, Schrott 1 px breiter, Diamant-Kiesel schaerfer, Lederplatte schoener
 
-- [ ] Texturen Runde 7: zwei Alternativ-Sets fuer alle Enderit-Werkzeuge/-Waffen/-Ruestung (Icons + getragen), Hammer, Baustab, Meissel - Besitzer waehlt
-- [ ] SimpleTools: Vanilla-Werkzeuge/-Waffen/-Ruestungen aller Stufen, Reihenfolge Werkzeuge > Waffen > Ruestung > Geraete > Buecher, zeilenweise
-- [ ] SimpleMachines: Zeile Bauplanung (Blaupause, Kartografentisch, Oktant, alle Baustaebe)
-- [ ] Enderquarz-Schachbrett (Bodenblock)
+- [x] Texturen Runde 7: zwei Alternativ-Sets fuer alle Enderit-Werkzeuge/-Waffen/-Ruestung (Icons + getragen), Hammer, Baustab, Meissel - Besitzer waehlt
+- [x] SimpleTools: Vanilla-Werkzeuge/-Waffen/-Ruestungen aller Stufen, Reihenfolge Werkzeuge > Waffen > Ruestung > Geraete > Buecher, zeilenweise
+- [x] SimpleMachines: Zeile Bauplanung (Blaupause, Kartografentisch, Oktant, alle Baustaebe)
+- [x] Enderquarz-Schachbrett (Bodenblock)
 
 - [x] Texturen Runde 8: Barren-Kante parallel, Aufwertungen = Umfaerbung der alten Besitzer-Umfaerbung, Enderit-Set B mit braunen Griffen uebernehmen
 - [x] Texturen Runde 9: eigenes Buch-Icon fuer jede Vanilla-Verzauberung + Config-Schalter (Konflikte mit Ressourcenpaketen)
