@@ -1512,23 +1512,24 @@ ENDER_QUARTZ_ITEM_PAL = {
     "S": "#fbefff",
 }
 
-# Enderitbarren: Lage, Perspektive und Silhouette des Vanilla-Netheritbarrens (Massvorlage), aber
-# 4 statt 5 Pixel dick und neu schattiert. O Umriss, R Randton, 5..6 Deckflaeche, h Lichtkanten,
-# 1..2 Vorderflaeche, 3 Stirnseite links, 7 Glanzpunkt.
+# Enderitbarren: Lage und Perspektive des Vanilla-Netheritbarrens, 14 Pixel breit, 4 Pixel dick. Hintere
+# Oberkante, vordere Lichtkante und Unterkante steigen gleich steil (3 Pixel je Zeile), die kurzen
+# Kanten 1 Pixel je Zeile - alle Linien gerade und parallel. O Umriss, R Randton, 5..6 Deckflaeche,
+# h Lichtkanten, 1..2 Vorderflaeche, 3 Stirnseite links, 7 Glanzpunkt.
 ENDERITE_INGOT = [
     "................",
     "................",
-    "..........R.....",
-    "........RR7O....",
-    ".....RRR6555O...",
-    "..RRR66555544O..",
-    ".Rh65555554hh1O.",
-    ".R3h55544hh221O.",
-    ".R33h44hh22111O.",
-    ".O333hh22111OO..",
-    "..O3322111OO....",
-    "...O3111OO......",
-    "....OOOO........",
+    "...........R....",
+    "........RRR7O...",
+    ".....RRR66555O..",
+    "..RRR665555554O.",
+    ".R6555555544hhO.",
+    ".3h555544hhh22O.",
+    ".33h44hhh22211O.",
+    ".O33hh222111OO..",
+    "..O322111OOO....",
+    "...O11OOO.......",
+    "....OO..........",
     "................",
     "................",
     "................",
@@ -1590,36 +1591,37 @@ ENDERITE_NUGGET_PAL = {
 }
 
 
-# Aufwertungen (basic_upgrade_template, enderite_upgrade_template): eigene Kartenform mit Nieten in
-# den Ecken und einem Pfeil nach oben. R Randton, O Umriss, 1..4 Karte dunkel -> hell, a..d Pfeil
-# dunkel -> hell, e Pfeilmitte. Enderit: Karte in den Farben des Enderitbarrens, Pfeil aus Netherit
-# (die Mitte, wo Vanilla einen Diamanten zeigt, ist Netherit). Basis: Karte wie Goldbarren/Goldruestung,
-# Pfeil wie ein Eisenblock.
+# Aufwertungen (basic_upgrade_template, enderite_upgrade_template): Pixel und Form der Umfaerbung der
+# Vanilla-Netherit-Vorlage, die der Besitzer gemacht hat (Stand vor Runde 6); hier nur neu eingefaerbt.
+# Karte 4 < 5 < 0 < 1 < 3 < 2 dunkel -> hell, Pfeil 6..c. Enderit: Karte in den Farben des
+# Enderitbarrens, Pfeil in Netherit-Toenen. Basis: Karte in Goldbarren-Toenen, Pfeil in Eisenblock-Grau.
 UPGRADE_TEMPLATE = [
     "................",
-    "....RRRRRRRRR...",
-    "...R344444443O..",
-    "...R342222241O..",
-    "...R3122d2211O..",
-    "...R322dcb221O..",
-    "...R32dceba11O..",
-    "...R3dccebba1O..",
-    "...R322cea221O..",
-    "...R122cba221O..",
-    "...R322cba211O..",
-    "...R312baa211O..",
-    "...R241111141O..",
-    "....O1111111O...",
-    ".....OOOOOOO....",
+    "....000000000...",
+    "...01232322120..",
+    "...02331311114..",
+    "...41111501114..",
+    "...41105651104..",
+    "...41056785054..",
+    "...40567789504..",
+    "...41338893314..",
+    "...431369a3114..",
+    "...4111abc1304..",
+    "...40113331154..",
+    "...45011000054..",
+    "....455005444...",
+    ".....44444......",
     "................",
 ]
 ENDERITE_UPGRADE_TEMPLATE_PAL = {
-    "O": "#1c0a33", "R": "#472480", "1": "#55309a", "2": "#6d45b8", "3": "#8e63dc", "4": "#a57de9",
-    "a": "#271c1d", "b": "#3b393b", "c": "#5a575a", "d": "#8a878a", "e": "#737173",
+    "4": "#3e2173", "5": "#55309a", "0": "#6d45b8", "1": "#7b51c9", "3": "#8e63dc", "2": "#a57de9",
+    "7": "#8a878a", "8": "#737173", "6": "#5a575a", "9": "#4d494d", "a": "#484548", "b": "#3b393b",
+    "c": "#31292a",
 }
 BASIC_UPGRADE_TEMPLATE_PAL = {
-    "O": "#752802", "R": "#b26411", "1": "#dc9613", "2": "#e9b115", "3": "#fad64a", "4": "#fdf55f",
-    "a": "#b1b0b0", "b": "#d6d6d6", "c": "#ececec", "d": "#ffffff", "e": "#dcdcdc",
+    "4": "#8a4a0c", "5": "#b26411", "0": "#dc9613", "1": "#e9b115", "3": "#fad64a", "2": "#fdf55f",
+    "7": "#f2f2f2", "8": "#ececec", "6": "#e6e6e6", "9": "#dcdcdc", "a": "#d6d6d6", "b": "#c1c1c1",
+    "c": "#b1b0b0",
 }
 
 # Diamant-Kiesel: kleiner, scharf geschliffener Edelstein (Raute), Licht von oben links.
@@ -1665,6 +1667,7 @@ def end_palette_textures():
     tex["item/basic_upgrade_template.png"] = render("basic_upgrade_template", UPGRADE_TEMPLATE,
                                                      BASIC_UPGRADE_TEMPLATE_PAL, False)
     tex["item/diamond_pebble.png"] = render("diamond_pebble", DIAMOND_PEBBLE, DIAMOND_PEBBLE_PAL, False)
+    tex.update(enderite_gear_variant(ENDERITE_GEAR_ACTIVE))
     return tex
 
 
@@ -2475,8 +2478,8 @@ def build_preview(tex):
 
 
 # ---------------------------------------------------------------------------
-# Alternative Enderit-Ausruestung (Runde 7) - NICHT Teil von build(): nur mit --gear-preview (Vorschau)
-# oder --apply-gear A|B (schreibt die Variante in beide Baeume). Die Karten halten Silhouette und
+# Enderit-Ausruestung (Runde 7/8): Variante ENDERITE_GEAR_ACTIVE ist Teil von build(); --gear-preview
+# zeichnet beide Varianten nebeneinander. Die Karten halten Silhouette und
 # Helligkeitsstufe: '0'..'7' Klinge/Kopf/Ruestung dunkel -> hell, 'a'..'f' Griff dunkel -> hell.
 # Variante A: netheritnahes dunkles Metall mit violetten Lichtkanten (getragen: violette Zierleisten
 # auf den Plattenkanten). Variante B: Enderit-Violett des Barrens mit leuchtenden Ender-Adern.
@@ -2487,18 +2490,18 @@ ENDERITE_GEAR_MAPS = {
         "................",
         "................",
         "......33333.....",
-        ".....377765332..",
-        "......311135c1..",
-        "..........2351..",
-        ".........2b1351.",
-        "........2c1.161.",
-        ".......2b1..171.",
-        "......2c1...171.",
-        ".....231....171.",
-        "....231......1..",
-        "...231..........",
-        "..2c1...........",
-        "..11............",
+        ".....3777653ba..",
+        "......311135ca..",
+        "..........a351..",
+        ".........aba351.",
+        "........aca.161.",
+        ".......aba..171.",
+        "......aca...171.",
+        ".....aba....171.",
+        "....aba......1..",
+        "...aba..........",
+        "..aca...........",
+        "..aa............",
         "................",
     ],
     "axe": [
@@ -2506,17 +2509,17 @@ ENDERITE_GEAR_MAPS = {
         ".........33.....",
         "........3773....",
         ".......37333....",
-        "......363335b...",
-        "......1633531...",
-        ".......1153231..",
-        "........2b1331..",
-        ".......2c1.11...",
-        "......2b1.......",
-        ".....231........",
-        "....231.........",
-        "...231..........",
-        "..2c1...........",
-        "..11............",
+        "......36333cb...",
+        "......163353a...",
+        ".......11c3231..",
+        "........aba331..",
+        ".......aca.11...",
+        "......aba.......",
+        ".....aba........",
+        "....aba.........",
+        "...aba..........",
+        "..aca...........",
+        "..aa............",
         "................",
     ],
     "shovel": [
@@ -2526,32 +2529,32 @@ ENDERITE_GEAR_MAPS = {
         "..........37771.",
         ".........375561.",
         "........3653561.",
-        ".........23561..",
-        "........2c161...",
-        ".......2c1.1....",
-        "......2b1.......",
-        ".....231........",
-        "....231.........",
-        "..2231..........",
-        "..2c1...........",
-        "...11...........",
+        ".........a3561..",
+        "........aca61...",
+        ".......aca.1....",
+        "......aba.......",
+        ".....aba........",
+        "....aba.........",
+        "..aaba..........",
+        "..aca...........",
+        "...aa...........",
         "................",
     ],
     "hoe": [
         "................",
         ".......333......",
         "......37773.....",
-        ".......116722b..",
+        ".......11672ab..",
         ".........156c1..",
-        "..........2531..",
-        ".........2b11...",
-        "........2c1.....",
-        ".......2b1......",
-        "......2c1.......",
-        ".....231........",
-        "....231.........",
-        "...231..........",
-        "..2c1...........",
+        "..........a531..",
+        ".........ab11...",
+        "........ac1.....",
+        ".......ab1......",
+        "......ac1.......",
+        ".....ab1........",
+        "....ab1.........",
+        "...ab1..........",
+        "..ac1...........",
         "..11............",
         "................",
     ],
@@ -2567,9 +2570,9 @@ ENDERITE_GEAR_MAPS = {
         "...3633231......",
         "...366231.......",
         "....3541........",
-        "...2b1321.......",
-        "..2c1.1121......",
-        "3331....11......",
+        "...ab1321.......",
+        "..aca.1121......",
+        "33ba....11......",
         "321.............",
         "011.............",
     ],
@@ -2580,16 +2583,16 @@ ENDERITE_GEAR_MAPS = {
         ".......33455731.",
         ".......34557321.",
         "........357321..",
-        "........272221..",
-        ".......2b1121...",
-        "......2c1..11...",
-        ".....2c1........",
-        "....2c1.........",
-        "...2c1..........",
-        "..2c1...........",
-        ".231............",
-        "231.............",
-        "31..............",
+        "........a72221..",
+        ".......aba121...",
+        "......aca..11...",
+        ".....aca........",
+        "....aca.........",
+        "...aca..........",
+        "..aca...........",
+        ".aba............",
+        "aba.............",
+        "ba..............",
     ],
     "sledgehammer": [
         "........2.......",
@@ -2803,7 +2806,10 @@ ENDERITE_GEAR_FILES = {
     "humanoid": "entity/equipment/humanoid/enderite.png",
     "humanoid_leggings": "entity/equipment/humanoid_leggings/enderite_leggings.png",
 }
-ENDERITE_GEAR_HANDLE = ["#1d1226", "#2e1f3d", "#433059", "#5a4175", "#72548f", "#8a69a8"]
+# Griffe braun wie Netherit-/Holzgriffe, damit sie als Griffe erkennbar bleiben; nur Kopf/Spitze ist Enderit.
+ENDERITE_GEAR_HANDLE = ["#2b1a10", "#3d2616", "#56351f", "#6b4527", "#83582f", "#9a6b3a"]
+# Vom Besitzer gewaehlte Variante (Runde 8); build() schreibt sie in beide Baeume.
+ENDERITE_GEAR_ACTIVE = "B"
 ENDERITE_GEAR_VARIANTS = {
     "A": {"head": ["#150b1d", "#221a26", "#2d2530", "#39333c", "#48424b", "#58535b", "#6d6871", "#89838e"], "rim": "#a57de9", "rim2": "#7b51c9", "contour": "#2a1250"},
     "B": {"head": ["#1c0a33", "#2d1656", "#3e2173", "#4a2888", "#55309a", "#6d45b8", "#8e63dc", "#a57de9"], "vein": "#f4d2ff", "glow": "#c77dff"},
@@ -2897,8 +2903,6 @@ def main():
     ap.add_argument("--no-preview", action="store_true", help="preview.png nicht neu zeichnen")
     ap.add_argument("--gear-preview", action="store_true",
                     help="nur tools/textures/gear_preview.png (alternative Enderit-Ausruestung A/B) zeichnen")
-    ap.add_argument("--apply-gear", choices=sorted(ENDERITE_GEAR_VARIANTS),
-                    help="Variante der Enderit-Ausruestung zusaetzlich in beide Baeume schreiben")
     args = ap.parse_args()
 
     if args.gear_preview:
@@ -2906,8 +2910,6 @@ def main():
         print(f"Vorschau: {os.path.relpath(GEAR_PREVIEW, REPO)}")
         return 0
     tex = build()
-    if args.apply_gear:
-        tex.update(enderite_gear_variant(args.apply_gear))
     stale = []
     for rel, img in sorted(tex.items()):
         data = png_bytes(img)
