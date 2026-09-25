@@ -72,10 +72,17 @@ Verlauf im Detail: git log.
 - [x] /sbtestcentre build: reproduzierbare Testwelt aus Code (Ruestung/Trims/Upgrades, alle Buecher, Werkzeuge plain+verzaubert, Meissel-Tuerme + In-World-Stationen, Lager, Bloecke, Maschinen-Demos, Erzdetektor-Feld, Essen, Oktant/Blaupause/Baustab-Modi, Versatility/Vein/Strip, Command-Block-Knoepfe)
 - [x] Abdeckungstest: jedes Mod-Item/-Block steht in der Zentrale (neue Features fallen automatisch auf); docs/TESTZENTRALE.md; Regel: am Ende jedes Runs pruefen
 
+## Welle 16 (laeuft): Fehler + Optik aus dem Testen
+- [x] Enderit-Besatzfarbe im Tooltip lesbar (#9A7BD8)
+- [ ] Bridge geht nicht; B-Taste schliesst Rucksack-Inventar nicht; Dach-Modus mit Enderit-Baustab; Testzentrale-Command-Blocks feuern doppelt/versetzt; Enderit-Kolben in der Zentrale pruefen
+- [ ] Koecher faerbbar und richtig dargestellt; Faerbe-Tönung sanfter, Stufen bleiben unterscheidbar
+- [ ] Enderit-Glimmer: Apfel, Karotte, Koecher, Rucksack, Buendel; Enderit-Maschinen und -Kolben im Barren-Look
+
 ## Wartet auf den Besitzer
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
 
 ## Spaeter
+- [ ] Enderit-Kolben: 3 Bloecke Abbau macht Tunnelbohrer zu leicht - spaeter Balance (z. B. Verschleiss/Schadenszustand)
 - [ ] 26.4: Forge einschalten sobald Build da (-Pmc264_forge_version), Cloth-Config-Screen/Dev-Mods sobald 26.4-Builds da, NeoForge-26.4-Linie
 - [ ] Baustab V1: normale Flaechen ueber den Blaupausen-Planer (Schutzpruefung pro Position) - ca. 40 Tests pinnen das heutige Verhalten
 - [ ] Kerne als Baustab-Module + eigene Funktionen (Vorschlaege in docs/BAUWERKZEUGE-INTERAKTIONEN.md) - Besitzer: erst spaeter
