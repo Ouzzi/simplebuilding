@@ -152,3 +152,8 @@ F Trims & UI (nach A-D, eigener Agent):
 - 26.3 ist seit 2026-09-15 released; Fabric 0.19.5 / API 0.161.0+26.3 stabil, NeoForge 26.3.0.16-beta, Cloth 26.3.159, Mod Menu 21.0.0, JEI 31.7.0.34 beta
 - Besitzer: gemeinsamer Code + Overlays (26.3-Module kompilieren common/src/shared; nur Abweichungen in mc26_3/overlay bzw. common/src/mc26_2), Loader Fabric + NeoForge; Forge bleibt 26.2
 - Schritte: GLFW -> InputConstants (auch auf 26.2), Rezept-Serializer (reloadbare Registries), Worldgen-Pfade, Overlay-Gradle-Check, Tests/Katalog/run.py-Ziele 26.3, Dev-Knoepfe 26.3, Wiki-Linie
+- Blaupause Runde 3 (laeuft): Beispielcode Dorfhaus je Biom (<=16^3, Biom beim ersten Inventar), Hilfe-Fenster mit Anleitung + Blocksuche, Layout unten neu, Einfuege-Suche mit Zwei-Klick-Bestaetigung
+- Texturen Runde 2 (laeuft): Enderquarz kleiner + gezackt, Enderit-Barren flacher/parallel, alter Enderit-Schrott und -Nugget des Besitzers nur sauberere Konturen (Nugget kleiner, Tropfen bleibt)
+  - GEAENDERT: Beispiel nur per Knopf "Beispiel einfuegen" in der leeren Vorschau, zufaellig Dorfhaus oder biomtypisches Bauwerk (<=16^3), keine Automatik; Autospeichern beim Schliessen + entprellt beim Tippen
+  - Sign/Done so breit wie die Vorschau; Kartografentisch kopiert signierte Blaupause als unsignierte Kopie (Original bleibt); Bauen nur mit signierter Blaupause
+- Gate Welle 7/8: Server gruen (1832), Clients rot: SurvivalSync-Zaehler, Trichter-Ghost-Overlay, Rucksack-Grenzwert -> F behebt (Client-Laeufe einzeln)
