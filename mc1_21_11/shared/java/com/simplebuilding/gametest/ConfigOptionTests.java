@@ -80,7 +80,7 @@ import net.minecraft.world.phys.Vec3;
  * server side by {@code PistonBreach}; its behaviour is driven in
  * {@code PistonBreachTests#endPortalFramesBreachOnlyWhileTheirConfigOptionIsOn}, and only its name
  * and default are pinned here. The same holds for {@code tools.buildingWandHungerCost} (read by
- * {@code WandHunger}); its behaviour is driven in {@code WandHungerTests}.
+ * {@code WandHunger}); its behaviour is driven in {@code BuildingWandTests}.
  */
 public final class ConfigOptionTests {
 

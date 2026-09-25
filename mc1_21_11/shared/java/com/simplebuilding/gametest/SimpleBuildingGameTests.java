@@ -699,7 +699,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("building_wand_game_test_wand_hunger_rates_follow_the_calibrated_tier_table", BuildingWandTests::wandHungerRatesFollowTheCalibratedTierTable)
                     .build(),
-            GameTestSpec.named("building_wand_game_test_survival_wand_builds_cost_exhaustion_per_placed_block", BuildingWandTests::survivalWandBuildsCostExhaustionPerPlacedBlock)
+            GameTestSpec.named("building_wand_game_test_survival_wand_builds_cost_exhaustion_only_past_the_allowance", BuildingWandTests::survivalWandBuildsCostExhaustionOnlyPastTheAllowance)
                     .build(),
             GameTestSpec.named("building_wand_game_test_wand_hunger_cost_skips_creative_and_the_switched_off_option", BuildingWandTests::wandHungerCostSkipsCreativeAndTheSwitchedOffOption)
                     .build(),

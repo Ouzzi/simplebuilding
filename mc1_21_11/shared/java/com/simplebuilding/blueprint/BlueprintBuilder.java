@@ -626,6 +626,7 @@ public final class BlueprintBuilder {
                                    BlockPos target, Rotation rotation, BlueprintContent content, boolean creative,
                                    int index, int placedBefore) {
         Job[] holder = new Job[1];
+        long[] hungerCount = {Math.max(0, placedBefore)};
         Placer placer = new Placer() {
             @Override
             public boolean place(BlockPos pos, BlockState state) {
@@ -636,8 +637,9 @@ public final class BlueprintBuilder {
                     holder[0].sound = state.getSoundType();
                 }
                 if (!creative) {
-                    // EXPERIMENTELL: Erschoepfung je Block wie beim Flaechenbauen (WandHunger, abschaltbar).
-                    com.simplebuilding.util.WandHunger.exhaust(player, wandItem, 1);
+                    // EXPERIMENTELL: Bloecke ueber dem Freibetrag des Blaupausen-Baus kosten Erschoepfung
+                    // (WandHunger); ein fortgesetzter Auftrag zaehlt mit seinen schon gesetzten weiter.
+                    com.simplebuilding.util.WandHunger.exhaust(player, wand.getItem(), ++hungerCount[0]);
                     wand.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
                 }
                 return true;

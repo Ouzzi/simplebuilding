@@ -1,34 +1,37 @@
 package com.simplebuilding.util;
 
 import com.simplebuilding.Simplebuilding;
+import com.simplebuilding.blueprint.BlueprintTiers;
 import com.simplebuilding.config.SimplebuildingConfig;
 import com.simplebuilding.items.custom.BuildingWandItem;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 
 /**
- * EXPERIMENTELL (Besitzer 2026-09-25): Bauen mit dem Baustab macht hungrig. Jeder gesetzte Block
- * - normales Flaechenbauen wie Blaupausen-Bau - kostet Vanilla-Erschoepfung (exhaustion), je
- * staerker der Stab, desto weniger pro Block. Schalter: {@code tools.buildingWandHungerCost}
- * (Standard an). Kreativmodus ({@code Abilities.instabuild}) ist ausgenommen.
+ * EXPERIMENTELL (Besitzer 2026-09-25, nachgeschaerft am selben Tag): Viel auf einmal bauen macht
+ * hungrig, normales Bauen nicht. Je Bauvorgang - ein Klick mit dem Baustab bzw. ein
+ * Blaupausen-Bau - sind die ersten {@link #ALLOWANCE} Bloecke frei (1/16 des eigenen
+ * Maximalwuerfels, mindestens 256); erst jeder weitere Block kostet Vanilla-Erschoepfung, je
+ * staerker der Stab, desto weniger. Flaechen bis 13x13 (169 Bloecke) kosten damit nie etwas.
+ * Schalter: {@code tools.buildingWandHungerCost} (Standard an). Kreativmodus
+ * ({@code Abilities.instabuild}) ist ausgenommen.
  *
- * <p><b>Vanilla-Einheiten:</b> 4.0 Erschoepfung = 1 Punkt; die Saettigung wird zuerst
- * abgebaut, danach die Hungerleiste. Eine "volle Leiste" sind hier 20 Hunger + 20 Saettigung
- * (mehr Saettigung als Hunger gibt es nicht) = 40 Punkte = {@link #FULL_BAR_EXHAUSTION} 160.
+ * <p><b>Einheiten:</b> 4.0 Erschoepfung = 1 Punkt (Vanilla; Saettigung sinkt zuerst). "Volle
+ * Leiste" = die sichtbaren 20 Hungerpunkte = {@link #FULL_BAR_EXHAUSTION} 80.
  *
- * <p><b>Eichung:</b> Kupfer-Stab fuellt seinen groessten Wuerfel (16³ = 4096 Bloecke) → ein
- * Viertel der vollen Leiste (40.0); Enderit-Stab baut 128³ (2 097 152 Bloecke) → die ganze Leiste
- * (160.0), alles Groessere leert sie auch nur. Die Stufen dazwischen liegen geometrisch
- * (Faktor 2^-1.4 ≈ 0.3789 je Stufe, 128^(1/5)):
+ * <p><b>Eichung</b> (nach Abzug des Freibetrags): Kupfer fuellt 16³ (4096 - 256 = 3840 bezahlte
+ * Bloecke) → ein Viertel der Leiste (20.0); Enderit baut 128³ (2 097 152 - 1 048 576 = 1 048 576
+ * bezahlte Bloecke) → die volle Leiste (80.0), alles Groessere leert sie auch nur. Die Raten
+ * dazwischen liegen geometrisch (Faktor ≈ 0.4297 je Stufe):
  *
  * <pre>
- * Stufe      Erschoepfung/Block  Bloecke je Punkt  16³      eigener Wuerfel      128³
- * Kupfer     9.765625e-3          410             40.0     16³:   40.0 (1/4)   20480
- * Eisen      3.700480e-3         1081             15.2     32³:  121.3          7760
- * Gold       1.402220e-3         2853              5.7     48³:  155.1          2941
- * Diamant    5.313419e-4         7528              2.2     64³:  139.3          1114
- * Netherit   2.013409e-4        19867              0.8    128³:  422.2           422
- * Enderit    7.629395e-5        52429              0.3    256³: 1280.0           160 (voll)
+ * Stufe      Freibetrag  Erschoepfung/Block  Bloecke je Punkt  eigener Wuerfel     64³     128³
+ * Kupfer          256    5.208333e-3          768             16³:   20.0 (1/4)  1364    10921
+ * Eisen          2048    2.237984e-3         1787             32³:   68.8         582     4689
+ * Gold           6912    9.616461e-4         4160             48³:   99.7         245     2010
+ * Diamant       16384    4.132126e-4         9680             64³:  101.6         102      860
+ * Netherit     131072    1.775546e-4        22528            128³:  349.1          23      349
+ * Enderit     1048576    7.629395e-5        52429            256³: 1200.0           0       80 (voll)
  * </pre>
  *
  * <p>Die Funktion schadet nie direkt: sie fuegt nur Erschoepfung hinzu. Verhungert der Spieler
@@ -40,21 +43,30 @@ import net.minecraft.world.item.Item;
 public final class WandHunger {
     /** Vanilla: so viel Erschoepfung kostet einen Punkt Saettigung oder Hunger. */
     public static final float EXHAUSTION_PER_POINT = 4.0F;
-    /** 20 Hunger + 20 Saettigung, in Erschoepfung. */
-    public static final float FULL_BAR_EXHAUSTION = 40 * EXHAUSTION_PER_POINT;
-
-    /** Eichpunkt Kupfer: 16³ Bloecke = eine Viertel-Leiste. */
-    public static final double COPPER_PER_BLOCK = FULL_BAR_EXHAUSTION / 4.0 / (16 * 16 * 16);
-    /** Eichpunkt Enderit: 128³ Bloecke = die volle Leiste. */
-    public static final double ENDERITE_PER_BLOCK = FULL_BAR_EXHAUSTION / (128.0 * 128 * 128);
+    /** Die sichtbaren 20 Hungerpunkte, in Erschoepfung. */
+    public static final float FULL_BAR_EXHAUSTION = 20 * EXHAUSTION_PER_POINT;
 
     /** Stufen Kupfer, Eisen, Gold, Diamant, Netherit, Enderit (wie {@code BlueprintTiers.NAMES}). */
     public static final String[] TIERS = {"copper", "iron", "gold", "diamond", "netherite", "enderite"};
 
-    /** Erschoepfung je Block, parallel zu {@link #TIERS}: geometrisch zwischen den Eichpunkten. */
+    /** Freie Bloecke je Bauvorgang, parallel zu {@link #TIERS}: 1/16 des Maximalwuerfels, mind. 256. */
+    public static final long[] ALLOWANCE = new long[TIERS.length];
+
+    /** Eichpunkt Kupfer: 16³ Bloecke nach Freibetrag = eine Viertel-Leiste. */
+    public static final double COPPER_PER_BLOCK;
+    /** Eichpunkt Enderit: 128³ Bloecke nach Freibetrag = die volle Leiste. */
+    public static final double ENDERITE_PER_BLOCK;
+
+    /** Erschoepfung je bezahltem Block, parallel zu {@link #TIERS}: geometrisch zwischen den Eichpunkten. */
     public static final double[] PER_BLOCK = new double[TIERS.length];
 
     static {
+        for (int i = 0; i < ALLOWANCE.length; i++) {
+            long edge = BlueprintTiers.EDGES[i];
+            ALLOWANCE[i] = Math.max(256L, edge * edge * edge / 16);
+        }
+        COPPER_PER_BLOCK = FULL_BAR_EXHAUSTION / 4.0 / (16L * 16 * 16 - ALLOWANCE[0]);
+        ENDERITE_PER_BLOCK = FULL_BAR_EXHAUSTION / (double) (128L * 128 * 128 - ALLOWANCE[TIERS.length - 1]);
         for (int i = 0; i < PER_BLOCK.length; i++) {
             PER_BLOCK[i] = COPPER_PER_BLOCK
                     * Math.pow(ENDERITE_PER_BLOCK / COPPER_PER_BLOCK, i / (double) (PER_BLOCK.length - 1));
@@ -80,10 +92,19 @@ public final class WandHunger {
         };
     }
 
-    /** Erschoepfung fuer {@code blocks} Bloecke mit diesem Stab, ohne Schalter/Kreativ-Pruefung. */
+    /** Freie Bloecke je Bauvorgang fuer diesen Stab; 0 fuer einen Nicht-Baustab. */
+    public static long allowanceFor(Item wand) {
+        int tier = tierOf(wand);
+        return tier < 0 ? 0 : ALLOWANCE[tier];
+    }
+
+    /**
+     * Erschoepfung eines ganzen Bauvorgangs von {@code blocks} Bloecken mit diesem Stab (Freibetrag
+     * abgezogen), ohne Schalter/Kreativ-Pruefung.
+     */
     public static double exhaustionFor(Item wand, long blocks) {
         int tier = tierOf(wand);
-        return tier < 0 || blocks <= 0 ? 0.0 : PER_BLOCK[tier] * blocks;
+        return tier < 0 ? 0.0 : PER_BLOCK[tier] * Math.max(0L, blocks - ALLOWANCE[tier]);
     }
 
     /** Ist die (experimentelle) Hungerkosten-Option an? Ohne geladene Config: an (Standard). */
@@ -93,18 +114,19 @@ public final class WandHunger {
     }
 
     /**
-     * Rechnet {@code blocks} gesetzte Bloecke ab: fuegt die Erschoepfung direkt der
-     * {@code FoodData} hinzu und liefert, wie viel. 0 im Kreativmodus, auf dem Client, bei
-     * abgeschalteter Option oder fuer einen Nicht-Baustab.
+     * Rechnet einen gerade gesetzten Block ab, den {@code indexInOperation}-ten (ab 1) des laufenden
+     * Bauvorgangs: innerhalb des Freibetrags nichts, danach die Rate der Stufe, direkt auf die
+     * {@code FoodData}. Liefert die hinzugefuegte Erschoepfung; 0 im Kreativmodus, auf dem Client,
+     * bei abgeschalteter Option oder fuer einen Nicht-Baustab.
      */
-    public static float exhaust(Player player, Item wand, int blocks) {
-        if (blocks <= 0 || player.level().isClientSide() || player.getAbilities().instabuild || !enabled()) {
+    public static float exhaust(Player player, Item wand, long indexInOperation) {
+        int tier = tierOf(wand);
+        if (tier < 0 || indexInOperation <= ALLOWANCE[tier] || player.level().isClientSide()
+                || player.getAbilities().instabuild || !enabled()) {
             return 0.0F;
         }
-        float amount = (float) exhaustionFor(wand, blocks);
-        if (amount > 0.0F) {
-            player.getFoodData().addExhaustion(amount);
-        }
+        float amount = (float) PER_BLOCK[tier];
+        player.getFoodData().addExhaustion(amount);
         return amount;
     }
 }

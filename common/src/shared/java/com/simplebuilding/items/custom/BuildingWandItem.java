@@ -490,6 +490,7 @@ public class BuildingWandItem extends Item {
         Direction clickedFace = context.getClickedFace();
         CompoundTag nbt = getOrInitNbt(wandStack);
         nbt.putBoolean("Active", true);
+        nbt.putInt("HungerCount", 0); // neuer Bauvorgang: Freibetrag von vorn (WandHunger)
         nbt.putInt("CurrentRadius", 0);
         nbt.putInt("Timer", 0);
         nbt.putInt("OriginX", clickedPos.getX());
@@ -568,8 +569,10 @@ public class BuildingWandItem extends Item {
                     // Billed to the slot the wand is ticking in: it builds from the off hand too,
                     // and naming MAINHAND here made a break in the off hand take the main hand
                     // item's attribute modifiers with it (LivingEntity#onEquippedItemBroken).
-                    // EXPERIMENTELL: jeder gesetzte Block kostet Erschoepfung (WandHunger, abschaltbar).
-                    com.simplebuilding.util.WandHunger.exhaust(player, this, 1);
+                    // EXPERIMENTELL: Bloecke ueber dem Freibetrag des Klicks kosten Erschoepfung (WandHunger).
+                    int hungerCount = nbt.getIntOr("HungerCount", 0) + 1;
+                    nbt.putInt("HungerCount", hungerCount);
+                    com.simplebuilding.util.WandHunger.exhaust(player, this, hungerCount);
                     stack.hurtAndBreak(1, player, slot);
                 }
             }
