@@ -207,7 +207,12 @@ Mit **Umschalt** die Materialliste (bis 8 Zeilen mit Symbol, dann "… und N wei
 Kartentisch, Abschnitt 5.1.)
 
 - **Vorschau**: Geisterblöcke am anvisierten Block – genau das, was ein Klick jetzt setzen würde
-  (vorhandenes Material, freie Stellen), bis 4096 Geister.
+  (vorhandenes Material, freie Stellen), bis 4096 Geister. Stellen, für die Material fehlt,
+  erscheinen **rot**.
+- **Zwei-Klick-Regel**: fehlt Material, baut der erste Rechtsklick nichts – die roten Stellen
+  leuchten kurz kräftig auf, ein Hinweiston erklingt, die Aktionsleiste nennt die Zahl der
+  fehlenden Blöcke. Ein zweiter Rechtsklick binnen 3 s baut alles Vorhandene. Fehlt nichts, baut
+  schon der erste Klick. Die Bestätigung gilt nur für diesen einen Bau.
 - **Ausrichtung**: das Bauwerk steht mittig (x) auf dem Zielblock (in den geklickten Block, wenn
   er ersetzbar ist, sonst davor), seine Unterkante auf dessen Höhe, seine lokale z-Achse zeigt in
   Blickrichtung. Nach Süden blickend entsteht es wie gescannt. **Strg + Mausrad** dreht um 90°
@@ -224,11 +229,15 @@ Kartentisch, Abschnitt 5.1.)
   - Fehlendes Material → Stelle bleibt frei; später erneut klicken füllt nach.
   - Je gesetztem Block 1 Haltbarkeit (wie der Baustab), Abbruch wenn der Stab bricht.
   - Kreativ setzt alles.
-  - **Mehrere Ticks**: je Tick höchstens 4096 gesetzte und 131 072 geprüfte Stellen; der Rest läuft
-    als Auftrag des Spielers weiter (angetrieben vom Baustab in der Haupthand), Fortschritt
-    "Baue… geprüft / gesamt, gesetzt" in der Aktionsleiste. Baustab oder Blaupause weglegen bricht
-    ab. Ein neuer Klick ersetzt einen laufenden Auftrag.
-  - Meldung in der Aktionsleiste: gesetzt / ausgelassen.
+  - **Sichtbares Wachsen** wie beim Baustab, aber schneller: Schicht für Schicht von unten nach
+    oben, in jeder Schicht von der Mitte nach außen (Bettkopfteile ans Ende ihrer Schicht). Die
+    Bauzeit ist gedämpft: `ticks = 20 + 160 · ln(1 + n/64) / ln(1 + 4 194 304/64)`, also rund 1 s
+    für ein kleines Haus, 3 s für 1000 Blöcke und höchstens 9 s für das größte Bauwerk; je Tick wird
+    der Anteil `⌈n / ticks⌉` der Stellen bearbeitet – so gibt es auch bei Riesenbauten kein Hängen.
+    Fortschritt „Baue… geprüft / gesamt, gesetzt“ in der Aktionsleiste.
+  - **Abbruch** wie beim Baustab: anderes Werkzeug in der Haupthand (auch kurz), Blaupause aus der
+    Nebenhand genommen, Baustab zerbrochen. Ein abgebrochener Bau wird nicht wieder aufgenommen;
+    ein neuer Klick ersetzt einen laufenden Auftrag.
 - **Stufengrenze** (längste Kante der Bounding Box, Würfel):
 
   | Baustab | Kupfer | Eisen | Gold | Diamant | Netherit | Enderit |
