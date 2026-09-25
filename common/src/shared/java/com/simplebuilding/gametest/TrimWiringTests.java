@@ -1789,6 +1789,63 @@ public final class TrimWiringTests {
     }
 
     /**
+     * Enderite trim on Enderite armour is drawn in the darker Enderite palette, the way vanilla draws
+     * iron trim on iron armour - on the worn armour and on the item icon alike, because both read
+     * the same palette suffix ({@code McVersion#trimColourSuffix}; the icons through
+     * {@code ArmorTrimModelProvider}). On every other armour, and for every other material on
+     * Enderite armour, the plain palette stays.
+     *
+     * <p>26.2 keeps the override in the trim material (asset group, so the running registry - the
+     * datagen JSON - is checked, and the bootstrap datagen writes it from). 26.3 keeps it in the
+     * equipment asset's {@code trim_overrides}, which the client reads from
+     * {@code assets/simplebuilding/equipment/enderite.json}; there the shipped JSON has to name the
+     * darker palette for the Enderite material, and that palette texture has to exist. The line
+     * is told apart by the 26.3 palette folder, which only the 26.3 build ships.
+     *
+     * <p>What breaks this: dropping the override from {@code ModTrimMaterials} (26.2) or from the
+     * overlay equipment JSON (26.3), a stale datagen run, the override keyed to the wrong armour,
+     * or the 26.3 suffix rule and the equipment JSON drifting apart.
+     */
+    public static void enderiteTrimTurnsDarkerOnEnderiteArmour(GameTestHelper helper) {
+        var materials = helper.getLevel().registryAccess().lookupOrThrow(Registries.TRIM_MATERIAL);
+        TrimMaterial enderite = materials.getOrThrow(ModTrimMaterials.ENDERITE).value();
+        TrimMaterial astralit = materials.getOrThrow(ModTrimMaterials.ASTRALIT).value();
+        TrimMaterial iron = materials.getOrThrow(TrimMaterials.IRON).value();
+        var enderiteArmour = com.simplebuilding.items.ModArmorMaterials.ENDERITE_ASSET_KEY;
+        var ironArmour = net.minecraft.world.item.equipment.EquipmentAssets.IRON;
+
+        String actual = "enderite on enderite " + McVersion.trimColourSuffix(enderite, enderiteArmour)
+                + ", enderite on iron " + McVersion.trimColourSuffix(enderite, ironArmour)
+                + ", astralit on enderite " + McVersion.trimColourSuffix(astralit, enderiteArmour)
+                + ", iron on enderite " + McVersion.trimColourSuffix(iron, enderiteArmour)
+                + ", declared enderite on enderite "
+                + McVersion.trimColourSuffix(bootstrapped().get(ModTrimMaterials.ENDERITE), enderiteArmour);
+        helper.assertValueEqual(actual, "enderite on enderite enderite_darker, enderite on iron enderite, "
+                        + "astralit on enderite astralit, iron on enderite iron, declared enderite on enderite enderite_darker",
+                "the trim palette of each material on each armour");
+
+        ClassLoader loader = TrimWiringTests.class.getClassLoader();
+        if (loader.getResource("assets/simplebuilding/textures/palettes/trim/enderite.png") != null) {
+            helper.assertTrue(loader.getResource("assets/simplebuilding/textures/palettes/trim/enderite_darker.png") != null,
+                    "26.3 ships no simplebuilding:trim/enderite_darker palette texture");
+            String overrides = "none";
+            try (java.io.InputStream in = loader.getResourceAsStream("assets/simplebuilding/equipment/enderite.json")) {
+                if (in != null) {
+                    com.google.gson.JsonObject json = com.google.gson.JsonParser.parseReader(
+                            new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
+                    overrides = json.has("trim_overrides") ? json.get("trim_overrides").toString() : "none";
+                }
+            } catch (java.io.IOException e) {
+                throw new IllegalStateException(e);
+            }
+            helper.assertValueEqual(overrides,
+                    "[{\"palette\":\"simplebuilding:trim/enderite_darker\",\"when\":{\"material\":\"simplebuilding:enderite\"}}]",
+                    "the trim_overrides of the Enderite equipment asset on 26.3");
+        }
+        helper.succeed();
+    }
+
+    /**
      * Runs {@code ModTrimMaterials.bootstrap} into a recording context - the exact call datagen
      * makes - and hands back what it registered. That is where the expected colours come from, so
      * that they are the literals datagen would write out and not a second copy of them.

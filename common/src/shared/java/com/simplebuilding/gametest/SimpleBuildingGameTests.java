@@ -468,6 +468,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("trim_wiring_game_test_the_three_trim_materials_keep_their_colours_and_their_tags", TrimWiringTests::theThreeTrimMaterialsKeepTheirColoursAndTheirTags)
                     .build(),
+            GameTestSpec.named("trim_wiring_game_test_enderite_trim_turns_darker_on_enderite_armour", TrimWiringTests::enderiteTrimTurnsDarkerOnEnderiteArmour)
+                    .build(),
             GameTestSpec.named("trim_wiring_game_test_the_trim_multiplier_command_guards_its_range_and_its_permission", TrimWiringTests::theTrimMultiplierCommandGuardsItsRangeAndItsPermission)
                     .build(),
             GameTestSpec.named("reinforced_bundle_game_test_insertion_stops_at_the_brim_and_weighs_by_stack_size", ReinforcedBundleTests::insertionStopsAtTheBrimAndWeighsByStackSize)

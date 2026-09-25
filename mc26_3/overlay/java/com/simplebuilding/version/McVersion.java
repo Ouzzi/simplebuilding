@@ -107,9 +107,26 @@ public final class McVersion {
         return new TrimMaterial(Identifier.fromNamespaceAndPath("simplebuilding", "trim/" + paletteName), description);
     }
 
+    /**
+     * 26.3: the "_darker" override lives in the equipment asset (trim_overrides), not in the
+     * material, so the material is the plain one; the mod's own override is
+     * mc26_3/overlay/resources/assets/simplebuilding/equipment/enderite.json.
+     */
+    public static TrimMaterial trimMaterial(String paletteName, Component description,
+                                            ResourceKey<net.minecraft.world.item.equipment.EquipmentAsset> darkerOn) {
+        return trimMaterial(paletteName, description);
+    }
+
     /** Vanilla equipment assets whose own trim material shows the "_darker" palette (26.3 trim_overrides). */
     private static final java.util.Set<String> DARKER_ON_OWN_MATERIAL =
             java.util.Set.of("iron", "gold", "diamond", "netherite", "copper");
+
+    /**
+     * The mod's equipment assets with a trim_overrides entry for their own material (palette
+     * simplebuilding:trim/&lt;name&gt; -&gt; simplebuilding:trim/&lt;name&gt;_darker). Mirrors the
+     * overlay equipment JSON; TrimWiringTests checks that the two agree.
+     */
+    private static final java.util.Set<String> MOD_DARKER_ON_OWN_MATERIAL = java.util.Set.of("enderite");
 
     /**
      * 26.3: the material names a palette (trim/<suffix>); the "_darker" variant comes from the
@@ -123,6 +140,10 @@ public final class McVersion {
         Identifier armour = asset.identifier();
         if (armour.getNamespace().equals("minecraft") && material.paletteId().getNamespace().equals("minecraft")
                 && suffix.equals(armour.getPath()) && DARKER_ON_OWN_MATERIAL.contains(suffix)) {
+            return suffix + "_darker";
+        }
+        if (armour.getNamespace().equals("simplebuilding") && material.paletteId().getNamespace().equals("simplebuilding")
+                && suffix.equals(armour.getPath()) && MOD_DARKER_ON_OWN_MATERIAL.contains(suffix)) {
             return suffix + "_darker";
         }
         return suffix;

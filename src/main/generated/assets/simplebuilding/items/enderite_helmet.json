@@ -1238,7 +1238,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "simplebuilding:item/trim_overlay/helmet_bolt_enderite"
+              "model": "simplebuilding:item/trim_overlay/helmet_bolt_enderite_darker"
             },
             "when": {
               "material": "simplebuilding:enderite",
@@ -1378,7 +1378,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "simplebuilding:item/trim_overlay/helmet_coast_enderite"
+              "model": "simplebuilding:item/trim_overlay/helmet_coast_enderite_darker"
             },
             "when": {
               "material": "simplebuilding:enderite",
@@ -1518,7 +1518,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "simplebuilding:item/trim_overlay/helmet_dune_enderite"
+              "model": "simplebuilding:item/trim_overlay/helmet_dune_enderite_darker"
             },
             "when": {
               "material": "simplebuilding:enderite",
@@ -1658,7 +1658,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "simplebuilding:item/trim_overlay/helmet_eye_enderite"
+              "model": "simplebuilding:item/trim_overlay/helmet_eye_enderite_darker"
             },
             "when": {
               "material": "simplebuilding:enderite",
@@ -1798,7 +1798,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "simplebuilding:item/trim_overlay/helmet_flow_enderite"
+              "model": "simplebuilding:item/trim_overlay/helmet_flow_enderite_darker"
             },
             "when": {
               "material": "simplebuilding:enderite",
@@ -1938,7 +1938,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "simplebuilding:item/trim_overlay/helmet_host_enderite"
+              "model": "simplebuilding:item/trim_overlay/helmet_host_enderite_darker"
             },
             "when": {
               "material": "simplebuilding:enderite",
@@ -2078,7 +2078,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "simplebuilding:item/trim_overlay/helmet_raiser_enderite"
+              "model": "simplebuilding:item/trim_overlay/helmet_raiser_enderite_darker"
             },
             "when": {
               "material": "simplebuilding:enderite",
@@ -2218,7 +2218,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "simplebuilding:item/trim_overlay/helmet_rib_enderite"
+              "model": "simplebuilding:item/trim_overlay/helmet_rib_enderite_darker"
             },
             "when": {
               "material": "simplebuilding:enderite",
@@ -2358,7 +2358,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "simplebuilding:item/trim_overlay/helmet_sentry_enderite"
+              "model": "simplebuilding:item/trim_overlay/helmet_sentry_enderite_darker"
             },
             "when": {
               "material": "simplebuilding:enderite",
@@ -2498,7 +2498,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "simplebuilding:item/trim_overlay/helmet_shaper_enderite"
+              "model": "simplebuilding:item/trim_overlay/helmet_shaper_enderite_darker"
             },
             "when": {
               "material": "simplebuilding:enderite",
@@ -2638,7 +2638,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "simplebuilding:item/trim_overlay/helmet_silence_enderite"
+              "model": "simplebuilding:item/trim_overlay/helmet_silence_enderite_darker"
             },
             "when": {
               "material": "simplebuilding:enderite",
@@ -2778,7 +2778,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "simplebuilding:item/trim_overlay/helmet_snout_enderite"
+              "model": "simplebuilding:item/trim_overlay/helmet_snout_enderite_darker"
             },
             "when": {
               "material": "simplebuilding:enderite",
@@ -2918,7 +2918,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "simplebuilding:item/trim_overlay/helmet_spire_enderite"
+              "model": "simplebuilding:item/trim_overlay/helmet_spire_enderite_darker"
             },
             "when": {
               "material": "simplebuilding:enderite",
@@ -3058,7 +3058,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "simplebuilding:item/trim_overlay/helmet_tide_enderite"
+              "model": "simplebuilding:item/trim_overlay/helmet_tide_enderite_darker"
             },
             "when": {
               "material": "simplebuilding:enderite",
@@ -3198,7 +3198,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "simplebuilding:item/trim_overlay/helmet_vex_enderite"
+              "model": "simplebuilding:item/trim_overlay/helmet_vex_enderite_darker"
             },
             "when": {
               "material": "simplebuilding:enderite",
@@ -3338,7 +3338,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "simplebuilding:item/trim_overlay/helmet_ward_enderite"
+              "model": "simplebuilding:item/trim_overlay/helmet_ward_enderite_darker"
             },
             "when": {
               "material": "simplebuilding:enderite",
@@ -3478,7 +3478,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "simplebuilding:item/trim_overlay/helmet_wayfinder_enderite"
+              "model": "simplebuilding:item/trim_overlay/helmet_wayfinder_enderite_darker"
             },
             "when": {
               "material": "simplebuilding:enderite",
@@ -3618,7 +3618,7 @@
           {
             "model": {
               "type": "minecraft:model",
-              "model": "simplebuilding:item/trim_overlay/helmet_wild_enderite"
+              "model": "simplebuilding:item/trim_overlay/helmet_wild_enderite_darker"
             },
             "when": {
               "material": "simplebuilding:enderite",

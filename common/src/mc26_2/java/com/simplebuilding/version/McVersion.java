@@ -119,6 +119,16 @@ public final class McVersion {
     }
 
     /**
+     * A trim material whose palette turns "_darker" on armour of its own equipment asset, the way
+     * vanilla iron trim is darker on iron armour. 26.2: an override in the material's asset group.
+     */
+    public static TrimMaterial trimMaterial(String paletteName, Component description,
+                                            ResourceKey<net.minecraft.world.item.equipment.EquipmentAsset> darkerOn) {
+        return new TrimMaterial(MaterialAssetGroup.create(paletteName, java.util.Map.of(darkerOn, paletteName + "_darker")),
+                description);
+    }
+
+    /**
      * The palette suffix a trim material shows on armour of the given equipment asset, e.g. "iron"
      * or "iron_darker" (iron trim on iron armour). 26.2: the material's asset group decides.
      */

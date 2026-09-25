@@ -1,0 +1,22 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "simplebuilding:enderite"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "simplebuilding:enderite_leggings"
+      }
+    ]
+  },
+  "trim_overrides": [
+    {
+      "palette": "simplebuilding:trim/enderite_darker",
+      "when": {
+        "material": "simplebuilding:enderite"
+      }
+    }
+  ]
+}
