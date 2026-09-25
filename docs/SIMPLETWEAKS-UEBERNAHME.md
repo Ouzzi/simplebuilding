@@ -265,6 +265,10 @@ Kupferplatten, Echo-Kompass (Verknuepfen, Perle, Unbreaking), XP-Verklumpen, Sta
 Spawn-Regeln, Befehle, Config-Schalter je Familie. Jeder Test wurde gegengeprueft (Mutation des
 geprueften Verhaltens macht ihn rot).
 
+Testzentrale: eigene Station `tweaks` (`com.simplebuilding.dev.testcentre.TweaksStation`, siehe
+`docs/TESTZENTRALE.md`); Gegenprobe: Zeile `travel_and_loading` weggelassen -> Abdeckungstest rot
+(nennt Chunk-Loader, Enderit-Launchpad, Laserpointer).
+
 ## 9. Offene Punkte
 
 - Laser-Option `showLine` hat weiter keine Wirkung (wie in Simple Tweaks).
