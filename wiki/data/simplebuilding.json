@@ -2986,7 +2986,7 @@
           "Raising radiance: in the smithing table, Emitting Trim Upgrade Template + armor piece + Glowstone Dust raises the piece's radiance (NBT key \"SimpleBuildingEmissionLevel\") by 1, up to a maximum of 5; at level 5 no result is produced any more.",
           "The mod's check accepts every item in the #minecraft:trimmable_armor tag as well as any item that carries an equippable component.",
           "The four quivers carry an equippable component as well, so the check accepts them: at the smithing table the Reinforced Quiver and the Netherite Quiver take radiance and glow just like an armor piece. The plain Quiver and the Enderite Quiver do not - the smithing table's base slot only accepts items that are the base ingredient of some smithing recipe; the Enderite Quiver only ever appears as a result, and the plain Quiver is the base of none, because the Netherite Quiver is smithed from the Reinforced Quiver.",
-          "The tooltip shows \"Radiance Level: X/5\" (gold).",
+          "The tooltip shows \"Radiance: X\" (gold) - only the level, without a maximum; the same line in German reads \"Strahlkraft: X\".",
           "Light level = the summed radiance of all four armor slots x 3, capped at 15 (a single piece at level 5 already reaches 15).",
           "Every 2 server ticks each player is checked: if the light level is > 0, the server places a light block (minecraft:light) one block above the player position (head height).",
           "The light block is only placed in air or in a water source; in water as the waterlogged variant; an existing light block is only updated when the level changes.",
@@ -3000,7 +3000,7 @@
           "Currently has no effect: the data component simplebuilding:light_source - it is only set in UpgradeSmithingRecipe.assemble, but the matching recipe type simplebuilding:upgrade_smithing is not used by any recipe file, and no code reads the component; the actual smithing logic lives in SmithingScreenHandlerMixin, and the light source goes purely by the radiance stored on the item.",
           "Armor stands and item frames shine too: an armor stand wearing radiant pieces lights the block above its head like a player, an item frame holding a radiant piece lights its own block (same formula, radiance x 3, capped at 15). They check every 10 server ticks, put the light out when the piece is taken away and remove it when they are destroyed; the light block's position is saved with the entity, so it survives a chunk reload and is still cleaned up afterwards.",
           "When a player changes dimension, their light block in the old dimension is removed at once (it used to stay behind).",
-          "Radiant pieces are recognisable: worn armor (on players, mobs and armor stands) and item frames holding a radiant piece give off faint warm glints (the wax-on particle), more often the higher the radiance - one about every 2.5 seconds at level 1, at most about 2.4 per second. Invisible wearers show none.",
+          "Radiant pieces are recognisable, but only just: worn armor (on players, mobs and armor stands) and item frames holding a radiant piece now and then give off a faint warm glint (the wax-on particle). The chance per tick is 0.005 per radiance level of the whole wearer, capped at 0.025 - one glint about every 10 seconds at level 1 and at most one about every 2 seconds, which a single piece at level 5 already reaches. More radiant pieces therefore do not add up: a full set at level 5 glints no more often than one piece at level 5. Invisible wearers show none.",
           "Mobs wearing radiant armor light their way as well: the block above a mob's head is lit like a player's (checked every 4 server ticks so the light follows it), saved with the mob and removed when it despawns or dies. Only players use the per-tick table; every other wearer stores its light block itself."
         ]
       },
@@ -3011,7 +3011,7 @@
           "Strahlkraft aufwerten: Im Schmiedetisch „Strahlende Schmiedevorlage“ + Rüstungsteil + Glowstone-Staub erhöht die Strahlkraft des Teils (NBT-Schlüssel „SimpleBuildingEmissionLevel“) um 1, bis höchstens 5; bei Stufe 5 entsteht kein Ergebnis mehr.",
           "Gültig sind alle Teile im Tag #minecraft:trimmable_armor sowie jedes Item mit Ausrüstungs-Komponente (equippable).",
           "Auch die vier Köcher tragen eine Ausrüstungs-Komponente, die Prüfung nimmt sie also an: Am Schmiedetisch bekommen Verstärkter Köcher und Netherit-Köcher Strahlkraft und Leuchten wie ein Rüstungsteil. Köcher und Enderite Quiver nicht - der Basis-Slot des Schmiedetischs nimmt nur Gegenstände an, die in irgendeinem Schmiederezept als Basis stehen; der Enderite Quiver kommt dort nur als Ergebnis vor, und der einfache Köcher ist Basis keines Rezepts, weil der Netherit-Köcher aus dem Verstärkten Köcher geschmiedet wird.",
-          "Der Tooltip zeigt „Strahlkraft: X/5“ (goldfarben).",
+          "Der Tooltip zeigt „Strahlkraft: X“ (goldfarben) – nur die Stufe, ohne Höchstwert; auf Englisch lautet dieselbe Zeile „Radiance: X“.",
           "Lichtstärke = Summe der Strahlkraft aller vier Rüstungs-Slots × 3, höchstens 15 (ein Teil mit Stufe 5 erreicht bereits 15).",
           "Alle 2 Server-Ticks wird für jeden Spieler geprüft: Ist die Lichtstärke > 0, setzt der Server einen Lichtblock (minecraft:light) einen Block über der Spielerposition (Kopfhöhe).",
           "Der Lichtblock wird nur in Luft oder in einer Wasserquelle gesetzt; im Wasser als wassergefüllte Variante; ein bereits vorhandener Lichtblock wird nur aktualisiert, wenn sich die Stärke ändert.",
@@ -3025,8 +3025,47 @@
           "Hat derzeit keine Wirkung: Die Datenkomponente simplebuilding:light_source – sie wird nur in UpgradeSmithingRecipe.assemble gesetzt, aber der zugehörige Rezepttyp simplebuilding:upgrade_smithing wird von keiner Rezeptdatei verwendet, und kein Code liest die Komponente; die eigentliche Schmiedelogik steckt im SmithingScreenHandlerMixin, die Lichtquelle richtet sich ausschließlich nach der im Item gespeicherten Strahlkraft.",
           "Auch Rüstungsständer und Rahmen leuchten: Ein Rüstungsständer mit strahlenden Teilen erhellt den Block über seinem Kopf wie ein Spieler, ein Rahmen mit einem strahlenden Teil seinen eigenen Block (gleiche Formel, Strahlkraft × 3, höchstens 15). Sie prüfen alle 10 Server-Ticks, löschen das Licht, sobald das Teil fehlt, und entfernen es, wenn sie zerstört werden; die Position des Lichtblocks wird mit der Entity gespeichert, übersteht also ein Neuladen des Chunks und wird trotzdem wieder aufgeräumt.",
           "Wechselt ein Spieler die Dimension, wird sein Lichtblock in der alten Dimension sofort entfernt (früher blieb er stehen).",
-          "Strahlende Teile sind erkennbar: getragene Rüstung (an Spielern, Mobs und Rüstungsständern) und Rahmen mit einem strahlenden Teil geben feine, warme Funken ab (Partikel „Wachs“), je höher die Strahlkraft, desto öfter – auf Stufe 1 etwa alle 2,5 Sekunden, höchstens etwa 2,4 pro Sekunde. Unsichtbare Träger zeigen keine.",
+          "Strahlende Teile sind erkennbar, aber nur dezent: getragene Rüstung (an Spielern, Mobs und Rüstungsständern) und Rahmen mit einem strahlenden Teil geben ab und zu einen feinen, warmen Funken ab (Partikel „Wachs“). Die Chance je Tick ist 0,005 je Strahlkraft-Stufe des ganzen Trägers, höchstens 0,025 – auf Stufe 1 etwa alle 10 Sekunden ein Funke, höchstens etwa einer alle 2 Sekunden, was schon ein einzelnes Teil auf Stufe 5 erreicht. Mehr strahlende Teile addieren sich also nicht: eine volle Ausrüstung auf Stufe 5 funkelt nicht öfter als ein Teil auf Stufe 5. Unsichtbare Träger zeigen keine.",
           "Auch Mobs mit strahlender Rüstung leuchten: Der Block über dem Kopf eines Mobs wird wie beim Spieler erhellt (alle 4 Server-Ticks geprüft, damit das Licht folgt), mit dem Mob gespeichert und entfernt, wenn er verschwindet oder stirbt. Nur Spieler laufen über die Tick-Tabelle; jeder andere Träger speichert seinen Lichtblock selbst."
+        ]
+      }
+    },
+    {
+      "id": "visual_armor_trims",
+      "related": [
+        "simplebuilding:enderite_helmet",
+        "simplebuilding:enderite_chestplate",
+        "simplebuilding:enderite_leggings",
+        "simplebuilding:enderite_boots"
+      ],
+      "sources": [
+        "src/main/java/com/simplebuilding/datagen/ArmorTrimModelProvider.java",
+        "tools/textures/generate_trim_overlays.py",
+        "src/main/resources/assets/minecraft/atlases/items.json",
+        "src/main/generated/assets/minecraft/items/iron_helmet.json",
+        "src/main/generated/assets/simplebuilding/items/enderite_helmet.json",
+        "src/main/java/com/simplebuilding/datagen/ModModelProvider.java"
+      ],
+      "en": {
+        "title": "Visible Armor Trims in the Inventory",
+        "summary": "A trimmed armor piece shows its trim PATTERN on the item icon, in the colors of the trim material - like the worn armor, so you can tell a Sentry chestplate from a Rib chestplate without putting it on. This works for every vanilla armor (leather, chainmail, iron, gold, diamond, netherite, copper, turtle shell) and for Enderite armor, with all 18 vanilla trim patterns and every trim material, the mod's Astralit, Nihilith and Enderite included.",
+        "details": [
+          "Each pattern has its own small shape per slot (helmet, chestplate, leggings, boots): Sentry bands, Dune pyramids, Coast waves, a Wild vine, a Ward crest, an Eye, Vex wings, a Tide wave, a Snout, a Rib cage, a Spire spike, a Wayfinder compass, Shaper squares, a Silence frame, Raiser arrows, a Host chain of blocks, a Flow spiral and a Bolt lightning bolt.",
+          "The colors come from the same trim palettes vanilla uses for the worn armor, including the darker variant when material and armor match (an iron trim on iron armor, gold on gold, and so on).",
+          "Without a trim - and with trim patterns or materials from other mods, which this mod has no picture for - the icon looks exactly like in vanilla.",
+          "Armor stands, item frames, dropped items and the item in hand use the same item model and show the pattern too.",
+          "The glowing and emitting upgrade templates are not trim patterns (they raise glow and radiance) and therefore have no picture of their own."
+        ]
+      },
+      "de": {
+        "title": "Sichtbare Rüstungsbesätze im Inventar",
+        "summary": "Ein besetztes Rüstungsteil zeigt sein Besatz-MUSTER auf dem Item-Symbol, in den Farben des Besatzmaterials – wie die getragene Rüstung. So erkennt man einen Sentry- von einem Rib-Brustpanzer, ohne ihn anzuziehen. Das gilt für jede Vanilla-Rüstung (Leder, Kette, Eisen, Gold, Diamant, Netherit, Kupfer, Schildkrötenpanzer) und für Enderit-Rüstung, mit allen 18 Vanilla-Mustern und jedem Besatzmaterial, auch Astralit, Nihilith und Enderit aus dem Mod.",
+        "details": [
+          "Jedes Muster hat je Slot (Helm, Brustpanzer, Hose, Stiefel) eine eigene kleine Form: Sentry Bänder, Dune Pyramiden, Coast Wellen, Wild eine Ranke, Ward einen Kamm, Eye ein Auge, Vex Flügel, Tide eine Welle, Snout eine Schnauze, Rib Rippen, Spire einen Dorn, Wayfinder eine Kompassrose, Shaper Rechtecke, Silence einen Rahmen, Raiser Pfeile, Host eine Kette aus Blöcken, Flow eine Spirale und Bolt einen Blitz.",
+          "Die Farben stammen aus denselben Besatz-Paletten, die Vanilla für die getragene Rüstung nutzt, samt der dunkleren Stufe, wenn Material und Rüstung gleich sind (Eisenbesatz auf Eisenrüstung, Gold auf Gold usw.).",
+          "Ohne Besatz – und bei Mustern oder Materialien anderer Mods, für die der Mod kein Bild hat – sieht das Symbol genau wie in Vanilla aus.",
+          "Rüstungsständer, Rahmen, fallengelassene Items und das Item in der Hand benutzen dasselbe Item-Modell und zeigen das Muster ebenfalls.",
+          "Die leuchtende und die strahlende Schmiedevorlage sind keine Besatzmuster (sie erhöhen Leuchten und Strahlkraft) und haben deshalb kein eigenes Bild."
         ]
       }
     },
@@ -42554,7 +42593,7 @@
     "tags": 27,
     "config": 15,
     "inWorld": 343,
-    "features": 36,
+    "features": 37,
     "undocumented": 0,
     "incompleteProse": 0
   },
