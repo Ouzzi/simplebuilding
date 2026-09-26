@@ -46,6 +46,16 @@ public final class PistonBreachGameTest {
         PistonBreachTests.breakingTheHeadOfModPistonsBreaksThePistonToo(helper);
     }
 
+    @GameTest(maxTicks = PistonBreachTests.OWN_HEAD_MAX_TICKS)
+    public void everyModPistonCarriesTheHeadOfItsTierAndTakesItBack(GameTestHelper helper) {
+        PistonBreachTests.everyModPistonCarriesTheHeadOfItsTierAndTakesItBack(helper);
+    }
+
+    @GameTest(maxTicks = PistonBreachTests.BORE_EFFECTS_MAX_TICKS)
+    public void modPistonBreaksReportEveryDestroyedBlockForParticlesAndSound(GameTestHelper helper) {
+        PistonBreachTests.modPistonBreaksReportEveryDestroyedBlockForParticlesAndSound(helper);
+    }
+
     @GameTest(maxTicks = PistonBreachTests.IMMUNE_MAX_TICKS)
     public void immuneBlocksNeverMoveOrBreak(GameTestHelper helper) {
         PistonBreachTests.immuneBlocksNeverMoveOrBreak(helper);

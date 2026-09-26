@@ -99,10 +99,11 @@ import net.minecraft.world.phys.shapes.CollisionContext;
  * {@link #netheritePistonBreaksOnlyWhatTheSignalStrengthCanAfford} drives the block event
  * directly against a redstone block that powers the piston only through its front.
  *
- * <p><b>4. {@code NetheritePistonHeadBlock} is dead code.</b> Both mod pistons inherit
- * {@code PistonBaseBlock#moveBlocks}, which places {@code Blocks.PISTON_HEAD}; nothing anywhere
- * constructs the mod's own head. Pinned as a marker in
- * {@link #modPistonsAreNotStickyAndUseTheVanillaHead} rather than as a claim that this is right.
+ * <p><b>4. (fixed 2026-09) The mod pistons carried vanilla's head.</b> Both mod pistons inherit
+ * {@code PistonBaseBlock#moveBlocks}, which places {@code Blocks.PISTON_HEAD}, and the registered
+ * {@code netherite_piston_head} was never placed. {@code PistonBlockMixin} now swaps in the head of
+ * the piston's tier ({@code ModPistonHeadBlock}); {@link #modPistonsAreNotStickyAndCarryTheirOwnHead}
+ * and {@code PistonBreachTests#everyModPistonCarriesTheHeadOfItsTierAndTakesItBack} pin it.
  *
  * <p><b>5. The waterlogging code in {@code LevitatingBlockEntity} is dead code.</b>
  * {@code rise()} clears {@code WATERLOGGED} on the spawn state and puts
@@ -123,20 +124,17 @@ import net.minecraft.world.phys.shapes.CollisionContext;
  *
  * <h2>Not covered</h2>
  * <ul>
- *   <li><b>The breaking sound</b> ({@code SoundEvents.ZOMBIE_ATTACK_IRON_DOOR}).
- *       {@code world.playSound(null, ...)} only queues a packet for nearby players; there is
- *       nothing server side to observe.</li>
+ *   <li><b>The breaking effects</b> themselves (particles and sounds are packets for nearby
+ *       players). What the server does is pinned through {@code PistonBoreEffects}' observer in
+ *       {@code PistonBreachTests#modPistonBreaksReportEveryDestroyedBlockForParticlesAndSound}.</li>
  *   <li><b>The {@code minY} clause and the {@code time > 600} emergency brake in
  *       {@code LevitatingBlockEntity#tick}.</b> The first needs an entity below the world floor,
  *       far outside the 8 block room and with its drop landing in the void; the second needs a 600
  *       tick budget for one branch. The {@code maxY} twin of the same {@code else if} is already
  *       covered by {@code BlockBehaviourTests#levitatingSandDropsAsAnItemAtTheBuildLimit}.</li>
- *   <li><b>{@code NetheritePistonHeadBlock#canSurvive / updateShape / playerWillDestroy /
- *       getCloneItemStack}.</b> Testing them would mean placing the block by hand and thereby
- *       describing behaviour no player can reach; see defect 4 for what is pinned instead.</li>
- *   <li><b>{@code PistonHeadBlockMixin}.</b> It accepts the mod pistons in vanilla's
- *       {@code PistonHeadBlock#isFittingBase}, which is what keeps the extended mod pistons in this
- *       file intact - every extend/retract test here would fail without it. What it does beyond
+ *   <li><b>{@code PistonHeadBlockMixin}.</b> It lets each mod head fit only the pistons of its tier
+ *       in vanilla's {@code PistonHeadBlock#isFittingBase}, which is what keeps the extended mod
+ *       pistons in this file intact - every extend/retract test here would fail without it. What it does beyond
  *       that (breaking the head breaks the base, as with vanilla pistons) is pinned in
  *       {@code PistonBreachTests#breakingTheHeadOfModPistonsBreaksThePistonToo}.</li>
  * </ul>
@@ -149,7 +147,7 @@ public final class GravityBlockTests {
     /** Tick budget for {@link #netheritePistonBreaksOnlyWhatTheSignalStrengthCanAfford}. */
     public static final int BREAK_THRESHOLD_MAX_TICKS = 60;
 
-    /** Tick budget for {@link #modPistonsAreNotStickyAndUseTheVanillaHead}. */
+    /** Tick budget for {@link #modPistonsAreNotStickyAndCarryTheirOwnHead}. */
     public static final int RETRACTION_MAX_TICKS = 80;
 
     /** Tick budget for {@link #extendedModPistonsCannotBeShovedByOtherPistons}. */
@@ -263,7 +261,7 @@ public final class GravityBlockTests {
                 .thenExecuteAfter(20, () -> {
                     // 18 blocks: moved, so the column now starts one higher and ends one higher.
                     helper.assertBlockProperty(atLimit, PistonBaseBlock.EXTENDED, Boolean.TRUE);
-                    helper.assertBlockPresent(Blocks.PISTON_HEAD, atLimit.above());
+                    helper.assertBlockPresent(ModBlocks.REINFORCED_PISTON_HEAD, atLimit.above());
                     helper.assertBlockPresent(Blocks.STONE, atLimit.above(REINFORCED_LIMIT + 1));
                     helper.assertBlockNotPresent(Blocks.STONE, atLimit.above());
 
@@ -428,18 +426,18 @@ public final class GravityBlockTests {
                 })
                 .thenExecuteAfter(20, () -> {
                     // --- signal 15, hardness 50: broken, with its drop ---
-                    helper.assertBlockPresent(Blocks.PISTON_HEAD, fullOnNetherite.above());
+                    helper.assertBlockPresent(ModBlocks.NETHERITE_PISTON_HEAD, fullOnNetherite.above());
                     helper.assertBlockNotPresent(Blocks.NETHERITE_BLOCK, fullOnNetherite.above(2));
                     helper.assertItemEntityPresent(Blocks.NETHERITE_BLOCK.asItem(),
                             fullOnNetherite.above(), 2.0D);
 
                     // --- signal 14, hardness 50: too hard, so pushed like an ordinary piston ---
                     helper.assertBlockProperty(weakOnNetherite, PistonBaseBlock.EXTENDED, Boolean.TRUE);
-                    helper.assertBlockPresent(Blocks.PISTON_HEAD, weakOnNetherite.above());
+                    helper.assertBlockPresent(ModBlocks.NETHERITE_PISTON_HEAD, weakOnNetherite.above());
                     helper.assertBlockPresent(Blocks.NETHERITE_BLOCK, weakOnNetherite.above(2));
 
                     // --- signal 14, hardness 1.5: still well over the threshold, so broken ---
-                    helper.assertBlockPresent(Blocks.PISTON_HEAD, weakOnStone.above());
+                    helper.assertBlockPresent(ModBlocks.NETHERITE_PISTON_HEAD, weakOnStone.above());
                     helper.assertBlockNotPresent(Blocks.STONE, weakOnStone.above(2));
                     helper.assertItemEntityPresent(Items.COBBLESTONE, weakOnStone.above(), 2.0D);
 
@@ -447,7 +445,7 @@ public final class GravityBlockTests {
                     // The factor would have to be 52.5 or more for this one to break, which is what
                     // stops the whole formula from drifting upwards behind the two netherite cases.
                     helper.assertBlockProperty(faintOnStonecutter, PistonBaseBlock.EXTENDED, Boolean.TRUE);
-                    helper.assertBlockPresent(Blocks.PISTON_HEAD, faintOnStonecutter.above());
+                    helper.assertBlockPresent(ModBlocks.NETHERITE_PISTON_HEAD, faintOnStonecutter.above());
                     helper.assertBlockPresent(Blocks.STONECUTTER, faintOnStonecutter.above(2));
 
                     // --- what the breaker never gets to see ---
@@ -459,7 +457,7 @@ public final class GravityBlockTests {
                     helper.assertBlockNotPresent(Blocks.BEDROCK, fullOnBedrock.above());
                     helper.assertBlockNotPresent(Blocks.REDSTONE_BLOCK, fullOnBedrock.west());
                     helper.assertBlockNotPresent(ModBlocks.NETHERITE_PISTON, fullOnBedrock);
-                    helper.assertBlockNotPresent(Blocks.PISTON_HEAD, fullOnBedrock.above());
+                    helper.assertBlockNotPresent(ModBlocks.NETHERITE_PISTON_HEAD, fullOnBedrock.above());
                     helper.assertBlockNotPresent(Blocks.MOVING_PISTON, fullOnBedrock.above());
                     helper.assertItemEntityNotPresent(ModItems.NETHERITE_PISTON, fullOnBedrock, 2.0D);
                 })
@@ -492,18 +490,14 @@ public final class GravityBlockTests {
      * the signal already gone, which makes the threshold 0 - two independent reasons why nothing
      * can break, so the assertion pins the outcome and not the guard; see defect 2.
      *
-     * <p>Both halves additionally pin that the head placed in front is vanilla's
-     * {@code minecraft:piston_head} and not {@code ModBlocks.NETHERITE_PISTON_HEAD}. That is a
-     * marker for defect 4, in the style of
-     * {@code OreGenAndItemFrameTests#brushRevealIsWiredToAnInterfaceNothingImplements}: it is not a
-     * claim that the mod's own head block should stay unused, it fails the day somebody wires it
-     * up, and that is exactly when {@code NetheritePistonHeadBlock} needs real tests.
+     * <p>Both halves additionally pin that the head placed in front is the piston's own
+     * ({@code reinforced_piston_head}, {@code netherite_piston_head}) and not vanilla's
+     * {@code minecraft:piston_head}; see defect 4.
      *
      * <p>What breaks this test: {@code super(true, ...)} in either piston, a retraction that
-     * destroys the block in front of the head, and a {@code moveBlocks} override that places a
-     * different head block.
+     * destroys the block in front of the head, and losing the head swap in {@code PistonBlockMixin}.
      */
-    public static void modPistonsAreNotStickyAndUseTheVanillaHead(GameTestHelper helper) {
+    public static void modPistonsAreNotStickyAndCarryTheirOwnHead(GameTestHelper helper) {
         BlockPos reinforced = new BlockPos(1, 1, 1);
         BlockPos netherite = new BlockPos(5, 1, 1);
 
@@ -519,13 +513,13 @@ public final class GravityBlockTests {
 
         helper.startSequence()
                 .thenExecuteAfter(20, () -> {
-                    // Both extended, both carrying a vanilla head.
+                    // Both extended, each carrying the head of its own tier.
                     helper.assertBlockProperty(reinforced, PistonBaseBlock.EXTENDED, Boolean.TRUE);
                     helper.assertBlockProperty(netherite, PistonBaseBlock.EXTENDED, Boolean.TRUE);
-                    helper.assertBlockPresent(Blocks.PISTON_HEAD, reinforced.above());
-                    helper.assertBlockPresent(Blocks.PISTON_HEAD, netherite.above());
-                    helper.assertBlockNotPresent(ModBlocks.NETHERITE_PISTON_HEAD, netherite.above());
-                    helper.assertBlockNotPresent(ModBlocks.NETHERITE_PISTON_HEAD, reinforced.above());
+                    helper.assertBlockPresent(ModBlocks.REINFORCED_PISTON_HEAD, reinforced.above());
+                    helper.assertBlockPresent(ModBlocks.NETHERITE_PISTON_HEAD, netherite.above());
+                    helper.assertBlockNotPresent(Blocks.PISTON_HEAD, netherite.above());
+                    helper.assertBlockNotPresent(Blocks.PISTON_HEAD, reinforced.above());
 
                     // The reinforced piston moved its stone; the netherite one had air in front and
                     // therefore had nothing to break.
@@ -539,8 +533,8 @@ public final class GravityBlockTests {
                 .thenExecuteAfter(20, () -> {
                     helper.assertBlockProperty(reinforced, PistonBaseBlock.EXTENDED, Boolean.FALSE);
                     helper.assertBlockProperty(netherite, PistonBaseBlock.EXTENDED, Boolean.FALSE);
-                    helper.assertBlockNotPresent(Blocks.PISTON_HEAD, reinforced.above());
-                    helper.assertBlockNotPresent(Blocks.PISTON_HEAD, netherite.above());
+                    helper.assertBlockNotPresent(ModBlocks.REINFORCED_PISTON_HEAD, reinforced.above());
+                    helper.assertBlockNotPresent(ModBlocks.NETHERITE_PISTON_HEAD, netherite.above());
 
                     // Not sticky: both stones stay where they were, neither is dragged into the
                     // cell the head has just left.
@@ -1171,7 +1165,9 @@ public final class GravityBlockTests {
         // --- mining tag ---
         assertPickaxeMineable(helper, ModBlocks.REINFORCED_PISTON, true);
         assertPickaxeMineable(helper, ModBlocks.NETHERITE_PISTON, true);
+        assertPickaxeMineable(helper, ModBlocks.REINFORCED_PISTON_HEAD, true);
         assertPickaxeMineable(helper, ModBlocks.NETHERITE_PISTON_HEAD, true);
+        assertPickaxeMineable(helper, ModBlocks.ENDERITE_PISTON_HEAD, true);
         assertPickaxeMineable(helper, ModBlocks.LEVITATING_SAND, false);
         assertPickaxeMineable(helper, ModBlocks.SUSPENDED_SAND, false);
         assertPickaxeMineable(helper, ModBlocks.LEVITATING_GRAVEL, false);

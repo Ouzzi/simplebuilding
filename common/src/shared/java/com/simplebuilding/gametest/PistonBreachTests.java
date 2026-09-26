@@ -4,11 +4,14 @@ import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.config.SimplebuildingConfig;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.util.ModSounds;
+import com.simplebuilding.util.PistonBoreEffects;
 import com.simplebuilding.util.PistonBreach;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
@@ -32,6 +35,8 @@ import net.minecraft.world.level.block.piston.PistonStructureResolver;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.level.block.state.properties.PistonType;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * The pistons that deal with "unbreakable" blocks ({@code PistonBreach}): the reinforced piston and
@@ -91,6 +96,12 @@ public final class PistonBreachTests {
 
     /** Tick budget for {@link #breakingTheHeadOfModPistonsBreaksThePistonToo}. */
     public static final int HEAD_MAX_TICKS = 80;
+
+    /** Tick budget for {@link #everyModPistonCarriesTheHeadOfItsTierAndTakesItBack}. */
+    public static final int OWN_HEAD_MAX_TICKS = 80;
+
+    /** Tick budget for {@link #modPistonBreaksReportEveryDestroyedBlockForParticlesAndSound}. */
+    public static final int BORE_EFFECTS_MAX_TICKS = 60;
 
     /** Tick budget for {@link #immuneBlocksNeverMoveOrBreak}. */
     public static final int IMMUNE_MAX_TICKS = 60;
@@ -170,7 +181,7 @@ public final class PistonBreachTests {
                                     + "breach was free");
                     helper.assertBlockNotPresent(Blocks.BEDROCK, onBedrock.above());
                     helper.assertBlockProperty(onBedrock, PistonBaseBlock.EXTENDED, Boolean.FALSE);
-                    helper.assertBlockNotPresent(Blocks.PISTON_HEAD, onBedrock.above());
+                    helper.assertBlockNotPresent(ModBlocks.REINFORCED_PISTON_HEAD, onBedrock.above());
 
                     // --- reinforced deepslate: unbreakable only through the extra tag ---
                     helper.assertTrue(helper.getBlockState(onDeepslate.above(2)).is(Blocks.REINFORCED_DEEPSLATE),
@@ -345,7 +356,7 @@ public final class PistonBreachTests {
 
                     // --- held out by the lever: extended, sticky head, bedrock pushed ---
                     helper.assertBlockProperty(heldOut, PistonBaseBlock.EXTENDED, Boolean.TRUE);
-                    helper.assertTrue(helper.getBlockState(heldOut.above()).is(Blocks.PISTON_HEAD)
+                    helper.assertTrue(helper.getBlockState(heldOut.above()).is(ModBlocks.REINFORCED_PISTON_HEAD)
                                     && helper.getBlockState(heldOut.above()).getValue(PistonHeadBlock.TYPE) == PistonType.STICKY,
                             "the extended reinforced sticky piston carries no sticky head, found "
                                     + helper.getBlockState(heldOut.above()));
@@ -363,7 +374,7 @@ public final class PistonBreachTests {
                     helper.assertTrue(helper.getBlockState(heldOut.above(2)).is(Blocks.BEDROCK)
                                     && !helper.getBlockState(heldOut.above()).is(Blocks.BEDROCK),
                             "the reinforced sticky piston pulled the bedrock back when it retracted");
-                    helper.assertBlockNotPresent(Blocks.PISTON_HEAD, heldOut.above());
+                    helper.assertBlockNotPresent(ModBlocks.REINFORCED_PISTON_HEAD, heldOut.above());
 
                     // The control proves the piston is sticky at all.
                     helper.assertBlockProperty(control, PistonBaseBlock.EXTENDED, Boolean.FALSE);
@@ -547,8 +558,8 @@ public final class PistonBreachTests {
      * {@code PistonHeadBlock#isFittingBase}). Before 2026-09 the head's removal left a headless extended
      * base, whose later retraction deleted whatever had been put into the head cell.
      *
-     * <p>Four rows: the reinforced piston, the reinforced sticky piston (whose head has to be the
-     * sticky one), the netherite piston, and a vanilla piston as the yardstick. Each is extended by a
+     * <p>Five rows: the reinforced piston, the reinforced sticky piston (whose head has to be the
+     * sticky one), the netherite piston, the enderite piston, and a vanilla piston as the yardstick. Each is extended by a
      * redstone block below it with air in front; then each head is removed, and the base has to be gone
      * with its item lying next to it.
      *
@@ -561,26 +572,33 @@ public final class PistonBreachTests {
         BlockPos sticky = new BlockPos(3, 1, 1);
         BlockPos netherite = new BlockPos(5, 1, 1);
         BlockPos vanilla = new BlockPos(3, 1, 5);
+        BlockPos enderite = new BlockPos(5, 1, 5);
 
-        for (BlockPos piston : List.of(reinforced, sticky, netherite, vanilla)) {
+        for (BlockPos piston : List.of(reinforced, sticky, netherite, enderite, vanilla)) {
             helper.setBlock(piston.above(), Blocks.AIR);
         }
         helper.setBlock(reinforced, upright(ModBlocks.REINFORCED_PISTON));
         helper.setBlock(sticky, upright(ModBlocks.REINFORCED_STICKY_PISTON));
         helper.setBlock(netherite, upright(ModBlocks.NETHERITE_PISTON));
+        helper.setBlock(enderite, upright(ModBlocks.ENDERITE_PISTON));
         helper.setBlock(vanilla, upright(Blocks.PISTON));
-        for (BlockPos piston : List.of(reinforced, sticky, netherite, vanilla)) {
+        for (BlockPos piston : List.of(reinforced, sticky, netherite, enderite, vanilla)) {
             helper.setBlock(piston.below(), Blocks.REDSTONE_BLOCK);
         }
 
         helper.startSequence()
                 .thenExecuteAfter(20, () -> {
-                    assertExtendedWithHead(helper, vanilla, PistonType.DEFAULT, "the vanilla piston");
-                    assertExtendedWithHead(helper, reinforced, PistonType.DEFAULT, "the reinforced piston");
-                    assertExtendedWithHead(helper, sticky, PistonType.STICKY, "the reinforced sticky piston");
-                    assertExtendedWithHead(helper, netherite, PistonType.DEFAULT, "the netherite piston");
+                    assertExtendedWithHead(helper, vanilla, Blocks.PISTON_HEAD, PistonType.DEFAULT, "the vanilla piston");
+                    assertExtendedWithHead(helper, reinforced, ModBlocks.REINFORCED_PISTON_HEAD, PistonType.DEFAULT,
+                            "the reinforced piston");
+                    assertExtendedWithHead(helper, sticky, ModBlocks.REINFORCED_PISTON_HEAD, PistonType.STICKY,
+                            "the reinforced sticky piston");
+                    assertExtendedWithHead(helper, netherite, ModBlocks.NETHERITE_PISTON_HEAD, PistonType.DEFAULT,
+                            "the netherite piston");
+                    assertExtendedWithHead(helper, enderite, ModBlocks.ENDERITE_PISTON_HEAD, PistonType.DEFAULT,
+                            "the enderite piston");
 
-                    for (BlockPos piston : List.of(reinforced, sticky, netherite, vanilla)) {
+                    for (BlockPos piston : List.of(reinforced, sticky, netherite, enderite, vanilla)) {
                         helper.destroyBlock(piston.above());
                     }
                 })
@@ -592,6 +610,131 @@ public final class PistonBreachTests {
                             ModItems.REINFORCED_STICKY_PISTON, "the reinforced sticky piston");
                     assertBrokeWithItsHead(helper, netherite, ModBlocks.NETHERITE_PISTON, ModItems.NETHERITE_PISTON,
                             "the netherite piston");
+                    assertBrokeWithItsHead(helper, enderite, ModBlocks.ENDERITE_PISTON, ModItems.ENDERITE_PISTON,
+                            "the enderite piston");
+                })
+                .thenSucceed();
+    }
+
+    /**
+     * Every mod piston extends with the head of its own tier and takes it back when it retracts:
+     * {@code reinforced_piston_head} (normal type on the reinforced piston, sticky type on the
+     * reinforced sticky piston), {@code netherite_piston_head}, {@code enderite_piston_head}; a vanilla
+     * piston in the same room keeps {@code minecraft:piston_head}. Picking the head with the middle
+     * mouse button gives the piston it belongs to. After the power is cut every base is retracted and
+     * every head cell is empty again.
+     *
+     * <p>What breaks this test: losing the head swap in {@code PistonBlockMixin} (the heads turn
+     * vanilla), a wrong entry in {@code ModPistonHeadBlock#headFor} or {@code #typeFor}, a head that
+     * does not fit its base in {@code PistonHeadBlockMixin} (it vanishes as soon as it lands), and a
+     * retraction that leaves the head behind.
+     */
+    public static void everyModPistonCarriesTheHeadOfItsTierAndTakesItBack(GameTestHelper helper) {
+        fillFloor(helper);
+        BlockPos reinforced = new BlockPos(1, 1, 1);
+        BlockPos sticky = new BlockPos(3, 1, 1);
+        BlockPos netherite = new BlockPos(5, 1, 1);
+        BlockPos enderite = new BlockPos(1, 1, 4);
+        BlockPos vanilla = new BlockPos(4, 1, 4);
+        List<BlockPos> all = List.of(reinforced, sticky, netherite, enderite, vanilla);
+
+        for (BlockPos piston : all) {
+            helper.setBlock(piston.above(), Blocks.AIR);
+        }
+        helper.setBlock(reinforced, upright(ModBlocks.REINFORCED_PISTON));
+        helper.setBlock(sticky, upright(ModBlocks.REINFORCED_STICKY_PISTON));
+        helper.setBlock(netherite, upright(ModBlocks.NETHERITE_PISTON));
+        helper.setBlock(enderite, upright(ModBlocks.ENDERITE_PISTON));
+        helper.setBlock(vanilla, upright(Blocks.PISTON));
+        for (BlockPos piston : all) {
+            helper.setBlock(piston.below(), Blocks.REDSTONE_BLOCK);
+        }
+
+        helper.startSequence()
+                .thenExecuteAfter(20, () -> {
+                    assertExtendedWithHead(helper, reinforced, ModBlocks.REINFORCED_PISTON_HEAD, PistonType.DEFAULT,
+                            "the reinforced piston");
+                    assertExtendedWithHead(helper, sticky, ModBlocks.REINFORCED_PISTON_HEAD, PistonType.STICKY,
+                            "the reinforced sticky piston");
+                    assertExtendedWithHead(helper, netherite, ModBlocks.NETHERITE_PISTON_HEAD, PistonType.DEFAULT,
+                            "the netherite piston");
+                    assertExtendedWithHead(helper, enderite, ModBlocks.ENDERITE_PISTON_HEAD, PistonType.DEFAULT,
+                            "the enderite piston");
+                    assertExtendedWithHead(helper, vanilla, Blocks.PISTON_HEAD, PistonType.DEFAULT, "the vanilla piston");
+
+                    assertPicksItsPiston(helper, reinforced, ModItems.REINFORCED_PISTON);
+                    assertPicksItsPiston(helper, sticky, ModItems.REINFORCED_STICKY_PISTON);
+                    assertPicksItsPiston(helper, netherite, ModItems.NETHERITE_PISTON);
+                    assertPicksItsPiston(helper, enderite, ModItems.ENDERITE_PISTON);
+
+                    for (BlockPos piston : all) {
+                        helper.setBlock(piston.below(), Blocks.STONE);
+                    }
+                })
+                .thenExecuteAfter(20, () -> {
+                    for (BlockPos piston : all) {
+                        helper.assertBlockProperty(piston, PistonBaseBlock.EXTENDED, Boolean.FALSE);
+                        helper.assertTrue(helper.getBlockState(piston.above()).isAir(),
+                                helper.getBlockState(piston) + " retracted but left "
+                                        + helper.getBlockState(piston.above()) + " in its head cell");
+                    }
+                })
+                .thenSucceed();
+    }
+
+    /**
+     * Every block a mod piston destroys goes through {@code PistonBoreEffects#destroy}: vanilla's
+     * {@code Level#destroyBlock} (world event 2001 - the block's break particles and its break sound
+     * for every player nearby) plus the mod's own sound {@code simplebuilding:block.piston.bore}. The
+     * effects themselves are packets; the observer hook is what the server can show, and it reports
+     * only after {@code destroyBlock} succeeded.
+     *
+     * <ul>
+     *   <li><b>Netherite piston on stone:</b> the ordinary break, with drop - one report.</li>
+     *   <li><b>Enderite piston, bedrock then stone, redstone block below:</b> the paid breach - bedrock
+     *       without drop, then the stone with drop, two reports. The paying redstone block and the
+     *       piston itself vanish too, but they are not bored through and report nothing.</li>
+     *   <li><b>Control, a vanilla piston on stone:</b> pushed, no report.</li>
+     * </ul>
+     * The sound event is registered under its id.
+     *
+     * <p>What breaks this test: either piston destroying its target without {@code PistonBoreEffects},
+     * a report for the payer or the piston, a missing sound registration.
+     */
+    public static void modPistonBreaksReportEveryDestroyedBlockForParticlesAndSound(GameTestHelper helper) {
+        BlockPos netherite = new BlockPos(1, 1, 1);
+        BlockPos enderite = new BlockPos(4, 1, 1);
+        BlockPos vanilla = new BlockPos(2, 1, 4);
+        ServerLevel level = helper.getLevel();
+        AABB room = helper.getBounds();
+        List<String> reports = new java.util.concurrent.CopyOnWriteArrayList<>();
+        Runnable stop = PistonBoreEffects.observe((where, pos, broken, dropped) -> {
+            if (where == level && room.contains(Vec3.atCenterOf(pos))) {
+                reports.add(pos.toShortString() + " " + BuiltInRegistries.BLOCK.getKey(broken.getBlock())
+                        + (dropped ? " drop" : " nodrop"));
+            }
+        });
+
+        helper.setBlock(enderite.above(3), Blocks.AIR);
+        helper.setBlock(enderite.above(2), Blocks.STONE);
+        paidRow(helper, netherite, ModBlocks.NETHERITE_PISTON, Blocks.STONE);
+        helper.setBlock(enderite, upright(ModBlocks.ENDERITE_PISTON));
+        helper.setBlock(enderite.above(), Blocks.BEDROCK);
+        helper.setBlock(enderite.below(), Blocks.REDSTONE_BLOCK);
+        paidRow(helper, vanilla, Blocks.PISTON, Blocks.STONE);
+
+        helper.startSequence()
+                .thenExecuteAfter(20, () -> {
+                    stop.run();
+                    List<String> expected = List.of(
+                            helper.absolutePos(netherite.above()).toShortString() + " minecraft:stone drop",
+                            helper.absolutePos(enderite.above()).toShortString() + " minecraft:bedrock nodrop",
+                            helper.absolutePos(enderite.above(2)).toShortString() + " minecraft:stone drop");
+                    helper.assertTrue(reports.size() == expected.size() && reports.containsAll(expected),
+                            "the bore effects reported " + reports + ", expected exactly " + expected);
+                    helper.assertBlockPresent(Blocks.STONE, vanilla.above(2));
+                    helper.assertValueEqual(BuiltInRegistries.SOUND_EVENT.getValue(ModSounds.PISTON_BORE_ID), ModSounds.PISTON_BORE,
+                            "the sound event registered as simplebuilding:block.piston.bore");
                 })
                 .thenSucceed();
     }
@@ -889,7 +1032,7 @@ public final class PistonBreachTests {
 
     /** Neither a head nor a moving block may be left in front of a sacrificed piston. */
     private static void assertNothingMovedIn(GameTestHelper helper, BlockPos front) {
-        helper.assertTrue(!helper.getBlockState(front).is(Blocks.PISTON_HEAD)
+        helper.assertTrue(!(helper.getBlockState(front).getBlock() instanceof PistonHeadBlock)
                         && !helper.getBlockState(front).is(Blocks.MOVING_PISTON),
                 "the sacrifice left " + helper.getBlockState(front) + " in front of the piston - it ran "
                         + "moveBlocks instead of deleting the target");
@@ -904,12 +1047,21 @@ public final class PistonBreachTests {
                         + helper.getBlockState(piston) + ", payer " + helper.getBlockState(piston.below()) + ")");
     }
 
-    private static void assertExtendedWithHead(GameTestHelper helper, BlockPos piston, PistonType type, String label) {
+    private static void assertExtendedWithHead(GameTestHelper helper, BlockPos piston, Block headBlock, PistonType type,
+                                               String label) {
         BlockState head = helper.getBlockState(piston.above());
         helper.assertTrue(helper.getBlockState(piston).getValue(PistonBaseBlock.EXTENDED)
-                        && head.is(Blocks.PISTON_HEAD) && head.getValue(PistonHeadBlock.TYPE) == type,
-                label + " did not extend with a " + type.getSerializedName() + " head in front of it, found "
-                        + head);
+                        && head.is(headBlock) && head.getValue(PistonHeadBlock.TYPE) == type
+                        && head.getValue(DirectionalBlock.FACING) == Direction.UP,
+                label + " did not extend with a " + type.getSerializedName() + " " + headBlock
+                        + " facing up in front of it, found " + head);
+    }
+
+    private static void assertPicksItsPiston(GameTestHelper helper, BlockPos piston, Item item) {
+        BlockPos head = helper.absolutePos(piston.above());
+        ItemStack picked = helper.getLevel().getBlockState(head).getCloneItemStack(helper.getLevel(), head, false);
+        helper.assertTrue(picked.is(item), "picking the head of " + helper.getBlockState(piston) + " gave " + picked
+                + " instead of " + item);
     }
 
     private static void assertBrokeWithItsHead(GameTestHelper helper, BlockPos piston, Block pistonBlock, Item item,

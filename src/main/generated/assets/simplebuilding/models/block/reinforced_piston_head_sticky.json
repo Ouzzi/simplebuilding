@@ -1,0 +1,9 @@
+{
+  "parent": "simplebuilding:block/template_tiered_piston_head",
+  "textures": {
+    "arm": "simplebuilding:block/reinforced_piston_arm",
+    "platform": "simplebuilding:block/reinforced_piston_top_sticky",
+    "side": "simplebuilding:block/reinforced_piston_side",
+    "unsticky": "simplebuilding:block/reinforced_piston_head"
+  }
+}

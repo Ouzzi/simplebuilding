@@ -592,7 +592,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("gravity_block_game_test_netherite_piston_breaks_only_what_the_signal_strength_can_afford", GravityBlockTests::netheritePistonBreaksOnlyWhatTheSignalStrengthCanAfford)
                     .maxTicks(GravityBlockTests.BREAK_THRESHOLD_MAX_TICKS)
                     .build(),
-            GameTestSpec.named("gravity_block_game_test_mod_pistons_are_not_sticky_and_use_the_vanilla_head", GravityBlockTests::modPistonsAreNotStickyAndUseTheVanillaHead)
+            GameTestSpec.named("gravity_block_game_test_mod_pistons_are_not_sticky_and_carry_their_own_head", GravityBlockTests::modPistonsAreNotStickyAndCarryTheirOwnHead)
                     .maxTicks(GravityBlockTests.RETRACTION_MAX_TICKS)
                     .build(),
             GameTestSpec.named("gravity_block_game_test_extended_mod_pistons_cannot_be_shoved_by_other_pistons", GravityBlockTests::extendedModPistonsCannotBeShovedByOtherPistons)
@@ -632,6 +632,12 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("piston_breach_game_test_breaking_the_head_of_mod_pistons_breaks_the_piston_too", PistonBreachTests::breakingTheHeadOfModPistonsBreaksThePistonToo)
                     .maxTicks(PistonBreachTests.HEAD_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("piston_breach_game_test_every_mod_piston_carries_the_head_of_its_tier_and_takes_it_back", PistonBreachTests::everyModPistonCarriesTheHeadOfItsTierAndTakesItBack)
+                    .maxTicks(PistonBreachTests.OWN_HEAD_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("piston_breach_game_test_mod_piston_breaks_report_every_destroyed_block_for_particles_and_sound", PistonBreachTests::modPistonBreaksReportEveryDestroyedBlockForParticlesAndSound)
+                    .maxTicks(PistonBreachTests.BORE_EFFECTS_MAX_TICKS)
                     .build(),
             GameTestSpec.named("piston_breach_game_test_immune_blocks_never_move_or_break", PistonBreachTests::immuneBlocksNeverMoveOrBreak)
                     .maxTicks(PistonBreachTests.IMMUNE_MAX_TICKS)

@@ -27,8 +27,8 @@ public final class GravityBlockGameTest {
     }
 
     @GameTest(maxTicks = GravityBlockTests.RETRACTION_MAX_TICKS)
-    public void modPistonsAreNotStickyAndUseTheVanillaHead(GameTestHelper helper) {
-        GravityBlockTests.modPistonsAreNotStickyAndUseTheVanillaHead(helper);
+    public void modPistonsAreNotStickyAndCarryTheirOwnHead(GameTestHelper helper) {
+        GravityBlockTests.modPistonsAreNotStickyAndCarryTheirOwnHead(helper);
     }
 
     @GameTest(maxTicks = GravityBlockTests.PISTON_VERSUS_PISTON_MAX_TICKS)

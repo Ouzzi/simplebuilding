@@ -1,6 +1,9 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "simplebuilding:block/template_tiered_piston_head",
   "textures": {
-    "all": "simplebuilding:block/netherite_piston_head"
+    "arm": "simplebuilding:block/netherite_piston_arm",
+    "platform": "simplebuilding:block/netherite_piston_top",
+    "side": "simplebuilding:block/netherite_piston_side",
+    "unsticky": "simplebuilding:block/netherite_piston_head"
   }
 }

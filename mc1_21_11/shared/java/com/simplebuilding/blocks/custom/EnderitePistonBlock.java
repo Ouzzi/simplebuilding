@@ -2,6 +2,7 @@ package com.simplebuilding.blocks.custom;
 
 import com.mojang.serialization.MapCodec;
 import com.simplebuilding.util.ModTags;
+import com.simplebuilding.util.PistonBoreEffects;
 import com.simplebuilding.util.PistonBreach;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -27,7 +28,9 @@ import net.minecraft.world.level.material.PushReaction;
  *   <li>an allem anderen (ein unzerstoerbarer Block mit Block-Entity, ein zu harter Block,
  *       Push-Reaktion BLOCK, Fluessigkeiten) endet der Durchbruch ebenfalls.</li>
  * </ul>
- * Danach verschwinden der Redstoneblock und der Kolben selbst, wie beim Netheritkolben.
+ * Jeder zerstoerte Block zeigt seine Bruchpartikel und spielt seinen Abbauklang und den Bohrklang
+ * der Mod ({@link PistonBoreEffects}). Danach verschwinden der Redstoneblock und der Kolben selbst,
+ * wie beim Netheritkolben.
  */
 public class EnderitePistonBlock extends NetheriteBreakerPistonBlock {
     public static final MapCodec<EnderitePistonBlock> CODEC = simpleCodec(EnderitePistonBlock::new);
@@ -60,9 +63,9 @@ public class EnderitePistonBlock extends NetheriteBreakerPistonBlock {
                 return;
             }
             if (PistonBreach.isBreachable(targetState, world, target)) {
-                world.destroyBlock(target, false);
+                PistonBoreEffects.destroy(world, target, false);
             } else if (breakerCanBreak(targetState, world, target, breakThreshold)) {
-                world.destroyBlock(target, true);
+                PistonBoreEffects.destroy(world, target, true);
             } else {
                 return;
             }

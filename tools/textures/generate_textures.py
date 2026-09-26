@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Erzeugt die handgezeichneten 16x16-Texturen fuer Rucksack, Lederbogen, verstaerkten
-Koecher, verstaerkten klebrigen Kolben, Enderit-Kolben, Spachtel, die Enderit-Maschinen, die
+Koecher, verstaerkten klebrigen Kolben, Enderit-Kolben, die Kolbenkoepfe (Rueckseite der Kopfplatte
+und Stange je Stufe), Spachtel, die Enderit-Maschinen, die
 Nihilith-/Astralit-Quarz-Schachbretter, Enderquarz, Enderitbarren, -schrott, -klumpen, die beiden Aufwertungen, den Diamant-Kiesel und die
 Blaupause; dazu aus Code (nicht aus
 Pixelkarten) die drei End-Paletten Astralit, Nihilith und Enderquarz (Grundblock, Ziegel, polierter
@@ -396,6 +397,110 @@ ENDERITE_STONES = [
 ]
 # Glanzpixel (Spalte, Zeile im 14x14-Raster), sparsam gesetzt
 ENDERITE_SPECKS = [(2, 1), (7, 5), (10, 9), (2, 12)]
+
+
+# --- Kolbenkoepfe (reinforced/netherite/enderite_piston_head + _arm). Das Kopfmodell
+# (models/block/template_tiered_piston_head*.json) nimmt die Vorderseite von <stufe>_piston_top,
+# den Plattformrand aus <stufe>_piston_side; eigen sind:
+#   <stufe>_piston_head.png  Rueckseite der Kopfplatte (zeigt zum Kolben). Bretter/Ziegel wie die
+#                            Deckplatte, in der Mitte ein runder Flansch (8x8, Ecken frei), an dem
+#                            die Stange sitzt; dessen innere 4x4 verdeckt die Stange ('x').
+#   <stufe>_piston_arm.png   die Stange: das Modell liest nur Zeilen 0-3 (Laenge 16 = u, Umfang = v,
+#                            oben hell, unten dunkel), die Zeilen 4-15 wiederholen sie, damit
+#                            Mipmaps am Rand keine fremden Pixel mischen. Zwingen an beiden Enden und
+#                            in der Mitte (die kurze Form zeigt u 4-15: Mitte und ein Ende).
+# Verstaerkt und Netherit teilen sich die Karten (wie ihre Deckplatten), Enderit hat Ziegel wie
+# seine Deckplatte und eine Glimmer-Niete.
+#   a b s  Beschlaege hell/mittel/dunkel     o O  Rahmen (oben/links, unten/rechts)
+#   5..1 0 Bretter hell -> dunkel, 0 = Fuge  A B C r x  Flansch hell/mittel/Schatten/Niete/verdeckt
+PISTON_HEAD_BACK = [
+    "ab" + "ooooo" + "bb" + "ooooo" + "ba",
+    "b" + "54453454435445" + "b",
+    "o" + "32332332233323" + "O",
+    "o" + "11101111101111" + "O",
+    "o4544AAAAAA5445O",
+    "o323ArBBBBrC332O",
+    "o110ABxxxxBC111O",
+    "a545ABxxxxBC454b",
+    "b232ABxxxxBC323s",
+    "o101ABxxxxBC110O",
+    "o454ArBBBBrC545O",
+    "o3232CCCCCC3233O",
+    "o" + "11110111101111" + "O",
+    "o" + "44543544534454" + "O",
+    "b" + "32233233323323" + "s",
+    "bs" + "OOOOO" + "ss" + "OOOOO" + "sb",
+]
+PISTON_ARM = [
+    "ab54554ab45545ab",
+    "bc43443bc34434bc",
+    "cc32332cc23323cc",
+    "dd11211dd12111dd",
+] * 4
+PISTON_HEAD_TIERS = {
+    # Beschlaege wie die Eckbeschlaege von reinforced_piston_top, Bretter eine Spur dunkler als
+    # die Deckplatte (Rueckseite), Stange aus dunklem Holz mit Eisenzwingen
+    "reinforced": {
+        "a": "#8c7e89", "b": "#83727d", "s": "#706667", "o": "#4f342c", "O": "#3b2521",
+        "5": "#8d703c", "4": "#806435", "3": "#6b502b", "2": "#553f1a", "1": "#3c2816", "0": "#2c1b0e",
+        "A": "#a497a0", "B": "#83727d", "C": "#574a52", "r": "#c9bcc6", "x": "#1e1719",
+        "c": "#706667", "d": "#4d4448",
+    },
+    # dieselbe Anordnung in den Farben von netherite_piston_top, Pflaumen-Beschlaege
+    "netherite": {
+        "a": "#403048", "b": "#3b2b41", "s": "#322635", "o": "#1f1014", "O": "#150a0e",
+        "5": "#473228", "4": "#3f2c22", "3": "#2d1d13", "2": "#21140b", "1": "#180c06", "0": "#100703",
+        "A": "#56455e", "B": "#3b2b41", "C": "#241b2a", "r": "#74627c", "x": "#0b0609",
+        "c": "#322635", "d": "#1f1722",
+    },
+}
+# Die Stange liest die Stufe mit anderem Glanz: helle Zwinge a, Holz/Metall 5 als Kante oben.
+PISTON_ARM_TIERS = {
+    "reinforced": {"a": "#a79aa4", "b": "#8c7e89", "c": "#706667", "d": "#4d4448",
+                   "5": "#8d703c", "4": "#7a612d", "3": "#64481b", "2": "#4f3812", "1": "#3a2708"},
+    # etwas heller als die Deckplatte, sonst verschwindet die Stange vor dem dunklen Sockel
+    "netherite": {"a": "#6d5d78", "b": "#4f3f58", "c": "#3b2b41", "d": "#241b2a",
+                  "5": "#5e4238", "4": "#4f372d", "3": "#3f2c22", "2": "#2d1d13", "1": "#1d1007"},
+}
+# Enderit: Ziegellagen wie enderite_piston_top (Fuge S, Ziegel Q/W oben, q/p unten), Rahmen G/F,
+# Beschlaege M/N/m; Flansch (PISTON_HEAD_FLANGE, bei (4,4) aufgelegt) N/M/G mit einer
+# Glimmer-Niete L oben links. Die Ziegellagen versetzen ihre Stossfugen wie ein Mauerverband.
+ENDERITE_PISTON_HEAD_BRICKS = [
+    "NM" + "GGGGG" + "NM" + "GGGGG" + "NM",
+    "MWQQQSWQQQQSWQQm",
+    "GqqqpSqqqqpSqqqF",
+    "GSSSSSSSSSSSSSSF",
+    "GQQSWQQQQSWQQQQF",
+    "GqpSqqqqpSqqqqqF",
+    "GSSSSSSSSSSSSSSF",
+    "NWQQQSWQQQQSWQQM",
+    "MqqqpSqqqqpSqqqm",
+    "GSSSSSSSSSSSSSSF",
+    "GQQSWQQQQSWQQQQF",
+    "GqpSqqqqpSqqqqqF",
+    "GSSSSSSSSSSSSSSF",
+    "GWQQQSWQQQQSWQQF",
+    "MqqqpSqqqqpSqqqm",
+    "Mm" + "FFFFF" + "Mm" + "FFFFF" + "Mm",
+]
+# Der Flansch um die Stange, 8x8 mit freien Ecken ('.'); gleiche Form wie in PISTON_HEAD_BACK.
+PISTON_HEAD_FLANGE = [
+    ".AAAAAA.",
+    "ArBBBBrC",
+    "ABxxxxBC",
+    "ABxxxxBC",
+    "ABxxxxBC",
+    "ABxxxxBC",
+    "ArBBBBrC",
+    ".CCCCCC.",
+]
+ENDERITE_FLANGE_KEYS = {"A": "N", "B": "M", "C": "G", "r": "N", "x": "F"}
+ENDERITE_PISTON_ARM = [
+    "NMWQLQWNMWQWQQNM",
+    "MmQqQqQMmqQqQqMm",
+    "mGqpqpqmGpqpqpmG",
+    "GFSSpSSGFSSSpSGF",
+] * 4
 
 
 # ---------------------------------------------------------------------------
@@ -986,6 +1091,28 @@ def stone_face(layout, specks):
     for sx, sy in specks:
         if out[sy][sx] in "345":
             out[sy] = out[sy][:sx] + "6" + out[sy][sx + 1:]
+    return out
+
+
+def piston_head_textures():
+    """Rueckseite der Kopfplatte und Stange je Kolbenstufe (siehe PISTON_HEAD_BACK)."""
+    out = {}
+    # Selbstkontrolle: der Flansch in der gemeinsamen Karte hat dieselbe Form wie PISTON_HEAD_FLANGE.
+    for dy, row in enumerate(PISTON_HEAD_FLANGE):
+        for dx, ch in enumerate(row):
+            if ch != "." and PISTON_HEAD_BACK[4 + dy][4 + dx] != ch:
+                raise ValueError(f"PISTON_HEAD_BACK: Flansch weicht bei ({4 + dx},{4 + dy}) ab")
+    for tier, pal in PISTON_HEAD_TIERS.items():
+        out[f"block/{tier}_piston_head.png"] = render(f"{tier}_piston_head", PISTON_HEAD_BACK, pal, True)
+        out[f"block/{tier}_piston_arm.png"] = render(f"{tier}_piston_arm", PISTON_ARM, PISTON_ARM_TIERS[tier], True)
+    back = [list(r) for r in ENDERITE_PISTON_HEAD_BRICKS]
+    for dy, row in enumerate(PISTON_HEAD_FLANGE):
+        for dx, ch in enumerate(row):
+            if ch != ".":
+                back[4 + dy][4 + dx] = ENDERITE_FLANGE_KEYS[ch]
+    back[5][5] = "L"  # Glimmer-Niete
+    out["block/enderite_piston_head.png"] = render("enderite_piston_head", ["".join(r) for r in back], ENDERITE_PISTON_PAL, True)
+    out["block/enderite_piston_arm.png"] = render("enderite_piston_arm", ENDERITE_PISTON_ARM, ENDERITE_PISTON_PAL, True)
     return out
 
 
@@ -2292,6 +2419,7 @@ def build():
     top, side, bottom, inner = enderite_piston_maps()
     for face, rows in (("top", top), ("side", side), ("bottom", bottom), ("inner", inner)):
         tex[f"block/enderite_piston_{face}.png"] = render(f"enderite_piston_{face}", rows, ENDERITE_PISTON_PAL, True)
+    tex.update(piston_head_textures())
 
     for metal in ("stone", "copper", "iron", "gold", "diamond", "netherite"):
         pal = dict(METALS[metal])
