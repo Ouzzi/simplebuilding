@@ -1,11 +1,10 @@
 package com.simplebuilding.blocks.custom;
 
 import com.mojang.serialization.MapCodec;
+import com.simplebuilding.util.PistonBoreEffects;
 import com.simplebuilding.util.PistonBreach;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.piston.PistonBaseBlock;
@@ -84,9 +83,9 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
         return true;
     }
 
-    /** Netheritkolben: nur der durchbrechbare Block direkt vorn, ohne Drop. */
+    /** Netheritkolben: nur der durchbrechbare Block direkt vorn, ohne Drop, mit Partikeln und Klang ({@link PistonBoreEffects}). */
     protected void breach(Level world, BlockPos pos, Direction facing) {
-        world.destroyBlock(pos.relative(facing), false);
+        PistonBoreEffects.destroy(world, pos.relative(facing), false);
     }
 
     @Override
@@ -111,10 +110,8 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
                     if (blockHardness <= breakThreshold) {
 
                         if (targetState.getPistonPushReaction() != PushReaction.BLOCK) {
-                            world.destroyBlock(targetPos, true);
-                            if (!world.isClientSide()) {
-                                world.playSound(null, pos, SoundEvents.ZOMBIE_ATTACK_IRON_DOOR, SoundSource.BLOCKS, 0.5f, 0.8f);
-                            }
+                            // Mit Beute, Bruchpartikeln, Abbauklang und dem Bohrklang der Mod.
+                            PistonBoreEffects.destroy(world, targetPos, true);
                         }
                     }
                 }

@@ -439,7 +439,7 @@ public final class BlockBehaviourTests {
                 .thenExecuteAfter(20, () -> {
                     // Reinforced piston: extended, head in front of it, column shifted up by one.
                     helper.assertBlockProperty(reinforcedPiston, PistonBaseBlock.EXTENDED, Boolean.TRUE);
-                    helper.assertBlockPresent(Blocks.PISTON_HEAD, reinforcedPiston.above());
+                    helper.assertBlockPresent(ModBlocks.REINFORCED_PISTON_HEAD, reinforcedPiston.above());
                     helper.assertBlockPresent(Blocks.STONE, reinforcedPiston.above(columnHeight + 1));
                     helper.assertBlockPresent(Blocks.STONE, reinforcedPiston.above(2));
 
@@ -474,7 +474,7 @@ public final class BlockBehaviourTests {
         helper.startSequence()
                 .thenExecuteAfter(20, () -> {
                     // Netherite piston: the stone was destroyed, so nothing was moved upwards.
-                    helper.assertBlockPresent(Blocks.PISTON_HEAD, netheritePiston.above());
+                    helper.assertBlockPresent(ModBlocks.NETHERITE_PISTON_HEAD, netheritePiston.above());
                     helper.assertBlockNotPresent(Blocks.STONE, netheritePiston.above(2));
 
                     // Vanilla piston: the very same stone block simply travelled one block up.

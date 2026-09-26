@@ -42,7 +42,9 @@ public final class TestCentreLayout {
      */
     public static final Map<String, String> EXCLUDED = Map.of(
             "simplebuilding:creative_spacer", "Platzhalter der Kreativ-Tabs, kein Spielinhalt",
-            "simplebuilding:netherite_piston_head", "technischer Block (Kopf des Netherit-Kolbens), kein Item");
+            "simplebuilding:reinforced_piston_head", "technischer Block (Kopf der verstaerkten Kolben), kein Item",
+            "simplebuilding:netherite_piston_head", "technischer Block (Kopf des Netherit-Kolbens), kein Item",
+            "simplebuilding:enderite_piston_head", "technischer Block (Kopf des Enderit-Kolbens), kein Item");
 
     public static final int MAX_ROW_WIDTH = 140;
     public static final int GAP = 4;

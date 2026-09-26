@@ -69,7 +69,11 @@ public class ModBlocks {
     public static final Block REINFORCED_STICKY_PISTON = registerBlock("reinforced_sticky_piston", s -> new ReinforcedPistonBlock(true, s.strength(1.5F).sound(SoundType.METAL))); // sticky=true
     public static final Block NETHERITE_PISTON = registerBlock("netherite_piston", s -> new NetheriteBreakerPistonBlock(s.strength(5.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK)));
     public static final Block ENDERITE_PISTON = registerBlock("enderite_piston", s -> new EnderitePistonBlock(s.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK)));
-    public static final Block NETHERITE_PISTON_HEAD = registerBlock("netherite_piston_head", s -> new NetheritePistonHeadBlock(s.noCollision().noLootTable().sound(SoundType.NETHERITE_BLOCK)));
+    // Die Koepfe der Kolben: Eigenschaften von Vanillas Kolbenkopf (unverschiebbar, keine Beute),
+    // Haerte, Explosionswiderstand und Klang wie die Basis ihrer Stufe. Kein Item, wie minecraft:piston_head.
+    public static final Block REINFORCED_PISTON_HEAD = registerBlock("reinforced_piston_head", Blocks.PISTON_HEAD, s -> new ModPistonHeadBlock(ModPistonHeadBlock.Tier.REINFORCED, s.strength(1.5F).noLootTable().sound(SoundType.METAL)));
+    public static final Block NETHERITE_PISTON_HEAD = registerBlock("netherite_piston_head", Blocks.PISTON_HEAD, s -> new ModPistonHeadBlock(ModPistonHeadBlock.Tier.NETHERITE, s.strength(5.0F, 1200.0F).noLootTable().sound(SoundType.NETHERITE_BLOCK)));
+    public static final Block ENDERITE_PISTON_HEAD = registerBlock("enderite_piston_head", Blocks.PISTON_HEAD, s -> new ModPistonHeadBlock(ModPistonHeadBlock.Tier.ENDERITE, s.strength(6.0F, 1500.0F).noLootTable().sound(SoundType.NETHERITE_BLOCK)));
 
     public static final Block REINFORCED_FURNACE = registerBlock("reinforced_furnace", Blocks.FURNACE, s -> new ModFurnaceBlock(s.strength(3.5F).sound(SoundType.METAL)));
     public static final Block NETHERITE_FURNACE = registerBlock("netherite_furnace", Blocks.FURNACE, s -> new ModFurnaceBlock(s.strength(5.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK)));

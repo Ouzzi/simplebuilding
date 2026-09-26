@@ -687,7 +687,7 @@ public final class FurnaceTests {
      * <p>The tables themselves are not claimed here.
      * {@code DataIntegrityTests#everyModBlockLootTableLoads} covers them harder than its name
      * suggests: it walks every {@code ModBlocks} field by reflection - the nine are in, the only
-     * exemption is {@code netherite_piston_head} - rolls each table several times with an empty tool
+     * exemptions are the three piston heads - rolls each table several times with an empty tool
      * through its {@code rollBlockLoot}, and requires the set of items that comes out to be exactly
      * the block's own {@code BlockItem}. A table that rolls nothing and a table regenerated with the
      * wrong item inside are both already red over there.

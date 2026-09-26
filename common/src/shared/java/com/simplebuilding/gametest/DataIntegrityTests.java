@@ -139,10 +139,10 @@ public final class DataIntegrityTests {
     private static final String MOD_ID = Simplebuilding.MOD_ID;
 
     /** Blocks that intentionally have no item form (mirrors vanilla's piston head). */
-    private static final Set<String> BLOCKS_WITHOUT_ITEM = Set.of("netherite_piston_head");
+    private static final Set<String> BLOCKS_WITHOUT_ITEM = Set.of("reinforced_piston_head", "netherite_piston_head", "enderite_piston_head");
 
     /** Blocks registered with {@code noLootTable()}. */
-    private static final Set<String> BLOCKS_WITHOUT_LOOT_TABLE = Set.of("netherite_piston_head");
+    private static final Set<String> BLOCKS_WITHOUT_LOOT_TABLE = Set.of("reinforced_piston_head", "netherite_piston_head", "enderite_piston_head");
 
     /**
      * The blocks that do <em>not</em> drop themselves, and what they drop instead without Silk

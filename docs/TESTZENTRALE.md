@@ -91,7 +91,8 @@ Gegenprobe (2026-09-25, fabric-262): Enderit-Kolben aus der Kolben-Zeile gefilte
 Oktant-Rahmen im Builder übersprungen → Test 2 rot ("item frames: planned 664, placed 662").
 
 Bewusste Ausnahmen (`TestCentreLayout.EXCLUDED`): `creative_spacer` (Platzhalter der Tabs),
-`netherite_piston_head` (technischer Block ohne Item).
+die drei Kolbenköpfe `reinforced_piston_head`, `netherite_piston_head`, `enderite_piston_head`
+(technische Blöcke ohne Item; sie erscheinen in der Kolbenreihe, sobald ein Kolben ausfährt).
 
 ## Erweitern
 

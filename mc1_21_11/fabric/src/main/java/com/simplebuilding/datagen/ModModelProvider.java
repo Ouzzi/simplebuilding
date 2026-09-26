@@ -40,6 +40,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.PistonType;
 import java.util.Optional;
 
 
@@ -50,6 +51,12 @@ public class ModModelProvider extends FabricModelProvider {
     private static final ModelTemplate HOPPER_MODEL = new ModelTemplate(Optional.of(Identifier.withDefaultNamespace("block/hopper")), Optional.empty(), TextureSlot.BOTTOM, TextureSlot.TOP, TextureSlot.SIDE, TextureSlot.INSIDE);
     private static final ModelTemplate HOPPER_SIDE_MODEL = new ModelTemplate(Optional.of(Identifier.withDefaultNamespace("block/hopper_side")), Optional.empty(), TextureSlot.BOTTOM, TextureSlot.TOP, TextureSlot.SIDE, TextureSlot.INSIDE);
     private static final ModelTemplate PISTON_BASE_MODEL = new ModelTemplate(Optional.of(Identifier.withDefaultNamespace("block/piston_base")), Optional.empty(), TextureSlot.BOTTOM, TextureSlot.SIDE, TextureSlot.PLATFORM);
+    // Handgeschriebene Vorlagen (assets/simplebuilding/models/block/template_tiered_piston_head*.json):
+    // Vanillas template_piston_head(_short), nur die Stange mit eigener Textur (#arm) statt des
+    // Plattformrands aus #side.
+    private static final TextureSlot ARM = TextureSlot.create("arm");
+    private static final ModelTemplate PISTON_HEAD_MODEL = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/template_tiered_piston_head")), Optional.empty(), TextureSlot.PLATFORM, TextureSlot.SIDE, TextureSlot.UNSTICKY, ARM);
+    private static final ModelTemplate PISTON_HEAD_SHORT_MODEL = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/template_tiered_piston_head_short")), Optional.empty(), TextureSlot.PLATFORM, TextureSlot.SIDE, TextureSlot.UNSTICKY, ARM);
     // Handgeschriebene Vorlage (assets/simplebuilding/models/block/template_backpack.json): Sack
     // plus Vordertasche, Vorderseite nach Norden; die Stufen setzen nur ihre Texturen ein.
     private static final ModelTemplate BACKPACK_MODEL = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/template_backpack")), Optional.empty(), TextureSlot.FRONT, TextureSlot.BACK, TextureSlot.SIDE, TextureSlot.TOP, TextureSlot.PARTICLE);
@@ -158,7 +165,9 @@ public class ModModelProvider extends FabricModelProvider {
         registerStickyPistonVariant(blockStateModelGenerator, ModBlocks.REINFORCED_STICKY_PISTON, ModBlocks.REINFORCED_PISTON);
         registerCustomPiston(blockStateModelGenerator, ModBlocks.NETHERITE_PISTON);
         registerCustomPiston(blockStateModelGenerator, ModBlocks.ENDERITE_PISTON);
-        blockStateModelGenerator.createTrivialCube(ModBlocks.NETHERITE_PISTON_HEAD);
+        registerPistonHead(blockStateModelGenerator, ModBlocks.REINFORCED_PISTON_HEAD, ModBlocks.REINFORCED_PISTON, true);
+        registerPistonHead(blockStateModelGenerator, ModBlocks.NETHERITE_PISTON_HEAD, ModBlocks.NETHERITE_PISTON, false);
+        registerPistonHead(blockStateModelGenerator, ModBlocks.ENDERITE_PISTON_HEAD, ModBlocks.ENDERITE_PISTON, false);
 
         // --- 6. Rucksaecke (abgestellt) ---
         registerBackpack(blockStateModelGenerator, ModBlocks.BACKPACK);
@@ -297,6 +306,44 @@ public class ModModelProvider extends FabricModelProvider {
         Identifier inventoryModelId = ModelTemplates.CUBE_BOTTOM_TOP.createWithSuffix(block, "_inventory", inventoryMap, generator.modelOutput);
 
         generator.registerSimpleItemModel(block, inventoryModelId);
+    }
+
+    /**
+     * Der Kopf einer Kolbenstufe, gebaut wie Vanillas {@code createPistonHeads}: lange und kurze
+     * Form, je normal und klebrig, gedreht nach FACING. Vorderseite ({@code platform}) ist die
+     * Schubplatte des Kolbens ({@code <basis>_top}, klebrig {@code <basis>_top_sticky}), der Rand
+     * der Platte kommt aus {@code <basis>_side}; eigene Texturen sind die Rueckseite der Platte
+     * ({@code <kopf>.png}) und die Stange ({@code <basis>_arm.png}). Stufen ohne klebrigen Kolben
+     * zeigen fuer {@code type=sticky} (nie gesetzt) dieselben Modelle wie fuer {@code type=normal}.
+     */
+    private void registerPistonHead(BlockModelGenerators generator, Block head, Block base, boolean hasSticky) {
+        TextureMapping normal = new TextureMapping()
+                .put(TextureSlot.PLATFORM, TextureMapping.getBlockTexture(base, "_top"))
+                .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(base, "_side"))
+                .put(TextureSlot.UNSTICKY, TextureMapping.getBlockTexture(head))
+                .put(ARM, TextureMapping.getBlockTexture(base, "_arm"));
+        Identifier normalLong = PISTON_HEAD_MODEL.create(head, normal, generator.modelOutput);
+        Identifier normalShort = PISTON_HEAD_SHORT_MODEL.createWithSuffix(head, "_short", normal, generator.modelOutput);
+        Identifier stickyLong = normalLong;
+        Identifier stickyShort = normalShort;
+        if (hasSticky) {
+            TextureMapping sticky = normal.copyAndUpdate(TextureSlot.PLATFORM, TextureMapping.getBlockTexture(base, "_top_sticky"));
+            stickyLong = PISTON_HEAD_MODEL.createWithSuffix(head, "_sticky", sticky, generator.modelOutput);
+            stickyShort = PISTON_HEAD_SHORT_MODEL.createWithSuffix(head, "_short_sticky", sticky, generator.modelOutput);
+        }
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(head)
+                .with(PropertyDispatch.initial(BlockStateProperties.SHORT, BlockStateProperties.PISTON_TYPE)
+                        .select(false, PistonType.DEFAULT, BlockModelGenerators.plainVariant(normalLong))
+                        .select(false, PistonType.STICKY, BlockModelGenerators.plainVariant(stickyLong))
+                        .select(true, PistonType.DEFAULT, BlockModelGenerators.plainVariant(normalShort))
+                        .select(true, PistonType.STICKY, BlockModelGenerators.plainVariant(stickyShort)))
+                .with(PropertyDispatch.modify(BlockStateProperties.FACING)
+                        .select(Direction.DOWN, BlockModelGenerators.X_ROT_90)
+                        .select(Direction.UP, BlockModelGenerators.X_ROT_270)
+                        .select(Direction.NORTH, BlockModelGenerators.NOP)
+                        .select(Direction.SOUTH, BlockModelGenerators.Y_ROT_180)
+                        .select(Direction.WEST, BlockModelGenerators.Y_ROT_270)
+                        .select(Direction.EAST, BlockModelGenerators.Y_ROT_90)));
     }
 
     /**

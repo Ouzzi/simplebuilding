@@ -23,6 +23,10 @@ public final class NeoForgeRegistryBootstrap {
             }
             return;
         }
+        if (event.getRegistryKey().equals(Registries.SOUND_EVENT)) {
+            com.simplebuilding.util.ModSounds.registerSounds();
+            return;
+        }
         if (event.getRegistryKey().equals(Registries.ITEM)) {
             ModItems.registerModItems();
             return;

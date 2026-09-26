@@ -78,6 +78,7 @@ public class Simplebuilding implements ModInitializer {
         ModScreenHandlers.registerScreenHandlers();
         ModItemGroups.registerItemGroups();
         ModBlocks.registerModBlocks();
+        com.simplebuilding.util.ModSounds.registerSounds();
         ModItems.registerModItems();
         ModEntities.registerModEntities();
         ModBlockEntities.registerBlockEntities();
