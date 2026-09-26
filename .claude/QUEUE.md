@@ -79,10 +79,10 @@ Verlauf im Detail: git log.
 - [x] Enderit-Trichter-Item vanilla-nah; verst. klebriger Kolben mit Vanilla-Schleim
 - [x] Enderit-Glimmer: Apfel, Karotte, Koecher, Rucksack, Buendel; Enderit-Maschinen und -Kolben im Barren-Look
 
-## Welle 17 (laeuft)
-- [ ] Eigene Kolbenkoepfe je Stufe (+ klebrig); beim Kolben-Abbau Partikel, Block-Abbau-Sound + eigener Bohr-Sound
-- [ ] Erstbeitritt: Spawn-Teleporter und Pad standardmaessig 0 (zwei Config-Werte)
-- [ ] Enderit-Tweaks-Bloecke: neue Pixelart statt Umfaerbung
+## Welle 17 (erledigt, gepusht; Server-Gate 3110/3110)
+- [x] Eigene Kolbenkoepfe je Stufe (+ klebrig); beim Kolben-Abbau Partikel, Block-Abbau-Sound + eigener Bohr-Sound
+- [x] Erstbeitritt: Spawn-Teleporter und Pad standardmaessig 0 (zwei Config-Werte)
+- [x] Enderit-Tweaks-Bloecke: neue Pixelart statt Umfaerbung
 - [x] Audit: alle Auffaelligkeiten der Mod auflisten -> docs/AUDIT-2026-09-26.md (52 Punkte)
 - [ ] Client-Gate (6 Ziele) sobald Besitzer-Client/-Server geschlossen; Testzentrale neu bauen
 
