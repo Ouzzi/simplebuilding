@@ -60,6 +60,19 @@ public final class BlueprintCartography {
         return copy;
     }
 
+    /**
+     * Bau-Code fuer die Vorschau im grossen Kartenfeld des Kartentischs: nur fuer eine signierte
+     * Blaupause im oberen Slot und nur, solange Vanilla dort das einfache Kartenblatt zeichnet
+     * (unten weder Karte, Papier noch Glasscheibe). Sonst {@code null} - dann bleibt es bei Vanilla.
+     */
+    public static String previewCode(ItemStack map, ItemStack additional) {
+        if (!isSigned(map) || additional.is(net.minecraft.world.item.Items.MAP)
+                || additional.is(net.minecraft.world.item.Items.PAPER) || additional.is(net.minecraft.world.item.Items.GLASS_PANE)) {
+            return null;
+        }
+        return com.simplebuilding.items.custom.BlueprintItem.content(map).code();
+    }
+
     public static boolean isScanSetup(ItemStack map, ItemStack additional) {
         return BlueprintScanner.isOctant(map) || additional.getItem() instanceof com.simplebuilding.items.custom.BlueprintItem;
     }

@@ -404,6 +404,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("config_option_game_test_loot_balance_keeps_every_chest_within_its_budget", ConfigOptionTests::lootBalanceKeepsEveryChestWithinItsBudget)
                     .build(),
+            GameTestSpec.named("config_option_game_test_building_cores_are_very_rare_in_loot_chests", ConfigOptionTests::buildingCoresAreVeryRareInLootChests)
+                    .build(),
             GameTestSpec.named("config_option_game_test_every_config_option_keeps_its_persisted_name_and_default", ConfigOptionTests::everyConfigOptionKeepsItsPersistedNameAndDefault)
                     .build(),
             GameTestSpec.named("dynamic_light_game_test_the_two_level_counters_keep_their_own_storage_and_caps", DynamicLightTests::theTwoLevelCountersKeepTheirOwnStorageAndCaps)
@@ -771,6 +773,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("backpack_game_test_upper_tiers_survive_fire_and_explosions_and_lower_ones_spill_their_contents", BackpackTests::upperTiersSurviveFireAndExplosionsAndLowerOnesSpillTheirContents)
                     .build(),
+            GameTestSpec.named("backpack_game_test_tooltip_image_carries_the_stored_items_of_every_tier_dyed_too", BackpackTests::tooltipImageCarriesTheStoredItemsOfEveryTierDyedToo)
+                    .build(),
             GameTestSpec.named("dyed_storage_game_test_dyeing_colours_every_backpack_and_bundle_and_keeps_its_components", DyedStorageTests::dyeingColoursEveryBackpackAndBundleAndKeepsItsComponents)
                     .build(),
             GameTestSpec.named("dyed_storage_game_test_water_cauldron_washes_only_the_dye_off_backpacks_and_bundles", DyedStorageTests::waterCauldronWashesOnlyTheDyeOffBackpacksAndBundles)
@@ -1071,9 +1075,9 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_stellar_flypad_is_smithed_from_two_reinforced_flypads", TweaksTests::theStellarFlypadIsSmithedFromTwoReinforcedFlypads)
                     .build(),
-            GameTestSpec.named("tweaks_game_test_the_echo_compass_is_crafted_from_the_recovery_compass_the_enderite_core_and_six_enderite_nuggets", TweaksTests::theEchoCompassIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndSixEnderiteNuggets)
+            GameTestSpec.named("tweaks_game_test_the_echo_sounder_is_crafted_from_the_recovery_compass_the_enderite_core_and_seven_enderite_nuggets", TweaksTests::theEchoSounderIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndSevenEnderiteNuggets)
                     .build(),
-            GameTestSpec.named("tweaks_game_test_the_velocity_gauge_is_crafted_with_quartz_corners_and_the_copper_core", TweaksTests::theVelocityGaugeIsCraftedWithQuartzCornersAndTheCopperCore)
+            GameTestSpec.named("tweaks_game_test_the_velocity_gauge_is_crafted_with_quartz_corners_copper_nuggets_and_the_copper_core", TweaksTests::theVelocityGaugeIsCraftedWithQuartzCornersCopperNuggetsAndTheCopperCore)
                     .build(),
             GameTestSpec.named("tweaks_game_test_elytra_pads_equip_an_unsafe_spawn_elytra_in_their_area", TweaksTests::elytraPadsEquipAnUnsafeSpawnElytraInTheirArea)
                     .build(),
@@ -1146,7 +1150,22 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tweaks_easter_game_test_the_easter_eggs_are_hidden_from_recipe_viewers_and_creative_tabs", TweaksEasterTests::theEasterEggsAreHiddenFromRecipeViewersAndCreativeTabs)
                     .build(),
-            GameTestSpec.named("tweaks_game_test_the_echo_compass_links_to_the_lodestone_and_teleports_for_one_pearl", TweaksTests::theEchoCompassLinksToTheLodestoneAndTeleportsForOnePearl)
+            GameTestSpec.named("pressure_plate_game_test_honeycomb_waxes_every_stage_and_waxed_plates_stop_oxidizing", PressurePlateTests::honeycombWaxesEveryStageAndWaxedPlatesStopOxidizing)
+                    .build(),
+            GameTestSpec.named("pressure_plate_game_test_the_axe_scrapes_the_wax_off_before_the_oxidation", PressurePlateTests::theAxeScrapesTheWaxOffBeforeTheOxidation)
+                    .build(),
+            GameTestSpec.named("pressure_plate_game_test_waxed_copper_plates_are_crafted_from_the_plate_and_one_honeycomb", PressurePlateTests::waxedCopperPlatesAreCraftedFromThePlateAndOneHoneycomb)
+                    .build(),
+            GameTestSpec.named("pressure_plate_game_test_copper_plates_release_as_late_as_they_press", PressurePlateTests::copperPlatesReleaseAsLateAsTheyPress)
+                    .maxTicks(PressurePlateTests.RELEASE_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("pressure_plate_game_test_every_mod_pressure_plate_visibly_sinks_when_pressed", PressurePlateTests::everyModPressurePlateVisiblySinksWhenPressed)
+                    .build(),
+            GameTestSpec.named("pressure_plate_game_test_every_mod_pressure_plate_is_named_like_the_vanilla_ones", PressurePlateTests::everyModPressurePlateIsNamedLikeTheVanillaOnes)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_echo_sounder_links_to_the_lodestone_and_teleports_without_any_pearl", TweaksTests::theEchoSounderLinksToTheLodestoneAndTeleportsWithoutAnyPearl)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_echo_sounder_keeps_its_id_but_is_named_echo_sounder", TweaksTests::theEchoSounderKeepsItsIdButIsNamedEchoSounder)
                     .build(),
             GameTestSpec.named("tweaks_game_test_unbreaking_lowers_how_much_the_jump_empties_the_echo_compass", TweaksTests::unbreakingLowersHowMuchTheJumpEmptiesTheEchoCompass)
                     .build(),
@@ -1194,13 +1213,25 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_lens_beam_lights_soul_fire_campfires_and_candles", TweaksTests::theLensBeamLightsSoulFireCampfiresAndCandles)
                     .build(),
-            GameTestSpec.named("tweaks_game_test_the_lens_beam_never_lights_nether_portals_or_tnt", TweaksTests::theLensBeamNeverLightsNetherPortalsOrTnt)
+            GameTestSpec.named("tweaks_game_test_the_lens_beam_never_lights_nether_portals", TweaksTests::theLensBeamNeverLightsNetherPortals)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_lens_beam_primes_tnt_after_dwelling_but_respects_the_rules", TweaksTests::theLensBeamPrimesTntAfterDwellingButRespectsTheRules)
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_lens_beam_dries_wet_sponges", TweaksTests::theLensBeamDriesWetSponges)
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_lens_beam_respects_adventure_mode_and_the_fire_spread_rule", TweaksTests::theLensBeamRespectsAdventureModeAndTheFireSpreadRule)
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_lens_charge_runs_down_but_the_lens_never_breaks", TweaksTests::theLensChargeRunsDownButTheLensNeverBreaks)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_lens_drains_charge_even_when_it_points_into_the_air", TweaksTests::theLensDrainsChargeEvenWhenItPointsIntoTheAir)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_lens_dwell_time_grows_moderately_with_distance", TweaksTests::theLensDwellTimeGrowsModeratelyWithDistance)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_lens_sets_living_entities_on_fire_taking_twice_as_long", TweaksTests::theLensSetsLivingEntitiesOnFireTakingTwiceAsLong)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_lens_only_ignites_players_when_pvp_allows_it", TweaksTests::theLensOnlyIgnitesPlayersWhenPvpAllowsIt)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_lens_hums_on_any_surface_and_sizzles_or_crackles_while_heating", TweaksTests::theLensHumsOnAnySurfaceAndSizzlesOrCracklesWhileHeating)
                     .build(),
             GameTestSpec.named("tweaks_game_test_anvil_recharge_with_redstone_costs_no_levels", TweaksTests::anvilRechargeWithRedstoneCostsNoLevels)
                     .build(),

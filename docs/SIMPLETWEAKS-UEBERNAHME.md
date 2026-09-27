@@ -25,7 +25,7 @@ Status: **port** = uebernommen, **neu** = in SimpleBuilding neu hinzugekommen (B
 | Diamant-Druckplatte (nur Spieler, wasserloggbar) | port | Rezept 2 Diamanten waagerecht |
 | Netherit-Druckplatte (Fass darunter = Item-Whitelist, Besitzer baut schnell ab) | port | Smithing aus Diamant-Platte |
 | Enderit-Druckplatte | neu | Stufe nach Netherit, siehe Stufentabelle |
-| Kupfer-Druckplatten (4 Oxidationsstufen, loest erst nach 1-4 s Stehen aus, oxidiert, Axt kratzt eine Stufe ab) | port | **nicht wachsbar** (keine gewachsten Varianten, Honigwabe tut nichts) |
+| Kupfer-Druckplatten (4 Oxidationsstufen, loest erst nach 1-4 s Stehen aus, oxidiert, Axt kratzt eine Stufe ab) | port | seit 2026-09-27 **wachsbar** wie Vanilla-Kupfer (Abschnitt 2.4), Loslassen so verzoegert wie Ausloesen, gedrueckt sichtbar eingesunken |
 | Chunk-Loader (Kupferplatte + Netherit, haelt den eigenen Chunk geladen) | port | abschaltbar; seit 2026-09-27 Stufe I von drei |
 | Netherit-Chunk-Loader II | neu | Kreuz aus 5 Chunks (eigener + 4 Nachbarn mit gemeinsamer Kante) |
 | Enderit-Chunk-Loader III | neu | haelt 3x3 Chunks |
@@ -58,7 +58,7 @@ Status: **port** = uebernommen, **neu** = in SimpleBuilding neu hinzugekommen (B
 | Feature | Status | Anmerkung |
 |---|---|---|
 | Laserpointer (Punkt fuer Spieler in 128 Bloecken sichtbar, Entfernungsanzeige) | port + Umbau zur "Amethystlinse" | Renderer auf 26.x-Submit-Pipeline umgebaut; Server prueft Item/Schalter/Rate (Audit 2026-09-26 #17); seit 2026-09-27 Strahlwirkungen, Ladung, Amboss-Aufladen (siehe unten) |
-| Echo-Kompass (Fremd-Datenpaket `echo-compass-v1.1.0.jar`, AGPL, per `libs/` eingebunden) | port (neu geschrieben, 2026-09-27 umgebaut) | eigenes Item statt Datenpaket, Rezept neu, Unbreaking-Bug behoben; Aufladen 3 s, Leeren/Aufladen/Zerspringen, eigene Textur |
+| Echo-Kompass (Fremd-Datenpaket `echo-compass-v1.1.0.jar`, AGPL, per `libs/` eingebunden) | port (neu geschrieben, 2026-09-27 umgebaut, jetzt "Echolot"/"Echo Sounder") | eigenes Item statt Datenpaket (Id weiter `echo_compass`), Rezept neu, Unbreaking-Bug behoben; Aufladen 3 s, Leeren/Aufladen/Zerspringen, eigene Textur, keine Enderperle mehr |
 | XP-Kugeln verklumpen + sofort aufheben | port | `enableXpClumps` |
 | XP-Kugeln nach Wert skalieren | port | `scaleXpOrbs` (Client) |
 | Raketen-Stapelgroesse | port | `rocketStackSize` |
@@ -183,24 +183,52 @@ Namen (en): "Elytra Pad I", "Reinforced Elytra Pad II", "Netherite Elytra Pad II
 "Enderite Spawn Teleporter V"; "Launchpad I", "Netherite Launchpad II", "Enderite Launchpad III";
 "Chunk Loader I", "Netherite Chunk Loader II", "Enderite Chunk Loader III".
 
-## 3. Echo-Kompass (Phase 3b, Umbau 2026-09-27)
+### 2.4 Druckplatten wie Vanilla (Besitzer-Aenderung 2026-09-27)
 
+- **Gewachste Kupferplatten**: `waxed_copper_pressure_plate`, `waxed_exposed_…`, `waxed_weathered_…`,
+  `waxed_oxidized_copper_pressure_plate` ("Waxed … Copper Pressure Plate" / "Gewachste … Kupfer-Druckplatte").
+  Honigwabe wachst (Vanilla-Partikel und -Geraeusch, eine Wabe), gewachste Platten oxidieren nicht; die
+  Axt kratzt zuerst das Wachs ab (Wachs-ab-Partikel und -Geraeusch), ungewachst wie bisher eine
+  Oxidationsstufe. Wachsen geht auch an der Werkbank (Platte + Honigwabe,
+  `<gewachste Platte>_from_honeycomb`). Texturen und Modelle sind die der ungewachsten Stufe (wie Vanilla).
+  Die Folge steht in `CopperPressurePlateBlock` selbst - auf allen Loadern gleich, ohne
+  `OxidizableBlocksRegistry`/Datenkarten; der Besitzer bleibt beim Wachsen und Abkratzen erhalten.
+  Schleichen + Honigwabe/Axt geht (wie bisher beim Abkratzen) am Block vorbei an das Vanilla-Item und tut nichts.
+- **Loslassen verzoegert**: nach dem Heruntergehen bleibt die Kupferplatte so lange gedrueckt, wie das
+  Ausloesen dauerte (1-4 s); wer zurueckkommt, haelt sie gedrueckt.
+- **Sichtbar gedrueckt**: alle Mod-Druckplatten (Diamant, Netherit, Enderit, Kupfer und gewachstes Kupfer)
+  zeigen bei `powered=true` das Modell `pressure_plate_down` und sind gedrueckt nur einen halben Pixel hoch -
+  vorher blieben alle Platten optisch oben.
+- **Kreativ-Tab** (Maschinen & Lager): alle Vanilla-Druckplatten neben den Mod-Platten, nach Material mit
+  aufsteigender Stufe: Holz (12, ab MC 26.3 mit Pappel 13; zwei Zeilen), Stein + polierter Schwarzstein, Kupfer (vier Stufen, dann
+  gewachst), dann schwere (Eisen) und leichte Waegeplatte (Gold), Diamant, Netherit, Enderit. Launchpads und
+  Chunk-Loader haben je eine eigene Zeile (vorher gemeinsam "travel_and_loading"); in der Elytra-Pad-Zeile stehen
+  erst die Pads I-V, dann die Spawn-Elytra. SimpleTools: eine Geraete-Zeile (siehe Abschnitt 3).
+
+## 3. Echolot / Echo Sounder, frueher Echo-Kompass (Phase 3b, Umbau 2026-09-27)
+
+- **Name** (Besitzer 2026-09-27, zweite Runde): en "Echo Sounder", de "Echolot". Die Registry-Id bleibt
+  `simplebuilding:echo_compass` (alte Welten, Rezept-/Modell-/Textur-Pfade, Lang-Schluessel
+  `item.simplebuilding.echo_compass*`), nur die angezeigten Texte (Name, Meldungen, JEI, Testzentrale,
+  Wiki) sagen Echolot. Unten steht aus historischen Gruenden oft noch "Kompass".
 - Eigenes Item `simplebuilding:echo_compass` (vorher: Vanilla-Kompass mit `custom_data` aus einem
   Fremd-Datenpaket). Neu geschrieben, kein Code aus dem AGPL-Datenpaket uebernommen.
 - Rechtsklick auf einen Leitstein verknuepft (Vanilla-Komponente `lodestone_tracker`, der Kompass
   zeigt wie ein Leitsteinkompass dorthin). Leitstein weg -> Verknuepfung erlischt wie in Vanilla.
 - **Aufladen** (Besitzer 2026-09-27): Benutzen gedrueckt halten, 3 s (60 Ticks, Bogen-Animation). Wer
-  vorher loslaesst, springt nicht und verliert nichts (keine Perle, keine Ladung, keine Abklingzeit).
-  Server-Effekte je Ladetick (`EchoCompassItem#chargeEffects`): Sculk-Seelen kreisen enger,
-  Portalpartikel ziehen hinein, Amethyst-Resonanz steigt von tief nach hoch, Sculk-Klicken und
+  vorher loslaesst, springt nicht und verliert nichts (keine Ladung, keine Abklingzeit).
+  Server-Effekte je Ladetick (`EchoCompassItem#chargeEffects`): Sculk-Seelen kreisen in drei Armen von
+  2,4 auf 0,9 Bloecke enger, weit gestreute Portalpartikel (Streuung 1,6) ziehen hinein ("weiter
+  gestreut", 2026-09-27; vorher zwei Arme 1,2 -> 0,4 und Streuung 0,7), Amethyst-Resonanz steigt von tief nach hoch, Sculk-Klicken und
   Seelenanker-Aufladen an den Dritteln, Warden-Schallladen zum Schluss. Client: FOV-Sog bis 12 %
   enger mit leichtem Puls (`tweaks.client.EchoCompassFov`), skaliert mit Vanillas
   Barrierefreiheitsregler "FOV-Effekte" (0 = aus); Anbindung per `EchoCompassFovMixin`
   (Fabric + NeoForge, `simplebuilding.tweaks.mixins.json`) bzw. `ComputeFovModifierEvent`
   (`EchoCompassForgeFov`, Forge laedt die Tweaks-Mixins nicht).
-- Sprung am Ende der Ladung auf den Block ueber dem Leitstein, verbraucht **eine Enderperle** (nicht
-  im Kreativmodus), 6 s Abklingzeit, Schallknall + Seelenanker-Klang + Partikel bei der Ankunft,
-  Rueckwaerts-Portal-Wolke am Abflugort. Effekte wie im Datenpaket (Blindheit 1 s, Leuchten 3 s,
+- Sprung am Ende der Ladung auf den Block ueber dem Leitstein, **ohne Enderperle** (bis 2026-09-27
+  kostete er eine; jetzt bezahlt allein die Haltbarkeit), 6 s Abklingzeit, Schallknall +
+  Seelenanker-Klang + Partikel bei der Ankunft (Wolke mit Streuung ~1,4 Bloecke plus ein Ring aus
+  Sculk-Seelen, der am Boden nach aussen laeuft), Rueckwaerts-Portal-Wolke am Abflugort (Streuung 1,1). Effekte wie im Datenpaket (Blindheit 1 s, Leuchten 3 s,
   Sanfter Fall 1 s, Langsamkeit 1 s, Uebelkeit 6 s).
 - **Haltbarkeit** (Besitzer 2026-09-27): 1500 Punkte. Ein Sprung leert den Kompass ganz (Schaden
   1500 = "zerbrochen"); Unbreaking wirkt je Punkt ueber `EnchantmentHelper#processDurabilityChange`
@@ -220,11 +248,11 @@ Namen (en): "Elytra Pad I", "Reinforced Elytra Pad II", "Netherite Elytra Pad II
   (`echo_compass_00..31`, Zaehlung wie Vanilla) und `echo_compass_cracked_0..2` (0 = leer).
 - Dimensionen: jede Dimension, die der Server kennt (auch Mod-Dimensionen - war trivial, weil die
   Vanilla-Komponente die Dimension mitfuehrt).
-- Kreativ-Tab: SimpleTools, Zeile "compasses" (Kompass, Bergungskompass, Echo-Kompass) nach den Geraeten.
-- Rezept (Werkbank, geformt, Besitzer 2026-09-27):
+- Kreativ-Tab: SimpleTools, Zeile "gadgets" (seit 2026-09-27: Kompass, Bergungskompass, Echolot, Geschwindigkeitsmesser, Erzdetektor, Magnet, Rotator, Amethystlinse, Oktant; danach die gefaerbten Oktanten).
+- Rezept (Werkbank, geformt, Besitzer 2026-09-27; zweite Runde: auch oben mittig ein Nugget, 7 Nuggets):
 
   ```
-  N N
+  NNN
   NRN
   NEN
   ```
@@ -357,23 +385,44 @@ Branch `remove-ported-features` im Repo `simpletweaks` (abgezweigt von `1.21.11`
   - Punkt: feste Weltgroesse (Config `scale`, auf 0,05..1 begrenzt), waechst erst ab ~3 Pixel
     Bildschirmgroesse mit (0,004 Bloecke je Block) - frueher 0,12 je Block, also ein Riesenkreis in der
     Ferne. Entfernungszahl 13 statt 10 GUI-Pixel neben der Fadenkreuzmitte.
-  - Strahlwirkungen (`LaserBeam`, Server, bis 24 Bloecke, Verweildauer auf derselben Blockseite): Eis/
+  - Strahlwirkungen (`LaserBeam`, Server, bis zur Linsen-Reichweite - seit 2026-09-27, vorher fest 24 Bloecke;
+    auf dem Server hoechstens die Sichtweite (mind. 2 Chunks), damit der Strahl keine Chunks laedt; mehr als
+    `range + 8` entfernt wirkt nichts - Verweildauer auf derselben Blockseite, Zeiten bis 5 Bloecke Abstand): Eis/
     Frosteis -> Wasser (2 s; verdampft, wo Wasser verdampft), Packeis -> Eis, Blaueis -> Packeis
     (eine Stufe statt Wasser aus Bloecken, die in Vanilla nie schmelzen); Schnee/Schneeblock/Pulverschnee
     -> weg; Lagerfeuer, Seelenlagerfeuer, Kerzen, Kerzenkuchen an (1 s); Seelensand/-erde oben
     Seelenfeuer (2 s); Brennbares (Zuendwert der Feuer-Tabelle > 0, per Invoker `FireBlockInvoker`)
     faengt nach 3 s Feuer auf der angestrahlten Seite, nur wo `fire_spread_radius_around_player`
     Ausbreitung erlaubt (Seelenfeuer/Lagerfeuer wie Feuerzeug ohne diese Regel); Zusatzwirkung: nasser
-    Schwamm trocknet (5 s). Nie Netherportale (kein Feuer in einen leeren Portalrahmen - `BaseFireBlock#onPlace`
-    wuerde ihn fuellen), nie TNT (kein Fernzuender). Schutz: `mayInteract` (Spawnschutz, Weltgrenze) und
+    Schwamm trocknet (5 s). **TNT** (seit 2026-09-27, Besitzer): nach 3 s Verweildauer (wie Brennbares)
+    gezuendet - `PrimedTnt` mit dem Spieler als Zuender wie beim Feuerzeug, Block weg, 5 Ladung; beachtet
+    die Spielregel `tnt_explodes` (aus: kein Verweilen, nichts passiert, keine Ladung weg) und den Schutz
+    unten, nicht aber `fire_spread_radius_around_player` (es entsteht kein Feuer) und nicht `mob_griefing`
+    (gilt nur fuer Mobs). Nie Netherportale (kein Feuer in einen leeren Portalrahmen - `BaseFireBlock#onPlace`
+    wuerde ihn fuellen). Schutz: `mayInteract` (Spawnschutz, Weltgrenze) und
     `mayUseItemAt` (Abenteuermodus) am Block und am Feuerplatz.
-  - Ladung = Haltbarkeit 640: 1 je Sekunde Strahlen, 5 je Wirkung, kreativ gratis; zerbricht nie, leer
+  - **Abstand** (2026-09-27): Verweildauer = Basis x (1 + 0,096 x max(0, d - 5)^0,773), d = Auge bis Punkt
+    (`LaserBeam#dwellTicks`). Bis 5 Bloecke Basis (Anzuenden 3 s), 10 Bloecke ~4 s, 200 Bloecke ~20 s; die
+    Kurve ist so gewaehlt, dass sie genau die drei Vorgaben des Besitzers trifft, und waechst stetig weiter.
+  - **Lebewesen** (2026-09-27): Spieler und Mobs brennen 4 s (`igniteForSeconds`), nach der doppelten
+    Verweildauer eines brennbaren Blocks im selben Abstand, 5 Ladung. Nicht: feuerfest, unverwundbar, nass
+    (Wasser-/Regen-Merker oder Wasserblock an der Position), Spieler im Kreativ-/Zuschauermodus (Faehigkeit
+    `invulnerable`), andere Spieler nur mit `Player#canHarmPlayer` (Spielregel `pvp`, Server-PvP, Team-
+    Freundfeuer). Entity-Suche entlang des Strahls bis 64 Bloecke (`ProjectileUtil#getEntityHitResult`).
+  - **Klaenge am Trefferpunkt** (2026-09-27, Vanilla-Events, positionsgebunden): Summen (Leuchtfeuer-Summen,
+    hoch, leise) alle 20 Ticks, solange etwas getroffen wird; waehrend der Verweildauer alle 8 Ticks Zischen
+    (Feuer-Loeschen, hoch; Schmelzen/Trocknen) bzw. Knistern (Feuer + Lagerfeuer-Knistern; Anzuenden,
+    Seelenfeuer, Lagerfeuer/Kerzen, TNT, Lebewesen); Abschlussklaenge wie bisher. Test-Haken
+    `LaserBeam#setSoundHook`.
+  - Ladung = Haltbarkeit 640: 1 je angefangene Sekunde Benutzen - auch blosses Zeigen ins Leere oder auf
+    einen Block ohne Wirkung, und schon im ersten Tick (bis 2026-09-27 erst nach 20 Ticks, kurzes Antippen
+    war dadurch gratis) -, 5 je Wirkung, kreativ gratis; zerbricht nie, leer
     kein Strahlen mehr (Modell `item/laser_pointer_empty`, faellt auf das normale Bild zurueck, solange die
     Textur fehlt - Datagen neu laufen lassen, sobald sie gezeichnet ist). Amboss + Redstone laedt auf,
     0 Stufen (`AnvilScreenHandlerMixin`, auch `mayPickup`), 10 je Staub, 64 = voll, nur Noetiges wird verbraucht.
   - Kreativ-Tab: Werkzeuge, Zeile "gadgets" (nicht mehr bei den Chunk-Loadern).
   - Entfernungsanzeige misst bis zum Laserpunkt (Audit #34).
-- Echo-Kompass: ein blockierter Sprung kostet weder Perle noch Haltbarkeit noch Abklingzeit.
+- Echo-Kompass: ein blockierter Sprung kostet weder Haltbarkeit noch Abklingzeit (Perlen braucht er nicht mehr).
 - Launchpad: beim Abbau fallen die geladenen Windkugeln heraus. Eigener Weltspawn per Befehl gilt sofort.
 - Stufen (2026-09-27): Launchpad und Chunk-Loader haben je drei Stufen, die Aufwertungen kosten
   Druckplatten, Flypad I eine Elytra, Launchpad laedt schleichend alle Windkugeln (Abschnitte 2.1, 2.2).
@@ -389,7 +438,7 @@ Branch `remove-ported-features` im Repo `simpletweaks` (abgezweigt von `1.21.11`
 - Nicht uebernommen: die Timer-Anzeige der Spawn-Elytra ueber der Hungerleiste (doppelt zur
   Boost-Leiste) und die Ergaenzung von `TRIMMABLE_ARMOR`/`TRIM_MATERIALS`-Tags.
 - JEI: jede Familie (Pads, Platten, Teleporter, Chunk-Loader, Launchpad, Spawn-Elytra, Laser,
-  Echo-Kompass) hat eine Infoseite (`jei.simplebuilding.info.*`), das Wiki einen Abschnitt
+  Echolot) hat eine Infoseite (`jei.simplebuilding.info.*`), das Wiki einen Abschnitt
   "Simple Tweaks" mit Notizen je Block.
 
 ## 8. Tests
@@ -397,8 +446,11 @@ Branch `remove-ported-features` im Repo `simpletweaks` (abgezweigt von `1.21.11`
 `TweaksTests` (Katalog `SimpleBuildingGameTests`, Fabric-Adapter `TweaksGameTest`, Methode = Test-ID
 `simplebuilding:tweaks_*`), in beiden Codelinien: Besitzer und Abbau, Pad-Bereiche je Stufe,
 Elytra-Pad/Flypad/Teleporter/Launchpad/Chunk-Loader inklusive Enderit-Zusatz, Filter- und
-Kupferplatten, Echo-Kompass (Verknuepfen, Perle, Unbreaking, Aufladen/Loslassen, Leeren, Aufladen per
-Mending, Zerspringen, Rezept), XP-Verklumpen, Stapelgroessen,
+Kupferplatten, Echolot (Name/Id, Verknuepfen ohne Perle, Unbreaking, Aufladen/Loslassen, Leeren, Aufladen per
+Mending, Zerspringen, Rezept mit 7 Nuggets), Amethystlinse (Wirkungen, TNT nach Verweildauer mit Regeln,
+Portal nie, Ladung schon beim ersten Tick und beim Zeigen ins Leere, Verweildauer nah/fern/200 Bloecke,
+Lebewesen nach doppelter Zeit, kein Spieler ohne PvP, Klaenge ueber den Test-Haken),
+Geschwindigkeitsmesser-Rezept (`QAQ`/`NCN`/`NKN`: Quarz, Amethystsplitter, Kupfernugget, Kompass, Kupferkern), XP-Verklumpen, Stapelgroessen,
 Spawn-Regeln, Befehle, Config-Schalter je Familie. Jeder Test wurde gegengeprueft (Mutation des
 geprueften Verhaltens macht ihn rot).
 
@@ -413,8 +465,14 @@ Schub, Ueberschuss-Auswurf, Kreuzform, Flypad-Umbau, Item-Tausch, Bereiche, Sich
 Familienreihenfolge, fuenf Rezept-JSONs) machte ihre Tests auf allen drei Linien rot.
 
 Testzentrale: eigene Station `tweaks` (`com.simplebuilding.dev.testcentre.TweaksStation`, siehe
-`docs/TESTZENTRALE.md`); Gegenprobe: Zeile `travel_and_loading` weggelassen -> Abdeckungstest rot
-(nennt Chunk-Loader, Enderit-Launchpad, Laserpointer).
+`docs/TESTZENTRALE.md`); Gegenprobe: Zeile `travel_and_loading` (seit 2026-09-27 `launchpads` und
+`chunk_loaders`) weggelassen -> Abdeckungstest rot (nennt Chunk-Loader, Enderit-Launchpad, Laserpointer).
+
+`PressurePlateTests` (Fabric-Adapter `PressurePlateGameTest`, Test-ID `simplebuilding:pressure_plate_game_test_*`),
+beide Codelinien: Wachsen jeder Stufe (Wabe verbraucht, Besitzer bleibt, kein Zufallstick, keine naechste
+Stufe, zweite Wabe wirkungslos), Axt erst Wachs dann Oxidation, Werkbank-Rezepte, symmetrische
+Loslass-Verzoegerung (echte Ticks), sichtbar gedrueckte Platten (Form und `_down`-Modell je Mod-Platte aus
+der Registry) und Namen im Vanilla-Muster; dazu das Tab-Layout in `DataIntegrityTests`.
 
 ## 9. Offene Punkte
 

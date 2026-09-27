@@ -1,5 +1,6 @@
 package com.simplebuilding.tweaks.datagen;
 
+import com.simplebuilding.tweaks.block.CopperPressurePlateBlock;
 import com.simplebuilding.tweaks.block.TweaksBlocks;
 import com.simplebuilding.tweaks.item.TweaksItems;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.Locale;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
@@ -23,11 +25,13 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.PressurePlateBlock;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 /**
- * Modelle des Simple-Tweaks-Teils (Simple Tweaks: ModModelProvider): alle Platten flach wie eine
- * gedrueckte Vanilla-Druckplatte ({@code pressure_plate_up}) mit ihrer eigenen Textur, die Items
- * flach. Der Echo-Kompass hat eigene Bilder (32 Nadelstellungen, zeigt zum verknuepften Leitstein) und
+ * Modelle des Simple-Tweaks-Teils (Simple Tweaks: ModModelProvider): alle Pads flach wie eine
+ * Vanilla-Druckplatte ({@code pressure_plate_up}) mit ihrer eigenen Textur, die echten Druckplatten
+ * zusaetzlich gedrueckt ({@code pressure_plate_down} bei {@code powered=true}), die Items flach. Der Echo-Kompass hat eigene Bilder (32 Nadelstellungen, zeigt zum verknuepften Leitstein) und
  * drei Riss-Stufen, solange er nicht voll repariert ist.
  */
 public final class TweaksModelGen {
@@ -40,12 +44,44 @@ public final class TweaksModelGen {
             // flypad.png, reinforced_flypad.png und stellar_flypad.png bleiben liegen (Besitzer will sie
             // fuer eine neue Netherit-Druckplatte wiederverwenden).
             boolean enderFlypad = block == TweaksBlocks.FLYPAD || block == TweaksBlocks.REINFORCED_FLYPAD || block == TweaksBlocks.STELLAR_FLYPAD;
+            if (isPlate(block)) {
+                plate(generator, block);
+                continue;
+            }
             TextureMapping texture = enderFlypad ? TextureMapping.defaultTexture(TextureMapping.getBlockTexture(block, "_ender"))
                     : TextureMapping.defaultTexture(block);
             Identifier model = ModelTemplates.PRESSURE_PLATE_UP.create(block, texture, generator.modelOutput);
             generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block, BlockModelGenerators.plainVariant(model)));
             generator.registerSimpleItemModel(block, model);
         }
+    }
+
+    /** Echte Druckplatten (nicht die Pads): sinken gedrueckt ein wie Vanilla-Platten. */
+    private static boolean isPlate(Block block) {
+        return block instanceof PressurePlateBlock || block instanceof CopperPressurePlateBlock;
+    }
+
+    /**
+     * Wie Vanillas createPressurePlate: {@code powered=false} zeigt {@code pressure_plate_up},
+     * {@code powered=true} {@code pressure_plate_down}. Gewachste Kupferplatten nutzen wie
+     * Vanilla-Kupfer die Modelle (und damit die Textur) ihrer ungewachsten Stufe.
+     */
+    private static void plate(BlockModelGenerators generator, Block block) {
+        Identifier up;
+        Identifier down;
+        if (block instanceof CopperPressurePlateBlock copper && copper.isWaxed()) {
+            Block unwaxed = CopperPressurePlateBlock.stages().get(copper.getAge().ordinal());
+            up = ModelLocationUtils.getModelLocation(unwaxed);
+            down = ModelLocationUtils.getModelLocation(unwaxed, "_down");
+        } else {
+            TextureMapping texture = TextureMapping.defaultTexture(block);
+            up = ModelTemplates.PRESSURE_PLATE_UP.create(block, texture, generator.modelOutput);
+            down = ModelTemplates.PRESSURE_PLATE_DOWN.create(block, texture, generator.modelOutput);
+        }
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(PropertyDispatch.initial(BlockStateProperties.POWERED)
+                .select(true, BlockModelGenerators.plainVariant(down))
+                .select(false, BlockModelGenerators.plainVariant(up))));
+        generator.registerSimpleItemModel(block, up);
     }
 
     public static void items(ItemModelGenerators generator) {

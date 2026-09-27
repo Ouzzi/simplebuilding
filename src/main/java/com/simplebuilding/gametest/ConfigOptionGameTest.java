@@ -32,6 +32,11 @@ public final class ConfigOptionGameTest {
     }
 
     @GameTest
+    public void buildingCoresAreVeryRareInLootChests(GameTestHelper helper) {
+        ConfigOptionTests.buildingCoresAreVeryRareInLootChests(helper);
+    }
+
+    @GameTest
     public void tradeSwitchConditionsStillNameRealConfigFieldsOnBothLoaders(GameTestHelper helper) {
         ConfigOptionTests.tradeSwitchConditionsStillNameRealConfigFieldsOnBothLoaders(helper);
     }

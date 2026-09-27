@@ -79,4 +79,9 @@ public final class BackpackGameTest {
     public void upperTiersSurviveFireAndExplosionsAndLowerOnesSpillTheirContents(GameTestHelper helper) {
         BackpackTests.upperTiersSurviveFireAndExplosionsAndLowerOnesSpillTheirContents(helper);
     }
+
+    @GameTest
+    public void tooltipImageCarriesTheStoredItemsOfEveryTierDyedToo(GameTestHelper helper) {
+        BackpackTests.tooltipImageCarriesTheStoredItemsOfEveryTierDyedToo(helper);
+    }
 }

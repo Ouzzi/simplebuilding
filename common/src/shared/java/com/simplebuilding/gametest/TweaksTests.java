@@ -43,6 +43,7 @@ import net.minecraft.world.level.storage.LevelData;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import com.google.gson.JsonObject;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -85,8 +86,12 @@ import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.entity.BarrelBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -180,17 +185,18 @@ public final class TweaksTests {
     }
 
     /**
-     * Echo-Kompass (Besitzer-Rezept 2026-09-27): Bergungskompass in der Mitte, Enderit-Kern unten
-     * mittig, sechs Enderit-Nuggets aussen herum, oben mittig frei ("N N" / "NRN" / "NEN").
+     * Echolot / Echo Sounder (Id echo_compass; Besitzer-Rezept 2026-09-27): Bergungskompass in der
+     * Mitte, Enderit-Kern unten mittig, sieben Enderit-Nuggets aussen herum - seit der zweiten Runde
+     * auch oben mittig ("NNN" / "NRN" / "NEN").
      */
-    public static void theEchoCompassIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndSixEnderiteNuggets(GameTestHelper helper) {
+    public static void theEchoSounderIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndSevenEnderiteNuggets(GameTestHelper helper) {
         Item n = ModItems.ENDERITE_NUGGET;
-        CraftingInput grid = grid(n, null, n, n, Items.RECOVERY_COMPASS, n, n, ModItems.ENDERITE_CORE, n);
+        CraftingInput grid = grid(n, n, n, n, Items.RECOVERY_COMPASS, n, n, ModItems.ENDERITE_CORE, n);
         expectCrafting(helper, grid, TweaksItems.ECHO_COMPASS, "simplebuilding:echo_compass");
-        CraftingInput swapped = grid(n, null, n, n, ModItems.ENDERITE_CORE, n, n, Items.RECOVERY_COMPASS, n);
-        helper.assertTrue(craftingResult(helper, swapped).isEmpty(), "core and compass swapped still craft an echo compass");
-        CraftingInput topFilled = grid(n, n, n, n, Items.RECOVERY_COMPASS, n, n, ModItems.ENDERITE_CORE, n);
-        helper.assertTrue(craftingResult(helper, topFilled).isEmpty(), "a seventh nugget in the empty top middle still crafts an echo compass");
+        CraftingInput swapped = grid(n, n, n, n, ModItems.ENDERITE_CORE, n, n, Items.RECOVERY_COMPASS, n);
+        helper.assertTrue(craftingResult(helper, swapped).isEmpty(), "core and compass swapped still craft an echo sounder");
+        CraftingInput topEmpty = grid(n, null, n, n, Items.RECOVERY_COMPASS, n, n, ModItems.ENDERITE_CORE, n);
+        helper.assertTrue(craftingResult(helper, topEmpty).isEmpty(), "the old six nugget recipe with the top middle empty still crafts an echo sounder");
         Item p = TweaksBlocks.NETHERITE_PRESSURE_PLATE.asItem();
         CraftingInput oldRecipe = grid(null, ModItems.ENDERITE_CORE, null, p, Items.RECOVERY_COMPASS, p, null, null, null);
         helper.assertTrue(craftingResult(helper, oldRecipe).isEmpty(), "the old netherite plate recipe still crafts an echo compass");
@@ -198,17 +204,23 @@ public final class TweaksTests {
     }
 
     /**
-     * Geschwindigkeitsmesser (Besitzer 2026-09-27): Quarz in den oberen Ecken um den Amethystsplitter,
-     * Kupfer - Kompass - Kupfer, unten mittig ein Kupfer-Baukern statt der Quarzreihe.
+     * Geschwindigkeitsmesser (Besitzer 2026-09-27/28): Quarz in den oberen Ecken um den
+     * Amethystsplitter, Kupfernuggets links und rechts vom Kompass und unten links/rechts, unten
+     * mittig ein Kupfer-Baukern ("QAQ" / "NCN" / "NKN").
      */
-    public static void theVelocityGaugeIsCraftedWithQuartzCornersAndTheCopperCore(GameTestHelper helper) {
+    public static void theVelocityGaugeIsCraftedWithQuartzCornersCopperNuggetsAndTheCopperCore(GameTestHelper helper) {
         Item q = Items.QUARTZ;
+        Item n = Items.COPPER_NUGGET;
         Item o = Items.COPPER_INGOT;
-        CraftingInput grid = grid(q, Items.AMETHYST_SHARD, q, o, Items.COMPASS, o, null, ModItems.COPPER_CORE, null);
+        CraftingInput grid = grid(q, Items.AMETHYST_SHARD, q, n, Items.COMPASS, n, n, ModItems.COPPER_CORE, n);
         expectCrafting(helper, grid, ModItems.VELOCITY_GAUGE, "simplebuilding:velocity-gauge");
+        CraftingInput ingots = grid(q, Items.AMETHYST_SHARD, q, o, Items.COMPASS, o, null, ModItems.COPPER_CORE, null);
+        helper.assertTrue(craftingResult(helper, ingots).isEmpty(), "the previous copper ingot recipe still crafts a velocity gauge");
         CraftingInput oldRecipe = grid(null, Items.AMETHYST_SHARD, null, o, Items.COMPASS, o, q, q, q);
         helper.assertTrue(craftingResult(helper, oldRecipe).isEmpty(), "the old quartz row recipe still crafts a velocity gauge");
-        CraftingInput ironCore = grid(q, Items.AMETHYST_SHARD, q, o, Items.COMPASS, o, null, ModItems.IRON_CORE, null);
+        CraftingInput bottomEmpty = grid(q, Items.AMETHYST_SHARD, q, n, Items.COMPASS, n, null, ModItems.COPPER_CORE, null);
+        helper.assertTrue(craftingResult(helper, bottomEmpty).isEmpty(), "the gauge crafts without the two bottom copper nuggets");
+        CraftingInput ironCore = grid(q, Items.AMETHYST_SHARD, q, n, Items.COMPASS, n, n, ModItems.IRON_CORE, n);
         helper.assertTrue(craftingResult(helper, ironCore).isEmpty(), "an iron core is accepted instead of the copper core");
         helper.succeed();
     }
@@ -669,14 +681,49 @@ public final class TweaksTests {
     }
 
     // =====================================================================================
-    // Echo-Kompass
+    // Echolot / Echo Sounder (Registry-Id echo_compass)
     // =====================================================================================
 
     /**
-     * Echo-Kompass: Rechtsklick auf einen Leitstein verknuepft; der Sprung teleportiert ueber den
-     * Leitstein, verbraucht eine Enderperle, der Kompass bleibt, ist danach aber leer (voller Schaden).
+     * Umbenennung (Besitzer 2026-09-27): das Item heisst "Echo Sounder" / "Echolot", die Registry-Id
+     * bleibt {@code echo_compass} (alte Welten behalten ihre Items), und die Texte sprechen nicht mehr
+     * vom Kompass oder von einer Enderperle. Gelesen werden die Sprachdateien aus dem Mod-Jar.
      */
-    public static void theEchoCompassLinksToTheLodestoneAndTeleportsForOnePearl(GameTestHelper helper) {
+    public static void theEchoSounderKeepsItsIdButIsNamedEchoSounder(GameTestHelper helper) {
+        helper.assertValueEqual(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(TweaksItems.ECHO_COMPASS).toString(),
+                "simplebuilding:echo_compass", "registry id of the echo sounder");
+        JsonObject en = langFile(helper, "en_us");
+        JsonObject de = langFile(helper, "de_de");
+        helper.assertValueEqual(en.get("item.simplebuilding.echo_compass").getAsString(), "Echo Sounder", "english item name");
+        helper.assertValueEqual(de.get("item.simplebuilding.echo_compass").getAsString(), "Echolot", "german item name");
+        for (JsonObject lang : List.of(en, de)) {
+            helper.assertFalse(lang.has("message.simplebuilding.echo_compass.no_pearl"), "the no pearl message is still translated");
+            for (String key : List.of("message.simplebuilding.echo_compass.unlinked", "jei.simplebuilding.info.echo_compass",
+                    "simplebuilding.testcentre.tweaks.echo")) {
+                String text = lang.get(key).getAsString();
+                helper.assertFalse(text.contains("Echo Compass") || text.contains("Echo-Kompass"), key + " still names the echo compass: " + text);
+            }
+            String info = lang.get("jei.simplebuilding.info.echo_compass").getAsString();
+            helper.assertFalse(info.contains("for one ender pearl") || info.contains("für eine Enderperle"), "the JEI page still asks for an ender pearl: " + info);
+        }
+        helper.succeed();
+    }
+
+    private static JsonObject langFile(GameTestHelper helper, String code) {
+        try (java.io.InputStream in = TweaksTests.class.getResourceAsStream("/assets/simplebuilding/lang/" + code + ".json")) {
+            helper.assertTrue(in != null, "no " + code + ".json on the classpath");
+            return com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException("cannot read " + code + ".json", e);
+        }
+    }
+
+    /**
+     * Echolot: Rechtsklick auf einen Leitstein verknuepft; der Sprung teleportiert ueber den
+     * Leitstein - ohne Enderperle (Besitzer 2026-09-27), auch mit Perlen im Inventar wird keine
+     * verbraucht -, das Echolot bleibt, ist danach aber leer (voller Schaden).
+     */
+    public static void theEchoSounderLinksToTheLodestoneAndTeleportsWithoutAnyPearl(GameTestHelper helper) {
         BlockPos lodestone = new BlockPos(6, 1, 6);
         helper.setBlock(lodestone, Blocks.LODESTONE);
         ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
@@ -688,15 +735,14 @@ public final class TweaksTests {
                 new BlockHitResult(Vec3.atCenterOf(abs), net.minecraft.core.Direction.UP, abs, false)));
         helper.assertValueEqual(EchoCompassItem.target(compass), GlobalPos.of(helper.getLevel().dimension(), abs), "linked target of the echo compass");
 
-        helper.assertFalse(EchoCompassItem.teleport(player, InteractionHand.MAIN_HAND, compass), "the echo compass teleported without an ender pearl");
-        player.getInventory().setItem(8, new ItemStack(Items.ENDER_PEARL, 2));
-        helper.assertTrue(EchoCompassItem.teleport(player, InteractionHand.MAIN_HAND, compass), "the echo compass refused to teleport with a pearl");
+        helper.assertFalse(player.getInventory().hasAnyOf(java.util.Set.of(Items.ENDER_PEARL)), "the mock player starts with an ender pearl, so this proves nothing");
+        helper.assertTrue(EchoCompassItem.teleport(player, InteractionHand.MAIN_HAND, compass), "the echo sounder refused to teleport without an ender pearl");
         helper.assertTrue(player.position().distanceTo(Vec3.atBottomCenterOf(abs.above())) < 0.1, "the player landed at " + player.position() + " instead of on the lodestone");
-        helper.assertValueEqual(player.getInventory().getItem(8).getCount(), 1, "ender pearls left after one jump");
+        player.getInventory().setItem(8, new ItemStack(Items.ENDER_PEARL, 2));
         helper.assertTrue(player.getItemInHand(InteractionHand.MAIN_HAND) == compass, "the echo compass was used up");
         helper.assertValueEqual(compass.getDamageValue(), EchoCompassItem.MAX_DAMAGE, "echo compass damage after one jump");
         helper.assertFalse(EchoCompassItem.teleport(player, InteractionHand.MAIN_HAND, compass), "the echo compass ignored its cooldown");
-        helper.assertValueEqual(player.getInventory().getItem(8).getCount(), 1, "pearls spent by a jump refused for cooldown");
+        helper.assertValueEqual(player.getInventory().getItem(8).getCount(), 2, "pearls spent by a jump refused for cooldown");
         helper.succeed();
     }
 
@@ -780,7 +826,7 @@ public final class TweaksTests {
         helper.assertTrue(EchoCompassItem.isCracked(compass), "the empty echo compass is not cracked");
         helper.assertFalse(compass.hasFoil(), "the empty echo compass still has a glint");
         helper.assertValueEqual(compass.getUseDuration(player), EchoCompassItem.CRACKED_CHARGE_TICKS, "charge ticks of an empty echo compass");
-        helper.assertValueEqual(player.getInventory().getItem(8).getCount(), 1, "ender pearls left after the jump");
+        helper.assertValueEqual(player.getInventory().getItem(8).getCount(), 2, "ender pearls spent by the jump (none are needed any more)");
         helper.succeed();
     }
 
@@ -839,7 +885,7 @@ public final class TweaksTests {
         helper.assertTrue(player.position().distanceTo(Vec3.atBottomCenterOf(abs.above())) < 0.1, "the cracked echo compass left the player at " + player.position());
         helper.assertTrue(compass.isEmpty(), "the cracked echo compass survived its jump");
         helper.assertTrue(player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty(), "something is left in the hand after the echo compass shattered");
-        helper.assertValueEqual(player.getInventory().getItem(8).getCount(), 1, "ender pearls left after the shattering jump");
+        helper.assertValueEqual(player.getInventory().getItem(8).getCount(), 2, "ender pearls spent by the shattering jump (none are needed any more)");
         helper.succeed();
     }
 
@@ -1462,9 +1508,9 @@ public final class TweaksTests {
 
     /**
      * Anders als ein Feuerzeug fuellt der Strahl nie einen leeren Portalrahmen (Bretter hinter dem
-     * Rahmen, Feuerplatz im Rahmen), und TNT zuendet er nie.
+     * Rahmen, Feuerplatz im Rahmen) - auch nicht, seit er TNT zuenden darf.
      */
-    public static void theLensBeamNeverLightsNetherPortalsOrTnt(GameTestHelper helper) {
+    public static void theLensBeamNeverLightsNetherPortals(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, new Vec3(5.5, 2.0, 5.5));
         ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
         var rules = helper.getLevel().getGameRules();
@@ -1488,12 +1534,288 @@ public final class TweaksTests {
                     "the test frame is no valid portal frame, so this test proves nothing");
             beam(helper, player, lens, planks, Direction.SOUTH, LaserBeam.IGNITE_TICKS * 2);
             helper.assertTrue(helper.getBlockState(inside).isAir(), "the beam put " + helper.getBlockState(inside) + " into an empty portal frame");
-
-            BlockPos tnt = new BlockPos(5, 2, 1);
-            helper.setBlock(tnt, Blocks.TNT);
-            beam(helper, player, lens, tnt, Direction.UP, LaserBeam.IGNITE_TICKS * 2);
-            helper.assertTrue(helper.getBlockState(tnt).is(Blocks.TNT) && helper.getBlockState(tnt.above()).isAir(), "the beam set fire to TNT");
         } finally {
+            rules.set(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER, radius, helper.getLevel().getServer());
+        }
+        helper.succeed();
+    }
+
+    /**
+     * TNT (Besitzer 2026-09-27): nach derselben Verweildauer wie beim Anzuenden wird es gezuendet -
+     * der Block wird zu gezuendetem TNT mit dem Spieler als Zuender, die Ladung sinkt um die
+     * Wirkungskosten. Nicht im Abenteuermodus, nicht mit der Spielregel tnt_explodes aus (dann kostet
+     * es auch nichts).
+     */
+    public static void theLensBeamPrimesTntAfterDwellingButRespectsTheRules(GameTestHelper helper) {
+        ServerPlayer player = survivalLikePlayer(helper, new Vec3(5.5, 2.0, 5.5));
+        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        var rules = helper.getLevel().getGameRules();
+        boolean tntExplodes = rules.get(GameRules.TNT_EXPLODES);
+        try {
+            rules.set(GameRules.TNT_EXPLODES, true, helper.getLevel().getServer());
+            BlockPos tnt = new BlockPos(3, 2, 2);
+            helper.setBlock(tnt.below(), Blocks.STONE);
+            helper.setBlock(tnt, Blocks.TNT);
+            beam(helper, player, lens, tnt, Direction.UP, LaserBeam.IGNITE_TICKS - 1);
+            helper.assertTrue(helper.getBlockState(tnt).is(Blocks.TNT), "the TNT was primed before the dwell time");
+            beam(helper, player, lens, tnt, Direction.UP, 1);
+            helper.assertTrue(helper.getBlockState(tnt).isAir(), "the beam did not prime the TNT after the dwell time: " + helper.getBlockState(tnt));
+            List<PrimedTnt> primed = helper.getLevel().getEntitiesOfClass(PrimedTnt.class, new AABB(helper.absolutePos(tnt)).inflate(1.0));
+            helper.assertValueEqual(primed.size(), 1, "primed TNT entities after the beam");
+            PrimedTnt fuse = primed.get(0);
+            helper.assertTrue(fuse.getOwner() == player, "the primed TNT does not name the beaming player as its igniter: " + fuse.getOwner());
+            fuse.discard();
+            helper.assertValueEqual(lens.getDamageValue(), LaserPointerItem.EFFECT_COST, "charge spent on priming the TNT");
+
+            helper.setBlock(tnt, Blocks.TNT);
+            player.getAbilities().mayBuild = false;
+            beam(helper, player, lens, tnt, Direction.UP, LaserBeam.IGNITE_TICKS * 2);
+            player.getAbilities().mayBuild = true;
+            helper.assertTrue(helper.getBlockState(tnt).is(Blocks.TNT), "the beam primed TNT for a player who may not build");
+
+            rules.set(GameRules.TNT_EXPLODES, false, helper.getLevel().getServer());
+            beam(helper, player, lens, tnt, Direction.UP, LaserBeam.IGNITE_TICKS * 2);
+            helper.assertTrue(helper.getBlockState(tnt).is(Blocks.TNT), "the beam primed TNT with tnt_explodes switched off");
+            helper.assertValueEqual(lens.getDamageValue(), LaserPointerItem.EFFECT_COST, "charge spent while TNT was not allowed to explode");
+            helper.assertTrue(helper.getLevel().getEntitiesOfClass(PrimedTnt.class, new AABB(helper.absolutePos(tnt)).inflate(1.0)).isEmpty(),
+                    "primed TNT appeared although the block stayed");
+            helper.setBlock(tnt, Blocks.AIR);
+        } finally {
+            rules.set(GameRules.TNT_EXPLODES, tntExplodes, helper.getLevel().getServer());
+            for (PrimedTnt left : helper.getLevel().getEntitiesOfClass(PrimedTnt.class, new AABB(helper.absolutePos(new BlockPos(3, 2, 2))).inflate(2.0))) {
+                left.discard();
+            }
+        }
+        helper.succeed();
+    }
+
+    /**
+     * Jede Nutzung kostet Ladung (Besitzer 2026-09-27): schon der erste Tick zieht
+     * {@link LaserPointerItem#BEAM_COST} ab - frueher erst nach 20 Ticks, kurzes Antippen war gratis -,
+     * danach je angefangene Sekunde, auch wenn der Strahl ins Leere zeigt oder auf einem Block ohne
+     * Wirkung ruht. Die Reichweite wird dafuer auf {@value #SHORT_LASER_RANGE} Bloecke gesenkt, damit
+     * "ins Leere" nicht von dem abhaengt, was ueber der Teststruktur steht.
+     */
+    public static void theLensDrainsChargeEvenWhenItPointsIntoTheAir(GameTestHelper helper) {
+        int range = SimpleTweaks.config().laserPointer.range;
+        try {
+            SimpleTweaks.config().laserPointer.range = SHORT_LASER_RANGE;
+            lensDrainsChargeEvenWhenItPointsIntoTheAir(helper);
+        } finally {
+            SimpleTweaks.config().laserPointer.range = range;
+        }
+    }
+
+    private static final int SHORT_LASER_RANGE = 2;
+
+    private static final net.minecraft.world.entity.EntityType<? extends Mob> PIG_TYPE = EntityTypes.PIG;
+
+    private static void lensDrainsChargeEvenWhenItPointsIntoTheAir(GameTestHelper helper) {
+        ServerPlayer player = survivalLikePlayer(helper, new Vec3(2.5, 2.0, 5.5));
+        player.setXRot(-90.0f);
+        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        player.setItemInHand(InteractionHand.MAIN_HAND, lens);
+        helper.assertTrue(player.pick(SHORT_LASER_RANGE, 1.0f, false).getType() == HitResult.Type.MISS,
+                "something blocks the view straight up within " + SHORT_LASER_RANGE + " blocks, so the beam does not point into the air");
+        helper.assertTrue(lens.use(helper.getLevel(), player, InteractionHand.MAIN_HAND).consumesAction() && player.isUsingItem(), "the lens could not be used");
+        tickUse(player, 1);
+        helper.assertValueEqual(lens.getDamageValue(), LaserPointerItem.BEAM_COST, "charge after one tick of pointing into the air");
+        tickUse(player, 19);
+        helper.assertValueEqual(lens.getDamageValue(), LaserPointerItem.BEAM_COST, "charge after the first second of pointing into the air");
+        tickUse(player, 1);
+        helper.assertValueEqual(lens.getDamageValue(), 2 * LaserPointerItem.BEAM_COST, "charge at the start of the second second");
+        player.releaseUsingItem();
+
+        // Kurzes Antippen: jede neue Nutzung kostet sofort.
+        helper.assertTrue(lens.use(helper.getLevel(), player, InteractionHand.MAIN_HAND).consumesAction(), "the lens could not be used again");
+        tickUse(player, 3);
+        player.releaseUsingItem();
+        helper.assertValueEqual(lens.getDamageValue(), 3 * LaserPointerItem.BEAM_COST, "charge after a three tick tap");
+
+        // Auf einem Block ohne Wirkung (Stein) kostet es genauso.
+        BlockPos stone = new BlockPos(2, 3, 3);
+        helper.setBlock(stone, Blocks.STONE);
+        faceNorth(player);
+        helper.assertTrue(player.pick(SHORT_LASER_RANGE, 1.0f, false) instanceof BlockHitResult hit
+                        && hit.getType() == HitResult.Type.BLOCK && hit.getBlockPos().equals(helper.absolutePos(stone)),
+                "the player does not look at the stone block");
+        helper.assertTrue(lens.use(helper.getLevel(), player, InteractionHand.MAIN_HAND).consumesAction(), "the lens could not be used a third time");
+        tickUse(player, 1);
+        player.releaseUsingItem();
+        helper.assertValueEqual(lens.getDamageValue(), 4 * LaserPointerItem.BEAM_COST, "charge after pointing at a stone block");
+        helper.setBlock(stone, Blocks.AIR);
+        helper.succeed();
+    }
+
+    /**
+     * Verweildauer und Abstand (Besitzer 2026-09-27): bis 5 Bloecke die Basis, bei 10 Bloecken etwa
+     * eine Sekunde mehr, bei 200 Bloecken rund 20 s (Anzuenden, Basis 3 s), stetig wachsend. In der
+     * Welt schmilzt Eis aus 40 und aus 200 Bloecken erst nach der verlaengerten Verweildauer - auch
+     * jenseits der alten Grenze von 24 Bloecken.
+     */
+    public static void theLensDwellTimeGrowsModeratelyWithDistance(GameTestHelper helper) {
+        int base = LaserBeam.IGNITE_TICKS;
+        helper.assertValueEqual(LaserBeam.dwellTicks(base, 1.0), base, "ignite dwell ticks right in front");
+        helper.assertValueEqual(LaserBeam.dwellTicks(base, 5.0), base, "ignite dwell ticks at 5 blocks");
+        int ten = LaserBeam.dwellTicks(base, 10.0);
+        helper.assertTrue(ten >= base + 14 && ten <= base + 26, "10 blocks should add about one second to the 3 s ignite dwell, got " + ten + " ticks");
+        int far = LaserBeam.dwellTicks(base, 200.0);
+        helper.assertTrue(far >= 380 && far <= 420, "200 blocks should take about 20 s to ignite, got " + far + " ticks");
+        int last = base;
+        for (int d = 0; d <= 512; d += 4) {
+            int ticks = LaserBeam.dwellTicks(base, d);
+            helper.assertTrue(ticks >= last, "the dwell time shrinks between " + (d - 4) + " and " + d + " blocks");
+            last = ticks;
+        }
+
+        BlockPos ice = new BlockPos(2, 2, 2);
+        helper.setBlock(ice.below(), Blocks.STONE);
+        for (double away : new double[]{40.0, 200.0}) {
+            helper.setBlock(ice, Blocks.ICE);
+            ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 2.0, 2.5 + away));
+            ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+            int needed = LaserBeam.dwellTicks(LaserBeam.MELT_TICKS, player.getEyePosition().distanceTo(beamPoint(helper, ice, Direction.UP)));
+            helper.assertTrue(needed > LaserBeam.MELT_TICKS, "no longer dwell at " + away + " blocks: " + needed);
+            beam(helper, player, lens, ice, Direction.UP, needed - 1);
+            helper.assertTrue(helper.getBlockState(ice).is(Blocks.ICE), "the ice melted before the " + needed + " tick dwell at " + away + " blocks");
+            beam(helper, player, lens, ice, Direction.UP, 1);
+            helper.assertTrue(helper.getBlockState(ice).is(Blocks.WATER), "the ice did not melt after the " + needed + " tick dwell at " + away + " blocks");
+        }
+        helper.setBlock(ice, Blocks.AIR);
+        helper.succeed();
+    }
+
+    /**
+     * Lebewesen fangen Feuer (Besitzer 2026-09-27), brauchen dafuer aber doppelt so lange wie ein
+     * brennbarer Block im selben Abstand; das kostet die Wirkungsladung. Im Wasser nicht.
+     */
+    public static void theLensSetsLivingEntitiesOnFireTakingTwiceAsLong(GameTestHelper helper) {
+        ServerPlayer player = survivalLikePlayer(helper, new Vec3(2.5, 2.0, 5.5));
+        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        helper.setBlock(new BlockPos(2, 1, 2), Blocks.STONE);
+        Mob pig = helper.spawn(PIG_TYPE, new BlockPos(2, 2, 2));
+        pig.setNoAi(true);
+        try {
+            EntityHitResult hit = new EntityHitResult(pig, pig.position().add(0.0, 0.4, 0.0));
+            int block = LaserBeam.dwellTicks(LaserBeam.IGNITE_TICKS, player.getEyePosition().distanceTo(hit.getLocation()));
+            beamEntity(player, lens, hit, block);
+            helper.assertFalse(pig.getRemainingFireTicks() > 0, "the pig caught fire after the dwell time of a block, not twice that");
+            beamEntity(player, lens, hit, block - 1);
+            helper.assertFalse(pig.getRemainingFireTicks() > 0, "the pig caught fire a tick before twice the block dwell time");
+            helper.assertValueEqual(lens.getDamageValue(), 0, "charge spent before the pig caught fire");
+            beamEntity(player, lens, hit, 1);
+            helper.assertTrue(pig.getRemainingFireTicks() > 0, "the pig did not catch fire after twice the block dwell time (" + (2 * block) + " ticks)");
+            helper.assertValueEqual(lens.getDamageValue(), LaserPointerItem.EFFECT_COST, "charge spent on setting the pig on fire");
+
+            pig.clearFire();
+            helper.setBlock(new BlockPos(2, 2, 2), Blocks.WATER);
+            beamEntity(player, lens, hit, 4 * block);
+            helper.assertFalse(pig.getRemainingFireTicks() > 0, "a pig standing in water caught fire");
+            helper.setBlock(new BlockPos(2, 2, 2), Blocks.AIR);
+        } finally {
+            pig.discard();
+        }
+        helper.succeed();
+    }
+
+    /**
+     * Spieler nur mit PvP (Besitzer 2026-09-27): mit der Spielregel pvp an brennt ein anderer
+     * Spieler nach der doppelten Verweildauer, mit pvp aus nie; ein Spieler im Kreativmodus
+     * (unverwundbar) nie.
+     */
+    public static void theLensOnlyIgnitesPlayersWhenPvpAllowsIt(GameTestHelper helper) {
+        ServerPlayer player = survivalLikePlayer(helper, new Vec3(2.5, 2.0, 5.5));
+        ServerPlayer target = mockPlayer(helper, new Vec3(2.5, 2.0, 2.5));
+        target.getAbilities().invulnerable = false;
+        target.getAbilities().instabuild = false;
+        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        var rules = helper.getLevel().getGameRules();
+        boolean pvp = rules.get(GameRules.PVP);
+        try {
+            EntityHitResult hit = new EntityHitResult(target, target.position().add(0.0, 1.0, 0.0));
+            int needed = LaserBeam.ENTITY_DWELL_FACTOR * LaserBeam.dwellTicks(LaserBeam.IGNITE_TICKS, player.getEyePosition().distanceTo(hit.getLocation()));
+            rules.set(GameRules.PVP, true, helper.getLevel().getServer());
+            beamEntity(player, lens, hit, needed);
+            helper.assertTrue(target.getRemainingFireTicks() > 0, "with pvp on the other player did not catch fire, so the checks below prove nothing");
+            target.clearFire();
+
+            rules.set(GameRules.PVP, false, helper.getLevel().getServer());
+            beamEntity(player, lens, hit, needed * 2);
+            helper.assertFalse(target.getRemainingFireTicks() > 0, "the beam set a player on fire with pvp switched off");
+
+            rules.set(GameRules.PVP, true, helper.getLevel().getServer());
+            target.getAbilities().invulnerable = true;
+            beamEntity(player, lens, hit, needed * 2);
+            helper.assertFalse(target.getRemainingFireTicks() > 0, "the beam set an invulnerable (creative) player on fire");
+        } finally {
+            rules.set(GameRules.PVP, pvp, helper.getLevel().getServer());
+            target.clearFire();
+        }
+        helper.succeed();
+    }
+
+    /**
+     * Klaenge am Trefferpunkt (Besitzer 2026-09-27): ein leises Summen, sobald der Strahl irgendetwas
+     * trifft, hoechstens einmal je {@link LaserBeam#HUM_PERIOD} Ticks, nicht ins Leere; waehrend Eis
+     * schmilzt ein Zischen, waehrend Brennbares heiss wird ein Knistern, je hoechstens einmal je
+     * {@link LaserBeam#HEAT_SOUND_PERIOD} Ticks. Gezaehlt ueber den Test-Haken der Linse.
+     */
+    public static void theLensHumsOnAnySurfaceAndSizzlesOrCracklesWhileHeating(GameTestHelper helper) {
+        java.util.Map<LaserBeam.Sound, Integer> heard = new java.util.EnumMap<>(LaserBeam.Sound.class);
+        int range = SimpleTweaks.config().laserPointer.range;
+        var rules = helper.getLevel().getGameRules();
+        int radius = rules.get(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER);
+        LaserBeam.setSoundHook((sound, at) -> heard.merge(sound, 1, Integer::sum));
+        try {
+            SimpleTweaks.config().laserPointer.range = SHORT_LASER_RANGE;
+            ServerPlayer player = survivalLikePlayer(helper, new Vec3(2.5, 2.0, 5.5));
+            ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+            player.setItemInHand(InteractionHand.MAIN_HAND, lens);
+            BlockPos stone = new BlockPos(2, 3, 3);
+            helper.setBlock(stone, Blocks.STONE);
+            faceNorth(player);
+            helper.assertTrue(player.pick(SHORT_LASER_RANGE, 1.0f, false) instanceof BlockHitResult hit
+                            && hit.getType() == HitResult.Type.BLOCK && hit.getBlockPos().equals(helper.absolutePos(stone)),
+                    "the player does not look at the stone block");
+            helper.assertTrue(lens.use(helper.getLevel(), player, InteractionHand.MAIN_HAND).consumesAction() && player.isUsingItem(), "the lens could not be used");
+            tickUse(player, 1);
+            helper.assertValueEqual(lens.getDamageValue(), LaserPointerItem.BEAM_COST, "charge after the first tick (did the use tick run?)");
+            helper.assertValueEqual(heard.getOrDefault(LaserBeam.Sound.HUM, 0), 1, "hums after the first tick on stone");
+            tickUse(player, LaserBeam.HUM_PERIOD - 1);
+            helper.assertValueEqual(heard.getOrDefault(LaserBeam.Sound.HUM, 0), 1, "hums within the first hum period (rate limit)");
+            tickUse(player, 1);
+            helper.assertValueEqual(heard.getOrDefault(LaserBeam.Sound.HUM, 0), 2, "hums at the start of the second hum period");
+            helper.assertTrue(!heard.containsKey(LaserBeam.Sound.SIZZLE) && !heard.containsKey(LaserBeam.Sound.CRACKLE),
+                    "stone, which the beam cannot change, sizzled or crackled: " + heard);
+            player.releaseUsingItem();
+            player.setXRot(-90.0f);
+            helper.assertTrue(lens.use(helper.getLevel(), player, InteractionHand.MAIN_HAND).consumesAction(), "the lens could not be used again");
+            tickUse(player, LaserBeam.HUM_PERIOD * 2);
+            player.releaseUsingItem();
+            helper.assertValueEqual(heard.getOrDefault(LaserBeam.Sound.HUM, 0), 2, "hums while pointing into the air");
+            helper.setBlock(stone, Blocks.AIR);
+
+            heard.clear();
+            BlockPos ice = new BlockPos(1, 2, 2);
+            helper.setBlock(ice, Blocks.ICE);
+            int meltTicks = LaserBeam.MELT_TICKS - 1;
+            beam(helper, player, lens, ice, Direction.UP, meltTicks);
+            helper.assertValueEqual(heard.getOrDefault(LaserBeam.Sound.SIZZLE, 0), (meltTicks - 1) / LaserBeam.HEAT_SOUND_PERIOD + 1, "sizzles while the ice heats up");
+            helper.assertFalse(heard.containsKey(LaserBeam.Sound.CRACKLE), "melting ice crackled like fire");
+            helper.setBlock(ice, Blocks.AIR);
+
+            heard.clear();
+            rules.set(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER, -1, helper.getLevel().getServer());
+            BlockPos planks = new BlockPos(3, 2, 2);
+            helper.setBlock(planks, Blocks.OAK_PLANKS);
+            int igniteTicks = LaserBeam.IGNITE_TICKS - 1;
+            beam(helper, player, lens, planks, Direction.UP, igniteTicks);
+            helper.assertValueEqual(heard.getOrDefault(LaserBeam.Sound.CRACKLE, 0), (igniteTicks - 1) / LaserBeam.HEAT_SOUND_PERIOD + 1, "crackles while the planks heat up");
+            helper.assertFalse(heard.containsKey(LaserBeam.Sound.SIZZLE), "heating planks sizzled like ice");
+            helper.setBlock(planks, Blocks.AIR);
+        } finally {
+            LaserBeam.setSoundHook(null);
+            SimpleTweaks.config().laserPointer.range = range;
             rules.set(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER, radius, helper.getLevel().getServer());
         }
         helper.succeed();
@@ -1625,10 +1947,27 @@ public final class TweaksTests {
     /** Laesst den Strahl {@code ticks} Mal auf die Mitte der Seite {@code face} von {@code relative} fallen. */
     private static void beam(GameTestHelper helper, ServerPlayer player, ItemStack lens, BlockPos relative, Direction face, int ticks) {
         BlockPos pos = helper.absolutePos(relative);
-        Vec3 at = Vec3.atCenterOf(pos).add(face.getStepX() * 0.5, face.getStepY() * 0.5, face.getStepZ() * 0.5);
-        BlockHitResult hit = new BlockHitResult(at, face, pos, false);
+        BlockHitResult hit = new BlockHitResult(beamPoint(helper, relative, face), face, pos, false);
         for (int i = 0; i < ticks; i++) {
             LaserBeam.beamAt(player, lens, hit);
+        }
+    }
+
+    /** Blick waagerecht nach Norden (-Z); Lebewesen blicken ueber den Kopf, darum auch yHeadRot. */
+    private static void faceNorth(ServerPlayer player) {
+        player.setXRot(0.0f);
+        player.setYRot(180.0f);
+        player.setYHeadRot(180.0f);
+    }
+
+    /** Wo der Strahl eine Blockseite trifft (Mitte der Seite, absolut). */
+    private static Vec3 beamPoint(GameTestHelper helper, BlockPos relative, Direction face) {
+        return Vec3.atCenterOf(helper.absolutePos(relative)).add(face.getStepX() * 0.5, face.getStepY() * 0.5, face.getStepZ() * 0.5);
+    }
+
+    private static void beamEntity(ServerPlayer player, ItemStack lens, EntityHitResult hit, int ticks) {
+        for (int i = 0; i < ticks; i++) {
+            LaserBeam.beamAtEntity(player, lens, hit);
         }
     }
 

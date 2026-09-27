@@ -1,4 +1,4 @@
-# Loot-Balance (Stand 2026-09-24)
+# Loot-Balance (Stand 2026-09-27)
 
 Gilt für beide MC-Linien (26.2 und 1.21.11) und alle Loader; Quelle ist
 `loot/ModLootTableModifications.java` (auf beiden Linien identisch), Handel in
@@ -12,8 +12,9 @@ Gilt für beide MC-Linien (26.2 und 1.21.11) und alle Loader; Quelle ist
   gewöhnliche Bastion-Kisten, Verlies) geben im Schnitt ~0,5 Mod-Stapel pro Kiste.
   Einzelkisten (Bastion-Schatzraum, Stronghold-Bibliothek, Buried Treasure, End City)
   dürfen mehr geben. Vorher: Mansion ~2,3, Ancient City ~1,4, Bastion ~1,2 pro Kiste.
-- **Kerne** (Netherstern im Rezept) sind überall Gewicht 1–2 und nie in Massen-Kisten
-  mit hoher Wurfzahl; der Netheritkern liegt nur noch im Bastion-Schatzraum.
+- **Kerne** sind sehr selten (Besitzer 2026-09-27, Enderit-Kern besonders): jeder Kern hat
+  einen eigenen Pool mit genau einem Wurf und fester Chance pro Kiste (`rareCore`), siehe
+  Abschnitt „Kerne“ unten; in den Mehrwurf-Pools stehen keine Kerne mehr.
 - **Vielfalt**: Diamantkiesel (9 → Rissiger Diamant → Diamant) als häufiger, kleiner
   Füller; End-Rohstoffe in der End City; neue Quellen Portalruine und Angeln.
 - **Vergleich Vanilla**: Netherite-Template 100 % im Bastion-Schatz, 10 % sonst →
@@ -27,24 +28,45 @@ Gilt für beide MC-Linien (26.2 und 1.21.11) und alle Loader; Quelle ist
 | Tabelle | Würfe | Inhalt | Leer | Ø |
 |---|---|---|---|---|
 | Stronghold-Bibliothek | 0–2 | Reichweite II 4, Baumeister 3, Vielseitigkeit I 4 / II 2 | 12 | 0,52 |
-| End City | 15 % / 30 % / 1 / 0–3 | Schrott; Template; Roh-Enderit 4 (1–2), Enderit-Nugget 6 (2–5), Astralitstaub 6 (2–6), Nihilith-Splitter 6 (1–4) [leer 14]; Reichweite III 4, Baumeister 3, Übersteuerung II 5, Luftsprung II 5, Vielseitigkeit I 6 / II 3, Diamant-Baustab* 6, Diamant-Vorschlaghammer* 8, Enderit-Apfel 3, verz. Enderit-Apfel 1 | 40 | 1,88 |
+| End City | 15 % / 30 % / 1 / 0–3 | Schrott; Template; Roh-Enderit 4 (1–2), Enderit-Nugget 6 (2–5), Astralitstaub 6 (2–6), Nihilith-Splitter 6 (1–4) [leer 14]; Enderit-Kern 0,25 % (eigener Pool); Reichweite III 4, Baumeister 3, Übersteuerung II 5, Luftsprung II 5, Vielseitigkeit I 6 / II 3, Diamant-Baustab* 6, Diamant-Vorschlaghammer* 8, Enderit-Apfel 3, verz. Enderit-Apfel 1 | 40 | 1,88 |
 | Ancient City | 0–2 | Tiefe Taschen II 5, Radius 4, Oktant* 5, Diamant-Vorschlaghammer 3, Köcher* 3, Netherit-Apfel 2, verz. Netherit-Apfel 1, Netherit-Nugget 4 (1–3), Diamantkiesel 6 (2–5) | 25 | 0,57 |
-| Bastion (alle Kisten) | 0–2 | Trichter I 5, Durchbruch I 5, Gold-Vorschlaghammer 6, Goldkern 1, Netherit-Nugget 12 (1–4), Netherit-Karotte 6 (1–2) | 25 | 0,58 |
-| + nur Bastion-Schatz | 1 | Netheritkern 2, Netherit-Apfel 4, verz. Netherit-Apfel 2, Durchbruch II 3 | 7 | +0,61 |
-| Netherfestung | 0–2 | Tunnelgräber I 6 / II 3, Trichter 2, Durchbruch 2, Goldkern 1, Oktant* 3, Netherit-Nugget 6 (1–3), Netherit-Karotte 3 (1–3) | 14 | 0,65 |
+| Bastion (alle Kisten) | 0–2 | Trichter I 5, Durchbruch I 5, Gold-Vorschlaghammer 6, Netherit-Nugget 12 (1–4), Netherit-Karotte 6 (1–2); Goldkern 0,6 % (eigener Pool) | 25 | 0,58 |
+| + nur Bastion-Schatz | 1 | Netherit-Apfel 4, verz. Netherit-Apfel 2, Durchbruch II 3; Netheritkern 4 % (eigener Pool) | 7 | +0,57 |
+| Netherfestung | 0–2 | Tunnelgräber I 6 / II 3, Trichter 2, Durchbruch 2, Oktant* 3, Netherit-Nugget 6 (1–3), Netherit-Karotte 3 (1–3); Goldkern 0,8 % (eigener Pool) | 14 | 0,65 |
 | Plünderer-Außenposten | 0–2 | Farbpalette 6, Abdeckung 8, Linear 8, Oktant 5, Köcher 5, Kupfermeißel 4 | 20 | 0,64 |
-| Waldanwesen | 0–2 | Farbpalette 3, Abdeckung 5, Linear 5, Aderabbau V 1 / IV 3, Eisen-Baustab 4, Eisenkern 1, Köcher 3 | 30 | 0,45 |
+| Waldanwesen | 0–2 | Farbpalette 3, Abdeckung 5, Linear 5, Aderabbau V 1 / IV 3, Eisen-Baustab 4, Köcher 3; Eisenkern 0,8 % (eigener Pool) | 30 | 0,45 |
 | Buried Treasure | 0–2 | Berührung d. K. 3, Schnelles Meißeln II 2, Goldmeißel 10, Diamantmeißel 6, Diamantkiesel 10 (2–6) | 30 | 0,51 |
 | Verlies | 0–2 | Schnelles Meißeln I 5, Trichter 8, Durchbruch 8, Aderabbau IV 3 / III 8 / II 12, Verst. Bündel 8, Basis-Template 2, Diamantkiesel 6 (1–3) | 40 | 0,60 |
 | Schiffswrack-Schatz | 0–1 | Schnelles Meißeln I 10, Verst. Bündel 8, Diamantkiesel 10 (1–4) | 20 | 0,29 |
 | Iglu | 0–1 | Berührung d. K. 3, Schnelles Meißeln I 3, Diamantmeißel 6 | 8 | 0,30 |
 | Verlassene Mine | 0–2 | Schnelles Meißeln I 2, Tunnelgräber I 8 / III 3, Aderabbau III 4 / IV 3, Verst. Bündel* 6, Diamantkiesel 8 (1–3) | 30 | 0,53 |
 | Vault normal (+selten) | 0–1 | Berührung d. K. 3, Schnelles Meißeln II 2, Diamantkiesel 3 (2–4) | 12 | 0,20 |
-| Vault unheilvoll (+selten) | 0–1 | Baumeister 10, Luftsprung I 7, Diamantkern 2, Netherit-Apfel 2, verz. Netherit-Apfel 1 | 35 | 0,19 |
+| Vault unheilvoll (+selten) | 0–1 | Baumeister 10, Luftsprung I 7, Netherit-Apfel 2, verz. Netherit-Apfel 1; Diamantkern 0,8 % (eigener Pool) | 35 | 0,19 |
 | Portalruine (neu) | 0–1 | Netherit-Nugget 3 (1–2), Goldmeißel 3, Netherit-Karotte 2 | 12 | 0,20 |
 | Angeln, Schatz (neu) | 1 | Schnelles Meißeln I 3, Berührung d. K. 2, Tiefe Taschen I 2, Linear I 2, Diamantkiesel 4 (1–3) | 20 | 0,39 |
 
 `*` = zufällig verzaubert (EnchantRandomlyFunction). Der seltene Vault bekommt beide Vault-Pools.
+
+## Kerne (2026-09-27)
+
+Jeder Kern liegt in einem eigenen Pool (`ModLootTableModifications#rareCore`: ein Wurf,
+`binomial(1, p)`), die Chance pro Kiste steht also direkt im Code (`*_CORE_CHANCE`):
+
+| Kern | Tabelle | pro Kiste | grob pro Struktur |
+|---|---|---|---|
+| Kupferkern | – (keine Kiste; Steinmetz und fahrender Händler verkaufen ihn) | 0 | – |
+| Eisenkern | Waldanwesen | 0,8 % | ~15–25 % je Anwesen (20–30 Kisten) |
+| Goldkern | Bastion (jede Kiste, auch Schatzraum) | 0,6 % | ~5–10 % je Bastion |
+| Goldkern | Netherfestung | 0,8 % | ~2–4 % je Festung |
+| Diamantkern | Tresor unheilvoll und selten | 0,8 % | ~0,8 % je Tresor-Öffnung |
+| Netheritkern | nur Bastion-Schatzraum | 4 % (vorher ~12 %) | 4 % je Schatz-Bastion |
+| Enderit-Kern | Endsiedlung (End City) | 0,25 % (vorher gar nicht) | ~1–2 % je Stadt (4–8 Kisten) |
+
+Vorher (Gewichte in den Mehrwurf-Pools): Eisenkern ~1,8 %, Goldkern ~1,7 % (Bastion) / ~2,5 %
+(Festung), Diamantkern ~1,8 %, Netheritkern ~12 % pro Kiste. Test:
+`ConfigOptionTests.buildingCoresAreVeryRareInLootChests` (10000 Kisten je Tabelle, feste Saat,
+Band je Kern und Tabelle, jeder andere Kern in jeder anderen Tabelle = 0, Enderit-Kern seltener
+als jeder andere).
 
 ## Handel
 

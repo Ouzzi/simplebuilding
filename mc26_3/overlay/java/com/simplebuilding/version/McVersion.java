@@ -182,4 +182,11 @@ public final class McVersion {
     public static void placeItemBackInInventory(Player player, ItemStack stack) {
         player.getInventory().placeItemBackInInventory(stack, Prediction.SERVER_ONLY);
     }
+
+    /** Vanilla wax-on particles and sound (26.3: level event 3003 is particles only, the sound is separate). */
+    public static void waxOnEffects(net.minecraft.world.level.Level level, net.minecraft.core.BlockPos pos) {
+        level.levelEvent(null, net.minecraft.world.level.block.LevelEvent.PARTICLES_WAX_ON, pos, 0);
+        level.playSound(null, pos, net.minecraft.sounds.SoundEvents.HONEYCOMB_WAX_ON,
+                net.minecraft.sounds.SoundSource.BLOCKS, 1.0F, 1.0F);
+    }
 }
