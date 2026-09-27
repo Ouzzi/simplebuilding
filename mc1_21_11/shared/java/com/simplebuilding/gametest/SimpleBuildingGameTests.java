@@ -33,6 +33,11 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("test_centre_game_test_the_whole_centre_builds_and_matches_its_plan", TestCentreTests::theWholeCentreBuildsAndMatchesItsPlan)
                     .build(),
+            GameTestSpec.named("test_centre_game_test_command_blocks_are_isolated_and_every_station_has_its_give_button", TestCentreTests::commandBlocksAreIsolatedAndEveryStationHasItsGiveButton)
+                    .build(),
+            GameTestSpec.named("test_centre_game_test_each_button_runs_exactly_its_own_command_block", TestCentreTests::eachButtonRunsExactlyItsOwnCommandBlock)
+                    .maxTicks(TestCentreTests.BUTTON_RUN_MAX_TICKS)
+                    .build(),
             GameTestSpec.named("trade_registry_game_test_all_mod_trades_resolve_against_the_server_registries",
                             TradeRegistryTests::allModTradesResolveAgainstTheServerRegistries)
                     .build(),

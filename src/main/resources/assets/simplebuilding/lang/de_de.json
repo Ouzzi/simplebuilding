@@ -986,7 +986,7 @@
   "simplebuilding.testcentre.tweaks.elytra_pad.1": "leerer Brustslot",
   "simplebuilding.testcentre.tweaks.elytra_pad.2": "bekommt Elytra",
   "simplebuilding.testcentre.tweaks.flypad": "Flypad",
-  "simplebuilding.testcentre.tweaks.flypad.1": "Flug im Umkreis",
+  "simplebuilding.testcentre.tweaks.flypad.1": "Flug im Feld",
   "simplebuilding.testcentre.tweaks.launchpad": "Launchpad",
   "simplebuilding.testcentre.tweaks.launchpad.1": "Windkugeln laden",
   "simplebuilding.testcentre.tweaks.launchpad.2": "3 s stehen",
@@ -1099,5 +1099,14 @@
   "simplebuilding.testcentre.tweaks.row.stone_pressure_plates": "Steinplatten",
   "simplebuilding.testcentre.tweaks.row.copper_pressure_plates": "Kupferplatten",
   "simplebuilding.testcentre.tweaks.row.launchpads": "Launchpads",
-  "simplebuilding.testcentre.tweaks.row.chunk_loaders": "Chunk-Loader"
+  "simplebuilding.testcentre.tweaks.row.chunk_loaders": "Chunk-Loader",
+  "simplebuilding.testcentre.command.give": "Items von %s an %s Spieler gegeben",
+  "simplebuilding.testcentre.command.give.left_out": "%s weitere Items passten nicht hinein - siehe Rahmen",
+  "simplebuilding.testcentre.command.give.none": "Station %s hat nichts auszugeben",
+  "simplebuilding.testcentre.command.outdated": "Die Testzentrale ist älter als der Code - Neubau in 3 s",
+  "simplebuilding.testcentre.command.rebuilt": "Testzentrale auf den Stand des Codes gebracht",
+  "simplebuilding.testcentre.kiosk.give": "Items holen",
+  "simplebuilding.testcentre.section.gallery": "Weitere Blöcke",
+  "simplebuilding.testcentre.section.gallery.sub": "sonst nirgends gesetzt",
+  "simplebuilding.testcentre.tweaks.flypad.2": "%s x %s, %s hoch"
 }

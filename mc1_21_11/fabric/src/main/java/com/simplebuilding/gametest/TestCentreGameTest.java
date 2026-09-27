@@ -22,4 +22,14 @@ public final class TestCentreGameTest {
     public void theWholeCentreBuildsAndMatchesItsPlan(GameTestHelper helper) {
         TestCentreTests.theWholeCentreBuildsAndMatchesItsPlan(helper);
     }
+
+    @GameTest
+    public void commandBlocksAreIsolatedAndEveryStationHasItsGiveButton(GameTestHelper helper) {
+        TestCentreTests.commandBlocksAreIsolatedAndEveryStationHasItsGiveButton(helper);
+    }
+
+    @GameTest(maxTicks = TestCentreTests.BUTTON_RUN_MAX_TICKS)
+    public void eachButtonRunsExactlyItsOwnCommandBlock(GameTestHelper helper) {
+        TestCentreTests.eachButtonRunsExactlyItsOwnCommandBlock(helper);
+    }
 }

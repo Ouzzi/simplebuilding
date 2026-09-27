@@ -1,6 +1,11 @@
 package com.simplebuilding.dev.testcentre;
 
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.tweaks.block.PadBlock;
+import com.simplebuilding.tweaks.block.TweaksBlocks;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -9,9 +14,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -34,7 +41,7 @@ public final class TestCentreLayout {
 
     /** Reihenfolge der Abschnitte = Reihenfolge in der Welt. */
     public static final List<String> SECTION_IDS = List.of("controls", "armour", "books", "tools", "storage", "food",
-            "materials", "chisel", "inworld", "blocks", "lightroom", "machines", "ores", "planning", "mining", "tweaks", "devices", "unsorted");
+            "materials", "chisel", "inworld", "blocks", "lightroom", "machines", "ores", "planning", "mining", "tweaks", "devices", "gallery", "unsorted");
 
     /**
      * Mod-Items und -Bloecke, die bewusst NICHT in der Zentrale stehen, mit Grund. Jede Ausnahme muss
@@ -45,6 +52,23 @@ public final class TestCentreLayout {
             "simplebuilding:reinforced_piston_head", "technischer Block (Kopf der verstaerkten Kolben), kein Item",
             "simplebuilding:netherite_piston_head", "technischer Block (Kopf des Netherit-Kolbens), kein Item",
             "simplebuilding:enderite_piston_head", "technischer Block (Kopf des Enderit-Kolbens), kein Item");
+
+    /**
+     * Mod-Bloecke, die nur im Rahmen stehen und nirgends gesetzt werden: Pads mit Wirkung auf die
+     * Umgebung (Elytra-Pad V gibt auf 128 x 128 Bloecken Elytren, Teleporter versetzen, Chunk-Loader
+     * erzwingen Chunks, Kupferplatten altern) und die alten Stufen (werden beim ersten Tick umgewandelt).
+     * Die Tweaks-Station setzt je Familie ein Vorfuehrstueck von Hand.
+     */
+    public static boolean frameOnly(Block block) {
+        return block instanceof PadBlock || TweaksBlocks.legacy().contains(block);
+    }
+
+    /** Breite des Ausgabe-Knopfs vorn links an jeder Station (Befehlsblock + eine Spalte Luft). */
+    public static final int KIOSK_WIDTH = 2;
+    /** Tiefe des Befehlsblocks am Ausgabe-Knopf; der Knopf selbst sitzt davor zum Gang hin. */
+    public static final int KIOSK_Z = 1;
+    /** Erhoehen, wenn sich der Bau-Code (nicht die Planung) aendert: dann bauen alte Welten neu. */
+    static final int BUILDER_VERSION = 2;
 
     public static final int MAX_ROW_WIDTH = 140;
     public static final int GAP = 4;
@@ -61,7 +85,36 @@ public final class TestCentreLayout {
 
     /** Die fertige Planung. */
     public record Plan(BlockPos origin, List<Section> sections, Map<String, BlockPos> anchors, BoundingBox bounds,
-                       Set<Item> coveredItems, Set<Block> coveredBlocks, List<Item> leftovers) {
+                       Set<Item> coveredItems, Set<Block> coveredBlocks, List<Item> leftovers,
+                       Map<String, TestCentreKits.Kit> kits) {
+
+        /**
+         * Fingerabdruck der Planung (Bau-Version, jeder Schritt mit Lage, Block, Items, Befehl). Er steht
+         * neben dem Ursprung in der Markierungsdatei; weicht er beim Betreten ab, ist die Welt aelter als
+         * der Code und die Zentrale wird neu gebaut. Nur stabile Texte gehen ein (Ids, Zahlen, Befehle,
+         * Uebersetzungsschluessel) - nichts, was von Objekt-Identitaeten abhaengt.
+         */
+        public String fingerprint() {
+            MessageDigest digest;
+            try {
+                digest = MessageDigest.getInstance("SHA-256");
+            } catch (NoSuchAlgorithmException e) {
+                throw new IllegalStateException(e);
+            }
+            StringBuilder text = new StringBuilder("v").append(BUILDER_VERSION).append('\n');
+            for (Section section : sections) {
+                text.append(section.id()).append('@').append(section.offset().toShortString()).append('\n');
+                for (TcOp op : section.ops()) {
+                    text.append(describe(op)).append('\n');
+                }
+            }
+            byte[] hash = digest.digest(text.toString().getBytes(StandardCharsets.UTF_8));
+            StringBuilder hex = new StringBuilder();
+            for (int i = 0; i < 12; i++) {
+                hex.append(String.format("%02x", hash[i]));
+            }
+            return hex.toString();
+        }
 
         public Section section(String id) {
             for (Section section : sections) {
@@ -93,6 +146,33 @@ public final class TestCentreLayout {
     }
 
     private TestCentreLayout() {
+    }
+
+    /** Eine Zeile je Schritt fuer den Fingerabdruck. */
+    static String describe(TcOp op) {
+        String at = op.getClass().getSimpleName() + " " + op.pos().toShortString() + " ";
+        return at + switch (op) {
+            case TcOp.Place place -> place.state().toString();
+            case TcOp.Frame frame -> frame.facing() + " " + stackText(frame.stack());
+            case TcOp.OctantFrame frame -> frame.facing() + " " + frame.cornerA().toShortString() + " "
+                    + frame.cornerB().toShortString() + " " + frame.shape();
+            case TcOp.BlueprintFrame frame -> frame.facing() + " " + frame.cornerA().toShortString() + " "
+                    + frame.cornerB().toShortString() + " " + frame.table().toShortString();
+            case TcOp.Stand stand -> stand.yaw() + " " + stand.gear().stream().map(TestCentreLayout::stackText).toList();
+            case TcOp.Sign sign -> sign.facing() + " " + sign.lines().stream().map(TestCentreLayout::componentText).toList();
+            case TcOp.Fill fill -> fill.contents().stream().map(TestCentreLayout::stackText).toList().toString();
+            case TcOp.Command command -> command.facing() + " " + command.command() + " "
+                    + command.label().stream().map(TestCentreLayout::componentText).toList();
+        };
+    }
+
+    private static String stackText(ItemStack stack) {
+        return stack.getCount() + "x" + BuiltInRegistries.ITEM.getKey(stack.getItem()) + "/" + stack.getComponentsPatch().size();
+    }
+
+    private static String componentText(Component component) {
+        return component.getContents() instanceof TranslatableContents translatable
+                ? translatable.getKey() + "/" + translatable.getArgs().length : component.getString();
     }
 
     public static Plan plan(HolderLookup.Provider lookup, BlockPos origin) {
@@ -134,6 +214,29 @@ public final class TestCentreLayout {
         }
         canvases.put("unsorted", TestCentreSections.unsorted(leftovers));
 
+        // Galerie: Mod-Bloecke, die bisher nur als Rahmen (oder gar nicht) gesetzt sind.
+        List<Block> unplaced = new ArrayList<>();
+        for (Block block : modBlocks()) {
+            if (block.asItem() != Items.AIR && !coveredBlocks.contains(block) && !frameOnly(block)
+                    && !EXCLUDED.containsKey(TcContext.id(block).toString())) {
+                unplaced.add(block);
+            }
+        }
+        TcCanvas gallery = TestCentreSections.gallery(unplaced);
+        collect(gallery.ops(), coveredItems, coveredBlocks);
+        canvases.put("gallery", gallery);
+
+        // Ausgabe-Knopf je Station: Kit aus dem, was die Station zeigt; die Station rueckt dafuer nach rechts.
+        Map<String, TestCentreKits.Kit> kits = new LinkedHashMap<>();
+        for (Map.Entry<String, TcCanvas> entry : canvases.entrySet()) {
+            TestCentreKits.Kit kit = TestCentreKits.of(ctx, entry.getKey(), entry.getValue().ops());
+            if (kit.isEmpty()) {
+                continue;
+            }
+            kits.put(entry.getKey(), kit);
+            entry.setValue(withKiosk(entry.getKey(), entry.getValue()));
+        }
+
         // Erste Runde: Steuerwand mit Platzhaltern, nur fuer ihre Breite.
         canvases.put("controls", TestCentreSections.controls(controls(origin, Map.of(), null)));
         Map<String, BlockPos> offsets = pack(canvases);
@@ -158,7 +261,21 @@ public final class TestCentreLayout {
             }
             sections.add(new Section(id, offset, canvas.width(), canvas.depth(), canvas.height(), ops));
         }
-        return new Plan(origin, sections, anchors, bounds, coveredItems, coveredBlocks, leftovers);
+        return new Plan(origin, sections, anchors, bounds, coveredItems, coveredBlocks, leftovers, kits);
+    }
+
+    /** Befehl des Ausgabe-Knopfs einer Station. */
+    public static String giveCommand(String section) {
+        return "sbtestcentre give " + section + " @p";
+    }
+
+    /** Die Station mit Ausgabe-Knopf vorn links: Befehlsblock auf Glas, Knopf zum Gang, Schild darueber. */
+    private static TcCanvas withKiosk(String id, TcCanvas station) {
+        TcCanvas c = new TcCanvas();
+        c.command(0, 1, KIOSK_Z, Direction.NORTH, giveCommand(id),
+                TcText.t("kiosk.give", "Give items"), TcText.t("section." + id, TestCentreSections.pretty(id)));
+        c.append(station, KIOSK_WIDTH);
+        return c;
     }
 
     /** Welche Items und Bloecke eine Schrittliste zeigt. */

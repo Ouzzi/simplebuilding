@@ -986,7 +986,7 @@
   "simplebuilding.testcentre.tweaks.elytra_pad.1": "empty chest slot",
   "simplebuilding.testcentre.tweaks.elytra_pad.2": "gets an elytra",
   "simplebuilding.testcentre.tweaks.flypad": "Flypad",
-  "simplebuilding.testcentre.tweaks.flypad.1": "flight nearby",
+  "simplebuilding.testcentre.tweaks.flypad.1": "flight in the field",
   "simplebuilding.testcentre.tweaks.launchpad": "Launchpad",
   "simplebuilding.testcentre.tweaks.launchpad.1": "load wind charges",
   "simplebuilding.testcentre.tweaks.launchpad.2": "stand 3 s",
@@ -1099,5 +1099,14 @@
   "simplebuilding.testcentre.tweaks.row.stone_pressure_plates": "Stone plates",
   "simplebuilding.testcentre.tweaks.row.copper_pressure_plates": "Copper plates",
   "simplebuilding.testcentre.tweaks.row.launchpads": "Launchpads",
-  "simplebuilding.testcentre.tweaks.row.chunk_loaders": "Chunk loaders"
+  "simplebuilding.testcentre.tweaks.row.chunk_loaders": "Chunk loaders",
+  "simplebuilding.testcentre.command.give": "Items of %s given to %s player(s)",
+  "simplebuilding.testcentre.command.give.left_out": "%s more items did not fit - see the frames",
+  "simplebuilding.testcentre.command.give.none": "Station %s has nothing to give",
+  "simplebuilding.testcentre.command.outdated": "The test centre is older than the code - rebuilding in 3 s",
+  "simplebuilding.testcentre.command.rebuilt": "Test centre rebuilt to match the code",
+  "simplebuilding.testcentre.kiosk.give": "Give items",
+  "simplebuilding.testcentre.section.gallery": "More blocks",
+  "simplebuilding.testcentre.section.gallery.sub": "placed nowhere else",
+  "simplebuilding.testcentre.tweaks.flypad.2": "%s x %s, %s high"
 }

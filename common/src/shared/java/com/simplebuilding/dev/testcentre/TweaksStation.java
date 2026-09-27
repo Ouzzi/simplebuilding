@@ -1,6 +1,7 @@
 package com.simplebuilding.dev.testcentre;
 
 import com.simplebuilding.items.CreativeTabLayout;
+import com.simplebuilding.tweaks.block.PadTiers;
 import com.simplebuilding.tweaks.block.TweaksBlocks;
 import com.simplebuilding.tweaks.item.TweaksItems;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * Station "tweaks" der Testzentrale: die aus Simple Tweaks uebernommenen Pads, Platten und Werkzeuge.
@@ -58,8 +60,7 @@ public final class TweaksStation {
         x = station(c, x, floorZ, wallZ, TweaksBlocks.ELYTRA_PAD,
                 TcText.t("tweaks.elytra_pad", "Elytra Pad"), TcText.t("tweaks.elytra_pad.1", "empty chest slot"),
                 TcText.t("tweaks.elytra_pad.2", "gets an elytra"));
-        x = station(c, x, floorZ, wallZ, TweaksBlocks.FLYPAD,
-                TcText.t("tweaks.flypad", "Flypad"), TcText.t("tweaks.flypad.1", "flight nearby"));
+        x = flypad(c, x, floorZ, wallZ);
 
         // Launchpad mit einer Truhe Windkugeln daneben.
         int launch = x;
@@ -98,6 +99,32 @@ public final class TweaksStation {
         c.wallSign(x, 1, wallZ, lines);
         return x + 2;
     }
+
+    /**
+     * Flypad I mit freiem Flugfeld: der Bereich (4 x 4, 6 hoch, mittig um das Pad, {@link PadTiers#flyArea})
+     * ist auf dem Boden mit Purpur markiert und beruehrt kein anderes Pad. Bis 2026-09-28 stand das
+     * Flypad dicht zwischen Elytra-Pad und Launchpad - wer das Launchpad testen wollte, flog.
+     * Liefert die naechste freie Spalte.
+     */
+    static int flypad(TcCanvas c, int x, int floorZ, int wallZ) {
+        int reach = (int) Math.ceil(PadTiers.flyHalfWidth(1));
+        int pad = x + reach;
+        for (int dx = -reach + 1; dx <= reach - 1; dx++) {
+            for (int dz = -reach + 1; dz <= reach - 1; dz++) {
+                if (dx != 0 || dz != 0) {
+                    c.place(pad + dx, -1, floorZ + dz, FLIGHT_FIELD);
+                }
+            }
+        }
+        c.place(pad, 0, floorZ, TweaksBlocks.FLYPAD);
+        c.wallSign(pad, 1, wallZ, TcText.t("tweaks.flypad", "Flypad"),
+                TcText.t("tweaks.flypad.1", "flight in the field"),
+                TcText.t("tweaks.flypad.2", "%s x %s, %s high", PadTiers.flyWidth(1), PadTiers.flyWidth(1), PadTiers.flyHeight(1)));
+        return pad + reach + 1;
+    }
+
+    /** Bodenmarkierung des Flypad-Flugfelds. */
+    static final BlockState FLIGHT_FIELD = Blocks.PURPUR_BLOCK.defaultBlockState();
 
     /** Druckplatte mit Lampe dahinter; Filterplatten mit einem Fass (ein Diamant) darunter. */
     private static int plateAtLamp(TcCanvas c, int x, int floorZ, int wallZ, Block plate, boolean barrel, Component... lines) {
