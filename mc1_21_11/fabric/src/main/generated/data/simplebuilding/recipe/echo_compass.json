@@ -3,12 +3,13 @@
   "category": "equipment",
   "key": {
     "E": "simplebuilding:enderite_core",
-    "P": "simplebuilding:netherite_pressure_plate",
+    "N": "simplebuilding:enderite_nugget",
     "R": "minecraft:recovery_compass"
   },
   "pattern": [
-    " E ",
-    "PRP"
+    "N N",
+    "NRN",
+    "NEN"
   ],
   "result": {
     "count": 1,

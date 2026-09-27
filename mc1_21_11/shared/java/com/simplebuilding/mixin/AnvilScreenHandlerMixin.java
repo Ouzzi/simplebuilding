@@ -17,7 +17,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.StructureTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.StringUtil;
+import com.simplebuilding.tweaks.item.LaserPointerItem;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.DataSlot;
@@ -40,6 +42,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 import java.util.Map;
@@ -163,6 +166,39 @@ public abstract class AnvilScreenHandlerMixin extends ItemCombinerMenu {
                 this.resultSlots.setItem(0, result);
                 ci.cancel();
             }
+        }
+    }
+
+    // --- 1b. AMETHYSTLINSE MIT REDSTONE AUFLADEN (HEAD) ---
+    // Kostet keine Stufen; jeder Redstone laedt 1/64, verbraucht wird nur, was die Linse braucht.
+    @Inject(method = "createResult", at = @At("HEAD"), cancellable = true)
+    private void simplebuilding$rechargeLens(CallbackInfo ci) {
+        ItemStack leftStack = this.inputSlots.getItem(0);
+        ItemStack rightStack = this.inputSlots.getItem(1);
+        if (!(leftStack.getItem() instanceof LaserPointerItem) || !rightStack.is(Items.REDSTONE)) return;
+
+        int used = LaserPointerItem.redstoneNeeded(leftStack, rightStack.getCount());
+        if (used <= 0) {
+            this.resultSlots.setItem(0, ItemStack.EMPTY);
+            this.cost.set(0);
+            this.repairItemCountCost = 0;
+            ci.cancel();
+            return;
+        }
+        ItemStack result = LaserPointerItem.recharged(leftStack, used);
+        handleRenaming(leftStack, result);
+        this.resultSlots.setItem(0, result);
+        this.cost.set(0);
+        this.repairItemCountCost = used;
+        ci.cancel();
+    }
+
+    /** Vanilla gibt ein Ergebnis mit 0 Stufen nie heraus ({@code cost > 0}); das Aufladen ist gratis. */
+    @Inject(method = "mayPickup", at = @At("HEAD"), cancellable = true)
+    private void simplebuilding$freeLensRecharge(Player player, boolean hasItem, CallbackInfoReturnable<Boolean> cir) {
+        if (this.inputSlots.getItem(0).getItem() instanceof LaserPointerItem && this.inputSlots.getItem(1).is(Items.REDSTONE)
+                && !this.resultSlots.getItem(0).isEmpty()) {
+            cir.setReturnValue(true);
         }
     }
 

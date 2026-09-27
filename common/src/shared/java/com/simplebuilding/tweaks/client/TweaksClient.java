@@ -62,7 +62,8 @@ public final class TweaksClient {
 
     public static boolean isAimingLaser(LocalPlayer player) {
         return SimpleTweaks.effectiveValues().laserEnabled()
-                && player.isUsingItem() && player.getUseItem().getItem() instanceof LaserPointerItem;
+                && player.isUsingItem() && player.getUseItem().getItem() instanceof LaserPointerItem
+                && !LaserPointerItem.isEmpty(player.getUseItem());
     }
 
     /** Wo der eigene Laser auftrifft (Reichweite aus der Config), sonst null. */

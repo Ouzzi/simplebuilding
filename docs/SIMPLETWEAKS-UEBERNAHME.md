@@ -57,8 +57,8 @@ Status: **port** = uebernommen, **neu** = in SimpleBuilding neu hinzugekommen (B
 
 | Feature | Status | Anmerkung |
 |---|---|---|
-| Laserpointer (Punkt fuer Spieler in 128 Bloecken sichtbar, Entfernungsanzeige) | port + Rezept | Renderer auf 26.x-Submit-Pipeline umgebaut; Server prueft Item/Schalter/Rate (Audit 2026-09-26 #17) |
-| Echo-Kompass (Fremd-Datenpaket `echo-compass-v1.1.0.jar`, AGPL, per `libs/` eingebunden) | port (neu geschrieben) | eigenes Item statt Datenpaket, Rezept neu, Unbreaking-Bug behoben |
+| Laserpointer (Punkt fuer Spieler in 128 Bloecken sichtbar, Entfernungsanzeige) | port + Umbau zur "Amethystlinse" | Renderer auf 26.x-Submit-Pipeline umgebaut; Server prueft Item/Schalter/Rate (Audit 2026-09-26 #17); seit 2026-09-27 Strahlwirkungen, Ladung, Amboss-Aufladen (siehe unten) |
+| Echo-Kompass (Fremd-Datenpaket `echo-compass-v1.1.0.jar`, AGPL, per `libs/` eingebunden) | port (neu geschrieben, 2026-09-27 umgebaut) | eigenes Item statt Datenpaket, Rezept neu, Unbreaking-Bug behoben; Aufladen 3 s, Leeren/Aufladen/Zerspringen, eigene Textur |
 | XP-Kugeln verklumpen + sofort aufheben | port | `enableXpClumps` |
 | XP-Kugeln nach Wert skalieren | port | `scaleXpOrbs` (Client) |
 | Raketen-Stapelgroesse | port | `rocketStackSize` |
@@ -74,8 +74,9 @@ Status: **port** = uebernommen, **neu** = in SimpleBuilding neu hinzugekommen (B
 ### todo.md in Simple Tweaks
 
 - BUGS: "unbreaking doesn't work on echo compass" -> **behoben**: der Echo-Kompass ist jetzt ein
-  eigenes Item mit Haltbarkeit 64, das Schaden ueber `hurtAndBreak` nimmt; Unbreaking und Mending
-  wirken damit wie bei jedem Werkzeug (das Datenpaket zog Haltbarkeit per `set_damage` direkt ab).
+  eigenes Item mit Haltbarkeit; Unbreaking und Mending wirken wie bei jedem Werkzeug (das Datenpaket
+  zog Haltbarkeit per `set_damage` direkt ab). Seit 2026-09-27: 1500 Punkte, ein Sprung leert ihn
+  (Unbreaking je Punkt), siehe Abschnitt 3.
 - BUGS: "claim deed - not protecting land, just showing who owns it" -> Claims, siehe Abschnitt 3.
 - TODO-Punkte (Kompost, Wachs-Varianten, Werfer, Chat-Rechner, Questbuch, Challenges, Extra-Inventar,
   "wooden pressureplate can be turned into ?") sind unfertige Ideen ohne Code -> nicht portiert,
@@ -182,25 +183,52 @@ Namen (en): "Elytra Pad I", "Reinforced Elytra Pad II", "Netherite Elytra Pad II
 "Enderite Spawn Teleporter V"; "Launchpad I", "Netherite Launchpad II", "Enderite Launchpad III";
 "Chunk Loader I", "Netherite Chunk Loader II", "Enderite Chunk Loader III".
 
-## 3. Echo-Kompass (Phase 3b)
+## 3. Echo-Kompass (Phase 3b, Umbau 2026-09-27)
 
 - Eigenes Item `simplebuilding:echo_compass` (vorher: Vanilla-Kompass mit `custom_data` aus einem
   Fremd-Datenpaket). Neu geschrieben, kein Code aus dem AGPL-Datenpaket uebernommen.
 - Rechtsklick auf einen Leitstein verknuepft (Vanilla-Komponente `lodestone_tracker`, der Kompass
   zeigt wie ein Leitsteinkompass dorthin). Leitstein weg -> Verknuepfung erlischt wie in Vanilla.
-- Benutzen teleportiert auf den Block ueber dem Leitstein, verbraucht **eine Enderperle** (nicht im
-  Kreativmodus), der Kompass selbst bleibt, nimmt 1 Haltbarkeit (64 gesamt, Unbreaking/Mending
-  wirken), 6 s Abklingzeit. Effekte wie im Datenpaket (Blindheit 1 s, Leuchten 3 s, Sanfter Fall
-  1 s, Langsamkeit 1 s, Uebelkeit 6 s).
+- **Aufladen** (Besitzer 2026-09-27): Benutzen gedrueckt halten, 3 s (60 Ticks, Bogen-Animation). Wer
+  vorher loslaesst, springt nicht und verliert nichts (keine Perle, keine Ladung, keine Abklingzeit).
+  Server-Effekte je Ladetick (`EchoCompassItem#chargeEffects`): Sculk-Seelen kreisen enger,
+  Portalpartikel ziehen hinein, Amethyst-Resonanz steigt von tief nach hoch, Sculk-Klicken und
+  Seelenanker-Aufladen an den Dritteln, Warden-Schallladen zum Schluss. Client: FOV-Sog bis 12 %
+  enger mit leichtem Puls (`tweaks.client.EchoCompassFov`), skaliert mit Vanillas
+  Barrierefreiheitsregler "FOV-Effekte" (0 = aus); Anbindung per `EchoCompassFovMixin`
+  (Fabric + NeoForge, `simplebuilding.tweaks.mixins.json`) bzw. `ComputeFovModifierEvent`
+  (`EchoCompassForgeFov`, Forge laedt die Tweaks-Mixins nicht).
+- Sprung am Ende der Ladung auf den Block ueber dem Leitstein, verbraucht **eine Enderperle** (nicht
+  im Kreativmodus), 6 s Abklingzeit, Schallknall + Seelenanker-Klang + Partikel bei der Ankunft,
+  Rueckwaerts-Portal-Wolke am Abflugort. Effekte wie im Datenpaket (Blindheit 1 s, Leuchten 3 s,
+  Sanfter Fall 1 s, Langsamkeit 1 s, Uebelkeit 6 s).
+- **Haltbarkeit** (Besitzer 2026-09-27): 1500 Punkte. Ein Sprung leert den Kompass ganz (Schaden
+  1500 = "zerbrochen"); Unbreaking wirkt je Punkt ueber `EnchantmentHelper#processDurabilityChange`
+  (Unbreaking III: im Mittel nur ~375). Nicht voll repariert (Schaden > 0): Riss-Textur in drei Stufen
+  nach Schadensanteil (`minecraft:damaged` + `minecraft:damage`), kein Glanz (`isFoil` nur bei
+  Schaden 0, auch verzaubert), Tooltip mit Ladestand. Aufladen: Mending (2 Punkte je XP-Punkt,
+  750 XP im leeren Zustand) oder Amboss mit Echoscherben (`repairable(ECHO_SHARD)`, Vanilla: je
+  Scherbe ein Viertel, vier fuellen ihn). Erst bei Schaden 0 springt er normal.
+- **Bruch provozieren**: Benutzen im nicht voll reparierten Zustand laedt doppelt so lange (6 s) mit
+  Warnzeichen (Knacken dichter werdend, Funken, Rauch, Sculk-Kreischer zur Haelfte, alles lauter);
+  der Sprung gelingt, danach zerspringt der Kompass (Item weg, Vanilla-Bruchereignis + Glasbruch).
+  Unbreaking rettet ihn dabei nicht. Kreativmodus: weder leeren noch zerspringen.
+  Alte Kompasse aus Welten vor dem Umbau (Schaden 1..63 bei Maximum 64) gelten jetzt als nicht voll
+  repariert.
+- Textur: eigene Pixelkunst (`tools/textures/echo_compass_textures.py`, von `generate_textures.py`
+  eingebunden): Kompass-Gehaeuse mit Bergungskompass-Farben, 32 gerasterte Nadelstellungen
+  (`echo_compass_00..31`, Zaehlung wie Vanilla) und `echo_compass_cracked_0..2` (0 = leer).
 - Dimensionen: jede Dimension, die der Server kennt (auch Mod-Dimensionen - war trivial, weil die
   Vanilla-Komponente die Dimension mitfuehrt).
-- Rezept (Werkbank, geformt):
+- Kreativ-Tab: SimpleTools, Zeile "compasses" (Kompass, Bergungskompass, Echo-Kompass) nach den Geraeten.
+- Rezept (Werkbank, geformt, Besitzer 2026-09-27):
 
   ```
-   E
-  PRP
+  N N
+  NRN
+  NEN
   ```
-  E = Enderit-Kern, P = Netherit-Druckplatte, R = Bergungskompass.
+  N = Enderit-Nugget, R = Bergungskompass, E = Enderit-Kern.
 
 ## 4. Claim-System (NICHT portiert - vollstaendige Notiz)
 
@@ -324,8 +352,27 @@ Branch `remove-ported-features` im Repo `simpletweaks` (abgezweigt von `1.21.11`
   nimmt sie, Aufraeumen von Inventar/Cursor jeden Tick. Flugzeit hoechstens 24 h, Boosts hoechstens 100.
 - Config-Abgleich (Audit 2026-09-26 #16): `rocketStackSize`, `maxBoosts`, Laser-Schalter und -Reichweite
   schickt der Server beim Einloggen und nach jedem `/simplebuilding tweaks`-Befehl (`TweaksConfigPayload`).
-- Laserpointer: Rezept ` A `/`IGI`/`IRI` (Amethystsplitter, Glas, Eisenbarren, Redstone), keine
-  Haltbarkeit mehr (nahm nie ab); Entfernungsanzeige misst bis zum Laserpunkt.
+- Laserpointer -> **Amethystlinse** (2026-09-27; Registry-Id bleibt `laser_pointer`, alte Welten laden):
+  - Rezept `RAR`/`ICI`/`III` (Redstone, Amethystsplitter, Eisenbarren, Eisen-Baukern `iron_core`), kein Glas.
+  - Punkt: feste Weltgroesse (Config `scale`, auf 0,05..1 begrenzt), waechst erst ab ~3 Pixel
+    Bildschirmgroesse mit (0,004 Bloecke je Block) - frueher 0,12 je Block, also ein Riesenkreis in der
+    Ferne. Entfernungszahl 13 statt 10 GUI-Pixel neben der Fadenkreuzmitte.
+  - Strahlwirkungen (`LaserBeam`, Server, bis 24 Bloecke, Verweildauer auf derselben Blockseite): Eis/
+    Frosteis -> Wasser (2 s; verdampft, wo Wasser verdampft), Packeis -> Eis, Blaueis -> Packeis
+    (eine Stufe statt Wasser aus Bloecken, die in Vanilla nie schmelzen); Schnee/Schneeblock/Pulverschnee
+    -> weg; Lagerfeuer, Seelenlagerfeuer, Kerzen, Kerzenkuchen an (1 s); Seelensand/-erde oben
+    Seelenfeuer (2 s); Brennbares (Zuendwert der Feuer-Tabelle > 0, per Invoker `FireBlockInvoker`)
+    faengt nach 3 s Feuer auf der angestrahlten Seite, nur wo `fire_spread_radius_around_player`
+    Ausbreitung erlaubt (Seelenfeuer/Lagerfeuer wie Feuerzeug ohne diese Regel); Zusatzwirkung: nasser
+    Schwamm trocknet (5 s). Nie Netherportale (kein Feuer in einen leeren Portalrahmen - `BaseFireBlock#onPlace`
+    wuerde ihn fuellen), nie TNT (kein Fernzuender). Schutz: `mayInteract` (Spawnschutz, Weltgrenze) und
+    `mayUseItemAt` (Abenteuermodus) am Block und am Feuerplatz.
+  - Ladung = Haltbarkeit 640: 1 je Sekunde Strahlen, 5 je Wirkung, kreativ gratis; zerbricht nie, leer
+    kein Strahlen mehr (Modell `item/laser_pointer_empty`, faellt auf das normale Bild zurueck, solange die
+    Textur fehlt - Datagen neu laufen lassen, sobald sie gezeichnet ist). Amboss + Redstone laedt auf,
+    0 Stufen (`AnvilScreenHandlerMixin`, auch `mayPickup`), 10 je Staub, 64 = voll, nur Noetiges wird verbraucht.
+  - Kreativ-Tab: Werkzeuge, Zeile "gadgets" (nicht mehr bei den Chunk-Loadern).
+  - Entfernungsanzeige misst bis zum Laserpunkt (Audit #34).
 - Echo-Kompass: ein blockierter Sprung kostet weder Perle noch Haltbarkeit noch Abklingzeit.
 - Launchpad: beim Abbau fallen die geladenen Windkugeln heraus. Eigener Weltspawn per Befehl gilt sofort.
 - Stufen (2026-09-27): Launchpad und Chunk-Loader haben je drei Stufen, die Aufwertungen kosten
@@ -333,7 +380,8 @@ Branch `remove-ported-features` im Repo `simpletweaks` (abgezweigt von `1.21.11`
 - XP-Verklumpen: beim Zusammenlegen ging Erfahrung verloren (Anzahl der Kugeln wurde ignoriert) -
   behoben, Obergrenze `Short.MAX_VALUE` je Kugel.
 - Kupfer-Druckplatten behalten beim Oxidieren/Abkratzen ihren Besitzer und melden den Block darunter an.
-- Echo-Kompass neu geschrieben (kein AGPL-Code), Unbreaking/Mending wirken, jede Dimension.
+- Echo-Kompass neu geschrieben (kein AGPL-Code), Unbreaking/Mending wirken, jede Dimension; 2026-09-27
+  umgebaut (Aufladen, Leeren/Aufladen/Zerspringen, eigene Textur, Abschnitt 3).
 - Enderit-Texturen (Pads, Teleporter, Druckplatte, Chunk-Loader, Launchpad) seit 2026-09-26 neu gezeichnet
   (vorher Umfaerbungen der Stufe III): Enderit-Rahmen mit Eckbeschlaegen und Glimmer wie die
   Enderit-Maschinen, Motiv je Familie; Karten in `tools/textures/generate_textures.py`
@@ -349,7 +397,8 @@ Branch `remove-ported-features` im Repo `simpletweaks` (abgezweigt von `1.21.11`
 `TweaksTests` (Katalog `SimpleBuildingGameTests`, Fabric-Adapter `TweaksGameTest`, Methode = Test-ID
 `simplebuilding:tweaks_*`), in beiden Codelinien: Besitzer und Abbau, Pad-Bereiche je Stufe,
 Elytra-Pad/Flypad/Teleporter/Launchpad/Chunk-Loader inklusive Enderit-Zusatz, Filter- und
-Kupferplatten, Echo-Kompass (Verknuepfen, Perle, Unbreaking), XP-Verklumpen, Stapelgroessen,
+Kupferplatten, Echo-Kompass (Verknuepfen, Perle, Unbreaking, Aufladen/Loslassen, Leeren, Aufladen per
+Mending, Zerspringen, Rezept), XP-Verklumpen, Stapelgroessen,
 Spawn-Regeln, Befehle, Config-Schalter je Familie. Jeder Test wurde gegengeprueft (Mutation des
 geprueften Verhaltens macht ihn rot).
 

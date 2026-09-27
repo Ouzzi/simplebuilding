@@ -51,9 +51,21 @@ public final class LaserRenderer {
         });
     }
 
-    /** Groesse des Punkts: mindestens die Config-Groesse, mit der Entfernung wachsend. */
+    /**
+     * Wie stark der Punkt mit der Entfernung mindestens mitwaechst: 0,004 Bloecke je Block sind bei
+     * 70 Grad Sichtfeld und 1080 Bildzeilen gut drei Pixel - gerade so sichtbar, statt zu verschwinden.
+     */
+    public static final float MIN_ANGULAR_SIZE = 0.004f;
+
+    /**
+     * Groesse des Punkts in Bloecken: die Config-Groesse (auf 0,05..1 begrenzt) als feste Weltgroesse,
+     * damit er auf einer fernen Wand klein bleibt; erst wenn er dort unter ~3 Pixel fiele, waechst er
+     * mit. Frueher wuchs er mit 0,12 je Block, also gleich gross auf dem Bildschirm - auf 50 Bloecke
+     * ein Kreis von sechs Bloecken.
+     */
     public static float scaleFor(double distance) {
-        return Math.max(SimpleTweaks.config().laserPointer.scale, (float) (distance * 0.12f));
+        float base = Math.max(0.05f, Math.min(1.0f, SimpleTweaks.config().laserPointer.scale));
+        return Math.max(base, (float) (distance * MIN_ANGULAR_SIZE));
     }
 
     private static void dot(SubmitNodeCollector collector, PoseStack poseStack, Vec3 camera, Vec3 pos, Direction side, int color) {
@@ -97,6 +109,9 @@ public final class LaserRenderer {
      * bis zum Laserpunkt ({@link TweaksClient#laserHit}, volle Laser-Reichweite) - frueher bis
      * {@code client.hitResult}, das an der Blockreichweite (~4,5 Bloecke) endet (Audit #34).
      */
+    /** Abstand der Entfernungszahl zur Fadenkreuzmitte (GUI-Pixel; frueher 10). */
+    public static final int HUD_GAP = 13;
+
     public static void renderHud(GuiGraphicsExtractor graphics) {
         Minecraft client = Minecraft.getInstance();
         LocalPlayer me = client.player;
@@ -110,6 +125,6 @@ public final class LaserRenderer {
         }
         double distance = hit.distanceTo(me.getEyePosition(partialTick));
         String text = String.format("%.1fm", distance);
-        graphics.text(client.font, text, graphics.guiWidth() / 2 + 10, graphics.guiHeight() / 2 - 4, 0xFFFF5555, true);
+        graphics.text(client.font, text, graphics.guiWidth() / 2 + HUD_GAP, graphics.guiHeight() / 2 - 4, 0xFFFF5555, true);
     }
 }

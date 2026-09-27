@@ -5,6 +5,7 @@
   "mixins": [
     "ExperienceOrbAccessor",
     "ExperienceOrbMixin",
+    "FireBlockInvoker",
     "LaunchpadWindChargeMixin",
     "SpawnElytraDamageMixin",
     "SpawnElytraItemEntityMixin",
@@ -13,6 +14,7 @@
     "TweaksTeleportCommandMixin"
   ],
   "client": [
+    "client.EchoCompassFovMixin",
     "client.ExperienceBarMixin",
     "client.ExperienceOrbRendererMixin",
     "client.ExperienceOrbRenderStateMixin",

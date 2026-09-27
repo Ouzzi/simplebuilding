@@ -4,13 +4,14 @@
   "key": {
     "A": "minecraft:amethyst_shard",
     "C": "minecraft:compass",
+    "K": "simplebuilding:copper_core",
     "O": "minecraft:copper_ingot",
     "Q": "minecraft:quartz"
   },
   "pattern": [
-    " A ",
+    "QAQ",
     "OCO",
-    "QQQ"
+    " K "
   ],
   "result": {
     "count": 1,

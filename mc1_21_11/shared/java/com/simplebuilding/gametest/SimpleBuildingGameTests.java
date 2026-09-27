@@ -1068,7 +1068,9 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_stellar_flypad_is_smithed_from_two_reinforced_flypads", TweaksTests::theStellarFlypadIsSmithedFromTwoReinforcedFlypads)
                     .build(),
-            GameTestSpec.named("tweaks_game_test_the_echo_compass_is_crafted_from_the_recovery_compass_the_enderite_core_and_netherite_plates", TweaksTests::theEchoCompassIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndNetheritePlates)
+            GameTestSpec.named("tweaks_game_test_the_echo_compass_is_crafted_from_the_recovery_compass_the_enderite_core_and_six_enderite_nuggets", TweaksTests::theEchoCompassIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndSixEnderiteNuggets)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_velocity_gauge_is_crafted_with_quartz_corners_and_the_copper_core", TweaksTests::theVelocityGaugeIsCraftedWithQuartzCornersAndTheCopperCore)
                     .build(),
             GameTestSpec.named("tweaks_game_test_elytra_pads_equip_an_unsafe_spawn_elytra_in_their_area", TweaksTests::elytraPadsEquipAnUnsafeSpawnElytraInTheirArea)
                     .build(),
@@ -1131,7 +1133,15 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_echo_compass_links_to_the_lodestone_and_teleports_for_one_pearl", TweaksTests::theEchoCompassLinksToTheLodestoneAndTeleportsForOnePearl)
                     .build(),
-            GameTestSpec.named("tweaks_game_test_unbreaking_protects_the_echo_compass", TweaksTests::unbreakingProtectsTheEchoCompass)
+            GameTestSpec.named("tweaks_game_test_unbreaking_lowers_how_much_the_jump_empties_the_echo_compass", TweaksTests::unbreakingLowersHowMuchTheJumpEmptiesTheEchoCompass)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_echo_compass_charges_for_three_seconds_and_releasing_early_costs_nothing", TweaksTests::theEchoCompassChargesForThreeSecondsAndReleasingEarlyCostsNothing)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_a_full_charge_jumps_and_leaves_the_echo_compass_empty", TweaksTests::aFullChargeJumpsAndLeavesTheEchoCompassEmpty)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_echo_compass_is_only_charged_again_after_fifteen_hundred_repair_points", TweaksTests::theEchoCompassIsOnlyChargedAgainAfterFifteenHundredRepairPoints)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_a_cracked_echo_compass_charges_twice_as_long_and_shatters_after_the_jump", TweaksTests::aCrackedEchoCompassChargesTwiceAsLongAndShattersAfterTheJump)
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_first_join_gift_comes_once_and_honours_simple_tweaks_players", TweaksTests::theFirstJoinGiftComesOnceAndHonoursSimpleTweaksPlayers)
                     .build(),
@@ -1161,7 +1171,23 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tweaks_game_test_a_blocked_echo_compass_jump_costs_nothing", TweaksTests::aBlockedEchoCompassJumpCostsNothing)
                     .build(),
-            GameTestSpec.named("tweaks_game_test_the_laser_pointer_is_crafted_from_amethyst_glass_iron_and_redstone", TweaksTests::theLaserPointerIsCraftedFromAmethystGlassIronAndRedstone)
+            GameTestSpec.named("tweaks_game_test_the_amethyst_lens_is_crafted_around_an_iron_core", TweaksTests::theAmethystLensIsCraftedAroundAnIronCore)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_lens_beam_melts_ice_and_snow", TweaksTests::theLensBeamMeltsIceAndSnow)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_lens_beam_ignites_flammable_blocks_only_after_dwelling", TweaksTests::theLensBeamIgnitesFlammableBlocksOnlyAfterDwelling)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_lens_beam_lights_soul_fire_campfires_and_candles", TweaksTests::theLensBeamLightsSoulFireCampfiresAndCandles)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_lens_beam_never_lights_nether_portals_or_tnt", TweaksTests::theLensBeamNeverLightsNetherPortalsOrTnt)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_lens_beam_dries_wet_sponges", TweaksTests::theLensBeamDriesWetSponges)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_lens_beam_respects_adventure_mode_and_the_fire_spread_rule", TweaksTests::theLensBeamRespectsAdventureModeAndTheFireSpreadRule)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_lens_charge_runs_down_but_the_lens_never_breaks", TweaksTests::theLensChargeRunsDownButTheLensNeverBreaks)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_anvil_recharge_with_redstone_costs_no_levels", TweaksTests::anvilRechargeWithRedstoneCostsNoLevels)
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_world_spawn_command_takes_effect_immediately", TweaksTests::theWorldSpawnCommandTakesEffectImmediately)
                     .build(),

@@ -103,13 +103,18 @@ Verlauf im Detail: git log.
 - [ ] Danach: Server-Gate, Push; Client-Gate wenn Besitzer-Spiel zu
 
 ## Welle 20 (laeuft)
-- [ ] Texturen: Maschinen (Kolben, Oefen, Raeucherofen, Schmelzofen, Trichter) vanilla-naeher; Enderit-Block + andere Mod-Bloecke neu; Netherit-Griff fuer Netherit-Hammer/-Meissel/-Baustab; Enderquarz lesbarer; Laser-Textur
-- [ ] Echo-Kompass: 3 s Aktivierung, Sounds/Partikel/FOV, 1. Nutzung -> kaputt, 2. Nutzung doppelt lang + Warnung -> zerbricht, eigene + kaputte Textur, Werkzeug-Tab, Rezept (unten Kern, Mitte Bergungskompass, Rest offen); Velocity-Gauge-Rezept (Quarz oben in den Ecken, unten Kupfer-Kern)
-- [ ] Laser: in den Werkzeug-Tab; Vanilla-Name, Punktgroesse, Abstand der Meterzahl, Rezept (Eisen-Kern/Amethyst/Eisen-U/Redstone), Eis/Schnee schmelzen, Brennbares entzuenden, Seelenfeuer, Lagerfeuer, kein Netherportal, Ladung statt Bruch, Amboss-Aufladen mit Redstone ohne Level (64 = voll)
+- [x] Texturen (freigegeben, gepusht): Maschinen (Kolben, Oefen, Raeucherofen, Schmelzofen, Trichter) vanilla-naeher; Enderit-Block + andere Mod-Bloecke neu; Netherit-Griff fuer Netherit-Hammer/-Meissel/-Baustab; Enderquarz lesbarer; Laser-Textur
+- [x] Echo-Kompass (gepusht, Gate 3649/3649): 3 s Aktivierung, Sounds/Partikel/FOV, 1. Nutzung -> kaputt, 2. Nutzung doppelt lang + Warnung -> zerbricht, eigene + kaputte Textur, Werkzeug-Tab, Rezept (N N/NRN/NEN, 6 Enderit-Nuggets), Mending: 1500 Punkte Aufladung, Glanz nur repariert; Velocity-Gauge-Rezept (Quarz oben in den Ecken, unten Kupfer-Kern)
+- [ ] Tweaks-Stufen: Launchpad (4/8/16 Ladungen, doppelte Staerke je Ladung, Shift = alle Windladungen rein), Chunk-Loader (1 / 5 / 3x3), Upgrades kosten Druckplatten, Flypad Stufe 1 mit Elytra (+ ? offen); Rotator-Rezept + Perle in der Textur
+- [ ] Elytra-Pad 5 Stufen (Elytra+Vorlage 1x1, Diamant 5x5, Netherit+Vorlage 16x16, Enderit 32x32, 128x128); Flypad neu: 3 Stufen aus Enderit-Druckplatte (Kern+Vorlage, +Enderit-Platte, 2x Stufe 2), 4x4x6 / 8x8x12 / 16x16x24; Magnet-Rezept " R "/"I  "/"CIL" (laeuft im Stufen-Agenten)
+- [ ] Kupfer-Druckplatten: gewachste Varianten (Honigwabe, Axt schabt Wachs ab, wie Vanilla-Kupfer); Namen bleiben (Vanilla-Muster reicht); Kupferplatte: Abschalten dauert so lang wie Einschalten, Platte senkt sich sichtbar wie Vanilla (pressed-Modell); Creative-Tab aufraeumen + Vanilla-Druckplatten dazu - nach dem Stufen-Agenten
+- [ ] Alte Flypad-Texturen fuer neue Netherit-Druckplatte - Besitzer erklaert noch
+- [ ] Easter Egg nach den Stufen: letzte Stufe -> Stufe 1 im Schmiedetisch = "Don't do it" (Erfolg "What have you done?"), naechste "Seriously?", Stufen 3/4 ausdenken, 5 = Pad-Name verschleiert + Texteffekte, 2x staerker; + Netherit -> "Funny Stick" (Partikel); Erfolge fuer 2x-Stufe-5 und Funny Stick
+- [x] Laser (Amethystlinse, gepusht, Gate 3614/3614): in den Werkzeug-Tab; Vanilla-Name, Punktgroesse, Abstand der Meterzahl, Rezept (Eisen-Kern/Amethyst/Eisen-U/Redstone), Eis/Schnee schmelzen, Brennbares entzuenden, Seelenfeuer, Lagerfeuer, kein Netherportal, Ladung statt Bruch, Amboss-Aufladen mit Redstone ohne Level (64 = voll)
 - [x] JEI-Infoseiten fuer Items ohne Rezept (+ Test)
-- [ ] Blaupausen-Code: Formen und Variablen (laeuft)
+- [x] Blaupausen-Code: Formen und Variablen
 - [x] 26.4 geprueft 2026-09-27: kein Forge/NeoForge/Cloth/Dev-Mod-Build fuer 26.4-snapshot-1; Fabric Loader/API/ModMenu aktuell; kein neuer Snapshot
-- [ ] Enderit-Kolben-Verschleiss nach Brecher-Muster - nach der Textur-Runde (Kolbentexturen werden gerade neu gezeichnet)
+- [ ] Enderit-Kolben-Verschleiss nach Brecher-Muster (laeuft)
 
 ## Wartet auf den Besitzer
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs

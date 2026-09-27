@@ -20,6 +20,11 @@ import com.simplebuilding.tweaks.block.entity.SpawnTeleporterBlockEntity;
 import com.simplebuilding.tweaks.command.TweaksCommands;
 import com.simplebuilding.tweaks.component.TweaksComponents;
 import com.simplebuilding.tweaks.item.EchoCompassItem;
+import com.simplebuilding.tweaks.item.LaserBeam;
+import com.simplebuilding.tweaks.item.LaserPointerItem;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.gamerules.GameRules;
 import com.simplebuilding.tweaks.item.TweaksItems;
 import com.simplebuilding.tweaks.network.ElytraBoostPayload;
 import com.simplebuilding.tweaks.network.TweaksNetwork;
@@ -175,18 +180,36 @@ public final class TweaksTests {
     }
 
     /**
-     * Echo-Kompass (Besitzer-Rezept): Bergungskompass in der Mitte, Enderit-Kern darueber,
-     * Netherit-Druckplatten links und rechts.
+     * Echo-Kompass (Besitzer-Rezept 2026-09-27): Bergungskompass in der Mitte, Enderit-Kern unten
+     * mittig, sechs Enderit-Nuggets aussen herum, oben mittig frei ("N N" / "NRN" / "NEN").
      */
-    public static void theEchoCompassIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndNetheritePlates(GameTestHelper helper) {
-        Item p = TweaksBlocks.NETHERITE_PRESSURE_PLATE.asItem();
-        CraftingInput grid = grid(null, ModItems.ENDERITE_CORE, null, p, Items.RECOVERY_COMPASS, p, null, null, null);
+    public static void theEchoCompassIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndSixEnderiteNuggets(GameTestHelper helper) {
+        Item n = ModItems.ENDERITE_NUGGET;
+        CraftingInput grid = grid(n, null, n, n, Items.RECOVERY_COMPASS, n, n, ModItems.ENDERITE_CORE, n);
         expectCrafting(helper, grid, TweaksItems.ECHO_COMPASS, "simplebuilding:echo_compass");
-        CraftingInput swapped = grid(null, Items.RECOVERY_COMPASS, null, p, ModItems.ENDERITE_CORE, p, null, null, null);
+        CraftingInput swapped = grid(n, null, n, n, ModItems.ENDERITE_CORE, n, n, Items.RECOVERY_COMPASS, n);
         helper.assertTrue(craftingResult(helper, swapped).isEmpty(), "core and compass swapped still craft an echo compass");
-        CraftingInput diamondPlates = grid(null, ModItems.ENDERITE_CORE, null, TweaksBlocks.DIAMOND_PRESSURE_PLATE.asItem(),
-                Items.RECOVERY_COMPASS, TweaksBlocks.DIAMOND_PRESSURE_PLATE.asItem(), null, null, null);
-        helper.assertTrue(craftingResult(helper, diamondPlates).isEmpty(), "diamond plates are accepted instead of netherite plates");
+        CraftingInput topFilled = grid(n, n, n, n, Items.RECOVERY_COMPASS, n, n, ModItems.ENDERITE_CORE, n);
+        helper.assertTrue(craftingResult(helper, topFilled).isEmpty(), "a seventh nugget in the empty top middle still crafts an echo compass");
+        Item p = TweaksBlocks.NETHERITE_PRESSURE_PLATE.asItem();
+        CraftingInput oldRecipe = grid(null, ModItems.ENDERITE_CORE, null, p, Items.RECOVERY_COMPASS, p, null, null, null);
+        helper.assertTrue(craftingResult(helper, oldRecipe).isEmpty(), "the old netherite plate recipe still crafts an echo compass");
+        helper.succeed();
+    }
+
+    /**
+     * Geschwindigkeitsmesser (Besitzer 2026-09-27): Quarz in den oberen Ecken um den Amethystsplitter,
+     * Kupfer - Kompass - Kupfer, unten mittig ein Kupfer-Baukern statt der Quarzreihe.
+     */
+    public static void theVelocityGaugeIsCraftedWithQuartzCornersAndTheCopperCore(GameTestHelper helper) {
+        Item q = Items.QUARTZ;
+        Item o = Items.COPPER_INGOT;
+        CraftingInput grid = grid(q, Items.AMETHYST_SHARD, q, o, Items.COMPASS, o, null, ModItems.COPPER_CORE, null);
+        expectCrafting(helper, grid, ModItems.VELOCITY_GAUGE, "simplebuilding:velocity-gauge");
+        CraftingInput oldRecipe = grid(null, Items.AMETHYST_SHARD, null, o, Items.COMPASS, o, q, q, q);
+        helper.assertTrue(craftingResult(helper, oldRecipe).isEmpty(), "the old quartz row recipe still crafts a velocity gauge");
+        CraftingInput ironCore = grid(q, Items.AMETHYST_SHARD, q, o, Items.COMPASS, o, null, ModItems.IRON_CORE, null);
+        helper.assertTrue(craftingResult(helper, ironCore).isEmpty(), "an iron core is accepted instead of the copper core");
         helper.succeed();
     }
 
@@ -650,8 +673,8 @@ public final class TweaksTests {
     // =====================================================================================
 
     /**
-     * Echo-Kompass: Rechtsklick auf einen Leitstein verknuepft; Benutzen teleportiert ueber den
-     * Leitstein, verbraucht eine Enderperle, der Kompass bleibt und nimmt 1 Haltbarkeit.
+     * Echo-Kompass: Rechtsklick auf einen Leitstein verknuepft; der Sprung teleportiert ueber den
+     * Leitstein, verbraucht eine Enderperle, der Kompass bleibt, ist danach aber leer (voller Schaden).
      */
     public static void theEchoCompassLinksToTheLodestoneAndTeleportsForOnePearl(GameTestHelper helper) {
         BlockPos lodestone = new BlockPos(6, 1, 6);
@@ -671,38 +694,152 @@ public final class TweaksTests {
         helper.assertTrue(player.position().distanceTo(Vec3.atBottomCenterOf(abs.above())) < 0.1, "the player landed at " + player.position() + " instead of on the lodestone");
         helper.assertValueEqual(player.getInventory().getItem(8).getCount(), 1, "ender pearls left after one jump");
         helper.assertTrue(player.getItemInHand(InteractionHand.MAIN_HAND) == compass, "the echo compass was used up");
-        helper.assertValueEqual(compass.getDamageValue(), 1, "echo compass damage after one jump");
+        helper.assertValueEqual(compass.getDamageValue(), EchoCompassItem.MAX_DAMAGE, "echo compass damage after one jump");
         helper.assertFalse(EchoCompassItem.teleport(player, InteractionHand.MAIN_HAND, compass), "the echo compass ignored its cooldown");
         helper.assertValueEqual(player.getInventory().getItem(8).getCount(), 1, "pearls spent by a jump refused for cooldown");
         helper.succeed();
     }
 
     /**
-     * Unbreaking wirkt auf den Echo-Kompass (Simple-Tweaks-Bug: das Datenpaket zog die Haltbarkeit
-     * direkt ab). Mit Unbreaking 255 bleibt der Schaden praktisch aus; der Kompass liegt im Tag
-     * enchantable/durability, also kann man ihn auch verzaubern.
+     * Unbreaking wirkt auf den Echo-Kompass wie auf jedes Werkzeug (Simple-Tweaks-Bug: das Datenpaket
+     * zog die Haltbarkeit direkt ab): ein Sprung leert ihn mit Unbreaking III nur zu etwa einem Viertel
+     * (im Mittel 375 von 1500, Streuung ~17), leer ist er trotzdem - er muss wieder aufgeladen werden.
+     * Der Kompass liegt im Tag enchantable/durability, also kann man ihn auch verzaubern.
      */
-    public static void unbreakingProtectsTheEchoCompass(GameTestHelper helper) {
+    public static void unbreakingLowersHowMuchTheJumpEmptiesTheEchoCompass(GameTestHelper helper) {
         BlockPos lodestone = new BlockPos(6, 1, 6);
         helper.setBlock(lodestone, Blocks.LODESTONE);
         ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
         player.getAbilities().instabuild = false;
-        ItemStack compass = new ItemStack(TweaksItems.ECHO_COMPASS);
-        compass.set(DataComponents.LODESTONE_TRACKER, new LodestoneTracker(Optional.of(GlobalPos.of(helper.getLevel().dimension(), helper.absolutePos(lodestone))), true));
-        compass.enchant(helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.UNBREAKING), 255);
+        ItemStack compass = linkedEchoCompass(helper, lodestone);
+        compass.enchant(helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.UNBREAKING), 3);
         player.setItemInHand(InteractionHand.MAIN_HAND, compass);
-        player.getInventory().setItem(8, new ItemStack(Items.ENDER_PEARL, 16));
-        int jumps = 0;
-        for (int i = 0; i < 8; i++) {
-            player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(compass));
-            if (EchoCompassItem.teleport(player, InteractionHand.MAIN_HAND, compass)) {
-                jumps++;
-            }
-        }
-        helper.assertValueEqual(jumps, 8, "jumps made");
-        helper.assertTrue(compass.getDamageValue() <= 1, "unbreaking 255 still let the echo compass take " + compass.getDamageValue() + " damage in 8 jumps");
+        player.getInventory().setItem(8, new ItemStack(Items.ENDER_PEARL, 4));
+        helper.assertTrue(EchoCompassItem.teleport(player, InteractionHand.MAIN_HAND, compass), "the echo compass refused to jump");
+        int damage = compass.getDamageValue();
+        helper.assertTrue(damage > 150 && damage < 600,
+                "unbreaking III emptied the echo compass by " + damage + " of " + EchoCompassItem.MAX_DAMAGE + " instead of about a quarter");
+        helper.assertTrue(EchoCompassItem.isCracked(compass), "the echo compass is still charged after a jump with unbreaking");
         helper.assertTrue(new ItemStack(TweaksItems.ECHO_COMPASS).typeHolder().is(net.minecraft.tags.ItemTags.DURABILITY_ENCHANTABLE),
-                "the echo compass is missing from enchantable/durability, so unbreaking cannot be put on it");
+                "the echo compass is missing from enchantable/durability, so unbreaking and mending cannot be put on it");
+        helper.succeed();
+    }
+
+    /**
+     * Aufladen (Besitzer 2026-09-27): Benutzen startet eine Ladung von 3 s (60 Ticks); wer vorher
+     * loslaesst, springt nicht und verliert nichts - keine Perle, kein Schaden, keine Abklingzeit.
+     */
+    public static void theEchoCompassChargesForThreeSecondsAndReleasingEarlyCostsNothing(GameTestHelper helper) {
+        BlockPos lodestone = new BlockPos(6, 1, 6);
+        helper.setBlock(lodestone, Blocks.LODESTONE);
+        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
+        player.getAbilities().instabuild = false;
+        ItemStack compass = linkedEchoCompass(helper, lodestone);
+        player.setItemInHand(InteractionHand.MAIN_HAND, compass);
+        player.getInventory().setItem(8, new ItemStack(Items.ENDER_PEARL, 2));
+        Vec3 start = player.position();
+        helper.assertValueEqual(compass.getUseDuration(player), EchoCompassItem.CHARGE_TICKS, "charge ticks of a charged echo compass");
+        helper.assertValueEqual(EchoCompassItem.CHARGE_TICKS, 60, "charge ticks (3 seconds)");
+        helper.assertTrue(compass.use(helper.getLevel(), player, InteractionHand.MAIN_HAND).consumesAction(), "using the echo compass did not start a charge");
+        helper.assertTrue(player.isUsingItem(), "the echo compass does not charge");
+        tickUse(player, EchoCompassItem.CHARGE_TICKS - 1);
+        helper.assertTrue(player.isUsingItem(), "the charge ended before 3 seconds");
+        helper.assertTrue(player.position().distanceTo(start) < 0.01, "the player jumped before the charge was full");
+        player.releaseUsingItem();
+        helper.assertFalse(player.isUsingItem(), "releasing did not stop the charge");
+        tickUse(player, 5);
+        helper.assertTrue(player.position().distanceTo(start) < 0.01, "an early release still jumped");
+        helper.assertValueEqual(player.getInventory().getItem(8).getCount(), 2, "ender pearls left after an early release");
+        helper.assertValueEqual(compass.getDamageValue(), 0, "echo compass damage after an early release");
+        helper.assertFalse(player.getCooldowns().isOnCooldown(compass), "an early release put the echo compass on cooldown");
+        helper.succeed();
+    }
+
+    /**
+     * Die volle Ladung springt: danach ist der Kompass leer (Schaden 1500), zeigt keinen Glanz mehr -
+     * auch nicht mit Mending -, und die naechste Ladung dauert doppelt so lange.
+     */
+    public static void aFullChargeJumpsAndLeavesTheEchoCompassEmpty(GameTestHelper helper) {
+        BlockPos lodestone = new BlockPos(6, 1, 6);
+        helper.setBlock(lodestone, Blocks.LODESTONE);
+        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
+        player.getAbilities().instabuild = false;
+        ItemStack compass = linkedEchoCompass(helper, lodestone);
+        compass.enchant(helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.MENDING), 1);
+        player.setItemInHand(InteractionHand.MAIN_HAND, compass);
+        player.getInventory().setItem(8, new ItemStack(Items.ENDER_PEARL, 2));
+        helper.assertTrue(compass.hasFoil(), "a charged echo compass has no glint");
+        helper.assertTrue(compass.use(helper.getLevel(), player, InteractionHand.MAIN_HAND).consumesAction(), "using the echo compass did not start a charge");
+        tickUse(player, EchoCompassItem.CHARGE_TICKS);
+        BlockPos abs = helper.absolutePos(lodestone);
+        helper.assertTrue(player.position().distanceTo(Vec3.atBottomCenterOf(abs.above())) < 0.1, "a full charge left the player at " + player.position());
+        helper.assertFalse(player.isUsingItem(), "the charge did not end with the jump");
+        helper.assertTrue(player.getItemInHand(InteractionHand.MAIN_HAND) == compass && !compass.isEmpty(), "the first jump destroyed the echo compass");
+        helper.assertValueEqual(compass.getDamageValue(), EchoCompassItem.MAX_DAMAGE, "echo compass damage after the first jump");
+        helper.assertValueEqual(compass.getMaxDamage(), 1500, "repair points of an empty echo compass");
+        helper.assertTrue(EchoCompassItem.isCracked(compass), "the empty echo compass is not cracked");
+        helper.assertFalse(compass.hasFoil(), "the empty echo compass still has a glint");
+        helper.assertValueEqual(compass.getUseDuration(player), EchoCompassItem.CRACKED_CHARGE_TICKS, "charge ticks of an empty echo compass");
+        helper.assertValueEqual(player.getInventory().getItem(8).getCount(), 1, "ender pearls left after the jump");
+        helper.succeed();
+    }
+
+    /**
+     * Wieder aufladen: erst nach allen 1500 Reparaturpunkten (Mending: 2 je XP-Punkt, also 750 XP) ist
+     * der Kompass wieder normal benutzbar und glaenzt; 1498 Punkte reichen nicht. Am Amboss repariert
+     * eine Echoscherbe.
+     */
+    public static void theEchoCompassIsOnlyChargedAgainAfterFifteenHundredRepairPoints(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
+        player.getAbilities().instabuild = false;
+        ItemStack compass = new ItemStack(TweaksItems.ECHO_COMPASS);
+        compass.enchant(helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.MENDING), 1);
+        compass.setDamageValue(EchoCompassItem.MAX_DAMAGE);
+        player.setItemInHand(InteractionHand.MAIN_HAND, compass);
+        Vec3 at = player.position();
+        player.takeXpDelay = 0;
+        new ExperienceOrb(helper.getLevel(), at.x, at.y, at.z, 749).playerTouch(player);
+        helper.assertValueEqual(compass.getDamageValue(), 2, "damage left after 749 XP of mending");
+        helper.assertTrue(EchoCompassItem.isCracked(compass), "the echo compass counts as repaired with 2 points missing");
+        helper.assertFalse(compass.hasFoil(), "the not fully repaired echo compass has a glint");
+        helper.assertValueEqual(compass.getUseDuration(player), EchoCompassItem.CRACKED_CHARGE_TICKS, "charge ticks with 2 points missing");
+        player.takeXpDelay = 0;
+        new ExperienceOrb(helper.getLevel(), at.x, at.y, at.z, 1).playerTouch(player);
+        helper.assertValueEqual(compass.getDamageValue(), 0, "damage after 750 XP of mending");
+        helper.assertFalse(EchoCompassItem.isCracked(compass), "the fully repaired echo compass is still cracked");
+        helper.assertTrue(compass.hasFoil(), "the fully repaired echo compass has no glint");
+        helper.assertValueEqual(compass.getUseDuration(player), EchoCompassItem.CHARGE_TICKS, "charge ticks after the full repair");
+        helper.assertTrue(compass.isValidRepairItem(new ItemStack(Items.ECHO_SHARD)), "echo shards do not repair the echo compass at the anvil");
+        helper.succeed();
+    }
+
+    /**
+     * Den nicht voll reparierten Kompass zu benutzen provoziert den Bruch: die Ladung dauert doppelt so
+     * lange (6 s - nach 3 s passiert noch nichts), der Sprung gelingt, danach ist der Kompass zerstoert.
+     */
+    public static void aCrackedEchoCompassChargesTwiceAsLongAndShattersAfterTheJump(GameTestHelper helper) {
+        BlockPos lodestone = new BlockPos(6, 1, 6);
+        helper.setBlock(lodestone, Blocks.LODESTONE);
+        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
+        player.getAbilities().instabuild = false;
+        ItemStack compass = linkedEchoCompass(helper, lodestone);
+        compass.setDamageValue(1);
+        player.setItemInHand(InteractionHand.MAIN_HAND, compass);
+        player.getInventory().setItem(8, new ItemStack(Items.ENDER_PEARL, 2));
+        Vec3 start = player.position();
+        helper.assertValueEqual(EchoCompassItem.CRACKED_CHARGE_TICKS, 2 * EchoCompassItem.CHARGE_TICKS, "cracked charge ticks");
+        helper.assertTrue(compass.use(helper.getLevel(), player, InteractionHand.MAIN_HAND).consumesAction(), "the cracked echo compass does not charge");
+        tickUse(player, EchoCompassItem.CHARGE_TICKS);
+        helper.assertTrue(player.isUsingItem(), "the cracked echo compass stopped charging after 3 seconds");
+        helper.assertTrue(player.position().distanceTo(start) < 0.01, "the cracked echo compass jumped after 3 seconds");
+        tickUse(player, EchoCompassItem.CHARGE_TICKS - 1);
+        helper.assertTrue(player.position().distanceTo(start) < 0.01, "the cracked echo compass jumped a tick early");
+        tickUse(player, 1);
+        BlockPos abs = helper.absolutePos(lodestone);
+        helper.assertTrue(player.position().distanceTo(Vec3.atBottomCenterOf(abs.above())) < 0.1, "the cracked echo compass left the player at " + player.position());
+        helper.assertTrue(compass.isEmpty(), "the cracked echo compass survived its jump");
+        helper.assertTrue(player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty(), "something is left in the hand after the echo compass shattered");
+        helper.assertValueEqual(player.getInventory().getItem(8).getCount(), 1, "ender pearls left after the shattering jump");
         helper.succeed();
     }
 
@@ -1224,15 +1361,275 @@ public final class TweaksTests {
     }
 
     /**
-     * #34: Der Laserpointer hat ein Rezept (Amethystsplitter, Glas, Eisen, Redstone) und keine
-     * Haltbarkeit mehr, die ohnehin nie abnahm.
+     * Amethystlinse (Id weiter laser_pointer): Redstone/Amethyst/Redstone, Eisen/Eisen-Baukern/Eisen,
+     * drei Eisen - kein Glas mehr. Die Haltbarkeit ist die Ladung.
      */
-    public static void theLaserPointerIsCraftedFromAmethystGlassIronAndRedstone(GameTestHelper helper) {
+    public static void theAmethystLensIsCraftedAroundAnIronCore(GameTestHelper helper) {
         Item i = Items.IRON_INGOT;
-        CraftingInput grid = grid(null, Items.AMETHYST_SHARD, null, i, Items.GLASS, i, i, Items.REDSTONE, i);
+        Item r = Items.REDSTONE;
+        CraftingInput grid = grid(r, Items.AMETHYST_SHARD, r, i, ModItems.IRON_CORE, i, i, i, i);
         expectCrafting(helper, grid, TweaksItems.LASER_POINTER, "simplebuilding:laser_pointer");
-        helper.assertFalse(new ItemStack(TweaksItems.LASER_POINTER).isDamageableItem(), "the laser pointer still carries a durability that never wears");
+        Optional<ItemStack> oldPattern = craftingResult(helper, grid(null, Items.AMETHYST_SHARD, null, i, Items.GLASS, i, i, r, i));
+        helper.assertTrue(oldPattern.isEmpty() || !oldPattern.get().is(TweaksItems.LASER_POINTER), "the old glass pattern still makes the lens");
+        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        helper.assertTrue(lens.isDamageableItem() && lens.getMaxDamage() == LaserPointerItem.MAX_CHARGE,
+                "the lens has no charge of " + LaserPointerItem.MAX_CHARGE + " (max damage " + lens.getMaxDamage() + ")");
+        helper.assertTrue(LaserPointerItem.CHARGE_PER_REDSTONE * 64 == LaserPointerItem.MAX_CHARGE, "64 redstone are not exactly one full charge");
         helper.succeed();
+    }
+
+    /** Eis wird Wasser, Packeis Eis, Blaueis Packeis; Schneeschicht und Schneeblock schmelzen weg - erst nach der Verweildauer. */
+    public static void theLensBeamMeltsIceAndSnow(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 2.0, 5.5));
+        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        BlockPos target = new BlockPos(2, 2, 2);
+        helper.setBlock(target.below(), Blocks.STONE);
+        Block[][] steps = {
+                {Blocks.ICE, Blocks.WATER}, {Blocks.PACKED_ICE, Blocks.ICE}, {Blocks.BLUE_ICE, Blocks.PACKED_ICE},
+                {Blocks.SNOW_BLOCK, Blocks.AIR}};
+        for (Block[] step : steps) {
+            helper.setBlock(target, step[0]);
+            beam(helper, player, lens, target, Direction.UP, LaserBeam.MELT_TICKS - 1);
+            helper.assertTrue(helper.getBlockState(target).is(step[0]), step[0] + " melted before the dwell time");
+            beam(helper, player, lens, target, Direction.UP, 1);
+            helper.assertTrue(helper.getBlockState(target).is(step[1]), step[0] + " became " + helper.getBlockState(target) + " instead of " + step[1]);
+            helper.setBlock(target, Blocks.AIR);
+        }
+        helper.setBlock(target, Blocks.SNOW.defaultBlockState().setValue(net.minecraft.world.level.block.SnowLayerBlock.LAYERS, 3));
+        beam(helper, player, lens, target, Direction.UP, LaserBeam.MELT_TICKS);
+        helper.assertTrue(helper.getBlockState(target).isAir(), "a snow layer did not melt away");
+        helper.succeed();
+    }
+
+    /** Brennbares (Bretter oben, Stamm seitlich) faengt erst nach der Verweildauer Feuer, auf der angestrahlten Seite; Stein nie. */
+    public static void theLensBeamIgnitesFlammableBlocksOnlyAfterDwelling(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 2.0, 5.5));
+        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        var rules = helper.getLevel().getGameRules();
+        int radius = rules.get(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER);
+        try {
+            rules.set(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER, -1, helper.getLevel().getServer());
+            BlockPos planks = new BlockPos(1, 2, 2);
+            helper.setBlock(planks, Blocks.OAK_PLANKS);
+            beam(helper, player, lens, planks, Direction.UP, LaserBeam.IGNITE_TICKS - 1);
+            helper.assertTrue(helper.getBlockState(planks.above()).isAir(), "the planks caught fire before the dwell time");
+            beam(helper, player, lens, planks, Direction.UP, 1);
+            helper.assertTrue(helper.getBlockState(planks.above()).is(Blocks.FIRE), "the planks did not catch fire on top after the dwell time");
+            helper.setBlock(planks.above(), Blocks.AIR);
+
+            BlockPos wool = new BlockPos(3, 2, 2);
+            helper.setBlock(wool, Blocks.OAK_LOG);
+            beam(helper, player, lens, wool, Direction.SOUTH, LaserBeam.IGNITE_TICKS);
+            helper.assertTrue(helper.getBlockState(wool.south()).is(Blocks.FIRE), "the log did not catch fire on the beamed side");
+            helper.setBlock(wool.south(), Blocks.AIR);
+
+            BlockPos stone = new BlockPos(2, 2, 4);
+            helper.setBlock(stone, Blocks.STONE);
+            beam(helper, player, lens, stone, Direction.UP, LaserBeam.IGNITE_TICKS * 3);
+            helper.assertTrue(helper.getBlockState(stone.above()).isAir(), "stone caught fire from the beam");
+        } finally {
+            rules.set(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER, radius, helper.getLevel().getServer());
+        }
+        helper.succeed();
+    }
+
+    /** Seelensand bekommt oben Seelenfeuer; Lagerfeuer, Seelenlagerfeuer und Kerzen gehen an. */
+    public static void theLensBeamLightsSoulFireCampfiresAndCandles(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 2.0, 5.5));
+        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        BlockPos soul = new BlockPos(1, 2, 1);
+        helper.setBlock(soul, Blocks.SOUL_SAND);
+        beam(helper, player, lens, soul, Direction.UP, LaserBeam.SOUL_FIRE_TICKS - 1);
+        helper.assertTrue(helper.getBlockState(soul.above()).isAir(), "soul fire appeared before the dwell time");
+        beam(helper, player, lens, soul, Direction.UP, 1);
+        helper.assertTrue(helper.getBlockState(soul.above()).is(Blocks.SOUL_FIRE), "the soul sand got " + helper.getBlockState(soul.above()) + " instead of soul fire");
+        helper.setBlock(soul.above(), Blocks.AIR);
+
+        BlockPos floor = new BlockPos(3, 1, 3);
+        helper.setBlock(floor, Blocks.STONE);
+        BlockState[] unlit = {
+                Blocks.CAMPFIRE.defaultBlockState().setValue(BlockStateProperties.LIT, false),
+                Blocks.SOUL_CAMPFIRE.defaultBlockState().setValue(BlockStateProperties.LIT, false),
+                Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.LIT, false)};
+        for (BlockState state : unlit) {
+            helper.setBlock(floor.above(), state);
+            beam(helper, player, lens, floor.above(), Direction.UP, LaserBeam.LIGHT_TICKS);
+            helper.assertTrue(helper.getBlockState(floor.above()).getValue(BlockStateProperties.LIT), state.getBlock() + " was not lit by the beam");
+        }
+        helper.setBlock(floor.above(), Blocks.AIR);
+        helper.succeed();
+    }
+
+    /**
+     * Anders als ein Feuerzeug fuellt der Strahl nie einen leeren Portalrahmen (Bretter hinter dem
+     * Rahmen, Feuerplatz im Rahmen), und TNT zuendet er nie.
+     */
+    public static void theLensBeamNeverLightsNetherPortalsOrTnt(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(5.5, 2.0, 5.5));
+        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        var rules = helper.getLevel().getGameRules();
+        int radius = rules.get(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER);
+        try {
+            rules.set(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER, -1, helper.getLevel().getServer());
+            // Rahmen in der X-Ebene z = 3: innen x 1..2, y 2..4.
+            int z = 3;
+            for (int x = 1; x <= 2; x++) {
+                helper.setBlock(new BlockPos(x, 1, z), Blocks.OBSIDIAN);
+                helper.setBlock(new BlockPos(x, 5, z), Blocks.OBSIDIAN);
+            }
+            for (int y = 2; y <= 4; y++) {
+                helper.setBlock(new BlockPos(0, y, z), Blocks.OBSIDIAN);
+                helper.setBlock(new BlockPos(3, y, z), Blocks.OBSIDIAN);
+            }
+            BlockPos planks = new BlockPos(1, 2, z - 1);
+            helper.setBlock(planks, Blocks.OAK_PLANKS);
+            BlockPos inside = new BlockPos(1, 2, z);
+            helper.assertTrue(net.minecraft.world.level.portal.PortalShape.findEmptyPortalShape(helper.getLevel(), helper.absolutePos(inside), Direction.Axis.X).isPresent(),
+                    "the test frame is no valid portal frame, so this test proves nothing");
+            beam(helper, player, lens, planks, Direction.SOUTH, LaserBeam.IGNITE_TICKS * 2);
+            helper.assertTrue(helper.getBlockState(inside).isAir(), "the beam put " + helper.getBlockState(inside) + " into an empty portal frame");
+
+            BlockPos tnt = new BlockPos(5, 2, 1);
+            helper.setBlock(tnt, Blocks.TNT);
+            beam(helper, player, lens, tnt, Direction.UP, LaserBeam.IGNITE_TICKS * 2);
+            helper.assertTrue(helper.getBlockState(tnt).is(Blocks.TNT) && helper.getBlockState(tnt.above()).isAir(), "the beam set fire to TNT");
+        } finally {
+            rules.set(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER, radius, helper.getLevel().getServer());
+        }
+        helper.succeed();
+    }
+
+    /** Die Zusatzwirkung: ein nasser Schwamm trocknet nach laengerem Strahlen. */
+    public static void theLensBeamDriesWetSponges(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 2.0, 5.5));
+        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        BlockPos sponge = new BlockPos(2, 2, 2);
+        helper.setBlock(sponge, Blocks.WET_SPONGE);
+        beam(helper, player, lens, sponge, Direction.NORTH, LaserBeam.DRY_TICKS - 1);
+        helper.assertTrue(helper.getBlockState(sponge).is(Blocks.WET_SPONGE), "the sponge dried before the dwell time");
+        beam(helper, player, lens, sponge, Direction.NORTH, 1);
+        helper.assertTrue(helper.getBlockState(sponge).is(Blocks.SPONGE), "the wet sponge did not dry");
+        helper.succeed();
+    }
+
+    /** Im Abenteuermodus wirkt der Strahl nicht; ohne Feuerausbreitung (Spielregel 0) zuendet er kein Brennbares. */
+    public static void theLensBeamRespectsAdventureModeAndTheFireSpreadRule(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 2.0, 5.5));
+        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        BlockPos ice = new BlockPos(1, 2, 2);
+        helper.setBlock(ice, Blocks.ICE);
+        player.getAbilities().mayBuild = false;
+        beam(helper, player, lens, ice, Direction.UP, LaserBeam.MELT_TICKS * 2);
+        helper.assertTrue(helper.getBlockState(ice).is(Blocks.ICE), "the beam melted ice for a player who may not build");
+        player.getAbilities().mayBuild = true;
+
+        var rules = helper.getLevel().getGameRules();
+        int radius = rules.get(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER);
+        try {
+            rules.set(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER, 0, helper.getLevel().getServer());
+            BlockPos planks = new BlockPos(3, 2, 2);
+            helper.setBlock(planks, Blocks.OAK_PLANKS);
+            beam(helper, player, lens, planks, Direction.UP, LaserBeam.IGNITE_TICKS * 2);
+            helper.assertTrue(helper.getBlockState(planks.above()).isAir(), "the beam lit planks with fire spread switched off");
+        } finally {
+            rules.set(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER, radius, helper.getLevel().getServer());
+        }
+        helper.succeed();
+    }
+
+    /**
+     * Die Ladung sinkt (Strahlen je Sekunde, jede Wirkung mehr), aber die Linse zerbricht nie: leer
+     * bleibt sie im Inventar, laesst sich nicht mehr benutzen und wirkt nicht mehr. Kreativ kostet nichts.
+     */
+    public static void theLensChargeRunsDownButTheLensNeverBreaks(GameTestHelper helper) {
+        ServerPlayer player = survivalLikePlayer(helper, new Vec3(2.5, 2.0, 5.5));
+        LaserPointerItem item = (LaserPointerItem) TweaksItems.LASER_POINTER;
+        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        item.onUseTick(helper.getLevel(), player, lens, item.getUseDuration(lens, player) - 20);
+        helper.assertTrue(lens.getDamageValue() == LaserPointerItem.BEAM_COST, "a second of beaming cost " + lens.getDamageValue() + " charge");
+
+        lens.setDamageValue(LaserPointerItem.MAX_CHARGE - 2);
+        BlockPos ice = new BlockPos(2, 2, 2);
+        helper.setBlock(ice, Blocks.ICE);
+        beam(helper, player, lens, ice, Direction.UP, LaserBeam.MELT_TICKS);
+        helper.assertTrue(helper.getBlockState(ice).is(Blocks.WATER), "the last bit of charge did not melt the ice");
+        helper.assertTrue(!lens.isEmpty() && lens.is(TweaksItems.LASER_POINTER) && lens.getDamageValue() == LaserPointerItem.MAX_CHARGE,
+                "the lens broke or overshot instead of ending empty: " + lens + " damage " + lens.getDamageValue());
+        helper.assertTrue(LaserPointerItem.isEmpty(lens), "a fully used lens does not count as empty");
+
+        helper.setBlock(ice, Blocks.ICE);
+        beam(helper, player, lens, ice, Direction.UP, LaserBeam.MELT_TICKS * 2);
+        helper.assertTrue(helper.getBlockState(ice).is(Blocks.ICE), "an empty lens still melted ice");
+        player.setItemInHand(InteractionHand.MAIN_HAND, lens);
+        InteractionResult result = lens.use(helper.getLevel(), player, InteractionHand.MAIN_HAND);
+        helper.assertFalse(player.isUsingItem(), "an empty lens could still be used (" + result + ")");
+        LaserPointerItem.drain(player, lens, 50);
+        helper.assertTrue(lens.getDamageValue() == LaserPointerItem.MAX_CHARGE && !lens.isEmpty(), "draining an empty lens broke it");
+
+        ServerPlayer creative = mockPlayer(helper, new Vec3(4.5, 2.0, 5.5));
+        ItemStack free = new ItemStack(TweaksItems.LASER_POINTER);
+        LaserPointerItem.drain(creative, free, 50);
+        helper.assertTrue(free.getDamageValue() == 0, "beaming cost charge in creative");
+        helper.setBlock(ice, Blocks.AIR);
+        helper.succeed();
+    }
+
+    /** Aufladen im Amboss: Redstone, 0 Stufen, 64 Staub = voll, nur der noetige Teil eines Stapels wird verbraucht. */
+    public static void anvilRechargeWithRedstoneCostsNoLevels(GameTestHelper helper) {
+        ServerPlayer player = survivalLikePlayer(helper, new Vec3(2.5, 2.0, 5.5));
+        player.experienceLevel = 0;
+
+        ItemStack empty = new ItemStack(TweaksItems.LASER_POINTER);
+        empty.setDamageValue(LaserPointerItem.MAX_CHARGE);
+        net.minecraft.world.inventory.AnvilMenu full = recharge(helper, player, empty, 64);
+        ItemStack out = full.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem();
+        helper.assertTrue(out.is(TweaksItems.LASER_POINTER) && out.getDamageValue() == 0, "64 redstone did not fully charge an empty lens: " + out + " damage " + out.getDamageValue());
+        helper.assertTrue(full.getCost() == 0, "recharging costs " + full.getCost() + " levels");
+        takeResult(helper, player, full);
+        helper.assertTrue(full.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).getItem().isEmpty(), "a full recharge left redstone behind");
+        helper.assertTrue(player.experienceLevel == 0, "recharging changed the player's level");
+
+        ItemStack partial = new ItemStack(TweaksItems.LASER_POINTER);
+        partial.setDamageValue(25);
+        net.minecraft.world.inventory.AnvilMenu topUp = recharge(helper, player, partial, 64);
+        helper.assertTrue(topUp.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().getDamageValue() == 0, "a top-up did not fill the lens");
+        takeResult(helper, player, topUp);
+        int left = topUp.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).getItem().getCount();
+        helper.assertTrue(left == 61, "topping up 25 charge used " + (64 - left) + " redstone instead of 3");
+
+        ItemStack drained = new ItemStack(TweaksItems.LASER_POINTER);
+        drained.setDamageValue(LaserPointerItem.MAX_CHARGE);
+        net.minecraft.world.inventory.AnvilMenu some = recharge(helper, player, drained, 10);
+        int damage = some.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().getDamageValue();
+        helper.assertTrue(damage == LaserPointerItem.MAX_CHARGE - 10 * LaserPointerItem.CHARGE_PER_REDSTONE, "10 redstone charged to damage " + damage);
+
+        ItemStack alreadyFull = new ItemStack(TweaksItems.LASER_POINTER);
+        net.minecraft.world.inventory.AnvilMenu none = recharge(helper, player, alreadyFull, 5);
+        helper.assertTrue(none.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().isEmpty(), "the anvil offers to recharge a full lens");
+        helper.succeed();
+    }
+
+    private static net.minecraft.world.inventory.AnvilMenu recharge(GameTestHelper helper, ServerPlayer player, ItemStack lens, int redstone) {
+        net.minecraft.world.inventory.AnvilMenu menu = new net.minecraft.world.inventory.AnvilMenu(1, player.getInventory(), net.minecraft.world.inventory.ContainerLevelAccess.NULL);
+        menu.getSlot(net.minecraft.world.inventory.AnvilMenu.INPUT_SLOT).set(lens);
+        menu.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).set(new ItemStack(Items.REDSTONE, redstone));
+        return menu;
+    }
+
+    private static void takeResult(GameTestHelper helper, ServerPlayer player, net.minecraft.world.inventory.AnvilMenu menu) {
+        Slot result = menu.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT);
+        helper.assertTrue(result.mayPickup(player), "a level-0 survival player may not take the free recharge");
+        result.onTake(player, result.getItem());
+    }
+
+    /** Laesst den Strahl {@code ticks} Mal auf die Mitte der Seite {@code face} von {@code relative} fallen. */
+    private static void beam(GameTestHelper helper, ServerPlayer player, ItemStack lens, BlockPos relative, Direction face, int ticks) {
+        BlockPos pos = helper.absolutePos(relative);
+        Vec3 at = Vec3.atCenterOf(pos).add(face.getStepX() * 0.5, face.getStepY() * 0.5, face.getStepZ() * 0.5);
+        BlockHitResult hit = new BlockHitResult(at, face, pos, false);
+        for (int i = 0; i < ticks; i++) {
+            LaserBeam.beamAt(player, lens, hit);
+        }
     }
 
     /** #35: {@code /simplebuilding tweaks worldspawn set} setzt den Weltspawn sofort, nicht erst nach einem Neustart. */
@@ -1565,6 +1962,30 @@ public final class TweaksTests {
         helper.assertTrue(match.isPresent(), "no smithing recipe turns " + base + " with " + addition + " into " + result);
         ItemStack out = match.get().value().assemble(smithingInput(template, base, addition));
         helper.assertTrue(out.is(result.asItem()), "smithing " + base + " with " + addition + " made " + out + " instead of " + result);
+    }
+
+    /** Ein mit dem Leitstein an {@code lodestone} (relativ) verknuepfter Echo-Kompass. */
+    private static ItemStack linkedEchoCompass(GameTestHelper helper, BlockPos lodestone) {
+        ItemStack compass = new ItemStack(TweaksItems.ECHO_COMPASS);
+        compass.set(DataComponents.LODESTONE_TRACKER, new LodestoneTracker(
+                Optional.of(GlobalPos.of(helper.getLevel().dimension(), helper.absolutePos(lodestone))), true));
+        return compass;
+    }
+
+    /**
+     * {@code ticks} Benutz-Ticks wie Vanillas LivingEntity#updatingUsingItem: onUseTick, Zaehler
+     * herunter, bei 0 completeUsingItem. Per Reflexion, weil der Mock-Spieler hier nicht getickt wird.
+     */
+    private static void tickUse(ServerPlayer player, int ticks) {
+        try {
+            java.lang.reflect.Method update = net.minecraft.world.entity.LivingEntity.class.getDeclaredMethod("updateUsingItem", ItemStack.class);
+            update.setAccessible(true);
+            for (int i = 0; i < ticks && player.isUsingItem(); i++) {
+                update.invoke(player, player.getUseItem());
+            }
+        } catch (ReflectiveOperationException e) {
+            throw new IllegalStateException("LivingEntity#updateUsingItem not reachable", e);
+        }
     }
 
     private static CraftingInput grid(Item... items) {

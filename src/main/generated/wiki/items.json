@@ -262,7 +262,7 @@
       "maxStackSize": 1
     },
     {
-      "durability": 64,
+      "durability": 1500,
       "enchantability": 15,
       "id": "simplebuilding:echo_compass",
       "maxStackSize": 1
@@ -562,6 +562,7 @@
       "id": "simplebuilding:lapis_quartz_checker"
     },
     {
+      "durability": 640,
       "id": "simplebuilding:laser_pointer",
       "maxStackSize": 1
     },
