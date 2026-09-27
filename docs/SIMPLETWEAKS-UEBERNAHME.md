@@ -363,7 +363,9 @@ Branch `remove-ported-features` im Repo `simpletweaks` (abgezweigt von `1.21.11`
   - Punkt: feste Weltgroesse (Config `scale`, auf 0,05..1 begrenzt), waechst erst ab ~3 Pixel
     Bildschirmgroesse mit (0,004 Bloecke je Block) - frueher 0,12 je Block, also ein Riesenkreis in der
     Ferne. Entfernungszahl 13 statt 10 GUI-Pixel neben der Fadenkreuzmitte.
-  - Strahlwirkungen (`LaserBeam`, Server, bis 24 Bloecke, Verweildauer auf derselben Blockseite): Eis/
+  - Strahlwirkungen (`LaserBeam`, Server, bis zur Linsen-Reichweite - seit 2026-09-27, vorher fest 24 Bloecke;
+    auf dem Server hoechstens die Sichtweite (mind. 2 Chunks), damit der Strahl keine Chunks laedt; mehr als
+    `range + 8` entfernt wirkt nichts - Verweildauer auf derselben Blockseite, Zeiten bis 5 Bloecke Abstand): Eis/
     Frosteis -> Wasser (2 s; verdampft, wo Wasser verdampft), Packeis -> Eis, Blaueis -> Packeis
     (eine Stufe statt Wasser aus Bloecken, die in Vanilla nie schmelzen); Schnee/Schneeblock/Pulverschnee
     -> weg; Lagerfeuer, Seelenlagerfeuer, Kerzen, Kerzenkuchen an (1 s); Seelensand/-erde oben
@@ -377,6 +379,19 @@ Branch `remove-ported-features` im Repo `simpletweaks` (abgezweigt von `1.21.11`
     (gilt nur fuer Mobs). Nie Netherportale (kein Feuer in einen leeren Portalrahmen - `BaseFireBlock#onPlace`
     wuerde ihn fuellen). Schutz: `mayInteract` (Spawnschutz, Weltgrenze) und
     `mayUseItemAt` (Abenteuermodus) am Block und am Feuerplatz.
+  - **Abstand** (2026-09-27): Verweildauer = Basis x (1 + 0,096 x max(0, d - 5)^0,773), d = Auge bis Punkt
+    (`LaserBeam#dwellTicks`). Bis 5 Bloecke Basis (Anzuenden 3 s), 10 Bloecke ~4 s, 200 Bloecke ~20 s; die
+    Kurve ist so gewaehlt, dass sie genau die drei Vorgaben des Besitzers trifft, und waechst stetig weiter.
+  - **Lebewesen** (2026-09-27): Spieler und Mobs brennen 4 s (`igniteForSeconds`), nach der doppelten
+    Verweildauer eines brennbaren Blocks im selben Abstand, 5 Ladung. Nicht: feuerfest, unverwundbar, nass
+    (Wasser-/Regen-Merker oder Wasserblock an der Position), Spieler im Kreativ-/Zuschauermodus (Faehigkeit
+    `invulnerable`), andere Spieler nur mit `Player#canHarmPlayer` (Spielregel `pvp`, Server-PvP, Team-
+    Freundfeuer). Entity-Suche entlang des Strahls bis 64 Bloecke (`ProjectileUtil#getEntityHitResult`).
+  - **Klaenge am Trefferpunkt** (2026-09-27, Vanilla-Events, positionsgebunden): Summen (Leuchtfeuer-Summen,
+    hoch, leise) alle 20 Ticks, solange etwas getroffen wird; waehrend der Verweildauer alle 8 Ticks Zischen
+    (Feuer-Loeschen, hoch; Schmelzen/Trocknen) bzw. Knistern (Feuer + Lagerfeuer-Knistern; Anzuenden,
+    Seelenfeuer, Lagerfeuer/Kerzen, TNT, Lebewesen); Abschlussklaenge wie bisher. Test-Haken
+    `LaserBeam#setSoundHook`.
   - Ladung = Haltbarkeit 640: 1 je angefangene Sekunde Benutzen - auch blosses Zeigen ins Leere oder auf
     einen Block ohne Wirkung, und schon im ersten Tick (bis 2026-09-27 erst nach 20 Ticks, kurzes Antippen
     war dadurch gratis) -, 5 je Wirkung, kreativ gratis; zerbricht nie, leer
@@ -411,7 +426,9 @@ Branch `remove-ported-features` im Repo `simpletweaks` (abgezweigt von `1.21.11`
 Elytra-Pad/Flypad/Teleporter/Launchpad/Chunk-Loader inklusive Enderit-Zusatz, Filter- und
 Kupferplatten, Echolot (Name/Id, Verknuepfen ohne Perle, Unbreaking, Aufladen/Loslassen, Leeren, Aufladen per
 Mending, Zerspringen, Rezept mit 7 Nuggets), Amethystlinse (Wirkungen, TNT nach Verweildauer mit Regeln,
-Portal nie, Ladung schon beim ersten Tick und beim Zeigen ins Leere), Geschwindigkeitsmesser-Rezept, XP-Verklumpen, Stapelgroessen,
+Portal nie, Ladung schon beim ersten Tick und beim Zeigen ins Leere, Verweildauer nah/fern/200 Bloecke,
+Lebewesen nach doppelter Zeit, kein Spieler ohne PvP, Klaenge ueber den Test-Haken),
+Geschwindigkeitsmesser-Rezept (`QAQ`/`NCN`/`NKN`: Quarz, Amethystsplitter, Kupfernugget, Kompass, Kupferkern), XP-Verklumpen, Stapelgroessen,
 Spawn-Regeln, Befehle, Config-Schalter je Familie. Jeder Test wurde gegengeprueft (Mutation des
 geprueften Verhaltens macht ihn rot).
 
