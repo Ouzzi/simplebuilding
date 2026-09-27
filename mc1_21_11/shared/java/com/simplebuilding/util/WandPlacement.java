@@ -84,6 +84,12 @@ public final class WandPlacement {
             return null;
         }
         Block block = blockItem.getBlock();
+        // Befehls-, Struktur- und Verbundbloecke nur fuer Spieler, die sie auch von Hand setzen
+        // duerften (Vanillas GameMasterBlockItem fragt dasselbe; Audit 2026-09-26, P3 #29).
+        if (block instanceof net.minecraft.world.level.block.GameMasterBlock
+                && (player == null || !player.canUseGameMasterBlocks())) {
+            return null;
+        }
         BlockPos support = pos.relative(face.getOpposite());
         Vec3 location = new Vec3(support.getX() + hitRel.x, support.getY() + hitRel.y, support.getZ() + hitRel.z);
         BlockHitResult hit = new BlockHitResult(location, face, support, false);

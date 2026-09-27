@@ -547,6 +547,192 @@ public final class WandModeTests {
         TestCleanup.succeed(helper);
     }
 
+    // =====================================================================================
+    // PROTECTION AND MATERIAL (audit 2026-09-26)
+    // =====================================================================================
+
+    /**
+     * Audit 2026-09-26, P2 #6: the wand asks for every cell whether this player may build there,
+     * the way {@code BlueprintBuilder} does. Before the fix only vanilla's check on the clicked
+     * block ran, so a plane (and a bridge, which runs through the same loop) grew into claimed land
+     * and spawn protection. The "claim" here is a player whose {@code mayUseItemAt} refuses the
+     * east column - the hook protection mods answer through.
+     *
+     * <p><strong>What breaks this test:</strong> dropping {@code mayBuildAt} from
+     * {@code inventoryTick}, or paying for a refused cell.
+     */
+    public static void wandSkipsEveryCellThePlayerMayNotBuildOn(GameTestHelper helper) {
+        clearRoom(helper);
+        BlockPos anchor = new BlockPos(3, 1, 3);
+        helper.setBlock(anchor, Blocks.STONE);
+        int claimedFromX = helper.absolutePos(anchor).getX() + 1;
+        ServerPlayer player = claimPlayer(helper, pos -> pos.getX() >= claimedFromX);
+        ItemStack wand = wand(helper, ModItems.DIAMOND_BUILDING_WAND, 1, null);
+        stock(player, wand, new ItemStack(Items.GLASS, 64));
+
+        InteractionResult armed = click(helper, player, wand, anchor, Direction.UP, new Vec3(0.5, 1.0, 0.5));
+        helper.assertTrue(armed == InteractionResult.CONSUME, "the wand did not arm on its own block, got " + armed);
+        runUntilIdle(helper, player, wand);
+
+        Set<BlockPos> expected = new HashSet<>();
+        for (int dx = -1; dx <= 0; dx++) {
+            for (int dz = -1; dz <= 1; dz++) {
+                expected.add(anchor.offset(dx, 1, dz));
+            }
+        }
+        Assertions.valueEqual(helper, placedGlass(helper), expected,
+                "the wand built into the claimed east column, or skipped cells it may build on");
+        Assertions.valueEqual(helper, countIn(player, Items.GLASS), 64 - 6, "the wand did not pay exactly the six cells it built");
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Audit 2026-09-26, P2 #6: without build rights (adventure or spectator mode) the wand neither
+     * starts a build nor takes one back. Vanilla only guards {@code useOn}; the undo on
+     * sneak + air click (and the bridge on a plain air click) ran through {@code use}, which it
+     * does not guard, so an adventure player could clear a build with it.
+     *
+     * <p><strong>What breaks this test:</strong> dropping the {@code mayBuild} check from
+     * {@code use} or from {@code useOn}.
+     */
+    public static void wandNeitherBuildsNorUndoesWithoutBuildRights(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        clearRoom(helper);
+        WandUndo.forget(player.getUUID());
+        BlockPos anchor = new BlockPos(3, 1, 3);
+        helper.setBlock(anchor, Blocks.STONE);
+        ItemStack wand = wand(helper, ModItems.DIAMOND_BUILDING_WAND, 1, null);
+        stock(player, wand, new ItemStack(Items.GLASS, 64));
+        click(helper, player, wand, anchor, Direction.UP, new Vec3(0.5, 1.0, 0.5));
+        runUntilIdle(helper, player, wand);
+        Assertions.valueEqual(helper, placedGlass(helper).size(), 9, "the set-up plane was not built");
+
+        player.getAbilities().mayBuild = false;
+        player.setShiftKeyDown(true);
+        InteractionResult undo = wand.getItem().use(helper.getLevel(), player, InteractionHand.MAIN_HAND);
+        player.setShiftKeyDown(false);
+        InteractionResult build = click(helper, player, wand, anchor.above(3), Direction.UP, new Vec3(0.5, 1.0, 0.5));
+        boolean armed = wand.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getBooleanOr("Active", false);
+        player.getAbilities().mayBuild = true;
+        WandUndo.forget(player.getUUID());
+
+        helper.assertTrue(undo == InteractionResult.FAIL, "sneak + air click without build rights returned " + undo);
+        Assertions.valueEqual(helper, placedGlass(helper).size(), 9, "the wand took a build back without build rights");
+        Assertions.valueEqual(helper, countIn(player, Items.GLASS), 64 - 9, "the refused undo refunded glass");
+        helper.assertTrue(build == InteractionResult.FAIL, "a click on a block without build rights returned " + build);
+        helper.assertFalse(armed, "the wand armed a build without build rights");
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Audit 2026-09-26, P2 #10 (the wand's part): the blueprint build mode draws its material
+     * through {@code findSupply}/{@code countSupply}, and those took any stack of the item - a named
+     * or filled shulker box, a patterned banner, a head with a profile - and placed it as a bare
+     * block, its contents gone. Only stacks without their own components count now.
+     *
+     * <p><strong>What breaks this test:</strong> dropping {@code isPlainSupply} from either method.
+     */
+    public static void wandSupplyPassesOverStacksWithComponents(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        ItemStack wand = wand(helper, ModItems.DIAMOND_BUILDING_WAND, 1, null);
+        ItemStack named = new ItemStack(Items.SHULKER_BOX);
+        named.set(DataComponents.CUSTOM_NAME, net.minecraft.network.chat.Component.literal("Loot"));
+        stock(player, wand, named, new ItemStack(Items.SHULKER_BOX, 2));
+
+        Assertions.valueEqual(helper, BuildingWandItem.countSupply(player, wand, Items.SHULKER_BOX), 2,
+                "countSupply counted the named shulker box as building material");
+        Runnable take = BuildingWandItem.findSupply(player, wand, Items.SHULKER_BOX);
+        helper.assertTrue(take != null, "findSupply found no plain shulker box although two are carried");
+        take.run();
+        helper.assertTrue(player.getInventory().getItem(1).getCount() == 1
+                        && player.getInventory().getItem(1).has(DataComponents.CUSTOM_NAME),
+                "findSupply spent the named shulker box: " + player.getInventory().getItem(1));
+        Assertions.valueEqual(helper, player.getInventory().getItem(2).getCount(), 1,
+                "findSupply did not take its piece from the plain stack");
+
+        player.getInventory().setItem(2, ItemStack.EMPTY);
+        helper.assertTrue(BuildingWandItem.findSupply(player, wand, Items.SHULKER_BOX) == null,
+                "with only the named shulker box left, findSupply still offered it");
+        Assertions.valueEqual(helper, BuildingWandItem.countSupply(player, wand, Items.SHULKER_BOX), 0,
+                "with only the named shulker box left, countSupply still counted it");
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Audit 2026-09-26, P3 #29: command, structure and jigsaw blocks come out of the wand only for
+     * a player who could place them by hand ({@code canUseGameMasterBlocks}, what vanilla's
+     * {@code GameMasterBlockItem} asks). The mock player builds for free here and is still no
+     * operator, so it is refused; stone is the control that the same call places at all.
+     *
+     * <p><strong>What breaks this test:</strong> dropping the {@code GameMasterBlock} check from
+     * {@code WandPlacement#baseState}.
+     */
+    public static void wandPlacesGameMasterBlocksOnlyForOperators(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        clearRoom(helper);
+        helper.setBlock(new BlockPos(3, 1, 3), Blocks.STONE);
+        BlockPos cell = helper.absolutePos(new BlockPos(3, 2, 3));
+        player.getAbilities().instabuild = true;
+        boolean operator = player.canUseGameMasterBlocks();
+        BlockState stone = com.simplebuilding.util.WandPlacement.stateFor(helper.getLevel(), player,
+                new ItemStack(Items.STONE), cell, Direction.UP, com.simplebuilding.util.WandPlacement.TOP_CENTER, null);
+        java.util.List<String> placed = new java.util.ArrayList<>();
+        for (Item item : java.util.List.of(Items.COMMAND_BLOCK, Items.CHAIN_COMMAND_BLOCK, Items.STRUCTURE_BLOCK, Items.JIGSAW)) {
+            if (com.simplebuilding.util.WandPlacement.stateFor(helper.getLevel(), player, new ItemStack(item), cell,
+                    Direction.UP, com.simplebuilding.util.WandPlacement.TOP_CENTER, null) != null) {
+                placed.add(item.toString());
+            }
+        }
+        player.getAbilities().instabuild = false;
+
+        helper.assertFalse(operator, "the mock player may use game master blocks, so this test cannot tell anything");
+        helper.assertTrue(stone != null, "the wand would not even place stone here, so the refusals prove nothing");
+        helper.assertTrue(placed.isEmpty(), "the wand places game master blocks for a non-operator: " + placed);
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Audit 2026-09-26, P3 #31: undo refunded by block type. A slab the wand set and the player
+     * doubled by hand since was cleared - two slabs gone - and one slab came back. A block whose
+     * amount ({@code type}, {@code candles}, {@code pickles}, ...) is no longer what the wand set
+     * now stays standing and is not paid for; the untouched rest is cleared and refunded as before.
+     *
+     * <p><strong>What breaks this test:</strong> comparing only the block in {@code WandUndo}.
+     */
+    public static void undoLeavesTheSlabThatWasDoubledSinceStanding(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        clearRoom(helper);
+        WandUndo.forget(player.getUUID());
+        BlockPos anchor = new BlockPos(3, 1, 3);
+        helper.setBlock(anchor, Blocks.STONE);
+        ItemStack wand = wand(helper, ModItems.DIAMOND_BUILDING_WAND, 1, null);
+        stock(player, wand, new ItemStack(Items.STONE_SLAB, 64));
+        click(helper, player, wand, anchor, Direction.UP, new Vec3(0.5, 1.0, 0.5));
+        runUntilIdle(helper, player, wand);
+        Assertions.valueEqual(helper, countIn(player, Items.STONE_SLAB), 64 - 9, "the slab plane did not cost nine slabs");
+
+        BlockPos doubled = anchor.offset(1, 1, 1);
+        BlockState doubleSlab = Blocks.STONE_SLAB.defaultBlockState().setValue(BlockStateProperties.SLAB_TYPE, SlabType.DOUBLE);
+        helper.setBlock(doubled, doubleSlab);
+
+        player.setShiftKeyDown(true);
+        wand.getItem().use(helper.getLevel(), player, InteractionHand.MAIN_HAND);
+        player.setShiftKeyDown(false);
+        WandUndo.forget(player.getUUID());
+
+        for (BlockPos pos : BlockPos.betweenClosed(anchor.offset(-1, 1, -1), anchor.offset(1, 1, 1))) {
+            if (pos.equals(doubled)) {
+                helper.assertTrue(helper.getBlockState(pos) == doubleSlab,
+                        "undo cleared the slab the player doubled by hand, it is now " + helper.getBlockState(pos));
+            } else {
+                helper.assertTrue(helper.getBlockState(pos).isAir(), "undo left the wand's slab at " + pos);
+            }
+        }
+        Assertions.valueEqual(helper, countIn(player, Items.STONE_SLAB), 64 - 9 + 8,
+                "undo did not hand back exactly the eight slabs it cleared");
+        TestCleanup.succeed(helper);
+    }
+
     private static String hintKey(net.minecraft.network.chat.Component hint) {
         return hint != null && hint.getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents t ? t.getKey() : String.valueOf(hint);
     }
@@ -563,6 +749,29 @@ public final class WandModeTests {
         player.snapTo(pos.x, pos.y, pos.z, 0.0F, 0.0F);
         player.getAbilities().instabuild = false;
         TestCleanup.before(helper, () -> helper.getLevel().getServer().getPlayerList().remove(player));
+        return player;
+    }
+
+    /**
+     * A survival player whose {@code mayUseItemAt} refuses the cells {@code claimed} selects - what a
+     * claim or protection mod does. Never added to the level or the player list, so it needs no
+     * cleanup; it has no connection either, which the wand's plane path never needs.
+     */
+    @SuppressWarnings("removal")
+    private static ServerPlayer claimPlayer(GameTestHelper helper, java.util.function.Predicate<BlockPos> claimed) {
+        ServerPlayer player = new ServerPlayer(helper.getLevel().getServer(), helper.getLevel(),
+                new com.mojang.authlib.GameProfile(java.util.UUID.randomUUID(), "test-claim-player"),
+                net.minecraft.server.level.ClientInformation.createDefault()) {
+            @Override
+            public boolean mayUseItemAt(BlockPos pos, Direction face, ItemStack stack) {
+                return !claimed.test(pos) && super.mayUseItemAt(pos, face, stack);
+            }
+        };
+        Vec3 pos = helper.absoluteVec(new Vec3(0.5, 5.0, 7.5));
+        player.snapTo(pos.x, pos.y, pos.z, 0.0F, 0.0F);
+        // The gametest server hands new players its default game mode (creative); this one pays.
+        player.getAbilities().instabuild = false;
+        player.getAbilities().mayBuild = true;
         return player;
     }
 

@@ -238,6 +238,21 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("wand_mode_game_test_roof_mode_works_with_the_test_centre_kit_enderite_wand", WandModeTests::roofModeWorksWithTheTestCentreKitEnderiteWand)
                     .rotation(Rotation.NONE)
                     .build(),
+            GameTestSpec.named("wand_mode_game_test_wand_skips_every_cell_the_player_may_not_build_on", WandModeTests::wandSkipsEveryCellThePlayerMayNotBuildOn)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_wand_neither_builds_nor_undoes_without_build_rights", WandModeTests::wandNeitherBuildsNorUndoesWithoutBuildRights)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_wand_supply_passes_over_stacks_with_components", WandModeTests::wandSupplyPassesOverStacksWithComponents)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_wand_places_game_master_blocks_only_for_operators", WandModeTests::wandPlacesGameMasterBlocksOnlyForOperators)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_undo_leaves_the_slab_that_was_doubled_since_standing", WandModeTests::undoLeavesTheSlabThatWasDoubledSinceStanding)
+                    .rotation(Rotation.NONE)
+                    .build(),
             GameTestSpec.named("hopper_and_trim_game_test_hopper_filter_modes_gate_what_may_enter", HopperAndTrimTests::hopperFilterModesGateWhatMayEnter)
                     .rotation(Rotation.NONE)
                     .build(),
@@ -262,6 +277,9 @@ public final class SimpleBuildingGameTests {
                     .rotation(Rotation.NONE)
                     .build(),
             GameTestSpec.named("building_enchantment_game_test_linear_only_shortens_the_wand_step_delay", BuildingEnchantmentTests::linearOnlyShortensTheWandStepDelay)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("building_enchantment_game_test_constructors_touch_only_turns_orientation_and_needs_build_rights", BuildingEnchantmentTests::constructorsTouchOnlyTurnsOrientationAndNeedsBuildRights)
                     .rotation(Rotation.NONE)
                     .build(),
             GameTestSpec.named("consumption_and_durability_game_test_chisel_charges_durability_and_cooldown_only_outside_creative", ConsumptionAndDurabilityTests::chiselChargesDurabilityAndCooldownOnlyOutsideCreative)
@@ -538,6 +556,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_charge_time_shortens_with_material_and_efficiency", SledgehammerTests::sledgehammerChargeTimeShortensWithMaterialAndEfficiency)
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_turns_framed_trim_templates_glowing", SledgehammerTests::sledgehammerTurnsFramedTrimTemplatesGlowing)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_charged_hammer_only_finishes_on_the_block_it_started_on", SledgehammerTests::chargedHammerOnlyFinishesOnTheBlockItStartedOn)
                     .build(),
             GameTestSpec.named("chisel_game_test_spatula_runs_forward_while_sneaking_and_chisel_runs_backward", ChiselTests::spatulaRunsForwardWhileSneakingAndChiselRunsBackward)
                     .build(),

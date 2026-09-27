@@ -34,8 +34,11 @@ import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.WeakHashMap;
 
 import static com.simplebuilding.util.EnchantmentHelper.getOverrideLevel;
 import static com.simplebuilding.util.EnchantmentHelper.hasConstructorsTouch;
@@ -138,6 +141,31 @@ public class SledgehammerItem extends Item {
         return baseSpeed;
     }
 
+    /**
+     * The block a charge was started on, per player (audit 2026-09-26, P2 #7). Until then
+     * {@code finishUsingItem} re-aimed at whatever the player looked at when the charge ended: start
+     * on any stone of your own, turn to a protected diamond block, and the hammer crushed it into 81
+     * pebbles. Keyed by the player object, so the client and server player of one person in single
+     * player never share an entry; weak, so a player who logs out mid-charge is not kept alive.
+     */
+    private static final Map<Player, ChargeTarget> CHARGE_TARGETS = Collections.synchronizedMap(new WeakHashMap<>());
+
+    private record ChargeTarget(BlockPos pos, Block block) {
+    }
+
+    /** Remembers the block a reshape or crush charge was started on. */
+    private static void rememberTarget(Player player, BlockPos pos, BlockState state) {
+        CHARGE_TARGETS.put(player, new ChargeTarget(pos.immutable(), state.getBlock()));
+    }
+
+    /**
+     * Whether the player may change the block at {@code pos} - the same question a block placement
+     * asks (spawn protection, claim mods, adventure mode).
+     */
+    private static boolean mayChange(Level world, Player player, BlockPos pos, Direction side, ItemStack stack) {
+        return player.mayBuild() && world.mayInteract(player, pos) && player.mayUseItemAt(pos, side, stack);
+    }
+
     @Override
     public InteractionResult useOn(UseOnContext context) {
         Level world = context.getLevel();
@@ -157,7 +185,12 @@ public class SledgehammerItem extends Item {
             return smithing;
         }
 
+        if (!mayChange(world, player, pos, context.getClickedFace(), stack)) {
+            return InteractionResult.PASS;
+        }
+
         if (state.is(net.minecraft.world.level.block.Blocks.DIAMOND_BLOCK)) {
+            rememberTarget(player, pos, state);
             player.startUsingItem(context.getHand());
             return InteractionResult.CONSUME;
         }
@@ -169,9 +202,8 @@ public class SledgehammerItem extends Item {
         BlockState transformState = getTransformationState(state, pos, context.getClickedFace(), relativeHit, player, stack);
 
         if (transformState != null) {
-            if (player != null) {
-                player.startUsingItem(context.getHand());
-            }
+            rememberTarget(player, pos, state);
+            player.startUsingItem(context.getHand());
             return InteractionResult.CONSUME;
         }
 
@@ -189,6 +221,9 @@ public class SledgehammerItem extends Item {
     @Override
     public boolean releaseUsing(ItemStack stack, Level world, LivingEntity user, int remainingUseTicks) {
         SledgehammerUpgrades.clear(user); // eine abgebrochene Aufwertung verfaellt
+        if (user instanceof Player player) {
+            CHARGE_TARGETS.remove(player); // eine abgebrochene Ladung auch
+        }
         return false; // Nichts tun, wenn vorzeitig abgebrochen
     }
 
@@ -199,14 +234,25 @@ public class SledgehammerItem extends Item {
         // Lief eine Aufwertung, ist das der fuenfte Schlag - und nie ein Umformen oder Zerschlagen
         // des Blocks, auf den der Spieler zufaellig gerade schaut.
         if (SledgehammerUpgrades.finish(world, player, stack)) {
+            CHARGE_TARGETS.remove(player);
             return stack;
         }
 
+        // Only the block the charge was started on, and only while the player still aims at it
+        // and may change it: a charge never re-aims at another block.
+        ChargeTarget target = CHARGE_TARGETS.remove(player);
+        if (target == null) {
+            return stack;
+        }
         var hitResult = player.pick(5.0, 0.0f, false);
-        if (hitResult.getType() == net.minecraft.world.phys.HitResult.Type.BLOCK) {
-            BlockPos pos = ((net.minecraft.world.phys.BlockHitResult)hitResult).getBlockPos();
+        if (hitResult.getType() == net.minecraft.world.phys.HitResult.Type.BLOCK
+                && ((net.minecraft.world.phys.BlockHitResult) hitResult).getBlockPos().equals(target.pos())) {
+            BlockPos pos = target.pos();
             BlockState state = world.getBlockState(pos);
             Direction side = ((net.minecraft.world.phys.BlockHitResult)hitResult).getDirection();
+            if (!state.is(target.block()) || !mayChange(world, player, pos, side, stack)) {
+                return stack;
+            }
 
             // Relativer Hit Vector berechnen
             Vec3 relativeHit = hitResult.getLocation().subtract(Vec3.atLowerCornerOf(pos));

@@ -75,4 +75,9 @@ public final class SledgehammerGameTest {
     public void sledgehammerTurnsFramedTrimTemplatesGlowing(GameTestHelper helper) {
         SledgehammerTests.sledgehammerTurnsFramedTrimTemplatesGlowing(helper);
     }
+
+    @GameTest
+    public void chargedHammerOnlyFinishesOnTheBlockItStartedOn(GameTestHelper helper) {
+        SledgehammerTests.chargedHammerOnlyFinishesOnTheBlockItStartedOn(helper);
+    }
 }

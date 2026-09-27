@@ -538,7 +538,7 @@ public final class SledgehammerTests {
         helper.assertBlockPresent(Blocks.STONE, CENTRE);
         Assertions.valueEqual(helper, released.getDamageValue(), 0, "an aborted right click still cost durability");
 
-        released.getItem().finishUsingItem(released, helper.getLevel(), player);
+        chargeAndFinish(released, helper.getLevel(), player);
         helper.assertBlockPresent(Blocks.STONE_STAIRS, CENTRE);
 
         TestCleanup.succeed(helper);
@@ -1132,6 +1132,58 @@ public final class SledgehammerTests {
                 "the face a swing takes while " + situation + " (depth " + depth + " towards " + into + ")");
     }
 
+    /**
+     * Audit 2026-09-26, P2 #7: a charged right click finishes only on the block it was started on.
+     * {@code finishUsingItem} used to re-aim at whatever the player looked at when the charge ran
+     * out: start on a stone of your own, turn to a protected diamond block, and it was crushed into
+     * 81 pebbles. Now the hammer remembers the block at {@code useOn}; turned away, or with no
+     * charge behind the finish at all, nothing happens. The last case is the control: the charge's
+     * own diamond block, still aimed at, is crushed as before.
+     *
+     * <p><strong>What breaks this test:</strong> finishing on the re-picked block instead of the
+     * remembered one, or finishing without a remembered block.
+     */
+    public static void chargedHammerOnlyFinishesOnTheBlockItStartedOn(GameTestHelper helper) {
+        ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE, 0.0F, 90.0F, false);
+        helper.setBlock(CENTRE, Blocks.STONE);
+        helper.setBlock(PROBE, Blocks.DIAMOND_BLOCK);
+        ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        net.minecraft.world.phys.AABB around = new net.minecraft.world.phys.AABB(helper.absolutePos(PROBE)).inflate(2.0);
+
+        // --- charged on the stone, let go while looking at the diamond block ---
+        InteractionResult started = useOnTop(helper, player, hammer, CENTRE);
+        helper.assertTrue(started == InteractionResult.CONSUME, "the hammer did not charge on stone, got " + started);
+        Vec3 abovePROBE = helper.absoluteVec(new Vec3(PROBE.getX() + 0.5, 3.0, PROBE.getZ() + 0.5));
+        player.snapTo(abovePROBE.x, abovePROBE.y, abovePROBE.z, 0.0F, 90.0F);
+        hammer.getItem().finishUsingItem(hammer, helper.getLevel(), player);
+        player.stopUsingItem();
+        helper.assertBlockPresent(Blocks.DIAMOND_BLOCK, PROBE);
+        helper.assertBlockPresent(Blocks.STONE, CENTRE);
+        helper.assertTrue(helper.getLevel().getEntitiesOfClass(ItemEntity.class, around).isEmpty(),
+                "a charge started on stone crushed the diamond block the player turned to");
+
+        // --- a finish with no charge behind it does nothing either ---
+        hammer.getItem().finishUsingItem(hammer, helper.getLevel(), player);
+        helper.assertBlockPresent(Blocks.DIAMOND_BLOCK, PROBE);
+        Assertions.valueEqual(helper, hammer.getDamageValue(), 0, "a finish that did nothing still cost durability");
+
+        // --- the charge's own block, still aimed at, is crushed ---
+        InteractionResult onDiamond = useOnTop(helper, player, hammer, PROBE);
+        helper.assertTrue(onDiamond == InteractionResult.CONSUME, "the hammer did not charge on the diamond block, got " + onDiamond);
+        hammer.getItem().finishUsingItem(hammer, helper.getLevel(), player);
+        player.stopUsingItem();
+        helper.assertBlockPresent(Blocks.AIR, PROBE);
+        int pebbles = 0;
+        for (ItemEntity entity : helper.getLevel().getEntitiesOfClass(ItemEntity.class, around)) {
+            if (entity.getItem().is(ModItems.DIAMOND_PEBBLE)) {
+                pebbles += entity.getItem().getCount();
+            }
+            entity.discard();
+        }
+        Assertions.valueEqual(helper, pebbles, 81, "the diamond block the charge started on did not give its 81 pebbles");
+        TestCleanup.succeed(helper);
+    }
+
     /** Right clicks the centre of a block's top face, server side. */
     private static InteractionResult useOnTop(GameTestHelper helper, ServerPlayer player,
                                               ItemStack stack, BlockPos relativePos) {
@@ -1153,7 +1205,7 @@ public final class SledgehammerTests {
      */
     private static void finish(GameTestHelper helper, ServerPlayer player, ItemStack hammer) {
         player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
-        hammer.getItem().finishUsingItem(hammer, helper.getLevel(), player);
+        chargeAndFinish(hammer, helper.getLevel(), player);
     }
 
     private static void assertStair(GameTestHelper helper, BlockPos relativePos,
@@ -1213,5 +1265,20 @@ public final class SledgehammerTests {
     private static InteractionResult attack(GameTestHelper helper, Player player,
                                             InteractionHand hand, ItemFrame frame) {
         return SledgehammerEntityInteraction.handleAttackEntity(player, helper.getLevel(), hand, frame);
+    }
+
+    /**
+     * Holds right click on the block the player looks at and lets the charge run out: {@code useOn}
+     * on the picked block, then {@code finishUsingItem}. Since 2026-09-26 the hammer only finishes
+     * on the block its charge was started on (audit P2 #7), so a bare finish does nothing.
+     */
+    private static void chargeAndFinish(ItemStack hammer, net.minecraft.world.level.Level level, ServerPlayer player) {
+        net.minecraft.world.phys.HitResult hit = player.pick(5.0, 0.0F, false);
+        if (hit instanceof net.minecraft.world.phys.BlockHitResult blockHit
+                && hit.getType() == net.minecraft.world.phys.HitResult.Type.BLOCK) {
+            hammer.getItem().useOn(new net.minecraft.world.item.context.UseOnContext(player, InteractionHand.MAIN_HAND, blockHit));
+        }
+        hammer.getItem().finishUsingItem(hammer, level, player);
+        player.stopUsingItem();
     }
 }
