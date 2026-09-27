@@ -15,6 +15,11 @@ public final class DataIntegrityGameTest {
     }
 
     @GameTest
+    public void everyRecipelessModItemHasJeiInfo(GameTestHelper helper) {
+        DataIntegrityTests.everyRecipelessModItemHasJeiInfo(helper);
+    }
+
+    @GameTest
     public void everyModBlockIsRegisteredAndHasItsBlockItem(GameTestHelper helper) {
         DataIntegrityTests.everyModBlockIsRegisteredAndHasItsBlockItem(helper);
     }

@@ -1,6 +1,7 @@
 package com.simplebuilding.compat.jei;
 
 import com.simplebuilding.compat.InWorldRecipeCatalog;
+import com.simplebuilding.compat.RecipelessJeiInfo;
 import com.simplebuilding.recipe.CountBasedSmithingRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -78,6 +79,11 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
         for (Map.Entry<String, List<ItemLike>> family : TweaksJeiInfo.families().entrySet()) {
             List<ItemStack> stacks = family.getValue().stream().map(ItemStack::new).toList();
             registration.addItemStackInfo(stacks, Component.translatable(TweaksJeiInfo.KEY_PREFIX + family.getKey()));
+        }
+        // Infoseiten der Gegenstaende ohne JEI-sichtbares Rezept (Loot, Erzabbau, Altbestand).
+        for (Map.Entry<String, List<ItemLike>> page : RecipelessJeiInfo.pages().entrySet()) {
+            List<ItemStack> stacks = page.getValue().stream().map(ItemStack::new).toList();
+            registration.addItemStackInfo(stacks, Component.translatable(RecipelessJeiInfo.KEY_PREFIX + page.getKey()));
         }
     }
 

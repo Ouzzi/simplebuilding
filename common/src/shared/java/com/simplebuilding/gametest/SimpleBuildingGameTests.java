@@ -72,6 +72,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_every_mod_item_is_in_the_item_registry", DataIntegrityTests::everyModItemIsInTheItemRegistry)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_every_recipeless_mod_item_has_jei_info", DataIntegrityTests::everyRecipelessModItemHasJeiInfo)
+                    .build(),
             GameTestSpec.named("data_integrity_game_test_every_mod_block_is_registered_and_has_its_block_item", DataIntegrityTests::everyModBlockIsRegisteredAndHasItsBlockItem)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_mod_recipes_only_reference_registered_items", DataIntegrityTests::modRecipesOnlyReferenceRegisteredItems)
