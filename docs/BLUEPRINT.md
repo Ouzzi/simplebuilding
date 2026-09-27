@@ -213,9 +213,10 @@ Kartentisch, Abschnitt 5.1.)
   leuchten kurz kräftig auf, ein Hinweiston erklingt, die Aktionsleiste nennt die Zahl der
   fehlenden Blöcke. Ein zweiter Rechtsklick binnen 3 s baut alles Vorhandene. Fehlt nichts, baut
   schon der erste Klick. Die Bestätigung gilt nur für diesen einen Bau. Die Prüfung davor hat
-  keine Obergrenze: 400 000 Stellen gleich beim Klick, den Rest sehr großer Bauwerke mit 131 072
-  Stellen je Tick danach („Prüfe Material… x / y“), dann Warnung oder Baubeginn; ein
-  bestätigender zweiter Klick prüft nicht erneut.
+  keine Obergrenze: 131 072 Stellen gleich beim Klick (für alle Klicks eines Spielers im selben
+  Tick zusammen; ein weiterer Klick auf denselben Bau startet eine laufende Prüfung nicht neu),
+  den Rest sehr großer Bauwerke mit 131 072 Stellen je Tick danach („Prüfe Material… x / y“),
+  dann Warnung oder Baubeginn; ein bestätigender zweiter Klick prüft nicht erneut.
 - **Ausrichtung**: das Bauwerk steht mittig (x) auf dem Zielblock (in den geklickten Block, wenn
   er ersetzbar ist, sonst davor), seine Unterkante auf dessen Höhe, seine lokale z-Achse zeigt in
   Blickrichtung. Nach Süden blickend entsteht es wie gescannt. **Strg + Mausrad** dreht um 90°
