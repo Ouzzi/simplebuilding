@@ -75,7 +75,7 @@ public class LaunchpadBlockEntity extends OwnedBlockEntity {
      * nichts geht verloren. Liefert die Zahl der ausgeworfenen Windkugeln.
      */
     public int clampToCapacity(Level level, BlockPos pos, BlockState state) {
-        int max = state.getBlock() instanceof LaunchpadBlock pad ? pad.maxCharges() : LaunchpadBlock.maxCharges(LaunchpadBlock.ENDERITE_TIER);
+        int max = state.getBlock() instanceof LaunchpadBlock pad ? pad.capacityAt(level, pos) : LaunchpadBlock.maxCharges(LaunchpadBlock.ENDERITE_TIER);
         int excess = charges - max;
         if (excess <= 0) {
             return 0;

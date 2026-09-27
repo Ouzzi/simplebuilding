@@ -559,7 +559,10 @@ def collect_recipes(roots: dict) -> list[dict]:
                 data = read_json(path)
             except json.JSONDecodeError:
                 continue
-            recipe_id = f"{NS}:{path.relative_to(root).with_suffix('').as_posix()}"
+            relative = path.relative_to(root).with_suffix('').as_posix()
+            if relative.startswith(SECRET_RECIPE_PREFIX):
+                continue
+            recipe_id = f"{NS}:{relative}"
             recipes.append(recipe_entry(data, recipe_id, rel(path), roots.get("furnace_cooking_time", False)))
     recipes.sort(key=lambda r: r["id"])
     return recipes
@@ -856,6 +859,13 @@ def load_item_properties(roots: dict) -> dict:
 LEGACY_ITEMS = {f"{NS}:{tier}_spatula"
                 for tier in ("stone", "copper", "iron", "gold", "diamond", "netherite")}
 
+# Versteckte Inhalte (Besitzer 2026-09-27): stehen bewusst nicht im oeffentlichen Wiki, weder als
+# Item noch als Rezept (recipe/easter/**). Beschrieben im Spoiler-Abschnitt von
+# docs/SIMPLETWEAKS-UEBERNAHME.md; die Sprachschluessel item.simplebuilding.easter.* sind
+# Unterschluessel und fallen ohnehin heraus.
+SECRET_ITEMS = {f"{NS}:funny_stick"}
+SECRET_RECIPE_PREFIX = "easter/"
+
 
 def registered_ids(roots: dict) -> tuple[set[str], set[str]] | None:
     """
@@ -910,7 +920,7 @@ def collect_items_and_blocks(roots: dict, lang: dict, recipes, loot_tables, trad
             if "." in name:  # sub keys such as .desc
                 continue
             identifier = f"{NS}:{name}"
-            if identifier in LEGACY_ITEMS:
+            if identifier in LEGACY_ITEMS or identifier in SECRET_ITEMS:
                 continue
             if registered is not None:
                 known = registered[1] if kind == "block" else registered[0]
@@ -953,7 +963,7 @@ def collect_items_and_blocks(roots: dict, lang: dict, recipes, loot_tables, trad
     # Gegenrichtung: registriert, aber ohne Sprachschluessel. Solche Dinge zeigen
     # im Spiel ihren rohen Uebersetzungsschluessel und fehlen hier ganz.
     if registered is not None:
-        for identifier in sorted(registered[0] - {e["id"] for e in items} - LEGACY_ITEMS):
+        for identifier in sorted(registered[0] - {e["id"] for e in items} - LEGACY_ITEMS - SECRET_ITEMS):
             if identifier not in {e["id"] for e in blocks}:
                 unnamed.append(f"item {identifier}")
         for identifier in sorted(registered[1] - {e["id"] for e in blocks}):

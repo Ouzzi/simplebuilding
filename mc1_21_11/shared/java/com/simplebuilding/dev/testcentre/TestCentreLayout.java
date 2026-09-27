@@ -44,7 +44,8 @@ public final class TestCentreLayout {
             "simplebuilding:creative_spacer", "Platzhalter der Kreativ-Tabs, kein Spielinhalt",
             "simplebuilding:reinforced_piston_head", "technischer Block (Kopf der verstaerkten Kolben), kein Item",
             "simplebuilding:netherite_piston_head", "technischer Block (Kopf des Netherit-Kolbens), kein Item",
-            "simplebuilding:enderite_piston_head", "technischer Block (Kopf des Enderit-Kolbens), kein Item");
+            "simplebuilding:enderite_piston_head", "technischer Block (Kopf des Enderit-Kolbens), kein Item",
+            "simplebuilding:funny_stick", "Easter Egg, bewusst versteckt (Spoiler in docs/SIMPLETWEAKS-UEBERNAHME.md)");
 
     public static final int MAX_ROW_WIDTH = 140;
     public static final int GAP = 4;
