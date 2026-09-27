@@ -1,0 +1,9 @@
+{
+  "type": "simplebuilding:easter_smithing",
+  "addition": "simplebuilding:reinforced_flypad",
+  "base": "simplebuilding:reinforced_flypad",
+  "base_stage": 2,
+  "result": "simplebuilding:stellar_flypad",
+  "result_stage": 3,
+  "template": "simplebuilding:enderite_upgrade_template"
+}

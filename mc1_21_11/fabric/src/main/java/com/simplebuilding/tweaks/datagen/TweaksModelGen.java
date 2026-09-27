@@ -49,6 +49,10 @@ public final class TweaksModelGen {
 
     public static void items(ItemModelGenerators generator) {
         generator.generateFlatItem(TweaksItems.SPAWN_ELYTRA, ModelTemplates.FLAT_ITEM);
+        // Ein Stock ist ein Stock: das Vanilla-Bild, in der Hand gehalten wie ein Werkzeug.
+        Item stick = com.simplebuilding.tweaks.easter.EasterEggs.funnyStick();
+        generator.itemModelOutput.accept(stick, ItemModelUtils.plainModel(ModelTemplates.FLAT_HANDHELD_ITEM.create(stick,
+                TextureMapping.layer0(net.minecraft.world.item.Items.STICK), generator.modelOutput)));
         laserLens(generator);
         // Voll repariert: 32 eigene Nadelbilder, zeigt zum verknuepften Leitstein. Nicht voll repariert
         // (Schaden > 0): drei Riss-Stufen nach Anteil des Schadens, die Nadel steht still.

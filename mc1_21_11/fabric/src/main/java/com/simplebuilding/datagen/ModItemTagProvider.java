@@ -131,7 +131,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(key(ModItems.CREATIVE_SPACER))
                 // Alte, abgeloeste Stufenbloecke (netherite_flypad, enderite_flypad): nur fuer alte Welten.
                 .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.NETHERITE_FLYPAD.asItem()))
-                .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.ENDERITE_FLYPAD.asItem()));
+                .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.ENDERITE_FLYPAD.asItem()))
+                // Versteckt, Ende der Easter-Kette (docs/SIMPLETWEAKS-UEBERNAHME.md, Spoiler).
+                .add(key(com.simplebuilding.tweaks.easter.EasterEggs.funnyStick()));
 
         // End-Paletten: Treppen, Stufen und Mauern auch als Item-Tags wie bei Vanilla.
         for (ModBlocks.EndPalette palette : ModBlocks.END_PALETTES) {

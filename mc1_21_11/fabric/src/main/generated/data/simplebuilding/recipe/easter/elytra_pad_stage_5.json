@@ -1,0 +1,9 @@
+{
+  "type": "simplebuilding:easter_smithing",
+  "addition": "minecraft:nether_star",
+  "base": "simplebuilding:enderite_elytra_pad",
+  "base_stage": 4,
+  "result": "simplebuilding:fine_elytra_pad",
+  "result_stage": 5,
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

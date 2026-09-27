@@ -5,6 +5,7 @@ import com.simplebuilding.tweaks.TweaksConfig;
 import com.simplebuilding.tweaks.block.ElytraPadBlock;
 import com.simplebuilding.tweaks.block.PadTiers;
 import com.simplebuilding.tweaks.component.TweaksComponents;
+import com.simplebuilding.tweaks.easter.EasterEggs;
 import com.simplebuilding.tweaks.item.TweaksItems;
 import com.simplebuilding.tweaks.spawn.SpawnElytra;
 import java.util.List;
@@ -43,13 +44,18 @@ public class ElytraPadBlockEntity extends OwnedBlockEntity {
             return;
         }
         int tier = tierOf(state);
-        AABB range = PadTiers.elytraArea(pos, tier);
+        AABB range = areaOf(level, pos, state);
         List<ServerPlayer> players = level.getEntitiesOfClass(ServerPlayer.class, range, p -> true);
         TweaksConfig.Spawn config = SimpleTweaks.config().spawn;
 
         for (ServerPlayer player : players) {
             applyTo(level, pos, tier, player, config);
         }
+    }
+
+    /** Bereich dieses gesetzten Pads; die letzte Easter-Stufe ({@link EasterEggs}) ist doppelt so breit und hoch. */
+    public static AABB areaOf(Level level, BlockPos pos, BlockState state) {
+        return PadTiers.elytraArea(pos, tierOf(state), EasterEggs.isBoosted(level, pos));
     }
 
     /** Was ein Spieler im Bereich bekommt; auch fuer die Spieltests einzeln aufrufbar. */

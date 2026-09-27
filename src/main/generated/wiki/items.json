@@ -486,6 +486,10 @@
       "id": "simplebuilding:flypad"
     },
     {
+      "id": "simplebuilding:funny_stick",
+      "maxStackSize": 1
+    },
+    {
       "id": "simplebuilding:glowing_trim_template"
     },
     {

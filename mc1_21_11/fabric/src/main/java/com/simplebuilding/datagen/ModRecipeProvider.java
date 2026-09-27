@@ -956,6 +956,9 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.CHUNK_LOADER, netheritePlate, TweaksBlocks.NETHERITE_CHUNK_LOADER, "netherite_chunk_loader_smithing");
                 tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.NETHERITE_CHUNK_LOADER, enderitePlate, TweaksBlocks.ENDERITE_CHUNK_LOADER, "enderite_chunk_loader_smithing");
 
+                // Versteckt (Spoiler in docs/SIMPLETWEAKS-UEBERNAHME.md): Rezepte und Advancements ueber den Endstufen.
+                com.simplebuilding.tweaks.datagen.EasterEggData.generate(output, registries.lookupOrThrow(Registries.ITEM));
+
                 // Echo-Kompass (Besitzer 2026-09-27): Bergungskompass in der Mitte, Enderit-Kern unten mittig,
                 // sechs Enderit-Nuggets aussen herum, oben mittig frei
                 shaped(RecipeCategory.TOOLS, TweaksItems.ECHO_COMPASS)

@@ -3,6 +3,7 @@ package com.simplebuilding.tweaks.block.entity;
 import com.mojang.serialization.Codec;
 import com.simplebuilding.tweaks.SimpleTweaks;
 import com.simplebuilding.tweaks.block.ChunkLoaderBlock;
+import com.simplebuilding.tweaks.easter.EasterEggs;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -34,8 +35,11 @@ import org.jetbrains.annotations.Nullable;
  */
 public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
     public static final int CHECK_INTERVAL = 100;
-    /** Groesster Radius eines Loaders in Chunks (Stufe II und III: 1); so weit sucht die Uebergabe nach Nachbarn. */
-    public static final int MAX_RADIUS = 1;
+    /**
+     * Groesster Radius eines Loaders in Chunks (Stufe II und III: 1, die letzte Easter-Stufe: 2); so
+     * weit sucht die Uebergabe nach Nachbarn.
+     */
+    public static final int MAX_RADIUS = 2;
     private static final Codec<List<Long>> FORCED_CODEC = Codec.LONG.listOf();
 
     private final Set<Long> ownForced = new LinkedHashSet<>();
@@ -79,10 +83,11 @@ public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
         int cx = worldPosition.getX() >> 4;
         int cz = worldPosition.getZ() >> 4;
         int tier = tierOf(getBlockState());
+        boolean doubled = boosted();
         boolean changed = false;
         for (int dx = -MAX_RADIUS; dx <= MAX_RADIUS; dx++) {
             for (int dz = -MAX_RADIUS; dz <= MAX_RADIUS; dz++) {
-                if (!ChunkLoaderBlock.inArea(tier, dx, dz)) {
+                if (!ChunkLoaderBlock.inArea(tier, dx, dz, doubled)) {
                     continue;
                 }
                 // true = war vorher nicht erzwungen, also unsere Erzwingung.
@@ -139,7 +144,13 @@ public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
 
     /** Ob der Chunk im Bereich dieses Loaders liegt. */
     public boolean covers(int chunkX, int chunkZ) {
-        return ChunkLoaderBlock.inArea(tierOf(getBlockState()), chunkX - (worldPosition.getX() >> 4), chunkZ - (worldPosition.getZ() >> 4));
+        return ChunkLoaderBlock.inArea(tierOf(getBlockState()), chunkX - (worldPosition.getX() >> 4), chunkZ - (worldPosition.getZ() >> 4),
+                boosted());
+    }
+
+    /** Letzte Easter-Stufe ({@link EasterEggs}): doppelter Radius. */
+    private boolean boosted() {
+        return EasterEggs.isFinal(getBlockState().getBlock(), easterStage());
     }
 
     @Override
