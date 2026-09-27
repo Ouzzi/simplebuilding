@@ -10068,7 +10068,7 @@ window.WIKI_DATA = {
             "The filter can also be set on a locked frame: the Magnet check in the mixin comes before the lock check.",
             "Once set, a filter works regardless of the enchantment: the pull only checks the stored id, the enchantment is needed only for setting it.",
             "Clearing the filter: sneak + right-click with the Magnet while not pointing at an item frame. 'Magnet Filter cleared.' appears in yellow on the action bar and the UI button click sound (volume 0.5, pitch 1.0, sound category Players) is played for everyone nearby. With no filter set, sneak + right-click does nothing.",
-            "Tooltip: shows 'Filtering: <id>' (gold) or 'No Filter active' (gray), and below that 'Sneak + Right Click to clear filter' (dark gray).",
+            "Tooltip: shows 'Filtering: <id>' (gold) or 'No Filter active' (gray), and below that 'Sneak + Right Click to clear' (dark gray).",
             "Right-clicking animals or monsters: the Magnet itself does nothing (returns PASS); the mob's normal interaction runs exactly as it would without the Magnet.",
             "The Magnet is one of the items Constructor's Touch can go on (tag constructors_touch_enchantable): max level I, weight 1, cost 20 to 50, anvil cost 1. It can only be applied at the anvil with an enchanted book; books are available in the mod's creative tab, as chest loot (buried treasure, igloo, trial chamber reward common/rare) and from fishing treasure.",
             "A gametest (registered on all four targets, 200 tick budget) confirms the behaviour: a diamond 3 blocks away is pulled into the player's inventory, while a gold ingot 6 blocks away on both horizontal axes stays where it dropped (less than 0.5 blocks of drift allowed).",
