@@ -2023,8 +2023,63 @@ def enderite_tweak_textures():
 ENDERITE_TWEAK_BELOW = {
     "enderite_elytra_pad": "netherite_elytra_pad", "enderite_flypad": "netherite_flypad",
     "enderite_spawn_teleporter": "spawn_teleporter_tier_4", "enderite_pressure_plate": "netherite_pressure_plate",
-    "enderite_chunk_loader": "chunk_loader", "enderite_launchpad": "launchpad",
+    "enderite_chunk_loader": "netherite_chunk_loader", "enderite_launchpad": "netherite_launchpad",
 }
+
+
+# ---------------------------------------------------------------------------
+# Netherit-Stufen (II) von Launchpad und Chunk-Loader (2026-09-27: beide Familien haben jetzt drei
+# Stufen, Diamant/Netherit/Enderit). Wie die Stufen der anderen Familien teilen sie die Karte ihrer
+# Enderit-Stufe (Rahmen mit Eckbeschlaegen + Motiv) und unterscheiden sich in der Palette: Netherit-
+# Grautoene nach dem Netheritblock, dazu ein Akzent, der die Familie erkennbar haelt -
+#   Launchpad   - Windweiss im Doppelring (Stufe I ist die helle Eisenplatte)
+#   Chunk-Loader- Kupfer im "Chunk" und an den Nieten (Stufe I entsteht aus der Kupferplatte)
+NETHERITE_TWEAK_PAL = {
+    # Rahmen: F Umriss, m Schatten, M Grund, N hell, O Lichtkante, L Niete/Glimmer (je Block, s. u.)
+    "F": "#161213", "m": "#2c2627", "M": "#3f3a3c", "N": "#524d51", "O": "#7a7579",
+    # Innenrampe dunkel -> hell, h Glanz
+    "1": "#3b3536", "2": "#433d3f", "3": "#4a4547", "4": "#524d50", "5": "#5a565a", "6": "#625e62",
+    "h": "#8e898d",
+}
+NETHERITE_TWEAK_ACCENTS = {
+    "netherite_launchpad": {"w": "#cfd8db", "L": "#eef4f6"},
+    "netherite_chunk_loader": {"v": "#b4623a", "L": "#e8a06a"},
+}
+# Karte, die die Netherit-Stufe mit ihrer Enderit-Stufe teilt
+NETHERITE_TWEAK_SHARES = {"netherite_launchpad": "enderite_launchpad", "netherite_chunk_loader": "enderite_chunk_loader"}
+
+
+def netherite_tweak_textures():
+    tex = {}
+    for name, shared in NETHERITE_TWEAK_SHARES.items():
+        pal = dict(NETHERITE_TWEAK_PAL)
+        pal.update(NETHERITE_TWEAK_ACCENTS[name])
+        tex[f"block/{name}.png"] = render(name, tweak_frame(name, ENDERITE_TWEAK_MAPS[shared]), pal, True)
+    return tex
+
+
+# Rotator (2026-09-27): kleine Enderperle in der Mitte des Bogens - das Rezept traegt jetzt eine
+# Enderperle im Zentrum. Die Vorlage tools/textures/hand/rotator.png bleibt unveraendert; die Perle
+# (4x4, Ecken frei, Farben der Vanilla-Enderperle: dunkler Umriss, Glanz oben links, dunkler Kern
+# unten rechts) liegt in der freien Innenseite des Bogens bei (7..10, 5..8).
+ROTATOR_PEARL_AT = (7, 5)
+ROTATOR_PEARL = [
+    ".ab.",
+    "acdb",
+    "aefb",
+    ".bb.",
+]
+ROTATOR_PEARL_PAL = {"a": "#0c3730", "b": "#032620", "c": "#8cf4e2", "d": "#2ccdb1", "e": "#258474", "f": "#0b4d42"}
+
+
+def rotator_texture():
+    img = Image.open(os.path.join(HAND, "rotator.png")).convert("RGBA").copy()
+    ox, oy = ROTATOR_PEARL_AT
+    for y, row in enumerate(ROTATOR_PEARL):
+        for x, c in enumerate(row):
+            if c != ".":
+                img.putpixel((ox + x, oy + y), hexrgb(ROTATOR_PEARL_PAL[c]) + (255,))
+    return {"item/rotator.png": img}
 
 
 def mcmeta_text(animation):
@@ -2576,6 +2631,8 @@ def build():
     apply_netherite_handles(tex)
 
     tex.update(enderite_tweak_textures())
+    tex.update(netherite_tweak_textures())
+    tex.update(rotator_texture())
     tex.update(checker_textures())
     tex.update(backpack_worn_textures(tex))
     tex.update(backpack_dyed_textures(tex))

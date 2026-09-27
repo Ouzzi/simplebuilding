@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_chunk_loader": {
+    "has_netherite_chunk_loader": {
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:chunk_loader"
+            "items": "simplebuilding:netherite_chunk_loader"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_chunk_loader"
+      "has_netherite_chunk_loader"
     ]
   ],
   "rewards": {

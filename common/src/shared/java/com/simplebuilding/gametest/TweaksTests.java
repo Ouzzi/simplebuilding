@@ -137,17 +137,20 @@ public final class TweaksTests {
         Item template = ModItems.ENDERITE_UPGRADE_TEMPLATE;
         Item netherite = Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE;
         Item ingot = ModItems.ENDERITE_INGOT;
-        expectSmithing(helper, template, TweaksBlocks.NETHERITE_ELYTRA_PAD, ingot, TweaksBlocks.ENDERITE_ELYTRA_PAD);
-        expectSmithing(helper, template, TweaksBlocks.NETHERITE_FLYPAD, ingot, TweaksBlocks.ENDERITE_FLYPAD);
+        // Seit 2026-09-27 zahlen die Aufwertungen mit der Druckplatte des Zielmaterials (TweaksTierTests).
+        Item enderitePlate = TweaksBlocks.ENDERITE_PRESSURE_PLATE.asItem();
+        Item netheritePlate = TweaksBlocks.NETHERITE_PRESSURE_PLATE.asItem();
+        expectSmithing(helper, template, TweaksBlocks.NETHERITE_ELYTRA_PAD, enderitePlate, TweaksBlocks.ENDERITE_ELYTRA_PAD);
+        expectSmithing(helper, template, TweaksBlocks.NETHERITE_FLYPAD, enderitePlate, TweaksBlocks.ENDERITE_FLYPAD);
         expectSmithing(helper, template, TweaksBlocks.NETHERITE_PRESSURE_PLATE, ingot, TweaksBlocks.ENDERITE_PRESSURE_PLATE);
-        expectSmithing(helper, template, TweaksBlocks.SPAWN_TELEPORTER_TIER_4, ingot, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER);
-        expectSmithing(helper, template, TweaksBlocks.CHUNK_LOADER, ingot, TweaksBlocks.ENDERITE_CHUNK_LOADER);
-        expectSmithing(helper, template, TweaksBlocks.LAUNCHPAD, ingot, TweaksBlocks.ENDERITE_LAUNCHPAD);
+        expectSmithing(helper, template, TweaksBlocks.SPAWN_TELEPORTER_TIER_4, enderitePlate, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER);
+        expectSmithing(helper, template, TweaksBlocks.NETHERITE_CHUNK_LOADER, enderitePlate, TweaksBlocks.ENDERITE_CHUNK_LOADER);
+        expectSmithing(helper, template, TweaksBlocks.NETHERITE_LAUNCHPAD, enderitePlate, TweaksBlocks.ENDERITE_LAUNCHPAD);
         expectSmithing(helper, netherite, TweaksBlocks.ENDERITE_ELYTRA_PAD, Items.NETHER_STAR, TweaksBlocks.FINE_ELYTRA_PAD);
-        expectSmithing(helper, netherite, TweaksBlocks.REINFORCED_ELYTRA_PAD, Items.NETHERITE_INGOT, TweaksBlocks.NETHERITE_ELYTRA_PAD);
-        expectSmithing(helper, netherite, TweaksBlocks.FINE_ELYTRA_PAD, Items.NETHERITE_INGOT, TweaksBlocks.FLYPAD);
+        expectSmithing(helper, netherite, TweaksBlocks.REINFORCED_ELYTRA_PAD, netheritePlate, TweaksBlocks.NETHERITE_ELYTRA_PAD);
+        expectSmithing(helper, netherite, TweaksBlocks.FINE_ELYTRA_PAD, Items.ELYTRA, TweaksBlocks.FLYPAD);
         expectSmithing(helper, netherite, TweaksBlocks.DIAMOND_PRESSURE_PLATE, Items.NETHERITE_INGOT, TweaksBlocks.NETHERITE_PRESSURE_PLATE);
-        expectSmithing(helper, netherite, TweaksBlocks.COPPER_PRESSURE_PLATE, Items.NETHERITE_INGOT, TweaksBlocks.CHUNK_LOADER);
+        expectSmithing(helper, netherite, TweaksBlocks.COPPER_PRESSURE_PLATE, TweaksBlocks.DIAMOND_PRESSURE_PLATE.asItem(), TweaksBlocks.CHUNK_LOADER);
         // Der alte Weg (Netherit-Pad + Netherstern) fuehrt nicht mehr zum feinen Pad.
         Optional<RecipeHolder<SmithingRecipe>> oldWay = smithing(helper, netherite, TweaksBlocks.NETHERITE_ELYTRA_PAD, Items.NETHER_STAR);
         helper.assertTrue(oldWay.isEmpty() || !oldWay.get().value().assemble(smithingInput(netherite, TweaksBlocks.NETHERITE_ELYTRA_PAD, Items.NETHER_STAR)).is(TweaksBlocks.FINE_ELYTRA_PAD.asItem()),
@@ -618,7 +621,7 @@ public final class TweaksTests {
         }
         helper.setBlock(pos, TweaksBlocks.ENDERITE_CHUNK_LOADER);
         ChunkLoaderBlockEntity be = helper.getBlockEntity(pos, ChunkLoaderBlockEntity.class);
-        be.update(level, ChunkLoaderBlockEntity.radiusOf(helper.getBlockState(pos)));
+        be.update(level);
         for (int dx = -1; dx <= 1; dx++) {
             for (int dz = -1; dz <= 1; dz++) {
                 helper.assertTrue(level.getForceLoadedChunks().contains(ChunkPos.pack(cx + dx, cz + dz)),
@@ -635,30 +638,7 @@ public final class TweaksTests {
         for (long key : foreign) {
             helper.assertTrue(level.getForceLoadedChunks().contains(ChunkPos.pack((int) key, (int) (key >> 32))), "breaking a chunk loader released a chunk someone else had forced");
         }
-        helper.assertValueEqual(ChunkLoaderBlockEntity.radiusOf(TweaksBlocks.CHUNK_LOADER.defaultBlockState()), 0, "radius of the plain chunk loader");
-        helper.succeed();
-    }
-
-    /** Launchpads fassen 16 Windkugeln, das Enderit-Launchpad 32; mehr nimmt keiner. */
-    public static void launchpadsHoldSixteenWindChargesAndTheEnderiteOneThirtyTwo(GameTestHelper helper) {
-        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
-        player.getAbilities().instabuild = false;
-        int[] limits = {16, 32};
-        Block[] pads = {TweaksBlocks.LAUNCHPAD, TweaksBlocks.ENDERITE_LAUNCHPAD};
-        for (int i = 0; i < 2; i++) {
-            BlockPos pos = new BlockPos(3 + i * 2, 1, 3);
-            helper.setBlock(pos, pads[i]);
-            BlockPos abs = helper.absolutePos(pos);
-            ItemStack charges = new ItemStack(Items.WIND_CHARGE, 64);
-            player.setItemInHand(InteractionHand.MAIN_HAND, charges);
-            BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(abs), net.minecraft.core.Direction.UP, abs, false);
-            for (int n = 0; n < 40; n++) {
-                helper.getBlockState(pos).useItemOn(charges, helper.getLevel(), player, InteractionHand.MAIN_HAND, hit);
-            }
-            helper.assertValueEqual(helper.getBlockEntity(pos, LaunchpadBlockEntity.class).getCharges(), limits[i], "charges stored in " + pads[i]);
-            helper.assertValueEqual(charges.getCount(), 64 - limits[i], "wind charges spent on " + pads[i]);
-        }
-        helper.assertTrue(LaunchpadBlockEntity.strengthFor(32) > LaunchpadBlockEntity.strengthFor(16), "more charges do not launch higher");
+        helper.assertValueEqual(ChunkLoaderBlockEntity.tierOf(TweaksBlocks.CHUNK_LOADER.defaultBlockState()), 1, "tier of the plain chunk loader");
         helper.succeed();
     }
 
@@ -1043,13 +1023,13 @@ public final class TweaksTests {
         try {
             level.setBlock(enderite, TweaksBlocks.ENDERITE_CHUNK_LOADER.defaultBlockState(), Block.UPDATE_ALL);
             ChunkLoaderBlockEntity big = (ChunkLoaderBlockEntity) level.getBlockEntity(enderite);
-            big.update(level, 1);
+            big.update(level);
             Set<Long> bigOwn = new java.util.HashSet<>(big.ownForced());
             helper.assertTrue(bigOwn.contains(plainChunk), "the enderite loader does not own its own chunk");
 
             level.setBlock(plain, TweaksBlocks.CHUNK_LOADER.defaultBlockState(), Block.UPDATE_ALL);
             ChunkLoaderBlockEntity small = (ChunkLoaderBlockEntity) level.getBlockEntity(plain);
-            small.update(level, 0);
+            small.update(level);
             helper.assertTrue(small.ownForced().isEmpty(), "the second loader claims a chunk the first one forced");
 
             level.setBlock(enderite, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
@@ -1428,7 +1408,7 @@ public final class TweaksTests {
         try {
             level.setBlock(pos, TweaksBlocks.CHUNK_LOADER.defaultBlockState(), Block.UPDATE_ALL);
             ChunkLoaderBlockEntity plain = (ChunkLoaderBlockEntity) level.getBlockEntity(pos);
-            plain.update(level, 0);
+            plain.update(level);
             helper.assertTrue(plain.ownForced().contains(chunk) && isForced(level, chunk), "the loader did not force its own chunk");
 
             // /setblock: Flag 256 ueberspringt preRemoveSideEffects; der neue Loader hat noch nicht getickt.

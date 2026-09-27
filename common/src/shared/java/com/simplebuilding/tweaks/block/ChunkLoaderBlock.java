@@ -18,25 +18,42 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Chunk-Loader (Simple Tweaks): haelt den eigenen Chunk geladen; die Enderit-Stufe ({@code radius} 1)
- * die 3x3 Chunks darum. Erzwingen und Freigeben regelt {@link ChunkLoaderBlockEntity}.
+ * Chunk-Loader (Simple Tweaks) in drei Stufen: I haelt nur den eigenen Chunk, II (Netherit) dazu die
+ * vier Nachbarn im Kreuz (5 Chunks), III (Enderit) die 3x3 Chunks darum. Erzwingen und Freigeben
+ * regelt {@link ChunkLoaderBlockEntity}.
  */
 public class ChunkLoaderBlock extends PadBlock {
     public static final MapCodec<ChunkLoaderBlock> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
             BlockCodecs.propertiesField(),
-            Codec.INT.fieldOf("radius").forGetter(ChunkLoaderBlock::getRadius)
+            Codec.INT.fieldOf("tier").forGetter(ChunkLoaderBlock::getTier)
     ).apply(i, ChunkLoaderBlock::new));
 
-    private final int radius;
+    public static final int MAX_TIER = 3;
 
-    public ChunkLoaderBlock(BlockBehaviour.Properties properties, int radius) {
+    private final int tier;
+
+    public ChunkLoaderBlock(BlockBehaviour.Properties properties, int tier) {
         super(properties, Block.box(1, 0, 1, 15, 2, 15), PadOwnership.OWNER_PLATE, PadOwnership.STRANGER_PLATE);
-        this.radius = radius;
+        this.tier = Math.max(1, Math.min(MAX_TIER, tier));
     }
 
-    /** 0 = nur der eigene Chunk, 1 = 3x3. */
-    public int getRadius() {
-        return radius;
+    /** 1 = nur der eigene Chunk, 2 = Kreuz aus 5 Chunks, 3 = 3x3. */
+    public int getTier() {
+        return tier;
+    }
+
+    /**
+     * Ob der Chunk mit dem Abstand (dx, dz) zum eigenen im Bereich der Stufe liegt: I nur (0, 0),
+     * II zusaetzlich die vier Nachbarn mit gemeinsamer Kante, III alle acht Nachbarn.
+     */
+    public static boolean inArea(int tier, int dx, int dz) {
+        int adx = Math.abs(dx);
+        int adz = Math.abs(dz);
+        return switch (tier) {
+            case 1 -> adx == 0 && adz == 0;
+            case 2 -> adx + adz <= 1;
+            default -> adx <= 1 && adz <= 1;
+        };
     }
 
     // No @Override: MC 26.3 removed block codecs; this only overrides on 26.2.

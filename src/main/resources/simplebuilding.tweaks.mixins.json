@@ -5,6 +5,7 @@
   "mixins": [
     "ExperienceOrbAccessor",
     "ExperienceOrbMixin",
+    "LaunchpadWindChargeMixin",
     "SpawnElytraDamageMixin",
     "SpawnElytraItemEntityMixin",
     "SpawnElytraSlotMixin",

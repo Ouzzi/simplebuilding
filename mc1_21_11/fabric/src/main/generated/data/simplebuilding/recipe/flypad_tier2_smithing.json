@@ -1,6 +1,6 @@
 {
   "type": "minecraft:smithing_transform",
-  "addition": "minecraft:netherite_block",
+  "addition": "simplebuilding:netherite_pressure_plate",
   "base": "simplebuilding:flypad",
   "result": {
     "id": "simplebuilding:reinforced_flypad"

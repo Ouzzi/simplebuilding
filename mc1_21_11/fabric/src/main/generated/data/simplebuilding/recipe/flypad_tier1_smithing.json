@@ -1,6 +1,6 @@
 {
   "type": "minecraft:smithing_transform",
-  "addition": "minecraft:netherite_ingot",
+  "addition": "minecraft:elytra",
   "base": "simplebuilding:fine_elytra_pad",
   "result": {
     "id": "simplebuilding:flypad"

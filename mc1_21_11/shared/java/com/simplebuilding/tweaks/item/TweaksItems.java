@@ -87,8 +87,9 @@ public final class TweaksItems {
                         TweaksBlocks.SPAWN_TELEPORTER, TweaksBlocks.SPAWN_TELEPORTER_TIER_2, TweaksBlocks.SPAWN_TELEPORTER_TIER_3,
                         TweaksBlocks.SPAWN_TELEPORTER_TIER_4, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER, ECHO_COMPASS),
                 CreativeTabLayout.Row.of("travel_and_loading",
-                        TweaksBlocks.LAUNCHPAD, TweaksBlocks.ENDERITE_LAUNCHPAD, TweaksBlocks.CHUNK_LOADER,
-                        TweaksBlocks.ENDERITE_CHUNK_LOADER, LASER_POINTER));
+                        TweaksBlocks.LAUNCHPAD, TweaksBlocks.NETHERITE_LAUNCHPAD, TweaksBlocks.ENDERITE_LAUNCHPAD,
+                        TweaksBlocks.CHUNK_LOADER, TweaksBlocks.NETHERITE_CHUNK_LOADER, TweaksBlocks.ENDERITE_CHUNK_LOADER,
+                        LASER_POINTER));
     }
 
     private static Item register(String name, Function<Item.Properties, Item> factory) {

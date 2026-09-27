@@ -26,10 +26,12 @@ Status: **port** = uebernommen, **neu** = in SimpleBuilding neu hinzugekommen (B
 | Netherit-Druckplatte (Fass darunter = Item-Whitelist, Besitzer baut schnell ab) | port | Smithing aus Diamant-Platte |
 | Enderit-Druckplatte | neu | Stufe nach Netherit, siehe Stufentabelle |
 | Kupfer-Druckplatten (4 Oxidationsstufen, loest erst nach 1-4 s Stehen aus, oxidiert, Axt kratzt eine Stufe ab) | port | **nicht wachsbar** (keine gewachsten Varianten, Honigwabe tut nichts) |
-| Chunk-Loader (Kupferplatte + Netherit, haelt den eigenen Chunk geladen) | port | abschaltbar |
-| Enderit-Chunk-Loader | neu | haelt 3x3 Chunks |
-| Launchpad (Windkugeln laden, 3 s stehen, Start) | port | abschaltbar |
-| Enderit-Launchpad | neu | 32 Ladungen, kein Fallschaden nach dem Start |
+| Chunk-Loader (Kupferplatte + Netherit, haelt den eigenen Chunk geladen) | port | abschaltbar; seit 2026-09-27 Stufe I von drei |
+| Netherit-Chunk-Loader II | neu | Kreuz aus 5 Chunks (eigener + 4 Nachbarn mit gemeinsamer Kante) |
+| Enderit-Chunk-Loader III | neu | haelt 3x3 Chunks |
+| Launchpad (Windkugeln laden, 3 s stehen, Start) | port | abschaltbar; seit 2026-09-27 Stufe I (4 Ladungen) von drei, Schleichen + Rechtsklick laedt alle Windkugeln der Hand |
+| Netherit-Launchpad II | neu | 8 Ladungen |
+| Enderit-Launchpad III | neu | 16 Ladungen (Schub wie frueher 32), kein Fallschaden nach dem Start |
 | Elytra-Pads I-IV (Radius 5/15/31/63, Hoehe 15/31/63/127) | port | jetzt I-V, abschaltbar |
 | Flypads I-IV (Kreativflug im Radius) | port | jetzt I-V, abschaltbar |
 | Spawn-Teleporter Stufe 1-4 (= Modi: Ziel Spawn 1-4, Fallback Weltspawn) | port | abschaltbar |
@@ -90,27 +92,67 @@ Familie.
 | Familie | Stufe | ID | Radius (Breite x Breite x Hoehe) / Wirkung | Rezept |
 |---|---|---|---|---|
 | Elytra-Pad | I | `elytra_pad` | 6x6x15 | Schmiede: beliebige Vorlage + Diamant-Druckplatte + Diamant |
-| | II | `reinforced_elytra_pad` | 16x16x31 | Schmiede: beliebige Vorlage + Pad I + Diamantblock |
-| | III | `netherite_elytra_pad` | 32x32x63 | Schmiede: Netherit-Vorlage + Pad II + Netheritbarren |
-| | **IV (neu)** | `enderite_elytra_pad` | 48x48x95, **Boosts laden im ganzen Bereich** (sonst nur 3x3-Saeule) | Schmiede: Enderit-Vorlage + Pad III + Enderitbarren |
+| | II | `reinforced_elytra_pad` | 16x16x31 | Schmiede: beliebige Vorlage + Pad I + **Diamant-Druckplatte** |
+| | III | `netherite_elytra_pad` | 32x32x63 | Schmiede: Netherit-Vorlage + Pad II + **Netherit-Druckplatte** |
+| | **IV (neu)** | `enderite_elytra_pad` | 48x48x95, **Boosts laden im ganzen Bereich** (sonst nur 3x3-Saeule) | Schmiede: Enderit-Vorlage + Pad III + **Enderit-Druckplatte** |
 | | V | `fine_elytra_pad` | 64x64x127 + Zusatz von IV | Schmiede: Netherit-Vorlage + **Pad IV** + Netherstern |
-| Flypad | I | `flypad` | 6x6x15 | Schmiede: Netherit-Vorlage + Elytra-Pad V + Netheritbarren |
-| | II | `reinforced_flypad` | 16x16x31 | Schmiede: Netherit-Vorlage + Flypad I + Netheritblock |
+| Flypad | I | `flypad` | 6x6x15 | Schmiede: Netherit-Vorlage + Elytra-Pad V + **Elytra** (vorlaeufig, siehe 2.1) |
+| | II | `reinforced_flypad` | 16x16x31 | Schmiede: Netherit-Vorlage + Flypad I + **Netherit-Druckplatte** |
 | | III | `netherite_flypad` | 32x32x63 | Werkbank `DBD/ESE/KFK` (Diamantblock, Netheritblock, Verz. Goldapfel, Netherstern, Unheilvoller Schluessel, Flypad II) |
-| | **IV (neu)** | `enderite_flypad` | 48x48x95, **Sicherheitsnetz**: wer den Bereich fliegend verlaesst, bekommt 10 s Sanfter Fall statt abzustuerzen | Schmiede: Enderit-Vorlage + Flypad III + Enderitbarren |
+| | **IV (neu)** | `enderite_flypad` | 48x48x95, **Sicherheitsnetz**: wer den Bereich fliegend verlaesst, bekommt 10 s Sanfter Fall statt abzustuerzen | Schmiede: Enderit-Vorlage + Flypad III + **Enderit-Druckplatte** |
 | | V | `stellar_flypad` | 64x64x127 + Zusatz von IV | Werkbank `KKK/ESE/FFF` mit F = **Flypad IV** |
 | Druckplatte | - | `diamond_pressure_plate` | nur Spieler | Werkbank `DD` |
 | | - | `netherite_pressure_plate` | Fass darunter = Item-Whitelist | Schmiede: Netherit-Vorlage + Diamant-Platte + Netheritbarren |
 | | **neu** | `enderite_pressure_plate` | wie Netherit, plus **Spielerschloss**: ohne Fass nur der Besitzer; mit Fass zusaetzlich jeder, dessen Name auf einem umbenannten Namensschild im Fass steht | Schmiede: Enderit-Vorlage + Netherit-Platte + Enderitbarren |
-| Spawn-Teleporter | I-IV | `spawn_teleporter`, `_tier_2..4` | Ziel Spawn 1-4 (per `/simplebuilding tweaks worldspawn setspawnN`), sonst Weltspawn; 5 s stillstehen | I: beliebige Vorlage + leichte Waegeplatte + Diamantblock **oder** Netherit-Vorlage + leichte Waegeplatte + Netheritbarren; II-IV: Netherit-Vorlage + vorige Stufe + Netheritbarren |
-| | **V (neu)** | `enderite_spawn_teleporter` | **Ziel = eigener Wiedereinstiegspunkt** (Bett/Anker, auch in anderer Dimension), Fallback Spawn 1/Weltspawn; nur 3 s stillstehen | Schmiede: Enderit-Vorlage + Teleporter IV + Enderitbarren |
-| Chunk-Loader | - | `chunk_loader` | eigener Chunk | Schmiede: Netherit-Vorlage + Kupfer-Druckplatte + Netheritbarren |
-| | **neu** | `enderite_chunk_loader` | **3x3 Chunks** um den eigenen | Schmiede: Enderit-Vorlage + Chunk-Loader + Enderitbarren |
-| Launchpad | - | `launchpad` | bis 16 Windkugeln | Schmiede: beliebige Vorlage + schwere Waegeplatte + Diamantblock **oder** Netherit-Vorlage + schwere Waegeplatte + Netheritbarren |
-| | **neu** | `enderite_launchpad` | bis **32** Windkugeln, **kein Fallschaden** bis zur naechsten Landung | Schmiede: Enderit-Vorlage + Launchpad + Enderitbarren |
+| Spawn-Teleporter | I-IV | `spawn_teleporter`, `_tier_2..4` | Ziel Spawn 1-4 (per `/simplebuilding tweaks worldspawn setspawnN`), sonst Weltspawn; 5 s stillstehen | I: beliebige Vorlage + leichte Waegeplatte + Diamantblock **oder** Netherit-Vorlage + leichte Waegeplatte + Netheritbarren; II-IV: Netherit-Vorlage + vorige Stufe + **Netherit-Druckplatte** |
+| | **V (neu)** | `enderite_spawn_teleporter` | **Ziel = eigener Wiedereinstiegspunkt** (Bett/Anker, auch in anderer Dimension), Fallback Spawn 1/Weltspawn; nur 3 s stillstehen | Schmiede: Enderit-Vorlage + Teleporter IV + **Enderit-Druckplatte** |
+| Chunk-Loader | I | `chunk_loader` | nur der eigene Chunk | Schmiede: beliebige Vorlage + Kupfer-Druckplatte + **Diamant-Druckplatte** |
+| | **II (neu)** | `netherite_chunk_loader` | **5 Chunks**: der eigene und die vier mit gemeinsamer Kante (Kreuz) | Schmiede: Netherit-Vorlage + Chunk-Loader I + **Netherit-Druckplatte** |
+| | III | `enderite_chunk_loader` | **3x3 Chunks** um den eigenen | Schmiede: Enderit-Vorlage + Chunk-Loader II + **Enderit-Druckplatte** |
+| Launchpad | I | `launchpad` | bis **4** Windkugeln | Schmiede: beliebige Vorlage + schwere Waegeplatte + **Diamant-Druckplatte** |
+| | **II (neu)** | `netherite_launchpad` | bis **8** Windkugeln | Schmiede: Netherit-Vorlage + Launchpad I + **Netherit-Druckplatte** |
+| | III | `enderite_launchpad` | bis **16** Windkugeln, **kein Fallschaden** bis zur naechsten Landung | Schmiede: Enderit-Vorlage + Launchpad II + **Enderit-Druckplatte** |
 
 Kupfer-Druckplatten sind Oxidationsstufen, keine Materialstufen, und bekommen deshalb keine
 Enderit-Variante.
+
+### 2.1 Aufwertungen zahlen mit Druckplatten (Besitzer-Aenderung 2026-09-27)
+
+Jede Aufwertung einer Pad-Familie kostet die **Druckplatte des Zielmaterials** statt des Rohstoffs
+(Barren, Block). Das gilt fuer alle Schmiede-Aufwertungen; unveraendert bleiben die Einstiegsstufen,
+die Druckplatten selbst (sie sind die Quelle der Platten), die Netherstern-Schritte (es gibt keine
+Netherstern-Platte) und die beiden Werkbank-Rezepte (Netherit-Flypad III, Stellares Flypad V).
+
+| Ziel-Material | Zutat vorher | Zutat jetzt | Aufwertungen |
+|---|---|---|---|
+| Diamant | Diamantblock (Pads) bzw. - (neu) | Diamant-Druckplatte | Elytra-Pad II, Launchpad I, Chunk-Loader I |
+| Netherit | Netheritbarren / Netheritblock | Netherit-Druckplatte | Elytra-Pad III, Flypad II, Spawn-Teleporter II-IV, Launchpad II, Chunk-Loader II |
+| Enderit | Enderitbarren | Enderit-Druckplatte | Elytra-Pad IV, Flypad IV, Spawn-Teleporter V, Launchpad III, Chunk-Loader III |
+| (Elytra) | Netheritbarren | Elytra | Flypad I |
+
+- **Flypad I** kostet jetzt eine Elytra (Netherit-Vorlage + Elytra-Pad V + Elytra). Die Nachricht des
+  Besitzers brach nach "Elytra und ..." ab; umgesetzt ist Elytra + die bisherige Basis. **Vorlaeufig**,
+  mit dem Besitzer klaeren.
+- Die frueheren Rezepte `launchpad_smithing_alternative` (Netherit-Vorlage + schwere Waegeplatte +
+  Netheritbarren) und der Chunk-Loader aus Netheritbarren entfallen; Launchpad I und Chunk-Loader I
+  sind jetzt die Diamant-Stufe (beliebige Vorlage + Familienplatte + Diamant-Druckplatte).
+
+### 2.2 Launchpad- und Chunk-Loader-Stufen (Besitzer-Aenderung 2026-09-27)
+
+- **Launchpad:** I/II/III fassen 4/8/16 Windkugeln. Der Schub je Ladung ist verdoppelt
+  (`1,5 + 0,8 x Ladungen` statt `1,5 + 0,4 x Ladungen`): jede volle Stufe startet wie frueher die
+  doppelte Ladung, 16 Ladungen wie die alten 32. Die Enderit-Stufe behaelt den Fallschutz bis zur
+  naechsten Landung. **Schleichen + Rechtsklick** mit Windkugeln laedt alle Windkugeln der Hand auf
+  einmal (bis zum Fassungsvermoegen); normaler Rechtsklick weiter eine. Technik: beim Schleichen fragt
+  Vanilla den Block nicht, darum legt `LaunchpadWindChargeMixin` `useOn` in `WindChargeItem` an.
+- **Chunk-Loader:** I = eigener Chunk, II = Kreuz aus 5 Chunks, III = 3x3. Freigabe beim Abbau, in
+  `setRemoved` (`/setblock`/`/fill`) und die Uebergabe an einen ueberlappenden Loader pruefen die Form
+  der jeweiligen Stufe (ein Netherit-Loader uebernimmt keinen Diagonal-Chunk).
+- **Bestehende Welten:** die IDs bleiben. `launchpad` ist Stufe I, `enderite_launchpad` Stufe III,
+  `chunk_loader` Stufe I (weiter nur der eigene Chunk), `enderite_chunk_loader` Stufe III (weiter 3x3).
+  Ein altes Launchpad mit mehr Ladungen, als seine Stufe jetzt fasst (Enderit bis 32, das normale bis
+  16), behaelt beim ersten Tick 16 bzw. 4 und wirft den Rest als Windkugeln aus - keine geht verloren
+  (`LaunchpadBlockEntity#clampToCapacity`). Weil die IDs bleiben, braucht es keinen DataFixer.
 
 Namen (en): "Elytra Pad I", "Reinforced Elytra Pad II", "Netherite Elytra Pad III",
 "Enderite Elytra Pad IV", "Fine Elytra Pad V"; "Flypad I" ... "Enderite Flypad IV",
@@ -262,6 +304,8 @@ Branch `remove-ported-features` im Repo `simpletweaks` (abgezweigt von `1.21.11`
   Haltbarkeit mehr (nahm nie ab); Entfernungsanzeige misst bis zum Laserpunkt.
 - Echo-Kompass: ein blockierter Sprung kostet weder Perle noch Haltbarkeit noch Abklingzeit.
 - Launchpad: beim Abbau fallen die geladenen Windkugeln heraus. Eigener Weltspawn per Befehl gilt sofort.
+- Stufen (2026-09-27): Launchpad und Chunk-Loader haben je drei Stufen, die Aufwertungen kosten
+  Druckplatten, Flypad I eine Elytra, Launchpad laedt schleichend alle Windkugeln (Abschnitte 2.1, 2.2).
 - XP-Verklumpen: beim Zusammenlegen ging Erfahrung verloren (Anzahl der Kugeln wurde ignoriert) -
   behoben, Obergrenze `Short.MAX_VALUE` je Kugel.
 - Kupfer-Druckplatten behalten beim Oxidieren/Abkratzen ihren Besitzer und melden den Block darunter an.
@@ -284,6 +328,12 @@ Elytra-Pad/Flypad/Teleporter/Launchpad/Chunk-Loader inklusive Enderit-Zusatz, Fi
 Kupferplatten, Echo-Kompass (Verknuepfen, Perle, Unbreaking), XP-Verklumpen, Stapelgroessen,
 Spawn-Regeln, Befehle, Config-Schalter je Familie. Jeder Test wurde gegengeprueft (Mutation des
 geprueften Verhaltens macht ihn rot).
+
+`TweaksTierTests` (Fabric-Adapter `TweaksTierGameTest`, Test-ID `simplebuilding:tweaks_tier_game_test_*`),
+beide Codelinien: Launchpad-Fassungsvermoegen je Stufe, Laden aller Windkugeln beim Schleichen (ueber
+den ganzen Vanilla-Weg `ServerPlayerGameMode#useItemOn`), Schub-Gleichwertigkeit (16 = alte 32) samt
+echtem Start, Welt-Upgrade alter Launchpads (Ueberschuss faellt heraus), Chunk-Loader-Bereiche 1/5/9,
+Uebergabe mit Kreuzform, Druckplatten-Rezepte samt Wegfall der Rohstoff-Wege.
 
 Testzentrale: eigene Station `tweaks` (`com.simplebuilding.dev.testcentre.TweaksStation`, siehe
 `docs/TESTZENTRALE.md`); Gegenprobe: Zeile `travel_and_loading` weggelassen -> Abdeckungstest rot

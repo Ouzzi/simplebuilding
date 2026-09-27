@@ -230,12 +230,14 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .unlockedBy(getHasName(Items.LODESTONE), has(Items.LODESTONE))
                         .save(output);
 
+                // Rotator (Besitzer 2026-09-27): Eisen-Baukern unten links, vier Eisenbarren im Kreuz, Enderperle in der Mitte
                 shaped(RecipeCategory.TOOLS, ModItems.ROTATOR)
                         .pattern(" I ")
-                        .pattern("IEI")
-                        .pattern("II ")
+                        .pattern("IPI")
+                        .pattern("CI ")
                         .define('I', Items.IRON_INGOT)
-                        .define('E', Items.ENDER_PEARL)
+                        .define('P', Items.ENDER_PEARL)
+                        .define('C', ModItems.IRON_CORE)
                         .unlockedBy(getHasName(Items.IRON_INGOT), has(Items.IRON_INGOT))
                         .save(output);
 
@@ -885,7 +887,8 @@ public class ModRecipeProvider extends RecipeProviderCompat {
             /**
              * Rezepte aus Simple Tweaks (ModRecipeProvider dort) plus die Enderit-Stufen und das neue
              * Echo-Kompass-Rezept (docs/SIMPLETWEAKS-UEBERNAHME.md, Abschnitte 2 und 3). Rezept-IDs
-             * wie in Simple Tweaks.
+             * wie in Simple Tweaks. Seit 2026-09-27 kosten die Aufwertungen der Pad-Familien die
+             * Druckplatte des Zielmaterials (Diamant-/Netherit-/Enderit-Druckplatte) statt des Rohstoffs.
              */
             private void buildTweaksRecipes() {
                 Ingredient anyTemplate = Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE,
@@ -901,18 +904,24 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 Item netheriteTemplate = Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE;
                 Item enderiteTemplate = ModItems.ENDERITE_UPGRADE_TEMPLATE;
 
-                // Spawn-Teleporter I-IV (Modi Spawn 1-4) und V (Enderit, eigener Wiedereinstiegspunkt)
+                Item diamondPlate = TweaksBlocks.DIAMOND_PRESSURE_PLATE.asItem();
+                Item netheritePlate = TweaksBlocks.NETHERITE_PRESSURE_PLATE.asItem();
+                Item enderitePlate = TweaksBlocks.ENDERITE_PRESSURE_PLATE.asItem();
+
+                // Spawn-Teleporter I-IV (Modi Spawn 1-4) und V (Enderit, eigener Wiedereinstiegspunkt);
+                // Stufe I unveraendert, die Aufwertungen kosten Netherit- bzw. Enderit-Druckplatten
                 tweaksSmithing(anyTemplate, Items.LIGHT_WEIGHTED_PRESSURE_PLATE, Items.DIAMOND_BLOCK, TweaksBlocks.SPAWN_TELEPORTER, "spawn_teleporter_smithing");
                 tweaksSmithing(Ingredient.of(netheriteTemplate), Items.LIGHT_WEIGHTED_PRESSURE_PLATE, Items.NETHERITE_INGOT, TweaksBlocks.SPAWN_TELEPORTER, "spawn_teleporter_smithing_alternative");
-                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.SPAWN_TELEPORTER, Items.NETHERITE_INGOT, TweaksBlocks.SPAWN_TELEPORTER_TIER_2, "spawn_teleporter_tier2_smithing");
-                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.SPAWN_TELEPORTER_TIER_2, Items.NETHERITE_INGOT, TweaksBlocks.SPAWN_TELEPORTER_TIER_3, "spawn_teleporter_tier3_smithing");
-                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.SPAWN_TELEPORTER_TIER_3, Items.NETHERITE_INGOT, TweaksBlocks.SPAWN_TELEPORTER_TIER_4, "spawn_teleporter_tier4_smithing");
-                tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.SPAWN_TELEPORTER_TIER_4, ModItems.ENDERITE_INGOT, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER, "enderite_spawn_teleporter_smithing");
+                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.SPAWN_TELEPORTER, netheritePlate, TweaksBlocks.SPAWN_TELEPORTER_TIER_2, "spawn_teleporter_tier2_smithing");
+                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.SPAWN_TELEPORTER_TIER_2, netheritePlate, TweaksBlocks.SPAWN_TELEPORTER_TIER_3, "spawn_teleporter_tier3_smithing");
+                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.SPAWN_TELEPORTER_TIER_3, netheritePlate, TweaksBlocks.SPAWN_TELEPORTER_TIER_4, "spawn_teleporter_tier4_smithing");
+                tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.SPAWN_TELEPORTER_TIER_4, enderitePlate, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER, "enderite_spawn_teleporter_smithing");
 
-                // Launchpads
-                tweaksSmithing(anyTemplate, Items.HEAVY_WEIGHTED_PRESSURE_PLATE, Items.DIAMOND_BLOCK, TweaksBlocks.LAUNCHPAD, "launchpad_smithing");
-                tweaksSmithing(Ingredient.of(netheriteTemplate), Items.HEAVY_WEIGHTED_PRESSURE_PLATE, Items.NETHERITE_INGOT, TweaksBlocks.LAUNCHPAD, "launchpad_smithing_alternative");
-                tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.LAUNCHPAD, ModItems.ENDERITE_INGOT, TweaksBlocks.ENDERITE_LAUNCHPAD, "enderite_launchpad_smithing");
+                // Launchpads I-III: I = beliebige Vorlage + schwere Waegeplatte + Diamant-Druckplatte,
+                // dann Netherit- und Enderit-Druckplatte
+                tweaksSmithing(anyTemplate, Items.HEAVY_WEIGHTED_PRESSURE_PLATE, diamondPlate, TweaksBlocks.LAUNCHPAD, "launchpad_smithing");
+                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.LAUNCHPAD, netheritePlate, TweaksBlocks.NETHERITE_LAUNCHPAD, "netherite_launchpad_smithing");
+                tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.NETHERITE_LAUNCHPAD, enderitePlate, TweaksBlocks.ENDERITE_LAUNCHPAD, "enderite_launchpad_smithing");
 
                 // Druckplatten: Diamant -> Netherit -> Enderit
                 shaped(RecipeCategory.REDSTONE, TweaksBlocks.DIAMOND_PRESSURE_PLATE)
@@ -925,14 +934,15 @@ public class ModRecipeProvider extends RecipeProviderCompat {
 
                 // Elytra-Pads I-V: Enderit IV neu, der Netherstern (Fine) rueckt auf V
                 tweaksSmithing(anyTemplate, TweaksBlocks.DIAMOND_PRESSURE_PLATE, Items.DIAMOND, TweaksBlocks.ELYTRA_PAD, "elytra_pad_smithing");
-                tweaksSmithing(anyTemplate, TweaksBlocks.ELYTRA_PAD, Items.DIAMOND_BLOCK, TweaksBlocks.REINFORCED_ELYTRA_PAD, "reinforced_elytra_pad_smithing");
-                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.REINFORCED_ELYTRA_PAD, Items.NETHERITE_INGOT, TweaksBlocks.NETHERITE_ELYTRA_PAD, "netherite_elytra_pad_smithing");
-                tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.NETHERITE_ELYTRA_PAD, ModItems.ENDERITE_INGOT, TweaksBlocks.ENDERITE_ELYTRA_PAD, "enderite_elytra_pad_smithing");
+                tweaksSmithing(anyTemplate, TweaksBlocks.ELYTRA_PAD, diamondPlate, TweaksBlocks.REINFORCED_ELYTRA_PAD, "reinforced_elytra_pad_smithing");
+                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.REINFORCED_ELYTRA_PAD, netheritePlate, TweaksBlocks.NETHERITE_ELYTRA_PAD, "netherite_elytra_pad_smithing");
+                tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.NETHERITE_ELYTRA_PAD, enderitePlate, TweaksBlocks.ENDERITE_ELYTRA_PAD, "enderite_elytra_pad_smithing");
                 tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.ENDERITE_ELYTRA_PAD, Items.NETHER_STAR, TweaksBlocks.FINE_ELYTRA_PAD, "fine_elytra_pad_smithing");
 
-                // Flypads I-V: Enderit IV neu, Stellar (Netherstern) rueckt auf V
-                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.FINE_ELYTRA_PAD, Items.NETHERITE_INGOT, TweaksBlocks.FLYPAD, "flypad_tier1_smithing");
-                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.FLYPAD, Items.NETHERITE_BLOCK, TweaksBlocks.REINFORCED_FLYPAD, "flypad_tier2_smithing");
+                // Flypads I-V: Enderit IV neu, Stellar (Netherstern) rueckt auf V. Stufe I kostet eine
+                // Elytra statt des Netheritbarrens (Besitzer 2026-09-27, vorlaeufig: Nachricht brach ab)
+                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.FINE_ELYTRA_PAD, Items.ELYTRA, TweaksBlocks.FLYPAD, "flypad_tier1_smithing");
+                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.FLYPAD, netheritePlate, TweaksBlocks.REINFORCED_FLYPAD, "flypad_tier2_smithing");
                 shaped(RecipeCategory.TOOLS, TweaksBlocks.NETHERITE_FLYPAD)
                         .pattern("DBD")
                         .pattern("ESE")
@@ -945,7 +955,7 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .define('F', TweaksBlocks.REINFORCED_FLYPAD)
                         .unlockedBy("has_reinforced_flypad", has(TweaksBlocks.REINFORCED_FLYPAD))
                         .save(output, Simplebuilding.MOD_ID + ":netherite_flypad_crafting");
-                tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.NETHERITE_FLYPAD, ModItems.ENDERITE_INGOT, TweaksBlocks.ENDERITE_FLYPAD, "enderite_flypad_smithing");
+                tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.NETHERITE_FLYPAD, enderitePlate, TweaksBlocks.ENDERITE_FLYPAD, "enderite_flypad_smithing");
                 shaped(RecipeCategory.TOOLS, TweaksBlocks.STELLAR_FLYPAD)
                         .pattern("KKK")
                         .pattern("ESE")
@@ -957,14 +967,16 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .unlockedBy("has_enderite_flypad", has(TweaksBlocks.ENDERITE_FLYPAD))
                         .save(output, Simplebuilding.MOD_ID + ":stellar_flypad_crafting");
 
-                // Kupfer-Druckplatte (2 Kupferbloecke) und Chunk-Loader
+                // Kupfer-Druckplatte (2 Kupferbloecke) und Chunk-Loader I-III (Kupferplatte + Diamant-,
+                // dann Netherit- und Enderit-Druckplatte)
                 shaped(RecipeCategory.REDSTONE, TweaksBlocks.COPPER_PRESSURE_PLATE)
                         .pattern("CC")
                         .define('C', Items.COPPER_BLOCK.weathering().unaffected())
                         .unlockedBy("has_copper_block", has(Items.COPPER_BLOCK.weathering().unaffected()))
                         .save(output);
-                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.COPPER_PRESSURE_PLATE, Items.NETHERITE_INGOT, TweaksBlocks.CHUNK_LOADER, "chunk_loader_smithing");
-                tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.CHUNK_LOADER, ModItems.ENDERITE_INGOT, TweaksBlocks.ENDERITE_CHUNK_LOADER, "enderite_chunk_loader_smithing");
+                tweaksSmithing(anyTemplate, TweaksBlocks.COPPER_PRESSURE_PLATE, diamondPlate, TweaksBlocks.CHUNK_LOADER, "chunk_loader_smithing");
+                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.CHUNK_LOADER, netheritePlate, TweaksBlocks.NETHERITE_CHUNK_LOADER, "netherite_chunk_loader_smithing");
+                tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.NETHERITE_CHUNK_LOADER, enderitePlate, TweaksBlocks.ENDERITE_CHUNK_LOADER, "enderite_chunk_loader_smithing");
 
                 // Echo-Kompass: Bergungskompass in der Mitte, Enderit-Kern darueber, Netherit-Druckplatten links/rechts
                 shaped(RecipeCategory.TOOLS, TweaksItems.ECHO_COMPASS)

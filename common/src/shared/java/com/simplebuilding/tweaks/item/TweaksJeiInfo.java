@@ -24,8 +24,8 @@ public final class TweaksJeiInfo {
                 TweaksBlocks.ENDERITE_FLYPAD, TweaksBlocks.STELLAR_FLYPAD));
         map.put("spawn_teleporter", List.of(TweaksBlocks.SPAWN_TELEPORTER, TweaksBlocks.SPAWN_TELEPORTER_TIER_2,
                 TweaksBlocks.SPAWN_TELEPORTER_TIER_3, TweaksBlocks.SPAWN_TELEPORTER_TIER_4, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER));
-        map.put("chunk_loader", List.of(TweaksBlocks.CHUNK_LOADER, TweaksBlocks.ENDERITE_CHUNK_LOADER));
-        map.put("launchpad", List.of(TweaksBlocks.LAUNCHPAD, TweaksBlocks.ENDERITE_LAUNCHPAD));
+        map.put("chunk_loader", List.of(TweaksBlocks.CHUNK_LOADER, TweaksBlocks.NETHERITE_CHUNK_LOADER, TweaksBlocks.ENDERITE_CHUNK_LOADER));
+        map.put("launchpad", List.of(TweaksBlocks.LAUNCHPAD, TweaksBlocks.NETHERITE_LAUNCHPAD, TweaksBlocks.ENDERITE_LAUNCHPAD));
         map.put("diamond_pressure_plate", List.of(TweaksBlocks.DIAMOND_PRESSURE_PLATE));
         map.put("netherite_pressure_plate", List.of(TweaksBlocks.NETHERITE_PRESSURE_PLATE));
         map.put("enderite_pressure_plate", List.of(TweaksBlocks.ENDERITE_PRESSURE_PLATE));

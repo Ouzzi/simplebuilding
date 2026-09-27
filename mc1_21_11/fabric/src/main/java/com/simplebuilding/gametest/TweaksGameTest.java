@@ -121,11 +121,6 @@ public final class TweaksGameTest {
     }
 
     @GameTest
-    public void launchpadsHoldSixteenWindChargesAndTheEnderiteOneThirtyTwo(GameTestHelper helper) {
-        TweaksTests.launchpadsHoldSixteenWindChargesAndTheEnderiteOneThirtyTwo(helper);
-    }
-
-    @GameTest
     public void theEchoCompassLinksToTheLodestoneAndTeleportsForOnePearl(GameTestHelper helper) {
         TweaksTests.theEchoCompassLinksToTheLodestoneAndTeleportsForOnePearl(helper);
     }

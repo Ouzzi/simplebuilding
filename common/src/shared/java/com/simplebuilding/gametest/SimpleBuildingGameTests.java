@@ -496,7 +496,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("rotator_game_test_wears_out_at_its_rated_durability_and_takes_durability_enchantments", RotatorTests::wearsOutAtItsRatedDurabilityAndTakesDurabilityEnchantments)
                     .build(),
-            GameTestSpec.named("rotator_game_test_crafting_takes_five_iron_and_one_ender_pearl_in_that_shape", RotatorTests::craftingTakesFiveIronAndOneEnderPearlInThatShape)
+            GameTestSpec.named("rotator_game_test_crafting_takes_an_iron_core_four_iron_and_an_ender_pearl_in_that_shape", RotatorTests::craftingTakesAnIronCoreFourIronAndAnEnderPearlInThatShape)
                     .build(),
             GameTestSpec.named("magnet_game_test_magnet_only_runs_for_players_holding_it_and_stops_while_sneaking", MagnetTests::magnetOnlyRunsForPlayersHoldingItAndStopsWhileSneaking)
                     .build(),
@@ -1132,7 +1132,19 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tweaks_game_test_chunk_loaders_force_their_chunks_and_release_only_their_own", TweaksTests::chunkLoadersForceTheirChunksAndReleaseOnlyTheirOwn)
                     .build(),
-            GameTestSpec.named("tweaks_game_test_launchpads_hold_sixteen_wind_charges_and_the_enderite_one_thirty_two", TweaksTests::launchpadsHoldSixteenWindChargesAndTheEnderiteOneThirtyTwo)
+            GameTestSpec.named("tweaks_tier_game_test_launchpad_tiers_hold_four_eight_and_sixteen_wind_charges", TweaksTierTests::launchpadTiersHoldFourEightAndSixteenWindCharges)
+                    .build(),
+            GameTestSpec.named("tweaks_tier_game_test_sneaking_with_wind_charges_loads_the_whole_hand_up_to_capacity", TweaksTierTests::sneakingWithWindChargesLoadsTheWholeHandUpToCapacity)
+                    .build(),
+            GameTestSpec.named("tweaks_tier_game_test_launch_strength_per_charge_is_doubled_so_full_tiers_launch_like_twice_the_old_charges", TweaksTierTests::launchStrengthPerChargeIsDoubledSoFullTiersLaunchLikeTwiceTheOldCharges)
+                    .build(),
+            GameTestSpec.named("tweaks_tier_game_test_old_launchpads_drop_the_charges_their_tier_no_longer_holds", TweaksTierTests::oldLaunchpadsDropTheChargesTheirTierNoLongerHolds)
+                    .build(),
+            GameTestSpec.named("tweaks_tier_game_test_chunk_loader_tiers_force_one_five_and_nine_chunks", TweaksTierTests::chunkLoaderTiersForceOneFiveAndNineChunks)
+                    .build(),
+            GameTestSpec.named("tweaks_tier_game_test_a_netherite_chunk_loader_takes_over_only_the_chunks_of_its_cross", TweaksTierTests::aNetheriteChunkLoaderTakesOverOnlyTheChunksOfItsCross)
+                    .build(),
+            GameTestSpec.named("tweaks_tier_game_test_pad_upgrades_pay_with_the_pressure_plate_of_their_target_material", TweaksTierTests::padUpgradesPayWithThePressurePlateOfTheirTargetMaterial)
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_echo_compass_links_to_the_lodestone_and_teleports_for_one_pearl", TweaksTests::theEchoCompassLinksToTheLodestoneAndTeleportsForOnePearl)
                     .build(),

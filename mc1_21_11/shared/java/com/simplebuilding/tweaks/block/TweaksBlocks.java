@@ -38,11 +38,13 @@ public final class TweaksBlocks {
     public static final Block ENDERITE_SPAWN_TELEPORTER = register("enderite_spawn_teleporter",
             p -> new SpawnTeleporterBlock(sturdy(p).lightLevel(s -> 15).mapColor(MapColor.COLOR_PURPLE), SpawnTeleporterBlock.ENDERITE_TIER));
 
-    // --- Launchpads ---
+    // --- Launchpads I-III (4/8/16 Ladungen; III = Enderit, kein Fallschaden) ---
     public static final Block LAUNCHPAD = register("launchpad",
-            p -> new LaunchpadBlock(sturdy(p).lightLevel(s -> 5), false));
+            p -> new LaunchpadBlock(sturdy(p).lightLevel(s -> 5), 1));
+    public static final Block NETHERITE_LAUNCHPAD = register("netherite_launchpad",
+            p -> new LaunchpadBlock(sturdy(p).lightLevel(s -> 6).mapColor(MapColor.COLOR_BLACK).strength(4.0f).sound(SoundType.NETHERITE_BLOCK), 2));
     public static final Block ENDERITE_LAUNCHPAD = register("enderite_launchpad",
-            p -> new LaunchpadBlock(sturdy(p).lightLevel(s -> 7).mapColor(MapColor.COLOR_PURPLE).strength(4.0f).sound(SoundType.NETHERITE_BLOCK), true));
+            p -> new LaunchpadBlock(sturdy(p).lightLevel(s -> 7).mapColor(MapColor.COLOR_PURPLE).strength(4.0f).sound(SoundType.NETHERITE_BLOCK), LaunchpadBlock.ENDERITE_TIER));
 
     // --- Druckplatten ---
     public static final Block DIAMOND_PRESSURE_PLATE = register("diamond_pressure_plate",
@@ -79,11 +81,13 @@ public final class TweaksBlocks {
     public static final Block STELLAR_FLYPAD = register("stellar_flypad",
             p -> new FlypadBlock(sturdy(p).mapColor(MapColor.COLOR_PURPLE).strength(5.0f).lightLevel(s -> 15), 5));
 
-    // --- Chunk-Loader ---
+    // --- Chunk-Loader I-III (eigener Chunk / 5 Chunks im Kreuz / 3x3) ---
     public static final Block CHUNK_LOADER = register("chunk_loader",
-            p -> new ChunkLoaderBlock(sturdy(p).mapColor(MapColor.DIAMOND).strength(4.0f).lightLevel(s -> 7), 0));
+            p -> new ChunkLoaderBlock(sturdy(p).mapColor(MapColor.DIAMOND).strength(4.0f).lightLevel(s -> 7), 1));
+    public static final Block NETHERITE_CHUNK_LOADER = register("netherite_chunk_loader",
+            p -> new ChunkLoaderBlock(sturdy(p).mapColor(MapColor.COLOR_BLACK).strength(4.5f).lightLevel(s -> 8).sound(SoundType.NETHERITE_BLOCK), 2));
     public static final Block ENDERITE_CHUNK_LOADER = register("enderite_chunk_loader",
-            p -> new ChunkLoaderBlock(sturdy(p).mapColor(MapColor.COLOR_PURPLE).strength(5.0f).lightLevel(s -> 9), 1));
+            p -> new ChunkLoaderBlock(sturdy(p).mapColor(MapColor.COLOR_PURPLE).strength(5.0f).lightLevel(s -> 9), 3));
 
     // --- Kupfer-Druckplatten (zerbrechlich, oxidieren) ---
     public static final Block COPPER_PRESSURE_PLATE = register("copper_pressure_plate",

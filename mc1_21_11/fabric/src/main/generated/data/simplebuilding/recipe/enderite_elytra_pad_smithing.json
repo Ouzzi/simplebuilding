@@ -1,6 +1,6 @@
 {
   "type": "minecraft:smithing_transform",
-  "addition": "simplebuilding:enderite_ingot",
+  "addition": "simplebuilding:enderite_pressure_plate",
   "base": "simplebuilding:netherite_elytra_pad",
   "result": {
     "id": "simplebuilding:enderite_elytra_pad"

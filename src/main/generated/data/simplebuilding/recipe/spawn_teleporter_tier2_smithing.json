@@ -1,6 +1,6 @@
 {
   "type": "minecraft:smithing_transform",
-  "addition": "minecraft:netherite_ingot",
+  "addition": "simplebuilding:netherite_pressure_plate",
   "base": "simplebuilding:spawn_teleporter",
   "result": {
     "id": "simplebuilding:spawn_teleporter_tier_2"
