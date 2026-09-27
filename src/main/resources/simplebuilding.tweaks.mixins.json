@@ -5,6 +5,7 @@
   "mixins": [
     "ExperienceOrbAccessor",
     "ExperienceOrbMixin",
+    "FireBlockInvoker",
     "SpawnElytraDamageMixin",
     "SpawnElytraItemEntityMixin",
     "SpawnElytraSlotMixin",

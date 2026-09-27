@@ -2826,7 +2826,7 @@
       ],
       "en": {
         "title": "Simple Tweaks: pads, spawn and server tweaks",
-        "summary": "Almost everything from the Simple Tweaks mod lives in SimpleBuilding now (the claim system stays in Simple Tweaks): pressure plates and pads with an Enderite tier, spawn elytra and spawn teleporters, the echo compass, the laser pointer and a few server options.",
+        "summary": "Almost everything from the Simple Tweaks mod lives in SimpleBuilding now (the claim system stays in Simple Tweaks): pressure plates and pads with an Enderite tier, spawn elytra and spawn teleporters, the echo compass, the amethyst lens (formerly the laser pointer) and a few server options.",
         "details": [
           "Tier ladder of every plate family: after Netherite comes Enderite (enderite upgrade template + netherite tier + enderite ingot), and the nether star tier moves up one: Netherite Elytra Pad III, Enderite Elytra Pad IV, Fine Elytra Pad V; the same for flypads. Each Enderite tier adds one function (see the items).",
           "XP orbs merge into one orb once a second within 2 blocks and can be picked up without the vanilla delay (tweaks.optimization.enableXpClumps); orbs worth more look bigger (scaleXpOrbs, client).",
@@ -2838,7 +2838,7 @@
       },
       "de": {
         "title": "Simple Tweaks: Pads, Spawn und Server-Einstellungen",
-        "summary": "Fast alles aus der Mod Simple Tweaks steckt jetzt in SimpleBuilding (das Claim-System bleibt in Simple Tweaks): Druckplatten und Pads mit einer Enderit-Stufe, Spawn-Elytra und Spawn-Teleporter, der Echo-Kompass, der Laserpointer und einige Server-Optionen.",
+        "summary": "Fast alles aus der Mod Simple Tweaks steckt jetzt in SimpleBuilding (das Claim-System bleibt in Simple Tweaks): Druckplatten und Pads mit einer Enderit-Stufe, Spawn-Elytra und Spawn-Teleporter, der Echo-Kompass, die Amethystlinse (früher Laserpointer) und einige Server-Optionen.",
         "details": [
           "Stufenleiter aller Platten-Familien: nach Netherit kommt Enderit (Enderit-Aufwertungsvorlage + Netherit-Stufe + Enderitbarren), die Netherstern-Stufe rückt eins auf: Netherit-Elytra-Pad III, Enderit-Elytra-Pad IV, Feines Elytra-Pad V; ebenso bei den Flugpads. Jede Enderit-Stufe bringt eine Zusatzfunktion (siehe die Gegenstände).",
           "XP-Kugeln verschmelzen einmal pro Sekunde im Umkreis von 2 Blöcken zu einer und lassen sich ohne die Vanilla-Verzögerung aufheben (tweaks.optimization.enableXpClumps); wertvollere Kugeln sehen größer aus (scaleXpOrbs, Client).",
@@ -8752,6 +8752,7 @@
       ],
       "usedIn": [
         "simplebuilding:iron_building_wand",
+        "simplebuilding:laser_pointer",
         "simplebuilding:upgrade_copper_building_wand_to_iron_building_wand"
       ],
       "trades": [
@@ -9078,8 +9079,8 @@
     {
       "id": "simplebuilding:laser_pointer",
       "name": {
-        "en_us": "Laser Pointer",
-        "de_de": "Laserpointer"
+        "en_us": "Amethyst Lens",
+        "de_de": "Amethystlinse"
       },
       "texture": "assets/textures/item/laser_pointer.png",
       "craftedBy": [
@@ -9088,25 +9089,34 @@
       "usedIn": [],
       "trades": [],
       "properties": {
+        "durability": 640,
         "maxStackSize": 1
       },
       "note": {
         "en": {
-          "summary": "The Laser Pointer (from Simple Tweaks) shows a red dot where you aim while you hold right-click, visible to the players within 128 blocks of you or the dot, and the distance to the dot next to the crosshair.",
+          "summary": "The Amethyst Lens (the former laser pointer from Simple Tweaks, item id still laser_pointer) shows a red dot where you aim while you hold right-click, visible to the players within 128 blocks of you or the dot, with the distance next to the crosshair. Held on a block for a moment, its beam melts, lights and dries things.",
           "details": [
-            "Range, colour and dot size come from the config section tweaks.laserPointer (default 512 blocks, red); the dot grows with distance. Range and the on/off switch are the server's: the server sends them to the client and only passes a dot on while the player really uses a laser pointer, at most 12 times a second.",
-            "Recipe (crafting, shaped): amethyst shard on top; iron ingot, glass, iron ingot; iron ingot, redstone, iron ingot. It has no durability (Simple Tweaks had no recipe and a durability that never wore)."
+            "Range, colour and dot size come from the config section tweaks.laserPointer (default 512 blocks, red). The dot keeps its size in the world (the config size, 0.05-1 block) and only grows far away so it stays about three pixels wide, instead of turning into a huge circle on a distant wall. Range and the on/off switch are the server's: the server sends them to the client and only passes a dot on while the player really uses the lens, at most 12 times a second.",
+            "Beam effects (server side, up to 24 blocks, while the beam rests on the same block face): ice and frosted ice melt into water after 2 s (they evaporate where water does, like in the Nether), packed ice becomes ice and blue ice packed ice; snow layers, snow blocks and powder snow melt away. Campfires, soul campfires, candles and candle cakes light after 1 s. Soul sand and soul soil get soul fire on top after 2 s. Flammable blocks (anything fire can catch: planks, logs, leaves, wool ...) catch fire on the beamed face after 3 s, but only where the fire_spread_radius_around_player game rule lets fire spread. Wet sponges dry after 5 s. It never lights a nether portal (unlike flint and steel, no fire is placed into an empty portal frame) and never TNT. Smoke rises while the heat builds up; a sound and particles mark the result.",
+            "Protection: the player must be allowed to touch and build at the block (spawn protection, world border, adventure mode), for fire also at the fire's spot.",
+            "Charge: the durability (640) is the charge. Beaming costs 1 per second, every block effect 5 more. The lens never breaks; empty it cannot beam any more (empty-state model). Recharge it in an anvil with redstone at no level cost: one redstone restores 10, a full stack of 64 fills an empty lens, and only as much redstone as needed is used. No charge is used in creative mode.",
+            "Recipe (crafting, shaped): redstone, amethyst shard, redstone; iron ingot, iron building core, iron ingot; three iron ingots. In the creative Tools tab it sits with the gadgets."
           ]
         },
         "de": {
-          "summary": "Der Laserpointer (aus Simple Tweaks) zeigt einen roten Punkt, wohin du bei gedrücktem Rechtsklick zielst - sichtbar für die Spieler im Umkreis von 128 Blöcken um dich oder den Punkt - und die Entfernung zum Punkt neben dem Fadenkreuz.",
+          "summary": "Die Amethystlinse (der frühere Laserpointer aus Simple Tweaks, Item-Id weiter laser_pointer) zeigt einen roten Punkt, wohin du bei gedrücktem Rechtsklick zielst - sichtbar für die Spieler im Umkreis von 128 Blöcken um dich oder den Punkt - und die Entfernung neben dem Fadenkreuz. Ruht der Strahl kurz auf einem Block, schmilzt, zündet und trocknet er.",
           "details": [
-            "Reichweite, Farbe und Punktgröße stehen in der Config unter tweaks.laserPointer (Standard 512 Blöcke, rot); der Punkt wächst mit der Entfernung. Reichweite und Schalter gelten vom Server: er schickt sie dem Client und gibt einen Punkt nur weiter, solange der Spieler wirklich einen Laserpointer benutzt, höchstens 12-mal pro Sekunde.",
-            "Rezept (Werkbank, geformt): Amethystsplitter oben; Eisenbarren, Glas, Eisenbarren; Eisenbarren, Redstone, Eisenbarren. Er hat keine Haltbarkeit (Simple Tweaks: kein Rezept und eine Haltbarkeit, die nie abnahm)."
+            "Reichweite, Farbe und Punktgröße stehen in der Config unter tweaks.laserPointer (Standard 512 Blöcke, rot). Der Punkt behält seine Größe in der Welt (die Config-Größe, 0,05-1 Block) und wächst erst in der Ferne mit, damit er etwa drei Pixel breit sichtbar bleibt - statt auf einer fernen Wand zum riesigen Kreis zu werden. Reichweite und Schalter gelten vom Server: er schickt sie dem Client und gibt einen Punkt nur weiter, solange der Spieler die Linse wirklich benutzt, höchstens 12-mal pro Sekunde.",
+            "Strahlwirkungen (auf dem Server, bis 24 Blöcke, solange der Strahl auf derselben Blockseite ruht): Eis und Frosteis schmelzen nach 2 s zu Wasser (verdampfen, wo Wasser verdampft, wie im Nether), Packeis wird zu Eis, Blaueis zu Packeis; Schneeschichten, Schneeblöcke und Pulverschnee schmelzen weg. Lagerfeuer, Seelenlagerfeuer, Kerzen und Kerzenkuchen gehen nach 1 s an. Seelensand und Seelenerde bekommen nach 2 s oben Seelenfeuer. Brennbare Blöcke (alles, was Feuer fangen kann: Bretter, Stämme, Laub, Wolle ...) fangen nach 3 s auf der angestrahlten Seite Feuer - nur, wo die Spielregel fire_spread_radius_around_player Feuer sich ausbreiten lässt. Nasse Schwämme trocknen nach 5 s. Nie: ein Netherportal (anders als ein Feuerzeug setzt der Strahl kein Feuer in einen leeren Portalrahmen) und TNT. Solange sich die Hitze aufbaut, steigt Rauch auf; ein Geräusch und Partikel zeigen das Ergebnis.",
+            "Schutz: der Spieler muss den Block berühren und dort bauen dürfen (Spawnschutz, Weltgrenze, Abenteuermodus), für Feuer auch am Feuerplatz.",
+            "Ladung: die Haltbarkeit (640) ist die Ladung. Strahlen kostet 1 je Sekunde, jede Blockwirkung 5 mehr. Die Linse zerbricht nie; leer kann sie nicht mehr strahlen (eigenes Leer-Modell). Aufladen im Amboss mit Redstone ohne Stufenkosten: ein Redstone lädt 10, ein voller Stapel (64) füllt eine leere Linse, verbraucht wird nur, was nötig ist. Im Kreativmodus kostet nichts Ladung.",
+            "Rezept (Werkbank, geformt): Redstone, Amethystsplitter, Redstone; Eisenbarren, Eisen-Baukern, Eisenbarren; drei Eisenbarren. Im Kreativ-Tab Werkzeuge steht sie bei den Geräten."
           ]
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/tweaks/item/LaserPointerItem.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/item/LaserBeam.java",
+          "common/src/shared/java/com/simplebuilding/mixin/AnvilScreenHandlerMixin.java",
           "common/src/shared/java/com/simplebuilding/tweaks/client/LaserRenderer.java",
           "common/src/shared/java/com/simplebuilding/tweaks/client/TweaksClient.java",
           "common/src/shared/java/com/simplebuilding/tweaks/network/LaserPayload.java",
@@ -24838,21 +24848,21 @@
       "source": "src/main/generated/data/simplebuilding/recipe/laser_pointer.json",
       "ingredients": [
         "minecraft:amethyst_shard",
-        "minecraft:glass",
         "minecraft:iron_ingot",
-        "minecraft:redstone"
+        "minecraft:redstone",
+        "simplebuilding:iron_core"
       ],
       "pattern": [
-        " A ",
-        "IGI",
-        "IRI"
+        "RAR",
+        "ICI",
+        "III"
       ],
       "key": {
         "A": [
           "minecraft:amethyst_shard"
         ],
-        "G": [
-          "minecraft:glass"
+        "C": [
+          "simplebuilding:iron_core"
         ],
         "I": [
           "minecraft:iron_ingot"

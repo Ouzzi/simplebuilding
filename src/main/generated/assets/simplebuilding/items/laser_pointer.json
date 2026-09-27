@@ -1,6 +1,19 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "simplebuilding:item/laser_pointer"
+    "type": "minecraft:range_dispatch",
+    "entries": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/laser_pointer_empty"
+        },
+        "threshold": 1.0
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "simplebuilding:item/laser_pointer"
+    },
+    "property": "minecraft:damage"
   }
 }

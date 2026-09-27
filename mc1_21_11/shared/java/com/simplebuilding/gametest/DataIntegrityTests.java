@@ -2299,7 +2299,7 @@ public final class DataIntegrityTests {
                         TweaksBlocks.SPAWN_TELEPORTER_TIER_3.asItem(), TweaksBlocks.SPAWN_TELEPORTER_TIER_4.asItem(),
                         TweaksBlocks.ENDERITE_SPAWN_TELEPORTER.asItem(), TweaksItems.ECHO_COMPASS),
                 List.of(TweaksBlocks.LAUNCHPAD.asItem(), TweaksBlocks.ENDERITE_LAUNCHPAD.asItem(), TweaksBlocks.CHUNK_LOADER.asItem(),
-                        TweaksBlocks.ENDERITE_CHUNK_LOADER.asItem(), TweaksItems.LASER_POINTER),
+                        TweaksBlocks.ENDERITE_CHUNK_LOADER.asItem()),
                 List.of(ModItems.BLUEPRINT, Items.CARTOGRAPHY_TABLE, ModItems.OCTANT, ModItems.COPPER_BUILDING_WAND,
                         ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND, ModItems.DIAMOND_BUILDING_WAND,
                         ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND));
@@ -2390,7 +2390,8 @@ public final class DataIntegrityTests {
             family.add(top);
             expected.add(family);
         });
-        expected.add(List.of(ModItems.OCTANT, ModItems.VELOCITY_GAUGE, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR));
+        expected.add(List.of(ModItems.OCTANT, ModItems.VELOCITY_GAUGE, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR,
+                TweaksItems.LASER_POINTER));
         List<Item> colored = new ArrayList<>();
         for (DyeColor color : DyeColor.values()) {
             colored.add(ModItems.COLORED_OCTANT_ITEMS.get(color));
