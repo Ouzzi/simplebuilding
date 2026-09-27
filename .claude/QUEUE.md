@@ -105,6 +105,10 @@ Verlauf im Detail: git log.
 ## Welle 20 (laeuft)
 - [ ] Texturen: Maschinen (Kolben, Oefen, Raeucherofen, Schmelzofen, Trichter) vanilla-naeher; Enderit-Block + andere Mod-Bloecke neu; Netherit-Griff fuer Netherit-Hammer/-Meissel/-Baustab; Enderquarz lesbarer; Laser-Textur
 - [ ] Laser: Vanilla-Name, Punktgroesse, Abstand der Meterzahl, Rezept (Eisen-Kern/Amethyst/Eisen-U/Redstone), Eis/Schnee schmelzen, Brennbares entzuenden, Seelenfeuer, Lagerfeuer, kein Netherportal, Ladung statt Bruch, Amboss-Aufladen mit Redstone ohne Level (64 = voll)
+- [ ] JEI-Infoseiten fuer Items ohne Rezept (laeuft)
+- [ ] Blaupausen-Code: Formen und Variablen (laeuft)
+- [ ] 26.4: pruefen, ob Forge/NeoForge/Cloth-Builds da sind (laeuft)
+- [ ] Enderit-Kolben-Verschleiss nach Brecher-Muster - nach der Textur-Runde (Kolbentexturen werden gerade neu gezeichnet)
 
 ## Wartet auf den Besitzer
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
@@ -116,6 +120,4 @@ Verlauf im Detail: git log.
 - [ ] Kerne als Baustab-Module + eigene Funktionen (Vorschlaege in docs/BAUWERKZEUGE-INTERAKTIONEN.md) - Besitzer: erst spaeter
 - [ ] Kerne: Netherstern nur ab Diamant, Netherit-/Enderit-Baustab aus Kern, goldener Baustab mehr Haltbarkeit - nicht gewaehlt, spaeter neu besprechen
 - [ ] Rucksack-Sortierung (Reihenfolge vorbereitet), sobald eine Sortierfunktion kommt
-- [ ] Blaupausen-Code: Formen (sphere(...)) und Variablen
-- [ ] JEI-Infoseiten fuer Items ohne Rezept
 - [ ] Mehrere Mods in einem Repo (build-logic + framework/)
