@@ -526,13 +526,26 @@ Modulen. Alles Weitere lässt sich danach einzeln entscheiden.
 
 ## Teil 5 – Notizen für später (nicht umgesetzt)
 
-### Enderit-Kolben: Tunnelbohren zu leicht
+### Enderit-Kolben: Tunnelbohren zu leicht (erledigt 2026-09-27)
+
+**Umgesetzt** nach dem Muster des Netherit-Brechers (Audit #23): Der Enderitkolben hat jetzt die
+Blockeigenschaft `wear` (0-7), jeder normal gebrochene Block kostet `max(1, aufgerundete Härte)`
+Punkte, das Budget ist die eigene Config-Option `enderitePistonWearBudget` (Standard 2048 = doppelt
+so viel wie beim Netheritkolben, 256 Punkte je Stufe: rund 1000 Steine oder 680 Tiefenschiefer bis
+zur Reparatur, ein Tunnel von einigen tausend Blöcken kostet ein paar Enderit-Klumpen). Rauch,
+Amboss-Knirschen und Risstexturen `enderite_piston_side_worn1..3` je Stufe, Tooltip `Verschleiß
+n/8`, Stufe bleibt am Item. Letzte Stufe voll → Zerfall eine Stufe tiefer zum Netheritkolben
+(gleiche Blickrichtung, Verschleiß 0), Reparatur per Rechtsklick mit einem Enderit-Klumpen; die
+Hammer-Aufwertung Netherit → Enderit gibt einen unversehrten Kolben. Alte Enderitkolben laden mit
+Verschleiß 0 (Standardwert, kein Datenfixer). Der bezahlte Durchbruch verbraucht den Kolben wie
+bisher. Code: `EnderitePistonBlock`, Test
+`PistonBreachTests#enderitePistonWearsDownAndCrumblesToNetheriteBreaker`.
 
 Besitzer-Befund 2026-09-25: Der Enderit-Kolben bricht bis zu drei Blöcke vor sich durch
 (Durchbruch mit Redstoneblock als Brennstoff). Mit einer Hebelschaltung bohrt er damit Tunnel fast
 ohne Aufwand - das nimmt Spitzhacke, Vorschlaghammer und Strip Miner die Aufgabe weg.
 
-Balance-Idee, **noch nicht entschieden**: ein Verschleiß- bzw. Schadenszustand am Kolben (z. B.
+Balance-Idee (damals noch offen, jetzt als Verschleiß umgesetzt, siehe oben): ein Verschleiß- bzw. Schadenszustand am Kolben (z. B.
 Abnutzungsstufen im Blockzustand, je Durchbruch eine Stufe, bei der letzten wird er zum
 gewöhnlichen Netherit-Kolben oder muss mit Enderit repariert werden), alternativ ein höherer
 Brennstoffpreis je Durchbruch oder eine Abklingzeit. Vor der Umsetzung mit dem Besitzer klären.

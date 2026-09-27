@@ -164,7 +164,7 @@ public class ModModelProvider extends FabricModelProvider {
         registerCustomPiston(blockStateModelGenerator, ModBlocks.REINFORCED_PISTON);
         registerStickyPistonVariant(blockStateModelGenerator, ModBlocks.REINFORCED_STICKY_PISTON, ModBlocks.REINFORCED_PISTON);
         registerWearingPiston(blockStateModelGenerator, ModBlocks.NETHERITE_PISTON);
-        registerCustomPiston(blockStateModelGenerator, ModBlocks.ENDERITE_PISTON);
+        registerWearingPiston(blockStateModelGenerator, ModBlocks.ENDERITE_PISTON);
         registerPistonHead(blockStateModelGenerator, ModBlocks.REINFORCED_PISTON_HEAD, ModBlocks.REINFORCED_PISTON, true);
         registerPistonHead(blockStateModelGenerator, ModBlocks.NETHERITE_PISTON_HEAD, ModBlocks.NETHERITE_PISTON, false);
         registerPistonHead(blockStateModelGenerator, ModBlocks.ENDERITE_PISTON_HEAD, ModBlocks.ENDERITE_PISTON, false);

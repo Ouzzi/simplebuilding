@@ -86,6 +86,11 @@ public final class PistonBreachGameTest {
         PistonBreachTests.netheriteBreakerWearsDownAndCrumblesToReinforcedPiston(helper);
     }
 
+    @GameTest(maxTicks = PistonBreachTests.ENDERITE_WEAR_MAX_TICKS)
+    public void enderitePistonWearsDownAndCrumblesToNetheriteBreaker(GameTestHelper helper) {
+        PistonBreachTests.enderitePistonWearsDownAndCrumblesToNetheriteBreaker(helper);
+    }
+
     @GameTest(maxTicks = PistonBreachTests.LOADER_EVENTS_MAX_TICKS)
     public void modPistonsFireTheRealLoaderEventsAndHonourTheirConfigSwitch(GameTestHelper helper) {
         PistonBreachTests.modPistonsFireTheRealLoaderEventsAndHonourTheirConfigSwitch(helper);

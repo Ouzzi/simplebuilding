@@ -482,7 +482,7 @@ public class ModItems {
 
     public static final Item NETHERITE_PISTON = registerItem("netherite_piston", s -> new com.simplebuilding.items.custom.NetheritePistonItem(ModBlocks.NETHERITE_PISTON, s.fireResistant()));
 
-    public static final Item ENDERITE_PISTON = registerItem("enderite_piston", s -> new BlockItem(ModBlocks.ENDERITE_PISTON, s.fireResistant().rarity(Rarity.EPIC)));
+    public static final Item ENDERITE_PISTON = registerItem("enderite_piston", s -> new com.simplebuilding.items.custom.NetheritePistonItem(ModBlocks.ENDERITE_PISTON, s.fireResistant().rarity(Rarity.EPIC), "tooltip.simplebuilding.enderite_piston"));
 
     public static final Item REINFORCED_BLAST_FURNACE = registerItem("reinforced_blast_furnace", s -> new BlockItem(ModBlocks.REINFORCED_BLAST_FURNACE, s));
 
