@@ -1,6 +1,6 @@
 # Blaupause / Blueprint – Spezifikation
 
-Stand 2026-09-25 (dritte Runde: Beispiele, Hilfe, Einfuege-Leiste, Layout, Autospeichern, Kopieren, nur signiert bauen). Code: `common/src/shared/java/com/simplebuilding/blueprint/` (26.2) und
+Stand 2026-09-27 (dritte Runde: Beispiele, Hilfe, Einfuege-Leiste, Layout, Autospeichern, Kopieren, nur signiert bauen; dazu Formen und Variablen in der Bausprache, 1.8). Code: `common/src/shared/java/com/simplebuilding/blueprint/` (26.2) und
 `mc1_21_11/shared/java/com/simplebuilding/blueprint/` (1.21.11), Spieltests `BlueprintTests`.
 
 Die Blaupause (`simplebuilding:blueprint`, en "Blueprint", de "Blaupause") speichert ein Bauwerk
@@ -26,18 +26,29 @@ in `0..255`. x zeigt nach Osten, y nach oben, z nach Süden (so, wie gescannt wi
 code        = { line "\n" } ;
 line        = [ statement ] [ comment ] ;
 comment     = "#" { any character } ;                       (bis Zeilenende)
-statement   = alias-def | placement ;
+statement   = alias-def | var-def | placement ;
 alias-def   = "$" name "=" block ;                          (Leerzeichen um "=" erlaubt)
+var-def     = "$" name "=" expr ;                           (expr beginnt mit Ziffer, + - ( oder $)
 placement   = ( block | "$" name ) region { region } ;      (Wörter durch Leerraum getrennt)
 block       = [ namespace ":" ] path [ "[" props "]" ] ;    (minecraft: darf fehlen)
 props       = prop { "," prop } ;                           (Leerzeichen in [...] erlaubt)
 prop        = property-name "=" value ;
-region      = box [ "*" count "@" dx "," dy "," dz ] ;
+region      = ( box | shape ) [ "*" num "@" num "," num "," num ] ;
 box         = axis "," axis "," axis                        (Achsenform)
-            | int "," int "," int ".." int "," int "," int ;(Eckenform)
-axis        = int [ ".." int ] ;                            (Bereich, beide Enden inklusive)
+            | num "," num "," num ".." num "," num "," num ;(Eckenform)
+axis        = num [ ".." num ] ;                            (Bereich, beide Enden inklusive)
+shape       = [ "hollow_" ] shape-name "(" ( box | num { "," num } ) ")" ;
+shape-name  = "box" | "sphere" | "dome" | "cylinder" | "pyramid" | "line" ;
+num         = expr ohne "*" außerhalb von Klammern ;        (dort leitet "*" die Wiederholung ein)
+expr        = term { ( "+" | "-" ) term } ;
+term        = factor { ( "*" | "/" | "%" ) factor } ;
+factor      = int | "$" name | "(" expr ")" | ( "+" | "-" ) factor ;
+int         = digit { digit } ;                             (höchstens 6 Ziffern)
 name        = letter { letter | digit | "_" } ;             (höchstens 24 Zeichen)
 ```
+
+Leerzeichen sind innerhalb von `[...]` und `(...)` erlaubt, in Ausdrücken einer Variablen-Definition
+überall.
 
 ### 1.2 Bedeutung
 
@@ -51,6 +62,8 @@ name        = letter { letter | digit | "_" } ;             (höchstens 24 Zeich
 | `oak_fence 0,1,0*5@2,0,0` | Wiederholung: 5 Kopien, jede um (2,0,0) weiter (x = 0,2,4,6,8) |
 | `air 1..3,1..3,1..3` | räumt Stellen, die frühere Zeilen gesetzt haben (hohler Kasten) |
 | `$dach = oak_stairs[facing=north]` | Alias; danach `$dach 0..4,4,0` |
+| `$r = 5` | Variable; danach `stone 0..$r,0,$r+1` (1.8) |
+| `glass sphere(8,8,8,5)` | Form statt Position (1.8) |
 | `# ...` | Kommentar bis Zeilenende |
 
 - **Reihenfolge**: spätere Anweisungen überschreiben frühere an derselben Stelle.
@@ -83,6 +96,8 @@ oak_fence 0,5,0*3@2,0,0
 | Koordinaten | 0..255 | Fehler `coordinate_range` |
 | Wiederholungen | 1..256 | Fehler `repeat_range` |
 | ausgerollte Stellen gesamt = belegte Stellen | 4 194 304 (256 × 256 × 64) | Fehler `too_many_cells`, geprüft *vor* dem Ausrollen; beim Scan `too_many_blocks` |
+| Formen: Summe der Box-Volumen | 16 777 216 (256³) | `BlueprintCode.MAX_SHAPE_VOLUME`, Fehler `shape_volume` – begrenzt die Prüfarbeit kurzer Codes mit Riesenformen |
+| Zahlen und Zwischenergebnisse | ±999 999 (6 Ziffern) | Fehler `number_range`; Klammern/Vorzeichen höchstens 32 tief (`bad_expression`) |
 | Item-Daten | ≤ 32 000 Zeichen Code ≈ 32 KB je Blaupause | durch die Codelänge begrenzt, nicht durch die Blockzahl |
 | Titel | 1..32 Zeichen | Editor und Server |
 
@@ -92,7 +107,12 @@ Jeder Fehler trägt Zeile, Zeichenbereich und Schlüssel (`simplebuilding.bluepr
 `too_long`, `no_region`, `bad_alias_name`, `alias_without_block`, `alias_extra`, `alias_of_alias`,
 `unknown_alias`, `bad_block_id`, `unknown_block`, `unclosed_properties`, `empty_property`,
 `bad_property`, `unknown_property`, `bad_value`, `bad_repeat`, `repeat_range`, `bad_region`,
-`coordinate_range`, `too_many_cells`, `repeat_outside`. Eine fehlerhafte Zeile setzt nichts; die
+`coordinate_range`, `too_many_cells`, `repeat_outside`, dazu für Formen und Variablen (1.8)
+`unknown_shape`, `bad_shape_args`, `shape_size`, `shape_volume`, `bad_expression`,
+`unknown_variable`, `alias_as_number`, `variable_as_block`, `number_range`, `division_by_zero`.
+Der Zeichenbereich zeigt auf das schuldige Wort: bei `unknown_variable` genau auf `$name`, bei
+`unknown_shape` auf den Formnamen, bei `shape_size` auf die zu kleine Angabe, bei
+`division_by_zero` auf den Operator. Eine fehlerhafte Zeile setzt nichts; die
 übrigen Zeilen gelten weiter (die Vorschau zeigt, was gültig ist). Bauen und Signieren verlangen
 fehlerfreien Code.
 
@@ -111,15 +131,74 @@ zurückliest (`parse(serialize(m)).model() == m`, Spieltest):
 
 ### 1.7 Syntax-Einfärbung
 
-Eine Klasse je Zeichen (`BlueprintCode.STYLE_*`): Kommentar, Block, Namensraum, Eigenschaft, Wert,
-Alias, Zahl, Operator (`, .. * @ = [ ]`), Fehler, `air`. Farben im Editor: siehe
-`BlueprintCodeArea.STYLE_COLORS` (dunkle Tinte auf Papier).
+Eine Klasse je Zeichen (`BlueprintCode.STYLE_*`): Kommentar, Block, Namensraum, Eigenschaft
+(auch Formnamen), Wert, Alias (auch Variablen), Zahl, Operator (`, .. * @ = [ ] ( ) + / %`),
+Fehler, `air`. Farben im Editor: siehe `BlueprintCodeArea.STYLE_COLORS` (dunkle Tinte auf Papier).
 
-### 1.8 Ausbau (vorgesehen, nicht umgesetzt)
+### 1.8 Formen und Variablen
 
-Die Grammatik lässt Platz für: Formen als eigene Wörter (`sphere(4,4,4,r=3)`, `cyl(...)`),
-Variablen mit Zahlenwerten (`$w = 5` → `0..$w`), relative Regionen und Spiegelung. Neue Wörter
-beginnen mit einem Buchstaben und enthalten `(`, damit sie nie mit einer Block-Id kollidieren.
+Beides ist rückwärtsverträglich: jeder Code, der vorher galt, ergibt Stelle für Stelle dasselbe
+Modell (Spieltest `code_extensions_keep_existing_codes_identical` über alle Beispielvorlagen);
+alte Fehler behalten ihren Schlüssel. Formwörter beginnen mit einem Buchstaben und enthalten `(`,
+kollidieren also nie mit einer Position; `$name = <Zahl oder Rechnung>` war vorher ein Fehler.
+
+**Formen** stehen überall, wo eine Position steht (mehrere je Zeile, mit Wiederholung
+`*n@dx,dy,dz`, mit `air` zum Aushöhlen):
+
+| Form | Zahlenform | Bedeutung |
+|---|---|---|
+| `box` | `box(x,y,z,w,h,d)` | Quader ab Ecke x,y,z, `w × h × d` groß (≥ 1) |
+| `sphere` | `sphere(cx,cy,cz,r)` | Kugel um die Mitte, Radius r ≥ 0 (Box `c−r..c+r`) |
+| `dome` | `dome(cx,cy,cz,r)` | obere Hälfte (ab `cy`) von `sphere(cx,cy,cz,r)` |
+| `cylinder` | `cylinder(cx,y,cz,r,h)` | stehender Zylinder, Grundfläche auf Höhe y, h ≥ 1 hoch |
+| `pyramid` | `pyramid(cx,y,cz,r,h)` | Grundfläche `(2r+1)²` auf Höhe y, Spitze oben, h hoch |
+| `line` | `line(x1,y1,z1..x2,y2,z2)` | gerade Linie von Ecke zu Ecke (nur Eckenform) |
+
+- **Boxform**: jede Form außer `line` nimmt statt der Zahlen auch eine Box in Achsen- oder
+  Eckenform, etwa `sphere(0..9,0..5,0..9)` (Ellipsoid) oder `cylinder(0,0,0..8,3,4)`. Sie füllt
+  genau die Figur, die ein Oktant mit dieser Auswahl zeigt und scannt (`OctantShape`, Ausrichtung
+  oben) – Kugel, Zylinder, Pyramide und Quader des Oktanten sind also 1:1 schreibbar. Die
+  Zahlenform ist nur Kurzschrift für die Box um die Mitte. Die Kuppel mit einer Box der Höhe h
+  (Schichten `y..y+h−1`) ist das Ellipsoid über den Schichten `y−h+1..y+h−1`, abgeschnitten
+  unterhalb von y. Radius r heißt: Mitte-zu-Mitte-Abstand ≤ r + ½.
+- **Hohl**: `hollow_` vor dem Namen (`hollow_sphere`, `hollow_box`, `hollow_dome`,
+  `hollow_cylinder`, `hollow_pyramid`) lässt nur die Hülle stehen – Stellen mit mindestens einem
+  der sechs Nachbarn außerhalb der Figur, wie „Hohl“ am Oktanten. Deckel und Boden gehören dazu
+  (Rand der Box zählt als außen), eine 2 breite Form hat kein Inneres.
+- **Linie**: so viele Schritte wie die längste Achse, jede Achse auf die nächste Stelle gerundet
+  (halbe nach oben) – rückwärts geschrieben dieselbe Linie.
+- **Grenzen**: die Box jeder Form muss ganz im Raster liegen (`coordinate_range` nennt die
+  Koordinate, z. B. −72 für `sphere(128,128,128,200)`). Gesetzte Stellen zählen gegen
+  `MAX_EXPANDED_CELLS` (eine massive Kugel mit Radius 127 wird vor dem Ausrollen abgelehnt, die
+  hohle passt), das Rastern selbst gegen `MAX_SHAPE_VOLUME` (Summe der Box-Volumen aller Formen
+  eines Codes ≤ 256³, Fehler `shape_volume`).
+
+**Variablen**: `$name = Ausdruck` legt eine ganze Zahl fest; gilt ab der nächsten Zeile, eine
+spätere Definition überschreibt. Ausdrücke: Zahlen (bis 6 Ziffern), `$name`, `+ - * / %`
+(Punkt vor Strich, `/` und `%` runden nach unten: `-7 / 2 = -4`), Klammern, Vorzeichen.
+Benutzbar in jeder Zahl einer Region: Koordinaten, Bereichsenden, Formangaben,
+Wiederholungszahl und Schritt.
+
+```
+$r = 5
+$h = $r * 2 + 1             # 11
+$n = ($h + 1) / 4           # 3
+stone 0..$r,0,0..$r-1       # 6 × 1 × 5
+glass sphere(20,$h,20,$r)
+oak_fence 0,1,0*$n+1@2,0,0  # Wiederholungszahl 4
+dirt ($r*3),0,20            # Malnehmen in einer Position nur in Klammern
+```
+
+- In einer **Region** leitet das erste `*` außerhalb von Klammern die Wiederholung ein;
+  Multiplikation steht dort in Klammern (`($r*2),0,0`). In der Wiederholungszahl, in
+  Formangaben (in der Klammer der Form) und in Definitionen ist `*` normal.
+- Leerzeichen: in Definitionen überall, in Regionen nur innerhalb von Klammern
+  (`( $r + 1 ),0,0`, `sphere(8, 8, 8, $r)`).
+- Aliase und Variablen teilen sich die Namen; die jüngste Definition gilt. `$a = $b` bleibt der
+  Fehler `alias_of_alias`, wenn `$b` ein Alias ist; ein Alias in einer Rechnung ist
+  `alias_as_number`, eine Variable als Block `variable_as_block`.
+
+Noch nicht umgesetzt: relative Regionen und Spiegelung.
 
 ## 2. Editor
 
@@ -156,7 +235,8 @@ Benutzen öffnet den Editor (nicht im Baumodus, siehe 4). Ein Kartenblatt, grö�
 
 ### 2.1 Hilfe
 
-Zwei Reiter: **Anleitung** (Kurzfassung der Bausprache mit Beispielen, zehn Absätze, Mausrad
+Zwei Reiter: **Anleitung** (Kurzfassung der Bausprache mit Beispielen, dreizehn Absätze – die letzten drei zu Formen,
+Hohl und Variablen –, Mausrad
 rollt) und **Blöcke** (Suchfeld für angezeigten Namen oder ID, Liste mit Symbol, Anzeigename und
 technischem Namen; ein Klick wählt den Block für die Einfüge-Leiste aus). Die Suche ist
 `BlueprintBlockSearch`: exakter Treffer (ID, Pfad oder Name) zuerst, dann Anfang von ID oder

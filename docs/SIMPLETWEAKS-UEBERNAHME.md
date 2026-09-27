@@ -55,7 +55,7 @@ Status: **port** = uebernommen, **neu** = in SimpleBuilding neu hinzugekommen (B
 
 | Feature | Status | Anmerkung |
 |---|---|---|
-| Laserpointer (Punkt fuer Spieler in 128 Bloecken sichtbar, Entfernungsanzeige) | port + Rezept | Renderer auf 26.x-Submit-Pipeline umgebaut; Server prueft Item/Schalter/Rate (Audit 2026-09-26 #17) |
+| Laserpointer (Punkt fuer Spieler in 128 Bloecken sichtbar, Entfernungsanzeige) | port + Umbau zur "Amethystlinse" | Renderer auf 26.x-Submit-Pipeline umgebaut; Server prueft Item/Schalter/Rate (Audit 2026-09-26 #17); seit 2026-09-27 Strahlwirkungen, Ladung, Amboss-Aufladen (siehe unten) |
 | Echo-Kompass (Fremd-Datenpaket `echo-compass-v1.1.0.jar`, AGPL, per `libs/` eingebunden) | port (neu geschrieben, 2026-09-27 umgebaut) | eigenes Item statt Datenpaket, Rezept neu, Unbreaking-Bug behoben; Aufladen 3 s, Leeren/Aufladen/Zerspringen, eigene Textur |
 | XP-Kugeln verklumpen + sofort aufheben | port | `enableXpClumps` |
 | XP-Kugeln nach Wert skalieren | port | `scaleXpOrbs` (Client) |
@@ -286,8 +286,27 @@ Branch `remove-ported-features` im Repo `simpletweaks` (abgezweigt von `1.21.11`
   nimmt sie, Aufraeumen von Inventar/Cursor jeden Tick. Flugzeit hoechstens 24 h, Boosts hoechstens 100.
 - Config-Abgleich (Audit 2026-09-26 #16): `rocketStackSize`, `maxBoosts`, Laser-Schalter und -Reichweite
   schickt der Server beim Einloggen und nach jedem `/simplebuilding tweaks`-Befehl (`TweaksConfigPayload`).
-- Laserpointer: Rezept ` A `/`IGI`/`IRI` (Amethystsplitter, Glas, Eisenbarren, Redstone), keine
-  Haltbarkeit mehr (nahm nie ab); Entfernungsanzeige misst bis zum Laserpunkt.
+- Laserpointer -> **Amethystlinse** (2026-09-27; Registry-Id bleibt `laser_pointer`, alte Welten laden):
+  - Rezept `RAR`/`ICI`/`III` (Redstone, Amethystsplitter, Eisenbarren, Eisen-Baukern `iron_core`), kein Glas.
+  - Punkt: feste Weltgroesse (Config `scale`, auf 0,05..1 begrenzt), waechst erst ab ~3 Pixel
+    Bildschirmgroesse mit (0,004 Bloecke je Block) - frueher 0,12 je Block, also ein Riesenkreis in der
+    Ferne. Entfernungszahl 13 statt 10 GUI-Pixel neben der Fadenkreuzmitte.
+  - Strahlwirkungen (`LaserBeam`, Server, bis 24 Bloecke, Verweildauer auf derselben Blockseite): Eis/
+    Frosteis -> Wasser (2 s; verdampft, wo Wasser verdampft), Packeis -> Eis, Blaueis -> Packeis
+    (eine Stufe statt Wasser aus Bloecken, die in Vanilla nie schmelzen); Schnee/Schneeblock/Pulverschnee
+    -> weg; Lagerfeuer, Seelenlagerfeuer, Kerzen, Kerzenkuchen an (1 s); Seelensand/-erde oben
+    Seelenfeuer (2 s); Brennbares (Zuendwert der Feuer-Tabelle > 0, per Invoker `FireBlockInvoker`)
+    faengt nach 3 s Feuer auf der angestrahlten Seite, nur wo `fire_spread_radius_around_player`
+    Ausbreitung erlaubt (Seelenfeuer/Lagerfeuer wie Feuerzeug ohne diese Regel); Zusatzwirkung: nasser
+    Schwamm trocknet (5 s). Nie Netherportale (kein Feuer in einen leeren Portalrahmen - `BaseFireBlock#onPlace`
+    wuerde ihn fuellen), nie TNT (kein Fernzuender). Schutz: `mayInteract` (Spawnschutz, Weltgrenze) und
+    `mayUseItemAt` (Abenteuermodus) am Block und am Feuerplatz.
+  - Ladung = Haltbarkeit 640: 1 je Sekunde Strahlen, 5 je Wirkung, kreativ gratis; zerbricht nie, leer
+    kein Strahlen mehr (Modell `item/laser_pointer_empty`, faellt auf das normale Bild zurueck, solange die
+    Textur fehlt - Datagen neu laufen lassen, sobald sie gezeichnet ist). Amboss + Redstone laedt auf,
+    0 Stufen (`AnvilScreenHandlerMixin`, auch `mayPickup`), 10 je Staub, 64 = voll, nur Noetiges wird verbraucht.
+  - Kreativ-Tab: Werkzeuge, Zeile "gadgets" (nicht mehr bei den Chunk-Loadern).
+  - Entfernungsanzeige misst bis zum Laserpunkt (Audit #34).
 - Echo-Kompass: ein blockierter Sprung kostet weder Perle noch Haltbarkeit noch Abklingzeit.
 - Launchpad: beim Abbau fallen die geladenen Windkugeln heraus. Eigener Weltspawn per Befehl gilt sofort.
 - XP-Verklumpen: beim Zusammenlegen ging Erfahrung verloren (Anzahl der Kugeln wurde ignoriert) -

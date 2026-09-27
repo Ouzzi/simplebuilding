@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Erzeugt die handgezeichneten 16x16-Texturen fuer Rucksack, Lederbogen, verstaerkten
-Koecher, verstaerkten klebrigen Kolben, Enderit-Kolben, die Kolbenkoepfe (Rueckseite der Kopfplatte
-und Stange je Stufe), Spachtel, die Enderit-Maschinen, die
-Nihilith-/Astralit-Quarz-Schachbretter, die Enderit-Stufen der Tweak-Bloecke (Pads, Teleporter,
-Druckplatte, Chunk-Loader, Launchpad), Enderquarz, Enderitbarren, -schrott, -klumpen, die beiden Aufwertungen, den Diamant-Kiesel und die
+Koecher, Spachtel, die Maschinen der Stufen verstaerkt/Netherit/Enderit (Kolben samt klebriger
+Schubplatte, Kopf, Stange und Brecher-Verschleiss, Ofen, Raeucherofen, Schmelzofen, Trichter - nach
+den Vanilla-Flaechen, siehe MACHINE_TIERS), die Netherit-Griffe von Vorschlaghammer, Meissel, Baustab
+und Spachtel, die Nihilith-/Astralit-Quarz-Schachbretter, die Enderit-Stufen der Tweak-Bloecke (Pads,
+Teleporter, Druckplatte, Chunk-Loader, Launchpad), Enderitblock, Enderquarz, Enderitbarren, -schrott,
+-klumpen, Laserpointer, die beiden Aufwertungen, den Diamant-Kiesel und die
 Blaupause; dazu aus Code (nicht aus
 Pixelkarten) die drei End-Paletten Astralit, Nihilith und Enderquarz (Grundblock, Ziegel, polierter
 Block, Saeule, gemeisselte Ziegel), die Rueckentextur des getragenen Rucksacks (entity/backpack/*, aus
@@ -18,9 +20,7 @@ Aufruf (aus dem Repo-Wurzelverzeichnis oder von ueberall):
     python tools/textures/generate_textures.py --check    # prueft nur, ob PNGs und .mcmeta aktuell sind
 
 Jede Textur ist unten als Pixelkarte (16 Zeilen x 16 Zeichen) mit eigener Palette
-hinterlegt. '.' ist transparent (nur bei Items erlaubt), '*' kopiert das Pixel aus einer
-Vorlage (nur reinforced_piston_top_sticky: Rahmen und Beschlaege von reinforced_piston_top),
-'_' laesst das Mauerwerk einer Steinlage durchscheinen (nur Enderit-Maschinen). Leuchtende
+hinterlegt. '.' ist transparent (nur bei Items erlaubt). Leuchtende
 Maschinenfronten sind Animationsstreifen aus mehreren Karten; ihre .png.mcmeta schreibt
 der Generator mit.
 Stufen einer Familie teilen sich eine Karte und unterscheiden sich in Palette und
@@ -321,191 +321,6 @@ BACKPACK_TOP = [
     "333dddddddddd333",
 ]
 
-# --- Verstaerkter klebriger Kolben: wie Vanillas piston_top_sticky eine Schleimschicht auf der
-# Kopfplatte, die den Brettern folgt (dunklere Fugen in Zeilen 3, 6, 9, 12, Glanz oben links)
-# und am Rand unregelmaessig ausfranst, so dass dort Bretter durchscheinen. '*' = Pixel aus
-# reinforced_piston_top.png (Rahmen, Eisenbeschlaege, Bretter), Ziffern = Schleim.
-PISTON_STICKY_PAD = [
-    "****************",
-    "***45*****453***",
-    "*3565432*456543*",
-    "*23332212213322*",
-    "*34566432456653*",
-    "**3454322345432*",
-    "***13122223432**",
-    "**45*565445443**",
-    "**43235344153***",
-    "**22111213211***",
-    "***46551455653**",
-    "**455541*3453***",
-    "**225121211211**",
-    "***3463*23643***",
-    "****33****33****",
-    "****************",
-]
-PISTON_STICKY_PAL = {
-    "1": "#336128", "2": "#3f7432", "3": "#5e9c4f", "4": "#6bb959", "5": "#84c774", "6": "#abeb9c",
-}
-
-# --- Enderit-Kolben: Anordnung wie die netherite_piston_*-Flaechen (Deckplatte mit
-# Beschlaegen, Seitenkante des Kolbenkopfs in Zeilen 0-3, Sockel ab Zeile 4)
-ENDERITE_PISTON_PAL = {
-    # dieselben Barrenfarben wie ENDERITE_MACHINE_PAL
-    # Rahmen
-    "G": "#3e2173", "F": "#1c0a33",
-    # Bretter der Deckplatte: hell wie die Deckflaeche des Barrens, damit die Platte sich wie
-    # Vanillas Holzplatte vom dunklen Sockel abhebt
-    "S": "#2d1656", "p": "#4a2888", "q": "#55309a", "Q": "#6d45b8", "W": "#7b51c9",
-    # Enderit-Beschlaege, L = Glimmer-Niete
-    "m": "#55309a", "M": "#a57de9", "N": "#cfb2fb", "L": "#f4d2ff",
-    # Sockelstein wie das Maschinen-Mauerwerk, 6 = Ender-Glimmerpunkt
-    "1": "#170e23", "2": "#211530", "3": "#2b1c3e", "4": "#36244d", "5": "#422d5e", "6": "#f4d2ff",
-}
-ENDERITE_PISTON_TOP = [
-    "LMGGGGGNMGGGGGNM",
-    "MmWQQQQMmQQqSWMm",
-    "GqqpppqqqqqqSqqF",
-    "GSSSSSSSSSSSSSSF",
-    "GQQQqSWQQQQQQQQF",
-    "GqqqqSqqqqpppqqF",
-    "GSSSSSSSSSSSSSSF",
-    "NMQQQQQQQQqSWQNM",
-    "MmqpppqqqqqSqqMm",
-    "GSSSSSSSSSSSSSSF",
-    "GQQqSWQQQQQQQQQF",
-    "GqqqSqqqqqqpppqF",
-    "GSSSSSSSSSSSSSSF",
-    "GWQQQQQQqSWQQQQF",
-    "NMqpppqNMSqqqqNM",
-    "MmFFFFFMmFFFFFMm",
-]
-# Steinlage des Sockels (Buchstabe = ein Stein, '.' = Fuge). Schattierung ergibt sich
-# aus der Lage: Kante oben/links hell, unten/rechts dunkel; aneinanderstossende Steine
-# (verschiedene Buchstaben) bekommen ihre Kanten auch ohne Fuge.
-ENDERITE_STONES = [
-    "aaaaa.bbbbbb.c",
-    "aaaaa.bbbbbb.c",
-    "aaaaa.bbbbbb.c",
-    ".aaa...bbbb..c",
-    "dddd.eeeee.fff",
-    "dddd.eeeee.fff",
-    "dddd.eeeee.fff",
-    "ddd..eeee..fff",
-    "...gggg.hhhh..",
-    "ii.gggg.hhhhhj",
-    "ii.gggg.hhhhhj",
-    "ii..gg...hhh.j",
-    ".kkkk.lllll..j",
-    ".kkkk.lllll.mm",
-]
-# Glanzpixel (Spalte, Zeile im 14x14-Raster), sparsam gesetzt
-ENDERITE_SPECKS = [(2, 1), (7, 5), (10, 9), (2, 12)]
-
-
-# --- Kolbenkoepfe (reinforced/netherite/enderite_piston_head + _arm). Das Kopfmodell
-# (models/block/template_tiered_piston_head*.json) nimmt die Vorderseite von <stufe>_piston_top,
-# den Plattformrand aus <stufe>_piston_side; eigen sind:
-#   <stufe>_piston_head.png  Rueckseite der Kopfplatte (zeigt zum Kolben). Bretter/Ziegel wie die
-#                            Deckplatte, in der Mitte ein runder Flansch (8x8, Ecken frei), an dem
-#                            die Stange sitzt; dessen innere 4x4 verdeckt die Stange ('x').
-#   <stufe>_piston_arm.png   die Stange: das Modell liest nur Zeilen 0-3 (Laenge 16 = u, Umfang = v,
-#                            oben hell, unten dunkel), die Zeilen 4-15 wiederholen sie, damit
-#                            Mipmaps am Rand keine fremden Pixel mischen. Zwingen an beiden Enden und
-#                            in der Mitte (die kurze Form zeigt u 4-15: Mitte und ein Ende).
-# Verstaerkt und Netherit teilen sich die Karten (wie ihre Deckplatten), Enderit hat Ziegel wie
-# seine Deckplatte und eine Glimmer-Niete.
-#   a b s  Beschlaege hell/mittel/dunkel     o O  Rahmen (oben/links, unten/rechts)
-#   5..1 0 Bretter hell -> dunkel, 0 = Fuge  A B C r x  Flansch hell/mittel/Schatten/Niete/verdeckt
-PISTON_HEAD_BACK = [
-    "ab" + "ooooo" + "bb" + "ooooo" + "ba",
-    "b" + "54453454435445" + "b",
-    "o" + "32332332233323" + "O",
-    "o" + "11101111101111" + "O",
-    "o4544AAAAAA5445O",
-    "o323ArBBBBrC332O",
-    "o110ABxxxxBC111O",
-    "a545ABxxxxBC454b",
-    "b232ABxxxxBC323s",
-    "o101ABxxxxBC110O",
-    "o454ArBBBBrC545O",
-    "o3232CCCCCC3233O",
-    "o" + "11110111101111" + "O",
-    "o" + "44543544534454" + "O",
-    "b" + "32233233323323" + "s",
-    "bs" + "OOOOO" + "ss" + "OOOOO" + "sb",
-]
-PISTON_ARM = [
-    "ab54554ab45545ab",
-    "bc43443bc34434bc",
-    "cc32332cc23323cc",
-    "dd11211dd12111dd",
-] * 4
-PISTON_HEAD_TIERS = {
-    # Beschlaege wie die Eckbeschlaege von reinforced_piston_top, Bretter eine Spur dunkler als
-    # die Deckplatte (Rueckseite), Stange aus dunklem Holz mit Eisenzwingen
-    "reinforced": {
-        "a": "#8c7e89", "b": "#83727d", "s": "#706667", "o": "#4f342c", "O": "#3b2521",
-        "5": "#8d703c", "4": "#806435", "3": "#6b502b", "2": "#553f1a", "1": "#3c2816", "0": "#2c1b0e",
-        "A": "#a497a0", "B": "#83727d", "C": "#574a52", "r": "#c9bcc6", "x": "#1e1719",
-        "c": "#706667", "d": "#4d4448",
-    },
-    # dieselbe Anordnung in den Farben von netherite_piston_top, Pflaumen-Beschlaege
-    "netherite": {
-        "a": "#403048", "b": "#3b2b41", "s": "#322635", "o": "#1f1014", "O": "#150a0e",
-        "5": "#473228", "4": "#3f2c22", "3": "#2d1d13", "2": "#21140b", "1": "#180c06", "0": "#100703",
-        "A": "#56455e", "B": "#3b2b41", "C": "#241b2a", "r": "#74627c", "x": "#0b0609",
-        "c": "#322635", "d": "#1f1722",
-    },
-}
-# Die Stange liest die Stufe mit anderem Glanz: helle Zwinge a, Holz/Metall 5 als Kante oben.
-PISTON_ARM_TIERS = {
-    "reinforced": {"a": "#a79aa4", "b": "#8c7e89", "c": "#706667", "d": "#4d4448",
-                   "5": "#8d703c", "4": "#7a612d", "3": "#64481b", "2": "#4f3812", "1": "#3a2708"},
-    # etwas heller als die Deckplatte, sonst verschwindet die Stange vor dem dunklen Sockel
-    "netherite": {"a": "#6d5d78", "b": "#4f3f58", "c": "#3b2b41", "d": "#241b2a",
-                  "5": "#5e4238", "4": "#4f372d", "3": "#3f2c22", "2": "#2d1d13", "1": "#1d1007"},
-}
-# Enderit: Ziegellagen wie enderite_piston_top (Fuge S, Ziegel Q/W oben, q/p unten), Rahmen G/F,
-# Beschlaege M/N/m; Flansch (PISTON_HEAD_FLANGE, bei (4,4) aufgelegt) N/M/G mit einer
-# Glimmer-Niete L oben links. Die Ziegellagen versetzen ihre Stossfugen wie ein Mauerverband.
-ENDERITE_PISTON_HEAD_BRICKS = [
-    "NM" + "GGGGG" + "NM" + "GGGGG" + "NM",
-    "MWQQQSWQQQQSWQQm",
-    "GqqqpSqqqqpSqqqF",
-    "GSSSSSSSSSSSSSSF",
-    "GQQSWQQQQSWQQQQF",
-    "GqpSqqqqpSqqqqqF",
-    "GSSSSSSSSSSSSSSF",
-    "NWQQQSWQQQQSWQQM",
-    "MqqqpSqqqqpSqqqm",
-    "GSSSSSSSSSSSSSSF",
-    "GQQSWQQQQSWQQQQF",
-    "GqpSqqqqpSqqqqqF",
-    "GSSSSSSSSSSSSSSF",
-    "GWQQQSWQQQQSWQQF",
-    "MqqqpSqqqqpSqqqm",
-    "Mm" + "FFFFF" + "Mm" + "FFFFF" + "Mm",
-]
-# Der Flansch um die Stange, 8x8 mit freien Ecken ('.'); gleiche Form wie in PISTON_HEAD_BACK.
-PISTON_HEAD_FLANGE = [
-    ".AAAAAA.",
-    "ArBBBBrC",
-    "ABxxxxBC",
-    "ABxxxxBC",
-    "ABxxxxBC",
-    "ABxxxxBC",
-    "ArBBBBrC",
-    ".CCCCCC.",
-]
-ENDERITE_FLANGE_KEYS = {"A": "N", "B": "M", "C": "G", "r": "N", "x": "F"}
-ENDERITE_PISTON_ARM = [
-    "NMWQLQWNMWQWQQNM",
-    "MmQqQqQMmqQqQqMm",
-    "mGqpqpqmGpqpqpmG",
-    "GFSSpSSGFSSSpSGF",
-] * 4
-
-
 # ---------------------------------------------------------------------------
 # Spachtel: breite Spachtelklinge mit gerader Schneide, Zwinge mit Niete, Holzgriff.
 # E..P = Metall wie beim Meissel der Stufe, 1..8 = Meissel-Holzrampe
@@ -530,498 +345,830 @@ SPATULA = [
 
 
 # ---------------------------------------------------------------------------
-# Enderit-Maschinen: Trichter, Ofen, Raeucherofen, Schmelzofen. Dateinamen wie die
-# netherite_*-Gegenstuecke (block/enderite_<maschine>_<flaeche>.png, item/enderite_hopper.png).
-# Formensprache der Enderit-Stufe wie beim Enderit-Kolben: violettes Mauerwerk (stone_face),
-# Rahmen G oben/links und F unten/rechts, Enderit-Eckbeschlaege (2x2) mit einer leuchtenden
-# Niete oben links auf Front und Deckel, Bretter aus der Kolben-Deckplatte fuer den
-# Raeucherofen und Enderflamme (violett statt orange) fuer die leuchtenden Fronten.
-#
-# Karten mit '_' sind Overlays: '_' laesst das Mauerwerk der Flaeche durchscheinen, das aus
-# einer eigenen 14x14-Steinlage (Zeilen/Spalten 1-14 der Flaeche) schattiert wird.
-ENDERITE_MACHINE_PAL = {
-    # Farben des Enderitbarrens (ENDERITE_INGOT_PAL) und der Enderit-Ruestung (Set B):
-    # Hohlraum (Ofenmaul, Schlitze, Schornstein), nie reines Schwarz
-    "0": "#0e0419",
-    # Mauerwerk dunkel -> hell: tiefes Enderit-Violett wie die Schattenseite des Barrens;
-    # 6 = Ender-Glimmerpunkt (heller Kern wie am Barren)
-    "1": "#1a1027", "2": "#241734", "3": "#2e1e43", "4": "#3a2754", "5": "#473167", "6": "#f4d2ff",
-    # Rahmen: R- und O-Ton des Barrens
-    "G": "#3e2173", "F": "#1c0a33",
-    # Enderit-Beschlaege in der Barrenrampe: m Schatten, M Grund, N hell, O Lichtkante, L Glimmer-Niete
-    "m": "#3e2173", "M": "#6d45b8", "N": "#8e63dc", "O": "#cfb2fb", "L": "#f4d2ff",
-    # Enderit-Bretter wie die Kolben-Deckplatte (S Fuge, p..W dunkel -> hell)
-    "S": "#2d1656", "p": "#4a2888", "q": "#55309a", "Q": "#6d45b8", "W": "#7b51c9",
-    # Enderflamme dunkel -> hell (Glut, Flammenkoerper, Kern)
-    "a": "#2c0f4e", "b": "#4b1b86", "c": "#7329c4", "d": "#a44ff0", "e": "#d08eff", "f": "#f4ddff",
+# Maschinen der Stufen (verstaerkt, Netherit, Enderit): Kolben (samt klebriger Schubplatte, Kopf,
+# Stange und den Verschleiss-Stufen des Netherit-Brechers), Ofen, Raeucherofen, Schmelzofen, Trichter.
+# ---------------------------------------------------------------------------
+# Wunsch des Besitzers (2026-09-27): so nah wie moeglich an den Vanilla-Maschinen - gleicher Aufbau,
+# gleiche Schattierung, gleiche Lesbarkeit -, die Stufe erkennt man an den Materialfarben.
+# Deshalb liegen unten die Vanilla-Flaechen als Pixelkarten (Zeichen = ein Vanilla-Farbton der
+# Flaeche, nach Helligkeit sortiert). Jeder Farbton gehoert zu einer Materialklasse:
+#   stone  graues Mauerwerk        wood  Holz (Kolbenplatte, Raeucherofen-Rahmen)
+#   metal  graue Beschlaege, die in METAL_REGIONS liegen (Eckkappen der Kolbenplatte, Haube des
+#          Raeucherofens, Gitter und Eckwinkel des Schmelzofens, Trichter, Ofensims)
+#   fire   Farbtoene, die nur die leuchtende Front hat     slime  Schleim der klebrigen Platte
+# und wird ueber seine Vanilla-Helligkeit auf die Rampe der Stufe gelegt (stueckweise linear zwischen
+# festen Stuetzstellen, damit Seiten, Deckel und Front dieselben Toene treffen). Obendrauf malt
+# MACHINE_ACCENTS die Beschlaege der Stufe (Eckwinkel wie am Vanilla-Schmelzofen, Nieten auf der
+# Kolbenplatte) in der Metallrampe, Enderit bekommt ein paar Glimmerpunkte.
+#   verstaerkt  dunkles, kuehles Mauerwerk (wie Tiefenschiefer), Eisenbeschlaege, dunkles Eichenholz
+#   Netherit    Mauerwerk in den roetlichen Dunkeltoenen des Netheritblocks, Beschlaege in seinen
+#               neutralen Grautoenen, Bretter schokoladenbraun
+#   Enderit     Mauerwerk tief violett, Beschlaege in der Rampe des Enderitbarrens, Bretter
+#               blauviolett, Enderflamme statt Feuer, Glimmer wie am Barren
+
+VANILLA_MACHINE_FACES = {
+    "piston_top": (
+        [
+            [
+                "6511100660111156",
+                "5544430554444455",
+                "0333331233223321",
+                "0000000000000000",
+                "1344344302344431",
+                "1223333213332220",
+                "1110001001111100",
+                "6534034443044356",
+                "5532033222022255",
+                "0011000101100111",
+                "1343443034334441",
+                "1322233023222331",
+                "0000001000000001",
+                "1433444303444340",
+                "6522233662332256",
+                "5510000550001055",
+            ],
+        ],
+        {"0": "#67502c", "1": "#7e6237", "2": "#9f844d", "3": "#af8f55", "4": "#c29d62", "5": "#cac4c4", "6": "#dbdbdb"},
+    ),
+    "piston_top_sticky": (
+        [
+            [
+                "ca33311cc13333ac",
+                "aa89961aa89748aa",
+                "149b742549b97453",
+                "1044422002074021",
+                "34799b74279bb942",
+                "3547974524797451",
+                "3330402222474211",
+                "ca9809b9779774ac",
+                "aa742494770945aa",
+                "1122000204200333",
+                "3687b990799b9483",
+                "3679997054794663",
+                "1122902020020013",
+                "38647b4624b74681",
+                "ca55446cc54455ac",
+                "aa31111aa11131aa",
+            ],
+        ],
+        {"0": "#336128", "1": "#67502c", "2": "#3f7432", "3": "#7e6237", "4": "#5e9c4f", "5": "#9f844d", "6": "#af8f55", "7": "#6bb959", "8": "#c29d62", "9": "#84c774", "a": "#cac4c4", "b": "#abeb9c", "c": "#dbdbdb"},
+    ),
+    "piston_side": (
+        [
+            [
+                "ihffgggihfgggghi",
+                "hce9eeehceeeefch",
+                "c7bbbbec7eeebb7c",
+                "7745555775444477",
+                "2221100122222221",
+                "0336a83636dd8631",
+                "038ad863ddda6360",
+                "238a88638da63360",
+                "2368863688638631",
+                "2a3633aa3338a832",
+                "2aa368aa836aaa32",
+                "28a63368a8388631",
+                "2663ad3633366380",
+                "233aaa8368a336a1",
+                "1368a863368368a2",
+                "1101122222221122",
+            ],
+        ],
+        {"0": "#2f2f2f", "1": "#353535", "2": "#444444", "3": "#535151", "4": "#67502c", "5": "#7e6237", "6": "#686868", "7": "#707070", "8": "#777777", "9": "#967441", "a": "#858585", "b": "#9f844d", "c": "#868686", "d": "#919191", "e": "#af8f55", "f": "#b8945f", "g": "#c29d62", "h": "#a5a5a5", "i": "#cdcdcd"},
+    ),
+    "piston_bottom": (
+        [
+            [
+                "2221100122222221",
+                "2366554354334562",
+                "1566533456433462",
+                "1454346665354342",
+                "1333537653566531",
+                "0334653434775431",
+                "0356754377764340",
+                "2356554357643340",
+                "2345543455435431",
+                "2634336633356532",
+                "2663456653466632",
+                "2564334565355431",
+                "2443673433344350",
+                "2336665345633461",
+                "1345654334534562",
+                "1101122222221122",
+            ],
+        ],
+        {"0": "#2f2f2f", "1": "#353535", "2": "#444444", "3": "#535151", "4": "#686868", "5": "#777777", "6": "#858585", "7": "#919191"},
+    ),
+    "piston_inner": (
+        [
+            [
+                "3332222233333332",
+                "3477665465445673",
+                "2677654567544573",
+                "2565447776465453",
+                "2444648754677642",
+                "1455789aaa886542",
+                "1557891111975451",
+                "35664a1122a54451",
+                "34565a2220a46542",
+                "3744690000967643",
+                "377458aaa9877743",
+                "3675445676466542",
+                "3554784544455461",
+                "3447776456744572",
+                "2456765445645673",
+                "2212233333332233",
+            ],
+        ],
+        {"0": "#2d2d2d", "1": "#2f2f2f", "2": "#353535", "3": "#444444", "4": "#535151", "5": "#686868", "6": "#777777", "7": "#858585", "8": "#919191", "9": "#a7a7a7", "a": "#b0b0b0"},
+    ),
+    "furnace_front": (
+        [
+            [
+                "3333233322232233",
+                "3556656566565643",
+                "2468675678786563",
+                "3577211111127653",
+                "3672000000002642",
+                "2650001111000842",
+                "3650022222200843",
+                "268aabbbbbbaa862",
+                "2676546545656553",
+                "3cbccccccccccca3",
+                "3aaaba7777abab92",
+                "39a8410000148a93",
+                "3883000000003693",
+                "3680001111000983",
+                "2860111111110692",
+                "2522233333322252",
+            ],
+        ],
+        {"0": "#111111", "1": "#212121", "2": "#3c3b3b", "3": "#504e4e", "4": "#5d5b5b", "5": "#686868", "6": "#777777", "7": "#858585", "8": "#919191", "9": "#9d9d9d", "a": "#a8a8a8", "b": "#b0b0b0", "c": "#c5c5c5"},
+    ),
+    "furnace_front_on": (
+        [
+            [
+                "3333233322232233",
+                "3557757577575743",
+                "2479785789897573",
+                "3588211111128753",
+                "3782000000002742",
+                "2750001111000942",
+                "3750022222200943",
+                "279ccddddddcc972",
+                "2787547545757553",
+                "3edeeeeeeeeeeec3",
+                "3cccdc8888cdcda2",
+                "3ac94100001b9ca3",
+                "3993b06bb6ff37a3",
+                "3790ffbgffgb0a93",
+                "2976fgfhfhgf67a2",
+                "252bbhghbgfbf252",
+            ],
+        ],
+        {"0": "#111111", "1": "#212121", "2": "#3c3b3b", "3": "#504e4e", "4": "#5d5b5b", "5": "#686868", "6": "#c35d1b", "7": "#777777", "8": "#858585", "9": "#919191", "a": "#9d9d9d", "b": "#ff8f00", "c": "#a8a8a8", "d": "#b0b0b0", "e": "#c5c5c5", "f": "#ffd800", "g": "#ffff97", "h": "#ffffff"},
+    ),
+    "furnace_side": (
+        [
+            [
+                "1111011100010011",
+                "1233436433343321",
+                "1247723266436641",
+                "1366672347663661",
+                "1246642436762430",
+                "0223326763463110",
+                "1377436676334421",
+                "0466736642766640",
+                "0344322427666431",
+                "1babbbbbbbbbbb91",
+                "1899a9aaaaaa8a80",
+                "0889999999999971",
+                "0788889899999871",
+                "1578788889878751",
+                "1334434444443331",
+                "1111011100001111",
+            ],
+        ],
+        {"0": "#3c3b3b", "1": "#504e4e", "2": "#5d5b5b", "3": "#686868", "4": "#777777", "5": "#7f7f7f", "6": "#858585", "7": "#919191", "8": "#9d9d9d", "9": "#a8a8a8", "a": "#b0b0b0", "b": "#c5c5c5"},
+    ),
+    "furnace_top": (
+        [
+            [
+                "1111011100010011",
+                "1222355423345321",
+                "1246644256535541",
+                "1365662466653441",
+                "1456542346662430",
+                "0323325433452210",
+                "1256356665225531",
+                "0466536663566640",
+                "0666644535666451",
+                "1666653353455511",
+                "1466645666532230",
+                "0245436666653641",
+                "0522324566645551",
+                "1462242344435541",
+                "1243454123323431",
+                "1111011100001111",
+            ],
+        ],
+        {"0": "#3c3b3b", "1": "#504e4e", "2": "#5d5b5b", "3": "#686868", "4": "#777777", "5": "#858585", "6": "#919191"},
+    ),
+    "smoker_front": (
+        [
+            [
+                "e9555555555555ee",
+                "b6499bb96bb69469",
+                "e946996466996496",
+                "eeacccccccccdab9",
+                "9b7ii2000002ccee",
+                "69aii0000000gd9b",
+                "b9aih0000002gd69",
+                "be7if2222222dg96",
+                "66ggdghghhhhgg66",
+                "96113631136111eb",
+                "be1b93b33b9391b9",
+                "9b44664644664469",
+                "e94b94b94b9494bb",
+                "eb3963963963669b",
+                "9b13313313313196",
+                "6488888888888864",
+            ],
+        ],
+        {"0": "#191919", "1": "#231b15", "2": "#272727", "3": "#352b24", "4": "#3a2f1e", "5": "#3c3b3b", "6": "#513d24", "7": "#494848", "8": "#504e4e", "9": "#67502c", "a": "#595858", "b": "#7e6237", "c": "#686868", "d": "#747474", "e": "#967441", "f": "#7f7f7f", "g": "#888788", "h": "#abacab", "i": "#c5c5c5"},
+    ),
+    "smoker_front_on": (
+        [
+            [
+                "i7222222222222ii",
+                "b3177bb73bb37137",
+                "i713773133773173",
+                "ii8cccccccccc8b7",
+                "7bccrrrrrrrrccii",
+                "37grjqqqqqqjgg7b",
+                "b7g4dppppppdgg37",
+                "bilg5aaaaaa5gl73",
+                "33lfefggggggll33",
+                "7300000000s000ib",
+                "bi01b71o71bo10b7",
+                "7b31o31so17so037",
+                "i71os1osmbeomebb",
+                "ibemo0eoe7emee7b",
+                "7b6kkh9hcknk9673",
+                "3166666666666631",
+            ],
+            [
+                "i7222222222222ii",
+                "b3177bb73bb37137",
+                "i713773133773173",
+                "ii8cccccccccc8b7",
+                "7bccrrrrrrrrccii",
+                "37grjqqqqqqjgg7b",
+                "b7g4dppppppdgg37",
+                "bilg5aaaaaa5gl73",
+                "33llgggggfofll33",
+                "7300000o000000ib",
+                "bi01b71o71b710b7",
+                "7b3so3oso1os1037",
+                "i71om1osmbmom3bb",
+                "ibemmemoeemmee7b",
+                "7b6kkh9hcknk9673",
+                "3166666666666631",
+            ],
+            [
+                "i7222222222222ii",
+                "b3177bb73bb37137",
+                "i713773133773173",
+                "ii8cccccccccc8b7",
+                "7bccrrrrrrrrccii",
+                "37grjqqqqqqjgg7b",
+                "b7g4dppppppdgg37",
+                "bilg5aaaaaa5gl73",
+                "33llggfofgggll33",
+                "73000000000000ib",
+                "bi01o71bs1b710b7",
+                "7b3os31os17o1037",
+                "i7eomobmoe3so3bb",
+                "ibemeoeeme3ome7b",
+                "7b6kkh9hcknk9673",
+                "3166666666666631",
+            ],
+        ],
+        {"0": "#231b15", "1": "#3a2f1e", "2": "#3c3b3b", "3": "#513d24", "4": "#494848", "5": "#614925", "6": "#504e4e", "7": "#67502c", "8": "#595858", "9": "#5d5b5b", "a": "#885d18", "b": "#7e6237", "c": "#686868", "d": "#836d60", "e": "#c35d1b", "f": "#98694e", "g": "#747474", "h": "#777777", "i": "#967441", "j": "#7f7f7f", "k": "#858585", "l": "#888788", "m": "#cc8728", "n": "#919191", "o": "#ed8c0e", "p": "#b3a38b", "q": "#abacab", "r": "#c5c5c5", "s": "#ffd800"},
+    ),
+    "smoker_side": (
+        [
+            [
+                "9411111111111199",
+                "6204466426624024",
+                "9402442022442042",
+                "9957775777777564",
+                "467aa58aaaa78799",
+                "248a8578aaa58846",
+                "64775a8778a55824",
+                "6987aaaaa55aa542",
+                "2288788878888822",
+                "4200220200220096",
+                "6906406406404064",
+                "4604204204202224",
+                "943bb5b5bbb7b366",
+                "963aab578baa7346",
+                "463aa8587aba5342",
+                "2033333333333320",
+            ],
+        ],
+        {"0": "#3a2f1e", "1": "#3c3b3b", "2": "#513d24", "3": "#504e4e", "4": "#67502c", "5": "#5d5b5b", "6": "#7e6237", "7": "#686868", "8": "#777777", "9": "#967441", "a": "#858585", "b": "#919191"},
+    ),
+    "smoker_top": (
+        [
+            [
+                "5544244422242255",
+                "5346799867889435",
+                "4487888778889944",
+                "4787996899987884",
+                "4879421111246872",
+                "2777211111128642",
+                "4679110000119774",
+                "2869110000119782",
+                "2979110000119794",
+                "4979110000118744",
+                "4879211111128672",
+                "2688421111247684",
+                "2876768999989794",
+                "4487686788887744",
+                "5347898467767435",
+                "5544244422224455",
+            ],
+        ],
+        {"0": "#191919", "1": "#272727", "2": "#3c3b3b", "3": "#543f1e", "4": "#504e4e", "5": "#67502c", "6": "#5d5b5b", "7": "#686868", "8": "#777777", "9": "#858585"},
+    ),
+    "smoker_bottom": (
+        [
+            [
+                "3322122211121133",
+                "3024577645567203",
+                "2267766477757722",
+                "2577774677775662",
+                "2677764567774651",
+                "1545547655674421",
+                "2477577777447752",
+                "1677757775777761",
+                "1777766757777672",
+                "2777775575677722",
+                "2677767777754451",
+                "1467657777775762",
+                "1744546777767772",
+                "2274464566657722",
+                "3025676245545203",
+                "3322122211112233",
+            ],
+        ],
+        {"0": "#3a2f1e", "1": "#3c3b3b", "2": "#504e4e", "3": "#67502c", "4": "#5d5b5b", "5": "#686868", "6": "#777777", "7": "#858585"},
+    ),
+    "blast_furnace_front": (
+        [
+            [
+                "fdbb67676776fdbb",
+                "d12632112221d126",
+                "b24822333443b248",
+                "788a12221133788a",
+                "6113454443221116",
+                "7122244312233337",
+                "723aaaaa77776337",
+                "633afffffddd6226",
+                "6117cd0d0d0c6116",
+                "befc6d0d0d0c4eeb",
+                "6b6c6d0c0c0c4cc6",
+                "6b748cfcfcf84ac6",
+                "6ba2888888882ba6",
+                "4aa2222444444a94",
+                "49a9777777779994",
+                "4444444444444444",
+            ],
+        ],
+        {"0": "#111111", "1": "#3f3e42", "2": "#494848", "3": "#4f4f4f", "4": "#595858", "5": "#676161", "6": "#686868", "7": "#747474", "8": "#72796e", "9": "#7f7f7f", "a": "#888788", "b": "#8f8f8f", "c": "#9c9c9c", "d": "#abacab", "e": "#b5b5b5", "f": "#c5c5c5"},
+    ),
+    "blast_furnace_front_on": (
+        [
+            [
+                "ifcc57575775ifcc",
+                "f01521001110f015",
+                "c13811222332c138",
+                "788b01110022788b",
+                "5002343332110005",
+                "7011133201122227",
+                "712bbbbb77775227",
+                "522biiiiifff5115",
+                "5007ef6f9f6e5005",
+                "chie5f9fdf9e3hhc",
+                "5c5e5fdedede3ee5",
+                "5c738egegeg83be5",
+                "5cb1888888881cb5",
+                "3bb1111333333ba3",
+                "3aba77777777aaa3",
+                "3333333333333333",
+            ],
+            [
+                "ifcc57575775ifcc",
+                "f01521001110f015",
+                "c13811222332c138",
+                "788b01110022788b",
+                "5002343332110005",
+                "7011133201122227",
+                "712bbbbb77775227",
+                "522biiiiifff5115",
+                "5007ef9f6f9e5005",
+                "chie5fdf9fde3hhc",
+                "5c5e5fdedede3ee5",
+                "5c738egegeg83be5",
+                "5cb1888888881cb5",
+                "3bb1111333333ba3",
+                "3aba77777777aaa3",
+                "3333333333333333",
+            ],
+        ],
+        {"0": "#3f3e42", "1": "#494848", "2": "#4f4f4f", "3": "#595858", "4": "#676161", "5": "#686868", "6": "#d0540d", "7": "#747474", "8": "#72796e", "9": "#ed5d0a", "a": "#7f7f7f", "b": "#888788", "c": "#8f8f8f", "d": "#ed870a", "e": "#9c9c9c", "f": "#abacab", "g": "#f0a242", "h": "#b5b5b5", "i": "#c5c5c5"},
+    ),
+    "blast_furnace_side": (
+        [
+            [
+                "ecaa56656665ecaa",
+                "c01521001110c015",
+                "a13711222332a137",
+                "6779011100226779",
+                "5002343332110005",
+                "5011133211122335",
+                "6123321212333326",
+                "6233212201122216",
+                "5011000000111005",
+                "adddddddddddddda",
+                "59babbabaa999aa5",
+                "59a9ba9aa9a9a8a5",
+                "5989a9a989998985",
+                "3898898998986863",
+                "3688686688686663",
+                "3333333333333333",
+            ],
+        ],
+        {"0": "#3f3e42", "1": "#494848", "2": "#4f4f4f", "3": "#595858", "4": "#676161", "5": "#686868", "6": "#747474", "7": "#72796e", "8": "#7f7f7f", "9": "#888788", "a": "#8f8f8f", "b": "#9c9c9c", "c": "#abacab", "d": "#b5b5b5", "e": "#c5c5c5"},
+    ),
+    "blast_furnace_top": (
+        [
+            [
+                "4554433333344555",
+                "5412110001122144",
+                "4112332100012115",
+                "5021100011222225",
+                "4123310123332104",
+                "3210000000110004",
+                "3232101233333203",
+                "3110112332211113",
+                "3000110100001013",
+                "3122022122333223",
+                "3112332221122213",
+                "4222110001011003",
+                "5001111101332105",
+                "5112321233210115",
+                "5412210112100145",
+                "4545443333335353",
+            ],
+        ],
+        {"0": "#3f3e42", "1": "#494848", "2": "#4f4f4f", "3": "#595858", "4": "#686868", "5": "#747474"},
+    ),
+    "hopper_top": (
+        [
+            [
+                "2334445555443332",
+                "3222222222222223",
+                "3201111111111023",
+                "321..........123",
+                "421..........124",
+                "421..........124",
+                "521..........125",
+                "521..........125",
+                "521..........125",
+                "521..........125",
+                "421..........124",
+                "421..........124",
+                "421..........124",
+                "3201111111111023",
+                "3222222222222223",
+                "2334445555443332",
+            ],
+        ],
+        {"0": "#343438", "1": "#3f3e42", "2": "#494848", "3": "#4f4f4f", "4": "#595858", "5": "#676161"},
+    ),
+    "hopper_outside": (
+        [
+            [
+                "6556666666656556",
+                "5544555555555555",
+                "4455545454445554",
+                "3333454444455443",
+                "4443333333343433",
+                "3322222222222222",
+                "0000011110010110",
+                "1122122222122221",
+                "3332233333334433",
+                "2354332243345321",
+                "1222233333322211",
+                "1111111111111111",
+                "0000000000000000",
+                "2222112222111232",
+                "2112332111211112",
+                "0000000000000000",
+            ],
+        ],
+        {"0": "#2d2d32", "1": "#343438", "2": "#3f3e42", "3": "#494848", "4": "#4f4f4f", "5": "#595858", "6": "#676161"},
+    ),
+    "hopper_inside": (
+        [
+            [
+                "3333333322233333",
+                "3322222211222233",
+                "3222111112112123",
+                "3221211101111123",
+                "2211101000011223",
+                "2221000000001223",
+                "2211000000001123",
+                "2111000000000123",
+                "3210000000000122",
+                "3211000000001112",
+                "3221100000001122",
+                "3221010001011223",
+                "3222110111212123",
+                "3221211122122223",
+                "3322221222222233",
+                "3333333222223333",
+            ],
+        ],
+        {"0": "#27272b", "1": "#2d2d32", "2": "#343438", "3": "#3f3e42"},
+    ),
+    "hopper": (
+        [
+            [
+                "................",
+                "................",
+                "....44444444....",
+                "..241111111143..",
+                ".25110000001150.",
+                ".22550000035522.",
+                "..223666665302..",
+                "...2422222230...",
+                "....24554330....",
+                "....25666430....",
+                ".....266540.....",
+                ".....256630.....",
+                "......2640......",
+                "......2530......",
+                ".......20.......",
+                "................",
+            ],
+        ],
+        {"0": "#303030", "1": "#383838", "2": "#3e3e3e", "3": "#414441", "4": "#4a4c4a", "5": "#525552", "6": "#626162"},
+    ),
 }
 
-# --- Ofen: Sichtbogen oben, Enderit-Sims ueber die ganze Breite (laeuft auf den Seiten
-# weiter), Feuerraum mit Rost unten
-ENDERITE_FURNACE_FRONT = [
-    "LMGGGGGGGGGGGGNM",
-    "Mm___NNNNNN___Mm",
-    "G___N111111M___F",
-    "G__N10000004M__F",
-    "G__N10000004M__F",
-    "G__N10000004M__F",
-    "G__N10000004M__F",
-    "ONNNNNNNNNNNNNNM",
-    "MMMLMMMMMMMMLMMm",
-    "mmmmmmmmmmmmmmmm",
-    "G____NNNNNN____F",
-    "G___N111111M___F",
-    "G__N10000004M__F",
-    "G__N10000004M__F",
-    "NM_NmmmmmmmmM_NM",
-    "MmFFFFFFFFFFFFMm",
-]
-ENDERITE_FURNACE_FRONT_STONES = [
-    "aaaaa.bbbb.ccc",
-    "dddd......eeee",
-    "ddd........eee",
-    "..............",
-    "ff..........gg",
-    "ff..........gg",
-    "..............",
-    "..............",
-    "..............",
-    "hhhh......iiii",
-    "hhh........iii",
-    "..............",
-    "jj..........kk",
-    "jj..........kk",
-]
-# Brennend: nur der Feuerraum aendert sich (Zeilen 11-14), Flammen ueber dem gluehenden Rost
-ENDERITE_FURNACE_FIRE = {
-    11: "G___Na0c00bM___F",
-    12: "G__Nbcd0dcdcM__F",
-    13: "G__NcefdfeddM__F",
-    14: "NM_NcdedcdecM_NM",
+# Pixel, die Beschlaege sind, obwohl sie grau sind wie das Mauerwerk: (x1, y1, x2, y2) einschliesslich
+MACHINE_METAL_REGIONS = {
+    "piston_top": [(0, 0, 15, 15)],
+    "piston_top_sticky": [(0, 0, 15, 15)],
+    "piston_side": [(0, 0, 15, 3)],
+    "piston_inner": [(5, 5, 10, 10)],
+    "furnace_front": [(2, 7, 13, 7), (1, 9, 14, 9)],
+    "furnace_front_on": [(2, 7, 13, 7), (1, 9, 14, 9)],
+    "furnace_side": [(1, 9, 14, 9)],
+    "smoker_front": [(0, 3, 15, 8)],
+    "smoker_front_on": [(0, 3, 15, 8)],
+    "blast_furnace_front": [(0, 0, 3, 3), (12, 0, 15, 3), (2, 5, 13, 12)],
+    "blast_furnace_front_on": [(0, 0, 3, 3), (12, 0, 15, 3), (2, 5, 13, 12)],
+    "blast_furnace_side": [(0, 0, 3, 3), (12, 0, 15, 3)],
+    "hopper_top": [(0, 0, 15, 15)],
+    "hopper_outside": [(0, 0, 15, 15)],
+    "hopper_inside": [(0, 0, 15, 15)],
+    "hopper": [(0, 0, 15, 15)],
 }
-ENDERITE_FURNACE_SIDE = [
-    "NMGGGGGGGGGGGGNM",
-    "Mm____________Mm",
-    "G______________F",
-    "G______________F",
-    "G______________F",
-    "G______________F",
-    "G______________F",
-    "ONNNNNNNNNNNNNNM",
-    "MMMMMMMMMMMMMMMm",
-    "mmmmmmmmmmmmmmmm",
-    "G______________F",
-    "G______________F",
-    "G______________F",
-    "G______________F",
-    "NM____________NM",
-    "MmFFFFFFFFFFFFMm",
-]
-ENDERITE_FURNACE_SIDE_STONES = [
-    "aaaa.bbbbbb.cc",
-    "aaaa.bbbbbb.cc",
-    ".aa...bbbb..c.",
-    "ddddd.eeee.fff",
-    "ddddd.eeee.fff",
-    "ddddd.eeee.fff",
-    "..............",
-    "..............",
-    "..............",
-    "ggggggg.hhhhhh",
-    "ggggggg.hhhhhh",
-    "ggggggg.hhhhhh",
-    "ggggggg.hhhhhh",
-    "ggggggg.hhhhhh",
-]
-ENDERITE_FURNACE_TOP = [
-    "LMGGGGGGGGGGGGNM",
-    "Mm____________Mm",
-    "G______________F",
-    "G______________F",
-    "G______________F",
-    "G______________F",
-    "G______________F",
-    "G______________F",
-    "G______________F",
-    "G______________F",
-    "G______________F",
-    "G______________F",
-    "G______________F",
-    "G______________F",
-    "NM____________NM",
-    "MmFFFFFFFFFFFFMm",
-]
-# Herdplatte: grosser Mittelstein, rundum kleinere Steine
-ENDERITE_FURNACE_TOP_STONES = [
-    "aaaa.bbbbb.ccc",
-    "aaaa.bbbbb.ccc",
-    "aaaa.bbbbb.ccc",
-    "..............",
-    "dd.eeeeeeee.ff",
-    "dd.eeeeeeee.ff",
-    "dd.eeeeeeee.ff",
-    "dd.eeeeeeee.ff",
-    "dd.eeeeeeee.ff",
-    "dd.eeeeeeee.ff",
-    "..............",
-    "ggg.hhhhh.iiii",
-    "ggg.hhhhh.iiii",
-    "ggg.hhhhh.iiii",
-]
-ENDERITE_FURNACE_SPECKS = {"front": [(1, 1)], "side": [(2, 1), (9, 11)], "top": [(5, 5), (12, 12)]}
+MACHINE_OFF_FACE = {"furnace_front_on": "furnace_front", "smoker_front_on": "smoker_front",
+                    "blast_furnace_front_on": "blast_furnace_front"}
 
-# --- Schmelzofen: schweres Mauerwerk oben, Enderit-Gehaeuse mit drei Glutschlitzen,
-# Seiten mit genieteten Enderit-Platten unten
-ENDERITE_BLAST_FURNACE_FRONT = [
-    "LMGGGGGGGGGGGGNM",
-    "Mm____________Mm",
-    "G______________F",
-    "G______________F",
-    "G______________F",
-    "G_ONNNNNNNNNNM_F",
-    "G_NMMOMMMMOMMm_F",
-    "G_N1111111111m_F",
-    "G_NM00M00M00Mm_F",
-    "G_NM00M00M00Mm_F",
-    "G_NM00M00M00Mm_F",
-    "G_NM00M00M00Mm_F",
-    "G_NNNNNNNNNNNm_F",
-    "G_mmmmmmmmmmmm_F",
-    "NM____________NM",
-    "MmFFFFFFFFFFFFMm",
-]
-ENDERITE_BLAST_FURNACE_FRONT_STONES = [
-    "aaaaa.bbbb.ccc",
-    "aaaaa.bbbb.ccc",
-    "aaaaa.bbbb.ccc",
-    "..............",
-    "d............e",
-    "d............e",
-    "d............e",
-    "d............e",
-    "d............e",
-    ".............e",
-    "f............g",
-    "f............g",
-    "f............g",
-    "hhhhhh.iiiiiii",
-]
-# Zwei Bilder, weich ueberblendet (wie netherite_blast_furnace_front_on): Schlitze
-# glimmen oben dunkel, unten hell; Bild 2 eine Stufe heller
-ENDERITE_BLAST_FURNACE_GLOW = [
-    {7: "G_Na111111111m_F",
-     8: "G_NMcc" "M" "cc" "M" "ccMm_F",
-     9: "G_NMcc" "M" "cc" "M" "ccMm_F",
-     10: "G_NMdd" "M" "dd" "M" "ddMm_F",
-     11: "G_NMee" "M" "ee" "M" "eeMm_F"},
-    {7: "G_Nabbbbbbbbbm_F",
-     8: "G_NMdd" "M" "dd" "M" "ddMm_F",
-     9: "G_NMdd" "M" "dd" "M" "ddMm_F",
-     10: "G_NMee" "M" "ee" "M" "eeMm_F",
-     11: "G_NMff" "M" "ff" "M" "ffMm_F"},
-]
-ENDERITE_BLAST_FURNACE_SIDE = [
-    "NMGGGGGGGGGGGGNM",
-    "Mm____________Mm",
-    "G______________F",
-    "G______________F",
-    "G______________F",
-    "G______________F",
-    "G______________F",
-    "G______________F",
-    "ONNNNNNNNNNNNNNM",
-    "mmmmmmmmmmmmmmmm",
-    "GNNNNNNmNNNNNNmF",
-    "GNOMMMOmNOMMMOmF",
-    "GNMMMMMmNMMMMMmF",
-    "GNOMMMOmNOMMMOmF",
-    "NMmmmmmmmmmmmmNM",
-    "MmFFFFFFFFFFFFMm",
-]
-ENDERITE_BLAST_FURNACE_SIDE_STONES = [
-    "aaa.bbbbbb.ccc",
-    "aaa.bbbbbb.ccc",
-    "aaa.bbbbbb.ccc",
-    "..............",
-    "ddddd.eeeee.ff",
-    "ddddd.eeeee.ff",
-    "ddddd.eeeee.ff",
-    "..............",
-    "..............",
-    "..............",
-    "..............",
-    "..............",
-    "..............",
-    "..............",
-]
-# Deckel: Enderit-Randleiste mit Nieten, innen vier schwere Platten
-ENDERITE_BLAST_FURNACE_TOP = [
-    "LMGGGGGGGGGGGGNM",
-    "MmNNNNNNNNNNNmMm",
-    "GN____________mF",
-    "GN____________mF",
-    "GN____________mF",
-    "GN____________mF",
-    "GN____________mF",
-    "GN____________mF",
-    "GN____________mF",
-    "GN____________mF",
-    "GN____________mF",
-    "GN____________mF",
-    "GN____________mF",
-    "GN____________mF",
-    "NMmmmmmmmmmmmmNM",
-    "MmFFFFFFFFFFFFMm",
-]
-ENDERITE_BLAST_FURNACE_TOP_STONES = [
-    "..............",
-    ".aaaaaa.bbbbb.",
-    ".aaaaaa.bbbbb.",
-    ".aaaaaa.bbbbb.",
-    ".aaaaaa.bbbbb.",
-    ".aaaaaa.bbbbb.",
-    ".aaaaaa.bbbbb.",
-    "..............",
-    ".ccccc.dddddd.",
-    ".ccccc.dddddd.",
-    ".ccccc.dddddd.",
-    ".ccccc.dddddd.",
-    ".ccccc.dddddd.",
-    "..............",
-]
-ENDERITE_BLAST_FURNACE_SPECKS = {"front": [(2, 1)], "side": [(7, 4)], "top": [(3, 3), (9, 10)]}
+# Stuetzstellen der Rampen: Vanilla-Helligkeit (Luma) der Grau-, Holz- und Feuertoene
+_MG = [0x11, 0x3c, 0x50, 0x68, 0x85, 0x91, 0xa8, 0xc5, 0xdb]
+_MW = [28, 55, 83, 101, 134, 146, 162]
+_MF = [60, 100, 125, 160, 200, 255]
 
-# --- Raeucherofen: Bretterrahmen (2 px) und Mittelbalken, oben Rauchfenster mit Rost,
-# unten Feuerraum hinter vier Enderit-Staeben
-ENDERITE_SMOKER_FRONT = [
-    "LMWWWWQSWWWWWQNM",
-    "MmqqpqqSqqqpqqMm",
-    "WqONNNNNNNNNNMQS",
-    "WqN1111111111mQS",
-    "WqN0000000000mQS",
-    "WpNmMmMmMmMmMmQS",
-    "WqNmmmmmmmmmmmQS",
-    "WWWWWQSWWWWWWWQS",
-    "qqpqqqSqqqpqqqpS",
-    "Wq1N11N11N11N1QS",
-    "Wq0M00M00M00M0QS",
-    "Wp0M00M00M00M0QS",
-    "Wq0M00M00M00M0QS",
-    "Wq0m00m00m00m0QS",
-    "NMQQQQQQSQQQQQNM",
-    "MmSSSSSSSSSSSSMm",
-]
-# Drei Bilder ohne Ueberblendung (wie netherite_smoker_front_on): Rost gluehend, Flammen
-# flackern hinter den Staeben; jede Zeile ersetzt die gleiche Zeile der Front
-ENDERITE_SMOKER_GLOW = {
-    3: "WqN1bbbbbbbb1mQS",
-    4: "WqNacbcbccbcamQS",
-    5: "WqNmdmdmdmdmdmQS",
+
+def _ramp(keys, cols):
+    return dict(zip(keys, cols))
+
+
+MACHINE_TIERS = {
+    "reinforced": {
+        "stone": _ramp(_MG, ["#0e0e11", "#2a2a31", "#37373f", "#45454e", "#55555f", "#5d5d67", "#6c6c76", "#80808a",
+                             "#92929b"]),
+        "metal": _ramp(_MG, ["#141418", "#3a3a40", "#4e4e55", "#686870", "#8b8b92", "#9c9ca3", "#b8b8be", "#d8d8dc",
+                             "#f2f2f4"]),
+        "wood": _ramp(_MW, ["#1c140c", "#3a2a16", "#553e21", "#69502b", "#88693c", "#957444", "#a8834f"]),
+        "fire": None,                 # Vanilla-Feuer
+        "hopper": ("metal", 0x14),    # Trichter: blankes Eisen, eine Spur heller als der Vanilla-Trichter
+    },
+    "netherite": {
+        "stone": _ramp(_MG, ["#110d0e", "#211a1b", "#2c2526", "#3a3233", "#463e40", "#4c4546", "#585254", "#6b6668",
+                             "#7e7a7c"]),
+        "metal": _ramp(_MG, ["#141214", "#343134", "#3f3c3f", "#524e52", "#666266", "#716d71", "#858186", "#a29da4",
+                             "#c2bdc4"]),
+        "wood": _ramp(_MW, ["#140c09", "#24160f", "#352216", "#422b1c", "#553824", "#603f29", "#6e4a30"]),
+        "fire": None,
+        # die Grautoene des Netheritblocks sind fast die des Vanilla-Trichters - der Netherit-Trichter
+        # nimmt deshalb die roetlichen Dunkeltoene, etwas angehoben
+        "hopper": ("stone", 0x10),
+    },
+    "enderite": {
+        "stone": _ramp(_MG, ["#08030f", "#190e28", "#241636", "#2f1f46", "#3b2957", "#412e5f", "#4d386e", "#5d4584",
+                             "#6e5296"]),
+        "metal": _ramp(_MG, ["#12061f", "#2d1656", "#3e2173", "#4d2a8c", "#6139a8", "#6d45b8", "#8259cf", "#a57de9",
+                             "#cfb2fb"]),
+        "wood": _ramp(_MW, ["#1a0f30", "#33205a", "#4a3080", "#583a94", "#6f4db0", "#7a57bf", "#8a66d0"]),
+        "fire": _ramp(_MF, ["#2c0f4e", "#4b1b86", "#7329c4", "#a44ff0", "#d08eff", "#f4ddff"]),
+        "hopper": ("metal", 0x20),    # Trichter heller, damit er nach Enderitbarren aussieht
+        "glimmer": "#f4d2ff",
+    },
 }
-ENDERITE_SMOKER_FLAMES = [
-    {9: "Wq1N11N11Nb1N1QS",
-     10: "Wq0Mc0M0bM0cMbQS",
-     11: "WqbMdcMbdMcdMcQS",
-     12: "WqcMedMcfMdeMdQS",
-     13: "WqdmfemdfmefmeQS"},
-    {9: "Wq1Nb1N11N11N1QS",
-     10: "WqbM0cMc0Mb0M0QS",
-     11: "WqcMcdMdcMbcMbQS",
-     12: "WqdMdeMedMcdMcQS",
-     13: "WqemefmfemdemdQS"},
-    {9: "Wq1N11N1bN11N1QS",
-     10: "Wq0Mb0M0cM0bM0QS",
-     11: "WqbMcbMcdMbcMcQS",
-     12: "WqcMdcMdeMcdMdQS",
-     13: "WqdmedmefmdemeQS"},
-]
-ENDERITE_SMOKER_SIDE = [
-    "NMWWWWQSWWWWWQNM",
-    "MmqqpqqSqqqpqqMm",
-    "Wq____________QS",
-    "Wq____________QS",
-    "Wq____________QS",
-    "Wq____________QS",
-    "Wq____________QS",
-    "WWWWWQSWWWWWWWQS",
-    "qqpqqqSqqqpqqqpS",
-    "Wq____________QS",
-    "Wq____________QS",
-    "Wq____________QS",
-    "Wq____________QS",
-    "Wq____________QS",
-    "NMQQQQQQSQQQQQNM",
-    "MmSSSSSSSSSSSSMm",
-]
-ENDERITE_SMOKER_SIDE_STONES = [
-    "..............",
-    ".aaaa.bbbbbbb.",
-    ".aaaa.bbbbbbb.",
-    "..............",
-    ".ccccccc.dddd.",
-    ".ccccccc.dddd.",
-    "..............",
-    "..............",
-    ".eee.fffff.gg.",
-    ".eee.fffff.gg.",
-    "..............",
-    ".hhhhhh.iiiii.",
-    ".hhhhhh.iiiii.",
-    "..............",
-]
-# Deckel mit Schornstein in der Mitte
-ENDERITE_SMOKER_TOP = [
-    "LMWWWWQSWWWWWQNM",
-    "MmqqpqqSqqqpqqMm",
-    "Wq____________QS",
-    "Wq____________QS",
-    "Wq____________QS",
-    "Wq___ONNNNM___QS",
-    "Wq___N1111m___QS",
-    "Wq___N1000m___QS",
-    "Wp___N1000m___QS",
-    "Wq___N1000m___QS",
-    "Wq___Mmmmmm___QS",
-    "Wq____________QS",
-    "Wq____________QS",
-    "Wq____________QS",
-    "NMQQQQQQSQQQQQNM",
-    "MmSSSSSSSSSSSSMm",
-]
-ENDERITE_SMOKER_TOP_STONES = [
-    "..............",
-    ".aaaaaa.bbbbb.",
-    ".aaaaaa.bbbbb.",
-    "..............",
-    ".ccc......ddd.",
-    ".ccc......ddd.",
-    ".ccc......ddd.",
-    "..............",
-    ".eee......fff.",
-    ".eee......fff.",
-    "..............",
-    ".gggg.hhhhhhh.",
-    ".gggg.hhhhhhh.",
-    "..............",
-]
-ENDERITE_SMOKER_BOTTOM = [
-    "NMWWWWWQSWWWWQNM",
-    "MmqqqpqqSqqpqqMm",
-    "Wq____________QS",
-    "Wq____________QS",
-    "Wq____________QS",
-    "Wq____________QS",
-    "Wq____________QS",
-    "Wq____________QS",
-    "Wq____________QS",
-    "Wq____________QS",
-    "Wq____________QS",
-    "Wq____________QS",
-    "Wq____________QS",
-    "Wq____________QS",
-    "NMQQQQQQSQQQQQNM",
-    "MmSSSSSSSSSSSSMm",
-]
-ENDERITE_SMOKER_BOTTOM_STONES = [
-    "..............",
-    ".aaa.bbbbb.cc.",
-    ".aaa.bbbbb.cc.",
-    ".aaa.bbbbb.cc.",
-    "..............",
-    ".dddddd.eeeee.",
-    ".dddddd.eeeee.",
-    ".dddddd.eeeee.",
-    ".dddddd.eeeee.",
-    "..............",
-    ".ff.ggggg.hhh.",
-    ".ff.ggggg.hhh.",
-    ".ff.ggggg.hhh.",
-    "..............",
-]
-ENDERITE_SMOKER_SPECKS = {"side": [(2, 1), (9, 11)], "top": [(2, 1), (8, 12)], "bottom": [(6, 6)]}
 
-# --- Trichter. Das Vanilla-Modell nutzt die Flaechen ohne eigene UVs: vom Deckel nur den
-# 2-px-Rand, von der Aussenseite Zeilen 0-4 (Rand, auch innen), Zeile 5 (Platte),
-# Zeilen 6-11 Spalten 4-11 (Mittelteil) und Zeilen 12-15 Spalten 6-9 (Auslauf); die
-# Innenseite ist Boden der Schale und Unterseite, ihre Mitte ist die Auslaufoeffnung.
-ENDERITE_HOPPER_TOP = [
-    "ONNNNNNNNNNNNNNM",
-    "NLMMMMMMMMMMMMLm",
-    "NMmmmmmmmmmmmNMm",
-    "NMm..........NMm",
-    "NMm..........NMm",
-    "NMm..........NMm",
-    "NMm..........NMm",
-    "NMm..........NMm",
-    "NMm..........NMm",
-    "NMm..........NMm",
-    "NMm..........NMm",
-    "NMm..........NMm",
-    "NMm..........NMm",
-    "NMmNNNNNNNNNNNMm",
-    "NLMMMMMMMMMMMMLm",
-    "MmmmmmmmmmmmmmmF",
-]
-ENDERITE_HOPPER_OUTSIDE = [
-    "NNNNNNNONNNNNNNN",
-    "MOMMMMMNMMMMMMOM",
-    "MMMMMMMNMMMMMMMM",
-    "MMMMMMMmMMMMMMMM",
-    "mmmmmmmmmmmmmmmm",
-    "FFFFFFFFFFFFFFFF",
-    "NNNNNNNNNNNNNNNN",
-    "MMMMNLMMMMLmMMMM",
-    "MMMMNMMMMMMmMMMM",
-    "MMMMNMMMMMMmMMMM",
-    "MMMMNMMMMMMmMMMM",
-    "mmmmmmmmmmmmmmmm",
-    "FFFFFFNNNmFFFFFF",
-    "MMMMMMNMMmMMMMMM",
-    "MMMMMMNMMmMMMMMM",
-    "mmmmmmmmmmmmmmmm",
-]
-ENDERITE_HOPPER_INSIDE = [
-    "mmmmmmmmmmmmmmmm",
-    "m44444444444443m",
-    "m43333333333332m",
-    "m43M33333333M32m",
-    "m43322222222332m",
-    "m43321111112332m",
-    "m43321000043332m",
-    "m43321000043332m",
-    "m43321000043332m",
-    "m43321000043332m",
-    "m43322444443332m",
-    "m43323333333332m",
-    "m43M33333333M32m",
-    "m43333333333332m",
-    "m22222222222222m",
-    "mmmmmmmmmmmmmmmm",
-]
-# Item: Form und Perspektive des Vanilla-Trichter-Items (Rand mit Blick in die Schale, Kegel,
-# Auslauf), in der Rampe des Enderitbarrens mit zwei Glimmerpunkten g und einer Lichtkante h.
-ENDERITE_HOPPER_ITEM = [
+# Beschlaege der Stufe ueber dem Vanilla-Aufbau, in der Metallrampe: L hell, M mittel, D dunkel
+_MB = "................"
+MACHINE_ACCENTS = {
+    # Nieten auf der Kolbenplatte
+    "piston_top": [_MB, _MB, _MB, _MB, _MB, "...M........M...", "....D........D..", _MB, _MB, _MB,
+                   "...M........M...", "....D........D..", _MB, _MB, _MB, _MB],
+    # Eckwinkel am Fuss des Kolbens und auf seiner Unterseite
+    "piston_side": [_MB] * 12 + ["L..............M", "L..............M", "LM............MD", "MDDD........DDDD"],
+    "piston_bottom": ["LLLM........LLLM", "LDD..........DDM", "LD............DM", "M..............D"] + [_MB] * 8 +
+                     ["L..............M", "L..............M", "LM............MD", "MDDD........DDDD"],
+    # Eckwinkel wie am Vanilla-Schmelzofen in den oberen Ecken des Ofens
+    "furnace_front": ["LLLM........LLLM", "LDD..........DDM", "LD............DM", "M..............D"] + [_MB] * 12,
+    "furnace_side": ["LLLM........LLLM", "LDD..........DDM", "LD............DM", "M..............D"] + [_MB] * 12,
+    "furnace_top": ["LLLM........LLLM", "LDD..........DDM", "LD............DM", "M..............D"] + [_MB] * 8 +
+                   ["L..............M", "L..............M", "LM............MD", "MDDD........DDDD"],
+    # Nieten auf Rand und Mittelteil des Trichters
+    "hopper_outside": [_MB, _MB, "..M..........M..", "..D..........D..", _MB, _MB, _MB, _MB,
+                       ".....M....M.....", ".....D....D.....", _MB, _MB, _MB, _MB, _MB, _MB],
+}
+MACHINE_ACCENT_LUMA = {"L": 0xdb, "M": 0xa8, "D": 0x50}
+
+# Enderit-Glimmer: je Flaeche ein bis zwei Punkte auf dem Mauerwerk (Spalte, Zeile)
+MACHINE_GLIMMER = {
+    "piston_top": [(10, 5)], "piston_side": [(4, 9)], "piston_bottom": [(11, 4), (4, 12)], "piston_inner": [(12, 3)],
+    "furnace_front": [(12, 1)], "furnace_side": [(4, 5), (11, 12)], "furnace_top": [(5, 4), (11, 11)],
+    "smoker_front": [(3, 11)], "smoker_side": [(11, 6)], "smoker_top": [(12, 3)], "smoker_bottom": [(4, 4), (11, 10)],
+    "blast_furnace_front": [(7, 2)], "blast_furnace_side": [(9, 4)], "blast_furnace_top": [(4, 4), (11, 11)],
+    "hopper_outside": [(5, 2)], "hopper_top": [(1, 13)], "hopper": [(5, 3)],
+}
+
+# Verschleiss des Netherit-Brechers (netherite_piston_side_worn1..3): Risse im Mauerwerk der Seite,
+# von Stufe zu Stufe laenger. Ziffer n = Rissspalt ab Stufe n, e/f/g = heller Abplatzer an der
+# Risskante ab Stufe 1/2/3 (Licht von oben links faellt auf die untere/rechte Kante).
+NETHERITE_WEAR = [
     "................",
     "................",
-    "....45555554....",
-    "..2h1111111154..",
-    ".2511000000115O.",
-    ".22550000035522.",
-    "..22366g6653O2..",
-    "...242222223O...",
-    "....2455433O....",
-    "....256g643O....",
-    ".....26654O.....",
-    ".....25663O.....",
-    "......264O......",
-    "......253O......",
-    ".......2O.......",
+    "................",
+    "................",
+    "................",
+    "...3......1.....",
+    "...3f.....1e....",
+    "....3....1......",
+    "....3g..1e......",
+    ".....3..2.......",
+    ".....g3..22.....",
+    "......3...2f....",
+    "......3g...2....",
+    ".......3...2f...",
+    "............2...",
     "................",
 ]
-ENDERITE_HOPPER_ITEM_PAL = {
-    "0": "#0e0419", "O": "#1c0a33", "1": "#2d1656", "2": "#3e2173", "3": "#4a2888", "4": "#6d45b8",
-    "5": "#8e63dc", "6": "#a57de9", "h": "#cfb2fb", "g": "#f4d2ff",
-}
+NETHERITE_WEAR_EDGE = {"e": 1, "f": 2, "g": 3}
+NETHERITE_WEAR_CRACK = "#0a0708"
+
+# Flaechen je Stufe (Rauchofen-Unterseite nur Enderit, dessen Datei es schon gab; die Modelle nehmen
+# fuer unten den Deckel)
+MACHINE_FACES = ["piston_top", "piston_side", "piston_bottom", "piston_inner",
+                 "furnace_front", "furnace_front_on", "furnace_side", "furnace_top",
+                 "smoker_front", "smoker_front_on", "smoker_side", "smoker_top",
+                 "blast_furnace_front", "blast_furnace_front_on", "blast_furnace_side", "blast_furnace_top",
+                 "hopper_top", "hopper_outside", "hopper_inside"]
+
+# Animationsparameter wie bei Vanilla; der Generator schreibt die .png.mcmeta mit, sonst zeigte
+# Minecraft den Streifen gestaucht als ein Bild.
+MACHINE_ANIMATIONS = {}
+for _tier in MACHINE_TIERS:
+    MACHINE_ANIMATIONS[f"block/{_tier}_smoker_front_on.png"] = {"interpolate": False, "frametime": 4}
+    MACHINE_ANIMATIONS[f"block/{_tier}_blast_furnace_front_on.png"] = {"frametime": 20, "interpolate": True}
+
+
+def _luma(c):
+    return 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]
+
+
+def _ramp_at(ramp, lum):
+    pts = sorted(ramp.items())
+    if lum <= pts[0][0]:
+        return hexrgb(pts[0][1])
+    for (l0, c0), (l1, c1) in zip(pts, pts[1:]):
+        if lum <= l1:
+            t = (lum - l0) / (l1 - l0)
+            a, b = hexrgb(c0), hexrgb(c1)
+            return tuple(round(a[i] + (b[i] - a[i]) * t) for i in range(3))
+    return hexrgb(pts[-1][1])
+
+
+def _machine_class(face, colour):
+    r, g, b = colour
+    h, s, v = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)
+    if 0.2 < h < 0.45 and s > 0.25:
+        return "slime"
+    if face in MACHINE_OFF_FACE:
+        off = set(VANILLA_MACHINE_FACES[MACHINE_OFF_FACE[face]][1].values())
+        if "#%02x%02x%02x" % colour not in off and (s >= 0.2 or v > 0.95):
+            return "fire"
+    return "stone" if s < 0.12 else "wood"
+
+
+def machine_face(tier, face):
+    """Eine Vanilla-Flaeche in der Stufe; mehrere Bilder werden ein Animationsstreifen."""
+    frames, pal = VANILLA_MACHINE_FACES[face]
+    t = MACHINE_TIERS[tier]
+    base = face.replace("_on", "")
+    hopper = face.startswith("hopper")
+    regions = MACHINE_METAL_REGIONS.get(face, ())
+    rgb = {k: hexrgb(v) for k, v in pal.items()}
+    strip = Image.new("RGBA", (16, 16 * len(frames)), (0, 0, 0, 0))
+    for i, rows in enumerate(frames):
+        check_map(f"{face}#{i}", rows, pal, allow_transparent=True)
+        img = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+        for y, row in enumerate(rows):
+            for x, ch in enumerate(row):
+                if ch == ".":
+                    continue
+                c = rgb[ch]
+                cls = _machine_class(face, c)
+                lift = 0
+                if cls == "stone" and any(x1 <= x <= x2 and y1 <= y <= y2 for x1, y1, x2, y2 in regions):
+                    cls = "metal"
+                    if hopper:
+                        cls, lift = t["hopper"]
+                if cls == "fire":
+                    col = c if t["fire"] is None else _ramp_at(t["fire"], _luma(c))
+                elif cls == "slime":
+                    col = c
+                else:
+                    col = _ramp_at(t[cls], _luma(c) + lift)
+                img.putpixel((x, y), col + (255,))
+        for y, row in enumerate(MACHINE_ACCENTS.get(base, ())):
+            for x, ch in enumerate(row):
+                if ch != ".":
+                    img.putpixel((x, y), _ramp_at(t["metal"], MACHINE_ACCENT_LUMA[ch]) + (255,))
+        if "glimmer" in t:
+            for gx, gy in MACHINE_GLIMMER.get(base, ()):
+                if img.getpixel((gx, gy))[3]:
+                    img.putpixel((gx, gy), hexrgb(t["glimmer"]) + (255,))
+        strip.paste(img, (0, 16 * i))
+    return strip
+
+
+def netherite_wear_textures(side):
+    out = {}
+    for stage in (1, 2, 3):
+        img = side.copy()
+        for y, row in enumerate(NETHERITE_WEAR):
+            for x, ch in enumerate(row):
+                if ch.isdigit() and int(ch) <= stage:
+                    img.putpixel((x, y), hexrgb(NETHERITE_WEAR_CRACK))
+                elif NETHERITE_WEAR_EDGE.get(ch, 9) <= stage:
+                    img.putpixel((x, y), tuple(min(255, int(q * 1.3 + 16)) for q in img.getpixel((x, y))[:3]))
+        out[f"block/netherite_piston_side_worn{stage}.png"] = img
+    return out
+
+
+def tiered_machine_textures():
+    tex = {}
+    for tier in MACHINE_TIERS:
+        for face in MACHINE_FACES:
+            img = machine_face(tier, face)
+            # Blockflaechen deckend; der Trichterdeckel ist in der Mitte offen wie bei Vanilla
+            tex[f"block/{tier}_{face}.png"] = img if face == "hopper_top" else img.convert("RGB")
+        tex[f"item/{tier}_hopper.png"] = machine_face(tier, "hopper")
+        top = tex[f"block/{tier}_piston_top.png"]
+        # Kolbenkopf wie bei Vanilla: die Rueckseite der Kopfplatte ist die Schubplatte, die Stange
+        # das Holzband (Zeilen 0-3) der Seite; das Kopfmodell liest nur die Zeilen 0-3 der Stange
+        tex[f"block/{tier}_piston_head.png"] = top.copy()
+        band = tex[f"block/{tier}_piston_side.png"].crop((0, 0, 16, 4))
+        arm = Image.new("RGB", (16, 16))
+        for k in range(4):
+            arm.paste(band, (0, 4 * k))
+        tex[f"block/{tier}_piston_arm.png"] = arm
+    tex["block/reinforced_piston_top_sticky.png"] = machine_face("reinforced", "piston_top_sticky").convert("RGB")
+    tex["block/enderite_smoker_bottom.png"] = machine_face("enderite", "smoker_bottom").convert("RGB")
+    tex.update(netherite_wear_textures(tex["block/netherite_piston_side.png"]))
+    return tex
 
 
 # ---------------------------------------------------------------------------
@@ -1063,136 +1210,6 @@ def render(name, rows, palette, opaque, template=None):
     return img
 
 
-def stone_face(layout, specks):
-    """Schattiert eine 14x14-Steinlage: Fuge '1', Steinkante oben/links hell, unten/rechts dunkel."""
-    h, w = len(layout), len(layout[0])
-
-    def same(x, y, ch):
-        if 0 <= x < w and 0 <= y < h:
-            return layout[y][x] == ch
-        return False
-
-    out = []
-    for y in range(h):
-        row = ""
-        for x in range(w):
-            ch = layout[y][x]
-            if ch == ".":
-                row += "1"
-                continue
-            up, left = same(x, y - 1, ch), same(x - 1, y, ch)
-            down, right = same(x, y + 1, ch), same(x + 1, y, ch)
-            if not up and not left:
-                row += "5"
-            elif not up or not left:
-                row += "4"
-            elif not down or not right:
-                row += "2"
-            else:
-                row += "3"
-        out.append(row)
-    for sx, sy in specks:
-        if out[sy][sx] in "345":
-            out[sy] = out[sy][:sx] + "6" + out[sy][sx + 1:]
-    return out
-
-
-def piston_head_textures():
-    """Rueckseite der Kopfplatte und Stange je Kolbenstufe (siehe PISTON_HEAD_BACK)."""
-    out = {}
-    # Selbstkontrolle: der Flansch in der gemeinsamen Karte hat dieselbe Form wie PISTON_HEAD_FLANGE.
-    for dy, row in enumerate(PISTON_HEAD_FLANGE):
-        for dx, ch in enumerate(row):
-            if ch != "." and PISTON_HEAD_BACK[4 + dy][4 + dx] != ch:
-                raise ValueError(f"PISTON_HEAD_BACK: Flansch weicht bei ({4 + dx},{4 + dy}) ab")
-    for tier, pal in PISTON_HEAD_TIERS.items():
-        out[f"block/{tier}_piston_head.png"] = render(f"{tier}_piston_head", PISTON_HEAD_BACK, pal, True)
-        out[f"block/{tier}_piston_arm.png"] = render(f"{tier}_piston_arm", PISTON_ARM, PISTON_ARM_TIERS[tier], True)
-    back = [list(r) for r in ENDERITE_PISTON_HEAD_BRICKS]
-    for dy, row in enumerate(PISTON_HEAD_FLANGE):
-        for dx, ch in enumerate(row):
-            if ch != ".":
-                back[4 + dy][4 + dx] = ENDERITE_FLANGE_KEYS[ch]
-    back[5][5] = "L"  # Glimmer-Niete
-    out["block/enderite_piston_head.png"] = render("enderite_piston_head", ["".join(r) for r in back], ENDERITE_PISTON_PAL, True)
-    out["block/enderite_piston_arm.png"] = render("enderite_piston_arm", ENDERITE_PISTON_ARM, ENDERITE_PISTON_PAL, True)
-    return out
-
-
-def enderite_piston_maps():
-    stones = stone_face(ENDERITE_STONES, ENDERITE_SPECKS)
-    # Unterseite: Rahmen G oben/links, F unten/rechts, innen die Steinlage
-    bottom = ["G" * 15 + "F"]
-    for r in range(14):
-        bottom.append("G" + stones[r] + "F")
-    bottom.append("G" + "F" * 15)
-    # Innenseite: wie Unterseite, Mitte mit Fuehrungsring und Loch fuer den Kolbenarm
-    inner = [list(r) for r in bottom]
-    ring = [
-        "NNNNNM",
-        "NFFFFm",
-        "NF112m",
-        "NF122m",
-        "NF222m",
-        "Mmmmmm",
-    ]
-    for dy, rr in enumerate(ring):
-        for dx, ch in enumerate(rr):
-            inner[5 + dy][5 + dx] = ch
-    inner = ["".join(r) for r in inner]
-    # Seite: Zeilen 0-3 Kante der Kopfplatte (Bretter + Beschlaege), ab Zeile 4 Sockel
-    side = [
-        "NMWQQQQNMWQQQQNM",
-        "MMQQQqQMMQQqQQMM",
-        "MmqqqqqMmqqqqqMm",
-        "mmpppppmmpppppmm",
-        "F" * 16,
-    ]
-    for r in range(4, 14):
-        side.append("G" + stones[r] + "F")
-    side.append("G" + "F" * 15)
-    # Zeile 4 (Uebergang Kopf/Sockel) -> 16 Zeilen: 4 Kopf + 1 Fuge + 10 Stein + 1 Rahmen
-    assert len(side) == 16, len(side)
-    return ENDERITE_PISTON_TOP, side, bottom, inner
-
-
-def masonry(name, over, stones, specks=()):
-    """Fuellt die '_' einer Overlay-Karte mit dem Mauerwerk einer 14x14-Steinlage
-    (Zeile/Spalte 0 der Steinlage = Zeile/Spalte 1 der Flaeche)."""
-    if len(stones) != 14 or any(len(r) != 14 for r in stones):
-        raise ValueError(f"{name}: Steinlage muss 14x14 sein")
-    face = stone_face(stones, specks)
-    out = []
-    for y, row in enumerate(over):
-        line = ""
-        for x, ch in enumerate(row):
-            if ch == "_":
-                if not (1 <= x <= 14 and 1 <= y <= 14):
-                    raise ValueError(f"{name}: '_' auf dem Rand bei ({x},{y})")
-                ch = face[y - 1][x - 1]
-            line += ch
-        out.append(line)
-    return out
-
-
-def patch(rows, changes):
-    """Kopie einer Karte mit ersetzten Zeilen (leuchtende Varianten, Animationsbilder)."""
-    out = list(rows)
-    for y, row in changes.items():
-        out[y] = row
-    return out
-
-
-def render_strip(name, frames, palette):
-    """Animationsstreifen fuer .mcmeta: deckende 16x16-Bilder untereinander."""
-    img = Image.new("RGB", (16, 16 * len(frames)))
-    for i, rows in enumerate(frames):
-        img.paste(render(f"{name}#{i}", rows, palette, True), (0, 16 * i))
-    return img
-
-
-# Animationsparameter wie bei den netherite_*-Gegenstuecken; der Generator schreibt die
-# .png.mcmeta mit, sonst zeigte Minecraft den Streifen gestaucht als ein Bild.
 # ---------------------------------------------------------------------------
 # Quarz-Schachbretter aus End-Material (Nihilith, Astralit)
 # ---------------------------------------------------------------------------
@@ -1629,32 +1646,95 @@ def ring(x, y):
     return min(x, y, 15 - x, 15 - y)
 
 
-# Enderquarz (Item): kompakter Kristallstern (10x10) - kleiner Hauptkoerper als vierzackiger Stern
-# (oben, unten, links, rechts), dazu nah am Hauptstern an den vier Diagonalen je ein Spike, der
-# sich zu einer 1-Pixel-Spitze zu den Rahmenecken verjuengt. Sehr dunkles Violett, 1..5 dunkel ->
-# hell (Licht von oben links), s Funken, S Glanzpunkt; ohne eigene Konturfarbe.
+# Enderquarz (Item), Runde 6 (2026-09-27): dieselbe Form - ein Kristallstern mit vier langen Zacken
+# (oben, unten, links, rechts) und vier kurzen an den Diagonalen -, aber stumpfer und ruhiger, damit
+# man ihn auf einen Blick als Kristall liest: Zacken 2 px breit statt 1-px-Nadeln, keine verstreuten
+# Einzelpixel mehr, jede Zacke eine Lichtseite oben/links und eine Schattenseite unten/rechts wie die
+# Facetten des Netherstern, Glanz S in der Mitte, Funke s an der oberen linken Zacke; dunkler
+# violetter Umriss O. Die Kerben zwischen den Zacken bleiben offen (Eckregel).
+# 1..6 dunkel -> hell.
 ENDER_QUARTZ_ITEM = [
     "................",
-    "................",
-    "................",
-    "...5....5...3...",
-    "....s..554.3....",
-    "....55.54.33....",
-    ".....5554433....",
-    "...55554S4332...",
-    "....444433222...",
-    ".....4433222....",
-    "....33.s32.22...",
-    "....3..32..2....",
-    "...3...2....2...",
-    "................",
-    "................",
+    ".......OO.......",
+    "......O64O......",
+    "....OOO64OOO....",
+    "...Os5O64O43O...",
+    "...O56665433O...",
+    "..OOO56S543OOO..",
+    ".O566666544332O.",
+    ".O445555443221O.",
+    "..OOO444332OOO..",
+    "...O33333221O...",
+    "...O32O32O21O...",
+    "....OOO32OOO....",
+    "......O21O......",
+    ".......OO.......",
     "................",
 ]
 ENDER_QUARTZ_ITEM_PAL = {
-    "1": "#1c0a2e", "2": "#2a1142", "3": "#3b1a5a", "4": "#522678", "5": "#6e369c", "s": "#c68cff",
-    "S": "#fbefff",
+    "O": "#1e0a30", "1": "#2a1142", "2": "#3b1a5a", "3": "#522678", "4": "#6e369c", "5": "#8c52c4",
+    "6": "#b27ee8", "S": "#f6e8ff", "s": "#e0b8ff",
 }
+
+# Enderitblock (2026-09-27, neu statt der fleckigen alten Textur): Aufbau der Vanilla-Speicherbloecke
+# (Netherit-, Diamantblock) - 1-px-Rahmen hell oben/links, dunkel unten/rechts, darin ein heller
+# Innenrand oben/links und ein Feld in der Rampe des Enderitbarrens mit zwei weichen Glanzflecken
+# (oben links klein, unten rechts laenger, dort ein Glimmerpunkt g wie am Barren). Kachelt nahtlos.
+ENDERITE_BLOCK = [
+    "5666566656665662",
+    "6887778887787752",
+    "6845554555445542",
+    "675h764555544542",
+    "6578754455444532",
+    "6567544554455432",
+    "7556445544565432",
+    "6545445445676542",
+    "6454455456787532",
+    "6544554567g76432",
+    "6454455567765431",
+    "7445544556654431",
+    "6544454455544431",
+    "6433444344434321",
+    "5332333233323221",
+    "3111211121112111",
+]
+ENDERITE_BLOCK_PAL = {
+    "1": "#1c0a33", "2": "#2d1656", "3": "#3e2173", "4": "#55309a", "5": "#6d45b8", "6": "#7b51c9",
+    "7": "#8e63dc", "8": "#a57de9", "h": "#cfb2fb", "g": "#f4d2ff",
+}
+
+# Laserpointer (2026-09-27): schlankes Handgeraet schraeg wie das Vanilla-Fernrohr - Eisenrohr (Rezept:
+# Eisen-Baukern + Eisen) mit Endkappe k/c, roter Redstone-Taster R/r/q, Eisenring vor der Spitze und
+# ein Amethyst-Kristall als Linse mit heller Facettenkante A. o/O Umriss oben links hell, unten rechts
+# dunkel, E Umriss des Kristalls. Die Pfadangabe item/laser_pointer.png bleibt; laser_pointer_empty.png
+# ist dieselbe Karte mit erloschenem Kristall und dunklem Taster (fuer einen leeren/ungeladenen Zustand,
+# falls das Item einen bekommt).
+LASER_POINTER = [
+    "................",
+    ".............E..",
+    "...........EEAE.",
+    "..........EBACE.",
+    ".........EBACDE.",
+    "........occBDE..",
+    ".......o31kkDE..",
+    "......o3112kE...",
+    ".....o3r22O.....",
+    "....o3Rq22O.....",
+    "...oh1122O......",
+    "..oc1122O.......",
+    "..ock22O........",
+    "...okkO.........",
+    "....OO..........",
+    "................",
+]
+LASER_POINTER_PAL = {
+    "o": "#5e5e5e", "O": "#353535", "h": "#ffffff", "3": "#d8d8d8", "1": "#a8a8a8", "2": "#727272",
+    "c": "#828282", "k": "#4a4a4a",
+    "A": "#fecbe6", "B": "#cfa0f3", "C": "#b38ef3", "D": "#8d6acc", "E": "#54398a",
+    "r": "#ff5a4a", "R": "#c81414", "q": "#700808",
+}
+LASER_POINTER_EMPTY_PAL = dict(LASER_POINTER_PAL, A="#8d7ba6", B="#6f5d8c", C="#5e4d7a", D="#4a3c63", E="#2f2542",
+                               r="#8a3a34", R="#6a1010", q="#400606")
 
 # Enderitbarren: Form, Perspektive und Silhouette des Vanilla-Netheritbarrens, 1 Pixel weniger hoch,
 # in Enderit-Farben mit wenigen Ender-Glimmerpunkten wie bei der Enderit-Ruestung (Set B).
@@ -1803,6 +1883,10 @@ def end_palette_textures():
         tex[f"block/{mat}_pillar_top.png"] = end_palette_pillar_top(mat)
         tex[f"block/chiseled_{mat}_bricks.png"] = end_palette_chiseled(mat)
     tex["item/ender_quartz.png"] = render("ender_quartz", ENDER_QUARTZ_ITEM, ENDER_QUARTZ_ITEM_PAL, False)
+    tex["block/enderite_block.png"] = render("enderite_block", ENDERITE_BLOCK, ENDERITE_BLOCK_PAL, True)
+    tex["block/enderite_pressure_plate.png"] = tex["block/enderite_block.png"].copy()
+    tex["item/laser_pointer.png"] = render("laser_pointer", LASER_POINTER, LASER_POINTER_PAL, False)
+    tex["item/laser_pointer_empty.png"] = render("laser_pointer_empty", LASER_POINTER, LASER_POINTER_EMPTY_PAL, False)
     tex["item/enderite_ingot.png"] = render("enderite_ingot", ENDERITE_INGOT, ENDERITE_INGOT_PAL, False)
     tex["item/enderite_scrap.png"] = render("enderite_scrap", ENDERITE_SCRAP, ENDERITE_SCRAP_PAL, False)
     tex["item/enderite_nugget.png"] = render("enderite_nugget", ENDERITE_NUGGET, ENDERITE_NUGGET_PAL, False)
@@ -1817,64 +1901,6 @@ def end_palette_textures():
     return tex
 
 
-ENDERITE_ANIMATIONS = {
-    "block/enderite_smoker_front_on.png": {"interpolate": False, "frametime": 4},
-    "block/enderite_blast_furnace_front_on.png": {"frametime": 20, "interpolate": True},
-}
-
-
-def enderite_machine_textures():
-    pal = ENDERITE_MACHINE_PAL
-    tex = {}
-
-    def block(name, rows):
-        tex[f"block/{name}.png"] = render(name, rows, pal, True)
-
-    # Trichter
-    tex["block/enderite_hopper_top.png"] = render("enderite_hopper_top", ENDERITE_HOPPER_TOP, pal, False)
-    block("enderite_hopper_outside", ENDERITE_HOPPER_OUTSIDE)
-    block("enderite_hopper_inside", ENDERITE_HOPPER_INSIDE)
-    tex["item/enderite_hopper.png"] = render("enderite_hopper", ENDERITE_HOPPER_ITEM, ENDERITE_HOPPER_ITEM_PAL, False)
-
-    # Ofen
-    sp = ENDERITE_FURNACE_SPECKS
-    for suffix, changes in (("", {}), ("_on", ENDERITE_FURNACE_FIRE)):
-        block(f"enderite_furnace_front{suffix}", masonry(
-            f"enderite_furnace_front{suffix}", patch(ENDERITE_FURNACE_FRONT, changes),
-            ENDERITE_FURNACE_FRONT_STONES, sp["front"]))
-    block("enderite_furnace_side", masonry("enderite_furnace_side", ENDERITE_FURNACE_SIDE,
-                                           ENDERITE_FURNACE_SIDE_STONES, sp["side"]))
-    block("enderite_furnace_top", masonry("enderite_furnace_top", ENDERITE_FURNACE_TOP,
-                                          ENDERITE_FURNACE_TOP_STONES, sp["top"]))
-
-    # Raeucherofen (Unterseite wie beim Netherit-Raeucherofen als eigene Datei)
-    sp = ENDERITE_SMOKER_SPECKS
-    block("enderite_smoker_front", ENDERITE_SMOKER_FRONT)
-    lit = patch(ENDERITE_SMOKER_FRONT, ENDERITE_SMOKER_GLOW)
-    tex["block/enderite_smoker_front_on.png"] = render_strip(
-        "enderite_smoker_front_on", [patch(lit, f) for f in ENDERITE_SMOKER_FLAMES], pal)
-    block("enderite_smoker_side", masonry("enderite_smoker_side", ENDERITE_SMOKER_SIDE,
-                                          ENDERITE_SMOKER_SIDE_STONES, sp["side"]))
-    block("enderite_smoker_top", masonry("enderite_smoker_top", ENDERITE_SMOKER_TOP,
-                                         ENDERITE_SMOKER_TOP_STONES, sp["top"]))
-    block("enderite_smoker_bottom", masonry("enderite_smoker_bottom", ENDERITE_SMOKER_BOTTOM,
-                                            ENDERITE_SMOKER_BOTTOM_STONES, sp["bottom"]))
-
-    # Schmelzofen
-    sp = ENDERITE_BLAST_FURNACE_SPECKS
-    def blast_front(changes):
-        return masonry("enderite_blast_furnace_front", patch(ENDERITE_BLAST_FURNACE_FRONT, changes),
-                       ENDERITE_BLAST_FURNACE_FRONT_STONES, sp["front"])
-    block("enderite_blast_furnace_front", blast_front({}))
-    tex["block/enderite_blast_furnace_front_on.png"] = render_strip(
-        "enderite_blast_furnace_front_on", [blast_front(f) for f in ENDERITE_BLAST_FURNACE_GLOW], pal)
-    block("enderite_blast_furnace_side", masonry("enderite_blast_furnace_side", ENDERITE_BLAST_FURNACE_SIDE,
-                                                 ENDERITE_BLAST_FURNACE_SIDE_STONES, sp["side"]))
-    block("enderite_blast_furnace_top", masonry("enderite_blast_furnace_top", ENDERITE_BLAST_FURNACE_TOP,
-                                                ENDERITE_BLAST_FURNACE_TOP_STONES, sp["top"]))
-    return tex
-
-
 # ---------------------------------------------------------------------------
 # Enderit-Stufen der Tweak-Bloecke (aus Simple Tweaks uebernommen): Elytra-Pad IV, Flypad IV,
 # Spawn-Teleporter V, Enderit-Druckplatte, Enderit-Chunk-Loader, Enderit-Launchpad. Alle nutzen das
@@ -1884,7 +1910,9 @@ def enderite_machine_textures():
 #   Elytra-Pad  - mittleres Violett, gepraegter Ring mit Spiral-Bogen (wie die Pads I-III)
 #   Flypad      - dunkles Enderit-Mauerwerk, Ring mit Funkelstern (Stellar-Flypad hat Sterne)
 #   Teleporter  - Portalring in Ender-Magenta mit leuchtendem Kern (Leuchtkraft 15)
-#   Druckplatte - schlichte erhabene Platte (wie die Netherit-Druckplatte)
+#   Druckplatte - seit 2026-09-27 die Textur des Enderitblocks, wie Netherit- und Diamant-Druckplatte
+#                 die ihres Blocks tragen (Vanilla: Waegeplatten = Gold-/Eisenblock); siehe
+#                 end_palette_textures, keine eigene Karte mehr
 #   Chunk-Loader- sattes Violett, Ring mit quadratischem "Chunk" in der Mitte
 #   Launchpad   - helles Lavendel, Ring mit innerem Ring (Windstoss), hell wie das Launchpad
 # Die inneren 12x12 Pixel (Spalten/Zeilen 2..13) sind je Block gemalt; tweak_frame() legt den
@@ -1941,20 +1969,6 @@ ENDERITE_TWEAK_MAPS = {
         "34vvvvvv6633",
         "3L32vv663423",
         "_3323343332_",
-    ],
-    "enderite_pressure_plate": [
-        "_3334333433_",
-        "3h6666666643",
-        "365544555523",
-        "365L55565523",
-        "365555445523",
-        "365445555523",
-        "365555554523",
-        "365655544523",
-        "365554555523",
-        "36455555L423",
-        "342222222223",
-        "_3343334333_",
     ],
     "enderite_chunk_loader": [
         "_1121m11211_",
@@ -2555,21 +2569,14 @@ def build():
     for rel in ("item/enderite_apple.png", "item/enderite_carrot.png"):
         hand_drawn(tex, rel)
 
-    template = Image.open(os.path.join(TREES[0], "block", "reinforced_piston_top.png")).convert("RGB")
-    tex["block/reinforced_piston_top_sticky.png"] = render(
-        "reinforced_piston_top_sticky", PISTON_STICKY_PAD, PISTON_STICKY_PAL, True, template=template)
-
-    top, side, bottom, inner = enderite_piston_maps()
-    for face, rows in (("top", top), ("side", side), ("bottom", bottom), ("inner", inner)):
-        tex[f"block/enderite_piston_{face}.png"] = render(f"enderite_piston_{face}", rows, ENDERITE_PISTON_PAL, True)
-    tex.update(piston_head_textures())
+    tex.update(tiered_machine_textures())
 
     for metal in ("stone", "copper", "iron", "gold", "diamond", "netherite"):
         pal = dict(METALS[metal])
         pal.update(CHISEL_WOOD)
         tex[f"item/{metal}_spatula.png"] = render(f"{metal}_spatula", SPATULA, pal, False)
+    apply_netherite_handles(tex)
 
-    tex.update(enderite_machine_textures())
     tex.update(enderite_tweak_textures())
     tex.update(checker_textures())
     tex.update(backpack_worn_textures(tex))
@@ -3665,6 +3672,49 @@ def apply_enderite_handles(tex):
         tex[rel] = img
 
 
+# Griffe der Netherit-Werkzeuge des Mods (2026-09-27): Vorschlaghammer, Meissel, Baustab und Spachtel hatten
+# noch den Holzgriff der Stufen Stein bis Diamant. Sie bekommen den schlichten Griff der Vanilla-Netherit-
+# Werkzeuge - dieselben Karten und Brauntoene wie die Enderit-Griffe oben, aber mit den grauen Vanilla-
+# Wicklungen (#3b393b / #434043, wie Zeilen 10-12 der netherite_pickaxe) statt Violett. Hammer, Meissel und
+# Baustab lesen ihre unveraenderte Vorlage aus tools/textures/hand/ (Kopf und Klinge bleiben, wie sie sind);
+# der Spachtel kommt aus SPATULA und bekommt eine eigene Griffkarte (Zeilen 11-15 der Spachtelkarte).
+NETHERITE_HANDLE_WRAP = {"W": "#3b393b", "G": "#434043", "H": "#3b393b"}
+NETHERITE_SPATULA_HANDLE = [
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    "................",
+    "...bdca.........",
+    "..bWGa..........",
+    ".bdca...........",
+    ".bWa............",
+    ".aa.............",
+]
+
+
+def apply_netherite_handles(tex):
+    """Netherit-Griffe fuer die Mod-Werkzeuge der Netherit-Stufe (siehe NETHERITE_HANDLE_WRAP)."""
+    maps = [(name, ENDERITE_HANDLE_MAPS[name], Image.open(os.path.join(HAND, f"netherite_{name}.png")))
+            for name in ("sledgehammer", "chisel", "building_wand")]
+    maps.append(("spatula", NETHERITE_SPATULA_HANDLE, tex["item/netherite_spatula.png"]))
+    for name, rows, src in maps:
+        img = src.convert("RGBA").copy()
+        colours = dict(ENDERITE_HANDLE_PALS.get(name, ENDERITE_HANDLE_PALS["chisel"]))
+        colours.update(NETHERITE_HANDLE_WRAP)
+        for y, row in enumerate(rows):
+            for x, c in enumerate(row):
+                if c != ".":
+                    img.putpixel((x, y), hexrgb(colours[c]) + (255,))
+        tex[f"item/netherite_{name}.png"] = img
+
+
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
@@ -3696,7 +3746,7 @@ def main():
                 os.makedirs(os.path.dirname(path), exist_ok=True)
                 with open(path, "wb") as f:
                     f.write(data)
-    for rel, animation in sorted(ENDERITE_ANIMATIONS.items()):
+    for rel, animation in sorted(MACHINE_ANIMATIONS.items()):
         if tex[rel].height % 16 or tex[rel].height // 16 < 2:
             raise ValueError(f"{rel}: kein Animationsstreifen ({tex[rel].size})")
         for tree in TREES:
@@ -3716,11 +3766,11 @@ def main():
         if stale:
             print("Veraltet oder fehlend:\n  " + "\n  ".join(stale))
             return 1
-        print(f"OK: {len(tex)} Texturen und {len(ENDERITE_ANIMATIONS)} .mcmeta in {len(TREES)} Baeumen aktuell")
+        print(f"OK: {len(tex)} Texturen und {len(MACHINE_ANIMATIONS)} .mcmeta in {len(TREES)} Baeumen aktuell")
         return 0
     if not args.no_preview:
         build_preview(tex).save(PREVIEW)
-    print(f"{len(tex)} Texturen und {len(ENDERITE_ANIMATIONS)} .mcmeta in {len(TREES)} Baeume geschrieben"
+    print(f"{len(tex)} Texturen und {len(MACHINE_ANIMATIONS)} .mcmeta in {len(TREES)} Baeume geschrieben"
           + ("" if args.no_preview else f", Vorschau: {os.path.relpath(PREVIEW, REPO)}"))
     return 0
 

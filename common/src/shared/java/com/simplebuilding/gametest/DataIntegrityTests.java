@@ -2192,7 +2192,7 @@ public final class DataIntegrityTests {
         // Der Besitzer will neben den Mod-Maschinen auch ihre Vanilla-Vorbilder im Tab Maschinen & Lager
         // sehen - genau diese, genau dort, genau einmal. Jedes andere Vanilla-Item in einem Mod-Tab ist falsch.
         // Dazu der Kartografentisch in der Zeile Bauplanung und, in SimpleTools, die Vanilla-Werkzeuge,
-        // -Waffen und -Ruestungen aller Stufen.
+        // -Waffen und -Ruestungen aller Stufen sowie die beiden Vanilla-Kompasse.
         Map<Item, ModItemGroupsContent.Tab> vanillaHome = new HashMap<>();
         for (Item counterpart : List.of(Items.HOPPER, Items.PISTON, Items.STICKY_PISTON,
                 Items.FURNACE, Items.SMOKER, Items.BLAST_FURNACE, Items.BUNDLE, Items.CARTOGRAPHY_TABLE)) {
@@ -2208,7 +2208,10 @@ public final class DataIntegrityTests {
                 vanillaHome.put(BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(tier + "_" + kind)), ModItemGroupsContent.Tab.TOOLS);
             }
         }
-        if (vanillaHome.size() != 8 + 42 + 28 || vanillaHome.containsKey(Items.AIR)) {
+        // Kompass und Bergungskompass neben dem Echo-Kompass in SimpleTools (Besitzer 2026-09-27).
+        vanillaHome.put(Items.COMPASS, ModItemGroupsContent.Tab.TOOLS);
+        vanillaHome.put(Items.RECOVERY_COMPASS, ModItemGroupsContent.Tab.TOOLS);
+        if (vanillaHome.size() != 8 + 42 + 28 + 2 || vanillaHome.containsKey(Items.AIR)) {
             problems.add("the vanilla tool and armour list names an item that does not exist: " + vanillaHome.size() + " entries");
         }
         Set<Item> vanillaCounterparts = vanillaHome.keySet();
@@ -2310,7 +2313,7 @@ public final class DataIntegrityTests {
                         TweaksBlocks.SPAWN_TELEPORTER_TIER_3.asItem(), TweaksBlocks.SPAWN_TELEPORTER_TIER_4.asItem(),
                         TweaksBlocks.ENDERITE_SPAWN_TELEPORTER.asItem()),
                 List.of(TweaksBlocks.LAUNCHPAD.asItem(), TweaksBlocks.ENDERITE_LAUNCHPAD.asItem(), TweaksBlocks.CHUNK_LOADER.asItem(),
-                        TweaksBlocks.ENDERITE_CHUNK_LOADER.asItem(), TweaksItems.LASER_POINTER),
+                        TweaksBlocks.ENDERITE_CHUNK_LOADER.asItem()),
                 List.of(ModItems.BLUEPRINT, Items.CARTOGRAPHY_TABLE, ModItems.OCTANT, ModItems.COPPER_BUILDING_WAND,
                         ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND, ModItems.DIAMOND_BUILDING_WAND,
                         ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND));
@@ -2402,7 +2405,8 @@ public final class DataIntegrityTests {
             family.add(top);
             expected.add(family);
         });
-        expected.add(List.of(ModItems.OCTANT, ModItems.VELOCITY_GAUGE, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR));
+        expected.add(List.of(ModItems.OCTANT, ModItems.VELOCITY_GAUGE, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR,
+                TweaksItems.LASER_POINTER));
         expected.add(List.of(Items.COMPASS, Items.RECOVERY_COMPASS, TweaksItems.ECHO_COMPASS));
         List<Item> colored = new ArrayList<>();
         for (DyeColor color : DyeColor.values()) {

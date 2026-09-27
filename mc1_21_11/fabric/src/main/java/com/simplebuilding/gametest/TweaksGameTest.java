@@ -231,8 +231,48 @@ public final class TweaksGameTest {
     }
 
     @GameTest
-    public void theLaserPointerIsCraftedFromAmethystGlassIronAndRedstone(GameTestHelper helper) {
-        TweaksTests.theLaserPointerIsCraftedFromAmethystGlassIronAndRedstone(helper);
+    public void theAmethystLensIsCraftedAroundAnIronCore(GameTestHelper helper) {
+        TweaksTests.theAmethystLensIsCraftedAroundAnIronCore(helper);
+    }
+
+    @GameTest
+    public void theLensBeamMeltsIceAndSnow(GameTestHelper helper) {
+        TweaksTests.theLensBeamMeltsIceAndSnow(helper);
+    }
+
+    @GameTest
+    public void theLensBeamIgnitesFlammableBlocksOnlyAfterDwelling(GameTestHelper helper) {
+        TweaksTests.theLensBeamIgnitesFlammableBlocksOnlyAfterDwelling(helper);
+    }
+
+    @GameTest
+    public void theLensBeamLightsSoulFireCampfiresAndCandles(GameTestHelper helper) {
+        TweaksTests.theLensBeamLightsSoulFireCampfiresAndCandles(helper);
+    }
+
+    @GameTest
+    public void theLensBeamNeverLightsNetherPortalsOrTnt(GameTestHelper helper) {
+        TweaksTests.theLensBeamNeverLightsNetherPortalsOrTnt(helper);
+    }
+
+    @GameTest
+    public void theLensBeamDriesWetSponges(GameTestHelper helper) {
+        TweaksTests.theLensBeamDriesWetSponges(helper);
+    }
+
+    @GameTest
+    public void theLensBeamRespectsAdventureModeAndTheFireSpreadRule(GameTestHelper helper) {
+        TweaksTests.theLensBeamRespectsAdventureModeAndTheFireSpreadRule(helper);
+    }
+
+    @GameTest
+    public void theLensChargeRunsDownButTheLensNeverBreaks(GameTestHelper helper) {
+        TweaksTests.theLensChargeRunsDownButTheLensNeverBreaks(helper);
+    }
+
+    @GameTest
+    public void anvilRechargeWithRedstoneCostsNoLevels(GameTestHelper helper) {
+        TweaksTests.anvilRechargeWithRedstoneCostsNoLevels(helper);
     }
 
     @GameTest

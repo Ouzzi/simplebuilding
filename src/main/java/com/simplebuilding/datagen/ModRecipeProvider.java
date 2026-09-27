@@ -980,14 +980,15 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .unlockedBy(getHasName(Items.RECOVERY_COMPASS), has(Items.RECOVERY_COMPASS))
                         .save(output);
 
-                // Laserpointer (Audit 2026-09-26 #34; Simple Tweaks hatte kein Rezept): Amethystsplitter
-                // als Linse oben, Glas darunter, Eisengehaeuse, Redstone als Antrieb.
+                // Amethystlinse (Id laser_pointer; Simple Tweaks hatte kein Rezept): Eisen-Baukern in
+                // der Mitte, Amethystsplitter als Linse darueber, Redstone links und rechts oben,
+                // Eisenbarren als U darunter.
                 shaped(RecipeCategory.TOOLS, TweaksItems.LASER_POINTER)
-                        .pattern(" A ")
-                        .pattern("IGI")
-                        .pattern("IRI")
+                        .pattern("RAR")
+                        .pattern("ICI")
+                        .pattern("III")
                         .define('A', Items.AMETHYST_SHARD)
-                        .define('G', Items.GLASS)
+                        .define('C', ModItems.IRON_CORE)
                         .define('I', Items.IRON_INGOT)
                         .define('R', Items.REDSTONE)
                         .unlockedBy(getHasName(Items.AMETHYST_SHARD), has(Items.AMETHYST_SHARD))

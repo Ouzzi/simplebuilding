@@ -3,14 +3,14 @@
   "category": "equipment",
   "key": {
     "A": "minecraft:amethyst_shard",
-    "G": "minecraft:glass",
+    "C": "simplebuilding:iron_core",
     "I": "minecraft:iron_ingot",
     "R": "minecraft:redstone"
   },
   "pattern": [
-    " A ",
-    "IGI",
-    "IRI"
+    "RAR",
+    "ICI",
+    "III"
   ],
   "result": {
     "count": 1,

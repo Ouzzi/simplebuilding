@@ -560,6 +560,7 @@
       "id": "simplebuilding:lapis_quartz_checker"
     },
     {
+      "durability": 640,
       "id": "simplebuilding:laser_pointer",
       "maxStackSize": 1
     },

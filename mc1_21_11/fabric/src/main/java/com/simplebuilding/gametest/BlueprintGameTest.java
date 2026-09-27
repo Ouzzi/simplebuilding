@@ -25,6 +25,26 @@ public final class BlueprintGameTest {
     }
 
     @GameTest
+    public void codeExtensionsKeepExistingCodesIdentical(GameTestHelper helper) {
+        BlueprintTests.codeExtensionsKeepExistingCodesIdentical(helper);
+    }
+
+    @GameTest
+    public void codeShapesFillTheOctantFigures(GameTestHelper helper) {
+        BlueprintTests.codeShapesFillTheOctantFigures(helper);
+    }
+
+    @GameTest
+    public void codeHollowShapesKeepOnlyTheShell(GameTestHelper helper) {
+        BlueprintTests.codeHollowShapesKeepOnlyTheShell(helper);
+    }
+
+    @GameTest
+    public void codeVariablesComputeCoordinatesSizesAndCounts(GameTestHelper helper) {
+        BlueprintTests.codeVariablesComputeCoordinatesSizesAndCounts(helper);
+    }
+
+    @GameTest
     public void materialListCountsItemsSortedByAmount(GameTestHelper helper) {
         BlueprintTests.materialListCountsItemsSortedByAmount(helper);
     }

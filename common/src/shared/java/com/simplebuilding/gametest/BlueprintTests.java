@@ -193,6 +193,365 @@ public final class BlueprintTests {
         helper.succeed();
     }
 
+
+    /**
+     * Formen und Variablen (docs/BLUEPRINT.md 1.8) duerfen keinen alten Code anders lesen: die
+     * Beispielvorlagen, das Beispiel der Spezifikation und ein Satz Randfaelle ergeben Stelle fuer
+     * Stelle dasselbe Modell wie vor der Erweiterung (Fingerabdruck ueber Schluessel und Zustand,
+     * aufgenommen mit dem alten Parser), und alte Fehler behalten ihren Schluessel.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Ausdrucksparser, der {@code *} der
+     * Wiederholung als Multiplikation liest, {@code +3} oder {@code 4..0} anders deutet, die Eckenform
+     * mit der Achsenform verwechselt, oder ein Fehler, der jetzt einen anderen Schluessel traegt.
+     */
+    public static void codeExtensionsKeepExistingCodesIdentical(GameTestHelper helper) {
+        java.util.Map<String, String> codes = new java.util.TreeMap<>();
+        for (List<String> names : BlueprintExamples.TEMPLATES.values()) {
+            for (String name : names) {
+                codes.put(name, BlueprintExamples.code(name));
+            }
+        }
+        codes.put("spec_hut", String.join("\n",
+                "# Huette 5x6x5",
+                "$dach = oak_stairs[facing=north]",
+                "cobblestone 0..4,0,0..4",
+                "oak_planks 0..4,1..3,0..4",
+                "air 1..3,1..3,1..3          # innen hohl",
+                "glass_pane 2,2,0            # Fenster",
+                "oak_door 2,1,4 ",
+                "oak_door[half=upper] 2,2,4",
+                "$dach 0..4,4,0",
+                "oak_fence 0,5,0*3@2,0,0"));
+        codes.put("edges", String.join("\n",
+                "stone 4..0,0,0 +3,1,0 007,2,1",
+                "stone 1,1,1..1,1,5 9,9,9..5,5,5",
+                "$a=birch_planks",
+                "$b =spruce_planks",
+                "$c= dark_oak_planks",
+                "$a 20,0,0*4@-2,1,0", "$b 30..31,0,30..31*3@0,2,0",
+                "$c 40,0,40..41,1,41*2@0,0,-3",
+                "oak_stairs[ facing = east , half=top ] 50,0,50",
+                "air 5..7,5..7,5..7"));
+        StringBuilder actual = new StringBuilder();
+        for (java.util.Map.Entry<String, String> e : codes.entrySet()) {
+            BlueprintCode.ParseResult parsed = BlueprintCode.parse(e.getValue());
+            helper.assertTrue(parsed.ok(), e.getKey() + ": " + parsed.problems());
+            actual.append(e.getKey()).append('=').append(parsed.model().size()).append(':').append(fingerprint(parsed.model())).append(';');
+        }
+        String expected = "cherry_house=230:424641387810387822;"
+                + "cherry_pavilion=112:8282384012034576129;"
+                + "desert_house=180:4047871102820476003;"
+                + "desert_temple_ruin=112:-5342107089306117199;"
+                + "desert_well=67:2234502297022560318;"
+                + "edges=143:8131451746016288266;"
+                + "plains_house=228:5395944607289736718;"
+                + "plains_ruined_portal=33:8013040065110859650;"
+                + "plains_well=120:7084206482996880792;"
+                + "savanna_house=200:-4355318341974437924;"
+                + "savanna_market=38:5324400676123251613;"
+                + "snow_house=229:2623574399621251406;"
+                + "snow_igloo=123:4017553982951991050;"
+                + "spec_hut=81:-4050187384321915416;"
+                + "swamp_house=240:-1059655035786438597;"
+                + "swamp_witch_hut=252:-2313849501716298050;"
+                + "taiga_camp=102:-2305705871513379883;"
+                + "taiga_house=284:-3754076171950084130;";
+        helper.assertTrue(actual.toString().equals(expected), "old codes parse differently now:\n" + actual + "\ninstead of\n" + expected);
+
+        String[][] oldErrors = {
+                {"stone 1,2", "bad_region"}, {"stone 1,2,x", "bad_region"}, {"stone 0,0,0*5", "bad_repeat"},
+                {"stone 0,0,0*0@1,0,0", "repeat_range"}, {"stone 0,0,0*999999@0,0,0", "repeat_range"},
+                {"stone 250,0,0*5@2,0,0", "repeat_outside"}, {"stone -1,0,0", "coordinate_range"},
+                {"stone 0,0,0..1,1", "bad_region"}, {"stone 0..1..2,0,0", "bad_region"}, {"$1a = stone", "bad_alias_name"},
+                {"$a =", "alias_without_block"}, {"$a = stone dirt", "alias_extra"}, {"$zz 0,0,0", "unknown_alias"},
+                {"$a = stone\n$b = $a", "alias_of_alias"}, {"stone 0,0,0*2@1,0", "bad_repeat"}};
+        for (String[] c : oldErrors) {
+            List<String> keys = BlueprintCode.parse(c[0]).problems().stream().map(BlueprintCode.Problem::key).toList();
+            helper.assertTrue(keys.equals(List.of(c[1])), c[0].replace('\n', '|') + " -> " + keys + " instead of " + c[1]);
+        }
+        // Einfaerbung alter Regionen: Ziffern und Minus Zahl, der Rest Operator.
+        byte[] styles = BlueprintCode.parse("stone 1..2,3,4*2@-1,0,0").styles();
+        String region = "1..2,3,4*2@-1,0,0";
+        for (int i = 0; i < region.length(); i++) {
+            char ch = region.charAt(i);
+            byte want = Character.isDigit(ch) || ch == '-' ? BlueprintCode.STYLE_NUMBER : BlueprintCode.STYLE_OPERATOR;
+            helper.assertTrue(styles[6 + i] == want, "style of '" + ch + "' at " + i + " changed");
+        }
+        helper.succeed();
+    }
+
+    /** Stabiler Fingerabdruck eines Modells: Schluessel und Kurzform des Zustands in Schluesselreihenfolge. */
+    private static long fingerprint(BlueprintModel model) {
+        long h = model.size();
+        for (int k : model.sortedKeys()) {
+            h = h * 31 + k;
+            h = h * 31 + BlueprintCode.spec(model.blocks().get(k)).hashCode();
+        }
+        return h;
+    }
+
+    /**
+     * Formen der Bausprache (docs/BLUEPRINT.md 1.8): jede Form mit Zahlenform, von Hand gezaehlten
+     * Stellen und Bounding Box; die Boxform fuellt Stelle fuer Stelle dieselbe Figur wie ein Oktant
+     * mit dieser Auswahl ({@link OctantShape}), auch in Eckenform rueckwaerts; Linie, Wiederholung,
+     * air mit Form, Fehler an der richtigen Stelle und die Budgets gegen Riesenformen.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Radius, der eine Stelle zu gross oder zu klein
+     * rechnet, eine Kuppel, die nicht die obere Haelfte der Kugel ist, eine Form, die eigene Geometrie
+     * statt der des Oktanten benutzt, eine Linie, die rueckwaerts anders liegt, eine Riesenform, die vor
+     * dem Budget ausgerollt wird oder ohne Formbudget beliebig viel Pruefarbeit kostet.
+     */
+    public static void codeShapesFillTheOctantFigures(GameTestHelper helper) {
+        // Zahlenform: Radius r heisst Abstand der Mittelpunkte <= r + 1/2, also x^2+y^2+z^2 <= r^2 + r.
+        BlueprintModel ball = parsedOk(helper, "stone sphere(5,5,5,2)");
+        expectBox(helper, "sphere(5,5,5,2)", ball, 81, 3, 3, 3, 7, 7, 7);
+        helper.assertTrue(ball.get(5, 5, 5) != null && ball.get(7, 5, 5) != null && ball.get(7, 6, 5) != null
+                && ball.get(7, 7, 5) == null && ball.get(3, 3, 3) == null, "sphere(5,5,5,2) has the wrong outline");
+        expectBox(helper, "cylinder(4,0,4,2,3)", parsedOk(helper, "stone cylinder(4,0,4,2,3)"), 63, 2, 0, 2, 6, 2, 6);
+        expectBox(helper, "pyramid(4,0,4,2,3)", parsedOk(helper, "stone pyramid(4,0,4,2,3)"), 35, 2, 0, 2, 6, 2, 6);
+        expectBox(helper, "box(1,2,3,4,5,6)", parsedOk(helper, "stone box(1,2,3,4,5,6)"), 120, 1, 2, 3, 4, 6, 8);
+        BlueprintModel dome = parsedOk(helper, "stone dome(5,0,5,2)");
+        expectBox(helper, "dome(5,0,5,2)", dome, 51, 3, 0, 3, 7, 2, 7);
+        // Kuppel = obere Haelfte der Kugel mit demselben Mittelpunkt.
+        BlueprintModel high = parsedOk(helper, "stone sphere(9,9,9,4)");
+        BlueprintModel cap = parsedOk(helper, "stone dome(9,9,9,4)");
+        int upper = 0;
+        for (int k : high.sortedKeys()) {
+            if (BlueprintModel.keyY(k) >= 9) {
+                upper++;
+                helper.assertTrue(cap.blocks().containsKey(k), "dome misses a cell of the upper half sphere");
+            }
+        }
+        helper.assertTrue(cap.size() == upper, "dome has " + cap.size() + " cells, the upper half sphere " + upper);
+
+        // Boxform = Oktant-Figur mit derselben Auswahl, auch in Eckenform rueckwaerts geschrieben.
+        String[][] figures = {{"sphere", "SPHERE"}, {"cylinder", "CYLINDER"}, {"pyramid", "PYRAMID"}, {"box", "CUBOID"}};
+        for (String[] f : figures) {
+            BlueprintModel m = parsedOk(helper, "stone " + f[0] + "(1..9,0..5,2..8)");
+            BlueprintModel corner = parsedOk(helper, "stone " + f[0] + "(9,5,8..1,0,2)");
+            helper.assertTrue(m.equals(corner), f[0] + ": corner form differs from axis form");
+            java.util.function.Predicate<BlockPos> inside = OctantShape.predicate(
+                    com.simplebuilding.items.custom.OctantItem.SelectionShape.valueOf(f[1]), Direction.UP,
+                    new net.minecraft.world.phys.AABB(1, 0, 2, 10, 6, 9));
+            int n = 0;
+            for (int x = 0; x <= 10; x++) {
+                for (int y = 0; y <= 6; y++) {
+                    for (int z = 0; z <= 9; z++) {
+                        boolean want = x <= 9 && y <= 5 && z >= 2 && z <= 8 && x >= 1 && inside.test(new BlockPos(x, y, z));
+                        helper.assertTrue(want == (m.get(x, y, z) != null), f[0] + " differs from the octant figure at " + x + "," + y + "," + z);
+                        n += want ? 1 : 0;
+                    }
+                }
+            }
+            helper.assertTrue(n > 0 && n == m.size(), f[0] + ": " + m.size() + " cells, octant " + n);
+        }
+
+        // Linie: gerundet, in beide Richtungen dieselbe.
+        BlueprintModel line = parsedOk(helper, "stone line(0,0,0..4,2,0)");
+        helper.assertTrue(line.size() == 5 && line.get(0, 0, 0) != null && line.get(1, 1, 0) != null && line.get(2, 1, 0) != null
+                && line.get(3, 2, 0) != null && line.get(4, 2, 0) != null, "line(0,0,0..4,2,0) " + line.describe().keySet());
+        helper.assertTrue(line.equals(parsedOk(helper, "stone line(4,2,0..0,0,0)")), "the line differs when written backwards");
+        BlueprintModel diagonal = parsedOk(helper, "stone line(2,2,2..5,5,5)");
+        helper.assertTrue(diagonal.size() == 4 && diagonal.get(3, 3, 3) != null, "3D diagonal " + diagonal.size());
+        helper.assertTrue(parsedOk(helper, "stone line(7,7,7..7,7,7)").size() == 1, "a one-point line is not one cell");
+
+        // Wiederholung und air mit Formen.
+        BlueprintModel copies = parsedOk(helper, "stone sphere(2,2,2,1)*3@5,0,0");
+        helper.assertTrue(copies.size() == 3 * 19 && copies.get(12, 2, 2) != null && copies.get(14, 3, 2) == null,
+                "three repeated balls of radius 1 should be 57 cells, got " + copies.size());
+        BlueprintModel carved = parsedOk(helper, "stone box(0,0,0,5,5,5)\nair sphere(2,2,2,1)");
+        helper.assertTrue(carved.size() == 125 - 19 && carved.get(2, 2, 2) == null && carved.get(0, 0, 0) != null,
+                "air with a shape did not carve the ball: " + carved.size());
+        BlueprintModel mixed = parsedOk(helper, "stone 0,0,0 box(10,0,0,2,1,1) 20..21,0,0");
+        helper.assertTrue(mixed.size() == 5, "shapes and boxes on one line: " + mixed.size());
+
+        // Fehler zeigen auf das Wort, das falsch ist.
+        BlueprintCode.Problem unknown = onlyProblem(helper, "stone cube(1,2,3,4)", "unknown_shape");
+        helper.assertTrue(unknown.start() == 6 && unknown.end() == 10, "unknown_shape should mark 'cube': " + unknown);
+        onlyProblem(helper, "stone hollow_line(0,0,0..1,1,1)", "unknown_shape");
+        onlyProblem(helper, "stone sphere(1,2)", "bad_shape_args");
+        onlyProblem(helper, "stone line(0..4,0,0)", "bad_shape_args");
+        onlyProblem(helper, "stone sphere(5,5,5,2", "bad_region");
+        BlueprintCode.Problem size = onlyProblem(helper, "stone sphere(5,5,5,-1)", "shape_size");
+        helper.assertTrue(size.start() == 19 && size.end() == 21, "shape_size should mark '-1': " + size);
+        onlyProblem(helper, "stone cylinder(5,5,5,1,0)", "shape_size");
+        BlueprintCode.Problem edge = onlyProblem(helper, "stone sphere(0,5,5,1)", "coordinate_range");
+        helper.assertTrue(edge.args().get(0).equals("-1"), "the ball leaving the grid should name -1: " + edge);
+        onlyProblem(helper, "stone sphere(128,128,128,200)", "coordinate_range");
+        onlyProblem(helper, "stone sphere(254,5,5,2)*2@3,0,0", "coordinate_range");
+        onlyProblem(helper, "stone sphere(5,5,5,2)*2@250,0,0", "repeat_outside");
+
+        // Budgets: eine massive Riesenkugel wird vor dem Ausrollen abgelehnt, eine hohle passt, zwei
+        // hohle ueberschreiten das Formbudget (Pruefarbeit), nicht das Stellenbudget.
+        long start = System.nanoTime();
+        BlueprintCode.ParseResult giant = BlueprintCode.parse("stone sphere(127,127,127,127)");
+        helper.assertTrue(giant.problems().stream().map(BlueprintCode.Problem::key).toList().equals(List.of("too_many_cells")) && giant.model().isEmpty(),
+                "a solid ball of radius 127 (about 8.7 million cells) was not refused: " + giant.problems());
+        BlueprintModel shell = parsedOk(helper, "stone hollow_sphere(127,127,127,127)");
+        helper.assertTrue(shell.size() > 100_000 && shell.size() < BlueprintCode.MAX_EXPANDED_CELLS && shell.maxEdge() == 255,
+                "hollow ball of radius 127: " + shell.size() + " cells, edge " + shell.maxEdge());
+        BlueprintCode.ParseResult twice = BlueprintCode.parse("stone hollow_sphere(127,127,127,127)\nglass hollow_sphere(127,127,127,126)");
+        helper.assertTrue(twice.problems().stream().map(BlueprintCode.Problem::key).toList().equals(List.of("shape_volume")),
+                "two giant shapes should exceed the shape budget: " + twice.problems());
+        helper.assertTrue(twice.problems().get(0).line() == 1, "the shape budget error is not on the second line");
+        helper.assertTrue(System.nanoTime() - start < 10_000_000_000L, "giant shapes took too long");
+
+        // Einfaerbung: Formwort als Eigenschaft, Zahlen als Zahl.
+        byte[] styles = BlueprintCode.parse("stone sphere(5,5,5,2)").styles();
+        helper.assertTrue(styles[6] == BlueprintCode.STYLE_PROPERTY && styles[11] == BlueprintCode.STYLE_PROPERTY
+                && styles[12] == BlueprintCode.STYLE_OPERATOR && styles[13] == BlueprintCode.STYLE_NUMBER, "shape highlighting is off");
+        helper.assertTrue(BlueprintCode.shapeWords().containsAll(List.of("box", "sphere", "dome", "cylinder", "pyramid", "line",
+                "hollow_box", "hollow_sphere", "hollow_dome", "hollow_cylinder", "hollow_pyramid")) && !BlueprintCode.shapeWords().contains("hollow_line"),
+                "shape words " + BlueprintCode.shapeWords());
+        helper.succeed();
+    }
+
+    /**
+     * {@code hollow_} laesst nur die Huelle einer Form stehen: Stellen der Figur mit mindestens einem
+     * der sechs Nachbarn ausserhalb (wie "Hohl" am Oktanten). Deckel und Boden gehoeren dazu.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> eine Huelle, die Stellen im Innern behaelt, Randstellen
+     * verliert, Nachbarn diagonal zaehlt oder den Rand der Box nicht als "aussen" nimmt.
+     */
+    public static void codeHollowShapesKeepOnlyTheShell(GameTestHelper helper) {
+        BlueprintModel box = parsedOk(helper, "stone hollow_box(0,0,0,5,5,5)");
+        helper.assertTrue(box.size() == 125 - 27 && box.get(2, 2, 2) == null && box.get(0, 2, 2) != null && box.get(2, 4, 2) != null,
+                "hollow 5x5x5 box should be 98 cells, got " + box.size());
+        helper.assertTrue(box.equals(parsedOk(helper, "stone hollow_box(0..4,0..4,0..4)")), "hollow box: box form differs");
+        // Zylinder r=2: je Schicht 21 Stellen, innen 3x3 -> Boden 21 + Ring 12 + Deckel 21.
+        BlueprintModel tube = parsedOk(helper, "stone hollow_cylinder(4,0,4,2,3)");
+        helper.assertTrue(tube.size() == 54 && tube.get(4, 1, 4) == null && tube.get(4, 0, 4) != null && tube.get(6, 1, 4) != null,
+                "hollow cylinder should be 54 cells, got " + tube.size());
+        // Pyramide: Grundflaeche voll (25), mittlere Schicht ohne Mitte (8), Spitze (1).
+        BlueprintModel pyramid = parsedOk(helper, "stone hollow_pyramid(4,0,4,2,3)");
+        helper.assertTrue(pyramid.size() == 34 && pyramid.get(4, 1, 4) == null, "hollow pyramid should be 34 cells, got " + pyramid.size());
+        // Kugel: gegen die massive Kugel nachgerechnet.
+        BlueprintModel solid = parsedOk(helper, "stone sphere(8,8,8,4)");
+        BlueprintModel hollow = parsedOk(helper, "stone hollow_sphere(8,8,8,4)");
+        helper.assertTrue(hollow.get(8, 8, 8) == null && hollow.get(12, 8, 8) != null && hollow.size() < solid.size(), "hollow sphere keeps its centre");
+        for (int k : solid.sortedKeys()) {
+            int x = BlueprintModel.keyX(k), y = BlueprintModel.keyY(k), z = BlueprintModel.keyZ(k);
+            boolean interior = solid.get(x - 1, y, z) != null && solid.get(x + 1, y, z) != null && solid.get(x, y - 1, z) != null
+                    && solid.get(x, y + 1, z) != null && solid.get(x, y, z - 1) != null && solid.get(x, y, z + 1) != null;
+            helper.assertTrue(interior == (hollow.get(x, y, z) == null), "hollow sphere wrong at " + x + "," + y + "," + z);
+        }
+        for (int k : hollow.sortedKeys()) {
+            helper.assertTrue(solid.blocks().containsKey(k), "hollow sphere has a cell outside the solid one");
+        }
+        // Kuppel: der Boden bleibt ganz (die Unterkante der Box ist aussen), innen hohl.
+        BlueprintModel dome = parsedOk(helper, "stone hollow_dome(8,0,8,3)");
+        BlueprintModel full = parsedOk(helper, "stone dome(8,0,8,3)");
+        long floorFull = java.util.Arrays.stream(full.sortedKeys()).filter(k -> BlueprintModel.keyY(k) == 0).count();
+        long floorHollow = java.util.Arrays.stream(dome.sortedKeys()).filter(k -> BlueprintModel.keyY(k) == 0).count();
+        helper.assertTrue(floorFull > 0 && floorHollow == floorFull && dome.get(8, 1, 8) == null && dome.size() < full.size(),
+                "hollow dome: floor " + floorHollow + "/" + floorFull + ", size " + dome.size() + "/" + full.size());
+        // Eine Form, die zu duenn ist, hat kein Inneres: hohl = massiv.
+        helper.assertTrue(parsedOk(helper, "stone hollow_box(0,0,0,2,9,2)").size() == 36, "a 2 wide hollow box lost cells");
+        helper.succeed();
+    }
+
+    /**
+     * Variablen: {@code $name = Ausdruck} mit ganzen Zahlen, {@code + - * / %}, Klammern und
+     * Vorzeichen, benutzbar in Koordinaten, Bereichen, Wiederholungszahl und Schritt sowie in den
+     * Groessen der Formen; Neudefinition gilt ab der naechsten Zeile. Fehler: unbekannte Variable,
+     * zu grosse Zahl, Division durch null, Alias als Zahl, Variable als Block, kaputte Ausdruecke,
+     * zu tiefe Klammern - jeweils mit der Stelle des Wortes.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> Punkt- vor Strichrechnung falsch, Division, die
+     * zur Null statt nach unten rundet, eine Variable, die in einer Region nicht ersetzt wird, ein
+     * Fehler ohne oder mit falscher Stelle, ein Ausdruck, der ueber die Grenzen hinaus rechnet oder mit
+     * tiefen Klammern den Stapel sprengt.
+     */
+    public static void codeVariablesComputeCoordinatesSizesAndCounts(GameTestHelper helper) {
+        String code = String.join("\n",
+                "$w = 4",
+                "$h = $w * 2 - 1          # 7",
+                "$n = ($h + 1) / 4        # 2",
+                "$m=7 % 3 - -1            # 2",
+                "stone 0..$w,0,0..$w-1    # 5 x 1 x 4",
+                "oak_planks 0,1..$h,0",
+                "glass 10,0,10*$n+1@$m,0,0",
+                "cobblestone sphere(30,10,30,$n)",
+                "dirt ($w*3),0,20",
+                "$w = $w + 1",
+                "gold_block $w,20,20",
+                "$i = -7 / 2              # abgerundet: -4",
+                "iron_block $i+10,30,30",
+                "diamond_block ( 2 + 3 ),40,40",
+                "emerald_block sphere(50, 50, 50, $m - 1)",
+                "$roof = oak_stairs[facing=north]",
+                "$roof 60,0,60");
+        BlueprintCode.ParseResult parsed = BlueprintCode.parse(code);
+        helper.assertTrue(parsed.ok(), "the variable example did not parse: " + parsed.problems());
+        BlueprintModel m = parsed.model();
+        helper.assertTrue(m.get(4, 0, 3) != null && m.get(4, 0, 4) == null && m.get(5, 0, 0) == null, "0..$w,0,0..$w-1 is not 5x1x4");
+        helper.assertTrue(m.get(0, 7, 0) != null && m.get(0, 8, 0) == null, "$h should be 7");
+        helper.assertTrue(m.get(10, 0, 10) != null && m.get(12, 0, 10) != null && m.get(14, 0, 10) != null && m.get(16, 0, 10) == null,
+                "the repetition *$n+1@$m,0,0 should give three copies two apart");
+        helper.assertTrue(m.get(12, 0, 20) != null && m.get(12, 0, 20).is(Blocks.DIRT), "($w*3) should be 12");
+        helper.assertTrue(m.get(5, 20, 20) != null && m.get(5, 20, 20).is(Blocks.GOLD_BLOCK), "the redefined $w should be 5");
+        helper.assertTrue(m.get(6, 30, 30) != null && m.get(6, 30, 30).is(Blocks.IRON_BLOCK), "-7 / 2 should round down to -4");
+        helper.assertTrue(m.get(5, 40, 40) != null, "spaces inside brackets broke the region");
+        helper.assertTrue(m.get(60, 0, 60) != null && m.get(60, 0, 60).is(Blocks.OAK_STAIRS), "aliases stopped working next to variables");
+        int expected = 20 + 7 + 3 + 81 + 1 + 1 + 1 + 1 + 19 + 1;
+        helper.assertTrue(m.size() == expected, "variable example has " + m.size() + " cells instead of " + expected);
+        byte[] styles = parsed.styles();
+        int use = code.indexOf("$w,0");
+        helper.assertTrue(styles[0] == BlueprintCode.STYLE_ALIAS && styles[5] == BlueprintCode.STYLE_NUMBER
+                && styles[use] == BlueprintCode.STYLE_ALIAS && styles[use + 1] == BlueprintCode.STYLE_ALIAS, "variables are not highlighted");
+
+        // Fehler mit Stelle.
+        BlueprintCode.Problem undefined = onlyProblem(helper, "stone $q,0,0", "unknown_variable");
+        helper.assertTrue(undefined.start() == 6 && undefined.end() == 8 && undefined.args().equals(List.of("$q")), "unknown_variable: " + undefined);
+        BlueprintCode.Problem inDef = onlyProblem(helper, "$a = 1 + $zz", "unknown_variable");
+        helper.assertTrue(inDef.start() == 9 && inDef.end() == 12, "unknown_variable in a definition: " + inDef);
+        onlyProblem(helper, "stone sphere(5,5,5,$r)", "unknown_variable");
+        onlyProblem(helper, "stone 0,0,0*$n@1,0,0", "unknown_variable");
+        onlyProblem(helper, "$big = 1000 * 1000", "number_range");
+        onlyProblem(helper, "$x = 1234567", "bad_expression");
+        BlueprintCode.Problem div = onlyProblem(helper, "$z = 5 / 0", "division_by_zero");
+        helper.assertTrue(div.start() == 7, "division_by_zero should mark the operator: " + div);
+        onlyProblem(helper, "$z = 5 % (2 - 2)", "division_by_zero");
+        BlueprintCode.Problem big = onlyProblem(helper, "$r = 300\nstone 0..$r,0,0", "coordinate_range");
+        helper.assertTrue(big.args().get(0).equals("300") && big.line() == 1, "too large coordinate: " + big);
+        onlyProblem(helper, "$n = 300\nstone 0,0,0*$n@1,0,0", "repeat_range");
+        onlyProblem(helper, "$r = 200\nstone sphere(128,128,128,$r)", "coordinate_range");
+        onlyProblem(helper, "$a = stone\nstone $a,0,0", "alias_as_number");
+        onlyProblem(helper, "$r = 3\n$r 0,0,0", "variable_as_block");
+        onlyProblem(helper, "$x = (1 + 2", "bad_expression");
+        onlyProblem(helper, "$x = 1 +", "bad_expression");
+        onlyProblem(helper, "$x = 2 $y", "bad_expression");
+        onlyProblem(helper, "$x = " + "(".repeat(200) + "1" + ")".repeat(200), "bad_expression");
+        onlyProblem(helper, "stone " + "-".repeat(5000) + "1,0,0", "bad_region");
+        onlyProblem(helper, "stone (1+2,0,0", "bad_region");
+        // Ein Name gehoert dem, der ihn zuletzt definiert hat.
+        BlueprintModel renamed = parsedOk(helper, "$a = stone\n$a = 2\nstone $a,0,0\n$a = dirt\n$a 3,0,0");
+        helper.assertTrue(renamed.get(2, 0, 0) != null && renamed.get(3, 0, 0).is(Blocks.DIRT), "redefining a name did not switch alias/variable");
+        helper.succeed();
+    }
+
+    private static BlueprintModel parsedOk(GameTestHelper helper, String code) {
+        BlueprintCode.ParseResult parsed = BlueprintCode.parse(code);
+        helper.assertTrue(parsed.ok(), code.replace('\n', '|') + ": " + parsed.problems());
+        return parsed.model();
+    }
+
+    /** Genau ein Fehler mit diesem Schluessel; liefert ihn fuer Stellenpruefungen. */
+    private static BlueprintCode.Problem onlyProblem(GameTestHelper helper, String code, String key) {
+        List<BlueprintCode.Problem> problems = BlueprintCode.parse(code).problems();
+        String shown = code.length() > 60 ? code.substring(0, 60) + "..." : code;
+        helper.assertTrue(problems.size() == 1 && problems.get(0).key().equals(key),
+                shown.replace('\n', '|') + " -> " + problems + " instead of one " + key);
+        return problems.get(0);
+    }
+
+    private static void expectBox(GameTestHelper helper, String what, BlueprintModel m, int size,
+                                  int x1, int y1, int z1, int x2, int y2, int z2) {
+        helper.assertTrue(m.size() == size, what + " has " + m.size() + " cells instead of " + size);
+        helper.assertTrue(m.minX() == x1 && m.minY() == y1 && m.minZ() == z1 && m.maxX() == x2 && m.maxY() == y2 && m.maxZ() == z2,
+                what + " spans " + m.minX() + "," + m.minY() + "," + m.minZ() + ".." + m.maxX() + "," + m.maxY() + "," + m.maxZ());
+    }
+
     /** Der Schluessel einer Scan-Ablehnung ("too_large" ...), sonst {@code null}. */
     private static String scanError(Object started) {
         if (started instanceof BlueprintScanner.Outcome outcome && outcome.error() != null

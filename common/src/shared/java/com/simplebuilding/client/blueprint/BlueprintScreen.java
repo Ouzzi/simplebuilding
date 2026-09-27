@@ -597,7 +597,7 @@ public class BlueprintScreen extends Screen {
         g.disableScissor();
     }
 
-    private static final int GUIDE_LINES = 10;
+    private static final int GUIDE_LINES = 13;
 
     // =====================================================================================
     // MAUS

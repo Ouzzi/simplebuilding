@@ -20,6 +20,11 @@ import com.simplebuilding.tweaks.block.entity.SpawnTeleporterBlockEntity;
 import com.simplebuilding.tweaks.command.TweaksCommands;
 import com.simplebuilding.tweaks.component.TweaksComponents;
 import com.simplebuilding.tweaks.item.EchoCompassItem;
+import com.simplebuilding.tweaks.item.LaserBeam;
+import com.simplebuilding.tweaks.item.LaserPointerItem;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.gamerules.GameRules;
 import com.simplebuilding.tweaks.item.TweaksItems;
 import com.simplebuilding.tweaks.network.ElytraBoostPayload;
 import com.simplebuilding.tweaks.network.TweaksNetwork;
@@ -1373,15 +1378,275 @@ public final class TweaksTests {
     }
 
     /**
-     * #34: Der Laserpointer hat ein Rezept (Amethystsplitter, Glas, Eisen, Redstone) und keine
-     * Haltbarkeit mehr, die ohnehin nie abnahm.
+     * Amethystlinse (Id weiter laser_pointer): Redstone/Amethyst/Redstone, Eisen/Eisen-Baukern/Eisen,
+     * drei Eisen - kein Glas mehr. Die Haltbarkeit ist die Ladung.
      */
-    public static void theLaserPointerIsCraftedFromAmethystGlassIronAndRedstone(GameTestHelper helper) {
+    public static void theAmethystLensIsCraftedAroundAnIronCore(GameTestHelper helper) {
         Item i = Items.IRON_INGOT;
-        CraftingInput grid = grid(null, Items.AMETHYST_SHARD, null, i, Items.GLASS, i, i, Items.REDSTONE, i);
+        Item r = Items.REDSTONE;
+        CraftingInput grid = grid(r, Items.AMETHYST_SHARD, r, i, ModItems.IRON_CORE, i, i, i, i);
         expectCrafting(helper, grid, TweaksItems.LASER_POINTER, "simplebuilding:laser_pointer");
-        helper.assertFalse(new ItemStack(TweaksItems.LASER_POINTER).isDamageableItem(), "the laser pointer still carries a durability that never wears");
+        Optional<ItemStack> oldPattern = craftingResult(helper, grid(null, Items.AMETHYST_SHARD, null, i, Items.GLASS, i, i, r, i));
+        helper.assertTrue(oldPattern.isEmpty() || !oldPattern.get().is(TweaksItems.LASER_POINTER), "the old glass pattern still makes the lens");
+        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        helper.assertTrue(lens.isDamageableItem() && lens.getMaxDamage() == LaserPointerItem.MAX_CHARGE,
+                "the lens has no charge of " + LaserPointerItem.MAX_CHARGE + " (max damage " + lens.getMaxDamage() + ")");
+        helper.assertTrue(LaserPointerItem.CHARGE_PER_REDSTONE * 64 == LaserPointerItem.MAX_CHARGE, "64 redstone are not exactly one full charge");
         helper.succeed();
+    }
+
+    /** Eis wird Wasser, Packeis Eis, Blaueis Packeis; Schneeschicht und Schneeblock schmelzen weg - erst nach der Verweildauer. */
+    public static void theLensBeamMeltsIceAndSnow(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 2.0, 5.5));
+        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        BlockPos target = new BlockPos(2, 2, 2);
+        helper.setBlock(target.below(), Blocks.STONE);
+        Block[][] steps = {
+                {Blocks.ICE, Blocks.WATER}, {Blocks.PACKED_ICE, Blocks.ICE}, {Blocks.BLUE_ICE, Blocks.PACKED_ICE},
+                {Blocks.SNOW_BLOCK, Blocks.AIR}};
+        for (Block[] step : steps) {
+            helper.setBlock(target, step[0]);
+            beam(helper, player, lens, target, Direction.UP, LaserBeam.MELT_TICKS - 1);
+            helper.assertTrue(helper.getBlockState(target).is(step[0]), step[0] + " melted before the dwell time");
+            beam(helper, player, lens, target, Direction.UP, 1);
+            helper.assertTrue(helper.getBlockState(target).is(step[1]), step[0] + " became " + helper.getBlockState(target) + " instead of " + step[1]);
+            helper.setBlock(target, Blocks.AIR);
+        }
+        helper.setBlock(target, Blocks.SNOW.defaultBlockState().setValue(net.minecraft.world.level.block.SnowLayerBlock.LAYERS, 3));
+        beam(helper, player, lens, target, Direction.UP, LaserBeam.MELT_TICKS);
+        helper.assertTrue(helper.getBlockState(target).isAir(), "a snow layer did not melt away");
+        helper.succeed();
+    }
+
+    /** Brennbares (Bretter oben, Stamm seitlich) faengt erst nach der Verweildauer Feuer, auf der angestrahlten Seite; Stein nie. */
+    public static void theLensBeamIgnitesFlammableBlocksOnlyAfterDwelling(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 2.0, 5.5));
+        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        var rules = helper.getLevel().getGameRules();
+        int radius = rules.get(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER);
+        try {
+            rules.set(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER, -1, helper.getLevel().getServer());
+            BlockPos planks = new BlockPos(1, 2, 2);
+            helper.setBlock(planks, Blocks.OAK_PLANKS);
+            beam(helper, player, lens, planks, Direction.UP, LaserBeam.IGNITE_TICKS - 1);
+            helper.assertTrue(helper.getBlockState(planks.above()).isAir(), "the planks caught fire before the dwell time");
+            beam(helper, player, lens, planks, Direction.UP, 1);
+            helper.assertTrue(helper.getBlockState(planks.above()).is(Blocks.FIRE), "the planks did not catch fire on top after the dwell time");
+            helper.setBlock(planks.above(), Blocks.AIR);
+
+            BlockPos wool = new BlockPos(3, 2, 2);
+            helper.setBlock(wool, Blocks.OAK_LOG);
+            beam(helper, player, lens, wool, Direction.SOUTH, LaserBeam.IGNITE_TICKS);
+            helper.assertTrue(helper.getBlockState(wool.south()).is(Blocks.FIRE), "the log did not catch fire on the beamed side");
+            helper.setBlock(wool.south(), Blocks.AIR);
+
+            BlockPos stone = new BlockPos(2, 2, 4);
+            helper.setBlock(stone, Blocks.STONE);
+            beam(helper, player, lens, stone, Direction.UP, LaserBeam.IGNITE_TICKS * 3);
+            helper.assertTrue(helper.getBlockState(stone.above()).isAir(), "stone caught fire from the beam");
+        } finally {
+            rules.set(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER, radius, helper.getLevel().getServer());
+        }
+        helper.succeed();
+    }
+
+    /** Seelensand bekommt oben Seelenfeuer; Lagerfeuer, Seelenlagerfeuer und Kerzen gehen an. */
+    public static void theLensBeamLightsSoulFireCampfiresAndCandles(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 2.0, 5.5));
+        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        BlockPos soul = new BlockPos(1, 2, 1);
+        helper.setBlock(soul, Blocks.SOUL_SAND);
+        beam(helper, player, lens, soul, Direction.UP, LaserBeam.SOUL_FIRE_TICKS - 1);
+        helper.assertTrue(helper.getBlockState(soul.above()).isAir(), "soul fire appeared before the dwell time");
+        beam(helper, player, lens, soul, Direction.UP, 1);
+        helper.assertTrue(helper.getBlockState(soul.above()).is(Blocks.SOUL_FIRE), "the soul sand got " + helper.getBlockState(soul.above()) + " instead of soul fire");
+        helper.setBlock(soul.above(), Blocks.AIR);
+
+        BlockPos floor = new BlockPos(3, 1, 3);
+        helper.setBlock(floor, Blocks.STONE);
+        BlockState[] unlit = {
+                Blocks.CAMPFIRE.defaultBlockState().setValue(BlockStateProperties.LIT, false),
+                Blocks.SOUL_CAMPFIRE.defaultBlockState().setValue(BlockStateProperties.LIT, false),
+                Blocks.CANDLE.defaultBlockState().setValue(BlockStateProperties.LIT, false)};
+        for (BlockState state : unlit) {
+            helper.setBlock(floor.above(), state);
+            beam(helper, player, lens, floor.above(), Direction.UP, LaserBeam.LIGHT_TICKS);
+            helper.assertTrue(helper.getBlockState(floor.above()).getValue(BlockStateProperties.LIT), state.getBlock() + " was not lit by the beam");
+        }
+        helper.setBlock(floor.above(), Blocks.AIR);
+        helper.succeed();
+    }
+
+    /**
+     * Anders als ein Feuerzeug fuellt der Strahl nie einen leeren Portalrahmen (Bretter hinter dem
+     * Rahmen, Feuerplatz im Rahmen), und TNT zuendet er nie.
+     */
+    public static void theLensBeamNeverLightsNetherPortalsOrTnt(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(5.5, 2.0, 5.5));
+        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        var rules = helper.getLevel().getGameRules();
+        int radius = rules.get(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER);
+        try {
+            rules.set(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER, -1, helper.getLevel().getServer());
+            // Rahmen in der X-Ebene z = 3: innen x 1..2, y 2..4.
+            int z = 3;
+            for (int x = 1; x <= 2; x++) {
+                helper.setBlock(new BlockPos(x, 1, z), Blocks.OBSIDIAN);
+                helper.setBlock(new BlockPos(x, 5, z), Blocks.OBSIDIAN);
+            }
+            for (int y = 2; y <= 4; y++) {
+                helper.setBlock(new BlockPos(0, y, z), Blocks.OBSIDIAN);
+                helper.setBlock(new BlockPos(3, y, z), Blocks.OBSIDIAN);
+            }
+            BlockPos planks = new BlockPos(1, 2, z - 1);
+            helper.setBlock(planks, Blocks.OAK_PLANKS);
+            BlockPos inside = new BlockPos(1, 2, z);
+            helper.assertTrue(net.minecraft.world.level.portal.PortalShape.findEmptyPortalShape(helper.getLevel(), helper.absolutePos(inside), Direction.Axis.X).isPresent(),
+                    "the test frame is no valid portal frame, so this test proves nothing");
+            beam(helper, player, lens, planks, Direction.SOUTH, LaserBeam.IGNITE_TICKS * 2);
+            helper.assertTrue(helper.getBlockState(inside).isAir(), "the beam put " + helper.getBlockState(inside) + " into an empty portal frame");
+
+            BlockPos tnt = new BlockPos(5, 2, 1);
+            helper.setBlock(tnt, Blocks.TNT);
+            beam(helper, player, lens, tnt, Direction.UP, LaserBeam.IGNITE_TICKS * 2);
+            helper.assertTrue(helper.getBlockState(tnt).is(Blocks.TNT) && helper.getBlockState(tnt.above()).isAir(), "the beam set fire to TNT");
+        } finally {
+            rules.set(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER, radius, helper.getLevel().getServer());
+        }
+        helper.succeed();
+    }
+
+    /** Die Zusatzwirkung: ein nasser Schwamm trocknet nach laengerem Strahlen. */
+    public static void theLensBeamDriesWetSponges(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 2.0, 5.5));
+        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        BlockPos sponge = new BlockPos(2, 2, 2);
+        helper.setBlock(sponge, Blocks.WET_SPONGE);
+        beam(helper, player, lens, sponge, Direction.NORTH, LaserBeam.DRY_TICKS - 1);
+        helper.assertTrue(helper.getBlockState(sponge).is(Blocks.WET_SPONGE), "the sponge dried before the dwell time");
+        beam(helper, player, lens, sponge, Direction.NORTH, 1);
+        helper.assertTrue(helper.getBlockState(sponge).is(Blocks.SPONGE), "the wet sponge did not dry");
+        helper.succeed();
+    }
+
+    /** Im Abenteuermodus wirkt der Strahl nicht; ohne Feuerausbreitung (Spielregel 0) zuendet er kein Brennbares. */
+    public static void theLensBeamRespectsAdventureModeAndTheFireSpreadRule(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 2.0, 5.5));
+        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        BlockPos ice = new BlockPos(1, 2, 2);
+        helper.setBlock(ice, Blocks.ICE);
+        player.getAbilities().mayBuild = false;
+        beam(helper, player, lens, ice, Direction.UP, LaserBeam.MELT_TICKS * 2);
+        helper.assertTrue(helper.getBlockState(ice).is(Blocks.ICE), "the beam melted ice for a player who may not build");
+        player.getAbilities().mayBuild = true;
+
+        var rules = helper.getLevel().getGameRules();
+        int radius = rules.get(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER);
+        try {
+            rules.set(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER, 0, helper.getLevel().getServer());
+            BlockPos planks = new BlockPos(3, 2, 2);
+            helper.setBlock(planks, Blocks.OAK_PLANKS);
+            beam(helper, player, lens, planks, Direction.UP, LaserBeam.IGNITE_TICKS * 2);
+            helper.assertTrue(helper.getBlockState(planks.above()).isAir(), "the beam lit planks with fire spread switched off");
+        } finally {
+            rules.set(GameRules.FIRE_SPREAD_RADIUS_AROUND_PLAYER, radius, helper.getLevel().getServer());
+        }
+        helper.succeed();
+    }
+
+    /**
+     * Die Ladung sinkt (Strahlen je Sekunde, jede Wirkung mehr), aber die Linse zerbricht nie: leer
+     * bleibt sie im Inventar, laesst sich nicht mehr benutzen und wirkt nicht mehr. Kreativ kostet nichts.
+     */
+    public static void theLensChargeRunsDownButTheLensNeverBreaks(GameTestHelper helper) {
+        ServerPlayer player = survivalLikePlayer(helper, new Vec3(2.5, 2.0, 5.5));
+        LaserPointerItem item = (LaserPointerItem) TweaksItems.LASER_POINTER;
+        ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
+        item.onUseTick(helper.getLevel(), player, lens, item.getUseDuration(lens, player) - 20);
+        helper.assertTrue(lens.getDamageValue() == LaserPointerItem.BEAM_COST, "a second of beaming cost " + lens.getDamageValue() + " charge");
+
+        lens.setDamageValue(LaserPointerItem.MAX_CHARGE - 2);
+        BlockPos ice = new BlockPos(2, 2, 2);
+        helper.setBlock(ice, Blocks.ICE);
+        beam(helper, player, lens, ice, Direction.UP, LaserBeam.MELT_TICKS);
+        helper.assertTrue(helper.getBlockState(ice).is(Blocks.WATER), "the last bit of charge did not melt the ice");
+        helper.assertTrue(!lens.isEmpty() && lens.is(TweaksItems.LASER_POINTER) && lens.getDamageValue() == LaserPointerItem.MAX_CHARGE,
+                "the lens broke or overshot instead of ending empty: " + lens + " damage " + lens.getDamageValue());
+        helper.assertTrue(LaserPointerItem.isEmpty(lens), "a fully used lens does not count as empty");
+
+        helper.setBlock(ice, Blocks.ICE);
+        beam(helper, player, lens, ice, Direction.UP, LaserBeam.MELT_TICKS * 2);
+        helper.assertTrue(helper.getBlockState(ice).is(Blocks.ICE), "an empty lens still melted ice");
+        player.setItemInHand(InteractionHand.MAIN_HAND, lens);
+        InteractionResult result = lens.use(helper.getLevel(), player, InteractionHand.MAIN_HAND);
+        helper.assertFalse(player.isUsingItem(), "an empty lens could still be used (" + result + ")");
+        LaserPointerItem.drain(player, lens, 50);
+        helper.assertTrue(lens.getDamageValue() == LaserPointerItem.MAX_CHARGE && !lens.isEmpty(), "draining an empty lens broke it");
+
+        ServerPlayer creative = mockPlayer(helper, new Vec3(4.5, 2.0, 5.5));
+        ItemStack free = new ItemStack(TweaksItems.LASER_POINTER);
+        LaserPointerItem.drain(creative, free, 50);
+        helper.assertTrue(free.getDamageValue() == 0, "beaming cost charge in creative");
+        helper.setBlock(ice, Blocks.AIR);
+        helper.succeed();
+    }
+
+    /** Aufladen im Amboss: Redstone, 0 Stufen, 64 Staub = voll, nur der noetige Teil eines Stapels wird verbraucht. */
+    public static void anvilRechargeWithRedstoneCostsNoLevels(GameTestHelper helper) {
+        ServerPlayer player = survivalLikePlayer(helper, new Vec3(2.5, 2.0, 5.5));
+        player.experienceLevel = 0;
+
+        ItemStack empty = new ItemStack(TweaksItems.LASER_POINTER);
+        empty.setDamageValue(LaserPointerItem.MAX_CHARGE);
+        net.minecraft.world.inventory.AnvilMenu full = recharge(helper, player, empty, 64);
+        ItemStack out = full.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem();
+        helper.assertTrue(out.is(TweaksItems.LASER_POINTER) && out.getDamageValue() == 0, "64 redstone did not fully charge an empty lens: " + out + " damage " + out.getDamageValue());
+        helper.assertTrue(full.getCost() == 0, "recharging costs " + full.getCost() + " levels");
+        takeResult(helper, player, full);
+        helper.assertTrue(full.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).getItem().isEmpty(), "a full recharge left redstone behind");
+        helper.assertTrue(player.experienceLevel == 0, "recharging changed the player's level");
+
+        ItemStack partial = new ItemStack(TweaksItems.LASER_POINTER);
+        partial.setDamageValue(25);
+        net.minecraft.world.inventory.AnvilMenu topUp = recharge(helper, player, partial, 64);
+        helper.assertTrue(topUp.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().getDamageValue() == 0, "a top-up did not fill the lens");
+        takeResult(helper, player, topUp);
+        int left = topUp.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).getItem().getCount();
+        helper.assertTrue(left == 61, "topping up 25 charge used " + (64 - left) + " redstone instead of 3");
+
+        ItemStack drained = new ItemStack(TweaksItems.LASER_POINTER);
+        drained.setDamageValue(LaserPointerItem.MAX_CHARGE);
+        net.minecraft.world.inventory.AnvilMenu some = recharge(helper, player, drained, 10);
+        int damage = some.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().getDamageValue();
+        helper.assertTrue(damage == LaserPointerItem.MAX_CHARGE - 10 * LaserPointerItem.CHARGE_PER_REDSTONE, "10 redstone charged to damage " + damage);
+
+        ItemStack alreadyFull = new ItemStack(TweaksItems.LASER_POINTER);
+        net.minecraft.world.inventory.AnvilMenu none = recharge(helper, player, alreadyFull, 5);
+        helper.assertTrue(none.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().isEmpty(), "the anvil offers to recharge a full lens");
+        helper.succeed();
+    }
+
+    private static net.minecraft.world.inventory.AnvilMenu recharge(GameTestHelper helper, ServerPlayer player, ItemStack lens, int redstone) {
+        net.minecraft.world.inventory.AnvilMenu menu = new net.minecraft.world.inventory.AnvilMenu(1, player.getInventory(), net.minecraft.world.inventory.ContainerLevelAccess.NULL);
+        menu.getSlot(net.minecraft.world.inventory.AnvilMenu.INPUT_SLOT).set(lens);
+        menu.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).set(new ItemStack(Items.REDSTONE, redstone));
+        return menu;
+    }
+
+    private static void takeResult(GameTestHelper helper, ServerPlayer player, net.minecraft.world.inventory.AnvilMenu menu) {
+        Slot result = menu.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT);
+        helper.assertTrue(result.mayPickup(player), "a level-0 survival player may not take the free recharge");
+        result.onTake(player, result.getItem());
+    }
+
+    /** Laesst den Strahl {@code ticks} Mal auf die Mitte der Seite {@code face} von {@code relative} fallen. */
+    private static void beam(GameTestHelper helper, ServerPlayer player, ItemStack lens, BlockPos relative, Direction face, int ticks) {
+        BlockPos pos = helper.absolutePos(relative);
+        Vec3 at = Vec3.atCenterOf(pos).add(face.getStepX() * 0.5, face.getStepY() * 0.5, face.getStepZ() * 0.5);
+        BlockHitResult hit = new BlockHitResult(at, face, pos, false);
+        for (int i = 0; i < ticks; i++) {
+            LaserBeam.beamAt(player, lens, hit);
+        }
     }
 
     /** #35: {@code /simplebuilding tweaks worldspawn set} setzt den Weltspawn sofort, nicht erst nach einem Neustart. */

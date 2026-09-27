@@ -889,6 +889,14 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("blueprint_game_test_size_limits_cap_the_code_and_map_wand_tiers", BlueprintTests::sizeLimitsCapTheCodeAndMapWandTiers)
                     .build(),
+            GameTestSpec.named("blueprint_game_test_code_extensions_keep_existing_codes_identical", BlueprintTests::codeExtensionsKeepExistingCodesIdentical)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_code_shapes_fill_the_octant_figures", BlueprintTests::codeShapesFillTheOctantFigures)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_code_hollow_shapes_keep_only_the_shell", BlueprintTests::codeHollowShapesKeepOnlyTheShell)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_code_variables_compute_coordinates_sizes_and_counts", BlueprintTests::codeVariablesComputeCoordinatesSizesAndCounts)
+                    .build(),
             GameTestSpec.named("blueprint_game_test_material_list_counts_items_sorted_by_amount", BlueprintTests::materialListCountsItemsSortedByAmount)
                     .build(),
             GameTestSpec.named("blueprint_game_test_material_list_counts_multi_item_blocks_by_their_state", BlueprintTests::materialListCountsMultiItemBlocksByTheirState)
@@ -1145,7 +1153,23 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tweaks_game_test_a_blocked_echo_compass_jump_costs_nothing", TweaksTests::aBlockedEchoCompassJumpCostsNothing)
                     .build(),
-            GameTestSpec.named("tweaks_game_test_the_laser_pointer_is_crafted_from_amethyst_glass_iron_and_redstone", TweaksTests::theLaserPointerIsCraftedFromAmethystGlassIronAndRedstone)
+            GameTestSpec.named("tweaks_game_test_the_amethyst_lens_is_crafted_around_an_iron_core", TweaksTests::theAmethystLensIsCraftedAroundAnIronCore)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_lens_beam_melts_ice_and_snow", TweaksTests::theLensBeamMeltsIceAndSnow)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_lens_beam_ignites_flammable_blocks_only_after_dwelling", TweaksTests::theLensBeamIgnitesFlammableBlocksOnlyAfterDwelling)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_lens_beam_lights_soul_fire_campfires_and_candles", TweaksTests::theLensBeamLightsSoulFireCampfiresAndCandles)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_lens_beam_never_lights_nether_portals_or_tnt", TweaksTests::theLensBeamNeverLightsNetherPortalsOrTnt)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_lens_beam_dries_wet_sponges", TweaksTests::theLensBeamDriesWetSponges)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_lens_beam_respects_adventure_mode_and_the_fire_spread_rule", TweaksTests::theLensBeamRespectsAdventureModeAndTheFireSpreadRule)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_lens_charge_runs_down_but_the_lens_never_breaks", TweaksTests::theLensChargeRunsDownButTheLensNeverBreaks)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_anvil_recharge_with_redstone_costs_no_levels", TweaksTests::anvilRechargeWithRedstoneCostsNoLevels)
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_world_spawn_command_takes_effect_immediately", TweaksTests::theWorldSpawnCommandTakesEffectImmediately)
                     .build(),
