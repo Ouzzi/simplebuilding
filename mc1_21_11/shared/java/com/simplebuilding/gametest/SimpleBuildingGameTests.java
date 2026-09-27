@@ -261,6 +261,21 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("wand_mode_game_test_octant_fill_plans_lazily_and_refuses_unloaded_chunks", WandModeTests::octantFillPlansLazilyAndRefusesUnloadedChunks)
                     .rotation(Rotation.NONE)
                     .build(),
+            GameTestSpec.named("wand_mode_game_test_octant_fill_leaves_game_master_blocks_out_for_non_operators", WandModeTests::octantFillLeavesGameMasterBlocksOutForNonOperators)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_octant_fill_check_counts_cells_on_layers_it_has_not_built_yet", WandModeTests::octantFillCheckCountsCellsOnLayersItHasNotBuiltYet)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_octant_fill_needs_the_chunks_around_its_box_loaded", WandModeTests::octantFillNeedsTheChunksAroundItsBoxLoaded)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_octant_fill_honours_order_layers_hollow_and_the_tick_budget", WandModeTests::octantFillHonoursOrderLayersHollowAndTheTickBudget)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_undo_keeps_block_entity_contents_spread_faces_and_protected_cells", WandModeTests::undoKeepsBlockEntityContentsSpreadFacesAndProtectedCells)
+                    .rotation(Rotation.NONE)
+                    .build(),
             GameTestSpec.named("hopper_and_trim_game_test_hopper_filter_modes_gate_what_may_enter", HopperAndTrimTests::hopperFilterModesGateWhatMayEnter)
                     .rotation(Rotation.NONE)
                     .build(),
@@ -288,6 +303,9 @@ public final class SimpleBuildingGameTests {
                     .rotation(Rotation.NONE)
                     .build(),
             GameTestSpec.named("building_enchantment_game_test_constructors_touch_only_turns_orientation_and_needs_build_rights", BuildingEnchantmentTests::constructorsTouchOnlyTurnsOrientationAndNeedsBuildRights)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("building_enchantment_game_test_constructors_touch_updates_neighbours_and_passes_what_it_cannot_turn", BuildingEnchantmentTests::constructorsTouchUpdatesNeighboursAndPassesWhatItCannotTurn)
                     .rotation(Rotation.NONE)
                     .build(),
             GameTestSpec.named("consumption_and_durability_game_test_chisel_charges_durability_and_cooldown_only_outside_creative", ConsumptionAndDurabilityTests::chiselChargesDurabilityAndCooldownOnlyOutsideCreative)
@@ -885,6 +903,12 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("blueprint_game_test_sign_packets_share_one_parse_budget_per_player", BlueprintTests::signPacketsShareOneParseBudgetPerPlayer)
                     .maxTicks(BlueprintTests.SIGN_BUDGET_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_blueprint_builds_game_master_blocks_only_for_operators", BlueprintTests::blueprintBuildsGameMasterBlocksOnlyForOperators)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_survival_build_keeps_the_note_block_instrument", BlueprintTests::survivalBuildKeepsTheNoteBlockInstrument)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_repeated_clicks_neither_restart_the_check_nor_exceed_the_click_budget", BlueprintTests::repeatedClicksNeitherRestartTheCheckNorExceedTheClickBudget)
                     .build(),
             GameTestSpec.named("furnace_game_test_boost_only_runs_while_the_furnace_burns_and_cooks", FurnaceTests::boostOnlyRunsWhileTheFurnaceBurnsAndCooks)
                     .maxTicks(FurnaceTests.BOOST_GUARD_MAX_TICKS)

@@ -85,4 +85,29 @@ public final class WandModeGameTest {
     public void octantFillPlansLazilyAndRefusesUnloadedChunks(GameTestHelper helper) {
         WandModeTests.octantFillPlansLazilyAndRefusesUnloadedChunks(helper);
     }
+
+    @GameTest(rotation = Rotation.NONE)
+    public void octantFillLeavesGameMasterBlocksOutForNonOperators(GameTestHelper helper) {
+        WandModeTests.octantFillLeavesGameMasterBlocksOutForNonOperators(helper);
+    }
+
+    @GameTest(rotation = Rotation.NONE)
+    public void octantFillCheckCountsCellsOnLayersItHasNotBuiltYet(GameTestHelper helper) {
+        WandModeTests.octantFillCheckCountsCellsOnLayersItHasNotBuiltYet(helper);
+    }
+
+    @GameTest(rotation = Rotation.NONE)
+    public void octantFillNeedsTheChunksAroundItsBoxLoaded(GameTestHelper helper) {
+        WandModeTests.octantFillNeedsTheChunksAroundItsBoxLoaded(helper);
+    }
+
+    @GameTest(rotation = Rotation.NONE)
+    public void octantFillHonoursOrderLayersHollowAndTheTickBudget(GameTestHelper helper) {
+        WandModeTests.octantFillHonoursOrderLayersHollowAndTheTickBudget(helper);
+    }
+
+    @GameTest(rotation = Rotation.NONE)
+    public void undoKeepsBlockEntityContentsSpreadFacesAndProtectedCells(GameTestHelper helper) {
+        WandModeTests.undoKeepsBlockEntityContentsSpreadFacesAndProtectedCells(helper);
+    }
 }

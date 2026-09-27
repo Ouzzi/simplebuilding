@@ -51,4 +51,9 @@ public final class BuildingEnchantmentGameTest {
     public void constructorsTouchOnlyTurnsOrientationAndNeedsBuildRights(GameTestHelper helper) {
         BuildingEnchantmentTests.constructorsTouchOnlyTurnsOrientationAndNeedsBuildRights(helper);
     }
+
+    @GameTest(rotation = Rotation.NONE)
+    public void constructorsTouchUpdatesNeighboursAndPassesWhatItCannotTurn(GameTestHelper helper) {
+        BuildingEnchantmentTests.constructorsTouchUpdatesNeighboursAndPassesWhatItCannotTurn(helper);
+    }
 }

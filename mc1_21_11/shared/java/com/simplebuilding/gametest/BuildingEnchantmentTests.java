@@ -298,8 +298,8 @@ public final class BuildingEnchantmentTests {
      *
      * <p>Pinned here: the enchantment and the stick are <em>both</em> required (either gate alone
      * would let any enchanted tool rewrite blockstates), the cycle wraps around at the end of the
-     * value list, sneaking runs it backwards, and a block without any property is consumed but
-     * left alone instead of crashing on an empty iterator.
+     * value list, sneaking runs it backwards, and a block without any property is left alone and the
+     * click passed on (follow-up audit 2026-09-27 N14) instead of crashing on an empty iterator.
      *
      * <p>An oak log is used for the concrete transitions because it has exactly one property, so
      * the expected values do not depend on which property the code picks. The multi property case
@@ -378,11 +378,11 @@ public final class BuildingEnchantmentTests {
         Assertions.valueEqual(helper, changedProperties(before, after), 1,
                 "the stick did not cycle exactly one property; before " + before + ", after " + after);
 
-        // --- a block without properties is consumed but left alone ---
+        // --- a block without properties is left alone, and the click goes on to the block ---
         helper.setBlock(bare, Blocks.STONE);
         InteractionResult onBare = touchBlock(helper, player, touchedStick, bare, false);
-        helper.assertTrue(onBare != InteractionResult.PASS,
-                "the enchanted stick let a property-less block through, got " + onBare);
+        helper.assertTrue(onBare == InteractionResult.PASS,
+                "the enchanted stick swallowed the click on a property-less block, got " + onBare);
         helper.assertBlockPresent(Blocks.STONE, bare);
 
         // --- and Fabric has to run this very code, not a second copy of it ---
@@ -399,8 +399,9 @@ public final class BuildingEnchantmentTests {
      *
      * <p>Before the fix it cycled the first property of any block, in survival: candles 1 -> 2, a
      * slab to {@code type=double}, composter {@code level}, respawn anchor {@code charges} - each an
-     * item or resource out of nothing. Every such block is still consumed (the click does not fall
-     * through to a composter or anchor) but left exactly as it was. An adventure player (no
+     * item or resource out of nothing. Every such block is left exactly as it was, and the click is
+     * passed on to it as with a plain stick (follow-up audit 2026-09-27 N14: consuming it kept the
+     * stick from opening a double chest). An adventure player (no
      * {@code mayBuild}) and a stick in the off hand get PASS and change nothing; Fabric used to take
      * the off hand while NeoForge and Forge filtered it in their event. A door turns both halves,
      * where the old code turned only the clicked one and tore the door apart.
@@ -416,7 +417,7 @@ public final class BuildingEnchantmentTests {
         BlockPos target = new BlockPos(3, 1, 3);
         BlockPos log = new BlockPos(5, 1, 3);
 
-        // --- amounts and charges stay where they are, the click is still consumed ---
+        // --- amounts and charges stay where they are, the click is passed on ---
         for (BlockState state : List.of(
                 Blocks.CANDLE.defaultBlockState(),
                 Blocks.STONE_SLAB.defaultBlockState(),
@@ -424,8 +425,8 @@ public final class BuildingEnchantmentTests {
                 Blocks.RESPAWN_ANCHOR.defaultBlockState())) {
             helper.setBlock(target, state);
             InteractionResult result = touchBlock(helper, player, stick, target, false);
-            helper.assertTrue(result != InteractionResult.PASS,
-                    "the enchanted stick let the click on " + state + " through, got " + result);
+            helper.assertTrue(result == InteractionResult.PASS,
+                    "the enchanted stick swallowed the click on " + state + " with nothing to turn, got " + result);
             helper.assertTrue(helper.getBlockState(target) == state,
                     "Constructor's Touch changed a property that is not an orientation: " + state
                             + " became " + helper.getBlockState(target));
@@ -1381,6 +1382,69 @@ public final class BuildingEnchantmentTests {
             }
         }
         return count;
+    }
+
+    /**
+     * Follow-up audit 2026-09-27 N14: the Constructor's Touch stick sets its turn with neighbour
+     * updates (a stair next to the turned one takes its corner shape at once; flag 18 left it straight),
+     * never turns a block into a value it cannot stand in (a wall torch turns to the other wall, not
+     * into the air), and with nothing to turn passes the click on - a double chest still opens.
+     *
+     * <p><strong>What breaks this test:</strong> setting the turn with flag 18 again, cycling without
+     * the {@code canSurvive} check, or answering SUCCESS for a block with nothing turnable.
+     */
+    public static void constructorsTouchUpdatesNeighboursAndPassesWhatItCannotTurn(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        ItemStack stick = new ItemStack(Items.STICK);
+        stick.enchant(enchantment(helper, ModEnchantments.CONSTRUCTORS_TOUCH), 1);
+        for (BlockPos pos : BlockPos.betweenClosed(new BlockPos(0, 1, 0), new BlockPos(6, 3, 6))) {
+            helper.setBlock(pos, Blocks.AIR);
+        }
+
+        // --- a double chest has nothing the stick may turn: the click goes on to the chest ---
+        BlockPos chestLeft = new BlockPos(1, 1, 5);
+        BlockState left = Blocks.CHEST.defaultBlockState().setValue(BlockStateProperties.CHEST_TYPE,
+                net.minecraft.world.level.block.state.properties.ChestType.LEFT);
+        helper.setBlock(chestLeft, left);
+        helper.setBlock(chestLeft.east(), Blocks.CHEST.defaultBlockState().setValue(BlockStateProperties.CHEST_TYPE,
+                net.minecraft.world.level.block.state.properties.ChestType.RIGHT));
+        InteractionResult onChest = touchBlock(helper, player, stick, chestLeft, false);
+        helper.assertTrue(onChest == InteractionResult.PASS,
+                "the stick swallowed the click on a double chest it may not turn, got " + onChest);
+        helper.assertTrue(helper.getBlockState(chestLeft) == left, "the double chest changed: " + helper.getBlockState(chestLeft));
+
+        // --- a wall torch skips the sides without a wall ---
+        BlockPos torch = new BlockPos(4, 1, 2);
+        helper.setBlock(torch.south(), Blocks.STONE); // holds the torch facing north
+        helper.setBlock(torch.east(), Blocks.STONE);  // the only other wall: facing west
+        helper.setBlock(torch, Blocks.WALL_TORCH.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH));
+        InteractionResult onTorch = touchBlock(helper, player, stick, torch, false);
+        BlockState turnedTorch = helper.getBlockState(torch);
+        helper.assertTrue(onTorch != InteractionResult.PASS, "the stick did not turn the wall torch at all, got " + onTorch);
+        helper.assertTrue(turnedTorch.is(Blocks.WALL_TORCH) && turnedTorch.getValue(BlockStateProperties.HORIZONTAL_FACING) == Direction.WEST,
+                "the wall torch was not turned to the only other wall (facing west): " + turnedTorch);
+
+        // --- the stair behind the turned one reshapes at once ---
+        BlockPos turned = new BlockPos(1, 1, 1);
+        BlockPos behind = turned.south();
+        BlockState northStair = Blocks.OAK_STAIRS.defaultBlockState().setValue(net.minecraft.world.level.block.StairBlock.FACING, Direction.NORTH);
+        helper.setBlock(turned, northStair);
+        helper.setBlock(behind, northStair);
+        // Turn until the stair lies across the one behind it (east or west): that one then takes a corner.
+        for (int i = 0; i < 3 && helper.getBlockState(turned).getValue(net.minecraft.world.level.block.StairBlock.FACING).getAxis() != Direction.Axis.X; i++) {
+            touchBlock(helper, player, stick, turned, false);
+        }
+        BlockState neighbour = helper.getBlockState(behind);
+        BlockState reshaped = Block.updateFromNeighbourShapes(neighbour, helper.getLevel(), helper.absolutePos(behind));
+        helper.assertTrue(helper.getBlockState(turned).getValue(net.minecraft.world.level.block.StairBlock.FACING).getAxis() == Direction.Axis.X,
+                "setup: the stair never turned across the one behind it: " + helper.getBlockState(turned));
+        helper.assertTrue(reshaped.getValue(BlockStateProperties.STAIRS_SHAPE) != net.minecraft.world.level.block.state.properties.StairsShape.STRAIGHT,
+                "setup: next to a west-facing stair the stair behind would stay straight, so this proves nothing: " + reshaped);
+        helper.assertTrue(neighbour == reshaped,
+                "the stair behind the turned one did not get its neighbour update: it is " + neighbour + ", should be " + reshaped);
+
+        player.setShiftKeyDown(false);
+        TestCleanup.succeed(helper);
     }
 
     /** Runs the shared Constructor's Touch stick interaction on the top face of a block. */

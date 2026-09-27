@@ -33,6 +33,8 @@ public class OctantScreen extends Screen {
     /** Vanillas Beschriftungsfarbe auf hellem Grund (Container-Titel, CommonColors.DARK_GRAY). */
     private static final int LABEL_COLOR = 0xFF404040;
     private static final int SECONDARY_COLOR = 0xFF707070;
+    /** Rot auf hellem Grund: eine Ecke, die der Server verwerfen wird. */
+    private static final int WARNING_COLOR = 0xFFAA0000;
 
     private final ItemStack stack;
 
@@ -469,9 +471,29 @@ public class OctantScreen extends Screen {
         }
 
         context.drawString(font, metric, boxX, boxY + 20, LABEL_COLOR, false);
-        if (dims != null) {
+        if (!cornerAccepted(p1) || !cornerAccepted(p2)) {
+            // Der Server verwirft Ecken ausserhalb seiner Reichweite (ModMessageHandlers#octantCornerInRange);
+            // frueher sah man hier die neuen Zahlen, und am Item blieb still die alte Ecke (Nach-Audit N16).
+            context.drawString(font, Component.translatable("simplebuilding.gui.summary.corner_refused",
+                    com.simplebuilding.networking.ModMessageHandlers.OCTANT_CORNER_RANGE), boxX, boxY + 30, WARNING_COLOR, false);
+        } else if (dims != null) {
             context.drawString(font, dims, boxX, boxY + 30, SECONDARY_COLOR, false);
         }
+    }
+
+    /** Dieselbe Frage wie der Server: Bauhoehe und {@code OCTANT_CORNER_RANGE} um den Spieler. */
+    private boolean cornerAccepted(BlockPos corner) {
+        if (minecraft == null || minecraft.player == null) {
+            return true;
+        }
+        net.minecraft.world.level.Level level = minecraft.player.level();
+        if (corner.getY() < level.getMinY() || corner.getY() > level.getMaxY()) {
+            return false;
+        }
+        BlockPos at = minecraft.player.blockPosition();
+        int range = com.simplebuilding.networking.ModMessageHandlers.OCTANT_CORNER_RANGE;
+        return Math.abs((long) corner.getX() - at.getX()) <= range && Math.abs((long) corner.getY() - at.getY()) <= range
+                && Math.abs((long) corner.getZ() - at.getZ()) <= range;
     }
 
     @Override

@@ -63,9 +63,13 @@ import net.minecraft.world.phys.BlockHitResult;
  *
  * <p><b>Fehlstellen-Pruefung.</b> Vor einem Ueberlebens-Bau zaehlt eine Planung mit simuliertem
  * Vorrat, ob Material fehlt (Zwei-Klick-Regel). Sie geht <b>alle</b> Stellen durch, ohne Obergrenze:
- * {@link #CHECK_VISITS_PER_CLICK} gleich beim Klick, den Rest - bei sehr grossen Bauwerken -
+ * hoechstens {@link #CHECK_VISITS_PER_CLICK} gleich beim Klick, den Rest - bei sehr grossen Bauwerken -
  * mit {@link #VISITS_PER_TICK} je Tick danach, mit Fortschritt in der Aktionsleiste. Ist sie fertig,
  * warnt sie oder beginnt den Bau. Ein bestaetigender zweiter Klick prueft nicht noch einmal.
+ * Klick-Spam kostet nicht mehr (Nach-Audit 2026-09-27 N3): ein weiterer Klick auf dieselbe noch
+ * laufende Pruefung startet sie nicht neu, und alle Klicks eines Spielers in einem Tick teilen sich
+ * ein Budget von {@link #CHECK_VISITS_PER_CLICK} Besuchen - was darueber liegt, laeuft in den
+ * folgenden Ticks.
  */
 public final class BlueprintBuilder {
     /** Gesetzte Bloecke je Tick (Spieler mit {@link BlueprintScanner#SMALL_BUDGET_TAG}: 3). */
@@ -99,8 +103,12 @@ public final class BlueprintBuilder {
     /** So viele Stellen prueft die Vorschau hoechstens je Neuberechnung. */
     public static final int PREVIEW_VISITS = 200_000;
 
-    /** So viele Stellen prueft die Fehlstellen-Pruefung gleich beim Klick; der Rest folgt je Tick. */
-    public static final int CHECK_VISITS_PER_CLICK = PREVIEW_VISITS * 2;
+    /**
+     * So viele Stellen prueft die Fehlstellen-Pruefung gleich beim Klick - fuer alle Klicks eines
+     * Spielers im selben Tick zusammen; der Rest folgt je Tick. Nicht mehr als ein Tick der Pruefung,
+     * sonst waere Klick-Spam teurer als die Pruefung selbst (Nach-Audit 2026-09-27 N3).
+     */
+    public static final int CHECK_VISITS_PER_CLICK = VISITS_PER_TICK;
     /**
      * Spieler mit diesem Tag pruefen nur 3 Stellen je Klick und je Tick - damit Spieltests die
      * Pruefung ueber mehrere Ticks sehen, ohne ein Bauwerk mit 400 000 Stellen aufzubauen.
@@ -109,6 +117,8 @@ public final class BlueprintBuilder {
 
     private static final Map<UUID, Job> JOBS = new HashMap<>();
     private static final Map<UUID, Check> CHECKS = new HashMap<>();
+    /** Klick-Budget der Pruefung je Spieler: {Spielzeit, in diesem Tick schon verbrauchte Besuche}. */
+    private static final Map<UUID, long[]> CLICK_VISITS = new HashMap<>();
     /** Wem der Hinweis auf einen gespeicherten Auftrag in dieser Sitzung schon gezeigt wurde. */
     private static final Map<UUID, Player> HINTED = new HashMap<>();
 
@@ -203,6 +213,32 @@ public final class BlueprintBuilder {
          */
         boolean included(int i) {
             return true;
+        }
+
+        /**
+         * Zustand an Stelle {@code i} fuer eine Planung mit simuliertem Bau: {@code simulated} sagt, an
+         * welchen Stellen diese Planung schon (in Gedanken) gesetzt hat - dort steht fuer den Halt
+         * einer Fackel oder eines Teppichs bald ein Block, auch wenn die Welt noch Luft zeigt
+         * (Nach-Audit 2026-09-27 N8). {@code null} = echter Bau.
+         */
+        BlockState state(int i, java.util.function.LongPredicate simulated) {
+            return state(i);
+        }
+
+        /**
+         * Gleiche Identitaet = derselbe Bau (fuer einen erneuten Klick, der eine laufende Pruefung nicht
+         * neu starten soll); {@code null} = nie gleich.
+         */
+        Object identity() {
+            return null;
+        }
+
+        /**
+         * Geht die Liste eine ganze Box durch, von der nur ein Teil gebaut wird (Oktant-Fuellung)? Dann
+         * zeigt der Fortschritt Prozent statt Stellen der Box, die gar nicht zur Figur gehoeren.
+         */
+        boolean boxLayout() {
+            return false;
         }
     }
 
@@ -351,6 +387,7 @@ public final class BlueprintBuilder {
         private final Supply supply;
         private final boolean creative;
         private final LongOpenHashSet simulated;
+        private final java.util.function.LongPredicate simulatedAt;
         private int index;
         private int placed, already, occupied, blocked, missing;
         private final Map<Item, Integer> missingItems = new LinkedHashMap<>();
@@ -373,6 +410,7 @@ public final class BlueprintBuilder {
             this.supply = supply;
             this.creative = creative;
             this.simulated = simulate ? new LongOpenHashSet() : null;
+            this.simulatedAt = simulate ? simulated::contains : null;
         }
 
         public boolean finished() {
@@ -409,9 +447,15 @@ public final class BlueprintBuilder {
                     blocked++;
                     continue;
                 }
-                BlockState state = layout.state(i);
+                BlockState state = layout.state(i, simulatedAt);
                 if (state == null) {
                     // Die Oktant-Fuellung prueft Halt und Entities erst beim Besuch: hier geht es nicht.
+                    continue;
+                }
+                if (state.getBlock() instanceof net.minecraft.world.level.block.GameMasterBlock && !player.canUseGameMasterBlocks()) {
+                    // Befehls-, Struktur- und Verbundbloecke nur fuer Spieler, die sie auch von Hand setzen
+                    // duerften - auch aus einer Blaupause (Nach-Audit 2026-09-27 N2, Rest von #29).
+                    blocked++;
                     continue;
                 }
                 if (!creative) {
@@ -585,10 +629,12 @@ public final class BlueprintBuilder {
         final BlockPos target;
         final Rotation rotation;
         final BlueprintContent content;
+        final Object key;
         long lastTick;
 
         Check(Planner planner, Player player, ItemStack wand, ItemStack blueprint, BlockPos target, Rotation rotation,
-              BlueprintContent content) {
+              BlueprintContent content, Object key) {
+            this.key = key;
             this.planner = planner;
             this.player = player;
             this.wand = wand;
@@ -615,6 +661,11 @@ public final class BlueprintBuilder {
         Rotation rotation = rotationFor(player.getDirection(), rotationSteps(blueprint));
         boolean creative = player.getAbilities().instabuild;
         Layout layout = layout(model, target, rotation);
+        Object key = List.of(content.code(), target, rotation);
+        Result pending = pendingCheck(player, wand, blueprint, key);
+        if (pending != null) {
+            return pending;
+        }
         // Ein neuer Klick ersetzt, was vorher lief oder gespeichert war.
         JOBS.remove(player.getUUID());
         CHECKS.remove(player.getUUID());
@@ -623,7 +674,23 @@ public final class BlueprintBuilder {
         if (level instanceof ServerLevel serverLevel) {
             BlueprintJobs.clear(serverLevel, player.getUUID());
         }
-        return begin(level, player, wand, blueprint, layout, target, rotation, content, creative);
+        return begin(level, player, wand, blueprint, layout, target, rotation, content, creative, key);
+    }
+
+    /**
+     * Laeuft fuer genau diesen Bau (gleicher Schluessel, gleicher Stab und gleiches Nebenhand-Item)
+     * schon eine Fehlstellen-Pruefung, startet ein weiterer Klick sie nicht neu: sonst kostete jeder
+     * Klick wieder ein ganzes Klick-Budget an Besuchen (Nach-Audit 2026-09-27 N3). Liefert dann den
+     * Zwischenstand, sonst {@code null}.
+     */
+    private static Result pendingCheck(Player player, ItemStack wand, ItemStack offHand, Object key) {
+        Check check = CHECKS.get(player.getUUID());
+        if (key == null || check == null || check.player != player || check.wand != wand || check.blueprint != offHand
+                || !key.equals(check.key)) {
+            return null;
+        }
+        tellChecking(player, check.planner);
+        return new Result(0, 0, 0, 0, 0, Map.of(), false, false, check.planner.layout.size(), false, true);
     }
 
     /**
@@ -636,6 +703,11 @@ public final class BlueprintBuilder {
         if (layout.size() == 0) {
             return null;
         }
+        Object key = layout.identity();
+        Result pending = pendingCheck(player, wand, offHand, key);
+        if (pending != null) {
+            return pending;
+        }
         JOBS.remove(player.getUUID());
         CHECKS.remove(player.getUUID());
         JOBS.values().removeIf(j -> j.player.isRemoved());
@@ -643,7 +715,7 @@ public final class BlueprintBuilder {
         if (level instanceof ServerLevel serverLevel) {
             BlueprintJobs.clear(serverLevel, player.getUUID());
         }
-        return begin(level, player, wand, offHand, layout, layout.pos(0), Rotation.NONE, null, player.getAbilities().instabuild);
+        return begin(level, player, wand, offHand, layout, layout.pos(0), Rotation.NONE, null, player.getAbilities().instabuild, key);
     }
 
     /** Bricht einen laufenden Auftrag (und seine Pruefung) des Spielers ab, ohne Meldung; {@code true} = es lief einer. */
@@ -658,7 +730,7 @@ public final class BlueprintBuilder {
 
     /** Zwei-Klick-Regel und Start; {@code content == null} = kein Blaupausen-Bau (nicht gespeichert). */
     private static Result begin(Level level, Player player, ItemStack wand, ItemStack blueprint, Layout layout,
-                                BlockPos target, Rotation rotation, BlueprintContent content, boolean creative) {
+                                BlockPos target, Rotation rotation, BlueprintContent content, boolean creative, Object key) {
         if (!creative) {
             // Zwei-Klick-Regel: fehlt Material, warnt der erste Klick nur (Ton + Meldung, die roten
             // Stellen leuchten im Client auf); ein zweiter Klick binnen 3 s baut alles Vorhandene.
@@ -666,9 +738,10 @@ public final class BlueprintBuilder {
             boolean confirming = warnedAt != null && level.getGameTime() - warnedAt <= CONFIRM_TICKS;
             if (!confirming) {
                 Planner check = new Planner(level, player, wand, layout, simulatedSupply(player, wand), false, true);
-                check.run(checkBudget(player, true), Integer.MAX_VALUE, (pos, state) -> true);
+                check.run(clickBudget(level, player), Integer.MAX_VALUE, (pos, state) -> true);
+                spendClickBudget(level, player, check.index());
                 if (!check.finished()) {
-                    Check pending = new Check(check, player, wand, blueprint, target, rotation, content);
+                    Check pending = new Check(check, player, wand, blueprint, target, rotation, content, key);
                     pending.lastTick = level.getGameTime();
                     CHECKS.put(player.getUUID(), pending);
                     tellChecking(player, check);
@@ -676,6 +749,12 @@ public final class BlueprintBuilder {
                 }
                 if (warnIfMissing(level, player, check)) {
                     return new Result(0, 0, 0, 0, check.result().missing(), Map.of(), false, false, layout.size(), true, false);
+                }
+                if (content == null && nothingToDo(check.result())) {
+                    // Oktant-Fuellung ohne eine freie Stelle (fertige Figur, Schichtmodus ohne freie Schicht):
+                    // kein Auftrag, der Aufrufer sagt "nichts zu tun" (Nach-Audit 2026-09-27 N16).
+                    WARNED.remove(player.getUUID());
+                    return check.result();
                 }
             }
             WARNED.remove(player.getUUID());
@@ -731,6 +810,20 @@ public final class BlueprintBuilder {
         return onClick ? CHECK_VISITS_PER_CLICK : VISITS_PER_TICK;
     }
 
+    /** Was vom Klick-Budget des Spielers in diesem Tick noch uebrig ist (alle Klicks des Ticks zusammen). */
+    static int clickBudget(Level level, Player player) {
+        long[] used = CLICK_VISITS.get(player.getUUID());
+        long spent = used != null && used[0] == level.getGameTime() ? used[1] : 0;
+        return (int) Math.max(0, checkBudget(player, true) - spent);
+    }
+
+    private static void spendClickBudget(Level level, Player player, int visits) {
+        long now = level.getGameTime();
+        CLICK_VISITS.values().removeIf(u -> u[0] != now);
+        long[] used = CLICK_VISITS.computeIfAbsent(player.getUUID(), id -> new long[]{now, 0});
+        used[1] += visits;
+    }
+
     /** Warnt (Ton + Meldung), wenn die fertige Pruefung Fehlstellen fand; {@code true} = gewarnt. */
     private static boolean warnIfMissing(Level level, Player player, Planner check) {
         int missingNow = check.result().missing();
@@ -745,8 +838,28 @@ public final class BlueprintBuilder {
     }
 
     private static void tellChecking(Player player, Planner check) {
+        if (check.layout.boxLayout()) {
+            tell(player, Component.translatable("simplebuilding.wand.shape.checking", percent(check.index(), check.layout.size()))
+                    .withStyle(ChatFormatting.AQUA));
+            return;
+        }
         tell(player, Component.translatable("simplebuilding.blueprint.build.checking", check.index(), check.layout.size())
                 .withStyle(ChatFormatting.AQUA));
+    }
+
+    private static int percent(int done, int total) {
+        return total <= 0 ? 100 : (int) (100L * done / total);
+    }
+
+    /**
+     * Gab es nichts zu bauen - nichts gesetzt, und keine Stelle belegt, gesperrt oder ohne Material?
+     * So endet der Schichtmodus einer fertigen Figur (keine Schicht hat mehr eine freie Stelle) und
+     * jede Fuellung einer schon gefuellten Figur; frueher meldete das "0 gesetzt, 0 ausgelassen"
+     * (Nach-Audit 2026-09-27 N16).
+     */
+    public static boolean nothingToDo(Result result) {
+        return result.finished() && result.placed() == 0 && result.occupied() == 0
+                && result.blocked() == 0 && result.missing() == 0;
     }
 
     /**
@@ -888,6 +1001,10 @@ public final class BlueprintBuilder {
             return new Result(0, 0, 0, 0, check.planner.result().missing(), Map.of(), false, false, layout.size(), true, false);
         }
         WARNED.remove(player.getUUID());
+        if (check.content == null && nothingToDo(check.planner.result())) {
+            tell(player, Component.translatable("simplebuilding.wand.shape.nothing").withStyle(ChatFormatting.GRAY));
+            return check.planner.result();
+        }
         return startJob(level, player, check.wand, check.blueprint, layout, check.target, check.rotation, check.content,
                 player.getAbilities().instabuild, 0, 0);
     }
@@ -964,6 +1081,12 @@ public final class BlueprintBuilder {
         return JOBS.containsKey(player.getUUID());
     }
 
+    /** Wie viele Stellen die laufende Fehlstellen-Pruefung des Spielers schon besucht hat, oder -1 (Spieltests). */
+    public static int checkProgress(Player player) {
+        Check check = CHECKS.get(player.getUUID());
+        return check == null ? -1 : check.planner.index();
+    }
+
     /** Laeuft fuer diesen Spieler gerade eine Fehlstellen-Pruefung ueber mehrere Ticks? */
     public static boolean checking(Player player) {
         return CHECKS.containsKey(player.getUUID());
@@ -998,9 +1121,15 @@ public final class BlueprintBuilder {
                         job.target, job.rotation.ordinal(), job.planner.index(), result.placed()));
             }
         }
-        if (result.finished()) {
+        if (result.finished() && job.codeHash == null && nothingToDo(result)) {
+            tell(player, Component.translatable("simplebuilding.wand.shape.nothing").withStyle(ChatFormatting.GRAY));
+        } else if (result.finished()) {
             tell(player, Component.translatable("simplebuilding.blueprint.build.done", result.placed(), result.missing())
                     .withStyle(result.missing() > 0 ? ChatFormatting.YELLOW : ChatFormatting.GREEN));
+        } else if (job.planner.layout.boxLayout()) {
+            // Oktant-Fuellung: die Box zaehlt auch Stellen ausserhalb der Figur - Prozent und gesetzte Bloecke.
+            tell(player, Component.translatable("simplebuilding.wand.shape.progress", percent(job.planner.index(), result.total()),
+                    result.placed()).withStyle(ChatFormatting.AQUA));
         } else {
             tell(player, Component.translatable("simplebuilding.blueprint.build.progress", job.planner.index(), result.total(), result.placed())
                     .withStyle(ChatFormatting.AQUA));
