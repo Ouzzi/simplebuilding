@@ -107,9 +107,9 @@ Verlauf im Detail: git log.
 - [ ] Echo-Kompass: 3 s Aktivierung, Sounds/Partikel/FOV, 1. Nutzung -> kaputt, 2. Nutzung doppelt lang + Warnung -> zerbricht, eigene + kaputte Textur, Werkzeug-Tab, Rezept (N N/NRN/NEN, 6 Enderit-Nuggets), Mending: 1500 Punkte Aufladung, Glanz nur repariert; Velocity-Gauge-Rezept (Quarz oben in den Ecken, unten Kupfer-Kern)
 - [ ] Tweaks-Stufen: Launchpad (4/8/16 Ladungen, doppelte Staerke je Ladung, Shift = alle Windladungen rein), Chunk-Loader (1 / 5 / 3x3), Upgrades kosten Druckplatten, Flypad Stufe 1 mit Elytra (+ ? offen); Rotator-Rezept + Perle in der Textur
 - [ ] Magnet-Rezept (Eisen-Kern unten links, Eisen, Redstone-Position offen, Lapis unten rechts)
-- [ ] Laser: in den Werkzeug-Tab; Vanilla-Name, Punktgroesse, Abstand der Meterzahl, Rezept (Eisen-Kern/Amethyst/Eisen-U/Redstone), Eis/Schnee schmelzen, Brennbares entzuenden, Seelenfeuer, Lagerfeuer, kein Netherportal, Ladung statt Bruch, Amboss-Aufladen mit Redstone ohne Level (64 = voll)
+- [x] Laser (Amethystlinse, gepusht, Gate 3614/3614): in den Werkzeug-Tab; Vanilla-Name, Punktgroesse, Abstand der Meterzahl, Rezept (Eisen-Kern/Amethyst/Eisen-U/Redstone), Eis/Schnee schmelzen, Brennbares entzuenden, Seelenfeuer, Lagerfeuer, kein Netherportal, Ladung statt Bruch, Amboss-Aufladen mit Redstone ohne Level (64 = voll)
 - [x] JEI-Infoseiten fuer Items ohne Rezept (+ Test)
-- [ ] Blaupausen-Code: Formen und Variablen (laeuft)
+- [x] Blaupausen-Code: Formen und Variablen
 - [x] 26.4 geprueft 2026-09-27: kein Forge/NeoForge/Cloth/Dev-Mod-Build fuer 26.4-snapshot-1; Fabric Loader/API/ModMenu aktuell; kein neuer Snapshot
 - [ ] Enderit-Kolben-Verschleiss nach Brecher-Muster - nach der Textur-Runde (Kolbentexturen werden gerade neu gezeichnet)
 
