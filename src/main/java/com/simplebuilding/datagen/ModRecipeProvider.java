@@ -205,14 +205,16 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // =================================================================
                 // VELOCITY_GAUGE
                 // =================================================================
+                // Quarz in den oberen Ecken, Kupfer-Baukern unten mittig (Besitzer 2026-09-27)
                 shaped(RecipeCategory.TOOLS, ModItems.VELOCITY_GAUGE)
-                        .pattern(" A ")
+                        .pattern("QAQ")
                         .pattern("OCO")
-                        .pattern("QQQ")
+                        .pattern(" K ")
                         .define('C', Items.COMPASS)
                         .define('A', Items.AMETHYST_SHARD)
                         .define('O', Items.COPPER_INGOT)
                         .define('Q', Items.QUARTZ)
+                        .define('K', ModItems.COPPER_CORE)
                         .unlockedBy(getHasName(Items.COMPASS), has(Items.COMPASS))
                         .save(output);
 
@@ -966,12 +968,14 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.COPPER_PRESSURE_PLATE, Items.NETHERITE_INGOT, TweaksBlocks.CHUNK_LOADER, "chunk_loader_smithing");
                 tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.CHUNK_LOADER, ModItems.ENDERITE_INGOT, TweaksBlocks.ENDERITE_CHUNK_LOADER, "enderite_chunk_loader_smithing");
 
-                // Echo-Kompass: Bergungskompass in der Mitte, Enderit-Kern darueber, Netherit-Druckplatten links/rechts
+                // Echo-Kompass (Besitzer 2026-09-27): Bergungskompass in der Mitte, Enderit-Kern unten mittig,
+                // sechs Enderit-Nuggets aussen herum, oben mittig frei
                 shaped(RecipeCategory.TOOLS, TweaksItems.ECHO_COMPASS)
-                        .pattern(" E ")
-                        .pattern("PRP")
+                        .pattern("N N")
+                        .pattern("NRN")
+                        .pattern("NEN")
+                        .define('N', ModItems.ENDERITE_NUGGET)
                         .define('E', ModItems.ENDERITE_CORE)
-                        .define('P', TweaksBlocks.NETHERITE_PRESSURE_PLATE)
                         .define('R', Items.RECOVERY_COMPASS)
                         .unlockedBy(getHasName(Items.RECOVERY_COMPASS), has(Items.RECOVERY_COMPASS))
                         .save(output);

@@ -26,8 +26,13 @@ public final class TweaksGameTest {
     }
 
     @GameTest
-    public void theEchoCompassIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndNetheritePlates(GameTestHelper helper) {
-        TweaksTests.theEchoCompassIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndNetheritePlates(helper);
+    public void theEchoCompassIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndSixEnderiteNuggets(GameTestHelper helper) {
+        TweaksTests.theEchoCompassIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndSixEnderiteNuggets(helper);
+    }
+
+    @GameTest
+    public void theVelocityGaugeIsCraftedWithQuartzCornersAndTheCopperCore(GameTestHelper helper) {
+        TweaksTests.theVelocityGaugeIsCraftedWithQuartzCornersAndTheCopperCore(helper);
     }
 
     @GameTest
@@ -131,8 +136,28 @@ public final class TweaksGameTest {
     }
 
     @GameTest
-    public void unbreakingProtectsTheEchoCompass(GameTestHelper helper) {
-        TweaksTests.unbreakingProtectsTheEchoCompass(helper);
+    public void unbreakingLowersHowMuchTheJumpEmptiesTheEchoCompass(GameTestHelper helper) {
+        TweaksTests.unbreakingLowersHowMuchTheJumpEmptiesTheEchoCompass(helper);
+    }
+
+    @GameTest
+    public void theEchoCompassChargesForThreeSecondsAndReleasingEarlyCostsNothing(GameTestHelper helper) {
+        TweaksTests.theEchoCompassChargesForThreeSecondsAndReleasingEarlyCostsNothing(helper);
+    }
+
+    @GameTest
+    public void aFullChargeJumpsAndLeavesTheEchoCompassEmpty(GameTestHelper helper) {
+        TweaksTests.aFullChargeJumpsAndLeavesTheEchoCompassEmpty(helper);
+    }
+
+    @GameTest
+    public void theEchoCompassIsOnlyChargedAgainAfterFifteenHundredRepairPoints(GameTestHelper helper) {
+        TweaksTests.theEchoCompassIsOnlyChargedAgainAfterFifteenHundredRepairPoints(helper);
+    }
+
+    @GameTest
+    public void aCrackedEchoCompassChargesTwiceAsLongAndShattersAfterTheJump(GameTestHelper helper) {
+        TweaksTests.aCrackedEchoCompassChargesTwiceAsLongAndShattersAfterTheJump(helper);
     }
 
     @GameTest

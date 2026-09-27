@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "simplebuilding:item/laser_pointer"
+    "layer0": "simplebuilding:item/laser_pointer_empty"
   }
 }

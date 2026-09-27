@@ -60,6 +60,8 @@ import sys
 
 from PIL import Image, ImageDraw, ImageFont
 
+from echo_compass_textures import echo_compass_textures  # Echo-Kompass: Nadelbilder + Riss-Stufen
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 TREES = [
@@ -2584,6 +2586,7 @@ def build():
     tex.update(bundle_open_textures())
     tex.update(backpack_gui_textures())
     tex.update(end_palette_textures())
+    tex.update(echo_compass_textures())
     return tex
 
 
