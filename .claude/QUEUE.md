@@ -120,6 +120,7 @@ Verlauf im Detail: git log.
 - [ ] Pad-Texturen konsistent (laeuft): Basis-Druckplatte des Materials + Overlay; Elytra-Pad blau (Enderit-Stufe mit Enderit-Details, V mit mehr Glanz); Flypads auf Enderit-Platte; Spawn-Teleporter V auf Gold-Platte + Name ohne "Enderite"; Launchpad I Eisen+Diamant, II alte Launchpad-I-Textur, III Eisen+Enderit; Chunk-Loader immer Kupfer-Basis
 - [ ] Laser: Sounds am Auftreffpunkt (Brummen / Zischen bei Brennbarem), Zeit steigt mit Entfernung (~3 s nah, ~20 s bei 200 m), Lebewesen anzuendbar (2x Zeit, PvP beachten) - im Echo-Sounder-Agenten
 - [ ] Tabs: SimpleTools-Kompasszeile (Kompass, Bergungskompass, Echo Sounder, Velocity Gauge, Erzdetektor, Magnet, Rotator, Amethystlinse, Oktant) + farbige Oktanten; Spawn-Elytra hinter die Elytra-Pads - im Kupfer-Agenten
+- [ ] Kartografietisch: signierte Blaupause oben -> Vorschau im Kartenfeld wie im Tooltip (laeuft)
 
 ## Wartet auf den Besitzer
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
