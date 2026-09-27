@@ -123,7 +123,8 @@ public final class ModItemGroupsContent {
                         Items.GOLDEN_BOOTS, Items.DIAMOND_BOOTS, Items.NETHERITE_BOOTS, ModItems.ENDERITE_BOOTS),
                 // --- Geraete ---
                 CreativeTabLayout.Row.of("gadgets",
-                        ModItems.OCTANT, ModItems.VELOCITY_GAUGE, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR)));
+                        ModItems.OCTANT, ModItems.VELOCITY_GAUGE, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR,
+                        com.simplebuilding.tweaks.item.TweaksItems.LASER_POINTER)));
 
         // Die 16 gefaerbten Oktanten: eine eigene Kategorie, laeuft ueber zwei Zeilen.
         List<ItemStack> coloredOctants = new java.util.ArrayList<>();

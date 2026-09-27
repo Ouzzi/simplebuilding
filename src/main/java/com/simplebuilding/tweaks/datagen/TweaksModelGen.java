@@ -9,12 +9,15 @@ import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.model.ItemModelUtils;
+import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.RangeSelectItemModel;
 import net.minecraft.client.renderer.item.properties.numeric.CompassAngle;
 import net.minecraft.client.renderer.item.properties.numeric.CompassAngleState;
+import net.minecraft.client.renderer.item.properties.numeric.Damage;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.Block;
@@ -38,9 +41,37 @@ public final class TweaksModelGen {
 
     public static void items(ItemModelGenerators generator) {
         generator.generateFlatItem(TweaksItems.SPAWN_ELYTRA, ModelTemplates.FLAT_ITEM);
-        generator.generateFlatItem(TweaksItems.LASER_POINTER, ModelTemplates.FLAT_ITEM);
+        laserLens(generator);
         generator.itemModelOutput.accept(TweaksItems.ECHO_COMPASS, ItemModelUtils.rangeSelect(
                 new CompassAngle(true, CompassAngleState.CompassTarget.LODESTONE), 32.0F, recoveryCompassModels()));
+    }
+
+    /**
+     * Amethystlinse ({@code laser_pointer}): leer (Schaden = Haltbarkeit, normiert 1,0) zeigt
+     * {@code item/laser_pointer_empty}. Solange dieses Bild noch nicht gezeichnet ist, nimmt das
+     * Leer-Modell das normale Bild, damit nie die Fehltextur erscheint - nach dem Zeichnen reicht ein
+     * neuer Datagen-Lauf.
+     */
+    private static void laserLens(ItemModelGenerators generator) {
+        Identifier full = ModelTemplates.FLAT_ITEM.create(TweaksItems.LASER_POINTER, TextureMapping.layer0(TweaksItems.LASER_POINTER), generator.modelOutput);
+        Identifier emptyTexture = ModelLocationUtils.getModelLocation(TweaksItems.LASER_POINTER, "_empty");
+        Identifier empty = ModelTemplates.FLAT_ITEM.create(emptyTexture,
+                TextureMapping.layer0(textureExists(emptyTexture) ? new Material(emptyTexture) : TextureMapping.getItemTexture(TweaksItems.LASER_POINTER)),
+                generator.modelOutput);
+        generator.itemModelOutput.accept(TweaksItems.LASER_POINTER, ItemModelUtils.rangeSelect(new Damage(true),
+                ItemModelUtils.plainModel(full), ItemModelUtils.override(ItemModelUtils.plainModel(empty), 1.0F)));
+    }
+
+    /** Sucht {@code textures/<pfad>.png} in den src/main/resources ueber dem Datagen-Ausgabeordner. */
+    private static boolean textureExists(Identifier texture) {
+        String relative = "src/main/resources/assets/" + texture.getNamespace() + "/textures/" + texture.getPath() + ".png";
+        String start = System.getProperty("fabric-api.datagen.output-dir", System.getProperty("user.dir"));
+        for (java.io.File dir = new java.io.File(start).getAbsoluteFile(); dir != null; dir = dir.getParentFile()) {
+            if (new java.io.File(dir, relative).isFile()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /** Wie ItemModelGenerators#createCompassModels, aber mit den vorhandenen Vanilla-Bildern. */
