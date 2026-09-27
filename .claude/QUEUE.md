@@ -121,6 +121,9 @@ Verlauf im Detail: git log.
 - [ ] Laser: Sounds am Auftreffpunkt (Brummen / Zischen bei Brennbarem), Zeit steigt mit Entfernung (~3 s nah, ~20 s bei 200 m), Lebewesen anzuendbar (2x Zeit, PvP beachten) - im Echo-Sounder-Agenten
 - [ ] Tabs: SimpleTools-Kompasszeile (Kompass, Bergungskompass, Echo Sounder, Velocity Gauge, Erzdetektor, Magnet, Rotator, Amethystlinse, Oktant) + farbige Oktanten; Spawn-Elytra hinter die Elytra-Pads - im Kupfer-Agenten
 - [ ] Kartografietisch: signierte Blaupause oben -> Vorschau im Kartenfeld wie im Tooltip (laeuft)
+- [ ] Rotator wie Linse (nie kaputt, Amboss + 16 Enderperlen = voll), zweiter Ender-Sound + Teleport-Partikel; Magnet-Rezept Lapis rechts Mitte; Erzdetektor-Rezept 6 Echoscherben (4 Ecken dazu); Erzdetektor als Kompass (lila Nadel zum naechsten Erz, heller je naeher, viel weniger Partikel, Nebenhand leiser/schwaecher/langsamer) (laeuft)
+- [ ] Rucksack: Shift-Tooltip mit Inhalts-Vorschau wie Buendel (laeuft)
+- [ ] Laufwerk C voll gewesen: 60 gemergte Agenten-Arbeitskopien entfernt
 
 ## Wartet auf den Besitzer
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
