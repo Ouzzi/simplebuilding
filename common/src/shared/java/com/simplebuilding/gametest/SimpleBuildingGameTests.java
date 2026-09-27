@@ -1161,6 +1161,19 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tweaks_tier_game_test_every_family_names_its_last_tier", TweaksTierTests::everyFamilyNamesItsLastTier)
                     .build(),
+            GameTestSpec.named("pressure_plate_game_test_honeycomb_waxes_every_stage_and_waxed_plates_stop_oxidizing", PressurePlateTests::honeycombWaxesEveryStageAndWaxedPlatesStopOxidizing)
+                    .build(),
+            GameTestSpec.named("pressure_plate_game_test_the_axe_scrapes_the_wax_off_before_the_oxidation", PressurePlateTests::theAxeScrapesTheWaxOffBeforeTheOxidation)
+                    .build(),
+            GameTestSpec.named("pressure_plate_game_test_waxed_copper_plates_are_crafted_from_the_plate_and_one_honeycomb", PressurePlateTests::waxedCopperPlatesAreCraftedFromThePlateAndOneHoneycomb)
+                    .build(),
+            GameTestSpec.named("pressure_plate_game_test_copper_plates_release_as_late_as_they_press", PressurePlateTests::copperPlatesReleaseAsLateAsTheyPress)
+                    .maxTicks(PressurePlateTests.RELEASE_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("pressure_plate_game_test_every_mod_pressure_plate_visibly_sinks_when_pressed", PressurePlateTests::everyModPressurePlateVisiblySinksWhenPressed)
+                    .build(),
+            GameTestSpec.named("pressure_plate_game_test_every_mod_pressure_plate_is_named_like_the_vanilla_ones", PressurePlateTests::everyModPressurePlateIsNamedLikeTheVanillaOnes)
+                    .build(),
             GameTestSpec.named("tweaks_game_test_the_echo_sounder_links_to_the_lodestone_and_teleports_without_any_pearl", TweaksTests::theEchoSounderLinksToTheLodestoneAndTeleportsWithoutAnyPearl)
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_echo_sounder_keeps_its_id_but_is_named_echo_sounder", TweaksTests::theEchoSounderKeepsItsIdButIsNamedEchoSounder)

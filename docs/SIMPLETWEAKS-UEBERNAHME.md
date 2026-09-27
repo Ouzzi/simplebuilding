@@ -25,7 +25,7 @@ Status: **port** = uebernommen, **neu** = in SimpleBuilding neu hinzugekommen (B
 | Diamant-Druckplatte (nur Spieler, wasserloggbar) | port | Rezept 2 Diamanten waagerecht |
 | Netherit-Druckplatte (Fass darunter = Item-Whitelist, Besitzer baut schnell ab) | port | Smithing aus Diamant-Platte |
 | Enderit-Druckplatte | neu | Stufe nach Netherit, siehe Stufentabelle |
-| Kupfer-Druckplatten (4 Oxidationsstufen, loest erst nach 1-4 s Stehen aus, oxidiert, Axt kratzt eine Stufe ab) | port | **nicht wachsbar** (keine gewachsten Varianten, Honigwabe tut nichts) |
+| Kupfer-Druckplatten (4 Oxidationsstufen, loest erst nach 1-4 s Stehen aus, oxidiert, Axt kratzt eine Stufe ab) | port | seit 2026-09-27 **wachsbar** wie Vanilla-Kupfer (Abschnitt 2.4), Loslassen so verzoegert wie Ausloesen, gedrueckt sichtbar eingesunken |
 | Chunk-Loader (Kupferplatte + Netherit, haelt den eigenen Chunk geladen) | port | abschaltbar; seit 2026-09-27 Stufe I von drei |
 | Netherit-Chunk-Loader II | neu | Kreuz aus 5 Chunks (eigener + 4 Nachbarn mit gemeinsamer Kante) |
 | Enderit-Chunk-Loader III | neu | haelt 3x3 Chunks |
@@ -183,6 +183,28 @@ Namen (en): "Elytra Pad I", "Reinforced Elytra Pad II", "Netherite Elytra Pad II
 "Enderite Spawn Teleporter V"; "Launchpad I", "Netherite Launchpad II", "Enderite Launchpad III";
 "Chunk Loader I", "Netherite Chunk Loader II", "Enderite Chunk Loader III".
 
+### 2.4 Druckplatten wie Vanilla (Besitzer-Aenderung 2026-09-27)
+
+- **Gewachste Kupferplatten**: `waxed_copper_pressure_plate`, `waxed_exposed_…`, `waxed_weathered_…`,
+  `waxed_oxidized_copper_pressure_plate` ("Waxed … Copper Pressure Plate" / "Gewachste … Kupfer-Druckplatte").
+  Honigwabe wachst (Vanilla-Partikel und -Geraeusch, eine Wabe), gewachste Platten oxidieren nicht; die
+  Axt kratzt zuerst das Wachs ab (Wachs-ab-Partikel und -Geraeusch), ungewachst wie bisher eine
+  Oxidationsstufe. Wachsen geht auch an der Werkbank (Platte + Honigwabe,
+  `<gewachste Platte>_from_honeycomb`). Texturen und Modelle sind die der ungewachsten Stufe (wie Vanilla).
+  Die Folge steht in `CopperPressurePlateBlock` selbst - auf allen Loadern gleich, ohne
+  `OxidizableBlocksRegistry`/Datenkarten; der Besitzer bleibt beim Wachsen und Abkratzen erhalten.
+  Schleichen + Honigwabe/Axt geht (wie bisher beim Abkratzen) am Block vorbei an das Vanilla-Item und tut nichts.
+- **Loslassen verzoegert**: nach dem Heruntergehen bleibt die Kupferplatte so lange gedrueckt, wie das
+  Ausloesen dauerte (1-4 s); wer zurueckkommt, haelt sie gedrueckt.
+- **Sichtbar gedrueckt**: alle Mod-Druckplatten (Diamant, Netherit, Enderit, Kupfer und gewachstes Kupfer)
+  zeigen bei `powered=true` das Modell `pressure_plate_down` und sind gedrueckt nur einen halben Pixel hoch -
+  vorher blieben alle Platten optisch oben.
+- **Kreativ-Tab** (Maschinen & Lager): alle Vanilla-Druckplatten neben den Mod-Platten, nach Material mit
+  aufsteigender Stufe: Holz (12, ab MC 26.3 mit Pappel 13; zwei Zeilen), Stein + polierter Schwarzstein, Kupfer (vier Stufen, dann
+  gewachst), dann schwere (Eisen) und leichte Waegeplatte (Gold), Diamant, Netherit, Enderit. Launchpads und
+  Chunk-Loader haben je eine eigene Zeile (vorher gemeinsam "travel_and_loading"); in der Elytra-Pad-Zeile stehen
+  erst die Pads I-V, dann die Spawn-Elytra. SimpleTools: eine Geraete-Zeile (siehe Abschnitt 3).
+
 ## 3. Echolot / Echo Sounder, frueher Echo-Kompass (Phase 3b, Umbau 2026-09-27)
 
 - **Name** (Besitzer 2026-09-27, zweite Runde): en "Echo Sounder", de "Echolot". Die Registry-Id bleibt
@@ -226,7 +248,7 @@ Namen (en): "Elytra Pad I", "Reinforced Elytra Pad II", "Netherite Elytra Pad II
   (`echo_compass_00..31`, Zaehlung wie Vanilla) und `echo_compass_cracked_0..2` (0 = leer).
 - Dimensionen: jede Dimension, die der Server kennt (auch Mod-Dimensionen - war trivial, weil die
   Vanilla-Komponente die Dimension mitfuehrt).
-- Kreativ-Tab: SimpleTools, Zeile "compasses" (Kompass, Bergungskompass, Echolot) nach den Geraeten.
+- Kreativ-Tab: SimpleTools, Zeile "gadgets" (seit 2026-09-27: Kompass, Bergungskompass, Echolot, Geschwindigkeitsmesser, Erzdetektor, Magnet, Rotator, Amethystlinse, Oktant; danach die gefaerbten Oktanten).
 - Rezept (Werkbank, geformt, Besitzer 2026-09-27; zweite Runde: auch oben mittig ein Nugget, 7 Nuggets):
 
   ```
@@ -443,8 +465,14 @@ Schub, Ueberschuss-Auswurf, Kreuzform, Flypad-Umbau, Item-Tausch, Bereiche, Sich
 Familienreihenfolge, fuenf Rezept-JSONs) machte ihre Tests auf allen drei Linien rot.
 
 Testzentrale: eigene Station `tweaks` (`com.simplebuilding.dev.testcentre.TweaksStation`, siehe
-`docs/TESTZENTRALE.md`); Gegenprobe: Zeile `travel_and_loading` weggelassen -> Abdeckungstest rot
-(nennt Chunk-Loader, Enderit-Launchpad, Laserpointer).
+`docs/TESTZENTRALE.md`); Gegenprobe: Zeile `travel_and_loading` (seit 2026-09-27 `launchpads` und
+`chunk_loaders`) weggelassen -> Abdeckungstest rot (nennt Chunk-Loader, Enderit-Launchpad, Laserpointer).
+
+`PressurePlateTests` (Fabric-Adapter `PressurePlateGameTest`, Test-ID `simplebuilding:pressure_plate_game_test_*`),
+beide Codelinien: Wachsen jeder Stufe (Wabe verbraucht, Besitzer bleibt, kein Zufallstick, keine naechste
+Stufe, zweite Wabe wirkungslos), Axt erst Wachs dann Oxidation, Werkbank-Rezepte, symmetrische
+Loslass-Verzoegerung (echte Ticks), sichtbar gedrueckte Platten (Form und `_down`-Modell je Mod-Platte aus
+der Registry) und Namen im Vanilla-Muster; dazu das Tab-Layout in `DataIntegrityTests`.
 
 ## 9. Offene Punkte
 

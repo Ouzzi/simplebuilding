@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "src/main/generated/wiki/items.json",
       "present": true,
-      "count": 200,
+      "count": 204,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -15207,7 +15207,8 @@ window.WIKI_DATA = {
         "simplebuilding:copper_pressure_plate"
       ],
       "usedIn": [
-        "simplebuilding:chunk_loader_smithing"
+        "simplebuilding:chunk_loader_smithing",
+        "simplebuilding:waxed_copper_pressure_plate_from_honeycomb"
       ],
       "trades": [],
       "lootTable": "simplebuilding:blocks/copper_pressure_plate",
@@ -15216,17 +15217,21 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized.",
+          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized. After the player steps off they stay pressed just as long.",
           "details": [
-            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes or is scraped.",
+            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes, is waxed or is scraped.",
+            "Waxing works like vanilla copper: use honeycomb on a plate (or craft plate + honeycomb) to get the Waxed Copper Pressure Plate of the same stage, which no longer oxidizes; an axe scrapes the wax off first. Waxed plates look like their unwaxed stage.",
+            "Like vanilla pressure plates they visibly sink in while pressed.",
             "Crafting: two copper blocks side by side. Pistons destroy them. Can be switched off with tweaks.pads.enableTimedCopperPlates.",
             "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
           ]
         },
         "de": {
-          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert.",
+          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert. Nach dem Heruntergehen bleiben sie genauso lange gedrückt.",
           "details": [
-            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren und Abkratzen erhalten.",
+            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren, Wachsen und Abkratzen erhalten.",
+            "Wachsen wie bei Vanilla-Kupfer: Honigwabe auf die Platte (oder Platte + Honigwabe in der Werkbank) ergibt die Gewachste Kupfer-Druckplatte derselben Stufe, die nicht mehr oxidiert; eine Axt kratzt zuerst das Wachs ab. Gewachste Platten sehen aus wie ihre ungewachste Stufe.",
+            "Wie Vanilla-Druckplatten sinken sie gedrückt sichtbar ein.",
             "Werkbank: zwei Kupferblöcke nebeneinander. Kolben zerstören sie. Abschaltbar über tweaks.pads.enableTimedCopperPlates.",
             "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
           ]
@@ -15235,6 +15240,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
           "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "common/src/shared/java/com/simplebuilding/gametest/PressurePlateTests.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "docs/SIMPLETWEAKS-UEBERNAHME.md",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
@@ -16671,7 +16677,9 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/exposed_copper_pressure_plate.png",
       "craftedBy": [],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:waxed_exposed_copper_pressure_plate_from_honeycomb"
+      ],
       "trades": [],
       "lootTable": "simplebuilding:blocks/exposed_copper_pressure_plate",
       "drops": [
@@ -16679,17 +16687,21 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized.",
+          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized. After the player steps off they stay pressed just as long.",
           "details": [
-            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes or is scraped.",
+            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes, is waxed or is scraped.",
+            "Waxing works like vanilla copper: use honeycomb on a plate (or craft plate + honeycomb) to get the Waxed Copper Pressure Plate of the same stage, which no longer oxidizes; an axe scrapes the wax off first. Waxed plates look like their unwaxed stage.",
+            "Like vanilla pressure plates they visibly sink in while pressed.",
             "Crafting: two copper blocks side by side. Pistons destroy them. Can be switched off with tweaks.pads.enableTimedCopperPlates.",
             "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
           ]
         },
         "de": {
-          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert.",
+          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert. Nach dem Heruntergehen bleiben sie genauso lange gedrückt.",
           "details": [
-            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren und Abkratzen erhalten.",
+            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren, Wachsen und Abkratzen erhalten.",
+            "Wachsen wie bei Vanilla-Kupfer: Honigwabe auf die Platte (oder Platte + Honigwabe in der Werkbank) ergibt die Gewachste Kupfer-Druckplatte derselben Stufe, die nicht mehr oxidiert; eine Axt kratzt zuerst das Wachs ab. Gewachste Platten sehen aus wie ihre ungewachste Stufe.",
+            "Wie Vanilla-Druckplatten sinken sie gedrückt sichtbar ein.",
             "Werkbank: zwei Kupferblöcke nebeneinander. Kolben zerstören sie. Abschaltbar über tweaks.pads.enableTimedCopperPlates.",
             "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
           ]
@@ -16698,6 +16710,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
           "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "common/src/shared/java/com/simplebuilding/gametest/PressurePlateTests.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "docs/SIMPLETWEAKS-UEBERNAHME.md",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
@@ -18456,7 +18469,9 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/oxidized_copper_pressure_plate.png",
       "craftedBy": [],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:waxed_oxidized_copper_pressure_plate_from_honeycomb"
+      ],
       "trades": [],
       "lootTable": "simplebuilding:blocks/oxidized_copper_pressure_plate",
       "drops": [
@@ -18464,17 +18479,21 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized.",
+          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized. After the player steps off they stay pressed just as long.",
           "details": [
-            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes or is scraped.",
+            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes, is waxed or is scraped.",
+            "Waxing works like vanilla copper: use honeycomb on a plate (or craft plate + honeycomb) to get the Waxed Copper Pressure Plate of the same stage, which no longer oxidizes; an axe scrapes the wax off first. Waxed plates look like their unwaxed stage.",
+            "Like vanilla pressure plates they visibly sink in while pressed.",
             "Crafting: two copper blocks side by side. Pistons destroy them. Can be switched off with tweaks.pads.enableTimedCopperPlates.",
             "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
           ]
         },
         "de": {
-          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert.",
+          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert. Nach dem Heruntergehen bleiben sie genauso lange gedrückt.",
           "details": [
-            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren und Abkratzen erhalten.",
+            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren, Wachsen und Abkratzen erhalten.",
+            "Wachsen wie bei Vanilla-Kupfer: Honigwabe auf die Platte (oder Platte + Honigwabe in der Werkbank) ergibt die Gewachste Kupfer-Druckplatte derselben Stufe, die nicht mehr oxidiert; eine Axt kratzt zuerst das Wachs ab. Gewachste Platten sehen aus wie ihre ungewachste Stufe.",
+            "Wie Vanilla-Druckplatten sinken sie gedrückt sichtbar ein.",
             "Werkbank: zwei Kupferblöcke nebeneinander. Kolben zerstören sie. Abschaltbar über tweaks.pads.enableTimedCopperPlates.",
             "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
           ]
@@ -18483,6 +18502,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
           "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "common/src/shared/java/com/simplebuilding/gametest/PressurePlateTests.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "docs/SIMPLETWEAKS-UEBERNAHME.md",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
@@ -20330,32 +20350,38 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:weathered_copper_pressure_plate",
+      "id": "simplebuilding:waxed_copper_pressure_plate",
       "name": {
-        "en_us": "Weathered Copper Pressure Plate",
-        "de_de": "Verwitterte Kupfer-Druckplatte"
+        "en_us": "Waxed Copper Pressure Plate",
+        "de_de": "Gewachste Kupfer-Druckplatte"
       },
-      "texture": "assets/textures/block/weathered_copper_pressure_plate.png",
-      "craftedBy": [],
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:waxed_copper_pressure_plate_from_honeycomb"
+      ],
       "usedIn": [],
       "trades": [],
-      "lootTable": "simplebuilding:blocks/weathered_copper_pressure_plate",
+      "lootTable": "simplebuilding:blocks/waxed_copper_pressure_plate",
       "drops": [
-        "simplebuilding:weathered_copper_pressure_plate"
+        "simplebuilding:waxed_copper_pressure_plate"
       ],
       "note": {
         "en": {
-          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized.",
+          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized. After the player steps off they stay pressed just as long.",
           "details": [
-            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes or is scraped.",
+            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes, is waxed or is scraped.",
+            "Waxing works like vanilla copper: use honeycomb on a plate (or craft plate + honeycomb) to get the Waxed Copper Pressure Plate of the same stage, which no longer oxidizes; an axe scrapes the wax off first. Waxed plates look like their unwaxed stage.",
+            "Like vanilla pressure plates they visibly sink in while pressed.",
             "Crafting: two copper blocks side by side. Pistons destroy them. Can be switched off with tweaks.pads.enableTimedCopperPlates.",
             "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
           ]
         },
         "de": {
-          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert.",
+          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert. Nach dem Heruntergehen bleiben sie genauso lange gedrückt.",
           "details": [
-            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren und Abkratzen erhalten.",
+            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren, Wachsen und Abkratzen erhalten.",
+            "Wachsen wie bei Vanilla-Kupfer: Honigwabe auf die Platte (oder Platte + Honigwabe in der Werkbank) ergibt die Gewachste Kupfer-Druckplatte derselben Stufe, die nicht mehr oxidiert; eine Axt kratzt zuerst das Wachs ab. Gewachste Platten sehen aus wie ihre ungewachste Stufe.",
+            "Wie Vanilla-Druckplatten sinken sie gedrückt sichtbar ein.",
             "Werkbank: zwei Kupferblöcke nebeneinander. Kolben zerstören sie. Abschaltbar über tweaks.pads.enableTimedCopperPlates.",
             "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
           ]
@@ -20364,6 +20390,207 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
           "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "common/src/shared/java/com/simplebuilding/gametest/PressurePlateTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:waxed_exposed_copper_pressure_plate",
+      "name": {
+        "en_us": "Waxed Exposed Copper Pressure Plate",
+        "de_de": "Gewachste angelaufene Kupfer-Druckplatte"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:waxed_exposed_copper_pressure_plate_from_honeycomb"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/waxed_exposed_copper_pressure_plate",
+      "drops": [
+        "simplebuilding:waxed_exposed_copper_pressure_plate"
+      ],
+      "note": {
+        "en": {
+          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized. After the player steps off they stay pressed just as long.",
+          "details": [
+            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes, is waxed or is scraped.",
+            "Waxing works like vanilla copper: use honeycomb on a plate (or craft plate + honeycomb) to get the Waxed Copper Pressure Plate of the same stage, which no longer oxidizes; an axe scrapes the wax off first. Waxed plates look like their unwaxed stage.",
+            "Like vanilla pressure plates they visibly sink in while pressed.",
+            "Crafting: two copper blocks side by side. Pistons destroy them. Can be switched off with tweaks.pads.enableTimedCopperPlates.",
+            "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
+          ]
+        },
+        "de": {
+          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert. Nach dem Heruntergehen bleiben sie genauso lange gedrückt.",
+          "details": [
+            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren, Wachsen und Abkratzen erhalten.",
+            "Wachsen wie bei Vanilla-Kupfer: Honigwabe auf die Platte (oder Platte + Honigwabe in der Werkbank) ergibt die Gewachste Kupfer-Druckplatte derselben Stufe, die nicht mehr oxidiert; eine Axt kratzt zuerst das Wachs ab. Gewachste Platten sehen aus wie ihre ungewachste Stufe.",
+            "Wie Vanilla-Druckplatten sinken sie gedrückt sichtbar ein.",
+            "Werkbank: zwei Kupferblöcke nebeneinander. Kolben zerstören sie. Abschaltbar über tweaks.pads.enableTimedCopperPlates.",
+            "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "common/src/shared/java/com/simplebuilding/gametest/PressurePlateTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:waxed_oxidized_copper_pressure_plate",
+      "name": {
+        "en_us": "Waxed Oxidized Copper Pressure Plate",
+        "de_de": "Gewachste oxidierte Kupfer-Druckplatte"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:waxed_oxidized_copper_pressure_plate_from_honeycomb"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/waxed_oxidized_copper_pressure_plate",
+      "drops": [
+        "simplebuilding:waxed_oxidized_copper_pressure_plate"
+      ],
+      "note": {
+        "en": {
+          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized. After the player steps off they stay pressed just as long.",
+          "details": [
+            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes, is waxed or is scraped.",
+            "Waxing works like vanilla copper: use honeycomb on a plate (or craft plate + honeycomb) to get the Waxed Copper Pressure Plate of the same stage, which no longer oxidizes; an axe scrapes the wax off first. Waxed plates look like their unwaxed stage.",
+            "Like vanilla pressure plates they visibly sink in while pressed.",
+            "Crafting: two copper blocks side by side. Pistons destroy them. Can be switched off with tweaks.pads.enableTimedCopperPlates.",
+            "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
+          ]
+        },
+        "de": {
+          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert. Nach dem Heruntergehen bleiben sie genauso lange gedrückt.",
+          "details": [
+            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren, Wachsen und Abkratzen erhalten.",
+            "Wachsen wie bei Vanilla-Kupfer: Honigwabe auf die Platte (oder Platte + Honigwabe in der Werkbank) ergibt die Gewachste Kupfer-Druckplatte derselben Stufe, die nicht mehr oxidiert; eine Axt kratzt zuerst das Wachs ab. Gewachste Platten sehen aus wie ihre ungewachste Stufe.",
+            "Wie Vanilla-Druckplatten sinken sie gedrückt sichtbar ein.",
+            "Werkbank: zwei Kupferblöcke nebeneinander. Kolben zerstören sie. Abschaltbar über tweaks.pads.enableTimedCopperPlates.",
+            "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "common/src/shared/java/com/simplebuilding/gametest/PressurePlateTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:waxed_weathered_copper_pressure_plate",
+      "name": {
+        "en_us": "Waxed Weathered Copper Pressure Plate",
+        "de_de": "Gewachste verwitterte Kupfer-Druckplatte"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:waxed_weathered_copper_pressure_plate_from_honeycomb"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/waxed_weathered_copper_pressure_plate",
+      "drops": [
+        "simplebuilding:waxed_weathered_copper_pressure_plate"
+      ],
+      "note": {
+        "en": {
+          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized. After the player steps off they stay pressed just as long.",
+          "details": [
+            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes, is waxed or is scraped.",
+            "Waxing works like vanilla copper: use honeycomb on a plate (or craft plate + honeycomb) to get the Waxed Copper Pressure Plate of the same stage, which no longer oxidizes; an axe scrapes the wax off first. Waxed plates look like their unwaxed stage.",
+            "Like vanilla pressure plates they visibly sink in while pressed.",
+            "Crafting: two copper blocks side by side. Pistons destroy them. Can be switched off with tweaks.pads.enableTimedCopperPlates.",
+            "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
+          ]
+        },
+        "de": {
+          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert. Nach dem Heruntergehen bleiben sie genauso lange gedrückt.",
+          "details": [
+            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren, Wachsen und Abkratzen erhalten.",
+            "Wachsen wie bei Vanilla-Kupfer: Honigwabe auf die Platte (oder Platte + Honigwabe in der Werkbank) ergibt die Gewachste Kupfer-Druckplatte derselben Stufe, die nicht mehr oxidiert; eine Axt kratzt zuerst das Wachs ab. Gewachste Platten sehen aus wie ihre ungewachste Stufe.",
+            "Wie Vanilla-Druckplatten sinken sie gedrückt sichtbar ein.",
+            "Werkbank: zwei Kupferblöcke nebeneinander. Kolben zerstören sie. Abschaltbar über tweaks.pads.enableTimedCopperPlates.",
+            "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "common/src/shared/java/com/simplebuilding/gametest/PressurePlateTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:weathered_copper_pressure_plate",
+      "name": {
+        "en_us": "Weathered Copper Pressure Plate",
+        "de_de": "Verwitterte Kupfer-Druckplatte"
+      },
+      "texture": "assets/textures/block/weathered_copper_pressure_plate.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simplebuilding:waxed_weathered_copper_pressure_plate_from_honeycomb"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/weathered_copper_pressure_plate",
+      "drops": [
+        "simplebuilding:weathered_copper_pressure_plate"
+      ],
+      "note": {
+        "en": {
+          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized. After the player steps off they stay pressed just as long.",
+          "details": [
+            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes, is waxed or is scraped.",
+            "Waxing works like vanilla copper: use honeycomb on a plate (or craft plate + honeycomb) to get the Waxed Copper Pressure Plate of the same stage, which no longer oxidizes; an axe scrapes the wax off first. Waxed plates look like their unwaxed stage.",
+            "Like vanilla pressure plates they visibly sink in while pressed.",
+            "Crafting: two copper blocks side by side. Pistons destroy them. Can be switched off with tweaks.pads.enableTimedCopperPlates.",
+            "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
+          ]
+        },
+        "de": {
+          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert. Nach dem Heruntergehen bleiben sie genauso lange gedrückt.",
+          "details": [
+            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren, Wachsen und Abkratzen erhalten.",
+            "Wachsen wie bei Vanilla-Kupfer: Honigwabe auf die Platte (oder Platte + Honigwabe in der Werkbank) ergibt die Gewachste Kupfer-Druckplatte derselben Stufe, die nicht mehr oxidiert; eine Axt kratzt zuerst das Wachs ab. Gewachste Platten sehen aus wie ihre ungewachste Stufe.",
+            "Wie Vanilla-Druckplatten sinken sie gedrückt sichtbar ein.",
+            "Werkbank: zwei Kupferblöcke nebeneinander. Kolben zerstören sie. Abschaltbar über tweaks.pads.enableTimedCopperPlates.",
+            "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "common/src/shared/java/com/simplebuilding/gametest/PressurePlateTests.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "docs/SIMPLETWEAKS-UEBERNAHME.md",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
@@ -30640,6 +30867,118 @@ window.WIKI_DATA = {
         "26.2",
         "26.3"
       ]
+    },
+    {
+      "id": "simplebuilding:waxed_copper_pressure_plate_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": "waxed_copper_pressure_plate",
+      "result": {
+        "id": "simplebuilding:waxed_copper_pressure_plate",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/waxed_copper_pressure_plate_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simplebuilding:copper_pressure_plate"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:copper_pressure_plate"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:waxed_exposed_copper_pressure_plate_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": "waxed_exposed_copper_pressure_plate",
+      "result": {
+        "id": "simplebuilding:waxed_exposed_copper_pressure_plate",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/waxed_exposed_copper_pressure_plate_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simplebuilding:exposed_copper_pressure_plate"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:exposed_copper_pressure_plate"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:waxed_oxidized_copper_pressure_plate_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": "waxed_oxidized_copper_pressure_plate",
+      "result": {
+        "id": "simplebuilding:waxed_oxidized_copper_pressure_plate",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/waxed_oxidized_copper_pressure_plate_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simplebuilding:oxidized_copper_pressure_plate"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:oxidized_copper_pressure_plate"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:waxed_weathered_copper_pressure_plate_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": "waxed_weathered_copper_pressure_plate",
+      "result": {
+        "id": "simplebuilding:waxed_weathered_copper_pressure_plate",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/waxed_weathered_copper_pressure_plate_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simplebuilding:weathered_copper_pressure_plate"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:weathered_copper_pressure_plate"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ]
     }
   ],
   "recipesOtherLines": [],
@@ -32473,6 +32812,78 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/suspended_sand.json"
+    },
+    {
+      "id": "simplebuilding:blocks/waxed_copper_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:waxed_copper_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/waxed_copper_pressure_plate.json"
+    },
+    {
+      "id": "simplebuilding:blocks/waxed_exposed_copper_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:waxed_exposed_copper_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/waxed_exposed_copper_pressure_plate.json"
+    },
+    {
+      "id": "simplebuilding:blocks/waxed_oxidized_copper_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:waxed_oxidized_copper_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/waxed_oxidized_copper_pressure_plate.json"
+    },
+    {
+      "id": "simplebuilding:blocks/waxed_weathered_copper_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:waxed_weathered_copper_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/waxed_weathered_copper_pressure_plate.json"
     },
     {
       "id": "simplebuilding:blocks/weathered_copper_pressure_plate",
@@ -46726,9 +47137,9 @@ window.WIKI_DATA = {
   },
   "counts": {
     "items": 166,
-    "blocks": 107,
-    "recipes": 342,
-    "lootTables": 104,
+    "blocks": 111,
+    "recipes": 346,
+    "lootTables": 108,
     "trades": 21,
     "enchantments": 19,
     "tags": 27,

@@ -960,6 +960,17 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .define('C', Items.COPPER_BLOCK.weathering().unaffected())
                         .unlockedBy("has_copper_block", has(Items.COPPER_BLOCK.weathering().unaffected()))
                         .save(output);
+                // Gewachste Kupferplatten auch an der Werkbank, wie Vanilla-Kupfer: Platte + Honigwabe
+                for (int i = 0; i < 4; i++) {
+                    net.minecraft.world.level.block.Block unwaxed = com.simplebuilding.tweaks.block.CopperPressurePlateBlock.stages().get(i);
+                    net.minecraft.world.level.block.Block waxed = com.simplebuilding.tweaks.block.CopperPressurePlateBlock.waxedStages().get(i);
+                    shapeless(RecipeCategory.REDSTONE, waxed)
+                            .requires(unwaxed)
+                            .requires(Items.HONEYCOMB)
+                            .group(getItemName(waxed))
+                            .unlockedBy(getHasName(unwaxed), has(unwaxed))
+                            .save(output, getConversionRecipeName(waxed, Items.HONEYCOMB));
+                }
                 tweaksSmithing(anyTemplate, TweaksBlocks.COPPER_PRESSURE_PLATE, diamondPlate, TweaksBlocks.CHUNK_LOADER, "chunk_loader_smithing");
                 tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.CHUNK_LOADER, netheritePlate, TweaksBlocks.NETHERITE_CHUNK_LOADER, "netherite_chunk_loader_smithing");
                 tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.NETHERITE_CHUNK_LOADER, enderitePlate, TweaksBlocks.ENDERITE_CHUNK_LOADER, "enderite_chunk_loader_smithing");

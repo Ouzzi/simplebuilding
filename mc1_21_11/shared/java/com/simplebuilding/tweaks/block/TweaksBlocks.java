@@ -90,15 +90,23 @@ public final class TweaksBlocks {
     public static final Block ENDERITE_CHUNK_LOADER = register("enderite_chunk_loader",
             p -> new ChunkLoaderBlock(sturdy(p).mapColor(MapColor.COLOR_PURPLE).strength(5.0f).lightLevel(s -> 9), 3));
 
-    // --- Kupfer-Druckplatten (zerbrechlich, oxidieren) ---
+    // --- Kupfer-Druckplatten (zerbrechlich, oxidieren; gewachst wie Vanilla-Kupfer: oxidieren nicht) ---
     public static final Block COPPER_PRESSURE_PLATE = register("copper_pressure_plate",
-            p -> new CopperPressurePlateBlock(WeatheringCopper.WeatherState.UNAFFECTED, fragile(p).mapColor(MapColor.COLOR_ORANGE)));
+            p -> new CopperPressurePlateBlock(WeatheringCopper.WeatherState.UNAFFECTED, false, fragile(p).mapColor(MapColor.COLOR_ORANGE)));
     public static final Block EXPOSED_COPPER_PRESSURE_PLATE = register("exposed_copper_pressure_plate",
-            p -> new CopperPressurePlateBlock(WeatheringCopper.WeatherState.EXPOSED, fragile(p).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY)));
+            p -> new CopperPressurePlateBlock(WeatheringCopper.WeatherState.EXPOSED, false, fragile(p).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY)));
     public static final Block WEATHERED_COPPER_PRESSURE_PLATE = register("weathered_copper_pressure_plate",
-            p -> new CopperPressurePlateBlock(WeatheringCopper.WeatherState.WEATHERED, fragile(p).mapColor(MapColor.WARPED_STEM)));
+            p -> new CopperPressurePlateBlock(WeatheringCopper.WeatherState.WEATHERED, false, fragile(p).mapColor(MapColor.WARPED_STEM)));
     public static final Block OXIDIZED_COPPER_PRESSURE_PLATE = register("oxidized_copper_pressure_plate",
-            p -> new CopperPressurePlateBlock(WeatheringCopper.WeatherState.OXIDIZED, fragile(p).mapColor(MapColor.WARPED_NYLIUM)));
+            p -> new CopperPressurePlateBlock(WeatheringCopper.WeatherState.OXIDIZED, false, fragile(p).mapColor(MapColor.WARPED_NYLIUM)));
+    public static final Block WAXED_COPPER_PRESSURE_PLATE = register("waxed_copper_pressure_plate",
+            p -> new CopperPressurePlateBlock(WeatheringCopper.WeatherState.UNAFFECTED, true, fragile(p).mapColor(MapColor.COLOR_ORANGE)));
+    public static final Block WAXED_EXPOSED_COPPER_PRESSURE_PLATE = register("waxed_exposed_copper_pressure_plate",
+            p -> new CopperPressurePlateBlock(WeatheringCopper.WeatherState.EXPOSED, true, fragile(p).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY)));
+    public static final Block WAXED_WEATHERED_COPPER_PRESSURE_PLATE = register("waxed_weathered_copper_pressure_plate",
+            p -> new CopperPressurePlateBlock(WeatheringCopper.WeatherState.WEATHERED, true, fragile(p).mapColor(MapColor.WARPED_STEM)));
+    public static final Block WAXED_OXIDIZED_COPPER_PRESSURE_PLATE = register("waxed_oxidized_copper_pressure_plate",
+            p -> new CopperPressurePlateBlock(WeatheringCopper.WeatherState.OXIDIZED, true, fragile(p).mapColor(MapColor.WARPED_NYLIUM)));
 
     private TweaksBlocks() {
     }
