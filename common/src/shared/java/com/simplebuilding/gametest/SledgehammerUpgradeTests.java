@@ -910,6 +910,9 @@ public final class SledgehammerUpgradeTests {
         helper.assertTrue(after.is(to), what + " is " + after + " after " + UPGRADE_TICKS + " ticks of hammering, "
                 + "not the next tier");
         for (Property<?> property : before.getProperties()) {
+            if (!after.hasProperty(property)) {
+                continue; // z. B. der Verschleiss des Netherit-Brechers: der Enderit-Kolben hat keinen
+            }
             helper.assertValueEqual(after.getValue(property), before.getValue(property),
                     what + ": block state property '" + property.getName() + "' after the upgrade");
         }

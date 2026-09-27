@@ -2,6 +2,10 @@ package com.simplebuilding.forge.gametest;
 
 import com.simplebuilding.gametest.GameTestSpec;
 import com.simplebuilding.gametest.SimpleBuildingGameTests;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Consumer;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -12,8 +16,11 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.gametest.framework.GameTestInstance;
 import net.minecraft.gametest.framework.TestData;
 import net.minecraft.gametest.framework.TestEnvironmentDefinition;
+import net.minecraft.locale.Language;
+import net.minecraft.network.chat.FormattedText;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraftforge.eventbus.api.bus.BusGroup;
 import net.minecraftforge.gametest.ForgeGameTestHooks;
 import net.minecraftforge.registries.RegisterEvent;
@@ -64,6 +71,46 @@ public final class ForgeGameTests {
             return;
         }
         RegisterEvent.getBus(modBus).addListener(ForgeGameTests::registerTestFunctions);
+        injectModEnglish();
+    }
+
+    /**
+     * The Forge gametest server knows only vanilla's English, while the Fabric and NeoForge servers
+     * also load the mod's {@code en_us.json}. Tests that read tooltip or message text then saw bare
+     * keys on Forge only. Falls back to the mod's English for keys vanilla does not have.
+     */
+    private static void injectModEnglish() {
+        Map<String, String> modEnglish = new HashMap<>();
+        try (InputStream in = ForgeGameTests.class.getResourceAsStream("/assets/simplebuilding/lang/en_us.json")) {
+            if (in == null) {
+                return;
+            }
+            Language.loadFromJson(in, modEnglish::put);
+        } catch (IOException e) {
+            return;
+        }
+        Language vanilla = Language.getInstance();
+        Language.inject(new Language() {
+            @Override
+            public String getOrDefault(String key, String defaultValue) {
+                return vanilla.has(key) ? vanilla.getOrDefault(key, defaultValue) : modEnglish.getOrDefault(key, defaultValue);
+            }
+
+            @Override
+            public boolean has(String key) {
+                return vanilla.has(key) || modEnglish.containsKey(key);
+            }
+
+            @Override
+            public boolean isDefaultRightToLeft() {
+                return vanilla.isDefaultRightToLeft();
+            }
+
+            @Override
+            public FormattedCharSequence getVisualOrder(FormattedText text) {
+                return vanilla.getVisualOrder(text);
+            }
+        });
     }
 
     private static void registerTestFunctions(RegisterEvent event) {
