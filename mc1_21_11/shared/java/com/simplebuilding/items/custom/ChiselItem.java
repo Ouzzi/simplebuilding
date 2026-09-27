@@ -685,7 +685,7 @@ public class ChiselItem extends Item {
         if(stack.get(ModDataComponentTypes.COORDINATES) != null) {
             BlockPos p = stack.get(ModDataComponentTypes.COORDINATES);
             assert p != null;
-            textConsumer.accept(Component.literal("Last Target: " + p.getX() + ", " + p.getY() + ", " + p.getZ())
+            textConsumer.accept(Component.translatable("tooltip.simplebuilding.chisel.last_target", p.getX(), p.getY(), p.getZ())
                     .withStyle(ChatFormatting.GRAY));
         }
         super.appendHoverText(stack, context, displayComponent, textConsumer, type);

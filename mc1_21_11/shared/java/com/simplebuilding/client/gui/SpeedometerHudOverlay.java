@@ -90,7 +90,7 @@ public class SpeedometerHudOverlay {
 
         // Titel Zeile
         ChatFormatting titleColor = isEnchanted ? ChatFormatting.AQUA : ChatFormatting.WHITE;
-        lines.add(Component.literal("Speedometer").withStyle(titleColor));
+        lines.add(Component.translatable("hud.simplebuilding.speedometer.title").withStyle(titleColor));
 
         // Zeile 1: Aktueller Speed
         lines.add(Component.literal(String.format("%.1f b/s", speedBps))
@@ -108,14 +108,14 @@ public class SpeedometerHudOverlay {
                         .setStyle(Style.EMPTY.withColor(danger ? COLOR_DANGER : COLOR_SAFE).withBold(true));
 
                 // Stats Text ("Top: 20.1 Avg: 15.0") in Grau
-                Component stats = Component.literal(String.format("Top: %.1f  Avg: %.1f", topSpeed, avgSpeed))
+                Component stats = Component.translatable("hud.simplebuilding.speedometer.stats", String.format("%.1f", topSpeed), String.format("%.1f", avgSpeed))
                         .setStyle(Style.EMPTY.withColor(COLOR_STATS));
 
                 // Zusammenbauen: "⚠ Top: ... Avg: ..."
                 lines.add(Component.empty().append(symbol).append(stats));
             }
             else {
-                lines.add(Component.literal(String.format("Top: %.1f  Avg: %.1f", topSpeed, avgSpeed))
+                lines.add(Component.translatable("hud.simplebuilding.speedometer.stats", String.format("%.1f", topSpeed), String.format("%.1f", avgSpeed))
                         .setStyle(Style.EMPTY.withColor(COLOR_STATS)));
                 double xBps = Math.abs(velX * 20);
                 double zBps = Math.abs(velZ * 20);

@@ -75,4 +75,19 @@ public final class OreDetectorGameTest {
     public void theOreDetectorRecipeCraftsFromItsDocumentedPattern(GameTestHelper helper) {
         OreDetectorTests.theOreDetectorRecipeCraftsFromItsDocumentedPattern(helper);
     }
+
+    @GameTest
+    public void pingsCostDurabilityOnlyWhenTheyFindSomething(GameTestHelper helper) {
+        OreDetectorTests.pingsCostDurabilityOnlyWhenTheyFindSomething(helper);
+    }
+
+    @GameTest
+    public void blockEntitiesCannotBeCalibratedOrFound(GameTestHelper helper) {
+        OreDetectorTests.blockEntitiesCannotBeCalibratedOrFound(helper);
+    }
+
+    @GameTest
+    public void scansAreCappedPerServerTick(GameTestHelper helper) {
+        OreDetectorTests.scansAreCappedPerServerTick(helper);
+    }
 }

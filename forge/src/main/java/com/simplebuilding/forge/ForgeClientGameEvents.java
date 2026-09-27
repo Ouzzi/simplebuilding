@@ -1,5 +1,6 @@
 package com.simplebuilding.forge;
 
+import com.simplebuilding.client.ClientToggleKeys;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.client.ClientState;
 import com.simplebuilding.client.DoubleJumpController;
@@ -14,7 +15,6 @@ import com.simplebuilding.networking.TrimBenefitPayload;
 import com.simplebuilding.platform.ClientNetworking;
 import com.simplebuilding.util.EnchantmentHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderHighlightEvent;
@@ -37,18 +37,12 @@ public final class ForgeClientGameEvents {
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent.Post event) {
         Minecraft client = Minecraft.getInstance();
+        // Umschalttasten: gemeinsamer Handler, leert die Warteschlange auch ohne Spieler (Audit #38).
+        ClientToggleKeys.tick(client);
         if (client.player == null) {
             return;
         }
 
-        while (ClientState.highlightToggleKey != null && ClientState.highlightToggleKey.consumeClick()) {
-            ClientState.showHighlights = !ClientState.showHighlights;
-            client.player.sendOverlayMessage(Component.literal("Highlights: " + (ClientState.showHighlights ? "ON" : "OFF")));
-        }
-        while (ClientState.octantFigureToggleKey != null && ClientState.octantFigureToggleKey.consumeClick()) {
-            ClientState.showOctantFigure = !ClientState.showOctantFigure;
-            client.player.sendOverlayMessage(Component.literal("Octant Figure: " + (ClientState.showOctantFigure ? "ON" : "OFF")));
-        }
         while (ClientState.settingsKey != null && ClientState.settingsKey.consumeClick()) {
             ItemStack stack = client.player.getMainHandItem();
             if (stack.getItem() instanceof OctantItem) {

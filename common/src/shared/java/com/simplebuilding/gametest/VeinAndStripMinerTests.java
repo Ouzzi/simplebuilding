@@ -1,5 +1,10 @@
 package com.simplebuilding.gametest;
 
+import com.simplebuilding.util.SledgehammerUsageEvent;
+import com.simplebuilding.items.ModItems;
+import java.util.ArrayList;
+import net.minecraft.world.level.border.WorldBorder;
+import net.minecraft.world.item.enchantment.Enchantments;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.util.MiningUtils;
 import com.simplebuilding.util.StripMinerUsageEvent;
@@ -707,6 +712,143 @@ public final class VeinAndStripMinerTests {
                     "andesite dropped by the strip mined riser");
             helper.succeed();
         });
+    }
+
+    // =====================================================================================
+    // AUDIT 2026-09-26 #26 / #27
+    // =====================================================================================
+
+    /**
+     * Audit #26: the Strip Miner refund is a third of the damage the extra blocks really cost,
+     * not a third of their number. With Unbreaking those blocks usually cost nothing, and the old
+     * {@code (n + 1) / 3} then took damage off a pickaxe that had taken none - a net repair.
+     *
+     * <p>Unbreaking 255 lets a block through with a chance of 1/256, so the four blocks of a
+     * level III shaft practically never cost anything: the old code left 10 - 1 = 9, the fixed
+     * one leaves 10 (or more, on the rare hit).
+     *
+     * <p>What breaks it: basing the refund on the block count again, or on anything but the
+     * damage measured across the loop.
+     */
+    public static void stripMinerRefundNeverRepairsAnUnbreakingPickaxe(GameTestHelper helper) {
+        fillFloor(helper);
+        ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 6.0, 3.5), 0.0F, 90.0F);
+        player.setShiftKeyDown(true);
+        buildShaft(helper);
+
+        ItemStack pickaxe = stripMinerPickaxe(helper, 3);
+        pickaxe.enchant(enchantment(helper, Enchantments.UNBREAKING), 255);
+        pickaxe.setDamageValue(10);
+        stripMine(helper, player, pickaxe, SHAFT_ORIGIN);
+
+        for (BlockPos pos : SHAFT) {
+            helper.assertBlockPresent(Blocks.AIR, pos);
+        }
+        int damage = player.getMainHandItem().getDamageValue();
+        helper.assertTrue(damage >= 10,
+                "the Strip Miner refund repaired an Unbreaking pickaxe from 10 to " + damage
+                        + " damage although the four blocks cost it nothing");
+                helper.succeed();
+    }
+
+    /**
+     * Audit #27: Vein Miner, Strip Miner and the sledgehammer break their extra blocks through
+     * {@code ServerPlayerGameMode#destroyBlock}, which - unlike the packet handler for the struck
+     * block - never asks {@code Level#mayInteract} (vanilla spawn protection and the world
+     * border). Each extra position is now skipped when the player may not interact there.
+     *
+     * <p>The gametest server has no spawn protection, so the world border stands in for it: the
+     * same {@code ServerLevel#mayInteract} answers both. The border is shrunk to the one block
+     * column of the struck block for the length of a single hook call and restored straight
+     * after, inside the same server tick, so no other test ever sees it. Every case then runs a
+     * second time without the border, which proves the layout would really have been mined.
+     *
+     * <p>What breaks it: dropping the {@code mayInteract} check from any of the three hooks.
+     */
+    public static void extraBlocksSkipPositionsThePlayerMayNotInteractWith(GameTestHelper helper) {
+        fillFloor(helper);
+        ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 3.0, 3.5), 0.0F, 90.0F);
+
+        // --- Vein Miner: every extra ore lies outside the border column of the origin ---
+        player.setShiftKeyDown(true);
+        buildOreVein(helper);
+        insideOnlyTheColumnOf(helper, player, ORE_ORIGIN, ORE_TAIL.get(0),
+                () -> veinMine(helper, player, veinMinerPickaxe(helper, Items.IRON_PICKAXE, 5), ORE_ORIGIN));
+        helper.assertTrue(brokenCount(helper, ORE_CLUSTER_EXTRAS) == 0,
+                brokenCount(helper, ORE_CLUSTER_EXTRAS) + " ores Vein Miner broke outside the area the player may interact with");
+        veinMine(helper, player, veinMinerPickaxe(helper, Items.IRON_PICKAXE, 5), ORE_ORIGIN);
+        helper.assertTrue(brokenCount(helper, ORE_CLUSTER_EXTRAS) == ORE_CLUSTER_EXTRAS.size(),
+                "test setup broken: Vein Miner did not take the whole vein once the border was back");
+
+        // --- Sledgehammer: the eight neighbours of a flat 3x3 face ---
+        fillLayer(helper, 1, 0, 7, 0, 7, Blocks.AIR);
+        fillLayer(helper, 2, 0, 7, 0, 7, Blocks.AIR);
+        player.setShiftKeyDown(false);
+        List<BlockPos> face = new ArrayList<>();
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dz = -1; dz <= 1; dz++) {
+                BlockPos pos = HAMMER_CENTRE.offset(dx, 0, dz);
+                helper.setBlock(pos, Blocks.STONE);
+                if (dx != 0 || dz != 0) {
+                    face.add(pos);
+                }
+            }
+        }
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER));
+        insideOnlyTheColumnOf(helper, player, HAMMER_CENTRE, face.get(0), () -> hammerSwing(helper, player, HAMMER_CENTRE));
+        helper.assertTrue(brokenCount(helper, face) == 0,
+                brokenCount(helper, face) + " blocks the sledgehammer broke outside the area the player may interact with");
+        hammerSwing(helper, player, HAMMER_CENTRE);
+        helper.assertTrue(brokenCount(helper, face) == face.size(),
+                "test setup broken: the sledgehammer did not clear its face once the border was back");
+
+        // --- Strip Miner: a tunnel to the south leaves the column at once ---
+        player.setShiftKeyDown(true);
+        player.snapTo(player.getX(), player.getY(), player.getZ(), 0.0F, 0.0F);
+        buildTunnel(helper);
+        insideOnlyTheColumnOf(helper, player, TUNNEL_ORIGIN, TUNNEL.get(0),
+                () -> stripMine(helper, player, stripMinerPickaxe(helper, 3), TUNNEL_ORIGIN));
+        helper.assertTrue(brokenCount(helper, TUNNEL) == 0,
+                brokenCount(helper, TUNNEL) + " blocks Strip Miner broke outside the area the player may interact with");
+        stripMine(helper, player, stripMinerPickaxe(helper, 3), TUNNEL_ORIGIN);
+        helper.assertTrue(brokenCount(helper, TUNNEL) == TUNNEL.size(),
+                "test setup broken: Strip Miner did not dig the tunnel once the border was back");
+
+                helper.succeed();
+    }
+
+    /** Centre of the 3x3 face the protection test swings the sledgehammer at. */
+    private static final BlockPos HAMMER_CENTRE = new BlockPos(3, 1, 3);
+
+    /**
+     * Runs {@code body} with the world border shrunk to the block column of {@code inside}, then
+     * restores it - in the same tick, so nothing else runs while it is small.
+     */
+    private static void insideOnlyTheColumnOf(GameTestHelper helper, ServerPlayer player, BlockPos inside,
+                                              BlockPos outside, Runnable body) {
+        WorldBorder border = helper.getLevel().getWorldBorder();
+        double centreX = border.getCenterX();
+        double centreZ = border.getCenterZ();
+        double size = border.getSize();
+        BlockPos column = helper.absolutePos(inside);
+        border.setCenter(column.getX() + 0.5, column.getZ() + 0.5);
+        border.setSize(1.0);
+        try {
+            helper.assertTrue(helper.getLevel().mayInteract(player, column)
+                            && !helper.getLevel().mayInteract(player, helper.absolutePos(outside)),
+                    "test setup broken: the shrunken border does not separate the struck block from its neighbours");
+            body.run();
+        } finally {
+            border.setCenter(centreX, centreZ);
+            border.setSize(size);
+        }
+    }
+
+    /** The sledgehammer's break hook for {@code relativeOrigin}, as the loader hooks call it. */
+    private static void hammerSwing(GameTestHelper helper, ServerPlayer player, BlockPos relativeOrigin) {
+        BlockPos origin = helper.absolutePos(relativeOrigin);
+        SledgehammerUsageEvent.handleBeforeBlockBreak(
+                helper.getLevel(), player, origin, helper.getLevel().getBlockState(origin), null);
     }
 
     // =====================================================================================

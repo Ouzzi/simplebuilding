@@ -511,21 +511,19 @@ public class ModItems {
 
     // =================================================================================
 
-    // TODO: use lang files for text components
-
     // Trim Templates
 
     // =================================================================================
 
     public static final Item GLOWING_TRIM_TEMPLATE = registerItem("glowing_trim_template", settings -> new SmithingTemplateItem(
 
-            Component.literal("Add Radiance").withStyle(ChatFormatting.GRAY),
+            Component.translatable("item.simplebuilding.glowing_trim_template.applies_to").withStyle(ChatFormatting.GRAY),
 
-            Component.literal("Glowing Material").withStyle(ChatFormatting.GRAY),
+            Component.translatable("item.simplebuilding.glowing_trim_template.ingredients").withStyle(ChatFormatting.GRAY),
 
-            Component.literal("Apply to Armor").withStyle(ChatFormatting.GRAY),
+            Component.translatable("item.simplebuilding.glowing_trim_template.base_slot_description").withStyle(ChatFormatting.GRAY),
 
-            Component.literal("Add Glow Ink").withStyle(ChatFormatting.GRAY),
+            Component.translatable("item.simplebuilding.glowing_trim_template.additions_slot_description").withStyle(ChatFormatting.GRAY),
 
             java.util.List.of(Identifier.withDefaultNamespace("container/slot/helmet"), Identifier.withDefaultNamespace("container/slot/chestplate"), Identifier.withDefaultNamespace("container/slot/leggings"), Identifier.withDefaultNamespace("container/slot/boots")),
 
@@ -537,13 +535,13 @@ public class ModItems {
 
     public static final Item EMITTING_TRIM_TEMPLATE = registerItem("emitting_trim_template", settings -> new SmithingTemplateItem(
 
-            Component.literal("Light-source").withStyle(ChatFormatting.GOLD),
+            Component.translatable("item.simplebuilding.emitting_trim_template.applies_to").withStyle(ChatFormatting.GOLD),
 
-            Component.literal("Light function").withStyle(ChatFormatting.GRAY),
+            Component.translatable("item.simplebuilding.emitting_trim_template.ingredients").withStyle(ChatFormatting.GRAY),
 
-            Component.literal("Emits light").withStyle(ChatFormatting.GRAY),
+            Component.translatable("item.simplebuilding.emitting_trim_template.base_slot_description").withStyle(ChatFormatting.GRAY),
 
-            Component.literal("Add Material").withStyle(ChatFormatting.GRAY),
+            Component.translatable("item.simplebuilding.emitting_trim_template.additions_slot_description").withStyle(ChatFormatting.GRAY),
 
             List.of(Identifier.withDefaultNamespace("container/slot/helmet"), Identifier.withDefaultNamespace("container/slot/chestplate"), Identifier.withDefaultNamespace("container/slot/leggings"), Identifier.withDefaultNamespace("container/slot/boots")),
 

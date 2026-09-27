@@ -11,6 +11,7 @@ import com.simplebuilding.screen.BackpackMenuProviders;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
 import com.simplebuilding.screen.ModHopperScreenHandler;
+import com.simplebuilding.util.AirJumpGuard;
 import com.simplebuilding.util.ISpaceKeyTracker;
 import com.simplebuilding.util.TrimBenefitUser;
 import net.minecraft.core.component.DataComponents;
@@ -39,7 +40,9 @@ public final class ModMessageHandlers {
 
         if (doubleJump.isPresent()) {
             ItemStack bootStack = player.getItemBySlot(EquipmentSlot.FEET);
-            if (EnchantmentHelper.getItemEnchantmentLevel(doubleJump.get(), bootStack) > 0) {
+            int level = EnchantmentHelper.getItemEnchantmentLevel(doubleJump.get(), bootStack);
+            // Nicht mehr blind vertrauen (Audit #30): nur in der Luft, einmal je Sturz bzw. je Abklingzeit.
+            if (level > 0 && AirJumpGuard.tryUse(player, level)) {
                 player.fallDistance = 0;
                 if (!player.isCreative()) {
                     bootStack.hurtAndBreak(1, player, EquipmentSlot.FEET);

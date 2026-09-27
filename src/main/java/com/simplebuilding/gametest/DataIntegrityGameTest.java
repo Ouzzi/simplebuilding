@@ -150,4 +150,9 @@ public final class DataIntegrityGameTest {
     public void everyEnderiteGearPieceUpgradesFromItsNetheriteTwin(GameTestHelper helper) {
         DataIntegrityTests.everyEnderiteGearPieceUpgradesFromItsNetheriteTwin(helper);
     }
+
+    @GameTest
+    public void everyPlayerFacingTextHasEnglishAndGermanTranslations(GameTestHelper helper) {
+        DataIntegrityTests.everyPlayerFacingTextHasEnglishAndGermanTranslations(helper);
+    }
 }

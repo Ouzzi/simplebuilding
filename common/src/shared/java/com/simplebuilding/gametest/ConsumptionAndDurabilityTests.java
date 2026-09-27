@@ -568,7 +568,10 @@ public final class ConsumptionAndDurabilityTests {
                 "the air jump was free; the boots have to take a point of wear in survival");
 
         // Three more jumps, three more points - the cost is per jump, not once per pair of boots.
+        // Each one in a fall of its own: since audit #30 the server grants one air jump per fall
+        // (AirJumpGuard), so the player lands and takes off again in between.
         for (int i = 0; i < 3; i++) {
+            landAndTakeOff(survival);
             ModMessageHandlers.handleDoubleJump(new DoubleJumpPayload(), survival);
         }
         helper.assertValueEqual(bootWear(survival), 4, "wear after four air jumps");
@@ -577,6 +580,7 @@ public final class ConsumptionAndDurabilityTests {
         //     with a creative player, where the wear branch cannot run in the first place. ---
         ItemStack plain = new ItemStack(Items.DIAMOND_BOOTS);
         survival.setItemSlot(EquipmentSlot.FEET, plain);
+        landAndTakeOff(survival);
         survival.fallDistance = 7.5F;
         ModMessageHandlers.handleDoubleJump(new DoubleJumpPayload(), survival);
 
@@ -619,6 +623,13 @@ public final class ConsumptionAndDurabilityTests {
         player.getAbilities().instabuild = instabuild;
         helper.runBeforeTestEnd(() -> helper.getLevel().getServer().getPlayerList().remove(player));
         return player;
+    }
+
+    /** The player touches the ground (which frees the air jump again, see AirJumpGuard) and leaves it. */
+    private static void landAndTakeOff(ServerPlayer player) {
+        player.setOnGround(true);
+        com.simplebuilding.util.AirJumpGuard.onPlayerTick(player);
+        player.setOnGround(false);
     }
 
     /**

@@ -68,6 +68,8 @@ public final class VeinMinerUsageEvent {
             if (targetPos.equals(pos)) continue;
 
             if (stack.isEmpty()) break;
+            // Vanilla-Spawnschutz und Weltgrenze: destroyBlock prueft beides nicht.
+            if (!world.mayInteract(player, targetPos)) continue;
 
             MINED_BLOCKS.add(targetPos);
             try {

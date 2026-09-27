@@ -101,7 +101,7 @@ public class BlockAttachedEntityTickMixin {
                         frame.setInvisible(false);
 
                         world.playSound(null, frame.blockPosition(), SoundEvents.BRUSH_GRAVEL_COMPLETED, SoundSource.PLAYERS, 1.0f, 1.0f);
-                        player.sendOverlayMessage(Component.literal("Item Frame sichtbar gemacht.").withStyle(ChatFormatting.YELLOW));
+                        player.sendOverlayMessage(Component.translatable("message.simplebuilding.item_frame.shown").withStyle(ChatFormatting.YELLOW));
 
                         // Item Benutzung beim Spieler stoppen
                         player.releaseUsingItem();

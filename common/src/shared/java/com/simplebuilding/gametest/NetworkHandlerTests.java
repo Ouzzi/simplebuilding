@@ -1,5 +1,6 @@
 package com.simplebuilding.gametest;
 
+import com.simplebuilding.util.AirJumpGuard;
 import com.simplebuilding.version.McVersion;
 
 import com.simplebuilding.enchantment.ModEnchantments;
@@ -134,6 +135,8 @@ public final class NetworkHandlerTests {
      */
     public static void doubleJumpNeedsEnchantedBootsAndWearsThem(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
+        // In the air: since audit #30 the server refuses air jumps on the ground (AirJumpGuard).
+        player.setOnGround(false);
 
         // --- plain boots: the handler must not touch anything ---
         ItemStack plain = new ItemStack(Items.DIAMOND_BOOTS);
@@ -190,6 +193,56 @@ public final class NetworkHandlerTests {
                 "a piece outside the feet slot was charged for an air jump");
 
         helper.succeed();
+    }
+
+    /**
+     * Audit #30: the server no longer believes every air jump packet. A modified client used to
+     * send one just before touching down - on every tick if it liked - and never took fall damage.
+     * {@code AirJumpGuard} now grants an air jump only while the player is in the air, once per
+     * fall (a second one only after the client's own cooldown), and frees it again on landing.
+     *
+     * <p>What breaks it: dropping the on-ground check (the first case would clear the fall), not
+     * recording the used jump (the third case would clear it again), or never clearing the record
+     * on landing (the last case would stay refused).
+     */
+    public static void airJumpIsRefusedOnTheGroundAndGrantedOncePerFall(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        ItemStack boots = new ItemStack(Items.DIAMOND_BOOTS);
+        boots.enchant(enchantment(helper, ModEnchantments.DOUBLE_JUMP), 1);
+        player.setItemSlot(EquipmentSlot.FEET, boots);
+        helper.assertTrue(AirJumpGuard.cooldownTicks(1) > AirJumpGuard.LATENCY_SLACK_TICKS,
+                "test setup broken: the configured air jump cooldown is too short to be told apart from latency");
+
+        // --- standing on the ground: a jump packet must not clear anything ---
+        player.setOnGround(true);
+        AirJumpGuard.onPlayerTick(player);
+        player.fallDistance = 7.5F;
+        ModMessageHandlers.handleDoubleJump(new DoubleJumpPayload(), player);
+        helper.assertTrue(player.fallDistance == 7.5F,
+                "an air jump packet was granted while the player stood on the ground");
+
+        // --- in the air: the first air jump of the fall is granted ---
+        player.setOnGround(false);
+        ModMessageHandlers.handleDoubleJump(new DoubleJumpPayload(), player);
+        helper.assertTrue(player.fallDistance == 0.0F, "the first air jump of a fall was refused");
+        helper.assertTrue(AirJumpGuard.isUsed(player), "the granted air jump was not recorded");
+
+        // --- the same fall, straight after: refused, the jump is used until landing ---
+        player.fallDistance = 7.5F;
+        ModMessageHandlers.handleDoubleJump(new DoubleJumpPayload(), player);
+        helper.assertTrue(player.fallDistance == 7.5F,
+                "a second air jump in the same fall was granted right away - a client could reset its "
+                        + "fall on every tick before landing");
+
+        // --- landing frees it again ---
+        player.setOnGround(true);
+        AirJumpGuard.onPlayerTick(player);
+        helper.assertTrue(!AirJumpGuard.isUsed(player), "landing did not free the air jump");
+        player.setOnGround(false);
+        ModMessageHandlers.handleDoubleJump(new DoubleJumpPayload(), player);
+        helper.assertTrue(player.fallDistance == 0.0F, "the air jump stayed refused after landing");
+
+                helper.succeed();
     }
 
     // =====================================================================================

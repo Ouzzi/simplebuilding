@@ -1,5 +1,6 @@
 package com.simplebuilding;
 
+import com.simplebuilding.client.ClientToggleKeys;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.serialization.Codec;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
@@ -43,7 +44,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperty;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
@@ -112,19 +112,8 @@ public class SimplebuildingClient implements ClientModInitializer {
 
         // --- Event Loop (Tick) ---
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            while (ClientState.highlightToggleKey.consumeClick()) {
-                ClientState.showHighlights = !ClientState.showHighlights;
-                if (client.player != null) {
-                    client.player.displayClientMessage(Component.literal("Highlights: " + (ClientState.showHighlights ? "ON" : "OFF")), true);
-                }
-            }
-
-            while (ClientState.octantFigureToggleKey.consumeClick()) {
-                ClientState.showOctantFigure = !ClientState.showOctantFigure;
-                if (client.player != null) {
-                    client.player.displayClientMessage(Component.literal("Octant Figure: " + (ClientState.showOctantFigure ? "ON" : "OFF")), true);
-                }
-            }
+            // Umschalttasten: ein gemeinsamer Handler fuer alle Loader (Audit 2026-09-26 #38).
+            ClientToggleKeys.tick(client);
 
             while (ClientState.settingsKey.consumeClick()) {
                 if (client.player != null) {

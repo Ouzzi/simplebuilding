@@ -57,12 +57,16 @@ public final class StripMinerUsageEvent {
         Direction miningDirection = MiningUtils.getMiningDirection(player);
 
         int brokenBlocks = 0;
+        int damageBefore = stack.getDamageValue();
         for (int i = 1; i <= depth; i++) {
             BlockPos targetPos = pos.relative(miningDirection, i);
             BlockState targetState = world.getBlockState(targetPos);
 
             if (targetState.isAir() || targetState.getDestroySpeed(world, targetPos) < 0) {break;}
             if (!stack.getItem().isCorrectToolForDrops(stack, targetState)) {break;}
+            // Vanilla-Spawnschutz und Weltgrenze: destroyBlock prueft beides nicht (das tut nur der
+            // Paket-Handler fuer den angeklickten Block). Geschuetzte Stellen werden uebersprungen.
+            if (!world.mayInteract(player, targetPos)) {continue;}
 
             MINING_BLOCKS.add(targetPos);
             boolean broken;
@@ -83,17 +87,15 @@ public final class StripMinerUsageEvent {
             }
         }
 
-        if (brokenBlocks > 0) {
-            // Beispiel: Wir wollen ca. 33% Durability sparen (nur 66% Schaden nehmen).
-            // Formel: Wir berechnen den Rabatt.
-            // (brokenBlocks + 1) / 3 sorgt dafür, dass bei 2 Extra-Blöcken 1 Schaden geheilt wird.
-            int damageRefund = (brokenBlocks + 1) / 3;
-
+        if (brokenBlocks > 0 && !stack.isEmpty()) {
+            // Rabatt: ein Drittel des Schadens, den die Zusatzbloecke WIRKLICH gekostet haben
+            // (gerundet). Frueher hing er an der Blockzahl ((n + 1) / 3); mit Unbreaking kosten
+            // die Bloecke oft gar nichts, und der Rabatt reparierte die Spitzhacke dann netto
+            // (Audit 2026-09-26 #26). Ohne Unbreaking ist gemessen == Blockzahl x Schaden je Block.
+            int measured = stack.getDamageValue() - damageBefore;
+            int damageRefund = (measured + 1) / 3;
             if (damageRefund > 0) {
-                // Wir "heilen" das Item, indem wir den Damage-Wert verringern.
-                int currentDamage = stack.getDamageValue();
-                // Sicherstellen, dass wir nicht unter 0 gehen (Item reparieren über Max hinaus)
-                stack.setDamageValue(Math.max(0, currentDamage - damageRefund));
+                stack.setDamageValue(Math.max(0, stack.getDamageValue() - damageRefund));
             }
         }
 

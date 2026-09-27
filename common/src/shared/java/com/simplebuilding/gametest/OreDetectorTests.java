@@ -759,6 +759,111 @@ public final class OreDetectorTests {
     }
 
     // =====================================================================================
+    // AUDIT 2026-09-26 #25
+    // =====================================================================================
+
+    /**
+     * Audit #25: a ping costs {@code DURABILITY_PER_HIT} durability when it finds something, and
+     * nothing when it comes back empty. Until then a held detector searched for free forever -
+     * 1024 durability that only the mode switch ever used.
+     *
+     * <p>The detector is calibrated on a pearlescent froglight, a block no other test places, so
+     * the empty ping cannot be answered by a neighbouring test structure within the 24 block
+     * scan radius.
+     *
+     * <p>What breaks it: removing the {@code hurtAndBreak} from {@code ping}, charging empty pings
+     * as well, or charging more than one point.
+     */
+    public static void pingsCostDurabilityOnlyWhenTheyFindSomething(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        OreDetectorItem item = (OreDetectorItem) ModItems.ORE_DETECTOR;
+        ItemStack detector = calibratedOn(Blocks.PEARLESCENT_FROGLIGHT);
+        player.setItemInHand(InteractionHand.MAIN_HAND, detector);
+        BlockPos target = new BlockPos(3, 2, 4);
+
+        helper.setBlock(target, Blocks.PEARLESCENT_FROGLIGHT);
+        BlockPos found = item.ping(helper.getLevel(), detector, player, EquipmentSlot.MAINHAND);
+        helper.assertTrue(helper.absolutePos(target).equals(found),
+                "test setup broken: the ping did not find the froglight next to the player, it found " + found);
+        helper.assertTrue(detector.getDamageValue() == OreDetectorItem.DURABILITY_PER_HIT,
+                "a ping that found something cost " + detector.getDamageValue() + " durability instead of "
+                        + OreDetectorItem.DURABILITY_PER_HIT);
+
+        helper.setBlock(target, Blocks.AIR);
+        BlockPos nothing = item.ping(helper.getLevel(), detector, player, EquipmentSlot.MAINHAND);
+        helper.assertTrue(nothing == null, "test setup broken: the empty ping still found " + nothing);
+        helper.assertTrue(detector.getDamageValue() == OreDetectorItem.DURABILITY_PER_HIT,
+                "an empty ping cost durability as well, the detector is at " + detector.getDamageValue());
+                helper.succeed();
+    }
+
+    /**
+     * Audit #25: block entities - chests, shulker boxes, spawners, barrels - cannot be calibrated
+     * any more (unless a data pack lists them in {@code simplebuilding:ore_detector_calibratable}).
+     * A detector that finds chests through 20 blocks of stone is a raiding tool. A detector
+     * calibrated on one before the fix keeps its data but no longer finds the block.
+     *
+     * <p>What breaks it: dropping the {@code isCalibratable} check from {@code useOn} (the chest
+     * would be stored) or from {@code isTarget} (the old stack would still find the chest).
+     */
+    public static void blockEntitiesCannotBeCalibratedOrFound(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        player.setShiftKeyDown(true);
+        for (Block block : new Block[]{Blocks.CHEST, Blocks.SPAWNER, Blocks.SHULKER_BOX, Blocks.BARREL}) {
+            ItemStack detector = new ItemStack(ModItems.ORE_DETECTOR);
+            helper.setBlock(SAMPLE_LOG, block);
+            InteractionResult result = useOn(helper, player, detector, SAMPLE_LOG);
+            helper.assertTrue(result == InteractionResult.FAIL,
+                    "sneak-clicking " + block + " did not refuse the calibration, it returned " + result);
+            helper.assertTrue(!customData(detector).contains("CustomBlock"),
+                    "sneak-clicking " + block + " stored it as the target: " + customData(detector));
+            helper.assertValueEqual(modeName(helper, detector), "Iron",
+                    "mode after a refused calibration on " + block);
+        }
+        player.setShiftKeyDown(false);
+
+        // --- a stack calibrated on a chest before the fix: the chest is not a target any more ---
+        clearCorridor(helper);
+        helper.setBlock(rowPos(3), Blocks.CHEST);
+        BlockPos found = scan(helper, calibratedOn(Blocks.CHEST));
+        helper.assertTrue(!helper.absolutePos(rowPos(3)).equals(found),
+                "a detector calibrated on a chest before the fix still finds the chest");
+
+        // --- control: a plain block still calibrates ---
+        helper.setBlock(SAMPLE_LOG, Blocks.OAK_LOG);
+        ItemStack control = new ItemStack(ModItems.ORE_DETECTOR);
+        player.setShiftKeyDown(true);
+        helper.assertTrue(useOn(helper, player, control, SAMPLE_LOG) == InteractionResult.SUCCESS
+                        && customData(control).contains("CustomBlock"),
+                "test setup broken: an oak log no longer calibrates either");
+        player.setShiftKeyDown(false);
+                helper.succeed();
+    }
+
+    /**
+     * Audit #25: at most {@code MAX_SCANS_PER_TICK} sphere scans run per server tick, whatever the
+     * number of held detectors; the budget starts over on the next tick. (The other half of the
+     * load fix, skipping chunk sections whose palette holds no target, is behaviour-neutral and
+     * guarded by every other scan test in this class.)
+     *
+     * <p>A game time far away from the real one is used, so the budget of the running server is
+     * not touched - its next tick starts over anyway.
+     *
+     * <p>What breaks it: removing the cap, or not resetting it on a new tick.
+     */
+    public static void scansAreCappedPerServerTick(GameTestHelper helper) {
+        long tick = Long.MIN_VALUE + 1000;
+        for (int i = 0; i < OreDetectorItem.MAX_SCANS_PER_TICK; i++) {
+            helper.assertTrue(OreDetectorItem.takeScanBudget(tick), "scan " + (i + 1) + " of a tick was refused below the cap");
+        }
+        helper.assertTrue(!OreDetectorItem.takeScanBudget(tick),
+                "scan " + (OreDetectorItem.MAX_SCANS_PER_TICK + 1) + " in the same tick ran although the cap is "
+                        + OreDetectorItem.MAX_SCANS_PER_TICK);
+        helper.assertTrue(OreDetectorItem.takeScanBudget(tick + 1), "the scan budget did not start over on the next tick");
+                helper.succeed();
+    }
+
+    // =====================================================================================
     // THE TWO CLICKS
     // =====================================================================================
 
