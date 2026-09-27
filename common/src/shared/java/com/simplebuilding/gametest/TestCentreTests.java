@@ -366,8 +366,9 @@ public final class TestCentreTests {
     /** Ticks zwischen zwei Knopfdruecken; geprueft wird {@link #CHECK_AFTER} Ticks nach dem Druck. */
     static final int PRESS_STEP = 4;
     static final int CHECK_AFTER = 3;
-    /** Erster Druck: die erzwungenen Chunks brauchen ein paar Ticks, bis sie Bloecke ticken. */
-    static final int FIRST_PRESS = 5;
+    /** Bau und erster Druck: die erzwungenen Chunks brauchen ein paar Ticks, bis ihre Tickets wirken. */
+    static final int BUILD_AT = 3;
+    static final int FIRST_PRESS = 8;
     public static final int BUTTON_RUN_MAX_TICKS = 600;
 
     /**
@@ -398,7 +399,11 @@ public final class TestCentreTests {
             }
         };
         List<TcOp.Command> commands = commands(plan);
-        try {
+        java.util.concurrent.atomic.AtomicBoolean failed = new java.util.concurrent.atomic.AtomicBoolean();
+        // Erst bauen, wenn die Tickets der erzwungenen Chunks wirken: ein vorher per getChunk geladener,
+        // noch nicht erzwungener Chunk kann sonst verworfen und frisch erzeugt werden (die Zentrale war
+        // dann nach ein paar Ticks weg).
+        helper.runAfterDelay(BUILD_AT, guarded(failed, cleanup, () -> {
             TestCentreBuilder.build(level, plan);
             helper.assertTrue(commands.size() > 20, "suspiciously few command blocks: " + commands.size());
             for (TcOp.Command command : commands) {
@@ -406,23 +411,21 @@ public final class TestCentreTests {
                         "no command block at " + command.pos().toShortString());
                 BlockPos counter = counter(command);
                 ((CommandBlockEntity) level.getBlockEntity(command.pos())).getCommandBlock().setCommand(
-                        "summon minecraft:marker " + counter.getX() + ".5 " + counter.getY() + ".5 " + counter.getZ() + ".5");
+                        // Mitte des Blocks als Zahl, nicht als Text "y.5": bei negativem y laege "-52.5" unter dem Block.
+                        "summon minecraft:marker " + (counter.getX() + 0.5) + " " + (counter.getY() + 0.5) + " " + (counter.getZ() + 0.5));
             }
-        } catch (RuntimeException e) {
-            cleanup.run();
-            throw e;
-        }
+        }));
         for (int i = 0; i < commands.size(); i++) {
             int index = i;
             TcOp.Command pressed = commands.get(i);
             BlockPos buttonPos = pressed.pos().relative(pressed.facing());
-            helper.runAfterDelay(FIRST_PRESS + (long) PRESS_STEP * i, guarded(cleanup, () -> {
+            helper.runAfterDelay(FIRST_PRESS + (long) PRESS_STEP * i, guarded(failed, cleanup, () -> {
                 BlockState button = level.getBlockState(buttonPos);
                 helper.assertTrue(button.getBlock() instanceof ButtonBlock,
-                        "no button in front of '" + pressed.command() + "' at " + pressed.pos().toShortString());
+                        "no button in front of '" + pressed.command() + "' at " + pressed.pos().toShortString() + " but " + button);
                 ((ButtonBlock) button.getBlock()).press(button, level, buttonPos, null);
             }));
-            helper.runAfterDelay(FIRST_PRESS + (long) PRESS_STEP * i + CHECK_AFTER, guarded(cleanup, () -> {
+            helper.runAfterDelay(FIRST_PRESS + (long) PRESS_STEP * i + CHECK_AFTER, guarded(failed, cleanup, () -> {
                 List<String> wrong = new ArrayList<>();
                 for (int j = 0; j < commands.size(); j++) {
                     int runs = level.getEntitiesOfClass(Marker.class, new AABB(counter(commands.get(j)))).size();
@@ -439,6 +442,9 @@ public final class TestCentreTests {
             }));
         }
         helper.runAfterDelay(FIRST_PRESS + (long) PRESS_STEP * commands.size() + 1, () -> {
+            if (failed.get()) {
+                return;
+            }
             cleanup.run();
             helper.succeed();
         });
@@ -450,11 +456,17 @@ public final class TestCentreTests {
     }
 
     /** Fuehrt einen Schritt aus und raeumt die Zentrale ab, wenn er scheitert. */
-    private static Runnable guarded(Runnable cleanup, Runnable step) {
+    private static Runnable guarded(java.util.concurrent.atomic.AtomicBoolean failed, Runnable cleanup, Runnable step) {
         return () -> {
+            // Nach dem ersten roten Schritt nichts mehr tun: der Harness tickt weiter, und ein spaeterer
+            // Schritt ueberschriebe die eigentliche Meldung mit "kein Knopf" (die Zentrale ist dann schon weg).
+            if (failed.get()) {
+                return;
+            }
             try {
                 step.run();
             } catch (RuntimeException e) {
+                failed.set(true);
                 cleanup.run();
                 throw e;
             }
