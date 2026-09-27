@@ -28,9 +28,14 @@ public final class TweaksClient {
             LocalPlayer player = Minecraft.getInstance().player;
             return player == null ? null : player.getUUID();
         });
+        TweaksClientHooks.setClientThread(() -> Minecraft.getInstance().isSameThread());
     }
 
     public static void tick(Minecraft client) {
+        if (client.getConnection() == null) {
+            // Getrennt: die Werte des letzten Servers gelten nicht mehr (Audit #16).
+            SimpleTweaks.setServerValues(null);
+        }
         if (client.isPaused()) {
             return;
         }
@@ -56,13 +61,13 @@ public final class TweaksClient {
     }
 
     public static boolean isAimingLaser(LocalPlayer player) {
-        return SimpleTweaks.config().laserPointer.enable
+        return SimpleTweaks.effectiveValues().laserEnabled()
                 && player.isUsingItem() && player.getUseItem().getItem() instanceof LaserPointerItem;
     }
 
     /** Wo der eigene Laser auftrifft (Reichweite aus der Config), sonst null. */
     public static Vec3 laserHit(LocalPlayer player, float partialTick) {
-        HitResult hit = player.pick(SimpleTweaks.config().laserPointer.range, partialTick, false);
+        HitResult hit = player.pick(SimpleTweaks.effectiveValues().laserRange(), partialTick, false);
         return hit.getType() == HitResult.Type.MISS ? null : hit.getLocation();
     }
 }

@@ -12,7 +12,8 @@ public final class StackLimits {
     /** Die Grenze fuer diesen Stapel; {@code vanilla} ist, was das Spiel sonst sagen wuerde. */
     public static int limit(ItemStack stack, int vanilla) {
         if (stack.is(Items.FIREWORK_ROCKET)) {
-            int limit = SimpleTweaks.config().balancing.rocketStackSize;
+            // Auf dem Client der vom Server gemeldete Wert (Audit #16), sonst Stapel-Desync.
+            int limit = SimpleTweaks.effectiveValues().rocketStackSize();
             if (limit >= 1 && limit < vanilla) {
                 return limit;
             }

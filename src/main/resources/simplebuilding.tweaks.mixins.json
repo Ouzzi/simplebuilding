@@ -6,6 +6,8 @@
     "ExperienceOrbAccessor",
     "ExperienceOrbMixin",
     "SpawnElytraDamageMixin",
+    "SpawnElytraItemEntityMixin",
+    "SpawnElytraSlotMixin",
     "TweaksServerPlayerMixin"
   ],
   "client": [

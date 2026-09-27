@@ -3,6 +3,7 @@ package com.simplebuilding.tweaks;
 import com.simplebuilding.tweaks.block.TweaksBlocks;
 import com.simplebuilding.tweaks.component.TweaksComponents;
 import com.simplebuilding.tweaks.item.TweaksItems;
+import com.simplebuilding.tweaks.network.TweaksNetwork;
 import com.simplebuilding.tweaks.spawn.LaunchSafety;
 import com.simplebuilding.tweaks.spawn.SpawnElytra;
 import com.simplebuilding.tweaks.spawn.SpawnSetup;
@@ -43,6 +44,7 @@ public final class TweaksContent {
     }
 
     public static void onPlayerJoin(ServerPlayer player) {
+        TweaksNetwork.sendConfig(player);
         SpawnSetup.onPlayerJoin(player);
         SpawnElytra.onJoinOrRespawn(player);
     }

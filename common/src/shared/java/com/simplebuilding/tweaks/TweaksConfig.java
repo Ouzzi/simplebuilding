@@ -65,6 +65,11 @@ public class TweaksConfig {
     }
 
     public static class Spawn {
+        /** Obergrenze der Flugzeit (24 h): {@code flightTimeSeconds * 20} lief frueher ueber (Audit #51). */
+        public static final int MAX_FLIGHT_SECONDS = 86_400;
+        /** Obergrenze der Boosts; mehr Teilstriche passen ohnehin nicht in die 182-Pixel-Leiste. */
+        public static final int MAX_BOOSTS = 100;
+
         /** Aus in SimpleBuilding standardmaessig aus (Simple Tweaks: an), damit bestehende Welten unveraendert bleiben. */
         @ConfigEntry.Gui.Tooltip
         public boolean forceExactSpawn = false;
@@ -113,6 +118,16 @@ public class TweaksConfig {
         public int maxBoosts = 3;
         @ConfigEntry.Gui.Tooltip
         public float boostStrength = 0.6f;
+
+        /** Flugzeit in Ticks, auf 1 s .. {@link #MAX_FLIGHT_SECONDS} begrenzt (auch fuer handeditierte Dateien). */
+        public int flightTicks() {
+            return Math.max(1, Math.min(MAX_FLIGHT_SECONDS, flightTimeSeconds)) * 20;
+        }
+
+        /** Boosts je Ladung, auf 1 .. {@link #MAX_BOOSTS} begrenzt. */
+        public int boostCount() {
+            return Math.max(1, Math.min(MAX_BOOSTS, maxBoosts));
+        }
 
         /** Ziele der Spawn-Teleporter I-IV; y = -1000 heisst "nicht gesetzt" (dann Weltspawn). */
         public int spawn1X = 0, spawn1Y = -1000, spawn1Z = 0;
@@ -165,8 +180,11 @@ public class TweaksConfig {
         public float scale = 0.25f;
         @ConfigEntry.Gui.Tooltip
         public int range = 512;
-        /** Schon in Simple Tweaks ohne Wirkung; der Schalter bleibt, damit alte Configs lesbar bleiben. */
-        @ConfigEntry.Gui.Tooltip
+        /**
+         * Schon in Simple Tweaks ohne Wirkung; der Schluessel bleibt, damit alte Configs lesbar
+         * bleiben, erscheint aber nicht mehr im Config-Bildschirm (Audit #34).
+         */
+        @ConfigEntry.Gui.Excluded
         public boolean showLine = false;
     }
 }

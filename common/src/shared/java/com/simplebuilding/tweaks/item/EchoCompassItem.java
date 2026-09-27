@@ -107,7 +107,8 @@ public class EchoCompassItem extends Item {
             player.sendOverlayMessage(Component.translatable("message.simplebuilding.echo_compass.lodestone_missing").withStyle(ChatFormatting.RED));
             return false;
         }
-        if (!player.getAbilities().instabuild && !consumeEnderPearl(player.getInventory())) {
+        boolean payPearl = !player.getAbilities().instabuild;
+        if (payPearl && !hasEnderPearl(player.getInventory())) {
             player.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 40, 0, true, false, true));
             player.level().playSound(null, player.blockPosition(), SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 0.25f, 2.0f);
             player.sendOverlayMessage(Component.translatable("message.simplebuilding.echo_compass.no_pearl").withStyle(ChatFormatting.RED));
@@ -117,7 +118,14 @@ public class EchoCompassItem extends Item {
         double x = target.pos().getX() + 0.5;
         double y = target.pos().getY() + 1.0;
         double z = target.pos().getZ() + 0.5;
-        player.teleportTo(targetLevel, x, y, z, Set.of(), player.getYRot(), player.getXRot(), true);
+        // Erst springen, dann bezahlen: ein blockierter Sprung (gesperrte Dimension, anderer Mod)
+        // kostete frueher Perle, Haltbarkeit und Abklingzeit (Audit #33).
+        if (!player.teleportTo(targetLevel, x, y, z, Set.of(), player.getYRot(), player.getXRot(), true)) {
+            return false;
+        }
+        if (payPearl) {
+            consumeEnderPearl(player.getInventory());
+        }
         targetLevel.playSound(null, x, y, z, SoundEvents.PLAYER_TELEPORT, SoundSource.PLAYERS, 1.0f, 0.0f);
         targetLevel.playSound(null, x, y, z, SoundEvents.WARDEN_SONIC_BOOM, SoundSource.PLAYERS, 1.0f, 1.0f);
         spawnEffectParticles(targetLevel, x, y, z);
@@ -130,6 +138,16 @@ public class EchoCompassItem extends Item {
         player.getCooldowns().addCooldown(stack, COOLDOWN_TICKS);
         stack.hurtAndBreak(1, player, hand.asEquipmentSlot());
         return true;
+    }
+
+    public static boolean hasEnderPearl(Inventory inventory) {
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            ItemStack stack = inventory.getItem(i);
+            if (stack.is(Items.ENDER_PEARL) && !stack.has(DataComponents.CUSTOM_DATA)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /** Eine Enderperle ohne eigene Daten verbrauchen (wie das Datenpaket: {@code ender_pearl[!custom_data]}). */

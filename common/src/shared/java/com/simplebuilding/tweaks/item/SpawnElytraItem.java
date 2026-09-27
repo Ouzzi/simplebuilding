@@ -22,6 +22,15 @@ public class SpawnElytraItem extends Item {
                         .build()));
     }
 
+    /**
+     * Nicht in Buendel, Shulkerkisten und andere Behaelter-Items (Audit #3: jede dort abgelegte
+     * Spawn-Elytra war eine geschenkte echte Elytra, weil der Brustplatz sofort neu belegt wurde).
+     */
+    @Override
+    public boolean canFitInsideContainerItems() {
+        return false;
+    }
+
     @Override
     public Component getName(ItemStack stack) {
         return Component.translatable(getDescriptionId()).withStyle(ChatFormatting.AQUA, ChatFormatting.ITALIC);

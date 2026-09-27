@@ -5,11 +5,14 @@ import com.simplebuilding.platform.PlatformServices;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import com.simplebuilding.tweaks.SimpleTweaks;
 import com.simplebuilding.tweaks.component.TweaksComponents;
+import com.simplebuilding.tweaks.item.LaserPointerItem;
 import com.simplebuilding.tweaks.item.TweaksItems;
 import java.util.Map;
 import java.util.UUID;
+import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -23,6 +26,16 @@ public final class TweaksNetwork {
 
     /** Clientseitig: die zuletzt gemeldeten Laserpunkte anderer Spieler (verfallen nach 200 ms). */
     public static final Map<UUID, LaserDot> ACTIVE_LASERS = new ConcurrentHashMap<>();
+
+    /** Hoechstens so viele Laserpunkte je Spieler und Sekunde; der Client schickt 10 (jeden 2. Tick). */
+    public static final int LASER_PACKETS_PER_SECOND = 12;
+    /** Nur Spieler in diesem Abstand zum Zeigenden oder zum Punkt bekommen den Laserpunkt. */
+    public static final double LASER_RELAY_RANGE = 128.0;
+    /** Spielraum ueber der Config-Reichweite (Blickpunkt vs. Augenhoehe, Bewegung zwischen Paketen). */
+    private static final double LASER_RANGE_SLACK = 8.0;
+
+    /** Server: Zaehlfenster je Spieler, {tick des Fensterbeginns, Pakete im Fenster}. */
+    private static final Map<ServerPlayer, long[]> LASER_WINDOWS = new WeakHashMap<>();
 
     public record LaserDot(float x, float y, float z, long timestamp) {
     }
@@ -52,6 +65,15 @@ public final class TweaksNetwork {
         toServer = serverSender;
     }
 
+    /** Der aktuelle Weg zum Spieler (Spieltests tauschen ihn kurz gegen einen Mitschnitt). */
+    public static PlayerSender playerSender() {
+        return toPlayer;
+    }
+
+    public static void setPlayerSender(PlayerSender playerSender) {
+        toPlayer = playerSender;
+    }
+
     public static void sendToServer(CustomPacketPayload payload) {
         toServer.accept(payload);
     }
@@ -70,7 +92,7 @@ public final class TweaksNetwork {
         if (boost == null) {
             boost = 0.0f;
         }
-        int maxBoosts = Math.max(1, SimpleTweaks.config().spawn.maxBoosts);
+        int maxBoosts = SimpleTweaks.config().spawn.boostCount();
         float cost = 1.0f / maxBoosts;
         if (boost < cost - 0.001f) {
             return;
@@ -84,15 +106,62 @@ public final class TweaksNetwork {
         chest.set(TweaksComponents.BOOST_LEVEL, newLevel < 0.001f ? 0.0f : newLevel);
     }
 
-    /** Verteilt den Laserpunkt an alle anderen Spieler derselben Welt. */
+    /** Verteilt den Laserpunkt an die Spieler in der Naehe (siehe {@link #relayLaser}). */
     public static void handleLaser(LaserPayload payload, ServerPlayer sender) {
+        relayLaser(payload, sender, toPlayer);
+    }
+
+    /**
+     * Prueft einen gemeldeten Laserpunkt und verteilt ihn (Audit 2026-09-26 #17 - vorher ging jedes
+     * Paket ungeprueft an die ganze Dimension): nur mit eingeschaltetem Laser (Server-Config), nur
+     * waehrend der Spieler einen Laserpointer benutzt, hoechstens {@link #LASER_PACKETS_PER_SECOND}
+     * je Sekunde, nur innerhalb der Laser-Reichweite, und nur an Spieler in
+     * {@link #LASER_RELAY_RANGE} um den Zeigenden oder den Punkt. Die UUID im Paket wird immer durch
+     * die des Absenders ersetzt.
+     *
+     * @return wie viele Spieler den Punkt bekamen
+     */
+    public static int relayLaser(LaserPayload payload, ServerPlayer sender, PlayerSender out) {
+        if (!SimpleTweaks.config().laserPointer.enable
+                || !sender.isUsingItem() || !(sender.getUseItem().getItem() instanceof LaserPointerItem)) {
+            return 0;
+        }
+        if (!Float.isFinite(payload.x()) || !Float.isFinite(payload.y()) || !Float.isFinite(payload.z())) {
+            return 0;
+        }
+        Vec3 dot = new Vec3(payload.x(), payload.y(), payload.z());
+        double maxRange = SimpleTweaks.config().laserPointer.range + LASER_RANGE_SLACK;
+        if (sender.getEyePosition().distanceToSqr(dot) > maxRange * maxRange) {
+            return 0;
+        }
+        if (!withinRate(sender)) {
+            return 0;
+        }
         LaserPayload checked = new LaserPayload(sender.getUUID(), payload.x(), payload.y(), payload.z(), payload.active());
         ServerLevel level = sender.level();
+        double range2 = LASER_RELAY_RANGE * LASER_RELAY_RANGE;
+        int sent = 0;
         for (ServerPlayer player : level.players()) {
-            if (player != sender) {
-                toPlayer.send(player, checked);
+            if (player != sender && (player.distanceToSqr(sender) <= range2 || player.distanceToSqr(dot) <= range2)) {
+                out.send(player, checked);
+                sent++;
             }
         }
+        return sent;
+    }
+
+    private static boolean withinRate(ServerPlayer sender) {
+        long now = sender.level().getServer().getTickCount();
+        long[] window = LASER_WINDOWS.computeIfAbsent(sender, p -> new long[] {now, 0});
+        if (now - window[0] >= 20 || now < window[0]) {
+            window[0] = now;
+            window[1] = 0;
+        }
+        if (window[1] >= LASER_PACKETS_PER_SECOND) {
+            return false;
+        }
+        window[1]++;
+        return true;
     }
 
     /** Clientseitig: Laserpunkt eines anderen Spielers merken. */
@@ -103,5 +172,25 @@ public final class TweaksNetwork {
     public static void expireLasers() {
         long now = System.currentTimeMillis();
         ACTIVE_LASERS.entrySet().removeIf(e -> now - e.getValue().timestamp() > 200);
+    }
+
+    // ---- Config-Abgleich (Audit #16) ----
+
+    /** Schickt einem Spieler die clientrelevanten Config-Werte (beim Einloggen). */
+    public static void sendConfig(ServerPlayer player) {
+        toPlayer.send(player, TweaksConfigPayload.of(SimpleTweaks.localValues()));
+    }
+
+    /** Schickt allen Spielern die clientrelevanten Config-Werte (nach einem Tweaks-Befehl). */
+    public static void broadcastConfig(MinecraftServer server) {
+        TweaksConfigPayload payload = TweaksConfigPayload.of(SimpleTweaks.localValues());
+        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+            toPlayer.send(player, payload);
+        }
+    }
+
+    /** Clientseitig: Werte des Servers uebernehmen. */
+    public static void receiveConfig(TweaksConfigPayload payload) {
+        SimpleTweaks.setServerValues(payload.values());
     }
 }

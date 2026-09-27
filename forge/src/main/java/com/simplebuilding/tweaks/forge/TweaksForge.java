@@ -7,6 +7,7 @@ import com.simplebuilding.tweaks.block.entity.TweaksBlockEntities;
 import com.simplebuilding.tweaks.command.TweaksCommands;
 import com.simplebuilding.tweaks.network.ElytraBoostPayload;
 import com.simplebuilding.tweaks.network.LaserPayload;
+import com.simplebuilding.tweaks.network.TweaksConfigPayload;
 import com.simplebuilding.tweaks.network.TweaksNetwork;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -60,6 +61,11 @@ public final class TweaksForge {
                             ctx.setPacketHandled(true);
                             ctx.enqueueWork(() -> TweaksNetwork.receiveLaser(payload));
                         }
+                    })
+                .clientbound()
+                    .add(TweaksConfigPayload.ID, TweaksConfigPayload.CODEC, (payload, ctx) -> {
+                        ctx.setPacketHandled(true);
+                        ctx.enqueueWork(() -> TweaksNetwork.receiveConfig(payload));
                     })
                 .build();
         TweaksNetwork.setSenders(

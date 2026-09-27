@@ -9664,11 +9664,12 @@ window.WIKI_DATA = {
         "de_de": "Laserpointer"
       },
       "texture": "assets/textures/item/laser_pointer.png",
-      "craftedBy": [],
+      "craftedBy": [
+        "simplebuilding:laser_pointer"
+      ],
       "usedIn": [],
       "trades": [],
       "properties": {
-        "durability": 500,
         "maxStackSize": 1
       },
       "note": {
@@ -25367,6 +25368,47 @@ window.WIKI_DATA = {
         ],
         "Q": [
           "minecraft:quartz_block"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:laser_pointer",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:laser_pointer",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/laser_pointer.json",
+      "ingredients": [
+        "minecraft:amethyst_shard",
+        "minecraft:glass",
+        "minecraft:iron_ingot",
+        "minecraft:redstone"
+      ],
+      "pattern": [
+        " A ",
+        "IGI",
+        "IRI"
+      ],
+      "key": {
+        "A": [
+          "minecraft:amethyst_shard"
+        ],
+        "G": [
+          "minecraft:glass"
+        ],
+        "I": [
+          "minecraft:iron_ingot"
+        ],
+        "R": [
+          "minecraft:redstone"
         ]
       },
       "lines": [
@@ -47029,7 +47071,7 @@ window.WIKI_DATA = {
   "counts": {
     "items": 166,
     "blocks": 105,
-    "recipes": 341,
+    "recipes": 342,
     "lootTables": 102,
     "trades": 21,
     "enchantments": 19,

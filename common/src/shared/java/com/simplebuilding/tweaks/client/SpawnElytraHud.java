@@ -55,7 +55,7 @@ public final class SpawnElytraHud {
         graphics.blitSprite(RenderPipelines.GUI_TEXTURED, BACKGROUND, x, y, 182, 5);
 
         Float boost = chest.get(TweaksComponents.BOOST_LEVEL);
-        int width = progressWidth(boost == null ? 1.0f : boost, SimpleTweaks.config().spawn.maxBoosts);
+        int width = progressWidth(boost == null ? 1.0f : boost, SimpleTweaks.effectiveValues().maxBoosts());
         if (width > 0) {
             graphics.blitSprite(RenderPipelines.GUI_TEXTURED, BLUE_PROGRESS, 182, 5, 0, 0, x, y, width, 5);
         }

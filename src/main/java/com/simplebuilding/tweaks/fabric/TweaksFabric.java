@@ -7,6 +7,7 @@ import com.simplebuilding.tweaks.block.entity.TweaksBlockEntities;
 import com.simplebuilding.tweaks.command.TweaksCommands;
 import com.simplebuilding.tweaks.network.ElytraBoostPayload;
 import com.simplebuilding.tweaks.network.LaserPayload;
+import com.simplebuilding.tweaks.network.TweaksConfigPayload;
 import com.simplebuilding.tweaks.network.TweaksNetwork;
 import java.util.Set;
 import me.shedaniel.autoconfig.AutoConfig;
@@ -48,6 +49,7 @@ public class TweaksFabric implements ModInitializer {
         PayloadTypeRegistry.serverboundPlay().register(ElytraBoostPayload.ID, ElytraBoostPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(LaserPayload.ID, LaserPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(LaserPayload.ID, LaserPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(TweaksConfigPayload.ID, TweaksConfigPayload.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(ElytraBoostPayload.ID,
                 (payload, context) -> context.server().execute(() -> TweaksNetwork.handleBoost(payload, context.player())));
         ServerPlayNetworking.registerGlobalReceiver(LaserPayload.ID,

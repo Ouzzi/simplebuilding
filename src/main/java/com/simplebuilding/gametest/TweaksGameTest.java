@@ -169,4 +169,59 @@ public final class TweaksGameTest {
     public void theTweaksCommandsWriteTheConfig(GameTestHelper helper) {
         TweaksTests.theTweaksCommandsWriteTheConfig(helper);
     }
+
+    @GameTest
+    public void spawnElytrasVanishAsSoonAsTheyLeaveTheChestSlot(GameTestHelper helper) {
+        TweaksTests.spawnElytrasVanishAsSoonAsTheyLeaveTheChestSlot(helper);
+    }
+
+    @GameTest
+    public void theSpawnAreaLiesOnlyInTheSpawnDimensionAndFallProtectionCoversAllOfIt(GameTestHelper helper) {
+        TweaksTests.theSpawnAreaLiesOnlyInTheSpawnDimensionAndFallProtectionCoversAllOfIt(helper);
+    }
+
+    @GameTest
+    public void chunkLoadersReleaseOnSetblockAndHandOverSharedChunks(GameTestHelper helper) {
+        TweaksTests.chunkLoadersReleaseOnSetblockAndHandOverSharedChunks(helper);
+    }
+
+    @GameTest
+    public void overlappingFlypadsKeepThePlayerFlyingAndTakeOnlyTheirOwnFlight(GameTestHelper helper) {
+        TweaksTests.overlappingFlypadsKeepThePlayerFlyingAndTakeOnlyTheirOwnFlight(helper);
+    }
+
+    @GameTest
+    public void theLaserRelayChecksTheSenderAndOnlyReachesNearbyPlayers(GameTestHelper helper) {
+        TweaksTests.theLaserRelayChecksTheSenderAndOnlyReachesNearbyPlayers(helper);
+    }
+
+    @GameTest
+    public void theClientRelevantTweaksValuesAreSentAtLoginAndOnEveryChange(GameTestHelper helper) {
+        TweaksTests.theClientRelevantTweaksValuesAreSentAtLoginAndOnEveryChange(helper);
+    }
+
+    @GameTest
+    public void aBlockedEchoCompassJumpCostsNothing(GameTestHelper helper) {
+        TweaksTests.aBlockedEchoCompassJumpCostsNothing(helper);
+    }
+
+    @GameTest
+    public void theLaserPointerIsCraftedFromAmethystGlassIronAndRedstone(GameTestHelper helper) {
+        TweaksTests.theLaserPointerIsCraftedFromAmethystGlassIronAndRedstone(helper);
+    }
+
+    @GameTest
+    public void theWorldSpawnCommandTakesEffectImmediately(GameTestHelper helper) {
+        TweaksTests.theWorldSpawnCommandTakesEffectImmediately(helper);
+    }
+
+    @GameTest
+    public void killBoatsAllDropsTheContentsOfChestBoats(GameTestHelper helper) {
+        TweaksTests.killBoatsAllDropsTheContentsOfChestBoats(helper);
+    }
+
+    @GameTest
+    public void flightTimeAndBoostsAreCappedAndBrokenLaunchpadsDropTheirCharges(GameTestHelper helper) {
+        TweaksTests.flightTimeAndBoostsAreCappedAndBrokenLaunchpadsDropTheirCharges(helper);
+    }
 }

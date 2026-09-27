@@ -24,7 +24,8 @@ public final class TweaksItems {
     public static final Item SPAWN_ELYTRA = register("spawn_elytra",
             p -> new SpawnElytraItem(p.stacksTo(1).fireResistant()));
     public static final Item LASER_POINTER = register("laser_pointer",
-            p -> new LaserPointerItem(p.stacksTo(1).durability(500).rarity(Rarity.EPIC)));
+            // Ohne Haltbarkeit: sie nahm nie ab (Audit #34); Rezept in ModRecipeProvider.
+            p -> new LaserPointerItem(p.stacksTo(1).rarity(Rarity.EPIC)));
     public static final Item ECHO_COMPASS = register("echo_compass",
             p -> new EchoCompassItem(p.stacksTo(1).durability(EchoCompassItem.DURABILITY).enchantable(15)
                     .rarity(Rarity.EPIC).fireResistant()));

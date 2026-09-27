@@ -26,7 +26,7 @@ public final class LaserRenderer {
     }
 
     public static void submit(SubmitNodeCollector collector, PoseStack poseStack, Vec3 camera) {
-        if (!SimpleTweaks.config().laserPointer.enable) {
+        if (!SimpleTweaks.effectiveValues().laserEnabled()) {
             return;
         }
         Minecraft client = Minecraft.getInstance();
@@ -36,7 +36,7 @@ public final class LaserRenderer {
         }
         int color = SimpleTweaks.config().laserPointer.color;
         if (TweaksClient.isAimingLaser(me)) {
-            HitResult hit = me.pick(SimpleTweaks.config().laserPointer.range, client.getDeltaTracker().getGameTimeDeltaPartialTick(true), false);
+            HitResult hit = me.pick(SimpleTweaks.effectiveValues().laserRange(), client.getDeltaTracker().getGameTimeDeltaPartialTick(true), false);
             if (hit.getType() != HitResult.Type.MISS) {
                 Direction side = hit instanceof BlockHitResult blockHit ? blockHit.getDirection() : Direction.UP;
                 dot(collector, poseStack, camera, hit.getLocation(), side, color);
@@ -91,14 +91,23 @@ public final class LaserRenderer {
         buffer.addVertex(pose, x1, y2, 0).setColor(r, g, b, 255);
     }
 
-    /** Entfernung neben dem Fadenkreuz, solange man zielt (Simple Tweaks: InGameScreenHudMixin). */
+    /**
+     * Entfernung neben dem Fadenkreuz, solange man zielt (Simple Tweaks: InGameScreenHudMixin). Misst
+     * bis zum Laserpunkt ({@link TweaksClient#laserHit}, volle Laser-Reichweite) - frueher bis
+     * {@code client.hitResult}, das an der Blockreichweite (~4,5 Bloecke) endet (Audit #34).
+     */
     public static void renderHud(GuiGraphics graphics) {
         Minecraft client = Minecraft.getInstance();
         LocalPlayer me = client.player;
-        if (me == null || !TweaksClient.isAimingLaser(me) || client.hitResult == null || client.hitResult.getType() == HitResult.Type.MISS) {
+        if (me == null || !TweaksClient.isAimingLaser(me)) {
             return;
         }
-        double distance = client.hitResult.getLocation().distanceTo(me.getEyePosition());
+        float partialTick = client.getDeltaTracker().getGameTimeDeltaPartialTick(true);
+        Vec3 hit = TweaksClient.laserHit(me, partialTick);
+        if (hit == null) {
+            return;
+        }
+        double distance = hit.distanceTo(me.getEyePosition(partialTick));
         String text = String.format("%.1fm", distance);
         graphics.drawString(client.font, text, graphics.guiWidth() / 2 + 10, graphics.guiHeight() / 2 - 4, 0xFFFF5555, true);
     }
