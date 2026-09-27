@@ -373,6 +373,22 @@ Scan-Pfad nur mit einem Oktanten oben; eine unsignierte Blaupause nimmt der ober
 eine beschriebene unten gibt keine Kopie. Umschalt-Klick legt signierte Blaupausen nach oben,
 andere nach unten.
 
+### 5.2 Vorschau im Kartentisch (Client)
+
+Liegt oben eine **signierte** Blaupause, zeigt das große Kartenfeld (Innenfläche des
+Pergamentblatts, 58×58 GUI-Pixel ab 71/17) dieselbe kreisende 3D-Miniatur wie der Tooltip:
+getönte Fläche, Bauwerk mit 2 px Rand, 28° von oben, eine Umdrehung in 9 s. Das Pergamentblatt
+bleibt als Rahmen stehen. Unsignierte Blaupausen, Karten und alles andere bleiben Vanilla; liegt
+unten Papier, eine Karte oder eine Glasscheibe, zeichnet Vanilla sein eigenes Bild (Vergrößern,
+Kopieren, Sperren) und es gibt keine Vorschau (`BlueprintCartography.previewCode`).
+
+Technik: `CartographyTableScreenMixin` (Client-Mixin-Konfiguration aller Loader) hängt sich an das
+Ende von `extractBackground` (26.2/26.3/26.4) bzw. `renderBg` (1.21.11), öffnet eine neue
+GUI-Schicht (`nextStratum`, sonst sortiert der Renderer das Blatt über die Miniatur) und ruft
+`BlueprintTooltip.extractPreview` / `renderPreview` – denselben Code wie der Tooltip. Nichts
+davon läuft auf dem Server. Client-Test: `ModScreensClientTest.cartographyTableShowsTheBlueprintPreview`
+(Screenshots `cartography-a..d`).
+
 ## 6. Offene Entscheidungen
 
 - Große Codes (Millionen Stellen) parsen spürbar lange (einmal je Code, danach zwischengespeichert);
