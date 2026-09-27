@@ -145,4 +145,9 @@ public final class DataIntegrityGameTest {
     public void visibleTrimIconsFollowTheClientOptions(GameTestHelper helper) {
         DataIntegrityTests.visibleTrimIconsFollowTheClientOptions(helper);
     }
+
+    @GameTest
+    public void everyEnderiteGearPieceUpgradesFromItsNetheriteTwin(GameTestHelper helper) {
+        DataIntegrityTests.everyEnderiteGearPieceUpgradesFromItsNetheriteTwin(helper);
+    }
 }

@@ -240,7 +240,7 @@ public final class TrimEffectTests {
      * material measurements for the mirror-image reason.
      */
     public static void damageReductionFollowsThePatternAndKeepsItsFloor(GameTestHelper helper) {
-        double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
+        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
         try {
             ServerPlayer player = mockPlayer(helper);
             Holder<TrimMaterial> copper = material(helper, TrimMaterials.COPPER);
@@ -339,7 +339,7 @@ public final class TrimEffectTests {
             bare(player);
             TestCleanup.succeed(helper);
         } finally {
-            SimplebuildingConfig.trimBenefitBaseMultiplier = configuredBase;
+            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
         }
     }
 
@@ -368,7 +368,7 @@ public final class TrimEffectTests {
      * halves still show.
      */
     public static void utilityBonusesAreNeutralUntilTheMatchingTrimIsWorn(GameTestHelper helper) {
-        double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
+        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
         try {
             ServerPlayer player = mockPlayer(helper);
             Holder<TrimMaterial> copper = material(helper, TrimMaterials.COPPER);
@@ -518,7 +518,7 @@ public final class TrimEffectTests {
             bare(player);
             TestCleanup.succeed(helper);
         } finally {
-            SimplebuildingConfig.trimBenefitBaseMultiplier = configuredBase;
+            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
         }
     }
 
@@ -538,7 +538,7 @@ public final class TrimEffectTests {
      * correctly, it would just be ignored.
      */
     public static void benefitGateSwitchesEveryTrimEffectOff(GameTestHelper helper) {
-        double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
+        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
         try {
             ServerPlayer player = mockPlayer(helper);
             helper.assertTrue(player instanceof TrimBenefitUser,
@@ -584,7 +584,7 @@ public final class TrimEffectTests {
             bare(player);
             TestCleanup.succeed(helper);
         } finally {
-            SimplebuildingConfig.trimBenefitBaseMultiplier = configuredBase;
+            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
         }
     }
 
@@ -625,7 +625,7 @@ public final class TrimEffectTests {
      * </ul>
      */
     public static void astralitJumpBoostCrossesItsThresholdsOnTick(GameTestHelper helper) {
-        double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
+        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
         try {
             ServerPlayer player = mockPlayer(helper);
             Holder<TrimMaterial> astralit = material(helper, ModTrimMaterials.ASTRALIT);
@@ -728,7 +728,7 @@ public final class TrimEffectTests {
             bare(player);
             TestCleanup.succeed(helper);
         } finally {
-            SimplebuildingConfig.trimBenefitBaseMultiplier = configuredBase;
+            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
         }
     }
 
@@ -757,7 +757,7 @@ public final class TrimEffectTests {
      * be on this MC line.
      */
     public static void nihilithPullsDownTheSneakingAirbornePlayer(GameTestHelper helper) {
-        double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
+        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
         try {
             ServerPlayer player = mockPlayer(helper);
             Holder<TrimMaterial> nihilith = material(helper, ModTrimMaterials.NIHILITH);
@@ -858,7 +858,7 @@ public final class TrimEffectTests {
             bare(player);
             TestCleanup.succeed(helper);
         } finally {
-            SimplebuildingConfig.trimBenefitBaseMultiplier = configuredBase;
+            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
         }
     }
 
@@ -883,7 +883,7 @@ public final class TrimEffectTests {
      * "only if the bonus is actually positive" and that guard is where an off switch gets lost.
      */
     public static void trimBonusesReachThePlayerThroughTheMixins(GameTestHelper helper) {
-        double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
+        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
         try {
             ServerPlayer player = mockPlayer(helper);
             Holder<TrimMaterial> copper = material(helper, TrimMaterials.COPPER);
@@ -929,7 +929,7 @@ public final class TrimEffectTests {
             bare(player);
             TestCleanup.succeed(helper);
         } finally {
-            SimplebuildingConfig.trimBenefitBaseMultiplier = configuredBase;
+            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
         }
     }
 
@@ -962,12 +962,12 @@ public final class TrimEffectTests {
      * base still feeds through at all.
      */
     private static void pinProgressMultiplier(GameTestHelper helper, ServerPlayer player, double target) {
-        SimplebuildingConfig.trimBenefitBaseMultiplier = 1.0;
+        com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = 1.0;
         double perUnitOfBase = TrimMultiplierLogic.getMultiplier(player);
         helper.assertTrue(perUnitOfBase > 0.0,
                 "the trim multiplier collapsed to " + perUnitOfBase + " at base 1.0, so it can no "
                         + "longer be pinned to a known value");
-        SimplebuildingConfig.trimBenefitBaseMultiplier = target / perUnitOfBase;
+        com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = target / perUnitOfBase;
         double actual = TrimMultiplierLogic.getMultiplier(player);
         helper.assertTrue(Math.abs(actual - target) < 1.0e-6,
                 "the configured base no longer scales the multiplier: wanted " + target

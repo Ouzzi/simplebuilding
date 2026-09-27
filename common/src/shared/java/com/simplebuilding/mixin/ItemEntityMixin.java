@@ -26,6 +26,7 @@ public abstract class ItemEntityMixin extends Entity {
 
     @Shadow public abstract ItemStack getItem();
     @Shadow private int pickupDelay;
+    @Shadow private java.util.UUID target;
 
     public ItemEntityMixin(EntityType<?> type, Level world) {
         super(type, world);
@@ -62,6 +63,13 @@ public abstract class ItemEntityMixin extends Entity {
         ItemStack itemOnGround = this.getItem();
         if (itemOnGround.isEmpty()) return;
 
+        // Dieselben Bedingungen wie Vanillas eigene Aufnahme in playerTouch, fuer JEDEN Weg (Hand,
+        // Inventar, Rucksack): abgelaufene Aufhebeverzoegerung und kein fremdes Ziel. Sonst saugt
+        // ein Buendel die Anzeige-Items anderer Mods (pickupDelay 32767) und die Fake-Items eines
+        // /give mit vollem Inventar auf (audit 2026-09-26 #14).
+        if (this.pickupDelay != 0) return;
+        if (this.target != null && !this.target.equals(player.getUUID())) return;
+
         // 1. Suche in den HÄNDEN (höchste Priorität)
         for (InteractionHand hand : InteractionHand.values()) {
             ItemStack heldItem = player.getItemInHand(hand);
@@ -71,21 +79,18 @@ public abstract class ItemEntityMixin extends Entity {
             }
         }
 
-        // 2. Suche im INVENTAR (nur wenn pickupDelay abgelaufen ist)
-        if (this.pickupDelay == 0) {
-            for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
-                ItemStack inventoryStack = player.getInventory().getItem(i);
-                if (tryPickupWithBundle(inventoryStack, itemOnGround, player)) {
-                    handlePickupSuccess(player, itemOnGround, ci);
-                    return;
-                }
-            }
-
-            // 3. Getragener Rucksack mit Trichter - nach allen Buendeln, wie das Inventar erst
-            // nach Ablauf der Aufhebeverzoegerung.
-            if (BackpackItem.tryFunnelPickup(player, itemOnGround)) {
+        // 2. Suche im INVENTAR
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            ItemStack inventoryStack = player.getInventory().getItem(i);
+            if (tryPickupWithBundle(inventoryStack, itemOnGround, player)) {
                 handlePickupSuccess(player, itemOnGround, ci);
+                return;
             }
+        }
+
+        // 3. Getragener Rucksack mit Trichter - nach allen Buendeln.
+        if (BackpackItem.tryFunnelPickup(player, itemOnGround)) {
+            handlePickupSuccess(player, itemOnGround, ci);
         }
     }
 

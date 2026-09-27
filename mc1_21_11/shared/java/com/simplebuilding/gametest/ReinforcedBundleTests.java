@@ -564,6 +564,43 @@ public final class ReinforcedBundleTests {
         TestCleanup.succeed(helper);
     }
 
+    /**
+     * A bundle inside a bundle weighs what it holds, as in vanilla's {@code BundleContents}: its
+     * contents plus 1/16. The mod used to weigh every incoming stack as {@code 1 / maxStackSize},
+     * so any bundle - full or empty - cost exactly one vanilla stack; a full reinforced bundle
+     * (one and a half stacks) then fit into another one, and so on without end (audit 2026-09-26
+     * #13).
+     *
+     * <p>Two sides: a full bundle is refused by an empty one of the same size, and a bundle holding
+     * 16 stone takes 16/64 + 1/16 of a stack, so after it exactly {@code capacity - 20} stone still fit.
+     */
+    public static void nestedBundlesWeighTheirContents(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        int capacity = fillWith(helper, player, new ItemStack(ModItems.REINFORCED_BUNDLE), Items.STONE);
+
+        ItemStack full = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        fillWith(helper, player, full, Items.STONE);
+        ItemStack outer = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ReinforcedBundleItem item = bundleItem(outer);
+        helper.assertTrue(!item.tryInsertStackFromWorld(outer, full, player),
+                "an empty reinforced bundle took a full one of the same size - a nested bundle counts as "
+                        + "a single stack instead of its contents");
+        Assertions.valueEqual(helper, full.getCount(), 1, "the refused full bundle is still there");
+        helper.assertTrue(contentsOf(outer).isEmpty(), "the outer bundle stored something although it refused");
+
+        // A bundle holding 16 stone weighs 16/64 + 1/16 of a stack: 20 stone worth, not 64.
+        ItemStack light = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        helper.assertTrue(bundleItem(light).tryInsertStackFromWorld(light, new ItemStack(Items.STONE, 16), player),
+                "setup: 16 stone did not go into a fresh reinforced bundle");
+        helper.assertTrue(item.tryInsertStackFromWorld(outer, light, player),
+                "a bundle with 16 stone does not fit into an empty reinforced bundle");
+        int stone = fillWith(helper, player, outer, Items.STONE);
+        Assertions.valueEqual(helper, stone, capacity - 20,
+                "stone that still fit next to a nested bundle holding 16 stone (it has to weigh 16/64 + 1/16 "
+                        + "of a stack, 20 stone, not a full stack)");
+        TestCleanup.succeed(helper);
+    }
+
     // =====================================================================================
     // WHAT COMES OUT
     // =====================================================================================

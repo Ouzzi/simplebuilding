@@ -10,6 +10,7 @@ import com.simplebuilding.util.PistonBoreEffects;
 import com.simplebuilding.util.PistonBreach;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -52,8 +53,13 @@ public class EnderitePistonBlock extends NetheriteBreakerPistonBlock {
         return (MapCodec<PistonBaseBlock>) (Object) CODEC;
     }
 
+    /**
+     * @return ob der vorderste Block zerstoert wurde. Jeder Block geht vorher durch den
+     *         Plattform-Wächter ({@link #mayBreak}); lehnt er einen tieferen ab, endet der Durchbruch
+     *         dort, lehnt er schon den vordersten ab, passiert gar nichts.
+     */
     @Override
-    protected void breach(Level world, BlockPos pos, Direction facing) {
+    protected boolean breach(ServerLevel world, BlockPos pos, Direction facing) {
         // Vor dem Durchbruch gemessen: der bezahlende Redstoneblock liegt noch daneben.
         int power = world.getBestNeighborSignal(pos);
         float breakThreshold = (power / 15.0f) * 50.0f;
@@ -64,16 +70,18 @@ public class EnderitePistonBlock extends NetheriteBreakerPistonBlock {
                 continue;
             }
             if (targetState.is(ModTags.Blocks.PISTON_BREACH_IMMUNE)) {
-                return;
+                return true;
             }
-            if (PistonBreach.isBreachable(targetState, world, target)) {
-                PistonBoreEffects.destroy(world, target, false);
-            } else if (breakerCanBreak(targetState, world, target, breakThreshold)) {
-                PistonBoreEffects.destroy(world, target, true);
-            } else {
-                return;
+            boolean breachable = PistonBreach.isBreachable(targetState, world, target);
+            if (!breachable && !breakerCanBreak(targetState, world, target, breakThreshold)) {
+                return true;
             }
+            if (!mayBreak(world, pos, facing, target)) {
+                return depth > 1;
+            }
+            PistonBoreEffects.destroy(world, target, !breachable);
         }
+        return true;
     }
 
     /** Die Regel des normalen Brechers aus {@link NetheriteBreakerPistonBlock#triggerEvent}. */

@@ -70,4 +70,9 @@ public final class ChiselGameTest {
     public void conversionTablesArePinnedEntryByEntry(GameTestHelper helper) {
         ChiselTests.conversionTablesArePinnedEntryByEntry(helper);
     }
+
+    @GameTest
+    public void smithingTableTakesTheWholeAdditionCount(GameTestHelper helper) {
+        ChiselTests.smithingTableTakesTheWholeAdditionCount(helper);
+    }
 }

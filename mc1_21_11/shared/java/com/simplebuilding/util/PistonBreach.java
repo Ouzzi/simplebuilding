@@ -18,8 +18,8 @@ import org.jetbrains.annotations.Nullable;
  * Zerstoerungsgeschwindigkeit unter 0 oder im Tag {@code simplebuilding:piston_breachable_extra}
  * (Vanilla: verstaerkter Tiefenschiefer), der weder im Tag {@code simplebuilding:piston_breach_immune}
  * steht noch eine Block-Entity hat. Der Endportalrahmen zaehlt nur, solange die Konfigurationsoption
- * {@code pistonsBreachEndPortalFrames} an ist. In Vanilla bleiben damit Grundgestein,
- * Endportalrahmen und verstaerkter Tiefenschiefer uebrig.
+ * {@code pistonsBreachEndPortalFrames} an ist (Standard seit 2026-09-26: aus). In Vanilla bleiben
+ * damit Grundgestein und verstaerkter Tiefenschiefer uebrig, mit der Option auch der Endportalrahmen.
  *
  * <p><b>Wer bezahlt</b> ({@link #findFuel}): ein Redstoneblock direkt neben dem Kolben, zuerst der
  * direkt dahinter, dann die vier Seiten quer zur Blickrichtung. Nie die Front: dort steht das
@@ -112,6 +112,6 @@ public final class PistonBreach {
 
     private static boolean endPortalFramesBreachable() {
         SimplebuildingConfig config = Simplebuilding.getConfig();
-        return config == null || config.pistonsBreachEndPortalFrames;
+        return config != null && config.pistonsBreachEndPortalFrames;
     }
 }

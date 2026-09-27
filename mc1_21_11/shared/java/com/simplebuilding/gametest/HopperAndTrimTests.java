@@ -251,16 +251,16 @@ public final class HopperAndTrimTests {
 
         // --- the whole mean, and that the configured base really scales it ---
         player.totalExperience = 5000;
-        double base = SimplebuildingConfig.trimBenefitBaseMultiplier;
+        double base = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
         double expected = base * (1.0 + survival + combat) / 3.0;
         assertClose(helper, TrimMultiplierLogic.getMultiplier(player), expected, "the full multiplier");
 
-        SimplebuildingConfig.trimBenefitBaseMultiplier = base * 2.0;
+        com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = base * 2.0;
         try {
             assertClose(helper, TrimMultiplierLogic.getMultiplier(player), expected * 2.0,
                     "the full multiplier after doubling the configured base");
         } finally {
-            SimplebuildingConfig.trimBenefitBaseMultiplier = base;
+            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = base;
         }
 
         // 279 points sit away from the cap, where the experience term is 0.28 instead of 1.0. Only

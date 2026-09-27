@@ -70,4 +70,9 @@ public final class TrimWiringGameTest {
     public void theTrimMultiplierCommandGuardsItsRangeAndItsPermission(GameTestHelper helper) {
         TrimWiringTests.theTrimMultiplierCommandGuardsItsRangeAndItsPermission(helper);
     }
+
+    @GameTest
+    public void theTrimMultiplierCommandSavesAndSyncsItsValue(GameTestHelper helper) {
+        TrimWiringTests.theTrimMultiplierCommandSavesAndSyncsItsValue(helper);
+    }
 }

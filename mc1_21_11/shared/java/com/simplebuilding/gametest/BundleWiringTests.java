@@ -293,6 +293,44 @@ public final class BundleWiringTests {
     }
 
     /**
+     * The funnel obeys the same two gates as vanilla's own pickup, on the hand path too: the
+     * pickup delay must be over and the drop must not be reserved for someone else
+     * ({@code ItemEntity#target}). The hand loop used to run before both checks, so a Funnel
+     * bundle in the hand swallowed drops other mods park with an endless delay (display items)
+     * and the reserved copies a {@code /give} with a full inventory leaves behind (audit
+     * 2026-09-26 #14).
+     */
+    public static void funnelHonoursPickupDelayAndTargetInTheHand(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        ItemStack bundle = funnelBundle(helper);
+        armHand(player, bundle);
+
+        // --- still inside its pickup delay ---
+        ItemEntity delayed = drop(helper, new ItemStack(Items.STONE, 8), new Vec3(2.5, 2.0, 2.5), 10);
+        delayed.playerTouch(player);
+        Assertions.valueEqual(helper, countInBundle(bundle, Items.STONE), 0,
+                "the bundle in the hand took a drop that is still inside its pickup delay");
+        helper.assertTrue(!delayed.isRemoved(), "the delayed drop vanished");
+
+        // --- reserved for another player ---
+        ItemEntity reserved = drop(helper, new ItemStack(Items.STONE, 8), new Vec3(3.5, 2.0, 2.5), 0);
+        reserved.setTarget(java.util.UUID.randomUUID());
+        reserved.playerTouch(player);
+        Assertions.valueEqual(helper, countInBundle(bundle, Items.STONE), 0,
+                "the bundle in the hand took a drop reserved for another player");
+        helper.assertTrue(!reserved.isRemoved(), "the reserved drop vanished");
+
+        // --- reserved for this player: allowed ---
+        ItemEntity mine = drop(helper, new ItemStack(Items.STONE, 8), new Vec3(4.5, 2.0, 2.5), 0);
+        mine.setTarget(player.getUUID());
+        mine.playerTouch(player);
+        Assertions.valueEqual(helper, countInBundle(bundle, Items.STONE), 8,
+                "a drop reserved for the touching player itself did not reach the bundle");
+        helper.assertTrue(mine.isRemoved(), "the absorbed drop is still lying there");
+        TestCleanup.succeed(helper);
+    }
+
+    /**
      * A dropped bundle is a container full of someone's belongings, and the two upper tiers are
      * meant to survive what would destroy an ordinary drop.
      *

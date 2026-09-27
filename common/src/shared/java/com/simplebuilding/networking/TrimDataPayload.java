@@ -6,7 +6,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 
-public record TrimDataPayload(int baseDist, int baseTime, int baseHostile, int basePassive, int baseDamage, int baseXp) implements CustomPacketPayload {
+public record TrimDataPayload(int baseDist, int baseTime, int baseHostile, int basePassive, int baseDamage, int baseXp, double baseMultiplier) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<TrimDataPayload> ID = new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath("simplebuilding", "trim_data_sync"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, TrimDataPayload> CODEC = StreamCodec.composite(
@@ -16,6 +16,7 @@ public record TrimDataPayload(int baseDist, int baseTime, int baseHostile, int b
             ByteBufCodecs.INT, TrimDataPayload::basePassive,
             ByteBufCodecs.INT, TrimDataPayload::baseDamage,
             ByteBufCodecs.INT, TrimDataPayload::baseXp,
+            ByteBufCodecs.DOUBLE, TrimDataPayload::baseMultiplier,
             TrimDataPayload::new
     );
 

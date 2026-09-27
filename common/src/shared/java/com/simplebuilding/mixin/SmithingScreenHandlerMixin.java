@@ -2,7 +2,6 @@ package com.simplebuilding.mixin;
 
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.recipe.CountBasedSmithingRecipe;
-import com.simplebuilding.recipe.ModRecipes;
 import com.simplebuilding.util.GlowingTrimUtils;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,6 +24,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SmithingRecipeInput;
 import net.minecraft.world.level.Level;
 
@@ -51,12 +51,17 @@ public abstract class SmithingScreenHandlerMixin extends ItemCombinerMenu {
                         this.inputSlots.getItem(2)
                 );
 
-                // Jetzt können wir getFirstMatch aufrufen
-                Optional<RecipeHolder<CountBasedSmithingRecipe>> match = serverRecipeManager
-                        .getRecipeFor(ModRecipes.COUNT_BASED_SMITHING, input, world);
+                // The recipe is registered with type SMITHING (SmithingRecipe#getType), not under
+                // the mod's own COUNT_BASED_SMITHING type - asking for that type never matched and
+                // the extra additions were never taken (audit 2026-09-26 #12).
+                Optional<CountBasedSmithingRecipe> match = serverRecipeManager
+                        .getRecipeFor(RecipeType.SMITHING, input, world)
+                        .map(RecipeHolder::value)
+                        .filter(CountBasedSmithingRecipe.class::isInstance)
+                        .map(CountBasedSmithingRecipe.class::cast);
 
                 if (match.isPresent()) {
-                    CountBasedSmithingRecipe recipe = match.get().value();
+                    CountBasedSmithingRecipe recipe = match.get();
                     int countToConsume = recipe.getAdditionCount();
 
                     // Wenn wir mehr als 1 Item verbrauchen müssen (Vanilla zieht 1 automatisch ab)

@@ -23,11 +23,33 @@ public class TrimMultiplierLogic {
      */
     public static final int XP_POINTS_FOR_FULL_FACTOR = 1395;
 
+    /** Die vom Server geschickte Basis ({@code TrimDataPayload}); NaN, solange keine kam. */
+    private static volatile double clientSyncedBase = Double.NaN;
+
+    /**
+     * Die konfigurierte Basis der Resonanz: auf dem Server (und im Einzelspieler) der Wert aus
+     * {@link SimplebuildingConfig#trimBenefitBaseMultiplier}, auf dem Client der vom Server
+     * geschickte, sobald einer da ist - sonst saehe ein Client auf einem Server mit anderer Basis
+     * seine eigene Datei.
+     */
+    public static double baseMultiplier(boolean clientSide) {
+        double synced = clientSyncedBase;
+        if (clientSide && !Double.isNaN(synced)) {
+            return synced;
+        }
+        return com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
+    }
+
+    /** Vom Client-Empfaenger des {@code TrimDataPayload} gerufen. */
+    public static void setClientSyncedBase(double base) {
+        clientSyncedBase = base;
+    }
+
     public static double getMultiplier(Player player) {
         double xpMult = calculateXPMultiplier(player);
         double survivalMult = calculateSurvivalMultiplier(player);
         double combatMult = calculateCombatMultiplier(player);
-        double globalMult = SimplebuildingConfig.trimBenefitBaseMultiplier;
+        double globalMult = baseMultiplier(player.level().isClientSide());
 
         return globalMult * (xpMult + survivalMult + combatMult) / 3.0d;
     }

@@ -120,6 +120,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_visible_trim_icons_follow_the_client_options", DataIntegrityTests::visibleTrimIconsFollowTheClientOptions)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_every_enderite_gear_piece_upgrades_from_its_netherite_twin", DataIntegrityTests::everyEnderiteGearPieceUpgradesFromItsNetheriteTwin)
+                    .build(),
             GameTestSpec.named("tool_behaviour_game_test_sledgehammer_breaks_three_by_three_around_origin", ToolBehaviourTests::sledgehammerBreaksThreeByThreeAroundOrigin)
                     .rotation(Rotation.NONE)
                     .build(),
@@ -479,6 +481,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("trim_wiring_game_test_the_trim_multiplier_command_guards_its_range_and_its_permission", TrimWiringTests::theTrimMultiplierCommandGuardsItsRangeAndItsPermission)
                     .build(),
+            GameTestSpec.named("trim_wiring_game_test_the_trim_multiplier_command_saves_and_syncs_its_value", TrimWiringTests::theTrimMultiplierCommandSavesAndSyncsItsValue)
+                    .build(),
             GameTestSpec.named("reinforced_bundle_game_test_insertion_stops_at_the_brim_and_weighs_by_stack_size", ReinforcedBundleTests::insertionStopsAtTheBrimAndWeighsByStackSize)
                     .build(),
             GameTestSpec.named("reinforced_bundle_game_test_insertion_turns_away_what_cannot_go_into_container_items", ReinforcedBundleTests::insertionTurnsAwayWhatCannotGoIntoContainerItems)
@@ -497,6 +501,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("reinforced_bundle_game_test_bar_and_tooltip_read_the_same_capacity_the_filling_uses", ReinforcedBundleTests::barAndTooltipReadTheSameCapacityTheFillingUses)
                     .build(),
+            GameTestSpec.named("reinforced_bundle_game_test_nested_bundles_weigh_their_contents", ReinforcedBundleTests::nestedBundlesWeighTheirContents)
+                    .build(),
             GameTestSpec.named("bundle_wiring_game_test_funnel_bundle_sweeps_up_drops_on_touch_unless_the_player_sneaks", BundleWiringTests::funnelBundleSweepsUpDropsOnTouchUnlessThePlayerSneaks)
                     .build(),
             GameTestSpec.named("bundle_wiring_game_test_netherite_bundle_on_the_ground_survives_fire_and_explosions", BundleWiringTests::netheriteBundleOnTheGroundSurvivesFireAndExplosions)
@@ -514,6 +520,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("bundle_wiring_game_test_reinforced_bundle_sits_in_dungeon_shipwreck_and_mineshaft_loot", BundleWiringTests::reinforcedBundleSitsInDungeonShipwreckAndMineshaftLoot)
                     .build(),
             GameTestSpec.named("bundle_wiring_game_test_container_enchantments_accept_the_bundles_they_are_meant_for", BundleWiringTests::containerEnchantmentsAcceptTheBundlesTheyAreMeantFor)
+                    .build(),
+            GameTestSpec.named("bundle_wiring_game_test_funnel_honours_pickup_delay_and_target_in_the_hand", BundleWiringTests::funnelHonoursPickupDelayAndTargetInTheHand)
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_field_skips_air_gaps_and_unbreakable_blocks", SledgehammerTests::sledgehammerFieldSkipsAirGapsAndUnbreakableBlocks)
                     .build(),
@@ -558,6 +566,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("chisel_game_test_last_target_is_stored_and_shown_in_the_tooltip", ChiselTests::lastTargetIsStoredAndShownInTheTooltip)
                     .build(),
             GameTestSpec.named("chisel_game_test_smithing_upgrades_carry_wear_name_and_enchantments", ChiselTests::smithingUpgradesCarryWearNameAndEnchantments)
+                    .build(),
+            GameTestSpec.named("chisel_game_test_smithing_table_takes_the_whole_addition_count", ChiselTests::smithingTableTakesTheWholeAdditionCount)
                     .build(),
             GameTestSpec.named("mining_enchantment_game_test_vein_miner_spends_its_per_level_budget_and_stops_when_the_tool_breaks", MiningEnchantmentTests::veinMinerSpendsItsPerLevelBudgetAndStopsWhenTheToolBreaks)
                     .build(),
@@ -641,6 +651,9 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("piston_breach_game_test_end_portal_frames_breach_only_while_their_config_option_is_on", PistonBreachTests::endPortalFramesBreachOnlyWhileTheirConfigOptionIsOn)
                     .build(),
             GameTestSpec.named("piston_breach_game_test_reinforced_sticky_piston_crafts_from_slime_and_drops_itself", PistonBreachTests::reinforcedStickyPistonCraftsFromSlimeAndDropsItself)
+                    .build(),
+            GameTestSpec.named("piston_breach_game_test_mod_pistons_ask_the_platform_guard_before_every_break", PistonBreachTests::modPistonsAskThePlatformGuardBeforeEveryBreak)
+                    .maxTicks(PistonBreachTests.GUARD_MAX_TICKS)
                     .build(),
             GameTestSpec.named("leather_and_quiver_game_test_leather_sheet_takes_exactly_nine_leather", LeatherAndQuiverTests::leatherSheetTakesExactlyNineLeather)
                     .build(),

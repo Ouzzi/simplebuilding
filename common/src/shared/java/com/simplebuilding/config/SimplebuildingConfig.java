@@ -27,6 +27,10 @@ public class SimplebuildingConfig implements ConfigData {
         if (tweaks != null && tweaks.spawn != null) {
             tweaks.spawn.migrateLegacyFirstJoinCount();
         }
+        if (Double.isNaN(trimBenefitBaseMultiplier)) {
+            trimBenefitBaseMultiplier = 2.0;
+        }
+        trimBenefitBaseMultiplier = Math.max(0.0, Math.min(maxMultiplierLimit, trimBenefitBaseMultiplier));
     }
 
     // Air-jump cooldown (ticks) at DOUBLE_JUMP level 1; level 2 uses half of this. 20 ticks = 1s.
@@ -37,9 +41,10 @@ public class SimplebuildingConfig implements ConfigData {
     public boolean enableArmorTrimBenefits = true;
 
     // Ob die Kolben der Mod Endportalrahmen schieben (verstaerkte Kolben) bzw. zerstoeren
-    // (Netherit-/Enderitkolben). Aus: der Rahmen zaehlt wie ein immuner Block, siehe PistonBreach.
+    // (Netherit-/Enderitkolben). Aus (Standard seit 2026-09-26, Besitzer-Entscheidung): der Rahmen
+    // zaehlt wie ein immuner Block, siehe PistonBreach.
     @ConfigEntry.Gui.Tooltip
-    public boolean pistonsBreachEndPortalFrames = true;
+    public boolean pistonsBreachEndPortalFrames = false;
 
     // Zeigt den Kreativ-Tab "SimpleEnchants (Dev)" auch ausserhalb einer
     // Entwicklungsumgebung (dort ist er immer da), siehe DevEnchantedTab. Wirkt beim naechsten
@@ -65,8 +70,13 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean visibleTrimIconsModArmor = true;
 
+    // Basis der Besatz-Resonanz (TrimMultiplierLogic). Wird gespeichert; der Befehl
+    // /simplebuilding config setTrimMultiplier schreibt ihn in die Datei (ConfigSaving), und der
+    // Server schickt ihn mit dem TrimDataPayload an die Clients (Anzeige im TrimStatsPanel).
+    // Bis 2026-09-26 statisch: nach einem Neustart weg, und jeder Client zeigte seinen eigenen Wert.
     @ConfigEntry.Gui.Tooltip
-    public static double trimBenefitBaseMultiplier = 2.0;
+    public double trimBenefitBaseMultiplier = 2.0;
+    // Obergrenze des Befehls und der geladenen Datei; fest, nicht gespeichert.
     @ConfigEntry.Gui.Tooltip
     public static double maxMultiplierLimit = 10.0;
 
