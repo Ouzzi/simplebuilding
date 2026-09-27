@@ -103,8 +103,10 @@ Verlauf im Detail: git log.
 - [ ] Danach: Server-Gate, Push; Client-Gate wenn Besitzer-Spiel zu
 
 ## Welle 20 (laeuft)
-- [ ] Texturen: Maschinen (Kolben, Oefen, Raeucherofen, Schmelzofen, Trichter) vanilla-naeher; Enderit-Block + andere Mod-Bloecke neu; Netherit-Griff fuer Netherit-Hammer/-Meissel/-Baustab; Enderquarz lesbarer; Laser-Textur
-- [ ] Echo-Kompass: 3 s Aktivierung, Sounds/Partikel/FOV, 1. Nutzung -> kaputt, 2. Nutzung doppelt lang + Warnung -> zerbricht, eigene + kaputte Textur, Werkzeug-Tab, Rezept (unten Kern, Mitte Bergungskompass, Rest offen); Velocity-Gauge-Rezept (Quarz oben in den Ecken, unten Kupfer-Kern)
+- [ ] Texturen (fertig, Freigabe durch Besitzer ausstehend): Maschinen (Kolben, Oefen, Raeucherofen, Schmelzofen, Trichter) vanilla-naeher; Enderit-Block + andere Mod-Bloecke neu; Netherit-Griff fuer Netherit-Hammer/-Meissel/-Baustab; Enderquarz lesbarer; Laser-Textur
+- [ ] Echo-Kompass: 3 s Aktivierung, Sounds/Partikel/FOV, 1. Nutzung -> kaputt, 2. Nutzung doppelt lang + Warnung -> zerbricht, eigene + kaputte Textur, Werkzeug-Tab, Rezept (N N/NRN/NEN, 6 Enderit-Nuggets), Mending: 1500 Punkte Aufladung, Glanz nur repariert; Velocity-Gauge-Rezept (Quarz oben in den Ecken, unten Kupfer-Kern)
+- [ ] Tweaks-Stufen: Launchpad (4/8/16 Ladungen, doppelte Staerke je Ladung, Shift = alle Windladungen rein), Chunk-Loader (1 / 5 / 3x3), Upgrades kosten Druckplatten, Flypad Stufe 1 mit Elytra (+ ? offen); Rotator-Rezept + Perle in der Textur
+- [ ] Magnet-Rezept (Eisen-Kern unten links, Eisen, Redstone-Position offen, Lapis unten rechts)
 - [ ] Laser: in den Werkzeug-Tab; Vanilla-Name, Punktgroesse, Abstand der Meterzahl, Rezept (Eisen-Kern/Amethyst/Eisen-U/Redstone), Eis/Schnee schmelzen, Brennbares entzuenden, Seelenfeuer, Lagerfeuer, kein Netherportal, Ladung statt Bruch, Amboss-Aufladen mit Redstone ohne Level (64 = voll)
 - [x] JEI-Infoseiten fuer Items ohne Rezept (+ Test)
 - [ ] Blaupausen-Code: Formen und Variablen (laeuft)
