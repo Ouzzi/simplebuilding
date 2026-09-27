@@ -79,14 +79,28 @@ public final class BlueprintTooltip implements ClientTooltipComponent {
         return Component.literal(e.count() + "× ").append(new ItemStack(e.item()).getHoverName());
     }
 
-    @Override
-    public void extractImage(Font font, int x, int y, int w, int h, GuiGraphicsExtractor graphics) {
-        int viewX = x + (w - VIEW) / 2;
-        graphics.fill(viewX, y, viewX + VIEW, y + VIEW, 0x40203050);
+    /**
+     * Die kreisende 3D-Miniatur in einem Quadrat der Kantenlaenge {@code size} ab {@code x,y}:
+     * getoente Flaeche, darin das Bauwerk mit 2 px Rand. Dasselbe Bild zeigt der Kartentisch
+     * ({@code CartographyTableScreenMixin}) fuer eine signierte Blaupause im oberen Slot.
+     */
+    public static void extractPreview(GuiGraphicsExtractor graphics, BlueprintModel model, int x, int y, int size) {
+        graphics.fill(x, y, x + size, y + size, 0x40203050);
         BlueprintView.Mesh mesh = BlueprintView.mesh(model);
         float angle = (Util.getMillis() % (long) PERIOD_MS) / PERIOD_MS * (float) (Math.PI * 2);
         Quaternionf rotation = new Quaternionf().rotateX((float) Math.toRadians(28)).rotateY(angle);
-        BlueprintView.render(graphics, mesh, viewX + 2, y + 2, VIEW - 4, VIEW - 4, rotation, 0.95f);
+        BlueprintView.render(graphics, mesh, x + 2, y + 2, size - 4, size - 4, rotation, 0.95f);
+    }
+
+    /** {@link #extractPreview} fuer einen Bau-Code (geparst ueber den Cache). */
+    public static void extractPreview(GuiGraphicsExtractor graphics, String code, int x, int y, int size) {
+        extractPreview(graphics, BlueprintCode.parseCached(code).model(), x, y, size);
+    }
+
+    @Override
+    public void extractImage(Font font, int x, int y, int w, int h, GuiGraphicsExtractor graphics) {
+        int viewX = x + (w - VIEW) / 2;
+        extractPreview(graphics, model, viewX, y, VIEW);
         int ty = y + VIEW + 4;
         if (!showMaterials()) {
             graphics.text(font, Component.translatable("simplebuilding.blueprint.tooltip.shift").withStyle(ChatFormatting.DARK_GRAY), x, ty, 0xFFFFFFFF);
