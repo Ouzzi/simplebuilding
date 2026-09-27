@@ -4,8 +4,11 @@ import com.simplebuilding.component.BackpackContents;
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.util.EnchantmentHelper;
+import com.simplebuilding.items.tooltip.BackpackTooltipData;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
@@ -94,6 +97,19 @@ public class BackpackItem extends BlockItem {
             }
         }
         super.onDestroyed(itemEntity);
+    }
+
+    /**
+     * Tooltip-Bild: der Inhalt als Raster (mit Umschalt) bzw. der Umschalt-Hinweis. Ein leerer
+     * Rucksack hat nichts zu zeigen und bekommt kein Bild.
+     */
+    @Override
+    public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
+        BackpackContents contents = contents(stack);
+        if (contents.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(new BackpackTooltipData(contents, this.tier.slotCount()));
     }
 
     @Override

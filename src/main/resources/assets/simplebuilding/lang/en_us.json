@@ -659,6 +659,7 @@
   "key.simplebuilding.open_backpack": "Open Backpack",
   "tooltip.simplebuilding.backpack.slots": "%s / %s slots used",
   "tooltip.simplebuilding.backpack.more": "...and %s more",
+  "tooltip.simplebuilding.backpack.shift_hint": "Hold Shift to see contents",
   "tooltip.simplebuilding.backpack.open_hint": "Wear it and press %s to open it",
   "tooltip.simplebuilding.backpack.place_hint": "Sneak + right-click a block to set it down",
   "jei.simplebuilding.category.machine_upgrade": "Machine Upgrade (Sledgehammer)",
