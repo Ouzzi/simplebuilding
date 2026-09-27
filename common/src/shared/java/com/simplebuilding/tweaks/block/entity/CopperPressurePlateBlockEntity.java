@@ -12,9 +12,13 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-/** Stehzeit-Logik der Kupfer-Druckplatte, 1:1 aus Simple Tweaks. */
+/**
+ * Stehzeit-Logik der Kupfer-Druckplatte aus Simple Tweaks; neu: das Loslassen wartet genauso lange
+ * wie das Ausloesen.
+ */
 public class CopperPressurePlateBlockEntity extends OwnedBlockEntity {
     private int ticksActive;
+    private int ticksInactive;
 
     public CopperPressurePlateBlockEntity(BlockPos pos, BlockState state) {
         super(TweaksBlockEntities.COPPER_PRESSURE_PLATE, pos, state);
@@ -31,10 +35,11 @@ public class CopperPressurePlateBlockEntity extends OwnedBlockEntity {
         }
         AABB box = new AABB(pos).inflate(0.0, 0.5, 0.0);
         List<Player> players = level.getEntitiesOfClass(Player.class, box, p -> !p.isSpectator());
+        int required = state.getBlock() instanceof CopperPressurePlateBlock plate
+                ? CopperPressurePlateBlock.requiredTicks(plate.getAge()) : 20;
 
         if (!players.isEmpty()) {
-            int required = state.getBlock() instanceof CopperPressurePlateBlock plate
-                    ? CopperPressurePlateBlock.requiredTicks(plate.getAge()) : 20;
+            be.ticksInactive = 0;
             if (!powered) {
                 be.ticksActive++;
                 if (be.ticksActive % 5 == 0) {
@@ -49,9 +54,17 @@ public class CopperPressurePlateBlockEntity extends OwnedBlockEntity {
             }
         } else {
             be.ticksActive = 0;
+            // Loslassen dauert so lange wie Ausloesen (Besitzer 2026-09-27): erst nach derselben
+            // Wartezeit ohne Spieler geht das Signal aus; wer zurueckkommt, haelt es an.
             if (powered) {
-                setPowered(level, pos, state, false);
-                level.playSound(null, pos, SoundEvents.COPPER_STEP, SoundSource.BLOCKS, 0.7f, 0.8f);
+                be.ticksInactive++;
+                if (be.ticksInactive >= required) {
+                    setPowered(level, pos, state, false);
+                    level.playSound(null, pos, SoundEvents.COPPER_STEP, SoundSource.BLOCKS, 0.7f, 0.8f);
+                    be.ticksInactive = 0;
+                }
+            } else {
+                be.ticksInactive = 0;
             }
         }
     }

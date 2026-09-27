@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "waxed_oxidized_copper_pressure_plate",
+  "ingredients": [
+    "simplebuilding:oxidized_copper_pressure_plate",
+    "minecraft:honeycomb"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:waxed_oxidized_copper_pressure_plate"
+  }
+}

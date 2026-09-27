@@ -2203,6 +2203,10 @@ public final class DataIntegrityTests {
                 Items.FURNACE, Items.SMOKER, Items.BLAST_FURNACE, Items.BUNDLE, Items.CARTOGRAPHY_TABLE)) {
             vanillaHome.put(counterpart, ModItemGroupsContent.Tab.FUNCTIONAL);
         }
+        // Alle Vanilla-Druckplatten neben den Mod-Platten (Besitzer 2026-09-27; 16, ab MC 26.3 mit Pappel 17).
+        for (Item plate : vanillaPressurePlates()) {
+            vanillaHome.put(plate, ModItemGroupsContent.Tab.FUNCTIONAL);
+        }
         for (String kind : List.of("pickaxe", "shovel", "hoe", "axe", "sword", "spear")) {
             for (String tier : List.of("wooden", "stone", "copper", "iron", "golden", "diamond", "netherite")) {
                 vanillaHome.put(BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(tier + "_" + kind)), ModItemGroupsContent.Tab.TOOLS);
@@ -2216,7 +2220,8 @@ public final class DataIntegrityTests {
         // Kompass und Bergungskompass neben dem Echo-Kompass in SimpleTools (Besitzer 2026-09-27).
         vanillaHome.put(Items.COMPASS, ModItemGroupsContent.Tab.TOOLS);
         vanillaHome.put(Items.RECOVERY_COMPASS, ModItemGroupsContent.Tab.TOOLS);
-        if (vanillaHome.size() != 8 + 42 + 28 + 2 || vanillaHome.containsKey(Items.AIR)) {
+        if (vanillaPressurePlates().size() < 16 || vanillaHome.size() != 8 + vanillaPressurePlates().size() + 42 + 28 + 2
+                || vanillaHome.containsKey(Items.AIR)) {
             problems.add("the vanilla tool and armour list names an item that does not exist: " + vanillaHome.size() + " entries");
         }
         Set<Item> vanillaCounterparts = vanillaHome.keySet();
@@ -2277,7 +2282,9 @@ public final class DataIntegrityTests {
 
     /**
      * SimpleMachines is laid out in rows of nine, one category per row: hoppers, pistons, furnaces,
-     * smokers, blast furnaces, bundles, quivers, backpacks - each vanilla first and then the tiers -
+     * smokers, blast furnaces, bundles, quivers, backpacks - each vanilla first and then the tiers -,
+     * the pressure plates by material in ascending tiers (wooden, stone, copper with its waxed stages,
+     * then iron, gold, diamond, netherite, enderite), one row per pad family,
      * and the building planning row: blueprint, cartography table, an octant and every building
      * wand. The rest of a row is filled with {@code simplebuilding:creative_spacer}.
      *
@@ -2293,6 +2300,15 @@ public final class DataIntegrityTests {
      */
     public static void machinesAndStorageTabIsLaidOutInRowsOfNine(GameTestHelper helper) {
         List<String> problems = new ArrayList<>();
+        // Holzplatten in Vanilla-Reihenfolge; die Pappel gibt es erst ab MC 26.3.
+        List<Item> woodenPlates = new ArrayList<>();
+        for (String wood : List.of("oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "mangrove", "cherry",
+                "pale_oak", "poplar", "bamboo", "crimson", "warped")) {
+            BuiltInRegistries.ITEM.getOptional(Identifier.withDefaultNamespace(wood + "_pressure_plate")).ifPresent(woodenPlates::add);
+        }
+        if (woodenPlates.size() < 12) {
+            problems.add("only " + woodenPlates.size() + " wooden pressure plates are registered: " + woodenPlates);
+        }
         List<List<Item>> expected = List.of(
                 List.of(Items.HOPPER, ModItems.REINFORCED_HOPPER, ModItems.NETHERITE_HOPPER, ModItems.ENDERITE_HOPPER),
                 List.of(Items.PISTON, Items.STICKY_PISTON, ModItems.REINFORCED_PISTON, ModItems.REINFORCED_STICKY_PISTON,
@@ -2304,20 +2320,29 @@ public final class DataIntegrityTests {
                 List.of(Items.BUNDLE, ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE),
                 List.of(ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER),
                 List.of(ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK),
-                // Aus Simple Tweaks: Druckplatten, Elytra-Pads, Flypads, Teleporter, Reisen/Laden
-                List.of(TweaksBlocks.DIAMOND_PRESSURE_PLATE.asItem(), TweaksBlocks.NETHERITE_PRESSURE_PLATE.asItem(),
-                        TweaksBlocks.ENDERITE_PRESSURE_PLATE.asItem(), TweaksBlocks.COPPER_PRESSURE_PLATE.asItem(),
-                        TweaksBlocks.EXPOSED_COPPER_PRESSURE_PLATE.asItem(), TweaksBlocks.WEATHERED_COPPER_PRESSURE_PLATE.asItem(),
-                        TweaksBlocks.OXIDIZED_COPPER_PRESSURE_PLATE.asItem()),
-                List.of(TweaksItems.SPAWN_ELYTRA, TweaksBlocks.ELYTRA_PAD.asItem(), TweaksBlocks.REINFORCED_ELYTRA_PAD.asItem(),
+                // Druckplatten nach Material, Stufen aufsteigend, Vanilla vor der Mod (Besitzer 2026-09-27):
+                // Holz (zwoelf, ab 26.3 mit Pappel dreizehn; laeuft ueber zwei Zeilen), Stein, Kupfer (vier Stufen, dann gewachst),
+                // Eisen/Gold/Diamant/Netherit/Enderit
+                woodenPlates,
+                List.of(Items.STONE_PRESSURE_PLATE, Items.POLISHED_BLACKSTONE_PRESSURE_PLATE),
+                List.of(TweaksBlocks.COPPER_PRESSURE_PLATE.asItem(), TweaksBlocks.EXPOSED_COPPER_PRESSURE_PLATE.asItem(),
+                        TweaksBlocks.WEATHERED_COPPER_PRESSURE_PLATE.asItem(), TweaksBlocks.OXIDIZED_COPPER_PRESSURE_PLATE.asItem(),
+                        TweaksBlocks.WAXED_COPPER_PRESSURE_PLATE.asItem(), TweaksBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE.asItem(),
+                        TweaksBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE.asItem(), TweaksBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE.asItem()),
+                List.of(Items.HEAVY_WEIGHTED_PRESSURE_PLATE, Items.LIGHT_WEIGHTED_PRESSURE_PLATE,
+                        TweaksBlocks.DIAMOND_PRESSURE_PLATE.asItem(), TweaksBlocks.NETHERITE_PRESSURE_PLATE.asItem(),
+                        TweaksBlocks.ENDERITE_PRESSURE_PLATE.asItem()),
+                // Aus Simple Tweaks: Elytra-Pads, Flypads, Teleporter, Launchpads, Chunk-Loader
+                // Elytra-Pads in Stufenfolge, die Spawn-Elytra am Ende (Besitzer 2026-09-27)
+                List.of(TweaksBlocks.ELYTRA_PAD.asItem(), TweaksBlocks.REINFORCED_ELYTRA_PAD.asItem(),
                         TweaksBlocks.NETHERITE_ELYTRA_PAD.asItem(), TweaksBlocks.ENDERITE_ELYTRA_PAD.asItem(),
-                        TweaksBlocks.FINE_ELYTRA_PAD.asItem()),
+                        TweaksBlocks.FINE_ELYTRA_PAD.asItem(), TweaksItems.SPAWN_ELYTRA),
                 List.of(TweaksBlocks.FLYPAD.asItem(), TweaksBlocks.REINFORCED_FLYPAD.asItem(), TweaksBlocks.STELLAR_FLYPAD.asItem()),
                 List.of(TweaksBlocks.SPAWN_TELEPORTER.asItem(), TweaksBlocks.SPAWN_TELEPORTER_TIER_2.asItem(),
                         TweaksBlocks.SPAWN_TELEPORTER_TIER_3.asItem(), TweaksBlocks.SPAWN_TELEPORTER_TIER_4.asItem(),
                         TweaksBlocks.ENDERITE_SPAWN_TELEPORTER.asItem()),
-                List.of(TweaksBlocks.LAUNCHPAD.asItem(), TweaksBlocks.NETHERITE_LAUNCHPAD.asItem(), TweaksBlocks.ENDERITE_LAUNCHPAD.asItem(),
-                        TweaksBlocks.CHUNK_LOADER.asItem(), TweaksBlocks.NETHERITE_CHUNK_LOADER.asItem(),
+                List.of(TweaksBlocks.LAUNCHPAD.asItem(), TweaksBlocks.NETHERITE_LAUNCHPAD.asItem(), TweaksBlocks.ENDERITE_LAUNCHPAD.asItem()),
+                List.of(TweaksBlocks.CHUNK_LOADER.asItem(), TweaksBlocks.NETHERITE_CHUNK_LOADER.asItem(),
                         TweaksBlocks.ENDERITE_CHUNK_LOADER.asItem()),
                 List.of(ModItems.BLUEPRINT, Items.CARTOGRAPHY_TABLE, ModItems.OCTANT, ModItems.COPPER_BUILDING_WAND,
                         ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND, ModItems.DIAMOND_BUILDING_WAND,
@@ -2367,8 +2392,8 @@ public final class DataIntegrityTests {
      * SimpleTools is laid out in rows of nine, one family per row from the lowest tier up to
      * enderite, the vanilla tools, weapons and armour of every tier included: chisel, building wand,
      * sledgehammer, pickaxe, shovel, hoe, axe, then sword and spear, then helmet, chestplate,
-     * leggings and boots, then the gadgets (octant, velocity gauge, ore detector, magnet, rotator),
-     * the compasses (vanilla compass, recovery compass, echo compass),
+     * leggings and boots, then the gadgets (compass, recovery compass, echo compass, velocity gauge,
+     * ore detector, magnet, rotator, amethyst lens, octant - a full row),
      * the sixteen coloured octants (one category over two rows) and last the enchanted books, one
      * per mod enchantment.
      *
@@ -2410,14 +2435,16 @@ public final class DataIntegrityTests {
             family.add(top);
             expected.add(family);
         });
-        expected.add(List.of(ModItems.OCTANT, ModItems.VELOCITY_GAUGE, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR,
-                TweaksItems.LASER_POINTER));
-        expected.add(List.of(Items.COMPASS, Items.RECOVERY_COMPASS, TweaksItems.ECHO_COMPASS));
-        List<Item> colored = new ArrayList<>();
+        // Geraete (Besitzer 2026-09-27): Kompassartiges zuerst, dann Magnet, Rotator, Amethystlinse, Oktant.
+        // Genau neun, also ohne Fueller: im Tab laufen sie direkt in die gefaerbten Oktanten der naechsten
+        // Zeile weiter, und rowLayout liest beides als eine Kategorie - die Neun vorne belegt die Zeilengrenze.
+        List<Item> gadgetsThenColored = new ArrayList<>(List.of(Items.COMPASS, Items.RECOVERY_COMPASS, TweaksItems.ECHO_COMPASS,
+                ModItems.VELOCITY_GAUGE, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR, TweaksItems.LASER_POINTER,
+                ModItems.OCTANT));
         for (DyeColor color : DyeColor.values()) {
-            colored.add(ModItems.COLORED_OCTANT_ITEMS.get(color));
+            gadgetsThenColored.add(ModItems.COLORED_OCTANT_ITEMS.get(color));
         }
-        expected.add(colored);
+        expected.add(gadgetsThenColored);
         int modEnchantments = (int) helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
                 .listElements().filter(h -> MOD_ID.equals(h.key().identifier().getNamespace())).count();
         expected.add(Collections.nCopies(modEnchantments, Items.ENCHANTED_BOOK));
@@ -2428,6 +2455,17 @@ public final class DataIntegrityTests {
         }
         helper.assertTrue(problems.isEmpty(), "tools layout: " + problems);
         helper.succeed();
+    }
+
+    /** Every vanilla pressure plate, read from the registry ({@code minecraft:*_pressure_plate}). */
+    private static List<Item> vanillaPressurePlates() {
+        List<Item> plates = new ArrayList<>();
+        for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
+            if ("minecraft".equals(id.getNamespace()) && id.getPath().endsWith("_pressure_plate")) {
+                plates.add(BuiltInRegistries.ITEM.getValue(id));
+            }
+        }
+        return plates;
     }
 
     /** Every category has to start with its expected items in order (more may follow at its end). */

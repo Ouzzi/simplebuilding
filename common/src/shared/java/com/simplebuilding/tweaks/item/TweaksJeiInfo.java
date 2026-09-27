@@ -29,7 +29,9 @@ public final class TweaksJeiInfo {
         map.put("netherite_pressure_plate", List.of(TweaksBlocks.NETHERITE_PRESSURE_PLATE));
         map.put("enderite_pressure_plate", List.of(TweaksBlocks.ENDERITE_PRESSURE_PLATE));
         map.put("copper_pressure_plate", List.of(TweaksBlocks.COPPER_PRESSURE_PLATE, TweaksBlocks.EXPOSED_COPPER_PRESSURE_PLATE,
-                TweaksBlocks.WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.OXIDIZED_COPPER_PRESSURE_PLATE));
+                TweaksBlocks.WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.OXIDIZED_COPPER_PRESSURE_PLATE,
+                TweaksBlocks.WAXED_COPPER_PRESSURE_PLATE, TweaksBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE,
+                TweaksBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE));
         map.put("spawn_elytra", List.of(TweaksItems.SPAWN_ELYTRA));
         map.put("laser_pointer", List.of(TweaksItems.LASER_POINTER));
         map.put("echo_compass", List.of(TweaksItems.ECHO_COMPASS));
