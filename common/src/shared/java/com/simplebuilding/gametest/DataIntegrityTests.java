@@ -2324,6 +2324,38 @@ public final class DataIntegrityTests {
     }
 
     /**
+     * Every enderite gear piece comes from its netherite twin at the smithing table: enderite
+     * upgrade template + netherite piece + enderite ingot, under {@code simplebuilding:enderite_<kind>_smithing}.
+     * The enderite spear was registered without that recipe and was not obtainable in survival at
+     * all (audit 2026-09-26 #18).
+     */
+    public static void everyEnderiteGearPieceUpgradesFromItsNetheriteTwin(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        RecipeManager recipes = level.getServer().getRecipeManager();
+        List<String> problems = new ArrayList<>();
+        for (String kind : List.of("pickaxe", "shovel", "hoe", "axe", "sword", "spear",
+                "helmet", "chestplate", "leggings", "boots")) {
+            Item netherite = BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("netherite_" + kind));
+            Item enderite = BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(MOD_ID, "enderite_" + kind));
+            if (netherite == Items.AIR || enderite == Items.AIR) {
+                problems.add("netherite_" + kind + " or enderite_" + kind + " is not registered");
+                continue;
+            }
+            SmithingRecipeInput input = new SmithingRecipeInput(new ItemStack(ModItems.ENDERITE_UPGRADE_TEMPLATE),
+                    new ItemStack(netherite), new ItemStack(ModItems.ENDERITE_INGOT));
+            Optional<RecipeHolder<SmithingRecipe>> match = recipes.getRecipeFor(RecipeType.SMITHING, input, level);
+            if (match.isEmpty()) {
+                problems.add("no smithing recipe turns netherite_" + kind + " into enderite_" + kind);
+            } else if (!match.get().id().toString().contains(MOD_ID + ":enderite_" + kind + "_smithing")) {
+                problems.add("netherite_" + kind + " + enderite ingot matches " + match.get().id()
+                        + " instead of " + MOD_ID + ":enderite_" + kind + "_smithing");
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), String.join("; ", problems));
+        helper.succeed();
+    }
+
+    /**
      * SimpleTools is laid out in rows of nine, one family per row from the lowest tier up to
      * enderite, the vanilla tools, weapons and armour of every tier included: chisel, building wand,
      * sledgehammer, pickaxe, shovel, hoe, axe, then sword and spear, then helmet, chestplate,

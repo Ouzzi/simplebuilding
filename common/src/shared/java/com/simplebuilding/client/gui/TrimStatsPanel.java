@@ -122,7 +122,7 @@ public final class TrimStatsPanel {
 
         tooltip.add(Component.literal("Statistic Details").withStyle(ChatFormatting.BLUE, ChatFormatting.UNDERLINE));
         // Resonanz = Mittelwert der drei Faktoren mal konfigurierte Basis (TrimMultiplierLogic)
-        tooltip.add(Component.literal("(L + S + C) / 3 x " + String.format("%.1f", com.simplebuilding.config.SimplebuildingConfig.trimBenefitBaseMultiplier)).withStyle(ChatFormatting.DARK_GRAY));
+        tooltip.add(Component.literal("(L + S + C) / 3 x " + String.format("%.1f", com.simplebuilding.util.TrimMultiplierLogic.baseMultiplier(true))).withStyle(ChatFormatting.DARK_GRAY));
         tooltip.add(Component.empty());
 
         // Level

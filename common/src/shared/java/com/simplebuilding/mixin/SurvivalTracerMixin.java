@@ -84,7 +84,8 @@ public abstract class SurvivalTracerMixin implements SurvivalTracerAccessor {
     public void simplebuilding$syncTrimData() {
         ServerPlayer player = (ServerPlayer) (Object) this;
         if (player.connection != null && PlatformServices.canSendToPlayer(player, TrimDataPayload.ID)) {
-            PlatformServices.sendToPlayer(player, new TrimDataPayload(baseDist, baseTime, baseHostile, basePassive, baseDamage, baseXp));
+            PlatformServices.sendToPlayer(player, new TrimDataPayload(baseDist, baseTime, baseHostile, basePassive, baseDamage, baseXp,
+                    com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier));
         }
     }
 

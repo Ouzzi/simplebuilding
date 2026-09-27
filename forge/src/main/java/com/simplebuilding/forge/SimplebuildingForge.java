@@ -44,6 +44,7 @@ public final class SimplebuildingForge {
         com.simplebuilding.tweaks.forge.TweaksForge.register(modBus);
         com.simplebuilding.forge.gametest.ForgeGameTests.register(modBus);
         ForgeItemAutomation.install();
+        ForgePistonBreakGuard.install();
         configure();
     }
 

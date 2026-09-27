@@ -113,10 +113,7 @@ import org.jetbrains.annotations.Nullable;
  *       ({@code spawnEffects}): both leave the server as packets with no observable server state.</li>
  *   <li>The tooltip's colour/style. {@link #lastTargetIsStoredAndShownInTheTooltip} reads the line
  *       through {@code Component#getString()}, which drops the {@code GRAY} formatting.</li>
- *   <li>The smithing <em>table</em> itself: {@code SmithingScreenHandlerMixin} subtracts the extra
- *       addition items in {@code onTake}, which needs a live {@code SmithingMenu} and a slot
- *       listener. {@link #smithingUpgradesCarryWearNameAndEnchantments} stops at the recipe.</li>
- * </ul>
+ * * </ul>
  */
 public final class ChiselTests {
 
@@ -986,6 +983,47 @@ public final class ChiselTests {
         helper.assertTrue(recipes.getRecipeFor(RecipeType.SMITHING, wrongTemplate, level).isEmpty(),
                 "the copper -> iron upgrade accepted the netherite template");
 
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * The smithing table itself: taking an upgrade out of a live {@code SmithingMenu} has to eat
+     * the recipe's whole {@code addition_count}, not the single item vanilla removes.
+     *
+     * <p>{@code SmithingScreenHandlerMixin#onTake} used to look the recipe up under the mod's own
+     * {@code COUNT_BASED_SMITHING} type, while the recipe reports {@code RecipeType.SMITHING}; the
+     * lookup never matched and every copper -> iron upgrade cost one ingot instead of two (audit
+     * 2026-09-26 #12). Five ingots in, one take out: three must be left, not four. A second
+     * round with exactly two ingots must empty the slot.
+     */
+    public static void smithingTableTakesTheWholeAdditionCount(GameTestHelper helper) {
+        ServerPlayer player = survivalPlayer(helper, new Vec3(1.5, 2.0, 1.5), 0.0F);
+        net.minecraft.world.inventory.SmithingMenu menu = new net.minecraft.world.inventory.SmithingMenu(
+                1, player.getInventory(),
+                net.minecraft.world.inventory.ContainerLevelAccess.create(helper.getLevel(),
+                        helper.absolutePos(new BlockPos(1, 1, 1))));
+
+        int[][] rounds = {{5, 3}, {2, 0}};
+        for (int[] round : rounds) {
+            menu.getSlot(0).set(new ItemStack(ModItems.BASIC_UPGRADE_TEMPLATE));
+            menu.getSlot(1).set(new ItemStack(ModItems.COPPER_CHISEL));
+            menu.getSlot(2).set(new ItemStack(Items.IRON_INGOT, round[0]));
+
+            net.minecraft.world.inventory.Slot result = menu.getSlot(menu.getResultSlot());
+            helper.assertTrue(result.getItem().is(ModItems.IRON_CHISEL),
+                    "the smithing table offers " + result.getItem() + " for copper chisel + "
+                            + round[0] + " iron instead of an iron chisel");
+            helper.assertTrue(result.mayPickup(player), "the upgrade cannot be taken out");
+            ItemStack taken = result.remove(1);
+            result.onTake(player, taken);
+
+            Assertions.valueEqual(helper, menu.getSlot(2).getItem().getCount(), round[1],
+                    "iron ingots left after one copper -> iron upgrade from " + round[0]
+                            + " (the recipe demands 2)");
+            helper.assertTrue(menu.getSlot(1).getItem().isEmpty(), "the copper chisel was not consumed");
+            helper.assertTrue(menu.getSlot(0).getItem().isEmpty(), "the template was not consumed");
+            menu.getSlot(2).set(ItemStack.EMPTY);
+        }
         TestCleanup.succeed(helper);
     }
 

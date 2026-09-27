@@ -1,10 +1,12 @@
 package com.simplebuilding.blocks.custom;
 
 import com.mojang.serialization.MapCodec;
+import com.simplebuilding.platform.PlatformServices;
 import com.simplebuilding.util.PistonBoreEffects;
 import com.simplebuilding.util.PistonBreach;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.piston.PistonBaseBlock;
@@ -63,12 +65,14 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
      * bleibt also weder Kopf noch bewegter Block zurueck. Kein EXTENDED-Waechter: ein ausgefahrener
      * Kolben ohne Kopf bezahlt genauso mit Redstoneblock und sich selbst.
      *
-     * <p>Kein NeoForge-{@code PistonEvent} feuert dafuer (Vanilla feuert es erst in
-     * {@code super.triggerEvent}), so wie auch schon beim normalen Brechen.
+     * <p>Jeder Block, den der Durchbruch zerstoert, geht vorher durch
+     * {@link PlatformServices#mayPistonBreak} (Schutz-Mods, {@code PistonEvent.Pre}, Bruch-Ereignis
+     * mit Fake-Spieler). Verweigert der Wächter schon den vordersten Block, passiert nichts: weder
+     * der Redstoneblock noch der Kolben werden verbraucht.
      *
      * @return ob durchbrochen wurde; dann gibt es kein Ausfahren mehr
      */
-    private boolean breachIfPaid(BlockState state, Level world, BlockPos pos) {
+    private boolean breachIfPaid(BlockState state, ServerLevel world, BlockPos pos) {
         Direction facing = state.getValue(FACING);
         if (!PistonBreach.isBreachable(world, pos.relative(facing))) {
             return false;
@@ -77,47 +81,73 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
         if (fuel == null) {
             return false;
         }
-        breach(world, pos, facing);
+        if (!breach(world, pos, facing)) {
+            return false;
+        }
         world.destroyBlock(fuel, false);
         world.destroyBlock(pos, false);
         return true;
     }
 
-    /** Netheritkolben: nur der durchbrechbare Block direkt vorn, ohne Drop, mit Partikeln und Klang ({@link PistonBoreEffects}). */
-    protected void breach(Level world, BlockPos pos, Direction facing) {
-        PistonBoreEffects.destroy(world, pos.relative(facing), false);
-    }
-
-    @Override
-    public boolean triggerEvent(BlockState state, Level world, BlockPos pos, int type, int data) {
-        if (type == TRIGGER_EXTEND && !world.isClientSide() && breachIfPaid(state, world, pos)) {
+    /**
+     * Netheritkolben: nur der durchbrechbare Block direkt vorn, ohne Drop, mit Partikeln und Klang
+     * ({@link PistonBoreEffects}).
+     *
+     * @return ob der vorderste Block zerstoert wurde; {@code false}, wenn der Wächter ablehnte
+     */
+    protected boolean breach(ServerLevel world, BlockPos pos, Direction facing) {
+        BlockPos front = pos.relative(facing);
+        if (!mayBreak(world, pos, facing, front)) {
             return false;
         }
+        PistonBoreEffects.destroy(world, front, false);
+        return true;
+    }
 
-        // type 0 = Ausfahren. Nur brechen, wenn Vanilla gleich danach auch wirklich ausfaehrt: super
-        if (type == 0 && (world.isClientSide() || hasVanillaExtendSignal(world, pos, state.getValue(FACING)))) {
-            // Wir prüfen nur beim Ausfahren
-            if (!state.getValue(EXTENDED)) {
+    /** Fragt den Plattform-Wächter ({@link PlatformServices#mayPistonBreak}) für einen Block. */
+    protected static boolean mayBreak(ServerLevel world, BlockPos piston, Direction facing, BlockPos target) {
+        return PlatformServices.mayPistonBreak(world, piston, facing, target, world.getBlockState(target));
+    }
+
+    /**
+     * Ausfahren mit Brechen, nur auf dem Server:
+     * <ol>
+     *   <li>ein bezahlter Durchbruch geht vor (dann kein Ausfahren);</li>
+     *   <li>sonst wird nur gebrochen, wenn Vanilla gleich danach wirklich ausfaehrt
+     *       ({@link #hasVanillaExtendSignal}), der Block hart genug fuer das Signal ist und der
+     *       Plattform-Wächter zustimmt - erst dann, direkt vor {@code super.triggerEvent}. Nach dem
+     *       Brechen liegt vorn Luft, {@code moveBlocks} kann also nicht mehr scheitern; ein
+     *       NeoForge/Forge-{@code PistonEvent.Pre}, das den Zug absagt, hat der Wächter schon vorher
+     *       gefragt.</li>
+     * </ol>
+     * Der Client bricht nie selbst (audit 2026-09-26 #47: Geisterbloecke, wenn Client und Server
+     * verschieden entschieden). Damit er beim Nachspielen des Ausfahr-Ereignisses den Block nicht
+     * mitschiebt, schickt {@link PistonBoreEffects#destroy} die Entfernung sofort, also vor dem
+     * Block-Ereignis-Paket.
+     */
+    @Override
+    public boolean triggerEvent(BlockState state, Level world, BlockPos pos, int type, int data) {
+        if (world instanceof ServerLevel server) {
+            if (type == TRIGGER_EXTEND && breachIfPaid(state, server, pos)) {
+                return false;
+            }
+            if (type == TRIGGER_EXTEND && !state.getValue(EXTENDED)
+                    && hasVanillaExtendSignal(server, pos, state.getValue(FACING))) {
                 Direction facing = state.getValue(FACING);
                 BlockPos targetPos = pos.relative(facing);
-                BlockState targetState = world.getBlockState(targetPos);
-                if (!targetState.isAir() && targetState.getDestroySpeed(world, targetPos) >= 0) {
-                    int power = world.getBestNeighborSignal(pos);
-                    float breakThreshold = (power / 15.0f) * 50.0f;
-                    float blockHardness = targetState.getDestroySpeed(world, targetPos);
-
-                    // Nur brechen, wenn das Signal stark genug ist!
-                    if (blockHardness <= breakThreshold) {
-
-                        if (targetState.getPistonPushReaction() != PushReaction.BLOCK) {
-                            // Mit Beute, Bruchpartikeln, Abbauklang und dem Bohrklang der Mod.
-                            PistonBoreEffects.destroy(world, targetPos, true);
-                        }
+                BlockState targetState = server.getBlockState(targetPos);
+                if (!targetState.isAir()) {
+                    float blockHardness = targetState.getDestroySpeed(server, targetPos);
+                    float breakThreshold = (server.getBestNeighborSignal(pos) / 15.0f) * 50.0f;
+                    if (blockHardness >= 0 && blockHardness <= breakThreshold
+                            && targetState.getPistonPushReaction() != PushReaction.BLOCK
+                            && mayBreak(server, pos, facing, targetPos)) {
+                        // Mit Beute, Bruchpartikeln, Abbauklang und dem Bohrklang der Mod.
+                        PistonBoreEffects.destroy(server, targetPos, true);
                     }
                 }
             }
         }
-
         return super.triggerEvent(state, world, pos, type, data);
     }
 

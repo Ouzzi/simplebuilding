@@ -258,6 +258,7 @@ public class SimplebuildingClient implements ClientModInitializer {
                     );
                     accessor.simplebuilding$setBaseXp(payload.baseXp());
                 }
+                com.simplebuilding.util.TrimMultiplierLogic.setClientSyncedBase(payload.baseMultiplier());
             });
         });
 

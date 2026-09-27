@@ -60,4 +60,9 @@ public final class BundleWiringGameTest {
     public void containerEnchantmentsAcceptTheBundlesTheyAreMeantFor(GameTestHelper helper) {
         BundleWiringTests.containerEnchantmentsAcceptTheBundlesTheyAreMeantFor(helper);
     }
+
+    @GameTest
+    public void funnelHonoursPickupDelayAndTargetInTheHand(GameTestHelper helper) {
+        BundleWiringTests.funnelHonoursPickupDelayAndTargetInTheHand(helper);
+    }
 }

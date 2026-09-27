@@ -40,6 +40,28 @@ public class ReinforcedBundleItem extends BundleItem {
 
     private static final int DRAWER_MAX_TYPES = 5;
 
+    /** Vanilla's {@code BundleContents.BUNDLE_IN_BUNDLE_WEIGHT}: what an empty nested bundle costs. */
+    private static final Fraction BUNDLE_IN_BUNDLE_WEIGHT = Fraction.getFraction(1, 16);
+
+    /**
+     * The weight of one item of {@code stack}, the same way vanilla's private
+     * {@code BundleContents.getWeight} counts it: a bundle (or quiver) weighs its own contents plus
+     * 1/16 (a mod bundle that never held anything has no contents component yet and, as in
+     * vanilla's own sum, weighs a whole stack), a beehive with bees a whole bundle, anything else {@code 1 / maxStackSize}. Counting a
+     * nested bundle as {@code 1 / 1} let a full reinforced bundle sit in another one for the price
+     * of a single stack - endless storage and arbitrarily deep NBT (audit 2026-09-26 #13).
+     */
+    static Fraction incomingWeight(ItemStack stack) {
+        BundleContents nested = stack.get(DataComponents.BUNDLE_CONTENTS);
+        if (nested != null) {
+            return bundleWeight(nested).add(BUNDLE_IN_BUNDLE_WEIGHT);
+        }
+        if (!stack.getOrDefault(DataComponents.BEES, net.minecraft.world.item.component.Bees.EMPTY).bees().isEmpty()) {
+            return Fraction.ONE;
+        }
+        return Fraction.getFraction(1, stack.getMaxStackSize());
+    }
+
     private static Fraction bundleWeight(BundleContents contents) {
         return contents.weight().getOrThrow();
     }
@@ -314,13 +336,12 @@ public class ReinforcedBundleItem extends BundleItem {
 
         // Capacity Check
         Fraction currentOccupancy = bundleWeight(contents);
-        Fraction itemWeight = Fraction.getFraction(1, stackToAdd.getMaxStackSize());
+        Fraction itemWeight = incomingWeight(stackToAdd);
         Fraction remainingSpace = maxCap.subtract(currentOccupancy);
 
         if (remainingSpace.compareTo(itemWeight) < 0) return 0;
 
-        int maxStackSize = stackToAdd.getMaxStackSize();
-        int countThatFits = (int) remainingSpace.multiplyBy(Fraction.getFraction(maxStackSize, 1)).doubleValue();
+        int countThatFits = (int) remainingSpace.divideBy(itemWeight).doubleValue();
         int countToAdd = Math.min(stackToAdd.getCount(), countThatFits);
 
         if (countToAdd <= 0) return 0;

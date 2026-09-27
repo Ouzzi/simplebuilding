@@ -3,6 +3,7 @@ package com.simplebuilding.util;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
@@ -22,9 +23,9 @@ import net.minecraft.world.level.block.state.BlockState;
  *       der Stelle des Blocks.</li>
  * </ul>
  *
- * <p>Auf dem Client spielt der Kolben dasselbe Block-Ereignis noch einmal ab, damit das Ausfahren
- * richtig aussieht. Dort wird der Block nur still entfernt: Partikel und Klaenge kommen schon vom
- * Server, ein zweites {@code destroyBlock} zeigte sie doppelt.
+ * <p>Die Entfernung geht sofort als Block-Update an die Spieler in 64 Bloecken (dieselbe Reichweite
+ * wie das Block-Ereignis-Paket des Kolbens), also noch vor dessen Ausfahr-Ereignis. Der Client
+ * bricht selbst nie; er sieht beim Nachspielen des Ausfahrens schon Luft.
  */
 public final class PistonBoreEffects {
 
@@ -63,10 +64,15 @@ public final class PistonBoreEffects {
             return false;
         }
         if (!(level instanceof ServerLevel server)) {
-            return level.setBlock(pos, level.getFluidState(pos).createLegacyBlock(), 3);
+            return false;
         }
         boolean destroyed = server.destroyBlock(pos, drop);
         if (destroyed) {
+            // Sofort an die Clients, nicht erst mit dem naechsten Chunk-Abgleich: der Kolben reiht
+            // gleich sein Ausfahr-Ereignis ein, und der Client spielt es mit moveBlocks nach. Laege
+            // der Block dort noch, schoebe er ihn als Geisterblock mit (audit 2026-09-26 #47).
+            server.getServer().getPlayerList().broadcast(null, pos.getX(), pos.getY(), pos.getZ(),
+                    64.0, server.dimension(), new ClientboundBlockUpdatePacket(server, pos));
             float pitch = 0.9F + server.getRandom().nextFloat() * 0.2F;
             server.playSound(null, pos, ModSounds.PISTON_BORE, SoundSource.BLOCKS, BORE_VOLUME, pitch);
             for (Observer observer : OBSERVERS) {

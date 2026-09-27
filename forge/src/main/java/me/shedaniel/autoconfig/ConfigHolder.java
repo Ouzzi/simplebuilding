@@ -4,4 +4,8 @@ package me.shedaniel.autoconfig;
 @FunctionalInterface
 public interface ConfigHolder<T extends ConfigData> {
     T getConfig();
+
+    /** Cloth writes the file here; the Forge shim has no disk persistence, so nothing happens. */
+    default void save() {
+    }
 }

@@ -677,7 +677,7 @@ public final class TrimWiringTests {
      * gain, or the guard against non-positive gains.
      */
     public static void thePlayerMixinDeliversSpeedHungerAndExperienceBehindItsGuards(GameTestHelper helper) {
-        double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
+        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
         try {
             ServerPlayer player = mockPlayer(helper);
             // causeFoodExhaustion is a no-op for an invulnerable player, and the mock is creative.
@@ -818,7 +818,7 @@ public final class TrimWiringTests {
             bare(player);
             helper.succeed();
         } finally {
-            SimplebuildingConfig.trimBenefitBaseMultiplier = configuredBase;
+            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
         }
     }
 
@@ -853,7 +853,7 @@ public final class TrimWiringTests {
      * reaching the damage path.
      */
     public static void everyServerSideHitRunsThroughTheTrimDamageModifier(GameTestHelper helper) {
-        double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
+        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
         try {
             ServerPlayer player = mockPlayer(helper);
             player.getAbilities().invulnerable = false;
@@ -895,7 +895,7 @@ public final class TrimWiringTests {
             bare(player);
             helper.succeed();
         } finally {
-            SimplebuildingConfig.trimBenefitBaseMultiplier = configuredBase;
+            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
         }
     }
 
@@ -927,7 +927,7 @@ public final class TrimWiringTests {
      * to make untrimmed players more visible, or the air saving becoming unconditional.
      */
     public static void coastHoldsTheAirSupplyAndSilenceLowersTheVisibility(GameTestHelper helper) {
-        double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
+        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
         try {
             ServerPlayer player = mockPlayer(helper);
             // The drowning branch is skipped entirely for an invulnerable player.
@@ -988,7 +988,7 @@ public final class TrimWiringTests {
             bare(player);
             helper.succeed();
         } finally {
-            SimplebuildingConfig.trimBenefitBaseMultiplier = configuredBase;
+            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
         }
     }
 
@@ -1034,7 +1034,7 @@ public final class TrimWiringTests {
      * branches swapping, or the healing amounts changing.
      */
     public static void theTickDrivenTrimEffectsFireOnTheirOwnCadence(GameTestHelper helper) {
-        double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
+        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
         try {
             ServerPlayer player = mockPlayer(helper);
             // The same packet a real client sends; it also stops the connection's load timeout from
@@ -1112,7 +1112,7 @@ public final class TrimWiringTests {
             bare(player);
             helper.succeed();
         } finally {
-            SimplebuildingConfig.trimBenefitBaseMultiplier = configuredBase;
+            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
         }
     }
 
@@ -1283,12 +1283,16 @@ public final class TrimWiringTests {
      * on one loader, or a loader building its own tree again instead of the shared one.
      */
     public static void theTrimMultiplierCommandGuardsItsRangeAndItsPermission(GameTestHelper helper) {
-        double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
+        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
         ServerPlayer player = mockPlayer(helper);
         PlayerList players = helper.getLevel().getServer().getPlayerList();
         CommandDispatcher<CommandSourceStack> dispatcher =
                 helper.getLevel().getServer().getCommands().getDispatcher();
         boolean wasOperator = players.isOp(player.nameAndId());
+        Runnable installedSaver = com.simplebuilding.config.ConfigSaving.saver();
+        // The command saves the config; a game test must not write the file (other tests hold options
+        // flipped while it runs). Saving itself is theTrimMultiplierCommandSavesAndSyncsItsValue's job.
+        com.simplebuilding.config.ConfigSaving.setSaver(() -> { });
         try {
             helper.assertFalse(wasOperator,
                     "the mock player is already an operator, so the permission check below would pass "
@@ -1310,10 +1314,10 @@ public final class TrimWiringTests {
                     "usage of the live /simplebuilding subtree against the one SimplebuildingCommand builds");
 
             // --- without operator rights the subtree is not even reachable ---
-            SimplebuildingConfig.trimBenefitBaseMultiplier = 1.0;
+            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = 1.0;
             assertRefused(helper, dispatcher, player, "simplebuilding config setTrimMultiplier 3.5",
                     "a player who is not an operator");
-            assertClose(helper, SimplebuildingConfig.trimBenefitBaseMultiplier, 1.0,
+            assertClose(helper, com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier, 1.0,
                     "a player who is not an operator changed the trim multiplier anyway");
 
             players.op(player.nameAndId());
@@ -1323,29 +1327,29 @@ public final class TrimWiringTests {
 
             // --- an accepted value reaches the config ---
             run(helper, dispatcher, player, "simplebuilding config setTrimMultiplier 3.5");
-            assertClose(helper, SimplebuildingConfig.trimBenefitBaseMultiplier, 3.5,
+            assertClose(helper, com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier, 3.5,
                     "setTrimMultiplier reported success but the configured base did not move");
 
             // --- the declared limit is inclusive ---
             double limit = SimplebuildingConfig.maxMultiplierLimit;
             run(helper, dispatcher, player, "simplebuilding config setTrimMultiplier " + limit);
-            assertClose(helper, SimplebuildingConfig.trimBenefitBaseMultiplier, limit,
+            assertClose(helper, com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier, limit,
                     "the configured upper limit was refused by the command that declares it");
 
             // --- and both ends of the range are closed ---
             assertRefused(helper, dispatcher, player,
                     "simplebuilding config setTrimMultiplier " + (limit + 0.5), "a value above the limit");
-            assertClose(helper, SimplebuildingConfig.trimBenefitBaseMultiplier, limit,
+            assertClose(helper, com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier, limit,
                     "a value above the limit was refused but written anyway");
             assertRefused(helper, dispatcher, player,
                     "simplebuilding config setTrimMultiplier -0.5", "a negative value");
-            assertClose(helper, SimplebuildingConfig.trimBenefitBaseMultiplier, limit,
+            assertClose(helper, com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier, limit,
                     "a negative value was refused but written anyway");
 
             // --- the getter reports and changes nothing ---
             helper.assertValueEqual(run(helper, dispatcher, player, "simplebuilding config getTrimMultiplier"),
                     1, "return code of getTrimMultiplier");
-            assertClose(helper, SimplebuildingConfig.trimBenefitBaseMultiplier, limit,
+            assertClose(helper, com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier, limit,
                     "getTrimMultiplier changed the value it was only meant to report");
 
             helper.succeed();
@@ -1353,7 +1357,79 @@ public final class TrimWiringTests {
             if (!wasOperator) {
                 players.deop(player.nameAndId());
             }
-            SimplebuildingConfig.trimBenefitBaseMultiplier = configuredBase;
+            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
+            com.simplebuilding.config.ConfigSaving.setSaver(installedSaver);
+        }
+    }
+
+    /**
+     * {@code setTrimMultiplier} is persistent and reaches the clients (audit 2026-09-26 #19): the
+     * value is an instance field of the config - so Gson writes it into {@code simplebuilding.json},
+     * which it never did for the old static field - the command saves the config right away, and
+     * every online player gets a {@code TrimDataPayload} carrying the new base, which is what the
+     * client's {@code TrimStatsPanel} shows ({@code TrimMultiplierLogic.baseMultiplier(true)}).
+     *
+     * <p>The saver and the packet sender are swapped for recorders, so the test neither writes the
+     * real file nor depends on the mock player's connection.
+     */
+    public static void theTrimMultiplierCommandSavesAndSyncsItsValue(GameTestHelper helper) {
+        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
+        ServerPlayer player = mockPlayer(helper);
+        PlayerList players = helper.getLevel().getServer().getPlayerList();
+        CommandDispatcher<CommandSourceStack> dispatcher =
+                helper.getLevel().getServer().getCommands().getDispatcher();
+        boolean wasOperator = players.isOp(player.nameAndId());
+
+        List<com.google.gson.JsonElement> saved = new java.util.ArrayList<>();
+        Runnable installedSaver = com.simplebuilding.config.ConfigSaving.saver();
+        com.simplebuilding.config.ConfigSaving.setSaver(() -> saved.add(
+                new com.google.gson.Gson().toJsonTree(com.simplebuilding.Simplebuilding.getConfig())
+                        .getAsJsonObject().get("trimBenefitBaseMultiplier")));
+
+        List<Double> sentBases = new java.util.ArrayList<>();
+        com.simplebuilding.platform.PlayerPacketSender installedSender = com.simplebuilding.platform.PlatformServices.playerPacketSender();
+        com.simplebuilding.platform.PlatformServices.setPlayerPacketSender(new com.simplebuilding.platform.PlayerPacketSender() {
+            @Override
+            public boolean canSend(ServerPlayer target, net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type<?> type) {
+                return target == player || installedSender.canSend(target, type);
+            }
+
+            @Override
+            public void send(ServerPlayer target, net.minecraft.network.protocol.common.custom.CustomPacketPayload payload) {
+                if (target == player) {
+                    if (payload instanceof com.simplebuilding.networking.TrimDataPayload data) {
+                        sentBases.add(data.baseMultiplier());
+                    }
+                    return;
+                }
+                installedSender.send(target, payload);
+            }
+        });
+        try {
+            players.op(player.nameAndId());
+            run(helper, dispatcher, player, "simplebuilding config setTrimMultiplier 4.5");
+
+            assertClose(helper, com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier, 4.5,
+                    "setTrimMultiplier did not write the config instance");
+            assertClose(helper, com.simplebuilding.util.TrimMultiplierLogic.baseMultiplier(false), 4.5,
+                    "the server side resonance base does not follow the config");
+            helper.assertTrue(saved.size() == 1,
+                    "setTrimMultiplier saved the config " + saved.size() + " times instead of once, so the "
+                            + "value is gone after a restart");
+            helper.assertTrue(saved.get(0) != null && Math.abs(saved.get(0).getAsDouble() - 4.5) < 1e-9,
+                    "the saved config carries trimBenefitBaseMultiplier=" + saved.get(0)
+                            + " instead of 4.5 - the field is not part of simplebuilding.json");
+            helper.assertTrue(sentBases.contains(4.5),
+                    "no TrimDataPayload with the new base 4.5 reached the online player (sent: " + sentBases
+                            + "), so the client keeps showing its own value");
+            helper.succeed();
+        } finally {
+            if (!wasOperator) {
+                players.deop(player.nameAndId());
+            }
+            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
+            com.simplebuilding.config.ConfigSaving.setSaver(installedSaver);
+            com.simplebuilding.platform.PlatformServices.setPlayerPacketSender(installedSender);
         }
     }
 
@@ -1407,12 +1483,12 @@ public final class TrimWiringTests {
      * product, scaling the base scales the result.
      */
     private static void pinProgressMultiplier(GameTestHelper helper, ServerPlayer player, double target) {
-        SimplebuildingConfig.trimBenefitBaseMultiplier = 1.0;
+        com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = 1.0;
         double perUnitOfBase = TrimMultiplierLogic.getMultiplier(player);
         helper.assertTrue(perUnitOfBase > 0.0,
                 "the trim multiplier collapsed to " + perUnitOfBase + " at base 1.0, so it can no "
                         + "longer be pinned to a known value");
-        SimplebuildingConfig.trimBenefitBaseMultiplier = target / perUnitOfBase;
+        com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = target / perUnitOfBase;
         double actual = TrimMultiplierLogic.getMultiplier(player);
         helper.assertTrue(Math.abs(actual - target) < 1.0e-6,
                 "the configured base no longer scales the multiplier: wanted " + target

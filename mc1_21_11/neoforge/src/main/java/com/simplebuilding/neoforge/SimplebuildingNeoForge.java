@@ -36,6 +36,7 @@ public final class SimplebuildingNeoForge {
         NeoForgeModRegistries.register(modEventBus);
         NeoForgeGameTests.register(modEventBus);
         NeoForgeItemAutomation.register(modEventBus);
+        NeoForgePistonBreakGuard.install();
         modEventBus.addListener(NeoForgeRegistryBootstrap::onRegister);
         modEventBus.addListener(this::commonSetup);
         NeoForgeNetworkRegistration.registerPlatformServices();

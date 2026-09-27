@@ -60,4 +60,9 @@ public final class ReinforcedBundleGameTest {
     public void barAndTooltipReadTheSameCapacityTheFillingUses(GameTestHelper helper) {
         ReinforcedBundleTests.barAndTooltipReadTheSameCapacityTheFillingUses(helper);
     }
+
+    @GameTest
+    public void nestedBundlesWeighTheirContents(GameTestHelper helper) {
+        ReinforcedBundleTests.nestedBundlesWeighTheirContents(helper);
+    }
 }

@@ -128,13 +128,15 @@ public final class PistonBreachTests {
      *
      * <p>Eight rows:
      * <ul>
-     *   <li><b>Bedrock, reinforced deepslate and an end portal frame</b> on a reinforced piston with a
+     *   <li><b>Bedrock and reinforced deepslate</b> on a reinforced piston with a
      *       redstone block behind it: each block has moved one cell, the redstone block is gone, and
      *       because that redstone block was the only power the piston retracted in the same tick - no
-     *       head is left. Bedrock and the frame are unbreakable by hardness, reinforced deepslate only
-     *       through {@code simplebuilding:piston_breachable_extra}, so the three rows pin both halves
-     *       of {@code PistonBreach#isUnbreakableClass}; the frame row also pins the default of
-     *       {@code pistonsBreachEndPortalFrames}.</li>
+     *       head is left. Bedrock is unbreakable by hardness, reinforced deepslate only
+     *       through {@code simplebuilding:piston_breachable_extra}, so the two rows pin both halves
+     *       of {@code PistonBreach#isUnbreakableClass}.</li>
+     *   <li><b>An end portal frame</b> in the same rig stays where it is and so does the redstone
+     *       block: {@code pistonsBreachEndPortalFrames} is off by default (owner decision
+     *       2026-09-26).</li>
      *   <li><b>A vanilla piston and a vanilla sticky piston</b> with the same bedrock and redstone
      *       block: nothing moves and the redstone block stays. The breach lives in the resolver of the
      *       mod's own pistons and nowhere else.</li>
@@ -160,6 +162,12 @@ public final class PistonBreachTests {
         BlockPos onStone = new BlockPos(5, 1, 3);
         BlockPos leverOnBedrock = new BlockPos(1, 1, 6);
         BlockPos leverOnStone = new BlockPos(5, 1, 6);
+
+        // The default (off) is pinned by ConfigOptionTests from a fresh config object; the live one
+        // is read from the run's config file, which may still say otherwise - so it is set here.
+        boolean framesBefore = Simplebuilding.getConfig().pistonsBreachEndPortalFrames;
+        Simplebuilding.getConfig().pistonsBreachEndPortalFrames = false;
+        TestCleanup.before(helper, () -> Simplebuilding.getConfig().pistonsBreachEndPortalFrames = framesBefore);
 
         paidRow(helper, onBedrock, ModBlocks.REINFORCED_PISTON, Blocks.BEDROCK);
         paidRow(helper, onDeepslate, ModBlocks.REINFORCED_PISTON, Blocks.REINFORCED_DEEPSLATE);
@@ -190,12 +198,13 @@ public final class PistonBreachTests {
                     helper.assertTrue(!helper.getBlockState(onDeepslate.below()).is(Blocks.REDSTONE_BLOCK),
                             "the redstone block that paid for the reinforced deepslate is still there");
 
-                    // --- end portal frame: breachable while pistonsBreachEndPortalFrames is on (default) ---
-                    helper.assertTrue(helper.getBlockState(onFrame.above(2)).is(Blocks.END_PORTAL_FRAME),
-                            "the reinforced piston did not push the end portal frame although "
-                                    + "pistonsBreachEndPortalFrames is on by default");
-                    helper.assertTrue(!helper.getBlockState(onFrame.below()).is(Blocks.REDSTONE_BLOCK),
-                            "the redstone block that paid for the end portal frame is still there");
+                    // --- end portal frame: immune while pistonsBreachEndPortalFrames is off (default) ---
+                    helper.assertTrue(helper.getBlockState(onFrame.above()).is(Blocks.END_PORTAL_FRAME),
+                            "the reinforced piston pushed the end portal frame although "
+                                    + "pistonsBreachEndPortalFrames is off");
+                    helper.assertTrue(helper.getBlockState(onFrame.below()).is(Blocks.REDSTONE_BLOCK),
+                            "the redstone block beside the end portal frame was used up although the frame "
+                                    + "may not be breached by default");
 
                     // --- vanilla pistons: untouched by all of it ---
                     helper.assertTrue(helper.getBlockState(vanilla.above()).is(Blocks.BEDROCK),
@@ -741,6 +750,111 @@ public final class PistonBreachTests {
                     helper.assertBlockPresent(Blocks.STONE, vanilla.above(2));
                     Assertions.valueEqual(helper, BuiltInRegistries.SOUND_EVENT.getValue(ModSounds.PISTON_BORE_ID), ModSounds.PISTON_BORE,
                             "the sound event registered as simplebuilding:block.piston.bore");
+                })
+                .thenSucceed();
+    }
+
+    /** Tick budget for {@link #modPistonsAskThePlatformGuardBeforeEveryBreak}. */
+    public static final int GUARD_MAX_TICKS = 60;
+
+    /**
+     * Every block a mod piston destroys is first put to the platform guard
+     * ({@code PlatformServices#mayPistonBreak}, which fires the loader's piston and block break
+     * events for protection mods), and a refusal keeps the block. Before 2026-09-26 the breaker broke
+     * before any event and the enderite breach fired none at all (audit #15).
+     *
+     * <ul>
+     *   <li><b>Netherite piston on stone, refused:</b> nothing is destroyed; the piston then extends
+     *       like a vanilla one and pushes the stone.</li>
+     *   <li><b>Netherite breach on bedrock, refused:</b> the bedrock stays, and neither the paying
+     *       redstone block nor the piston is used up.</li>
+     *   <li><b>Enderite breach, second cell refused:</b> the bedrock in front goes, the refused stone
+     *       and the stone behind it stay; the breach was paid, so redstone block and piston are gone.</li>
+     *   <li><b>Control, netherite piston on stone, allowed:</b> broken with its drop.</li>
+     * </ul>
+     * The guard has to have been asked for each of these five cells.
+     */
+    public static void modPistonsAskThePlatformGuardBeforeEveryBreak(GameTestHelper helper) {
+        BlockPos refusedBreak = new BlockPos(1, 1, 1);
+        BlockPos refusedBreach = new BlockPos(4, 1, 1);
+        BlockPos enderite = new BlockPos(1, 1, 5);
+        BlockPos allowed = new BlockPos(5, 1, 5);
+        ServerLevel level = helper.getLevel();
+        AABB room = helper.getBounds();
+
+        java.util.Set<BlockPos> refused = java.util.Set.of(
+                helper.absolutePos(refusedBreak.above()),
+                helper.absolutePos(refusedBreach.above()),
+                helper.absolutePos(enderite.above(2)));
+        java.util.Set<BlockPos> asked = java.util.concurrent.ConcurrentHashMap.newKeySet();
+        com.simplebuilding.platform.PistonBreakGuard installed = com.simplebuilding.platform.PlatformServices.pistonBreakGuard();
+        com.simplebuilding.platform.PlatformServices.setPistonBreakGuard((where, piston, facing, target, state) -> {
+            if (where == level && room.contains(Vec3.atCenterOf(target))) {
+                asked.add(target.immutable());
+                if (refused.contains(target)) {
+                    return false;
+                }
+            }
+            return installed.mayBreak(where, piston, facing, target, state);
+        });
+        TestCleanup.before(helper, () -> com.simplebuilding.platform.PlatformServices.setPistonBreakGuard(installed));
+
+        List<String> reports = new java.util.concurrent.CopyOnWriteArrayList<>();
+        Runnable stop = PistonBoreEffects.observe((where, pos, broken, dropped) -> {
+            if (where == level && room.contains(Vec3.atCenterOf(pos))) {
+                reports.add(pos.toShortString());
+            }
+        });
+        TestCleanup.before(helper, stop);
+
+        paidRow(helper, refusedBreak, ModBlocks.NETHERITE_PISTON, Blocks.STONE);
+        helper.setBlock(refusedBreak.above(3), Blocks.AIR);
+        paidRow(helper, refusedBreach, ModBlocks.NETHERITE_PISTON, Blocks.BEDROCK);
+        // paidRow clears above(2), so the stones behind the bedrock go in afterwards.
+        paidRow(helper, enderite, ModBlocks.ENDERITE_PISTON, Blocks.BEDROCK);
+        helper.setBlock(enderite.above(4), Blocks.AIR);
+        helper.setBlock(enderite.above(3), Blocks.STONE);
+        helper.setBlock(enderite.above(2), Blocks.STONE);
+        paidRow(helper, allowed, ModBlocks.NETHERITE_PISTON, Blocks.STONE);
+
+        helper.startSequence()
+                .thenExecuteAfter(20, () -> {
+                    List<BlockPos> mustBeAsked = List.of(
+                            helper.absolutePos(refusedBreak.above()),
+                            helper.absolutePos(refusedBreach.above()),
+                            helper.absolutePos(enderite.above()),
+                            helper.absolutePos(enderite.above(2)),
+                            helper.absolutePos(allowed.above()));
+                    helper.assertTrue(asked.containsAll(mustBeAsked),
+                            "the platform guard was asked for " + asked + " but not for all of " + mustBeAsked
+                                    + " - a mod piston destroys blocks without asking protection mods");
+
+                    // --- refused break: nothing destroyed, the stone was pushed instead ---
+                    helper.assertTrue(!reports.contains(helper.absolutePos(refusedBreak.above()).toShortString()),
+                            "the netherite piston destroyed the stone the guard refused");
+                    helper.assertTrue(helper.getBlockState(refusedBreak.above(2)).is(Blocks.STONE),
+                            "the refused stone was not pushed like by a vanilla piston, found "
+                                    + helper.getBlockState(refusedBreak.above(2)));
+
+                    // --- refused breach: nothing consumed ---
+                    helper.assertTrue(helper.getBlockState(refusedBreach.above()).is(Blocks.BEDROCK)
+                                    && helper.getBlockState(refusedBreach).is(ModBlocks.NETHERITE_PISTON)
+                                    && helper.getBlockState(refusedBreach.below()).is(Blocks.REDSTONE_BLOCK),
+                            "a refused netherite breach still destroyed the bedrock, the piston or its redstone block");
+
+                    // --- enderite: first cell allowed, second refused ---
+                    helper.assertTrue(!helper.getBlockState(enderite.above()).is(Blocks.BEDROCK),
+                            "the enderite breach did not remove the allowed bedrock in front");
+                    helper.assertTrue(helper.getBlockState(enderite.above(2)).is(Blocks.STONE)
+                                    && helper.getBlockState(enderite.above(3)).is(Blocks.STONE),
+                            "the enderite breach went through the refused stone");
+                    helper.assertTrue(!helper.getBlockState(enderite).is(ModBlocks.ENDERITE_PISTON)
+                                    && !helper.getBlockState(enderite.below()).is(Blocks.REDSTONE_BLOCK),
+                            "the enderite breach broke the front bedrock but kept its piston or redstone block");
+
+                    // --- control ---
+                    helper.assertTrue(reports.contains(helper.absolutePos(allowed.above()).toShortString()),
+                            "the netherite piston did not break the allowed stone - the rig itself is broken");
                 })
                 .thenSucceed();
     }

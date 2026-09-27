@@ -166,7 +166,7 @@ public final class TrimBonusTests {
      * (5% sentry, 8% dune, 5% snout, 8% spire per piece), or dropping a branch entirely.
      */
     public static void tagKeyedPatternsCoverTheWholeDamageFamily(GameTestHelper helper) {
-        double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
+        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
         try {
             ServerPlayer player = mockPlayer(helper);
             Holder<TrimMaterial> copper = material(helper, TrimMaterials.COPPER);
@@ -231,7 +231,7 @@ public final class TrimBonusTests {
             bare(player);
             TestCleanup.succeed(helper);
         } finally {
-            SimplebuildingConfig.trimBenefitBaseMultiplier = configuredBase;
+            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
         }
     }
 
@@ -256,7 +256,7 @@ public final class TrimBonusTests {
      * (10% coast, 10% eye, 25% bolt per piece).
      */
     public static void exactlyKeyedPatternsIgnoreTheirNeighbours(GameTestHelper helper) {
-        double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
+        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
         try {
             ServerPlayer player = mockPlayer(helper);
             Holder<TrimMaterial> copper = material(helper, TrimMaterials.COPPER);
@@ -312,7 +312,7 @@ public final class TrimBonusTests {
             bare(player);
             TestCleanup.succeed(helper);
         } finally {
-            SimplebuildingConfig.trimBenefitBaseMultiplier = configuredBase;
+            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
         }
     }
 
@@ -346,7 +346,7 @@ public final class TrimBonusTests {
      * material to only one of the two magic types.
      */
     public static void magicIsSoftenedByTheVexPatternAndTheGoldAndLapisMaterials(GameTestHelper helper) {
-        double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
+        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
         try {
             ServerPlayer player = mockPlayer(helper);
             Holder<TrimMaterial> copper = material(helper, TrimMaterials.COPPER);
@@ -415,7 +415,7 @@ public final class TrimBonusTests {
             bare(player);
             TestCleanup.succeed(helper);
         } finally {
-            SimplebuildingConfig.trimBenefitBaseMultiplier = configuredBase;
+            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
         }
     }
 
@@ -447,7 +447,7 @@ public final class TrimBonusTests {
      * rate.
      */
     public static void wildAndSilenceRideOnTheDamageMessageId(GameTestHelper helper) {
-        double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
+        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
         try {
             ServerPlayer player = mockPlayer(helper);
             Holder<TrimMaterial> copper = material(helper, TrimMaterials.COPPER);
@@ -496,7 +496,7 @@ public final class TrimBonusTests {
             bare(player);
             TestCleanup.succeed(helper);
         } finally {
-            SimplebuildingConfig.trimBenefitBaseMultiplier = configuredBase;
+            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
         }
     }
 
@@ -527,7 +527,7 @@ public final class TrimBonusTests {
      * breeze's charge), dropping the null check, and changing the 10% rate.
      */
     public static void flowReadsTheTypeNameOfTheProjectileThatLanded(GameTestHelper helper) {
-        double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
+        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
         try {
             ServerPlayer player = mockPlayer(helper);
             Holder<TrimMaterial> copper = material(helper, TrimMaterials.COPPER);
@@ -575,7 +575,7 @@ public final class TrimBonusTests {
             bare(player);
             TestCleanup.succeed(helper);
         } finally {
-            SimplebuildingConfig.trimBenefitBaseMultiplier = configuredBase;
+            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
         }
     }
 
@@ -605,7 +605,7 @@ public final class TrimBonusTests {
      * the mod's own two materials stop being found.
      */
     public static void armourBypassingHitsSkipTheThreePhysicalMaterials(GameTestHelper helper) {
-        double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
+        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
         try {
             ServerPlayer player = mockPlayer(helper);
             Holder<TrimMaterial> diamond = material(helper, TrimMaterials.DIAMOND);
@@ -655,7 +655,7 @@ public final class TrimBonusTests {
             bare(player);
             TestCleanup.succeed(helper);
         } finally {
-            SimplebuildingConfig.trimBenefitBaseMultiplier = configuredBase;
+            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
         }
     }
 
@@ -682,7 +682,7 @@ public final class TrimBonusTests {
      * pattern or the material half of the two combined readings.
      */
     public static void ironAndQuartzMaterialsAddToTheirOwnPatterns(GameTestHelper helper) {
-        double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
+        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
         try {
             ServerPlayer player = mockPlayer(helper);
             Holder<TrimMaterial> iron = material(helper, TrimMaterials.IRON);
@@ -737,7 +737,7 @@ public final class TrimBonusTests {
             bare(player);
             TestCleanup.succeed(helper);
         } finally {
-            SimplebuildingConfig.trimBenefitBaseMultiplier = configuredBase;
+            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
         }
     }
 
@@ -785,7 +785,7 @@ public final class TrimBonusTests {
      * changing the 8% emerald or 5% netherite rate.
      */
     public static void attackerKeyedMaterialsReadTheEntityBehindTheHit(GameTestHelper helper) {
-        double configuredBase = SimplebuildingConfig.trimBenefitBaseMultiplier;
+        double configuredBase = com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier;
         try {
             ServerPlayer player = mockPlayer(helper);
             Holder<TrimMaterial> emerald = material(helper, TrimMaterials.EMERALD);
@@ -877,7 +877,7 @@ public final class TrimBonusTests {
             bare(player);
             TestCleanup.succeed(helper);
         } finally {
-            SimplebuildingConfig.trimBenefitBaseMultiplier = configuredBase;
+            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = configuredBase;
         }
     }
 
@@ -933,12 +933,12 @@ public final class TrimBonusTests {
      * base scales the result.
      */
     private static void pinProgressMultiplier(GameTestHelper helper, ServerPlayer player, double target) {
-        SimplebuildingConfig.trimBenefitBaseMultiplier = 1.0;
+        com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = 1.0;
         double perUnitOfBase = TrimMultiplierLogic.getMultiplier(player);
         helper.assertTrue(perUnitOfBase > 0.0,
                 "the trim multiplier collapsed to " + perUnitOfBase + " at base 1.0, so it can no "
                         + "longer be pinned to a known value");
-        SimplebuildingConfig.trimBenefitBaseMultiplier = target / perUnitOfBase;
+        com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = target / perUnitOfBase;
         double actual = TrimMultiplierLogic.getMultiplier(player);
         helper.assertTrue(Math.abs(actual - target) < 1.0e-6,
                 "the configured base no longer scales the multiplier: wanted " + target

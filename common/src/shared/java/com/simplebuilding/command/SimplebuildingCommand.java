@@ -38,7 +38,14 @@ public final class SimplebuildingCommand {
                                 .then(Commands.argument("value", DoubleArgumentType.doubleArg(0.0, SimplebuildingConfig.maxMultiplierLimit))
                                         .executes(context -> {
                                             double newValue = DoubleArgumentType.getDouble(context, "value");
-                                            SimplebuildingConfig.trimBenefitBaseMultiplier = newValue;
+                                            com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier = newValue;
+                                            // Gespeichert und sofort an alle Clients (TrimStatsPanel).
+                                            com.simplebuilding.config.ConfigSaving.save();
+                                            for (net.minecraft.server.level.ServerPlayer player : context.getSource().getServer().getPlayerList().getPlayers()) {
+                                                if (player instanceof com.simplebuilding.util.SurvivalTracerAccessor accessor) {
+                                                    accessor.simplebuilding$syncTrimData();
+                                                }
+                                            }
                                             context.getSource().sendSuccess(() -> Component.translatable("commands.simplebuilding.trim_multiplier.set", newValue).withStyle(ChatFormatting.GREEN), true);
                                             return 1;
                                         })
@@ -46,7 +53,7 @@ public final class SimplebuildingCommand {
                         )
                         .then(Commands.literal("getTrimMultiplier")
                                 .executes(context -> {
-                                    context.getSource().sendSuccess(() -> Component.translatable("commands.simplebuilding.trim_multiplier.get", SimplebuildingConfig.trimBenefitBaseMultiplier).withStyle(ChatFormatting.YELLOW), false);
+                                    context.getSource().sendSuccess(() -> Component.translatable("commands.simplebuilding.trim_multiplier.get", com.simplebuilding.Simplebuilding.getConfig().trimBenefitBaseMultiplier).withStyle(ChatFormatting.YELLOW), false);
                                     return 1;
                                 })
                         )

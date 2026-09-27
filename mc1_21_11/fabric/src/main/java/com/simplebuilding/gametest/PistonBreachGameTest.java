@@ -75,4 +75,9 @@ public final class PistonBreachGameTest {
     public void reinforcedStickyPistonCraftsFromSlimeAndDropsItself(GameTestHelper helper) {
         PistonBreachTests.reinforcedStickyPistonCraftsFromSlimeAndDropsItself(helper);
     }
+
+    @GameTest(maxTicks = PistonBreachTests.GUARD_MAX_TICKS)
+    public void modPistonsAskThePlatformGuardBeforeEveryBreak(GameTestHelper helper) {
+        PistonBreachTests.modPistonsAskThePlatformGuardBeforeEveryBreak(helper);
+    }
 }
