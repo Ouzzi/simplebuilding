@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_enderite_flypad": {
+    "has_reinforced_flypad": {
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:enderite_flypad"
+            "items": "simplebuilding:reinforced_flypad"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "simplebuilding:stellar_flypad_crafting"
+        "recipe": "simplebuilding:stellar_flypad_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_enderite_flypad"
+      "has_reinforced_flypad"
     ]
   ],
   "rewards": {
     "recipes": [
-      "simplebuilding:stellar_flypad_crafting"
+      "simplebuilding:stellar_flypad_smithing"
     ]
   }
 }

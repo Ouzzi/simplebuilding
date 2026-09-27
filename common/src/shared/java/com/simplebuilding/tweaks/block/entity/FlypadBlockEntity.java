@@ -2,6 +2,7 @@ package com.simplebuilding.tweaks.block.entity;
 
 import com.simplebuilding.tweaks.SimpleTweaks;
 import com.simplebuilding.tweaks.block.FlypadBlock;
+import com.simplebuilding.tweaks.block.LegacyFlypadBlock;
 import com.simplebuilding.tweaks.block.PadTiers;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -20,9 +21,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 /**
- * Flypad, 1:1 aus Simple Tweaks: im Bereich Kreativflug + Leuchten; wer den Bereich verlaesst,
- * verliert den Flug wieder (ausser Kreativ/Zuschauer). Ab Stufe IV (Enderit) faengt ein
- * Sicherheitsnetz den Absturz ab: wer fliegend hinausfliegt, bekommt 10 s Sanfter Fall.
+ * Flypad, aus Simple Tweaks: im Bereich Kreativflug + Leuchten; wer den Bereich verlaesst,
+ * verliert den Flug wieder (ausser Kreativ/Zuschauer). Seit 2026-09-27 drei Stufen aus Enderit,
+ * jede mit dem Sicherheitsnetz: wer fliegend hinausfliegt, bekommt 10 s Sanfter Fall. Alte Flypads
+ * (netherite_flypad, enderite_flypad) werden beim ersten Tick zu ihrer neuen Stufe
+ * ({@link LegacyFlypadBlock}).
  * Neu gegenueber Simple Tweaks: wird das Pad abgebaut oder abgeschaltet, verlieren auch die
  * Spieler im Bereich den Flug (vorher behielten sie ihn fuer immer).
  *
@@ -51,6 +54,10 @@ public class FlypadBlockEntity extends OwnedBlockEntity {
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, FlypadBlockEntity be) {
+        if (state.getBlock() instanceof LegacyFlypadBlock legacy) {
+            legacy.migrate(level, pos, be);
+            return;
+        }
         if (level.getGameTime() % 5 == 0) {
             update(level, pos, state, be);
         }
@@ -118,7 +125,7 @@ public class FlypadBlockEntity extends OwnedBlockEntity {
         if (!SimpleTweaks.config().pads.enableFlypads) {
             return false;
         }
-        int reach = (int) Math.ceil(PadTiers.halfWidth(PadTiers.MAX) / 16.0) + 1;
+        int reach = (int) Math.ceil(PadTiers.flyHalfWidth(PadTiers.FLYPAD_MAX) / 16.0) + 1;
         int cx = player.getBlockX() >> 4;
         int cz = player.getBlockZ() >> 4;
         for (int dx = -reach; dx <= reach; dx++) {
@@ -138,7 +145,7 @@ public class FlypadBlockEntity extends OwnedBlockEntity {
         return false;
     }
 
-    /** Nimmt einem Spieler den Pad-Flug (nicht im Kreativ-/Zuschauermodus); ab Enderit mit Sicherheitsnetz. */
+    /** Nimmt einem Spieler den Pad-Flug (nicht im Kreativ-/Zuschauermodus); mit Sicherheitsnetz (alle Stufen sind aus Enderit). */
     public static void revoke(ServerPlayer player, int tier) {
         // Kreativ = instabuild (Simple Tweaks fragte isCreative(); fuer echte Spieler dasselbe).
         if (player.getAbilities().instabuild || player.isSpectator()) {
@@ -152,7 +159,7 @@ public class FlypadBlockEntity extends OwnedBlockEntity {
         player.getAbilities().mayfly = false;
         player.getAbilities().flying = false;
         player.onUpdateAbilities();
-        if (wasFlying && PadTiers.hasEnderiteBonus(tier)) {
+        if (wasFlying && PadTiers.flypadHasSafetyNet(tier)) {
             player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, SAFETY_NET_TICKS, 0, false, true, true));
         }
     }

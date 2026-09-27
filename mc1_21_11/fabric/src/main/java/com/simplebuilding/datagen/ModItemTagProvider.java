@@ -128,7 +128,10 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
         // Layout-Platzhalter der Kreativ-Tabs: in JEI, REI und EMI versteckt (Konventions-Tag).
         builder(TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "hidden_from_recipe_viewers")))
-                .add(key(ModItems.CREATIVE_SPACER));
+                .add(key(ModItems.CREATIVE_SPACER))
+                // Alte, abgeloeste Stufenbloecke (netherite_flypad, enderite_flypad): nur fuer alte Welten.
+                .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.NETHERITE_FLYPAD.asItem()))
+                .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.ENDERITE_FLYPAD.asItem()));
 
         // End-Paletten: Treppen, Stufen und Mauern auch als Item-Tags wie bei Vanilla.
         for (ModBlocks.EndPalette palette : ModBlocks.END_PALETTES) {

@@ -1066,7 +1066,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tweaks_game_test_enderite_tiers_are_smithed_from_the_netherite_tier_and_the_nether_star_tiers_from_enderite", TweaksTests::enderiteTiersAreSmithedFromTheNetheriteTierAndTheNetherStarTiersFromEnderite)
                     .build(),
-            GameTestSpec.named("tweaks_game_test_the_stellar_flypad_is_crafted_from_enderite_flypads", TweaksTests::theStellarFlypadIsCraftedFromEnderiteFlypads)
+            GameTestSpec.named("tweaks_game_test_the_stellar_flypad_is_smithed_from_two_reinforced_flypads", TweaksTests::theStellarFlypadIsSmithedFromTwoReinforcedFlypads)
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_echo_compass_is_crafted_from_the_recovery_compass_the_enderite_core_and_netherite_plates", TweaksTests::theEchoCompassIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndNetheritePlates)
                     .build(),
@@ -1122,6 +1122,12 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("tweaks_tier_game_test_a_netherite_chunk_loader_takes_over_only_the_chunks_of_its_cross", TweaksTierTests::aNetheriteChunkLoaderTakesOverOnlyTheChunksOfItsCross)
                     .build(),
             GameTestSpec.named("tweaks_tier_game_test_pad_upgrades_pay_with_the_pressure_plate_of_their_target_material", TweaksTierTests::padUpgradesPayWithThePressurePlateOfTheirTargetMaterial)
+                    .build(),
+            GameTestSpec.named("tweaks_tier_game_test_elytra_pad_and_flypad_areas_match_their_tiers", TweaksTierTests::elytraPadAndFlypadAreasMatchTheirTiers)
+                    .build(),
+            GameTestSpec.named("tweaks_tier_game_test_old_flypads_turn_into_their_new_tier_in_the_world_and_in_the_inventory", TweaksTierTests::oldFlypadsTurnIntoTheirNewTierInTheWorldAndInTheInventory)
+                    .build(),
+            GameTestSpec.named("tweaks_tier_game_test_every_family_names_its_last_tier", TweaksTierTests::everyFamilyNamesItsLastTier)
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_echo_compass_links_to_the_lodestone_and_teleports_for_one_pearl", TweaksTests::theEchoCompassLinksToTheLodestoneAndTeleportsForOnePearl)
                     .build(),

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/pressure_plate_up",
   "textures": {
-    "texture": "simplebuilding:block/stellar_flypad"
+    "texture": "simplebuilding:block/stellar_flypad_ender"
   }
 }

@@ -201,15 +201,17 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // =================================================================
                 // MAGNET
                 // =================================================================
+                // Besitzer 2026-09-27 (Lesart des Koordinators): Eisen-Baukern unten links, Eisenbarren unten
+                // Mitte und links Mitte, Redstone oben Mitte, Lapislazuli unten rechts; kein Leitstein mehr.
                 shaped(RecipeCategory.TOOLS, ModItems.MAGNET)
-                        .pattern(" IR")
-                        .pattern("ILI")
-                        .pattern("BI ")
-                        .define('L', Items.LODESTONE)
-                        .define('I', Items.IRON_INGOT)
+                        .pattern(" R ")
+                        .pattern("I  ")
+                        .pattern("CIL")
                         .define('R', Items.REDSTONE)
-                        .define('B', Items.LAPIS_LAZULI)
-                        .unlockedBy(getHasName(Items.LODESTONE), has(Items.LODESTONE))
+                        .define('I', Items.IRON_INGOT)
+                        .define('C', ModItems.IRON_CORE)
+                        .define('L', Items.LAPIS_LAZULI)
+                        .unlockedBy(getHasName(ModItems.IRON_CORE), has(ModItems.IRON_CORE))
                         .save(output);
 
                 // Rotator (Besitzer 2026-09-27): Eisen-Baukern unten links, vier Eisenbarren im Kreuz, Enderperle in der Mitte
@@ -925,40 +927,21 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.DIAMOND_PRESSURE_PLATE, Items.NETHERITE_INGOT, TweaksBlocks.NETHERITE_PRESSURE_PLATE, "netherite_pressure_plate_smithing");
                 tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.NETHERITE_PRESSURE_PLATE, ModItems.ENDERITE_INGOT, TweaksBlocks.ENDERITE_PRESSURE_PLATE, "enderite_pressure_plate_smithing");
 
-                // Elytra-Pads I-V: Enderit IV neu, der Netherstern (Fine) rueckt auf V
-                tweaksSmithing(anyTemplate, TweaksBlocks.DIAMOND_PRESSURE_PLATE, Items.DIAMOND, TweaksBlocks.ELYTRA_PAD, "elytra_pad_smithing");
+                // Elytra-Pads I-V (Besitzer 2026-09-27): I = beliebige Vorlage + Elytra (ohne dritte Zutat),
+                // dann Diamant-, Netherit-, Enderit-Druckplatte, V wie bisher mit Netherstern
+                tweaksSmithingWithoutAddition(anyTemplate, Items.ELYTRA, TweaksBlocks.ELYTRA_PAD, "elytra_pad_smithing");
                 tweaksSmithing(anyTemplate, TweaksBlocks.ELYTRA_PAD, diamondPlate, TweaksBlocks.REINFORCED_ELYTRA_PAD, "reinforced_elytra_pad_smithing");
                 tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.REINFORCED_ELYTRA_PAD, netheritePlate, TweaksBlocks.NETHERITE_ELYTRA_PAD, "netherite_elytra_pad_smithing");
                 tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.NETHERITE_ELYTRA_PAD, enderitePlate, TweaksBlocks.ENDERITE_ELYTRA_PAD, "enderite_elytra_pad_smithing");
                 tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.ENDERITE_ELYTRA_PAD, Items.NETHER_STAR, TweaksBlocks.FINE_ELYTRA_PAD, "fine_elytra_pad_smithing");
 
-                // Flypads I-V: Enderit IV neu, Stellar (Netherstern) rueckt auf V. Stufe I kostet eine
-                // Elytra statt des Netheritbarrens (Besitzer 2026-09-27, vorlaeufig: Nachricht brach ab)
-                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.FINE_ELYTRA_PAD, Items.ELYTRA, TweaksBlocks.FLYPAD, "flypad_tier1_smithing");
-                tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.FLYPAD, netheritePlate, TweaksBlocks.REINFORCED_FLYPAD, "flypad_tier2_smithing");
-                shaped(RecipeCategory.TOOLS, TweaksBlocks.NETHERITE_FLYPAD)
-                        .pattern("DBD")
-                        .pattern("ESE")
-                        .pattern("KFK")
-                        .define('D', Items.DIAMOND_BLOCK)
-                        .define('B', Items.NETHERITE_BLOCK)
-                        .define('E', Items.ENCHANTED_GOLDEN_APPLE)
-                        .define('S', Items.NETHER_STAR)
-                        .define('K', Items.OMINOUS_TRIAL_KEY)
-                        .define('F', TweaksBlocks.REINFORCED_FLYPAD)
-                        .unlockedBy("has_reinforced_flypad", has(TweaksBlocks.REINFORCED_FLYPAD))
-                        .save(output, Simplebuilding.MOD_ID + ":netherite_flypad_crafting");
-                tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.NETHERITE_FLYPAD, enderitePlate, TweaksBlocks.ENDERITE_FLYPAD, "enderite_flypad_smithing");
-                shaped(RecipeCategory.TOOLS, TweaksBlocks.STELLAR_FLYPAD)
-                        .pattern("KKK")
-                        .pattern("ESE")
-                        .pattern("FFF")
-                        .define('K', Items.OMINOUS_TRIAL_KEY)
-                        .define('E', Items.ENCHANTED_GOLDEN_APPLE)
-                        .define('S', Items.NETHER_STAR)
-                        .define('F', TweaksBlocks.ENDERITE_FLYPAD)
-                        .unlockedBy("has_enderite_flypad", has(TweaksBlocks.ENDERITE_FLYPAD))
-                        .save(output, Simplebuilding.MOD_ID + ":stellar_flypad_crafting");
+                // Flypads I-III aus Enderit (Besitzer 2026-09-27): I = Enderit-Vorlage + Enderit-Druckplatte +
+                // Enderit-Kern, II = Enderit-Vorlage + Flypad I + Enderit-Druckplatte, III = Enderit-Vorlage +
+                // zwei Flypads II (Schmiede, das zweite als Zutat). Die alten Rezepte (Netherit-Flypad,
+                // Enderit-Flypad, Stellar aus der Werkbank) entfallen.
+                tweaksSmithing(Ingredient.of(enderiteTemplate), enderitePlate, ModItems.ENDERITE_CORE, TweaksBlocks.FLYPAD, "flypad_tier1_smithing");
+                tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.FLYPAD, enderitePlate, TweaksBlocks.REINFORCED_FLYPAD, "flypad_tier2_smithing");
+                tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.STELLAR_FLYPAD, "stellar_flypad_smithing");
 
                 // Kupfer-Druckplatte (2 Kupferbloecke) und Chunk-Loader I-III (Kupferplatte + Diamant-,
                 // dann Netherit- und Enderit-Druckplatte)
@@ -993,6 +976,24 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .define('R', Items.REDSTONE)
                         .unlockedBy(getHasName(Items.AMETHYST_SHARD), has(Items.AMETHYST_SHARD))
                         .save(output);
+            }
+
+            /**
+             * Schmiede-Rezept ohne Zutat (nur Vorlage + Basis), z. B. Elytra-Pad I aus einer Elytra.
+             * SmithingTransformRecipe nimmt seit 1.21.2 eine leere Zutat; der Vanilla-Builder kann das
+             * nicht, darum ist Rezept und Freischalt-Fortschritt hier wie in SmithingTransformRecipeBuilder gebaut.
+             */
+            private void tweaksSmithingWithoutAddition(Ingredient template, ItemLike base, ItemLike result, String name) {
+                ResourceKey<Recipe<?>> recipeKey = ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name));
+                Recipe<?> recipe = new net.minecraft.world.item.crafting.SmithingTransformRecipe(
+                        java.util.Optional.of(template), Ingredient.of(base), java.util.Optional.empty(), new TransmuteResult(result.asItem()));
+                Advancement.Builder advancement = output.advancement()
+                        .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeKey))
+                        .rewards(AdvancementRewards.Builder.recipe(recipeKey))
+                        .requirements(AdvancementRequirements.Strategy.OR)
+                        .addCriterion(getHasName(base), has(base));
+                output.accept(recipeKey, recipe, advancement.build(
+                        recipeKey.identifier().withPrefix("recipes/" + RecipeCategory.TOOLS.getFolderName() + "/")));
             }
 
             private void tweaksSmithing(Ingredient template, ItemLike base, ItemLike addition, ItemLike result, String name) {

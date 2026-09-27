@@ -2,15 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "B": "minecraft:lapis_lazuli",
+    "C": "simplebuilding:iron_core",
     "I": "minecraft:iron_ingot",
-    "L": "minecraft:lodestone",
+    "L": "minecraft:lapis_lazuli",
     "R": "minecraft:redstone"
   },
   "pattern": [
-    " IR",
-    "ILI",
-    "BI "
+    " R ",
+    "I  ",
+    "CIL"
   ],
   "result": {
     "count": 1,

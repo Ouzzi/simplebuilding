@@ -44,4 +44,19 @@ public final class TweaksTierGameTest {
     public void padUpgradesPayWithThePressurePlateOfTheirTargetMaterial(GameTestHelper helper) {
         TweaksTierTests.padUpgradesPayWithThePressurePlateOfTheirTargetMaterial(helper);
     }
+
+    @GameTest
+    public void elytraPadAndFlypadAreasMatchTheirTiers(GameTestHelper helper) {
+        TweaksTierTests.elytraPadAndFlypadAreasMatchTheirTiers(helper);
+    }
+
+    @GameTest
+    public void oldFlypadsTurnIntoTheirNewTierInTheWorldAndInTheInventory(GameTestHelper helper) {
+        TweaksTierTests.oldFlypadsTurnIntoTheirNewTierInTheWorldAndInTheInventory(helper);
+    }
+
+    @GameTest
+    public void everyFamilyNamesItsLastTier(GameTestHelper helper) {
+        TweaksTierTests.everyFamilyNamesItsLastTier(helper);
+    }
 }

@@ -117,13 +117,14 @@ public final class TweaksTests {
                         "pad tier " + tier + " is not larger than tier " + (tier - 1));
             }
         }
-        helper.assertValueEqual(List.of(widths[0], widths[1], widths[2], widths[3], widths[4]), List.of(5, 15, 31, 47, 63), "pad widths per tier");
+        helper.assertValueEqual(List.of(PadTiers.width(1), PadTiers.width(2), PadTiers.width(3), PadTiers.width(4), PadTiers.width(5)),
+                List.of(1, 5, 16, 32, 128), "elytra pad widths per tier");
         helper.assertValueEqual(List.of(PadTiers.height(1), PadTiers.height(2), PadTiers.height(3), PadTiers.height(4), PadTiers.height(5)),
                 List.of(15, 31, 63, 95, 127), "pad heights per tier");
         helper.assertValueEqual(ElytraPadBlockEntity.tierOf(TweaksBlocks.ENDERITE_ELYTRA_PAD.defaultBlockState()), 4, "tier of the enderite elytra pad");
         helper.assertValueEqual(ElytraPadBlockEntity.tierOf(TweaksBlocks.FINE_ELYTRA_PAD.defaultBlockState()), 5, "tier of the fine elytra pad");
-        helper.assertValueEqual(FlypadBlockEntity.tierOf(TweaksBlocks.ENDERITE_FLYPAD.defaultBlockState()), 4, "tier of the enderite flypad");
-        helper.assertValueEqual(FlypadBlockEntity.tierOf(TweaksBlocks.STELLAR_FLYPAD.defaultBlockState()), 5, "tier of the stellar flypad");
+        helper.assertValueEqual(FlypadBlockEntity.tierOf(TweaksBlocks.REINFORCED_FLYPAD.defaultBlockState()), 2, "tier of the reinforced flypad");
+        helper.assertValueEqual(FlypadBlockEntity.tierOf(TweaksBlocks.STELLAR_FLYPAD.defaultBlockState()), 3, "tier of the stellar flypad");
         helper.assertFalse(PadTiers.hasEnderiteBonus(3), "the netherite tier already carries the enderite bonus");
         helper.assertTrue(PadTiers.hasEnderiteBonus(4) && PadTiers.hasEnderiteBonus(5), "the enderite bonus does not carry over to the higher tiers");
         helper.succeed();
@@ -141,14 +142,14 @@ public final class TweaksTests {
         Item enderitePlate = TweaksBlocks.ENDERITE_PRESSURE_PLATE.asItem();
         Item netheritePlate = TweaksBlocks.NETHERITE_PRESSURE_PLATE.asItem();
         expectSmithing(helper, template, TweaksBlocks.NETHERITE_ELYTRA_PAD, enderitePlate, TweaksBlocks.ENDERITE_ELYTRA_PAD);
-        expectSmithing(helper, template, TweaksBlocks.NETHERITE_FLYPAD, enderitePlate, TweaksBlocks.ENDERITE_FLYPAD);
+        expectSmithing(helper, template, TweaksBlocks.FLYPAD, enderitePlate, TweaksBlocks.REINFORCED_FLYPAD);
         expectSmithing(helper, template, TweaksBlocks.NETHERITE_PRESSURE_PLATE, ingot, TweaksBlocks.ENDERITE_PRESSURE_PLATE);
         expectSmithing(helper, template, TweaksBlocks.SPAWN_TELEPORTER_TIER_4, enderitePlate, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER);
         expectSmithing(helper, template, TweaksBlocks.NETHERITE_CHUNK_LOADER, enderitePlate, TweaksBlocks.ENDERITE_CHUNK_LOADER);
         expectSmithing(helper, template, TweaksBlocks.NETHERITE_LAUNCHPAD, enderitePlate, TweaksBlocks.ENDERITE_LAUNCHPAD);
         expectSmithing(helper, netherite, TweaksBlocks.ENDERITE_ELYTRA_PAD, Items.NETHER_STAR, TweaksBlocks.FINE_ELYTRA_PAD);
         expectSmithing(helper, netherite, TweaksBlocks.REINFORCED_ELYTRA_PAD, netheritePlate, TweaksBlocks.NETHERITE_ELYTRA_PAD);
-        expectSmithing(helper, netherite, TweaksBlocks.FINE_ELYTRA_PAD, Items.ELYTRA, TweaksBlocks.FLYPAD);
+        expectSmithing(helper, template, TweaksBlocks.ENDERITE_PRESSURE_PLATE, ModItems.ENDERITE_CORE, TweaksBlocks.FLYPAD);
         expectSmithing(helper, netherite, TweaksBlocks.DIAMOND_PRESSURE_PLATE, Items.NETHERITE_INGOT, TweaksBlocks.NETHERITE_PRESSURE_PLATE);
         expectSmithing(helper, netherite, TweaksBlocks.COPPER_PRESSURE_PLATE, TweaksBlocks.DIAMOND_PRESSURE_PLATE.asItem(), TweaksBlocks.CHUNK_LOADER);
         // Der alte Weg (Netherit-Pad + Netherstern) fuehrt nicht mehr zum feinen Pad.
@@ -158,16 +159,18 @@ public final class TweaksTests {
         helper.succeed();
     }
 
-    /** Stellares Flypad V: KKK / ESE / FFF mit F = Enderit-Flypad IV (vorher Netherit). */
-    public static void theStellarFlypadIsCraftedFromEnderiteFlypads(GameTestHelper helper) {
+    /**
+     * Stellares Flypad III (Besitzer 2026-09-27): zwei Verstaerkte Flypads II im Schmiedetisch
+     * (Enderit-Vorlage, das zweite als Zutat); das alte Werkbank-Rezept KKK / ESE / FFF gibt es nicht mehr.
+     */
+    public static void theStellarFlypadIsSmithedFromTwoReinforcedFlypads(GameTestHelper helper) {
+        expectSmithing(helper, ModItems.ENDERITE_UPGRADE_TEMPLATE, TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.REINFORCED_FLYPAD.asItem(), TweaksBlocks.STELLAR_FLYPAD);
+        Optional<RecipeHolder<SmithingRecipe>> one = smithing(helper, ModItems.ENDERITE_UPGRADE_TEMPLATE, TweaksBlocks.FLYPAD, TweaksBlocks.REINFORCED_FLYPAD.asItem());
+        helper.assertTrue(one.isEmpty(), "a flypad I and a flypad II already smith something");
         Item f = TweaksBlocks.ENDERITE_FLYPAD.asItem();
-        CraftingInput grid = grid(Items.OMINOUS_TRIAL_KEY, Items.OMINOUS_TRIAL_KEY, Items.OMINOUS_TRIAL_KEY,
-                Items.ENCHANTED_GOLDEN_APPLE, Items.NETHER_STAR, Items.ENCHANTED_GOLDEN_APPLE, f, f, f);
-        expectCrafting(helper, grid, TweaksBlocks.STELLAR_FLYPAD.asItem(), "simplebuilding:stellar_flypad_crafting");
-        Item n = TweaksBlocks.NETHERITE_FLYPAD.asItem();
         CraftingInput oldGrid = grid(Items.OMINOUS_TRIAL_KEY, Items.OMINOUS_TRIAL_KEY, Items.OMINOUS_TRIAL_KEY,
-                Items.ENCHANTED_GOLDEN_APPLE, Items.NETHER_STAR, Items.ENCHANTED_GOLDEN_APPLE, n, n, n);
-        helper.assertTrue(craftingResult(helper, oldGrid).isEmpty(), "netherite flypads still craft the stellar flypad");
+                Items.ENCHANTED_GOLDEN_APPLE, Items.NETHER_STAR, Items.ENCHANTED_GOLDEN_APPLE, f, f, f);
+        helper.assertTrue(craftingResult(helper, oldGrid).isEmpty(), "the old crafting recipe still makes a stellar flypad");
         helper.succeed();
     }
 
@@ -350,7 +353,7 @@ public final class TweaksTests {
         helper.assertTrue(be.flyingPlayers().contains(player.getUUID()), "the flypad does not remember whom it let fly");
         helper.assertTrue(player.hasEffect(MobEffects.GLOWING), "flypad flyers are not highlighted");
 
-        Vec3 far = helper.absoluteVec(new Vec3(3.5, 3.0, 3.5)).add(0, PadTiers.height(1) + 5, 0);
+        Vec3 far = helper.absoluteVec(new Vec3(3.5, 3.0, 3.5)).add(0, PadTiers.flyHeight(1) + 5, 0);
         player.snapTo(far.x, far.y, far.z);
         FlypadBlockEntity.update(helper.getLevel(), helper.absolutePos(pad), helper.getBlockState(pad), be);
         helper.assertFalse(be.flyingPlayers().contains(player.getUUID()), "the flypad still tracks a player who left its area");
@@ -358,28 +361,28 @@ public final class TweaksTests {
     }
 
     /**
-     * Beim Verlassen verliert ein Ueberlebensspieler den Flug; ab Stufe IV (Enderit) faengt ihn das
-     * Sicherheitsnetz mit Sanftem Fall auf, auf Stufe III nicht.
+     * Beim Verlassen verliert ein Ueberlebensspieler den Flug; seit 2026-09-27 sind alle drei Flypad-
+     * Stufen aus Enderit und fangen ihn mit dem Sicherheitsnetz (Sanfter Fall) auf - schon Stufe I.
      */
     public static void enderiteFlypadsCatchFlyersLeavingTheirAreaWithSlowFalling(GameTestHelper helper) {
-        ServerPlayer netherite = survivalLikePlayer(helper, new Vec3(1.5, 1.0, 1.5));
-        netherite.getAbilities().mayfly = true;
-        netherite.getAbilities().flying = true;
-        FlypadBlockEntity.revoke(netherite, 3);
-        helper.assertFalse(netherite.getAbilities().mayfly, "a survival player kept flight after leaving a flypad");
-        helper.assertFalse(netherite.hasEffect(MobEffects.SLOW_FALLING), "a netherite flypad already has the safety net");
+        ServerPlayer first = survivalLikePlayer(helper, new Vec3(1.5, 1.0, 1.5));
+        first.getAbilities().mayfly = true;
+        first.getAbilities().flying = true;
+        FlypadBlockEntity.revoke(first, 1);
+        helper.assertFalse(first.getAbilities().mayfly, "a survival player kept flight after leaving a flypad");
+        helper.assertTrue(first.hasEffect(MobEffects.SLOW_FALLING), "flypad I does not catch the falling player");
 
         ServerPlayer enderite = survivalLikePlayer(helper, new Vec3(3.5, 1.0, 1.5));
         enderite.getAbilities().mayfly = true;
         enderite.getAbilities().flying = true;
-        FlypadBlockEntity.revoke(enderite, 4);
-        helper.assertFalse(enderite.getAbilities().flying, "a survival player keeps flying after leaving an enderite flypad");
-        helper.assertTrue(enderite.hasEffect(MobEffects.SLOW_FALLING), "the enderite flypad did not catch the falling player");
+        FlypadBlockEntity.revoke(enderite, 3);
+        helper.assertFalse(enderite.getAbilities().flying, "a survival player keeps flying after leaving a stellar flypad");
+        helper.assertTrue(enderite.hasEffect(MobEffects.SLOW_FALLING), "the stellar flypad did not catch the falling player");
 
         ServerPlayer walker = survivalLikePlayer(helper, new Vec3(5.5, 1.0, 1.5));
         walker.getAbilities().mayfly = true;
         walker.getAbilities().flying = false;
-        FlypadBlockEntity.revoke(walker, 5);
+        FlypadBlockEntity.revoke(walker, 3);
         helper.assertFalse(walker.hasEffect(MobEffects.SLOW_FALLING), "the safety net fires for players who were not flying");
         helper.succeed();
     }
@@ -1073,7 +1076,7 @@ public final class TweaksTests {
         helper.setBlock(first, Blocks.AIR);
         helper.assertTrue(player.getAbilities().mayfly, "breaking one flypad took the flight although the other still covers the player");
 
-        Vec3 far = helper.absoluteVec(new Vec3(3.5, 3.0, 3.5)).add(0, PadTiers.height(1) + 5, 0);
+        Vec3 far = helper.absoluteVec(new Vec3(3.5, 3.0, 3.5)).add(0, PadTiers.flyHeight(1) + 5, 0);
         player.snapTo(far.x, far.y, far.z);
         FlypadBlockEntity.update(helper.getLevel(), helper.absolutePos(second), helper.getBlockState(second), b);
         helper.assertFalse(player.getAbilities().mayfly, "leaving the last flypad did not take the flight");

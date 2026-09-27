@@ -2055,6 +2055,28 @@ def netherite_tweak_textures():
         pal = dict(NETHERITE_TWEAK_PAL)
         pal.update(NETHERITE_TWEAK_ACCENTS[name])
         tex[f"block/{name}.png"] = render(name, tweak_frame(name, ENDERITE_TWEAK_MAPS[shared]), pal, True)
+    tex.update(ender_flypad_textures())
+    return tex
+
+
+# Flypads I-III (2026-09-27: drei Stufen, alle aus Enderit). Sie teilen die Karte des Enderit-Flypads
+# (dunkles Enderit-Mauerwerk, Ring mit Funkelstern) und steigern sich im Akzent: I schlichtes Violett,
+# II Ender-Magenta (wie das alte Enderit-Flypad), III goldweisser Stern (stellar). Dateien <id>_ender,
+# weil die alten flypad.png / reinforced_flypad.png / stellar_flypad.png liegen bleiben (der Besitzer
+# will sie fuer eine neue Netherit-Druckplatte wiederverwenden).
+ENDER_FLYPAD_ACCENTS = {
+    "flypad_ender": {"v": "#8e63dc", "h": "#b89af0", "L": "#cfb2fb"},
+    "reinforced_flypad_ender": {"v": "#c77dff", "h": "#dcc4ff", "L": "#f4d2ff"},
+    "stellar_flypad_ender": {"v": "#ffd76a", "h": "#fff3c4", "L": "#ffffff"},
+}
+
+
+def ender_flypad_textures():
+    tex = {}
+    for name, accents in ENDER_FLYPAD_ACCENTS.items():
+        pal = dict(ENDERITE_TWEAK_PAL)
+        pal.update(accents)
+        tex[f"block/{name}.png"] = render(name, tweak_frame(name, ENDERITE_TWEAK_MAPS["enderite_flypad"]), pal, True)
     return tex
 
 

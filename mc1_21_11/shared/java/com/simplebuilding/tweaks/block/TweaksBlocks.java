@@ -69,17 +69,18 @@ public final class TweaksBlocks {
     public static final Block FINE_ELYTRA_PAD = register("fine_elytra_pad",
             p -> new ElytraPadBlock(sturdy(p).mapColor(MapColor.GOLD).strength(4.0f).sound(SoundType.NETHERITE_BLOCK).lightLevel(s -> 10), 5));
 
-    // --- Flypads I-V ---
+    // --- Flypads I-III aus Enderit (4x4x6 / 8x8x12 / 16x16x24, Besitzer 2026-09-27) ---
     public static final Block FLYPAD = register("flypad",
-            p -> new FlypadBlock(sturdy(p).mapColor(MapColor.EMERALD).strength(2.0f), 1));
+            p -> new FlypadBlock(sturdy(p).mapColor(MapColor.COLOR_PURPLE).strength(4.5f).sound(SoundType.NETHERITE_BLOCK).lightLevel(s -> 7), 1));
     public static final Block REINFORCED_FLYPAD = register("reinforced_flypad",
-            p -> new FlypadBlock(sturdy(p).mapColor(MapColor.DIAMOND).strength(3.0f), 2));
-    public static final Block NETHERITE_FLYPAD = register("netherite_flypad",
-            p -> new FlypadBlock(sturdy(p).mapColor(MapColor.COLOR_BLACK).strength(5.0f), 3));
-    public static final Block ENDERITE_FLYPAD = register("enderite_flypad",
-            p -> new FlypadBlock(sturdy(p).mapColor(MapColor.COLOR_PURPLE).strength(5.0f).lightLevel(s -> 10), 4));
+            p -> new FlypadBlock(sturdy(p).mapColor(MapColor.COLOR_PURPLE).strength(5.0f).sound(SoundType.NETHERITE_BLOCK).lightLevel(s -> 10), 2));
     public static final Block STELLAR_FLYPAD = register("stellar_flypad",
-            p -> new FlypadBlock(sturdy(p).mapColor(MapColor.COLOR_PURPLE).strength(5.0f).lightLevel(s -> 15), 5));
+            p -> new FlypadBlock(sturdy(p).mapColor(MapColor.COLOR_PURPLE).strength(5.0f).sound(SoundType.NETHERITE_BLOCK).lightLevel(s -> 15), 3));
+    // Alte Flypads (vorher Stufen III und IV von fuenf): nur noch zum Laden alter Welten, werden zur neuen Stufe.
+    public static final Block NETHERITE_FLYPAD = register("netherite_flypad",
+            p -> new LegacyFlypadBlock(sturdy(p).mapColor(MapColor.COLOR_BLACK).strength(5.0f), 2, () -> TweaksBlocks.REINFORCED_FLYPAD));
+    public static final Block ENDERITE_FLYPAD = register("enderite_flypad",
+            p -> new LegacyFlypadBlock(sturdy(p).mapColor(MapColor.COLOR_PURPLE).strength(5.0f).lightLevel(s -> 10), 3, () -> TweaksBlocks.STELLAR_FLYPAD));
 
     // --- Chunk-Loader I-III (eigener Chunk / 5 Chunks im Kreuz / 3x3) ---
     public static final Block CHUNK_LOADER = register("chunk_loader",
@@ -100,6 +101,11 @@ public final class TweaksBlocks {
             p -> new CopperPressurePlateBlock(WeatheringCopper.WeatherState.OXIDIZED, fragile(p).mapColor(MapColor.WARPED_NYLIUM)));
 
     private TweaksBlocks() {
+    }
+
+    /** Alte, abgeloeste Stufenbloecke (nur zum Laden alter Welten; kein Rezept, kein Kreativ-Tab). */
+    public static List<Block> legacy() {
+        return List.of(NETHERITE_FLYPAD, ENDERITE_FLYPAD);
     }
 
     /** Alle Bloecke in Registrierungsreihenfolge (Datagen, Tests, Kreativ-Tab). */

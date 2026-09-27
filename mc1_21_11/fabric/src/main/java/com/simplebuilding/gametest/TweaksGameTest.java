@@ -21,8 +21,8 @@ public final class TweaksGameTest {
     }
 
     @GameTest
-    public void theStellarFlypadIsCraftedFromEnderiteFlypads(GameTestHelper helper) {
-        TweaksTests.theStellarFlypadIsCraftedFromEnderiteFlypads(helper);
+    public void theStellarFlypadIsSmithedFromTwoReinforcedFlypads(GameTestHelper helper) {
+        TweaksTests.theStellarFlypadIsSmithedFromTwoReinforcedFlypads(helper);
     }
 
     @GameTest

@@ -3,7 +3,9 @@ package com.simplebuilding.gametest;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.tweaks.block.ChunkLoaderBlock;
 import com.simplebuilding.tweaks.block.LaunchpadBlock;
+import com.simplebuilding.tweaks.block.PadTiers;
 import com.simplebuilding.tweaks.block.TweaksBlocks;
+import com.simplebuilding.tweaks.block.TweaksFamilies;
 import com.simplebuilding.tweaks.block.entity.ChunkLoaderBlockEntity;
 import com.simplebuilding.tweaks.block.entity.LaunchpadBlockEntity;
 import com.simplebuilding.tweaks.spawn.LaunchSafety;
@@ -305,9 +307,12 @@ public final class TweaksTierTests {
         expect(helper, net, TweaksBlocks.REINFORCED_ELYTRA_PAD, netherite, TweaksBlocks.NETHERITE_ELYTRA_PAD);
         expect(helper, end, TweaksBlocks.NETHERITE_ELYTRA_PAD, enderite, TweaksBlocks.ENDERITE_ELYTRA_PAD);
 
-        expect(helper, net, TweaksBlocks.FINE_ELYTRA_PAD, Items.ELYTRA, TweaksBlocks.FLYPAD);
-        expect(helper, net, TweaksBlocks.FLYPAD, netherite, TweaksBlocks.REINFORCED_FLYPAD);
-        expect(helper, end, TweaksBlocks.NETHERITE_FLYPAD, enderite, TweaksBlocks.ENDERITE_FLYPAD);
+        // Elytra-Pad I: Vorlage + Elytra, ohne dritte Zutat
+        expect(helper, any, Items.ELYTRA, null, TweaksBlocks.ELYTRA_PAD);
+        // Flypads aus Enderit: I = Platte + Kern, II = I + Platte, III = zwei II
+        expect(helper, end, enderite, ModItems.ENDERITE_CORE, TweaksBlocks.FLYPAD);
+        expect(helper, end, TweaksBlocks.FLYPAD, enderite, TweaksBlocks.REINFORCED_FLYPAD);
+        expect(helper, end, TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.STELLAR_FLYPAD);
 
         expect(helper, net, TweaksBlocks.SPAWN_TELEPORTER, netherite, TweaksBlocks.SPAWN_TELEPORTER_TIER_2);
         expect(helper, net, TweaksBlocks.SPAWN_TELEPORTER_TIER_2, netherite, TweaksBlocks.SPAWN_TELEPORTER_TIER_3);
@@ -326,8 +331,121 @@ public final class TweaksTierTests {
         expectNothing(helper, net, TweaksBlocks.FINE_ELYTRA_PAD, Items.NETHERITE_INGOT);
         expectNothing(helper, net, TweaksBlocks.FLYPAD, Items.NETHERITE_BLOCK);
         expectNothing(helper, end, TweaksBlocks.NETHERITE_FLYPAD, ModItems.ENDERITE_INGOT);
+        expectNothing(helper, end, TweaksBlocks.NETHERITE_FLYPAD, enderite);
+        expectNothing(helper, any, TweaksBlocks.DIAMOND_PRESSURE_PLATE, Items.DIAMOND);
+        expectNothing(helper, net, TweaksBlocks.FINE_ELYTRA_PAD, Items.ELYTRA);
+        expectNothing(helper, net, TweaksBlocks.FLYPAD, netherite);
         expectNothing(helper, net, TweaksBlocks.SPAWN_TELEPORTER, Items.NETHERITE_INGOT);
         expectNothing(helper, end, TweaksBlocks.SPAWN_TELEPORTER_TIER_4, ModItems.ENDERITE_INGOT);
+        helper.succeed();
+    }
+
+    // =====================================================================================
+    // Elytra-Pad und Flypad (Besitzer 2026-09-27)
+    // =====================================================================================
+
+    /**
+     * Elytra-Pad I-V: 1x1, 5x5, 16x16, 32x32, 128x128; Flypad I-III: 4x4x6, 8x8x12, 16x16x24. Dazu je
+     * ein echter Durchlauf: ein Spieler einen Block neben dem Pad bekommt von Stufe I keine Elytra, von
+     * Stufe II schon; fuenf Bloecke neben dem Flypad fliegt er mit Stufe III, nicht mit Stufe I.
+     */
+    public static void elytraPadAndFlypadAreasMatchTheirTiers(GameTestHelper helper) {
+        BlockPos origin = new BlockPos(0, 0, 0);
+        int[] widths = {1, 5, 16, 32, 128};
+        for (int tier = 1; tier <= PadTiers.MAX; tier++) {
+            net.minecraft.world.phys.AABB area = PadTiers.elytraArea(origin, tier);
+            helper.assertTrue(Math.abs(area.getXsize() - widths[tier - 1]) < 1e-9 && Math.abs(area.getZsize() - widths[tier - 1]) < 1e-9,
+                    "elytra pad tier " + tier + " covers " + area.getXsize() + " blocks instead of " + widths[tier - 1]);
+        }
+        int[][] fly = {{4, 6}, {8, 12}, {16, 24}};
+        for (int tier = 1; tier <= PadTiers.FLYPAD_MAX; tier++) {
+            net.minecraft.world.phys.AABB area = PadTiers.flyArea(origin, tier);
+            helper.assertTrue(Math.abs(area.getXsize() - fly[tier - 1][0]) < 1e-9 && Math.abs(area.getZsize() - fly[tier - 1][0]) < 1e-9
+                            && Math.abs(area.getYsize() - fly[tier - 1][1]) < 1e-9,
+                    "flypad tier " + tier + " covers " + area.getXsize() + "x" + area.getYsize() + " instead of " + fly[tier - 1][0] + "x" + fly[tier - 1][1]);
+        }
+
+        // Elytra-Pad: einen Block neben dem Pad
+        BlockPos pad = new BlockPos(3, 1, 3);
+        ServerPlayer player = mockPlayer(helper, new Vec3(4.5, 2.0, 3.5));
+        player.setItemSlot(net.minecraft.world.entity.EquipmentSlot.CHEST, ItemStack.EMPTY);
+        helper.setBlock(pad, TweaksBlocks.ELYTRA_PAD);
+        com.simplebuilding.tweaks.block.entity.ElytraPadBlockEntity.applyArea(helper.getLevel(), helper.absolutePos(pad), helper.getBlockState(pad));
+        helper.assertTrue(player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).isEmpty(), "elytra pad I (1x1) reached a player one block away");
+        helper.setBlock(pad, TweaksBlocks.REINFORCED_ELYTRA_PAD);
+        com.simplebuilding.tweaks.block.entity.ElytraPadBlockEntity.applyArea(helper.getLevel(), helper.absolutePos(pad), helper.getBlockState(pad));
+        helper.assertTrue(!player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).isEmpty(), "elytra pad II (5x5) did not reach a player one block away");
+
+        // Flypad: fuenf Bloecke neben dem Pad
+        BlockPos flypad = new BlockPos(1, 1, 7);
+        ServerPlayer flyer = mockPlayer(helper, new Vec3(6.5, 2.0, 7.5));
+        flyer.getAbilities().mayfly = false;
+        flyer.getAbilities().instabuild = false;
+        flyer.removeTag(com.simplebuilding.tweaks.block.entity.FlypadBlockEntity.FLIGHT_TAG);
+        helper.setBlock(flypad, TweaksBlocks.FLYPAD);
+        com.simplebuilding.tweaks.block.entity.FlypadBlockEntity small = helper.getBlockEntity(flypad, com.simplebuilding.tweaks.block.entity.FlypadBlockEntity.class);
+        com.simplebuilding.tweaks.block.entity.FlypadBlockEntity.update(helper.getLevel(), helper.absolutePos(flypad), helper.getBlockState(flypad), small);
+        helper.assertTrue(!flyer.getAbilities().mayfly, "flypad I (4x4) let a player five blocks away fly");
+        helper.setBlock(flypad, TweaksBlocks.STELLAR_FLYPAD);
+        com.simplebuilding.tweaks.block.entity.FlypadBlockEntity big = helper.getBlockEntity(flypad, com.simplebuilding.tweaks.block.entity.FlypadBlockEntity.class);
+        com.simplebuilding.tweaks.block.entity.FlypadBlockEntity.update(helper.getLevel(), helper.absolutePos(flypad), helper.getBlockState(flypad), big);
+        helper.assertTrue(flyer.getAbilities().mayfly, "flypad III (16x16) did not let a player five blocks away fly");
+        helper.setBlock(flypad, Blocks.AIR);
+        helper.succeed();
+    }
+
+    /**
+     * Welt-Upgrade der Flypads (fuenf Stufen -> drei): ein altes Netherit-Flypad (alt III) wird beim
+     * ersten Tick zum Flypad II, ein altes Enderit-Flypad (alt IV) zum Stellaren Flypad III, beide mit
+     * ihrem Besitzer; ihre Items tauschen sich im Inventar um (Anzahl bleibt). Kein Kreativ-Tab.
+     */
+    public static void oldFlypadsTurnIntoTheirNewTierInTheWorldAndInTheInventory(GameTestHelper helper) {
+        Block[] old = {TweaksBlocks.NETHERITE_FLYPAD, TweaksBlocks.ENDERITE_FLYPAD};
+        Block[] now = {TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.STELLAR_FLYPAD};
+        java.util.UUID owner = java.util.UUID.randomUUID();
+        for (int i = 0; i < 2; i++) {
+            BlockPos pos = new BlockPos(2 + i * 3, 1, 3);
+            helper.setBlock(pos, old[i]);
+            com.simplebuilding.tweaks.block.entity.FlypadBlockEntity be = helper.getBlockEntity(pos, com.simplebuilding.tweaks.block.entity.FlypadBlockEntity.class);
+            be.setOwner(owner);
+            com.simplebuilding.tweaks.block.entity.FlypadBlockEntity.serverTick(helper.getLevel(), helper.absolutePos(pos), helper.getBlockState(pos), be);
+            helper.assertTrue(helper.getBlockState(pos).is(now[i]), old[i] + " became " + helper.getBlockState(pos).getBlock() + " instead of " + now[i]);
+            com.simplebuilding.tweaks.block.entity.FlypadBlockEntity fresh = helper.getBlockEntity(pos, com.simplebuilding.tweaks.block.entity.FlypadBlockEntity.class);
+            helper.assertTrue(owner.equals(fresh.getOwner()), "the migrated " + now[i] + " lost its owner");
+        }
+        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
+        for (int i = 0; i < 2; i++) {
+            ItemStack stack = new ItemStack(old[i], 3);
+            player.getInventory().setItem(10 + i, stack);
+            stack.getItem().inventoryTick(stack, helper.getLevel(), player, null);
+            ItemStack after = player.getInventory().getItem(10 + i);
+            helper.assertTrue(after.is(now[i].asItem()) && after.getCount() == 3, "an old " + old[i] + " stack in the inventory became " + after);
+        }
+        for (com.simplebuilding.items.CreativeTabLayout.Row row : com.simplebuilding.tweaks.item.TweaksItems.functionalRows()) {
+            for (ItemStack stack : row.stacks()) {
+                helper.assertTrue(!stack.is(old[0].asItem()) && !stack.is(old[1].asItem()), "an old flypad is still in the creative tab row " + row.name());
+            }
+        }
+        helper.succeed();
+    }
+
+    /** Jede Familie nennt ihre Stufen aufsteigend und damit ihre hoechste Stufe; alte Bloecke gehoeren zu keiner. */
+    public static void everyFamilyNamesItsLastTier(GameTestHelper helper) {
+        java.util.Map<TweaksFamilies.Family, Block> last = java.util.Map.of(
+                TweaksFamilies.Family.ELYTRA_PAD, TweaksBlocks.FINE_ELYTRA_PAD,
+                TweaksFamilies.Family.FLYPAD, TweaksBlocks.STELLAR_FLYPAD,
+                TweaksFamilies.Family.SPAWN_TELEPORTER, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER,
+                TweaksFamilies.Family.LAUNCHPAD, TweaksBlocks.ENDERITE_LAUNCHPAD,
+                TweaksFamilies.Family.CHUNK_LOADER, TweaksBlocks.ENDERITE_CHUNK_LOADER,
+                TweaksFamilies.Family.PRESSURE_PLATE, TweaksBlocks.ENDERITE_PRESSURE_PLATE);
+        for (TweaksFamilies.Family family : TweaksFamilies.Family.values()) {
+            helper.assertTrue(TweaksFamilies.lastTier(family) == last.get(family), family + " names " + TweaksFamilies.lastTier(family) + " as its last tier");
+            for (Block legacy : TweaksBlocks.legacy()) {
+                helper.assertTrue(!TweaksFamilies.tiers(family).contains(legacy), family + " lists the old block " + legacy);
+            }
+        }
+        helper.assertTrue(TweaksFamilies.tiers(TweaksFamilies.Family.FLYPAD).size() == PadTiers.FLYPAD_MAX
+                && TweaksFamilies.tiers(TweaksFamilies.Family.ELYTRA_PAD).size() == PadTiers.MAX, "family sizes do not match the pad tiers");
         helper.succeed();
     }
 
@@ -380,8 +498,9 @@ public final class TweaksTierTests {
         return helper.getLevel().getServer().getRecipeManager().getRecipeFor(RecipeType.SMITHING, input, helper.getLevel());
     }
 
+    /** addition null = leerer Zutat-Slot (Elytra-Pad I). */
     private static SmithingRecipeInput input(Item template, ItemLike base, ItemLike addition) {
-        return new SmithingRecipeInput(new ItemStack(template), new ItemStack(base), new ItemStack(addition));
+        return new SmithingRecipeInput(new ItemStack(template), new ItemStack(base), addition == null ? ItemStack.EMPTY : new ItemStack(addition));
     }
 
     private static ItemStack assemble(GameTestHelper helper, RecipeHolder<SmithingRecipe> holder, SmithingRecipeInput input) {

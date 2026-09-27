@@ -6578,7 +6578,8 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_core_smithing"
       ],
       "usedIn": [
-        "simplebuilding:echo_compass"
+        "simplebuilding:echo_compass",
+        "simplebuilding:flypad_tier1_smithing"
       ],
       "trades": [],
       "properties": {
@@ -7484,7 +7485,6 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_chunk_loader_smithing",
         "simplebuilding:enderite_core_smithing",
         "simplebuilding:enderite_elytra_pad_smithing",
-        "simplebuilding:enderite_flypad_smithing",
         "simplebuilding:enderite_helmet_smithing",
         "simplebuilding:enderite_hoe_smithing",
         "simplebuilding:enderite_launchpad_smithing",
@@ -7497,7 +7497,10 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_spawn_teleporter_smithing",
         "simplebuilding:enderite_spear_smithing",
         "simplebuilding:enderite_sword_smithing",
-        "simplebuilding:enderite_upgrade_template"
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:flypad_tier1_smithing",
+        "simplebuilding:flypad_tier2_smithing",
+        "simplebuilding:stellar_flypad_smithing"
       ],
       "trades": [],
       "hasCustomBehaviour": false
@@ -8754,6 +8757,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:iron_building_wand",
+        "simplebuilding:magnet",
         "simplebuilding:rotator",
         "simplebuilding:upgrade_copper_building_wand_to_iron_building_wand"
       ],
@@ -15243,7 +15247,6 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:chunk_loader_smithing",
-        "simplebuilding:elytra_pad_smithing",
         "simplebuilding:launchpad_smithing",
         "simplebuilding:netherite_pressure_plate_smithing",
         "simplebuilding:reinforced_elytra_pad_smithing"
@@ -16011,16 +16014,12 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:enderite_flypad",
       "name": {
-        "en_us": "Enderite Flypad IV",
-        "de_de": "Enderit-Flugpad IV"
+        "en_us": "Old Enderite Flypad",
+        "de_de": "Altes Enderit-Flugpad"
       },
       "texture": "assets/textures/block/enderite_flypad.png",
-      "craftedBy": [
-        "simplebuilding:enderite_flypad_smithing"
-      ],
-      "usedIn": [
-        "simplebuilding:stellar_flypad_crafting"
-      ],
+      "craftedBy": [],
+      "usedIn": [],
       "trades": [],
       "lootTable": "simplebuilding:blocks/enderite_flypad",
       "drops": [
@@ -16440,9 +16439,10 @@ window.WIKI_DATA = {
       "usedIn": [
         "simplebuilding:enderite_chunk_loader_smithing",
         "simplebuilding:enderite_elytra_pad_smithing",
-        "simplebuilding:enderite_flypad_smithing",
         "simplebuilding:enderite_launchpad_smithing",
-        "simplebuilding:enderite_spawn_teleporter_smithing"
+        "simplebuilding:enderite_spawn_teleporter_smithing",
+        "simplebuilding:flypad_tier1_smithing",
+        "simplebuilding:flypad_tier2_smithing"
       ],
       "trades": [],
       "lootTable": "simplebuilding:blocks/enderite_pressure_plate",
@@ -16682,9 +16682,7 @@ window.WIKI_DATA = {
       "craftedBy": [
         "simplebuilding:fine_elytra_pad_smithing"
       ],
-      "usedIn": [
-        "simplebuilding:flypad_tier1_smithing"
-      ],
+      "usedIn": [],
       "trades": [],
       "lootTable": "simplebuilding:blocks/fine_elytra_pad",
       "drops": [
@@ -16736,7 +16734,7 @@ window.WIKI_DATA = {
         "en_us": "Flypad I",
         "de_de": "Flugpad I"
       },
-      "texture": "assets/textures/block/flypad.png",
+      "texture": "assets/textures/block/flypad_ender.png",
       "craftedBy": [
         "simplebuilding:flypad_tier1_smithing"
       ],
@@ -17469,16 +17467,12 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:netherite_flypad",
       "name": {
-        "en_us": "Netherite Flypad III",
-        "de_de": "Netherit-Flugpad III"
+        "en_us": "Old Netherite Flypad",
+        "de_de": "Altes Netherit-Flugpad"
       },
       "texture": "assets/textures/block/netherite_flypad.png",
-      "craftedBy": [
-        "simplebuilding:netherite_flypad_crafting"
-      ],
-      "usedIn": [
-        "simplebuilding:enderite_flypad_smithing"
-      ],
+      "craftedBy": [],
+      "usedIn": [],
       "trades": [],
       "lootTable": "simplebuilding:blocks/netherite_flypad",
       "drops": [
@@ -17968,7 +17962,6 @@ window.WIKI_DATA = {
       "usedIn": [
         "simplebuilding:echo_compass",
         "simplebuilding:enderite_pressure_plate_smithing",
-        "simplebuilding:flypad_tier2_smithing",
         "simplebuilding:netherite_chunk_loader_smithing",
         "simplebuilding:netherite_elytra_pad_smithing",
         "simplebuilding:netherite_launchpad_smithing",
@@ -19204,12 +19197,12 @@ window.WIKI_DATA = {
         "en_us": "Reinforced Flypad II",
         "de_de": "Verstärktes Flugpad II"
       },
-      "texture": "assets/textures/block/reinforced_flypad.png",
+      "texture": "assets/textures/block/reinforced_flypad_ender.png",
       "craftedBy": [
         "simplebuilding:flypad_tier2_smithing"
       ],
       "usedIn": [
-        "simplebuilding:netherite_flypad_crafting"
+        "simplebuilding:stellar_flypad_smithing"
       ],
       "trades": [],
       "lootTable": "simplebuilding:blocks/reinforced_flypad",
@@ -20100,12 +20093,12 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:stellar_flypad",
       "name": {
-        "en_us": "Stellar Flypad V",
-        "de_de": "Stellares Flugpad V"
+        "en_us": "Stellar Flypad III",
+        "de_de": "Stellares Flugpad III"
       },
-      "texture": "assets/textures/block/stellar_flypad.png",
+      "texture": "assets/textures/block/stellar_flypad_ender.png",
       "craftedBy": [
-        "simplebuilding:stellar_flypad_crafting"
+        "simplebuilding:stellar_flypad_smithing"
       ],
       "usedIn": [],
       "trades": [],
@@ -22402,8 +22395,8 @@ window.WIKI_DATA = {
       "ingredients": [
         "minecraft:bolt_armor_trim_smithing_template",
         "minecraft:coast_armor_trim_smithing_template",
-        "minecraft:diamond",
         "minecraft:dune_armor_trim_smithing_template",
+        "minecraft:elytra",
         "minecraft:eye_armor_trim_smithing_template",
         "minecraft:flow_armor_trim_smithing_template",
         "minecraft:host_armor_trim_smithing_template",
@@ -22419,8 +22412,7 @@ window.WIKI_DATA = {
         "minecraft:vex_armor_trim_smithing_template",
         "minecraft:ward_armor_trim_smithing_template",
         "minecraft:wayfinder_armor_trim_smithing_template",
-        "minecraft:wild_armor_trim_smithing_template",
-        "simplebuilding:diamond_pressure_plate"
+        "minecraft:wild_armor_trim_smithing_template"
       ],
       "slots": {
         "template": [
@@ -22445,10 +22437,7 @@ window.WIKI_DATA = {
           "minecraft:bolt_armor_trim_smithing_template"
         ],
         "base": [
-          "simplebuilding:diamond_pressure_plate"
-        ],
-        "addition": [
-          "minecraft:diamond"
+          "minecraft:elytra"
         ]
       },
       "lines": [
@@ -23948,38 +23937,6 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:enderite_flypad_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
-      "group": null,
-      "result": {
-        "id": "simplebuilding:enderite_flypad",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/enderite_flypad_smithing.json",
-      "ingredients": [
-        "simplebuilding:enderite_pressure_plate",
-        "simplebuilding:enderite_upgrade_template",
-        "simplebuilding:netherite_flypad"
-      ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
-        ],
-        "base": [
-          "simplebuilding:netherite_flypad"
-        ],
-        "addition": [
-          "simplebuilding:enderite_pressure_plate"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
       "id": "simplebuilding:enderite_helmet_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -24599,19 +24556,19 @@ window.WIKI_DATA = {
       },
       "source": "src/main/generated/data/simplebuilding/recipe/flypad_tier1_smithing.json",
       "ingredients": [
-        "minecraft:elytra",
-        "minecraft:netherite_upgrade_smithing_template",
-        "simplebuilding:fine_elytra_pad"
+        "simplebuilding:enderite_core",
+        "simplebuilding:enderite_pressure_plate",
+        "simplebuilding:enderite_upgrade_template"
       ],
       "slots": {
         "template": [
-          "minecraft:netherite_upgrade_smithing_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
-          "simplebuilding:fine_elytra_pad"
+          "simplebuilding:enderite_pressure_plate"
         ],
         "addition": [
-          "minecraft:elytra"
+          "simplebuilding:enderite_core"
         ]
       },
       "lines": [
@@ -24631,19 +24588,19 @@ window.WIKI_DATA = {
       },
       "source": "src/main/generated/data/simplebuilding/recipe/flypad_tier2_smithing.json",
       "ingredients": [
-        "minecraft:netherite_upgrade_smithing_template",
-        "simplebuilding:flypad",
-        "simplebuilding:netherite_pressure_plate"
+        "simplebuilding:enderite_pressure_plate",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:flypad"
       ],
       "slots": {
         "template": [
-          "minecraft:netherite_upgrade_smithing_template"
+          "simplebuilding:enderite_upgrade_template"
         ],
         "base": [
           "simplebuilding:flypad"
         ],
         "addition": [
-          "simplebuilding:netherite_pressure_plate"
+          "simplebuilding:enderite_pressure_plate"
         ]
       },
       "lines": [
@@ -25213,23 +25170,23 @@ window.WIKI_DATA = {
       "ingredients": [
         "minecraft:iron_ingot",
         "minecraft:lapis_lazuli",
-        "minecraft:lodestone",
-        "minecraft:redstone"
+        "minecraft:redstone",
+        "simplebuilding:iron_core"
       ],
       "pattern": [
-        " IR",
-        "ILI",
-        "BI "
+        " R ",
+        "I  ",
+        "CIL"
       ],
       "key": {
-        "B": [
-          "minecraft:lapis_lazuli"
+        "C": [
+          "simplebuilding:iron_core"
         ],
         "I": [
           "minecraft:iron_ingot"
         ],
         "L": [
-          "minecraft:lodestone"
+          "minecraft:lapis_lazuli"
         ],
         "R": [
           "minecraft:redstone"
@@ -25555,55 +25512,6 @@ window.WIKI_DATA = {
         ],
         "addition": [
           "simplebuilding:netherite_pressure_plate"
-        ]
-      },
-      "lines": [
-        "1.21.11",
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:netherite_flypad_crafting",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:netherite_flypad",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/netherite_flypad_crafting.json",
-      "ingredients": [
-        "minecraft:diamond_block",
-        "minecraft:enchanted_golden_apple",
-        "minecraft:nether_star",
-        "minecraft:netherite_block",
-        "minecraft:ominous_trial_key",
-        "simplebuilding:reinforced_flypad"
-      ],
-      "pattern": [
-        "DBD",
-        "ESE",
-        "KFK"
-      ],
-      "key": {
-        "B": [
-          "minecraft:netherite_block"
-        ],
-        "D": [
-          "minecraft:diamond_block"
-        ],
-        "E": [
-          "minecraft:enchanted_golden_apple"
-        ],
-        "F": [
-          "simplebuilding:reinforced_flypad"
-        ],
-        "K": [
-          "minecraft:ominous_trial_key"
-        ],
-        "S": [
-          "minecraft:nether_star"
         ]
       },
       "lines": [
@@ -29362,38 +29270,28 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:stellar_flypad_crafting",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
+      "id": "simplebuilding:stellar_flypad_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
       "group": null,
       "result": {
         "id": "simplebuilding:stellar_flypad",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/stellar_flypad_crafting.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/stellar_flypad_smithing.json",
       "ingredients": [
-        "minecraft:enchanted_golden_apple",
-        "minecraft:nether_star",
-        "minecraft:ominous_trial_key",
-        "simplebuilding:enderite_flypad"
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:reinforced_flypad"
       ],
-      "pattern": [
-        "KKK",
-        "ESE",
-        "FFF"
-      ],
-      "key": {
-        "E": [
-          "minecraft:enchanted_golden_apple"
+      "slots": {
+        "template": [
+          "simplebuilding:enderite_upgrade_template"
         ],
-        "F": [
-          "simplebuilding:enderite_flypad"
+        "base": [
+          "simplebuilding:reinforced_flypad"
         ],
-        "K": [
-          "minecraft:ominous_trial_key"
-        ],
-        "S": [
-          "minecraft:nether_star"
+        "addition": [
+          "simplebuilding:reinforced_flypad"
         ]
       },
       "lines": [
@@ -46784,7 +46682,7 @@ window.WIKI_DATA = {
   "counts": {
     "items": 166,
     "blocks": 107,
-    "recipes": 344,
+    "recipes": 342,
     "lootTables": 104,
     "trades": 21,
     "enchantments": 19,

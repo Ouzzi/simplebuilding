@@ -41,6 +41,9 @@ public final class TweaksStation {
             List<ItemStack> stacks = row.stacks().stream().filter(s -> !s.isEmpty() && !TcContext.isSpacer(s.getItem())).toList();
             lines.add(new TcCanvas.Line(TcText.t("tweaks.row." + row.name(), row.name().replace('_', ' ')), stacks));
         }
+        // Alte, abgeloeste Stufenbloecke (nur fuer alte Welten registriert, werden zur neuen Stufe).
+        lines.add(new TcCanvas.Line(TcText.t("tweaks.row.legacy", "old tiers"),
+                TweaksBlocks.legacy().stream().map(ItemStack::new).toList()));
         int panelTop = lines.size() + 1;
         c.title(0, panelTop + 1, wallZ, TcText.t("section.tweaks", "Simple Tweaks"), TcText.t("section.tweaks.sub", "pads and plates"));
         int end = c.rowsPanel(0, panelTop, wallZ, lines);
