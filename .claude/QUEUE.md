@@ -107,7 +107,7 @@ Verlauf im Detail: git log.
 - [ ] Laser: Vanilla-Name, Punktgroesse, Abstand der Meterzahl, Rezept (Eisen-Kern/Amethyst/Eisen-U/Redstone), Eis/Schnee schmelzen, Brennbares entzuenden, Seelenfeuer, Lagerfeuer, kein Netherportal, Ladung statt Bruch, Amboss-Aufladen mit Redstone ohne Level (64 = voll)
 - [ ] JEI-Infoseiten fuer Items ohne Rezept (laeuft)
 - [ ] Blaupausen-Code: Formen und Variablen (laeuft)
-- [ ] 26.4: pruefen, ob Forge/NeoForge/Cloth-Builds da sind (laeuft)
+- [x] 26.4 geprueft 2026-09-27: kein Forge/NeoForge/Cloth/Dev-Mod-Build fuer 26.4-snapshot-1; Fabric Loader/API/ModMenu aktuell; kein neuer Snapshot
 - [ ] Enderit-Kolben-Verschleiss nach Brecher-Muster - nach der Textur-Runde (Kolbentexturen werden gerade neu gezeichnet)
 
 ## Wartet auf den Besitzer
