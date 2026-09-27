@@ -111,6 +111,7 @@ public final class NeoForgeGameplayEvents {
     public static void onPlayerLogout(PlayerEvent.PlayerLoggedOutEvent event) {
         if (event.getEntity() instanceof ServerPlayer serverPlayer) {
             DynamicLightHandler.onDisconnect(serverPlayer);
+            com.simplebuilding.util.SledgehammerUpgrades.onDisconnect(serverPlayer);
         }
     }
 

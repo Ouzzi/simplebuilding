@@ -24,8 +24,10 @@ public class SimplebuildingConfig implements ConfigData {
     /** Nach dem Laden (und fuer eine neue Datei): alte Schluessel auf ihre Nachfolger verteilen. */
     @Override
     public void validatePostLoad() {
-        if (tweaks != null && tweaks.spawn != null) {
-            tweaks.spawn.migrateLegacyFirstJoinCount();
+        if (tweaks != null && tweaks.spawn != null && tweaks.spawn.migrateLegacyFirstJoinCount()) {
+            // Sofort zurueckschreiben, sonst bleibt der alte Schluessel bis zum naechsten Speichern in
+            // der Datei und die Migration laeuft bei jedem Laden erneut (Nach-Audit N12).
+            com.simplebuilding.tweaks.SimpleTweaks.requestConfigSave();
         }
         if (Double.isNaN(trimBenefitBaseMultiplier)) {
             trimBenefitBaseMultiplier = 2.0;

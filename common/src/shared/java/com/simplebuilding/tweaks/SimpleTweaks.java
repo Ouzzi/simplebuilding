@@ -14,6 +14,7 @@ public final class SimpleTweaks {
 
     private static final TweaksConfig DEFAULTS = new TweaksConfig();
     private static Runnable configSaver = () -> {};
+    private static boolean saveRequested;
 
     private SimpleTweaks() {
     }
@@ -27,13 +28,38 @@ public final class SimpleTweaks {
         return config.tweaks;
     }
 
-    /** Speichert die Config nach einem Befehl; die Loader setzen, wie (Forge hat keine Persistenz). */
+    /**
+     * Speichert die Config nach einem Befehl; die Loader setzen, wie (Forge hat keine Persistenz).
+     * Wartet ein Speichern aus dem Laden ({@link #requestConfigSave}), laeuft es hier einmal.
+     */
     public static void setConfigSaver(Runnable saver) {
         configSaver = saver != null ? saver : () -> {};
+        if (saver != null && saveRequested) {
+            saveRequested = false;
+            configSaver.run();
+        }
+    }
+
+    public static Runnable configSaver() {
+        return configSaver;
     }
 
     public static void saveConfig() {
         configSaver.run();
+    }
+
+    /**
+     * Die Config soll einmal geschrieben werden (Migration alter Schluessel beim Laden). Waehrend
+     * {@code validatePostLoad} gibt es noch keinen Config-Halter, der speichern koennte; der Loader
+     * setzt seinen Speicherer gleich danach, und {@link #setConfigSaver} holt es nach.
+     */
+    public static void requestConfigSave() {
+        saveRequested = true;
+    }
+
+    /** Fuer Tests: ob ein Speichern aus dem Laden noch aussteht. */
+    public static boolean configSaveRequested() {
+        return saveRequested;
     }
 
     /**

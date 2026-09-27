@@ -121,6 +121,7 @@ public class Simplebuilding implements ModInitializer {
 
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
             DynamicLightHandler.onDisconnect(handler.player);
+            com.simplebuilding.util.SledgehammerUpgrades.onDisconnect(handler.player);
         });
     }
 

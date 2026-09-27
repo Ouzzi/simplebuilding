@@ -87,8 +87,8 @@ beim Server-Port: mechanische Übersetzung plus die API-Unterschiede, die der Co
 
 Erhoben am 2026-09-08 von 22 Prüfern, jede „ist abgedeckt"-Behauptung adversarisch gegengelesen,
 Server- **und** Client-Tests als Deckung gezählt. Vollständiger Bericht:
-[`AUDIT-2026-09-08.md`](AUDIT-2026-09-08.md), Rohdaten in `audit_offen.json` und
-`audit_falsegreens.json`.
+[`AUDIT-2026-09-08.md`](AUDIT-2026-09-08.md), Rohdaten in `archive/audit_offen.json` und
+`archive/audit_falsegreens.json`.
 
 **1000 Verhaltensweisen, 702 gedeckt (70 %)** — das Audit vom 2026-09-03 kam auf 36 %. Offen sind
 127 serverseitig schreibbare und 74 clientseitige Lücken; 95 stehen in den drei Restkategorien
@@ -289,7 +289,7 @@ Eingriff — nicht zu verwechseln mit dem ganzen Gerüst aus (b).
 
 ### P4 — Die drei Restkategorien neu triagieren — **erledigt am 2026-09-10**
 
-Alle 97 Einträge einzeln gegengelesen; Urteil und Grund je Eintrag in `audit_offen.json` unter
+Alle 97 Einträge einzeln gegengelesen; Urteil und Grund je Eintrag in `archive/audit_offen.json` unter
 `p4`, Bericht in [`P4-TRIAGE-2026-09-10.md`](P4-TRIAGE-2026-09-10.md).
 
 | Urteil | Zahl |
@@ -301,7 +301,7 @@ Alle 97 Einträge einzeln gegengelesen; Urteil und Grund je Eintrag in `audit_of
 | bleibt begründet offen (tote Zweige, Tautologien, von Vanilla getragen) | 47 |
 | weiterhin harness-blockiert (Selbstausschluss bei `player.playSound`, zweite Dimension, Serverstart-Haken, echte Weltgenerierung) | 10 |
 
-**Die neun clientseitigen, geschrieben am 2026-09-10** (Testname in `audit_offen.json` unter
+**Die neun clientseitigen, geschrieben am 2026-09-10** (Testname in `archive/audit_offen.json` unter
 `p4.stand`): die drei Werkzeug-Töne (Rotator `SPYGLASS_USE` 1.0/1.0, Vorschlaghammer Break-Sound
 des alten Blocks bei 1.0/**0.8**, Baustab ein Platziergeräusch je Block bei (v+1)/2 und p·0.8) über
 den vorhandenen `SoundRecorder`; die Oktant-**Formen** und die **Orientierung** als Bildvergleich
@@ -354,7 +354,7 @@ Rückstand — jeder Fall erzeugt seine eigene Meldung.
 misst, sondern *vorgetäuschten* Schutz. Eine ungedeckte Stelle weiß man nicht; eine falsch grüne
 glaubt man zu wissen. Genau deshalb kommt sie vor den neuen Tests.
 
-`audit_falsegreens.json` nennt zu jedem Eintrag den Test, den behaupteten Anspruch und **eine
+`archive/audit_falsegreens.json` nennt zu jedem Eintrag den Test, den behaupteten Anspruch und **eine
 konkrete Änderung am Mod-Code, nach der die Suite grün bleibt**. Damit ist jeder Eintrag ohne
 weitere Erhebung überprüfbar — und liefert gleich die Gegenprobe mit: Test schärfen, Mutation
 einspielen, Test muss rot werden, Mutation zurück.

@@ -401,8 +401,6 @@ public final class SledgehammerUpgrades {
                 ? Math.clamp(SledgehammerProgress.hits(serverLevel, pos, upgrade.from()), 0, BLOWS - 1) : 0;
         jobs(level).put(player.getUUID(), new Job(pos.immutable(), upgrade, context.getClickLocation(), context.getClickedFace(), startHits));
         player.startUsingItem(InteractionHand.MAIN_HAND);
-        if (startHits > 0) {
-        }
         return InteractionResult.CONSUME;
     }
 
@@ -452,17 +450,18 @@ public final class SledgehammerUpgrades {
 
     /**
      * Rechtsklick losgelassen oder Benutzung sonst beendet: Auftrag verwerfen. Der gespeicherte
-     * Fortschritt bleibt am Block; die Aktionsleiste sagt, wo es weitergeht.
+     * Fortschritt bleibt am Block ({@link SledgehammerProgress}) und zaehlt beim naechsten Ansetzen mit.
      */
     public static void clear(LivingEntity entity) {
         if (entity instanceof Player player) {
-            Job job = jobs(player.level()).remove(player.getUUID());
-            if (job != null && player.level() instanceof ServerLevel serverLevel) {
-                int hits = SledgehammerProgress.hits(serverLevel, job.pos, job.upgrade.from());
-                if (hits > 0) {
-                }
-            }
+            jobs(player.level()).remove(player.getUUID());
         }
+    }
+
+    /** Beim Abmelden: Auftrag und Hinweis-Zeitstempel des Spielers vergessen (sonst wachsen die Maps). */
+    public static void onDisconnect(Player player) {
+        SERVER_JOBS.remove(player.getUUID());
+        LAST_HINT.remove(player.getUUID());
     }
 
     private static boolean stillValid(Level level, Player player, Job job) {

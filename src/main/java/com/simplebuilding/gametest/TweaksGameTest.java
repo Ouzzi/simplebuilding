@@ -224,4 +224,34 @@ public final class TweaksGameTest {
     public void flightTimeAndBoostsAreCappedAndBrokenLaunchpadsDropTheirCharges(GameTestHelper helper) {
         TweaksTests.flightTimeAndBoostsAreCappedAndBrokenLaunchpadsDropTheirCharges(helper);
     }
+
+    @GameTest
+    public void forcedExactRespawnPutsThePlayerOnTheBedCentre(GameTestHelper helper) {
+        TweaksTests.forcedExactRespawnPutsThePlayerOnTheBedCentre(helper);
+    }
+
+    @GameTest
+    public void commandTeleportsPassTheDimensionLockAndTheLockMessageWaits(GameTestHelper helper) {
+        TweaksTests.commandTeleportsPassTheDimensionLockAndTheLockMessageWaits(helper);
+    }
+
+    @GameTest
+    public void aChunkLoaderReplacedByAnotherLoaderTypeReleasesItsChunks(GameTestHelper helper) {
+        TweaksTests.aChunkLoaderReplacedByAnotherLoaderTypeReleasesItsChunks(helper);
+    }
+
+    @GameTest
+    public void onlyWorldSpawnCommandsReapplyTheCustomWorldSpawn(GameTestHelper helper) {
+        TweaksTests.onlyWorldSpawnCommandsReapplyTheCustomWorldSpawn(helper);
+    }
+
+    @GameTest
+    public void theFirstJoinKeyMigrationSavesTheConfigOnce(GameTestHelper helper) {
+        TweaksTests.theFirstJoinKeyMigrationSavesTheConfigOnce(helper);
+    }
+
+    @GameTest
+    public void creativePlayersLoseTheStaleFlypadFlightTag(GameTestHelper helper) {
+        TweaksTests.creativePlayersLoseTheStaleFlypadFlightTag(helper);
+    }
 }

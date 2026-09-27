@@ -142,6 +142,9 @@ public class FlypadBlockEntity extends OwnedBlockEntity {
     public static void revoke(ServerPlayer player, int tier) {
         // Kreativ = instabuild (Simple Tweaks fragte isCreative(); fuer echte Spieler dasselbe).
         if (player.getAbilities().instabuild || player.isSpectator()) {
+            // Der Flug gehoert jetzt dem Spielmodus: den Tag trotzdem loesen, sonst nimmt ein Pad
+            // spaeter Flug zurueck, den ein anderer Mod gab (Nach-Audit N16).
+            player.removeTag(FLIGHT_TAG);
             return;
         }
         player.removeTag(FLIGHT_TAG);
