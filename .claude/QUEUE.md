@@ -99,8 +99,12 @@ Verlauf im Detail: git log.
 - [x] W2 Kolben/Trichter/Lager: Brecher-Verschleiss (#23), Config-Schalter Fake-Spieler-Guard (N4), Loader-Guard-Tests (N5), N6, N7, #24, #36, #48
 - [x] W3 Werkzeuge/Texte/Tasten: #25, #26, #27, #30, #37, #38, #39, #46
 - [x] W4 Tweaks-Rest + Hygiene: #35, #51, N10-N12, #43-#45, #49, #52
-- [ ] wiki/manual.json: 6 doppelte Feature-Eintraege (welcome x4, building_wand, blueprint, enchant_storage_player, enderite_void_protection, configuration) mit abweichendem Text zusammenfuehren (Altlast aus JSON-Merges)
+- [x] wiki/manual.json: 6 doppelte Feature-Eintraege (welcome x4, building_wand, blueprint, enchant_storage_player, enderite_void_protection, configuration) mit abweichendem Text zusammenfuehren (Altlast aus JSON-Merges)
 - [ ] Danach: Server-Gate, Push; Client-Gate wenn Besitzer-Spiel zu
+
+## Welle 20 (laeuft)
+- [ ] Texturen: Maschinen (Kolben, Oefen, Raeucherofen, Schmelzofen, Trichter) vanilla-naeher; Enderit-Block + andere Mod-Bloecke neu; Netherit-Griff fuer Netherit-Hammer/-Meissel/-Baustab; Enderquarz lesbarer; Laser-Textur
+- [ ] Laser: Vanilla-Name, Punktgroesse, Abstand der Meterzahl, Rezept (Eisen-Kern/Amethyst/Eisen-U/Redstone), Eis/Schnee schmelzen, Brennbares entzuenden, Seelenfeuer, Lagerfeuer, kein Netherportal, Ladung statt Bruch, Amboss-Aufladen mit Redstone ohne Level (64 = voll)
 
 ## Wartet auf den Besitzer
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
