@@ -74,8 +74,9 @@ es auch im Kit. Leere Stationen (`unsorted`, `gallery` ohne Inhalt) bekommen kei
 ## Übersicht der Abschnitte
 
 Die Abschnitte liegen in Reihen (höchstens 140 Blöcke breit) in +x; vor jeder Reihe ein Gang von
-7 Blöcken in -z. Der Ursprung ist die Standhöhe am Anfang des ersten Gangs. Stand heute (26.2)
-etwa 143 × 116 Blöcke, 16 Abschnitte, rund 660 Rahmen und 29 Rüstungsständer. Die genaue Lage
+7 Blöcken in -z. Der Ursprung ist die Standhöhe am Anfang des ersten Gangs. Stand 2026-09-28 (26.2)
+147 × 129 Blöcke, 19 Abschnitte, 704 Rahmen, 29 Rüstungsständer, 46 Befehlsblöcke (Steuerwand und
+Ausgabe-Knöpfe); die Steuerwand allein ist 91 Blöcke breit. Die genaue Lage
 steht im Log des Bau-Tests (`test centre ... sections:`), weil sie aus den Inhalten folgt.
 
 | Id | Inhalt | Quelle der Inhalte |
