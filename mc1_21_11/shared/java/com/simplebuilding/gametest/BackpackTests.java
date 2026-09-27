@@ -954,6 +954,67 @@ public final class BackpackTests {
     }
 
     // =====================================================================================
+    // TOOLTIP
+    // =====================================================================================
+
+    /**
+     * The Shift preview in the tooltip reads everything from the stack: {@code getTooltipImage} hands
+     * the client a {@link com.simplebuilding.items.tooltip.BackpackTooltipData} with the stored contents
+     * and the tier's slot count - for all four tiers, dyed or not. An empty backpack gets no image
+     * (no grid, no "Hold Shift" line).
+     *
+     * <p>The grid shows the items in slot order, not in entry order, and keeps oversized Deep Pockets
+     * stacks and item components (a renamed sword) intact.
+     *
+     * <p>What breaks this test: a tier without {@code getTooltipImage}, the data losing an entry, a
+     * count or a component, dyeing replacing the image, and an image for an empty backpack.
+     */
+    public static void tooltipImageCarriesTheStoredItemsOfEveryTierDyedToo(GameTestHelper helper) {
+        ItemStack sword = new ItemStack(Items.IRON_SWORD);
+        sword.set(DataComponents.CUSTOM_NAME, Component.literal("Preview Blade"));
+        // Entry order deliberately differs from slot order.
+        BackpackContents contents = new BackpackContents(List.of(
+                BackpackContents.Entry.of(7, new ItemStack(Items.DIAMOND, 3)),
+                BackpackContents.Entry.of(0, new ItemStack(Items.STONE, 200)),
+                BackpackContents.Entry.of(2, sword)));
+        List<ItemStack> expected = List.of(new ItemStack(Items.STONE, 200), sword, new ItemStack(Items.DIAMOND, 3));
+
+        for (Item item : List.of(ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK,
+                ModItems.ENDERITE_BACKPACK)) {
+            ItemStack empty = new ItemStack(item);
+            helper.assertTrue(item.getTooltipImage(empty).isEmpty(),
+                    "an empty " + item + " has a tooltip image: " + item.getTooltipImage(empty));
+
+            ItemStack filled = new ItemStack(item);
+            filled.set(ModDataComponentTypes.BACKPACK_CONTENTS, contents);
+            ItemStack dyed = filled.copy();
+            dyed.set(DataComponents.DYED_COLOR, new net.minecraft.world.item.component.DyedItemColor(0x3366CC));
+
+            for (ItemStack stack : List.of(filled, dyed)) {
+                String what = (stack == dyed ? "dyed " : "") + item;
+                Optional<net.minecraft.world.inventory.tooltip.TooltipComponent> image = item.getTooltipImage(stack);
+                helper.assertTrue(image.isPresent() && image.get() instanceof com.simplebuilding.items.tooltip.BackpackTooltipData,
+                        "the tooltip image of the " + what + " is " + image + " instead of a BackpackTooltipData");
+                com.simplebuilding.items.tooltip.BackpackTooltipData data =
+                        (com.simplebuilding.items.tooltip.BackpackTooltipData) image.get();
+                helper.assertTrue(data.contents().equals(contents),
+                        "the tooltip of the " + what + " carries " + data.contents() + " instead of " + contents);
+                helper.assertTrue(data.slotCount() == ((BackpackItem) item).getTier().slotCount(),
+                        "the tooltip of the " + what + " claims " + data.slotCount() + " slots");
+                List<ItemStack> shown = data.itemsInSlotOrder();
+                helper.assertTrue(shown.size() == expected.size(),
+                        "the tooltip of the " + what + " shows " + shown.size() + " stacks instead of " + expected.size());
+                for (int i = 0; i < expected.size(); i++) {
+                    helper.assertTrue(ItemStack.matches(shown.get(i), expected.get(i)),
+                            "grid cell " + i + " of the " + what + " shows " + shown.get(i) + " instead of " + expected.get(i));
+                }
+            }
+        }
+
+        TestCleanup.succeed(helper);
+    }
+
+    // =====================================================================================
     // FIRE AND EXPLOSIONS
     // =====================================================================================
 

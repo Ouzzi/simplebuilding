@@ -659,6 +659,7 @@
   "key.simplebuilding.open_backpack": "Rucksack öffnen",
   "tooltip.simplebuilding.backpack.slots": "%s / %s Plätze belegt",
   "tooltip.simplebuilding.backpack.more": "...und %s weitere",
+  "tooltip.simplebuilding.backpack.shift_hint": "Umschalt halten, um den Inhalt zu sehen",
   "tooltip.simplebuilding.backpack.open_hint": "Anziehen und %s drücken, um ihn zu öffnen",
   "tooltip.simplebuilding.backpack.place_hint": "Schleichen + Rechtsklick auf einen Block stellt ihn ab",
   "jei.simplebuilding.category.machine_upgrade": "Maschinen-Aufwertung (Vorschlaghammer)",

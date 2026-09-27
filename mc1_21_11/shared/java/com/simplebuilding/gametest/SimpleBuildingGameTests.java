@@ -773,6 +773,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("backpack_game_test_upper_tiers_survive_fire_and_explosions_and_lower_ones_spill_their_contents", BackpackTests::upperTiersSurviveFireAndExplosionsAndLowerOnesSpillTheirContents)
                     .build(),
+            GameTestSpec.named("backpack_game_test_tooltip_image_carries_the_stored_items_of_every_tier_dyed_too", BackpackTests::tooltipImageCarriesTheStoredItemsOfEveryTierDyedToo)
+                    .build(),
             GameTestSpec.named("dyed_storage_game_test_dyeing_colours_every_backpack_and_bundle_and_keeps_its_components", DyedStorageTests::dyeingColoursEveryBackpackAndBundleAndKeepsItsComponents)
                     .build(),
             GameTestSpec.named("dyed_storage_game_test_water_cauldron_washes_only_the_dye_off_backpacks_and_bundles", DyedStorageTests::waterCauldronWashesOnlyTheDyeOffBackpacksAndBundles)
