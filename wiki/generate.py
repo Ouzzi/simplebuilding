@@ -1885,6 +1885,23 @@ def build(line: str) -> tuple[dict, list[str]]:
     return data, undocumented, vanilla, incomplete, enchantment_warnings, phantom, unnamed, in_world_problems
 
 
+def duplicate_feature_ids(manual_path: Path) -> list[str]:
+    """
+    Feature ids in manual.json that occur more than once. A JSON merge that
+    compared whole entries once turned every entry edited on both sides into two
+    copies with the same id; later edits then went into either copy and the
+    page showed both. --check and --strict fail on this so it cannot return
+    unnoticed.
+    """
+    if not manual_path.exists():
+        return []
+    counts: dict[str, int] = {}
+    for feature in read_json(manual_path).get("features", []):
+        if isinstance(feature, dict) and "id" in feature:
+            counts[feature["id"]] = counts.get(feature["id"], 0) + 1
+    return [f"{identifier} x{n}" for identifier, n in counts.items() if n > 1]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -1900,8 +1917,12 @@ def main() -> int:
     merge_overlay_lines()
     data, undocumented, vanilla, incomplete, enchantment_warnings, phantom, unnamed, in_world_problems = build(args.line)
     vanilla_problems = sync_vanilla_recipes(check=args.check)
+    duplicates = duplicate_feature_ids(WIKI / "manual.json")
     for problem in in_world_problems + vanilla_problems:
         print("PROBLEM:", problem)
+    if duplicates:
+        print("PROBLEM: wiki/manual.json has duplicate feature ids: " + ", ".join(duplicates))
+        print("Fix: merge the copies of each id into one entry (union of their facts).")
     payload = json.dumps(data, indent=2, ensure_ascii=False, sort_keys=False)
 
     for warning in enchantment_warnings:
@@ -1940,7 +1961,8 @@ def main() -> int:
             if len(incomplete) > 20:
                 print(f"   ... and {len(incomplete) - 20} more")
             print("Fix: the wiki is bilingual - every entry needs an \"en\" and a \"de\" block.")
-        if stale or undocumented or incomplete or missing_props or in_world_problems or vanilla_problems:
+        if (stale or undocumented or incomplete or missing_props or in_world_problems or vanilla_problems
+                or duplicates):
             return 1
         print("wiki: up to date, everything documented.")
         return 0
@@ -1984,6 +2006,9 @@ def main() -> int:
             return 1
     else:
         print("\n  Everything in the game has prose. ")
+    if duplicates and args.strict:
+        print("\n--strict: failing because wiki/manual.json has duplicate feature ids.")
+        return 1
 
     print(f"\nWrote {rel(WIKI / 'data' / 'simplebuilding.json')}")
     print(f"Open  {rel(WIKI / 'index.html')} in a browser.")
