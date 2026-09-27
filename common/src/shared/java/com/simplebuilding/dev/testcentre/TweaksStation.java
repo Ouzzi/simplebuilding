@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.Blocks;
  * Station "tweaks" der Testzentrale: die aus Simple Tweaks uebernommenen Pads, Platten und Werkzeuge.
  * An der Wand alle Tab-Zeilen der Familie als Rahmen; davor je Familie ein Vorfuehrstueck zum
  * Ausprobieren (Teleporter, Elytra-Pad, Flypad, Launchpad mit Windkugeln, Druckplatten an Lampen,
- * Filterplatten mit Fass darunter, Leitstein fuer den Echo-Kompass).
+ * Filterplatten mit Fass darunter, Leitstein fuer das Echolot).
  *
  * <p>Der Chunk-Loader steht bewusst nur im Rahmen: gesetzt wuerde er beim Bau Chunks erzwingen.
  * Die Kupferplatte ist die oxidierte Stufe, damit sie waehrend des Bautests nicht weiter altert.
@@ -80,13 +80,13 @@ public final class TweaksStation {
         x = plateAtLamp(c, x, floorZ, wallZ, TweaksBlocks.OXIDIZED_COPPER_PRESSURE_PLATE, false,
                 TcText.t("tweaks.copper_plate", "Copper Plate"), TcText.t("tweaks.copper_plate.1", "stand 4 s"));
 
-        // Leitstein fuer den Echo-Kompass, Enderperlen daneben.
+        // Leitstein fuer das Echolot (Echo Sounder); seit 2026-09-27 ohne Enderperlen.
         int echo = x;
         x = station(c, x, floorZ, wallZ, Blocks.LODESTONE,
-                TcText.t("tweaks.echo", "Echo Compass"), TcText.t("tweaks.echo.1", "link: lodestone"),
-                TcText.t("tweaks.echo.2", "1 pearl a jump"));
+                TcText.t("tweaks.echo", "Echo Sounder"), TcText.t("tweaks.echo.1", "link: lodestone"),
+                TcText.t("tweaks.echo.2", "no pearl needed"));
         c.place(echo, 0, floorZ + 1, Blocks.CHEST);
-        c.contents(echo, 0, floorZ + 1, List.of(new ItemStack(TweaksItems.ECHO_COMPASS), new ItemStack(Items.ENDER_PEARL, 16)));
+        c.contents(echo, 0, floorZ + 1, List.of(new ItemStack(TweaksItems.ECHO_COMPASS)));
 
         c.backWall(0, Math.max(end, x), wallZ, panelTop + 3);
         return c;

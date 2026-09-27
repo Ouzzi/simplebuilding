@@ -29,8 +29,13 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
  * <p>Die Gewichte folgen {@code docs/LOOT-BALANCE.md}. Faustregel: in Kisten, von denen eine
  * Struktur viele hat (Mine, Mansion, Ancient City, Bastion), bringt ein Mod-Pool im Schnitt
  * hoechstens ein halbes Mod-Item; seltene Einzelkisten (Stronghold-Bibliothek, Buried Treasure,
- * Bastion-Schatzraum, Iglu) duerfen mehr geben. Kerne haben einen Netherstern im Rezept und
- * bleiben deshalb ueberall selten.
+ * Bastion-Schatzraum, Iglu) duerfen mehr geben.
+ *
+ * <p>Baukerne (Besitzer 2026-09-27: "sehr selten", Enderit-Kern besonders): jeder Kern haengt in
+ * einem eigenen Pool mit genau einer Chance pro Kiste ({@link #rareCore}), statt als Gewicht in
+ * einem Pool mit vielen Wuerfen - so steht die Wahrscheinlichkeit pro Kiste direkt im Code. Der
+ * Kupferkern liegt in keiner Kiste (billig, beim Steinmetz-Dorfbewohner zu kaufen), der
+ * Enderit-Kern nur in der End City.
  */
 public final class ModLootTableModifications {
     public interface Editor {
@@ -40,6 +45,19 @@ public final class ModLootTableModifications {
 
     private ModLootTableModifications() {
     }
+
+    /** Eisenkern pro Waldanwesen-Kiste. */
+    public static final float IRON_CORE_CHANCE = 0.008f;
+    /** Goldkern pro Bastion-Kiste (alle Bastion-Kisten, auch der Schatzraum). */
+    public static final float GOLD_CORE_BASTION_CHANCE = 0.006f;
+    /** Goldkern pro Netherfestungs-Kiste. */
+    public static final float GOLD_CORE_FORTRESS_CHANCE = 0.008f;
+    /** Diamantkern pro unheilvollem (und seltenem) Vault. */
+    public static final float DIAMOND_CORE_CHANCE = 0.008f;
+    /** Netheritkern pro Bastion-Schatzraum (eine Kiste pro Schatz-Bastion). */
+    public static final float NETHERITE_CORE_CHANCE = 0.04f;
+    /** Enderit-Kern pro End-City-Kiste - der seltenste Kern. */
+    public static final float ENDERITE_CORE_CHANCE = 0.0025f;
 
     // HolderGetter.Provider, not HolderLookup.Provider: NeoForge 26.3 hands its loot event a plain
     // getter provider; every HolderLookup.Provider is one as well.
@@ -68,6 +86,9 @@ public final class ModLootTableModifications {
                     .add(LootItem.lootTableItem(ModItems.ENDERITE_SCRAP))
                     .setRolls(LootNumbers.binomial(1, 0.15f)) // 15% pro Kiste
                     .build());
+
+            // Enderit-Kern: extrem selten (0,25 % pro Kiste, etwa 1-2 % pro Stadt)
+            rareCore(editor, ModItems.ENDERITE_CORE, ENDERITE_CORE_CHANCE);
 
             // Template: 30% pro Kiste - bei vier bis acht Kisten pro Stadt meist eins bis zwei
             editor.addBuiltPool(LootPool.lootPool()
@@ -122,20 +143,20 @@ public final class ModLootTableModifications {
                     .add(enchantedBook(ModEnchantments.FUNNEL, 1, enchantments, 5))
                     .add(enchantedBook(ModEnchantments.BREAK_THROUGH, 1, enchantments, 5))
                     .add(item(ModItems.GOLD_SLEDGEHAMMER, 6))
-                    .add(item(ModItems.GOLD_CORE, 1))
                     .add(counted(ModItems.NETHERITE_NUGGET, 12, 1, 4))
                     .add(counted(ModItems.NETHERITE_CARROT, 6, 1, 2))
                     .add(EmptyLootItem.emptyItem().setWeight(25)));
+            rareCore(editor, ModItems.GOLD_CORE, GOLD_CORE_BASTION_CHANCE);
         }
         // ... und der Schatzraum (eine Kiste pro Schatz-Bastion) zusaetzlich die grossen Sachen
         if (BuiltInLootTables.BASTION_TREASURE.equals(key)) {
             editor.addPool(LootPool.lootPool()
                     .setRolls(LootNumbers.exactly(1))
-                    .add(item(ModItems.NETHERITE_CORE, 2))
                     .add(item(ModItems.NETHERITE_APPLE, 4))
                     .add(item(ModItems.ENCHANTED_NETHERITE_APPLE, 2))
                     .add(enchantedBook(ModEnchantments.BREAK_THROUGH, 2, enchantments, 3))
                     .add(EmptyLootItem.emptyItem().setWeight(7)));
+            rareCore(editor, ModItems.NETHERITE_CORE, NETHERITE_CORE_CHANCE);
         }
 
         // 5. NETHER BRIDGE
@@ -146,11 +167,11 @@ public final class ModLootTableModifications {
                     .add(enchantedBook(ModEnchantments.STRIP_MINER, 2, enchantments, 3))
                     .add(enchantedBook(ModEnchantments.FUNNEL, 1, enchantments, 2))
                     .add(enchantedBook(ModEnchantments.BREAK_THROUGH, 1, enchantments, 2))
-                    .add(item(ModItems.GOLD_CORE, 1))
                     .add(LootItem.lootTableItem(ModItems.OCTANT).setWeight(3).apply(EnchantRandomlyFunction.randomEnchantment()))
                     .add(counted(ModItems.NETHERITE_NUGGET, 6, 1, 3))
                     .add(counted(ModItems.NETHERITE_CARROT, 3, 1, 3))
                     .add(EmptyLootItem.emptyItem().setWeight(14)));
+            rareCore(editor, ModItems.GOLD_CORE, GOLD_CORE_FORTRESS_CHANCE);
         }
 
         // 6. PILLAGER OUTPOST - eine Kiste pro Aussenposten
@@ -176,9 +197,9 @@ public final class ModLootTableModifications {
                     .add(enchantedBook(ModEnchantments.VEIN_MINER, 5, enchantments, 1))
                     .add(enchantedBook(ModEnchantments.VEIN_MINER, 4, enchantments, 3))
                     .add(item(ModItems.IRON_BUILDING_WAND, 4))
-                    .add(item(ModItems.IRON_CORE, 1))
                     .add(item(ModItems.QUIVER, 3))
                     .add(EmptyLootItem.emptyItem().setWeight(30)));
+            rareCore(editor, ModItems.IRON_CORE, IRON_CORE_CHANCE);
         }
 
         // 8. BURIED TREASURE - Einzelkiste, darf grosszuegig sein
@@ -257,10 +278,10 @@ public final class ModLootTableModifications {
                     .setRolls(LootNumbers.between(0, 1))
                     .add(enchantedBook(ModEnchantments.MASTER_BUILDER, 1, enchantments, 10))
                     .add(enchantedBook(ModEnchantments.DOUBLE_JUMP, 1, enchantments, 7))
-                    .add(item(ModItems.DIAMOND_CORE, 2))
                     .add(item(ModItems.NETHERITE_APPLE, 2))
                     .add(item(ModItems.ENCHANTED_NETHERITE_APPLE, 1))
                     .add(EmptyLootItem.emptyItem().setWeight(35)));
+            rareCore(editor, ModItems.DIAMOND_CORE, DIAMOND_CORE_CHANCE);
         }
 
         // 14. RUINED PORTAL - kleiner Nether-Vorgeschmack an der Oberflaeche
@@ -284,6 +305,16 @@ public final class ModLootTableModifications {
                     .add(counted(ModItems.DIAMOND_PEBBLE, 4, 1, 3))
                     .add(EmptyLootItem.emptyItem().setWeight(20)));
         }
+    }
+
+    /**
+     * Ein Kern in einem eigenen Pool: genau ein Wurf mit Wahrscheinlichkeit {@code chance}, also
+     * {@code chance} Kerne pro Kiste im Mittel und nie mehr als einer.
+     */
+    private static void rareCore(Editor editor, ItemLike core, float chance) {
+        editor.addPool(LootPool.lootPool()
+                .setRolls(LootNumbers.binomial(1, chance))
+                .add(item(core, 1)));
     }
 
     private static LootPoolEntryContainer.Builder<?> item(ItemLike item, int weight) {

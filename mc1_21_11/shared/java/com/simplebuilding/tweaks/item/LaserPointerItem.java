@@ -5,20 +5,26 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * Amethystlinse (Registry-Id weiter {@code laser_pointer}; Simple Tweaks: Laserpointer). Gedrueckt
  * halten zeigt einen Punkt, den alle in der Naehe sehen; ruht der Strahl auf einem Block, wirkt er
- * dort ({@link LaserBeam}: schmelzen, zuenden, trocknen).
+ * dort ({@link LaserBeam}: schmelzen, zuenden, trocknen, TNT, Lebewesen anzuenden - Verweildauer
+ * waechst mit dem Abstand, Klaenge am Trefferpunkt).
  *
- * <p>Die Haltbarkeit ist die Ladung: Strahlen kostet {@link #BEAM_COST} je Sekunde, jede
- * Blockwirkung zusaetzlich {@link #EFFECT_COST}. Die Linse zerbricht nie, sie wird nur leer und
+ * <p>Die Haltbarkeit ist die Ladung: Strahlen kostet {@link #BEAM_COST} je angefangener Sekunde -
+ * auch blosses Zeigen, in die Luft oder auf einen Block ohne Wirkung, und schon der erste Tick
+ * (vorher erst nach 20 Ticks, kurzes Antippen war dadurch gratis) -, jede Blockwirkung zusaetzlich
+ * {@link #EFFECT_COST}. Die Linse zerbricht nie, sie wird nur leer und
  * strahlt dann nicht mehr. Aufladen im Amboss mit Redstone, ohne Stufenkosten: ein voller Stapel
  * (64) laedt ganz auf ({@link #CHARGE_PER_REDSTONE} je Staub).
  */
@@ -31,8 +37,16 @@ public class LaserPointerItem extends Item {
     public static final int BEAM_COST = 1;
     /** Ladung je ausgeloester Blockwirkung. */
     public static final int EFFECT_COST = 5;
-    /** Nur bis hierhin wirkt der Strahl auf Bloecke (der Punkt selbst reicht bis zur Config-Reichweite). */
-    public static final double EFFECT_RANGE = 24.0;
+    /**
+     * Wie weit der Strahl auf dem Server wirkt: die Reichweite der Linse (Config {@code range}),
+     * hoechstens aber die Sichtweite des Servers - dort sind die Chunks um den Spieler geladen, der
+     * Strahl laedt also keine (bis 2026-09-27 fest 24 Bloecke). Mindestens 2 Chunks, denn ein Server
+     * ohne gesetzte Sichtweite (Spieltest-Server) meldet 0.
+     */
+    public static double effectRange(ServerPlayer player) {
+        int viewBlocks = Math.max(2, player.level().getServer().getPlayerList().getViewDistance()) * 16;
+        return Math.min(SimpleTweaks.config().laserPointer.range, viewBlocks);
+    }
 
     public LaserPointerItem(Item.Properties properties) {
         super(properties);
@@ -95,12 +109,30 @@ public class LaserPointerItem extends Item {
         if (!(user instanceof ServerPlayer player)) {
             return;
         }
+        // Je angefangene Sekunde, beginnend mit dem ersten Tick: jeder Weg, die Linse zu benutzen,
+        // kostet Ladung - auch Antippen und Zeigen ins Leere.
         int usedTicks = getUseDuration(stack, user) - ticksRemaining;
-        if (usedTicks > 0 && usedTicks % 20 == 0) {
+        if (usedTicks >= 0 && usedTicks % 20 == 0) {
             drain(player, stack, BEAM_COST);
         }
-        HitResult hit = player.pick(Math.min(EFFECT_RANGE, SimpleTweaks.config().laserPointer.range), 1.0f, false);
-        if (hit instanceof BlockHitResult blockHit && hit.getType() == HitResult.Type.BLOCK) {
+        double range = effectRange(player);
+        HitResult hit = player.pick(range, 1.0f, false);
+        Vec3 eye = player.getEyePosition();
+        Vec3 view = player.getViewVector(1.0f);
+        double reach = Math.min(LaserBeam.ENTITY_RANGE, hit.getType() == HitResult.Type.MISS ? range : hit.getLocation().distanceTo(eye));
+        EntityHitResult entityHit = ProjectileUtil.getEntityHitResult(player, eye, eye.add(view.scale(reach)),
+                player.getBoundingBox().expandTowards(view.scale(reach)).inflate(1.0),
+                entity -> entity instanceof LivingEntity && !entity.isSpectator() && entity.isPickable(), reach * reach);
+        boolean hum = usedTicks % LaserBeam.HUM_PERIOD == 0;
+        if (entityHit != null) {
+            if (hum) {
+                LaserBeam.hum(player, entityHit.getLocation());
+            }
+            LaserBeam.beamAtEntity(player, stack, entityHit);
+        } else if (hit instanceof BlockHitResult blockHit && hit.getType() == HitResult.Type.BLOCK) {
+            if (hum) {
+                LaserBeam.hum(player, blockHit.getLocation());
+            }
             LaserBeam.beamAt(player, stack, blockHit);
         } else {
             LaserBeam.reset(player);

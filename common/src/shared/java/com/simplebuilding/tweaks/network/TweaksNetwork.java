@@ -32,7 +32,7 @@ public final class TweaksNetwork {
     /** Nur Spieler in diesem Abstand zum Zeigenden oder zum Punkt bekommen den Laserpunkt. */
     public static final double LASER_RELAY_RANGE = 128.0;
     /** Spielraum ueber der Config-Reichweite (Blickpunkt vs. Augenhoehe, Bewegung zwischen Paketen). */
-    private static final double LASER_RANGE_SLACK = 8.0;
+    public static final double LASER_RANGE_SLACK = 8.0;
 
     /** Server: Zaehlfenster je Spieler, {tick des Fensterbeginns, Pakete im Fenster}. */
     private static final Map<ServerPlayer, long[]> LASER_WINDOWS = new WeakHashMap<>();

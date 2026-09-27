@@ -5308,8 +5308,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:echo_compass",
       "name": {
-        "en_us": "Echo Compass",
-        "de_de": "Echo-Kompass"
+        "en_us": "Echo Sounder",
+        "de_de": "Echolot"
       },
       "texture": null,
       "craftedBy": [
@@ -22382,7 +22382,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_nugget"
       ],
       "pattern": [
-        "N N",
+        "NNN",
         "NRN",
         "NEN"
       ],
@@ -30596,14 +30596,14 @@ window.WIKI_DATA = {
       "ingredients": [
         "minecraft:amethyst_shard",
         "minecraft:compass",
-        "minecraft:copper_ingot",
+        "minecraft:copper_nugget",
         "minecraft:quartz",
         "simplebuilding:copper_core"
       ],
       "pattern": [
         "QAQ",
-        "OCO",
-        " K "
+        "NCN",
+        "NKN"
       ],
       "key": {
         "A": [
@@ -30615,8 +30615,8 @@ window.WIKI_DATA = {
         "K": [
           "simplebuilding:copper_core"
         ],
-        "O": [
-          "minecraft:copper_ingot"
+        "N": [
+          "minecraft:copper_nugget"
         ],
         "Q": [
           "minecraft:quartz"
