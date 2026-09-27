@@ -36,6 +36,13 @@ import net.minecraft.world.level.material.PushReaction;
  * Jeder zerstoerte Block zeigt seine Bruchpartikel und spielt seinen Abbauklang und den Bohrklang
  * der Mod ({@link PistonBoreEffects}). Danach verschwinden der Redstoneblock und der Kolben selbst,
  * wie beim Netheritkolben.
+ *
+ * <p>Verschleiss (Kolben-Balance 2026-09-27): jeder normal gebrochene Block kostet wie beim
+ * Netheritkolben {@code max(1, aufgerundete Haerte)} Punkte, hier auf {@code enderitePistonWearBudget}
+ * (Standard {@value #DEFAULT_WEAR_BUDGET}) verteilt: 256 Punkte je Stufe, also rund 1000 Steine oder
+ * 680 Tiefenschiefer bis zur Reparatur mit einem Enderitklumpen - doppelt so lang wie der
+ * Netheritkolben (1024), weil Stufe und Reparatur teurer sind. Ein langer Tunnel (einige tausend
+ * Bloecke) kostet damit ein paar Klumpen; wer nicht repariert, faellt auf den Netheritkolben zurueck.
  */
 public class EnderitePistonBlock extends NetheriteBreakerPistonBlock {
     public static final MapCodec<EnderitePistonBlock> CODEC = BlockCodecs.simple(EnderitePistonBlock::new);
@@ -54,12 +61,43 @@ public class EnderitePistonBlock extends NetheriteBreakerPistonBlock {
     }
 
     /**
-     * Der Enderitkolben verschleisst nicht (Balance unveraendert, Audit #23 betraf nur den
-     * Netheritkolben) und traegt die Eigenschaft {@code wear} deshalb gar nicht.
+     * Der Enderitkolben verschleisst wie der Netheritkolben (Kolben-Balance 2026-09-27, Teil 5 der
+     * Bauwerkzeug-Notizen: das Tunnelbohren war zu leicht), mit eigenem Budget
+     * ({@code enderitePistonWearBudget}), Enderitklumpen als Reparatur und dem Netheritkolben als
+     * Zerfallsziel. Bestehende Enderitkolben in alten Welten laden mit dem Standardwert 0: ein
+     * Blockzustand ohne gespeicherte Eigenschaft bekommt ihren Standardwert, ein Datenfixer ist nicht
+     * noetig.
      */
     @Override
     protected boolean wears() {
-        return false;
+        return true;
+    }
+
+    /** Standardbudget des Enderitkolbens, siehe {@code SimplebuildingConfig#enderitePistonWearBudget}. */
+    public static final int DEFAULT_WEAR_BUDGET = 2048;
+
+    /** Das Verschleissbudget des Enderitkolbens aus der Konfiguration; 0 = kein Verschleiss. */
+    public static int enderiteWearBudget() {
+        com.simplebuilding.config.SimplebuildingConfig config = com.simplebuilding.Simplebuilding.getConfig();
+        return config == null ? DEFAULT_WEAR_BUDGET : Math.max(0, config.enderitePistonWearBudget);
+    }
+
+    @Override
+    protected int configuredWearBudget() {
+        return enderiteWearBudget();
+    }
+
+    @Override
+    protected net.minecraft.world.item.Item repairNugget() {
+        return com.simplebuilding.items.ModItems.ENDERITE_NUGGET;
+    }
+
+    /** Verbraucht zerfaellt er eine Stufe tiefer: zum Netheritkolben derselben Richtung, unversehrt. */
+    @Override
+    protected BlockState wornOutState(BlockState state) {
+        return com.simplebuilding.blocks.ModBlocks.NETHERITE_PISTON.defaultBlockState()
+                .setValue(FACING, state.getValue(FACING))
+                .setValue(WEAR, 0);
     }
 
     /**

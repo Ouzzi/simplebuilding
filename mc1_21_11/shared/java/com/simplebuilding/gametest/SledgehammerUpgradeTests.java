@@ -1,6 +1,7 @@
 package com.simplebuilding.gametest;
 
 import com.simplebuilding.blocks.ModBlocks;
+import com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock;
 import com.simplebuilding.blocks.entity.custom.ModHopperBlockEntity;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.util.HopperFilterMode;
@@ -198,10 +199,20 @@ public final class SledgehammerUpgradeTests {
                     "the reinforced " + family.label());
             assertBricksKept(helper, pos, "the " + family.label() + " after the netherite step");
 
+            // A worn netherite breaker becomes a fresh enderite piston: the wear belongs to the
+            // netherite budget and does not carry over.
+            BlockState beforeEnderite = helper.getBlockState(pos);
+            if (beforeEnderite.hasProperty(NetheriteBreakerPistonBlock.WEAR)) {
+                helper.setBlock(pos, beforeEnderite.setValue(NetheriteBreakerPistonBlock.WEAR, 5));
+            }
             hammerThrough(helper, player, pos, family.netherite(), family.enderite(),
                     ModItems.NETHERITE_SLEDGEHAMMER, ModItems.ENDERITE_NUGGET, ENDERITE_STEP_WEAR,
                     "the netherite " + family.label());
             assertBricksKept(helper, pos, "the " + family.label() + " after the enderite step");
+            if (beforeEnderite.hasProperty(NetheriteBreakerPistonBlock.WEAR)) {
+                Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearOf(helper.getBlockState(pos)), 0,
+                        "wear stage of the enderite piston hammered from a netherite piston at stage 5");
+            }
         }
 
         TestCleanup.succeed(helper);
@@ -913,8 +924,8 @@ public final class SledgehammerUpgradeTests {
         helper.assertTrue(after.is(to), what + " is " + after + " after " + UPGRADE_TICKS + " ticks of hammering, "
                 + "not the next tier");
         for (Property<?> property : before.getProperties()) {
-            if (!after.hasProperty(property)) {
-                continue; // z. B. der Verschleiss des Netherit-Brechers: der Enderit-Kolben hat keinen
+            if (!after.hasProperty(property) || property == NetheriteBreakerPistonBlock.WEAR) {
+                continue; // der Verschleiss beginnt nach der Aufwertung bei 0 (eigene Pruefung oben)
             }
             Assertions.valueEqual(helper, after.getValue(property), before.getValue(property),
                     what + ": block state property '" + property.getName() + "' after the upgrade");

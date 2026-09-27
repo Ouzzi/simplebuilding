@@ -34,6 +34,7 @@ public class SimplebuildingConfig implements ConfigData {
         }
         trimBenefitBaseMultiplier = Math.max(0.0, Math.min(maxMultiplierLimit, trimBenefitBaseMultiplier));
         netheriteBreakerWearBudget = Math.max(0, netheriteBreakerWearBudget);
+        enderitePistonWearBudget = Math.max(0, enderitePistonWearBudget);
     }
 
     // Air-jump cooldown (ticks) at DOUBLE_JUMP level 1; level 2 uses half of this. 20 ticks = 1s.
@@ -69,6 +70,13 @@ public class SimplebuildingConfig implements ConfigData {
     // Siehe NetheriteBreakerPistonBlock.
     @ConfigEntry.Gui.Tooltip
     public int netheriteBreakerWearBudget = 1024;
+
+    // Verschleiss des Enderitkolbens (Kolben-Balance 2026-09-27), wie beim Netherit-Brecher,
+    // aber doppelt so viel: 2048 Punkte = 256 je Stufe, rund 1000 Steine oder 680 Tiefenschiefer
+    // bis zur Reparatur (Enderitklumpen); verbraucht wird er zum Netheritkolben. 0 = kein
+    // Verschleiss. Siehe EnderitePistonBlock.
+    @ConfigEntry.Gui.Tooltip
+    public int enderitePistonWearBudget = 2048;
 
     // Zeigt den Kreativ-Tab "SimpleEnchants (Dev)" auch ausserhalb einer
     // Entwicklungsumgebung (dort ist er immer da), siehe DevEnchantedTab. Wirkt beim naechsten

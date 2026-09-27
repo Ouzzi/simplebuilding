@@ -58,9 +58,9 @@ import org.jetbrains.annotations.Nullable;
  *   <li>Tooltip des Items: {@code Verschleiss n/8}, sobald er nicht 0 ist.</li>
  * </ul>
  * Bezahlte Durchbrueche verbrauchen den Kolben ohnehin und kosten keinen Verschleiss. Der
- * Enderitkolben ({@link EnderitePistonBlock}) nutzt sich (noch) nicht ab und hat die Eigenschaft gar
- * nicht ({@link #wears}); derselbe Mechanismus liesse sich dort mit {@code wears() = true}, eigenem
- * Budget und dem Netheritkolben als Zerfallsziel einschalten (spaeter: Kolben-Balance).
+ * Enderitkolben ({@link EnderitePistonBlock}) nutzt sich genauso ab (Kolben-Balance 2026-09-27),
+ * mit eigenem Budget ({@link #configuredWearBudget}), eigenem Reparaturklumpen
+ * ({@link #repairNugget}) und dem Netheritkolben als Zerfallsziel ({@link #wornOutState}).
  */
 public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
     public static final MapCodec<NetheriteBreakerPistonBlock> CODEC = simpleCodec(NetheriteBreakerPistonBlock::new);
@@ -128,9 +128,27 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
     }
 
     /** Das Budget fuer den Kolben an {@code pos}: Test-Ueberschreibung oder Konfiguration. */
-    public static int wearBudgetAt(BlockPos pos) {
+    public int wearBudgetAt(BlockPos pos) {
         Integer override = BUDGET_OVERRIDES.isEmpty() ? null : BUDGET_OVERRIDES.get(pos);
-        return override != null ? override : wearBudget();
+        return override != null ? override : configuredWearBudget();
+    }
+
+    /** Das Budget dieser Kolbenstufe aus der Konfiguration ({@code netheriteBreakerWearBudget}). */
+    protected int configuredWearBudget() {
+        return wearBudget();
+    }
+
+    /** Der Klumpen, der diesen Kolben repariert (so viel wie seine Aufwertung kostet). */
+    protected net.minecraft.world.item.Item repairNugget() {
+        return ModItems.NETHERITE_NUGGET;
+    }
+
+    /**
+     * Der Zustand, zu dem der verbrauchte Kolben zerfaellt: eine Stufe tiefer, hier der verstaerkte
+     * Kolben, mit derselben Blickrichtung.
+     */
+    protected BlockState wornOutState(BlockState state) {
+        return ModBlocks.REINFORCED_PISTON.defaultBlockState().setValue(FACING, state.getValue(FACING));
     }
 
     /**
@@ -174,20 +192,21 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
     }
 
     /**
-     * Der verbrauchte Brecher zerfaellt zum verstaerkten Kolben derselben Blickrichtung und faehrt
-     * sofort als solcher aus. Der neue Block geht wie beim Brechen sofort an die Clients: das
+     * Der verbrauchte Brecher zerfaellt eine Stufe tiefer ({@link #wornOutState}: Netherit zum
+     * verstaerkten Kolben, Enderit zum Netheritkolben mit Verschleiss 0) und faehrt sofort als
+     * solcher aus. Der neue Block geht wie beim Brechen sofort an die Clients: das
      * Block-Ereignis-Paket, das der Server gleich schickt, spielt der Client an dem Block nach, der
-     * dann bei ihm steht - sonst fuehre er als Netheritkolben mit Netheritkopf aus.
+     * dann bei ihm steht - sonst fuehre er mit dem alten Kopf aus.
      */
     private boolean wearOut(ServerLevel world, BlockPos pos, BlockState state, int type, int data) {
-        BlockState reinforced = ModBlocks.REINFORCED_PISTON.defaultBlockState().setValue(FACING, state.getValue(FACING));
-        world.setBlock(pos, reinforced, Block.UPDATE_CLIENTS | Block.UPDATE_SKIP_ON_PLACE);
+        BlockState lower = wornOutState(state);
+        world.setBlock(pos, lower, Block.UPDATE_CLIENTS | Block.UPDATE_SKIP_ON_PLACE);
         world.getServer().getPlayerList().broadcast(null, pos.getX(), pos.getY(), pos.getZ(),
                 64.0, world.dimension(), new ClientboundBlockUpdatePacket(world, pos));
         world.playSound(null, pos, SoundEvents.ITEM_BREAK.value(), SoundSource.BLOCKS, 1.0F, 0.8F);
         world.sendParticles(ParticleTypes.LARGE_SMOKE, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
                 12, 0.4, 0.4, 0.4, 0.02);
-        return reinforced.triggerEvent(world, pos, type, data);
+        return lower.triggerEvent(world, pos, type, data);
     }
 
     /**
@@ -213,13 +232,14 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
     }
 
     /**
-     * Reparatur: ein Netheritklumpen setzt den Verschleiss auf 0 (Kreativ: kostenlos). Ohne
-     * Verschleiss oder mit etwas anderem in der Hand verhaelt sich der Kolben wie immer.
+     * Reparatur: der Klumpen der Stufe ({@link #repairNugget}: Netherit bzw. Enderit) setzt den
+     * Verschleiss auf 0 (Kreativ: kostenlos). Ohne Verschleiss oder mit etwas anderem in der Hand
+     * verhaelt sich der Kolben wie immer.
      */
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player,
                                           InteractionHand hand, BlockHitResult hit) {
-        if (!stack.is(ModItems.NETHERITE_NUGGET) || wearOf(state) == 0) {
+        if (!stack.is(repairNugget()) || wearOf(state) == 0) {
             return super.useItemOn(stack, state, world, pos, player, hand, hit);
         }
         if (world instanceof ServerLevel server) {
@@ -330,7 +350,7 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
      *       gefragt.</li>
      * </ol>
      * Jeder so gebrochene Block kostet Verschleiss ({@link #addWear}); ist der Brecher damit
-     * verbraucht, faehrt statt seiner der verstaerkte Kolben aus ({@link #wearOut}).
+     * verbraucht, faehrt statt seiner die Stufe darunter aus ({@link #wearOut}).
      * Der Client bricht nie selbst (audit 2026-09-26 #47: Geisterbloecke, wenn Client und Server
      * verschieden entschieden). Damit er beim Nachspielen des Ausfahr-Ereignisses den Block nicht
      * mitschiebt, schickt {@link PistonBoreEffects#destroy} die Entfernung sofort, also vor dem
