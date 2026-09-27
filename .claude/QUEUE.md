@@ -86,8 +86,14 @@ Verlauf im Detail: git log.
 - [x] Audit: alle Auffaelligkeiten der Mod auflisten -> docs/AUDIT-2026-09-26.md (52 Punkte)
 - [ ] Client-Gate (6 Ziele) sobald Besitzer-Client/-Server geschlossen; Testzentrale neu bauen
 
+## Welle 18 (laeuft): Audit-Fixes P1+P2 (docs/AUDIT-2026-09-26.md)
+- [ ] A1 Blaupause/Oktant/Netzwerk (#2,#8,#9,#11 + Materialverlust)
+- [ ] A2 Werkzeug-Schutz (#1,#6,#7,#10 + Befehlsbloecke, Undo)
+- [ ] B Tweaks + Doku (#3,#4,#5,#16,#17,#20,#21 + kleine P3)
+- [ ] C Maschinen/Lager/Config (#12-#15,#18,#19, Portalrahmen standardmaessig aus)
+- [ ] Danach: Nach-Audit (Fixes pruefen + frischer Durchgang), Server-Gate, Push
+
 ## Wartet auf den Besitzer
-- [ ] Audit-Fixes freigeben (Vorschlag: P1+P2 sofort, P3 danach); Entscheidungen: Trim-Multiplikator speichern? Endportalrahmen-Standard aus?
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
 
 ## Spaeter
