@@ -153,4 +153,19 @@ public final class BlueprintGameTest {
     public void signPacketsShareOneParseBudgetPerPlayer(GameTestHelper helper) {
         BlueprintTests.signPacketsShareOneParseBudgetPerPlayer(helper);
     }
+
+    @GameTest
+    public void blueprintBuildsGameMasterBlocksOnlyForOperators(GameTestHelper helper) {
+        BlueprintTests.blueprintBuildsGameMasterBlocksOnlyForOperators(helper);
+    }
+
+    @GameTest
+    public void survivalBuildKeepsTheNoteBlockInstrument(GameTestHelper helper) {
+        BlueprintTests.survivalBuildKeepsTheNoteBlockInstrument(helper);
+    }
+
+    @GameTest
+    public void repeatedClicksNeitherRestartTheCheckNorExceedTheClickBudget(GameTestHelper helper) {
+        BlueprintTests.repeatedClicksNeitherRestartTheCheckNorExceedTheClickBudget(helper);
+    }
 }

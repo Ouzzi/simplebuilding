@@ -1358,6 +1358,109 @@ public final class BlueprintTests {
     }
 
     // =====================================================================================
+    // NACH-AUDIT 2026-09-27
+    // =====================================================================================
+
+    /**
+     * Nach-Audit 2026-09-27 N2 (Rest von #29): eine Blaupause baut Befehls-, Struktur- und
+     * Verbundbloecke nur fuer Spieler, die sie auch von Hand setzen duerften. Ein Kreativspieler ohne
+     * Op bekommt den Stein daneben, der Befehlsblock bleibt aus (gesperrt gezaehlt).
+     *
+     * <p><strong>Was diesen Test bricht:</strong> die {@code GameMasterBlock}-Pruefung in
+     * {@code Planner#run} entfernen.
+     */
+    public static void blueprintBuildsGameMasterBlocksOnlyForOperators(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, true);
+        clear(helper);
+        ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
+        ItemStack blueprint = blueprint("command_block 0,0,0\nstone 0,0,1");
+        hold(player, wand, blueprint);
+        boolean operator = player.canUseGameMasterBlocks();
+        BlueprintBuilder.Result built = build(helper, player, wand, blueprint);
+        player.getAbilities().instabuild = false;
+
+        helper.assertFalse(operator, "the mock player may use game master blocks, so this test cannot tell anything");
+        helper.assertTrue(helper.getBlockState(TARGET.south()).is(Blocks.STONE), "the control stone was not built: " + built);
+        helper.assertFalse(helper.getBlockState(TARGET).is(Blocks.COMMAND_BLOCK), "a blueprint built a command block for a non-operator");
+        helper.assertTrue(built != null && built.blocked() == 1, "the refused command block was not counted as blocked: " + built);
+        clear(helper);
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Nach-Audit 2026-09-27 N15: ein Ueberlebens-Bau behaelt das Instrument eines Notenblocks aus dem
+     * Code. Frueher fehlte {@code instrument} in der Liste der erhaltenen Eigenschaften, und jeder
+     * Notenblock wurde zur Harfe.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> {@code NOTEBLOCK_INSTRUMENT} aus
+     * {@code BlueprintMaterials#SURVIVAL_KEPT} entfernen.
+     */
+    public static void survivalBuildKeepsTheNoteBlockInstrument(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        clear(helper);
+        ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
+        ItemStack blueprint = blueprint("note_block[instrument=flute] 0,0,0");
+        hold(player, wand, blueprint, new ItemStack(Items.NOTE_BLOCK));
+        BlueprintBuilder.Result built = build(helper, player, wand, blueprint);
+        BlockState note = helper.getBlockState(TARGET);
+        helper.assertTrue(built != null && built.placed() == 1, "the note block was not built: " + built);
+        helper.assertTrue(note.is(Blocks.NOTE_BLOCK)
+                        && note.getValue(BlockStateProperties.NOTEBLOCK_INSTRUMENT) == net.minecraft.world.level.block.state.properties.NoteBlockInstrument.FLUTE,
+                "the survival build lost the note block's instrument: " + note);
+        clear(helper);
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Nach-Audit 2026-09-27 N3: jeder Klick lief synchron eine ganze Klick-Pruefung durch - Klick-Spam
+     * vervielfachte die Weltlesungen. Ein weiterer Klick auf denselben Bau startet die laufende Pruefung
+     * nicht neu (ihr Stand bleibt), und alle Klicks eines Spielers in einem Tick teilen sich ein
+     * Klick-Budget: ein zweiter neuer Bau im selben Tick prueft beim Klick nichts mehr, erst im
+     * naechsten Tick. Hier mit 3 Stellen je Klick-Budget und Tick.
+     *
+     * <p><strong>Was diesen Test bricht:</strong> {@code pendingCheck} entfernen (der Stand faellt
+     * zurueck) oder das Klick-Budget je Klick statt je Tick vergeben.
+     */
+    public static void repeatedClicksNeitherRestartTheCheckNorExceedTheClickBudget(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = mockPlayer(helper, false);
+        player.addTag(BlueprintBuilder.SMALL_CHECK_TAG);
+        clear(helper);
+        ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
+        ItemStack blueprint = blueprint("stone 0..3,0,0..3");
+        hold(player, wand, blueprint, new ItemStack(Items.STONE, 64));
+        BlueprintBuilder.Result first = click(helper, player, wand, blueprint);
+        helper.assertTrue(first != null && first.checking() && BlueprintBuilder.checkProgress(player) == 3,
+                "the first click should check three positions and go on: " + first + ", " + BlueprintBuilder.checkProgress(player));
+        helper.runAfterDelay(1, () -> {
+            wand.getItem().inventoryTick(wand, level, player, EquipmentSlot.MAINHAND);
+            int afterTick = BlueprintBuilder.checkProgress(player);
+            BlueprintBuilder.Result again = click(helper, player, wand, blueprint);
+            int afterAgain = BlueprintBuilder.checkProgress(player);
+
+            ItemStack other = blueprint("stone 0..3,0,0..2");
+            hold(player, wand, other, new ItemStack(Items.STONE, 64));
+            click(helper, player, wand, other);
+            int otherProgress = BlueprintBuilder.checkProgress(player);
+            ItemStack third = blueprint("stone 0..2,0,0..2");
+            hold(player, wand, third, new ItemStack(Items.STONE, 64));
+            click(helper, player, wand, third);
+            int thirdProgress = BlueprintBuilder.checkProgress(player);
+            BlueprintBuilder.forgetRunningJob(player.getUUID());
+            player.removeTag(BlueprintBuilder.SMALL_CHECK_TAG);
+
+            helper.assertTrue(afterTick == 6, "one tick should add three checked positions: " + afterTick);
+            helper.assertTrue(again != null && again.checking() && afterAgain == 6,
+                    "a second click on the same build restarted its check: " + again + ", progress " + afterAgain);
+            helper.assertTrue(otherProgress == 3, "a new build should get this tick's unused click budget: " + otherProgress);
+            helper.assertTrue(thirdProgress == 0,
+                    "a third build in the same tick checked again - the click budget is not shared per tick: " + thirdProgress);
+            clear(helper);
+            TestCleanup.succeed(helper);
+        });
+    }
+
+    // =====================================================================================
     // HILFEN
     // =====================================================================================
 

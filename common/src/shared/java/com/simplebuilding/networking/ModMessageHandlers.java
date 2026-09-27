@@ -120,17 +120,24 @@ public final class ModMessageHandlers {
     /**
      * Einstellungen aus dem Oktant-Bildschirm. Der Server uebernimmt nur, was passt: Ecken in Reichweite
      * ({@link #octantCornerInRange}), Form und Reihenfolge nur als bekannter Name, Ausrichtung nur 0-5;
-     * alles andere bleibt, wie es am Item steht.
+     * alles andere bleibt, wie es am Item steht. Eine verworfene Ecke meldet die Aktionsleiste (der
+     * Bildschirm zeigt es zusaetzlich rot an; Nach-Audit 2026-09-27 N16).
      */
     public static void handleOctantConfigure(OctantConfigurePayload payload, ServerPlayer player) {
         ItemStack stack = player.getMainHandItem();
         if (stack.getItem() instanceof OctantItem) {
             CustomData nbtComponent = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
             CompoundTag nbt = nbtComponent.copyTag();
+            boolean refused = payload.pos1().filter(p -> !octantCornerInRange(player, p.getX(), p.getY(), p.getZ())).isPresent()
+                    | payload.pos2().filter(p -> !octantCornerInRange(player, p.getX(), p.getY(), p.getZ())).isPresent();
             payload.pos1().filter(p -> octantCornerInRange(player, p.getX(), p.getY(), p.getZ()))
                     .ifPresent(p -> nbt.putIntArray("Pos1", new int[]{p.getX(), p.getY(), p.getZ()}));
             payload.pos2().filter(p -> octantCornerInRange(player, p.getX(), p.getY(), p.getZ()))
                     .ifPresent(p -> nbt.putIntArray("Pos2", new int[]{p.getX(), p.getY(), p.getZ()}));
+            if (refused) {
+                player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.octant.corner_refused", OCTANT_CORNER_RANGE)
+                        .withStyle(net.minecraft.ChatFormatting.RED));
+            }
             if (payload.shapeName() != null && isEnumName(OctantItem.SelectionShape.class, payload.shapeName())) {
                 nbt.putString("Shape", payload.shapeName());
             }
@@ -332,14 +339,6 @@ public final class ModMessageHandlers {
     // =====================================================================================
 
     /**
-     * Neuer Code aus dem Editor. Wie beim Buch prueft der Server alles selbst: Slot (Hotbar oder
-     * Nebenhand), eine unsignierte Blaupause darin, Laenge des Codes; beim Signieren zusaetzlich
-     * Titel (1-32 Zeichen) und fehlerfreien, nicht leeren Code. Liegen mehrere leere Blaupausen
-     * im Slot, bleibt die beschriebene dort und der Rest wird abgespalten. Der Editor schickt das
-     * Paket entprellt waehrend des Tippens und beim Schliessen (Autospeichern); gespeichert wird
-     * sofort am Item.
-     */
-    /**
      * Signieren parst den ganzen Code (bis 32 000 Zeichen). Jeder Spieler hat dafuer ein Budget an
      * Zeichen, das sich mit {@link #SIGN_REFILL_PER_TICK} je Tick wieder auffuellt: zwei volle Codes
      * sofort, danach einer je Sekunde. Ein Client, der Signier-Pakete in Schleife schickt, kann den
@@ -368,6 +367,15 @@ public final class ModMessageHandlers {
         }
     }
 
+    /**
+     * Neuer Code aus dem Editor. Wie beim Buch prueft der Server alles selbst: Slot (Hotbar oder
+     * Nebenhand), eine unsignierte Blaupause darin, Laenge des Codes; beim Signieren zusaetzlich
+     * Titel (1-32 Zeichen) und fehlerfreien, nicht leeren Code. Liegen mehrere leere Blaupausen
+     * im Slot, bleibt die beschriebene dort und der Rest wird abgespalten. Der Editor schickt das
+     * Paket entprellt waehrend des Tippens und beim Schliessen (Autospeichern); gespeichert wird
+     * sofort am Item. Weist das Signier-Budget ab, sagt es die Aktionsleiste (Nach-Audit 2026-09-27
+     * N16; frueher blieb der Klick auf "Signieren" stumm).
+     */
     public static void handleBlueprintEdit(BlueprintEditPayload payload, ServerPlayer player) {
         int slot = payload.slot();
         if (!(net.minecraft.world.entity.player.Inventory.isHotbarSlot(slot) || slot == net.minecraft.world.entity.player.Inventory.SLOT_OFFHAND)) {
@@ -392,6 +400,8 @@ public final class ModMessageHandlers {
                 return;
             }
             if (!takeSignBudget(player, code.length())) {
+                player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.blueprint.sign.too_fast")
+                        .withStyle(net.minecraft.ChatFormatting.YELLOW));
                 return;
             }
             // Zwischengespeichert: der Bau (Tooltip, Vorschau, Baustab) fragt gleich denselben Code.

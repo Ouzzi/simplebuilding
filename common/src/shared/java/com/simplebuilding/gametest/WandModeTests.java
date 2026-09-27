@@ -780,6 +780,262 @@ public final class WandModeTests {
         helper.succeed();
     }
 
+    // =====================================================================================
+    // FOLLOW-UP AUDIT 2026-09-27
+    // =====================================================================================
+
+    /**
+     * Follow-up audit 2026-09-27 N2 (the rest of #29): the octant fill cannot hand a non-operator
+     * command blocks either. The wand's own placement already refused them, but the fill fell back to
+     * the block's default state when {@code WandPlacement#baseState} said no - a creative non-op could
+     * fill a figure with command blocks. The fill layout now leaves such a cell out.
+     *
+     * <p><strong>What breaks this test:</strong> falling back to {@code defaultBlockState()} for a
+     * {@code GameMasterBlock} in {@code ShapeFill.FillLayout#rawState}.
+     */
+    public static void octantFillLeavesGameMasterBlocksOutForNonOperators(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        clearRoom(helper);
+        BlockPos anchor = new BlockPos(6, 1, 6);
+        helper.setBlock(anchor, Blocks.STONE);
+        ItemStack wand = wand(helper, ModItems.DIAMOND_BUILDING_WAND, 1, null);
+        stock(player, wand, new ItemStack(Items.COMMAND_BLOCK, 4));
+        player.getAbilities().instabuild = true;
+        ItemStack octant = octant(helper, new BlockPos(2, 1, 2), new BlockPos(3, 1, 2), "CUBOID", false, false);
+        player.setItemInHand(InteractionHand.OFF_HAND, octant);
+        boolean operator = player.canUseGameMasterBlocks();
+
+        ShapeFill.Plan plan = ShapeFill.plan(helper.getLevel(), player, wand, octant);
+        BlockState offered = plan.layout() == null ? null : plan.layout().state(0);
+        click(helper, player, wand, anchor, Direction.UP, new Vec3(0.5, 1.0, 0.5));
+        BlueprintBuilder.completeJob(player);
+        player.getAbilities().instabuild = false;
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+
+        helper.assertFalse(operator, "the mock player may use game master blocks, so this test cannot tell anything");
+        helper.assertTrue(plan.problem() == null, "the command block fill was refused before it got to the cells: " + plan.problem());
+        helper.assertTrue(offered == null, "the fill layout offers a non-operator a command block cell: " + offered);
+        helper.assertTrue(helper.getBlockState(new BlockPos(2, 1, 2)).isAir() && helper.getBlockState(new BlockPos(3, 1, 2)).isAir(),
+                "the octant fill placed command blocks for a non-operator");
+        helper.succeed();
+    }
+
+    /**
+     * Follow-up audit 2026-09-27 N8: the simulated material check (and the preview, which is the same
+     * planner) passed over cells that cannot stand yet because the layer under them is not built -
+     * the upper carpet of a two-carpet column over air. With one carpet the first click then built
+     * without a warning and the preview showed nothing above the first layer. A cell next to one the
+     * simulation already set counts now.
+     *
+     * <p><strong>What breaks this test:</strong> {@code FillLayout#state(int, LongPredicate)} ignoring
+     * the simulated cells, or the planner calling the variant without them.
+     */
+    public static void octantFillCheckCountsCellsOnLayersItHasNotBuiltYet(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        clearRoom(helper);
+        BlockPos anchor = new BlockPos(6, 1, 6);
+        helper.setBlock(anchor, Blocks.STONE);
+        helper.setBlock(new BlockPos(2, 1, 2), Blocks.STONE); // the carpet column stands on this
+        ItemStack wand = wand(helper, ModItems.DIAMOND_BUILDING_WAND, 1, null);
+        stock(player, wand, new ItemStack(Items.MOSS_CARPET, 1));
+        ItemStack column = octant(helper, new BlockPos(2, 2, 2), new BlockPos(2, 3, 2), "CUBOID", false, false);
+        player.setItemInHand(InteractionHand.OFF_HAND, column);
+
+        BlueprintBuilder.Preview preview = ShapeFill.preview(helper.getLevel(), player, wand, column);
+        BlockPos lower = helper.absolutePos(new BlockPos(2, 2, 2));
+        BlockPos upper = helper.absolutePos(new BlockPos(2, 3, 2));
+        click(helper, player, wand, anchor, Direction.UP, new Vec3(0.5, 1.0, 0.5));
+        BlueprintBuilder.completeJob(player);
+        boolean builtWithoutWarning = helper.getBlockState(new BlockPos(2, 2, 2)).is(Blocks.MOSS_CARPET);
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+
+        helper.assertTrue(preview.placed().containsKey(lower), "the preview does not show the lower carpet: " + preview.placed().keySet());
+        helper.assertTrue(preview.missing().containsKey(upper),
+                "the preview does not mark the upper carpet (one layer up, over the unbuilt one) as missing: " + preview.missing().keySet());
+        helper.assertFalse(builtWithoutWarning, "one carpet for two cells: the first click built instead of warning");
+        helper.assertValueEqual(countIn(player, Items.MOSS_CARPET), 1, "the warning click spent the carpet");
+        clearRoom(helper);
+        helper.succeed();
+    }
+
+    /**
+     * Follow-up audit 2026-09-27 N9: the loaded-chunk check of the fill covers the box plus one block
+     * around it - support and shape checks at the edge read the neighbour cells, and a read in an
+     * unloaded chunk loads (or generates) it. A two-cell box at the east edge of the only loaded chunk
+     * far away is refused and the chunk east of it stays unloaded.
+     *
+     * <p><strong>What breaks this test:</strong> the chunk loop in {@code ShapeFill#plan} without the
+     * one-block margin.
+     */
+    public static void octantFillNeedsTheChunksAroundItsBoxLoaded(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        ItemStack wand = wand(helper, ModItems.DIAMOND_BUILDING_WAND, 1, null);
+        stock(player, wand, new ItemStack(Items.GLASS, 8));
+        BlockPos far = helper.absolutePos(new BlockPos(2, 1, 2)).offset(300_000, 0, -300_000);
+        int cx = far.getX() >> 4, cz = far.getZ() >> 4;
+        helper.getLevel().getChunk(cx, cz); // exactly this chunk, fully loaded
+        boolean setup = helper.getLevel().hasChunk(cx, cz) && !helper.getLevel().hasChunk(cx + 1, cz);
+        int edgeX = (cx << 4) + 15, z = (cz << 4) + 8;
+        ItemStack edge = new ItemStack(ModItems.OCTANT);
+        CompoundTag nbt = new CompoundTag();
+        nbt.putIntArray("Pos1", new int[]{edgeX - 1, far.getY(), z});
+        nbt.putIntArray("Pos2", new int[]{edgeX, far.getY(), z});
+        edge.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
+
+        ShapeFill.Plan plan = ShapeFill.plan(helper.getLevel(), player, wand, edge);
+
+        helper.assertTrue(setup, "setup: the far chunk did not load on its own (or its east neighbour came with it)");
+        helper.assertTrue(plan.problem() != null && "simplebuilding.wand.shape.unloaded".equals(hintKey(plan.problem())),
+                "a box at the edge of the unloaded chunk east of it was planned: "
+                        + (plan.problem() == null ? "planned" : hintKey(plan.problem())));
+        helper.assertFalse(helper.getLevel().hasChunk(cx + 1, cz), "planning loaded the chunk east of the box");
+        helper.succeed();
+    }
+
+    /**
+     * After the lazy {@code ShapeFill} rewrite (audit 2026-09-26 #8), the test gap of the follow-up
+     * audit (N16): fill order, the per-tick bound, layer mode with hollow, and layer mode on a finished
+     * figure. Top down starts with the centre of the top layer; a player with the small build budget
+     * gets exactly three cells per tick; layer mode builds bottom, hollow ring, top, one per click;
+     * a fourth click finds nothing to do and says so instead of "0 placed".
+     *
+     * <p><strong>What breaks this test:</strong> a wrong layer direction or centre-out order in
+     * {@code FillLayout}, a job that exceeds its visits per tick, Hollow ignored in layer mode, or a
+     * finished layer-mode figure answered with SUCCESS.
+     */
+    public static void octantFillHonoursOrderLayersHollowAndTheTickBudget(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        clearRoom(helper);
+        WandUndo.forget(player.getUUID());
+        BlockPos anchor = new BlockPos(6, 1, 6);
+        helper.setBlock(anchor, Blocks.STONE);
+        ItemStack wand = wand(helper, ModItems.DIAMOND_BUILDING_WAND, 1, null);
+
+        // --- top down, three cells per tick ---
+        player.addTag(com.simplebuilding.blueprint.BlueprintScanner.SMALL_BUDGET_TAG);
+        stock(player, wand, new ItemStack(Items.GLASS, 64));
+        ItemStack topDown = withOrder(octant(helper, new BlockPos(2, 1, 2), new BlockPos(4, 2, 4), "CUBOID", false, false), "TOP_DOWN");
+        player.setItemInHand(InteractionHand.OFF_HAND, topDown);
+        click(helper, player, wand, anchor, Direction.UP, new Vec3(0.5, 1.0, 0.5));
+        int topAfterClick = glassIn(helper, 2, 2, 2, 4, 2, 4);
+        int bottomAfterClick = glassIn(helper, 2, 1, 2, 4, 1, 4);
+        boolean centreFirst = helper.getBlockState(new BlockPos(3, 2, 3)).is(Blocks.GLASS);
+        helper.assertValueEqual(topAfterClick, 3, "the first slice of a top-down fill is not three cells of the top layer");
+        helper.assertValueEqual(bottomAfterClick, 0, "a top-down fill started at the bottom");
+        helper.assertTrue(centreFirst, "the top-down fill did not start with the centre of its layer");
+
+        helper.runAfterDelay(1, () -> {
+            wand.getItem().inventoryTick(wand, helper.getLevel(), player, EquipmentSlot.MAINHAND);
+            helper.assertValueEqual(glassIn(helper, 2, 1, 2, 4, 2, 4), 6, "one more tick did not place exactly three more cells");
+            BlueprintBuilder.completeJob(player);
+            player.removeTag(com.simplebuilding.blueprint.BlueprintScanner.SMALL_BUDGET_TAG);
+            helper.assertValueEqual(glassIn(helper, 2, 1, 2, 4, 2, 4), 18, "the top-down fill did not finish the 3x2x3 box");
+
+            // --- layer mode + hollow: bottom, ring, top - then nothing to do ---
+            clearRoom(helper);
+            helper.setBlock(anchor, Blocks.STONE);
+            stock(player, wand, new ItemStack(Items.GLASS, 64));
+            ItemStack layered = octant(helper, new BlockPos(2, 1, 2), new BlockPos(4, 3, 4), "CUBOID", true, true);
+            player.setItemInHand(InteractionHand.OFF_HAND, layered);
+            click(helper, player, wand, anchor, Direction.UP, new Vec3(0.5, 1.0, 0.5));
+            BlueprintBuilder.completeJob(player);
+            helper.assertValueEqual(glassIn(helper, 2, 1, 2, 4, 1, 4), 9, "layer mode + hollow: the bottom layer is not full");
+            helper.assertValueEqual(glassIn(helper, 2, 2, 2, 4, 3, 4), 0, "layer mode + hollow built more than the bottom layer");
+            click(helper, player, wand, anchor, Direction.UP, new Vec3(0.5, 1.0, 0.5));
+            BlueprintBuilder.completeJob(player);
+            helper.assertValueEqual(glassIn(helper, 2, 2, 2, 4, 2, 4), 8, "layer mode + hollow: the middle layer is not the ring of eight");
+            helper.assertTrue(helper.getBlockState(new BlockPos(3, 2, 3)).isAir(), "layer mode filled the hollow centre");
+            click(helper, player, wand, anchor, Direction.UP, new Vec3(0.5, 1.0, 0.5));
+            BlueprintBuilder.completeJob(player);
+            helper.assertValueEqual(glassIn(helper, 2, 3, 2, 4, 3, 4), 9, "layer mode + hollow: the top layer is not full");
+            InteractionResult done = click(helper, player, wand, anchor, Direction.UP, new Vec3(0.5, 1.0, 0.5));
+            BlueprintBuilder.completeJob(player);
+            player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+            helper.assertTrue(done == InteractionResult.FAIL,
+                    "a layer-mode click on the finished figure did not answer 'nothing to do', it returned " + done);
+            helper.assertValueEqual(countIn(player, Items.GLASS), 64 - 26, "the hollow cube did not cost its 26 shell blocks");
+            clearRoom(helper);
+            helper.succeed();
+        });
+    }
+
+    /**
+     * Follow-up audit 2026-09-27 N13: undo only spared container block entities - a lectern the wand
+     * set and the player put a book on since was cleared, the book gone; a glow lichen the player
+     * spread over a second face was cleared and one piece refunded. Undo also asks the same build
+     * right as building ({@code mayBuildAt}), not only spawn protection. Untouched cells of the same
+     * kinds are still cleared and paid back.
+     *
+     * <p><strong>What breaks this test:</strong> dropping {@code unchangedContent},
+     * {@code sameFaces} or the {@code mayBuildAt} check from {@code WandUndo#undo}.
+     */
+    public static void undoKeepsBlockEntityContentsSpreadFacesAndProtectedCells(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        clearRoom(helper);
+        WandUndo.forget(player.getUUID());
+        ItemStack wand = wand(helper, ModItems.DIAMOND_BUILDING_WAND, 1, null);
+        stock(player, wand);
+
+        // --- without the right to build there, nothing is cleared ---
+        BlockPos guarded = new BlockPos(1, 1, 1);
+        WandUndo.begin(player, helper.getLevel());
+        placeRecorded(helper, player, guarded, Blocks.STONE.defaultBlockState(), Items.STONE);
+        player.getAbilities().mayBuild = false;
+        WandUndo.undo(player, helper.getLevel());
+        player.getAbilities().mayBuild = true;
+        helper.assertBlockPresent(Blocks.STONE, guarded);
+        helper.assertValueEqual(countIn(player, Items.STONE), 0, "undo without build rights refunded the stone");
+
+        // --- block entity contents and spread faces stay, the untouched copies go ---
+        BlockPos bookLectern = new BlockPos(2, 1, 2);
+        BlockPos bareLectern = new BlockPos(4, 1, 2);
+        BlockPos spreadLichen = new BlockPos(2, 2, 4);
+        BlockPos sameLichen = new BlockPos(4, 2, 4);
+        helper.setBlock(spreadLichen.below(), Blocks.STONE);
+        helper.setBlock(spreadLichen.north(), Blocks.STONE);
+        helper.setBlock(sameLichen.below(), Blocks.STONE);
+        BlockState floorLichen = Blocks.GLOW_LICHEN.defaultBlockState().setValue(net.minecraft.world.level.block.MultifaceBlock.getFaceProperty(Direction.DOWN), true);
+        WandUndo.begin(player, helper.getLevel());
+        placeRecorded(helper, player, bookLectern, Blocks.LECTERN.defaultBlockState(), Items.LECTERN);
+        placeRecorded(helper, player, bareLectern, Blocks.LECTERN.defaultBlockState(), Items.LECTERN);
+        placeRecorded(helper, player, spreadLichen, floorLichen, Items.GLOW_LICHEN);
+        placeRecorded(helper, player, sameLichen, floorLichen, Items.GLOW_LICHEN);
+        BlockPos bookAt = helper.absolutePos(bookLectern);
+        net.minecraft.world.level.block.LecternBlock.tryPlaceBook(player, helper.getLevel(), bookAt,
+                helper.getLevel().getBlockState(bookAt), new ItemStack(Items.WRITABLE_BOOK));
+        BlockState spread = floorLichen.setValue(net.minecraft.world.level.block.MultifaceBlock.getFaceProperty(Direction.NORTH), true);
+        helper.setBlock(spreadLichen, spread);
+
+        WandUndo.undo(player, helper.getLevel());
+        WandUndo.forget(player.getUUID());
+
+        BlockState keptLectern = helper.getBlockState(bookLectern);
+        helper.assertTrue(keptLectern.is(Blocks.LECTERN) && keptLectern.getValue(BlockStateProperties.HAS_BOOK),
+                "undo cleared the lectern the player put a book on since, it is now " + keptLectern);
+        helper.assertTrue(helper.getBlockState(spreadLichen) == spread,
+                "undo cleared the glow lichen the player spread over a second face, it is now " + helper.getBlockState(spreadLichen));
+        helper.assertTrue(helper.getBlockState(bareLectern).isAir(), "undo left the untouched lectern standing");
+        helper.assertTrue(helper.getBlockState(sameLichen).isAir(), "undo left the untouched glow lichen standing");
+        helper.assertValueEqual(countIn(player, Items.LECTERN), 1, "undo did not refund exactly the one lectern it cleared");
+        helper.assertValueEqual(countIn(player, Items.GLOW_LICHEN), 1, "undo did not refund exactly the one glow lichen it cleared");
+        clearRoom(helper);
+        helper.succeed();
+    }
+
+    /** Sets a block the way a wand action does and records it for undo (one item paid). */
+    private static void placeRecorded(GameTestHelper helper, ServerPlayer player, BlockPos relative, BlockState state, Item item) {
+        BlockPos pos = helper.absolutePos(relative);
+        helper.getLevel().setBlock(pos, state, net.minecraft.world.level.block.Block.UPDATE_ALL);
+        WandUndo.record(player, helper.getLevel(), pos, state, item, 1);
+    }
+
+    private static ItemStack withOrder(ItemStack octant, String order) {
+        CompoundTag nbt = octant.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        nbt.putString("FillOrder", order);
+        octant.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
+        return octant;
+    }
+
     private static String hintKey(net.minecraft.network.chat.Component hint) {
         return hint != null && hint.getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents t ? t.getKey() : String.valueOf(hint);
     }

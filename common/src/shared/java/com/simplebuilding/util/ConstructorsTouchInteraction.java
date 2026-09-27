@@ -12,6 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.GameMasterBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -46,6 +47,12 @@ import static com.simplebuilding.util.EnchantmentHelper.hasEnchantment;
  * Fabric used to accept the off hand as well), and leaves multi-block structures alone whose
  * halves would come apart (beds, double chests, extended pistons and their heads). Doors turn
  * both halves together.
+ *
+ * <p>Follow-up audit 2026-09-27 N14: the turn is set with {@link Block#UPDATE_ALL}, so neighbours react
+ * (a stair next to it reshapes, redstone rereads), where the debug stick's flag 18 left them stale;
+ * a value the block cannot survive in (a wall torch or lever turned away from its wall) is skipped.
+ * With nothing to turn the click is {@link InteractionResult#PASS} on both sides, so the stick
+ * still opens a double chest, uses a crafting table or rings a bell.
  */
 public final class ConstructorsTouchInteraction {
     private ConstructorsTouchInteraction() {
@@ -109,19 +116,22 @@ public final class ConstructorsTouchInteraction {
             return InteractionResult.PASS;
         }
 
+        // Both sides decide the same way (the property list and canSurvive are shared), so the client
+        // passes the click on to the block exactly when the server would.
+        BlockState state = world.getBlockState(pos);
+        Property<?> property = firstTurnableProperty(state, player);
+        BlockState newState = property == null ? null : nextSurvivingState(world, pos, state, property, player.isShiftKeyDown());
+        if (newState == null) {
+            return InteractionResult.PASS;
+        }
         if (!world.isClientSide()) {
-            BlockState state = world.getBlockState(pos);
-            Property<?> property = firstTurnableProperty(state, player);
-            if (property != null) {
-                BlockState newState = cycleState(state, property, player.isShiftKeyDown());
-                world.setBlock(pos, newState, 18);
-                turnOtherDoorHalf(world, pos, state, newState, property);
-                Component message = Component.literal(property.getName() + ": ").withStyle(ChatFormatting.GRAY)
-                        .append(Component.literal(String.valueOf(newState.getValue(property))).withStyle(ChatFormatting.WHITE));
-                if (player instanceof ServerPlayer serverPlayer) {
-                    // Actionbar, not chat.
-                    serverPlayer.sendOverlayMessage(message);
-                }
+            world.setBlock(pos, newState, Block.UPDATE_ALL);
+            turnOtherDoorHalf(world, pos, state, newState, property);
+            Component message = Component.literal(property.getName() + ": ").withStyle(ChatFormatting.GRAY)
+                    .append(Component.literal(String.valueOf(newState.getValue(property))).withStyle(ChatFormatting.WHITE));
+            if (player instanceof ServerPlayer serverPlayer) {
+                // Actionbar, not chat.
+                serverPlayer.sendOverlayMessage(message);
             }
         }
         return InteractionResult.SUCCESS;
@@ -152,12 +162,30 @@ public final class ConstructorsTouchInteraction {
         BlockState other = world.getBlockState(otherPos);
         if (other.is(before.getBlock()) && other.hasProperty(property)
                 && other.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) != half) {
-            world.setBlock(otherPos, copyValue(other, after, property), 18);
+            world.setBlock(otherPos, copyValue(other, after, property), Block.UPDATE_ALL);
         }
     }
 
     private static <T extends Comparable<T>> BlockState copyValue(BlockState target, BlockState source, Property<T> property) {
         return target.setValue(property, source.getValue(property));
+    }
+
+    /**
+     * The next value of {@code property} (backwards when sneaking) the block can stand in, or null when
+     * no other value survives. A wall torch turned towards open air would float (and pop on the next
+     * update), so such values are passed over - unless the block does not stand where it is either
+     * (placed by a command or a structure), then every value is as good as the current one.
+     */
+    private static BlockState nextSurvivingState(Level world, BlockPos pos, BlockState state, Property<?> property, boolean inverse) {
+        boolean mustSurvive = state.canSurvive(world, pos);
+        BlockState candidate = state;
+        for (int i = 1; i < property.getPossibleValues().size(); i++) {
+            candidate = cycleState(candidate, property, inverse);
+            if (!mustSurvive || candidate.canSurvive(world, pos)) {
+                return candidate;
+            }
+        }
+        return null;
     }
 
     private static <T extends Comparable<T>> BlockState cycleState(BlockState state, Property<T> property, boolean inverse) {

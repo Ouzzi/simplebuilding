@@ -141,7 +141,8 @@ public final class BlueprintMaterials {
      * ({@code age}), Fuellstaende ({@code level}, {@code honey_level}, {@code charges}), eingesetzte
      * Dinge ({@code eye}, {@code has_book}, {@code berries} ...), {@code waterlogged} - faellt auf den
      * Grundzustand des Blocks zurueck, sonst waere ein Nether-Warzen-Feld mit {@code age=3} oder ein
-     * voller Komposter fuer ein Item zu haben (Audit 2026-09-26 #2).
+     * voller Komposter fuer ein Item zu haben (Audit 2026-09-26 #2). Das Instrument eines Notenblocks
+     * bleibt wie im Code (sonst wurde jeder zur Harfe, Nach-Audit 2026-09-27 N15).
      */
     private static final java.util.Set<net.minecraft.world.level.block.state.properties.Property<?>> SURVIVAL_KEPT = java.util.Set.of(
             BlockStateProperties.FACING, BlockStateProperties.HORIZONTAL_FACING, BlockStateProperties.FACING_HOPPER,
@@ -157,7 +158,8 @@ public final class BlueprintMaterials {
             BlockStateProperties.NORTH_WALL, BlockStateProperties.EAST_WALL, BlockStateProperties.SOUTH_WALL, BlockStateProperties.WEST_WALL,
             BlockStateProperties.NORTH_REDSTONE, BlockStateProperties.EAST_REDSTONE, BlockStateProperties.SOUTH_REDSTONE,
             BlockStateProperties.WEST_REDSTONE, BlockStateProperties.MODE_COMPARATOR, BlockStateProperties.DELAY,
-            BlockStateProperties.NOTE, BlockStateProperties.INVERTED, BlockStateProperties.DISTANCE,
+            BlockStateProperties.NOTE, BlockStateProperties.NOTEBLOCK_INSTRUMENT, BlockStateProperties.INVERTED,
+            BlockStateProperties.DISTANCE,
             BlockStateProperties.STABILITY_DISTANCE, BlockStateProperties.BOTTOM, BlockStateProperties.SNOWY,
             BlockStateProperties.CANDLES, BlockStateProperties.PICKLES, BlockStateProperties.EGGS, BlockStateProperties.LAYERS,
             BlockStateProperties.FLOWER_AMOUNT, BlockStateProperties.SEGMENT_AMOUNT);

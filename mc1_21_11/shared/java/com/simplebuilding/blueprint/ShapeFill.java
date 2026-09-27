@@ -67,7 +67,8 @@ import static com.simplebuilding.util.EnchantmentHelper.hasEnchantment;
  *
  * <p><b>Grenzen:</b> die laengste Kante der Auswahl wie bei der Blaupause je Stabstufe
  * ({@link BlueprintTiers}); hoechstens {@link BlueprintCode#MAX_EXPANDED_CELLS} Stellen in der Box; die
- * ganze Box muss in geladenen Chunks liegen. Geplant wird ohne Weltzugriff ({@link FillLayout}), die
+ * ganze Box muss samt einem Block Rand in geladenen Chunks liegen (Halt- und Formpruefungen lesen die
+ * Nachbarn der Randstellen). Geplant wird ohne Weltzugriff ({@link FillLayout}), die
  * eigentliche Arbeit teilt der Bauplaner auf mehrere Ticks auf.
  * Nicht gespeichert: nach Logout ist ein laufender Fuell-Auftrag vorbei.
  */
@@ -110,7 +111,8 @@ public final class ShapeFill {
             player.displayClientMessage(hint, true);
         }
         BlueprintBuilder.Result result = BlueprintBuilder.buildLayout(level, player, wand, octant, plan.layout());
-        if (result == null) {
+        if (result == null || BlueprintBuilder.nothingToDo(result)) {
+            // Auch der Schichtmodus einer fertigen Figur: keine Schicht hat mehr eine freie Stelle.
             player.displayClientMessage(Component.translatable("simplebuilding.wand.shape.nothing").withStyle(ChatFormatting.GRAY), true);
             return InteractionResult.FAIL;
         }
@@ -149,9 +151,11 @@ public final class ShapeFill {
             return Plan.fail(Component.translatable("simplebuilding.wand.shape.too_many", volume, BlueprintCode.MAX_EXPANDED_CELLS)
                     .withStyle(ChatFormatting.RED));
         }
-        // Nur geladene Chunks: hasChunk laedt nichts nach (anders als getBlockState).
-        for (int cx = minX >> 4; cx <= (minX + sx - 1) >> 4; cx++) {
-            for (int cz = minZ >> 4; cz <= (minZ + sz - 1) >> 4; cz++) {
+        // Nur geladene Chunks: hasChunk laedt nichts nach (anders als getBlockState). Mit einem Block
+        // Rand: canSurvive, isInterior und die Nachbarformen der Randstellen lesen einen Block weiter
+        // (Nach-Audit 2026-09-27 N9).
+        for (int cx = (minX - 1) >> 4; cx <= (minX + sx) >> 4; cx++) {
+            for (int cz = (minZ - 1) >> 4; cz <= (minZ + sz) >> 4; cz++) {
                 if (!level.hasChunk(cx, cz)) {
                     return Plan.fail(Component.translatable("simplebuilding.wand.shape.unloaded").withStyle(ChatFormatting.RED));
                 }
@@ -198,9 +202,16 @@ public final class ShapeFill {
         for (Entity entity : level.getEntities((Entity) null, bounds)) {
             entityBoxes.add(entity.getBoundingBox());
         }
+        List<Object> materialItems = new ArrayList<>();
+        for (ItemStack m : materials) {
+            materialItems.add(m.getItem());
+        }
+        Object identity = java.util.Arrays.asList(level.dimension(), nbt, wand.getItem(), materialItems, palette, stairBlock,
+                player.getDirection());
         FillLayout layout = new FillLayout(level, player, bounds, minX, minY, minZ, sx, sy, sz,
                 OctantShape.predicate(shape, orientation, bounds), shape, buildDir, roof, nbt.getBooleanOr("Hollow", false),
-                nbt.getBooleanOr("LayerMode", false), palette, materials, stairBlock, roof ? slabFor(stairBlock) : null, entityBoxes);
+                nbt.getBooleanOr("LayerMode", false), palette, materials, stairBlock, roof ? slabFor(stairBlock) : null, entityBoxes,
+                identity);
         return new Plan(layout, null, roof);
     }
 
@@ -223,8 +234,11 @@ public final class ShapeFill {
         private final boolean roof, hollow, layerMode, palette, prismAlongZ;
         private final List<ItemStack> materials;
         private final BlockState[] base;
+        /** Material, das dieser Spieler nicht setzen darf (Befehlsbloecke ohne Op): Stelle bleibt frei. */
+        private final boolean[] refused;
         private final Block stairBlock, slab;
         private final List<AABB> entityBoxes;
+        private final Object identity;
         /** Querschnitt: Index (u + v * width) je Rang, nach Abstand zur Mitte sortiert. */
         private final int[] cross;
         private final int width, area, layers;
@@ -234,7 +248,9 @@ public final class ShapeFill {
 
         FillLayout(Level level, Player player, AABB bounds, int minX, int minY, int minZ, int sx, int sy, int sz,
                    Predicate<BlockPos> inside, OctantItem.SelectionShape shape, Direction buildDir, boolean roof, boolean hollow,
-                   boolean layerMode, boolean palette, List<ItemStack> materials, Block stairBlock, Block slab, List<AABB> entityBoxes) {
+                   boolean layerMode, boolean palette, List<ItemStack> materials, Block stairBlock, Block slab, List<AABB> entityBoxes,
+                   Object identity) {
+            this.identity = identity;
             this.level = level;
             this.player = player;
             this.bounds = bounds;
@@ -255,6 +271,7 @@ public final class ShapeFill {
             this.prismAlongZ = sz > sx;
             this.materials = materials;
             this.base = new BlockState[materials.size()];
+            this.refused = new boolean[materials.size()];
             this.stairBlock = stairBlock;
             this.slab = slab;
             this.entityBoxes = entityBoxes;
@@ -284,6 +301,16 @@ public final class ShapeFill {
         @Override
         public int size() {
             return area * layers;
+        }
+
+        @Override
+        Object identity() {
+            return identity;
+        }
+
+        @Override
+        boolean boxLayout() {
+            return true;
         }
 
         @Override
@@ -347,10 +374,20 @@ public final class ShapeFill {
                 return roofState(inside, c, shape, prismAlongZ, bounds, stairBlock, slab);
             }
             int m = palette ? BuildingWandItem.paletteIndex(c, materials.size()) : 0;
+            if (refused[m]) {
+                return null;
+            }
             if (base[m] == null) {
                 base[m] = WandPlacement.baseState(level, player, materials.get(m), c, Direction.UP, WandPlacement.TOP_CENTER, null);
                 if (base[m] == null) {
-                    base[m] = ((BlockItem) materials.get(m).getItem()).getBlock().defaultBlockState();
+                    Block block = ((BlockItem) materials.get(m).getItem()).getBlock();
+                    if (block instanceof net.minecraft.world.level.block.GameMasterBlock && !player.canUseGameMasterBlocks()) {
+                        // Frueher fiel das auf den Grundzustand zurueck, und Nicht-Ops fuellten Figuren mit
+                        // Befehlsbloecken (Nach-Audit 2026-09-27 N2, Rest von #29): die Stelle bleibt frei.
+                        refused[m] = true;
+                        return null;
+                    }
+                    base[m] = block.defaultBlockState();
                 }
             }
             return base[m];
@@ -358,9 +395,20 @@ public final class ShapeFill {
 
         @Override
         public BlockState state(int i) {
+            return state(i, null);
+        }
+
+        @Override
+        BlockState state(int i, java.util.function.LongPredicate simulated) {
             BlockPos c = pos(i);
             BlockState state = rawState(i);
-            if (!roof && !state.canSurvive(level, c)) {
+            if (state == null) {
+                return null;
+            }
+            // Mit simuliertem Bau (Materialpruefung, Vorschau) traegt auch eine Stelle, die diese Planung
+            // schon gesetzt hat: Teppich oder Fackel ueber einer noch ungebauten Lage zaehlen mit, und die
+            // Vorschau zeigt mehr als die erste Lage (Nach-Audit 2026-09-27 N8).
+            if (!roof && !state.canSurvive(level, c) && !(simulated != null && nextToSimulated(c, simulated))) {
                 return null;
             }
             if (touchesEntity(entityBoxes, c) && !level.isUnobstructed(state, c, CollisionContext.placementContext(player))) {
@@ -368,6 +416,16 @@ public final class ShapeFill {
             }
             return state;
         }
+    }
+
+    /** Hat die simulierte Planung neben {@code c} schon etwas gesetzt (moeglicher Halt)? */
+    private static boolean nextToSimulated(BlockPos c, java.util.function.LongPredicate simulated) {
+        for (Direction d : Direction.values()) {
+            if (simulated.test(c.relative(d).asLong())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /** Figur mit Spitze nach oben, die ein Dach werden kann (Prisma oder Pyramide)? */

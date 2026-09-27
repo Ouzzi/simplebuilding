@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.UUID;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
@@ -20,6 +22,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.MultifaceBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
@@ -37,8 +41,13 @@ import net.minecraft.world.level.block.state.properties.Property;
  *       Dimensionswechsel oder Serverneustart ist sie weg.</li>
  *   <li>Eine Stelle wird nur geraeumt, wenn dort noch derselbe Block steht, den die Aktion gesetzt
  *       hat - mit derselben Menge ({@link #AMOUNT_PROPERTIES}: eine inzwischen doppelte Stufe, vier
- *       statt einer Kerze bleiben stehen, Audit 2026-09-26, P3 #31) -, der Spieler dort bauen darf
- *       und der Block keinen Inhalt hat (Truhen, Faesser, Shulkerkisten bleiben stehen).</li>
+ *       statt einer Kerze bleiben stehen, Audit 2026-09-26, P3 #31) und denselben Flaechen (eine von
+ *       Hand erweiterte Gluehflechte bleibt stehen) -, der Spieler dort bauen darf (dieselbe Pruefung wie
+ *       beim Bauen: Welthoehe, Weltgrenze, Spawn-Schutz, Claim-Mods) und nichts verloren geht: ein
+ *       Behaelter muss leer sein, jedes andere Block-Entity so, wie es gesetzt wurde - ein Lesepult mit
+ *       Buch, ein Lagerfeuer mit Essen, ein Bienenstock mit Bienen bleiben stehen (Nach-Audit
+ *       2026-09-27 N13; frueher schuetzte nur ein Behaelter, und Buch oder Essen gingen verloren). Im
+ *       Zweifel bleibt der Block stehen (ein Sculk-Sensor, der seitdem etwas gehoert hat).</li>
  *   <li>Die Items gehen ins Inventar, was nicht passt, faellt vor die Fuesse. Im Kreativmodus
  *       gesetzte Bloecke kosteten nichts und geben nichts zurueck.</li>
  *   <li>Haltbarkeit und Hunger werden nicht erstattet.</li>
@@ -77,6 +86,8 @@ public final class WandUndo {
         final List<BlockState> states = new ArrayList<>();
         final List<Item> items = new ArrayList<>();
         final List<Integer> counts = new ArrayList<>();
+        /** Daten des Block-Entitys direkt nach dem Setzen, oder {@code null} (keins). */
+        final List<CompoundTag> blockData = new ArrayList<>();
         boolean overflow;
 
         Record(Player player, Level level) {
@@ -110,12 +121,15 @@ public final class WandUndo {
             record.states.clear();
             record.items.clear();
             record.counts.clear();
+            record.blockData.clear();
             return;
         }
         record.positions.add(pos.immutable());
         record.states.add(placed);
         record.items.add(item);
         record.counts.add(count);
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        record.blockData.add(blockEntity == null ? null : blockEntity.saveWithoutMetadata(level.registryAccess()));
     }
 
     /** Gibt es fuer diesen Spieler etwas zurueckzunehmen? */
@@ -155,12 +169,17 @@ public final class WandUndo {
         // Stelle soll trotzdem erstattet werden.
         int n = record.positions.size();
         boolean[] valid = new boolean[n];
+        ItemStack wand = player.getMainHandItem();
         for (int i = 0; i < n; i++) {
             BlockPos pos = record.positions.get(i);
+            // Zuerst das Recht (es fragt auch, ob der Chunk geladen ist - erst dann wird gelesen).
+            if (!com.simplebuilding.items.custom.BuildingWandItem.mayBuildAt(level, player, pos, Direction.UP, wand)) {
+                continue;
+            }
             BlockState current = level.getBlockState(pos);
             valid[i] = sameAmount(current, record.states.get(i))
-                    && level.mayInteract(player, pos)
-                    && !(level.getBlockEntity(pos) instanceof Container);
+                    && sameFaces(current, record.states.get(i))
+                    && unchangedContent(level, pos, record.blockData.get(i));
         }
         Map<Item, Integer> refund = new LinkedHashMap<>();
         int removed = 0;
@@ -198,6 +217,41 @@ public final class WandUndo {
             }
         }
         return true;
+    }
+
+    /** Mehrflaechen-Bloecke (Gluehflechte, Sculk-Ader, Harzklumpen): dieselbe Zahl Flaechen wie gesetzt. */
+    static boolean sameFaces(BlockState current, BlockState placed) {
+        if (!(placed.getBlock() instanceof MultifaceBlock)) {
+            return true;
+        }
+        return faceCount(current) == faceCount(placed);
+    }
+
+    private static int faceCount(BlockState state) {
+        int n = 0;
+        for (Direction direction : Direction.values()) {
+            if (MultifaceBlock.hasFace(state, direction)) {
+                n++;
+            }
+        }
+        return n;
+    }
+
+    /**
+     * Steht im Block-Entity noch, was beim Setzen darin stand? Ein Buch im Lesepult, Essen auf dem
+     * Lagerfeuer, Items in einer Truhe - alles, was der Spieler seitdem hineingelegt hat, ginge beim
+     * Raeumen verloren (ohne Drop, das Rueckgaengig erstattet nur den Block).
+     */
+    private static boolean unchangedContent(Level level, BlockPos pos, CompoundTag placedData) {
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (blockEntity == null) {
+            return true;
+        }
+        if (blockEntity instanceof Container container) {
+            // Behaelter zaehlen nur ihren Inhalt: Abkuehl- und Brennzeiten aendern sich von selbst.
+            return container.isEmpty();
+        }
+        return placedData != null && placedData.equals(blockEntity.saveWithoutMetadata(level.registryAccess()));
     }
 
     private static void give(Player player, Item item, int count) {
