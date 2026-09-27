@@ -32,8 +32,8 @@ Status: **port** = uebernommen, **neu** = in SimpleBuilding neu hinzugekommen (B
 | Launchpad (Windkugeln laden, 3 s stehen, Start) | port | abschaltbar; seit 2026-09-27 Stufe I (4 Ladungen) von drei, Schleichen + Rechtsklick laedt alle Windkugeln der Hand |
 | Netherit-Launchpad II | neu | 8 Ladungen |
 | Enderit-Launchpad III | neu | 16 Ladungen (Schub wie frueher 32), kein Fallschaden nach dem Start |
-| Elytra-Pads I-IV (Radius 5/15/31/63, Hoehe 15/31/63/127) | port | jetzt I-V, abschaltbar |
-| Flypads I-IV (Kreativflug im Radius) | port | jetzt I-V, abschaltbar |
+| Elytra-Pads I-IV (Radius 5/15/31/63, Hoehe 15/31/63/127) | port | jetzt I-V (1x1 bis 128x128, Abschnitt 2.3), abschaltbar |
+| Flypads I-IV (Kreativflug im Radius) | port | jetzt drei Stufen aus Enderit (Abschnitt 2.3), abschaltbar |
 | Spawn-Teleporter Stufe 1-4 (= Modi: Ziel Spawn 1-4, Fallback Weltspawn) | port | abschaltbar |
 | Enderit-Spawn-Teleporter | neu | Ziel = eigener Wiedereinstiegspunkt (Bett/Anker) |
 | Besitzer-Abbau (Besitzer schnell, Fremde sehr langsam, kein Kolben) | port | fuer alle Pads/Platten |
@@ -91,16 +91,15 @@ Familie.
 
 | Familie | Stufe | ID | Radius (Breite x Breite x Hoehe) / Wirkung | Rezept |
 |---|---|---|---|---|
-| Elytra-Pad | I | `elytra_pad` | 6x6x15 | Schmiede: beliebige Vorlage + Diamant-Druckplatte + Diamant |
-| | II | `reinforced_elytra_pad` | 16x16x31 | Schmiede: beliebige Vorlage + Pad I + **Diamant-Druckplatte** |
-| | III | `netherite_elytra_pad` | 32x32x63 | Schmiede: Netherit-Vorlage + Pad II + **Netherit-Druckplatte** |
-| | **IV (neu)** | `enderite_elytra_pad` | 48x48x95, **Boosts laden im ganzen Bereich** (sonst nur 3x3-Saeule) | Schmiede: Enderit-Vorlage + Pad III + **Enderit-Druckplatte** |
-| | V | `fine_elytra_pad` | 64x64x127 + Zusatz von IV | Schmiede: Netherit-Vorlage + **Pad IV** + Netherstern |
-| Flypad | I | `flypad` | 6x6x15 | Schmiede: Netherit-Vorlage + Elytra-Pad V + **Elytra** (vorlaeufig, siehe 2.1) |
-| | II | `reinforced_flypad` | 16x16x31 | Schmiede: Netherit-Vorlage + Flypad I + **Netherit-Druckplatte** |
-| | III | `netherite_flypad` | 32x32x63 | Werkbank `DBD/ESE/KFK` (Diamantblock, Netheritblock, Verz. Goldapfel, Netherstern, Unheilvoller Schluessel, Flypad II) |
-| | **IV (neu)** | `enderite_flypad` | 48x48x95, **Sicherheitsnetz**: wer den Bereich fliegend verlaesst, bekommt 10 s Sanfter Fall statt abzustuerzen | Schmiede: Enderit-Vorlage + Flypad III + **Enderit-Druckplatte** |
-| | V | `stellar_flypad` | 64x64x127 + Zusatz von IV | Werkbank `KKK/ESE/FFF` mit F = **Flypad IV** |
+| Elytra-Pad | I | `elytra_pad` | **1x1**x15 | Schmiede: beliebige Vorlage + **Elytra** (keine dritte Zutat) |
+| | II | `reinforced_elytra_pad` | **5x5**x31 | Schmiede: beliebige Vorlage + Pad I + **Diamant-Druckplatte** |
+| | III | `netherite_elytra_pad` | **16x16**x63 | Schmiede: Netherit-Vorlage + Pad II + **Netherit-Druckplatte** |
+| | **IV (neu)** | `enderite_elytra_pad` | **32x32**x95, **Boosts laden im ganzen Bereich** (sonst nur 3x3-Saeule) | Schmiede: Enderit-Vorlage + Pad III + **Enderit-Druckplatte** |
+| | V | `fine_elytra_pad` | **128x128**x127 + Zusatz von IV | Schmiede: Netherit-Vorlage + **Pad IV** + Netherstern (Muster der bisherigen Endstufe) |
+| Flypad | I | `flypad` | **4x4x6**, Sicherheitsnetz (alle Stufen) | Schmiede: Enderit-Vorlage + **Enderit-Druckplatte** + **Enderit-Kern** |
+| | II | `reinforced_flypad` | **8x8x12** | Schmiede: Enderit-Vorlage + Flypad I + **Enderit-Druckplatte** |
+| | III | `stellar_flypad` | **16x16x24** | Schmiede: Enderit-Vorlage + Flypad II + **Flypad II** (zwei II zusammen) |
+| | alt | `netherite_flypad`, `enderite_flypad` | wird zu II bzw. III (Abschnitt 2.3) | kein Rezept, nicht im Kreativ-Tab |
 | Druckplatte | - | `diamond_pressure_plate` | nur Spieler | Werkbank `DD` |
 | | - | `netherite_pressure_plate` | Fass darunter = Item-Whitelist | Schmiede: Netherit-Vorlage + Diamant-Platte + Netheritbarren |
 | | **neu** | `enderite_pressure_plate` | wie Netherit, plus **Spielerschloss**: ohne Fass nur der Besitzer; mit Fass zusaetzlich jeder, dessen Name auf einem umbenannten Namensschild im Fass steht | Schmiede: Enderit-Vorlage + Netherit-Platte + Enderitbarren |
@@ -120,19 +119,15 @@ Enderit-Variante.
 
 Jede Aufwertung einer Pad-Familie kostet die **Druckplatte des Zielmaterials** statt des Rohstoffs
 (Barren, Block). Das gilt fuer alle Schmiede-Aufwertungen; unveraendert bleiben die Einstiegsstufen,
-die Druckplatten selbst (sie sind die Quelle der Platten), die Netherstern-Schritte (es gibt keine
-Netherstern-Platte) und die beiden Werkbank-Rezepte (Netherit-Flypad III, Stellares Flypad V).
+die Druckplatten selbst (sie sind die Quelle der Platten) und die Netherstern-Stufe des Elytra-Pads
+(es gibt keine Netherstern-Platte). Die Flypads sind seit Abschnitt 2.3 eine reine Enderit-Familie.
 
 | Ziel-Material | Zutat vorher | Zutat jetzt | Aufwertungen |
 |---|---|---|---|
 | Diamant | Diamantblock (Pads) bzw. - (neu) | Diamant-Druckplatte | Elytra-Pad II, Launchpad I, Chunk-Loader I |
-| Netherit | Netheritbarren / Netheritblock | Netherit-Druckplatte | Elytra-Pad III, Flypad II, Spawn-Teleporter II-IV, Launchpad II, Chunk-Loader II |
-| Enderit | Enderitbarren | Enderit-Druckplatte | Elytra-Pad IV, Flypad IV, Spawn-Teleporter V, Launchpad III, Chunk-Loader III |
-| (Elytra) | Netheritbarren | Elytra | Flypad I |
+| Netherit | Netheritbarren / Netheritblock | Netherit-Druckplatte | Elytra-Pad III, Spawn-Teleporter II-IV, Launchpad II, Chunk-Loader II |
+| Enderit | Enderitbarren | Enderit-Druckplatte | Elytra-Pad IV, Flypad I (Basis) und II, Spawn-Teleporter V, Launchpad III, Chunk-Loader III |
 
-- **Flypad I** kostet jetzt eine Elytra (Netherit-Vorlage + Elytra-Pad V + Elytra). Die Nachricht des
-  Besitzers brach nach "Elytra und ..." ab; umgesetzt ist Elytra + die bisherige Basis. **Vorlaeufig**,
-  mit dem Besitzer klaeren.
 - Die frueheren Rezepte `launchpad_smithing_alternative` (Netherit-Vorlage + schwere Waegeplatte +
   Netheritbarren) und der Chunk-Loader aus Netheritbarren entfallen; Launchpad I und Chunk-Loader I
   sind jetzt die Diamant-Stufe (beliebige Vorlage + Familienplatte + Diamant-Druckplatte).
@@ -154,9 +149,38 @@ Netherstern-Platte) und die beiden Werkbank-Rezepte (Netherit-Flypad III, Stella
   16), behaelt beim ersten Tick 16 bzw. 4 und wirft den Rest als Windkugeln aus - keine geht verloren
   (`LaunchpadBlockEntity#clampToCapacity`). Weil die IDs bleiben, braucht es keinen DataFixer.
 
+### 2.3 Elytra-Pad- und Flypad-Stufen (Besitzer-Aenderung 2026-09-27, zweite Runde)
+
+- **Elytra-Pad** (der Besitzer schrieb "Flypad", meinte aber das Elytra-Pad, weil Stufe I eine Elytra
+  kostet): fuenf Stufen 1x1, 5x5, 16x16, 32x32, 128x128 (Hoehen unveraendert 15/31/63/95/127). Stufe I
+  entsteht im Schmiedetisch aus beliebiger Vorlage + Elytra ohne dritte Zutat (SmithingTransformRecipe
+  mit leerer Zutat, `tweaksSmithingWithoutAddition`); II-IV mit Diamant-/Netherit-/Enderit-Druckplatte;
+  V wie bisher mit Netherstern (das bestehende Muster der Endstufe). Bestehende Pads behalten ID und Rang
+  (I bleibt I usw.); nur ihre Bereiche aendern sich.
+- **Flypad**: nur noch drei Stufen, alle aus Enderit statt Netherit: 4x4x6, 8x8x12, 16x16x24 (Breite x
+  Tiefe x Hoehe, ab der Unterkante des Pads). I = Enderit-Vorlage + Enderit-Druckplatte + Enderit-Kern,
+  II = Enderit-Vorlage + I + Enderit-Druckplatte, III = zwei II im Schmiedetisch (Enderit-Vorlage, das
+  zweite als Zutat). Weil jede Stufe aus Enderit ist, hat jede das Sicherheitsnetz (10 s Sanfter Fall
+  beim fliegenden Verlassen), das vorher erst ab der Enderit-Stufe IV galt.
+- **Bestehende Flypads** (nach Rang auf die naechste neue Stufe): alt I `flypad` -> I, alt II
+  `reinforced_flypad` -> II, alt III `netherite_flypad` -> II, alt IV `enderite_flypad` -> III, alt V
+  `stellar_flypad` -> III. Die zwei entfallenen IDs bleiben als `LegacyFlypadBlock` registriert: sie
+  arbeiten wie ihre neue Stufe und werden beim ersten Tick zu ihr (Besitzer und verfolgte Flieger bleiben);
+  ihr Item (`LegacyTierBlockItem`) tauscht sich im Spielerinventar gegen die neue Stufe. Nicht im
+  Kreativ-Tab, kein Rezept, per `c:hidden_from_recipe_viewers` aus JEI ausgeblendet, in der Testzentrale
+  unter "Alte Stufen".
+- **Texturen**: die neuen Flypad-Stufen tragen `flypad_ender`, `reinforced_flypad_ender`,
+  `stellar_flypad_ender` (Enderit-Rahmen und Motiv des alten Enderit-Flypads, Akzent je Stufe: Violett,
+  Ender-Magenta, Goldweiss). Die alten `flypad.png`, `reinforced_flypad.png`, `stellar_flypad.png` bleiben
+  liegen - der Besitzer will sie fuer eine neue Netherit-Druckplatte wiederverwenden (offen).
+- **Endstufen**: `TweaksFamilies.tiers(Family)` / `lastTier(Family)` nennt je Familie die Stufen und die
+  hoechste, als Ansatzpunkt fuer spaetere Erweiterungen ueber den Endstufen.
+
 Namen (en): "Elytra Pad I", "Reinforced Elytra Pad II", "Netherite Elytra Pad III",
-"Enderite Elytra Pad IV", "Fine Elytra Pad V"; "Flypad I" ... "Enderite Flypad IV",
-"Stellar Flypad V"; "Spawn Teleporter I" ... "IV", "Enderite Spawn Teleporter V".
+"Enderite Elytra Pad IV", "Fine Elytra Pad V"; "Flypad I", "Reinforced Flypad II", "Stellar Flypad III"
+(alt: "Old Netherite Flypad", "Old Enderite Flypad"); "Spawn Teleporter I" ... "IV",
+"Enderite Spawn Teleporter V"; "Launchpad I", "Netherite Launchpad II", "Enderite Launchpad III";
+"Chunk Loader I", "Netherite Chunk Loader II", "Enderite Chunk Loader III".
 
 ## 3. Echo-Kompass (Phase 3b)
 
@@ -333,7 +357,11 @@ geprueften Verhaltens macht ihn rot).
 beide Codelinien: Launchpad-Fassungsvermoegen je Stufe, Laden aller Windkugeln beim Schleichen (ueber
 den ganzen Vanilla-Weg `ServerPlayerGameMode#useItemOn`), Schub-Gleichwertigkeit (16 = alte 32) samt
 echtem Start, Welt-Upgrade alter Launchpads (Ueberschuss faellt heraus), Chunk-Loader-Bereiche 1/5/9,
-Uebergabe mit Kreuzform, Druckplatten-Rezepte samt Wegfall der Rohstoff-Wege.
+Uebergabe mit Kreuzform, Druckplatten-Rezepte samt Wegfall der Rohstoff-Wege, Elytra-Pad- und
+Flypad-Bereiche je Stufe (Geometrie und echter Durchlauf), Umbau alter Flypads in Welt und Inventar,
+Endstufe je Familie. Gegenprobe 2026-09-27: jede der 16 Mutationen (Fassungsvermoegen, Schleich-Laden,
+Schub, Ueberschuss-Auswurf, Kreuzform, Flypad-Umbau, Item-Tausch, Bereiche, Sicherheitsnetz,
+Familienreihenfolge, fuenf Rezept-JSONs) machte ihre Tests auf allen drei Linien rot.
 
 Testzentrale: eigene Station `tweaks` (`com.simplebuilding.dev.testcentre.TweaksStation`, siehe
 `docs/TESTZENTRALE.md`); Gegenprobe: Zeile `travel_and_loading` weggelassen -> Abdeckungstest rot

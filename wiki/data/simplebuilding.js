@@ -294,7 +294,7 @@ window.WIKI_DATA = {
           "More room: the Reinforced Bundle is made from a bundle in the middle with a Diamond Pebble beside it, string on top and a Leather Sheet (nine leather in the crafting grid) below, and holds 96 items (at a stack size of 64); whatever the bundle held, its enchantments and its name carry over. The Quiver (bundle, string, leather, copper nugget) only takes arrows and feeds the bow automatically when it is in your offhand, in your chest slot or on your hotbar; the same crafting upgrade with a Quiver, a Leather Sheet and a Diamond Pebble makes the Reinforced Quiver (96 arrows, arrows and enchantments kept). The Diamond Pebble has one source, the Sledgehammer crushing a diamond block (see below).",
           "For planning the build site: the Octant needs two light and one heavy weighted pressure plate, two lightning rods, a lead and a compass; alternatively the Wandering Trader sells it for 10 emeralds. Right-click sets Pos 1, sneak + right-click sets Pos 2, the HUD shows you distance, area or volume; G opens the Octant Manager.",
           "The Building Wand is your first area tool: the Copper Building Wand is built from a Copper Core (top right) and two sticks diagonally below it. The Mason sells Copper Cores from level 2 for 25 emeralds (2 uses) and the Wandering Trader for 46 emeralds as a pair; the finished Copper Building Wand is also available from the Mason at level 4 for 62 emeralds. With blocks in your offhand or on your hotbar, right-click places a 3x3 face against the side of the block you clicked.",
-          "A bit of iron brings the helpers: the Magnet (4 iron ingots, a lodestone, redstone, lapis lazuli; pulls in items within 4 blocks and never wears out) and the Rotator (4 iron ingots, an Iron Core and an ender pearl; turns logs, furnaces, pistons and hoppers in place with a right-click). The Ore Detector (calibrated sculk sensor on top, compass in the middle with an echo shard on each side, Gold Core at the bottom) is worth it once you have a Gold Core; the Wandering Trader sells a Gold Core for 30 emeralds.",
+          "A bit of iron brings the helpers: the Magnet (an Iron Core, 2 iron ingots, redstone and lapis lazuli; pulls in items within 4 blocks and never wears out) and the Rotator (4 iron ingots, an Iron Core and an ender pearl; turns logs, furnaces, pistons and hoppers in place with a right-click). The Ore Detector (calibrated sculk sensor on top, compass in the middle with an echo shard on each side, Gold Core at the bottom) is worth it once you have a Gold Core; the Wandering Trader sells a Gold Core for 30 emeralds.",
           "Material tiers for the Sledgehammer and Chisel: stone, copper, iron, gold, diamond, netherite, enderite; for the Building Wand the series starts at copper (3x3) and grows through iron (5x5), gold (7x7), diamond (9x9) and netherite (11x11) up to enderite (13x13). Higher hammer tiers are crafted with the matching block plus two ingots or diamonds, chisels with the ingot or diamond in the middle, building wands with the core of that tier.",
           "Upgrade instead of rebuild: with the Basic Upgrade at the smithing table, copper becomes iron, iron becomes gold and gold becomes diamond (vanilla tools: wood to stone with cobblestone, then stone to iron, iron to gold, gold to diamond, and the copper pickaxe, axe, shovel, sword and hoe to iron). It costs twice the material the crafting table asks for the new tool: a pickaxe or axe 6, a sword or hoe 4, a shovel 2, a chisel 2 and a sledgehammer 22 ingots or diamonds; a building wand takes one core of the new tier instead. Enchantments, damage and the name are kept. The Stone Sledgehammer cannot be upgraded, and the Diamond Core for the Diamond Building Wand is sold by the Mason (level 2) for 3 netherite ingots.",
           "Netherite and enderite only exist at the smithing table: Netherite Upgrade Smithing Template + diamond tool + netherite ingot, then Enderite Upgrade + netherite tool + Enderite Ingot (every netherite tool including the spear, and every armour piece). Enderite items are not lost in the void; the Enderite Bundle and the Enderite Quiver take the mod's enchantments at an anvil like the tiers below them, while the Enderite building wand, chisel and sledgehammer are still missing from the enchantment tags and cannot be given them by normal means.",
@@ -317,7 +317,7 @@ window.WIKI_DATA = {
           "Mehr Platz: Das Verstärkte Bündel entsteht aus einem Bündel in der Mitte mit einem Diamantkiesel daneben, Faden oben und einer Lederplatte (neun Leder in der Werkbank) unten und fasst 96 Gegenstände (bei 64er-Stapeln); Inhalt, Verzauberungen und Name des Bündels bleiben dabei erhalten. Der Köcher (Bündel, Faden, Leder, Kupfer-Nugget) nimmt nur Pfeile auf und versorgt den Bogen automatisch, wenn er in der Nebenhand, im Brustpanzer-Slot oder der Schnellzugriffsleiste liegt; dieselbe Werkbank-Aufwertung mit Köcher, Lederplatte und Diamantkiesel ergibt den Verstärkten Köcher (96 Pfeile, Pfeile und Verzauberungen bleiben). Den Diamantkiesel gibt es nur auf einem Weg: der Vorschlaghammer zerkleinert einen Diamantblock (siehe unten).",
           "Zum Planen der Baustelle: Der Oktant braucht zwei leichte und eine schwere Wägeplatte, zwei Blitzableiter, eine Leine und einen Kompass; alternativ verkauft ihn der fahrende Händler für 10 Smaragde. Rechtsklick setzt Pos 1, Schleichen + Rechtsklick Pos 2, das HUD zeigt dir Abstand, Fläche oder Volumen; mit G öffnest du den Oktant-Manager.",
           "Der Baustab ist dein erstes Flächenwerkzeug: Der Kupfer-Baustab wird aus einem Kupferkern (oben rechts) und zwei Stöcken diagonal darunter gebaut. Kupferkerne verkauft der Steinmetz ab Stufe 2 für 25 Smaragde (2 Nutzungen) und der fahrende Händler für 46 Smaragde im Doppelpack; den fertigen Kupfer-Baustab gibt es auch beim Steinmetz ab Stufe 4 für 62 Smaragde. Mit Blöcken in Zweithand oder Hotbar setzt er per Rechtsklick eine 3x3-Fläche vor die angeklickte Blockseite.",
-          "Mit etwas Eisen kommen die Helfer dazu: der Magnet (4 Eisenbarren, Leitstein, Redstone, Lapislazuli; zieht Items im Umkreis von 4 Blöcken an und nutzt sich nie ab) und der Rotator (4 Eisenbarren, Eisenkern und Enderperle; dreht Stämme, Öfen, Kolben und Trichter per Rechtsklick an Ort und Stelle). Der Erzdetektor (kalibrierter Sculk-Sensor oben, Kompass in der Mitte mit je einer Echoscherbe links und rechts, Goldkern unten) lohnt sich, sobald du einen Goldkern hast; den verkauft der fahrende Händler für 30 Smaragde.",
+          "Mit etwas Eisen kommen die Helfer dazu: der Magnet (Eisenkern, 2 Eisenbarren, Redstone, Lapislazuli; zieht Items im Umkreis von 4 Blöcken an und nutzt sich nie ab) und der Rotator (4 Eisenbarren, Eisenkern und Enderperle; dreht Stämme, Öfen, Kolben und Trichter per Rechtsklick an Ort und Stelle). Der Erzdetektor (kalibrierter Sculk-Sensor oben, Kompass in der Mitte mit je einer Echoscherbe links und rechts, Goldkern unten) lohnt sich, sobald du einen Goldkern hast; den verkauft der fahrende Händler für 30 Smaragde.",
           "Materialstufen bei Vorschlaghammer und Meißel: Stein, Kupfer, Eisen, Gold, Diamant, Netherit, Enderit; beim Baustab beginnt die Reihe bei Kupfer (3x3) und wächst über Eisen (5x5), Gold (7x7), Diamant (9x9) und Netherit (11x11) bis Enderit (13x13). Höhere Hammerstufen werden mit dem jeweiligen Block plus zwei Barren bzw. Diamanten gebaut, Meißel mit dem Barren bzw. Diamanten in der Mitte, Baustäbe mit dem Kern der Stufe.",
           "Aufwerten statt neu bauen: Mit der Basisaufwertung am Schmiedetisch wird Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant (Vanilla-Werkzeuge: Holz mit Bruchstein zu Stein, dann Stein zu Eisen, Eisen zu Gold, Gold zu Diamant, dazu Kupferspitzhacke, -axt, -schaufel, -schwert und -hacke zu Eisen). Es kostet das Doppelte des Materials, das die Werkbank für das neue Werkzeug verlangt: Spitzhacke oder Axt 6, Schwert oder Hacke 4, Schaufel 2, Meißel 2 und Vorschlaghammer 22 Barren bzw. Diamanten; ein Baustab kostet stattdessen einen Kern der neuen Stufe. Verzauberungen, Schaden und Name bleiben dabei erhalten. Der Stein-Vorschlaghammer lässt sich nicht aufwerten, und den Diamantkern für den Diamant-Baustab verkauft der Steinmetz (Stufe 2) für 3 Netheritbarren.",
           "Netherit und Enderit gibt es nur am Schmiedetisch: Netherit-Aufwertungs-Schmiedevorlage + Diamant-Werkzeug + Netheritbarren, danach Enderitaufwertung + Netherit-Werkzeug + Enderite Ingot (jedes Netherit-Werkzeug einschließlich des Speers und jedes Rüstungsteil). Enderit-Gegenstände gehen in der Leere nicht verloren; Enderite Bundle und Enderite Quiver nehmen die Mod-Verzauberungen am Amboss an wie die Stufen darunter, während Enderit-Baustab, -Meißel und -Vorschlaghammer weiterhin in den Verzauberungs-Tags fehlen und sich auf normalem Weg nicht verzaubern lassen.",
@@ -813,7 +813,7 @@ window.WIKI_DATA = {
       ],
       "en": {
         "title": "Magnet: Collecting Items From a Distance",
-        "summary": "The Magnet is a tool made of iron, a lodestone, redstone and lapis lazuli that pulls loose items toward you as long as you hold it in your hand. With the Constructor's Touch enchantment it reaches twice as far and learns to take a filter from an item frame, so that it only fetches one particular item type.",
+        "summary": "The Magnet is a tool made of iron, an Iron Core, redstone and lapis lazuli that pulls loose items toward you as long as you hold it in your hand. With the Constructor's Touch enchantment it reaches twice as far and learns to take a filter from an item frame, so that it only fetches one particular item type.",
         "details": [
           "Hold the Magnet in your main or off hand: every item within 4 blocks of your hitbox flies toward your head and can be picked up right away once it reaches you.",
           "Sneaking pauses the Magnet - handy when you deliberately want to leave something lying where it is.",
@@ -826,7 +826,7 @@ window.WIKI_DATA = {
       },
       "de": {
         "title": "Magnet: Items einsammeln ohne Hinlaufen",
-        "summary": "Der Magnet ist ein Werkzeug aus Eisen, Leitstein, Redstone und Lapislazuli, das herumliegende Items zu dir zieht, solange du ihn in der Hand hältst. Mit der Verzauberung Berührung des Konstrukteurs reicht er doppelt so weit und lernt, über einen Rahmen einen Filter zu setzen, sodass er nur noch eine bestimmte Item-Sorte holt.",
+        "summary": "Der Magnet ist ein Werkzeug aus Eisen, Eisenkern, Redstone und Lapislazuli, das herumliegende Items zu dir zieht, solange du ihn in der Hand hältst. Mit der Verzauberung Berührung des Konstrukteurs reicht er doppelt so weit und lernt, über einen Rahmen einen Filter zu setzen, sodass er nur noch eine bestimmte Item-Sorte holt.",
         "details": [
           "Halte den Magneten in der Haupt- oder Nebenhand: Alle Items im Bereich von 4 Blöcken um deine Hitbox fliegen auf deinen Kopf zu und können sofort aufgesammelt werden, sobald sie dich erreichen.",
           "Schleichen pausiert den Magneten - praktisch, wenn du gezielt etwas liegen lassen willst.",
@@ -2833,8 +2833,8 @@ window.WIKI_DATA = {
         "title": "Simple Tweaks: pads, spawn and server tweaks",
         "summary": "Almost everything from the Simple Tweaks mod lives in SimpleBuilding now (the claim system stays in Simple Tweaks): pressure plates and pads with an Enderite tier, spawn elytra and spawn teleporters, the echo compass, the laser pointer and a few server options.",
         "details": [
-          "Tier ladder of every plate family: after Netherite comes Enderite, and the nether star tier moves up one: Netherite Elytra Pad III, Enderite Elytra Pad IV, Fine Elytra Pad V; the same for flypads. Each Enderite tier adds one function (see the items). Launchpads and Chunk Loaders have three tiers each (Diamond, Netherite, Enderite).",
-          "Upgrades pay with pressure plates: every smithing upgrade of a pad family costs the pressure plate of its target material instead of the raw material - Diamond Pressure Plate for the diamond tiers, Netherite Pressure Plate for the netherite tiers, Enderite Pressure Plate for the enderite tiers. Unchanged: the entry tiers, the plates themselves, the nether star steps and the two crafting-table flypads. Flypad I costs an elytra (provisional).",
+          "Tier ladder of every plate family: after Netherite comes Enderite, and the nether star tier moves up one: Netherite Elytra Pad III, Enderite Elytra Pad IV, Fine Elytra Pad V; flypads now have three enderite tiers. Each Enderite tier adds one function (see the items). Launchpads and Chunk Loaders have three tiers each (Diamond, Netherite, Enderite).",
+          "Upgrades pay with pressure plates: every smithing upgrade of a pad family costs the pressure plate of its target material instead of the raw material - Diamond Pressure Plate for the diamond tiers, Netherite Pressure Plate for the netherite tiers, Enderite Pressure Plate for the enderite tiers. Unchanged: the entry tiers, the plates themselves and the nether star step of the elytra pad. Flypads are an enderite-only family of three tiers now (see the flypad).",
           "XP orbs merge into one orb once a second within 2 blocks and can be picked up without the vanilla delay (tweaks.optimization.enableXpClumps); orbs worth more look bigger (scaleXpOrbs, client).",
           "Firework rockets can be limited to a smaller stack size (tweaks.balancing.rocketStackSize).",
           "The Nether and the End can be locked (tweaks.dimensions); exact spawn without random offset and a custom world spawn are off by default so existing worlds do not change.",
@@ -2846,8 +2846,8 @@ window.WIKI_DATA = {
         "title": "Simple Tweaks: Pads, Spawn und Server-Einstellungen",
         "summary": "Fast alles aus der Mod Simple Tweaks steckt jetzt in SimpleBuilding (das Claim-System bleibt in Simple Tweaks): Druckplatten und Pads mit einer Enderit-Stufe, Spawn-Elytra und Spawn-Teleporter, der Echo-Kompass, der Laserpointer und einige Server-Optionen.",
         "details": [
-          "Stufenleiter aller Platten-Familien: nach Netherit kommt Enderit, die Netherstern-Stufe rückt eins auf: Netherit-Elytra-Pad III, Enderit-Elytra-Pad IV, Feines Elytra-Pad V; ebenso bei den Flugpads. Jede Enderit-Stufe bringt eine Zusatzfunktion (siehe die Gegenstände). Startrampen und Chunk-Lader haben je drei Stufen (Diamant, Netherit, Enderit).",
-          "Aufwertungen zahlen mit Druckplatten: jede Schmiede-Aufwertung einer Pad-Familie kostet die Druckplatte des Zielmaterials statt des Rohstoffs - Diamant-Druckplatte für die Diamant-Stufen, Netherit-Druckplatte für die Netherit-Stufen, Enderit-Druckplatte für die Enderit-Stufen. Unverändert: die Einstiegsstufen, die Platten selbst, die Netherstern-Schritte und die beiden Werkbank-Flugpads. Flugpad I kostet eine Elytra (vorläufig).",
+          "Stufenleiter aller Platten-Familien: nach Netherit kommt Enderit, die Netherstern-Stufe rückt eins auf: Netherit-Elytra-Pad III, Enderit-Elytra-Pad IV, Feines Elytra-Pad V; Flugpads haben jetzt drei Enderit-Stufen. Jede Enderit-Stufe bringt eine Zusatzfunktion (siehe die Gegenstände). Startrampen und Chunk-Lader haben je drei Stufen (Diamant, Netherit, Enderit).",
+          "Aufwertungen zahlen mit Druckplatten: jede Schmiede-Aufwertung einer Pad-Familie kostet die Druckplatte des Zielmaterials statt des Rohstoffs - Diamant-Druckplatte für die Diamant-Stufen, Netherit-Druckplatte für die Netherit-Stufen, Enderit-Druckplatte für die Enderit-Stufen. Unverändert: die Einstiegsstufen, die Platten selbst und die Netherstern-Stufe des Elytra-Pads. Flugpads sind jetzt eine reine Enderit-Familie mit drei Stufen (siehe Flugpad).",
           "XP-Kugeln verschmelzen einmal pro Sekunde im Umkreis von 2 Blöcken zu einer und lassen sich ohne die Vanilla-Verzögerung aufheben (tweaks.optimization.enableXpClumps); wertvollere Kugeln sehen größer aus (scaleXpOrbs, Client).",
           "Feuerwerksraketen lassen sich auf eine kleinere Stapelgröße begrenzen (tweaks.balancing.rocketStackSize).",
           "Nether und End lassen sich sperren (tweaks.dimensions); exakter Spawn ohne Zufallsversatz und ein eigener Weltspawn sind standardmäßig aus, damit bestehende Welten unverändert bleiben.",
@@ -9357,8 +9357,8 @@ window.WIKI_DATA = {
         "en": {
           "summary": "The Magnet is a non-stackable hand tool with no durability that pulls loose items within 4 blocks of your hitbox toward you as long as you hold it in your main or off hand, and that can be narrowed down to a single item type with a filter taken from an item frame once it carries Constructor's Touch.",
           "details": [
-            "Crafted at a crafting table (3x3, shaped recipe): top empty, iron ingot, redstone; middle iron ingot, lodestone, iron ingot; bottom lapis lazuli, iron ingot, empty. 4 iron ingots, 1 lodestone, 1 redstone and 1 lapis lazuli in total. The data generator declares it as RecipeCategory.TOOLS, which writes \"category\": \"equipment\" into the recipe file, so the recipe book lists it under Equipment.",
-            "The recipe is unlocked in the recipe book as soon as a lodestone is in your inventory (advancement criterion has_lodestone).",
+            "Crafted at a crafting table (3x3, shaped recipe, owner's recipe of 2026-09-27): top empty, redstone, empty; middle iron ingot, empty, empty; bottom Iron Core, iron ingot, lapis lazuli (\" R \" / \"I  \" / \"CIL\"). The old recipe with a lodestone in the middle is gone.",
+            "The recipe is unlocked in the recipe book as soon as an Iron Core is in your inventory (advancement criterion has_iron_core).",
             "Does not stack (1 per slot), rarity Uncommon (UNCOMMON), no durability - the Magnet never wears out.",
             "In the creative tab \"SimpleTools\" it sits right after the Ore Detector and before the Rotator.",
             "Only works while held in the main or off hand - it does nothing from the rest of your inventory.",
@@ -9404,8 +9404,8 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Der Magnet ist ein nicht stapelbares Handwerkzeug ohne Haltbarkeit, das herumliegende Items in einem Bereich von 4 Blöcken um deine Hitbox zu dir zieht, solange du ihn in der Haupt- oder Nebenhand hältst, und mit der Verzauberung Berührung des Konstrukteurs über einen Rahmen auf eine einzelne Item-Sorte gefiltert werden kann.",
           "details": [
-            "Herstellung in der Werkbank (3x3, geformtes Rezept): oben leer, Eisenbarren, Redstone; Mitte Eisenbarren, Leitstein, Eisenbarren; unten Lapislazuli, Eisenbarren, leer. Insgesamt 4 Eisenbarren, 1 Leitstein, 1 Redstone, 1 Lapislazuli. Rezeptbuch-Kategorie Ausrüstung (\"category\": \"equipment\" in der erzeugten Datei).",
-            "Das Rezept wird im Rezeptbuch freigeschaltet, sobald ein Leitstein im Inventar liegt (Fortschritt has_lodestone).",
+            "Herstellung in der Werkbank (3x3, geformtes Rezept, Besitzer-Rezept vom 2026-09-27): oben leer, Redstone, leer; Mitte Eisenbarren, leer, leer; unten Eisenkern, Eisenbarren, Lapislazuli (\" R \" / \"I  \" / \"CIL\"). Das alte Rezept mit Leitstein in der Mitte gibt es nicht mehr.",
+            "Das Rezept wird im Rezeptbuch freigeschaltet, sobald ein Eisenkern im Inventar liegt (Fortschritt has_iron_core).",
             "Nicht stapelbar (1 pro Slot), Seltenheit Ungewöhnlich (UNCOMMON), keine Haltbarkeit - der Magnet nutzt sich nicht ab.",
             "Zu finden im Kreativ-Tab „SimpleTools“, direkt hinter dem Erzdetektor und vor dem Rotator.",
             "Wirkt nur, wenn er in der Haupt- oder Nebenhand gehalten wird - im restlichen Inventar tut er nichts.",
@@ -15307,8 +15307,8 @@ window.WIKI_DATA = {
             "Every half second the pad checks all players in its area. An empty chest slot gets a Spawn Elytra with full flight time and full boosts; a pad elytra does NOT protect against fall or kinetic damage (only an elytra from the spawn area does). A worn chestplate is never replaced.",
             "A player already wearing a Spawn Elytra in the area gets full flight time again, a short glowing effect, and the pad remembers the time so the elytra does not vanish for 3 seconds after leaving the area.",
             "Boosts (press jump while gliding) recharge only in the 3x3 column up to 4 blocks above the pad - from the Enderite tier (IV) on, in the whole area.",
-            "Area per tier (width x width x height): I 6x6x15, II 16x16x31, III 32x32x63, IV (Enderite) 48x48x95, V (Fine) 64x64x127, centred on the pad. The area reaches one block below the pad.",
-            "Recipes (smithing table): I = any trim template or netherite upgrade + Diamond Pressure Plate + diamond; II = template + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade template + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
+            "Area per tier (width x width x height): I 1x1x15 (only the pad column), II 5x5x31, III 16x16x63, IV (Enderite) 32x32x95, V (Fine) 128x128x127, centred on the pad. The area reaches one block below the pad. Existing pads keep their id and tier; only the areas changed.",
+            "Recipes (smithing table): I = any trim template or netherite upgrade + elytra, with the addition slot left empty; II = template + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade template + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
             "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing."
           ]
@@ -15319,8 +15319,8 @@ window.WIKI_DATA = {
             "Jede halbe Sekunde prüft das Pad alle Spieler im Bereich. Ein leerer Brust-Slot bekommt eine Spawn-Elytra mit voller Flugzeit und vollen Boosts; eine Pad-Elytra schützt NICHT vor Fall- oder Aufprallschaden (das tut nur eine Elytra aus dem Spawnbereich). Eine getragene Brustplatte wird nie ersetzt.",
             "Wer im Bereich schon eine Spawn-Elytra trägt, bekommt wieder volle Flugzeit und kurz Leuchten; das Pad merkt sich die Zeit, sodass die Elytra nach dem Verlassen des Bereichs 3 Sekunden lang nicht verschwindet.",
             "Boosts (Springen im Gleitflug) laden nur in der 3x3-Säule bis 4 Blöcke über dem Pad - ab der Enderit-Stufe (IV) im ganzen Bereich.",
-            "Bereich je Stufe (Breite x Breite x Höhe): I 6x6x15, II 16x16x31, III 32x32x63, IV (Enderit) 48x48x95, V (Fein) 64x64x127, mittig um das Pad. Der Bereich reicht einen Block unter das Pad.",
-            "Rezepte (Schmiedetisch): I = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Diamant-Druckplatte + Diamant; II = Vorlage + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Aufwertungsvorlage + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
+            "Bereich je Stufe (Breite x Breite x Höhe): I 1x1x15 (nur die Säule über dem Pad), II 5x5x31, III 16x16x63, IV (Enderit) 32x32x95, V (Fein) 128x128x127, mittig um das Pad. Der Bereich reicht einen Block unter das Pad. Bestehende Pads behalten ID und Stufe; nur die Bereiche haben sich geändert.",
+            "Rezepte (Schmiedetisch): I = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Elytra, der Zutat-Slot bleibt leer; II = Vorlage + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Aufwertungsvorlage + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
             "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts."
           ]
@@ -15978,8 +15978,8 @@ window.WIKI_DATA = {
             "Every half second the pad checks all players in its area. An empty chest slot gets a Spawn Elytra with full flight time and full boosts; a pad elytra does NOT protect against fall or kinetic damage (only an elytra from the spawn area does). A worn chestplate is never replaced.",
             "A player already wearing a Spawn Elytra in the area gets full flight time again, a short glowing effect, and the pad remembers the time so the elytra does not vanish for 3 seconds after leaving the area.",
             "Boosts (press jump while gliding) recharge only in the 3x3 column up to 4 blocks above the pad - from the Enderite tier (IV) on, in the whole area.",
-            "Area per tier (width x width x height): I 6x6x15, II 16x16x31, III 32x32x63, IV (Enderite) 48x48x95, V (Fine) 64x64x127, centred on the pad. The area reaches one block below the pad.",
-            "Recipes (smithing table): I = any trim template or netherite upgrade + Diamond Pressure Plate + diamond; II = template + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade template + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
+            "Area per tier (width x width x height): I 1x1x15 (only the pad column), II 5x5x31, III 16x16x63, IV (Enderite) 32x32x95, V (Fine) 128x128x127, centred on the pad. The area reaches one block below the pad. Existing pads keep their id and tier; only the areas changed.",
+            "Recipes (smithing table): I = any trim template or netherite upgrade + elytra, with the addition slot left empty; II = template + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade template + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
             "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing."
           ]
@@ -15990,8 +15990,8 @@ window.WIKI_DATA = {
             "Jede halbe Sekunde prüft das Pad alle Spieler im Bereich. Ein leerer Brust-Slot bekommt eine Spawn-Elytra mit voller Flugzeit und vollen Boosts; eine Pad-Elytra schützt NICHT vor Fall- oder Aufprallschaden (das tut nur eine Elytra aus dem Spawnbereich). Eine getragene Brustplatte wird nie ersetzt.",
             "Wer im Bereich schon eine Spawn-Elytra trägt, bekommt wieder volle Flugzeit und kurz Leuchten; das Pad merkt sich die Zeit, sodass die Elytra nach dem Verlassen des Bereichs 3 Sekunden lang nicht verschwindet.",
             "Boosts (Springen im Gleitflug) laden nur in der 3x3-Säule bis 4 Blöcke über dem Pad - ab der Enderit-Stufe (IV) im ganzen Bereich.",
-            "Bereich je Stufe (Breite x Breite x Höhe): I 6x6x15, II 16x16x31, III 32x32x63, IV (Enderit) 48x48x95, V (Fein) 64x64x127, mittig um das Pad. Der Bereich reicht einen Block unter das Pad.",
-            "Rezepte (Schmiedetisch): I = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Diamant-Druckplatte + Diamant; II = Vorlage + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Aufwertungsvorlage + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
+            "Bereich je Stufe (Breite x Breite x Höhe): I 1x1x15 (nur die Säule über dem Pad), II 5x5x31, III 16x16x63, IV (Enderit) 32x32x95, V (Fein) 128x128x127, mittig um das Pad. Der Bereich reicht einen Block unter das Pad. Bestehende Pads behalten ID und Stufe; nur die Bereiche haben sich geändert.",
+            "Rezepte (Schmiedetisch): I = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Elytra, der Zutat-Slot bleibt leer; II = Vorlage + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Aufwertungsvorlage + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
             "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts."
           ]
@@ -16027,24 +16027,24 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Flypads (from Simple Tweaks) grant creative flight inside their area and take it back when you leave; five tiers, from Flypad I to Stellar Flypad V.",
+          "summary": "Flypads (from Simple Tweaks) grant creative flight inside their area and take it back when you leave; three enderite tiers: Flypad I, Reinforced Flypad II and Stellar Flypad III.",
           "details": [
             "Every 5 ticks: players in the area may fly and glow briefly. A survival player who leaves the area loses flight; creative and spectator players are left alone.",
-            "Enderite tier (IV) and up: a safety net - whoever leaves the area while flying gets 10 seconds of Slow Falling instead of crashing.",
+            "Every tier is made of enderite and has the safety net: whoever leaves the area while flying gets 10 seconds of Slow Falling instead of crashing.",
             "Breaking the pad, unloading it or switching flypads off (tweaks.pads.enableFlypads) takes flight back from everyone it had granted it to (in Simple Tweaks they kept it forever) - but not while another flypad still covers them, and never flight that did not come from a flypad (creative, other mods).",
-            "Area per tier (width x width x height, starting at the pad, centred on it): I 6x6x15, II 16x16x31, III 32x32x63, IV 48x48x95, V 64x64x127.",
-            "Recipes: I = netherite upgrade + Fine Elytra Pad V + elytra (smithing; provisional); II = netherite upgrade + flypad I + Netherite Pressure Plate (smithing); III = crafting DBD / ESE / KFK (diamond block, netherite block, enchanted golden apple, nether star, ominous trial key, flypad II); IV = enderite upgrade template + flypad III + Enderite Pressure Plate (smithing); V = crafting KKK / ESE / FFF with three Enderite Flypads.",
+            "Area per tier (width x depth x height, starting at the bottom of the pad, centred on it): I 4x4x6, II 8x8x12, III 16x16x24.",
+            "Recipes (smithing, enderite upgrade template each): I = Enderite Pressure Plate + Enderite Core; II = Flypad I + Enderite Pressure Plate; III = two Reinforced Flypads II (one as base, one as addition). The old Netherite Flypad (old III) and Enderite Flypad (old IV) still load from old worlds: they turn into Flypad II and Stellar Flypad III on their first tick (owner kept) and into the new item in your inventory; old Flypad I, II and V keep their id as I, II and III.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it."
           ]
         },
         "de": {
-          "summary": "Flugpads (aus Simple Tweaks) geben im Bereich Kreativflug und nehmen ihn beim Verlassen wieder; fünf Stufen, vom Flugpad I bis zum Stellaren Flugpad V.",
+          "summary": "Flugpads (aus Simple Tweaks) geben im Bereich Kreativflug und nehmen ihn beim Verlassen wieder; drei Enderit-Stufen: Flugpad I, Verstärktes Flugpad II und Stellares Flugpad III.",
           "details": [
             "Alle 5 Ticks: Spieler im Bereich dürfen fliegen und leuchten kurz. Ein Überlebensspieler, der den Bereich verlässt, verliert den Flug; Kreativ- und Zuschauerspieler bleiben unberührt.",
-            "Ab der Enderit-Stufe (IV): ein Sicherheitsnetz - wer den Bereich fliegend verlässt, bekommt 10 Sekunden Sanften Fall statt abzustürzen.",
+            "Jede Stufe ist aus Enderit und hat das Sicherheitsnetz: wer den Bereich fliegend verlässt, bekommt 10 Sekunden Sanften Fall statt abzustürzen.",
             "Abbauen, Entladen oder Abschalten (tweaks.pads.enableFlypads) nimmt allen, denen das Pad Flug gegeben hat, den Flug wieder (in Simple Tweaks behielten sie ihn für immer) - aber nicht, solange ein anderes Flugpad sie noch abdeckt, und nie einen Flug, der nicht von einem Flugpad stammt (Kreativ, andere Mods).",
-            "Bereich je Stufe (Breite x Breite x Höhe, ab dem Pad, mittig darum): I 6x6x15, II 16x16x31, III 32x32x63, IV 48x48x95, V 64x64x127.",
-            "Rezepte: I = Netherit-Aufwertung + Feines Elytra-Pad V + Elytra (Schmiede; vorläufig); II = Netherit-Aufwertung + Flugpad I + Netherit-Druckplatte (Schmiede); III = Werkbank DBD / ESE / KFK (Diamantblock, Netheritblock, Verzauberter Goldapfel, Netherstern, Unheilvoller Prüfungsschlüssel, Flugpad II); IV = Enderit-Aufwertungsvorlage + Flugpad III + Enderit-Druckplatte (Schmiede); V = Werkbank KKK / ESE / FFF mit drei Enderit-Flugpads.",
+            "Bereich je Stufe (Breite x Tiefe x Höhe, ab der Unterkante des Pads, mittig darum): I 4x4x6, II 8x8x12, III 16x16x24.",
+            "Rezepte (Schmiede, jeweils Enderit-Aufwertungsvorlage): I = Enderit-Druckplatte + Enderit-Kern; II = Flugpad I + Enderit-Druckplatte; III = zwei Verstärkte Flugpads II (eines als Basis, eines als Zutat). Das alte Netherit-Flugpad (alt III) und Enderit-Flugpad (alt IV) laden weiter aus alten Welten: sie werden beim ersten Tick zu Flugpad II bzw. Stellarem Flugpad III (Besitzer bleibt) und im Inventar zum neuen Item; die alten Flugpads I, II und V behalten ihre ID als I, II und III.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht."
           ]
         },
@@ -16695,8 +16695,8 @@ window.WIKI_DATA = {
             "Every half second the pad checks all players in its area. An empty chest slot gets a Spawn Elytra with full flight time and full boosts; a pad elytra does NOT protect against fall or kinetic damage (only an elytra from the spawn area does). A worn chestplate is never replaced.",
             "A player already wearing a Spawn Elytra in the area gets full flight time again, a short glowing effect, and the pad remembers the time so the elytra does not vanish for 3 seconds after leaving the area.",
             "Boosts (press jump while gliding) recharge only in the 3x3 column up to 4 blocks above the pad - from the Enderite tier (IV) on, in the whole area.",
-            "Area per tier (width x width x height): I 6x6x15, II 16x16x31, III 32x32x63, IV (Enderite) 48x48x95, V (Fine) 64x64x127, centred on the pad. The area reaches one block below the pad.",
-            "Recipes (smithing table): I = any trim template or netherite upgrade + Diamond Pressure Plate + diamond; II = template + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade template + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
+            "Area per tier (width x width x height): I 1x1x15 (only the pad column), II 5x5x31, III 16x16x63, IV (Enderite) 32x32x95, V (Fine) 128x128x127, centred on the pad. The area reaches one block below the pad. Existing pads keep their id and tier; only the areas changed.",
+            "Recipes (smithing table): I = any trim template or netherite upgrade + elytra, with the addition slot left empty; II = template + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade template + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
             "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing."
           ]
@@ -16707,8 +16707,8 @@ window.WIKI_DATA = {
             "Jede halbe Sekunde prüft das Pad alle Spieler im Bereich. Ein leerer Brust-Slot bekommt eine Spawn-Elytra mit voller Flugzeit und vollen Boosts; eine Pad-Elytra schützt NICHT vor Fall- oder Aufprallschaden (das tut nur eine Elytra aus dem Spawnbereich). Eine getragene Brustplatte wird nie ersetzt.",
             "Wer im Bereich schon eine Spawn-Elytra trägt, bekommt wieder volle Flugzeit und kurz Leuchten; das Pad merkt sich die Zeit, sodass die Elytra nach dem Verlassen des Bereichs 3 Sekunden lang nicht verschwindet.",
             "Boosts (Springen im Gleitflug) laden nur in der 3x3-Säule bis 4 Blöcke über dem Pad - ab der Enderit-Stufe (IV) im ganzen Bereich.",
-            "Bereich je Stufe (Breite x Breite x Höhe): I 6x6x15, II 16x16x31, III 32x32x63, IV (Enderit) 48x48x95, V (Fein) 64x64x127, mittig um das Pad. Der Bereich reicht einen Block unter das Pad.",
-            "Rezepte (Schmiedetisch): I = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Diamant-Druckplatte + Diamant; II = Vorlage + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Aufwertungsvorlage + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
+            "Bereich je Stufe (Breite x Breite x Höhe): I 1x1x15 (nur die Säule über dem Pad), II 5x5x31, III 16x16x63, IV (Enderit) 32x32x95, V (Fein) 128x128x127, mittig um das Pad. Der Bereich reicht einen Block unter das Pad. Bestehende Pads behalten ID und Stufe; nur die Bereiche haben sich geändert.",
+            "Rezepte (Schmiedetisch): I = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Elytra, der Zutat-Slot bleibt leer; II = Vorlage + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Aufwertungsvorlage + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
             "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts."
           ]
@@ -16748,24 +16748,24 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Flypads (from Simple Tweaks) grant creative flight inside their area and take it back when you leave; five tiers, from Flypad I to Stellar Flypad V.",
+          "summary": "Flypads (from Simple Tweaks) grant creative flight inside their area and take it back when you leave; three enderite tiers: Flypad I, Reinforced Flypad II and Stellar Flypad III.",
           "details": [
             "Every 5 ticks: players in the area may fly and glow briefly. A survival player who leaves the area loses flight; creative and spectator players are left alone.",
-            "Enderite tier (IV) and up: a safety net - whoever leaves the area while flying gets 10 seconds of Slow Falling instead of crashing.",
+            "Every tier is made of enderite and has the safety net: whoever leaves the area while flying gets 10 seconds of Slow Falling instead of crashing.",
             "Breaking the pad, unloading it or switching flypads off (tweaks.pads.enableFlypads) takes flight back from everyone it had granted it to (in Simple Tweaks they kept it forever) - but not while another flypad still covers them, and never flight that did not come from a flypad (creative, other mods).",
-            "Area per tier (width x width x height, starting at the pad, centred on it): I 6x6x15, II 16x16x31, III 32x32x63, IV 48x48x95, V 64x64x127.",
-            "Recipes: I = netherite upgrade + Fine Elytra Pad V + elytra (smithing; provisional); II = netherite upgrade + flypad I + Netherite Pressure Plate (smithing); III = crafting DBD / ESE / KFK (diamond block, netherite block, enchanted golden apple, nether star, ominous trial key, flypad II); IV = enderite upgrade template + flypad III + Enderite Pressure Plate (smithing); V = crafting KKK / ESE / FFF with three Enderite Flypads.",
+            "Area per tier (width x depth x height, starting at the bottom of the pad, centred on it): I 4x4x6, II 8x8x12, III 16x16x24.",
+            "Recipes (smithing, enderite upgrade template each): I = Enderite Pressure Plate + Enderite Core; II = Flypad I + Enderite Pressure Plate; III = two Reinforced Flypads II (one as base, one as addition). The old Netherite Flypad (old III) and Enderite Flypad (old IV) still load from old worlds: they turn into Flypad II and Stellar Flypad III on their first tick (owner kept) and into the new item in your inventory; old Flypad I, II and V keep their id as I, II and III.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it."
           ]
         },
         "de": {
-          "summary": "Flugpads (aus Simple Tweaks) geben im Bereich Kreativflug und nehmen ihn beim Verlassen wieder; fünf Stufen, vom Flugpad I bis zum Stellaren Flugpad V.",
+          "summary": "Flugpads (aus Simple Tweaks) geben im Bereich Kreativflug und nehmen ihn beim Verlassen wieder; drei Enderit-Stufen: Flugpad I, Verstärktes Flugpad II und Stellares Flugpad III.",
           "details": [
             "Alle 5 Ticks: Spieler im Bereich dürfen fliegen und leuchten kurz. Ein Überlebensspieler, der den Bereich verlässt, verliert den Flug; Kreativ- und Zuschauerspieler bleiben unberührt.",
-            "Ab der Enderit-Stufe (IV): ein Sicherheitsnetz - wer den Bereich fliegend verlässt, bekommt 10 Sekunden Sanften Fall statt abzustürzen.",
+            "Jede Stufe ist aus Enderit und hat das Sicherheitsnetz: wer den Bereich fliegend verlässt, bekommt 10 Sekunden Sanften Fall statt abzustürzen.",
             "Abbauen, Entladen oder Abschalten (tweaks.pads.enableFlypads) nimmt allen, denen das Pad Flug gegeben hat, den Flug wieder (in Simple Tweaks behielten sie ihn für immer) - aber nicht, solange ein anderes Flugpad sie noch abdeckt, und nie einen Flug, der nicht von einem Flugpad stammt (Kreativ, andere Mods).",
-            "Bereich je Stufe (Breite x Breite x Höhe, ab dem Pad, mittig darum): I 6x6x15, II 16x16x31, III 32x32x63, IV 48x48x95, V 64x64x127.",
-            "Rezepte: I = Netherit-Aufwertung + Feines Elytra-Pad V + Elytra (Schmiede; vorläufig); II = Netherit-Aufwertung + Flugpad I + Netherit-Druckplatte (Schmiede); III = Werkbank DBD / ESE / KFK (Diamantblock, Netheritblock, Verzauberter Goldapfel, Netherstern, Unheilvoller Prüfungsschlüssel, Flugpad II); IV = Enderit-Aufwertungsvorlage + Flugpad III + Enderit-Druckplatte (Schmiede); V = Werkbank KKK / ESE / FFF mit drei Enderit-Flugpads.",
+            "Bereich je Stufe (Breite x Tiefe x Höhe, ab der Unterkante des Pads, mittig darum): I 4x4x6, II 8x8x12, III 16x16x24.",
+            "Rezepte (Schmiede, jeweils Enderit-Aufwertungsvorlage): I = Enderit-Druckplatte + Enderit-Kern; II = Flugpad I + Enderit-Druckplatte; III = zwei Verstärkte Flugpads II (eines als Basis, eines als Zutat). Das alte Netherit-Flugpad (alt III) und Enderit-Flugpad (alt IV) laden weiter aus alten Welten: sie werden beim ersten Tick zu Flugpad II bzw. Stellarem Flugpad III (Besitzer bleibt) und im Inventar zum neuen Item; die alten Flugpads I, II und V behalten ihre ID als I, II und III.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht."
           ]
         },
@@ -17431,8 +17431,8 @@ window.WIKI_DATA = {
             "Every half second the pad checks all players in its area. An empty chest slot gets a Spawn Elytra with full flight time and full boosts; a pad elytra does NOT protect against fall or kinetic damage (only an elytra from the spawn area does). A worn chestplate is never replaced.",
             "A player already wearing a Spawn Elytra in the area gets full flight time again, a short glowing effect, and the pad remembers the time so the elytra does not vanish for 3 seconds after leaving the area.",
             "Boosts (press jump while gliding) recharge only in the 3x3 column up to 4 blocks above the pad - from the Enderite tier (IV) on, in the whole area.",
-            "Area per tier (width x width x height): I 6x6x15, II 16x16x31, III 32x32x63, IV (Enderite) 48x48x95, V (Fine) 64x64x127, centred on the pad. The area reaches one block below the pad.",
-            "Recipes (smithing table): I = any trim template or netherite upgrade + Diamond Pressure Plate + diamond; II = template + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade template + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
+            "Area per tier (width x width x height): I 1x1x15 (only the pad column), II 5x5x31, III 16x16x63, IV (Enderite) 32x32x95, V (Fine) 128x128x127, centred on the pad. The area reaches one block below the pad. Existing pads keep their id and tier; only the areas changed.",
+            "Recipes (smithing table): I = any trim template or netherite upgrade + elytra, with the addition slot left empty; II = template + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade template + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
             "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing."
           ]
@@ -17443,8 +17443,8 @@ window.WIKI_DATA = {
             "Jede halbe Sekunde prüft das Pad alle Spieler im Bereich. Ein leerer Brust-Slot bekommt eine Spawn-Elytra mit voller Flugzeit und vollen Boosts; eine Pad-Elytra schützt NICHT vor Fall- oder Aufprallschaden (das tut nur eine Elytra aus dem Spawnbereich). Eine getragene Brustplatte wird nie ersetzt.",
             "Wer im Bereich schon eine Spawn-Elytra trägt, bekommt wieder volle Flugzeit und kurz Leuchten; das Pad merkt sich die Zeit, sodass die Elytra nach dem Verlassen des Bereichs 3 Sekunden lang nicht verschwindet.",
             "Boosts (Springen im Gleitflug) laden nur in der 3x3-Säule bis 4 Blöcke über dem Pad - ab der Enderit-Stufe (IV) im ganzen Bereich.",
-            "Bereich je Stufe (Breite x Breite x Höhe): I 6x6x15, II 16x16x31, III 32x32x63, IV (Enderit) 48x48x95, V (Fein) 64x64x127, mittig um das Pad. Der Bereich reicht einen Block unter das Pad.",
-            "Rezepte (Schmiedetisch): I = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Diamant-Druckplatte + Diamant; II = Vorlage + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Aufwertungsvorlage + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
+            "Bereich je Stufe (Breite x Breite x Höhe): I 1x1x15 (nur die Säule über dem Pad), II 5x5x31, III 16x16x63, IV (Enderit) 32x32x95, V (Fein) 128x128x127, mittig um das Pad. Der Bereich reicht einen Block unter das Pad. Bestehende Pads behalten ID und Stufe; nur die Bereiche haben sich geändert.",
+            "Rezepte (Schmiedetisch): I = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Elytra, der Zutat-Slot bleibt leer; II = Vorlage + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Aufwertungsvorlage + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
             "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts."
           ]
@@ -17480,24 +17480,24 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Flypads (from Simple Tweaks) grant creative flight inside their area and take it back when you leave; five tiers, from Flypad I to Stellar Flypad V.",
+          "summary": "Flypads (from Simple Tweaks) grant creative flight inside their area and take it back when you leave; three enderite tiers: Flypad I, Reinforced Flypad II and Stellar Flypad III.",
           "details": [
             "Every 5 ticks: players in the area may fly and glow briefly. A survival player who leaves the area loses flight; creative and spectator players are left alone.",
-            "Enderite tier (IV) and up: a safety net - whoever leaves the area while flying gets 10 seconds of Slow Falling instead of crashing.",
+            "Every tier is made of enderite and has the safety net: whoever leaves the area while flying gets 10 seconds of Slow Falling instead of crashing.",
             "Breaking the pad, unloading it or switching flypads off (tweaks.pads.enableFlypads) takes flight back from everyone it had granted it to (in Simple Tweaks they kept it forever) - but not while another flypad still covers them, and never flight that did not come from a flypad (creative, other mods).",
-            "Area per tier (width x width x height, starting at the pad, centred on it): I 6x6x15, II 16x16x31, III 32x32x63, IV 48x48x95, V 64x64x127.",
-            "Recipes: I = netherite upgrade + Fine Elytra Pad V + elytra (smithing; provisional); II = netherite upgrade + flypad I + Netherite Pressure Plate (smithing); III = crafting DBD / ESE / KFK (diamond block, netherite block, enchanted golden apple, nether star, ominous trial key, flypad II); IV = enderite upgrade template + flypad III + Enderite Pressure Plate (smithing); V = crafting KKK / ESE / FFF with three Enderite Flypads.",
+            "Area per tier (width x depth x height, starting at the bottom of the pad, centred on it): I 4x4x6, II 8x8x12, III 16x16x24.",
+            "Recipes (smithing, enderite upgrade template each): I = Enderite Pressure Plate + Enderite Core; II = Flypad I + Enderite Pressure Plate; III = two Reinforced Flypads II (one as base, one as addition). The old Netherite Flypad (old III) and Enderite Flypad (old IV) still load from old worlds: they turn into Flypad II and Stellar Flypad III on their first tick (owner kept) and into the new item in your inventory; old Flypad I, II and V keep their id as I, II and III.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it."
           ]
         },
         "de": {
-          "summary": "Flugpads (aus Simple Tweaks) geben im Bereich Kreativflug und nehmen ihn beim Verlassen wieder; fünf Stufen, vom Flugpad I bis zum Stellaren Flugpad V.",
+          "summary": "Flugpads (aus Simple Tweaks) geben im Bereich Kreativflug und nehmen ihn beim Verlassen wieder; drei Enderit-Stufen: Flugpad I, Verstärktes Flugpad II und Stellares Flugpad III.",
           "details": [
             "Alle 5 Ticks: Spieler im Bereich dürfen fliegen und leuchten kurz. Ein Überlebensspieler, der den Bereich verlässt, verliert den Flug; Kreativ- und Zuschauerspieler bleiben unberührt.",
-            "Ab der Enderit-Stufe (IV): ein Sicherheitsnetz - wer den Bereich fliegend verlässt, bekommt 10 Sekunden Sanften Fall statt abzustürzen.",
+            "Jede Stufe ist aus Enderit und hat das Sicherheitsnetz: wer den Bereich fliegend verlässt, bekommt 10 Sekunden Sanften Fall statt abzustürzen.",
             "Abbauen, Entladen oder Abschalten (tweaks.pads.enableFlypads) nimmt allen, denen das Pad Flug gegeben hat, den Flug wieder (in Simple Tweaks behielten sie ihn für immer) - aber nicht, solange ein anderes Flugpad sie noch abdeckt, und nie einen Flug, der nicht von einem Flugpad stammt (Kreativ, andere Mods).",
-            "Bereich je Stufe (Breite x Breite x Höhe, ab dem Pad, mittig darum): I 6x6x15, II 16x16x31, III 32x32x63, IV 48x48x95, V 64x64x127.",
-            "Rezepte: I = Netherit-Aufwertung + Feines Elytra-Pad V + Elytra (Schmiede; vorläufig); II = Netherit-Aufwertung + Flugpad I + Netherit-Druckplatte (Schmiede); III = Werkbank DBD / ESE / KFK (Diamantblock, Netheritblock, Verzauberter Goldapfel, Netherstern, Unheilvoller Prüfungsschlüssel, Flugpad II); IV = Enderit-Aufwertungsvorlage + Flugpad III + Enderit-Druckplatte (Schmiede); V = Werkbank KKK / ESE / FFF mit drei Enderit-Flugpads.",
+            "Bereich je Stufe (Breite x Tiefe x Höhe, ab der Unterkante des Pads, mittig darum): I 4x4x6, II 8x8x12, III 16x16x24.",
+            "Rezepte (Schmiede, jeweils Enderit-Aufwertungsvorlage): I = Enderit-Druckplatte + Enderit-Kern; II = Flugpad I + Enderit-Druckplatte; III = zwei Verstärkte Flugpads II (eines als Basis, eines als Zutat). Das alte Netherit-Flugpad (alt III) und Enderit-Flugpad (alt IV) laden weiter aus alten Welten: sie werden beim ersten Tick zu Flugpad II bzw. Stellarem Flugpad III (Besitzer bleibt) und im Inventar zum neuen Item; die alten Flugpads I, II und V behalten ihre ID als I, II und III.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht."
           ]
         },
@@ -19158,8 +19158,8 @@ window.WIKI_DATA = {
             "Every half second the pad checks all players in its area. An empty chest slot gets a Spawn Elytra with full flight time and full boosts; a pad elytra does NOT protect against fall or kinetic damage (only an elytra from the spawn area does). A worn chestplate is never replaced.",
             "A player already wearing a Spawn Elytra in the area gets full flight time again, a short glowing effect, and the pad remembers the time so the elytra does not vanish for 3 seconds after leaving the area.",
             "Boosts (press jump while gliding) recharge only in the 3x3 column up to 4 blocks above the pad - from the Enderite tier (IV) on, in the whole area.",
-            "Area per tier (width x width x height): I 6x6x15, II 16x16x31, III 32x32x63, IV (Enderite) 48x48x95, V (Fine) 64x64x127, centred on the pad. The area reaches one block below the pad.",
-            "Recipes (smithing table): I = any trim template or netherite upgrade + Diamond Pressure Plate + diamond; II = template + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade template + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
+            "Area per tier (width x width x height): I 1x1x15 (only the pad column), II 5x5x31, III 16x16x63, IV (Enderite) 32x32x95, V (Fine) 128x128x127, centred on the pad. The area reaches one block below the pad. Existing pads keep their id and tier; only the areas changed.",
+            "Recipes (smithing table): I = any trim template or netherite upgrade + elytra, with the addition slot left empty; II = template + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade template + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
             "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing."
           ]
@@ -19170,8 +19170,8 @@ window.WIKI_DATA = {
             "Jede halbe Sekunde prüft das Pad alle Spieler im Bereich. Ein leerer Brust-Slot bekommt eine Spawn-Elytra mit voller Flugzeit und vollen Boosts; eine Pad-Elytra schützt NICHT vor Fall- oder Aufprallschaden (das tut nur eine Elytra aus dem Spawnbereich). Eine getragene Brustplatte wird nie ersetzt.",
             "Wer im Bereich schon eine Spawn-Elytra trägt, bekommt wieder volle Flugzeit und kurz Leuchten; das Pad merkt sich die Zeit, sodass die Elytra nach dem Verlassen des Bereichs 3 Sekunden lang nicht verschwindet.",
             "Boosts (Springen im Gleitflug) laden nur in der 3x3-Säule bis 4 Blöcke über dem Pad - ab der Enderit-Stufe (IV) im ganzen Bereich.",
-            "Bereich je Stufe (Breite x Breite x Höhe): I 6x6x15, II 16x16x31, III 32x32x63, IV (Enderit) 48x48x95, V (Fein) 64x64x127, mittig um das Pad. Der Bereich reicht einen Block unter das Pad.",
-            "Rezepte (Schmiedetisch): I = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Diamant-Druckplatte + Diamant; II = Vorlage + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Aufwertungsvorlage + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
+            "Bereich je Stufe (Breite x Breite x Höhe): I 1x1x15 (nur die Säule über dem Pad), II 5x5x31, III 16x16x63, IV (Enderit) 32x32x95, V (Fein) 128x128x127, mittig um das Pad. Der Bereich reicht einen Block unter das Pad. Bestehende Pads behalten ID und Stufe; nur die Bereiche haben sich geändert.",
+            "Rezepte (Schmiedetisch): I = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Elytra, der Zutat-Slot bleibt leer; II = Vorlage + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Aufwertungsvorlage + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
             "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts."
           ]
@@ -19211,24 +19211,24 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Flypads (from Simple Tweaks) grant creative flight inside their area and take it back when you leave; five tiers, from Flypad I to Stellar Flypad V.",
+          "summary": "Flypads (from Simple Tweaks) grant creative flight inside their area and take it back when you leave; three enderite tiers: Flypad I, Reinforced Flypad II and Stellar Flypad III.",
           "details": [
             "Every 5 ticks: players in the area may fly and glow briefly. A survival player who leaves the area loses flight; creative and spectator players are left alone.",
-            "Enderite tier (IV) and up: a safety net - whoever leaves the area while flying gets 10 seconds of Slow Falling instead of crashing.",
+            "Every tier is made of enderite and has the safety net: whoever leaves the area while flying gets 10 seconds of Slow Falling instead of crashing.",
             "Breaking the pad, unloading it or switching flypads off (tweaks.pads.enableFlypads) takes flight back from everyone it had granted it to (in Simple Tweaks they kept it forever) - but not while another flypad still covers them, and never flight that did not come from a flypad (creative, other mods).",
-            "Area per tier (width x width x height, starting at the pad, centred on it): I 6x6x15, II 16x16x31, III 32x32x63, IV 48x48x95, V 64x64x127.",
-            "Recipes: I = netherite upgrade + Fine Elytra Pad V + elytra (smithing; provisional); II = netherite upgrade + flypad I + Netherite Pressure Plate (smithing); III = crafting DBD / ESE / KFK (diamond block, netherite block, enchanted golden apple, nether star, ominous trial key, flypad II); IV = enderite upgrade template + flypad III + Enderite Pressure Plate (smithing); V = crafting KKK / ESE / FFF with three Enderite Flypads.",
+            "Area per tier (width x depth x height, starting at the bottom of the pad, centred on it): I 4x4x6, II 8x8x12, III 16x16x24.",
+            "Recipes (smithing, enderite upgrade template each): I = Enderite Pressure Plate + Enderite Core; II = Flypad I + Enderite Pressure Plate; III = two Reinforced Flypads II (one as base, one as addition). The old Netherite Flypad (old III) and Enderite Flypad (old IV) still load from old worlds: they turn into Flypad II and Stellar Flypad III on their first tick (owner kept) and into the new item in your inventory; old Flypad I, II and V keep their id as I, II and III.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it."
           ]
         },
         "de": {
-          "summary": "Flugpads (aus Simple Tweaks) geben im Bereich Kreativflug und nehmen ihn beim Verlassen wieder; fünf Stufen, vom Flugpad I bis zum Stellaren Flugpad V.",
+          "summary": "Flugpads (aus Simple Tweaks) geben im Bereich Kreativflug und nehmen ihn beim Verlassen wieder; drei Enderit-Stufen: Flugpad I, Verstärktes Flugpad II und Stellares Flugpad III.",
           "details": [
             "Alle 5 Ticks: Spieler im Bereich dürfen fliegen und leuchten kurz. Ein Überlebensspieler, der den Bereich verlässt, verliert den Flug; Kreativ- und Zuschauerspieler bleiben unberührt.",
-            "Ab der Enderit-Stufe (IV): ein Sicherheitsnetz - wer den Bereich fliegend verlässt, bekommt 10 Sekunden Sanften Fall statt abzustürzen.",
+            "Jede Stufe ist aus Enderit und hat das Sicherheitsnetz: wer den Bereich fliegend verlässt, bekommt 10 Sekunden Sanften Fall statt abzustürzen.",
             "Abbauen, Entladen oder Abschalten (tweaks.pads.enableFlypads) nimmt allen, denen das Pad Flug gegeben hat, den Flug wieder (in Simple Tweaks behielten sie ihn für immer) - aber nicht, solange ein anderes Flugpad sie noch abdeckt, und nie einen Flug, der nicht von einem Flugpad stammt (Kreativ, andere Mods).",
-            "Bereich je Stufe (Breite x Breite x Höhe, ab dem Pad, mittig darum): I 6x6x15, II 16x16x31, III 32x32x63, IV 48x48x95, V 64x64x127.",
-            "Rezepte: I = Netherit-Aufwertung + Feines Elytra-Pad V + Elytra (Schmiede; vorläufig); II = Netherit-Aufwertung + Flugpad I + Netherit-Druckplatte (Schmiede); III = Werkbank DBD / ESE / KFK (Diamantblock, Netheritblock, Verzauberter Goldapfel, Netherstern, Unheilvoller Prüfungsschlüssel, Flugpad II); IV = Enderit-Aufwertungsvorlage + Flugpad III + Enderit-Druckplatte (Schmiede); V = Werkbank KKK / ESE / FFF mit drei Enderit-Flugpads.",
+            "Bereich je Stufe (Breite x Tiefe x Höhe, ab der Unterkante des Pads, mittig darum): I 4x4x6, II 8x8x12, III 16x16x24.",
+            "Rezepte (Schmiede, jeweils Enderit-Aufwertungsvorlage): I = Enderit-Druckplatte + Enderit-Kern; II = Flugpad I + Enderit-Druckplatte; III = zwei Verstärkte Flugpads II (eines als Basis, eines als Zutat). Das alte Netherit-Flugpad (alt III) und Enderit-Flugpad (alt IV) laden weiter aus alten Welten: sie werden beim ersten Tick zu Flugpad II bzw. Stellarem Flugpad III (Besitzer bleibt) und im Inventar zum neuen Item; die alten Flugpads I, II und V behalten ihre ID als I, II und III.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht."
           ]
         },
@@ -20108,24 +20108,24 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Flypads (from Simple Tweaks) grant creative flight inside their area and take it back when you leave; five tiers, from Flypad I to Stellar Flypad V.",
+          "summary": "Flypads (from Simple Tweaks) grant creative flight inside their area and take it back when you leave; three enderite tiers: Flypad I, Reinforced Flypad II and Stellar Flypad III.",
           "details": [
             "Every 5 ticks: players in the area may fly and glow briefly. A survival player who leaves the area loses flight; creative and spectator players are left alone.",
-            "Enderite tier (IV) and up: a safety net - whoever leaves the area while flying gets 10 seconds of Slow Falling instead of crashing.",
+            "Every tier is made of enderite and has the safety net: whoever leaves the area while flying gets 10 seconds of Slow Falling instead of crashing.",
             "Breaking the pad, unloading it or switching flypads off (tweaks.pads.enableFlypads) takes flight back from everyone it had granted it to (in Simple Tweaks they kept it forever) - but not while another flypad still covers them, and never flight that did not come from a flypad (creative, other mods).",
-            "Area per tier (width x width x height, starting at the pad, centred on it): I 6x6x15, II 16x16x31, III 32x32x63, IV 48x48x95, V 64x64x127.",
-            "Recipes: I = netherite upgrade + Fine Elytra Pad V + elytra (smithing; provisional); II = netherite upgrade + flypad I + Netherite Pressure Plate (smithing); III = crafting DBD / ESE / KFK (diamond block, netherite block, enchanted golden apple, nether star, ominous trial key, flypad II); IV = enderite upgrade template + flypad III + Enderite Pressure Plate (smithing); V = crafting KKK / ESE / FFF with three Enderite Flypads.",
+            "Area per tier (width x depth x height, starting at the bottom of the pad, centred on it): I 4x4x6, II 8x8x12, III 16x16x24.",
+            "Recipes (smithing, enderite upgrade template each): I = Enderite Pressure Plate + Enderite Core; II = Flypad I + Enderite Pressure Plate; III = two Reinforced Flypads II (one as base, one as addition). The old Netherite Flypad (old III) and Enderite Flypad (old IV) still load from old worlds: they turn into Flypad II and Stellar Flypad III on their first tick (owner kept) and into the new item in your inventory; old Flypad I, II and V keep their id as I, II and III.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it."
           ]
         },
         "de": {
-          "summary": "Flugpads (aus Simple Tweaks) geben im Bereich Kreativflug und nehmen ihn beim Verlassen wieder; fünf Stufen, vom Flugpad I bis zum Stellaren Flugpad V.",
+          "summary": "Flugpads (aus Simple Tweaks) geben im Bereich Kreativflug und nehmen ihn beim Verlassen wieder; drei Enderit-Stufen: Flugpad I, Verstärktes Flugpad II und Stellares Flugpad III.",
           "details": [
             "Alle 5 Ticks: Spieler im Bereich dürfen fliegen und leuchten kurz. Ein Überlebensspieler, der den Bereich verlässt, verliert den Flug; Kreativ- und Zuschauerspieler bleiben unberührt.",
-            "Ab der Enderit-Stufe (IV): ein Sicherheitsnetz - wer den Bereich fliegend verlässt, bekommt 10 Sekunden Sanften Fall statt abzustürzen.",
+            "Jede Stufe ist aus Enderit und hat das Sicherheitsnetz: wer den Bereich fliegend verlässt, bekommt 10 Sekunden Sanften Fall statt abzustürzen.",
             "Abbauen, Entladen oder Abschalten (tweaks.pads.enableFlypads) nimmt allen, denen das Pad Flug gegeben hat, den Flug wieder (in Simple Tweaks behielten sie ihn für immer) - aber nicht, solange ein anderes Flugpad sie noch abdeckt, und nie einen Flug, der nicht von einem Flugpad stammt (Kreativ, andere Mods).",
-            "Bereich je Stufe (Breite x Breite x Höhe, ab dem Pad, mittig darum): I 6x6x15, II 16x16x31, III 32x32x63, IV 48x48x95, V 64x64x127.",
-            "Rezepte: I = Netherit-Aufwertung + Feines Elytra-Pad V + Elytra (Schmiede; vorläufig); II = Netherit-Aufwertung + Flugpad I + Netherit-Druckplatte (Schmiede); III = Werkbank DBD / ESE / KFK (Diamantblock, Netheritblock, Verzauberter Goldapfel, Netherstern, Unheilvoller Prüfungsschlüssel, Flugpad II); IV = Enderit-Aufwertungsvorlage + Flugpad III + Enderit-Druckplatte (Schmiede); V = Werkbank KKK / ESE / FFF mit drei Enderit-Flugpads.",
+            "Bereich je Stufe (Breite x Tiefe x Höhe, ab der Unterkante des Pads, mittig darum): I 4x4x6, II 8x8x12, III 16x16x24.",
+            "Rezepte (Schmiede, jeweils Enderit-Aufwertungsvorlage): I = Enderit-Druckplatte + Enderit-Kern; II = Flugpad I + Enderit-Druckplatte; III = zwei Verstärkte Flugpads II (eines als Basis, eines als Zutat). Das alte Netherit-Flugpad (alt III) und Enderit-Flugpad (alt IV) laden weiter aus alten Welten: sie werden beim ersten Tick zu Flugpad II bzw. Stellarem Flugpad III (Besitzer bleibt) und im Inventar zum neuen Item; die alten Flugpads I, II und V behalten ihre ID als I, II und III.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht."
           ]
         },
