@@ -169,18 +169,36 @@ public final class TweaksTests {
     }
 
     /**
-     * Echo-Kompass (Besitzer-Rezept): Bergungskompass in der Mitte, Enderit-Kern darueber,
-     * Netherit-Druckplatten links und rechts.
+     * Echo-Kompass (Besitzer-Rezept 2026-09-27): Bergungskompass in der Mitte, Enderit-Kern unten
+     * mittig, sechs Enderit-Nuggets aussen herum, oben mittig frei ("N N" / "NRN" / "NEN").
      */
-    public static void theEchoCompassIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndNetheritePlates(GameTestHelper helper) {
-        Item p = TweaksBlocks.NETHERITE_PRESSURE_PLATE.asItem();
-        CraftingInput grid = grid(null, ModItems.ENDERITE_CORE, null, p, Items.RECOVERY_COMPASS, p, null, null, null);
+    public static void theEchoCompassIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndSixEnderiteNuggets(GameTestHelper helper) {
+        Item n = ModItems.ENDERITE_NUGGET;
+        CraftingInput grid = grid(n, null, n, n, Items.RECOVERY_COMPASS, n, n, ModItems.ENDERITE_CORE, n);
         expectCrafting(helper, grid, TweaksItems.ECHO_COMPASS, "simplebuilding:echo_compass");
-        CraftingInput swapped = grid(null, Items.RECOVERY_COMPASS, null, p, ModItems.ENDERITE_CORE, p, null, null, null);
+        CraftingInput swapped = grid(n, null, n, n, ModItems.ENDERITE_CORE, n, n, Items.RECOVERY_COMPASS, n);
         helper.assertTrue(craftingResult(helper, swapped).isEmpty(), "core and compass swapped still craft an echo compass");
-        CraftingInput diamondPlates = grid(null, ModItems.ENDERITE_CORE, null, TweaksBlocks.DIAMOND_PRESSURE_PLATE.asItem(),
-                Items.RECOVERY_COMPASS, TweaksBlocks.DIAMOND_PRESSURE_PLATE.asItem(), null, null, null);
-        helper.assertTrue(craftingResult(helper, diamondPlates).isEmpty(), "diamond plates are accepted instead of netherite plates");
+        CraftingInput topFilled = grid(n, n, n, n, Items.RECOVERY_COMPASS, n, n, ModItems.ENDERITE_CORE, n);
+        helper.assertTrue(craftingResult(helper, topFilled).isEmpty(), "a seventh nugget in the empty top middle still crafts an echo compass");
+        Item p = TweaksBlocks.NETHERITE_PRESSURE_PLATE.asItem();
+        CraftingInput oldRecipe = grid(null, ModItems.ENDERITE_CORE, null, p, Items.RECOVERY_COMPASS, p, null, null, null);
+        helper.assertTrue(craftingResult(helper, oldRecipe).isEmpty(), "the old netherite plate recipe still crafts an echo compass");
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Geschwindigkeitsmesser (Besitzer 2026-09-27): Quarz in den oberen Ecken um den Amethystsplitter,
+     * Kupfer - Kompass - Kupfer, unten mittig ein Kupfer-Baukern statt der Quarzreihe.
+     */
+    public static void theVelocityGaugeIsCraftedWithQuartzCornersAndTheCopperCore(GameTestHelper helper) {
+        Item q = Items.QUARTZ;
+        Item o = Items.COPPER_INGOT;
+        CraftingInput grid = grid(q, Items.AMETHYST_SHARD, q, o, Items.COMPASS, o, null, ModItems.COPPER_CORE, null);
+        expectCrafting(helper, grid, ModItems.VELOCITY_GAUGE, "simplebuilding:velocity-gauge");
+        CraftingInput oldRecipe = grid(null, Items.AMETHYST_SHARD, null, o, Items.COMPASS, o, q, q, q);
+        helper.assertTrue(craftingResult(helper, oldRecipe).isEmpty(), "the old quartz row recipe still crafts a velocity gauge");
+        CraftingInput ironCore = grid(q, Items.AMETHYST_SHARD, q, o, Items.COMPASS, o, null, ModItems.IRON_CORE, null);
+        helper.assertTrue(craftingResult(helper, ironCore).isEmpty(), "an iron core is accepted instead of the copper core");
         TestCleanup.succeed(helper);
     }
 
@@ -670,8 +688,8 @@ public final class TweaksTests {
     // =====================================================================================
 
     /**
-     * Echo-Kompass: Rechtsklick auf einen Leitstein verknuepft; Benutzen teleportiert ueber den
-     * Leitstein, verbraucht eine Enderperle, der Kompass bleibt und nimmt 1 Haltbarkeit.
+     * Echo-Kompass: Rechtsklick auf einen Leitstein verknuepft; der Sprung teleportiert ueber den
+     * Leitstein, verbraucht eine Enderperle, der Kompass bleibt, ist danach aber leer (voller Schaden).
      */
     public static void theEchoCompassLinksToTheLodestoneAndTeleportsForOnePearl(GameTestHelper helper) {
         BlockPos lodestone = new BlockPos(6, 1, 6);
@@ -691,38 +709,152 @@ public final class TweaksTests {
         helper.assertTrue(player.position().distanceTo(Vec3.atBottomCenterOf(abs.above())) < 0.1, "the player landed at " + player.position() + " instead of on the lodestone");
         helper.assertValueEqual(player.getInventory().getItem(8).getCount(), 1, "ender pearls left after one jump");
         helper.assertTrue(player.getItemInHand(InteractionHand.MAIN_HAND) == compass, "the echo compass was used up");
-        helper.assertValueEqual(compass.getDamageValue(), 1, "echo compass damage after one jump");
+        helper.assertValueEqual(compass.getDamageValue(), EchoCompassItem.MAX_DAMAGE, "echo compass damage after one jump");
         helper.assertFalse(EchoCompassItem.teleport(player, InteractionHand.MAIN_HAND, compass), "the echo compass ignored its cooldown");
         helper.assertValueEqual(player.getInventory().getItem(8).getCount(), 1, "pearls spent by a jump refused for cooldown");
         TestCleanup.succeed(helper);
     }
 
     /**
-     * Unbreaking wirkt auf den Echo-Kompass (Simple-Tweaks-Bug: das Datenpaket zog die Haltbarkeit
-     * direkt ab). Mit Unbreaking 255 bleibt der Schaden praktisch aus; der Kompass liegt im Tag
-     * enchantable/durability, also kann man ihn auch verzaubern.
+     * Unbreaking wirkt auf den Echo-Kompass wie auf jedes Werkzeug (Simple-Tweaks-Bug: das Datenpaket
+     * zog die Haltbarkeit direkt ab): ein Sprung leert ihn mit Unbreaking III nur zu etwa einem Viertel
+     * (im Mittel 375 von 1500, Streuung ~17), leer ist er trotzdem - er muss wieder aufgeladen werden.
+     * Der Kompass liegt im Tag enchantable/durability, also kann man ihn auch verzaubern.
      */
-    public static void unbreakingProtectsTheEchoCompass(GameTestHelper helper) {
+    public static void unbreakingLowersHowMuchTheJumpEmptiesTheEchoCompass(GameTestHelper helper) {
         BlockPos lodestone = new BlockPos(6, 1, 6);
         helper.setBlock(lodestone, Blocks.LODESTONE);
         ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
         player.getAbilities().instabuild = false;
-        ItemStack compass = new ItemStack(TweaksItems.ECHO_COMPASS);
-        compass.set(DataComponents.LODESTONE_TRACKER, new LodestoneTracker(Optional.of(GlobalPos.of(helper.getLevel().dimension(), helper.absolutePos(lodestone))), true));
-        compass.enchant(helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.UNBREAKING), 255);
+        ItemStack compass = linkedEchoCompass(helper, lodestone);
+        compass.enchant(helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.UNBREAKING), 3);
         player.setItemInHand(InteractionHand.MAIN_HAND, compass);
-        player.getInventory().setItem(8, new ItemStack(Items.ENDER_PEARL, 16));
-        int jumps = 0;
-        for (int i = 0; i < 8; i++) {
-            player.getCooldowns().removeCooldown(player.getCooldowns().getCooldownGroup(compass));
-            if (EchoCompassItem.teleport(player, InteractionHand.MAIN_HAND, compass)) {
-                jumps++;
-            }
-        }
-        helper.assertValueEqual(jumps, 8, "jumps made");
-        helper.assertTrue(compass.getDamageValue() <= 1, "unbreaking 255 still let the echo compass take " + compass.getDamageValue() + " damage in 8 jumps");
+        player.getInventory().setItem(8, new ItemStack(Items.ENDER_PEARL, 4));
+        helper.assertTrue(EchoCompassItem.teleport(player, InteractionHand.MAIN_HAND, compass), "the echo compass refused to jump");
+        int damage = compass.getDamageValue();
+        helper.assertTrue(damage > 150 && damage < 600,
+                "unbreaking III emptied the echo compass by " + damage + " of " + EchoCompassItem.MAX_DAMAGE + " instead of about a quarter");
+        helper.assertTrue(EchoCompassItem.isCracked(compass), "the echo compass is still charged after a jump with unbreaking");
         helper.assertTrue(new ItemStack(TweaksItems.ECHO_COMPASS).is(net.minecraft.tags.ItemTags.DURABILITY_ENCHANTABLE),
-                "the echo compass is missing from enchantable/durability, so unbreaking cannot be put on it");
+                "the echo compass is missing from enchantable/durability, so unbreaking and mending cannot be put on it");
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Aufladen (Besitzer 2026-09-27): Benutzen startet eine Ladung von 3 s (60 Ticks); wer vorher
+     * loslaesst, springt nicht und verliert nichts - keine Perle, kein Schaden, keine Abklingzeit.
+     */
+    public static void theEchoCompassChargesForThreeSecondsAndReleasingEarlyCostsNothing(GameTestHelper helper) {
+        BlockPos lodestone = new BlockPos(6, 1, 6);
+        helper.setBlock(lodestone, Blocks.LODESTONE);
+        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
+        player.getAbilities().instabuild = false;
+        ItemStack compass = linkedEchoCompass(helper, lodestone);
+        player.setItemInHand(InteractionHand.MAIN_HAND, compass);
+        player.getInventory().setItem(8, new ItemStack(Items.ENDER_PEARL, 2));
+        Vec3 start = player.position();
+        helper.assertValueEqual(compass.getUseDuration(player), EchoCompassItem.CHARGE_TICKS, "charge ticks of a charged echo compass");
+        helper.assertValueEqual(EchoCompassItem.CHARGE_TICKS, 60, "charge ticks (3 seconds)");
+        helper.assertTrue(compass.use(helper.getLevel(), player, InteractionHand.MAIN_HAND).consumesAction(), "using the echo compass did not start a charge");
+        helper.assertTrue(player.isUsingItem(), "the echo compass does not charge");
+        tickUse(player, EchoCompassItem.CHARGE_TICKS - 1);
+        helper.assertTrue(player.isUsingItem(), "the charge ended before 3 seconds");
+        helper.assertTrue(player.position().distanceTo(start) < 0.01, "the player jumped before the charge was full");
+        player.releaseUsingItem();
+        helper.assertFalse(player.isUsingItem(), "releasing did not stop the charge");
+        tickUse(player, 5);
+        helper.assertTrue(player.position().distanceTo(start) < 0.01, "an early release still jumped");
+        helper.assertValueEqual(player.getInventory().getItem(8).getCount(), 2, "ender pearls left after an early release");
+        helper.assertValueEqual(compass.getDamageValue(), 0, "echo compass damage after an early release");
+        helper.assertFalse(player.getCooldowns().isOnCooldown(compass), "an early release put the echo compass on cooldown");
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Die volle Ladung springt: danach ist der Kompass leer (Schaden 1500), zeigt keinen Glanz mehr -
+     * auch nicht mit Mending -, und die naechste Ladung dauert doppelt so lange.
+     */
+    public static void aFullChargeJumpsAndLeavesTheEchoCompassEmpty(GameTestHelper helper) {
+        BlockPos lodestone = new BlockPos(6, 1, 6);
+        helper.setBlock(lodestone, Blocks.LODESTONE);
+        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
+        player.getAbilities().instabuild = false;
+        ItemStack compass = linkedEchoCompass(helper, lodestone);
+        compass.enchant(helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.MENDING), 1);
+        player.setItemInHand(InteractionHand.MAIN_HAND, compass);
+        player.getInventory().setItem(8, new ItemStack(Items.ENDER_PEARL, 2));
+        helper.assertTrue(compass.hasFoil(), "a charged echo compass has no glint");
+        helper.assertTrue(compass.use(helper.getLevel(), player, InteractionHand.MAIN_HAND).consumesAction(), "using the echo compass did not start a charge");
+        tickUse(player, EchoCompassItem.CHARGE_TICKS);
+        BlockPos abs = helper.absolutePos(lodestone);
+        helper.assertTrue(player.position().distanceTo(Vec3.atBottomCenterOf(abs.above())) < 0.1, "a full charge left the player at " + player.position());
+        helper.assertFalse(player.isUsingItem(), "the charge did not end with the jump");
+        helper.assertTrue(player.getItemInHand(InteractionHand.MAIN_HAND) == compass && !compass.isEmpty(), "the first jump destroyed the echo compass");
+        helper.assertValueEqual(compass.getDamageValue(), EchoCompassItem.MAX_DAMAGE, "echo compass damage after the first jump");
+        helper.assertValueEqual(compass.getMaxDamage(), 1500, "repair points of an empty echo compass");
+        helper.assertTrue(EchoCompassItem.isCracked(compass), "the empty echo compass is not cracked");
+        helper.assertFalse(compass.hasFoil(), "the empty echo compass still has a glint");
+        helper.assertValueEqual(compass.getUseDuration(player), EchoCompassItem.CRACKED_CHARGE_TICKS, "charge ticks of an empty echo compass");
+        helper.assertValueEqual(player.getInventory().getItem(8).getCount(), 1, "ender pearls left after the jump");
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Wieder aufladen: erst nach allen 1500 Reparaturpunkten (Mending: 2 je XP-Punkt, also 750 XP) ist
+     * der Kompass wieder normal benutzbar und glaenzt; 1498 Punkte reichen nicht. Am Amboss repariert
+     * eine Echoscherbe.
+     */
+    public static void theEchoCompassIsOnlyChargedAgainAfterFifteenHundredRepairPoints(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
+        player.getAbilities().instabuild = false;
+        ItemStack compass = new ItemStack(TweaksItems.ECHO_COMPASS);
+        compass.enchant(helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.MENDING), 1);
+        compass.setDamageValue(EchoCompassItem.MAX_DAMAGE);
+        player.setItemInHand(InteractionHand.MAIN_HAND, compass);
+        Vec3 at = player.position();
+        player.takeXpDelay = 0;
+        new ExperienceOrb(helper.getLevel(), at.x, at.y, at.z, 749).playerTouch(player);
+        helper.assertValueEqual(compass.getDamageValue(), 2, "damage left after 749 XP of mending");
+        helper.assertTrue(EchoCompassItem.isCracked(compass), "the echo compass counts as repaired with 2 points missing");
+        helper.assertFalse(compass.hasFoil(), "the not fully repaired echo compass has a glint");
+        helper.assertValueEqual(compass.getUseDuration(player), EchoCompassItem.CRACKED_CHARGE_TICKS, "charge ticks with 2 points missing");
+        player.takeXpDelay = 0;
+        new ExperienceOrb(helper.getLevel(), at.x, at.y, at.z, 1).playerTouch(player);
+        helper.assertValueEqual(compass.getDamageValue(), 0, "damage after 750 XP of mending");
+        helper.assertFalse(EchoCompassItem.isCracked(compass), "the fully repaired echo compass is still cracked");
+        helper.assertTrue(compass.hasFoil(), "the fully repaired echo compass has no glint");
+        helper.assertValueEqual(compass.getUseDuration(player), EchoCompassItem.CHARGE_TICKS, "charge ticks after the full repair");
+        helper.assertTrue(compass.isValidRepairItem(new ItemStack(Items.ECHO_SHARD)), "echo shards do not repair the echo compass at the anvil");
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Den nicht voll reparierten Kompass zu benutzen provoziert den Bruch: die Ladung dauert doppelt so
+     * lange (6 s - nach 3 s passiert noch nichts), der Sprung gelingt, danach ist der Kompass zerstoert.
+     */
+    public static void aCrackedEchoCompassChargesTwiceAsLongAndShattersAfterTheJump(GameTestHelper helper) {
+        BlockPos lodestone = new BlockPos(6, 1, 6);
+        helper.setBlock(lodestone, Blocks.LODESTONE);
+        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
+        player.getAbilities().instabuild = false;
+        ItemStack compass = linkedEchoCompass(helper, lodestone);
+        compass.setDamageValue(1);
+        player.setItemInHand(InteractionHand.MAIN_HAND, compass);
+        player.getInventory().setItem(8, new ItemStack(Items.ENDER_PEARL, 2));
+        Vec3 start = player.position();
+        helper.assertValueEqual(EchoCompassItem.CRACKED_CHARGE_TICKS, 2 * EchoCompassItem.CHARGE_TICKS, "cracked charge ticks");
+        helper.assertTrue(compass.use(helper.getLevel(), player, InteractionHand.MAIN_HAND).consumesAction(), "the cracked echo compass does not charge");
+        tickUse(player, EchoCompassItem.CHARGE_TICKS);
+        helper.assertTrue(player.isUsingItem(), "the cracked echo compass stopped charging after 3 seconds");
+        helper.assertTrue(player.position().distanceTo(start) < 0.01, "the cracked echo compass jumped after 3 seconds");
+        tickUse(player, EchoCompassItem.CHARGE_TICKS - 1);
+        helper.assertTrue(player.position().distanceTo(start) < 0.01, "the cracked echo compass jumped a tick early");
+        tickUse(player, 1);
+        BlockPos abs = helper.absolutePos(lodestone);
+        helper.assertTrue(player.position().distanceTo(Vec3.atBottomCenterOf(abs.above())) < 0.1, "the cracked echo compass left the player at " + player.position());
+        helper.assertTrue(compass.isEmpty(), "the cracked echo compass survived its jump");
+        helper.assertTrue(player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty(), "something is left in the hand after the echo compass shattered");
+        helper.assertValueEqual(player.getInventory().getItem(8).getCount(), 1, "ender pearls left after the shattering jump");
         TestCleanup.succeed(helper);
     }
 
@@ -1585,6 +1717,30 @@ public final class TweaksTests {
         helper.assertTrue(match.isPresent(), "no smithing recipe turns " + base + " with " + addition + " into " + result);
         ItemStack out = match.get().value().assemble(smithingInput(template, base, addition), helper.getLevel().registryAccess());
         helper.assertTrue(out.is(result.asItem()), "smithing " + base + " with " + addition + " made " + out + " instead of " + result);
+    }
+
+    /** Ein mit dem Leitstein an {@code lodestone} (relativ) verknuepfter Echo-Kompass. */
+    private static ItemStack linkedEchoCompass(GameTestHelper helper, BlockPos lodestone) {
+        ItemStack compass = new ItemStack(TweaksItems.ECHO_COMPASS);
+        compass.set(DataComponents.LODESTONE_TRACKER, new LodestoneTracker(
+                Optional.of(GlobalPos.of(helper.getLevel().dimension(), helper.absolutePos(lodestone))), true));
+        return compass;
+    }
+
+    /**
+     * {@code ticks} Benutz-Ticks wie Vanillas LivingEntity#updatingUsingItem: onUseTick, Zaehler
+     * herunter, bei 0 completeUsingItem. Per Reflexion, weil der Mock-Spieler hier nicht getickt wird.
+     */
+    private static void tickUse(ServerPlayer player, int ticks) {
+        try {
+            java.lang.reflect.Method update = net.minecraft.world.entity.LivingEntity.class.getDeclaredMethod("updateUsingItem", ItemStack.class);
+            update.setAccessible(true);
+            for (int i = 0; i < ticks && player.isUsingItem(); i++) {
+                update.invoke(player, player.getUseItem());
+            }
+        } catch (ReflectiveOperationException e) {
+            throw new IllegalStateException("LivingEntity#updateUsingItem not reachable", e);
+        }
     }
 
     private static CraftingInput grid(Item... items) {

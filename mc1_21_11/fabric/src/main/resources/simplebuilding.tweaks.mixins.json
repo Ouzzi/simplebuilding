@@ -13,6 +13,7 @@
     "TweaksTeleportCommandMixin"
   ],
   "client": [
+    "client.EchoCompassFovMixin",
     "client.ExperienceBarMixin",
     "client.ExperienceOrbRendererMixin",
     "client.ExperienceOrbRenderStateMixin",

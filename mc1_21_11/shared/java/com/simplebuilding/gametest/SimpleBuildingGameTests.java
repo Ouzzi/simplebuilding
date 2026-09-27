@@ -1060,7 +1060,9 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_stellar_flypad_is_crafted_from_enderite_flypads", TweaksTests::theStellarFlypadIsCraftedFromEnderiteFlypads)
                     .build(),
-            GameTestSpec.named("tweaks_game_test_the_echo_compass_is_crafted_from_the_recovery_compass_the_enderite_core_and_netherite_plates", TweaksTests::theEchoCompassIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndNetheritePlates)
+            GameTestSpec.named("tweaks_game_test_the_echo_compass_is_crafted_from_the_recovery_compass_the_enderite_core_and_six_enderite_nuggets", TweaksTests::theEchoCompassIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndSixEnderiteNuggets)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_velocity_gauge_is_crafted_with_quartz_corners_and_the_copper_core", TweaksTests::theVelocityGaugeIsCraftedWithQuartzCornersAndTheCopperCore)
                     .build(),
             GameTestSpec.named("tweaks_game_test_elytra_pads_equip_an_unsafe_spawn_elytra_in_their_area", TweaksTests::elytraPadsEquipAnUnsafeSpawnElytraInTheirArea)
                     .build(),
@@ -1105,7 +1107,15 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_echo_compass_links_to_the_lodestone_and_teleports_for_one_pearl", TweaksTests::theEchoCompassLinksToTheLodestoneAndTeleportsForOnePearl)
                     .build(),
-            GameTestSpec.named("tweaks_game_test_unbreaking_protects_the_echo_compass", TweaksTests::unbreakingProtectsTheEchoCompass)
+            GameTestSpec.named("tweaks_game_test_unbreaking_lowers_how_much_the_jump_empties_the_echo_compass", TweaksTests::unbreakingLowersHowMuchTheJumpEmptiesTheEchoCompass)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_echo_compass_charges_for_three_seconds_and_releasing_early_costs_nothing", TweaksTests::theEchoCompassChargesForThreeSecondsAndReleasingEarlyCostsNothing)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_a_full_charge_jumps_and_leaves_the_echo_compass_empty", TweaksTests::aFullChargeJumpsAndLeavesTheEchoCompassEmpty)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_echo_compass_is_only_charged_again_after_fifteen_hundred_repair_points", TweaksTests::theEchoCompassIsOnlyChargedAgainAfterFifteenHundredRepairPoints)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_a_cracked_echo_compass_charges_twice_as_long_and_shatters_after_the_jump", TweaksTests::aCrackedEchoCompassChargesTwiceAsLongAndShattersAfterTheJump)
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_first_join_gift_comes_once_and_honours_simple_tweaks_players", TweaksTests::theFirstJoinGiftComesOnceAndHonoursSimpleTweaksPlayers)
                     .build(),

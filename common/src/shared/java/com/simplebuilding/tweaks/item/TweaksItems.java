@@ -13,6 +13,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
 
@@ -27,8 +28,9 @@ public final class TweaksItems {
             // Ohne Haltbarkeit: sie nahm nie ab (Audit #34); Rezept in ModRecipeProvider.
             p -> new LaserPointerItem(p.stacksTo(1).rarity(Rarity.EPIC)));
     public static final Item ECHO_COMPASS = register("echo_compass",
-            p -> new EchoCompassItem(p.stacksTo(1).durability(EchoCompassItem.DURABILITY).enchantable(15)
-                    .rarity(Rarity.EPIC).fireResistant()));
+            // 1500 Reparaturpunkte, ein Sprung leert ihn; Echoscherben reparieren am Amboss je ein Viertel.
+            p -> new EchoCompassItem(p.stacksTo(1).durability(EchoCompassItem.MAX_DAMAGE).enchantable(15)
+                    .repairable(Items.ECHO_SHARD).rarity(Rarity.EPIC).fireResistant()));
 
     static {
         for (Block block : TweaksBlocks.all()) {
@@ -85,7 +87,7 @@ public final class TweaksItems {
                         TweaksBlocks.ENDERITE_FLYPAD, TweaksBlocks.STELLAR_FLYPAD),
                 CreativeTabLayout.Row.of("spawn_teleporters",
                         TweaksBlocks.SPAWN_TELEPORTER, TweaksBlocks.SPAWN_TELEPORTER_TIER_2, TweaksBlocks.SPAWN_TELEPORTER_TIER_3,
-                        TweaksBlocks.SPAWN_TELEPORTER_TIER_4, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER, ECHO_COMPASS),
+                        TweaksBlocks.SPAWN_TELEPORTER_TIER_4, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER),
                 CreativeTabLayout.Row.of("travel_and_loading",
                         TweaksBlocks.LAUNCHPAD, TweaksBlocks.ENDERITE_LAUNCHPAD, TweaksBlocks.CHUNK_LOADER,
                         TweaksBlocks.ENDERITE_CHUNK_LOADER, LASER_POINTER));

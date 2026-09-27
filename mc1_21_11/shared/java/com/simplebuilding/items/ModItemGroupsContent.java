@@ -125,6 +125,10 @@ public final class ModItemGroupsContent {
                 CreativeTabLayout.Row.of("gadgets",
                         ModItems.OCTANT, ModItems.VELOCITY_GAUGE, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR)));
 
+        // Kompasse: der Echo-Kompass neben Vanilla-Kompass und Bergungskompass (Besitzer 2026-09-27).
+        rows.add(CreativeTabLayout.Row.of("compasses",
+                Items.COMPASS, Items.RECOVERY_COMPASS, com.simplebuilding.tweaks.item.TweaksItems.ECHO_COMPASS));
+
         // Die 16 gefaerbten Oktanten: eine eigene Kategorie, laeuft ueber zwei Zeilen.
         List<ItemStack> coloredOctants = new java.util.ArrayList<>();
         for (DyeColor color : DyeColor.values()) {

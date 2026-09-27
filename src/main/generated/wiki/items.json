@@ -260,7 +260,7 @@
       "maxStackSize": 1
     },
     {
-      "durability": 64,
+      "durability": 1500,
       "enchantability": 15,
       "id": "simplebuilding:echo_compass",
       "maxStackSize": 1
