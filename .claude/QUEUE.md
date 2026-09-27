@@ -94,7 +94,7 @@ Verlauf im Detail: git log.
 - [x] Server-Gate, Push
 - [x] Nach-Audit: N1 (P1 Hammer-Regression) behoben; N2-N16 in docs/AUDIT-2026-09-26.md
 
-## Welle 19 (laeuft): Rest-P3/P4 aus Audit + Nach-Audit
+## Welle 19 (erledigt, gepusht; Gate 3523 Tests, Rest-Fehler behoben und gezielt nachgeprueft): Rest-P3/P4 aus Audit + Nach-Audit
 - [x] W1 Blaupause/Oktant/Baustab: N2, N3, N8, N9, N13-N16, ShapeFill-Tests
 - [x] W2 Kolben/Trichter/Lager: Brecher-Verschleiss (#23), Config-Schalter Fake-Spieler-Guard (N4), Loader-Guard-Tests (N5), N6, N7, #24, #36, #48
 - [x] W3 Werkzeuge/Texte/Tasten: #25, #26, #27, #30, #37, #38, #39, #46
