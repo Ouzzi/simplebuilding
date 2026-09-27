@@ -889,6 +889,14 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("blueprint_game_test_size_limits_cap_the_code_and_map_wand_tiers", BlueprintTests::sizeLimitsCapTheCodeAndMapWandTiers)
                     .build(),
+            GameTestSpec.named("blueprint_game_test_code_extensions_keep_existing_codes_identical", BlueprintTests::codeExtensionsKeepExistingCodesIdentical)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_code_shapes_fill_the_octant_figures", BlueprintTests::codeShapesFillTheOctantFigures)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_code_hollow_shapes_keep_only_the_shell", BlueprintTests::codeHollowShapesKeepOnlyTheShell)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_code_variables_compute_coordinates_sizes_and_counts", BlueprintTests::codeVariablesComputeCoordinatesSizesAndCounts)
+                    .build(),
             GameTestSpec.named("blueprint_game_test_material_list_counts_items_sorted_by_amount", BlueprintTests::materialListCountsItemsSortedByAmount)
                     .build(),
             GameTestSpec.named("blueprint_game_test_material_list_counts_multi_item_blocks_by_their_state", BlueprintTests::materialListCountsMultiItemBlocksByTheirState)
