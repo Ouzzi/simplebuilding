@@ -132,6 +132,13 @@ public final class BlueprintBuilder {
     /** Materialquelle der Planung: {@code take} bucht {@code count} Stueck ab, wenn sie reichen. */
     public interface Supply {
         boolean take(Item item, int count);
+
+        /**
+         * Gibt zurueck, was {@link #take} gerade abgebucht hat, weil die Platzierung danach doch
+         * scheiterte (Audit 2026-09-26 #28).
+         */
+        default void refund(Item item, int count) {
+        }
     }
 
     /** Setzt (Server) oder merkt sich (Vorschau) einen Block; {@code false} = nicht gesetzt. */
@@ -188,6 +195,15 @@ public final class BlueprintBuilder {
 
         /** Zustand fuer die Kosten (bei Blaupausen ungedreht, die Kosten aendern sich beim Drehen nicht). */
         abstract BlockState rawState(int i);
+
+        /**
+         * Gehoert Stelle {@code i} ueberhaupt zum Bau? Die Oktant-Fuellung geht ihre ganze Box durch und
+         * entscheidet erst hier, beim Besuch, ob eine Stelle in der Figur liegt ({@link ShapeFill}).
+         * Nicht dazugehoerige Stellen werden uebersprungen und nirgends gezaehlt.
+         */
+        boolean included(int i) {
+            return true;
+        }
     }
 
     /**
@@ -384,6 +400,9 @@ public final class BlueprintBuilder {
             while (index < layout.size() && visits < maxVisits && placedHere < maxPlaced && !broke) {
                 int i = index++;
                 visits++;
+                if (!layout.included(i)) {
+                    continue;
+                }
                 BlockPos pos = layout.pos(i);
                 if (!level.isInWorldBounds(pos) || !level.getWorldBorder().isWithinBounds(pos) || !level.isLoaded(pos)
                         || !level.mayInteract(player, pos) || !player.mayUseItemAt(pos, Direction.UP, wand)) {
@@ -391,6 +410,15 @@ public final class BlueprintBuilder {
                     continue;
                 }
                 BlockState state = layout.state(i);
+                if (state == null) {
+                    // Die Oktant-Fuellung prueft Halt und Entities erst beim Besuch: hier geht es nicht.
+                    continue;
+                }
+                if (!creative) {
+                    // Nur Ausrichtung, Form und bezahlte Mengen: keine gewachsenen oder gefuellten Zustaende
+                    // (und kein Wasser) fuer ein Item (Audit 2026-09-26 #2).
+                    state = BlueprintMaterials.survivalState(state);
+                }
                 BlockState current = level.getBlockState(pos);
                 if (current.getBlock() == state.getBlock()) {
                     already++;
@@ -416,11 +444,11 @@ public final class BlueprintBuilder {
                         continue;
                     }
                 }
-                if (!creative && state.hasProperty(BlockStateProperties.WATERLOGGED)) {
-                    // Wasser gibt es im Ueberlebensmodus nicht umsonst dazu.
-                    state = state.setValue(BlockStateProperties.WATERLOGGED, false);
-                }
                 if (!placer.place(pos, state)) {
+                    if (!creative && cost.count() > 0) {
+                        // Das Material ist schon abgebucht: zurueck damit, die Stelle bleibt frei.
+                        supply.refund(cost.item(), cost.count());
+                    }
                     blocked++;
                     continue;
                 }
@@ -451,30 +479,50 @@ public final class BlueprintBuilder {
     /** Vorschau-Quelle: zaehlt den Vorrat einmal je Item und bucht nur in Gedanken ab. */
     public static Supply simulatedSupply(Player player, ItemStack wand) {
         Map<Item, Integer> left = new HashMap<>();
-        return (item, count) -> {
-            int have = left.computeIfAbsent(item, i -> BuildingWandItem.countSupply(player, wand, i));
-            if (have < count) {
-                return false;
+        return new Supply() {
+            @Override
+            public boolean take(Item item, int count) {
+                int have = left.computeIfAbsent(item, i -> BuildingWandItem.countSupply(player, wand, i));
+                if (have < count) {
+                    return false;
+                }
+                left.put(item, have - count);
+                return true;
             }
-            left.put(item, have - count);
-            return true;
+
+            @Override
+            public void refund(Item item, int count) {
+                left.merge(item, count, Integer::sum);
+            }
         };
     }
 
     /** Echte Quelle: verbraucht aus Inventar, Buendeln und Rucksack wie der Baustab. */
     public static Supply realSupply(Player player, ItemStack wand) {
-        return (item, count) -> {
-            if (count > 1 && BuildingWandItem.countSupply(player, wand, item) < count) {
-                return false;
-            }
-            for (int i = 0; i < count; i++) {
-                Runnable source = BuildingWandItem.findSupply(player, wand, item);
-                if (source == null) {
+        return new Supply() {
+            @Override
+            public boolean take(Item item, int count) {
+                if (count > 1 && BuildingWandItem.countSupply(player, wand, item) < count) {
                     return false;
                 }
-                source.run();
+                for (int i = 0; i < count; i++) {
+                    Runnable source = BuildingWandItem.findSupply(player, wand, item);
+                    if (source == null) {
+                        return false;
+                    }
+                    source.run();
+                }
+                return true;
             }
-            return true;
+
+            @Override
+            public void refund(Item item, int count) {
+                // Zurueck ins Inventar; passt es nicht mehr hinein, faellt es vor die Fuesse.
+                ItemStack back = new ItemStack(item, count);
+                if (!player.getInventory().add(back) && !back.isEmpty()) {
+                    com.simplebuilding.version.McVersion.drop(player, back, false, false);
+                }
+            }
         };
     }
 

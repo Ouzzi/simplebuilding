@@ -84,21 +84,60 @@ public final class ModMessageHandlers {
         }
     }
 
+    /**
+     * So weit (Bloecke, je Achse) darf eine Oktant-Ecke aus einem Paket hoechstens vom Spieler entfernt
+     * liegen: die laengste Kante der groessten Stabstufe (256) plus etwas Luft, damit man an einer Ecke
+     * stehend die gegenueberliegende eintippen kann. Weiter weg liegende Ecken verwirft der Server
+     * (Audit 2026-09-26 #9).
+     */
+    public static final int OCTANT_CORNER_RANGE = 320;
+    /** Groesster Betrag eines Scroll-Pakets; der Client schickt je Rastung 1. */
+    public static final int OCTANT_MAX_SCROLL = 16;
+
+    /** Liegt die Ecke in der Welt des Spielers (Bauhoehe) und in {@link #OCTANT_CORNER_RANGE} um ihn? */
+    public static boolean octantCornerInRange(ServerPlayer player, int x, int y, int z) {
+        net.minecraft.world.level.Level level = player.level();
+        if (y < level.getMinY() || y > level.getMaxY()) {
+            return false;
+        }
+        net.minecraft.core.BlockPos at = player.blockPosition();
+        return Math.abs((long) x - at.getX()) <= OCTANT_CORNER_RANGE && Math.abs((long) y - at.getY()) <= OCTANT_CORNER_RANGE
+                && Math.abs((long) z - at.getZ()) <= OCTANT_CORNER_RANGE;
+    }
+
+    private static <E extends Enum<E>> boolean isEnumName(Class<E> type, String name) {
+        for (E value : type.getEnumConstants()) {
+            if (value.name().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Einstellungen aus dem Oktant-Bildschirm. Der Server uebernimmt nur, was passt: Ecken in Reichweite
+     * ({@link #octantCornerInRange}), Form und Reihenfolge nur als bekannter Name, Ausrichtung nur 0-5;
+     * alles andere bleibt, wie es am Item steht.
+     */
     public static void handleOctantConfigure(OctantConfigurePayload payload, ServerPlayer player) {
         ItemStack stack = player.getMainHandItem();
         if (stack.getItem() instanceof OctantItem) {
             CustomData nbtComponent = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
             CompoundTag nbt = nbtComponent.copyTag();
-            payload.pos1().ifPresent(p -> nbt.putIntArray("Pos1", new int[]{p.getX(), p.getY(), p.getZ()}));
-            payload.pos2().ifPresent(p -> nbt.putIntArray("Pos2", new int[]{p.getX(), p.getY(), p.getZ()}));
-            if (payload.shapeName() != null && !payload.shapeName().isEmpty()) {
+            payload.pos1().filter(p -> octantCornerInRange(player, p.getX(), p.getY(), p.getZ()))
+                    .ifPresent(p -> nbt.putIntArray("Pos1", new int[]{p.getX(), p.getY(), p.getZ()}));
+            payload.pos2().filter(p -> octantCornerInRange(player, p.getX(), p.getY(), p.getZ()))
+                    .ifPresent(p -> nbt.putIntArray("Pos2", new int[]{p.getX(), p.getY(), p.getZ()}));
+            if (payload.shapeName() != null && isEnumName(OctantItem.SelectionShape.class, payload.shapeName())) {
                 nbt.putString("Shape", payload.shapeName());
             }
             nbt.putBoolean("Locked", payload.locked());
-            nbt.putInt("Orientation", payload.orientationOrdinal());
+            if (payload.orientationOrdinal() >= 0 && payload.orientationOrdinal() <= 5) {
+                nbt.putInt("Orientation", payload.orientationOrdinal());
+            }
             nbt.putBoolean("Hollow", payload.hollow());
             nbt.putBoolean("LayerMode", payload.layerMode());
-            if (payload.fillOrder() != null && !payload.fillOrder().isEmpty()) {
+            if (payload.fillOrder() != null && isEnumName(OctantItem.FillOrder.class, payload.fillOrder())) {
                 nbt.putString("FillOrder", payload.fillOrder());
             }
             stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
@@ -119,6 +158,8 @@ public final class ModMessageHandlers {
             return;
         }
         boolean changed = false;
+        // Ein Paket mit riesigem Betrag liefe ueber (int) oder schoebe Ecken beliebig weit.
+        int amount = Math.max(-OCTANT_MAX_SCROLL, Math.min(OCTANT_MAX_SCROLL, payload.amount()));
 
         if (payload.alt()) {
             String currentShapeName = nbt.getString("Shape").orElse("");
@@ -130,7 +171,7 @@ public final class ModMessageHandlers {
                 }
             }
             OctantItem.SelectionShape[] values = OctantItem.SelectionShape.values();
-            int nextIndex = (currentShape.ordinal() + payload.amount()) % values.length;
+            int nextIndex = (currentShape.ordinal() + amount) % values.length;
             if (nextIndex < 0) {
                 nextIndex += values.length;
             }
@@ -143,13 +184,13 @@ public final class ModMessageHandlers {
             } else if (player.getXRot() > 60) {
                 direction = net.minecraft.core.Direction.DOWN;
             }
-            int dx = direction.getStepX() * payload.amount();
-            int dy = direction.getStepY() * payload.amount();
-            int dz = direction.getStepZ() * payload.amount();
+            int dx = direction.getStepX() * amount;
+            int dy = direction.getStepY() * amount;
+            int dz = direction.getStepZ() * amount;
 
             if (payload.control() && nbt.contains("Pos1")) {
                 int[] p1 = nbt.getIntArray("Pos1").orElse(new int[0]);
-                if (p1.length == 3) {
+                if (p1.length == 3 && octantCornerInRange(player, p1[0] + dx, p1[1] + dy, p1[2] + dz)) {
                     p1[0] += dx;
                     p1[1] += dy;
                     p1[2] += dz;
@@ -159,7 +200,7 @@ public final class ModMessageHandlers {
             }
             if (payload.shift() && nbt.contains("Pos2")) {
                 int[] p2 = nbt.getIntArray("Pos2").orElse(new int[0]);
-                if (p2.length == 3) {
+                if (p2.length == 3 && octantCornerInRange(player, p2[0] + dx, p2[1] + dy, p2[2] + dz)) {
                     p2[0] += dx;
                     p2[1] += dy;
                     p2[2] += dz;
@@ -295,6 +336,35 @@ public final class ModMessageHandlers {
      * Paket entprellt waehrend des Tippens und beim Schliessen (Autospeichern); gespeichert wird
      * sofort am Item.
      */
+    /**
+     * Signieren parst den ganzen Code (bis 32 000 Zeichen). Jeder Spieler hat dafuer ein Budget an
+     * Zeichen, das sich mit {@link #SIGN_REFILL_PER_TICK} je Tick wieder auffuellt: zwei volle Codes
+     * sofort, danach einer je Sekunde. Ein Client, der Signier-Pakete in Schleife schickt, kann den
+     * Server so nicht mehr mit Parsen beschaeftigen (Audit 2026-09-26 #11); Zwischenspeichern ohne
+     * Signieren parst nicht und bleibt frei.
+     */
+    public static final int SIGN_BUDGET_CHARS = 2 * com.simplebuilding.blueprint.BlueprintCode.MAX_CODE_LENGTH;
+    public static final int SIGN_REFILL_PER_TICK = com.simplebuilding.blueprint.BlueprintCode.MAX_CODE_LENGTH / 20;
+    /** Budget je Spieler: {verfuegbare Zeichen, Spielzeit der letzten Abrechnung}; schwach, faellt mit dem Spieler weg. */
+    private static final java.util.Map<ServerPlayer, long[]> SIGN_BUDGET = new java.util.WeakHashMap<>();
+
+    /** Bucht {@code chars} Zeichen vom Signier-Budget des Spielers ab; {@code false} = zu viel auf einmal. */
+    static boolean takeSignBudget(ServerPlayer player, int chars) {
+        long now = player.level().getGameTime();
+        synchronized (SIGN_BUDGET) {
+            long[] budget = SIGN_BUDGET.computeIfAbsent(player, p -> new long[]{SIGN_BUDGET_CHARS, now});
+            long elapsed = Math.max(0, now - budget[1]);
+            budget[0] = Math.min(SIGN_BUDGET_CHARS, budget[0] + elapsed * SIGN_REFILL_PER_TICK);
+            budget[1] = now;
+            int cost = Math.max(1, chars);
+            if (budget[0] < cost) {
+                return false;
+            }
+            budget[0] -= cost;
+            return true;
+        }
+    }
+
     public static void handleBlueprintEdit(BlueprintEditPayload payload, ServerPlayer player) {
         int slot = payload.slot();
         if (!(net.minecraft.world.entity.player.Inventory.isHotbarSlot(slot) || slot == net.minecraft.world.entity.player.Inventory.SLOT_OFFHAND)) {
@@ -318,7 +388,11 @@ public final class ModMessageHandlers {
             if (title.isEmpty() || title.length() > com.simplebuilding.blueprint.BlueprintCode.MAX_TITLE_LENGTH) {
                 return;
             }
-            com.simplebuilding.blueprint.BlueprintCode.ParseResult parsed = com.simplebuilding.blueprint.BlueprintCode.parse(code);
+            if (!takeSignBudget(player, code.length())) {
+                return;
+            }
+            // Zwischengespeichert: der Bau (Tooltip, Vorschau, Baustab) fragt gleich denselben Code.
+            com.simplebuilding.blueprint.BlueprintCode.ParseResult parsed = com.simplebuilding.blueprint.BlueprintCode.parseCached(code);
             if (!parsed.ok() || parsed.model().isEmpty()) {
                 return;
             }

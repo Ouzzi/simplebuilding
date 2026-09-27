@@ -80,4 +80,9 @@ public final class WandModeGameTest {
     public void undoLeavesTheSlabThatWasDoubledSinceStanding(GameTestHelper helper) {
         WandModeTests.undoLeavesTheSlabThatWasDoubledSinceStanding(helper);
     }
+
+    @GameTest(rotation = Rotation.NONE)
+    public void octantFillPlansLazilyAndRefusesUnloadedChunks(GameTestHelper helper) {
+        WandModeTests.octantFillPlansLazilyAndRefusesUnloadedChunks(helper);
+    }
 }

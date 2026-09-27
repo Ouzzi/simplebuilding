@@ -44,4 +44,9 @@ public final class NetworkHandlerGameTest {
     public void masterBuilderPickTakesBlocksOutOfTheEnchantedBundle(GameTestHelper helper) {
         NetworkHandlerTests.masterBuilderPickTakesBlocksOutOfTheEnchantedBundle(helper);
     }
+
+    @GameTest(rotation = Rotation.NONE)
+    public void octantPacketsRejectFarCornersUnknownNamesAndHugeScrolls(GameTestHelper helper) {
+        NetworkHandlerTests.octantPacketsRejectFarCornersUnknownNamesAndHugeScrolls(helper);
+    }
 }

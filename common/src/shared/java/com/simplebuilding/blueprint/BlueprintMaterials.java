@@ -134,6 +134,64 @@ public final class BlueprintMaterials {
                 : BuiltInRegistries.ITEM.getKey(e.item()).toString();
     }
 
+    /**
+     * Eigenschaften, die ein Ueberlebens-Bau aus dem Code uebernimmt: Ausrichtung und Form (was ein
+     * Spieler beim Setzen selbst bestimmt oder was sich aus den Nachbarn ergibt) und die bezahlten
+     * Mengen ({@link #COUNT_PROPERTIES}, Flaechen von Ranken und Flechten). Alles andere - Wachstum
+     * ({@code age}), Fuellstaende ({@code level}, {@code honey_level}, {@code charges}), eingesetzte
+     * Dinge ({@code eye}, {@code has_book}, {@code berries} ...), {@code waterlogged} - faellt auf den
+     * Grundzustand des Blocks zurueck, sonst waere ein Nether-Warzen-Feld mit {@code age=3} oder ein
+     * voller Komposter fuer ein Item zu haben (Audit 2026-09-26 #2).
+     */
+    private static final java.util.Set<net.minecraft.world.level.block.state.properties.Property<?>> SURVIVAL_KEPT = java.util.Set.of(
+            BlockStateProperties.FACING, BlockStateProperties.HORIZONTAL_FACING, BlockStateProperties.FACING_HOPPER,
+            BlockStateProperties.VERTICAL_DIRECTION, BlockStateProperties.AXIS, BlockStateProperties.HORIZONTAL_AXIS,
+            BlockStateProperties.ROTATION_16, BlockStateProperties.ORIENTATION, BlockStateProperties.ATTACH_FACE,
+            BlockStateProperties.BELL_ATTACHMENT, BlockStateProperties.HALF, BlockStateProperties.DOUBLE_BLOCK_HALF,
+            BlockStateProperties.BED_PART, BlockStateProperties.SLAB_TYPE, BlockStateProperties.STAIRS_SHAPE,
+            BlockStateProperties.RAIL_SHAPE, BlockStateProperties.RAIL_SHAPE_STRAIGHT, BlockStateProperties.DOOR_HINGE,
+            BlockStateProperties.CHEST_TYPE, BlockStateProperties.OPEN, BlockStateProperties.HANGING,
+            BlockStateProperties.ATTACHED, BlockStateProperties.IN_WALL,
+            BlockStateProperties.NORTH, BlockStateProperties.EAST, BlockStateProperties.SOUTH, BlockStateProperties.WEST,
+            BlockStateProperties.UP, BlockStateProperties.DOWN,
+            BlockStateProperties.NORTH_WALL, BlockStateProperties.EAST_WALL, BlockStateProperties.SOUTH_WALL, BlockStateProperties.WEST_WALL,
+            BlockStateProperties.NORTH_REDSTONE, BlockStateProperties.EAST_REDSTONE, BlockStateProperties.SOUTH_REDSTONE,
+            BlockStateProperties.WEST_REDSTONE, BlockStateProperties.MODE_COMPARATOR, BlockStateProperties.DELAY,
+            BlockStateProperties.NOTE, BlockStateProperties.INVERTED, BlockStateProperties.DISTANCE,
+            BlockStateProperties.STABILITY_DISTANCE, BlockStateProperties.BOTTOM, BlockStateProperties.SNOWY,
+            BlockStateProperties.CANDLES, BlockStateProperties.PICKLES, BlockStateProperties.EGGS, BlockStateProperties.LAYERS,
+            BlockStateProperties.FLOWER_AMOUNT, BlockStateProperties.SEGMENT_AMOUNT);
+
+    /**
+     * Der Zustand, den ein Ueberlebens-Bau fuer {@code state} setzt: der Block im Grundzustand mit den
+     * Eigenschaften aus {@link #SURVIVAL_KEPT}; Laub bleibt dauerhaft (wie von Hand gesetzt). Ein
+     * Zustand eines Blocks, den sein Item gar nicht setzt (gefuellter Kessel -&gt; Kessel), wird zu dem
+     * Block, den das Item setzt - Wand-Varianten (Fackel, Schild, Kopf) bleiben. Der Kreativmodus
+     * setzt den Code unveraendert.
+     */
+    public static BlockState survivalState(BlockState state) {
+        Block block = state.getBlock();
+        if (block.asItem() instanceof net.minecraft.world.item.BlockItem blockItem && blockItem.getBlock() != block
+                && !(blockItem instanceof net.minecraft.world.item.StandingAndWallBlockItem)) {
+            block = blockItem.getBlock();
+        }
+        BlockState out = block.defaultBlockState();
+        for (net.minecraft.world.level.block.state.properties.Property<?> property : state.getProperties()) {
+            if (SURVIVAL_KEPT.contains(property) && out.hasProperty(property)) {
+                out = copy(state, out, property);
+            }
+        }
+        if (out.hasProperty(BlockStateProperties.PERSISTENT)) {
+            out = out.setValue(BlockStateProperties.PERSISTENT, true);
+        }
+        return out;
+    }
+
+    private static <T extends Comparable<T>> BlockState copy(BlockState from, BlockState to,
+                                                             net.minecraft.world.level.block.state.properties.Property<T> property) {
+        return to.setValue(property, from.getValue(property));
+    }
+
     /** Summe aller Items, die das Bauwerk im Ueberlebensmodus kostet. */
     public static int totalItems(BlueprintModel model) {
         int total = 0;

@@ -790,6 +790,7 @@
   "simplebuilding.wand.shape.no_selection": "The octant needs both corners",
   "simplebuilding.wand.shape.no_material": "No building blocks to fill the shape with (the off hand holds the octant - put them in the hotbar)",
   "simplebuilding.wand.shape.too_many": "The shape's box holds %s positions, at most %s can be filled",
+  "simplebuilding.wand.shape.unloaded": "Part of the shape lies in chunks that are not loaded - come closer",
   "block.simplebuilding.spawn_teleporter": "Spawn Teleporter I",
   "block.simplebuilding.spawn_teleporter_tier_2": "Spawn Teleporter II",
   "block.simplebuilding.spawn_teleporter_tier_3": "Spawn Teleporter III",
