@@ -333,13 +333,14 @@ public final class ConfigOptionTests {
     /**
      * How often each recorded pool is rolled when looking for the entries above.
      *
-     * <p>The thinnest wanted entry decides this number. That is the enchanted netherite apple in
-     * the ominous vault: 1 of that pool's 57 weight, drawn {@code between(0, 1)} times, so this
-     * many rolls are worth about 18 expected hits and missing it by chance is one in a hundred
-     * million. Everything else in {@link #EXPECTED_LOOT} sits at roughly twice that or more - the
-     * next thinnest are the single-weight entries of the bastion (gold core, 1 of 60), the ancient
-     * city (enchanted netherite apple, 1 of 58) and the mansion (iron core and Vein Miner V, 1 of
-     * 55), each rolled {@code between(0, 2)} and worth 34 to 37 hits.
+     * <p>The thinnest wanted entry decides this number. Since 2026-09-27 that is the gold core in
+     * the bastion: its own pool with a 0.6 % chance per roll, so this many rolls are worth about
+     * 12 expected hits and missing it by chance is about one in 160000 (the seed is fixed, so it is
+     * the same answer every run). The other cores (0.8 %, netherite 4 %) and the enchanted
+     * netherite apple of the ominous vault (1 of 55, drawn {@code between(0, 1)} times, about 18
+     * hits) come next; everything else sits far higher. The Enderite core (0.25 %, about 5 hits)
+     * is too thin for this list and is watched by {@link #buildingCoresAreVeryRareInLootChests}
+     * with {@link #CORE_CHESTS} chests instead.
      *
      * <p>Those margins are the reason a thin entry may be listed at all; they are computed from
      * the weights in {@code ModLootTableModifications}, so a balance change that makes an entry
@@ -380,6 +381,27 @@ public final class ConfigOptionTests {
             Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS, new Budget(0.1, 0.4)),
             Map.entry(BuiltInLootTables.RUINED_PORTAL, new Budget(0.1, 0.4)),
             Map.entry(BuiltInLootTables.FISHING_TREASURE, new Budget(0.2, 0.6)));
+
+    /** How many chests {@link #buildingCoresAreVeryRareInLootChests} rolls per table. */
+    private static final int CORE_CHESTS = 10000;
+
+    /**
+     * Cores per chest, as {@code [min, max]} around the chances in
+     * {@code ModLootTableModifications} (docs/LOOT-BALANCE.md): iron 0.8 % in the mansion, gold
+     * 0.6 % in every bastion chest and 0.8 % in the fortress, diamond 0.8 % in the ominous and rare
+     * vault, netherite 4 % in the bastion treasure room, Enderite 0.25 % in the End City. Every
+     * pair not listed has to be zero. The bands are wide for the dice and narrow enough that the
+     * old weights (netherite core 12 % per treasure room) are red.
+     */
+    private static final Map<ResourceKey<LootTable>, Map<Item, Budget>> CORE_CHANCES = Map.ofEntries(
+            Map.entry(BuiltInLootTables.WOODLAND_MANSION, Map.of(ModItems.IRON_CORE, new Budget(0.004, 0.012))),
+            Map.entry(BuiltInLootTables.BASTION_OTHER, Map.of(ModItems.GOLD_CORE, new Budget(0.003, 0.010))),
+            Map.entry(BuiltInLootTables.BASTION_TREASURE, Map.of(ModItems.GOLD_CORE, new Budget(0.003, 0.010),
+                    ModItems.NETHERITE_CORE, new Budget(0.025, 0.06))),
+            Map.entry(BuiltInLootTables.NETHER_BRIDGE, Map.of(ModItems.GOLD_CORE, new Budget(0.004, 0.012))),
+            Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS, Map.of(ModItems.DIAMOND_CORE, new Budget(0.004, 0.012))),
+            Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_RARE, Map.of(ModItems.DIAMOND_CORE, new Budget(0.004, 0.012))),
+            Map.entry(BuiltInLootTables.END_CITY_TREASURE, Map.of(ModItems.ENDERITE_CORE, new Budget(0.001, 0.004))));
 
     /** Seed for the loot rolls, so a failure is reproducible instead of a coin flip. */
     private static final long POOL_ROLL_SEED = 20260904L;
@@ -1173,6 +1195,81 @@ public final class ConfigOptionTests {
         }
 
         helper.assertTrue(problems.isEmpty(), "loot balance problems: " + problems);
+        helper.succeed();
+    }
+
+    /**
+     * The building cores are very rare in chests (owner 2026-09-27), the Enderite core rarest of
+     * all: every table the mod edits is rolled like {@link #CORE_CHESTS} chests - every mod pool
+     * once per chest, fixed seed - and each core's share per chest has to land in its
+     * {@link #CORE_CHANCES} band. A core in a table without a band is a failure as well, which
+     * covers the copper core (no chest at all) and the Enderite core outside the End City.
+     *
+     * <p>{@link #lootTableChangesStopWhenTheOptionIsSwitchedOff} only proves a core <em>can</em>
+     * come out and {@link #lootBalanceKeepsEveryChestWithinItsBudget} counts stacks of every kind,
+     * so moving a core back into a multi roll pool at weight 2, or raising its chance to five per
+     * cent, kept both green.
+     *
+     * <p>What breaks it: a core chance raised or lowered out of its band, a core in a new table, or
+     * an Enderite core no longer rarer than every other core.
+     */
+    public static void buildingCoresAreVeryRareInLootChests(GameTestHelper helper) {
+        HolderLookup.Provider registries = helper.getLevel().registryAccess();
+        boolean original = Simplebuilding.getConfig().worldGen.enableLootTableChanges;
+        helper.runBeforeTestEnd(() -> Simplebuilding.getConfig().worldGen.enableLootTableChanges = original);
+
+        List<Item> cores = List.of(ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE,
+                ModItems.DIAMOND_CORE, ModItems.NETHERITE_CORE, ModItems.ENDERITE_CORE);
+        List<String> problems = new ArrayList<>();
+        double rarestOther = Double.MAX_VALUE;
+        double commonestEnderite = 0.0;
+        try {
+            setLootTableChanges(helper, true);
+            for (ResourceKey<LootTable> key : MODIFIED_TABLES) {
+                PoolRecorder recorder = recordPools(key, registries);
+                LootParams params = new LootParams.Builder(helper.getLevel()).create(LootContextParamSets.EMPTY);
+                LootContext context = new LootContext.Builder(params)
+                        .withOptionalRandomSeed(POOL_ROLL_SEED)
+                        .create(Optional.empty());
+                Map<Item, Integer> counts = new LinkedHashMap<>();
+                for (int chest = 0; chest < CORE_CHESTS; chest++) {
+                    for (LootPool pool : recorder.pools) {
+                        pool.addRandomItems(stack -> {
+                            if (cores.contains(stack.getItem())) {
+                                counts.merge(stack.getItem(), stack.getCount(), Integer::sum);
+                            }
+                        }, context);
+                    }
+                }
+                Map<Item, Budget> bands = CORE_CHANCES.getOrDefault(key, Map.of());
+                for (Item core : cores) {
+                    double share = counts.getOrDefault(core, 0) / (double) CORE_CHESTS;
+                    Budget band = bands.get(core);
+                    String what = BuiltInRegistries.ITEM.getKey(core) + " in " + tableName(key);
+                    if (band == null) {
+                        if (share > 0) {
+                            problems.add(what + ": " + share + " per chest, but that table is not meant to hold it at all");
+                        }
+                        continue;
+                    }
+                    if (share < band.min() || share > band.max()) {
+                        problems.add(what + ": " + String.format(java.util.Locale.ROOT, "%.4f", share)
+                                + " per chest, outside " + band.min() + ".." + band.max());
+                    }
+                    if (core == ModItems.ENDERITE_CORE) {
+                        commonestEnderite = Math.max(commonestEnderite, share);
+                    } else {
+                        rarestOther = Math.min(rarestOther, share);
+                    }
+                }
+            }
+        } finally {
+            Simplebuilding.getConfig().worldGen.enableLootTableChanges = original;
+        }
+        helper.assertTrue(problems.isEmpty(), "core loot chances are off:\n" + String.join("\n", problems));
+        helper.assertTrue(commonestEnderite > 0 && commonestEnderite < rarestOther,
+                "the Enderite core is no longer the rarest core in chests: " + commonestEnderite
+                        + " per chest against " + rarestOther + " for the rarest other core");
         helper.succeed();
     }
 

@@ -26,13 +26,13 @@ public final class TweaksGameTest {
     }
 
     @GameTest
-    public void theEchoCompassIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndSixEnderiteNuggets(GameTestHelper helper) {
-        TweaksTests.theEchoCompassIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndSixEnderiteNuggets(helper);
+    public void theEchoSounderIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndSevenEnderiteNuggets(GameTestHelper helper) {
+        TweaksTests.theEchoSounderIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndSevenEnderiteNuggets(helper);
     }
 
     @GameTest
-    public void theVelocityGaugeIsCraftedWithQuartzCornersAndTheCopperCore(GameTestHelper helper) {
-        TweaksTests.theVelocityGaugeIsCraftedWithQuartzCornersAndTheCopperCore(helper);
+    public void theVelocityGaugeIsCraftedWithQuartzCornersCopperNuggetsAndTheCopperCore(GameTestHelper helper) {
+        TweaksTests.theVelocityGaugeIsCraftedWithQuartzCornersCopperNuggetsAndTheCopperCore(helper);
     }
 
     @GameTest
@@ -126,8 +126,13 @@ public final class TweaksGameTest {
     }
 
     @GameTest
-    public void theEchoCompassLinksToTheLodestoneAndTeleportsForOnePearl(GameTestHelper helper) {
-        TweaksTests.theEchoCompassLinksToTheLodestoneAndTeleportsForOnePearl(helper);
+    public void theEchoSounderLinksToTheLodestoneAndTeleportsWithoutAnyPearl(GameTestHelper helper) {
+        TweaksTests.theEchoSounderLinksToTheLodestoneAndTeleportsWithoutAnyPearl(helper);
+    }
+
+    @GameTest
+    public void theEchoSounderKeepsItsIdButIsNamedEchoSounder(GameTestHelper helper) {
+        TweaksTests.theEchoSounderKeepsItsIdButIsNamedEchoSounder(helper);
     }
 
     @GameTest
@@ -246,8 +251,13 @@ public final class TweaksGameTest {
     }
 
     @GameTest
-    public void theLensBeamNeverLightsNetherPortalsOrTnt(GameTestHelper helper) {
-        TweaksTests.theLensBeamNeverLightsNetherPortalsOrTnt(helper);
+    public void theLensBeamNeverLightsNetherPortals(GameTestHelper helper) {
+        TweaksTests.theLensBeamNeverLightsNetherPortals(helper);
+    }
+
+    @GameTest
+    public void theLensBeamPrimesTntAfterDwellingButRespectsTheRules(GameTestHelper helper) {
+        TweaksTests.theLensBeamPrimesTntAfterDwellingButRespectsTheRules(helper);
     }
 
     @GameTest
@@ -263,6 +273,31 @@ public final class TweaksGameTest {
     @GameTest
     public void theLensChargeRunsDownButTheLensNeverBreaks(GameTestHelper helper) {
         TweaksTests.theLensChargeRunsDownButTheLensNeverBreaks(helper);
+    }
+
+    @GameTest
+    public void theLensDrainsChargeEvenWhenItPointsIntoTheAir(GameTestHelper helper) {
+        TweaksTests.theLensDrainsChargeEvenWhenItPointsIntoTheAir(helper);
+    }
+
+    @GameTest
+    public void theLensDwellTimeGrowsModeratelyWithDistance(GameTestHelper helper) {
+        TweaksTests.theLensDwellTimeGrowsModeratelyWithDistance(helper);
+    }
+
+    @GameTest
+    public void theLensSetsLivingEntitiesOnFireTakingTwiceAsLong(GameTestHelper helper) {
+        TweaksTests.theLensSetsLivingEntitiesOnFireTakingTwiceAsLong(helper);
+    }
+
+    @GameTest
+    public void theLensOnlyIgnitesPlayersWhenPvpAllowsIt(GameTestHelper helper) {
+        TweaksTests.theLensOnlyIgnitesPlayersWhenPvpAllowsIt(helper);
+    }
+
+    @GameTest
+    public void theLensHumsOnAnySurfaceAndSizzlesOrCracklesWhileHeating(GameTestHelper helper) {
+        TweaksTests.theLensHumsOnAnySurfaceAndSizzlesOrCracklesWhileHeating(helper);
     }
 
     @GameTest

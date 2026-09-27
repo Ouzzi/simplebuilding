@@ -23,12 +23,10 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUseAnimation;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.LodestoneTracker;
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -40,11 +38,12 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Echo-Kompass (ersetzt das Datenpaket "Echo Compass", das Simple Tweaks per libs/ einband; neu
- * geschrieben, kein Code daraus). Rechtsklick auf einen Leitstein verknuepft; zum Springen haelt man
- * die Benutzen-Taste {@value #CHARGE_TICKS} Ticks lang gedrueckt (Aufladen mit steigenden Klaengen,
- * Partikeln und einem FOV-Sog auf dem Client). Laesst man vorher los, passiert nichts und nichts wird
- * verbraucht. Der Sprung kostet eine Enderperle.
+ * Echolot (en "Echo Sounder", Registry-Id weiter {@code echo_compass}; ersetzt das Datenpaket "Echo
+ * Compass", das Simple Tweaks per libs/ einband; neu geschrieben, kein Code daraus). Rechtsklick auf
+ * einen Leitstein verknuepft; zum Springen haelt man die Benutzen-Taste {@value #CHARGE_TICKS} Ticks
+ * lang gedrueckt (Aufladen mit steigenden Klaengen, weit gestreuten Partikeln und einem FOV-Sog auf
+ * dem Client). Laesst man vorher los, passiert nichts und nichts wird verbraucht. Seit 2026-09-27
+ * kostet der Sprung keine Enderperle mehr (Besitzer) - bezahlt wird allein mit der Haltbarkeit.
  *
  * <p>Haltbarkeit (Besitzer 2026-09-27): ein Sprung leert den Kompass ganz - er ist dann "zerbrochen"
  * (Schaden = {@value #MAX_DAMAGE}, Riss-Textur, kein Glanz) und muss wieder aufgeladen werden: Mending
@@ -66,6 +65,9 @@ public class EchoCompassItem extends Item {
     public static final int COOLDOWN_TICKS = 120;
     /** Ticks vor dem Sprung, zu denen der Warden-Ladeklang einsetzt (so lang ist er etwa). */
     private static final int SONIC_CHARGE_LEAD = 34;
+    /** Kreisbahn der Sculk-Seelen beim Aufladen: startet weit aussen und zieht sich zusammen. */
+    private static final double CHARGE_RADIUS_START = 2.4;
+    private static final double CHARGE_RADIUS_END = 0.9;
 
     public EchoCompassItem(Item.Properties properties) {
         super(properties);
@@ -145,9 +147,8 @@ public class EchoCompassItem extends Item {
             playChargeStart((ServerLevel) level, player, isCracked(stack));
             return InteractionResult.CONSUME;
         }
-        // Client: nur was er selbst weiss (Verknuepfung, Abklingzeit, Perle); den Rest prueft der Server.
-        if (target(stack) == null || player.getCooldowns().isOnCooldown(stack)
-                || (!player.getAbilities().instabuild && !hasEnderPearl(player.getInventory()))) {
+        // Client: nur was er selbst weiss (Verknuepfung, Abklingzeit); den Rest prueft der Server.
+        if (target(stack) == null || player.getCooldowns().isOnCooldown(stack)) {
             return InteractionResult.FAIL;
         }
         player.startUsingItem(hand);
@@ -196,12 +197,6 @@ public class EchoCompassItem extends Item {
             player.displayClientMessage(Component.translatable("message.simplebuilding.echo_compass.lodestone_missing").withStyle(ChatFormatting.RED), true);
             return false;
         }
-        if (!player.getAbilities().instabuild && !hasEnderPearl(player.getInventory())) {
-            player.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 40, 0, true, false, true));
-            player.level().playSound(null, player.blockPosition(), SoundEvents.FIRE_EXTINGUISH, SoundSource.PLAYERS, 0.25f, 2.0f);
-            player.displayClientMessage(Component.translatable("message.simplebuilding.echo_compass.no_pearl").withStyle(ChatFormatting.RED), true);
-            return false;
-        }
         return true;
     }
 
@@ -223,16 +218,13 @@ public class EchoCompassItem extends Item {
         double y = target.pos().getY() + 1.0;
         double z = target.pos().getZ() + 0.5;
         // Erst springen, dann bezahlen: ein blockierter Sprung (gesperrte Dimension, anderer Mod)
-        // kostete frueher Perle, Haltbarkeit und Abklingzeit (Audit #33).
+        // kostete frueher Haltbarkeit und Abklingzeit (Audit #33).
         if (!player.teleportTo(targetLevel, x, y, z, Set.of(), player.getYRot(), player.getXRot(), true)) {
             return false;
         }
-        if (!player.getAbilities().instabuild) {
-            consumeEnderPearl(player.getInventory());
-        }
         origin.playSound(null, fromX, fromY, fromZ, SoundEvents.PLAYER_TELEPORT, SoundSource.PLAYERS, 1.0f, 0.5f);
-        origin.sendParticles(ParticleTypes.REVERSE_PORTAL, fromX, fromY + 1.0, fromZ, 60, 0.4, 0.9, 0.4, 0.05);
-        origin.sendParticles(ParticleTypes.SCULK_SOUL, fromX, fromY + 0.5, fromZ, 16, 0.4, 0.6, 0.4, 0.02);
+        origin.sendParticles(ParticleTypes.REVERSE_PORTAL, fromX, fromY + 1.0, fromZ, 80, 1.1, 1.1, 1.1, 0.08);
+        origin.sendParticles(ParticleTypes.SCULK_SOUL, fromX, fromY + 0.5, fromZ, 24, 1.0, 0.7, 1.0, 0.03);
         targetLevel.playSound(null, x, y, z, SoundEvents.PLAYER_TELEPORT, SoundSource.PLAYERS, 1.0f, 0.0f);
         targetLevel.playSound(null, x, y, z, SoundEvents.WARDEN_SONIC_BOOM, SoundSource.PLAYERS, 1.0f, 1.0f);
         targetLevel.playSound(null, x, y, z, SoundEvents.RESPAWN_ANCHOR_SET_SPAWN, SoundSource.PLAYERS, 0.9f, 1.2f);
@@ -273,29 +265,6 @@ public class EchoCompassItem extends Item {
         }
     }
 
-    public static boolean hasEnderPearl(Inventory inventory) {
-        for (int i = 0; i < inventory.getContainerSize(); i++) {
-            ItemStack stack = inventory.getItem(i);
-            if (stack.is(Items.ENDER_PEARL) && !stack.has(DataComponents.CUSTOM_DATA)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /** Eine Enderperle ohne eigene Daten verbrauchen (wie das Datenpaket: {@code ender_pearl[!custom_data]}). */
-    public static boolean consumeEnderPearl(Inventory inventory) {
-        for (int i = 0; i < inventory.getContainerSize(); i++) {
-            ItemStack stack = inventory.getItem(i);
-            if (stack.is(Items.ENDER_PEARL) && !stack.has(DataComponents.CUSTOM_DATA)) {
-                stack.shrink(1);
-                inventory.setChanged();
-                return true;
-            }
-        }
-        return false;
-    }
-
     // ---------------------------------------------------------------------------------------------
     // Klang und Partikel
     // ---------------------------------------------------------------------------------------------
@@ -309,7 +278,9 @@ public class EchoCompassItem extends Item {
     }
 
     /**
-     * Ein Ladetick: Sculk-Seelen kreisen immer enger um den Spieler, Portalpartikel ziehen hinein, ein
+     * Ein Ladetick: Sculk-Seelen kreisen in drei Armen von weit aussen (gut zwei Bloecke) immer enger
+     * um den Spieler, weit gestreute Portalpartikel ziehen hinein (Besitzer 2026-09-27: "weiter
+     * gestreut"), ein
      * Amethyst-Resonanzton steigt von tief nach hoch, Sculk-Klicken und Seelenanker-Aufladen markieren
      * die Drittel, zum Schluss laedt der Warden-Schallklang auf. Nicht voll repariert kommen Knacken,
      * Rauch, Funken und ein Kreischer zur Haelfte dazu, alles lauter.
@@ -320,19 +291,19 @@ public class EchoCompassItem extends Item {
         double cx = entity.getX();
         double cz = entity.getZ();
         if (elapsed % 2 == 0) {
-            double angle = elapsed * 0.45;
-            double radius = 1.2 - 0.8 * progress;
-            double height = entity.getY() + 0.2 + 1.8 * ((elapsed * 0.04) % 1.0);
-            for (int arm = 0; arm < 2; arm++) {
-                double a = angle + arm * Math.PI;
-                particle(level, ParticleTypes.SCULK_SOUL, cx + Math.cos(a) * radius, height, cz + Math.sin(a) * radius, 1, 0.0, 0.0);
+            double angle = elapsed * 0.4;
+            double radius = CHARGE_RADIUS_START - (CHARGE_RADIUS_START - CHARGE_RADIUS_END) * progress;
+            double height = entity.getY() + 0.1 + 2.2 * ((elapsed * 0.04) % 1.0);
+            for (int arm = 0; arm < 3; arm++) {
+                double a = angle + arm * (Math.PI * 2.0 / 3.0);
+                particle(level, ParticleTypes.SCULK_SOUL, cx + Math.cos(a) * radius, height, cz + Math.sin(a) * radius, 1, 0.08, 0.0);
             }
         }
         if (elapsed % 3 == 0) {
-            particle(level, ParticleTypes.PORTAL, cx, entity.getY() + 1.0, cz, 4 + Math.round(10 * progress), 0.7, 0.6);
+            particle(level, ParticleTypes.PORTAL, cx, entity.getY() + 1.0, cz, 5 + Math.round(12 * progress), 1.6, 0.8);
         }
         if (progress > 0.66f && elapsed % 2 == 0) {
-            particle(level, ParticleTypes.END_ROD, cx, entity.getY() + 1.0, cz, 2, 0.5, 0.02);
+            particle(level, ParticleTypes.END_ROD, cx, entity.getY() + 1.0, cz, 2, 1.2, 0.02);
         }
         if (elapsed % 5 == 0) {
             sound(level, entity, SoundEvents.AMETHYST_BLOCK_RESONATE, (0.4f + 0.5f * progress) * loud, 0.5f + 1.5f * progress);
@@ -342,7 +313,7 @@ public class EchoCompassItem extends Item {
         }
         if (elapsed == total / 3 || elapsed == 2 * total / 3) {
             sound(level, entity, SoundEvents.RESPAWN_ANCHOR_CHARGE, 0.7f * loud, elapsed == total / 3 ? 0.8f : 1.1f);
-            particle(level, ParticleTypes.REVERSE_PORTAL, cx, entity.getY() + 1.0, cz, 30, 0.6, 0.05);
+            particle(level, ParticleTypes.REVERSE_PORTAL, cx, entity.getY() + 1.0, cz, 40, 1.4, 0.07);
         }
         if (elapsed == total - SONIC_CHARGE_LEAD) {
             sound(level, entity, SoundEvents.WARDEN_SONIC_CHARGE, 0.8f * loud, cracked ? 0.9f : 1.2f);
@@ -376,10 +347,18 @@ public class EchoCompassItem extends Item {
         level.sendParticles(type, x, y, z, count, spread, spread, spread, speed);
     }
 
+    /** Landung: weite Wolke (gut zwei Bloecke) und ein Ring aus Sculk-Seelen, der am Boden auseinanderlaeuft. */
     private static void spawnArrivalParticles(ServerLevel level, double x, double y, double z) {
-        level.sendParticles(ParticleTypes.PORTAL, x, y, z, 100, 0.5, 1, 0.5, 0);
-        level.sendParticles(ParticleTypes.END_ROD, x, y, z, 50, 0.5, 1, 0.5, 0.1);
-        level.sendParticles(ParticleTypes.SCULK_SOUL, x, y, z, 50, 0.5, 1, 0.5, 0.1);
+        level.sendParticles(ParticleTypes.PORTAL, x, y, z, 120, 1.4, 1.2, 1.4, 0.2);
+        level.sendParticles(ParticleTypes.END_ROD, x, y + 0.5, z, 50, 1.3, 1.1, 1.3, 0.06);
+        level.sendParticles(ParticleTypes.SCULK_SOUL, x, y + 0.5, z, 40, 1.2, 1.0, 1.2, 0.05);
+        int ring = 28;
+        for (int i = 0; i < ring; i++) {
+            double a = i * (Math.PI * 2.0 / ring);
+            // count 0: die Werte sind eine Richtung - jedes Teilchen fliegt vom Mittelpunkt nach aussen.
+            level.sendParticles(ParticleTypes.SCULK_SOUL, x + Math.cos(a) * 0.6, y + 0.1, z + Math.sin(a) * 0.6, 0,
+                    Math.cos(a), 0.02, Math.sin(a), 0.18);
+        }
         level.sendParticles(ParticleTypes.SONIC_BOOM, x, y + 1.0, z, 1, 0, 0, 0, 0);
     }
 

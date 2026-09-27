@@ -205,14 +205,15 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // =================================================================
                 // VELOCITY_GAUGE
                 // =================================================================
-                // Quarz in den oberen Ecken, Kupfer-Baukern unten mittig (Besitzer 2026-09-27)
+                // Quarz in den oberen Ecken, Kupfer-Baukern unten mittig; Kupfernuggets statt der
+                // Kupferbarren neben dem Kompass und zusaetzlich unten links/rechts (Besitzer 2026-09-27/28)
                 shaped(RecipeCategory.TOOLS, ModItems.VELOCITY_GAUGE)
                         .pattern("QAQ")
-                        .pattern("OCO")
-                        .pattern(" K ")
+                        .pattern("NCN")
+                        .pattern("NKN")
                         .define('C', Items.COMPASS)
                         .define('A', Items.AMETHYST_SHARD)
-                        .define('O', Items.COPPER_INGOT)
+                        .define('N', Items.COPPER_NUGGET)
                         .define('Q', Items.QUARTZ)
                         .define('K', ModItems.COPPER_CORE)
                         .unlockedBy(getHasName(Items.COMPASS), has(Items.COMPASS))
@@ -963,10 +964,10 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 tweaksSmithing(Ingredient.of(netheriteTemplate), TweaksBlocks.CHUNK_LOADER, netheritePlate, TweaksBlocks.NETHERITE_CHUNK_LOADER, "netherite_chunk_loader_smithing");
                 tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.NETHERITE_CHUNK_LOADER, enderitePlate, TweaksBlocks.ENDERITE_CHUNK_LOADER, "enderite_chunk_loader_smithing");
 
-                // Echo-Kompass (Besitzer 2026-09-27): Bergungskompass in der Mitte, Enderit-Kern unten mittig,
-                // sechs Enderit-Nuggets aussen herum, oben mittig frei
+                // Echolot/Echo Sounder (Id echo_compass; Besitzer 2026-09-27): Bergungskompass in der Mitte, Enderit-Kern unten mittig,
+                // sieben Enderit-Nuggets aussen herum, oben mittig inzwischen auch ein Nugget
                 shaped(RecipeCategory.TOOLS, TweaksItems.ECHO_COMPASS)
-                        .pattern("N N")
+                        .pattern("NNN")
                         .pattern("NRN")
                         .pattern("NEN")
                         .define('N', ModItems.ENDERITE_NUGGET)
