@@ -37,8 +37,8 @@ public final class TweaksModelGen {
     public static void blocks(BlockModelGenerators generator) {
         for (Block block : TweaksBlocks.all()) {
             // Flypads I-III (seit 2026-09-27 aus Enderit) tragen neue Texturen <id>_ender; die alten
-            // flypad.png, reinforced_flypad.png und stellar_flypad.png bleiben liegen (Besitzer will sie
-            // fuer eine neue Netherit-Druckplatte wiederverwenden).
+            // flypad.png, reinforced_flypad.png und stellar_flypad.png bleiben liegen (Vorlage der
+            // Trank-Pads in der Netherit-Palette, tools/textures/potion_pad_textures.py).
             boolean enderFlypad = block == TweaksBlocks.FLYPAD || block == TweaksBlocks.REINFORCED_FLYPAD || block == TweaksBlocks.STELLAR_FLYPAD;
             TextureMapping texture = enderFlypad ? TextureMapping.defaultTexture(TextureMapping.getBlockTexture(block, "_ender"))
                     : TextureMapping.defaultTexture(block);
@@ -46,7 +46,27 @@ public final class TweaksModelGen {
             generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block, BlockModelGenerators.plainVariant(model)));
             generator.registerSimpleItemModel(block, model);
         }
+        blazeHead(generator);
     }
+
+    /**
+     * Lohenkopf wie Vanillas {@code BlockModelGenerators#createHead}: beide Bloecke zeigen nur die
+     * Partikel von {@code block/skull} (gezeichnet wird der Kopf vom SkullBlockRenderer), das Item ist
+     * ein {@code minecraft:head}-Sondermodell auf {@code item/template_skull}.
+     */
+    private static void blazeHead(BlockModelGenerators generator) {
+        net.minecraft.client.data.models.MultiVariant skull =
+                BlockModelGenerators.plainVariant(ModelLocationUtils.decorateBlockModelLocation("skull"));
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(TweaksBlocks.BLAZE_HEAD, skull));
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(TweaksBlocks.BLAZE_WALL_HEAD, skull));
+        generator.itemModelOutput.accept(TweaksItems.BLAZE_HEAD, ItemModelUtils.specialModel(
+                ModelLocationUtils.decorateItemModelLocation("template_skull"), SKULL_TRANSFORM,
+                new net.minecraft.client.renderer.special.SkullSpecialRenderer.Unbaked(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE)));
+    }
+
+    /** Wie BlockModelGenerators.SKULL_TRANSFORM (dort privat). */
+    private static final com.mojang.math.Transformation SKULL_TRANSFORM = new com.mojang.math.Transformation(
+            new org.joml.Vector3f(0.5F, 0.0F, 0.5F), new org.joml.Quaternionf().rotationX((float) Math.PI), null, null);
 
     public static void items(ItemModelGenerators generator) {
         generator.generateFlatItem(TweaksItems.SPAWN_ELYTRA, ModelTemplates.FLAT_ITEM);

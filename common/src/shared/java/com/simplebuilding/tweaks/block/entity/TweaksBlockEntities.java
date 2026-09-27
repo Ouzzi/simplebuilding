@@ -27,6 +27,7 @@ public final class TweaksBlockEntities {
     public static BlockEntityType<ChunkLoaderBlockEntity> CHUNK_LOADER;
     public static BlockEntityType<CopperPressurePlateBlockEntity> COPPER_PRESSURE_PLATE;
     public static BlockEntityType<FilterPlateBlockEntity> FILTER_PLATE;
+    public static BlockEntityType<PotionPadBlockEntity> POTION_PAD;
 
     private static boolean registered;
 
@@ -57,6 +58,8 @@ public final class TweaksBlockEntities {
         // Simple Tweaks nannte den Typ netherite_pressure_plate_be; die Enderit-Platte teilt ihn.
         FILTER_PLATE = register("netherite_pressure_plate_be", factory.create(FilterPlateBlockEntity::new,
                 TweaksBlocks.NETHERITE_PRESSURE_PLATE, TweaksBlocks.ENDERITE_PRESSURE_PLATE));
+        POTION_PAD = register("potion_pad_be", factory.create(PotionPadBlockEntity::new,
+                TweaksBlocks.POTION_PAD, TweaksBlocks.REINFORCED_POTION_PAD, TweaksBlocks.INFUSED_POTION_PAD));
     }
 
     private static <T extends BlockEntity> BlockEntityType<T> register(String name, BlockEntityType<T> type) {

@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "src/main/generated/wiki/items.json",
       "present": true,
-      "count": 200,
+      "count": 204,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -2804,6 +2804,9 @@
         "simplebuilding:launchpad",
         "simplebuilding:netherite_launchpad",
         "simplebuilding:enderite_launchpad",
+        "simplebuilding:potion_pad",
+        "simplebuilding:infused_potion_pad",
+        "simplebuilding:blaze_head",
         "simplebuilding:diamond_pressure_plate",
         "simplebuilding:netherite_pressure_plate",
         "simplebuilding:enderite_pressure_plate",
@@ -6586,7 +6589,8 @@
       ],
       "usedIn": [
         "simplebuilding:echo_compass",
-        "simplebuilding:flypad_tier1_smithing"
+        "simplebuilding:flypad_tier1_smithing",
+        "simplebuilding:infused_potion_pad_smithing"
       ],
       "trades": [],
       "properties": {
@@ -7508,6 +7512,8 @@
         "simplebuilding:enderite_upgrade_template",
         "simplebuilding:flypad_tier1_smithing",
         "simplebuilding:flypad_tier2_smithing",
+        "simplebuilding:infused_potion_pad_smithing",
+        "simplebuilding:reinforced_potion_pad_smithing",
         "simplebuilding:stellar_flypad_smithing"
       ],
       "trades": [],
@@ -14931,6 +14937,53 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:blaze_head",
+      "name": {
+        "en_us": "Blaze Head",
+        "de_de": "Lohenkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [
+        "simplebuilding:potion_pad"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/blaze_head",
+      "drops": [
+        "simplebuilding:blaze_head"
+      ],
+      "note": {
+        "en": {
+          "summary": "The Blaze Head is a mob head like the vanilla ones: a blaze killed by the explosion of a charged creeper drops it.",
+          "details": [
+            "Only a charged creeper's explosion drops it, and like the vanilla heads only one head per explosion; blazes killed any other way (players, uncharged creepers) never drop one.",
+            "Placeable on the ground (16 rotations) and on walls, wearable on the head (the curses of Binding and Vanishing apply like on the vanilla heads); on top of a note block it plays the blaze sound.",
+            "Used for the Potion Pad: Netherite Pressure Plate + Blaze Head."
+          ]
+        },
+        "de": {
+          "summary": "Der Lohenkopf ist ein Mob-Kopf wie die Vanilla-Köpfe: eine Lohe, die von der Explosion eines geladenen Creepers getötet wird, lässt ihn fallen.",
+          "details": [
+            "Nur die Explosion eines geladenen Creepers lässt ihn fallen, und wie bei den Vanilla-Köpfen nur einen je Explosion; auf jede andere Art getötete Lohen (Spieler, ungeladene Creeper) nie.",
+            "Auf den Boden (16 Drehungen) und an Wände setzbar, auf dem Kopf tragbar (Fluch der Bindung und des Verschwindens wie bei den Vanilla-Köpfen); auf einem Notenblock spielt er das Lohen-Geräusch.",
+            "Zutat des Trank-Pads: Netherit-Druckplatte + Lohenkopf."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/BlazeHeadType.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/TweaksBlocks.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/item/TweaksItems.java",
+          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/mixin/SkullBlockEntityTypeMixin.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/mixin/client/SkullModelMixin.java",
+          "common/src/shared/java/com/simplebuilding/gametest/PotionPadTests.java",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:chiseled_astralit_bricks",
       "name": {
         "en_us": "Chiseled Astralit Bricks",
@@ -16460,7 +16513,8 @@
         "simplebuilding:enderite_launchpad_smithing",
         "simplebuilding:enderite_spawn_teleporter_smithing",
         "simplebuilding:flypad_tier1_smithing",
-        "simplebuilding:flypad_tier2_smithing"
+        "simplebuilding:flypad_tier2_smithing",
+        "simplebuilding:reinforced_potion_pad_smithing"
       ],
       "trades": [],
       "lootTable": "simplebuilding:blocks/enderite_pressure_plate",
@@ -16792,6 +16846,58 @@
           "common/src/shared/java/com/simplebuilding/tweaks/block/entity/FlypadBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/tweaks/block/PadTiers.java",
           "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:infused_potion_pad",
+      "name": {
+        "en_us": "Infused Potion Pad III",
+        "de_de": "Durchtränktes Trank-Pad III"
+      },
+      "texture": "assets/textures/block/infused_potion_pad.png",
+      "craftedBy": [
+        "simplebuilding:infused_potion_pad_smithing"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/infused_potion_pad",
+      "drops": [
+        "simplebuilding:infused_potion_pad"
+      ],
+      "note": {
+        "en": {
+          "summary": "Potion Pads (new, 2026-09-28) store the effects of a thrown potion and give them to every player who steps onto them. Three tiers: Potion Pad I, Reinforced Potion Pad II, Infused Potion Pad III.",
+          "details": [
+            "Throw a splash or lingering potion onto the pad: when it shatters on the pad, the pad stores its effects and replaces whatever it held before; a water splash potion (or any potion without effects) wipes it. Right-click without an item shows the stored potion.",
+            "Every player stepping onto the pad gets the stored effects at the potion's own level for 30 s (I), 60 s (II) or 120 s (III). While standing on it the effects are refreshed back to that duration every second - never longer, so they do not stack; step off and on again to get the full duration back.",
+            "Instant effects (Healing, Harming) apply once when a player steps on, at most every 2 seconds per player; standing on the pad does not repeat them. Only players are affected, mobs are not.",
+            "Unlimited uses; tinted particles in the potion's colour rise from a filled pad. The stored potion is lost when the pad is broken.",
+            "Recipes: I = Netherite Pressure Plate + Blaze Head (crafting table, shapeless); II = enderite upgrade template + Potion Pad I + Enderite Pressure Plate (smithing, upgrades pay with the pressure plate of their material); III = enderite upgrade template + Potion Pad II + Enderite Core (smithing).",
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it. Does not burn."
+          ]
+        },
+        "de": {
+          "summary": "Trank-Pads (neu, 2026-09-28) speichern die Wirkungen eines geworfenen Tranks und geben sie jedem Spieler, der sie betritt. Drei Stufen: Trank-Pad I, Verstärktes Trank-Pad II, Durchtränktes Trank-Pad III.",
+          "details": [
+            "Wirf einen Wurf- oder Verweiltrank auf das Pad: zerschellt er darauf, speichert das Pad seine Wirkungen und ersetzt, was es vorher hatte; ein Wasser-Wurftrank (oder jeder Trank ohne Wirkung) wischt es leer. Rechtsklick ohne Gegenstand zeigt den gespeicherten Trank.",
+            "Jeder Spieler, der das Pad betritt, bekommt die Wirkungen in der Stufe des Tranks für 30 s (I), 60 s (II) oder 120 s (III). Solange er darauf steht, werden sie jede Sekunde wieder auf diese Dauer aufgefrischt - nie länger, sie stapeln sich also nicht; ab- und wieder aufsteigen gibt die volle Dauer zurück.",
+            "Sofortwirkungen (Heilung, Schaden) wirken einmal beim Betreten, höchstens alle 2 Sekunden je Spieler; Stehenbleiben wiederholt sie nicht. Nur Spieler, keine Mobs.",
+            "Unbegrenzt nutzbar; über einem gefüllten Pad steigen Partikel in der Trankfarbe auf. Beim Abbau geht der gespeicherte Trank verloren.",
+            "Rezepte: I = Netherit-Druckplatte + Lohenkopf (Werkbank, formlos); II = Enderit-Aufwertungsvorlage + Trank-Pad I + Enderit-Druckplatte (Schmiede, Aufwertungen zahlen mit der Druckplatte ihres Materials); III = Enderit-Aufwertungsvorlage + Trank-Pad II + Enderit-Kern (Schmiede).",
+            "Wer es setzt, besitzt es: der Besitzer baut es in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen es nicht. Brennt nicht."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/PotionPadBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/PotionPadBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/TweaksBlocks.java",
+          "common/src/shared/java/com/simplebuilding/gametest/PotionPadTests.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "docs/SIMPLETWEAKS-UEBERNAHME.md",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
@@ -17982,6 +18088,7 @@
         "simplebuilding:netherite_chunk_loader_smithing",
         "simplebuilding:netherite_elytra_pad_smithing",
         "simplebuilding:netherite_launchpad_smithing",
+        "simplebuilding:potion_pad",
         "simplebuilding:spawn_teleporter_tier2_smithing",
         "simplebuilding:spawn_teleporter_tier3_smithing",
         "simplebuilding:spawn_teleporter_tier4_smithing"
@@ -18815,6 +18922,60 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:potion_pad",
+      "name": {
+        "en_us": "Potion Pad I",
+        "de_de": "Trank-Pad I"
+      },
+      "texture": "assets/textures/block/potion_pad.png",
+      "craftedBy": [
+        "simplebuilding:potion_pad"
+      ],
+      "usedIn": [
+        "simplebuilding:reinforced_potion_pad_smithing"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/potion_pad",
+      "drops": [
+        "simplebuilding:potion_pad"
+      ],
+      "note": {
+        "en": {
+          "summary": "Potion Pads (new, 2026-09-28) store the effects of a thrown potion and give them to every player who steps onto them. Three tiers: Potion Pad I, Reinforced Potion Pad II, Infused Potion Pad III.",
+          "details": [
+            "Throw a splash or lingering potion onto the pad: when it shatters on the pad, the pad stores its effects and replaces whatever it held before; a water splash potion (or any potion without effects) wipes it. Right-click without an item shows the stored potion.",
+            "Every player stepping onto the pad gets the stored effects at the potion's own level for 30 s (I), 60 s (II) or 120 s (III). While standing on it the effects are refreshed back to that duration every second - never longer, so they do not stack; step off and on again to get the full duration back.",
+            "Instant effects (Healing, Harming) apply once when a player steps on, at most every 2 seconds per player; standing on the pad does not repeat them. Only players are affected, mobs are not.",
+            "Unlimited uses; tinted particles in the potion's colour rise from a filled pad. The stored potion is lost when the pad is broken.",
+            "Recipes: I = Netherite Pressure Plate + Blaze Head (crafting table, shapeless); II = enderite upgrade template + Potion Pad I + Enderite Pressure Plate (smithing, upgrades pay with the pressure plate of their material); III = enderite upgrade template + Potion Pad II + Enderite Core (smithing).",
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it. Does not burn."
+          ]
+        },
+        "de": {
+          "summary": "Trank-Pads (neu, 2026-09-28) speichern die Wirkungen eines geworfenen Tranks und geben sie jedem Spieler, der sie betritt. Drei Stufen: Trank-Pad I, Verstärktes Trank-Pad II, Durchtränktes Trank-Pad III.",
+          "details": [
+            "Wirf einen Wurf- oder Verweiltrank auf das Pad: zerschellt er darauf, speichert das Pad seine Wirkungen und ersetzt, was es vorher hatte; ein Wasser-Wurftrank (oder jeder Trank ohne Wirkung) wischt es leer. Rechtsklick ohne Gegenstand zeigt den gespeicherten Trank.",
+            "Jeder Spieler, der das Pad betritt, bekommt die Wirkungen in der Stufe des Tranks für 30 s (I), 60 s (II) oder 120 s (III). Solange er darauf steht, werden sie jede Sekunde wieder auf diese Dauer aufgefrischt - nie länger, sie stapeln sich also nicht; ab- und wieder aufsteigen gibt die volle Dauer zurück.",
+            "Sofortwirkungen (Heilung, Schaden) wirken einmal beim Betreten, höchstens alle 2 Sekunden je Spieler; Stehenbleiben wiederholt sie nicht. Nur Spieler, keine Mobs.",
+            "Unbegrenzt nutzbar; über einem gefüllten Pad steigen Partikel in der Trankfarbe auf. Beim Abbau geht der gespeicherte Trank verloren.",
+            "Rezepte: I = Netherit-Druckplatte + Lohenkopf (Werkbank, formlos); II = Enderit-Aufwertungsvorlage + Trank-Pad I + Enderit-Druckplatte (Schmiede, Aufwertungen zahlen mit der Druckplatte ihres Materials); III = Enderit-Aufwertungsvorlage + Trank-Pad II + Enderit-Kern (Schmiede).",
+            "Wer es setzt, besitzt es: der Besitzer baut es in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen es nicht. Brennt nicht."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/PotionPadBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/PotionPadBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/TweaksBlocks.java",
+          "common/src/shared/java/com/simplebuilding/gametest/PotionPadTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:purpur_quartz_checker",
       "name": {
         "en_us": "Purpur Quartz Checker",
@@ -19628,6 +19789,60 @@
         ]
       },
       "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:reinforced_potion_pad",
+      "name": {
+        "en_us": "Reinforced Potion Pad II",
+        "de_de": "Verstärktes Trank-Pad II"
+      },
+      "texture": "assets/textures/block/reinforced_potion_pad.png",
+      "craftedBy": [
+        "simplebuilding:reinforced_potion_pad_smithing"
+      ],
+      "usedIn": [
+        "simplebuilding:infused_potion_pad_smithing"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/reinforced_potion_pad",
+      "drops": [
+        "simplebuilding:reinforced_potion_pad"
+      ],
+      "note": {
+        "en": {
+          "summary": "Potion Pads (new, 2026-09-28) store the effects of a thrown potion and give them to every player who steps onto them. Three tiers: Potion Pad I, Reinforced Potion Pad II, Infused Potion Pad III.",
+          "details": [
+            "Throw a splash or lingering potion onto the pad: when it shatters on the pad, the pad stores its effects and replaces whatever it held before; a water splash potion (or any potion without effects) wipes it. Right-click without an item shows the stored potion.",
+            "Every player stepping onto the pad gets the stored effects at the potion's own level for 30 s (I), 60 s (II) or 120 s (III). While standing on it the effects are refreshed back to that duration every second - never longer, so they do not stack; step off and on again to get the full duration back.",
+            "Instant effects (Healing, Harming) apply once when a player steps on, at most every 2 seconds per player; standing on the pad does not repeat them. Only players are affected, mobs are not.",
+            "Unlimited uses; tinted particles in the potion's colour rise from a filled pad. The stored potion is lost when the pad is broken.",
+            "Recipes: I = Netherite Pressure Plate + Blaze Head (crafting table, shapeless); II = enderite upgrade template + Potion Pad I + Enderite Pressure Plate (smithing, upgrades pay with the pressure plate of their material); III = enderite upgrade template + Potion Pad II + Enderite Core (smithing).",
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it. Does not burn."
+          ]
+        },
+        "de": {
+          "summary": "Trank-Pads (neu, 2026-09-28) speichern die Wirkungen eines geworfenen Tranks und geben sie jedem Spieler, der sie betritt. Drei Stufen: Trank-Pad I, Verstärktes Trank-Pad II, Durchtränktes Trank-Pad III.",
+          "details": [
+            "Wirf einen Wurf- oder Verweiltrank auf das Pad: zerschellt er darauf, speichert das Pad seine Wirkungen und ersetzt, was es vorher hatte; ein Wasser-Wurftrank (oder jeder Trank ohne Wirkung) wischt es leer. Rechtsklick ohne Gegenstand zeigt den gespeicherten Trank.",
+            "Jeder Spieler, der das Pad betritt, bekommt die Wirkungen in der Stufe des Tranks für 30 s (I), 60 s (II) oder 120 s (III). Solange er darauf steht, werden sie jede Sekunde wieder auf diese Dauer aufgefrischt - nie länger, sie stapeln sich also nicht; ab- und wieder aufsteigen gibt die volle Dauer zurück.",
+            "Sofortwirkungen (Heilung, Schaden) wirken einmal beim Betreten, höchstens alle 2 Sekunden je Spieler; Stehenbleiben wiederholt sie nicht. Nur Spieler, keine Mobs.",
+            "Unbegrenzt nutzbar; über einem gefüllten Pad steigen Partikel in der Trankfarbe auf. Beim Abbau geht der gespeicherte Trank verloren.",
+            "Rezepte: I = Netherit-Druckplatte + Lohenkopf (Werkbank, formlos); II = Enderit-Aufwertungsvorlage + Trank-Pad I + Enderit-Druckplatte (Schmiede, Aufwertungen zahlen mit der Druckplatte ihres Materials); III = Enderit-Aufwertungsvorlage + Trank-Pad II + Enderit-Kern (Schmiede).",
+            "Wer es setzt, besitzt es: der Besitzer baut es in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen es nicht. Brennt nicht."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/PotionPadBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/PotionPadBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/TweaksBlocks.java",
+          "common/src/shared/java/com/simplebuilding/gametest/PotionPadTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
+      "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:reinforced_smoker",
@@ -24800,6 +25015,38 @@
       ]
     },
     {
+      "id": "simplebuilding:infused_potion_pad_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:infused_potion_pad",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/infused_potion_pad_smithing.json",
+      "ingredients": [
+        "simplebuilding:enderite_core",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:reinforced_potion_pad"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:enderite_upgrade_template"
+        ],
+        "base": [
+          "simplebuilding:reinforced_potion_pad"
+        ],
+        "addition": [
+          "simplebuilding:enderite_core"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:iron_building_wand",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -28436,6 +28683,34 @@
       ]
     },
     {
+      "id": "simplebuilding:potion_pad",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:potion_pad",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/potion_pad.json",
+      "ingredients": [
+        "simplebuilding:blaze_head",
+        "simplebuilding:netherite_pressure_plate"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:netherite_pressure_plate"
+        ],
+        [
+          "simplebuilding:blaze_head"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:purpur_quartz_checker",
       "type": "minecraft:crafting_shaped",
       "category": "building",
@@ -28888,6 +29163,38 @@
         ],
         "P": [
           "minecraft:piston"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:reinforced_potion_pad_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:reinforced_potion_pad",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_potion_pad_smithing.json",
+      "ingredients": [
+        "simplebuilding:enderite_pressure_plate",
+        "simplebuilding:enderite_upgrade_template",
+        "simplebuilding:potion_pad"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:enderite_upgrade_template"
+        ],
+        "base": [
+          "simplebuilding:potion_pad"
+        ],
+        "addition": [
+          "simplebuilding:enderite_pressure_plate"
         ]
       },
       "lines": [
@@ -30840,6 +31147,24 @@
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/blackstone_quartz_checker.json"
     },
     {
+      "id": "simplebuilding:blocks/blaze_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:blaze_head"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/blaze_head.json"
+    },
+    {
       "id": "simplebuilding:blocks/chiseled_astralit_bricks",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -31444,6 +31769,24 @@
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/flypad.json"
+    },
+    {
+      "id": "simplebuilding:blocks/infused_potion_pad",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:infused_potion_pad"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/infused_potion_pad.json"
     },
     {
       "id": "simplebuilding:blocks/lapis_quartz_checker",
@@ -32137,6 +32480,24 @@
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/polished_nihilith_wall.json"
     },
     {
+      "id": "simplebuilding:blocks/potion_pad",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:potion_pad"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/potion_pad.json"
+    },
+    {
       "id": "simplebuilding:blocks/purpur_quartz_checker",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -32277,6 +32638,24 @@
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_piston.json"
+    },
+    {
+      "id": "simplebuilding:blocks/reinforced_potion_pad",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:reinforced_potion_pad"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_potion_pad.json"
     },
     {
       "id": "simplebuilding:blocks/reinforced_smoker",
@@ -46710,9 +47089,9 @@
   },
   "counts": {
     "items": 166,
-    "blocks": 107,
-    "recipes": 342,
-    "lootTables": 104,
+    "blocks": 111,
+    "recipes": 345,
+    "lootTables": 108,
     "trades": 21,
     "enchantments": 19,
     "tags": 27,

@@ -83,7 +83,8 @@
       "com.simplebuilding.gametest.SmeltingGameTest",
       "com.simplebuilding.gametest.TradeOfferGameTest",
       "com.simplebuilding.gametest.TweaksGameTest",
-      "com.simplebuilding.gametest.TweaksTierGameTest"
+      "com.simplebuilding.gametest.TweaksTierGameTest",
+      "com.simplebuilding.gametest.PotionPadGameTest"
     ]
   },
   "mixins": [

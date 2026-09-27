@@ -60,6 +60,10 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)
                 .forceAddTag(ModTags.Items.OCTANTS_ENCHANTABLE);
 
+        // Lohenkopf (Simple Tweaks, Trank-Pad): ein Mob-Kopf wie die Vanilla-Koepfe (Fluch der
+        // Bindung/des Verschwindens ueber #equippable_enchantable/#vanishing_enchantable).
+        builder(ItemTags.SKULLS).add(key(com.simplebuilding.tweaks.item.TweaksItems.BLAZE_HEAD));
+
         builder(ItemTags.DURABILITY_ENCHANTABLE)
                 // Echo-Kompass (Simple Tweaks): Unbreaking/Mending wirken, siehe EchoCompassItem.
                 .add(key(com.simplebuilding.tweaks.item.TweaksItems.ECHO_COMPASS))

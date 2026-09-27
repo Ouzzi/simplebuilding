@@ -437,7 +437,8 @@ public final class TweaksTierTests {
                 TweaksFamilies.Family.SPAWN_TELEPORTER, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER,
                 TweaksFamilies.Family.LAUNCHPAD, TweaksBlocks.ENDERITE_LAUNCHPAD,
                 TweaksFamilies.Family.CHUNK_LOADER, TweaksBlocks.ENDERITE_CHUNK_LOADER,
-                TweaksFamilies.Family.PRESSURE_PLATE, TweaksBlocks.ENDERITE_PRESSURE_PLATE);
+                TweaksFamilies.Family.PRESSURE_PLATE, TweaksBlocks.ENDERITE_PRESSURE_PLATE,
+                TweaksFamilies.Family.POTION_PAD, TweaksBlocks.INFUSED_POTION_PAD);
         for (TweaksFamilies.Family family : TweaksFamilies.Family.values()) {
             helper.assertTrue(TweaksFamilies.lastTier(family) == last.get(family), family + " names " + TweaksFamilies.lastTier(family) + " as its last tier");
             for (Block legacy : TweaksBlocks.legacy()) {

@@ -945,6 +945,17 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.FLYPAD, enderitePlate, TweaksBlocks.REINFORCED_FLYPAD, "flypad_tier2_smithing");
                 tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.STELLAR_FLYPAD, "stellar_flypad_smithing");
 
+                // Trank-Pads I-III (Besitzer 2026-09-28): I = Netherit-Druckplatte + Lohenkopf (Werkbank,
+                // formlos); II = Enderit-Vorlage + I + Enderit-Druckplatte (Aufwertungen zahlen mit der
+                // Druckplatte des Zielmaterials); III = Enderit-Vorlage + II + Enderit-Kern (wie Flypad I).
+                shapeless(RecipeCategory.REDSTONE, TweaksBlocks.POTION_PAD)
+                        .requires(netheritePlate)
+                        .requires(TweaksItems.BLAZE_HEAD)
+                        .unlockedBy(getHasName(TweaksItems.BLAZE_HEAD), has(TweaksItems.BLAZE_HEAD))
+                        .save(output);
+                tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.POTION_PAD, enderitePlate, TweaksBlocks.REINFORCED_POTION_PAD, "reinforced_potion_pad_smithing");
+                tweaksSmithing(Ingredient.of(enderiteTemplate), TweaksBlocks.REINFORCED_POTION_PAD, ModItems.ENDERITE_CORE, TweaksBlocks.INFUSED_POTION_PAD, "infused_potion_pad_smithing");
+
                 // Kupfer-Druckplatte (2 Kupferbloecke) und Chunk-Loader I-III (Kupferplatte + Diamant-,
                 // dann Netherit- und Enderit-Druckplatte)
                 shaped(RecipeCategory.REDSTONE, TweaksBlocks.COPPER_PRESSURE_PLATE)

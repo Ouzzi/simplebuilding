@@ -137,7 +137,11 @@ public final class DataIntegrityTests {
     private static final String MOD_ID = Simplebuilding.MOD_ID;
 
     /** Blocks that intentionally have no item form (mirrors vanilla's piston head). */
-    private static final Set<String> BLOCKS_WITHOUT_ITEM = Set.of("reinforced_piston_head", "netherite_piston_head", "enderite_piston_head");
+    private static final Set<String> BLOCKS_WITHOUT_ITEM = Set.of("reinforced_piston_head", "netherite_piston_head", "enderite_piston_head",
+            "blaze_wall_head");
+
+    /** Wall variants that share the loot table (and drop) of their standing block, like vanilla's {@code wallVariant}. */
+    private static final Map<String, String> WALL_VARIANTS = Map.of("blaze_wall_head", "blaze_head");
 
     /** Blocks registered with {@code noLootTable()}. */
     private static final Set<String> BLOCKS_WITHOUT_LOOT_TABLE = Set.of("reinforced_piston_head", "netherite_piston_head", "enderite_piston_head");
@@ -885,7 +889,9 @@ public final class DataIntegrityTests {
             }
 
             // Guards against Properties.ofFullCopy(...) accidentally inheriting a foreign loot table.
-            Identifier expected = blockId.withPrefix("blocks/");
+            Identifier lootOwner = WALL_VARIANTS.containsKey(blockId.getPath())
+                    ? Identifier.fromNamespaceAndPath(blockId.getNamespace(), WALL_VARIANTS.get(blockId.getPath())) : blockId;
+            Identifier expected = lootOwner.withPrefix("blocks/");
             Identifier actual = lootKey.get().identifier();
             if (!expected.equals(actual)) {
                 problems.add(blockId + " points at the foreign loot table " + actual + " (expected " + expected + ")");
@@ -902,7 +908,7 @@ public final class DataIntegrityTests {
             // sometimes drops the wrong thing cannot slip through on one lucky draw.
             Item expectedDrop = ORE_DROPS.containsKey(blockId.getPath())
                     ? ORE_DROPS.get(blockId.getPath())
-                    : BuiltInRegistries.ITEM.getValue(blockId);
+                    : BuiltInRegistries.ITEM.getValue(lootOwner);
             List<List<ItemStack>> rolls = rollBlockLoot(helper, block, table);
             Set<Identifier> dropped = new TreeSet<>(Comparator.comparing(Identifier::toString));
             for (List<ItemStack> produced : rolls) {
@@ -1416,6 +1422,7 @@ public final class DataIntegrityTests {
             }
         }
         blocks.addAll(com.simplebuilding.tweaks.block.TweaksBlocks.all());
+        blocks.addAll(com.simplebuilding.tweaks.block.TweaksBlocks.heads());
         return blocks;
     }
 
@@ -2308,6 +2315,8 @@ public final class DataIntegrityTests {
                 List.of(TweaksBlocks.LAUNCHPAD.asItem(), TweaksBlocks.NETHERITE_LAUNCHPAD.asItem(), TweaksBlocks.ENDERITE_LAUNCHPAD.asItem(),
                         TweaksBlocks.CHUNK_LOADER.asItem(), TweaksBlocks.NETHERITE_CHUNK_LOADER.asItem(),
                         TweaksBlocks.ENDERITE_CHUNK_LOADER.asItem()),
+                List.of(TweaksItems.BLAZE_HEAD, TweaksBlocks.POTION_PAD.asItem(), TweaksBlocks.REINFORCED_POTION_PAD.asItem(),
+                        TweaksBlocks.INFUSED_POTION_PAD.asItem()),
                 List.of(ModItems.BLUEPRINT, Items.CARTOGRAPHY_TABLE, ModItems.OCTANT, ModItems.COPPER_BUILDING_WAND,
                         ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND, ModItems.DIAMOND_BUILDING_WAND,
                         ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND));
