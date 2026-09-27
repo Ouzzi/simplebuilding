@@ -291,7 +291,7 @@ public final class BlueprintTests {
     }
 
     /**
-     * Formen der Bausprache (docs/BLUEPRINT.md 1.3): jede Form mit Zahlenform, von Hand gezaehlten
+     * Formen der Bausprache (docs/BLUEPRINT.md 1.8): jede Form mit Zahlenform, von Hand gezaehlten
      * Stellen und Bounding Box; die Boxform fuellt Stelle fuer Stelle dieselbe Figur wie ein Oktant
      * mit dieser Auswahl ({@link OctantShape}), auch in Eckenform rueckwaerts; Linie, Wiederholung,
      * air mit Form, Fehler an der richtigen Stelle und die Budgets gegen Riesenformen.
