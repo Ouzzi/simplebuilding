@@ -978,6 +978,55 @@ public final class BundleWiringTests {
     // =====================================================================================
 
     /**
+     * A funnel pickup plays the pickup animation and counts the statistic for what it really took
+     * (audit N7): the mixin used to read the stack <em>after</em> shrinking it, so a full pickup
+     * reported 0 items (of air - no animation, no statistic) and a partial one the rest that stayed
+     * on the ground instead of the part that was taken.
+     *
+     * <ul>
+     *   <li><b>Whole:</b> 8 stone into an empty funnel bundle - the statistic rises by 8.</li>
+     *   <li><b>Partial:</b> a bundle with room for 3 more takes 3, vanilla's own pickup behind the
+     *       mixin puts the other 5 into the inventory and counts them itself - 8 in total. With the
+     *       old count the mixin reported the 5 left over, and the sum came to 10.</li>
+     * </ul>
+     */
+    public static void funnelPickupCountsWhatItTook(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        ItemStack bundle = funnelBundle(helper);
+        armHand(player, bundle);
+        net.minecraft.stats.Stat<Item> stonePickedUp = net.minecraft.stats.Stats.ITEM_PICKED_UP.get(Items.STONE);
+        int before = player.getStats().getValue(stonePickedUp);
+
+        ItemEntity whole = drop(helper, new ItemStack(Items.STONE, 8), new Vec3(2.5, 2.0, 2.5), 0);
+        whole.playerTouch(player);
+        helper.assertValueEqual(countInBundle(bundle, Items.STONE), 8, "stone the funnel bundle took off the floor");
+        helper.assertTrue(whole.isRemoved(), "the absorbed drop is still lying there");
+        helper.assertValueEqual(player.getStats().getValue(stonePickedUp) - before, 8,
+                "stone counted as picked up after a funnel bundle took a whole drop of 8");
+
+        // --- a bundle with room for exactly 3 more ---
+        ItemStack probe = funnelBundle(helper);
+        ReinforcedBundleItem item = (ReinforcedBundleItem) probe.getItem();
+        int capacity = 0;
+        while (capacity < 10_000 && item.tryInsertStackFromWorld(probe, new ItemStack(Items.STONE), player)) {
+            capacity++;
+        }
+        ItemStack almostFull = funnelBundle(helper);
+        for (int i = 0; i < capacity - 3; i++) {
+            item.tryInsertStackFromWorld(almostFull, new ItemStack(Items.STONE), player);
+        }
+        armHand(player, almostFull);
+        int beforePartial = player.getStats().getValue(stonePickedUp);
+        ItemEntity partial = drop(helper, new ItemStack(Items.STONE, 8), new Vec3(3.5, 2.0, 2.5), 0);
+        partial.playerTouch(player);
+        helper.assertValueEqual(countInBundle(almostFull, Items.STONE), capacity,
+                "stone in the bundle that had room for 3 more");
+        helper.assertValueEqual(player.getStats().getValue(stonePickedUp) - beforePartial, 8,
+                "stone counted as picked up when the bundle took 3 and the inventory the other 5");
+        helper.succeed();
+    }
+
+    /**
      * A connected mock player inside the room, handed back to the server when the test ends - a
      * leaked mock player keeps the player list non-empty and stalls the gametest server on
      * shutdown.

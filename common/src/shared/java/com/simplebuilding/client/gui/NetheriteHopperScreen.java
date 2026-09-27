@@ -94,7 +94,9 @@ public class NetheriteHopperScreen extends AbstractContainerScreen<NetheriteHopp
             // addStandardInventorySlots an, und dort hat die Hotbar die Container-Indizes 0..8 -
             // "getContainerSlot() < 5" verschluckte die Klicks auf die Hotbar-Slots 1 bis 5 und
             // schrieb stattdessen ein Geister-Item in den Trichter.
-            if (hoveredSlot != null && hoveredSlot.index < 5) {
+            // Nur auf leeren Trichterslots (Audit #48): ein belegter Slot ist ein normaler Klick,
+            // sein Inhalt laesst sich herausnehmen (siehe ModHopperScreenHandler#clicked).
+            if (hoveredSlot != null && hoveredSlot.index < 5 && !hoveredSlot.hasItem()) {
                 ItemStack cursorStack = this.menu.getCarried();
 
                 // Senden des Pakets (jetzt crash-sicher auch mit leerem Stack)

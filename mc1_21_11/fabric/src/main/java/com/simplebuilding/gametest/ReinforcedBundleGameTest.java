@@ -65,4 +65,9 @@ public final class ReinforcedBundleGameTest {
     public void nestedBundlesWeighTheirContents(GameTestHelper helper) {
         ReinforcedBundleTests.nestedBundlesWeighTheirContents(helper);
     }
+
+    @GameTest
+    public void overflowingBundleWeightsAreRefusedInsteadOfCrashing(GameTestHelper helper) {
+        ReinforcedBundleTests.overflowingBundleWeightsAreRefusedInsteadOfCrashing(helper);
+    }
 }

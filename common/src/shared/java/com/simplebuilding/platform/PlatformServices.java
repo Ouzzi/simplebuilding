@@ -50,6 +50,11 @@ public final class PlatformServices {
         return itemAutomation;
     }
 
+    /** Whether the loader installed its {@link ItemAutomation} (every loader does at start). */
+    public static boolean hasItemAutomation() {
+        return itemAutomation != ItemAutomation.NOT_INSTALLED;
+    }
+
     public static void setPistonBreakGuard(PistonBreakGuard guard) {
         PlatformServices.pistonBreakGuard = guard != null ? guard : PistonBreakGuard.ALLOW;
     }
@@ -59,8 +64,17 @@ public final class PlatformServices {
     }
 
     /**
+     * Whether a mod piston may go through with an action that destroys blocks - the loader's
+     * piston event ({@link PistonBreakGuard#mayMove}). Asked once per action, before
+     * {@link #mayPistonBreak} for the first block.
+     */
+    public static boolean mayPistonMove(ServerLevel level, BlockPos piston, Direction facing) {
+        return pistonBreakGuard.mayMove(level, piston, facing);
+    }
+
+    /**
      * Whether a mod piston may destroy {@code target} (see {@link PistonBreakGuard}): never outside
-     * the world border, otherwise whatever the loader's listeners say.
+     * the world border, otherwise whatever the loader's block break listeners say.
      */
     public static boolean mayPistonBreak(ServerLevel level, BlockPos piston, Direction facing, BlockPos target, BlockState state) {
         if (!level.getWorldBorder().isWithinBounds(target)) {

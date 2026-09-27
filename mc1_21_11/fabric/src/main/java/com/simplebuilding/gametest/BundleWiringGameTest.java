@@ -65,4 +65,9 @@ public final class BundleWiringGameTest {
     public void funnelHonoursPickupDelayAndTargetInTheHand(GameTestHelper helper) {
         BundleWiringTests.funnelHonoursPickupDelayAndTargetInTheHand(helper);
     }
+
+    @GameTest
+    public void funnelPickupCountsWhatItTook(GameTestHelper helper) {
+        BundleWiringTests.funnelPickupCountsWhatItTook(helper);
+    }
 }

@@ -33,6 +33,7 @@ public class SimplebuildingConfig implements ConfigData {
             trimBenefitBaseMultiplier = 2.0;
         }
         trimBenefitBaseMultiplier = Math.max(0.0, Math.min(maxMultiplierLimit, trimBenefitBaseMultiplier));
+        netheriteBreakerWearBudget = Math.max(0, netheriteBreakerWearBudget);
     }
 
     // Air-jump cooldown (ticks) at DOUBLE_JUMP level 1; level 2 uses half of this. 20 ticks = 1s.
@@ -47,6 +48,27 @@ public class SimplebuildingConfig implements ConfigData {
     // zaehlt wie ein immuner Block, siehe PistonBreach.
     @ConfigEntry.Gui.Tooltip
     public boolean pistonsBreachEndPortalFrames = false;
+
+    // Ob die Kolben der Mod auch unzerstoerbare Bloecke (Haerte -1) ANDERER Mods schieben bzw.
+    // zerstoeren. Aus (Standard, Audit #24): nur der Namensraum minecraft und der Tag
+    // simplebuilding:piston_breachable_extra, siehe PistonBreach.
+    @ConfigEntry.Gui.Tooltip
+    public boolean pistonsBreachModdedUnbreakables = false;
+
+    // Ob der Kolben-Waechter vor jedem Kolben-Abbau das Abbau-Ereignis des Loaders mit einem
+    // Fake-Spieler feuert (NeoForge BreakBlockEvent, Fabric PlayerBlockBreakEvents), damit
+    // Schutz-Mods Claims schuetzen. Aus: nur das Kolben-Ereignis (NeoForge/Forge) und die
+    // Weltgrenze; fuer Schutz-Mods, die jeden Fake-Spieler sperren, oder Quest-/Statistik-Mods,
+    // die den Abbau sonst einem Spieler zuschreiben (Audit N4). Siehe PistonBreakGuard.
+    @ConfigEntry.Gui.Tooltip
+    public boolean pistonsFireBreakEvents = true;
+
+    // Verschleiss des Netherit-Brechers (Audit #23): so viele Haertepunkte (je Block
+    // max(1, aufgerundete Haerte)) bricht er, bevor er zum verstaerkten Kolben zerfaellt.
+    // 8 sichtbare Stufen je netheriteBreakerWearBudget / 8 Punkte. 0 = kein Verschleiss.
+    // Siehe NetheriteBreakerPistonBlock.
+    @ConfigEntry.Gui.Tooltip
+    public int netheriteBreakerWearBudget = 1024;
 
     // Zeigt den Kreativ-Tab "SimpleEnchants (Dev)" auch ausserhalb einer
     // Entwicklungsumgebung (dort ist er immer da), siehe DevEnchantedTab. Wirkt beim naechsten

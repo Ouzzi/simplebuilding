@@ -1347,6 +1347,120 @@ public final class HopperTests {
     }
 
     // =====================================================================================
+    // AUDIT 2026-09-26 #36 / #48, NACH-AUDIT N6
+    // =====================================================================================
+
+    /**
+     * A filtered hopper slot that holds something is an ordinary slot again (audit #48): a plain
+     * click takes its items out - until 2026-09-27 every click on a filtered slot only rewrote the
+     * filter item, so the slot could only be emptied with a shift click. On an empty slot the click
+     * still sets (with an item on the cursor) or clears (with an empty cursor) the filter item.
+     *
+     * <p>And the hopper slots ask the vanilla {@code Slot#mayPlace} first (audit N6), where
+     * {@code SpawnElytraSlotMixin} keeps the spawn elytra out of every container slot; the mod's
+     * filter slot used to answer on its own and took it. Diamonds are the control.
+     */
+    public static void filteredSlotsHandOutWhatTheyHoldAndRefuseTheSpawnElytra(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        ModHopperBlockEntity hopper = placeHopper(helper, ModBlocks.NETHERITE_HOPPER);
+        MenuProvider provider = helper.getBlockState(HOPPER_POS).getMenuProvider(helper.getLevel(), helper.absolutePos(HOPPER_POS));
+        helper.assertTrue(provider != null, "the hopper block offers no menu at all");
+        ModHopperScreenHandler menu = (ModHopperScreenHandler) provider.createMenu(1, player.getInventory(), player);
+        player.containerMenu = menu;
+
+        // --- N6: the spawn elytra stays out, the filter is off ---
+        helper.assertTrue(!menu.getSlot(1).mayPlace(new ItemStack(com.simplebuilding.tweaks.item.TweaksItems.SPAWN_ELYTRA)),
+                "a hopper slot of the mod hopper accepts the spawn elytra - its filter slot skips the vanilla "
+                        + "mayPlace where the spawn elytra rule lives");
+        helper.assertTrue(menu.getSlot(1).mayPlace(new ItemStack(Items.DIAMOND)),
+                "the hopper slot refuses diamonds as well, so the refusal above says nothing");
+
+        // --- #48: a filtered slot with items in it gives them out on a plain click ---
+        hopper.toggleFilterMode();
+        helper.assertTrue(hopper.getFilterMode() == HopperFilterMode.WHITELIST,
+                "the toggle did not reach Exact Match, it is " + hopper.getFilterMode());
+        hopper.setGhostItem(0, new ItemStack(Items.DIAMOND));
+        hopper.setItem(0, new ItemStack(Items.DIAMOND, 5));
+        menu.setCarried(ItemStack.EMPTY);
+        menu.clicked(0, 0, ContainerInput.PICKUP, player);
+        helper.assertTrue(menu.getCarried().is(Items.DIAMOND) && menu.getCarried().getCount() == 5,
+                "a plain click on a filtered slot holding 5 diamonds put " + menu.getCarried()
+                        + " on the cursor - the items can only be shift-clicked out");
+        helper.assertTrue(hopper.getItem(0).isEmpty(), "the filtered slot still holds " + hopper.getItem(0));
+        helper.assertTrue(hopper.getGhostItem(0).is(Items.DIAMOND),
+                "taking the items out rewrote the filter item, it is now " + hopper.getGhostItem(0));
+
+        // --- on the now empty slot the click is a filter click again ---
+        menu.setCarried(new ItemStack(Items.EMERALD, 3));
+        menu.clicked(0, 0, ContainerInput.PICKUP, player);
+        helper.assertTrue(hopper.getGhostItem(0).is(Items.EMERALD) && hopper.getItem(0).isEmpty(),
+                "a click with emeralds on the empty filtered slot did not just set the filter item: filter "
+                        + hopper.getGhostItem(0) + ", slot " + hopper.getItem(0));
+        helper.assertValueEqual(menu.getCarried().getCount(), 3, "emeralds left on the cursor after the filter click");
+        menu.setCarried(ItemStack.EMPTY);
+        menu.clicked(0, 0, ContainerInput.PICKUP, player);
+        helper.assertTrue(hopper.getGhostItem(0).isEmpty(),
+                "a click with an empty cursor on the empty filtered slot did not clear the filter item: "
+                        + hopper.getGhostItem(0));
+
+        player.closeContainer();
+        helper.succeed();
+    }
+
+    /** Tick budget for {@link #modHoppersFallBackToTheLoaderTransferApiWithoutContainer}. */
+    public static final int ITEM_AUTOMATION_MAX_TICKS = 60;
+
+    /**
+     * No vanilla {@code Container} in front of a mod hopper: it hands its items to the loader's
+     * transfer API instead ({@code PlatformServices#itemAutomation} - NeoForge capabilities, Fabric
+     * {@code ItemStorage.SIDED}, Forge {@code ITEM_HANDLER}), one per transfer, through the face that
+     * looks at the hopper (audit #36; before 2026-09-27 only vanilla containers were fed). A plain
+     * stone block below stands in for another mod's machine: the test wraps the installed
+     * automation and answers for exactly that position, everything else goes on to the loader.
+     */
+    public static void modHoppersFallBackToTheLoaderTransferApiWithoutContainer(GameTestHelper helper) {
+        ModHopperBlockEntity hopper = placeHopper(helper, ModBlocks.REINFORCED_HOPPER);
+        helper.setBlock(HOPPER_POS.below(), Blocks.STONE);
+        BlockPos machine = helper.absolutePos(HOPPER_POS.below());
+        ServerLevel level = helper.getLevel();
+        List<ItemStack> received = new java.util.concurrent.CopyOnWriteArrayList<>();
+        List<Direction> faces = new java.util.concurrent.CopyOnWriteArrayList<>();
+        com.simplebuilding.platform.ItemAutomation installed = PlatformServices.itemAutomation();
+        helper.assertTrue(PlatformServices.hasItemAutomation(), "this loader installed no item automation at all");
+        PlatformServices.setItemAutomation(new com.simplebuilding.platform.ItemAutomation() {
+            @Override
+            public int insert(ServerLevel where, BlockPos pos, Direction side, ItemStack stack) {
+                if (where == level && pos.equals(machine)) {
+                    received.add(stack.copy());
+                    faces.add(side);
+                    return stack.getCount();
+                }
+                return installed.insert(where, pos, side, stack);
+            }
+
+            @Override
+            public int extract(ServerLevel where, BlockPos pos, Direction side, Item item, int amount) {
+                return installed.extract(where, pos, side, item, amount);
+            }
+        });
+        helper.runBeforeTestEnd(() -> PlatformServices.setItemAutomation(installed));
+
+        hopper.setItem(0, new ItemStack(Items.DIAMOND, 3));
+        helper.startSequence()
+                .thenExecuteAfter(30, () -> {
+                    int total = received.stream().mapToInt(ItemStack::getCount).sum();
+                    helper.assertValueEqual(total, 3,
+                            "diamonds the mod hopper handed to the loader's transfer API with no container below");
+                    helper.assertTrue(received.stream().allMatch(stack -> stack.is(Items.DIAMOND) && stack.getCount() == 1),
+                            "the hopper did not hand over one diamond per transfer: " + received);
+                    helper.assertTrue(faces.stream().allMatch(face -> face == Direction.UP),
+                            "the hopper asked the machine below through " + faces + " instead of its top face");
+                    helper.assertTrue(hopper.isEmpty(), "the hopper kept items the transfer API took: " + hopper.getItem(0));
+                })
+                .thenSucceed();
+    }
+
+    // =====================================================================================
     // HELPERS
     // =====================================================================================
 

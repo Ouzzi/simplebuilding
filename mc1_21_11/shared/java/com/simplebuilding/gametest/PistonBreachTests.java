@@ -7,6 +7,16 @@ import com.simplebuilding.items.ModItems;
 import com.simplebuilding.util.ModSounds;
 import com.simplebuilding.util.PistonBoreEffects;
 import com.simplebuilding.util.PistonBreach;
+import com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock;
+import com.simplebuilding.items.custom.NetheritePistonItem;
+import com.simplebuilding.networking.PistonConfigPayload;
+import com.simplebuilding.platform.PistonEventProbe;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.component.BlockItemStateProperties;
+import net.minecraft.world.phys.BlockHitResult;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
@@ -788,14 +798,27 @@ public final class PistonBreachTests {
                 helper.absolutePos(enderite.above(2)));
         java.util.Set<BlockPos> asked = java.util.concurrent.ConcurrentHashMap.newKeySet();
         com.simplebuilding.platform.PistonBreakGuard installed = com.simplebuilding.platform.PlatformServices.pistonBreakGuard();
-        com.simplebuilding.platform.PlatformServices.setPistonBreakGuard((where, piston, facing, target, state) -> {
-            if (where == level && room.contains(Vec3.atCenterOf(target))) {
-                asked.add(target.immutable());
-                if (refused.contains(target)) {
-                    return false;
+        java.util.Map<BlockPos, java.util.concurrent.atomic.AtomicInteger> moves = new java.util.concurrent.ConcurrentHashMap<>();
+        com.simplebuilding.platform.PlatformServices.setPistonBreakGuard(new com.simplebuilding.platform.PistonBreakGuard() {
+            @Override
+            public boolean mayBreak(ServerLevel where, BlockPos piston, Direction facing, BlockPos target, BlockState state) {
+                if (where == level && room.contains(Vec3.atCenterOf(target))) {
+                    asked.add(target.immutable());
+                    if (refused.contains(target)) {
+                        return false;
+                    }
                 }
+                return installed.mayBreak(where, piston, facing, target, state);
             }
-            return installed.mayBreak(where, piston, facing, target, state);
+
+            // Forwarded, so the loader's piston event still fires for every other test meanwhile.
+            @Override
+            public boolean mayMove(ServerLevel where, BlockPos piston, Direction facing) {
+                if (where == level && room.contains(Vec3.atCenterOf(piston))) {
+                    moves.computeIfAbsent(piston.immutable(), key -> new java.util.concurrent.atomic.AtomicInteger()).incrementAndGet();
+                }
+                return installed.mayMove(where, piston, facing);
+            }
         });
         TestCleanup.before(helper, () -> com.simplebuilding.platform.PlatformServices.setPistonBreakGuard(installed));
 
@@ -855,8 +878,309 @@ public final class PistonBreachTests {
                     // --- control ---
                     helper.assertTrue(reports.contains(helper.absolutePos(allowed.above()).toShortString()),
                             "the netherite piston did not break the allowed stone - the rig itself is broken");
+
+                    // --- the piston event goes out once per action, not once per block (audit N16) ---
+                    java.util.concurrent.atomic.AtomicInteger enderiteMoves = moves.get(helper.absolutePos(enderite));
+                    java.util.concurrent.atomic.AtomicInteger allowedMoves = moves.get(helper.absolutePos(allowed));
+                    helper.assertTrue(enderiteMoves != null && enderiteMoves.get() == 1,
+                            "the enderite breach asked the piston event " + enderiteMoves + " times instead of once "
+                                    + "for the whole breach");
+                    helper.assertTrue(allowedMoves != null && allowedMoves.get() == 1,
+                            "the breaker asked the piston event " + allowedMoves + " times instead of once for its break");
                 })
+                .thenExecute(() -> TestCleanup.run(helper))
                 .thenSucceed();
+    }
+
+    // =====================================================================================
+    // AUDIT 2026-09-26 #23 / #24, NACH-AUDIT N4 / N5 / N16
+    // =====================================================================================
+
+    /** Tick budget for {@link #netheriteBreakerWearsDownAndCrumblesToReinforcedPiston}. */
+    public static final int WEAR_MAX_TICKS = 80;
+
+    /**
+     * The netherite breaker wears down (audit #23, owner's choice: wear). Every piston here runs
+     * with a wear budget of 8 through {@code NetheriteBreakerPistonBlock#overrideWearBudgetAt}, so
+     * one stage is one hardness point and nothing is left to chance (the config value is not
+     * touched: the tests run in parallel and every other breaker would feel it).
+     *
+     * <ul>
+     *   <li><b>Stone</b> (hardness 1.5, cost 2): the breaker goes from stage 0 to 2, extends, and
+     *       keeps stage 2 when it retracts - vanilla puts {@code defaultBlockState()} into the moving
+     *       block at the base, {@code PistonBlockMixin#simplebuilding$keepWear} carries it over.</li>
+     *   <li><b>Stage 7 on stone:</b> 7 + 2 is past the last stage, so the breaker crumbles into a
+     *       reinforced piston (same facing) that extends with its own head.</li>
+     *   <li><b>Budget 0 on deepslate:</b> no wear at all, the deepslate still breaks.</li>
+     *   <li><b>The enderite piston</b> breaks the same stone and has no wear property at all.</li>
+     *   <li><b>Item:</b> a worn breaker drops its stage in the block state component (and a fresh one
+     *       none, so it still stacks); the component puts the stage back onto the placed state.</li>
+     *   <li><b>Repair:</b> a netherite nugget used on a worn breaker sets it back to 0 and is used up
+     *       outside creative.</li>
+     *   <li><b>The arithmetic:</b> {@code wearSteps} = cost / (budget / 8), the rest as a probability.</li>
+     * </ul>
+     */
+    public static void netheriteBreakerWearsDownAndCrumblesToReinforcedPiston(GameTestHelper helper) {
+        BlockPos stone = new BlockPos(1, 1, 1);
+        BlockPos crumble = new BlockPos(4, 1, 1);
+        BlockPos noWear = new BlockPos(1, 1, 5);
+        BlockPos enderite = new BlockPos(4, 1, 5);
+        BlockPos repair = new BlockPos(6, 1, 3);
+        ServerLevel level = helper.getLevel();
+
+        // --- the arithmetic, without a world ---
+        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearCost(1.5F), 2, "wear cost of stone (hardness 1.5)");
+        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearCost(0.0F), 1, "wear cost of an instantly broken block");
+        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearCost(50.0F), 50, "wear cost of obsidian");
+        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearSteps(1.5F, 8, 0.99), 2,
+                "stages stone costs at a budget of 8 (one point per stage)");
+        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearSteps(1.5F, 1024, 0.0), 1,
+                "stages stone costs at the default budget when the roll is below 2/128");
+        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearSteps(1.5F, 1024, 0.5), 0,
+                "stages stone costs at the default budget when the roll is above 2/128");
+        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearSteps(50.0F, 0, 0.0), 0,
+                "stages anything costs with the wear switched off (budget 0)");
+
+        for (BlockPos piston : List.of(stone, crumble, enderite)) {
+            TestCleanup.before(helper, NetheriteBreakerPistonBlock.overrideWearBudgetAt(helper.absolutePos(piston), 8));
+        }
+        TestCleanup.before(helper, NetheriteBreakerPistonBlock.overrideWearBudgetAt(helper.absolutePos(noWear), 0));
+
+        paidRow(helper, stone, ModBlocks.NETHERITE_PISTON, Blocks.STONE);
+        helper.setBlock(crumble.above(2), Blocks.AIR);
+        helper.setBlock(crumble, upright(ModBlocks.NETHERITE_PISTON).setValue(NetheriteBreakerPistonBlock.WEAR, 7));
+        helper.setBlock(crumble.above(), Blocks.STONE);
+        helper.setBlock(crumble.below(), Blocks.REDSTONE_BLOCK);
+        paidRow(helper, noWear, ModBlocks.NETHERITE_PISTON, Blocks.DEEPSLATE);
+        paidRow(helper, enderite, ModBlocks.ENDERITE_PISTON, Blocks.STONE);
+
+        // --- the item side, no ticks needed ---
+        BlockState worn = upright(ModBlocks.NETHERITE_PISTON).setValue(NetheriteBreakerPistonBlock.WEAR, 3);
+        List<ItemStack> wornDrops = Block.getDrops(worn, level, helper.absolutePos(repair), null, null, ItemStack.EMPTY);
+        helper.assertTrue(wornDrops.size() == 1 && wornDrops.get(0).is(ModItems.NETHERITE_PISTON),
+                "a worn netherite piston dropped " + wornDrops + " instead of itself");
+        Assertions.valueEqual(helper, NetheritePistonItem.wearOf(wornDrops.get(0)), 3,
+                "wear stage the dropped item carries - picking the breaker up must not repair it");
+        BlockItemStateProperties carried = wornDrops.get(0).get(DataComponents.BLOCK_STATE);
+        helper.assertTrue(carried != null
+                        && carried.apply(ModBlocks.NETHERITE_PISTON.defaultBlockState()).getValue(NetheriteBreakerPistonBlock.WEAR) == 3,
+                "the dropped item's block state component does not put stage 3 back onto the placed piston: " + carried);
+        List<ItemStack> freshDrops = Block.getDrops(upright(ModBlocks.NETHERITE_PISTON), level, helper.absolutePos(repair), null, null, ItemStack.EMPTY);
+        helper.assertTrue(freshDrops.size() == 1 && !freshDrops.get(0).has(DataComponents.BLOCK_STATE),
+                "a fresh netherite piston dropped " + freshDrops + " with a block state component, so it no longer "
+                        + "stacks with fresh ones");
+
+        // --- repair with a netherite nugget ---
+        helper.setBlock(repair, upright(ModBlocks.NETHERITE_PISTON).setValue(NetheriteBreakerPistonBlock.WEAR, 5));
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        TestCleanup.before(helper, () -> level.getServer().getPlayerList().remove(player));
+        player.getAbilities().instabuild = false;
+        ItemStack nugget = new ItemStack(ModItems.NETHERITE_NUGGET, 2);
+        player.setItemInHand(InteractionHand.MAIN_HAND, nugget);
+        BlockPos repairAbsolute = helper.absolutePos(repair);
+        BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(repairAbsolute), Direction.NORTH, repairAbsolute, false);
+        InteractionResult repaired = level.getBlockState(repairAbsolute)
+                .useItemOn(nugget, level, player, InteractionHand.MAIN_HAND, hit);
+        helper.assertTrue(repaired.consumesAction(), "using a netherite nugget on a worn breaker did nothing: " + repaired);
+        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearOf(helper.getBlockState(repair)), 0,
+                "wear stage after the repair with a netherite nugget");
+        Assertions.valueEqual(helper, nugget.getCount(), 1, "netherite nuggets left after one repair outside creative");
+
+        helper.startSequence()
+                .thenExecuteAfter(4, () -> {
+                    BlockState stoneBreaker = helper.getBlockState(stone);
+                    helper.assertTrue(stoneBreaker.is(ModBlocks.NETHERITE_PISTON) && stoneBreaker.getValue(PistonBaseBlock.EXTENDED),
+                            "the netherite piston on stone did not extend, found " + stoneBreaker);
+                    Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearOf(stoneBreaker), 2,
+                            "wear stage after breaking one stone at a budget of 8");
+
+                    helper.assertTrue(helper.getBlockState(crumble).is(ModBlocks.REINFORCED_PISTON),
+                            "a netherite piston at the last wear stage did not crumble into a reinforced piston, found "
+                                    + helper.getBlockState(crumble));
+                    assertExtendedWithHead(helper, crumble, ModBlocks.REINFORCED_PISTON_HEAD, PistonType.DEFAULT,
+                            "the crumbled breaker");
+                    Assertions.valueEqual(helper, helper.getBlockState(crumble).getValue(DirectionalBlock.FACING), Direction.UP,
+                            "facing of the reinforced piston the breaker crumbled into");
+
+                    Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearOf(helper.getBlockState(noWear)), 0,
+                            "wear stage with the wear budget at 0");
+                    helper.assertTrue(helper.getBlockState(noWear.above()).is(ModBlocks.NETHERITE_PISTON_HEAD)
+                                    && helper.getBlockState(noWear).getValue(PistonBaseBlock.EXTENDED),
+                            "with the wear switched off the breaker has to break the deepslate and extend as before, found "
+                                    + helper.getBlockState(noWear.above()));
+
+                    helper.assertTrue(helper.getBlockState(enderite).is(ModBlocks.ENDERITE_PISTON)
+                                    && !helper.getBlockState(enderite).hasProperty(NetheriteBreakerPistonBlock.WEAR),
+                            "the enderite piston carries a wear property, found " + helper.getBlockState(enderite));
+
+                    // Retract the stone row: take its redstone block away.
+                    helper.setBlock(stone.below(), Blocks.AIR);
+                })
+                .thenExecuteAfter(6, () -> {
+                    BlockState retracted = helper.getBlockState(stone);
+                    helper.assertTrue(retracted.is(ModBlocks.NETHERITE_PISTON) && !retracted.getValue(PistonBaseBlock.EXTENDED),
+                            "the netherite piston did not retract, found " + retracted);
+                    Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearOf(retracted), 2,
+                            "wear stage after retracting - retracting must not repair the breaker");
+                })
+                .thenExecute(() -> TestCleanup.run(helper))
+                .thenSucceed();
+    }
+
+    /** Tick budget for {@link #modPistonsFireTheRealLoaderEventsAndHonourTheirConfigSwitch}. */
+    public static final int LOADER_EVENTS_MAX_TICKS = 60;
+
+    /**
+     * The platform guard fires the loader's <em>real</em> events, and a listener that cancels them
+     * keeps the block (audit N5); the config switch {@code pistonsFireBreakEvents} turns the block
+     * break event with the fake player off (audit N4). The listeners are ordinary ones each loader's
+     * guard installer registers ({@code PistonEventProbe}), cancelling only the positions a test
+     * names - the same way a protection mod would.
+     *
+     * <p>Which refusal has to keep the block depends on the loader, and the installer says which
+     * events its guard fires: Fabric only the block break event ({@code PlayerBlockBreakEvents.BEFORE},
+     * no piston event exists), Forge only {@code PistonEvent.Pre} (Forge 26.2 has no fake player),
+     * NeoForge both ({@code PistonEvent.Pre}, {@code BreakBlockEvent}). Rows, each a netherite piston
+     * on stone with a redstone block below:
+     * <ul>
+     *   <li><b>Break event cancelled at the stone:</b> with a break event the stone survives and is
+     *       pushed; without (Forge) it is destroyed.</li>
+     *   <li><b>Piston event cancelled at the piston:</b> with a piston event the stone survives and the
+     *       piston does not even extend (vanilla's own {@code PistonEvent.Pre} is cancelled too);
+     *       without (Fabric) it is destroyed.</li>
+     *   <li><b>Break event cancelled, {@code pistonsFireBreakEvents} off:</b> destroyed on every loader.</li>
+     *   <li><b>Control, nothing cancelled:</b> destroyed.</li>
+     * </ul>
+     */
+    public static void modPistonsFireTheRealLoaderEventsAndHonourTheirConfigSwitch(GameTestHelper helper) {
+        BlockPos breakRow = new BlockPos(1, 1, 1);
+        BlockPos pistonRow = new BlockPos(4, 1, 1);
+        BlockPos switchedOff = new BlockPos(1, 1, 5);
+        BlockPos control = new BlockPos(4, 1, 5);
+        ServerLevel level = helper.getLevel();
+        AABB room = helper.getBounds();
+        SimplebuildingConfig config = Simplebuilding.getConfig();
+        helper.assertTrue(config != null, "the mod has no live config, so the switch cannot be flipped");
+        boolean fireBefore = config.pistonsFireBreakEvents;
+        TestCleanup.before(helper, () -> Simplebuilding.getConfig().pistonsFireBreakEvents = fireBefore);
+        boolean pistonEvent = PistonEventProbe.firesPistonEvent();
+        boolean breakEvent = PistonEventProbe.firesBreakEvent();
+        helper.assertTrue(pistonEvent || breakEvent,
+                "the loader's piston break guard declared no event at all - no guard is installed, so protection "
+                        + "mods are never asked");
+
+        List<String> reports = new java.util.concurrent.CopyOnWriteArrayList<>();
+        Runnable stop = PistonBoreEffects.observe((where, pos, broken, dropped) -> {
+            if (where == level && room.contains(Vec3.atCenterOf(pos))) {
+                reports.add(pos.toShortString());
+            }
+        });
+        TestCleanup.before(helper, stop);
+        TestCleanup.before(helper, PistonEventProbe.refuseBreakAt(helper.absolutePos(breakRow.above())));
+        TestCleanup.before(helper, PistonEventProbe.refusePistonAt(helper.absolutePos(pistonRow)));
+        TestCleanup.before(helper, PistonEventProbe.refuseBreakAt(helper.absolutePos(switchedOff.above())));
+
+        config.pistonsFireBreakEvents = true;
+        paidRow(helper, breakRow, ModBlocks.NETHERITE_PISTON, Blocks.STONE);
+        helper.setBlock(breakRow.above(3), Blocks.AIR);
+        paidRow(helper, pistonRow, ModBlocks.NETHERITE_PISTON, Blocks.STONE);
+        paidRow(helper, control, ModBlocks.NETHERITE_PISTON, Blocks.STONE);
+
+        helper.startSequence()
+                .thenExecuteAfter(4, () -> {
+                    String breakTarget = helper.absolutePos(breakRow.above()).toShortString();
+                    if (breakEvent) {
+                        helper.assertTrue(!reports.contains(breakTarget),
+                                "a cancelled block break event did not keep the stone - the guard ignores the loader's "
+                                        + "break listeners");
+                        helper.assertTrue(helper.getBlockState(breakRow.above(2)).is(Blocks.STONE),
+                                "the stone whose break was cancelled was not pushed like by a vanilla piston, found "
+                                        + helper.getBlockState(breakRow.above(2)));
+                    } else {
+                        helper.assertTrue(reports.contains(breakTarget),
+                                "this loader declares no block break event, yet the stone survived");
+                    }
+
+                    String pistonTarget = helper.absolutePos(pistonRow.above()).toShortString();
+                    if (pistonEvent) {
+                        helper.assertTrue(!reports.contains(pistonTarget)
+                                        && helper.getBlockState(pistonRow.above()).is(Blocks.STONE)
+                                        && !helper.getBlockState(pistonRow).getValue(PistonBaseBlock.EXTENDED),
+                                "a cancelled PistonEvent.Pre did not keep the stone in place and the piston retracted: "
+                                        + helper.getBlockState(pistonRow.above()) + " / " + helper.getBlockState(pistonRow));
+                    } else {
+                        helper.assertTrue(reports.contains(pistonTarget),
+                                "this loader declares no piston event, yet the stone survived");
+                    }
+
+                    helper.assertTrue(reports.contains(helper.absolutePos(control.above()).toShortString()),
+                            "the control breaker did not break its stone - the rig itself is broken");
+
+                    // --- the switch: no block break event with the fake player any more ---
+                    Simplebuilding.getConfig().pistonsFireBreakEvents = false;
+                    paidRow(helper, switchedOff, ModBlocks.NETHERITE_PISTON, Blocks.STONE);
+                })
+                .thenExecuteAfter(4, () -> {
+                    Simplebuilding.getConfig().pistonsFireBreakEvents = fireBefore;
+                    helper.assertTrue(reports.contains(helper.absolutePos(switchedOff.above()).toShortString()),
+                            "with pistonsFireBreakEvents off a cancelling break listener still stopped the breaker - "
+                                    + "the switch does not reach the loader's guard");
+                })
+                .thenExecute(() -> TestCleanup.run(helper))
+                .thenSucceed();
+    }
+
+    /**
+     * "Unbreakable" means vanilla's unbreakables (audit #24): a destroy speed below 0 counts only in
+     * the {@code minecraft} namespace (or through the tag {@code piston_breachable_extra}); another
+     * mod's hardness -1 block is left alone unless {@code pistonsBreachModdedUnbreakables} is on.
+     * No modded unbreakable is registered in the test world, so the namespace rule is asked for a
+     * mod block directly ({@code PistonBreach#unbreakableCounts}); bedrock is the live control.
+     *
+     * <p>And the client half of the piston options (audit N16): the server sends both options at
+     * login ({@code PistonConfigPayload}), a client level reads only those; a server level never
+     * does, whatever a client stored.
+     */
+    public static void onlyVanillaUnbreakablesAreBreachedUnlessTheConfigSaysOtherwise(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        SimplebuildingConfig config = Simplebuilding.getConfig();
+        helper.assertTrue(config != null, "the mod has no live config, so the option cannot be switched");
+        boolean moddedBefore = config.pistonsBreachModdedUnbreakables;
+        TestCleanup.before(helper, () -> {
+            Simplebuilding.getConfig().pistonsBreachModdedUnbreakables = moddedBefore;
+            PistonBreach.setClientRules(null);
+        });
+
+        config.pistonsBreachModdedUnbreakables = false;
+        helper.assertTrue(PistonBreach.unbreakableCounts(Blocks.BEDROCK, level),
+                "bedrock (minecraft namespace) no longer counts as a breachable unbreakable");
+        helper.assertTrue(!PistonBreach.unbreakableCounts(ModBlocks.REINFORCED_PISTON, level),
+                "a block outside the minecraft namespace counts as a breachable unbreakable with "
+                        + "pistonsBreachModdedUnbreakables off");
+        helper.setBlock(new BlockPos(1, 1, 1), Blocks.BEDROCK);
+        helper.assertTrue(PistonBreach.isBreachable(level, helper.absolutePos(new BlockPos(1, 1, 1))),
+                "bedrock in the world is no longer breachable");
+
+        PistonConfigPayload sent = PistonConfigPayload.fromServer();
+        helper.assertTrue(!sent.moddedUnbreakables() && sent.endPortalFrames() == config.pistonsBreachEndPortalFrames,
+                "the login payload does not carry the server's piston options: " + sent);
+
+        config.pistonsBreachModdedUnbreakables = true;
+        helper.assertTrue(PistonBreach.unbreakableCounts(ModBlocks.REINFORCED_PISTON, level),
+                "with pistonsBreachModdedUnbreakables on, another namespace's unbreakables still do not count");
+        helper.assertTrue(PistonConfigPayload.fromServer().moddedUnbreakables(),
+                "the login payload does not follow the switched option");
+
+        // A client's stored values never reach a server level.
+        new PistonConfigPayload(false, false).apply();
+        helper.assertTrue(PistonBreach.unbreakableCounts(ModBlocks.REINFORCED_PISTON, level),
+                "the values a client received decided a question on the server level");
+        config.pistonsBreachModdedUnbreakables = false;
+        new PistonConfigPayload(true, true).apply();
+        helper.assertTrue(!PistonBreach.unbreakableCounts(ModBlocks.REINFORCED_PISTON, level),
+                "the values a client received decided a question on the server level");
+        PistonBreach.setClientRules(null);
+        TestCleanup.succeed(helper);
     }
 
     /**

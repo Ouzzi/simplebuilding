@@ -41,6 +41,7 @@ public class ModMessages {
         // Server -> Client (S2C)
         PayloadTypeRegistry.clientboundPlay().register(SyncHopperGhostItemPayload.ID, SyncHopperGhostItemPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(TrimDataPayload.ID, TrimDataPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(PistonConfigPayload.ID, PistonConfigPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(SurvivalSyncPayload.ID, SurvivalSyncPayload.CODEC);
 
         // --- 2. SERVER-RECEIVER ---
@@ -69,6 +70,7 @@ public class ModMessages {
             if (handler.player instanceof SurvivalTracerAccessor accessor) {
                 accessor.simplebuilding$syncTrimData();
             }
+            PistonConfigPayload.sendTo(handler.player);
         });
     }
 

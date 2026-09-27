@@ -163,7 +163,7 @@ public class ModModelProvider extends FabricModelProvider {
         // Reinforced Piston is a real Piston (has EXTENDED property)
         registerCustomPiston(blockStateModelGenerator, ModBlocks.REINFORCED_PISTON);
         registerStickyPistonVariant(blockStateModelGenerator, ModBlocks.REINFORCED_STICKY_PISTON, ModBlocks.REINFORCED_PISTON);
-        registerCustomPiston(blockStateModelGenerator, ModBlocks.NETHERITE_PISTON);
+        registerWearingPiston(blockStateModelGenerator, ModBlocks.NETHERITE_PISTON);
         registerCustomPiston(blockStateModelGenerator, ModBlocks.ENDERITE_PISTON);
         registerPistonHead(blockStateModelGenerator, ModBlocks.REINFORCED_PISTON_HEAD, ModBlocks.REINFORCED_PISTON, true);
         registerPistonHead(blockStateModelGenerator, ModBlocks.NETHERITE_PISTON_HEAD, ModBlocks.NETHERITE_PISTON, false);
@@ -305,6 +305,45 @@ public class ModModelProvider extends FabricModelProvider {
 
         Identifier inventoryModelId = ModelTemplates.CUBE_BOTTOM_TOP.createWithSuffix(block, "_inventory", inventoryMap, generator.modelOutput);
 
+        generator.registerSimpleItemModel(block, inventoryModelId);
+    }
+
+    /**
+     * Der Netheritkolben mit Verschleiss ({@code NetheriteBreakerPistonBlock#WEAR}, 0-7): je zwei
+     * Stufen teilen sich ein Modellpaar (eingefahren/ausgefahren), ab Stufe 2, 4 und 6 mit den
+     * Seitentexturen {@code <kolben>_side_worn1..3} (immer tiefere Risse), sonst wie
+     * {@link #registerCustomPiston}. Das Inventarmodell bleibt das unversehrte.
+     */
+    private void registerWearingPiston(BlockModelGenerators generator, Block block) {
+        net.minecraft.client.data.models.MultiVariant[] retracted = new net.minecraft.client.data.models.MultiVariant[4];
+        net.minecraft.client.data.models.MultiVariant[] extended = new net.minecraft.client.data.models.MultiVariant[4];
+        for (int stage = 0; stage < 4; stage++) {
+            String worn = stage == 0 ? "" : "_worn" + stage;
+            TextureMapping textureMap = new TextureMapping()
+                    .put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(block, "_bottom"))
+                    .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side" + worn))
+                    .put(TextureSlot.PLATFORM, TextureMapping.getBlockTexture(block, "_top"))
+                    .put(TextureSlot.INSIDE, TextureMapping.getBlockTexture(block, "_inner"));
+            extended[stage] = BlockModelGenerators.plainVariant(
+                    PISTON_BASE_MODEL.createWithSuffix(block, "_base" + worn, textureMap, generator.modelOutput));
+            retracted[stage] = BlockModelGenerators.plainVariant(
+                    ModelTemplates.PISTON.createWithSuffix(block, worn, textureMap, generator.modelOutput));
+        }
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block)
+                .with(PropertyDispatch.initial(BlockStateProperties.EXTENDED, com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock.WEAR)
+                        .generate((isExtended, wear) -> isExtended ? extended[wear / 2] : retracted[wear / 2]))
+                .with(PropertyDispatch.modify(BlockStateProperties.FACING)
+                        .select(Direction.DOWN, BlockModelGenerators.X_ROT_90)
+                        .select(Direction.UP, BlockModelGenerators.X_ROT_270)
+                        .select(Direction.NORTH, BlockModelGenerators.NOP)
+                        .select(Direction.SOUTH, BlockModelGenerators.Y_ROT_180)
+                        .select(Direction.WEST, BlockModelGenerators.Y_ROT_270)
+                        .select(Direction.EAST, BlockModelGenerators.Y_ROT_90)));
+        TextureMapping inventoryMap = new TextureMapping()
+                .put(TextureSlot.BOTTOM, TextureMapping.getBlockTexture(block, "_bottom"))
+                .put(TextureSlot.TOP, TextureMapping.getBlockTexture(block, "_top"))
+                .put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side"));
+        Identifier inventoryModelId = ModelTemplates.CUBE_BOTTOM_TOP.createWithSuffix(block, "_inventory", inventoryMap, generator.modelOutput);
         generator.registerSimpleItemModel(block, inventoryModelId);
     }
 

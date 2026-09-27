@@ -128,11 +128,9 @@ import net.minecraft.world.phys.HitResult;
  * {@code polished_end_stone} and {@code lapis_quartz_checker}. {@link #modLanguageFileReachesTheClient}
  * asserts all three now, next to the astralit twin that always had its entry.
  *
- * <p><b>Known defect - {@code tooltip.simplebuilding.netherite_piston} is an orphan.</b> The key
- * exists in both language files but no code anywhere in the mod calls {@code appendHoverText} for
- * the piston, so it is never shown. It is deliberately left out of
- * {@link #modLanguageFileReachesTheClient} - asserting that it resolves would turn deleting the
- * dead key, which is one of the two correct fixes, into a red test.
+ * <p><b>{@code tooltip.simplebuilding.netherite_piston}</b> was an orphan until 2026-09-27; since
+ * then {@code NetheritePistonItem#appendHoverText} shows it (with the wear line). It is still left
+ * out of {@link #modLanguageFileReachesTheClient}, which only asserts the keys it names.
  *
  * <p><b>The item frame messages are translatable</b> since 2026-09-27 (audit #37): they used to
  * be hardcoded German literals ("Item Frame gesperrt (Locked)."). The test below asserts the

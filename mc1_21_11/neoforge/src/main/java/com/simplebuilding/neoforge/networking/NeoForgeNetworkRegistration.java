@@ -98,6 +98,8 @@ public final class NeoForgeNetworkRegistration {
                 blockEntity.setGhostItemClient(payload.slot(), payload.stack());
             }
         }));
+        registrar.playToClient(com.simplebuilding.networking.PistonConfigPayload.ID, com.simplebuilding.networking.PistonConfigPayload.CODEC,
+                (payload, context) -> context.enqueueWork(payload::apply));
         registrar.playToClient(TrimDataPayload.ID, TrimDataPayload.CODEC, (payload, context) -> context.enqueueWork(() -> {
             if (context.player() instanceof SurvivalTracerAccessor accessor) {
                 accessor.simplebuilding$setBaseValues(payload.baseDist(), payload.baseTime(), payload.baseHostile(), payload.basePassive(), payload.baseDamage());
@@ -116,6 +118,9 @@ public final class NeoForgeNetworkRegistration {
     public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getEntity() instanceof SurvivalTracerAccessor accessor) {
             accessor.simplebuilding$syncTrimData();
+        }
+        if (event.getEntity() instanceof ServerPlayer serverPlayer) {
+            com.simplebuilding.networking.PistonConfigPayload.sendTo(serverPlayer);
         }
     }
 

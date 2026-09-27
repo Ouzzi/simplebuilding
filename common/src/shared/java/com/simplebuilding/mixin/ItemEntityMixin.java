@@ -70,11 +70,16 @@ public abstract class ItemEntityMixin extends Entity {
         if (this.pickupDelay != 0) return;
         if (this.target != null && !this.target.equals(player.getUUID())) return;
 
+        // Vorher festhalten: die Wege unten schrumpfen den Stapel am Boden, und ein leerer Stapel
+        // meldet getCount() 0 und getItem() Luft (Audit N7).
+        int countBefore = itemOnGround.getCount();
+        Item pickedItem = itemOnGround.getItem();
+
         // 1. Suche in den HÄNDEN (höchste Priorität)
         for (InteractionHand hand : InteractionHand.values()) {
             ItemStack heldItem = player.getItemInHand(hand);
             if (tryPickupWithBundle(heldItem, itemOnGround, player)) {
-                handlePickupSuccess(player, itemOnGround, ci);
+                handlePickupSuccess(player, itemOnGround, pickedItem, countBefore, ci);
                 return;
             }
         }
@@ -83,14 +88,14 @@ public abstract class ItemEntityMixin extends Entity {
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack inventoryStack = player.getInventory().getItem(i);
             if (tryPickupWithBundle(inventoryStack, itemOnGround, player)) {
-                handlePickupSuccess(player, itemOnGround, ci);
+                handlePickupSuccess(player, itemOnGround, pickedItem, countBefore, ci);
                 return;
             }
         }
 
         // 3. Getragener Rucksack mit Trichter - nach allen Buendeln.
         if (BackpackItem.tryFunnelPickup(player, itemOnGround)) {
-            handlePickupSuccess(player, itemOnGround, ci);
+            handlePickupSuccess(player, itemOnGround, pickedItem, countBefore, ci);
         }
     }
 
@@ -110,11 +115,19 @@ public abstract class ItemEntityMixin extends Entity {
         return false;
     }
 
+    /**
+     * Aufhebe-Animation und Statistik fuer die aufgesaugte Menge {@code countBefore - Rest}. Bis
+     * 2026-09-27 ging die Menge NACH dem Schrumpfen hinein: bei voller Aufnahme 0, also keine
+     * Animation, keine Statistik (und die Statistik auf Luft); bei Teilaufnahme der Rest statt des
+     * Aufgenommenen (Audit N7).
+     */
     @Unique
-    private void handlePickupSuccess(Player player, ItemStack itemOnGround, CallbackInfo ci) {
-        // Visuelles Feedback und Statistik
-        player.take(this, itemOnGround.getCount());
-        player.awardStat(Stats.ITEM_PICKED_UP.get(itemOnGround.getItem()), itemOnGround.getCount());
+    private void handlePickupSuccess(Player player, ItemStack itemOnGround, Item pickedItem, int countBefore, CallbackInfo ci) {
+        int picked = countBefore - itemOnGround.getCount();
+        if (picked > 0) {
+            player.take(this, picked);
+            player.awardStat(Stats.ITEM_PICKED_UP.get(pickedItem), picked);
+        }
 
         // Wenn das Item komplett aufgesaugt wurde
         if (itemOnGround.isEmpty()) {

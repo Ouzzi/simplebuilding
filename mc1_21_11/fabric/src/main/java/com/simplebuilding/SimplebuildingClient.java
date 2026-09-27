@@ -238,6 +238,10 @@ public class SimplebuildingClient implements ClientModInitializer {
         });
 
         // Trim Data (Hierhin verschoben von ModMessages)
+        // Kolben-Optionen des Servers (Audit N16), fuer den nachgespielten Kolben
+        ClientPlayNetworking.registerGlobalReceiver(com.simplebuilding.networking.PistonConfigPayload.ID,
+                (payload, context) -> context.client().execute(payload::apply));
+
         ClientPlayNetworking.registerGlobalReceiver(TrimDataPayload.ID, (payload, context) -> {
             context.client().execute(() -> {
                 if (context.player() instanceof SurvivalTracerAccessor accessor) {

@@ -65,4 +65,14 @@ public final class HopperGameTest {
     public void bothHoppersDropThemselvesWhenBroken(GameTestHelper helper) {
         HopperTests.bothHoppersDropThemselvesWhenBroken(helper);
     }
+
+    @GameTest
+    public void filteredSlotsHandOutWhatTheyHoldAndRefuseTheSpawnElytra(GameTestHelper helper) {
+        HopperTests.filteredSlotsHandOutWhatTheyHoldAndRefuseTheSpawnElytra(helper);
+    }
+
+    @GameTest(maxTicks = HopperTests.ITEM_AUTOMATION_MAX_TICKS)
+    public void modHoppersFallBackToTheLoaderTransferApiWithoutContainer(GameTestHelper helper) {
+        HopperTests.modHoppersFallBackToTheLoaderTransferApiWithoutContainer(helper);
+    }
 }

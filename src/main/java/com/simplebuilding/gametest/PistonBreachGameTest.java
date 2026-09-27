@@ -80,4 +80,19 @@ public final class PistonBreachGameTest {
     public void modPistonsAskThePlatformGuardBeforeEveryBreak(GameTestHelper helper) {
         PistonBreachTests.modPistonsAskThePlatformGuardBeforeEveryBreak(helper);
     }
+
+    @GameTest(maxTicks = PistonBreachTests.WEAR_MAX_TICKS)
+    public void netheriteBreakerWearsDownAndCrumblesToReinforcedPiston(GameTestHelper helper) {
+        PistonBreachTests.netheriteBreakerWearsDownAndCrumblesToReinforcedPiston(helper);
+    }
+
+    @GameTest(maxTicks = PistonBreachTests.LOADER_EVENTS_MAX_TICKS)
+    public void modPistonsFireTheRealLoaderEventsAndHonourTheirConfigSwitch(GameTestHelper helper) {
+        PistonBreachTests.modPistonsFireTheRealLoaderEventsAndHonourTheirConfigSwitch(helper);
+    }
+
+    @GameTest
+    public void onlyVanillaUnbreakablesAreBreachedUnlessTheConfigSaysOtherwise(GameTestHelper helper) {
+        PistonBreachTests.onlyVanillaUnbreakablesAreBreachedUnlessTheConfigSaysOtherwise(helper);
+    }
 }
