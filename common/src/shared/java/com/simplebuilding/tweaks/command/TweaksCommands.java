@@ -98,7 +98,7 @@ public final class TweaksCommands {
                                 .then(Commands.literal("setspawn3").executes(ctx -> setTeleporterSpawn(ctx, 3)))
                                 .then(Commands.literal("setspawn4").executes(ctx -> setTeleporterSpawn(ctx, 4)))
                                 .then(boolSetting("forceExact", (c, v) -> c.spawn.forceExactSpawn = v))
-                                .then(boolSetting("custom", (c, v) -> c.spawn.useCustomWorldSpawn = v))
+                                .then(boolSetting("custom", true, (c, v) -> c.spawn.useCustomWorldSpawn = v))
                                 .then(Commands.literal("set")
                                         .then(Commands.argument("x", IntegerArgumentType.integer())
                                                 .then(Commands.argument("y", IntegerArgumentType.integer(-1, 320))
@@ -125,10 +125,14 @@ public final class TweaksCommands {
     }
 
     private static LiteralArgumentBuilder<CommandSourceStack> boolSetting(String name, BiConsumer<TweaksConfig, Boolean> setter) {
+        return boolSetting(name, false, setter);
+    }
+
+    private static LiteralArgumentBuilder<CommandSourceStack> boolSetting(String name, boolean worldSpawn, BiConsumer<TweaksConfig, Boolean> setter) {
         return Commands.literal(name).then(Commands.argument("enabled", BoolArgumentType.bool())
                 .executes(ctx -> {
                     boolean value = BoolArgumentType.getBool(ctx, "enabled");
-                    return apply(ctx, name, value, c -> setter.accept(c, value));
+                    return apply(ctx, name, value, worldSpawn, c -> setter.accept(c, value));
                 }));
     }
 
@@ -141,21 +145,30 @@ public final class TweaksCommands {
     }
 
     private static int apply(CommandContext<CommandSourceStack> ctx, String name, Object value, Consumer<TweaksConfig> change) {
+        return apply(ctx, name, value, false, change);
+    }
+
+    /** worldSpawn = einer der Weltspawn-Befehle ({@code worldspawn set/here/custom}). */
+    private static int apply(CommandContext<CommandSourceStack> ctx, String name, Object value, boolean worldSpawn, Consumer<TweaksConfig> change) {
         change.accept(SimpleTweaks.config());
         SimpleTweaks.saveConfig();
-        afterChange(ctx.getSource().getServer());
+        afterChange(ctx.getSource().getServer(), worldSpawn);
         ctx.getSource().sendSuccess(() -> Component.translatable("commands.simplebuilding.tweaks.set", name, String.valueOf(value)), true);
         return 1;
     }
 
     /**
-     * Nach jeder Aenderung: den Clients die clientrelevanten Werte schicken (Audit #16) und einen
-     * eigenen Weltspawn sofort setzen - vorher griff {@code worldspawn set/here/custom} erst beim
-     * naechsten Laden der Oberwelt, also nach einem Neustart (Audit #35).
+     * Nach jeder Aenderung: den Clients die clientrelevanten Werte schicken (Audit #16); nach einem
+     * Weltspawn-Befehl zusaetzlich den eigenen Weltspawn sofort setzen - vorher griff
+     * {@code worldspawn set/here/custom} erst beim naechsten Laden der Oberwelt, also nach einem
+     * Neustart (Audit #35). Nur dann: jeder andere Tweaks-Befehl setzte den eigenen Weltspawn sonst
+     * erneut und ueberschrieb ein zwischenzeitliches {@code /setworldspawn} (Nach-Audit N11).
      */
-    public static void afterChange(MinecraftServer server) {
+    public static void afterChange(MinecraftServer server, boolean worldSpawn) {
         TweaksNetwork.broadcastConfig(server);
-        SpawnSetup.onLevelLoad(server.overworld());
+        if (worldSpawn) {
+            SpawnSetup.onLevelLoad(server.overworld());
+        }
     }
 
     private static int setElytraCenter(CommandContext<CommandSourceStack> ctx, int x, int z) {
@@ -167,7 +180,7 @@ public final class TweaksCommands {
     }
 
     private static int setWorldSpawn(CommandContext<CommandSourceStack> ctx, int x, int y, int z) {
-        return apply(ctx, "worldSpawn", x + " " + y + " " + z, c -> {
+        return apply(ctx, "worldSpawn", x + " " + y + " " + z, true, c -> {
             c.spawn.useCustomWorldSpawn = true;
             c.spawn.xCoordSpawnPoint = x;
             c.spawn.yCoordSpawnPoint = y;
@@ -183,7 +196,7 @@ public final class TweaksCommands {
         BlockPos pos = player.blockPosition();
         setTeleporterSpawn(tier, pos);
         SimpleTweaks.saveConfig();
-        afterChange(ctx.getSource().getServer());
+        afterChange(ctx.getSource().getServer(), false);
         ctx.getSource().sendSuccess(() -> Component.translatable("commands.simplebuilding.tweaks.teleporter_spawn", tier, pos.toShortString())
                 .withStyle(ChatFormatting.GREEN), true);
         return 1;

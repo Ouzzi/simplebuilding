@@ -3,6 +3,11 @@
 _Stand: **2026-08-31**. Zwei Minecraft-Linien (**26.2** und **1.21.11**), je zwei aktive Loader
 (**Fabric** + **NeoForge**) = vier Ziele. Forge liegt bewusst still (siehe unten)._
 
+> **Nachtrag 2026-09-27:** inzwischen drei Linien - 26.2, 26.3 (Overlay, `mc26_3/`) und 1.21.11 - plus
+> die 26.4-Snapshot-Linie (`-Pmc264=true`); Forge 26.2 hat ein Server-Testziel (`forge-262`). Die
+> Tabelle in Abschnitt 1 ist der Stand vom 2026-08-31; aktuelle Zahlen stehen in den Laufprotokollen
+> von `tools/testrunner/run.py` (`testing/runs/`).
+
 ## 1. Build- & Testergebnis (tatsächlich ausgeführt, nicht abgeleitet)
 
 | Ziel | In-Game-Tests | Renderer-Nachweis (Client) |

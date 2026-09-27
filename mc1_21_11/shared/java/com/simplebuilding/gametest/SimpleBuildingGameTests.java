@@ -1080,6 +1080,18 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("tweaks_game_test_kill_boats_all_drops_the_contents_of_chest_boats", TweaksTests::killBoatsAllDropsTheContentsOfChestBoats)
                     .build(),
             GameTestSpec.named("tweaks_game_test_flight_time_and_boosts_are_capped_and_broken_launchpads_drop_their_charges", TweaksTests::flightTimeAndBoostsAreCappedAndBrokenLaunchpadsDropTheirCharges)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_forced_exact_respawn_puts_the_player_on_the_bed_centre", TweaksTests::forcedExactRespawnPutsThePlayerOnTheBedCentre)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_command_teleports_pass_the_dimension_lock_and_the_lock_message_waits", TweaksTests::commandTeleportsPassTheDimensionLockAndTheLockMessageWaits)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_a_chunk_loader_replaced_by_another_loader_type_releases_its_chunks", TweaksTests::aChunkLoaderReplacedByAnotherLoaderTypeReleasesItsChunks)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_only_world_spawn_commands_reapply_the_custom_world_spawn", TweaksTests::onlyWorldSpawnCommandsReapplyTheCustomWorldSpawn)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_first_join_key_migration_saves_the_config_once", TweaksTests::theFirstJoinKeyMigrationSavesTheConfigOnce)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_creative_players_lose_the_stale_flypad_flight_tag", TweaksTests::creativePlayersLoseTheStaleFlypadFlightTag)
                     .build()
             // --- /tweaks ---
             );

@@ -1335,6 +1335,205 @@ public final class TweaksTests {
         helper.succeed();
     }
 
+    // =====================================================================================
+    // Welle 19 (#35 Bett-Mitte, #51 Rest, N10, N11, N12, N16)
+    // =====================================================================================
+
+    /**
+     * #35: forceExactSpawn stellt den Spieler auf die Mitte seines Betts. Die Bettposition kommt aus
+     * der Respawn-Config - Vanilla liefert als Ziel die Aufstehposition neben dem Bett, und der
+     * alte Code fragte, ob DORT ein Bett steht (fast nie).
+     */
+    public static void forcedExactRespawnPutsThePlayerOnTheBedCentre(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        BlockPos foot = new BlockPos(2, 1, 2);
+        BlockPos head = foot.east();
+        BlockState bed = Blocks.BED.pick(net.minecraft.world.item.DyeColor.RED).defaultBlockState().setValue(net.minecraft.world.level.block.BedBlock.FACING, net.minecraft.core.Direction.EAST);
+        helper.setBlock(foot, bed.setValue(net.minecraft.world.level.block.BedBlock.PART, net.minecraft.world.level.block.state.properties.BedPart.FOOT));
+        helper.setBlock(head, bed.setValue(net.minecraft.world.level.block.BedBlock.PART, net.minecraft.world.level.block.state.properties.BedPart.HEAD));
+        BlockPos absHead = helper.absolutePos(head);
+        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
+        player.setRespawnPosition(new ServerPlayer.RespawnConfig(LevelData.RespawnData.of(level.dimension(), absHead, 0.0F, 0.0F), false), false);
+        TweaksConfig.Spawn spawn = SimpleTweaks.config().spawn;
+        boolean exact = spawn.forceExactSpawn;
+        try {
+            Vec3 centre = new Vec3(absHead.getX() + 0.5, absHead.getY() + 0.5625, absHead.getZ() + 0.5);
+            spawn.forceExactSpawn = true;
+            // Vanillas Ziel: die Aufstehposition neben dem Bett - dort steht kein Bett.
+            var beside = new net.minecraft.world.level.portal.TeleportTransition(level, Vec3.atBottomCenterOf(helper.absolutePos(head.north())), Vec3.ZERO,
+                    0.0F, 0.0F, net.minecraft.world.level.portal.TeleportTransition.DO_NOTHING);
+            var fromBeside = SpawnRules.exactRespawn(player, beside, net.minecraft.world.level.portal.TeleportTransition.DO_NOTHING);
+            helper.assertTrue(fromBeside != null, "forceExactSpawn left a respawn beside the bed alone");
+            helper.assertValueEqual(fromBeside.position(), centre, "respawn position from beside the bed with forceExactSpawn");
+            // Der ganze Weg ueber ServerPlayer#findRespawnPositionAndUseSpawnBlock und das Mixin.
+            var adjusted = player.findRespawnPositionAndUseSpawnBlock(false, net.minecraft.world.level.portal.TeleportTransition.DO_NOTHING);
+            helper.assertTrue(adjusted.newLevel() == level, "the exact respawn left the bed's dimension");
+            helper.assertValueEqual(adjusted.position(), centre, "respawn position with forceExactSpawn");
+        } finally {
+            spawn.forceExactSpawn = exact;
+        }
+        helper.succeed();
+    }
+
+    /**
+     * #51: Die Dimensionssperre haelt Portale und Gegenstaende auf, nicht einen Operator per
+     * {@code /execute in ... run tp}; und wer im Portal steht, bekommt die Sperr-Meldung nicht jeden
+     * Tick, sondern hoechstens alle {@link SpawnRules#LOCK_MESSAGE_COOLDOWN_TICKS} Ticks.
+     */
+    public static void commandTeleportsPassTheDimensionLockAndTheLockMessageWaits(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
+        var server = helper.getLevel().getServer();
+        ServerLevel nether = server.getLevel(Level.NETHER);
+        helper.assertTrue(nether != null, "the test server has no nether");
+        TweaksConfig.Dimensions dims = SimpleTweaks.config().dimensions;
+        boolean netherOn = dims.allowNether;
+        Vec3 home = player.position();
+        String key = "message.simplebuilding.dimension.nether_disabled";
+        try {
+            dims.allowNether = false;
+            var portalTrip = new net.minecraft.world.level.portal.TeleportTransition(nether, new Vec3(home.x, 120.0, home.z), Vec3.ZERO, 0.0F, 0.0F,
+                    net.minecraft.world.level.portal.TeleportTransition.DO_NOTHING);
+            helper.assertTrue(player.teleport(portalTrip) == null && player.level() == helper.getLevel(), "a locked nether let a portal traveller in");
+
+            SpawnRules.forget(player);
+            helper.assertTrue(SpawnRules.lockMessage(player, nether, key), "the first lock message was held back");
+            helper.assertFalse(SpawnRules.lockMessage(player, nether, key), "the lock message repeats every tick while the player stands in the portal");
+
+            // Konsole (volle Rechte), wie ein Operator: /execute as ... at @s in the_nether run tp @s ~ 120 ~
+            server.getCommands().getDispatcher().execute("execute as " + player.getStringUUID() + " at @s in minecraft:the_nether run tp @s ~ 120 ~",
+                    server.createCommandSourceStack().withSuppressedOutput());
+            helper.assertTrue(player.level().dimension() == Level.NETHER, "the dimension lock stopped an operator's /execute in ... run tp");
+        } catch (com.mojang.brigadier.exceptions.CommandSyntaxException e) {
+            helper.fail("teleport command failed: " + e.getMessage());
+        } finally {
+            dims.allowNether = netherOn;
+            if (player.level() != helper.getLevel()) {
+                player.teleportTo(helper.getLevel(), home.x, home.y, home.z, Set.of(), 0.0F, 0.0F, false);
+            }
+            SpawnRules.forget(player);
+        }
+        helper.succeed();
+    }
+
+    /**
+     * N10: {@code /setblock} eines Loader-Typs auf einen anderen laesst dort wieder einen Loader
+     * stehen, entfernt aber die alte Block-Entity - sie gibt ihre Chunks trotzdem frei (vorher
+     * erzwungen fuer immer, der neue Loader kennt sie nicht).
+     */
+    public static void aChunkLoaderReplacedByAnotherLoaderTypeReleasesItsChunks(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        BlockPos pos = helper.absolutePos(new BlockPos(1, 1, 1)).offset(8192, 0, 8192);
+        long chunk = ChunkLoaderBlockEntity.key(pos.getX() >> 4, pos.getZ() >> 4);
+        helper.assertFalse(isForced(level, chunk), "the far test chunk is already forced by someone else");
+        try {
+            level.setBlock(pos, TweaksBlocks.CHUNK_LOADER.defaultBlockState(), Block.UPDATE_ALL);
+            ChunkLoaderBlockEntity plain = (ChunkLoaderBlockEntity) level.getBlockEntity(pos);
+            plain.update(level, 0);
+            helper.assertTrue(plain.ownForced().contains(chunk) && isForced(level, chunk), "the loader did not force its own chunk");
+
+            // /setblock: Flag 256 ueberspringt preRemoveSideEffects; der neue Loader hat noch nicht getickt.
+            level.setBlock(pos, TweaksBlocks.ENDERITE_CHUNK_LOADER.defaultBlockState(), Block.UPDATE_CLIENTS | Block.UPDATE_SKIP_BLOCK_ENTITY_SIDEEFFECTS);
+            helper.assertTrue(plain.isRemoved() && level.getBlockEntity(pos) != plain, "setblock kept the old loader's block entity");
+            helper.assertTrue(plain.ownForced().isEmpty(), "the replaced loader still claims its chunks");
+            helper.assertFalse(isForced(level, chunk), "a loader replaced by another loader type through /setblock keeps its chunk forced");
+        } finally {
+            level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+        }
+        helper.succeed();
+    }
+
+    /**
+     * N11: Nur die Weltspawn-Befehle setzen den eigenen Weltspawn neu; jeder andere Tweaks-Befehl
+     * ueberschrieb vorher ein zwischenzeitliches {@code /setworldspawn}.
+     */
+    public static void onlyWorldSpawnCommandsReapplyTheCustomWorldSpawn(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
+        var server = helper.getLevel().getServer();
+        var players = server.getPlayerList();
+        boolean wasOp = players.isOp(player.nameAndId());
+        ServerLevel overworld = server.overworld();
+        LevelData.RespawnData savedSpawn = overworld.getRespawnData();
+        TweaksConfig.Spawn spawn = SimpleTweaks.config().spawn;
+        boolean custom = spawn.useCustomWorldSpawn;
+        int[] saved = {spawn.xCoordSpawnPoint, spawn.yCoordSpawnPoint, spawn.zCoordSpawnPoint};
+        boolean killBoats = SimpleTweaks.config().commands.enableKillBoatsCommand;
+        BlockPos configured = new BlockPos(savedSpawn.pos().getX() + 3, 70, savedSpawn.pos().getZ() - 2);
+        BlockPos byVanilla = configured.offset(5, 0, 5);
+        var dispatcher = server.getCommands().getDispatcher();
+        var source = player.createCommandSourceStack().withSuppressedOutput();
+        try {
+            players.op(player.nameAndId());
+            spawn.useCustomWorldSpawn = true;
+            spawn.xCoordSpawnPoint = configured.getX();
+            spawn.yCoordSpawnPoint = configured.getY();
+            spawn.zCoordSpawnPoint = configured.getZ();
+            // wie /setworldspawn nach dem Einrichten des eigenen Weltspawns
+            overworld.setRespawnData(LevelData.RespawnData.of(Level.OVERWORLD, byVanilla, 0.0F, 0.0F));
+            dispatcher.execute("simplebuilding tweaks commands enableKillBoats " + killBoats, source);
+            helper.assertValueEqual(overworld.getRespawnData().pos(), byVanilla, "world spawn after an unrelated tweaks command");
+            dispatcher.execute("simplebuilding tweaks worldspawn custom true", source);
+            helper.assertValueEqual(overworld.getRespawnData().pos(), configured, "world spawn after worldspawn custom true");
+        } catch (com.mojang.brigadier.exceptions.CommandSyntaxException e) {
+            helper.fail("tweaks command failed: " + e.getMessage());
+        } finally {
+            spawn.useCustomWorldSpawn = custom;
+            spawn.xCoordSpawnPoint = saved[0];
+            spawn.yCoordSpawnPoint = saved[1];
+            spawn.zCoordSpawnPoint = saved[2];
+            SimpleTweaks.config().commands.enableKillBoatsCommand = killBoats;
+            SimpleTweaks.saveConfig();
+            overworld.setRespawnData(savedSpawn);
+            if (!wasOp) {
+                players.deop(player.nameAndId());
+            }
+        }
+        helper.succeed();
+    }
+
+    /**
+     * N12: Traegt die geladene Datei noch den alten Geschenk-Schluessel, wird die Config gleich nach
+     * der Migration einmal geschrieben (sobald der Loader seinen Speicherer setzt) - sonst lief die
+     * Migration bei jedem Laden erneut.
+     */
+    public static void theFirstJoinKeyMigrationSavesTheConfigOnce(GameTestHelper helper) {
+        Runnable installed = SimpleTweaks.configSaver();
+        int[] saves = {0};
+        Runnable counting = () -> saves[0]++;
+        try {
+            SimpleTweaks.setConfigSaver(counting);
+            helper.assertValueEqual(saves[0], 0, "saves before any migration");
+            com.simplebuilding.config.SimplebuildingConfig loaded = new com.simplebuilding.config.SimplebuildingConfig();
+            loaded.tweaks.spawn.spawnTeleporterCount = 5;
+            loaded.validatePostLoad();
+            helper.assertTrue(loaded.tweaks.spawn.spawnTeleporterCount == null, "the old key survived the migration");
+            helper.assertTrue(SimpleTweaks.configSaveRequested(), "the migration did not ask for a save");
+            SimpleTweaks.setConfigSaver(counting);
+            helper.assertValueEqual(saves[0], 1, "saves once the loader sets its saver after the migration");
+            SimpleTweaks.setConfigSaver(counting);
+            new com.simplebuilding.config.SimplebuildingConfig().validatePostLoad();
+            SimpleTweaks.setConfigSaver(counting);
+            helper.assertValueEqual(saves[0], 1, "saves after a load without the old key");
+        } finally {
+            SimpleTweaks.setConfigSaver(installed);
+        }
+        helper.succeed();
+    }
+
+    /**
+     * N16: Ein Kreativspieler behaelt beim Verlassen eines Flypads den Flug, verliert aber den
+     * Flypad-Tag - sonst naehme ein Pad spaeter Flug zurueck, den ein anderer Mod gab.
+     */
+    public static void creativePlayersLoseTheStaleFlypadFlightTag(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
+        player.getAbilities().instabuild = true;
+        player.getAbilities().mayfly = true;
+        player.addTag(FlypadBlockEntity.FLIGHT_TAG);
+        FlypadBlockEntity.revoke(player, 1);
+        helper.assertTrue(player.getAbilities().mayfly, "a flypad took a creative player's flight");
+        helper.assertFalse(player.entityTags().contains(FlypadBlockEntity.FLIGHT_TAG), "a creative player kept the flypad flight tag");
+        helper.succeed();
+    }
+
     private static boolean isForced(ServerLevel level, long key) {
         return level.getForceLoadedChunks().contains(ChunkPos.pack((int) key, (int) (key >> 32)));
     }

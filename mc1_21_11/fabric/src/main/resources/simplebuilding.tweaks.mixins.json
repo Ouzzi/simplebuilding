@@ -9,7 +9,8 @@
     "SpawnElytraItemEntityMixin",
     "SpawnElytraSlotMixin",
     "TweaksItemStackMixin",
-    "TweaksServerPlayerMixin"
+    "TweaksServerPlayerMixin",
+    "TweaksTeleportCommandMixin"
   ],
   "client": [
     "client.ExperienceBarMixin",

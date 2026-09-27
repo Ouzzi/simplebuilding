@@ -149,8 +149,10 @@ public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
     /**
      * {@code /setblock} und {@code /fill} setzen mit Flag 256 und ueberspringen
      * {@link #preRemoveSideEffects} - die Tickets blieben fuer immer (Audit #5). Hier wird
-     * freigegeben, wenn an der Stelle schon ein anderer Block steht; beim Entladen des Chunks
-     * (Serverstopp) steht der Loader noch da, dann bleibt alles erzwungen wie gewollt.
+     * freigegeben, wenn an der Stelle schon ein anderer Block steht oder die Block-Entity an der
+     * Stelle nicht mehr diese ist - {@code /setblock} eines Loader-Typs auf einen anderen laesst dort
+     * wieder einen Loader stehen, entfernt aber diese Block-Entity (Nach-Audit N10). Beim Entladen
+     * des Chunks (Serverstopp) stehen Block und Block-Entity noch da, dann bleibt alles erzwungen.
      */
     @Override
     public void setRemoved() {
@@ -163,7 +165,10 @@ public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
     private boolean replacedInWorld(ServerLevel level) {
         // getChunkNow laedt nichts nach; waehrend des Entladens liefert es null oder noch den Loader.
         LevelChunk chunk = level.getChunkSource().getChunkNow(worldPosition.getX() >> 4, worldPosition.getZ() >> 4);
-        return chunk != null && !(chunk.getBlockState(worldPosition).getBlock() instanceof ChunkLoaderBlock);
+        // removeBlockEntity nimmt die Block-Entity vor setRemoved aus der Tabelle, clearAllBlockEntities
+        // (Entladen) erst danach; getBlockEntities() erzeugt anders als getBlockEntity nichts neu.
+        return chunk != null && (!(chunk.getBlockState(worldPosition).getBlock() instanceof ChunkLoaderBlock)
+                || chunk.getBlockEntities().get(worldPosition) != this);
     }
 
     @Override

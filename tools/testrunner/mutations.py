@@ -64,7 +64,7 @@ class Mutation:
     kind: str = "client"
 
 
-#: The first 22 entries are the 21 client side false greens from testing/audit_falsegreens.json
+#: The first 22 entries are the 21 client side false greens from testing/archive/audit_falsegreens.json
 #: (one mutation covers two entries, two of them are server side), each with the mutation the
 #: audit named - not a softer one - and the message the sharpened step now fails with; the
 #: eleven p4-* entries after them are the counter-checks of the client tests written on

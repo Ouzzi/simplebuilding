@@ -269,15 +269,15 @@ Name des Updates: "Echoes of the Void" (Echos der Leere)1. Die Materialien (Die 
 
 1. Neue Blöcke:
 
-- purpur/Lapis/Blackstone/resin block with quarz/  - checker block
+- ERLEDIGT: purpur/Lapis/Blackstone/resin block with quarz/  - checker block (purpur/lapis/blackstone/resin/astralit/nihilith/ender_quartz_checker)
 
-- polished endstone
+- ERLEDIGT: polished endstone (polished_end_stone)
 
-- purpur block/ polished endstone (8) with astral_powder/nihil_shard -> new block 8 astral/nihil purpur block and astral/nihil endstone
+- ERLEDIGT: purpur block/ polished endstone (8) with astral_powder/nihil_shard -> new block 8 astral/nihil purpur block and astral/nihil endstone (astral_/nihil_purpur_block, astral_/nihil_end_stone)
 
-- sand/gravel (8) + astral_powder -> reverse gravity (upwards)
+- ERLEDIGT: sand/gravel (8) + astral_powder -> reverse gravity (upwards) (levitating_sand/_gravel)
 
-- sand/gravel (8) + nihilith_shard -> no gravity
+- ERLEDIGT: sand/gravel (8) + nihilith_shard -> no gravity (suspended_sand/_gravel)
 
 
 
@@ -287,5 +287,5 @@ auch fähigkeiten mit implementieren und zur rezept seite des smithing tables hi
 
 
 
-3. neue items: enderite bundel, enderite quiver, enderite apple, enderrite carrot - (like netherite variants)!
+3. ERLEDIGT: neue items: enderite bundel, enderite quiver, enderite apple, enderrite carrot - (like netherite variants)! (enderite_bundle/_quiver/_apple/_carrot, dazu enchanted_enderite_apple)
 

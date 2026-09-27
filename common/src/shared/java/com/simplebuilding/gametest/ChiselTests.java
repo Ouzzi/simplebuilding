@@ -113,7 +113,7 @@ import org.jspecify.annotations.Nullable;
  *       ({@code spawnEffects}): both leave the server as packets with no observable server state.</li>
  *   <li>The tooltip's colour/style. {@link #lastTargetIsStoredAndShownInTheTooltip} reads the line
  *       through {@code Component#getString()}, which drops the {@code GRAY} formatting.</li>
- * * </ul>
+ * </ul>
  */
 public final class ChiselTests {
 

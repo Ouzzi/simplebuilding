@@ -83,3 +83,10 @@ __pycache__/
 # Forge-Spieltestwelt (forge/build.gradle, Run gameTestServer)
 run-gametest/
 scratchpad/
+
+# Lokale Laufdateien eines Clients/Servers im Repo-Wurzelverzeichnis (Audit 2026-09-26 #45)
+/_catchup.patch
+/imgui.ini
+/options.txt
+/downloads/
+/logs/
