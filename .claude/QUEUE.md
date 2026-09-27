@@ -94,7 +94,12 @@ Verlauf im Detail: git log.
 - [x] Server-Gate, Push
 - [x] Nach-Audit: N1 (P1 Hammer-Regression) behoben; N2-N16 in docs/AUDIT-2026-09-26.md
 
-## Welle 19 (vorgeschlagen): Rest-P3 aus Audit + Nach-Audit N2-N7
+## Welle 19 (laeuft): Rest-P3/P4 aus Audit + Nach-Audit
+- [ ] W1 Blaupause/Oktant/Baustab: N2, N3, N8, N9, N13-N16, ShapeFill-Tests
+- [ ] W2 Kolben/Trichter/Lager: Brecher-Verschleiss (#23), Config-Schalter Fake-Spieler-Guard (N4), Loader-Guard-Tests (N5), N6, N7, #24, #36, #48
+- [ ] W3 Werkzeuge/Texte/Tasten: #25, #26, #27, #30, #37, #38, #39, #46
+- [ ] W4 Tweaks-Rest + Hygiene: #35, #51, N10-N12, #43-#45, #49, #52
+- [ ] Danach: Server-Gate, Push; Client-Gate wenn Besitzer-Spiel zu
 
 ## Wartet auf den Besitzer
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
