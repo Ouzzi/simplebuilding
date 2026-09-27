@@ -1,6 +1,7 @@
 package com.simplebuilding.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.simplebuilding.blocks.custom.ModPistonHeadBlock;
 import com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock;
 import com.simplebuilding.blocks.custom.ReinforcedPistonBlock;
@@ -62,5 +63,22 @@ public class PistonBlockMixin {
                 level.setBlock(arm, Blocks.AIR.defaultBlockState(), 276);
             }
         }
+    }
+
+    /**
+     * Der Verschleiss des Netherit-Brechers ({@link NetheriteBreakerPistonBlock#WEAR}) ueberlebt das
+     * Einfahren: Vanilla legt dabei {@code this.defaultBlockState()} mit der Blickrichtung in den
+     * bewegten Block an der Kolbenstelle, und daraus wird der eingefahrene Kolben - ohne diese Zeile
+     * stuende danach immer Stufe 0 da. Server und Client spielen dieselbe Stelle, beide behalten die
+     * Stufe. {@code Blocks.MOVING_PISTON.defaultBlockState()} hat einen anderen Eigentuemer
+     * ({@code Block}) und wird hier nicht getroffen.
+     */
+    @ModifyExpressionValue(method = "triggerEvent", at = @At(value = "INVOKE",
+            target = "Lnet/minecraft/world/level/block/piston/PistonBaseBlock;defaultBlockState()Lnet/minecraft/world/level/block/state/BlockState;"))
+    private BlockState simplebuilding$keepWear(BlockState original, @Local(argsOnly = true) BlockState state) {
+        if (original.hasProperty(NetheriteBreakerPistonBlock.WEAR) && state.hasProperty(NetheriteBreakerPistonBlock.WEAR)) {
+            return original.setValue(NetheriteBreakerPistonBlock.WEAR, state.getValue(NetheriteBreakerPistonBlock.WEAR));
+        }
+        return original;
     }
 }

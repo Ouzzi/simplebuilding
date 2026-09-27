@@ -112,6 +112,8 @@ public final class ForgeGameplayEvents {
             if (serverPlayer instanceof com.simplebuilding.util.SurvivalTracerAccessor accessor) {
                 accessor.simplebuilding$syncTrimData();
             }
+            // Kolben-Optionen des Servers (Audit N16), wie Fabric und NeoForge.
+            com.simplebuilding.networking.PistonConfigPayload.sendTo(serverPlayer);
         }
     }
 

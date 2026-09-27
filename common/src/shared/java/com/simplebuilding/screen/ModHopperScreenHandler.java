@@ -53,8 +53,15 @@ public class ModHopperScreenHandler extends HopperMenu {
             if (mode != HopperFilterMode.NONE) {
                 ItemStack cursor = getCarried();
                 
-                // Klick mit Item -> Setze Ghost
-                // Klick ohne Item -> Lösche Ghost
+                // Nur auf einem LEEREN Slot: Klick mit Item -> Setze Ghost, Klick ohne Item ->
+                // Lösche Ghost. Liegt schon etwas im Slot, ist es ein normaler Klick: der Inhalt
+                // laesst sich herausnehmen (bis 2026-09-27 ging das nur per Shift-Klick, weil jeder
+                // Klick den Ghost setzte, Audit #48); Tauschen/Einlegen fragt weiter den Filter.
+                // Den Ghost eines belegten Slots aendert man, nachdem man ihn geleert hat.
+                if (this.slots.get(slotIndex).hasItem()) {
+                    super.clicked(slotIndex, button, actionType, player);
+                    return;
+                }
                 if (actionType == ContainerInput.PICKUP) {
                     blockEntity.setGhostItem(slotIndex, cursor.isEmpty() ? ItemStack.EMPTY : cursor);
                     // Abbrechen, damit Item nicht wirklich reingelegt wird
@@ -88,7 +95,9 @@ public class ModHopperScreenHandler extends HopperMenu {
 
         @Override
         public boolean mayPlace(ItemStack stack) {
-            return hopper.canPlaceItem(getContainerSlot(), stack);
+            // super zuerst: dort haengen Slot-Mixins wie SpawnElytraSlotMixin (keine Spawn-Elytra in
+            // Container-Slots) - ohne den Aufruf nahm der Mod-Trichter sie an (Audit N6).
+            return super.mayPlace(stack) && hopper.canPlaceItem(getContainerSlot(), stack);
         }
 
         @Override

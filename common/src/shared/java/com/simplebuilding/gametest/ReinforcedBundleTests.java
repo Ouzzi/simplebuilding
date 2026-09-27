@@ -1077,6 +1077,60 @@ public final class ReinforcedBundleTests {
     // =====================================================================================
 
     /**
+     * Weights that leave the range of a {@code Fraction} are a full bundle, not a crash (audit N16).
+     * Items with unusual maximum stack sizes (the {@code max_stack_size} component, 1 to 99) add up
+     * to huge common denominators: four primes still fit, the fifth (97 * 89 * 83 * 79 * 73 is past
+     * {@code Integer.MAX_VALUE}) used to throw an {@code ArithmeticException} out of the capacity
+     * check - and on 26.2 {@code BundleContents#weight} answers such a sum with an error the mod
+     * {@code getOrThrow}-ed. Now the fifth kind is refused, the bar still draws, and a bundle holding
+     * the four goes into no bundle that would overflow with it.
+     */
+    public static void overflowingBundleWeightsAreRefusedInsteadOfCrashing(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        Item[] kinds = {Items.STONE, Items.DIRT, Items.SAND, Items.GRAVEL, Items.CLAY_BALL, Items.FLINT};
+        int[] sizes = {97, 89, 83, 79, 73, 71};
+        ItemStack bundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ReinforcedBundleItem item = bundleItem(bundle);
+        int accepted = 0;
+        for (int i = 0; i < kinds.length; i++) {
+            ItemStack odd = new ItemStack(kinds[i]);
+            odd.set(DataComponents.MAX_STACK_SIZE, sizes[i]);
+            try {
+                if (item.tryInsertStackFromWorld(bundle, odd, player)) {
+                    accepted++;
+                }
+            } catch (RuntimeException crash) {
+                helper.fail("inserting one item of max stack size " + sizes[i] + " threw " + crash);
+                return;
+            }
+        }
+        helper.assertValueEqual(accepted, 4,
+                "kinds with max stack sizes 97, 89, 83, 79, 73, 71 a reinforced bundle took (the fifth overflows)");
+        try {
+            item.getBarWidth(bundle);
+            item.getBarColor(bundle);
+        } catch (RuntimeException crash) {
+            helper.fail("the fill bar of a bundle with odd stack sizes threw " + crash);
+            return;
+        }
+
+        ItemStack outer = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ItemStack prime = new ItemStack(Items.FLINT);
+        prime.set(DataComponents.MAX_STACK_SIZE, 73);
+        helper.assertTrue(item.tryInsertStackFromWorld(outer, prime, player), "setup: one flint of stack size 73 did not go in");
+        boolean nested;
+        try {
+            nested = item.tryInsertStackFromWorld(outer, bundle, player);
+        } catch (RuntimeException crash) {
+            helper.fail("putting the bundle with odd stack sizes into another one threw " + crash);
+            return;
+        }
+        helper.assertTrue(!nested, "a bundle whose weight overflows next to the flint was taken anyway");
+        helper.assertValueEqual(bundle.getCount(), 1, "the refused nested bundle is still there");
+        helper.succeed();
+    }
+
+    /**
      * The usual in-level mock player, moved into the room, with an empty inventory and
      * {@code instabuild} switched off - the flag the master builder branch reads. It keeps its
      * connection, which the insert and remove sounds go through, and it is handed back to the

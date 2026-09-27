@@ -49,6 +49,23 @@ public class ReinforcedBundleItem extends BundleItem {
      * of a single stack - endless storage and arbitrarily deep NBT (audit 2026-09-26 #13).
      */
     static Fraction incomingWeight(ItemStack stack) {
+        try {
+            return incomingWeightUnchecked(stack);
+        } catch (ArithmeticException overflow) {
+            return OVERWEIGHT;
+        }
+    }
+
+    /**
+     * What a bundle counts as whose weight cannot be computed - vanilla's {@code BundleContents}
+     * answers an overflowing sum ("Excessive total bundle weight") with an error, and the mod used to
+     * {@code getOrThrow} it or let the {@code ArithmeticException} of Fraction arithmetic escape
+     * (audit N16): more than any bundle holds, so such a stack is refused instead of crashing the
+     * pickup, the click or the tooltip.
+     */
+    static final Fraction OVERWEIGHT = Fraction.getFraction(1_000_000, 1);
+
+    private static Fraction incomingWeightUnchecked(ItemStack stack) {
         BundleContents nested = stack.get(DataComponents.BUNDLE_CONTENTS);
         if (nested != null) {
             return bundleWeight(nested).add(BUNDLE_IN_BUNDLE_WEIGHT);
@@ -248,6 +265,15 @@ public class ReinforcedBundleItem extends BundleItem {
         return super.use(world, user, hand);
     }
 
+    /** Filled share 0..1; an overflowing weight counts as full instead of throwing. */
+    private static float fillLevel(BundleContents data, Fraction max) {
+        try {
+            return Math.min(1.0f, bundleWeight(data).divideBy(max).floatValue());
+        } catch (ArithmeticException overflow) {
+            return 1.0f;
+        }
+    }
+
     @Override
     public boolean isBarVisible(ItemStack stack) {
         BundleContents contents = stack.get(DataComponents.BUNDLE_CONTENTS);
@@ -258,9 +284,7 @@ public class ReinforcedBundleItem extends BundleItem {
     public int getBarWidth(ItemStack stack) {
         BundleContents data = stack.get(DataComponents.BUNDLE_CONTENTS);
         if (data == null) return 0;
-        Fraction current = bundleWeight(data);
-        Fraction max = getMaxCapacityForVisuals(stack);
-        float fillLevel = Math.min(1.0f, current.divideBy(max).floatValue());
+        float fillLevel = fillLevel(data, getMaxCapacityForVisuals(stack));
         return Math.round(fillLevel * 13.0F);
     }
 
@@ -268,9 +292,7 @@ public class ReinforcedBundleItem extends BundleItem {
     public int getBarColor(ItemStack stack) {
         BundleContents data = stack.get(DataComponents.BUNDLE_CONTENTS);
         if (data == null) return super.getBarColor(stack);
-        Fraction current = bundleWeight(data);
-        Fraction max = getMaxCapacityForVisuals(stack);
-        float fillLevel = Math.min(1.0f, current.divideBy(max).floatValue());
+        float fillLevel = fillLevel(data, getMaxCapacityForVisuals(stack));
         return Mth.hsvToRgb(Math.max(0.0F, (1.0F - fillLevel)) / 3.0F, 1.0F, 1.0F);
     }
 
@@ -329,14 +351,21 @@ public class ReinforcedBundleItem extends BundleItem {
         }
     }
 
-        // Capacity Check
-        Fraction currentOccupancy = bundleWeight(contents);
-        Fraction itemWeight = incomingWeight(stackToAdd);
-        Fraction remainingSpace = maxCap.subtract(currentOccupancy);
+        // Capacity Check. Fraction arithmetic throws ArithmeticException once numerator or
+        // denominator leave int (unusual max stack sizes add up to huge common denominators); that
+        // is a full bundle, not a crash (audit N16).
+        int countThatFits;
+        try {
+            Fraction currentOccupancy = bundleWeight(contents);
+            Fraction itemWeight = incomingWeight(stackToAdd);
+            Fraction remainingSpace = maxCap.subtract(currentOccupancy);
 
-        if (remainingSpace.compareTo(itemWeight) < 0) return 0;
+            if (remainingSpace.compareTo(itemWeight) < 0) return 0;
 
-        int countThatFits = (int) remainingSpace.divideBy(itemWeight).doubleValue();
+            countThatFits = (int) remainingSpace.divideBy(itemWeight).doubleValue();
+        } catch (ArithmeticException overflow) {
+            return 0;
+        }
         int countToAdd = Math.min(stackToAdd.getCount(), countThatFits);
 
         if (countToAdd <= 0) return 0;
@@ -395,7 +424,13 @@ public class ReinforcedBundleItem extends BundleItem {
         // Kein toggleSelectedItem(bundle, -1) davor: new BundleContents(List) setzt die Auswahl
         // selbst auf NO_SELECTED_ITEM_INDEX, und das set() unten ueberschreibt die Komponente
         // ohnehin komplett. Der Aufruf war wirkungslos - wer ihn zurueckholt, gewinnt nichts.
-        bundle.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(stacksAsTemplates(itemsKept)));
+        BundleContents updated;
+        try {
+            updated = new BundleContents(stacksAsTemplates(itemsKept));
+        } catch (ArithmeticException overflow) {
+            return 0;
+        }
+        bundle.set(DataComponents.BUNDLE_CONTENTS, updated);
 
         return countToAdd;
     }

@@ -527,6 +527,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("reinforced_bundle_game_test_nested_bundles_weigh_their_contents", ReinforcedBundleTests::nestedBundlesWeighTheirContents)
                     .build(),
+            GameTestSpec.named("reinforced_bundle_game_test_overflowing_bundle_weights_are_refused_instead_of_crashing", ReinforcedBundleTests::overflowingBundleWeightsAreRefusedInsteadOfCrashing)
+                    .build(),
             GameTestSpec.named("bundle_wiring_game_test_funnel_bundle_sweeps_up_drops_on_touch_unless_the_player_sneaks", BundleWiringTests::funnelBundleSweepsUpDropsOnTouchUnlessThePlayerSneaks)
                     .build(),
             GameTestSpec.named("bundle_wiring_game_test_netherite_bundle_on_the_ground_survives_fire_and_explosions", BundleWiringTests::netheriteBundleOnTheGroundSurvivesFireAndExplosions)
@@ -546,6 +548,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("bundle_wiring_game_test_container_enchantments_accept_the_bundles_they_are_meant_for", BundleWiringTests::containerEnchantmentsAcceptTheBundlesTheyAreMeantFor)
                     .build(),
             GameTestSpec.named("bundle_wiring_game_test_funnel_honours_pickup_delay_and_target_in_the_hand", BundleWiringTests::funnelHonoursPickupDelayAndTargetInTheHand)
+                    .build(),
+            GameTestSpec.named("bundle_wiring_game_test_funnel_pickup_counts_what_it_took", BundleWiringTests::funnelPickupCountsWhatItTook)
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_field_skips_air_gaps_and_unbreakable_blocks", SledgehammerTests::sledgehammerFieldSkipsAirGapsAndUnbreakableBlocks)
                     .build(),
@@ -681,6 +685,14 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("piston_breach_game_test_mod_pistons_ask_the_platform_guard_before_every_break", PistonBreachTests::modPistonsAskThePlatformGuardBeforeEveryBreak)
                     .maxTicks(PistonBreachTests.GUARD_MAX_TICKS)
                     .build(),
+            GameTestSpec.named("piston_breach_game_test_netherite_breaker_wears_down_and_crumbles_to_reinforced_piston", PistonBreachTests::netheriteBreakerWearsDownAndCrumblesToReinforcedPiston)
+                    .maxTicks(PistonBreachTests.WEAR_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("piston_breach_game_test_mod_pistons_fire_the_real_loader_events_and_honour_their_config_switch", PistonBreachTests::modPistonsFireTheRealLoaderEventsAndHonourTheirConfigSwitch)
+                    .maxTicks(PistonBreachTests.LOADER_EVENTS_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("piston_breach_game_test_only_vanilla_unbreakables_are_breached_unless_the_config_says_otherwise", PistonBreachTests::onlyVanillaUnbreakablesAreBreachedUnlessTheConfigSaysOtherwise)
+                    .build(),
             GameTestSpec.named("leather_and_quiver_game_test_leather_sheet_takes_exactly_nine_leather", LeatherAndQuiverTests::leatherSheetTakesExactlyNineLeather)
                     .build(),
             GameTestSpec.named("leather_and_quiver_game_test_reinforced_quiver_crafts_from_the_plain_quiver_with_sheet_pebble_and_nugget", LeatherAndQuiverTests::reinforcedQuiverCraftsFromThePlainQuiverWithSheetPebbleAndNugget)
@@ -744,6 +756,11 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("hopper_game_test_both_hoppers_drop_themselves_when_broken", HopperTests::bothHoppersDropThemselvesWhenBroken)
                     .maxTicks(HopperTests.HOPPER_DROP_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("hopper_game_test_filtered_slots_hand_out_what_they_hold_and_refuse_the_spawn_elytra", HopperTests::filteredSlotsHandOutWhatTheyHoldAndRefuseTheSpawnElytra)
+                    .build(),
+            GameTestSpec.named("hopper_game_test_mod_hoppers_fall_back_to_the_loader_transfer_api_without_container", HopperTests::modHoppersFallBackToTheLoaderTransferApiWithoutContainer)
+                    .maxTicks(HopperTests.ITEM_AUTOMATION_MAX_TICKS)
                     .build(),
             GameTestSpec.named("world_and_player_game_test_end_ores_drop_their_dust_and_follow_fortune_while_silk_touch_keeps_the_ore", WorldAndPlayerTests::endOresDropTheirDustAndFollowFortuneWhileSilkTouchKeepsTheOre)
                     .build(),

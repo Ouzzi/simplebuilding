@@ -346,7 +346,7 @@ public class ModHopperBlockEntity extends RandomizableContainerBlockEntity imple
 
     private static boolean insert(Level world, BlockPos pos, ModHopperBlockEntity blockEntity) {
         Container inventory = getOutputInventory(world, pos, blockEntity);
-        if (inventory == null) return false;
+        if (inventory == null) return insertThroughItemAutomation(world, pos, blockEntity);
 
         Direction direction = stateToFacing(blockEntity.getBlockState()).getOpposite();
         if (isInventoryFull(inventory, direction)) return false;
@@ -362,6 +362,39 @@ public class ModHopperBlockEntity extends RandomizableContainerBlockEntity imple
                 }
                 itemStack.setCount(count);
                 if (count == 1) blockEntity.setItem(i, itemStack);
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Kein Vanilla-{@code Container} vorn: dann die Transfer-Schnittstelle des Loaders
+     * ({@link PlatformServices#itemAutomation} - NeoForge {@code Capabilities.Item.BLOCK}, Fabric
+     * {@code ItemStorage.SIDED}, Forge {@code ITEM_HANDLER}), wie Vanillas Trichter auf NeoForge und
+     * Fabric es auch tut. Bis 2026-09-27 schoben die Mod-Trichter nur in Vanilla-Container, Maschinen
+     * anderer Mods ohne {@code Container} blieben leer (Audit #36). Ein Item je Transfer, wie oben.
+     */
+    private static boolean insertThroughItemAutomation(Level world, BlockPos pos, ModHopperBlockEntity blockEntity) {
+        if (!(world instanceof net.minecraft.server.level.ServerLevel server) || !PlatformServices.hasItemAutomation()) {
+            return false;
+        }
+        Direction facing = stateToFacing(blockEntity.getBlockState());
+        BlockPos target = pos.relative(facing);
+        if (!server.isLoaded(target)) {
+            return false;
+        }
+        for (int i = 0; i < blockEntity.getContainerSize(); ++i) {
+            ItemStack itemStack = blockEntity.getItem(i);
+            if (itemStack.isEmpty()) {
+                continue;
+            }
+            int moved = PlatformServices.itemAutomation().insert(server, target, facing.getOpposite(), itemStack.copyWithCount(1));
+            if (moved == com.simplebuilding.platform.ItemAutomation.NO_HANDLER) {
+                return false;
+            }
+            if (moved > 0) {
+                blockEntity.removeItem(i, 1);
+                return true;
             }
         }
         return false;

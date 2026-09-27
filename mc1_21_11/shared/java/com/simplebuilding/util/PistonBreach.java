@@ -6,6 +6,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
@@ -15,11 +17,22 @@ import org.jetbrains.annotations.Nullable;
  * (verstaerkter und verstaerkter klebriger Kolben, Netherit- und Enderitkolben).
  *
  * <p><b>Was durchbrochen werden darf</b> ({@link #isBreachable}): ein Block mit einer
- * Zerstoerungsgeschwindigkeit unter 0 oder im Tag {@code simplebuilding:piston_breachable_extra}
- * (Vanilla: verstaerkter Tiefenschiefer), der weder im Tag {@code simplebuilding:piston_breach_immune}
- * steht noch eine Block-Entity hat. Der Endportalrahmen zaehlt nur, solange die Konfigurationsoption
- * {@code pistonsBreachEndPortalFrames} an ist (Standard seit 2026-09-26: aus). In Vanilla bleiben
- * damit Grundgestein und verstaerkter Tiefenschiefer uebrig, mit der Option auch der Endportalrahmen.
+ * Zerstoerungsgeschwindigkeit unter 0 aus dem Namensraum {@code minecraft} oder ein Block im Tag
+ * {@code simplebuilding:piston_breachable_extra} (Vanilla: verstaerkter Tiefenschiefer), der weder im
+ * Tag {@code simplebuilding:piston_breach_immune} steht noch eine Block-Entity hat. Unzerstoerbare
+ * Bloecke anderer Mods (Haerte -1, etwa Schutz-, Dimensions- oder Maschinenbloecke) bleiben seit
+ * 2026-09-27 unberuehrt (Audit #24), ausser die Konfigurationsoption
+ * {@code pistonsBreachModdedUnbreakables} ist an (Standard aus); ein Modpack kann einzelne Bloecke
+ * auch ueber den Tag {@code piston_breachable_extra} freigeben. Der Endportalrahmen zaehlt nur,
+ * solange die Option {@code pistonsBreachEndPortalFrames} an ist (Standard seit 2026-09-26: aus). In
+ * Vanilla bleiben damit Grundgestein und verstaerkter Tiefenschiefer uebrig, mit der Option auch der
+ * Endportalrahmen.
+ *
+ * <p><b>Der Client fragt mit</b> (Audit N16): spielt er das Ausfahren eines verstaerkten Kolbens nach,
+ * baut er seinen eigenen {@code PistonStructureResolver}, und {@code PistonHandlerMixin} fragt dort
+ * {@link #isBreachable}. Waere seine Konfiguration anders als die des Servers, schoebe er den Block
+ * nicht (oder doch) - Geisterbloecke. Deshalb schickt der Server beide Optionen beim Einloggen mit dem
+ * {@code PistonConfigPayload}; eine Client-Welt liest nur diese Werte ({@link #setClientRules}).
  *
  * <p><b>Wer bezahlt</b> ({@link #findFuel}): ein Redstoneblock direkt neben dem Kolben, zuerst der
  * direkt dahinter, dann die vier Seiten quer zur Blickrichtung. Nie die Front: dort steht das
@@ -43,10 +56,25 @@ public final class PistonBreach {
         if (state.isAir() || state.is(ModTags.Blocks.PISTON_BREACH_IMMUNE) || state.hasBlockEntity()) {
             return false;
         }
-        if (state.is(Blocks.END_PORTAL_FRAME) && !endPortalFramesBreachable()) {
+        if (state.is(ModTags.Blocks.PISTON_BREACHABLE_EXTRA)) {
+            return true;
+        }
+        if (state.is(Blocks.END_PORTAL_FRAME) && !endPortalFramesBreachable(level)) {
             return false;
         }
-        return isUnbreakableClass(state, level, pos);
+        return state.getDestroySpeed(level, pos) < 0.0F && unbreakableCounts(state.getBlock(), level);
+    }
+
+    /**
+     * Ob ein Block mit negativer Zerstoerungsgeschwindigkeit ueberhaupt in Frage kommt: aus dem
+     * Namensraum {@code minecraft} immer, aus anderen Mods nur mit {@code pistonsBreachModdedUnbreakables}
+     * (Audit #24). Der Tag {@code piston_breachable_extra} geht an dieser Frage vorbei.
+     */
+    public static boolean unbreakableCounts(Block block, @Nullable BlockGetter level) {
+        if (BuiltInRegistries.BLOCK.getKey(block).getNamespace().equals("minecraft")) {
+            return true;
+        }
+        return moddedUnbreakablesBreachable(level);
     }
 
     /**
@@ -110,8 +138,49 @@ public final class PistonBreach {
         return !state.hasBlockEntity();
     }
 
-    private static boolean endPortalFramesBreachable() {
+    // ---- Konfiguration: Server liest die Datei, eine Client-Welt die Werte des Servers ----
+
+    /** Vom Server beim Einloggen geschickt ({@code PistonConfigPayload}); null, solange nichts kam. */
+    private static volatile @Nullable ClientRules clientRules;
+
+    /** Die beiden Optionen, die der Client beim Nachspielen eines Kolbens braucht. */
+    public record ClientRules(boolean endPortalFrames, boolean moddedUnbreakables) {
+    }
+
+    /** Clientseitig: die Werte des Servers uebernehmen (null = wieder die eigene Datei). */
+    public static void setClientRules(@Nullable ClientRules rules) {
+        clientRules = rules;
+    }
+
+    /** Was der Server dem Client schickt: seine eigenen Werte. */
+    public static ClientRules serverRules() {
         SimplebuildingConfig config = Simplebuilding.getConfig();
-        return config != null && config.pistonsBreachEndPortalFrames;
+        return config == null ? new ClientRules(false, false)
+                : new ClientRules(config.pistonsBreachEndPortalFrames, config.pistonsBreachModdedUnbreakables);
+    }
+
+    private static ClientRules rulesFor(@Nullable BlockGetter level) {
+        ClientRules synced = clientRules;
+        if (synced != null && level instanceof Level world && world.isClientSide()) {
+            return synced;
+        }
+        return serverRules();
+    }
+
+    private static boolean endPortalFramesBreachable(@Nullable BlockGetter level) {
+        return rulesFor(level).endPortalFrames();
+    }
+
+    private static boolean moddedUnbreakablesBreachable(@Nullable BlockGetter level) {
+        return rulesFor(level).moddedUnbreakables();
+    }
+
+    /**
+     * Ob die Kolben-Waechter der Loader Abbau-Ereignisse mit einem Fake-Spieler feuern
+     * ({@code pistonsFireBreakEvents}, Standard an; Audit N4). Nur der Server fragt.
+     */
+    public static boolean fireBreakEvents() {
+        SimplebuildingConfig config = Simplebuilding.getConfig();
+        return config == null || config.pistonsFireBreakEvents;
     }
 }

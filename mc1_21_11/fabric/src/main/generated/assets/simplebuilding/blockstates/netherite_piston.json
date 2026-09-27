@@ -1,49 +1,371 @@
 {
   "variants": {
-    "extended=false,facing=down": {
+    "extended=false,facing=down,wear=0": {
       "model": "simplebuilding:block/netherite_piston",
       "x": 90
     },
-    "extended=false,facing=east": {
+    "extended=false,facing=down,wear=1": {
+      "model": "simplebuilding:block/netherite_piston",
+      "x": 90
+    },
+    "extended=false,facing=down,wear=2": {
+      "model": "simplebuilding:block/netherite_piston_worn1",
+      "x": 90
+    },
+    "extended=false,facing=down,wear=3": {
+      "model": "simplebuilding:block/netherite_piston_worn1",
+      "x": 90
+    },
+    "extended=false,facing=down,wear=4": {
+      "model": "simplebuilding:block/netherite_piston_worn2",
+      "x": 90
+    },
+    "extended=false,facing=down,wear=5": {
+      "model": "simplebuilding:block/netherite_piston_worn2",
+      "x": 90
+    },
+    "extended=false,facing=down,wear=6": {
+      "model": "simplebuilding:block/netherite_piston_worn3",
+      "x": 90
+    },
+    "extended=false,facing=down,wear=7": {
+      "model": "simplebuilding:block/netherite_piston_worn3",
+      "x": 90
+    },
+    "extended=false,facing=east,wear=0": {
       "model": "simplebuilding:block/netherite_piston",
       "y": 90
     },
-    "extended=false,facing=north": {
+    "extended=false,facing=east,wear=1": {
+      "model": "simplebuilding:block/netherite_piston",
+      "y": 90
+    },
+    "extended=false,facing=east,wear=2": {
+      "model": "simplebuilding:block/netherite_piston_worn1",
+      "y": 90
+    },
+    "extended=false,facing=east,wear=3": {
+      "model": "simplebuilding:block/netherite_piston_worn1",
+      "y": 90
+    },
+    "extended=false,facing=east,wear=4": {
+      "model": "simplebuilding:block/netherite_piston_worn2",
+      "y": 90
+    },
+    "extended=false,facing=east,wear=5": {
+      "model": "simplebuilding:block/netherite_piston_worn2",
+      "y": 90
+    },
+    "extended=false,facing=east,wear=6": {
+      "model": "simplebuilding:block/netherite_piston_worn3",
+      "y": 90
+    },
+    "extended=false,facing=east,wear=7": {
+      "model": "simplebuilding:block/netherite_piston_worn3",
+      "y": 90
+    },
+    "extended=false,facing=north,wear=0": {
       "model": "simplebuilding:block/netherite_piston"
     },
-    "extended=false,facing=south": {
+    "extended=false,facing=north,wear=1": {
+      "model": "simplebuilding:block/netherite_piston"
+    },
+    "extended=false,facing=north,wear=2": {
+      "model": "simplebuilding:block/netherite_piston_worn1"
+    },
+    "extended=false,facing=north,wear=3": {
+      "model": "simplebuilding:block/netherite_piston_worn1"
+    },
+    "extended=false,facing=north,wear=4": {
+      "model": "simplebuilding:block/netherite_piston_worn2"
+    },
+    "extended=false,facing=north,wear=5": {
+      "model": "simplebuilding:block/netherite_piston_worn2"
+    },
+    "extended=false,facing=north,wear=6": {
+      "model": "simplebuilding:block/netherite_piston_worn3"
+    },
+    "extended=false,facing=north,wear=7": {
+      "model": "simplebuilding:block/netherite_piston_worn3"
+    },
+    "extended=false,facing=south,wear=0": {
       "model": "simplebuilding:block/netherite_piston",
       "y": 180
     },
-    "extended=false,facing=up": {
+    "extended=false,facing=south,wear=1": {
+      "model": "simplebuilding:block/netherite_piston",
+      "y": 180
+    },
+    "extended=false,facing=south,wear=2": {
+      "model": "simplebuilding:block/netherite_piston_worn1",
+      "y": 180
+    },
+    "extended=false,facing=south,wear=3": {
+      "model": "simplebuilding:block/netherite_piston_worn1",
+      "y": 180
+    },
+    "extended=false,facing=south,wear=4": {
+      "model": "simplebuilding:block/netherite_piston_worn2",
+      "y": 180
+    },
+    "extended=false,facing=south,wear=5": {
+      "model": "simplebuilding:block/netherite_piston_worn2",
+      "y": 180
+    },
+    "extended=false,facing=south,wear=6": {
+      "model": "simplebuilding:block/netherite_piston_worn3",
+      "y": 180
+    },
+    "extended=false,facing=south,wear=7": {
+      "model": "simplebuilding:block/netherite_piston_worn3",
+      "y": 180
+    },
+    "extended=false,facing=up,wear=0": {
       "model": "simplebuilding:block/netherite_piston",
       "x": 270
     },
-    "extended=false,facing=west": {
+    "extended=false,facing=up,wear=1": {
+      "model": "simplebuilding:block/netherite_piston",
+      "x": 270
+    },
+    "extended=false,facing=up,wear=2": {
+      "model": "simplebuilding:block/netherite_piston_worn1",
+      "x": 270
+    },
+    "extended=false,facing=up,wear=3": {
+      "model": "simplebuilding:block/netherite_piston_worn1",
+      "x": 270
+    },
+    "extended=false,facing=up,wear=4": {
+      "model": "simplebuilding:block/netherite_piston_worn2",
+      "x": 270
+    },
+    "extended=false,facing=up,wear=5": {
+      "model": "simplebuilding:block/netherite_piston_worn2",
+      "x": 270
+    },
+    "extended=false,facing=up,wear=6": {
+      "model": "simplebuilding:block/netherite_piston_worn3",
+      "x": 270
+    },
+    "extended=false,facing=up,wear=7": {
+      "model": "simplebuilding:block/netherite_piston_worn3",
+      "x": 270
+    },
+    "extended=false,facing=west,wear=0": {
       "model": "simplebuilding:block/netherite_piston",
       "y": 270
     },
-    "extended=true,facing=down": {
+    "extended=false,facing=west,wear=1": {
+      "model": "simplebuilding:block/netherite_piston",
+      "y": 270
+    },
+    "extended=false,facing=west,wear=2": {
+      "model": "simplebuilding:block/netherite_piston_worn1",
+      "y": 270
+    },
+    "extended=false,facing=west,wear=3": {
+      "model": "simplebuilding:block/netherite_piston_worn1",
+      "y": 270
+    },
+    "extended=false,facing=west,wear=4": {
+      "model": "simplebuilding:block/netherite_piston_worn2",
+      "y": 270
+    },
+    "extended=false,facing=west,wear=5": {
+      "model": "simplebuilding:block/netherite_piston_worn2",
+      "y": 270
+    },
+    "extended=false,facing=west,wear=6": {
+      "model": "simplebuilding:block/netherite_piston_worn3",
+      "y": 270
+    },
+    "extended=false,facing=west,wear=7": {
+      "model": "simplebuilding:block/netherite_piston_worn3",
+      "y": 270
+    },
+    "extended=true,facing=down,wear=0": {
       "model": "simplebuilding:block/netherite_piston_base",
       "x": 90
     },
-    "extended=true,facing=east": {
+    "extended=true,facing=down,wear=1": {
+      "model": "simplebuilding:block/netherite_piston_base",
+      "x": 90
+    },
+    "extended=true,facing=down,wear=2": {
+      "model": "simplebuilding:block/netherite_piston_base_worn1",
+      "x": 90
+    },
+    "extended=true,facing=down,wear=3": {
+      "model": "simplebuilding:block/netherite_piston_base_worn1",
+      "x": 90
+    },
+    "extended=true,facing=down,wear=4": {
+      "model": "simplebuilding:block/netherite_piston_base_worn2",
+      "x": 90
+    },
+    "extended=true,facing=down,wear=5": {
+      "model": "simplebuilding:block/netherite_piston_base_worn2",
+      "x": 90
+    },
+    "extended=true,facing=down,wear=6": {
+      "model": "simplebuilding:block/netherite_piston_base_worn3",
+      "x": 90
+    },
+    "extended=true,facing=down,wear=7": {
+      "model": "simplebuilding:block/netherite_piston_base_worn3",
+      "x": 90
+    },
+    "extended=true,facing=east,wear=0": {
       "model": "simplebuilding:block/netherite_piston_base",
       "y": 90
     },
-    "extended=true,facing=north": {
+    "extended=true,facing=east,wear=1": {
+      "model": "simplebuilding:block/netherite_piston_base",
+      "y": 90
+    },
+    "extended=true,facing=east,wear=2": {
+      "model": "simplebuilding:block/netherite_piston_base_worn1",
+      "y": 90
+    },
+    "extended=true,facing=east,wear=3": {
+      "model": "simplebuilding:block/netherite_piston_base_worn1",
+      "y": 90
+    },
+    "extended=true,facing=east,wear=4": {
+      "model": "simplebuilding:block/netherite_piston_base_worn2",
+      "y": 90
+    },
+    "extended=true,facing=east,wear=5": {
+      "model": "simplebuilding:block/netherite_piston_base_worn2",
+      "y": 90
+    },
+    "extended=true,facing=east,wear=6": {
+      "model": "simplebuilding:block/netherite_piston_base_worn3",
+      "y": 90
+    },
+    "extended=true,facing=east,wear=7": {
+      "model": "simplebuilding:block/netherite_piston_base_worn3",
+      "y": 90
+    },
+    "extended=true,facing=north,wear=0": {
       "model": "simplebuilding:block/netherite_piston_base"
     },
-    "extended=true,facing=south": {
+    "extended=true,facing=north,wear=1": {
+      "model": "simplebuilding:block/netherite_piston_base"
+    },
+    "extended=true,facing=north,wear=2": {
+      "model": "simplebuilding:block/netherite_piston_base_worn1"
+    },
+    "extended=true,facing=north,wear=3": {
+      "model": "simplebuilding:block/netherite_piston_base_worn1"
+    },
+    "extended=true,facing=north,wear=4": {
+      "model": "simplebuilding:block/netherite_piston_base_worn2"
+    },
+    "extended=true,facing=north,wear=5": {
+      "model": "simplebuilding:block/netherite_piston_base_worn2"
+    },
+    "extended=true,facing=north,wear=6": {
+      "model": "simplebuilding:block/netherite_piston_base_worn3"
+    },
+    "extended=true,facing=north,wear=7": {
+      "model": "simplebuilding:block/netherite_piston_base_worn3"
+    },
+    "extended=true,facing=south,wear=0": {
       "model": "simplebuilding:block/netherite_piston_base",
       "y": 180
     },
-    "extended=true,facing=up": {
+    "extended=true,facing=south,wear=1": {
+      "model": "simplebuilding:block/netherite_piston_base",
+      "y": 180
+    },
+    "extended=true,facing=south,wear=2": {
+      "model": "simplebuilding:block/netherite_piston_base_worn1",
+      "y": 180
+    },
+    "extended=true,facing=south,wear=3": {
+      "model": "simplebuilding:block/netherite_piston_base_worn1",
+      "y": 180
+    },
+    "extended=true,facing=south,wear=4": {
+      "model": "simplebuilding:block/netherite_piston_base_worn2",
+      "y": 180
+    },
+    "extended=true,facing=south,wear=5": {
+      "model": "simplebuilding:block/netherite_piston_base_worn2",
+      "y": 180
+    },
+    "extended=true,facing=south,wear=6": {
+      "model": "simplebuilding:block/netherite_piston_base_worn3",
+      "y": 180
+    },
+    "extended=true,facing=south,wear=7": {
+      "model": "simplebuilding:block/netherite_piston_base_worn3",
+      "y": 180
+    },
+    "extended=true,facing=up,wear=0": {
       "model": "simplebuilding:block/netherite_piston_base",
       "x": 270
     },
-    "extended=true,facing=west": {
+    "extended=true,facing=up,wear=1": {
       "model": "simplebuilding:block/netherite_piston_base",
+      "x": 270
+    },
+    "extended=true,facing=up,wear=2": {
+      "model": "simplebuilding:block/netherite_piston_base_worn1",
+      "x": 270
+    },
+    "extended=true,facing=up,wear=3": {
+      "model": "simplebuilding:block/netherite_piston_base_worn1",
+      "x": 270
+    },
+    "extended=true,facing=up,wear=4": {
+      "model": "simplebuilding:block/netherite_piston_base_worn2",
+      "x": 270
+    },
+    "extended=true,facing=up,wear=5": {
+      "model": "simplebuilding:block/netherite_piston_base_worn2",
+      "x": 270
+    },
+    "extended=true,facing=up,wear=6": {
+      "model": "simplebuilding:block/netherite_piston_base_worn3",
+      "x": 270
+    },
+    "extended=true,facing=up,wear=7": {
+      "model": "simplebuilding:block/netherite_piston_base_worn3",
+      "x": 270
+    },
+    "extended=true,facing=west,wear=0": {
+      "model": "simplebuilding:block/netherite_piston_base",
+      "y": 270
+    },
+    "extended=true,facing=west,wear=1": {
+      "model": "simplebuilding:block/netherite_piston_base",
+      "y": 270
+    },
+    "extended=true,facing=west,wear=2": {
+      "model": "simplebuilding:block/netherite_piston_base_worn1",
+      "y": 270
+    },
+    "extended=true,facing=west,wear=3": {
+      "model": "simplebuilding:block/netherite_piston_base_worn1",
+      "y": 270
+    },
+    "extended=true,facing=west,wear=4": {
+      "model": "simplebuilding:block/netherite_piston_base_worn2",
+      "y": 270
+    },
+    "extended=true,facing=west,wear=5": {
+      "model": "simplebuilding:block/netherite_piston_base_worn2",
+      "y": 270
+    },
+    "extended=true,facing=west,wear=6": {
+      "model": "simplebuilding:block/netherite_piston_base_worn3",
+      "y": 270
+    },
+    "extended=true,facing=west,wear=7": {
+      "model": "simplebuilding:block/netherite_piston_base_worn3",
       "y": 270
     }
   }

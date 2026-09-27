@@ -50,6 +50,18 @@ public class EnderitePistonBlock extends NetheriteBreakerPistonBlock {
     }
 
     /**
+     * Der Enderitkolben verschleisst nicht (Balance unveraendert, Audit #23 betraf nur den
+     * Netheritkolben) und traegt die Eigenschaft {@code wear} deshalb gar nicht.
+     */
+    @Override
+    protected boolean wears() {
+        return false;
+    }
+
+    /**
+     * Das Kolben-Ereignis ({@code PlatformServices#mayPistonMove}) geht einmal fuer den ganzen
+     * Durchbruch raus, das Abbau-Ereignis je Block (Audit N16: vorher je Block beides).
+     *
      * @return ob der vorderste Block zerstoert wurde. Jeder Block geht vorher durch den
      *         Plattform-Wächter ({@link #mayBreak}); lehnt er einen tieferen ab, endet der Durchbruch
      *         dort, lehnt er schon den vordersten ab, passiert gar nichts.
@@ -59,6 +71,9 @@ public class EnderitePistonBlock extends NetheriteBreakerPistonBlock {
         // Vor dem Durchbruch gemessen: der bezahlende Redstoneblock liegt noch daneben.
         int power = world.getBestNeighborSignal(pos);
         float breakThreshold = (power / 15.0f) * 50.0f;
+        if (!com.simplebuilding.platform.PlatformServices.mayPistonMove(world, pos, facing)) {
+            return false;
+        }
         for (int depth = 1; depth <= BREACH_DEPTH; depth++) {
             BlockPos target = pos.relative(facing, depth);
             BlockState targetState = world.getBlockState(target);
