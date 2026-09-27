@@ -96,7 +96,7 @@ Verlauf im Detail: git log.
 
 ## Welle 19 (laeuft): Rest-P3/P4 aus Audit + Nach-Audit
 - [x] W1 Blaupause/Oktant/Baustab: N2, N3, N8, N9, N13-N16, ShapeFill-Tests
-- [ ] W2 Kolben/Trichter/Lager: Brecher-Verschleiss (#23), Config-Schalter Fake-Spieler-Guard (N4), Loader-Guard-Tests (N5), N6, N7, #24, #36, #48
+- [x] W2 Kolben/Trichter/Lager: Brecher-Verschleiss (#23), Config-Schalter Fake-Spieler-Guard (N4), Loader-Guard-Tests (N5), N6, N7, #24, #36, #48
 - [x] W3 Werkzeuge/Texte/Tasten: #25, #26, #27, #30, #37, #38, #39, #46
 - [x] W4 Tweaks-Rest + Hygiene: #35, #51, N10-N12, #43-#45, #49, #52
 - [ ] wiki/manual.json: 6 doppelte Feature-Eintraege (welcome x4, building_wand, blueprint, enchant_storage_player, enderite_void_protection, configuration) mit abweichendem Text zusammenfuehren (Altlast aus JSON-Merges)
