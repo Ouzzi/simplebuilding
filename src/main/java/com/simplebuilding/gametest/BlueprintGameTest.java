@@ -138,4 +138,19 @@ public final class BlueprintGameTest {
     public void runningBuildSurvivesLogoutAndResumesWithTheSameBlueprint(GameTestHelper helper) {
         BlueprintTests.runningBuildSurvivesLogoutAndResumesWithTheSameBlueprint(helper);
     }
+
+    @GameTest
+    public void survivalBuildResetsGrownAndFilledStates(GameTestHelper helper) {
+        BlueprintTests.survivalBuildResetsGrownAndFilledStates(helper);
+    }
+
+    @GameTest
+    public void failedPlacementHandsTheMaterialBack(GameTestHelper helper) {
+        BlueprintTests.failedPlacementHandsTheMaterialBack(helper);
+    }
+
+    @GameTest(maxTicks = BlueprintTests.SIGN_BUDGET_MAX_TICKS)
+    public void signPacketsShareOneParseBudgetPerPlayer(GameTestHelper helper) {
+        BlueprintTests.signPacketsShareOneParseBudgetPerPlayer(helper);
+    }
 }

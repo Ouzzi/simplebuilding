@@ -790,6 +790,7 @@
   "simplebuilding.wand.shape.no_selection": "Der Oktant braucht beide Ecken",
   "simplebuilding.wand.shape.no_material": "Keine Baublöcke für die Figur (die Nebenhand hält den Oktanten - leg sie in die Hotbar)",
   "simplebuilding.wand.shape.too_many": "Die Box der Figur hat %s Stellen, gefüllt werden höchstens %s",
+  "simplebuilding.wand.shape.unloaded": "Ein Teil der Figur liegt in nicht geladenen Chunks - geh näher heran",
   "block.simplebuilding.spawn_teleporter": "Spawn-Teleporter I",
   "block.simplebuilding.spawn_teleporter_tier_2": "Spawn-Teleporter II",
   "block.simplebuilding.spawn_teleporter_tier_3": "Spawn-Teleporter III",

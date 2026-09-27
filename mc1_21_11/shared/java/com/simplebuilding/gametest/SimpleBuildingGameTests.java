@@ -176,6 +176,9 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("network_handler_game_test_octant_scroll_cycles_shapes_and_nudges_corners_by_facing", NetworkHandlerTests::octantScrollCyclesShapesAndNudgesCornersByFacing)
                     .rotation(Rotation.NONE)
                     .build(),
+            GameTestSpec.named("network_handler_game_test_octant_packets_reject_far_corners_unknown_names_and_huge_scrolls", NetworkHandlerTests::octantPacketsRejectFarCornersUnknownNamesAndHugeScrolls)
+                    .rotation(Rotation.NONE)
+                    .build(),
             GameTestSpec.named("network_handler_game_test_master_builder_pick_takes_blocks_out_of_the_enchanted_bundle", NetworkHandlerTests::masterBuilderPickTakesBlocksOutOfTheEnchantedBundle)
                     .build(),
             GameTestSpec.named("item_behaviour_game_test_rotator_turns_logs_by_clicked_face_and_rim", ItemBehaviourTests::rotatorTurnsLogsByClickedFaceAndRim)
@@ -236,6 +239,9 @@ public final class SimpleBuildingGameTests {
                     .rotation(Rotation.NONE)
                     .build(),
             GameTestSpec.named("wand_mode_game_test_roof_mode_works_with_the_test_centre_kit_enderite_wand", WandModeTests::roofModeWorksWithTheTestCentreKitEnderiteWand)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_octant_fill_plans_lazily_and_refuses_unloaded_chunks", WandModeTests::octantFillPlansLazilyAndRefusesUnloadedChunks)
                     .rotation(Rotation.NONE)
                     .build(),
             GameTestSpec.named("hopper_and_trim_game_test_hopper_filter_modes_gate_what_may_enter", HopperAndTrimTests::hopperFilterModesGateWhatMayEnter)
@@ -839,6 +845,13 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("blueprint_game_test_edit_packet_saves_signs_and_locks_the_blueprint", BlueprintTests::editPacketSavesSignsAndLocksTheBlueprint)
                     .build(),
             GameTestSpec.named("blueprint_game_test_recipe_crafts_one_blank_blueprint", BlueprintTests::recipeCraftsOneBlankBlueprint)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_survival_build_resets_grown_and_filled_states", BlueprintTests::survivalBuildResetsGrownAndFilledStates)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_failed_placement_hands_the_material_back", BlueprintTests::failedPlacementHandsTheMaterialBack)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_sign_packets_share_one_parse_budget_per_player", BlueprintTests::signPacketsShareOneParseBudgetPerPlayer)
+                    .maxTicks(BlueprintTests.SIGN_BUDGET_MAX_TICKS)
                     .build(),
             GameTestSpec.named("furnace_game_test_boost_only_runs_while_the_furnace_burns_and_cooks", FurnaceTests::boostOnlyRunsWhileTheFurnaceBurnsAndCooks)
                     .maxTicks(FurnaceTests.BOOST_GUARD_MAX_TICKS)

@@ -55,4 +55,9 @@ public final class WandModeGameTest {
     public void roofModeWorksWithTheTestCentreKitEnderiteWand(GameTestHelper helper) {
         WandModeTests.roofModeWorksWithTheTestCentreKitEnderiteWand(helper);
     }
+
+    @GameTest(rotation = Rotation.NONE)
+    public void octantFillPlansLazilyAndRefusesUnloadedChunks(GameTestHelper helper) {
+        WandModeTests.octantFillPlansLazilyAndRefusesUnloadedChunks(helper);
+    }
 }

@@ -5,7 +5,6 @@ import com.simplebuilding.items.custom.BuildingWandItem;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.util.OctantShape;
 import com.simplebuilding.util.WandPlacement;
-import it.unimi.dsi.fastutil.longs.LongArrayList;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -67,7 +66,9 @@ import static com.simplebuilding.util.EnchantmentHelper.hasEnchantment;
  * Sorte ({@code oak_stairs} &rarr; {@code oak_slab}, sonst Treppen). Giebelwaende bleiben frei.
  *
  * <p><b>Grenzen:</b> die laengste Kante der Auswahl wie bei der Blaupause je Stabstufe
- * ({@link BlueprintTiers}); hoechstens {@link BlueprintCode#MAX_EXPANDED_CELLS} Stellen in der Box.
+ * ({@link BlueprintTiers}); hoechstens {@link BlueprintCode#MAX_EXPANDED_CELLS} Stellen in der Box; die
+ * ganze Box muss in geladenen Chunks liegen. Geplant wird ohne Weltzugriff ({@link FillLayout}), die
+ * eigentliche Arbeit teilt der Bauplaner auf mehrere Ticks auf.
  * Nicht gespeichert: nach Logout ist ein laufender Fuell-Auftrag vorbei.
  */
 public final class ShapeFill {
@@ -75,7 +76,7 @@ public final class ShapeFill {
     }
 
     /** Ergebnis der Planung: die Stellenliste, oder warum nicht. */
-    public record Plan(BlueprintBuilder.ListLayout layout, Component problem, boolean roof) {
+    public record Plan(BlueprintBuilder.Layout layout, Component problem, boolean roof) {
         static Plan fail(Component problem) {
             return new Plan(null, problem, false);
         }
@@ -120,6 +121,14 @@ public final class ShapeFill {
     // PLANUNG
     // =====================================================================================
 
+    /**
+     * Plant die Fuellung, ohne die Welt zu lesen: nur die Reihenfolge eines Querschnitts (hoechstens
+     * 256 x 256 Stellen) wird sortiert. Ob eine Stelle in der Figur liegt, welcher Block dort hinkommt,
+     * ob er Halt hat und keine Entity im Weg steht, entscheidet {@link FillLayout} erst beim Besuch - und
+     * die Besuche teilt der Bauplaner auf mehrere Ticks auf (Fehlstellen-Pruefung und Bau). Frueher lief
+     * das alles bei jedem Klick fuer bis zu 4 Mio. Stellen auf einmal und lud dabei ferne Chunks
+     * (Audit 2026-09-26 #8). Liegt ein Teil der Box in nicht geladenen Chunks, wird abgelehnt.
+     */
     public static Plan plan(Level level, Player player, ItemStack wand, ItemStack octant) {
         if (!(wand.getItem() instanceof BuildingWandItem wandItem) || !hasSelection(octant)) {
             return Plan.fail(Component.translatable("simplebuilding.wand.shape.no_selection").withStyle(ChatFormatting.RED));
@@ -140,6 +149,14 @@ public final class ShapeFill {
             return Plan.fail(Component.translatable("simplebuilding.wand.shape.too_many", volume, BlueprintCode.MAX_EXPANDED_CELLS)
                     .withStyle(ChatFormatting.RED));
         }
+        // Nur geladene Chunks: hasChunk laedt nichts nach (anders als getBlockState).
+        for (int cx = minX >> 4; cx <= (minX + sx - 1) >> 4; cx++) {
+            for (int cz = minZ >> 4; cz <= (minZ + sz - 1) >> 4; cz++) {
+                if (!level.hasChunk(cx, cz)) {
+                    return Plan.fail(Component.translatable("simplebuilding.wand.shape.unloaded").withStyle(ChatFormatting.RED));
+                }
+            }
+        }
 
         boolean palette = hasEnchantment(wand, level, ModEnchantments.COLOR_PALETTE);
         List<ItemStack> materials = new ArrayList<>();
@@ -157,32 +174,11 @@ public final class ShapeFill {
 
         OctantItem.SelectionShape shape = OctantShape.shape(nbt);
         Direction orientation = OctantShape.orientation(nbt);
-        Predicate<BlockPos> inside = OctantShape.predicate(shape, orientation, bounds);
         // Dach: die Treppe ist der erste Baublock in Suchreihenfolge (Nebenhand, Hotbar, ...) - auch mit
         // Farbpalette. Frueher schaltete die Palette das Dach ab; der Enderit-Stab aus dem Kit traegt sie,
         // und statt eines Dachs kam eine bunt gefuellte Figur (Besitzer-Befund 2026-09-25).
         Block stairBlock = roofStair(player, wand, shape, orientation);
         boolean roof = stairBlock != null;
-        boolean hollow = nbt.getBooleanOr("Hollow", false);
-        // Prisma: Gefaelle quer zur laengeren Grundkante (wie OctantShape#isPointInPrism).
-        boolean prismAlongZ = sz > sx;
-
-        LongArrayList cells = new LongArrayList();
-        BlockPos.MutableBlockPos p = new BlockPos.MutableBlockPos();
-        for (int y = minY; y < minY + sy; y++) {
-            for (int z = minZ; z < minZ + sz; z++) {
-                for (int x = minX; x < minX + sx; x++) {
-                    p.set(x, y, z);
-                    if (!inside.test(p)) {
-                        continue;
-                    }
-                    if (roof ? !isRoofCell(inside, p, shape, prismAlongZ) : hollow && isInterior(inside, p)) {
-                        continue;
-                    }
-                    cells.add(p.asLong());
-                }
-            }
-        }
 
         // Reihenfolge: Schicht (entlang der Baurichtung), dann Abstand zur Mitte der Schicht.
         OctantItem.FillOrder order;
@@ -196,73 +192,182 @@ public final class ShapeFill {
             case TOP_DOWN -> Direction.DOWN;
             default -> orientation;
         };
-        long[] sortable = new long[cells.size()];
-        int twiceCx = 2 * minX + sx, twiceCy = 2 * minY + sy, twiceCz = 2 * minZ + sz;
-        for (int i = 0; i < sortable.length; i++) {
-            BlockPos c = BlockPos.of(cells.getLong(i));
-            int layer = layerOf(c, buildDir, minX, minY, minZ, sx, sy, sz);
-            long dx = 2L * c.getX() + 1 - twiceCx, dy = 2L * c.getY() + 1 - twiceCy, dz = 2L * c.getZ() + 1 - twiceCz;
-            long dist = switch (buildDir.getAxis()) {
-                case X -> dy * dy + dz * dz;
-                case Y -> dx * dx + dz * dz;
-                case Z -> dx * dx + dy * dy;
-            };
-            sortable[i] = ((long) layer << 44) | (Math.min(dist, 0x3FFFFFL) << 22) | i;
-        }
-        java.util.Arrays.sort(sortable);
-
-        // Schichtmodus: nur die erste Schicht, in der noch etwas frei ist.
-        int onlyLayer = -1;
-        if (nbt.getBooleanOr("LayerMode", false)) {
-            for (long key : sortable) {
-                BlockPos c = BlockPos.of(cells.getLong((int) (key & 0x3FFFFFL)));
-                if (level.getBlockState(c).canBeReplaced()) {
-                    onlyLayer = (int) (key >>> 44);
-                    break;
-                }
-            }
-            if (onlyLayer < 0) {
-                return new Plan(new BlueprintBuilder.ListLayout(new long[0], new BlockState[0]), null, roof);
-            }
-        }
 
         // Entities in der Box: nur Stellen, die eine davon beruehren, pruefen die Kollision genau.
         List<AABB> entityBoxes = new ArrayList<>();
         for (Entity entity : level.getEntities((Entity) null, bounds)) {
             entityBoxes.add(entity.getBoundingBox());
         }
-        Block slab = roof ? slabFor(stairBlock) : null;
-        BlockState[] base = new BlockState[materials.size()];
-        LongArrayList outPos = new LongArrayList();
-        List<BlockState> outStates = new ArrayList<>();
-        for (long key : sortable) {
-            if (onlyLayer >= 0 && (int) (key >>> 44) != onlyLayer) {
-                continue;
+        FillLayout layout = new FillLayout(level, player, bounds, minX, minY, minZ, sx, sy, sz,
+                OctantShape.predicate(shape, orientation, bounds), shape, buildDir, roof, nbt.getBooleanOr("Hollow", false),
+                nbt.getBooleanOr("LayerMode", false), palette, materials, stairBlock, roof ? slabFor(stairBlock) : null, entityBoxes);
+        return new Plan(layout, null, roof);
+    }
+
+    /**
+     * Die Stellenliste der Oktant-Fuellung, ohne sie auszurechnen: Stelle {@code i} ist Schicht
+     * {@code i / area} (entlang der Baurichtung) und darin der {@code i % area}-naechste Punkt zur Mitte
+     * des Querschnitts. Alles Weitere - Figur, Hohl, Dachflaeche, Schichtmodus, Block, Halt, Entities -
+     * wird erst beim Besuch entschieden ({@link #included}, {@link #state}); so kostet ein Klick nur das
+     * Sortieren eines Querschnitts, und der Bauplaner bestimmt mit seinem Besuchsbudget, wie viel davon
+     * je Tick geschieht.
+     */
+    static final class FillLayout extends BlueprintBuilder.Layout {
+        private final Level level;
+        private final Player player;
+        private final AABB bounds;
+        private final int minX, minY, minZ, sx, sy, sz;
+        private final Predicate<BlockPos> inside;
+        private final OctantItem.SelectionShape shape;
+        private final Direction buildDir;
+        private final boolean roof, hollow, layerMode, palette, prismAlongZ;
+        private final List<ItemStack> materials;
+        private final BlockState[] base;
+        private final Block stairBlock, slab;
+        private final List<AABB> entityBoxes;
+        /** Querschnitt: Index (u + v * width) je Rang, nach Abstand zur Mitte sortiert. */
+        private final int[] cross;
+        private final int width, area, layers;
+        /** Schichtmodus: bis wohin geschaut wurde und welche Schicht die erste mit einer freien Stelle ist. */
+        private int scannedLayers;
+        private int firstFreeLayer = -1;
+
+        FillLayout(Level level, Player player, AABB bounds, int minX, int minY, int minZ, int sx, int sy, int sz,
+                   Predicate<BlockPos> inside, OctantItem.SelectionShape shape, Direction buildDir, boolean roof, boolean hollow,
+                   boolean layerMode, boolean palette, List<ItemStack> materials, Block stairBlock, Block slab, List<AABB> entityBoxes) {
+            this.level = level;
+            this.player = player;
+            this.bounds = bounds;
+            this.minX = minX;
+            this.minY = minY;
+            this.minZ = minZ;
+            this.sx = sx;
+            this.sy = sy;
+            this.sz = sz;
+            this.inside = inside;
+            this.shape = shape;
+            this.buildDir = buildDir;
+            this.roof = roof;
+            this.hollow = hollow;
+            this.layerMode = layerMode;
+            this.palette = palette;
+            // Prisma: Gefaelle quer zur laengeren Grundkante (wie OctantShape#isPointInPrism).
+            this.prismAlongZ = sz > sx;
+            this.materials = materials;
+            this.base = new BlockState[materials.size()];
+            this.stairBlock = stairBlock;
+            this.slab = slab;
+            this.entityBoxes = entityBoxes;
+            int w, h;
+            switch (buildDir.getAxis()) {
+                case X -> { w = sy; h = sz; layers = sx; }
+                case Y -> { w = sx; h = sz; layers = sy; }
+                default -> { w = sx; h = sy; layers = sz; }
             }
-            BlockPos c = BlockPos.of(cells.getLong((int) (key & 0x3FFFFFL)));
-            BlockState state;
-            if (roof) {
-                state = roofState(inside, c, shape, prismAlongZ, bounds, stairBlock, slab);
-            } else {
-                int m = palette ? BuildingWandItem.paletteIndex(c, materials.size()) : 0;
-                if (base[m] == null) {
-                    base[m] = WandPlacement.baseState(level, player, materials.get(m), c, Direction.UP, WandPlacement.TOP_CENTER, null);
-                    if (base[m] == null) {
-                        base[m] = ((BlockItem) materials.get(m).getItem()).getBlock().defaultBlockState();
+            this.width = w;
+            this.area = w * h;
+            // Abstand zur Mitte in doppelten Koordinaten (ganzzahlig), Rang = Abstand, dann Index.
+            long[] sortable = new long[area];
+            for (int v = 0; v < h; v++) {
+                for (int u = 0; u < w; u++) {
+                    long du = 2L * u + 1 - w, dv = 2L * v + 1 - h;
+                    sortable[u + v * w] = ((du * du + dv * dv) << 20) | (u + v * w);
+                }
+            }
+            java.util.Arrays.sort(sortable);
+            this.cross = new int[area];
+            for (int i = 0; i < area; i++) {
+                cross[i] = (int) (sortable[i] & 0xFFFFFL);
+            }
+        }
+
+        @Override
+        public int size() {
+            return area * layers;
+        }
+
+        @Override
+        public BlockPos pos(int i) {
+            return posOf(i / area, cross[i % area]);
+        }
+
+        private BlockPos posOf(int layer, int cell) {
+            int u = cell % width, v = cell / width;
+            return switch (buildDir) {
+                case UP -> new BlockPos(minX + u, minY + layer, minZ + v);
+                case DOWN -> new BlockPos(minX + u, minY + sy - 1 - layer, minZ + v);
+                case EAST -> new BlockPos(minX + layer, minY + u, minZ + v);
+                case WEST -> new BlockPos(minX + sx - 1 - layer, minY + u, minZ + v);
+                case SOUTH -> new BlockPos(minX + u, minY + v, minZ + layer);
+                case NORTH -> new BlockPos(minX + u, minY + v, minZ + sz - 1 - layer);
+            };
+        }
+
+        /** In der Figur, und je nach Modus Huelle bzw. Dachflaeche. */
+        private boolean inFigure(BlockPos p) {
+            if (!inside.test(p)) {
+                return false;
+            }
+            return roof ? isRoofCell(inside, p, shape, prismAlongZ) : !(hollow && isInterior(inside, p));
+        }
+
+        @Override
+        boolean included(int i) {
+            int layer = i / area;
+            if (layerMode && layer != chosenLayer(layer)) {
+                return false;
+            }
+            return inFigure(pos(i));
+        }
+
+        /**
+         * Schichtmodus: die erste Schicht (bis einschliesslich {@code upTo}), in der noch eine Stelle der
+         * Figur frei ist, oder -1. Jede Schicht wird hoechstens einmal je Planung angesehen, und nur,
+         * wenn der Besuch bei ihr ankommt - ein Querschnitt, also hoechstens 65 536 Lesezugriffe auf
+         * einmal. Das Ergebnis bleibt fuer diese Planung stehen, Pruefung und Bau waehlen dieselbe Schicht.
+         */
+        private int chosenLayer(int upTo) {
+            while (firstFreeLayer < 0 && scannedLayers <= upTo && scannedLayers < layers) {
+                int layer = scannedLayers++;
+                for (int r = 0; r < area; r++) {
+                    BlockPos p = posOf(layer, cross[r]);
+                    if (inFigure(p) && level.isLoaded(p) && level.getBlockState(p).canBeReplaced()) {
+                        firstFreeLayer = layer;
+                        break;
                     }
                 }
-                state = base[m];
-                if (!state.canSurvive(level, c)) {
-                    continue;
+            }
+            return firstFreeLayer;
+        }
+
+        @Override
+        BlockState rawState(int i) {
+            BlockPos c = pos(i);
+            if (roof) {
+                return roofState(inside, c, shape, prismAlongZ, bounds, stairBlock, slab);
+            }
+            int m = palette ? BuildingWandItem.paletteIndex(c, materials.size()) : 0;
+            if (base[m] == null) {
+                base[m] = WandPlacement.baseState(level, player, materials.get(m), c, Direction.UP, WandPlacement.TOP_CENTER, null);
+                if (base[m] == null) {
+                    base[m] = ((BlockItem) materials.get(m).getItem()).getBlock().defaultBlockState();
                 }
             }
-            if (touchesEntity(entityBoxes, c) && !level.isUnobstructed(state, c, CollisionContext.placementContext(player))) {
-                continue;
-            }
-            outPos.add(c.asLong());
-            outStates.add(state);
+            return base[m];
         }
-        return new Plan(new BlueprintBuilder.ListLayout(outPos.toLongArray(), outStates.toArray(new BlockState[0])), null, roof);
+
+        @Override
+        public BlockState state(int i) {
+            BlockPos c = pos(i);
+            BlockState state = rawState(i);
+            if (!roof && !state.canSurvive(level, c)) {
+                return null;
+            }
+            if (touchesEntity(entityBoxes, c) && !level.isUnobstructed(state, c, CollisionContext.placementContext(player))) {
+                return null;
+            }
+            return state;
+        }
     }
 
     /** Figur mit Spitze nach oben, die ein Dach werden kann (Prisma oder Pyramide)? */
@@ -405,9 +510,9 @@ public final class ShapeFill {
 
     /**
      * Die Geisterbloecke: was ein Klick jetzt setzen wuerde (simulierter Vorrat), fehlendes Material
-     * rot. Die Stellenliste wird nur neu berechnet, wenn sich Auswahl, Material oder Blickrichtung
-     * aendern (bei kleinen Figuren zusaetzlich alle zwei Sekunden, damit der Schichtmodus
-     * weiterrueckt), die Materialpruefung alle vier Ticks.
+     * rot. Die (billige) Planung wird neu gemacht, wenn sich Auswahl, Material oder Blickrichtung
+     * aendern, sonst alle zwei Sekunden (damit der Schichtmodus weiterrueckt); die Materialpruefung
+     * besucht alle vier Ticks hoechstens {@link BlueprintBuilder#PREVIEW_VISITS} Stellen.
      */
     public static BlueprintBuilder.Preview preview(Level level, Player player, ItemStack wand, ItemStack octant) {
         List<Object> materialKey = new ArrayList<>();
@@ -420,9 +525,10 @@ public final class ShapeFill {
             materialKey.add(first == null ? null : first.getItem());
         }
         CustomData data = octant.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
-        boolean small = layoutCache != null && layoutCache.layout() != null && layoutCache.layout().size() <= 262_144;
+        // Die Planung liest die Welt nicht mehr (nur ein Querschnitt wird sortiert), deshalb darf sie
+        // alle zwei Sekunden neu laufen - so rueckt der Schichtmodus weiter, auch bei grossen Figuren.
         List<Object> lKey = java.util.Arrays.asList(data, wand.getItem(), materialKey, player.getDirection(),
-                small ? level.getGameTime() / 40 : 0L);
+                level.getGameTime() / 40);
         if (!Objects.equals(lKey, layoutKey) || layoutCache == null) {
             layoutKey = lKey;
             layoutCache = plan(level, player, wand, octant);

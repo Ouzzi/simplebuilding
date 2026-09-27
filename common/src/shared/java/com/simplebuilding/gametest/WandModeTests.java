@@ -547,6 +547,53 @@ public final class WandModeTests {
         helper.succeed();
     }
 
+    /**
+     * The octant fill plans without touching the world (audit 2026-09-26 #8): a selection in chunks
+     * that are not loaded is refused - and stays unloaded - and whether a block has support is only
+     * decided when the planner visits the cell, inside its per-tick budget. A torch cell over air
+     * therefore still builds when the floor appears between planning and building; the old planner
+     * had already read (and dropped) it at click time, for every one of up to 4 million cells.
+     *
+     * <p><strong>What breaks this test:</strong> a planner that reads blocks (and so loads or
+     * generates chunks) for the whole box when the wand is clicked, or no check for unloaded chunks.
+     */
+    public static void octantFillPlansLazilyAndRefusesUnloadedChunks(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        clearRoom(helper);
+        ItemStack wand = wand(helper, ModItems.DIAMOND_BUILDING_WAND, 1, null);
+        stock(player, wand, new ItemStack(Items.TORCH, 8));
+        player.setItemInHand(InteractionHand.MAIN_HAND, wand);
+
+        // --- far away, nothing loaded there: refused without loading the chunk ---
+        BlockPos far = helper.absolutePos(new BlockPos(2, 1, 2)).offset(200_000, 0, 200_000);
+        ItemStack distant = new ItemStack(ModItems.OCTANT);
+        CompoundTag nbt = new CompoundTag();
+        nbt.putIntArray("Pos1", new int[]{far.getX(), far.getY(), far.getZ()});
+        nbt.putIntArray("Pos2", new int[]{far.getX() + 1, far.getY(), far.getZ() + 1});
+        distant.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
+        helper.assertFalse(helper.getLevel().hasChunk(far.getX() >> 4, far.getZ() >> 4), "setup: the far chunk is already loaded");
+        ShapeFill.Plan refused = ShapeFill.plan(helper.getLevel(), player, wand, distant);
+        helper.assertTrue(refused.problem() != null
+                        && "simplebuilding.wand.shape.unloaded".equals(hintKey(refused.problem())),
+                "a fill in unloaded chunks was not refused: " + (refused.problem() == null ? "planned" : hintKey(refused.problem())));
+        helper.assertFalse(helper.getLevel().hasChunk(far.getX() >> 4, far.getZ() >> 4), "planning loaded the far chunk");
+
+        // --- support is decided when the cell is visited, not at click time ---
+        ItemStack single = octant(helper, new BlockPos(2, 2, 2), new BlockPos(2, 2, 2), "CUBOID", false, false);
+        player.setItemInHand(InteractionHand.OFF_HAND, single);
+        ShapeFill.Plan plan = ShapeFill.plan(helper.getLevel(), player, wand, single);
+        helper.assertTrue(plan.problem() == null && plan.layout() != null, "the one-cell fill was not planned: " + plan.problem());
+        helper.setBlock(new BlockPos(2, 1, 2), Blocks.STONE); // the floor arrives after the plan
+        BlueprintBuilder.buildLayout(helper.getLevel(), player, wand, single, plan.layout());
+        BlueprintBuilder.completeJob(player);
+        helper.assertTrue(helper.getBlockState(new BlockPos(2, 2, 2)).is(Blocks.TORCH),
+                "the torch was dropped at planning time although its floor was there when the planner got to it: "
+                        + helper.getBlockState(new BlockPos(2, 2, 2)));
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        clearRoom(helper);
+        helper.succeed();
+    }
+
     private static String hintKey(net.minecraft.network.chat.Component hint) {
         return hint != null && hint.getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents t ? t.getKey() : String.valueOf(hint);
     }

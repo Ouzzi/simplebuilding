@@ -61,6 +61,8 @@ import net.minecraft.world.phys.Vec3;
 public final class BlueprintTests {
     private static final BlockPos CLICKED = new BlockPos(3, 1, 3);
     private static final BlockPos TARGET = CLICKED.above();
+    /** Laufzeit von {@link #signPacketsShareOneParseBudgetPerPlayer}: 40 Ticks Wartezeit plus Luft. */
+    public static final int SIGN_BUDGET_MAX_TICKS = 100;
 
     private BlueprintTests() {
     }
@@ -1196,6 +1198,158 @@ public final class BlueprintTests {
                     clear(helper);
                 })
                 .thenSucceed();
+    }
+
+    // =====================================================================================
+    // AUDIT 2026-09-26
+    // =====================================================================================
+
+    /**
+     * Ein Ueberlebens-Bau setzt nur, was ein Item hergibt: Ausrichtung und Form bleiben (Treppe nach
+     * Osten, obere Haelfte; Endportalrahmen nach Westen), Wachstum und Fuellstaende fallen auf den
+     * Grundzustand (Nether-Warze {@code age=3} -&gt; 0, Komposter {@code level=8} -&gt; 0, Seelenanker
+     * {@code charges=4} -&gt; 0, Rahmen ohne Auge), ein gefuellter Kessel wird zum leeren Kessel, und Laub
+     * bleibt dauerhaft. Der Kreativmodus baut denselben Code unveraendert (Audit #2).
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Bau, der den Code-Zustand ungefiltert setzt
+     * (endlose Vermehrung: ein Item Warze gibt eine reife Warze, ein Kessel einen Lavakessel), eine
+     * Filterliste, die auch die Ausrichtung verwirft, oder eine, die den Kreativmodus mit trifft.
+     */
+    public static void survivalBuildResetsGrownAndFilledStates(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        clear(helper);
+        ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
+        String code = "composter[level=8] 0,0,0\n"
+                + "soul_sand 0,0,1\n"
+                + "nether_wart[age=3] 0,1,1\n"
+                + "respawn_anchor[charges=4] 0,0,2\n"
+                + "end_portal_frame[eye=true,facing=west] 0,1,2\n"
+                + "oak_stairs[facing=east,half=top] 0,0,3\n"
+                + "oak_leaves[persistent=false,distance=7] 0,1,3\n"
+                + "water_cauldron[level=3] 0,0,4";
+        ItemStack blueprint = blueprint(code);
+        ItemStack[] supplies = {new ItemStack(Items.COMPOSTER), new ItemStack(Items.SOUL_SAND), new ItemStack(Items.NETHER_WART),
+                new ItemStack(Items.RESPAWN_ANCHOR), new ItemStack(Items.END_PORTAL_FRAME), new ItemStack(Items.OAK_STAIRS),
+                new ItemStack(Items.OAK_LEAVES), new ItemStack(Items.CAULDRON)};
+        hold(player, wand, blueprint, supplies);
+        BlueprintBuilder.Result built = build(helper, player, wand, blueprint);
+        helper.assertTrue(built != null && !built.warned() && built.placed() == 8 && built.missing() == 0,
+                "the eight blocks should build from one item each: " + built);
+        for (ItemStack supply : supplies) {
+            helper.assertTrue(supply.isEmpty(), "the build did not use its " + supply);
+        }
+        BlockState composter = helper.getBlockState(TARGET);
+        BlockState wart = helper.getBlockState(TARGET.south().above());
+        BlockState anchor = helper.getBlockState(TARGET.south(2));
+        BlockState frame = helper.getBlockState(TARGET.south(2).above());
+        BlockState stairs = helper.getBlockState(TARGET.south(3));
+        BlockState leaves = helper.getBlockState(TARGET.south(3).above());
+        BlockState cauldron = helper.getBlockState(TARGET.south(4));
+        helper.assertTrue(composter.is(Blocks.COMPOSTER) && composter.getValue(BlockStateProperties.LEVEL_COMPOSTER) == 0,
+                "a full composter came out of one composter item: " + composter);
+        helper.assertTrue(wart.is(Blocks.NETHER_WART) && wart.getValue(BlockStateProperties.AGE_3) == 0,
+                "a ripe nether wart came out of one wart: " + wart);
+        helper.assertTrue(anchor.is(Blocks.RESPAWN_ANCHOR) && anchor.getValue(BlockStateProperties.RESPAWN_ANCHOR_CHARGES) == 0,
+                "a charged respawn anchor came out of one anchor: " + anchor);
+        helper.assertTrue(frame.is(Blocks.END_PORTAL_FRAME) && !frame.getValue(BlockStateProperties.EYE)
+                        && frame.getValue(BlockStateProperties.HORIZONTAL_FACING) == Direction.WEST,
+                "the end portal frame lost its facing or got a free eye: " + frame);
+        helper.assertTrue(stairs.is(Blocks.OAK_STAIRS) && stairs.getValue(StairBlock.FACING) == Direction.EAST
+                        && stairs.getValue(StairBlock.HALF) == Half.TOP,
+                "the stair lost its orientation: " + stairs);
+        helper.assertTrue(leaves.is(Blocks.OAK_LEAVES) && leaves.getValue(BlockStateProperties.PERSISTENT),
+                "leaves built by hand have to stay (persistent), not decay: " + leaves);
+        helper.assertTrue(cauldron.is(Blocks.CAULDRON), "one cauldron item built a filled cauldron: " + cauldron);
+
+        // Kreativ: derselbe Code genau so, wie er dasteht.
+        clear(helper);
+        player.getAbilities().instabuild = true;
+        BlueprintBuilder.Result creative = build(helper, player, wand, blueprint);
+        helper.assertTrue(creative != null && creative.placed() == 8, "the creative build did not place all eight: " + creative);
+        helper.assertTrue(helper.getBlockState(TARGET).getValue(BlockStateProperties.LEVEL_COMPOSTER) == 8,
+                "creative lost the composter level: " + helper.getBlockState(TARGET));
+        helper.assertTrue(helper.getBlockState(TARGET.south().above()).getValue(BlockStateProperties.AGE_3) == 3,
+                "creative lost the wart's age: " + helper.getBlockState(TARGET.south().above()));
+        helper.assertTrue(helper.getBlockState(TARGET.south(2).above()).getValue(BlockStateProperties.EYE),
+                "creative lost the frame's eye");
+        helper.assertTrue(helper.getBlockState(TARGET.south(4)).is(Blocks.WATER_CAULDRON),
+                "creative did not build the water cauldron: " + helper.getBlockState(TARGET.south(4)));
+        clear(helper);
+        helper.succeed();
+    }
+
+    /**
+     * Scheitert das Setzen, nachdem das Material abgebucht ist, bekommt der Spieler es zurueck; die
+     * Stelle zaehlt als blockiert (Audit #28).
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Planer, der das Material vor dem Setzen nimmt und
+     * bei einem Fehlschlag behaelt.
+     */
+    public static void failedPlacementHandsTheMaterialBack(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        clear(helper);
+        ItemStack wand = new ItemStack(ModItems.DIAMOND_BUILDING_WAND);
+        hold(player, wand, ItemStack.EMPTY, new ItemStack(Items.STONE, 5));
+        BlockPos at = helper.absolutePos(TARGET);
+        BlueprintBuilder.ListLayout layout = new BlueprintBuilder.ListLayout(new long[]{at.asLong()},
+                new BlockState[]{Blocks.STONE.defaultBlockState()});
+
+        BlueprintBuilder.Planner failing = new BlueprintBuilder.Planner(helper.getLevel(), player, wand, layout,
+                BlueprintBuilder.realSupply(player, wand), false, false);
+        failing.run(16, 16, (pos, state) -> false);
+        helper.assertTrue(failing.result().blocked() == 1 && failing.result().placed() == 0,
+                "a refused placement should count as blocked: " + failing.result());
+        helper.assertValueEqual(countStone(player), 5, "stone left after a placement that failed");
+
+        // Gegenprobe: gelingt das Setzen, ist genau ein Stein weg.
+        BlueprintBuilder.Planner working = new BlueprintBuilder.Planner(helper.getLevel(), player, wand, layout,
+                BlueprintBuilder.realSupply(player, wand), false, false);
+        working.run(16, 16, (pos, state) -> true);
+        helper.assertValueEqual(countStone(player), 4, "stone left after one successful placement");
+        helper.succeed();
+    }
+
+    private static int countStone(ServerPlayer player) {
+        int n = 0;
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            ItemStack s = player.getInventory().getItem(i);
+            if (s.is(Items.STONE)) {
+                n += s.getCount();
+            }
+        }
+        return n;
+    }
+
+    /**
+     * Signieren parst den ganzen Code; dafuer hat jeder Spieler ein Zeichenbudget (zwei volle Codes
+     * sofort, dann einer je Sekunde). Drei fast volle Codes im selben Tick: die ersten zwei werden
+     * signiert, der dritte abgewiesen - eine Weile spaeter geht auch er (Audit #11).
+     *
+     * <p><strong>Was diesen Test bricht:</strong> ein Signier-Paket, das ohne Grenze geparst wird (ein
+     * Client in Schleife beschaeftigt den Server mit 32 000 Zeichen je Paket), oder ein Budget, das
+     * sich nie wieder auffuellt.
+     */
+    public static void signPacketsShareOneParseBudgetPerPlayer(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        player.getInventory().clearContent();
+        for (int slot = 0; slot < 3; slot++) {
+            player.getInventory().setItem(slot, new ItemStack(ModItems.BLUEPRINT));
+        }
+        String big = "stone 0,0,0\n#" + "x".repeat(BlueprintCode.MAX_CODE_LENGTH - 20);
+        for (int slot = 0; slot < 3; slot++) {
+            ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(slot, big, true, "Gross"), player);
+        }
+        helper.assertTrue(BlueprintItem.content(player.getInventory().getItem(0)).signed()
+                        && BlueprintItem.content(player.getInventory().getItem(1)).signed(),
+                "the first two full-size codes should be signed at once");
+        helper.assertFalse(BlueprintItem.content(player.getInventory().getItem(2)).signed(),
+                "a third full-size code in the same tick was parsed and signed - there is no parse budget");
+        helper.runAfterDelay(40, () -> {
+            ModMessageHandlers.handleBlueprintEdit(new BlueprintEditPayload(2, big, true, "Gross"), player);
+            helper.assertTrue(BlueprintItem.content(player.getInventory().getItem(2)).signed(),
+                    "two seconds later the budget should allow the third code again");
+            helper.succeed();
+        });
     }
 
     // =====================================================================================

@@ -284,6 +284,9 @@ public final class NetworkHandlerTests {
      */
     public static void octantConfigureStoresTheWholeSelectionState(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
+        // The corners below are absolute and near the origin; the handler only takes corners within
+        // OCTANT_CORNER_RANGE of the player (audit 2026-09-26 #9), so the player stands there too.
+        player.snapTo(0.5, 0.0, 0.5, 0.0F, 0.0F);
         ItemStack octant = new ItemStack(ModItems.OCTANT);
         player.setItemInHand(InteractionHand.MAIN_HAND, octant);
 
@@ -395,6 +398,9 @@ public final class NetworkHandlerTests {
      */
     public static void octantScrollCyclesShapesAndNudgesCornersByFacing(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
+        // Near the absolute corners the test nudges (10..60): moved corners must stay within
+        // OCTANT_CORNER_RANGE of the player (audit 2026-09-26 #9).
+        player.snapTo(25.5, 35.0, 45.5, 0.0F, 0.0F);
         ItemStack octant = new ItemStack(ModItems.OCTANT);
         player.setItemInHand(InteractionHand.MAIN_HAND, octant);
         int shapeCount = OCTANT_SHAPE_NAMES.size();
@@ -599,6 +605,63 @@ public final class NetworkHandlerTests {
         Assertions.valueEqual(helper, countInBundle(plainBundle, Items.STONE), BUNDLE_STONE,
                 "stone in an unenchanted bundle after a pick - it must not lose anything");
 
+        MockPlayers.remove(helper, player);
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * The octant packets are checked on the server (audit 2026-09-26 #9): a corner further than
+     * {@code OCTANT_CORNER_RANGE} from the player or outside the build height is dropped, shape and
+     * fill order only land as a known enum name and the orientation only as 0..5 - everything else
+     * keeps what the item holds. A scroll packet moves a corner by at most {@code OCTANT_MAX_SCROLL}
+     * and never out of range.
+     *
+     * <p><strong>What breaks this test:</strong> storing corners anywhere in the world (the octant
+     * fill then plans far away), storing arbitrary strings as the shape, or a scroll amount that is
+     * taken as it comes (Integer.MAX_VALUE overflows the corner).
+     */
+    public static void octantPacketsRejectFarCornersUnknownNamesAndHugeScrolls(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        ItemStack octant = new ItemStack(ModItems.OCTANT);
+        player.setItemInHand(InteractionHand.MAIN_HAND, octant);
+        BlockPos at = player.blockPosition();
+        int range = ModMessageHandlers.OCTANT_CORNER_RANGE;
+
+        BlockPos near = at.offset(5, 0, 5);
+        ModMessageHandlers.handleOctantConfigure(new OctantConfigurePayload(
+                Optional.of(near), Optional.of(at.offset(range + 1, 0, 0)),
+                OCTANT_SHAPE_NAMES.get(4), false, 3, false, false, OCTANT_FILL_ORDER_NAMES.get(2)), player);
+        CompoundTag first = customData(octant);
+        helper.assertTrue(Arrays.equals(intArray(first, "Pos1"), new int[]{near.getX(), near.getY(), near.getZ()}),
+                "a corner right next to the player was not stored");
+        helper.assertFalse(first.contains("Pos2"), "a corner " + (range + 1) + " blocks away was stored: " + first);
+
+        BlockPos second = at.offset(10, 2, 10);
+        ModMessageHandlers.handleOctantConfigure(new OctantConfigurePayload(
+                Optional.of(new BlockPos(at.getX(), helper.getLevel().getMinY() - 1, at.getZ())), Optional.of(second),
+                "NOT_A_SHAPE", false, 99, false, false, "sideways"), player);
+        CompoundTag after = customData(octant);
+        helper.assertTrue(Arrays.equals(intArray(after, "Pos1"), new int[]{near.getX(), near.getY(), near.getZ()}),
+                "a corner below the world replaced the stored one: " + after);
+        helper.assertTrue(Arrays.equals(intArray(after, "Pos2"), new int[]{second.getX(), second.getY(), second.getZ()}),
+                "a corner in range was not stored");
+        helper.assertTrue(after.getString("Shape").orElse("").equals(OCTANT_SHAPE_NAMES.get(4)),
+                "an unknown shape name replaced the stored shape: " + after);
+        helper.assertTrue(after.getString("FillOrder").orElse("").equals(OCTANT_FILL_ORDER_NAMES.get(2)),
+                "an unknown fill order replaced the stored one: " + after);
+        Assertions.valueEqual(helper, after.getIntOr("Orientation", -1), 3, "orientation after an out-of-range ordinal");
+
+        // --- a huge scroll amount moves the corner by the cap, facing south (yaw 0): +z ---
+        ModMessageHandlers.handleOctantScroll(new OctantScrollPayload(Integer.MAX_VALUE, false, true, false), player);
+        helper.assertTrue(Arrays.equals(intArray(customData(octant), "Pos1"),
+                        new int[]{near.getX(), near.getY(), near.getZ() + ModMessageHandlers.OCTANT_MAX_SCROLL}),
+                "a scroll of Integer.MAX_VALUE was not capped: " + Arrays.toString(intArray(customData(octant), "Pos1")));
+
+        // --- a nudge that would carry the corner out of range is refused ---
+        setCorners(octant, new int[]{at.getX(), at.getY(), at.getZ() + range - 1}, new int[]{second.getX(), second.getY(), second.getZ()});
+        ModMessageHandlers.handleOctantScroll(new OctantScrollPayload(ModMessageHandlers.OCTANT_MAX_SCROLL, false, true, false), player);
+        helper.assertTrue(Arrays.equals(intArray(customData(octant), "Pos1"), new int[]{at.getX(), at.getY(), at.getZ() + range - 1}),
+                "a scroll carried the corner out of range: " + Arrays.toString(intArray(customData(octant), "Pos1")));
         MockPlayers.remove(helper, player);
         TestCleanup.succeed(helper);
     }
