@@ -480,6 +480,8 @@ public final class TweaksEasterTests {
 
     /** Setzt das Item wie ein Spieler (BlockItem#place, also mit Block-Entity-Komponenten) auf den Boden. */
     private static void placeFromItem(GameTestHelper helper, ServerPlayer player, ItemStack stack, BlockPos pos) {
+        // Fester Grund darunter: der Klick trifft dessen Oberseite, das Pad landet genau auf pos.
+        helper.setBlock(pos.below(), Blocks.STONE);
         BlockPos abs = helper.absolutePos(pos);
         player.setItemInHand(InteractionHand.MAIN_HAND, stack);
         BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(abs.below()).add(0, 0.5, 0), Direction.UP, abs.below(), false);
