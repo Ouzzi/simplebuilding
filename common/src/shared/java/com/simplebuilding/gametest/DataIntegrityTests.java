@@ -3240,6 +3240,86 @@ public final class DataIntegrityTests {
                 helper.succeed();
     }
 
+    /**
+     * JEI shows how to get an item through its recipes and the mod's in-world categories. Every mod
+     * item that has neither - loot, ore drops, legacy items - needs an information page instead, or
+     * JEI shows it without any hint where it comes from.
+     *
+     * <p>Derived from the running game, not from a list: every item registered under the mod's
+     * namespace, minus the results of every loaded recipe (count-based smithing exposes no
+     * {@code RecipeDisplay}, so its result is read directly; JEI shows it through its smithing
+     * extension), minus every output of {@link com.simplebuilding.compat.InWorldRecipeCatalog},
+     * minus {@code c:hidden_from_recipe_viewers}. What remains must be on a page of
+     * {@link com.simplebuilding.compat.RecipelessJeiInfo} or
+     * {@link com.simplebuilding.tweaks.item.TweaksJeiInfo}, and every page key must be translated
+     * in en_us and de_de. The other direction is checked too: a page in {@code RecipelessJeiInfo}
+     * for an item that gained a recipe is stale.
+     */
+    public static void everyRecipelessModItemHasJeiInfo(GameTestHelper helper) {
+        ContextMap displayContext = SlotDisplayContext.fromLevel(helper.getLevel());
+        Set<Item> obtainable = new HashSet<>();
+        for (RecipeHolder<?> holder : helper.getLevel().getServer().getRecipeManager().getRecipes()) {
+            if (holder.value() instanceof CountBasedSmithingRecipe countBased) {
+                obtainable.add(countBased.getResultStack().getItem());
+            }
+            for (RecipeDisplay display : holder.value().display()) {
+                for (ItemStack stack : display.result().resolveForStacks(displayContext)) {
+                    obtainable.add(stack.getItem());
+                }
+            }
+        }
+        com.simplebuilding.compat.InWorldRecipeCatalog.Catalog catalog = com.simplebuilding.compat.InWorldRecipeCatalog.build();
+        for (com.simplebuilding.compat.InWorldRecipeCatalog.Entry entry : catalog.entries()) {
+            obtainable.addAll(entry.output().items());
+        }
+        helper.assertTrue(obtainable.size() > 100, "only " + obtainable.size() + " items come out of recipes - recipes not loaded?");
+
+        Map<Item, String> pageOf = new HashMap<>();
+        Map<String, List<net.minecraft.world.level.ItemLike>> pages = new LinkedHashMap<>(com.simplebuilding.tweaks.item.TweaksJeiInfo.families());
+        pages.putAll(com.simplebuilding.compat.RecipelessJeiInfo.pages());
+        for (Map.Entry<String, List<net.minecraft.world.level.ItemLike>> page : pages.entrySet()) {
+            for (net.minecraft.world.level.ItemLike like : page.getValue()) {
+                pageOf.put(like.asItem(), page.getKey());
+            }
+        }
+
+        TagKey<Item> hidden = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "hidden_from_recipe_viewers"));
+        List<String> problems = new ArrayList<>();
+        int recipeless = 0;
+        for (Item item : BuiltInRegistries.ITEM) {
+            Identifier id = BuiltInRegistries.ITEM.getKey(item);
+            if (!MOD_ID.equals(id.getNamespace()) || obtainable.contains(item) || new ItemStack(item).is(hidden)) {
+                continue;
+            }
+            recipeless++;
+            if (!pageOf.containsKey(item)) {
+                problems.add(id + " has no recipe, no in-world entry and no JEI info page (add it to RecipelessJeiInfo)");
+            }
+        }
+        for (Map.Entry<String, List<net.minecraft.world.level.ItemLike>> page : com.simplebuilding.compat.RecipelessJeiInfo.pages().entrySet()) {
+            for (net.minecraft.world.level.ItemLike like : page.getValue()) {
+                if (obtainable.contains(like.asItem())) {
+                    problems.add(BuiltInRegistries.ITEM.getKey(like.asItem()) + " is on the recipeless page " + page.getKey()
+                            + " but has a JEI-visible recipe now");
+                }
+            }
+        }
+        JsonObject en = langFile(helper, "en_us");
+        JsonObject de = langFile(helper, "de_de");
+        for (String page : pages.keySet()) {
+            String key = com.simplebuilding.compat.RecipelessJeiInfo.KEY_PREFIX + page;
+            for (Map.Entry<String, JsonObject> lang : Map.of("en_us", en, "de_de", de).entrySet()) {
+                JsonElement text = lang.getValue().get(key);
+                if (text == null || text.getAsString().isBlank()) {
+                    problems.add(key + " missing in " + lang.getKey());
+                }
+            }
+        }
+        helper.assertTrue(recipeless > 0, "no recipeless mod item found at all - the check sees nothing");
+        helper.assertTrue(problems.isEmpty(), problems.size() + " JEI info problems: " + problems);
+        helper.succeed();
+    }
+
     private static JsonObject langFile(GameTestHelper helper, String locale) {
         String path = "assets/simplebuilding/lang/" + locale + ".json";
         try (InputStream in = DataIntegrityTests.class.getClassLoader().getResourceAsStream(path)) {
