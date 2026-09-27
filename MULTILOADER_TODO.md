@@ -112,7 +112,7 @@ gebracht und nicht ausgeliefert. Aktive Loader sind **Fabric und NeoForge**.
 
 Was bei einem spaeteren Wiedereinstieg offen ist (belegt durch Vergleich mit dem
 NeoForge-Modul):
-- [ ] **Keiner der drei In-Welt-Renderer ist verdrahtet** — `BlockHighlightRenderer`,
+- [x] **Erledigt (Stand 2026-09-27): die drei In-Welt-Renderer sind verdrahtet** (`mixin/forge/LevelRendererMixin`: Highlights + Baustab-Vorschau, `LevelExtractorMixin`: Abbau-Risse). Frueher: — `BlockHighlightRenderer`,
   `BuildingWandPreviewRenderer` und `MultiBlockBreakingSupport` kommen im Forge-Modul
   nicht vor. Auf Forge fehlen damit Sledgehammer-/Octant-Highlights, die
   Building-Wand-Ghost-Vorschau und die Abbau-Risse auf Mehrfachbloecken.
@@ -123,12 +123,12 @@ NeoForge-Modul):
   `cloth-config` gibt es fuer Fabric und NeoForge, fuer Forge vermutlich nicht; dann
   waere `ForgeConfigSpec` + eigener Screen noetig. Achtung: `SimplebuildingConfig` und
   `HeldItemRendererMixin` liegen im gemeinsamen Baum und nutzen `me.shedaniel`-Klassen.
-- [ ] **Weniger HUD-Verdrahtung als NeoForge** (`AddGuiOverlayLayersEvent`): Oktant-HUD
+- [x] **Erledigt (Stand 2026-09-27): HUD wie NeoForge** (`SimplebuildingForgeClient` haengt Oktant-HUD, Tacho, Luftsprung-Balken und die `enchant_type`-Property ein). Frueher: (`AddGuiOverlayLayersEvent`): Oktant-HUD
   (`RangefinderHudOverlay`), Tacho (`SpeedometerHudOverlay`) und Luftsprung-Balken
   (`DoubleJumpHudOverlay`) fehlen; ebenso die `enchant_type`-Property der Buchtexturen.
-- [ ] **Nie zur Laufzeit gestartet** — auch nicht vor der Entfernung in dbdffdf.
+- [ ] **Client nie gestartet** (der Server laeuft seit dem Gametest-Adapter im Ziel `forge-262` von `tools/testrunner/run.py`). Frueher: — auch nicht vor der Entfernung in dbdffdf.
   Ein `runClient`/`runServer`-Durchlauf steht komplett aus.
-- [ ] **Kein Gametest-Adapter** — die gemeinsamen Testkoerper werden mitkompiliert
+- [x] **Erledigt (Stand 2026-09-27): Gametest-Adapter** `forge/src/main/java/com/simplebuilding/forge/gametest/ForgeGameTests.java` (+ `ForgeOnlyGameTests`), Ziel `forge-262` in `tools/testrunner/run.py`. Frueher: — die gemeinsamen Testkoerper werden mitkompiliert
   (`forge/build.gradle` nimmt `common/src/shared/java`), aber nichts registriert sie, es gibt
   keinen `gameTestServer`-Lauf und kein Forge-Ziel in `tools/testrunner/run.py`. Alle
   Forge-eigenen Daten sind damit ungeprueft, etwa die Biom-Modifier
@@ -158,7 +158,7 @@ alten Yarn-Branch hochgezogen). Verzeichnis `mc1_21_11/` mit `shared/java` + `fa
   aktiviert, `:mc1_21_11:fabric:runDatagen` erzeugt die Daten aus den eigenen Providern.
   663 Dateien rein, 663 raus; die einzigen 54 Abweichungen sind kosmetisch (53 Rezepte mit
   explizitem `"count": 1`, ein Tag nur in anderer Reihenfolge).
-- [ ] **Kein Gameplay-Test** — bisher nur Boot-Tests auf beiden Loadern.
+- [x] **Gameplay-Tests vorhanden** (Stand 2026-09-27): Server-Ziele `fabric-12111`/`neoforge-12111` und Client-Ziele in `tools/testrunner/run.py`, Testkoerper unter `mc1_21_11/shared/java/com/simplebuilding/gametest/`. Frueher: nur Boot-Tests.
 - [x] Kosmetik: 6 Spatula-Items waren ohne Modell registriert (fuer
   `LegacySpatulaMigration`) und erzeugten beim Start "No model loaded"-Warnungen.
   Seit 2026-09-24 haben sie auf beiden Minecraft-Versionen eine Item-Modelldefinition

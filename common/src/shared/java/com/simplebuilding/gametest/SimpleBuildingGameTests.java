@@ -1068,6 +1068,28 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("tweaks_game_test_tweaks_config_keeps_its_names_and_defaults", TweaksTests::tweaksConfigKeepsItsNamesAndDefaults)
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_tweaks_commands_write_the_config", TweaksTests::theTweaksCommandsWriteTheConfig)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_spawn_elytras_vanish_as_soon_as_they_leave_the_chest_slot", TweaksTests::spawnElytrasVanishAsSoonAsTheyLeaveTheChestSlot)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_spawn_area_lies_only_in_the_spawn_dimension_and_fall_protection_covers_all_of_it", TweaksTests::theSpawnAreaLiesOnlyInTheSpawnDimensionAndFallProtectionCoversAllOfIt)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_chunk_loaders_release_on_setblock_and_hand_over_shared_chunks", TweaksTests::chunkLoadersReleaseOnSetblockAndHandOverSharedChunks)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_overlapping_flypads_keep_the_player_flying_and_take_only_their_own_flight", TweaksTests::overlappingFlypadsKeepThePlayerFlyingAndTakeOnlyTheirOwnFlight)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_laser_relay_checks_the_sender_and_only_reaches_nearby_players", TweaksTests::theLaserRelayChecksTheSenderAndOnlyReachesNearbyPlayers)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_client_relevant_tweaks_values_are_sent_at_login_and_on_every_change", TweaksTests::theClientRelevantTweaksValuesAreSentAtLoginAndOnEveryChange)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_a_blocked_echo_compass_jump_costs_nothing", TweaksTests::aBlockedEchoCompassJumpCostsNothing)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_laser_pointer_is_crafted_from_amethyst_glass_iron_and_redstone", TweaksTests::theLaserPointerIsCraftedFromAmethystGlassIronAndRedstone)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_world_spawn_command_takes_effect_immediately", TweaksTests::theWorldSpawnCommandTakesEffectImmediately)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_kill_boats_all_drops_the_contents_of_chest_boats", TweaksTests::killBoatsAllDropsTheContentsOfChestBoats)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_flight_time_and_boosts_are_capped_and_broken_launchpads_drop_their_charges", TweaksTests::flightTimeAndBoostsAreCappedAndBrokenLaunchpadsDropTheirCharges)
                     .build()
             // --- /tweaks ---
             );

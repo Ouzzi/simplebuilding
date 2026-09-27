@@ -14,6 +14,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
@@ -23,9 +25,16 @@ import net.minecraft.world.phys.AABB;
  * Sicherheitsnetz den Absturz ab: wer fliegend hinausfliegt, bekommt 10 s Sanfter Fall.
  * Neu gegenueber Simple Tweaks: wird das Pad abgebaut oder abgeschaltet, verlieren auch die
  * Spieler im Bereich den Flug (vorher behielten sie ihn fuer immer).
+ *
+ * <p>Seit dem Audit 2026-09-26 (#32): ein Pad nimmt nur Flug zurueck, den ein Flypad gegeben hat
+ * (Spieler-Tag {@link #FLIGHT_TAG}, ueberlebt Neustarts), und nicht, solange ein anderes Flypad den
+ * Spieler noch abdeckt - vorher holte das eine Pad ihn aus der Luft, bis das andere ihn fuenf Ticks
+ * spaeter wieder fliegen liess.
  */
 public class FlypadBlockEntity extends OwnedBlockEntity {
     public static final int SAFETY_NET_TICKS = 200;
+    /** Merkt am Spieler, dass sein Flug von einem Flypad stammt (nicht Kreativ, nicht ein anderer Mod). */
+    public static final String FLIGHT_TAG = "simplebuilding.flypad_flight";
 
     private final Set<UUID> flyingPlayers = new HashSet<>();
 
@@ -59,10 +68,14 @@ public class FlypadBlockEntity extends OwnedBlockEntity {
         List<ServerPlayer> players = level.getEntitiesOfClass(ServerPlayer.class, range, p -> true);
         Set<UUID> current = new HashSet<>();
         for (ServerPlayer player : players) {
-            current.add(player.getUUID());
             if (!player.getAbilities().mayfly) {
                 player.getAbilities().mayfly = true;
                 player.onUpdateAbilities();
+                player.addTag(FLIGHT_TAG);
+            }
+            // Nur Flug, den ein Flypad gab, wird verfolgt (und spaeter zurueckgenommen).
+            if (player.entityTags().contains(FLIGHT_TAG)) {
+                current.add(player.getUUID());
             }
             player.addEffect(new MobEffectInstance(MobEffects.GLOWING, 10, 0, true, false, false));
         }
@@ -71,7 +84,7 @@ public class FlypadBlockEntity extends OwnedBlockEntity {
         while (it.hasNext()) {
             UUID id = it.next();
             if (!current.contains(id)) {
-                revoke(level, id, tier);
+                be.release(level, id, tier);
                 it.remove();
             }
         }
@@ -80,19 +93,49 @@ public class FlypadBlockEntity extends OwnedBlockEntity {
 
     private void revokeAll(Level level, int tier) {
         for (UUID id : flyingPlayers) {
-            revoke(level, id, tier);
+            release(level, id, tier);
         }
         flyingPlayers.clear();
     }
 
-    private static void revoke(Level level, UUID id, int tier) {
+    /** Dieses Pad laesst den Spieler los; der Flug endet nur, wenn kein anderes Flypad ihn traegt. */
+    private void release(Level level, UUID id, int tier) {
         if (!(level instanceof ServerLevel serverLevel)) {
             return;
         }
         ServerPlayer player = serverLevel.getServer().getPlayerList().getPlayer(id);
-        if (player != null) {
-            revoke(player, tier);
+        if (player == null || !player.entityTags().contains(FLIGHT_TAG)) {
+            return;
         }
+        if (player.level() == level && anotherPadCovers(serverLevel, player)) {
+            return;
+        }
+        revoke(player, tier);
+    }
+
+    /** Ob ein anderes eingeschaltetes Flypad den Spieler abdeckt (Suche ueber die Chunks in Reichweite des groessten Pads). */
+    private boolean anotherPadCovers(ServerLevel level, ServerPlayer player) {
+        if (!SimpleTweaks.config().pads.enableFlypads) {
+            return false;
+        }
+        int reach = (int) Math.ceil(PadTiers.halfWidth(PadTiers.MAX) / 16.0) + 1;
+        int cx = player.getBlockX() >> 4;
+        int cz = player.getBlockZ() >> 4;
+        for (int dx = -reach; dx <= reach; dx++) {
+            for (int dz = -reach; dz <= reach; dz++) {
+                LevelChunk chunk = level.getChunkSource().getChunkNow(cx + dx, cz + dz);
+                if (chunk == null) {
+                    continue;
+                }
+                for (BlockEntity other : chunk.getBlockEntities().values()) {
+                    if (other != this && !other.isRemoved() && other instanceof FlypadBlockEntity pad
+                            && PadTiers.flyArea(pad.getBlockPos(), tierOf(pad.getBlockState())).intersects(player.getBoundingBox())) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /** Nimmt einem Spieler den Pad-Flug (nicht im Kreativ-/Zuschauermodus); ab Enderit mit Sicherheitsnetz. */
@@ -101,6 +144,7 @@ public class FlypadBlockEntity extends OwnedBlockEntity {
         if (player.getAbilities().instabuild || player.isSpectator()) {
             return;
         }
+        player.removeTag(FLIGHT_TAG);
         boolean wasFlying = player.getAbilities().flying;
         player.getAbilities().mayfly = false;
         player.getAbilities().flying = false;

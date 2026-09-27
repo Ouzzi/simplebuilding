@@ -5,6 +5,7 @@ import com.simplebuilding.tweaks.block.TweaksBlocks;
 import com.simplebuilding.tweaks.client.LaserRenderer;
 import com.simplebuilding.tweaks.client.TweaksClient;
 import com.simplebuilding.tweaks.network.LaserPayload;
+import com.simplebuilding.tweaks.network.TweaksConfigPayload;
 import com.simplebuilding.tweaks.network.TweaksNetwork;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -21,6 +22,7 @@ public class TweaksFabricClient implements ClientModInitializer {
         TweaksClient.init();
         ClientTickEvents.END_CLIENT_TICK.register(TweaksClient::tick);
         ClientPlayNetworking.registerGlobalReceiver(LaserPayload.ID, (payload, context) -> TweaksNetwork.receiveLaser(payload));
+        ClientPlayNetworking.registerGlobalReceiver(TweaksConfigPayload.ID, (payload, context) -> TweaksNetwork.receiveConfig(payload));
         // 1.21.11 hat kein COLLECT_SUBMITS; BEFORE_ENTITIES sammelt noch Submit-Nodes (wie SimplebuildingClient).
         WorldRenderEvents.BEFORE_ENTITIES.register(context -> LaserRenderer.submit(
                 context.commandQueue(), context.matrices(), context.worldState().cameraRenderState.pos));

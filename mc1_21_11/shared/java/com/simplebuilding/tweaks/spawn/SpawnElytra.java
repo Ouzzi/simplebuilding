@@ -3,16 +3,22 @@ package com.simplebuilding.tweaks.spawn;
 import com.simplebuilding.tweaks.SimpleTweaks;
 import com.simplebuilding.tweaks.TweaksConfig;
 import com.simplebuilding.tweaks.component.TweaksComponents;
+import com.simplebuilding.tweaks.item.SpawnElytraItem;
 import com.simplebuilding.tweaks.item.TweaksItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Container;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 /**
  * Spawn-Elytra im Spawnbereich (Simple Tweaks: {@code SpawnHandler}). Wird von den Loadern beim
@@ -28,7 +34,7 @@ public final class SpawnElytra {
     }
 
     public static void recharge(ItemStack stack, TweaksConfig.Spawn config) {
-        stack.set(TweaksComponents.FLIGHT_TIME, config.flightTimeSeconds * 20);
+        stack.set(TweaksComponents.FLIGHT_TIME, config.flightTicks());
         stack.set(TweaksComponents.BOOST_LEVEL, 1.0f);
     }
 
@@ -58,11 +64,48 @@ public final class SpawnElytra {
         return new BlockPos(config.customSpawnElytraX, 0, config.customSpawnElytraZ);
     }
 
-    /** Quadratischer Bereich (Radius je Achse), Hoehe egal - wie in Simple Tweaks. */
+    /**
+     * Die Dimension des Spawnbereichs: die des Weltspawns (normal die Oberwelt). Vorher galten die
+     * Koordinaten in jeder Dimension - Nether und End-Hauptinsel bei 0,0 gaben freie Elytren und
+     * Fallschutz (Audit 2026-09-26 #4).
+     */
+    public static ResourceKey<Level> spawnDimension(Player player) {
+        MinecraftServer server = player.level().getServer();
+        return server != null ? server.getRespawnData().dimension() : Level.OVERWORLD;
+    }
+
+    /**
+     * Quadratischer Bereich (Radius je Achse), Hoehe egal - wie in Simple Tweaks - und nur in der
+     * Weltspawn-Dimension. Derselbe Bereich gilt fuer den Fallschutz ({@link ElytraDamageRules}),
+     * der frueher ein Kreis war und in den Ecken fehlte.
+     */
     public static boolean insideSpawn(Player player) {
+        if (player.level().dimension() != spawnDimension(player)) {
+            return false;
+        }
         BlockPos center = center(player);
         int radius = SimpleTweaks.config().spawn.spawnElytraRadius;
         return Math.abs(player.getX() - center.getX()) <= radius && Math.abs(player.getZ() - center.getZ()) <= radius;
+    }
+
+    /**
+     * Die Spawn-Elytra gibt es nur im Brust-Slot, nie im Inventar oder am Cursor. Laeuft jeden Tick
+     * (frueher nur einmal pro Sekunde - in der Luecke liess sie sich in eine Truhe legen, waehrend
+     * der Brustplatz leer war und sofort eine neue kam; Audit #3). Fallen gelassene Exemplare
+     * verschwinden in {@code SpawnElytraItemEntityMixin}, Container nehmen sie gar nicht an
+     * ({@code SpawnElytraSlotMixin}, {@link com.simplebuilding.tweaks.item.SpawnElytraItem}).
+     */
+    public static void removeStrayElytras(ServerPlayer player) {
+        if (player.containerMenu.getCarried().is(TweaksItems.SPAWN_ELYTRA)) {
+            player.containerMenu.setCarried(ItemStack.EMPTY);
+        }
+        var inventory = player.getInventory();
+        for (int i = 0; i < inventory.getContainerSize(); i++) {
+            ItemStack stack = inventory.getItem(i);
+            if (stack.is(TweaksItems.SPAWN_ELYTRA) && !isChestSlot(player, i)) {
+                inventory.removeItemNoUpdate(i);
+            }
+        }
     }
 
     public static void tick(ServerPlayer player, boolean fullPass) {
@@ -71,23 +114,10 @@ public final class SpawnElytra {
         // Timer und Aufraeumen der Elytren von Elytra-Pads nie. Jetzt haengt nur der Spawnbereich
         // am Schalter.
         boolean spawnEnabled = config.giveElytraOnSpawn;
-        if (!spawnEnabled && !player.getItemBySlot(EquipmentSlot.CHEST).is(TweaksItems.SPAWN_ELYTRA)
-                && !player.containerMenu.getCarried().is(TweaksItems.SPAWN_ELYTRA) && !fullPass) {
+        // 1. Aufraeumen, jeden Tick.
+        removeStrayElytras(player);
+        if (!spawnEnabled && !player.getItemBySlot(EquipmentSlot.CHEST).is(TweaksItems.SPAWN_ELYTRA) && !fullPass) {
             return;
-        }
-
-        // 1. Aufraeumen: die Spawn-Elytra gibt es nur im Brust-Slot, nie im Inventar oder am Cursor.
-        if (fullPass) {
-            if (player.containerMenu.getCarried().is(TweaksItems.SPAWN_ELYTRA)) {
-                player.containerMenu.setCarried(ItemStack.EMPTY);
-            }
-            var inventory = player.getInventory();
-            for (int i = 0; i < inventory.getContainerSize(); i++) {
-                ItemStack stack = inventory.getItem(i);
-                if (stack.is(TweaksItems.SPAWN_ELYTRA) && !isChestSlot(player, i)) {
-                    inventory.removeItemNoUpdate(i);
-                }
-            }
         }
 
         boolean inside = spawnEnabled && insideSpawn(player);
@@ -116,7 +146,7 @@ public final class SpawnElytra {
             }
         } else if (wearing) {
             Integer ticksLeft = chest.get(TweaksComponents.FLIGHT_TIME);
-            int maxTicks = config.flightTimeSeconds * 20;
+            int maxTicks = config.flightTicks();
             if (ticksLeft == null) {
                 ticksLeft = maxTicks;
             }
@@ -134,6 +164,16 @@ public final class SpawnElytra {
                 player.displayClientMessage(Component.translatable("message.simplebuilding.spawn_elytra.expires_soon").withStyle(ChatFormatting.RED), true);
             }
         }
+    }
+
+    /** Ohne TweaksItems zu laden (die Mixins fragen das auch vor der Registrierung). */
+    public static boolean isSpawnElytra(ItemStack stack) {
+        return stack.getItem() instanceof SpawnElytraItem;
+    }
+
+    /** Wo eine Spawn-Elytra liegen darf: nur im eigenen Spielerinventar (siehe SpawnElytraSlotMixin). */
+    public static boolean mayHold(Container container) {
+        return container instanceof Inventory;
     }
 
     /** Simple Tweaks liess Slot 38 (Brust) stehen; hier: derselbe Stapel wie im Brust-Slot. */

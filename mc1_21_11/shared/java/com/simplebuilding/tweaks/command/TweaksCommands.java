@@ -19,8 +19,11 @@ import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import com.simplebuilding.tweaks.network.TweaksNetwork;
+import com.simplebuilding.tweaks.spawn.SpawnSetup;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.entity.vehicle.boat.AbstractChestBoat;
@@ -70,8 +73,8 @@ public final class TweaksCommands {
                                 .then(Commands.literal("elytra")
                                         .then(boolSetting("toggle", (c, v) -> c.spawn.giveElytraOnSpawn = v))
                                         .then(intSetting("radius", 1, Integer.MAX_VALUE, (c, v) -> c.spawn.spawnElytraRadius = v))
-                                        .then(intSetting("flightTime", 1, Integer.MAX_VALUE, (c, v) -> c.spawn.flightTimeSeconds = v))
-                                        .then(intSetting("maxBoosts", 1, Integer.MAX_VALUE, (c, v) -> c.spawn.maxBoosts = v))
+                                        .then(intSetting("flightTime", 1, TweaksConfig.Spawn.MAX_FLIGHT_SECONDS, (c, v) -> c.spawn.flightTimeSeconds = v))
+                                        .then(intSetting("maxBoosts", 1, TweaksConfig.Spawn.MAX_BOOSTS, (c, v) -> c.spawn.maxBoosts = v))
                                         .then(Commands.literal("boostStrength")
                                                 .then(Commands.argument("value", FloatArgumentType.floatArg(0.1f))
                                                         .executes(ctx -> apply(ctx, "boostStrength", FloatArgumentType.getFloat(ctx, "value"),
@@ -140,8 +143,19 @@ public final class TweaksCommands {
     private static int apply(CommandContext<CommandSourceStack> ctx, String name, Object value, Consumer<TweaksConfig> change) {
         change.accept(SimpleTweaks.config());
         SimpleTweaks.saveConfig();
+        afterChange(ctx.getSource().getServer());
         ctx.getSource().sendSuccess(() -> Component.translatable("commands.simplebuilding.tweaks.set", name, String.valueOf(value)), true);
         return 1;
+    }
+
+    /**
+     * Nach jeder Aenderung: den Clients die clientrelevanten Werte schicken (Audit #16) und einen
+     * eigenen Weltspawn sofort setzen - vorher griff {@code worldspawn set/here/custom} erst beim
+     * naechsten Laden der Oberwelt, also nach einem Neustart (Audit #35).
+     */
+    public static void afterChange(MinecraftServer server) {
+        TweaksNetwork.broadcastConfig(server);
+        SpawnSetup.onLevelLoad(server.overworld());
     }
 
     private static int setElytraCenter(CommandContext<CommandSourceStack> ctx, int x, int z) {
@@ -169,6 +183,7 @@ public final class TweaksCommands {
         BlockPos pos = player.blockPosition();
         setTeleporterSpawn(tier, pos);
         SimpleTweaks.saveConfig();
+        afterChange(ctx.getSource().getServer());
         ctx.getSource().sendSuccess(() -> Component.translatable("commands.simplebuilding.tweaks.teleporter_spawn", tier, pos.toShortString())
                 .withStyle(ChatFormatting.GREEN), true);
         return 1;
@@ -205,7 +220,12 @@ public final class TweaksCommands {
         return count;
     }
 
-    /** standard = nur Boote ohne Kiste, empty = dazu leere Kistenboote, all = alle unbesetzten Boote. */
+    /**
+     * standard = nur Boote ohne Kiste, empty = dazu leere Kistenboote, all = alle unbesetzten Boote.
+     * Der Inhalt voller Kistenboote/Lagerloren geht dabei nicht verloren: {@code discard()} ist ein
+     * zerstoerender Entfernungsgrund, und AbstractChestBoat/AbstractMinecartContainer#remove lassen
+     * ihn fallen (Audit 2026-09-26 #40 gegengeprueft, Test killBoatsAllDropsTheContentsOfChestBoats).
+     */
     public static int killBoats(ServerLevel level, AABB box, String mode) {
         int count = 0;
         for (AbstractBoat boat : level.getEntitiesOfClass(AbstractBoat.class, box, b -> !b.isVehicle())) {

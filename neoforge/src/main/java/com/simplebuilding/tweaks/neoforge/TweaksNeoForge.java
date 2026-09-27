@@ -8,6 +8,7 @@ import com.simplebuilding.tweaks.block.entity.TweaksBlockEntities;
 import com.simplebuilding.tweaks.command.TweaksCommands;
 import com.simplebuilding.tweaks.network.ElytraBoostPayload;
 import com.simplebuilding.tweaks.network.LaserPayload;
+import com.simplebuilding.tweaks.network.TweaksConfigPayload;
 import com.simplebuilding.tweaks.network.TweaksNetwork;
 import java.util.Set;
 import me.shedaniel.autoconfig.AutoConfig;
@@ -74,6 +75,8 @@ public final class TweaksNeoForge {
                 context.enqueueWork(() -> TweaksNetwork.receiveLaser(payload));
             }
         });
+        registrar.playToClient(TweaksConfigPayload.ID, TweaksConfigPayload.CODEC,
+                (payload, context) -> context.enqueueWork(() -> TweaksNetwork.receiveConfig(payload)));
     }
 
     private static void onServer(IPayloadContext context, java.util.function.Consumer<ServerPlayer> action) {

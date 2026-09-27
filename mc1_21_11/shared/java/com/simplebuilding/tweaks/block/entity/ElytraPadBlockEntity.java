@@ -65,7 +65,7 @@ public class ElytraPadBlockEntity extends OwnedBlockEntity {
             player.displayClientMessage(Component.translatable("message.simplebuilding.elytra_pad.equipped").withStyle(ChatFormatting.GREEN), true);
         } else if (chest.is(TweaksItems.SPAWN_ELYTRA)) {
             chest.set(TweaksComponents.LAST_PAD_TICK, level.getGameTime());
-            chest.set(TweaksComponents.FLIGHT_TIME, config.flightTimeSeconds * 20);
+            chest.set(TweaksComponents.FLIGHT_TIME, config.flightTicks());
             if (PadTiers.hasEnderiteBonus(tier) || isInBoostColumn(player, pos)) {
                 chest.set(TweaksComponents.BOOST_LEVEL, 1.0f);
             }

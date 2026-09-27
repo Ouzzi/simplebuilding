@@ -1,40 +1,10 @@
-## Features:
-- Faster blocks
-- Netherite-Piston breaks blocks
-- Visual guis and highlights
-- ModMenu integration
-- Cloth Config integration - Configure in-game!
-- Custom: 
-  - Enchantments
-  - Villager trades
-  - Wandering Trader trades
-  - Loot tables
-- Items
-  - Chisel
-  - Sledgehammer
-  - Building Wand
-  - Building Core
-  - Reinforced Bundle
-  - Quiver
-  - Magnet
-  - Octant
-  - Ore Detector
-  - Armor trim template that emmits light
+# SimpleBuilding Wiki
 
-## Enchantments:
+Die Dokumentation liegt im Ordner [`wiki/`](wiki/): `wiki/index.html` im Browser oeffnen
+(funktioniert auch direkt von der Platte). Die Daten erzeugt `python wiki/generate.py` aus der Mod
+selbst (Datagen-Ausgabe, Ressourcen, Config); von Hand geschrieben ist nur der Prosa-Teil
+`wiki/manual.json`. Hosting: `docs/WIKI-HOSTING.md`.
 
-## Items:
-
-## Blocks:
-
-## Tweaks:
-
-## Villager Trades:
-
-## Wandering Trader Trades:
-
-## Loot Tables:
-
-## Configuration:
-
-## Tips & Tricks:
+The documentation lives in [`wiki/`](wiki/): open `wiki/index.html` in a browser. Its data is
+generated from the mod by `python wiki/generate.py`; only the prose in `wiki/manual.json` is written
+by hand.

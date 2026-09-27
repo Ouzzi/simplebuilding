@@ -3,7 +3,6 @@ package com.simplebuilding.tweaks.spawn;
 import com.simplebuilding.tweaks.SimpleTweaks;
 import com.simplebuilding.tweaks.component.TweaksComponents;
 import com.simplebuilding.tweaks.item.TweaksItems;
-import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -31,7 +30,7 @@ public final class ElytraDamageRules {
         return entity instanceof ServerPlayer player
                 && SimpleTweaks.config().spawn.disableFallDamageInSpawn
                 && SimpleTweaks.config().spawn.giveElytraOnSpawn
-                && inSpawnCircle(player);
+                && inSpawnArea(player);
     }
 
     /** Fliegen gegen die Wand mit sicherer Spawn-Elytra. */
@@ -39,13 +38,12 @@ public final class ElytraDamageRules {
         return source.is(DamageTypes.FLY_INTO_WALL) && wearsSafeElytra(entity);
     }
 
-    /** Kreis (2D) um die Spawnmitte, wie im Schadens-Mixin von Simple Tweaks. */
-    public static boolean inSpawnCircle(ServerPlayer player) {
-        BlockPos center = SpawnElytra.center(player);
-        BlockPos pos = player.blockPosition();
-        double dx = pos.getX() - center.getX();
-        double dz = pos.getZ() - center.getZ();
-        int radius = SimpleTweaks.config().spawn.spawnElytraRadius;
-        return dx * dx + dz * dz <= (double) radius * radius;
+    /**
+     * Fallschutz-Bereich = Elytra-Bereich ({@link SpawnElytra#insideSpawn}): dasselbe Quadrat, nur
+     * in der Weltspawn-Dimension. Simple Tweaks nahm hier einen Kreis in jeder Dimension - die Ecken
+     * gaben Elytren ohne Fallschutz, und Nether/End bei 0,0 schuetzten (Audit 2026-09-26 #4).
+     */
+    public static boolean inSpawnArea(ServerPlayer player) {
+        return SpawnElytra.insideSpawn(player);
     }
 }

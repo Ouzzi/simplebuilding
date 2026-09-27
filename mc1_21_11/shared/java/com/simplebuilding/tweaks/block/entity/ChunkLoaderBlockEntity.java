@@ -10,9 +10,12 @@ import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Chunk-Loader (Simple Tweaks): erzwingt seinen Chunk-Bereich und gibt ihn beim Abbau wieder frei.
@@ -22,10 +25,17 @@ import net.minecraft.world.level.storage.ValueOutput;
  * {@code setChunkForced(false)} - das hob auch fremde Erzwingungen auf (/forceload, andere Loader,
  * die Spieltest-Umgebung), und weil es schon beim Entladen der Block-Entity (Serverstopp) geschah,
  * tickte der Loader nach einem Neustart nie wieder. Jetzt geschieht die Freigabe nur beim Abbau
- * ({@link #preRemoveSideEffects}) oder wenn der Config-Schalter aus ist.
+ * ({@link #preRemoveSideEffects}, und in {@link #setRemoved} fuer {@code /setblock}/{@code /fill},
+ * die mit Flag 256 das Erste ueberspringen) oder wenn der Config-Schalter aus ist.
+ *
+ * <p>Ueberlappen sich zwei Loader, gehoert ein Chunk dem, der ihn zuerst erzwang; wird der abgebaut,
+ * uebernimmt ein anderer Loader, der den Chunk ebenfalls abdeckt, statt dass der Chunk freikommt
+ * (Audit 2026-09-26 #32).
  */
 public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
     public static final int CHECK_INTERVAL = 100;
+    /** Groesster Radius eines Loaders in Chunks (Enderit: 1); so weit sucht die Uebergabe nach Nachbarn. */
+    public static final int MAX_RADIUS = 1;
     private static final Codec<List<Long>> FORCED_CODEC = Codec.LONG.listOf();
 
     private final Set<Long> ownForced = new LinkedHashSet<>();
@@ -81,15 +91,51 @@ public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
         }
     }
 
+    /**
+     * Gibt die eigenen Chunks frei; ein Chunk, den ein anderer (eingeschalteter) Loader ebenfalls
+     * abdeckt, bleibt erzwungen und geht an diesen ueber.
+     */
     public void release(ServerLevel level) {
         if (ownForced.isEmpty()) {
             return;
         }
         for (long key : ownForced) {
-            level.setChunkForced((int) key, (int) (key >> 32), false);
+            int chunkX = (int) key;
+            int chunkZ = (int) (key >> 32);
+            ChunkLoaderBlockEntity heir = enabled() ? coveringNeighbour(level, chunkX, chunkZ) : null;
+            if (heir != null) {
+                heir.ownForced.add(key);
+                heir.setChanged();
+            } else {
+                level.setChunkForced(chunkX, chunkZ, false);
+            }
         }
         ownForced.clear();
         setChanged();
+    }
+
+    /** Ein anderer geladener Loader, dessen Bereich den Chunk abdeckt, oder null. */
+    private @Nullable ChunkLoaderBlockEntity coveringNeighbour(ServerLevel level, int chunkX, int chunkZ) {
+        for (int dx = -MAX_RADIUS; dx <= MAX_RADIUS; dx++) {
+            for (int dz = -MAX_RADIUS; dz <= MAX_RADIUS; dz++) {
+                LevelChunk chunk = level.getChunkSource().getChunkNow(chunkX + dx, chunkZ + dz);
+                if (chunk == null) {
+                    continue;
+                }
+                for (BlockEntity be : chunk.getBlockEntities().values()) {
+                    if (be != this && !be.isRemoved() && be instanceof ChunkLoaderBlockEntity other && other.covers(chunkX, chunkZ)) {
+                        return other;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    /** Ob der Chunk im Bereich dieses Loaders liegt. */
+    public boolean covers(int chunkX, int chunkZ) {
+        int radius = radiusOf(getBlockState());
+        return Math.abs((worldPosition.getX() >> 4) - chunkX) <= radius && Math.abs((worldPosition.getZ() >> 4) - chunkZ) <= radius;
     }
 
     @Override
@@ -98,6 +144,26 @@ public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
             release(serverLevel);
         }
         super.preRemoveSideEffects(pos, state);
+    }
+
+    /**
+     * {@code /setblock} und {@code /fill} setzen mit Flag 256 und ueberspringen
+     * {@link #preRemoveSideEffects} - die Tickets blieben fuer immer (Audit #5). Hier wird
+     * freigegeben, wenn an der Stelle schon ein anderer Block steht; beim Entladen des Chunks
+     * (Serverstopp) steht der Loader noch da, dann bleibt alles erzwungen wie gewollt.
+     */
+    @Override
+    public void setRemoved() {
+        if (level instanceof ServerLevel serverLevel && !ownForced.isEmpty() && replacedInWorld(serverLevel)) {
+            release(serverLevel);
+        }
+        super.setRemoved();
+    }
+
+    private boolean replacedInWorld(ServerLevel level) {
+        // getChunkNow laedt nichts nach; waehrend des Entladens liefert es null oder noch den Loader.
+        LevelChunk chunk = level.getChunkSource().getChunkNow(worldPosition.getX() >> 4, worldPosition.getZ() >> 4);
+        return chunk != null && !(chunk.getBlockState(worldPosition).getBlock() instanceof ChunkLoaderBlock);
     }
 
     @Override

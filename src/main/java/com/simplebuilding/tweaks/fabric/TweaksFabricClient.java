@@ -4,6 +4,7 @@ import com.simplebuilding.tweaks.SimpleTweaks;
 import com.simplebuilding.tweaks.client.LaserRenderer;
 import com.simplebuilding.tweaks.client.TweaksClient;
 import com.simplebuilding.tweaks.network.LaserPayload;
+import com.simplebuilding.tweaks.network.TweaksConfigPayload;
 import com.simplebuilding.tweaks.network.TweaksNetwork;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -20,6 +21,7 @@ public class TweaksFabricClient implements ClientModInitializer {
         TweaksClient.init();
         ClientTickEvents.END_CLIENT_TICK.register(TweaksClient::tick);
         ClientPlayNetworking.registerGlobalReceiver(LaserPayload.ID, (payload, context) -> TweaksNetwork.receiveLaser(payload));
+        ClientPlayNetworking.registerGlobalReceiver(TweaksConfigPayload.ID, (payload, context) -> TweaksNetwork.receiveConfig(payload));
         LevelRenderEvents.COLLECT_SUBMITS.register(context -> LaserRenderer.submit(
                 context.submitNodeCollector(), context.poseStack(), context.levelState().cameraRenderState.pos));
         HudElementRegistry.attachElementBefore(VanillaHudElements.CHAT, SimpleTweaks.id("laser_distance"),

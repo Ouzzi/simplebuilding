@@ -29,6 +29,12 @@ import com.simplebuilding.tweaks.spawn.SpawnElytra;
 import com.simplebuilding.tweaks.spawn.SpawnRules;
 import com.simplebuilding.tweaks.spawn.SpawnSetup;
 import com.simplebuilding.tweaks.xp.XpClumping;
+import com.simplebuilding.tweaks.TweaksContent;
+import com.simplebuilding.tweaks.network.LaserPayload;
+import com.simplebuilding.tweaks.network.TweaksConfigPayload;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.level.storage.LevelData;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -939,6 +945,398 @@ public final class TweaksTests {
             }
         }
         helper.succeed();
+    }
+
+    // =====================================================================================
+    // Audit 2026-09-26 (#3, #4, #5, #16, #17, #32-#35, #40, #51)
+    // =====================================================================================
+
+    /**
+     * #3: Eine Spawn-Elytra verlaesst den Brust-Slot nicht als Gegenstand - fallen gelassen wird der
+     * Stapel leer (nichts fuer Trichter), Container-Slots und Buendel nehmen sie nicht, und im
+     * Inventar oder am Cursor verschwindet sie noch im selben Tick (frueher nur jede Sekunde; jede
+     * Luecke war bei sofort nachgelegter Elytra eine geschenkte echte).
+     */
+    public static void spawnElytrasVanishAsSoonAsTheyLeaveTheChestSlot(GameTestHelper helper) {
+        BlockPos pad = new BlockPos(3, 1, 3);
+        helper.setBlock(pad, TweaksBlocks.ELYTRA_PAD);
+        ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 2.0, 3.5));
+        player.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
+        ElytraPadBlockEntity.applyArea(helper.getLevel(), helper.absolutePos(pad), helper.getBlockState(pad));
+        ItemStack elytra = player.getItemBySlot(EquipmentSlot.CHEST);
+        helper.assertTrue(elytra.is(TweaksItems.SPAWN_ELYTRA), "the elytra pad gave no spawn elytra to test with");
+
+        Vec3 spot = helper.absoluteVec(new Vec3(1.5, 2.0, 1.5));
+        ItemEntity dropped = new ItemEntity(helper.getLevel(), spot.x, spot.y, spot.z, elytra.copy());
+        helper.assertTrue(dropped.getItem().isEmpty(), "a dropped spawn elytra lies on the ground as " + dropped.getItem());
+
+        BarrelBlockEntity barrel = barrel(helper, new BlockPos(1, 1, 5), ItemStack.EMPTY);
+        helper.assertFalse(new Slot(barrel, 0, 0, 0).mayPlace(elytra.copy()), "a barrel slot accepts the spawn elytra");
+        helper.assertTrue(new Slot(player.getInventory(), 9, 0, 0).mayPlace(elytra.copy()), "the own inventory refuses the spawn elytra, so it cannot even be taken off");
+        helper.assertFalse(elytra.getItem().canFitInsideContainerItems(), "bundles and shulker boxes take the spawn elytra");
+
+        player.getInventory().setItem(5, elytra.copy());
+        player.containerMenu.setCarried(elytra.copy());
+        SpawnElytra.tick(player, false);
+        helper.assertTrue(player.getInventory().getItem(5).isEmpty(), "a spawn elytra in the inventory survives the tick");
+        helper.assertTrue(player.containerMenu.getCarried().isEmpty(), "a spawn elytra on the cursor survives the tick");
+        helper.assertTrue(player.getItemBySlot(EquipmentSlot.CHEST).is(TweaksItems.SPAWN_ELYTRA), "the worn spawn elytra was cleaned up too");
+        helper.succeed();
+    }
+
+    /**
+     * #4: Der Spawnbereich gilt nur in der Weltspawn-Dimension (vorher gab der Nether bei 0,0 freie
+     * Elytren und Fallschutz), und Fallschutz und Elytra-Bereich sind dasselbe Quadrat (vorher war der
+     * Fallschutz ein Kreis, die Ecken gaben Elytren ohne Schutz).
+     */
+    public static void theSpawnAreaLiesOnlyInTheSpawnDimensionAndFallProtectionCoversAllOfIt(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
+        ServerLevel nether = helper.getLevel().getServer().getLevel(Level.NETHER);
+        helper.assertTrue(nether != null, "the test server has no nether");
+        ServerPlayer inNether = new ServerPlayer(helper.getLevel().getServer(), nether,
+                new GameProfile(UUID.randomUUID(), "nether_probe"), ClientInformation.createDefault());
+        TweaksConfig.Spawn spawn = SimpleTweaks.config().spawn;
+        boolean give = spawn.giveElytraOnSpawn;
+        boolean noFall = spawn.disableFallDamageInSpawn;
+        boolean worldCenter = spawn.useWorldSpawnAsCenter;
+        int radius = spawn.spawnElytraRadius;
+        int cx = spawn.customSpawnElytraX;
+        int cz = spawn.customSpawnElytraZ;
+        try {
+            spawn.giveElytraOnSpawn = true;
+            spawn.disableFallDamageInSpawn = true;
+            spawn.useWorldSpawnAsCenter = false;
+            spawn.spawnElytraRadius = 5;
+            // Mitte so, dass der Spieler in der Ecke des Quadrats steht (4,5 je Achse, ausserhalb des Kreises).
+            spawn.customSpawnElytraX = player.getBlockX() - 4;
+            spawn.customSpawnElytraZ = player.getBlockZ() - 4;
+            helper.assertTrue(SpawnElytra.insideSpawn(player), "the corner of the square does not count as spawn area");
+            helper.assertTrue(ElytraDamageRules.inSpawnArea(player), "fall protection is missing in the corner where the spawn elytra is handed out");
+            helper.assertTrue(ElytraDamageRules.preventsFallDamage(player), "fall damage is not prevented in the corner of the spawn area");
+
+            inNether.snapTo(spawn.customSpawnElytraX + 0.5, 64.0, spawn.customSpawnElytraZ + 0.5, 0.0F, 0.0F);
+            helper.assertFalse(SpawnElytra.insideSpawn(inNether), "the spawn area coordinates also count in the nether");
+            helper.assertFalse(ElytraDamageRules.preventsFallDamage(inNether), "the nether below the spawn protects against fall damage");
+        } finally {
+            spawn.giveElytraOnSpawn = give;
+            spawn.disableFallDamageInSpawn = noFall;
+            spawn.useWorldSpawnAsCenter = worldCenter;
+            spawn.spawnElytraRadius = radius;
+            spawn.customSpawnElytraX = cx;
+            spawn.customSpawnElytraZ = cz;
+        }
+        helper.succeed();
+    }
+
+    /**
+     * #5 und #32: Ein per {@code /setblock}/{@code /fill} (Flag 256, ohne preRemoveSideEffects)
+     * ersetzter Loader gibt seine Chunks trotzdem frei; ueberlappen sich zwei Loader, uebernimmt der
+     * verbliebene die gemeinsamen Chunks, statt dass sie freikommen. Weit weg von der Teststruktur,
+     * damit keine fremde Erzwingung der Spieltest-Umgebung die Chunks schon haelt.
+     */
+    public static void chunkLoadersReleaseOnSetblockAndHandOverSharedChunks(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        BlockPos enderite = helper.absolutePos(new BlockPos(1, 1, 1)).offset(4096, 0, 4096);
+        BlockPos plain = enderite.offset(1, 0, 1);
+        long plainChunk = ChunkLoaderBlockEntity.key(plain.getX() >> 4, plain.getZ() >> 4);
+        helper.assertFalse(isForced(level, plainChunk), "the far test chunk is already forced by someone else");
+        try {
+            level.setBlock(enderite, TweaksBlocks.ENDERITE_CHUNK_LOADER.defaultBlockState(), Block.UPDATE_ALL);
+            ChunkLoaderBlockEntity big = (ChunkLoaderBlockEntity) level.getBlockEntity(enderite);
+            big.update(level, 1);
+            Set<Long> bigOwn = new java.util.HashSet<>(big.ownForced());
+            helper.assertTrue(bigOwn.contains(plainChunk), "the enderite loader does not own its own chunk");
+
+            level.setBlock(plain, TweaksBlocks.CHUNK_LOADER.defaultBlockState(), Block.UPDATE_ALL);
+            ChunkLoaderBlockEntity small = (ChunkLoaderBlockEntity) level.getBlockEntity(plain);
+            small.update(level, 0);
+            helper.assertTrue(small.ownForced().isEmpty(), "the second loader claims a chunk the first one forced");
+
+            level.setBlock(enderite, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+            helper.assertTrue(isForced(level, plainChunk), "breaking one of two overlapping loaders released the chunk the other still covers");
+            helper.assertTrue(small.ownForced().contains(plainChunk), "the remaining loader did not take over the shared chunk");
+            for (long key : bigOwn) {
+                if (key != plainChunk) {
+                    helper.assertFalse(isForced(level, key), "a chunk only the broken loader covered stays forced");
+                }
+            }
+
+            // /setblock und /fill: Flag 256 ueberspringt preRemoveSideEffects.
+            level.setBlock(plain, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS | Block.UPDATE_SKIP_BLOCK_ENTITY_SIDEEFFECTS);
+            helper.assertFalse(isForced(level, plainChunk), "a loader replaced by /setblock keeps its chunk forced forever");
+        } finally {
+            level.setBlock(enderite, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+            level.setBlock(plain, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+        }
+        helper.succeed();
+    }
+
+    /**
+     * #32: Zwei ueberlappende Flypads - faellt eines weg, fliegt der Spieler weiter, solange das andere
+     * ihn abdeckt; und ein Pad nimmt nur Flug zurueck, den ein Flypad gab (nicht den eines anderen Mods).
+     */
+    public static void overlappingFlypadsKeepThePlayerFlyingAndTakeOnlyTheirOwnFlight(GameTestHelper helper) {
+        BlockPos first = new BlockPos(1, 1, 1);
+        BlockPos second = new BlockPos(5, 1, 5);
+        helper.setBlock(first, TweaksBlocks.FLYPAD);
+        helper.setBlock(second, TweaksBlocks.FLYPAD);
+        ServerPlayer player = survivalLikePlayer(helper, new Vec3(3.5, 3.0, 3.5));
+        player.getAbilities().mayfly = false;
+        player.removeTag(FlypadBlockEntity.FLIGHT_TAG);
+        FlypadBlockEntity a = helper.getBlockEntity(first, FlypadBlockEntity.class);
+        FlypadBlockEntity b = helper.getBlockEntity(second, FlypadBlockEntity.class);
+        FlypadBlockEntity.update(helper.getLevel(), helper.absolutePos(first), helper.getBlockState(first), a);
+        FlypadBlockEntity.update(helper.getLevel(), helper.absolutePos(second), helper.getBlockState(second), b);
+        helper.assertTrue(player.getAbilities().mayfly, "the flypads did not grant flight");
+        helper.assertTrue(a.flyingPlayers().contains(player.getUUID()) && b.flyingPlayers().contains(player.getUUID()), "not both flypads track the player");
+
+        helper.setBlock(first, Blocks.AIR);
+        helper.assertTrue(player.getAbilities().mayfly, "breaking one flypad took the flight although the other still covers the player");
+
+        Vec3 far = helper.absoluteVec(new Vec3(3.5, 3.0, 3.5)).add(0, PadTiers.height(1) + 5, 0);
+        player.snapTo(far.x, far.y, far.z);
+        FlypadBlockEntity.update(helper.getLevel(), helper.absolutePos(second), helper.getBlockState(second), b);
+        helper.assertFalse(player.getAbilities().mayfly, "leaving the last flypad did not take the flight");
+
+        // Flug aus anderer Quelle (kein Flypad-Tag): das Pad laesst ihn in Ruhe.
+        player.getAbilities().mayfly = true;
+        Vec3 inside = helper.absoluteVec(new Vec3(5.5, 3.0, 5.5));
+        player.snapTo(inside.x, inside.y, inside.z);
+        FlypadBlockEntity.update(helper.getLevel(), helper.absolutePos(second), helper.getBlockState(second), b);
+        player.snapTo(far.x, far.y, far.z);
+        FlypadBlockEntity.update(helper.getLevel(), helper.absolutePos(second), helper.getBlockState(second), b);
+        helper.assertTrue(player.getAbilities().mayfly, "a flypad took flight it never granted");
+        helper.succeed();
+    }
+
+    /**
+     * #17: Das Laser-Relay ersetzt die UUID im Paket durch die des Absenders, schickt nichts ohne
+     * Laserpointer in Benutzung oder mit abgeschaltetem Laser, nur an Spieler in der Naehe und
+     * hoechstens {@link TweaksNetwork#LASER_PACKETS_PER_SECOND} Pakete je Sekunde.
+     */
+    public static void theLaserRelayChecksTheSenderAndOnlyReachesNearbyPlayers(GameTestHelper helper) {
+        ServerPlayer sender = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
+        ServerPlayer near = mockPlayer(helper, new Vec3(5.5, 1.0, 5.5));
+        ServerPlayer far = mockPlayer(helper, new Vec3(5.5, 1.0, 5.5));
+        far.snapTo(far.getX() + 600, far.getY(), far.getZ());
+        Vec3 dotPos = helper.absoluteVec(new Vec3(3.5, 1.0, 3.5));
+        UUID spoofed = UUID.randomUUID();
+        LaserPayload payload = new LaserPayload(spoofed, (float) dotPos.x, (float) dotPos.y, (float) dotPos.z, true);
+        List<ServerPlayer> receivers = new ArrayList<>();
+        List<LaserPayload> relayed = new ArrayList<>();
+        TweaksNetwork.PlayerSender capture = (player, sent) -> {
+            receivers.add(player);
+            relayed.add((LaserPayload) sent);
+        };
+
+        helper.assertValueEqual(TweaksNetwork.relayLaser(payload, sender, capture), 0, "players reached without a laser pointer in use");
+        sender.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(TweaksItems.LASER_POINTER));
+        sender.startUsingItem(InteractionHand.MAIN_HAND);
+        helper.assertTrue(sender.isUsingItem(), "the probe player does not use the laser pointer");
+
+        boolean enabled = SimpleTweaks.config().laserPointer.enable;
+        try {
+            SimpleTweaks.config().laserPointer.enable = false;
+            helper.assertValueEqual(TweaksNetwork.relayLaser(payload, sender, capture), 0, "players reached with the laser switched off on the server");
+        } finally {
+            SimpleTweaks.config().laserPointer.enable = enabled;
+        }
+        helper.assertTrue(relayed.isEmpty(), "something was relayed before the checks passed");
+
+        TweaksNetwork.relayLaser(payload, sender, capture);
+        helper.assertTrue(receivers.contains(near), "the nearby player did not get the laser dot");
+        helper.assertFalse(receivers.contains(far), "a player 600 blocks away got the laser dot");
+        helper.assertFalse(receivers.contains(sender), "the sender got its own dot back");
+        helper.assertValueEqual(relayed.get(0).player(), sender.getUUID(), "player id in the relayed packet");
+
+        Vec3 outOfRange = sender.getEyePosition().add(0, 0, SimpleTweaks.config().laserPointer.range + 50);
+        relayed.clear();
+        TweaksNetwork.relayLaser(new LaserPayload(sender.getUUID(), (float) outOfRange.x, (float) outOfRange.y, (float) outOfRange.z, true), sender, capture);
+        helper.assertTrue(relayed.isEmpty(), "a dot beyond the laser range was relayed");
+
+        int accepted = 0;
+        for (int i = 0; i < 40; i++) {
+            if (TweaksNetwork.relayLaser(payload, sender, capture) > 0) {
+                accepted++;
+            }
+        }
+        helper.assertTrue(accepted <= TweaksNetwork.LASER_PACKETS_PER_SECOND, accepted + " laser packets relayed within one tick");
+        sender.stopUsingItem();
+        helper.succeed();
+    }
+
+    /**
+     * #16: Beim Einloggen und nach jedem Tweaks-Befehl bekommt der Client die clientrelevanten Werte
+     * (Raketen-Stapel, Boosts, Laser); der Server-Thread selbst liest nie die gemeldeten Werte.
+     */
+    public static void theClientRelevantTweaksValuesAreSentAtLoginAndOnEveryChange(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
+        var players = helper.getLevel().getServer().getPlayerList();
+        boolean wasOp = players.isOp(player.nameAndId());
+        int rockets = SimpleTweaks.config().balancing.rocketStackSize;
+        TweaksNetwork.PlayerSender original = TweaksNetwork.playerSender();
+        List<TweaksConfigPayload> sent = new ArrayList<>();
+        try {
+            TweaksNetwork.setPlayerSender((to, payload) -> {
+                if (to == player && payload instanceof TweaksConfigPayload config) {
+                    sent.add(config);
+                }
+            });
+            TweaksContent.onPlayerJoin(player);
+            helper.assertValueEqual(sent.size(), 1, "config packets sent at login");
+            helper.assertValueEqual(sent.get(0).values(), SimpleTweaks.localValues(), "values sent at login");
+
+            players.op(player.nameAndId());
+            helper.getLevel().getServer().getCommands().getDispatcher()
+                    .execute("simplebuilding tweaks balancing rocketStackSize 16", player.createCommandSourceStack().withSuppressedOutput());
+            helper.assertValueEqual(sent.size(), 2, "config packets sent after the command");
+            helper.assertValueEqual(sent.get(1).rocketStackSize(), 16, "rocket stack size sent after the command");
+            helper.assertValueEqual(sent.get(1).maxBoosts(), SimpleTweaks.config().spawn.boostCount(), "boosts sent after the command");
+
+            SimpleTweaks.setServerValues(new SimpleTweaks.ServerValues(3, 1, false, 1));
+            helper.assertValueEqual(new ItemStack(Items.FIREWORK_ROCKET).getMaxStackSize(), 16, "server-side rocket stack size while client values are stored");
+        } catch (com.mojang.brigadier.exceptions.CommandSyntaxException e) {
+            helper.fail("tweaks command failed: " + e.getMessage());
+        } finally {
+            SimpleTweaks.setServerValues(null);
+            TweaksNetwork.setPlayerSender(original);
+            SimpleTweaks.config().balancing.rocketStackSize = rockets;
+            SimpleTweaks.saveConfig();
+            if (!wasOp) {
+                players.deop(player.nameAndId());
+            }
+        }
+        helper.succeed();
+    }
+
+    /**
+     * #33: Scheitert der Sprung (gesperrte Dimension), kostet der Echo-Kompass nichts - keine Perle,
+     * keine Haltbarkeit, keine Abklingzeit.
+     */
+    public static void aBlockedEchoCompassJumpCostsNothing(GameTestHelper helper) {
+        ServerLevel nether = helper.getLevel().getServer().getLevel(Level.NETHER);
+        helper.assertTrue(nether != null, "the test server has no nether");
+        BlockPos lodestone = new BlockPos(0, 100, 0);
+        BlockState before = nether.getBlockState(lodestone);
+        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
+        player.getAbilities().instabuild = false;
+        ItemStack compass = new ItemStack(TweaksItems.ECHO_COMPASS);
+        compass.set(DataComponents.LODESTONE_TRACKER, new LodestoneTracker(Optional.of(GlobalPos.of(Level.NETHER, lodestone)), true));
+        player.setItemInHand(InteractionHand.MAIN_HAND, compass);
+        player.getInventory().setItem(8, new ItemStack(Items.ENDER_PEARL, 2));
+        boolean allowNether = SimpleTweaks.config().dimensions.allowNether;
+        try {
+            nether.setBlock(lodestone, Blocks.LODESTONE.defaultBlockState(), Block.UPDATE_ALL);
+            SimpleTweaks.config().dimensions.allowNether = false;
+            helper.assertFalse(EchoCompassItem.teleport(player, InteractionHand.MAIN_HAND, compass), "the echo compass reports a jump into a locked nether");
+            helper.assertTrue(player.level() == helper.getLevel(), "the player got into the locked nether");
+            helper.assertValueEqual(player.getInventory().getItem(8).getCount(), 2, "ender pearls left after a blocked jump");
+            helper.assertValueEqual(compass.getDamageValue(), 0, "echo compass damage after a blocked jump");
+            helper.assertFalse(player.getCooldowns().isOnCooldown(compass), "a blocked jump put the echo compass on cooldown");
+        } finally {
+            SimpleTweaks.config().dimensions.allowNether = allowNether;
+            nether.setBlock(lodestone, before, Block.UPDATE_ALL);
+        }
+        helper.succeed();
+    }
+
+    /**
+     * #34: Der Laserpointer hat ein Rezept (Amethystsplitter, Glas, Eisen, Redstone) und keine
+     * Haltbarkeit mehr, die ohnehin nie abnahm.
+     */
+    public static void theLaserPointerIsCraftedFromAmethystGlassIronAndRedstone(GameTestHelper helper) {
+        Item i = Items.IRON_INGOT;
+        CraftingInput grid = grid(null, Items.AMETHYST_SHARD, null, i, Items.GLASS, i, i, Items.REDSTONE, i);
+        expectCrafting(helper, grid, TweaksItems.LASER_POINTER, "simplebuilding:laser_pointer");
+        helper.assertFalse(new ItemStack(TweaksItems.LASER_POINTER).isDamageableItem(), "the laser pointer still carries a durability that never wears");
+        helper.succeed();
+    }
+
+    /** #35: {@code /simplebuilding tweaks worldspawn set} setzt den Weltspawn sofort, nicht erst nach einem Neustart. */
+    public static void theWorldSpawnCommandTakesEffectImmediately(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
+        ServerLevel overworld = helper.getLevel().getServer().overworld();
+        var players = helper.getLevel().getServer().getPlayerList();
+        boolean wasOp = players.isOp(player.nameAndId());
+        LevelData.RespawnData savedSpawn = overworld.getRespawnData();
+        TweaksConfig.Spawn spawn = SimpleTweaks.config().spawn;
+        boolean custom = spawn.useCustomWorldSpawn;
+        int[] saved = {spawn.xCoordSpawnPoint, spawn.yCoordSpawnPoint, spawn.zCoordSpawnPoint};
+        // y fest, denn der Befehl nimmt nur -1..320 (die Testwelt liegt teils tiefer).
+        BlockPos target = new BlockPos(savedSpawn.pos().getX() + 3, 70, savedSpawn.pos().getZ() - 2);
+        try {
+            players.op(player.nameAndId());
+            helper.getLevel().getServer().getCommands().getDispatcher().execute(
+                    "simplebuilding tweaks worldspawn set " + target.getX() + " " + target.getY() + " " + target.getZ(),
+                    player.createCommandSourceStack().withSuppressedOutput());
+            helper.assertValueEqual(overworld.getRespawnData().pos(), target, "world spawn right after the command");
+        } catch (com.mojang.brigadier.exceptions.CommandSyntaxException e) {
+            helper.fail("worldspawn command failed: " + e.getMessage());
+        } finally {
+            spawn.useCustomWorldSpawn = custom;
+            spawn.xCoordSpawnPoint = saved[0];
+            spawn.yCoordSpawnPoint = saved[1];
+            spawn.zCoordSpawnPoint = saved[2];
+            SimpleTweaks.saveConfig();
+            overworld.setRespawnData(savedSpawn);
+            if (!wasOp) {
+                players.deop(player.nameAndId());
+            }
+        }
+        helper.succeed();
+    }
+
+    /**
+     * #40 (gegengeprueft, kein Fehler): {@code /killboats all} nimmt volle Kistenboote mit, der Inhalt
+     * faellt aber heraus - {@code discard()} laesst ihn ueber AbstractChestBoat#remove fallen. Pinnt das.
+     */
+    public static void killBoatsAllDropsTheContentsOfChestBoats(GameTestHelper helper) {
+        AABB box = helper.getBounds();
+        var full = helper.spawn(EntityTypes.OAK_CHEST_BOAT, new BlockPos(2, 2, 2));
+        full.setItem(0, new ItemStack(Items.DIAMOND, 7));
+        helper.assertValueEqual(TweaksCommands.killBoats(helper.getLevel(), box, "all"), 1, "boats removed in all mode");
+        int diamonds = 0;
+        for (ItemEntity item : helper.getLevel().getEntitiesOfClass(ItemEntity.class, box)) {
+            if (item.getItem().is(Items.DIAMOND)) {
+                diamonds += item.getItem().getCount();
+                item.discard();
+            }
+        }
+        helper.assertValueEqual(diamonds, 7, "diamonds dropped from the removed chest boat");
+        helper.succeed();
+    }
+
+    /**
+     * #51: Flugzeit und Boosts sind gedeckelt (vorher lief {@code flightTimeSeconds * 20} ueber), und
+     * ein abgebautes Launchpad laesst seine Windkugeln fallen.
+     */
+    public static void flightTimeAndBoostsAreCappedAndBrokenLaunchpadsDropTheirCharges(GameTestHelper helper) {
+        TweaksConfig.Spawn huge = new TweaksConfig().spawn;
+        huge.flightTimeSeconds = Integer.MAX_VALUE;
+        huge.maxBoosts = Integer.MAX_VALUE;
+        helper.assertValueEqual(huge.flightTicks(), TweaksConfig.Spawn.MAX_FLIGHT_SECONDS * 20, "flight ticks of an oversized flight time");
+        helper.assertValueEqual(huge.boostCount(), TweaksConfig.Spawn.MAX_BOOSTS, "boosts of an oversized boost count");
+
+        BlockPos pos = new BlockPos(3, 1, 3);
+        helper.setBlock(pos, TweaksBlocks.LAUNCHPAD);
+        LaunchpadBlockEntity pad = helper.getBlockEntity(pos, LaunchpadBlockEntity.class);
+        for (int n = 0; n < 5; n++) {
+            pad.addCharge(16);
+        }
+        helper.getLevel().destroyBlock(helper.absolutePos(pos), false);
+        int charges = 0;
+        for (ItemEntity item : helper.getLevel().getEntitiesOfClass(ItemEntity.class, helper.getBounds())) {
+            if (item.getItem().is(Items.WIND_CHARGE)) {
+                charges += item.getItem().getCount();
+                item.discard();
+            }
+        }
+        helper.assertValueEqual(charges, 5, "wind charges dropped by the broken launchpad");
+        helper.succeed();
+    }
+
+    private static boolean isForced(ServerLevel level, long key) {
+        return level.getForceLoadedChunks().contains(ChunkPos.pack((int) key, (int) (key >> 32)));
     }
 
     // =====================================================================================
