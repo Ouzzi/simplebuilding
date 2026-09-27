@@ -408,11 +408,21 @@ public class BuildingWandItem extends Item {
     // eine Fackel, eine Tuer ihr Tuer-Item.
     // =====================================================================================
 
+    /**
+     * Ob ein Stapel als Material fuer den Blaupausen-Baumodus taugt: das Item, und ohne eigene
+     * Komponenten. Eine gefuellte oder benannte Shulkerkiste, ein Banner mit Muster oder ein Kopf
+     * mit Profil wuerde sonst als nackter Block verbaut und sein Inhalt waere weg (Audit 2026-09-26,
+     * P2 #10).
+     */
+    public static boolean isPlainSupply(ItemStack stack, Item item) {
+        return stack.is(item) && !(stack.getItem() instanceof BackpackItem) && stack.getComponentsPatch().isEmpty();
+    }
+
     /** Erste Quelle fuer ein Item, oder {@code null}. {@link Runnable#run()} verbraucht ein Stueck. */
     public static Runnable findSupply(Player player, ItemStack wand, Item item) {
         Level world = player.level();
         boolean mb = hasEnchantment(wand, world, ModEnchantments.MASTER_BUILDER);
-        java.util.function.Predicate<ItemStack> test = s -> s.is(item) && !(s.getItem() instanceof BackpackItem);
+        java.util.function.Predicate<ItemStack> test = s -> isPlainSupply(s, item);
         MaterialResult res = supplyIn(player.getOffhandItem(), test, world, mb);
         if (res != null) return res::consume;
         int limit = mb ? player.getInventory().getNonEquipmentItems().size() : 9;
@@ -436,7 +446,7 @@ public class BuildingWandItem extends Item {
         ItemStack backpack = masterBuilderBackpack(player);
         if (!backpack.isEmpty()) {
             for (ItemStack s : BackpackItem.entryStacks(backpack)) {
-                if (s.is(item)) total += s.getCount();
+                if (isPlainSupply(s, item)) total += s.getCount();
             }
         }
         return total;
@@ -469,13 +479,13 @@ public class BuildingWandItem extends Item {
 
     private static int countIn(ItemStack stack, Item item, Level world, boolean wandMb) {
         if (stack.isEmpty()) return 0;
-        if (stack.is(item)) return stack.getCount();
+        if (isPlainSupply(stack, item)) return stack.getCount();
         int total = 0;
         if (stack.getItem() instanceof ReinforcedBundleItem && (wandMb || hasEnchantment(stack, world, ModEnchantments.MASTER_BUILDER))) {
             BundleContents contents = stack.get(DataComponents.BUNDLE_CONTENTS);
             if (contents != null) {
                 for (ItemStack s : contents.itemsCopy()) {
-                    if (s.is(item)) total += s.getCount();
+                    if (isPlainSupply(s, item)) total += s.getCount();
                 }
             }
         }
@@ -485,6 +495,8 @@ public class BuildingWandItem extends Item {
     @Override
     public InteractionResult useOn(UseOnContext context) {
         if (context.getHand() != InteractionHand.MAIN_HAND) return InteractionResult.PASS;
+        // Abenteuer- und Zuschauermodus bauen nicht (Audit 2026-09-26, P2 #6).
+        if (context.getPlayer() != null && !context.getPlayer().mayBuild()) return InteractionResult.FAIL;
         // Baustab in der Haupthand + Blaupause in der Nebenhand = Blaupausen-Baumodus.
         if (context.getPlayer() != null && context.getPlayer().getOffhandItem().getItem() instanceof BlueprintItem) {
             return com.simplebuilding.blueprint.BlueprintBuilder.useWand(context);
@@ -542,6 +554,9 @@ public class BuildingWandItem extends Item {
     @Override
     public InteractionResult use(Level world, Player player, InteractionHand hand) {
         if (hand != InteractionHand.MAIN_HAND) return InteractionResult.PASS;
+        // Bruecke und Rueckgaengig setzen bzw. raeumen Bloecke: nicht im Abenteuer- oder
+        // Zuschauermodus (Audit 2026-09-26, P2 #6; vanilla prueft das nur fuer useOn).
+        if (!player.mayBuild()) return InteractionResult.FAIL;
         ItemStack wandStack = player.getItemInHand(hand);
         if (player.isShiftKeyDown()) {
             if (world.isClientSide()) return InteractionResult.SUCCESS;
@@ -642,6 +657,9 @@ public class BuildingWandItem extends Item {
         BlockState clicked = plan.clickedState(world);
 
         for (BlockPos rawPos : stepPositions) {
+            // Jede Stelle einzeln wie beim Blaupausen-Bau: Welthoehe, Weltgrenze, geladener Chunk,
+            // Spawn-Schutz und Claim-Mods. Frueher fragte nur Vanilla beim Klickblock.
+            if (!mayBuildAt(world, player, rawPos, plan.placeFace, stack)) continue;
             if (!world.getBlockState(rawPos).canBeReplaced()) continue;
 
             // Finde Material: mit Color Palette den Eintrag, den die Vorschau an dieser Stelle zeigt
@@ -690,6 +708,17 @@ public class BuildingWandItem extends Item {
             nbt.putBoolean("Active", false);
         }
         setNbt(stack, nbt);
+    }
+
+    /**
+     * Ob der Stab fuer diesen Spieler an {@code pos} setzen darf - dieselbe Pruefung wie
+     * {@code BlueprintBuilder}: innerhalb der Welthoehe und der Weltgrenze, im geladenen Chunk, nicht
+     * im Spawn-Schutz ({@code mayInteract}) und von Claim-/Schutz-Mods erlaubt ({@code mayUseItemAt}).
+     * Audit 2026-09-26, P2 #6: Flaeche und Bruecke bauten in geschuetzte Gebiete.
+     */
+    public static boolean mayBuildAt(Level level, Player player, BlockPos pos, Direction face, ItemStack wand) {
+        return level.isInWorldBounds(pos) && level.getWorldBorder().isWithinBounds(pos) && level.isLoaded(pos)
+                && level.mayInteract(player, pos) && player.mayUseItemAt(pos, face, wand);
     }
 
     public static List<BlockPos> getBuildingPositions(Level world, Player player, ItemStack wandStack, BlockPos originPos, Direction face, int maxDiameter, BlockHitResult hitResult) {

@@ -55,4 +55,29 @@ public final class WandModeGameTest {
     public void roofModeWorksWithTheTestCentreKitEnderiteWand(GameTestHelper helper) {
         WandModeTests.roofModeWorksWithTheTestCentreKitEnderiteWand(helper);
     }
+
+    @GameTest(rotation = Rotation.NONE)
+    public void wandSkipsEveryCellThePlayerMayNotBuildOn(GameTestHelper helper) {
+        WandModeTests.wandSkipsEveryCellThePlayerMayNotBuildOn(helper);
+    }
+
+    @GameTest(rotation = Rotation.NONE)
+    public void wandNeitherBuildsNorUndoesWithoutBuildRights(GameTestHelper helper) {
+        WandModeTests.wandNeitherBuildsNorUndoesWithoutBuildRights(helper);
+    }
+
+    @GameTest(rotation = Rotation.NONE)
+    public void wandSupplyPassesOverStacksWithComponents(GameTestHelper helper) {
+        WandModeTests.wandSupplyPassesOverStacksWithComponents(helper);
+    }
+
+    @GameTest(rotation = Rotation.NONE)
+    public void wandPlacesGameMasterBlocksOnlyForOperators(GameTestHelper helper) {
+        WandModeTests.wandPlacesGameMasterBlocksOnlyForOperators(helper);
+    }
+
+    @GameTest(rotation = Rotation.NONE)
+    public void undoLeavesTheSlabThatWasDoubledSinceStanding(GameTestHelper helper) {
+        WandModeTests.undoLeavesTheSlabThatWasDoubledSinceStanding(helper);
+    }
 }

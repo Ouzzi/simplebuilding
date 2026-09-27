@@ -438,14 +438,14 @@ public final class ConsumptionAndDurabilityTests {
         ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
         survival.setShiftKeyDown(false);
         survival.setItemInHand(InteractionHand.MAIN_HAND, hammer);
-        hammer.getItem().finishUsingItem(hammer, level, survival);
+        chargeAndFinish(hammer, level, survival);
 
         helper.assertBlockPresent(Blocks.STONE_STAIRS, target);
         helper.assertValueEqual(hammer.getDamageValue(), 1, "wear for one forward transformation");
 
         // --- sneaking without Constructor's Touch: no transformation, and nothing charged ---
         survival.setShiftKeyDown(true);
-        hammer.getItem().finishUsingItem(hammer, level, survival);
+        chargeAndFinish(hammer, level, survival);
 
         helper.assertBlockPresent(Blocks.STONE_STAIRS, target);
         helper.assertValueEqual(hammer.getDamageValue(), 1,
@@ -456,7 +456,7 @@ public final class ConsumptionAndDurabilityTests {
         ItemStack touchHammer = enchantedStack(helper, ModItems.DIAMOND_SLEDGEHAMMER,
                 ModEnchantments.CONSTRUCTORS_TOUCH, 1);
         survival.setItemInHand(InteractionHand.MAIN_HAND, touchHammer);
-        touchHammer.getItem().finishUsingItem(touchHammer, level, survival);
+        chargeAndFinish(touchHammer, level, survival);
 
         helper.assertBlockPresent(Blocks.STONE, target);
         helper.assertValueEqual(touchHammer.getDamageValue(), 2, "wear for one reverse transformation");
@@ -476,7 +476,7 @@ public final class ConsumptionAndDurabilityTests {
         survival.setShiftKeyDown(true);
         survival.setItemInHand(InteractionHand.MAIN_HAND, touchHammer);
         int wearBeforeSlab = touchHammer.getDamageValue();
-        touchHammer.getItem().finishUsingItem(touchHammer, level, survival);
+        chargeAndFinish(touchHammer, level, survival);
 
         helper.assertBlockPresent(Blocks.STONE_STAIRS, target);
         helper.assertValueEqual(touchHammer.getDamageValue(), wearBeforeSlab + 2,
@@ -487,7 +487,7 @@ public final class ConsumptionAndDurabilityTests {
         ItemStack stepHammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
         survival.setShiftKeyDown(false);
         survival.setItemInHand(InteractionHand.MAIN_HAND, stepHammer);
-        stepHammer.getItem().finishUsingItem(stepHammer, level, survival);
+        chargeAndFinish(stepHammer, level, survival);
 
         helper.assertBlockPresent(Blocks.STONE_SLAB, target);
         helper.assertValueEqual(stepHammer.getDamageValue(), 1,
@@ -502,7 +502,7 @@ public final class ConsumptionAndDurabilityTests {
         ItemStack creativeHammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
         creative.setShiftKeyDown(false);
         creative.setItemInHand(InteractionHand.MAIN_HAND, creativeHammer);
-        creativeHammer.getItem().finishUsingItem(creativeHammer, level, creative);
+        chargeAndFinish(creativeHammer, level, creative);
 
         helper.assertBlockPresent(Blocks.STONE_STAIRS, target);
         helper.assertValueEqual(creativeHammer.getDamageValue(), 0, "the hammer wore down in creative");
@@ -510,7 +510,7 @@ public final class ConsumptionAndDurabilityTests {
         // --- crushing a diamond block: 81 pebbles either way, one point of wear in survival ---
         helper.setBlock(target, Blocks.DIAMOND_BLOCK);
         survival.setItemInHand(InteractionHand.MAIN_HAND, hammer);
-        hammer.getItem().finishUsingItem(hammer, level, survival);
+        chargeAndFinish(hammer, level, survival);
 
         helper.assertBlockPresent(Blocks.AIR, target);
         helper.assertItemEntityCountIs(ModItems.DIAMOND_PEBBLE, target, 2.0, 81);
@@ -523,7 +523,7 @@ public final class ConsumptionAndDurabilityTests {
 
         helper.setBlock(target, Blocks.DIAMOND_BLOCK);
         creative.setItemInHand(InteractionHand.MAIN_HAND, creativeHammer);
-        creativeHammer.getItem().finishUsingItem(creativeHammer, level, creative);
+        chargeAndFinish(creativeHammer, level, creative);
 
         helper.assertBlockPresent(Blocks.AIR, target);
         helper.assertItemEntityCountIs(ModItems.DIAMOND_PEBBLE, target, 2.0, 81);
@@ -676,7 +676,7 @@ public final class ConsumptionAndDurabilityTests {
         player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
 
         int wearBefore = hammer.getDamageValue();
-        hammer.getItem().finishUsingItem(hammer, level, player);
+        chargeAndFinish(hammer, level, player);
 
         helper.assertBlockPresent(expected, target);
         helper.assertValueEqual(hammer.getDamageValue(), wearBefore + 2,
@@ -803,5 +803,20 @@ public final class ConsumptionAndDurabilityTests {
                 helper.assertBlockPresent(Blocks.STONE, pos);
             }
         }
+    }
+
+    /**
+     * Holds right click on the block the player looks at and lets the charge run out: {@code useOn}
+     * on the picked block, then {@code finishUsingItem}. Since 2026-09-26 the hammer only finishes
+     * on the block its charge was started on (audit P2 #7), so a bare finish does nothing.
+     */
+    private static void chargeAndFinish(ItemStack hammer, net.minecraft.world.level.Level level, ServerPlayer player) {
+        net.minecraft.world.phys.HitResult hit = player.pick(5.0, 0.0F, false);
+        if (hit instanceof net.minecraft.world.phys.BlockHitResult blockHit
+                && hit.getType() == net.minecraft.world.phys.HitResult.Type.BLOCK) {
+            hammer.getItem().useOn(new net.minecraft.world.item.context.UseOnContext(player, InteractionHand.MAIN_HAND, blockHit));
+        }
+        hammer.getItem().finishUsingItem(hammer, level, player);
+        player.stopUsingItem();
     }
 }

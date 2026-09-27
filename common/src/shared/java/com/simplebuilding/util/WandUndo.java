@@ -23,6 +23,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.Property;
 
 /**
  * Rueckgaengig fuer den Baustab: nimmt die <b>letzte</b> Bau-Aktion eines Spielers zurueck -
@@ -36,8 +38,9 @@ import net.minecraft.world.level.block.state.BlockState;
  *   <li>Nur in derselben Sitzung: gemerkt wird im Speicher am Spieler-Objekt. Nach Abmelden,
  *       Dimensionswechsel oder Serverneustart ist sie weg.</li>
  *   <li>Eine Stelle wird nur geraeumt, wenn dort noch derselbe Block steht, den die Aktion gesetzt
- *       hat, der Spieler dort bauen darf und der Block keinen Inhalt hat (Truhen, Faesser,
- *       Shulkerkisten bleiben stehen).</li>
+ *       hat - mit derselben Menge ({@link #AMOUNT_PROPERTIES}: eine inzwischen doppelte Stufe, vier
+ *       statt einer Kerze bleiben stehen, Audit 2026-09-26, P3 #31) -, der Spieler dort bauen darf
+ *       und der Block keinen Inhalt hat (Truhen, Faesser, Shulkerkisten bleiben stehen).</li>
  *   <li>Die Items gehen ins Inventar, was nicht passt, faellt vor die Fuesse. Im Kreativmodus
  *       gesetzte Bloecke kosteten nichts und geben nichts zurueck.</li>
  *   <li>Haltbarkeit und Hunger werden nicht erstattet.</li>
@@ -51,6 +54,20 @@ public final class WandUndo {
 
     private static final Map<UUID, Record> RECORDS = new HashMap<>();
 
+    /**
+     * Eigenschaften, die sagen, wie viele Items in einem Block stecken. Steht dort nicht mehr die
+     * gesetzte Menge, bleibt die Stelle stehen: sonst raeumte das Rueckgaengig eine von Hand
+     * aufgedoppelte Stufe und erstattete nur die eine gesetzte.
+     */
+    private static final List<Property<?>> AMOUNT_PROPERTIES = List.of(
+            BlockStateProperties.SLAB_TYPE,
+            BlockStateProperties.CANDLES,
+            BlockStateProperties.PICKLES,
+            BlockStateProperties.EGGS,
+            BlockStateProperties.FLOWER_AMOUNT,
+            BlockStateProperties.SEGMENT_AMOUNT,
+            BlockStateProperties.LAYERS);
+
     private WandUndo() {
     }
 
@@ -59,7 +76,7 @@ public final class WandUndo {
         final ResourceKey<Level> dimension;
         final boolean creative;
         final List<BlockPos> positions = new ArrayList<>();
-        final List<Block> blocks = new ArrayList<>();
+        final List<BlockState> states = new ArrayList<>();
         final List<Item> items = new ArrayList<>();
         final List<Integer> counts = new ArrayList<>();
         boolean overflow;
@@ -92,13 +109,13 @@ public final class WandUndo {
         if (record.positions.size() >= LIMIT) {
             record.overflow = true;
             record.positions.clear();
-            record.blocks.clear();
+            record.states.clear();
             record.items.clear();
             record.counts.clear();
             return;
         }
         record.positions.add(pos.immutable());
-        record.blocks.add(placed.getBlock());
+        record.states.add(placed);
         record.items.add(item);
         record.counts.add(count);
     }
@@ -143,7 +160,7 @@ public final class WandUndo {
         for (int i = 0; i < n; i++) {
             BlockPos pos = record.positions.get(i);
             BlockState current = level.getBlockState(pos);
-            valid[i] = current.getBlock() == record.blocks.get(i)
+            valid[i] = sameAmount(current, record.states.get(i))
                     && level.mayInteract(player, pos)
                     && !(level.getBlockEntity(pos) instanceof Container);
         }
@@ -154,7 +171,7 @@ public final class WandUndo {
                 continue;
             }
             BlockPos pos = record.positions.get(i);
-            if (level.getBlockState(pos).getBlock() == record.blocks.get(i)) {
+            if (level.getBlockState(pos).getBlock() == record.states.get(i).getBlock()) {
                 level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
             }
             removed++;
@@ -169,6 +186,20 @@ public final class WandUndo {
         player.sendOverlayMessage(Component.translatable("simplebuilding.wand.undo.done", removed, n - removed)
                 .withStyle(ChatFormatting.GREEN));
         return removed;
+    }
+
+    /** Derselbe Block mit derselben Menge (Ausrichtung und Verbindungen duerfen sich aendern). */
+    static boolean sameAmount(BlockState current, BlockState placed) {
+        if (current.getBlock() != placed.getBlock()) {
+            return false;
+        }
+        for (Property<?> property : AMOUNT_PROPERTIES) {
+            if (placed.hasProperty(property) && current.hasProperty(property)
+                    && !placed.getValue(property).equals(current.getValue(property))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private static void give(Player player, Item item, int count) {

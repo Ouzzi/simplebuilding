@@ -394,6 +394,89 @@ public final class BuildingEnchantmentTests {
     }
 
     /**
+     * Audit 2026-09-26, P1 #1 and P4 #50: the Constructor's Touch stick turns orientation only, needs
+     * build rights and answers only from the main hand.
+     *
+     * <p>Before the fix it cycled the first property of any block, in survival: candles 1 -> 2, a
+     * slab to {@code type=double}, composter {@code level}, respawn anchor {@code charges} - each an
+     * item or resource out of nothing. Every such block is still consumed (the click does not fall
+     * through to a composter or anchor) but left exactly as it was. An adventure player (no
+     * {@code mayBuild}) and a stick in the off hand get PASS and change nothing; Fabric used to take
+     * the off hand while NeoForge and Forge filtered it in their event. A door turns both halves,
+     * where the old code turned only the clicked one and tore the door apart.
+     *
+     * <p><strong>What breaks this test:</strong> cycling a property that is not an orientation,
+     * dropping the {@code mayBuild}/{@code mayInteract}/{@code mayUseItemAt} gate, dropping the
+     * main hand check in the shared handler, or turning only the clicked door half.
+     */
+    public static void constructorsTouchOnlyTurnsOrientationAndNeedsBuildRights(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        ItemStack stick = new ItemStack(Items.STICK);
+        stick.enchant(enchantment(helper, ModEnchantments.CONSTRUCTORS_TOUCH), 1);
+        BlockPos target = new BlockPos(3, 1, 3);
+        BlockPos log = new BlockPos(5, 1, 3);
+
+        // --- amounts and charges stay where they are, the click is still consumed ---
+        for (BlockState state : List.of(
+                Blocks.CANDLE.defaultBlockState(),
+                Blocks.STONE_SLAB.defaultBlockState(),
+                Blocks.COMPOSTER.defaultBlockState(),
+                Blocks.RESPAWN_ANCHOR.defaultBlockState())) {
+            helper.setBlock(target, state);
+            InteractionResult result = touchBlock(helper, player, stick, target, false);
+            helper.assertTrue(result != InteractionResult.PASS,
+                    "the enchanted stick let the click on " + state + " through, got " + result);
+            helper.assertTrue(helper.getBlockState(target) == state,
+                    "Constructor's Touch changed a property that is not an orientation: " + state
+                            + " became " + helper.getBlockState(target));
+        }
+
+        // --- the off hand is not a Constructor's Touch hand on any loader ---
+        setLogAxis(helper, log, Direction.Axis.Y);
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        player.setItemInHand(InteractionHand.OFF_HAND, stick);
+        BlockPos logAbs = helper.absolutePos(log);
+        InteractionResult offHand = ConstructorsTouchInteraction.handleUseBlock(player, helper.getLevel(),
+                InteractionHand.OFF_HAND, new BlockHitResult(
+                        new Vec3(logAbs.getX() + 0.5, logAbs.getY() + 1.0, logAbs.getZ() + 0.5), Direction.UP, logAbs, false));
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        helper.assertTrue(offHand == InteractionResult.PASS,
+                "a Constructor's Touch stick in the off hand consumed the click, got " + offHand);
+        helper.assertTrue(logAxis(helper, log) == Direction.Axis.Y,
+                "a stick in the off hand turned the log to " + logAxis(helper, log));
+
+        // --- without build rights (adventure mode) nothing turns ---
+        player.getAbilities().mayBuild = false;
+        InteractionResult adventure = touchBlock(helper, player, stick, log, false);
+        player.getAbilities().mayBuild = true;
+        helper.assertTrue(adventure == InteractionResult.PASS,
+                "Constructor's Touch answered a player without build rights, got " + adventure);
+        helper.assertTrue(logAxis(helper, log) == Direction.Axis.Y,
+                "a player without build rights turned the log to " + logAxis(helper, log));
+
+        // --- with them, the same log still turns (the control for the two cases above) ---
+        touchBlock(helper, player, stick, log, false);
+        helper.assertTrue(logAxis(helper, log) != Direction.Axis.Y,
+                "the stick no longer turns a log at all, so the refusals above prove nothing");
+
+        // --- a door turns as one ---
+        BlockPos lower = new BlockPos(1, 1, 1);
+        BlockPos upper = lower.above();
+        helper.setBlock(lower, Blocks.OAK_DOOR.defaultBlockState());
+        helper.setBlock(upper, Blocks.OAK_DOOR.defaultBlockState()
+                .setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER));
+        touchBlock(helper, player, stick, lower, false);
+        Direction lowerFacing = helper.getBlockState(lower).getValue(BlockStateProperties.HORIZONTAL_FACING);
+        Direction upperFacing = helper.getBlockState(upper).getValue(BlockStateProperties.HORIZONTAL_FACING);
+        helper.assertTrue(lowerFacing != Direction.NORTH, "the door did not turn at all");
+        helper.assertTrue(lowerFacing == upperFacing,
+                "the door came apart: the lower half faces " + lowerFacing + ", the upper " + upperFacing);
+
+        player.setShiftKeyDown(false);
+        TestCleanup.succeed(helper);
+    }
+
+    /**
      * Pins that Fabric reaches the same {@link ConstructorsTouchInteraction} everything above
      * drives, instead of a copy. Fabric's {@code UseBlockCallback} registration used to inline
      * the whole interaction, private {@code cycleState}/{@code cycle} helpers included, and the

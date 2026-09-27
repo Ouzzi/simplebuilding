@@ -46,4 +46,9 @@ public final class BuildingEnchantmentGameTest {
     public void linearOnlyShortensTheWandStepDelay(GameTestHelper helper) {
         BuildingEnchantmentTests.linearOnlyShortensTheWandStepDelay(helper);
     }
+
+    @GameTest(rotation = Rotation.NONE)
+    public void constructorsTouchOnlyTurnsOrientationAndNeedsBuildRights(GameTestHelper helper) {
+        BuildingEnchantmentTests.constructorsTouchOnlyTurnsOrientationAndNeedsBuildRights(helper);
+    }
 }
