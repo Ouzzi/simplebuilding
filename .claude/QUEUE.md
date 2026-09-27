@@ -108,13 +108,14 @@ Verlauf im Detail: git log.
 - [ ] Tweaks-Stufen: Launchpad (4/8/16 Ladungen, doppelte Staerke je Ladung, Shift = alle Windladungen rein), Chunk-Loader (1 / 5 / 3x3), Upgrades kosten Druckplatten, Flypad Stufe 1 mit Elytra (+ ? offen); Rotator-Rezept + Perle in der Textur
 - [ ] Elytra-Pad 5 Stufen (Elytra+Vorlage 1x1, Diamant 5x5, Netherit+Vorlage 16x16, Enderit 32x32, 128x128); Flypad neu: 3 Stufen aus Enderit-Druckplatte (Kern+Vorlage, +Enderit-Platte, 2x Stufe 2), 4x4x6 / 8x8x12 / 16x16x24; Magnet-Rezept " R "/"I  "/"CIL" (laeuft im Stufen-Agenten)
 - [ ] Kupfer-Druckplatten: gewachste Varianten (Honigwabe, Axt schabt Wachs ab, wie Vanilla-Kupfer); Namen bleiben (Vanilla-Muster reicht); Kupferplatte: Abschalten dauert so lang wie Einschalten, Platte senkt sich sichtbar wie Vanilla (pressed-Modell); Creative-Tab aufraeumen + Vanilla-Druckplatten dazu - nach dem Stufen-Agenten
+- [ ] Echo-Kompass -> "Echo Sounder" (Name), Partikel weiter gestreut (Nutzung + Landung), keine Perle mehr noetig, Rezept + Nugget oben (NNN/NRN/NEN); Laser zuendet auch TNT, verliert auch beim normalen Zielen Haltbarkeit; Velocity Gauge: Kupfer-Nuggets statt Kupfer + unten links + oben links; Kerne in Beutekisten sehr selten (Enderit-Kern besonders) - nach dem Stufen-Agenten
 - [ ] Alte Flypad-Texturen fuer neue Netherit-Druckplatte - Besitzer erklaert noch
 - [ ] Easter Egg nach den Stufen: letzte Stufe -> Stufe 1 im Schmiedetisch = "Don't do it" (Erfolg "What have you done?"), naechste "Seriously?", Stufen 3/4 ausdenken, 5 = Pad-Name verschleiert + Texteffekte, 2x staerker; + Netherit -> "Funny Stick" (Partikel); Erfolge fuer 2x-Stufe-5 und Funny Stick
 - [x] Laser (Amethystlinse, gepusht, Gate 3614/3614): in den Werkzeug-Tab; Vanilla-Name, Punktgroesse, Abstand der Meterzahl, Rezept (Eisen-Kern/Amethyst/Eisen-U/Redstone), Eis/Schnee schmelzen, Brennbares entzuenden, Seelenfeuer, Lagerfeuer, kein Netherportal, Ladung statt Bruch, Amboss-Aufladen mit Redstone ohne Level (64 = voll)
 - [x] JEI-Infoseiten fuer Items ohne Rezept (+ Test)
 - [x] Blaupausen-Code: Formen und Variablen
 - [x] 26.4 geprueft 2026-09-27: kein Forge/NeoForge/Cloth/Dev-Mod-Build fuer 26.4-snapshot-1; Fabric Loader/API/ModMenu aktuell; kein neuer Snapshot
-- [ ] Enderit-Kolben-Verschleiss nach Brecher-Muster (laeuft)
+- [x] Enderit-Kolben-Verschleiss nach Brecher-Muster + dunklere Enderit-Geraete
 
 ## Wartet auf den Besitzer
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
