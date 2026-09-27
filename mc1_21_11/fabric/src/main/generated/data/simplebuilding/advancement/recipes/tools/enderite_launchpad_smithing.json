@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_launchpad": {
+    "has_netherite_launchpad": {
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:launchpad"
+            "items": "simplebuilding:netherite_launchpad"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_launchpad"
+      "has_netherite_launchpad"
     ]
   ],
   "rewards": {

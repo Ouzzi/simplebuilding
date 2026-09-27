@@ -47,7 +47,7 @@ public final class RotatorGameTest {
     }
 
     @GameTest
-    public void craftingTakesFiveIronAndOneEnderPearlInThatShape(GameTestHelper helper) {
-        RotatorTests.craftingTakesFiveIronAndOneEnderPearlInThatShape(helper);
+    public void craftingTakesAnIronCoreFourIronAndAnEnderPearlInThatShape(GameTestHelper helper) {
+        RotatorTests.craftingTakesAnIronCoreFourIronAndAnEnderPearlInThatShape(helper);
     }
 }

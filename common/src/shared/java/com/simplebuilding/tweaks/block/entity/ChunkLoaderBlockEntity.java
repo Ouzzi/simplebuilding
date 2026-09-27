@@ -34,7 +34,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
     public static final int CHECK_INTERVAL = 100;
-    /** Groesster Radius eines Loaders in Chunks (Enderit: 1); so weit sucht die Uebergabe nach Nachbarn. */
+    /** Groesster Radius eines Loaders in Chunks (Stufe II und III: 1); so weit sucht die Uebergabe nach Nachbarn. */
     public static final int MAX_RADIUS = 1;
     private static final Codec<List<Long>> FORCED_CODEC = Codec.LONG.listOf();
 
@@ -49,8 +49,9 @@ public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
         return SimpleTweaks.config().pads.enableChunkLoaders;
     }
 
-    public static int radiusOf(BlockState state) {
-        return state.getBlock() instanceof ChunkLoaderBlock loader ? loader.getRadius() : 0;
+    /** Stufe des Loaders (1-3); ein fremder Block zaehlt wie Stufe I. */
+    public static int tierOf(BlockState state) {
+        return state.getBlock() instanceof ChunkLoaderBlock loader ? loader.getTier() : 1;
     }
 
     /** Chunks, die dieser Loader erzwungen hat (fuer Tests und die Freigabe). */
@@ -65,21 +66,25 @@ public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
     public static void serverTick(Level level, BlockPos pos, BlockState state, ChunkLoaderBlockEntity be) {
         if (level instanceof ServerLevel serverLevel && (!be.checked || level.getGameTime() % CHECK_INTERVAL == 0)) {
             be.checked = true;
-            be.update(serverLevel, radiusOf(state));
+            be.update(serverLevel);
         }
     }
 
-    /** Erzwingt den Bereich (Config an) bzw. gibt die eigenen Chunks frei (Config aus). */
-    public void update(ServerLevel level, int radius) {
+    /** Erzwingt den Bereich seiner Stufe (Config an) bzw. gibt die eigenen Chunks frei (Config aus). */
+    public void update(ServerLevel level) {
         if (!enabled()) {
             release(level);
             return;
         }
         int cx = worldPosition.getX() >> 4;
         int cz = worldPosition.getZ() >> 4;
+        int tier = tierOf(getBlockState());
         boolean changed = false;
-        for (int dx = -radius; dx <= radius; dx++) {
-            for (int dz = -radius; dz <= radius; dz++) {
+        for (int dx = -MAX_RADIUS; dx <= MAX_RADIUS; dx++) {
+            for (int dz = -MAX_RADIUS; dz <= MAX_RADIUS; dz++) {
+                if (!ChunkLoaderBlock.inArea(tier, dx, dz)) {
+                    continue;
+                }
                 // true = war vorher nicht erzwungen, also unsere Erzwingung.
                 if (level.setChunkForced(cx + dx, cz + dz, true)) {
                     changed |= ownForced.add(key(cx + dx, cz + dz));
@@ -134,8 +139,7 @@ public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
 
     /** Ob der Chunk im Bereich dieses Loaders liegt. */
     public boolean covers(int chunkX, int chunkZ) {
-        int radius = radiusOf(getBlockState());
-        return Math.abs((worldPosition.getX() >> 4) - chunkX) <= radius && Math.abs((worldPosition.getZ() >> 4) - chunkZ) <= radius;
+        return ChunkLoaderBlock.inArea(tierOf(getBlockState()), chunkX - (worldPosition.getX() >> 4), chunkZ - (worldPosition.getZ() >> 4));
     }
 
     @Override

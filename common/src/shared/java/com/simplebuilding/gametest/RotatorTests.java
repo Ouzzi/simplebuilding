@@ -727,16 +727,18 @@ public final class RotatorTests {
     }
 
     /**
-     * The rotator is obtainable: five iron ingots around an ender pearl, in that shape, resolve
+     * The rotator is obtainable: an iron building core bottom left, four iron ingots in a cross around
+     * an ender pearl (owner's recipe 2026-09-27: {@code " I " / "IPI" / "CI "}), resolve
      * through the loaded recipe book to exactly one rotator, and the recipe advancement that puts
      * it into the recipe book is loaded with it.
      *
      * <p>The shape is asserted by looking the grid up in the recipe book rather than by reading the
-     * pattern back out of the recipe file - the same statement, but made where it matters. Two near misses hold the ingredient
-     * list in place: the same shape with an iron ingot in the middle must not produce a rotator
-     * (the ender pearl is load bearing), and the shape with one arm missing must not either (five
-     * ingots, not four). Note that a mirrored layout would legitimately match, since vanilla shaped
-     * recipes match mirrored, which is why neither near miss is a mirror.
+     * pattern back out of the recipe file - the same statement, but made where it matters. Three near misses hold the
+     * ingredient list in place: the same shape with an iron ingot in the middle must not produce a
+     * rotator (the ender pearl is load bearing), the old recipe with an iron ingot where the core
+     * sits must not either (the core is load bearing), and the shape without the core must not
+     * either. Note that a mirrored layout would legitimately match, since vanilla shaped recipes
+     * match mirrored, which is why no near miss is a mirror.
      *
      * <p>What breaks this: changing the pattern or the ingredients in the recipe provider; the
      * recipe not being loaded at all (a broken data generation run, a renamed file); the result
@@ -744,7 +746,7 @@ public final class RotatorTests {
      * {@code has_iron_ingot} criterion, which would leave the recipe craftable but invisible in the
      * recipe book.
      */
-    public static void craftingTakesFiveIronAndOneEnderPearlInThatShape(GameTestHelper helper) {
+    public static void craftingTakesAnIronCoreFourIronAndAnEnderPearlInThatShape(GameTestHelper helper) {
         MinecraftServer server = helper.getLevel().getServer();
         RecipeManager recipes = server.getRecipeManager();
         Identifier recipeId = Identifier.fromNamespaceAndPath(SimpleBuildingGameTests.MOD_ID, "rotator");
@@ -752,19 +754,20 @@ public final class RotatorTests {
         ItemStack empty = ItemStack.EMPTY;
         ItemStack iron = new ItemStack(Items.IRON_INGOT);
         ItemStack pearl = new ItemStack(Items.ENDER_PEARL);
+        ItemStack core = new ItemStack(ModItems.IRON_CORE);
 
         //  I
-        // IEI
-        // II
+        // IPI
+        // CI
         CraftingInput exact = CraftingInput.of(3, 3, List.of(
                 empty, iron, empty,
                 iron, pearl, iron,
-                iron, iron, empty));
+                core, iron, empty));
 
         Optional<RecipeHolder<CraftingRecipe>> found =
                 recipes.getRecipeFor(RecipeType.CRAFTING, exact, helper.getLevel());
         helper.assertTrue(found.isPresent(),
-                "no crafting recipe at all matches five iron ingots around an ender pearl");
+                "no crafting recipe at all matches an iron core and four iron ingots around an ender pearl");
         helper.assertTrue(found.get().id().identifier().equals(recipeId),
                 "that layout resolves to " + found.get().id().identifier() + ", not to " + recipeId);
 
@@ -779,17 +782,23 @@ public final class RotatorTests {
         CraftingInput allIron = CraftingInput.of(3, 3, List.of(
                 empty, iron, empty,
                 iron, iron, iron,
-                iron, iron, empty));
+                core, iron, empty));
         helper.assertTrue(!resolvesToTheRotatorRecipe(helper, recipes, allIron, recipeId),
                 "the same shape with an iron ingot in the middle also crafts a rotator, so the "
                         + "ender pearl is not actually required");
 
-        // --- and so does the fifth ingot ---
-        CraftingInput missingArm = CraftingInput.of(3, 3, List.of(
+        // --- and so does the iron core: neither the old fifth ingot nor an empty slot replaces it ---
+        CraftingInput oldRecipe = CraftingInput.of(3, 3, List.of(
+                empty, iron, empty,
+                iron, pearl, iron,
+                iron, iron, empty));
+        helper.assertTrue(!resolvesToTheRotatorRecipe(helper, recipes, oldRecipe, recipeId),
+                "the old recipe with a fifth iron ingot instead of the iron core still crafts a rotator");
+        CraftingInput missingCore = CraftingInput.of(3, 3, List.of(
                 empty, iron, empty,
                 iron, pearl, iron,
                 empty, iron, empty));
-        helper.assertTrue(!resolvesToTheRotatorRecipe(helper, recipes, missingArm, recipeId),
+        helper.assertTrue(!resolvesToTheRotatorRecipe(helper, recipes, missingCore, recipeId),
                 "four iron ingots around the pearl already craft a rotator, so the shape is not "
                         + "the one the provider writes");
 

@@ -53,10 +53,12 @@
     "simplebuilding:levitating_sand",
     "simplebuilding:netherite_backpack",
     "simplebuilding:netherite_blast_furnace",
+    "simplebuilding:netherite_chunk_loader",
     "simplebuilding:netherite_elytra_pad",
     "simplebuilding:netherite_flypad",
     "simplebuilding:netherite_furnace",
     "simplebuilding:netherite_hopper",
+    "simplebuilding:netherite_launchpad",
     "simplebuilding:netherite_piston",
     "simplebuilding:netherite_piston_head",
     "simplebuilding:netherite_pressure_plate",
@@ -614,6 +616,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:netherite_chunk_loader"
+    },
+    {
       "id": "simplebuilding:netherite_core",
       "maxStackSize": 16
     },
@@ -628,6 +633,9 @@
     },
     {
       "id": "simplebuilding:netherite_hopper"
+    },
+    {
+      "id": "simplebuilding:netherite_launchpad"
     },
     {
       "id": "simplebuilding:netherite_nugget"

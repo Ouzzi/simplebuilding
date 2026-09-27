@@ -802,11 +802,12 @@ public final class MagnetTests {
     public static void theMagnetRecipeStillCraftsFromItsDocumentedPattern(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
 
-        // " IR" / "ILI" / "BI " with I=iron ingot, R=redstone, L=lodestone, B=lapis lazuli.
+        // " R " / "I  " / "CIL" with R=redstone, I=iron ingot, C=iron core, L=lapis lazuli (owner's recipe
+        // 2026-09-27; before that " IR" / "ILI" / "BI " with a lodestone in the middle).
         CraftingInput grid = grid3x3(
-                null, Items.IRON_INGOT, Items.REDSTONE,
-                Items.IRON_INGOT, Items.LODESTONE, Items.IRON_INGOT,
-                Items.LAPIS_LAZULI, Items.IRON_INGOT, null);
+                null, Items.REDSTONE, null,
+                Items.IRON_INGOT, null, null,
+                ModItems.IRON_CORE, Items.IRON_INGOT, Items.LAPIS_LAZULI);
 
         Optional<RecipeHolder<CraftingRecipe>> match = level.getServer().getRecipeManager()
                 .getRecipeFor(RecipeType.CRAFTING, grid, level);
@@ -829,9 +830,9 @@ public final class MagnetTests {
         // Turned by 180 degrees: same ingredient counts, and neither the pattern nor the x-mirror
         // vanilla accepts alongside it.
         CraftingInput scrambled = grid3x3(
-                null, Items.IRON_INGOT, Items.LAPIS_LAZULI,
-                Items.IRON_INGOT, Items.LODESTONE, Items.IRON_INGOT,
-                Items.REDSTONE, Items.IRON_INGOT, null);
+                Items.LAPIS_LAZULI, Items.IRON_INGOT, ModItems.IRON_CORE,
+                null, null, Items.IRON_INGOT,
+                null, Items.REDSTONE, null);
         Optional<RecipeHolder<CraftingRecipe>> scrambledMatch = level.getServer().getRecipeManager()
                 .getRecipeFor(RecipeType.CRAFTING, scrambled, level);
         helper.assertTrue(scrambledMatch.isEmpty()
@@ -840,8 +841,17 @@ public final class MagnetTests {
                 "the magnet pattern turned by 180 degrees also crafts a magnet, so the recipe is "
                         + "not shaped the way the data says it is");
 
+        // --- the old lodestone recipe is gone ---
+        CraftingInput old = grid3x3(
+                null, Items.IRON_INGOT, Items.REDSTONE,
+                Items.IRON_INGOT, Items.LODESTONE, Items.IRON_INGOT,
+                Items.LAPIS_LAZULI, Items.IRON_INGOT, null);
+        helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, old, level).isEmpty(),
+                "the old lodestone pattern still crafts something");
+
         TestCleanup.succeed(helper);
     }
+
 
     // =====================================================================================
     // HELPERS

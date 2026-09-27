@@ -6,6 +6,7 @@
     "ExperienceOrbAccessor",
     "ExperienceOrbMixin",
     "FireBlockInvoker",
+    "LaunchpadWindChargeMixin",
     "SpawnElytraDamageMixin",
     "SpawnElytraItemEntityMixin",
     "SpawnElytraSlotMixin",

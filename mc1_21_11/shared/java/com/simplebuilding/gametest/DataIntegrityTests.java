@@ -204,7 +204,10 @@ public final class DataIntegrityTests {
             "iron_spatula",
             "gold_spatula",
             "diamond_spatula",
-            "netherite_spatula");
+            "netherite_spatula",
+            // Alte Flypads (vor den drei Enderit-Stufen, 2026-09-27): werden zur neuen Stufe.
+            "netherite_flypad",
+            "enderite_flypad");
 
     /**
      * Registry ids that exist for the sake of worlds that were saved with an older version, spelled
@@ -222,7 +225,9 @@ public final class DataIntegrityTests {
             "iron_spatula",
             "gold_spatula",
             "diamond_spatula",
-            "netherite_spatula");
+            "netherite_spatula",
+            "netherite_flypad",
+            "enderite_flypad");
 
     private record DropCase(BlockPos pos, Block block, Item expectedDrop) {
     }
@@ -2296,12 +2301,12 @@ public final class DataIntegrityTests {
                 List.of(TweaksItems.SPAWN_ELYTRA, TweaksBlocks.ELYTRA_PAD.asItem(), TweaksBlocks.REINFORCED_ELYTRA_PAD.asItem(),
                         TweaksBlocks.NETHERITE_ELYTRA_PAD.asItem(), TweaksBlocks.ENDERITE_ELYTRA_PAD.asItem(),
                         TweaksBlocks.FINE_ELYTRA_PAD.asItem()),
-                List.of(TweaksBlocks.FLYPAD.asItem(), TweaksBlocks.REINFORCED_FLYPAD.asItem(), TweaksBlocks.NETHERITE_FLYPAD.asItem(),
-                        TweaksBlocks.ENDERITE_FLYPAD.asItem(), TweaksBlocks.STELLAR_FLYPAD.asItem()),
+                List.of(TweaksBlocks.FLYPAD.asItem(), TweaksBlocks.REINFORCED_FLYPAD.asItem(), TweaksBlocks.STELLAR_FLYPAD.asItem()),
                 List.of(TweaksBlocks.SPAWN_TELEPORTER.asItem(), TweaksBlocks.SPAWN_TELEPORTER_TIER_2.asItem(),
                         TweaksBlocks.SPAWN_TELEPORTER_TIER_3.asItem(), TweaksBlocks.SPAWN_TELEPORTER_TIER_4.asItem(),
                         TweaksBlocks.ENDERITE_SPAWN_TELEPORTER.asItem()),
-                List.of(TweaksBlocks.LAUNCHPAD.asItem(), TweaksBlocks.ENDERITE_LAUNCHPAD.asItem(), TweaksBlocks.CHUNK_LOADER.asItem(),
+                List.of(TweaksBlocks.LAUNCHPAD.asItem(), TweaksBlocks.NETHERITE_LAUNCHPAD.asItem(), TweaksBlocks.ENDERITE_LAUNCHPAD.asItem(),
+                        TweaksBlocks.CHUNK_LOADER.asItem(), TweaksBlocks.NETHERITE_CHUNK_LOADER.asItem(),
                         TweaksBlocks.ENDERITE_CHUNK_LOADER.asItem()),
                 List.of(ModItems.BLUEPRINT, Items.CARTOGRAPHY_TABLE, ModItems.OCTANT, ModItems.COPPER_BUILDING_WAND,
                         ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND, ModItems.DIAMOND_BUILDING_WAND,

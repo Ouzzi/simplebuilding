@@ -2,13 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "E": "minecraft:ender_pearl",
-    "I": "minecraft:iron_ingot"
+    "C": "simplebuilding:iron_core",
+    "I": "minecraft:iron_ingot",
+    "P": "minecraft:ender_pearl"
   },
   "pattern": [
     " I ",
-    "IEI",
-    "II "
+    "IPI",
+    "CI "
   ],
   "result": {
     "count": 1,

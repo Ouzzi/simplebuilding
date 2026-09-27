@@ -24,7 +24,11 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 
-/** Launchpad, 1:1 aus Simple Tweaks: Ladungen, 3 s Countdown mit Spirale, Start je nach Ladung. */
+/**
+ * Launchpad, aus Simple Tweaks: Ladungen, 3 s Countdown mit Spirale, Start je nach Ladung. Seit den
+ * drei Stufen (2026-09-27) zaehlt eine Ladung doppelt; Launchpads aus aelteren Welten, die mehr
+ * geladen haben, als ihre Stufe jetzt fasst, werfen den Ueberschuss beim ersten Tick aus.
+ */
 public class LaunchpadBlockEntity extends OwnedBlockEntity {
     public static final int LAUNCH_TICKS = 60;
 
@@ -40,21 +44,54 @@ public class LaunchpadBlockEntity extends OwnedBlockEntity {
     }
 
     public void addCharge(int max) {
-        if (charges < max) {
-            charges++;
+        addCharges(1, max);
+    }
+
+    /** Laedt bis zu {@code count} Ladungen, hoechstens bis {@code max}; liefert, wie viele es waren. */
+    public int addCharges(int count, int max) {
+        int added = Math.max(0, Math.min(count, max - charges));
+        if (added > 0) {
+            charges += added;
             chargeTimer = 0;
             setChanged();
             sync();
         }
+        return added;
     }
 
-    /** Startstaerke wie in Simple Tweaks: 1,5 + 0,4 je Ladung. */
+    /** Grundschub ohne Ladung (Simple Tweaks). */
+    public static final double BASE_STRENGTH = 1.5;
+    /** Schub je Ladung: doppelt so viel wie in Simple Tweaks (0,4), seit die Stufen nur noch 4/8/16 fassen. */
+    public static final double STRENGTH_PER_CHARGE = 0.8;
+
+    /** Startstaerke: 1,5 + 0,8 je Ladung - 16 Ladungen = die alten 32 (1,5 + 0,4 je Ladung). */
     public static double strengthFor(int charges) {
-        return 1.5 + charges * 0.4;
+        return BASE_STRENGTH + charges * STRENGTH_PER_CHARGE;
+    }
+
+    /**
+     * Welt-Upgrade: ein Launchpad aus der Zeit vor den Stufen (Enderit fasste 32, das normale 16) kann
+     * mehr Ladungen tragen, als seine Stufe jetzt fasst. Der Ueberschuss faellt als Windkugeln heraus,
+     * nichts geht verloren. Liefert die Zahl der ausgeworfenen Windkugeln.
+     */
+    public int clampToCapacity(Level level, BlockPos pos, BlockState state) {
+        int max = state.getBlock() instanceof LaunchpadBlock pad ? pad.maxCharges() : LaunchpadBlock.maxCharges(LaunchpadBlock.ENDERITE_TIER);
+        int excess = charges - max;
+        if (excess <= 0) {
+            return 0;
+        }
+        charges = max;
+        Containers.dropItemStack(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new ItemStack(Items.WIND_CHARGE, excess));
+        setChanged();
+        sync();
+        return excess;
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, LaunchpadBlockEntity be) {
         boolean client = level.isClientSide();
+        if (!client && be.charges > 0) {
+            be.clampToCapacity(level, pos, state);
+        }
         if (!SimpleTweaks.config().pads.enableLaunchpads) {
             be.chargeTimer = 0;
             return;

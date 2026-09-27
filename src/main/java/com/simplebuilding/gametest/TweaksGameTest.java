@@ -21,8 +21,8 @@ public final class TweaksGameTest {
     }
 
     @GameTest
-    public void theStellarFlypadIsCraftedFromEnderiteFlypads(GameTestHelper helper) {
-        TweaksTests.theStellarFlypadIsCraftedFromEnderiteFlypads(helper);
+    public void theStellarFlypadIsSmithedFromTwoReinforcedFlypads(GameTestHelper helper) {
+        TweaksTests.theStellarFlypadIsSmithedFromTwoReinforcedFlypads(helper);
     }
 
     @GameTest
@@ -123,11 +123,6 @@ public final class TweaksGameTest {
     @GameTest
     public void chunkLoadersForceTheirChunksAndReleaseOnlyTheirOwn(GameTestHelper helper) {
         TweaksTests.chunkLoadersForceTheirChunksAndReleaseOnlyTheirOwn(helper);
-    }
-
-    @GameTest
-    public void launchpadsHoldSixteenWindChargesAndTheEnderiteOneThirtyTwo(GameTestHelper helper) {
-        TweaksTests.launchpadsHoldSixteenWindChargesAndTheEnderiteOneThirtyTwo(helper);
     }
 
     @GameTest

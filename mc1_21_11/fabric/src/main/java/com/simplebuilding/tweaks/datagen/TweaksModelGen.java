@@ -35,7 +35,13 @@ public final class TweaksModelGen {
 
     public static void blocks(BlockModelGenerators generator) {
         for (Block block : TweaksBlocks.all()) {
-            Identifier model = ModelTemplates.PRESSURE_PLATE_UP.create(block, TextureMapping.defaultTexture(block), generator.modelOutput);
+            // Flypads I-III (seit 2026-09-27 aus Enderit) tragen neue Texturen <id>_ender; die alten
+            // flypad.png, reinforced_flypad.png und stellar_flypad.png bleiben liegen (Besitzer will sie
+            // fuer eine neue Netherit-Druckplatte wiederverwenden).
+            boolean enderFlypad = block == TweaksBlocks.FLYPAD || block == TweaksBlocks.REINFORCED_FLYPAD || block == TweaksBlocks.STELLAR_FLYPAD;
+            TextureMapping texture = enderFlypad ? TextureMapping.defaultTexture(TextureMapping.getBlockTexture(block, "_ender"))
+                    : TextureMapping.defaultTexture(block);
+            Identifier model = ModelTemplates.PRESSURE_PLATE_UP.create(block, texture, generator.modelOutput);
             generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block, BlockModelGenerators.plainVariant(model)));
             generator.registerSimpleItemModel(block, model);
         }

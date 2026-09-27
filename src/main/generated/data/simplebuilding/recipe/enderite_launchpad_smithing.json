@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smithing_transform",
-  "addition": "simplebuilding:enderite_ingot",
-  "base": "simplebuilding:launchpad",
+  "addition": "simplebuilding:enderite_pressure_plate",
+  "base": "simplebuilding:netherite_launchpad",
   "result": {
     "id": "simplebuilding:enderite_launchpad"
   },

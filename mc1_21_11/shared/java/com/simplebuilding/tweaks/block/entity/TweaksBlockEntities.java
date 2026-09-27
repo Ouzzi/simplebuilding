@@ -48,7 +48,7 @@ public final class TweaksBlockEntities {
                 TweaksBlocks.SPAWN_TELEPORTER, TweaksBlocks.SPAWN_TELEPORTER_TIER_2, TweaksBlocks.SPAWN_TELEPORTER_TIER_3,
                 TweaksBlocks.SPAWN_TELEPORTER_TIER_4, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER));
         LAUNCHPAD = register("launchpad_be", factory.create(LaunchpadBlockEntity::new,
-                TweaksBlocks.LAUNCHPAD, TweaksBlocks.ENDERITE_LAUNCHPAD));
+                TweaksBlocks.LAUNCHPAD, TweaksBlocks.NETHERITE_LAUNCHPAD, TweaksBlocks.ENDERITE_LAUNCHPAD));
         ELYTRA_PAD = register("elytra_pad_be", factory.create(ElytraPadBlockEntity::new,
                 TweaksBlocks.ELYTRA_PAD, TweaksBlocks.REINFORCED_ELYTRA_PAD, TweaksBlocks.NETHERITE_ELYTRA_PAD,
                 TweaksBlocks.ENDERITE_ELYTRA_PAD, TweaksBlocks.FINE_ELYTRA_PAD));
@@ -56,7 +56,7 @@ public final class TweaksBlockEntities {
                 TweaksBlocks.FLYPAD, TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.NETHERITE_FLYPAD,
                 TweaksBlocks.ENDERITE_FLYPAD, TweaksBlocks.STELLAR_FLYPAD));
         CHUNK_LOADER = register("chunk_loader_be", factory.create(ChunkLoaderBlockEntity::new,
-                TweaksBlocks.CHUNK_LOADER, TweaksBlocks.ENDERITE_CHUNK_LOADER));
+                TweaksBlocks.CHUNK_LOADER, TweaksBlocks.NETHERITE_CHUNK_LOADER, TweaksBlocks.ENDERITE_CHUNK_LOADER));
         COPPER_PRESSURE_PLATE = register("copper_pressure_plate_be", factory.create(CopperPressurePlateBlockEntity::new,
                 TweaksBlocks.COPPER_PRESSURE_PLATE, TweaksBlocks.EXPOSED_COPPER_PRESSURE_PLATE,
                 TweaksBlocks.WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.OXIDIZED_COPPER_PRESSURE_PLATE));

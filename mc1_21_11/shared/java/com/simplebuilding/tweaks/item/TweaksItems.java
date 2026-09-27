@@ -48,6 +48,10 @@ public final class TweaksItems {
                 if (epic) {
                     props = props.rarity(Rarity.EPIC);
                 }
+                // Alte Stufenbloecke tauschen sich im Inventar gegen ihre neue Stufe (LegacyTierBlockItem).
+                if (block instanceof com.simplebuilding.tweaks.block.LegacyFlypadBlock legacy) {
+                    return new LegacyTierBlockItem(block, props, () -> legacy.target().asItem());
+                }
                 return new BlockItem(block, props);
             });
             BLOCK_ITEMS.add(item);
@@ -84,14 +88,13 @@ public final class TweaksItems {
                         SPAWN_ELYTRA, TweaksBlocks.ELYTRA_PAD, TweaksBlocks.REINFORCED_ELYTRA_PAD, TweaksBlocks.NETHERITE_ELYTRA_PAD,
                         TweaksBlocks.ENDERITE_ELYTRA_PAD, TweaksBlocks.FINE_ELYTRA_PAD),
                 CreativeTabLayout.Row.of("flypads",
-                        TweaksBlocks.FLYPAD, TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.NETHERITE_FLYPAD,
-                        TweaksBlocks.ENDERITE_FLYPAD, TweaksBlocks.STELLAR_FLYPAD),
+                        TweaksBlocks.FLYPAD, TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.STELLAR_FLYPAD),
                 CreativeTabLayout.Row.of("spawn_teleporters",
                         TweaksBlocks.SPAWN_TELEPORTER, TweaksBlocks.SPAWN_TELEPORTER_TIER_2, TweaksBlocks.SPAWN_TELEPORTER_TIER_3,
                         TweaksBlocks.SPAWN_TELEPORTER_TIER_4, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER),
                 CreativeTabLayout.Row.of("travel_and_loading",
-                        TweaksBlocks.LAUNCHPAD, TweaksBlocks.ENDERITE_LAUNCHPAD, TweaksBlocks.CHUNK_LOADER,
-                        TweaksBlocks.ENDERITE_CHUNK_LOADER));
+                        TweaksBlocks.LAUNCHPAD, TweaksBlocks.NETHERITE_LAUNCHPAD, TweaksBlocks.ENDERITE_LAUNCHPAD,
+                        TweaksBlocks.CHUNK_LOADER, TweaksBlocks.NETHERITE_CHUNK_LOADER, TweaksBlocks.ENDERITE_CHUNK_LOADER));
     }
 
     private static Item register(String name, Function<Item.Properties, Item> factory) {
