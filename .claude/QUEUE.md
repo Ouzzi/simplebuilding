@@ -92,7 +92,9 @@ Verlauf im Detail: git log.
 - [x] B Tweaks + Doku (#3,#4,#5,#16,#17,#20,#21 + kleine P3)
 - [x] C Maschinen/Lager/Config (#12-#15,#18,#19, Portalrahmen standardmaessig aus)
 - [x] Server-Gate, Push
-- [ ] Nach-Audit (laeuft)
+- [x] Nach-Audit: N1 (P1 Hammer-Regression) behoben; N2-N16 in docs/AUDIT-2026-09-26.md
+
+## Welle 19 (vorgeschlagen): Rest-P3 aus Audit + Nach-Audit N2-N7
 
 ## Wartet auf den Besitzer
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs

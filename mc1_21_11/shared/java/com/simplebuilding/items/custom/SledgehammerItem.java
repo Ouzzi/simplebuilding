@@ -145,17 +145,24 @@ public class SledgehammerItem extends Item {
      * The block a charge was started on, per player (audit 2026-09-26, P2 #7). Until then
      * {@code finishUsingItem} re-aimed at whatever the player looked at when the charge ended: start
      * on any stone of your own, turn to a protected diamond block, and the hammer crushed it into 81
-     * pebbles. Keyed by the player object, so the client and server player of one person in single
-     * player never share an entry; weak, so a player who logs out mid-charge is not kept alive.
+     * pebbles. One map per side: {@code Entity#equals} compares entity ids, and in single player the
+     * client and server player of one person share that id, so a single map let whichever side
+     * finished first consume the other side's entry. Weak, so a player who logs out mid-charge is not
+     * kept alive.
      */
-    private static final Map<Player, ChargeTarget> CHARGE_TARGETS = Collections.synchronizedMap(new WeakHashMap<>());
+    private static final Map<Player, ChargeTarget> SERVER_CHARGE_TARGETS = Collections.synchronizedMap(new WeakHashMap<>());
+    private static final Map<Player, ChargeTarget> CLIENT_CHARGE_TARGETS = Collections.synchronizedMap(new WeakHashMap<>());
+
+    private static Map<Player, ChargeTarget> chargeTargets(Player player) {
+        return player.level().isClientSide() ? CLIENT_CHARGE_TARGETS : SERVER_CHARGE_TARGETS;
+    }
 
     private record ChargeTarget(BlockPos pos, Block block) {
     }
 
     /** Remembers the block a reshape or crush charge was started on. */
     private static void rememberTarget(Player player, BlockPos pos, BlockState state) {
-        CHARGE_TARGETS.put(player, new ChargeTarget(pos.immutable(), state.getBlock()));
+        chargeTargets(player).put(player, new ChargeTarget(pos.immutable(), state.getBlock()));
     }
 
     /**
@@ -222,7 +229,7 @@ public class SledgehammerItem extends Item {
     public boolean releaseUsing(ItemStack stack, Level world, LivingEntity user, int remainingUseTicks) {
         SledgehammerUpgrades.clear(user); // eine abgebrochene Aufwertung verfaellt
         if (user instanceof Player player) {
-            CHARGE_TARGETS.remove(player); // eine abgebrochene Ladung auch
+            chargeTargets(player).remove(player); // eine abgebrochene Ladung auch
         }
         return false; // Nichts tun, wenn vorzeitig abgebrochen
     }
@@ -234,13 +241,13 @@ public class SledgehammerItem extends Item {
         // Lief eine Aufwertung, ist das der fuenfte Schlag - und nie ein Umformen oder Zerschlagen
         // des Blocks, auf den der Spieler zufaellig gerade schaut.
         if (SledgehammerUpgrades.finish(world, player, stack)) {
-            CHARGE_TARGETS.remove(player);
+            chargeTargets(player).remove(player);
             return stack;
         }
 
         // Only the block the charge was started on, and only while the player still aims at it
         // and may change it: a charge never re-aims at another block.
-        ChargeTarget target = CHARGE_TARGETS.remove(player);
+        ChargeTarget target = chargeTargets(player).remove(player);
         if (target == null) {
             return stack;
         }
