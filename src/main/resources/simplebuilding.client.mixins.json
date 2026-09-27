@@ -9,6 +9,7 @@
   "client": [
     "AvatarRendererMixin",
     "BundleTooltipComponentMixin",
+    "CartographyTableScreenMixin",
     "ClientSpeedometerMixin",
     "ClientSurvivalTracerMixin",
     "EquipmentRendererMixin",

@@ -74,6 +74,12 @@ import net.minecraft.world.level.block.Blocks;
  * a fresh file per name and thereby knows how far the run got) and evidence for a human reading the
  * artefacts afterwards, nothing more.
  *
+ * <p>One exception: {@link #cartographyTableShowsTheBlueprintPreview} is a difference test (the
+ * unsigned blueprint twice as noise floor, then the signed one, then a control shot back at the
+ * unsigned baseline), because what
+ * {@code CartographyTableScreenMixin} adds is only visible as pixels. Its four screenshots come on
+ * top of the nine.
+ *
  * <p>A pixel comparison would also be wrong here rather than merely absent: {@code CyclingTrimButton}
  * picks its icon from {@code System.currentTimeMillis() / 1000 % items.size()}, so which trim
  * template is on the smithing screen depends on wall clock time, and no two runs draw the same
@@ -291,6 +297,7 @@ public final class ModScreensClientTest {
         netheriteHopperMenu(script);
         smithingTrimReferenceButton(script);
         trimReferenceRowsMatchTheServer(script);
+        cartographyTableShowsTheBlueprintPreview(script);
         modConfigScreenBuildsAndRenders(script);
         creativeInventoryShowsTheModTab(script);
 
@@ -1071,6 +1078,99 @@ public final class ModScreensClientTest {
         // Hides the HUD again and re-applies the frozen render options, so the client is left the
         // way TestScene.build leaves it rather than the way this class needed it.
         TestScene.makeRenderingDeterministic(script);
+    }
+
+    /**
+     * The vanilla cartography table shows the blueprint's spinning miniature in its big map square
+     * when a signed blueprint lies in the top slot ({@code CartographyTableScreenMixin}).
+     *
+     * <p>The screen is built on the client around a client-only menu (container id 99, no level
+     * access), the same way {@link #buildingWandScreenConstructsAndRenders} builds its screen: the
+     * subject is what the screen draws for a given slot content, and a client-only menu lets the
+     * test put the item straight into the slot without a round trip that would only test the
+     * already server-tested slot rules. Closing it with {@code setScreen(null)} runs the menu's
+     * {@code removed}, which with no level access returns nothing to anyone.
+     *
+     * <p>Control first: the same code as an UNSIGNED blueprint - vanilla draws the empty parchment,
+     * twice, for the noise floor. Then the signed one: the frame must change clearly, and the
+     * change must be centred inside the map square (a preview drawn somewhere else, or only a
+     * different slot icon, would not be).
+     *
+     * <p><b>What breaks this test:</b> the mixin not applying (wrong method name on a line, missing
+     * from the client mixin config), {@code BlueprintCartography.previewCode} refusing signed
+     * blueprints, the preview drawn under the parchment (lost stratum), or at a wrong position.
+     */
+    private static void cartographyTableShowsTheBlueprintPreview(Script script) {
+        String code = "stone 0..4,0..4,0..4";
+        Later<double[]> square = new Later<>("the window rectangle of the cartography table's map square");
+
+        script.act("open a cartography table screen with an unsigned blueprint on top", client -> {
+            net.minecraft.world.inventory.CartographyTableMenu menu =
+                    new net.minecraft.world.inventory.CartographyTableMenu(99, client.player.getInventory());
+            menu.getSlot(0).set(blueprint(code, false));
+            client.setScreen(new net.minecraft.client.gui.screens.inventory.CartographyTableScreen(menu,
+                    client.player.getInventory(), net.minecraft.network.chat.Component.translatable("container.cartography_table")));
+        });
+        awaitScreen(script, net.minecraft.client.gui.screens.inventory.CartographyTableScreen.class, "cartography table");
+        script.idle("let the cartography table render " + RENDER_TICKS + " frames", RENDER_TICKS);
+
+        script.act("compute the window rectangle of the map square", client -> {
+            Screen screen = client.screen;
+            double sx = client.getWindow().getWidth() / (double) client.getWindow().getGuiScaledWidth();
+            double sy = client.getWindow().getHeight() / (double) client.getWindow().getGuiScaledHeight();
+            int left = (screen.width - CONTAINER_WIDTH) / 2 + 71;
+            int top = (screen.height - CONTAINER_HEIGHT) / 2 + 17;
+            square.set(new double[] {left * sx, top * sy, (left + 58) * sx, (top + 58) * sy});
+        });
+
+        Later<java.nio.file.Path> unsigned = script.shot("cartography-a-unsigned-blueprint");
+        Later<java.nio.file.Path> unsignedAgain = script.shot("cartography-b-unsigned-blueprint-again");
+
+        script.act("put the signed blueprint on top instead", client -> {
+            Screen screen = client.screen;
+            if (!(screen instanceof net.minecraft.client.gui.screens.inventory.CartographyTableScreen table)) {
+                throw new AssertionError("The cartography table closed before the signed blueprint went in: "
+                        + describeScreen(client));
+            }
+            table.getMenu().getSlot(0).set(blueprint(code, true));
+        });
+        script.idle("let the preview render " + RENDER_TICKS + " frames", RENDER_TICKS);
+        assertStillOpen(script, net.minecraft.client.gui.screens.inventory.CartographyTableScreen.class, "cartography table");
+        Later<java.nio.file.Path> signed = script.shot("cartography-c-signed-blueprint");
+
+        script.act("put the unsigned blueprint back on top", client -> {
+            if (client.screen instanceof net.minecraft.client.gui.screens.inventory.CartographyTableScreen table) {
+                table.getMenu().getSlot(0).set(blueprint(code, false));
+            }
+        });
+        script.idle("let the plain parchment render again", RENDER_TICKS);
+        Later<java.nio.file.Path> back = script.shot("cartography-d-unsigned-blueprint-back");
+
+        script.verify("the signed blueprint's preview fills the map square", () -> {
+            ScreenshotDiff.Diff noiseFloor = ScreenshotDiff.compare("cartography table, nothing changed",
+                    unsigned.get(), unsignedAgain.get());
+            ScreenshotDiff.Diff signal = ScreenshotDiff.compare("cartography table, signed blueprint on top",
+                    unsigned.get(), signed.get());
+            ScreenshotDiff.assertDrew("CartographyTableScreenMixin", noiseFloor, signal);
+            ScreenshotDiff.ChangedArea area = ScreenshotDiff.changedArea("cartography table preview",
+                    unsigned.get(), signed.get());
+            double[] sq = square.get();
+            if (!(area.centreX() >= sq[0] && area.centreX() <= sq[2] && area.centreY() >= sq[1] && area.centreY() <= sq[3])) {
+                throw new AssertionError("The change is not centred in the map square " + java.util.Arrays.toString(sq)
+                        + ": " + area);
+            }
+            ScreenshotDiff.assertBackToBaseline("the unsigned blueprint back on top",
+                    noiseFloor, ScreenshotDiff.compare("cartography table, unsigned again", unsigned.get(), back.get()));
+        });
+
+        closeScreen(script, "cartography table");
+    }
+
+    private static ItemStack blueprint(String code, boolean signed) {
+        ItemStack stack = new ItemStack(ModItems.BLUEPRINT);
+        stack.set(com.simplebuilding.component.ModDataComponentTypes.BLUEPRINT,
+                new com.simplebuilding.blueprint.BlueprintContent(code, "Test", signed ? "Tester" : "", signed));
+        return stack;
     }
 
     /** The open screen's class name, or "none" - the spelling every message here uses. */
