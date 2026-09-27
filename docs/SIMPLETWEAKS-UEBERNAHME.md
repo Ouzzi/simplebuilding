@@ -25,7 +25,7 @@ Status: **port** = uebernommen, **neu** = in SimpleBuilding neu hinzugekommen (B
 | Diamant-Druckplatte (nur Spieler, wasserloggbar) | port | Rezept 2 Diamanten waagerecht |
 | Netherit-Druckplatte (Fass darunter = Item-Whitelist, Besitzer baut schnell ab) | port | Smithing aus Diamant-Platte |
 | Enderit-Druckplatte | neu | Stufe nach Netherit, siehe Stufentabelle |
-| Kupfer-Druckplatten (4 Oxidationsstufen, loest erst nach 1-4 s Stehen aus, oxidiert, wachsbar) | port | Oxidation/Wachsen je Loader angebunden |
+| Kupfer-Druckplatten (4 Oxidationsstufen, loest erst nach 1-4 s Stehen aus, oxidiert, Axt kratzt eine Stufe ab) | port | **nicht wachsbar** (keine gewachsten Varianten, Honigwabe tut nichts) |
 | Chunk-Loader (Kupferplatte + Netherit, haelt den eigenen Chunk geladen) | port | abschaltbar |
 | Enderit-Chunk-Loader | neu | haelt 3x3 Chunks |
 | Launchpad (Windkugeln laden, 3 s stehen, Start) | port | abschaltbar |
@@ -55,7 +55,7 @@ Status: **port** = uebernommen, **neu** = in SimpleBuilding neu hinzugekommen (B
 
 | Feature | Status | Anmerkung |
 |---|---|---|
-| Laserpointer (Punkt fuer alle sichtbar, Entfernungsanzeige) | port | Renderer auf 26.x-Submit-Pipeline umgebaut |
+| Laserpointer (Punkt fuer Spieler in 128 Bloecken sichtbar, Entfernungsanzeige) | port + Rezept | Renderer auf 26.x-Submit-Pipeline umgebaut; Server prueft Item/Schalter/Rate (Audit 2026-09-26 #17) |
 | Echo-Kompass (Fremd-Datenpaket `echo-compass-v1.1.0.jar`, AGPL, per `libs/` eingebunden) | port (neu geschrieben) | eigenes Item statt Datenpaket, Rezept neu, Unbreaking-Bug behoben |
 | XP-Kugeln verklumpen + sofort aufheben | port | `enableXpClumps` |
 | XP-Kugeln nach Wert skalieren | port | `scaleXpOrbs` (Client) |
@@ -67,7 +67,7 @@ Status: **port** = uebernommen, **neu** = in SimpleBuilding neu hinzugekommen (B
 | `brick_snowball`-Textur, `itemgroup.simpletweaks.money_items`, `vaultCooldownDays`, `key.simpletweaks.autowalk` | skip | nur Reste in Lang/Texturen, kein Code dahinter |
 | `spawn_teleporter_old.png`, `copper_block.png` usw. (unbenutzte Texturen) | skip | kein Modell verweist darauf |
 | `ModEntities` (leer) | skip | keine Entities |
-| Laser-`showLine`-Option | port (Config) | war schon in Simple Tweaks ohne Wirkung; bleibt ohne Wirkung, dokumentiert |
+| Laser-`showLine`-Option | port (Config) | war schon in Simple Tweaks ohne Wirkung; Schluessel bleibt lesbar, im Config-Bildschirm ausgeblendet |
 
 ### todo.md in Simple Tweaks
 
@@ -89,16 +89,16 @@ Familie.
 
 | Familie | Stufe | ID | Radius (Breite x Breite x Hoehe) / Wirkung | Rezept |
 |---|---|---|---|---|
-| Elytra-Pad | I | `elytra_pad` | 5x5x15 | Schmiede: beliebige Vorlage + Diamant-Druckplatte + Diamant |
-| | II | `reinforced_elytra_pad` | 15x15x31 | Schmiede: beliebige Vorlage + Pad I + Diamantblock |
-| | III | `netherite_elytra_pad` | 31x31x63 | Schmiede: Netherit-Vorlage + Pad II + Netheritbarren |
-| | **IV (neu)** | `enderite_elytra_pad` | 47x47x95, **Boosts laden im ganzen Bereich** (sonst nur 3x3-Saeule) | Schmiede: Enderit-Vorlage + Pad III + Enderitbarren |
-| | V | `fine_elytra_pad` | 63x63x127 + Zusatz von IV | Schmiede: Netherit-Vorlage + **Pad IV** + Netherstern |
-| Flypad | I | `flypad` | 5x5x15 | Schmiede: Netherit-Vorlage + Elytra-Pad V + Netheritbarren |
-| | II | `reinforced_flypad` | 15x15x31 | Schmiede: Netherit-Vorlage + Flypad I + Netheritblock |
-| | III | `netherite_flypad` | 31x31x63 | Werkbank `DBD/ESE/KFK` (Diamantblock, Netheritblock, Verz. Goldapfel, Netherstern, Unheilvoller Schluessel, Flypad II) |
-| | **IV (neu)** | `enderite_flypad` | 47x47x95, **Sicherheitsnetz**: wer den Bereich fliegend verlaesst, bekommt 10 s Sanfter Fall statt abzustuerzen | Schmiede: Enderit-Vorlage + Flypad III + Enderitbarren |
-| | V | `stellar_flypad` | 63x63x127 + Zusatz von IV | Werkbank `KKK/ESE/FFF` mit F = **Flypad IV** |
+| Elytra-Pad | I | `elytra_pad` | 6x6x15 | Schmiede: beliebige Vorlage + Diamant-Druckplatte + Diamant |
+| | II | `reinforced_elytra_pad` | 16x16x31 | Schmiede: beliebige Vorlage + Pad I + Diamantblock |
+| | III | `netherite_elytra_pad` | 32x32x63 | Schmiede: Netherit-Vorlage + Pad II + Netheritbarren |
+| | **IV (neu)** | `enderite_elytra_pad` | 48x48x95, **Boosts laden im ganzen Bereich** (sonst nur 3x3-Saeule) | Schmiede: Enderit-Vorlage + Pad III + Enderitbarren |
+| | V | `fine_elytra_pad` | 64x64x127 + Zusatz von IV | Schmiede: Netherit-Vorlage + **Pad IV** + Netherstern |
+| Flypad | I | `flypad` | 6x6x15 | Schmiede: Netherit-Vorlage + Elytra-Pad V + Netheritbarren |
+| | II | `reinforced_flypad` | 16x16x31 | Schmiede: Netherit-Vorlage + Flypad I + Netheritblock |
+| | III | `netherite_flypad` | 32x32x63 | Werkbank `DBD/ESE/KFK` (Diamantblock, Netheritblock, Verz. Goldapfel, Netherstern, Unheilvoller Schluessel, Flypad II) |
+| | **IV (neu)** | `enderite_flypad` | 48x48x95, **Sicherheitsnetz**: wer den Bereich fliegend verlaesst, bekommt 10 s Sanfter Fall statt abzustuerzen | Schmiede: Enderit-Vorlage + Flypad III + Enderitbarren |
+| | V | `stellar_flypad` | 64x64x127 + Zusatz von IV | Werkbank `KKK/ESE/FFF` mit F = **Flypad IV** |
 | Druckplatte | - | `diamond_pressure_plate` | nur Spieler | Werkbank `DD` |
 | | - | `netherite_pressure_plate` | Fass darunter = Item-Whitelist | Schmiede: Netherit-Vorlage + Diamant-Platte + Netheritbarren |
 | | **neu** | `enderite_pressure_plate` | wie Netherit, plus **Spielerschloss**: ohne Fass nur der Besitzer; mit Fass zusaetzlich jeder, dessen Name auf einem umbenannten Namensschild im Fass steht | Schmiede: Enderit-Vorlage + Netherit-Platte + Enderitbarren |
@@ -247,9 +247,21 @@ Branch `remove-ported-features` im Repo `simpletweaks` (abgezweigt von `1.21.11`
   Schluessel. Befehle: `/simplebuilding tweaks spawn teleporterCount|elytraPadCount <0-64>`. Ist die
   Familie abgeschaltet (`pads.enableSpawnTeleporters` bzw. `pads.enableElytraPads`), faellt ihr Geschenk weg.
 - Flypad: wird es abgebaut oder abgeschaltet, verlieren Spieler im Bereich den Flug (vorher behielten
-  sie ihn).
+  sie ihn) - seit dem Audit 2026-09-26 aber nicht, solange ein anderes Flypad sie noch abdeckt, und nur
+  Flug, den ein Flypad gab (Spieler-Tag `simplebuilding.flypad_flight`).
 - Chunk-Loader: nach Serverneustart wieder aktiv, und er gibt nur Chunks frei, die er selbst erzwungen
-  hat (vorher konnte er fremd erzwungene Chunks freigeben).
+  hat (vorher konnte er fremd erzwungene Chunks freigeben). Seit dem Audit 2026-09-26 auch nach
+  `/setblock`/`/fill` (Freigabe in `setRemoved`), und bei Ueberlappung uebernimmt ein anderer Loader die
+  gemeinsamen Chunks.
+- Spawn-Elytra (Audit 2026-09-26): nur in der Weltspawn-Dimension; Fallschutz im selben Quadrat wie die
+  Elytra-Vergabe (Simple Tweaks: Kreis); sie verschwindet beim Fallenlassen, kein Container/Buendel
+  nimmt sie, Aufraeumen von Inventar/Cursor jeden Tick. Flugzeit hoechstens 24 h, Boosts hoechstens 100.
+- Config-Abgleich (Audit 2026-09-26 #16): `rocketStackSize`, `maxBoosts`, Laser-Schalter und -Reichweite
+  schickt der Server beim Einloggen und nach jedem `/simplebuilding tweaks`-Befehl (`TweaksConfigPayload`).
+- Laserpointer: Rezept ` A `/`IGI`/`IRI` (Amethystsplitter, Glas, Eisenbarren, Redstone), keine
+  Haltbarkeit mehr (nahm nie ab); Entfernungsanzeige misst bis zum Laserpunkt.
+- Echo-Kompass: ein blockierter Sprung kostet weder Perle noch Haltbarkeit noch Abklingzeit.
+- Launchpad: beim Abbau fallen die geladenen Windkugeln heraus. Eigener Weltspawn per Befehl gilt sofort.
 - XP-Verklumpen: beim Zusammenlegen ging Erfahrung verloren (Anzahl der Kugeln wurde ignoriert) -
   behoben, Obergrenze `Short.MAX_VALUE` je Kugel.
 - Kupfer-Druckplatten behalten beim Oxidieren/Abkratzen ihren Besitzer und melden den Block darunter an.
@@ -279,6 +291,6 @@ Testzentrale: eigene Station `tweaks` (`com.simplebuilding.dev.testcentre.Tweaks
 
 ## 9. Offene Punkte
 
-- Laser-Option `showLine` hat weiter keine Wirkung (wie in Simple Tweaks).
+- Laser-Option `showLine` hat weiter keine Wirkung (wie in Simple Tweaks); im Config-Bildschirm ausgeblendet.
 - Enderit-Texturen vom Besitzer pruefen lassen.
 - Claim-System (Abschnitt 4) bei Bedarf spaeter portieren.

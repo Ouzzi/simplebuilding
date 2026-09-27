@@ -92,7 +92,7 @@
 
 
 
-- End Dimension:
+- End Dimension: ERLEDIGT (Stand 2026-09-27: Nihilith-Erz, Astral-/Nihil-Varianten, Enderit-Kette mit Schmiedevorlage, Enderitblock, Enderit-Items gehen in der Leere nicht verloren - Tag void_protected; siehe wiki/). Offen nur die Rüstungs-Schadensminderung gegen die Leere (letzter Punkt unten).
 
 - 2 end materials, both have raroty of netherite or slightly rarer
 - - mystic stones and magenta ore naturally generating in end dimension

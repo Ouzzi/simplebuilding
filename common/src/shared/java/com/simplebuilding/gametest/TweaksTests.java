@@ -1286,7 +1286,10 @@ public final class TweaksTests {
         helper.succeed();
     }
 
-    /** #40: {@code /killboats all} nimmt volle Kistenboote mit, der Inhalt faellt aber heraus. */
+    /**
+     * #40 (gegengeprueft, kein Fehler): {@code /killboats all} nimmt volle Kistenboote mit, der Inhalt
+     * faellt aber heraus - {@code discard()} laesst ihn ueber AbstractChestBoat#remove fallen. Pinnt das.
+     */
     public static void killBoatsAllDropsTheContentsOfChestBoats(GameTestHelper helper) {
         AABB box = helper.getBounds();
         var full = helper.spawn(EntityTypes.OAK_CHEST_BOAT, new BlockPos(2, 2, 2));

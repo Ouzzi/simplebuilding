@@ -25,8 +25,6 @@ import net.minecraft.server.level.ServerPlayer;
 import com.simplebuilding.tweaks.network.TweaksNetwork;
 import com.simplebuilding.tweaks.spawn.SpawnSetup;
 import net.minecraft.world.Container;
-import net.minecraft.world.Containers;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.entity.vehicle.boat.AbstractChestBoat;
 import net.minecraft.world.entity.vehicle.minecart.AbstractMinecart;
@@ -222,14 +220,12 @@ public final class TweaksCommands {
         return count;
     }
 
-    private static void dropContents(ServerLevel level, Entity entity, Container container) {
-        if (!container.isEmpty()) {
-            Containers.dropContents(level, entity, container);
-            container.clearContent();
-        }
-    }
-
-    /** standard = nur Boote ohne Kiste, empty = dazu leere Kistenboote, all = alle unbesetzten Boote. */
+    /**
+     * standard = nur Boote ohne Kiste, empty = dazu leere Kistenboote, all = alle unbesetzten Boote.
+     * Der Inhalt voller Kistenboote/Lagerloren geht dabei nicht verloren: {@code discard()} ist ein
+     * zerstoerender Entfernungsgrund, und AbstractChestBoat/AbstractMinecartContainer#remove lassen
+     * ihn fallen (Audit 2026-09-26 #40 gegengeprueft, Test killBoatsAllDropsTheContentsOfChestBoats).
+     */
     public static int killBoats(ServerLevel level, AABB box, String mode) {
         int count = 0;
         for (AbstractBoat boat : level.getEntitiesOfClass(AbstractBoat.class, box, b -> !b.isVehicle())) {
@@ -240,10 +236,6 @@ public final class TweaksCommands {
                 default -> !storage;
             };
             if (remove) {
-                // "all" nimmt auch volle Kistenboote mit - der Inhalt faellt heraus statt zu verschwinden (Audit #40).
-                if (boat instanceof Container container) {
-                    dropContents(level, boat, container);
-                }
                 boat.discard();
                 count++;
             }
@@ -263,9 +255,6 @@ public final class TweaksCommands {
                 default -> standard;
             };
             if (remove) {
-                if (cart instanceof Container container) {
-                    dropContents(level, cart, container);
-                }
                 cart.discard();
                 count++;
             }
