@@ -1910,46 +1910,167 @@ def end_palette_textures():
 
 
 # ---------------------------------------------------------------------------
-# Enderit-Stufen der Tweak-Bloecke (aus Simple Tweaks uebernommen): Elytra-Pad IV, Flypad IV,
-# Spawn-Teleporter V, Enderit-Druckplatte, Enderit-Chunk-Loader, Enderit-Launchpad. Alle nutzen das
-# Vanilla-Modell pressure_plate_up: sichtbar sind oben die Pixel 1..14 und an den Seiten Zeile 15.
-# Gemeinsam: heller Enderit-Rahmen mit 2x2-Eckbeschlaegen und leuchtender Niete oben links (wie die
-# Enderit-Maschinen), zwei Glimmerpunkte. Das Motiv innen haelt die Familie erkennbar:
-#   Elytra-Pad  - mittleres Violett, gepraegter Ring mit Spiral-Bogen (wie die Pads I-III)
-#   Flypad      - dunkles Enderit-Mauerwerk, Ring mit Funkelstern (Stellar-Flypad hat Sterne)
-#   Teleporter  - Portalring in Ender-Magenta mit leuchtendem Kern (Leuchtkraft 15)
-#   Druckplatte - seit 2026-09-27 die Textur des Enderitblocks, wie Netherit- und Diamant-Druckplatte
-#                 die ihres Blocks tragen (Vanilla: Waegeplatten = Gold-/Eisenblock); siehe
-#                 end_palette_textures, keine eigene Karte mehr
-#   Chunk-Loader- sattes Violett, Ring mit quadratischem "Chunk" in der Mitte
-#   Launchpad   - helles Lavendel, Ring mit innerem Ring (Windstoss), hell wie das Launchpad
-# Die inneren 12x12 Pixel (Spalten/Zeilen 2..13) sind je Block gemalt; tweak_frame() legt den
-# Rahmen darum. Die Ecken der inneren Karte ('_') gehoeren den Beschlaegen.
+# Pads und Druckplatten der Simple-Tweaks-Familien (2026-09-28, Grundsatz des Besitzers): jedes Pad =
+# die Druckplatte seines Materials + die Auflage der Familie, deren Farben die Stufe tragen. Das Material
+# haelt die Familie erkennbar, die Auflage die Stufe:
+#   Elytra-Pad      - Diamantplatte     (I-III und V von Hand gemalt, IV und der Glanz von V von hier)
+#   Spawn-Teleporter- Goldplatte        (I-IV von Hand gemalt, V von hier)
+#   Launchpad       - Eisenplatte       (I Diamant-, III Enderit-Auflage; II ist das alte Launchpad I)
+#   Chunk-Loader    - Kupferplatte      (I von Hand gemalt, II Netherit-, III Enderit-Auflage)
+#   Flypad          - Enderitplatte     (I-III, die Familie ist ganz aus Enderit)
+# Die Auflage ist die des Besitzers, aus seinen Pads zurueckgerechnet (alle von Hand gemalten Pads sind
+# "Block + eine Schleierfarbe mit derselben Deckkraftkarte", Restfehler 1-4 Farbstufen):
+#   PAD_VEIL  - Deckkraft je Pixel in 5-%-Schritten (0 = Platte frei, das ist die Spirale); die Stufe
+#               waehlt Farbe und Staerke (k): Diamant blau und leicht, Netherit dunkel und kraeftig.
+#   PAD_STARS - die Funkelsterne aus Chunk-Loader I, Stellar-Flypad und Spawn-Teleporter IV
+#               (S Mitte, s Arm); Enderit-Stufen tragen sie in Lavendel, Chunk-Loader und Stellar-Flypad
+#               als Familienmerkmal.
+# Die Grundplatten liegen als unveraenderte Vorlagen in tools/textures/hand/pad_base_*.png (Diamant und
+# Kupfer = die Druckplatten des Mods, Gold/Eisen = die Vanilla-Waegeplatten); die Enderitplatte kommt aus
+# end_palette_textures. Die alten Texturen flypad.png, reinforced_flypad.png, stellar_flypad.png,
+# netherite_flypad.png und enderite_flypad.png (alte Bloecke, Trank-Pad) bleiben unberuehrt.
+PAD_VEIL = [
+    "3389987533985337",
+    "3693422222222229",
+    "7926005779662229",
+    "5660058898504228",
+    "3400878020002443",
+    "3206060002000863",
+    "9202800005200078",
+    "7206420287650029",
+    "3202400064000028",
+    "7205800002240023",
+    "5200750005050023",
+    "3900000280600878",
+    "3790005458000927",
+    "6228000000007967",
+    "3552622222267625",
+    "3495598444844644",
+]
+PAD_STARS = [
+    "................",
+    "..............s.",
+    ".............sSs",
+    "..s.......s...s.",
+    ".sSs.....sSs....",
+    "..s...s...s.....",
+    ".....sSs........",
+    "......s.........",
+    "................",
+    "................",
+    "................",
+    "...........s....",
+    ".....s....sSs...",
+    "....sSs....s....",
+    ".....s..........",
+    "................",
+]
+# Stufenfarben der Auflage: veil = Schleierfarbe, k = Staerke (Deckkraft = Ziffer * 5 % * k),
+# stars = (Farbe Mitte, Deckkraft Mitte, Farbe Arm, Deckkraft Arm) oder None
+PAD_OVERLAYS = {
+    # wie Spawn-Teleporter I (Gold + Diamant-Auflage), Restfehler 3.9
+    "diamond": {"veil": "#1888c0", "k": 1.2, "stars": None},
+    # Chunk-Loader I (Kupfer), Schleier nachgerechnet
+    "chunk": {"veil": "#001030", "k": 1.1, "stars": ("#f0e0d0", 0.8, "#f0e0d0", 0.5)},
+    # wie Spawn-Teleporter IV, helle Sterne wie dort
+    "netherite": {"veil": "#403040", "k": 1.9, "stars": ("#f4ecf0", 0.75, "#e0d6dc", 0.45)},
+    # Chunk-Loader II: Kupfer hat schon den dunklen Schleier von Stufe I, Netherit darum dunkler und
+    # kraeftiger, Sterne kuehl-hell statt cremefarben
+    "chunk_netherite": {"veil": "#2a2024", "k": 2.3, "stars": ("#f0eef4", 0.85, "#d4d0dc", 0.55)},
+    # Enderit: Schleier in der Barrenrampe (m), Sterne im Enderit-Glimmer
+    "enderite": {"veil": "#3e2173", "k": 1.9, "stars": ("#f4d2ff", 0.9, "#cfb2fb", 0.6)},
+    # Flypads (Enderitplatte): helles Tuerkis der alten Flypads (die violette Spirale bleibt frei und hebt
+    # sich dunkel ab), II kraeftiger; III Nachthimmel mit den Sternen des alten Stellar-Flypads
+    "flypad": {"veil": "#48d8ff", "k": 1.3, "stars": None},
+    "reinforced_flypad": {"veil": "#20c0f4", "k": 1.6, "stars": None},
+    "stellar_flypad": {"veil": "#0c1238", "k": 1.6, "stars": ("#fff8e0", 1.0, "#ffe9a8", 0.75)},
+}
+# Pad -> (Grundplatte, Auflage). Grundplatte: Name einer Vorlage hand/pad_base_<name>.png oder "enderite".
+PAD_TEXTURES = {
+    "enderite_elytra_pad": ("diamond", "enderite"),
+    "enderite_spawn_teleporter": ("gold", "enderite"),
+    "launchpad": ("iron", "diamond"),
+    "enderite_launchpad": ("iron", "enderite"),
+    "netherite_chunk_loader": ("copper", "chunk_netherite"),
+    "enderite_chunk_loader": ("copper", "enderite"),
+    "flypad_ender": ("enderite", "flypad"),
+    "reinforced_flypad_ender": ("enderite", "reinforced_flypad"),
+    "stellar_flypad_ender": ("enderite", "stellar_flypad"),
+}
+# Feiner Elytra-Pad V (Vorlage hand/fine_elytra_pad.png, vom Besitzer): enthaelt Enderit, darum die
+# Sterne in Weiss mit Lavendel-Armen und zwei einzelne Glanzpixel auf dem Spiralbogen.
+FINE_ELYTRA_STARS = ("#ffffff", 0.95, "#eadcff", 0.65)
+FINE_ELYTRA_GLINTS = [((8, 3), "#ffffff", 0.8), ((12, 9), "#f4ecff", 0.7), ((3, 10), "#f4ecff", 0.6)]
+
+
+def mix(base, color, a):
+    a = max(0.0, min(1.0, a))
+    return tuple(int(round(b + a * (c - b))) for b, c in zip(base, color))
+
+
+def pad_overlay(base, overlay, stars=None):
+    """Legt die Auflage (PAD_VEIL + PAD_STARS) in den Farben einer Stufe auf eine Grundplatte."""
+    img = base.convert("RGB").copy()
+    px = img.load()
+    veil = hexrgb(overlay["veil"]) if overlay.get("veil") else None
+    stars = stars if stars is not None else overlay.get("stars")
+    for y in range(16):
+        for x in range(16):
+            if veil is not None:
+                px[x, y] = mix(px[x, y], veil, int(PAD_VEIL[y][x]) * 0.05 * overlay["k"])
+            ch = PAD_STARS[y][x]
+            if stars and ch != ".":
+                col, a = (stars[0], stars[1]) if ch == "S" else (stars[2], stars[3])
+                px[x, y] = mix(px[x, y], hexrgb(col), a)
+    return img
+
+
+def pad_textures(tex):
+    bases = {"enderite": tex["block/enderite_pressure_plate.png"]}
+    out = {}
+    for name, (base, overlay) in PAD_TEXTURES.items():
+        if base not in bases:
+            bases[base] = Image.open(os.path.join(HAND, f"pad_base_{base}.png")).convert("RGB")
+        out[f"block/{name}.png"] = pad_overlay(bases[base], PAD_OVERLAYS[overlay])
+    fine = pad_overlay(Image.open(os.path.join(HAND, "fine_elytra_pad.png")), {}, FINE_ELYTRA_STARS)
+    fpx = fine.load()
+    for (x, y), col, a in FINE_ELYTRA_GLINTS:
+        fpx[x, y] = mix(fpx[x, y], hexrgb(col), a)
+    out["block/fine_elytra_pad.png"] = fine
+    # Netherit-Launchpad II = das alte Launchpad I des Besitzers (Eisen + dunkler Schleier), unveraendert
+    out["block/netherite_launchpad.png"] = Image.open(os.path.join(HAND, "netherite_launchpad.png")).convert("RGB")
+    return out
+
+
+# Familien fuer die Vorschau (alle Stufen in einer Reihe, dazu die Grundplatte)
+PAD_FAMILIES = [
+    ("Elytra-Pads (Diamantplatte)", ["elytra_pad", "reinforced_elytra_pad", "netherite_elytra_pad",
+                                     "enderite_elytra_pad", "fine_elytra_pad"], "diamond_pressure_plate"),
+    ("Spawn-Teleporter (Goldplatte)", ["spawn_teleporter", "spawn_teleporter_tier_2", "spawn_teleporter_tier_3",
+                                       "spawn_teleporter_tier_4", "enderite_spawn_teleporter"], None),
+    ("Launchpads (Eisenplatte)", ["launchpad", "netherite_launchpad", "enderite_launchpad"], None),
+    ("Chunk-Loader (Kupferplatte)", ["chunk_loader", "netherite_chunk_loader", "enderite_chunk_loader"],
+     "copper_pressure_plate"),
+    ("Flypads (Enderitplatte)", ["flypad_ender", "reinforced_flypad_ender", "stellar_flypad_ender"],
+     "enderite_pressure_plate"),
+]
+
+
+# Altes Enderit-Flypad (Block nur noch fuer alte Welten): Rahmen mit Eckbeschlaegen im Stil der
+# Enderit-Maschinen, dunkles Enderit-Mauerwerk, Ring mit Funkelstern. Die inneren 12x12 Pixel
+# (Spalten/Zeilen 2..13) sind gemalt; tweak_frame() legt den Rahmen darum. Die Ecken der inneren
+# Karte ('_') gehoeren den Beschlaegen.
 ENDERITE_TWEAK_PAL = {
     # Rahmen und Beschlaege in der Barrenrampe (wie ENDERITE_MACHINE_PAL): F Umriss, m Schatten,
     # M Grund, N hell, O Lichtkante, L Glimmer (Niete und Glimmerpunkte)
     "F": "#1c0a33", "m": "#3e2173", "M": "#6d45b8", "N": "#8e63dc", "O": "#cfb2fb", "L": "#f4d2ff",
-    # dunkles Enderit-Mauerwerk (Flypad), dunkel -> hell
+    # dunkles Enderit-Mauerwerk, dunkel -> hell
     "a": "#1a1027", "b": "#241734", "c": "#2e1e43", "d": "#3a2754", "e": "#473167",
     # Barrenrampe (ENDERITE_INGOT_PAL): 1 R-Ton ... 6, h Glanz, v Ender-Magenta, w Kern
     "1": "#472480", "2": "#55309a", "3": "#6d45b8", "4": "#7b51c9", "5": "#8e63dc", "6": "#a57de9",
     "h": "#cfb2fb", "v": "#c77dff", "w": "#f1e8ff",
 }
 ENDERITE_TWEAK_MAPS = {
-    "enderite_elytra_pad": [
-        "_4453344544_",
-        "3544hhh644L5",
-        "45hh22336634",
-        "45h233335634",
-        "4h233hh53554",
-        "4h23h2233654",
-        "5h3362233633",
-        "463335543634",
-        "446533336354",
-        "346656663344",
-        "4L5345334454",
-        "_5444334444_",
-    ],
     "enderite_flypad": [
         "_cccdcccbcc_",
         "cdcc5554cdLc",
@@ -1963,48 +2084,6 @@ ENDERITE_TWEAK_MAPS = {
         "dc33233311cc",
         "cLdcc2211cdc",
         "_cdcccccbcc_",
-    ],
-    "enderite_spawn_teleporter": [
-        "_3343323343_",
-        "3233wwwv34L3",
-        "34ww1122vv33",
-        "33w11221vv33",
-        "3w112vv21vv3",
-        "4w12vwhv2vv3",
-        "3w22vhvv2v63",
-        "3v212vv21v64",
-        "33vv1221v633",
-        "34vvvvvv6633",
-        "3L32vv663423",
-        "_3323343332_",
-    ],
-    "enderite_chunk_loader": [
-        "_1121m11211_",
-        "1m11hhh611L1",
-        "11hhmm336612",
-        "11hmmmmm5611",
-        "1hmmh665m551",
-        "1hmm6vL3m652",
-        "2h3m6vv3m631",
-        "163m533mm631",
-        "1163mmmm6321",
-        "116656663321",
-        "1L1m11331121",
-        "_1121111m11_",
-    ],
-    "enderite_launchpad": [
-        "_66h6656h66_",
-        "66h6wwwh66L6",
-        "66ww4455hh66",
-        "6hw455555h66",
-        "6w455wh55556",
-        "6w45w66h5h56",
-        "hw55h6545h46",
-        "6h5554455h46",
-        "66h55555h4h6",
-        "66hh5hhh4466",
-        "6L6655446656",
-        "_6h66666566_",
     ],
 }
 
@@ -2028,66 +2107,6 @@ def tweak_frame(name, inner):
 def enderite_tweak_textures():
     return {f"block/{name}.png": render(name, tweak_frame(name, inner), ENDERITE_TWEAK_PAL, True)
             for name, inner in ENDERITE_TWEAK_MAPS.items()}
-
-# Stufe darunter je Enderit-Tweak-Block (fuer die Vorschau)
-ENDERITE_TWEAK_BELOW = {
-    "enderite_elytra_pad": "netherite_elytra_pad", "enderite_flypad": "netherite_flypad",
-    "enderite_spawn_teleporter": "spawn_teleporter_tier_4", "enderite_pressure_plate": "netherite_pressure_plate",
-    "enderite_chunk_loader": "netherite_chunk_loader", "enderite_launchpad": "netherite_launchpad",
-}
-
-
-# ---------------------------------------------------------------------------
-# Netherit-Stufen (II) von Launchpad und Chunk-Loader (2026-09-27: beide Familien haben jetzt drei
-# Stufen, Diamant/Netherit/Enderit). Wie die Stufen der anderen Familien teilen sie die Karte ihrer
-# Enderit-Stufe (Rahmen mit Eckbeschlaegen + Motiv) und unterscheiden sich in der Palette: Netherit-
-# Grautoene nach dem Netheritblock, dazu ein Akzent, der die Familie erkennbar haelt -
-#   Launchpad   - Windweiss im Doppelring (Stufe I ist die helle Eisenplatte)
-#   Chunk-Loader- Kupfer im "Chunk" und an den Nieten (Stufe I entsteht aus der Kupferplatte)
-NETHERITE_TWEAK_PAL = {
-    # Rahmen: F Umriss, m Schatten, M Grund, N hell, O Lichtkante, L Niete/Glimmer (je Block, s. u.)
-    "F": "#161213", "m": "#2c2627", "M": "#3f3a3c", "N": "#524d51", "O": "#7a7579",
-    # Innenrampe dunkel -> hell, h Glanz
-    "1": "#3b3536", "2": "#433d3f", "3": "#4a4547", "4": "#524d50", "5": "#5a565a", "6": "#625e62",
-    "h": "#8e898d",
-}
-NETHERITE_TWEAK_ACCENTS = {
-    "netherite_launchpad": {"w": "#cfd8db", "L": "#eef4f6"},
-    "netherite_chunk_loader": {"v": "#b4623a", "L": "#e8a06a"},
-}
-# Karte, die die Netherit-Stufe mit ihrer Enderit-Stufe teilt
-NETHERITE_TWEAK_SHARES = {"netherite_launchpad": "enderite_launchpad", "netherite_chunk_loader": "enderite_chunk_loader"}
-
-
-def netherite_tweak_textures():
-    tex = {}
-    for name, shared in NETHERITE_TWEAK_SHARES.items():
-        pal = dict(NETHERITE_TWEAK_PAL)
-        pal.update(NETHERITE_TWEAK_ACCENTS[name])
-        tex[f"block/{name}.png"] = render(name, tweak_frame(name, ENDERITE_TWEAK_MAPS[shared]), pal, True)
-    tex.update(ender_flypad_textures())
-    return tex
-
-
-# Flypads I-III (2026-09-27: drei Stufen, alle aus Enderit). Sie teilen die Karte des Enderit-Flypads
-# (dunkles Enderit-Mauerwerk, Ring mit Funkelstern) und steigern sich im Akzent: I schlichtes Violett,
-# II Ender-Magenta (wie das alte Enderit-Flypad), III goldweisser Stern (stellar). Dateien <id>_ender,
-# weil die alten flypad.png / reinforced_flypad.png / stellar_flypad.png liegen bleiben (der Besitzer
-# will sie fuer eine neue Netherit-Druckplatte wiederverwenden).
-ENDER_FLYPAD_ACCENTS = {
-    "flypad_ender": {"v": "#8e63dc", "h": "#b89af0", "L": "#cfb2fb"},
-    "reinforced_flypad_ender": {"v": "#c77dff", "h": "#dcc4ff", "L": "#f4d2ff"},
-    "stellar_flypad_ender": {"v": "#ffd76a", "h": "#fff3c4", "L": "#ffffff"},
-}
-
-
-def ender_flypad_textures():
-    tex = {}
-    for name, accents in ENDER_FLYPAD_ACCENTS.items():
-        pal = dict(ENDERITE_TWEAK_PAL)
-        pal.update(accents)
-        tex[f"block/{name}.png"] = render(name, tweak_frame(name, ENDERITE_TWEAK_MAPS["enderite_flypad"]), pal, True)
-    return tex
 
 
 # Rotator (2026-09-27): kleine Enderperle in der Mitte des Bogens - das Rezept traegt jetzt eine
@@ -2663,7 +2682,6 @@ def build():
     apply_netherite_handles(tex)
 
     tex.update(enderite_tweak_textures())
-    tex.update(netherite_tweak_textures())
     tex.update(rotator_texture())
     tex.update(checker_textures())
     tex.update(backpack_worn_textures(tex))
@@ -2673,6 +2691,7 @@ def build():
     tex.update(bundle_open_textures())
     tex.update(backpack_gui_textures())
     tex.update(end_palette_textures())
+    tex.update(pad_textures(tex))  # braucht die Enderitplatte aus end_palette_textures
     tex.update(echo_compass_textures())
     return tex
 
@@ -2935,9 +2954,9 @@ def build_preview(tex):
                                                 (f"{base}_front.png", tex[f"{base}_front.png"]),
                                                 (f"{base}_zusammen.png", opened), (f"{base}_blau.png", dyed)], []))
     groups += machine_preview_groups(tex)
-    groups.append(("Enderit-Tweak-Bloecke (Stufe darunter)",
-                   [(f"block/{below}.png", None) for below in ENDERITE_TWEAK_BELOW.values()], []))
-    groups.append(("Enderit-Tweak-Bloecke", [(f"block/{n}.png", tex[f"block/{n}.png"]) for n in ENDERITE_TWEAK_BELOW], []))
+    for title, names, base in PAD_FAMILIES:
+        groups.append((title, [(f"block/{n}.png", tex.get(f"block/{n}.png")) for n in names]
+                       + ([(f"block/{base}.png", tex.get(f"block/{base}.png"))] if base else []), []))
     groups.append(("Quarz-Schachbrett", [("block/lapis_quartz_checker.png", None)]
                    + [(k, tex[k]) for k in ("block/nihilith_quartz_checker.png", "block/nihilith_quartz_checker_mirror.png",
                                             "block/astralit_quartz_checker.png", "block/astralit_quartz_checker_mirror.png",

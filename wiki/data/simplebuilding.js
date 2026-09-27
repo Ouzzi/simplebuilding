@@ -16597,8 +16597,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:enderite_spawn_teleporter",
       "name": {
-        "en_us": "Enderite Spawn Teleporter V",
-        "de_de": "Enderit-Spawn-Teleporter V"
+        "en_us": "Spawn Teleporter V",
+        "de_de": "Spawn-Teleporter V"
       },
       "texture": "assets/textures/block/enderite_spawn_teleporter.png",
       "craftedBy": [
@@ -16612,10 +16612,10 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), the Enderite Spawn Teleporter V takes you to your own respawn point.",
+          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), Spawn Teleporter V takes you to your own respawn point.",
           "details": [
             "Tier I goes to Spawn 1, II to Spawn 2, III to Spawn 3, IV to Spawn 4. Operators set them with /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (their own position). An unset target means the world spawn.",
-            "Enderite Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
+            "Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
             "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
             "The owner sees enchanting particles over their own teleporter. Waterloggable.",
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + Netherite Pressure Plate; V = enderite upgrade template + IV + Enderite Pressure Plate.",
@@ -16625,10 +16625,10 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), der Enderit-Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
+          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
           "details": [
             "Stufe I führt zu Spawn 1, II zu Spawn 2, III zu Spawn 3, IV zu Spawn 4. Operatoren setzen sie mit /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (eigene Position). Ohne gesetztes Ziel geht es zum Weltspawn.",
-            "Enderit-Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
+            "Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
             "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
             "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netherit-Druckplatte; V = Enderit-Aufwertungsvorlage + IV + Enderit-Druckplatte.",
@@ -19898,10 +19898,10 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), the Enderite Spawn Teleporter V takes you to your own respawn point.",
+          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), Spawn Teleporter V takes you to your own respawn point.",
           "details": [
             "Tier I goes to Spawn 1, II to Spawn 2, III to Spawn 3, IV to Spawn 4. Operators set them with /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (their own position). An unset target means the world spawn.",
-            "Enderite Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
+            "Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
             "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
             "The owner sees enchanting particles over their own teleporter. Waterloggable.",
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + Netherite Pressure Plate; V = enderite upgrade template + IV + Enderite Pressure Plate.",
@@ -19911,10 +19911,10 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), der Enderit-Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
+          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
           "details": [
             "Stufe I führt zu Spawn 1, II zu Spawn 2, III zu Spawn 3, IV zu Spawn 4. Operatoren setzen sie mit /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (eigene Position). Ohne gesetztes Ziel geht es zum Weltspawn.",
-            "Enderit-Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
+            "Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
             "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
             "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netherit-Druckplatte; V = Enderit-Aufwertungsvorlage + IV + Enderit-Druckplatte.",
@@ -19956,10 +19956,10 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), the Enderite Spawn Teleporter V takes you to your own respawn point.",
+          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), Spawn Teleporter V takes you to your own respawn point.",
           "details": [
             "Tier I goes to Spawn 1, II to Spawn 2, III to Spawn 3, IV to Spawn 4. Operators set them with /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (their own position). An unset target means the world spawn.",
-            "Enderite Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
+            "Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
             "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
             "The owner sees enchanting particles over their own teleporter. Waterloggable.",
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + Netherite Pressure Plate; V = enderite upgrade template + IV + Enderite Pressure Plate.",
@@ -19969,10 +19969,10 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), der Enderit-Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
+          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
           "details": [
             "Stufe I führt zu Spawn 1, II zu Spawn 2, III zu Spawn 3, IV zu Spawn 4. Operatoren setzen sie mit /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (eigene Position). Ohne gesetztes Ziel geht es zum Weltspawn.",
-            "Enderit-Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
+            "Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
             "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
             "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netherit-Druckplatte; V = Enderit-Aufwertungsvorlage + IV + Enderit-Druckplatte.",
@@ -20014,10 +20014,10 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), the Enderite Spawn Teleporter V takes you to your own respawn point.",
+          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), Spawn Teleporter V takes you to your own respawn point.",
           "details": [
             "Tier I goes to Spawn 1, II to Spawn 2, III to Spawn 3, IV to Spawn 4. Operators set them with /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (their own position). An unset target means the world spawn.",
-            "Enderite Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
+            "Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
             "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
             "The owner sees enchanting particles over their own teleporter. Waterloggable.",
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + Netherite Pressure Plate; V = enderite upgrade template + IV + Enderite Pressure Plate.",
@@ -20027,10 +20027,10 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), der Enderit-Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
+          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
           "details": [
             "Stufe I führt zu Spawn 1, II zu Spawn 2, III zu Spawn 3, IV zu Spawn 4. Operatoren setzen sie mit /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (eigene Position). Ohne gesetztes Ziel geht es zum Weltspawn.",
-            "Enderit-Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
+            "Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
             "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
             "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netherit-Druckplatte; V = Enderit-Aufwertungsvorlage + IV + Enderit-Druckplatte.",
@@ -20072,10 +20072,10 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), the Enderite Spawn Teleporter V takes you to your own respawn point.",
+          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), Spawn Teleporter V takes you to your own respawn point.",
           "details": [
             "Tier I goes to Spawn 1, II to Spawn 2, III to Spawn 3, IV to Spawn 4. Operators set them with /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (their own position). An unset target means the world spawn.",
-            "Enderite Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
+            "Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
             "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
             "The owner sees enchanting particles over their own teleporter. Waterloggable.",
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + Netherite Pressure Plate; V = enderite upgrade template + IV + Enderite Pressure Plate.",
@@ -20085,10 +20085,10 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), der Enderit-Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
+          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
           "details": [
             "Stufe I führt zu Spawn 1, II zu Spawn 2, III zu Spawn 3, IV zu Spawn 4. Operatoren setzen sie mit /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (eigene Position). Ohne gesetztes Ziel geht es zum Weltspawn.",
-            "Enderit-Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
+            "Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
             "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
             "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netherit-Druckplatte; V = Enderit-Aufwertungsvorlage + IV + Enderit-Druckplatte.",
