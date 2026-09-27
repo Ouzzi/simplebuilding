@@ -313,21 +313,21 @@ public final class WorldAndPlayerTests {
      */
     private static final Map<ResourceKey<LootTable>, Integer> POOLS_PER_TABLE = Map.ofEntries(
             Map.entry(BuiltInLootTables.STRONGHOLD_LIBRARY, 1),
-            Map.entry(BuiltInLootTables.END_CITY_TREASURE, 4),
+            Map.entry(BuiltInLootTables.END_CITY_TREASURE, 5),
             Map.entry(BuiltInLootTables.ANCIENT_CITY, 1),
-            Map.entry(BuiltInLootTables.BASTION_TREASURE, 2),
-            Map.entry(BuiltInLootTables.BASTION_OTHER, 1),
-            Map.entry(BuiltInLootTables.NETHER_BRIDGE, 1),
+            Map.entry(BuiltInLootTables.BASTION_TREASURE, 4),
+            Map.entry(BuiltInLootTables.BASTION_OTHER, 2),
+            Map.entry(BuiltInLootTables.NETHER_BRIDGE, 2),
             Map.entry(BuiltInLootTables.PILLAGER_OUTPOST, 1),
-            Map.entry(BuiltInLootTables.WOODLAND_MANSION, 1),
+            Map.entry(BuiltInLootTables.WOODLAND_MANSION, 2),
             Map.entry(BuiltInLootTables.BURIED_TREASURE, 1),
             Map.entry(BuiltInLootTables.SIMPLE_DUNGEON, 1),
             Map.entry(BuiltInLootTables.SHIPWRECK_TREASURE, 1),
             Map.entry(BuiltInLootTables.IGLOO_CHEST, 1),
             Map.entry(BuiltInLootTables.ABANDONED_MINESHAFT, 1),
             Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_COMMON, 1),
-            Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_RARE, 2),
-            Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS, 1),
+            Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_RARE, 3),
+            Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS, 2),
             Map.entry(BuiltInLootTables.RUINED_PORTAL, 1),
             Map.entry(BuiltInLootTables.FISHING_TREASURE, 1));
 
