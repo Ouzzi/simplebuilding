@@ -727,6 +727,9 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("piston_breach_game_test_netherite_breaker_wears_down_and_crumbles_to_reinforced_piston", PistonBreachTests::netheriteBreakerWearsDownAndCrumblesToReinforcedPiston)
                     .maxTicks(PistonBreachTests.WEAR_MAX_TICKS)
                     .build(),
+            GameTestSpec.named("piston_breach_game_test_enderite_piston_wears_down_and_crumbles_to_netherite_breaker", PistonBreachTests::enderitePistonWearsDownAndCrumblesToNetheriteBreaker)
+                    .maxTicks(PistonBreachTests.ENDERITE_WEAR_MAX_TICKS)
+                    .build(),
             GameTestSpec.named("piston_breach_game_test_mod_pistons_fire_the_real_loader_events_and_honour_their_config_switch", PistonBreachTests::modPistonsFireTheRealLoaderEventsAndHonourTheirConfigSwitch)
                     .maxTicks(PistonBreachTests.LOADER_EVENTS_MAX_TICKS)
                     .build(),

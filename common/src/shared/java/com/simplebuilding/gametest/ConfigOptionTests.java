@@ -406,6 +406,7 @@ public final class ConfigOptionTests {
             "root.pistonsBreachModdedUnbreakables boolean=false",
             "root.pistonsFireBreakEvents boolean=true",
             "root.netheriteBreakerWearBudget int=1024",
+            "root.enderitePistonWearBudget int=2048",
             "root.showDevEnchantedTab boolean=false",
             "root.vanillaEnchantedBookTextures boolean=true",
             "root.modEnchantedBookTextures boolean=true",

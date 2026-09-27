@@ -982,14 +982,17 @@ MACHINE_TIERS = {
         # nimmt deshalb die roetlichen Dunkeltoene, etwas angehoben
         "hopper": ("stone", 0x10),
     },
+    # Besitzer 2026-09-27: die Enderit-Maschinen wirkten zu hell. Koerper (Stein, Holzband) mit
+    # 0.72-fachem HSV-Wert, Beschlaege (Metall) mit 0.78 - Farbton und Saettigung bleiben, die
+    # Beschlaege heben sich weiter ab; Glanzpunkt und Feuer unveraendert.
     "enderite": {
-        "stone": _ramp(_MG, ["#08030f", "#190e28", "#241636", "#2f1f46", "#3b2957", "#412e5f", "#4d386e", "#5d4584",
-                             "#6e5296"]),
-        "metal": _ramp(_MG, ["#12061f", "#2d1656", "#3e2173", "#4d2a8c", "#6139a8", "#6d45b8", "#8259cf", "#a57de9",
-                             "#cfb2fb"]),
-        "wood": _ramp(_MW, ["#1a0f30", "#33205a", "#4a3080", "#583a94", "#6f4db0", "#7a57bf", "#8a66d0"]),
+        "stone": _ramp(_MG, ["#06020b", "#120a1d", "#1a1027", "#221632", "#2a1e3f", "#2f2144", "#37284f", "#43325f",
+                             "#4f3b6c"]),
+        "metal": _ramp(_MG, ["#0e0518", "#231143", "#301a5a", "#3c216d", "#4c2c83", "#553690", "#6545a1", "#8162b6",
+                             "#a18bc4"]),
+        "wood": _ramp(_MW, ["#130b23", "#251741", "#35235c", "#3f2a6b", "#50377f", "#583f8a", "#634996"]),
         "fire": _ramp(_MF, ["#2c0f4e", "#4b1b86", "#7329c4", "#a44ff0", "#d08eff", "#f4ddff"]),
-        "hopper": ("metal", 0x20),    # Trichter heller, damit er nach Enderitbarren aussieht
+        "hopper": ("metal", 0x08),    # Trichter eine Spur heller als die Beschlaege, nach Enderitbarren
         "glimmer": "#f4d2ff",
     },
 }
@@ -1046,7 +1049,10 @@ NETHERITE_WEAR = [
     "................",
 ]
 NETHERITE_WEAR_EDGE = {"e": 1, "f": 2, "g": 3}
-NETHERITE_WEAR_CRACK = "#0a0708"
+# Rissspalt je Kolbenstufe, jeweils eine Spur dunkler als der dunkelste Ton ihrer Steinrampe. Der
+# Enderitkolben verschleisst seit der Kolben-Balance 2026-09-27 wie der Netheritkolben und bekommt
+# dieselben Risse in seiner eigenen (neu gezeichneten) Seite.
+PISTON_WEAR_CRACK = {"netherite": "#0a0708", "enderite": "#040108"}
 
 # Flaechen je Stufe (Rauchofen-Unterseite nur Enderit, dessen Datei es schon gab; die Modelle nehmen
 # fuer unten den Deckel)
@@ -1134,17 +1140,18 @@ def machine_face(tier, face):
     return strip
 
 
-def netherite_wear_textures(side):
+def piston_wear_textures(tier, side):
+    """Die Verschleissstufen <tier>_piston_side_worn1..3 aus der aktuellen Seite der Stufe."""
     out = {}
     for stage in (1, 2, 3):
         img = side.copy()
         for y, row in enumerate(NETHERITE_WEAR):
             for x, ch in enumerate(row):
                 if ch.isdigit() and int(ch) <= stage:
-                    img.putpixel((x, y), hexrgb(NETHERITE_WEAR_CRACK))
+                    img.putpixel((x, y), hexrgb(PISTON_WEAR_CRACK[tier]))
                 elif NETHERITE_WEAR_EDGE.get(ch, 9) <= stage:
                     img.putpixel((x, y), tuple(min(255, int(q * 1.3 + 16)) for q in img.getpixel((x, y))[:3]))
-        out[f"block/netherite_piston_side_worn{stage}.png"] = img
+        out[f"block/{tier}_piston_side_worn{stage}.png"] = img
     return out
 
 
@@ -1167,7 +1174,8 @@ def tiered_machine_textures():
         tex[f"block/{tier}_piston_arm.png"] = arm
     tex["block/reinforced_piston_top_sticky.png"] = machine_face("reinforced", "piston_top_sticky").convert("RGB")
     tex["block/enderite_smoker_bottom.png"] = machine_face("enderite", "smoker_bottom").convert("RGB")
-    tex.update(netherite_wear_textures(tex["block/netherite_piston_side.png"]))
+    for tier in PISTON_WEAR_CRACK:
+        tex.update(piston_wear_textures(tier, tex[f"block/{tier}_piston_side.png"]))
     return tex
 
 

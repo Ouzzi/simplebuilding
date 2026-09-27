@@ -13,14 +13,22 @@ import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.block.Block;
 
 /**
- * The netherite piston's item: the old breaker tooltip (redstone strength decides what it breaks)
- * and, once it carries wear from the world ({@code block_state} component, copied by the loot table),
- * {@code Wear n/8} in the colour of the damage bar.
+ * The netherite and enderite piston's item: the breaker tooltip (redstone strength decides what it
+ * breaks, which nugget repairs it) and, once it carries wear from the world ({@code block_state}
+ * component, written by {@code NetheriteBreakerPistonBlock#getDrops}), {@code Wear n/8} in the colour
+ * of the damage bar.
  */
 public class NetheritePistonItem extends BlockItem {
+    private final String tooltipKey;
 
     public NetheritePistonItem(Block block, Properties settings) {
+        this(block, settings, "tooltip.simplebuilding.netherite_piston");
+    }
+
+    /** {@code tooltipKey}: the line under the name, e.g. {@code tooltip.simplebuilding.enderite_piston}. */
+    public NetheritePistonItem(Block block, Properties settings, String tooltipKey) {
         super(block, settings);
+        this.tooltipKey = tooltipKey;
     }
 
     /** The wear stage the stack carries in its block state component; 0 without one. */
@@ -38,7 +46,7 @@ public class NetheritePistonItem extends BlockItem {
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent,
                                 Consumer<Component> textConsumer, TooltipFlag type) {
         super.appendHoverText(stack, context, displayComponent, textConsumer, type);
-        textConsumer.accept(Component.translatable("tooltip.simplebuilding.netherite_piston").withStyle(ChatFormatting.GRAY));
+        textConsumer.accept(Component.translatable(tooltipKey).withStyle(ChatFormatting.GRAY));
         int wear = wearOf(stack);
         if (wear > 0) {
             ChatFormatting colour = wear >= NetheriteBreakerPistonBlock.WEAR_STAGES - 2 ? ChatFormatting.RED
