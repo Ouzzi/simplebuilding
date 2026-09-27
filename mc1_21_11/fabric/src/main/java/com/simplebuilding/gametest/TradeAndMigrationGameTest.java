@@ -48,4 +48,9 @@ public final class TradeAndMigrationGameTest {
     public void legacySpatulaItemEntityIsRewrittenInPlace(GameTestHelper helper) {
         TradeAndMigrationTests.legacySpatulaItemEntityIsRewrittenInPlace(helper);
     }
+
+    @GameTest(maxTicks = TradeAndMigrationTests.LEGACY_ITEM_ENTITY_MAX_TICKS)
+    public void legacySpatulaAboveTheBuildLimitIsRewrittenToo(GameTestHelper helper) {
+        TradeAndMigrationTests.legacySpatulaAboveTheBuildLimitIsRewrittenToo(helper);
+    }
 }

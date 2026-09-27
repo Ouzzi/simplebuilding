@@ -122,6 +122,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_every_enderite_gear_piece_upgrades_from_its_netherite_twin", DataIntegrityTests::everyEnderiteGearPieceUpgradesFromItsNetheriteTwin)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_every_player_facing_text_has_english_and_german_translations", DataIntegrityTests::everyPlayerFacingTextHasEnglishAndGermanTranslations)
+                    .build(),
             GameTestSpec.named("tool_behaviour_game_test_sledgehammer_breaks_three_by_three_around_origin", ToolBehaviourTests::sledgehammerBreaksThreeByThreeAroundOrigin)
                     .rotation(Rotation.NONE)
                     .build(),
@@ -167,6 +169,9 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("trade_and_migration_game_test_legacy_spatula_item_entity_is_rewritten_in_place", TradeAndMigrationTests::legacySpatulaItemEntityIsRewrittenInPlace)
                     .maxTicks(TradeAndMigrationTests.LEGACY_ITEM_ENTITY_MAX_TICKS)
                     .build(),
+            GameTestSpec.named("trade_and_migration_game_test_legacy_spatula_above_the_build_limit_is_rewritten_too", TradeAndMigrationTests::legacySpatulaAboveTheBuildLimitIsRewrittenToo)
+                    .maxTicks(TradeAndMigrationTests.LEGACY_ITEM_ENTITY_MAX_TICKS)
+                    .build(),
             GameTestSpec.named("network_handler_game_test_double_jump_needs_enchanted_boots_and_wears_them", NetworkHandlerTests::doubleJumpNeedsEnchantedBootsAndWearsThem)
                     .build(),
             GameTestSpec.named("network_handler_game_test_space_key_and_trim_benefit_flags_reach_the_player", NetworkHandlerTests::spaceKeyAndTrimBenefitFlagsReachThePlayer)
@@ -182,6 +187,8 @@ public final class SimpleBuildingGameTests {
                     .rotation(Rotation.NONE)
                     .build(),
             GameTestSpec.named("network_handler_game_test_master_builder_pick_takes_blocks_out_of_the_enchanted_bundle", NetworkHandlerTests::masterBuilderPickTakesBlocksOutOfTheEnchantedBundle)
+                    .build(),
+            GameTestSpec.named("network_handler_game_test_air_jump_is_refused_on_the_ground_and_granted_once_per_fall", NetworkHandlerTests::airJumpIsRefusedOnTheGroundAndGrantedOncePerFall)
                     .build(),
             GameTestSpec.named("item_behaviour_game_test_rotator_turns_logs_by_clicked_face_and_rim", ItemBehaviourTests::rotatorTurnsLogsByClickedFaceAndRim)
                     .rotation(Rotation.NONE)
@@ -319,6 +326,12 @@ public final class SimpleBuildingGameTests {
                     .maxTicks(VeinAndStripMinerTests.DROP_MAX_TICKS)
                     .rotation(Rotation.NONE)
                     .build(),
+            GameTestSpec.named("vein_and_strip_miner_game_test_strip_miner_refund_never_repairs_an_unbreaking_pickaxe", VeinAndStripMinerTests::stripMinerRefundNeverRepairsAnUnbreakingPickaxe)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("vein_and_strip_miner_game_test_extra_blocks_skip_positions_the_player_may_not_interact_with", VeinAndStripMinerTests::extraBlocksSkipPositionsThePlayerMayNotInteractWith)
+                    .rotation(Rotation.NONE)
+                    .build(),
             GameTestSpec.named("protection_and_range_game_test_kinetic_protection_scales_with_level_and_only_covers_its_own_damage_types", ProtectionAndRangeTests::kineticProtectionScalesWithLevelAndOnlyCoversItsOwnDamageTypes)
                     .build(),
             GameTestSpec.named("protection_and_range_game_test_kinetic_protection_actually_reduces_the_damage_the_player_takes", ProtectionAndRangeTests::kineticProtectionActuallyReducesTheDamageThePlayerTakes)
@@ -421,6 +434,12 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("ore_detector_game_test_detector_calibrated_in_either_minecraft_line_keeps_its_target", OreDetectorTests::detectorCalibratedInEitherMinecraftLineKeepsItsTarget)
                     .build(),
             GameTestSpec.named("ore_detector_game_test_the_ore_detector_recipe_crafts_from_its_documented_pattern", OreDetectorTests::theOreDetectorRecipeCraftsFromItsDocumentedPattern)
+                    .build(),
+            GameTestSpec.named("ore_detector_game_test_pings_cost_durability_only_when_they_find_something", OreDetectorTests::pingsCostDurabilityOnlyWhenTheyFindSomething)
+                    .build(),
+            GameTestSpec.named("ore_detector_game_test_block_entities_cannot_be_calibrated_or_found", OreDetectorTests::blockEntitiesCannotBeCalibratedOrFound)
+                    .build(),
+            GameTestSpec.named("ore_detector_game_test_scans_are_capped_per_server_tick", OreDetectorTests::scansAreCappedPerServerTick)
                     .build(),
             GameTestSpec.named("quiver_game_test_right_clicks_do_nothing_even_with_master_builder", QuiverTests::rightClicksDoNothingEvenWithMasterBuilder)
                     .build(),

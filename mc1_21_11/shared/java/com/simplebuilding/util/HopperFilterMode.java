@@ -6,9 +6,9 @@ import net.minecraft.network.chat.Component;
 public enum HopperFilterMode {
     // MC 1.21.11: ChatFormatting.getColor() existiert noch und liefert exakt die RGB-Werte,
     // die 26.2 als benannte TextColor-Konstanten fuehrt (0xFF5555 / 0x55FF55 / 0xFFFF55).
-    NONE(Component.literal("Disabled").withStyle(ChatFormatting.RED), ChatFormatting.RED.getColor()),
-    WHITELIST(Component.literal("Exact Match").withStyle(ChatFormatting.GREEN), ChatFormatting.GREEN.getColor()),
-    TYPE(Component.literal("Type Match").withStyle(ChatFormatting.YELLOW), ChatFormatting.YELLOW.getColor());
+    NONE(Component.translatable("simplebuilding.hopper_filter.none").withStyle(ChatFormatting.RED), ChatFormatting.RED.getColor()),
+    WHITELIST(Component.translatable("simplebuilding.hopper_filter.whitelist").withStyle(ChatFormatting.GREEN), ChatFormatting.GREEN.getColor()),
+    TYPE(Component.translatable("simplebuilding.hopper_filter.type").withStyle(ChatFormatting.YELLOW), ChatFormatting.YELLOW.getColor());
 
     private final Component text;
     private final int color;

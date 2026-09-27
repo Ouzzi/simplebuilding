@@ -134,11 +134,9 @@ import net.minecraft.world.phys.HitResult;
  * {@link #modLanguageFileReachesTheClient} - asserting that it resolves would turn deleting the
  * dead key, which is one of the two correct fixes, into a red test.
  *
- * <p><b>Known defect - the item frame messages are hardcoded literals.</b> All four go through
- * {@code Component.literal} with German text ("Item Frame gesperrt (Locked).") instead of a
- * translation key, so they cannot be translated and they ignore the client language. The test
- * below asserts the literal strings as the mod writes them today; the day they become translatable
- * it has to be updated, and that is the point at which somebody reads this paragraph.
+ * <p><b>The item frame messages are translatable</b> since 2026-09-27 (audit #37): they used to
+ * be hardcoded German literals ("Item Frame gesperrt (Locked)."). The test below asserts the
+ * English texts of {@code message.simplebuilding.item_frame.*}, the language the client tests run in.
  *
  * <p><b>Not covered</b>
  * <ul>
@@ -1564,15 +1562,15 @@ public final class SmokeClientTest {
         assertTheServerSeesThePlayerSneaking(script, "after the sneak key was pressed");
 
         equip(script, "minecraft:glass_pane");
-        expectOverlayMessage(script, "Item Frame gesperrt (Locked).", "lock with a glass pane", null,
+        expectOverlayMessage(script, "Item frame locked.", "lock with a glass pane", null,
                 SoundEvents.GLASS_PLACE.location(), 1.0f, 1.0f);
-        expectOverlayMessage(script, "Item Frame entsperrt.", "unlock by sneaking again", null,
+        expectOverlayMessage(script, "Item frame unlocked.", "unlock by sneaking again", null,
                 SoundEvents.GLASS_BREAK.location(), 1.0f, 1.0f);
 
         equip(script, "minecraft:shears");
-        expectOverlayMessage(script, "Item Frame unsichtbar gemacht.", "hide with shears",
+        expectOverlayMessage(script, "Item frame made invisible.", "hide with shears",
                 "itemframe-a-invisible", SoundEvents.SHEEP_SHEAR.location(), 1.0f, 1.2f);
-        expectOverlayMessage(script, "Item Frame sichtbar gemacht.", "show by sneaking again",
+        expectOverlayMessage(script, "Item frame made visible.", "show by sneaking again",
                 "itemframe-b-visible-again", SoundEvents.BRUSH_GENERIC.location(), 1.0f, 1.0f);
 
         // The straight-line version put these in a finally block. As steps they run only if

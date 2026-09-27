@@ -36,9 +36,9 @@ public final class TrimStatsPanel {
                 .bounds(leftPos - 25, topPos + 5, 20, 20)
                 .tooltip(Tooltip.create(
                         Component.empty()
-                                .append(Component.literal("Toggle Resonance Stats").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD))
+                                .append(Component.translatable("gui.simplebuilding.trim_stats.toggle").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD))
                                 .append(Component.literal("\n"))
-                                .append(Component.literal("Click to show/hide trim multipliers.").withStyle(ChatFormatting.GRAY))
+                                .append(Component.translatable("gui.simplebuilding.trim_stats.toggle.hint").withStyle(ChatFormatting.GRAY))
                 ))
                 .build();
         return this.button;
@@ -120,28 +120,28 @@ public final class TrimStatsPanel {
         int passiveDiff = Math.max(0, accessor.simplebuilding$getCurrentPassiveKills() - accessor.simplebuilding$getBasePassiveKills());
         int damageDiff = Math.max(0, accessor.simplebuilding$getCurrentDamageTaken() - accessor.simplebuilding$getBaseDamageTaken());
 
-        tooltip.add(Component.literal("Statistic Details").withStyle(ChatFormatting.BLUE, ChatFormatting.UNDERLINE));
+        tooltip.add(Component.translatable("gui.simplebuilding.trim_stats.details").withStyle(ChatFormatting.BLUE, ChatFormatting.UNDERLINE));
         // Resonanz = Mittelwert der drei Faktoren mal konfigurierte Basis (TrimMultiplierLogic)
         tooltip.add(Component.literal("(L + S + C) / 3 x " + String.format("%.1f", com.simplebuilding.util.TrimMultiplierLogic.baseMultiplier(true))).withStyle(ChatFormatting.DARK_GRAY));
         tooltip.add(Component.empty());
 
         // Level
-        tooltip.add(Component.literal("L: Experience").withStyle(ChatFormatting.DARK_GREEN, ChatFormatting.BOLD));
-        tooltip.add(Component.literal(" Current Level: " + minecraft.player.experienceLevel).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("gui.simplebuilding.trim_stats.level").withStyle(ChatFormatting.DARK_GREEN, ChatFormatting.BOLD));
+        tooltip.add(Component.translatable("gui.simplebuilding.trim_stats.current_level", minecraft.player.experienceLevel).withStyle(ChatFormatting.GRAY));
 
         // Survival
         tooltip.add(Component.empty());
-        tooltip.add(Component.literal("S: Survival").withStyle(ChatFormatting.BLUE, ChatFormatting.BOLD));
-        tooltip.add(Component.literal(" Distance: " + distDiff + "m").withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.literal(" Time Alive: " + formatTime(timeDiff)).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("gui.simplebuilding.trim_stats.survival").withStyle(ChatFormatting.BLUE, ChatFormatting.BOLD));
+        tooltip.add(Component.translatable("gui.simplebuilding.trim_stats.distance", distDiff).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("gui.simplebuilding.trim_stats.time_alive", formatTime(timeDiff)).withStyle(ChatFormatting.GRAY));
 
         // Combat
         tooltip.add(Component.empty());
-        tooltip.add(Component.literal("C: Combat").withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD));
-        tooltip.add(Component.literal(" Hostiles: " + hostileDiff).withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.literal(" Passives: " + passiveDiff).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("gui.simplebuilding.trim_stats.combat").withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD));
+        tooltip.add(Component.translatable("gui.simplebuilding.trim_stats.hostiles", hostileDiff).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("gui.simplebuilding.trim_stats.passives", passiveDiff).withStyle(ChatFormatting.GRAY));
         // Damage Taken Anzeige
-        tooltip.add(Component.literal(" Dmg Taken: " + (damageDiff / 20) + " Hearts").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable("gui.simplebuilding.trim_stats.damage_taken", damageDiff / 20).withStyle(ChatFormatting.GRAY));
 
         context.setComponentTooltipForNextFrame(font, tooltip, mouseX, mouseY);
     }

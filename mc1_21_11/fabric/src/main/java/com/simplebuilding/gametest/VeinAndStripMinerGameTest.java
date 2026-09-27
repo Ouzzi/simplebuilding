@@ -36,4 +36,14 @@ public final class VeinAndStripMinerGameTest {
     public void stripMinerTunnelsAlongTheFacingAndRefundsDurabilityThroughTheBlockBreakEvent(GameTestHelper helper) {
         VeinAndStripMinerTests.stripMinerTunnelsAlongTheFacingAndRefundsDurabilityThroughTheBlockBreakEvent(helper);
     }
+
+    @GameTest(rotation = Rotation.NONE)
+    public void stripMinerRefundNeverRepairsAnUnbreakingPickaxe(GameTestHelper helper) {
+        VeinAndStripMinerTests.stripMinerRefundNeverRepairsAnUnbreakingPickaxe(helper);
+    }
+
+    @GameTest(rotation = Rotation.NONE)
+    public void extraBlocksSkipPositionsThePlayerMayNotInteractWith(GameTestHelper helper) {
+        VeinAndStripMinerTests.extraBlocksSkipPositionsThePlayerMayNotInteractWith(helper);
+    }
 }

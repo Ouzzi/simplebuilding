@@ -18,8 +18,8 @@ import net.minecraft.world.entity.player.Player;
  * <p>Queue rule, the same everywhere now: the queue is always drained and each press toggles;
  * the status line is only shown when there is a player to show it to.
  *
- * <p>Status goes to the actionbar via {@code Player#sendOverlayMessage(Component)} - in MC 26.2
- * that is the only actionbar entry point ({@code displayClientMessage} no longer exists). The
+ * <p>MC 1.21.11: status goes to the actionbar via {@code Player#displayClientMessage(Component, true)}
+ * (26.2: {@code sendOverlayMessage}). The
  * text is translatable ({@code message.simplebuilding.toggle.*}) with the vanilla ON/OFF words.
  */
 public final class ClientToggleKeys {
@@ -33,8 +33,8 @@ public final class ClientToggleKeys {
         while (ClientState.highlightToggleKey != null && ClientState.highlightToggleKey.consumeClick()) {
             ClientState.showHighlights = !ClientState.showHighlights;
             if (player != null) {
-                player.sendOverlayMessage(Component.translatable("message.simplebuilding.toggle.highlights",
-                        CommonComponents.optionStatus(ClientState.showHighlights)));
+                player.displayClientMessage(Component.translatable("message.simplebuilding.toggle.highlights",
+                        CommonComponents.optionStatus(ClientState.showHighlights)), true);
             }
         }
 
@@ -42,8 +42,8 @@ public final class ClientToggleKeys {
             // Eigener Schalter: nur die gefuellte Oktant-Figur (frueher derselbe wie Highlights).
             ClientState.showOctantFigure = !ClientState.showOctantFigure;
             if (player != null) {
-                player.sendOverlayMessage(Component.translatable("message.simplebuilding.toggle.octant_figure",
-                        CommonComponents.optionStatus(ClientState.showOctantFigure)));
+                player.displayClientMessage(Component.translatable("message.simplebuilding.toggle.octant_figure",
+                        CommonComponents.optionStatus(ClientState.showOctantFigure)), true);
             }
         }
     }

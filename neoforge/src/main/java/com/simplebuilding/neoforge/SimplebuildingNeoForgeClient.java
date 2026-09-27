@@ -190,12 +190,12 @@ public final class SimplebuildingNeoForgeClient {
 
     private void onClientTick(ClientTickEvent.Post event) {
         Minecraft client = Minecraft.getInstance();
+        // Shared with Fabric and Forge (see ClientToggleKeys); drains the queue even without a player.
+        ClientToggleKeys.tick(client);
         if (client.player == null) {
             return;
         }
 
-        // Shared with Fabric (see ClientToggleKeys) — both toggles report on the actionbar.
-        ClientToggleKeys.tick(client);
         // Rucksack-Taste, ebenfalls gemeinsam mit Fabric.
         BackpackKeyHandler.tick(client);
 

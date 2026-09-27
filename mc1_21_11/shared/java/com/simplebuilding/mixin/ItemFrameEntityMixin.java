@@ -92,7 +92,7 @@ public abstract class ItemFrameEntityMixin implements OwnedLightHolder {
                     this.simplebuilding$locked = true;
                     if (!player.isCreative()) handStack.shrink(1);
                     player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GLASS_PLACE, player.getSoundSource(), 1.0f, 1.0f);
-                    player.displayClientMessage(Component.literal("Item Frame gesperrt (Locked).").withStyle(ChatFormatting.AQUA), true);
+                    player.displayClientMessage(Component.translatable("message.simplebuilding.item_frame.locked").withStyle(ChatFormatting.AQUA), true);
                 }
                 cir.setReturnValue(InteractionResult.SUCCESS);
                 return;
@@ -104,7 +104,7 @@ public abstract class ItemFrameEntityMixin implements OwnedLightHolder {
                     this.simplebuilding$locked = false;
                     player.drop(new ItemStack(Items.GLASS_PANE), false);
                     player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GLASS_BREAK, player.getSoundSource(), 1.0f, 1.0f);
-                    player.displayClientMessage(Component.literal("Item Frame entsperrt.").withStyle(ChatFormatting.GREEN), true);
+                    player.displayClientMessage(Component.translatable("message.simplebuilding.item_frame.unlocked").withStyle(ChatFormatting.GREEN), true);
                 }
                 cir.setReturnValue(InteractionResult.SUCCESS);
                 return;
@@ -116,7 +116,7 @@ public abstract class ItemFrameEntityMixin implements OwnedLightHolder {
                 if (!isClient) {
                     itemFrame.setInvisible(true);
                     player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.SHEEP_SHEAR, player.getSoundSource(), 1.0f, 1.2f);
-                    player.displayClientMessage(Component.literal("Item Frame unsichtbar gemacht.").withStyle(ChatFormatting.GRAY), true);
+                    player.displayClientMessage(Component.translatable("message.simplebuilding.item_frame.hidden").withStyle(ChatFormatting.GRAY), true);
                     if (!player.isCreative()) {
                         EquipmentSlot slot = (hand == InteractionHand.MAIN_HAND) ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
                         handStack.hurtAndBreak(1, player, slot);
@@ -131,7 +131,7 @@ public abstract class ItemFrameEntityMixin implements OwnedLightHolder {
                 if (!isClient) {
                     itemFrame.setInvisible(false);
                     player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BRUSH_GENERIC, player.getSoundSource(), 1.0f, 1.0f);
-                    player.displayClientMessage(Component.literal("Item Frame sichtbar gemacht.").withStyle(ChatFormatting.YELLOW), true);
+                    player.displayClientMessage(Component.translatable("message.simplebuilding.item_frame.shown").withStyle(ChatFormatting.YELLOW), true);
                 }
                 cir.setReturnValue(InteractionResult.SUCCESS);
                 return;
@@ -153,7 +153,7 @@ public abstract class ItemFrameEntityMixin implements OwnedLightHolder {
                     CompoundTag nbt = nbtComponent.copyTag();
                     nbt.putString("MagnetFilter", itemId);
                     handStack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
-                    player.displayClientMessage(Component.literal("Magnet Filter set to: " + itemId).withStyle(ChatFormatting.GREEN), true);
+                    player.displayClientMessage(Component.translatable("message.simplebuilding.magnet.filter_set", itemId).withStyle(ChatFormatting.GREEN), true);
                     player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.RESPAWN_ANCHOR_SET_SPAWN, player.getSoundSource(), 0.5f, 1.5f);
                 }
                 cir.setReturnValue(InteractionResult.SUCCESS);

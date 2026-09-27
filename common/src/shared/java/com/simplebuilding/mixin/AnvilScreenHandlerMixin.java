@@ -239,24 +239,24 @@ public abstract class AnvilScreenHandlerMixin extends ItemCombinerMenu {
     @Unique
     private static final Map<Item, StructureConfig> STRUCTURE_RECIPES = Map.ofEntries(
             // Bestehende
-            Map.entry(Items.ECHO_SHARD,       new StructureConfig(ANCIENT_CITY_TAG, "Ancient City Locator", ChatFormatting.DARK_AQUA)),
-            Map.entry(Items.TOTEM_OF_UNDYING, new StructureConfig(McVersion.MANSION_MAP_STRUCTURES, "Mansion Seeker", ChatFormatting.DARK_GREEN)),
-            Map.entry(Items.HEART_OF_THE_SEA, new StructureConfig(McVersion.MONUMENT_MAP_STRUCTURES, "Monument Tracker", ChatFormatting.AQUA)),
-            Map.entry(Items.BLAZE_ROD,        new StructureConfig(FORTRESS_TAG, "Fortress Finder", ChatFormatting.RED)),
-            Map.entry(Items.GOLD_BLOCK,       new StructureConfig(BASTION_TAG, "Bastion Compass", ChatFormatting.GOLD)),
-            Map.entry(Items.TRIAL_KEY,        new StructureConfig(McVersion.TRIAL_CHAMBERS_MAP_STRUCTURES, "Trial Key Compass", ChatFormatting.LIGHT_PURPLE)),
-            Map.entry(Items.OMINOUS_BOTTLE,   new StructureConfig(OUTPOST_TAG, "Outpost Tracker", ChatFormatting.GRAY)),
+            Map.entry(Items.ECHO_SHARD,       new StructureConfig(ANCIENT_CITY_TAG, "item.simplebuilding.structure_compass.ancient_city", ChatFormatting.DARK_AQUA)),
+            Map.entry(Items.TOTEM_OF_UNDYING, new StructureConfig(McVersion.MANSION_MAP_STRUCTURES, "item.simplebuilding.structure_compass.mansion", ChatFormatting.DARK_GREEN)),
+            Map.entry(Items.HEART_OF_THE_SEA, new StructureConfig(McVersion.MONUMENT_MAP_STRUCTURES, "item.simplebuilding.structure_compass.monument", ChatFormatting.AQUA)),
+            Map.entry(Items.BLAZE_ROD,        new StructureConfig(FORTRESS_TAG, "item.simplebuilding.structure_compass.fortress", ChatFormatting.RED)),
+            Map.entry(Items.GOLD_BLOCK,       new StructureConfig(BASTION_TAG, "item.simplebuilding.structure_compass.bastion", ChatFormatting.GOLD)),
+            Map.entry(Items.TRIAL_KEY,        new StructureConfig(McVersion.TRIAL_CHAMBERS_MAP_STRUCTURES, "item.simplebuilding.structure_compass.trial_chambers", ChatFormatting.LIGHT_PURPLE)),
+            Map.entry(Items.OMINOUS_BOTTLE,   new StructureConfig(OUTPOST_TAG, "item.simplebuilding.structure_compass.outpost", ChatFormatting.GRAY)),
 
             // Neue Strukturen (Balanced Kosten)
-            Map.entry(Items.CHORUS_FRUIT,     new StructureConfig(END_CITY_TAG, "End City Compass", ChatFormatting.LIGHT_PURPLE)), // Nur im End!
-            Map.entry(Items.RAIL,             new StructureConfig(MINESHAFT_TAG, "Mineshaft Detector", ChatFormatting.DARK_GRAY)),
-            Map.entry(Items.EMERALD,          new StructureConfig(VILLAGE_TAG, "Village Finder", ChatFormatting.GREEN)),
-            Map.entry(Items.PRISMARINE_SHARD, new StructureConfig(SHIPWRECK_TAG, "Shipwreck Sensor", ChatFormatting.BLUE)),
-            Map.entry(Items.SNOW_BLOCK,       new StructureConfig(IGLOO_TAG, "Igloo Compass", ChatFormatting.WHITE)),
-            Map.entry(Items.CHISELED_SANDSTONE, new StructureConfig(DESERT_PYRAMID_TAG, "Desert Pyramid Compass", ChatFormatting.GOLD)),
-            Map.entry(Items.MOSSY_COBBLESTONE, new StructureConfig(JUNGLE_PYRAMID_TAG, "Jungle Temple Compass", ChatFormatting.DARK_GREEN)),
-            Map.entry(Items.SLIME_BALL,       new StructureConfig(SWAMP_HUT_TAG, "Witch Hut Tracker", ChatFormatting.DARK_PURPLE)),
-            Map.entry(Items.ENDER_EYE,        new StructureConfig(STRONGHOLD_TAG, "Stronghold Locator", ChatFormatting.DARK_PURPLE))
+            Map.entry(Items.CHORUS_FRUIT,     new StructureConfig(END_CITY_TAG, "item.simplebuilding.structure_compass.end_city", ChatFormatting.LIGHT_PURPLE)), // Nur im End!
+            Map.entry(Items.RAIL,             new StructureConfig(MINESHAFT_TAG, "item.simplebuilding.structure_compass.mineshaft", ChatFormatting.DARK_GRAY)),
+            Map.entry(Items.EMERALD,          new StructureConfig(VILLAGE_TAG, "item.simplebuilding.structure_compass.village", ChatFormatting.GREEN)),
+            Map.entry(Items.PRISMARINE_SHARD, new StructureConfig(SHIPWRECK_TAG, "item.simplebuilding.structure_compass.shipwreck", ChatFormatting.BLUE)),
+            Map.entry(Items.SNOW_BLOCK,       new StructureConfig(IGLOO_TAG, "item.simplebuilding.structure_compass.igloo", ChatFormatting.WHITE)),
+            Map.entry(Items.CHISELED_SANDSTONE, new StructureConfig(DESERT_PYRAMID_TAG, "item.simplebuilding.structure_compass.desert_pyramid", ChatFormatting.GOLD)),
+            Map.entry(Items.MOSSY_COBBLESTONE, new StructureConfig(JUNGLE_PYRAMID_TAG, "item.simplebuilding.structure_compass.jungle_temple", ChatFormatting.DARK_GREEN)),
+            Map.entry(Items.SLIME_BALL,       new StructureConfig(SWAMP_HUT_TAG, "item.simplebuilding.structure_compass.witch_hut", ChatFormatting.DARK_PURPLE)),
+            Map.entry(Items.ENDER_EYE,        new StructureConfig(STRONGHOLD_TAG, "item.simplebuilding.structure_compass.stronghold", ChatFormatting.DARK_PURPLE))
     );
 
     @Inject(method = "createResult", at = @At("HEAD"), cancellable = true)
@@ -304,11 +304,11 @@ public abstract class AnvilScreenHandlerMixin extends ItemCombinerMenu {
                     if (this.itemName != null && !this.itemName.isBlank()) {
                         outputStack.set(DataComponents.CUSTOM_NAME, Component.literal(this.itemName));
                     } else {
-                        outputStack.set(DataComponents.CUSTOM_NAME, Component.literal(config.name()).withStyle(config.color()));
+                        outputStack.set(DataComponents.CUSTOM_NAME, Component.translatable(config.name()).withStyle(config.color()));
                     }
 
                     outputStack.set(DataComponents.LORE, new ItemLore(List.of(
-                            Component.literal("Dimension: " + serverWorld.dimension().identifier().getPath()).withStyle(ChatFormatting.DARK_GRAY)
+                            Component.translatable("item.simplebuilding.structure_compass.dimension", serverWorld.dimension().identifier().getPath()).withStyle(ChatFormatting.DARK_GRAY)
                     )));
 
                     outputStack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
@@ -319,10 +319,10 @@ public abstract class AnvilScreenHandlerMixin extends ItemCombinerMenu {
                 } else {
                     // --- NICHT GEFUNDEN ---
                     ItemStack failStack = new ItemStack(Items.COMPASS);
-                    failStack.set(DataComponents.CUSTOM_NAME, Component.literal("Kein Signal in Reichweite").withStyle(ChatFormatting.RED));
+                    failStack.set(DataComponents.CUSTOM_NAME, Component.translatable("item.simplebuilding.structure_compass.no_signal").withStyle(ChatFormatting.RED));
                     failStack.set(DataComponents.LORE, new ItemLore(List.of(
-                            Component.literal("Struktur zu weit entfernt oder").withStyle(ChatFormatting.GRAY),
-                            Component.literal("falsche Dimension.").withStyle(ChatFormatting.GRAY)
+                            Component.translatable("item.simplebuilding.structure_compass.no_signal.line1").withStyle(ChatFormatting.GRAY),
+                            Component.translatable("item.simplebuilding.structure_compass.no_signal.line2").withStyle(ChatFormatting.GRAY)
                     )));
 
                     this.resultSlots.setItem(0, failStack);

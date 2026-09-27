@@ -49,4 +49,9 @@ public final class NetworkHandlerGameTest {
     public void octantPacketsRejectFarCornersUnknownNamesAndHugeScrolls(GameTestHelper helper) {
         NetworkHandlerTests.octantPacketsRejectFarCornersUnknownNamesAndHugeScrolls(helper);
     }
+
+    @GameTest
+    public void airJumpIsRefusedOnTheGroundAndGrantedOncePerFall(GameTestHelper helper) {
+        NetworkHandlerTests.airJumpIsRefusedOnTheGroundAndGrantedOncePerFall(helper);
+    }
 }

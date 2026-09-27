@@ -677,6 +677,42 @@ public final class TradeAndMigrationTests {
                 .thenSucceed();
     }
 
+    /**
+     * Audit #39: the start-up scan covers the dimension's own height plus a margin, not a fixed
+     * -64..320 box. An item entity flying above the build limit - thrown up, launched, or lying in
+     * a data-pack dimension with another height - used to keep its spatula for good.
+     *
+     * <p>The probe stands 20 blocks above {@code getMaxY()} with gravity off; it is read and
+     * discarded before anything is asserted, so a red run leaves nothing floating behind.
+     *
+     * <p>What breaks it: going back to a box that ends at the build limit.
+     */
+    public static void legacySpatulaAboveTheBuildLimitIsRewrittenToo(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        BlockPos anchor = helper.absolutePos(new BlockPos(1, 2, 1));
+        double y = level.getMaxY() + 20.0;
+        ItemEntity high = new ItemEntity(level, anchor.getX() + 0.5, y, anchor.getZ() + 0.5,
+                new ItemStack(ModItems.STONE_SPATULA, 2));
+        high.setNoGravity(true);
+        helper.assertTrue(level.addFreshEntity(high),
+                "test setup broken: the level refused the item entity above the build limit");
+
+        helper.startSequence()
+                .thenIdle(2)
+                .thenExecute(() -> {
+                    helper.assertTrue(high.isAlive(), "test setup broken: the probe above the build limit vanished");
+                    LegacySpatulaMigration.migrateWorlds(level.getServer());
+                })
+                .thenExecute(() -> {
+                    ItemStack after = high.getItem().copy();
+                    high.discard();
+                    helper.assertTrue(after.is(ModItems.STONE_CHISEL) && after.getCount() == 2,
+                            "the spatula at y=" + y + " (build limit " + level.getMaxY() + ") still carries "
+                                    + after + " after the start-up scan");
+                })
+                .thenSucceed();
+    }
+
     // ------------------------------------------------------------------
     // helpers
     // ------------------------------------------------------------------

@@ -141,7 +141,7 @@ public class MagnetItem extends Item {
         if (player.isShiftKeyDown() && getFilterId(stack) != null) {
             if (!world.isClientSide()) {
                 setFilterId(stack, null);
-                player.sendOverlayMessage(Component.literal("Magnet Filter cleared.").withStyle(ChatFormatting.YELLOW));
+                player.sendOverlayMessage(Component.translatable("message.simplebuilding.magnet.filter_cleared").withStyle(ChatFormatting.YELLOW));
                 world.playSound(null, player.blockPosition(), SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 0.5f, 1.0f);
             }
             return InteractionResult.SUCCESS;
@@ -154,11 +154,11 @@ public class MagnetItem extends Item {
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay component, Consumer<Component> tooltip, TooltipFlag type) {
         String filter = getFilterId(stack);
         if (filter != null && !filter.isEmpty()) {
-            tooltip.accept(Component.literal("Filtering: " + filter).withStyle(ChatFormatting.GOLD));
+            tooltip.accept(Component.translatable("tooltip.simplebuilding.magnet.filtering", filter).withStyle(ChatFormatting.GOLD));
         } else {
-            tooltip.accept(Component.literal("No Filter active").withStyle(ChatFormatting.GRAY));
+            tooltip.accept(Component.translatable("tooltip.simplebuilding.magnet.no_filter").withStyle(ChatFormatting.GRAY));
         }
-        tooltip.accept(Component.literal("Sneak + Right Click to clear").withStyle(ChatFormatting.DARK_GRAY));
+        tooltip.accept(Component.translatable("tooltip.simplebuilding.magnet.clear").withStyle(ChatFormatting.DARK_GRAY));
     }
 
     private void setFilterId(ItemStack stack, String id) {

@@ -848,11 +848,13 @@ def load_item_properties(roots: dict) -> dict:
     return out
 
 
-# Absichtlich ohne Namen: die sechs Spatel sind Altlasten fuer
-# LegacySpatulaMigration - kein Rezept, kein Kreativ-Tab, nie im Spielerbesitz.
-# Sie sollen die Warnung unten nicht zu Rauschen machen.
-DELIBERATELY_UNNAMED = {f"{NS}:{tier}_spatula"
-                        for tier in ("stone", "copper", "iron", "gold", "diamond", "netherite")}
+# Die sechs Spatel sind Altlasten fuer LegacySpatulaMigration - kein Rezept, kein
+# Kreativ-Tab. Seit dem 27.09.2026 (Audit #39) haben sie Namen (fuer nicht
+# umgewandelte Stapel und das Testzentrum), gehoeren aber nicht in die
+# Item-Liste des Wikis; die Migration beschreibt das Feature
+# legacy_spatula_migration.
+LEGACY_ITEMS = {f"{NS}:{tier}_spatula"
+                for tier in ("stone", "copper", "iron", "gold", "diamond", "netherite")}
 
 
 def registered_ids(roots: dict) -> tuple[set[str], set[str]] | None:
@@ -908,6 +910,8 @@ def collect_items_and_blocks(roots: dict, lang: dict, recipes, loot_tables, trad
             if "." in name:  # sub keys such as .desc
                 continue
             identifier = f"{NS}:{name}"
+            if identifier in LEGACY_ITEMS:
+                continue
             if registered is not None:
                 known = registered[1] if kind == "block" else registered[0]
                 if identifier not in known:
@@ -949,7 +953,7 @@ def collect_items_and_blocks(roots: dict, lang: dict, recipes, loot_tables, trad
     # Gegenrichtung: registriert, aber ohne Sprachschluessel. Solche Dinge zeigen
     # im Spiel ihren rohen Uebersetzungsschluessel und fehlen hier ganz.
     if registered is not None:
-        for identifier in sorted(registered[0] - {e["id"] for e in items} - DELIBERATELY_UNNAMED):
+        for identifier in sorted(registered[0] - {e["id"] for e in items} - LEGACY_ITEMS):
             if identifier not in {e["id"] for e in blocks}:
                 unnamed.append(f"item {identifier}")
         for identifier in sorted(registered[1] - {e["id"] for e in blocks}):

@@ -38,6 +38,10 @@ public final class SledgehammerUsageEvent {
                 if (!SledgehammerUtils.shouldBreak(world, position, pos, mainHandItem)) {
                     continue;
                 }
+                // Vanilla-Spawnschutz und Weltgrenze: destroyBlock prueft beides nicht.
+                if (!world.mayInteract(serverPlayer, position)) {
+                    continue;
+                }
 
                 HARVESTED_BLOCKS.add(position);
                 try {

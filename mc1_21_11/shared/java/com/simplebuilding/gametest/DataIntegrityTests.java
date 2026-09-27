@@ -3142,4 +3142,108 @@ public final class DataIntegrityTests {
         }
         helper.succeed();
     }
+
+    /**
+     * Audit #37/#39/#46: the player-facing texts that used to be hardcoded - ore detector, item
+     * frame lock, magnet, hopper filter modes, smithing templates, structure compasses, toggle
+     * keys, rangefinder/speedometer HUD, trim stats panel, chisel tooltip - now go through
+     * {@code Component.translatable}, and the legacy spatulas have names. Every one of those keys
+     * has to exist in the shipped {@code en_us.json} and {@code de_de.json}, non-empty and with
+     * the same number of {@code %s} placeholders; both files have to hold exactly the same key
+     * set; and the German texts the audit found still in English are German now.
+     *
+     * <p>Read straight from the classpath, so both languages are checked on every server run.
+     *
+     * <p>What breaks it: a key used in code but missing from one language file, a translation
+     * that drops or adds a placeholder, or one of the two files growing a key the other lacks.
+     */
+    public static void everyPlayerFacingTextHasEnglishAndGermanTranslations(GameTestHelper helper) {
+        JsonObject en = langFile(helper, "en_us");
+        JsonObject de = langFile(helper, "de_de");
+        List<String> keys = new ArrayList<>();
+        for (String mode : List.of("iron", "gold", "diamond", "netherite", "all", "custom")) {
+            keys.add("simplebuilding.ore_detector.mode." + mode);
+        }
+        keys.addAll(List.of(
+                "message.simplebuilding.ore_detector.mode", "message.simplebuilding.ore_detector.calibrated",
+                "message.simplebuilding.ore_detector.not_calibratable", "tooltip.simplebuilding.ore_detector.mode",
+                "tooltip.simplebuilding.ore_detector.target", "tooltip.simplebuilding.ore_detector.no_target",
+                "tooltip.simplebuilding.ore_detector.cycle_hint", "tooltip.simplebuilding.ore_detector.power",
+                "tooltip.simplebuilding.ore_detector.all_classes", "tooltip.simplebuilding.ore_detector.damping",
+                "message.simplebuilding.item_frame.locked", "message.simplebuilding.item_frame.unlocked",
+                "message.simplebuilding.item_frame.hidden", "message.simplebuilding.item_frame.shown",
+                "message.simplebuilding.magnet.filter_set", "message.simplebuilding.magnet.filter_cleared",
+                "tooltip.simplebuilding.magnet.filtering", "tooltip.simplebuilding.magnet.no_filter",
+                "tooltip.simplebuilding.magnet.clear",
+                "simplebuilding.hopper_filter.none", "simplebuilding.hopper_filter.whitelist", "simplebuilding.hopper_filter.type",
+                "tooltip.simplebuilding.chisel.last_target",
+                "message.simplebuilding.toggle.highlights", "message.simplebuilding.toggle.octant_figure",
+                "hud.simplebuilding.rangefinder.pos1", "hud.simplebuilding.rangefinder.pos2",
+                "hud.simplebuilding.rangefinder.set_pos1", "hud.simplebuilding.rangefinder.set_pos2",
+                "hud.simplebuilding.rangefinder.distance", "hud.simplebuilding.rangefinder.area",
+                "hud.simplebuilding.rangefinder.volume", "hud.simplebuilding.speedometer.title",
+                "hud.simplebuilding.speedometer.stats",
+                "item.simplebuilding.structure_compass.dimension", "item.simplebuilding.structure_compass.no_signal",
+                "item.simplebuilding.structure_compass.no_signal.line1", "item.simplebuilding.structure_compass.no_signal.line2"));
+        for (String template : List.of("glowing", "emitting")) {
+            for (String part : List.of("applies_to", "ingredients", "base_slot_description", "additions_slot_description")) {
+                keys.add("item.simplebuilding." + template + "_trim_template." + part);
+            }
+        }
+        for (String compass : List.of("ancient_city", "mansion", "monument", "fortress", "bastion", "trial_chambers",
+                "outpost", "end_city", "mineshaft", "village", "shipwreck", "igloo", "desert_pyramid", "jungle_temple",
+                "witch_hut", "stronghold")) {
+            keys.add("item.simplebuilding.structure_compass." + compass);
+        }
+        for (String part : List.of("toggle", "toggle.hint", "details", "level", "current_level", "survival", "distance",
+                "time_alive", "combat", "hostiles", "passives", "damage_taken")) {
+            keys.add("gui.simplebuilding.trim_stats." + part);
+        }
+        for (String tier : List.of("stone", "copper", "iron", "gold", "diamond", "netherite")) {
+            keys.add("item.simplebuilding." + tier + "_spatula");
+        }
+
+        List<String> problems = new ArrayList<>();
+        for (String key : keys) {
+            String english = en.has(key) ? en.get(key).getAsString() : null;
+            String german = de.has(key) ? de.get(key).getAsString() : null;
+            if (english == null || english.isBlank()) problems.add(key + " missing in en_us");
+            if (german == null || german.isBlank()) problems.add(key + " missing in de_de");
+            if (english != null && german != null && placeholders(english) != placeholders(german)) {
+                problems.add(key + " has " + placeholders(english) + " placeholders in en_us but " + placeholders(german) + " in de_de");
+            }
+        }
+        for (String key : en.keySet()) {
+            if (!de.has(key)) problems.add(key + " only in en_us");
+        }
+        for (String key : de.keySet()) {
+            if (!en.has(key)) problems.add(key + " only in de_de");
+        }
+        for (String key : List.of("simplebuilding.testcentre.chisel.touch", "text.autoconfig.simplebuilding.option.tweaks.balancing",
+                "simplebuilding.ore_detector.mode.iron", "message.simplebuilding.item_frame.locked")) {
+            if (en.has(key) && de.has(key) && en.get(key).getAsString().equals(de.get(key).getAsString())) {
+                problems.add(key + " is still English in de_de: " + de.get(key).getAsString());
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " translation problems: " + problems);
+                TestCleanup.succeed(helper);
+    }
+
+    private static JsonObject langFile(GameTestHelper helper, String locale) {
+        String path = "assets/simplebuilding/lang/" + locale + ".json";
+        try (InputStream in = DataIntegrityTests.class.getClassLoader().getResourceAsStream(path)) {
+            helper.assertTrue(in != null, path + " is not on the classpath");
+            return JsonParser.parseReader(new InputStreamReader(in, StandardCharsets.UTF_8)).getAsJsonObject();
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException("cannot read " + path, e);
+        }
+    }
+
+    private static int placeholders(String text) {
+        int count = 0;
+        for (int i = text.indexOf('%'); i >= 0; i = text.indexOf('%', i + 1)) {
+            count++;
+        }
+        return count;
+    }
 }

@@ -1,5 +1,6 @@
 package com.simplebuilding.neoforge;
 
+import com.simplebuilding.client.ClientToggleKeys;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.client.BackpackKeyHandler;
 import com.simplebuilding.client.ClientState;
@@ -36,7 +37,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.item.properties.select.SelectItemModelProperty;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
@@ -194,18 +194,12 @@ public final class SimplebuildingNeoForgeClient {
 
     private void onClientTick(ClientTickEvent.Post event) {
         Minecraft client = Minecraft.getInstance();
+        // Shared with Fabric (see ClientToggleKeys); drains the queue even without a player.
+        ClientToggleKeys.tick(client);
         if (client.player == null) {
             return;
         }
 
-        while (ClientState.highlightToggleKey != null && ClientState.highlightToggleKey.consumeClick()) {
-            ClientState.showHighlights = !ClientState.showHighlights;
-            client.player.displayClientMessage(Component.literal("Highlights: " + (ClientState.showHighlights ? "ON" : "OFF")), false);
-        }
-        while (ClientState.octantFigureToggleKey != null && ClientState.octantFigureToggleKey.consumeClick()) {
-            ClientState.showOctantFigure = !ClientState.showOctantFigure;
-            client.player.displayClientMessage(Component.literal("Octant Figure: " + (ClientState.showOctantFigure ? "ON" : "OFF")), false);
-        }
         while (ClientState.settingsKey != null && ClientState.settingsKey.consumeClick()) {
             ItemStack stack = client.player.getMainHandItem();
             if (stack.getItem() instanceof OctantItem) {

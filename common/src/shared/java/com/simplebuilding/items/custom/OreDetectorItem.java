@@ -142,23 +142,54 @@ public class OreDetectorItem extends Item {
 
     private static final int SCAN_INTERVAL = 20;   // Ping alle 1 Sekunde
 
+    /** Haltbarkeit, die ein Ping kostet, der etwas findet (Audit 2026-09-26 #25). Leere Pings sind frei. */
+    public static final int DURABILITY_PER_HIT = 1;
+
+    /**
+     * Hoechstens so viele Kugelscans laufen je Server-Tick, ueber alle Spieler und Dimensionen.
+     * Der Versatz je Spieler verteilt die Scans schon ueber die Sekunde; diese Kappe haelt die
+     * Last auch dann fest, wenn sehr viele Spieler gleichzeitig einen Detektor halten: ein Ping
+     * ueber der Kappe faellt aus und kommt eine Sekunde spaeter wieder. 16 je Tick sind 320
+     * gehaltene Detektoren je Sekunde, bevor ueberhaupt einer ausfaellt.
+     */
+    public static final int MAX_SCANS_PER_TICK = 16;
+    private static long budgetTick = Long.MIN_VALUE;
+    private static int budgetUsed;
+
+    /**
+     * Welche Bloecke sich kalibrieren lassen: keine Block-Entities (Truhen, Shulkerkisten,
+     * Spawner, Faesser ...) - ein Detektor, der Truhen durch 20 Bloecke Stein findet, ist ein
+     * Pluenderwerkzeug, kein Erzdetektor (Audit 2026-09-26 #25). Ausnahmen, die trotzdem gehen
+     * sollen, kommen in den Block-Tag {@code simplebuilding:ore_detector_calibratable}.
+     */
+    public static final net.minecraft.tags.TagKey<Block> CALIBRATABLE_BLOCK_ENTITIES = net.minecraft.tags.TagKey.create(
+            Registries.BLOCK, Identifier.fromNamespaceAndPath("simplebuilding", "ore_detector_calibratable"));
+
+    public static boolean isCalibratable(BlockState state) {
+        return !state.isAir() && (!state.hasBlockEntity() || state.is(CALIBRATABLE_BLOCK_ENTITIES));
+    }
+
     /** {@code oreClass == null}: der Modus findet Erze mehrerer Klassen (ALL) oder den kalibrierten Block (CUSTOM). */
     private enum DetectMode {
-        IRON(ChatFormatting.GRAY, "Iron", OreClass.COMMON),
-        GOLD(ChatFormatting.GOLD, "Gold", OreClass.MEDIUM),
-        DIAMOND(ChatFormatting.AQUA, "Diamond", OreClass.RARE),
-        NETHERITE(ChatFormatting.DARK_PURPLE, "Netherite", OreClass.VERY_RARE),
-        ALL(ChatFormatting.WHITE, "All Ores", null),
-        CUSTOM(ChatFormatting.YELLOW, "Custom", null);
+        IRON(ChatFormatting.GRAY, "iron", OreClass.COMMON),
+        GOLD(ChatFormatting.GOLD, "gold", OreClass.MEDIUM),
+        DIAMOND(ChatFormatting.AQUA, "diamond", OreClass.RARE),
+        NETHERITE(ChatFormatting.DARK_PURPLE, "netherite", OreClass.VERY_RARE),
+        ALL(ChatFormatting.WHITE, "all", null),
+        CUSTOM(ChatFormatting.YELLOW, "custom", null);
 
         final ChatFormatting color;
-        final String name;
+        final String key;
         final @Nullable OreClass oreClass;
 
-        DetectMode(ChatFormatting color, String name, @Nullable OreClass oreClass) {
+        DetectMode(ChatFormatting color, String key, @Nullable OreClass oreClass) {
             this.color = color;
-            this.name = name;
+            this.key = key;
             this.oreClass = oreClass;
+        }
+
+        Component displayName() {
+            return Component.translatable("simplebuilding.ore_detector.mode." + key).withStyle(color);
         }
 
         /** Suchradius: die groesste Reichweite, die ein Treffer dieses Modus haben kann. */
@@ -186,9 +217,31 @@ public class OreDetectorItem extends Item {
         // Spieler - und die ist nirgends beobachtbar, weil der Detektor mit nichts synchron laeuft.
         if (Math.floorMod(world.getGameTime() + player.getId(), SCAN_INTERVAL) != 0) return;
 
-        BlockPos playerPos = BlockPos.containing(player.getEyePosition());
+        if (!takeScanBudget(world.getGameTime())) return;
 
-        // 2. Suche
+        ping(world, stack, player, slot);
+    }
+
+    /** Zaehlt einen Scan gegen {@link #MAX_SCANS_PER_TICK}; {@code false}, wenn der Tick schon voll ist. */
+    public static boolean takeScanBudget(long gameTime) {
+        if (gameTime != budgetTick) {
+            budgetTick = gameTime;
+            budgetUsed = 0;
+        }
+        if (budgetUsed >= MAX_SCANS_PER_TICK) return false;
+        budgetUsed++;
+        return true;
+    }
+
+    /**
+     * Ein Ping: suchen, und wenn etwas gefunden wird, Toene, Strahl und {@link #DURABILITY_PER_HIT}
+     * Haltbarkeit (Kreativ nicht - das regelt {@code hurtAndBreak} selbst). Liefert das Ziel oder
+     * {@code null}. Oeffentlich, damit die Tests genau diesen Pfad fahren, ohne auf die Phase des
+     * Tick-Versatzes zu warten.
+     */
+    @Nullable
+    public BlockPos ping(ServerLevel world, ItemStack stack, Player player, EquipmentSlot slot) {
+        BlockPos playerPos = BlockPos.containing(player.getEyePosition());
         BlockPos targetPos = findTarget(world, stack, player.getEyePosition());
 
         if (targetPos != null) {
@@ -202,7 +255,10 @@ public class OreDetectorItem extends Item {
             world.playSound(null, targetPos, blockSound, SoundSource.BLOCKS, 0.55f, pitch);
 
             spawnSonarBeam(world, player.getEyePosition(), targetPos, targetState);
+
+            stack.hurtAndBreak(DURABILITY_PER_HIT, player, slot);
         }
+        return targetPos;
     }
 
     private static boolean isHeldInHands(@Nullable EquipmentSlot slot) {
@@ -259,15 +315,24 @@ public class OreDetectorItem extends Item {
     public InteractionResult useOn(UseOnContext context) {
         if (context.getPlayer() != null && context.getPlayer().isShiftKeyDown()) {
             Level world = context.getLevel();
+            BlockState state = world.getBlockState(context.getClickedPos());
+            // Beide Seiten entscheiden gleich, damit der Client nicht schwingt, wo der Server ablehnt.
+            if (!isCalibratable(state)) {
+                if (!world.isClientSide()) {
+                    context.getPlayer().sendOverlayMessage(Component.translatable("message.simplebuilding.ore_detector.not_calibratable",
+                            state.getBlock().getName().copy().withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.RED));
+                    world.playSound(null, context.getClickedPos(), SoundEvents.SCULK_CLICKING, SoundSource.PLAYERS, 0.6f, 0.6f);
+                }
+                return InteractionResult.FAIL;
+            }
             if (!world.isClientSide()) {
                 ItemStack stack = context.getItemInHand();
-                BlockState state = world.getBlockState(context.getClickedPos());
 
                 setMode(stack, DetectMode.CUSTOM);
                 setCustomBlock(stack, state);
 
-                context.getPlayer().sendOverlayMessage(Component.literal("Calibrated to: ").withStyle(ChatFormatting.GREEN)
-                        .append(state.getBlock().getName().copy().withStyle(ChatFormatting.WHITE)));
+                context.getPlayer().sendOverlayMessage(Component.translatable("message.simplebuilding.ore_detector.calibrated",
+                        state.getBlock().getName().copy().withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GREEN));
 
                 world.playSound(null, context.getClickedPos(), SoundEvents.SCULK_CATALYST_BLOOM, SoundSource.PLAYERS, 1.0f, 1.0f);
             }
@@ -292,6 +357,15 @@ public class OreDetectorItem extends Item {
         // lesen ihn bloss.
         BlockPos.MutableBlockPos checkPos = new BlockPos.MutableBlockPos();
 
+        // Vorfilter je 16er-Chunk-Abschnitt (Audit 2026-09-26 #25): die Palette eines Abschnitts
+        // sagt billig, ob er ueberhaupt ein Ziel enthalten KANN. Ohne Ziel in der Palette - der
+        // Normalfall fuer die meisten Abschnitte einer Kugel - faellt jeder getBlockState der
+        // bis zu 4096 Zellen weg. Nicht geladene Chunks gelten als leer und werden auch nicht
+        // geladen. Nur fuer echte Welten; die Test-Blockquellen laufen voll durch.
+        SectionFilter sections = world instanceof Level level
+                ? SectionFilter.of(level, origin, scanRadius, state -> isTarget(state, mode, customTarget))
+                : null;
+
         for (int x = -scanRadius; x <= scanRadius; x++) {
             for (int y = -scanRadius; y <= scanRadius; y++) {
                 for (int z = -scanRadius; z <= scanRadius; z++) {
@@ -303,6 +377,7 @@ public class OreDetectorItem extends Item {
                     if (distanceSq > maxScanDistanceSq || distanceSq >= bestDistanceSq) continue;
 
                     checkPos.setWithOffset(origin, x, y, z);
+                    if (sections != null && !sections.mayContain(checkPos)) continue;
 
                     BlockState state = world.getBlockState(checkPos);
                     if (!isTarget(state, mode, customTarget)) continue;
@@ -325,6 +400,48 @@ public class OreDetectorItem extends Item {
         }
 
         return bestTarget;
+    }
+
+    /** Welche Chunk-Abschnitte rund um den Scan ein Ziel enthalten koennen, siehe findNearestReachable. */
+    private static final class SectionFilter {
+        private final int minX, minY, minZ, sizeX, sizeY;
+        private final boolean[] maybe;
+
+        private SectionFilter(int minX, int minY, int minZ, int sizeX, int sizeY, boolean[] maybe) {
+            this.minX = minX;
+            this.minY = minY;
+            this.minZ = minZ;
+            this.sizeX = sizeX;
+            this.sizeY = sizeY;
+            this.maybe = maybe;
+        }
+
+        static SectionFilter of(Level level, BlockPos origin, int radius, java.util.function.Predicate<BlockState> target) {
+            int minX = (origin.getX() - radius) >> 4, maxX = (origin.getX() + radius) >> 4;
+            int minY = (origin.getY() - radius) >> 4, maxY = (origin.getY() + radius) >> 4;
+            int minZ = (origin.getZ() - radius) >> 4, maxZ = (origin.getZ() + radius) >> 4;
+            int sizeX = maxX - minX + 1, sizeY = maxY - minY + 1, sizeZ = maxZ - minZ + 1;
+            boolean[] maybe = new boolean[sizeX * sizeY * sizeZ];
+            for (int cx = minX; cx <= maxX; cx++) {
+                for (int cz = minZ; cz <= maxZ; cz++) {
+                    net.minecraft.world.level.chunk.LevelChunk chunk = level.getChunkSource().getChunkNow(cx, cz);
+                    if (chunk == null) continue;
+                    for (int cy = minY; cy <= maxY; cy++) {
+                        int index = chunk.getSectionIndexFromSectionY(cy);
+                        if (index < 0 || index >= chunk.getSectionsCount()) continue;
+                        net.minecraft.world.level.chunk.LevelChunkSection section = chunk.getSection(index);
+                        if (section.hasOnlyAir() || !section.maybeHas(target)) continue;
+                        maybe[((cx - minX) * sizeY + (cy - minY)) * sizeZ + (cz - minZ)] = true;
+                    }
+                }
+            }
+            return new SectionFilter(minX, minY, minZ, sizeX, sizeY, maybe);
+        }
+
+        boolean mayContain(BlockPos pos) {
+            int sizeZ = maybe.length / (sizeX * sizeY);
+            return maybe[(((pos.getX() >> 4) - minX) * sizeY + ((pos.getY() >> 4) - minY)) * sizeZ + ((pos.getZ() >> 4) - minZ)];
+        }
     }
 
     /**
@@ -406,7 +523,8 @@ public class OreDetectorItem extends Item {
                     state.is(BlockItemTags.DIAMOND_ORES.block()) || state.is(BlockItemTags.EMERALD_ORES.block()) ||
                     state.is(Blocks.ANCIENT_DEBRIS) || state.is(Blocks.NETHER_QUARTZ_ORE) ||
                     state.is(ModBlocks.ASTRALIT_ORE) || state.is(ModBlocks.NIHILITH_ORE);
-            case CUSTOM -> customTarget != null && state.is(customTarget.getBlock());
+            // Ein vor dem Fix auf eine Truhe/einen Spawner kalibrierter Detektor findet sie nicht mehr.
+            case CUSTOM -> customTarget != null && isCalibratable(customTarget) && state.is(customTarget.getBlock());
         };
     }
 
@@ -487,8 +605,8 @@ public class OreDetectorItem extends Item {
         DetectMode next = modes[(current.ordinal() + 1) % modes.length];
         setMode(stack, next);
 
-        player.sendOverlayMessage(Component.literal("Detector Mode: ").withStyle(ChatFormatting.GRAY)
-                .append(Component.literal(next.name).withStyle(next.color)));
+        player.sendOverlayMessage(Component.translatable("message.simplebuilding.ore_detector.mode", next.displayName())
+                .withStyle(ChatFormatting.GRAY));
 
         // Server side only, so Player#playSound - which leaves out the player it is called on -
         // would reach everyone but the one who switched the mode.
@@ -571,19 +689,19 @@ public class OreDetectorItem extends Item {
     @SuppressWarnings("deprecation")
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
         DetectMode mode = getMode(stack);
-        textConsumer.accept(Component.literal("Mode: ").withStyle(ChatFormatting.GRAY)
-                .append(Component.literal(mode.name).withStyle(mode.color)));
+        textConsumer.accept(Component.translatable("tooltip.simplebuilding.ore_detector.mode", mode.displayName())
+                .withStyle(ChatFormatting.GRAY));
 
         if (mode == DetectMode.CUSTOM) {
             BlockState custom = getCustomBlock(stack, context.registries());
             if (custom != null) {
-                textConsumer.accept(Component.literal("Target: ").withStyle(ChatFormatting.GRAY)
-                        .append(custom.getBlock().getName().copy().withStyle(ChatFormatting.GREEN)));
+                textConsumer.accept(Component.translatable("tooltip.simplebuilding.ore_detector.target",
+                        custom.getBlock().getName().copy().withStyle(ChatFormatting.GREEN)).withStyle(ChatFormatting.GRAY));
             } else {
-                textConsumer.accept(Component.literal("Target: None (Sneak-Use on block)").withStyle(ChatFormatting.RED));
+                textConsumer.accept(Component.translatable("tooltip.simplebuilding.ore_detector.no_target").withStyle(ChatFormatting.RED));
             }
         } else {
-            textConsumer.accept(Component.literal("Sneak + Use to cycle modes").withStyle(ChatFormatting.DARK_GRAY));
+            textConsumer.accept(Component.translatable("tooltip.simplebuilding.ore_detector.cycle_hint").withStyle(ChatFormatting.DARK_GRAY));
         }
 
         textConsumer.accept(Component.empty());
@@ -591,14 +709,14 @@ public class OreDetectorItem extends Item {
         BlockState custom = mode == DetectMode.CUSTOM ? getCustomBlock(stack, context.registries()) : null;
         OreClass shown = mode.oreClass != null ? mode.oreClass
                 : (custom != null ? classify(custom) : OreClass.COMMON);
-        textConsumer.accept(Component.literal("Signal: " + shown.signal(radius) + ", Range: " + shown.range(radius))
-                .withStyle(ChatFormatting.DARK_AQUA));
+        textConsumer.accept(Component.translatable("tooltip.simplebuilding.ore_detector.power",
+                String.valueOf(shown.signal(radius)), String.valueOf(shown.range(radius))).withStyle(ChatFormatting.DARK_AQUA));
         if (mode == DetectMode.ALL) {
-            textConsumer.accept(Component.literal("Gold " + describe(OreClass.MEDIUM, radius)
-                    + ", Diamond/Emerald " + describe(OreClass.RARE, radius)
-                    + ", Debris/End ores " + describe(OreClass.VERY_RARE, radius)).withStyle(ChatFormatting.DARK_AQUA));
+            textConsumer.accept(Component.translatable("tooltip.simplebuilding.ore_detector.all_classes",
+                    describe(OreClass.MEDIUM, radius), describe(OreClass.RARE, radius), describe(OreClass.VERY_RARE, radius))
+                    .withStyle(ChatFormatting.DARK_AQUA));
         }
-        textConsumer.accept(Component.literal("Rock damps the signal, dense rock more.").withStyle(ChatFormatting.GRAY));
+        textConsumer.accept(Component.translatable("tooltip.simplebuilding.ore_detector.damping").withStyle(ChatFormatting.GRAY));
     }
 
     private static String describe(OreClass oreClass, boolean radius) {
