@@ -131,6 +131,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_every_player_facing_text_has_english_and_german_translations", DataIntegrityTests::everyPlayerFacingTextHasEnglishAndGermanTranslations)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_tool_names_carry_no_leftover_old_names", DataIntegrityTests::toolNamesCarryNoLeftoverOldNames)
+                    .build(),
             GameTestSpec.named("tool_behaviour_game_test_sledgehammer_breaks_three_by_three_around_origin", ToolBehaviourTests::sledgehammerBreaksThreeByThreeAroundOrigin)
                     .rotation(Rotation.NONE)
                     .build(),
@@ -1249,6 +1251,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("tweaks_game_test_the_lens_charge_runs_down_but_the_lens_never_breaks", TweaksTests::theLensChargeRunsDownButTheLensNeverBreaks)
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_lens_drains_charge_even_when_it_points_into_the_air", TweaksTests::theLensDrainsChargeEvenWhenItPointsIntoTheAir)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_lens_records_the_last_measurement_only_with_constructors_touch", TweaksTests::theLensRecordsTheLastMeasurementOnlyWithConstructorsTouch)
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_lens_dwell_time_grows_moderately_with_distance", TweaksTests::theLensDwellTimeGrowsModeratelyWithDistance)
                     .build(),
