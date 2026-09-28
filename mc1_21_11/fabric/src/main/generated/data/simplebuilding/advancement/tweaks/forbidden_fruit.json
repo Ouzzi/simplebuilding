@@ -1,0 +1,36 @@
+{
+  "parent": "simplebuilding:tweaks/root",
+  "criteria": {
+    "netherite_food": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:netherite_apple",
+              "simplebuilding:netherite_carrot"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.tweaks.forbidden_fruit.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:netherite_apple"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.tweaks.forbidden_fruit.title"
+    }
+  },
+  "requirements": [
+    [
+      "netherite_food"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

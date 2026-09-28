@@ -77,6 +77,16 @@ public class LaserPointerItem extends Item implements com.simplebuilding.items.A
         return CHARGE_PER_REDSTONE;
     }
 
+    /** Ladung je angefangener Sekunde Strahlen: Config {@code tweaks.laserPointer.beamCostPerSecond} (Standard {@link #BEAM_COST}). */
+    public static int beamCost() {
+        return Math.max(0, SimpleTweaks.config().laserPointer.beamCostPerSecond);
+    }
+
+    /** Ladung je Wirkung: Config {@code tweaks.laserPointer.effectCost} (Standard {@link #EFFECT_COST}). */
+    public static int effectCost() {
+        return Math.max(0, SimpleTweaks.config().laserPointer.effectCost);
+    }
+
     /** Leer: die ganze Ladung ist verbraucht (Schaden = Haltbarkeit). */
     public static boolean isEmpty(ItemStack stack) {
         return stack.isDamageableItem() && stack.getDamageValue() >= stack.getMaxDamage();
@@ -139,7 +149,7 @@ public class LaserPointerItem extends Item implements com.simplebuilding.items.A
         int usedTicks = getUseDuration(stack, user) - ticksRemaining;
         HitResult target = aim(player);
         if (usedTicks >= 0 && usedTicks % 20 == 0) {
-            drain(player, stack, BEAM_COST);
+            drain(player, stack, beamCost());
             recordMeasurement(player, stack, target);
         }
         boolean hum = usedTicks % LaserBeam.HUM_PERIOD == 0;

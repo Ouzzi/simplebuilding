@@ -1,0 +1,37 @@
+{
+  "parent": "simplebuilding:enderite/template_of_the_end",
+  "criteria": {
+    "enderite_building_tool": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:enderite_chisel",
+              "simplebuilding:enderite_building_wand"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.enderite.master_builder.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:enderite_building_wand"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.enderite.master_builder.title"
+    }
+  },
+  "requirements": [
+    [
+      "enderite_building_tool"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

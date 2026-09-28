@@ -1,0 +1,33 @@
+{
+  "parent": "simplebuilding:end/root",
+  "criteria": {
+    "polished_end_stone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:polished_end_stone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.end.polished_off.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:polished_end_stone"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.end.polished_off.title"
+    }
+  },
+  "requirements": [
+    [
+      "polished_end_stone"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

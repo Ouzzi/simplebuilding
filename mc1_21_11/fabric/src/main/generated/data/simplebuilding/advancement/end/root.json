@@ -1,0 +1,35 @@
+{
+  "criteria": {
+    "end_stone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:end_stone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:gui/advancements/backgrounds/end",
+    "description": {
+      "translate": "advancements.simplebuilding.end.root.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:astral_end_stone"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.simplebuilding.end.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "end_stone"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

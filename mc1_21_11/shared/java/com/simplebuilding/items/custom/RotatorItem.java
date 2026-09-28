@@ -84,6 +84,12 @@ public class RotatorItem extends Item implements AnvilRechargeable {
         return CHARGE_PER_PEARL;
     }
 
+    /** Ladung je Drehung: Config {@code tools.rotatorChargePerTurn} (Standard {@link #USE_COST}), 0 = kostenlos. */
+    public static int useCost() {
+        com.simplebuilding.config.SimplebuildingConfig config = com.simplebuilding.Simplebuilding.getConfig();
+        return config == null ? USE_COST : Math.max(0, config.tools.rotatorChargePerTurn);
+    }
+
     /** Leer: die ganze Ladung ist verbraucht, der Rotator dreht nichts mehr. */
     public static boolean isEmpty(ItemStack stack) {
         return AnvilRechargeable.isEmpty(stack);
@@ -139,7 +145,7 @@ public class RotatorItem extends Item implements AnvilRechargeable {
                 }
 
                 if (player != null) {
-                    drain(player, context.getItemInHand(), USE_COST);
+                    drain(player, context.getItemInHand(), useCost());
                 }
             }
             return InteractionResult.SUCCESS;

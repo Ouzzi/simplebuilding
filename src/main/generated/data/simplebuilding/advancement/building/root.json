@@ -1,0 +1,51 @@
+{
+  "criteria": {
+    "building_tool": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:stone_chisel",
+              "simplebuilding:copper_chisel",
+              "simplebuilding:iron_chisel",
+              "simplebuilding:gold_chisel",
+              "simplebuilding:diamond_chisel",
+              "simplebuilding:netherite_chisel",
+              "simplebuilding:enderite_chisel",
+              "simplebuilding:copper_building_wand",
+              "simplebuilding:iron_building_wand",
+              "simplebuilding:gold_building_wand",
+              "simplebuilding:diamond_building_wand",
+              "simplebuilding:netherite_building_wand",
+              "simplebuilding:enderite_building_wand",
+              "simplebuilding:octant",
+              "simplebuilding:rotator",
+              "simplebuilding:construction_light"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:block/bricks",
+    "description": {
+      "translate": "advancements.simplebuilding.building.root.description"
+    },
+    "icon": {
+      "id": "simplebuilding:gold_chisel"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.simplebuilding.building.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "building_tool"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -8,6 +8,7 @@ import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.ReinforcedBundleItem;
 import com.simplebuilding.loot.ModLootTableModifications;
+import com.simplebuilding.tweaks.TweaksConfig;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -22,6 +23,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
@@ -415,33 +417,105 @@ public final class ConfigOptionTests {
      */
     private static final Set<String> EXPECTED_OPTIONS = Set.of(
             "root.tools group:Tools",
-            "root.worldGen group:WorldGen",
-            // Simple-Tweaks-Abschnitt; seine Optionen prueft TweaksTests#tweaksConfigKeepsItsNamesAndDefaults.
-            "root.tweaks group:TweaksConfig",
             "root.enableDoubleJump boolean=true",
             "root.airJumpCooldownTicks int=100",
             "root.enableArmorTrimBenefits boolean=true",
+            "root.trimBenefitBaseMultiplier double=2.0",
+            "root.maxMultiplierLimit double runtime-only(static)",
+            "root.breakerPistonsLoseDurability boolean=true",
             "root.pistonsBreachEndPortalFrames boolean=false",
             "root.pistonsBreachModdedUnbreakables boolean=false",
-            "root.pistonsFireBreakEvents boolean=true",
-            "root.breakerPistonsLoseDurability boolean=true",
-            "root.showDevEnchantedTab boolean=false",
+            "root.tweaks group:TweaksConfig",
+            "root.worldGen group:WorldGen",
             "root.giveGuideBookOnFirstJoin boolean=true",
             "root.vanillaEnchantedBookTextures boolean=true",
             "root.modEnchantedBookTextures boolean=true",
             "root.visibleTrimIconsVanillaArmor boolean=true",
             "root.visibleTrimIconsModArmor boolean=true",
-            "root.trimBenefitBaseMultiplier double=2.0",
-            "root.maxMultiplierLimit double runtime-only(static)",
+            "root.pistonsFireBreakEvents boolean=true",
+            "root.showDevEnchantedTab boolean=false",
+            "tools.buildingWandHungerCost boolean=true",
+            "tools.wandHungerMultiplier double=1.0",
+            "tools.magnetRangeMultiplier double=1.0",
+            "tools.rotatorChargePerTurn int=1",
+            "tools.invertBundleInteractions boolean=false",
             "tools.invertOctantSneak boolean=false",
             "tools.buildingHighlightOpacity int=40",
             "tools.enableToolAnimations boolean=true",
             "tools.enableChiselAnimation boolean=true",
-            "tools.invertBundleInteractions boolean=false",
-            "tools.buildingWandHungerCost boolean=true",
+            "tweaks.pads group:Pads",
+            "tweaks.padTuning group:PadTuning",
+            "tweaks.laserPointer group:LaserPointer",
+            "tweaks.balancing group:Balancing",
+            "tweaks.spawn group:Spawn",
+            "tweaks.dimensions group:Dimensions",
+            "tweaks.commands group:Commands",
+            "tweaks.optimization group:Optimization",
+            "tweaks.pads.enableChunkLoaders boolean=true",
+            "tweaks.pads.enableElytraPads boolean=true",
+            "tweaks.pads.enableFlypads boolean=true",
+            "tweaks.pads.enableSpawnTeleporters boolean=true",
+            "tweaks.pads.enableLaunchpads boolean=true",
+            "tweaks.pads.enableTimedCopperPlates boolean=true",
+            "tweaks.pads.enableFilterPlates boolean=true",
+            "tweaks.pads.enablePotionPads boolean=true",
+            "tweaks.padTuning.teleporterWarmupTicks int=100",
+            "tweaks.padTuning.enderiteTeleporterWarmupTicks int=60",
+            "tweaks.padTuning.launchpadStrengthMultiplier double=1.0",
+            "tweaks.padTuning.potionPadChargeStepTicks int=20",
+            "tweaks.padTuning.potionPadCooldownFactor double=2.0",
+            "tweaks.laserPointer.enable boolean=true",
+            "tweaks.laserPointer.color int=16711680",
+            "tweaks.laserPointer.scale float=0.25",
+            "tweaks.laserPointer.range int=512",
+            "tweaks.laserPointer.beamCostPerSecond int=1",
+            "tweaks.laserPointer.effectCost int=5",
+            "tweaks.laserPointer.showLine boolean=false",
+            "tweaks.balancing.rocketStackSize int=64",
+            "tweaks.balancing.echoSounderCooldownTicks int=120",
+            "tweaks.spawn.MAX_FLIGHT_SECONDS int runtime-only(static)",
+            "tweaks.spawn.MAX_BOOSTS int runtime-only(static)",
+            "tweaks.spawn.forceExactSpawn boolean=false",
+            "tweaks.spawn.disableFallDamageInSpawn boolean=true",
+            "tweaks.spawn.useCustomWorldSpawn boolean=false",
+            "tweaks.spawn.xCoordSpawnPoint int=0",
+            "tweaks.spawn.yCoordSpawnPoint int=-1",
+            "tweaks.spawn.zCoordSpawnPoint int=0",
+            "tweaks.spawn.firstJoinTeleporterCount int=0",
+            "tweaks.spawn.firstJoinElytraPadCount int=0",
+            "tweaks.spawn.spawnTeleporterCount Integer=null",
+            "tweaks.spawn.giveElytraOnSpawn boolean=false",
+            "tweaks.spawn.spawnElytraRadius int=25",
+            "tweaks.spawn.useWorldSpawnAsCenter boolean=false",
+            "tweaks.spawn.customSpawnElytraX int=0",
+            "tweaks.spawn.customSpawnElytraZ int=0",
+            "tweaks.spawn.flightTimeSeconds int=300",
+            "tweaks.spawn.maxBoosts int=3",
+            "tweaks.spawn.boostStrength float=0.6",
+            "tweaks.spawn.spawn1X int=0",
+            "tweaks.spawn.spawn1Y int=-1000",
+            "tweaks.spawn.spawn1Z int=0",
+            "tweaks.spawn.spawn2X int=0",
+            "tweaks.spawn.spawn2Y int=-1000",
+            "tweaks.spawn.spawn2Z int=0",
+            "tweaks.spawn.spawn3X int=0",
+            "tweaks.spawn.spawn3Y int=-1000",
+            "tweaks.spawn.spawn3Z int=0",
+            "tweaks.spawn.spawn4X int=0",
+            "tweaks.spawn.spawn4Y int=-1000",
+            "tweaks.spawn.spawn4Z int=0",
+            "tweaks.dimensions.allowNether boolean=true",
+            "tweaks.dimensions.allowEnd boolean=true",
+            "tweaks.commands.enableKillBoatsCommand boolean=true",
+            "tweaks.commands.enableKillCartsCommand boolean=false",
+            "tweaks.commands.killCommandRadius int=100",
+            "tweaks.optimization.enableXpClumps boolean=true",
+            "tweaks.optimization.xpClumpRadius double=2.0",
+            "tweaks.optimization.scaleXpOrbs boolean=true",
+            "worldGen.enableLootTableChanges boolean=true",
+            "worldGen.buildingCoreLootChanceMultiplier double=1.0",
             "worldGen.enableVillagerTrades boolean=true",
-            "worldGen.enableWanderingTrades boolean=true",
-            "worldGen.enableLootTableChanges boolean=true");
+            "worldGen.enableWanderingTrades boolean=true");
 
     // =====================================================================================
     // tools.invertBundleInteractions
@@ -801,6 +875,19 @@ public final class ConfigOptionTests {
         collectOptions(found, problems, "root", SimplebuildingConfig.class, defaults);
         collectOptions(found, problems, "tools", SimplebuildingConfig.Tools.class, defaults.tools);
         collectOptions(found, problems, "worldGen", SimplebuildingConfig.WorldGen.class, defaults.worldGen);
+        // Seit dem Config-Umbau 2026-09-28 auch der Tweaks-Abschnitt mit allen Gruppen (TweaksTests
+        // pinnt ihn zusaetzlich in seiner eigenen Form).
+        collectOptions(found, problems, "tweaks", TweaksConfig.class, defaults.tweaks);
+        for (Field group : TweaksConfig.class.getFields()) {
+            if (Modifier.isStatic(group.getModifiers())) {
+                continue;
+            }
+            try {
+                collectOptions(found, problems, "tweaks." + group.getName(), group.getType(), group.get(defaults.tweaks));
+            } catch (IllegalAccessException e) {
+                problems.add("tweaks." + group.getName() + " could not be read (" + e + ")");
+            }
+        }
 
         helper.assertTrue(problems.isEmpty(),
                 "config options could not be read by reflection:\n" + String.join("\n", problems));
@@ -828,6 +915,619 @@ public final class ConfigOptionTests {
                         + "group has no effect on the code that reads it");
 
         TestCleanup.succeed(helper);
+    }
+
+    // =====================================================================================
+    // Config-Umbau 2026-09-28: screen layout, command, new options
+    // =====================================================================================
+
+    /** The tabs of the config screen, in the order Cloth shows them (first field of each wins). */
+    private static final List<String> EXPECTED_TABS =
+            List.of("building", "equipment", "pistons", "tweaks", "world", "visuals", "advanced");
+
+    /**
+     * Fields that are persisted but deliberately not options: legacy keys read only for a
+     * migration ({@code @ConfigEntry.Gui.Excluded}). Everything else the pin above lists as a value
+     * has to be reachable through {@code ConfigOptions} - and so through the screen and the command.
+     */
+    private static final Set<String> EXCLUDED_KEYS =
+            Set.of("tweaks.spawn.spawnTeleporterCount", "tweaks.laserPointer.showLine");
+
+    /**
+     * The config screen explains itself: every option a player can see has a name and a tooltip in
+     * English and German, every tooltip states the default, every top level field sits on one of
+     * the seven tabs (most important first), every tab and every group has a name, and the title
+     * exists. On top of that the option list the command and the wiki read ({@code ConfigOptions})
+     * is exactly the pinned list minus the excluded legacy keys, and its client-side and
+     * on-reload marks name real options.
+     *
+     * <p>What breaks it: a new field without lang keys (Cloth shows the raw key), a tooltip
+     * without its default, a top level field without {@code @ConfigEntry.Category} (Cloth opens a
+     * stray "default" tab), a group without {@code TransitiveObject} on its tab, a reordered tab,
+     * or {@code ConfigOptions} skipping or inventing an option.
+     */
+    public static void everyOptionHasNameTooltipAndTab(GameTestHelper helper) {
+        JsonObject en = configLang(helper, "en_us");
+        JsonObject de = configLang(helper, "de_de");
+        String prefix = "text.autoconfig." + SimpleBuildingGameTests.MOD_ID + ".";
+        List<String> problems = new ArrayList<>();
+        requireLang(problems, en, de, prefix + "title");
+
+        List<String> tabs = new ArrayList<>();
+        for (Field field : SimplebuildingConfig.class.getDeclaredFields()) {
+            if (Modifier.isStatic(field.getModifiers()) || !Modifier.isPublic(field.getModifiers())
+                    || field.isAnnotationPresent(me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.Excluded.class)) {
+                continue;
+            }
+            me.shedaniel.autoconfig.annotation.ConfigEntry.Category category =
+                    field.getAnnotation(me.shedaniel.autoconfig.annotation.ConfigEntry.Category.class);
+            if (category == null) {
+                problems.add(field.getName() + " carries no @ConfigEntry.Category, so Cloth puts it on a stray \"default\" tab");
+                continue;
+            }
+            if (!tabs.contains(category.value())) {
+                tabs.add(category.value());
+            }
+            if (!com.simplebuilding.config.ConfigOptions.isValueType(field.getType())
+                    && !field.isAnnotationPresent(me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.TransitiveObject.class)) {
+                problems.add(field.getName() + " is a group on a tab without @ConfigEntry.Gui.TransitiveObject");
+            }
+        }
+        helper.assertTrue(tabs.equals(EXPECTED_TABS), "config screen tabs in order: " + tabs + " instead of " + EXPECTED_TABS);
+        for (String tab : EXPECTED_TABS) {
+            requireLang(problems, en, de, prefix + "category." + tab);
+        }
+
+        Set<String> groups = new TreeSet<>();
+        Set<String> paths = new TreeSet<>();
+        for (com.simplebuilding.config.ConfigOptions.Option option : com.simplebuilding.config.ConfigOptions.all()) {
+            paths.add(option.path());
+            String key = prefix + "option." + option.path();
+            requireLang(problems, en, de, key);
+            if (!option.field().isAnnotationPresent(me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.Tooltip.class)) {
+                problems.add(option.path() + " has no @ConfigEntry.Gui.Tooltip, so the screen shows no explanation");
+            } else {
+                requireLang(problems, en, de, key + ".@Tooltip");
+                if (en.has(key + ".@Tooltip") && !en.get(key + ".@Tooltip").getAsString().contains("Default:")) {
+                    problems.add(key + ".@Tooltip (en_us) does not state the default");
+                }
+                if (de.has(key + ".@Tooltip") && !de.get(key + ".@Tooltip").getAsString().contains("Standard:")) {
+                    problems.add(key + ".@Tooltip (de_de) does not state the default");
+                }
+            }
+            int dot = option.path().lastIndexOf('.');
+            while (dot > 0) {
+                groups.add(option.path().substring(0, dot));
+                dot = option.path().lastIndexOf('.', dot - 1);
+            }
+        }
+        for (String group : groups) {
+            requireLang(problems, en, de, prefix + "option." + group);
+        }
+
+        Set<String> pinned = new TreeSet<>();
+        for (String entry : EXPECTED_OPTIONS) {
+            if (entry.contains(" group:") || entry.contains("runtime-only")) {
+                continue;
+            }
+            String qualified = entry.substring(0, entry.indexOf(' '));
+            String path = qualified.startsWith("root.") ? qualified.substring("root.".length()) : qualified;
+            if (!EXCLUDED_KEYS.contains(path)) {
+                pinned.add(path);
+            }
+        }
+        helper.assertTrue(paths.equals(pinned), "ConfigOptions lists " + paths + " but the pinned options are " + pinned);
+        for (String path : com.simplebuilding.config.ConfigOptions.CLIENT_SIDE) {
+            if (!paths.contains(path)) problems.add("ConfigOptions.CLIENT_SIDE names " + path + ", which is no option");
+        }
+        for (String path : com.simplebuilding.config.ConfigOptions.APPLY_ON_RELOAD) {
+            if (!paths.contains(path)) problems.add("ConfigOptions.APPLY_ON_RELOAD names " + path + ", which is no option");
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " config screen problems:\n" + String.join("\n", problems));
+        done(helper);
+    }
+
+    /**
+     * {@code /simplebuilding config get|set|reset|list} reaches every option by its path: get
+     * answers for all of them, set parses the value, clamps it like a loaded file, writes the live
+     * config and saves once, reset brings back the default, and nonsense (an unknown option, a
+     * value of the wrong type) changes nothing and reports failure.
+     *
+     * <p>What breaks it: an option the command cannot find, set not saving or not writing the live
+     * object, no clamping (a negative rotator cost would reach the item), or a parse that accepts
+     * garbage.
+     */
+    public static void theConfigCommandReachesEveryOption(GameTestHelper helper) {
+        SimplebuildingConfig config = liveConfig(helper);
+        ServerPlayer player = mockPlayer(helper);
+        var players = helper.getLevel().getServer().getPlayerList();
+        boolean wasOp = players.isOp(player.nameAndId());
+        Runnable installedSaver = com.simplebuilding.config.ConfigSaving.saver();
+        double magnet = config.tools.magnetRangeMultiplier;
+        int rotator = config.tools.rotatorChargePerTurn;
+        boolean flypads = config.tweaks.pads.enableFlypads;
+        Runnable restore = () -> {
+            SimplebuildingConfig live = Simplebuilding.getConfig();
+            live.tools.magnetRangeMultiplier = magnet;
+            live.tools.rotatorChargePerTurn = rotator;
+            live.tweaks.pads.enableFlypads = flypads;
+            com.simplebuilding.config.ConfigSaving.setSaver(installedSaver);
+        };
+        restoreAtEnd(helper, restore);
+        int[] saves = {0};
+        List<String> problems = new ArrayList<>();
+        try {
+            com.simplebuilding.config.ConfigSaving.setSaver(() -> saves[0]++);
+            players.op(player.nameAndId());
+            var dispatcher = helper.getLevel().getServer().getCommands().getDispatcher();
+            var source = player.createCommandSourceStack().withSuppressedOutput();
+            for (com.simplebuilding.config.ConfigOptions.Option option : com.simplebuilding.config.ConfigOptions.all()) {
+                if (dispatcher.execute("simplebuilding config get " + option.path(), source) != 1) {
+                    problems.add("get " + option.path() + " did not answer");
+                }
+            }
+            helper.assertTrue(problems.isEmpty(), "the config command cannot read: " + problems);
+
+            helper.assertTrue(dispatcher.execute("simplebuilding config set tools.magnetRangeMultiplier 2.5", source) == 1,
+                    "set tools.magnetRangeMultiplier 2.5 was refused");
+            helper.assertTrue(config.tools.magnetRangeMultiplier == 2.5,
+                    "set wrote " + config.tools.magnetRangeMultiplier + " instead of 2.5 into the live config");
+            helper.assertTrue(saves[0] == 1, "set saved the config " + saves[0] + " times instead of once");
+
+            dispatcher.execute("simplebuilding config set tweaks.pads.enableFlypads off", source);
+            helper.assertFalse(config.tweaks.pads.enableFlypads, "set tweaks.pads.enableFlypads off left flypads on");
+
+            dispatcher.execute("simplebuilding config set tools.rotatorChargePerTurn -5", source);
+            helper.assertTrue(config.tools.rotatorChargePerTurn == 0,
+                    "a negative rotator cost was stored as " + config.tools.rotatorChargePerTurn + " instead of clamped to 0");
+
+            helper.assertTrue(dispatcher.execute("simplebuilding config set tools.magnetRangeMultiplier lots", source) == 0,
+                    "set accepted \"lots\" as a double");
+            helper.assertTrue(config.tools.magnetRangeMultiplier == 2.5, "a refused value still changed the option");
+            helper.assertTrue(dispatcher.execute("simplebuilding config get tools.noSuchOption", source) == 0,
+                    "get answered for an option that does not exist");
+
+            dispatcher.execute("simplebuilding config reset tools.magnetRangeMultiplier", source);
+            helper.assertTrue(config.tools.magnetRangeMultiplier == 1.0,
+                    "reset left tools.magnetRangeMultiplier at " + config.tools.magnetRangeMultiplier + " instead of the default 1.0");
+
+            long toolOptions = com.simplebuilding.config.ConfigOptions.all().stream().filter(o -> o.path().startsWith("tools.")).count();
+            helper.assertTrue(dispatcher.execute("simplebuilding config list tools.", source) == toolOptions,
+                    "list tools. did not list the " + toolOptions + " tool options");
+        } catch (com.mojang.brigadier.exceptions.CommandSyntaxException e) {
+            helper.fail("config command failed: " + e.getMessage());
+        } finally {
+            restore.run();
+            if (!wasOp) {
+                players.deop(player.nameAndId());
+            }
+        }
+        done(helper);
+    }
+
+    /**
+     * The three new tool options change what the tools do: the hunger multiplier scales the
+     * exhaustion of a paid wand block (0 = free), the magnet multiplier decides whether an item six
+     * blocks away is pulled, and the rotator cost is what one real turn takes off the charge.
+     */
+    public static void newToolOptionsChangeWhatTheToolsDo(GameTestHelper helper) {
+        SimplebuildingConfig config = liveConfig(helper);
+        double hunger = config.tools.wandHungerMultiplier;
+        double magnet = config.tools.magnetRangeMultiplier;
+        int rotatorCost = config.tools.rotatorChargePerTurn;
+        boolean hungerOn = config.tools.buildingWandHungerCost;
+        Runnable restore = () -> {
+            SimplebuildingConfig live = Simplebuilding.getConfig();
+            live.tools.wandHungerMultiplier = hunger;
+            live.tools.magnetRangeMultiplier = magnet;
+            live.tools.rotatorChargePerTurn = rotatorCost;
+            live.tools.buildingWandHungerCost = hungerOn;
+        };
+        restoreAtEnd(helper, restore);
+        ServerPlayer player = mockPlayer(helper);
+        player.getAbilities().instabuild = false;
+        try {
+            // --- tools.wandHungerMultiplier ---
+            config.tools.buildingWandHungerCost = true;
+            net.minecraft.world.item.Item wand = ModItems.COPPER_BUILDING_WAND;
+            long paid = com.simplebuilding.util.WandHunger.ALLOWANCE[0] + 1;
+            float base = (float) com.simplebuilding.util.WandHunger.PER_BLOCK[0];
+            config.tools.wandHungerMultiplier = 1.0;
+            float normal = com.simplebuilding.util.WandHunger.exhaust(player, wand, paid);
+            config.tools.wandHungerMultiplier = 2.0;
+            float doubled = com.simplebuilding.util.WandHunger.exhaust(player, wand, paid);
+            config.tools.wandHungerMultiplier = 0.0;
+            float free = com.simplebuilding.util.WandHunger.exhaust(player, wand, paid);
+            helper.assertTrue(normal == base, "a paid copper wand block cost " + normal + " exhaustion at multiplier 1 instead of " + base);
+            helper.assertTrue(Math.abs(doubled - 2 * base) < 1e-9, "multiplier 2 cost " + doubled + " instead of " + (2 * base));
+            helper.assertTrue(free == 0.0F, "multiplier 0 still cost " + free + " exhaustion");
+
+            // --- tools.magnetRangeMultiplier: an item 6 blocks away, outside the base range of 4 ---
+            Vec3 at = helper.absoluteVec(new Vec3(1.5, 1.0, 1.5));
+            player.snapTo(at.x, at.y, at.z, 0.0F, 0.0F);
+            ItemStack magnetStack = new ItemStack(ModItems.MAGNET);
+            player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, magnetStack);
+            net.minecraft.world.entity.item.ItemEntity loose = new net.minecraft.world.entity.item.ItemEntity(
+                    helper.getLevel(), at.x + 6.0, at.y + 0.5, at.z, new ItemStack(Items.STONE));
+            loose.setNoGravity(true);
+            helper.getLevel().addFreshEntity(loose);
+            try {
+                config.tools.magnetRangeMultiplier = 1.0;
+                loose.setPickUpDelay(40);
+                magnetStack.getItem().inventoryTick(magnetStack, helper.getLevel(), player, net.minecraft.world.entity.EquipmentSlot.MAINHAND);
+                helper.assertTrue(loose.hasPickUpDelay(), "the magnet pulled an item 6 blocks away at its normal range of 4");
+                config.tools.magnetRangeMultiplier = 2.0;
+                magnetStack.getItem().inventoryTick(magnetStack, helper.getLevel(), player, net.minecraft.world.entity.EquipmentSlot.MAINHAND);
+                helper.assertFalse(loose.hasPickUpDelay(), "at range multiplier 2 (8 blocks) the magnet did not pull an item 6 blocks away");
+            } finally {
+                loose.discard();
+            }
+
+            // --- tools.rotatorChargePerTurn: one real turn of a log ---
+            BlockPos log = new BlockPos(2, 1, 2);
+            int[] costs = {1, 3, 0};
+            for (int cost : costs) {
+                config.tools.rotatorChargePerTurn = cost;
+                helper.setBlock(log, net.minecraft.world.level.block.Blocks.OAK_LOG.defaultBlockState()
+                        .setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.AXIS, net.minecraft.core.Direction.Axis.Y));
+                ItemStack rotator = new ItemStack(ModItems.ROTATOR);
+                player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, rotator);
+                BlockPos abs = helper.absolutePos(log);
+                Vec3 hit = new Vec3(abs.getX() + 0.5, abs.getY() + 1.0, abs.getZ() + 0.5);
+                net.minecraft.world.InteractionResult result = rotator.getItem().useOn(new net.minecraft.world.item.context.UseOnContext(
+                        player, net.minecraft.world.InteractionHand.MAIN_HAND,
+                        new net.minecraft.world.phys.BlockHitResult(hit, net.minecraft.core.Direction.UP, abs, false)));
+                helper.assertTrue(result == net.minecraft.world.InteractionResult.SUCCESS, "the rotator refused to turn the log at cost " + cost + ": " + result);
+                helper.assertTrue(rotator.getDamageValue() == cost,
+                        "one turn at tools.rotatorChargePerTurn " + cost + " took " + rotator.getDamageValue() + " charge");
+            }
+        } finally {
+            restore.run();
+        }
+        done(helper);
+    }
+
+    /**
+     * The new pad options change what the pads do: the potion pad switch stops a filled pad, the
+     * charge step decides when the first 25 % arrive, the cooldown factor sets the cooldown after
+     * the full charge (0 = none), and the teleporter warm-ups and the launchpad multiplier feed the
+     * countdown and the launch the block entities use.
+     */
+    public static void newPadOptionsChangeWhatThePadsDo(GameTestHelper helper) {
+        TweaksConfig tweaks = liveConfig(helper).tweaks;
+        boolean potionPads = tweaks.pads.enablePotionPads;
+        int step = tweaks.padTuning.potionPadChargeStepTicks;
+        double cooldownFactor = tweaks.padTuning.potionPadCooldownFactor;
+        int warmup = tweaks.padTuning.teleporterWarmupTicks;
+        int enderiteWarmup = tweaks.padTuning.enderiteTeleporterWarmupTicks;
+        double launch = tweaks.padTuning.launchpadStrengthMultiplier;
+        Runnable restore = () -> {
+            TweaksConfig live = Simplebuilding.getConfig().tweaks;
+            live.pads.enablePotionPads = potionPads;
+            live.padTuning.potionPadChargeStepTicks = step;
+            live.padTuning.potionPadCooldownFactor = cooldownFactor;
+            live.padTuning.teleporterWarmupTicks = warmup;
+            live.padTuning.enderiteTeleporterWarmupTicks = enderiteWarmup;
+            live.padTuning.launchpadStrengthMultiplier = launch;
+        };
+        restoreAtEnd(helper, restore);
+        try {
+            // --- tweaks.pads.enablePotionPads ---
+            BlockPos off = new BlockPos(1, 1, 1);
+            ServerPlayer first = padPlayer(helper, off);
+            fillPotionPad(helper, off);
+            tweaks.pads.enablePotionPads = false;
+            tickPotionPad(helper, off, 3 * com.simplebuilding.tweaks.block.entity.PotionPadBlockEntity.RAMP_STEP_TICKS);
+            helper.assertFalse(first.hasEffect(net.minecraft.world.effect.MobEffects.SPEED), "a switched off potion pad still gave swiftness");
+            tweaks.pads.enablePotionPads = true;
+            first.removeAllEffects();
+
+            // --- tweaks.padTuning.potionPadChargeStepTicks + potionPadCooldownFactor ---
+            BlockPos fast = new BlockPos(4, 1, 1);
+            ServerPlayer second = padPlayer(helper, fast);
+            com.simplebuilding.tweaks.block.entity.PotionPadBlockEntity pad = fillPotionPad(helper, fast);
+            int full = ((com.simplebuilding.tweaks.block.PotionPadBlock) com.simplebuilding.tweaks.block.TweaksBlocks.POTION_PAD)
+                    .effectDurationAt(helper.getLevel(), helper.absolutePos(fast));
+            tweaks.padTuning.potionPadChargeStepTicks = 5;
+            tweaks.padTuning.potionPadCooldownFactor = 0.5;
+            tickPotionPad(helper, fast, 4);
+            helper.assertFalse(second.hasEffect(net.minecraft.world.effect.MobEffects.SPEED), "the pad gave swiftness before the first 5 tick step");
+            tickPotionPad(helper, fast, 1);
+            net.minecraft.world.effect.MobEffectInstance speed = second.getEffect(net.minecraft.world.effect.MobEffects.SPEED);
+            helper.assertTrue(speed != null && speed.getDuration() == full / 4,
+                    "after one 5 tick step the pad gave " + (speed == null ? "nothing" : speed.getDuration() + " ticks") + " instead of 25 % of " + full);
+            tickPotionPad(helper, fast, 10);
+            helper.assertTrue(pad.getCooldown() == full / 2,
+                    "cooldown factor 0.5 set a cooldown of " + pad.getCooldown() + " instead of half the duration " + (full / 2));
+
+            BlockPos none = new BlockPos(1, 1, 4);
+            padPlayer(helper, none);
+            com.simplebuilding.tweaks.block.entity.PotionPadBlockEntity noCooldown = fillPotionPad(helper, none);
+            tweaks.padTuning.potionPadCooldownFactor = 0.0;
+            tickPotionPad(helper, none, 15);
+            helper.assertFalse(noCooldown.isCoolingDown(), "cooldown factor 0 still put the pad on a cooldown of " + noCooldown.getCooldown());
+
+            tweaks.padTuning.potionPadCooldownFactor = 2.0;
+            helper.assertTrue(((com.simplebuilding.tweaks.block.PotionPadBlock) com.simplebuilding.tweaks.block.TweaksBlocks.POTION_PAD)
+                            .cooldownAt(helper.getLevel(), helper.absolutePos(none)) == 2 * full,
+                    "the default cooldown factor no longer gives twice the effect duration");
+
+            // --- tweaks.padTuning.teleporterWarmupTicks / enderiteTeleporterWarmupTicks ---
+            int enderiteTier = com.simplebuilding.tweaks.block.SpawnTeleporterBlock.ENDERITE_TIER;
+            helper.assertTrue(com.simplebuilding.tweaks.block.entity.SpawnTeleporterBlockEntity.requiredTicks(1) == 100
+                            && com.simplebuilding.tweaks.block.entity.SpawnTeleporterBlockEntity.requiredTicks(enderiteTier) == 60,
+                    "the default teleporter warm-ups are no longer 100 and 60 ticks");
+            tweaks.padTuning.teleporterWarmupTicks = 40;
+            tweaks.padTuning.enderiteTeleporterWarmupTicks = 10;
+            helper.assertTrue(com.simplebuilding.tweaks.block.entity.SpawnTeleporterBlockEntity.requiredTicks(1) == 40,
+                    "teleporterWarmupTicks 40 did not shorten the countdown of a tier I teleporter");
+            helper.assertTrue(com.simplebuilding.tweaks.block.entity.SpawnTeleporterBlockEntity.requiredTicks(enderiteTier) == 10,
+                    "enderiteTeleporterWarmupTicks 10 did not shorten the countdown of the Enderite teleporter");
+
+            // --- tweaks.padTuning.launchpadStrengthMultiplier ---
+            double normal = com.simplebuilding.tweaks.block.entity.LaunchpadBlockEntity.strengthFor(4);
+            tweaks.padTuning.launchpadStrengthMultiplier = 0.5;
+            double halved = com.simplebuilding.tweaks.block.entity.LaunchpadBlockEntity.strengthFor(4);
+            helper.assertTrue(Math.abs(normal - 4.7) < 1e-9, "a launchpad with 4 charges launches at " + normal + " instead of 1.5 + 4 x 0.8");
+            helper.assertTrue(Math.abs(halved - normal / 2) < 1e-9, "launchpadStrengthMultiplier 0.5 gave " + halved + " instead of " + (normal / 2));
+        } finally {
+            restore.run();
+        }
+        done(helper);
+    }
+
+    /**
+     * The new tweak options change what the tweaks do: the kill radius decides whether
+     * {@code /killboats} reaches a boat, the XP merge radius whether a neighbour orb is swallowed,
+     * both lens costs what a second of beaming and one effect take off the charge, and the echo
+     * sounder cooldown whether a jump leaves the item on cooldown.
+     */
+    public static void newTweakOptionsChangeWhatTheTweaksDo(GameTestHelper helper) {
+        TweaksConfig tweaks = liveConfig(helper).tweaks;
+        int radius = tweaks.commands.killCommandRadius;
+        boolean killBoats = tweaks.commands.enableKillBoatsCommand;
+        double clump = tweaks.optimization.xpClumpRadius;
+        int beam = tweaks.laserPointer.beamCostPerSecond;
+        int effect = tweaks.laserPointer.effectCost;
+        boolean lens = tweaks.laserPointer.enable;
+        int echo = tweaks.balancing.echoSounderCooldownTicks;
+        Runnable restore = () -> {
+            TweaksConfig live = Simplebuilding.getConfig().tweaks;
+            live.commands.killCommandRadius = radius;
+            live.commands.enableKillBoatsCommand = killBoats;
+            live.optimization.xpClumpRadius = clump;
+            live.laserPointer.beamCostPerSecond = beam;
+            live.laserPointer.effectCost = effect;
+            live.laserPointer.enable = lens;
+            live.balancing.echoSounderCooldownTicks = echo;
+        };
+        restoreAtEnd(helper, restore);
+        ServerPlayer player = mockPlayer(helper);
+        player.getAbilities().instabuild = false;
+        var players = helper.getLevel().getServer().getPlayerList();
+        boolean wasOp = players.isOp(player.nameAndId());
+        try {
+            // --- tweaks.commands.killCommandRadius: a boat 5 blocks away ---
+            Vec3 at = helper.absoluteVec(new Vec3(1.5, 1.0, 1.5));
+            player.snapTo(at.x, at.y, at.z, 0.0F, 0.0F);
+            tweaks.commands.enableKillBoatsCommand = true;
+            players.op(player.nameAndId());
+            var dispatcher = helper.getLevel().getServer().getCommands().getDispatcher();
+            var source = player.createCommandSourceStack().withSuppressedOutput();
+            net.minecraft.world.entity.Entity boat = spawnBoat(helper, new BlockPos(6, 1, 1));
+            tweaks.commands.killCommandRadius = 2;
+            dispatcher.execute("killboats", source);
+            helper.assertTrue(boat.isAlive(), "/killboats with radius 2 removed a boat about 5 blocks away");
+            tweaks.commands.killCommandRadius = 100;
+            dispatcher.execute("killboats", source);
+            helper.assertFalse(boat.isAlive(), "/killboats with the default radius 100 left a boat 5 blocks away");
+
+            // --- tweaks.optimization.xpClumpRadius: an orb 3 blocks away ---
+            Vec3 spot = helper.absoluteVec(new Vec3(3.5, 2.0, 5.5));
+            net.minecraft.world.entity.ExperienceOrb a = new net.minecraft.world.entity.ExperienceOrb(helper.getLevel(), spot.x, spot.y, spot.z, 3);
+            net.minecraft.world.entity.ExperienceOrb b = new net.minecraft.world.entity.ExperienceOrb(helper.getLevel(), spot.x + 3.0, spot.y, spot.z, 4);
+            a.setNoGravity(true);
+            b.setNoGravity(true);
+            helper.getLevel().addFreshEntity(a);
+            helper.getLevel().addFreshEntity(b);
+            try {
+                tweaks.optimization.xpClumpRadius = 2.0;
+                helper.assertTrue(com.simplebuilding.tweaks.xp.XpClumping.clump(a) == 0, "an orb 3 blocks away was merged at the default radius 2");
+                tweaks.optimization.xpClumpRadius = 4.0;
+                helper.assertTrue(com.simplebuilding.tweaks.xp.XpClumping.clump(a) == 1, "xpClumpRadius 4 did not merge an orb 3 blocks away");
+                helper.assertTrue(a.getValue() == 7, "the merged orb holds " + a.getValue() + " experience instead of 3 + 4");
+            } finally {
+                a.discard();
+                b.discard();
+            }
+
+            // --- tweaks.laserPointer.beamCostPerSecond: the first tick of beaming ---
+            tweaks.laserPointer.enable = true;
+            ItemStack beamLens = new ItemStack(com.simplebuilding.tweaks.item.TweaksItems.LASER_POINTER);
+            player.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, beamLens);
+            tweaks.laserPointer.beamCostPerSecond = 3;
+            beamLens.getItem().onUseTick(helper.getLevel(), player, beamLens, beamLens.getItem().getUseDuration(beamLens, player));
+            helper.assertTrue(beamLens.getDamageValue() == 3, "the first second of beaming at cost 3 took " + beamLens.getDamageValue() + " charge");
+            com.simplebuilding.tweaks.item.LaserBeam.reset(player);
+
+            // --- tweaks.laserPointer.effectCost: lighting a candle ---
+            int[] effectCosts = {5, 2};
+            for (int cost : effectCosts) {
+                tweaks.laserPointer.effectCost = cost;
+                BlockPos candle = new BlockPos(3, 1, 1);
+                helper.setBlock(candle, net.minecraft.world.level.block.Blocks.CANDLE);
+                ItemStack effectLens = new ItemStack(com.simplebuilding.tweaks.item.TweaksItems.LASER_POINTER);
+                BlockPos abs = helper.absolutePos(candle);
+                net.minecraft.world.phys.BlockHitResult hit = new net.minecraft.world.phys.BlockHitResult(
+                        Vec3.atCenterOf(abs), net.minecraft.core.Direction.UP, abs, false);
+                com.simplebuilding.tweaks.item.LaserBeam.Effect fired = null;
+                for (int tick = 0; tick < 200 && fired == null; tick++) {
+                    fired = com.simplebuilding.tweaks.item.LaserBeam.beamAt(player, effectLens, hit);
+                }
+                helper.assertTrue(fired == com.simplebuilding.tweaks.item.LaserBeam.Effect.LIGHT, "the beam did not light the candle: " + fired);
+                helper.assertTrue(effectLens.getDamageValue() == cost, "lighting a candle at effectCost " + cost + " took " + effectLens.getDamageValue() + " charge");
+            }
+
+            // --- tweaks.balancing.echoSounderCooldownTicks ---
+            BlockPos lodestone = new BlockPos(6, 1, 6);
+            helper.setBlock(lodestone, net.minecraft.world.level.block.Blocks.LODESTONE);
+            int[] cooldowns = {0, 120};
+            for (int cooldown : cooldowns) {
+                tweaks.balancing.echoSounderCooldownTicks = cooldown;
+                ServerPlayer jumper = mockPlayer(helper);
+                jumper.getAbilities().instabuild = false;
+                ItemStack compass = new ItemStack(com.simplebuilding.tweaks.item.TweaksItems.ECHO_COMPASS);
+                compass.set(net.minecraft.core.component.DataComponents.LODESTONE_TRACKER, new net.minecraft.world.item.component.LodestoneTracker(
+                        Optional.of(net.minecraft.core.GlobalPos.of(helper.getLevel().dimension(), helper.absolutePos(lodestone))), true));
+                jumper.setItemInHand(net.minecraft.world.InteractionHand.MAIN_HAND, compass);
+                helper.assertTrue(com.simplebuilding.tweaks.item.EchoCompassItem.teleport(jumper, net.minecraft.world.InteractionHand.MAIN_HAND, compass),
+                        "the echo sounder refused to jump (cooldown option " + cooldown + ")");
+                helper.assertTrue(jumper.getCooldowns().isOnCooldown(compass) == (cooldown > 0),
+                        "echoSounderCooldownTicks " + cooldown + (cooldown > 0 ? " left the echo sounder without a cooldown" : " still put it on cooldown"));
+            }
+        } catch (com.mojang.brigadier.exceptions.CommandSyntaxException e) {
+            helper.fail("/killboats failed: " + e.getMessage());
+        } finally {
+            restore.run();
+            if (!wasOp) {
+                players.deop(player.nameAndId());
+            }
+        }
+        done(helper);
+    }
+
+    /**
+     * {@code worldGen.buildingCoreLootChanceMultiplier} scales the core pools: the End City chest
+     * rolled 200 times gives an Enderite core every time at a huge multiplier (the chance is capped
+     * at one per chest) and never at 0, where the core pool is left out entirely.
+     */
+    public static void coreLootChanceFollowsItsMultiplier(GameTestHelper helper) {
+        SimplebuildingConfig config = liveConfig(helper);
+        HolderLookup.Provider registries = helper.getLevel().registryAccess();
+        boolean loot = config.worldGen.enableLootTableChanges;
+        double multiplier = config.worldGen.buildingCoreLootChanceMultiplier;
+        Runnable restore = () -> {
+            Simplebuilding.getConfig().worldGen.enableLootTableChanges = loot;
+            Simplebuilding.getConfig().worldGen.buildingCoreLootChanceMultiplier = multiplier;
+        };
+        restoreAtEnd(helper, restore);
+        try {
+            setLootTableChanges(helper, true);
+            config.worldGen.buildingCoreLootChanceMultiplier = 1.0;
+            helper.assertTrue(ModLootTableModifications.coreChance(ModLootTableModifications.ENDERITE_CORE_CHANCE)
+                    == ModLootTableModifications.ENDERITE_CORE_CHANCE, "the default multiplier changed the Enderite core chance");
+            int chests = 200;
+            config.worldGen.buildingCoreLootChanceMultiplier = 1000.0;
+            int always = countCores(helper, recordPools(BuiltInLootTables.END_CITY_TREASURE, registries), chests);
+            config.worldGen.buildingCoreLootChanceMultiplier = 0.0;
+            int never = countCores(helper, recordPools(BuiltInLootTables.END_CITY_TREASURE, registries), chests);
+            helper.assertTrue(always == chests, "at multiplier 1000 the End City gave " + always + " Enderite cores in " + chests + " chests instead of one each");
+            helper.assertTrue(never == 0, "at multiplier 0 the End City still gave " + never + " Enderite cores");
+        } finally {
+            restore.run();
+        }
+        done(helper);
+    }
+
+    /**
+     * The air jump cooldown is the server's: it travels in the tweaks payload (encoded and decoded
+     * here), and the level halving both sides share lives in one place ({@code AirJumpGuard}).
+     */
+    public static void theAirJumpCooldownTravelsFromServerToClient(GameTestHelper helper) {
+        SimplebuildingConfig config = liveConfig(helper);
+        int original = config.airJumpCooldownTicks;
+        restoreAtEnd(helper, () -> Simplebuilding.getConfig().airJumpCooldownTicks = original);
+        try {
+            config.airJumpCooldownTicks = 40;
+            com.simplebuilding.tweaks.SimpleTweaks.ServerValues local = com.simplebuilding.tweaks.SimpleTweaks.localValues();
+            helper.assertTrue(local.airJumpCooldownTicks() == 40, "the server values carry an air jump cooldown of " + local.airJumpCooldownTicks() + " instead of 40");
+            net.minecraft.network.RegistryFriendlyByteBuf buf = new net.minecraft.network.RegistryFriendlyByteBuf(
+                    io.netty.buffer.Unpooled.buffer(), helper.getLevel().registryAccess());
+            com.simplebuilding.tweaks.network.TweaksConfigPayload.CODEC.encode(buf, com.simplebuilding.tweaks.network.TweaksConfigPayload.of(local));
+            com.simplebuilding.tweaks.network.TweaksConfigPayload decoded = com.simplebuilding.tweaks.network.TweaksConfigPayload.CODEC.decode(buf);
+            helper.assertTrue(decoded.values().equals(local), "the tweaks payload lost values on the way: " + decoded.values() + " instead of " + local);
+            helper.assertTrue(com.simplebuilding.util.AirJumpGuard.cooldownTicks(1) == 40 && com.simplebuilding.util.AirJumpGuard.cooldownTicks(2) == 20,
+                    "the server guard does not wait 40 / 20 ticks at airJumpCooldownTicks 40");
+            helper.assertTrue(com.simplebuilding.util.AirJumpGuard.cooldownTicks(1, -5) == 0 && com.simplebuilding.util.AirJumpGuard.cooldownTicks(2, 1) == 1,
+                    "a negative base must count as 0 and level II waits at least one tick");
+        } finally {
+            config.airJumpCooldownTicks = original;
+        }
+        done(helper);
+    }
+
+    // --- helpers of the Config-Umbau tests ---
+
+    private static JsonObject configLang(GameTestHelper helper, String locale) {
+        String path = "assets/" + SimpleBuildingGameTests.MOD_ID + "/lang/" + locale + ".json";
+        try (java.io.InputStream in = ConfigOptionTests.class.getClassLoader().getResourceAsStream(path)) {
+            helper.assertTrue(in != null, path + " is not on the classpath");
+            return com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
+        } catch (IOException e) {
+            throw new IllegalStateException("cannot read " + path, e);
+        }
+    }
+
+    private static void requireLang(List<String> problems, JsonObject en, JsonObject de, String key) {
+        if (!en.has(key) || en.get(key).getAsString().isBlank()) problems.add(key + " missing in en_us");
+        if (!de.has(key) || de.get(key).getAsString().isBlank()) problems.add(key + " missing in de_de");
+    }
+
+    private static ServerPlayer padPlayer(GameTestHelper helper, BlockPos pad) {
+        ServerPlayer player = mockPlayer(helper);
+        Vec3 on = helper.absoluteVec(new Vec3(pad.getX() + 0.5, pad.getY() + 1.0 / 16.0, pad.getZ() + 0.5));
+        player.snapTo(on.x, on.y, on.z, 0.0F, 0.0F);
+        player.removeAllEffects();
+        return player;
+    }
+
+    private static com.simplebuilding.tweaks.block.entity.PotionPadBlockEntity fillPotionPad(GameTestHelper helper, BlockPos pad) {
+        helper.setBlock(pad, com.simplebuilding.tweaks.block.TweaksBlocks.POTION_PAD);
+        com.simplebuilding.tweaks.block.entity.PotionPadBlockEntity be =
+                helper.getBlockEntity(pad, com.simplebuilding.tweaks.block.entity.PotionPadBlockEntity.class);
+        com.simplebuilding.tweaks.block.PotionPadBlock.absorb(be, net.minecraft.world.item.alchemy.PotionContents.createItemStack(
+                Items.SPLASH_POTION, net.minecraft.world.item.alchemy.Potions.SWIFTNESS));
+        return be;
+    }
+
+    private static void tickPotionPad(GameTestHelper helper, BlockPos pad, int ticks) {
+        net.minecraft.server.level.ServerLevel level = helper.getLevel();
+        BlockPos abs = helper.absolutePos(pad);
+        for (int i = 0; i < ticks; i++) {
+            com.simplebuilding.tweaks.block.entity.PotionPadBlockEntity be =
+                    helper.getBlockEntity(pad, com.simplebuilding.tweaks.block.entity.PotionPadBlockEntity.class);
+            com.simplebuilding.tweaks.block.entity.PotionPadBlockEntity.serverTick(level, abs, level.getBlockState(abs), be);
+        }
+    }
+
+    private static int countCores(GameTestHelper helper, PoolRecorder recorder, int chests) {
+        LootParams params = new LootParams.Builder(helper.getLevel()).create(LootContextParamSets.EMPTY);
+        LootContext context = new LootContext.Builder(params)
+                .withOptionalRandomSeed(POOL_ROLL_SEED)
+                .create(Optional.empty());
+        int[] cores = {0};
+        for (int chest = 0; chest < chests; chest++) {
+            for (LootPool pool : recorder.pools) {
+                pool.addRandomItems(stack -> {
+                    if (stack.is(ModItems.ENDERITE_CORE)) {
+                        cores[0] += stack.getCount();
+                    }
+                }, context);
+            }
+        }
+        return cores[0];
+    }
+
+    private static void restoreAtEnd(GameTestHelper helper, Runnable restore) {
+        TestCleanup.before(helper, restore);
+    }
+
+    private static void done(GameTestHelper helper) {
+        TestCleanup.succeed(helper);
+    }
+
+    private static net.minecraft.world.entity.Entity spawnBoat(GameTestHelper helper, BlockPos pos) {
+        return helper.spawn(net.minecraft.world.entity.EntityType.OAK_BOAT, pos);
     }
 
     // =====================================================================================
@@ -1668,7 +2368,8 @@ public final class ConfigOptionTests {
             if (Modifier.isStatic(field.getModifiers())) {
                 into.add(name + " " + type + " runtime-only(static)");
             } else if (field.getType().getEnclosingClass() == SimplebuildingConfig.class
-                    || field.getType() == com.simplebuilding.tweaks.TweaksConfig.class) {
+                    || field.getType() == TweaksConfig.class
+                    || field.getType().getEnclosingClass() == TweaksConfig.class) {
                 into.add(name + " group:" + type);
             } else {
                 try {

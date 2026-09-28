@@ -1,5 +1,5 @@
 {
-  "parent": "simplebuilding:root",
+  "parent": "simplebuilding:building/root",
   "criteria": {
     "chisel": {
       "conditions": {

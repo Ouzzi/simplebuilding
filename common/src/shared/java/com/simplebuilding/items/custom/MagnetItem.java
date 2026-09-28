@@ -89,7 +89,10 @@ public class MagnetItem extends Item {
         if (rangeLevel > 0) {
             range += (rangeLevel * RANGE_ENCHANTMENT_BOOST);
         }
-        return range;
+        // Config tools.magnetRangeMultiplier (Standard 1): Faktor auf die ganze Reichweite.
+        com.simplebuilding.config.SimplebuildingConfig config = com.simplebuilding.Simplebuilding.getConfig();
+        return config == null ? range
+                : range * com.simplebuilding.config.SimplebuildingConfig.nonNegative(config.tools.magnetRangeMultiplier, 1.0);
     }
 
     private static boolean passesFilter(ItemEntity itemEntity, @Nullable String filterId) {

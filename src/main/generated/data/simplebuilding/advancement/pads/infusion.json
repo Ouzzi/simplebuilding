@@ -1,0 +1,32 @@
+{
+  "parent": "simplebuilding:pads/bottoms_up",
+  "criteria": {
+    "infused_potion_pad": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:infused_potion_pad"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.pads.infusion.description"
+    },
+    "icon": {
+      "id": "simplebuilding:infused_potion_pad"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.pads.infusion.title"
+    }
+  },
+  "requirements": [
+    [
+      "infused_potion_pad"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

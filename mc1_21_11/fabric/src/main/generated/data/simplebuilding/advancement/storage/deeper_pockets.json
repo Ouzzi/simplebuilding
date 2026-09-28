@@ -1,0 +1,36 @@
+{
+  "parent": "simplebuilding:storage/bundle_of_joy",
+  "criteria": {
+    "netherite_bundle": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:netherite_bundle",
+              "simplebuilding:enderite_bundle"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.storage.deeper_pockets.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:netherite_bundle"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.storage.deeper_pockets.title"
+    }
+  },
+  "requirements": [
+    [
+      "netherite_bundle"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

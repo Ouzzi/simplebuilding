@@ -102,7 +102,9 @@ public class PotionPadBlock extends PadBlock {
 
     /** Abklingzeit nach dem vollen Schritt: doppelte Wirkdauer des gesetzten Pads (60/120/240 s, Easter-Endstufe 480 s). */
     public int cooldownAt(BlockGetter level, BlockPos pos) {
-        return 2 * effectDurationAt(level, pos);
+        // Config tweaks.padTuning.potionPadCooldownFactor (Standard 2 = doppelte Wirkdauer; 0 = keine).
+        return (int) Math.round(com.simplebuilding.tweaks.SimpleTweaks.config().padTuning.potionPadCooldown()
+                * effectDurationAt(level, pos));
     }
 
     /**

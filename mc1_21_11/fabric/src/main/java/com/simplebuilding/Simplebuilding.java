@@ -55,6 +55,8 @@ public class Simplebuilding implements ModInitializer {
     public void onInitialize() {
         ModEnvironment.setModLoadedCheck(modId -> FabricLoader.getInstance().isModLoaded(modId));
         ModEnvironment.setDevelopmentEnvironment(FabricLoader.getInstance().isDevelopmentEnvironment());
+        // FTB Quests (optional): copy the SimpleBuilding chapters into its quest book once.
+        com.simplebuilding.compat.FtbQuestsDefaults.installIfPresent(FabricLoader.getInstance().getConfigDir());
         LOGGER.info("Starting Simplebuilding initialization...");
         LOGGER.info(SimplebuildingBootstrap.initialize(SimplebuildingLoader.FABRIC, buildStartupPlan()));
     }
