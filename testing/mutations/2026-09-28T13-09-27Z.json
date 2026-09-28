@@ -1,0 +1,155 @@
+{
+  "catalogue": "p11",
+  "targets": [
+    "fabric-262"
+  ],
+  "lines": [
+    "26.2"
+  ],
+  "rounds": [
+    {
+      "round": 1,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-28T12-59-23Z-4abf",
+      "log": "runs/2026-09-28T12-59-23Z-4abf-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p11-config-wand-hunger-multiplier-ignored",
+          "script": "config_option_game_test_new_tool_options_change_what_the_tools_do",
+          "file": "common/src/shared/java/com/simplebuilding/util/WandHunger.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-2742116, -59, -11252804) multiplier 2 cost 0.0052083335 instead of 0.010416667 on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 2,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-28T13-00-26Z-74b4",
+      "log": "runs/2026-09-28T13-00-26Z-74b4-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p11-config-magnet-multiplier-ignored",
+          "script": "config_option_game_test_new_tool_options_change_what_the_tools_do",
+          "file": "common/src/shared/java/com/simplebuilding/items/custom/MagnetItem.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(7199179, -59, -4195219) at range multiplier 2 (8 blocks) the magnet did not pull an item 6 blocks away on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 3,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-28T13-02-49Z-158d",
+      "log": "runs/2026-09-28T13-02-49Z-158d-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p11-config-potion-pad-step-fixed",
+          "script": "config_option_game_test_new_pad_options_change_what_the_pads_do",
+          "file": "common/src/shared/java/com/simplebuilding/tweaks/block/entity/PotionPadBlockEntity.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-4282166, -59, 6305593) after one 5 tick step the pad gave nothing instead of 25 % of 600 on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 4,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-28T13-03-48Z-6005",
+      "log": "runs/2026-09-28T13-03-48Z-6005-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p11-config-kill-radius-fixed",
+          "script": "config_option_game_test_new_tweak_options_change_what_the_tweaks_do",
+          "file": "common/src/shared/java/com/simplebuilding/tweaks/command/TweaksCommands.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-379795, -59, -3431082) /killboats with radius 2 removed a boat about 5 blocks away on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 5,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-28T13-04-41Z-f3e0",
+      "log": "runs/2026-09-28T13-04-41Z-f3e0-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p11-config-core-chance-unscaled",
+          "script": "config_option_game_test_core_loot_chance_follows_its_multiplier",
+          "file": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-9231250, -59, -9608017) at multiplier 1000 the End City gave 0 Enderite cores in 200 chests instead of one each on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 6,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-28T13-05-43Z-72b2",
+      "log": "runs/2026-09-28T13-05-43Z-72b2-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p11-config-air-jump-not-synced",
+          "script": "config_option_game_test_the_air_jump_cooldown_travels_from_server_to_client",
+          "file": "common/src/shared/java/com/simplebuilding/tweaks/SimpleTweaks.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(-12493512, -59, -7007233) the server values carry an air jump cooldown of 100 instead of 40 on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 7,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-28T13-07-23Z-dcd8",
+      "log": "runs/2026-09-28T13-07-23Z-dcd8-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p11-config-command-no-clamp",
+          "script": "config_option_game_test_the_config_command_reaches_every_option",
+          "file": "common/src/shared/java/com/simplebuilding/command/SimplebuildingCommand.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(5506510, -59, 7067167) a negative rotator cost was stored as -5 instead of clamped to 0 on tick 0"
+        }
+      ],
+      "collateral": null
+    },
+    {
+      "round": 8,
+      "target": "fabric-262",
+      "kind": "server",
+      "run": "2026-09-28T13-08-38Z-5bc5",
+      "log": "runs/2026-09-28T13-08-38Z-5bc5-fabric-262.log",
+      "mutations": [
+        {
+          "id": "p11-config-visuals-tab-dropped",
+          "script": "config_option_game_test_every_option_has_name_tooltip_and_tab",
+          "file": "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+          "ok": true,
+          "verdict": "rot, mit der erwarteten Meldung",
+          "message": "(3158148, -59, 3373377) 1 config screen problems:\nvanillaEnchantedBookTextures carries no @ConfigEntry.Category, so Cloth puts it on a stray \"default\" tab on tick 0"
+        }
+      ],
+      "collateral": null
+    }
+  ]
+}
