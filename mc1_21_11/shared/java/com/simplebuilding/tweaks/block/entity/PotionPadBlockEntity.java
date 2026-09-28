@@ -8,6 +8,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -32,7 +35,8 @@ import org.jetbrains.annotations.Nullable;
  * die Dauerwirkungen jede Sekunde wieder auf die volle Stufendauer aufgefrischt (Vanillas
  * {@code MobEffectInstance#update} verlaengert nur bis zu dieser Dauer, nie darueber). Sofortwirkungen
  * nur beim Betreten und hoechstens alle {@link #INSTANT_COOLDOWN_TICKS} Ticks je Spieler, damit Hin-
- * und Herhuepfen kein Dauerheilen wird. Alle halbe Sekunde steigen Partikel in der Trankfarbe auf.
+ * und Herhuepfen kein Dauerheilen wird. Der Trank reist als {@code potion_contents} mit dem Item
+ * (Abbau, Strg+Mittelklick) und kommt beim Setzen zurueck, neben der Easter-Stufe der Basisklasse. Alle halbe Sekunde steigen Partikel in der Trankfarbe auf.
  */
 public class PotionPadBlockEntity extends OwnedBlockEntity {
     /** Sofortwirkungen (Heilung/Schaden): hoechstens einmal je 2 s je Spieler. */
@@ -109,7 +113,7 @@ public class PotionPadBlockEntity extends OwnedBlockEntity {
         if (stored == null) {
             return;
         }
-        int duration = state.getBlock() instanceof PotionPadBlock pad ? pad.effectDuration() : PotionPadBlock.effectDuration(1);
+        int duration = state.getBlock() instanceof PotionPadBlock pad ? pad.effectDurationAt(level, worldPosition) : PotionPadBlock.effectDuration(1);
         boolean instantAllowed = entered && time - lastInstant.getOrDefault(player.getUUID(), Long.MIN_VALUE / 2) >= INSTANT_COOLDOWN_TICKS;
         boolean instantApplied = false;
         for (MobEffectInstance effect : stored.getAllEffects()) {
@@ -127,6 +131,30 @@ public class PotionPadBlockEntity extends OwnedBlockEntity {
         if (instantApplied) {
             lastInstant.put(player.getUUID(), time);
         }
+    }
+
+    /** Beim Setzen: den Trank vom Item uebernehmen (ein abgebautes Pad traegt ihn als {@code potion_contents}). */
+    @Override
+    protected void applyImplicitComponents(DataComponentGetter components) {
+        super.applyImplicitComponents(components);
+        PotionContents contents = components.get(DataComponents.POTION_CONTENTS);
+        this.stored = contents == null || !contents.hasEffects() ? null : contents;
+    }
+
+    /** Fuer Strg+Mittelklick: der gespeicherte Trank zurueck aufs Item. */
+    @Override
+    protected void collectImplicitComponents(DataComponentMap.Builder components) {
+        super.collectImplicitComponents(components);
+        if (stored != null) {
+            components.set(DataComponents.POTION_CONTENTS, stored);
+        }
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public void removeComponentsFromTag(ValueOutput output) {
+        super.removeComponentsFromTag(output);
+        output.discard("Potion");
     }
 
     @Override

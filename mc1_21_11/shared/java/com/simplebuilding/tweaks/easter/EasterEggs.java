@@ -7,6 +7,7 @@ import com.simplebuilding.tweaks.block.TweaksBlocks;
 import com.simplebuilding.tweaks.block.TweaksFamilies;
 import com.simplebuilding.tweaks.block.TweaksFamilies.Family;
 import com.simplebuilding.tweaks.block.entity.OwnedBlockEntity;
+import com.simplebuilding.tweaks.item.TweaksItems;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -97,7 +98,8 @@ public final class EasterEggs {
 
     /** Die Pad-Familien mit Kette; die Druckplatten sind keine Pads (keine Kraft zum Verdoppeln). */
     public static List<Family> families() {
-        return List.of(Family.ELYTRA_PAD, Family.FLYPAD, Family.SPAWN_TELEPORTER, Family.LAUNCHPAD, Family.CHUNK_LOADER);
+        return List.of(Family.ELYTRA_PAD, Family.FLYPAD, Family.SPAWN_TELEPORTER, Family.LAUNCHPAD, Family.CHUNK_LOADER,
+                Family.POTION_PAD);
     }
 
     /** Zahl der Easter-Stufen: 5, oder weniger, wenn die Familie weniger Stufen hat (Flypad: 3). */
@@ -245,6 +247,13 @@ public final class EasterEggs {
                 add(templates, additions, any, diamondPlate);
                 add(templates, additions, netherite, netheritePlate);
                 add(templates, additions, enderite, enderitePlate);
+            }
+            case POTION_PAD -> {
+                // Stufe I entsteht an der Werkbank (Netherit-Druckplatte + Lohenkopf): der Einstieg nimmt
+                // wie beim Elytra-Pad eine beliebige Vorlage und die Hauptzutat, den Lohenkopf.
+                add(templates, additions, any, TweaksItems.BLAZE_HEAD);
+                add(templates, additions, enderite, enderitePlate);
+                add(templates, additions, enderite, ModItems.ENDERITE_CORE);
             }
             default -> throw new IllegalArgumentException(family + " has no easter chain");
         }

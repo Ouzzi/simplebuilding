@@ -1154,6 +1154,7 @@
   "item.simplebuilding.easter.final.spawn_teleporter": "§1§lS§1§lp§9§la§9§lw§9§ln§b§l §b§lT§b§le§f§ll§f§l§ke§b§lp§b§lo§b§lr§9§lt§9§le§9§lr§1§l §1§l§kV",
   "item.simplebuilding.easter.final.launchpad": "§3§lE§3§ln§3§ld§b§le§b§lr§b§li§b§lt§b§le§f§l §f§lL§f§la§f§l§ku§f§ln§f§lc§b§lh§b§lp§b§la§b§ld§b§l §3§lI§3§lI§3§l§kI",
   "item.simplebuilding.easter.final.chunk_loader": "§4§lE§4§ln§4§ld§c§le§c§lr§c§li§6§lt§6§le§6§l §6§lC§6§lh§e§lu§e§l§kn§e§lk§6§l §6§lL§6§lo§6§la§6§ld§c§le§c§lr§c§l §4§lI§4§lI§4§l§kI",
+  "item.simplebuilding.easter.final.potion_pad": "§5§lI§5§ln§5§lf§5§lu§5§ls§d§le§d§ld§d§l §b§lP§b§lo§b§lt§b§l§ki§b§lo§b§ln§d§l §d§lP§d§la§5§ld§5§l §5§lI§5§lI§5§l§kI",
   "block.simplebuilding.blaze_wall_head": "Blaze Head",
   "advancements.simplebuilding.root.title": "SimpleBuilding",
   "advancements.simplebuilding.root.description": "Tools for builders, miners and hoarders. Craft a Sledgehammer, a Chisel or a Building Wand to begin",

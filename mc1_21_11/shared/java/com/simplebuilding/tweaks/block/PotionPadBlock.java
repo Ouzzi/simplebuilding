@@ -5,6 +5,8 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.simplebuilding.tweaks.block.entity.PotionPadBlockEntity;
 import com.simplebuilding.tweaks.block.entity.TweaksBlockEntities;
+import com.simplebuilding.tweaks.easter.EasterEggs;
+import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -14,6 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -22,6 +25,8 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,7 +35,7 @@ import org.jetbrains.annotations.Nullable;
  * Wurftrank (Splash oder Verweil), der auf dem Pad zerschellt, wird gespeichert und ersetzt den
  * vorigen; ein Wasser-Wurftrank wischt das Pad leer. Jeder Spieler, der das Pad betritt, bekommt die
  * gespeicherten Wirkungen mit der Verstaerkung des Tranks fuer 30/60/120 s (Stufe I/II/III), solange
- * er darauf steht immer wieder aufgefrischt, nie laenger. Sofortwirkungen (Heilung, Schaden) wirken
+ * er darauf steht immer wieder aufgefrischt, nie laenger (die letzte Easter-Stufe: 240 s). Sofortwirkungen (Heilung, Schaden) wirken
  * einmal je Betreten, hoechstens alle {@link PotionPadBlockEntity#INSTANT_COOLDOWN_TICKS} Ticks je
  * Spieler. Unbegrenzt haltbar.
  */
@@ -63,6 +68,28 @@ public class PotionPadBlock extends PadBlock {
 
     public static int effectDuration(int tier) {
         return DURATION_TICKS[Math.max(1, Math.min(MAX_TIER, tier)) - 1];
+    }
+
+    /**
+     * Wirkdauer des gesetzten Pads: die Stufendauer, bei der letzten Easter-Stufe ({@link EasterEggs})
+     * doppelt so lang (Stufe III: 240 s statt 120 s).
+     */
+    public int effectDurationAt(BlockGetter level, BlockPos pos) {
+        return EasterEggs.isBoosted(level, pos) ? 2 * effectDuration() : effectDuration();
+    }
+
+    /** Beim Abbau behaelt das Item den gespeicherten Trank (die Easter-Stufe schreibt {@link PadBlock#getDrops}). */
+    @Override
+    protected List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
+        List<ItemStack> drops = super.getDrops(state, params);
+        if (params.getOptionalParameter(LootContextParams.BLOCK_ENTITY) instanceof PotionPadBlockEntity pad && pad.getStored() != null) {
+            for (ItemStack stack : drops) {
+                if (stack.is(this.asItem())) {
+                    stack.set(DataComponents.POTION_CONTENTS, pad.getStored());
+                }
+            }
+        }
+        return drops;
     }
 
     @Override
@@ -108,7 +135,7 @@ public class PotionPadBlock extends PadBlock {
             Component message = stored == null
                     ? Component.translatable("message.simplebuilding.potion_pad.empty").withStyle(ChatFormatting.GRAY)
                     : Component.translatable("message.simplebuilding.potion_pad.stored",
-                            stored.getName("item.minecraft.splash_potion.effect."), effectDuration() / 20).withStyle(ChatFormatting.LIGHT_PURPLE);
+                            stored.getName("item.minecraft.splash_potion.effect."), effectDurationAt(level, pos) / 20).withStyle(ChatFormatting.LIGHT_PURPLE);
             player.displayClientMessage(message, true);
         }
         return InteractionResult.SUCCESS;

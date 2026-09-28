@@ -191,7 +191,8 @@ die Kette ueber den Endstufen), Code `PotionPadBlock` / `PotionPadBlockEntity`.
   teurer gebrauter Trank soll nicht wirkungslos zerschellen). Ein Trank ohne Wirkung (Wasser, seltsamer
   Trank) **wischt das Pad leer**. Anzeige: alle halbe Sekunde Wirkungspartikel in der Trankfarbe
   (vom Server gesendet, kein Client-Code); Rechtsklick ohne Gegenstand zeigt Trank und Dauer. Kein
-  Komparator-Ausgang. Beim Abbau geht der Trank verloren (das Item traegt ihn nicht mit).
+  Komparator-Ausgang. Beim Abbau behaelt das Item den Trank (`potion_contents`) und gibt ihn beim
+  Setzen zurueck (seit 2026-09-28, zusammen mit der Easter-Kette; vorher ging er verloren).
 - **Wirkung**: jeder **Spieler** (keine Mobs), der das Pad betritt, bekommt die gespeicherten
   Dauerwirkungen mit der **Verstaerkung des Tranks** fuer **30 s / 60 s / 120 s** (I/II/III). Steht er
   weiter darauf, wird jede Sekunde wieder auf diese Dauer aufgefrischt; Vanillas
@@ -559,7 +560,8 @@ normale Stufe-I-Block mit derselben Funktion, nur ein Easter Egg. Wer weitermach
 Kette hinauf, deren letzte Stufe doppelt so stark ist wie die echte Endstufe, und kann sie zuletzt zu
 einem Stock schmieden.
 
-**Familien:** Elytra-Pad (5 Stufen), Spawn-Teleporter (5), Flypad (3), Launchpad (3), Chunk-Loader (3).
+**Familien:** Elytra-Pad (5 Stufen), Spawn-Teleporter (5), Flypad (3), Launchpad (3), Chunk-Loader (3),
+Trank-Pad (3, seit 2026-09-28).
 Die Druckplatten-Familie (`TweaksFamilies.Family.PRESSURE_PLATE`) hat keine Kette: Platten sind keine
 Pads, haben keine Kraft zum Verdoppeln und sind selbst Zutat der Pad-Aufwertungen.
 
@@ -574,7 +576,7 @@ Pads, haben keine Kraft zum Verdoppeln und sind selbst Zutat der Pad-Aufwertunge
 Die Namen der letzten Easter-Stufe stehen als Formatcodes in den Sprachdateien
 (`item.simplebuilding.easter.final.<familie>`): Farbverlauf je Familie (Elytra-Pad Gold-Gelb-Weiss,
 Flypad Violett-Magenta-Weiss, Spawn-Teleporter Blau-Aqua-Weiss, Launchpad Tuerkis-Aqua-Weiss,
-Chunk-Loader Rot-Orange-Gelb), fett, zwei verschleierte Zeichen (die Stufenziffer und ein Buchstabe
+Chunk-Loader Rot-Orange-Gelb, Trank-Pad Violett-Rosa-Aqua), fett, zwei verschleierte Zeichen (die Stufenziffer und ein Buchstabe
 in der Mitte); sichtbar genau so viele Zeichen wie der normale Name. Deutsch uebersetzt verspielt, die
 Endnamen folgen den deutschen Blocknamen.
 
@@ -587,13 +589,17 @@ Endnamen folgen den deutschen Blocknamen.
 | Spawn-Teleporter V | 3 s stillstehen | 1,5 s |
 | Launchpad III | 16 Windkugeln | 32 Windkugeln (Schub pro Ladung unveraendert) |
 | Chunk-Loader III | 3x3 Chunks | 5x5 Chunks (Radius verdoppelt) |
+| Trank-Pad III | Wirkdauer 120 s | 240 s (Verstaerkung des Tranks unveraendert) |
 
 **Kosten (Schmiedetisch):** jeder Schritt kostet, was die normale Stufe kostet - dieselbe Vorlage,
 dieselbe Zutat (`EasterEggs#steps`, gleiche Liste wie `ModRecipeProvider#buildTweaksRecipes`):
 
 - Einstieg (Endstufe -> "Don't do it"): Vorlage und Hauptzutat der Stufe I, die Endstufe als Basis.
   Elytra-Pad: beliebige Vorlage + **Elytra**; Flypad: Enderit-Vorlage + Enderit-Kern; Spawn-Teleporter:
-  beliebige Vorlage + Diamantblock; Launchpad und Chunk-Loader: beliebige Vorlage + Diamant-Druckplatte.
+  beliebige Vorlage + Diamantblock; Launchpad und Chunk-Loader: beliebige Vorlage + Diamant-Druckplatte;
+  Trank-Pad (Stufe I entsteht an der Werkbank, ohne Vorlage): wie beim Elytra-Pad beliebige Vorlage +
+  Hauptzutat, also **Lohenkopf**. Danach Enderit-Vorlage + Enderit-Druckplatte, dann Enderit-Vorlage +
+  Enderit-Kern.
 - Easter-Stufe n -> n+1: Vorlage und Zutat der normalen Aufwertung von Stufe n auf n+1
   (Flypad II -> III also ein zweites Flypad II).
 - **Funny Stick:** Netherit-Vorlage + letzte Easter-Stufe + **Netheritbarren**.
@@ -628,19 +634,24 @@ ersten erscheint; Toast und Chatmeldung):
   zeigt fremde Schmiede-Klassen ohne Erweiterung nicht). Weil die Kette dieselben Zutaten nimmt wie die
   normalen Aufwertungen, lehnt `SmithingTransformEasterGuardMixin` (in `simplebuilding.tweaks.mixins.json`,
   laedt auf Fabric, NeoForge und Forge) jede Basis mit Easter-Stufe fuer normale Umwandlungsrezepte ab.
-  Rezepte unter `recipe/easter/`, 24 Stueck.
+  Rezepte unter `recipe/easter/`, 28 Stueck.
 - Advancements per Datagen (`EasterEggData`, aus `ModRecipeProvider`): sie reisen ueber
   `RecipeOutput#accept` mit den Elytra-Pad-Rezepten, damit dieselbe Datei auf 26.2 und 26.3 baut.
 - Versteckt: kein Kreativ-Tab, `c:hidden_from_recipe_viewers` (Funny Stick; Easter-Pads sind nur
   Komponenten-Varianten und stehen nirgends), Testzentrale `TestCentreLayout.EXCLUDED`, Wiki-Filter.
 - Doppelte Kraft: `EasterEggs#isBoosted(level, pos)`, abgefragt in `ElytraPadBlockEntity#areaOf`,
   `FlypadBlockEntity#areaOf` (auch fuer die Uebergabe zwischen Flypads), `LaunchpadBlock#capacityAt`,
-  `ChunkLoaderBlockEntity` (Radius 2, `MAX_RADIUS` = 2) und `SpawnTeleporterBlockEntity#requiredTicks(level, pos, tier)`.
+  `ChunkLoaderBlockEntity` (Radius 2, `MAX_RADIUS` = 2), `SpawnTeleporterBlockEntity#requiredTicks(level, pos, tier)`
+  und `PotionPadBlock#effectDurationAt(level, pos)` (Betreten und Rechtsklick-Anzeige).
+- Trank-Pad: der gespeicherte Trank reist als `potion_contents` mit dem Item (`PotionPadBlock#getDrops`,
+  `PotionPadBlockEntity#collectImplicitComponents`) und kommt beim Setzen zurueck
+  (`applyImplicitComponents`), neben der Easter-Stufe; das gilt auch fuer normale Trank-Pads.
 
 **Tests:** `TweaksEasterTests` (Fabric-Adapter `TweaksEasterGameTest`, Ids
 `simplebuilding:tweaks_easter_game_test_*`), beide Codelinien: Einstieg je Familie mit echtem Setzen,
 Abbauen und Wiedersetzen, Stufe-I-Verhalten, Amboss-Umbenennung; ganze Kette je Familie (Namen, Stufen,
 gleiche Kosten wie die normale Stufe, kein normales Rezept nimmt ein Easter-Pad, Sprachdateien mit
-Formatcodes); doppelte Kraft je Familie; Advancements (versteckt, Kette, Ausloeser); Funny Stick
+Formatcodes); doppelte Kraft je Familie (Trank-Pad: 240 s am Spieler, Setzen/Abbauen behaelt Stufe und Trank);
+Advancements (versteckt, Kette, Ausloeser); Funny Stick
 (nur aus der letzten Stufe, frisches Item, Funken); Unsichtbarkeit (Tag, Kreativ-Tabs, Rezepte,
 Testzentrale).

@@ -8,6 +8,7 @@ import com.simplebuilding.items.CreativeTabLayout;
 import com.simplebuilding.items.ModItemGroupsContent;
 import com.simplebuilding.tweaks.block.LaunchpadBlock;
 import com.simplebuilding.tweaks.block.PadTiers;
+import com.simplebuilding.tweaks.block.PotionPadBlock;
 import com.simplebuilding.tweaks.block.TweaksBlocks;
 import com.simplebuilding.tweaks.block.TweaksFamilies;
 import com.simplebuilding.tweaks.block.TweaksFamilies.Family;
@@ -16,6 +17,7 @@ import com.simplebuilding.tweaks.block.entity.ElytraPadBlockEntity;
 import com.simplebuilding.tweaks.block.entity.FlypadBlockEntity;
 import com.simplebuilding.tweaks.block.entity.LaunchpadBlockEntity;
 import com.simplebuilding.tweaks.block.entity.OwnedBlockEntity;
+import com.simplebuilding.tweaks.block.entity.PotionPadBlockEntity;
 import com.simplebuilding.tweaks.block.entity.SpawnTeleporterBlockEntity;
 import com.simplebuilding.tweaks.easter.EasterEggs;
 import com.simplebuilding.tweaks.easter.EasterSmithingRecipe;
@@ -45,12 +47,15 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -89,7 +94,7 @@ public final class TweaksEasterTests {
      */
     public static void theLastTierSmithsBackIntoDontDoItThatWorksLikeTierOne(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, new Vec3(0.5, 1.0, 0.5));
-        int x = 1;
+        int index = 0;
         for (Family family : EasterEggs.families()) {
             EasterEggs.Step entry = EasterEggs.steps(family).get(0);
             Block tier1 = TweaksFamilies.tiers(family).get(0);
@@ -100,8 +105,8 @@ public final class TweaksEasterTests {
             helper.assertTrue(EasterEggs.stageOf(dont) == 1, family + ": 'Don't do it' has easter stage " + EasterEggs.stageOf(dont));
             helper.assertTrue(EasterEggs.stageNameKey(1).equals(nameKey(dont)), family + ": the entry is named " + nameKey(dont));
 
-            BlockPos pos = new BlockPos(x, 1, 3);
-            x += 2;
+            BlockPos pos = new BlockPos(1 + 2 * (index % 4), 1, 3 + 2 * (index / 4));
+            index++;
             placeFromItem(helper, player, dont.copy(), pos);
             helper.assertTrue(helper.getBlockState(pos).is(tier1), family + ": 'Don't do it' placed " + helper.getBlockState(pos).getBlock());
             BlockPos abs = helper.absolutePos(pos);
@@ -126,6 +131,13 @@ public final class TweaksEasterTests {
         int capacity = ((LaunchpadBlock) helper.getBlockState(launch).getBlock()).capacityAt(helper.getLevel(), helper.absolutePos(launch));
         helper.assertTrue(capacity == 4, "'Don't do it' (launchpad) holds " + capacity + " wind charges instead of tier I's 4");
         helper.setBlock(launch, Blocks.AIR);
+
+        // Wirkt wie Stufe I: das Trank-Pad gibt 30 s, nicht 120 s (Endstufe) und nicht 240 s.
+        BlockPos potion = new BlockPos(3, 1, 7);
+        placeFromItem(helper, player, EasterEggs.create(Family.POTION_PAD, 1), potion);
+        int potionTicks = ((PotionPadBlock) helper.getBlockState(potion).getBlock()).effectDurationAt(helper.getLevel(), helper.absolutePos(potion));
+        helper.assertTrue(potionTicks == 30 * 20, "'Don't do it' (potion pad) gives effects for " + potionTicks + " ticks instead of tier I's 600");
+        helper.setBlock(potion, Blocks.AIR);
 
         // Amboss: ein umbenanntes normales Pad bleibt ein normales Pad.
         ItemStack renamed = new ItemStack(TweaksBlocks.LAUNCHPAD);
@@ -235,8 +247,9 @@ public final class TweaksEasterTests {
     /**
      * Die letzte Easter-Stufe ist doppelt so stark wie die Endstufe: Elytra-Pad und Flypad doppelt so
      * breit und hoch (echter Durchlauf mit einem Spieler oberhalb der normalen Hoehe), Launchpad fasst 32
-     * Windkugeln, Chunk-Loader haelt 5x5 Chunks, Spawn-Teleporter wartet halb so lange. Zwischenstufen
-     * wirken wie ihre normale Stufe.
+     * Windkugeln, Chunk-Loader haelt 5x5 Chunks, Spawn-Teleporter wartet halb so lange, Trank-Pad gibt
+     * 240 s statt 120 s. Zwischenstufen wirken wie ihre normale Stufe. Das Trank-Pad behaelt beim Abbauen
+     * und Wiedersetzen Easter-Stufe und gespeicherten Trank.
      */
     public static void theFinalEasterPadIsTwiceAsStrongAsTheLastTier(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
@@ -299,6 +312,66 @@ public final class TweaksEasterTests {
                 "the final easter spawn teleporter waits " + easterTicks + " ticks, the normal one " + normalTicks);
         helper.setBlock(tp, Blocks.AIR);
 
+        // Trank-Pad III: 120 s -> 240 s, auch wirklich am Spieler; Easter-Stufe 2 wirkt wie Stufe II (60 s).
+        BlockPos potion = new BlockPos(1, 1, 5);
+        BlockPos potionAbs = helper.absolutePos(potion);
+        PotionPadBlockEntity potionBe = (PotionPadBlockEntity) placeStaged(helper, potion, TweaksBlocks.INFUSED_POTION_PAD, 0);
+        PotionPadBlock infused = (PotionPadBlock) TweaksBlocks.INFUSED_POTION_PAD;
+        int potionNormal = infused.effectDurationAt(level, potionAbs);
+        potionBe.setEasterStage(3);
+        int potionDoubled = infused.effectDurationAt(level, potionAbs);
+        helper.assertTrue(potionNormal == 120 * 20 && potionDoubled == 240 * 20,
+                "the final easter potion pad gives effects for " + potionDoubled + " ticks, the normal one " + potionNormal + " (expected 4800 and 2400)");
+        PotionPadBlock.absorb(potionBe, PotionContents.createItemStack(Items.SPLASH_POTION, Potions.STRONG_SWIFTNESS));
+        ServerPlayer drinker = mockPlayer(helper, new Vec3(1.5, 1.0, 5.5));
+        drinker.removeAllEffects();
+        potionBe.apply(level, drinker, true, level.getGameTime(), helper.getBlockState(potion));
+        int given = drinker.hasEffect(MobEffects.SPEED) ? drinker.getEffect(MobEffects.SPEED).getDuration() : -1;
+        helper.assertTrue(given == 240 * 20, "stepping on the final easter potion pad gave Speed for " + given + " ticks instead of 4800");
+        helper.setBlock(potion, Blocks.AIR);
+        BlockPos potionMiddle = new BlockPos(3, 1, 5);
+        placeStaged(helper, potionMiddle, TweaksBlocks.REINFORCED_POTION_PAD, 2);
+        int middleTicks = ((PotionPadBlock) TweaksBlocks.REINFORCED_POTION_PAD).effectDurationAt(level, helper.absolutePos(potionMiddle));
+        helper.assertTrue(!EasterEggs.isBoosted(level, helper.absolutePos(potionMiddle)) && middleTicks == 60 * 20,
+                "easter stage 2 of the potion pad does not work like tier II (" + middleTicks + " ticks)");
+        helper.setBlock(potionMiddle, Blocks.AIR);
+
+        // Setzen und Abbauen behalten beides: die Easter-Stufe und den gespeicherten Trank.
+        BlockPos keep = new BlockPos(5, 1, 5);
+        ServerPlayer builder = mockPlayer(helper, new Vec3(5.5, 1.0, 7.5));
+        placeFromItem(helper, builder, EasterEggs.create(Family.POTION_PAD, 3), keep);
+        PotionPadBlockEntity keepBe = helper.getBlockEntity(keep, PotionPadBlockEntity.class);
+        PotionPadBlock.absorb(keepBe, PotionContents.createItemStack(Items.LINGERING_POTION, Potions.STRONG_STRENGTH));
+        List<ItemStack> keptDrops = breakAndCollect(helper, builder, keep);
+        ItemStack kept = keptDrops.size() == 1 ? keptDrops.get(0) : ItemStack.EMPTY;
+        PotionContents keptPotion = kept.get(DataComponents.POTION_CONTENTS);
+        helper.assertTrue(kept.is(TweaksBlocks.INFUSED_POTION_PAD.asItem()) && EasterEggs.stageOf(kept) == 3
+                        && EasterEggs.finalNameKey(Family.POTION_PAD).equals(nameKey(kept))
+                        && keptPotion != null && keptPotion.is(Potions.STRONG_STRENGTH),
+                "breaking the final easter potion pad dropped " + keptDrops + " (stage " + EasterEggs.stageOf(kept) + ", potion " + keptPotion + ")");
+        placeFromItem(helper, builder, kept, keep);
+        keepBe = helper.getBlockEntity(keep, PotionPadBlockEntity.class);
+        helper.assertTrue(keepBe.easterStage() == 3 && EasterEggs.isBoosted(level, helper.absolutePos(keep))
+                        && keepBe.getStored() != null && keepBe.getStored().is(Potions.STRONG_STRENGTH),
+                "placed again, the final easter potion pad is stage " + keepBe.easterStage() + " holding " + keepBe.getStored());
+        helper.setBlock(keep, Blocks.AIR);
+        // Ein normales Trank-Pad behaelt seinen Trank ebenso, ohne Easter-Stufe.
+        helper.setBlock(keep, TweaksBlocks.POTION_PAD);
+        PotionPadBlock.absorb(helper.getBlockEntity(keep, PotionPadBlockEntity.class),
+                PotionContents.createItemStack(Items.SPLASH_POTION, Potions.FIRE_RESISTANCE));
+        List<ItemStack> plainDrops = breakAndCollect(helper, builder, keep);
+        ItemStack plain = plainDrops.size() == 1 ? plainDrops.get(0) : ItemStack.EMPTY;
+        PotionContents plainPotion = plain.get(DataComponents.POTION_CONTENTS);
+        helper.assertTrue(plain.is(TweaksBlocks.POTION_PAD.asItem()) && EasterEggs.stageOf(plain) == 0
+                        && plainPotion != null && plainPotion.is(Potions.FIRE_RESISTANCE),
+                "breaking a normal potion pad dropped " + plainDrops + " (potion " + plainPotion + ")");
+        placeFromItem(helper, builder, plain, keep);
+        PotionContents replaced = helper.getBlockEntity(keep, PotionPadBlockEntity.class).getStored();
+        helper.assertTrue(replaced != null && replaced.is(Potions.FIRE_RESISTANCE)
+                        && helper.getBlockEntity(keep, PotionPadBlockEntity.class).easterStage() == 0,
+                "placed again, the normal potion pad holds " + replaced);
+        helper.setBlock(keep, Blocks.AIR);
+
         // Chunk-Loader III: 3x3 -> 5x5, weit weg von der Teststruktur.
         BlockPos far = helper.absolutePos(new BlockPos(1, 1, 1)).offset(12288 + 3 * 64, 0, 12288 + 64);
         int cx = far.getX() >> 4;
@@ -358,6 +431,11 @@ public final class TweaksEasterTests {
         helper.assertTrue(!done(player, worth), "easter stage 4 of the five-tier elytra pad earned 'It Was Worth It'");
         give(player, EasterEggs.create(Family.FLYPAD, 3), 4);
         helper.assertTrue(done(player, worth) && !done(player, stick), "the final easter flypad did not earn exactly 'It Was Worth It'");
+        ServerPlayer brewer = mockPlayer(helper, new Vec3(3.5, 1.0, 1.5));
+        give(brewer, EasterEggs.create(Family.POTION_PAD, 2), 0);
+        helper.assertTrue(!done(brewer, worth), "easter stage 2 of the potion pad earned 'It Was Worth It'");
+        give(brewer, EasterEggs.create(Family.POTION_PAD, 3), 1);
+        helper.assertTrue(done(brewer, worth), "the final easter potion pad did not earn 'It Was Worth It'");
         give(player, new ItemStack(EasterEggs.funnyStick()), 5);
         helper.assertTrue(done(player, stick), "the Funny Stick did not earn 'All That for a Stick?'");
         helper.succeed();
@@ -406,7 +484,7 @@ public final class TweaksEasterTests {
 
     /**
      * Versteckt: der Funny Stick steht in {@code c:hidden_from_recipe_viewers} und ist, wie jedes
-     * Easter-Pad, in keinem Kreativ-Tab; die 24 Rezepte der Kette sind Spezialrezepte ohne Anzeige und
+     * Easter-Pad, in keinem Kreativ-Tab; die 28 Rezepte der Kette sind Spezialrezepte ohne Anzeige und
      * ohne Freischalt-Meldung, kein Rezept-Advancement verweist auf sie; die Testzentrale nimmt den Stock
      * begruendet aus.
      */

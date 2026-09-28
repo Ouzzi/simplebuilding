@@ -53,6 +53,19 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "potion_pad": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "simplebuilding:easter_stage": 3
+            },
+            "items": "simplebuilding:infused_potion_pad"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "spawn_teleporter": {
       "conditions": {
         "items": [
@@ -87,7 +100,8 @@
       "flypad",
       "spawn_teleporter",
       "launchpad",
-      "chunk_loader"
+      "chunk_loader",
+      "potion_pad"
     ]
   ],
   "sends_telemetry_event": true
