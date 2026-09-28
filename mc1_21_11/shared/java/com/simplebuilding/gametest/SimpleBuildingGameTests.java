@@ -461,6 +461,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("ore_detector_game_test_scans_are_capped_per_server_tick", OreDetectorTests::scansAreCappedPerServerTick)
                     .build(),
+            GameTestSpec.named("ore_detector_game_test_the_needle_points_at_the_found_ore_and_glows_brighter_when_closer", OreDetectorTests::theNeedlePointsAtTheFoundOreAndGlowsBrighterWhenCloser)
+                    .build(),
+            GameTestSpec.named("ore_detector_game_test_off_hand_detector_is_slower_quieter_and_fainter", OreDetectorTests::offHandDetectorIsSlowerQuieterAndFainter)
+                    .build(),
             GameTestSpec.named("quiver_game_test_right_clicks_do_nothing_even_with_master_builder", QuiverTests::rightClicksDoNothingEvenWithMasterBuilder)
                     .build(),
             GameTestSpec.named("quiver_game_test_arrow_filter_holds_for_clicks_and_the_inverted_binding_slips_past_it", QuiverTests::arrowFilterHoldsForClicksAndTheInvertedBindingSlipsPastIt)
@@ -487,7 +491,11 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("rotator_game_test_sixteen_step_blocks_step_once_in_the_middle_and_four_times_at_the_rim", RotatorTests::sixteenStepBlocksStepOnceInTheMiddleAndFourTimesAtTheRim)
                     .build(),
-            GameTestSpec.named("rotator_game_test_wears_out_at_its_rated_durability_and_takes_durability_enchantments", RotatorTests::wearsOutAtItsRatedDurabilityAndTakesDurabilityEnchantments)
+            GameTestSpec.named("rotator_game_test_charge_runs_down_but_the_rotator_never_breaks", RotatorTests::chargeRunsDownButTheRotatorNeverBreaks)
+                    .build(),
+            GameTestSpec.named("rotator_game_test_anvil_recharges_with_sixteen_ender_pearls_for_no_levels", RotatorTests::anvilRechargesWithSixteenEnderPearlsForNoLevels)
+                    .build(),
+            GameTestSpec.named("rotator_game_test_a_turn_queues_the_ender_echo_shortly_after_the_ratchet", RotatorTests::aTurnQueuesTheEnderEchoShortlyAfterTheRatchet)
                     .build(),
             GameTestSpec.named("rotator_game_test_crafting_takes_an_iron_core_four_iron_and_an_ender_pearl_in_that_shape", RotatorTests::craftingTakesAnIronCoreFourIronAndAnEnderPearlInThatShape)
                     .build(),

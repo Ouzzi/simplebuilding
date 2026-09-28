@@ -9,8 +9,8 @@
   },
   "pattern": [
     " R ",
-    "I  ",
-    "CIL"
+    "I L",
+    "CI "
   ],
   "result": {
     "id": "simplebuilding:magnet"

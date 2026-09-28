@@ -90,4 +90,14 @@ public final class OreDetectorGameTest {
     public void scansAreCappedPerServerTick(GameTestHelper helper) {
         OreDetectorTests.scansAreCappedPerServerTick(helper);
     }
+
+    @GameTest
+    public void theNeedlePointsAtTheFoundOreAndGlowsBrighterWhenCloser(GameTestHelper helper) {
+        OreDetectorTests.theNeedlePointsAtTheFoundOreAndGlowsBrighterWhenCloser(helper);
+    }
+
+    @GameTest
+    public void offHandDetectorIsSlowerQuieterAndFainter(GameTestHelper helper) {
+        OreDetectorTests.offHandDetectorIsSlowerQuieterAndFainter(helper);
+    }
 }

@@ -104,15 +104,16 @@ import net.minecraft.world.phys.Vec3;
  *   <li><b>The ping</b> itself: the amethyst chime, the sculk click, the target block's break
  *       sound, the distance-to-pitch curve in {@code getPingPitch} and the particle beam. These
  *       are packets to nearby players, and the mock player's connection discards them.</li>
- *   <li><b>The overlay messages</b> "Detector Mode: ..." and "Calibrated to: ..." - same reason.
- *       What can be checked is that the state behind them changed, and that is asserted.</li>
+ *   <li><b>Overlay messages</b> - there are none since 2026-09-28 (owner: no text over the hotbar;
+ *       the tooltip names the mode). What can be checked is that the state changed, and that is
+ *       asserted.</li>
  *   <li><b>The durability a mode switch costs in survival.</b> {@code cycleMode} pays it behind
  *       {@code !player.isCreative()}, and no mock player can be on that side of the guard and
  *       reachable at the same time: the in-level mock ({@code GameTestHelper$3}) hard-overrides
  *       {@code gameMode()} to {@code CREATIVE}, and the detached mock from
  *       {@code makeMockServerPlayer(GameType)} - the one {@link ConsumptionAndDurabilityTests}
- *       uses for exactly this - has no {@code connection}, while {@code cycleMode} sends an
- *       overlay message before it ever reaches the {@code hurtAndBreak}. The creative half is
+ *       uses for exactly this - has no {@code connection}, and until 2026-09-28 {@code cycleMode}
+ *       sent an overlay message before it ever reached the {@code hurtAndBreak}. The creative half is
  *       asserted instead, and {@link #modeSwitchIsFreeInCreativeAndTheToolStaysUnstackable}
  *       shows that vanilla was not the one keeping the tool pristine.</li>
  *   <li><b>The colours</b> the tooltip and the messages use ({@code ChatFormatting}) -
@@ -1191,7 +1192,7 @@ public final class OreDetectorTests {
     }
 
     /**
-     * A mock player that is in the level - the calibration click and the mode switch both send
+     * A mock player that is in the level - the calibration click and the mode switch used to send
      * the player an overlay message, which needs a connection. Its {@code instabuild} flag is
      * cleared so that vanilla stops shielding its tools from damage; see
      * {@link #modeSwitchIsFreeInCreativeAndTheToolStaysUnstackable}.
@@ -1217,21 +1218,22 @@ public final class OreDetectorTests {
     }
 
     /**
-     * The ore detector's crafting recipe as the owner set it on 2026-09-25: the calibrated sculk
-     * sensor on top, the vanilla compass in the middle flanked by an echo shard on each side, and
-     * the Gold Core at the bottom - resolved through the server's recipe manager the way a
-     * crafting table does. The old pattern without the echo shards must no longer craft it.
+     * The ore detector's crafting recipe as the owner set it on 2026-09-28: the calibrated sculk
+     * sensor on top, the vanilla compass in the middle, the Gold Core at the bottom, and echo shards
+     * in the other six slots - left and right of the compass and all four corners - resolved
+     * through the server's recipe manager the way a crafting table does. The 2026-09-25 pattern with
+     * only the two side shards must no longer craft it.
      *
      * <p>What breaks this test: any change to {@code recipe/ore_detector.json} - pattern, key,
      * result or count - or the recipe failing to load.
      */
     public static void theOreDetectorRecipeCraftsFromItsDocumentedPattern(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
-        // " S " / "ECE" / " G " with S=calibrated sculk sensor, E=echo shard, C=compass, G=Gold Core.
+        // "ESE" / "ECE" / "EGE" with S=calibrated sculk sensor, E=echo shard (six), C=compass, G=Gold Core.
         CraftingInput grid = documentedGrid(
-                null, Items.CALIBRATED_SCULK_SENSOR, null,
+                Items.ECHO_SHARD, Items.CALIBRATED_SCULK_SENSOR, Items.ECHO_SHARD,
                 Items.ECHO_SHARD, Items.COMPASS, Items.ECHO_SHARD,
-                null, ModItems.GOLD_CORE, null);
+                Items.ECHO_SHARD, ModItems.GOLD_CORE, Items.ECHO_SHARD);
         Optional<RecipeHolder<CraftingRecipe>> match = level.getServer().getRecipeManager()
                 .getRecipeFor(RecipeType.CRAFTING, grid, level);
         helper.assertTrue(match.isPresent(),
@@ -1243,16 +1245,140 @@ public final class OreDetectorTests {
                 "the ore detector recipe produced " + result + " instead of an ore detector");
         Assertions.valueEqual(helper, result.getCount(), 1, "ore detectors produced per craft");
 
-        // --- the pattern from before the echo shards must not craft it any more ---
+        // --- the 2026-09-25 pattern with only two echo shards must not craft it any more ---
         CraftingInput old = documentedGrid(
                 null, Items.CALIBRATED_SCULK_SENSOR, null,
-                null, Items.COMPASS, null,
+                Items.ECHO_SHARD, Items.COMPASS, Items.ECHO_SHARD,
                 null, ModItems.GOLD_CORE, null);
         Optional<RecipeHolder<CraftingRecipe>> oldMatch = level.getServer().getRecipeManager()
                 .getRecipeFor(RecipeType.CRAFTING, old, level);
         helper.assertTrue(oldMatch.isEmpty() || !oldMatch.get().value().assemble(old, level.registryAccess()).is(ModItems.ORE_DETECTOR),
-                "the ore detector still crafts without the two echo shards");
+                "the ore detector still crafts with only the two side echo shards");
         TestCleanup.succeed(helper);
+    }
+
+    // =====================================================================================
+    // COMPASS NEEDLE AND OFF HAND (2026-09-28)
+    // =====================================================================================
+
+    /**
+     * The detector is a compass: a ping that finds something puts the ore on the stack as a
+     * {@code lodestone_tracker} (not tracked, so vanilla never clears it for a missing lodestone),
+     * which the item model's {@code compass} property turns into a needle pointing at it; and a
+     * {@code custom_model_data} colour that tints the needle brighter the closer the ore is. An
+     * empty ping, or putting the detector away, clears both, so the needle rests.
+     *
+     * <p>What breaks this: not setting the tracker (the needle would spin or rest forever), a
+     * tracker with {@code tracked = true} (vanilla would reset it on the next compass tick of any
+     * lodestone logic), the colour not following the distance, or a stale target surviving an empty
+     * ping or the detector leaving the hands.
+     */
+    public static void theNeedlePointsAtTheFoundOreAndGlowsBrighterWhenCloser(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        OreDetectorItem item = (OreDetectorItem) ModItems.ORE_DETECTOR;
+        ItemStack detector = calibratedOn(Blocks.PEARLESCENT_FROGLIGHT);
+        player.setItemInHand(InteractionHand.MAIN_HAND, detector);
+        helper.assertTrue(OreDetectorItem.needleTarget(detector) == null && OreDetectorItem.needleColor(detector) == -1,
+                "a fresh detector already carries a needle target");
+
+        BlockPos near = new BlockPos(3, 2, 4);
+        helper.setBlock(near, Blocks.PEARLESCENT_FROGLIGHT);
+        BlockPos found = item.ping(helper.getLevel(), detector, player, EquipmentSlot.MAINHAND);
+        helper.assertTrue(helper.absolutePos(near).equals(found), "test setup broken: the ping found " + found);
+        net.minecraft.world.item.component.LodestoneTracker tracker = detector.get(DataComponents.LODESTONE_TRACKER);
+        helper.assertTrue(tracker != null && tracker.target().isPresent(), "the ping left no needle target on the detector");
+        helper.assertTrue(tracker.target().get().equals(net.minecraft.core.GlobalPos.of(helper.getLevel().dimension(), helper.absolutePos(near))),
+                "the needle points at " + tracker.target().get() + " instead of the froglight");
+        helper.assertFalse(tracker.tracked(), "the needle target is tracked like a lodestone, vanilla would clear it");
+        int nearColor = OreDetectorItem.needleColor(detector);
+        double nearDistance = Math.sqrt(BlockPos.containing(player.getEyePosition()).distSqr(found));
+        int range = OreDetectorItem.classify(Blocks.PEARLESCENT_FROGLIGHT.defaultBlockState()).range(false);
+        Assertions.valueEqual(helper, nearColor, OreDetectorItem.RESONANCE_COLORS[OreDetectorItem.resonanceLevel(nearDistance, range)],
+                "needle colour two blocks from the froglight");
+
+        // --- farther away: the needle follows and glows dimmer ---
+        helper.setBlock(near, Blocks.AIR);
+        BlockPos far = new BlockPos(3, 2, 1);
+        helper.setBlock(far, Blocks.PEARLESCENT_FROGLIGHT);
+        found = item.ping(helper.getLevel(), detector, player, EquipmentSlot.MAINHAND);
+        helper.assertTrue(helper.absolutePos(far).equals(found), "test setup broken: the second ping found " + found);
+        helper.assertTrue(helper.absolutePos(far).equals(OreDetectorItem.needleTarget(detector).pos()),
+                "the needle did not move on to the farther froglight");
+        int farColor = OreDetectorItem.needleColor(detector);
+        helper.assertTrue(farColor != nearColor && brightness(farColor) < brightness(nearColor),
+                "the needle does not glow dimmer five blocks out (" + Integer.toHexString(farColor) + ") than two blocks out ("
+                        + Integer.toHexString(nearColor) + ")");
+        for (int d = 1; d < range; d++) {
+            helper.assertTrue(OreDetectorItem.resonanceLevel(d, range) >= OreDetectorItem.resonanceLevel(d + 1, range),
+                    "the resonance gets brighter moving away at " + d + " blocks");
+        }
+        Assertions.valueEqual(helper, OreDetectorItem.resonanceLevel(0, range), OreDetectorItem.RESONANCE_COLORS.length - 1, "resonance right at the ore");
+        Assertions.valueEqual(helper, OreDetectorItem.resonanceLevel(range, range), 0, "resonance at the edge of the reach");
+
+        // --- nothing found: the needle rests ---
+        helper.setBlock(far, Blocks.AIR);
+        helper.assertTrue(item.ping(helper.getLevel(), detector, player, EquipmentSlot.MAINHAND) == null, "test setup broken: empty ping found something");
+        helper.assertTrue(!detector.has(DataComponents.LODESTONE_TRACKER) && !detector.has(DataComponents.CUSTOM_MODEL_DATA),
+                "an empty ping left the old needle target on the detector");
+
+        // --- put away: the needle rests as well ---
+        helper.setBlock(near, Blocks.PEARLESCENT_FROGLIGHT);
+        item.ping(helper.getLevel(), detector, player, EquipmentSlot.MAINHAND);
+        helper.assertTrue(OreDetectorItem.needleTarget(detector) != null, "test setup broken: no needle before putting it away");
+        item.inventoryTick(detector, helper.getLevel(), player, null);
+        helper.assertTrue(OreDetectorItem.needleTarget(detector) == null && OreDetectorItem.needleColor(detector) == -1,
+                "a detector in the inventory still points at the last ore");
+        helper.setBlock(near, Blocks.AIR);
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * In the off hand the detector still works - it finds the same ore and sets the needle - but it
+     * is the less precise hand: it pings half as often, its tones are much quieter and its beam
+     * has far fewer particles. The main hand is the precise one. The particle beam is capped in both
+     * hands (it used to be a particle every 0.4 blocks plus eight at the ore).
+     *
+     * <p>What breaks this: giving both hands the same interval or volume, lifting the particle cap,
+     * or dropping the off hand from {@code isHeldInHands}.
+     */
+    public static void offHandDetectorIsSlowerQuieterAndFainter(GameTestHelper helper) {
+        helper.assertTrue(OreDetectorItem.scanInterval(EquipmentSlot.OFFHAND) > OreDetectorItem.scanInterval(EquipmentSlot.MAINHAND),
+                "the off hand does not ping more slowly than the main hand");
+        Assertions.valueEqual(helper, OreDetectorItem.scanInterval(EquipmentSlot.MAINHAND), 20, "main hand ping interval (ticks)");
+        helper.assertTrue(OreDetectorItem.volumeFactor(EquipmentSlot.OFFHAND) <= 0.5f * OreDetectorItem.volumeFactor(EquipmentSlot.MAINHAND),
+                "off hand pings are not much quieter: " + OreDetectorItem.volumeFactor(EquipmentSlot.OFFHAND));
+        int mainPings = 0;
+        int offPings = 0;
+        for (long t = 0; t < 120; t++) {
+            if (OreDetectorItem.isScanTick(t, 7, EquipmentSlot.MAINHAND)) mainPings++;
+            if (OreDetectorItem.isScanTick(t, 7, EquipmentSlot.OFFHAND)) offPings++;
+        }
+        Assertions.valueEqual(helper, mainPings, 6, "main hand pings in six seconds");
+        Assertions.valueEqual(helper, offPings, 3, "off hand pings in six seconds");
+        helper.assertTrue(OreDetectorItem.beamParticles(20, EquipmentSlot.MAINHAND) <= OreDetectorItem.MAX_BEAM_PARTICLES_MAIN_HAND
+                        && OreDetectorItem.MAX_BEAM_PARTICLES_MAIN_HAND <= 8,
+                "the main hand beam is not capped to a handful of particles: " + OreDetectorItem.beamParticles(20, EquipmentSlot.MAINHAND));
+        helper.assertTrue(OreDetectorItem.beamParticles(20, EquipmentSlot.OFFHAND) < OreDetectorItem.beamParticles(20, EquipmentSlot.MAINHAND),
+                "the off hand beam is not fainter than the main hand one");
+
+        // --- and it still works there ---
+        ServerPlayer player = mockPlayer(helper);
+        OreDetectorItem item = (OreDetectorItem) ModItems.ORE_DETECTOR;
+        ItemStack detector = calibratedOn(Blocks.PEARLESCENT_FROGLIGHT);
+        player.setItemInHand(InteractionHand.OFF_HAND, detector);
+        BlockPos target = new BlockPos(3, 2, 4);
+        helper.setBlock(target, Blocks.PEARLESCENT_FROGLIGHT);
+        BlockPos found = item.ping(helper.getLevel(), detector, player, EquipmentSlot.OFFHAND);
+        helper.assertTrue(helper.absolutePos(target).equals(found), "the off hand detector did not find the froglight: " + found);
+        helper.assertTrue(OreDetectorItem.needleTarget(detector) != null, "the off hand detector set no needle target");
+        item.inventoryTick(detector, helper.getLevel(), player, EquipmentSlot.OFFHAND);
+        helper.assertTrue(OreDetectorItem.needleTarget(detector) != null, "holding the detector in the off hand made its needle rest");
+        helper.setBlock(target, Blocks.AIR);
+        TestCleanup.succeed(helper);
+    }
+
+    private static int brightness(int rgb) {
+        return ((rgb >> 16) & 255) + ((rgb >> 8) & 255) + (rgb & 255);
     }
 
     /** A 3x3 crafting grid, row by row; {@code null} is an empty slot. */

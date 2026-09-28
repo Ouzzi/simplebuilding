@@ -153,7 +153,7 @@ public abstract class ItemFrameEntityMixin implements OwnedLightHolder {
                     CompoundTag nbt = nbtComponent.copyTag();
                     nbt.putString("MagnetFilter", itemId);
                     handStack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
-                    player.displayClientMessage(Component.translatable("message.simplebuilding.magnet.filter_set", itemId).withStyle(ChatFormatting.GREEN), true);
+                    // Keine Einblendung (Besitzer 2026-09-28): Rueckmeldung sind Klang und Tooltip.
                     player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.RESPAWN_ANCHOR_SET_SPAWN, player.getSoundSource(), 0.5f, 1.5f);
                 }
                 cir.setReturnValue(InteractionResult.SUCCESS);

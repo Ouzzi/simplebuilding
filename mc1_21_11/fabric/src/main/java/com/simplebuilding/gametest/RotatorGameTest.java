@@ -42,8 +42,18 @@ public final class RotatorGameTest {
     }
 
     @GameTest
-    public void wearsOutAtItsRatedDurabilityAndTakesDurabilityEnchantments(GameTestHelper helper) {
-        RotatorTests.wearsOutAtItsRatedDurabilityAndTakesDurabilityEnchantments(helper);
+    public void chargeRunsDownButTheRotatorNeverBreaks(GameTestHelper helper) {
+        RotatorTests.chargeRunsDownButTheRotatorNeverBreaks(helper);
+    }
+
+    @GameTest
+    public void anvilRechargesWithSixteenEnderPearlsForNoLevels(GameTestHelper helper) {
+        RotatorTests.anvilRechargesWithSixteenEnderPearlsForNoLevels(helper);
+    }
+
+    @GameTest
+    public void aTurnQueuesTheEnderEchoShortlyAfterTheRatchet(GameTestHelper helper) {
+        RotatorTests.aTurnQueuesTheEnderEchoShortlyAfterTheRatchet(helper);
     }
 
     @GameTest

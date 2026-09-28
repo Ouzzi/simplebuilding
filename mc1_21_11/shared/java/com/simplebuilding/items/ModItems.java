@@ -414,7 +414,7 @@ public class ModItems {
 
     public static final Item MAGNET = registerItem("magnet", settings -> new MagnetItem(settings.stacksTo(1).rarity(UNCOMMON)));
 
-    public static final Item ROTATOR = registerItem("rotator", settings -> new RotatorItem(settings.durability(1024).stacksTo(1).enchantable(ENCHANTABILITY_NETHERITE)));
+    public static final Item ROTATOR = registerItem("rotator", settings -> new RotatorItem(settings.durability(RotatorItem.MAX_CHARGE).stacksTo(1).enchantable(ENCHANTABILITY_NETHERITE)));
 
     public static final OctantItem OCTANT = (OctantItem) registerItem("octant", settings -> new OctantItem(settings.durability(DURABILITY_OCTANT).enchantable(ENCHANTABILITY_NETHERITE), null));
 

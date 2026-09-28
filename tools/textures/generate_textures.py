@@ -61,6 +61,7 @@ import sys
 from PIL import Image, ImageDraw, ImageFont
 
 from echo_compass_textures import echo_compass_textures  # Echo-Kompass: Nadelbilder + Riss-Stufen
+from ore_detector_textures import ore_detector_textures  # Erzdetektor: Gehaeuse, 32 Nadeln, Ruhebild
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -2102,16 +2103,22 @@ ROTATOR_PEARL = [
     ".bb.",
 ]
 ROTATOR_PEARL_PAL = {"a": "#0c3730", "b": "#032620", "c": "#8cf4e2", "d": "#2ccdb1", "e": "#258474", "f": "#0b4d42"}
+# Leerer Rotator (2026-09-28, Ladung wie die Amethystlinse): dieselbe Perle erloschen - graugruen, der
+# Glanz nur noch ein matter Schimmer, damit "leer" auf einen Blick lesbar ist.
+ROTATOR_PEARL_EMPTY_PAL = {"a": "#1d2826", "b": "#121a18", "c": "#56625f", "d": "#34403d", "e": "#28322f", "f": "#1a2321"}
 
 
 def rotator_texture():
-    img = Image.open(os.path.join(HAND, "rotator.png")).convert("RGBA").copy()
-    ox, oy = ROTATOR_PEARL_AT
-    for y, row in enumerate(ROTATOR_PEARL):
-        for x, c in enumerate(row):
-            if c != ".":
-                img.putpixel((ox + x, oy + y), hexrgb(ROTATOR_PEARL_PAL[c]) + (255,))
-    return {"item/rotator.png": img}
+    out = {}
+    for rel, pal in (("item/rotator.png", ROTATOR_PEARL_PAL), ("item/rotator_empty.png", ROTATOR_PEARL_EMPTY_PAL)):
+        img = Image.open(os.path.join(HAND, "rotator.png")).convert("RGBA").copy()
+        ox, oy = ROTATOR_PEARL_AT
+        for y, row in enumerate(ROTATOR_PEARL):
+            for x, c in enumerate(row):
+                if c != ".":
+                    img.putpixel((ox + x, oy + y), hexrgb(pal[c]) + (255,))
+        out[rel] = img
+    return out
 
 
 def mcmeta_text(animation):
@@ -2674,6 +2681,7 @@ def build():
     tex.update(backpack_gui_textures())
     tex.update(end_palette_textures())
     tex.update(echo_compass_textures())
+    tex.update(ore_detector_textures())
     return tex
 
 

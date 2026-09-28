@@ -8,9 +8,9 @@
     "S": "minecraft:calibrated_sculk_sensor"
   },
   "pattern": [
-    " S ",
+    "ESE",
     "ECE",
-    " G "
+    "EGE"
   ],
   "result": {
     "id": "simplebuilding:ore_detector"

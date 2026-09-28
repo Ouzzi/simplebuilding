@@ -22,7 +22,7 @@ import net.minecraft.world.phys.HitResult;
  * strahlt dann nicht mehr. Aufladen im Amboss mit Redstone, ohne Stufenkosten: ein voller Stapel
  * (64) laedt ganz auf ({@link #CHARGE_PER_REDSTONE} je Staub).
  */
-public class LaserPointerItem extends Item {
+public class LaserPointerItem extends Item implements com.simplebuilding.items.AnvilRechargeable {
     /** Volle Ladung (= Haltbarkeit). */
     public static final int MAX_CHARGE = 640;
     /** Ein Redstone laedt 1/64 der vollen Ladung. */
@@ -36,6 +36,16 @@ public class LaserPointerItem extends Item {
 
     public LaserPointerItem(Item.Properties properties) {
         super(properties);
+    }
+
+    @Override
+    public boolean isRechargeMaterial(ItemStack material) {
+        return material.is(net.minecraft.world.item.Items.REDSTONE);
+    }
+
+    @Override
+    public int chargePerMaterial() {
+        return CHARGE_PER_REDSTONE;
     }
 
     /** Leer: die ganze Ladung ist verbraucht (Schaden = Haltbarkeit). */

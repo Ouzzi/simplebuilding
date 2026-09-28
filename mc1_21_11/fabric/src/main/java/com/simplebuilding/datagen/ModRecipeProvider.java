@@ -203,12 +203,12 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // =================================================================
                 // MAGNET
                 // =================================================================
-                // Besitzer 2026-09-27 (Lesart des Koordinators): Eisen-Baukern unten links, Eisenbarren unten
-                // Mitte und links Mitte, Redstone oben Mitte, Lapislazuli unten rechts; kein Leitstein mehr.
+                // Besitzer 2026-09-28: Eisen-Baukern unten links, Eisenbarren unten Mitte und links Mitte,
+                // Redstone oben Mitte, Lapislazuli rechts Mitte (vorher unten rechts); kein Leitstein.
                 shaped(RecipeCategory.TOOLS, ModItems.MAGNET)
                         .pattern(" R ")
-                        .pattern("I  ")
-                        .pattern("CIL")
+                        .pattern("I L")
+                        .pattern("CI ")
                         .define('R', Items.REDSTONE)
                         .define('I', Items.IRON_INGOT)
                         .define('C', ModItems.IRON_CORE)
@@ -333,10 +333,11 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // =================================================================
                 // ORE DETECTOR
                 // =================================================================
+                // Besitzer 2026-09-28: Echoscherben auch in allen vier Ecken - sechs insgesamt.
                 shaped(RecipeCategory.TOOLS, ModItems.ORE_DETECTOR)
-                        .pattern(" S ")
+                        .pattern("ESE")
                         .pattern("ECE")
-                        .pattern(" G ")
+                        .pattern("EGE")
                         .define('E', Items.ECHO_SHARD)
                         .define('C', Items.COMPASS)
                         .define('G', ModItems.GOLD_CORE)

@@ -77,8 +77,8 @@ import net.minecraft.world.phys.Vec3;
  * <h2>Not covered</h2>
  *
  * <ul>
- *   <li><b>Everything the player is told.</b> The cleared-filter overlay message
- *       ({@code sendOverlayMessage}), the UI click sound and {@code syncVelocityToNearbyPlayers}
+ *   <li><b>Everything the player is told.</b> The UI click sound (the cleared-filter overlay
+ *       message is gone since 2026-09-28) and {@code syncVelocityToNearbyPlayers}
  *       are packets; a mock player's connection swallows them, so there is nothing a server side
  *       test can observe. The velocity sync in particular is pure client smoothing - the
  *       authoritative motion is the one asserted in {@link
@@ -704,8 +704,8 @@ public final class MagnetTests {
      * behaviour afterwards, on an item the filter had been blocking a moment earlier. Without that
      * last step this would be a test about strings.
      *
-     * <p>This is the one test that needs a player with a live connection: {@code use} sends an
-     * overlay message, and a detached mock player would throw on it.
+     * <p>This is the one test that needs a player with a live connection: {@code use} used to send
+     * an overlay message, and a detached mock player would throw on it.
      *
      * <p>What breaks this test: the sneak guard going away (the plain right click would start
      * clearing filters), the "is a filter even set" guard going away (a filterless magnet would
@@ -802,12 +802,13 @@ public final class MagnetTests {
     public static void theMagnetRecipeStillCraftsFromItsDocumentedPattern(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
 
-        // " R " / "I  " / "CIL" with R=redstone, I=iron ingot, C=iron core, L=lapis lazuli (owner's recipe
-        // 2026-09-27; before that " IR" / "ILI" / "BI " with a lodestone in the middle).
+        // " R " / "I L" / "CI " with R=redstone, I=iron ingot, C=iron core, L=lapis lazuli (owner's recipe
+        // 2026-09-28: the lapis moved up from the bottom right to the right middle; before 2026-09-27
+        // " IR" / "ILI" / "BI " with a lodestone in the middle).
         CraftingInput grid = grid3x3(
                 null, Items.REDSTONE, null,
-                Items.IRON_INGOT, null, null,
-                ModItems.IRON_CORE, Items.IRON_INGOT, Items.LAPIS_LAZULI);
+                Items.IRON_INGOT, null, Items.LAPIS_LAZULI,
+                ModItems.IRON_CORE, Items.IRON_INGOT, null);
 
         Optional<RecipeHolder<CraftingRecipe>> match = level.getServer().getRecipeManager()
                 .getRecipeFor(RecipeType.CRAFTING, grid, level);
@@ -828,8 +829,8 @@ public final class MagnetTests {
         // Turned by 180 degrees: same ingredient counts, and neither the pattern nor the x-mirror
         // vanilla accepts alongside it.
         CraftingInput scrambled = grid3x3(
-                Items.LAPIS_LAZULI, Items.IRON_INGOT, ModItems.IRON_CORE,
-                null, null, Items.IRON_INGOT,
+                null, Items.IRON_INGOT, ModItems.IRON_CORE,
+                Items.LAPIS_LAZULI, null, Items.IRON_INGOT,
                 null, Items.REDSTONE, null);
         Optional<RecipeHolder<CraftingRecipe>> scrambledMatch = level.getServer().getRecipeManager()
                 .getRecipeFor(RecipeType.CRAFTING, scrambled, level);
@@ -837,6 +838,14 @@ public final class MagnetTests {
                         || !scrambledMatch.get().value().assemble(scrambled).is(ModItems.MAGNET),
                 "the magnet pattern turned by 180 degrees also crafts a magnet, so the recipe is "
                         + "not shaped the way the data says it is");
+
+        // --- the 2026-09-27 layout with the lapis bottom right is gone ---
+        CraftingInput lapisBottomRight = grid3x3(
+                null, Items.REDSTONE, null,
+                Items.IRON_INGOT, null, null,
+                ModItems.IRON_CORE, Items.IRON_INGOT, Items.LAPIS_LAZULI);
+        helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, lapisBottomRight, level).isEmpty(),
+                "the old layout with the lapis bottom right still crafts something");
 
         // --- the old lodestone recipe is gone ---
         CraftingInput old = grid3x3(
@@ -857,8 +866,8 @@ public final class MagnetTests {
     /**
      * A fully connected mock server player parked in the room.
      *
-     * <p>Connected rather than detached on purpose: {@code MagnetItem#use} sends an overlay message
-     * and {@code syncVelocityToNearbyPlayers} sends a motion packet to every player in the level,
+     * <p>Connected rather than detached on purpose: {@code MagnetItem#use} used to send an overlay
+     * message and {@code syncVelocityToNearbyPlayers} sends a motion packet to every player in the level,
      * both of which need a connection to swallow them. The magnet has no game mode dependent
      * branch, so the mock's hard wired creative mode costs this file nothing.
      *

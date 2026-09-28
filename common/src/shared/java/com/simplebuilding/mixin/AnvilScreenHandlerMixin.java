@@ -19,7 +19,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.StructureTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.StringUtil;
-import com.simplebuilding.tweaks.item.LaserPointerItem;
+import com.simplebuilding.items.AnvilRechargeable;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AnvilMenu;
@@ -171,15 +171,16 @@ public abstract class AnvilScreenHandlerMixin extends ItemCombinerMenu {
         }
     }
 
-    // --- 1b. AMETHYSTLINSE MIT REDSTONE AUFLADEN (HEAD) ---
-    // Kostet keine Stufen; jeder Redstone laedt 1/64, verbraucht wird nur, was die Linse braucht.
+    // --- 1b. LADEGERAETE AUFLADEN (HEAD) ---
+    // Amethystlinse mit Redstone, Rotator mit Enderperlen (AnvilRechargeable): kostet keine Stufen,
+    // verbraucht wird nur, was das Geraet bis voll braucht.
     @Inject(method = "createResult", at = @At("HEAD"), cancellable = true)
-    private void simplebuilding$rechargeLens(CallbackInfo ci) {
+    private void simplebuilding$rechargeCharged(CallbackInfo ci) {
         ItemStack leftStack = this.inputSlots.getItem(0);
         ItemStack rightStack = this.inputSlots.getItem(1);
-        if (!(leftStack.getItem() instanceof LaserPointerItem) || !rightStack.is(Items.REDSTONE)) return;
+        if (!(leftStack.getItem() instanceof AnvilRechargeable rechargeable) || !rechargeable.isRechargeMaterial(rightStack)) return;
 
-        int used = LaserPointerItem.redstoneNeeded(leftStack, rightStack.getCount());
+        int used = rechargeable.rechargeMaterialNeeded(leftStack, rightStack.getCount());
         if (used <= 0) {
             this.resultSlots.setItem(0, ItemStack.EMPTY);
             this.cost.set(0);
@@ -187,7 +188,7 @@ public abstract class AnvilScreenHandlerMixin extends ItemCombinerMenu {
             ci.cancel();
             return;
         }
-        ItemStack result = LaserPointerItem.recharged(leftStack, used);
+        ItemStack result = rechargeable.rechargedWith(leftStack, used);
         handleRenaming(leftStack, result);
         this.resultSlots.setItem(0, result);
         this.cost.set(0);
@@ -197,8 +198,9 @@ public abstract class AnvilScreenHandlerMixin extends ItemCombinerMenu {
 
     /** Vanilla gibt ein Ergebnis mit 0 Stufen nie heraus ({@code cost > 0}); das Aufladen ist gratis. */
     @Inject(method = "mayPickup", at = @At("HEAD"), cancellable = true)
-    private void simplebuilding$freeLensRecharge(Player player, boolean hasItem, CallbackInfoReturnable<Boolean> cir) {
-        if (this.inputSlots.getItem(0).getItem() instanceof LaserPointerItem && this.inputSlots.getItem(1).is(Items.REDSTONE)
+    private void simplebuilding$freeRecharge(Player player, boolean hasItem, CallbackInfoReturnable<Boolean> cir) {
+        if (this.inputSlots.getItem(0).getItem() instanceof AnvilRechargeable rechargeable
+                && rechargeable.isRechargeMaterial(this.inputSlots.getItem(1))
                 && !this.resultSlots.getItem(0).isEmpty()) {
             cir.setReturnValue(true);
         }

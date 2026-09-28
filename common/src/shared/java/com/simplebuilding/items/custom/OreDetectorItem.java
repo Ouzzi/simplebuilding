@@ -7,9 +7,11 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import com.simplebuilding.blocks.ModBlocks;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.function.Consumer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -33,6 +35,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.CustomModelData;
+import net.minecraft.world.item.component.LodestoneTracker;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
@@ -140,7 +144,28 @@ public class OreDetectorItem extends Item {
 
     // =====================================================================================
 
-    private static final int SCAN_INTERVAL = 20;   // Ping alle 1 Sekunde
+    /**
+     * Haupthand = am genauesten: Ping jede Sekunde. In der Nebenhand arbeitet der Detektor weiter,
+     * aber traeger (alle zwei Sekunden), leiser ({@link #OFF_HAND_VOLUME}) und mit schwaecherem
+     * Partikelstrahl ({@link #beamParticles}).
+     */
+    public static final int SCAN_INTERVAL_MAIN_HAND = 20;
+    public static final int SCAN_INTERVAL_OFF_HAND = 40;
+    /** Lautstaerke-Faktor der Ping-Toene in der Nebenhand (Haupthand 1.0). */
+    public static final float OFF_HAND_VOLUME = 0.3f;
+    /** Hoechstens so viele Partikel zeichnen den Strahl zum Erz: Haupthand / Nebenhand. */
+    public static final int MAX_BEAM_PARTICLES_MAIN_HAND = 6;
+    public static final int MAX_BEAM_PARTICLES_OFF_HAND = 2;
+
+    /**
+     * Kompassnadel: der Server legt das gefundene Erz als {@code lodestone_tracker} (ohne Leitstein-
+     * Verfolgung) auf den Detektor, das Item-Modell zeigt mit Vanillas Kompass-Eigenschaft
+     * ({@code compass}, Ziel {@code lodestone}) dorthin. Die Nadel leuchtet heller, je naeher das Erz
+     * ist: {@code custom_model_data} traegt die Farbe, das Modell toent die Nadel damit. Fuenf Stufen,
+     * damit sich die Komponente nicht bei jedem Schritt aendert. Ohne Ziel (nichts gefunden, nicht
+     * in der Hand) liegen beide Komponenten nicht auf dem Stapel und die Nadel ruht.
+     */
+    public static final int[] RESONANCE_COLORS = {0x5B2A86, 0x7A3DB0, 0x9B59D6, 0xBE84F0, 0xE8C8FF};
 
     /** Haltbarkeit, die ein Ping kostet, der etwas findet (Audit 2026-09-26 #25). Leere Pings sind frei. */
     public static final int DURABILITY_PER_HIT = 1;
@@ -208,18 +233,83 @@ public class OreDetectorItem extends Item {
     public void inventoryTick(ItemStack stack, ServerLevel world, Entity entity, @Nullable EquipmentSlot slot) {
         if (!(entity instanceof Player player)) return;
 
-        if (!isHeldInHands(slot)) return;
+        if (!isHeldInHands(slot)) {
+            // Weggesteckt: die Nadel ruht, sie zeigt nicht auf ein Erz von vor einer Stunde.
+            clearNeedle(stack);
+            return;
+        }
 
         // Jeder gehaltene Detektor kostet einen vollen Kugelscan. Ohne Versatz faellt der Scan
         // aller Spieler auf denselben Tick, sodass ein Server die gesamte Suchlast jede Sekunde
         // gebuendelt in einen einzigen Tick bekommt. Der Versatz je Spieler verteilt sie ueber
         // die Sekunde; die Taktrate bleibt exakt SCAN_INTERVAL, nur die Phase haengt jetzt am
         // Spieler - und die ist nirgends beobachtbar, weil der Detektor mit nichts synchron laeuft.
-        if (Math.floorMod(world.getGameTime() + player.getId(), SCAN_INTERVAL) != 0) return;
+        if (!isScanTick(world.getGameTime(), player.getId(), slot)) return;
 
         if (!takeScanBudget(world.getGameTime())) return;
 
         ping(world, stack, player, slot);
+    }
+
+    /** Ob ein in {@code slot} gehaltener Detektor dieses Spielers auf diesem Tick pingt (Haupthand jede Sekunde, Nebenhand alle zwei). */
+    public static boolean isScanTick(long gameTime, int playerId, @Nullable EquipmentSlot slot) {
+        return Math.floorMod(gameTime + playerId, scanInterval(slot)) == 0;
+    }
+
+    /** Ticks zwischen zwei Pings: {@link #SCAN_INTERVAL_MAIN_HAND} oder {@link #SCAN_INTERVAL_OFF_HAND}. */
+    public static int scanInterval(@Nullable EquipmentSlot slot) {
+        return slot == EquipmentSlot.OFFHAND ? SCAN_INTERVAL_OFF_HAND : SCAN_INTERVAL_MAIN_HAND;
+    }
+
+    /** Lautstaerke-Faktor der Ping-Toene: Haupthand 1.0, Nebenhand {@link #OFF_HAND_VOLUME}. */
+    public static float volumeFactor(@Nullable EquipmentSlot slot) {
+        return slot == EquipmentSlot.OFFHAND ? OFF_HAND_VOLUME : 1.0f;
+    }
+
+    /**
+     * Partikel auf dem Strahl zum Erz: einer je 2 Bloecke (Nebenhand je 6), hoechstens
+     * {@link #MAX_BEAM_PARTICLES_MAIN_HAND} bzw. {@link #MAX_BEAM_PARTICLES_OFF_HAND}. Frueher war es
+     * einer je 0,4 Bloecke plus acht am Erz - bei 20 Bloecken ueber 50 Partikel je Sekunde.
+     */
+    public static int beamParticles(double distance, @Nullable EquipmentSlot slot) {
+        boolean off = slot == EquipmentSlot.OFFHAND;
+        int n = (int) Math.ceil(distance / (off ? 6.0 : 2.0));
+        return Math.max(1, Math.min(off ? MAX_BEAM_PARTICLES_OFF_HAND : MAX_BEAM_PARTICLES_MAIN_HAND, n));
+    }
+
+    /** Helligkeitsstufe der Nadel (0 = am Rand der Reichweite, 4 = ganz nah), siehe {@link #RESONANCE_COLORS}. */
+    public static int resonanceLevel(double distance, int range) {
+        double closeness = 1.0 - Math.min(1.0, Math.max(0.0, distance / Math.max(1, range)));
+        return Math.min(RESONANCE_COLORS.length - 1, (int) Math.floor(closeness * RESONANCE_COLORS.length));
+    }
+
+    /** Das Erz, auf das die Nadel zeigt, oder {@code null}, wenn sie ruht. */
+    @Nullable
+    public static GlobalPos needleTarget(ItemStack stack) {
+        LodestoneTracker tracker = stack.get(DataComponents.LODESTONE_TRACKER);
+        return tracker == null ? null : tracker.target().orElse(null);
+    }
+
+    /** Die Nadelfarbe, die das Modell gerade zeigt, oder -1 ohne Ziel. */
+    public static int needleColor(ItemStack stack) {
+        CustomModelData data = stack.get(DataComponents.CUSTOM_MODEL_DATA);
+        Integer color = data == null ? null : data.getColor(0);
+        return color == null ? -1 : color;
+    }
+
+    private static void setNeedle(ItemStack stack, ServerLevel world, BlockPos target, int color) {
+        LodestoneTracker tracker = new LodestoneTracker(java.util.Optional.of(GlobalPos.of(world.dimension(), target)), false);
+        if (!tracker.equals(stack.get(DataComponents.LODESTONE_TRACKER))) {
+            stack.set(DataComponents.LODESTONE_TRACKER, tracker);
+        }
+        if (needleColor(stack) != color) {
+            stack.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of(), List.of(color)));
+        }
+    }
+
+    private static void clearNeedle(ItemStack stack) {
+        if (stack.has(DataComponents.LODESTONE_TRACKER)) stack.remove(DataComponents.LODESTONE_TRACKER);
+        if (stack.has(DataComponents.CUSTOM_MODEL_DATA)) stack.remove(DataComponents.CUSTOM_MODEL_DATA);
     }
 
     /** Zaehlt einen Scan gegen {@link #MAX_SCANS_PER_TICK}; {@code false}, wenn der Tick schon voll ist. */
@@ -248,15 +338,22 @@ public class OreDetectorItem extends Item {
             BlockState targetState = world.getBlockState(targetPos);
             double distance = Math.sqrt(playerPos.distSqr(targetPos));
             float pitch = getPingPitch(distance);
+            float volume = volumeFactor(slot);
 
-            world.playSound(null, targetPos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 0.9f, pitch);
-            world.playSound(null, targetPos, SoundEvents.SCULK_CLICKING, SoundSource.BLOCKS, 0.6f, 2.0f);
+            world.playSound(null, targetPos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 0.9f * volume, pitch);
+            world.playSound(null, targetPos, SoundEvents.SCULK_CLICKING, SoundSource.BLOCKS, 0.6f * volume, 2.0f);
             SoundEvent blockSound = targetState.getSoundType().getBreakSound();
-            world.playSound(null, targetPos, blockSound, SoundSource.BLOCKS, 0.55f, pitch);
+            world.playSound(null, targetPos, blockSound, SoundSource.BLOCKS, 0.55f * volume, pitch);
 
-            spawnSonarBeam(world, player.getEyePosition(), targetPos, targetState);
+            spawnSonarBeam(world, player.getEyePosition(), targetPos, targetState, slot);
+
+            // Heller je naeher, gemessen an der Reichweite genau dieses Erzes (Diamant 16, Eisen 24 ...).
+            int range = classify(targetState).range(hasEnchantment(stack, world, ModEnchantments.RADIUS));
+            setNeedle(stack, world, targetPos, RESONANCE_COLORS[resonanceLevel(distance, range)]);
 
             stack.hurtAndBreak(DURABILITY_PER_HIT, player, slot);
+        } else {
+            clearNeedle(stack);
         }
         return targetPos;
     }
@@ -319,8 +416,7 @@ public class OreDetectorItem extends Item {
             // Beide Seiten entscheiden gleich, damit der Client nicht schwingt, wo der Server ablehnt.
             if (!isCalibratable(state)) {
                 if (!world.isClientSide()) {
-                    context.getPlayer().sendOverlayMessage(Component.translatable("message.simplebuilding.ore_detector.not_calibratable",
-                            state.getBlock().getName().copy().withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.RED));
+                    // Keine Einblendung (Besitzer 2026-09-28): Rueckmeldung sind Klang, Nadel und Tooltip.
                     world.playSound(null, context.getClickedPos(), SoundEvents.SCULK_CLICKING, SoundSource.PLAYERS, 0.6f, 0.6f);
                 }
                 return InteractionResult.FAIL;
@@ -331,8 +427,7 @@ public class OreDetectorItem extends Item {
                 setMode(stack, DetectMode.CUSTOM);
                 setCustomBlock(stack, state);
 
-                context.getPlayer().sendOverlayMessage(Component.translatable("message.simplebuilding.ore_detector.calibrated",
-                        state.getBlock().getName().copy().withStyle(ChatFormatting.WHITE)).withStyle(ChatFormatting.GREEN));
+                // Keine Einblendung (Besitzer 2026-09-28): Rueckmeldung sind Klang, Nadel und Tooltip.
 
                 world.playSound(null, context.getClickedPos(), SoundEvents.SCULK_CATALYST_BLOOM, SoundSource.PLAYERS, 1.0f, 1.0f);
             }
@@ -582,21 +677,23 @@ public class OreDetectorItem extends Item {
         return BuiltInRegistries.BLOCK.getOptional(id).orElse(null);
     }
 
-    private void spawnSonarBeam(ServerLevel world, Vec3 startPos, BlockPos endPos, BlockState targetState) {
+    /** Wenige Partikel auf dem Weg zum Erz ({@link #beamParticles}) und ein Funke am Erz selbst. */
+    private void spawnSonarBeam(ServerLevel world, Vec3 startPos, BlockPos endPos, BlockState targetState, @Nullable EquipmentSlot slot) {
         // MC 26.2: siehe pathLoss() — BlockPos.getCenter() -> Vec3.atCenterOf(Vec3i)
         Vec3 targetCenter = Vec3.atCenterOf(endPos);
         Vec3 direction = targetCenter.subtract(startPos).normalize();
         double distance = startPos.distanceTo(targetCenter);
 
-        double stepSize = 0.4;
-        for (double d = 0.5; d < distance; d += stepSize) {
-            Vec3 p = startPos.add(direction.scale(d));
+        int count = beamParticles(distance, slot);
+        double stepSize = distance / (count + 1);
+        for (int i = 1; i <= count; i++) {
+            Vec3 p = startPos.add(direction.scale(stepSize * i));
             world.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, targetState),
                     p.x, p.y, p.z, 1, 0, 0, 0, 0);
         }
-        world.sendParticles(ParticleTypes.END_ROD, targetCenter.x, targetCenter.y, targetCenter.z, 3, 0.1, 0.1, 0.1, 0.02);
-        world.sendParticles(ParticleTypes.WAX_ON, targetCenter.x, targetCenter.y, targetCenter.z, 5, 0.3, 0.3, 0.3, 0.05);
-
+        if (slot != EquipmentSlot.OFFHAND) {
+            world.sendParticles(ParticleTypes.END_ROD, targetCenter.x, targetCenter.y, targetCenter.z, 1, 0.1, 0.1, 0.1, 0.01);
+        }
     }
 
     private void cycleMode(ItemStack stack, Player player, InteractionHand hand) {
@@ -605,8 +702,7 @@ public class OreDetectorItem extends Item {
         DetectMode next = modes[(current.ordinal() + 1) % modes.length];
         setMode(stack, next);
 
-        player.sendOverlayMessage(Component.translatable("message.simplebuilding.ore_detector.mode", next.displayName())
-                .withStyle(ChatFormatting.GRAY));
+        // Keine Einblendung (Besitzer 2026-09-28): Rueckmeldung sind Klang, Nadel und Tooltip.
 
         // Server side only, so Player#playSound - which leaves out the player it is called on -
         // would reach everyone but the one who switched the mode.
