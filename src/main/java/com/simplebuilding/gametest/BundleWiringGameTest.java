@@ -27,6 +27,11 @@ public final class BundleWiringGameTest {
     }
 
     @GameTest
+    public void bundlesCloseLikeVanillaWhenPickedUpOrLeft(GameTestHelper helper) {
+        BundleWiringTests.bundlesCloseLikeVanillaWhenPickedUpOrLeft(helper);
+    }
+
+    @GameTest
     public void bundlePacketsOnlyTouchTheSlotsTheyOwn(GameTestHelper helper) {
         BundleWiringTests.bundlePacketsOnlyTouchTheSlotsTheyOwn(helper);
     }

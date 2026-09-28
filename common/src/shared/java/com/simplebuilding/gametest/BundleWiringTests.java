@@ -1027,6 +1027,104 @@ public final class BundleWiringTests {
     }
 
     /**
+     * The mod's bundles close the way vanilla's do. "Open" is nothing but a selected entry in
+     * {@code BundleContents} (the item model switches on {@code bundle/has_selected_item}), and
+     * that index is in neither {@code BundleContents.equals} nor its stream codec: no container
+     * sync ever carries it back to the client. Every place that opens or closes a bundle therefore
+     * has to act on its own; the owner saw bundles that stayed open after the mouse had left them
+     * and even after the inventory had been closed and reopened (2026-09-28).
+     *
+     * <ol>
+     *   <li><b>The selection packet opens and closes.</b> A wheel notch sends an index, leaving the
+     *       slot or closing the screen sends -1 ({@code ReinforcedBundleTooltipSubmenuHandler},
+     *       which now also writes the client stack - that half is client-only).</li>
+     *   <li><b>Picking an open bundle up closes it</b>, like vanilla's
+     *       {@code BundleItem.overrideOtherStackedOnMe}: a left click with an empty cursor falls
+     *       through to the ordinary pickup and clears the selection first. Before the fix the
+     *       bundle rode the cursor open and landed open in the next slot.</li>
+     *   <li><b>A quiver swapped for a non-arrow closes too</b> - its arrow filter returns before the
+     *       bundle code, so it needs the same reset of its own.</li>
+     *   <li><b>The wheel steps like vanilla's {@code ScrollWheelHandler}</b>: from "nothing
+     *       selected" a notch down selects the first entry and a notch up the last one, and both
+     *       ends wrap. The old handler turned "nothing" into 0 before adding the step, so the first
+     *       notch down skipped the first entry.</li>
+     * </ol>
+     *
+     * <p>What breaks this test: dropping {@code clearBundleSelection} from the fall-through of
+     * {@code ReinforcedBundleItem.overrideOtherStackedOnMe} or from the quiver's arrow filter, the
+     * payload handler losing -1, or {@code nextScrollSelection} clamping or skipping.
+     */
+    public static void bundlesCloseLikeVanillaWhenPickedUpOrLeft(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        player.getInventory().clearContent();
+
+        ItemStack bundle = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        ReinforcedBundleItem bundleItem = (ReinforcedBundleItem) bundle.getItem();
+        bundleItem.tryInsertStackFromWorld(bundle, new ItemStack(Items.STONE, 8), player);
+        bundleItem.tryInsertStackFromWorld(bundle, new ItemStack(Items.DIRT, 8), player);
+        bundleItem.tryInsertStackFromWorld(bundle, new ItemStack(Items.OAK_PLANKS, 8), player);
+        player.getInventory().setItem(9, bundle);
+        int slot = menuSlotOf(helper, player, bundle);
+
+        // --- 1. the packet opens and closes ---
+        ModMessageHandlers.handleReinforcedBundleSelection(new ReinforcedBundleSelectionPayload(slot, 2), player);
+        helper.assertValueEqual(BundleItem.getSelectedItemIndex(player.containerMenu.getSlot(slot).getItem()), 2,
+                "a wheel notch did not open the bundle on entry 2");
+        ModMessageHandlers.handleReinforcedBundleSelection(
+                new ReinforcedBundleSelectionPayload(slot, BundleContents.NO_SELECTED_ITEM_INDEX), player);
+        helper.assertValueEqual(BundleItem.getSelectedItemIndex(player.containerMenu.getSlot(slot).getItem()),
+                BundleContents.NO_SELECTED_ITEM_INDEX, "leaving the slot did not close the bundle");
+
+        // --- 2. picking the open bundle up closes it ---
+        ModMessageHandlers.handleReinforcedBundleSelection(new ReinforcedBundleSelectionPayload(slot, 1), player);
+        helper.assertValueEqual(BundleItem.getSelectedItemIndex(player.containerMenu.getSlot(slot).getItem()), 1,
+                "the bundle could not be opened again, so the pickup below would prove nothing");
+        player.containerMenu.clicked(slot, 0, net.minecraft.world.inventory.ContainerInput.PICKUP, player);
+        ItemStack carried = player.containerMenu.getCarried();
+        helper.assertTrue(carried.is(ModItems.REINFORCED_BUNDLE),
+                "a left click with an empty cursor did not pick the bundle up but left " + carried + " on the cursor");
+        helper.assertValueEqual(BundleItem.getSelectedItemIndex(carried), BundleContents.NO_SELECTED_ITEM_INDEX,
+                "the bundle is still open on the cursor after being picked up");
+        helper.assertValueEqual(carried.get(DataComponents.BUNDLE_CONTENTS).size(), 3,
+                "picking the bundle up changed its contents");
+        player.containerMenu.setCarried(ItemStack.EMPTY);
+
+        // --- 3. a quiver swapped for a non-arrow closes as well ---
+        ItemStack quiver = new ItemStack(ModItems.QUIVER);
+        ReinforcedBundleItem quiverItem = (ReinforcedBundleItem) quiver.getItem();
+        quiverItem.tryInsertStackFromWorld(quiver, new ItemStack(Items.ARROW, 8), player);
+        quiverItem.tryInsertStackFromWorld(quiver, new ItemStack(Items.SPECTRAL_ARROW, 8), player);
+        player.getInventory().setItem(10, quiver);
+        int quiverSlot = menuSlotOf(helper, player, quiver);
+        ModMessageHandlers.handleReinforcedBundleSelection(new ReinforcedBundleSelectionPayload(quiverSlot, 1), player);
+        helper.assertValueEqual(BundleItem.getSelectedItemIndex(player.containerMenu.getSlot(quiverSlot).getItem()), 1,
+                "the quiver could not be opened, so the swap below would prove nothing");
+        player.containerMenu.setCarried(new ItemStack(Items.DIRT, 4));
+        player.containerMenu.clicked(quiverSlot, 0, net.minecraft.world.inventory.ContainerInput.PICKUP, player);
+        ItemStack swapped = player.containerMenu.getCarried();
+        helper.assertTrue(swapped.is(ModItems.QUIVER),
+                "clicking the quiver with dirt did not swap them; the cursor holds " + swapped);
+        helper.assertValueEqual(BundleItem.getSelectedItemIndex(swapped), BundleContents.NO_SELECTED_ITEM_INDEX,
+                "the quiver is still open on the cursor after being swapped for dirt");
+        player.containerMenu.setCarried(ItemStack.EMPTY);
+
+        // --- 4. the wheel steps exactly like vanilla's ScrollWheelHandler ---
+        int none = BundleContents.NO_SELECTED_ITEM_INDEX;
+        String steps = ReinforcedBundleItem.nextScrollSelection(-1, none, 3) + ","
+                + ReinforcedBundleItem.nextScrollSelection(-1, 0, 3) + ","
+                + ReinforcedBundleItem.nextScrollSelection(-1, 2, 3) + ","
+                + ReinforcedBundleItem.nextScrollSelection(1, none, 3) + ","
+                + ReinforcedBundleItem.nextScrollSelection(1, 0, 3) + ","
+                + ReinforcedBundleItem.nextScrollSelection(1, 2, 3) + ","
+                + ReinforcedBundleItem.nextScrollSelection(-1, none, 0);
+        helper.assertTrue(steps.equals("0,1,0,2,2,1,-1"),
+                "wheel steps (down from none, down from 0, down from last, up from none, up from 0, up from last, "
+                        + "empty bundle): expected 0,1,0,2,2,1,-1 as in vanilla but were " + steps);
+
+        helper.succeed();
+    }
+
+    /**
      * A connected mock player inside the room, handed back to the server when the test ends - a
      * leaked mock player keeps the player list non-empty and stalls the gametest server on
      * shutdown.
