@@ -100,7 +100,7 @@ Verlauf im Detail: git log.
 - [x] W3 Werkzeuge/Texte/Tasten: #25, #26, #27, #30, #37, #38, #39, #46
 - [x] W4 Tweaks-Rest + Hygiene: #35, #51, N10-N12, #43-#45, #49, #52
 - [x] wiki/manual.json: 6 doppelte Feature-Eintraege (welcome x4, building_wand, blueprint, enchant_storage_player, enderite_void_protection, configuration) mit abweichendem Text zusammenfuehren (Altlast aus JSON-Merges)
-- [ ] Danach: Server-Gate, Push; Client-Gate wenn Besitzer-Spiel zu
+- [x] Server-Gate, Push
 
 ## Welle 20 (laeuft)
 - [x] Texturen (freigegeben, gepusht): Maschinen (Kolben, Oefen, Raeucherofen, Schmelzofen, Trichter) vanilla-naeher; Enderit-Block + andere Mod-Bloecke neu; Netherit-Griff fuer Netherit-Hammer/-Meissel/-Baustab; Enderquarz lesbarer; Laser-Textur
@@ -131,14 +131,13 @@ Verlauf im Detail: git log.
 - [x] Erfolge/Advancements mit Hinweisen fuer den naechsten Schritt (ganzer Baum) (laeuft)
 - [x] Schmiedevorlagen platzierbar (flach, 3D, wasserfest), Leucht-Transformation am Boden in 3 Schlaegen, Hinweis-Partikel bei Glowstone/Leuchttinte (laeuft)
 - [x] Anfaengerbuch beim Erstbeitritt + Themenbuecher an der Werkbank (laeuft)
-- [ ] Trank-Pad ins Easter Egg aufnehmen (Endstufe doppelt so lange Wirkdauer)
+- [ ] Trank-Pad ins Easter Egg aufnehmen (laeuft) (Endstufe doppelt so lange Wirkdauer)
 - [x] 26.3-Absturz Hammer+Ofen: kein Code-Fehler, Build waehrend laufendem Client (Regel gemerkt)
 
 ## Wartet auf den Besitzer
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
 
 ## Spaeter
-- [ ] Enderit-Kolben: 3 Bloecke Abbau macht Tunnelbohrer zu leicht - spaeter Balance (z. B. Verschleiss/Schadenszustand)
 - [ ] 26.4: Forge einschalten sobald Build da (-Pmc264_forge_version), Cloth-Config-Screen/Dev-Mods sobald 26.4-Builds da, NeoForge-26.4-Linie
 - [ ] Baustab V1: normale Flaechen ueber den Blaupausen-Planer (Schutzpruefung pro Position) - ca. 40 Tests pinnen das heutige Verhalten
 - [ ] Kerne als Baustab-Module + eigene Funktionen (Vorschlaege in docs/BAUWERKZEUGE-INTERAKTIONEN.md) - Besitzer: erst spaeter
