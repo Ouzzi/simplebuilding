@@ -124,8 +124,8 @@ Verlauf im Detail: git log.
 - [x] Rotator wie Linse (nie kaputt, Amboss + 16 Enderperlen = voll), zweiter Ender-Sound + Teleport-Partikel; Magnet-Rezept Lapis rechts Mitte; Erzdetektor-Rezept 6 Echoscherben (4 Ecken dazu); Erzdetektor als Kompass (lila Nadel zum naechsten Erz, heller je naeher, viel weniger Partikel, Nebenhand leiser/schwaecher/langsamer) (laeuft)
 - [x] Rucksack: Shift-Tooltip mit Inhalts-Vorschau wie Buendel (laeuft)
 - [x] Laufwerk C voll gewesen: 60 gemergte Agenten-Arbeitskopien entfernt
-- [ ] Velocity-Gauge-HUD als Tacho (Nadel unten links -> unten rechts), Titel "Velocity"; Namen/Texte aller Werkzeuge konsistent; Linse: normal nur "Laser", Entfernung nur verzaubert + letzte Messung gespeichert (laeuft)
-- [ ] Buendel schliesst wie Vanilla; Enderit-Meissel zusaetzliche Bloecke (laeuft)
+- [x] Velocity-Gauge-HUD als Tacho (Nadel unten links -> unten rechts), Titel "Velocity"; Namen/Texte aller Werkzeuge konsistent; Linse: normal nur "Laser", Entfernung nur verzaubert + letzte Messung gespeichert (laeuft)
+- [x] Buendel schliesst wie Vanilla; Enderit-Meissel zusaetzliche Bloecke (laeuft)
 - [x] Texturen: Enderit-Vorlage (Innenteil dunkler, Glimmer), Kerne, Lederbogen, Diamant-Kiesel runder (laeuft)
 - [x] Rotator/Magnet/Erzdetektor ohne HUD-Overlay (im Rotator-Agenten)
 - [ ] Erfolge/Advancements mit Hinweisen fuer den naechsten Schritt (ganzer Baum) (laeuft)
