@@ -275,11 +275,11 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("building_core_game_test_building_cores_are_not_stackable", BuildingCoreTests::buildingCoresAreNotStackable)
                     .build(),
-            GameTestSpec.named("building_core_game_test_every_recipe_that_takes_acore_crafts_with_one_core_per_slot", BuildingCoreTests::everyCoreRecipeCraftsWithOneCorePerSlot)
+            GameTestSpec.named("building_core_game_test_every_core_recipe_crafts_with_one_core_per_slot", BuildingCoreTests::everyCoreRecipeCraftsWithOneCorePerSlot)
                     .build(),
             GameTestSpec.named("building_core_game_test_core_animation_roll_follows_the_seventy_twenty_ten_weights", BuildingCoreTests::coreAnimationRollFollowsTheSeventyTwentyTenWeights)
                     .build(),
-            GameTestSpec.named("building_core_game_test_right_clicking_acore_plays_an_animation_and_starts_the_cooldown", BuildingCoreTests::rightClickingTheCorePlaysAnAnimationAndStartsTheCooldown)
+            GameTestSpec.named("building_core_game_test_right_clicking_the_core_plays_an_animation_and_starts_the_cooldown", BuildingCoreTests::rightClickingTheCorePlaysAnAnimationAndStartsTheCooldown)
                     .build(),
             GameTestSpec.named("wand_mode_game_test_roof_mode_works_with_the_test_centre_kit_enderite_wand", WandModeTests::roofModeWorksWithTheTestCentreKitEnderiteWand)
                     .rotation(Rotation.NONE)
