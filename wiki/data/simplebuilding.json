@@ -15727,7 +15727,8 @@
           "details": [
             "It remembers which chunks it forced itself and releases exactly those when it is broken or switched off (tweaks.pads.enableChunkLoaders) - chunks forced by /forceload or anything else stay forced. It keeps working after a server restart (in Simple Tweaks it stopped). Replacing it with /setblock or /fill releases its chunks as well; where two loaders overlap, breaking one leaves the shared chunks to the other - only those inside the other loader's own area (a Netherite loader takes no diagonal chunk).",
             "Recipes (smithing): I = any template + Copper Pressure Plate + Diamond Pressure Plate; II = netherite upgrade + Chunk Loader I + Netherite Pressure Plate; III = enderite upgrade template + Chunk Loader II + Enderite Pressure Plate. Existing Chunk Loaders keep their id and function: the plain one is tier I, the Enderite one tier III.",
-            "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
+            "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally.",
+            "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
@@ -15735,7 +15736,8 @@
           "details": [
             "Er merkt sich, welche Chunks er selbst erzwungen hat, und gibt genau diese frei, wenn er abgebaut oder abgeschaltet wird (tweaks.pads.enableChunkLoaders) - von /forceload oder anderem erzwungene Chunks bleiben erzwungen. Er arbeitet auch nach einem Neustart weiter (in Simple Tweaks nicht). Auch ein Ersetzen per /setblock oder /fill gibt seine Chunks frei; überlappen sich zwei Lader, übernimmt beim Abbau des einen der andere die gemeinsamen Chunks - nur die in seinem eigenen Bereich (ein Netherit-Lader übernimmt keinen Diagonal-Chunk).",
             "Rezepte (Schmiede): I = beliebige Vorlage + Kupfer-Druckplatte + Diamant-Druckplatte; II = Netherit-Aufwertung + Chunk-Lader I + Netherit-Druckplatte; III = Enderit-Schmiedevorlage + Chunk-Lader II + Enderit-Druckplatte. Bestehende Chunk-Lader behalten ID und Wirkung: der einfache ist Stufe I, der Enderit-Chunk-Lader Stufe III.",
-            "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
+            "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt.",
+            "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
           ]
         },
         "sources": [
@@ -15957,7 +15959,8 @@
             "Area per tier (width x width x height): I 1x1x15 (only the pad column), II 5x5x31, III 16x16x63, IV (Enderite) 32x32x95, V (Fine) 128x128x127, centred on the pad. The area reaches one block below the pad. Existing pads keep their id and tier; only the areas changed.",
             "Recipes (smithing table): I = any trim template or netherite upgrade + elytra, with the addition slot left empty; II = template + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade template + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
-            "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing."
+            "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing.",
+            "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
@@ -15969,7 +15972,8 @@
             "Bereich je Stufe (Breite x Breite x Höhe): I 1x1x15 (nur die Säule über dem Pad), II 5x5x31, III 16x16x63, IV (Enderit) 32x32x95, V (Fein) 128x128x127, mittig um das Pad. Der Bereich reicht einen Block unter das Pad. Bestehende Pads behalten ID und Stufe; nur die Bereiche haben sich geändert.",
             "Rezepte (Schmiedetisch): I = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Elytra, der Zutat-Slot bleibt leer; II = Vorlage + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Schmiedevorlage + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
-            "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts."
+            "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts.",
+            "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
           ]
         },
         "sources": [
@@ -16579,7 +16583,8 @@
           "details": [
             "It remembers which chunks it forced itself and releases exactly those when it is broken or switched off (tweaks.pads.enableChunkLoaders) - chunks forced by /forceload or anything else stay forced. It keeps working after a server restart (in Simple Tweaks it stopped). Replacing it with /setblock or /fill releases its chunks as well; where two loaders overlap, breaking one leaves the shared chunks to the other - only those inside the other loader's own area (a Netherite loader takes no diagonal chunk).",
             "Recipes (smithing): I = any template + Copper Pressure Plate + Diamond Pressure Plate; II = netherite upgrade + Chunk Loader I + Netherite Pressure Plate; III = enderite upgrade template + Chunk Loader II + Enderite Pressure Plate. Existing Chunk Loaders keep their id and function: the plain one is tier I, the Enderite one tier III.",
-            "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
+            "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally.",
+            "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
@@ -16587,7 +16592,8 @@
           "details": [
             "Er merkt sich, welche Chunks er selbst erzwungen hat, und gibt genau diese frei, wenn er abgebaut oder abgeschaltet wird (tweaks.pads.enableChunkLoaders) - von /forceload oder anderem erzwungene Chunks bleiben erzwungen. Er arbeitet auch nach einem Neustart weiter (in Simple Tweaks nicht). Auch ein Ersetzen per /setblock oder /fill gibt seine Chunks frei; überlappen sich zwei Lader, übernimmt beim Abbau des einen der andere die gemeinsamen Chunks - nur die in seinem eigenen Bereich (ein Netherit-Lader übernimmt keinen Diagonal-Chunk).",
             "Rezepte (Schmiede): I = beliebige Vorlage + Kupfer-Druckplatte + Diamant-Druckplatte; II = Netherit-Aufwertung + Chunk-Lader I + Netherit-Druckplatte; III = Enderit-Schmiedevorlage + Chunk-Lader II + Enderit-Druckplatte. Bestehende Chunk-Lader behalten ID und Wirkung: der einfache ist Stufe I, der Enderit-Chunk-Lader Stufe III.",
-            "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
+            "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt.",
+            "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
           ]
         },
         "sources": [
@@ -16634,7 +16640,8 @@
             "Area per tier (width x width x height): I 1x1x15 (only the pad column), II 5x5x31, III 16x16x63, IV (Enderite) 32x32x95, V (Fine) 128x128x127, centred on the pad. The area reaches one block below the pad. Existing pads keep their id and tier; only the areas changed.",
             "Recipes (smithing table): I = any trim template or netherite upgrade + elytra, with the addition slot left empty; II = template + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade template + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
-            "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing."
+            "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing.",
+            "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
@@ -16646,7 +16653,8 @@
             "Bereich je Stufe (Breite x Breite x Höhe): I 1x1x15 (nur die Säule über dem Pad), II 5x5x31, III 16x16x63, IV (Enderit) 32x32x95, V (Fein) 128x128x127, mittig um das Pad. Der Bereich reicht einen Block unter das Pad. Bestehende Pads behalten ID und Stufe; nur die Bereiche haben sich geändert.",
             "Rezepte (Schmiedetisch): I = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Elytra, der Zutat-Slot bleibt leer; II = Vorlage + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Schmiedevorlage + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
-            "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts."
+            "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts.",
+            "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
           ]
         },
         "sources": [
@@ -16690,7 +16698,8 @@
             "Breaking the pad, unloading it or switching flypads off (tweaks.pads.enableFlypads) takes flight back from everyone it had granted it to (in Simple Tweaks they kept it forever) - but not while another flypad still covers them, and never flight that did not come from a flypad (creative, other mods).",
             "Area per tier (width x depth x height, starting at the bottom of the pad, centred on it): I 4x4x6, II 8x8x12, III 16x16x24.",
             "Recipes (smithing, enderite upgrade template each): I = Enderite Pressure Plate + Enderite Core; II = Flypad I + Enderite Pressure Plate; III = two Reinforced Flypads II (one as base, one as addition). The old Netherite Flypad (old III) and Enderite Flypad (old IV) still load from old worlds: they turn into Flypad II and Stellar Flypad III on their first tick (owner kept) and into the new item in your inventory; old Flypad I, II and V keep their id as I, II and III.",
-            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it."
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
+            "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
@@ -16701,7 +16710,8 @@
             "Abbauen, Entladen oder Abschalten (tweaks.pads.enableFlypads) nimmt allen, denen das Pad Flug gegeben hat, den Flug wieder (in Simple Tweaks behielten sie ihn für immer) - aber nicht, solange ein anderes Flugpad sie noch abdeckt, und nie einen Flug, der nicht von einem Flugpad stammt (Kreativ, andere Mods).",
             "Bereich je Stufe (Breite x Tiefe x Höhe, ab der Unterkante des Pads, mittig darum): I 4x4x6, II 8x8x12, III 16x16x24.",
             "Rezepte (Schmiede, jeweils Enderit-Schmiedevorlage): I = Enderit-Druckplatte + Enderitkern; II = Flugpad I + Enderit-Druckplatte; III = zwei Verstärkte Flugpads II (eines als Basis, eines als Zutat). Das alte Netherit-Flugpad (alt III) und Enderit-Flugpad (alt IV) laden weiter aus alten Welten: sie werden beim ersten Tick zu Flugpad II bzw. Stellarem Flugpad III (Besitzer bleibt) und im Inventar zum neuen Item; die alten Flugpads I, II und V behalten ihre ID als I, II und III.",
-            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht."
+            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
+            "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
           ]
         },
         "sources": [
@@ -16927,7 +16937,8 @@
             "Recipes (smithing): I = any template + heavy weighted pressure plate + Diamond Pressure Plate; II = netherite upgrade + Launchpad I + Netherite Pressure Plate; III = enderite upgrade template + Launchpad II + Enderite Pressure Plate.",
             "Launchpads from older worlds keep their id (the plain one is tier I, the Enderite one tier III); one holding more charges than its tier takes now (up to 32 or 16) keeps 16 or 4 on its first tick and drops the rest as wind charges.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
-            "Can be switched off with tweaks.pads.enableLaunchpads."
+            "Can be switched off with tweaks.pads.enableLaunchpads.",
+            "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
@@ -16939,7 +16950,8 @@
             "Rezepte (Schmiede): I = beliebige Vorlage + schwere Wägeplatte + Diamant-Druckplatte; II = Netherit-Aufwertung + Startrampe I + Netherit-Druckplatte; III = Enderit-Schmiedevorlage + Startrampe II + Enderit-Druckplatte.",
             "Startrampen aus älteren Welten behalten ihre ID (die einfache ist Stufe I, die Enderit-Startrampe Stufe III); trägt eine mehr Ladungen, als ihre Stufe jetzt fasst (bis 32 bzw. 16), behält sie beim ersten Tick 16 bzw. 4 und wirft den Rest als Windkugeln aus.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
-            "Abschaltbar über tweaks.pads.enableLaunchpads."
+            "Abschaltbar über tweaks.pads.enableLaunchpads.",
+            "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
           ]
         },
         "sources": [
@@ -17263,7 +17275,8 @@
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + Netherite Pressure Plate; V = enderite upgrade template + IV + Enderite Pressure Plate.",
             "On their first join players can get Spawn Teleporters named 'Home Teleporter' (firstJoinTeleporterCount) and Elytra Pads (firstJoinElytraPadCount) - once; both default to 0, so nothing is handed out until an operator sets them, and a family switched off under pads is not handed out at all (config screen or /simplebuilding tweaks spawn teleporterCount|elytraPadCount). An old spawnTeleporterCount other than its old default 1 is taken over for both. The player tag is the one Simple Tweaks used, so nobody gets them twice after switching.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
-            "Can be switched off with tweaks.pads.enableSpawnTeleporters."
+            "Can be switched off with tweaks.pads.enableSpawnTeleporters.",
+            "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
@@ -17276,7 +17289,8 @@
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netherit-Druckplatte; V = Enderit-Schmiedevorlage + IV + Enderit-Druckplatte.",
             "Beim ersten Betreten koennen Spieler Spawn-Teleporter mit dem Namen 'Heim-Teleporter' (firstJoinTeleporterCount) und Elytra-Pads (firstJoinElytraPadCount) bekommen - einmal; beide stehen standardmaessig auf 0, es gibt also nichts, bis ein Operator sie einstellt, und eine unter pads abgeschaltete Familie wird gar nicht verschenkt (Config-Bildschirm oder /simplebuilding tweaks spawn teleporterCount|elytraPadCount). Ein alter spawnTeleporterCount ungleich dem alten Standard 1 gilt fuer beide. Der Spieler-Tag ist derselbe wie in Simple Tweaks, nach dem Umstieg gibt es sie also nicht doppelt.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
-            "Abschaltbar über tweaks.pads.enableSpawnTeleporters."
+            "Abschaltbar über tweaks.pads.enableSpawnTeleporters.",
+            "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
           ]
         },
         "sources": [
@@ -17371,7 +17385,8 @@
             "Area per tier (width x width x height): I 1x1x15 (only the pad column), II 5x5x31, III 16x16x63, IV (Enderite) 32x32x95, V (Fine) 128x128x127, centred on the pad. The area reaches one block below the pad. Existing pads keep their id and tier; only the areas changed.",
             "Recipes (smithing table): I = any trim template or netherite upgrade + elytra, with the addition slot left empty; II = template + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade template + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
-            "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing."
+            "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing.",
+            "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
@@ -17383,7 +17398,8 @@
             "Bereich je Stufe (Breite x Breite x Höhe): I 1x1x15 (nur die Säule über dem Pad), II 5x5x31, III 16x16x63, IV (Enderit) 32x32x95, V (Fein) 128x128x127, mittig um das Pad. Der Bereich reicht einen Block unter das Pad. Bestehende Pads behalten ID und Stufe; nur die Bereiche haben sich geändert.",
             "Rezepte (Schmiedetisch): I = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Elytra, der Zutat-Slot bleibt leer; II = Vorlage + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Schmiedevorlage + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
-            "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts."
+            "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts.",
+            "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
           ]
         },
         "sources": [
@@ -17431,7 +17447,8 @@
             "Breaking the pad, unloading it or switching flypads off (tweaks.pads.enableFlypads) takes flight back from everyone it had granted it to (in Simple Tweaks they kept it forever) - but not while another flypad still covers them, and never flight that did not come from a flypad (creative, other mods).",
             "Area per tier (width x depth x height, starting at the bottom of the pad, centred on it): I 4x4x6, II 8x8x12, III 16x16x24.",
             "Recipes (smithing, enderite upgrade template each): I = Enderite Pressure Plate + Enderite Core; II = Flypad I + Enderite Pressure Plate; III = two Reinforced Flypads II (one as base, one as addition). The old Netherite Flypad (old III) and Enderite Flypad (old IV) still load from old worlds: they turn into Flypad II and Stellar Flypad III on their first tick (owner kept) and into the new item in your inventory; old Flypad I, II and V keep their id as I, II and III.",
-            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it."
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
+            "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
@@ -17442,7 +17459,8 @@
             "Abbauen, Entladen oder Abschalten (tweaks.pads.enableFlypads) nimmt allen, denen das Pad Flug gegeben hat, den Flug wieder (in Simple Tweaks behielten sie ihn für immer) - aber nicht, solange ein anderes Flugpad sie noch abdeckt, und nie einen Flug, der nicht von einem Flugpad stammt (Kreativ, andere Mods).",
             "Bereich je Stufe (Breite x Tiefe x Höhe, ab der Unterkante des Pads, mittig darum): I 4x4x6, II 8x8x12, III 16x16x24.",
             "Rezepte (Schmiede, jeweils Enderit-Schmiedevorlage): I = Enderit-Druckplatte + Enderitkern; II = Flugpad I + Enderit-Druckplatte; III = zwei Verstärkte Flugpads II (eines als Basis, eines als Zutat). Das alte Netherit-Flugpad (alt III) und Enderit-Flugpad (alt IV) laden weiter aus alten Welten: sie werden beim ersten Tick zu Flugpad II bzw. Stellarem Flugpad III (Besitzer bleibt) und im Inventar zum neuen Item; die alten Flugpads I, II und V behalten ihre ID als I, II und III.",
-            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht."
+            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
+            "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
           ]
         },
         "sources": [
@@ -17482,9 +17500,9 @@
           "summary": "Potion Pads (new, 2026-09-28) store the effects of a thrown potion and give them to every player who steps onto them. Three tiers: Potion Pad I, Reinforced Potion Pad II, Infused Potion Pad III.",
           "details": [
             "Throw a splash or lingering potion onto the pad: when it shatters on the pad, the pad stores its effects and replaces whatever it held before; a water splash potion (or any potion without effects) wipes it. Right-click without an item shows the stored potion.",
-            "Every player stepping onto the pad gets the stored effects at the potion's own level for 30 s (I), 60 s (II) or 120 s (III). While standing on it the effects are refreshed back to that duration every second - never longer, so they do not stack; step off and on again to get the full duration back.",
-            "Instant effects (Healing, Harming) apply once when a player steps on, at most every 2 seconds per player; standing on the pad does not repeat them. Only players are affected, mobs are not.",
-            "Unlimited uses; tinted particles in the potion's colour rise from a filled pad. The stored potion is lost when the pad is broken.",
+            "Stand on the pad for 3 seconds to take the stored effects at the potion's own level: after 1 s you have 25 %, after 2 s 50 % and after 3 s the full 30 s (I), 60 s (II) or 120 s (III); every step shows particles in the potion's colour and a soft chime. Step off early and you keep what you got so far; stepping on again starts from zero. A longer effect you already have is never shortened.",
+            "Instant effects (Healing, Harming) apply once, at the 3 second mark. The full application puts the whole pad on cooldown for twice the effect duration - 60 s (I), 120 s (II), 240 s (III), 480 s for the final easter stage; a partial application starts no cooldown. While cooling down the pad gives nothing to anyone, its texture drains and pulses, and right-clicking it shows the time left. Only players are affected, mobs are not.",
+            "Unlimited uses; tinted particles in the potion's colour rise from a filled, ready pad. The cooldown only counts down while the pad is placed: broken during its cooldown, the pad drops as a cooling item (animated, tooltip shows the time left) that keeps the remaining time, the stored potion and its easter stage, and resumes when placed again. Stacks to 1 like every pad.",
             "Recipes: I = Netherite Pressure Plate + Blaze Head (crafting table, shapeless); II = enderite upgrade template + Potion Pad I + Enderite Pressure Plate (smithing, upgrades pay with the pressure plate of their material); III = enderite upgrade template + Potion Pad II + Enderite Core (smithing).",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it. Does not burn."
           ]
@@ -17493,9 +17511,9 @@
           "summary": "Trank-Pads (neu, 2026-09-28) speichern die Wirkungen eines geworfenen Tranks und geben sie jedem Spieler, der sie betritt. Drei Stufen: Trank-Pad I, Verstärktes Trank-Pad II, Durchtränktes Trank-Pad III.",
           "details": [
             "Wirf einen Wurf- oder Verweiltrank auf das Pad: zerschellt er darauf, speichert das Pad seine Wirkungen und ersetzt, was es vorher hatte; ein Wasser-Wurftrank (oder jeder Trank ohne Wirkung) wischt es leer. Rechtsklick ohne Gegenstand zeigt den gespeicherten Trank.",
-            "Jeder Spieler, der das Pad betritt, bekommt die Wirkungen in der Stufe des Tranks für 30 s (I), 60 s (II) oder 120 s (III). Solange er darauf steht, werden sie jede Sekunde wieder auf diese Dauer aufgefrischt - nie länger, sie stapeln sich also nicht; ab- und wieder aufsteigen gibt die volle Dauer zurück.",
-            "Sofortwirkungen (Heilung, Schaden) wirken einmal beim Betreten, höchstens alle 2 Sekunden je Spieler; Stehenbleiben wiederholt sie nicht. Nur Spieler, keine Mobs.",
-            "Unbegrenzt nutzbar; über einem gefüllten Pad steigen Partikel in der Trankfarbe auf. Beim Abbau geht der gespeicherte Trank verloren.",
+            "3 Sekunden auf dem Pad stehen gibt die gespeicherten Wirkungen in der Stufe des Tranks: nach 1 s hast du 25 %, nach 2 s 50 % und nach 3 s die vollen 30 s (I), 60 s (II) oder 120 s (III); jeder Schritt zeigt Partikel in der Trankfarbe und einen leisen Klang. Wer früher absteigt, behält das bisher Erhaltene; wieder aufsteigen beginnt bei null. Eine längere Wirkung, die du schon hast, wird nie gekürzt.",
+            "Sofortwirkungen (Heilung, Schaden) wirken einmal, bei 3 Sekunden. Die volle Anwendung setzt das ganze Pad für die doppelte Wirkdauer in die Abklingzeit - 60 s (I), 120 s (II), 240 s (III), 480 s für die letzte Easter-Stufe; eine halbe Anwendung startet keine Abklingzeit. Solange es abklingt, gibt das Pad niemandem etwas, seine Textur leert sich pulsierend, und ein Rechtsklick zeigt die Restzeit. Nur Spieler, keine Mobs.",
+            "Unbegrenzt nutzbar; über einem gefüllten, bereiten Pad steigen Partikel in der Trankfarbe auf. Die Abklingzeit läuft nur, solange das Pad gesetzt ist: in der Abklingzeit abgebaut, fällt es als abklingendes Item (animiert, Tooltip mit Restzeit), das Restzeit, gespeicherten Trank und Easter-Stufe behält und gesetzt weiterläuft. Stapelt nicht, wie jedes Pad.",
             "Rezepte: I = Netherit-Druckplatte + Lohenkopf (Werkbank, formlos); II = Enderit-Schmiedevorlage + Trank-Pad I + Enderit-Druckplatte (Schmiede, Aufwertungen zahlen mit der Druckplatte ihres Materials); III = Enderit-Schmiedevorlage + Trank-Pad II + Enderitkern (Schmiede).",
             "Wer es setzt, besitzt es: der Besitzer baut es in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen es nicht. Brennt nicht."
           ]
@@ -17596,7 +17614,8 @@
             "Recipes (smithing): I = any template + heavy weighted pressure plate + Diamond Pressure Plate; II = netherite upgrade + Launchpad I + Netherite Pressure Plate; III = enderite upgrade template + Launchpad II + Enderite Pressure Plate.",
             "Launchpads from older worlds keep their id (the plain one is tier I, the Enderite one tier III); one holding more charges than its tier takes now (up to 32 or 16) keeps 16 or 4 on its first tick and drops the rest as wind charges.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
-            "Can be switched off with tweaks.pads.enableLaunchpads."
+            "Can be switched off with tweaks.pads.enableLaunchpads.",
+            "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
@@ -17608,7 +17627,8 @@
             "Rezepte (Schmiede): I = beliebige Vorlage + schwere Wägeplatte + Diamant-Druckplatte; II = Netherit-Aufwertung + Startrampe I + Netherit-Druckplatte; III = Enderit-Schmiedevorlage + Startrampe II + Enderit-Druckplatte.",
             "Startrampen aus älteren Welten behalten ihre ID (die einfache ist Stufe I, die Enderit-Startrampe Stufe III); trägt eine mehr Ladungen, als ihre Stufe jetzt fasst (bis 32 bzw. 16), behält sie beim ersten Tick 16 bzw. 4 und wirft den Rest als Windkugeln aus.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
-            "Abschaltbar über tweaks.pads.enableLaunchpads."
+            "Abschaltbar über tweaks.pads.enableLaunchpads.",
+            "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
           ]
         },
         "sources": [
@@ -18119,7 +18139,8 @@
           "details": [
             "It remembers which chunks it forced itself and releases exactly those when it is broken or switched off (tweaks.pads.enableChunkLoaders) - chunks forced by /forceload or anything else stay forced. It keeps working after a server restart (in Simple Tweaks it stopped). Replacing it with /setblock or /fill releases its chunks as well; where two loaders overlap, breaking one leaves the shared chunks to the other - only those inside the other loader's own area (a Netherite loader takes no diagonal chunk).",
             "Recipes (smithing): I = any template + Copper Pressure Plate + Diamond Pressure Plate; II = netherite upgrade + Chunk Loader I + Netherite Pressure Plate; III = enderite upgrade template + Chunk Loader II + Enderite Pressure Plate. Existing Chunk Loaders keep their id and function: the plain one is tier I, the Enderite one tier III.",
-            "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
+            "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally.",
+            "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
@@ -18127,7 +18148,8 @@
           "details": [
             "Er merkt sich, welche Chunks er selbst erzwungen hat, und gibt genau diese frei, wenn er abgebaut oder abgeschaltet wird (tweaks.pads.enableChunkLoaders) - von /forceload oder anderem erzwungene Chunks bleiben erzwungen. Er arbeitet auch nach einem Neustart weiter (in Simple Tweaks nicht). Auch ein Ersetzen per /setblock oder /fill gibt seine Chunks frei; überlappen sich zwei Lader, übernimmt beim Abbau des einen der andere die gemeinsamen Chunks - nur die in seinem eigenen Bereich (ein Netherit-Lader übernimmt keinen Diagonal-Chunk).",
             "Rezepte (Schmiede): I = beliebige Vorlage + Kupfer-Druckplatte + Diamant-Druckplatte; II = Netherit-Aufwertung + Chunk-Lader I + Netherit-Druckplatte; III = Enderit-Schmiedevorlage + Chunk-Lader II + Enderit-Druckplatte. Bestehende Chunk-Lader behalten ID und Wirkung: der einfache ist Stufe I, der Enderit-Chunk-Lader Stufe III.",
-            "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
+            "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt.",
+            "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
           ]
         },
         "sources": [
@@ -18174,7 +18196,8 @@
             "Area per tier (width x width x height): I 1x1x15 (only the pad column), II 5x5x31, III 16x16x63, IV (Enderite) 32x32x95, V (Fine) 128x128x127, centred on the pad. The area reaches one block below the pad. Existing pads keep their id and tier; only the areas changed.",
             "Recipes (smithing table): I = any trim template or netherite upgrade + elytra, with the addition slot left empty; II = template + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade template + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
-            "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing."
+            "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing.",
+            "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
@@ -18186,7 +18209,8 @@
             "Bereich je Stufe (Breite x Breite x Höhe): I 1x1x15 (nur die Säule über dem Pad), II 5x5x31, III 16x16x63, IV (Enderit) 32x32x95, V (Fein) 128x128x127, mittig um das Pad. Der Bereich reicht einen Block unter das Pad. Bestehende Pads behalten ID und Stufe; nur die Bereiche haben sich geändert.",
             "Rezepte (Schmiedetisch): I = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Elytra, der Zutat-Slot bleibt leer; II = Vorlage + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Schmiedevorlage + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
-            "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts."
+            "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts.",
+            "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
           ]
         },
         "sources": [
@@ -18230,7 +18254,8 @@
             "Breaking the pad, unloading it or switching flypads off (tweaks.pads.enableFlypads) takes flight back from everyone it had granted it to (in Simple Tweaks they kept it forever) - but not while another flypad still covers them, and never flight that did not come from a flypad (creative, other mods).",
             "Area per tier (width x depth x height, starting at the bottom of the pad, centred on it): I 4x4x6, II 8x8x12, III 16x16x24.",
             "Recipes (smithing, enderite upgrade template each): I = Enderite Pressure Plate + Enderite Core; II = Flypad I + Enderite Pressure Plate; III = two Reinforced Flypads II (one as base, one as addition). The old Netherite Flypad (old III) and Enderite Flypad (old IV) still load from old worlds: they turn into Flypad II and Stellar Flypad III on their first tick (owner kept) and into the new item in your inventory; old Flypad I, II and V keep their id as I, II and III.",
-            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it."
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
+            "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
@@ -18241,7 +18266,8 @@
             "Abbauen, Entladen oder Abschalten (tweaks.pads.enableFlypads) nimmt allen, denen das Pad Flug gegeben hat, den Flug wieder (in Simple Tweaks behielten sie ihn für immer) - aber nicht, solange ein anderes Flugpad sie noch abdeckt, und nie einen Flug, der nicht von einem Flugpad stammt (Kreativ, andere Mods).",
             "Bereich je Stufe (Breite x Tiefe x Höhe, ab der Unterkante des Pads, mittig darum): I 4x4x6, II 8x8x12, III 16x16x24.",
             "Rezepte (Schmiede, jeweils Enderit-Schmiedevorlage): I = Enderit-Druckplatte + Enderitkern; II = Flugpad I + Enderit-Druckplatte; III = zwei Verstärkte Flugpads II (eines als Basis, eines als Zutat). Das alte Netherit-Flugpad (alt III) und Enderit-Flugpad (alt IV) laden weiter aus alten Welten: sie werden beim ersten Tick zu Flugpad II bzw. Stellarem Flugpad III (Besitzer bleibt) und im Inventar zum neuen Item; die alten Flugpads I, II und V behalten ihre ID als I, II und III.",
-            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht."
+            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
+            "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
           ]
         },
         "sources": [
@@ -18506,7 +18532,8 @@
             "Recipes (smithing): I = any template + heavy weighted pressure plate + Diamond Pressure Plate; II = netherite upgrade + Launchpad I + Netherite Pressure Plate; III = enderite upgrade template + Launchpad II + Enderite Pressure Plate.",
             "Launchpads from older worlds keep their id (the plain one is tier I, the Enderite one tier III); one holding more charges than its tier takes now (up to 32 or 16) keeps 16 or 4 on its first tick and drops the rest as wind charges.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
-            "Can be switched off with tweaks.pads.enableLaunchpads."
+            "Can be switched off with tweaks.pads.enableLaunchpads.",
+            "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
@@ -18518,7 +18545,8 @@
             "Rezepte (Schmiede): I = beliebige Vorlage + schwere Wägeplatte + Diamant-Druckplatte; II = Netherit-Aufwertung + Startrampe I + Netherit-Druckplatte; III = Enderit-Schmiedevorlage + Startrampe II + Enderit-Druckplatte.",
             "Startrampen aus älteren Welten behalten ihre ID (die einfache ist Stufe I, die Enderit-Startrampe Stufe III); trägt eine mehr Ladungen, als ihre Stufe jetzt fasst (bis 32 bzw. 16), behält sie beim ersten Tick 16 bzw. 4 und wirft den Rest als Windkugeln aus.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
-            "Abschaltbar über tweaks.pads.enableLaunchpads."
+            "Abschaltbar über tweaks.pads.enableLaunchpads.",
+            "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
           ]
         },
         "sources": [
@@ -19611,9 +19639,9 @@
           "summary": "Potion Pads (new, 2026-09-28) store the effects of a thrown potion and give them to every player who steps onto them. Three tiers: Potion Pad I, Reinforced Potion Pad II, Infused Potion Pad III.",
           "details": [
             "Throw a splash or lingering potion onto the pad: when it shatters on the pad, the pad stores its effects and replaces whatever it held before; a water splash potion (or any potion without effects) wipes it. Right-click without an item shows the stored potion.",
-            "Every player stepping onto the pad gets the stored effects at the potion's own level for 30 s (I), 60 s (II) or 120 s (III). While standing on it the effects are refreshed back to that duration every second - never longer, so they do not stack; step off and on again to get the full duration back.",
-            "Instant effects (Healing, Harming) apply once when a player steps on, at most every 2 seconds per player; standing on the pad does not repeat them. Only players are affected, mobs are not.",
-            "Unlimited uses; tinted particles in the potion's colour rise from a filled pad. The stored potion is lost when the pad is broken.",
+            "Stand on the pad for 3 seconds to take the stored effects at the potion's own level: after 1 s you have 25 %, after 2 s 50 % and after 3 s the full 30 s (I), 60 s (II) or 120 s (III); every step shows particles in the potion's colour and a soft chime. Step off early and you keep what you got so far; stepping on again starts from zero. A longer effect you already have is never shortened.",
+            "Instant effects (Healing, Harming) apply once, at the 3 second mark. The full application puts the whole pad on cooldown for twice the effect duration - 60 s (I), 120 s (II), 240 s (III), 480 s for the final easter stage; a partial application starts no cooldown. While cooling down the pad gives nothing to anyone, its texture drains and pulses, and right-clicking it shows the time left. Only players are affected, mobs are not.",
+            "Unlimited uses; tinted particles in the potion's colour rise from a filled, ready pad. The cooldown only counts down while the pad is placed: broken during its cooldown, the pad drops as a cooling item (animated, tooltip shows the time left) that keeps the remaining time, the stored potion and its easter stage, and resumes when placed again. Stacks to 1 like every pad.",
             "Recipes: I = Netherite Pressure Plate + Blaze Head (crafting table, shapeless); II = enderite upgrade template + Potion Pad I + Enderite Pressure Plate (smithing, upgrades pay with the pressure plate of their material); III = enderite upgrade template + Potion Pad II + Enderite Core (smithing).",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it. Does not burn."
           ]
@@ -19622,9 +19650,9 @@
           "summary": "Trank-Pads (neu, 2026-09-28) speichern die Wirkungen eines geworfenen Tranks und geben sie jedem Spieler, der sie betritt. Drei Stufen: Trank-Pad I, Verstärktes Trank-Pad II, Durchtränktes Trank-Pad III.",
           "details": [
             "Wirf einen Wurf- oder Verweiltrank auf das Pad: zerschellt er darauf, speichert das Pad seine Wirkungen und ersetzt, was es vorher hatte; ein Wasser-Wurftrank (oder jeder Trank ohne Wirkung) wischt es leer. Rechtsklick ohne Gegenstand zeigt den gespeicherten Trank.",
-            "Jeder Spieler, der das Pad betritt, bekommt die Wirkungen in der Stufe des Tranks für 30 s (I), 60 s (II) oder 120 s (III). Solange er darauf steht, werden sie jede Sekunde wieder auf diese Dauer aufgefrischt - nie länger, sie stapeln sich also nicht; ab- und wieder aufsteigen gibt die volle Dauer zurück.",
-            "Sofortwirkungen (Heilung, Schaden) wirken einmal beim Betreten, höchstens alle 2 Sekunden je Spieler; Stehenbleiben wiederholt sie nicht. Nur Spieler, keine Mobs.",
-            "Unbegrenzt nutzbar; über einem gefüllten Pad steigen Partikel in der Trankfarbe auf. Beim Abbau geht der gespeicherte Trank verloren.",
+            "3 Sekunden auf dem Pad stehen gibt die gespeicherten Wirkungen in der Stufe des Tranks: nach 1 s hast du 25 %, nach 2 s 50 % und nach 3 s die vollen 30 s (I), 60 s (II) oder 120 s (III); jeder Schritt zeigt Partikel in der Trankfarbe und einen leisen Klang. Wer früher absteigt, behält das bisher Erhaltene; wieder aufsteigen beginnt bei null. Eine längere Wirkung, die du schon hast, wird nie gekürzt.",
+            "Sofortwirkungen (Heilung, Schaden) wirken einmal, bei 3 Sekunden. Die volle Anwendung setzt das ganze Pad für die doppelte Wirkdauer in die Abklingzeit - 60 s (I), 120 s (II), 240 s (III), 480 s für die letzte Easter-Stufe; eine halbe Anwendung startet keine Abklingzeit. Solange es abklingt, gibt das Pad niemandem etwas, seine Textur leert sich pulsierend, und ein Rechtsklick zeigt die Restzeit. Nur Spieler, keine Mobs.",
+            "Unbegrenzt nutzbar; über einem gefüllten, bereiten Pad steigen Partikel in der Trankfarbe auf. Die Abklingzeit läuft nur, solange das Pad gesetzt ist: in der Abklingzeit abgebaut, fällt es als abklingendes Item (animiert, Tooltip mit Restzeit), das Restzeit, gespeicherten Trank und Easter-Stufe behält und gesetzt weiterläuft. Stapelt nicht, wie jedes Pad.",
             "Rezepte: I = Netherit-Druckplatte + Lohenkopf (Werkbank, formlos); II = Enderit-Schmiedevorlage + Trank-Pad I + Enderit-Druckplatte (Schmiede, Aufwertungen zahlen mit der Druckplatte ihres Materials); III = Enderit-Schmiedevorlage + Trank-Pad II + Enderitkern (Schmiede).",
             "Wer es setzt, besitzt es: der Besitzer baut es in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen es nicht. Brennt nicht."
           ]
@@ -20009,7 +20037,8 @@
             "Area per tier (width x width x height): I 1x1x15 (only the pad column), II 5x5x31, III 16x16x63, IV (Enderite) 32x32x95, V (Fine) 128x128x127, centred on the pad. The area reaches one block below the pad. Existing pads keep their id and tier; only the areas changed.",
             "Recipes (smithing table): I = any trim template or netherite upgrade + elytra, with the addition slot left empty; II = template + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade template + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
-            "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing."
+            "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing.",
+            "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
@@ -20021,7 +20050,8 @@
             "Bereich je Stufe (Breite x Breite x Höhe): I 1x1x15 (nur die Säule über dem Pad), II 5x5x31, III 16x16x63, IV (Enderit) 32x32x95, V (Fein) 128x128x127, mittig um das Pad. Der Bereich reicht einen Block unter das Pad. Bestehende Pads behalten ID und Stufe; nur die Bereiche haben sich geändert.",
             "Rezepte (Schmiedetisch): I = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Elytra, der Zutat-Slot bleibt leer; II = Vorlage + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Schmiedevorlage + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
-            "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts."
+            "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts.",
+            "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
           ]
         },
         "sources": [
@@ -20069,7 +20099,8 @@
             "Breaking the pad, unloading it or switching flypads off (tweaks.pads.enableFlypads) takes flight back from everyone it had granted it to (in Simple Tweaks they kept it forever) - but not while another flypad still covers them, and never flight that did not come from a flypad (creative, other mods).",
             "Area per tier (width x depth x height, starting at the bottom of the pad, centred on it): I 4x4x6, II 8x8x12, III 16x16x24.",
             "Recipes (smithing, enderite upgrade template each): I = Enderite Pressure Plate + Enderite Core; II = Flypad I + Enderite Pressure Plate; III = two Reinforced Flypads II (one as base, one as addition). The old Netherite Flypad (old III) and Enderite Flypad (old IV) still load from old worlds: they turn into Flypad II and Stellar Flypad III on their first tick (owner kept) and into the new item in your inventory; old Flypad I, II and V keep their id as I, II and III.",
-            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it."
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
+            "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
@@ -20080,7 +20111,8 @@
             "Abbauen, Entladen oder Abschalten (tweaks.pads.enableFlypads) nimmt allen, denen das Pad Flug gegeben hat, den Flug wieder (in Simple Tweaks behielten sie ihn für immer) - aber nicht, solange ein anderes Flugpad sie noch abdeckt, und nie einen Flug, der nicht von einem Flugpad stammt (Kreativ, andere Mods).",
             "Bereich je Stufe (Breite x Tiefe x Höhe, ab der Unterkante des Pads, mittig darum): I 4x4x6, II 8x8x12, III 16x16x24.",
             "Rezepte (Schmiede, jeweils Enderit-Schmiedevorlage): I = Enderit-Druckplatte + Enderitkern; II = Flugpad I + Enderit-Druckplatte; III = zwei Verstärkte Flugpads II (eines als Basis, eines als Zutat). Das alte Netherit-Flugpad (alt III) und Enderit-Flugpad (alt IV) laden weiter aus alten Welten: sie werden beim ersten Tick zu Flugpad II bzw. Stellarem Flugpad III (Besitzer bleibt) und im Inventar zum neuen Item; die alten Flugpads I, II und V behalten ihre ID als I, II und III.",
-            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht."
+            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
+            "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
           ]
         },
         "sources": [
@@ -20489,9 +20521,9 @@
           "summary": "Potion Pads (new, 2026-09-28) store the effects of a thrown potion and give them to every player who steps onto them. Three tiers: Potion Pad I, Reinforced Potion Pad II, Infused Potion Pad III.",
           "details": [
             "Throw a splash or lingering potion onto the pad: when it shatters on the pad, the pad stores its effects and replaces whatever it held before; a water splash potion (or any potion without effects) wipes it. Right-click without an item shows the stored potion.",
-            "Every player stepping onto the pad gets the stored effects at the potion's own level for 30 s (I), 60 s (II) or 120 s (III). While standing on it the effects are refreshed back to that duration every second - never longer, so they do not stack; step off and on again to get the full duration back.",
-            "Instant effects (Healing, Harming) apply once when a player steps on, at most every 2 seconds per player; standing on the pad does not repeat them. Only players are affected, mobs are not.",
-            "Unlimited uses; tinted particles in the potion's colour rise from a filled pad. The stored potion is lost when the pad is broken.",
+            "Stand on the pad for 3 seconds to take the stored effects at the potion's own level: after 1 s you have 25 %, after 2 s 50 % and after 3 s the full 30 s (I), 60 s (II) or 120 s (III); every step shows particles in the potion's colour and a soft chime. Step off early and you keep what you got so far; stepping on again starts from zero. A longer effect you already have is never shortened.",
+            "Instant effects (Healing, Harming) apply once, at the 3 second mark. The full application puts the whole pad on cooldown for twice the effect duration - 60 s (I), 120 s (II), 240 s (III), 480 s for the final easter stage; a partial application starts no cooldown. While cooling down the pad gives nothing to anyone, its texture drains and pulses, and right-clicking it shows the time left. Only players are affected, mobs are not.",
+            "Unlimited uses; tinted particles in the potion's colour rise from a filled, ready pad. The cooldown only counts down while the pad is placed: broken during its cooldown, the pad drops as a cooling item (animated, tooltip shows the time left) that keeps the remaining time, the stored potion and its easter stage, and resumes when placed again. Stacks to 1 like every pad.",
             "Recipes: I = Netherite Pressure Plate + Blaze Head (crafting table, shapeless); II = enderite upgrade template + Potion Pad I + Enderite Pressure Plate (smithing, upgrades pay with the pressure plate of their material); III = enderite upgrade template + Potion Pad II + Enderite Core (smithing).",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it. Does not burn."
           ]
@@ -20500,9 +20532,9 @@
           "summary": "Trank-Pads (neu, 2026-09-28) speichern die Wirkungen eines geworfenen Tranks und geben sie jedem Spieler, der sie betritt. Drei Stufen: Trank-Pad I, Verstärktes Trank-Pad II, Durchtränktes Trank-Pad III.",
           "details": [
             "Wirf einen Wurf- oder Verweiltrank auf das Pad: zerschellt er darauf, speichert das Pad seine Wirkungen und ersetzt, was es vorher hatte; ein Wasser-Wurftrank (oder jeder Trank ohne Wirkung) wischt es leer. Rechtsklick ohne Gegenstand zeigt den gespeicherten Trank.",
-            "Jeder Spieler, der das Pad betritt, bekommt die Wirkungen in der Stufe des Tranks für 30 s (I), 60 s (II) oder 120 s (III). Solange er darauf steht, werden sie jede Sekunde wieder auf diese Dauer aufgefrischt - nie länger, sie stapeln sich also nicht; ab- und wieder aufsteigen gibt die volle Dauer zurück.",
-            "Sofortwirkungen (Heilung, Schaden) wirken einmal beim Betreten, höchstens alle 2 Sekunden je Spieler; Stehenbleiben wiederholt sie nicht. Nur Spieler, keine Mobs.",
-            "Unbegrenzt nutzbar; über einem gefüllten Pad steigen Partikel in der Trankfarbe auf. Beim Abbau geht der gespeicherte Trank verloren.",
+            "3 Sekunden auf dem Pad stehen gibt die gespeicherten Wirkungen in der Stufe des Tranks: nach 1 s hast du 25 %, nach 2 s 50 % und nach 3 s die vollen 30 s (I), 60 s (II) oder 120 s (III); jeder Schritt zeigt Partikel in der Trankfarbe und einen leisen Klang. Wer früher absteigt, behält das bisher Erhaltene; wieder aufsteigen beginnt bei null. Eine längere Wirkung, die du schon hast, wird nie gekürzt.",
+            "Sofortwirkungen (Heilung, Schaden) wirken einmal, bei 3 Sekunden. Die volle Anwendung setzt das ganze Pad für die doppelte Wirkdauer in die Abklingzeit - 60 s (I), 120 s (II), 240 s (III), 480 s für die letzte Easter-Stufe; eine halbe Anwendung startet keine Abklingzeit. Solange es abklingt, gibt das Pad niemandem etwas, seine Textur leert sich pulsierend, und ein Rechtsklick zeigt die Restzeit. Nur Spieler, keine Mobs.",
+            "Unbegrenzt nutzbar; über einem gefüllten, bereiten Pad steigen Partikel in der Trankfarbe auf. Die Abklingzeit läuft nur, solange das Pad gesetzt ist: in der Abklingzeit abgebaut, fällt es als abklingendes Item (animiert, Tooltip mit Restzeit), das Restzeit, gespeicherten Trank und Easter-Stufe behält und gesetzt weiterläuft. Stapelt nicht, wie jedes Pad.",
             "Rezepte: I = Netherit-Druckplatte + Lohenkopf (Werkbank, formlos); II = Enderit-Schmiedevorlage + Trank-Pad I + Enderit-Druckplatte (Schmiede, Aufwertungen zahlen mit der Druckplatte ihres Materials); III = Enderit-Schmiedevorlage + Trank-Pad II + Enderitkern (Schmiede).",
             "Wer es setzt, besitzt es: der Besitzer baut es in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen es nicht. Brennt nicht."
           ]
@@ -20798,7 +20830,8 @@
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + Netherite Pressure Plate; V = enderite upgrade template + IV + Enderite Pressure Plate.",
             "On their first join players can get Spawn Teleporters named 'Home Teleporter' (firstJoinTeleporterCount) and Elytra Pads (firstJoinElytraPadCount) - once; both default to 0, so nothing is handed out until an operator sets them, and a family switched off under pads is not handed out at all (config screen or /simplebuilding tweaks spawn teleporterCount|elytraPadCount). An old spawnTeleporterCount other than its old default 1 is taken over for both. The player tag is the one Simple Tweaks used, so nobody gets them twice after switching.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
-            "Can be switched off with tweaks.pads.enableSpawnTeleporters."
+            "Can be switched off with tweaks.pads.enableSpawnTeleporters.",
+            "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
@@ -20811,7 +20844,8 @@
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netherit-Druckplatte; V = Enderit-Schmiedevorlage + IV + Enderit-Druckplatte.",
             "Beim ersten Betreten koennen Spieler Spawn-Teleporter mit dem Namen 'Heim-Teleporter' (firstJoinTeleporterCount) und Elytra-Pads (firstJoinElytraPadCount) bekommen - einmal; beide stehen standardmaessig auf 0, es gibt also nichts, bis ein Operator sie einstellt, und eine unter pads abgeschaltete Familie wird gar nicht verschenkt (Config-Bildschirm oder /simplebuilding tweaks spawn teleporterCount|elytraPadCount). Ein alter spawnTeleporterCount ungleich dem alten Standard 1 gilt fuer beide. Der Spieler-Tag ist derselbe wie in Simple Tweaks, nach dem Umstieg gibt es sie also nicht doppelt.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
-            "Abschaltbar über tweaks.pads.enableSpawnTeleporters."
+            "Abschaltbar über tweaks.pads.enableSpawnTeleporters.",
+            "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
           ]
         },
         "sources": [
@@ -20859,7 +20893,8 @@
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + Netherite Pressure Plate; V = enderite upgrade template + IV + Enderite Pressure Plate.",
             "On their first join players can get Spawn Teleporters named 'Home Teleporter' (firstJoinTeleporterCount) and Elytra Pads (firstJoinElytraPadCount) - once; both default to 0, so nothing is handed out until an operator sets them, and a family switched off under pads is not handed out at all (config screen or /simplebuilding tweaks spawn teleporterCount|elytraPadCount). An old spawnTeleporterCount other than its old default 1 is taken over for both. The player tag is the one Simple Tweaks used, so nobody gets them twice after switching.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
-            "Can be switched off with tweaks.pads.enableSpawnTeleporters."
+            "Can be switched off with tweaks.pads.enableSpawnTeleporters.",
+            "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
@@ -20872,7 +20907,8 @@
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netherit-Druckplatte; V = Enderit-Schmiedevorlage + IV + Enderit-Druckplatte.",
             "Beim ersten Betreten koennen Spieler Spawn-Teleporter mit dem Namen 'Heim-Teleporter' (firstJoinTeleporterCount) und Elytra-Pads (firstJoinElytraPadCount) bekommen - einmal; beide stehen standardmaessig auf 0, es gibt also nichts, bis ein Operator sie einstellt, und eine unter pads abgeschaltete Familie wird gar nicht verschenkt (Config-Bildschirm oder /simplebuilding tweaks spawn teleporterCount|elytraPadCount). Ein alter spawnTeleporterCount ungleich dem alten Standard 1 gilt fuer beide. Der Spieler-Tag ist derselbe wie in Simple Tweaks, nach dem Umstieg gibt es sie also nicht doppelt.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
-            "Abschaltbar über tweaks.pads.enableSpawnTeleporters."
+            "Abschaltbar über tweaks.pads.enableSpawnTeleporters.",
+            "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
           ]
         },
         "sources": [
@@ -20920,7 +20956,8 @@
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + Netherite Pressure Plate; V = enderite upgrade template + IV + Enderite Pressure Plate.",
             "On their first join players can get Spawn Teleporters named 'Home Teleporter' (firstJoinTeleporterCount) and Elytra Pads (firstJoinElytraPadCount) - once; both default to 0, so nothing is handed out until an operator sets them, and a family switched off under pads is not handed out at all (config screen or /simplebuilding tweaks spawn teleporterCount|elytraPadCount). An old spawnTeleporterCount other than its old default 1 is taken over for both. The player tag is the one Simple Tweaks used, so nobody gets them twice after switching.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
-            "Can be switched off with tweaks.pads.enableSpawnTeleporters."
+            "Can be switched off with tweaks.pads.enableSpawnTeleporters.",
+            "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
@@ -20933,7 +20970,8 @@
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netherit-Druckplatte; V = Enderit-Schmiedevorlage + IV + Enderit-Druckplatte.",
             "Beim ersten Betreten koennen Spieler Spawn-Teleporter mit dem Namen 'Heim-Teleporter' (firstJoinTeleporterCount) und Elytra-Pads (firstJoinElytraPadCount) bekommen - einmal; beide stehen standardmaessig auf 0, es gibt also nichts, bis ein Operator sie einstellt, und eine unter pads abgeschaltete Familie wird gar nicht verschenkt (Config-Bildschirm oder /simplebuilding tweaks spawn teleporterCount|elytraPadCount). Ein alter spawnTeleporterCount ungleich dem alten Standard 1 gilt fuer beide. Der Spieler-Tag ist derselbe wie in Simple Tweaks, nach dem Umstieg gibt es sie also nicht doppelt.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
-            "Abschaltbar über tweaks.pads.enableSpawnTeleporters."
+            "Abschaltbar über tweaks.pads.enableSpawnTeleporters.",
+            "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
           ]
         },
         "sources": [
@@ -20981,7 +21019,8 @@
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + Netherite Pressure Plate; V = enderite upgrade template + IV + Enderite Pressure Plate.",
             "On their first join players can get Spawn Teleporters named 'Home Teleporter' (firstJoinTeleporterCount) and Elytra Pads (firstJoinElytraPadCount) - once; both default to 0, so nothing is handed out until an operator sets them, and a family switched off under pads is not handed out at all (config screen or /simplebuilding tweaks spawn teleporterCount|elytraPadCount). An old spawnTeleporterCount other than its old default 1 is taken over for both. The player tag is the one Simple Tweaks used, so nobody gets them twice after switching.",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
-            "Can be switched off with tweaks.pads.enableSpawnTeleporters."
+            "Can be switched off with tweaks.pads.enableSpawnTeleporters.",
+            "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
@@ -20994,7 +21033,8 @@
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netherit-Druckplatte; V = Enderit-Schmiedevorlage + IV + Enderit-Druckplatte.",
             "Beim ersten Betreten koennen Spieler Spawn-Teleporter mit dem Namen 'Heim-Teleporter' (firstJoinTeleporterCount) und Elytra-Pads (firstJoinElytraPadCount) bekommen - einmal; beide stehen standardmaessig auf 0, es gibt also nichts, bis ein Operator sie einstellt, und eine unter pads abgeschaltete Familie wird gar nicht verschenkt (Config-Bildschirm oder /simplebuilding tweaks spawn teleporterCount|elytraPadCount). Ein alter spawnTeleporterCount ungleich dem alten Standard 1 gilt fuer beide. Der Spieler-Tag ist derselbe wie in Simple Tweaks, nach dem Umstieg gibt es sie also nicht doppelt.",
             "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
-            "Abschaltbar über tweaks.pads.enableSpawnTeleporters."
+            "Abschaltbar über tweaks.pads.enableSpawnTeleporters.",
+            "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
           ]
         },
         "sources": [
@@ -21038,7 +21078,8 @@
             "Breaking the pad, unloading it or switching flypads off (tweaks.pads.enableFlypads) takes flight back from everyone it had granted it to (in Simple Tweaks they kept it forever) - but not while another flypad still covers them, and never flight that did not come from a flypad (creative, other mods).",
             "Area per tier (width x depth x height, starting at the bottom of the pad, centred on it): I 4x4x6, II 8x8x12, III 16x16x24.",
             "Recipes (smithing, enderite upgrade template each): I = Enderite Pressure Plate + Enderite Core; II = Flypad I + Enderite Pressure Plate; III = two Reinforced Flypads II (one as base, one as addition). The old Netherite Flypad (old III) and Enderite Flypad (old IV) still load from old worlds: they turn into Flypad II and Stellar Flypad III on their first tick (owner kept) and into the new item in your inventory; old Flypad I, II and V keep their id as I, II and III.",
-            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it."
+            "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
+            "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
           ]
         },
         "de": {
@@ -21049,7 +21090,8 @@
             "Abbauen, Entladen oder Abschalten (tweaks.pads.enableFlypads) nimmt allen, denen das Pad Flug gegeben hat, den Flug wieder (in Simple Tweaks behielten sie ihn für immer) - aber nicht, solange ein anderes Flugpad sie noch abdeckt, und nie einen Flug, der nicht von einem Flugpad stammt (Kreativ, andere Mods).",
             "Bereich je Stufe (Breite x Tiefe x Höhe, ab der Unterkante des Pads, mittig darum): I 4x4x6, II 8x8x12, III 16x16x24.",
             "Rezepte (Schmiede, jeweils Enderit-Schmiedevorlage): I = Enderit-Druckplatte + Enderitkern; II = Flugpad I + Enderit-Druckplatte; III = zwei Verstärkte Flugpads II (eines als Basis, eines als Zutat). Das alte Netherit-Flugpad (alt III) und Enderit-Flugpad (alt IV) laden weiter aus alten Welten: sie werden beim ersten Tick zu Flugpad II bzw. Stellarem Flugpad III (Besitzer bleibt) und im Inventar zum neuen Item; die alten Flugpads I, II und V behalten ihre ID als I, II und III.",
-            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht."
+            "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
+            "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
           ]
         },
         "sources": [
