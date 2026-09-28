@@ -198,28 +198,66 @@ BLUEPRINT_PAL = {
 }
 
 # Blaupause nach Zustand (Besitzer 2026-09-28; Modell: items/blueprint.json fragt has_component und
-# simplebuilding:blueprint_state). Frisch gebaut bleibt das Blatt oben. Bearbeitet: ein Bleistift liegt
-# schraeg auf der rechten unteren Ecke (Radiergummi ueber dem Rand, Spitze auf dem Blatt) - wie der
-# Federkiel des Buchs mit Feder und Tinte. Signiert: ein rundes rotes Wachssiegel mit eingepraegter
-# Mitte an derselben Stelle - wie das signierte Buch deutlich anders als das offene.
-BLUEPRINT_EDITED_OVER = {(13, 8): "p", (14, 8): "p", (12, 9): "m", (13, 9): "m", (11, 10): "Y", (12, 10): "y",
-                         (10, 11): "Y", (11, 11): "y", (9, 12): "u", (10, 12): "u", (8, 13): "n"}
-BLUEPRINT_SIGNED_OVER = {(9, 9): "r", (10, 9): "s", (11, 9): "r",
-                         (8, 10): "r", (9, 10): "t", (10, 10): "t", (11, 10): "s", (12, 10): "q",
-                         (8, 11): "s", (9, 11): "t", (10, 11): "q", (11, 11): "s", (12, 11): "q",
-                         (8, 12): "r", (9, 12): "s", (10, 12): "s", (11, 12): "r", (12, 12): "q",
-                         (9, 13): "q", (10, 13): "q", (11, 13): "q"}
+# simplebuilding:blueprint_state). Frisch gebaut bleibt das Blatt oben.
+# Bearbeitet: wie Vanillas Buch mit Feder liegt ein weisser Federkiel schraeg ueber dem Blatt - die Fahne
+# oben rechts (links des grauen Schafts breit und gezackt, rechts schmal), der kahle Kiel nach links unten,
+# die dunkle Spitze mit einem Tintenpunkt auf dem Blatt. Ein Schatten rechts unten (k, V) trennt Feder und
+# Kiel von den ebenfalls weissen Linien der Zeichnung.
+# Leerzeichen lassen das Blatt stehen.
+BLUEPRINT_EDITED_OVER = [
+    "                ",
+    "             QF ",
+    "            QHG ",
+    "          FQHG  ",
+    "        FFQHGH  ",
+    "        FQHGk   ",
+    "      FFQHGHk   ",
+    "      FQHGk     ",
+    "      QSV       ",
+    "      SV        ",
+    "     SV         ",
+    "    SV          ",
+    "   N            ",
+    "  n             ",
+    "                ",
+    "                ",
+]
+# Signiert: ein eigenes Blatt - Reinzeichnung ohne Raster auf tiefem Nachtblau, Goldrahmen, unten rechts
+# ein rotes Wachssiegel mit zwei Bandenden ueber dem Rahmen. Gold und Dunkelblau heben es auf einen Blick
+# vom hellblauen offenen Blatt ab (so wie Vanillas signiertes Buch keinen Federkiel mehr traegt).
+BLUEPRINT_SIGNED = [
+    "................",
+    ".AAAAAAAAAAAAAa.",
+    ".A455555555556B.",
+    ".A5555w5555566B.",
+    ".A555w5w555666B.",
+    ".A55w555w56666B.",
+    ".A5wwwwwww6666B.",
+    ".A66w6l6w66666B.",
+    ".A66w6x6w6rsr6B.",
+    ".A66w6x6wrttsqB.",
+    ".A7wwwwwwstqsqB.",
+    ".A7777777rssrqB.",
+    ".A77777777qqq7B.",
+    ".A77777777v7v7B.",
+    ".aBBBBBBBBvBvBB.",
+    "................",
+]
 BLUEPRINT_STATE_PAL = {
-    "n": "#2e2e36", "u": "#e3bd8a", "Y": "#f4cf4f", "y": "#c28f22", "m": "#b9bcc4", "p": "#e58fa0",  # Bleistift
+    "F": "#dcdcdc", "Q": "#ffffff", "G": "#b7b7b7", "H": "#8d8d8d",  # Federfahne wie Vanillas Feder
+    "S": "#e9e2cf", "V": "#5f5a4e", "N": "#3a3a44", "n": "#12244a",  # Kiel, Spitze, Tintenpunkt
+}
+BLUEPRINT_SIGNED_PAL = {
+    "A": "#f3d36e", "a": "#c9962e", "B": "#80531a",  # Goldrahmen
+    "4": "#35569e", "5": "#28488f", "6": "#213d7e", "7": "#1a316a",  # Nachtblau, nach unten rechts dunkler
+    "w": "#f6efd9", "l": "#8fb3e3", "x": "#d9a64a",  # Reinzeichnung, Fenster, Tuer
     "q": "#6b1414", "r": "#a42323", "s": "#cf3b31", "t": "#f07b69",  # Wachssiegel
+    "v": "#b52a2a",  # Bandenden
 }
 
 
 def blueprint_state_rows(over):
-    rows = [list(r) for r in BLUEPRINT]
-    for (x, y), ch in over.items():
-        rows[y][x] = ch
-    return ["".join(r) for r in rows]
+    return ["".join(o if o != " " else b for o, b in zip(orow, brow)) for orow, brow in zip(over, BLUEPRINT)]
 
 # --- Verstaerkter Koecher: gleiche 100-px-Silhouette wie quiver/netherite_quiver/
 # enderite_quiver, neues Innenleben: Kupferlippe, zwei Kupferbaender, Kupferkappe,
@@ -2773,7 +2811,7 @@ def build():
     tex["item/blueprint.png"] = render("blueprint", BLUEPRINT, BLUEPRINT_PAL, False)
     state_pal = dict(BLUEPRINT_PAL, **BLUEPRINT_STATE_PAL)
     tex["item/blueprint_edited.png"] = render("blueprint_edited", blueprint_state_rows(BLUEPRINT_EDITED_OVER), state_pal, False)
-    tex["item/blueprint_signed.png"] = render("blueprint_signed", blueprint_state_rows(BLUEPRINT_SIGNED_OVER), state_pal, False)
+    tex["item/blueprint_signed.png"] = render("blueprint_signed", BLUEPRINT_SIGNED, BLUEPRINT_SIGNED_PAL, False)
 
     for tier, prefix in (("basic", ""), ("reinforced", "reinforced_"), ("netherite", "netherite_"), ("enderite", "enderite_")):
         pal = LEATHER_TIERS[tier]
