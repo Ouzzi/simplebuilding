@@ -3,123 +3,237 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
 <title>SimpleBuilding Wiki</title>
+<script>
+/* Farbschema vor dem ersten Zeichnen setzen, sonst blitzt die falsche Farbe auf.
+   auto = Systemeinstellung; light/dark kommen aus dem Umschalter oben rechts. */
+(function () {
+  try {
+    var t = window.localStorage.getItem('simplebuilding-wiki-theme');
+    if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+  } catch (err) { /* ohne Storage: Systemeinstellung */ }
+})();
+</script>
 <style>
+/* ------------------------------------------------------------------ */
+/* Farben: hell (Pergament, klassischer Inventar-Slot) und dunkel     */
+/* (Tiefenschiefer). Dunkel gilt bei Systemeinstellung "dunkel", ausser */
+/* der Leser hat oben "hell" gewaehlt, und immer bei data-theme=dark.  */
+/* ------------------------------------------------------------------ */
 :root {
-  color-scheme: light dark;
-  --bg: #f4f3ef;
+  color-scheme: light;
+  --bg: #f2efe6;
+  --bg-2: #e9e5d8;
   --panel: #ffffff;
-  --text: #1f2328;
-  --muted: #646b73;
-  --border: #d8dbe0;
-  --accent: #2c6e4f;
-  --accent-soft: #e4f1e9;
-  --warn-bg: #fff5e1;
-  --warn-border: #dfae52;
+  --panel-2: #f7f5ef;
+  --text: #1c1e21;
+  --muted: #5f656c;
+  --border: #d9d3c3;
+  --border-strong: #bdb5a1;
+  --accent: #3b7a25;
+  --accent-strong: #2d6119;
+  --accent-soft: #e2efd9;
+  --accent-text: #ffffff;
+  --end: #7a4fb8;
+  --end-soft: #efe7fa;
+  --warn-bg: #fff4dc;
+  --warn-border: #d9a441;
   --warn-text: #5f4100;
   --danger-bg: #fdeaea;
-  --danger-border: #dc9a9a;
+  --danger-border: #d79191;
   --danger-text: #7a1f1f;
-  --slot-bg: #e9e8e3;
-  --slot-border: #c6c3bb;
-  --code-bg: #ebebe8;
-  --shadow: 0 1px 2px rgba(0,0,0,.05);
+  --slot-bg: #c6c6c6;
+  --slot-hi: #ffffff;
+  --slot-lo: #555555;
+  --slot-text: #373737;
+  --code-bg: #ebe7dc;
+  --shadow: 0 1px 2px rgba(40,30,10,.06), 0 2px 8px rgba(40,30,10,.05);
+  --shadow-lg: 0 10px 40px rgba(20,15,5,.18);
+  --radius: 10px;
+  --radius-sm: 6px;
+  --topbar-h: 58px;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "Cascadia Mono", Consolas, "Liberation Mono", monospace;
 }
 @media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #141618;
-    --panel: #1d2023;
-    --text: #e4e6e8;
-    --muted: #9ba3ab;
-    --border: #2e343a;
-    --accent: #7cc39a;
-    --accent-soft: #1e2e26;
-    --warn-bg: #362b12;
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #141619;
+    --bg-2: #1a1d21;
+    --panel: #1e2126;
+    --panel-2: #24282e;
+    --text: #e7e5e1;
+    --muted: #9ca3ab;
+    --border: #30353c;
+    --border-strong: #454c55;
+    --accent: #7cc85a;
+    --accent-strong: #97d97a;
+    --accent-soft: #1f3019;
+    --accent-text: #0f1a0b;
+    --end: #b893ea;
+    --end-soft: #2a2138;
+    --warn-bg: #33290f;
     --warn-border: #8a6a2a;
     --warn-text: #f1d99f;
     --danger-bg: #3a1c1c;
     --danger-border: #8a3d3d;
     --danger-text: #f3b9b9;
-    --slot-bg: #282c31;
-    --slot-border: #3d434a;
-    --code-bg: #282c31;
-    --shadow: none;
+    --slot-bg: #2c3036;
+    --slot-hi: rgba(255,255,255,.09);
+    --slot-lo: rgba(0,0,0,.55);
+    --slot-text: #b9bec5;
+    --code-bg: #2a2e34;
+    --shadow: 0 1px 2px rgba(0,0,0,.3);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,.55);
   }
 }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #141619;
+  --bg-2: #1a1d21;
+  --panel: #1e2126;
+  --panel-2: #24282e;
+  --text: #e7e5e1;
+  --muted: #9ca3ab;
+  --border: #30353c;
+  --border-strong: #454c55;
+  --accent: #7cc85a;
+  --accent-strong: #97d97a;
+  --accent-soft: #1f3019;
+  --accent-text: #0f1a0b;
+  --end: #b893ea;
+  --end-soft: #2a2138;
+  --warn-bg: #33290f;
+  --warn-border: #8a6a2a;
+  --warn-text: #f1d99f;
+  --danger-bg: #3a1c1c;
+  --danger-border: #8a3d3d;
+  --danger-text: #f3b9b9;
+  --slot-bg: #2c3036;
+  --slot-hi: rgba(255,255,255,.09);
+  --slot-lo: rgba(0,0,0,.55);
+  --slot-text: #b9bec5;
+  --code-bg: #2a2e34;
+  --shadow: 0 1px 2px rgba(0,0,0,.3);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,.55);
+}
+
+/* ------------------------------------------------------------------ */
+/* Grundlagen                                                         */
+/* ------------------------------------------------------------------ */
 * { box-sizing: border-box; }
-html { font-size: 15px; }
-body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+html { font-size: 15.5px; -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--topbar-h) + 12px); }
+body { margin: 0; font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.55; -webkit-font-smoothing: antialiased; }
 a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
-code, kbd { font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace; font-size: .86em; background: var(--code-bg); padding: .08em .35em; border-radius: 4px; }
-h1 { font-size: 1.6rem; margin: 0 0 .3rem; line-height: 1.25; }
-h2 { font-size: 1.15rem; margin: 0 0 .8rem; padding-bottom: .3rem; border-bottom: 1px solid var(--border); }
-h3 { font-size: 1rem; margin: 1.2rem 0 .5rem; color: var(--muted); font-weight: 600; }
+a:hover { text-decoration: underline; text-underline-offset: 2px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+code, kbd { font-family: var(--mono); font-size: .84em; background: var(--code-bg); padding: .08em .38em; border-radius: 4px; }
+kbd { border: 1px solid var(--border-strong); border-bottom-width: 2px; background: var(--panel); color: var(--muted); font-size: .72rem; padding: 0 .35em; line-height: 1.5; }
+h1 { font-size: 1.85rem; margin: 0 0 .3rem; line-height: 1.2; letter-spacing: -.015em; font-weight: 750; }
+h2 { font-size: 1.12rem; margin: 0 0 .8rem; padding-bottom: .35rem; border-bottom: 1px solid var(--border); letter-spacing: -.005em; }
+h3 { font-size: .8rem; margin: 1.3rem 0 .5rem; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
 p { margin: .4rem 0 .8rem; }
 ul { margin: .3rem 0 .6rem; padding-left: 1.3rem; }
-li { margin: .15rem 0; }
+li { margin: .2rem 0; }
 .muted { color: var(--muted); }
 .tiny { font-size: .8rem; }
 .lead { font-size: 1.05rem; }
+button { font: inherit; }
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-/* Kopf */
-.topbar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 1rem; padding: .55rem 1rem; background: var(--panel); border-bottom: 1px solid var(--border); }
-.brand { font-weight: 700; color: var(--text); white-space: nowrap; font-size: 1.05rem; }
+/* ------------------------------------------------------------------ */
+/* Kopfleiste                                                         */
+/* ------------------------------------------------------------------ */
+.topbar { position: sticky; top: 0; z-index: 40; display: flex; align-items: center; gap: .75rem; height: var(--topbar-h); padding: 0 1rem; background: color-mix(in srgb, var(--panel) 92%, transparent); backdrop-filter: saturate(1.4) blur(8px); -webkit-backdrop-filter: saturate(1.4) blur(8px); border-bottom: 1px solid var(--border); }
+.brand { display: inline-flex; align-items: center; gap: .55rem; font-weight: 800; color: var(--text); white-space: nowrap; font-size: 1.05rem; letter-spacing: -.01em; }
 .brand:hover { text-decoration: none; }
-.brand small { color: var(--muted); font-weight: 400; margin-left: .4rem; font-size: .8rem; }
-.search { flex: 1; max-width: 560px; position: relative; }
-.search input { width: 100%; padding: .45rem .75rem; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); font: inherit; }
-.search input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
-.search kbd { position: absolute; right: .5rem; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: .72rem; pointer-events: none; }
-.topmeta { margin-left: auto; color: var(--muted); font-size: .82rem; display: flex; gap: .7rem; flex-wrap: wrap; white-space: nowrap; }
-.langsel { flex: none; padding: .3rem .45rem; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); font: inherit; font-size: .82rem; cursor: pointer; }
-.langsel:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+.brand-icon { width: 30px; height: 30px; flex: none; display: inline-flex; align-items: center; justify-content: center; background: var(--slot-bg); box-shadow: inset 2px 2px 0 var(--slot-lo), inset -2px -2px 0 var(--slot-hi); border-radius: 3px; }
+.brand-icon img { width: 22px; height: 22px; image-rendering: pixelated; }
+.brand small { color: var(--muted); font-weight: 500; margin-left: .1rem; font-size: .82rem; }
+.icon-btn { flex: none; display: inline-flex; align-items: center; justify-content: center; gap: .35rem; height: 36px; min-width: 36px; padding: 0 .55rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--panel); color: var(--text); cursor: pointer; font-size: .85rem; }
+.icon-btn:hover { border-color: var(--accent); }
+.icon-btn svg { width: 18px; height: 18px; }
+.menu-btn { display: none; }
+.search { flex: 1; max-width: 560px; position: relative; margin-left: .5rem; }
+.search input { width: 100%; height: 38px; padding: 0 4.2rem 0 2.3rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font: inherit; font-size: .95rem; }
+.search input::-webkit-search-cancel-button { display: none; }
+.search input:focus { outline: 2px solid var(--accent); outline-offset: -1px; background: var(--panel); }
+.search .s-icon { position: absolute; left: .7rem; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--muted); pointer-events: none; }
+.search .s-keys { position: absolute; right: .55rem; top: 50%; transform: translateY(-50%); display: flex; gap: .2rem; pointer-events: none; }
+.search input:focus ~ .s-keys { display: none; }
+.topmeta { margin-left: auto; color: var(--muted); font-size: .8rem; display: flex; gap: .6rem; white-space: nowrap; }
+.topmeta span + span::before { content: '·'; margin-right: .6rem; opacity: .6; }
+.langsel { flex: none; height: 36px; padding: 0 .45rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--panel); color: var(--text); font: inherit; font-size: .85rem; cursor: pointer; }
 
-/* Layout */
+/* Schnellsuche unter dem Suchfeld */
+.qs { position: absolute; left: 0; right: 0; top: calc(100% + 6px); background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-lg); padding: .35rem; max-height: min(70vh, 520px); overflow: auto; z-index: 60; }
+.qs[hidden] { display: none; }
+.qs-item { display: flex; align-items: center; gap: .65rem; padding: .4rem .55rem; border-radius: var(--radius-sm); color: var(--text); cursor: pointer; }
+.qs-item:hover { text-decoration: none; }
+.qs-item[aria-selected="true"] { background: var(--accent-soft); }
+.qs-item .slot { width: 34px; height: 34px; }
+.qs-item .slot img { width: 24px; height: 24px; }
+.qs-item .slot .cube { --cs: 15px; }
+.qs-item .slot-text { font-size: 7px; }
+.qs-ico { width: 34px; height: 34px; flex: none; display: inline-flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); background: var(--bg-2); color: var(--muted); font-size: .75rem; font-weight: 700; }
+.qs-main { min-width: 0; flex: 1; }
+.qs-title { display: block; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.qs-sub { display: block; color: var(--muted); font-size: .78rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.qs-sec { flex: none; font-size: .7rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+.qs-all { justify-content: center; color: var(--accent); font-weight: 600; font-size: .88rem; border-top: 1px solid var(--border); border-radius: 0 0 var(--radius-sm) var(--radius-sm); margin-top: .25rem; padding: .55rem; }
+.qs-empty { padding: .8rem; color: var(--muted); font-size: .9rem; }
+.qs-foot { display: flex; gap: .9rem; justify-content: flex-end; padding: .35rem .5rem .1rem; font-size: .72rem; color: var(--muted); }
+
+/* ------------------------------------------------------------------ */
+/* Aufbau: Seitenleiste + Inhalt                                      */
+/* ------------------------------------------------------------------ */
 .layout { display: flex; align-items: flex-start; }
-.sidebar { width: 230px; flex: none; position: sticky; top: 52px; height: calc(100vh - 52px); overflow: auto; padding: .9rem .7rem; border-right: 1px solid var(--border); background: var(--panel); }
-.sidebar a { display: flex; justify-content: space-between; align-items: center; gap: .5rem; padding: .35rem .6rem; border-radius: 6px; color: var(--text); }
+.sidebar { width: 264px; flex: none; position: sticky; top: var(--topbar-h); height: calc(100vh - var(--topbar-h)); overflow: auto; padding: 1rem .75rem 2rem; border-right: 1px solid var(--border); background: var(--panel); overscroll-behavior: contain; }
+.sb-group { margin-bottom: 1.1rem; }
+.sb-title { font-size: .7rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; padding: 0 .6rem; margin: 0 0 .3rem; }
+.sidebar a { display: flex; align-items: center; gap: .55rem; padding: .32rem .6rem; border-radius: var(--radius-sm); color: var(--text); font-size: .92rem; }
 .sidebar a:hover { background: var(--bg); text-decoration: none; }
-.sidebar a.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
-.sidebar a .n { color: var(--muted); font-size: .78rem; font-weight: 400; }
-.sidebar .sb-note { margin-top: 1rem; padding: .6rem; font-size: .75rem; color: var(--muted); border-top: 1px solid var(--border); }
-main { flex: 1; min-width: 0; padding: 1.5rem 2rem 4rem; max-width: 1120px; }
-@media (max-width: 820px) {
-  .layout { flex-direction: column; align-items: stretch; }
-  main { width: 100%; max-width: 100%; }
-  .sidebar { position: static; height: auto; width: 100%; display: flex; flex-wrap: wrap; gap: .15rem; border-right: 0; border-bottom: 1px solid var(--border); padding: .5rem; }
-  .sidebar a { padding: .3rem .55rem; }
-  .sidebar a .n { display: none; }
-  .sidebar .sb-note { display: none; }
-  main { padding: 1rem; }
-  .topbar { flex-wrap: wrap; gap: .5rem; }
-  .topmeta { margin-left: 0; }
-}
+.sidebar a.active { background: var(--accent-soft); color: var(--accent-strong); font-weight: 650; }
+.sidebar a .n { margin-left: auto; color: var(--muted); font-size: .75rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+.sidebar .sb-ico { width: 24px; height: 24px; flex: none; display: inline-flex; align-items: center; justify-content: center; }
+.sidebar .sb-ico img { width: 20px; height: 20px; image-rendering: pixelated; }
+.sidebar .sb-ico .cube { --cs: 12px; }
+.sidebar .sb-ico .glyph { font-size: .95rem; line-height: 1; color: var(--muted); }
+.sidebar .sb-note { margin-top: 1rem; padding: .7rem .6rem 0; font-size: .74rem; color: var(--muted); border-top: 1px solid var(--border); }
+.backdrop { display: none; }
+main { flex: 1; min-width: 0; padding: 1.6rem 2.2rem 4rem; max-width: 1180px; overflow-wrap: anywhere; }
+.site-foot { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-size: .78rem; display: flex; flex-wrap: wrap; gap: .4rem 1rem; }
 
-/* Bausteine */
-.section { margin-top: 2rem; }
-.card { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; box-shadow: var(--shadow); }
+/* ------------------------------------------------------------------ */
+/* Bausteine                                                          */
+/* ------------------------------------------------------------------ */
+.section { margin-top: 1.6rem; }
+.card { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.1rem; margin-bottom: 1rem; box-shadow: var(--shadow); }
 .card.highlight { outline: 2px solid var(--accent); }
-.badge { display: inline-block; font-size: .72rem; line-height: 1.5; padding: 0 .55em; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); vertical-align: middle; white-space: nowrap; background: var(--panel); }
-.badge-ok { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+.badge { display: inline-flex; align-items: center; gap: .25em; font-size: .72rem; line-height: 1.6; padding: 0 .6em; border-radius: 999px; border: 1px solid var(--border); color: var(--muted); vertical-align: middle; white-space: nowrap; background: var(--panel); }
+a.badge:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+.badge-ok { border-color: color-mix(in srgb, var(--accent) 55%, transparent); color: var(--accent-strong); background: var(--accent-soft); }
 .badge-warn { border-color: var(--warn-border); color: var(--warn-text); background: var(--warn-bg); }
 .badge-danger { border-color: var(--danger-border); color: var(--danger-text); background: var(--danger-bg); font-weight: 700; }
+.badge-end { border-color: color-mix(in srgb, var(--end) 55%, transparent); color: var(--end); background: var(--end-soft); }
 .badges { display: inline-flex; gap: .3rem; flex-wrap: wrap; vertical-align: middle; }
-.box { border-left: 4px solid var(--border); padding: .6rem .9rem; background: var(--panel); border-radius: 0 6px 6px 0; margin: .8rem 0; }
-.box-title { font-weight: 700; font-size: .85rem; text-transform: uppercase; letter-spacing: .04em; margin-bottom: .2rem; }
-.box-controls { border-left-color: var(--accent); }
+.box { border-left: 4px solid var(--border); padding: .65rem .95rem; background: var(--panel); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin: .8rem 0; }
+.box-title { font-weight: 700; font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .2rem; }
+.box-controls { border-left-color: var(--accent); background: var(--panel-2); }
 .box-caveat { border-left-color: var(--warn-border); background: var(--warn-bg); color: var(--warn-text); }
 .box-danger { border-left-color: var(--danger-border); background: var(--danger-bg); color: var(--danger-text); }
-.box-info { border-left-color: var(--accent); }
+.box-info { border-left-color: var(--accent); background: var(--panel-2); }
 .box ul { margin-bottom: .2rem; }
 .hint { color: var(--muted); font-style: italic; }
-.table-wrap { overflow-x: auto; }
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .table { width: 100%; border-collapse: collapse; font-size: .92rem; }
-.table th, .table td { text-align: left; padding: .4rem .6rem; border-bottom: 1px solid var(--border); vertical-align: top; }
-.table th { color: var(--muted); font-weight: 600; font-size: .76rem; text-transform: uppercase; letter-spacing: .04em; }
+.table th, .table td { text-align: left; padding: .45rem .6rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+.table th { color: var(--muted); font-weight: 700; font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; }
 .table tr.highlight td { background: var(--accent-soft); }
 .table td.num, .table th.num { text-align: right; white-space: nowrap; }
-.kv { display: grid; grid-template-columns: max-content 1fr; gap: .25rem 1.2rem; margin: .5rem 0; }
+.table td, .table th { overflow-wrap: normal; word-break: normal; }
+.kv { display: grid; grid-template-columns: max-content 1fr; gap: .3rem 1.2rem; margin: .5rem 0; }
 .kv dt { color: var(--muted); }
 .kv dd { margin: 0; min-width: 0; }
 .src { font-size: .78rem; color: var(--muted); margin-top: .6rem; }
@@ -129,6 +243,12 @@ main { flex: 1; min-width: 0; padding: 1.5rem 2rem 4rem; max-width: 1120px; }
 .ref-ext { color: var(--text); }
 .ref-ext .ref-name { border-bottom: 1px dotted var(--muted); }
 .reflist { display: flex; flex-wrap: wrap; gap: .3rem .9rem; }
+.tile-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: .6rem; }
+.tile { display: block; padding: .8rem .9rem; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); box-shadow: var(--shadow); transition: border-color .12s, transform .12s; }
+.tile:hover { text-decoration: none; border-color: var(--accent); transform: translateY(-1px); }
+.tile .big { font-size: 1.45rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.tile .lbl { color: var(--muted); font-size: .85rem; }
+
 /* Fortschrittsbaum */
 .advtree { list-style: none; margin: 0; padding-left: 1.4rem; border-left: 1px dashed var(--border); }
 .advtree.top { padding-left: 0; border-left: 0; }
@@ -137,46 +257,47 @@ main { flex: 1; min-width: 0; padding: 1.5rem 2rem 4rem; max-width: 1120px; }
 .adv .slot { width: 44px; height: 44px; }
 .adv .slot img { width: 32px; height: 32px; }
 .adv-goal .slot { border-radius: 12px; }
-.adv-challenge .slot { border-color: var(--accent); border-width: 2px; }
+.adv-challenge .slot { outline: 2px solid var(--end); outline-offset: 1px; }
 .adv .adv-frame { font-size: .75rem; color: var(--muted); margin-left: .4em; }
-.tile-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: .6rem; }
-.tile { display: block; padding: .8rem; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; color: var(--text); }
-.tile:hover { text-decoration: none; border-color: var(--accent); }
-.tile .big { font-size: 1.5rem; font-weight: 700; }
-.tile .lbl { color: var(--muted); font-size: .85rem; }
 
-/* Slots und Rezepte */
-.slot { display: inline-flex; align-items: center; justify-content: center; position: relative; width: 56px; height: 56px; background: var(--slot-bg); border: 1px solid var(--slot-border); border-radius: 4px; color: var(--text); overflow: hidden; flex: none; text-decoration: none; }
-a.slot:hover { border-color: var(--accent); text-decoration: none; }
+/* ------------------------------------------------------------------ */
+/* Slots: wie im Inventar, mit Relief                                 */
+/* ------------------------------------------------------------------ */
+.slot { display: inline-flex; align-items: center; justify-content: center; position: relative; width: 56px; height: 56px; background: var(--slot-bg); border: 0; box-shadow: inset 2px 2px 0 var(--slot-lo), inset -2px -2px 0 var(--slot-hi); border-radius: 2px; color: var(--slot-text); overflow: hidden; flex: none; text-decoration: none; }
+a.slot:hover { text-decoration: none; background: color-mix(in srgb, var(--slot-bg) 80%, var(--accent)); }
 .slot img { width: 40px; height: 40px; image-rendering: pixelated; image-rendering: crisp-edges; display: block; }
-.slot-text { font-size: 9.5px; line-height: 1.12; text-align: center; padding: 2px 3px; word-break: break-word; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
-.slot-tag { border-style: dashed; }
-.slot-tag .slot-text { color: var(--accent); }
+.slot-text { font-size: 9.5px; line-height: 1.12; text-align: center; padding: 2px 3px; word-break: break-word; color: var(--slot-text); display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.slot-tag { box-shadow: inset 2px 2px 0 var(--slot-lo), inset -2px -2px 0 var(--slot-hi), inset 0 0 0 3px color-mix(in srgb, var(--accent) 40%, transparent); }
+.slot-tag .slot-text { color: var(--accent-strong); }
 .slot-tag .hash { font-weight: 700; }
-.slot-empty { background: transparent; border-style: dotted; opacity: .55; }
-.slot-count { position: absolute; right: 1px; bottom: 0; font-size: 11px; font-weight: 700; background: var(--panel); padding: 0 3px; border-radius: 3px 0 0 0; line-height: 1.3; }
-.slot-alt { position: absolute; left: 2px; top: 0; font-size: 9px; color: var(--muted); }
-.slot-hash { position: absolute; right: 2px; top: 0; font-size: 9px; font-weight: 700; color: var(--accent); }
+.slot-empty { opacity: .6; }
+.slot-count { position: absolute; right: 2px; bottom: 0; font-size: 12px; font-weight: 800; color: #fff; text-shadow: 1px 1px 0 #3f3f3f; line-height: 1.2; }
+.slot-alt { position: absolute; left: 3px; top: 1px; font-size: 9px; font-weight: 700; color: var(--slot-text); }
+.slot-hash { position: absolute; right: 3px; top: 1px; font-size: 9px; font-weight: 800; color: var(--accent-strong); }
 .slot-result { width: 64px; height: 64px; }
 .slot-result img { width: 48px; height: 48px; }
-.grid { display: grid; gap: 4px; flex: none; }
-.recipe { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: .8rem 1rem; margin-bottom: .9rem; }
-.recipe-head { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; margin-bottom: .6rem; font-size: .85rem; }
+.grid { display: grid; gap: 2px; flex: none; }
+
+/* Rezepte */
+.recipe { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: .85rem 1rem; margin-bottom: .9rem; box-shadow: var(--shadow); }
+.recipe-head { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; margin-bottom: .7rem; font-size: .85rem; }
 .recipe-body { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
 .arrow { font-size: 1.6rem; color: var(--muted); line-height: 1; padding: 0 .2rem; }
-.slotcol { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; }
+.slotcol { display: inline-flex; flex-direction: column; align-items: center; gap: 3px; }
 .slot-label { font-size: .68rem; color: var(--muted); white-space: nowrap; }
 .slotrow { display: inline-flex; gap: 6px; align-items: flex-end; flex-wrap: wrap; }
 .plus { color: var(--muted); align-self: center; }
 .recipe-meta { font-size: .82rem; color: var(--muted); display: flex; flex-direction: column; gap: .15rem; }
-.recipe-foot { margin-top: .6rem; font-size: .82rem; color: var(--muted); }
+.recipe-foot { margin-top: .7rem; font-size: .82rem; color: var(--muted); }
 .recipe-foot .reflist { margin-top: .2rem; }
+.line-variant { margin-top: .4rem; }
 
 /* Listen */
 .listhead { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: .8rem; }
-.listhead input { padding: .4rem .7rem; border: 1px solid var(--border); border-radius: 6px; background: var(--panel); color: var(--text); font: inherit; min-width: 240px; }
+.listhead h1 { margin: 0; }
+.listhead input { height: 36px; padding: 0 .75rem; border: 1px solid var(--border); border-radius: 8px; background: var(--panel); color: var(--text); font: inherit; min-width: 240px; }
 .rows { display: flex; flex-direction: column; gap: 2px; }
-.row { display: flex; align-items: center; gap: .8rem; padding: .35rem .6rem; border-radius: 6px; color: var(--text); border: 1px solid transparent; }
+.row { display: flex; align-items: center; gap: .8rem; padding: .4rem .6rem; border-radius: 8px; color: var(--text); border: 1px solid transparent; }
 .row:hover { background: var(--panel); border-color: var(--border); text-decoration: none; }
 .row .slot { width: 40px; height: 40px; }
 .row .slot img { width: 28px; height: 28px; }
@@ -188,24 +309,90 @@ a.slot:hover { border-color: var(--accent); text-decoration: none; }
 .row-right { flex: none; display: flex; gap: .3rem; flex-wrap: wrap; justify-content: flex-end; }
 .row.hidden { display: none; }
 
-/* Detailseite */
-.hero { display: flex; gap: 1.5rem; align-items: flex-start; margin-bottom: .5rem; }
+/* ------------------------------------------------------------------ */
+/* Kopf einer Detailseite                                             */
+/* ------------------------------------------------------------------ */
+.crumbs { font-size: .82rem; color: var(--muted); margin-bottom: .8rem; display: flex; flex-wrap: wrap; align-items: center; gap: .15rem .4rem; }
+.crumbs a { color: var(--muted); }
+.crumbs a:hover { color: var(--accent); }
+.crumbs .sep { opacity: .55; }
+.hero { display: flex; gap: 1.4rem; align-items: center; margin-bottom: 1rem; }
 .hero > div { min-width: 0; }
 .hero h1, .idline code, .crumbs, .row-sub code { overflow-wrap: anywhere; word-break: break-word; white-space: normal; }
-main { overflow-wrap: anywhere; }
-.hero-tex { width: 128px; height: 128px; background: var(--slot-bg); border: 1px solid var(--slot-border); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex: none; text-align: center; color: var(--muted); font-size: .8rem; padding: .4rem; }
-.hero-tex img { width: 96px; height: 96px; image-rendering: pixelated; image-rendering: crisp-edges; }
+.hero-card { background: var(--panel); border: 1px solid var(--border); border-radius: calc(var(--radius) + 4px); padding: 1.2rem 1.3rem; box-shadow: var(--shadow); margin-bottom: 1rem; }
+.hero-card .hero { margin-bottom: 0; align-items: flex-start; }
+.hero-tex { width: 112px; height: 112px; background: var(--slot-bg); box-shadow: inset 3px 3px 0 var(--slot-lo), inset -3px -3px 0 var(--slot-hi); border-radius: 3px; display: flex; align-items: center; justify-content: center; flex: none; text-align: center; color: var(--slot-text); font-size: .8rem; padding: .4rem; }
+.hero-tex img { width: 80px; height: 80px; image-rendering: pixelated; image-rendering: crisp-edges; }
+.hero .en { color: var(--muted); font-size: 1rem; }
+.hero .idline { margin: .35rem 0 .5rem; }
+.hero .idline code { font-size: .82rem; }
+.tagline { font-size: 1.08rem; margin: .55rem 0 .2rem; line-height: 1.5; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .8rem; }
+.btn { display: inline-flex; align-items: center; gap: .35rem; height: 32px; padding: 0 .75rem; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--panel-2); color: var(--text); font-size: .85rem; font-weight: 550; cursor: pointer; white-space: nowrap; }
+.btn:hover { border-color: var(--accent); text-decoration: none; color: var(--accent-strong); }
+.btn kbd { margin-left: .15rem; }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
+.btn-primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); color: var(--accent-text); }
+
+/* Kennzahlen */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: .55rem; margin: 0 0 1rem; }
+.stat { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: .6rem .8rem; box-shadow: var(--shadow); min-width: 0; }
+.stat-v { font-size: 1.3rem; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.2; }
+.stat-v small { font-size: .72rem; font-weight: 500; color: var(--muted); margin-left: .2rem; }
+.stat-l { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; font-weight: 700; }
+
+/* "So bekommst du es" */
+.obtain { background: var(--panel); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: .9rem 1.1rem; margin: 0 0 1rem; box-shadow: var(--shadow); }
+.obtain > h2 { border: 0; padding: 0; margin: 0 0 .6rem; font-size: .8rem; text-transform: uppercase; letter-spacing: .07em; color: var(--accent-strong); }
+.obtain .recipe { box-shadow: none; margin-bottom: .5rem; background: var(--panel-2); }
+.obtain-ways { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .5rem; }
+.obtain-ways .btn { height: 30px; font-size: .82rem; }
+.obtain p { margin: .3rem 0; }
+
+/* Kategorien, Kacheln mit Item */
+.cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: .7rem; margin: .6rem 0 1.4rem; }
+.cat-card { display: flex; gap: .8rem; align-items: flex-start; padding: .85rem .95rem; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); box-shadow: var(--shadow); transition: border-color .12s, transform .12s; }
+.cat-card:hover { text-decoration: none; border-color: var(--accent); transform: translateY(-1px); }
+.cat-card .slot { width: 48px; height: 48px; }
+.cat-card .slot img { width: 34px; height: 34px; }
+.cat-card .slot .cube { --cs: 22px; }
+.cat-card .ct { font-weight: 700; }
+.cat-card .ct .n { color: var(--muted); font-weight: 500; font-size: .8rem; margin-left: .25rem; }
+.cat-card .cd { color: var(--muted); font-size: .84rem; line-height: 1.4; margin-top: .15rem; }
+.cat-end { border-color: color-mix(in srgb, var(--end) 35%, var(--border)); }
+.fam { margin: 0 0 1.2rem; }
+.fam-title { font-size: .78rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin: 0 0 .45rem; display: flex; gap: .5rem; align-items: baseline; }
+.fam-title a { text-transform: none; letter-spacing: 0; font-weight: 500; }
+.tile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(128px, 1fr)); gap: .5rem; }
+.itile { display: flex; flex-direction: column; align-items: center; gap: .4rem; padding: .7rem .5rem .6rem; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); text-align: center; min-width: 0; transition: border-color .12s, transform .12s; }
+.itile:hover { text-decoration: none; border-color: var(--accent); transform: translateY(-1px); }
+.itile .slot { width: 52px; height: 52px; }
+.itile .slot img { width: 36px; height: 36px; }
+.itile .slot .cube { --cs: 24px; }
+.itile-name { font-size: .82rem; font-weight: 600; line-height: 1.25; overflow-wrap: anywhere; }
+.itile-sub { font-size: .7rem; color: var(--muted); }
+.guide-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: .6rem; margin-bottom: 1rem; }
+.guide { display: block; padding: .8rem .95rem; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); box-shadow: var(--shadow); }
+.guide:hover { text-decoration: none; border-color: var(--accent); }
+.guide b { display: block; margin-bottom: .15rem; }
+.guide span { color: var(--muted); font-size: .86rem; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* Startseite */
+.home-hero { position: relative; overflow: hidden; border-radius: calc(var(--radius) + 6px); padding: 1.8rem 1.6rem 1.6rem; margin-bottom: 1.4rem; border: 1px solid var(--border); background:
+  linear-gradient(135deg, color-mix(in srgb, var(--accent) 16%, var(--panel)) 0%, var(--panel) 55%, color-mix(in srgb, var(--end) 14%, var(--panel)) 100%); box-shadow: var(--shadow); }
+.home-hero h1 { font-size: 2.1rem; }
+.home-hero .lead { max-width: 60ch; }
+.home-search { display: flex; align-items: center; gap: .6rem; width: 100%; max-width: 520px; height: 44px; margin-top: 1rem; padding: 0 .9rem; border: 1px solid var(--border-strong); border-radius: 10px; background: var(--panel); color: var(--muted); cursor: text; font-size: .95rem; text-align: left; }
+.home-search:hover { border-color: var(--accent); }
+.home-search svg { width: 18px; height: 18px; flex: none; }
+.home-search .grow { flex: 1; }
 
 /* 3D-Ansicht eines Blocks: drei Flaechen, per CSS-Transform zum Wuerfel
-   gestellt - kein WebGL und kein Build noetig. Die Abstufung der Helligkeit
-   ahmt die Beleuchtung im Spiel nach, damit die Kanten sichtbar bleiben,
-   wenn alle drei Flaechen dieselbe Textur tragen. */
-/* Orthografisch wie im Inventar: 45 Grad gedreht, 30 Grad von oben. Bewusst mit
-   reinen 2D-Matrizen statt rotateX/rotateY - dieselbe Projektion, aber ohne
-   3D-Kontext, der in manchen Renderern (Software-Compositing, Screenshots) platt
-   gezeichnet wird. --cs ist die Kantenlaenge; der Wuerfel ist projiziert
-   1,414 * cs breit und 1,573 * cs hoch (Oberseite 0,707, Seiten 0,866). */
-.cube { --cs: 60px; width: calc(var(--cs) * 1.4142); height: calc(var(--cs) * 1.5731); position: relative; flex: none; display: block; }
+   gestellt - kein WebGL und kein Build noetig. Orthografisch wie im Inventar:
+   45 Grad gedreht, 30 Grad von oben, mit reinen 2D-Matrizen (ohne 3D-Kontext,
+   der in manchen Renderern platt gezeichnet wird). --cs ist die Kantenlaenge;
+   der Wuerfel ist projiziert 1,414 * cs breit und 1,573 * cs hoch. */
+.cube { --cs: 56px; width: calc(var(--cs) * 1.4142); height: calc(var(--cs) * 1.5731); position: relative; flex: none; display: block; }
 .cube span { position: absolute; left: 0; top: 0; width: var(--cs); height: var(--cs); transform-origin: 0 0; background-size: 100% 100%; background-repeat: no-repeat; image-rendering: pixelated; image-rendering: crisp-edges; }
 .cube .f-top { transform: translate(calc(var(--cs) * .7071), 0) matrix(.7071, .3536, -.7071, .3536, 0, 0); }
 .cube .f-front { transform: translate(0, calc(var(--cs) * .3536)) matrix(.7071, .3536, 0, .866, 0, 0); filter: brightness(.8); }
@@ -215,24 +402,34 @@ main { overflow-wrap: anywhere; }
 .row .slot .cube, .iw-entry .slot .cube, .rc .slot .cube { --cs: 18px; }
 .rc .slot-result .cube { --cs: 21px; }
 .tree-node > summary .slot .cube { --cs: 15px; }
-.hero .en { color: var(--muted); font-size: 1.05rem; }
-.hero .idline { margin: .4rem 0; }
-.hero .idline code { font-size: .9rem; }
-.pool-bar { height: 6px; background: var(--slot-bg); border-radius: 3px; overflow: hidden; min-width: 80px; }
+.pool-bar { height: 6px; background: var(--bg-2); border-radius: 3px; overflow: hidden; min-width: 80px; }
 .pool-bar i { display: block; height: 100%; background: var(--accent); }
-.crumbs { font-size: .82rem; color: var(--muted); margin-bottom: .6rem; }
-.crumbs a { color: var(--muted); }
 details summary { cursor: pointer; color: var(--accent); }
-.search-group { margin-top: 1.4rem; }
-mark { background: var(--warn-bg); color: inherit; padding: 0 .1em; border-radius: 2px; }
-.notfound { padding: 2rem; text-align: center; color: var(--muted); }
+details.more { margin: -.2rem 0 .6rem; }
+details.more > summary { font-size: .88rem; font-weight: 600; margin-left: 1.3rem; }
+.search-group { margin-top: 1.2rem; }
+mark { background: color-mix(in srgb, var(--warn-border) 40%, transparent); color: inherit; padding: 0 .1em; border-radius: 2px; }
+.notfound { padding: 2rem 1rem; text-align: center; color: var(--muted); }
+.notfound .rows { text-align: left; max-width: 640px; margin: 1rem auto; }
 
 /* Leere Abschnitte gesammelt am Seitenende */
 .empty-sections { margin-top: 1.6rem; border-top: 1px dashed var(--border); padding-top: .4rem; }
 .section-empty { margin: .3rem 0; }
-.section-empty h2 { font-size: .95rem; color: var(--muted); border: 0; margin: .5rem 0 .1rem; padding: 0; }
-.section-empty .hint { margin: 0; }
+.section-empty h2 { font-size: .9rem; color: var(--muted); border: 0; margin: .5rem 0 .1rem; padding: 0; }
+.section-empty .hint { margin: 0; font-size: .88rem; }
 .tree-hint { margin: .2rem 0 .6rem; }
+
+/* Blaettern in der Kategorie */
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-top: 2rem; }
+.pager a { display: flex; align-items: center; gap: .6rem; padding: .7rem .85rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--panel); color: var(--text); min-width: 0; }
+.pager a:hover { border-color: var(--accent); text-decoration: none; }
+.pager a.next { justify-content: flex-end; text-align: right; grid-column: 2; }
+.pager .slot { width: 36px; height: 36px; }
+.pager .slot img { width: 26px; height: 26px; }
+.pager .slot .cube { --cs: 16px; }
+.pager small { display: block; color: var(--muted); font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; }
+.pager b { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pager span.pm { min-width: 0; }
 
 /* Umwandlung in der Welt */
 .iw-entry { flex-wrap: wrap; align-items: center; cursor: default; }
@@ -241,20 +438,20 @@ mark { background: var(--warn-bg); color: inherit; padding: 0 .1em; border-radiu
 .iw-entry .slot { width: 40px; height: 40px; }
 .iw-entry .slot img { width: 28px; height: 28px; }
 .iw-meta { font-size: .82rem; color: var(--muted); }
-.slot-tool { opacity: .9; }
+.slot-tool { opacity: .92; }
 
 /* Kontextmenue */
-.ctxmenu { position: fixed; z-index: 1000; min-width: 170px; background: var(--panel); color: var(--text); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 6px 24px rgba(0,0,0,.25); padding: .25rem 0; font-size: .9rem; }
-.ctxmenu .ctx-title { padding: .3rem .8rem; font-size: .75rem; color: var(--muted); border-bottom: 1px solid var(--border); margin-bottom: .2rem; max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.ctxmenu a { display: block; padding: .35rem .8rem; color: var(--text); }
-.ctxmenu a:hover, .ctxmenu a:focus { background: var(--slot-bg); text-decoration: none; outline: none; }
+.ctxmenu { position: fixed; z-index: 1000; min-width: 180px; background: var(--panel); color: var(--text); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-lg); padding: .3rem; font-size: .9rem; }
+.ctxmenu .ctx-title { padding: .3rem .6rem; font-size: .75rem; color: var(--muted); border-bottom: 1px solid var(--border); margin-bottom: .2rem; max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ctxmenu a { display: block; padding: .38rem .6rem; color: var(--text); border-radius: var(--radius-sm); }
+.ctxmenu a:hover, .ctxmenu a:focus { background: var(--accent-soft); text-decoration: none; outline: none; }
 
 /* Rezeptbaum */
 .tree-controls { display: flex; gap: .8rem; align-items: center; flex-wrap: wrap; font-size: .9rem; }
-.tree-controls input, .tree-controls select { padding: .25rem .4rem; border: 1px solid var(--border); border-radius: 6px; background: var(--panel); color: var(--text); font: inherit; }
+.tree-controls input, .tree-controls select { height: 32px; padding: 0 .45rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--panel); color: var(--text); font: inherit; }
 .tree-controls input { width: 5.5rem; min-width: 0; }
-.tree-node { margin: .15rem 0 .15rem 0; }
-.tree-node > summary { display: flex; align-items: center; gap: .45rem; list-style: none; padding: .15rem .3rem; border-radius: 6px; color: var(--text); }
+.tree-node { margin: .15rem 0; }
+.tree-node > summary { display: flex; align-items: center; gap: .45rem; list-style: none; padding: .2rem .3rem; border-radius: var(--radius-sm); color: var(--text); flex-wrap: wrap; }
 .tree-node > summary::-webkit-details-marker { display: none; }
 .tree-node > summary::before { content: '▸'; color: var(--muted); width: .8rem; flex: none; }
 .tree-node[open] > summary::before { content: '▾'; }
@@ -262,102 +459,161 @@ mark { background: var(--warn-bg); color: inherit; padding: 0 .1em; border-radiu
 .tree-node > summary .slot { width: 32px; height: 32px; }
 .tree-node > summary .slot img { width: 24px; height: 24px; }
 .tree-node > summary .slot-text { font-size: 7px; -webkit-line-clamp: 3; }
-.tree-need { font-variant-numeric: tabular-nums; color: var(--accent); font-weight: 600; min-width: 2.5rem; text-align: right; }
+.tree-need { font-variant-numeric: tabular-nums; color: var(--accent-strong); font-weight: 700; min-width: 2.5rem; text-align: right; }
 .tree-body { margin-left: 1.1rem; padding-left: .7rem; border-left: 1px solid var(--border); }
 .tree-way { margin: .3rem 0 .5rem; }
 .tree-way-head { display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; margin: .2rem 0; }
 .tree-members { margin: .2rem 0; }
 
-/* Einklappbare Abschnitte (Item-Seite) */
-details.fold > summary { list-style: none; cursor: pointer; color: var(--text); }
+/* Einklappbare Abschnitte */
+details.fold { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 0 1.05rem; box-shadow: var(--shadow); margin-top: .8rem; }
+details.fold[open] { padding-bottom: .9rem; }
+details.fold > summary { list-style: none; cursor: pointer; color: var(--text); padding: .75rem 0; }
 details.fold > summary::-webkit-details-marker { display: none; }
-details.fold > summary h2 { display: flex; align-items: center; gap: .45rem; }
-details.fold > summary h2::before { content: '▾'; color: var(--muted); font-size: .85em; width: .9rem; flex: none; transition: transform .12s; }
-details.fold:not([open]) > summary h2::before { transform: rotate(-90deg); }
-details.fold:not([open]) > summary h2 { margin-bottom: 0; }
-details.fold > summary:hover h2 { color: var(--accent); }
+details.fold > summary h2 { display: flex; align-items: center; gap: .5rem; border: 0; padding: 0; margin: 0; font-size: 1.02rem; }
+details.fold > summary h2::before { content: ''; width: .5rem; height: .5rem; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg); flex: none; margin: 0 .25rem 0 .1rem; transition: transform .15s; position: relative; top: -2px; }
+details.fold:not([open]) > summary h2::before { transform: rotate(-45deg); top: 0; }
+details.fold > summary:hover h2 { color: var(--accent-strong); }
 details.fold > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+details.fold .recipe, details.fold .card { box-shadow: none; background: var(--panel-2); }
+details.fold.tech { background: transparent; box-shadow: none; border-style: dashed; }
 
 /* Kernmerkmal der aufgewerteten Maschinen */
-.keyfeat { display: flex; gap: .8rem; align-items: flex-start; border: 1px solid var(--accent); background: var(--accent-soft); border-radius: 8px; padding: .7rem .9rem; margin: .6rem 0 .4rem; }
-.keyfeat-num { flex: none; font-size: 1.7rem; font-weight: 800; color: var(--accent); line-height: 1; min-width: 3.2rem; text-align: center; font-variant-numeric: tabular-nums; }
-.keyfeat-title { font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--accent); font-weight: 700; }
+.keyfeat { display: flex; gap: .9rem; align-items: flex-start; border: 1px solid color-mix(in srgb, var(--accent) 50%, var(--border)); background: var(--accent-soft); border-radius: var(--radius); padding: .8rem 1rem; margin: 0 0 1rem; }
+.keyfeat-num { flex: none; font-size: 1.8rem; font-weight: 850; color: var(--accent-strong); line-height: 1; min-width: 3.2rem; text-align: center; font-variant-numeric: tabular-nums; }
+.keyfeat-title { font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; color: var(--accent-strong); font-weight: 750; }
 .keyfeat p { margin: .15rem 0; }
 .keyfeat .src { margin-top: .3rem; }
 
 /* Alle Rezepte */
-.ar-filters { display: flex; flex-direction: column; gap: .5rem; margin: .6rem 0 1rem; padding: .7rem .8rem; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; }
+.ar-filters { display: flex; flex-direction: column; gap: .55rem; margin: .6rem 0 1rem; padding: .8rem .9rem; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }
 .ar-frow { display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; }
-.ar-flabel { font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; min-width: 5.2rem; }
-.chip { font: inherit; font-size: .82rem; padding: .18rem .6rem; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); color: var(--text); cursor: pointer; white-space: nowrap; }
+.ar-flabel { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; min-width: 5.2rem; font-weight: 700; }
+.chip { font: inherit; font-size: .82rem; padding: .2rem .65rem; border-radius: 999px; border: 1px solid var(--border); background: var(--bg); color: var(--text); cursor: pointer; white-space: nowrap; }
+a.chip:hover { text-decoration: none; }
 .chip:hover { border-color: var(--accent); }
-.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--panel); font-weight: 600; }
-.chip .n { opacity: .7; font-size: .9em; margin-left: .25rem; }
-.ar-filters input[type=search] { flex: 1 1 240px; min-width: 0; padding: .4rem .7rem; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); font: inherit; }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-text); font-weight: 650; }
+.chip .n { opacity: .75; font-size: .9em; margin-left: .25rem; }
+.ar-filters input[type=search] { flex: 1 1 240px; min-width: 0; height: 36px; padding: 0 .75rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font: inherit; }
 .ar-filters label { font-size: .85rem; display: inline-flex; gap: .35rem; align-items: center; cursor: pointer; }
 .ar-status { font-size: .85rem; color: var(--muted); margin: .2rem 0 .6rem; }
 .ar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: .7rem; align-items: start; }
-.rc { --slot: 40px; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: .6rem .7rem; min-width: 0; }
+.rc { --slot: 40px; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: .65rem .75rem; min-width: 0; box-shadow: var(--shadow); }
 .rc .slot { width: 40px; height: 40px; }
 .rc .slot img { width: 28px; height: 28px; }
 .rc .slot-text { font-size: 8px; -webkit-line-clamp: 3; }
 .rc .slot-result { width: 48px; height: 48px; }
 .rc .slot-result img { width: 34px; height: 34px; }
 .rc .recipe-body { gap: .6rem; }
-.rc .grid { gap: 3px; }
-.rc-head { display: flex; align-items: center; gap: .35rem; flex-wrap: wrap; font-size: .8rem; margin-bottom: .5rem; }
-.rc-head .rc-name { font-weight: 600; font-size: .92rem; margin-right: auto; min-width: 0; }
-.rc-foot { display: flex; gap: .7rem; flex-wrap: wrap; font-size: .78rem; color: var(--muted); margin-top: .45rem; }
-.rc-variants { display: flex; flex-wrap: wrap; gap: 3px; margin-top: .45rem; }
+.rc .grid { gap: 2px; }
+.rc-head { display: flex; align-items: center; gap: .35rem; flex-wrap: wrap; font-size: .8rem; margin-bottom: .55rem; }
+.rc-head .rc-name { font-weight: 650; font-size: .92rem; margin-right: auto; min-width: 0; }
+.rc-foot { display: flex; gap: .7rem; flex-wrap: wrap; font-size: .78rem; color: var(--muted); margin-top: .5rem; }
+.rc-variants { display: flex; flex-wrap: wrap; gap: 3px; margin-top: .5rem; }
 .rc-variants button { padding: 0; border: 1px solid transparent; background: none; border-radius: 4px; cursor: pointer; line-height: 0; }
 .rc-variants button[aria-pressed="true"] { border-color: var(--accent); }
 .rc-variants .slot { width: 26px; height: 26px; pointer-events: none; }
 .rc-variants .slot img { width: 20px; height: 20px; }
 .rc-variants .slot .cube { --cs: 12px; }
 .rc-variants .slot-text { display: none; }
-.badge-mod { border-color: var(--accent); color: var(--accent); }
+.badge-mod { border-color: color-mix(in srgb, var(--accent) 55%, transparent); color: var(--accent-strong); }
 .badge-line { font-variant-numeric: tabular-nums; }
 .ar-more { display: block; margin: 1rem auto; }
 .iw-card-meta { font-size: .78rem; color: var(--muted); margin-top: .35rem; }
 
 /* JEI-Ansicht je Item */
-.mk-head { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; margin-bottom: .5rem; }
+.mk-head { display: flex; align-items: center; gap: .9rem; flex-wrap: wrap; margin-bottom: .5rem; }
 .mk-head h1 { margin: 0; }
 .mk-tabs { display: flex; gap: .3rem; flex-wrap: wrap; margin: .5rem 0 .8rem; }
 .mk-station { margin-bottom: 1rem; }
 .mk-station > h2 { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
-.mk-pager { display: inline-flex; align-items: center; gap: .3rem; font-size: .85rem; font-weight: 400; color: var(--muted); margin-left: auto; }
-.mk-pager { flex-wrap: wrap; }
-.mk-pager button:not(.chip) { font: inherit; width: 2rem; height: 2rem; border-radius: 6px; border: 1px solid var(--border); background: var(--panel); color: var(--text); cursor: pointer; }
+.mk-pager { display: inline-flex; align-items: center; gap: .3rem; font-size: .85rem; font-weight: 400; color: var(--muted); margin-left: auto; flex-wrap: wrap; }
+.mk-pager button:not(.chip) { font: inherit; width: 2rem; height: 2rem; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--panel); color: var(--text); cursor: pointer; }
 .mk-pager button:not(.chip):hover:not(:disabled) { border-color: var(--accent); }
 .mk-pager button:disabled { opacity: .4; cursor: default; }
 .mk-pager .chip { font-size: .78rem; }
 .mk-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: .7rem; }
-@media (max-width: 520px) {
+
+/* ------------------------------------------------------------------ */
+/* Schmale Bildschirme                                                */
+/* ------------------------------------------------------------------ */
+@media (max-width: 1180px) { .topmeta { display: none; } }
+@media (max-width: 920px) {
+  .menu-btn { display: inline-flex; }
+  .sidebar { position: fixed; left: 0; top: var(--topbar-h); z-index: 50; height: calc(100vh - var(--topbar-h)); height: calc(100dvh - var(--topbar-h)); width: min(300px, 86vw); transform: translateX(-102%); transition: transform .2s ease; box-shadow: var(--shadow-lg); }
+  body.nav-open .sidebar { transform: none; }
+  body.nav-open .backdrop { display: block; position: fixed; inset: var(--topbar-h) 0 0 0; z-index: 45; background: rgba(0,0,0,.35); }
+  main { padding: 1.2rem 1.1rem 3rem; }
+}
+@media (max-width: 640px) {
+  html { font-size: 15px; }
+  .topbar { gap: .45rem; padding: 0 .6rem; }
+  .brand .brand-text { display: none; }
+  .search { margin-left: 0; }
+  .search input { padding-right: .7rem; }
+  .search .s-keys { display: none; }
+    .qs { position: fixed; left: .5rem; right: .5rem; top: calc(var(--topbar-h) - 2px); max-height: calc(100vh - var(--topbar-h) - 1rem); }
+  .qs-sec { display: none; }
+  .qs-foot { display: none; }
+  main { padding: 1rem 1rem 3rem; }
+  h1 { font-size: 1.5rem; }
+  .home-hero { padding: 1.3rem 1.1rem; }
+  .home-hero h1 { font-size: 1.65rem; }
+  .home-search kbd { display: none; }
+  .hero-card { padding: 1rem; }
+  .hero { gap: .9rem; }
+  .hero-tex { width: 76px; height: 76px; }
+  .hero-tex img { width: 56px; height: 56px; }
+  .hero-tex .cube { --cs: 38px; }
+  .tagline { font-size: 1rem; }
+  .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ar-grid, .mk-list { grid-template-columns: 1fr; }
   .ar-flabel { min-width: 0; width: 100%; }
   .keyfeat { flex-direction: column; gap: .3rem; }
   .mk-pager { margin-left: 0; }
+  .listhead input { min-width: 0; width: 100%; }
+  .tile-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
+  .cat-grid { grid-template-columns: 1fr; }
+  .guide-grid { grid-template-columns: 1fr; }
+  .pager { grid-template-columns: 1fr; }
+  .pager a.next { grid-column: 1; }
+  .row { gap: .6rem; padding: .4rem .3rem; }
+  .row-right { display: none; }
+  .kv { grid-template-columns: 1fr; gap: 0; }
+  .kv dd { margin-bottom: .45rem; }
+  details.fold { padding: 0 .8rem; }
+  .recipe { padding: .75rem .7rem; }
+  .slot { width: 48px; height: 48px; }
+  .slot img { width: 34px; height: 34px; }
+  .slot .cube { --cs: 22px; }
+  .slot-result { width: 56px; height: 56px; }
+  .slot-result img { width: 40px; height: 40px; }
+  .recipe-body { gap: .6rem; }
 }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
 <body>
 <div id="app">
   <header class="topbar">
-    <a class="brand" href="#/" id="brand">SimpleBuilding Wiki</a>
-    <div class="search">
-      <input id="q" type="search" autocomplete="off" spellcheck="false">
-      <kbd>/</kbd>
+    <button type="button" class="icon-btn menu-btn" id="menu-btn" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <a class="brand" href="#/" id="brand"><span class="brand-icon" id="brand-icon"></span><span class="brand-text">SimpleBuilding <small>Wiki</small></span></a>
+    <div class="search" role="search">
+      <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="qs">
+      <span class="s-keys"><kbd>Ctrl</kbd><kbd>K</kbd></span>
+      <div class="qs" id="qs" role="listbox" hidden></div>
     </div>
     <div class="topmeta" id="topmeta"></div>
-    <select class="langsel" id="lang"><option value="en">English</option><option value="de">Deutsch</option></select>
+    <button type="button" class="icon-btn" id="theme-btn"></button>
+    <select class="langsel" id="lang"><option value="en" title="English">EN</option><option value="de" title="Deutsch">DE</option></select>
   </header>
   <div class="layout">
     <nav class="sidebar" id="sidebar"></nav>
-    <main id="main"></main>
+    <div class="backdrop" id="backdrop"></div>
+    <main id="main" tabindex="-1"></main>
   </div>
 </div>
-
 <script src="data/simplebuilding.js"></script>
 <script>
 (function () {
@@ -395,6 +651,13 @@ var LANG_STORE = 'simplebuilding-wiki-lang';
 var LANGS = ['en', 'de'];
 var LANG_NAMES = { en: 'English', de: 'Deutsch' };
 var LANG = (function () {
+  /* ?lang=de in der Adresse gewinnt - so zeigt ein geteilter Link dieselbe Sprache. */
+  try {
+    var fromUrl = new URLSearchParams(window.location.search).get('lang');
+    if (LANGS.indexOf(fromUrl) >= 0) return fromUrl;
+    var hm = /[?&]lang=(en|de)\b/.exec(window.location.hash || '');
+    if (hm) return hm[1];
+  } catch (err) { /* sehr alter Browser: weiter unten */ }
   try {
     var stored = window.localStorage ? window.localStorage.getItem(LANG_STORE) : null;
     if (LANGS.indexOf(stored) >= 0) return stored;
@@ -782,7 +1045,61 @@ en: {
   machineHopperExample: 'Each action moves one item, so up to {0} items per second instead of {1}.',
   machineSource: 'From the code:',
   'vn.minecraft:furnace': 'Furnace', 'vn.minecraft:smoker': 'Smoker', 'vn.minecraft:blast_furnace': 'Blast Furnace', 'vn.minecraft:hopper': 'Hopper',
-  foldHint: 'click to fold'
+  foldHint: 'click to fold',
+  showMore: 'Show {0} more points',
+  /* Neue Oberflaeche: Kategorien, Navigation, Schnellsuche */
+  sbCategories: 'Browse', sbReference: 'Reference', sbProgress: 'Progress & settings',
+  navGuides: 'Guides', navHome: 'Home',
+  'cat.tools': 'Tools & gear', 'cat.building': 'Building blocks', 'cat.storage': 'Storage',
+  'cat.machines': 'Machines', 'cat.gadgets': 'Pads & gadgets', 'cat.end': 'End & enderite',
+  'cat.trims': 'Trims & upgrades', 'cat.materials': 'Materials & food', 'cat.misc': 'Guide books & misc',
+  'catd.tools': 'Chisels, sledgehammers, building wands, octants, blueprints and the enderite tools and armour.',
+  'catd.building': 'Astralit, nihilith and ender quartz blocks, checkers, polished stone and gravity-defying sand and gravel.',
+  'catd.storage': 'Backpacks, bundles and quivers in their upgrade tiers.',
+  'catd.machines': 'Faster furnaces, smokers, blast furnaces, hoppers and pistons.',
+  'catd.gadgets': 'Flypads, launchpads, elytra and potion pads, teleporters, chunk loaders, magnet, rotator and more.',
+  'catd.end': 'Everything made from or found in the End: enderite, astralit, nihilith, ender quartz.',
+  'catd.trims': 'Smithing templates, upgrade cores and the placed smithing template.',
+  'catd.materials': 'Ingots, nuggets, scraps, dusts, ores and the enchanted food.',
+  'catd.misc': 'The in-game guide books and helper items.',
+  catPageIntro: '{0} entries in this category.',
+  catGuides: 'Guides for this category',
+  catMore: 'More',
+  catAll: 'Everything in this category',
+  homeTagline: 'Every item, block, recipe, machine and mechanic of the mod, generated from its own data.',
+  homeSearch: 'Search items, blocks, recipes, mechanics …',
+  homeBrowse: 'Browse by category',
+  homeReference: 'Reference',
+  homeGuides: 'Guides',
+  homeDataState: 'About this build',
+  guidesIntro: 'Hand-written explanations of the mod’s mechanics, each backed by the source code.',
+  qsAll: 'All results for “{0}”',
+  qsNone: 'No quick match – press Enter for the full search.',
+  qsNav: '↑↓ select · Enter open · Esc close',
+  themeAuto: 'Theme: system', themeLight: 'Theme: light', themeDark: 'Theme: dark',
+  menuAria: 'Open navigation',
+  obtainTitle: 'How to get it',
+  obtainCraft: 'Crafted at the {0}.',
+  obtainInWorld: 'Made in the world: {0}.',
+  obtainDrops: 'Drops from {0}.',
+  obtainTrade: 'Sold by villagers ({0}).',
+  obtainSelf: 'Placed block – mining it drops itself.',
+  obtainNone: 'No recipe, drop or trade in the data – see the description below.',
+  obtainMore: '{0} more ways',
+  obtainAllRecipes: 'All recipes',
+  obtainUses: 'Uses',
+  obtainTree: 'Crafting tree',
+  keyStats: 'Key stats',
+  secRelated: 'Related',
+  secTechnical: 'Technical details',
+  techId: 'Id', techKind: 'Registry', techTexture: 'Texture', techLootTable: 'Loot table',
+  techNoteKey: 'Prose key', techSources: 'Sources', techCategory: 'Category',
+  pagerPrev: 'Previous', pagerNext: 'Next',
+  footGenerated: 'Generated from the mod’s own data files by {0}.',
+  footShortcuts: 'Shortcuts: / or Ctrl+K search · R/U over an item: recipes/uses · right-click: crafting tree',
+  notFoundSuggest: 'Did you mean one of these?',
+  statDrops: 'Drops',
+  statMachine: 'Speed'
 },
 de: {
   /* Kopf und Navigation */
@@ -1162,7 +1479,60 @@ de: {
   machineHopperExample: 'Jeder Arbeitsschritt bewegt ein Item, also bis zu {0} Items pro Sekunde statt {1}.',
   machineSource: 'Aus dem Code:',
   'vn.minecraft:furnace': 'Ofen', 'vn.minecraft:smoker': 'Räucherofen', 'vn.minecraft:blast_furnace': 'Schmelzofen', 'vn.minecraft:hopper': 'Trichter',
-  foldHint: 'zum Einklappen klicken'
+  foldHint: 'zum Einklappen klicken',
+  showMore: '{0} weitere Punkte zeigen',
+  sbCategories: 'Stöbern', sbReference: 'Nachschlagen', sbProgress: 'Fortschritt & Einstellungen',
+  navGuides: 'Anleitungen', navHome: 'Start',
+  'cat.tools': 'Werkzeuge & Ausrüstung', 'cat.building': 'Baublöcke', 'cat.storage': 'Aufbewahrung',
+  'cat.machines': 'Maschinen', 'cat.gadgets': 'Pads & Geräte', 'cat.end': 'End & Enderit',
+  'cat.trims': 'Besätze & Aufwertungen', 'cat.materials': 'Materialien & Essen', 'cat.misc': 'Handbücher & Sonstiges',
+  'catd.tools': 'Meißel, Vorschlaghämmer, Baustäbe, Oktanten, Blaupausen und die Enderit-Werkzeuge und -Rüstung.',
+  'catd.building': 'Astralit-, Nihilith- und Enderquarz-Blöcke, Schachbrettmuster, polierter Stein und schwebender Sand und Kies.',
+  'catd.storage': 'Rucksäcke, Bündel und Köcher in ihren Stufen.',
+  'catd.machines': 'Schnellere Öfen, Räucheröfen, Schmelzöfen, Trichter und Kolben.',
+  'catd.gadgets': 'Flug-, Sprung-, Elytra- und Trankpads, Teleporter, Chunk-Lader, Magnet, Rotator und mehr.',
+  'catd.end': 'Alles, was aus dem End stammt oder dort gefunden wird: Enderit, Astralit, Nihilith, Enderquarz.',
+  'catd.trims': 'Schmiedevorlagen, Aufwertungskerne und die platzierte Schmiedevorlage.',
+  'catd.materials': 'Barren, Klumpen, Schrott, Staub, Erze und das verzauberte Essen.',
+  'catd.misc': 'Die Handbücher im Spiel und Hilfsitems.',
+  catPageIntro: '{0} Einträge in dieser Kategorie.',
+  catGuides: 'Anleitungen zu dieser Kategorie',
+  catMore: 'Weitere',
+  catAll: 'Alles in dieser Kategorie',
+  homeTagline: 'Jedes Item, jeder Block, jedes Rezept, jede Maschine und Mechanik der Mod – erzeugt aus ihren eigenen Daten.',
+  homeSearch: 'Items, Blöcke, Rezepte, Mechaniken suchen …',
+  homeBrowse: 'Nach Kategorie stöbern',
+  homeReference: 'Nachschlagen',
+  homeGuides: 'Anleitungen',
+  homeDataState: 'Über diesen Stand',
+  guidesIntro: 'Von Hand geschriebene Erklärungen der Mechaniken, jede am Quellcode belegt.',
+  qsAll: 'Alle Treffer für „{0}“',
+  qsNone: 'Kein Schnelltreffer – Enter öffnet die volle Suche.',
+  qsNav: '↑↓ wählen · Enter öffnen · Esc schließen',
+  themeAuto: 'Farben: System', themeLight: 'Farben: hell', themeDark: 'Farben: dunkel',
+  menuAria: 'Navigation öffnen',
+  obtainTitle: 'So bekommst du es',
+  obtainCraft: 'Hergestellt am {0}.',
+  obtainInWorld: 'Entsteht in der Welt: {0}.',
+  obtainDrops: 'Fällt aus {0}.',
+  obtainTrade: 'Bei Dorfbewohnern erhältlich ({0}).',
+  obtainSelf: 'Platzierter Block – beim Abbauen droppt er sich selbst.',
+  obtainNone: 'Kein Rezept, Drop oder Handel in den Daten – siehe Beschreibung unten.',
+  obtainMore: '{0} weitere Wege',
+  obtainAllRecipes: 'Alle Rezepte',
+  obtainUses: 'Verwendung',
+  obtainTree: 'Rezeptbaum',
+  keyStats: 'Kennwerte',
+  secRelated: 'Verwandt',
+  secTechnical: 'Technische Angaben',
+  techId: 'Id', techKind: 'Registrierung', techTexture: 'Textur', techLootTable: 'Loot-Tabelle',
+  techNoteKey: 'Prosa-Schlüssel', techSources: 'Quellen', techCategory: 'Kategorie',
+  pagerPrev: 'Zurück', pagerNext: 'Weiter',
+  footGenerated: 'Erzeugt aus den Daten der Mod von {0}.',
+  footShortcuts: 'Tasten: / oder Strg+K Suche · R/U über einem Item: Rezepte/Verwendung · Rechtsklick: Rezeptbaum',
+  notFoundSuggest: 'Meintest du eines davon?',
+  statDrops: 'Drops',
+  statMachine: 'Tempo'
 }
 };
 
@@ -1405,16 +1775,18 @@ function section(title, body, opts) {
   if (opts.fold) {
     /* Einklappbar; was der Leser zugeklappt hat, bleibt auf allen Seiten zu (nur in
        diesem Browser, s. FOLD_STORE). */
-    return '<details class="section fold" data-fold="' + esc(opts.fold) + '"' + (isFolded(opts.fold) ? '' : ' open') + (opts.id ? ' id="' + esc(opts.id) + '"' : '') +
+    return '<details class="section fold' + (opts.cls ? ' ' + opts.cls : '') + '" data-fold="' + esc(opts.fold) + '"' + (opts.defaultClosed ? ' data-defclosed="1"' : '') + (isFolded(opts.fold, opts.defaultClosed) ? '' : ' open') + (opts.id ? ' id="' + esc(opts.id) + '"' : '') +
       '><summary title="' + esc(T('foldHint')) + '">' + h2 + '</summary>' + body + '</details>';
   }
   return '<section class="section" id="' + esc(opts.id || '') + '">' + h2 + body + '</section>';
 }
 var FOLD_STORE = 'simplebuilding-wiki-folds';
 var FOLDS = (function () { try { var v = JSON.parse(window.localStorage.getItem(FOLD_STORE) || '{}'); return isObj(v) ? v : {}; } catch (err) { return {}; } })();
-function isFolded(key) { return FOLDS[key] === 1; }
-function setFolded(key, closed) {
-  if (closed) FOLDS[key] = 1; else delete FOLDS[key];
+/* 1 = zugeklappt, 0 = ausdruecklich aufgeklappt (fuer Abschnitte, die sonst zu sind). */
+function isFolded(key, defaultClosed) { return FOLDS[key] === 1 || (defaultClosed && FOLDS[key] !== 0); }
+function setFolded(key, closed, defaultClosed) {
+  if (closed) { if (defaultClosed) delete FOLDS[key]; else FOLDS[key] = 1; }
+  else if (defaultClosed) FOLDS[key] = 0; else delete FOLDS[key];
   try { window.localStorage.setItem(FOLD_STORE, JSON.stringify(FOLDS)); } catch (err) { /* nur fuer diese Sitzung */ }
 }
 function sourceLine(src) { return src ? '<div class="src">' + esc(T('srcSource')) + ' <code>' + esc(src) + '</code></div>' : ''; }
@@ -1454,17 +1826,21 @@ function sourcesList(src) {
   if (!src.length) return '';
   return '<div class="src">' + esc(T('srcFoundIn')) + ' ' + src.map(function (s) { return '<code>' + esc(s) + '</code>'; }).join(' ') + '</div>';
 }
-function noteBlock(note, what) {
+function noteBlock(note, what, opts) {
+  opts = opts || {};
   if (!noteHasContent(note)) return hintNoText(what);
   var loc = localised(note), n = loc.v;
   var h = loc.fallback ? '<p class="hint tiny">' + esc(T('proseOtherLangOnly')) + '</p>' : '';
   if (strs([n.summary]).length) h += '<p class="lead">' + esc(n.summary) + '</p>';
-  var det = strs(n.details); if (det.length) h += listHtml(det);
+  var det = strs(n.details);
+  if (det.length && opts.clamp && det.length > opts.clamp + 1) h += listHtml(det.slice(0, opts.clamp)) + '<details class="more"><summary>' + esc(T('showMore', det.length - opts.clamp)) + '</summary>' + listHtml(det.slice(opts.clamp)) + '</details>';
+  else if (det.length) h += listHtml(det);
   var ctl = strs(n.controls); if (ctl.length) h += '<div class="box box-controls"><div class="box-title">' + esc(T('boxControls')) + '</div>' + listHtml(ctl) + '</div>';
   var tiers = strs(n.tiers); if (tiers.length) h += '<h3>' + esc(T('headingTiers')) + '</h3>' + tiersTable(tiers);
   var cav = strs(n.caveats); if (cav.length) h += '<div class="box box-caveat"><div class="box-title">' + esc(T('boxCaveats')) + '</div>' + listHtml(cav) + '</div>';
+  if (opts.noSources) return h;
   h += sourcesList(strs(note.sources).length ? strs(note.sources) : strs(n.sources));
-  if (note.key) h += '<div class="src">' + esc(T('srcNoteKey')) + ' <code>manual.json</code>: <code>' + esc(note.key) + '</code></div>';
+  if (note.key) h +='<div class="src">' + esc(T('srcNoteKey')) + ' <code>manual.json</code>: <code>' + esc(note.key) + '</code></div>';
   return h;
 }
 function featureCard(f, full) {
@@ -1590,8 +1966,9 @@ function recipeCard(r, opts) {
   var res = normStack(r.result);
   var h = '<article class="recipe" id="recipe-' + esc(r.id) + '">';
   h += '<div class="recipe-head">' + badge(recipeTypeLabel(r.type)) + (r.category ? badge(T('badgeCategory', r.category)) : '') + (r.group ? badge(T('badgeGroup', r.group)) : '');
-  h += (opts.noLink ? '<code>' + esc(r.id) + '</code>' : '<a href="#/recipes/' + esc(r.id) + '"><code>' + esc(r.id) + '</code></a>') + '</div>';
+  h += (opts.compact ? '' : opts.noLink ? '<code>' + esc(r.id) + '</code>' : '<a href="#/recipes/' + esc(r.id) + '"><code>' + esc(r.id) + '</code></a>') + '</div>';
   h += '<div class="recipe-body">' + body + '</div>';
+  if (opts.compact) return h + lineVariantsHtml(r) + '</article>';
   var ic = ingredientCounts(r);
   h += '<div class="recipe-foot">';
   if (res) h += esc(T('footResult')) + ' ' + (res.count > 1 ? res.count + '× ' : '') + refLink(res.id) + '<br>';
@@ -1748,31 +2125,212 @@ function enchRow(e) {
 /* ------------------------------------------------------------------ */
 /* Seiten                                                             */
 /* ------------------------------------------------------------------ */
-function crumbs(list) { return '<div class="crumbs">' + list.map(function (c) { return c.href ? '<a href="' + esc(c.href) + '">' + esc(c.label) + '</a>' : esc(c.label); }).join(' › ') + '</div>'; }
+/* Brotkrumen: immer mit "Start" vorn, damit jede Seite einen Weg nach oben hat. */
+function crumbs(list) {
+  list = [{ label: T('navHome'), href: '#/' }].concat(list.filter(function (c) { return c && c.href !== '#/'; }));
+  return '<nav class="crumbs" aria-label="Breadcrumb">' + list.map(function (c, i) {
+    var last = i === list.length - 1;
+    return (c.href && !last ? '<a href="' + esc(c.href) + '">' + esc(c.label) + '</a>' : '<span' + (last ? ' aria-current="page"' : '') + '>' + esc(c.label) + '</span>');
+  }).join('<span class="sep" aria-hidden="true">›</span>') + '</nav>';
+}
+
+/* ------------------------------------------------------------------ */
+/* Kategorien                                                         */
+/* ------------------------------------------------------------------ */
+/* Die Daten kennen keine Kategorie je Item - die Einteilung folgt den
+   Themenbuechern im Spiel (Werkzeuge, Bauen, Aufbewahrung, Maschinen, End,
+   Besaetze) und ergibt sich aus der Id. Die erste passende Regel ist die
+   Hauptkategorie; "end" kommt als zweite Kategorie zu allem aus dem End dazu.
+   Ein neues Item ohne passende Regel landet unter "Materialien", nie im Nichts. */
+var CATS = [
+  { key: 'tools', icon: 'simplebuilding:iron_chisel' },
+  { key: 'building', icon: 'simplebuilding:astralit_bricks' },
+  { key: 'storage', icon: 'simplebuilding:netherite_backpack' },
+  { key: 'machines', icon: 'simplebuilding:netherite_furnace' },
+  { key: 'gadgets', icon: 'simplebuilding:flypad' },
+  { key: 'end', icon: 'simplebuilding:enderite_ingot', end: true },
+  { key: 'trims', icon: 'simplebuilding:glowing_trim_template' },
+  { key: 'materials', icon: 'simplebuilding:netherite_nugget' },
+  { key: 'misc', icon: 'simplebuilding:guide_book' }
+];
+var CAT_RULES = [
+  ['misc', /(^|_)guide_book|creative_spacer/],
+  ['trims', /trim_template|smithing_template|upgrade_template|_core$/],
+  ['storage', /backpack|bundle|quiver/],
+  ['machines', /furnace|smoker|hopper|piston|chunk_loader/],
+  ['gadgets', /(^|_)(elytra_pad|flypad|launchpad|potion_pad)$|pressure_plate|spawn_teleporter|spawn_elytra|magnet|rotator|ore_detector|velocity|echo_compass|laser_pointer|blaze_(wall_)?head|construction_light/],
+  ['tools', /chisel(?!ed)|sledgehammer|building_wand|^octant|blueprint|_(axe|pickaxe|shovel|hoe|sword|spear|helmet|chestplate|leggings|boots)$/],
+  ['materials', /ingot|nugget|scrap|^raw_|_dust$|_shard$|_ore$|pebble|^cracked_diamond$|leather_sheet|apple|carrot|^ender_quartz$/],
+  ['building', /astralit|nihilith|ender_quartz|checker|end_stone|purpur|polished|suspended|levitating|_block$|_bricks?$|_slab$|_stairs$|_wall$|_pillar$/]
+];
+var END_RE = /enderite|astralit|nihilith|ender_quartz|end_stone|purpur|stellar|nihil_|astral_|spawn_elytra|elytra_pad/;
+var CAT_OF = new Map();   // id -> [Hauptkategorie, evtl. 'end']
+function catsOf(id) {
+  if (CAT_OF.has(id)) return CAT_OF.get(id);
+  var p = pathOf(id), main = 'materials';
+  for (var i = 0; i < CAT_RULES.length; i++) if (CAT_RULES[i][1].test(p)) { main = CAT_RULES[i][0]; break; }
+  var out = [main];
+  if (END_RE.test(p) && main !== 'misc') out.push('end');
+  CAT_OF.set(id, out);
+  return out;
+}
+function catLabel(key) { return T('cat.' + key); }
+function catDef(key) { for (var i = 0; i < CATS.length; i++) if (CATS[i].key === key) return CATS[i]; return null; }
+/* Items und Bloecke einer Kategorie, je Id einmal (Items vor reinen Bloecken). */
+var CAT_MEMBERS = null;
+function catEntries() {
+  if (CAT_MEMBERS) return CAT_MEMBERS;
+  CAT_MEMBERS = {};
+  CATS.forEach(function (c) { CAT_MEMBERS[c.key] = []; });
+  var seen = {};
+  arr(D.items).concat(arr(D.blocks)).forEach(function (e) {
+    if (!isObj(e) || !e.id || seen[e.id]) return;
+    seen[e.id] = true;
+    catsOf(e.id).forEach(function (k) { if (CAT_MEMBERS[k]) CAT_MEMBERS[k].push(e); });
+  });
+  return CAT_MEMBERS;
+}
+function kindOfId(id) { return IX.items.has(id) ? 'items' : IX.blocks.has(id) ? 'blocks' : null; }
+/* Stufen fuer die Sortierung innerhalb einer Familie. */
+var TIERS = ['wooden', 'stone', 'leather', 'chainmail', 'copper', 'iron', 'gold', 'golden', 'diamond', 'reinforced', 'netherite', 'enderite', 'stellar', 'fine'];
+var COLORS = ['white', 'light_gray', 'gray', 'black', 'brown', 'red', 'orange', 'yellow', 'lime', 'green', 'cyan', 'light_blue', 'blue', 'purple', 'magenta', 'pink'];
+function tierOf(p) { for (var i = TIERS.length - 1; i >= 0; i--) if (p.indexOf(TIERS[i] + '_') === 0) return i; return -1; }
+/* Familie = Id ohne Stufenwort vorn und ohne Farbe hinten: stone_chisel -> chisel,
+   octant_red -> octant, spawn_teleporter_tier_3 -> spawn_teleporter. */
+var WEATHER_RE = /^(waxed_)?(exposed_|weathered_|oxidized_)?/;
+function familyOf(id) {
+  var p = pathOf(id).replace(WEATHER_RE, '');
+  var t = tierOf(p); if (t >= 0) p = p.slice(TIERS[t].length + 1);
+  for (var i = 0; i < COLORS.length; i++) { var s = '_' + COLORS[i]; if (p.length > s.length && p.slice(-s.length) === s) { p = p.slice(0, -s.length); break; } }
+  return p.replace(/_tier_\d+$/, '');
+}
+function tierRank(id) {
+  var raw = pathOf(id), p = raw.replace(WEATHER_RE, ''), t = tierOf(p), m = /_tier_(\d+)$/.exec(p);
+  return (t < 0 ? 0 : t + 1) * 100 + (m ? num(m[1], 0) : 0) + (/^waxed_/.test(raw) ? 50 : 0) + (/exposed_/.test(raw) ? 10 : /weathered_/.test(raw) ? 20 : /oxidized_/.test(raw) ? 30 : 0);
+}
+/* Bausteine: nach Material statt nach Stufe. */
+var MATERIAL_GROUPS = ['astralit', 'nihilith', 'ender_quartz', 'checker', 'end_stone', 'purpur', 'sand', 'gravel', 'diamond', 'enderite'];
+function groupKeyOf(id, cat) {
+  var p = pathOf(id);
+  if (cat === 'building') { for (var i = 0; i < MATERIAL_GROUPS.length; i++) if (p.indexOf(MATERIAL_GROUPS[i]) >= 0) return MATERIAL_GROUPS[i]; return 'other'; }
+  return familyOf(id);
+}
+/* Anleitung (Feature), die eine Gruppe am besten beschreibt: die mit den meisten Treffern. */
+function featureFor(ids) {
+  var best = null, bestN = 0;
+  arr(D.features).forEach(function (f) {
+    if (!isObj(f)) return;
+    var rel = strs(f.related), n = 0;
+    ids.forEach(function (id) { if (rel.indexOf(id) >= 0) n++; });
+    if (n > bestN || (n === bestN && best && n > 0 && rel.length < strs(best.related).length)) { best = f; bestN = n; }
+  });
+  return bestN > 0 ? best : null;
+}
+/* Hauptkategorie eines Features: die haeufigste unter seinen verwandten Items. */
+var FEATURE_CAT = null;
+function featureCat(f) {
+  if (!FEATURE_CAT) {
+    FEATURE_CAT = {};
+    arr(D.features).filter(isObj).forEach(function (ft) {
+      var count = {};
+      strs(ft.related).forEach(function (id) { if (kindOfId(id)) { var c = catsOf(id)[0]; count[c] = (count[c] || 0) + 1; } });
+      var best = null; Object.keys(count).forEach(function (k) { if (!best || count[k] > count[best]) best = k; });
+      FEATURE_CAT[ft.id] = best;
+    });
+  }
+  return FEATURE_CAT[f.id] || null;
+}
+function featuresOfCat(key) {
+  return arr(D.features).filter(function (f) {
+    if (!isObj(f)) return false;
+    if (key === 'end') { var rel = strs(f.related).filter(kindOfId); return rel.length > 0 && rel.filter(function (id) { return catsOf(id).indexOf('end') >= 0; }).length * 2 >= rel.length; }
+    return featureCat(f) === key;
+  });
+}
+function firstSentence(s) {
+  s = String(s || '').trim();
+  var m = /^(.{25,}?[.!?])(\s+(?=[A-ZÄÖÜ"„(])|$)/.exec(s);
+  return m ? m[1] : s;
+}
+function featureSummary(f) { var v = localised(f).v; return (isObj(v) && v.summary) || f.summary || ''; }
+function guideLink(f) {
+  return '<a class="guide" href="#/features/' + esc(f.id) + '"><b>' + esc(featureTitle(f)) + '</b><span>' + esc(firstSentence(featureSummary(f)) || T('featureNoSummary')) + '</span></a>';
+}
+function itemTile(e) {
+  var kind = kindOfId(e.id) || 'items';
+  return '<a class="itile" href="#/' + kind + '/' + esc(e.id) + '" data-id="' + esc(e.id) + '">' + slotHtml(e.id, 1, { noLink: true }) + '<span class="itile-name">' + esc(nameOf(e) || prettyFromId(e.id)) + '</span></a>';
+}
+function catCard(c) {
+  var n = catEntries()[c.key].length;
+  return '<a class="cat-card' + (c.end ? ' cat-end' : '') + '" href="#/cat/' + c.key + '">' + slotHtml(c.icon, 1, { noLink: true }) +
+    '<div><div class="ct">' + esc(catLabel(c.key)) + '<span class="n">' + n + '</span></div><div class="cd">' + esc(T('catd.' + c.key)) + '</div></div></a>';
+}
+/* Items einer Kategorie in Familien/Materialgruppen; Einzelstuecke sammelt "Weitere". */
+function catGroups(key) {
+  var list = catEntries()[key] || [];
+  var groups = new Map();
+  list.forEach(function (e) { var g = groupKeyOf(e.id, key); if (!groups.has(g)) groups.set(g, []); groups.get(g).push(e); });
+  var out = [], rest = [];
+  groups.forEach(function (members, g) {
+    members.sort(function (a, b) { return tierRank(a.id) - tierRank(b.id) || norm(nameOf(a)).localeCompare(norm(nameOf(b)), LANG); });
+    if (members.length < 2 || g === 'other') rest = rest.concat(members); else out.push({ key: g, members: members });
+  });
+  out.sort(function (a, b) { return b.members.length - a.members.length || a.key.localeCompare(b.key); });
+  rest.sort(function (a, b) { return norm(nameOf(a)).localeCompare(norm(nameOf(b)), LANG); });
+  if (rest.length) out.push({ key: '', members: rest });
+  return out;
+}
+/* Reihenfolge, in der die Item-Seiten einer Kategorie durchgeblaettert werden. */
+function catOrder(key) { var ids = []; catGroups(key).forEach(function (g) { g.members.forEach(function (e) { ids.push(e.id); }); }); return ids; }
+function pageCategory(key) {
+  var c = catDef(key);
+  if (!c) return notFound(T('wordSection'), key);
+  var h = crumbs([{ label: catLabel(key) }]);
+  var n = catEntries()[key].length;
+  h += '<div class="mk-head">' + slotHtml(c.icon, 1, { cls: 'slot-result', noLink: true }) + '<div><h1>' + esc(catLabel(key)) + '</h1><p class="muted" style="margin:0">' + esc(T('catd.' + key)) + ' ' + esc(T('catPageIntro', n)) + '</p></div></div>';
+  var feats = featuresOfCat(key);
+  if (feats.length) h += '<h3>' + esc(T('catGuides')) + '</h3><div class="guide-grid">' + feats.map(guideLink).join('') + '</div>';
+  h += '<h3>' + esc(T('catAll')) + '</h3>';
+  catGroups(key).forEach(function (g) {
+    var f = g.key ? featureFor(g.members.map(function (e) { return e.id; })) : null;
+    var title = g.key ? prettyFromId(g.key) : T('catMore');
+    h += '<section class="fam"><div class="fam-title"><span>' + esc(title) + ' · ' + g.members.length + '</span>' + (f ? '<a href="#/features/' + esc(f.id) + '">' + esc(featureTitle(f)) + ' →</a>' : '') + '</div><div class="tile-grid">' + g.members.map(itemTile).join('') + '</div></section>';
+  });
+  return h;
+}
+function pageGuides() {
+  var feats = arr(D.features).filter(isObj);
+  var h = crumbs([{ label: T('navGuides') }]) + '<h1>' + esc(T('navGuides')) + ' <span class="muted tiny" style="font-weight:400">' + feats.length + '</span></h1><p class="muted">' + esc(T('guidesIntro')) + '</p>';
+  var byCat = new Map(), general = [];
+  feats.forEach(function (f) { var k = featureCat(f); if (!k) general.push(f); else { if (!byCat.has(k)) byCat.set(k, []); byCat.get(k).push(f); } });
+  if (general.length) h += '<h3>' + esc(T('navOverview')) + '</h3><div class="guide-grid">' + general.map(guideLink).join('') + '</div>';
+  CATS.forEach(function (c) { var l = byCat.get(c.key); if (l) h += '<h3><a href="#/cat/' + c.key + '">' + esc(catLabel(c.key)) + '</a></h3><div class="guide-grid">' + l.map(guideLink).join('') + '</div>'; });
+  return h;
+}
 
 function pageOverview() {
   var g = isObj(D.generatedFrom) ? D.generatedFrom : {};
   var counts = isObj(D.counts) ? D.counts : {};
   var undoc = strs(D.undocumented);
   var undocCount = num(counts.undocumented, undoc.length);
-  var h = '<h1>' + esc(MOD.name || MODID) + ' <span class="muted" style="font-weight:400">' + esc(MOD.version ? 'v' + MOD.version : '') + '</span></h1>';
-  h += '<p class="muted">Minecraft ' + esc(arr(MOD.minecraftLines).join(' ' + T('andJoin') + ' ') || '?') + ' · ' + esc(T('loadersPrefix', arr(MOD.loaders).join(', ') || '?')) + (arr(MOD.parkedLoaders).length ? esc(T('parkedPrefix', arr(MOD.parkedLoaders).join(', '))) : '') + '</p>';
+  var welcome = IX.features.get('welcome');
+  var h = '<section class="home-hero"><h1>' + esc(MOD.name || MODID) + ' Wiki</h1>';
+  h += '<div class="badges" style="margin-bottom:.6rem">' + (MOD.version ? badge('v' + MOD.version, 'ok') : '') + arr(MOD.minecraftLines).map(function (l) { return badge('Minecraft ' + l); }).join('') + arr(MOD.loaders).map(function (l) { return badge(l); }).join('') + '</div>';
+  h += '<p class="lead">' + esc(welcome ? firstSentence(featureSummary(welcome)) : T('homeTagline')) + '</p>';
+  if (welcome) h += '<p class="muted" style="margin:0">' + esc(T('homeTagline')) + '</p>';
+  h += '<button type="button" class="home-search" data-open-search><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="grow">' + esc(T('homeSearch')) + '</span><kbd>Ctrl</kbd><kbd>K</kbd></button></section>';
 
-  h += '<div class="box box-info"><div class="box-title">' + esc(T('boxDataState')) + '</div>';
-  h += '<dl class="kv" style="margin:.2rem 0"><dt>' + esc(T('kvMcLine')) + '</dt><dd>' + esc(g.line || '?') + '</dd><dt>' + esc(T('kvGenerator')) + '</dt><dd><code>' + esc(g.generator || '?') + '</code></dd><dt>' + esc(T('kvRegenerate')) + '</dt><dd><code>' + esc(g.howToRegenerate || '?') + '</code></dd>' + (g.warning ? '<dt>' + esc(T('kvHint')) + '</dt><dd class="muted tiny">' + esc(g.warning) + '</dd>' : '') + '</dl></div>';
+  h += '<h2>' + esc(T('homeBrowse')) + '</h2><div class="cat-grid">' + CATS.map(catCard).join('') + '</div>';
 
-  var tiles = [['items', T('navItems'), arr(D.items).length], ['blocks', T('navBlocks'), arr(D.blocks).length], ['recipes', T('navRecipes'), arr(D.recipes).length], ['loot', T('navLoot'), arr(D.lootTables).length], ['trades', T('navTrades'), arr(D.trades).length], ['enchantments', T('navEnchantments'), arr(D.enchantments).length], ['tags', T('navTags'), arr(D.tags).length], ['config', T('navConfig'), arr(D.config).length]];
-  h += '<div class="tile-list" style="margin:1rem 0">' + tiles.map(function (t) { return '<a class="tile" href="#/' + t[0] + '"><div class="big">' + t[2] + '</div><div class="lbl">' + esc(t[1]) + '</div></a>'; }).join('') + '</div>';
+  var tiles = [['items', T('navItems'), arr(D.items).length], ['blocks', T('navBlocks'), arr(D.blocks).length], ['allrecipes', T('navAllRecipes'), arr(D.recipes).length], ['inworld', T('navInWorld'), IW.entries.length], ['enchantments', T('navEnchantments'), arr(D.enchantments).length], ['advancements', T('navAdvancements'), arr(D.advancements).length], ['trades', T('navTrades'), arr(D.trades).length], ['loot', T('navLoot'), arr(D.lootTables).length], ['tags', T('navTags'), arr(D.tags).length], ['config', T('navConfig'), arr(D.config).length]];
+  h += '<h2>' + esc(T('homeReference')) + '</h2><div class="tile-list" style="margin:0 0 1.4rem">' + tiles.map(function (t) { return '<a class="tile" href="#/' + t[0] + '"><div class="big">' + t[2] + '</div><div class="lbl">' + esc(t[1]) + '</div></a>'; }).join('') + '</div>';
 
   if (undocCount > 0) {
     h += '<div class="box box-caveat"><div class="box-title">' + esc(plural(undocCount, 'undocOne', 'undocMany') + ' ' + T('undocSuffix')) + '</div>';
     h += '<p style="margin:.2rem 0 .4rem">' + T('undocBody') + '</p>';
     if (undoc.length) h += '<details><summary>' + esc(T('undocShow', undoc.length)) + '</summary><div class="reflist" style="margin-top:.5rem">' + undoc.map(function (id) { return refLink(id); }).join('') + '</div></details>';
     h += '</div>';
-  } else {
-    h += '<p class="tiny muted">' + esc(T('allDocumented')) + '</p>';
   }
-
   /* Prosa, die es nur in einer Sprache gibt - seit das Wiki zweisprachig ist,
      waere das sonst unsichtbar und eine halb uebersetzte Seite gaelte als fertig. */
   var partial = isObj(D.incompleteProse) ? D.incompleteProse : {};
@@ -1786,13 +2344,42 @@ function pageOverview() {
   }
 
   var feats = arr(D.features).filter(isObj);
-  h += section(T('secFeatures'), feats.length ? feats.map(function (f) { return featureCard(f, false); }).join('') : '<p class="hint">' + T('featuresEmpty') + '</p>', { count: feats.length });
+  h += '<h2>' + esc(T('homeGuides')) + ' <span class="muted tiny" style="font-weight:400">' + feats.length + '</span></h2>';
+  h += feats.length ? '<div class="guide-grid">' + feats.map(guideLink).join('') + '</div>' : '<p class="hint">' + T('featuresEmpty') + '</p>';
+
+  var state = '<dl class="kv" style="margin:.2rem 0"><dt>' + esc(T('kvMcLine')) + '</dt><dd>' + esc(g.line || '?') + '</dd><dt>' + esc(T('kvGenerator')) + '</dt><dd><code>' + esc(g.generator || '?') + '</code></dd><dt>' + esc(T('kvRegenerate')) + '</dt><dd><code>' + esc(g.howToRegenerate || '?') + '</code></dd>' + (g.warning ? '<dt>' + esc(T('kvHint')) + '</dt><dd class="muted tiny">' + esc(g.warning) + '</dd>' : '') + '</dl>' +
+    (undocCount > 0 ? '' : '<p class="tiny muted">' + esc(T('allDocumented')) + '</p>') +
+    '<p class="tiny muted">' + esc(T('loadersPrefix', arr(MOD.loaders).join(', ') || '?')) + (arr(MOD.parkedLoaders).length ? esc(T('parkedPrefix', arr(MOD.parkedLoaders).join(', '))) : '') + '</p>';
+  h += section(T('homeDataState'), state, { fold: 'homeDataState', defaultClosed: true, cls: 'tech' });
   return h;
 }
 function pageFeature(id) {
   var f = IX.features.get(id);
   if (!f) return notFound(T('wordFeature'), id);
-  return crumbs([{ label: T('navOverview'), href: '#/' }, { label: T('secFeatures') }]) + featureCard(f, true);
+  var k = featureCat(f);
+  var h = crumbs([{ label: T('navGuides'), href: '#/features' }].concat(k ? [{ label: catLabel(k), href: '#/cat/' + k }] : []).concat([{ label: featureTitle(f) }]));
+  var loc = localised(f), fl = isObj(loc.v) ? loc.v : {};
+  h += '<article class="hero-card"><h1>' + esc(featureTitle(f)) + '</h1>';
+  if (loc.fallback) h += '<p class="hint tiny">' + esc(T('proseOtherLangOnly')) + '</p>';
+  h += strs([fl.summary]).length ? '<p class="lead">' + esc(fl.summary) + '</p>' : '<p class="hint">' + esc(T('featureNoSummary')) + '</p>';
+  var det = strs(fl.details); if (det.length) h += listHtml(det);
+  h += '</article>';
+  var rel = strs(f.related);
+  var relItems = rel.filter(kindOfId), relOther = rel.filter(function (r) { return !kindOfId(r); });
+  if (relItems.length) h += section(T('secRelated'), '<div class="tile-grid">' + relItems.map(function (r) { return itemTile(entryFor(r)); }).join('') + '</div>' + (relOther.length ? '<div class="reflist" style="margin-top:.8rem">' + relOther.map(function (r) { return refLink(r); }).join('') + '</div>' : ''), { count: rel.length, fold: 'featRelated' });
+  else if (relOther.length) h += section(T('secRelated'), '<div class="reflist">' + relOther.map(function (r) { return refLink(r); }).join('') + '</div>', { count: rel.length, fold: 'featRelated' });
+  if (strs(f.sources).length) h += section(T('secTechnical'), sourcesList(strs(f.sources)), { fold: 'secTechnical', defaultClosed: true, cls: 'tech' });
+  /* Weiter zur naechsten Anleitung - keine Sackgasse. */
+  var all = arr(D.features).filter(isObj), i = all.indexOf(f);
+  h += pagerHtml(all[i - 1] ? { href: '#/features/' + all[i - 1].id, label: featureTitle(all[i - 1]) } : null, all[i + 1] ? { href: '#/features/' + all[i + 1].id, label: featureTitle(all[i + 1]) } : null);
+  return h;
+}
+function pagerHtml(prev, next) {
+  if (!prev && !next) return '';
+  function one(x, cls, word) {
+    return '<a class="' + cls + '" href="' + esc(x.href) + '">' + (cls === 'prev' ? '<span aria-hidden="true">←</span>' : '') + (x.id ? slotHtml(x.id, 1, { noLink: true }) : '') + '<span class="pm"><small>' + esc(word) + '</small><b>' + esc(x.label) + '</b></span>' + (cls === 'next' ? '<span aria-hidden="true">→</span>' : '') + '</a>';
+  }
+  return '<nav class="pager">' + (prev ? one(prev, 'prev', T('pagerPrev')) : '') + (next ? one(next, 'next', T('pagerNext')) : '') + '</nav>';
 }
 
 function listPage(title, rows, opts) {
@@ -1820,26 +2407,72 @@ function sortedByName(list) { return arr(list).filter(isObj).slice().sort(functi
 function pageItems() { return listPage(T('navItems'), sortedByName(D.items).map(function (e) { return entryRow(e, 'items'); })); }
 function pageBlocks() { return listPage(T('navBlocks'), sortedByName(D.blocks).map(function (e) { return entryRow(e, 'blocks'); })); }
 
-/* Zahlen aus der Item-Registry (WikiDataProvider -> wiki/generate.py).
-   Fehlt der Datagen-Export, fehlt properties und der Abschnitt entfaellt. */
-function propertiesSection(e) {
-  var p = e && e.properties;
-  if (!isObj(p)) return '';
-  var rows = '';
-  function row(labelKey, value, hintKey) {
-    rows += '<dt>' + esc(T(labelKey)) + '</dt><dd>' + value + (hintKey ? ' <span class="muted tiny">' + esc(T(hintKey)) + '</span>' : '') + '</dd>';
+/* Zahlen aus der Item-Registry (WikiDataProvider -> wiki/generate.py) als
+   Kennzahl-Kacheln oben auf der Seite. Fehlt der Datagen-Export, fehlt
+   properties und die Kacheln entfallen. */
+function propertyStats(e) {
+  var p = e && e.properties, out = [];
+  if (!isObj(p)) return out;
+  function stat(labelKey, value, small) { out.push('<div class="stat"><div class="stat-v">' + value + (small ? '<small>' + esc(small) + '</small>' : '') + '</div><div class="stat-l">' + esc(T(labelKey)) + '</div></div>'); }
+  if (p.durability != null) stat('propDurability', esc(fmtNum(p.durability)));
+  if (p.attackDamage != null) stat('propAttackDamage', esc(fmtNum(p.attackDamage)));
+  if (p.attackSpeed != null) stat('propAttackSpeed', esc(fmtNum(p.attackSpeed)), '/s');
+  if (p.wandSquareDiameter != null) stat('propWandDiameter', esc(T('propSquare', p.wandSquareDiameter, p.wandSquareDiameter)));
+  if (p.cooldownTicks != null) stat('propCooldown', esc(fmtNum(p.cooldownTicks / 20)) + ' s', p.cooldownTicks + ' t');
+  if (p.bundleCapacityItems != null) stat('propBundleCapacity', esc(fmtNum(p.bundleCapacityItems)));
+  if (p.enchantability != null) stat('propEnchantability', esc(fmtNum(p.enchantability)));
+  if (p.maxStackSize != null) stat('propMaxStackSize', esc(fmtNum(p.maxStackSize)));
+  if (p.dedicatedSpatula === true) stat('propSpatula', esc(T('propYes')));
+  return out;
+}
+/* Verwandt: dieselbe Familie (alle Stufen), dann was dieselben Anleitungen nennen. */
+function relatedIds(id) {
+  var fam = familyOf(id), main = catsOf(id)[0], out = [], seen = {};
+  seen[id] = true;
+  function add(x) { if (!seen[x] && kindOfId(x)) { seen[x] = true; out.push(x); } }
+  var sib = [];
+  IX.items.forEach(function (e) { if (familyOf(e.id) === fam && catsOf(e.id)[0] === main) sib.push(e.id); });
+  IX.blocks.forEach(function (e) { if (!IX.items.has(e.id) && familyOf(e.id) === fam && catsOf(e.id)[0] === main) sib.push(e.id); });
+  sib.sort(function (a, b) { return tierRank(a) - tierRank(b); }).forEach(add);
+  arr(D.features).forEach(function (f) { if (isObj(f) && strs(f.related).indexOf(id) >= 0) strs(f.related).forEach(add); });
+  return out.slice(0, 32);
+}
+function secAnchor(key) { return 'sec-' + String(key).replace(/[^a-zA-Z0-9_-]/g, '-'); }
+/* "So bekommst du es": der wichtigste Weg als Karte, die anderen als Sprungmarken. */
+function obtainCard(id, e, isBlock, stations, byStation, dropsFrom, iwOut) {
+  var lines = [], jumps = [], shown = '';
+  var trades = strs(e.trades);
+  if (stations.length) {
+    lines.push(T('obtainCraft', stations.map(stationLabel).join(', ')));
+    var r0 = IX.recipes.get(byStation.get(stations[0])[0]);
+    if (r0) shown = recipeCard(r0, { noSource: true, compact: true });
+    stations.forEach(function (st) { jumps.push({ href: '#' + secAnchor('st.' + st), label: stationLabel(st) + ' (' + byStation.get(st).length + ')' }); });
   }
-  if (p.durability != null) row('propDurability', esc(fmtNum(p.durability)));
-  if (p.maxStackSize != null) row('propMaxStackSize', esc(fmtNum(p.maxStackSize)));
-  if (p.attackDamage != null) row('propAttackDamage', esc(fmtNum(p.attackDamage)));
-  if (p.attackSpeed != null) row('propAttackSpeed', esc(fmtNum(p.attackSpeed)), 'propAttackSpeedHint');
-  if (p.enchantability != null) row('propEnchantability', esc(fmtNum(p.enchantability)));
-  if (p.wandSquareDiameter != null) row('propWandDiameter', esc(T('propSquare', p.wandSquareDiameter, p.wandSquareDiameter)));
-  if (p.cooldownTicks != null) row('propCooldown', esc(T('cookTicks', p.cooldownTicks, fmtNum(p.cooldownTicks / 20))));
-  if (p.bundleCapacityItems != null) row('propBundleCapacity', esc(T('propItems', p.bundleCapacityItems)));
-  if (p.dedicatedSpatula === true) row('propSpatula', esc(T('propYes')));
-  if (!rows) return '';
-  return section(T('secProperties'), '<dl class="kv">' + rows + '</dl><div class="src">' + T('propSource') + '</div>', { fold: 'secProperties' });
+  if (iwOut.length) {
+    var kinds = []; iwOut.forEach(function (x) { var t = iwKindTitle(x.kind); if (kinds.indexOf(t) < 0) kinds.push(t); });
+    lines.push(T('obtainInWorld', kinds.join(', ')));
+    if (!shown) shown = '<div class="rows">' + iwEntryHtml(iwOut[0], { kindLabel: true }) + '</div>';
+    jumps.push({ href: '#' + secAnchor('secInWorld'), label: T('secInWorld') });
+  }
+  if (dropsFrom.length) {
+    lines.push(T('obtainDrops', dropsFrom.slice(0, 3).map(function (lid) { var owner = null; IX.lootOfBlock.forEach(function (l, b) { if (l === lid) owner = b; }); return owner ? displayName(owner) : prettyFromId(lid); }).join(', ') + (dropsFrom.length > 3 ? ' …' : '')));
+    jumps.push({ href: '#' + secAnchor('secDropsFrom'), label: T('secDropsFrom') + ' (' + dropsFrom.length + ')' });
+  }
+  if (trades.length) {
+    var profs = []; trades.forEach(function (tid) { var t = IX.trades.get(tid); var l = t ? professionLabel(t.profession) : ''; if (l && profs.indexOf(l) < 0) profs.push(l); });
+    lines.push(T('obtainTrade', profs.join(', ')));
+    if (!shown) { var t0 = IX.trades.get(trades[0]); if (t0) shown = '<div class="rows">' + tradeRow(t0) + '</div>'; }
+    jumps.push({ href: '#' + secAnchor('secTrades'), label: T('secTrades') + ' (' + trades.length + ')' });
+  }
+  if (!lines.length && isBlock && strs(e.drops).indexOf(id) >= 0) lines.push(T('obtainSelf'));
+  if (!lines.length) lines.push(T('obtainNone'));
+  var h = '<section class="obtain" id="' + secAnchor('obtain') + '"><h2>' + esc(T('obtainTitle')) + '</h2>';
+  h += lines.map(function (l) { return '<p>' + esc(l) + '</p>'; }).join('');
+  if (shown) h += '<div style="margin-top:.6rem">' + shown + '</div>';
+  var enc = esc(encodeURIComponent(id));
+  h += '<div class="obtain-ways">' + (jumps.length > 1 ? jumps.map(function (j) { return '<a class="btn" href="' + esc(j.href) + '">' + esc(j.label) + '</a>'; }).join('') : '') +
+    '<a class="btn" href="#/make/' + enc + '">' + esc(T('obtainAllRecipes')) + ' <kbd>R</kbd></a><a class="btn" href="#/use/' + enc + '">' + esc(T('obtainUses')) + ' <kbd>U</kbd></a><a class="btn" href="#/tree/' + enc + '">' + esc(T('obtainTree')) + '</a></div>';
+  return h + '</section>';
 }
 
 function entryPage(id, kind) {
@@ -1848,48 +2481,58 @@ function entryPage(id, kind) {
   if (!e) return notFound(isBlock ? T('wordBlock') : T('wordItem'), id);
   var de = nameDe(e), en = nameEn(e), main = nameOf(e) || prettyFromId(id), alt = nameAlt(e);
   var tex = textureOf(id);
-  var h = crumbs([{ label: isBlock ? T('navBlocks') : T('navItems'), href: '#/' + kind }, { label: main }]);
+  var cats = catsOf(id), primary = cats[0];
+  var h = crumbs([{ label: catLabel(primary), href: '#/cat/' + primary }, { label: main }]);
+
+  /* 1. Was ist das? Bild, Name, Kategorie, ein Satz. */
   var cube = cubeHtml(isBlock ? e.faces : cubeFacesOf(id), main);
-  h += '<div class="hero"><div class="hero-tex' + (cube ? ' is-cube' : '') + '" data-id="' + esc(id) + '">'
+  h += '<header class="hero-card"><div class="hero"><div class="hero-tex' + (cube ? ' is-cube' : '') + '" data-id="' + esc(id) + '">'
      + (cube || (tex ? '<img src="' + esc(tex) + '" alt="' + esc(main) + '" data-name="' + esc(main) + '">' : T('noTexture')))
      + '</div><div>';
   h += '<h1>' + esc(main) + '</h1>';
   if (alt && alt !== main) h += '<div class="en">' + esc(alt) + ' <span class="tiny">(' + (LANG === 'de' ? 'en_us' : 'de_de') + ')</span></div>';
   else if (!de && en) h += '<div class="en tiny">' + esc(T('nameOnlyEn')) + '</div>';
-  h += '<div class="idline"><code>' + esc(id) + '</code></div>';
-  var badges = [];
+  var badges = cats.map(function (c) { return '<a class="badge ' + (c === 'end' ? 'badge-end' : 'badge-ok') + '" href="#/cat/' + c + '">' + esc(catLabel(c)) + '</a>'; });
   badges.push(badge(isBlock ? T('badgeBlock') : T('badgeItem')));
-  if (e.hasCustomBehaviour) badges.push(badge(T('badgeCustomBehaviour'), 'ok'));
+  if (e.hasCustomBehaviour) badges.push(badge(T('badgeCustomBehaviour')));
   if (e.hasCustomBehaviour && !noteHasContent(e.note)) badges.push(badge(T('badgeNoProse'), 'warn'));
   if (!isBlock && IX.blocks.has(id)) badges.push('<a class="badge" href="#/blocks/' + esc(id) + '">' + esc(T('badgeAlsoAsBlock')) + '</a>');
   if (isBlock && IX.items.has(id)) badges.push('<a class="badge" href="#/items/' + esc(id) + '">' + esc(T('badgeAsItem')) + '</a>');
-  h += '<div class="badges">' + badges.join('') + '</div>';
-  h += '</div></div>';
+  h += '<div class="badges" style="margin-top:.35rem">' + badges.join('') + '</div>';
+  var loc = localised(e.note), tagline = isObj(loc.v) ? firstSentence(loc.v.summary) : '';
+  if (!tagline) { var fx = featureFor([id]); if (fx) tagline = firstSentence(featureSummary(fx)); }
+  if (tagline) h += '<p class="tagline">' + esc(tagline) + '</p>';
+  h += '</div></div></header>';
+
+  /* 2. Kennzahlen: Tempo der Maschine, Haltbarkeit & Co. */
   h += machineFeature(id);
+  var stats = propertyStats(e);
+  if (stats.length) h += '<div class="stat-grid" aria-label="' + esc(T('keyStats')) + '">' + stats.join('') + '</div>';
 
-  /* Reihenfolge nach Wunsch des Besitzers: Rezepte zuerst, dann Beschreibung,
-     dann Drops, Handel, Verwendung ... Abschnitte ohne Eintrag wandern
-     gesammelt ans Ende, mit ihrem "kein Rezept"-Hinweis. */
-  var parts = [];
-  /* key ist der STR-Schluessel des Titels und zugleich der Schluessel, unter dem
-     der Leser den Abschnitt zugeklappt hat - so bleibt "Ofen" auf jeder Seite zu. */
-  function part(key, has, body, empty, opts) { opts = opts || {}; opts.fold = opts.fold || key; parts.push({ title: T(key), has: has, body: has ? body : '<p class="hint">' + empty + '</p>', opts: opts }); }
-
-  /* Rezepte je Station (Werkbank, Ofen, Schmiedetisch ...), jede einzeln einklappbar. */
+  /* 3. So bekommt man es. */
   var crafted = strs(e.craftedBy);
   var byStation = new Map();
   crafted.forEach(function (rid) { var r = IX.recipes.get(rid); var st = r ? stationOfType(r.type) : 'other'; if (!byStation.has(st)) byStation.set(st, []); byStation.get(st).push(rid); });
   var stations = Array.from(byStation.keys()).sort(function (a, b) { return STATION_ORDER.indexOf(a) - STATION_ORDER.indexOf(b); });
+  /* Der eigene Block-Drop ("abbauen gibt sich selbst") ist kein Weg, es zu bekommen. */
+  var dropsFrom = (IX.dropsOf.get(id) || []).filter(function (lid) { return lid !== e.lootTable && lid !== IX.lootOfBlock.get(id); });
+  var iwOut = IW.byOutput.get(id) || [];
+  h += obtainCard(id, e, isBlock, stations, byStation, dropsFrom, iwOut);
+
+  /* 4. Alles Weitere, einklappbar. Abschnitte ohne Eintrag wandern gesammelt ans Ende. */
+  var parts = [];
+  /* key ist der STR-Schluessel des Titels und zugleich der Schluessel, unter dem
+     der Leser den Abschnitt zugeklappt hat - so bleibt "Ofen" auf jeder Seite zu. */
+  function part(key, has, body, empty, opts) { opts = opts || {}; opts.fold = opts.fold || key; opts.id = secAnchor(key); parts.push({ title: T(key), has: has, body: has ? body : '<p class="hint">' + empty + '</p>', opts: opts }); }
+
+  var hasNote = noteHasContent(e.note);
+  part('secDescription', hasNote, noteBlock(e.note, '', { noSources: true, clamp: 4 }), hintNoText(e.hasCustomBehaviour ? T('hintCustomBehaviour') : T('hintPlainBlock')).replace(/^<p class="hint">|<\/p>$/g, ''), {});
+
   stations.forEach(function (st) {
     var ids = byStation.get(st);
     part('st.' + st, true, ids.map(function (rid) { var r = IX.recipes.get(rid); return r ? recipeCard(r) : '<p class="hint">' + T('recipeNotInData', esc(rid)) + '</p>'; }).join(''), '', { count: ids.length });
   });
   if (!stations.length) part('secCrafting', false, '', esc(T('noRecipe')), {});
-
-  var hasNote = noteHasContent(e.note);
-  parts.push({ title: T('secDescription'), has: hasNote, body: noteBlock(e.note, e.hasCustomBehaviour ? T('hintCustomBehaviour') : T('hintPlainBlock')), opts: { fold: 'secDescription' } });
-  var props = propertiesSection(e);
-  if (props) parts.push({ raw: props, has: true });
 
   var iw = inWorldForItem(id);
   part('secInWorld', iw.length > 0, iw, esc(T('iwNoneForItem')), {});
@@ -1904,7 +2547,6 @@ function entryPage(id, kind) {
     var hasDrops = !!(lt || e.lootTable || drops.length);
     part('secDrops', hasDrops, body, esc(T('noLootTable')) + (drops.length ? '' : esc(T('noLootTableTail'))) + '.', {});
   }
-  var dropsFrom = (IX.dropsOf.get(id) || []).filter(function (lid) { return !(isBlock && lid === e.lootTable); });
   if (dropsFrom.length) part('secDropsFrom', true, '<div class="rows">' + dropsFrom.map(function (lid) { return lootRow(IX.loot.get(lid)); }).join('') + '</div>', '', { count: dropsFrom.length });
 
   var trades = strs(e.trades);
@@ -1913,18 +2555,37 @@ function entryPage(id, kind) {
   var used = strs(e.usedIn);
   part('secUsedIn', used.length > 0, '<div class="rows">' + used.map(function (rid) { var r = IX.recipes.get(rid); return r ? recipeRow(r) : '<div class="row"><code>' + esc(rid) + '</code></div>'; }).join('') + '</div>', esc(T('notAnIngredient')), { count: used.length });
 
-  var inTags = IX.tagsContaining.get(id) || [];
-  if (inTags.length) part('secInTags', true, '<div class="reflist">' + inTags.map(function (tid) { return '<a href="#/tags/' + esc(tid) + '"><code>' + esc(tid) + '</code></a>'; }).join('') + '</div>', '', { count: inTags.length });
-
+  var rel = relatedIds(id);
   var feats = arr(D.features).filter(function (f) { return isObj(f) && strs(f.related).indexOf(id) >= 0; });
-  if (feats.length) part('secFeatures', true, '<div class="reflist">' + feats.map(function (f) { return '<a href="#/features/' + esc(f.id) + '">' + esc(featureTitle(f)) + '</a>'; }).join('') + '</div>', '', {});
+  if (rel.length || feats.length) {
+    part('secRelated', true, (feats.length ? '<div class="guide-grid">' + feats.map(guideLink).join('') + '</div>' : '') + (rel.length ? '<div class="tile-grid">' + rel.map(function (x) { return itemTile(entryFor(x)); }).join('') + '</div>' : ''), '', { count: rel.length + feats.length });
+  }
 
-  h += '<p class="tree-hint tiny muted">' + T('treeHintItem', '<a href="#/tree/' + esc(encodeURIComponent(id)) + '">' + esc(T('treeHintLink')) + '</a>') +
-    ' ' + T('jeiHint', '<a href="#/make/' + esc(encodeURIComponent(id)) + '">' + esc(T('mkMake')) + '</a>', '<a href="#/use/' + esc(encodeURIComponent(id)) + '">' + esc(T('mkUse')) + '</a>') + '</p>';
-  function out(p) { return p.raw != null ? p.raw : section(p.title, p.body, p.opts); }
-  parts.filter(function (p) { return p.has; }).forEach(function (p) { h += out(p); });
+  /* 5. Technisches: Id, Pfade, Quellen, Tags - standardmaessig zu. */
+  var inTags = IX.tagsContaining.get(id) || [];
+  var n = e.note, nv = isObj(loc.v) ? loc.v : {};
+  var srcs = isObj(n) ? (strs(n.sources).length ? strs(n.sources) : strs(nv.sources)) : [];
+  var tech = '<dl class="kv">';
+  tech += '<dt>' + esc(T('techId')) + '</dt><dd><code>' + esc(id) + '</code></dd>';
+  tech += '<dt>' + esc(T('techKind')) + '</dt><dd>' + esc(isBlock ? T('badgeBlock') : T('badgeItem')) + '</dd>';
+  tech += '<dt>' + esc(T('techCategory')) + '</dt><dd>' + cats.map(function (c) { return '<a href="#/cat/' + c + '">' + esc(catLabel(c)) + '</a>'; }).join(', ') + '</dd>';
+  if (tex) tech += '<dt>' + esc(T('techTexture')) + '</dt><dd><code>' + esc(tex) + '</code></dd>';
+  if (isBlock && e.lootTable) tech += '<dt>' + esc(T('techLootTable')) + '</dt><dd>' + idLink(e.lootTable) + '</dd>';
+  if (inTags.length) tech += '<dt>' + esc(T('secInTags')) + '</dt><dd><div class="reflist">' + inTags.map(function (tid) { return '<a href="#/tags/' + esc(tid) + '"><code>' + esc(tid) + '</code></a>'; }).join('') + '</div></dd>';
+  if (isObj(n) && n.key) tech += '<dt>' + esc(T('techNoteKey')) + '</dt><dd><code>manual.json</code>: <code>' + esc(n.key) + '</code></dd>';
+  if (srcs.length) tech += '<dt>' + esc(T('techSources')) + '</dt><dd>' + srcs.map(function (s) { return '<code>' + esc(s) + '</code>'; }).join(' ') + '</dd>';
+  tech += '</dl>';
+  if (isObj(e.properties)) tech += '<div class="src">' + T('propSource') + '</div>';
+  parts.push({ title: T('secTechnical'), has: true, body: tech, opts: { fold: 'secTechnical', defaultClosed: true, cls: 'tech', id: secAnchor('secTechnical') } });
+
+  parts.filter(function (p) { return p.has; }).forEach(function (p) { h += section(p.title, p.body, p.opts); });
   var empty = parts.filter(function (p) { return !p.has; });
-  if (empty.length) h += '<div class="empty-sections">' + empty.map(function (p) { return '<section class="section section-empty"><h2>' + esc(p.title) + '</h2>' + p.body + '</section>'; }).join('') + '</div>';
+  if (empty.length) h += '<div class="empty-sections">' + empty.map(function (p) { return '<section class="section section-empty" id="' + esc(p.opts.id || '') + '"><h2>' + esc(p.title) + '</h2>' + p.body + '</section>'; }).join('') + '</div>';
+
+  /* 6. Weiterblaettern in der Kategorie - keine Sackgasse. */
+  var order = catOrder(primary), i = order.indexOf(id);
+  function pg(x) { if (!x) return null; var k = kindOfId(x); return { href: '#/' + k + '/' + x, label: displayName(x), id: x }; }
+  if (i >= 0) h += pagerHtml(pg(order[i - 1]), pg(order[i + 1]));
   return h;
 }
 
@@ -2800,15 +3461,19 @@ function openCtx(id, x, y) {
 
 function notFound(what, id) {
   var q = String(id || '').split(':').pop().split('/').pop();
-  return '<div class="notfound"><h1>' + esc(T('notFoundTitle', what)) + '</h1><p>' + T('notFoundBody', esc(id)) + '</p><p><a href="#/search/' + encodeURIComponent(q) + '">' + esc(T('notFoundSearch', q)) + '</a> · <a href="#/">' + esc(T('notFoundOverview')) + '</a></p></div>';
+  /* Keine Sackgasse: gleich die besten Treffer fuer den letzten Teil der Id anbieten. */
+  var hits = q ? search(q.replace(/[_-]+/g, ' ')).slice(0, 6) : [];
+  return '<div class="notfound"><h1>' + esc(T('notFoundTitle', what)) + '</h1><p>' + T('notFoundBody', esc(id)) + '</p>' +
+    (hits.length ? '<p>' + esc(T('notFoundSuggest')) + '</p><div class="rows">' + hits.map(function (r) { return searchRow(r.e, []); }).join('') + '</div>' : '') +
+    '<p><a href="#/search/' + encodeURIComponent(q) + '">' + esc(T('notFoundSearch', q)) + '</a> · <a href="#/">' + esc(T('notFoundOverview')) + '</a></p></div>';
 }
 
 /* ------------------------------------------------------------------ */
 /* Suche                                                              */
 /* ------------------------------------------------------------------ */
 var SEARCH = [];
-var SECTION_ORDER = ['features', 'items', 'blocks', 'recipes', 'inworld', 'loot', 'trades', 'enchantments', 'tags', 'config'];
-var SECTION_KEYS = { features: 'secFeatures', items: 'navItems', blocks: 'navBlocks', recipes: 'navRecipes', inworld: 'navInWorld', loot: 'navLoot', trades: 'navTrades', enchantments: 'navEnchantments', tags: 'navTags', config: 'navConfig' };
+var SECTION_ORDER = ['categories', 'features', 'items', 'blocks', 'recipes', 'inworld', 'loot', 'trades', 'enchantments', 'tags', 'config'];
+var SECTION_KEYS = { categories: 'sbCategories', features: 'navGuides', items: 'navItems', blocks: 'navBlocks', recipes: 'navRecipes', inworld: 'navInWorld', loot: 'navLoot', trades: 'navTrades', enchantments: 'navEnchantments', tags: 'navTags', config: 'navConfig' };
 function sectionLabel(s) { return T(SECTION_KEYS[s] || 'unknown'); }
 /* Titel eines Features in der gewaehlten Sprache. */
 function featureTitle(f) { if (!isObj(f)) return ''; var v = localised(f).v; return (isObj(v) && v.title) || f.title || prettyFromId(f.id || 'feature'); }
@@ -2832,6 +3497,7 @@ function buildSearch() {
   arr(D.trades).filter(isObj).forEach(function (t) { var g = normStack(t.gives), w = normStack(t.wants); add('trades', t.id, (g ? displayName(g.id) : t.id) + ' – ' + professionLabel(t.profession) + ', ' + levelLabel(t.level), t.id, [g && g.id, w && displayName(w.id), w && w.id, t.profession].concat(arr(t.enchantmentPool).map(function (p) { return isObj(p) ? displayName(p.enchantment) + ' ' + p.enchantment : ''; }), strs(t.configFlags)).filter(Boolean).join(' '), '#/trades/' + t.id); });
   arr(D.enchantments).filter(isObj).forEach(function (e) { add('enchantments', e.id, nameOf(e) || prettyFromId(e.id), [nameEn(e) !== nameOf(e) ? nameEn(e) : '', e.id].filter(Boolean).join(' · '), enchDescription(e).map(function (d) { return d.t; }).join(' ') + ' ' + noteText(e.note) + ' ' + [e.supportedItems, e.exclusiveSet].join(' ') + ' implemented-in-' + implOf(e) + (implOf(e) === 'none' ? ' not implemented nicht implementiert ohne wirkung' : ''), '#/enchantments/' + e.id); });
   arr(D.tags).filter(isObj).forEach(function (t) { var info = tagRefOf(t); add('tags', t.id, info.ref, t.id, arr(t.values).map(function (v) { var id = tagValueId(v); return id + ' ' + displayName(id); }).join(' '), '#/tags/' + t.id); });
+  CATS.forEach(function (c) { add('categories', c.key, catLabel(c.key), T('catd.' + c.key), STR.en['cat.' + c.key] + ' ' + STR.de['cat.' + c.key] + ' ' + c.key, '#/cat/' + c.key); });
   IW.kinds.forEach(function (k) { add('inworld', k.id, iwKindTitle(k.id), T('navInWorld'), noteText(k.note), '#/inworld/' + k.id); });
   arr(D.config).filter(isObj).forEach(function (c) { add('config', c.name, c.name, [c.type, c.default].filter(Boolean).join(' = '), [c.tooltip, c.note].filter(Boolean).join(' '), '#/config/' + c.name); });
 }
@@ -2899,12 +3565,13 @@ function pageSearch(q) {
   res.forEach(function (r) { if (!groups.has(r.e.section)) groups.set(r.e.section, []); groups.get(r.e.section).push(r.e); });
   SECTION_ORDER.forEach(function (sec) {
     var list = groups.get(sec); if (!list) return;
-    h += '<div class="search-group">' + section(sectionLabel(sec), '<div class="rows">' + list.map(function (e) {
-      var tex = (sec === 'items' || sec === 'blocks') ? slotHtml(e.id, 1, { noLink: true }) : '';
-      return '<a class="row" href="' + esc(e.href) + '">' + tex + '<div class="row-main"><div class="row-title">' + highlight(e.title, tokens) + '</div><div class="row-sub">' + highlight(e.sub, tokens) + '</div></div></a>';
-    }).join('') + '</div>', { count: list.length }) + '</div>';
+    h += '<div class="search-group">' + section(sectionLabel(sec), '<div class="rows">' + list.map(function (e) { return searchRow(e, tokens); }).join('') + '</div>', { count: list.length }) + '</div>';
   });
   return h;
+}
+function searchRow(e, tokens) {
+  var tex = (e.section === 'items' || e.section === 'blocks') ? slotHtml(e.id, 1, { noLink: true }) : '';
+  return '<a class="row" href="' + esc(e.href) + '">' + tex + '<div class="row-main"><div class="row-title">' + highlight(e.title, tokens) + '</div><div class="row-sub">' + highlight(e.sub, tokens) + '</div></div><div class="row-right">' + badge(sectionLabel(e.section)) + '</div></a>';
 }
 
 /* ------------------------------------------------------------------ */
@@ -2913,60 +3580,213 @@ function pageSearch(q) {
 var $main = document.getElementById('main');
 var $side = document.getElementById('sidebar');
 var $q = document.getElementById('q');
+var $qs = document.getElementById('qs');
 var $meta = document.getElementById('topmeta');
 var $lang = document.getElementById('lang');
-/* label kommt aus STR, damit der Sprachwechsel die Leiste mitnimmt. */
-var NAV = [
-  { key: 'overview', labelKey: 'navOverview', href: '#/', count: function () { return arr(D.features).length ? T('navFeatureCount', arr(D.features).length) : null; } },
-  { key: 'items', labelKey: 'navItems', count: function () { return arr(D.items).length; } },
-  { key: 'blocks', labelKey: 'navBlocks', count: function () { return arr(D.blocks).length; } },
-  { key: 'recipes', labelKey: 'navRecipes', count: function () { return arr(D.recipes).length; } },
-  { key: 'allrecipes', labelKey: 'navAllRecipes', count: null },
-  { key: 'inworld', labelKey: 'navInWorld', count: function () { return IW.entries.length; } },
-  { key: 'advancements', labelKey: 'navAdvancements', count: function () { return arr(D.advancements).length; } },
-  { key: 'loot', labelKey: 'navLoot', count: function () { return arr(D.lootTables).length; } },
-  { key: 'trades', labelKey: 'navTrades', count: function () { return arr(D.trades).length; } },
-  { key: 'enchantments', labelKey: 'navEnchantments', count: function () { return arr(D.enchantments).length; } },
-  { key: 'tags', labelKey: 'navTags', count: function () { return arr(D.tags).length; } },
-  { key: 'config', labelKey: 'navConfig', count: function () { return arr(D.config).length; } }
-];
-function parseHash() {
-  var h = location.hash || '';
+var $theme = document.getElementById('theme-btn');
+var $menu = document.getElementById('menu-btn');
+
+/* ------------------------------------------------------------------ */
+/* Adressen: jede Ansicht hat eine teilbare URL mit Suchparametern.    */
+/* ------------------------------------------------------------------ */
+/* Intern bauen die Seiten weiter Hash-Routen ("#/items/<id>") - das haelt
+   den Code klein. Ein MutationObserver schreibt jeden solchen Link beim
+   Einfuegen in die URL-Form um (?item=<id>), und ein Klick darauf laeuft ueber
+   history.pushState statt ueber ein Neuladen. Alte Hash-Links (Lesezeichen,
+   andere Seiten) werden beim Laden auf die neue Form umgeleitet.
+   Wo der Browser pushState nicht erlaubt (manche file://-Kontexte), bleibt
+   es beim Hash-Router - dann gilt HASHMODE. */
+var ROUTE_PARAM = { items: 'item', blocks: 'block', recipes: 'recipe', loot: 'loot', trades: 'trade', enchantments: 'ench', tags: 'tag', features: 'feature', config: 'config', inworld: 'inworld', make: 'make', use: 'use', tree: 'tree', cat: 'cat' };
+var PARAM_ROUTE = { item: 'items', block: 'blocks', recipe: 'recipes', loot: 'loot', trade: 'trades', ench: 'enchantments', enchantment: 'enchantments', tag: 'tags', feature: 'features', guide: 'features', config: 'config', inworld: 'inworld', make: 'make', use: 'use', tree: 'tree', cat: 'cat' };
+var TAB_SECTIONS = ['overview', 'items', 'blocks', 'recipes', 'allrecipes', 'inworld', 'loot', 'trades', 'enchantments', 'tags', 'config', 'advancements', 'features', 'search'];
+var HASHMODE = false;
+function hashToRoute(h) {
+  h = String(h || '');
   if (h.charAt(0) === '#') h = h.slice(1);
   if (h.charAt(0) === '/') h = h.slice(1);
+  var qi = h.indexOf('?'), extra = '';
+  if (qi >= 0) { extra = h.slice(qi + 1); h = h.slice(0, qi); }
   var i = h.indexOf('/');
   var section = i < 0 ? h : h.slice(0, i);
   var rest = i < 0 ? '' : h.slice(i + 1);
   try { rest = decodeURIComponent(rest); } catch (e) { /* kaputte Kodierung: roh weiterreichen */ }
-  return { section: section || 'overview', id: rest };
+  var tab = /(?:^|&)tab=([^&]*)/.exec(extra);
+  return { section: section || 'overview', id: rest, tab: tab ? decodeURIComponent(tab[1]) : '' };
 }
+function routeToHash(r) { return '#/' + (r.section === 'overview' ? '' : r.section + (r.id ? '/' + encodeURIComponent(r.id) : '')); }
+function paramsToRoute(sp) {
+  var tab = sp.get('tab') || '';
+  if (sp.has('q')) return { section: 'search', id: sp.get('q') || '', tab: '' };
+  var keys = Object.keys(PARAM_ROUTE);
+  for (var i = 0; i < keys.length; i++) {
+    if (!sp.has(keys[i])) continue;
+    var section = PARAM_ROUTE[keys[i]], id = sp.get(keys[i]) || '';
+    /* ?item= fuer einen reinen Block (Pads, Teleporter) fuehrt trotzdem zur Seite. */
+    if (section === 'items' && id && !IX.items.has(id) && IX.blocks.has(id)) section = 'blocks';
+    if (section === 'blocks' && id && !IX.blocks.has(id) && IX.items.has(id)) section = 'items';
+    return { section: section, id: id, tab: tab };
+  }
+  if (tab && TAB_SECTIONS.indexOf(tab) >= 0) return { section: tab, id: '', tab: '' };
+  if (tab && catDef(tab)) return { section: 'cat', id: tab, tab: '' };
+  return { section: 'overview', id: '', tab: tab };
+}
+function routeToSearch(r) {
+  var sp = new URLSearchParams();
+  var s = r.section;
+  if (s === 'search') sp.set('q', r.id || '');
+  else if (ROUTE_PARAM[s] && r.id) sp.set(ROUTE_PARAM[s], r.id);
+  else if (s !== 'overview' && s !== '') sp.set('tab', s);
+  if (r.tab && r.section !== 'search') sp.set('tab', r.tab);
+  if (LANG !== 'en') sp.set('lang', LANG);
+  var q = sp.toString();
+  /* Doppelpunkte und Schraegstriche lesbar lassen: ?item=simplebuilding:enderite_chisel */
+  return q ? '?' + q.replace(/%3A/gi, ':').replace(/%2F/gi, '/') : '';
+}
+function routeUrl(r) { return HASHMODE ? routeToHash(r) : location.pathname + routeToSearch(r); }
+function currentRoute() {
+  if (HASHMODE || (location.hash || '').indexOf('#/') === 0) return hashToRoute(location.hash);
+  return paramsToRoute(new URLSearchParams(location.search));
+}
+/* Alter Name, von vielen Seitenfunktionen benutzt. */
+function parseHash() { return currentRoute(); }
+function sameRoute(a, b) { return a.section === b.section && (a.id || '') === (b.id || '') && (a.tab || '') === (b.tab || ''); }
+function go(r, opts) {
+  opts = opts || {};
+  if (HASHMODE) { var hh = routeToHash(r); if (opts.replace) location.replace(hh); else location.hash = hh; return; }
+  var url = routeUrl(r);
+  try {
+    history.replaceState({ y: window.pageYOffset || 0 }, '', location.href);
+    if (opts.replace) history.replaceState({ y: 0 }, '', url); else history.pushState({ y: 0 }, '', url);
+  } catch (err) {
+    HASHMODE = true; go(r, opts); return;
+  }
+  render(opts);
+}
+function goHref(href, opts) { go(hrefToRoute(href), opts); }
+function hrefToRoute(href) {
+  href = String(href || '');
+  if (href.indexOf('#/') === 0) return hashToRoute(href);
+  var a = document.createElement('a'); a.href = href;
+  if (a.hash && a.hash.indexOf('#/') === 0) return hashToRoute(a.hash);
+  return paramsToRoute(new URLSearchParams(a.search));
+}
+/* Hash-Links beim Einfuegen in die URL-Form bringen (fuer Mittelklick, "Link kopieren"). */
+function rewriteLinks(root) {
+  if (HASHMODE || !root || !root.querySelectorAll) return;
+  var list = root.matches && root.matches('a[href^="#/"]') ? [root] : [];
+  list = list.concat(Array.prototype.slice.call(root.querySelectorAll('a[href^="#/"]')));
+  list.forEach(function (a) { a.setAttribute('href', routeUrl(hashToRoute(a.getAttribute('href')))); a.setAttribute('data-route', '1'); });
+}
+if (window.MutationObserver) {
+  new MutationObserver(function (muts) {
+    muts.forEach(function (m) { Array.prototype.forEach.call(m.addedNodes, function (n) { if (n.nodeType === 1) rewriteLinks(n); }); });
+  }).observe(document.body, { childList: true, subtree: true });
+}
+/* Klick auf einen internen Link: ohne Neuladen navigieren. Sprungmarken
+   innerhalb der Seite ("#sec-...") scrollen nur und klappen den Abschnitt auf. */
+document.addEventListener('click', function (ev) {
+  if (ev.defaultPrevented || ev.button !== 0 || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
+  var a = ev.target && ev.target.closest ? ev.target.closest('a[href]') : null;
+  if (!a || a.target) return;
+  var href = a.getAttribute('href');
+  if (href.charAt(0) === '#' && href.charAt(1) !== '/') {
+    var el = document.getElementById(href.slice(1));
+    if (el) { ev.preventDefault(); revealSection(el); }
+    return;
+  }
+  if (href.indexOf('#/') !== 0 && !a.hasAttribute('data-route')) return;
+  ev.preventDefault();
+  closeNav();
+  goHref(href);
+});
+function revealSection(el) {
+  if (el.tagName === 'DETAILS') el.open = true;
+  var d = el.closest && el.closest('details'); if (d) d.open = true;
+  el.scrollIntoView({ block: 'start', behavior: 'smooth' });
+}
+window.addEventListener('popstate', function (ev) {
+  render({ restoreY: ev.state && typeof ev.state.y === 'number' ? ev.state.y : 0 });
+});
+/* Hash-Aenderung von aussen (alter Link, von Hand getippt): umleiten. */
+window.addEventListener('hashchange', function () {
+  var h = location.hash || '';
+  if (h.indexOf('#/') !== 0) return;
+  if (HASHMODE) { render(); return; }
+  go(hashToRoute(h), { replace: true });
+});
+
+/* ------------------------------------------------------------------ */
+/* Seitenleiste                                                       */
+/* ------------------------------------------------------------------ */
+/* label kommt aus STR, damit der Sprachwechsel die Leiste mitnimmt. */
+var NAV_REF = [
+  { key: 'items', labelKey: 'navItems', glyph: '◆', count: function () { return arr(D.items).length; } },
+  { key: 'blocks', labelKey: 'navBlocks', glyph: '■', count: function () { return arr(D.blocks).length; } },
+  { key: 'allrecipes', labelKey: 'navAllRecipes', glyph: '⊞', count: function () { return arr(D.recipes).length; } },
+  { key: 'recipes', labelKey: 'navRecipes', glyph: '≡', count: null },
+  { key: 'inworld', labelKey: 'navInWorld', glyph: '⚒', count: function () { return IW.entries.length; } },
+  { key: 'enchantments', labelKey: 'navEnchantments', glyph: '✦', count: function () { return arr(D.enchantments).length; } },
+  { key: 'trades', labelKey: 'navTrades', glyph: '⇄', count: function () { return arr(D.trades).length; } },
+  { key: 'loot', labelKey: 'navLoot', glyph: '❖', count: function () { return arr(D.lootTables).length; } },
+  { key: 'tags', labelKey: 'navTags', glyph: '#', count: function () { return arr(D.tags).length; } }
+];
+var NAV_PROG = [
+  { key: 'features', labelKey: 'navGuides', glyph: '✎', count: function () { return arr(D.features).length; } },
+  { key: 'advancements', labelKey: 'navAdvancements', glyph: '★', count: function () { return arr(D.advancements).length; } },
+  { key: 'config', labelKey: 'navConfig', glyph: '⚙', count: function () { return arr(D.config).length; } }
+];
 function renderSidebar(active) {
   if (!D) { $side.innerHTML = ''; return; }
-  $side.innerHTML = NAV.map(function (n) {
-    var c = n.count ? n.count() : null;
-    return '<a href="' + esc(n.href || '#/' + n.key) + '" class="' + (n.key === active ? 'active' : '') + '">' + esc(T(n.labelKey)) + (c != null ? '<span class="n">' + esc(c) + '</span>' : '') + '</a>';
-  }).join('') + '<div class="sb-note">' + T('sbNote', esc((D.generatedFrom && D.generatedFrom.generator) || 'wiki/generate.py')) + '</div>';
+  function link(href, key, label, ico, c) {
+    return '<a href="' + esc(href) + '"' + (key === active ? ' class="active" aria-current="page"' : '') + '><span class="sb-ico">' + ico + '</span><span>' + esc(label) + '</span>' + (c != null ? '<span class="n">' + esc(c) + '</span>' : '') + '</a>';
+  }
+  function plain(n) { return link('#/' + n.key, n.key, T(n.labelKey), '<span class="glyph" aria-hidden="true">' + n.glyph + '</span>', n.count ? n.count() : null); }
+  var ce = catEntries();
+  var h = '<div class="sb-group">' + link('#/', 'overview', T('navOverview'), '<span class="glyph" aria-hidden="true">⌂</span>', null) + '</div>';
+  h += '<div class="sb-group"><div class="sb-title">' + esc(T('sbCategories')) + '</div>' + CATS.map(function (c) { return link('#/cat/' + c.key, 'cat:' + c.key, catLabel(c.key), iconHtml(c.icon) || '', ce[c.key].length); }).join('') + '</div>';
+  h += '<div class="sb-group"><div class="sb-title">' + esc(T('sbReference')) + '</div>' + NAV_REF.map(plain).join('') + '</div>';
+  h += '<div class="sb-group"><div class="sb-title">' + esc(T('sbProgress')) + '</div>' + NAV_PROG.map(plain).join('') + '</div>';
+  h += '<div class="sb-note">' + T('sbNote', esc((D.generatedFrom && D.generatedFrom.generator) || 'wiki/generate.py')) + '</div>';
+  $side.innerHTML = h;
+  var act = $side.querySelector('a.active');
+  if (act && act.scrollIntoView && !document.body.classList.contains('nav-open')) {
+    var sr = $side.getBoundingClientRect(), ar = act.getBoundingClientRect();
+    if (ar.top < sr.top || ar.bottom > sr.bottom) act.scrollIntoView({ block: 'nearest' });
+  }
 }
+function openNav() { document.body.classList.add('nav-open'); $menu.setAttribute('aria-expanded', 'true'); }
+function closeNav() { document.body.classList.remove('nav-open'); $menu.setAttribute('aria-expanded', 'false'); }
+$menu.addEventListener('click', function () { if (document.body.classList.contains('nav-open')) closeNav(); else openNav(); });
+document.getElementById('backdrop').addEventListener('click', closeNav);
+
 function renderMeta() {
   if (!D) { $meta.innerHTML = ''; return; }
   var g = isObj(D.generatedFrom) ? D.generatedFrom : {};
-  $meta.innerHTML = '<span>' + esc(MOD.version ? 'v' + MOD.version : '') + '</span><span>MC ' + esc(arr(MOD.minecraftLines).join(' / ') || '?') + '</span><span>' + esc(arr(MOD.loaders).join(' + ') || '') + '</span>' + (g.line ? '<span title="' + esc(T('metaDataTitle')) + '">' + esc(T('metaData', g.line)) + '</span>' : '');
-  document.getElementById('brand').innerHTML = esc(MOD.name || 'SimpleBuilding') + ' <small>Wiki</small>';
+  $meta.innerHTML = (MOD.version ? '<span>v' + esc(MOD.version) + '</span>' : '') + '<span>MC ' + esc(arr(MOD.minecraftLines).join(' / ') || '?') + '</span>' + (g.line ? '<span title="' + esc(T('metaDataTitle')) + '">' + esc(T('metaData', g.line)) + '</span>' : '');
+  var tex = textureOf('simplebuilding:iron_chisel');
+  document.getElementById('brand-icon').innerHTML = tex ? '<img src="' + esc(tex) + '" alt="">' : '';
+  document.querySelector('.brand-text').innerHTML = esc(MOD.name || 'SimpleBuilding') + ' <small>Wiki</small>';
+  if (tex && !document.querySelector('link[rel="icon"]')) { var l = document.createElement('link'); l.rel = 'icon'; l.href = tex; document.head.appendChild(l); }
 }
-function render() {
+function footerHtml() {
+  return '<footer class="site-foot"><span>' + esc(T('footGenerated', (D.generatedFrom && D.generatedFrom.generator) || 'wiki/generate.py')) + '</span><span>' + esc(T('footShortcuts')) + '</span></footer>';
+}
+function render(opts) {
+  opts = opts || {};
   if (!D) {
     $main.innerHTML = '<div class="box box-danger"><div class="box-title">' + esc(T('noDataTitle')) + '</div>' + T('noDataBody') + '</div>';
     document.title = T('docTitleNoData');
     return;
   }
-  var r = parseHash();
+  var r = currentRoute();
   var html = '', title = '', active = r.section;
   try {
     switch (r.section) {
-      case 'overview': case '': html = pageOverview(); title = T('navOverview'); active = 'overview'; break;
-      case 'features': html = pageFeature(r.id); title = featureTitle(IX.features.get(r.id)) || T('wordFeature'); active = 'overview'; break;
-      case 'items': html = r.id ? entryPage(r.id, 'items') : pageItems(); title = r.id ? displayName(r.id) : T('navItems'); break;
-      case 'blocks': html = r.id ? entryPage(r.id, 'blocks') : pageBlocks(); title = r.id ? displayName(r.id) : T('navBlocks'); break;
+      case 'overview': case '': html = pageOverview(); title = ''; active = 'overview'; break;
+      case 'cat': html = pageCategory(r.id); title = catDef(r.id) ? catLabel(r.id) : T('titleNotFound'); active = 'cat:' + r.id; break;
+      case 'features': html = r.id ? pageFeature(r.id) : pageGuides(); title = r.id ? (featureTitle(IX.features.get(r.id)) || T('wordFeature')) : T('navGuides'); active = 'features'; break;
+      case 'items': html = r.id ? entryPage(r.id, 'items') : pageItems(); title = r.id ? displayName(r.id) : T('navItems'); if (r.id && IX.items.has(r.id)) active = 'cat:' + catsOf(r.id)[0]; break;
+      case 'blocks': html = r.id ? entryPage(r.id, 'blocks') : pageBlocks(); title = r.id ? displayName(r.id) : T('navBlocks'); if (r.id && IX.blocks.has(r.id)) active = 'cat:' + catsOf(r.id)[0]; break;
       case 'recipes': html = r.id ? pageRecipe(r.id) : pageRecipes(); title = r.id ? T('titleRecipePrefix', r.id) : T('navRecipes'); break;
       case 'loot': html = r.id ? pageLootOne(r.id) : pageLoot(); title = r.id ? T('titleLootPrefix', r.id) : T('navLoot'); break;
       case 'trades': html = r.id ? pageTrade(r.id) : pageTrades(); title = r.id ? T('titleTradePrefix', r.id) : T('navTrades'); break;
@@ -2988,20 +3808,32 @@ function render() {
   }
   if (!html) html = '<div class="notfound">' + T('emptyPage') + '</div>';
   closeCtx();
-  $main.innerHTML = html;
+  closeQs();
+  if (r.section !== 'search' && document.activeElement !== $q) $q.value = '';
+  $main.innerHTML = html + footerHtml();
   if (r.section === 'tree') fillTree();
   if (r.section === 'allrecipes' || r.section === 'make' || r.section === 'use') { AR.shown = 60; refreshRecipeView(); }
   renderSidebar(active);
   document.title = (title ? title + ' – ' : '') + (MOD.name || 'SimpleBuilding') + ' Wiki';
-  if (r.section === 'config' && r.id) {
-    var row = document.getElementById('cfg-' + r.id);
-    if (row && row.scrollIntoView) row.scrollIntoView({ block: 'center' });
-  } else if (r.section === 'inworld' && r.id) {
-    var sec = document.getElementById('iw-' + r.id);
-    if (sec && sec.scrollIntoView) sec.scrollIntoView({ block: 'start' });
-  } else if (r.section !== 'search') {
+  if (typeof opts.restoreY === 'number') { window.scrollTo(0, opts.restoreY); return; }
+  if (opts.keepScroll) return;
+  var target = null;
+  if (r.section === 'config' && r.id) target = document.getElementById('cfg-' + r.id);
+  else if (r.section === 'inworld' && r.id) target = document.getElementById('iw-' + r.id);
+  else if (r.tab && (r.section === 'items' || r.section === 'blocks')) target = tabTarget(r.tab);
+  if (target) {
+    if (target.tagName === 'DETAILS') target.open = true;
+    target.scrollIntoView({ block: r.section === 'config' ? 'center' : 'start' });
+  } else if (r.section !== 'search' || !opts.fromSearch) {
     window.scrollTo(0, 0);
   }
+}
+/* ?item=...&tab=recipes springt zum passenden Abschnitt der Item-Seite. */
+var TAB_ALIASES = { recipes: ['obtain'], recipe: ['obtain'], crafting: ['st.crafting', 'obtain'], obtain: ['obtain'], get: ['obtain'], description: ['secDescription'], notes: ['secDescription'], uses: ['secUsedIn'], usedin: ['secUsedIn'], drops: ['secDrops', 'secDropsFrom'], trades: ['secTrades'], inworld: ['secInWorld'], related: ['secRelated'], technical: ['secTechnical'], tech: ['secTechnical'], sources: ['secTechnical'] };
+function tabTarget(tab) {
+  var keys = (TAB_ALIASES[String(tab).toLowerCase()] || []).concat(['st.' + tab, tab, 'sec' + tab.charAt(0).toUpperCase() + tab.slice(1)]);
+  for (var i = 0; i < keys.length; i++) { var el = document.getElementById(secAnchor(keys[i])); if (el) return el; }
+  return null;
 }
 
 /* Bildfehler: Textur fehlt -> Text-Kachel */
@@ -3033,30 +3865,110 @@ $main.addEventListener('input', function (ev) {
   if (empty) empty.hidden = any;
 });
 
-/* Suche */
+/* Schnellsuche: Treffer als Liste unter dem Feld, mit Pfeiltasten waehlbar.
+   Enter oeffnet den gewaehlten Treffer, der letzte Eintrag fuehrt zur vollen
+   Suche (?q=...). Auf der Suchseite selbst aktualisiert das Tippen die Seite. */
+var QS = { items: [], idx: -1 };
+var SEC_GLYPH = { categories: '▦', features: '✎', recipes: '⊞', inworld: '⚒', loot: '❖', trades: '⇄', enchantments: '✦', tags: '#', config: '⚙' };
+function closeQs() { $qs.hidden = true; $qs.innerHTML = ''; QS.items = []; QS.idx = -1; $q.setAttribute('aria-expanded', 'false'); $q.removeAttribute('aria-activedescendant'); }
+function renderQs() {
+  var q = $q.value.trim();
+  if (!q) { closeQs(); return; }
+  var tokens = norm(q).split(/\s+/).filter(Boolean);
+  /* Items, die auch Bloecke sind, nur einmal zeigen (die Item-Seite verlinkt den Block). */
+  var itemIds = {};
+  var res = search(q).filter(function (r) {
+    if (r.e.section === 'items') { itemIds[r.e.id] = true; return true; }
+    return !(r.e.section === 'blocks' && (itemIds[r.e.id] || IX.items.has(r.e.id)));
+  }).slice(0, 8);
+  QS.items = res.map(function (r) { return r.e.href; }).concat(['#/search/' + encodeURIComponent(q)]);
+  if (QS.idx >= QS.items.length) QS.idx = QS.items.length - 1;
+  if (QS.idx < 0) QS.idx = 0;
+  var h = res.length ? res.map(function (r, i) {
+    var e = r.e, ico = (e.section === 'items' || e.section === 'blocks') ? slotHtml(e.id, 1, { noLink: true }) : e.section === 'categories' && catDef(e.id) ? slotHtml(catDef(e.id).icon, 1, { noLink: true }) : '<span class="qs-ico" aria-hidden="true">' + (SEC_GLYPH[e.section] || '•') + '</span>';
+    return '<a class="qs-item" id="qs-' + i + '" role="option" aria-selected="' + (i === QS.idx) + '" href="' + esc(e.href) + '" data-qi="' + i + '">' + ico + '<span class="qs-main"><span class="qs-title">' + highlight(e.title, tokens) + '</span><span class="qs-sub">' + highlight(e.sub, tokens) + '</span></span><span class="qs-sec">' + esc(sectionLabel(e.section)) + '</span></a>';
+  }).join('') : '<div class="qs-empty">' + esc(T('qsNone')) + '</div>';
+  var ai = QS.items.length - 1;
+  h += '<a class="qs-item qs-all" id="qs-' + ai + '" role="option" aria-selected="' + (QS.idx === ai) + '" href="#/search/' + esc(encodeURIComponent(q)) + '" data-qi="' + ai + '">' + esc(T('qsAll', q)) + '</a>';
+  h += '<div class="qs-foot">' + esc(T('qsNav')) + '</div>';
+  $qs.innerHTML = h;
+  $qs.hidden = false;
+  $q.setAttribute('aria-expanded', 'true');
+  $q.setAttribute('aria-activedescendant', 'qs-' + QS.idx);
+}
+function moveQs(d) {
+  if (!QS.items.length) return;
+  QS.idx = (QS.idx + d + QS.items.length) % QS.items.length;
+  $qs.querySelectorAll('.qs-item').forEach(function (el) { el.setAttribute('aria-selected', String(+el.getAttribute('data-qi') === QS.idx)); });
+  var sel = document.getElementById('qs-' + QS.idx);
+  if (sel) { sel.scrollIntoView({ block: 'nearest' }); $q.setAttribute('aria-activedescendant', sel.id); }
+}
 var searchTimer = null;
 $q.addEventListener('input', function () {
   clearTimeout(searchTimer);
   searchTimer = setTimeout(function () {
+    QS.idx = 0;
     var q = $q.value.trim();
-    var cur = parseHash();
-    if (q) { var target = '#/search/' + encodeURIComponent(q); if (location.hash !== target) location.replace(target); }
-    else if (cur.section === 'search') location.replace('#/');
-  }, 120);
+    if (currentRoute().section === 'search') {
+      if (q) go({ section: 'search', id: q }, { replace: true, fromSearch: true });
+      else closeQs();
+      return;
+    }
+    renderQs();
+  }, 90);
 });
+$q.addEventListener('focus', function () { if ($q.value.trim() && currentRoute().section !== 'search') renderQs(); });
 $q.addEventListener('keydown', function (ev) {
-  if (ev.key === 'Escape') { $q.value = ''; $q.blur(); if (parseHash().section === 'search') location.replace('#/'); }
-  if (ev.key === 'Enter') { var first = $main.querySelector('.row'); if (first && first.href) { location.hash = first.getAttribute('href'); } }
-});
-document.addEventListener('keydown', function (ev) {
-  if (ev.key === '/' && !ev.ctrlKey && !ev.metaKey && !ev.altKey) {
-    var t = ev.target; var tag = t && t.tagName;
-    if (tag === 'INPUT' || tag === 'TEXTAREA' || (t && t.isContentEditable)) return;
-    ev.preventDefault(); $q.focus(); $q.select();
+  if (ev.key === 'ArrowDown') { ev.preventDefault(); if ($qs.hidden) renderQs(); else moveQs(1); }
+  else if (ev.key === 'ArrowUp') { ev.preventDefault(); moveQs(-1); }
+  else if (ev.key === 'Escape') {
+    if (!$qs.hidden) { closeQs(); return; }
+    $q.value = ''; $q.blur();
+    if (currentRoute().section === 'search') go({ section: 'overview' }, { replace: true });
+  } else if (ev.key === 'Enter') {
+    ev.preventDefault();
+    var q = $q.value.trim();
+    if (!q) return;
+    clearTimeout(searchTimer);
+    var target = (ev.ctrlKey || ev.metaKey || $qs.hidden || !QS.items.length) ? '#/search/' + encodeURIComponent(q) : QS.items[QS.idx];
+    closeQs();
+    if (currentRoute().section === 'search' && target.indexOf('#/search/') === 0) return;
+    $q.blur();
+    goHref(target);
   }
 });
+$qs.addEventListener('mousedown', function (ev) { ev.preventDefault(); }); /* Fokus im Feld lassen */
+$qs.addEventListener('click', function () { $q.blur(); });
+document.addEventListener('click', function (ev) { if (!$qs.hidden && !ev.target.closest('.search')) closeQs(); });
+function focusSearch() { closeNav(); $q.focus(); $q.select(); }
+document.addEventListener('keydown', function (ev) {
+  var t = ev.target; var tag = t && t.tagName;
+  var typing = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (t && t.isContentEditable);
+  if ((ev.ctrlKey || ev.metaKey) && !ev.altKey && String(ev.key).toLowerCase() === 'k') { ev.preventDefault(); focusSearch(); return; }
+  if (ev.key === '/' && !ev.ctrlKey && !ev.metaKey && !ev.altKey && !typing) { ev.preventDefault(); focusSearch(); return; }
+  if (ev.key === 'Escape') closeNav();
+});
+$main.addEventListener('click', function (ev) { if (ev.target.closest && ev.target.closest('[data-open-search]')) { ev.preventDefault(); focusSearch(); } });
 
-window.addEventListener('hashchange', render);
+/* Farbschema: System -> hell -> dunkel -> System. */
+var THEME_STORE = 'simplebuilding-wiki-theme';
+var THEME_ICONS = {
+  auto: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg>',
+  light: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
+  dark: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>'
+};
+function currentTheme() { var t = document.documentElement.getAttribute('data-theme'); return t === 'light' || t === 'dark' ? t : 'auto'; }
+function applyThemeButton() {
+  var t = currentTheme(), label = T(t === 'light' ? 'themeLight' : t === 'dark' ? 'themeDark' : 'themeAuto');
+  $theme.innerHTML = THEME_ICONS[t];
+  $theme.title = label; $theme.setAttribute('aria-label', label);
+}
+$theme.addEventListener('click', function () {
+  var next = { auto: 'light', light: 'dark', dark: 'auto' }[currentTheme()];
+  if (next === 'auto') document.documentElement.removeAttribute('data-theme'); else document.documentElement.setAttribute('data-theme', next);
+  try { if (next === 'auto') window.localStorage.removeItem(THEME_STORE); else window.localStorage.setItem(THEME_STORE, next); } catch (err) { /* nur diese Sitzung */ }
+  applyThemeButton();
+});
 
 /* Rechtsklick auf eine Item-Kachel: eigenes kleines Menue mit "Rezeptbaum".
    Linksklick bleibt, wie er ist. Tastatur: Kontextmenue-Taste/Shift+F10. */
@@ -3089,7 +4001,7 @@ $main.addEventListener('toggle', function (ev) {
 /* Eingeklappte Abschnitte merken. */
 $main.addEventListener('toggle', function (ev) {
   var d = ev.target;
-  if (d && d.classList && d.classList.contains('fold') && d.getAttribute('data-fold')) setFolded(d.getAttribute('data-fold'), !d.open);
+  if (d && d.classList && d.classList.contains('fold') && d.getAttribute('data-fold') && !d.hasAttribute('data-noremember')) setFolded(d.getAttribute('data-fold'), !d.open, d.hasAttribute('data-defclosed'));
 }, true);
 /* Alle Rezepte / JEI-Ansicht: Filter-Chips, Varianten, Blaettern. */
 $main.addEventListener('click', function (ev) {
@@ -3137,8 +4049,8 @@ document.addEventListener('keydown', function (ev) {
   var tag = ev.target && ev.target.tagName;
   if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
   var k = String(ev.key || '').toLowerCase();
-  if (k === 'r') location.hash = '#/make/' + encodeURIComponent(hoverId);
-  else if (k === 'u') location.hash = '#/use/' + encodeURIComponent(hoverId);
+  if (k === 'r') go({ section: 'make', id: hoverId });
+  else if (k === 'u') go({ section: 'use', id: hoverId });
 });
 $main.addEventListener('change', function (ev) {
   var t = ev.target;
@@ -3163,11 +4075,15 @@ function applyStaticText() {
   $q.setAttribute('aria-label', T('searchAria'));
   $side.setAttribute('aria-label', T('sidebarAria'));
   $lang.setAttribute('aria-label', T('langAria'));
+  $menu.setAttribute('aria-label', T('menuAria'));
   $lang.value = LANG;
+  applyThemeButton();
 }
 /* Sprachwechsel ohne Neuladen. Die Reihenfolge zaehlt: der Suchindex muss
    neu stehen, bevor render() eine Suchseite zeichnet, und buildSearch haengt
-   an, statt zu ersetzen - ohne das Leeren waechst der Index bei jedem Wechsel. */
+   an, statt zu ersetzen - ohne das Leeren waechst der Index bei jedem Wechsel.
+   Die Adresse bekommt ?lang=de (bzw. verliert es), damit ein geteilter Link
+   dieselbe Sprache zeigt. */
 function setLang(next) {
   if (LANGS.indexOf(next) < 0 || next === LANG) return;
   LANG = next;
@@ -3177,9 +4093,9 @@ function setLang(next) {
   SEARCH.length = 0;
   buildSearch();
   renderMeta();
-  var y = window.pageYOffset || 0;
-  render();
-  window.scrollTo(0, y);   /* render() springt sonst an den Seitenanfang */
+  if (!HASHMODE) { try { history.replaceState(history.state, '', routeUrl(currentRoute())); } catch (err) { /* Adresse bleibt */ } }
+  render({ keepScroll: true });
+  rewriteLinks(document.body);
 }
 $lang.addEventListener('change', function () { setLang($lang.value); });
 
@@ -3188,6 +4104,15 @@ buildInWorld();
 applyStaticText();
 buildSearch();
 renderMeta();
+/* Alte Hash-Links (#/items/<id>) auf die URL-Form umleiten. Wo der Browser das
+   nicht zulaesst (manche file://-Kontexte), bleibt der Hash-Router. */
+(function () {
+  try {
+    var r = (location.hash || '').indexOf('#/') === 0 ? hashToRoute(location.hash) : paramsToRoute(new URLSearchParams(location.search));
+    history.replaceState({ y: 0 }, '', location.pathname + routeToSearch(r));
+  } catch (err) { HASHMODE = true; }
+  rewriteLinks(document.body);
+})();
 /* Wuerfel der Vanilla-Bloecke: die Datei legt generate.py neben die Vanilla-Texturen
    (nicht committet, nicht veroeffentlicht). Kurz auf sie warten, damit die erste Seite
    schon Wuerfel zeigt; kommt sie spaeter, wird einmal nachgezeichnet. */
@@ -3196,7 +4121,7 @@ renderMeta();
   function first() { if (!done) { done = true; render(); } }
   s.onload = function () {
     if (!done) { first(); return; }
-    if (isObj(window.VANILLA_CUBES)) { var y = window.pageYOffset || 0; render(); window.scrollTo(0, y); }
+    if (isObj(window.VANILLA_CUBES)) { render({ keepScroll: true }); }
   };
   s.onerror = first;
   s.src = 'assets/textures/minecraft/' + 'cubes.js';
