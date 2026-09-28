@@ -4,6 +4,7 @@ import com.simplebuilding.tweaks.SimpleTweaks;
 import com.simplebuilding.tweaks.block.FlypadBlock;
 import com.simplebuilding.tweaks.block.LegacyFlypadBlock;
 import com.simplebuilding.tweaks.block.PadTiers;
+import com.simplebuilding.tweaks.easter.EasterEggs;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -71,7 +72,7 @@ public class FlypadBlockEntity extends OwnedBlockEntity {
             return;
         }
 
-        AABB range = PadTiers.flyArea(pos, tier);
+        AABB range = areaOf(level, pos, state);
         List<ServerPlayer> players = level.getEntitiesOfClass(ServerPlayer.class, range, p -> true);
         Set<UUID> current = new HashSet<>();
         for (ServerPlayer player : players) {
@@ -96,6 +97,11 @@ public class FlypadBlockEntity extends OwnedBlockEntity {
             }
         }
         be.flyingPlayers.addAll(current);
+    }
+
+    /** Bereich dieses gesetzten Pads; die letzte Easter-Stufe ({@link EasterEggs}) ist doppelt so breit und hoch. */
+    public static AABB areaOf(Level level, BlockPos pos, BlockState state) {
+        return PadTiers.flyArea(pos, tierOf(state), EasterEggs.isBoosted(level, pos));
     }
 
     private void revokeAll(Level level, int tier) {
@@ -125,7 +131,8 @@ public class FlypadBlockEntity extends OwnedBlockEntity {
         if (!SimpleTweaks.config().pads.enableFlypads) {
             return false;
         }
-        int reach = (int) Math.ceil(PadTiers.flyHalfWidth(PadTiers.FLYPAD_MAX) / 16.0) + 1;
+        // Groesster Bereich: die letzte Easter-Stufe, doppelt so breit wie Stufe III.
+        int reach = (int) Math.ceil(PadTiers.flyWidth(PadTiers.FLYPAD_MAX) / 16.0) + 1;
         int cx = player.getBlockX() >> 4;
         int cz = player.getBlockZ() >> 4;
         for (int dx = -reach; dx <= reach; dx++) {
@@ -136,7 +143,7 @@ public class FlypadBlockEntity extends OwnedBlockEntity {
                 }
                 for (BlockEntity other : chunk.getBlockEntities().values()) {
                     if (other != this && !other.isRemoved() && other instanceof FlypadBlockEntity pad
-                            && PadTiers.flyArea(pad.getBlockPos(), tierOf(pad.getBlockState())).intersects(player.getBoundingBox())) {
+                            && areaOf(level, pad.getBlockPos(), pad.getBlockState()).intersects(player.getBoundingBox())) {
                         return true;
                     }
                 }

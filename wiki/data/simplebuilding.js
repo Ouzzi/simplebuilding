@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "src/main/generated/wiki/items.json",
       "present": true,
-      "count": 204,
+      "count": 205,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -2848,7 +2848,8 @@ window.WIKI_DATA = {
           "Firework rockets can be limited to a smaller stack size (tweaks.balancing.rocketStackSize).",
           "The Nether and the End can be locked (tweaks.dimensions); exact spawn without random offset and a custom world spawn are off by default so existing worlds do not change.",
           "Commands (operators): /killboats and /killcarts [standard|empty|all] remove unoccupied boats/minecarts within 100 blocks; /simplebuilding tweaks ... changes the config in game (what was /simpletweaks ...); a custom world spawn takes effect at once, not only after a restart.",
-          "Every pad family can be switched off in the config section tweaks.pads."
+          "Every pad family can be switched off in the config section tweaks.pads.",
+          "Not everything is in the recipe book - some things are hidden."
         ]
       },
       "de": {
@@ -2861,7 +2862,8 @@ window.WIKI_DATA = {
           "Feuerwerksraketen lassen sich auf eine kleinere Stapelgröße begrenzen (tweaks.balancing.rocketStackSize).",
           "Nether und End lassen sich sperren (tweaks.dimensions); exakter Spawn ohne Zufallsversatz und ein eigener Weltspawn sind standardmäßig aus, damit bestehende Welten unverändert bleiben.",
           "Befehle (Operatoren): /killboats und /killcarts [standard|empty|all] entfernen unbesetzte Boote/Loren im Umkreis von 100 Blöcken; /simplebuilding tweaks ... ändert die Config im Spiel (früher /simpletweaks ...); ein eigener Weltspawn gilt sofort, nicht erst nach einem Neustart.",
-          "Jede Pad-Familie lässt sich im Config-Abschnitt tweaks.pads abschalten."
+          "Jede Pad-Familie lässt sich im Config-Abschnitt tweaks.pads abschalten.",
+          "Nicht alles steht im Rezeptbuch - manches ist versteckt."
         ]
       }
     },

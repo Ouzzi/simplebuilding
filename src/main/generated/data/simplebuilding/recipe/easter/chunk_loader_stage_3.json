@@ -1,0 +1,9 @@
+{
+  "type": "simplebuilding:easter_smithing",
+  "addition": "simplebuilding:enderite_pressure_plate",
+  "base": "simplebuilding:netherite_chunk_loader",
+  "base_stage": 2,
+  "result": "simplebuilding:enderite_chunk_loader",
+  "result_stage": 3,
+  "template": "simplebuilding:enderite_upgrade_template"
+}

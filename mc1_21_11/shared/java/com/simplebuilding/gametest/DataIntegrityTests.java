@@ -207,7 +207,9 @@ public final class DataIntegrityTests {
             "netherite_spatula",
             // Alte Flypads (vor den drei Enderit-Stufen, 2026-09-27): werden zur neuen Stufe.
             "netherite_flypad",
-            "enderite_flypad");
+            "enderite_flypad",
+            // Ende der versteckten Easter-Kette ueber den Pad-Endstufen: bewusst nirgends angeboten.
+            "funny_stick");
 
     /**
      * Registry ids that exist for the sake of worlds that were saved with an older version, spelled
@@ -1391,6 +1393,8 @@ public final class DataIntegrityTests {
         }
         // Aus Simple Tweaks uebernommen, eigene Registrierung (com.simplebuilding.tweaks).
         items.addAll(com.simplebuilding.tweaks.item.TweaksItems.all());
+        // Ende der versteckten Easter-Kette (com.simplebuilding.tweaks.easter), eigene Registrierung.
+        items.add(com.simplebuilding.tweaks.easter.EasterEggs.funnyStick());
         return items;
     }
 

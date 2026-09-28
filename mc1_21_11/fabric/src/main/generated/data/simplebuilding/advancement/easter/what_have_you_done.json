@@ -1,0 +1,36 @@
+{
+  "criteria": {
+    "dont_do_it": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "simplebuilding:easter_stage": 1
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "background": "minecraft:gui/advancements/backgrounds/end",
+    "description": {
+      "translate": "advancements.simplebuilding.easter.what_have_you_done.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:elytra_pad"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.easter.what_have_you_done.title"
+    }
+  },
+  "requirements": [
+    [
+      "dont_do_it"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -46,6 +46,17 @@ public class ChunkLoaderBlock extends PadBlock {
      * II zusaetzlich die vier Nachbarn mit gemeinsamer Kante, III alle acht Nachbarn.
      */
     public static boolean inArea(int tier, int dx, int dz) {
+        return inArea(tier, dx, dz, false);
+    }
+
+    /**
+     * Wie {@link #inArea(int, int, int)}; {@code doubled} = letzte Easter-Stufe
+     * ({@code tweaks.easter.EasterEggs}): der Radius der Enderit-Stufe verdoppelt, also 5x5 Chunks.
+     */
+    public static boolean inArea(int tier, int dx, int dz, boolean doubled) {
+        if (doubled) {
+            return Math.abs(dx) <= 2 && Math.abs(dz) <= 2;
+        }
         int adx = Math.abs(dx);
         int adz = Math.abs(dz);
         return switch (tier) {

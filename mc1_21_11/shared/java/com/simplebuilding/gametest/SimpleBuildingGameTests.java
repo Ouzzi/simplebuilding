@@ -1143,6 +1143,18 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tweaks_tier_game_test_every_family_names_its_last_tier", TweaksTierTests::everyFamilyNamesItsLastTier)
                     .build(),
+            GameTestSpec.named("tweaks_easter_game_test_the_last_tier_smiths_back_into_dont_do_it_that_works_like_tier_one", TweaksEasterTests::theLastTierSmithsBackIntoDontDoItThatWorksLikeTierOne)
+                    .build(),
+            GameTestSpec.named("tweaks_easter_game_test_easter_chain_names_every_stage_and_costs_what_the_normal_tiers_cost", TweaksEasterTests::easterChainNamesEveryStageAndCostsWhatTheNormalTiersCost)
+                    .build(),
+            GameTestSpec.named("tweaks_easter_game_test_the_final_easter_pad_is_twice_as_strong_as_the_last_tier", TweaksEasterTests::theFinalEasterPadIsTwiceAsStrongAsTheLastTier)
+                    .build(),
+            GameTestSpec.named("tweaks_easter_game_test_the_easter_advancements_are_hidden_and_fire_along_the_chain", TweaksEasterTests::theEasterAdvancementsAreHiddenAndFireAlongTheChain)
+                    .build(),
+            GameTestSpec.named("tweaks_easter_game_test_the_funny_stick_is_smithed_from_the_final_pad_and_sparkles_in_the_hand", TweaksEasterTests::theFunnyStickIsSmithedFromTheFinalPadAndSparklesInTheHand)
+                    .build(),
+            GameTestSpec.named("tweaks_easter_game_test_the_easter_eggs_are_hidden_from_recipe_viewers_and_creative_tabs", TweaksEasterTests::theEasterEggsAreHiddenFromRecipeViewersAndCreativeTabs)
+                    .build(),
             GameTestSpec.named("pressure_plate_game_test_honeycomb_waxes_every_stage_and_waxed_plates_stop_oxidizing", PressurePlateTests::honeycombWaxesEveryStageAndWaxedPlatesStopOxidizing)
                     .build(),
             GameTestSpec.named("pressure_plate_game_test_the_axe_scrapes_the_wax_off_before_the_oxidation", PressurePlateTests::theAxeScrapesTheWaxOffBeforeTheOxidation)
