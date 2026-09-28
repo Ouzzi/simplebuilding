@@ -32,6 +32,12 @@
     "jei_mod_plugin": [
       "com.simplebuilding.compat.jei.SimplebuildingJeiPlugin"
     ],
+    "rei_client": [
+      "com.simplebuilding.compat.rei.SimplebuildingReiClientPlugin"
+    ],
+    "rei_common": [
+      "com.simplebuilding.compat.rei.SimplebuildingReiCommonPlugin"
+    ],
     "fabric-gametest": [
       "com.simplebuilding.gametest.SmokeGameTest",
       "com.simplebuilding.gametest.TestCentreGameTest",
@@ -116,6 +122,7 @@
     "jei": ">=27"
   },
   "suggests": {
+    "roughlyenoughitems": "*",
     "modmenu": "*",
     "jade": "*",
     "appleskin": "*",

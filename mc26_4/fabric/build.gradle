@@ -119,6 +119,9 @@ processResources {
 		filter { String line ->
 			line.replace('"minecraft": "~26.2"', '"minecraft": "~26.4-"')
 				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3"')
+				// No REI for this line: the REI plugin tree is not compiled here, so no entrypoints.
+				.replace('"com.simplebuilding.compat.rei.SimplebuildingReiClientPlugin"', '')
+				.replace('"com.simplebuilding.compat.rei.SimplebuildingReiCommonPlugin"', '')
 				.replace('"com.simplebuilding.compat.ModMenuIntegration"', '')
 		}
 	}

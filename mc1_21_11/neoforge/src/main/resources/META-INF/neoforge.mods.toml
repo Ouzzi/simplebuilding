@@ -59,6 +59,14 @@ versionRange="[27,)"
 ordering="NONE"
 side="BOTH"
 
+# REI: the mod ships an REI plugin (the same categories as for JEI, count-based smithing, info pages).
+[[dependencies.${modId}]]
+modId="roughlyenoughitems"
+type="optional"
+versionRange="[21.11,)"
+ordering="NONE"
+side="BOTH"
+
 [[dependencies.${modId}]]
 modId="jade"
 type="optional"
