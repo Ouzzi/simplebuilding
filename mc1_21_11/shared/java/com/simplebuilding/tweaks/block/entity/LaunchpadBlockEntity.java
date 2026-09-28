@@ -150,6 +150,7 @@ public class LaunchpadBlockEntity extends OwnedBlockEntity {
 
     public static void launch(ServerPlayer player, double strength, boolean fallProtection) {
         player.setDeltaMovement(player.getDeltaMovement().add(0, strength, 0));
+        com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.LAUNCHPAD);
         player.connection.send(new ClientboundSetEntityMotionPacket(player));
         ServerLevel level = (ServerLevel) player.level();
         level.sendParticles(ParticleTypes.EXPLOSION_EMITTER, player.getX(), player.getY(), player.getZ(), (int) (strength * 5), 0, 0, 0, 0);

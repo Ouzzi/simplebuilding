@@ -335,6 +335,7 @@ public class OreDetectorItem extends Item {
         BlockPos targetPos = findTarget(world, stack, player.getEyePosition());
 
         if (targetPos != null) {
+            com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.ORE_DETECTED);
             BlockState targetState = world.getBlockState(targetPos);
             double distance = Math.sqrt(playerPos.distSqr(targetPos));
             float pitch = getPingPitch(distance);

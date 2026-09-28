@@ -1,0 +1,29 @@
+{
+  "parent": "simplebuilding:pads/under_pressure",
+  "criteria": {
+    "spawn_teleport": {
+      "conditions": {
+        "feature": "spawn_teleport"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.pads.home_sweet_spawn.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:spawn_teleporter"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.pads.home_sweet_spawn.title"
+    }
+  },
+  "requirements": [
+    [
+      "spawn_teleport"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

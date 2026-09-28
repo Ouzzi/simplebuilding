@@ -7,6 +7,7 @@ import com.simplebuilding.items.ModItems;
 import com.simplebuilding.util.HopperFilterMode;
 import com.simplebuilding.util.SledgehammerProgress;
 import com.simplebuilding.util.SledgehammerUpgrades;
+import net.minecraft.advancements.AdvancementHolder;
 import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -181,6 +182,12 @@ public final class SledgehammerUpgradeTests {
      */
     public static void everyMachineClimbsFromReinforcedToNetheriteToEnderite(GameTestHelper helper) {
         ServerPlayer player = smith(helper, false);
+        // Advancement tree: a finished upgrade reports itself (simplebuilding:feature_used).
+        AdvancementHolder forged = helper.getLevel().getServer().getAdvancements().get(id("machines/forged_in_place"));
+        AdvancementHolder endOfLine = helper.getLevel().getServer().getAdvancements().get(id("machines/end_of_the_line"));
+        helper.assertTrue(forged != null && endOfLine != null, "the machine upgrade advancements are not loaded");
+        helper.assertTrue(!done(player, forged) && !done(player, endOfLine),
+                "a machine upgrade advancement was done before any machine was hammered");
 
         for (int index = 0; index < FAMILIES.size(); index++) {
             Family family = FAMILIES.get(index);
@@ -198,6 +205,10 @@ public final class SledgehammerUpgradeTests {
                     ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_NUGGET, NETHERITE_STEP_WEAR,
                     "the reinforced " + family.label());
             assertBricksKept(helper, pos, "the " + family.label() + " after the netherite step");
+            if (index == 0) {
+                helper.assertTrue(done(player, forged) && !done(player, endOfLine),
+                        "the first netherite upgrade did not earn exactly 'Forged in Place'");
+            }
 
             // A worn netherite breaker becomes a fresh enderite piston: the wear belongs to the
             // netherite budget and does not carry over.
@@ -209,6 +220,7 @@ public final class SledgehammerUpgradeTests {
                     ModItems.NETHERITE_SLEDGEHAMMER, ModItems.ENDERITE_NUGGET, ENDERITE_STEP_WEAR,
                     "the netherite " + family.label());
             assertBricksKept(helper, pos, "the " + family.label() + " after the enderite step");
+            helper.assertTrue(done(player, endOfLine), "an enderite upgrade did not earn 'End of the Line'");
             if (beforeEnderite.hasProperty(NetheriteBreakerPistonBlock.WEAR)) {
                 helper.assertValueEqual(NetheriteBreakerPistonBlock.wearOf(helper.getBlockState(pos)), 0,
                         "wear stage of the enderite piston hammered from a netherite piston at stage 5");
@@ -1017,6 +1029,10 @@ public final class SledgehammerUpgradeTests {
         int value = tag.getIntOr(key, Integer.MIN_VALUE);
         helper.assertTrue(value != Integer.MIN_VALUE, "the block entity at " + pos + " no longer persists '" + key + "'");
         return value;
+    }
+
+    private static boolean done(ServerPlayer player, AdvancementHolder holder) {
+        return player.getAdvancements().getOrStartProgress(holder).isDone();
     }
 
     private static Identifier id(String path) {

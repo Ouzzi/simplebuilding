@@ -1163,6 +1163,14 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tweaks_easter_game_test_the_easter_eggs_are_hidden_from_recipe_viewers_and_creative_tabs", TweaksEasterTests::theEasterEggsAreHiddenFromRecipeViewersAndCreativeTabs)
                     .build(),
+            GameTestSpec.named("advancement_tree_game_test_the_tree_loads_completely_and_every_entry_is_translated", AdvancementTreeTests::theTreeLoadsCompletelyAndEveryEntryIsTranslated)
+                    .build(),
+            GameTestSpec.named("advancement_tree_game_test_every_feature_grants_the_advancements_that_wait_for_it", AdvancementTreeTests::everyFeatureGrantsTheAdvancementsThatWaitForIt)
+                    .build(),
+            GameTestSpec.named("advancement_tree_game_test_item_advancements_follow_the_inventory", AdvancementTreeTests::itemAdvancementsFollowTheInventory)
+                    .build(),
+            GameTestSpec.named("advancement_tree_game_test_marking_one_corner_with_the_octant_earns_measure_twice", AdvancementTreeTests::markingOneCornerWithTheOctantEarnsMeasureTwice)
+                    .build(),
             GameTestSpec.named("potion_pad_game_test_splash_potions_landing_on_the_pad_are_stored_and_replaced", PotionPadTests::splashPotionsLandingOnThePadAreStoredAndReplaced)
                     .build(),
             GameTestSpec.named("potion_pad_game_test_stepping_on_the_pad_gives_the_stored_effects_for_thirty_sixty_or_one_hundred_twenty_seconds", PotionPadTests::steppingOnThePadGivesTheStoredEffectsForThirtySixtyOrOneHundredTwentySeconds)

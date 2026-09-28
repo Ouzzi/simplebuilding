@@ -1,0 +1,33 @@
+{
+  "parent": "simplebuilding:pads/under_pressure",
+  "criteria": {
+    "blaze_head": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:blaze_head"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.pads.hot_head.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:blaze_head"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.pads.hot_head.title"
+    }
+  },
+  "requirements": [
+    [
+      "blaze_head"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

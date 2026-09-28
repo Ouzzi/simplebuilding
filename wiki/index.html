@@ -129,6 +129,16 @@ main { flex: 1; min-width: 0; padding: 1.5rem 2rem 4rem; max-width: 1120px; }
 .ref-ext { color: var(--text); }
 .ref-ext .ref-name { border-bottom: 1px dotted var(--muted); }
 .reflist { display: flex; flex-wrap: wrap; gap: .3rem .9rem; }
+/* Fortschrittsbaum */
+.advtree { list-style: none; margin: 0; padding-left: 1.4rem; border-left: 1px dashed var(--border); }
+.advtree.top { padding-left: 0; border-left: 0; }
+.advtree li { margin: .45rem 0; }
+.adv { display: flex; gap: .7rem; align-items: flex-start; }
+.adv .slot { width: 44px; height: 44px; }
+.adv .slot img { width: 32px; height: 32px; }
+.adv-goal .slot { border-radius: 12px; }
+.adv-challenge .slot { border-color: var(--accent); border-width: 2px; }
+.adv .adv-frame { font-size: .75rem; color: var(--muted); margin-left: .4em; }
 .tile-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: .6rem; }
 .tile { display: block; padding: .8rem; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; color: var(--text); }
 .tile:hover { text-decoration: none; border-color: var(--accent); }
@@ -683,6 +693,14 @@ en: {
   titleTagPrefix: 'Tag {0}',
   /* Umwandlung in der Welt */
   navInWorld: 'In-world',
+  navAdvancements: 'Advancements',
+  advIntro: 'The mod\'s own advancement tab in the game. Every entry says what to do; once one is done, the next ones become visible - that is the clue for how to progress. Read from the datagen output (advancement/**), recipe unlocks and the secret easter chain left out.',
+  advTab: 'SimpleBuilding tab',
+  advVanilla: 'Teasers in vanilla tabs',
+  advUnder: 'under {0}',
+  advFrame_task: 'task', advFrame_goal: 'goal', advFrame_challenge: 'challenge',
+  advFeature: 'action: {0}',
+  advNeedsAll: 'needs all of them',
   secInWorld: 'In-world transformation',
   iwIntro: 'What turns into what in the world instead of at a crafting table: tool in hand, block or item frame in front of you. Numbers come from the mod\'s own tables and constants (datagen export).',
   iwNoneForItem: 'Not part of any in-world transformation.',
@@ -1054,6 +1072,14 @@ de: {
   titleTagPrefix: 'Tag {0}',
   /* Umwandlung in der Welt */
   navInWorld: 'In der Welt',
+  navAdvancements: 'Fortschritte',
+  advIntro: 'Der eigene Fortschritts-Tab der Mod im Spiel. Jeder Eintrag sagt, was zu tun ist; ist einer erledigt, werden die nächsten sichtbar - das ist der Hinweis, wie es weitergeht. Gelesen aus der Datagen-Ausgabe (advancement/**), ohne Rezept-Freischaltungen und ohne die geheime Easter-Kette.',
+  advTab: 'SimpleBuilding-Tab',
+  advVanilla: 'Teaser in Vanilla-Tabs',
+  advUnder: 'unter {0}',
+  advFrame_task: 'Aufgabe', advFrame_goal: 'Ziel', advFrame_challenge: 'Herausforderung',
+  advFeature: 'Aktion: {0}',
+  advNeedsAll: 'braucht alle',
   secInWorld: 'Umwandlung in der Welt',
   iwIntro: 'Was sich in der Welt statt an der Werkbank verwandelt: Werkzeug in der Hand, Block oder Rahmen vor dir. Die Zahlen stammen aus den Tabellen und Konstanten der Mod selbst (Datagen-Export).',
   iwNoneForItem: 'Kommt in keiner Umwandlung in der Welt vor.',
@@ -2422,6 +2448,53 @@ function pageConfig(highlightName) {
 }
 
 /* ------------------------------------------------------------------ */
+/* Fortschritte (Advancement-Baum)                                    */
+/* ------------------------------------------------------------------ */
+/* Aus D.advancements (generate.py liest advancement/** der Datagen-Ausgabe).
+   Der eigene Tab haengt an simplebuilding:root; die Teaser haengen an
+   Vanilla-Fortschritten und stehen darum in einem eigenen Abschnitt. */
+function advText(a, field) {
+  var t = isObj(a[field]) ? a[field] : {};
+  return (LANG === 'de' ? t.de_de : t.en_us) || t.en_us || t.de_de || '';
+}
+function pageAdvancements() {
+  var all = arr(D.advancements).filter(isObj);
+  var byId = new Map(), kids = new Map();
+  all.forEach(function (a) { byId.set(a.id, a); });
+  all.forEach(function (a) {
+    var p = a.parent && byId.has(a.parent) ? a.parent : (a.parent ? 'vanilla:' + a.parent : '');
+    if (!kids.has(p)) kids.set(p, []);
+    kids.get(p).push(a);
+  });
+  function node(a) {
+    var crit = arr(a.criteria).map(function (c) {
+      if (c.feature) return esc(T('advFeature', c.feature));
+      return arr(c.items).map(function (i) { return refLink(i, { noId: true }); }).join(', ');
+    }).filter(Boolean);
+    var h = '<li id="adv-' + esc(a.id) + '"><div class="adv adv-' + esc(a.frame || 'task') + '">' + slotHtml(a.icon) + '<div><b>' + esc(advText(a, 'title')) + '</b><span class="adv-frame">' + esc(T('advFrame_' + (a.frame || 'task'))) + '</span>' +
+      '<div class="tiny">' + esc(advText(a, 'description')) + '</div>' +
+      (crit.length ? '<div class="muted tiny">' + crit.join(' · ') + (a.needs === 'all' && crit.length > 1 ? ' (' + esc(T('advNeedsAll')) + ')' : '') + '</div>' : '') + '</div></div>';
+    var children = kids.get(a.id) || [];
+    if (children.length) h += '<ul class="advtree">' + children.map(node).join('') + '</ul>';
+    return h + '</li>';
+  }
+  var h = '<h1>' + esc(T('navAdvancements')) + ' <span class="muted tiny" style="font-weight:400">' + all.length + '</span></h1>';
+  h += '<p class="muted">' + esc(T('advIntro')) + '</p>';
+  var roots = kids.get('') || [];
+  if (roots.length) h += section(T('advTab'), '<ul class="advtree top">' + roots.map(node).join('') + '</ul>');
+  var teasers = [];
+  kids.forEach(function (list, key) {
+    if (key.indexOf('vanilla:') === 0) list.forEach(function (a) { teasers.push({ a: a, under: key.slice(8) }); });
+  });
+  if (teasers.length) {
+    h += section(T('advVanilla'), teasers.map(function (t) {
+      return '<p class="muted tiny" style="margin:.6rem 0 0">' + esc(T('advUnder', t.under)) + '</p><ul class="advtree top">' + node(t.a) + '</ul>';
+    }).join(''));
+  }
+  return h;
+}
+
+/* ------------------------------------------------------------------ */
 /* Umwandlung in der Welt                                             */
 /* ------------------------------------------------------------------ */
 /* Aus D.inWorld: generate.py liest dafuer inworld.json (vom Datagen aus
@@ -2847,6 +2920,7 @@ var NAV = [
   { key: 'recipes', labelKey: 'navRecipes', count: function () { return arr(D.recipes).length; } },
   { key: 'allrecipes', labelKey: 'navAllRecipes', count: null },
   { key: 'inworld', labelKey: 'navInWorld', count: function () { return IW.entries.length; } },
+  { key: 'advancements', labelKey: 'navAdvancements', count: function () { return arr(D.advancements).length; } },
   { key: 'loot', labelKey: 'navLoot', count: function () { return arr(D.lootTables).length; } },
   { key: 'trades', labelKey: 'navTrades', count: function () { return arr(D.trades).length; } },
   { key: 'enchantments', labelKey: 'navEnchantments', count: function () { return arr(D.enchantments).length; } },
@@ -2897,6 +2971,7 @@ function render() {
       case 'tags': html = r.id ? pageTag(r.id) : pageTags(); title = r.id ? T('titleTagPrefix', r.id) : T('navTags'); break;
       case 'config': html = pageConfig(r.id); title = T('navConfig'); break;
       case 'inworld': html = pageInWorld(r.id); title = r.id ? iwKindTitle(r.id) : T('navInWorld'); break;
+      case 'advancements': html = pageAdvancements(); title = T('navAdvancements'); break;
       case 'allrecipes': html = pageAllRecipes(); title = T('arTitle'); break;
       case 'make': case 'use': html = pageMake(r.id, r.section); title = T(r.section === 'use' ? 'mkUseTitle' : 'mkTitle', displayName(r.id)); active = 'allrecipes'; break;
       case 'tree': html = pageTree(r.id); title = T('treeTitle', r.id ? displayName(r.id) : '?'); active = ''; break;

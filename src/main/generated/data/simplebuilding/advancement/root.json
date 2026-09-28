@@ -1,0 +1,34 @@
+{
+  "criteria": {
+    "crafting_table": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:crafting_table"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:gui/advancements/backgrounds/stone",
+    "description": {
+      "translate": "advancements.simplebuilding.root.description"
+    },
+    "icon": {
+      "id": "simplebuilding:iron_building_wand"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.simplebuilding.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "crafting_table"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

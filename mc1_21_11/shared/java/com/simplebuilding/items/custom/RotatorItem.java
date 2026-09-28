@@ -127,6 +127,7 @@ public class RotatorItem extends Item implements AnvilRechargeable {
             }
             if (!world.isClientSide()) {
                 world.setBlock(pos, newState, Block.UPDATE_ALL);
+                com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.ROTATE);
                 world.playSound(null, pos, SoundEvents.SPYGLASS_USE, SoundSource.BLOCKS, RATCHET_VOLUME, 1.0f);
                 if (world instanceof ServerLevel serverLevel) {
                     Vec3 c = Vec3.atCenterOf(pos);

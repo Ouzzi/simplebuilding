@@ -1,0 +1,28 @@
+{
+  "parent": "simplebuilding:root",
+  "criteria": {
+    "hammer_reshape": {
+      "conditions": {
+        "feature": "hammer_reshape"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.hammer.stair_master.description"
+    },
+    "icon": {
+      "id": "simplebuilding:stone_sledgehammer"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.hammer.stair_master.title"
+    }
+  },
+  "requirements": [
+    [
+      "hammer_reshape"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

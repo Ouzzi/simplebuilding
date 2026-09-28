@@ -1,0 +1,32 @@
+{
+  "parent": "simplebuilding:enderite/beyond_netherite",
+  "criteria": {
+    "enderite_nugget": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:enderite_nugget"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.enderite.pocket_change.description"
+    },
+    "icon": {
+      "id": "simplebuilding:enderite_nugget"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.enderite.pocket_change.title"
+    }
+  },
+  "requirements": [
+    [
+      "enderite_nugget"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

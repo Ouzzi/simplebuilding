@@ -1,0 +1,33 @@
+{
+  "parent": "simplebuilding:end/stardust",
+  "criteria": {
+    "raw_enderite": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:raw_enderite"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.enderite.raw_deal.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:raw_enderite"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.enderite.raw_deal.title"
+    }
+  },
+  "requirements": [
+    [
+      "raw_enderite"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

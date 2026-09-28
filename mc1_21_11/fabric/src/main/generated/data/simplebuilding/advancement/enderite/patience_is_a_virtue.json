@@ -1,0 +1,33 @@
+{
+  "parent": "simplebuilding:enderite/raw_deal",
+  "criteria": {
+    "enderite_scrap": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:enderite_scrap"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.enderite.patience_is_a_virtue.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:enderite_scrap"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.enderite.patience_is_a_virtue.title"
+    }
+  },
+  "requirements": [
+    [
+      "enderite_scrap"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

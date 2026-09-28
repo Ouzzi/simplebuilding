@@ -277,6 +277,7 @@ public class SledgehammerItem extends Item {
             if (newState != null) {
                 if (!world.isClientSide()) {
                     world.setBlockAndUpdate(pos, newState);
+                    com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.HAMMER_RESHAPE);
 
                     // Sound: Verwende den Break-Sound des Blocks, klingt natürlicher
                     world.playSound(null, pos, state.getSoundType().getBreakSound(), SoundSource.BLOCKS, 1.0f, 0.8f);
@@ -493,6 +494,7 @@ public class SledgehammerItem extends Item {
         }
 
         world.destroyBlock(pos, false, player);
+        com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.DIAMOND_CRUSH);
 
         int totalPebbles = DIAMOND_BLOCK_PEBBLES;
         while (totalPebbles > 0) {

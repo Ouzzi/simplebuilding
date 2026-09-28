@@ -1,0 +1,38 @@
+{
+  "parent": "simplebuilding:enderite/template_of_the_end",
+  "criteria": {
+    "enderite_armor": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:enderite_helmet",
+              "simplebuilding:enderite_chestplate",
+              "simplebuilding:enderite_leggings",
+              "simplebuilding:enderite_boots"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.enderite.cover_me_in_enderite.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "simplebuilding:enderite_chestplate"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.enderite.cover_me_in_enderite.title"
+    }
+  },
+  "requirements": [
+    [
+      "enderite_armor"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

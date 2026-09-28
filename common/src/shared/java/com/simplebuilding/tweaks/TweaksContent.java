@@ -29,6 +29,7 @@ public final class TweaksContent {
         registerBlocks();
         registerItems();
         registerRecipeSerializers();
+        registerTriggers();
     }
 
     public static void registerComponents() {
@@ -48,6 +49,14 @@ public final class TweaksContent {
     /** Schmiede-Schritte der versteckten Kette ueber den Endstufen ({@link EasterEggs}). */
     public static void registerRecipeSerializers() {
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, SimpleTweaks.id("easter_smithing"), EasterSmithingRecipe.SERIALIZER);
+    }
+
+    /**
+     * Advancement-Trigger der Mod ({@link com.simplebuilding.advancement.ModTriggers}); haengt hier,
+     * weil dies die loader-neutrale Registrier-Stelle ist, die alle Loader schon rufen.
+     */
+    public static void registerTriggers() {
+        com.simplebuilding.advancement.ModTriggers.register();
     }
 
     public static void onServerTick(MinecraftServer server) {

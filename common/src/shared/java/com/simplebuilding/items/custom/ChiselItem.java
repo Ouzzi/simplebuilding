@@ -467,6 +467,7 @@ public class ChiselItem extends Item {
             newState = applyIntuitiveOrientation(newState, side, relativeHit, player);
 
             world.setBlockAndUpdate(pos, newState);
+            com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.CHISEL);
 
             // Cooldown Berechnung mit Fast Chiseling
 

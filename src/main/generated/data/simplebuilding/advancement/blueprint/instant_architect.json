@@ -1,0 +1,29 @@
+{
+  "parent": "simplebuilding:blueprint/copy_that",
+  "criteria": {
+    "blueprint_build": {
+      "conditions": {
+        "feature": "blueprint_build"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.blueprint.instant_architect.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "simplebuilding:diamond_building_wand"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.blueprint.instant_architect.title"
+    }
+  },
+  "requirements": [
+    [
+      "blueprint_build"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

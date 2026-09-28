@@ -1,0 +1,32 @@
+{
+  "parent": "simplebuilding:root",
+  "criteria": {
+    "basic_upgrade_template": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:basic_upgrade_template"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.tiers.step_by_step.description"
+    },
+    "icon": {
+      "id": "simplebuilding:basic_upgrade_template"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.tiers.step_by_step.title"
+    }
+  },
+  "requirements": [
+    [
+      "basic_upgrade_template"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -47514,6 +47514,1465 @@
       }
     ]
   },
+  "advancements": [
+    {
+      "id": "simplebuilding:blueprint/carbon_copy",
+      "parent": "simplebuilding:blueprint/copy_that",
+      "icon": "minecraft:cartography_table",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Carbon Copy",
+        "de_de": "Durchschlag"
+      },
+      "description": {
+        "en_us": "Sign a Blueprint, then put it above a blank one in a cartography table to copy it",
+        "de_de": "Signiere eine Blaupause und leg sie im Kartentisch über eine leere, um sie zu kopieren"
+      },
+      "criteria": [
+        {
+          "name": "blueprint_copy",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "blueprint_copy"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/blueprint/carbon_copy.json"
+    },
+    {
+      "id": "simplebuilding:blueprint/copy_that",
+      "parent": "simplebuilding:octant/measure_twice",
+      "icon": "simplebuilding:blueprint",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Copy That",
+        "de_de": "Verstanden, gespeichert"
+      },
+      "description": {
+        "en_us": "Octant with a selection on top, blank Blueprint below: a cartography table scans the building into it",
+        "de_de": "Oktant mit Auswahl oben, leere Blaupause unten: der Kartentisch scannt das Bauwerk hinein"
+      },
+      "criteria": [
+        {
+          "name": "blueprint_scan",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "blueprint_scan"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/blueprint/copy_that.json"
+    },
+    {
+      "id": "simplebuilding:blueprint/instant_architect",
+      "parent": "simplebuilding:blueprint/copy_that",
+      "icon": "simplebuilding:diamond_building_wand",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Instant Architect",
+        "de_de": "Architekt im Handumdrehen"
+      },
+      "description": {
+        "en_us": "Building Wand in hand, signed Blueprint in the off hand: click the ground and watch the building rise",
+        "de_de": "Baustab in der Hand, signierte Blaupause in der Nebenhand: klick auf den Boden und sieh zu, wie das Bauwerk wächst"
+      },
+      "criteria": [
+        {
+          "name": "blueprint_build",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "blueprint_build"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/blueprint/instant_architect.json"
+    },
+    {
+      "id": "simplebuilding:chisel/chip_off_the_old_block",
+      "parent": "simplebuilding:root",
+      "icon": "simplebuilding:stone_chisel",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Chip Off the Old Block",
+        "de_de": "Feinschliff"
+      },
+      "description": {
+        "en_us": "Right-click a block with a chisel to turn it into the next block of its chain; sneak to go back",
+        "de_de": "Klick mit einem Meißel auf einen Block, um ihn in den nächsten seiner Reihe zu verwandeln; schleichend geht es zurück"
+      },
+      "criteria": [
+        {
+          "name": "chisel",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "chisel"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/chisel/chip_off_the_old_block.json"
+    },
+    {
+      "id": "simplebuilding:chisel/fine_detail",
+      "parent": "simplebuilding:chisel/chip_off_the_old_block",
+      "icon": "simplebuilding:diamond_chisel",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Fine Detail",
+        "de_de": "Liebe zum Detail"
+      },
+      "description": {
+        "en_us": "Get a Diamond Chisel or better: higher tiers know more chains, and Constructor's Touch teaches even more",
+        "de_de": "Besorg dir einen Diamantmeißel oder besser: höhere Stufen kennen mehr Reihen, die Berührung des Konstrukteurs noch mehr"
+      },
+      "criteria": [
+        {
+          "name": "better_chisel",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:diamond_chisel",
+            "simplebuilding:netherite_chisel",
+            "simplebuilding:enderite_chisel"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/chisel/fine_detail.json"
+    },
+    {
+      "id": "simplebuilding:end/defying_gravity",
+      "parent": "simplebuilding:end/stardust",
+      "icon": "simplebuilding:levitating_sand",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Defying Gravity",
+        "de_de": "Schwerelos"
+      },
+      "description": {
+        "en_us": "A Nihilith Shard keeps sand or gravel hanging in the air, Astralit Dust makes it rise",
+        "de_de": "Ein Nihilith-Splitter lässt Sand oder Kies in der Luft hängen, Astralitstaub lässt ihn aufsteigen"
+      },
+      "criteria": [
+        {
+          "name": "gravity_block",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:suspended_sand",
+            "simplebuilding:suspended_gravel",
+            "simplebuilding:levitating_sand",
+            "simplebuilding:levitating_gravel"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/end/defying_gravity.json"
+    },
+    {
+      "id": "simplebuilding:end/palette_cleanser",
+      "parent": "simplebuilding:end/stardust",
+      "icon": "simplebuilding:astralit_bricks",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Palette Cleanser",
+        "de_de": "Farbenlehre"
+      },
+      "description": {
+        "en_us": "Craft End bricks: Astralit, Nihilith and Ender Quartz each make a whole building palette",
+        "de_de": "Bau End-Ziegel: Astralit, Nihilith und Enderquarz ergeben je eine ganze Baupalette"
+      },
+      "criteria": [
+        {
+          "name": "end_bricks",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:astralit_bricks",
+            "simplebuilding:nihilith_bricks",
+            "simplebuilding:ender_quartz_bricks"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/end/palette_cleanser.json"
+    },
+    {
+      "id": "simplebuilding:end/quartz_fusion",
+      "parent": "simplebuilding:end/stardust",
+      "icon": "simplebuilding:ender_quartz",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Quartz Fusion",
+        "de_de": "Quarzfusion"
+      },
+      "description": {
+        "en_us": "Mix Astralit Dust, a Nihilith Shard and Quartz into Ender Quartz - Blueprints need it",
+        "de_de": "Misch Astralitstaub, einen Nihilith-Splitter und Quarz zu Enderquarz - Blaupausen brauchen ihn"
+      },
+      "criteria": [
+        {
+          "name": "ender_quartz",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:ender_quartz"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/end/quartz_fusion.json"
+    },
+    {
+      "id": "simplebuilding:end/stardust",
+      "parent": "simplebuilding:root",
+      "icon": "simplebuilding:astralit_dust",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Stardust",
+        "de_de": "Sternenstaub"
+      },
+      "description": {
+        "en_us": "Astralit Ore glitters on top of the End islands, Nihilith Ore hides beneath them: bring a diamond pickaxe",
+        "de_de": "Astralit-Erz glitzert oben auf den Endinseln, Nihilith-Erz versteckt sich darunter: nimm eine Diamantspitzhacke mit"
+      },
+      "criteria": [
+        {
+          "name": "end_mineral",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:astralit_dust",
+            "simplebuilding:nihilith_shard"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/end/stardust.json"
+    },
+    {
+      "id": "simplebuilding:enderite/beyond_netherite",
+      "parent": "simplebuilding:enderite/patience_is_a_virtue",
+      "icon": "simplebuilding:enderite_ingot",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Beyond Netherite",
+        "de_de": "Jenseits von Netherit"
+      },
+      "description": {
+        "en_us": "Four Enderite Scrap, four diamonds and a Netherite Ingot forge an Enderite Ingot",
+        "de_de": "Vier Enderitschrott, vier Diamanten und ein Netheritbarren ergeben einen Enderitbarren"
+      },
+      "criteria": [
+        {
+          "name": "enderite_ingot",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enderite_ingot"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/beyond_netherite.json"
+    },
+    {
+      "id": "simplebuilding:enderite/cover_me_in_enderite",
+      "parent": "simplebuilding:enderite/template_of_the_end",
+      "icon": "simplebuilding:enderite_chestplate",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Cover Me in Enderite",
+        "de_de": "Hüll mich in Enderit"
+      },
+      "description": {
+        "en_us": "Smith a piece of netherite armor with an Enderite Upgrade and an Enderite Ingot",
+        "de_de": "Schmiede ein Netherit-Rüstungsteil mit einer Enderitaufwertung und einem Enderitbarren"
+      },
+      "criteria": [
+        {
+          "name": "enderite_armor",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enderite_helmet",
+            "simplebuilding:enderite_chestplate",
+            "simplebuilding:enderite_leggings",
+            "simplebuilding:enderite_boots"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/cover_me_in_enderite.json"
+    },
+    {
+      "id": "simplebuilding:enderite/cutting_edge",
+      "parent": "simplebuilding:enderite/template_of_the_end",
+      "icon": "simplebuilding:enderite_pickaxe",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Cutting Edge",
+        "de_de": "Auf Messers Schneide"
+      },
+      "description": {
+        "en_us": "Smith a netherite tool or weapon into Enderite",
+        "de_de": "Schmiede ein Netherit-Werkzeug oder eine Netherit-Waffe zu Enderit"
+      },
+      "criteria": [
+        {
+          "name": "enderite_tool",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enderite_sword",
+            "simplebuilding:enderite_spear",
+            "simplebuilding:enderite_pickaxe",
+            "simplebuilding:enderite_axe",
+            "simplebuilding:enderite_shovel",
+            "simplebuilding:enderite_hoe"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/cutting_edge.json"
+    },
+    {
+      "id": "simplebuilding:enderite/echolocation",
+      "parent": "simplebuilding:enderite/pocket_change",
+      "icon": "simplebuilding:echo_compass",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Echolocation",
+        "de_de": "Echoortung"
+      },
+      "description": {
+        "en_us": "Link an Echo Sounder to a lodestone, then hold use for three seconds to jump onto it",
+        "de_de": "Verbinde ein Echolot mit einem Leitstein und halte dann drei Sekunden lang Benutzen, um dorthin zu springen"
+      },
+      "criteria": [
+        {
+          "name": "echo_teleport",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "echo_teleport"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/echolocation.json"
+    },
+    {
+      "id": "simplebuilding:enderite/endless_pockets",
+      "parent": "simplebuilding:enderite/template_of_the_end",
+      "icon": "simplebuilding:enderite_bundle",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Endless Pockets",
+        "de_de": "Taschen ohne Boden"
+      },
+      "description": {
+        "en_us": "Smith a netherite bundle, quiver or backpack into Enderite",
+        "de_de": "Schmiede ein Netherit-Bündel, einen Netherit-Köcher oder -Rucksack zu Enderit"
+      },
+      "criteria": [
+        {
+          "name": "enderite_storage",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enderite_bundle",
+            "simplebuilding:enderite_quiver",
+            "simplebuilding:enderite_backpack"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/endless_pockets.json"
+    },
+    {
+      "id": "simplebuilding:enderite/hammer_of_the_end",
+      "parent": "simplebuilding:enderite/template_of_the_end",
+      "icon": "simplebuilding:enderite_sledgehammer",
+      "frame": "challenge",
+      "hidden": false,
+      "title": {
+        "en_us": "Hammer of the End",
+        "de_de": "Der Hammer vom Ende"
+      },
+      "description": {
+        "en_us": "Smith the Netherite Sledgehammer into Enderite: the strongest hammer there is",
+        "de_de": "Schmiede den Netherit-Vorschlaghammer zu Enderit: den stärksten Hammer, den es gibt"
+      },
+      "criteria": [
+        {
+          "name": "enderite_sledgehammer",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enderite_sledgehammer"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/hammer_of_the_end.json"
+    },
+    {
+      "id": "simplebuilding:enderite/heart_of_the_end",
+      "parent": "simplebuilding:enderite/template_of_the_end",
+      "icon": "simplebuilding:enderite_core",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Heart of the End",
+        "de_de": "Herz des Endes"
+      },
+      "description": {
+        "en_us": "Smith a Netherite Core into an Enderite Core - Flypads and the Echo Sounder want one",
+        "de_de": "Schmiede einen Netheritkern zum Enderitkern - Flugpads und Echolot brauchen einen"
+      },
+      "criteria": [
+        {
+          "name": "enderite_core",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enderite_core"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/heart_of_the_end.json"
+    },
+    {
+      "id": "simplebuilding:enderite/patience_is_a_virtue",
+      "parent": "simplebuilding:enderite/raw_deal",
+      "icon": "simplebuilding:enderite_scrap",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Patience Is a Virtue",
+        "de_de": "Geduld ist eine Tugend"
+      },
+      "description": {
+        "en_us": "Blast Raw Enderite into Enderite Scrap: a whole hour in a vanilla blast furnace - faster furnaces help",
+        "de_de": "Schmelz Roh-Enderit zu Enderitschrott: eine ganze Stunde im Vanilla-Schmelzofen - schnellere Öfen helfen"
+      },
+      "criteria": [
+        {
+          "name": "enderite_scrap",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enderite_scrap"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/patience_is_a_virtue.json"
+    },
+    {
+      "id": "simplebuilding:enderite/pocket_change",
+      "parent": "simplebuilding:enderite/beyond_netherite",
+      "icon": "simplebuilding:enderite_nugget",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Pocket Change",
+        "de_de": "Kleingeld"
+      },
+      "description": {
+        "en_us": "Split an Enderite Ingot into nuggets: they upgrade machines under the hammer and charge the Echo Sounder",
+        "de_de": "Teile einen Enderitbarren in Nuggets: sie werten unter dem Hammer Maschinen auf und stecken im Echolot"
+      },
+      "criteria": [
+        {
+          "name": "enderite_nugget",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enderite_nugget"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/pocket_change.json"
+    },
+    {
+      "id": "simplebuilding:enderite/raw_deal",
+      "parent": "simplebuilding:end/stardust",
+      "icon": "simplebuilding:raw_enderite",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Raw Deal",
+        "de_de": "Rohkost"
+      },
+      "description": {
+        "en_us": "Four Nihilith Shards, four Astralit Dust and an Ender Pearl make Raw Enderite - End cities hide some too",
+        "de_de": "Vier Nihilith-Splitter, vier Astralitstaub und eine Enderperle ergeben Roh-Enderit - Endsiedlungen verstecken auch welches"
+      },
+      "criteria": [
+        {
+          "name": "raw_enderite",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:raw_enderite"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/raw_deal.json"
+    },
+    {
+      "id": "simplebuilding:enderite/template_of_the_end",
+      "parent": "simplebuilding:enderite/beyond_netherite",
+      "icon": "simplebuilding:enderite_upgrade_template",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Template of the End",
+        "de_de": "Vorlage vom Ende"
+      },
+      "description": {
+        "en_us": "Find an Enderite Upgrade in an End city; diamonds and end stone copy it",
+        "de_de": "Finde eine Enderitaufwertung in einer Endsiedlung; Diamanten und Endstein vervielfältigen sie"
+      },
+      "criteria": [
+        {
+          "name": "enderite_upgrade_template",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enderite_upgrade_template"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/template_of_the_end.json"
+    },
+    {
+      "id": "simplebuilding:enderite/void_walker",
+      "parent": "simplebuilding:enderite/cover_me_in_enderite",
+      "icon": "simplebuilding:enderite_boots",
+      "frame": "challenge",
+      "hidden": false,
+      "title": {
+        "en_us": "Void Walker",
+        "de_de": "Leerenwandler"
+      },
+      "description": {
+        "en_us": "Collect a full set of Enderite armor: it never falls into the void and lets you drift down gently",
+        "de_de": "Sammle eine volle Enderit-Rüstung: sie fällt nie in die Leere und lässt dich sanft hinabschweben"
+      },
+      "criteria": [
+        {
+          "name": "enderite_boots",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enderite_boots"
+          ]
+        },
+        {
+          "name": "enderite_chestplate",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enderite_chestplate"
+          ]
+        },
+        {
+          "name": "enderite_helmet",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enderite_helmet"
+          ]
+        },
+        {
+          "name": "enderite_leggings",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enderite_leggings"
+          ]
+        }
+      ],
+      "needs": "all",
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/void_walker.json"
+    },
+    {
+      "id": "simplebuilding:gadgets/attractive_personality",
+      "parent": "simplebuilding:wand/core_values",
+      "icon": "simplebuilding:magnet",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Attractive Personality",
+        "de_de": "Anziehende Persönlichkeit"
+      },
+      "description": {
+        "en_us": "An Iron Core, iron, redstone and lapis make a Magnet: hold it and loose items fly to you",
+        "de_de": "Eisenkern, Eisen, Redstone und Lapislazuli ergeben einen Magneten: halte ihn, und lose Gegenstände fliegen zu dir"
+      },
+      "criteria": [
+        {
+          "name": "magnet",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:magnet"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/gadgets/attractive_personality.json"
+    },
+    {
+      "id": "simplebuilding:gadgets/burning_focus",
+      "parent": "simplebuilding:wand/core_values",
+      "icon": "simplebuilding:laser_pointer",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Burning Focus",
+        "de_de": "Brennpunkt"
+      },
+      "description": {
+        "en_us": "Hold the Amethyst Lens on ice, a candle, a campfire or a wet sponge until it gives in",
+        "de_de": "Halte die Amethystlinse auf Eis, eine Kerze, ein Lagerfeuer oder einen nassen Schwamm, bis er nachgibt"
+      },
+      "criteria": [
+        {
+          "name": "lens_beam",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "lens_beam"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/gadgets/burning_focus.json"
+    },
+    {
+      "id": "simplebuilding:gadgets/ping",
+      "parent": "simplebuilding:wand/core_values",
+      "icon": "simplebuilding:ore_detector",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Ping!",
+        "de_de": "Ping!"
+      },
+      "description": {
+        "en_us": "Hold an Ore Detector: its needle and a chime point you to the nearest ore",
+        "de_de": "Halte einen Erzdetektor: Nadel und Klang weisen dir den Weg zum nächsten Erz"
+      },
+      "criteria": [
+        {
+          "name": "ore_detected",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "ore_detected"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/gadgets/ping.json"
+    },
+    {
+      "id": "simplebuilding:gadgets/speed_reader",
+      "parent": "simplebuilding:wand/core_values",
+      "icon": "simplebuilding:velocity-gauge",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Speed Reader",
+        "de_de": "Tempomacher"
+      },
+      "description": {
+        "en_us": "A Copper Core, a compass, quartz and amethyst make a Velocity Gauge: see how fast you really are",
+        "de_de": "Kupferkern, Kompass, Quarz und Amethyst ergeben einen Geschwindigkeitsmesser: sieh, wie schnell du wirklich bist"
+      },
+      "criteria": [
+        {
+          "name": "velocity_gauge",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:velocity-gauge"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/gadgets/speed_reader.json"
+    },
+    {
+      "id": "simplebuilding:gadgets/spin_doctor",
+      "parent": "simplebuilding:wand/core_values",
+      "icon": "simplebuilding:rotator",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Spin Doctor",
+        "de_de": "Dreh- und Angelpunkt"
+      },
+      "description": {
+        "en_us": "Turn a placed block right where it stands with a Rotator",
+        "de_de": "Dreh einen platzierten Block mit dem Rotator an Ort und Stelle"
+      },
+      "criteria": [
+        {
+          "name": "rotate",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "rotate"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/gadgets/spin_doctor.json"
+    },
+    {
+      "id": "simplebuilding:hammer/cracked_up",
+      "parent": "simplebuilding:hammer/pebble_dash",
+      "icon": "simplebuilding:cracked_diamond",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Cracked Up",
+        "de_de": "Einen Riss in der Schüssel"
+      },
+      "description": {
+        "en_us": "Nine Diamond Pebbles make a Cracked Diamond - reinforced machines are built from them",
+        "de_de": "Neun Diamantkiesel ergeben einen Rissigen Diamanten - daraus werden verstärkte Maschinen gebaut"
+      },
+      "criteria": [
+        {
+          "name": "cracked_diamond",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:cracked_diamond"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/hammer/cracked_up.json"
+    },
+    {
+      "id": "simplebuilding:hammer/glow_up",
+      "parent": "simplebuilding:hammer/stair_master",
+      "icon": "simplebuilding:glowing_trim_template",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Glow Up",
+        "de_de": "Glanzleistung"
+      },
+      "description": {
+        "en_us": "Put an armor trim template in an item frame, hold Glow Ink or Glowstone Dust in the off hand and hit the frame with a sledgehammer",
+        "de_de": "Häng eine Rüstungsbesatz-Vorlage in einen Rahmen, nimm Leuchttinte oder Glowstonestaub in die Nebenhand und schlag mit dem Vorschlaghammer auf den Rahmen"
+      },
+      "criteria": [
+        {
+          "name": "trim_template_forged",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "trim_template_forged"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/hammer/glow_up.json"
+    },
+    {
+      "id": "simplebuilding:hammer/heavy_metal",
+      "parent": "simplebuilding:hammer/stair_master",
+      "icon": "simplebuilding:netherite_sledgehammer",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Heavy Metal",
+        "de_de": "Schwermetall"
+      },
+      "description": {
+        "en_us": "Smith a Diamond Sledgehammer into Netherite: strong enough to hammer machines all the way to Enderite",
+        "de_de": "Schmiede einen Diamant-Vorschlaghammer zu Netherit: stark genug, um Maschinen bis zu Enderit aufzuwerten"
+      },
+      "criteria": [
+        {
+          "name": "netherite_sledgehammer",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:netherite_sledgehammer"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/hammer/heavy_metal.json"
+    },
+    {
+      "id": "simplebuilding:hammer/pebble_dash",
+      "parent": "simplebuilding:hammer/stair_master",
+      "icon": "simplebuilding:diamond_pebble",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Pebble Dash",
+        "de_de": "Kieselsturm"
+      },
+      "description": {
+        "en_us": "Hold right-click with a sledgehammer on a Block of Diamond to crush it into Diamond Pebbles",
+        "de_de": "Halte mit dem Vorschlaghammer Rechtsklick auf einem Diamantblock, um ihn zu Diamantkieseln zu zerschlagen"
+      },
+      "criteria": [
+        {
+          "name": "diamond_crush",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "diamond_crush"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/hammer/pebble_dash.json"
+    },
+    {
+      "id": "simplebuilding:hammer/stair_master",
+      "parent": "simplebuilding:root",
+      "icon": "simplebuilding:stone_sledgehammer",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Stair Master",
+        "de_de": "Treppenmeister"
+      },
+      "description": {
+        "en_us": "Hold right-click with a sledgehammer on a full block: it turns into stairs, then into a slab",
+        "de_de": "Halte mit dem Vorschlaghammer Rechtsklick auf einem vollen Block: er wird zur Treppe, dann zur Stufe"
+      },
+      "criteria": [
+        {
+          "name": "hammer_reshape",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "hammer_reshape"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/hammer/stair_master.json"
+    },
+    {
+      "id": "simplebuilding:machines/end_of_the_line",
+      "parent": "simplebuilding:machines/forged_in_place",
+      "icon": "simplebuilding:enderite_furnace",
+      "frame": "challenge",
+      "hidden": false,
+      "title": {
+        "en_us": "End of the Line",
+        "de_de": "Endstation"
+      },
+      "description": {
+        "en_us": "Hammer a netherite machine into Enderite: a Netherite Sledgehammer and an Enderite Nugget do the trick",
+        "de_de": "Hämmere eine Netherit-Maschine zu Enderit: Netherit-Vorschlaghammer und Enderiten-Nugget machen es möglich"
+      },
+      "criteria": [
+        {
+          "name": "hammer_upgrade_enderite",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "hammer_upgrade_enderite"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/machines/end_of_the_line.json"
+    },
+    {
+      "id": "simplebuilding:machines/forged_in_place",
+      "parent": "simplebuilding:machines/reinforcements",
+      "icon": "simplebuilding:netherite_furnace",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Forged in Place",
+        "de_de": "Vor Ort geschmiedet"
+      },
+      "description": {
+        "en_us": "Diamond Sledgehammer in hand, Netherite Nugget in the off hand: hold right-click on a placed reinforced machine until the fifth blow",
+        "de_de": "Diamant-Vorschlaghammer in der Hand, Netherit-Nugget in der Nebenhand: halte Rechtsklick auf einer verstärkten Maschine bis zum fünften Schlag"
+      },
+      "criteria": [
+        {
+          "name": "hammer_upgrade_netherite",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "hammer_upgrade_netherite"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/machines/forged_in_place.json"
+    },
+    {
+      "id": "simplebuilding:machines/reinforcements",
+      "parent": "simplebuilding:hammer/cracked_up",
+      "icon": "simplebuilding:reinforced_furnace",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Reinforcements Have Arrived",
+        "de_de": "Die Verstärkung ist da"
+      },
+      "description": {
+        "en_us": "Craft a reinforced furnace, smoker, blast furnace, hopper or piston with Cracked Diamonds",
+        "de_de": "Bau mit Rissigen Diamanten einen verstärkten Ofen, Räucherofen, Schmelzofen, Trichter oder Kolben"
+      },
+      "criteria": [
+        {
+          "name": "reinforced_machine",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:reinforced_furnace",
+            "simplebuilding:reinforced_smoker",
+            "simplebuilding:reinforced_blast_furnace",
+            "simplebuilding:reinforced_hopper",
+            "simplebuilding:reinforced_piston",
+            "simplebuilding:reinforced_sticky_piston"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/machines/reinforcements.json"
+    },
+    {
+      "id": "simplebuilding:nether/nugget_of_wisdom",
+      "parent": "minecraft:nether/root",
+      "icon": "simplebuilding:netherite_nugget",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Nugget of Wisdom",
+        "de_de": "Ein Nugget Weisheit"
+      },
+      "description": {
+        "en_us": "Find a Netherite Nugget in a bastion or fortress, or split an ingot. In the off hand it lets a sledgehammer upgrade machines",
+        "de_de": "Finde ein Netherit-Nugget in einer Bastion oder Festung oder teile einen Barren. In der Nebenhand wertet es mit dem Vorschlaghammer Maschinen auf"
+      },
+      "criteria": [
+        {
+          "name": "netherite_nugget",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:netherite_nugget"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/nether/nugget_of_wisdom.json"
+    },
+    {
+      "id": "simplebuilding:octant/measure_twice",
+      "parent": "simplebuilding:root",
+      "icon": "simplebuilding:octant",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Measure Twice",
+        "de_de": "Zweimal messen"
+      },
+      "description": {
+        "en_us": "Mark two corners with an Octant (sneak for the second): it shows distance, area and volume",
+        "de_de": "Markiere mit dem Oktanten zwei Ecken (die zweite schleichend): er zeigt Abstand, Fläche und Volumen"
+      },
+      "criteria": [
+        {
+          "name": "octant_mark",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "octant_mark"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/octant/measure_twice.json"
+    },
+    {
+      "id": "simplebuilding:pads/always_loaded",
+      "parent": "simplebuilding:pads/under_pressure",
+      "icon": "simplebuilding:chunk_loader",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Always Loaded",
+        "de_de": "Immer geladen"
+      },
+      "description": {
+        "en_us": "Smith a Chunk Loader: it keeps its chunks ticking while you are away",
+        "de_de": "Schmiede einen Chunk-Lader: er hält seine Chunks am Laufen, während du weg bist"
+      },
+      "criteria": [
+        {
+          "name": "chunk_loader",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:chunk_loader",
+            "simplebuilding:netherite_chunk_loader",
+            "simplebuilding:enderite_chunk_loader"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/pads/always_loaded.json"
+    },
+    {
+      "id": "simplebuilding:pads/bottoms_up",
+      "parent": "simplebuilding:pads/hot_head",
+      "icon": "simplebuilding:potion_pad",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Bottoms Up",
+        "de_de": "Zum Wohl"
+      },
+      "description": {
+        "en_us": "A Blaze Head and a Netherite Pressure Plate make a Potion Pad: splash a potion on it, then step on it",
+        "de_de": "Lohenkopf und Netherit-Druckplatte ergeben ein Trank-Pad: wirf einen Wurftrank darauf und tritt dann drauf"
+      },
+      "criteria": [
+        {
+          "name": "potion_pad",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "potion_pad"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/pads/bottoms_up.json"
+    },
+    {
+      "id": "simplebuilding:pads/fly_me_to_the_moon",
+      "parent": "simplebuilding:pads/wings_on_loan",
+      "icon": "simplebuilding:flypad",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Fly Me to the Moon",
+        "de_de": "Fly Me to the Moon"
+      },
+      "description": {
+        "en_us": "Stand above a Flypad - an Enderite Core smithed onto an Enderite Pressure Plate - and fly like in creative",
+        "de_de": "Stell dich über ein Flugpad - ein Enderitkern auf einer Enderit-Druckplatte - und flieg wie im Kreativmodus"
+      },
+      "criteria": [
+        {
+          "name": "flypad",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "flypad"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/pads/fly_me_to_the_moon.json"
+    },
+    {
+      "id": "simplebuilding:pads/home_sweet_spawn",
+      "parent": "simplebuilding:pads/under_pressure",
+      "icon": "simplebuilding:spawn_teleporter",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Home Sweet Spawn",
+        "de_de": "Trautes Heim"
+      },
+      "description": {
+        "en_us": "Stand still on a Spawn Teleporter for five seconds",
+        "de_de": "Steh fünf Sekunden still auf einem Spawn-Teleporter"
+      },
+      "criteria": [
+        {
+          "name": "spawn_teleport",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "spawn_teleport"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/pads/home_sweet_spawn.json"
+    },
+    {
+      "id": "simplebuilding:pads/hot_head",
+      "parent": "simplebuilding:pads/under_pressure",
+      "icon": "simplebuilding:blaze_head",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Hot Head",
+        "de_de": "Hitzkopf"
+      },
+      "description": {
+        "en_us": "Let a charged creeper blow up a Blaze: it drops a Blaze Head",
+        "de_de": "Lass eine Lohe von einem geladenen Creeper sprengen: sie lässt einen Lohenkopf fallen"
+      },
+      "criteria": [
+        {
+          "name": "blaze_head",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:blaze_head"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/pads/hot_head.json"
+    },
+    {
+      "id": "simplebuilding:pads/liftoff",
+      "parent": "simplebuilding:pads/under_pressure",
+      "icon": "simplebuilding:launchpad",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Liftoff!",
+        "de_de": "Abheben!"
+      },
+      "description": {
+        "en_us": "Smith a Launchpad from a heavy pressure plate and a Diamond Pressure Plate, then step on it",
+        "de_de": "Schmiede eine Startrampe aus einer schweren Druckplatte und einer Diamant-Druckplatte und tritt dann drauf"
+      },
+      "criteria": [
+        {
+          "name": "launchpad",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "launchpad"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/pads/liftoff.json"
+    },
+    {
+      "id": "simplebuilding:pads/under_pressure",
+      "parent": "simplebuilding:root",
+      "icon": "simplebuilding:diamond_pressure_plate",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Under Pressure",
+        "de_de": "Unter Druck"
+      },
+      "description": {
+        "en_us": "Craft a Diamond Pressure Plate: smithed onto other plates it makes Launchpads, Chunk Loaders and more",
+        "de_de": "Bau eine Diamant-Druckplatte: auf andere Platten geschmiedet ergibt sie Startrampen, Chunk-Lader und mehr"
+      },
+      "criteria": [
+        {
+          "name": "diamond_pressure_plate",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:diamond_pressure_plate"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/pads/under_pressure.json"
+    },
+    {
+      "id": "simplebuilding:pads/wings_on_loan",
+      "parent": "simplebuilding:pads/liftoff",
+      "icon": "simplebuilding:elytra_pad",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Wings on Loan",
+        "de_de": "Flügel auf Pump"
+      },
+      "description": {
+        "en_us": "Stand on an Elytra Pad with an empty chest slot: it lends you a pair of wings",
+        "de_de": "Stell dich mit leerem Brustplatz auf ein Elytra-Pad: es leiht dir ein Paar Flügel"
+      },
+      "criteria": [
+        {
+          "name": "elytra_pad",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "elytra_pad"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/pads/wings_on_loan.json"
+    },
+    {
+      "id": "simplebuilding:root",
+      "parent": null,
+      "icon": "simplebuilding:iron_building_wand",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "SimpleBuilding",
+        "de_de": "SimpleBuilding"
+      },
+      "description": {
+        "en_us": "Tools for builders, miners and hoarders. Craft a Sledgehammer, a Chisel or a Building Wand to begin",
+        "de_de": "Werkzeuge für Baumeister, Bergleute und Sammler. Bau einen Vorschlaghammer, einen Meißel oder einen Baustab, um loszulegen"
+      },
+      "criteria": [
+        {
+          "name": "crafting_table",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:crafting_table"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/root.json"
+    },
+    {
+      "id": "simplebuilding:storage/bundle_of_joy",
+      "parent": "simplebuilding:storage/sheet_happens",
+      "icon": "simplebuilding:reinforced_bundle",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Bundle of Joy",
+        "de_de": "Freudenbündel"
+      },
+      "description": {
+        "en_us": "Diamond Pebbles and a Leather Sheet make a bundle hold half as much again",
+        "de_de": "Mit Diamantkieseln und einer Lederplatte fasst ein Bündel die Hälfte mehr"
+      },
+      "criteria": [
+        {
+          "name": "reinforced_bundle",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:reinforced_bundle",
+            "simplebuilding:netherite_bundle",
+            "simplebuilding:enderite_bundle"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/storage/bundle_of_joy.json"
+    },
+    {
+      "id": "simplebuilding:storage/heavy_luggage",
+      "parent": "simplebuilding:storage/pack_mule",
+      "icon": "simplebuilding:netherite_backpack",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Heavy Luggage",
+        "de_de": "Schweres Gepäck"
+      },
+      "description": {
+        "en_us": "Reinforce a backpack with Diamond Pebbles, then smith it into Netherite",
+        "de_de": "Verstärke einen Rucksack mit Diamantkieseln und schmiede ihn dann zu Netherit"
+      },
+      "criteria": [
+        {
+          "name": "netherite_backpack",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:netherite_backpack",
+            "simplebuilding:enderite_backpack"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/storage/heavy_luggage.json"
+    },
+    {
+      "id": "simplebuilding:storage/pack_mule",
+      "parent": "simplebuilding:storage/sheet_happens",
+      "icon": "simplebuilding:backpack",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Pack Mule",
+        "de_de": "Packesel"
+      },
+      "description": {
+        "en_us": "Craft a Backpack: wear it in the chest slot and open it with B, or set it down as a block",
+        "de_de": "Bau einen Rucksack: trag ihn im Brustplatz und öffne ihn mit B, oder stell ihn als Block ab"
+      },
+      "criteria": [
+        {
+          "name": "backpack",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:backpack",
+            "simplebuilding:reinforced_backpack",
+            "simplebuilding:netherite_backpack",
+            "simplebuilding:enderite_backpack"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/storage/pack_mule.json"
+    },
+    {
+      "id": "simplebuilding:storage/quiver_in_fear",
+      "parent": "simplebuilding:storage/sheet_happens",
+      "icon": "simplebuilding:quiver",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Quiver in Fear",
+        "de_de": "Köcherfieber"
+      },
+      "description": {
+        "en_us": "A Quiver holds only arrows and feeds your bow from the off hand, chest slot or hotbar",
+        "de_de": "Ein Köcher fasst nur Pfeile und versorgt deinen Bogen aus Nebenhand, Brustplatz oder Schnellleiste"
+      },
+      "criteria": [
+        {
+          "name": "quiver",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:quiver",
+            "simplebuilding:reinforced_quiver",
+            "simplebuilding:netherite_quiver",
+            "simplebuilding:enderite_quiver"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/storage/quiver_in_fear.json"
+    },
+    {
+      "id": "simplebuilding:storage/sheet_happens",
+      "parent": "simplebuilding:root",
+      "icon": "simplebuilding:leather_sheet",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Sheet Happens",
+        "de_de": "Aus dem Leder gezogen"
+      },
+      "description": {
+        "en_us": "Nine leather make a Leather Sheet - backpacks, bundles and quivers are cut from it",
+        "de_de": "Neun Leder ergeben eine Lederplatte - daraus werden Rucksäcke, Bündel und Köcher geschnitten"
+      },
+      "criteria": [
+        {
+          "name": "leather_sheet",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:leather_sheet"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/storage/sheet_happens.json"
+    },
+    {
+      "id": "simplebuilding:story/hammer_time",
+      "parent": "minecraft:story/upgrade_tools",
+      "icon": "simplebuilding:stone_sledgehammer",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Hammer Time",
+        "de_de": "Hammerzeit"
+      },
+      "description": {
+        "en_us": "Craft a Sledgehammer from an iron ingot, cobblestone and sticks: it mines 3x3 at once. More in the SimpleBuilding tab",
+        "de_de": "Bau einen Vorschlaghammer aus Eisenbarren, Bruchstein und Stöcken: er baut 3×3 auf einmal ab. Mehr im SimpleBuilding-Tab"
+      },
+      "criteria": [
+        {
+          "name": "sledgehammer",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:stone_sledgehammer",
+            "simplebuilding:copper_sledgehammer",
+            "simplebuilding:iron_sledgehammer",
+            "simplebuilding:gold_sledgehammer",
+            "simplebuilding:diamond_sledgehammer",
+            "simplebuilding:netherite_sledgehammer",
+            "simplebuilding:enderite_sledgehammer"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/story/hammer_time.json"
+    },
+    {
+      "id": "simplebuilding:tiers/step_by_step",
+      "parent": "simplebuilding:root",
+      "icon": "simplebuilding:basic_upgrade_template",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Step by Step",
+        "de_de": "Schritt für Schritt"
+      },
+      "description": {
+        "en_us": "Find a Basic Upgrade in a chest: at a smithing table it lifts a tool one tier - wood, stone, iron, gold, diamond",
+        "de_de": "Finde eine Basisaufwertung in einer Truhe: am Schmiedetisch hebt sie ein Werkzeug um eine Stufe - Holz, Stein, Eisen, Gold, Diamant"
+      },
+      "criteria": [
+        {
+          "name": "basic_upgrade_template",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:basic_upgrade_template"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/tiers/step_by_step.json"
+    },
+    {
+      "id": "simplebuilding:wand/core_values",
+      "parent": "simplebuilding:root",
+      "icon": "simplebuilding:copper_core",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Core Values",
+        "de_de": "Kernkompetenz"
+      },
+      "description": {
+        "en_us": "Masons and wandering traders sell Cores, chests hide them. A Core on two sticks is a Building Wand",
+        "de_de": "Maurer und fahrende Händler verkaufen Kerne, Truhen verstecken sie. Ein Kern auf zwei Stöcken ist ein Baustab"
+      },
+      "criteria": [
+        {
+          "name": "core",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:copper_core",
+            "simplebuilding:iron_core",
+            "simplebuilding:gold_core",
+            "simplebuilding:diamond_core",
+            "simplebuilding:netherite_core",
+            "simplebuilding:enderite_core"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/wand/core_values.json"
+    },
+    {
+      "id": "simplebuilding:wand/one_click_wonder",
+      "parent": "simplebuilding:wand/core_values",
+      "icon": "simplebuilding:copper_building_wand",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "One-Click Wonder",
+        "de_de": "Ein Klick, ein Wunder"
+      },
+      "description": {
+        "en_us": "Click a block face with a Building Wand: it fills a whole square with blocks from your inventory",
+        "de_de": "Klick mit dem Baustab auf eine Blockseite: er füllt eine ganze Fläche mit Blöcken aus deinem Inventar"
+      },
+      "criteria": [
+        {
+          "name": "wand_build",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "wand_build"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/wand/one_click_wonder.json"
+    },
+    {
+      "id": "simplebuilding:wand/wand_erful",
+      "parent": "simplebuilding:wand/one_click_wonder",
+      "icon": "simplebuilding:netherite_building_wand",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Wand-erful",
+        "de_de": "Stab-il"
+      },
+      "description": {
+        "en_us": "Upgrade the wand with ever better Cores until it is Netherite - the better the core, the wider it builds",
+        "de_de": "Werte den Baustab mit immer besseren Kernen auf, bis er aus Netherit ist - je besser der Kern, desto breiter baut er"
+      },
+      "criteria": [
+        {
+          "name": "netherite_wand",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:netherite_building_wand",
+            "simplebuilding:enderite_building_wand"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/wand/wand_erful.json"
+    }
+  ],
   "vanillaRecipes": {
     "lines": [
       "1.21.11",
@@ -47533,6 +48992,7 @@
     "tags": 27,
     "config": 24,
     "inWorld": 343,
+    "advancements": 55,
     "features": 33,
     "undocumented": 0,
     "incompleteProse": 0

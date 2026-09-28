@@ -1,0 +1,29 @@
+{
+  "parent": "simplebuilding:hammer/stair_master",
+  "criteria": {
+    "trim_template_forged": {
+      "conditions": {
+        "feature": "trim_template_forged"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.hammer.glow_up.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:glowing_trim_template"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.hammer.glow_up.title"
+    }
+  },
+  "requirements": [
+    [
+      "trim_template_forged"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

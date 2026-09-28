@@ -1,0 +1,29 @@
+{
+  "parent": "simplebuilding:machines/forged_in_place",
+  "criteria": {
+    "hammer_upgrade_enderite": {
+      "conditions": {
+        "feature": "hammer_upgrade_enderite"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.machines.end_of_the_line.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "id": "simplebuilding:enderite_furnace"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.machines.end_of_the_line.title"
+    }
+  },
+  "requirements": [
+    [
+      "hammer_upgrade_enderite"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

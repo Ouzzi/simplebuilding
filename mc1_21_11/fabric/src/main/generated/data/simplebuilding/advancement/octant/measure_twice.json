@@ -1,0 +1,29 @@
+{
+  "parent": "simplebuilding:root",
+  "criteria": {
+    "octant_mark": {
+      "conditions": {
+        "feature": "octant_mark"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.octant.measure_twice.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:octant"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.octant.measure_twice.title"
+    }
+  },
+  "requirements": [
+    [
+      "octant_mark"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

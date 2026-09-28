@@ -1,0 +1,33 @@
+{
+  "parent": "simplebuilding:wand/core_values",
+  "criteria": {
+    "velocity_gauge": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:velocity-gauge"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.gadgets.speed_reader.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:velocity-gauge"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.gadgets.speed_reader.title"
+    }
+  },
+  "requirements": [
+    [
+      "velocity_gauge"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

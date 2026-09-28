@@ -1,0 +1,32 @@
+{
+  "parent": "simplebuilding:end/stardust",
+  "criteria": {
+    "ender_quartz": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:ender_quartz"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.end.quartz_fusion.description"
+    },
+    "icon": {
+      "id": "simplebuilding:ender_quartz"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.end.quartz_fusion.title"
+    }
+  },
+  "requirements": [
+    [
+      "ender_quartz"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

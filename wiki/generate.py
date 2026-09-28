@@ -1713,6 +1713,62 @@ def recipe_changes(mine: dict, other: dict) -> list[dict]:
             for k in sorted(set(a) | set(b)) if a.get(k) != b.get(k)]
 
 
+# ---------------------------------------------------------------------------
+# advancements: the progression tree (ModAdvancementProvider)
+# ---------------------------------------------------------------------------
+
+# Recipe unlocks are no progression, and the easter chain is a secret (hidden in game, too).
+ADVANCEMENT_SKIP = ("recipes/", "easter/")
+
+
+def collect_advancements(roots: dict, lang: dict) -> list[dict]:
+    """
+    Every advancement of the mod's tree out of the datagen output, with both
+    lang texts, its parent (a vanilla one for the teasers in vanilla tabs), icon,
+    frame and a short summary of what it waits for: the items of an
+    inventory_changed criterion or the feature of simplebuilding:feature_used.
+    """
+    base = REPO / roots["generated_data"] / "advancement"
+    out = []
+    if not base.exists():
+        return out
+    for path in sorted(base.rglob("*.json")):
+        relpath = path.relative_to(base).as_posix()[:-len(".json")]
+        if relpath.startswith(ADVANCEMENT_SKIP):
+            continue
+        data = read_json(path)
+        display = data.get("display") or {}
+        key = f"advancements.{NS}." + relpath.replace("/", ".")
+        criteria = []
+        for name, criterion in (data.get("criteria") or {}).items():
+            entry = {"name": name, "trigger": criterion.get("trigger")}
+            conditions = criterion.get("conditions") or {}
+            if "feature" in conditions:
+                entry["feature"] = conditions["feature"]
+            items = []
+            for predicate in conditions.get("items") or []:
+                value = predicate.get("items") if isinstance(predicate, dict) else None
+                items += value if isinstance(value, list) else ([value] if value else [])
+            if items:
+                entry["items"] = items
+            criteria.append(entry)
+        requirements = data.get("requirements") or []
+        out.append({
+            "id": f"{NS}:{relpath}",
+            "parent": data.get("parent"),
+            "icon": (display.get("icon") or {}).get("id"),
+            "frame": display.get("frame", "task"),
+            "hidden": bool(display.get("hidden", False)),
+            "title": display_name(lang, key + ".title", relpath.rsplit("/", 1)[-1]),
+            "description": display_name(lang, key + ".description", ""),
+            "criteria": criteria,
+            # One group with several names = any of them; several groups = all of them.
+            "needs": "all" if len(requirements) > 1 else "any",
+            "source": rel(path),
+        })
+    return out
+
+
 def build(line: str) -> tuple[dict, list[str]]:
     roots = LINES[line]
     lang = load_lang(roots)
@@ -1723,6 +1779,7 @@ def build(line: str) -> tuple[dict, list[str]]:
     enchantments, enchantment_warnings = collect_enchantments(roots, lang)
     tags = collect_tags(roots)
     config = collect_config(roots, lang)
+    advancements = collect_advancements(roots, lang)
     # Vanilla-Texturen aus dem Client-Jar holen, damit Zutaten wie
     # minecraft:stick nicht als Textkachel erscheinen. Bewusst nicht im
     # Payload: der Jar-Pfad ist maschinenabhaengig und der Cache kann fehlen -
@@ -1780,6 +1837,7 @@ def build(line: str) -> tuple[dict, list[str]]:
                 if isinstance(v, str) and v.startswith("minecraft:"):
                     referenced.add(v)
     referenced |= vanilla_recipe_ids(roots)
+    referenced |= {a["icon"] for a in advancements if isinstance(a.get("icon"), str) and a["icon"].startswith("minecraft:")}
     vanilla = copy_vanilla_textures(roots, referenced)
 
     # Which entries actually owe the reader an explanation. A plain building
@@ -1870,6 +1928,7 @@ def build(line: str) -> tuple[dict, list[str]]:
         "tags": tags,
         "config": config,
         "inWorld": in_world,
+        "advancements": advancements,
         "vanillaRecipes": {
             "lines": sorted(LINES),
             "file": VANILLA_RECIPE_FILE,
@@ -1885,6 +1944,7 @@ def build(line: str) -> tuple[dict, list[str]]:
             "tags": len(tags),
             "config": len(config),
             "inWorld": len(in_world["entries"]),
+            "advancements": len(advancements),
             "features": len(manual.get("features", [])),
             "undocumented": len(undocumented),
             "incompleteProse": len(incomplete),

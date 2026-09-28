@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:nether/root",
+  "criteria": {
+    "netherite_nugget": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:netherite_nugget"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.nether.nugget_of_wisdom.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:netherite_nugget"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.nether.nugget_of_wisdom.title"
+    }
+  },
+  "requirements": [
+    [
+      "netherite_nugget"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

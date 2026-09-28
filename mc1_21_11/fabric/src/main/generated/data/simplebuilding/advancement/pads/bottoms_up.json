@@ -1,0 +1,30 @@
+{
+  "parent": "simplebuilding:pads/hot_head",
+  "criteria": {
+    "potion_pad": {
+      "conditions": {
+        "feature": "potion_pad"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.pads.bottoms_up.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:potion_pad"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.pads.bottoms_up.title"
+    }
+  },
+  "requirements": [
+    [
+      "potion_pad"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

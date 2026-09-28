@@ -57,6 +57,7 @@ public final class SledgehammerEntityInteraction {
         }
 
         itemFrame.setItem(new ItemStack(result), true);
+        com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.TRIM_TEMPLATE_FORGED);
 
         if (!player.isCreative()) {
             offStack.shrink(CATALYST_COST);

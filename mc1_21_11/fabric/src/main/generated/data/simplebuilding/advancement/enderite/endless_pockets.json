@@ -1,0 +1,38 @@
+{
+  "parent": "simplebuilding:enderite/template_of_the_end",
+  "criteria": {
+    "enderite_storage": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:enderite_bundle",
+              "simplebuilding:enderite_quiver",
+              "simplebuilding:enderite_backpack"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.enderite.endless_pockets.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:enderite_bundle"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.enderite.endless_pockets.title"
+    }
+  },
+  "requirements": [
+    [
+      "enderite_storage"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

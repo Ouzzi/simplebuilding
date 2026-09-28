@@ -1116,6 +1116,7 @@ public final class BlueprintBuilder {
         if (level instanceof ServerLevel serverLevel && job.codeHash != null) {
             if (result.finished()) {
                 BlueprintJobs.clear(serverLevel, player.getUUID());
+                com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.BLUEPRINT_BUILD);
             } else {
                 BlueprintJobs.save(serverLevel, new BlueprintJobs.Pending(player.getUUID(), job.codeHash, job.title,
                         job.target, job.rotation.ordinal(), job.planner.index(), result.placed()));

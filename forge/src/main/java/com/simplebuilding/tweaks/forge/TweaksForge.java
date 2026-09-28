@@ -82,6 +82,8 @@ public final class TweaksForge {
             TweaksContent.registerItems();
         } else if (event.getRegistryKey().equals(Registries.RECIPE_SERIALIZER)) {
             TweaksContent.registerRecipeSerializers();
+        } else if (event.getRegistryKey().equals(Registries.TRIGGER_TYPE)) {
+            TweaksContent.registerTriggers();
         } else if (event.getRegistryKey().equals(Registries.BLOCK_ENTITY_TYPE)) {
             TweaksBlockEntities.register(new TweaksBlockEntities.Factory() {
                 @Override

@@ -1,0 +1,37 @@
+{
+  "parent": "simplebuilding:end/stardust",
+  "criteria": {
+    "gravity_block": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:suspended_sand",
+              "simplebuilding:suspended_gravel",
+              "simplebuilding:levitating_sand",
+              "simplebuilding:levitating_gravel"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.end.defying_gravity.description"
+    },
+    "icon": {
+      "id": "simplebuilding:levitating_sand"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.end.defying_gravity.title"
+    }
+  },
+  "requirements": [
+    [
+      "gravity_block"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

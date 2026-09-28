@@ -1,0 +1,36 @@
+{
+  "parent": "simplebuilding:root",
+  "criteria": {
+    "end_mineral": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:astralit_dust",
+              "simplebuilding:nihilith_shard"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.end.stardust.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:astralit_dust"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.end.stardust.title"
+    }
+  },
+  "requirements": [
+    [
+      "end_mineral"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

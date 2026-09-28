@@ -1,0 +1,29 @@
+{
+  "parent": "simplebuilding:root",
+  "criteria": {
+    "chisel": {
+      "conditions": {
+        "feature": "chisel"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.chisel.chip_off_the_old_block.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:stone_chisel"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.chisel.chip_off_the_old_block.title"
+    }
+  },
+  "requirements": [
+    [
+      "chisel"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

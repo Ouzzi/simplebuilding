@@ -1,0 +1,33 @@
+{
+  "parent": "simplebuilding:enderite/beyond_netherite",
+  "criteria": {
+    "enderite_upgrade_template": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:enderite_upgrade_template"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.enderite.template_of_the_end.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:enderite_upgrade_template"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.enderite.template_of_the_end.title"
+    }
+  },
+  "requirements": [
+    [
+      "enderite_upgrade_template"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

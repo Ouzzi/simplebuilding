@@ -548,6 +548,7 @@ public class BuildingWandItem extends Item {
         plan.writeTo(nbt);
         setNbt(wandStack, nbt);
         WandUndo.begin(player, world);
+        com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.WAND_BUILD);
 
         return InteractionResult.CONSUME;
     }

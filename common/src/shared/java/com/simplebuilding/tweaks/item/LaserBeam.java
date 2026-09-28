@@ -235,6 +235,7 @@ public final class LaserBeam {
         if (!apply(player, level, pos, state, face, at, effect)) {
             return null;
         }
+        com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.LENS_BEAM);
         LaserPointerItem.drain(player, stack, LaserPointerItem.EFFECT_COST);
         return effect;
     }

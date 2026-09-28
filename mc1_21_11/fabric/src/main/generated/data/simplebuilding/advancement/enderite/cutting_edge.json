@@ -1,0 +1,41 @@
+{
+  "parent": "simplebuilding:enderite/template_of_the_end",
+  "criteria": {
+    "enderite_tool": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:enderite_sword",
+              "simplebuilding:enderite_spear",
+              "simplebuilding:enderite_pickaxe",
+              "simplebuilding:enderite_axe",
+              "simplebuilding:enderite_shovel",
+              "simplebuilding:enderite_hoe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.enderite.cutting_edge.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:enderite_pickaxe"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.enderite.cutting_edge.title"
+    }
+  },
+  "requirements": [
+    [
+      "enderite_tool"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

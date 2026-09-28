@@ -1,0 +1,29 @@
+{
+  "parent": "simplebuilding:blueprint/copy_that",
+  "criteria": {
+    "blueprint_copy": {
+      "conditions": {
+        "feature": "blueprint_copy"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.blueprint.carbon_copy.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:cartography_table"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.blueprint.carbon_copy.title"
+    }
+  },
+  "requirements": [
+    [
+      "blueprint_copy"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

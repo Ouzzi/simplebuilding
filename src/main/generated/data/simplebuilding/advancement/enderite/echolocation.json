@@ -1,0 +1,29 @@
+{
+  "parent": "simplebuilding:enderite/pocket_change",
+  "criteria": {
+    "echo_teleport": {
+      "conditions": {
+        "feature": "echo_teleport"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.enderite.echolocation.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "simplebuilding:echo_compass"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.enderite.echolocation.title"
+    }
+  },
+  "requirements": [
+    [
+      "echo_teleport"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

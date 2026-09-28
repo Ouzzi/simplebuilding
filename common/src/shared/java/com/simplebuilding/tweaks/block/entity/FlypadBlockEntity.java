@@ -80,6 +80,7 @@ public class FlypadBlockEntity extends OwnedBlockEntity {
                 player.getAbilities().mayfly = true;
                 player.onUpdateAbilities();
                 player.addTag(FLIGHT_TAG);
+                com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.FLYPAD);
             }
             // Nur Flug, den ein Flypad gab, wird verfolgt (und spaeter zurueckgenommen).
             if (player.entityTags().contains(FLIGHT_TAG)) {

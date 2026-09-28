@@ -1,0 +1,34 @@
+{
+  "parent": "simplebuilding:enderite/template_of_the_end",
+  "criteria": {
+    "enderite_sledgehammer": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:enderite_sledgehammer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.enderite.hammer_of_the_end.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:enderite_sledgehammer"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.enderite.hammer_of_the_end.title"
+    }
+  },
+  "requirements": [
+    [
+      "enderite_sledgehammer"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

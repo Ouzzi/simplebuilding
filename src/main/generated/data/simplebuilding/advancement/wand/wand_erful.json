@@ -1,0 +1,36 @@
+{
+  "parent": "simplebuilding:wand/one_click_wonder",
+  "criteria": {
+    "netherite_wand": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:netherite_building_wand",
+              "simplebuilding:enderite_building_wand"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.wand.wand_erful.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "simplebuilding:netherite_building_wand"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.wand.wand_erful.title"
+    }
+  },
+  "requirements": [
+    [
+      "netherite_wand"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

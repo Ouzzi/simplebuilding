@@ -1,0 +1,37 @@
+{
+  "parent": "simplebuilding:pads/under_pressure",
+  "criteria": {
+    "chunk_loader": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:chunk_loader",
+              "simplebuilding:netherite_chunk_loader",
+              "simplebuilding:enderite_chunk_loader"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.pads.always_loaded.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:chunk_loader"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.pads.always_loaded.title"
+    }
+  },
+  "requirements": [
+    [
+      "chunk_loader"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

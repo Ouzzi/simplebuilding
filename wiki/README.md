@@ -32,6 +32,7 @@ Das ist der Kern des Aufbaus, deshalb ausführlich.
 | Loot-Tabellen | `src/main/generated/data/simplebuilding/loot_table/**` |
 | Handel | `src/main/resources/data/simplebuilding/villager_trade/**` |
 | Verzauberungen | `src/main/generated/data/simplebuilding/enchantment/*.json` |
+| Fortschritte (Advancement-Baum mit Titeln, Hinweisen, Symbolen, Eltern) | `src/main/generated/data/simplebuilding/advancement/**` ohne `recipes/` und die geheime Kette `easter/` – vom Datagen-Provider `ModAdvancementProvider` geschrieben |
 | Tags | `.../tags/**` (generiert und Ressourcen) |
 | Konfiguration | `common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java` |
 | Haltbarkeit, Stapelgröße, Verzauberbarkeit, Angriffswerte, Zauberstab-Durchmesser, Meißel-Abklingzeit | `src/main/generated/wiki/items.json` – vom Datagen-Provider `WikiDataProvider` aus der **Item-Registry** geschrieben |

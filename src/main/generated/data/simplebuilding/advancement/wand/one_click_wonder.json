@@ -1,0 +1,28 @@
+{
+  "parent": "simplebuilding:wand/core_values",
+  "criteria": {
+    "wand_build": {
+      "conditions": {
+        "feature": "wand_build"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.wand.one_click_wonder.description"
+    },
+    "icon": {
+      "id": "simplebuilding:copper_building_wand"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.wand.one_click_wonder.title"
+    }
+  },
+  "requirements": [
+    [
+      "wand_build"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

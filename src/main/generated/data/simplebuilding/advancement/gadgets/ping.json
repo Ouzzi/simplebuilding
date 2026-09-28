@@ -1,0 +1,28 @@
+{
+  "parent": "simplebuilding:wand/core_values",
+  "criteria": {
+    "ore_detected": {
+      "conditions": {
+        "feature": "ore_detected"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.gadgets.ping.description"
+    },
+    "icon": {
+      "id": "simplebuilding:ore_detector"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.gadgets.ping.title"
+    }
+  },
+  "requirements": [
+    [
+      "ore_detected"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

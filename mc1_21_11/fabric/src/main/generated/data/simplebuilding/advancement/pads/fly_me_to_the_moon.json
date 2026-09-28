@@ -1,0 +1,30 @@
+{
+  "parent": "simplebuilding:pads/wings_on_loan",
+  "criteria": {
+    "flypad": {
+      "conditions": {
+        "feature": "flypad"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.pads.fly_me_to_the_moon.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:flypad"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.pads.fly_me_to_the_moon.title"
+    }
+  },
+  "requirements": [
+    [
+      "flypad"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

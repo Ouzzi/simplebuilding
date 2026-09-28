@@ -1,0 +1,36 @@
+{
+  "parent": "simplebuilding:storage/pack_mule",
+  "criteria": {
+    "netherite_backpack": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:netherite_backpack",
+              "simplebuilding:enderite_backpack"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.storage.heavy_luggage.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "simplebuilding:netherite_backpack"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.storage.heavy_luggage.title"
+    }
+  },
+  "requirements": [
+    [
+      "netherite_backpack"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

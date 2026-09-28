@@ -1,0 +1,28 @@
+{
+  "parent": "simplebuilding:octant/measure_twice",
+  "criteria": {
+    "blueprint_scan": {
+      "conditions": {
+        "feature": "blueprint_scan"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.blueprint.copy_that.description"
+    },
+    "icon": {
+      "id": "simplebuilding:blueprint"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.blueprint.copy_that.title"
+    }
+  },
+  "requirements": [
+    [
+      "blueprint_scan"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

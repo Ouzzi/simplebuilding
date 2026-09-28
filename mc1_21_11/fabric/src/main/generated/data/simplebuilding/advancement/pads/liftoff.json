@@ -1,0 +1,29 @@
+{
+  "parent": "simplebuilding:pads/under_pressure",
+  "criteria": {
+    "launchpad": {
+      "conditions": {
+        "feature": "launchpad"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.pads.liftoff.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:launchpad"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.pads.liftoff.title"
+    }
+  },
+  "requirements": [
+    [
+      "launchpad"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

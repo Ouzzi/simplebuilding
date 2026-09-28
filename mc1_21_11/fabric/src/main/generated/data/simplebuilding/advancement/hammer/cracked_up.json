@@ -1,0 +1,33 @@
+{
+  "parent": "simplebuilding:hammer/pebble_dash",
+  "criteria": {
+    "cracked_diamond": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:cracked_diamond"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.hammer.cracked_up.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:cracked_diamond"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.hammer.cracked_up.title"
+    }
+  },
+  "requirements": [
+    [
+      "cracked_diamond"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

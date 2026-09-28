@@ -1,0 +1,29 @@
+{
+  "parent": "simplebuilding:hammer/stair_master",
+  "criteria": {
+    "diamond_crush": {
+      "conditions": {
+        "feature": "diamond_crush"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.hammer.pebble_dash.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:diamond_pebble"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.hammer.pebble_dash.title"
+    }
+  },
+  "requirements": [
+    [
+      "diamond_crush"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,72 @@
+{
+  "parent": "simplebuilding:enderite/cover_me_in_enderite",
+  "criteria": {
+    "enderite_boots": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:enderite_boots"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "enderite_chestplate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:enderite_chestplate"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "enderite_helmet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:enderite_helmet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "enderite_leggings": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:enderite_leggings"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.enderite.void_walker.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "id": "simplebuilding:enderite_boots"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.enderite.void_walker.title"
+    }
+  },
+  "requirements": [
+    [
+      "enderite_helmet"
+    ],
+    [
+      "enderite_chestplate"
+    ],
+    [
+      "enderite_leggings"
+    ],
+    [
+      "enderite_boots"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

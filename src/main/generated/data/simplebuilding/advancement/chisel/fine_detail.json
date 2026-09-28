@@ -1,0 +1,36 @@
+{
+  "parent": "simplebuilding:chisel/chip_off_the_old_block",
+  "criteria": {
+    "better_chisel": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:diamond_chisel",
+              "simplebuilding:netherite_chisel",
+              "simplebuilding:enderite_chisel"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.chisel.fine_detail.description"
+    },
+    "icon": {
+      "id": "simplebuilding:diamond_chisel"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.chisel.fine_detail.title"
+    }
+  },
+  "requirements": [
+    [
+      "better_chisel"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

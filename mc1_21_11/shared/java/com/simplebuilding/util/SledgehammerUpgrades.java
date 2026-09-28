@@ -445,6 +445,7 @@ public final class SledgehammerUpgrades {
         // Im Kreativmodus verbraucht consume nichts, hurtAndBreak kostet nichts.
         player.getOffhandItem().consume(1, player);
         finishEffects(serverLevel, job, old);
+        com.simplebuilding.advancement.ModTriggers.feature(player, job.upgrade.toEnderite() ? com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_ENDERITE : com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_NETHERITE);
         player.swing(InteractionHand.MAIN_HAND, true);
         hammer.hurtAndBreak(job.upgrade.damagePerHit(), player, EquipmentSlot.MAINHAND);
         if (!hammer.isEmpty() && hasConnection(player)) {

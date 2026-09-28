@@ -1,0 +1,32 @@
+{
+  "parent": "simplebuilding:root",
+  "criteria": {
+    "diamond_pressure_plate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:diamond_pressure_plate"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.pads.under_pressure.description"
+    },
+    "icon": {
+      "id": "simplebuilding:diamond_pressure_plate"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.pads.under_pressure.title"
+    }
+  },
+  "requirements": [
+    [
+      "diamond_pressure_plate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

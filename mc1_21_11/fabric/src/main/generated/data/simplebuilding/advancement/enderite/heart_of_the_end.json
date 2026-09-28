@@ -1,0 +1,34 @@
+{
+  "parent": "simplebuilding:enderite/template_of_the_end",
+  "criteria": {
+    "enderite_core": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:enderite_core"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.enderite.heart_of_the_end.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:enderite_core"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.enderite.heart_of_the_end.title"
+    }
+  },
+  "requirements": [
+    [
+      "enderite_core"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

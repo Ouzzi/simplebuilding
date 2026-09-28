@@ -212,6 +212,7 @@ public final class BlueprintCartography {
             ItemStack top = menu.getSlot(MAP_SLOT).getItem();
             if (BlueprintScanner.isOctant(top) || top.getItem() instanceof com.simplebuilding.items.custom.BlueprintItem) {
                 // Scan oder Kopie: nur die untere Blaupause wird verbraucht, Oktant bzw. Original bleibt.
+                com.simplebuilding.advancement.ModTriggers.feature(player, BlueprintScanner.isOctant(top) ? com.simplebuilding.advancement.ModTriggers.BLUEPRINT_SCAN : com.simplebuilding.advancement.ModTriggers.BLUEPRINT_COPY);
                 menu.getSlot(ADDITIONAL_SLOT).remove(1);
                 access.execute((level, pos) -> level.playSound(null, pos, SoundEvents.UI_CARTOGRAPHY_TABLE_TAKE_RESULT, SoundSource.BLOCKS, 1.0F, 1.0F));
                 this.setChanged();

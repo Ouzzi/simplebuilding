@@ -1,0 +1,37 @@
+{
+  "parent": "simplebuilding:storage/sheet_happens",
+  "criteria": {
+    "reinforced_bundle": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:reinforced_bundle",
+              "simplebuilding:netherite_bundle",
+              "simplebuilding:enderite_bundle"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.storage.bundle_of_joy.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:reinforced_bundle"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.storage.bundle_of_joy.title"
+    }
+  },
+  "requirements": [
+    [
+      "reinforced_bundle"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

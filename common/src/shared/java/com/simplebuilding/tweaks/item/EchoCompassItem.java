@@ -222,6 +222,7 @@ public class EchoCompassItem extends Item {
         if (!player.teleportTo(targetLevel, x, y, z, Set.of(), player.getYRot(), player.getXRot(), true)) {
             return false;
         }
+        com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.ECHO_TELEPORT);
         origin.playSound(null, fromX, fromY, fromZ, SoundEvents.PLAYER_TELEPORT, SoundSource.PLAYERS, 1.0f, 0.5f);
         origin.sendParticles(ParticleTypes.REVERSE_PORTAL, fromX, fromY + 1.0, fromZ, 80, 1.1, 1.1, 1.1, 0.08);
         origin.sendParticles(ParticleTypes.SCULK_SOUL, fromX, fromY + 0.5, fromZ, 24, 1.0, 0.7, 1.0, 0.03);

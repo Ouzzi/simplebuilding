@@ -1,0 +1,37 @@
+{
+  "parent": "simplebuilding:end/stardust",
+  "criteria": {
+    "end_bricks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:astralit_bricks",
+              "simplebuilding:nihilith_bricks",
+              "simplebuilding:ender_quartz_bricks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.end.palette_cleanser.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:astralit_bricks"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.end.palette_cleanser.title"
+    }
+  },
+  "requirements": [
+    [
+      "end_bricks"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

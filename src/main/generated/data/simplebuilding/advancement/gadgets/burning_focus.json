@@ -1,0 +1,28 @@
+{
+  "parent": "simplebuilding:wand/core_values",
+  "criteria": {
+    "lens_beam": {
+      "conditions": {
+        "feature": "lens_beam"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.gadgets.burning_focus.description"
+    },
+    "icon": {
+      "id": "simplebuilding:laser_pointer"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.gadgets.burning_focus.title"
+    }
+  },
+  "requirements": [
+    [
+      "lens_beam"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

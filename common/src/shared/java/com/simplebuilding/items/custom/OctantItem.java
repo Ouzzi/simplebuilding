@@ -88,6 +88,7 @@ public class OctantItem extends Item {
                     nbt.putIntArray("Pos2", new int[]{pos.getX(), pos.getY(), pos.getZ()});
                     world.playSound(null, pos, SoundEvents.COPPER_STEP, SoundSource.PLAYERS, 0.3f, 1.5f);
                 }
+                com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.OCTANT_MARK);
                 if (!player.getAbilities().instabuild) {
                     stack.hurtAndBreak(1, (ServerLevel) world, (ServerPlayer) player, item -> player.onEquippedItemBroken(item, context.getHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND));
                 }

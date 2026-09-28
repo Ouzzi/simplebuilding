@@ -1,0 +1,33 @@
+{
+  "parent": "simplebuilding:hammer/stair_master",
+  "criteria": {
+    "netherite_sledgehammer": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:netherite_sledgehammer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.hammer.heavy_metal.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "simplebuilding:netherite_sledgehammer"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.hammer.heavy_metal.title"
+    }
+  },
+  "requirements": [
+    [
+      "netherite_sledgehammer"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,33 @@
+{
+  "parent": "simplebuilding:root",
+  "criteria": {
+    "leather_sheet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:leather_sheet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.storage.sheet_happens.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:leather_sheet"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.storage.sheet_happens.title"
+    }
+  },
+  "requirements": [
+    [
+      "leather_sheet"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -123,6 +123,7 @@ public class PotionPadBlockEntity extends OwnedBlockEntity {
                         effect.isAmbient(), effect.isVisible(), effect.showIcon()));
             }
         }
+        com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.POTION_PAD);
         if (instantApplied) {
             lastInstant.put(player.getUUID(), time);
         }

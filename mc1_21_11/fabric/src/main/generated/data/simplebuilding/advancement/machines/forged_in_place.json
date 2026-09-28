@@ -1,0 +1,30 @@
+{
+  "parent": "simplebuilding:machines/reinforcements",
+  "criteria": {
+    "hammer_upgrade_netherite": {
+      "conditions": {
+        "feature": "hammer_upgrade_netherite"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.machines.forged_in_place.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:netherite_furnace"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.machines.forged_in_place.title"
+    }
+  },
+  "requirements": [
+    [
+      "hammer_upgrade_netherite"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

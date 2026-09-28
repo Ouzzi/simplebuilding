@@ -1,0 +1,34 @@
+{
+  "parent": "simplebuilding:enderite/patience_is_a_virtue",
+  "criteria": {
+    "enderite_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:enderite_ingot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.enderite.beyond_netherite.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:enderite_ingot"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.enderite.beyond_netherite.title"
+    }
+  },
+  "requirements": [
+    [
+      "enderite_ingot"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
