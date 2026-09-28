@@ -61,7 +61,7 @@ import sys
 from PIL import Image, ImageDraw, ImageFont
 
 from echo_compass_textures import echo_compass_textures  # Echo-Kompass: Nadelbilder + Riss-Stufen
-from potion_pad_textures import potion_pad_textures  # Trank-Pads I-III (aus den alten Flypads) + Lohenkopf
+from potion_pad_textures import POTION_PAD_ANIMATIONS, potion_pad_textures  # Trank-Pads I-III (aus den alten Flypads) + Lohenkopf
 from guide_book_textures import guide_book_textures  # Einsteiger-Handbuch + sieben Themenbuecher
 from ore_detector_textures import ore_detector_textures  # Erzdetektor: Gehaeuse, 32 Nadeln, Ruhebild
 
@@ -1069,6 +1069,8 @@ MACHINE_ANIMATIONS = {}
 for _tier in MACHINE_TIERS:
     MACHINE_ANIMATIONS[f"block/{_tier}_smoker_front_on.png"] = {"interpolate": False, "frametime": 4}
     MACHINE_ANIMATIONS[f"block/{_tier}_blast_furnace_front_on.png"] = {"frametime": 20, "interpolate": True}
+# Trank-Pads in der Abklingzeit (potion_pad_textures.py): Adern pulsieren, die Flasche fuellt sich wieder.
+MACHINE_ANIMATIONS.update(POTION_PAD_ANIMATIONS)
 
 
 def _luma(c):

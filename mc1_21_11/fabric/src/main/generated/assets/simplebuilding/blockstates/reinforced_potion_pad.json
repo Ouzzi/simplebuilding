@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "cooling=false": {
       "model": "simplebuilding:block/reinforced_potion_pad"
+    },
+    "cooling=true": {
+      "model": "simplebuilding:block/reinforced_potion_pad_cooling"
     }
   }
 }

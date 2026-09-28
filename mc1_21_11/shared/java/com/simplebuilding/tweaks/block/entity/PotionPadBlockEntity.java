@@ -1,6 +1,7 @@
 package com.simplebuilding.tweaks.block.entity;
 
 import com.simplebuilding.tweaks.block.PotionPadBlock;
+import com.simplebuilding.tweaks.component.TweaksComponents;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -14,6 +15,8 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -29,26 +32,38 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Trank-Pad: haelt den zuletzt darauf geworfenen Trank ({@link PotionContents}, Schluessel
- * {@code Potion}) und gibt Spielern, die es betreten, dessen Wirkungen (siehe {@link PotionPadBlock}).
+ * {@code Potion}) und gibt Spielern, die darauf stehen, dessen Wirkungen (siehe {@link PotionPadBlock}).
  *
- * <p>Ablauf je Tick: wer neu auf dem Pad steht, bekommt alle Wirkungen; wer stehen bleibt, bekommt
- * die Dauerwirkungen jede Sekunde wieder auf die volle Stufendauer aufgefrischt (Vanillas
- * {@code MobEffectInstance#update} verlaengert nur bis zu dieser Dauer, nie darueber). Sofortwirkungen
- * nur beim Betreten und hoechstens alle {@link #INSTANT_COOLDOWN_TICKS} Ticks je Spieler, damit Hin-
- * und Herhuepfen kein Dauerheilen wird. Der Trank reist als {@code potion_contents} mit dem Item
- * (Abbau, Strg+Mittelklick) und kommt beim Setzen zurueck, neben der Easter-Stufe der Basisklasse. Alle halbe Sekunde steigen Partikel in der Trankfarbe auf.
+ * <p><b>Aufladen in drei Schritten</b> (Besitzer 2026-09-28): wer auf dem Pad steht, bekommt nach
+ * 1 s 25 %, nach 2 s 50 % und nach 3 s 100 % der Stufendauer ({@link #RAMP_PERCENT}); jeder Schritt
+ * zeigt Partikel in der Trankfarbe und einen leisen Klang. Wer vorher absteigt, behaelt, was er schon
+ * hat, und faengt beim naechsten Betreten wieder bei 0 an. Sofortwirkungen (Heilung, Schaden) wirken
+ * einmal, beim 3-s-Schritt.
+ *
+ * <p><b>Abklingzeit</b>: erst der 100-%-Schritt setzt das ganze Pad fuer die doppelte Wirkdauer in die
+ * Abklingzeit ({@link PotionPadBlock#cooldownAt}); ein abgebrochenes Aufladen startet sie nicht (sonst
+ * koennte ein kurzer Schritt das Pad fuer alle sperren). Waehrend der Abklingzeit gibt das Pad nichts,
+ * und sie laeuft nur, solange das Pad gesetzt ist (der Block-Entity-Ticker). Abgebaut reist die
+ * Restzeit als {@link TweaksComponents#POTION_PAD_COOLDOWN} mit dem Item und laeuft beim Setzen weiter;
+ * der Blockzustand {@link PotionPadBlock#COOLING} zeigt die animierte Textur.
+ *
+ * <p>Der Trank reist als {@code potion_contents} mit dem Item (Abbau, Strg+Mittelklick) und kommt beim
+ * Setzen zurueck, neben der Easter-Stufe der Basisklasse. Alle halbe Sekunde steigen Partikel in der
+ * Trankfarbe auf, solange das Pad bereit ist.
  */
 public class PotionPadBlockEntity extends OwnedBlockEntity {
-    /** Sofortwirkungen (Heilung/Schaden): hoechstens einmal je 2 s je Spieler. */
-    public static final int INSTANT_COOLDOWN_TICKS = 40;
-    /** Dauerwirkungen stehender Spieler werden so oft aufgefrischt. */
-    public static final int REFRESH_TICKS = 20;
+    /** Ein Aufladeschritt dauert eine Sekunde. */
+    public static final int RAMP_STEP_TICKS = 20;
+    /** Anteil der Stufendauer nach Schritt 1, 2, 3. */
+    public static final int[] RAMP_PERCENT = {25, 50, 100};
+    /** Zahl der Schritte; der letzte gibt die volle Dauer und startet die Abklingzeit. */
+    public static final int RAMP_STEPS = RAMP_PERCENT.length;
 
     private @Nullable PotionContents stored;
-    /** Spieler, die beim letzten Tick auf dem Pad standen (nicht gespeichert). */
-    private final Set<UUID> standing = new HashSet<>();
-    /** Spielzeit der letzten Sofortwirkung je Spieler (nicht gespeichert). */
-    private final Map<UUID, Long> lastInstant = new HashMap<>();
+    /** Verbleibende Abklingzeit in Ticks (0 = bereit). */
+    private int cooldown;
+    /** Wie lange jeder Spieler schon ununterbrochen auf dem Pad steht, in Ticks (nicht gespeichert). */
+    private final Map<UUID, Integer> standing = new HashMap<>();
 
     public PotionPadBlockEntity(BlockPos pos, BlockState state) {
         super(TweaksBlockEntities.POTION_PAD, pos, state);
@@ -70,17 +85,57 @@ public class PotionPadBlockEntity extends OwnedBlockEntity {
         }
     }
 
+    /** Verbleibende Abklingzeit in Ticks (0 = bereit). */
+    public int getCooldown() {
+        return cooldown;
+    }
+
+    public boolean isCoolingDown() {
+        return cooldown > 0;
+    }
+
+    /** Setzt die Abklingzeit und zieht den Blockzustand {@link PotionPadBlock#COOLING} nach. */
+    public void setCooldown(int ticks) {
+        this.cooldown = Math.max(0, ticks);
+        this.standing.clear();
+        setChanged();
+        syncCoolingState();
+    }
+
     /** Farbe der gespeicherten Wirkungen, fuer die Partikel. */
     public int color() {
         return stored == null ? 0 : stored.getColor();
+    }
+
+    /** Anteil der Stufendauer nach Schritt {@code step} (1..{@link #RAMP_STEPS}). */
+    public static int rampPercent(int step) {
+        return RAMP_PERCENT[Math.max(1, Math.min(RAMP_STEPS, step)) - 1];
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, PotionPadBlockEntity be) {
         if (!(level instanceof ServerLevel serverLevel)) {
             return;
         }
+        if (be.cooldown > 0) {
+            be.cooldown--;
+            be.setChanged();
+            if (be.cooldown == 0) {
+                be.standing.clear();
+                if (be.stored != null) {
+                    serverLevel.sendParticles(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, 0xFF000000 | be.color()),
+                            pos.getX() + 0.5, pos.getY() + 0.2, pos.getZ() + 0.5, 10, 0.3, 0.1, 0.3, 0.0);
+                }
+            }
+            be.syncCoolingState();
+            return;
+        }
+        be.syncCoolingState();
+        if (be.stored == null) {
+            be.standing.clear();
+            return;
+        }
         long time = level.getGameTime();
-        if (be.stored != null && time % 10 == 0) {
+        if (time % 10 == 0) {
             serverLevel.sendParticles(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, 0xFF000000 | be.color()),
                     pos.getX() + 0.5, pos.getY() + 0.15, pos.getZ() + 0.5, 2, 0.3, 0.05, 0.3, 0.0);
         }
@@ -89,14 +144,16 @@ public class PotionPadBlockEntity extends OwnedBlockEntity {
         for (Player player : players) {
             UUID id = player.getUUID();
             now.add(id);
-            boolean entered = !be.standing.contains(id);
-            if (be.stored != null && (entered || time % REFRESH_TICKS == 0)) {
-                be.apply(serverLevel, player, entered, time, state);
+            int ticks = be.standing.merge(id, 1, Integer::sum);
+            if (ticks % RAMP_STEP_TICKS == 0 && ticks / RAMP_STEP_TICKS <= RAMP_STEPS) {
+                be.grant(serverLevel, player, ticks / RAMP_STEP_TICKS);
+                if (be.cooldown > 0) {
+                    // Der 100-%-Schritt hat das Pad in die Abklingzeit gesetzt: niemand sonst bekommt mehr etwas.
+                    return;
+                }
             }
         }
-        be.standing.clear();
-        be.standing.addAll(now);
-        be.lastInstant.values().removeIf(t -> time - t > INSTANT_COOLDOWN_TICKS);
+        be.standing.keySet().retainAll(now);
     }
 
     /** Bereich, in dem ein Spieler als "auf dem Pad" gilt: die Blockspalte des Pads, halber Block hoch. */
@@ -105,48 +162,75 @@ public class PotionPadBlockEntity extends OwnedBlockEntity {
     }
 
     /**
-     * Gibt dem Spieler die gespeicherten Wirkungen: Dauerwirkungen mit der Stufendauer und der
-     * Verstaerkung des Tranks, Sofortwirkungen nur beim Betreten ({@code entered}) und ausserhalb der
-     * Abklingzeit.
+     * Aufladeschritt {@code step} (1..{@link #RAMP_STEPS}): die Dauerwirkungen mit {@link #rampPercent}
+     * der Stufendauer und der Verstaerkung des Tranks (eine laengere Wirkung, die der Spieler schon hat,
+     * bleibt, siehe {@code MobEffectInstance#update}); beim letzten Schritt zusaetzlich die
+     * Sofortwirkungen, danach beginnt die Abklingzeit. Ohne Trank oder in der Abklingzeit: nichts.
      */
-    public void apply(ServerLevel level, Player player, boolean entered, long time, BlockState state) {
-        if (stored == null) {
+    public void grant(ServerLevel level, Player player, int step) {
+        if (stored == null || cooldown > 0 || step < 1 || step > RAMP_STEPS) {
             return;
         }
-        int duration = state.getBlock() instanceof PotionPadBlock pad ? pad.effectDurationAt(level, worldPosition) : PotionPadBlock.effectDuration(1);
-        boolean instantAllowed = entered && time - lastInstant.getOrDefault(player.getUUID(), Long.MIN_VALUE / 2) >= INSTANT_COOLDOWN_TICKS;
-        boolean instantApplied = false;
+        BlockState state = getBlockState();
+        int full = state.getBlock() instanceof PotionPadBlock pad ? pad.effectDurationAt(level, worldPosition) : PotionPadBlock.effectDuration(1);
+        int duration = full * rampPercent(step) / 100;
+        boolean last = step == RAMP_STEPS;
         for (MobEffectInstance effect : stored.getAllEffects()) {
             if (effect.getEffect().value().isInstantenous()) {
-                if (instantAllowed) {
+                if (last) {
                     effect.getEffect().value().applyInstantenousEffect(level, null, null, player, effect.getAmplifier(), 1.0);
-                    instantApplied = true;
                 }
             } else {
                 player.addEffect(new MobEffectInstance(effect.getEffect(), duration, effect.getAmplifier(),
                         effect.isAmbient(), effect.isVisible(), effect.showIcon()));
             }
         }
-        com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.POTION_PAD);
-        if (instantApplied) {
-            lastInstant.put(player.getUUID(), time);
+        double x = worldPosition.getX() + 0.5;
+        double y = worldPosition.getY() + 0.2;
+        double z = worldPosition.getZ() + 0.5;
+        level.sendParticles(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, 0xFF000000 | color()),
+                x, y + 0.3 * step, z, 6 * step, 0.25, 0.15 * step, 0.25, 0.0);
+        if (last) {
+            level.playSound(null, worldPosition, SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 0.6F, 1.2F);
+            com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.POTION_PAD);
+            setCooldown(state.getBlock() instanceof PotionPadBlock pad ? pad.cooldownAt(level, worldPosition) : 2 * full);
+        } else {
+            level.playSound(null, worldPosition, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 0.5F, 0.8F + 0.3F * step);
         }
     }
 
-    /** Beim Setzen: den Trank vom Item uebernehmen (ein abgebautes Pad traegt ihn als {@code potion_contents}). */
+    /** Blockzustand {@link PotionPadBlock#COOLING} = Abklingzeit laeuft (animierte Textur). */
+    private void syncCoolingState() {
+        if (level == null || level.isClientSide()) {
+            return;
+        }
+        BlockState state = level.getBlockState(worldPosition);
+        boolean cooling = cooldown > 0;
+        if (state.getBlock() instanceof PotionPadBlock && state.hasProperty(PotionPadBlock.COOLING)
+                && state.getValue(PotionPadBlock.COOLING) != cooling) {
+            level.setBlock(worldPosition, state.setValue(PotionPadBlock.COOLING, cooling), Block.UPDATE_ALL);
+        }
+    }
+
+    /** Beim Setzen: Trank und Restabklingzeit vom Item uebernehmen (ein abgebautes Pad traegt beides). */
     @Override
     protected void applyImplicitComponents(DataComponentGetter components) {
         super.applyImplicitComponents(components);
         PotionContents contents = components.get(DataComponents.POTION_CONTENTS);
         this.stored = contents == null || !contents.hasEffects() ? null : contents;
+        Integer rest = components.get(TweaksComponents.POTION_PAD_COOLDOWN);
+        this.cooldown = rest == null ? 0 : Math.max(0, rest);
     }
 
-    /** Fuer Strg+Mittelklick: der gespeicherte Trank zurueck aufs Item. */
+    /** Fuer Strg+Mittelklick: Trank und Restabklingzeit zurueck aufs Item. */
     @Override
     protected void collectImplicitComponents(DataComponentMap.Builder components) {
         super.collectImplicitComponents(components);
         if (stored != null) {
             components.set(DataComponents.POTION_CONTENTS, stored);
+        }
+        if (cooldown > 0) {
+            components.set(TweaksComponents.POTION_PAD_COOLDOWN, cooldown);
         }
     }
 
@@ -155,6 +239,7 @@ public class PotionPadBlockEntity extends OwnedBlockEntity {
     public void removeComponentsFromTag(ValueOutput output) {
         super.removeComponentsFromTag(output);
         output.discard("Potion");
+        output.discard("Cooldown");
     }
 
     @Override
@@ -163,11 +248,15 @@ public class PotionPadBlockEntity extends OwnedBlockEntity {
         if (stored != null) {
             output.store("Potion", PotionContents.CODEC, stored);
         }
+        if (cooldown > 0) {
+            output.putInt("Cooldown", cooldown);
+        }
     }
 
     @Override
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
         this.stored = input.read("Potion", PotionContents.CODEC).filter(PotionContents::hasEffects).orElse(null);
+        this.cooldown = Math.max(0, input.getIntOr("Cooldown", 0));
     }
 }

@@ -15714,6 +15714,9 @@
         "simplebuilding:netherite_chunk_loader_smithing"
       ],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "lootTable": "simplebuilding:blocks/chunk_loader",
       "drops": [
         "simplebuilding:chunk_loader"
@@ -15937,6 +15940,9 @@
         "simplebuilding:reinforced_elytra_pad_smithing"
       ],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "lootTable": "simplebuilding:blocks/elytra_pad",
       "drops": [
         "simplebuilding:elytra_pad"
@@ -16560,6 +16566,9 @@
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "lootTable": "simplebuilding:blocks/enderite_chunk_loader",
       "drops": [
         "simplebuilding:enderite_chunk_loader"
@@ -16608,6 +16617,9 @@
         "simplebuilding:fine_elytra_pad_smithing"
       ],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "lootTable": "simplebuilding:blocks/enderite_elytra_pad",
       "drops": [
         "simplebuilding:enderite_elytra_pad"
@@ -16662,6 +16674,9 @@
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "lootTable": "simplebuilding:blocks/enderite_flypad",
       "drops": [
         "simplebuilding:enderite_flypad"
@@ -16895,6 +16910,9 @@
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "lootTable": "simplebuilding:blocks/enderite_launchpad",
       "drops": [
         "simplebuilding:enderite_launchpad"
@@ -17227,6 +17245,9 @@
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "lootTable": "simplebuilding:blocks/enderite_spawn_teleporter",
       "drops": [
         "simplebuilding:enderite_spawn_teleporter"
@@ -17333,6 +17354,9 @@
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "lootTable": "simplebuilding:blocks/fine_elytra_pad",
       "drops": [
         "simplebuilding:fine_elytra_pad"
@@ -17391,6 +17415,9 @@
         "simplebuilding:flypad_tier2_smithing"
       ],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "lootTable": "simplebuilding:blocks/flypad",
       "drops": [
         "simplebuilding:flypad"
@@ -17443,6 +17470,9 @@
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "lootTable": "simplebuilding:blocks/infused_potion_pad",
       "drops": [
         "simplebuilding:infused_potion_pad"
@@ -17549,6 +17579,9 @@
         "simplebuilding:netherite_launchpad_smithing"
       ],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "lootTable": "simplebuilding:blocks/launchpad",
       "drops": [
         "simplebuilding:launchpad"
@@ -18073,6 +18106,9 @@
         "simplebuilding:enderite_chunk_loader_smithing"
       ],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "lootTable": "simplebuilding:blocks/netherite_chunk_loader",
       "drops": [
         "simplebuilding:netherite_chunk_loader"
@@ -18121,6 +18157,9 @@
         "simplebuilding:enderite_elytra_pad_smithing"
       ],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "lootTable": "simplebuilding:blocks/netherite_elytra_pad",
       "drops": [
         "simplebuilding:netherite_elytra_pad"
@@ -18175,6 +18214,9 @@
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "lootTable": "simplebuilding:blocks/netherite_flypad",
       "drops": [
         "simplebuilding:netherite_flypad"
@@ -18447,6 +18489,9 @@
         "simplebuilding:enderite_launchpad_smithing"
       ],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "lootTable": "simplebuilding:blocks/netherite_launchpad",
       "drops": [
         "simplebuilding:netherite_launchpad"
@@ -19554,6 +19599,9 @@
         "simplebuilding:reinforced_potion_pad_smithing"
       ],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "lootTable": "simplebuilding:blocks/potion_pad",
       "drops": [
         "simplebuilding:potion_pad"
@@ -19944,6 +19992,9 @@
         "simplebuilding:netherite_elytra_pad_smithing"
       ],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "lootTable": "simplebuilding:blocks/reinforced_elytra_pad",
       "drops": [
         "simplebuilding:reinforced_elytra_pad"
@@ -20002,6 +20053,9 @@
         "simplebuilding:stellar_flypad_smithing"
       ],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "lootTable": "simplebuilding:blocks/reinforced_flypad",
       "drops": [
         "simplebuilding:reinforced_flypad"
@@ -20423,6 +20477,9 @@
         "simplebuilding:infused_potion_pad_smithing"
       ],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "lootTable": "simplebuilding:blocks/reinforced_potion_pad",
       "drops": [
         "simplebuilding:reinforced_potion_pad"
@@ -20723,6 +20780,9 @@
         "simplebuilding:spawn_teleporter_tier2_smithing"
       ],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "lootTable": "simplebuilding:blocks/spawn_teleporter",
       "drops": [
         "simplebuilding:spawn_teleporter"
@@ -20781,6 +20841,9 @@
         "simplebuilding:spawn_teleporter_tier3_smithing"
       ],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "lootTable": "simplebuilding:blocks/spawn_teleporter_tier_2",
       "drops": [
         "simplebuilding:spawn_teleporter_tier_2"
@@ -20839,6 +20902,9 @@
         "simplebuilding:spawn_teleporter_tier4_smithing"
       ],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "lootTable": "simplebuilding:blocks/spawn_teleporter_tier_3",
       "drops": [
         "simplebuilding:spawn_teleporter_tier_3"
@@ -20897,6 +20963,9 @@
         "simplebuilding:enderite_spawn_teleporter_smithing"
       ],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "lootTable": "simplebuilding:blocks/spawn_teleporter_tier_4",
       "drops": [
         "simplebuilding:spawn_teleporter_tier_4"
@@ -20953,6 +21022,9 @@
       ],
       "usedIn": [],
       "trades": [],
+      "properties": {
+        "maxStackSize": 1
+      },
       "lootTable": "simplebuilding:blocks/stellar_flypad",
       "drops": [
         "simplebuilding:stellar_flypad"

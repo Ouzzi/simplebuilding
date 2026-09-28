@@ -5,6 +5,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.simplebuilding.tweaks.block.entity.PotionPadBlockEntity;
 import com.simplebuilding.tweaks.block.entity.TweaksBlockEntities;
+import com.simplebuilding.tweaks.component.TweaksComponents;
 import com.simplebuilding.tweaks.easter.EasterEggs;
 import java.util.List;
 import com.simplebuilding.version.BlockCodecs;
@@ -16,6 +17,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -26,6 +28,8 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
@@ -34,17 +38,22 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Trank-Pad I-III (Besitzer 2026-09-28, docs/SIMPLETWEAKS-UEBERNAHME.md Abschnitt 2.4): ein
  * Wurftrank (Splash oder Verweil), der auf dem Pad zerschellt, wird gespeichert und ersetzt den
- * vorigen; ein Wasser-Wurftrank wischt das Pad leer. Jeder Spieler, der das Pad betritt, bekommt die
- * gespeicherten Wirkungen mit der Verstaerkung des Tranks fuer 30/60/120 s (Stufe I/II/III), solange
- * er darauf steht immer wieder aufgefrischt, nie laenger (die letzte Easter-Stufe: 240 s). Sofortwirkungen (Heilung, Schaden) wirken
- * einmal je Betreten, hoechstens alle {@link PotionPadBlockEntity#INSTANT_COOLDOWN_TICKS} Ticks je
- * Spieler. Unbegrenzt haltbar.
+ * vorigen; ein Wasser-Wurftrank wischt das Pad leer. Wer auf dem Pad steht, bekommt die gespeicherten
+ * Wirkungen mit der Verstaerkung des Tranks in drei Schritten (nach 1/2/3 s: 25/50/100 % von 30/60/120 s
+ * fuer Stufe I/II/III, die letzte Easter-Stufe 240 s); Sofortwirkungen einmal beim 3-s-Schritt. Der
+ * 100-%-Schritt setzt das Pad fuer die doppelte Wirkdauer in die Abklingzeit ({@link #cooldownAt},
+ * Blockzustand {@link #COOLING} mit animierter Textur), die nur gesetzt weiterlaeuft; abgebaut traegt das
+ * Item die Restzeit ({@link TweaksComponents#POTION_PAD_COOLDOWN}). Unbegrenzt haltbar.
+ * Ablauf im Detail: {@link PotionPadBlockEntity}.
  */
 public class PotionPadBlock extends PadBlock {
     public static final MapCodec<PotionPadBlock> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
             BlockCodecs.propertiesField(),
             Codec.INT.fieldOf("tier").forGetter(PotionPadBlock::getTier)
     ).apply(i, PotionPadBlock::new));
+
+    /** Abklingzeit laeuft: das Pad gibt nichts, die Textur ist animiert. */
+    public static final BooleanProperty COOLING = BooleanProperty.create("cooling");
 
     /** Hoechste Stufe. */
     public static final int MAX_TIER = 3;
@@ -56,6 +65,19 @@ public class PotionPadBlock extends PadBlock {
     public PotionPadBlock(BlockBehaviour.Properties properties, int tier) {
         super(properties, Block.box(1, 0, 1, 15, 1, 15), PadOwnership.OWNER_PAD, PadOwnership.STRANGER_PAD);
         this.tier = Math.max(1, Math.min(MAX_TIER, tier));
+        registerDefaultState(stateDefinition.any().setValue(COOLING, false));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(COOLING);
+    }
+
+    /** Ein abgebautes Pad in der Abklingzeit wird wieder als abklingendes Pad gesetzt. */
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        Integer rest = context.getItemInHand().get(TweaksComponents.POTION_PAD_COOLDOWN);
+        return defaultBlockState().setValue(COOLING, rest != null && rest > 0);
     }
 
     public int getTier() {
@@ -79,14 +101,27 @@ public class PotionPadBlock extends PadBlock {
         return EasterEggs.isBoosted(level, pos) ? 2 * effectDuration() : effectDuration();
     }
 
-    /** Beim Abbau behaelt das Item den gespeicherten Trank (die Easter-Stufe schreibt {@link PadBlock#getDrops}). */
+    /** Abklingzeit nach dem vollen Schritt: doppelte Wirkdauer des gesetzten Pads (60/120/240 s, Easter-Endstufe 480 s). */
+    public int cooldownAt(BlockGetter level, BlockPos pos) {
+        return 2 * effectDurationAt(level, pos);
+    }
+
+    /**
+     * Beim Abbau behaelt das Item den gespeicherten Trank und eine laufende Abklingzeit (Restticks als
+     * {@link TweaksComponents#POTION_PAD_COOLDOWN}); die Easter-Stufe schreibt {@link PadBlock#getDrops}.
+     */
     @Override
     protected List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
         List<ItemStack> drops = super.getDrops(state, params);
-        if (params.getOptionalParameter(LootContextParams.BLOCK_ENTITY) instanceof PotionPadBlockEntity pad && pad.getStored() != null) {
+        if (params.getOptionalParameter(LootContextParams.BLOCK_ENTITY) instanceof PotionPadBlockEntity pad) {
             for (ItemStack stack : drops) {
                 if (stack.is(this.asItem())) {
-                    stack.set(DataComponents.POTION_CONTENTS, pad.getStored());
+                    if (pad.getStored() != null) {
+                        stack.set(DataComponents.POTION_CONTENTS, pad.getStored());
+                    }
+                    if (pad.isCoolingDown()) {
+                        stack.set(TweaksComponents.POTION_PAD_COOLDOWN, pad.getCooldown());
+                    }
                 }
             }
         }
@@ -135,6 +170,9 @@ public class PotionPadBlock extends PadBlock {
             PotionContents stored = pad.getStored();
             Component message = stored == null
                     ? Component.translatable("message.simplebuilding.potion_pad.empty").withStyle(ChatFormatting.GRAY)
+                    : pad.isCoolingDown()
+                    ? Component.translatable("message.simplebuilding.potion_pad.cooling",
+                            stored.getName("item.minecraft.splash_potion.effect."), (pad.getCooldown() + 19) / 20).withStyle(ChatFormatting.DARK_PURPLE)
                     : Component.translatable("message.simplebuilding.potion_pad.stored",
                             stored.getName("item.minecraft.splash_potion.effect."), effectDurationAt(level, pos) / 20).withStyle(ChatFormatting.LIGHT_PURPLE);
             player.sendOverlayMessage(message);

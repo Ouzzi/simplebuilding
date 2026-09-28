@@ -60,8 +60,14 @@ public final class TweaksItems {
             boolean epic = path.startsWith("enderite_") || path.equals("fine_elytra_pad") || path.equals("stellar_flypad")
                     || (potionPad && !path.equals("potion_pad"));
             boolean fireproof = epic || potionPad || path.startsWith("netherite_");
+            // Alle Pads (jede Familie, jede Stufe, auch Easter- und alte Stufen) stapeln nicht (Besitzer
+            // 2026-09-28): jedes Pad traegt Besitz, Easter-Stufe, Trank oder Abklingzeit als Einzelstueck.
+            boolean pad = isPad(block);
             Item item = register(path, p -> {
                 Item.Properties props = p.useBlockDescriptionPrefix();
+                if (pad) {
+                    props = props.stacksTo(1);
+                }
                 if (fireproof) {
                     props = props.fireResistant();
                 }
@@ -71,6 +77,9 @@ public final class TweaksItems {
                 // Alte Stufenbloecke tauschen sich im Inventar gegen ihre neue Stufe (LegacyTierBlockItem).
                 if (block instanceof com.simplebuilding.tweaks.block.LegacyFlypadBlock legacy) {
                     return new LegacyTierBlockItem(block, props, () -> legacy.target().asItem());
+                }
+                if (block instanceof com.simplebuilding.tweaks.block.PotionPadBlock) {
+                    return new PotionPadItem(block, props);
                 }
                 return new BlockItem(block, props);
             });
@@ -82,6 +91,27 @@ public final class TweaksItems {
     }
 
     public static void init() {
+    }
+
+    /**
+     * Ob der Block ein Pad ist (Elytra-Pad, Flypad, Launchpad, Chunk-Loader, Spawn-Teleporter, Trank-Pad,
+     * alte Flypad-Stufen) - nicht die Druckplatten, auch nicht die Kupferplatten, die technisch
+     * {@link com.simplebuilding.tweaks.block.PadBlock} sind.
+     */
+    public static boolean isPad(Block block) {
+        return block instanceof com.simplebuilding.tweaks.block.PadBlock
+                && !(block instanceof com.simplebuilding.tweaks.block.CopperPressurePlateBlock);
+    }
+
+    /** Die Items aller Pads ({@link #isPad}), in Registrierungsreihenfolge. */
+    public static List<Item> padItems() {
+        List<Item> pads = new ArrayList<>();
+        for (Item item : BLOCK_ITEMS) {
+            if (item instanceof BlockItem blockItem && isPad(blockItem.getBlock())) {
+                pads.add(item);
+            }
+        }
+        return pads;
     }
 
     public static List<Item> blockItems() {

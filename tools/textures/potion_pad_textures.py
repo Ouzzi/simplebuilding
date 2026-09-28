@@ -8,12 +8,18 @@ II Enderit-Violett, III Gold wie das stellare Flypad), die hellen Funkelsterne d
 bleiben hell. In der Mitte steht eine kleine Trankflasche (Korken, Glas, Fluessigkeit in der
 Stufenfarbe); die Farbe des gespeicherten Tranks zeigen im Spiel die Partikel.
 
+Abklingzeit (Besitzer 2026-09-28): je Stufe ein Animationsstreifen <id>_cooling.png (COOLING_FRAMES
+Bilder, .mcmeta ueber POTION_PAD_ANIMATIONS): die Adern verlieren ihre Glut und pulsieren langsam zwischen
+erkaltet und halb gluehend, die Flasche steht leer (dunkles Glas mit Glanzpunkt) und fuellt sich
+Bild fuer Bild von unten wieder - das Pad laedt nach. Kontur und Korken der Flasche bleiben unveraendert.
+
 Lohenkopf: neue Pixelkunst im Mob-Kopf-Raster (64x32, Kopfwuerfel 8x8x8 bei UV 0,0 wie Vanillas
 Creeper-/Skelettkopf): Glutgesicht von Weissgelb oben nach Rostbraun unten, zwei Augenpaare wie die
 Lohe (weisser Rand aussen, schwarze Pupille innen), dunkle Brauenkante darueber, Oberseite heiss und
 fleckig, Unterseite verkohlt.
 """
 import colorsys
+import math
 import os
 
 from PIL import Image
@@ -81,7 +87,7 @@ def _ramp(ramp, t):
 def _recolour(src, veins):
     """Steinpixel -> Netherit-Rampe, blaue Adern -> Glut-Rampe, sehr helle Sternpixel bleiben hell."""
     out = Image.new("RGBA", src.size)
-    vein_ramp = [_hex(c) for c in veins]
+    vein_ramp = [c if isinstance(c, tuple) else _hex(c) for c in veins]
     for y in range(src.height):
         for x in range(src.width):
             p = src.getpixel((x, y))
@@ -112,11 +118,65 @@ def _flask(img, liquid):
     return img
 
 
+# ---------------------------------------------------------------------------------------------
+# Abklingzeit: animierter Streifen je Stufe
+# ---------------------------------------------------------------------------------------------
+COOLING_FRAMES = 12
+# Leeres Glas: dunkles Inneres (das Pad scheint durch), ein Glanzpunkt, wo sonst der Fluessigkeitsglanz sitzt
+EMPTY_GLASS = {"e": "#3b4150", "s": "#8e9bb0"}
+# Fluessigkeitszeilen der Flasche (Zeilen in FLASK), unten zuerst: Fuellstand n fuellt die untersten n
+LIQUID_ROWS = [6, 5, 4, 3, 2]
+POTION_PAD_ANIMATIONS = {f"block/{name}_cooling.png": {"frametime": 8, "interpolate": False} for name in TIERS}
+
+
+def _blend(a, b, t):
+    return tuple(int(round(a[i] + (b[i] - a[i]) * t)) for i in range(3)) + (255,)
+
+
+def _cooled_veins(veins, glow):
+    """Adern-Rampe ohne Glut: Richtung dunkles Netherit gezogen; glow 0 = kalt, 1 = halbe Glut."""
+    cold = NETHERITE_RAMP[1]
+    return [_blend(_blend(_hex(c), cold, 0.62), _hex(c), 0.5 * glow) for c in veins]
+
+
+def _flask_level(img, liquid, level):
+    """Flasche mit Fuellstand 0..5 (Zeilen von unten), gefuellte Zeilen schattiert wie die volle Flasche."""
+    pal = dict(FLASK_PAL)
+    pal.update(liquid)
+    ox, oy = FLASK_AT
+    filled = set(LIQUID_ROWS[:level])
+    for dy, row in enumerate(FLASK):
+        for dx, ch in enumerate(row):
+            if ch == ".":
+                continue
+            if ch in "Lld":
+                if dy in filled:
+                    colour = pal[ch]
+                else:
+                    colour = EMPTY_GLASS["s"] if ch == "l" else EMPTY_GLASS["e"]
+            else:
+                colour = pal[ch]
+            img.putpixel((ox + dx, oy + dy), _hex(colour))
+    return img
+
+
+def cooling_strip(src, tier):
+    """COOLING_FRAMES Bilder untereinander: Adern pulsieren, die Flasche fuellt sich von leer bis voll."""
+    strip = Image.new("RGBA", (16, 16 * COOLING_FRAMES))
+    for i in range(COOLING_FRAMES):
+        glow = 0.5 - 0.5 * math.cos(2 * math.pi * i / COOLING_FRAMES)
+        level = i * (len(LIQUID_ROWS) + 1) // COOLING_FRAMES
+        frame = _flask_level(_recolour(src, _cooled_veins(tier["veins"], glow)), tier["liquid"], level)
+        strip.paste(frame, (0, 16 * i))
+    return strip
+
+
 def potion_pad_textures():
     tex = {}
     for name, tier in TIERS.items():
         src = Image.open(os.path.join(OLD_FLYPADS, tier["source"])).convert("RGBA")
         tex[f"block/{name}.png"] = _flask(_recolour(src, tier["veins"]), tier["liquid"])
+        tex[f"block/{name}_cooling.png"] = cooling_strip(src, tier)
     tex["entity/blaze_head.png"] = blaze_head_texture()
     return tex
 

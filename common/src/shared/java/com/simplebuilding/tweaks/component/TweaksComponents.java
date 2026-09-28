@@ -8,7 +8,7 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.codec.ByteBufCodecs;
 
-/** Item-Komponenten der Spawn-Elytra, 1:1 aus Simple Tweaks ({@code ModDataComponentTypes}). */
+/** Item-Komponenten der Spawn-Elytra, 1:1 aus Simple Tweaks ({@code ModDataComponentTypes}), und die Abklingzeit des Trank-Pads. */
 public final class TweaksComponents {
 
     /** Verbleibende Flugzeit in Ticks. */
@@ -26,6 +26,13 @@ public final class TweaksComponents {
     /** Schuetzt vor Fall- und Kinetikschaden (Spawn: ja, Pad: nein). */
     public static final DataComponentType<Boolean> IS_SAFE_ELYTRA = register("is_safe_elytra",
             b -> b.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL));
+
+    /**
+     * Trank-Pad, in der Abklingzeit abgebaut: verbleibende Ticks. Die Zeit laeuft nur gesetzt weiter
+     * (PotionPadBlockEntity); das Item zeigt dann die animierte Textur und die Restzeit im Tooltip.
+     */
+    public static final DataComponentType<Integer> POTION_PAD_COOLDOWN = register("potion_pad_cooldown",
+            b -> b.persistent(Codec.intRange(1, Integer.MAX_VALUE)).networkSynchronized(ByteBufCodecs.VAR_INT));
 
     private TweaksComponents() {
     }

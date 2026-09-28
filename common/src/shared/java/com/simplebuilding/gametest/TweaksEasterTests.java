@@ -325,9 +325,13 @@ public final class TweaksEasterTests {
         PotionPadBlock.absorb(potionBe, PotionContents.createItemStack(Items.SPLASH_POTION, Potions.STRONG_SWIFTNESS));
         ServerPlayer drinker = mockPlayer(helper, new Vec3(1.5, 1.0, 5.5));
         drinker.removeAllEffects();
-        potionBe.apply(level, drinker, true, level.getGameTime(), helper.getBlockState(potion));
+        for (int step = 1; step <= PotionPadBlockEntity.RAMP_STEPS; step++) {
+            potionBe.grant(level, drinker, step);
+        }
         int given = drinker.hasEffect(MobEffects.SPEED) ? drinker.getEffect(MobEffects.SPEED).getDuration() : -1;
-        helper.assertTrue(given == 240 * 20, "stepping on the final easter potion pad gave Speed for " + given + " ticks instead of 4800");
+        helper.assertTrue(given == 240 * 20, "standing 3 s on the final easter potion pad gave Speed for " + given + " ticks instead of 4800");
+        // Abklingzeit: doppelte Wirkdauer, also 480 s statt 240 s.
+        helper.assertTrue(potionBe.getCooldown() == 480 * 20, "the final easter potion pad cools down for " + potionBe.getCooldown() + " ticks instead of 9600");
         helper.setBlock(potion, Blocks.AIR);
         BlockPos potionMiddle = new BlockPos(3, 1, 5);
         placeStaged(helper, potionMiddle, TweaksBlocks.REINFORCED_POTION_PAD, 2);

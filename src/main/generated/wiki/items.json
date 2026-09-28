@@ -180,7 +180,8 @@
       "id": "simplebuilding:chiseled_nihilith_bricks"
     },
     {
-      "id": "simplebuilding:chunk_loader"
+      "id": "simplebuilding:chunk_loader",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:construction_light"
@@ -281,7 +282,8 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:elytra_pad"
+      "id": "simplebuilding:elytra_pad",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:emitting_trim_template"
@@ -379,17 +381,20 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:enderite_chunk_loader"
+      "id": "simplebuilding:enderite_chunk_loader",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:enderite_core",
       "maxStackSize": 16
     },
     {
-      "id": "simplebuilding:enderite_elytra_pad"
+      "id": "simplebuilding:enderite_elytra_pad",
+      "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:enderite_flypad"
+      "id": "simplebuilding:enderite_flypad",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:enderite_furnace"
@@ -415,7 +420,8 @@
       "id": "simplebuilding:enderite_ingot"
     },
     {
-      "id": "simplebuilding:enderite_launchpad"
+      "id": "simplebuilding:enderite_launchpad",
+      "maxStackSize": 1
     },
     {
       "durability": 630,
@@ -468,7 +474,8 @@
       "id": "simplebuilding:enderite_smoker"
     },
     {
-      "id": "simplebuilding:enderite_spawn_teleporter"
+      "id": "simplebuilding:enderite_spawn_teleporter",
+      "maxStackSize": 1
     },
     {
       "attackDamage": 6.0,
@@ -493,10 +500,12 @@
       "id": "simplebuilding:exposed_copper_pressure_plate"
     },
     {
-      "id": "simplebuilding:fine_elytra_pad"
+      "id": "simplebuilding:fine_elytra_pad",
+      "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:flypad"
+      "id": "simplebuilding:flypad",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:funny_stick",
@@ -573,7 +582,8 @@
       "maxStackSize": 16
     },
     {
-      "id": "simplebuilding:infused_potion_pad"
+      "id": "simplebuilding:infused_potion_pad",
+      "maxStackSize": 1
     },
     {
       "durability": 2000,
@@ -619,7 +629,8 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:launchpad"
+      "id": "simplebuilding:launchpad",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:leather_sheet"
@@ -668,17 +679,20 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:netherite_chunk_loader"
+      "id": "simplebuilding:netherite_chunk_loader",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:netherite_core",
       "maxStackSize": 16
     },
     {
-      "id": "simplebuilding:netherite_elytra_pad"
+      "id": "simplebuilding:netherite_elytra_pad",
+      "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:netherite_flypad"
+      "id": "simplebuilding:netherite_flypad",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:netherite_furnace"
@@ -687,7 +701,8 @@
       "id": "simplebuilding:netherite_hopper"
     },
     {
-      "id": "simplebuilding:netherite_launchpad"
+      "id": "simplebuilding:netherite_launchpad",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:netherite_nugget"
@@ -906,7 +921,8 @@
       "id": "simplebuilding:polished_nihilith_wall"
     },
     {
-      "id": "simplebuilding:potion_pad"
+      "id": "simplebuilding:potion_pad",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:purpur_quartz_checker"
@@ -932,10 +948,12 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:reinforced_elytra_pad"
+      "id": "simplebuilding:reinforced_elytra_pad",
+      "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:reinforced_flypad"
+      "id": "simplebuilding:reinforced_flypad",
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:reinforced_furnace"
@@ -947,7 +965,8 @@
       "id": "simplebuilding:reinforced_piston"
     },
     {
-      "id": "simplebuilding:reinforced_potion_pad"
+      "id": "simplebuilding:reinforced_potion_pad",
+      "maxStackSize": 1
     },
     {
       "bundleCapacityItems": 96,
@@ -974,19 +993,24 @@
       "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:spawn_teleporter"
+      "id": "simplebuilding:spawn_teleporter",
+      "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:spawn_teleporter_tier_2"
+      "id": "simplebuilding:spawn_teleporter_tier_2",
+      "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:spawn_teleporter_tier_3"
+      "id": "simplebuilding:spawn_teleporter_tier_3",
+      "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:spawn_teleporter_tier_4"
+      "id": "simplebuilding:spawn_teleporter_tier_4",
+      "maxStackSize": 1
     },
     {
-      "id": "simplebuilding:stellar_flypad"
+      "id": "simplebuilding:stellar_flypad",
+      "maxStackSize": 1
     },
     {
       "cooldownTicks": 30,

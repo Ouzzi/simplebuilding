@@ -16,13 +16,28 @@ public final class PotionPadGameTest {
     }
 
     @GameTest
-    public void steppingOnThePadGivesTheStoredEffectsForThirtySixtyOrOneHundredTwentySeconds(GameTestHelper helper) {
-        PotionPadTests.steppingOnThePadGivesTheStoredEffectsForThirtySixtyOrOneHundredTwentySeconds(helper);
+    public void standingOnThePadRampsTheEffectToTwentyFiveFiftyAndOneHundredPercentInThreeSeconds(GameTestHelper helper) {
+        PotionPadTests.standingOnThePadRampsTheEffectToTwentyFiveFiftyAndOneHundredPercentInThreeSeconds(helper);
     }
 
     @GameTest
-    public void instantEffectsApplyOncePerStepAndRespectTheirCooldown(GameTestHelper helper) {
-        PotionPadTests.instantEffectsApplyOncePerStepAndRespectTheirCooldown(helper);
+    public void instantEffectsApplyOnceAtTheThreeSecondMark(GameTestHelper helper) {
+        PotionPadTests.instantEffectsApplyOnceAtTheThreeSecondMark(helper);
+    }
+
+    @GameTest
+    public void aFullApplicationPutsThePadOnCooldownForTwiceTheEffectDuration(GameTestHelper helper) {
+        PotionPadTests.aFullApplicationPutsThePadOnCooldownForTwiceTheEffectDuration(helper);
+    }
+
+    @GameTest
+    public void aPadBrokenDuringCooldownKeepsTheRemainingTimeAndResumesWhenPlacedAgain(GameTestHelper helper) {
+        PotionPadTests.aPadBrokenDuringCooldownKeepsTheRemainingTimeAndResumesWhenPlacedAgain(helper);
+    }
+
+    @GameTest
+    public void everyPadItemStacksToOne(GameTestHelper helper) {
+        PotionPadTests.everyPadItemStacksToOne(helper);
     }
 
     @GameTest

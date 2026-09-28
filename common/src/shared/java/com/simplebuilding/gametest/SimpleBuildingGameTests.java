@@ -1202,9 +1202,15 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("potion_pad_game_test_splash_potions_landing_on_the_pad_are_stored_and_replaced", PotionPadTests::splashPotionsLandingOnThePadAreStoredAndReplaced)
                     .build(),
-            GameTestSpec.named("potion_pad_game_test_stepping_on_the_pad_gives_the_stored_effects_for_thirty_sixty_or_one_hundred_twenty_seconds", PotionPadTests::steppingOnThePadGivesTheStoredEffectsForThirtySixtyOrOneHundredTwentySeconds)
+            GameTestSpec.named("potion_pad_game_test_standing_on_the_pad_ramps_the_effect_to_twenty_five_fifty_and_one_hundred_percent_in_three_seconds", PotionPadTests::standingOnThePadRampsTheEffectToTwentyFiveFiftyAndOneHundredPercentInThreeSeconds)
                     .build(),
-            GameTestSpec.named("potion_pad_game_test_instant_effects_apply_once_per_step_and_respect_their_cooldown", PotionPadTests::instantEffectsApplyOncePerStepAndRespectTheirCooldown)
+            GameTestSpec.named("potion_pad_game_test_instant_effects_apply_once_at_the_three_second_mark", PotionPadTests::instantEffectsApplyOnceAtTheThreeSecondMark)
+                    .build(),
+            GameTestSpec.named("potion_pad_game_test_a_full_application_puts_the_pad_on_cooldown_for_twice_the_effect_duration", PotionPadTests::aFullApplicationPutsThePadOnCooldownForTwiceTheEffectDuration)
+                    .build(),
+            GameTestSpec.named("potion_pad_game_test_a_pad_broken_during_cooldown_keeps_the_remaining_time_and_resumes_when_placed_again", PotionPadTests::aPadBrokenDuringCooldownKeepsTheRemainingTimeAndResumesWhenPlacedAgain)
+                    .build(),
+            GameTestSpec.named("potion_pad_game_test_every_pad_item_stacks_to_one", PotionPadTests::everyPadItemStacksToOne)
                     .build(),
             GameTestSpec.named("potion_pad_game_test_potion_pad_recipes_cover_all_three_tiers", PotionPadTests::potionPadRecipesCoverAllThreeTiers)
                     .build(),

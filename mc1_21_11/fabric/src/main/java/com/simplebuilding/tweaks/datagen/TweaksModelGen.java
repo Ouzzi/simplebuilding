@@ -1,6 +1,7 @@
 package com.simplebuilding.tweaks.datagen;
 
 import com.simplebuilding.tweaks.block.CopperPressurePlateBlock;
+import com.simplebuilding.tweaks.block.PotionPadBlock;
 import com.simplebuilding.tweaks.block.TweaksBlocks;
 import com.simplebuilding.tweaks.item.TweaksItems;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.RangeSelectItemModel;
 import net.minecraft.client.renderer.item.properties.conditional.Damaged;
+import net.minecraft.client.renderer.item.properties.conditional.HasComponent;
 import net.minecraft.client.renderer.item.properties.numeric.CompassAngle;
 import net.minecraft.client.renderer.item.properties.numeric.CompassAngleState;
 import net.minecraft.client.renderer.item.properties.numeric.Damage;
@@ -47,6 +49,10 @@ public final class TweaksModelGen {
                 plate(generator, block);
                 continue;
             }
+            if (block instanceof PotionPadBlock) {
+                potionPad(generator, block);
+                continue;
+            }
             TextureMapping texture = enderFlypad ? TextureMapping.defaultTexture(TextureMapping.getBlockTexture(block, "_ender"))
                     : TextureMapping.defaultTexture(block);
             Identifier model = ModelTemplates.PRESSURE_PLATE_UP.create(block, texture, generator.modelOutput);
@@ -69,6 +75,23 @@ public final class TweaksModelGen {
         generator.itemModelOutput.accept(TweaksItems.BLAZE_HEAD, ItemModelUtils.specialModel(
                 ModelLocationUtils.decorateItemModelLocation("template_skull"),
                 new net.minecraft.client.renderer.special.SkullSpecialRenderer.Unbaked(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE)));
+    }
+
+    /**
+     * Trank-Pad: bereit {@code <id>}, in der Abklingzeit ({@code cooling=true}) {@code <id>_cooling} mit
+     * der animierten Textur {@code block/<id>_cooling} (tools/textures/potion_pad_textures.py). Das Item
+     * zeigt das abklingende Modell, solange es die Restzeit traegt (abgebaut in der Abklingzeit).
+     */
+    private static void potionPad(BlockModelGenerators generator, Block block) {
+        Identifier ready = ModelTemplates.PRESSURE_PLATE_UP.create(block, TextureMapping.defaultTexture(block), generator.modelOutput);
+        Identifier cooling = ModelTemplates.PRESSURE_PLATE_UP.createWithSuffix(block, "_cooling",
+                TextureMapping.defaultTexture(TextureMapping.getBlockTexture(block, "_cooling")), generator.modelOutput);
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(PropertyDispatch.initial(PotionPadBlock.COOLING)
+                .select(true, BlockModelGenerators.plainVariant(cooling))
+                .select(false, BlockModelGenerators.plainVariant(ready))));
+        generator.itemModelOutput.accept(block.asItem(), ItemModelUtils.conditional(
+                new HasComponent(com.simplebuilding.tweaks.component.TweaksComponents.POTION_PAD_COOLDOWN, false),
+                ItemModelUtils.plainModel(cooling), ItemModelUtils.plainModel(ready)));
     }
 
     /** Echte Druckplatten (nicht die Pads): sinken gedrueckt ein wie Vanilla-Platten. */

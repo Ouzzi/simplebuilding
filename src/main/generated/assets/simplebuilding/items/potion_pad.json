@@ -1,6 +1,15 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "simplebuilding:block/potion_pad"
+    "type": "minecraft:condition",
+    "component": "simplebuilding:potion_pad_cooldown",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "simplebuilding:block/potion_pad"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "simplebuilding:block/potion_pad_cooling"
+    },
+    "property": "minecraft:has_component"
   }
 }
