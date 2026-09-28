@@ -199,7 +199,7 @@ public final class EnderiteMachineTests {
      * The five enderite machine items - hopper, furnace, smoker, blast furnace and piston - survive
      * lava, are EPIC like the other enderite equipment, and are in {@code simplebuilding:void_protected},
      * the tag the void rescue reads. All fifteen answers are compared in one list. Their netherite
-     * counterparts are the controls: fire resistant too, but neither EPIC nor void protected.
+     * counterparts are the controls: fire resistant too, but UNCOMMON (docs/RARITAETEN.md) and not void protected.
      *
      * <p>What breaks this test: {@code fireResistant()} or {@code rarity(Rarity.EPIC)} dropped from
      * one of the five registrations in {@code ModItems}, and a void protection tag that was not
@@ -220,7 +220,7 @@ public final class EnderiteMachineTests {
         Assertions.valueEqual(helper, actual.toString(), expected.toString(), "what the enderite machine items are");
 
         for (Item item : netherite) {
-            helper.assertTrue(traits(helper, item).equals(BuiltInRegistries.ITEM.getKey(item) + ": fire resistant, common, lost to the void"),
+            helper.assertTrue(traits(helper, item).equals(BuiltInRegistries.ITEM.getKey(item) + ": fire resistant, uncommon, lost to the void"),
                     "control broken: " + traits(helper, item));
         }
 
@@ -461,7 +461,7 @@ public final class EnderiteMachineTests {
         boolean fireResistant = resistant != null && resistant.isResistantTo(helper.getLevel().damageSources().lava());
         return BuiltInRegistries.ITEM.getKey(item) + ": "
                 + (fireResistant ? "fire resistant" : "burns") + ", "
-                + (stack.get(DataComponents.RARITY) == Rarity.EPIC ? "epic" : "common") + ", "
+                + String.valueOf(stack.get(DataComponents.RARITY)).toLowerCase(java.util.Locale.ROOT) + ", "
                 + (stack.is(ModTags.Items.VOID_PROTECTED) ? "void protected" : "lost to the void");
     }
 

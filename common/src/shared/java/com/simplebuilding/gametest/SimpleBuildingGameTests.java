@@ -136,6 +136,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_tool_names_carry_no_leftover_old_names", DataIntegrityTests::toolNamesCarryNoLeftoverOldNames)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_mod_item_rarities_follow_the_family_scheme", DataIntegrityTests::modItemRaritiesFollowTheFamilyScheme)
+                    .build(),
+            GameTestSpec.named("data_integrity_game_test_mod_item_names_follow_the_family_patterns", DataIntegrityTests::modItemNamesFollowTheFamilyPatterns)
+                    .build(),
             GameTestSpec.named("tool_behaviour_game_test_sledgehammer_breaks_three_by_three_around_origin", ToolBehaviourTests::sledgehammerBreaksThreeByThreeAroundOrigin)
                     .rotation(Rotation.NONE)
                     .build(),

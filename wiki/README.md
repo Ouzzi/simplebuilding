@@ -16,6 +16,29 @@ cd wiki && python -m http.server 8080
 
 und dann `http://localhost:8080/` öffnen.
 
+### Adressen, Navigation, Darstellung
+
+Jede Ansicht hat eine teilbare Adresse mit Suchparametern; Zurück/Vor im Browser
+funktioniert (`history.pushState`/`popstate`):
+
+| Ansicht | Adresse |
+|---|---|
+| Item / Block | `?item=simplebuilding:enderite_chisel` (reine Blöcke wie Pads landen auf `?block=`), mit `&tab=recipes\|uses\|drops\|trades\|inworld\|related\|technical` springt die Seite zum Abschnitt |
+| Kategorie | `?cat=tools\|building\|storage\|machines\|gadgets\|end\|trims\|materials\|misc` |
+| Listen | `?tab=items\|blocks\|recipes\|allrecipes\|inworld\|loot\|trades\|enchantments\|tags\|config\|advancements\|features` |
+| Einzelseiten | `?recipe=`, `?loot=`, `?trade=`, `?ench=`, `?tag=`, `?feature=`, `?config=`, `?inworld=`, `?make=`, `?use=`, `?tree=` |
+| Suche | `?q=hammer` |
+| Sprache | `&lang=de` (sonst gilt die gespeicherte Wahl) |
+
+Alte Hash-Links (`#/items/<id>`) werden beim Laden auf die neue Form umgeleitet. Intern
+bauen die Seiten weiter Hash-Routen; ein `MutationObserver` schreibt sie beim Einfügen
+um. Wo ein Browser `pushState` unter `file://` verweigert, bleibt die Seite beim Hash-Router.
+
+Die **Kategorien** stehen nicht in den Daten: `CAT_RULES` in `index.html` leitet sie aus
+der Id ab (erste passende Regel, „End & Enderit“ kommt zusätzlich dazu; was keine Regel
+trifft, landet unter „Materialien“). Suche: `/` oder `Strg+K`, Pfeiltasten, Enter.
+Farbschema: Umschalter oben rechts (System → hell → dunkel, in `localStorage`).
+
 ## Wie die Doku aktuell bleibt
 
 Das ist der Kern des Aufbaus, deshalb ausführlich.

@@ -158,4 +158,14 @@ public final class DataIntegrityGameTest {
     public void toolNamesCarryNoLeftoverOldNames(GameTestHelper helper) {
         DataIntegrityTests.toolNamesCarryNoLeftoverOldNames(helper);
     }
+
+    @GameTest
+    public void modItemRaritiesFollowTheFamilyScheme(GameTestHelper helper) {
+        DataIntegrityTests.modItemRaritiesFollowTheFamilyScheme(helper);
+    }
+
+    @GameTest
+    public void modItemNamesFollowTheFamilyPatterns(GameTestHelper helper) {
+        DataIntegrityTests.modItemNamesFollowTheFamilyPatterns(helper);
+    }
 }
