@@ -15030,6 +15030,18 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:blaze_wall_head",
+      "name": {
+        "en_us": "Blaze Head",
+        "de_de": "Lohenkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:chiseled_astralit_bricks",
       "name": {
         "en_us": "Chiseled Astralit Bricks",
@@ -48704,7 +48716,7 @@ window.WIKI_DATA = {
   },
   "counts": {
     "items": 166,
-    "blocks": 115,
+    "blocks": 116,
     "recipes": 349,
     "lootTables": 112,
     "trades": 21,
