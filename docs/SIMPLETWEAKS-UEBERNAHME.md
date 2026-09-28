@@ -479,3 +479,101 @@ der Registry) und Namen im Vanilla-Muster; dazu das Tab-Layout in `DataIntegrity
 - Laser-Option `showLine` hat weiter keine Wirkung (wie in Simple Tweaks); im Config-Bildschirm ausgeblendet.
 - Enderit-Texturen vom Besitzer pruefen lassen.
 - Claim-System (Abschnitt 4) bei Bedarf spaeter portieren.
+
+## 10. SPOILER: die versteckte Kette ueber den Endstufen (Besitzer 2026-09-27)
+
+> **Spoiler.** Dieser Abschnitt verraet ein Easter Egg. Das oeffentliche Wiki erwaehnt es nur mit
+> "manches ist versteckt"; Rezepte, Items und Advancements stehen dort bewusst nicht
+> (`wiki/generate.py`: `SECRET_ITEMS`, `SECRET_RECIPE_PREFIX`).
+
+**Idee (Besitzer):** Jede Pad-Familie laesst sich auf ihrer Endstufe im Schmiedetisch zurueck auf
+Stufe I schmieden. Das Ergebnis heisst **"Don't do it"** - der Spieler wurde gewarnt. Es ist der
+normale Stufe-I-Block mit derselben Funktion, nur ein Easter Egg. Wer weitermacht, steigt eine eigene
+Kette hinauf, deren letzte Stufe doppelt so stark ist wie die echte Endstufe, und kann sie zuletzt zu
+einem Stock schmieden.
+
+**Familien:** Elytra-Pad (5 Stufen), Spawn-Teleporter (5), Flypad (3), Launchpad (3), Chunk-Loader (3).
+Die Druckplatten-Familie (`TweaksFamilies.Family.PRESSURE_PLATE`) hat keine Kette: Platten sind keine
+Pads, haben keine Kraft zum Verdoppeln und sind selbst Zutat der Pad-Aufwertungen.
+
+| Easter-Stufe | Block | Name (en) | Name (de) | Verhalten |
+|---|---|---|---|---|
+| 1 | Stufe I | Don't do it | Tu es nicht | wie Stufe I |
+| 2 | Stufe II | Seriously? | Echt jetzt? | wie Stufe II |
+| 3 | Stufe III | Stop. Please. | Hoer auf. Bitte. | wie Stufe III (nur 5-stufige Familien) |
+| 4 | Stufe IV | Last Chance | Letzte Chance | wie Stufe IV (nur 5-stufige Familien) |
+| letzte (5 bzw. 3) | Endstufe | Name der Endstufe, verschleiert | dito | **doppelt so stark** |
+
+Die Namen der letzten Easter-Stufe stehen als Formatcodes in den Sprachdateien
+(`item.simplebuilding.easter.final.<familie>`): Farbverlauf je Familie (Elytra-Pad Gold-Gelb-Weiss,
+Flypad Violett-Magenta-Weiss, Spawn-Teleporter Blau-Aqua-Weiss, Launchpad Tuerkis-Aqua-Weiss,
+Chunk-Loader Rot-Orange-Gelb), fett, zwei verschleierte Zeichen (die Stufenziffer und ein Buchstabe
+in der Mitte); sichtbar genau so viele Zeichen wie der normale Name. Deutsch uebersetzt verspielt, die
+Endnamen folgen den deutschen Blocknamen.
+
+**Doppelte Kraft der letzten Easter-Stufe:**
+
+| Familie | Endstufe | letzte Easter-Stufe |
+|---|---|---|
+| Elytra-Pad V | 128x128, 127 hoch | 256x256, 254 hoch |
+| Flypad III | 16x16x24 | 32x32x48 |
+| Spawn-Teleporter V | 3 s stillstehen | 1,5 s |
+| Launchpad III | 16 Windkugeln | 32 Windkugeln (Schub pro Ladung unveraendert) |
+| Chunk-Loader III | 3x3 Chunks | 5x5 Chunks (Radius verdoppelt) |
+
+**Kosten (Schmiedetisch):** jeder Schritt kostet, was die normale Stufe kostet - dieselbe Vorlage,
+dieselbe Zutat (`EasterEggs#steps`, gleiche Liste wie `ModRecipeProvider#buildTweaksRecipes`):
+
+- Einstieg (Endstufe -> "Don't do it"): Vorlage und Hauptzutat der Stufe I, die Endstufe als Basis.
+  Elytra-Pad: beliebige Vorlage + **Elytra**; Flypad: Enderit-Vorlage + Enderit-Kern; Spawn-Teleporter:
+  beliebige Vorlage + Diamantblock; Launchpad und Chunk-Loader: beliebige Vorlage + Diamant-Druckplatte.
+- Easter-Stufe n -> n+1: Vorlage und Zutat der normalen Aufwertung von Stufe n auf n+1
+  (Flypad II -> III also ein zweites Flypad II).
+- **Funny Stick:** Netherit-Vorlage + letzte Easter-Stufe + **Netheritbarren**.
+
+**Funny Stick** (`simplebuilding:funny_stick`): ein Stock (Vanilla-Stockbild, in der Hand wie ein
+Werkzeug), episch, Verzauberungsglanz, nicht stapelbar, feuerfest. In Haupt- oder Nebenhand steigt alle
+4 Ticks ein Endstab-Funke auf, ab und zu eine Note oder ein Dorfbewohner-Glitzern (serverseitig, alle
+in der Naehe sehen es). Sonst tut er nichts.
+
+**Advancements** (alle `hidden`, eigener Tab "What have you done?" mit End-Hintergrund, der erst mit dem
+ersten erscheint; Toast und Chatmeldung):
+
+| Id | Titel (en / de) | Ausloeser (inventory_changed) |
+|---|---|---|
+| `simplebuilding:easter/what_have_you_done` | What have you done? / Was hast du getan? | ein Item mit Easter-Stufe 1 |
+| `simplebuilding:easter/seriously` | Seriously? / Echt jetzt? | ein Item mit Easter-Stufe 2 |
+| `simplebuilding:easter/it_was_worth_it` (Challenge) | It Was Worth It / Es hat sich gelohnt | die letzte Easter-Stufe einer Familie (je Familie ein Kriterium, eines reicht) |
+| `simplebuilding:easter/all_that_for_a_stick` (Challenge) | All That for a Stick? / Alles fuer einen Stock? | der Funny Stick |
+
+**Technik:**
+
+- Keine neuen Bloecke: die Item-Komponente `simplebuilding:easter_stage` (1..5) auf dem normalen
+  Stufenitem, dazu ein `item_name` aus der Stufe (`EasterEggs#mark`). Nur Stufen, die zum Block passen
+  (Stufe n = Block der Stufe n), zaehlen (`EasterEggs#fits`).
+- Gesetzt: `OwnedBlockEntity` liest die Komponente in `applyImplicitComponents` und speichert
+  `EasterStage`; `collectImplicitComponents` gibt Stufe und Name fuer Strg+Mittelklick zurueck.
+  Abgebaut: `PadBlock#getDrops` schreibt die Stufe auf das Item aus der Loot-Tabelle (auch bei
+  Explosionen). Ein Amboss setzt nur `custom_name`, nie die Komponente: ein umbenanntes normales Pad ist
+  kein Easter-Pad.
+- Rezepte: eigener Serializer `simplebuilding:easter_smithing` (`EasterSmithingRecipe`), prueft die
+  Easter-Stufe der Basis; Spezialrezept ohne Anzeige (kein Rezeptbuch, keine Freischalt-Meldung, JEI
+  zeigt fremde Schmiede-Klassen ohne Erweiterung nicht). Weil die Kette dieselben Zutaten nimmt wie die
+  normalen Aufwertungen, lehnt `SmithingTransformEasterGuardMixin` (in `simplebuilding.tweaks.mixins.json`,
+  laedt auf Fabric, NeoForge und Forge) jede Basis mit Easter-Stufe fuer normale Umwandlungsrezepte ab.
+  Rezepte unter `recipe/easter/`, 24 Stueck.
+- Advancements per Datagen (`EasterEggData`, aus `ModRecipeProvider`): sie reisen ueber
+  `RecipeOutput#accept` mit den Elytra-Pad-Rezepten, damit dieselbe Datei auf 26.2 und 26.3 baut.
+- Versteckt: kein Kreativ-Tab, `c:hidden_from_recipe_viewers` (Funny Stick; Easter-Pads sind nur
+  Komponenten-Varianten und stehen nirgends), Testzentrale `TestCentreLayout.EXCLUDED`, Wiki-Filter.
+- Doppelte Kraft: `EasterEggs#isBoosted(level, pos)`, abgefragt in `ElytraPadBlockEntity#areaOf`,
+  `FlypadBlockEntity#areaOf` (auch fuer die Uebergabe zwischen Flypads), `LaunchpadBlock#capacityAt`,
+  `ChunkLoaderBlockEntity` (Radius 2, `MAX_RADIUS` = 2) und `SpawnTeleporterBlockEntity#requiredTicks(level, pos, tier)`.
+
+**Tests:** `TweaksEasterTests` (Fabric-Adapter `TweaksEasterGameTest`, Ids
+`simplebuilding:tweaks_easter_game_test_*`), beide Codelinien: Einstieg je Familie mit echtem Setzen,
+Abbauen und Wiedersetzen, Stufe-I-Verhalten, Amboss-Umbenennung; ganze Kette je Familie (Namen, Stufen,
+gleiche Kosten wie die normale Stufe, kein normales Rezept nimmt ein Easter-Pad, Sprachdateien mit
+Formatcodes); doppelte Kraft je Familie; Advancements (versteckt, Kette, Ausloeser); Funny Stick
+(nur aus der letzten Stufe, frisches Item, Funken); Unsichtbarkeit (Tag, Kreativ-Tabs, Rezepte,
+Testzentrale).

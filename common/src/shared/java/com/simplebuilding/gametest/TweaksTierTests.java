@@ -333,7 +333,11 @@ public final class TweaksTierTests {
         expectNothing(helper, end, TweaksBlocks.NETHERITE_FLYPAD, ModItems.ENDERITE_INGOT);
         expectNothing(helper, end, TweaksBlocks.NETHERITE_FLYPAD, enderite);
         expectNothing(helper, any, TweaksBlocks.DIAMOND_PRESSURE_PLATE, Items.DIAMOND);
-        expectNothing(helper, net, TweaksBlocks.FINE_ELYTRA_PAD, Items.ELYTRA);
+        // Fine Elytra Pad V + Elytra ist kein alter Weg mehr, sondern der Einstieg in die versteckte
+        // Easter-Kette (TweaksEasterTests): nur ein normales Rezept waere hier falsch.
+        Optional<RecipeHolder<SmithingRecipe>> fine = smithing(helper, input(net, TweaksBlocks.FINE_ELYTRA_PAD, Items.ELYTRA));
+        helper.assertTrue(fine.isEmpty() || fine.get().value() instanceof com.simplebuilding.tweaks.easter.EasterSmithingRecipe,
+                "the old way still smiths the fine elytra pad with an elytra (" + fine.map(h -> h.id().toString()).orElse("") + ")");
         expectNothing(helper, net, TweaksBlocks.FLYPAD, netherite);
         expectNothing(helper, net, TweaksBlocks.SPAWN_TELEPORTER, Items.NETHERITE_INGOT);
         expectNothing(helper, end, TweaksBlocks.SPAWN_TELEPORTER_TIER_4, ModItems.ENDERITE_INGOT);

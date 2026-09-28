@@ -4,6 +4,7 @@ import com.simplebuilding.tweaks.SimpleTweaks;
 import com.simplebuilding.tweaks.TweaksClientHooks;
 import com.simplebuilding.tweaks.TweaksConfig;
 import com.simplebuilding.tweaks.block.SpawnTeleporterBlock;
+import com.simplebuilding.tweaks.easter.EasterEggs;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +49,11 @@ public class SpawnTeleporterBlockEntity extends OwnedBlockEntity {
         return tier >= SpawnTeleporterBlock.ENDERITE_TIER ? ENDERITE_TICKS : STANDARD_TICKS;
     }
 
+    /** Wartezeit dieses gesetzten Teleporters: die letzte Easter-Stufe ({@link EasterEggs}) wartet nur halb so lange. */
+    public static int requiredTicks(Level level, BlockPos pos, int tier) {
+        return EasterEggs.isBoosted(level, pos) ? requiredTicks(tier) / 2 : requiredTicks(tier);
+    }
+
     public static void serverTick(Level level, BlockPos pos, BlockState state, SpawnTeleporterBlockEntity be) {
         if (!SimpleTweaks.config().pads.enableSpawnTeleporters) {
             be.timeStanding.clear();
@@ -61,7 +67,7 @@ public class SpawnTeleporterBlockEntity extends OwnedBlockEntity {
         be.lastPositions.keySet().removeIf(id -> players.stream().noneMatch(p -> p.getUUID().equals(id)));
 
         int tier = tierOf(state);
-        int required = requiredTicks(tier);
+        int required = requiredTicks(level, pos, tier);
         for (ServerPlayer player : players) {
             UUID id = player.getUUID();
             Vec3 current = player.position();

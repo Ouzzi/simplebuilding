@@ -1,0 +1,8 @@
+{
+  "type": "simplebuilding:easter_smithing",
+  "addition": "minecraft:netherite_ingot",
+  "base": "simplebuilding:enderite_launchpad",
+  "base_stage": 3,
+  "result": "simplebuilding:funny_stick",
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

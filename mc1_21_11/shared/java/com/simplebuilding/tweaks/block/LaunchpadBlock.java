@@ -5,6 +5,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.simplebuilding.tweaks.block.entity.LaunchpadBlockEntity;
 import com.simplebuilding.tweaks.block.entity.TweaksBlockEntities;
+import com.simplebuilding.tweaks.easter.EasterEggs;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -16,6 +17,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -59,6 +61,11 @@ public class LaunchpadBlock extends WaterloggedPadBlock {
 
     public int maxCharges() {
         return maxCharges(tier);
+    }
+
+    /** Fassungsvermoegen dieses gesetzten Pads: die letzte Easter-Stufe (EasterEggs) fasst doppelt so viel. */
+    public int capacityAt(BlockGetter level, BlockPos pos) {
+        return EasterEggs.isBoosted(level, pos) ? 2 * maxCharges() : maxCharges();
     }
 
     /** Fassungsvermoegen je Stufe: I = 4, II = 8, III = 16. */
@@ -113,7 +120,7 @@ public class LaunchpadBlock extends WaterloggedPadBlock {
     /** Laedt eine Windkugel (all = false) oder alle aus dem Stapel, hoechstens bis zum Fassungsvermoegen. */
     public InteractionResult deposit(ItemStack stack, Level level, BlockPos pos, Player player, boolean all) {
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof LaunchpadBlockEntity launchpad) {
-            int max = maxCharges();
+            int max = capacityAt(level, pos);
             int current = launchpad.getCharges();
             if (current >= max) {
                 player.displayClientMessage(Component.translatable("message.simplebuilding.launchpad.full", max).withStyle(ChatFormatting.RED), true);
@@ -132,7 +139,7 @@ public class LaunchpadBlock extends WaterloggedPadBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof LaunchpadBlockEntity launchpad) {
-            player.displayClientMessage(Component.translatable("message.simplebuilding.launchpad.charges", launchpad.getCharges(), maxCharges()).withStyle(ChatFormatting.AQUA), true);
+            player.displayClientMessage(Component.translatable("message.simplebuilding.launchpad.charges", launchpad.getCharges(), capacityAt(level, pos)).withStyle(ChatFormatting.AQUA), true);
         }
         return InteractionResult.SUCCESS;
     }

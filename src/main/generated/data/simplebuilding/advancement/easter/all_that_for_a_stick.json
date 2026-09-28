@@ -1,0 +1,34 @@
+{
+  "parent": "simplebuilding:easter/it_was_worth_it",
+  "criteria": {
+    "funny_stick": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:funny_stick"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.easter.all_that_for_a_stick.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "id": "simplebuilding:funny_stick"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.easter.all_that_for_a_stick.title"
+    }
+  },
+  "requirements": [
+    [
+      "funny_stick"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

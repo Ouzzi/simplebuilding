@@ -1,0 +1,35 @@
+{
+  "parent": "simplebuilding:easter/what_have_you_done",
+  "criteria": {
+    "seriously": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "simplebuilding:easter_stage": 2
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.easter.seriously.description"
+    },
+    "hidden": true,
+    "icon": {
+      "id": "simplebuilding:reinforced_elytra_pad"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.easter.seriously.title"
+    }
+  },
+  "requirements": [
+    [
+      "seriously"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

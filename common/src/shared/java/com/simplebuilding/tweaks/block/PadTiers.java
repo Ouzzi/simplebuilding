@@ -73,16 +73,36 @@ public final class PadTiers {
      * ein Block unter dem Pad bis {@code h} Bloecke darueber.
      */
     public static AABB elytraArea(BlockPos pos, int tier) {
-        double r = halfWidth(tier);
+        return elytraArea(pos, tier, false);
+    }
+
+    /**
+     * Wie {@link #elytraArea(BlockPos, int)}; {@code doubled} = letzte Easter-Stufe
+     * ({@code tweaks.easter.EasterEggs}): doppelte Breite und doppelte Hoehe.
+     */
+    public static AABB elytraArea(BlockPos pos, int tier, boolean doubled) {
+        double r = doubled ? doubledHalf(width(tier)) : halfWidth(tier);
+        int h = doubled ? 2 * height(tier) : height(tier);
         return new AABB(pos.getX() - r, pos.getY() - 1, pos.getZ() - r,
-                pos.getX() + 1 + r, pos.getY() + height(tier), pos.getZ() + 1 + r);
+                pos.getX() + 1 + r, pos.getY() + h, pos.getZ() + 1 + r);
     }
 
     /** Flypad: ab der Unterkante des Pads {@link #flyHeight} hoch, mittig um das Pad. */
     public static AABB flyArea(BlockPos pos, int tier) {
-        double r = flyHalfWidth(tier);
+        return flyArea(pos, tier, false);
+    }
+
+    /** Wie {@link #flyArea(BlockPos, int)}; {@code doubled} = letzte Easter-Stufe: doppelte Breite und Hoehe. */
+    public static AABB flyArea(BlockPos pos, int tier, boolean doubled) {
+        double r = doubled ? doubledHalf(flyWidth(tier)) : flyHalfWidth(tier);
+        int h = doubled ? 2 * flyHeight(tier) : flyHeight(tier);
         return new AABB(pos.getX() - r, pos.getY(), pos.getZ() - r,
-                pos.getX() + 1 + r, pos.getY() + flyHeight(tier), pos.getZ() + 1 + r);
+                pos.getX() + 1 + r, pos.getY() + h, pos.getZ() + 1 + r);
+    }
+
+    /** Halbe Breite (ohne den Block selbst) eines doppelt so breiten Bereichs. */
+    private static double doubledHalf(int width) {
+        return (2 * width - 1) / 2.0;
     }
 
     private static int clamp(int tier, int max) {

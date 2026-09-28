@@ -9,6 +9,7 @@
     "LaunchpadWindChargeMixin",
     "SpawnElytraDamageMixin",
     "SpawnElytraItemEntityMixin",
+    "SmithingTransformEasterGuardMixin",
     "SpawnElytraSlotMixin",
     "TweaksItemStackMixin",
     "TweaksServerPlayerMixin",
