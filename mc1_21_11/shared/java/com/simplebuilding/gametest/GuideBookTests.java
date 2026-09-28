@@ -5,6 +5,7 @@ import com.google.gson.JsonParser;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.config.SimplebuildingConfig;
 import com.simplebuilding.guide.GuideBooks;
+import com.simplebuilding.guide.GuideContent;
 import com.simplebuilding.items.ModItems;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -206,7 +207,7 @@ public final class GuideBookTests {
 
     /**
      * Die Buecher lesen sich wie beschriebene Buecher: Benutzen gelingt und zaehlt als benutzt
-     * (der Server schickt dabei das Buch-oeffnen-Paket), sie passen aufs Lesepult und ins
+     * (den Buchbildschirm oeffnet der Client selbst), sie passen aufs Lesepult und ins
      * gemeisselte Buecherregal, heissen wie ihr Item (kein leerer Buchtitel) und zeigen keine
      * Vanilla-Buchzeilen ("Original") im Tooltip.
      */
@@ -238,6 +239,90 @@ public final class GuideBookTests {
         }
         player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
         helper.assertTrue(problems.isEmpty(), problems.size() + " guide book problems: " + problems);
+        succeed(helper);
+    }
+
+    /**
+     * Der Buchbildschirm zeigt je Kapitel ein Symbol, Items und Rezeptkarten ({@link GuideContent}):
+     * jedes Buch hat so viele Kapitel-Angaben wie Kapitel, jedes Symbol und Item existiert, jede
+     * Rezeptangabe findet im Rezeptmanager ein zeichenbares Rezept mit genau diesem Ergebnis
+     * (dieselbe Auswahl wie der Bildschirm im Einzelspieler), ebenso das Rezept jedes Themenbuchs
+     * fuer die Themenseite des Handbuchs. Unterzeile, Mod-Zeile und alle Bildschirm-Texte stehen in
+     * {@code en_us} und {@code de_de}; der Tooltip zeigt Name in Buchfarbe, Unterzeile, Mod-Name.
+     */
+    public static void everyGuideChapterIconAndRecipeResolves(GameTestHelper helper) {
+        JsonObject en = langFile(helper, "en_us");
+        JsonObject de = langFile(helper, "de_de");
+        List<String> problems = new ArrayList<>();
+        java.util.Collection<net.minecraft.world.item.crafting.RecipeHolder<?>> recipes = helper.getLevel().getServer().getRecipeManager().getRecipes();
+        net.minecraft.util.context.ContextMap context = net.minecraft.world.item.crafting.display.SlotDisplayContext.fromLevel(helper.getLevel());
+        List<String> keys = new ArrayList<>();
+        keys.add(GuideContent.MOD_NAME_KEY);
+        for (String key : GuideContent.GUI_KEYS) {
+            keys.add(GuideContent.GUI + key);
+        }
+        for (GuideBooks.Book book : GuideBooks.Book.values()) {
+            keys.add(GuideContent.taglineKey(book));
+            GuideContent.BookStyle style = GuideContent.style(book);
+            if (style == null) {
+                problems.add(book + " has no screen content");
+                continue;
+            }
+            if (style.chapters().size() != book.chapters()) {
+                problems.add(book + " has " + style.chapters().size() + " screen chapters for " + book.chapters() + " chapters");
+            }
+            for (int i = 0; i < style.chapters().size(); i++) {
+                GuideContent.Chapter chapter = style.chapters().get(i);
+                String where = book + " chapter " + (i + 1);
+                if (GuideContent.item(chapter.icon()) == Items.AIR) {
+                    problems.add(where + ": icon " + chapter.icon() + " is no item");
+                }
+                for (String id : chapter.items()) {
+                    if (GuideContent.item(id) == Items.AIR) {
+                        problems.add(where + ": item " + id + " is no item");
+                    }
+                }
+                for (String spec : chapter.recipes()) {
+                    if (GuideContent.select(recipes, spec, context).isEmpty()) {
+                        problems.add(where + ": no drawable recipe for " + spec);
+                    }
+                }
+            }
+            if (book.isTopic()) {
+                String spec = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(GuideBooks.item(book)).toString();
+                if (GuideContent.select(recipes, spec, context).isEmpty()) {
+                    problems.add(book + ": the topic page finds no recipe for " + spec);
+                }
+            }
+
+            ItemStack stack = new ItemStack(GuideBooks.item(book));
+            net.minecraft.network.chat.TextColor colour = stack.getHoverName().getStyle().getColor();
+            if (colour == null || colour.getValue() != style.colour()) {
+                problems.add(book + ": the name is not in the book colour but " + colour);
+            }
+            List<Component> lines = new ArrayList<>();
+            stack.getItem().appendHoverText(stack, Item.TooltipContext.of(helper.getLevel()), TooltipDisplay.DEFAULT, lines::add,
+                    net.minecraft.world.item.TooltipFlag.NORMAL);
+            List<String> lineKeys = new ArrayList<>();
+            for (Component line : lines) {
+                lineKeys.add(line.getContents() instanceof TranslatableContents t ? t.getKey() : line.getString());
+            }
+            if (!lineKeys.equals(List.of(GuideContent.taglineKey(book), GuideContent.MOD_NAME_KEY))) {
+                problems.add(book + ": tooltip lines are " + lineKeys);
+            } else if (!lines.get(0).getStyle().isItalic()) {
+                problems.add(book + ": the tagline is not italic");
+            }
+        }
+        for (String key : keys) {
+            String english = en.has(key) ? en.get(key).getAsString() : null;
+            String german = de.has(key) ? de.get(key).getAsString() : null;
+            if (english == null || english.isBlank() || german == null || german.isBlank()) {
+                problems.add(key + " missing in en_us or de_de");
+            } else if (placeholders(english) != placeholders(german)) {
+                problems.add(key + " has different placeholders in en_us and de_de");
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " guide screen problems: " + problems);
         succeed(helper);
     }
 

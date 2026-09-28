@@ -167,6 +167,7 @@ public class SimplebuildingClient implements ClientModInitializer {
 
         registerDoubleJumpClient();
         com.simplebuilding.client.blueprint.BlueprintClient.init();
+        com.simplebuilding.client.guide.GuideBookClient.init();
 
         // --- World Render ---
         // Geometrie wird nicht direkt gezeichnet, sondern über den SubmitNodeCollector

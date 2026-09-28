@@ -1232,6 +1232,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("guide_book_game_test_guide_books_read_like_written_books", GuideBookTests::guideBooksReadLikeWrittenBooks)
                     .build(),
+            GameTestSpec.named("guide_book_game_test_every_guide_chapter_icon_and_recipe_resolves", GuideBookTests::everyGuideChapterIconAndRecipeResolves)
+                    .build(),
             GameTestSpec.named("pressure_plate_game_test_honeycomb_waxes_every_stage_and_waxed_plates_stop_oxidizing", PressurePlateTests::honeycombWaxesEveryStageAndWaxedPlatesStopOxidizing)
                     .build(),
             GameTestSpec.named("pressure_plate_game_test_the_axe_scrapes_the_wax_off_before_the_oxidation", PressurePlateTests::theAxeScrapesTheWaxOffBeforeTheOxidation)
