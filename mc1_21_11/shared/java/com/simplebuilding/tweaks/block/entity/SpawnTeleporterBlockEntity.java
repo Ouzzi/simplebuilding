@@ -1,5 +1,6 @@
 package com.simplebuilding.tweaks.block.entity;
 
+import com.simplebuilding.util.PlayerScan;
 import com.simplebuilding.tweaks.SimpleTweaks;
 import com.simplebuilding.tweaks.TweaksClientHooks;
 import com.simplebuilding.tweaks.TweaksConfig;
@@ -41,6 +42,11 @@ public class SpawnTeleporterBlockEntity extends OwnedBlockEntity {
         super(TweaksBlockEntities.SPAWN_TELEPORTER, pos, state);
     }
 
+    /** Ob der Teleporter noch Wartezeiten oder Positionen von Spielern fuehrt (sonst laeuft sein Tick leer). */
+    public boolean isTracking() {
+        return !timeStanding.isEmpty() || !lastPositions.isEmpty();
+    }
+
     public static int tierOf(BlockState state) {
         return state.getBlock() instanceof SpawnTeleporterBlock block ? block.getTier() : 1;
     }
@@ -61,7 +67,12 @@ public class SpawnTeleporterBlockEntity extends OwnedBlockEntity {
             return;
         }
         AABB box = new AABB(pos).move(0, 0.5, 0).inflate(0.1, 1.5, 0.1);
-        List<ServerPlayer> players = level.getEntitiesOfClass(ServerPlayer.class, box, p -> true);
+        List<ServerPlayer> players = PlayerScan.playersIn(level, box, ServerPlayer.class);
+        // Leerlauf (docs/PERFORMANCE.md): niemand darauf und nichts mehr zu vergessen - die beiden
+        // removeIf-Durchlaeufe und die Stufen-/Easter-Abfrage darunter aendern dann nichts.
+        if (players.isEmpty() && !be.isTracking()) {
+            return;
+        }
 
         be.timeStanding.keySet().removeIf(id -> players.stream().noneMatch(p -> p.getUUID().equals(id)));
         be.lastPositions.keySet().removeIf(id -> players.stream().noneMatch(p -> p.getUUID().equals(id)));

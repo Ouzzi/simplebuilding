@@ -1,5 +1,6 @@
 package com.simplebuilding.tweaks.block.entity;
 
+import com.simplebuilding.util.PlayerScan;
 import com.simplebuilding.tweaks.block.PotionPadBlock;
 import com.simplebuilding.tweaks.component.TweaksComponents;
 import java.util.HashMap;
@@ -118,7 +119,10 @@ public class PotionPadBlockEntity extends OwnedBlockEntity {
         }
         if (be.cooldown > 0) {
             be.cooldown--;
-            be.setChanged();
+            // Nur den Chunk als ungespeichert markieren: setChanged() fragte zusaetzlich jeden Tick die
+            // vier Nachbarn nach Komparatoren ab, obwohl das Pad kein Komparator-Signal hat
+            // (docs/PERFORMANCE.md). Der Wechsel des COOLING-Zustands meldet sich selbst per setBlock.
+            level.blockEntityChanged(pos);
             if (be.cooldown == 0) {
                 be.standing.clear();
                 if (be.stored != null) {
@@ -139,7 +143,7 @@ public class PotionPadBlockEntity extends OwnedBlockEntity {
             serverLevel.sendParticles(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, 0xFF000000 | be.color()),
                     pos.getX() + 0.5, pos.getY() + 0.15, pos.getZ() + 0.5, 2, 0.3, 0.05, 0.3, 0.0);
         }
-        List<Player> players = level.getEntitiesOfClass(Player.class, area(pos), p -> p.isAlive() && !p.isSpectator());
+        List<Player> players = PlayerScan.playersIn(level, area(pos), Player.class, p -> p.isAlive() && !p.isSpectator());
         Set<UUID> now = new HashSet<>();
         for (Player player : players) {
             UUID id = player.getUUID();

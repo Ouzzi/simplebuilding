@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
@@ -26,8 +27,10 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * Zeichnet die transluzente Ghost-Block-Vorschau des Building Wand
@@ -73,7 +76,10 @@ public final class BuildingWandPreviewRenderer {
             // Bruecke: ein Rechtsklick in die Luft baut vom Block unter den Fuessen geradeaus.
             if (!(octant.getItem() instanceof com.simplebuilding.items.custom.BlueprintItem)) {
                 renderGhosts(collector, poseStack, cameraPos, client, level,
-                        BuildingWandItem.getBridgePreview(level, player, stack, wandItem.getWandSquareDiameter()), 0xFFFFFF, GHOST_ALPHA);
+                        cachedPreview(Arrays.asList(level, level.getGameTime(), stack, stack.get(DataComponents.CUSTOM_DATA),
+                                        player.getYRot(), player.getXRot(), player.position(), player.isShiftKeyDown()),
+                                () -> BuildingWandItem.getBridgePreview(level, player, stack, wandItem.getWandSquareDiameter())),
+                        0xFFFFFF, GHOST_ALPHA);
             }
             return;
         }
@@ -91,9 +97,32 @@ public final class BuildingWandPreviewRenderer {
         // der echten Trefferposition (obere/untere Blockhaelfte entscheidet ueber Treppen und Stufen).
         BlockPos clicked = blockHit.getBlockPos();
         Vec3 hitRel = blockHit.getLocation().subtract(clicked.getX(), clicked.getY(), clicked.getZ());
-        Map<BlockPos, BlockState> previewMap = BuildingWandItem.getPreviewStates(
-                level, player, stack, clicked, blockHit.getDirection(), hitRel, wandItem.getWandSquareDiameter());
+        Map<BlockPos, BlockState> previewMap = cachedPreview(
+                Arrays.asList(level, level.getGameTime(), stack, stack.get(DataComponents.CUSTOM_DATA), clicked,
+                        blockHit.getDirection(), hitRel, player.getYRot(), player.getXRot(), player.position(), player.isShiftKeyDown()),
+                () -> BuildingWandItem.getPreviewStates(
+                        level, player, stack, clicked, blockHit.getDirection(), hitRel, wandItem.getWandSquareDiameter()));
         renderGhosts(collector, poseStack, cameraPos, client, level, previewMap, 0xFFFFFF, GHOST_ALPHA);
+    }
+
+    /** Schluessel und Ergebnis der zuletzt berechneten Stab-Vorschau (Flaeche/Linie/Bruecke). */
+    private static List<Object> previewKey;
+    private static Map<BlockPos, BlockState> previewCache = Map.of();
+
+    /**
+     * Die Stab-Vorschau hoechstens einmal je Spieltick und Eingabe (docs/PERFORMANCE.md): vorher lief
+     * sie in jedem Bild - je Stelle Platzierungszustand, Nachbarformen, Halt und eine Entity-Suche
+     * ({@code isUnobstructed}), bei 144 Bildern je Sekunde gut siebenmal je Tick fuer dasselbe Ergebnis.
+     * Der Schluessel enthaelt alles, was die Vorschau von Bild zu Bild aendern kann (Treffer,
+     * Blickrichtung, Position, Schleichen, Stab samt Einstellungen) und den Spieltick, damit Welt- und
+     * Inventaraenderungen spaetestens im naechsten Tick sichtbar werden.
+     */
+    private static Map<BlockPos, BlockState> cachedPreview(List<Object> key, Supplier<Map<BlockPos, BlockState>> compute) {
+        if (!key.equals(previewKey)) {
+            previewCache = compute.get();
+            previewKey = key;
+        }
+        return previewCache;
     }
 
     /** Geisterbloecke eines Planer-Baus: setzbar weiss, ohne Material rot (nach einem Warnklick pulsierend). */

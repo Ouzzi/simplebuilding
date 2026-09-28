@@ -1,5 +1,6 @@
 package com.simplebuilding.tweaks.block.entity;
 
+import com.simplebuilding.util.PlayerScan;
 import com.simplebuilding.tweaks.SimpleTweaks;
 import com.simplebuilding.tweaks.block.CopperPressurePlateBlock;
 import java.util.List;
@@ -34,7 +35,7 @@ public class CopperPressurePlateBlockEntity extends OwnedBlockEntity {
             return;
         }
         AABB box = new AABB(pos).inflate(0.0, 0.5, 0.0);
-        List<Player> players = level.getEntitiesOfClass(Player.class, box, p -> !p.isSpectator());
+        List<Player> players = PlayerScan.playersIn(level, box, Player.class, p -> !p.isSpectator());
         int required = state.getBlock() instanceof CopperPressurePlateBlock plate
                 ? CopperPressurePlateBlock.requiredTicks(plate.getAge()) : 20;
 
