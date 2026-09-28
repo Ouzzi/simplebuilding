@@ -539,6 +539,12 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("quiver_game_test_netherite_quiver_burns_in_an_explosion_while_the_netherite_bundle_survives", QuiverTests::netheriteQuiverBurnsInAnExplosionWhileTheNetheriteBundleSurvives)
                     .build(),
+            GameTestSpec.named("quiver_game_test_crossbow_loads_from_the_quiver_and_bills_one_arrow", QuiverTests::crossbowLoadsFromTheQuiverAndBillsOneArrow)
+                    .build(),
+            GameTestSpec.named("quiver_game_test_a_quiver_inside_the_backpack_feeds_the_bow_only_with_master_builder", QuiverTests::aQuiverInsideTheBackpackFeedsTheBowOnlyWithMasterBuilder)
+                    .build(),
+            GameTestSpec.named("quiver_game_test_picked_up_arrows_go_into_the_quiver_only_with_funnel", QuiverTests::pickedUpArrowsGoIntoTheQuiverOnlyWithFunnel)
+                    .build(),
             GameTestSpec.named("rotator_game_test_log_axis_cycles_through_all_three_axes_and_ignores_sneaking", RotatorTests::logAxisCyclesThroughAllThreeAxesAndIgnoresSneaking)
                     .build(),
             GameTestSpec.named("rotator_game_test_rim_is_the_outer_eighth_of_every_face_and_nowhere_inside", RotatorTests::rimIsTheOuterEighthOfEveryFaceAndNowhereInside)
@@ -664,7 +670,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_refuses_the_whole_field_when_the_origin_is_out_of_reach", SledgehammerTests::sledgehammerRefusesTheWholeFieldWhenTheOriginIsOutOfReach)
                     .build(),
-            GameTestSpec.named("sledgehammer_game_test_sledgehammer_bills_one_durability_per_block_and_two_for_the_wrong_tool", SledgehammerTests::sledgehammerBillsOneDurabilityPerBlockAndTwoForTheWrongTool)
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_bills_two_durability_per_block_and_three_for_the_wrong_tool", SledgehammerTests::sledgehammerBillsTwoDurabilityPerBlockAndThreeForTheWrongTool)
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_stops_the_swing_when_the_hammer_breaks", SledgehammerTests::sledgehammerStopsTheSwingWhenTheHammerBreaks)
                     .build(),
@@ -676,7 +682,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_speed_and_block_count_scale_with_its_enchantments", SledgehammerTests::sledgehammerSpeedAndBlockCountScaleWithItsEnchantments)
                     .build(),
-            GameTestSpec.named("sledgehammer_game_test_sledgehammer_field_mines_three_times_slower_than_one_block", SledgehammerTests::sledgehammerFieldMinesThreeTimesSlowerThanOneBlock)
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_area_mines_each_block_like_the_pickaxe_one_tier_below", SledgehammerTests::sledgehammerAreaMinesEachBlockLikeThePickaxeOneTierBelow)
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_sneaking_breaks_only_the_targeted_block", SledgehammerTests::sledgehammerSneakingBreaksOnlyTheTargetedBlock)
                     .build(),
@@ -685,6 +691,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("sledgehammer_game_test_sledgehammer_turns_framed_trim_templates_glowing", SledgehammerTests::sledgehammerTurnsFramedTrimTemplatesGlowing)
                     .build(),
             GameTestSpec.named("sledgehammer_game_test_charged_hammer_only_finishes_on_the_block_it_started_on", SledgehammerTests::chargedHammerOnlyFinishesOnTheBlockItStartedOn)
+                    .build(),
+            GameTestSpec.named("sledgehammer_game_test_sledgehammer_breaks_the_octant_selection_at_twice_the_area_time_per_block", SledgehammerTests::sledgehammerBreaksTheOctantSelectionAtTwiceTheAreaTimePerBlock)
                     .build(),
             GameTestSpec.named("chisel_game_test_spatula_runs_forward_while_sneaking_and_chisel_runs_backward", ChiselTests::spatulaRunsForwardWhileSneakingAndChiselRunsBackward)
                     .build(),
@@ -825,7 +833,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("backpack_game_test_sneak_right_click_places_the_backpack_and_breaking_it_drops_everything", BackpackTests::sneakRightClickPlacesTheBackpackAndBreakingItDropsEverything)
                     .build(),
-            GameTestSpec.named("backpack_game_test_open_key_opens_the_menu_only_for_the_worn_backpack", BackpackTests::openKeyOpensTheMenuOnlyForTheWornBackpack)
+            GameTestSpec.named("backpack_game_test_open_key_opens_the_worn_backpack_or_else_the_first_one_carried", BackpackTests::openKeyOpensTheWornBackpackOrElseTheFirstOneCarried)
                     .build(),
             GameTestSpec.named("backpack_game_test_shift_click_from_the_hotbar_fills_inventory_and_backpack_as_one_storage", BackpackTests::shiftClickFromTheHotbarFillsInventoryAndBackpackAsOneStorage)
                     .build(),
@@ -844,6 +852,10 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("backpack_game_test_upper_tiers_survive_fire_and_explosions_and_lower_ones_spill_their_contents", BackpackTests::upperTiersSurviveFireAndExplosionsAndLowerOnesSpillTheirContents)
                     .build(),
             GameTestSpec.named("backpack_game_test_tooltip_image_carries_the_stored_items_of_every_tier_dyed_too", BackpackTests::tooltipImageCarriesTheStoredItemsOfEveryTierDyedToo)
+                    .build(),
+            GameTestSpec.named("backpack_game_test_backpack_key_locks_the_inventory_slot_of_the_backpack_it_opened", BackpackTests::backpackKeyLocksTheInventorySlotOfTheBackpackItOpened)
+                    .build(),
+            GameTestSpec.named("backpack_game_test_placed_backpack_outputs_its_fill_level_to_acomparator", BackpackTests::placedBackpackOutputsItsFillLevelToAComparator)
                     .build(),
             GameTestSpec.named("dyed_storage_game_test_dyeing_colours_every_backpack_and_bundle_and_keeps_its_components", DyedStorageTests::dyeingColoursEveryBackpackAndBundleAndKeepsItsComponents)
                     .build(),
@@ -1241,6 +1253,11 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("pad_overhaul_game_test_the_echo_sounder_does_not_relink_the_lodestone_it_is_linked_to", PadOverhaulTests::theEchoSounderDoesNotRelinkTheLodestoneItIsLinkedTo)
                     .build(),
+            GameTestSpec.named("pad_overhaul_game_test_redstone_switches_launchpads_and_flypads_off_and_comparators_read_them", PadOverhaulTests::redstoneSwitchesLaunchpadsAndFlypadsOffAndComparatorsReadThem)
+                    .build(),
+            GameTestSpec.named("pad_overhaul_game_test_hoppers_fill_only_wind_charges_into_the_launchpad", PadOverhaulTests::hoppersFillOnlyWindChargesIntoTheLaunchpad)
+                    .maxTicks(PadOverhaulTests.HOPPER_MAX_TICKS)
+                    .build(),
             GameTestSpec.named("tweaks_tier_game_test_launchpad_tiers_hold_four_eight_and_sixteen_wind_charges", TweaksTierTests::launchpadTiersHoldFourEightAndSixteenWindCharges)
                     .build(),
             GameTestSpec.named("tweaks_tier_game_test_sneaking_with_wind_charges_loads_the_whole_hand_up_to_capacity", TweaksTierTests::sneakingWithWindChargesLoadsTheWholeHandUpToCapacity)
@@ -1304,6 +1321,11 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("potion_pad_game_test_charged_creeper_explosions_drop_one_blaze_head_each", PotionPadTests::chargedCreeperExplosionsDropOneBlazeHeadEach)
                     .build(),
             GameTestSpec.named("potion_pad_game_test_blazes_killed_otherwise_drop_no_head", PotionPadTests::blazesKilledOtherwiseDropNoHead)
+                    .build(),
+            GameTestSpec.named("potion_pad_game_test_potion_pads_are_switched_off_by_redstone_and_report_their_state_to_acomparator", PotionPadTests::potionPadsAreSwitchedOffByRedstoneAndReportTheirStateToAComparator)
+                    .build(),
+            GameTestSpec.named("potion_pad_game_test_a_dispenser_fills_the_potion_pad_but_ahopper_cannot", PotionPadTests::aDispenserFillsThePotionPadButAHopperCannot)
+                    .maxTicks(PotionPadTests.AUTOMATION_MAX_TICKS)
                     .build(),
             GameTestSpec.named("performance_game_test_player_scan_finds_exactly_the_players_the_section_search_finds", PerformanceTests::playerScanFindsExactlyThePlayersTheSectionSearchFinds)
                     .build(),

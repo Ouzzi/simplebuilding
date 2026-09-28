@@ -36,12 +36,14 @@ import net.minecraft.world.phys.AABB;
  * Spieler noch abdeckt - vorher holte das eine Pad ihn aus der Luft, bis das andere ihn fuenf Ticks
  * spaeter wieder fliegen liess.
  */
-public class FlypadBlockEntity extends OwnedBlockEntity {
+public class FlypadBlockEntity extends OwnedBlockEntity implements PadSignalSource {
     public static final int SAFETY_NET_TICKS = 200;
     /** Merkt am Spieler, dass sein Flug von einem Flypad stammt (nicht Kreativ, nicht ein anderer Mod). */
     public static final String FLIGHT_TAG = "simplebuilding.flypad_flight";
 
     private final Set<UUID> flyingPlayers = new HashSet<>();
+    /** Spieler im Bereich beim letzten Durchlauf (Komparator-Signal, hoechstens 15). */
+    private int served;
 
     public FlypadBlockEntity(BlockPos pos, BlockState state) {
         super(TweaksBlockEntities.FLYPAD, pos, state);
@@ -68,8 +70,10 @@ public class FlypadBlockEntity extends OwnedBlockEntity {
     /** Ein Durchlauf: Flug geben, Flug nehmen (der Tick macht das alle 5 Ticks). */
     public static void update(Level level, BlockPos pos, BlockState state, FlypadBlockEntity be) {
         int tier = tierOf(state);
-        if (!SimpleTweaks.config().pads.enableFlypads) {
+        if (!SimpleTweaks.config().pads.enableFlypads || com.simplebuilding.tweaks.block.PadBlock.isDisabledByRedstone(level, pos)) {
+            // Abgeschaltet (Config oder Redstone-Signal, Besitzer 2026-09-28): niemand fliegt mehr ueber dieses Pad.
             be.revokeAll(level, tier);
+            be.setServed(level, pos, state, 0);
             return;
         }
 
@@ -99,6 +103,21 @@ public class FlypadBlockEntity extends OwnedBlockEntity {
             }
         }
         be.flyingPlayers.addAll(current);
+        be.setServed(level, pos, state, players.size());
+    }
+
+    /** Zahl der Spieler im Bereich (0..15) fuer den Komparator. */
+    @Override
+    public int comparatorSignal() {
+        return Math.min(15, served);
+    }
+
+    private void setServed(Level level, BlockPos pos, BlockState state, int count) {
+        int before = comparatorSignal();
+        this.served = count;
+        if (comparatorSignal() != before) {
+            level.updateNeighbourForOutputSignal(pos, state.getBlock());
+        }
     }
 
     /** Bereich dieses gesetzten Pads; die letzte Easter-Stufe ({@link EasterEggs}) ist doppelt so breit und hoch. */
@@ -145,6 +164,7 @@ public class FlypadBlockEntity extends OwnedBlockEntity {
                 }
                 for (BlockEntity other : chunk.getBlockEntities().values()) {
                     if (other != this && !other.isRemoved() && other instanceof FlypadBlockEntity pad
+                            && !com.simplebuilding.tweaks.block.PadBlock.isDisabledByRedstone(level, pad.getBlockPos())
                             && areaOf(level, pad.getBlockPos(), pad.getBlockState()).intersects(player.getBoundingBox())) {
                         return true;
                     }

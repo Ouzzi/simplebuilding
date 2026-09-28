@@ -74,6 +74,8 @@ public class SledgehammerItem extends Item {
     public static final int DURABILITY_NETHERITE_SLEDGEHAMMER = 2031 * BASE_DURABILITY_MULTIPLIER;
     public static final int DURABILITY_ENDERITE_SLEDGEHAMMER = 2500 * BASE_DURABILITY_MULTIPLIER;
 
+    /** Haltbarkeit je abgebautem Block (eine Spitzhacke: 1), siehe {@link #mineBlock}. */
+    public static final int WEAR_PER_BLOCK = 2;
     /** Haltbarkeit je Umformung (Block -> Treppe -> Stufe). */
     public static final int RESHAPE_DAMAGE = 1;
     /** Haltbarkeit je Rueckwaerts-Umformung mit Schleichen und Constructor's Touch. */
@@ -137,10 +139,27 @@ public class SledgehammerItem extends Item {
             }
         }
 
-        // Kein Tempo-Bonus mehr: das Item liefert das Tempo einer Spitzhacke seines Materials.
-        // Die Verlangsamung je mitabgebautem Block rechnet SledgehammerUtils#miningSpeedDivisor,
-        // angewendet in BlockStateBaseMixin, weil erst dort Spieler und Position bekannt sind.
+        // Kein Tempo-Bonus: das Item liefert das Tempo einer Spitzhacke seines Materials. Die
+        // Verlangsamung (1x1 etwas langsamer, Flaeche je Block wie die Spitzhacke eine Stufe darunter)
+        // rechnet SledgehammerUtils#miningSpeedDivisor, angewendet in BlockStateBaseMixin, weil erst
+        // dort Spieler und Position bekannt sind.
         return baseSpeed;
+    }
+
+    /**
+     * Der Hammer nutzt sich schneller ab als eine Spitzhacke (Besitzer 2026-09-28): jeder Block, den er
+     * bricht - der angeschlagene wie jeder mitgenommene -, kostet {@value #WEAR_PER_BLOCK} statt 1
+     * Haltbarkeit (Vanillas Werkzeug-Komponente zieht 1 ab, hier kommt der Rest dazu). Ein Block, fuer
+     * den er nicht das richtige Werkzeug ist, kostet beim Flaechenabbau einen Punkt mehr
+     * ({@code SledgehammerUsageEvent}).
+     */
+    @Override
+    public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity miner) {
+        boolean result = super.mineBlock(stack, level, state, pos, miner);
+        if (result && !level.isClientSide() && state.getDestroySpeed(level, pos) != 0.0F && !stack.isEmpty()) {
+            stack.hurtAndBreak(WEAR_PER_BLOCK - 1, miner, EquipmentSlot.MAINHAND);
+        }
+        return result;
     }
 
     /**
@@ -462,6 +481,14 @@ public class SledgehammerItem extends Item {
         if (player.isShiftKeyDown()) {
             positions.add(initialPos);
             return positions;
+        }
+
+        // Oktant mit Auswahl in der Nebenhand und der Schlag trifft seine Figur: der Hammer bricht die
+        // ganze Auswahl (Besitzer 2026-09-28). Tempo und Haltbarkeit folgen von selbst, weil Server-
+        // Abbau, Tempo und Riss-Overlay alle diese Liste lesen.
+        List<BlockPos> octant = SledgehammerUtils.octantSelection(player, initialPos);
+        if (octant != null) {
+            return octant;
         }
 
         Direction sideHit = getHitSideFromPlayer(player);
