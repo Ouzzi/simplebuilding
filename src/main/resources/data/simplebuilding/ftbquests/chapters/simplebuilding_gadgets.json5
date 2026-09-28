@@ -13,7 +13,7 @@
 		{
 			"id": "4C78B432B0A72429",
 			"x": 0.0,
-			"y": -5.25,
+			"y": -4.5,
 			"dependencies": [
 				"5391FBC8E17B94E8"
 			],
@@ -133,7 +133,7 @@
 		{
 			"id": "1BBEBBF94C012D0E",
 			"x": 0.0,
-			"y": -3.75,
+			"y": -3.0,
 			"dependencies": [
 				"4F33A64F0904C3B5"
 			],
@@ -166,11 +166,10 @@
 		{
 			"id": "53B75B4689AA212D",
 			"x": 4.0,
-			"y": 0.0,
+			"y": -0.75,
 			"dependencies": [
 				"096F91FF11CEE661",
-				"09EA0E0E9F62BEF3",
-				"5BFB5EAAB13F32CD"
+				"08F000C8C84FDF74"
 			],
 			"tasks": [
 				{
@@ -183,10 +182,10 @@
 		},
 		{
 			"id": "1E6A20BF670EC8F7",
-			"x": 0.0,
-			"y": -2.25,
+			"x": 2.0,
+			"y": 3.0,
 			"dependencies": [
-				"09EA0E0E9F62BEF3"
+				"4C78B432B0A72429"
 			],
 			"tasks": [
 				{
@@ -199,8 +198,8 @@
 		},
 		{
 			"id": "4C05E440807CDB86",
-			"x": 2.0,
-			"y": 3.0,
+			"x": 4.0,
+			"y": 0.75,
 			"optional": true,
 			"dependencies": [
 				"1E6A20BF670EC8F7"
@@ -217,7 +216,7 @@
 		{
 			"id": "4431B0916A55D63A",
 			"x": 0.0,
-			"y": -0.75,
+			"y": -1.5,
 			"dependencies": [
 				"059628FBC8427060",
 				"26F2188B9BD804BC"
@@ -234,7 +233,7 @@
 		{
 			"id": "7F329CF5369DFB40",
 			"x": 0.0,
-			"y": 0.75,
+			"y": 0.0,
 			"dependencies": [
 				"059628FBC8427060",
 				"3DC43D0D51E65180"
@@ -268,7 +267,7 @@
 		{
 			"id": "76E2630E5FC6E10B",
 			"x": 0.0,
-			"y": 2.25,
+			"y": 1.5,
 			"optional": true,
 			"dependencies": [
 				"7BE69CC9480D2FE0"
@@ -302,7 +301,7 @@
 		{
 			"id": "4B0D520EBE5A94DC",
 			"x": 0.0,
-			"y": 3.75,
+			"y": 3.0,
 			"optional": true,
 			"dependencies": [
 				"146CCE240C9E3674",
@@ -320,7 +319,7 @@
 		{
 			"id": "37C00FA3BDB204DC",
 			"x": 0.0,
-			"y": 5.25,
+			"y": 4.5,
 			"dependencies": [
 				"1DD10BF4A20C446B"
 			],

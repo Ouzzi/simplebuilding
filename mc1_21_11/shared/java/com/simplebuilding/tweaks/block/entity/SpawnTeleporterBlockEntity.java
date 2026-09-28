@@ -4,6 +4,7 @@ import com.simplebuilding.util.PlayerScan;
 import com.simplebuilding.tweaks.SimpleTweaks;
 import com.simplebuilding.tweaks.TweaksClientHooks;
 import com.simplebuilding.tweaks.TweaksConfig;
+import com.simplebuilding.tweaks.block.LegacySpawnTeleporterBlock;
 import com.simplebuilding.tweaks.block.SpawnTeleporterBlock;
 import com.simplebuilding.tweaks.easter.EasterEggs;
 import java.util.HashMap;
@@ -11,10 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -29,11 +28,19 @@ import net.minecraft.world.level.storage.LevelData;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-/** Logik des Spawn-Teleporters, 1:1 aus Simple Tweaks, dazu Stufe V (eigener Wiedereinstiegspunkt). */
+/**
+ * Logik des Spawn-Teleporters (aus Simple Tweaks). Drei Stufen seit 2026-09-28, die sich nur in der
+ * Wartezeit unterscheiden (50/20/5 s); Stufe III sucht zuerst den eigenen Wiedereinstiegspunkt. Keine
+ * Bildschirmtexte (Besitzer 2026-09-28): die Wartezeit hoert man am steigenden Klang, einen Abbruch am
+ * Verpuffen, die Ankunft an Klang und Partikeln.
+ */
 public class SpawnTeleporterBlockEntity extends OwnedBlockEntity {
-    /** Ticks stillstehen bis zum Sprung: Stufen I-IV 5 s, Enderit 3 s. */
-    public static final int STANDARD_TICKS = 100;
-    public static final int ENDERITE_TICKS = 60;
+    /** Ticks stillstehen bis zum Sprung je Stufe I-III: 50 s, 20 s, 5 s. */
+    public static final int TIER_1_TICKS = 1000;
+    public static final int TIER_2_TICKS = 400;
+    public static final int ENDERITE_TICKS = 100;
+    /** Ab so vielen Ticks Stehen klingt ein Abbruch hoerbar aus (vorher ist es nur ein Drueberlaufen). */
+    public static final int CANCEL_SOUND_AFTER = 20;
 
     private final Map<UUID, Integer> timeStanding = new HashMap<>();
     private final Map<UUID, Vec3> lastPositions = new HashMap<>();
@@ -52,9 +59,8 @@ public class SpawnTeleporterBlockEntity extends OwnedBlockEntity {
     }
 
     public static int requiredTicks(int tier) {
-        // Config tweaks.padTuning.teleporterWarmupTicks / enderiteTeleporterWarmupTicks
-        // (Standard STANDARD_TICKS / ENDERITE_TICKS).
-        return SimpleTweaks.config().padTuning.teleporterWarmup(tier >= SpawnTeleporterBlock.ENDERITE_TIER);
+        // Config tweaks.padTuning.teleporterTier1/2/3WarmupTicks (Standard TIER_1_TICKS / TIER_2_TICKS / ENDERITE_TICKS).
+        return SimpleTweaks.config().padTuning.teleporterWarmup(tier);
     }
 
     /** Wartezeit dieses gesetzten Teleporters: die letzte Easter-Stufe ({@link EasterEggs}) wartet nur halb so lange. */
@@ -63,6 +69,10 @@ public class SpawnTeleporterBlockEntity extends OwnedBlockEntity {
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, SpawnTeleporterBlockEntity be) {
+        if (state.getBlock() instanceof LegacySpawnTeleporterBlock legacy) {
+            legacy.migrate(level, pos, state, be);
+            return;
+        }
         if (!SimpleTweaks.config().pads.enableSpawnTeleporters) {
             be.timeStanding.clear();
             be.lastPositions.clear();
@@ -88,8 +98,15 @@ public class SpawnTeleporterBlockEntity extends OwnedBlockEntity {
             boolean moved = last != null && last.distanceToSqr(current) > 0.0001;
 
             if (moved) {
+                int before = be.timeStanding.getOrDefault(id, 0);
                 be.timeStanding.put(id, 0);
-                player.displayClientMessage(Component.translatable("message.simplebuilding.spawn_teleporter.cancelled").withStyle(ChatFormatting.RED), true);
+                if (before >= CANCEL_SOUND_AFTER) {
+                    // Abbruch: die Ladung verpufft hoerbar (statt einer Meldung ueber der Schnellleiste).
+                    level.playSound(null, pos, SoundEvents.BEACON_DEACTIVATE, SoundSource.BLOCKS, 0.5f, 1.4f);
+                    if (level instanceof ServerLevel serverLevel) {
+                        serverLevel.sendParticles(ParticleTypes.SMOKE, player.getX(), player.getY() + 0.5, player.getZ(), 6, 0.2, 0.2, 0.2, 0.01);
+                    }
+                }
             } else {
                 int ticks = be.timeStanding.getOrDefault(id, 0) + 1;
                 be.timeStanding.put(id, ticks);
@@ -109,11 +126,6 @@ public class SpawnTeleporterBlockEntity extends OwnedBlockEntity {
                     level.playSound(null, pos, SoundEvents.ZOMBIE_STEP, SoundSource.BLOCKS, 0.20f * volume, pitch);
                     level.playSound(null, pos, SoundEvents.ENDERMITE_STEP, SoundSource.BLOCKS, 0.10f * volume, pitch);
                     level.playSound(null, pos, SoundEvents.SILVERFISH_STEP, SoundSource.BLOCKS, 0.02f * volume, pitch);
-                }
-
-                if (ticks % 20 == 0 && ticks < required) {
-                    int secondsLeft = (required - ticks) / 20;
-                    player.displayClientMessage(Component.translatable("message.simplebuilding.spawn_teleporter.countdown", secondsLeft).withStyle(ChatFormatting.BLUE), true);
                 }
 
                 if (ticks >= required) {
@@ -143,7 +155,7 @@ public class SpawnTeleporterBlockEntity extends OwnedBlockEntity {
         }
     }
 
-    /** Springt; Stufe V zum eigenen Wiedereinstiegspunkt, sonst zum Ziel der Stufe (2 Bloecke hoeher, Sanfter Fall). */
+    /** Springt; Stufe III zum eigenen Wiedereinstiegspunkt, sonst zum Spawn-Ziel (2 Bloecke hoeher, Sanfter Fall). */
     public static void teleport(Level level, ServerPlayer player, int tier) {
         if (!(level instanceof ServerLevel serverLevel)) {
             return;
@@ -158,11 +170,7 @@ public class SpawnTeleporterBlockEntity extends OwnedBlockEntity {
             target = transition.position();
             player.teleport(transition);
         } else {
-            int destination = Math.min(tier, 4);
-            if (tier >= SpawnTeleporterBlock.ENDERITE_TIER) {
-                destination = 1;
-            }
-            BlockPos custom = customTarget(destination);
+            BlockPos custom = customTarget();
             if (custom != null) {
                 targetLevel = serverLevel.getServer().overworld();
                 target = Vec3.atBottomCenterOf(custom);
@@ -194,20 +202,11 @@ public class SpawnTeleporterBlockEntity extends OwnedBlockEntity {
         BlockPos targetPos = BlockPos.containing(target);
         targetLevel.playSound(null, targetPos, SoundEvents.BEACON_ACTIVATE, SoundSource.PLAYERS, 1.0f, 1.5f);
         targetLevel.playSound(null, targetPos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.PLAYERS, 1.5f, 0.5f);
-        Component message = tier >= SpawnTeleporterBlock.ENDERITE_TIER
-                ? Component.translatable("message.simplebuilding.spawn_teleporter.welcome_home")
-                : Component.translatable("message.simplebuilding.spawn_teleporter.welcome", tier);
-        player.displayClientMessage(message.copy().withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD), true);
     }
 
-    /** Das per Befehl gesetzte Ziel von Spawn 1-4, sonst null (dann Weltspawn). */
-    public static BlockPos customTarget(int destination) {
+    /** Das per Befehl ({@code worldspawn setspawn1}) gesetzte Spawn-Ziel aller Stufen, sonst null (dann Weltspawn). */
+    public static BlockPos customTarget() {
         TweaksConfig.Spawn config = SimpleTweaks.config().spawn;
-        return switch (destination) {
-            case 2 -> config.spawn2Y > -999 ? new BlockPos(config.spawn2X, config.spawn2Y, config.spawn2Z) : null;
-            case 3 -> config.spawn3Y > -999 ? new BlockPos(config.spawn3X, config.spawn3Y, config.spawn3Z) : null;
-            case 4 -> config.spawn4Y > -999 ? new BlockPos(config.spawn4X, config.spawn4Y, config.spawn4Z) : null;
-            default -> config.spawn1Y > -999 ? new BlockPos(config.spawn1X, config.spawn1Y, config.spawn1Z) : null;
-        };
+        return config.spawn1Y > -999 ? new BlockPos(config.spawn1X, config.spawn1Y, config.spawn1Z) : null;
     }
 }

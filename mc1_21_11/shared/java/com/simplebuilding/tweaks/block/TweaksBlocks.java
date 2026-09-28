@@ -29,15 +29,17 @@ public final class TweaksBlocks {
 
     private static final List<Block> ALL = new ArrayList<>();
 
-    // --- Spawn-Teleporter (Stufe = Ziel Spawn 1-4; V = eigener Wiedereinstiegspunkt) ---
+    // --- Spawn-Teleporter I-III (Wartezeit 50/20/5 s; III = Enderit, eigener Wiedereinstiegspunkt) ---
     public static final Block SPAWN_TELEPORTER = register("spawn_teleporter",
             p -> new SpawnTeleporterBlock(sturdy(p).lightLevel(s -> 10), 1));
     public static final Block SPAWN_TELEPORTER_TIER_2 = register("spawn_teleporter_tier_2",
             p -> new SpawnTeleporterBlock(sturdy(p).lightLevel(s -> 12).mapColor(MapColor.DIAMOND), 2));
+    // Alte Stufen III und IV (bis 2026-09-28 fuenf Stufen): nur noch zum Laden alter Welten, werden zu II bzw. III.
     public static final Block SPAWN_TELEPORTER_TIER_3 = register("spawn_teleporter_tier_3",
-            p -> new SpawnTeleporterBlock(sturdy(p).lightLevel(s -> 14).mapColor(MapColor.EMERALD), 3));
+            p -> new LegacySpawnTeleporterBlock(sturdy(p).lightLevel(s -> 14).mapColor(MapColor.EMERALD), 2, () -> TweaksBlocks.SPAWN_TELEPORTER_TIER_2));
     public static final Block SPAWN_TELEPORTER_TIER_4 = register("spawn_teleporter_tier_4",
-            p -> new SpawnTeleporterBlock(sturdy(p).lightLevel(s -> 15).mapColor(MapColor.GOLD), 4));
+            p -> new LegacySpawnTeleporterBlock(sturdy(p).lightLevel(s -> 15).mapColor(MapColor.GOLD), SpawnTeleporterBlock.ENDERITE_TIER,
+                    () -> TweaksBlocks.ENDERITE_SPAWN_TELEPORTER));
     public static final Block ENDERITE_SPAWN_TELEPORTER = register("enderite_spawn_teleporter",
             p -> new SpawnTeleporterBlock(sturdy(p).lightLevel(s -> 15).mapColor(MapColor.COLOR_PURPLE), SpawnTeleporterBlock.ENDERITE_TIER));
 
@@ -129,15 +131,23 @@ public final class TweaksBlocks {
             p -> new WallSkullBlock(BlazeHeadType.BLAZE, p.overrideLootTable(BLAZE_HEAD.getLootTable())
                     .overrideDescription(BLAZE_HEAD.getDescriptionId()).strength(1.0f).pushReaction(PushReaction.DESTROY)));
 
+    // Endermankopf (2026-09-28): Zutat des Spawn-Teleporters I, faellt wie der Lohenkopf nur durch geladene Creeper.
+    public static final Block ENDERMAN_HEAD = registerHead("enderman_head",
+            p -> new SkullBlock(BlazeHeadType.ENDERMAN, p.instrument(NoteBlockInstrument.CUSTOM_HEAD).strength(1.0f)
+                    .pushReaction(PushReaction.DESTROY).noOcclusion()));
+    public static final Block ENDERMAN_WALL_HEAD = registerHead("enderman_wall_head",
+            p -> new WallSkullBlock(BlazeHeadType.ENDERMAN, p.overrideLootTable(ENDERMAN_HEAD.getLootTable())
+                    .overrideDescription(ENDERMAN_HEAD.getDescriptionId()).strength(1.0f).pushReaction(PushReaction.DESTROY)));
+
     private TweaksBlocks() {
     }
 
     /** Alte, abgeloeste Stufenbloecke (nur zum Laden alter Welten; kein Rezept, kein Kreativ-Tab). */
     public static List<Block> legacy() {
-        return List.of(NETHERITE_FLYPAD, ENDERITE_FLYPAD);
+        return List.of(NETHERITE_FLYPAD, ENDERITE_FLYPAD, SPAWN_TELEPORTER_TIER_3, SPAWN_TELEPORTER_TIER_4);
     }
 
-    /** Mob-Koepfe (Lohenkopf stehend und an der Wand); keine Pads, darum nicht in {@link #all()}. */
+    /** Mob-Koepfe (Lohen- und Endermankopf, stehend und an der Wand); keine Pads, darum nicht in {@link #all()}. */
     public static List<Block> heads() {
         return Collections.unmodifiableList(HEADS);
     }

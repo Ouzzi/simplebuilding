@@ -164,20 +164,4 @@ public class PotionPadBlock extends PadBlock {
         pad.setStored(contents.hasEffects() ? contents : null);
         return pad.getStored() != null;
     }
-
-    @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof PotionPadBlockEntity pad) {
-            PotionContents stored = pad.getStored();
-            Component message = stored == null
-                    ? Component.translatable("message.simplebuilding.potion_pad.empty").withStyle(ChatFormatting.GRAY)
-                    : pad.isCoolingDown()
-                    ? Component.translatable("message.simplebuilding.potion_pad.cooling",
-                            stored.getName("item.minecraft.splash_potion.effect."), (pad.getCooldown() + 19) / 20).withStyle(ChatFormatting.DARK_PURPLE)
-                    : Component.translatable("message.simplebuilding.potion_pad.stored",
-                            stored.getName("item.minecraft.splash_potion.effect."), effectDurationAt(level, pos) / 20).withStyle(ChatFormatting.LIGHT_PURPLE);
-            player.displayClientMessage(message, true);
-        }
-        return InteractionResult.SUCCESS;
-    }
 }

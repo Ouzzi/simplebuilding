@@ -54,10 +54,10 @@ public final class TweaksStation {
 
         int x = 1;
         x = station(c, x, floorZ, wallZ, TweaksBlocks.SPAWN_TELEPORTER,
-                TcText.t("tweaks.teleporter", "Teleporter"), TcText.t("tweaks.teleporter.1", "stand still 5 s"),
-                TcText.t("tweaks.teleporter.2", "to spawn 1"));
+                TcText.t("tweaks.teleporter", "Teleporter"), TcText.t("tweaks.teleporter.1", "stand still 50 s"),
+                TcText.t("tweaks.teleporter.2", "to spawn"));
         x = station(c, x, floorZ, wallZ, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER,
-                TcText.t("tweaks.teleporter_home", "Enderite Tp."), TcText.t("tweaks.teleporter_home.1", "stand still 3 s"),
+                TcText.t("tweaks.teleporter_home", "Enderite Tp."), TcText.t("tweaks.teleporter_home.1", "stand still 5 s"),
                 TcText.t("tweaks.teleporter_home.2", "to your bed"));
         x = station(c, x, floorZ, wallZ, TweaksBlocks.ELYTRA_PAD,
                 TcText.t("tweaks.elytra_pad", "Elytra Pad"), TcText.t("tweaks.elytra_pad.1", "empty chest slot"),
@@ -103,7 +103,7 @@ public final class TweaksStation {
                 PotionContents.createItemStack(Items.SPLASH_POTION, Potions.HEALING),
                 PotionContents.createItemStack(Items.LINGERING_POTION, Potions.NIGHT_VISION),
                 PotionContents.createItemStack(Items.SPLASH_POTION, Potions.WATER),
-                new ItemStack(TweaksItems.BLAZE_HEAD)));
+                new ItemStack(TweaksItems.BLAZE_HEAD), new ItemStack(TweaksItems.ENDERMAN_HEAD)));
 
         c.backWall(0, Math.max(end, x), wallZ, panelTop + 3);
         return c;

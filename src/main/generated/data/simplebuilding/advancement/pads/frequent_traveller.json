@@ -5,10 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "simplebuilding:spawn_teleporter_tier_4",
-              "simplebuilding:enderite_spawn_teleporter"
-            ]
+            "items": "simplebuilding:enderite_spawn_teleporter"
           }
         ]
       },

@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_elytra": {
+    "has_diamond_pressure_plate": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:elytra"
+            "items": "simplebuilding:diamond_pressure_plate"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_elytra"
+      "has_diamond_pressure_plate"
     ]
   ],
   "rewards": {

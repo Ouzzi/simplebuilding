@@ -112,6 +112,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_machines_and_storage_tab_is_laid_out_in_rows_of_nine", DataIntegrityTests::machinesAndStorageTabIsLaidOutInRowsOfNine)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_materials_tab_is_laid_out_in_rows", DataIntegrityTests::materialsTabIsLaidOutInRows)
+                    .build(),
             GameTestSpec.named("data_integrity_game_test_tools_tab_is_laid_out_in_rows_of_nine", DataIntegrityTests::toolsTabIsLaidOutInRowsOfNine)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_creative_spacer_cannot_be_taken_or_kept", DataIntegrityTests::creativeSpacerCannotBeTakenOrKept)
@@ -1218,6 +1220,20 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("tweaks_game_test_placing_pads_makes_the_placer_the_owner", TweaksTests::placingPadsMakesThePlacerTheOwner)
                     .build(),
             GameTestSpec.named("tweaks_game_test_chunk_loaders_force_their_chunks_and_release_only_their_own", TweaksTests::chunkLoadersForceTheirChunksAndReleaseOnlyTheirOwn)
+                    .build(),
+            GameTestSpec.named("pad_overhaul_game_test_spawn_teleporter_tiers_wait_fifty_twenty_and_five_seconds", PadOverhaulTests::spawnTeleporterTiersWaitFiftyTwentyAndFiveSeconds)
+                    .maxTicks(PadOverhaulTests.WAIT_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("pad_overhaul_game_test_old_spawn_teleporters_become_their_new_tier_in_the_world_and_the_inventory", PadOverhaulTests::oldSpawnTeleportersBecomeTheirNewTierInTheWorldAndTheInventory)
+                    .build(),
+            GameTestSpec.named("pad_overhaul_game_test_tier_one_of_every_pad_family_is_smithed_from_its_plate_and_unlock_item", PadOverhaulTests::tierOneOfEveryPadFamilyIsSmithedFromItsPlateAndUnlockItem)
+                    .build(),
+            GameTestSpec.named("pad_overhaul_game_test_pads_and_gadgets_write_no_text_on_the_screen", PadOverhaulTests::padsAndGadgetsWriteNoTextOnTheScreen)
+                    .maxTicks(PadOverhaulTests.NO_TEXT_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("pad_overhaul_game_test_the_echo_sounder_cooldown_is_four_times_longer", PadOverhaulTests::theEchoSounderCooldownIsFourTimesLonger)
+                    .build(),
+            GameTestSpec.named("pad_overhaul_game_test_the_echo_sounder_does_not_relink_the_lodestone_it_is_linked_to", PadOverhaulTests::theEchoSounderDoesNotRelinkTheLodestoneItIsLinkedTo)
                     .build(),
             GameTestSpec.named("tweaks_tier_game_test_launchpad_tiers_hold_four_eight_and_sixteen_wind_charges", TweaksTierTests::launchpadTiersHoldFourEightAndSixteenWindCharges)
                     .build(),

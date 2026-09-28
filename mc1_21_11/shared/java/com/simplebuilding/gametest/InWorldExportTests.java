@@ -298,8 +298,8 @@ public final class InWorldExportTests {
     }
 
     /**
-     * JEI's "Mob drops" category ({@link com.simplebuilding.compat.MobDropCatalog}): the six heads a
-     * charged creeper's explosion knocks off - vanilla's five and the mod's blaze head - and the
+     * JEI's "Mob drops" category ({@link com.simplebuilding.compat.MobDropCatalog}): the seven heads a
+     * charged creeper's explosion knocks off - vanilla's five and the mod's blaze and enderman heads - and the
      * creeper-killed-by-a-skeleton entry with every disc of {@code minecraft:creeper_drop_music_discs}.
      */
     public static void mobDropCatalogHasEveryHeadAndTheDiscs(GameTestHelper helper) {
@@ -315,6 +315,7 @@ public final class InWorldExportTests {
         }
         String expected = "{charged_creeper/minecraft:blaze=simplebuilding:blaze_head, "
                 + "charged_creeper/minecraft:creeper=minecraft:creeper_head, "
+                + "charged_creeper/minecraft:enderman=simplebuilding:enderman_head, "
                 + "charged_creeper/minecraft:piglin=minecraft:piglin_head, "
                 + "charged_creeper/minecraft:skeleton=minecraft:skeleton_skull, "
                 + "charged_creeper/minecraft:wither_skeleton=minecraft:wither_skeleton_skull, "
@@ -369,7 +370,7 @@ public final class InWorldExportTests {
             killer.discard();
             checked++;
         }
-        helper.assertTrue(checked == 7, "expected 7 mob drop entries, checked " + checked);
+        helper.assertTrue(checked == 8, "expected 8 mob drop entries (seven charged creeper heads incl. blaze and enderman, plus the discs), checked " + checked);
         helper.assertTrue(problems.isEmpty(), "mob drops that do not happen in the game: " + problems);
         TestCleanup.succeed(helper);
     }

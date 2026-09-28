@@ -46,7 +46,8 @@
 	],
 	"quest.1E6A20BF670EC8F7.title": "{\"translate\": \"advancements.simplebuilding.pads.home_sweet_spawn.title\"}",
 	"quest.1E6A20BF670EC8F7.quest_desc": [
-		"{\"translate\": \"advancements.simplebuilding.pads.home_sweet_spawn.description\"}"
+		"{\"translate\": \"advancements.simplebuilding.pads.home_sweet_spawn.description\"}",
+		"{\"translate\": \"quests.simplebuilding.gadgets.spawn.hint\"}"
 	],
 	"quest.4C05E440807CDB86.title": "{\"translate\": \"advancements.simplebuilding.pads.frequent_traveller.title\"}",
 	"quest.4C05E440807CDB86.quest_desc": [

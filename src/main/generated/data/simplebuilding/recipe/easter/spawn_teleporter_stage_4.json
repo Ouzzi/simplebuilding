@@ -1,9 +1,0 @@
-{
-  "type": "simplebuilding:easter_smithing",
-  "addition": "simplebuilding:netherite_pressure_plate",
-  "base": "simplebuilding:spawn_teleporter_tier_3",
-  "base_stage": 3,
-  "result": "simplebuilding:spawn_teleporter_tier_4",
-  "result_stage": 4,
-  "template": "minecraft:netherite_upgrade_smithing_template"
-}

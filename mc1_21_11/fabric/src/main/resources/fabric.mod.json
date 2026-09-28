@@ -86,6 +86,7 @@
       "com.simplebuilding.gametest.TradeOfferGameTest",
       "com.simplebuilding.gametest.TweaksGameTest",
       "com.simplebuilding.gametest.TweaksTierGameTest",
+      "com.simplebuilding.gametest.PadOverhaulGameTest",
       "com.simplebuilding.gametest.PotionPadGameTest",
       "com.simplebuilding.gametest.PerformanceGameTest",
       "com.simplebuilding.gametest.PlacedTemplateGameTest",

@@ -240,7 +240,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                     any(TweaksBlocks.STELLAR_FLYPAD));
             AdvancementHolder spawn = feature("pads/home_sweet_spawn", plate, TweaksBlocks.SPAWN_TELEPORTER, AdvancementType.TASK, ModTriggers.SPAWN_TELEPORT);
             node("pads/frequent_traveller", spawn, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER, AdvancementType.GOAL, "best_spawn_teleporter",
-                    any(TweaksBlocks.SPAWN_TELEPORTER_TIER_4, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER));
+                    any(TweaksBlocks.ENDERITE_SPAWN_TELEPORTER));
             node("pads/always_loaded", plate, TweaksBlocks.CHUNK_LOADER, AdvancementType.TASK, "chunk_loader",
                     any(TweaksBlocks.CHUNK_LOADER, TweaksBlocks.NETHERITE_CHUNK_LOADER, TweaksBlocks.ENDERITE_CHUNK_LOADER));
             AdvancementHolder head = node("pads/hot_head", tweaks, TweaksItems.BLAZE_HEAD, AdvancementType.TASK, "blaze_head",

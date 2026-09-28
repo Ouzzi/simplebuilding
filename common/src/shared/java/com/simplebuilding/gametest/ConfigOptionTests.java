@@ -462,8 +462,9 @@ public final class ConfigOptionTests {
             "tweaks.pads.enableTimedCopperPlates boolean=true",
             "tweaks.pads.enableFilterPlates boolean=true",
             "tweaks.pads.enablePotionPads boolean=true",
-            "tweaks.padTuning.teleporterWarmupTicks int=100",
-            "tweaks.padTuning.enderiteTeleporterWarmupTicks int=60",
+            "tweaks.padTuning.teleporterTier1WarmupTicks int=1000",
+            "tweaks.padTuning.teleporterTier2WarmupTicks int=400",
+            "tweaks.padTuning.teleporterTier3WarmupTicks int=100",
             "tweaks.padTuning.launchpadStrengthMultiplier double=1.0",
             "tweaks.padTuning.potionPadChargeStepTicks int=20",
             "tweaks.padTuning.potionPadCooldownFactor double=2.0",
@@ -475,7 +476,7 @@ public final class ConfigOptionTests {
             "tweaks.laserPointer.effectCost int=5",
             "tweaks.laserPointer.showLine boolean=false",
             "tweaks.balancing.rocketStackSize int=64",
-            "tweaks.balancing.echoSounderCooldownTicks int=120",
+            "tweaks.balancing.echoSounderJumpCooldownTicks int=480",
             "tweaks.spawn.MAX_FLIGHT_SECONDS int runtime-only(static)",
             "tweaks.spawn.MAX_BOOSTS int runtime-only(static)",
             "tweaks.spawn.forceExactSpawn boolean=false",
@@ -498,15 +499,6 @@ public final class ConfigOptionTests {
             "tweaks.spawn.spawn1X int=0",
             "tweaks.spawn.spawn1Y int=-1000",
             "tweaks.spawn.spawn1Z int=0",
-            "tweaks.spawn.spawn2X int=0",
-            "tweaks.spawn.spawn2Y int=-1000",
-            "tweaks.spawn.spawn2Z int=0",
-            "tweaks.spawn.spawn3X int=0",
-            "tweaks.spawn.spawn3Y int=-1000",
-            "tweaks.spawn.spawn3Z int=0",
-            "tweaks.spawn.spawn4X int=0",
-            "tweaks.spawn.spawn4Y int=-1000",
-            "tweaks.spawn.spawn4Z int=0",
             "tweaks.dimensions.allowNether boolean=true",
             "tweaks.dimensions.allowEnd boolean=true",
             "tweaks.commands.enableKillBoatsCommand boolean=true",
@@ -1212,16 +1204,18 @@ public final class ConfigOptionTests {
         boolean potionPads = tweaks.pads.enablePotionPads;
         int step = tweaks.padTuning.potionPadChargeStepTicks;
         double cooldownFactor = tweaks.padTuning.potionPadCooldownFactor;
-        int warmup = tweaks.padTuning.teleporterWarmupTicks;
-        int enderiteWarmup = tweaks.padTuning.enderiteTeleporterWarmupTicks;
+        int warmup = tweaks.padTuning.teleporterTier1WarmupTicks;
+        int netheriteWarmup = tweaks.padTuning.teleporterTier2WarmupTicks;
+        int enderiteWarmup = tweaks.padTuning.teleporterTier3WarmupTicks;
         double launch = tweaks.padTuning.launchpadStrengthMultiplier;
         Runnable restore = () -> {
             TweaksConfig live = Simplebuilding.getConfig().tweaks;
             live.pads.enablePotionPads = potionPads;
             live.padTuning.potionPadChargeStepTicks = step;
             live.padTuning.potionPadCooldownFactor = cooldownFactor;
-            live.padTuning.teleporterWarmupTicks = warmup;
-            live.padTuning.enderiteTeleporterWarmupTicks = enderiteWarmup;
+            live.padTuning.teleporterTier1WarmupTicks = warmup;
+            live.padTuning.teleporterTier2WarmupTicks = netheriteWarmup;
+            live.padTuning.teleporterTier3WarmupTicks = enderiteWarmup;
             live.padTuning.launchpadStrengthMultiplier = launch;
         };
         restoreAtEnd(helper, restore);
@@ -1266,17 +1260,21 @@ public final class ConfigOptionTests {
                             .cooldownAt(helper.getLevel(), helper.absolutePos(none)) == 2 * full,
                     "the default cooldown factor no longer gives twice the effect duration");
 
-            // --- tweaks.padTuning.teleporterWarmupTicks / enderiteTeleporterWarmupTicks ---
+            // --- tweaks.padTuning.teleporterTier1/2/3WarmupTicks (drei Stufen seit 2026-09-28) ---
             int enderiteTier = com.simplebuilding.tweaks.block.SpawnTeleporterBlock.ENDERITE_TIER;
-            helper.assertTrue(com.simplebuilding.tweaks.block.entity.SpawnTeleporterBlockEntity.requiredTicks(1) == 100
-                            && com.simplebuilding.tweaks.block.entity.SpawnTeleporterBlockEntity.requiredTicks(enderiteTier) == 60,
-                    "the default teleporter warm-ups are no longer 100 and 60 ticks");
-            tweaks.padTuning.teleporterWarmupTicks = 40;
-            tweaks.padTuning.enderiteTeleporterWarmupTicks = 10;
+            helper.assertTrue(com.simplebuilding.tweaks.block.entity.SpawnTeleporterBlockEntity.requiredTicks(1) == 1000
+                            && com.simplebuilding.tweaks.block.entity.SpawnTeleporterBlockEntity.requiredTicks(2) == 400
+                            && com.simplebuilding.tweaks.block.entity.SpawnTeleporterBlockEntity.requiredTicks(enderiteTier) == 100,
+                    "the default teleporter warm-ups are no longer 1000, 400 and 100 ticks");
+            tweaks.padTuning.teleporterTier1WarmupTicks = 40;
+            tweaks.padTuning.teleporterTier2WarmupTicks = 20;
+            tweaks.padTuning.teleporterTier3WarmupTicks = 10;
             helper.assertTrue(com.simplebuilding.tweaks.block.entity.SpawnTeleporterBlockEntity.requiredTicks(1) == 40,
-                    "teleporterWarmupTicks 40 did not shorten the countdown of a tier I teleporter");
+                    "teleporterTier1WarmupTicks 40 did not shorten the countdown of a tier I teleporter");
+            helper.assertTrue(com.simplebuilding.tweaks.block.entity.SpawnTeleporterBlockEntity.requiredTicks(2) == 20,
+                    "teleporterTier2WarmupTicks 20 did not shorten the countdown of a tier II teleporter");
             helper.assertTrue(com.simplebuilding.tweaks.block.entity.SpawnTeleporterBlockEntity.requiredTicks(enderiteTier) == 10,
-                    "enderiteTeleporterWarmupTicks 10 did not shorten the countdown of the Enderite teleporter");
+                    "teleporterTier3WarmupTicks 10 did not shorten the countdown of the Enderite teleporter");
 
             // --- tweaks.padTuning.launchpadStrengthMultiplier ---
             double normal = com.simplebuilding.tweaks.block.entity.LaunchpadBlockEntity.strengthFor(4);
@@ -1304,7 +1302,7 @@ public final class ConfigOptionTests {
         int beam = tweaks.laserPointer.beamCostPerSecond;
         int effect = tweaks.laserPointer.effectCost;
         boolean lens = tweaks.laserPointer.enable;
-        int echo = tweaks.balancing.echoSounderCooldownTicks;
+        int echo = tweaks.balancing.echoSounderJumpCooldownTicks;
         Runnable restore = () -> {
             TweaksConfig live = Simplebuilding.getConfig().tweaks;
             live.commands.killCommandRadius = radius;
@@ -1313,7 +1311,7 @@ public final class ConfigOptionTests {
             live.laserPointer.beamCostPerSecond = beam;
             live.laserPointer.effectCost = effect;
             live.laserPointer.enable = lens;
-            live.balancing.echoSounderCooldownTicks = echo;
+            live.balancing.echoSounderJumpCooldownTicks = echo;
         };
         restoreAtEnd(helper, restore);
         ServerPlayer player = mockPlayer(helper);
@@ -1382,12 +1380,12 @@ public final class ConfigOptionTests {
                 helper.assertTrue(effectLens.getDamageValue() == cost, "lighting a candle at effectCost " + cost + " took " + effectLens.getDamageValue() + " charge");
             }
 
-            // --- tweaks.balancing.echoSounderCooldownTicks ---
+            // --- tweaks.balancing.echoSounderJumpCooldownTicks ---
             BlockPos lodestone = new BlockPos(6, 1, 6);
             helper.setBlock(lodestone, net.minecraft.world.level.block.Blocks.LODESTONE);
-            int[] cooldowns = {0, 120};
+            int[] cooldowns = {0, 480};
             for (int cooldown : cooldowns) {
-                tweaks.balancing.echoSounderCooldownTicks = cooldown;
+                tweaks.balancing.echoSounderJumpCooldownTicks = cooldown;
                 ServerPlayer jumper = mockPlayer(helper);
                 jumper.getAbilities().instabuild = false;
                 ItemStack compass = new ItemStack(com.simplebuilding.tweaks.item.TweaksItems.ECHO_COMPASS);
@@ -1397,7 +1395,7 @@ public final class ConfigOptionTests {
                 helper.assertTrue(com.simplebuilding.tweaks.item.EchoCompassItem.teleport(jumper, net.minecraft.world.InteractionHand.MAIN_HAND, compass),
                         "the echo sounder refused to jump (cooldown option " + cooldown + ")");
                 helper.assertTrue(jumper.getCooldowns().isOnCooldown(compass) == (cooldown > 0),
-                        "echoSounderCooldownTicks " + cooldown + (cooldown > 0 ? " left the echo sounder without a cooldown" : " still put it on cooldown"));
+                        "echoSounderJumpCooldownTicks " + cooldown + (cooldown > 0 ? " left the echo sounder without a cooldown" : " still put it on cooldown"));
             }
         } catch (com.mojang.brigadier.exceptions.CommandSyntaxException e) {
             helper.fail("/killboats failed: " + e.getMessage());

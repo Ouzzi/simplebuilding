@@ -3,14 +3,16 @@ package com.simplebuilding.tweaks.block;
 import net.minecraft.world.level.block.SkullBlock;
 
 /**
- * Kopf-Typ des Lohenkopfs ({@code simplebuilding:blaze_head}). Vanillas Koepfe sind ein Enum
+ * Kopf-Typen der Mod-Koepfe: Lohenkopf ({@code simplebuilding:blaze_head}, Trank-Pad I) und
+ * Endermankopf ({@code simplebuilding:enderman_head}, Spawn-Teleporter I, seit 2026-09-28). Vanillas Koepfe sind ein Enum
  * ({@code SkullBlock.Types}); ein Mod-Kopf traegt sich selbst in {@link SkullBlock.Type#TYPES} ein,
  * damit Block-Codec und das Item-Modell ({@code minecraft:head}, Feld {@code kind}) ihn per Namen
  * finden. Das Modell (Vanillas Mob-Kopf-Wuerfel 8x8x8) und die Textur haengt
  * {@code SkullModelMixin} beim Client an {@code SkullBlockRenderer}.
  */
 public enum BlazeHeadType implements SkullBlock.Type {
-    BLAZE("simplebuilding:blaze");
+    BLAZE("simplebuilding:blaze"),
+    ENDERMAN("simplebuilding:enderman");
 
     private final String name;
 

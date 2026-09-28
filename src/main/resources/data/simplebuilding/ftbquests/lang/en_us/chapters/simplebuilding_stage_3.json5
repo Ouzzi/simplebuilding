@@ -45,7 +45,8 @@
 	],
 	"quest.059628FBC8427060.title": "{\"translate\": \"advancements.simplebuilding.pads.liftoff.title\"}",
 	"quest.059628FBC8427060.quest_desc": [
-		"{\"translate\": \"advancements.simplebuilding.pads.liftoff.description\"}"
+		"{\"translate\": \"advancements.simplebuilding.pads.liftoff.description\"}",
+		"{\"translate\": \"quests.simplebuilding.stage_3.launchpad.hint\"}"
 	],
 	"quest.26F2188B9BD804BC.title": "{\"translate\": \"quests.simplebuilding.stage_3.netherite_plate.title\"}",
 	"quest.26F2188B9BD804BC.quest_desc": [

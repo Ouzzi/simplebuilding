@@ -71,7 +71,7 @@
         "items": [
           {
             "components": {
-              "simplebuilding:easter_stage": 5
+              "simplebuilding:easter_stage": 3
             },
             "items": "simplebuilding:enderite_spawn_teleporter"
           }

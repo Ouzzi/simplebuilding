@@ -154,14 +154,14 @@ public final class TweaksTests {
         expectSmithing(helper, template, TweaksBlocks.NETHERITE_ELYTRA_PAD, enderitePlate, TweaksBlocks.ENDERITE_ELYTRA_PAD);
         expectSmithing(helper, template, TweaksBlocks.FLYPAD, enderitePlate, TweaksBlocks.REINFORCED_FLYPAD);
         expectSmithing(helper, template, TweaksBlocks.NETHERITE_PRESSURE_PLATE, ingot, TweaksBlocks.ENDERITE_PRESSURE_PLATE);
-        expectSmithing(helper, template, TweaksBlocks.SPAWN_TELEPORTER_TIER_4, enderitePlate, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER);
+        expectSmithing(helper, template, TweaksBlocks.SPAWN_TELEPORTER_TIER_2, enderitePlate, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER);
         expectSmithing(helper, template, TweaksBlocks.NETHERITE_CHUNK_LOADER, enderitePlate, TweaksBlocks.ENDERITE_CHUNK_LOADER);
         expectSmithing(helper, template, TweaksBlocks.NETHERITE_LAUNCHPAD, enderitePlate, TweaksBlocks.ENDERITE_LAUNCHPAD);
         expectSmithing(helper, netherite, TweaksBlocks.ENDERITE_ELYTRA_PAD, Items.NETHER_STAR, TweaksBlocks.FINE_ELYTRA_PAD);
         expectSmithing(helper, netherite, TweaksBlocks.REINFORCED_ELYTRA_PAD, netheritePlate, TweaksBlocks.NETHERITE_ELYTRA_PAD);
         expectSmithing(helper, template, TweaksBlocks.ENDERITE_PRESSURE_PLATE, ModItems.ENDERITE_CORE, TweaksBlocks.FLYPAD);
         expectSmithing(helper, netherite, TweaksBlocks.DIAMOND_PRESSURE_PLATE, Items.NETHERITE_INGOT, TweaksBlocks.NETHERITE_PRESSURE_PLATE);
-        expectSmithing(helper, netherite, TweaksBlocks.COPPER_PRESSURE_PLATE, TweaksBlocks.DIAMOND_PRESSURE_PLATE.asItem(), TweaksBlocks.CHUNK_LOADER);
+        expectSmithing(helper, netherite, TweaksBlocks.COPPER_PRESSURE_PLATE, ModItems.COPPER_CORE, TweaksBlocks.CHUNK_LOADER);
         // Der alte Weg (Netherit-Pad + Netherstern) fuehrt nicht mehr zum feinen Pad.
         Optional<RecipeHolder<SmithingRecipe>> oldWay = smithing(helper, netherite, TweaksBlocks.NETHERITE_ELYTRA_PAD, Items.NETHER_STAR);
         helper.assertTrue(oldWay.isEmpty() || !oldWay.get().value().assemble(smithingInput(netherite, TweaksBlocks.NETHERITE_ELYTRA_PAD, Items.NETHER_STAR), helper.getLevel().registryAccess()).is(TweaksBlocks.FINE_ELYTRA_PAD.asItem()),
@@ -445,49 +445,52 @@ public final class TweaksTests {
     // =====================================================================================
 
     /**
-     * Wer 5 s still auf einem Spawn-Teleporter II steht, landet zwei Bloecke ueber Spawn 2; ein
-     * Schritt dazwischen setzt die Zeit zurueck.
+     * Wer still auf einem Spawn-Teleporter steht, landet zwei Bloecke ueber dem Spawn-Ziel; ein Schritt
+     * dazwischen setzt die Zeit zurueck. Drei Stufen seit 2026-09-28, nur die Wartezeit unterscheidet sie
+     * (50/20/5 s); gefahren wird Stufe III (5 s), der Mock-Spieler hat keinen Wiedereinstiegspunkt, also
+     * gilt auch fuer sie das Spawn-Ziel.
      */
     public static void spawnTeleportersSendStillPlayersToTheirSpawnPoint(GameTestHelper helper) {
         BlockPos pad = new BlockPos(2, 1, 2);
-        helper.setBlock(pad, TweaksBlocks.SPAWN_TELEPORTER_TIER_2);
+        helper.setBlock(pad, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER);
         BlockPos target = helper.absolutePos(new BlockPos(6, 1, 6));
         TweaksConfig.Spawn spawn = SimpleTweaks.config().spawn;
-        int[] saved = {spawn.spawn2X, spawn.spawn2Y, spawn.spawn2Z};
-        TweaksCommands.setTeleporterSpawn(2, target);
+        int[] saved = {spawn.spawn1X, spawn.spawn1Y, spawn.spawn1Z};
+        TweaksCommands.setTeleporterSpawn(target);
         TestCleanup.before(helper, () -> {
-            spawn.spawn2X = saved[0];
-            spawn.spawn2Y = saved[1];
-            spawn.spawn2Z = saved[2];
+            spawn.spawn1X = saved[0];
+            spawn.spawn1Y = saved[1];
+            spawn.spawn1Z = saved[2];
         });
         ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 1.1, 2.5));
         player.setDeltaMovement(Vec3.ZERO);
         Vec3 start = player.position();
-        helper.assertValueEqual(SpawnTeleporterBlockEntity.requiredTicks(2), 100, "standing time of the spawn teleporter");
-        helper.assertValueEqual(SpawnTeleporterBlockEntity.requiredTicks(5), 60, "standing time of the enderite spawn teleporter");
+        helper.assertValueEqual(SpawnTeleporterBlockEntity.requiredTicks(1), 1000, "standing time of the spawn teleporter I");
+        helper.assertValueEqual(SpawnTeleporterBlockEntity.requiredTicks(2), 400, "standing time of the spawn teleporter II");
+        helper.assertValueEqual(SpawnTeleporterBlockEntity.requiredTicks(3), 100, "standing time of the spawn teleporter III");
         helper.startSequence()
-                .thenExecuteAfter(SpawnTeleporterBlockEntity.STANDARD_TICKS - 20, () ->
+                .thenExecuteAfter(SpawnTeleporterBlockEntity.ENDERITE_TICKS - 20, () ->
                         helper.assertTrue(player.position().distanceTo(start) < 0.5, "the player was teleported before the countdown ended"))
                 .thenWaitUntil(() -> {
                     Vec3 expected = Vec3.atBottomCenterOf(target).add(0, 2.0, 0);
                     helper.assertTrue(player.position().distanceTo(expected) < 1.5,
-                            "the player is at " + player.position() + ", not two blocks above spawn 2 at " + expected);
+                            "the player is at " + player.position() + ", not two blocks above the spawn target at " + expected);
                 })
                 .thenExecute(() -> TestCleanup.run(helper))
                 .thenSucceed();
     }
 
-    /** Ohne gesetztes Ziel geht es zum Weltspawn; Stufe V faellt ohne Wiedereinstiegspunkt auf Spawn 1 zurueck. */
+    /** Ohne gesetztes Ziel geht es zum Weltspawn; ein per Befehl gesetztes Ziel gilt fuer alle Stufen. */
     public static void spawnTeleporterTargetsFallBackToTheWorldSpawn(GameTestHelper helper) {
         TweaksConfig.Spawn spawn = SimpleTweaks.config().spawn;
-        int savedY = spawn.spawn3Y;
+        int savedY = spawn.spawn1Y;
         try {
-            spawn.spawn3Y = -1000;
-            helper.assertTrue(SpawnTeleporterBlockEntity.customTarget(3) == null, "an unset spawn 3 still has a target");
-            spawn.spawn3Y = 70;
-            helper.assertValueEqual(SpawnTeleporterBlockEntity.customTarget(3), new BlockPos(spawn.spawn3X, 70, spawn.spawn3Z), "target of spawn 3");
+            spawn.spawn1Y = -1000;
+            helper.assertTrue(SpawnTeleporterBlockEntity.customTarget() == null, "an unset spawn target still has a target");
+            spawn.spawn1Y = 70;
+            helper.assertValueEqual(SpawnTeleporterBlockEntity.customTarget(), new BlockPos(spawn.spawn1X, 70, spawn.spawn1Z), "the spawn target");
         } finally {
-            spawn.spawn3Y = savedY;
+            spawn.spawn1Y = savedY;
         }
         TestCleanup.succeed(helper);
     }
@@ -701,7 +704,7 @@ public final class TweaksTests {
         helper.assertValueEqual(de.get("item.simplebuilding.echo_compass").getAsString(), "Echolot", "german item name");
         for (JsonObject lang : List.of(en, de)) {
             helper.assertFalse(lang.has("message.simplebuilding.echo_compass.no_pearl"), "the no pearl message is still translated");
-            for (String key : List.of("message.simplebuilding.echo_compass.unlinked", "jei.simplebuilding.info.echo_compass",
+            for (String key : List.of("jei.simplebuilding.info.echo_compass",
                     "simplebuilding.testcentre.tweaks.echo")) {
                 String text = lang.get(key).getAsString();
                 helper.assertFalse(text.contains("Echo Compass") || text.contains("Echo-Kompass"), key + " still names the echo compass: " + text);
@@ -1069,9 +1072,9 @@ public final class TweaksTests {
                 "pads.enableChunkLoaders=true", "pads.enableElytraPads=true", "pads.enableFlypads=true",
                 "pads.enableSpawnTeleporters=true", "pads.enableLaunchpads=true", "pads.enableTimedCopperPlates=true",
                 "pads.enableFilterPlates=true", "pads.enablePotionPads=true",
-                "padTuning.teleporterWarmupTicks=100", "padTuning.enderiteTeleporterWarmupTicks=60",
+                "padTuning.teleporterTier1WarmupTicks=1000", "padTuning.teleporterTier2WarmupTicks=400", "padTuning.teleporterTier3WarmupTicks=100",
                 "padTuning.launchpadStrengthMultiplier=1.0", "padTuning.potionPadChargeStepTicks=20",
-                "padTuning.potionPadCooldownFactor=2.0", "balancing.echoSounderCooldownTicks=120",
+                "padTuning.potionPadCooldownFactor=2.0", "balancing.echoSounderJumpCooldownTicks=480",
                 "commands.killCommandRadius=100", "optimization.xpClumpRadius=2.0",
                 "laserPointer.beamCostPerSecond=1", "laserPointer.effectCost=5",
                 "balancing.rocketStackSize=64", "dimensions.allowNether=true",
@@ -1081,9 +1084,7 @@ public final class TweaksTests {
                 "spawn.spawnTeleporterCount=null", "spawn.giveElytraOnSpawn=false",
                 "spawn.spawnElytraRadius=25", "spawn.useWorldSpawnAsCenter=false", "spawn.customSpawnElytraX=0",
                 "spawn.customSpawnElytraZ=0", "spawn.flightTimeSeconds=300", "spawn.maxBoosts=3", "spawn.boostStrength=0.6",
-                "spawn.spawn1X=0", "spawn.spawn1Y=-1000", "spawn.spawn1Z=0", "spawn.spawn2X=0", "spawn.spawn2Y=-1000",
-                "spawn.spawn2Z=0", "spawn.spawn3X=0", "spawn.spawn3Y=-1000", "spawn.spawn3Z=0", "spawn.spawn4X=0",
-                "spawn.spawn4Y=-1000", "spawn.spawn4Z=0", "commands.enableKillBoatsCommand=true",
+                "spawn.spawn1X=0", "spawn.spawn1Y=-1000", "spawn.spawn1Z=0", "commands.enableKillBoatsCommand=true",
                 "commands.enableKillCartsCommand=false", "optimization.enableXpClumps=true", "optimization.scaleXpOrbs=true",
                 "laserPointer.enable=true", "laserPointer.color=16711680", "laserPointer.scale=0.25", "laserPointer.range=512",
                 "laserPointer.showLine=false"));

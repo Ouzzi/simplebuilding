@@ -252,44 +252,62 @@ public final class ModItemGroupsContent {
     }
 
     private static void materials(CreativeModeTab.Output entries) {
-        // --- Ores ---
-        entries.accept(ModItems.NIHILITH_ORE_ITEM);
-        entries.accept(ModItems.ASTRALIT_ORE_ITEM);
+        CreativeTabLayout.emit(entries, materialsRows());
+    }
 
-        // --- Resources ---
-        entries.accept(ModItems.LEATHER_SHEET);
-        entries.accept(ModItems.DIAMOND_PEBBLE);
-        entries.accept(ModItems.CRACKED_DIAMOND);
-        entries.accept(ModItems.NETHERITE_NUGGET);
-        entries.accept(ModItems.ENDERITE_NUGGET);
-        entries.accept(ModItems.NIHILITH_SHARD);
-        entries.accept(ModItems.ASTRALIT_DUST);
-        entries.accept(ModItems.ENDER_QUARTZ);
-        entries.accept(ModItems.RAW_ENDERITE);
-        entries.accept(ModItems.ENDERITE_SCRAP);
-        entries.accept(ModItems.ENDERITE_INGOT);
+    /**
+     * Zeilen des Tabs "SimpleMaterials" (Besitzer 2026-09-28: saubere Zeilen wie SimpleTools/SimpleMachines):
+     * End-Erze mit ihrer Ausbeute (Nihilit, Astralit, dann Enderquarz), die Werkstoffe in Erz-Reihenfolge
+     * (Diamant, Netherit, Enderit vom Rohstoff zum Barren; der Lederfetzen nach einer Luecke), die Baukerne
+     * Kupfer bis Enderit, alle Schmiedevorlagen an einem Ort - erst die Aufwertungen (Basis, Vanillas
+     * Netherit, Enderit), dann die Besatzvorlagen (alle Vanilla-Besaetze in Vanillas Reihenfolge, dann
+     * Leuchtend und Strahlend) - und die Nahrung (Netherit, Luecke, Enderit).
+     */
+    public static List<CreativeTabLayout.Row> materialsRows() {
+        List<ItemLike> trims = new java.util.ArrayList<>(vanillaTrimTemplates());
+        trims.add(ModItems.GLOWING_TRIM_TEMPLATE);
+        trims.add(ModItems.EMITTING_TRIM_TEMPLATE);
+        return List.of(
+                CreativeTabLayout.Row.of("end_ores",
+                        ModItems.NIHILITH_ORE_ITEM, ModItems.NIHILITH_SHARD, CreativeTabLayout.GAP,
+                        ModItems.ASTRALIT_ORE_ITEM, ModItems.ASTRALIT_DUST, CreativeTabLayout.GAP,
+                        ModItems.ENDER_QUARTZ),
+                CreativeTabLayout.Row.of("resources",
+                        ModItems.DIAMOND_PEBBLE, ModItems.CRACKED_DIAMOND, ModItems.NETHERITE_NUGGET,
+                        ModItems.RAW_ENDERITE, ModItems.ENDERITE_SCRAP, ModItems.ENDERITE_NUGGET, ModItems.ENDERITE_INGOT,
+                        CreativeTabLayout.GAP, ModItems.LEATHER_SHEET),
+                CreativeTabLayout.Row.of("building_cores",
+                        ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE,
+                        ModItems.DIAMOND_CORE, ModItems.NETHERITE_CORE, ModItems.ENDERITE_CORE),
+                CreativeTabLayout.Row.of("upgrade_templates",
+                        ModItems.BASIC_UPGRADE_TEMPLATE, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModItems.ENDERITE_UPGRADE_TEMPLATE),
+                CreativeTabLayout.Row.of("trim_templates", trims.toArray(ItemLike[]::new)),
+                CreativeTabLayout.Row.of("food",
+                        ModItems.NETHERITE_APPLE, ModItems.ENCHANTED_NETHERITE_APPLE, ModItems.NETHERITE_CARROT,
+                        CreativeTabLayout.GAP,
+                        ModItems.ENDERITE_APPLE, ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_CARROT));
+    }
 
-        // --- Building Cores ---
-        entries.accept(ModItems.COPPER_CORE);
-        entries.accept(ModItems.IRON_CORE);
-        entries.accept(ModItems.GOLD_CORE);
-        entries.accept(ModItems.DIAMOND_CORE);
-        entries.accept(ModItems.NETHERITE_CORE);
-        entries.accept(ModItems.ENDERITE_CORE);
+    /** Vanillas Besatzvorlagen in der Reihenfolge des Vanilla-Tabs "Zutaten". */
+    public static final List<String> VANILLA_TRIMS = List.of("sentry", "vex", "wild", "coast", "dune", "wayfinder", "raiser",
+            "shaper", "host", "ward", "silence", "tide", "snout", "rib", "eye", "spire", "flow", "bolt");
 
-        // --- Smithing Templates ---
-        entries.accept(ModItems.BASIC_UPGRADE_TEMPLATE);
-        entries.accept(ModItems.ENDERITE_UPGRADE_TEMPLATE);
-        entries.accept(ModItems.GLOWING_TRIM_TEMPLATE);
-        entries.accept(ModItems.EMITTING_TRIM_TEMPLATE);
-
-        // --- Food ---
-        entries.accept(ModItems.NETHERITE_APPLE);
-        entries.accept(ModItems.ENCHANTED_NETHERITE_APPLE);
-        entries.accept(ModItems.NETHERITE_CARROT);
-        entries.accept(ModItems.ENDERITE_APPLE);
-        entries.accept(ModItems.ENCHANTED_ENDERITE_APPLE);
-        entries.accept(ModItems.ENDERITE_CARROT);
+    /**
+     * Alle Vanilla-Besatzvorlagen dieser Minecraft-Version: erst {@link #VANILLA_TRIMS}, dann jede weitere
+     * {@code minecraft:*_armor_trim_smithing_template} einer neueren Version (nach Namen).
+     */
+    public static List<ItemLike> vanillaTrimTemplates() {
+        List<ItemLike> trims = new java.util.ArrayList<>();
+        for (String trim : VANILLA_TRIMS) {
+            net.minecraft.core.registries.BuiltInRegistries.ITEM.getOptional(
+                    net.minecraft.resources.Identifier.withDefaultNamespace(trim + "_armor_trim_smithing_template")).ifPresent(trims::add);
+        }
+        net.minecraft.core.registries.BuiltInRegistries.ITEM.keySet().stream()
+                .filter(id -> "minecraft".equals(id.getNamespace()) && id.getPath().endsWith("_armor_trim_smithing_template"))
+                .filter(id -> !VANILLA_TRIMS.contains(id.getPath().substring(0, id.getPath().length() - "_armor_trim_smithing_template".length())))
+                .sorted(java.util.Comparator.comparing(net.minecraft.resources.Identifier::getPath))
+                .forEach(id -> trims.add(net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(id)));
+        return trims;
     }
 
     private static void functional(CreativeModeTab.Output entries) {
@@ -310,23 +328,28 @@ public final class ModItemGroupsContent {
         return List.copyOf(rows);
     }
 
+    /**
+     * Maschinen und Lager (Besitzer 2026-09-28, neun Spalten): 4 Trichter, Luecke, 4 Oefen; 4 Raeucheroefen,
+     * Luecke, 4 Schmelzoefen; die 6 Kolben; 4 Buendel, Luecke, 4 Koecher; 4 Rucksaecke. Gestufte Truhen
+     * gehoeren als eigene Zeile direkt hinter die Rucksaecke.
+     */
     private static List<CreativeTabLayout.Row> baseFunctionalRows() {
         return List.of(
-                CreativeTabLayout.Row.of("hoppers",
-                        Items.HOPPER, ModItems.REINFORCED_HOPPER, ModItems.NETHERITE_HOPPER, ModItems.ENDERITE_HOPPER),
+                CreativeTabLayout.Row.of("hoppers_and_furnaces",
+                        Items.HOPPER, ModItems.REINFORCED_HOPPER, ModItems.NETHERITE_HOPPER, ModItems.ENDERITE_HOPPER,
+                        CreativeTabLayout.GAP,
+                        Items.FURNACE, ModItems.REINFORCED_FURNACE, ModItems.NETHERITE_FURNACE, ModItems.ENDERITE_FURNACE),
+                CreativeTabLayout.Row.of("smokers_and_blast_furnaces",
+                        Items.SMOKER, ModItems.REINFORCED_SMOKER, ModItems.NETHERITE_SMOKER, ModItems.ENDERITE_SMOKER,
+                        CreativeTabLayout.GAP,
+                        Items.BLAST_FURNACE, ModItems.REINFORCED_BLAST_FURNACE, ModItems.NETHERITE_BLAST_FURNACE,
+                        ModItems.ENDERITE_BLAST_FURNACE),
                 CreativeTabLayout.Row.of("pistons",
                         Items.PISTON, Items.STICKY_PISTON, ModItems.REINFORCED_PISTON, ModItems.REINFORCED_STICKY_PISTON,
                         ModItems.NETHERITE_PISTON, ModItems.ENDERITE_PISTON),
-                CreativeTabLayout.Row.of("furnaces",
-                        Items.FURNACE, ModItems.REINFORCED_FURNACE, ModItems.NETHERITE_FURNACE, ModItems.ENDERITE_FURNACE),
-                CreativeTabLayout.Row.of("smokers",
-                        Items.SMOKER, ModItems.REINFORCED_SMOKER, ModItems.NETHERITE_SMOKER, ModItems.ENDERITE_SMOKER),
-                CreativeTabLayout.Row.of("blast_furnaces",
-                        Items.BLAST_FURNACE, ModItems.REINFORCED_BLAST_FURNACE, ModItems.NETHERITE_BLAST_FURNACE,
-                        ModItems.ENDERITE_BLAST_FURNACE),
-                CreativeTabLayout.Row.of("bundles",
-                        Items.BUNDLE, ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE),
-                CreativeTabLayout.Row.of("quivers",
+                CreativeTabLayout.Row.of("bundles_and_quivers",
+                        Items.BUNDLE, ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE,
+                        CreativeTabLayout.GAP,
                         ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER),
                 CreativeTabLayout.Row.of("backpacks",
                         ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK),

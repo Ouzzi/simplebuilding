@@ -1,5 +1,7 @@
 package com.simplebuilding.tweaks.spawn;
 
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.sounds.SoundEvents;
 import com.simplebuilding.tweaks.SimpleTweaks;
 import com.simplebuilding.tweaks.TweaksConfig;
 import com.simplebuilding.tweaks.component.TweaksComponents;
@@ -159,9 +161,11 @@ public final class SpawnElytra {
             boolean landed = player.onGround() && !player.isFallFlying();
             if (timeUp || (!validLocation && landed)) {
                 player.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
-                player.displayClientMessage(Component.translatable("message.simplebuilding.spawn_elytra.expired").withStyle(ChatFormatting.YELLOW), true);
+                // Keine Bildschirmtexte: abgelegt klingt wie das Anlegen, nur tiefer.
+                player.level().playSound(null, player.blockPosition(), SoundEvents.ARMOR_EQUIP_ELYTRA.value(), SoundSource.PLAYERS, 1.0f, 0.6f);
             } else if (ticksLeft == 200) {
-                player.displayClientMessage(Component.translatable("message.simplebuilding.spawn_elytra.expires_soon").withStyle(ChatFormatting.RED), true);
+                // 10 s vor Ablauf: eine tiefe Glocke als Warnung.
+                player.level().playSound(null, player.blockPosition(), SoundEvents.NOTE_BLOCK_BELL.value(), SoundSource.PLAYERS, 1.0f, 0.5f);
             }
         }
     }

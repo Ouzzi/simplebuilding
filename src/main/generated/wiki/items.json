@@ -47,6 +47,8 @@
     "simplebuilding:enderite_pressure_plate",
     "simplebuilding:enderite_smoker",
     "simplebuilding:enderite_spawn_teleporter",
+    "simplebuilding:enderman_head",
+    "simplebuilding:enderman_wall_head",
     "simplebuilding:exposed_copper_pressure_plate",
     "simplebuilding:fine_elytra_pad",
     "simplebuilding:flypad",
@@ -501,6 +503,9 @@
     },
     {
       "id": "simplebuilding:enderite_upgrade_template"
+    },
+    {
+      "id": "simplebuilding:enderman_head"
     },
     {
       "id": "simplebuilding:exposed_copper_pressure_plate"

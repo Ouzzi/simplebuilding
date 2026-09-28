@@ -118,7 +118,8 @@ public class LaunchpadBlockEntity extends OwnedBlockEntity {
         }
         if (be.charges <= 0) {
             if (!client && level.getGameTime() % 40 == 0) {
-                player.displayClientMessage(Component.translatable("message.simplebuilding.launchpad.empty").withStyle(ChatFormatting.RED), true);
+                // Leer: das Klicken eines leeren Werfers statt einer Meldung.
+                level.playSound(null, pos, SoundEvents.DISPENSER_FAIL, SoundSource.BLOCKS, 0.4f, 1.2f);
             }
             return;
         }
@@ -136,8 +137,6 @@ public class LaunchpadBlockEntity extends OwnedBlockEntity {
             } else if (be.chargeTimer % 20 == 0) {
                 float pitch = 0.8f + be.charges / 40f + be.chargeTimer / 60f;
                 level.playSound(null, pos, SoundEvents.NOTE_BLOCK_HAT.value(), SoundSource.BLOCKS, 0.5f, pitch);
-                player.displayClientMessage(Component.translatable("message.simplebuilding.launchpad.countdown",
-                        be.charges, 3 - be.chargeTimer / 20).withStyle(ChatFormatting.AQUA), true);
             }
             return;
         }

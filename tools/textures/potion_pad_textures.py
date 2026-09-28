@@ -121,6 +121,7 @@ def potion_pad_textures():
         tex[f"block/{name}.png"] = _recolour(src, tier["veins"])
         tex[f"block/{name}_cooling.png"] = cooling_strip(src, tier)
     tex["entity/blaze_head.png"] = blaze_head_texture()
+    tex["entity/enderman_head.png"] = enderman_head_texture()
     return tex
 
 
@@ -197,4 +198,80 @@ def blaze_head_texture():
         for y, row in enumerate(rows):
             for x, ch in enumerate(row):
                 img.putpixel((ox + x, oy + y), _hex(BLAZE_PAL[ch]))
+    return img
+
+
+# ---------------------------------------------------------------------------------------------
+# Endermankopf (2026-09-28): Zutat des Spawn-Teleporters I, gleicher Mob-Kopf-Wuerfel wie der Lohenkopf
+# ---------------------------------------------------------------------------------------------
+ENDERMAN_PAL = {
+    "K": "#0c0b0e", "k": "#141217", "d": "#1c1920", "m": "#25202b", "n": "#2e2735",
+    "P": "#f3b4ff", "p": "#d96cf2", "V": "#9b2fc4", "v": "#4a1a5e",
+}
+# Gesicht (vorne): fast schwarz mit leichter Koernung, die Augen als violette Schlitze in Zeile 4,
+# darunter ein schwacher Schimmer; nichts reicht bis an den Rand.
+ENDERMAN_FRONT = [
+    "kdkkmkdk",
+    "dkmdkkmk",
+    "kkdkkdkk",
+    "kvkkkkvk",
+    "kpPVVPpk",
+    "kkvkkvkk",
+    "dkkmdkkd",
+    "kmdkkdmk",
+]
+ENDERMAN_SIDE = [
+    "kdkmkdkk",
+    "mkkdkkmd",
+    "kdmkkdkk",
+    "dkkkmkdk",
+    "kkdkkkmk",
+    "kmkdkdkk",
+    "dkkmkkdk",
+    "KdkKdkKk",
+]
+ENDERMAN_BACK = [
+    "kmkdkkmk",
+    "dkkmkdkk",
+    "kkdkkmkd",
+    "mkkdkkdk",
+    "kdkkmkkm",
+    "kkmdkdkk",
+    "dkkkmkkd",
+    "KkdKkdKk",
+]
+ENDERMAN_TOP = [
+    "kdkmkkdk",
+    "mkdkknkd",
+    "kkmkdkkm",
+    "dnkkmkdk",
+    "kkdnkkmk",
+    "mkkdkdkn",
+    "kdmkknkd",
+    "kkdkmkdk",
+]
+ENDERMAN_BOTTOM = [
+    "KkKdKkKk",
+    "kKdKkKdK",
+    "KdKkKdKk",
+    "kKkKdKkK",
+    "KkdKkKdk",
+    "kKkdKkKK",
+    "KdKkKkdK",
+    "kKKdkKkK",
+]
+ENDERMAN_FACES = [
+    (ENDERMAN_TOP, (8, 0)), (ENDERMAN_BOTTOM, (16, 0)),
+    (ENDERMAN_SIDE, (0, 8)), (ENDERMAN_FRONT, (8, 8)), (ENDERMAN_SIDE, (16, 8)), (ENDERMAN_BACK, (24, 8)),
+]
+
+
+def enderman_head_texture():
+    img = Image.new("RGBA", (64, 32), (0, 0, 0, 0))
+    for rows, (ox, oy) in ENDERMAN_FACES:
+        if len(rows) != 8 or any(len(r) != 8 for r in rows):
+            raise ValueError("Endermankopf: jede Seite muss 8x8 sein")
+        for y, row in enumerate(rows):
+            for x, ch in enumerate(row):
+                img.putpixel((ox + x, oy + y), _hex(ENDERMAN_PAL[ch]))
     return img

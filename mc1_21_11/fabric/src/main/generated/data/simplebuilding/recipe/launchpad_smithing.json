@@ -1,6 +1,6 @@
 {
   "type": "minecraft:smithing_transform",
-  "addition": "simplebuilding:diamond_pressure_plate",
+  "addition": "simplebuilding:iron_core",
   "base": "minecraft:heavy_weighted_pressure_plate",
   "result": {
     "id": "simplebuilding:launchpad"

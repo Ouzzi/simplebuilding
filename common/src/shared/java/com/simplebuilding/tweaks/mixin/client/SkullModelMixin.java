@@ -33,11 +33,12 @@ public abstract class SkullModelMixin {
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void simplebuilding$blazeHeadSkin(CallbackInfo ci) {
         SKIN_BY_TYPE.put(BlazeHeadType.BLAZE, SimpleTweaks.id("textures/entity/blaze_head.png"));
+        SKIN_BY_TYPE.put(BlazeHeadType.ENDERMAN, SimpleTweaks.id("textures/entity/enderman_head.png"));
     }
 
     @Inject(method = "createModel", at = @At("HEAD"), cancellable = true)
     private static void simplebuilding$blazeHeadModel(EntityModelSet modelSet, SkullBlock.Type type, CallbackInfoReturnable<SkullModelBase> cir) {
-        if (type == BlazeHeadType.BLAZE) {
+        if (type instanceof BlazeHeadType) {
             cir.setReturnValue(new SkullModel(SkullModel.createMobHeadLayer().bakeRoot()));
         }
     }

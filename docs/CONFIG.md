@@ -70,14 +70,15 @@ Server.
 | `tools.rotatorChargePerTurn` | 1 | Ladung je Rotator-Drehung (0 = kostenlos) |
 | `worldGen.buildingCoreLootChanceMultiplier` | 1.0 | Faktor auf die Baukern-Chancen in Truhen (0 = keine; bei `/reload`) |
 | `tweaks.pads.enablePotionPads` | true | Trank-Pads an/aus |
-| `tweaks.padTuning.teleporterWarmupTicks` | 100 | Wartezeit Spawn-Teleporter I–IV |
-| `tweaks.padTuning.enderiteTeleporterWarmupTicks` | 60 | Wartezeit Enderit-Teleporter (V) |
+| `tweaks.padTuning.teleporterTier1WarmupTicks` | 1000 | Wartezeit Spawn-Teleporter I (50 s; seit 2026-09-28 drei Stufen, ersetzt `teleporterWarmupTicks`) |
+| `tweaks.padTuning.teleporterTier2WarmupTicks` | 400 | Wartezeit Spawn-Teleporter II (20 s) |
+| `tweaks.padTuning.teleporterTier3WarmupTicks` | 100 | Wartezeit Enderit-Spawn-Teleporter III (5 s; ersetzt `enderiteTeleporterWarmupTicks`) |
 | `tweaks.padTuning.launchpadStrengthMultiplier` | 1.0 | Faktor auf den Startrampen-Schub |
 | `tweaks.padTuning.potionPadChargeStepTicks` | 20 | Länge eines Trank-Pad-Ladeschritts |
 | `tweaks.padTuning.potionPadCooldownFactor` | 2.0 | Trank-Pad-Abklingzeit × Wirkdauer (0 = keine) |
 | `tweaks.laserPointer.beamCostPerSecond` | 1 | Linsen-Ladung je Sekunde Strahlen |
 | `tweaks.laserPointer.effectCost` | 5 | Linsen-Ladung je Wirkung |
-| `tweaks.balancing.echoSounderCooldownTicks` | 120 | Echolot-Abklingzeit nach dem Sprung |
+| `tweaks.balancing.echoSounderJumpCooldownTicks` | 480 | Echolot-Abklingzeit nach dem Sprung (24 s; ersetzt `echoSounderCooldownTicks` = 120, neue Namen, damit gespeicherte Altwerte nicht weiter gelten) |
 | `tweaks.commands.killCommandRadius` | 100 | Reichweite von `/killboats`, `/killcarts` |
 | `tweaks.optimization.xpClumpRadius` | 2.0 | Einsammel-Radius der XP-Kugeln |
 

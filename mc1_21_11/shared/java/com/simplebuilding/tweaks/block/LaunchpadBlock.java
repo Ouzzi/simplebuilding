@@ -123,24 +123,22 @@ public class LaunchpadBlock extends WaterloggedPadBlock {
             int max = capacityAt(level, pos);
             int current = launchpad.getCharges();
             if (current >= max) {
-                player.displayClientMessage(Component.translatable("message.simplebuilding.launchpad.full", max).withStyle(ChatFormatting.RED), true);
+                // Voll: das Buendel-Geraeusch "passt nicht mehr" statt einer Meldung (keine Bildschirmtexte).
+                level.playSound(null, pos, SoundEvents.BUNDLE_INSERT_FAIL, SoundSource.BLOCKS, 1.0f, 1.0f);
                 return InteractionResult.FAIL;
             }
             int added = launchpad.addCharges(all ? stack.getCount() : 1, max);
             if (!player.getAbilities().instabuild) {
                 stack.shrink(added);
             }
-            level.playSound(null, pos, SoundEvents.BUNDLE_INSERT, SoundSource.BLOCKS, 1.0f, 1.5f);
-            player.displayClientMessage(Component.translatable("message.simplebuilding.launchpad.charges", current + added, max).withStyle(ChatFormatting.GREEN), true);
+            // Der Fuellstand ist hoerbar: je voller, desto hoeher das Einlegen (statt "x/y geladen" im Bild).
+            level.playSound(null, pos, SoundEvents.BUNDLE_INSERT, SoundSource.BLOCKS, 1.0f, fillPitch(current + added, max));
         }
         return InteractionResult.SUCCESS;
     }
 
-    @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (!level.isClientSide() && level.getBlockEntity(pos) instanceof LaunchpadBlockEntity launchpad) {
-            player.displayClientMessage(Component.translatable("message.simplebuilding.launchpad.charges", launchpad.getCharges(), capacityAt(level, pos)).withStyle(ChatFormatting.AQUA), true);
-        }
-        return InteractionResult.SUCCESS;
+    /** Tonhoehe des Einlegens: 0,8 fast leer bis 1,8 voll. */
+    public static float fillPitch(int charges, int max) {
+        return 0.8f + (max <= 0 ? 1.0f : Math.min(1.0f, charges / (float) max));
     }
 }

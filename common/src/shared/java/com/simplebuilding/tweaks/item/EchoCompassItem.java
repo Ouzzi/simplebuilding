@@ -62,7 +62,8 @@ public class EchoCompassItem extends Item {
     public static final int CHARGE_TICKS = 60;
     /** Ladezeit des nicht voll reparierten Kompasses: doppelt so lang, danach zerspringt er. */
     public static final int CRACKED_CHARGE_TICKS = CHARGE_TICKS * 2;
-    public static final int COOLDOWN_TICKS = 120;
+    /** Abklingzeit nach einem Sprung: 24 s (Besitzer 2026-09-28: viermal so lang wie die frueheren 6 s). */
+    public static final int COOLDOWN_TICKS = 480;
     /** Ticks vor dem Sprung, zu denen der Warden-Ladeklang einsetzt (so lang ist er etwa). */
     private static final int SONIC_CHARGE_LEAD = 34;
     /** Kreisbahn der Sculk-Seelen beim Aufladen: startet weit aussen und zieht sich zusammen. */
@@ -84,9 +85,9 @@ public class EchoCompassItem extends Item {
     }
 
     /** Ladezeit in Ticks fuer den aktuellen Zustand. */
-    /** Abklingzeit nach einem Sprung: Config {@code tweaks.balancing.echoSounderCooldownTicks} (Standard {@link #COOLDOWN_TICKS}). */
+    /** Abklingzeit nach einem Sprung: Config {@code tweaks.balancing.echoSounderJumpCooldownTicks} (Standard {@link #COOLDOWN_TICKS}). */
     public static int cooldownTicks() {
-        return Math.max(0, com.simplebuilding.tweaks.SimpleTweaks.config().balancing.echoSounderCooldownTicks);
+        return Math.max(0, com.simplebuilding.tweaks.SimpleTweaks.config().balancing.echoSounderJumpCooldownTicks);
     }
 
     public static int chargeTicks(ItemStack stack) {
@@ -110,6 +111,11 @@ public class EchoCompassItem extends Item {
         BlockPos pos = context.getClickedPos();
         if (!level.getBlockState(pos).is(Blocks.LODESTONE)) {
             return super.useOn(context);
+        }
+        // Schon mit genau diesem Leitstein verknuepft: nichts tun (kein Klang, keine Blindheit, kein Laden) -
+        // wiederholtes Klicken spammte sonst Effekte. FAIL beendet den Klick, ohne das Aufladen zu starten.
+        if (GlobalPos.of(level.dimension(), pos).equals(target(context.getItemInHand()))) {
+            return InteractionResult.FAIL;
         }
         if (!level.isClientSide()) {
             context.getItemInHand().set(DataComponents.LODESTONE_TRACKER,
@@ -187,11 +193,11 @@ public class EchoCompassItem extends Item {
         return false;
     }
 
-    /** Alle Vorbedingungen des Sprungs (Server); meldet den Grund einer Ablehnung im Overlay. */
+    /** Alle Vorbedingungen des Sprungs (Server); eine Ablehnung ist hoerbar, nie ein Bildschirmtext. */
     private static boolean canJump(ServerPlayer player, ItemStack stack) {
         GlobalPos target = target(stack);
         if (target == null) {
-            player.sendOverlayMessage(Component.translatable("message.simplebuilding.echo_compass.unlinked").withStyle(ChatFormatting.RED));
+            player.level().playSound(null, player.blockPosition(), SoundEvents.DISPENSER_FAIL, SoundSource.PLAYERS, 0.6f, 0.8f);
             return false;
         }
         if (player.getCooldowns().isOnCooldown(stack)) {
@@ -199,7 +205,7 @@ public class EchoCompassItem extends Item {
         }
         ServerLevel targetLevel = player.level().getServer().getLevel(target.dimension());
         if (targetLevel == null || !targetLevel.getBlockState(target.pos()).is(Blocks.LODESTONE)) {
-            player.sendOverlayMessage(Component.translatable("message.simplebuilding.echo_compass.lodestone_missing").withStyle(ChatFormatting.RED));
+            player.level().playSound(null, player.blockPosition(), SoundEvents.RESPAWN_ANCHOR_DEPLETE.value(), SoundSource.PLAYERS, 0.6f, 1.4f);
             return false;
         }
         return true;

@@ -44,8 +44,9 @@ public class TweaksConfig {
         if (dimensions == null) dimensions = new Dimensions();
         if (commands == null) commands = new Commands();
         if (optimization == null) optimization = new Optimization();
-        padTuning.teleporterWarmupTicks = Math.max(1, padTuning.teleporterWarmupTicks);
-        padTuning.enderiteTeleporterWarmupTicks = Math.max(1, padTuning.enderiteTeleporterWarmupTicks);
+        padTuning.teleporterTier1WarmupTicks = Math.max(1, padTuning.teleporterTier1WarmupTicks);
+        padTuning.teleporterTier2WarmupTicks = Math.max(1, padTuning.teleporterTier2WarmupTicks);
+        padTuning.teleporterTier3WarmupTicks = Math.max(1, padTuning.teleporterTier3WarmupTicks);
         padTuning.launchpadStrengthMultiplier = nonNegative(padTuning.launchpadStrengthMultiplier, 1.0);
         padTuning.potionPadChargeStepTicks = Math.max(1, padTuning.potionPadChargeStepTicks);
         padTuning.potionPadCooldownFactor = nonNegative(padTuning.potionPadCooldownFactor, 2.0);
@@ -53,7 +54,7 @@ public class TweaksConfig {
         optimization.xpClumpRadius = nonNegative(optimization.xpClumpRadius, 2.0);
         laserPointer.beamCostPerSecond = Math.max(0, laserPointer.beamCostPerSecond);
         laserPointer.effectCost = Math.max(0, laserPointer.effectCost);
-        balancing.echoSounderCooldownTicks = Math.max(0, balancing.echoSounderCooldownTicks);
+        balancing.echoSounderJumpCooldownTicks = Math.max(0, balancing.echoSounderJumpCooldownTicks);
     }
 
     /** Endliche, nicht negative Zahl; sonst {@code fallback}. */
@@ -91,12 +92,20 @@ public class TweaksConfig {
      * Verhalten). Nur der Server liest sie; die Zugriffe unten begrenzen handeditierte Werte.
      */
     public static class PadTuning {
-        /** Stillstehen bis zum Sprung, Spawn-Teleporter I-IV (Ticks; 100 = 5 s). */
+        /*
+         * Stillstehen bis zum Sprung je Spawn-Teleporter-Stufe (Besitzer 2026-09-28: 50/20/5 s). Neue
+         * Schluessel statt teleporterWarmupTicks/enderiteTeleporterWarmupTicks (100/60 fuer die alten fuenf
+         * Stufen): eine damit gespeicherte Datei soll nicht still die alten Zeiten behalten.
+         */
+        /** Spawn-Teleporter I (Ticks; 1000 = 50 s). */
         @ConfigEntry.Gui.Tooltip
-        public int teleporterWarmupTicks = 100;
-        /** Dasselbe fuer den Enderit-Teleporter (Stufe V; 60 = 3 s). */
+        public int teleporterTier1WarmupTicks = 1000;
+        /** Spawn-Teleporter II (Ticks; 400 = 20 s). */
         @ConfigEntry.Gui.Tooltip
-        public int enderiteTeleporterWarmupTicks = 60;
+        public int teleporterTier2WarmupTicks = 400;
+        /** Spawn-Teleporter III, Enderit (Ticks; 100 = 5 s). */
+        @ConfigEntry.Gui.Tooltip
+        public int teleporterTier3WarmupTicks = 100;
         /** Faktor auf den Schub der Launchpads (1,5 + 0,8 je Windkugel-Ladung). */
         @ConfigEntry.Gui.Tooltip
         public double launchpadStrengthMultiplier = 1.0;
@@ -107,9 +116,10 @@ public class TweaksConfig {
         @ConfigEntry.Gui.Tooltip
         public double potionPadCooldownFactor = 2.0;
 
-        /** Wartezeit des Spawn-Teleporters, mindestens 1 Tick. */
-        public int teleporterWarmup(boolean enderite) {
-            return Math.max(1, enderite ? enderiteTeleporterWarmupTicks : teleporterWarmupTicks);
+        /** Wartezeit des Spawn-Teleporters der Stufe 1..3 (hoeher = 3), mindestens 1 Tick. */
+        public int teleporterWarmup(int tier) {
+            int ticks = tier >= 3 ? teleporterTier3WarmupTicks : tier == 2 ? teleporterTier2WarmupTicks : teleporterTier1WarmupTicks;
+            return Math.max(1, ticks);
         }
 
         public double launchpadStrengthFactor() {
@@ -129,9 +139,13 @@ public class TweaksConfig {
         @ConfigEntry.Gui.Tooltip
         @ConfigEntry.BoundedDiscrete(min = 1, max = 64)
         public int rocketStackSize = 64;
-        /** Abklingzeit des Echolots nach einem Sprung (Ticks; 120 = 6 s), siehe EchoCompassItem. */
+        /**
+         * Abklingzeit des Echolots nach einem Sprung (Ticks; 480 = 24 s, Besitzer 2026-09-28: viermal die
+         * frueheren 6 s), siehe EchoCompassItem. Neuer Schluessel statt echoSounderCooldownTicks (120), damit
+         * eine damit gespeicherte Datei nicht die alte Zeit behaelt.
+         */
         @ConfigEntry.Gui.Tooltip
-        public int echoSounderCooldownTicks = 120;
+        public int echoSounderJumpCooldownTicks = 480;
     }
 
     public static class Dimensions {
@@ -209,9 +223,10 @@ public class TweaksConfig {
         }
 
         /**
-         * Ziele der Spawn-Teleporter I-IV; y = -1000 heisst "nicht gesetzt" (dann Weltspawn). Gesetzt
-         * mit {@code /simplebuilding tweaks worldspawn setspawn1..4}. Bis 2026-09-28 ohne Tooltip und
-         * ohne Namen in den Sprachdateien (der Bildschirm zeigte die rohen Schluessel).
+         * Ziel aller Spawn-Teleporter (per {@code worldspawn setspawn1}); y = -1000 heisst "nicht gesetzt"
+         * (dann Weltspawn). Die Ziele 2-4 der frueheren Stufen II-IV gibt es seit 2026-09-28 nicht mehr
+         * (drei Stufen, die sich nur in der Wartezeit unterscheiden); alte Schluessel in einer
+         * Config-Datei werden beim Laden ignoriert.
          */
         @ConfigEntry.Gui.Tooltip
         public int spawn1X = 0;
@@ -219,24 +234,6 @@ public class TweaksConfig {
         public int spawn1Y = -1000;
         @ConfigEntry.Gui.Tooltip
         public int spawn1Z = 0;
-        @ConfigEntry.Gui.Tooltip
-        public int spawn2X = 0;
-        @ConfigEntry.Gui.Tooltip
-        public int spawn2Y = -1000;
-        @ConfigEntry.Gui.Tooltip
-        public int spawn2Z = 0;
-        @ConfigEntry.Gui.Tooltip
-        public int spawn3X = 0;
-        @ConfigEntry.Gui.Tooltip
-        public int spawn3Y = -1000;
-        @ConfigEntry.Gui.Tooltip
-        public int spawn3Z = 0;
-        @ConfigEntry.Gui.Tooltip
-        public int spawn4X = 0;
-        @ConfigEntry.Gui.Tooltip
-        public int spawn4Y = -1000;
-        @ConfigEntry.Gui.Tooltip
-        public int spawn4Z = 0;
 
         /**
          * Uebernimmt einen alten {@code spawnTeleporterCount} aus einer bestehenden Config-Datei.

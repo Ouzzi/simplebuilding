@@ -74,9 +74,9 @@ public class OctantItem extends Item {
             CompoundTag nbt = nbtData.copyTag();
 
             if (nbt.getBooleanOr("Locked", false)) {
-                if (player != null) {
-                    player.sendOverlayMessage(Component.translatable("simplebuilding.gui.locked").withStyle(ChatFormatting.RED));
-                }
+                // Gesperrt: Vanillas Klang einer verschlossenen Truhe statt einer Meldung (keine Bildschirmtexte
+                // bei Geraeten, Besitzer 2026-09-28); der Tooltip nennt die Sperre.
+                world.playSound(null, pos, SoundEvents.CHEST_LOCKED, SoundSource.PLAYERS, 0.6f, 1.2f);
                 return InteractionResult.SUCCESS;
             }
 

@@ -62,6 +62,7 @@ public final class MobDropCatalog {
         List<Drop> out = new ArrayList<>();
         head(out, EntityTypes.BLAZE, Items.BLAZE_SPAWN_EGG, TweaksItems.BLAZE_HEAD);
         head(out, EntityTypes.CREEPER, Items.CREEPER_SPAWN_EGG, Items.CREEPER_HEAD);
+        head(out, EntityTypes.ENDERMAN, Items.ENDERMAN_SPAWN_EGG, TweaksItems.ENDERMAN_HEAD);
         head(out, EntityTypes.PIGLIN, Items.PIGLIN_SPAWN_EGG, Items.PIGLIN_HEAD);
         head(out, EntityTypes.SKELETON, Items.SKELETON_SPAWN_EGG, Items.SKELETON_SKULL);
         head(out, EntityTypes.WITHER_SKELETON, Items.WITHER_SKELETON_SPAWN_EGG, Items.WITHER_SKELETON_SKULL);
