@@ -160,6 +160,23 @@ Verlauf im Detail: git log.
 - [ ] Client-Gate + Testzentrale im Spiel (wenn Besitzer-Clients zu): Buch-Screen, Truhen, platziertes Buendel, Kern-Animation
 - [ ] Rueckfragen neu: 12 Config-Ideen (Run D), Kern-Vorschlaege (Maurer-Diamantkern, 2. Eisenkern-Quelle, Enderit 0,5 %)
 
+## Welle 23 (Antworten Besitzer 2026-09-28, siehe Memory besitzer-entscheidungen-2026-09-28)
+- [ ] M Config/Server: Luftsprung-Serverschalter, Chunk-Loader nur online + Admin-Befehl, Laser-Schalter, Erz-Gen-Schalter, dyn. Licht, Pad-Abbauzeit, max. Ladungen, Hammer/Meissel, Trichter/Ofen-Tempo, Erzdetektor, Loot-/Preis-Multiplikatoren, Blaupausen-Tempo, Trim-Staerken, Feature-Schalter samt Rezept, Server-Werte in Tooltip/JEI, Dimensionssperre erweitert; alles serverseitig, Obergrenzen, eigener Profi-Tab
+- [ ] N Modpack: Claim-Schutz, Vein-Miner-Erztag, c:-Tags, Tabellen als Datapack, Loot als Tabellen, Sperr-Tags, Statistiken
+- [ ] O Erfolge 33-37 + Handbuecher 38-42 (Admin-Buch)
+- [ ] P1 Beute/Handel: Rotator (kein Mending, entladen statt kaputt), Vorlagen-Tooltip, Cover-Doku, Steinmetz ohne Kerne, Kupferkern selten beim fahrenden Haendler, 2. Eisenkern-Quelle, Enderit-Kern 30-40 h, Quellen fuer Drawer/Bridge/Kinetic Protection (Bridge im End), Drawer-Umbau (nur gleicher Item-Typ)
+- [ ] P2 Items: Enderit ueberall Leere-Schutz + doppelte Despawnzeit, Netherit-Koecher explosionsfest, alte Spachtel aus JEI, ID-Umbenennung mit Datenfix, Enderit-Pferde-/Nautilusruestung
+- [ ] Q Zusammenspiel: B oeffnet Rucksack aus Inventar, Koecher->Armbrust + Rucksack nur mit Master Builder, Pfeile->Koecher nur mit Funnel, Redstone/Komparator Pads, Trichter nur Windladungen ins Launchpad (Trank-Pad nur per Wurftrank), Rucksack-Komparator, Hammer baut Oktant-Auswahl ab + Hammer-Tempo-Balance
+- [ ] R Immersion: Sounds/Partikel, sichtbare Zustaende, Tooltips, HUD-Taste, HUD Position/Groesse, Jade-Plugin, EMI/REI
+- [ ] S Optik: Pulsating Armor Trim (Warden, Echoscherbe+Hammer), Vorlagen ohne "Smithing" im Namen, Magnet->Attractor + platzierbar zieht Items an, Kern-Texturen bunter (Netherstern-Mitte), JEI-Schmiedeanzeige der Trims reparieren
+- [ ] T danach: amerikanisches Englisch, Zeilen-Layout alle Tabs
+- [ ] Offen beim Besitzer: Kern-Chancen-Vorschlag fuer Eisen/Gold/Diamant/Netherit uebernehmen?
+
+## Spaeter (Besitzer 2026-09-28)
+- [ ] Vorlagen teurer machen (mehrere Materialien statt 1 Glowstone/Tintenbeutel/Echoscherbe)
+- [ ] Curios/Trinkets fuer Rucksack/Koecher
+- [ ] Punkte 64-69: Sprachen, Attractor mit Ladung, neue Bloecke, Baustab ueber Planer, Kern-Module, Rucksack-Sortierung/Multi-Mod-Repo
+
 ## Wartet auf den Besitzer
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
 
