@@ -294,6 +294,83 @@ public final class InWorldExportTests {
         helper.succeed();
     }
 
+    /**
+     * JEI's "Mob drops" category ({@link com.simplebuilding.compat.MobDropCatalog}): the six heads a
+     * charged creeper's explosion knocks off - vanilla's five and the mod's blaze head - and the
+     * creeper-killed-by-a-skeleton entry with every disc of {@code minecraft:creeper_drop_music_discs}.
+     */
+    public static void mobDropCatalogHasEveryHeadAndTheDiscs(GameTestHelper helper) {
+        TreeMap<String, String> seen = new TreeMap<>();
+        java.util.List<Item> discs = java.util.List.of();
+        for (com.simplebuilding.compat.MobDropCatalog.Drop drop : com.simplebuilding.compat.MobDropCatalog.drops()) {
+            if (drop.cause() == com.simplebuilding.compat.MobDropCatalog.Cause.KILLED_BY_SKELETON) {
+                discs = drop.results();
+                seen.put(drop.id(), drop.results().size() + " discs");
+                continue;
+            }
+            seen.put(drop.id(), BuiltInRegistries.ITEM.getKey(drop.results().get(0)).toString());
+        }
+        String expected = "{charged_creeper/minecraft:blaze=simplebuilding:blaze_head, "
+                + "charged_creeper/minecraft:creeper=minecraft:creeper_head, "
+                + "charged_creeper/minecraft:piglin=minecraft:piglin_head, "
+                + "charged_creeper/minecraft:skeleton=minecraft:skeleton_skull, "
+                + "charged_creeper/minecraft:wither_skeleton=minecraft:wither_skeleton_skull, "
+                + "charged_creeper/minecraft:zombie=minecraft:zombie_head, "
+                + "killed_by_skeleton/minecraft:creeper=12 discs}";
+        helper.assertTrue(seen.toString().equals(expected), "mob drop entries: expected " + expected + " but were " + seen);
+        for (Item disc : discs) {
+            helper.assertTrue(new ItemStack(disc).is(net.minecraft.tags.ItemTags.CREEPER_DROP_MUSIC_DISCS),
+                    BuiltInRegistries.ITEM.getKey(disc) + " is in the disc entry but not in the tag");
+        }
+        helper.succeed();
+    }
+
+    /**
+     * Every entry of the "Mob drops" category really drops: each victim is killed the catalog's way -
+     * by a charged creeper's explosion, or the creeper by a skeleton - and its result must lie on the
+     * ground afterwards. Holds JEI (and the wiki, which reads the same loot tables) against the game.
+     */
+    public static void mobDropCatalogMatchesTheGame(GameTestHelper helper) {
+        net.minecraft.server.level.ServerLevel level = helper.getLevel();
+        java.util.List<String> problems = new ArrayList<>();
+        int checked = 0;
+        for (com.simplebuilding.compat.MobDropCatalog.Drop drop : com.simplebuilding.compat.MobDropCatalog.drops()) {
+            net.minecraft.core.BlockPos killerPos = new net.minecraft.core.BlockPos(1, 2, 1);
+            net.minecraft.core.BlockPos victimPos = new net.minecraft.core.BlockPos(4, 2, 4);
+            net.minecraft.world.entity.LivingEntity killer = (net.minecraft.world.entity.LivingEntity) helper.spawn(drop.killer(), killerPos);
+            net.minecraft.world.damagesource.DamageSource source;
+            if (drop.cause() == com.simplebuilding.compat.MobDropCatalog.Cause.CHARGED_CREEPER) {
+                net.minecraft.world.entity.monster.Creeper creeper = (net.minecraft.world.entity.monster.Creeper) killer;
+                net.minecraft.world.entity.LightningBolt bolt = net.minecraft.world.entity.EntityTypes.LIGHTNING_BOLT.create(level, net.minecraft.world.entity.EntitySpawnReason.TRIGGERED);
+                creeper.thunderHit(level, bolt);
+                creeper.clearFire();
+                creeper.setHealth(creeper.getMaxHealth());
+                source = level.damageSources().explosion(creeper, creeper);
+            } else {
+                source = level.damageSources().mobAttack(killer);
+            }
+            net.minecraft.world.entity.LivingEntity victim = (net.minecraft.world.entity.LivingEntity) helper.spawn(drop.victim(), victimPos);
+            victim.hurtServer(level, source, 1000.0F);
+            java.util.List<String> found = new ArrayList<>();
+            boolean dropped = false;
+            for (net.minecraft.world.entity.item.ItemEntity item : level.getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, helper.getBounds())) {
+                found.add(BuiltInRegistries.ITEM.getKey(item.getItem().getItem()).toString());
+                dropped |= drop.results().contains(item.getItem().getItem());
+                item.discard();
+            }
+            if (!victim.isDeadOrDying()) {
+                problems.add(drop.id() + ": the victim survived");
+            } else if (!dropped) {
+                problems.add(drop.id() + ": nothing of " + drop.results().size() + " result(s) dropped, only " + found);
+            }
+            killer.discard();
+            checked++;
+        }
+        helper.assertTrue(checked == 7, "expected 7 mob drop entries, checked " + checked);
+        helper.assertTrue(problems.isEmpty(), "mob drops that do not happen in the game: " + problems);
+        helper.succeed();
+    }
+
     private static String describe(InWorldRecipeCatalog.Entry entry) {
         if (entry == null) {
             return "missing";

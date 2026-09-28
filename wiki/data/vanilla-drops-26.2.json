@@ -1,0 +1,165 @@
+{
+ "generatedFrom": "minecraft-client.jar 26.2",
+ "drops": [
+  {
+   "type": "mob",
+   "how": "charged_creeper",
+   "victim": "minecraft:creeper",
+   "item": "minecraft:creeper_head",
+   "table": "minecraft:charged_creeper/root",
+   "chance": 100.0
+  },
+  {
+   "type": "mob",
+   "how": "charged_creeper",
+   "victim": "minecraft:piglin",
+   "item": "minecraft:piglin_head",
+   "table": "minecraft:charged_creeper/root",
+   "chance": 100.0
+  },
+  {
+   "type": "mob",
+   "how": "charged_creeper",
+   "victim": "minecraft:skeleton",
+   "item": "minecraft:skeleton_skull",
+   "table": "minecraft:charged_creeper/root",
+   "chance": 100.0
+  },
+  {
+   "type": "mob",
+   "how": "charged_creeper",
+   "victim": "minecraft:wither_skeleton",
+   "item": "minecraft:wither_skeleton_skull",
+   "table": "minecraft:charged_creeper/root",
+   "chance": 100.0
+  },
+  {
+   "type": "mob",
+   "how": "charged_creeper",
+   "victim": "minecraft:zombie",
+   "item": "minecraft:zombie_head",
+   "table": "minecraft:charged_creeper/root",
+   "chance": 100.0
+  },
+  {
+   "type": "mob",
+   "how": "killed_by",
+   "victim": "minecraft:creeper",
+   "killer": "#minecraft:skeletons",
+   "item": "minecraft:music_disc_11",
+   "table": "minecraft:entities/creeper",
+   "chance": 8.33,
+   "oneOf": 12
+  },
+  {
+   "type": "mob",
+   "how": "killed_by",
+   "victim": "minecraft:creeper",
+   "killer": "#minecraft:skeletons",
+   "item": "minecraft:music_disc_13",
+   "table": "minecraft:entities/creeper",
+   "chance": 8.33,
+   "oneOf": 12
+  },
+  {
+   "type": "mob",
+   "how": "killed_by",
+   "victim": "minecraft:creeper",
+   "killer": "#minecraft:skeletons",
+   "item": "minecraft:music_disc_blocks",
+   "table": "minecraft:entities/creeper",
+   "chance": 8.33,
+   "oneOf": 12
+  },
+  {
+   "type": "mob",
+   "how": "killed_by",
+   "victim": "minecraft:creeper",
+   "killer": "#minecraft:skeletons",
+   "item": "minecraft:music_disc_cat",
+   "table": "minecraft:entities/creeper",
+   "chance": 8.33,
+   "oneOf": 12
+  },
+  {
+   "type": "mob",
+   "how": "killed_by",
+   "victim": "minecraft:creeper",
+   "killer": "#minecraft:skeletons",
+   "item": "minecraft:music_disc_chirp",
+   "table": "minecraft:entities/creeper",
+   "chance": 8.33,
+   "oneOf": 12
+  },
+  {
+   "type": "mob",
+   "how": "killed_by",
+   "victim": "minecraft:creeper",
+   "killer": "#minecraft:skeletons",
+   "item": "minecraft:music_disc_far",
+   "table": "minecraft:entities/creeper",
+   "chance": 8.33,
+   "oneOf": 12
+  },
+  {
+   "type": "mob",
+   "how": "killed_by",
+   "victim": "minecraft:creeper",
+   "killer": "#minecraft:skeletons",
+   "item": "minecraft:music_disc_mall",
+   "table": "minecraft:entities/creeper",
+   "chance": 8.33,
+   "oneOf": 12
+  },
+  {
+   "type": "mob",
+   "how": "killed_by",
+   "victim": "minecraft:creeper",
+   "killer": "#minecraft:skeletons",
+   "item": "minecraft:music_disc_mellohi",
+   "table": "minecraft:entities/creeper",
+   "chance": 8.33,
+   "oneOf": 12
+  },
+  {
+   "type": "mob",
+   "how": "killed_by",
+   "victim": "minecraft:creeper",
+   "killer": "#minecraft:skeletons",
+   "item": "minecraft:music_disc_stal",
+   "table": "minecraft:entities/creeper",
+   "chance": 8.33,
+   "oneOf": 12
+  },
+  {
+   "type": "mob",
+   "how": "killed_by",
+   "victim": "minecraft:creeper",
+   "killer": "#minecraft:skeletons",
+   "item": "minecraft:music_disc_strad",
+   "table": "minecraft:entities/creeper",
+   "chance": 8.33,
+   "oneOf": 12
+  },
+  {
+   "type": "mob",
+   "how": "killed_by",
+   "victim": "minecraft:creeper",
+   "killer": "#minecraft:skeletons",
+   "item": "minecraft:music_disc_wait",
+   "table": "minecraft:entities/creeper",
+   "chance": 8.33,
+   "oneOf": 12
+  },
+  {
+   "type": "mob",
+   "how": "killed_by",
+   "victim": "minecraft:creeper",
+   "killer": "#minecraft:skeletons",
+   "item": "minecraft:music_disc_ward",
+   "table": "minecraft:entities/creeper",
+   "chance": 8.33,
+   "oneOf": 12
+  }
+ ]
+}

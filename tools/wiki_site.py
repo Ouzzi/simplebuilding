@@ -66,7 +66,8 @@ def referenced_textures(data: dict) -> set[str]:
         for entry in data.get(section, []):
             if entry.get("texture"):
                 refs.add(entry["texture"])
-            refs.update(v for v in (entry.get("faces") or {}).values() if v)
+            if entry.get("icon"):
+                refs.add(entry["icon"])
     return refs
 
 
