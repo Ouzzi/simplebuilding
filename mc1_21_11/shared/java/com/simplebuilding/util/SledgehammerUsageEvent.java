@@ -28,6 +28,9 @@ public final class SledgehammerUsageEvent {
                 return true;
             }
 
+            BlockState originState = world.getBlockState(pos);
+            int overrideLevel = com.simplebuilding.util.EnchantmentHelper.getEnchantmentLevel(mainHandItem, world,
+                    com.simplebuilding.enchantment.ModEnchantments.OVERRIDE);
             for (BlockPos position : SledgehammerItem.getBlocksToBeDestroyed(1, pos, serverPlayer)) {
                 if (pos.equals(position)) {
                     continue;
@@ -35,7 +38,7 @@ public final class SledgehammerUsageEvent {
 
                 BlockState targetState = world.getBlockState(position);
 
-                if (!SledgehammerUtils.shouldBreak(world, position, pos, mainHandItem)) {
+                if (!SledgehammerUtils.shouldBreak(world, position, originState, mainHandItem, overrideLevel)) {
                     continue;
                 }
                 // Vanilla-Spawnschutz und Weltgrenze: destroyBlock prueft beides nicht.
@@ -47,9 +50,12 @@ public final class SledgehammerUsageEvent {
                 try {
                     boolean wasBroken = serverPlayer.gameMode.destroyBlock(position);
                     if (wasBroken) {
+                        // Die Grundabnutzung (SledgehammerItem#WEAR_PER_BLOCK) hat destroyBlock ueber
+                        // mineBlock schon abgezogen; das falsche Werkzeug kostet einen Punkt mehr.
                         boolean isSuitable = mainHandItem.getItem().isCorrectToolForDrops(mainHandItem, targetState);
-                        int damageAmount = isSuitable ? 1 : 2;
-                        mainHandItem.hurtAndBreak(damageAmount, serverPlayer, EquipmentSlot.MAINHAND);
+                        if (!isSuitable && !mainHandItem.isEmpty()) {
+                            mainHandItem.hurtAndBreak(1, serverPlayer, EquipmentSlot.MAINHAND);
+                        }
                         if (mainHandItem.isEmpty()) {
                             break;
                         }

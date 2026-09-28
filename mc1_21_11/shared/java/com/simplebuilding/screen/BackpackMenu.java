@@ -33,8 +33,10 @@ import net.minecraft.world.item.crafting.RecipeHolder;
  * {@link AbstractCraftingMenu} mit derselben Slot-Anordnung; das Crafting-Ergebnis berechnet
  * Vanillas eigene {@code CraftingMenu#slotChangedCraftingGrid} (siehe {@link CraftingGrid}).
  *
- * <p>Getragener Rucksack: der Brust-Slot ist gesperrt, solange das Menue offen ist
- * ({@link BackpackArmorSlot}). Abgestellter Rucksack: kein Slot gesperrt; das Menue schliesst,
+ * <p>Getragener oder im Inventar liegender Rucksack: sein Slot ist gesperrt, solange das Menue offen
+ * ist - der Brust-Slot ueber {@link BackpackArmorSlot}, ein Inventar-Slot ueber {@link LockableSlot},
+ * und die Zifferntaste dieses Slots tauscht nicht ({@link #clicked}); welcher Slot, steht in
+ * {@link BackpackOpenData#lockedSlot()}. Abgestellter Rucksack: kein Slot gesperrt; das Menue schliesst,
  * sobald der Block weg ist oder der Spieler sich entfernt.
  */
 public class BackpackMenu extends AbstractCraftingMenu {
@@ -60,6 +62,8 @@ public class BackpackMenu extends AbstractCraftingMenu {
     private final BackpackLayout layout;
     private final int backpackSlotEnd;
     private final List<Slot> storageSlots;
+    /** Inventar-Index des geoeffneten Rucksacks, der gesperrt bleibt; -1 = keiner (abgestellt). */
+    private final int lockedSlot;
 
     /** Client: der Server schickt Stufe und Faktor, den Inhalt liefern die normalen Slot-Pakete. */
     public BackpackMenu(int containerId, Inventory inventory, BackpackOpenData data) {
@@ -74,16 +78,17 @@ public class BackpackMenu extends AbstractCraftingMenu {
         this.data = data;
         this.layout = new BackpackLayout(backpack.tier());
         int vx = this.layout.vanillaX();
+        int locked = data.placed() ? -1 : data.lockedSlot();
+        this.lockedSlot = locked;
 
         // 0: Ergebnis, 1-4: Raster - wie InventoryMenu
         this.addResultSlot(this.owner, vx + 154, 28);
         this.addCraftingGridSlots(vx + 98, 18);
 
-        // 5-8: Ruestung; im Modus "getragen" ist die Brust gesperrt
-        boolean worn = !data.placed();
+        // 5-8: Ruestung; der Slot des geoeffneten Rucksacks (meist die Brust) ist gesperrt
         for (int i = 0; i < 4; i++) {
             EquipmentSlot slot = ARMOR_SLOTS[i];
-            boolean lockable = worn && slot == EquipmentSlot.CHEST;
+            boolean lockable = 39 - i == locked;
             this.addSlot(new BackpackArmorSlot(inventory, this.owner, slot, 39 - i, vx + 8, 8 + i * 18,
                     EMPTY_ARMOR_ICONS.get(slot), () -> lockable));
         }
@@ -91,16 +96,16 @@ public class BackpackMenu extends AbstractCraftingMenu {
         // 9-35: Hauptinventar, 36-44: Hotbar
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 9; column++) {
-                this.addSlot(new Slot(inventory, column + (row + 1) * 9, this.layout.gridX(column), this.layout.mainRowY(row)));
+                this.addSlot(new LockableSlot(inventory, column + (row + 1) * 9, this.layout.gridX(column), this.layout.mainRowY(row), locked));
             }
         }
         for (int column = 0; column < 9; column++) {
-            this.addSlot(new Slot(inventory, column, this.layout.gridX(column), this.layout.hotbarY()));
+            this.addSlot(new LockableSlot(inventory, column, this.layout.gridX(column), this.layout.hotbarY(), locked));
         }
 
         // 45: Nebenhand
         Player owner = this.owner;
-        this.addSlot(new Slot(inventory, Inventory.SLOT_OFFHAND, vx + 77, 62) {
+        this.addSlot(new LockableSlot(inventory, Inventory.SLOT_OFFHAND, vx + 77, 62, locked) {
             @Override
             public void setByPlayer(ItemStack itemStack, ItemStack previous) {
                 owner.onEquipItem(EquipmentSlot.OFFHAND, previous, itemStack);
@@ -146,6 +151,39 @@ public class BackpackMenu extends AbstractCraftingMenu {
         return this.backpackSlotEnd;
     }
 
+    /** Inventar-Index des gesperrten Rucksack-Slots, -1 beim abgestellten Rucksack. */
+    public int lockedSlot() {
+        return this.lockedSlot;
+    }
+
+    /**
+     * Inventar-Slot, der sich sperrt, wenn in ihm der gerade offene Rucksack liegt: weder
+     * herausnehmen noch etwas hineinlegen (Schnellverschieben, Werfen und Doppelklick fragen
+     * {@code mayPickup}, Einlegen {@code mayPlace}).
+     */
+    public static class LockableSlot extends Slot {
+        private final int lockedIndex;
+
+        public LockableSlot(net.minecraft.world.Container container, int slot, int x, int y, int lockedIndex) {
+            super(container, slot, x, y);
+            this.lockedIndex = lockedIndex;
+        }
+
+        public boolean isLocked() {
+            return this.lockedIndex >= 0 && getContainerSlot() == this.lockedIndex;
+        }
+
+        @Override
+        public boolean mayPickup(Player player) {
+            return !isLocked() && super.mayPickup(player);
+        }
+
+        @Override
+        public boolean mayPlace(ItemStack stack) {
+            return !isLocked() && super.mayPlace(stack);
+        }
+    }
+
     public boolean isBackpackSlot(int slotIndex) {
         return slotIndex >= BACKPACK_SLOT_START && slotIndex < this.backpackSlotEnd;
     }
@@ -159,6 +197,11 @@ public class BackpackMenu extends AbstractCraftingMenu {
         // Hat der Zauberstab, Trichter oder Konstrukteurs Hand inzwischen aus der Komponente
         // genommen, gilt das - vor jedem Lesen neu laden.
         this.backpack.syncFromSource();
+        if (containerInput == ClickType.SWAP && buttonNum >= 0 && buttonNum == this.lockedSlot) {
+            // Zifferntaste (oder F) des Slots, in dem der offene Rucksack liegt: Vanillas SWAP fragt
+            // nur den Ziel-Slot, nicht den Schnellleisten-Slot - der Rucksack wuerde sonst verschoben.
+            return;
+        }
         if (isBackpackSlot(slotIndex)) {
             Slot slot = this.slots.get(slotIndex);
             ItemStack inSlot = slot.getItem();

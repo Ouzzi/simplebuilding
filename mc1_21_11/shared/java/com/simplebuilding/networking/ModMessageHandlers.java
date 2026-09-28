@@ -325,15 +325,15 @@ public final class ModMessageHandlers {
     }
 
     /**
-     * Rucksack-Taste: oeffnet das Menue des getragenen Rucksacks. Ohne getragenen Rucksack, tot,
-     * als Zuschauer oder bei schon offenem Menue passiert nichts
-     * ({@link BackpackMenuProviders#canOpenWorn}).
+     * Rucksack-Taste: oeffnet das Menue des getragenen Rucksacks, sonst (Besitzer 2026-09-28) des
+     * ersten Rucksacks im Inventar. Ohne Rucksack, tot, als Zuschauer oder bei schon offenem Menue
+     * passiert nichts ({@link BackpackMenuProviders#canOpenCarried}) - der Server prueft selbst.
      */
     public static void handleOpenBackpack(OpenBackpackPayload payload, ServerPlayer player) {
-        if (!BackpackMenuProviders.canOpenWorn(player)) {
+        if (!BackpackMenuProviders.canOpenCarried(player)) {
             return;
         }
-        BackpackMenus.openWorn(player);
+        BackpackMenus.openCarried(player);
     }
 
     // =====================================================================================

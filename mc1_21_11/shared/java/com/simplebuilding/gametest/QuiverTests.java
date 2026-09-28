@@ -1020,6 +1020,159 @@ public final class QuiverTests {
         TestCleanup.succeed(helper);
     }
 
+    // ---- owner decisions 2026-09-28 (begin)
+
+    /**
+     * The quiver feeds the crossbow too (owner, 2026-09-28), through vanilla's own
+     * {@code CrossbowItem#use} and loading tick, and the quiver pays exactly what vanilla's
+     * {@code useAmmo} would have taken from a loose arrow: one arrow in survival, nothing in creative.
+     * A projectile in the hand (a firework rocket in the offhand) goes first, as vanilla wants it.
+     *
+     * <p>What breaks it: {@code CrossbowItemMixin} going missing (no quiver, no draw), billing the
+     * quiver on a creative load, or the quiver winning over a held rocket.
+     */
+    public static void crossbowLoadsFromTheQuiverAndBillsOneArrow(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = mockPlayer(helper);
+        ItemStack crossbow = new ItemStack(Items.CROSSBOW);
+        player.setItemInHand(InteractionHand.MAIN_HAND, crossbow);
+
+        // --- control: nothing to shoot, nothing to load ---
+        helper.assertTrue(crossbow.getItem().use(level, player, InteractionHand.MAIN_HAND) == InteractionResult.FAIL,
+                "a crossbow could be drawn without quiver and arrows; the quiver case below would prove nothing");
+
+        // --- the offhand quiver loads it and pays one arrow ---
+        ItemStack quiver = filledContainer(helper, player, ModItems.QUIVER, Items.ARROW, 8);
+        player.setItemInHand(InteractionHand.OFF_HAND, quiver);
+        helper.assertTrue(crossbow.getItem().use(level, player, InteractionHand.MAIN_HAND) != InteractionResult.FAIL,
+                "the crossbow refused to be drawn with arrows in the offhand quiver");
+        crossbow.getItem().onUseTick(level, player, crossbow, 0);
+        player.stopUsingItem();
+        helper.assertTrue(net.minecraft.world.item.CrossbowItem.isCharged(crossbow),
+                "the crossbow did not load from the quiver");
+        Assertions.valueEqual(helper, countInBundle(quiver, Items.ARROW), 7, "arrows left in the quiver after loading the crossbow");
+
+        // --- a creative load is free ---
+        ItemStack creativeBow = new ItemStack(Items.CROSSBOW);
+        player.setItemInHand(InteractionHand.MAIN_HAND, creativeBow);
+        player.getAbilities().instabuild = true;
+        creativeBow.getItem().use(level, player, InteractionHand.MAIN_HAND);
+        creativeBow.getItem().onUseTick(level, player, creativeBow, 0);
+        player.stopUsingItem();
+        player.getAbilities().instabuild = false;
+        helper.assertTrue(net.minecraft.world.item.CrossbowItem.isCharged(creativeBow), "the creative crossbow did not load");
+        Assertions.valueEqual(helper, countInBundle(quiver, Items.ARROW), 7, "arrows left in the quiver after a creative load");
+
+        // --- a rocket in the hand goes first ---
+        ItemStack rocketBow = new ItemStack(Items.CROSSBOW);
+        player.setItemInHand(InteractionHand.MAIN_HAND, rocketBow);
+        player.setItemSlot(EquipmentSlot.CHEST, quiver);
+        player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.FIREWORK_ROCKET, 2));
+        rocketBow.getItem().use(level, player, InteractionHand.MAIN_HAND);
+        rocketBow.getItem().onUseTick(level, player, rocketBow, 0);
+        player.stopUsingItem();
+        net.minecraft.world.item.component.ChargedProjectiles charged = rocketBow.get(DataComponents.CHARGED_PROJECTILES);
+        helper.assertTrue(charged != null && charged.contains(Items.FIREWORK_ROCKET),
+                "the crossbow loaded " + charged + " instead of the rocket held in the offhand");
+        Assertions.valueEqual(helper, countInBundle(quiver, Items.ARROW), 7, "arrows left in the worn quiver after a rocket load");
+
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * A quiver inside the worn backpack feeds the bow only when the backpack carries Master Builder
+     * (owner, 2026-09-28); the arrow is then taken out of that very quiver inside the backpack.
+     *
+     * <p>What breaks it: the Master Builder gate going missing, or paying with a copy of the quiver
+     * that never goes back into the backpack.
+     */
+    public static void aQuiverInsideTheBackpackFeedsTheBowOnlyWithMasterBuilder(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        ItemStack quiver = filledContainer(helper, player, ModItems.QUIVER, Items.SPECTRAL_ARROW, 4);
+        ItemStack backpack = new ItemStack(ModItems.BACKPACK);
+        backpack.set(com.simplebuilding.component.ModDataComponentTypes.BACKPACK_CONTENTS,
+                new com.simplebuilding.component.BackpackContents(List.of(
+                        com.simplebuilding.component.BackpackContents.Entry.of(3, new ItemStack(Items.STONE, 5)),
+                        com.simplebuilding.component.BackpackContents.Entry.of(7, quiver))));
+        player.setItemSlot(EquipmentSlot.CHEST, backpack);
+
+        helper.assertTrue(QuiverItem.findProjectileForBow(player).isEmpty(),
+                "a quiver inside a backpack without Master Builder fed the bow");
+
+        backpack.enchant(enchantment(helper, ModEnchantments.MASTER_BUILDER), 1);
+        assertBowFinds(helper, player, Items.SPECTRAL_ARROW, "with a quiver inside a Master Builder backpack");
+        QuiverItem.consumeProjectileForBow(player);
+        ItemStack inside = com.simplebuilding.items.custom.BackpackItem.entryStack(backpack, 1);
+        Assertions.valueEqual(helper, countInBundle(inside, Items.SPECTRAL_ARROW), 3,
+                "arrows left in the quiver inside the backpack after one shot");
+        Assertions.valueEqual(helper, com.simplebuilding.items.custom.BackpackItem.entryStack(backpack, 0).getCount(), 5,
+                "stone next to the quiver in the backpack - the shot must not touch other entries");
+
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Picked up arrows go into a quiver only if it carries Funnel (owner, 2026-09-28): a shot arrow
+     * stuck in the ground lands in the inventory while the quiver has no Funnel, and in the quiver
+     * once it does. Funnel I keeps its filter and takes only arrow types already inside.
+     *
+     * <p>What breaks it: {@code AbstractArrowPickupMixin} going missing, or filling a quiver without
+     * Funnel.
+     */
+    public static void pickedUpArrowsGoIntoTheQuiverOnlyWithFunnel(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+
+        // --- no Funnel: into the inventory ---
+        ItemStack plain = filledContainer(helper, player, ModItems.QUIVER, Items.ARROW, 4);
+        player.setItemInHand(InteractionHand.OFF_HAND, plain);
+        touchArrow(helper, player, Items.ARROW);
+        Assertions.valueEqual(helper, countInBundle(plain, Items.ARROW), 4, "arrows in a quiver without Funnel after a pickup");
+        Assertions.valueEqual(helper, player.getInventory().countItem(Items.ARROW), 1, "loose arrows after picking one up without Funnel");
+        player.getInventory().clearContent();
+
+        // --- Funnel I: only types already inside ---
+        ItemStack filter = enchanted(helper, ModItems.QUIVER, ModEnchantments.FUNNEL, 1);
+        insertArrows(helper, player, filter, Items.ARROW, 4);
+        player.setItemInHand(InteractionHand.OFF_HAND, filter);
+        touchArrow(helper, player, Items.ARROW);
+        Assertions.valueEqual(helper, countInBundle(filter, Items.ARROW), 5, "arrows in a Funnel I quiver after picking up a plain arrow");
+        touchArrow(helper, player, Items.SPECTRAL_ARROW);
+        Assertions.valueEqual(helper, countInBundle(filter, Items.SPECTRAL_ARROW), 0,
+                "spectral arrows in a Funnel I quiver that held none before");
+        Assertions.valueEqual(helper, player.getInventory().countItem(Items.SPECTRAL_ARROW), 1,
+                "loose spectral arrows after Funnel I turned one down");
+        player.getInventory().clearContent();
+
+        // --- Funnel II: every arrow type ---
+        ItemStack funnel = enchanted(helper, ModItems.QUIVER, ModEnchantments.FUNNEL, 2);
+        player.setItemSlot(EquipmentSlot.CHEST, funnel);
+        touchArrow(helper, player, Items.SPECTRAL_ARROW);
+        Assertions.valueEqual(helper, countInBundle(funnel, Items.SPECTRAL_ARROW), 1, "spectral arrows in the worn Funnel II quiver");
+        Assertions.valueEqual(helper, player.getInventory().countItem(Items.SPECTRAL_ARROW), 0,
+                "loose spectral arrows although the Funnel II quiver took it");
+
+        TestCleanup.succeed(helper);
+    }
+
+    /** A pickable arrow of {@code type} lying in the room, touched by {@code player} (vanilla's pickup path). */
+    private static void touchArrow(GameTestHelper helper, ServerPlayer player, Item type) {
+        Vec3 pos = helper.absoluteVec(new Vec3(1.5, 2.0, 1.5));
+        ServerLevel level = helper.getLevel();
+        AbstractArrow arrow = type == Items.SPECTRAL_ARROW
+                ? new net.minecraft.world.entity.projectile.arrow.SpectralArrow(level, pos.x, pos.y, pos.z, new ItemStack(type), null)
+                : new net.minecraft.world.entity.projectile.arrow.Arrow(level, pos.x, pos.y, pos.z, new ItemStack(type), null);
+        arrow.pickup = AbstractArrow.Pickup.ALLOWED;
+        arrow.setNoPhysics(true);
+        level.addFreshEntity(arrow);
+        arrow.playerTouch(player);
+        if (!arrow.isRemoved()) {
+            arrow.discard();
+            helper.fail("the player could not pick up the " + type + " at all");
+        }
+    }
+
+    // ---- owner decisions 2026-09-28 (end)
+
     // =====================================================================================
     // HELPERS
     // =====================================================================================

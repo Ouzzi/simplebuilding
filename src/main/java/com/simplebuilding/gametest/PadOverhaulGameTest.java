@@ -39,4 +39,14 @@ public final class PadOverhaulGameTest {
     public void theEchoSounderDoesNotRelinkTheLodestoneItIsLinkedTo(GameTestHelper helper) {
         PadOverhaulTests.theEchoSounderDoesNotRelinkTheLodestoneItIsLinkedTo(helper);
     }
+
+    @GameTest
+    public void redstoneSwitchesLaunchpadsAndFlypadsOffAndComparatorsReadThem(GameTestHelper helper) {
+        PadOverhaulTests.redstoneSwitchesLaunchpadsAndFlypadsOffAndComparatorsReadThem(helper);
+    }
+
+    @GameTest(maxTicks = PadOverhaulTests.HOPPER_MAX_TICKS)
+    public void hoppersFillOnlyWindChargesIntoTheLaunchpad(GameTestHelper helper) {
+        PadOverhaulTests.hoppersFillOnlyWindChargesIntoTheLaunchpad(helper);
+    }
 }
