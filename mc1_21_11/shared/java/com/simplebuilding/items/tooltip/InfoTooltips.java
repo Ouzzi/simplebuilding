@@ -48,8 +48,6 @@ import net.minecraft.world.level.block.Block;
  * style for descriptions), food effects use the effect category's colour like potions.
  */
 public final class InfoTooltips {
-    /** Reinforced / Netherite / Enderite machines cook this many times as fast as vanilla (1 + extra ticks). */
-    public static final int[] FURNACE_SPEED = {2, 4, 8};
     /** Transfer cooldown of the Reinforced / Netherite / Enderite Hopper in ticks (vanilla: 8). */
     public static final int[] HOPPER_COOLDOWN = {4, 2, 1};
     /** Push limit of the Reinforced (Sticky) Piston ({@code PistonHandlerMixin}; vanilla 12). */
@@ -126,7 +124,7 @@ public final class InfoTooltips {
         } else if (block instanceof ModFurnaceBlock || block instanceof ModSmokerBlock || block instanceof ModBlastFurnaceBlock) {
             int t = machineTier(block);
             if (t > 0) {
-                out.add(gray("tooltip.simplebuilding.machine.speed", FURNACE_SPEED[t - 1]));
+                out.add(gray("tooltip.simplebuilding.machine.speed", FurnaceTierPerks.speedFactor(block.defaultBlockState())));
                 if (t >= 2) {
                     out.add(gray("tooltip.simplebuilding.machine.experience"));
                 }
