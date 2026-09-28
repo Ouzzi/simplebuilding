@@ -61,7 +61,12 @@ public final class InWorldTransformations {
         int hits = SledgehammerUpgrades.UPGRADE_TICKS / SledgehammerUpgrades.HIT_INTERVAL;
 
         JsonArray steps = new JsonArray();
-        for (Block block : modBlocks()) {
+        // Vorn die Vanilla-Kupfertruhe als Vertreterin aller acht Kupfertruhen (jede Oxidationsstufe,
+        // gewachst oder nicht, wird genauso zur Verstaerkten Truhe), dann die Mod-Bloecke.
+        List<Block> sources = new ArrayList<>();
+        sources.add(BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.withDefaultNamespace("copper_chest")));
+        sources.addAll(modBlocks());
+        for (Block block : sources) {
             SledgehammerUpgrades.Upgrade upgrade = SledgehammerUpgrades.upgradeOf(block);
             if (upgrade == null) {
                 continue;
@@ -70,7 +75,7 @@ public final class InWorldTransformations {
             step.addProperty("from", id(upgrade.from()));
             step.addProperty("to", id(upgrade.to()));
             step.addProperty("nugget", id(upgrade.nugget()));
-            // SledgehammerUpgrades.finish verbraucht genau einen Nugget.
+            // SledgehammerUpgrades.finish verbraucht genau einen Nugget je Block (eine Doppeltruhe: zwei).
             step.addProperty("nuggetCount", 1);
             step.addProperty("minimumHammer", weakestHammer(hammers, upgrade.minHammerRank()));
             step.addProperty("damagePerHit", upgrade.damagePerHit());

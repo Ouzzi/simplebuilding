@@ -56,7 +56,10 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(key(ModBlocks.ENDERITE_HOPPER))
                 .add(key(ModBlocks.ENDERITE_FURNACE))
                 .add(key(ModBlocks.ENDERITE_SMOKER))
-                .add(key(ModBlocks.ENDERITE_BLAST_FURNACE));
+                .add(key(ModBlocks.ENDERITE_BLAST_FURNACE))
+                .add(key(ModBlocks.REINFORCED_CHEST))
+                .add(key(ModBlocks.NETHERITE_CHEST))
+                .add(key(ModBlocks.ENDERITE_CHEST));
 
 
         // 2. Er benötigt mindestens ein Eisenwerkzeug (wie Diamantblock)

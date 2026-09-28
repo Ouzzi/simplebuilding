@@ -45,4 +45,17 @@ public final class McClientVersion {
                                              RenderType renderType, int lightCoords, int overlayCoords, int tint) {
         collector.submitModelPart(part, poseStack, renderType, lightCoords, overlayCoords, null, tint, null);
     }
+
+    /**
+     * Submits a chest model with a sprite from the chest atlas, with the break overlay if there is
+     * one (26.2: one call takes the overlay; 26.3: a second, ordered crumbling submit like vanilla).
+     */
+    public static void submitChestModel(SubmitNodeCollector collector, net.minecraft.client.model.object.chest.ChestModel model,
+                                        float open, PoseStack poseStack, int lightCoords,
+                                        net.minecraft.client.resources.model.sprite.SpriteId sprite,
+                                        net.minecraft.client.resources.model.sprite.SpriteGetter sprites,
+                                        net.minecraft.client.renderer.feature.ModelFeatureRenderer.@org.jetbrains.annotations.Nullable CrumblingOverlay crumbling) {
+        collector.submitModel(model, open, poseStack, lightCoords, net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY, -1,
+                sprite, sprites, 0, crumbling);
+    }
 }

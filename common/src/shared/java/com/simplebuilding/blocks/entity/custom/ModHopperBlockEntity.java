@@ -419,7 +419,8 @@ public class ModHopperBlockEntity extends RandomizableContainerBlockEntity imple
         int[] slots = getAvailableSlots(inventory, direction);
         for (int i : slots) {
             ItemStack itemStack = inventory.getItem(i);
-            if (itemStack.getCount() < itemStack.getMaxStackSize()) return false;
+            // Mod-Truhen ab Netherit fassen x2/x4 je Platz (siehe HopperBlockEntityMixin).
+            if (itemStack.getCount() < com.simplebuilding.util.TieredChests.maxStackSize(inventory, itemStack, itemStack.getMaxStackSize())) return false;
         }
         return true;
     }

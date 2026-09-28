@@ -15,13 +15,13 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class ModBlockEntities {
 
-    // public static BlockEntityType<ModChestBlockEntity> MOD_CHEST_BE;
     public static BlockEntityType<ModBlastFurnaceBlockEntity> MOD_BLAST_FURNACE_BE;
     public static BlockEntityType<ModHopperBlockEntity> MOD_HOPPER_BE;
     public static BlockEntityType<ModFurnaceBlockEntity> MOD_FURNACE_BE;
     public static BlockEntityType<ModSmokerBlockEntity> MOD_SMOKER_BE;
     public static BlockEntityType<BackpackBlockEntity> BACKPACK_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity> PLACED_TEMPLATE_BE;
+    public static BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity> TIERED_CHEST_BE;
 
     public static void registerBlockEntities() {
         MOD_HOPPER_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
@@ -32,13 +32,6 @@ public class ModBlockEntities {
                         ModBlocks.ENDERITE_HOPPER
                 ).build());
 
-        /* todo chest:
-
-        MOD_CHEST_BE = Registry.register(Registries.BLOCK_ENTITY_TYPE,
-                Identifier.of(Simplebuilding.MOD_ID, "mod_chest"),
-                FabricBlockEntityTypeBuilder.create(ModChestBlockEntity::new,
-                        ModBlocks.REINFORCED_CHEST, ModBlocks.NETHERITE_CHEST).build());
-         */
 
         MOD_BLAST_FURNACE_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "mod_blast_furnace"),
@@ -60,6 +53,11 @@ public class ModBlockEntities {
                 FabricBlockEntityTypeBuilder.create(BackpackBlockEntity::new,
                         ModBlocks.BACKPACK, ModBlocks.REINFORCED_BACKPACK,
                         ModBlocks.NETHERITE_BACKPACK, ModBlocks.ENDERITE_BACKPACK).build());
+
+        TIERED_CHEST_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "tiered_chest"),
+                FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity::new,
+                        ModBlocks.REINFORCED_CHEST, ModBlocks.NETHERITE_CHEST, ModBlocks.ENDERITE_CHEST).build());
 
         PLACED_TEMPLATE_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "placed_smithing_template"),

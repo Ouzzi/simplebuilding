@@ -410,6 +410,19 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                         .unlockedBy(getHasName(Items.HOPPER), has(Items.HOPPER))
                         .save(output, "reinforced_hopper_from_crafting");
 
+                // Verstaerkte Truhe aus drei Kupfertruhen (jede Oxidationsstufe, gewachst oder nicht), wie
+                // die verstaerkten Oefen. Mit Inhalt geht es in der Welt: Vorschlaghammer plus Rissiger
+                // Diamant in der Nebenhand (SledgehammerUpgrades). Netherit- und Enderittruhe entstehen
+                // nur so, wie die Maschinen.
+                ShapedRecipeBuilder.shaped(items(), RecipeCategory.DECORATIONS, ModItems.REINFORCED_CHEST, 3)
+                        .pattern("DDD")
+                        .pattern("CCC")
+                        .pattern("DDD")
+                        .define('D', ModItems.CRACKED_DIAMOND)
+                        .define('C', tag(com.simplebuilding.util.ModTags.Items.COPPER_CHESTS))
+                        .unlockedBy(getHasName(ModItems.CRACKED_DIAMOND), has(ModItems.CRACKED_DIAMOND))
+                        .save(output);
+
                 // Netherit- und Enderit-Trichter (wie alle Netherit- und Enderit-Maschinen) haben kein
                 // Werkbankrezept mehr: sie entstehen in der Welt, per Vorschlaghammer und Nugget
                 // (SledgehammerUpgrades).

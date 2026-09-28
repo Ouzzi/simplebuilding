@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "src/main/generated/wiki/items.json",
       "present": true,
-      "count": 217,
+      "count": 220,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -1047,6 +1047,60 @@
           "Verzauberungen (nur Amboss): Tiefe Taschen I/II verdoppelt bzw. vervierfacht die Stapelgrenze stapelbarer Items im Rucksack; mit Trichter saugt der getragene Rucksack Items nach den Bündeln auf; Baumeister auf dem Rucksack macht ihn zur Materialquelle für Baustab und Blockauswahl; Berührung des Konstrukteurs füllt die Hand aus dem Rucksack nach, wenn beim Platzieren ein Blockstapel aufgebraucht ist. Schublade und Farbpalette gehen nicht auf Rucksäcke.",
           "Färben: Ein Rucksack nimmt Farbstoff an wie Lederrüstung – mit einem oder mehreren Farbstoffen in die Werkbank legen (Farben mischen sich, ein gefärbter Rucksack lässt sich weiter färben). Inhalt, Name und Verzauberungen bleiben; die Farbe zeigt sich am Item, am getragenen Rucksack und als leichte Tönung der Rucksack-Reihen im Bildschirm (die Zusatzspalten bleiben violett). Ein Wasserkessel wäscht die Farbe wieder ab und lässt alles andere. Die Farbe übersteht Aufwertungen und das Abstellen, und auch der abgestellte Rucksack zeigt sie.",
           "Grenzen vorerst: Die Zusatzspalten sind gewöhnlicher Stauraum (sie sollen später Spezial-Plätze werden), ein Rucksack lässt sich nur getragen oder abgestellt öffnen, und das Rezeptbuch greift nicht auf den Rucksack zu."
+        ]
+      }
+    },
+    {
+      "id": "chests",
+      "related": [
+        "minecraft:copper_chest",
+        "simplebuilding:reinforced_chest",
+        "simplebuilding:netherite_chest",
+        "simplebuilding:enderite_chest",
+        "simplebuilding:cracked_diamond",
+        "simplebuilding:netherite_nugget",
+        "simplebuilding:enderite_nugget"
+      ],
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/TieredChestBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
+        "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
+        "common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java",
+        "common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java",
+        "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
+        "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+        "common/src/shared/java/com/simplebuilding/mixin/ChestBlockMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
+        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeItemAutomation.java",
+        "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
+      ],
+      "en": {
+        "title": "Chest tiers",
+        "summary": "Copper chest -> Reinforced Chest -> Netherite Chest -> Enderite Chest: more slots per tier (27/36/45/54, double chests twice that), and from netherite on bigger stacks per slot (x2, enderite x4). Each step is done in the world with the sledgehammer and keeps everything inside.",
+        "details": [
+          "Upgrading: hold right-click on the placed chest for 5 seconds with a sledgehammer in the main hand and the tier material in the off hand - Cracked Diamond (any sledgehammer) for copper -> reinforced, Netherite Nugget (Diamond Sledgehammer or better) for reinforced -> netherite, Enderite Nugget (Netherite Sledgehammer or better) for netherite -> enderite. Contents, name and lock stay; a double chest is upgraded as a whole and takes two pieces of material.",
+          "The Reinforced Chest can also be crafted (3 copper chests + 6 Cracked Diamonds -> 3); netherite and enderite only come from the hammer, like the machines.",
+          "Double chests form only from equal tiers.",
+          "The menus show everything at once: 9x4, 9x5 and 9x6 for single chests, 12x6, 15x6 and 18x6 for double chests - all within GUI scale 4 at 1080p. Oversized slots are tinted and the title row names the stack factor.",
+          "Automation: vanilla hoppers, hopper minecarts and the mod's hoppers fill the oversized slots to their limit; comparators count against it. On NeoForge pipes see the chest (a double chest as one inventory) with the same limits through the item capability. On Forge (compile-only port) automation goes through Forge's own item handler and fills oversized slots only up to a normal stack.",
+          "Rendering: the chests use vanilla's chest model and renderer path with their own textures (no extra per-tick work). Chest optimisation mods that replace the vanilla chest renderer with a static model only affect vanilla chests; the tier chests keep drawing themselves and nothing breaks."
+        ]
+      },
+      "de": {
+        "title": "Truhen-Stufen",
+        "summary": "Kupfertruhe -> Verstärkte Truhe -> Netherittruhe -> Enderittruhe: mehr Plätze je Stufe (27/36/45/54, Doppeltruhen doppelt so viele), ab Netherit größere Stapel je Platz (x2, Enderit x4). Jeder Schritt passiert in der Welt mit dem Vorschlaghammer, der Inhalt bleibt.",
+        "details": [
+          "Aufwerten: 5 Sekunden Rechtsklick auf die gesetzte Truhe halten, Vorschlaghammer in der Haupthand und das Stufenmaterial in der Nebenhand - Rissiger Diamant (jeder Vorschlaghammer) für Kupfer -> Verstärkt, Netheritklumpen (Diamant-Vorschlaghammer oder besser) für Verstärkt -> Netherit, Enderitklumpen (Netherit-Vorschlaghammer oder besser) für Netherit -> Enderit. Inhalt, Name und Schloss bleiben; eine Doppeltruhe wird als Ganzes aufgewertet und braucht zwei Stück Material.",
+          "Die Verstärkte Truhe lässt sich auch herstellen (3 Kupfertruhen + 6 Rissige Diamanten -> 3); Netherit und Enderit gibt es nur mit dem Hammer, wie bei den Maschinen.",
+          "Doppeltruhen bilden sich nur aus gleichen Stufen.",
+          "Die Menüs zeigen alles auf einmal: 9x4, 9x5 und 9x6 für einzelne Truhen, 12x6, 15x6 und 18x6 für Doppeltruhen - alles innerhalb GUI-Skala 4 bei 1080p. Übergroße Plätze sind getönt, die Titelzeile nennt den Stapelfaktor.",
+          "Automatisierung: Vanilla-Trichter, Trichterloren und die Mod-Trichter füllen die übergroßen Plätze bis zur Grenze; Komparatoren zählen dagegen. Auf NeoForge sehen Rohre die Truhe (eine Doppeltruhe als ein Lager) über die Item-Capability mit denselben Grenzen. Auf Forge (nur Kompilier-Portierung) läuft Automatisierung über Forges eigenen Item-Handler und füllt übergroße Plätze nur bis zu einem normalen Stapel.",
+          "Darstellung: die Truhen nutzen Vanillas Truhenmodell und Renderer-Weg mit eigenen Texturen (keine zusätzliche Arbeit je Tick). Truhen-Optimierer, die Vanillas Truhen-Renderer durch ein statisches Modell ersetzen, betreffen nur Vanilla-Truhen; die Stufen-Truhen zeichnen sich weiter selbst, nichts bricht."
         ]
       }
     },
@@ -4673,6 +4727,7 @@
         "simplebuilding:cracked_diamond_block",
         "simplebuilding:diamond_from_blasting_cracked_diamond",
         "simplebuilding:reinforced_blast_furnace",
+        "simplebuilding:reinforced_chest",
         "simplebuilding:reinforced_furnace",
         "simplebuilding:reinforced_hopper_from_crafting",
         "simplebuilding:reinforced_piston",
@@ -6579,6 +6634,65 @@
       "usedIn": [],
       "trades": [],
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:enderite_chest",
+      "name": {
+        "en_us": "Enderite Chest",
+        "de_de": "Enderittruhe"
+      },
+      "texture": "assets/textures/block/enderite_block.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/enderite_chest.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/TieredChestBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
+          "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java",
+          "common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java",
+          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ChestBlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeItemAutomation.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
+        ],
+        "en": {
+          "summary": "The Enderite Chest is the top chest tier: 54 slots (double chest 108), each with four times the normal stack size (256 cobblestone).",
+          "details": [
+            "No crafting recipe: a placed Netherite Chest becomes an Enderite Chest after 5 seconds of hammering with a Netherite Sledgehammer (or better) and an Enderite Nugget in the off hand, keeping its contents; a double chest takes 2 nuggets.",
+            "Stacks above 99 are saved in an extra list next to vanilla's item list (which holds a capped copy of 99), so nothing is lost on saving or loading.",
+            "Fire resistant item, rarity epic, hardness 6 and blast resistance 1500.",
+            "Behaves like a vanilla chest in the world: same shape, waterlogging, double chests, blocked by a solid block or a sitting cat on the lid, angers piglins, counts as 'Chests opened', same lid animation.",
+            "A double chest only forms from two chests of the same tier (vanilla's chestCanConnectTo asks state.is(this), and every tier is its own block).",
+            "Mined with a pickaxe (any tier; nothing drops by hand). Breaking it drops its contents and the chest itself, keeping an anvil name.",
+            "The menu shows every slot without scrolling: a single chest has 9 columns, a double chest grows sideways to 12/15/18 columns with 6 rows (at most 338 x 222 GUI pixels, which fits GUI scale 4 on a 1920x1080 screen).",
+            "Hoppers (vanilla, hopper minecarts and the mod's hoppers) fill oversized slots up to the tier's limit and pull items out one at a time; comparators measure against the tier's limit."
+          ]
+        },
+        "de": {
+          "summary": "Die Enderittruhe ist die höchste Truhenstufe: 54 Plätze (Doppeltruhe 108), jeder mit vierfacher Stapelgröße (256 Bruchstein).",
+          "details": [
+            "Kein Werkbankrezept: eine gesetzte Netherittruhe wird nach 5 Sekunden Hämmern mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderitklumpen in der Nebenhand zur Enderittruhe und behält ihren Inhalt; eine Doppeltruhe braucht 2 Klumpen.",
+            "Stapel über 99 werden in einer eigenen Liste neben Vanillas Item-Liste gespeichert (die eine gekappte Kopie mit 99 hält), beim Speichern und Laden geht also nichts verloren.",
+            "Feuerfestes Item, Seltenheit episch, Härte 6 und Explosionsresistenz 1500.",
+            "Verhält sich in der Welt wie eine Vanilla-Truhe: gleiche Form, wasserfähig, Doppeltruhen, blockiert durch einen festen Block oder eine sitzende Katze auf dem Deckel, erzürnt Piglins, zählt als 'Truhen geöffnet', gleiche Deckelanimation.",
+            "Eine Doppeltruhe bildet sich nur aus zwei Truhen derselben Stufe (Vanillas chestCanConnectTo fragt state.is(this), und jede Stufe ist ein eigener Block).",
+            "Abbau mit der Spitzhacke (jede Stufe; von Hand droppt nichts). Beim Abbau fallen der Inhalt und die Truhe selbst heraus, ein Amboss-Name bleibt erhalten.",
+            "Das Menü zeigt alle Plätze ohne Blättern: eine einzelne Truhe hat 9 Spalten, eine Doppeltruhe wächst mit 6 Reihen in die Breite auf 12/15/18 Spalten (höchstens 338 x 222 GUI-Punkte, passt bei GUI-Skala 4 auf einen 1920x1080-Bildschirm).",
+            "Trichter (Vanilla, Trichterlore und die Mod-Trichter) füllen übergroße Plätze bis zur Grenze der Stufe und ziehen einzeln heraus; Komparatoren messen gegen die Grenze der Stufe."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:enderite_chestplate",
@@ -10945,6 +11059,67 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:netherite_chest",
+      "name": {
+        "en_us": "Netherite Chest",
+        "de_de": "Netherittruhe"
+      },
+      "texture": "assets/textures/item/netherite_chest.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/netherite_chest.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/TieredChestBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
+          "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java",
+          "common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java",
+          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ChestBlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeItemAutomation.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
+        ],
+        "en": {
+          "summary": "The Netherite Chest holds 45 slots (double chest 90), each with twice the normal stack size (128 cobblestone, 32 ender pearls; unstackable items stay at 1).",
+          "details": [
+            "No crafting recipe: a placed Reinforced Chest becomes a Netherite Chest after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, keeping its contents; a double chest takes 2 nuggets.",
+            "Hammered on into the Enderite Chest with a Netherite Sledgehammer (or better) and an Enderite Nugget.",
+            "Oversized stacks never leave the chest whole: taking, shift-clicking and number keys move at most one normal stack at a time, like the backpack with Deep Pockets.",
+            "Fire resistant item, rarity uncommon, hardness 5 and blast resistance 1200.",
+            "Behaves like a vanilla chest in the world: same shape, waterlogging, double chests, blocked by a solid block or a sitting cat on the lid, angers piglins, counts as 'Chests opened', same lid animation.",
+            "A double chest only forms from two chests of the same tier (vanilla's chestCanConnectTo asks state.is(this), and every tier is its own block).",
+            "Mined with a pickaxe (any tier; nothing drops by hand). Breaking it drops its contents and the chest itself, keeping an anvil name.",
+            "The menu shows every slot without scrolling: a single chest has 9 columns, a double chest grows sideways to 12/15/18 columns with 6 rows (at most 338 x 222 GUI pixels, which fits GUI scale 4 on a 1920x1080 screen).",
+            "Hoppers (vanilla, hopper minecarts and the mod's hoppers) fill oversized slots up to the tier's limit and pull items out one at a time; comparators measure against the tier's limit."
+          ]
+        },
+        "de": {
+          "summary": "Die Netherittruhe fasst 45 Plätze (Doppeltruhe 90), jeder mit doppelter Stapelgröße (128 Bruchstein, 32 Enderperlen; nicht stapelbare Items bleiben bei 1).",
+          "details": [
+            "Kein Werkbankrezept: eine gesetzte Verstärkte Truhe wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netheritklumpen in der Nebenhand zur Netherittruhe und behält ihren Inhalt; eine Doppeltruhe braucht 2 Klumpen.",
+            "Mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderitklumpen weiter zur Enderittruhe.",
+            "Übergroße Stapel verlassen die Truhe nie im Ganzen: Nehmen, Shift-Klick und Zifferntasten bewegen höchstens einen normalen Stapel auf einmal, wie beim Rucksack mit Tiefe Taschen.",
+            "Feuerfestes Item, Seltenheit ungewöhnlich, Härte 5 und Explosionsresistenz 1200.",
+            "Verhält sich in der Welt wie eine Vanilla-Truhe: gleiche Form, wasserfähig, Doppeltruhen, blockiert durch einen festen Block oder eine sitzende Katze auf dem Deckel, erzürnt Piglins, zählt als 'Truhen geöffnet', gleiche Deckelanimation.",
+            "Eine Doppeltruhe bildet sich nur aus zwei Truhen derselben Stufe (Vanillas chestCanConnectTo fragt state.is(this), und jede Stufe ist ein eigener Block).",
+            "Abbau mit der Spitzhacke (jede Stufe; von Hand droppt nichts). Beim Abbau fallen der Inhalt und die Truhe selbst heraus, ein Amboss-Name bleibt erhalten.",
+            "Das Menü zeigt alle Plätze ohne Blättern: eine einzelne Truhe hat 9 Spalten, eine Doppeltruhe wächst mit 6 Reihen in die Breite auf 12/15/18 Spalten (höchstens 338 x 222 GUI-Punkte, passt bei GUI-Skala 4 auf einen 1920x1080-Bildschirm).",
+            "Trichter (Vanilla, Trichterlore und die Mod-Trichter) füllen übergroße Plätze bis zur Grenze der Stufe und ziehen einzeln heraus; Komparatoren messen gegen die Grenze der Stufe."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:netherite_chisel",
       "name": {
         "en_us": "Netherite Chisel",
@@ -13812,6 +13987,67 @@
           "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeModRegistries.java",
           "mc1_21_11/shared/java/com/simplebuilding/recipe/ReinforcedBundleRecipe.java"
         ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:reinforced_chest",
+      "name": {
+        "en_us": "Reinforced Chest",
+        "de_de": "Verstärkte Truhe"
+      },
+      "texture": "assets/textures/item/reinforced_chest.png",
+      "craftedBy": [
+        "simplebuilding:reinforced_chest"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/reinforced_chest.png",
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/TieredChestBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
+          "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java",
+          "common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java",
+          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ChestBlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeItemAutomation.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
+        ],
+        "en": {
+          "summary": "The Reinforced Chest is the first chest tier above the vanilla copper chest: 36 slots (double chest 72).",
+          "details": [
+            "Crafted from 3 copper chests (any oxidation stage, waxed or not - item tag simplebuilding:copper_chests) and 6 Cracked Diamonds: DDD / CCC / DDD gives 3.",
+            "With contents: hold right-click for 5 seconds on any placed copper chest with any sledgehammer and a Cracked Diamond in the off hand (2 durability per blow); the chest keeps its items, name and lock. A double copper chest is upgraded as a whole and takes 2 Cracked Diamonds.",
+            "Hammered on into the Netherite Chest with a Diamond Sledgehammer (or better) and a Netherite Nugget, like the reinforced machines.",
+            "Behaves like a vanilla chest in the world: same shape, waterlogging, double chests, blocked by a solid block or a sitting cat on the lid, angers piglins, counts as 'Chests opened', same lid animation.",
+            "A double chest only forms from two chests of the same tier (vanilla's chestCanConnectTo asks state.is(this), and every tier is its own block).",
+            "Mined with a pickaxe (any tier; nothing drops by hand). Breaking it drops its contents and the chest itself, keeping an anvil name.",
+            "The menu shows every slot without scrolling: a single chest has 9 columns, a double chest grows sideways to 12/15/18 columns with 6 rows (at most 338 x 222 GUI pixels, which fits GUI scale 4 on a 1920x1080 screen).",
+            "Hoppers (vanilla, hopper minecarts and the mod's hoppers) fill oversized slots up to the tier's limit and pull items out one at a time; comparators measure against the tier's limit."
+          ]
+        },
+        "de": {
+          "summary": "Die Verstärkte Truhe ist die erste Truhenstufe über der Vanilla-Kupfertruhe: 36 Plätze (Doppeltruhe 72).",
+          "details": [
+            "Hergestellt aus 3 Kupfertruhen (jede Oxidationsstufe, gewachst oder nicht - Item-Tag simplebuilding:copper_chests) und 6 Rissigen Diamanten: DDD / CCC / DDD ergibt 3.",
+            "Mit Inhalt: 5 Sekunden Rechtsklick auf eine gesetzte Kupfertruhe halten, mit einem beliebigen Vorschlaghammer und einem Rissigen Diamanten in der Nebenhand (2 Haltbarkeit je Schlag); die Truhe behält Inhalt, Namen und Schloss. Eine Doppel-Kupfertruhe wird als Ganzes aufgewertet und braucht 2 Rissige Diamanten.",
+            "Mit einem Diamant-Vorschlaghammer (oder besser) und einem Netheritklumpen weiter zur Netherittruhe, wie die verstärkten Maschinen.",
+            "Verhält sich in der Welt wie eine Vanilla-Truhe: gleiche Form, wasserfähig, Doppeltruhen, blockiert durch einen festen Block oder eine sitzende Katze auf dem Deckel, erzürnt Piglins, zählt als 'Truhen geöffnet', gleiche Deckelanimation.",
+            "Eine Doppeltruhe bildet sich nur aus zwei Truhen derselben Stufe (Vanillas chestCanConnectTo fragt state.is(this), und jede Stufe ist ein eigener Block).",
+            "Abbau mit der Spitzhacke (jede Stufe; von Hand droppt nichts). Beim Abbau fallen der Inhalt und die Truhe selbst heraus, ein Amboss-Name bleibt erhalten.",
+            "Das Menü zeigt alle Plätze ohne Blättern: eine einzelne Truhe hat 9 Spalten, eine Doppeltruhe wächst mit 6 Reihen in die Breite auf 12/15/18 Spalten (höchstens 338 x 222 GUI-Punkte, passt bei GUI-Skala 4 auf einen 1920x1080-Bildschirm).",
+            "Trichter (Vanilla, Trichterlore und die Mod-Trichter) füllen übergroße Plätze bis zur Grenze der Stufe und ziehen einzeln heraus; Komparatoren messen gegen die Grenze der Stufe."
+          ]
+        }
       },
       "hasCustomBehaviour": true
     },
@@ -16758,6 +16994,69 @@
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:enderite_chest",
+      "name": {
+        "en_us": "Enderite Chest",
+        "de_de": "Enderittruhe"
+      },
+      "texture": "assets/textures/block/enderite_block.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/enderite_chest.png",
+      "lootTable": "simplebuilding:blocks/enderite_chest",
+      "drops": [
+        "simplebuilding:enderite_chest"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/TieredChestBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
+          "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java",
+          "common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java",
+          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ChestBlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeItemAutomation.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
+        ],
+        "en": {
+          "summary": "The Enderite Chest is the top chest tier: 54 slots (double chest 108), each with four times the normal stack size (256 cobblestone).",
+          "details": [
+            "No crafting recipe: a placed Netherite Chest becomes an Enderite Chest after 5 seconds of hammering with a Netherite Sledgehammer (or better) and an Enderite Nugget in the off hand, keeping its contents; a double chest takes 2 nuggets.",
+            "Stacks above 99 are saved in an extra list next to vanilla's item list (which holds a capped copy of 99), so nothing is lost on saving or loading.",
+            "Fire resistant item, rarity epic, hardness 6 and blast resistance 1500.",
+            "Behaves like a vanilla chest in the world: same shape, waterlogging, double chests, blocked by a solid block or a sitting cat on the lid, angers piglins, counts as 'Chests opened', same lid animation.",
+            "A double chest only forms from two chests of the same tier (vanilla's chestCanConnectTo asks state.is(this), and every tier is its own block).",
+            "Mined with a pickaxe (any tier; nothing drops by hand). Breaking it drops its contents and the chest itself, keeping an anvil name.",
+            "The menu shows every slot without scrolling: a single chest has 9 columns, a double chest grows sideways to 12/15/18 columns with 6 rows (at most 338 x 222 GUI pixels, which fits GUI scale 4 on a 1920x1080 screen).",
+            "Hoppers (vanilla, hopper minecarts and the mod's hoppers) fill oversized slots up to the tier's limit and pull items out one at a time; comparators measure against the tier's limit."
+          ]
+        },
+        "de": {
+          "summary": "Die Enderittruhe ist die höchste Truhenstufe: 54 Plätze (Doppeltruhe 108), jeder mit vierfacher Stapelgröße (256 Bruchstein).",
+          "details": [
+            "Kein Werkbankrezept: eine gesetzte Netherittruhe wird nach 5 Sekunden Hämmern mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderitklumpen in der Nebenhand zur Enderittruhe und behält ihren Inhalt; eine Doppeltruhe braucht 2 Klumpen.",
+            "Stapel über 99 werden in einer eigenen Liste neben Vanillas Item-Liste gespeichert (die eine gekappte Kopie mit 99 hält), beim Speichern und Laden geht also nichts verloren.",
+            "Feuerfestes Item, Seltenheit episch, Härte 6 und Explosionsresistenz 1500.",
+            "Verhält sich in der Welt wie eine Vanilla-Truhe: gleiche Form, wasserfähig, Doppeltruhen, blockiert durch einen festen Block oder eine sitzende Katze auf dem Deckel, erzürnt Piglins, zählt als 'Truhen geöffnet', gleiche Deckelanimation.",
+            "Eine Doppeltruhe bildet sich nur aus zwei Truhen derselben Stufe (Vanillas chestCanConnectTo fragt state.is(this), und jede Stufe ist ein eigener Block).",
+            "Abbau mit der Spitzhacke (jede Stufe; von Hand droppt nichts). Beim Abbau fallen der Inhalt und die Truhe selbst heraus, ein Amboss-Name bleibt erhalten.",
+            "Das Menü zeigt alle Plätze ohne Blättern: eine einzelne Truhe hat 9 Spalten, eine Doppeltruhe wächst mit 6 Reihen in die Breite auf 12/15/18 Spalten (höchstens 338 x 222 GUI-Punkte, passt bei GUI-Skala 4 auf einen 1920x1080-Bildschirm).",
+            "Trichter (Vanilla, Trichterlore und die Mod-Trichter) füllen übergroße Plätze bis zur Grenze der Stufe und ziehen einzeln heraus; Komparatoren messen gegen die Grenze der Stufe."
+          ]
+        }
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:enderite_chunk_loader",
       "name": {
         "en_us": "Enderite Chunk Loader III",
@@ -18293,6 +18592,71 @@
         "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:110",
         "extraTicks": 3,
         "cookingTicksPerTick": 4
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:netherite_chest",
+      "name": {
+        "en_us": "Netherite Chest",
+        "de_de": "Netherittruhe"
+      },
+      "texture": "assets/textures/block/netherite_chest.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/netherite_chest.png",
+      "lootTable": "simplebuilding:blocks/netherite_chest",
+      "drops": [
+        "simplebuilding:netherite_chest"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/TieredChestBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
+          "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java",
+          "common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java",
+          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ChestBlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeItemAutomation.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
+        ],
+        "en": {
+          "summary": "The Netherite Chest holds 45 slots (double chest 90), each with twice the normal stack size (128 cobblestone, 32 ender pearls; unstackable items stay at 1).",
+          "details": [
+            "No crafting recipe: a placed Reinforced Chest becomes a Netherite Chest after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, keeping its contents; a double chest takes 2 nuggets.",
+            "Hammered on into the Enderite Chest with a Netherite Sledgehammer (or better) and an Enderite Nugget.",
+            "Oversized stacks never leave the chest whole: taking, shift-clicking and number keys move at most one normal stack at a time, like the backpack with Deep Pockets.",
+            "Fire resistant item, rarity uncommon, hardness 5 and blast resistance 1200.",
+            "Behaves like a vanilla chest in the world: same shape, waterlogging, double chests, blocked by a solid block or a sitting cat on the lid, angers piglins, counts as 'Chests opened', same lid animation.",
+            "A double chest only forms from two chests of the same tier (vanilla's chestCanConnectTo asks state.is(this), and every tier is its own block).",
+            "Mined with a pickaxe (any tier; nothing drops by hand). Breaking it drops its contents and the chest itself, keeping an anvil name.",
+            "The menu shows every slot without scrolling: a single chest has 9 columns, a double chest grows sideways to 12/15/18 columns with 6 rows (at most 338 x 222 GUI pixels, which fits GUI scale 4 on a 1920x1080 screen).",
+            "Hoppers (vanilla, hopper minecarts and the mod's hoppers) fill oversized slots up to the tier's limit and pull items out one at a time; comparators measure against the tier's limit."
+          ]
+        },
+        "de": {
+          "summary": "Die Netherittruhe fasst 45 Plätze (Doppeltruhe 90), jeder mit doppelter Stapelgröße (128 Bruchstein, 32 Enderperlen; nicht stapelbare Items bleiben bei 1).",
+          "details": [
+            "Kein Werkbankrezept: eine gesetzte Verstärkte Truhe wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netheritklumpen in der Nebenhand zur Netherittruhe und behält ihren Inhalt; eine Doppeltruhe braucht 2 Klumpen.",
+            "Mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderitklumpen weiter zur Enderittruhe.",
+            "Übergroße Stapel verlassen die Truhe nie im Ganzen: Nehmen, Shift-Klick und Zifferntasten bewegen höchstens einen normalen Stapel auf einmal, wie beim Rucksack mit Tiefe Taschen.",
+            "Feuerfestes Item, Seltenheit ungewöhnlich, Härte 5 und Explosionsresistenz 1200.",
+            "Verhält sich in der Welt wie eine Vanilla-Truhe: gleiche Form, wasserfähig, Doppeltruhen, blockiert durch einen festen Block oder eine sitzende Katze auf dem Deckel, erzürnt Piglins, zählt als 'Truhen geöffnet', gleiche Deckelanimation.",
+            "Eine Doppeltruhe bildet sich nur aus zwei Truhen derselben Stufe (Vanillas chestCanConnectTo fragt state.is(this), und jede Stufe ist ein eigener Block).",
+            "Abbau mit der Spitzhacke (jede Stufe; von Hand droppt nichts). Beim Abbau fallen der Inhalt und die Truhe selbst heraus, ein Amboss-Name bleibt erhalten.",
+            "Das Menü zeigt alle Plätze ohne Blättern: eine einzelne Truhe hat 9 Spalten, eine Doppeltruhe wächst mit 6 Reihen in die Breite auf 12/15/18 Spalten (höchstens 338 x 222 GUI-Punkte, passt bei GUI-Skala 4 auf einen 1920x1080-Bildschirm).",
+            "Trichter (Vanilla, Trichterlore und die Mod-Trichter) füllen übergroße Plätze bis zur Grenze der Stufe und ziehen einzeln heraus; Komparatoren messen gegen die Grenze der Stufe."
+          ]
+        }
       },
       "hasCustomBehaviour": true
     },
@@ -20136,6 +20500,71 @@
         "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:112",
         "extraTicks": 1,
         "cookingTicksPerTick": 2
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:reinforced_chest",
+      "name": {
+        "en_us": "Reinforced Chest",
+        "de_de": "Verstärkte Truhe"
+      },
+      "texture": "assets/textures/block/cracked_diamond_block.png",
+      "craftedBy": [
+        "simplebuilding:reinforced_chest"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/reinforced_chest.png",
+      "lootTable": "simplebuilding:blocks/reinforced_chest",
+      "drops": [
+        "simplebuilding:reinforced_chest"
+      ],
+      "note": {
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/TieredChestBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredChestBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
+          "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
+          "common/src/shared/java/com/simplebuilding/client/gui/TieredChestScreen.java",
+          "common/src/shared/java/com/simplebuilding/client/render/TieredChestRenderer.java",
+          "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
+          "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ChestBlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
+          "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeItemAutomation.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TieredChestTests.java"
+        ],
+        "en": {
+          "summary": "The Reinforced Chest is the first chest tier above the vanilla copper chest: 36 slots (double chest 72).",
+          "details": [
+            "Crafted from 3 copper chests (any oxidation stage, waxed or not - item tag simplebuilding:copper_chests) and 6 Cracked Diamonds: DDD / CCC / DDD gives 3.",
+            "With contents: hold right-click for 5 seconds on any placed copper chest with any sledgehammer and a Cracked Diamond in the off hand (2 durability per blow); the chest keeps its items, name and lock. A double copper chest is upgraded as a whole and takes 2 Cracked Diamonds.",
+            "Hammered on into the Netherite Chest with a Diamond Sledgehammer (or better) and a Netherite Nugget, like the reinforced machines.",
+            "Behaves like a vanilla chest in the world: same shape, waterlogging, double chests, blocked by a solid block or a sitting cat on the lid, angers piglins, counts as 'Chests opened', same lid animation.",
+            "A double chest only forms from two chests of the same tier (vanilla's chestCanConnectTo asks state.is(this), and every tier is its own block).",
+            "Mined with a pickaxe (any tier; nothing drops by hand). Breaking it drops its contents and the chest itself, keeping an anvil name.",
+            "The menu shows every slot without scrolling: a single chest has 9 columns, a double chest grows sideways to 12/15/18 columns with 6 rows (at most 338 x 222 GUI pixels, which fits GUI scale 4 on a 1920x1080 screen).",
+            "Hoppers (vanilla, hopper minecarts and the mod's hoppers) fill oversized slots up to the tier's limit and pull items out one at a time; comparators measure against the tier's limit."
+          ]
+        },
+        "de": {
+          "summary": "Die Verstärkte Truhe ist die erste Truhenstufe über der Vanilla-Kupfertruhe: 36 Plätze (Doppeltruhe 72).",
+          "details": [
+            "Hergestellt aus 3 Kupfertruhen (jede Oxidationsstufe, gewachst oder nicht - Item-Tag simplebuilding:copper_chests) und 6 Rissigen Diamanten: DDD / CCC / DDD ergibt 3.",
+            "Mit Inhalt: 5 Sekunden Rechtsklick auf eine gesetzte Kupfertruhe halten, mit einem beliebigen Vorschlaghammer und einem Rissigen Diamanten in der Nebenhand (2 Haltbarkeit je Schlag); die Truhe behält Inhalt, Namen und Schloss. Eine Doppel-Kupfertruhe wird als Ganzes aufgewertet und braucht 2 Rissige Diamanten.",
+            "Mit einem Diamant-Vorschlaghammer (oder besser) und einem Netheritklumpen weiter zur Netherittruhe, wie die verstärkten Maschinen.",
+            "Verhält sich in der Welt wie eine Vanilla-Truhe: gleiche Form, wasserfähig, Doppeltruhen, blockiert durch einen festen Block oder eine sitzende Katze auf dem Deckel, erzürnt Piglins, zählt als 'Truhen geöffnet', gleiche Deckelanimation.",
+            "Eine Doppeltruhe bildet sich nur aus zwei Truhen derselben Stufe (Vanillas chestCanConnectTo fragt state.is(this), und jede Stufe ist ein eigener Block).",
+            "Abbau mit der Spitzhacke (jede Stufe; von Hand droppt nichts). Beim Abbau fallen der Inhalt und die Truhe selbst heraus, ein Amboss-Name bleibt erhalten.",
+            "Das Menü zeigt alle Plätze ohne Blättern: eine einzelne Truhe hat 9 Spalten, eine Doppeltruhe wächst mit 6 Reihen in die Breite auf 12/15/18 Spalten (höchstens 338 x 222 GUI-Punkte, passt bei GUI-Skala 4 auf einen 1920x1080-Bildschirm).",
+            "Trichter (Vanilla, Trichterlore und die Mod-Trichter) füllen übergroße Plätze bis zur Grenze der Stufe und ziehen einzeln heraus; Komparatoren messen gegen die Grenze der Stufe."
+          ]
+        }
       },
       "hasCustomBehaviour": true
     },
@@ -30300,6 +30729,39 @@
       ]
     },
     {
+      "id": "simplebuilding:reinforced_chest",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:reinforced_chest",
+        "count": 3
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/reinforced_chest.json",
+      "ingredients": [
+        "#simplebuilding:copper_chests",
+        "simplebuilding:cracked_diamond"
+      ],
+      "pattern": [
+        "DDD",
+        "CCC",
+        "DDD"
+      ],
+      "key": {
+        "C": [
+          "#simplebuilding:copper_chests"
+        ],
+        "D": [
+          "simplebuilding:cracked_diamond"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:reinforced_elytra_pad_smithing",
       "type": "minecraft:smithing_transform",
       "category": null,
@@ -32952,6 +33414,24 @@
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_block.json"
     },
     {
+      "id": "simplebuilding:blocks/enderite_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:enderite_chest"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_chest.json"
+    },
+    {
       "id": "simplebuilding:blocks/enderite_chunk_loader",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -33308,6 +33788,24 @@
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_blast_furnace.json"
+    },
+    {
+      "id": "simplebuilding:blocks/netherite_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:netherite_chest"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/netherite_chest.json"
     },
     {
       "id": "simplebuilding:blocks/netherite_chunk_loader",
@@ -33963,6 +34461,24 @@
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_blast_furnace.json"
+    },
+    {
+      "id": "simplebuilding:blocks/reinforced_chest",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:reinforced_chest"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/reinforced_chest.json"
     },
     {
       "id": "simplebuilding:blocks/reinforced_elytra_pad",
@@ -37385,6 +37901,45 @@
       "source": "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json"
     },
     {
+      "id": "simplebuilding:item/copper_chests",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:copper_chest",
+          "required": true
+        },
+        {
+          "id": "minecraft:exposed_copper_chest",
+          "required": true
+        },
+        {
+          "id": "minecraft:oxidized_copper_chest",
+          "required": true
+        },
+        {
+          "id": "minecraft:waxed_copper_chest",
+          "required": true
+        },
+        {
+          "id": "minecraft:waxed_exposed_copper_chest",
+          "required": true
+        },
+        {
+          "id": "minecraft:waxed_oxidized_copper_chest",
+          "required": true
+        },
+        {
+          "id": "minecraft:waxed_weathered_copper_chest",
+          "required": true
+        },
+        {
+          "id": "minecraft:weathered_copper_chest",
+          "required": true
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/tags/item/copper_chests.json"
+    },
+    {
       "id": "simplebuilding:item/deep_pockets_enchantable",
       "replace": false,
       "values": [
@@ -37437,6 +37992,10 @@
         },
         {
           "id": "simplebuilding:enderite_carrot",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_chest",
           "required": true
         },
         {
@@ -37796,6 +38355,10 @@
         },
         {
           "id": "simplebuilding:enderite_carrot",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:enderite_chest",
           "required": true
         },
         {
@@ -39212,7 +39775,9 @@
             "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
             "common/src/shared/java/com/simplebuilding/util/SledgehammerProgress.java",
             "common/src/shared/java/com/simplebuilding/items/custom/SledgehammerItem.java",
-            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
+            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java",
+            "common/src/shared/java/com/simplebuilding/util/TieredChests.java",
+            "common/src/shared/java/com/simplebuilding/mixin/ChestBlockMixin.java"
           ],
           "en": {
             "title": "Machine upgrade with the sledgehammer",
@@ -39225,7 +39790,8 @@
               "The block keeps its properties (facing, lit, enabled) and its block entity: a hopper keeps its items, filter and mode, a furnace keeps cooking.",
               "The attempt stops without using the nugget when right-click is released, the aim leaves the block, you move out of reach, the block changes, the nugget leaves the off hand or the hammer breaks; blows already struck stay paid.",
               "Blows already struck stay on the block (saved with the world, shown as cracks) until it is broken or replaced; hammering it again continues with the missing blows only.",
-              "A piston that is extended or powered is not upgraded. With the wrong nugget or too weak a hammer a hint appears in the action bar and the machine opens its menu as usual."
+              "A piston that is extended or powered is not upgraded. With the wrong nugget or too weak a hammer a hint appears in the action bar and the machine opens its menu as usual.",
+              "Chests climb the same way, one step lower first: any copper chest (every oxidation stage, waxed or not) becomes a Reinforced Chest with a Cracked Diamond and any sledgehammer, then Netherite and Enderite Chest with the nuggets. A chest keeps its items, name and lock; a double chest is upgraded as a whole and uses one piece of material per half (two in all)."
             ]
           },
           "de": {
@@ -39239,7 +39805,8 @@
               "Der Block behält seine Eigenschaften (Blickrichtung, brennend, aktiviert) und seine Block-Entity: Ein Trichter behält Inhalt, Filter und Modus, ein Ofen schmilzt weiter.",
               "Abgebrochen wird ohne Klumpenverbrauch, wenn der Rechtsklick losgelassen wird, der Blick den Block verlässt, man außer Reichweite geht, der Block sich ändert, der Klumpen die Nebenhand verlässt oder der Hammer zerbricht; schon geschlagene Schläge bleiben bezahlt.",
               "Schon geschlagene Schläge bleiben am Block (mit der Welt gespeichert, als Risse sichtbar), bis er abgebaut oder ersetzt wird; erneutes Hämmern setzt mit den fehlenden Schlägen fort.",
-              "Ein ausgefahrener oder mit Strom versorgter Kolben wird nicht aufgewertet. Mit falschem Klumpen oder zu schwachem Hammer erscheint ein Hinweis in der Aktionsleiste und die Maschine öffnet wie gewohnt ihr Menü."
+              "Ein ausgefahrener oder mit Strom versorgter Kolben wird nicht aufgewertet. Mit falschem Klumpen oder zu schwachem Hammer erscheint ein Hinweis in der Aktionsleiste und die Maschine öffnet wie gewohnt ihr Menü.",
+              "Truhen steigen genauso auf, mit einer Stufe davor: jede Kupfertruhe (jede Oxidationsstufe, gewachst oder nicht) wird mit einem Rissigen Diamanten und einem beliebigen Vorschlaghammer zur Verstärkten Truhe, dann mit den Klumpen zur Netherit- und Enderittruhe. Eine Truhe behält Inhalt, Namen und Schloss; eine Doppeltruhe wird als Ganzes aufgewertet und verbraucht ein Stück Material je Hälfte (zusammen zwei)."
             ]
           }
         }
@@ -39559,6 +40126,39 @@
     ],
     "entries": [
       {
+        "id": "sledgehammer_upgrade/minecraft:copper_chest",
+        "kind": "sledgehammer_upgrade",
+        "inputs": [
+          {
+            "id": "minecraft:copper_chest",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:cracked_diamond",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:copper_sledgehammer"
+        ],
+        "toolOrBetter": true,
+        "output": {
+          "id": "simplebuilding:reinforced_chest",
+          "count": 1
+        },
+        "stats": {
+          "ticks": 100,
+          "hits": 5,
+          "damagePerHit": 2,
+          "damage": 10
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
         "id": "sledgehammer_upgrade/simplebuilding:netherite_blast_furnace",
         "kind": "sledgehammer_upgrade",
         "inputs": [
@@ -39577,6 +40177,39 @@
         "toolOrBetter": true,
         "output": {
           "id": "simplebuilding:enderite_blast_furnace",
+          "count": 1
+        },
+        "stats": {
+          "ticks": 100,
+          "hits": 5,
+          "damagePerHit": 10,
+          "damage": 50
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "sledgehammer_upgrade/simplebuilding:netherite_chest",
+        "kind": "sledgehammer_upgrade",
+        "inputs": [
+          {
+            "id": "simplebuilding:netherite_chest",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:enderite_nugget",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:netherite_sledgehammer"
+        ],
+        "toolOrBetter": true,
+        "output": {
+          "id": "simplebuilding:enderite_chest",
           "count": 1
         },
         "stats": {
@@ -39742,6 +40375,39 @@
         "toolOrBetter": true,
         "output": {
           "id": "simplebuilding:netherite_blast_furnace",
+          "count": 1
+        },
+        "stats": {
+          "ticks": 100,
+          "hits": 5,
+          "damagePerHit": 4,
+          "damage": 20
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "sledgehammer_upgrade/simplebuilding:reinforced_chest",
+        "kind": "sledgehammer_upgrade",
+        "inputs": [
+          {
+            "id": "simplebuilding:reinforced_chest",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:netherite_nugget",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_sledgehammer"
+        ],
+        "toolOrBetter": true,
+        "output": {
+          "id": "simplebuilding:netherite_chest",
           "count": 1
         },
         "stats": {
@@ -55350,7 +56016,8 @@
             "simplebuilding:reinforced_blast_furnace",
             "simplebuilding:reinforced_hopper",
             "simplebuilding:reinforced_piston",
-            "simplebuilding:reinforced_sticky_piston"
+            "simplebuilding:reinforced_sticky_piston",
+            "simplebuilding:reinforced_chest"
           ]
         }
       ],
@@ -58585,17 +59252,17 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 174,
-    "blocks": 117,
-    "recipes": 357,
-    "lootTables": 112,
+    "items": 177,
+    "blocks": 120,
+    "recipes": 358,
+    "lootTables": 115,
     "trades": 21,
     "enchantments": 19,
-    "tags": 27,
+    "tags": 28,
     "config": 84,
-    "inWorld": 389,
+    "inWorld": 392,
     "advancements": 84,
-    "features": 34,
+    "features": 35,
     "undocumented": 0,
     "incompleteProse": 0
   },

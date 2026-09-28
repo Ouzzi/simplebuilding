@@ -111,6 +111,8 @@ public final class SimplebuildingNeoForgeClient {
         event.registerEntityRenderer(ModEntities.LEVITATING_BLOCK, FallingBlockRenderer::new);
         // Abgelegte Schmiedevorlage: das Item-Modell der Vorlage als flache Platte.
         event.registerBlockEntityRenderer(NeoForgeModRegistries.PLACED_TEMPLATE_BE.get(), com.simplebuilding.client.render.PlacedTemplateRenderer::new);
+        // Mod-Truhen: Vanillas Truhenmodell mit den Texturen der Stufe.
+        event.registerBlockEntityRenderer(NeoForgeModRegistries.TIERED_CHEST_BE.get(), com.simplebuilding.client.render.TieredChestRenderer::new);
     }
 
     private void onClientSetup(FMLClientSetupEvent event) {
@@ -133,6 +135,7 @@ public final class SimplebuildingNeoForgeClient {
     public static void registerMenus(RegisterMenuScreensEvent event) {
         event.register(NeoForgeModRegistries.NETHERITE_HOPPER_MENU.get(), NetheriteHopperScreen::new);
         event.register(NeoForgeModRegistries.BACKPACK_MENU.get(), BackpackScreen::new);
+        event.register(NeoForgeModRegistries.TIERED_CHEST_MENU.get(), com.simplebuilding.client.gui.TieredChestScreen::new);
     }
 
     public static void registerKeys(RegisterKeyMappingsEvent event) {
