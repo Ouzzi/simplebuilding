@@ -69,7 +69,7 @@ Schild "Items holen" darüber; die Station rückt dafür zwei Spalten nach recht
   passt, fällt weg; der Befehl meldet die Zahl.
 
 Das Kit folgt aus der Planung der Station, nicht aus einer Liste: zeigt eine Station etwas Neues, ist
-es auch im Kit. Leere Stationen (`unsorted`, `gallery` ohne Inhalt) bekommen keinen Knopf.
+es auch im Kit. Stationen, die nichts zeigen (heute `devices`, `gallery`, `unsorted`: jede Tab-Zeile hat eine eigene Station, jeder Block steht irgendwo), bekommen keinen Knopf; der Test verlangt einen Knopf genau dann, wenn das Kit nicht leer wäre. Eine neue Station braucht dafür nichts zu tun.
 
 ## Übersicht der Abschnitte
 

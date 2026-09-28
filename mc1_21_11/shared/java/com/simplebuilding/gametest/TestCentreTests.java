@@ -2,6 +2,7 @@ package com.simplebuilding.gametest;
 
 import com.simplebuilding.blueprint.BlueprintContent;
 import com.simplebuilding.component.ModDataComponentTypes;
+import com.simplebuilding.dev.testcentre.TcContext;
 import com.simplebuilding.dev.testcentre.TcOp;
 import com.simplebuilding.dev.testcentre.TestCentreBuilder;
 import com.simplebuilding.dev.testcentre.TestCentreCommand;
@@ -270,11 +271,15 @@ public final class TestCentreTests {
                 continue;
             }
             TestCentreKits.Kit kit = plan.kits().get(id);
-            // "unsorted" und "gallery" duerfen leer sein (dann ohne Knopf).
-            boolean mayBeEmpty = id.equals("unsorted") || id.equals("gallery");
+            // Eine Station ohne Kit ist nur erlaubt, wenn sie nichts zeigt (etwa "devices", sobald jede
+            // Tab-Zeile eine eigene Station hat, oder ein leeres "unsorted"): dann gibt es keinen Knopf.
             if (kit == null) {
-                if (!mayBeEmpty) {
-                    stations.add(id + " has no kit");
+                if (!TestCentreKits.of(new TcContext(helper.getLevel().registryAccess()), id, section.ops()).isEmpty()) {
+                    stations.add(id + " shows items but has no kit");
+                }
+                if (section.ops().stream().anyMatch(op -> op instanceof TcOp.Command command
+                        && command.command().equals(TestCentreLayout.giveCommand(id)))) {
+                    stations.add(id + " has nothing to give but a give button");
                 }
                 continue;
             }
