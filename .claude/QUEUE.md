@@ -146,9 +146,12 @@ Verlauf im Detail: git log.
 - [ ] B: Wiki echte Blockformen (Treppen/Stufen/Mauern/Kolben/Vorlagen), fehlende Eintraege (gewachste Kupferplatten, Lohenkopf-Textur), Beschaffungskarten ohne Rezept (Charged Creeper + Lohe -> Kopf, Vanilla-Koepfe, Schallplatten, Loot), Verzauberungen woher; dasselbe in JEI
 - [ ] C: Truhen-Stufen ab Kupfertruhe (verstaerkt/Netherit/Enderit, einzeln + doppelt, mehr Slots, Netherit 2x / Enderit 4x Stapel)
 - [ ] D: alle Configs durchgehen, mehr Optionen, Config-Menue mit guter UX
-- [ ] E: Performance aller Entities/Block-Entities, Kompatibilitaet mit Optimierungs-Mods
+- [x] E: Performance aller Entities/Block-Entities, Kompatibilitaet mit Optimierungs-Mods
 - [ ] F: Erfolge wie grosse Modpacks, FTB-Quests-Kapitel in Stufen (optional, falls installiert)
 - [x] G: Liste "was fehlt noch" an den Besitzer (58 Punkte, wartet auf Ja/Nein)
+- [ ] H: Spawn-Teleporter 3 Stufen (50/20/5 s, Endermankopf), Trank-/Elytra-/Chunk-/Launchpad-Rezepte am Schmiedetisch (Kupfer-/Eisen-Kern), keine Bildschirmtexte, Echo Sounder Abklingzeit x4 + kein Neuverknuepfen, Tab-Layout SimpleMachines + SimpleMaterials
+- [ ] I: Kerne nicht stapelbar + Rechtsklick-Animation (70/20/10), Netherstern-Kern-Textur, Kern-Seltenheitsanalyse, Blaupause 3 Texturen (leer/bearbeitet/signiert), Linear + Bridge reparieren
+- [ ] Handbuecher schoener: Referenz vom Besitzer fehlt noch
 - [ ] Danach: Server-Gate, Push, Client-Gate (wenn Besitzer-Clients zu)
 
 ## Wartet auf den Besitzer
