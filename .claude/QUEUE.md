@@ -148,7 +148,7 @@ Verlauf im Detail: git log.
 - [ ] D: alle Configs durchgehen, mehr Optionen, Config-Menue mit guter UX
 - [ ] E: Performance aller Entities/Block-Entities, Kompatibilitaet mit Optimierungs-Mods
 - [ ] F: Erfolge wie grosse Modpacks, FTB-Quests-Kapitel in Stufen (optional, falls installiert)
-- [ ] G: Liste "was fehlt noch" zur Ja/Nein-Entscheidung des Besitzers
+- [x] G: Liste "was fehlt noch" an den Besitzer (58 Punkte, wartet auf Ja/Nein)
 - [ ] Danach: Server-Gate, Push, Client-Gate (wenn Besitzer-Clients zu)
 
 ## Wartet auf den Besitzer
