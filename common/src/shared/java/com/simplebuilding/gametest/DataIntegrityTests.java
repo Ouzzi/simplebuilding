@@ -2432,6 +2432,7 @@ public final class DataIntegrityTests {
                 .forEach(trims::add);
         trims.add(ModItems.GLOWING_TRIM_TEMPLATE);
         trims.add(ModItems.EMITTING_TRIM_TEMPLATE);
+        trims.add(ModItems.PULSATING_TRIM_TEMPLATE);
         List<List<Item>> expected = List.of(
                 List.of(ModItems.NIHILITH_ORE_ITEM, ModItems.NIHILITH_SHARD, gap, ModItems.ASTRALIT_ORE_ITEM, ModItems.ASTRALIT_DUST,
                         gap, ModItems.ENDER_QUARTZ),
@@ -3814,6 +3815,7 @@ public final class DataIntegrityTests {
             Map.entry("enderite_upgrade_template", net.minecraft.world.item.Rarity.UNCOMMON),
             Map.entry("glowing_trim_template", net.minecraft.world.item.Rarity.RARE),
             Map.entry("emitting_trim_template", net.minecraft.world.item.Rarity.RARE),
+            Map.entry("pulsating_trim_template", net.minecraft.world.item.Rarity.RARE),
             // Nahrung: verzaubert wie Vanillas verzauberter goldener Apfel, Enderit bleibt ganz oben
             Map.entry("enchanted_netherite_apple", net.minecraft.world.item.Rarity.RARE),
             Map.entry("enchanted_enderite_apple", net.minecraft.world.item.Rarity.EPIC),
@@ -3941,10 +3943,10 @@ public final class DataIntegrityTests {
      *   <li>Deutsch: nach dem Werkstoff entweder zusammen ("Enderitschwert") oder mit Bindestrich und
      *       grossem Nomen ("Enderit-Vorschlaghammer") - und innerhalb einer Familie auf allen Stufen gleich.</li>
      *   <li>Vanilla-Muster: "Block of X", "X Nugget"/"...klumpen", "X Ingot"/"...barren", "... Pressure
-     *       Plate"/"...druckplatte", "... Smithing Template"/"...Schmiedevorlage", Treppe, Stufe, Mauer,
+     *       Plate"/"...druckplatte", "... Armor Trim"/"...Rüstungsbesatz" und "... Upgrade"/"...Aufwertung" (Vorlagen ohne "Smithing"), Treppe, Stufe, Mauer,
      *       Ziegel, Erz, Saeule; Vanilla-Gegenstuecke heissen wie Vanillas Netherit-Stueck (Enderitharnisch).</li>
      *   <li>Pad-Familien enden auf die roemische Stufenzahl, Altlasten auf "(Legacy)"/"(alt)".</li>
-     *   <li>Kein Deutsch gleich Englisch ausser Magnet und Rotator; keine alten Namen (Nugget, Upgrade
+     *   <li>Kein Deutsch gleich Englisch ausser Rotator (der Magnet heisst jetzt Attractor/Attraktor); keine alten Namen (Nugget, Upgrade
      *       Template, Old ..., Roh-Enderit, Netherit-Bündel, ...) in irgendeinem Text.</li>
      * </ul>
      *
@@ -3966,7 +3968,9 @@ public final class DataIntegrityTests {
         tierWords.put("reinforced", new String[]{"Reinforced", "Verstärkt"});
         String[][] suffixes = {
                 {"_block", null, "block"}, {"_nugget", " Nugget", "klumpen"}, {"_ingot", " Ingot", "barren"},
-                {"_pressure_plate", " Pressure Plate", "Druckplatte"}, {"_template", " Smithing Template", "Schmiedevorlage"},
+                {"_pressure_plate", " Pressure Plate", "Druckplatte"},
+                // Vorlagen ohne "Smithing" wie Vanillas "Netherite Upgrade" / "Host Armor Trim" (Besitzer 2026-09-28)
+                {"_trim_template", " Armor Trim", "Rüstungsbesatz"}, {"_upgrade_template", " Upgrade", "Aufwertung"},
                 {"_stairs", " Stairs", "treppe"}, {"_slab", " Slab", "stufe"}, {"_wall", " Wall", "mauer"},
                 {"_bricks", " Bricks", "ziegel"}, {"_ore", " Ore", "erz"}, {"_pillar", " Pillar", "säule"}};
         Map<String, String[]> vanillaTwins = new LinkedHashMap<>();
@@ -3979,7 +3983,7 @@ public final class DataIntegrityTests {
         vanillaTwins.put("enderite_chestplate", new String[]{"Enderite Chestplate", "Enderitharnisch"});
         vanillaTwins.put("enderite_leggings", new String[]{"Enderite Leggings", "Enderitbeinschutz"});
         vanillaTwins.put("enderite_spear", new String[]{"Enderite Spear", "Enderitspeer"});
-        vanillaTwins.put("enderite_upgrade_template", new String[]{"Enderite Upgrade Smithing Template", "Enderit-Schmiedevorlage"});
+        vanillaTwins.put("enderite_upgrade_template", new String[]{"Enderite Upgrade", "Enderit-Aufwertung"});
 
         Map<String, Map<String, Boolean>> styleByFamily = new java.util.TreeMap<>();
         for (Item item : BuiltInRegistries.ITEM) {
@@ -4061,14 +4065,15 @@ public final class DataIntegrityTests {
                 }
             }
         }
-        List<String> oldEnglish = List.of("Upgrade Template", "Old Netherite", "Old Enderite", "Enderite Block", "Cracked Diamond Block",
+        List<String> oldEnglish = List.of("Upgrade Template", "Trim Smithing Template", "Upgrade Smithing Template", "Old Netherite", "Old Enderite", "Enderite Block", "Cracked Diamond Block",
                 // 2026-09-28: Nihilith heisst jetzt Nihilit (Anzeige; die Ids bleiben nihilith_*)
                 "Nihilith");
         List<String> oldGerman = List.of("Nugget", "Enderiten-", "Altes Netherit", "Altes Enderit", "Basisaufwertung", "Roh-Enderit",
                 "Enderitschrott", "Enderit-Schrott", "Enderit-Brustpanzer", "Enderit-Hose", "Enderit-Speer", "Netherit-Bündel",
                 "Enderit-Bündel", "Netherit-Köcher", "Enderit-Köcher", "Netherit-Apfel", "Enderit-Apfel", "Netherit-Karotte",
                 "Enderit-Karotte", "Netherit-Kern", "Enderit-Kern", "Astralit-Ziegel", "Nihilith",
-                "Astralit-Erz", "Astralit-Säule", "Aufwertungsvorlage");
+                "Astralit-Erz", "Astralit-Säule", "Aufwertungsvorlage", "Leuchtende Schmiedevorlage", "Strahlende Schmiedevorlage",
+                "Basis-Schmiedevorlage", "Enderit-Schmiedevorlage");
         for (String key : en.keySet()) {
             for (String old : oldEnglish) {
                 if (en.get(key).getAsString().contains(old)) problems.add("en_us " + key + " still says '" + old + "'");

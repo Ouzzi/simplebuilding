@@ -104,17 +104,24 @@ public final class TestCentreSections {
             String[][] variants = {
                     {"glowing", "Glowing trim"},
                     {"emitting", "Emitting trim (Radiance)"},
-                    {"both", "Glowing + Emitting"}};
+                    {"both", "Glowing + Emitting"},
+                    {"pulsating", "Pulsating trim"},
+                    {"pulsating_glow", "Glowing + Pulsating"}};
             for (String[] variant : variants) {
                 List<ItemStack> gear = new ArrayList<>();
                 for (Item piece : List.of(helmets.get(top), chests.get(top), legs.get(top), boots.get(top))) {
                     ItemStack stack = trimmed(piece, material, pattern);
-                    if (!variant[0].equals("emitting")) {
+                    boolean pulsating = variant[0].startsWith("pulsating");
+                    if (variant[0].equals("glowing") || variant[0].equals("both")) {
                         GlowingTrimUtils.setGlowLevel(stack, 2);
                     }
-                    if (!variant[0].equals("glowing")) {
+                    if (variant[0].equals("pulsating_glow")) {
+                        GlowingTrimUtils.setGlowLevel(stack, 1);
+                    }
+                    if (variant[0].equals("emitting") || variant[0].equals("both")) {
                         setEmission(stack, 5);
                     }
+                    GlowingTrimUtils.setPulsating(stack, pulsating);
                     gear.add(stack);
                 }
                 gear.add(top < swords.size() ? new ItemStack(swords.get(top)) : ItemStack.EMPTY);
@@ -571,6 +578,8 @@ public final class TestCentreSections {
         kinds.add(new ItemStack(ModItems.ENDERITE_UPGRADE_TEMPLATE));
         kinds.add(new ItemStack(ModItems.GLOWING_TRIM_TEMPLATE));
         kinds.add(new ItemStack(ModItems.EMITTING_TRIM_TEMPLATE));
+        kinds.add(new ItemStack(ModItems.PULSATING_TRIM_TEMPLATE));
+        kinds.add(new ItemStack(ModItems.MAGNET));
         for (ItemStack kind : kinds) {
             placedTemplate(c, x, 0, 3, AttachFace.FLOOR, Direction.SOUTH, kind);
             c.place(x, 2, wallZ, TcCanvas.WALL);

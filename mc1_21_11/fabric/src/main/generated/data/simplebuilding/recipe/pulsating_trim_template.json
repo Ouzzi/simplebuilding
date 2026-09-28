@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#simplebuilding:sledgehammer_tools",
+    "minecraft:echo_shard"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:pulsating_trim_template"
+  }
+}

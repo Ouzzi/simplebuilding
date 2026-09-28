@@ -4,6 +4,7 @@ import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.custom.PlacedTemplateBlock;
 import com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.util.PlacedAttractors;
 import com.simplebuilding.util.PlacedPlate;
 import com.simplebuilding.util.PlacedTemplates;
 import java.util.List;
@@ -476,6 +477,95 @@ public final class PlacedTemplateTests {
         helper.assertTrue(broken != null && ItemStack.isSameItemSameComponents(broken.getItem(), blueprint) && broken.getItem().getCount() == 1,
                 "breaking the placed blueprint dropped " + (broken == null ? "nothing (items: " + items(helper) + ")" : broken.getItem()));
         succeed(helper);
+    }
+
+    // =====================================================================================
+    // Attractor (Besitzer 2026-09-28)
+    // =====================================================================================
+
+    /** Ticks, nach denen das gezogene Item beim abgelegten Attractor angekommen sein muss. */
+    public static final int ATTRACTOR_WAIT_TICKS = 80;
+    public static final int ATTRACTOR_MAX_TICKS = 120;
+
+    /**
+     * Der Attractor legt sich mit Schleichen + Rechtsklick ab wie eine Vorlage (derselbe Block, eigene
+     * pixelgenaue Trefferform, Name des Attractors) und zieht dort lose Items im Umkreis zu sich: ein
+     * Item vier Bloecke entfernt kommt an, eines ausserhalb von {@link PlacedAttractors#RANGE} bleibt
+     * liegen, ein Attractor mit Filter zieht nur sein Item. Abgebaut faellt er mit Filter und Namen heraus.
+     */
+    public static void placedAttractorsPullLooseItemsTowardThemselves(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(0.5, 2.0, 7.5));
+        player.setShiftKeyDown(true);
+        ServerLevel level = helper.getLevel();
+        // Ebener Steinboden auf y 1: Attractors und Items liegen auf derselben Hoehe.
+        for (int x = 0; x < 8; x++) {
+            for (int z = 0; z < 8; z++) {
+                helper.setBlock(new BlockPos(x, 1, z), Blocks.STONE);
+            }
+        }
+        InteractionResult placed = use(helper, player, new ItemStack(ModItems.MAGNET), new BlockPos(1, 1, 1), Direction.UP);
+        helper.assertTrue(placed.consumesAction() && helper.getBlockState(new BlockPos(1, 2, 1)).is(ModBlocks.PLACED_SMITHING_TEMPLATE),
+                "sneak + use did not place the attractor: " + placed + ", " + helper.getBlockState(new BlockPos(1, 2, 1)));
+        PlacedTemplateBlockEntity attractor = helper.getBlockEntity(new BlockPos(1, 2, 1), PlacedTemplateBlockEntity.class);
+        helper.assertTrue(attractor.getTemplate().is(ModItems.MAGNET), "the placed block holds " + attractor.getTemplate());
+        String name = new ItemStack(ModItems.MAGNET).getHoverName().getString();
+        helper.assertTrue(attractor.getDisplayName().getString().equals(name),
+                "the placed attractor is called " + attractor.getDisplayName().getString() + " instead of " + name);
+        helper.assertTrue(PlacedPlate.mask(ModItems.MAGNET) != PlacedPlate.FULL,
+                "the attractor's hitbox is the full plate, not its pixels");
+
+        // Zweiter Attractor mit Filter (Stein) und Namen.
+        ItemStack filtered = new ItemStack(ModItems.MAGNET);
+        net.minecraft.nbt.CompoundTag filter = new net.minecraft.nbt.CompoundTag();
+        filter.putString("MagnetFilter", "minecraft:stone");
+        filtered.set(DataComponents.CUSTOM_DATA, net.minecraft.world.item.component.CustomData.of(filter));
+        filtered.set(DataComponents.CUSTOM_NAME, Component.literal("Stone keeper"));
+        use(helper, player, filtered.copy(), new BlockPos(6, 1, 6), Direction.UP);
+        PlacedTemplateBlockEntity keeper = helper.getBlockEntity(new BlockPos(6, 2, 6), PlacedTemplateBlockEntity.class);
+        player.setShiftKeyDown(false);
+
+        // Items: nah am ersten (4 Bloecke), weit weg vom ersten aber nah am gefilterten.
+        Vec3 nearPos = helper.absoluteVec(new Vec3(5.5, 2.2, 1.5));
+        ItemEntity near = new ItemEntity(level, nearPos.x, nearPos.y, nearPos.z, new ItemStack(Items.COBBLESTONE), 0.0, 0.0, 0.0);
+        near.setPickUpDelay(40);
+        level.addFreshEntity(near);
+        Vec3 farPos = helper.absoluteVec(new Vec3(7.0, 2.2, 5.5));
+        ItemEntity far = new ItemEntity(level, farPos.x, farPos.y, farPos.z, new ItemStack(Items.DIRT), 0.0, 0.0, 0.0);
+        far.setPickUpDelay(40);
+        level.addFreshEntity(far);
+
+        BlockPos attractorPos = helper.absolutePos(new BlockPos(1, 2, 1));
+        Vec3 target = PlacedAttractors.target(attractor);
+        helper.assertTrue(target.distanceTo(far.position()) > PlacedAttractors.range(),
+                "test setup broken: the far item is within range of the first attractor");
+        int pulled = PlacedAttractors.pull(level, attractorPos, attractor);
+        helper.assertTrue(pulled == 1, "the attractor pulled " + pulled + " items instead of exactly the near one");
+        helper.assertTrue(near.getDeltaMovement().x < 0.0, "the near item is not pulled toward the attractor: " + near.getDeltaMovement());
+        int keeperPulled = PlacedAttractors.pull(level, helper.absolutePos(new BlockPos(6, 2, 6)), keeper);
+        helper.assertTrue(keeperPulled == 0, "the stone-filtered attractor pulled " + keeperPulled + " items (dirt next to it)");
+        helper.assertTrue(PlacedAttractors.canPull(far, null) && !PlacedAttractors.canPull(far, "minecraft:stone"),
+                "the filter check is wrong for dirt");
+
+        // Abbauen: faellt mit Filter und Namen heraus.
+        level.destroyBlock(helper.absolutePos(new BlockPos(6, 2, 6)), true);
+        ItemEntity dropped = dropped(helper, ModItems.MAGNET);
+        helper.assertTrue(dropped != null && ItemStack.isSameItemSameComponents(dropped.getItem(), filtered),
+                "breaking the placed attractor dropped " + (dropped == null ? "nothing (items: " + items(helper) + ")" : dropped.getItem())
+                        + " instead of the named, filtered attractor");
+        if (dropped != null) {
+            dropped.discard();
+        }
+
+        double farStart = far.position().distanceTo(target);
+        // Ab hier zieht die Block-Entity selbst (Server-Tick der Platte).
+        helper.runAfterDelay(ATTRACTOR_WAIT_TICKS, () -> {
+            double distance = near.position().distanceTo(PlacedAttractors.target(attractor));
+            helper.assertTrue(distance < 1.2, "after " + ATTRACTOR_WAIT_TICKS + " ticks the near item is still "
+                    + distance + " blocks from the attractor (at " + near.position() + ")");
+            helper.assertTrue(far.position().distanceTo(target) > farStart - 0.5,
+                    "the item out of range moved toward the attractor");
+            succeed(helper);
+        });
     }
 
     // =====================================================================================
