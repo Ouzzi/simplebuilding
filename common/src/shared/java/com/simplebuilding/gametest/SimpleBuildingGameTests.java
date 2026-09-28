@@ -267,6 +267,12 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("wand_mode_game_test_bridge_from_the_use_packet_starts_at_the_edge_of_the_floor_ahead", WandModeTests::bridgeFromTheUsePacketStartsAtTheEdgeOfTheFloorAhead)
                     .rotation(Rotation.NONE)
                     .build(),
+            GameTestSpec.named("wand_mode_game_test_a_held_use_key_does_not_restart_the_running_linear_line", WandModeTests::aHeldUseKeyDoesNotRestartTheRunningLinearLine)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_bridge_also_starts_when_the_click_aims_across_the_gap", WandModeTests::bridgeAlsoStartsWhenTheClickAimsAcrossTheGap)
+                    .rotation(Rotation.NONE)
+                    .build(),
             GameTestSpec.named("wand_mode_game_test_roof_mode_works_with_the_test_centre_kit_enderite_wand", WandModeTests::roofModeWorksWithTheTestCentreKitEnderiteWand)
                     .rotation(Rotation.NONE)
                     .build(),
