@@ -968,7 +968,7 @@ public final class TestCentreSections {
     }
 
     /** Das hoechste Werkzeug aus SimpleTools, das die Verzauberung traegt, damit verzaubert. */
-    private static ItemStack toolWith(TcContext ctx, ResourceKey<Enchantment> key) {
+    static ItemStack toolWith(TcContext ctx, ResourceKey<Enchantment> key) {
         Optional<Holder<Enchantment>> enchantment = ctx.enchantment(key);
         if (enchantment.isEmpty()) {
             return new ItemStack(Items.NETHERITE_PICKAXE);
@@ -993,23 +993,26 @@ public final class TestCentreSections {
     public record Control(String command, Component label, Component sub) {
     }
 
+    /** Abstand zweier Befehlsbloecke der Steuerwand: Block, Glassaeule, Luft. */
+    static final int CONTROL_PITCH = 3;
+
     public static TcCanvas controls(List<Control> controls) {
         TcCanvas c = new TcCanvas();
         int z = 2;
         c.wallSign(0, 2, z, TcText.bold(TcText.t("section.controls", "Controls")), TcText.t("section.controls.sub", "press the buttons"));
         c.place(0, 1, z, TcCanvas.TRIM);
         c.place(0, 0, z, TcCanvas.TRIM);
-        int x = 1;
+        int x = 2;
         for (Control control : controls) {
-            c.place(x, 0, z, TcCanvas.TRIM);
-            c.command(x, 1, z, Direction.NORTH, control.command(), control.label(), control.sub());
             // Ein Knopf versorgt den Block, an dem er haengt, STARK - und ein stark versorgter
             // Befehlsblock (ein Leiter) versorgt seine Nachbarn mit. Dicht an dicht loeste darum jeder
-            // Knopf auch den Nachbarbefehl aus. Zwischen zwei Befehlsbloecken steht deshalb Glas
-            // (leitet nicht).
-            c.place(x + 1, 0, z, TcCanvas.TRIM);
+            // Knopf auch den Nachbarbefehl aus. Seit 2026-09-28: jeder Befehlsblock steht auf Glas, links
+            // Luft, rechts eine Glassaeule, kein Stein verbindet zwei Bloecke (TestCentreTests prueft das
+            // statisch und drueckt jeden Knopf).
+            c.command(x, 1, z, Direction.NORTH, control.command(), control.label(), control.sub());
+            c.place(x + 1, 0, z, Blocks.GLASS.defaultBlockState());
             c.place(x + 1, 1, z, Blocks.GLASS.defaultBlockState());
-            x += 2;
+            x += CONTROL_PITCH;
         }
         return c;
     }
@@ -1067,6 +1070,25 @@ public final class TestCentreSections {
     // =====================================================================================
     // 14. Unsortiert: was noch keinen Abschnitt hat
     // =====================================================================================
+
+    /**
+     * Galerie: jeder Mod-Block, den kein Abschnitt setzt (etwa nur als Rahmen zeigt), steht hier einmal
+     * auf dem Boden - neue Bloecke also von selbst. Ausgenommen sind Bloecke mit Wirkung auf die
+     * Umgebung ({@link TestCentreLayout#frameOnly}).
+     */
+    public static TcCanvas gallery(List<Block> blocks) {
+        TcCanvas c = new TcCanvas();
+        int wallZ = 3;
+        c.title(0, 2, wallZ, TcText.t("section.gallery", "More blocks"), TcText.t("section.gallery.sub", "placed nowhere else"));
+        int x = 1;
+        for (Block block : blocks) {
+            c.place(x, 0, 1, facing(block.defaultBlockState(), Direction.NORTH));
+            c.wallSign(x, 1, wallZ, block.getName());
+            x += 2;
+        }
+        c.backWall(0, Math.max(x, 2), wallZ, 4);
+        return c;
+    }
 
     public static TcCanvas unsorted(List<Item> leftovers) {
         TcCanvas c = new TcCanvas();

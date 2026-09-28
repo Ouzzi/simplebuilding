@@ -73,6 +73,16 @@ public final class TcCanvas {
         ops.add(op);
     }
 
+    /** Uebernimmt alle Schritte und Anker von {@code other}, um {@code dx} Spalten nach +x verschoben. */
+    public void append(TcCanvas other, int dx) {
+        BlockPos offset = new BlockPos(dx, 0, 0);
+        for (TcOp op : other.ops) {
+            add(op.moved(offset));
+        }
+        other.anchors.forEach((name, pos) -> anchors.put(name, pos.offset(offset)));
+        grow(new BlockPos(other.maxX + dx, other.maxY, other.maxZ));
+    }
+
     // ------------------------------------------------------------------ Grundformen
 
     public void place(int x, int y, int z, BlockState state) {
@@ -133,10 +143,18 @@ public final class TcCanvas {
         add(new TcOp.Fill(new BlockPos(x, y, z), copy));
     }
 
+    /**
+     * Befehlsblock mit Knopf davor (Seite {@code facing}) und Schild darueber. Der Block steht auf Glas
+     * und traegt oben einen Kantenstein fuer das Schild; beides gehoert zur Planung, damit der
+     * Isolationstest es sieht. Glas leitet keinen Strom: ein Knopf versorgt seinen Befehlsblock STARK,
+     * und ein stark versorgter Leiterblock versorgt jeden Befehlsblock daneben mit.
+     */
     public void command(int x, int y, int z, Direction facing, String command, Component... label) {
+        if (y > 0) {
+            place(x, y - 1, z, Blocks.GLASS);
+        }
         add(new TcOp.Command(new BlockPos(x, y, z), facing, command, List.of(label)));
-        // Knopf davor und Schild darueber belegen auch Platz.
-        grow(new BlockPos(x, y + 1, z));
+        place(x, y + 1, z, TRIM);
     }
 
     // ------------------------------------------------------------------ Wandhelfer

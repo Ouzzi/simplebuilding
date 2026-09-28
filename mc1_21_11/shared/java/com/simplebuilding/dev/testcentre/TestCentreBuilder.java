@@ -268,7 +268,7 @@ public final class TestCentreBuilder {
             entity.getCommandBlock().setCommand(command.command());
             entity.setChanged();
         }
-        level.setBlock(pos.above(), TcCanvas.TRIM, QUIET);
+        // Der Kantenstein darueber ist ein eigener Place-Schritt (TcCanvas#command) und steht schon.
         level.setBlock(pos.relative(facing), Blocks.STONE_BUTTON.defaultBlockState()
                 .setValue(ButtonBlock.FACE, AttachFace.WALL).setValue(ButtonBlock.FACING, facing), QUIET);
         placeSign(level, pos.above().relative(facing), facing, command.label());

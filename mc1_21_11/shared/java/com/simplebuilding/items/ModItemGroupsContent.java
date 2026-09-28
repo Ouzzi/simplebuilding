@@ -73,8 +73,9 @@ public final class ModItemGroupsContent {
     /**
      * Zeilen des Tabs "SimpleTools": je Familie eine Zeile von der niedrigsten Stufe bis Enderit -
      * erst die Werkzeuge (Meissel, Baustab, Vorschlaghammer, Spitzhacke, Schaufel, Hacke, Axt), dann
-     * die Waffen (Schwert, Speer), die Ruestung (Helm, Brust, Hose, Stiefel), die Geraete (Oktant,
-     * Geschwindigkeitsmesser, Erzdetektor, Magnet, Rotator), die gefaerbten Oktanten und zuletzt die
+     * die Waffen (Schwert, Speer), die Ruestung (Helm, Brust, Hose, Stiefel), die Geraete (Kompass,
+     * Bergungs- und Echo-Kompass, Geschwindigkeitsmesser, Erzdetektor, Magnet, Rotator, Amethystlinse,
+     * Oktant), die gefaerbten Oktanten und zuletzt die
      * verzauberten Buecher. Die Vanilla-Werkzeuge, -Waffen und -Ruestungen aller Stufen stehen mit
      * darin, damit alles griffbereit ist.
      */
@@ -121,14 +122,13 @@ public final class ModItemGroupsContent {
                 CreativeTabLayout.Row.of("boots",
                         Items.LEATHER_BOOTS, Items.CHAINMAIL_BOOTS, Items.COPPER_BOOTS, Items.IRON_BOOTS,
                         Items.GOLDEN_BOOTS, Items.DIAMOND_BOOTS, Items.NETHERITE_BOOTS, ModItems.ENDERITE_BOOTS),
-                // --- Geraete ---
+                // --- Geraete (Besitzer 2026-09-27): erst alles Kompassartige - Kompass, Bergungskompass,
+                // Echo-Kompass, Geschwindigkeitsmesser, Erzdetektor -, dann Magnet, Rotator, Amethystlinse
+                // und Oktant. Genau neun: die Zeile ist voll, die gefaerbten Oktanten beginnen die naechste.
                 CreativeTabLayout.Row.of("gadgets",
-                        ModItems.OCTANT, ModItems.VELOCITY_GAUGE, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR,
-                        com.simplebuilding.tweaks.item.TweaksItems.LASER_POINTER)));
-
-        // Kompasse: der Echo-Kompass neben Vanilla-Kompass und Bergungskompass (Besitzer 2026-09-27).
-        rows.add(CreativeTabLayout.Row.of("compasses",
-                Items.COMPASS, Items.RECOVERY_COMPASS, com.simplebuilding.tweaks.item.TweaksItems.ECHO_COMPASS));
+                        Items.COMPASS, Items.RECOVERY_COMPASS, com.simplebuilding.tweaks.item.TweaksItems.ECHO_COMPASS,
+                        ModItems.VELOCITY_GAUGE, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR,
+                        com.simplebuilding.tweaks.item.TweaksItems.LASER_POINTER, ModItems.OCTANT)));
 
         // Die 16 gefaerbten Oktanten: eine eigene Kategorie, laeuft ueber zwei Zeilen.
         List<ItemStack> coloredOctants = new java.util.ArrayList<>();

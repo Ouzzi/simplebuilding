@@ -111,6 +111,10 @@
     "simplebuilding:stellar_flypad",
     "simplebuilding:suspended_gravel",
     "simplebuilding:suspended_sand",
+    "simplebuilding:waxed_copper_pressure_plate",
+    "simplebuilding:waxed_exposed_copper_pressure_plate",
+    "simplebuilding:waxed_oxidized_copper_pressure_plate",
+    "simplebuilding:waxed_weathered_copper_pressure_plate",
     "simplebuilding:weathered_copper_pressure_plate"
   ],
   "generator": "com.simplebuilding.datagen.WikiDataProvider",
@@ -980,6 +984,18 @@
     {
       "id": "simplebuilding:velocity-gauge",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:waxed_copper_pressure_plate"
+    },
+    {
+      "id": "simplebuilding:waxed_exposed_copper_pressure_plate"
+    },
+    {
+      "id": "simplebuilding:waxed_oxidized_copper_pressure_plate"
+    },
+    {
+      "id": "simplebuilding:waxed_weathered_copper_pressure_plate"
     },
     {
       "id": "simplebuilding:weathered_copper_pressure_plate"

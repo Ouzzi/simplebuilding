@@ -41,6 +41,8 @@ public final class TweaksContent {
     public static void onServerTick(MinecraftServer server) {
         SpawnElytra.serverTick(server);
         LaunchSafety.serverTick(server);
+        // Testzentrale: faelliger Neubau einer veralteten Zentrale (nur in der Entwicklungswelt geplant).
+        com.simplebuilding.dev.testcentre.TestCentreCommand.serverTick(server);
     }
 
     public static void onPlayerJoin(ServerPlayer player) {

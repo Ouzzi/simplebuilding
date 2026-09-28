@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "src/main/generated/wiki/items.json",
       "present": true,
-      "count": 204,
+      "count": 208,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -729,6 +729,7 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/client/blueprint/BlueprintScreen.java",
         "common/src/shared/java/com/simplebuilding/client/blueprint/BlueprintTooltip.java",
         "common/src/shared/java/com/simplebuilding/mixin/CartographyTableMenuMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/client/CartographyTableScreenMixin.java",
         "common/src/shared/java/com/simplebuilding/networking/ModMessageHandlers.java",
         "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
         "common/src/shared/java/com/simplebuilding/util/OctantShape.java",
@@ -756,6 +757,7 @@ window.WIKI_DATA = {
           "Under the code: the status (Code OK / Invalid with the error) and an insert bar - search a block, click a result to select it, press Insert to put its ID at the cursor. Under the materials: size, block count, the needed building wand with its tier and a used/free bar against that tier's limit.",
           "Autosave: edits are sent to the server 1.5 seconds after you stop typing and again when the editor closes (also when you leave the world or lose the connection); the server stores them on the item immediately.",
           "Only a signed blueprint builds; an unsigned one shows \"Sign the blueprint to build it\". To edit a signed blueprint again, copy it at a cartography table: signed blueprint on top, empty blueprint below gives an unsigned copy with the same code and title (the original stays, only the empty one is used).",
+          "While a signed blueprint lies in the top slot of the cartography table, the big map square shows its turning 3D miniature, the same picture as in its tooltip, on the parchment sheet. Unsigned blueprints, maps and anything else keep the vanilla view; with paper, a map or a glass pane below, vanilla's scaling/copy/lock picture wins as well.",
           "The build grows visibly like the building wand, only faster: layer by layer from the bottom, each layer from the centre outwards, taking about 1 second for a small house and at most 9 seconds for the largest structure. Blocks you do not have show red in the preview; then the first right-click only makes them flash and plays a warning sound, a second click within 3 seconds builds everything you have. The material check before a survival build looks at every position, however large the structure: 131 072 positions right on the click - shared by all clicks of a player in the same tick, and a second click on the same build does not start a running check over -, the rest of a very large one over the following ticks (\"Checking materials...\" on the action bar), then it warns or starts building by itself. Switching the main-hand item, taking the blueprint out of the off hand or breaking the wand stops the build.",
           "Logging out or a server restart does not cancel a running build: its progress is saved with the world after every slice. Back in the game, hold the building wand and a signed blueprint with the same code (a copy is fine) and it carries on exactly where it stopped - nothing is placed or paid for twice. With another blueprint or none in the off hand, the action bar says once which build is waiting and where. Starting a different build replaces the waiting one; putting the wand away while it runs cancels it for good.",
           "Loader note: identical on Fabric, NeoForge and Forge (26.2) and on Fabric and NeoForge (1.21.11).",
@@ -783,6 +785,7 @@ window.WIKI_DATA = {
           "Unter dem Code: der Status (Code in Ordnung / Ungültig mit Fehler) und eine Einfüge-Leiste - Block suchen, Treffer anklicken, mit Einfügen seine ID an den Cursor setzen. Unter den Materialien: Maße, Blockzahl, der nötige Baustab mit Stufe und eine Leiste genutzt/frei zur Grenze dieser Stufe.",
           "Autospeichern: Änderungen gehen 1,5 Sekunden nach der letzten Eingabe an den Server und noch einmal beim Schließen (auch beim Verlassen der Welt oder Verbindungsabbruch); der Server speichert sie sofort am Item.",
           "Bauen geht nur mit einer signierten Blaupause; eine unsignierte meldet „Blaupause signieren, um sie zu bauen“. Zum Weiterbearbeiten eine Kopie am Kartentisch machen: signierte Blaupause oben, leere unten ergibt eine unsignierte Kopie mit demselben Code und Titel (das Original bleibt, verbraucht wird nur die leere).",
+          "Liegt oben im Kartentisch eine signierte Blaupause, zeigt das große Kartenfeld ihre drehende 3D-Miniatur, dasselbe Bild wie im Tooltip, auf dem Pergamentblatt. Unsignierte Blaupausen, Karten und alles andere behalten die Vanilla-Ansicht; liegt unten Papier, eine Karte oder eine Glasscheibe, gilt ebenfalls Vanillas Bild für Vergrößern/Kopieren/Sperren.",
           "Der Bau wächst sichtbar wie beim Baustab, nur schneller: Schicht für Schicht von unten, jede Schicht von der Mitte nach außen, rund 1 Sekunde für ein kleines Haus und höchstens 9 Sekunden für das größte Bauwerk. Blöcke, die dir fehlen, erscheinen in der Vorschau rot; dann lässt der erste Rechtsklick sie nur aufleuchten und spielt einen Warnton, ein zweiter Klick binnen 3 Sekunden baut alles Vorhandene. Die Materialprüfung vor einem Überlebens-Bau sieht sich jede Stelle an, egal wie groß das Bauwerk ist: 131 072 Stellen gleich beim Klick - für alle Klicks eines Spielers im selben Tick zusammen, und ein zweiter Klick auf denselben Bau startet eine laufende Prüfung nicht neu -, den Rest eines sehr großen in den Ticks danach („Prüfe Material...“ in der Aktionsleiste), dann warnt sie oder beginnt von selbst mit dem Bau. Werkzeugwechsel in der Haupthand, Blaupause aus der Nebenhand nehmen oder ein zerbrochener Baustab stoppen den Bau.",
           "Ausloggen oder ein Serverneustart brechen einen laufenden Bau nicht ab: sein Fortschritt wird nach jeder Scheibe mit der Welt gespeichert. Zurück im Spiel Baustab und eine signierte Blaupause mit demselben Code halten (eine Kopie genügt), und er baut genau dort weiter, wo er stand - nichts wird doppelt gesetzt oder bezahlt. Mit einer anderen oder keiner Blaupause in der Nebenhand sagt die Aktionsleiste einmal, welcher Bau wartet und wo. Ein anderer Bau ersetzt den wartenden; den Stab während des Weiterbaus wegzulegen bricht ihn endgültig ab.",
           "Loader-Hinweis: gleich auf Fabric, NeoForge und Forge (26.2) sowie Fabric und NeoForge (1.21.11).",
@@ -968,7 +971,9 @@ window.WIKI_DATA = {
         "src/main/generated/data/minecraft/tags/item/cauldron_can_remove_dye.json",
         "common/src/shared/java/com/simplebuilding/util/DyedStorage.java",
         "src/main/resources/assets/simplebuilding/models/block/template_backpack_dyed.json",
-        "common/src/shared/java/com/simplebuilding/client/render/BackpackBlockTint.java"
+        "common/src/shared/java/com/simplebuilding/client/render/BackpackBlockTint.java",
+        "common/src/shared/java/com/simplebuilding/client/gui/tooltip/BackpackTooltip.java",
+        "common/src/shared/java/com/simplebuilding/items/tooltip/BackpackTooltipData.java"
       ],
       "en": {
         "title": "Backpacks",
@@ -980,6 +985,7 @@ window.WIKI_DATA = {
           "Opening: press the backpack key while wearing it. The screen is the vanilla inventory with the backpack rows between the crafting area and the main inventory; the whole screen is one vanilla-style window, backpack rows carry a faint brown tint and the extra columns a light purple one. The chest slot is locked while it is open. Without a backpack the key simply opens the normal inventory; E never changes.",
           "Shift-click works as in the vanilla inventory, with the backpack counted as part of the main inventory: from the hotbar, items first top up matching stacks anywhere in the main inventory and backpack, then fill the first free slot from top left to bottom right as the screen shows them; from the main inventory or the backpack they go to the hotbar; armor and shields go onto their empty slot.",
           "Setting it down: sneak + right-click on a block. The placed backpack opens with a right-click, is invisible to hoppers and comparators, and always drops as the full backpack item when broken - with a tool or without, by explosion or piston.",
+          "Tooltip: hovering a backpack lists how many slots are used and names the first five stacks; a backpack with something inside adds \"Hold Shift to see contents\". Holding Shift turns that line into a small grid like the vanilla bundle's: every stored stack as an icon with its count, in slot order, nine per row and at most three rows - whatever does not fit is summed up as \"+N\" in the last cell. Works for all four tiers, dyed or not, and needs nothing from the server: the contents travel on the item itself.",
           "Safety: a destroyed backpack item spills its contents like a shulker box; Netherite and Enderite Backpack resist fire and explosions as items, and the Enderite Backpack is protected from the void.",
           "Enchantments (anvil only): Deep Pockets I/II doubles or quadruples the stack limit of stackable items in the backpack; Funnel lets the worn backpack vacuum up items after your bundles; Master Builder on the backpack makes it a material source for the Building Wand and for pick block; Constructor's Touch refills your hand from the backpack when a block stack runs out while placing. Drawer and Color Palette do not go on backpacks.",
           "Dyeing: a backpack takes dye like leather armour - put it into the crafting grid with one or more dyes (colours mix, and a dyed backpack can be dyed again). Contents, name and enchantments stay; the colour shows on the item, on the worn backpack and as a faint tint of the backpack rows in its screen (the extra columns keep their purple). A water cauldron washes the colour off again and leaves everything else. The colour survives upgrades and setting the backpack down, and the placed backpack shows it as well.",
@@ -996,6 +1002,7 @@ window.WIKI_DATA = {
           "Öffnen: mit getragenem Rucksack die Rucksack-Taste drücken. Der Bildschirm ist das Vanilla-Inventar mit den Rucksack-Reihen zwischen Werkbank-Bereich und Hauptinventar; der ganze Bildschirm ist ein Fenster im Vanilla-Stil, Rucksack-Reihen sind ganz leicht braun getönt, Zusatzspalten leicht violett. Solange er offen ist, ist der Brust-Slot gesperrt. Ohne Rucksack öffnet die Taste einfach das normale Inventar; E ändert sich nie.",
           "Shift-Klick verhält sich wie im Vanilla-Inventar, wobei der Rucksack zum Hauptinventar zählt: Aus der Hotbar füllt ein Item zuerst passende Stapel irgendwo in Hauptinventar und Rucksack auf und dann den ersten freien Platz von oben links nach unten rechts, so wie der Bildschirm sie zeigt; aus Hauptinventar oder Rucksack geht es in die Hotbar; Rüstung und Schilde gehen in ihren leeren Slot.",
           "Abstellen: Schleichen + Rechtsklick auf einen Block. Der abgestellte Rucksack öffnet sich per Rechtsklick, ist für Trichter und Komparatoren unsichtbar und droppt beim Abbauen immer als volles Rucksack-Item – mit oder ohne Werkzeug, durch Explosion oder Kolben.",
+          "Tooltip: Beim Überfahren zeigt ein Rucksack, wie viele Plätze belegt sind, und nennt die ersten fünf Stapel; hat er Inhalt, kommt \"Umschalt halten, um den Inhalt zu sehen\" dazu. Mit gedrückter Umschalttaste wird daraus ein kleines Raster wie beim Vanilla-Bündel: jeder gelagerte Stapel als Icon mit Anzahl, in Slot-Reihenfolge, neun je Reihe und höchstens drei Reihen - was nicht passt, fasst die letzte Zelle als \"+N\" zusammen. Gilt für alle vier Stufen, gefärbt oder nicht, und braucht nichts vom Server: der Inhalt reist im Item selbst.",
           "Sicherheit: Ein zerstörtes Rucksack-Item verstreut seinen Inhalt wie eine Shulkerkiste; Netherit- und Enderit-Rucksack widerstehen als Item Feuer und Explosionen, und der Enderit-Rucksack ist vor der Leere geschützt.",
           "Verzauberungen (nur Amboss): Tiefe Taschen I/II verdoppelt bzw. vervierfacht die Stapelgrenze stapelbarer Items im Rucksack; mit Trichter saugt der getragene Rucksack Items nach den Bündeln auf; Baumeister auf dem Rucksack macht ihn zur Materialquelle für Baustab und Blockauswahl; Berührung des Konstrukteurs füllt die Hand aus dem Rucksack nach, wenn beim Platzieren ein Blockstapel aufgebraucht ist. Schublade und Farbpalette gehen nicht auf Rucksäcke.",
           "Färben: Ein Rucksack nimmt Farbstoff an wie Lederrüstung – mit einem oder mehreren Farbstoffen in die Werkbank legen (Farben mischen sich, ein gefärbter Rucksack lässt sich weiter färben). Inhalt, Name und Verzauberungen bleiben; die Farbe zeigt sich am Item, am getragenen Rucksack und als leichte Tönung der Rucksack-Reihen im Bildschirm (die Zusatzspalten bleiben violett). Ein Wasserkessel wäscht die Farbe wieder ab und lässt alles andere. Die Farbe übersteht Aufwertungen und das Abstellen, und auch der abgestellte Rucksack zeigt sie.",
@@ -2313,11 +2320,11 @@ window.WIKI_DATA = {
         "details": [
           "Every mod pool is rolled once per chest on top of the vanilla loot. Most pools roll 0 to 2 times and carry a large empty weight, so a chest sometimes holds nothing from the mod - that is intended.",
           "End city treasure: 15% Enderite Scrap, 30% Enderite Upgrade, one roll of End materials (Raw Enderite 1-2 weight 4, Enderite Nuggets 2-5 weight 6, Astralit Dust 2-6 weight 6, Nihilith Shards 1-4 weight 6, empty 14) and 0 to 3 rolls of books and gear (Range III 4, Master Builder 3, Override II 5, Air Jump II 5, Versatility I 6 / II 3, randomly enchanted Diamond Building Wand 6 and Diamond Sledgehammer 8, Enderite Apple 3, Enchanted Enderite Apple 1, empty 40).",
-          "Bastion: every bastion chest rolls 0 to 2 times from Funnel I 5, Break Through I 5, Gold Sledgehammer 6, Gold Core 1, Netherite Nuggets 1-4 weight 12, Netherite Carrots 1-2 weight 6, empty 25. Only the treasure room additionally rolls once from Netherite Core 2, Netherite Apple 4, Enchanted Netherite Apple 2, Break Through II book 3, empty 7.",
+          "Bastion: every bastion chest rolls 0 to 2 times from Funnel I 5, Break Through I 5, Gold Sledgehammer 6, Netherite Nuggets 1-4 weight 12, Netherite Carrots 1-2 weight 6, empty 25. Only the treasure room additionally rolls once from Netherite Apple 4, Enchanted Netherite Apple 2, Break Through II book 3, empty 7. The cores come from their own pools (see below).",
           "Diamond Pebbles (nine make a Cracked Diamond, which smelts into a diamond) are the common filler: ancient city 2-5, buried treasure 2-6, dungeon 1-3, shipwreck treasure 1-4, abandoned mineshaft 1-3, common/rare trial chamber vault 2-4 and fishing treasure 1-3.",
           "Ruined portals roll 0 to 1 time from Netherite Nuggets 1-2 weight 3, Gold Chisel 3, Netherite Carrot 2, empty 12.",
           "Fishing: every treasure catch rolls the mod pool once more - Fast Chiseling I book 3, Constructor's Touch I book 2, Deep Pockets I book 2, Linear I book 2, 1-3 Diamond Pebbles 4, empty 20 - so roughly two treasure catches in five bring an extra mod item.",
-          "Cores contain a nether star in their recipe and therefore stay rare in chests: Iron Core weight 1 in the woodland mansion, Gold Core weight 1 in bastions and nether fortresses, Diamond Core 2 in ominous and rare vaults, Netherite Core 2 in the bastion treasure room only.",
+          "Building cores are very rare in chests (owner 2026-09-27); each sits in a pool of its own with one chance per chest: Iron Core 0.8 % per woodland mansion chest, Gold Core 0.6 % per bastion chest (treasure room included) and 0.8 % per nether fortress chest, Diamond Core 0.8 % per ominous or rare vault, Netherite Core 4 % in the bastion treasure room only, Enderite Core 0.25 % per end city chest (the rarest, about 1-2 % per city). The Copper Core is in no chest (the Mason sells it).",
           "Trades: no mod trade has a reputation discount above 0.2 (vanilla's value for books and enchanted tools), and every item a trader buys costs more emeralds to buy back than the trader pays, so buying and selling in a loop loses emeralds. The Diamond Core costs 3 netherite ingots at the mason, the Radius book 40 emeralds at the wandering trader, who also sells 3 Diamond Pebbles for 5 emeralds."
         ]
       },
@@ -2327,11 +2334,11 @@ window.WIKI_DATA = {
         "details": [
           "Jeder Mod-Pool wird pro Truhe einmal zusätzlich zur Vanilla-Beute gewürfelt. Die meisten Pools würfeln 0 bis 2 Mal und haben ein großes Leer-Gewicht, sodass eine Truhe manchmal nichts von der Mod enthält – das ist gewollt.",
           "Endsiedlungs-Schatz: 15 % Enderit-Schrott, 30 % Enderitaufwertung, ein Wurf End-Rohstoffe (Roh-Enderit 1–2 Gewicht 4, Enderit-Nuggets 2–5 Gewicht 6, Astralitstaub 2–6 Gewicht 6, Nihilith-Splitter 1–4 Gewicht 6, leer 14) und 0 bis 3 Würfe Bücher und Ausrüstung (Reichweite III 4, Baumeister 3, Übersteuerung II 5, Luftsprung II 5, Vielseitigkeit I 6 / II 3, zufällig verzauberter Diamant-Baustab 6 und Diamant-Vorschlaghammer 8, Enderit-Apfel 3, verzauberter Enderit-Apfel 1, leer 40).",
-          "Bastion: Jede Bastion-Truhe würfelt 0 bis 2 Mal aus Trichter I 5, Durchbruch I 5, Gold-Vorschlaghammer 6, Goldkern 1, Netherit-Nuggets 1–4 Gewicht 12, Netherit-Karotten 1–2 Gewicht 6, leer 25. Nur der Schatzraum würfelt zusätzlich einmal aus Netheritkern 2, Netherit-Apfel 4, verzaubertem Netherit-Apfel 2, Buch Durchbruch II 3, leer 7.",
+          "Bastion: Jede Bastion-Truhe würfelt 0 bis 2 Mal aus Trichter I 5, Durchbruch I 5, Gold-Vorschlaghammer 6, Netherit-Nuggets 1–4 Gewicht 12, Netherit-Karotten 1–2 Gewicht 6, leer 25. Nur der Schatzraum würfelt zusätzlich einmal aus Netherit-Apfel 4, verzaubertem Netherit-Apfel 2, Buch Durchbruch II 3, leer 7. Die Kerne kommen aus eigenen Pools (siehe unten).",
           "Diamantkiesel (neun ergeben einen rissigen Diamanten, der zu einem Diamanten geschmolzen wird) sind der häufige Füller: Antike Stadt 2–5, vergrabener Schatz 2–6, Verlies 1–3, Schiffswrack-Schatz 1–4, verlassene Mine 1–3, normaler/seltener Prüfungskammer-Tresor 2–4 und Angel-Schatz 1–3.",
           "Portalruinen würfeln 0 bis 1 Mal aus Netherit-Nuggets 1–2 Gewicht 3, Goldmeißel 3, Netherit-Karotte 2, leer 12.",
           "Angeln: Jeder Schatzfang würfelt den Mod-Pool einmal zusätzlich – Buch Schnelles Meißeln I 3, Buch Berührung des Konstrukteurs I 2, Buch Tiefe Taschen I 2, Buch Linear I 2, 1–3 Diamantkiesel 4, leer 20 –, sodass etwa zwei von fünf Schatzfängen ein zusätzliches Mod-Item bringen.",
-          "Kerne haben einen Netherstern im Rezept und bleiben in Truhen deshalb selten: Eisenkern Gewicht 1 im Waldanwesen, Goldkern Gewicht 1 in Bastionen und Netherfestungen, Diamantkern 2 in unheilvollen und seltenen Tresoren, Netheritkern 2 nur im Bastion-Schatzraum.",
+          "Baukerne sind in Truhen sehr selten (Besitzer 27.09.2026); jeder liegt in einem eigenen Pool mit genau einer Chance pro Kiste: Eisenkern 0,8 % je Waldanwesen-Kiste, Goldkern 0,6 % je Bastion-Kiste (Schatzraum eingeschlossen) und 0,8 % je Netherfestungs-Kiste, Diamantkern 0,8 % je unheilvollem oder seltenem Tresor, Netheritkern 4 % nur im Bastion-Schatzraum, Enderit-Kern 0,25 % je Endsiedlungs-Kiste (der seltenste, etwa 1-2 % pro Stadt). Der Kupferkern liegt in keiner Kiste (den verkauft der Steinmetz).",
           "Handel: Kein Mod-Angebot hat einen Rabattfaktor über 0,2 (der Vanilla-Wert für Bücher und verzauberte Werkzeuge), und jedes Item, das ein Händler ankauft, kostet beim Rückkauf mehr Smaragde, als er zahlt – Kaufen und Verkaufen im Kreis verliert also Smaragde. Der Diamantkern kostet beim Steinmetz 3 Netheritbarren, das Radius-Buch beim fahrenden Händler 40 Smaragde; dieser verkauft außerdem 3 Diamantkiesel für 5 Smaragde."
         ]
       }
@@ -2836,7 +2843,7 @@ window.WIKI_DATA = {
       ],
       "en": {
         "title": "Simple Tweaks: pads, spawn and server tweaks",
-        "summary": "Almost everything from the Simple Tweaks mod lives in SimpleBuilding now (the claim system stays in Simple Tweaks): pressure plates and pads with an Enderite tier, spawn elytra and spawn teleporters, the echo compass, the amethyst lens (formerly the laser pointer) and a few server options.",
+        "summary": "Almost everything from the Simple Tweaks mod lives in SimpleBuilding now (the claim system stays in Simple Tweaks): pressure plates and pads with an Enderite tier, spawn elytra and spawn teleporters, the echo sounder (formerly echo compass), the amethyst lens (formerly the laser pointer) and a few server options.",
         "details": [
           "Tier ladder of every plate family: after Netherite comes Enderite, and the nether star tier moves up one: Netherite Elytra Pad III, Enderite Elytra Pad IV, Fine Elytra Pad V; flypads now have three enderite tiers. Each Enderite tier adds one function (see the items). Launchpads and Chunk Loaders have three tiers each (Diamond, Netherite, Enderite).",
           "Upgrades pay with pressure plates: every smithing upgrade of a pad family costs the pressure plate of its target material instead of the raw material - Diamond Pressure Plate for the diamond tiers, Netherite Pressure Plate for the netherite tiers, Enderite Pressure Plate for the enderite tiers. Unchanged: the entry tiers, the plates themselves and the nether star step of the elytra pad. Flypads are an enderite-only family of three tiers now (see the flypad).",
@@ -2849,7 +2856,7 @@ window.WIKI_DATA = {
       },
       "de": {
         "title": "Simple Tweaks: Pads, Spawn und Server-Einstellungen",
-        "summary": "Fast alles aus der Mod Simple Tweaks steckt jetzt in SimpleBuilding (das Claim-System bleibt in Simple Tweaks): Druckplatten und Pads mit einer Enderit-Stufe, Spawn-Elytra und Spawn-Teleporter, der Echo-Kompass, die Amethystlinse (früher Laserpointer) und einige Server-Optionen.",
+        "summary": "Fast alles aus der Mod Simple Tweaks steckt jetzt in SimpleBuilding (das Claim-System bleibt in Simple Tweaks): Druckplatten und Pads mit einer Enderit-Stufe, Spawn-Elytra und Spawn-Teleporter, das Echolot (früher Echo-Kompass), die Amethystlinse (früher Laserpointer) und einige Server-Optionen.",
         "details": [
           "Stufenleiter aller Platten-Familien: nach Netherit kommt Enderit, die Netherstern-Stufe rückt eins auf: Netherit-Elytra-Pad III, Enderit-Elytra-Pad IV, Feines Elytra-Pad V; Flugpads haben jetzt drei Enderit-Stufen. Jede Enderit-Stufe bringt eine Zusatzfunktion (siehe die Gegenstände). Startrampen und Chunk-Lader haben je drei Stufen (Diamant, Netherit, Enderit).",
           "Aufwertungen zahlen mit Druckplatten: jede Schmiede-Aufwertung einer Pad-Familie kostet die Druckplatte des Zielmaterials statt des Rohstoffs - Diamant-Druckplatte für die Diamant-Stufen, Netherit-Druckplatte für die Netherit-Stufen, Enderit-Druckplatte für die Enderit-Stufen. Unverändert: die Einstiegsstufen, die Platten selbst und die Netherstern-Stufe des Elytra-Pads. Flugpads sind jetzt eine reine Enderit-Familie mit drei Stufen (siehe Flugpad).",
@@ -3499,7 +3506,7 @@ window.WIKI_DATA = {
             "Right-click opens the editor (not while a building wand is in the main hand and the blueprint in the off hand - that is build mode).",
             "Build code example: $roof = oak_stairs[facing=north] / cobblestone 0..4,0,0..4 / oak_planks 0..4,1..3,0..4 / air 1..3,1..3,1..3 / $roof 0..4,4,0 / oak_fence 0,5,0*3@2,0,0. Full grammar in docs/BLUEPRINT.md.",
             "Limits: 32000 characters, coordinates 0..255, at most 4 194 304 filled positions, title up to 32 characters. A signed blueprint is named after its title, shows its author and can no longer be edited or overwritten by a scan.",
-            "Tooltip: size (width x height x depth, block count), the smallest building wand that can build it, error count, a turning 3D miniature, and with Shift the material list.",
+            "Tooltip: size (width x height x depth, block count), the smallest building wand that can build it, error count, a turning 3D miniature, and with Shift the material list. The same miniature fills the map square of the cartography table while a signed blueprint lies in its top slot.",
             "Material cost: one item per block; a double slab costs two slabs, a block that holds several items costs all of them (candles 1-4, sea pickles 1-4, turtle eggs 1-4, snow layers 1-8, pink petals and wildflowers 1-4, leaf litter 1-4 - read from the block state), glow lichen, sculk vein, resin clump and vines one per covered face; the upper half of a door or tall plant and the head of a bed cost nothing; blocks without an item (water, fire, piston head) are creative-only. Building takes exactly what the list says.",
             "Building wand size per tier (longest edge): copper 16, iron 32, gold 48, diamond 64, netherite 128, enderite 256. Building takes 1 to 9 seconds depending on size, scanning at 262 144 positions per tick; both report progress on the action bar.",
             "Only signed blueprints build; the example button, help panel, insert bar and the cartography-table copy are described in the Blueprint feature page.",
@@ -3514,7 +3521,7 @@ window.WIKI_DATA = {
             "Rechtsklick öffnet den Editor (nicht, wenn ein Baustab in der Haupthand und die Blaupause in der Nebenhand liegt - das ist der Baumodus).",
             "Beispiel-Code: $dach = oak_stairs[facing=north] / cobblestone 0..4,0,0..4 / oak_planks 0..4,1..3,0..4 / air 1..3,1..3,1..3 / $dach 0..4,4,0 / oak_fence 0,5,0*3@2,0,0. Die vollständige Grammatik steht in docs/BLUEPRINT.md.",
             "Grenzen: 32000 Zeichen, Koordinaten 0..255, höchstens 4 194 304 belegte Stellen, Titel bis 32 Zeichen. Eine signierte Blaupause heißt wie ihr Titel, zeigt ihren Autor und lässt sich weder bearbeiten noch durch einen Scan überschreiben.",
-            "Tooltip: Größe (Breite x Höhe x Tiefe, Blockzahl), der kleinste Baustab, der sie bauen kann, Fehlerzahl, eine drehende 3D-Miniatur und mit Umschalt die Materialliste.",
+            "Tooltip: Größe (Breite x Höhe x Tiefe, Blockzahl), der kleinste Baustab, der sie bauen kann, Fehlerzahl, eine drehende 3D-Miniatur und mit Umschalt die Materialliste. Dieselbe Miniatur füllt das Kartenfeld des Kartentischs, solange oben eine signierte Blaupause liegt.",
             "Materialkosten: ein Item pro Block; eine doppelte Stufe kostet zwei Stufen, ein Block, der mehrere Items hält, kostet sie alle (Kerzen 1-4, Seegurken 1-4, Schildkröteneier 1-4, Schneeschichten 1-8, Rosa Blüten und Wildblumen 1-4, Laubstreu 1-4 - aus dem Blockzustand gelesen), Leuchtflechte, Sculkader, Harzklumpen und Ranken eines je belegter Fläche; die obere Hälfte einer Tür oder hohen Pflanze und das Kopfteil eines Bettes kosten nichts; Blöcke ohne Item (Wasser, Feuer, Kolbenkopf) gibt es nur im Kreativmodus. Beim Bauen wird genau das verbraucht, was die Liste sagt.",
             "Baustab-Größe je Stufe (längste Kante): Kupfer 16, Eisen 32, Gold 48, Diamant 64, Netherit 128, Enderit 256. Gebaut wird je nach Größe in 1 bis 9 Sekunden, gescannt mit 262 144 Stellen je Tick; beides meldet den Fortschritt in der Aktionsleiste.",
             "Gebaut werden nur signierte Blaupausen; Beispiel-Knopf, Hilfe, Einfüge-Leiste und die Kopie am Kartentisch beschreibt die Feature-Seite Blaupause.",
@@ -5311,8 +5318,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:echo_compass",
       "name": {
-        "en_us": "Echo Compass",
-        "de_de": "Echo-Kompass"
+        "en_us": "Echo Sounder",
+        "de_de": "Echolot"
       },
       "texture": null,
       "craftedBy": [
@@ -5327,24 +5334,24 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The Echo Compass links to a lodestone and teleports you on top of it for one ender pearl: hold use for 3 seconds to charge the jump. One jump empties it; it has to be recharged (1500 repair points, Mending or echo shards) before it works normally again, and forcing it while empty shatters it.",
+          "summary": "The Echo Sounder (formerly Echo Compass; item id still echo_compass) links to a lodestone and teleports you on top of it - no ender pearl needed: hold use for 3 seconds to charge the jump. One jump empties it; it has to be recharged (1500 repair points, Mending or echo shards) before it works normally again, and forcing it while empty shatters it.",
           "details": [
             "Right-click a lodestone to link it; the needle then points there. If the lodestone is removed the link is lost.",
-            "Jumping: hold use for 3 seconds (60 ticks). While it charges, sculk souls circle ever closer, portal particles are drawn in, an amethyst tone rises, sculk clicks and respawn-anchor charges mark the thirds and a warden sonic charge builds up at the end; the field of view narrows gently and pulses (scaled by the vanilla accessibility option FOV Effects - at 0 it is off). Releasing early does nothing and costs nothing. The jump needs an ender pearl (not in creative) and sets a 6 second cooldown; afterwards blindness, glowing, slow falling, slowness and nausea for a moment, sonic boom and respawn-anchor sound on arrival. Works into any dimension the server knows; a jump that is blocked (for example into a dimension locked by tweaks.dimensions) costs nothing - no pearl, no charge, no cooldown.",
+            "Jumping: hold use for 3 seconds (60 ticks). While it charges, sculk souls circle in three arms from well over two blocks out ever closer, widely scattered portal particles are drawn in, an amethyst tone rises, sculk clicks and respawn-anchor charges mark the thirds and a warden sonic charge builds up at the end; the field of view narrows gently and pulses (scaled by the vanilla accessibility option FOV Effects - at 0 it is off). Releasing early does nothing and costs nothing. The jump needs no ender pearl any more (since 2026-09-27) and sets a 6 second cooldown; afterwards blindness, glowing, slow falling, slowness and nausea for a moment, sonic boom and respawn-anchor sound on arrival, where a wide particle cloud and a ring of sculk souls spread out over the ground. Works into any dimension the server knows; a jump that is blocked (for example into a dimension locked by tweaks.dimensions) costs nothing - no charge, no cooldown.",
             "Charge: the compass has 1500 repair points. A jump empties it completely (Unbreaking works per point as on any tool: with Unbreaking III a jump empties only about a quarter). Empty or not fully recharged it shows a cracked texture in three stages (empty, half, almost full), has no enchantment glint and its bar shows the charge. Recharge it with Mending (2 points per XP point, 750 XP when empty) or at an anvil with echo shards (each restores a quarter, four fill it). Only when it is fully recharged does it jump normally again and get its glint back.",
-            "Forcing it: using a compass that is not fully recharged provokes the break - the charge takes twice as long (6 seconds) with warning signs (cracking, sparks, smoke, a sculk shriek halfway, everything louder), the jump still works, then the compass shatters for good. Unbreaking does not save it. In creative mode it neither empties nor shatters.",
-            "Recipe (crafting, shaped): enderite nugget, empty, enderite nugget; enderite nugget, recovery compass, enderite nugget; enderite nugget, enderite core, enderite nugget.",
+            "Forcing it: using a compass that is not fully recharged provokes the break - the charge takes twice as long (6 seconds) with warning signs (cracking, sparks, smoke, a sculk shriek halfway, everything louder), the jump still works, then the echo sounder shatters for good. Unbreaking does not save it. In creative mode it neither empties nor shatters.",
+            "Recipe (crafting, shaped \"NNN\" / \"NRN\" / \"NEN\"): seven enderite nuggets around the outside, the recovery compass in the middle, the enderite core bottom middle.",
             "Replaces the 'Echo Compass' data pack Simple Tweaks shipped; the data pack took durability off directly, so Unbreaking did nothing - fixed."
           ]
         },
         "de": {
-          "summary": "Der Echo-Kompass verknüpft sich mit einem Leitstein und teleportiert dich für eine Enderperle darauf: 3 Sekunden gedrückt halten lädt den Sprung. Ein Sprung leert ihn; erst wieder aufgeladen (1500 Reparaturpunkte, Reparatur oder Echoscherben) funktioniert er normal, und leer erzwungen zerspringt er.",
+          "summary": "Das Echolot (früher Echo-Kompass; Item-Id weiter echo_compass) verknüpft sich mit einem Leitstein und teleportiert dich darauf - ganz ohne Enderperle: 3 Sekunden gedrückt halten lädt den Sprung. Ein Sprung leert es; erst wieder aufgeladen (1500 Reparaturpunkte, Reparatur oder Echoscherben) funktioniert es normal, und leer erzwungen zerspringt es.",
           "details": [
             "Rechtsklick auf einen Leitstein verknüpft; die Nadel zeigt dann dorthin. Wird der Leitstein entfernt, ist die Verknüpfung weg.",
-            "Springen: 3 Sekunden (60 Ticks) gedrückt halten. Beim Laden kreisen Sculk-Seelen immer enger, Portalpartikel werden hineingezogen, ein Amethystton steigt, Sculk-Klicken und Seelenanker-Aufladen markieren die Drittel, zum Schluss lädt der Schallangriff des Wärters; das Sichtfeld zieht sich sanft zusammen und pulsiert (skaliert mit der Vanilla-Barrierefreiheitsoption FOV-Effekte - auf 0 aus). Vorher loslassen tut nichts und kostet nichts. Der Sprung braucht eine Enderperle (nicht im Kreativmodus) und setzt 6 Sekunden Abklingzeit; danach kurz Blindheit, Leuchten, Sanfter Fall, Langsamkeit und Übelkeit, bei der Ankunft Schallknall und Seelenanker-Klang. Funktioniert in jede Dimension, die der Server kennt; ein blockierter Sprung (etwa in eine per tweaks.dimensions gesperrte Dimension) kostet nichts - keine Perle, keine Ladung, keine Abklingzeit.",
-            "Ladung: Der Kompass hat 1500 Reparaturpunkte. Ein Sprung leert ihn ganz (Haltbarkeit/Unbreaking wirkt je Punkt wie bei jedem Werkzeug: mit Haltbarkeit III leert ein Sprung nur etwa ein Viertel). Leer oder nicht voll aufgeladen zeigt er eine Riss-Textur in drei Stufen (leer, halb, fast voll), hat keinen Verzauberungsglanz, und sein Balken zeigt die Ladung. Aufladen mit Reparatur/Mending (2 Punkte je XP-Punkt, 750 XP im leeren Zustand) oder am Amboss mit Echoscherben (jede stellt ein Viertel wieder her, vier füllen ihn). Erst voll aufgeladen springt er wieder normal und glänzt wieder.",
-            "Erzwingen: Einen nicht voll aufgeladenen Kompass zu benutzen provoziert den Bruch - das Laden dauert doppelt so lange (6 Sekunden) mit Warnzeichen (Knacken, Funken, Rauch, zur Hälfte ein Sculk-Kreischen, alles lauter), der Sprung gelingt noch, danach zerspringt der Kompass endgültig. Haltbarkeit rettet ihn dabei nicht. Im Kreativmodus leert und zerspringt er nicht.",
-            "Rezept (Werkbank, geformt): Enderit-Nugget, frei, Enderit-Nugget; Enderit-Nugget, Bergungskompass, Enderit-Nugget; Enderit-Nugget, Enderit-Kern, Enderit-Nugget.",
+            "Springen: 3 Sekunden (60 Ticks) gedrückt halten. Beim Laden kreisen Sculk-Seelen in drei Armen von gut zwei Blöcken außen immer enger, weit gestreute Portalpartikel werden hineingezogen, ein Amethystton steigt, Sculk-Klicken und Seelenanker-Aufladen markieren die Drittel, zum Schluss lädt der Schallangriff des Wärters; das Sichtfeld zieht sich sanft zusammen und pulsiert (skaliert mit der Vanilla-Barrierefreiheitsoption FOV-Effekte - auf 0 aus). Vorher loslassen tut nichts und kostet nichts. Der Sprung braucht seit dem 27.09.2026 keine Enderperle mehr und setzt 6 Sekunden Abklingzeit; danach kurz Blindheit, Leuchten, Sanfter Fall, Langsamkeit und Übelkeit, bei der Ankunft Schallknall und Seelenanker-Klang, dazu eine weite Partikelwolke und ein Ring aus Sculk-Seelen, der über den Boden auseinanderläuft. Funktioniert in jede Dimension, die der Server kennt; ein blockierter Sprung (etwa in eine per tweaks.dimensions gesperrte Dimension) kostet nichts - keine Ladung, keine Abklingzeit.",
+            "Ladung: Das Echolot hat 1500 Reparaturpunkte. Ein Sprung leert es ganz (Haltbarkeit/Unbreaking wirkt je Punkt wie bei jedem Werkzeug: mit Haltbarkeit III leert ein Sprung nur etwa ein Viertel). Leer oder nicht voll aufgeladen zeigt er eine Riss-Textur in drei Stufen (leer, halb, fast voll), hat keinen Verzauberungsglanz, und sein Balken zeigt die Ladung. Aufladen mit Reparatur/Mending (2 Punkte je XP-Punkt, 750 XP im leeren Zustand) oder am Amboss mit Echoscherben (jede stellt ein Viertel wieder her, vier füllen ihn). Erst voll aufgeladen springt er wieder normal und glänzt wieder.",
+            "Erzwingen: Einen nicht voll aufgeladenen Kompass zu benutzen provoziert den Bruch - das Laden dauert doppelt so lange (6 Sekunden) mit Warnzeichen (Knacken, Funken, Rauch, zur Hälfte ein Sculk-Kreischen, alles lauter), der Sprung gelingt noch, danach zerspringt das Echolot endgültig. Haltbarkeit rettet ihn dabei nicht. Im Kreativmodus leert und zerspringt er nicht.",
+            "Rezept (Werkbank, geformt \"NNN\" / \"NRN\" / \"NEN\"): sieben Enderit-Nuggets außen herum, der Bergungskompass in der Mitte, der Enderit-Kern unten mittig.",
             "Ersetzt das Datenpaket 'Echo Compass' aus Simple Tweaks; das zog die Haltbarkeit direkt ab, Haltbarkeit (Unbreaking) wirkte deshalb nicht - behoben."
           ]
         },
@@ -9118,22 +9125,28 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The Amethyst Lens (the former laser pointer from Simple Tweaks, item id still laser_pointer) shows a red dot where you aim while you hold right-click, visible to the players within 128 blocks of you or the dot, with the distance next to the crosshair. Held on a block for a moment, its beam melts, lights and dries things.",
+          "summary": "The Amethyst Lens (the former laser pointer from Simple Tweaks, item id still laser_pointer) shows a red dot where you aim while you hold right-click, visible to the players within 128 blocks of you or the dot, with the distance next to the crosshair. Held on a block for a moment, its beam melts, lights, dries and primes TNT; held on a creature it sets it on fire.",
           "details": [
             "Range, colour and dot size come from the config section tweaks.laserPointer (default 512 blocks, red). The dot keeps its size in the world (the config size, 0.05-1 block) and only grows far away so it stays about three pixels wide, instead of turning into a huge circle on a distant wall. Range and the on/off switch are the server's: the server sends them to the client and only passes a dot on while the player really uses the lens, at most 12 times a second.",
-            "Beam effects (server side, up to 24 blocks, while the beam rests on the same block face): ice and frosted ice melt into water after 2 s (they evaporate where water does, like in the Nether), packed ice becomes ice and blue ice packed ice; snow layers, snow blocks and powder snow melt away. Campfires, soul campfires, candles and candle cakes light after 1 s. Soul sand and soul soil get soul fire on top after 2 s. Flammable blocks (anything fire can catch: planks, logs, leaves, wool ...) catch fire on the beamed face after 3 s, but only where the fire_spread_radius_around_player game rule lets fire spread. Wet sponges dry after 5 s. It never lights a nether portal (unlike flint and steel, no fire is placed into an empty portal frame) and never TNT. Smoke rises while the heat builds up; a sound and particles mark the result.",
+            "Beam effects (server side, up to the lens range - capped at the server's view distance so the beam never loads chunks -, while the beam rests on the same block face; the times below apply up to 5 blocks away): ice and frosted ice melt into water after 2 s (they evaporate where water does, like in the Nether), packed ice becomes ice and blue ice packed ice; snow layers, snow blocks and powder snow melt away. Campfires, soul campfires, candles and candle cakes light after 1 s. Soul sand and soul soil get soul fire on top after 2 s. Flammable blocks (anything fire can catch: planks, logs, leaves, wool ...) catch fire on the beamed face after 3 s, but only where the fire_spread_radius_around_player game rule lets fire spread. Wet sponges dry after 5 s. TNT is primed after 3 s like with flint and steel (the player counts as the igniter; the tnt_explodes game rule is respected, fire spread and mob griefing are not involved). It never lights a nether portal (unlike flint and steel, no fire is placed into an empty portal frame). Smoke rises while the heat builds up; a sound and particles mark the result.",
+            "Distance: the dwell time grows moderately with the distance from your eyes to the dot: base x (1 + 0.096 x max(0, d - 5)^0.773). Up to 5 blocks the base applies (3 s to ignite), at 10 blocks it is about 1 s more (4 s), at 200 blocks about 20 s; it keeps growing smoothly up to the lens range. More than range + 8 blocks away nothing happens.",
+            "Creatures: players and mobs catch fire (4 s) when the beam rests on them, but it takes twice as long as a flammable block at the same distance (6 s up close). Not: fire-immune or invulnerable creatures, creatures in water or rain, players in creative or spectator mode, and other players only where PvP is allowed (pvp game rule, server setting, team friendly fire). Creatures are searched up to 64 blocks along the beam.",
+            "Sounds at the dot, audible to players nearby: a quiet hum about once a second while the beam hits anything, a clearly audible sizzle while ice, snow or a sponge heats up and a crackle while something is about to burn or ignite (also creatures), each at most every 8 ticks; the finishing sound of every effect stays.",
             "Protection: the player must be allowed to touch and build at the block (spawn protection, world border, adventure mode), for fire also at the fire's spot.",
-            "Charge: the durability (640) is the charge. Beaming costs 1 per second, every block effect 5 more. The lens never breaks; empty it cannot beam any more (empty-state model). Recharge it in an anvil with redstone at no level cost: one redstone restores 10, a full stack of 64 fills an empty lens, and only as much redstone as needed is used. No charge is used in creative mode.",
+            "Charge: the durability (640) is the charge. Every use costs 1 per started second - pointing into the air or at a block without an effect included, and already on the very first tick, so quick taps are not free -, every effect 5 more. The lens never breaks; empty it cannot beam any more (empty-state model). Recharge it in an anvil with redstone at no level cost: one redstone restores 10, a full stack of 64 fills an empty lens, and only as much redstone as needed is used. No charge is used in creative mode.",
             "Recipe (crafting, shaped): redstone, amethyst shard, redstone; iron ingot, iron building core, iron ingot; three iron ingots. In the creative Tools tab it sits with the gadgets."
           ]
         },
         "de": {
-          "summary": "Die Amethystlinse (der frühere Laserpointer aus Simple Tweaks, Item-Id weiter laser_pointer) zeigt einen roten Punkt, wohin du bei gedrücktem Rechtsklick zielst - sichtbar für die Spieler im Umkreis von 128 Blöcken um dich oder den Punkt - und die Entfernung neben dem Fadenkreuz. Ruht der Strahl kurz auf einem Block, schmilzt, zündet und trocknet er.",
+          "summary": "Die Amethystlinse (der frühere Laserpointer aus Simple Tweaks, Item-Id weiter laser_pointer) zeigt einen roten Punkt, wohin du bei gedrücktem Rechtsklick zielst - sichtbar für die Spieler im Umkreis von 128 Blöcken um dich oder den Punkt - und die Entfernung neben dem Fadenkreuz. Ruht der Strahl kurz auf einem Block, schmilzt, zündet und trocknet er und zündet TNT; auf einem Lebewesen setzt er es in Brand.",
           "details": [
             "Reichweite, Farbe und Punktgröße stehen in der Config unter tweaks.laserPointer (Standard 512 Blöcke, rot). Der Punkt behält seine Größe in der Welt (die Config-Größe, 0,05-1 Block) und wächst erst in der Ferne mit, damit er etwa drei Pixel breit sichtbar bleibt - statt auf einer fernen Wand zum riesigen Kreis zu werden. Reichweite und Schalter gelten vom Server: er schickt sie dem Client und gibt einen Punkt nur weiter, solange der Spieler die Linse wirklich benutzt, höchstens 12-mal pro Sekunde.",
-            "Strahlwirkungen (auf dem Server, bis 24 Blöcke, solange der Strahl auf derselben Blockseite ruht): Eis und Frosteis schmelzen nach 2 s zu Wasser (verdampfen, wo Wasser verdampft, wie im Nether), Packeis wird zu Eis, Blaueis zu Packeis; Schneeschichten, Schneeblöcke und Pulverschnee schmelzen weg. Lagerfeuer, Seelenlagerfeuer, Kerzen und Kerzenkuchen gehen nach 1 s an. Seelensand und Seelenerde bekommen nach 2 s oben Seelenfeuer. Brennbare Blöcke (alles, was Feuer fangen kann: Bretter, Stämme, Laub, Wolle ...) fangen nach 3 s auf der angestrahlten Seite Feuer - nur, wo die Spielregel fire_spread_radius_around_player Feuer sich ausbreiten lässt. Nasse Schwämme trocknen nach 5 s. Nie: ein Netherportal (anders als ein Feuerzeug setzt der Strahl kein Feuer in einen leeren Portalrahmen) und TNT. Solange sich die Hitze aufbaut, steigt Rauch auf; ein Geräusch und Partikel zeigen das Ergebnis.",
+            "Strahlwirkungen (auf dem Server, bis zur Reichweite der Linse - höchstens bis zur Sichtweite des Servers, damit der Strahl keine Chunks lädt -, solange der Strahl auf derselben Blockseite ruht; die Zeiten gelten bis 5 Blöcke Abstand): Eis und Frosteis schmelzen nach 2 s zu Wasser (verdampfen, wo Wasser verdampft, wie im Nether), Packeis wird zu Eis, Blaueis zu Packeis; Schneeschichten, Schneeblöcke und Pulverschnee schmelzen weg. Lagerfeuer, Seelenlagerfeuer, Kerzen und Kerzenkuchen gehen nach 1 s an. Seelensand und Seelenerde bekommen nach 2 s oben Seelenfeuer. Brennbare Blöcke (alles, was Feuer fangen kann: Bretter, Stämme, Laub, Wolle ...) fangen nach 3 s auf der angestrahlten Seite Feuer - nur, wo die Spielregel fire_spread_radius_around_player Feuer sich ausbreiten lässt. Nasse Schwämme trocknen nach 5 s. TNT wird nach 3 s gezündet wie mit einem Feuerzeug (der Spieler gilt als Zünder; die Spielregel tnt_explodes gilt, Feuerausbreitung und Mob-Griefing spielen keine Rolle). Nie: ein Netherportal (anders als ein Feuerzeug setzt der Strahl kein Feuer in einen leeren Portalrahmen). Solange sich die Hitze aufbaut, steigt Rauch auf; ein Geräusch und Partikel zeigen das Ergebnis.",
+            "Abstand: die Verweildauer wächst mäßig mit dem Abstand zwischen Auge und Punkt: Basis x (1 + 0,096 x max(0, d - 5)^0,773). Bis 5 Blöcke gilt die Basis (3 s zum Anzünden), bei 10 Blöcken etwa 1 s mehr (4 s), bei 200 Blöcken rund 20 s; darüber wächst sie stetig bis zur Reichweite. Mehr als Reichweite + 8 Blöcke entfernt passiert nichts.",
+            "Lebewesen: Spieler und Mobs fangen Feuer (4 s), wenn der Strahl auf ihnen ruht, brauchen dafür aber doppelt so lange wie ein brennbarer Block im selben Abstand (aus der Nähe 6 s). Nicht: feuerfeste oder unverwundbare Wesen, Wesen im Wasser oder Regen, Spieler im Kreativ- oder Zuschauermodus, andere Spieler nur, wo PvP erlaubt ist (Spielregel pvp, Server-Einstellung, Team-Freundfeuer). Gesucht wird bis 64 Blöcke entlang des Strahls.",
+            "Klänge am Punkt, für Spieler in der Nähe hörbar: ein leises Summen etwa einmal pro Sekunde, solange der Strahl etwas trifft, ein deutliches Zischen, während Eis, Schnee oder ein Schwamm heiß wird, und ein Knistern, während etwas gleich brennt oder zündet (auch Lebewesen), jeweils höchstens alle 8 Ticks; der Abschlussklang jeder Wirkung bleibt.",
             "Schutz: der Spieler muss den Block berühren und dort bauen dürfen (Spawnschutz, Weltgrenze, Abenteuermodus), für Feuer auch am Feuerplatz.",
-            "Ladung: die Haltbarkeit (640) ist die Ladung. Strahlen kostet 1 je Sekunde, jede Blockwirkung 5 mehr. Die Linse zerbricht nie; leer kann sie nicht mehr strahlen (eigenes Leer-Modell). Aufladen im Amboss mit Redstone ohne Stufenkosten: ein Redstone lädt 10, ein voller Stapel (64) füllt eine leere Linse, verbraucht wird nur, was nötig ist. Im Kreativmodus kostet nichts Ladung.",
+            "Ladung: die Haltbarkeit (640) ist die Ladung. Jede Nutzung kostet 1 je angefangene Sekunde - auch das Zeigen ins Leere oder auf einen Block ohne Wirkung, und schon im ersten Tick, kurzes Antippen ist also nicht gratis -, jede Wirkung 5 mehr. Die Linse zerbricht nie; leer kann sie nicht mehr strahlen (eigenes Leer-Modell). Aufladen im Amboss mit Redstone ohne Stufenkosten: ein Redstone lädt 10, ein voller Stapel (64) füllt eine leere Linse, verbraucht wird nur, was nötig ist. Im Kreativmodus kostet nichts Ladung.",
             "Rezept (Werkbank, geformt): Redstone, Amethystsplitter, Redstone; Eisenbarren, Eisen-Baukern, Eisenbarren; drei Eisenbarren. Im Kreativ-Tab Werkzeuge steht sie bei den Geräten."
           ]
         },
@@ -15247,7 +15260,8 @@ window.WIKI_DATA = {
         "simplebuilding:copper_pressure_plate"
       ],
       "usedIn": [
-        "simplebuilding:chunk_loader_smithing"
+        "simplebuilding:chunk_loader_smithing",
+        "simplebuilding:waxed_copper_pressure_plate_from_honeycomb"
       ],
       "trades": [],
       "lootTable": "simplebuilding:blocks/copper_pressure_plate",
@@ -15256,17 +15270,21 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized.",
+          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized. After the player steps off they stay pressed just as long.",
           "details": [
-            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes or is scraped.",
+            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes, is waxed or is scraped.",
+            "Waxing works like vanilla copper: use honeycomb on a plate (or craft plate + honeycomb) to get the Waxed Copper Pressure Plate of the same stage, which no longer oxidizes; an axe scrapes the wax off first. Waxed plates look like their unwaxed stage.",
+            "Like vanilla pressure plates they visibly sink in while pressed.",
             "Crafting: two copper blocks side by side. Pistons destroy them. Can be switched off with tweaks.pads.enableTimedCopperPlates.",
             "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
           ]
         },
         "de": {
-          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert.",
+          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert. Nach dem Heruntergehen bleiben sie genauso lange gedrückt.",
           "details": [
-            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren und Abkratzen erhalten.",
+            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren, Wachsen und Abkratzen erhalten.",
+            "Wachsen wie bei Vanilla-Kupfer: Honigwabe auf die Platte (oder Platte + Honigwabe in der Werkbank) ergibt die Gewachste Kupfer-Druckplatte derselben Stufe, die nicht mehr oxidiert; eine Axt kratzt zuerst das Wachs ab. Gewachste Platten sehen aus wie ihre ungewachste Stufe.",
+            "Wie Vanilla-Druckplatten sinken sie gedrückt sichtbar ein.",
             "Werkbank: zwei Kupferblöcke nebeneinander. Kolben zerstören sie. Abschaltbar über tweaks.pads.enableTimedCopperPlates.",
             "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
           ]
@@ -15275,6 +15293,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
           "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "common/src/shared/java/com/simplebuilding/gametest/PressurePlateTests.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "docs/SIMPLETWEAKS-UEBERNAHME.md",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
@@ -16651,8 +16670,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:enderite_spawn_teleporter",
       "name": {
-        "en_us": "Enderite Spawn Teleporter V",
-        "de_de": "Enderit-Spawn-Teleporter V"
+        "en_us": "Spawn Teleporter V",
+        "de_de": "Spawn-Teleporter V"
       },
       "texture": "assets/textures/block/enderite_spawn_teleporter.png",
       "craftedBy": [
@@ -16666,10 +16685,10 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), the Enderite Spawn Teleporter V takes you to your own respawn point.",
+          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), Spawn Teleporter V takes you to your own respawn point.",
           "details": [
             "Tier I goes to Spawn 1, II to Spawn 2, III to Spawn 3, IV to Spawn 4. Operators set them with /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (their own position). An unset target means the world spawn.",
-            "Enderite Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
+            "Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
             "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
             "The owner sees enchanting particles over their own teleporter. Waterloggable.",
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + Netherite Pressure Plate; V = enderite upgrade template + IV + Enderite Pressure Plate.",
@@ -16679,10 +16698,10 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), der Enderit-Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
+          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
           "details": [
             "Stufe I führt zu Spawn 1, II zu Spawn 2, III zu Spawn 3, IV zu Spawn 4. Operatoren setzen sie mit /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (eigene Position). Ohne gesetztes Ziel geht es zum Weltspawn.",
-            "Enderit-Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
+            "Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
             "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
             "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netherit-Druckplatte; V = Enderit-Aufwertungsvorlage + IV + Enderit-Druckplatte.",
@@ -16712,7 +16731,9 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/exposed_copper_pressure_plate.png",
       "craftedBy": [],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:waxed_exposed_copper_pressure_plate_from_honeycomb"
+      ],
       "trades": [],
       "lootTable": "simplebuilding:blocks/exposed_copper_pressure_plate",
       "drops": [
@@ -16720,17 +16741,21 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized.",
+          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized. After the player steps off they stay pressed just as long.",
           "details": [
-            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes or is scraped.",
+            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes, is waxed or is scraped.",
+            "Waxing works like vanilla copper: use honeycomb on a plate (or craft plate + honeycomb) to get the Waxed Copper Pressure Plate of the same stage, which no longer oxidizes; an axe scrapes the wax off first. Waxed plates look like their unwaxed stage.",
+            "Like vanilla pressure plates they visibly sink in while pressed.",
             "Crafting: two copper blocks side by side. Pistons destroy them. Can be switched off with tweaks.pads.enableTimedCopperPlates.",
             "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
           ]
         },
         "de": {
-          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert.",
+          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert. Nach dem Heruntergehen bleiben sie genauso lange gedrückt.",
           "details": [
-            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren und Abkratzen erhalten.",
+            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren, Wachsen und Abkratzen erhalten.",
+            "Wachsen wie bei Vanilla-Kupfer: Honigwabe auf die Platte (oder Platte + Honigwabe in der Werkbank) ergibt die Gewachste Kupfer-Druckplatte derselben Stufe, die nicht mehr oxidiert; eine Axt kratzt zuerst das Wachs ab. Gewachste Platten sehen aus wie ihre ungewachste Stufe.",
+            "Wie Vanilla-Druckplatten sinken sie gedrückt sichtbar ein.",
             "Werkbank: zwei Kupferblöcke nebeneinander. Kolben zerstören sie. Abschaltbar über tweaks.pads.enableTimedCopperPlates.",
             "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
           ]
@@ -16739,6 +16764,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
           "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "common/src/shared/java/com/simplebuilding/gametest/PressurePlateTests.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "docs/SIMPLETWEAKS-UEBERNAHME.md",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
@@ -18550,7 +18576,9 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/oxidized_copper_pressure_plate.png",
       "craftedBy": [],
-      "usedIn": [],
+      "usedIn": [
+        "simplebuilding:waxed_oxidized_copper_pressure_plate_from_honeycomb"
+      ],
       "trades": [],
       "lootTable": "simplebuilding:blocks/oxidized_copper_pressure_plate",
       "drops": [
@@ -18558,17 +18586,21 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized.",
+          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized. After the player steps off they stay pressed just as long.",
           "details": [
-            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes or is scraped.",
+            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes, is waxed or is scraped.",
+            "Waxing works like vanilla copper: use honeycomb on a plate (or craft plate + honeycomb) to get the Waxed Copper Pressure Plate of the same stage, which no longer oxidizes; an axe scrapes the wax off first. Waxed plates look like their unwaxed stage.",
+            "Like vanilla pressure plates they visibly sink in while pressed.",
             "Crafting: two copper blocks side by side. Pistons destroy them. Can be switched off with tweaks.pads.enableTimedCopperPlates.",
             "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
           ]
         },
         "de": {
-          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert.",
+          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert. Nach dem Heruntergehen bleiben sie genauso lange gedrückt.",
           "details": [
-            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren und Abkratzen erhalten.",
+            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren, Wachsen und Abkratzen erhalten.",
+            "Wachsen wie bei Vanilla-Kupfer: Honigwabe auf die Platte (oder Platte + Honigwabe in der Werkbank) ergibt die Gewachste Kupfer-Druckplatte derselben Stufe, die nicht mehr oxidiert; eine Axt kratzt zuerst das Wachs ab. Gewachste Platten sehen aus wie ihre ungewachste Stufe.",
+            "Wie Vanilla-Druckplatten sinken sie gedrückt sichtbar ein.",
             "Werkbank: zwei Kupferblöcke nebeneinander. Kolben zerstören sie. Abschaltbar über tweaks.pads.enableTimedCopperPlates.",
             "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
           ]
@@ -18577,6 +18609,7 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
           "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "common/src/shared/java/com/simplebuilding/gametest/PressurePlateTests.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "docs/SIMPLETWEAKS-UEBERNAHME.md",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
@@ -20113,10 +20146,10 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), the Enderite Spawn Teleporter V takes you to your own respawn point.",
+          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), Spawn Teleporter V takes you to your own respawn point.",
           "details": [
             "Tier I goes to Spawn 1, II to Spawn 2, III to Spawn 3, IV to Spawn 4. Operators set them with /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (their own position). An unset target means the world spawn.",
-            "Enderite Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
+            "Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
             "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
             "The owner sees enchanting particles over their own teleporter. Waterloggable.",
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + Netherite Pressure Plate; V = enderite upgrade template + IV + Enderite Pressure Plate.",
@@ -20126,10 +20159,10 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), der Enderit-Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
+          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
           "details": [
             "Stufe I führt zu Spawn 1, II zu Spawn 2, III zu Spawn 3, IV zu Spawn 4. Operatoren setzen sie mit /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (eigene Position). Ohne gesetztes Ziel geht es zum Weltspawn.",
-            "Enderit-Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
+            "Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
             "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
             "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netherit-Druckplatte; V = Enderit-Aufwertungsvorlage + IV + Enderit-Druckplatte.",
@@ -20171,10 +20204,10 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), the Enderite Spawn Teleporter V takes you to your own respawn point.",
+          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), Spawn Teleporter V takes you to your own respawn point.",
           "details": [
             "Tier I goes to Spawn 1, II to Spawn 2, III to Spawn 3, IV to Spawn 4. Operators set them with /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (their own position). An unset target means the world spawn.",
-            "Enderite Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
+            "Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
             "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
             "The owner sees enchanting particles over their own teleporter. Waterloggable.",
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + Netherite Pressure Plate; V = enderite upgrade template + IV + Enderite Pressure Plate.",
@@ -20184,10 +20217,10 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), der Enderit-Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
+          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
           "details": [
             "Stufe I führt zu Spawn 1, II zu Spawn 2, III zu Spawn 3, IV zu Spawn 4. Operatoren setzen sie mit /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (eigene Position). Ohne gesetztes Ziel geht es zum Weltspawn.",
-            "Enderit-Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
+            "Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
             "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
             "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netherit-Druckplatte; V = Enderit-Aufwertungsvorlage + IV + Enderit-Druckplatte.",
@@ -20229,10 +20262,10 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), the Enderite Spawn Teleporter V takes you to your own respawn point.",
+          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), Spawn Teleporter V takes you to your own respawn point.",
           "details": [
             "Tier I goes to Spawn 1, II to Spawn 2, III to Spawn 3, IV to Spawn 4. Operators set them with /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (their own position). An unset target means the world spawn.",
-            "Enderite Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
+            "Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
             "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
             "The owner sees enchanting particles over their own teleporter. Waterloggable.",
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + Netherite Pressure Plate; V = enderite upgrade template + IV + Enderite Pressure Plate.",
@@ -20242,10 +20275,10 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), der Enderit-Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
+          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
           "details": [
             "Stufe I führt zu Spawn 1, II zu Spawn 2, III zu Spawn 3, IV zu Spawn 4. Operatoren setzen sie mit /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (eigene Position). Ohne gesetztes Ziel geht es zum Weltspawn.",
-            "Enderit-Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
+            "Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
             "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
             "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netherit-Druckplatte; V = Enderit-Aufwertungsvorlage + IV + Enderit-Druckplatte.",
@@ -20287,10 +20320,10 @@ window.WIKI_DATA = {
       ],
       "note": {
         "en": {
-          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), the Enderite Spawn Teleporter V takes you to your own respawn point.",
+          "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), Spawn Teleporter V takes you to your own respawn point.",
           "details": [
             "Tier I goes to Spawn 1, II to Spawn 2, III to Spawn 3, IV to Spawn 4. Operators set them with /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (their own position). An unset target means the world spawn.",
-            "Enderite Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
+            "Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
             "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
             "The owner sees enchanting particles over their own teleporter. Waterloggable.",
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + Netherite Pressure Plate; V = enderite upgrade template + IV + Enderite Pressure Plate.",
@@ -20300,10 +20333,10 @@ window.WIKI_DATA = {
           ]
         },
         "de": {
-          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), der Enderit-Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
+          "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
           "details": [
             "Stufe I führt zu Spawn 1, II zu Spawn 2, III zu Spawn 3, IV zu Spawn 4. Operatoren setzen sie mit /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (eigene Position). Ohne gesetztes Ziel geht es zum Weltspawn.",
-            "Enderit-Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
+            "Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
             "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
             "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netherit-Druckplatte; V = Enderit-Aufwertungsvorlage + IV + Enderit-Druckplatte.",
@@ -20532,32 +20565,38 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
-      "id": "simplebuilding:weathered_copper_pressure_plate",
+      "id": "simplebuilding:waxed_copper_pressure_plate",
       "name": {
-        "en_us": "Weathered Copper Pressure Plate",
-        "de_de": "Verwitterte Kupfer-Druckplatte"
+        "en_us": "Waxed Copper Pressure Plate",
+        "de_de": "Gewachste Kupfer-Druckplatte"
       },
-      "texture": "assets/textures/block/weathered_copper_pressure_plate.png",
-      "craftedBy": [],
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:waxed_copper_pressure_plate_from_honeycomb"
+      ],
       "usedIn": [],
       "trades": [],
-      "lootTable": "simplebuilding:blocks/weathered_copper_pressure_plate",
+      "lootTable": "simplebuilding:blocks/waxed_copper_pressure_plate",
       "drops": [
-        "simplebuilding:weathered_copper_pressure_plate"
+        "simplebuilding:waxed_copper_pressure_plate"
       ],
       "note": {
         "en": {
-          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized.",
+          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized. After the player steps off they stay pressed just as long.",
           "details": [
-            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes or is scraped.",
+            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes, is waxed or is scraped.",
+            "Waxing works like vanilla copper: use honeycomb on a plate (or craft plate + honeycomb) to get the Waxed Copper Pressure Plate of the same stage, which no longer oxidizes; an axe scrapes the wax off first. Waxed plates look like their unwaxed stage.",
+            "Like vanilla pressure plates they visibly sink in while pressed.",
             "Crafting: two copper blocks side by side. Pistons destroy them. Can be switched off with tweaks.pads.enableTimedCopperPlates.",
             "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
           ]
         },
         "de": {
-          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert.",
+          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert. Nach dem Heruntergehen bleiben sie genauso lange gedrückt.",
           "details": [
-            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren und Abkratzen erhalten.",
+            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren, Wachsen und Abkratzen erhalten.",
+            "Wachsen wie bei Vanilla-Kupfer: Honigwabe auf die Platte (oder Platte + Honigwabe in der Werkbank) ergibt die Gewachste Kupfer-Druckplatte derselben Stufe, die nicht mehr oxidiert; eine Axt kratzt zuerst das Wachs ab. Gewachste Platten sehen aus wie ihre ungewachste Stufe.",
+            "Wie Vanilla-Druckplatten sinken sie gedrückt sichtbar ein.",
             "Werkbank: zwei Kupferblöcke nebeneinander. Kolben zerstören sie. Abschaltbar über tweaks.pads.enableTimedCopperPlates.",
             "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
           ]
@@ -20566,6 +20605,207 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
           "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java",
           "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "common/src/shared/java/com/simplebuilding/gametest/PressurePlateTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:waxed_exposed_copper_pressure_plate",
+      "name": {
+        "en_us": "Waxed Exposed Copper Pressure Plate",
+        "de_de": "Gewachste angelaufene Kupfer-Druckplatte"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:waxed_exposed_copper_pressure_plate_from_honeycomb"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/waxed_exposed_copper_pressure_plate",
+      "drops": [
+        "simplebuilding:waxed_exposed_copper_pressure_plate"
+      ],
+      "note": {
+        "en": {
+          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized. After the player steps off they stay pressed just as long.",
+          "details": [
+            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes, is waxed or is scraped.",
+            "Waxing works like vanilla copper: use honeycomb on a plate (or craft plate + honeycomb) to get the Waxed Copper Pressure Plate of the same stage, which no longer oxidizes; an axe scrapes the wax off first. Waxed plates look like their unwaxed stage.",
+            "Like vanilla pressure plates they visibly sink in while pressed.",
+            "Crafting: two copper blocks side by side. Pistons destroy them. Can be switched off with tweaks.pads.enableTimedCopperPlates.",
+            "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
+          ]
+        },
+        "de": {
+          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert. Nach dem Heruntergehen bleiben sie genauso lange gedrückt.",
+          "details": [
+            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren, Wachsen und Abkratzen erhalten.",
+            "Wachsen wie bei Vanilla-Kupfer: Honigwabe auf die Platte (oder Platte + Honigwabe in der Werkbank) ergibt die Gewachste Kupfer-Druckplatte derselben Stufe, die nicht mehr oxidiert; eine Axt kratzt zuerst das Wachs ab. Gewachste Platten sehen aus wie ihre ungewachste Stufe.",
+            "Wie Vanilla-Druckplatten sinken sie gedrückt sichtbar ein.",
+            "Werkbank: zwei Kupferblöcke nebeneinander. Kolben zerstören sie. Abschaltbar über tweaks.pads.enableTimedCopperPlates.",
+            "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "common/src/shared/java/com/simplebuilding/gametest/PressurePlateTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:waxed_oxidized_copper_pressure_plate",
+      "name": {
+        "en_us": "Waxed Oxidized Copper Pressure Plate",
+        "de_de": "Gewachste oxidierte Kupfer-Druckplatte"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:waxed_oxidized_copper_pressure_plate_from_honeycomb"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/waxed_oxidized_copper_pressure_plate",
+      "drops": [
+        "simplebuilding:waxed_oxidized_copper_pressure_plate"
+      ],
+      "note": {
+        "en": {
+          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized. After the player steps off they stay pressed just as long.",
+          "details": [
+            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes, is waxed or is scraped.",
+            "Waxing works like vanilla copper: use honeycomb on a plate (or craft plate + honeycomb) to get the Waxed Copper Pressure Plate of the same stage, which no longer oxidizes; an axe scrapes the wax off first. Waxed plates look like their unwaxed stage.",
+            "Like vanilla pressure plates they visibly sink in while pressed.",
+            "Crafting: two copper blocks side by side. Pistons destroy them. Can be switched off with tweaks.pads.enableTimedCopperPlates.",
+            "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
+          ]
+        },
+        "de": {
+          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert. Nach dem Heruntergehen bleiben sie genauso lange gedrückt.",
+          "details": [
+            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren, Wachsen und Abkratzen erhalten.",
+            "Wachsen wie bei Vanilla-Kupfer: Honigwabe auf die Platte (oder Platte + Honigwabe in der Werkbank) ergibt die Gewachste Kupfer-Druckplatte derselben Stufe, die nicht mehr oxidiert; eine Axt kratzt zuerst das Wachs ab. Gewachste Platten sehen aus wie ihre ungewachste Stufe.",
+            "Wie Vanilla-Druckplatten sinken sie gedrückt sichtbar ein.",
+            "Werkbank: zwei Kupferblöcke nebeneinander. Kolben zerstören sie. Abschaltbar über tweaks.pads.enableTimedCopperPlates.",
+            "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "common/src/shared/java/com/simplebuilding/gametest/PressurePlateTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:waxed_weathered_copper_pressure_plate",
+      "name": {
+        "en_us": "Waxed Weathered Copper Pressure Plate",
+        "de_de": "Gewachste verwitterte Kupfer-Druckplatte"
+      },
+      "texture": null,
+      "craftedBy": [
+        "simplebuilding:waxed_weathered_copper_pressure_plate_from_honeycomb"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/waxed_weathered_copper_pressure_plate",
+      "drops": [
+        "simplebuilding:waxed_weathered_copper_pressure_plate"
+      ],
+      "note": {
+        "en": {
+          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized. After the player steps off they stay pressed just as long.",
+          "details": [
+            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes, is waxed or is scraped.",
+            "Waxing works like vanilla copper: use honeycomb on a plate (or craft plate + honeycomb) to get the Waxed Copper Pressure Plate of the same stage, which no longer oxidizes; an axe scrapes the wax off first. Waxed plates look like their unwaxed stage.",
+            "Like vanilla pressure plates they visibly sink in while pressed.",
+            "Crafting: two copper blocks side by side. Pistons destroy them. Can be switched off with tweaks.pads.enableTimedCopperPlates.",
+            "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
+          ]
+        },
+        "de": {
+          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert. Nach dem Heruntergehen bleiben sie genauso lange gedrückt.",
+          "details": [
+            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren, Wachsen und Abkratzen erhalten.",
+            "Wachsen wie bei Vanilla-Kupfer: Honigwabe auf die Platte (oder Platte + Honigwabe in der Werkbank) ergibt die Gewachste Kupfer-Druckplatte derselben Stufe, die nicht mehr oxidiert; eine Axt kratzt zuerst das Wachs ab. Gewachste Platten sehen aus wie ihre ungewachste Stufe.",
+            "Wie Vanilla-Druckplatten sinken sie gedrückt sichtbar ein.",
+            "Werkbank: zwei Kupferblöcke nebeneinander. Kolben zerstören sie. Abschaltbar über tweaks.pads.enableTimedCopperPlates.",
+            "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "common/src/shared/java/com/simplebuilding/gametest/PressurePlateTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "docs/SIMPLETWEAKS-UEBERNAHME.md",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:weathered_copper_pressure_plate",
+      "name": {
+        "en_us": "Weathered Copper Pressure Plate",
+        "de_de": "Verwitterte Kupfer-Druckplatte"
+      },
+      "texture": "assets/textures/block/weathered_copper_pressure_plate.png",
+      "craftedBy": [],
+      "usedIn": [
+        "simplebuilding:waxed_weathered_copper_pressure_plate_from_honeycomb"
+      ],
+      "trades": [],
+      "lootTable": "simplebuilding:blocks/weathered_copper_pressure_plate",
+      "drops": [
+        "simplebuilding:weathered_copper_pressure_plate"
+      ],
+      "note": {
+        "en": {
+          "summary": "Copper Pressure Plates (from Simple Tweaks) only power after a player has stood on them for a while: 1 s unoxidized, 2 s exposed, 3 s weathered, 4 s oxidized. After the player steps off they stay pressed just as long.",
+          "details": [
+            "They oxidize over time like copper blocks; an axe scrapes one stage off (costs 1 durability). The owner is kept when the plate oxidizes, is waxed or is scraped.",
+            "Waxing works like vanilla copper: use honeycomb on a plate (or craft plate + honeycomb) to get the Waxed Copper Pressure Plate of the same stage, which no longer oxidizes; an axe scrapes the wax off first. Waxed plates look like their unwaxed stage.",
+            "Like vanilla pressure plates they visibly sink in while pressed.",
+            "Crafting: two copper blocks side by side. Pistons destroy them. Can be switched off with tweaks.pads.enableTimedCopperPlates.",
+            "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally."
+          ]
+        },
+        "de": {
+          "summary": "Kupfer-Druckplatten (aus Simple Tweaks) lösen erst aus, wenn ein Spieler eine Weile darauf steht: 1 s unoxidiert, 2 s angelaufen, 3 s verwittert, 4 s oxidiert. Nach dem Heruntergehen bleiben sie genauso lange gedrückt.",
+          "details": [
+            "Sie oxidieren mit der Zeit wie Kupferblöcke; eine Axt kratzt eine Stufe ab (kostet 1 Haltbarkeit). Der Besitzer bleibt beim Oxidieren, Wachsen und Abkratzen erhalten.",
+            "Wachsen wie bei Vanilla-Kupfer: Honigwabe auf die Platte (oder Platte + Honigwabe in der Werkbank) ergibt die Gewachste Kupfer-Druckplatte derselben Stufe, die nicht mehr oxidiert; eine Axt kratzt zuerst das Wachs ab. Gewachste Platten sehen aus wie ihre ungewachste Stufe.",
+            "Wie Vanilla-Druckplatten sinken sie gedrückt sichtbar ein.",
+            "Werkbank: zwei Kupferblöcke nebeneinander. Kolben zerstören sie. Abschaltbar über tweaks.pads.enableTimedCopperPlates.",
+            "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/tweaks/block/CopperPressurePlateBlock.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/block/entity/CopperPressurePlateBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
+          "common/src/shared/java/com/simplebuilding/gametest/PressurePlateTests.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "docs/SIMPLETWEAKS-UEBERNAHME.md",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
@@ -22597,7 +22837,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_nugget"
       ],
       "pattern": [
-        "N N",
+        "NNN",
         "NRN",
         "NEN"
       ],
@@ -30903,14 +31143,14 @@ window.WIKI_DATA = {
       "ingredients": [
         "minecraft:amethyst_shard",
         "minecraft:compass",
-        "minecraft:copper_ingot",
+        "minecraft:copper_nugget",
         "minecraft:quartz",
         "simplebuilding:copper_core"
       ],
       "pattern": [
         "QAQ",
-        "OCO",
-        " K "
+        "NCN",
+        "NKN"
       ],
       "key": {
         "A": [
@@ -30922,13 +31162,125 @@ window.WIKI_DATA = {
         "K": [
           "simplebuilding:copper_core"
         ],
-        "O": [
-          "minecraft:copper_ingot"
+        "N": [
+          "minecraft:copper_nugget"
         ],
         "Q": [
           "minecraft:quartz"
         ]
       },
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:waxed_copper_pressure_plate_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": "waxed_copper_pressure_plate",
+      "result": {
+        "id": "simplebuilding:waxed_copper_pressure_plate",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/waxed_copper_pressure_plate_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simplebuilding:copper_pressure_plate"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:copper_pressure_plate"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:waxed_exposed_copper_pressure_plate_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": "waxed_exposed_copper_pressure_plate",
+      "result": {
+        "id": "simplebuilding:waxed_exposed_copper_pressure_plate",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/waxed_exposed_copper_pressure_plate_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simplebuilding:exposed_copper_pressure_plate"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:exposed_copper_pressure_plate"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:waxed_oxidized_copper_pressure_plate_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": "waxed_oxidized_copper_pressure_plate",
+      "result": {
+        "id": "simplebuilding:waxed_oxidized_copper_pressure_plate",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/waxed_oxidized_copper_pressure_plate_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simplebuilding:oxidized_copper_pressure_plate"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:oxidized_copper_pressure_plate"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:waxed_weathered_copper_pressure_plate_from_honeycomb",
+      "type": "minecraft:crafting_shapeless",
+      "category": "redstone",
+      "group": "waxed_weathered_copper_pressure_plate",
+      "result": {
+        "id": "simplebuilding:waxed_weathered_copper_pressure_plate",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/waxed_weathered_copper_pressure_plate_from_honeycomb.json",
+      "ingredients": [
+        "minecraft:honeycomb",
+        "simplebuilding:weathered_copper_pressure_plate"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:weathered_copper_pressure_plate"
+        ],
+        [
+          "minecraft:honeycomb"
+        ]
+      ],
       "lines": [
         "1.21.11",
         "26.2",
@@ -32839,6 +33191,78 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/suspended_sand.json"
+    },
+    {
+      "id": "simplebuilding:blocks/waxed_copper_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:waxed_copper_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/waxed_copper_pressure_plate.json"
+    },
+    {
+      "id": "simplebuilding:blocks/waxed_exposed_copper_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:waxed_exposed_copper_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/waxed_exposed_copper_pressure_plate.json"
+    },
+    {
+      "id": "simplebuilding:blocks/waxed_oxidized_copper_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:waxed_oxidized_copper_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/waxed_oxidized_copper_pressure_plate.json"
+    },
+    {
+      "id": "simplebuilding:blocks/waxed_weathered_copper_pressure_plate",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:waxed_weathered_copper_pressure_plate"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/waxed_weathered_copper_pressure_plate.json"
     },
     {
       "id": "simplebuilding:blocks/weathered_copper_pressure_plate",
@@ -47092,9 +47516,9 @@ window.WIKI_DATA = {
   },
   "counts": {
     "items": 166,
-    "blocks": 111,
-    "recipes": 345,
-    "lootTables": 108,
+    "blocks": 115,
+    "recipes": 349,
+    "lootTables": 112,
     "trades": 21,
     "enchantments": 19,
     "tags": 27,

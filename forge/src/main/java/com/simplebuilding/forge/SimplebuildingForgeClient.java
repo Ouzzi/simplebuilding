@@ -149,6 +149,7 @@ public final class SimplebuildingForgeClient {
     public static void onRegisterTooltips(RegisterClientTooltipComponentFactoriesEvent event) {
         event.register(ReinforcedBundleTooltipData.class, ReinforcedBundleTooltips::create);
         event.register(com.simplebuilding.items.tooltip.BlueprintTooltipData.class, com.simplebuilding.client.blueprint.BlueprintTooltip::create);
+        event.register(com.simplebuilding.items.tooltip.BackpackTooltipData.class, com.simplebuilding.client.gui.tooltip.BackpackTooltip::create);
     }
     }
 }

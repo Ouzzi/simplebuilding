@@ -7,7 +7,7 @@
     "R": "minecraft:recovery_compass"
   },
   "pattern": [
-    "N N",
+    "NNN",
     "NRN",
     "NEN"
   ],
