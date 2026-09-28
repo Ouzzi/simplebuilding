@@ -270,8 +270,9 @@ public final class TestCentreTests {
                 continue;
             }
             TestCentreKits.Kit kit = plan.kits().get(id);
-            // "unsorted" und "gallery" duerfen leer sein (dann ohne Knopf).
-            boolean mayBeEmpty = id.equals("unsorted") || id.equals("gallery");
+            // "unsorted", "gallery" und "devices" duerfen leer sein (dann ohne Knopf): "devices" zeigt nur
+            // Tab-Zeilen ohne eigene Station und ist leer, solange jede Zeile eine hat.
+            boolean mayBeEmpty = id.equals("unsorted") || id.equals("gallery") || id.equals("devices");
             if (kit == null) {
                 if (!mayBeEmpty) {
                     stations.add(id + " has no kit");
