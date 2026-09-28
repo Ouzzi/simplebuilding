@@ -18,6 +18,8 @@ public class ModTags {
         public static final TagKey<Item> CONSTRUCTORS_TOUCH_ENCHANTABLE = createTag("constructors_touch_enchantable");
         /** Die vier Rucksaecke. */
         public static final TagKey<Item> BACKPACKS = createTag("backpacks");
+        /** Die acht Vanilla-Kupfertruhen - Zutat der Verstaerkten Truhe (Vanilla hat keinen Item-Tag dafuer). */
+        public static final TagKey<Item> COPPER_CHESTS = createTag("copper_chests");
         /**
          * supported_items von Tiefe Taschen und Trichter: {@code #bundle_enchantable} plus
          * {@code #backpacks}. Eigene Tags statt die Rucksaecke in {@code bundle_enchantable} zu legen,

@@ -62,12 +62,15 @@ public final class InWorldExportTests {
                     + "x" + step.get("nuggetCount").getAsInt()
                     + "/" + step.get("damagePerHit").getAsInt() + "per" + "/" + step.get("totalDamage").getAsInt());
         }
-        String expected = "[netherite_blast_furnace>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
+        String expected = "[minecraft:copper_chest>copper_sledgehammer/cracked_diamondx1/2per/10, "
+                + "netherite_blast_furnace>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
+                + "netherite_chest>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
                 + "netherite_furnace>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
                 + "netherite_hopper>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
                 + "netherite_piston>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
                 + "netherite_smoker>netherite_sledgehammer/enderite_nuggetx1/10per/50, "
                 + "reinforced_blast_furnace>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
+                + "reinforced_chest>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
                 + "reinforced_furnace>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
                 + "reinforced_hopper>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
                 + "reinforced_piston>diamond_sledgehammer/netherite_nuggetx1/4per/20, "

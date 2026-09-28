@@ -462,6 +462,11 @@ public final class TestCentreSections {
             if (upgrade == null || upgrade.from() != block) {
                 continue;
             }
+            // Von den acht Kupfertruhen steht nur die unverwitterte an der Station (alle werden gleich aufgewertet).
+            net.minecraft.resources.Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
+            if (!"simplebuilding".equals(blockId.getNamespace()) && !blockId.getPath().equals("copper_chest")) {
+                continue;
+            }
             c.place(x, 0, 2, facing(upgrade.from().defaultBlockState(), Direction.NORTH));
             c.wallFrame(x, 1, wallZ, new ItemStack(upgrade.nugget()));
             Item needed = null;

@@ -1,0 +1,40 @@
+{
+  "parent": "simplebuilding:building/root",
+  "criteria": {
+    "quartz_checker": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:purpur_quartz_checker",
+              "simplebuilding:lapis_quartz_checker",
+              "simplebuilding:blackstone_quartz_checker",
+              "simplebuilding:resin_quartz_checker",
+              "simplebuilding:astralit_quartz_checker",
+              "simplebuilding:nihilith_quartz_checker",
+              "simplebuilding:ender_quartz_checker"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.building.checkmate.description"
+    },
+    "icon": {
+      "id": "simplebuilding:purpur_quartz_checker"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.building.checkmate.title"
+    }
+  },
+  "requirements": [
+    [
+      "quartz_checker"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

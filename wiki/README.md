@@ -58,7 +58,7 @@ Das ist der Kern des Aufbaus, deshalb ausführlich.
 | Verzauberungen | `src/main/generated/data/simplebuilding/enchantment/*.json` |
 | Fortschritte (Advancement-Baum mit Titeln, Hinweisen, Symbolen, Eltern) | `src/main/generated/data/simplebuilding/advancement/**` ohne `recipes/` und die geheime Kette `easter/` – vom Datagen-Provider `ModAdvancementProvider` geschrieben |
 | Tags | `.../tags/**` (generiert und Ressourcen) |
-| Konfiguration | `common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java` |
+| Konfiguration | `common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java` + `tweaks/TweaksConfig.java` (alle Optionen als Punkt-Pfad, Reiter, Namen/Tooltips en+de aus den Sprachdateien) |
 | Haltbarkeit, Stapelgröße, Verzauberbarkeit, Angriffswerte, Zauberstab-Durchmesser, Meißel-Abklingzeit | `src/main/generated/wiki/items.json` – vom Datagen-Provider `WikiDataProvider` aus der **Item-Registry** geschrieben |
 | Umwandlungen in der Welt (Maschinen-Aufwertung, Umformen, Diamantblock, Meißel, Schere auf Wolle, Besatzvorlage im Rahmen, Waschen im Kessel) | `src/main/generated/wiki/inworld.json` – vom Datagen-Provider über `InWorldTransformations` aus denselben Tabellen und Konstanten geschrieben, die das Spiel benutzt |
 | Umwandlungen ohne Tabelle im Code (derzeit keine) und die Prosa je Art | `wiki/manual.json` → `inWorld` |

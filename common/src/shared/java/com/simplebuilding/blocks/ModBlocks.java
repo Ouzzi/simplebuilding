@@ -93,6 +93,16 @@ public class ModBlocks {
     public static final Block ENDERITE_SMOKER = registerBlock("enderite_smoker", Blocks.SMOKER, s -> new ModSmokerBlock(s.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK)));
     public static final Block ENDERITE_BLAST_FURNACE = registerBlock("enderite_blast_furnace", Blocks.BLAST_FURNACE, s -> new ModBlastFurnaceBlock(s.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK)));
 
+    // Truhen-Stufen ueber der Vanilla-Kupfertruhe (siehe ChestTier, TieredChests). Haerte wie die
+    // Maschinen derselben Stufe, abbaubar mit der Spitzhacke wie die Kupfertruhe (Werkzeug noetig).
+    public static final Block REINFORCED_CHEST = registerBlock("reinforced_chest", Blocks.IRON_BLOCK, s -> new TieredChestBlock(ChestTier.REINFORCED,
+            net.minecraft.sounds.SoundEvents.COPPER_CHEST_OPEN, net.minecraft.sounds.SoundEvents.COPPER_CHEST_CLOSE,
+            s.strength(3.5F, 6.0F).sound(SoundType.COPPER).mapColor(MapColor.METAL)));
+    public static final Block NETHERITE_CHEST = registerBlock("netherite_chest", Blocks.IRON_BLOCK, s -> new TieredChestBlock(ChestTier.NETHERITE,
+            s.strength(5.0F, 1200.0F).sound(SoundType.NETHERITE_BLOCK).mapColor(MapColor.COLOR_BLACK)));
+    public static final Block ENDERITE_CHEST = registerBlock("enderite_chest", Blocks.IRON_BLOCK, s -> new TieredChestBlock(ChestTier.ENDERITE,
+            s.strength(6.0F, 1500.0F).sound(SoundType.NETHERITE_BLOCK).mapColor(MapColor.COLOR_PURPLE)));
+
     // --- 5. RUCKSAECKE (abgestellt) ---
     // Aus der Glas-Vorlage (keine Verdeckung, kein Ersticken, kein Redstone-Leiter - passend zur
     // kleinen Form), dann Wolle-Klang, weich wie Wolle und von Kolben zerstoert statt geschoben.

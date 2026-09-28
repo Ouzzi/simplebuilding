@@ -210,20 +210,20 @@ public final class SledgehammerUpgradeTests {
                         "the first netherite upgrade did not earn exactly 'Forged in Place'");
             }
 
-            // A worn netherite breaker becomes a fresh enderite piston: the wear belongs to the
-            // netherite budget and does not carry over.
+            // A damaged netherite breaker becomes an enderite piston with full durability: the
+            // damage belongs to the netherite tier and does not carry over.
             BlockState beforeEnderite = helper.getBlockState(pos);
-            if (beforeEnderite.hasProperty(NetheriteBreakerPistonBlock.WEAR)) {
-                helper.setBlock(pos, beforeEnderite.setValue(NetheriteBreakerPistonBlock.WEAR, 5));
+            if (beforeEnderite.getBlock() instanceof NetheriteBreakerPistonBlock) {
+                helper.setBlock(pos, NetheriteBreakerPistonBlock.withDamage(beforeEnderite, 150));
             }
             hammerThrough(helper, player, pos, family.netherite(), family.enderite(),
                     ModItems.NETHERITE_SLEDGEHAMMER, ModItems.ENDERITE_NUGGET, ENDERITE_STEP_WEAR,
                     "the netherite " + family.label());
             assertBricksKept(helper, pos, "the " + family.label() + " after the enderite step");
             helper.assertTrue(done(player, endOfLine), "an enderite upgrade did not earn 'End of the Line'");
-            if (beforeEnderite.hasProperty(NetheriteBreakerPistonBlock.WEAR)) {
-                helper.assertValueEqual(NetheriteBreakerPistonBlock.wearOf(helper.getBlockState(pos)), 0,
-                        "wear stage of the enderite piston hammered from a netherite piston at stage 5");
+            if (beforeEnderite.getBlock() instanceof NetheriteBreakerPistonBlock) {
+                helper.assertValueEqual(NetheriteBreakerPistonBlock.damageOf(helper.getBlockState(pos)), 0,
+                        "damage of the enderite piston hammered from a netherite piston with 150 damage");
             }
         }
 
@@ -934,7 +934,7 @@ public final class SledgehammerUpgradeTests {
                 + "not the next tier");
         for (Property<?> property : before.getProperties()) {
             if (!after.hasProperty(property) || property == NetheriteBreakerPistonBlock.WEAR) {
-                continue; // der Verschleiss beginnt nach der Aufwertung bei 0 (eigene Pruefung oben)
+                continue; // die Haltbarkeit ist nach der Aufwertung voll (eigene Pruefung oben)
             }
             helper.assertValueEqual(after.getValue(property), before.getValue(property),
                     what + ": block state property '" + property.getName() + "' after the upgrade");

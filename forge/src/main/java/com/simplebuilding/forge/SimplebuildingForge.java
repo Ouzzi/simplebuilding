@@ -37,6 +37,8 @@ public final class SimplebuildingForge {
         BusGroup modBus = context.getModBusGroup();
         ModEnvironment.setModLoadedCheck(ModList::isLoaded);
         ModEnvironment.setDevelopmentEnvironment(!net.minecraftforge.fml.loading.FMLEnvironment.production);
+        // FTB Quests (optional): copy the SimpleBuilding chapters into its quest book once.
+        com.simplebuilding.compat.FtbQuestsDefaults.installIfPresent(net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get());
         ForgeModRegistries.register(modBus);
         RegisterEvent.getBus(modBus).addListener(ForgeRegistryBootstrap::onRegister);
         FMLCommonSetupEvent.getBus(modBus).addListener(this::commonSetup);

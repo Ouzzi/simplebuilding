@@ -73,6 +73,9 @@ public class SimplebuildingClient implements ClientModInitializer {
         // Abgestelltes Buendel: das gezeigte Item schwebt darueber, solange man schleichend hinschaut.
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_BUNDLE_BE, com.simplebuilding.client.render.PlacedBundleRenderer::new);
+        // Mod-Truhen: Vanillas Truhenmodell mit den Texturen der Stufe.
+        net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
+                com.simplebuilding.blocks.entity.ModBlockEntities.TIERED_CHEST_BE, com.simplebuilding.client.render.TieredChestRenderer::new);
         // Der getragene Rucksack bzw. Koecher auf dem Ruecken - auf jedem Avatar-Renderer (beide Spielermodelle, Mannequins).
         // Abgestellter gefaerbter Rucksack: Leder-Ebene in der Farbe der Block-Entity.
         net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(
@@ -163,6 +166,7 @@ public class SimplebuildingClient implements ClientModInitializer {
 
         registerDoubleJumpClient();
         com.simplebuilding.client.blueprint.BlueprintClient.init();
+        com.simplebuilding.client.guide.GuideBookClient.init();
 
         // --- World Render ---
         // Seit MC 26.2 wird Geometrie nicht mehr direkt gezeichnet, sondern über den
@@ -196,6 +200,7 @@ public class SimplebuildingClient implements ClientModInitializer {
 
         MenuScreens.register(ModScreenHandlers.NETHERITE_HOPPER_SCREEN_HANDLER, NetheriteHopperScreen::new);
         MenuScreens.register(ModScreenHandlers.BACKPACK_MENU, BackpackScreen::new);
+        MenuScreens.register(ModScreenHandlers.TIERED_CHEST_MENU, com.simplebuilding.client.gui.TieredChestScreen::new);
 
         // --- NETZWERK REGISTRIERUNG CLIENT-SEITE ---
         registerClientReceivers();
@@ -211,6 +216,9 @@ public class SimplebuildingClient implements ClientModInitializer {
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "visible_trim_icons"),
                 TrimIconsModelProperty.PROPERTY_TYPE
         );
+        // Blaupause: normale, bearbeitete oder signierte Textur (assets/simplebuilding/items/blueprint.json).
+        SelectItemModelProperties.ID_MAPPER.put(com.simplebuilding.client.property.BlueprintStateModelProperty.ID,
+                com.simplebuilding.client.property.BlueprintStateModelProperty.PROPERTY_TYPE);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player != null) {

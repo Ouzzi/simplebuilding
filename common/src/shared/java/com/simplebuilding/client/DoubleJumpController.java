@@ -70,11 +70,10 @@ public final class DoubleJumpController {
 
     /** Level 1 = full cooldown; level 2+ = half (still notable). */
     private static int cooldownTicksForLevel(int level) {
-        int base = Math.max(0, Simplebuilding.getConfig().airJumpCooldownTicks);
-        if (level >= 2) {
-            return Math.max(1, base / 2);
-        }
-        return base;
+        // Der Wert des Servers (TweaksConfigPayload), damit Leiste und Server-Waechter uebereinstimmen;
+        // ohne Server-Meldung die eigene Config (effectiveValues faellt darauf zurueck).
+        return com.simplebuilding.util.AirJumpGuard.cooldownTicks(level,
+                com.simplebuilding.tweaks.SimpleTweaks.effectiveValues().airJumpCooldownTicks());
     }
 
     public static int getDoubleJumpLevel(Player player) {

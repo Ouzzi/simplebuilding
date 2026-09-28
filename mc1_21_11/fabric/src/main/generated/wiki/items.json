@@ -35,6 +35,7 @@
     "simplebuilding:enderite_backpack",
     "simplebuilding:enderite_blast_furnace",
     "simplebuilding:enderite_block",
+    "simplebuilding:enderite_chest",
     "simplebuilding:enderite_chunk_loader",
     "simplebuilding:enderite_elytra_pad",
     "simplebuilding:enderite_flypad",
@@ -56,6 +57,7 @@
     "simplebuilding:levitating_sand",
     "simplebuilding:netherite_backpack",
     "simplebuilding:netherite_blast_furnace",
+    "simplebuilding:netherite_chest",
     "simplebuilding:netherite_chunk_loader",
     "simplebuilding:netherite_elytra_pad",
     "simplebuilding:netherite_flypad",
@@ -97,6 +99,7 @@
     "simplebuilding:purpur_quartz_checker",
     "simplebuilding:reinforced_backpack",
     "simplebuilding:reinforced_blast_furnace",
+    "simplebuilding:reinforced_chest",
     "simplebuilding:reinforced_elytra_pad",
     "simplebuilding:reinforced_flypad",
     "simplebuilding:reinforced_furnace",
@@ -205,7 +208,7 @@
     },
     {
       "id": "simplebuilding:copper_core",
-      "maxStackSize": 16
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:copper_pressure_plate"
@@ -253,7 +256,7 @@
     },
     {
       "id": "simplebuilding:diamond_core",
-      "maxStackSize": 16
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:diamond_pebble"
@@ -369,6 +372,9 @@
       "id": "simplebuilding:enderite_carrot"
     },
     {
+      "id": "simplebuilding:enderite_chest"
+    },
+    {
       "durability": 672,
       "enchantability": 18,
       "id": "simplebuilding:enderite_chestplate",
@@ -388,7 +394,7 @@
     },
     {
       "id": "simplebuilding:enderite_core",
-      "maxStackSize": 16
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:enderite_elytra_pad",
@@ -533,7 +539,7 @@
     },
     {
       "id": "simplebuilding:gold_core",
-      "maxStackSize": 16
+      "maxStackSize": 1
     },
     {
       "attackDamage": 6.0,
@@ -604,7 +610,7 @@
     },
     {
       "id": "simplebuilding:iron_core",
-      "maxStackSize": 16
+      "maxStackSize": 1
     },
     {
       "attackDamage": 9.0,
@@ -673,6 +679,9 @@
       "id": "simplebuilding:netherite_carrot"
     },
     {
+      "id": "simplebuilding:netherite_chest"
+    },
+    {
       "cooldownTicks": 5,
       "dedicatedSpatula": false,
       "durability": 512,
@@ -686,7 +695,7 @@
     },
     {
       "id": "simplebuilding:netherite_core",
-      "maxStackSize": 16
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:netherite_elytra_pad",
@@ -948,6 +957,9 @@
       "bundleCapacityItems": 96,
       "id": "simplebuilding:reinforced_bundle",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:reinforced_chest"
     },
     {
       "id": "simplebuilding:reinforced_elytra_pad",

@@ -7,6 +7,13 @@
 > klartext, anklickbares Inhaltsverzeichnis, en + de. Code: `com.simplebuilding.guide.GuideBooks`, Tests:
 > `GuideBookTests`, Seitenbudget: `python tools/guide_book_pages.py`, Wiki-Notiz `guide_book*`. Das Folgende bleibt
 > als Ideensammlung für eine spätere Rätsel-Fassung stehen.
+>
+> **2026-09-28, eigener Buchbildschirm** (Vorbild: Eidolons Codex): Rechtsklick öffnet
+> `client.guide.GuideBookScreen` statt Vanillas Buchbildschirm - Doppelseite im blauen Einband
+> (`textures/gui/guide_book/book.png`), Inhalt mit Kapitelsymbolen, Kapitel ab neuer Doppelseite (links Text + Items,
+> rechts Rezeptkarten aus dem Rezeptmanager), Lesezeichen je Buch (gesperrt ohne Buch im Inventar), Merken der Seite.
+> Symbole/Rezepte je Kapitel: `guide.GuideContent`, geprüft von `GuideBookTests#everyGuideChapterIconAndRecipeResolves`.
+> Die Vanilla-Seiten bleiben am Item fürs Lesepult (dort weiter die schlichte Textfassung).
 
 Stand 2026-09-24. **Nur Konzept, kein Code.** Grundlage: der Buch-Entwurf dieser Sitzung samt
 Gegenprüfung. Alle Fakten wurden gegen den Code, die generierten Daten und die Vanilla-Jars beider

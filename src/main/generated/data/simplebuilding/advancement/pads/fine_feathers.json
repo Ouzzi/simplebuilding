@@ -1,0 +1,32 @@
+{
+  "parent": "simplebuilding:pads/wings_on_loan",
+  "criteria": {
+    "fine_elytra_pad": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:fine_elytra_pad"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.pads.fine_feathers.description"
+    },
+    "icon": {
+      "id": "simplebuilding:fine_elytra_pad"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.pads.fine_feathers.title"
+    }
+  },
+  "requirements": [
+    [
+      "fine_elytra_pad"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

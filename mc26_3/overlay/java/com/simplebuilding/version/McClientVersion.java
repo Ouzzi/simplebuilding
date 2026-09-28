@@ -39,4 +39,18 @@ public final class McClientVersion {
                                              RenderType renderType, int lightCoords, int overlayCoords, int tint) {
         collector.submitModelPart(part, poseStack, renderType, lightCoords, overlayCoords, null, tint);
     }
+
+    /** Submits a chest model with its break overlay the way 26.3's ChestRenderer does (see the 26.2 twin). */
+    public static void submitChestModel(SubmitNodeCollector collector, net.minecraft.client.model.object.chest.ChestModel model,
+                                        float open, PoseStack poseStack, int lightCoords,
+                                        net.minecraft.client.resources.model.sprite.SpriteId sprite,
+                                        net.minecraft.client.resources.model.sprite.SpriteGetter sprites,
+                                        net.minecraft.client.renderer.feature.ModelFeatureRenderer.@org.jetbrains.annotations.Nullable CrumblingOverlay crumbling) {
+        collector.submitModel(model, open, poseStack, lightCoords, net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY, -1,
+                sprite, sprites, 0);
+        if (crumbling != null) {
+            collector.order(1).submitCrumblingOverlay(model, open, poseStack, sprite.renderType(model.renderType()), lightCoords,
+                    net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY, -1, crumbling);
+        }
+    }
 }

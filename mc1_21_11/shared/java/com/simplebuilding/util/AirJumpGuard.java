@@ -65,7 +65,12 @@ public final class AirJumpGuard {
 
     /** The same cooldown the client waits, see {@code DoubleJumpController#cooldownTicksForLevel}. */
     public static int cooldownTicks(int level) {
-        int base = Math.max(0, Simplebuilding.getConfig().airJumpCooldownTicks);
-        return level >= 2 ? Math.max(1, base / 2) : base;
+        return cooldownTicks(level, Simplebuilding.getConfig().airJumpCooldownTicks);
+    }
+
+    /** Level 1 = {@code base}, level 2+ = half of it (at least 1 tick); negative bases count as 0. */
+    public static int cooldownTicks(int level, int base) {
+        int clamped = Math.max(0, base);
+        return level >= 2 ? Math.max(1, clamped / 2) : clamped;
     }
 }

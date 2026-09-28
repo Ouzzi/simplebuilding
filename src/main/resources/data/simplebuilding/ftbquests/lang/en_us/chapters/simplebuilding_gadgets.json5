@@ -1,0 +1,87 @@
+{
+	"chapter.308403B4A7403847.title": "{\"translate\": \"quests.simplebuilding.gadgets.title\"}",
+	"chapter.308403B4A7403847.chapter_subtitle": [
+		"{\"translate\": \"quests.simplebuilding.gadgets.subtitle\"}"
+	],
+	"quest.4C78B432B0A72429.title": "{\"translate\": \"advancements.simplebuilding.tweaks.root.title\"}",
+	"quest.4C78B432B0A72429.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.tweaks.root.description\"}"
+	],
+	"quest.4AD8A702F2D985CE.title": "{\"translate\": \"quests.simplebuilding.gadgets.guide.title\"}",
+	"quest.4AD8A702F2D985CE.quest_desc": [
+		"{\"translate\": \"quests.simplebuilding.gadgets.guide.description\"}"
+	],
+	"quest.096F91FF11CEE661.title": "{\"translate\": \"advancements.simplebuilding.pads.copper_plated.title\"}",
+	"quest.096F91FF11CEE661.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.pads.copper_plated.description\"}"
+	],
+	"quest.34347CADC508F678.title": "{\"translate\": \"advancements.simplebuilding.gadgets.speed_reader.title\"}",
+	"quest.34347CADC508F678.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.gadgets.speed_reader.description\"}"
+	],
+	"quest.26CFB89AC8E77540.title": "{\"translate\": \"advancements.simplebuilding.gadgets.attractive_personality.title\"}",
+	"quest.26CFB89AC8E77540.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.gadgets.attractive_personality.description\"}"
+	],
+	"quest.1A252AE1755EAC75.title": "{\"translate\": \"advancements.simplebuilding.gadgets.burning_focus.title\"}",
+	"quest.1A252AE1755EAC75.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.gadgets.burning_focus.description\"}"
+	],
+	"quest.61693D442E70F11C.title": "{\"translate\": \"advancements.simplebuilding.gadgets.ping.title\"}",
+	"quest.61693D442E70F11C.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.gadgets.ping.description\"}",
+		"{\"translate\": \"quests.simplebuilding.gadgets.detector.hint\"}"
+	],
+	"quest.1BBEBBF94C012D0E.title": "{\"translate\": \"advancements.simplebuilding.tweaks.forbidden_fruit.title\"}",
+	"quest.1BBEBBF94C012D0E.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.tweaks.forbidden_fruit.description\"}"
+	],
+	"quest.1C74AF52A4138A61.title": "{\"translate\": \"advancements.simplebuilding.tweaks.crown_jewel.title\"}",
+	"quest.1C74AF52A4138A61.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.tweaks.crown_jewel.description\"}"
+	],
+	"quest.53B75B4689AA212D.title": "{\"translate\": \"advancements.simplebuilding.pads.always_loaded.title\"}",
+	"quest.53B75B4689AA212D.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.pads.always_loaded.description\"}"
+	],
+	"quest.1E6A20BF670EC8F7.title": "{\"translate\": \"advancements.simplebuilding.pads.home_sweet_spawn.title\"}",
+	"quest.1E6A20BF670EC8F7.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.pads.home_sweet_spawn.description\"}"
+	],
+	"quest.4C05E440807CDB86.title": "{\"translate\": \"advancements.simplebuilding.pads.frequent_traveller.title\"}",
+	"quest.4C05E440807CDB86.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.pads.frequent_traveller.description\"}"
+	],
+	"quest.4431B0916A55D63A.title": "{\"translate\": \"advancements.simplebuilding.pads.higher_ground.title\"}",
+	"quest.4431B0916A55D63A.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.pads.higher_ground.description\"}"
+	],
+	"quest.7F329CF5369DFB40.title": "{\"translate\": \"advancements.simplebuilding.pads.wings_on_loan.title\"}",
+	"quest.7F329CF5369DFB40.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.pads.wings_on_loan.description\"}"
+	],
+	"quest.05F7DAC8D4D72DE7.title": "{\"translate\": \"advancements.simplebuilding.pads.fine_feathers.title\"}",
+	"quest.05F7DAC8D4D72DE7.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.pads.fine_feathers.description\"}"
+	],
+	"quest.76E2630E5FC6E10B.title": "{\"translate\": \"advancements.simplebuilding.pads.fly_me_to_the_moon.title\"}",
+	"quest.76E2630E5FC6E10B.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.pads.fly_me_to_the_moon.description\"}"
+	],
+	"quest.178A367C5F1DA46E.title": "{\"translate\": \"advancements.simplebuilding.pads.stellar.title\"}",
+	"quest.178A367C5F1DA46E.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.pads.stellar.description\"}"
+	],
+	"quest.4B0D520EBE5A94DC.title": "{\"translate\": \"advancements.simplebuilding.pads.infusion.title\"}",
+	"quest.4B0D520EBE5A94DC.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.pads.infusion.description\"}"
+	],
+	"quest.37C00FA3BDB204DC.title": "{\"translate\": \"advancements.simplebuilding.enderite.void_feast.title\"}",
+	"quest.37C00FA3BDB204DC.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.enderite.void_feast.description\"}"
+	],
+	"quest.3F8F0638C7430BBA.title": "{\"translate\": \"advancements.simplebuilding.enderite.the_last_bite.title\"}",
+	"quest.3F8F0638C7430BBA.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.enderite.the_last_bite.description\"}"
+	]
+}

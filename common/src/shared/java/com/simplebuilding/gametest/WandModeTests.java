@@ -497,6 +497,127 @@ public final class WandModeTests {
     }
 
     /**
+     * Linear through the server's real click path ({@code ServerPlayerGameMode#useItemOn}, which also
+     * decides that a sneaking player's click skips the block and goes to the item) and the real tick
+     * path ({@code ServerPlayer#doTick} -> {@code Inventory#tick} -> {@code inventoryTick}), with the use
+     * key held the way a player holds it: vanilla repeats a held key every 4 ticks
+     * ({@code Minecraft#startUseItem}, {@code rightClickDelay}), and by then the crosshair rests on the
+     * pillar's first block. The repeat must not restart the build from there.
+     *
+     * <p>Before 2026-09-28 the repeat overwrote the running line: the pillar stopped after two blocks
+     * and a beam grew out of its side towards the player - "Linear does not really work".
+     *
+     * <p><strong>What breaks this test:</strong> letting a click restart a build that is still running,
+     * or a Linear line that does not run through the vanilla click path.
+     */
+    public static void aHeldUseKeyDoesNotRestartTheRunningLinearLine(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        clearRoom(helper);
+        BlockPos anchor = new BlockPos(3, 1, 3);
+        helper.setBlock(anchor, Blocks.STONE);
+        helper.setBlock(anchor.above(5), Blocks.STONE); // the pillar ends below this one: four cells
+        Vec3 feet = helper.absoluteVec(new Vec3(3.5, 1.0, 0.5));
+        player.snapTo(feet.x, feet.y, feet.z, 0.0F, 30.0F);
+        ItemStack wand = wand(helper, ModItems.DIAMOND_BUILDING_WAND, 4, ModEnchantments.LINEAR);
+        stock(player, wand, new ItemStack(Items.GLASS, 64));
+        player.setShiftKeyDown(true);
+
+        InteractionResult first = serverClick(helper, player, anchor, Direction.UP, new Vec3(0.5, 1.0, 0.5));
+        helper.assertTrue(first.consumesAction(), "the sneaking Linear click did not arm through useItemOn, got " + first);
+        for (int tick = 0; tick < 4; tick++) {
+            player.doTick();
+        }
+        helper.assertTrue(helper.getBlockState(anchor.above()).is(Blocks.GLASS), "the line had not started after four ticks");
+        // the held key fires again - at the pillar's first block, the face towards the player
+        serverClick(helper, player, anchor.above(), Direction.NORTH, new Vec3(0.5, 0.5, 0.0));
+        tickUntilIdle(helper, player, wand);
+        player.setShiftKeyDown(false);
+
+        Set<BlockPos> expected = new HashSet<>();
+        for (int dy = 1; dy <= 4; dy++) {
+            expected.add(anchor.above(dy));
+        }
+        helper.assertValueEqual(placedGlass(helper), expected,
+                "the repeated click restarted the running line (pillar cut short, beam out of its side)");
+        helper.succeed();
+    }
+
+    /**
+     * Bridge when the player, standing at the edge, looks across the gap: the crosshair rests on the
+     * far bank (or the bottom of the gap), not on the air, so the click is a block click. With Bridge
+     * and without sneaking such a click builds the bridge - the test centre sign says "look across" -
+     * and the preview shows the bridge. Sneaking, the same click still builds the plane there.
+     *
+     * <p>Before 2026-09-28 the far bank got a plane and the bridge only came from a click into the air.
+     *
+     * <p><strong>What breaks this test:</strong> dropping the Bridge branch from {@code Plan.forClick},
+     * aiming it at blocks before the edge or above the bridge, a preview that disagrees, or a bridge
+     * that also takes a sneaking click.
+     */
+    public static void bridgeAlsoStartsWhenTheClickAimsAcrossTheGap(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper);
+        BlockPos farBank = new BlockPos(6, 1, 3);
+        BlockPos gapFloor = new BlockPos(3, 0, 3);
+        Set<BlockPos> bridge = new HashSet<>();
+        for (int x = 2; x <= 5; x++) {
+            bridge.add(new BlockPos(x, 1, 3));
+        }
+        for (BlockPos target : java.util.List.of(farBank, gapFloor)) {
+            clearRoom(helper);
+            helper.setBlock(new BlockPos(0, 1, 3), Blocks.STONE);
+            helper.setBlock(new BlockPos(1, 1, 3), Blocks.STONE); // the floor: its edge is x = 1
+            helper.setBlock(farBank, Blocks.STONE);
+            helper.setBlock(gapFloor, Blocks.STONE);
+            Vec3 feet = helper.absoluteVec(new Vec3(0.5, 2.0, 3.5));
+            player.snapTo(feet.x, feet.y, feet.z, 270.0F, 20.0F); // facing east, looking a little down
+            ItemStack wand = wand(helper, ModItems.DIAMOND_BUILDING_WAND, 1, ModEnchantments.BRIDGE);
+            stock(player, wand, new ItemStack(Items.GLASS, 64));
+
+            Set<BlockPos> previewed = absoluteToRelative(helper, BuildingWandItem.getPreviewStates(helper.getLevel(), player, wand,
+                    helper.absolutePos(target), Direction.UP, new Vec3(0.5, 1.0, 0.5),
+                    ModItems.DIAMOND_BUILDING_WAND.getWandSquareDiameter()).keySet());
+            InteractionResult used = serverClick(helper, player, target, Direction.UP, new Vec3(0.5, 1.0, 0.5));
+            helper.assertTrue(used.consumesAction(), "the click across the gap at " + target + " was refused: " + used);
+            tickUntilIdle(helper, player, wand);
+            helper.assertValueEqual(placedGlass(helper), bridge,
+                    "a click across the gap at " + target + " did not build the bridge x=2..5 (a plane there instead?)");
+            helper.assertValueEqual(previewed, bridge, "the preview for the click at " + target + " does not show the bridge");
+        }
+
+        // --- sneaking, the far bank gets its plane as before ---
+        clearRoom(helper);
+        helper.setBlock(new BlockPos(0, 1, 3), Blocks.STONE);
+        helper.setBlock(new BlockPos(1, 1, 3), Blocks.STONE);
+        helper.setBlock(farBank, Blocks.STONE);
+        ItemStack wand = wand(helper, ModItems.DIAMOND_BUILDING_WAND, 1, ModEnchantments.BRIDGE);
+        stock(player, wand, new ItemStack(Items.GLASS, 64));
+        player.setShiftKeyDown(true);
+        serverClick(helper, player, farBank, Direction.UP, new Vec3(0.5, 1.0, 0.5));
+        tickUntilIdle(helper, player, wand);
+        player.setShiftKeyDown(false);
+        helper.assertTrue(helper.getBlockState(farBank.above()).is(Blocks.GLASS), "sneaking, the far bank did not get its plane");
+        helper.assertTrue(helper.getBlockState(new BlockPos(3, 1, 3)).isAir(), "sneaking, the click still built the bridge");
+        helper.succeed();
+    }
+
+    /** A block click the way the server handles the packet's click: {@code ServerPlayerGameMode#useItemOn}. */
+    private static InteractionResult serverClick(GameTestHelper helper, ServerPlayer player, BlockPos relative, Direction face, Vec3 hitRel) {
+        BlockPos pos = helper.absolutePos(relative);
+        BlockHitResult hit = new BlockHitResult(new Vec3(pos.getX() + hitRel.x, pos.getY() + hitRel.y, pos.getZ() + hitRel.z), face, pos, false);
+        return player.gameMode.useItemOn(player, helper.getLevel(), player.getMainHandItem(), InteractionHand.MAIN_HAND, hit);
+    }
+
+    /** Ticks the player the way the server does ({@code doTick} runs the inventory) until the wand is idle. */
+    private static void tickUntilIdle(GameTestHelper helper, ServerPlayer player, ItemStack wand) {
+        int ticks = 0;
+        while (wand.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getBooleanOr("Active", false) && ticks < TICK_CAP) {
+            player.doTick();
+            ticks++;
+        }
+        helper.assertTrue(ticks < TICK_CAP, "the wand never finished within " + TICK_CAP + " ticks");
+    }
+
+    /**
      * Roof mode with the enderite wand exactly as the test centre kit hands it out (every enchantment
      * the wand can carry at once - Color Palette and Master Builder among them), stairs and slabs in
      * the hotbar because the off hand holds the octant. The roof is the same as with a bare wand, and

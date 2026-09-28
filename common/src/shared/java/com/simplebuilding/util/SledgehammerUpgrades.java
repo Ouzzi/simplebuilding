@@ -48,7 +48,11 @@ import org.jetbrains.annotations.Nullable;
  *   <li>Netherit -&gt; Enderit mit einem Enderit-Nugget, ab einem Netherit-Vorschlaghammer,
  *       {@value #ENDERITE_DAMAGE_PER_HIT} Haltbarkeit je Schlag.</li>
  * </ul>
- * Aufwertbar sind Trichter, Ofen, Raeucherofen, Schmelzofen und der (nicht klebrige) Kolben.
+ * Aufwertbar sind Trichter, Ofen, Raeucherofen, Schmelzofen, der (nicht klebrige) Kolben und die
+ * Truhen: jede Vanilla-Kupfertruhe wird mit einem Rissigen Diamanten (jeder Vorschlaghammer,
+ * {@value #REINFORCED_DAMAGE_PER_HIT} je Schlag) zur Verstaerkten Truhe, die dann wie die Maschinen
+ * weiter zu Netherit und Enderit. Truhen behalten dabei ihren Inhalt ({@link TieredChests}); eine
+ * Doppeltruhe wird mit beiden Haelften zugleich umgebaut und braucht zwei Stueck Material.
  *
  * <p><b>Ablauf.</b> {@link #tryBegin} legt je Spieler und Seite einen Auftrag an und startet eine
  * Item-Benutzung von genau {@value #UPGRADE_TICKS} Ticks. {@link #tick} prueft jeden Tick, ob der
@@ -90,6 +94,8 @@ public final class SledgehammerUpgrades {
     public static final int UPGRADE_TICKS = 100;
     /** Ein Hammerschlag pro Sekunde. */
     public static final int HIT_INTERVAL = 20;
+    /** Kupfertruhe -> Verstaerkte Truhe mit einem Rissigen Diamanten: jeder Vorschlaghammer genuegt. */
+    public static final int REINFORCED_DAMAGE_PER_HIT = 2;
     public static final int NETHERITE_DAMAGE_PER_HIT = 4;
     public static final int ENDERITE_DAMAGE_PER_HIT = 10;
     /**
@@ -113,7 +119,12 @@ public final class SledgehammerUpgrades {
     public static final int RANK_ENDERITE = 3;
 
     /** Eine Aufwertungsstufe: von welchem Block zu welchem, mit welchem Nugget und welchem Hammer. */
-    public record Upgrade(Block from, Block to, Item nugget, int minHammerRank, int damagePerHit, boolean toEnderite) {
+    public record Upgrade(Block from, Block to, Item nugget, int minHammerRank, int damagePerHit, boolean toEnderite,
+                          boolean toReinforced) {
+        /** Ob diese Stufe eine Truhe umbaut (Doppeltruhen: beide Haelften, ein Material je Haelfte). */
+        public boolean isChest() {
+            return to instanceof net.minecraft.world.level.block.ChestBlock;
+        }
     }
 
     /** Fuenf Schlaege je Aufwertung; der fuenfte ist der Umbau. */
@@ -172,17 +183,27 @@ public final class SledgehammerUpgrades {
             toEnderite(map, ModBlocks.NETHERITE_SMOKER, ModBlocks.ENDERITE_SMOKER);
             toEnderite(map, ModBlocks.NETHERITE_BLAST_FURNACE, ModBlocks.ENDERITE_BLAST_FURNACE);
             toEnderite(map, ModBlocks.NETHERITE_PISTON, ModBlocks.ENDERITE_PISTON);
+            // Truhen: jede der acht Vanilla-Kupfertruhen (vier Oxidationsstufen, gewachst oder nicht)
+            // -> Verstaerkt -> Netherit -> Enderit. Der Umbau behaelt den Inhalt (TieredChests).
+            for (Block copperChest : net.minecraft.core.registries.BuiltInRegistries.BLOCK) {
+                if (copperChest instanceof net.minecraft.world.level.block.CopperChestBlock) {
+                    map.put(copperChest, new Upgrade(copperChest, ModBlocks.REINFORCED_CHEST, ModItems.CRACKED_DIAMOND,
+                            0, REINFORCED_DAMAGE_PER_HIT, false, true));
+                }
+            }
+            toNetherite(map, ModBlocks.REINFORCED_CHEST, ModBlocks.NETHERITE_CHEST);
+            toEnderite(map, ModBlocks.NETHERITE_CHEST, ModBlocks.ENDERITE_CHEST);
             table = map;
         }
         return table;
     }
 
     private static void toNetherite(Map<Block, Upgrade> map, Block from, Block to) {
-        map.put(from, new Upgrade(from, to, ModItems.NETHERITE_NUGGET, RANK_DIAMOND, NETHERITE_DAMAGE_PER_HIT, false));
+        map.put(from, new Upgrade(from, to, ModItems.NETHERITE_NUGGET, RANK_DIAMOND, NETHERITE_DAMAGE_PER_HIT, false, false));
     }
 
     private static void toEnderite(Map<Block, Upgrade> map, Block from, Block to) {
-        map.put(from, new Upgrade(from, to, ModItems.ENDERITE_NUGGET, RANK_NETHERITE, ENDERITE_DAMAGE_PER_HIT, true));
+        map.put(from, new Upgrade(from, to, ModItems.ENDERITE_NUGGET, RANK_NETHERITE, ENDERITE_DAMAGE_PER_HIT, true, false));
     }
 
     /** Die Aufwertung, die von {@code block} ausgeht, oder null (keine Maschine, oder schon Enderit). */
@@ -191,7 +212,7 @@ public final class SledgehammerUpgrades {
     }
 
     public static boolean isUpgradeNugget(ItemStack stack) {
-        return stack.is(ModItems.NETHERITE_NUGGET) || stack.is(ModItems.ENDERITE_NUGGET);
+        return stack.is(ModItems.NETHERITE_NUGGET) || stack.is(ModItems.ENDERITE_NUGGET) || stack.is(ModItems.CRACKED_DIAMOND);
     }
 
     /** Hammer in der Haupthand, Netherit- oder Enderit-Nugget in der Nebenhand. */
@@ -241,7 +262,23 @@ public final class SledgehammerUpgrades {
         if (isBusyPiston(level, pos, state)) {
             return "piston_busy";
         }
+        if (!hasEnoughMaterial(level, pos, state, player, upgrade)) {
+            return "double_chest";
+        }
         return null;
+    }
+
+    /**
+     * So viel Material verbraucht die Aufwertung an dieser Stelle: eins je Block, bei einer
+     * Doppeltruhe also zwei (beide Haelften werden zugleich umgebaut, siehe {@link TieredChests}).
+     */
+    public static int materialNeeded(Level level, BlockPos pos, BlockState state, Upgrade upgrade) {
+        return upgrade.isChest() ? TieredChests.halves(level, pos, state, upgrade.to()).size() : 1;
+    }
+
+    private static boolean hasEnoughMaterial(Level level, BlockPos pos, BlockState state, Player player, Upgrade upgrade) {
+        return player.hasInfiniteMaterials()
+                || player.getOffhandItem().getCount() >= materialNeeded(level, pos, state, upgrade);
     }
 
     /** Ob ein Rechtsklick mit Hammer und Nugget auf diesen Block jetzt eine Aufwertung beginnt. */
@@ -435,12 +472,26 @@ public final class SledgehammerUpgrades {
             return true;
         }
         BlockState old = level.getBlockState(job.pos);
-        BlockState upgraded = job.upgrade.to().withPropertiesOf(old);
-        // Die Aufwertung gibt einen neuen Kolben: der Verschleiss des Netheritkolbens (sein Budget)
-        // gilt fuer den Enderitkolben nicht, er beginnt bei 0.
-        if (upgraded.hasProperty(com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock.WEAR)) {
-            upgraded = upgraded.setValue(com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock.WEAR, 0);
+        if (job.upgrade.isChest()) {
+            // Truhen wechseln die Block-Entity (27 -> 36 -> 45 -> 54 Plaetze): Inhalt umziehen,
+            // eine Doppeltruhe mit beiden Haelften, und je Block ein Material verbrauchen.
+            int blocks = TieredChests.upgradeInPlace(serverLevel, job.pos, job.upgrade.to());
+            player.getOffhandItem().consume(blocks, player);
+            finishEffects(serverLevel, job, old);
+            if (!job.upgrade.toReinforced()) {
+                com.simplebuilding.advancement.ModTriggers.feature(player, job.upgrade.toEnderite() ? com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_ENDERITE : com.simplebuilding.advancement.ModTriggers.HAMMER_UPGRADE_NETHERITE);
+            }
+            McVersion.swing(player, InteractionHand.MAIN_HAND, true);
+            hammer.hurtAndBreak(job.upgrade.damagePerHit(), player, EquipmentSlot.MAINHAND);
+            if (!hammer.isEmpty() && hasConnection(player)) {
+                player.getCooldowns().addCooldown(hammer, FINISH_COOLDOWN_TICKS);
+            }
+            return true;
         }
+        BlockState upgraded = job.upgrade.to().withPropertiesOf(old);
+        // Die Aufwertung gibt einen neuen Kolben: der Schaden des Netheritkolbens gilt fuer den
+        // Enderitkolben nicht, er beginnt mit voller Haltbarkeit.
+        upgraded = com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock.withDamage(upgraded, 0);
         level.setBlock(job.pos, upgraded, Block.UPDATE_ALL);
         SledgehammerProgress.clear(serverLevel, job.pos);
         level.gameEvent(GameEvent.BLOCK_CHANGE, job.pos, GameEvent.Context.of(player, upgraded));
@@ -479,7 +530,8 @@ public final class SledgehammerUpgrades {
                 || !(player.getMainHandItem().getItem() instanceof SledgehammerItem)
                 || !player.getOffhandItem().is(upgrade.nugget())
                 || hammerRank(player.getMainHandItem()) < upgrade.minHammerRank()
-                || isBusyPiston(level, job.pos, state)) {
+                || isBusyPiston(level, job.pos, state)
+                || !hasEnoughMaterial(level, job.pos, state, player, upgrade)) {
             return false;
         }
         boolean server = !level.isClientSide();
@@ -511,7 +563,7 @@ public final class SledgehammerUpgrades {
         burst(level, ParticleTypes.CRIT, at, 8, 0.1, 0.35);
         if (job.upgrade.toEnderite()) {
             burst(level, ParticleTypes.REVERSE_PORTAL, at, 10, 0.2, 0.05);
-        } else {
+        } else if (!job.upgrade.toReinforced()) {
             burst(level, ParticleTypes.LAVA, at, 2, 0.1, 0.0);
         }
 
@@ -541,6 +593,9 @@ public final class SledgehammerUpgrades {
             level.playSound(null, job.pos, SoundEvents.ENDERMAN_TELEPORT, SoundSource.BLOCKS, 0.5F, 1.2F);
             burst(level, ParticleTypes.REVERSE_PORTAL, center, 40, 0.5, 0.1);
             burst(level, ParticleTypes.END_ROD, center, 12, 0.4, 0.05);
+        } else if (job.upgrade.toReinforced()) {
+            level.playSound(null, job.pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 0.8F, 1.3F);
+            burst(level, ParticleTypes.WAX_ON, center, 12, 0.4, 0.05);
         } else {
             level.playSound(null, job.pos, SoundEvents.LAVA_EXTINGUISH, SoundSource.BLOCKS, 0.6F, 1.4F);
             burst(level, ParticleTypes.FLAME, center, 12, 0.4, 0.02);
@@ -583,6 +638,8 @@ public final class SledgehammerUpgrades {
             case "hammer_too_weak" -> Component.translatable("message.simplebuilding.smithing.hammer_too_weak",
                     Component.translatable((upgrade.minHammerRank() >= RANK_NETHERITE
                             ? ModItems.NETHERITE_SLEDGEHAMMER : ModItems.DIAMOND_SLEDGEHAMMER).getDescriptionId()));
+            case "double_chest" -> Component.translatable("message.simplebuilding.smithing.double_chest",
+                    Component.translatable(upgrade.nugget().getDescriptionId()));
             default -> Component.translatable("message.simplebuilding.smithing.piston_busy");
         };
         serverPlayer.sendOverlayMessage(message.withStyle(ChatFormatting.RED));
@@ -602,6 +659,7 @@ public final class SledgehammerUpgrades {
         }
         return Component.translatable(upgrade.toEnderite()
                 ? "tooltip.simplebuilding.hammer_upgrade.enderite"
+                : upgrade.toReinforced() ? "tooltip.simplebuilding.hammer_upgrade.reinforced"
                 : "tooltip.simplebuilding.hammer_upgrade.netherite").withStyle(ChatFormatting.GRAY);
     }
 }

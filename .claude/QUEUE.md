@@ -142,8 +142,8 @@ Verlauf im Detail: git log.
 - [ ] Entscheidung Besitzer: Mending/Unbreaking fuer Amethystlinse und Rotator sperren?
 
 ## Welle 22 (laeuft)
-- [ ] A: fehlende Item-/Blockanzeige (Mauern, Creative Spacer, Echo Sounder), Nihilith -> Nihilit (Anzeigetext), Texte konsistent, Trank-Pad ohne Trank-Symbol, Diamant-Kiesel als Raute mit Krallenspitze
-- [ ] B: Wiki echte Blockformen (Treppen/Stufen/Mauern/Kolben/Vorlagen), fehlende Eintraege (gewachste Kupferplatten, Lohenkopf-Textur), Beschaffungskarten ohne Rezept (Charged Creeper + Lohe -> Kopf, Vanilla-Koepfe, Schallplatten, Loot), Verzauberungen woher; dasselbe in JEI
+- [x] A: fehlende Item-/Blockanzeige (Mauern, Creative Spacer, Echo Sounder), Nihilith -> Nihilit (Anzeigetext), Texte konsistent, Trank-Pad ohne Trank-Symbol, Diamant-Kiesel als Raute mit Krallenspitze
+- [x] B: Wiki echte Blockformen (Treppen/Stufen/Mauern/Kolben/Vorlagen), fehlende Eintraege (gewachste Kupferplatten, Lohenkopf-Textur), Beschaffungskarten ohne Rezept (Charged Creeper + Lohe -> Kopf, Vanilla-Koepfe, Schallplatten, Loot), Verzauberungen woher; dasselbe in JEI
 - [ ] C: Truhen-Stufen ab Kupfertruhe (verstaerkt/Netherit/Enderit, einzeln + doppelt, mehr Slots, Netherit 2x / Enderit 4x Stapel)
 - [ ] D: alle Configs durchgehen, mehr Optionen, Config-Menue mit guter UX
 - [x] E: Performance aller Entities/Block-Entities, Kompatibilitaet mit Optimierungs-Mods
@@ -151,7 +151,11 @@ Verlauf im Detail: git log.
 - [x] G: Liste "was fehlt noch" an den Besitzer (58 Punkte, wartet auf Ja/Nein)
 - [ ] H: Spawn-Teleporter 3 Stufen (50/20/5 s, Endermankopf), Trank-/Elytra-/Chunk-/Launchpad-Rezepte am Schmiedetisch (Kupfer-/Eisen-Kern), keine Bildschirmtexte, Echo Sounder Abklingzeit x4 + kein Neuverknuepfen, Tab-Layout SimpleMachines + SimpleMaterials
 - [ ] I: Kerne nicht stapelbar + Rechtsklick-Animation (70/20/10), Netherstern-Kern-Textur, Kern-Seltenheitsanalyse, Blaupause 3 Texturen (leer/bearbeitet/signiert), Linear + Bridge reparieren
-- [ ] Handbuecher schoener: Referenz vom Besitzer fehlt noch
+- [ ] L: Handbuch-Oberflaeche wie Eidolon: Repraised (eigener Buch-Screen, Tooltip mit Unterzeile) (laeuft)
+- [ ] J: Buendel platzierbar (3D nur am Boden, Sneak blaettert, Rechtsklick nimmt oberstes Item), platzierte Vorlagen: eigener Name, Pixel-Luecke, pixelgenaue Hitbox; Blaupause platzierbar (laeuft)
+- [ ] K: Kolben-Haltbarkeit statt Verschleiss (1/9 der Spitzhacke, nur Abbau kostet, Enderit -> Netherit -> verstaerkt, Balken am Item) (laeuft)
+- [ ] SimpleMaterials: alle Schmiedevorlagen (auch Vanilla) in einen Tab (im H-Run)
+- [ ] Rueckfragen Besitzer: Excavator/Diamond Ingots im Vorlagen-Tooltip, Centre/Color britisch oder amerikanisch, Cover-Buecher im Loot (Code vs HANDOFF), Liste G (58 Punkte), Mending Rotator
 - [ ] Danach: Server-Gate, Push, Client-Gate (wenn Besitzer-Clients zu)
 
 ## Wartet auf den Besitzer

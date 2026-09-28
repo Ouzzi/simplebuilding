@@ -1,0 +1,34 @@
+{
+  "parent": "simplebuilding:tweaks/forbidden_fruit",
+  "criteria": {
+    "enchanted_netherite_apple": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:enchanted_netherite_apple"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.tweaks.crown_jewel.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:enchanted_netherite_apple"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.tweaks.crown_jewel.title"
+    }
+  },
+  "requirements": [
+    [
+      "enchanted_netherite_apple"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
