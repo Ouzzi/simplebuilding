@@ -170,6 +170,9 @@ Verlauf im Detail: git log.
 - [ ] R Immersion: Sounds/Partikel, sichtbare Zustaende, Tooltips, HUD-Taste, HUD Position/Groesse, Jade-Plugin, EMI/REI
 - [ ] S Optik: Pulsating Armor Trim (Warden, Echoscherbe+Hammer), Vorlagen ohne "Smithing" im Namen, Magnet->Attractor + platzierbar zieht Items an, Kern-Texturen bunter (Netherstern-Mitte), JEI-Schmiedeanzeige der Trims reparieren
 - [ ] T danach: amerikanisches Englisch, Zeilen-Layout alle Tabs
+- [ ] V: Pulsating-Vorlage (Muster wie Glowing/Emitting, Deep-Dark-Stil, Warden-Gesicht), Kerne mit Stern-Rahmen, Leuchtregeln (Glowing II steady, Helligkeit nur Pulsating+Glowing, Pulsating allein Saettigung)
+- [ ] W1: Balancing-Zentrale (Dev-Webserver) Phase 1: UI, Auslesen aller Werte, Versionen/Rollback, Rechner 1-6 Items, Doku-Integration, Alttexturen-Server entfernen
+- [ ] W2: Balancing-Zentrale Phase 2 nach Merge von M/N/P2/R: gespeicherte Werte wirken im Mod (Konstanten -> Variablen/Datapack)
 - [ ] Offen beim Besitzer: Kern-Chancen-Vorschlag fuer Eisen/Gold/Diamant/Netherit uebernehmen?
 
 ## Spaeter (Besitzer 2026-09-28)
