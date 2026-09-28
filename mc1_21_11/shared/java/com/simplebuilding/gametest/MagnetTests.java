@@ -729,7 +729,7 @@ public final class MagnetTests {
         Assertions.valueEqual(helper, withFilter.size(), 2, "tooltip lines on a filtered magnet");
         Assertions.valueEqual(helper, withFilter.get(0), "Filtering: minecraft:diamond",
                 "first tooltip line of a filtered magnet");
-        Assertions.valueEqual(helper, withFilter.get(1), "Sneak + Right Click to clear",
+        Assertions.valueEqual(helper, withFilter.get(1), "Sneak + right-click the air to clear; on a block to place",
                 "second tooltip line of a filtered magnet");
 
         // --- and the filter is really doing something ---

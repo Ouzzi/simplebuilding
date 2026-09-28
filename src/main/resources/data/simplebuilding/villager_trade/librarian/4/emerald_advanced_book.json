@@ -13,7 +13,8 @@
       "function": "simplebuilding:weighted_enchant",
       "pool": [
         { "enchantment": "simplebuilding:linear", "level": 1, "weight": 25 },
-        { "enchantment": "simplebuilding:override", "level": 1, "weight": 20 }
+        { "enchantment": "simplebuilding:override", "level": 1, "weight": 20 },
+        { "enchantment": "simplebuilding:drawer", "level": 1, "weight": 15 }
       ]
     }
   ],

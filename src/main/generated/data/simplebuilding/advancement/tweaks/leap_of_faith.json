@@ -1,0 +1,28 @@
+{
+  "parent": "simplebuilding:tweaks/root",
+  "criteria": {
+    "air_jump": {
+      "conditions": {
+        "feature": "air_jump"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.tweaks.leap_of_faith.description"
+    },
+    "icon": {
+      "id": "minecraft:feather"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.tweaks.leap_of_faith.title"
+    }
+  },
+  "requirements": [
+    [
+      "air_jump"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

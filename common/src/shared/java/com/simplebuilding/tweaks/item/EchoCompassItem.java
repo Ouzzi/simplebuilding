@@ -262,6 +262,7 @@ public class EchoCompassItem extends Item {
             return;
         }
         if (isCracked(stack)) {
+            com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.ECHO_SHATTER);
             stack.shrink(1);
             // Dasselbe Ereignis wie LivingEntity#onEquippedItemBroken (Bruchklang + Splitter des Items).
             level.broadcastEntityEvent(player, hand == InteractionHand.MAIN_HAND ? (byte) 47 : (byte) 48);

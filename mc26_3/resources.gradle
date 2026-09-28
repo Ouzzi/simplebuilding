@@ -179,6 +179,10 @@ ext.mcVersionResourceRewrites = { SourceSet sourceSet ->
             filter { String line ->
                 line.replace('"given_item_modifiers":', '"given_item_modifier":')
                         .replace('"function":', '"type":')
+                        // merchant_predicate (rare wandering trader cores): 26.3 dispatches loot
+                        // conditions on "type" as well. Only this spelling - the load conditions
+                        // keep their own "condition" key.
+                        .replace('"condition": "minecraft:random_chance"', '"type": "minecraft:random_chance"')
             }
         }
     }

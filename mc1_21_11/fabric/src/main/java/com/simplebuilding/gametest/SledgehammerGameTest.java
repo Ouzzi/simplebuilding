@@ -27,8 +27,8 @@ public final class SledgehammerGameTest {
     }
 
     @GameTest
-    public void sledgehammerBillsOneDurabilityPerBlockAndTwoForTheWrongTool(GameTestHelper helper) {
-        SledgehammerTests.sledgehammerBillsOneDurabilityPerBlockAndTwoForTheWrongTool(helper);
+    public void sledgehammerBillsTwoDurabilityPerBlockAndThreeForTheWrongTool(GameTestHelper helper) {
+        SledgehammerTests.sledgehammerBillsTwoDurabilityPerBlockAndThreeForTheWrongTool(helper);
     }
 
     @GameTest
@@ -57,8 +57,8 @@ public final class SledgehammerGameTest {
     }
 
     @GameTest
-    public void sledgehammerFieldMinesThreeTimesSlowerThanOneBlock(GameTestHelper helper) {
-        SledgehammerTests.sledgehammerFieldMinesThreeTimesSlowerThanOneBlock(helper);
+    public void sledgehammerAreaMinesEachBlockLikeThePickaxeOneTierBelow(GameTestHelper helper) {
+        SledgehammerTests.sledgehammerAreaMinesEachBlockLikeThePickaxeOneTierBelow(helper);
     }
 
     @GameTest
@@ -79,5 +79,10 @@ public final class SledgehammerGameTest {
     @GameTest
     public void chargedHammerOnlyFinishesOnTheBlockItStartedOn(GameTestHelper helper) {
         SledgehammerTests.chargedHammerOnlyFinishesOnTheBlockItStartedOn(helper);
+    }
+
+    @GameTest
+    public void sledgehammerBreaksTheOctantSelectionAtTwiceTheAreaTimePerBlock(GameTestHelper helper) {
+        SledgehammerTests.sledgehammerBreaksTheOctantSelectionAtTwiceTheAreaTimePerBlock(helper);
     }
 }

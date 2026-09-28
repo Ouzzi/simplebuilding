@@ -1,0 +1,48 @@
+{
+  "parent": "simplebuilding:storage/sheet_happens",
+  "criteria": {
+    "dyed_storage": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:backpack",
+              "simplebuilding:reinforced_backpack",
+              "simplebuilding:netherite_backpack",
+              "simplebuilding:enderite_backpack",
+              "simplebuilding:reinforced_bundle",
+              "simplebuilding:netherite_bundle",
+              "simplebuilding:enderite_bundle",
+              "simplebuilding:quiver",
+              "simplebuilding:reinforced_quiver",
+              "simplebuilding:netherite_quiver",
+              "simplebuilding:enderite_quiver"
+            ],
+            "predicates": {
+              "minecraft:dyed_color": {}
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.storage.splash_of_color.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:red_dye"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.storage.splash_of_color.title"
+    }
+  },
+  "requirements": [
+    [
+      "dyed_storage"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

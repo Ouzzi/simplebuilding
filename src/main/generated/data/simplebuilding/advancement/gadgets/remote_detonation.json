@@ -1,0 +1,29 @@
+{
+  "parent": "simplebuilding:gadgets/burning_focus",
+  "criteria": {
+    "laser_tnt": {
+      "conditions": {
+        "feature": "laser_tnt"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.gadgets.remote_detonation.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "minecraft:tnt"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.gadgets.remote_detonation.title"
+    }
+  },
+  "requirements": [
+    [
+      "laser_tnt"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

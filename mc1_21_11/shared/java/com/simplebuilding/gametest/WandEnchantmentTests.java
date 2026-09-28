@@ -118,17 +118,11 @@ import net.minecraft.world.phys.Vec3;
  *       is moot in play: {@code LegacySpatulaMigration} turns every spatula a player or the world
  *       still holds into the chisel of the same tier. (The enderite chisel was in the same state
  *       until 2026-09 and is in the tag now.)</li>
- *   <li><strong>Bridge has no source at all.</strong> {@code ModLootTableModifications} adds books
- *       for every other building enchantment - Cover out of two chests, Color Palette out of two,
- *       Linear out of two, Master Builder out of four (three code blocks, the last of which matches
- *       both the rare and the ominous trial chamber vault) - and mentions
- *       {@code simplebuilding:bridge} nowhere, and no {@code EnchantmentPool} in
- *       {@code ModTradeDefinitions} names it either - this line builds its merchant offers
- *       in code, so the search the 26.2 twin runs over
- *       {@code data/simplebuilding/villager_trade/} is a search over that table here.
- *       the former Cover/Bridge marker (replaced by {@code WandModeTests} on 2026-09-25)
- *       already records that Bridge does nothing; it is also unobtainable.</li>
  * </ul>
+ *
+ * <p>(Until 2026-09-28 this list also said "Bridge has no source at all". Bridge is now the End
+ * enchantment of the wand and comes out of the end city treasure;
+ * {@link #buildingEnchantmentBooksSitInTheStructureChestsTheyBelongTo} pins it there.)
  *
  * <p>The three readers of {@code SettingsRadius} are written differently but agree where it
  * matters: {@code getConfiguredRadius} (the preview) clamps a negative radius to 0, and
@@ -161,8 +155,8 @@ public final class WandEnchantmentTests {
      * The building enchantment books this file answers for. The set is closed on purpose: every
      * table below is held to exactly the books out of this set that it declares, and everything
      * outside it - the mining books, Range, Deep Pockets, Funnel, Double Jump - shares the same
-     * tables and belongs to {@code MiningEnchantmentTests}. Bridge is listed although nothing hands
-     * it out, so that giving it a chest one day fails here instead of passing unnoticed.
+     * tables and belongs to {@code MiningEnchantmentTests}. Bridge is the End enchantment of the
+     * wand since 2026-09-28 and comes out of the end city treasure only.
      */
     private static final Set<Identifier> BUILDING_BOOKS = Set.of(
             ModEnchantments.CONSTRUCTORS_TOUCH.identifier(),
@@ -185,8 +179,8 @@ public final class WandEnchantmentTests {
     /**
      * Trade rolls per merchant book trade. The draw is deterministic per seed, so this is not a
      * sample size in the statistical sense - it only has to be large enough that every declared
-     * pool entry is reached. The thinnest pool share below is 25 of 85; missing it 120 times in a
-     * row has probability 0.71^120, about 1e-18.
+     * pool entry is reached. The thinnest pool share below is Drawer at 15 of 60; missing it 120 times in a
+     * row has probability 0.75^120, about 1e-15.
      */
     private static final int TRADE_ROLLS = 120;
 
@@ -775,9 +769,9 @@ public final class WandEnchantmentTests {
      *
      * <p>What counts as a building book is nailed down in {@code BUILDING_BOOKS}, and nothing else
      * is judged: the mining books, Range, Deep Pockets, Funnel and Double Jump share these same
-     * tables and belong to {@code MiningEnchantmentTests}. Bridge is in the set although the mod
-     * hands it out nowhere (the known defect in the class javadoc) - whoever gives it a chest has
-     * to name that chest here, and is told so by a red test instead of by nothing at all.
+     * tables and belong to {@code MiningEnchantmentTests}. Bridge is in the set with the one chest
+     * that hands it out, the end city treasure (the End enchantment of the wand, owner
+     * 2026-09-28) - a Bridge book anywhere else is red.
      *
      * <p>All three trial chamber tables are read, because
      * {@code ModLootTableModifications} matches them with two overlapping conditions:
@@ -835,7 +829,9 @@ public final class WandEnchantmentTests {
             expectBuildingBooks(storedEnchantments(helper, registries, BuiltInLootTables.STRONGHOLD_LIBRARY),
                     "stronghold_library", Map.of(ModEnchantments.MASTER_BUILDER, Set.of(1)), problems);
             expectBuildingBooks(storedEnchantments(helper, registries, BuiltInLootTables.END_CITY_TREASURE),
-                    "end_city_treasure", Map.of(ModEnchantments.MASTER_BUILDER, Set.of(1)), problems);
+                    "end_city_treasure", Map.of(
+                            ModEnchantments.MASTER_BUILDER, Set.of(1),
+                            ModEnchantments.BRIDGE, Set.of(1)), problems);
 
             // --- the trial chambers: two overlapping conditions, so all three tables are read ---
             expectBuildingBooks(storedEnchantments(helper, registries, BuiltInLootTables.TRIAL_CHAMBERS_REWARD_COMMON),
@@ -921,7 +917,8 @@ public final class WandEnchantmentTests {
         assertBookTrade(helper, villager,
                 "librarian/4/emerald_advanced_book", librarianTrade(helper, 4), 25, 2, 25,
                 Set.of(pair(ModEnchantments.LINEAR, 1),
-                        pair(ModEnchantments.OVERRIDE, 1)),
+                        pair(ModEnchantments.OVERRIDE, 1),
+                        pair(ModEnchantments.DRAWER, 1)),
                 problems);
 
         helper.assertTrue(problems.isEmpty(), "librarian book trade problems: " + problems);

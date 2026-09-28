@@ -170,11 +170,17 @@ Verlauf im Detail: git log.
 - [ ] R Immersion: Sounds/Partikel, sichtbare Zustaende, Tooltips, HUD-Taste, HUD Position/Groesse, Jade-Plugin, EMI/REI
 - [ ] S Optik: Pulsating Armor Trim (Warden, Echoscherbe+Hammer), Vorlagen ohne "Smithing" im Namen, Magnet->Attractor + platzierbar zieht Items an, Kern-Texturen bunter (Netherstern-Mitte), JEI-Schmiedeanzeige der Trims reparieren
 - [ ] T danach: amerikanisches Englisch, Zeilen-Layout alle Tabs
+- [ ] V: Pulsating-Vorlage (Muster wie Glowing/Emitting, Deep-Dark-Stil, Warden-Gesicht), Kerne mit Stern-Rahmen, Leuchtregeln (Glowing II steady, Helligkeit nur Pulsating+Glowing, Pulsating allein Saettigung)
+- [ ] W1: Balancing-Zentrale (Dev-Webserver) Phase 1: UI, Auslesen aller Werte, Versionen/Rollback, Rechner 1-6 Items, Doku-Integration, Alttexturen-Server entfernen
+- [ ] X Fix: Tippen im Blaupausen-Editor geht nicht (Einfuegen/Loeschen geht) - Start sobald Worktrees wieder angelegt werden
+- [ ] Y: Endermankopf + Lohenkopf mit echter Vanilla-Mob-Textur (Item, Boden, Wand, getragen)
+- [ ] Z: Luftsprung-Abklingzeit Stufe I 20 s / II 10 s; Anzeige als Leiste an der XP-Leiste (Prioritaet: XP-Aenderung > Luftsprung-Abklingzeit > Locator-Leiste), sonst nichts auf dem Bildschirm; Linear baut nur eine Linie; Bridge baut von einem Ende aus, doppelt so schnell; Oktant-Rezept Goldkern + Goldnuggets statt Druckplatten, Oktant seltener in Beute (nach M/R-Merge)
+- [ ] W2: Balancing-Zentrale Phase 2 nach Merge von M/N/P2/R: gespeicherte Werte wirken im Mod (Konstanten -> Variablen/Datapack)
 - [ ] Offen beim Besitzer: Kern-Chancen-Vorschlag fuer Eisen/Gold/Diamant/Netherit uebernehmen?
 
 ## Spaeter (Besitzer 2026-09-28)
 - [ ] Vorlagen teurer machen (mehrere Materialien statt 1 Glowstone/Tintenbeutel/Echoscherbe)
-- [ ] Curios/Trinkets fuer Rucksack/Koecher
+- [ ] U: Curios/Trinkets fuer Rucksack/Koecher (optional, nach Q; Besitzer 2026-09-28: ja)
 - [ ] Punkte 64-69: Sprachen, Attractor mit Ladung, neue Bloecke, Baustab ueber Planer, Kern-Module, Rucksack-Sortierung/Multi-Mod-Repo
 
 ## Wartet auf den Besitzer

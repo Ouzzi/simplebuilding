@@ -47,6 +47,7 @@ public final class MultiBlockBreakingSupport {
     private static BlockPos lastMainPos = null;
     private static ItemStack lastToolStack = ItemStack.EMPTY;
     private static boolean lastSneaking = false;
+    private static ItemStack lastOffhand = ItemStack.EMPTY;
     private static List<BlockPos> cachedConnectedBlocks = Collections.emptyList();
 
     private MultiBlockBreakingSupport() {
@@ -93,9 +94,12 @@ public final class MultiBlockBreakingSupport {
         boolean sneaking = player.isShiftKeyDown();
 
         List<BlockPos> connectedBlocks;
+        // Die Nebenhand gehoert dazu: ein Oktant mit Auswahl macht aus dem Schlag die ganze Auswahl.
+        ItemStack offhand = player.getOffhandItem();
         boolean cacheValid = mainPos.equals(lastMainPos)
                 && ItemStack.isSameItem(stack, lastToolStack)
-                && sneaking == lastSneaking;
+                && sneaking == lastSneaking
+                && ItemStack.isSameItemSameComponents(offhand, lastOffhand);
 
         if (cacheValid) {
             connectedBlocks = cachedConnectedBlocks;
@@ -115,14 +119,16 @@ public final class MultiBlockBreakingSupport {
             lastMainPos = mainPos;
             lastToolStack = stack;
             lastSneaking = sneaking;
+            lastOffhand = offhand.copy();
             cachedConnectedBlocks = connectedBlocks;
         }
 
+        int overrideLevel = isSledgehammer ? EnchantmentHelper.getEnchantmentLevel(stack, level, ModEnchantments.OVERRIDE) : 0;
         for (BlockPos targetPos : connectedBlocks) {
             if (targetPos.equals(mainPos)) {
                 continue;
             }
-            if (isSledgehammer && !SledgehammerUtils.shouldBreak(level, targetPos, mainPos, stack)) {
+            if (isSledgehammer && !SledgehammerUtils.shouldBreak(level, targetPos, mainState, stack, overrideLevel)) {
                 continue;
             }
             BlockState state = level.getBlockState(targetPos);
@@ -147,6 +153,7 @@ public final class MultiBlockBreakingSupport {
         lastMainPos = null;
         lastToolStack = ItemStack.EMPTY;
         lastSneaking = false;
+        lastOffhand = ItemStack.EMPTY;
         cachedConnectedBlocks = Collections.emptyList();
     }
 }

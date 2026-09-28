@@ -32,6 +32,12 @@ public class ModTags {
          * Eigener Tag, weil an {@code extra_inventory_items} auch die Farbpalette haengt.
          */
         public static final TagKey<Item> MASTER_BUILDER_ENCHANTABLE = createTag("master_builder_enchantable");
+        /**
+         * Items, auf die keine Erfahrungs-Reparatur (Mending) darf, obwohl sie in
+         * {@code #minecraft:enchantable/durability} stehen und Unbreaking nehmen: der Rotator, dessen
+         * Haltbarkeit eine Ladung ist. Ausgewertet von {@code EnchantmentMixin}.
+         */
+        public static final TagKey<Item> XP_REPAIR_INCOMPATIBLE = createTag("xp_repair_incompatible");
         public static final TagKey<Item> OCTANTS_ENCHANTABLE = createTag("octants_enchantable");
         public static final TagKey<Item> SLEDGEHAMMER_ENCHANTABLE = createTag("sledgehammer_tools");
         /**

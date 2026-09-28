@@ -35,8 +35,6 @@ import static com.simplebuilding.util.EnchantmentHelper.*;
 
 public class ReinforcedBundleItem extends BundleItem {
 
-    private static final int DRAWER_MAX_TYPES = 5;
-
     /** Vanilla's {@code BundleContents.BUNDLE_IN_BUNDLE_WEIGHT}: what an empty nested bundle costs. */
     private static final Fraction BUNDLE_IN_BUNDLE_WEIGHT = Fraction.getFraction(1, 16);
 
@@ -354,39 +352,11 @@ public class ReinforcedBundleItem extends BundleItem {
     protected int insertItemIntoBundle(ItemStack bundle, BundleContents contents, ItemStack stackToAdd, Fraction maxCap) {
         if (stackToAdd.isEmpty()) return 0;
 
-        int drawerLevel = getDrawerLevel(bundle);
-
-        // Drawer Restriction Check: Nur 1 Item-Typ erlaubt
-        if (drawerLevel > 0) {
-        boolean alreadyInBundle = false;
-        int uniqueTypesCount = 0;
-
-        // Wir zählen die einzigartigen Typen im Bundle
-        List<ItemStack> distinctItems = new ArrayList<>();
-        for (ItemStack s : itemsAsStacks(contents)) {
-            boolean isNewType = true;
-            for (ItemStack distinct : distinctItems) {
-                if (ItemStack.isSameItemSameComponents(s, distinct)) {
-                    isNewType = false;
-                    break;
-                }
-            }
-            if (isNewType) {
-                distinctItems.add(s);
-                uniqueTypesCount++;
-            }
-
-            // Check, ob unser neues Item schon dabei ist
-            if (ItemStack.isSameItemSameComponents(s, stackToAdd)) {
-                alreadyInBundle = true;
-            }
-        }
-
-        // REGEL: Wenn das Item NEU ist (nicht im Bundle) UND wir schon 5 oder mehr Typen haben -> Blockieren
-        if (!alreadyInBundle && uniqueTypesCount >= DRAWER_MAX_TYPES) {
+        // Drawer (Besitzer 2026-09-28): mehr Platz (getMaxCapacity), aber nur fuer die eine Sorte,
+        // die schon drin ist - wie eine Schublade. Vorher waren bis zu fuenf Sorten erlaubt.
+        if (getDrawerLevel(bundle) > 0 && !drawerAccepts(contents, stackToAdd)) {
             return 0;
         }
-    }
 
         // Capacity Check. Fraction arithmetic throws ArithmeticException once numerator or
         // denominator leave int (unusual max stack sizes add up to huge common denominators); that
@@ -470,6 +440,22 @@ public class ReinforcedBundleItem extends BundleItem {
         bundle.set(DataComponents.BUNDLE_CONTENTS, updated);
 
         return countToAdd;
+    }
+
+    /**
+     * Ob ein Behaelter mit Drawer {@code incoming} annimmt: wenn er leer ist (die erste Sorte legt
+     * fest, was er haelt) oder alles darin dieselbe Sorte ist. Eine Sorte ist Item plus Komponenten -
+     * genau das, was auch zu einem Stapel zusammengeht: zwei verschieden benannte Steine oder zwei
+     * verschiedene Trankpfeile sind zwei Sorten. Ein Behaelter, der schon vor dem Drawer mehrere
+     * Sorten hielt, nimmt nichts mehr an, bis nur noch eine uebrig ist.
+     */
+    public static boolean drawerAccepts(BundleContents contents, ItemStack incoming) {
+        for (ItemStack inside : itemsAsStacks(contents)) {
+            if (!ItemStack.isSameItemSameComponents(inside, incoming)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     protected void addToBundleList(List<ItemStack> list, ItemStack stackToAdd) {

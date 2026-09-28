@@ -40,8 +40,8 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
  * <p>Baukerne (Besitzer 2026-09-27: "sehr selten", Enderit-Kern besonders): jeder Kern haengt in
  * einem eigenen Pool mit genau einer Chance pro Kiste ({@link #rareCore}), statt als Gewicht in
  * einem Pool mit vielen Wuerfen - so steht die Wahrscheinlichkeit pro Kiste direkt im Code. Der
- * Kupferkern liegt in keiner Kiste (billig, beim Steinmetz-Dorfbewohner zu kaufen), der
- * Enderit-Kern nur in der End City.
+ * Kupferkern liegt in keiner Kiste (nur selten beim fahrenden Haendler), der Enderit-Kern nur in
+ * der End City.
  */
 public final class ModLootTableModifications {
     public interface Editor {
@@ -70,18 +70,27 @@ public final class ModLootTableModifications {
                         EntityPredicate.Builder.entity().entityType(
                                 EntityTypePredicate.of(registry.lookupOrThrow(Registries.ENTITY_TYPE), EntityTypes.ENDERMAN))));
     }
+    // Kern-Chancen (Besitzer 2026-09-28, "Zeitalter B"): die mittlere Zeit gezielter Suche bis zum
+    // ersten Kern liegt bei ~85 % des Zeitalters, in dem der Kern gebraucht wird - Eisen ~8 h
+    // (Diamantzeit), Gold ~15 h (Braustand), Diamant ~25 h (Netherit), Netherit ~30 h (Drache),
+    // Enderit ~45 h (Wither, Beacon). Modell und Tabelle: docs/KERNE-SELTENHEIT.md, Abschnitt 5.
     /** Eisenkern pro Waldanwesen-Kiste. */
-    public static final float IRON_CORE_CHANCE = 0.008f;
+    public static final float IRON_CORE_CHANCE = 0.015f;
+    /**
+     * Eisenkern pro Kiste einer verlassenen Mine (zweite Quelle, ~0,5 %): frueh erreichbar, viele
+     * Kisten, und das Eisen kommt aus dem Bergwerk.
+     */
+    public static final float IRON_CORE_MINESHAFT_CHANCE = 0.005f;
     /** Goldkern pro Bastion-Kiste (alle Bastion-Kisten, auch der Schatzraum). */
-    public static final float GOLD_CORE_BASTION_CHANCE = 0.006f;
+    public static final float GOLD_CORE_BASTION_CHANCE = 0.0125f;
     /** Goldkern pro Netherfestungs-Kiste. */
-    public static final float GOLD_CORE_FORTRESS_CHANCE = 0.008f;
+    public static final float GOLD_CORE_FORTRESS_CHANCE = 0.0165f;
     /** Diamantkern pro unheilvollem (und seltenem) Vault. */
-    public static final float DIAMOND_CORE_CHANCE = 0.008f;
+    public static final float DIAMOND_CORE_CHANCE = 0.0105f;
     /** Netheritkern pro Bastion-Schatzraum (eine Kiste pro Schatz-Bastion). */
-    public static final float NETHERITE_CORE_CHANCE = 0.04f;
+    public static final float NETHERITE_CORE_CHANCE = 0.06f;
     /** Enderit-Kern pro End-City-Kiste - der seltenste Kern. */
-    public static final float ENDERITE_CORE_CHANCE = 0.0025f;
+    public static final float ENDERITE_CORE_CHANCE = 0.00175f;
 
     // HolderGetter.Provider, not HolderLookup.Provider: NeoForge 26.3 hands its loot event a plain
     // getter provider; every HolderLookup.Provider is one as well.
@@ -121,7 +130,7 @@ public final class ModLootTableModifications {
                     .setRolls(LootNumbers.binomial(1, 0.15f)) // 15% pro Kiste
                     .build());
 
-            // Enderit-Kern: extrem selten (0,25 % pro Kiste, etwa 1-2 % pro Stadt)
+            // Enderit-Kern: extrem selten (0,175 % pro Kiste, etwa 1 % pro Stadt)
             rareCore(editor, ModItems.ENDERITE_CORE, ENDERITE_CORE_CHANCE);
 
             // Template: 30% pro Kiste - bei vier bis acht Kisten pro Stadt meist eins bis zwei
@@ -147,6 +156,8 @@ public final class ModLootTableModifications {
                     .add(enchantedBook(ModEnchantments.DOUBLE_JUMP, 2, enchantments, 5))
                     .add(enchantedBook(ModEnchantments.VERSATILITY, 1, enchantments, 6))
                     .add(enchantedBook(ModEnchantments.VERSATILITY, 2, enchantments, 3))
+                    // Bruecke: die End-Verzauberung des Baustabs (Besitzer 2026-09-28), nur hier
+                    .add(enchantedBook(ModEnchantments.BRIDGE, 1, enchantments, 4))
                     .add(LootItem.lootTableItem(ModItems.DIAMOND_BUILDING_WAND).setWeight(6).apply(EnchantRandomlyFunction.randomEnchantment()))
                     .add(LootItem.lootTableItem(ModItems.DIAMOND_SLEDGEHAMMER).setWeight(8).apply(EnchantRandomlyFunction.randomEnchantment()))
                     .add(item(ModItems.ENDERITE_APPLE, 3))
@@ -230,6 +241,8 @@ public final class ModLootTableModifications {
                     .add(enchantedBook(ModEnchantments.LINEAR, 1, enchantments, 5))
                     .add(enchantedBook(ModEnchantments.VEIN_MINER, 5, enchantments, 1))
                     .add(enchantedBook(ModEnchantments.VEIN_MINER, 4, enchantments, 3))
+                    // Schublade: Moebel-Anwesen, einzige Truhenquelle (dazu Bibliothekar Stufe 4)
+                    .add(enchantedBook(ModEnchantments.DRAWER, 1, enchantments, 3))
                     .add(item(ModItems.IRON_BUILDING_WAND, 4))
                     .add(item(ModItems.QUIVER, 3))
                     .add(EmptyLootItem.emptyItem().setWeight(30)));
@@ -296,6 +309,8 @@ public final class ModLootTableModifications {
                     .add(LootItem.lootTableItem(ModItems.REINFORCED_BUNDLE).setWeight(6).apply(EnchantRandomlyFunction.randomEnchantment()))
                     .add(counted(ModItems.DIAMOND_PEBBLE, 8, 1, 3))
                     .add(EmptyLootItem.emptyItem().setWeight(30)));
+            // Zweite Eisenkern-Quelle (Besitzer 2026-09-28): ~0,5 % je Kistenlore
+            rareCore(editor, ModItems.IRON_CORE, IRON_CORE_MINESHAFT_CHANCE);
         }
 
         // 13. VAULT (Trial Chambers)

@@ -101,12 +101,37 @@ public class BackpackBlock extends BaseEntityBlock {
         return SHAPES.get(state.getValue(FACING));
     }
 
+    /**
+     * Komparator am abgestellten Rucksack (Besitzer 2026-09-28): der Fuellstand wie bei einer Truhe,
+     * gerechnet mit den Stapelgrenzen des Rucksacks (Tiefe Taschen eingerechnet). Trichter sehen ihn
+     * weiterhin nicht (siehe {@link BackpackBlockEntity}).
+     */
+    @Override
+    protected boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
+    }
+
+    @Override
+    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction direction) {
+        return level.getBlockEntity(pos) instanceof BackpackBlockEntity backpack
+                ? net.minecraft.world.inventory.AbstractContainerMenu.getRedstoneSignalFromContainer(backpack.container()) : 0;
+    }
+
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (player instanceof ServerPlayer serverPlayer && level.getBlockEntity(pos) instanceof BackpackBlockEntity backpack) {
             BackpackMenus.openPlaced(serverPlayer, backpack);
         }
         return InteractionResult.SUCCESS;
+    }
+
+    /** Ein Spieler hat den Rucksack abgestellt: Erfolg "Lager aufschlagen" ({@code storage/pitching_camp}). */
+    @Override
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable net.minecraft.world.entity.LivingEntity placer, ItemStack stack) {
+        super.setPlacedBy(level, pos, state, placer, stack);
+        if (placer instanceof Player player) {
+            com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.BACKPACK_PLACED);
+        }
     }
 
     /**

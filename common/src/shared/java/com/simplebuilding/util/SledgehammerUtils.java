@@ -1,20 +1,80 @@
 package com.simplebuilding.util;
 
 import com.simplebuilding.enchantment.ModEnchantments;
+import com.simplebuilding.items.ModToolMaterials;
+import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.items.custom.SledgehammerItem;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import org.jetbrains.annotations.Nullable;
 
+/**
+ * Abbau mit dem Vorschlaghammer: welche Bloecke ein Schlag nimmt und wie lange er dauert.
+ *
+ * <p><b>Tempo (Besitzer 2026-09-28, Zahlen vorher/nachher in docs/SLEDGEHAMMER-BALANCE.md):</b> die
+ * Spitzhacke bleibt das Hauptwerkzeug.
+ * <ul>
+ *   <li>Ein einzelner Block (Schleichen, oder nur der Ursprung ist abbaubar) dauert
+ *       {@value #SINGLE_BLOCK_SLOWDOWN}-mal so lange wie mit der Spitzhacke gleichen Materials.</li>
+ *   <li>Der Flaechenabbau (3x3, 5x5, 3x3x2, 5x5x2) dauert je Block so lange wie mit der Spitzhacke
+ *       eine Stufe darunter ({@link #lowerTierSpeed}): ein Enderit-Hammer, der 9 Bloecke bricht,
+ *       braucht so lange wie eine Netherit-Spitzhacke fuer diese 9 Bloecke nacheinander. Effizienz
+ *       zaehlt auf beiden Seiten gleich (sie kommt auf das Grundtempo des Hammers wie der
+ *       Vergleichs-Spitzhacke), also hilft sie dem Hammer genauso wie einer Spitzhacke.</li>
+ *   <li>Die Oktant-Auswahl ({@link #octantSelection}) dauert je Block doppelt so lange wie der
+ *       Flaechenabbau ({@value #OCTANT_TIME_FACTOR}x).</li>
+ * </ul>
+ * Vorher war der Hammer auf einem Block genau eine Spitzhacke und ein Flaechenschlag dauerte
+ * {@code sqrt(min(n, 25))}-mal so lange wie ein Block - ein 3x3 ein Drittel je Block.
+ */
 public final class SledgehammerUtils {
 
-    /** Ab so vielen Bloecken wird der Hammer nicht mehr langsamer (5x5). */
-    public static final int SPEED_BLOCK_CAP = 25;
+    /** Ein einzelner Block dauert so viel laenger als mit der Spitzhacke gleichen Materials. */
+    public static final float SINGLE_BLOCK_SLOWDOWN = 1.2F;
+    /** Die Oktant-Auswahl dauert je Block so viel laenger als der Flaechenabbau. */
+    public static final float OCTANT_TIME_FACTOR = 2.0F;
+    /** Groesste Oktant-Auswahl, die der Hammer bricht: so viele Stellen in der Box ... */
+    public static final int OCTANT_MAX_VOLUME = 4096;
+    /** ... und keine Kante laenger als so viele Bloecke. */
+    public static final int OCTANT_MAX_EDGE = 32;
+
+    /**
+     * Die Leiter der Spitzhacken-Materialien nach Tempo (Holz 2, Stein 4, Kupfer 5, Eisen 6,
+     * Diamant 8, Netherit 9, Enderit 10, Gold 12). "Eine Stufe darunter" ist das naechst langsamere
+     * Material; fuer Gold, das schnellste, ist das Enderit.
+     */
+    private static final ToolMaterial[] SPEED_LADDER = {
+            ToolMaterial.WOOD, ToolMaterial.STONE, ToolMaterial.COPPER, ToolMaterial.IRON,
+            ToolMaterial.DIAMOND, ToolMaterial.NETHERITE, ModToolMaterials.ENDERITE, ToolMaterial.GOLD};
 
     private SledgehammerUtils() {
+    }
+
+    /**
+     * Tempo der Spitzhacke eine Stufe unter {@code material}: das hoechste Materialtempo der Leiter,
+     * das noch unter dem eigenen liegt. Holz (das langsamste) hat keine Stufe darunter und bleibt bei
+     * sich selbst.
+     */
+    public static float lowerTierSpeed(ToolMaterial material) {
+        float own = material.speed();
+        float best = -1.0F;
+        for (ToolMaterial candidate : SPEED_LADDER) {
+            float speed = candidate.speed();
+            if (speed < own && speed > best) {
+                best = speed;
+            }
+        }
+        return best > 0.0F ? best : own;
     }
 
     /**
@@ -26,9 +86,15 @@ public final class SledgehammerUtils {
     public static int countBlocksBroken(Player player, BlockPos origin) {
         ItemStack stack = player.getMainHandItem();
         Level world = player.level();
+        List<BlockPos> positions = SledgehammerItem.getBlocksToBeDestroyed(1, origin, player);
+        if (positions.isEmpty()) {
+            return 0;
+        }
+        BlockState originState = world.getBlockState(origin);
+        int overrideLevel = EnchantmentHelper.getEnchantmentLevel(stack, world, ModEnchantments.OVERRIDE);
         int count = 0;
-        for (BlockPos pos : SledgehammerItem.getBlocksToBeDestroyed(1, origin, player)) {
-            if (pos.equals(origin) || shouldBreak(world, pos, origin, stack)) {
+        for (BlockPos pos : positions) {
+            if (pos.equals(origin) || shouldBreak(world, pos, originState, stack, overrideLevel)) {
                 count++;
             }
         }
@@ -36,20 +102,90 @@ public final class SledgehammerUtils {
     }
 
     /**
-     * Teiler fuer das Abbautempo: {@code sqrt(min(n, 25))} bei {@code n} wirklich abgebauten
-     * Bloecken. 3x3 braucht damit etwa dreimal, 5x5 fuenfmal so lange wie ein einzelner Block;
-     * bricht nur der Ursprung (auch beim Schleichen), ist der Hammer eine normale Spitzhacke
-     * seines Materials. Client und Server rechnen dasselbe, sonst ruckelt der Abbau.
+     * Teiler fuer das Abbautempo des Ursprungs (siehe Klassenkommentar): {@value #SINGLE_BLOCK_SLOWDOWN}
+     * fuer einen einzelnen Block, sonst {@code n * (s + e) / (s_u + e)} fuer {@code n} wirklich
+     * abgebaute Bloecke - {@code s} ist das Tempo des Hammers auf dem Ursprung, {@code s_u} das der
+     * Spitzhacke eine Stufe darunter, {@code e} die Abbau-Effizienz des Spielers (Effizienz). Bei der
+     * Oktant-Auswahl mal {@value #OCTANT_TIME_FACTOR}. Client und Server rechnen dasselbe, sonst
+     * ruckelt der Abbau.
      */
     public static float miningSpeedDivisor(Player player, BlockPos origin) {
-        if (!(player.getMainHandItem().getItem() instanceof SledgehammerItem)) {
+        ItemStack stack = player.getMainHandItem();
+        if (!(stack.getItem() instanceof SledgehammerItem hammer)) {
             return 1.0F;
         }
         int blocks = countBlocksBroken(player, origin);
-        if (blocks <= 1) {
+        if (blocks <= 0) {
             return 1.0F;
         }
-        return (float) Math.sqrt(Math.min(blocks, SPEED_BLOCK_CAP));
+        boolean octant = !player.isShiftKeyDown() && octantSelection(player, origin) != null;
+        if (blocks == 1 && !octant) {
+            return SINGLE_BLOCK_SLOWDOWN;
+        }
+        float divisor = blocks * lowerTierFactor(player, hammer, stack, player.level().getBlockState(origin));
+        return octant ? divisor * OCTANT_TIME_FACTOR : divisor;
+    }
+
+    /**
+     * Wie viel langsamer die Spitzhacke eine Stufe darunter diesen Block abbaut als der Hammer selbst:
+     * {@code (s + e) / (s * s_u / s_m + e)} mit dem Werkzeugtempo {@code s} des Hammers auf dem Block,
+     * dem Materialtempo {@code s_m}, dem Tempo {@code s_u} eine Stufe darunter und der
+     * Abbau-Effizienz {@code e}. Ein Block, den der Hammer nur mit blossen-Haenden-Tempo bearbeitet,
+     * bekommt 1.
+     */
+    public static float lowerTierFactor(Player player, SledgehammerItem hammer, ItemStack stack, BlockState state) {
+        float speed = hammer.getDestroySpeed(stack, state);
+        float material = hammer.getMaterial().speed();
+        if (speed <= 1.0F || material <= 0.0F) {
+            return 1.0F;
+        }
+        float efficiency = (float) player.getAttributeValue(Attributes.MINING_EFFICIENCY);
+        float lower = speed * lowerTierSpeed(hammer.getMaterial()) / material;
+        return (speed + efficiency) / (lower + efficiency);
+    }
+
+    /**
+     * Die Oktant-Auswahl, die der Hammer bricht (Besitzer 2026-09-28): ein Oktant mit beiden Ecken in
+     * der Nebenhand, der angeschlagene Block liegt in seiner Figur, und die Auswahl ist nicht groesser
+     * als {@value #OCTANT_MAX_VOLUME} Stellen bei hoechstens {@value #OCTANT_MAX_EDGE} Bloecken
+     * Kantenlaenge. Liefert die Stellen der Figur (der Ursprung zuerst) oder {@code null}.
+     */
+    public static @Nullable List<BlockPos> octantSelection(Player player, BlockPos origin) {
+        ItemStack octant = player.getOffhandItem();
+        if (!(octant.getItem() instanceof OctantItem)) {
+            return null;
+        }
+        AABB bounds = OctantShape.bounds(OctantShape.data(octant));
+        if (bounds == null) {
+            return null;
+        }
+        int sx = (int) Math.round(bounds.getXsize());
+        int sy = (int) Math.round(bounds.getYsize());
+        int sz = (int) Math.round(bounds.getZsize());
+        if (sx > OCTANT_MAX_EDGE || sy > OCTANT_MAX_EDGE || sz > OCTANT_MAX_EDGE
+                || (long) sx * sy * sz > OCTANT_MAX_VOLUME) {
+            return null;
+        }
+        Predicate<BlockPos> inShape = OctantShape.of(octant);
+        if (inShape == null || !inShape.test(origin)) {
+            return null;
+        }
+        List<BlockPos> positions = new ArrayList<>();
+        positions.add(origin.immutable());
+        int minX = (int) Math.round(bounds.minX);
+        int minY = (int) Math.round(bounds.minY);
+        int minZ = (int) Math.round(bounds.minZ);
+        for (int x = minX; x < minX + sx; x++) {
+            for (int y = minY; y < minY + sy; y++) {
+                for (int z = minZ; z < minZ + sz; z++) {
+                    BlockPos pos = new BlockPos(x, y, z);
+                    if (!pos.equals(origin) && inShape.test(pos)) {
+                        positions.add(pos);
+                    }
+                }
+            }
+        }
+        return positions;
     }
 
     /**
@@ -68,8 +204,13 @@ public final class SledgehammerUtils {
      * </ul>
      */
     public static boolean shouldBreak(Level world, BlockPos pos, BlockPos originPos, ItemStack stack) {
+        return shouldBreak(world, pos, world.getBlockState(originPos), stack,
+                EnchantmentHelper.getEnchantmentLevel(stack, world, ModEnchantments.OVERRIDE));
+    }
+
+    /** Wie oben, mit schon gelesenem Ursprung und Override-Stufe (fuer grosse Auswahlen, einmal je Schlag). */
+    public static boolean shouldBreak(Level world, BlockPos pos, BlockState originState, ItemStack stack, int overrideLevel) {
         BlockState targetState = world.getBlockState(pos);
-        BlockState originState = world.getBlockState(originPos);
 
         if (targetState.isAir() || targetState.getDestroySpeed(world, pos) < 0.0F) {
             return false;
@@ -79,7 +220,6 @@ public final class SledgehammerUtils {
             return false;
         }
 
-        int overrideLevel = EnchantmentHelper.getEnchantmentLevel(stack, world, ModEnchantments.OVERRIDE);
         boolean sameBlock = targetState.getBlock() == originState.getBlock();
         boolean pickaxeBlock = targetState.is(BlockTags.MINEABLE_WITH_PICKAXE);
 
