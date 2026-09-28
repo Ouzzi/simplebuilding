@@ -174,7 +174,7 @@ Verlauf im Detail: git log.
 - [ ] W1: Balancing-Zentrale (Dev-Webserver) Phase 1: UI, Auslesen aller Werte, Versionen/Rollback, Rechner 1-6 Items, Doku-Integration, Alttexturen-Server entfernen
 - [ ] X Fix: Tippen im Blaupausen-Editor geht nicht (Einfuegen/Loeschen geht) - Start sobald Worktrees wieder angelegt werden
 - [ ] Y: Endermankopf + Lohenkopf mit echter Vanilla-Mob-Textur (Item, Boden, Wand, getragen)
-- [ ] Z: Luftsprung-Abklingzeit Stufe I 20 s / II 10 s; Anzeige als Leiste an der XP-Leiste (Prioritaet: XP-Aenderung > Luftsprung-Abklingzeit > Locator-Leiste), sonst nichts auf dem Bildschirm; Linear baut nur eine Linie; Bridge baut von einem Ende aus, doppelt so schnell (nach M/R-Merge)
+- [ ] Z: Luftsprung-Abklingzeit Stufe I 20 s / II 10 s; Anzeige als Leiste an der XP-Leiste (Prioritaet: XP-Aenderung > Luftsprung-Abklingzeit > Locator-Leiste), sonst nichts auf dem Bildschirm; Linear baut nur eine Linie; Bridge baut von einem Ende aus, doppelt so schnell; Oktant-Rezept Goldkern + Goldnuggets statt Druckplatten, Oktant seltener in Beute (nach M/R-Merge)
 - [ ] W2: Balancing-Zentrale Phase 2 nach Merge von M/N/P2/R: gespeicherte Werte wirken im Mod (Konstanten -> Variablen/Datapack)
 - [ ] Offen beim Besitzer: Kern-Chancen-Vorschlag fuer Eisen/Gold/Diamant/Netherit uebernehmen?
 
