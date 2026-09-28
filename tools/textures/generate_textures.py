@@ -1069,7 +1069,7 @@ MACHINE_ANIMATIONS = {}
 for _tier in MACHINE_TIERS:
     MACHINE_ANIMATIONS[f"block/{_tier}_smoker_front_on.png"] = {"interpolate": False, "frametime": 4}
     MACHINE_ANIMATIONS[f"block/{_tier}_blast_furnace_front_on.png"] = {"frametime": 20, "interpolate": True}
-# Trank-Pads in der Abklingzeit (potion_pad_textures.py): Adern pulsieren, die Flasche fuellt sich wieder.
+# Trank-Pads in der Abklingzeit (potion_pad_textures.py): die erkalteten Adern pulsieren.
 MACHINE_ANIMATIONS.update(POTION_PAD_ANIMATIONS)
 
 
