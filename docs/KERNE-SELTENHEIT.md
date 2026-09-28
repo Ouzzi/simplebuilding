@@ -104,3 +104,34 @@ Kupfer- und Eisenkern je ~0,5 Stueck je Stunde (6,3 % x 8, begrenzt durch Smarag
 
 Modellrechnung: `python` mit den Werten aus Abschnitt 2 (Skript im Scratchpad der Sitzung vom
 2026-09-28, Formel oben).
+
+## 5. Median je Kernanzahl, Zeitalter und Vorschlag (2026-09-28, Besitzer-Anfrage)
+
+Median in Stunden **gezielter** Suche bis zum k-ten Kern (Gamma-Verteilung: k Treffer eines
+Poisson-Prozesses mit Rate λ aus Abschnitt 2; normales Spiel x4-5). Rezeptzahlen neu gezaehlt nach
+Welle 22 (ohne Oster-Rezepte und ohne die Rezepte, die den Kern selbst herstellen): Kupfer 3
+(Kupfer-Baustab, Geschwindigkeitsmesser, Chunk-Loader I), Eisen 6 (+ Launchpad I), Gold 3, Diamant 3,
+Netherit 1, Enderit 3. Kupfer: nur Haendler (fahrender Haendler ~0,5/h; Steinmetz sofort).
+
+| Kern | 1 | 2 | 3 | 4 | 5 | 6 | Rezepte | alle Rezepte | Zeitalter A (~Spielzeit) | Zeitalter B (~Spielzeit) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Kupfer | 1,4 | 3,4 | 5,3 | 7,3 | 9,3 | 11,3 | 3 | 5,3 | Early Game, erste Basis (~2 h) | Dorf & Handel (~4 h) |
+| Eisen | 10,8 | 26,2 | 41,8 | 57,4 | 73,0 | 88,6 | 6 | 88,6 | Dorf & volle Eisenruestung (~4 h) | Diamantzeit, Zaubertisch (~8 h) |
+| Gold | 18,1 | 43,7 | 69,6 | 95,6 | 121,6 | 147,7 | 3 | 69,6 | Nether-Einstieg (~12 h) | Braustand & Traenke (~15 h) |
+| Diamant | 19,1 | 46,3 | 73,8 | 101,3 | 128,9 | 156,5 | 3 | 73,8 | Diamantruestung, Pruefungskammern (~15 h) | Late Game, Netherit (~25 h) |
+| Netherit | 25,9 | 62,6 | 99,8 | 137,0 | 174,3 | 211,6 | 1 | 25,9 | Late Game, Netherit (~25 h) | Enderdrache besiegt (~30 h) |
+| Enderit | 18,5 | 44,8 | 71,3 | 97,9 | 124,6 | 151,2 | 3 | 71,3 | End-Staedte & Elytren (~35 h) | Wither, Beacon, Grossbauten (~45 h) |
+
+Zeitalter-Zeiten sind Richtwerte fuer einen durchschnittlichen Spieler (Gesamtspielzeit), keine Messung.
+
+Vorschlag "etwas spaeter, Enderit 35 h" (erster Kern Median 14/20/25/30/35 h):
+
+| Kern | Chance heute -> neu | 1 | 2 | 3 | 4 | 5 | 6 | alle Rezepte |
+|---|---|---|---|---|---|---|---|---|
+| Eisen | 0,8 % -> 0,62 % | 14,0 | 33,9 | 54,0 | 74,2 | 94,3 | 114,5 | 114,5 |
+| Gold | 0,6 % -> 0,54 % (Festung 0,8 -> 0,72 %) | 20,0 | 48,4 | 77,2 | 106,0 | 134,8 | 163,6 | 77,2 |
+| Diamant | 0,8 % -> 0,61 % | 25,0 | 60,5 | 96,4 | 132,4 | 168,5 | 204,5 | 96,4 |
+| Netherit | 4 % -> 3,45 % | 30,0 | 72,6 | 115,7 | 158,9 | 202,2 | 245,4 | 30,0 |
+| Enderit | 0,25 % -> 0,13 % (30-40 h: 0,15-0,11 %) | 35,0 | 84,7 | 135,0 | 185,4 | 235,9 | 286,3 | 135,0 |
+
+Noch nichts geaendert - Entscheidung beim Besitzer. Skript: scratchpad `cores_tab.py` (2026-09-28).
