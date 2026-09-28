@@ -54,11 +54,11 @@ geplanter Aufgabe).
 
 Zahlen aus `PerformanceTests` (Log-Kanal `simplebuilding-perf`, Server-Spieltest, siehe dort):
 
-- **Spielersuche**, Bereich Elytra-Pad Stufe V (letzte Easter-Stufe): MESSUNG_SCAN.
+- **Spielersuche**, Bereich Elytra-Pad Stufe V (letzte Easter-Stufe): Sektionssuche 8,9-25,1 us je Aufruf, Spielerliste 0,82-2,1 us - **rund 11-12x schneller** (2000 Durchlaeufe, 3 Mock-Spieler, Fabric 26.2/1.21.11/26.3; in einer Welt mit vielen Entities in den Sektionen waechst der Abstand).
   Pro Pad alle 10 Ticks; die Sektionssuche waechst mit der Bereichsgroesse, die Spielerliste nur
   mit der Spielerzahl.
-- **Oktant-Kugel 32^3**: MESSUNG_OKTANT Praedikataufrufe, frueher **in jedem Bild**, jetzt einmal je
-  Aenderung der Auswahl (bei 144 FPS vorher ~MESSUNG_OKTANT_S Mio. Aufrufe je Sekunde).
+- **Oktant-Kugel 32^3**: **175 280** Praedikataufrufe (4872 Aussenseiten, 11 520 Kanten), frueher **in jedem Bild**, jetzt einmal je
+  Aenderung der Auswahl (bei 144 FPS vorher ~25 Mio. Aufrufe je Sekunde).
 - **Baustab-Vorschau**: bei ruhigem Blick und 144 FPS rund 7 von 8 Planungen gespart (eine je Tick
   statt je Bild); bei bewegter Maus wie vorher.
 - **Trank-Pad in Abklingzeit**: 4-8 `getBlockState` + Komparator-Pruefungen weniger je Tick und Pad.
