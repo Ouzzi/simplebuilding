@@ -84,6 +84,12 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean showDevEnchantedTab = false;
 
+    // Beim ersten Betreten einer Welt bzw. eines Servers bekommt jeder Spieler einmal das
+    // Einsteiger-Handbuch (GuideBooks, Spieler-Tag simplebuilding.guide_book_given). Aus: nichts
+    // wird verschenkt und nichts gemerkt - spaeter eingeschaltet, bekommt es jeder einmal.
+    @ConfigEntry.Gui.Tooltip
+    public boolean giveGuideBookOnFirstJoin = true;
+
     // Client: eigene Buch-Texturen fuer die Vanilla-Verzauberungen (VanillaBookTextures). Aus: das
     // verzauberte Buch zeigt fuer Vanilla-Verzauberungen wieder das Vanilla-Modell, damit
     // Ressourcenpakete oder andere Mods, die dieselben Buecher ueberschreiben, gewinnen.

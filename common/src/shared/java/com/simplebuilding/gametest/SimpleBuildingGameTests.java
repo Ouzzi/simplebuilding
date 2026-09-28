@@ -1198,6 +1198,14 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("potion_pad_game_test_blazes_killed_otherwise_drop_no_head", PotionPadTests::blazesKilledOtherwiseDropNoHead)
                     .build(),
+            GameTestSpec.named("guide_book_game_test_the_first_join_gives_the_guide_once_and_honours_the_config", GuideBookTests::theFirstJoinGivesTheGuideOnceAndHonoursTheConfig)
+                    .build(),
+            GameTestSpec.named("guide_book_game_test_every_topic_book_recipe_takes_book_or_guide_and_the_guide_stays", GuideBookTests::everyTopicBookRecipeTakesBookOrGuideAndTheGuideStays)
+                    .build(),
+            GameTestSpec.named("guide_book_game_test_every_guide_page_uses_translation_keys_that_exist_in_english_and_german", GuideBookTests::everyGuidePageUsesTranslationKeysThatExistInEnglishAndGerman)
+                    .build(),
+            GameTestSpec.named("guide_book_game_test_guide_books_read_like_written_books", GuideBookTests::guideBooksReadLikeWrittenBooks)
+                    .build(),
             GameTestSpec.named("pressure_plate_game_test_honeycomb_waxes_every_stage_and_waxed_plates_stop_oxidizing", PressurePlateTests::honeycombWaxesEveryStageAndWaxedPlatesStopOxidizing)
                     .build(),
             GameTestSpec.named("pressure_plate_game_test_the_axe_scrapes_the_wax_off_before_the_oxidation", PressurePlateTests::theAxeScrapesTheWaxOffBeforeTheOxidation)

@@ -1,5 +1,13 @@
 # In-Game-Bücher – Konzept
 
+> **Umgesetzt am 2026-09-28 als schlichtere Fassung** (Besitzer: "das Buch, das man zum Start bekommt, mit dem man sich
+> hocharbeiten und durch die Mod klicken kann"): Option B aus Abschnitt 6, aber ohne Rätsel und ohne Versiegelung.
+> Einsteiger-Handbuch beim ersten Betreten (Config `giveGuideBookOnFirstJoin`, einmal je Spieler) plus sieben
+> Themenbücher aus Buch oder Handbuch + Schlüsselitem an der Werkbank (das Handbuch bleibt liegen). Jede Seite
+> klartext, anklickbares Inhaltsverzeichnis, en + de. Code: `com.simplebuilding.guide.GuideBooks`, Tests:
+> `GuideBookTests`, Seitenbudget: `python tools/guide_book_pages.py`, Wiki-Notiz `guide_book*`. Das Folgende bleibt
+> als Ideensammlung für eine spätere Rätsel-Fassung stehen.
+
 Stand 2026-09-24. **Nur Konzept, kein Code.** Grundlage: der Buch-Entwurf dieser Sitzung samt
 Gegenprüfung. Alle Fakten wurden gegen den Code, die generierten Daten und die Vanilla-Jars beider
 Linien (26.2, 1.21.11) geprüft. Wo die Gegenprüfung den Entwurf korrigiert hat, gilt hier die

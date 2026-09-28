@@ -540,6 +540,38 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:guide_book",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:guide_book_building",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:guide_book_end",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:guide_book_machines",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:guide_book_storage",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:guide_book_tools",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:guide_book_trims",
+      "maxStackSize": 16
+    },
+    {
+      "id": "simplebuilding:guide_book_tweaks",
+      "maxStackSize": 16
+    },
+    {
       "id": "simplebuilding:infused_potion_pad"
     },
     {

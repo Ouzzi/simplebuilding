@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    [
+      "minecraft:book",
+      "simplebuilding:guide_book"
+    ],
+    "minecraft:ender_pearl"
+  ],
+  "result": {
+    "id": "simplebuilding:guide_book_end"
+  }
+}

@@ -140,6 +140,11 @@ public final class ModItemGroupsContent {
         }
         rows.add(new CreativeTabLayout.Row("colored_octants", coloredOctants));
 
+        // --- Handbuecher: Einsteiger-Handbuch und die sieben Themenbuecher (GuideBooks) ---
+        rows.add(CreativeTabLayout.Row.of("guide_books", ModItems.GUIDE_BOOK, ModItems.GUIDE_BOOK_TOOLS,
+                ModItems.GUIDE_BOOK_BUILDING, ModItems.GUIDE_BOOK_STORAGE, ModItems.GUIDE_BOOK_MACHINES,
+                ModItems.GUIDE_BOOK_END, ModItems.GUIDE_BOOK_TWEAKS, ModItems.GUIDE_BOOK_TRIMS));
+
         // --- Verzauberte Buecher, wie bisher ---
         List<ItemStack> books = new java.util.ArrayList<>();
         // 1. Tool Utilities

@@ -2447,6 +2447,8 @@ public final class DataIntegrityTests {
             gadgetsThenColored.add(ModItems.COLORED_OCTANT_ITEMS.get(color));
         }
         expected.add(gadgetsThenColored);
+        // Handbuecher: Einsteiger-Handbuch, dann die sieben Themenbuecher (GuideBooks.Book-Reihenfolge).
+        expected.add(java.util.Arrays.stream(com.simplebuilding.guide.GuideBooks.Book.values()).map(com.simplebuilding.guide.GuideBooks::item).toList());
         int modEnchantments = (int) helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
                 .listElements().filter(h -> MOD_ID.equals(h.key().identifier().getNamespace())).count();
         expected.add(Collections.nCopies(modEnchantments, Items.ENCHANTED_BOOK));

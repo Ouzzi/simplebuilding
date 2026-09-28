@@ -63,6 +63,13 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         // Lohenkopf (Simple Tweaks, Trank-Pad): ein Mob-Kopf wie die Vanilla-Koepfe (Fluch der
         // Bindung/des Verschwindens ueber #equippable_enchantable/#vanishing_enchantable).
         builder(ItemTags.SKULLS).add(key(com.simplebuilding.tweaks.item.TweaksItems.BLAZE_HEAD));
+        // Handbuecher aufs Lesepult und ins gemeisselte Buecherregal wie jedes beschriebene Buch.
+        var lecternBooks = builder(ItemTags.LECTERN_BOOKS);
+        var bookshelfBooks = builder(ItemTags.BOOKSHELF_BOOKS);
+        for (com.simplebuilding.guide.GuideBooks.Book book : com.simplebuilding.guide.GuideBooks.Book.values()) {
+            lecternBooks.add(key(com.simplebuilding.guide.GuideBooks.item(book)));
+            bookshelfBooks.add(key(com.simplebuilding.guide.GuideBooks.item(book)));
+        }
 
         builder(ItemTags.DURABILITY_ENCHANTABLE)
                 // Echo-Kompass (Simple Tweaks): Unbreaking/Mending wirken, siehe EchoCompassItem.

@@ -703,6 +703,25 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .unlockedBy(getHasName(ModItems.NIHILITH_SHARD), has(ModItems.NIHILITH_SHARD))
                         .save(output);
 
+                // --- HANDBUECHER (com.simplebuilding.guide.GuideBooks) ---
+                // Einsteiger-Handbuch: Buch + Werkbank (falls das geschenkte verloren geht). Themenbuecher:
+                // Buch oder Handbuch + Schluesselitem; das Handbuch ist sein eigener Handwerksrest und
+                // bleibt liegen. Freigeschaltet durch das Schluesselitem oder schon durch das Handbuch.
+                shapeless(RecipeCategory.MISC, ModItems.GUIDE_BOOK)
+                        .requires(Items.BOOK)
+                        .requires(com.simplebuilding.guide.GuideBooks.keyItem(com.simplebuilding.guide.GuideBooks.Book.GUIDE))
+                        .unlockedBy(getHasName(Items.BOOK), has(Items.BOOK))
+                        .save(output);
+                for (com.simplebuilding.guide.GuideBooks.Book topic : com.simplebuilding.guide.GuideBooks.Book.topics()) {
+                    ItemLike key = com.simplebuilding.guide.GuideBooks.keyItem(topic);
+                    shapeless(RecipeCategory.MISC, com.simplebuilding.guide.GuideBooks.item(topic))
+                            .requires(Ingredient.of(Items.BOOK, ModItems.GUIDE_BOOK))
+                            .requires(key)
+                            .unlockedBy(getHasName(key), has(key))
+                            .unlockedBy(getHasName(ModItems.GUIDE_BOOK), has(ModItems.GUIDE_BOOK))
+                            .save(output);
+                }
+
                 // --- BLAUPAUSE ---
                 // Formlos 1 Enderquarz + 1 Papier + 1 Tintenbeutel -> 1 leere Blaupause (spaet, aber leicht).
                 shapeless(RecipeCategory.TOOLS, ModItems.BLUEPRINT)

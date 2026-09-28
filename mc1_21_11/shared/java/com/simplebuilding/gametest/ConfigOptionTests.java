@@ -427,6 +427,7 @@ public final class ConfigOptionTests {
             "root.netheriteBreakerWearBudget int=1024",
             "root.enderitePistonWearBudget int=2048",
             "root.showDevEnchantedTab boolean=false",
+            "root.giveGuideBookOnFirstJoin boolean=true",
             "root.vanillaEnchantedBookTextures boolean=true",
             "root.modEnchantedBookTextures boolean=true",
             "root.visibleTrimIconsVanillaArmor boolean=true",
