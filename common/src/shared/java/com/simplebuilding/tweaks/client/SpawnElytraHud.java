@@ -46,8 +46,8 @@ public final class SpawnElytraHud {
     public static boolean render(GuiGraphicsExtractor graphics) {
         Minecraft client = Minecraft.getInstance();
         Player player = client.player;
-        if (!wearsSpawnElytra(player)) {
-            return false;
+        if (!wearsSpawnElytra(player) || !com.simplebuilding.client.gui.ModHud.visible()) {
+            return false; // HUD key off: the vanilla experience bar stays
         }
         ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
         int x = (graphics.guiWidth() - 182) / 2;

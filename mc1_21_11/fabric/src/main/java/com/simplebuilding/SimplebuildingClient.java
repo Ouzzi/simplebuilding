@@ -118,6 +118,12 @@ public class SimplebuildingClient implements ClientModInitializer {
                 InputConstants.KEY_B,
                 KEY_CATEGORY_SIMPLEMODS
         ));
+        ClientState.hudToggleKey = KeyBindingHelper.registerKeyBinding(new KeyMapping(
+                "key.simplebuilding.toggle_hud",
+                InputConstants.Type.KEYSYM,
+                InputConstants.UNKNOWN.getValue(),
+                KEY_CATEGORY_SIMPLEMODS
+        ));
         // Rucksack-Taste: gemeinsamer Handler mit NeoForge (BackpackKeyHandler).
         ClientTickEvents.END_CLIENT_TICK.register(BackpackKeyHandler::tick);
 

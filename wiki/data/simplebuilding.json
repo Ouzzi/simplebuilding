@@ -2957,6 +2957,8 @@
         "common/src/jei/java/com/simplebuilding/compat/jei/SimplebuildingJeiPlugin.java",
         "common/src/jei/java/com/simplebuilding/compat/jei/InWorldCategory.java",
         "common/src/jei/java/com/simplebuilding/compat/jei/CountBasedSmithingExtension.java",
+        "common/src/rei/java/com/simplebuilding/compat/rei/SimplebuildingReiClientPlugin.java",
+        "common/src/rei/java/com/simplebuilding/compat/rei/SimplebuildingReiCommonPlugin.java",
         "common/src/shared/java/com/simplebuilding/compat/InWorldRecipeCatalog.java",
         "common/src/shared/java/com/simplebuilding/compat/RecipelessJeiInfo.java",
         "common/src/shared/java/com/simplebuilding/tweaks/item/TweaksJeiInfo.java",
@@ -2969,8 +2971,8 @@
         "src/main/resources/assets/simplebuilding/lang/en_us.json"
       ],
       "en": {
-        "title": "Recipe Viewer (JEI)",
-        "summary": "With Just Enough Items (JEI) installed, the mod adds seven categories for its in-world transformations and shows its count-based smithing recipes. JEI is optional: without it nothing changes. Supported on Fabric and NeoForge on both Minecraft lines; there is no JEI for MinecraftForge 26.2.",
+        "title": "Recipe Viewer (JEI, REI)",
+        "summary": "With Just Enough Items (JEI) installed, the mod adds seven categories for its in-world transformations and shows its count-based smithing recipes. JEI is optional: without it nothing changes. Supported on Fabric and NeoForge on both Minecraft lines; there is no JEI for MinecraftForge 26.2. Roughly Enough Items (REI) gets the same content through its own plugin on Fabric and NeoForge for Minecraft 26.2 and 1.21.11 (REI has no build for Forge 26.2 or 26.3); EMI has no build for these Minecraft versions, so there is no EMI plugin.",
         "details": [
           "Machine Upgrade (Sledgehammer): machine and nugget, every sledgehammer strong enough for the step (weakest first) and the upgraded machine, with the number of hits, the duration (the arrow fills over the same 100 ticks) and the durability per hit and in total.",
           "Reshaping (Sledgehammer): every full block the hammer turns into stairs and every stairs it turns into a slab; sneaking with Constructor's Touch, slabs back into stairs and stairs into the full block. Worked out with the same naming rule the hammer uses, so blocks of other mods show up as well.",
@@ -2978,14 +2980,15 @@
           "Chiseling: every chisel step forward (right-click) and backward (sneak + right-click), with the chisels whose tier can do it and a note when it needs Constructor's Touch.",
           "Shearing Wool: shears used on any placed wool drop 4 String.",
           "Count-based smithing (for example copper to iron tools with several ingots) appears in JEI's smithing category with the real number of additions.",
+          "REI: the same seven in-world categories and Mob Drops (same titles, notes and tools as workstations), the count-based smithing recipes in REI's smithing category with the real number of additions, and the same information pages as REI information entries. The hidden easter smithing chain stays hidden in REI as well.",
           "The categories are built from the same export as this wiki's in-world transformation pages; a server game test checks that every entry of that export arrives in JEI.",
           "Trim Template (item frame) and Washing (cauldron): turning a trim template in an item frame into a Glowing or Emitting Armor Trim, and washing a coloured octant back into the plain one.",
           "Information pages: items that no recipe and no in-world category produce get a short JEI information page on how to obtain them and what they do - Astralit Ore, Nihilit Ore, Astralit Dust, Nihilit Shard, the Enchanted Netherite and Enderite Apples and the legacy spatulas - next to the pages for the pads, plates and tools taken over from Simple Tweaks. The creative spacer stays hidden from JEI. A server game test derives the recipeless items from the loaded recipes and the in-world catalog and fails if one has no page or a page lacks its English or German text."
         ]
       },
       "de": {
-        "title": "Rezeptanzeige (JEI)",
-        "summary": "Ist Just Enough Items (JEI) installiert, bringt die Mod sieben Kategorien für ihre Umwandlungen in der Welt mit und zeigt ihre Schmiederezepte mit Mengenangabe. JEI ist optional: ohne JEI ändert sich nichts. Unterstützt auf Fabric und NeoForge in beiden Minecraft-Linien; für MinecraftForge 26.2 gibt es kein JEI.",
+        "title": "Rezeptanzeige (JEI, REI)",
+        "summary": "Ist Just Enough Items (JEI) installiert, bringt die Mod sieben Kategorien für ihre Umwandlungen in der Welt mit und zeigt ihre Schmiederezepte mit Mengenangabe. JEI ist optional: ohne JEI ändert sich nichts. Unterstützt auf Fabric und NeoForge in beiden Minecraft-Linien; für MinecraftForge 26.2 gibt es kein JEI. Roughly Enough Items (REI) bekommt über ein eigenes Plugin dieselben Inhalte, auf Fabric und NeoForge für Minecraft 26.2 und 1.21.11 (für Forge 26.2 und 26.3 gibt es kein REI); EMI gibt es für diese Minecraft-Versionen nicht, deshalb kein EMI-Plugin.",
         "details": [
           "Maschinen-Aufwertung (Vorschlaghammer): Maschine und Klumpen, jeder Vorschlaghammer, der für die Stufe stark genug ist (der schwächste zuerst), und die aufgewertete Maschine, dazu Schlagzahl, Dauer (der Pfeil füllt sich über dieselben 100 Ticks) und die Haltbarkeit je Schlag und insgesamt.",
           "Umformen (Vorschlaghammer): jeder volle Block, den der Hammer zur Treppe macht, und jede Treppe, die er zur Stufe macht; schleichend mit Berührung des Konstrukteurs Stufen zurück zur Treppe und Treppen zum vollen Block. Ermittelt mit derselben Namensregel, die der Hammer benutzt, deshalb erscheinen auch Blöcke anderer Mods.",
@@ -2993,9 +2996,52 @@
           "Meißeln: jeder Meißelschritt vorwärts (Rechtsklick) und rückwärts (Schleichen + Rechtsklick), mit den Meißeln, deren Stufe ihn kann, und einem Hinweis, wenn er Berührung des Konstrukteurs braucht.",
           "Wolle scheren: eine Schere auf beliebiger platzierter Wolle lässt 4 Fäden fallen.",
           "Schmiederezepte mit Mengenangabe (etwa Kupfer- zu Eisenwerkzeug mit mehreren Barren) erscheinen in JEIs Schmiede-Kategorie mit der echten Anzahl Zutaten.",
+          "REI: dieselben sieben Umwandlungs-Kategorien und Mob-Drops (gleiche Titel, Hinweise und Werkzeuge als Arbeitsstationen), die Schmiederezepte mit Mengenangabe in REIs Schmiede-Kategorie mit der echten Anzahl Zutaten und dieselben Infoseiten als REI-Informationseinträge. Die versteckte Easter-Schmiedekette bleibt auch in REI versteckt.",
           "Die Kategorien entstehen aus demselben Export wie die Seiten dieses Wikis zu den Umwandlungen in der Welt; ein Server-Spieltest prüft, dass jeder Eintrag dieses Exports in JEI ankommt.",
           "Besatzvorlage (Rahmen) und Waschen (Kessel): eine Besatzvorlage im Rahmen zum Leuchtenden oder Strahlenden Rüstungsbesatz machen und einen gefärbten Oktanten zurück zum einfachen waschen.",
           "Infoseiten: Gegenstände, die kein Rezept und keine Umwandlungs-Kategorie liefert, bekommen eine kurze JEI-Infoseite, wie man sie erhält und was sie tun - Astraliterz, Nihiliterz, Astralitstaub, Nihilitsplitter, die verzauberten Netherit- und Enderitäpfel und die alten Spachtel - neben den Seiten für die aus Simple Tweaks übernommenen Pads, Platten und Werkzeuge. Der Kreativ-Platzhalter bleibt in JEI versteckt. Ein Server-Spieltest ermittelt die rezeptlosen Gegenstände aus den geladenen Rezepten und dem Umwandlungs-Katalog und schlägt fehl, wenn einer keine Seite hat oder einer Seite der englische oder deutsche Text fehlt."
+        ]
+      }
+    },
+    {
+      "id": "block_info_jade",
+      "related": [
+        "simplebuilding:launchpad",
+        "simplebuilding:potion_pad",
+        "simplebuilding:chunk_loader",
+        "simplebuilding:netherite_piston",
+        "simplebuilding:netherite_hopper",
+        "simplebuilding:netherite_chest"
+      ],
+      "sources": [
+        "common/src/jade/java/com/simplebuilding/compat/jade/SimplebuildingJadePlugin.java",
+        "common/src/jade/java/com/simplebuilding/compat/jade/BlockInfoProvider.java",
+        "common/src/shared/java/com/simplebuilding/compat/BlockInfo.java",
+        "common/src/shared/java/com/simplebuilding/gametest/BlockInfoTests.java",
+        "src/main/resources/fabric.mod.json",
+        "neoforge/src/main/resources/META-INF/neoforge.mods.toml",
+        "src/main/resources/assets/simplebuilding/lang/en_us.json"
+      ],
+      "en": {
+        "title": "Block Info (Jade)",
+        "summary": "With Jade installed, looking at the mod's blocks shows extra lines in Jade's tooltip. Jade is optional: without it nothing changes. Supported on Fabric and NeoForge on both Minecraft lines; there is no Jade for MinecraftForge 26.2.",
+        "details": [
+          "Pads and plates from Simple Tweaks: the owner's name.",
+          "Launchpad: charges as \"x / max\"; Potion Pad: the stored effects and the remaining cooldown (or \"Ready\"); Chunk Loader: how many chunks it keeps loaded.",
+          "Reinforced, Netherite and Enderite Hopper: the filter mode and the filtered items.",
+          "Netherite and Enderite Piston: the remaining durability. Tiered chests: the slots (doubled for a double chest) and the stack bonus. Upgraded furnaces, smokers and blast furnaces: the speed compared to the vanilla block (2x, 4x, 8x).",
+          "Owner, pad status and hopper filter come from the server, so the server needs Jade too; durability, chest slots and furnace speed are worked out from the block itself. Every line can be switched off in Jade's plugin settings."
+        ]
+      },
+      "de": {
+        "title": "Blockinfo (Jade)",
+        "summary": "Ist Jade installiert, zeigt der Blick auf die Blöcke der Mod zusätzliche Zeilen in Jades Tooltip. Jade ist optional: ohne Jade ändert sich nichts. Unterstützt auf Fabric und NeoForge in beiden Minecraft-Linien; für MinecraftForge 26.2 gibt es kein Jade.",
+        "details": [
+          "Platten und Pads aus Simple Tweaks: der Name des Besitzers.",
+          "Startrampe: die Ladungen als „x / max“; Trankplatte: die gespeicherten Effekte und die restliche Abklingzeit (oder „Bereit“); Chunk-Lader: wie viele Chunks er geladen hält.",
+          "Verstärkter, Netherit- und Enderit-Trichter: der Filtermodus und die gefilterten Items.",
+          "Netherit- und Enderit-Kolben: die restliche Haltbarkeit. Mod-Truhen: die Plätze (bei der Doppeltruhe doppelt) und der Stapelfaktor. Aufgewertete Öfen, Räucheröfen und Schmelzöfen: das Tempo gegenüber dem Vanilla-Block (2×, 4×, 8×).",
+          "Besitzer, Plattenstatus und Trichterfilter kommen vom Server, der Server braucht also auch Jade; Haltbarkeit, Truhenplätze und Ofentempo ergeben sich aus dem Block selbst. Jede Zeile lässt sich in Jades Plugin-Einstellungen abschalten."
         ]
       }
     },
@@ -3079,6 +3125,79 @@
       }
     },
     {
+      "id": "immersion",
+      "related": [
+        "simplebuilding:launchpad",
+        "simplebuilding:netherite_launchpad",
+        "simplebuilding:enderite_launchpad",
+        "simplebuilding:chunk_loader",
+        "simplebuilding:netherite_chunk_loader",
+        "simplebuilding:enderite_chunk_loader",
+        "simplebuilding:flypad",
+        "simplebuilding:reinforced_flypad",
+        "simplebuilding:stellar_flypad",
+        "simplebuilding:elytra_pad",
+        "simplebuilding:potion_pad",
+        "simplebuilding:backpack",
+        "simplebuilding:octant",
+        "simplebuilding:velocity-gauge",
+        "simplebuilding:copper_core",
+        "simplebuilding:enderite_apple",
+        "simplebuilding:enderite_helmet"
+      ],
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/tweaks/block/LaunchpadBlock.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/LaunchpadBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/ChunkLoaderBlock.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/FlypadBlock.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/FlypadBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/ElytraPadBlock.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ElytraPadBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/PotionPadBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/BackpackBlock.java",
+        "common/src/shared/java/com/simplebuilding/util/OctantCauldronWash.java",
+        "common/src/shared/java/com/simplebuilding/util/Feedback.java",
+        "common/src/shared/java/com/simplebuilding/items/tooltip/InfoTooltips.java",
+        "common/src/shared/java/com/simplebuilding/client/gui/ModHud.java",
+        "common/src/shared/java/com/simplebuilding/client/gui/HudLayout.java",
+        "common/src/shared/java/com/simplebuilding/gametest/ImmersionTests.java",
+        "tools/textures/generate_textures.py",
+        "src/main/resources/assets/simplebuilding/lang/en_us.json",
+        "src/main/resources/assets/simplebuilding/lang/de_de.json"
+      ],
+      "en": {
+        "title": "Feedback: sounds, particles, visible states, tooltips and the HUD key",
+        "summary": "Gadgets answer without on-screen text: pads show their state in their texture and light, sounds and particles confirm what happened, item tooltips name the numbers, and one key hides or shows the mod's whole HUD.",
+        "details": [
+          "Launchpad: the block state charge (0-3) shows the fill level in thirds, rounded up - the spiral of the texture lights up from the middle outward, one third per step, its outermost lit turn brighter. Loading wind charges blows a small gust into the pad, more puffs for more charges; the insert sound still rises with the fill level.",
+          "Chunk Loader: active=true while it keeps its chunks loaded - the spiral glows violet, the sparkle stars turn almost white and the light rises from 3 to the tier's 7, 8 or 9. Switching on plays a beacon's activation sound with a swirl of portal sparks, switching off the beacon's deactivation sound and a puff of smoke; while active it drips reverse-portal sparks and hums like a respawn anchor now and then (1 in 100 ticks).",
+          "Flypad: active=true while at least one player is in its field - the spiral glows (tiers I and II light cyan, the Stellar Flypad gold), and the four vertical edges of the field shimmer with end rod sparks so you can see where the field ends. Getting flight plays a soft beacon chime only you hear, losing it the beacon's deactivation sound. Flying closer than 1.5 blocks to a side or the ceiling of the field gives a warning note (only you hear it) at most every half second, higher the closer you are, with electric sparks on the nearest wall of the field.",
+          "Elytra Pad: a small cloud rises from the pad now and then (bubbles when waterlogged); handing out an elytra adds a puff of clouds, and a boost that is recharged from empty or partly used plays a firework twinkle with a few sparks for the wearer.",
+          "Potion Pad: when its cooldown ends it rings an amethyst chime and swirls in the color of the stored potion.",
+          "Octant: washing a colored octant in a water cauldron splashes (sound and water droplets) instead of happening silently.",
+          "Backpack: setting it down rustles like leather armor and puffs a little dust; opening a placed backpack rustles too.",
+          "Item tooltips (gray lines, not on-screen text): every pad names its tier (Tier II of III) and what the tier gives - wind charges, the chunk area, the elytra or flight area, the teleport wait, the potion duration and cooldown. Upgraded furnaces, smokers and blast furnaces say how much faster they work (2x, 4x, 8x), double experience and the blast furnace's raw metal bonus; hoppers their transfer rate and filter; the Reinforced Pistons their push limit of 18 and the redstone-block breach; levitating and suspended sand and gravel what they do. Building cores list what they are used in (checked against the loaded recipes by a game test); Enderite armor explains its void protection and glide; the netherite and enderite apples and carrots list their effects with level and duration, like a potion.",
+          "HUD key: Toggle Mod HUD (unbound by default, category SimpleMods in Controls) hides or shows every HUD box of the mod - velocity gauge, rangefinder, air jump bar and the spawn elytra bar (the vanilla experience bar comes back instead). It gives no text, only a click, and is remembered in the client config (showModHud). hudPositionX and hudPositionY place the velocity gauge and rangefinder boxes in percent of the free screen room (0 = left/top margin, 100 = right/bottom margin, default 0 and 50 = the old place at the left middle), hudScale sizes them from 50 to 200 %."
+        ]
+      },
+      "de": {
+        "title": "Rückmeldung: Klänge, Partikel, sichtbare Zustände, Tooltips und die HUD-Taste",
+        "summary": "Geräte antworten ohne Bildschirmtext: Pads zeigen ihren Zustand in Textur und Licht, Klänge und Partikel bestätigen, was passiert ist, Item-Tooltips nennen die Zahlen, und eine Taste blendet das ganze HUD der Mod aus und ein.",
+        "details": [
+          "Launchpad: der Blockzustand charge (0-3) zeigt den Füllstand in Dritteln, aufgerundet - die Spirale der Textur leuchtet von der Mitte nach außen, je Stufe ein Drittel, die äußerste leuchtende Windung heller. Beim Laden fährt ein kleiner Windstoß ins Pad, mehr Wölkchen für mehr Windkugeln; der Einlegeklang steigt weiter mit dem Füllstand.",
+          "Chunk-Loader: active=true, solange er seine Chunks geladen hält - die Spirale glimmt violett, die Funkelsterne werden fast weiß und das Licht steigt von 3 auf die 7, 8 oder 9 der Stufe. Einschalten spielt den Aktivierungsklang eines Leuchtfeuers mit einem Wirbel aus Portalfunken, Ausschalten dessen Abschaltklang und ein Rauchwölkchen; eingeschaltet steigen Portalfunken auf, und ab und zu summt er wie ein Seelenanker (1 von 100 Ticks).",
+          "Flypad: active=true, solange mindestens ein Spieler im Feld ist - die Spirale glimmt (Stufe I und II hell türkis, das Stellar-Flypad golden), und die vier senkrechten Kanten des Felds schimmern mit Endstab-Funken, damit man sieht, wo das Feld endet. Flug bekommen spielt einen leisen Leuchtfeuer-Ton, den nur du hörst, Flug verlieren den Abschaltklang des Leuchtfeuers. Wer fliegend näher als 1,5 Blöcke an eine Seite oder die Decke des Felds kommt, hört höchstens jede halbe Sekunde einen Warnton (nur er), höher je näher, mit elektrischen Funken an der nächsten Feldwand.",
+          "Elytra-Pad: ab und zu steigt ein Wölkchen vom Pad auf (unter Wasser Blasen); das Ausgeben einer Elytra macht eine Wolke, und ein Boost, der aus leerem oder angebrauchtem Zustand wieder voll wird, knistert wie ein Feuerwerk, mit ein paar Funken für den Träger.",
+          "Trank-Pad: endet die Abklingzeit, erklingt ein Amethyst-Glockenspiel und ein Wirbel in der Farbe des gespeicherten Tranks.",
+          "Oktant: einen gefärbten Oktanten im Wasserkessel zu waschen plätschert (Klang und Wassertropfen), statt lautlos zu geschehen.",
+          "Rucksack: abgestellt raschelt er wie Lederrüstung und staubt ein wenig; einen abgestellten Rucksack öffnen raschelt ebenfalls.",
+          "Item-Tooltips (graue Zeilen, kein Bildschirmtext): jedes Pad nennt seine Stufe (Stufe II von III) und was sie gibt - Windkugeln, den Chunk-Bereich, den Elytra- oder Flugbereich, die Teleport-Wartezeit, Trankdauer und Abklingzeit. Aufgewertete Öfen, Räucheröfen und Schmelzöfen sagen, wie viel schneller sie arbeiten (2x, 4x, 8x), doppelte Erfahrung und den Rohmetall-Bonus des Schmelzofens; Trichter ihr Tempo und ihren Filter; die verstärkten Kolben ihr Schublimit von 18 und den Durchbruch per Redstone-Block; schwebender und steigender Sand und Kies, was sie tun. Baukerne listen, wofür sie gebraucht werden (ein Spieltest gleicht das mit den geladenen Rezepten ab); Enderit-Rüstung erklärt Leere-Schutz und Gleiten; Netherit- und Enderit-Äpfel und -Karotten listen ihre Wirkungen mit Stufe und Dauer wie ein Trank.",
+          "HUD-Taste: Mod-HUD ein/aus (anfangs nicht belegt, Kategorie SimpleMods in der Steuerung) blendet jeden HUD-Kasten der Mod aus und ein - Tacho, Entfernungsmesser, Luftsprung-Leiste und Spawn-Elytra-Leiste (statt ihrer kommt die Vanilla-Erfahrungsleiste zurück). Sie zeigt keinen Text, nur ein Klick, und bleibt in der Client-Config gespeichert (showModHud). hudPositionX und hudPositionY setzen die Kästen von Tacho und Entfernungsmesser in Prozent des freien Bildschirmraums (0 = linker/oberer Rand, 100 = rechter/unterer Rand, Standard 0 und 50 = die alte Stelle links in der Mitte), hudScale ihre Größe von 50 bis 200 %."
+        ]
+      }
+    },
+    {
       "id": "configuration",
       "related": [
         "simplebuilding:double_jump",
@@ -3123,7 +3242,8 @@
         "common/src/shared/java/com/simplebuilding/tweaks/item/LaserPointerItem.java",
         "common/src/shared/java/com/simplebuilding/tweaks/xp/XpClumping.java",
         "common/src/shared/java/com/simplebuilding/tweaks/command/TweaksCommands.java",
-        "forge/src/main/java/me/shedaniel/autoconfig/annotation/ConfigEntry.java"
+        "forge/src/main/java/me/shedaniel/autoconfig/annotation/ConfigEntry.java",
+        "common/src/shared/java/com/simplebuilding/client/gui/ModHud.java"
       ],
       "en": {
         "title": "Configuration",
@@ -3207,6 +3327,9 @@
           "Visuals (Client) → Own Textures for Mod Enchanted Books (modEnchantedBookTextures, default on): Every enchantment of this mod has its own enchanted book texture. Turn it off for the plain vanilla enchanted book. Takes effect immediately.",
           "Visuals (Client) → Trim Patterns on Vanilla Armor Icons (visibleTrimIconsVanillaArmor, default on): Item icons of trimmed vanilla armor (and the turtle shell) show the trim pattern in the trim material's colours. Off: the vanilla icon with only a colour mark. Takes effect immediately.",
           "Visuals (Client) → Trim Patterns on Enderite Armor Icons (visibleTrimIconsModArmor, default on): Item icons of trimmed Enderite armor show the trim pattern in the trim material's colours. Off: the plain icon with only a colour mark. Takes effect immediately.",
+          "Visuals (Client) → Show Mod HUD (showModHud, default on): shows the mod's HUD boxes - velocity gauge, rangefinder, air jump bar and spawn elytra bar. The Toggle Mod HUD key (unbound by default) flips this option and saves it; off, the vanilla experience bar replaces the spawn elytra bar.",
+          "Visuals (Client) → HUD Position: Horizontal / Vertical (hudPositionX, default 0; hudPositionY, default 50; 0 to 100): where the velocity gauge and rangefinder boxes sit, in percent of the free room between the 10 px margins - 0 = left/top, 100 = right/bottom. The defaults are the old place at the left middle; with both held, the rangefinder sits 35 px above and the gauge 35 px below that place.",
+          "Visuals (Client) → HUD Size (hudScale, default 100, 50 to 200): size of the velocity gauge and rangefinder boxes in percent.",
           "Compatibility & Advanced → Pistons Fire Block Break Events (pistonsFireBreakEvents, default on): Before a Netherite or Enderite Piston destroys a block it fires the loader's block break event with a fake player, so claim and protection mods can stop it. Turn it off if a protection mod blocks every fake player (pistons would stop everywhere) or quest and statistics mods count piston breaks as player breaks. Server-side.",
           "Compatibility & Advanced → Show \"SimpleEnchants (Dev)\" Creative Tab (showDevEnchantedTab, default off): Shows the creative tab \"SimpleEnchants (Dev)\" outside development environments too: the best tier of every enchantable item, pre-enchanted at max level. Takes effect when the creative tabs are rebuilt (at the latest after rejoining).",
           "The trim resonance limit maxMultiplierLimit (10.0) is fixed in code: the upper bound of setTrimMultiplier and of the loaded value; it is not an option.",
@@ -3296,6 +3419,9 @@
           "Darstellung (Client) → Eigene Texturen für Mod-Zauberbücher (modEnchantedBookTextures, Standard an): Jede Verzauberung dieser Mod hat ihr eigenes Buch. Aus: das schlichte Vanilla-Zauberbuch. Wirkt sofort.",
           "Darstellung (Client) → Besatzmuster auf Vanilla-Rüstungs-Icons (visibleTrimIconsVanillaArmor, Standard an): Die Icons besetzter Vanilla-Rüstung (auch des Schildkrötenpanzers) zeigen das Besatzmuster in den Farben des Materials. Aus: das Vanilla-Icon mit nur einem Farbfleck. Wirkt sofort.",
           "Darstellung (Client) → Besatzmuster auf Enderit-Rüstungs-Icons (visibleTrimIconsModArmor, Standard an): Die Icons besetzter Enderit-Rüstung zeigen das Besatzmuster in den Farben des Materials. Aus: das schlichte Icon mit nur einem Farbfleck. Wirkt sofort.",
+          "Darstellung (Client) → Mod-HUD anzeigen (showModHud, Standard an): zeigt die HUD-Kästen der Mod - Tacho, Entfernungsmesser, Luftsprung-Leiste und Spawn-Elytra-Leiste. Die Taste „Mod-HUD ein/aus“ (anfangs nicht belegt) schaltet diese Option um und speichert sie; aus ersetzt die Vanilla-Erfahrungsleiste die Spawn-Elytra-Leiste.",
+          "Darstellung (Client) → HUD-Position waagerecht / senkrecht (hudPositionX, Standard 0; hudPositionY, Standard 50; 0 bis 100): wo die Kästen von Tacho und Entfernungsmesser stehen, in Prozent des freien Raums zwischen den 10-px-Rändern - 0 = links/oben, 100 = rechts/unten. Die Standardwerte sind die alte Stelle links in der Mitte; mit beiden in der Hand steht der Entfernungsmesser 35 px darüber und der Tacho 35 px darunter.",
+          "Darstellung (Client) → HUD-Größe (hudScale, Standard 100, 50 bis 200): Größe der Kästen von Tacho und Entfernungsmesser in Prozent.",
           "Kompatibilität & Erweitert → Kolben lösen Abbau-Ereignisse aus (pistonsFireBreakEvents, Standard an): Bevor ein Netherit- oder Enderitkolben einen Block zerstört, löst er das Abbau-Ereignis des Loaders mit einem Fake-Spieler aus, damit Claim- und Schutz-Mods es verhindern können. Ausschalten, wenn ein Schutz-Mod jeden Fake-Spieler sperrt (die Kolben stünden überall still) oder Quest- und Statistik-Mods Kolbenabbau als Spielerabbau zählen. Serverseitig.",
           "Kompatibilität & Erweitert → Kreativ-Tab „SimpleEnchants (Dev)“ zeigen (showDevEnchantedTab, Standard aus): Zeigt den Kreativ-Tab „SimpleEnchants (Dev)“ auch außerhalb von Entwicklungsumgebungen: die beste Stufe jedes verzauberbaren Gegenstands, vorverzaubert auf Höchststufe. Wirkt beim Neuaufbau der Kreativ-Tabs (spätestens nach erneutem Betreten).",
           "Die Obergrenze der Besatz-Resonanz maxMultiplierLimit (10,0) steht fest im Code: Obergrenze von setTrimMultiplier und des geladenen Werts; sie ist keine Option.",
@@ -5779,7 +5905,7 @@
       "id": "simplebuilding:emitting_trim_template",
       "name": {
         "en_us": "Emitting Armor Trim",
-        "de_de": "Strahlender Rüstungsbesatz"
+        "de_de": "Strahlende Schmiedevorlage"
       },
       "texture": "assets/textures/item/emitting_trim_template.png",
       "craftedBy": [
@@ -8038,7 +8164,7 @@
       "id": "simplebuilding:glowing_trim_template",
       "name": {
         "en_us": "Glowing Armor Trim",
-        "de_de": "Leuchtender Rüstungsbesatz"
+        "de_de": "Leuchtende Schmiedevorlage"
       },
       "texture": "assets/textures/item/glowing_trim_template.png",
       "craftedBy": [
@@ -40120,6 +40246,66 @@
       "tooltipDe": "Die Icons besetzter Enderit-Rüstung zeigen das Besatzmuster in den Farben des Materials. Aus: das schlichte Icon mit nur einem Farbfleck. Wirkt sofort. Standard: an."
     },
     {
+      "name": "showModHud",
+      "shortName": "showModHud",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Visuals (Client)",
+      "categoryDe": "Darstellung (Client)",
+      "group": null,
+      "groupDe": null,
+      "label": "Show Mod HUD",
+      "labelDe": "Mod-HUD anzeigen",
+      "tooltip": "Shows the mod's HUD boxes: velocity gauge, rangefinder, air jump bar and spawn elytra bar. The Toggle Mod HUD key (unbound by default, see Controls) switches this too. Client-side. Default: on.",
+      "tooltipDe": "Zeigt die HUD-Kästen der Mod: Tacho, Entfernungsmesser, Luftsprung-Leiste und Spawn-Elytra-Leiste. Die Taste „Mod-HUD ein/aus“ (anfangs nicht belegt, siehe Steuerung) schaltet das ebenfalls. Nur Client. Standard: an."
+    },
+    {
+      "name": "hudPositionX",
+      "shortName": "hudPositionX",
+      "type": "int",
+      "default": "0",
+      "note": null,
+      "category": "Visuals (Client)",
+      "categoryDe": "Darstellung (Client)",
+      "group": null,
+      "groupDe": null,
+      "label": "HUD Position: Horizontal",
+      "labelDe": "HUD-Position: waagerecht",
+      "tooltip": "Where the velocity gauge and rangefinder boxes sit across the screen, in percent: 0 = left edge, 50 = center, 100 = right edge. Client-side. Default: 0.",
+      "tooltipDe": "Wo die Kästen von Tacho und Entfernungsmesser in der Breite stehen, in Prozent: 0 = linker Rand, 50 = Mitte, 100 = rechter Rand. Nur Client. Standard: 0."
+    },
+    {
+      "name": "hudPositionY",
+      "shortName": "hudPositionY",
+      "type": "int",
+      "default": "50",
+      "note": null,
+      "category": "Visuals (Client)",
+      "categoryDe": "Darstellung (Client)",
+      "group": null,
+      "groupDe": null,
+      "label": "HUD Position: Vertical",
+      "labelDe": "HUD-Position: senkrecht",
+      "tooltip": "Where the velocity gauge and rangefinder boxes sit up and down the screen, in percent: 0 = top, 50 = middle, 100 = bottom. Client-side. Default: 50.",
+      "tooltipDe": "Wo die Kästen von Tacho und Entfernungsmesser in der Höhe stehen, in Prozent: 0 = oben, 50 = Mitte, 100 = unten. Nur Client. Standard: 50."
+    },
+    {
+      "name": "hudScale",
+      "shortName": "hudScale",
+      "type": "int",
+      "default": "100",
+      "note": null,
+      "category": "Visuals (Client)",
+      "categoryDe": "Darstellung (Client)",
+      "group": null,
+      "groupDe": null,
+      "label": "HUD Size",
+      "labelDe": "HUD-Größe",
+      "tooltip": "Size of the velocity gauge and rangefinder boxes in percent (50 to 200). Client-side. Default: 100.",
+      "tooltipDe": "Größe der Kästen von Tacho und Entfernungsmesser in Prozent (50 bis 200). Nur Client. Standard: 100."
+    },
+    {
       "name": "pistonsFireBreakEvents",
       "shortName": "pistonsFireBreakEvents",
       "type": "boolean",
@@ -60454,10 +60640,10 @@
     "trades": 20,
     "enchantments": 19,
     "tags": 29,
-    "config": 76,
+    "config": 80,
     "inWorld": 392,
     "advancements": 101,
-    "features": 37,
+    "features": 39,
     "undocumented": 0,
     "incompleteProse": 0
   },

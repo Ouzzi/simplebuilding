@@ -38,6 +38,11 @@ public final class ClientToggleKeys {
             }
         }
 
+        while (ClientState.hudToggleKey != null && ClientState.hudToggleKey.consumeClick()) {
+            // Kein Text (Besitzer-Regel): das HUD verschwindet oder kommt wieder, ein Klick bestaetigt.
+            com.simplebuilding.client.gui.ModHud.toggle(client);
+        }
+
         while (ClientState.octantFigureToggleKey != null && ClientState.octantFigureToggleKey.consumeClick()) {
             // Eigener Schalter: nur die gefuellte Oktant-Figur (frueher derselbe wie Highlights).
             ClientState.showOctantFigure = !ClientState.showOctantFigure;

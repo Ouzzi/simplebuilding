@@ -129,6 +129,13 @@ public final class SimplebuildingForgeClient {
         event.register(ClientState.octantFigureToggleKey);
         event.register(ClientState.settingsKey);
         event.register(ClientState.backpackKey);
+        ClientState.hudToggleKey = new KeyMapping(
+                "key.simplebuilding.toggle_hud",
+                InputConstants.Type.KEYSYM,
+                InputConstants.UNKNOWN.getValue(),
+                KEY_CATEGORY_SIMPLEMODS
+        );
+        event.register(ClientState.hudToggleKey);
     }
 
     /**

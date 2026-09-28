@@ -39,6 +39,13 @@ sourceSets {
             srcDir rootProject.layout.projectDirectory.dir('common/src/mc26_2/java')
             // JEI plugin, compileOnly JEI API (see the root build.gradle)
             srcDir rootProject.layout.projectDirectory.dir('common/src/jei/java')
+            // Jade plugin, compileOnly Jade jar (see the root build.gradle)
+            srcDir rootProject.layout.projectDirectory.dir('common/src/jade/java')
+            // REI plugin (compileOnly REI API, see the root build.gradle) plus the two NeoForge
+            // registration subclasses, whose @REIPluginClient/@REIPluginCommon only REI's NeoForge
+            // API has. The 26.3 NeoForge module leaves both out (no REI for 26.3).
+            srcDir rootProject.layout.projectDirectory.dir('common/src/rei/java')
+            srcDir 'src/rei/java'
         }
         resources {
             srcDir 'src/main/resources'
@@ -169,6 +176,7 @@ neoForge {
 repositories {
     maven { url = 'https://maven.shedaniel.me/' }
     maven { url = 'https://maven.blamejared.com/' }
+    maven { url = 'https://maven.architectury.dev/' }
     exclusiveContent {
         forRepository { maven { url = 'https://api.modrinth.com/maven' } }
         filter { includeGroup 'maven.modrinth' }
@@ -213,6 +221,15 @@ dependencies {
 
     // JEI plugin API (common/src/jei/java). compileOnly: the mod runs without JEI.
     compileOnly "mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}"
+    // Jade plugin (common/src/jade/java). compileOnly: the mod runs without Jade.
+    compileOnly("maven.modrinth:jade:${rootProject.dev_jade_neoforge}") { transitive = false }
+
+    // REI plugin API (common/src/rei/java + src/rei/java). compileOnly, non-transitive: the mod
+    // runs without REI; Architectury only because REI's signatures name it. No REI dev runtime
+    // (it would sit next to JEI over the same screens).
+    compileOnly("me.shedaniel:RoughlyEnoughItems-api-neoforge:${rootProject.rei_version}") { transitive = false }
+    compileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-neoforge:${rootProject.rei_version}") { transitive = false }
+    compileOnly("dev.architectury:architectury-neoforge:${rootProject.rei_architectury_version}") { transitive = false }
 
     devMods("mezz.jei:jei-${rootProject.minecraft_version}-neoforge:${rootProject.jei_version}") { transitive = false }
     devMods("maven.modrinth:jade:${rootProject.dev_jade_neoforge}") { transitive = false }

@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "active=false": {
       "model": "simplebuilding:block/netherite_chunk_loader"
+    },
+    "active=true": {
+      "model": "simplebuilding:block/netherite_chunk_loader_active"
     }
   }
 }

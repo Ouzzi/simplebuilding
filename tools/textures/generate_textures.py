@@ -2220,6 +2220,130 @@ def pad_textures(tex):
     return out
 
 
+# Sichtbare Zustaende der Pads (Immersion 2026-09-28, Besitzer: "sichtbare Zustaende statt Texte").
+# Grundlage ist dieselbe Spirale wie bei der Auflage: die freien Pixel ('0') von PAD_VEIL. Sie wird von
+# der Mitte nach aussen durchnummeriert (Weglaenge entlang der Spirale, 8er-Nachbarschaft), damit ein
+# Fuellstand sie wie eine Zuendschnur von innen her aufleuchten laesst.
+#   Launchpad charge=1..3 - die Spirale leuchtet zu einem, zwei, drei Dritteln in Windkugel-Tuerkis,
+#                           die jeweils aeusserste Windung heller (sie "laeuft" nach aussen).
+#   Chunk-Loader active   - die ganze Spirale glimmt in Portal-Violett, die Funkelsterne werden fast
+#                           weiss und bekommen einen schwachen Hof.
+#   Flypad active         - die Spirale glimmt hell (I, II weiss-tuerkis; III Sternengold), Sterne wie oben.
+# Die Grundbilder: dieselben Texturen wie die Blockmodelle (generiert oder von Hand, chunk_loader.png
+# liegt als Vorlage in hand/).
+PAD_STATE_SOURCES = {
+    "launchpad": "gen", "netherite_launchpad": "gen", "enderite_launchpad": "gen",
+    "chunk_loader": "hand", "netherite_chunk_loader": "gen", "enderite_chunk_loader": "gen",
+    "flypad_ender": "gen", "reinforced_flypad_ender": "gen", "stellar_flypad_ender": "gen",
+}
+LAUNCHPAD_GLOW = {"lit": "#78d8f2", "lit_a": 0.72, "tip": "#e8fbff", "tip_a": 0.85}
+PAD_ACTIVE_GLOW = {
+    # Name: (Spiralfarbe, Deckkraft, Sternfarbe)
+    "chunk_loader": ("#c48cff", 0.6, "#fff4ff"),
+    "netherite_chunk_loader": ("#b77cf5", 0.62, "#ffffff"),
+    "enderite_chunk_loader": ("#c8a2ff", 0.62, "#ffffff"),
+    "flypad_ender": ("#a8f4ff", 0.62, "#ffffff"),
+    "reinforced_flypad_ender": ("#c4f8ff", 0.62, "#ffffff"),
+    "stellar_flypad_ender": ("#ffd76a", 0.66, "#fffbe8"),
+}
+
+
+def pad_luma(c):
+    """Helligkeit 0..1 eines RGB-Pixels."""
+    return (0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]) / 255.0
+
+
+def glow_mix(base, glow, a, mean):
+    """Mischt eine Leuchtfarbe ein, ohne die Schattierung der Platte zu verlieren: die Leuchtfarbe wird
+    um die Helligkeitsabweichung des Grundpixels vom Mittel der Spirale heller oder dunkler."""
+    k = 1.0 + 0.9 * (pad_luma(base) - mean)
+    target = tuple(max(0, min(255, int(round(v * k)))) for v in glow)
+    return mix(base, target, a)
+
+
+def spiral_order():
+    """Die Spiralpixel (x, y) von der Mitte nach aussen, nach Weglaenge entlang der Spirale."""
+    cells = {(x, y) for y in range(16) for x in range(16) if PAD_VEIL[y][x] == "0"}
+    start = min(cells, key=lambda c: (c[0] - 7.5) ** 2 + (c[1] - 7.5) ** 2)
+    dist = {start: 0}
+    queue = [start]
+    while queue:
+        cx, cy = queue.pop(0)
+        for dx in (-1, 0, 1):
+            for dy in (-1, 0, 1):
+                n = (cx + dx, cy + dy)
+                if n in cells and n not in dist:
+                    dist[n] = dist[(cx, cy)] + 1
+                    queue.append(n)
+    far = max(dist.values()) + 1
+    for c in cells:  # nicht verbundene Reste ganz ans Ende
+        dist.setdefault(c, far + int(((c[0] - 7.5) ** 2 + (c[1] - 7.5) ** 2) ** 0.5))
+    return sorted(cells, key=lambda c: (dist[c], c[1], c[0]))
+
+
+def spiral_mean(px):
+    order = spiral_order()
+    return sum(pad_luma(px[x, y]) for x, y in order) / len(order)
+
+
+def launchpad_charge(base, level):
+    """Launchpad mit Fuellstand 1..3: die inneren level/3 der Spirale leuchten, das letzte Sechstel heller."""
+    img = base.convert("RGB").copy()
+    px = img.load()
+    order = spiral_order()
+    mean = spiral_mean(px)
+    lit = round(len(order) * level / 3)
+    tip = max(1, round(len(order) / 6))
+    for i, (x, y) in enumerate(order[:lit]):
+        if i >= lit - tip:
+            px[x, y] = glow_mix(px[x, y], hexrgb(LAUNCHPAD_GLOW["tip"]), LAUNCHPAD_GLOW["tip_a"], mean)
+        else:
+            px[x, y] = glow_mix(px[x, y], hexrgb(LAUNCHPAD_GLOW["lit"]), LAUNCHPAD_GLOW["lit_a"], mean)
+    return img
+
+
+def pad_active(base, name):
+    """Eingeschaltetes Pad: Spirale glimmt, Funkelsterne fast weiss mit schwachem Hof."""
+    glow, alpha, star = PAD_ACTIVE_GLOW[name]
+    img = base.convert("RGB").copy()
+    px = img.load()
+    mean = spiral_mean(px)
+    for x, y in spiral_order():
+        px[x, y] = glow_mix(px[x, y], hexrgb(glow), alpha, mean)
+    has_stars = PAD_OVERLAYS.get(PAD_TEXTURES.get(name, ("", ""))[1], {}).get("stars") or name == "chunk_loader"
+    if has_stars:
+        for y in range(16):
+            for x in range(16):
+                ch = PAD_STARS[y][x]
+                if ch == "S":
+                    px[x, y] = mix(px[x, y], hexrgb(star), 0.95)
+                elif ch == "s":
+                    px[x, y] = mix(px[x, y], hexrgb(star), 0.7)
+        for y in range(16):
+            for x in range(16):
+                if PAD_STARS[y][x] != "S":
+                    continue
+                for dx, dy in ((1, 1), (-1, 1), (1, -1), (-1, -1)):
+                    nx, ny = x + dx, y + dy
+                    if 0 <= nx < 16 and 0 <= ny < 16 and PAD_STARS[ny][nx] == ".":
+                        px[nx, ny] = mix(px[nx, ny], hexrgb(glow), 0.3)
+    return img
+
+
+def pad_state_textures(tex):
+    """Die Zustandsbilder zu PAD_STATE_SOURCES (braucht die Pad-Texturen aus pad_textures)."""
+    out = {}
+    for name, source in PAD_STATE_SOURCES.items():
+        base = (Image.open(os.path.join(HAND, f"{name}.png")).convert("RGB") if source == "hand"
+                else tex[f"block/{name}.png"])
+        if name.endswith("launchpad"):
+            for level in (1, 2, 3):
+                out[f"block/{name}_charge_{level}.png"] = launchpad_charge(base, level)
+        else:
+            out[f"block/{name}_active.png"] = pad_active(base, name)
+    return out
+
+
 # Familien fuer die Vorschau (alle Stufen in einer Reihe, dazu die Grundplatte)
 PAD_FAMILIES = [
     ("Elytra-Pads (Diamantplatte)", ["elytra_pad", "reinforced_elytra_pad", "netherite_elytra_pad",
@@ -2879,6 +3003,7 @@ def build():
     tex.update(backpack_gui_textures())
     tex.update(end_palette_textures())
     tex.update(pad_textures(tex))  # braucht die Enderitplatte aus end_palette_textures
+    tex.update(pad_state_textures(tex))  # braucht die Pad-Texturen
     tex.update(echo_compass_textures())
     tex.update(potion_pad_textures())
     tex.update(guide_book_textures())
