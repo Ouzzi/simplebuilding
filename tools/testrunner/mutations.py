@@ -1119,7 +1119,7 @@ P9_MUTATIONS: list[Mutation] = [
     # --- client ------------------------------------------------------------------------------
     Mutation('p9-lang-nihilith-item',
              'src/main/resources/assets/simplebuilding/lang/en_us.json',
-             '  "item.simplebuilding.nihilith_ore": "Nihilith Ore",\n',
+             '  "item.simplebuilding.nihilith_ore": "Nihilit Ore",\n',
              '',
              'smoke', 'item.simplebuilding.nihilith_ore',
              'the nihilith ore block item has a name of its own'),

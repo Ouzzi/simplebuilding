@@ -87,7 +87,7 @@ geändert hat.
 | Quarz | Feuer / Erfahrung | 5 % / 5 % | 20 % / 20 % | 40 % / 40 % | |
 | Enderit | jeder Schaden außer `bypasses_invulnerability` (/kill, Leere) | 5 % | 20 % | 25 % (40) | + Muster ×2,0 (alt 3,5), im 25-%-Topf |
 | Astralit | rüstungswirksamer Schaden, Sprungkraft | 2 % | 8 %, Sprung I | 16 %, Sprung II | im 25-%-Topf |
-| Nihilith | rüstungswirksamer Schaden, Sturzflug | 2 % | 8 % | 16 % | im 25-%-Topf |
+| Nihilit | rüstungswirksamer Schaden, Sturzflug | 2 % | 8 % | 16 % | im 25-%-Topf |
 | Redstone | Laufgeschwindigkeit | 3 % | 12 % | 20 % (24) | |
 | Amethyst | Heilchance alle 10 s | 25 % | 100 % | 100 % | 1 Lebenspunkt / 10 s |
 | Kupfer | Blitz | 10 % | 40 % | 80 % | Gegenstück zu Bolt |
@@ -98,7 +98,7 @@ geändert hat.
 | Deckel | Wert | Vanilla-Anker |
 |---|---|---|
 | Schaden je Treffer | mindestens 20 % kommen an (alt 10 %) | Schutz-Verzauberung deckelt bei 80 % |
-| Boni gegen jeden Schaden (Ward, Diamant, Enderit, Astralit, Nihilith) | zusammen 25 % | – |
+| Boni gegen jeden Schaden (Ward, Diamant, Enderit, Astralit, Nihilit) | zusammen 25 % | – |
 | Sichtbarkeit | −50 % | getragener Mob-Kopf |
 | Luft sparen | 75 % | Atmung III |
 | Sprint-Hunger | −50 % | – |
@@ -138,7 +138,7 @@ geändert hat.
    oder Enderit-Besatz viel früher), Coast ab 1,25 unendlich atmen, Wayfinder mit Enderit-Besatz ab
    0,71 Sprinten ohne Hunger, Rib löschte bei voller Resonanz jede Wither-Wirkung unter 16 s sofort,
    Glück/Erfahrung/Tempo waren offen. Jetzt die Deckel oben.
-7. **Allround-Schutz stapelte bis 90 % (behoben).** Ward + Diamant/Enderit + Astralit/Nihilith lagen
+7. **Allround-Schutz stapelte bis 90 % (behoben).** Ward + Diamant/Enderit + Astralit/Nihilit lagen
    alle im selben Abzug; Enderit-Ward allein 62 % auf *jeden* Schaden. Jetzt gemeinsam höchstens 25 %,
    und der Treffer-Boden liegt bei 20 %.
 8. **Resonanz-Panel: „Dmg Taken … Hearts“ doppelt so hoch (behoben).** Die Statistik zählt

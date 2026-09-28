@@ -3009,6 +3009,164 @@ public final class DataIntegrityTests {
     }
 
     /**
+     * Every registered item of the mod has an item definition ({@code assets/simplebuilding/items/<id>.json})
+     * that draws something, and everything that definition references resolves:
+     * <ul>
+     *   <li>each {@code minecraft:model} (and a {@code minecraft:special} base) model file exists, with
+     *       its whole parent chain - mod models always, vanilla models whenever the client assets are
+     *       on the classpath;</li>
+     *   <li>each texture of the chain exists as a PNG, or - for the trim overlays - is produced by a
+     *       {@code paletted_permutations} source of the items atlas the mod ships;</li>
+     *   <li>each texture variable a face or texture slot uses ({@code #wall}, {@code #layer0}) is
+     *       defined somewhere in the chain (checked when the chain's vanilla parents are readable).</li>
+     * </ul>
+     * Only the Creative Spacer may draw nothing ({@code minecraft:empty} as its whole model).
+     *
+     * <p>What breaks this: a new item without re-running datagen, a model pointing at a renamed
+     * texture, an inventory model with the wrong texture key (a wall's {@code wall_inventory} needs
+     * {@code wall}), a range-dispatch entry naming a frame that was never drawn.
+     */
+    public static void everyItemHasAnItemDefinitionWhoseModelsAndTexturesExist(GameTestHelper helper) {
+        ClassLoader loader = DataIntegrityTests.class.getClassLoader();
+        boolean vanillaAssets = loader.getResource("assets/minecraft/models/block/block.json") != null
+                && loader.getResource("assets/minecraft/textures/item/stick.png") != null;
+        Set<String> permuted = new HashSet<>();
+        JsonObject atlas = shippedJson("assets/minecraft/atlases/items.json",
+                json -> json.toString().contains(MOD_ID + ":"));
+        if (atlas != null) {
+            for (JsonElement source : atlas.getAsJsonArray("sources")) {
+                JsonObject s = source.getAsJsonObject();
+                if (!"minecraft:paletted_permutations".equals(s.get("type").getAsString())) continue;
+                for (JsonElement texture : s.getAsJsonArray("textures")) {
+                    for (String palette : s.getAsJsonObject("permutations").keySet()) {
+                        permuted.add(texture.getAsString() + "_" + palette);
+                    }
+                }
+            }
+        }
+        List<String> problems = new ArrayList<>();
+        Map<String, List<String>> checkedModels = new HashMap<>();
+        int items = 0;
+        int models = 0;
+        for (Item item : BuiltInRegistries.ITEM) {
+            Identifier id = BuiltInRegistries.ITEM.getKey(item);
+            if (!MOD_ID.equals(id.getNamespace())) continue;
+            items++;
+            String path = "assets/" + MOD_ID + "/items/" + id.getPath() + ".json";
+            JsonObject definition = shippedJson(path, json -> true);
+            if (definition == null || !definition.has("model")) {
+                problems.add(id + ": no item definition " + path);
+                continue;
+            }
+            List<String> referenced = new ArrayList<>();
+            collectItemModels(definition.get("model"), referenced);
+            if (referenced.isEmpty() && item != ModItems.CREATIVE_SPACER) {
+                problems.add(id + ": the item definition draws nothing (no minecraft:model in it)");
+            }
+            for (String model : referenced) {
+                models++;
+                List<String> found = checkedModels.computeIfAbsent(model,
+                        m -> checkItemModel(loader, m, vanillaAssets, permuted));
+                for (String p : found) problems.add(id + ": " + p);
+            }
+        }
+        helper.assertTrue(items >= 200, "expected at least 200 mod items, found " + items);
+        if (problems.size() > 20) {
+            int more = problems.size() - 20;
+            problems = new ArrayList<>(problems.subList(0, 20));
+            problems.add("... and " + more + " more");
+        }
+        helper.assertTrue(problems.isEmpty(), "item definitions (" + items + " items, " + models + " model references, vanilla assets "
+                + (vanillaAssets ? "checked" : "not on the classpath") + "): " + problems);
+        helper.succeed();
+    }
+
+    private static void collectItemModels(JsonElement node, List<String> out) {
+        if (node.isJsonArray()) {
+            node.getAsJsonArray().forEach(e -> collectItemModels(e, out));
+            return;
+        }
+        if (!node.isJsonObject()) return;
+        JsonObject object = node.getAsJsonObject();
+        String type = object.has("type") && object.get("type").isJsonPrimitive() ? object.get("type").getAsString() : "";
+        if ((type.equals("minecraft:model") || type.equals("model")) && object.get("model").isJsonPrimitive()) {
+            out.add(object.get("model").getAsString());
+        }
+        if ((type.equals("minecraft:special") || type.equals("special")) && object.has("base")) {
+            out.add(object.get("base").getAsString());
+        }
+        for (Map.Entry<String, JsonElement> entry : object.entrySet()) {
+            collectItemModels(entry.getValue(), out);
+        }
+    }
+
+    /** Problems of one item model: missing files along the parent chain, missing textures, undefined texture variables. */
+    private static List<String> checkItemModel(ClassLoader loader, String model, boolean vanillaAssets, Set<String> permuted) {
+        List<String> problems = new ArrayList<>();
+        List<JsonObject> chain = new ArrayList<>();
+        boolean complete = true;
+        Set<String> seen = new HashSet<>();
+        String current = model;
+        while (current != null) {
+            Identifier id = Identifier.parse(current);
+            if (id.getPath().startsWith("builtin/") || !seen.add(id.toString())) break;
+            boolean ours = MOD_ID.equals(id.getNamespace());
+            if (!ours && !vanillaAssets) {
+                complete = false;
+                break;
+            }
+            JsonObject json = shippedJson("assets/" + id.getNamespace() + "/models/" + id.getPath() + ".json", j -> true);
+            if (json == null) {
+                problems.add("model " + id + " is missing" + (id.toString().equals(model) ? "" : " (parent in the chain of " + model + ")"));
+                complete = false;
+                break;
+            }
+            chain.add(json);
+            current = json.has("parent") ? json.get("parent").getAsString() : null;
+        }
+        Map<String, String> textures = new HashMap<>();
+        List<String> uses = new ArrayList<>();
+        for (int i = chain.size() - 1; i >= 0; i--) {
+            JsonObject json = chain.get(i);
+            if (json.has("textures")) {
+                for (Map.Entry<String, JsonElement> entry : json.getAsJsonObject("textures").entrySet()) {
+                    JsonElement value = entry.getValue();
+                    String sprite = value.isJsonObject() ? value.getAsJsonObject().get("sprite").getAsString() : value.getAsString();
+                    textures.put(entry.getKey(), sprite);
+                }
+            }
+            if (json.has("elements")) {
+                for (JsonElement element : json.getAsJsonArray("elements")) {
+                    JsonObject faces = element.getAsJsonObject().getAsJsonObject("faces");
+                    if (faces == null) continue;
+                    for (Map.Entry<String, JsonElement> face : faces.entrySet()) {
+                        uses.add(face.getValue().getAsJsonObject().get("texture").getAsString());
+                    }
+                }
+            }
+        }
+        uses.addAll(textures.values());
+        for (String use : new TreeSet<>(uses)) {
+            String sprite = use;
+            for (int hops = 0; sprite != null && sprite.startsWith("#") && hops < 16; hops++) {
+                sprite = textures.get(sprite.substring(1));
+            }
+            if (sprite == null || sprite.startsWith("#")) {
+                if (complete) problems.add("model " + model + " uses texture variable " + use + " that its chain never defines");
+                continue;
+            }
+            Identifier texture = Identifier.parse(sprite);
+            boolean ours = MOD_ID.equals(texture.getNamespace());
+            if (!ours && !vanillaAssets) continue;
+            if (loader.getResource("assets/" + texture.getNamespace() + "/textures/" + texture.getPath() + ".png") == null
+                    && !permuted.contains(texture.toString())) {
+                problems.add("model " + model + " uses texture " + texture + ", which does not exist");
+            }
+        }
+        return problems;
+    }
+
+    /**
      * Every vanilla enchantment has its own enchanted book: an entry in
      * {@code VanillaBookTextures.VANILLA}, a case {@code minecraft_<id>} in
      * {@code assets/minecraft/items/enchanted_book.json} that points at
@@ -3700,12 +3858,14 @@ public final class DataIntegrityTests {
                 }
             }
         }
-        List<String> oldEnglish = List.of("Upgrade Template", "Old Netherite", "Old Enderite", "Enderite Block", "Cracked Diamond Block");
+        List<String> oldEnglish = List.of("Upgrade Template", "Old Netherite", "Old Enderite", "Enderite Block", "Cracked Diamond Block",
+                // 2026-09-28: Nihilith heisst jetzt Nihilit (Anzeige; die Ids bleiben nihilith_*)
+                "Nihilith");
         List<String> oldGerman = List.of("Nugget", "Enderiten-", "Altes Netherit", "Altes Enderit", "Basisaufwertung", "Roh-Enderit",
                 "Enderitschrott", "Enderit-Schrott", "Enderit-Brustpanzer", "Enderit-Hose", "Enderit-Speer", "Netherit-Bündel",
                 "Enderit-Bündel", "Netherit-Köcher", "Enderit-Köcher", "Netherit-Apfel", "Enderit-Apfel", "Netherit-Karotte",
-                "Enderit-Karotte", "Netherit-Kern", "Enderit-Kern", "Astralit-Ziegel", "Nihilith-Ziegel", "Nihilith-Splitter",
-                "Astralit-Erz", "Nihilith-Erz", "Astralit-Säule", "Nihilith-Säule", "Aufwertungsvorlage");
+                "Enderit-Karotte", "Netherit-Kern", "Enderit-Kern", "Astralit-Ziegel", "Nihilith",
+                "Astralit-Erz", "Astralit-Säule", "Aufwertungsvorlage");
         for (String key : en.keySet()) {
             for (String old : oldEnglish) {
                 if (en.get(key).getAsString().contains(old)) problems.add("en_us " + key + " still says '" + old + "'");

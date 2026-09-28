@@ -28,7 +28,7 @@ Gilt für beide MC-Linien (26.2 und 1.21.11) und alle Loader; Quelle ist
 | Tabelle | Würfe | Inhalt | Leer | Ø |
 |---|---|---|---|---|
 | Stronghold-Bibliothek | 0–2 | Reichweite II 4, Baumeister 3, Vielseitigkeit I 4 / II 2 | 12 | 0,52 |
-| End City | 15 % / 30 % / 1 / 0–3 | Schrott; Template; Roh-Enderit 4 (1–2), Enderit-Nugget 6 (2–5), Astralitstaub 6 (2–6), Nihilith-Splitter 6 (1–4) [leer 14]; Enderit-Kern 0,25 % (eigener Pool); Reichweite III 4, Baumeister 3, Übersteuerung II 5, Luftsprung II 5, Vielseitigkeit I 6 / II 3, Diamant-Baustab* 6, Diamant-Vorschlaghammer* 8, Enderit-Apfel 3, verz. Enderit-Apfel 1 | 40 | 1,88 |
+| End City | 15 % / 30 % / 1 / 0–3 | Schrott; Template; Roh-Enderit 4 (1–2), Enderit-Nugget 6 (2–5), Astralitstaub 6 (2–6), Nihilit-Splitter 6 (1–4) [leer 14]; Enderit-Kern 0,25 % (eigener Pool); Reichweite III 4, Baumeister 3, Übersteuerung II 5, Luftsprung II 5, Vielseitigkeit I 6 / II 3, Diamant-Baustab* 6, Diamant-Vorschlaghammer* 8, Enderit-Apfel 3, verz. Enderit-Apfel 1 | 40 | 1,88 |
 | Ancient City | 0–2 | Tiefe Taschen II 5, Radius 4, Oktant* 5, Diamant-Vorschlaghammer 3, Köcher* 3, Netherit-Apfel 2, verz. Netherit-Apfel 1, Netherit-Nugget 4 (1–3), Diamantkiesel 6 (2–5) | 25 | 0,57 |
 | Bastion (alle Kisten) | 0–2 | Trichter I 5, Durchbruch I 5, Gold-Vorschlaghammer 6, Netherit-Nugget 12 (1–4), Netherit-Karotte 6 (1–2); Goldkern 0,6 % (eigener Pool) | 25 | 0,58 |
 | + nur Bastion-Schatz | 1 | Netherit-Apfel 4, verz. Netherit-Apfel 2, Durchbruch II 3; Netheritkern 4 % (eigener Pool) | 7 | +0,57 |

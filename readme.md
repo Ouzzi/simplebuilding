@@ -37,7 +37,7 @@ Browser oeffnen; die Daten erzeugt `python wiki/generate.py` direkt aus der Mod)
 - **Kolben:** der verstaerkte Kolben schiebt 18 statt 12 Bloecke, der Netherit-Kolben zerstoert den
   Block vor sich, der Enderit-Kolben bohrt sich - bezahlt mit einem Redstone-Block - bis zu drei Bloecke
   tief durch Unzerstoerbares wie Grundgestein.
-- **Enderit:** Erze und Bloecke im End (Astralit, Nihilith), Enderit-Werkzeuge, -Ruestung und
+- **Enderit:** Erze und Bloecke im End (Astralit, Nihilit), Enderit-Werkzeuge, -Ruestung und
   -Aufwertungsvorlage; Enderit-Items gehen in der Leere nicht verloren.
 - **19 Verzauberungen**, u. a. Aderabbau, Streifenabbau, Luftsprung, Kinetischer Schutz, Schublade,
   Farbpalette, Beruehrung des Konstrukteurs; Ruestungsbesaetze geben Boni.

@@ -163,7 +163,7 @@ Universal-Umschalter) · Fürs Auge (Quarz-Schachbrettblöcke, Baustellenlicht) 
 (Verstärkter/Netherit-Trichter) · Feuer, das es eilig hat (ein verstärkter Ofen/Schmelzofen/Räucherofen)
 · Kolben mit Kraft (`reinforced_piston`) · Ein Krümel Netherit (`netherite_nugget`) · Der dunkle
 Kolben (`netherite_piston`) · Sand, der sich nicht benimmt (versiegelt bis Astralit-Staub oder
-Nihilith-Splitter, verweist auf die Leere-Aufzeichnungen) · Baustellenlicht (`construction_light`:
+Nihilit-Splitter, verweist auf die Leere-Aufzeichnungen) · Baustellenlicht (`construction_light`:
 „heller als jede Fackel, schnell wieder abgebaut, klirrt wie Glas" – Lichtstufe 15 gegen 14 der
 Fackel, Härte 0,3, Glasgeräusch; **nicht** „beim ersten Antippen weg", von Hand dauert es rund
 9 Ticks).
@@ -268,7 +268,7 @@ normale Lebensdauer eines Items von 6000 Ticks läuft weiter, nach fünf Minuten
 
 **Ton:** bruchstückhafte Expeditionsnotizen, zerrissene Seiten, einzelne Runenzeilen.
 **Kapitel:** Vor der Reise (immer offen) · Zwei Steine (`end/root`) · Oben und unten (Astralit hebt:
-schwebender Sand, Sprungkraft-Besatz; Nihilith hält: hängender Sand, schnelles Fallen) · Rezept,
+schwebender Sand, Sprungkraft-Besatz; Nihilit hält: hängender Sand, schnelles Fallen) · Rezept,
 zerrissen (Randnotiz beim Halten von Roh-Enderit) · Die Vorlage (`end/find_end_city`) · Was nicht
 fällt (Void-Schutz; ab 2 Rüstungsteilen sanftes Sinken bei gehaltener Sprungtaste; `enderite_ingot`)
 · Früchte der Leere (`enderite_nugget`) · Baustoff der Leere (polierter Endstein, Astral-/Nihil-Blöcke;
@@ -336,7 +336,7 @@ abgeschnitten worden und hätte den Sinn umgedreht.)*
 **Kapitel:** Über Resonanz (immer offen) · Das Wappen neben deinen Taschen (Inventar-Knopf;
 `adventure/trim_with_any_armor_pattern`) · Muster · Materialien (Hinweis: Tooltips rechnen mit
 festem Faktor 0,2, der Referenzbildschirm am Schmiedetisch sagt die Wahrheit) · Sternenstaub und
-Nichts (Astralit/Nihilith/Enderit gehalten) · Licht zum Anziehen · Die Referenz. Nie erwähnen:
+Nichts (Astralit/Nihilit/Enderit gehalten) · Licht zum Anziehen · Die Referenz. Nie erwähnen:
 eine Kupfer-Besatzwirkung oder „Schallschutz" durch Amethyst (beides gibt es nicht; Amethyst heilt).
 
 > **EN – On Resonance** *(Quelle: Wiki „armor_trim_benefits"; beim Tod setzen Distanz, Zeit, Schaden

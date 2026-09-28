@@ -278,6 +278,16 @@ def texture_for(roots: dict, kind: str, item_id: str) -> str | None:
         candidates.extend(v for v in textures.values() if isinstance(v, str))
         break
 
+    if kind == "item" and not candidates:
+        # Kein models/item/<id>.json: die Item-Definition sagt, was das Inventar zeigt -
+        # bei Mauern block/<id>_inventory (Textur "wall"), beim Echolot das erste Bild der
+        # Kompass-Reihe. Zeichnet sie gar nichts (Kreativ-Platzhalter), bekommt das Wiki
+        # ein eigenes Leerfeld-Symbol statt blossem Text.
+        from_definition = item_definition_textures(roots, name)
+        if from_definition is None:
+            return empty_slot_icon()
+        candidates.extend(from_definition)
+
     candidates.append(f"{NS}:{kind}/{name}")
 
     for candidate in candidates:
@@ -285,6 +295,101 @@ def texture_for(roots: dict, kind: str, item_id: str) -> str | None:
         if copied:
             return copied
     return None
+
+
+TEXTURE_KEYS = ("layer0", "all", "texture", "wall", "side", "front", "top", "end", "particle")
+
+
+def item_definition_textures(roots: dict, name: str) -> list[str] | None:
+    """
+    Texture candidates from assets/<ns>/items/<name>.json: the models it references, in
+    order (the first is what the game shows by default), each with its parent chain inside
+    the mod. [] when there is no definition; None when the definition draws nothing at all
+    (only minecraft:empty).
+    """
+    definition = None
+    for base in (roots["generated_assets"], roots["resource_assets"]):
+        path = REPO / base / "items" / f"{name}.json"
+        if path.exists():
+            try:
+                definition = read_json(path).get("model")
+            except json.JSONDecodeError:
+                return []
+            break
+    if definition is None:
+        return []
+
+    models: list[str] = []
+
+    def walk(node):
+        if isinstance(node, dict):
+            if node.get("type") in ("minecraft:model", "model") and isinstance(node.get("model"), str):
+                models.append(node["model"])
+            if node.get("type") in ("minecraft:special", "special") and isinstance(node.get("base"), str):
+                models.append(node["base"])
+            for value in node.values():
+                walk(value)
+        elif isinstance(node, list):
+            for value in node:
+                walk(value)
+
+    walk(definition)
+    if not models:
+        return None
+
+    candidates: list[str] = []
+    for model in models:
+        seen: set[str] = set()
+        while model and is_ours(model) and model not in seen:
+            seen.add(model)
+            data = None
+            for base in (roots["generated_assets"], roots["resource_assets"]):
+                path = REPO / base / "models" / (short(model) + ".json")
+                if path.exists():
+                    try:
+                        data = read_json(path)
+                    except json.JSONDecodeError:
+                        pass
+                    break
+            if not data:
+                break
+            textures = data.get("textures", {})
+            candidates.extend(textures[k] for k in TEXTURE_KEYS if isinstance(textures.get(k), str))
+            model = data.get("parent")
+    return [c for c in candidates if not c.startswith("#")]
+
+
+EMPTY_SLOT_ICON = "assets/textures/wiki/empty_slot.png"
+
+
+def empty_slot_icon() -> str:
+    """
+    A wiki-only 16x16 icon for items that draw nothing in the game (the Creative Spacer):
+    a dashed grey outline, like an empty slot. Written here, byte for byte the same every
+    run, so --check stays quiet.
+    """
+    import struct
+    import zlib
+    rows = []
+    for y in range(16):
+        row = bytearray([0])
+        for x in range(16):
+            edge = x in (1, 14) or y in (1, 14)
+            inside = 1 <= x <= 14 and 1 <= y <= 14
+            dash = ((x + y) // 2) % 2 == 0
+            row += bytes((150, 150, 150, 255)) if edge and inside and dash else bytes(4)
+        rows.append(bytes(row))
+
+    def chunk(kind: bytes, data: bytes) -> bytes:
+        return struct.pack(">I", len(data)) + kind + data + struct.pack(">I", zlib.crc32(kind + data) & 0xFFFFFFFF)
+
+    payload = (b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", 16, 16, 8, 6, 0, 0, 0))
+               + chunk(b"IDAT", zlib.compress(b"".join(rows), 9)) + chunk(b"IEND", b""))
+    target = WIKI / EMPTY_SLOT_ICON
+    target.parent.mkdir(parents=True, exist_ok=True)
+    if not target.exists() or target.read_bytes() != payload:
+        target.write_bytes(payload)
+    return EMPTY_SLOT_ICON
 
 
 def copy_own_texture(roots: dict, reference: str) -> str | None:
@@ -934,6 +1039,10 @@ def collect_items_and_blocks(roots: dict, lang: dict, recipes, loot_tables, trad
             texture = texture_for(roots, kind, identifier)
             if texture is None and kind == "item":
                 texture = texture_for(roots, "block", identifier)
+            if texture is None and kind == "block":
+                # Mauern haben kein models/block/<id>.json (nur _post/_side): das
+                # Inventarbild aus der Item-Definition ist dann auch das Blockbild.
+                texture = texture_for(roots, "item", identifier)
             entry = {
                 "id": identifier,
                 "name": display_name(lang, key, name),
