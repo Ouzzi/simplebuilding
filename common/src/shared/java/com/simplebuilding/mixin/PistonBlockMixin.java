@@ -66,18 +66,18 @@ public class PistonBlockMixin {
     }
 
     /**
-     * Der Verschleiss des Netherit-Brechers ({@link NetheriteBreakerPistonBlock#WEAR}) ueberlebt das
-     * Einfahren: Vanilla legt dabei {@code this.defaultBlockState()} mit der Blickrichtung in den
-     * bewegten Block an der Kolbenstelle, und daraus wird der eingefahrene Kolben - ohne diese Zeile
-     * stuende danach immer Stufe 0 da. Server und Client spielen dieselbe Stelle, beide behalten die
-     * Stufe. {@code Blocks.MOVING_PISTON.defaultBlockState()} hat einen anderen Eigentuemer
-     * ({@code Block}) und wird hier nicht getroffen.
+     * Die Haltbarkeit des Netherit-/Enderit-Brechers ({@link NetheriteBreakerPistonBlock#WEAR} und
+     * {@code wear_step}) ueberlebt das Einfahren: Vanilla legt dabei {@code this.defaultBlockState()}
+     * mit der Blickrichtung in den bewegten Block an der Kolbenstelle, und daraus wird der
+     * eingefahrene Kolben - ohne diese Zeile stuende danach immer volle Haltbarkeit da. Server und
+     * Client spielen dieselbe Stelle, beide behalten den Schaden. {@code Blocks.MOVING_PISTON.defaultBlockState()}
+     * hat einen anderen Eigentuemer ({@code Block}) und wird hier nicht getroffen.
      */
     @ModifyExpressionValue(method = "triggerEvent", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/world/level/block/piston/PistonBaseBlock;defaultBlockState()Lnet/minecraft/world/level/block/state/BlockState;"))
     private BlockState simplebuilding$keepWear(BlockState original, @Local(argsOnly = true) BlockState state) {
-        if (original.hasProperty(NetheriteBreakerPistonBlock.WEAR) && state.hasProperty(NetheriteBreakerPistonBlock.WEAR)) {
-            return original.setValue(NetheriteBreakerPistonBlock.WEAR, state.getValue(NetheriteBreakerPistonBlock.WEAR));
+        if (original.getBlock() instanceof NetheriteBreakerPistonBlock && state.is(original.getBlock())) {
+            return NetheriteBreakerPistonBlock.withDamage(original, NetheriteBreakerPistonBlock.damageOf(state));
         }
         return original;
     }

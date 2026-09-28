@@ -765,11 +765,13 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("piston_breach_game_test_mod_pistons_ask_the_platform_guard_before_every_break", PistonBreachTests::modPistonsAskThePlatformGuardBeforeEveryBreak)
                     .maxTicks(PistonBreachTests.GUARD_MAX_TICKS)
                     .build(),
-            GameTestSpec.named("piston_breach_game_test_netherite_breaker_wears_down_and_crumbles_to_reinforced_piston", PistonBreachTests::netheriteBreakerWearsDownAndCrumblesToReinforcedPiston)
-                    .maxTicks(PistonBreachTests.WEAR_MAX_TICKS)
+            GameTestSpec.named("piston_breach_game_test_netherite_breaker_loses_durability_and_crumbles_to_reinforced_piston", PistonBreachTests::netheriteBreakerLosesDurabilityAndCrumblesToReinforcedPiston)
+                    .maxTicks(PistonBreachTests.DURABILITY_MAX_TICKS)
                     .build(),
-            GameTestSpec.named("piston_breach_game_test_enderite_piston_wears_down_and_crumbles_to_netherite_breaker", PistonBreachTests::enderitePistonWearsDownAndCrumblesToNetheriteBreaker)
-                    .maxTicks(PistonBreachTests.ENDERITE_WEAR_MAX_TICKS)
+            GameTestSpec.named("piston_breach_game_test_enderite_piston_loses_durability_and_crumbles_to_netherite_breaker", PistonBreachTests::enderitePistonLosesDurabilityAndCrumblesToNetheriteBreaker)
+                    .maxTicks(PistonBreachTests.ENDERITE_DURABILITY_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("piston_breach_game_test_breaker_piston_durability_travels_with_the_item_as_its_durability_bar", PistonBreachTests::breakerPistonDurabilityTravelsWithTheItemAsItsDurabilityBar)
                     .build(),
             GameTestSpec.named("piston_breach_game_test_mod_pistons_fire_the_real_loader_events_and_honour_their_config_switch", PistonBreachTests::modPistonsFireTheRealLoaderEventsAndHonourTheirConfigSwitch)
                     .maxTicks(PistonBreachTests.LOADER_EVENTS_MAX_TICKS)

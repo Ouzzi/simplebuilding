@@ -67,21 +67,15 @@ public class SimplebuildingConfig implements ConfigData {
     // Reiter 3: Kolben
     // =====================================================================================
 
-    // Verschleiss des Netherit-Brechers (Audit #23): so viele Haertepunkte (je Block
-    // max(1, aufgerundete Haerte)) bricht er, bevor er zum verstaerkten Kolben zerfaellt.
-    // 8 sichtbare Stufen je netheriteBreakerWearBudget / 8 Punkte. 0 = kein Verschleiss.
+    // Haltbarkeit der Brecher (2026-09-28, ersetzt die Verschleissbudgets vom 2026-09-27):
+    // Netheritkolben 226 (1/9 der Netheritspitzhacke), Enderitkolben 281 (1/9 der Enderitspitzhacke),
+    // 1 je beim Ausfahren zerstoertem Block. Aufgebraucht zerfaellt Enderit zum Netheritkolben,
+    // Netherit zum verstaerkten Kolben. Aus: die Brecher verlieren nie Haltbarkeit. Die
+    // Hoechstwerte sind fest (Wertebereich der Blockeigenschaft, auf Server und Client gleich).
     // Siehe NetheriteBreakerPistonBlock.
     @ConfigEntry.Category("pistons")
     @ConfigEntry.Gui.Tooltip
-    public int netheriteBreakerWearBudget = 1024;
-
-    // Verschleiss des Enderitkolbens (Kolben-Balance 2026-09-27), wie beim Netherit-Brecher,
-    // aber doppelt so viel: 2048 Punkte = 256 je Stufe, rund 1000 Steine oder 680 Tiefenschiefer
-    // bis zur Reparatur (Enderitklumpen); verbraucht wird er zum Netheritkolben. 0 = kein
-    // Verschleiss. Siehe EnderitePistonBlock.
-    @ConfigEntry.Category("pistons")
-    @ConfigEntry.Gui.Tooltip
-    public int enderitePistonWearBudget = 2048;
+    public boolean breakerPistonsLoseDurability = true;
 
     // Ob die Kolben der Mod Endportalrahmen schieben (verstaerkte Kolben) bzw. zerstoeren
     // (Netherit-/Enderitkolben). Aus (Standard seit 2026-09-26, Besitzer-Entscheidung): der Rahmen
@@ -178,8 +172,6 @@ public class SimplebuildingConfig implements ConfigData {
             trimBenefitBaseMultiplier = 2.0;
         }
         trimBenefitBaseMultiplier = Math.max(0.0, Math.min(maxMultiplierLimit, trimBenefitBaseMultiplier));
-        netheriteBreakerWearBudget = Math.max(0, netheriteBreakerWearBudget);
-        enderitePistonWearBudget = Math.max(0, enderitePistonWearBudget);
         airJumpCooldownTicks = Math.max(0, airJumpCooldownTicks);
         if (tools == null) {
             tools = new Tools();

@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.material.PushReaction;
 
 /**
@@ -33,12 +34,10 @@ import net.minecraft.world.level.material.PushReaction;
  * der Mod ({@link PistonBoreEffects}). Danach verschwinden der Redstoneblock und der Kolben selbst,
  * wie beim Netheritkolben.
  *
- * <p>Verschleiss (Kolben-Balance 2026-09-27): jeder normal gebrochene Block kostet wie beim
- * Netheritkolben {@code max(1, aufgerundete Haerte)} Punkte, hier auf {@code enderitePistonWearBudget}
- * (Standard {@value #DEFAULT_WEAR_BUDGET}) verteilt: 256 Punkte je Stufe, also rund 1000 Steine oder
- * 680 Tiefenschiefer bis zur Reparatur mit einem Enderitklumpen - doppelt so lang wie der
- * Netheritkolben (1024), weil Stufe und Reparatur teurer sind. Ein langer Tunnel (einige tausend
- * Bloecke) kostet damit ein paar Klumpen; wer nicht repariert, faellt auf den Netheritkolben zurueck.
+ * <p>Haltbarkeit (2026-09-28): wie beim Netheritkolben 1 je beim Ausfahren zerstoertem Block, hier
+ * {@link #ENDERITE_MAX_DURABILITY} (281) = ein Neuntel der Enderitspitzhacke (2530 / 9). Reparatur mit einem
+ * Enderitklumpen (volle Haltbarkeit); wer nicht repariert, faellt auf den Netheritkolben mit voller
+ * Netherit-Haltbarkeit zurueck.
  */
 public class EnderitePistonBlock extends NetheriteBreakerPistonBlock {
     public static final MapCodec<EnderitePistonBlock> CODEC = simpleCodec(EnderitePistonBlock::new);
@@ -56,31 +55,21 @@ public class EnderitePistonBlock extends NetheriteBreakerPistonBlock {
         return (MapCodec<PistonBaseBlock>) (Object) CODEC;
     }
 
-    /**
-     * Der Enderitkolben verschleisst wie der Netheritkolben (Kolben-Balance 2026-09-27, Teil 5 der
-     * Bauwerkzeug-Notizen: das Tunnelbohren war zu leicht), mit eigenem Budget
-     * ({@code enderitePistonWearBudget}), Enderitklumpen als Reparatur und dem Netheritkolben als
-     * Zerfallsziel. Bestehende Enderitkolben in alten Welten laden mit dem Standardwert 0: ein
-     * Blockzustand ohne gespeicherte Eigenschaft bekommt ihren Standardwert, ein Datenfixer ist nicht
-     * noetig.
-     */
+    /** Haltbarkeit des Enderitkolbens: ein Neuntel der Enderitspitzhacke (2530 -> 281). */
+    public static final int ENDERITE_MAX_DURABILITY = ninthOf(com.simplebuilding.items.ModToolMaterials.ENDERITE.durability());
+
+    /** Schaden innerhalb der Rissstufe beim Enderitkolben (0 bis 35). */
+    public static final IntegerProperty ENDERITE_WEAR_STEP =
+            IntegerProperty.create("wear_step", 0, stepsPerStage(ENDERITE_MAX_DURABILITY) - 1);
+
     @Override
-    protected boolean wears() {
-        return true;
-    }
-
-    /** Standardbudget des Enderitkolbens, siehe {@code SimplebuildingConfig#enderitePistonWearBudget}. */
-    public static final int DEFAULT_WEAR_BUDGET = 2048;
-
-    /** Das Verschleissbudget des Enderitkolbens aus der Konfiguration; 0 = kein Verschleiss. */
-    public static int enderiteWearBudget() {
-        com.simplebuilding.config.SimplebuildingConfig config = com.simplebuilding.Simplebuilding.getConfig();
-        return config == null ? DEFAULT_WEAR_BUDGET : Math.max(0, config.enderitePistonWearBudget);
+    protected IntegerProperty wearStepProperty() {
+        return ENDERITE_WEAR_STEP;
     }
 
     @Override
-    protected int configuredWearBudget() {
-        return enderiteWearBudget();
+    public int maxDurability() {
+        return ENDERITE_MAX_DURABILITY;
     }
 
     @Override
@@ -88,12 +77,15 @@ public class EnderitePistonBlock extends NetheriteBreakerPistonBlock {
         return com.simplebuilding.items.ModItems.ENDERITE_NUGGET;
     }
 
-    /** Verbraucht zerfaellt er eine Stufe tiefer: zum Netheritkolben derselben Richtung, unversehrt. */
+    /**
+     * Aufgebraucht zerfaellt er eine Stufe tiefer: zum Netheritkolben derselben Richtung mit voller
+     * Netherit-Haltbarkeit - verbraucht ist nur die Enderit-Schicht, die Netherit-Aufwertung darunter
+     * ist unversehrt.
+     */
     @Override
     protected BlockState wornOutState(BlockState state) {
-        return com.simplebuilding.blocks.ModBlocks.NETHERITE_PISTON.defaultBlockState()
-                .setValue(FACING, state.getValue(FACING))
-                .setValue(WEAR, 0);
+        return withDamage(com.simplebuilding.blocks.ModBlocks.NETHERITE_PISTON.defaultBlockState()
+                .setValue(FACING, state.getValue(FACING)), 0);
     }
 
     /**
