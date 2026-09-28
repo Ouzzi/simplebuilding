@@ -859,7 +859,7 @@ en: {
   tagUnused: 'Not referenced anywhere in the wiki data.',
 
   /* Konfiguration */
-  configIntro: 'From <code>SimplebuildingConfig.java</code>. Change these in the mod’s config file, not here.',
+  configIntro: 'From <code>SimplebuildingConfig.java</code> and <code>TweaksConfig.java</code>, grouped by the tabs of the in-game config screen (ModMenu on Fabric, the Config button on NeoForge). Operators can also use <code>/simplebuilding config list|get|set|reset &lt;option&gt;</code> with the names below.',
   noOptions: 'No options.',
   thName: 'Name', thTypeCol: 'Type', thDefault: 'Default', thTooltip: 'Tooltip', thNote: 'Note', thRelation: 'Relates to',
   tradeOne: 'trade', tradeMany: 'trades',
@@ -1293,7 +1293,7 @@ de: {
   tagUnused: 'Wird in den Wiki-Daten nirgends referenziert.',
 
   /* Konfiguration */
-  configIntro: 'Aus <code>SimplebuildingConfig.java</code>. Änderungen erfolgen in der Konfigurationsdatei der Mod, nicht hier.',
+  configIntro: 'Aus <code>SimplebuildingConfig.java</code> und <code>TweaksConfig.java</code>, gruppiert nach den Reitern des Config-Bildschirms im Spiel (ModMenu auf Fabric, der Config-Knopf auf NeoForge). Operatoren können auch <code>/simplebuilding config list|get|set|reset &lt;Option&gt;</code> mit den Namen unten nutzen.',
   noOptions: 'Keine Optionen.',
   thName: 'Name', thTypeCol: 'Typ', thDefault: 'Standard', thTooltip: 'Tooltip', thNote: 'Notiz', thRelation: 'Bezug',
   tradeOne: 'Handel', tradeMany: 'Handel',
@@ -1603,6 +1603,8 @@ function buildIndex() {
   arr(D.tags).forEach(function (e) { if (isObj(e) && e.id) { IX.tags.set(e.id, e); push(IX.tagByRef, tagRefOf(e).ref, e.id); } });
   arr(D.features).forEach(function (e) { if (isObj(e) && e.id) IX.features.set(e.id, e); });
   arr(D.config).forEach(function (e) { if (isObj(e) && e.name) IX.config.set(e.name, e); });
+  // Kurzname (letztes Pfadglied) als Zweitschluessel, z. B. fuer die Handels-Flags "enableVillagerTrades".
+  arr(D.config).forEach(function (e) { if (isObj(e) && e.shortName && !IX.config.has(e.shortName)) IX.config.set(e.shortName, e); });
 
   IX.loot.forEach(function (l) {
     arr(l.pools).forEach(function (p) { arr(p && p.items).forEach(function (it) { var s = normStack(it); if (s) push(IX.dropsOf, s.id, l.id); }); });
@@ -3099,13 +3101,24 @@ function pageTag(id) {
 
 function pageConfig(highlightName) {
   var rows = arr(D.config).filter(isObj);
+  var hl = IX.config.has(highlightName) ? IX.config.get(highlightName).name : highlightName;
   var h = '<h1>' + esc(T('navConfig')) + ' <span class="muted tiny" style="font-weight:400">' + rows.length + '</span></h1>';
   h += '<p class="muted tiny">' + T('configIntro') + '</p>';
   if (!rows.length) return h + '<p class="hint">' + esc(T('noOptions')) + '</p>';
+  var de = LANG === 'de';
+  var lastCategory = null;
   h += '<div class="table-wrap"><table class="table"><thead><tr><th>' + esc(T('thName')) + '</th><th>' + esc(T('thTypeCol')) + '</th><th>' + esc(T('thDefault')) + '</th><th>' + esc(T('thTooltip')) + '</th><th>' + esc(T('thNote')) + '</th><th>' + esc(T('thRelation')) + '</th></tr></thead><tbody>';
   rows.forEach(function (c) {
-    var tr = IX.tradesWithFlag.get(c.name) || [];
-    h += '<tr id="cfg-' + esc(c.name) + '"' + (c.name === highlightName ? ' class="highlight"' : '') + '><td><a href="#/config/' + esc(c.name) + '"><code>' + esc(c.name) + '</code></a></td><td>' + esc(c.type || '–') + '</td><td><code>' + esc(c.default != null ? c.default : '–') + '</code></td><td>' + (strs([c.tooltip]).length ? esc(c.tooltip) : '<span class="muted">–</span>') + '</td><td>' + (strs([c.note]).length ? esc(c.note) : '<span class="muted">–</span>') + '</td><td>' + (tr.length ? '<a href="#/trades">' + esc(plural(tr.length, 'tradeOne', 'tradeMany')) + '</a>' : '<span class="muted">–</span>') + '</td></tr>';
+    var category = (de && c.categoryDe) || c.category;
+    if (category && category !== lastCategory) {
+      h += '<tr><th colspan="6">' + esc(category) + '</th></tr>';
+      lastCategory = category;
+    }
+    var label = (de && c.labelDe) || c.label;
+    var tip = (de && c.tooltipDe) || c.tooltip;
+    var group = (de && c.groupDe) || c.group;
+    var tr = IX.tradesWithFlag.get(c.name) || IX.tradesWithFlag.get(c.shortName) || [];
+    h += '<tr id="cfg-' + esc(c.name) + '"' + (c.name === hl ? ' class="highlight"' : '') + '><td>' + (label ? '<strong>' + esc(label) + '</strong><br>' : '') + '<a href="#/config/' + esc(c.name) + '"><code>' + esc(c.name) + '</code></a>' + (group ? '<br><span class="muted tiny">' + esc(group) + '</span>' : '') + '</td><td>' + esc(c.type || '–') + '</td><td><code>' + esc(c.default != null ? c.default : '–') + '</code></td><td>' + (strs([tip]).length ? esc(tip) : '<span class="muted">–</span>') + '</td><td>' + (strs([c.note]).length ? esc(c.note) : '<span class="muted">–</span>') + '</td><td>' + (tr.length ? '<a href="#/trades">' + esc(plural(tr.length, 'tradeOne', 'tradeMany')) + '</a>' : '<span class="muted">–</span>') + '</td></tr>';
   });
   return h + '</tbody></table></div>';
 }
@@ -3499,7 +3512,7 @@ function buildSearch() {
   arr(D.tags).filter(isObj).forEach(function (t) { var info = tagRefOf(t); add('tags', t.id, info.ref, t.id, arr(t.values).map(function (v) { var id = tagValueId(v); return id + ' ' + displayName(id); }).join(' '), '#/tags/' + t.id); });
   CATS.forEach(function (c) { add('categories', c.key, catLabel(c.key), T('catd.' + c.key), STR.en['cat.' + c.key] + ' ' + STR.de['cat.' + c.key] + ' ' + c.key, '#/cat/' + c.key); });
   IW.kinds.forEach(function (k) { add('inworld', k.id, iwKindTitle(k.id), T('navInWorld'), noteText(k.note), '#/inworld/' + k.id); });
-  arr(D.config).filter(isObj).forEach(function (c) { add('config', c.name, c.name, [c.type, c.default].filter(Boolean).join(' = '), [c.tooltip, c.note].filter(Boolean).join(' '), '#/config/' + c.name); });
+  arr(D.config).filter(isObj).forEach(function (c) { add('config', c.name, c.label || c.name, [c.name, c.type, c.default].filter(Boolean).join(' = '), [c.tooltip, c.tooltipDe, c.labelDe, c.note].filter(Boolean).join(' '), '#/config/' + c.name); });
 }
 function search(q) {
   var tokens = norm(q).split(/\s+/).filter(Boolean);
@@ -3818,7 +3831,7 @@ function render(opts) {
   if (typeof opts.restoreY === 'number') { window.scrollTo(0, opts.restoreY); return; }
   if (opts.keepScroll) return;
   var target = null;
-  if (r.section === 'config' && r.id) target = document.getElementById('cfg-' + r.id);
+  if (r.section === 'config' && r.id) target = document.getElementById('cfg-' + (IX.config.has(r.id) ? IX.config.get(r.id).name : r.id));
   else if (r.section === 'inworld' && r.id) target = document.getElementById('iw-' + r.id);
   else if (r.tab && (r.section === 'items' || r.section === 'blocks')) target = tabTarget(r.tab);
   if (target) {

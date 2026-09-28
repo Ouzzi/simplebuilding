@@ -66,7 +66,9 @@ public class LaunchpadBlockEntity extends OwnedBlockEntity {
 
     /** Startstaerke: 1,5 + 0,8 je Ladung - 16 Ladungen = die alten 32 (1,5 + 0,4 je Ladung). */
     public static double strengthFor(int charges) {
-        return BASE_STRENGTH + charges * STRENGTH_PER_CHARGE;
+        // Config tweaks.padTuning.launchpadStrengthMultiplier (Standard 1).
+        return (BASE_STRENGTH + charges * STRENGTH_PER_CHARGE)
+                * com.simplebuilding.tweaks.SimpleTweaks.config().padTuning.launchpadStrengthFactor();
     }
 
     /**

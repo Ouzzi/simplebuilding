@@ -46,7 +46,9 @@ public class SpawnTeleporterBlockEntity extends OwnedBlockEntity {
     }
 
     public static int requiredTicks(int tier) {
-        return tier >= SpawnTeleporterBlock.ENDERITE_TIER ? ENDERITE_TICKS : STANDARD_TICKS;
+        // Config tweaks.padTuning.teleporterWarmupTicks / enderiteTeleporterWarmupTicks
+        // (Standard STANDARD_TICKS / ENDERITE_TICKS).
+        return SimpleTweaks.config().padTuning.teleporterWarmup(tier >= SpawnTeleporterBlock.ENDERITE_TIER);
     }
 
     /** Wartezeit dieses gesetzten Teleporters: die letzte Easter-Stufe ({@link EasterEggs}) wartet nur halb so lange. */

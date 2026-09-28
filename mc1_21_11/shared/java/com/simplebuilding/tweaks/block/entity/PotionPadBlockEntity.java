@@ -1,5 +1,6 @@
 package com.simplebuilding.tweaks.block.entity;
 
+import com.simplebuilding.tweaks.SimpleTweaks;
 import com.simplebuilding.tweaks.block.PotionPadBlock;
 import com.simplebuilding.tweaks.component.TweaksComponents;
 import java.util.HashMap;
@@ -130,7 +131,8 @@ public class PotionPadBlockEntity extends OwnedBlockEntity {
             return;
         }
         be.syncCoolingState();
-        if (be.stored == null) {
+        if (be.stored == null || !SimpleTweaks.config().pads.enablePotionPads) {
+            // Ohne Trank oder abgeschaltet (Config tweaks.pads.enablePotionPads): nichts geben.
             be.standing.clear();
             return;
         }
@@ -145,8 +147,9 @@ public class PotionPadBlockEntity extends OwnedBlockEntity {
             UUID id = player.getUUID();
             now.add(id);
             int ticks = be.standing.merge(id, 1, Integer::sum);
-            if (ticks % RAMP_STEP_TICKS == 0 && ticks / RAMP_STEP_TICKS <= RAMP_STEPS) {
-                be.grant(serverLevel, player, ticks / RAMP_STEP_TICKS);
+            int step = stepTicks();
+            if (ticks % step == 0 && ticks / step <= RAMP_STEPS) {
+                be.grant(serverLevel, player, ticks / step);
                 if (be.cooldown > 0) {
                     // Der 100-%-Schritt hat das Pad in die Abklingzeit gesetzt: niemand sonst bekommt mehr etwas.
                     return;
@@ -154,6 +157,14 @@ public class PotionPadBlockEntity extends OwnedBlockEntity {
             }
         }
         be.standing.keySet().retainAll(now);
+    }
+
+    /**
+     * Dauer eines Aufladeschritts: Config {@code tweaks.padTuning.potionPadChargeStepTicks}
+     * (Standard {@link #RAMP_STEP_TICKS}).
+     */
+    public static int stepTicks() {
+        return SimpleTweaks.config().padTuning.potionPadStepTicks();
     }
 
     /** Bereich, in dem ein Spieler als "auf dem Pad" gilt: die Blockspalte des Pads, halber Block hoch. */

@@ -113,9 +113,15 @@ public final class WandHunger {
         return config == null || config.tools.buildingWandHungerCost;
     }
 
+    /** Config {@code tools.wandHungerMultiplier}: Faktor auf die Rate je Block (Standard 1). */
+    public static double multiplier() {
+        SimplebuildingConfig config = Simplebuilding.getConfig();
+        return config == null ? 1.0 : SimplebuildingConfig.nonNegative(config.tools.wandHungerMultiplier, 1.0);
+    }
+
     /**
      * Rechnet einen gerade gesetzten Block ab, den {@code indexInOperation}-ten (ab 1) des laufenden
-     * Bauvorgangs: innerhalb des Freibetrags nichts, danach die Rate der Stufe, direkt auf die
+     * Bauvorgangs: innerhalb des Freibetrags nichts, danach die Rate der Stufe (mal tools.wandHungerMultiplier), direkt auf die
      * {@code FoodData}. Liefert die hinzugefuegte Erschoepfung; 0 im Kreativmodus, auf dem Client,
      * bei abgeschalteter Option oder fuer einen Nicht-Baustab.
      */
@@ -125,7 +131,10 @@ public final class WandHunger {
                 || player.getAbilities().instabuild || !enabled()) {
             return 0.0F;
         }
-        float amount = (float) PER_BLOCK[tier];
+        float amount = (float) (PER_BLOCK[tier] * multiplier());
+        if (amount <= 0.0F) {
+            return 0.0F;
+        }
         player.getFoodData().addExhaustion(amount);
         return amount;
     }

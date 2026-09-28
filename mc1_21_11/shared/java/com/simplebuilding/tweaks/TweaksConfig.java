@@ -9,17 +9,24 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
  */
 public class TweaksConfig {
 
-    @ConfigEntry.Gui.CollapsibleObject
+    // Reihenfolge = Anzeige im Reiter "Pads & Tweaks" (Config-Umbau 2026-09-28); Gson liest nach Namen.
+    @ConfigEntry.Gui.CollapsibleObject(startExpanded = true)
     public Pads pads = new Pads();
+
+    @ConfigEntry.Gui.CollapsibleObject
+    public PadTuning padTuning = new PadTuning();
+
+    @ConfigEntry.Gui.CollapsibleObject
+    public LaserPointer laserPointer = new LaserPointer();
 
     @ConfigEntry.Gui.CollapsibleObject
     public Balancing balancing = new Balancing();
 
     @ConfigEntry.Gui.CollapsibleObject
-    public Dimensions dimensions = new Dimensions();
+    public Spawn spawn = new Spawn();
 
     @ConfigEntry.Gui.CollapsibleObject
-    public Spawn spawn = new Spawn();
+    public Dimensions dimensions = new Dimensions();
 
     @ConfigEntry.Gui.CollapsibleObject
     public Commands commands = new Commands();
@@ -27,8 +34,32 @@ public class TweaksConfig {
     @ConfigEntry.Gui.CollapsibleObject
     public Optimization optimization = new Optimization();
 
-    @ConfigEntry.Gui.CollapsibleObject
-    public LaserPointer laserPointer = new LaserPointer();
+    /** Begrenzt handeditierte Werte (aus {@code SimplebuildingConfig#validatePostLoad}); fehlende Gruppen neu. */
+    public void validate() {
+        if (pads == null) pads = new Pads();
+        if (padTuning == null) padTuning = new PadTuning();
+        if (laserPointer == null) laserPointer = new LaserPointer();
+        if (balancing == null) balancing = new Balancing();
+        if (spawn == null) spawn = new Spawn();
+        if (dimensions == null) dimensions = new Dimensions();
+        if (commands == null) commands = new Commands();
+        if (optimization == null) optimization = new Optimization();
+        padTuning.teleporterWarmupTicks = Math.max(1, padTuning.teleporterWarmupTicks);
+        padTuning.enderiteTeleporterWarmupTicks = Math.max(1, padTuning.enderiteTeleporterWarmupTicks);
+        padTuning.launchpadStrengthMultiplier = nonNegative(padTuning.launchpadStrengthMultiplier, 1.0);
+        padTuning.potionPadChargeStepTicks = Math.max(1, padTuning.potionPadChargeStepTicks);
+        padTuning.potionPadCooldownFactor = nonNegative(padTuning.potionPadCooldownFactor, 2.0);
+        commands.killCommandRadius = Math.max(1, commands.killCommandRadius);
+        optimization.xpClumpRadius = nonNegative(optimization.xpClumpRadius, 2.0);
+        laserPointer.beamCostPerSecond = Math.max(0, laserPointer.beamCostPerSecond);
+        laserPointer.effectCost = Math.max(0, laserPointer.effectCost);
+        balancing.echoSounderCooldownTicks = Math.max(0, balancing.echoSounderCooldownTicks);
+    }
+
+    /** Endliche, nicht negative Zahl; sonst {@code fallback}. */
+    static double nonNegative(double value, double fallback) {
+        return Double.isFinite(value) ? Math.max(0.0, value) : fallback;
+    }
 
     /**
      * Aus = der Block bleibt platzierbar und abbaubar, tut aber nichts: Chunk-Loader geben ihre
@@ -50,11 +81,57 @@ public class TweaksConfig {
         public boolean enableTimedCopperPlates = true;
         @ConfigEntry.Gui.Tooltip
         public boolean enableFilterPlates = true;
+        /** Aus: Trank-Pads geben keine Wirkungen mehr (Config-Umbau 2026-09-28). */
+        @ConfigEntry.Gui.Tooltip
+        public boolean enablePotionPads = true;
+    }
+
+    /**
+     * Zeiten und Staerken der Pads (Config-Umbau 2026-09-28; Standard = das bisherige feste
+     * Verhalten). Nur der Server liest sie; die Zugriffe unten begrenzen handeditierte Werte.
+     */
+    public static class PadTuning {
+        /** Stillstehen bis zum Sprung, Spawn-Teleporter I-IV (Ticks; 100 = 5 s). */
+        @ConfigEntry.Gui.Tooltip
+        public int teleporterWarmupTicks = 100;
+        /** Dasselbe fuer den Enderit-Teleporter (Stufe V; 60 = 3 s). */
+        @ConfigEntry.Gui.Tooltip
+        public int enderiteTeleporterWarmupTicks = 60;
+        /** Faktor auf den Schub der Launchpads (1,5 + 0,8 je Windkugel-Ladung). */
+        @ConfigEntry.Gui.Tooltip
+        public double launchpadStrengthMultiplier = 1.0;
+        /** Dauer eines Aufladeschritts der Trank-Pads (Ticks; drei Schritte: 25/50/100 %). */
+        @ConfigEntry.Gui.Tooltip
+        public int potionPadChargeStepTicks = 20;
+        /** Abklingzeit der Trank-Pads als Vielfaches der Wirkdauer; 0 = keine Abklingzeit. */
+        @ConfigEntry.Gui.Tooltip
+        public double potionPadCooldownFactor = 2.0;
+
+        /** Wartezeit des Spawn-Teleporters, mindestens 1 Tick. */
+        public int teleporterWarmup(boolean enderite) {
+            return Math.max(1, enderite ? enderiteTeleporterWarmupTicks : teleporterWarmupTicks);
+        }
+
+        public double launchpadStrengthFactor() {
+            return nonNegative(launchpadStrengthMultiplier, 1.0);
+        }
+
+        public int potionPadStepTicks() {
+            return Math.max(1, potionPadChargeStepTicks);
+        }
+
+        public double potionPadCooldown() {
+            return nonNegative(potionPadCooldownFactor, 2.0);
+        }
     }
 
     public static class Balancing {
-        @ConfigEntry.Gui.Tooltip(count = 2)
+        @ConfigEntry.Gui.Tooltip
+        @ConfigEntry.BoundedDiscrete(min = 1, max = 64)
         public int rocketStackSize = 64;
+        /** Abklingzeit des Echolots nach einem Sprung (Ticks; 120 = 6 s), siehe EchoCompassItem. */
+        @ConfigEntry.Gui.Tooltip
+        public int echoSounderCooldownTicks = 120;
     }
 
     public static class Dimensions {
@@ -89,9 +166,11 @@ public class TweaksConfig {
 
         /** 0..64 Spawn-Teleporter beim ersten Betreten; 0 = keine (Besitzer-Wunsch 2026-09-26). */
         @ConfigEntry.Gui.Tooltip
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 64)
         public int firstJoinTeleporterCount = 0;
         /** 0..64 Elytra-Pads beim ersten Betreten; 0 = keine. */
         @ConfigEntry.Gui.Tooltip
+        @ConfigEntry.BoundedDiscrete(min = 0, max = 64)
         public int firstJoinElytraPadCount = 0;
         /**
          * Alter Schluessel aus Simple Tweaks: EIN Wert fuer Teleporter und Pads, Standard 1. Wird nur
@@ -129,11 +208,35 @@ public class TweaksConfig {
             return Math.max(1, Math.min(MAX_BOOSTS, maxBoosts));
         }
 
-        /** Ziele der Spawn-Teleporter I-IV; y = -1000 heisst "nicht gesetzt" (dann Weltspawn). */
-        public int spawn1X = 0, spawn1Y = -1000, spawn1Z = 0;
-        public int spawn2X = 0, spawn2Y = -1000, spawn2Z = 0;
-        public int spawn3X = 0, spawn3Y = -1000, spawn3Z = 0;
-        public int spawn4X = 0, spawn4Y = -1000, spawn4Z = 0;
+        /**
+         * Ziele der Spawn-Teleporter I-IV; y = -1000 heisst "nicht gesetzt" (dann Weltspawn). Gesetzt
+         * mit {@code /simplebuilding tweaks worldspawn setspawn1..4}. Bis 2026-09-28 ohne Tooltip und
+         * ohne Namen in den Sprachdateien (der Bildschirm zeigte die rohen Schluessel).
+         */
+        @ConfigEntry.Gui.Tooltip
+        public int spawn1X = 0;
+        @ConfigEntry.Gui.Tooltip
+        public int spawn1Y = -1000;
+        @ConfigEntry.Gui.Tooltip
+        public int spawn1Z = 0;
+        @ConfigEntry.Gui.Tooltip
+        public int spawn2X = 0;
+        @ConfigEntry.Gui.Tooltip
+        public int spawn2Y = -1000;
+        @ConfigEntry.Gui.Tooltip
+        public int spawn2Z = 0;
+        @ConfigEntry.Gui.Tooltip
+        public int spawn3X = 0;
+        @ConfigEntry.Gui.Tooltip
+        public int spawn3Y = -1000;
+        @ConfigEntry.Gui.Tooltip
+        public int spawn3Z = 0;
+        @ConfigEntry.Gui.Tooltip
+        public int spawn4X = 0;
+        @ConfigEntry.Gui.Tooltip
+        public int spawn4Y = -1000;
+        @ConfigEntry.Gui.Tooltip
+        public int spawn4Z = 0;
 
         /**
          * Uebernimmt einen alten {@code spawnTeleporterCount} aus einer bestehenden Config-Datei.
@@ -162,11 +265,17 @@ public class TweaksConfig {
         public boolean enableKillBoatsCommand = true;
         @ConfigEntry.Gui.Tooltip
         public boolean enableKillCartsCommand = false;
+        /** Reichweite von /killboats und /killcarts um den Spieler (Bloecke). */
+        @ConfigEntry.Gui.Tooltip
+        public int killCommandRadius = 100;
     }
 
     public static class Optimization {
         @ConfigEntry.Gui.Tooltip
         public boolean enableXpClumps = true;
+        /** Wie weit eine XP-Kugel ihre Nachbarn einsammelt (Bloecke), siehe XpClumping. */
+        @ConfigEntry.Gui.Tooltip
+        public double xpClumpRadius = 2.0;
         @ConfigEntry.Gui.Tooltip
         public boolean scaleXpOrbs = true;
     }
@@ -175,11 +284,18 @@ public class TweaksConfig {
         @ConfigEntry.Gui.Tooltip
         public boolean enable = true;
         @ConfigEntry.Gui.Tooltip
+        @ConfigEntry.ColorPicker
         public int color = 0xFF0000;
         @ConfigEntry.Gui.Tooltip
         public float scale = 0.25f;
         @ConfigEntry.Gui.Tooltip
         public int range = 512;
+        /** Ladung je angefangener Sekunde Strahlen (640 = voll, 10 je Redstone); 0 = kostenlos. */
+        @ConfigEntry.Gui.Tooltip
+        public int beamCostPerSecond = 1;
+        /** Ladung je Wirkung auf einen Block oder ein Wesen (Schmelzen, Anzuenden, Trocknen ...). */
+        @ConfigEntry.Gui.Tooltip
+        public int effectCost = 5;
         /**
          * Schon in Simple Tweaks ohne Wirkung; der Schluessel bleibt, damit alte Configs lesbar
          * bleiben, erscheint aber nicht mehr im Config-Bildschirm (Audit #34).
