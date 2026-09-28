@@ -15,6 +15,7 @@ public class ModBlockEntities {
     public static BlockEntityType<ModFurnaceBlockEntity> MOD_FURNACE_BE;
     public static BlockEntityType<ModSmokerBlockEntity> MOD_SMOKER_BE;
     public static BlockEntityType<BackpackBlockEntity> BACKPACK_BE;
+    public static BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity> TIERED_CHEST_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity> PLACED_TEMPLATE_BE;
 
     private ModBlockEntities() {

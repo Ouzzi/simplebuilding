@@ -106,7 +106,8 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
 
             AdvancementHolder reinforced = node("machines/reinforcements", cracked, ModItems.REINFORCED_FURNACE, AdvancementType.TASK,
                     "reinforced_machine", any(ModItems.REINFORCED_FURNACE, ModItems.REINFORCED_SMOKER, ModItems.REINFORCED_BLAST_FURNACE,
-                            ModItems.REINFORCED_HOPPER, ModItems.REINFORCED_PISTON, ModItems.REINFORCED_STICKY_PISTON));
+                            ModItems.REINFORCED_HOPPER, ModItems.REINFORCED_PISTON, ModItems.REINFORCED_STICKY_PISTON,
+                            ModItems.REINFORCED_CHEST));
             AdvancementHolder netherite = feature("machines/forged_in_place", reinforced, ModItems.NETHERITE_FURNACE, AdvancementType.GOAL,
                     ModTriggers.HAMMER_UPGRADE_NETHERITE);
             feature("machines/end_of_the_line", netherite, ModItems.ENDERITE_FURNACE, AdvancementType.CHALLENGE,

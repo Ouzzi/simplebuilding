@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": "#simplebuilding:copper_chests",
+    "D": "simplebuilding:cracked_diamond"
+  },
+  "pattern": [
+    "DDD",
+    "CCC",
+    "DDD"
+  ],
+  "result": {
+    "count": 3,
+    "id": "simplebuilding:reinforced_chest"
+  }
+}

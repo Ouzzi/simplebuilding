@@ -471,9 +471,13 @@ public class ModItems {
 
     // Reinforced Block Items
 
-    // Todo: public static final Item REINFORCED_CHEST = registerItem("reinforced_chest", s -> new BlockItem(ModBlocks.REINFORCED_CHEST, s));
+    // Truhen-Stufen: Verstaerkt COMMON, Netherit UNCOMMON und Enderit EPIC wie die Maschinen
+    // (docs/RARITAETEN.md), Netherit und Enderit feuerfest.
+    public static final Item REINFORCED_CHEST = registerItem("reinforced_chest", s -> new BlockItem(ModBlocks.REINFORCED_CHEST, s));
 
-    // Todo: public static final Item NETHERITE_CHEST = registerItem("netherite_chest", s -> new BlockItem(ModBlocks.NETHERITE_CHEST, s.fireResistant()));
+    public static final Item NETHERITE_CHEST = registerItem("netherite_chest", s -> new BlockItem(ModBlocks.NETHERITE_CHEST, s.fireResistant().rarity(UNCOMMON)));
+
+    public static final Item ENDERITE_CHEST = registerItem("enderite_chest", s -> new BlockItem(ModBlocks.ENDERITE_CHEST, s.fireResistant().rarity(Rarity.EPIC)));
 
     public static final Item REINFORCED_HOPPER = registerItem("reinforced_hopper", s -> new BlockItem(ModBlocks.REINFORCED_HOPPER, s));
 

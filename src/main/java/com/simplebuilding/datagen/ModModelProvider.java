@@ -143,13 +143,12 @@ public class ModModelProvider extends FabricModelProvider {
 
 
         // --- 3. Chests ---
-        // todo chest:
-
-        // blockStateModelGenerator.registerChest(ModBlocks.REINFORCED_CHEST, ModBlocks.REINFORCED_CHEST, Identifier.of(Simplebuilding.MOD_ID, "entity/chest/reinforced_chest"), false);
-        // blockStateModelGenerator.registerChest(ModBlocks.NETHERITE_CHEST, ModBlocks.NETHERITE_CHEST, Identifier.of(Simplebuilding.MOD_ID, "entity/chest/netherite_chest"), false);
-
-        //blockStateModelGenerator.registerParentedItemModel(ModBlocks.REINFORCED_CHEST, ModelIds.getBlockModelId(ModBlocks.REINFORCED_CHEST));
-        //blockStateModelGenerator.registerParentedItemModel(ModBlocks.NETHERITE_CHEST, ModelIds.getBlockModelId(ModBlocks.NETHERITE_CHEST));
+        // Truhen: wie Vanillas Truhen nur ein Partikel-Blockmodell (gezeichnet wird vom
+        // TieredChestRenderer), das Item ueber Vanillas Spezialmodell "minecraft:chest" mit der
+        // Stufen-Textur aus dem Truhen-Atlas.
+        registerTieredChest(blockStateModelGenerator, ModBlocks.REINFORCED_CHEST, ModBlocks.CRACKED_DIAMOND_BLOCK);
+        registerTieredChest(blockStateModelGenerator, ModBlocks.NETHERITE_CHEST, net.minecraft.world.level.block.Blocks.NETHERITE_BLOCK);
+        registerTieredChest(blockStateModelGenerator, ModBlocks.ENDERITE_CHEST, ModBlocks.ENDERITE_BLOCK);
 
         // --- 4. Hoppers ---
         registerCustomHopper(blockStateModelGenerator, ModBlocks.REINFORCED_HOPPER);
@@ -320,6 +319,14 @@ public class ModModelProvider extends FabricModelProvider {
                             };
                         })
                 ));
+    }
+
+    private void registerTieredChest(BlockModelGenerators generator, Block chest, Block particle) {
+        generator.createParticleOnlyBlock(chest, particle);
+        com.simplebuilding.blocks.custom.ChestTier tier = ((com.simplebuilding.blocks.custom.TieredChestBlock) chest).tier();
+        generator.itemModelOutput.accept(chest.asItem(), ItemModelUtils.specialModel(Identifier.withDefaultNamespace("item/chest"),
+                new net.minecraft.client.renderer.special.ChestSpecialRenderer.Unbaked(
+                        Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, tier.textureName()))));
     }
 
     private void registerCustomHopper(BlockModelGenerators generator, Block block) {

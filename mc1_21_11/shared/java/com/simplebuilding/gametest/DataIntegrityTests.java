@@ -2202,7 +2202,8 @@ public final class DataIntegrityTests {
         // -Waffen und -Ruestungen aller Stufen sowie die beiden Vanilla-Kompasse.
         Map<Item, ModItemGroupsContent.Tab> vanillaHome = new HashMap<>();
         for (Item counterpart : List.of(Items.HOPPER, Items.PISTON, Items.STICKY_PISTON,
-                Items.FURNACE, Items.SMOKER, Items.BLAST_FURNACE, Items.BUNDLE, Items.CARTOGRAPHY_TABLE)) {
+                Items.FURNACE, Items.SMOKER, Items.BLAST_FURNACE, Items.BUNDLE, Items.CARTOGRAPHY_TABLE,
+                Items.CHEST, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("copper_chest")))) {
             vanillaHome.put(counterpart, ModItemGroupsContent.Tab.FUNCTIONAL);
         }
         // Alle Vanilla-Druckplatten neben den Mod-Platten (Besitzer 2026-09-27; 16, ab MC 26.3 mit Pappel 17).
@@ -2222,7 +2223,7 @@ public final class DataIntegrityTests {
         // Kompass und Bergungskompass neben dem Echo-Kompass in SimpleTools (Besitzer 2026-09-27).
         vanillaHome.put(Items.COMPASS, ModItemGroupsContent.Tab.TOOLS);
         vanillaHome.put(Items.RECOVERY_COMPASS, ModItemGroupsContent.Tab.TOOLS);
-        if (vanillaPressurePlates().size() < 16 || vanillaHome.size() != 8 + vanillaPressurePlates().size() + 42 + 28 + 2
+        if (vanillaPressurePlates().size() < 16 || vanillaHome.size() != 10 + vanillaPressurePlates().size() + 42 + 28 + 2
                 || vanillaHome.containsKey(Items.AIR)) {
             problems.add("the vanilla tool and armour list names an item that does not exist: " + vanillaHome.size() + " entries");
         }
@@ -2284,7 +2285,7 @@ public final class DataIntegrityTests {
 
     /**
      * SimpleMachines is laid out in rows of nine, one category per row: hoppers, pistons, furnaces,
-     * smokers, blast furnaces, bundles, quivers, backpacks - each vanilla first and then the tiers -,
+     * smokers, blast furnaces, bundles, quivers, backpacks, chests - each vanilla first and then the tiers -,
      * the pressure plates by material in ascending tiers (wooden, stone, copper with its waxed stages,
      * then iron, gold, diamond, netherite, enderite), one row per pad family,
      * and the building planning row: blueprint, cartography table, an octant and every building
@@ -2322,6 +2323,9 @@ public final class DataIntegrityTests {
                 List.of(Items.BUNDLE, ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE),
                 List.of(ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER),
                 List.of(ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK),
+                // Truhen: Vanilla-Truhe, Kupfertruhe (die erste Aufwertungsstufe), dann die Mod-Stufen.
+                List.of(Items.CHEST, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("copper_chest")),
+                        ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST),
                 // Druckplatten nach Material, Stufen aufsteigend, Vanilla vor der Mod (Besitzer 2026-09-27):
                 // Holz (zwoelf, ab 26.3 mit Pappel dreizehn; laeuft ueber zwei Zeilen), Stein, Kupfer (vier Stufen, dann gewachst),
                 // Eisen/Gold/Diamant/Netherit/Enderit

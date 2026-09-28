@@ -56,6 +56,7 @@ public final class SimplebuildingForgeClient {
         event.enqueueWork(() -> {
             MenuScreens.register(ForgeModRegistries.NETHERITE_HOPPER_MENU.get(), NetheriteHopperScreen::new);
             MenuScreens.register(ForgeModRegistries.BACKPACK_MENU.get(), com.simplebuilding.client.gui.BackpackScreen::new);
+            MenuScreens.register(ForgeModRegistries.TIERED_CHEST_MENU.get(), com.simplebuilding.client.gui.TieredChestScreen::new);
         });
     }
 
@@ -76,6 +77,9 @@ public final class SimplebuildingForgeClient {
         // Abgelegte Schmiedevorlage: das Item-Modell der Vorlage als flache Platte.
         event.registerBlockEntityRenderer(com.simplebuilding.forge.ForgeModRegistries.PLACED_TEMPLATE_BE.get(),
                 com.simplebuilding.client.render.PlacedTemplateRenderer::new);
+        // Mod-Truhen: Vanillas Truhenmodell mit den Texturen der Stufe.
+        event.registerBlockEntityRenderer(com.simplebuilding.forge.ForgeModRegistries.TIERED_CHEST_BE.get(),
+                com.simplebuilding.client.render.TieredChestRenderer::new);
     }
 
     /** Der getragene Rucksack bzw. Koecher auf dem Ruecken: beide Spielermodelle und die Mannequins. */

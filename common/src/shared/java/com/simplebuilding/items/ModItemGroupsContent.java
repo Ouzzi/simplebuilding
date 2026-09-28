@@ -329,7 +329,10 @@ public final class ModItemGroupsContent {
                 CreativeTabLayout.Row.of("quivers",
                         ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER),
                 CreativeTabLayout.Row.of("backpacks",
-                        ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK));
+                        ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK),
+                CreativeTabLayout.Row.of("chests",
+                        Items.CHEST, Items.COPPER_CHEST.weathering().unaffected(), ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST,
+                        ModItems.ENDERITE_CHEST));
         // Bauplanung (in functionalRows angehaengt): Blaupause, Kartografentisch (dort wird sie
         // beschrieben), ein Oktant fuer die Flaeche und alle Baustaebe. Oktant und Baustaebe stehen
         // damit auch in SimpleTools.

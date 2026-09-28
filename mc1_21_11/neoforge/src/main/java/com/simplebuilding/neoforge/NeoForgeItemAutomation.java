@@ -42,6 +42,39 @@ public final class NeoForgeItemAutomation implements ItemAutomation {
         event.registerBlockEntity(Capabilities.Item.BLOCK, NeoForgeModRegistries.MOD_BLAST_FURNACE_BE.get(), WorldlyContainerWrapper::new);
         event.registerBlockEntity(Capabilities.Item.BLOCK, NeoForgeModRegistries.MOD_HOPPER_BE.get(),
                 (hopper, side) -> VanillaContainerWrapper.of(hopper));
+        // Mod-Truhen wie NeoForges eigene Truhen-Anbindung (CapabilityHooks): eine Doppeltruhe ist
+        // ein Lager aus beiden Haelften. VanillaContainerWrapper fragt getMaxStackSize(stack) der
+        // Block-Entity, Rohre sehen also die x2/x4-Plaetze von Netherit und Enderit.
+        event.registerBlockEntity(Capabilities.Item.BLOCK, NeoForgeModRegistries.TIERED_CHEST_BE.get(),
+                (chest, side) -> com.simplebuilding.neoforge.NeoForgeItemAutomation.chestHandler(chest));
+    }
+
+    /** Die Truhe, bei einer Doppeltruhe beide Haelften als ein Lager (erst die rechte, wie Vanilla). */
+    static ResourceHandler<ItemResource> chestHandler(com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity chest) {
+        net.minecraft.world.level.Level level = chest.getLevel();
+        net.minecraft.world.level.block.state.BlockState state = chest.getBlockState();
+        if (level == null || !(state.getBlock() instanceof net.minecraft.world.level.block.ChestBlock block)) {
+            return VanillaContainerWrapper.of(chest);
+        }
+        return block.combine(state, level, chest.getBlockPos(), true).apply(
+                new net.minecraft.world.level.block.DoubleBlockCombiner.Combiner<net.minecraft.world.level.block.entity.ChestBlockEntity, ResourceHandler<ItemResource>>() {
+                    @Override
+                    public ResourceHandler<ItemResource> acceptDouble(net.minecraft.world.level.block.entity.ChestBlockEntity first,
+                                                                      net.minecraft.world.level.block.entity.ChestBlockEntity second) {
+                        return new net.neoforged.neoforge.transfer.CombinedResourceHandler<>(
+                                VanillaContainerWrapper.of(first), VanillaContainerWrapper.of(second));
+                    }
+
+                    @Override
+                    public ResourceHandler<ItemResource> acceptSingle(net.minecraft.world.level.block.entity.ChestBlockEntity single) {
+                        return VanillaContainerWrapper.of(single);
+                    }
+
+                    @Override
+                    public ResourceHandler<ItemResource> acceptNone() {
+                        return VanillaContainerWrapper.of(chest);
+                    }
+                });
     }
 
     @Override

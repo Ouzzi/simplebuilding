@@ -1040,6 +1040,23 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("sledgehammer_upgrade_game_test_netherite_machine_recipes_and_their_unlocks_are_gone", SledgehammerUpgradeTests::netheriteMachineRecipesAndTheirUnlocksAreGone)
                     .build(),
+            GameTestSpec.named("tiered_chest_game_test_single_chest_climbs_from_copper_to_enderite_keeping_its_contents", TieredChestTests::singleChestClimbsFromCopperToEnderiteKeepingItsContents)
+                    .build(),
+            GameTestSpec.named("tiered_chest_game_test_double_chest_upgrades_both_halves_together", TieredChestTests::doubleChestUpgradesBothHalvesTogether)
+                    .build(),
+            GameTestSpec.named("tiered_chest_game_test_slot_counts_and_stack_limits_follow_the_tier", TieredChestTests::slotCountsAndStackLimitsFollowTheTier)
+                    .build(),
+            GameTestSpec.named("tiered_chest_game_test_double_chests_form_only_from_equal_tiers", TieredChestTests::doubleChestsFormOnlyFromEqualTiers)
+                    .build(),
+            GameTestSpec.named("tiered_chest_game_test_vanilla_hoppers_fill_and_empty_oversized_slots", TieredChestTests::vanillaHoppersFillAndEmptyOversizedSlots)
+                    .maxTicks(TieredChestTests.HOPPER_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("tiered_chest_game_test_comparator_reads_oversized_slots_against_the_tier_limit", TieredChestTests::comparatorReadsOversizedSlotsAgainstTheTierLimit)
+                    .build(),
+            GameTestSpec.named("tiered_chest_game_test_oversized_stacks_survive_saving_and_loading", TieredChestTests::oversizedStacksSurviveSavingAndLoading)
+                    .build(),
+            GameTestSpec.named("tiered_chest_game_test_chest_items_follow_the_family_scheme", TieredChestTests::chestItemsFollowTheFamilyScheme)
+                    .build(),
             GameTestSpec.named("in_world_export_game_test_upgrade_steps_name_the_weakest_hammer_that_works", InWorldExportTests::upgradeStepsNameTheWeakestHammerThatWorks)
                     .build(),
             GameTestSpec.named("in_world_export_game_test_reshape_ticks_match_the_use_duration_of_every_hammer", InWorldExportTests::reshapeTicksMatchTheUseDurationOfEveryHammer)

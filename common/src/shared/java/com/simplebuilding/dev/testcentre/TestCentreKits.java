@@ -190,7 +190,10 @@ public final class TestCentreKits {
     private static ItemStack firstUpgradeNugget() {
         for (Block block : BuiltInRegistries.BLOCK) {
             SledgehammerUpgrades.Upgrade upgrade = SledgehammerUpgrades.upgradeOf(block);
-            if (upgrade != null && upgrade.from() == block) {
+            // Nur Mod-Maschinen: die Vanilla-Kupfertruhen (erste Truhenstufe, Rissiger Diamant) stehen
+            // in der Registry vorn, sind aber nicht die Maschinen-Aufwertung dieser Station.
+            if (upgrade != null && upgrade.from() == block
+                    && "simplebuilding".equals(BuiltInRegistries.BLOCK.getKey(block).getNamespace())) {
                 return new ItemStack(upgrade.nugget());
             }
         }

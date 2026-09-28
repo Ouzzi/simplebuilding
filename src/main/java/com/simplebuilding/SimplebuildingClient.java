@@ -70,6 +70,9 @@ public class SimplebuildingClient implements ClientModInitializer {
         // Abgelegte Schmiedevorlage: das Item-Modell der Vorlage als flache Platte.
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_TEMPLATE_BE, com.simplebuilding.client.render.PlacedTemplateRenderer::new);
+        // Mod-Truhen: Vanillas Truhenmodell mit den Texturen der Stufe.
+        net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
+                com.simplebuilding.blocks.entity.ModBlockEntities.TIERED_CHEST_BE, com.simplebuilding.client.render.TieredChestRenderer::new);
         // Der getragene Rucksack bzw. Koecher auf dem Ruecken - auf jedem Avatar-Renderer (beide Spielermodelle, Mannequins).
         // Abgestellter gefaerbter Rucksack: Leder-Ebene in der Farbe der Block-Entity.
         net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(
@@ -192,6 +195,7 @@ public class SimplebuildingClient implements ClientModInitializer {
 
         MenuScreens.register(ModScreenHandlers.NETHERITE_HOPPER_SCREEN_HANDLER, NetheriteHopperScreen::new);
         MenuScreens.register(ModScreenHandlers.BACKPACK_MENU, BackpackScreen::new);
+        MenuScreens.register(ModScreenHandlers.TIERED_CHEST_MENU, com.simplebuilding.client.gui.TieredChestScreen::new);
 
         // --- NETZWERK REGISTRIERUNG CLIENT-SEITE ---
         registerClientReceivers();
