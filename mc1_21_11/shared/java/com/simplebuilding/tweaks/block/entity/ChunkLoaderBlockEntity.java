@@ -9,6 +9,10 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -76,8 +80,10 @@ public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
 
     /** Erzwingt den Bereich seiner Stufe (Config an) bzw. gibt die eigenen Chunks frei (Config aus). */
     public void update(ServerLevel level) {
-        if (!enabled()) {
+        boolean shouldLoad = enabled();
+        if (!shouldLoad) {
             release(level);
+            setActive(level, false);
             return;
         }
         int cx = worldPosition.getX() >> 4;
@@ -99,6 +105,36 @@ public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
         if (changed) {
             setChanged();
         }
+        setActive(level, true);
+    }
+
+    /**
+     * Sichtbarer Zustand ({@link ChunkLoaderBlock#ACTIVE}): beim Wechsel Leuchtfeuer-Klang und ein
+     * Funkenwirbel (an) bzw. der Abschaltklang (aus). Beim Laden der Welt steht der Zustand schon
+     * im Block, dann bleibt es still.
+     */
+    public void setActive(ServerLevel level, boolean active) {
+        BlockState state = getBlockState();
+        if (!state.hasProperty(ChunkLoaderBlock.ACTIVE) || state.getValue(ChunkLoaderBlock.ACTIVE) == active
+                || level.getBlockState(worldPosition) != state) {
+            return;
+        }
+        level.setBlock(worldPosition, state.setValue(ChunkLoaderBlock.ACTIVE, active), Block.UPDATE_ALL);
+        level.playSound(null, worldPosition, active ? SoundEvents.BEACON_ACTIVATE : SoundEvents.BEACON_DEACTIVATE,
+                SoundSource.BLOCKS, 0.6f, 1.4f);
+        if (active) {
+            level.sendParticles(ParticleTypes.REVERSE_PORTAL, worldPosition.getX() + 0.5, worldPosition.getY() + 0.2,
+                    worldPosition.getZ() + 0.5, 24, 0.3, 0.1, 0.3, 0.05);
+        } else {
+            level.sendParticles(ParticleTypes.SMOKE, worldPosition.getX() + 0.5, worldPosition.getY() + 0.15,
+                    worldPosition.getZ() + 0.5, 6, 0.25, 0.02, 0.25, 0.0);
+        }
+    }
+
+    /** Ob der Loader gerade laedt (Blockzustand). */
+    public boolean isActive() {
+        BlockState state = getBlockState();
+        return state.hasProperty(ChunkLoaderBlock.ACTIVE) && state.getValue(ChunkLoaderBlock.ACTIVE);
     }
 
     /**

@@ -224,6 +224,12 @@ public class PotionPadBlockEntity extends OwnedBlockEntity {
         if (state.getBlock() instanceof PotionPadBlock && state.hasProperty(PotionPadBlock.COOLING)
                 && state.getValue(PotionPadBlock.COOLING) != cooling) {
             level.setBlock(worldPosition, state.setValue(PotionPadBlock.COOLING, cooling), Block.UPDATE_ALL);
+            if (!cooling && stored != null && level instanceof ServerLevel server) {
+                // Wieder bereit (Immersion 2026-09-28): ein Glockenspiel-Ton und ein Wirbel in der Trankfarbe.
+                server.playSound(null, worldPosition, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 0.8F, 1.2F);
+                server.sendParticles(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, 0xFF000000 | color()),
+                        worldPosition.getX() + 0.5, worldPosition.getY() + 0.2, worldPosition.getZ() + 0.5, 12, 0.3, 0.1, 0.3, 0.0);
+            }
         }
     }
 

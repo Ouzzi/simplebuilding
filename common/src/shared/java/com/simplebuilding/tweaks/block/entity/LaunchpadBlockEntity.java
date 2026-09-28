@@ -55,6 +55,9 @@ public class LaunchpadBlockEntity extends OwnedBlockEntity {
             charges += added;
             chargeTimer = 0;
             setChanged();
+            if (level != null) {
+                refreshChargeState(level, worldPosition, getBlockState());
+            }
             sync();
         }
         return added;
@@ -86,6 +89,7 @@ public class LaunchpadBlockEntity extends OwnedBlockEntity {
         charges = max;
         Containers.dropItemStack(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, new ItemStack(Items.WIND_CHARGE, excess));
         setChanged();
+        refreshChargeState(level, pos, state);
         sync();
         return excess;
     }
@@ -94,6 +98,10 @@ public class LaunchpadBlockEntity extends OwnedBlockEntity {
         boolean client = level.isClientSide();
         if (!client && be.charges > 0) {
             be.clampToCapacity(level, pos, state);
+        }
+        if (!client) {
+            // Sichtbarer Fuellstand (Blockzustand CHARGE); holt auch Pads aus alten Welten nach.
+            state = be.refreshChargeState(level, pos, state);
         }
         if (!SimpleTweaks.config().pads.enableLaunchpads) {
             be.chargeTimer = 0;
@@ -146,6 +154,7 @@ public class LaunchpadBlockEntity extends OwnedBlockEntity {
             be.charges = 0;
             be.chargeTimer = 0;
             be.setChanged();
+            be.refreshChargeState(level, pos, state);
             be.sync();
         }
     }
@@ -160,6 +169,24 @@ public class LaunchpadBlockEntity extends OwnedBlockEntity {
         if (fallProtection) {
             LaunchSafety.protect(player);
         }
+    }
+
+    /**
+     * Stellt den sichtbaren Fuellstand ({@link LaunchpadBlock#CHARGE}) auf die Ladungen ein und
+     * liefert den (ggf. neuen) Zustand. Nur serverseitig; der Block bleibt derselbe, die
+     * Block-Entity bleibt also stehen.
+     */
+    public BlockState refreshChargeState(Level level, BlockPos pos, BlockState state) {
+        if (level.isClientSide() || !(state.getBlock() instanceof LaunchpadBlock pad) || !state.hasProperty(LaunchpadBlock.CHARGE)) {
+            return state;
+        }
+        int wanted = LaunchpadBlock.chargeLevel(charges, pad.capacityAt(level, pos));
+        if (state.getValue(LaunchpadBlock.CHARGE) == wanted) {
+            return state;
+        }
+        BlockState next = state.setValue(LaunchpadBlock.CHARGE, wanted);
+        level.setBlock(pos, next, Block.UPDATE_ALL);
+        return next;
     }
 
     private void sync() {

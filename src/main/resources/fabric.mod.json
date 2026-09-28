@@ -95,7 +95,8 @@
       "com.simplebuilding.gametest.TweaksEasterGameTest",
       "com.simplebuilding.gametest.AdvancementTreeGameTest",
       "com.simplebuilding.gametest.PressurePlateGameTest",
-      "com.simplebuilding.gametest.GuideBookGameTest"
+      "com.simplebuilding.gametest.GuideBookGameTest",
+      "com.simplebuilding.gametest.ImmersionGameTest"
     ]
   },
   "mixins": [

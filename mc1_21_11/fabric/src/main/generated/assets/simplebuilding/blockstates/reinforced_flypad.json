@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "active=false": {
       "model": "simplebuilding:block/reinforced_flypad"
+    },
+    "active=true": {
+      "model": "simplebuilding:block/reinforced_flypad_active"
     }
   }
 }

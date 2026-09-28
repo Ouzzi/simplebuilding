@@ -13,10 +13,10 @@ Stand 2026-09-28. Gilt fuer alle Linien: 26.2 (`common/src/shared`, Fabric `src/
 | Mod-Trichter (`ModHopperBlockEntity`) | Server | Wie Vanillas Trichter (Abklingzeit, `ENABLED`-Frueh-Abbruch vor jeder Arbeit). | unveraendert; siehe Lithium unten |
 | Oefen/Schmelz-/Raeucherofen | Server | Erben `AbstractFurnaceBlockEntity` und rufen dessen `serverTick` - Lithiums "schlafende Block-Entities" greifen damit auch hier. | unveraendert |
 | Abgelegte Vorlage (`PlacedTemplateBlockEntity`) | Server | Arbeit nur alle 10 Ticks, nach Position versetzt. | unveraendert |
-| Chunk-Loader | Server | Arbeit nur alle `CHECK_INTERVAL` Ticks. | unveraendert |
+| Chunk-Loader | Server (+ Client-Partikel/-Summen per `animateTick`) | Arbeit nur alle `CHECK_INTERVAL` Ticks; der sichtbare Zustand `active` wird nur beim Wechsel per `setBlock` geschrieben (Immersion 2026-09-28). | unveraendert |
 | **Elytra-Pad** | Server | Alle 10 Ticks `getEntitiesOfClass(ServerPlayer, Bereich)`. Stufe V: 128 x 127 x 128 Bloecke = ~512 Entity-Sektionen je Suche, letzte Easter-Stufe ~4096. | `util/PlayerScan`: Spielerliste des Levels statt Sektionssuche - O(Spieler) |
-| **Flypad** | Server | dito alle 5 Ticks (bis 16 x 24 x 16, Easter doppelt). | `PlayerScan` |
-| **Launchpad** | Server **und** Client | jeden Tick Sektionssuche ueber dem Pad (Client fuer die Partikel). | `PlayerScan` |
+| **Flypad** | Server (+ Client-Feldkanten per `animateTick`, nur wenn `active`) | dito alle 5 Ticks (bis 16 x 24 x 16, Easter doppelt). Zustand `active` nur beim Wechsel, Randwarnung je Spieler hoechstens alle 10 Ticks. | `PlayerScan` |
+| **Launchpad** | Server **und** Client | jeden Tick Sektionssuche ueber dem Pad (Client fuer die Partikel). Fuellstand `charge` (0-3): je Tick ein Int-Vergleich, `setBlock` nur beim Stufenwechsel. | `PlayerScan` |
 | **Spawn-Teleporter** | Server (+ Client-Partikel nur fuer den Besitzer) | jeden Tick Sektionssuche, danach zwei `removeIf`+Stream-Durchlaeufe auch ohne Spieler. | `PlayerScan` + Leerlauf-Abbruch (`isTracking()`) |
 | **Trank-Pad** | Server | Waehrend der Abklingzeit jeden Tick `setChanged()` = Chunk markieren **plus** Komparator-Abfrage der vier Nachbarn (das Pad hat kein Komparator-Signal). Sonst jeden Tick Sektionssuche. | `level.blockEntityChanged(pos)` statt `setChanged()`; `PlayerScan` |
 | **Kupfer-Druckplatte** | Server | jeden Tick Sektionssuche. | `PlayerScan` |

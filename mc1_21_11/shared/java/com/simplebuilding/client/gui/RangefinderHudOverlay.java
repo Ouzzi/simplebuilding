@@ -24,6 +24,9 @@ public class RangefinderHudOverlay {
     public static void render(GuiGraphics context) {
         Minecraft client = Minecraft.getInstance();
         if (client.player == null) return;
+        if (!ModHud.visible()) {
+            return; // HUD key / config showModHud
+        }
         if (client.options.hideGui) {
             // Fabric's element registry hangs the mod's overlays inside vanilla's own layers,
             // which F1 switches off as a whole; NeoForge's layer event does not, and there the
@@ -129,12 +132,10 @@ public class RangefinderHudOverlay {
         int boxWidth = finalContentWidth + (paddingX * 2);
         int boxHeight = totalTextHeight + (paddingY * 2);
 
-        int x = 10;
-        int y = (screenHeight / 2) - (boxHeight / 2);
-
-        if (hasSpeedometer) {
-            y -= 35;
-        }
+        // Ort und Groesse aus der Client-Config (ModHud); mit Tacho rueckt der Kasten 35 px nach oben.
+        ModHud.begin(context, boxWidth, boxHeight, hasSpeedometer ? -35 : 0);
+        int x = 0;
+        int y = 0;
 
         // --- BOX: Vanilla-Tooltip-Hintergrund (Sprites tooltip/background + tooltip/frame) wie der
         // Tachometer. Die Farbstoff-Farbe des Entfernungsmessers bleibt in den Textzeilen (Pos 1,
@@ -151,6 +152,7 @@ public class RangefinderHudOverlay {
             textY += textRenderer.lineHeight + lineSpacing;
             if (i == 0 || i == 2) textY += titleSpacing;
         }
+        ModHud.end(context);
     }
 
 }

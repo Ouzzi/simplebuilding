@@ -1424,6 +1424,22 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("tweaks_game_test_kill_carts_obeys_its_switch_and_operators_and_drops_cart_contents", TweaksTests::killCartsObeysItsSwitchAndOperatorsAndDropsCartContents)
                     .build(),
             GameTestSpec.named("tweaks_game_test_pads_placed_in_water_are_waterlogged_and_leave_the_water_behind", TweaksTests::padsPlacedInWaterAreWaterloggedAndLeaveTheWaterBehind)
+                    .build(),
+            GameTestSpec.named("immersion_game_test_launchpad_shows_its_fill_level_in_its_block_state", ImmersionTests::launchpadShowsItsFillLevelInItsBlockState)
+                    .build(),
+            GameTestSpec.named("immersion_game_test_chunk_loader_shows_whether_it_keeps_chunks_loaded", ImmersionTests::chunkLoaderShowsWhetherItKeepsChunksLoaded)
+                    .build(),
+            GameTestSpec.named("immersion_game_test_flypad_shows_active_while_someone_is_in_its_field", ImmersionTests::flypadShowsActiveWhileSomeoneIsInItsField)
+                    .build(),
+            GameTestSpec.named("immersion_game_test_flypad_warning_rises_towards_the_edge_of_its_field", ImmersionTests::flypadWarningRisesTowardsTheEdgeOfItsField)
+                    .build(),
+            GameTestSpec.named("immersion_game_test_pad_and_machine_tooltips_name_their_numbers", ImmersionTests::padAndMachineTooltipsNameTheirNumbers)
+                    .build(),
+            GameTestSpec.named("immersion_game_test_armor_and_food_tooltips_explain_what_they_do", ImmersionTests::armorAndFoodTooltipsExplainWhatTheyDo)
+                    .build(),
+            GameTestSpec.named("immersion_game_test_core_tooltips_list_exactly_the_recipes_that_take_the_core", ImmersionTests::coreTooltipsListExactlyTheRecipesThatTakeTheCore)
+                    .build(),
+            GameTestSpec.named("immersion_game_test_hud_boxes_follow_the_configured_position_and_scale", ImmersionTests::hudBoxesFollowTheConfiguredPositionAndScale)
                     .build()
             // --- /tweaks ---
             );
