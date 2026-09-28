@@ -24,6 +24,8 @@ public final class VeinMinerUsageEvent {
     }
 
     public static boolean handleBeforeBlockBreak(Level world, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
+        // A claim check fired by BuildPermissions is not a real break: never start an area break.
+        if (BuildPermissions.isProbing()) return true;
         // --- ÄNDERUNG: Nur ausführen, wenn Spieler sneakt ---
         if (!player.isShiftKeyDown()) {
             return true;

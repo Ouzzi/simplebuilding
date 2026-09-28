@@ -403,13 +403,12 @@ public final class VeinAndStripMinerTests {
      *
      * <p><b>Nether quartz ore and ancient debris</b> are where the preview and the mining used to
      * disagree: {@code MiningUtils#isOre} counted both by hand while the hook carried its own copy
-     * that listed neither, so a player saw the whole vein outlined and then broke a single block.
-     * There is only one list now - {@code VeinMinerUsageEvent} asks {@code MiningUtils#isOre} -
-     * and the manual decides which way it points: the eight ore tags are the rule of Vein Miner,
-     * so the preview is the side that gave way. This case therefore holds both ends together: the
-     * ore check says no, the preview selects nothing, and the vein stays in the world. Putting
-     * quartz or ancient debris back into the list is a balance change, not a repair, and it turns
-     * all three of those assertions red at once.
+     * that listed neither. There is only one list now - {@code VeinMinerUsageEvent} asks
+     * {@code MiningUtils#isOre}, which asks the block tag {@code simplebuilding:vein_miner_ores} -
+     * and since 2026-09-28 (owner decision) both are in it, next to {@code #c:ores} and the mod
+     * ores. This case holds both ends together: the ore check says yes, the preview outlines the
+     * vein, and the vein is gone. (The test id still carries its old name, "diverges from the
+     * highlight on quartz", so the reports stay comparable with the runs before.)
      *
      * <p>The last block is the guard nobody else exercises: a player that is not a
      * {@code ServerPlayer} - the client side copy - has to be let through untouched.
@@ -460,15 +459,15 @@ public final class VeinAndStripMinerTests {
             helper.assertBlockPresent(Blocks.AIR, pos);
         }
 
-        // --- nether quartz ore: outside the ore list, and the preview says so too ---
+        // --- nether quartz ore: in the ore tag, and the preview says so too ---
         helper.setBlock(QUARTZ_ORIGIN, Blocks.NETHER_QUARTZ_ORE);
         for (BlockPos pos : QUARTZ_NEIGHBOURS) {
             helper.setBlock(pos, Blocks.NETHER_QUARTZ_ORE);
         }
 
-        helper.assertTrue(!MiningUtils.isOre(helper.getBlockState(QUARTZ_ORIGIN)),
-                "nether quartz ore is back in the one ore list - the preview would outline a "
-                        + "vein again, and the hook would now break it");
+        helper.assertTrue(MiningUtils.isOre(helper.getBlockState(QUARTZ_ORIGIN)),
+                "nether quartz ore is no longer in simplebuilding:vein_miner_ores - Vein Miner "
+                        + "would take a single block of a quartz vein again");
 
         List<BlockPos> highlighted = MiningUtils.getVeinMinerBlocks(
                 helper.getLevel(),
@@ -476,24 +475,24 @@ public final class VeinAndStripMinerTests {
                 helper.getBlockState(QUARTZ_ORIGIN),
                 5,
                 new ItemStack(Items.IRON_PICKAXE));
-        helper.assertValueEqual(highlighted.size(), 0,
-                "the crack preview outlined a quartz vein the hook does not mine - the two ore "
-                        + "lists have drifted apart again");
+        for (BlockPos pos : QUARTZ_NEIGHBOURS) {
+            helper.assertTrue(highlighted.contains(helper.absolutePos(pos)),
+                    "the crack preview left " + pos + " of the quartz vein out: " + highlighted);
+        }
 
         veinMine(helper, player, veinMinerPickaxe(helper, Items.IRON_PICKAXE, 5), QUARTZ_ORIGIN);
         for (BlockPos pos : QUARTZ_NEIGHBOURS) {
-            helper.assertBlockPresent(Blocks.NETHER_QUARTZ_ORE, pos);
+            helper.assertBlockPresent(Blocks.AIR, pos);
         }
 
-        // --- ancient debris: the other block that used to be in the preview list only ---
+        // --- ancient debris: the other block that used to be in the preview list only, now in the tag ---
         helper.setBlock(DEBRIS_ORIGIN, Blocks.ANCIENT_DEBRIS);
         for (BlockPos pos : DEBRIS_NEIGHBOURS) {
             helper.setBlock(pos, Blocks.ANCIENT_DEBRIS);
         }
 
-        helper.assertTrue(!MiningUtils.isOre(helper.getBlockState(DEBRIS_ORIGIN)),
-                "ancient debris is back in the one ore list - Vein Miner V would take a whole "
-                        + "debris cluster in one swing, which is a balance change, not a fix");
+        helper.assertTrue(MiningUtils.isOre(helper.getBlockState(DEBRIS_ORIGIN)),
+                "ancient debris is no longer in simplebuilding:vein_miner_ores");
 
         List<BlockPos> debrisHighlight = MiningUtils.getVeinMinerBlocks(
                 helper.getLevel(),
@@ -501,13 +500,14 @@ public final class VeinAndStripMinerTests {
                 helper.getBlockState(DEBRIS_ORIGIN),
                 5,
                 new ItemStack(Items.DIAMOND_PICKAXE));
-        helper.assertValueEqual(debrisHighlight.size(), 0,
-                "the crack preview outlined an ancient debris vein the hook does not mine - the "
-                        + "two ore lists have drifted apart again");
+        for (BlockPos pos : DEBRIS_NEIGHBOURS) {
+            helper.assertTrue(debrisHighlight.contains(helper.absolutePos(pos)),
+                    "the crack preview left " + pos + " of the debris cluster out: " + debrisHighlight);
+        }
 
         veinMine(helper, player, veinMinerPickaxe(helper, Items.DIAMOND_PICKAXE, 5), DEBRIS_ORIGIN);
         for (BlockPos pos : DEBRIS_NEIGHBOURS) {
-            helper.assertBlockPresent(Blocks.ANCIENT_DEBRIS, pos);
+            helper.assertBlockPresent(Blocks.AIR, pos);
         }
 
         // --- a player that is not a ServerPlayer: the hook lets the break through untouched ---

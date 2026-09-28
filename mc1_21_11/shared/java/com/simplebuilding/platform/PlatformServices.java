@@ -14,6 +14,7 @@ public final class PlatformServices {
     private static PlayerPacketSender playerPacketSender = PlayerPacketSender.NOOP;
     private static ItemAutomation itemAutomation = ItemAutomation.NOT_INSTALLED;
     private static PistonBreakGuard pistonBreakGuard = PistonBreakGuard.ALLOW;
+    private static BuildGuard buildGuard = BuildGuard.ALLOW;
 
     private PlatformServices() {
     }
@@ -61,6 +62,16 @@ public final class PlatformServices {
 
     public static PistonBreakGuard pistonBreakGuard() {
         return pistonBreakGuard;
+    }
+
+    /** Installed once by each loader at start; see {@link BuildGuard}. */
+    public static void setBuildGuard(BuildGuard guard) {
+        PlatformServices.buildGuard = guard != null ? guard : BuildGuard.ALLOW;
+    }
+
+    /** The loader's claim/protection check; ask it through {@code com.simplebuilding.util.BuildPermissions}. */
+    public static BuildGuard buildGuard() {
+        return buildGuard;
     }
 
     /**

@@ -154,16 +154,9 @@ public class MiningUtils {
      * Antikem Schutt) und muss das Handbuch mitziehen - es ist kein Aufraeumen.
      */
     public static boolean isOre(BlockState state) {
-        // Vanilla Tags nutzen. Hinweis: GOLD_ORES beinhaltet in Vanilla auch Nether Gold Ore.
-        // MC 1.21.11: Die Erz-Tags stehen noch direkt in BlockTags (minecraft:coal_ores usw.);
-        // die gepaarten Block/Item-Tags gibt es erst ab 26.2. Tag-Daten unveraendert.
-        return state.is(BlockTags.COAL_ORES) ||
-                state.is(BlockTags.IRON_ORES) ||
-                state.is(BlockTags.COPPER_ORES) ||
-                state.is(BlockTags.GOLD_ORES) ||
-                state.is(BlockTags.REDSTONE_ORES) ||
-                state.is(BlockTags.LAPIS_ORES) ||
-                state.is(BlockTags.DIAMOND_ORES) ||
-                state.is(BlockTags.EMERALD_ORES);
+        // Seit 2026-09-28 ein Tag statt einer festen Liste: simplebuilding:vein_miner_ores enthaelt
+        // #c:ores des Loaders (jedes Mod-Erz nach Konvention), die Vanilla-Erz-Tags, Netherquarzerz,
+        // Nethergolderz, Antiken Schutt und die Mod-Erze; Modpacks koennen ihn per Datapack erweitern.
+        return state.is(ModTags.Blocks.VEIN_MINER_ORES);
     }
 }

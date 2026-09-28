@@ -352,10 +352,9 @@ public final class MiningEnchantmentTests {
      *
      * <p><b>The ore list.</b> Ancient debris used to be the second half of a divergence: the
      * preview list {@code MiningUtils#isOre} said yes, the hook carried its own copy that said
-     * no, and the player got a whole cluster outlined and a single block broken. There is one
-     * list now and ancient debris is not in it, so this case holds both ends together: the ore
-     * check says no and the cluster stays in the world. Taking debris into the list hands Vein
-     * Miner V a whole cluster per swing - a balance decision, not a repair.
+     * no. There is one list now, the block tag {@code simplebuilding:vein_miner_ores}, and since
+     * 2026-09-28 (owner decision) ancient debris is in it: the ore check says yes and the whole
+     * cluster goes with a diamond pickaxe.
      *
      * <p>What breaks it: widening either tag gate, moving the tag gate behind the ore/log
      * branches, or a harvest check that no longer runs before it (the shovel would then reach
@@ -391,15 +390,14 @@ public final class MiningEnchantmentTests {
             helper.assertBlockPresent(Blocks.AIR, pos);
         }
 
-        // --- the one ore list, from both ends: no highlight and no vein ---
+        // --- the one ore list (simplebuilding:vein_miner_ores): ancient debris is in it ---
         BlockState debris = helper.getBlockState(DEBRIS_ORIGIN);
-        helper.assertTrue(!MiningUtils.isOre(debris),
-                "ancient debris is back in the one ore list that the hook and the crack preview "
-                        + "now share - Vein Miner V would take a whole debris cluster in one "
-                        + "swing");
+        helper.assertTrue(MiningUtils.isOre(debris),
+                "ancient debris is no longer in simplebuilding:vein_miner_ores, the one ore list "
+                        + "the hook and the crack preview share");
         veinMine(helper, player, veinMinerTool(helper, Items.DIAMOND_PICKAXE, 5), DEBRIS_ORIGIN);
         for (BlockPos pos : DEBRIS_TAIL) {
-            helper.assertBlockPresent(Blocks.ANCIENT_DEBRIS, pos);
+            helper.assertBlockPresent(Blocks.AIR, pos);
         }
 
         // --- Strip Miner, shovel: same gate, one branch earlier in the method ---

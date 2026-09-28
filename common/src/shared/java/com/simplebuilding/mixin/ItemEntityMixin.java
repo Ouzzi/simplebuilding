@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ItemEntity.class)
-public abstract class ItemEntityMixin extends Entity {
+public abstract class ItemEntityMixin extends Entity implements com.simplebuilding.util.ItemEntityPickupInfo {
 
     @Shadow public abstract ItemStack getItem();
     @Shadow private int pickupDelay;
@@ -30,6 +30,16 @@ public abstract class ItemEntityMixin extends Entity {
 
     public ItemEntityMixin(EntityType<?> type, Level world) {
         super(type, world);
+    }
+
+    @Override
+    public int simplebuilding$pickupDelay() {
+        return this.pickupDelay;
+    }
+
+    @Override
+    public java.util.UUID simplebuilding$pickupOwner() {
+        return this.target;
     }
 
     /**

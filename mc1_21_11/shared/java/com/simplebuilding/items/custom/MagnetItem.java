@@ -65,6 +65,9 @@ public class MagnetItem extends Item {
             if (itemEntity.isRemoved() || itemEntity.getItem().isEmpty()) continue;
 
             if (!passesFilter(itemEntity, filterId)) continue;
+            // Display items of other mods, items reserved for someone else, other players' death
+            // drops and the item tag simplebuilding:attractor_ignore stay where they are.
+            if (!com.simplebuilding.util.AttractorFilter.mayAttract(itemEntity, player)) continue;
 
             applyMagnetForce(itemEntity, targetPos);
 

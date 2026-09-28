@@ -31,6 +31,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin implements OwnedLightHolder {
 
+    /**
+     * Marks a player's death drops ({@link com.simplebuilding.util.AttractorFilter}): the attractor
+     * of another player leaves them alone. Vanilla sets no thrower on them, so nothing else tells
+     * them apart from any other loose item.
+     */
+    @Inject(method = "drop(Lnet/minecraft/world/item/ItemStack;ZZ)Lnet/minecraft/world/entity/item/ItemEntity;", at = @At("RETURN"))
+    private void simplebuilding$markDeathDrop(ItemStack stack, boolean randomly, boolean thrownFromHand,
+                                               CallbackInfoReturnable<net.minecraft.world.entity.item.ItemEntity> cir) {
+        com.simplebuilding.util.AttractorFilter.markIfDeathDrop((LivingEntity) (Object) this, cir.getReturnValue());
+    }
+
     @ModifyVariable(method = "hurtServer", at = @At("HEAD"), argsOnly = true, ordinal = 0)
     private float simplebuilding$modifyDamageAmount(float amount, ServerLevel world, DamageSource source) {
         LivingEntity entity = (LivingEntity) (Object) this;

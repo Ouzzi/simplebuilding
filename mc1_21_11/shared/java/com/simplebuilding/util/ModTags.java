@@ -116,6 +116,20 @@ public class ModTags {
             return isVoidProtectedByRule(id) && !ENDERITE_INGOT_TIER_EXCLUDED_PATHS.contains(id.getPath());
         }
 
+        /**
+         * Items the attractor (magnet) never pulls - for modpacks: display items, markers or
+         * quest items of other mods that lie around as item entities. Empty by default; the
+         * attractor also leaves items alone that can never be picked up, that belong to another
+         * player, and death drops of other players ({@code com.simplebuilding.util.AttractorFilter}).
+         */
+        public static final TagKey<Item> ATTRACTOR_IGNORE = createTag("attractor_ignore");
+
+        /**
+         * Items that may not go into a backpack slot, on top of the built-in rule (no backpacks, no
+         * shulker boxes or anything else that refuses to sit inside a container item). Empty by default.
+         */
+        public static final TagKey<Item> NOT_ALLOWED_IN_BACKPACK = createTag("not_allowed_in_backpack");
+
         private static TagKey<Item> createTag(String name) {
             return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name));
         }
@@ -135,6 +149,20 @@ public class ModTags {
          * verstaerkter Tiefenschiefer, den {@code PistonBaseBlock#isPushable} beim Namen verweigert).
          */
         public static final TagKey<Block> PISTON_BREACHABLE_EXTRA = createTag("piston_breachable_extra");
+
+        /**
+         * Blocks the building wand never places - neither on a plane nor from a blueprint or an
+         * octant fill. Empty by default; for modpacks that want to keep e.g. a mod's machine or a
+         * valuable block out of mass placement.
+         */
+        public static final TagKey<Block> BUILDING_WAND_BLACKLIST = createTag("building_wand_blacklist");
+
+        /**
+         * What Vein Miner counts as an ore with a pickaxe (and what the crack preview outlines):
+         * {@code #c:ores} of the loader (every mod ore that follows the convention), the vanilla ore
+         * tags, nether quartz ore, nether gold ore, ancient debris and the mod's own ores.
+         */
+        public static final TagKey<Block> VEIN_MINER_ORES = createTag("vein_miner_ores");
 
         private static TagKey<Block> createTag(String name) {
             return TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name));

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#c:storage_blocks/enderite",
+    "#c:storage_blocks/cracked_diamond",
+    "#c:storage_blocks/ender_quartz",
+    "#c:storage_blocks/astralit",
+    "#c:storage_blocks/nihilith"
+  ]
+}

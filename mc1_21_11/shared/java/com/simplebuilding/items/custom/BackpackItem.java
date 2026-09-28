@@ -144,9 +144,13 @@ public class BackpackItem extends BlockItem {
         return chest.getItem() instanceof BackpackItem ? chest : ItemStack.EMPTY;
     }
 
-    /** Darf {@code stack} in einen Rucksack-Slot? Keine Rucksaecke, keine Shulkerkisten. */
+    /**
+     * Darf {@code stack} in einen Rucksack-Slot? Keine Rucksaecke, keine Shulkerkisten, nichts aus
+     * dem Item-Tag {@code simplebuilding:not_allowed_in_backpack} (fuer Modpacks, standardmaessig leer).
+     */
     public static boolean mayStore(ItemStack stack) {
-        return !(stack.getItem() instanceof BackpackItem) && stack.getItem().canFitInsideContainerItems();
+        return !(stack.getItem() instanceof BackpackItem) && stack.getItem().canFitInsideContainerItems()
+                && !stack.is(com.simplebuilding.util.ModTags.Items.NOT_ALLOWED_IN_BACKPACK);
     }
 
     /**

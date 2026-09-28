@@ -143,6 +143,7 @@ public class Simplebuilding implements ModInitializer {
         // behave differently on the two loaders. Filtering on both keeps them identical.
         PlatformServices.setItemAutomation(new com.simplebuilding.platform.FabricItemAutomation());
         com.simplebuilding.platform.FabricPistonBreakGuard.install();
+        com.simplebuilding.platform.FabricBuildGuard.install();
         PlatformServices.setHopperSync((blockEntity, slot, stack) -> {
             var payload = new SyncHopperGhostItemPayload(blockEntity.getBlockPos(), slot, stack);
             for (net.minecraft.server.level.ServerPlayer player

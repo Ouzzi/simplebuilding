@@ -52,6 +52,8 @@ public final class TweaksNeoForge {
             TweaksContent.registerRecipeSerializers();
         } else if (event.getRegistryKey().equals(Registries.TRIGGER_TYPE)) {
             TweaksContent.registerTriggers();
+        } else if (event.getRegistryKey().equals(Registries.CUSTOM_STAT)) {
+            TweaksContent.registerStats();
         } else if (event.getRegistryKey().equals(Registries.BLOCK_ENTITY_TYPE)) {
             TweaksBlockEntities.register(new TweaksBlockEntities.Factory() {
                 @Override
