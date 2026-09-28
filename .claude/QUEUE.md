@@ -102,13 +102,13 @@ Verlauf im Detail: git log.
 - [x] wiki/manual.json: 6 doppelte Feature-Eintraege (welcome x4, building_wand, blueprint, enchant_storage_player, enderite_void_protection, configuration) mit abweichendem Text zusammenfuehren (Altlast aus JSON-Merges)
 - [x] Server-Gate, Push
 
-## Welle 20 (laeuft)
+## Welle 20
 - [x] Texturen (freigegeben, gepusht): Maschinen (Kolben, Oefen, Raeucherofen, Schmelzofen, Trichter) vanilla-naeher; Enderit-Block + andere Mod-Bloecke neu; Netherit-Griff fuer Netherit-Hammer/-Meissel/-Baustab; Enderquarz lesbarer; Laser-Textur
 - [x] Echo-Kompass (gepusht, Gate 3649/3649): 3 s Aktivierung, Sounds/Partikel/FOV, 1. Nutzung -> kaputt, 2. Nutzung doppelt lang + Warnung -> zerbricht, eigene + kaputte Textur, Werkzeug-Tab, Rezept (N N/NRN/NEN, 6 Enderit-Nuggets), Mending: 1500 Punkte Aufladung, Glanz nur repariert; Velocity-Gauge-Rezept (Quarz oben in den Ecken, unten Kupfer-Kern)
 - [x] Tweaks-Stufen (gepusht, Gate 3719/3719): Launchpad (4/8/16 Ladungen, doppelte Staerke je Ladung, Shift = alle Windladungen rein), Chunk-Loader (1 / 5 / 3x3), Upgrades kosten Druckplatten, Flypad Stufe 1 mit Elytra (+ ? offen); Rotator-Rezept + Perle in der Textur
 - [x] Elytra-Pad 5 Stufen (Elytra+Vorlage 1x1, Diamant 5x5, Netherit+Vorlage 16x16, Enderit 32x32, 128x128); Flypad neu: 3 Stufen aus Enderit-Druckplatte (Kern+Vorlage, +Enderit-Platte, 2x Stufe 2), 4x4x6 / 8x8x12 / 16x16x24; Magnet-Rezept " R "/"I  "/"CIL" (laeuft im Stufen-Agenten)
-- [x] Kupfer-Druckplatten: gewachste Varianten (Honigwabe, Axt schabt Wachs ab, wie Vanilla-Kupfer); Namen bleiben (Vanilla-Muster reicht); Kupferplatte: Abschalten dauert so lang wie Einschalten, Platte senkt sich sichtbar wie Vanilla (pressed-Modell); Creative-Tab aufraeumen + Vanilla-Druckplatten dazu (laeuft)
-- [x] Echo-Kompass -> "Echo Sounder" (Name), Partikel weiter gestreut (Nutzung + Landung), keine Perle mehr noetig, Rezept + Nugget oben (NNN/NRN/NEN); Laser zuendet auch TNT, verliert auch beim normalen Zielen Haltbarkeit; Velocity Gauge QAQ/NCN/NKN (Kupfer-Nuggets); Kerne in Beutekisten sehr selten (Enderit-Kern besonders) (laeuft)
+- [x] Kupfer-Druckplatten: gewachste Varianten (Honigwabe, Axt schabt Wachs ab, wie Vanilla-Kupfer); Namen bleiben (Vanilla-Muster reicht); Kupferplatte: Abschalten dauert so lang wie Einschalten, Platte senkt sich sichtbar wie Vanilla (pressed-Modell); Creative-Tab aufraeumen + Vanilla-Druckplatten dazu
+- [x] Echo-Kompass -> "Echo Sounder" (Name), Partikel weiter gestreut (Nutzung + Landung), keine Perle mehr noetig, Rezept + Nugget oben (NNN/NRN/NEN); Laser zuendet auch TNT, verliert auch beim normalen Zielen Haltbarkeit; Velocity Gauge QAQ/NCN/NKN (Kupfer-Nuggets); Kerne in Beutekisten sehr selten (Enderit-Kern besonders)
 - [x] Trank-Pad (laeuft): Wurftrank auf Netherit-Pad speichern, Effekt beim Drueberlaufen 30 s / 60 s / 120 s; Stufe I Netherit-Druckplatte + Lohenkopf (Lohe durch geladenen Creeper), II Enderit-Upgrade, III Enderit-Kern; alte Flypad-Texturen in Netherit-Palette
 - [x] Easter Egg (laeuft): letzte Stufe -> Stufe 1 im Schmiedetisch = "Don't do it" (Erfolg "What have you done?"), naechste "Seriously?", Stufen 3/4 ausdenken, 5 = Pad-Name verschleiert + Texteffekte, 2x staerker; + Netherit -> "Funny Stick" (Partikel); Erfolge fuer 2x-Stufe-5 und Funny Stick
 - [x] Laser (Amethystlinse, gepusht, Gate 3614/3614): in den Werkzeug-Tab; Vanilla-Name, Punktgroesse, Abstand der Meterzahl, Rezept (Eisen-Kern/Amethyst/Eisen-U/Redstone), Eis/Schnee schmelzen, Brennbares entzuenden, Seelenfeuer, Lagerfeuer, kein Netherportal, Ladung statt Bruch, Amboss-Aufladen mit Redstone ohne Level (64 = voll)
@@ -120,43 +120,45 @@ Verlauf im Detail: git log.
 - [x] Pad-Texturen konsistent (laeuft): Basis-Druckplatte des Materials + Overlay; Elytra-Pad blau (Enderit-Stufe mit Enderit-Details, V mit mehr Glanz); Flypads auf Enderit-Platte; Spawn-Teleporter V auf Gold-Platte + Name ohne "Enderite"; Launchpad I Eisen+Diamant, II alte Launchpad-I-Textur, III Eisen+Enderit; Chunk-Loader immer Kupfer-Basis
 - [x] Laser: Sounds am Auftreffpunkt (Brummen / Zischen bei Brennbarem), Zeit steigt mit Entfernung (~3 s nah, ~20 s bei 200 m), Lebewesen anzuendbar (2x Zeit, PvP beachten) - im Echo-Sounder-Agenten
 - [x] Tabs: SimpleTools-Kompasszeile (Kompass, Bergungskompass, Echo Sounder, Velocity Gauge, Erzdetektor, Magnet, Rotator, Amethystlinse, Oktant) + farbige Oktanten; Spawn-Elytra hinter die Elytra-Pads - im Kupfer-Agenten
-- [x] Kartografietisch: signierte Blaupause oben -> Vorschau im Kartenfeld wie im Tooltip (laeuft)
-- [x] Rotator wie Linse (nie kaputt, Amboss + 16 Enderperlen = voll), zweiter Ender-Sound + Teleport-Partikel; Magnet-Rezept Lapis rechts Mitte; Erzdetektor-Rezept 6 Echoscherben (4 Ecken dazu); Erzdetektor als Kompass (lila Nadel zum naechsten Erz, heller je naeher, viel weniger Partikel, Nebenhand leiser/schwaecher/langsamer) (laeuft)
-- [x] Rucksack: Shift-Tooltip mit Inhalts-Vorschau wie Buendel (laeuft)
+- [x] Kartografietisch: signierte Blaupause oben -> Vorschau im Kartenfeld wie im Tooltip
+- [x] Rotator wie Linse (nie kaputt, Amboss + 16 Enderperlen = voll), zweiter Ender-Sound + Teleport-Partikel; Magnet-Rezept Lapis rechts Mitte; Erzdetektor-Rezept 6 Echoscherben (4 Ecken dazu); Erzdetektor als Kompass (lila Nadel zum naechsten Erz, heller je naeher, viel weniger Partikel, Nebenhand leiser/schwaecher/langsamer)
+- [x] Rucksack: Shift-Tooltip mit Inhalts-Vorschau wie Buendel
 - [x] Laufwerk C voll gewesen: 60 gemergte Agenten-Arbeitskopien entfernt
-- [x] Velocity-Gauge-HUD als Tacho (Nadel unten links -> unten rechts), Titel "Velocity"; Namen/Texte aller Werkzeuge konsistent; Linse: normal nur "Laser", Entfernung nur verzaubert + letzte Messung gespeichert (laeuft)
-- [x] Buendel schliesst wie Vanilla; Enderit-Meissel zusaetzliche Bloecke (laeuft)
-- [x] Texturen: Enderit-Vorlage (Innenteil dunkler, Glimmer), Kerne, Lederbogen, Diamant-Kiesel runder (laeuft)
+- [x] Velocity-Gauge-HUD als Tacho (Nadel unten links -> unten rechts), Titel "Velocity"; Namen/Texte aller Werkzeuge konsistent; Linse: normal nur "Laser", Entfernung nur verzaubert + letzte Messung gespeichert
+- [x] Buendel schliesst wie Vanilla; Enderit-Meissel zusaetzliche Bloecke
+- [x] Texturen: Enderit-Vorlage (Innenteil dunkler, Glimmer), Kerne, Lederbogen, Diamant-Kiesel runder
 - [x] Rotator/Magnet/Erzdetektor ohne HUD-Overlay (im Rotator-Agenten)
-- [x] Erfolge/Advancements mit Hinweisen fuer den naechsten Schritt (ganzer Baum) (laeuft)
-- [x] Schmiedevorlagen platzierbar (flach, 3D, wasserfest), Leucht-Transformation am Boden in 3 Schlaegen, Hinweis-Partikel bei Glowstone/Leuchttinte (laeuft)
-- [x] Anfaengerbuch beim Erstbeitritt + Themenbuecher an der Werkbank (laeuft)
+- [x] Erfolge/Advancements mit Hinweisen fuer den naechsten Schritt (ganzer Baum)
+- [x] Schmiedevorlagen platzierbar (flach, 3D, wasserfest), Leucht-Transformation am Boden in 3 Schlaegen, Hinweis-Partikel bei Glowstone/Leuchttinte
+- [x] Anfaengerbuch beim Erstbeitritt + Themenbuecher an der Werkbank
 - [x] Trank-Pad ins Easter Egg aufnehmen (Endstufe doppelt so lange Wirkdauer)
 - [x] 26.3-Absturz Hammer+Ofen: kein Code-Fehler, Build waehrend laufendem Client (Regel gemerkt)
 - [x] Trank-Pad: Abklingzeit 2x Wirkdauer (nur platziert, abgebaut eigener nicht stapelbarer Zustand mit Restzeit, animierte Textur), Anwendung ueber 3 s (25/50/100 %); alle Pads nicht stapelbar 
-- [x] Namen- und Raritaeten-Konsistenz aller Items (laeuft)
-- [x] Wiki: bessere UI/UX, Wichtigstes oben je Item, Navigation, URL-Suchparameter (laeuft)
-- [x] Vollstaendigkeits-Audit aller Wuensche (laeuft)
+- [x] Namen- und Raritaeten-Konsistenz aller Items
+- [x] Wiki: bessere UI/UX, Wichtigstes oben je Item, Navigation, URL-Suchparameter
+- [x] Vollstaendigkeits-Audit aller Wuensche
 - [x] Minecraft-Stand 2026-09-28: neuestes Stable 26.3 (abgedeckt), Snapshot 26.4-snapshot-1 (vorbereitet)
 - [ ] Client-Gate: wartet auf geschlossene Besitzer-Clients
 - [ ] Entscheidung Besitzer: Mending/Unbreaking fuer Amethystlinse und Rotator sperren?
 
-## Welle 22 (laeuft)
+## Welle 22 (Server-Gate 4440/4440 nach Fix, gepusht 01b51669)
 - [x] A: fehlende Item-/Blockanzeige (Mauern, Creative Spacer, Echo Sounder), Nihilith -> Nihilit (Anzeigetext), Texte konsistent, Trank-Pad ohne Trank-Symbol, Diamant-Kiesel als Raute mit Krallenspitze
 - [x] B: Wiki echte Blockformen (Treppen/Stufen/Mauern/Kolben/Vorlagen), fehlende Eintraege (gewachste Kupferplatten, Lohenkopf-Textur), Beschaffungskarten ohne Rezept (Charged Creeper + Lohe -> Kopf, Vanilla-Koepfe, Schallplatten, Loot), Verzauberungen woher; dasselbe in JEI
-- [ ] C: Truhen-Stufen ab Kupfertruhe (verstaerkt/Netherit/Enderit, einzeln + doppelt, mehr Slots, Netherit 2x / Enderit 4x Stapel)
-- [ ] D: alle Configs durchgehen, mehr Optionen, Config-Menue mit guter UX
+- [x] C: Truhen-Stufen ab Kupfertruhe (verstaerkt/Netherit/Enderit, einzeln + doppelt, mehr Slots, Netherit 2x / Enderit 4x Stapel)
+- [x] D: alle Configs durchgehen, mehr Optionen, Config-Menue mit guter UX
 - [x] E: Performance aller Entities/Block-Entities, Kompatibilitaet mit Optimierungs-Mods
-- [ ] F: Erfolge wie grosse Modpacks, FTB-Quests-Kapitel in Stufen (optional, falls installiert)
+- [x] F: Erfolge wie grosse Modpacks, FTB-Quests-Kapitel in Stufen (optional, falls installiert)
 - [x] G: Liste "was fehlt noch" an den Besitzer (58 Punkte, wartet auf Ja/Nein)
-- [ ] H: Spawn-Teleporter 3 Stufen (50/20/5 s, Endermankopf), Trank-/Elytra-/Chunk-/Launchpad-Rezepte am Schmiedetisch (Kupfer-/Eisen-Kern), keine Bildschirmtexte, Echo Sounder Abklingzeit x4 + kein Neuverknuepfen, Tab-Layout SimpleMachines + SimpleMaterials
-- [ ] I: Kerne nicht stapelbar + Rechtsklick-Animation (70/20/10), Netherstern-Kern-Textur, Kern-Seltenheitsanalyse, Blaupause 3 Texturen (leer/bearbeitet/signiert), Linear + Bridge reparieren
-- [ ] L: Handbuch-Oberflaeche wie Eidolon: Repraised (eigener Buch-Screen, Tooltip mit Unterzeile) (laeuft)
-- [ ] J: Buendel platzierbar (3D nur am Boden, Sneak blaettert, Rechtsklick nimmt oberstes Item), platzierte Vorlagen: eigener Name, Pixel-Luecke, pixelgenaue Hitbox; Blaupause platzierbar (laeuft)
-- [ ] K: Kolben-Haltbarkeit statt Verschleiss (1/9 der Spitzhacke, nur Abbau kostet, Enderit -> Netherit -> verstaerkt, Balken am Item) (laeuft)
-- [ ] SimpleMaterials: alle Schmiedevorlagen (auch Vanilla) in einen Tab (im H-Run)
+- [x] H: Spawn-Teleporter 3 Stufen (50/20/5 s, Endermankopf), Trank-/Elytra-/Chunk-/Launchpad-Rezepte am Schmiedetisch (Kupfer-/Eisen-Kern), keine Bildschirmtexte, Echo Sounder Abklingzeit x4 + kein Neuverknuepfen, Tab-Layout SimpleMachines + SimpleMaterials
+- [x] I: Kerne nicht stapelbar + Rechtsklick-Animation (70/20/10), Netherstern-Kern-Textur, Kern-Seltenheitsanalyse, Blaupause 3 Texturen (leer/bearbeitet/signiert), Linear + Bridge reparieren
+- [x] L: Handbuch-Oberflaeche wie Eidolon: Repraised (eigener Buch-Screen, Tooltip mit Unterzeile)
+- [x] J: Buendel platzierbar (3D nur am Boden, Sneak blaettert, Rechtsklick nimmt oberstes Item), platzierte Vorlagen: eigener Name, Pixel-Luecke, pixelgenaue Hitbox; Blaupause platzierbar
+- [x] K: Kolben-Haltbarkeit statt Verschleiss (1/9 der Spitzhacke, nur Abbau kostet, Enderit -> Netherit -> verstaerkt, Balken am Item)
+- [x] SimpleMaterials: alle Schmiedevorlagen (auch Vanilla) in einen Tab (im H-Run)
 - [ ] Rueckfragen Besitzer: Excavator/Diamond Ingots im Vorlagen-Tooltip, Centre/Color britisch oder amerikanisch, Cover-Buecher im Loot (Code vs HANDOFF), Liste G (58 Punkte), Mending Rotator
-- [ ] Danach: Server-Gate, Push, Client-Gate (wenn Besitzer-Clients zu)
+- [x] Server-Gate + Push
+- [ ] Client-Gate + Testzentrale im Spiel (wenn Besitzer-Clients zu): Buch-Screen, Truhen, platziertes Buendel, Kern-Animation
+- [ ] Rueckfragen neu: 12 Config-Ideen (Run D), Kern-Vorschlaege (Maurer-Diamantkern, 2. Eisenkern-Quelle, Enderit 0,5 %)
 
 ## Wartet auf den Besitzer
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
