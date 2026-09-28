@@ -1,6 +1,7 @@
 package com.simplebuilding.client.render;
 
 import com.simplebuilding.util.OctantShape;
+import com.simplebuilding.util.OctantSurface;
 
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.client.ClientState;
@@ -192,7 +193,8 @@ public class BlockHighlightRenderer {
                 drawBoxOutline(matrices, lines, bounds.inflate(0.003), colors.r3(), colors.g3(), colors.b3(), lineAlpha);
                 drawBoxFill(matrices, fill, bounds.inflate(0.009), colors.r3(), colors.g3(), colors.b3(), fillAlpha);
             } else {
-                renderVoxelShape(matrices, lines, fill, bounds, shapeFunc, colors.r3(), colors.g3(), colors.b3(), lineAlpha, fillAlpha);
+                renderVoxelShape(matrices, lines, fill, List.of(shape, orientation, pos1, pos2), bounds, shapeFunc,
+                        colors.r3(), colors.g3(), colors.b3(), lineAlpha, fillAlpha);
             }
         }
         submit(collector, matrices, lines, fill);
@@ -216,36 +218,30 @@ public class BlockHighlightRenderer {
     // VOXEL SHAPE LOGIK
     // =================================================================================
 
-    private static void renderVoxelShape(PoseStack matrices, VertexConsumer lines, VertexConsumer fill, AABB bounds, Predicate<BlockPos> inShape, float r, float g, float b, float la, float fa) {
-        int minX = (int) bounds.minX; int minY = (int) bounds.minY; int minZ = (int) bounds.minZ;
-        int maxX = (int) bounds.maxX; int maxY = (int) bounds.maxY; int maxZ = (int) bounds.maxZ;
-        BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
-        BlockPos.MutableBlockPos neighborPos = new BlockPos.MutableBlockPos();
-        BlockPos.MutableBlockPos diagPos = new BlockPos.MutableBlockPos();
+    /** Zuletzt gezeichnete Huelle und ihr Schluessel (Form, Ausrichtung, Ecken), siehe {@link OctantSurface}. */
+    private static Object surfaceKey;
+    private static OctantSurface surfaceCache;
 
-        for (int x = minX; x < maxX; x++) {
-            for (int y = minY; y < maxY; y++) {
-                for (int z = minZ; z < maxZ; z++) {
-                    pos.set(x, y, z);
-                    if (inShape.test(pos)) {
-                        for (Direction dir : Direction.values()) {
-                            neighborPos.set(pos).move(dir);
-                            boolean isSurfaceFace = !inShape.test(neighborPos);
-                            if (isSurfaceFace) {
-                                drawQuadFace(matrices, fill, new AABB(pos).inflate(0.002), dir, r, g, b, fa);
-                                for (Direction edgeDir : Direction.values()) {
-                                    if (edgeDir == dir || edgeDir == dir.getOpposite()) continue;
-                                    BlockPos sideNeighbor = pos.immutable().offset(edgeDir.getUnitVec3i());
-                                    diagPos.set(neighborPos).move(edgeDir);
-                                    boolean sideIsShape = inShape.test(sideNeighbor);
-                                    boolean diagIsShape = inShape.test(diagPos);
-                                    if (!sideIsShape || diagIsShape) {
-                                        drawEdgeLine(matrices, lines, pos, dir, edgeDir, r, g, b, la);
-                                    }
-                                }
-                            }
-                        }
-                    }
+    /** Die Huelle zum Schluessel; neu gesucht nur, wenn sich Form, Ausrichtung oder eine Ecke geaendert hat. */
+    static OctantSurface surfaceFor(Object key, AABB bounds, Predicate<BlockPos> inShape) {
+        if (surfaceCache == null || !key.equals(surfaceKey)) {
+            surfaceCache = OctantSurface.compute(bounds, inShape);
+            surfaceKey = key;
+        }
+        return surfaceCache;
+    }
+
+    private static void renderVoxelShape(PoseStack matrices, VertexConsumer lines, VertexConsumer fill, Object key, AABB bounds, Predicate<BlockPos> inShape, float r, float g, float b, float la, float fa) {
+        OctantSurface surface = surfaceFor(key, bounds, inShape);
+        BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
+        Direction[] directions = Direction.values();
+        for (int face = 0; face < surface.faces(); face++) {
+            pos.set(surface.x(face), surface.y(face), surface.z(face));
+            Direction dir = surface.side(face);
+            drawQuadFace(matrices, fill, new AABB(pos).inflate(0.002), dir, r, g, b, fa);
+            for (Direction edgeDir : directions) {
+                if (surface.hasEdge(face, edgeDir)) {
+                    drawEdgeLine(matrices, lines, pos, dir, edgeDir, r, g, b, la);
                 }
             }
         }

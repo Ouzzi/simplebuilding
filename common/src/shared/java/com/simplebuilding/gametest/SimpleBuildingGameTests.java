@@ -1224,6 +1224,12 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("potion_pad_game_test_blazes_killed_otherwise_drop_no_head", PotionPadTests::blazesKilledOtherwiseDropNoHead)
                     .build(),
+            GameTestSpec.named("performance_game_test_player_scan_finds_exactly_the_players_the_section_search_finds", PerformanceTests::playerScanFindsExactlyThePlayersTheSectionSearchFinds)
+                    .build(),
+            GameTestSpec.named("performance_game_test_an_idle_spawn_teleporter_stops_tracking_once_players_leave", PerformanceTests::anIdleSpawnTeleporterStopsTrackingOncePlayersLeave)
+                    .build(),
+            GameTestSpec.named("performance_game_test_the_cached_octant_surface_matches_the_per_frame_scan_it_replaced", PerformanceTests::theCachedOctantSurfaceMatchesThePerFrameScanItReplaced)
+                    .build(),
             GameTestSpec.named("placed_template_game_test_sneak_use_places_templates_on_the_floor_against_the_wall_and_under_the_ceiling", PlacedTemplateTests::sneakUsePlacesTemplatesOnTheFloorAgainstTheWallAndUnderTheCeiling)
                     .build(),
             GameTestSpec.named("placed_template_game_test_without_sneaking_the_template_keeps_its_normal_behaviour", PlacedTemplateTests::withoutSneakingTheTemplateKeepsItsNormalBehaviour)

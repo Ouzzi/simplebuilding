@@ -1,5 +1,6 @@
 package com.simplebuilding.tweaks.block.entity;
 
+import com.simplebuilding.util.PlayerScan;
 import com.simplebuilding.tweaks.SimpleTweaks;
 import com.simplebuilding.tweaks.block.LaunchpadBlock;
 import com.simplebuilding.tweaks.spawn.LaunchSafety;
@@ -97,7 +98,7 @@ public class LaunchpadBlockEntity extends OwnedBlockEntity {
             return;
         }
         AABB detection = new AABB(pos).move(0, 0.1, 0).inflate(0.0, 0.5, 0.0);
-        List<Player> players = level.getEntitiesOfClass(Player.class, detection, p -> true);
+        List<Player> players = PlayerScan.playersIn(level, detection, Player.class);
 
         if (players.isEmpty() && be.charges > 0 && client && level.getRandom().nextInt(30) == 0) {
             level.addParticle(ParticleTypes.SMALL_GUST,

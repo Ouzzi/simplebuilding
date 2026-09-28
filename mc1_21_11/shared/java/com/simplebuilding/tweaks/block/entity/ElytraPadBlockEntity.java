@@ -1,5 +1,6 @@
 package com.simplebuilding.tweaks.block.entity;
 
+import com.simplebuilding.util.PlayerScan;
 import com.simplebuilding.tweaks.SimpleTweaks;
 import com.simplebuilding.tweaks.TweaksConfig;
 import com.simplebuilding.tweaks.block.ElytraPadBlock;
@@ -45,7 +46,7 @@ public class ElytraPadBlockEntity extends OwnedBlockEntity {
         }
         int tier = tierOf(state);
         AABB range = areaOf(level, pos, state);
-        List<ServerPlayer> players = level.getEntitiesOfClass(ServerPlayer.class, range, p -> true);
+        List<ServerPlayer> players = PlayerScan.playersIn(level, range, ServerPlayer.class);
         TweaksConfig.Spawn config = SimpleTweaks.config().spawn;
 
         for (ServerPlayer player : players) {

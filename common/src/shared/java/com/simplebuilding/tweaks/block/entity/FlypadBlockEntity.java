@@ -1,5 +1,6 @@
 package com.simplebuilding.tweaks.block.entity;
 
+import com.simplebuilding.util.PlayerScan;
 import com.simplebuilding.tweaks.SimpleTweaks;
 import com.simplebuilding.tweaks.block.FlypadBlock;
 import com.simplebuilding.tweaks.block.LegacyFlypadBlock;
@@ -73,7 +74,7 @@ public class FlypadBlockEntity extends OwnedBlockEntity {
         }
 
         AABB range = areaOf(level, pos, state);
-        List<ServerPlayer> players = level.getEntitiesOfClass(ServerPlayer.class, range, p -> true);
+        List<ServerPlayer> players = PlayerScan.playersIn(level, range, ServerPlayer.class);
         Set<UUID> current = new HashSet<>();
         for (ServerPlayer player : players) {
             if (!player.getAbilities().mayfly) {
