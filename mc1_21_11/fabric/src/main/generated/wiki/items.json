@@ -206,7 +206,7 @@
     },
     {
       "id": "simplebuilding:copper_core",
-      "maxStackSize": 16
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:copper_pressure_plate"
@@ -254,7 +254,7 @@
     },
     {
       "id": "simplebuilding:diamond_core",
-      "maxStackSize": 16
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:diamond_pebble"
@@ -392,7 +392,7 @@
     },
     {
       "id": "simplebuilding:enderite_core",
-      "maxStackSize": 16
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:enderite_elytra_pad",
@@ -537,7 +537,7 @@
     },
     {
       "id": "simplebuilding:gold_core",
-      "maxStackSize": 16
+      "maxStackSize": 1
     },
     {
       "attackDamage": 6.0,
@@ -608,7 +608,7 @@
     },
     {
       "id": "simplebuilding:iron_core",
-      "maxStackSize": 16
+      "maxStackSize": 1
     },
     {
       "attackDamage": 9.0,
@@ -693,7 +693,7 @@
     },
     {
       "id": "simplebuilding:netherite_core",
-      "maxStackSize": 16
+      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:netherite_elytra_pad",

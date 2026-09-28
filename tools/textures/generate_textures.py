@@ -197,6 +197,30 @@ BLUEPRINT_PAL = {
     "c": "#86b0e0", "k": "#1d3b6e",
 }
 
+# Blaupause nach Zustand (Besitzer 2026-09-28; Modell: items/blueprint.json fragt has_component und
+# simplebuilding:blueprint_state). Frisch gebaut bleibt das Blatt oben. Bearbeitet: ein Bleistift liegt
+# schraeg auf der rechten unteren Ecke (Radiergummi ueber dem Rand, Spitze auf dem Blatt) - wie der
+# Federkiel des Buchs mit Feder und Tinte. Signiert: ein rundes rotes Wachssiegel mit eingepraegter
+# Mitte an derselben Stelle - wie das signierte Buch deutlich anders als das offene.
+BLUEPRINT_EDITED_OVER = {(13, 8): "p", (14, 8): "p", (12, 9): "m", (13, 9): "m", (11, 10): "Y", (12, 10): "y",
+                         (10, 11): "Y", (11, 11): "y", (9, 12): "u", (10, 12): "u", (8, 13): "n"}
+BLUEPRINT_SIGNED_OVER = {(9, 9): "r", (10, 9): "s", (11, 9): "r",
+                         (8, 10): "r", (9, 10): "t", (10, 10): "t", (11, 10): "s", (12, 10): "q",
+                         (8, 11): "s", (9, 11): "t", (10, 11): "q", (11, 11): "s", (12, 11): "q",
+                         (8, 12): "r", (9, 12): "s", (10, 12): "s", (11, 12): "r", (12, 12): "q",
+                         (9, 13): "q", (10, 13): "q", (11, 13): "q"}
+BLUEPRINT_STATE_PAL = {
+    "n": "#2e2e36", "u": "#e3bd8a", "Y": "#f4cf4f", "y": "#c28f22", "m": "#b9bcc4", "p": "#e58fa0",  # Bleistift
+    "q": "#6b1414", "r": "#a42323", "s": "#cf3b31", "t": "#f07b69",  # Wachssiegel
+}
+
+
+def blueprint_state_rows(over):
+    rows = [list(r) for r in BLUEPRINT]
+    for (x, y), ch in over.items():
+        rows[y][x] = ch
+    return ["".join(r) for r in rows]
+
 # --- Verstaerkter Koecher: gleiche 100-px-Silhouette wie quiver/netherite_quiver/
 # enderite_quiver, neues Innenleben: Kupferlippe, zwei Kupferbaender, Kupferkappe,
 # Stahlriemen mit Kupferschnalle
@@ -1907,27 +1931,32 @@ DIAMOND_PEBBLE_PAL = {
     "C": "#2ce0d8", "S": "#20c5b5", "T": "#1aaaa7", "D": "#1c919a",
 }
 
-# Baukerne (copper_core ... enderite_core): vierzackiger Stern wie der Netherstern, in der Mitte eine
-# runde Kugel. Zacken in den Toenen des Stufenmaterials (Barren/Meissel), Kontur oben links heller (R),
-# unten rechts dunkel (O); Kugel Amethyst, beim Diamantkern tiefblau, beim Enderitkern Enderperlen-Tuerkis.
+# Baukerne (copper_core ... enderite_core), neu 2026-09-28 ("wie ein Netherstern, mit dem Stufenmaterial
+# belegt"): die Silhouette des Vanilla-Nethersterns, dessen blasse Strahlen innen mit dem gelben Glimmen
+# zur Mitte hin; aussen gefasst vom Stufenmaterial - Kontur (oben/links heller R, unten/rechts dunkel O),
+# Metallspitzen an allen vier Zacken und ein Ring um den Edelstein in der Mitte (Amethyst, beim
+# Diamantkern tiefblau, beim Enderitkern Enderperlen-Tuerkis). Die Eckpixel diagonal verbundener
+# Konturpixel bleiben frei.
 BUILDING_CORE = [
     "................",
     "................",
     "........R.......",
     ".......RHO......",
-    ".......R4O......",
-    "......R443O.....",
-    "....RR4ggg3OO...",
-    "...RH4gLWGg32O..",
-    "..RH43gWLGd322O.",
-    "...R43gGGGd22O..",
-    "....OO3gdd2OO...",
-    "......O322O.....",
-    ".......O2O......",
-    ".......O2O......",
+    "......RswbO.....",
+    "......ReybO.....",
+    "....RRbRH4bOO...",
+    "...RseRWLG3ebO..",
+    "..RHwy4LGg2ye3O.",
+    "...Rbe3Ggd2ebO..",
+    "....OOb32ObOO...",
+    "......ObybO.....",
+    "......ObebO.....",
+    ".......O3O......",
     "........O.......",
     "................",
 ]
+# Netherstern-Schicht (Toene aus dem Vanilla-Netherstern): b/e/s/w blass, y Glimmen.
+BUILDING_CORE_STAR = {"b": "#88a4a4", "e": "#b9c9c9", "s": "#cbd6d6", "w": "#dae2e2", "y": "#fdffa8"}
 BUILDING_CORE_RAMPS = {  # O R 2 3 4 H
     "copper": ("#5a2a1a", "#8a4129", "#c15a36", "#e77c56", "#fc9982", "#fbc3b6"),
     "iron": ("#353535", "#5e5e5e", "#a8a8a8", "#c8c8c8", "#d8d8d8", "#ffffff"),
@@ -1949,6 +1978,7 @@ def building_core_textures():
     for tier, ramp in BUILDING_CORE_RAMPS.items():
         pal = dict(zip("OR234H", ramp))
         pal.update(BUILDING_CORE_GEMS[tier])
+        pal.update(BUILDING_CORE_STAR)
         tex[f"item/{tier}_core.png"] = render(f"{tier}_core", BUILDING_CORE, pal, False)
     return tex
 
@@ -2741,6 +2771,9 @@ def build():
     tex["item/leather_sheet.png"] = render("leather_sheet", LEATHER_SHEET, LEATHER_SHEET_PAL, False)
     tex["item/reinforced_quiver.png"] = render("reinforced_quiver", REINFORCED_QUIVER, REINFORCED_QUIVER_PAL, False)
     tex["item/blueprint.png"] = render("blueprint", BLUEPRINT, BLUEPRINT_PAL, False)
+    state_pal = dict(BLUEPRINT_PAL, **BLUEPRINT_STATE_PAL)
+    tex["item/blueprint_edited.png"] = render("blueprint_edited", blueprint_state_rows(BLUEPRINT_EDITED_OVER), state_pal, False)
+    tex["item/blueprint_signed.png"] = render("blueprint_signed", blueprint_state_rows(BLUEPRINT_SIGNED_OVER), state_pal, False)
 
     for tier, prefix in (("basic", ""), ("reinforced", "reinforced_"), ("netherite", "netherite_"), ("enderite", "enderite_")):
         pal = LEATHER_TIERS[tier]

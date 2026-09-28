@@ -45,6 +45,7 @@
       "com.simplebuilding.gametest.ItemBehaviourGameTest",
       "com.simplebuilding.gametest.EnchantmentEffectGameTest",
       "com.simplebuilding.gametest.WandModeGameTest",
+      "com.simplebuilding.gametest.BuildingCoreGameTest",
       "com.simplebuilding.gametest.HopperAndTrimGameTest",
       "com.simplebuilding.gametest.BuildingEnchantmentGameTest",
       "com.simplebuilding.gametest.ConsumptionAndDurabilityGameTest",

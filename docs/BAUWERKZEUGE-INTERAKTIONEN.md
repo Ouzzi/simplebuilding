@@ -86,9 +86,9 @@ Folgen, die man nicht sofort sieht:
 | Stab + **Berührung des Konstrukteurs** | Öffnet mit der Einstellungstaste das Stab-Menü (Radius, Achse). Ohne die Verzauberung öffnet es nicht, und der Stab baut immer in voller Stufengröße. | `src/main/java/com/simplebuilding/SimplebuildingClient.java:123-133`, `neoforge/src/main/java/com/simplebuilding/neoforge/SimplebuildingNeoForgeClient.java:201-208`, `BuildingWandItem.java:142-146` |
 | Stab + **Baumeister** | Erweitert die Suche auf das Hauptinventar und schaltet **alle** Verstärkten Bündel als Quelle frei. Den Rucksack schaltet er **nicht** frei. | `:261-266`, `:301`, `:71-78` |
 | Stab + **Farbpalette** | Vorschau und Bau mischen gleich: jede Stelle nimmt `paletteIndex(pos, size)` (Hash der ganzen Position, auch Böden gemischt) über die mitgeführten Stapel. Geht ein Stapel aus, schrumpft die Palette. | `BuildingWandItem#paletteIndex`, `#previewOf`, `#inventoryTick` |
-| Stab + **Linear** | Mit Schleichen: Linie von der Klickseite weg, doppelter Flächen-Durchmesser lang (6…26), endet vor dem ersten belegten Block. Ohne Schleichen: Fläche, Ringverzögerung 2 statt 4 Ticks. | `Plan.forClick`, `lineLength` |
+| Stab + **Linear** | Mit Schleichen: Linie von der Klickseite weg, doppelter Flächen-Durchmesser lang (6…26), endet vor dem ersten belegten Block. Ohne Schleichen: Fläche, Ringverzögerung 2 statt 4 Ticks. Solange der Stab baut, startet ein weiterer Klick nichts (seit 2026-09-28: die alle 4 Ticks wiederholte gehaltene Taste traf die neue Säule und machte einen Balken aus ihr). | `Plan.forClick`, `lineLength`, `BuildingWandItem#useOn` |
 | Stab + **Abdeckung** | Fläche nur vor Blöcken der angeklickten Sorte, zusammenhängend mit der Mitte (4er-Nachbarschaft, Flutfüllung im Radius). Achsen-Einstellung gilt nicht. | `Plan.coverRegion` |
-| Stab + **Brücke** | Rechtsklick in die Luft (ohne Schleichen): vom Block unter den Füßen geradeaus in Blickrichtung, gleiche Länge wie Linear, endet vor dem ersten belegten Block. Vorschau beim Blick in die Luft. | `BuildingWandItem#use`, `Plan.forBridge` |
+| Stab + **Brücke** | Rechtsklick in die Luft (ohne Schleichen): vom Block unter den Füßen geradeaus in Blickrichtung, gleiche Länge wie Linear, endet vor dem ersten belegten Block. Vorschau beim Blick in die Luft. Seit 2026-09-28 auch beim Blick über die Lücke: ein Klick auf einen Block hinter der Kante, nicht höher als die Brücke (anderes Ufer, Grund, Stirnseite der Kante), baut die Brücke statt einer Fläche; mit Schleichen dort doch die Fläche. | `BuildingWandItem#use`, `Plan.forBridge`, `Plan.forClick`, `Plan#aimsAcrossTheGap` |
 | Stab (Haupthand) + **Blaupause** (Nebenhand) | Blaupausen-Baumodus: Das Bauwerk entsteht vor dem Spieler, Strg+Mausrad dreht es. Material kommt aus denselben Quellen, nur nach Item statt nach Block. 1 Haltbarkeit je Block. Die Blaupause muss signiert sein, ihre längste Kante darf 16/32/48/64/128/256 je Stabstufe nicht überschreiten. Fehlt Material, warnt der erste Klick nur, ein zweiter innerhalb von 3 s baut. Große Bauten laufen als Auftrag und überstehen Logout. Schutzprüfungen laufen an **jeder** Position. | `BuildingWandItem.java:471-473`, `blueprint/BlueprintBuilder.java:40-62`, `:340-345`, `:417-431`, `:563`, `:584-590`, `:531`, `:639`, `blueprint/BlueprintTiers.java:12-36` |
 | Blaupause allein (Rechtsklick) | Öffnet den Editor. In der Nebenhand bei einem Stab in der Haupthand passiert nichts (PASS). | `items/custom/BlueprintItem.java:49-58` |
 | Vorschau Stab + Blaupause | Geisterblöcke des Bauwerks. Stellen ohne Material rot, nach einem Warnklick pulsierend. | `client/render/BuildingWandPreviewRenderer.java:69-82` |
@@ -253,6 +253,14 @@ geradeaus in Blickrichtung. Steht vor den Füßen noch Boden, beginnt die Brück
 (bis zur Stablänge weit gesucht), und sie endet vor dem nächsten festen Block. Auf durchgehend
 flachem Boden gibt es nichts zu überbrücken; die Aktionsleiste sagt dann „keine Lücke voraus"
 (seit 2026-09-25; vorher blieb der Klick stumm, und die Brücke wirkte kaputt).
+
+Wer am Rand steht und hinüberschaut, zielt meist nicht in die Luft, sondern auf das andere Ufer
+oder den Grund der Lücke - bis 2026-09-28 entstand dann dort eine Fläche statt der Brücke ("Brücke
+geht nicht richtig"; die Testzentrale sagt "an die Kante, rüberschauen"). Seitdem baut ein
+Klick ohne Schleichen auf einen Block hinter der Kante, der nicht höher liegt als die Brücke, die
+Brücke; die Vorschau zeigt sie schon beim Zielen. Mit Schleichen bleibt es die Fläche. Außerdem
+startet ein Klick, solange der Stab noch baut, nichts Neues (die gehaltene Taste wiederholt alle
+4 Ticks) - das betraf vor allem Linear-Säulen, die nach zwei Blöcken abbrachen.
 
 ### Was (noch) nicht zusammenspielt
 

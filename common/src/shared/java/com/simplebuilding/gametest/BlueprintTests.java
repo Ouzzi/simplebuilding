@@ -1886,4 +1886,69 @@ public final class BlueprintTests {
         BlockState state = helper.getBlockState(pos);
         return state.is(Blocks.OAK_STAIRS) ? state.getValue(StairBlock.FACING) : null;
     }
+
+    /**
+     * Three blueprint textures by state (owner, 2026-09-28): a freshly crafted blueprint (no
+     * component, or one without code and title) keeps the normal texture, an edited but unsigned
+     * one selects {@code edited}, a signed one {@code signed}. The shipped item model asks
+     * {@code minecraft:has_component} first and then {@code simplebuilding:blueprint_state}, and both
+     * variant models point at textures that exist and differ from the normal one.
+     *
+     * <p><strong>What breaks this test:</strong> a wrong state in {@code BlueprintItem#modelState},
+     * a flat item model without the condition, a missing variant model or texture, or a variant
+     * texture that is a copy of the normal one.
+     */
+    public static void blueprintShowsItsStateInItsTexture(GameTestHelper helper) {
+        ItemStack fresh = new ItemStack(ModItems.BLUEPRINT);
+        ItemStack edited = new ItemStack(ModItems.BLUEPRINT);
+        edited.set(ModDataComponentTypes.BLUEPRINT, new BlueprintContent("stone 0,0,0", "", "", false));
+        ItemStack signed = new ItemStack(ModItems.BLUEPRINT);
+        signed.set(ModDataComponentTypes.BLUEPRINT, new BlueprintContent("stone 0,0,0", "Tower", "Alice", true));
+        ItemStack cleared = new ItemStack(ModItems.BLUEPRINT);
+        cleared.set(ModDataComponentTypes.BLUEPRINT, new BlueprintContent("", "", "", false));
+        helper.assertValueEqual(BlueprintItem.modelState(fresh), BlueprintItem.STATE_EMPTY, "state of a fresh blueprint");
+        helper.assertValueEqual(BlueprintItem.modelState(edited), BlueprintItem.STATE_EDITED, "state of an edited blueprint");
+        helper.assertValueEqual(BlueprintItem.modelState(signed), BlueprintItem.STATE_SIGNED, "state of a signed blueprint");
+        helper.assertValueEqual(BlueprintItem.modelState(cleared), BlueprintItem.STATE_EMPTY, "state of a blueprint cleared again");
+
+        com.google.gson.JsonObject model = com.google.gson.JsonParser.parseString(
+                modelResource(helper, "/assets/simplebuilding/items/blueprint.json")).getAsJsonObject().getAsJsonObject("model");
+        helper.assertValueEqual(model.get("type").getAsString(), "minecraft:condition", "blueprint item model type");
+        helper.assertValueEqual(model.get("property").getAsString(), "minecraft:has_component", "blueprint condition property");
+        helper.assertValueEqual(model.get("component").getAsString(), "simplebuilding:blueprint", "blueprint condition component");
+        helper.assertValueEqual(model.getAsJsonObject("on_false").get("model").getAsString(), "simplebuilding:item/blueprint",
+                "model without the component");
+        com.google.gson.JsonObject select = model.getAsJsonObject("on_true");
+        helper.assertValueEqual(select.get("type").getAsString(), "minecraft:select", "model with the component");
+        helper.assertValueEqual(select.get("property").getAsString(), "simplebuilding:blueprint_state", "select property");
+        helper.assertValueEqual(select.getAsJsonObject("fallback").get("model").getAsString(), "simplebuilding:item/blueprint",
+                "select fallback");
+        java.util.Map<String, String> cases = new java.util.HashMap<>();
+        for (com.google.gson.JsonElement entry : select.getAsJsonArray("cases")) {
+            com.google.gson.JsonObject c = entry.getAsJsonObject();
+            cases.put(c.get("when").getAsString(), c.getAsJsonObject("model").get("model").getAsString());
+        }
+        helper.assertValueEqual(cases, java.util.Map.of(BlueprintItem.STATE_EDITED, "simplebuilding:item/blueprint_edited",
+                BlueprintItem.STATE_SIGNED, "simplebuilding:item/blueprint_signed"), "select cases");
+
+        String normal = modelResource(helper, "/assets/simplebuilding/textures/item/blueprint.png");
+        for (String variant : java.util.List.of("blueprint_edited", "blueprint_signed")) {
+            com.google.gson.JsonObject variantModel = com.google.gson.JsonParser.parseString(
+                    modelResource(helper, "/assets/simplebuilding/models/item/" + variant + ".json")).getAsJsonObject();
+            helper.assertValueEqual(variantModel.getAsJsonObject("textures").get("layer0").getAsString(), "simplebuilding:item/" + variant,
+                    variant + " texture");
+            String texture = modelResource(helper, "/assets/simplebuilding/textures/item/" + variant + ".png");
+            helper.assertFalse(texture.equals(normal), variant + ".png is the normal blueprint texture");
+        }
+        helper.succeed();
+    }
+
+    private static String modelResource(GameTestHelper helper, String path) {
+        try (java.io.InputStream in = BlueprintItem.class.getResourceAsStream(path)) {
+            helper.assertTrue(in != null, "missing resource " + path);
+            return new String(in.readAllBytes(), java.nio.charset.StandardCharsets.ISO_8859_1);
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException("unreadable resource " + path, e);
+        }
+    }
 }

@@ -40,5 +40,7 @@ public abstract class SelectItemModelPropertiesMixin {
                 SelectItemModelProperty.Type.create(TrimIconsModelProperty.CODEC, Codec.STRING);
         ID_MAPPER.put(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "visible_trim_icons"),
                 TrimIconsModelProperty.PROPERTY_TYPE);
+        ID_MAPPER.put(com.simplebuilding.client.property.BlueprintStateModelProperty.ID,
+                com.simplebuilding.client.property.BlueprintStateModelProperty.PROPERTY_TYPE);
     }
 }

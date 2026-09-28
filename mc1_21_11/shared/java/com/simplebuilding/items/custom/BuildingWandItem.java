@@ -513,6 +513,14 @@ public class BuildingWandItem extends Item {
         if (player == null) return InteractionResult.PASS;
         if (world.isClientSide()) return InteractionResult.SUCCESS;
 
+        CompoundTag nbt = getOrInitNbt(wandStack);
+        // Solange der Stab noch baut, startet ein weiterer Klick nichts Neues. Vanilla wiederholt eine
+        // gehaltene Benutzen-Taste alle 4 Ticks (Minecraft#startUseItem, rightClickDelay); die Wiederholung
+        // traf die gerade gesetzten Bloecke und ueberschrieb den laufenden Bau - eine Linear-Saeule brach
+        // nach ein paar Bloecken ab und wurde zum Balken aus ihrer eigenen Seite (2026-09-28, "Linear geht
+        // nicht richtig"). Rueckgaengig (Schleichen + Luft) haelt einen laufenden Bau weiterhin an.
+        if (getBlockBoolean(nbt)) return InteractionResult.FAIL;
+
         // Prüfen, ob wir überhaupt ein Material haben, bevor wir starten
         boolean hasMasterBuilder = hasEnchantment(wandStack, world, ModEnchantments.MASTER_BUILDER);
         MaterialResult preview = findFirstBuildingBlock(player, wandStack, hasMasterBuilder);
@@ -522,29 +530,34 @@ public class BuildingWandItem extends Item {
         Block buildBlock = preview != null ? preview.stateToPlace.getBlock() : Blocks.AIR;
 
         Direction clickedFace = context.getClickedFace();
-        CompoundTag nbt = getOrInitNbt(wandStack);
         var hitRel = context.getClickLocation().subtract(clickedPos.getX(), clickedPos.getY(), clickedPos.getZ());
         Plan plan = Plan.forClick(world, player, wandStack, clickedPos, clickedFace, hitRel,
                 getConfiguredRadius(nbt, (this.maxDiameter - 1) / 2), nbt.getIntOr("SettingsAxis", 0));
         if (plan.steps() == 0) return InteractionResult.FAIL;
-        nbt.putBoolean("Active", true);
-        nbt.putInt("HungerCount", 0); // neuer Bauvorgang: Freibetrag von vorn (WandHunger)
-        nbt.putInt("CurrentRadius", 0);
-        nbt.putInt("Timer", 0);
-        nbt.putInt("OriginX", clickedPos.getX());
-        nbt.putInt("OriginY", clickedPos.getY());
-        nbt.putInt("OriginZ", clickedPos.getZ());
-        nbt.putInt("Face", clickedFace.ordinal());
-        nbt.putInt("BuildBlockRawId", BuiltInRegistries.BLOCK.getId(buildBlock));
-
-        var hitPos = context.getClickLocation().subtract(clickedPos.getX(), clickedPos.getY(), clickedPos.getZ());
-        nbt.putFloat("HitX", (float) hitPos.x); nbt.putFloat("HitY", (float) hitPos.y); nbt.putFloat("HitZ", (float) hitPos.z);
-        plan.writeTo(nbt);
+        arm(nbt, plan, buildBlock);
         setNbt(wandStack, nbt);
         WandUndo.begin(player, world);
         com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.WAND_BUILD);
 
         return InteractionResult.CONSUME;
+    }
+
+    /**
+     * Startet einen Bau nach {@code plan}: Ursprung, Seite und Trefferpunkt kommen aus dem Plan (bei
+     * Flaeche, Abdeckung und Linie der Klick selbst, bei der Bruecke die Kante des Bodens).
+     */
+    private static void arm(CompoundTag nbt, Plan plan, Block buildBlock) {
+        nbt.putBoolean("Active", true);
+        nbt.putInt("HungerCount", 0); // neuer Bauvorgang: Freibetrag von vorn (WandHunger)
+        nbt.putInt("CurrentRadius", 0);
+        nbt.putInt("Timer", 0);
+        nbt.putInt("OriginX", plan.origin.getX());
+        nbt.putInt("OriginY", plan.origin.getY());
+        nbt.putInt("OriginZ", plan.origin.getZ());
+        nbt.putInt("Face", plan.face.ordinal());
+        nbt.putInt("BuildBlockRawId", BuiltInRegistries.BLOCK.getId(buildBlock));
+        nbt.putFloat("HitX", (float) plan.hitRel.x); nbt.putFloat("HitY", (float) plan.hitRel.y); nbt.putFloat("HitZ", (float) plan.hitRel.z);
+        plan.writeTo(nbt);
     }
 
     /**
@@ -573,6 +586,8 @@ public class BuildingWandItem extends Item {
         }
         if (!hasEnchantment(wandStack, world, ModEnchantments.BRIDGE)) return InteractionResult.PASS;
         if (world.isClientSide()) return InteractionResult.SUCCESS;
+        // Wie bei useOn: eine gehaltene Taste startet die laufende Bruecke nicht von vorn.
+        if (getBlockBoolean(getOrInitNbt(wandStack))) return InteractionResult.FAIL;
 
         boolean hasMasterBuilder = hasEnchantment(wandStack, world, ModEnchantments.MASTER_BUILDER);
         MaterialResult preview = findFirstBuildingBlock(player, wandStack, hasMasterBuilder);
@@ -595,17 +610,7 @@ public class BuildingWandItem extends Item {
         }
 
         Block buildBlock = preview != null ? preview.stateToPlace.getBlock() : Blocks.AIR;
-        nbt.putBoolean("Active", true);
-        nbt.putInt("HungerCount", 0); // die Bruecke ist ein eigener Bauvorgang: Freibetrag von vorn (WandHunger)
-        nbt.putInt("CurrentRadius", 0);
-        nbt.putInt("Timer", 0);
-        nbt.putInt("OriginX", plan.origin.getX());
-        nbt.putInt("OriginY", plan.origin.getY());
-        nbt.putInt("OriginZ", plan.origin.getZ());
-        nbt.putInt("Face", plan.face.ordinal());
-        nbt.putInt("BuildBlockRawId", BuiltInRegistries.BLOCK.getId(buildBlock));
-        nbt.putFloat("HitX", (float) plan.hitRel.x); nbt.putFloat("HitY", (float) plan.hitRel.y); nbt.putFloat("HitZ", (float) plan.hitRel.z);
-        plan.writeTo(nbt);
+        arm(nbt, plan, buildBlock); // die Bruecke ist ein eigener Bauvorgang: Freibetrag von vorn (WandHunger)
         setNbt(wandStack, nbt);
         WandUndo.begin(player, world);
         return InteractionResult.SUCCESS;
@@ -844,7 +849,29 @@ public class BuildingWandItem extends Item {
             if (player.isShiftKeyDown() && hasEnchantment(wand, level, ModEnchantments.LINEAR)) {
                 return new Plan(MODE_LINE, clicked, face, face, hitRel, radius, 0, freeRun(level, clicked, face, lineLength(radius)), Blocks.AIR);
             }
+            // Bruecke auch beim Blick ueber die Luecke: wer am Rand steht und hinueberschaut, trifft das
+            // andere Ufer oder den Grund der Luecke, nicht die Luft - und bekam frueher dort eine Flaeche
+            // statt der Bruecke (die Testzentrale sagt "look across"; 2026-09-28). Schleichen baut dort
+            // weiterhin die Flaeche.
+            if (!player.isShiftKeyDown() && hasEnchantment(wand, level, ModEnchantments.BRIDGE)) {
+                Plan bridge = forBridge(level, player, radius);
+                if (bridge != null && bridge.steps() > 0 && bridge.aimsAcrossTheGap(clicked, face)) {
+                    return bridge;
+                }
+            }
             return new Plan(MODE_SQUARE, clicked, face, face, hitRel, radius, axis, 0, Blocks.AIR);
+        }
+
+        /**
+         * Ob ein Klick auf {@code clicked} ueber die Luecke dieser Bruecke zielt: der Block liegt in
+         * Brueckenrichtung hinter der Kante (anderes Ufer, Grund oder Wand der Luecke) und nicht hoeher
+         * als die Bruecke; oder es ist die Stirnseite der Kante selbst, die zur Luecke zeigt.
+         */
+        boolean aimsAcrossTheGap(BlockPos clicked, Direction clickedFace) {
+            if (clicked.getY() > origin.getY()) return false;
+            BlockPos offset = clicked.subtract(origin);
+            int forward = offset.getX() * face.getStepX() + offset.getZ() * face.getStepZ();
+            return forward > 0 || (clicked.equals(origin) && clickedFace == face);
         }
 
         /**

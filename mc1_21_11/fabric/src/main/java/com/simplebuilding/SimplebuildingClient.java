@@ -222,6 +222,9 @@ public class SimplebuildingClient implements ClientModInitializer {
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "visible_trim_icons"),
                 TrimIconsModelProperty.PROPERTY_TYPE
         );
+        // Blaupause: normale, bearbeitete oder signierte Textur (assets/simplebuilding/items/blueprint.json).
+        SelectItemModelProperties.ID_MAPPER.put(com.simplebuilding.client.property.BlueprintStateModelProperty.ID,
+                com.simplebuilding.client.property.BlueprintStateModelProperty.PROPERTY_TYPE);
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player != null) {

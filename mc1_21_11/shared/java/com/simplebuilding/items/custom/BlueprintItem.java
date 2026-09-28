@@ -45,6 +45,29 @@ public class BlueprintItem extends Item {
         return stack.getOrDefault(ModDataComponentTypes.BLUEPRINT, BlueprintContent.EMPTY);
     }
 
+    /** Modellzustand fuer {@code simplebuilding:blueprint_state}: frisch gebaut bzw. leer geraeumt. */
+    public static final String STATE_EMPTY = "empty";
+    /** Beschrieben (Code oder Titel), aber nicht signiert. */
+    public static final String STATE_EDITED = "edited";
+    /** Signiert (schreibgeschuetzt). */
+    public static final String STATE_SIGNED = "signed";
+
+    /**
+     * Welche Textur die Blaupause zeigt (Besitzer 2026-09-28): die normale, solange nichts
+     * darauf steht, eine leicht veraenderte fuer eine bearbeitete, eine deutlich andere fuer eine
+     * signierte. Das Item-Modell fragt zuerst {@code minecraft:has_component} und dann diesen Wert.
+     */
+    public static String modelState(ItemStack stack) {
+        BlueprintContent content = stack.get(ModDataComponentTypes.BLUEPRINT);
+        if (content == null) {
+            return STATE_EMPTY;
+        }
+        if (content.signed()) {
+            return STATE_SIGNED;
+        }
+        return content.isBlank() && content.title().isBlank() ? STATE_EMPTY : STATE_EDITED;
+    }
+
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         // Im Baumodus (Baustab in der Haupthand) oeffnet ein Luftklick nicht den Editor.

@@ -185,10 +185,10 @@ public final class ModTradeDefinitions {
 
                 // tags/villager_trade/wandering_trader/common
                 new WanderingTradeGroup(WanderingTraderPool.COMMON, List.of(
-                        TradeDefinition.of(new ItemCost(Items.EMERALD, 46),
-                                new ItemStack(ModItems.COPPER_CORE, 2), 4, 10, 0.1F),
-                        TradeDefinition.of(new ItemCost(Items.EMERALD, 56),
-                                new ItemStack(ModItems.IRON_CORE, 2), 4, 10, 0.1F),
+                        TradeDefinition.of(new ItemCost(Items.EMERALD, 23),
+                                new ItemStack(ModItems.COPPER_CORE), 8, 10, 0.1F),
+                        TradeDefinition.of(new ItemCost(Items.EMERALD, 28),
+                                new ItemStack(ModItems.IRON_CORE), 8, 10, 0.1F),
                         TradeDefinition.of(new ItemCost(Items.EMERALD, 5),
                                 new ItemStack(ModItems.DIAMOND_PEBBLE, 3), 4, 5, 0.05F))),
 

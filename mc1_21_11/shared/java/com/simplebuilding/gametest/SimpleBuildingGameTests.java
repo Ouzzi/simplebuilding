@@ -264,6 +264,20 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("wand_mode_game_test_bridge_from_the_use_packet_starts_at_the_edge_of_the_floor_ahead", WandModeTests::bridgeFromTheUsePacketStartsAtTheEdgeOfTheFloorAhead)
                     .rotation(Rotation.NONE)
                     .build(),
+            GameTestSpec.named("wand_mode_game_test_a_held_use_key_does_not_restart_the_running_linear_line", WandModeTests::aHeldUseKeyDoesNotRestartTheRunningLinearLine)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_bridge_also_starts_when_the_click_aims_across_the_gap", WandModeTests::bridgeAlsoStartsWhenTheClickAimsAcrossTheGap)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("building_core_game_test_building_cores_are_not_stackable", BuildingCoreTests::buildingCoresAreNotStackable)
+                    .build(),
+            GameTestSpec.named("building_core_game_test_every_core_recipe_crafts_with_one_core_per_slot", BuildingCoreTests::everyCoreRecipeCraftsWithOneCorePerSlot)
+                    .build(),
+            GameTestSpec.named("building_core_game_test_core_animation_roll_follows_the_seventy_twenty_ten_weights", BuildingCoreTests::coreAnimationRollFollowsTheSeventyTwentyTenWeights)
+                    .build(),
+            GameTestSpec.named("building_core_game_test_right_clicking_the_core_plays_an_animation_and_starts_the_cooldown", BuildingCoreTests::rightClickingTheCorePlaysAnAnimationAndStartsTheCooldown)
+                    .build(),
             GameTestSpec.named("wand_mode_game_test_roof_mode_works_with_the_test_centre_kit_enderite_wand", WandModeTests::roofModeWorksWithTheTestCentreKitEnderiteWand)
                     .rotation(Rotation.NONE)
                     .build(),
@@ -1003,6 +1017,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("blueprint_game_test_survival_build_keeps_the_note_block_instrument", BlueprintTests::survivalBuildKeepsTheNoteBlockInstrument)
                     .build(),
             GameTestSpec.named("blueprint_game_test_repeated_clicks_neither_restart_the_check_nor_exceed_the_click_budget", BlueprintTests::repeatedClicksNeitherRestartTheCheckNorExceedTheClickBudget)
+                    .build(),
+            GameTestSpec.named("blueprint_game_test_blueprint_shows_its_state_in_its_texture", BlueprintTests::blueprintShowsItsStateInItsTexture)
                     .build(),
             GameTestSpec.named("furnace_game_test_boost_only_runs_while_the_furnace_burns_and_cooks", FurnaceTests::boostOnlyRunsWhileTheFurnaceBurnsAndCooks)
                     .maxTicks(FurnaceTests.BOOST_GUARD_MAX_TICKS)

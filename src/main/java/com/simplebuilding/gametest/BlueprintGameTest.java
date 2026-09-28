@@ -188,4 +188,9 @@ public final class BlueprintGameTest {
     public void repeatedClicksNeitherRestartTheCheckNorExceedTheClickBudget(GameTestHelper helper) {
         BlueprintTests.repeatedClicksNeitherRestartTheCheckNorExceedTheClickBudget(helper);
     }
+
+    @GameTest
+    public void blueprintShowsItsStateInItsTexture(GameTestHelper helper) {
+        BlueprintTests.blueprintShowsItsStateInItsTexture(helper);
+    }
 }
