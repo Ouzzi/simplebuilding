@@ -541,6 +541,16 @@ Verschleiß 0 (Standardwert, kein Datenfixer). Der bezahlte Durchbruch verbrauch
 bisher. Code: `EnderitePistonBlock`, Test
 `PistonBreachTests#enderitePistonWearsDownAndCrumblesToNetheriteBreaker`.
 
+**Abgeloest 2026-09-28 durch echte Haltbarkeit** (Besitzer): Netheritkolben 226 (1/9 der
+Netheritspitzhacke, weil die Aufwertung 1 Klumpen = 1/9 Barren kostet), Enderitkolben 281 (1/9 der
+Enderitspitzhacke), 1 je beim Ausfahren zerstoertem Block (unabhaengig von der Haerte, wie eine
+Spitzhacke). Block: `wear` (0-7, Rissstufe = Schaden x 8 / Hoechstwert) plus `wear_step` (Schaden
+in der Stufe); Item: normaler Haltbarkeitsbalken (`max_damage`/`damage`, Stapelgroesse 1).
+Aufgebraucht: Enderit -> Netheritkolben mit voller Haltbarkeit, Netherit -> verstaerkter Kolben.
+Klumpen repariert voll. Budget-Optionen ersetzt durch `breakerPistonsLoseDurability`. Alte
+Stufe n = derselbe Bruchteil n/8. Tests: `PistonBreachTests#netheriteBreakerLosesDurability...`,
+`#enderitePistonLosesDurability...`, `#breakerPistonDurabilityTravelsWithTheItemAsItsDurabilityBar`.
+
 Besitzer-Befund 2026-09-25: Der Enderit-Kolben bricht bis zu drei Blöcke vor sich durch
 (Durchbruch mit Redstoneblock als Brennstoff). Mit einer Hebelschaltung bohrt er damit Tunnel fast
 ohne Aufwand - das nimmt Spitzhacke, Vorschlaghammer und Strip Miner die Aufgabe weg.

@@ -896,82 +896,73 @@ public final class PistonBreachTests {
     // AUDIT 2026-09-26 #23 / #24, NACH-AUDIT N4 / N5 / N16
     // =====================================================================================
 
-    /** Tick budget for {@link #netheriteBreakerWearsDownAndCrumblesToReinforcedPiston}. */
-    public static final int WEAR_MAX_TICKS = 80;
+    /** Tick budget for {@link #netheriteBreakerLosesDurabilityAndCrumblesToReinforcedPiston}. */
+    public static final int DURABILITY_MAX_TICKS = 80;
 
     /**
-     * The netherite breaker wears down (audit #23, owner's choice: wear). Every piston here runs
-     * with a wear budget of 8 through {@code NetheriteBreakerPistonBlock#overrideWearBudgetAt}, so
-     * one stage is one hardness point and nothing is left to chance (the config value is not
-     * touched: the tests run in parallel and every other breaker would feel it).
+     * The netherite breaker has a real durability (owner's choice 2026-09-28, replacing the wear
+     * budget of 2026-09-27): 1/9 of the netherite pickaxe, because the upgrade costs one nugget.
      *
      * <ul>
-     *   <li><b>Stone</b> (hardness 1.5, cost 2): the breaker goes from stage 0 to 2, extends, and
-     *       keeps stage 2 when it retracts - vanilla puts {@code defaultBlockState()} into the moving
-     *       block at the base, {@code PistonBlockMixin#simplebuilding$keepWear} carries it over.</li>
-     *   <li><b>Stage 7 on stone:</b> 7 + 2 is past the last stage, so the breaker crumbles into a
-     *       reinforced piston (same facing) that extends with its own head.</li>
-     *   <li><b>Budget 0 on deepslate:</b> no wear at all, the deepslate still breaks.</li>
-     *   <li><b>The enderite piston</b> breaks the same stone and wears the same two stages.</li>
-     *   <li><b>Item:</b> a worn breaker drops its stage in the block state component (and a fresh one
-     *       none, so it still stacks); the component puts the stage back onto the placed state.</li>
-     *   <li><b>Repair:</b> a netherite nugget used on a worn breaker sets it back to 0 and is used up
-     *       outside creative.</li>
-     *   <li><b>The arithmetic:</b> {@code wearSteps} = cost / (budget / 8), the rest as a probability.</li>
+     *   <li><b>The numbers:</b> {@code 2031 / 9 = 226}; every damage from 0 to 225 survives the trip
+     *       through the two block state properties, and the crack stage is {@code damage * 8 / 226}.
+     *       An old {@code wear=n} state (step 0) reads as the first damage of stage n - the same
+     *       fraction n/8.</li>
+     *   <li><b>Only breaking costs, one per block:</b> stone and deepslate (hardness 1.5 and 3) both
+     *       cost exactly 1; extending into air, and retracting, cost nothing.</li>
+     *   <li><b>Switched off</b> ({@code freezeDurabilityAt}, the config switch without touching the
+     *       shared config): the stone still breaks, the damage stays.</li>
+     *   <li><b>Running out:</b> at 225 damage one more stone turns the breaker into a reinforced
+     *       piston (same facing) that extends with its own head.</li>
+     *   <li><b>The enderite piston</b> pays the same 1 for the same stone.</li>
+     *   <li><b>Repair:</b> a netherite nugget restores full durability and is used up outside
+     *       creative.</li>
      * </ul>
      */
-    public static void netheriteBreakerWearsDownAndCrumblesToReinforcedPiston(GameTestHelper helper) {
+    public static void netheriteBreakerLosesDurabilityAndCrumblesToReinforcedPiston(GameTestHelper helper) {
         BlockPos stone = new BlockPos(1, 1, 1);
         BlockPos crumble = new BlockPos(4, 1, 1);
-        BlockPos noWear = new BlockPos(1, 1, 5);
+        BlockPos frozen = new BlockPos(1, 1, 5);
         BlockPos enderite = new BlockPos(4, 1, 5);
-        BlockPos repair = new BlockPos(6, 1, 3);
+        BlockPos deepslate = new BlockPos(6, 1, 1);
+        BlockPos air = new BlockPos(6, 1, 5);
+        BlockPos repair = new BlockPos(3, 1, 3);
         ServerLevel level = helper.getLevel();
 
-        // --- the arithmetic, without a world ---
-        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearCost(1.5F), 2, "wear cost of stone (hardness 1.5)");
-        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearCost(0.0F), 1, "wear cost of an instantly broken block");
-        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearCost(50.0F), 50, "wear cost of obsidian");
-        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearSteps(1.5F, 8, 0.99), 2,
-                "stages stone costs at a budget of 8 (one point per stage)");
-        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearSteps(1.5F, 1024, 0.0), 1,
-                "stages stone costs at the default budget when the roll is below 2/128");
-        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearSteps(1.5F, 1024, 0.5), 0,
-                "stages stone costs at the default budget when the roll is above 2/128");
-        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearSteps(50.0F, 0, 0.0), 0,
-                "stages anything costs with the wear switched off (budget 0)");
+        // --- the numbers, without a world ---
+        Assertions.valueEqual(helper, net.minecraft.world.item.ToolMaterial.NETHERITE.durability(), 2031,
+                "durability of the netherite pickaxe the breaker's durability is derived from");
+        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.NETHERITE_MAX_DURABILITY, 226,
+                "durability of the netherite piston (1/9 of the netherite pickaxe)");
+        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.maxDurabilityOf(ModBlocks.NETHERITE_PISTON.defaultBlockState()), 226,
+                "durability the netherite piston block reports");
+        assertEveryDamageRoundTrips(helper, ModBlocks.NETHERITE_PISTON, 226);
+        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.damageOf(upright(ModBlocks.NETHERITE_PISTON)
+                        .setValue(NetheriteBreakerPistonBlock.WEAR, 4)), 113,
+                "damage of an old-world netherite piston at wear stage 4 (half of 226)");
+        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.durabilityOf(upright(ModBlocks.NETHERITE_PISTON)), 226,
+                "durability left on a fresh netherite piston");
 
-        for (BlockPos piston : List.of(stone, crumble, enderite)) {
-            TestCleanup.before(helper, NetheriteBreakerPistonBlock.overrideWearBudgetAt(helper.absolutePos(piston), 8));
-        }
-        TestCleanup.before(helper, NetheriteBreakerPistonBlock.overrideWearBudgetAt(helper.absolutePos(noWear), 0));
+        TestCleanup.before(helper, NetheriteBreakerPistonBlock.freezeDurabilityAt(helper.absolutePos(frozen)));
 
         paidRow(helper, stone, ModBlocks.NETHERITE_PISTON, Blocks.STONE);
+        paidRow(helper, deepslate, ModBlocks.NETHERITE_PISTON, Blocks.DEEPSLATE);
+        paidRow(helper, enderite, ModBlocks.ENDERITE_PISTON, Blocks.STONE);
+        helper.setBlock(frozen.above(2), Blocks.AIR);
+        helper.setBlock(frozen, NetheriteBreakerPistonBlock.withDamage(upright(ModBlocks.NETHERITE_PISTON), 40));
+        helper.setBlock(frozen.above(), Blocks.STONE);
+        helper.setBlock(frozen.below(), Blocks.REDSTONE_BLOCK);
+        helper.setBlock(air.above(2), Blocks.AIR);
+        helper.setBlock(air, NetheriteBreakerPistonBlock.withDamage(upright(ModBlocks.NETHERITE_PISTON), 100));
+        helper.setBlock(air.above(), Blocks.AIR);
+        helper.setBlock(air.below(), Blocks.REDSTONE_BLOCK);
         helper.setBlock(crumble.above(2), Blocks.AIR);
-        helper.setBlock(crumble, upright(ModBlocks.NETHERITE_PISTON).setValue(NetheriteBreakerPistonBlock.WEAR, 7));
+        helper.setBlock(crumble, NetheriteBreakerPistonBlock.withDamage(upright(ModBlocks.NETHERITE_PISTON), 225));
         helper.setBlock(crumble.above(), Blocks.STONE);
         helper.setBlock(crumble.below(), Blocks.REDSTONE_BLOCK);
-        paidRow(helper, noWear, ModBlocks.NETHERITE_PISTON, Blocks.DEEPSLATE);
-        paidRow(helper, enderite, ModBlocks.ENDERITE_PISTON, Blocks.STONE);
-
-        // --- the item side, no ticks needed ---
-        BlockState worn = upright(ModBlocks.NETHERITE_PISTON).setValue(NetheriteBreakerPistonBlock.WEAR, 3);
-        List<ItemStack> wornDrops = Block.getDrops(worn, level, helper.absolutePos(repair), null, null, ItemStack.EMPTY);
-        helper.assertTrue(wornDrops.size() == 1 && wornDrops.get(0).is(ModItems.NETHERITE_PISTON),
-                "a worn netherite piston dropped " + wornDrops + " instead of itself");
-        Assertions.valueEqual(helper, NetheritePistonItem.wearOf(wornDrops.get(0)), 3,
-                "wear stage the dropped item carries - picking the breaker up must not repair it");
-        BlockItemStateProperties carried = wornDrops.get(0).get(DataComponents.BLOCK_STATE);
-        helper.assertTrue(carried != null
-                        && carried.apply(ModBlocks.NETHERITE_PISTON.defaultBlockState()).getValue(NetheriteBreakerPistonBlock.WEAR) == 3,
-                "the dropped item's block state component does not put stage 3 back onto the placed piston: " + carried);
-        List<ItemStack> freshDrops = Block.getDrops(upright(ModBlocks.NETHERITE_PISTON), level, helper.absolutePos(repair), null, null, ItemStack.EMPTY);
-        helper.assertTrue(freshDrops.size() == 1 && !freshDrops.get(0).has(DataComponents.BLOCK_STATE),
-                "a fresh netherite piston dropped " + freshDrops + " with a block state component, so it no longer "
-                        + "stacks with fresh ones");
 
         // --- repair with a netherite nugget ---
-        helper.setBlock(repair, upright(ModBlocks.NETHERITE_PISTON).setValue(NetheriteBreakerPistonBlock.WEAR, 5));
+        helper.setBlock(repair, NetheriteBreakerPistonBlock.withDamage(upright(ModBlocks.NETHERITE_PISTON), 150));
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         TestCleanup.before(helper, () -> level.getServer().getPlayerList().remove(player));
         player.getAbilities().instabuild = false;
@@ -981,9 +972,9 @@ public final class PistonBreachTests {
         BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(repairAbsolute), Direction.NORTH, repairAbsolute, false);
         InteractionResult repaired = level.getBlockState(repairAbsolute)
                 .useItemOn(nugget, level, player, InteractionHand.MAIN_HAND, hit);
-        helper.assertTrue(repaired.consumesAction(), "using a netherite nugget on a worn breaker did nothing: " + repaired);
-        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearOf(helper.getBlockState(repair)), 0,
-                "wear stage after the repair with a netherite nugget");
+        helper.assertTrue(repaired.consumesAction(), "using a netherite nugget on a damaged breaker did nothing: " + repaired);
+        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.damageOf(helper.getBlockState(repair)), 0,
+                "damage after the repair with a netherite nugget (full durability)");
         Assertions.valueEqual(helper, nugget.getCount(), 1, "netherite nuggets left after one repair outside creative");
 
         helper.startSequence()
@@ -991,68 +982,97 @@ public final class PistonBreachTests {
                     BlockState stoneBreaker = helper.getBlockState(stone);
                     helper.assertTrue(stoneBreaker.is(ModBlocks.NETHERITE_PISTON) && stoneBreaker.getValue(PistonBaseBlock.EXTENDED),
                             "the netherite piston on stone did not extend, found " + stoneBreaker);
-                    Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearOf(stoneBreaker), 2,
-                            "wear stage after breaking one stone at a budget of 8");
+                    Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.damageOf(stoneBreaker), 1,
+                            "damage after breaking one stone");
+                    BlockState deepslateBreaker = helper.getBlockState(deepslate);
+                    helper.assertTrue(deepslateBreaker.getValue(PistonBaseBlock.EXTENDED)
+                                    && helper.getBlockState(deepslate.above()).is(ModBlocks.NETHERITE_PISTON_HEAD),
+                            "the netherite piston did not break the deepslate, found " + helper.getBlockState(deepslate.above()));
+                    Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.damageOf(deepslateBreaker), 1,
+                            "damage after breaking one deepslate - one per block, not per hardness point");
+
+                    BlockState airBreaker = helper.getBlockState(air);
+                    helper.assertTrue(airBreaker.getValue(PistonBaseBlock.EXTENDED),
+                            "the netherite piston in front of air did not extend, found " + airBreaker);
+                    Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.damageOf(airBreaker), 100,
+                            "damage after extending into air - only breaking costs durability");
+
+                    helper.assertTrue(helper.getBlockState(frozen.above()).is(ModBlocks.NETHERITE_PISTON_HEAD),
+                            "with the durability switched off the breaker has to break the stone as before, found "
+                                    + helper.getBlockState(frozen.above()));
+                    Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.damageOf(helper.getBlockState(frozen)), 40,
+                            "damage with the durability switched off");
 
                     helper.assertTrue(helper.getBlockState(crumble).is(ModBlocks.REINFORCED_PISTON),
-                            "a netherite piston at the last wear stage did not crumble into a reinforced piston, found "
+                            "a netherite piston with 1 durability left did not crumble into a reinforced piston, found "
                                     + helper.getBlockState(crumble));
                     assertExtendedWithHead(helper, crumble, ModBlocks.REINFORCED_PISTON_HEAD, PistonType.DEFAULT,
                             "the crumbled breaker");
                     Assertions.valueEqual(helper, helper.getBlockState(crumble).getValue(DirectionalBlock.FACING), Direction.UP,
                             "facing of the reinforced piston the breaker crumbled into");
 
-                    Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearOf(helper.getBlockState(noWear)), 0,
-                            "wear stage with the wear budget at 0");
-                    helper.assertTrue(helper.getBlockState(noWear.above()).is(ModBlocks.NETHERITE_PISTON_HEAD)
-                                    && helper.getBlockState(noWear).getValue(PistonBaseBlock.EXTENDED),
-                            "with the wear switched off the breaker has to break the deepslate and extend as before, found "
-                                    + helper.getBlockState(noWear.above()));
-
-                    // Seit der Kolben-Balance 2026-09-27 nutzt sich auch der Enderitkolben ab
-                    // (enderitePistonWearsDownAndCrumblesToNetheriteBreaker prueft den Rest).
                     helper.assertTrue(helper.getBlockState(enderite).is(ModBlocks.ENDERITE_PISTON),
                             "the enderite piston is gone, found " + helper.getBlockState(enderite));
-                    Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearOf(helper.getBlockState(enderite)), 2,
-                            "enderite piston wear stage after breaking one stone at a budget of 8");
+                    Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.damageOf(helper.getBlockState(enderite)), 1,
+                            "enderite piston damage after breaking one stone");
 
-                    // Retract the stone row: take its redstone block away.
+                    // Retract the stone and air rows: take their redstone blocks away.
                     helper.setBlock(stone.below(), Blocks.AIR);
+                    helper.setBlock(air.below(), Blocks.AIR);
                 })
                 .thenExecuteAfter(6, () -> {
                     BlockState retracted = helper.getBlockState(stone);
                     helper.assertTrue(retracted.is(ModBlocks.NETHERITE_PISTON) && !retracted.getValue(PistonBaseBlock.EXTENDED),
                             "the netherite piston did not retract, found " + retracted);
-                    Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearOf(retracted), 2,
-                            "wear stage after retracting - retracting must not repair the breaker");
+                    Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.damageOf(retracted), 1,
+                            "damage after retracting - retracting neither costs nor repairs");
+                    BlockState airRetracted = helper.getBlockState(air);
+                    helper.assertTrue(!airRetracted.getValue(PistonBaseBlock.EXTENDED),
+                            "the netherite piston in front of air did not retract, found " + airRetracted);
+                    Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.damageOf(airRetracted), 100,
+                            "damage after extending into air and retracting");
                 })
                 .thenExecute(() -> TestCleanup.run(helper))
                 .thenSucceed();
     }
 
-    /** Tick budget for {@link #enderitePistonWearsDownAndCrumblesToNetheriteBreaker}. */
-    public static final int ENDERITE_WEAR_MAX_TICKS = 80;
+    /** Every damage from 0 to {@code max - 1} survives the trip through the block state, with the right crack stage. */
+    private static void assertEveryDamageRoundTrips(GameTestHelper helper, Block piston, int max) {
+        BlockState base = upright(piston);
+        for (int damage = 0; damage < max; damage++) {
+            BlockState state = NetheriteBreakerPistonBlock.withDamage(base, damage);
+            if (NetheriteBreakerPistonBlock.damageOf(state) != damage) {
+                helper.fail(piston + ": damage " + damage + " reads back as " + NetheriteBreakerPistonBlock.damageOf(state)
+                        + " from " + state);
+            }
+            if (NetheriteBreakerPistonBlock.wearOf(state) != damage * NetheriteBreakerPistonBlock.WEAR_STAGES / max) {
+                helper.fail(piston + ": damage " + damage + " shows crack stage " + NetheriteBreakerPistonBlock.wearOf(state)
+                        + " instead of " + damage * NetheriteBreakerPistonBlock.WEAR_STAGES / max);
+            }
+        }
+        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.damageOf(NetheriteBreakerPistonBlock.withDamage(base, max + 50)), max - 1,
+                piston + ": damage past the maximum is capped at max - 1 (the next break turns it into the tier below)");
+    }
+
+    /** Tick budget for {@link #enderitePistonLosesDurabilityAndCrumblesToNetheriteBreaker}. */
+    public static final int ENDERITE_DURABILITY_MAX_TICKS = 80;
 
     /**
-     * The enderite piston wears down like the netherite breaker (piston balance 2026-09-27: boring
-     * tunnels with it was too easy). Every piston here runs with a wear budget of 8 through
-     * {@code NetheriteBreakerPistonBlock#overrideWearBudgetAt}, so one stage is one hardness point.
+     * The enderite piston's durability: 1/9 of the enderite pickaxe ({@code 2530 / 9 = 281}).
      *
      * <ul>
-     *   <li><b>Every broken block costs its hardness:</b> stone (cost 2) takes the piston from stage 0
-     *       to 2, deepslate (cost 3) to 3, and the stage survives retracting.</li>
-     *   <li><b>Stage 7 on stone:</b> the enderite piston crumbles one tier down into a netherite
-     *       breaker - same facing, wear 0 - that extends with its netherite head.</li>
-     *   <li><b>Repair:</b> an enderite nugget sets the stage back to 0 and is used up outside
+     *   <li><b>One per broken block:</b> stone and deepslate both cost 1, and the damage survives
+     *       retracting.</li>
+     *   <li><b>Running out:</b> at 280 damage one more stone turns it one tier down into a netherite
+     *       breaker - same facing, <em>full</em> netherite durability (only the enderite layer is used
+     *       up) - that extends with its netherite head.</li>
+     *   <li><b>Repair:</b> an enderite nugget restores full durability and is used up outside
      *       creative; a netherite nugget does not repair an enderite piston.</li>
-     *   <li><b>Item:</b> a worn enderite piston drops its stage in the block state component, a fresh
-     *       one without; the default state (what an enderite piston from an old world loads as) is
-     *       stage 0.</li>
-     *   <li><b>Budget:</b> the config default is 2048 (256 points a stage), so stone costs one stage
-     *       only with a roll below 2/256.</li>
+     *   <li><b>Old worlds:</b> the default state (what an enderite piston from before the wear loads
+     *       as) has full durability.</li>
      * </ul>
      */
-    public static void enderitePistonWearsDownAndCrumblesToNetheriteBreaker(GameTestHelper helper) {
+    public static void enderitePistonLosesDurabilityAndCrumblesToNetheriteBreaker(GameTestHelper helper) {
         BlockPos stone = new BlockPos(1, 1, 1);
         BlockPos crumble = new BlockPos(4, 1, 1);
         BlockPos deepslate = new BlockPos(1, 1, 5);
@@ -1060,45 +1080,27 @@ public final class PistonBreachTests {
         BlockPos wrongNugget = new BlockPos(6, 1, 5);
         ServerLevel level = helper.getLevel();
 
-        // --- the budget, without a world ---
-        Assertions.valueEqual(helper, new SimplebuildingConfig().enderitePistonWearBudget, 2048,
-                "default enderite piston wear budget");
-        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearSteps(1.5F, 2048, 0.0), 1,
-                "stages stone costs the enderite piston at its default budget when the roll is below 2/256");
-        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearSteps(1.5F, 2048, 0.01), 0,
-                "stages stone costs the enderite piston at its default budget when the roll is above 2/256");
-
-        for (BlockPos piston : List.of(stone, crumble, deepslate)) {
-            TestCleanup.before(helper, NetheriteBreakerPistonBlock.overrideWearBudgetAt(helper.absolutePos(piston), 8));
-        }
+        // --- the numbers, without a world ---
+        Assertions.valueEqual(helper, com.simplebuilding.items.ModToolMaterials.ENDERITE.durability(), 2530,
+                "durability of the enderite pickaxe the piston's durability is derived from");
+        Assertions.valueEqual(helper, com.simplebuilding.blocks.custom.EnderitePistonBlock.ENDERITE_MAX_DURABILITY, 281,
+                "durability of the enderite piston (1/9 of the enderite pickaxe)");
+        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.maxDurabilityOf(ModBlocks.ENDERITE_PISTON.defaultBlockState()), 281,
+                "durability the enderite piston block reports");
+        assertEveryDamageRoundTrips(helper, ModBlocks.ENDERITE_PISTON, 281);
+        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.damageOf(ModBlocks.ENDERITE_PISTON.defaultBlockState()), 0,
+                "damage of the default state an enderite piston from an old world loads with");
 
         paidRow(helper, stone, ModBlocks.ENDERITE_PISTON, Blocks.STONE);
         paidRow(helper, deepslate, ModBlocks.ENDERITE_PISTON, Blocks.DEEPSLATE);
         helper.setBlock(crumble.above(2), Blocks.AIR);
-        helper.setBlock(crumble, upright(ModBlocks.ENDERITE_PISTON).setValue(NetheriteBreakerPistonBlock.WEAR, 7));
+        helper.setBlock(crumble, NetheriteBreakerPistonBlock.withDamage(upright(ModBlocks.ENDERITE_PISTON), 280));
         helper.setBlock(crumble.above(), Blocks.STONE);
         helper.setBlock(crumble.below(), Blocks.REDSTONE_BLOCK);
 
-        // --- the item side ---
-        BlockState worn = upright(ModBlocks.ENDERITE_PISTON).setValue(NetheriteBreakerPistonBlock.WEAR, 4);
-        List<ItemStack> wornDrops = Block.getDrops(worn, level, helper.absolutePos(repair), null, null, ItemStack.EMPTY);
-        helper.assertTrue(wornDrops.size() == 1 && wornDrops.get(0).is(ModItems.ENDERITE_PISTON),
-                "a worn enderite piston dropped " + wornDrops + " instead of itself");
-        Assertions.valueEqual(helper, NetheritePistonItem.wearOf(wornDrops.get(0)), 4,
-                "wear stage the dropped enderite piston carries");
-        BlockItemStateProperties carried = wornDrops.get(0).get(DataComponents.BLOCK_STATE);
-        helper.assertTrue(carried != null
-                        && carried.apply(ModBlocks.ENDERITE_PISTON.defaultBlockState()).getValue(NetheriteBreakerPistonBlock.WEAR) == 4,
-                "the dropped enderite piston's block state component does not put stage 4 back: " + carried);
-        List<ItemStack> freshDrops = Block.getDrops(upright(ModBlocks.ENDERITE_PISTON), level, helper.absolutePos(repair), null, null, ItemStack.EMPTY);
-        helper.assertTrue(freshDrops.size() == 1 && !freshDrops.get(0).has(DataComponents.BLOCK_STATE),
-                "a fresh enderite piston dropped " + freshDrops + " with a block state component");
-        Assertions.valueEqual(helper, ModBlocks.ENDERITE_PISTON.defaultBlockState().getValue(NetheriteBreakerPistonBlock.WEAR), 0,
-                "wear stage of the default state an enderite piston from an old world loads with");
-
         // --- repair with an enderite nugget, not with a netherite one ---
-        helper.setBlock(repair, upright(ModBlocks.ENDERITE_PISTON).setValue(NetheriteBreakerPistonBlock.WEAR, 5));
-        helper.setBlock(wrongNugget, upright(ModBlocks.ENDERITE_PISTON).setValue(NetheriteBreakerPistonBlock.WEAR, 5));
+        helper.setBlock(repair, NetheriteBreakerPistonBlock.withDamage(upright(ModBlocks.ENDERITE_PISTON), 200));
+        helper.setBlock(wrongNugget, NetheriteBreakerPistonBlock.withDamage(upright(ModBlocks.ENDERITE_PISTON), 200));
         ServerPlayer player = helper.makeMockServerPlayerInLevel();
         TestCleanup.before(helper, () -> level.getServer().getPlayerList().remove(player));
         player.getAbilities().instabuild = false;
@@ -1107,8 +1109,8 @@ public final class PistonBreachTests {
         BlockPos wrongAbsolute = helper.absolutePos(wrongNugget);
         level.getBlockState(wrongAbsolute).useItemOn(netheriteNugget, level, player, InteractionHand.MAIN_HAND,
                 new BlockHitResult(Vec3.atCenterOf(wrongAbsolute), Direction.NORTH, wrongAbsolute, false));
-        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearOf(helper.getBlockState(wrongNugget)), 5,
-                "wear stage of an enderite piston after using a netherite nugget on it");
+        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.damageOf(helper.getBlockState(wrongNugget)), 200,
+                "damage of an enderite piston after using a netherite nugget on it");
         Assertions.valueEqual(helper, netheriteNugget.getCount(), 2, "netherite nuggets left after trying them on an enderite piston");
 
         ItemStack nugget = new ItemStack(ModItems.ENDERITE_NUGGET, 2);
@@ -1116,9 +1118,9 @@ public final class PistonBreachTests {
         BlockPos repairAbsolute = helper.absolutePos(repair);
         InteractionResult repaired = level.getBlockState(repairAbsolute).useItemOn(nugget, level, player,
                 InteractionHand.MAIN_HAND, new BlockHitResult(Vec3.atCenterOf(repairAbsolute), Direction.NORTH, repairAbsolute, false));
-        helper.assertTrue(repaired.consumesAction(), "using an enderite nugget on a worn enderite piston did nothing: " + repaired);
-        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearOf(helper.getBlockState(repair)), 0,
-                "wear stage after the repair with an enderite nugget");
+        helper.assertTrue(repaired.consumesAction(), "using an enderite nugget on a damaged enderite piston did nothing: " + repaired);
+        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.damageOf(helper.getBlockState(repair)), 0,
+                "damage after the repair with an enderite nugget (full durability)");
         Assertions.valueEqual(helper, nugget.getCount(), 1, "enderite nuggets left after one repair outside creative");
 
         helper.startSequence()
@@ -1126,19 +1128,19 @@ public final class PistonBreachTests {
                     BlockState stonePiston = helper.getBlockState(stone);
                     helper.assertTrue(stonePiston.is(ModBlocks.ENDERITE_PISTON) && stonePiston.getValue(PistonBaseBlock.EXTENDED),
                             "the enderite piston on stone did not extend, found " + stonePiston);
-                    Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearOf(stonePiston), 2,
-                            "enderite wear stage after breaking one stone at a budget of 8");
+                    Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.damageOf(stonePiston), 1,
+                            "enderite damage after breaking one stone");
                     BlockState deepslatePiston = helper.getBlockState(deepslate);
                     helper.assertTrue(deepslatePiston.is(ModBlocks.ENDERITE_PISTON) && deepslatePiston.getValue(PistonBaseBlock.EXTENDED),
                             "the enderite piston on deepslate did not extend, found " + deepslatePiston);
-                    Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearOf(deepslatePiston), 3,
-                            "enderite wear stage after breaking one deepslate at a budget of 8");
+                    Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.damageOf(deepslatePiston), 1,
+                            "enderite damage after breaking one deepslate - one per block, not per hardness point");
 
                     BlockState crumbled = helper.getBlockState(crumble);
                     helper.assertTrue(crumbled.is(ModBlocks.NETHERITE_PISTON),
-                            "an enderite piston at the last wear stage did not crumble into a netherite piston, found " + crumbled);
-                    Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearOf(crumbled), 0,
-                            "wear stage of the netherite piston the enderite piston crumbled into");
+                            "an enderite piston with 1 durability left did not crumble into a netherite piston, found " + crumbled);
+                    Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.durabilityOf(crumbled), 226,
+                            "durability of the netherite piston the enderite piston crumbled into (full)");
                     Assertions.valueEqual(helper, crumbled.getValue(DirectionalBlock.FACING), Direction.UP,
                             "facing of the netherite piston the enderite piston crumbled into");
                     assertExtendedWithHead(helper, crumble, ModBlocks.NETHERITE_PISTON_HEAD, PistonType.DEFAULT,
@@ -1150,11 +1152,108 @@ public final class PistonBreachTests {
                     BlockState retracted = helper.getBlockState(stone);
                     helper.assertTrue(retracted.is(ModBlocks.ENDERITE_PISTON) && !retracted.getValue(PistonBaseBlock.EXTENDED),
                             "the enderite piston did not retract, found " + retracted);
-                    Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.wearOf(retracted), 2,
-                            "enderite wear stage after retracting");
+                    Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.damageOf(retracted), 1,
+                            "enderite damage after retracting");
                 })
-.thenExecute(() -> TestCleanup.run(helper))
+                .thenExecute(() -> TestCleanup.run(helper))
                 .thenSucceed();
+    }
+
+    /**
+     * The durability travels with the item, as a durability bar:
+     *
+     * <ul>
+     *   <li><b>Pick-up:</b> a damaged netherite piston broken by a player drops itself with
+     *       {@code max_damage 226}, its {@code damage} and a stack size of 1 - vanilla then shows the
+     *       bar ({@code isBarVisible}) in the hand and the inventory. A fresh one drops without them
+     *       and still stacks to 64. The enderite piston does the same with 281.</li>
+     *   <li><b>Placing</b> the damaged item puts the same damage back onto the block.</li>
+     *   <li><b>Migration:</b> a legacy item ({@code block_state {wear:4}}) placed as it is gives the
+     *       first damage of stage 4 (113 of 226, the same fraction); a single legacy item moves over
+     *       to the durability components when it ticks in an inventory; a legacy stack of two keeps
+     *       its component (it could not carry durability) but still reports the damage.</li>
+     * </ul>
+     */
+    public static void breakerPistonDurabilityTravelsWithTheItemAsItsDurabilityBar(GameTestHelper helper) {
+        BlockPos mined = new BlockPos(1, 1, 1);
+        BlockPos placed = new BlockPos(3, 1, 1);
+        BlockPos legacyPlaced = new BlockPos(5, 1, 1);
+        ServerLevel level = helper.getLevel();
+
+        // --- pick-up: broken by a player, with drops ---
+        helper.setBlock(mined, NetheriteBreakerPistonBlock.withDamage(upright(ModBlocks.NETHERITE_PISTON), 100));
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        TestCleanup.before(helper, () -> level.getServer().getPlayerList().remove(player));
+        player.setPos(helper.absoluteVec(new Vec3(6.5, 1.0, 6.5)));
+        BlockPos minedAbsolute = helper.absolutePos(mined);
+        level.destroyBlock(minedAbsolute, true, player);
+        List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, new AABB(minedAbsolute).inflate(1.5));
+        helper.assertTrue(drops.size() == 1 && drops.get(0).getItem().is(ModItems.NETHERITE_PISTON),
+                "a damaged netherite piston broken by a player dropped " + drops + " instead of itself");
+        ItemStack picked = drops.get(0).getItem().copy();
+        drops.forEach(ItemEntity::discard);
+        Assertions.valueEqual(helper, picked.get(DataComponents.MAX_DAMAGE), 226, "max_damage of the dropped netherite piston");
+        Assertions.valueEqual(helper, picked.getDamageValue(), 100, "damage the dropped netherite piston carries");
+        Assertions.valueEqual(helper, picked.getMaxStackSize(), 1, "stack size of a damaged netherite piston");
+        helper.assertTrue(picked.isBarVisible(), "a damaged netherite piston shows no durability bar");
+        Assertions.valueEqual(helper, picked.getBarWidth(), Math.round(13.0F - 100 * 13.0F / 226),
+                "width of the durability bar at 126 of 226");
+
+        List<ItemStack> freshDrops = Block.getDrops(upright(ModBlocks.NETHERITE_PISTON), level, minedAbsolute, null, null, ItemStack.EMPTY);
+        helper.assertTrue(freshDrops.size() == 1 && !freshDrops.get(0).has(DataComponents.MAX_DAMAGE)
+                        && !freshDrops.get(0).isBarVisible() && freshDrops.get(0).getMaxStackSize() == 64,
+                "a fresh netherite piston dropped " + freshDrops + " with durability, so it no longer stacks with fresh ones");
+        List<ItemStack> enderiteDrops = Block.getDrops(NetheriteBreakerPistonBlock.withDamage(upright(ModBlocks.ENDERITE_PISTON), 7),
+                level, minedAbsolute, null, null, ItemStack.EMPTY);
+        helper.assertTrue(enderiteDrops.size() == 1 && enderiteDrops.get(0).is(ModItems.ENDERITE_PISTON)
+                        && enderiteDrops.get(0).isBarVisible(),
+                "a damaged enderite piston dropped " + enderiteDrops + " without a durability bar");
+        Assertions.valueEqual(helper, enderiteDrops.get(0).get(DataComponents.MAX_DAMAGE), 281, "max_damage of the dropped enderite piston");
+        Assertions.valueEqual(helper, enderiteDrops.get(0).getDamageValue(), 7, "damage the dropped enderite piston carries");
+
+        // --- placing the damaged item ---
+        helper.setBlock(placed.below(), Blocks.STONE);
+        helper.setBlock(placed, Blocks.AIR);
+        placeFromHand(helper, player, picked, placed);
+        BlockState placedState = helper.getBlockState(placed);
+        helper.assertTrue(placedState.is(ModBlocks.NETHERITE_PISTON), "the damaged netherite piston item placed " + placedState);
+        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.damageOf(placedState), 100,
+                "damage of the netherite piston placed from an item with 100 damage - placing must not repair it");
+
+        // --- migration of items from before the durability ---
+        ItemStack legacy = new ItemStack(ModItems.NETHERITE_PISTON);
+        legacy.set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(NetheriteBreakerPistonBlock.WEAR, 4));
+        Assertions.valueEqual(helper, NetheritePistonItem.damageOf(legacy), 113, "damage a legacy item at wear stage 4 reports");
+        helper.setBlock(legacyPlaced.below(), Blocks.STONE);
+        helper.setBlock(legacyPlaced, Blocks.AIR);
+        placeFromHand(helper, player, legacy.copy(), legacyPlaced);
+        Assertions.valueEqual(helper, NetheriteBreakerPistonBlock.damageOf(helper.getBlockState(legacyPlaced)), 113,
+                "damage of a netherite piston placed from a legacy item at wear stage 4");
+
+        ItemStack ticked = legacy.copy();
+        ticked.getItem().inventoryTick(ticked, level, player, null);
+        helper.assertTrue(!ticked.has(DataComponents.BLOCK_STATE) && ticked.isBarVisible(),
+                "a single legacy item did not move over to the durability bar in the inventory: " + ticked);
+        Assertions.valueEqual(helper, ticked.getDamageValue(), 113, "damage of the migrated legacy item");
+        Assertions.valueEqual(helper, ticked.get(DataComponents.MAX_DAMAGE), 226, "max_damage of the migrated legacy item");
+
+        ItemStack legacyStack = legacy.copyWithCount(2);
+        helper.assertTrue(!NetheritePistonItem.migrateLegacyWear(legacyStack) && legacyStack.getCount() == 2
+                        && legacyStack.has(DataComponents.BLOCK_STATE) && !legacyStack.has(DataComponents.MAX_DAMAGE),
+                "a legacy stack of two was changed although it cannot carry durability: " + legacyStack);
+        Assertions.valueEqual(helper, NetheritePistonItem.damageOf(legacyStack), 113, "damage a legacy stack of two reports");
+
+        TestCleanup.run(helper);
+        helper.succeed();
+    }
+
+    /** Places {@code stack} from the player's main hand on top of the block below {@code target}. */
+    private static void placeFromHand(GameTestHelper helper, ServerPlayer player, ItemStack stack, BlockPos target) {
+        BlockPos below = helper.absolutePos(target.below());
+        player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+        InteractionResult result = stack.getItem().useOn(new net.minecraft.world.item.context.UseOnContext(player,
+                InteractionHand.MAIN_HAND, new BlockHitResult(Vec3.atCenterOf(below).add(0, 0.5, 0), Direction.UP, below, false)));
+        helper.assertTrue(result.consumesAction(), "placing " + stack + " at " + target + " failed: " + result);
     }
 
     /** Tick budget for {@link #modPistonsFireTheRealLoaderEventsAndHonourTheirConfigSwitch}. */
