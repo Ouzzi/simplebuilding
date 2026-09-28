@@ -3427,6 +3427,276 @@ public final class DataIntegrityTests {
         helper.succeed();
     }
 
+    // =====================================================================================
+    // SELTENHEIT UND NAMEN (docs/RARITAETEN.md)
+    // =====================================================================================
+
+    /** Ausruestung im Vanilla-Sinn: bleibt auf jeder Stufe COMMON, wie Vanillas Netheritschwert. */
+    private static final List<String> GEAR_SUFFIXES = List.of("_sword", "_spear", "_pickaxe", "_axe", "_shovel", "_hoe",
+            "_helmet", "_chestplate", "_leggings", "_boots", "_chisel", "_spatula", "_sledgehammer", "_building_wand");
+    /** Werkstoffe: COMMON wie Netheritbarren, -platten und -block, auch aus Enderit. */
+    private static final Set<String> MATERIALS = Set.of("enderite_ingot", "enderite_scrap", "enderite_nugget",
+            "enderite_block", "netherite_nugget", "raw_enderite");
+    private static final Map<String, net.minecraft.world.item.Rarity> RARITY_EXCEPTIONS = Map.ofEntries(
+            // Vorlagen: Aufwertungen wie Vanillas Netherit-Aufwertung, Besatz-Aufwertungen eine Stufe darueber
+            Map.entry("basic_upgrade_template", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("enderite_upgrade_template", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("glowing_trim_template", net.minecraft.world.item.Rarity.RARE),
+            Map.entry("emitting_trim_template", net.minecraft.world.item.Rarity.RARE),
+            // Nahrung: verzaubert wie Vanillas verzauberter goldener Apfel, Enderit bleibt ganz oben
+            Map.entry("enchanted_netherite_apple", net.minecraft.world.item.Rarity.RARE),
+            Map.entry("enchanted_enderite_apple", net.minecraft.world.item.Rarity.EPIC),
+            // Pads nach dem Material ihrer Stufe (Netherit-Druckplatte bzw. Enderit-Platte/-Kern)
+            Map.entry("spawn_teleporter_tier_2", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("spawn_teleporter_tier_3", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("spawn_teleporter_tier_4", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("potion_pad", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("reinforced_potion_pad", net.minecraft.world.item.Rarity.EPIC),
+            Map.entry("infused_potion_pad", net.minecraft.world.item.Rarity.EPIC),
+            Map.entry("flypad", net.minecraft.world.item.Rarity.EPIC),
+            Map.entry("reinforced_flypad", net.minecraft.world.item.Rarity.EPIC),
+            Map.entry("stellar_flypad", net.minecraft.world.item.Rarity.EPIC),
+            Map.entry("fine_elytra_pad", net.minecraft.world.item.Rarity.EPIC),
+            // Geraete nach ihrer wertvollsten Zutat: Echoscherben (Vanilla UNCOMMON), Enderit-Kern
+            Map.entry("ore_detector", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("echo_compass", net.minecraft.world.item.Rarity.EPIC),
+            // Koepfe wie Vanillas Mob-Koepfe, Easter wie das Drachenei, Technik wie die Barriere
+            Map.entry("blaze_head", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("funny_stick", net.minecraft.world.item.Rarity.EPIC),
+            Map.entry("creative_spacer", net.minecraft.world.item.Rarity.EPIC));
+    /** Feuerfest ausser allem mit netherite_/enderite_ vorn: alles, was mit Netherit oder Enderit gebaut wird. */
+    private static final Set<String> FIRE_RESISTANT_EXTRA = Set.of("enchanted_netherite_apple", "enchanted_enderite_apple",
+            "echo_compass", "spawn_teleporter_tier_2", "spawn_teleporter_tier_3", "spawn_teleporter_tier_4",
+            "potion_pad", "reinforced_potion_pad", "infused_potion_pad", "flypad", "reinforced_flypad", "stellar_flypad",
+            "fine_elytra_pad",
+            // Ausnahmen mit eigenem Grund: die geliehene Spawn-Elytra verbrennt nicht ueber Lava, der Easter-Stock nie
+            "spawn_elytra", "funny_stick");
+
+    /** Die Seltenheit, die das Schema aus docs/RARITAETEN.md einem Mod-Item gibt. */
+    static net.minecraft.world.item.Rarity expectedRarity(String path) {
+        net.minecraft.world.item.Rarity exception = RARITY_EXCEPTIONS.get(path);
+        if (exception != null) {
+            return exception;
+        }
+        if (MATERIALS.contains(path) || GEAR_SUFFIXES.stream().anyMatch(path::endsWith)) {
+            return net.minecraft.world.item.Rarity.COMMON;
+        }
+        if (path.startsWith("enderite_")) {
+            return net.minecraft.world.item.Rarity.EPIC;
+        }
+        if (path.startsWith("netherite_")) {
+            return net.minecraft.world.item.Rarity.UNCOMMON;
+        }
+        return net.minecraft.world.item.Rarity.COMMON;
+    }
+
+    /**
+     * Seltenheit und Feuerfestigkeit folgen je Familie einer Regel (docs/RARITAETEN.md), gelesen am
+     * laufenden Spiel fuer jedes Item der Mod:
+     *
+     * <ul>
+     *   <li>Ausruestung (Werkzeuge, Waffen, Ruestung, Meissel, Spachtel, Vorschlaghaemmer, Baustaebe) und
+     *       Werkstoffe bleiben auf jeder Stufe COMMON - wie Vanillas Netheritschwert und Netheritbarren;
+     *       die Verzauberung hebt die angezeigte Seltenheit ohnehin.</li>
+     *   <li>Alle anderen Stufenfamilien (Lager, Maschinen, Kerne, Druckplatten, Pads, Nahrung): Netherit
+     *       UNCOMMON (wie Vanillas Netherit-Aufwertung), Enderit EPIC, alles darunter COMMON.</li>
+     *   <li>Vorlagen, verzauberte Aepfel, Geraete, Kopf, Easter und Technik laut Ausnahmetabelle.</li>
+     *   <li>Feuerfest ist genau, was netherite_/enderite_ heisst oder daraus gebaut wird - ausser der
+     *       Enderit-Schmiedevorlage, die wie Vanillas Netherit-Aufwertung brennt.</li>
+     * </ul>
+     *
+     * <p>What breaks it: a registration that adds, drops or changes {@code rarity(...)} or
+     * {@code fireResistant()} against the scheme, and a new item family that nobody sorted into it
+     * (it then falls under "COMMON, burns" and shows up here if it was registered otherwise).
+     */
+    public static void modItemRaritiesFollowTheFamilyScheme(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        int checked = 0;
+        for (Item item : BuiltInRegistries.ITEM) {
+            Identifier id = BuiltInRegistries.ITEM.getKey(item);
+            if (!MOD_ID.equals(id.getNamespace())) {
+                continue;
+            }
+            checked++;
+            String path = id.getPath();
+            ItemStack stack = new ItemStack(item);
+            net.minecraft.world.item.Rarity actual = stack.getOrDefault(DataComponents.RARITY, net.minecraft.world.item.Rarity.COMMON);
+            net.minecraft.world.item.Rarity expected = expectedRarity(path);
+            if (actual != expected) {
+                problems.add(path + " is " + actual + ", the scheme says " + expected);
+            }
+            net.minecraft.world.item.component.DamageResistant resistant = stack.get(DataComponents.DAMAGE_RESISTANT);
+            boolean fireResistant = resistant != null && resistant.isResistantTo(helper.getLevel().damageSources().lava());
+            // Die Enderit-Schmiedevorlage (Diamanten + Endstein) brennt wie Vanillas Netherit-Aufwertung.
+            boolean shouldResist = (path.startsWith("netherite_") || path.startsWith("enderite_")) && !path.endsWith("_template")
+                    || FIRE_RESISTANT_EXTRA.contains(path);
+            if (fireResistant != shouldResist) {
+                problems.add(path + (fireResistant ? " survives lava but is not built from netherite/enderite"
+                        : " burns in lava although it is built from netherite/enderite"));
+            }
+        }
+        helper.assertTrue(checked > 200, "only " + checked + " mod items found - registry not filled?");
+        for (String path : RARITY_EXCEPTIONS.keySet()) {
+            if (!BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath(MOD_ID, path))) {
+                problems.add("the rarity table names " + path + ", which is not registered");
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " rarity problems: " + problems);
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Die angezeigten Namen folgen je Familie einem Muster, in beiden Sprachen:
+     *
+     * <ul>
+     *   <li>Stufenwort vorn: stone_/copper_/iron_/gold_/diamond_/netherite_/enderite_/reinforced_ heisst
+     *       "Stone .../Stein...", ..., "Enderite .../Enderit...", "Reinforced .../Verstärkt..." (Vanillas
+     *       "Block of X" zaehlt mit). Einzige Ausnahme: Spawn-Teleporter V (Besitzer 2026-09-28).</li>
+     *   <li>Deutsch: nach dem Werkstoff entweder zusammen ("Enderitschwert") oder mit Bindestrich und
+     *       grossem Nomen ("Enderit-Vorschlaghammer") - und innerhalb einer Familie auf allen Stufen gleich.</li>
+     *   <li>Vanilla-Muster: "Block of X", "X Nugget"/"...klumpen", "X Ingot"/"...barren", "... Pressure
+     *       Plate"/"...druckplatte", "... Smithing Template"/"...Schmiedevorlage", Treppe, Stufe, Mauer,
+     *       Ziegel, Erz, Saeule; Vanilla-Gegenstuecke heissen wie Vanillas Netherit-Stueck (Enderitharnisch).</li>
+     *   <li>Pad-Familien enden auf die roemische Stufenzahl, Altlasten auf "(Legacy)"/"(alt)".</li>
+     *   <li>Kein Deutsch gleich Englisch ausser Magnet und Rotator; keine alten Namen (Nugget, Upgrade
+     *       Template, Old ..., Roh-Enderit, Netherit-Bündel, ...) in irgendeinem Text.</li>
+     * </ul>
+     *
+     * <p>What breaks it: a renamed or new item whose name breaks its family's pattern, a translation
+     * left in English, or an old name coming back in a tooltip, JEI page, book or advancement.
+     */
+    public static void modItemNamesFollowTheFamilyPatterns(GameTestHelper helper) {
+        JsonObject en = langFile(helper, "en_us");
+        JsonObject de = langFile(helper, "de_de");
+        List<String> problems = new ArrayList<>();
+        Map<String, String[]> tierWords = new LinkedHashMap<>();
+        tierWords.put("stone", new String[]{"Stone", "Stein"});
+        tierWords.put("copper", new String[]{"Copper", "Kupfer"});
+        tierWords.put("iron", new String[]{"Iron", "Eisen"});
+        tierWords.put("gold", new String[]{"Gold", "Gold"});
+        tierWords.put("diamond", new String[]{"Diamond", "Diamant"});
+        tierWords.put("netherite", new String[]{"Netherite", "Netherit"});
+        tierWords.put("enderite", new String[]{"Enderite", "Enderit"});
+        tierWords.put("reinforced", new String[]{"Reinforced", "Verstärkt"});
+        String[][] suffixes = {
+                {"_block", null, "block"}, {"_nugget", " Nugget", "klumpen"}, {"_ingot", " Ingot", "barren"},
+                {"_pressure_plate", " Pressure Plate", "Druckplatte"}, {"_template", " Smithing Template", "Schmiedevorlage"},
+                {"_stairs", " Stairs", "treppe"}, {"_slab", " Slab", "stufe"}, {"_wall", " Wall", "mauer"},
+                {"_bricks", " Bricks", "ziegel"}, {"_ore", " Ore", "erz"}, {"_pillar", " Pillar", "säule"}};
+        Map<String, String[]> vanillaTwins = new LinkedHashMap<>();
+        vanillaTwins.put("enderite_block", new String[]{"Block of Enderite", "Enderitblock"});
+        vanillaTwins.put("enderite_ingot", new String[]{"Enderite Ingot", "Enderitbarren"});
+        vanillaTwins.put("enderite_nugget", new String[]{"Enderite Nugget", "Enderitklumpen"});
+        vanillaTwins.put("netherite_nugget", new String[]{"Netherite Nugget", "Netheritklumpen"});
+        vanillaTwins.put("enderite_scrap", new String[]{"Enderite Scrap", "Enderitplatten"});
+        vanillaTwins.put("raw_enderite", new String[]{"Raw Enderite", "Rohenderit"});
+        vanillaTwins.put("enderite_chestplate", new String[]{"Enderite Chestplate", "Enderitharnisch"});
+        vanillaTwins.put("enderite_leggings", new String[]{"Enderite Leggings", "Enderitbeinschutz"});
+        vanillaTwins.put("enderite_spear", new String[]{"Enderite Spear", "Enderitspeer"});
+        vanillaTwins.put("enderite_upgrade_template", new String[]{"Enderite Upgrade Smithing Template", "Enderit-Schmiedevorlage"});
+
+        Map<String, Map<String, Boolean>> styleByFamily = new java.util.TreeMap<>();
+        for (Item item : BuiltInRegistries.ITEM) {
+            Identifier id = BuiltInRegistries.ITEM.getKey(item);
+            if (!MOD_ID.equals(id.getNamespace()) || id.getPath().equals("creative_spacer")) {
+                continue;
+            }
+            String path = id.getPath();
+            String key = item.getDescriptionId();
+            String english = en.has(key) ? en.get(key).getAsString() : null;
+            String german = de.has(key) ? de.get(key).getAsString() : null;
+            if (english == null || german == null) {
+                problems.add(path + " has no name (" + key + ") in " + (english == null ? "en_us" : "de_de"));
+                continue;
+            }
+            if (english.equals(german) && !Set.of("magnet", "rotator").contains(path)) {
+                problems.add(path + " is still English in de_de: " + german);
+            }
+            String tier = path.contains("_") ? path.substring(0, path.indexOf('_')) : path;
+            String[] words = tierWords.get(tier);
+            if (words != null && !path.equals("enderite_spawn_teleporter")) {
+                if (!english.startsWith(words[0] + " ") && !english.startsWith("Block of " + words[0])) {
+                    problems.add(path + " should start with '" + words[0] + "' in en_us: " + english);
+                }
+                if (!german.startsWith(words[1])) {
+                    problems.add(path + " should start with '" + words[1] + "' in de_de: " + german);
+                } else if (!tier.equals("reinforced") && german.length() > words[1].length()) {
+                    String rest = german.substring(words[1].length());
+                    boolean hyphen = rest.length() > 1 && rest.charAt(0) == '-' && Character.isUpperCase(rest.charAt(1));
+                    boolean closed = Character.isLowerCase(rest.charAt(0));
+                    if (!hyphen && !closed) {
+                        problems.add(path + " joins '" + words[1] + "' neither closed nor with a hyphen: " + german);
+                    }
+                    styleByFamily.computeIfAbsent(path.substring(tier.length()), k -> new java.util.TreeMap<>()).put(path, hyphen);
+                }
+            }
+            for (String[] suffix : suffixes) {
+                if (!path.endsWith(suffix[0]) || path.endsWith("purpur_block")) {
+                    continue;
+                }
+                boolean englishOk = suffix[1] == null ? english.startsWith("Block of ") : english.endsWith(suffix[1]);
+                if (!englishOk) {
+                    problems.add(path + " breaks the vanilla pattern in en_us ('" + (suffix[1] == null ? "Block of X" : "X" + suffix[1]) + "'): " + english);
+                }
+                if (!german.toLowerCase(java.util.Locale.ROOT).endsWith(suffix[2].toLowerCase(java.util.Locale.ROOT))) {
+                    problems.add(path + " should end with '" + suffix[2] + "' in de_de: " + german);
+                }
+            }
+            Block block = Block.byItem(item);
+            boolean legacy = path.endsWith("_spatula") || block instanceof com.simplebuilding.tweaks.block.LegacyFlypadBlock;
+            if (legacy != english.endsWith(" (Legacy)") || legacy != german.endsWith(" (alt)")) {
+                problems.add(path + (legacy ? " is a legacy item but not named '... (Legacy)' / '... (alt)': "
+                        : " is named like a legacy item: ") + english + " / " + german);
+            }
+        }
+        for (Map.Entry<String, Map<String, Boolean>> family : styleByFamily.entrySet()) {
+            if (new HashSet<>(family.getValue().values()).size() > 1) {
+                problems.add("the *" + family.getKey() + " family mixes closed and hyphenated German names: " + family.getValue());
+            }
+        }
+        for (Map.Entry<String, String[]> twin : vanillaTwins.entrySet()) {
+            Item item = BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(MOD_ID, twin.getKey()));
+            String key = item.getDescriptionId();
+            if (!twin.getValue()[0].equals(en.has(key) ? en.get(key).getAsString() : null)
+                    || !twin.getValue()[1].equals(de.has(key) ? de.get(key).getAsString() : null)) {
+                problems.add(twin.getKey() + " should mirror its vanilla twin as '" + twin.getValue()[0] + "' / '" + twin.getValue()[1] + "'");
+            }
+        }
+        String[] roman = {"I", "II", "III", "IV", "V", "VI"};
+        for (com.simplebuilding.tweaks.block.TweaksFamilies.Family family : com.simplebuilding.tweaks.easter.EasterEggs.families()) {
+            List<Block> tiers = com.simplebuilding.tweaks.block.TweaksFamilies.tiers(family);
+            for (int i = 0; i < tiers.size(); i++) {
+                String key = tiers.get(i).getDescriptionId();
+                for (JsonObject lang : List.of(en, de)) {
+                    String name = lang.has(key) ? lang.get(key).getAsString() : "";
+                    if (!name.endsWith(" " + roman[i])) {
+                        problems.add(key + " is tier " + roman[i] + " of " + family + " but reads '" + name + "'");
+                    }
+                }
+            }
+        }
+        List<String> oldEnglish = List.of("Upgrade Template", "Old Netherite", "Old Enderite", "Enderite Block", "Cracked Diamond Block");
+        List<String> oldGerman = List.of("Nugget", "Enderiten-", "Altes Netherit", "Altes Enderit", "Basisaufwertung", "Roh-Enderit",
+                "Enderitschrott", "Enderit-Schrott", "Enderit-Brustpanzer", "Enderit-Hose", "Enderit-Speer", "Netherit-Bündel",
+                "Enderit-Bündel", "Netherit-Köcher", "Enderit-Köcher", "Netherit-Apfel", "Enderit-Apfel", "Netherit-Karotte",
+                "Enderit-Karotte", "Netherit-Kern", "Enderit-Kern", "Astralit-Ziegel", "Nihilith-Ziegel", "Nihilith-Splitter",
+                "Astralit-Erz", "Nihilith-Erz", "Astralit-Säule", "Nihilith-Säule", "Aufwertungsvorlage");
+        for (String key : en.keySet()) {
+            for (String old : oldEnglish) {
+                if (en.get(key).getAsString().contains(old)) problems.add("en_us " + key + " still says '" + old + "'");
+            }
+        }
+        for (String key : de.keySet()) {
+            for (String old : oldGerman) {
+                if (de.get(key).getAsString().contains(old)) problems.add("de_de " + key + " still says '" + old + "'");
+            }
+        }
+        helper.assertTrue(styleByFamily.containsKey("_sledgehammer") && styleByFamily.containsKey("_chisel"),
+                "the family style check saw no sledgehammers or chisels - it checks nothing");
+        helper.assertTrue(problems.isEmpty(), problems.size() + " name problems: " + problems);
+        TestCleanup.succeed(helper);
+    }
+
     private static JsonObject langFile(GameTestHelper helper, String locale) {
         String path = "assets/simplebuilding/lang/" + locale + ".json";
         try (InputStream in = DataIntegrityTests.class.getClassLoader().getResourceAsStream(path)) {
