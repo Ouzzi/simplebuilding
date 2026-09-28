@@ -40,4 +40,39 @@ public final class ConfigOptionGameTest {
     public void everyConfigOptionKeepsItsPersistedNameAndDefault(GameTestHelper helper) {
         ConfigOptionTests.everyConfigOptionKeepsItsPersistedNameAndDefault(helper);
     }
+
+    @GameTest
+    public void everyOptionHasNameTooltipAndTab(GameTestHelper helper) {
+        ConfigOptionTests.everyOptionHasNameTooltipAndTab(helper);
+    }
+
+    @GameTest
+    public void theConfigCommandReachesEveryOption(GameTestHelper helper) {
+        ConfigOptionTests.theConfigCommandReachesEveryOption(helper);
+    }
+
+    @GameTest
+    public void newToolOptionsChangeWhatTheToolsDo(GameTestHelper helper) {
+        ConfigOptionTests.newToolOptionsChangeWhatTheToolsDo(helper);
+    }
+
+    @GameTest
+    public void newPadOptionsChangeWhatThePadsDo(GameTestHelper helper) {
+        ConfigOptionTests.newPadOptionsChangeWhatThePadsDo(helper);
+    }
+
+    @GameTest
+    public void newTweakOptionsChangeWhatTheTweaksDo(GameTestHelper helper) {
+        ConfigOptionTests.newTweakOptionsChangeWhatTheTweaksDo(helper);
+    }
+
+    @GameTest
+    public void coreLootChanceFollowsItsMultiplier(GameTestHelper helper) {
+        ConfigOptionTests.coreLootChanceFollowsItsMultiplier(helper);
+    }
+
+    @GameTest
+    public void theAirJumpCooldownTravelsFromServerToClient(GameTestHelper helper) {
+        ConfigOptionTests.theAirJumpCooldownTravelsFromServerToClient(helper);
+    }
 }

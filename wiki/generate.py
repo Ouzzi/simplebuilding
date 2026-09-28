@@ -981,29 +981,116 @@ def collect_tags(roots: dict) -> list[dict]:
 # ---------------------------------------------------------------------------
 
 CONFIG_FIELD = re.compile(
-    r"public\s+(?:static\s+)?(boolean|int|double|float|String)\s+(\w+)\s*=\s*([^;]+);"
+    r"public\s+(?:static\s+)?(?:final\s+)?([\w.]+)\s+(\w+)\s*=\s*([^;]+);"
 )
+CONFIG_CLASS = re.compile(r"public\s+(?:static\s+)?class\s+(\w+)")
+CONFIG_CATEGORY = re.compile(r'@ConfigEntry\.Category\("(\w+)"\)')
+VALUE_TYPES = {"boolean", "int", "long", "double", "float", "String"}
+
+
+def parse_config_classes(path: Path) -> dict:
+    """
+    class name -> list of fields (type, name, default, annotations, trailing note)
+    for one config source file. Nested static classes are tracked by brace depth;
+    annotations are the @... lines directly above a field.
+    """
+    classes: dict[str, list[dict]] = {}
+    stack: list[tuple[str, int]] = []
+    depth = 0
+    pending: list[str] = []
+    in_block_comment = False
+    for raw in path.read_text(encoding="utf-8").splitlines():
+        line = raw.strip()
+        if in_block_comment:
+            if "*/" in line:
+                in_block_comment = False
+            continue
+        if line.startswith("/*"):
+            in_block_comment = "*/" not in line
+            continue
+        if line.startswith("//") or not line:
+            continue
+        code = line.split("//", 1)[0]
+        note = line.split("//", 1)[1].strip() if "//" in line else None
+        cls = CONFIG_CLASS.search(code)
+        if cls:
+            classes.setdefault(cls.group(1), [])
+            stack.append((cls.group(1), depth))
+            pending = []
+        elif code.startswith("@"):
+            pending.append(code)
+        else:
+            field = CONFIG_FIELD.search(code)
+            # Only direct members of the innermost class (depth = class depth + 1).
+            if field and stack and depth == stack[-1][1] + 1:
+                classes[stack[-1][0]].append({
+                    "type": field.group(1),
+                    "name": field.group(2),
+                    "default": field.group(3).strip(),
+                    "annotations": pending,
+                    "static": " static " in f" {code} ",
+                    "note": note,
+                })
+            pending = []
+        depth += code.count("{") - code.count("}")
+        while stack and depth <= stack[-1][1]:
+            stack.pop()
+    return classes
 
 
 def collect_config(roots: dict, lang: dict) -> list[dict]:
+    """
+    Every option as its dotted path (tools.wandHungerMultiplier,
+    tweaks.pads.enableFlypads) - the same walk ConfigOptions does in the mod, so
+    the wiki lists exactly what the config screen and /simplebuilding config know.
+    Groups are fields whose type is a config class; @Excluded and static fields
+    are left out. The tab (category) comes from @ConfigEntry.Category on the
+    top-level field; names and tooltips come from the lang files.
+    """
     path = REPO / roots["config"]
     if not path.exists():
         return []
-    text = path.read_text(encoding="utf-8")
-    out = []
-    for match in CONFIG_FIELD.finditer(text):
-        kind, name, default = match.group(1), match.group(2), match.group(3).strip()
-        # A trailing // comment on the same line is the author's own note.
-        line_end = text.find("\n", match.end())
-        trailing = text[match.end():line_end] if line_end != -1 else ""
-        note = trailing.split("//", 1)[1].strip() if "//" in trailing else None
-        out.append({
-            "name": name,
-            "type": kind,
-            "default": default,
-            "note": note,
-            "tooltip": display_name(lang, f"text.autoconfig.{NS}.option.{name}", "").get("en_us"),
-        })
+    classes = parse_config_classes(path)
+    tweaks_path = path.parents[1] / "tweaks" / "TweaksConfig.java"
+    if tweaks_path.exists():
+        classes.update(parse_config_classes(tweaks_path))
+    en = lang.get("en_us", {})
+    de = lang.get("de_de", {})
+    prefix = f"text.autoconfig.{NS}."
+    out: list[dict] = []
+
+    def walk(class_name: str, path_prefix: str, category: str | None, group: str | None):
+        for field in classes.get(class_name, []):
+            annotations = " ".join(field["annotations"])
+            if field["static"] or "Gui.Excluded" in annotations:
+                continue
+            match = CONFIG_CATEGORY.search(annotations)
+            tab = match.group(1) if match else category
+            name = path_prefix + field["name"]
+            type_name = field["type"].split(".")[-1]
+            if type_name in classes and type_name not in VALUE_TYPES:
+                walk(type_name, name + ".", tab, name)
+                continue
+            if type_name not in VALUE_TYPES:
+                continue
+            key = f"{prefix}option.{name}"
+            out.append({
+                "name": name,
+                "shortName": field["name"],
+                "type": type_name,
+                "default": field["default"],
+                "note": field["note"],
+                "category": en.get(f"{prefix}category.{tab}") if tab else None,
+                "categoryDe": de.get(f"{prefix}category.{tab}") if tab else None,
+                "group": en.get(f"{prefix}option.{group}") if group else None,
+                "groupDe": de.get(f"{prefix}option.{group}") if group else None,
+                "label": en.get(key),
+                "labelDe": de.get(key),
+                "tooltip": en.get(key + ".@Tooltip"),
+                "tooltipDe": de.get(key + ".@Tooltip"),
+            })
+
+    walk("SimplebuildingConfig", "", None, None)
     return out
 
 

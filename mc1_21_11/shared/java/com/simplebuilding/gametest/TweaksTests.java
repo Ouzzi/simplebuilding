@@ -1068,7 +1068,13 @@ public final class TweaksTests {
         Set<String> expected = new TreeSet<>(List.of(
                 "pads.enableChunkLoaders=true", "pads.enableElytraPads=true", "pads.enableFlypads=true",
                 "pads.enableSpawnTeleporters=true", "pads.enableLaunchpads=true", "pads.enableTimedCopperPlates=true",
-                "pads.enableFilterPlates=true", "balancing.rocketStackSize=64", "dimensions.allowNether=true",
+                "pads.enableFilterPlates=true", "pads.enablePotionPads=true",
+                "padTuning.teleporterWarmupTicks=100", "padTuning.enderiteTeleporterWarmupTicks=60",
+                "padTuning.launchpadStrengthMultiplier=1.0", "padTuning.potionPadChargeStepTicks=20",
+                "padTuning.potionPadCooldownFactor=2.0", "balancing.echoSounderCooldownTicks=120",
+                "commands.killCommandRadius=100", "optimization.xpClumpRadius=2.0",
+                "laserPointer.beamCostPerSecond=1", "laserPointer.effectCost=5",
+                "balancing.rocketStackSize=64", "dimensions.allowNether=true",
                 "dimensions.allowEnd=true", "spawn.forceExactSpawn=false", "spawn.disableFallDamageInSpawn=true",
                 "spawn.useCustomWorldSpawn=false", "spawn.xCoordSpawnPoint=0", "spawn.yCoordSpawnPoint=-1",
                 "spawn.zCoordSpawnPoint=0", "spawn.firstJoinTeleporterCount=0", "spawn.firstJoinElytraPadCount=0",
@@ -1362,7 +1368,7 @@ public final class TweaksTests {
             helper.assertValueEqual(sent.get(1).rocketStackSize(), 16, "rocket stack size sent after the command");
             helper.assertValueEqual(sent.get(1).maxBoosts(), SimpleTweaks.config().spawn.boostCount(), "boosts sent after the command");
 
-            SimpleTweaks.setServerValues(new SimpleTweaks.ServerValues(3, 1, false, 1));
+            SimpleTweaks.setServerValues(new SimpleTweaks.ServerValues(3, 1, false, 1, 100));
             helper.assertValueEqual(new ItemStack(Items.FIREWORK_ROCKET).getMaxStackSize(), 16, "server-side rocket stack size while client values are stored");
         } catch (com.mojang.brigadier.exceptions.CommandSyntaxException e) {
             helper.fail("tweaks command failed: " + e.getMessage());

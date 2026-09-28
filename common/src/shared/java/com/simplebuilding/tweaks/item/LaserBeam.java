@@ -236,7 +236,7 @@ public final class LaserBeam {
             return null;
         }
         com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.LENS_BEAM);
-        LaserPointerItem.drain(player, stack, LaserPointerItem.EFFECT_COST);
+        LaserPointerItem.drain(player, stack, LaserPointerItem.effectCost());
         return effect;
     }
 
@@ -273,7 +273,7 @@ public final class LaserBeam {
         target.igniteForSeconds(ENTITY_BURN_SECONDS);
         level.sendParticles(ParticleTypes.FLAME, at.x, at.y, at.z, 6, 0.15, 0.2, 0.15, 0.01);
         level.playSound(null, at.x, at.y, at.z, SoundEvents.FLINTANDSTEEL_USE, SoundSource.PLAYERS, 0.8f, level.getRandom().nextFloat() * 0.4f + 0.8f);
-        LaserPointerItem.drain(player, stack, LaserPointerItem.EFFECT_COST);
+        LaserPointerItem.drain(player, stack, LaserPointerItem.effectCost());
         return true;
     }
 
