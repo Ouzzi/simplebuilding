@@ -99,6 +99,19 @@
         "max": 2,
         "min": 0
       }
+    },
+    {
+      "condition": {
+        "type": "simplebuilding:core_chance",
+        "chance": 0.005
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:iron_core"
+        }
+      ],
+      "rolls": 1
     }
   ]
 }

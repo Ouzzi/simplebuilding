@@ -17,7 +17,7 @@
     {
       "conditions": [
         {
-          "chance": 0.0025,
+          "chance": 0.00175,
           "condition": "simplebuilding:core_chance"
         }
       ],
@@ -202,6 +202,21 @@
           ],
           "name": "minecraft:enchanted_book",
           "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "components": {
+                "minecraft:stored_enchantments": {
+                  "simplebuilding:bridge": 1
+                }
+              },
+              "function": "minecraft:set_components"
+            }
+          ],
+          "name": "minecraft:enchanted_book",
+          "weight": 4
         },
         {
           "type": "minecraft:item",

@@ -82,7 +82,7 @@
     {
       "conditions": [
         {
-          "chance": 0.006,
+          "chance": 0.0125,
           "condition": "simplebuilding:core_chance"
         }
       ],

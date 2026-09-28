@@ -104,7 +104,7 @@
     {
       "condition": {
         "type": "simplebuilding:core_chance",
-        "chance": 0.008
+        "chance": 0.0105
       },
       "entries": [
         {

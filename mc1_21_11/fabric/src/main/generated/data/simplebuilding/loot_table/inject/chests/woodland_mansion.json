@@ -80,6 +80,21 @@
         },
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "components": {
+                "minecraft:stored_enchantments": {
+                  "simplebuilding:drawer": 1
+                }
+              },
+              "function": "minecraft:set_components"
+            }
+          ],
+          "name": "minecraft:enchanted_book",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
           "name": "simplebuilding:iron_building_wand",
           "weight": 4
         },
@@ -103,7 +118,7 @@
       "bonus_rolls": 0.0,
       "conditions": [
         {
-          "chance": 0.008,
+          "chance": 0.015,
           "condition": "simplebuilding:core_chance"
         }
       ],

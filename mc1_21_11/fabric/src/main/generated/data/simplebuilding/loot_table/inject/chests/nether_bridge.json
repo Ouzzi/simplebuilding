@@ -121,7 +121,7 @@
       "bonus_rolls": 0.0,
       "conditions": [
         {
-          "chance": 0.008,
+          "chance": 0.0165,
           "condition": "simplebuilding:core_chance"
         }
       ],
