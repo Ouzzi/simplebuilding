@@ -1,5 +1,5 @@
 {
-  "parent": "simplebuilding:pads/under_pressure",
+  "parent": "simplebuilding:tweaks/root",
   "criteria": {
     "blaze_head": {
       "conditions": {

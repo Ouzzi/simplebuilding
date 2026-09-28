@@ -1,0 +1,44 @@
+{
+  "criteria": {
+    "gadget": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:copper_pressure_plate",
+              "simplebuilding:diamond_pressure_plate",
+              "simplebuilding:magnet",
+              "simplebuilding:ore_detector",
+              "simplebuilding:velocity-gauge",
+              "simplebuilding:laser_pointer",
+              "simplebuilding:netherite_apple",
+              "simplebuilding:netherite_carrot",
+              "simplebuilding:blaze_head"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:block/copper_block",
+    "description": {
+      "translate": "advancements.simplebuilding.tweaks.root.description"
+    },
+    "icon": {
+      "id": "simplebuilding:netherite_launchpad"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.simplebuilding.tweaks.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "gadget"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

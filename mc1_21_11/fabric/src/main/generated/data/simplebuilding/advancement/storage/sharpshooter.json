@@ -1,0 +1,36 @@
+{
+  "parent": "simplebuilding:storage/quiver_in_fear",
+  "criteria": {
+    "netherite_quiver": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:netherite_quiver",
+              "simplebuilding:enderite_quiver"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.storage.sharpshooter.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:netherite_quiver"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.storage.sharpshooter.title"
+    }
+  },
+  "requirements": [
+    [
+      "netherite_quiver"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

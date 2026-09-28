@@ -1,0 +1,37 @@
+{
+  "parent": "simplebuilding:tiers/diamond_standard",
+  "criteria": {
+    "netherite_tool": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:netherite_chisel",
+              "simplebuilding:netherite_sledgehammer",
+              "simplebuilding:netherite_building_wand"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.tiers.nether_forged.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "simplebuilding:netherite_chisel"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.tiers.nether_forged.title"
+    }
+  },
+  "requirements": [
+    [
+      "netherite_tool"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

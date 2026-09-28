@@ -137,6 +137,11 @@ public final class DataIntegrityGameTest {
     }
 
     @GameTest
+    public void everyItemHasAnItemDefinitionWhoseModelsAndTexturesExist(GameTestHelper helper) {
+        DataIntegrityTests.everyItemHasAnItemDefinitionWhoseModelsAndTexturesExist(helper);
+    }
+
+    @GameTest
     public void everyVanillaEnchantmentHasItsOwnBookModel(GameTestHelper helper) {
         DataIntegrityTests.everyVanillaEnchantmentHasItsOwnBookModel(helper);
     }

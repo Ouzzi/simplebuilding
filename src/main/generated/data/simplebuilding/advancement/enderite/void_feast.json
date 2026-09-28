@@ -1,0 +1,35 @@
+{
+  "parent": "simplebuilding:enderite/pocket_change",
+  "criteria": {
+    "enderite_food": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:enderite_apple",
+              "simplebuilding:enderite_carrot"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.enderite.void_feast.description"
+    },
+    "icon": {
+      "id": "simplebuilding:enderite_apple"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.enderite.void_feast.title"
+    }
+  },
+  "requirements": [
+    [
+      "enderite_food"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

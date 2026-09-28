@@ -5,13 +5,12 @@ stellar_flypad.png - seit den Enderit-Flypads unbenutzt und dafuer aufgehoben) i
 wiederverwenden. Die grauen Steinpixel gehen nach ihrer Helligkeit auf die Netherit-Rampe der anderen
 Netherit-Pads (NETHERITE_TWEAK_PAL), die blauen Adern auf eine Glut-Rampe je Stufe (I Lohen-Orange,
 II Enderit-Violett, III Gold wie das stellare Flypad), die hellen Funkelsterne des stellaren Bildes
-bleiben hell. In der Mitte steht eine kleine Trankflasche (Korken, Glas, Fluessigkeit in der
-Stufenfarbe); die Farbe des gespeicherten Tranks zeigen im Spiel die Partikel.
+bleiben hell. Kein Trank-Symbol auf dem Pad (Besitzer 2026-09-28: nur das Pad zeigen; frueher stand
+eine kleine Trankflasche in der Mitte); die Farbe des gespeicherten Tranks zeigen im Spiel die Partikel.
 
 Abklingzeit (Besitzer 2026-09-28): je Stufe ein Animationsstreifen <id>_cooling.png (COOLING_FRAMES
 Bilder, .mcmeta ueber POTION_PAD_ANIMATIONS): die Adern verlieren ihre Glut und pulsieren langsam zwischen
-erkaltet und halb gluehend, die Flasche steht leer (dunkles Glas mit Glanzpunkt) und fuellt sich
-Bild fuer Bild von unten wieder - das Pad laedt nach. Kontur und Korken der Flasche bleiben unveraendert.
+erkaltet und halb gluehend - das Pad laedt nach.
 
 Lohenkopf: neue Pixelkunst im Mob-Kopf-Raster (64x32, Kopfwuerfel 8x8x8 bei UV 0,0 wie Vanillas
 Creeper-/Skelettkopf): Glutgesicht von Weissgelb oben nach Rostbraun unten, zwei Augenpaare wie die
@@ -38,42 +37,23 @@ def _hex(h):
 NETHERITE_RAMP = [_hex(c) for c in ("#161213", "#2c2627", "#3b3536", "#433d3f", "#4a4547", "#524d50",
                                     "#5a565a", "#625e62", "#7a7579", "#8e898d")]
 
-# Stufen: Quelle (altes Flypad), Adern-Rampe dunkel -> hell, Flaschen-Fluessigkeit (L Grund, l Glanz, d Schatten)
+# Stufen: Quelle (altes Flypad), Adern-Rampe dunkel -> hell
 STAR = "#f7e2a0"  # Funkelsterne des stellaren Bildes: warmes Weissgold
 
 TIERS = {
     "potion_pad": {
         "source": "flypad.png",
         "veins": ["#2e1a14", "#44231a", "#5e2e1c", "#7a3c20", "#9a4c24"],
-        "liquid": {"L": "#f0761c", "l": "#ffd35a", "d": "#b3470f"},
     },
     "reinforced_potion_pad": {
         "source": "reinforced_flypad.png",
         "veins": ["#241a30", "#31213f", "#402a55", "#53366e", "#6a4690"],
-        "liquid": {"L": "#a454e0", "l": "#e2b8ff", "d": "#6a2fa3"},
     },
     "infused_potion_pad": {
         "source": "stellar_flypad.png",
         "veins": ["#2e2618", "#43361e", "#5c4a24", "#7a632c", "#9c8036"],
-        "liquid": {"L": "#f2b53a", "l": "#fff3b0", "d": "#b57c1c"},
     },
 }
-
-# Trankflasche, 6x8, Spalten 5..10, Zeilen 4..11 ('.' = Pad bleibt sichtbar). c/C Korken, g/G Glas
-# (Schatten/Licht), L/l/d Fluessigkeit. Die Ecken der Schulter bleiben frei (keine dunkle Eckfuellung).
-FLASK_AT = (5, 4)
-FLASK = [
-    "..Cc..",
-    "..Gg..",
-    ".GlLg.",
-    "GlLLLg",
-    "GLLLLg",
-    "GLLLdg",
-    "gLLddg",
-    ".gggg.",
-]
-FLASK_PAL = {"C": "#a8744a", "c": "#6e4526", "G": "#d9e3ee", "g": "#8f9db3"}
-
 
 def _luma(p):
     return 0.299 * p[0] + 0.587 * p[1] + 0.114 * p[2]
@@ -107,25 +87,10 @@ def _recolour(src, veins):
     return out
 
 
-def _flask(img, liquid):
-    pal = dict(FLASK_PAL)
-    pal.update(liquid)
-    ox, oy = FLASK_AT
-    for dy, row in enumerate(FLASK):
-        for dx, ch in enumerate(row):
-            if ch != ".":
-                img.putpixel((ox + dx, oy + dy), _hex(pal[ch]))
-    return img
-
-
 # ---------------------------------------------------------------------------------------------
 # Abklingzeit: animierter Streifen je Stufe
 # ---------------------------------------------------------------------------------------------
 COOLING_FRAMES = 12
-# Leeres Glas: dunkles Inneres (das Pad scheint durch), ein Glanzpunkt, wo sonst der Fluessigkeitsglanz sitzt
-EMPTY_GLASS = {"e": "#3b4150", "s": "#8e9bb0"}
-# Fluessigkeitszeilen der Flasche (Zeilen in FLASK), unten zuerst: Fuellstand n fuellt die untersten n
-LIQUID_ROWS = [6, 5, 4, 3, 2]
 POTION_PAD_ANIMATIONS = {f"block/{name}_cooling.png": {"frametime": 8, "interpolate": False} for name in TIERS}
 
 
@@ -139,34 +104,12 @@ def _cooled_veins(veins, glow):
     return [_blend(_blend(_hex(c), cold, 0.62), _hex(c), 0.5 * glow) for c in veins]
 
 
-def _flask_level(img, liquid, level):
-    """Flasche mit Fuellstand 0..5 (Zeilen von unten), gefuellte Zeilen schattiert wie die volle Flasche."""
-    pal = dict(FLASK_PAL)
-    pal.update(liquid)
-    ox, oy = FLASK_AT
-    filled = set(LIQUID_ROWS[:level])
-    for dy, row in enumerate(FLASK):
-        for dx, ch in enumerate(row):
-            if ch == ".":
-                continue
-            if ch in "Lld":
-                if dy in filled:
-                    colour = pal[ch]
-                else:
-                    colour = EMPTY_GLASS["s"] if ch == "l" else EMPTY_GLASS["e"]
-            else:
-                colour = pal[ch]
-            img.putpixel((ox + dx, oy + dy), _hex(colour))
-    return img
-
-
 def cooling_strip(src, tier):
-    """COOLING_FRAMES Bilder untereinander: Adern pulsieren, die Flasche fuellt sich von leer bis voll."""
+    """COOLING_FRAMES Bilder untereinander: die erkalteten Adern pulsieren langsam."""
     strip = Image.new("RGBA", (16, 16 * COOLING_FRAMES))
     for i in range(COOLING_FRAMES):
         glow = 0.5 - 0.5 * math.cos(2 * math.pi * i / COOLING_FRAMES)
-        level = i * (len(LIQUID_ROWS) + 1) // COOLING_FRAMES
-        frame = _flask_level(_recolour(src, _cooled_veins(tier["veins"], glow)), tier["liquid"], level)
+        frame = _recolour(src, _cooled_veins(tier["veins"], glow))
         strip.paste(frame, (0, 16 * i))
     return strip
 
@@ -175,7 +118,7 @@ def potion_pad_textures():
     tex = {}
     for name, tier in TIERS.items():
         src = Image.open(os.path.join(OLD_FLYPADS, tier["source"])).convert("RGBA")
-        tex[f"block/{name}.png"] = _flask(_recolour(src, tier["veins"]), tier["liquid"])
+        tex[f"block/{name}.png"] = _recolour(src, tier["veins"])
         tex[f"block/{name}_cooling.png"] = cooling_strip(src, tier)
     tex["entity/blaze_head.png"] = blaze_head_texture()
     tex["entity/enderman_head.png"] = enderman_head_texture()

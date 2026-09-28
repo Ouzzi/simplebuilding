@@ -25,7 +25,7 @@ Verzauberung hebt die angezeigte Seltenheit (COMMON/UNCOMMON -> RARE, RARE -> EP
 
 | Familie | Regel | Beispiele |
 |---|---|---|
-| **Werkstoffe und Bauklötze** | COMMON auf jeder Stufe, wie Netheritbarren | Enderitbarren, -platten, -klumpen, Block aus Enderit, Rohenderit, Netheritklumpen, Rissiger Diamant, Astralit-/Nihilith-/Enderquarz-Paletten, Baustellenlicht |
+| **Werkstoffe und Bauklötze** | COMMON auf jeder Stufe, wie Netheritbarren | Enderitbarren, -platten, -klumpen, Block aus Enderit, Rohenderit, Netheritklumpen, Rissiger Diamant, Astralit-/Nihilit-/Enderquarz-Paletten, Baustellenlicht |
 | **Ausrüstung** (Werkzeuge, Waffen, Rüstung, Meißel, Spachtel, Vorschlaghämmer, Baustäbe) | COMMON auf jeder Stufe, wie Vanillas Netheritschwert | Enderitschwert, Enderit-Vorschlaghammer, Netheritmeißel |
 | **Stufenfamilien** (Bündel, Köcher, Rucksäcke, Trichter, Öfen, Räucheröfen, Schmelzöfen, Kolben, Kerne, Druckplatten, Pads, Stufen-Nahrung) | Grund-/Verstärkt-/Kupfer-/Eisen-/Gold-/Diamant-Stufe COMMON, **Netherit UNCOMMON** (wie die Netherit-Aufwertung), **Enderit EPIC** | Netherittrichter UNCOMMON, Enderitofen EPIC, Netheritkern UNCOMMON, Enderitapfel EPIC |
 | Pads | nach dem Material, mit dem die Stufe gebaut wird: Netherit-Druckplatte -> UNCOMMON, Enderit-Platte/-Kern -> EPIC | Spawn-Teleporter II-IV und Trank-Pad I UNCOMMON; Flugpads I-III, Feines Elytra-Pad V, Trank-Pad II/III, Spawn-Teleporter V EPIC |
@@ -57,7 +57,7 @@ Enderit-Schmiedevorlage (Diamanten + Endstein; brennt wie Vanillas Netherit-Aufw
 - **Deutsch**: Vanilla-Gegenstücke heißen wie Vanillas Netherit-Stück mit getauschtem Werkstoff
   (Enderitharnisch, Enderitbeinschutz, Enderitspeer, Enderitplatten, Enderitklumpen, Rohenderit,
   Enderitblock). Sonst: Werkstoff und einfaches Nomen zusammen (Netheritmeißel, Enderitkern, Netherittrichter,
-  Enderitofen, Netheritkolben, Netheritbündel, Enderitköcher, Netheritapfel, Astralitziegel, Nihilitherz),
+  Enderitofen, Netheritkolben, Netheritbündel, Enderitköcher, Netheritapfel, Astralitziegel, Nihiliterz),
   Bindestrich vor zusammengesetzten oder fremden Nomen (Netherit-Vorschlaghammer, Kupfer-Baustab,
   Enderit-Schmelzofen, Netherit-Räucherofen, Diamant-Druckplatte, Netherit-Rucksack, Enderit-Schmiedevorlage,
   Enderit-Elytra-Pad, Netherit-Chunk-Lader). Innerhalb einer Familie auf allen Stufen gleich. Kein Englisch
@@ -76,5 +76,5 @@ COMMON -> EPIC. Feuerfest neu: Netheritklumpen, Spawn-Teleporter II-IV, Flugpad 
 Namen: siehe Commit; en u. a. "Block of Enderite", "Block of Cracked Diamond", "... Smithing Template" für alle
 vier Vorlagen, "Netherite/Enderite Flypad (Legacy)"; de u. a. Klumpen statt Nugget, Enderitharnisch,
 Enderitbeinschutz, Enderitspeer, Enderitplatten, Rohenderit, Netherit-/Enderitbündel, -köcher, -apfel,
--karotte zusammengeschrieben, Basis-/Enderit-Schmiedevorlage, Astralit-/Nihilith-Paletten zusammengeschrieben,
+-karotte zusammengeschrieben, Basis-/Enderit-Schmiedevorlage, Astralit-/Nihilit-Paletten zusammengeschrieben,
 "Netherit-/Enderit-Flugpad (alt)".

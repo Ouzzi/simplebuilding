@@ -1,0 +1,33 @@
+{
+  "parent": "simplebuilding:building/root",
+  "criteria": {
+    "construction_light": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:construction_light"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.building.let_there_be_light.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:construction_light"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.building.let_there_be_light.title"
+    }
+  },
+  "requirements": [
+    [
+      "construction_light"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

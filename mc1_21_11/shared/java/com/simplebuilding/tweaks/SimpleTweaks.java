@@ -65,9 +65,13 @@ public final class SimpleTweaks {
     /**
      * Was der Client vom Server wissen muss (Audit 2026-09-26 #16): Raketen-Stapelgroesse (sonst
      * Stapel-Desync und Geister-Items), Boosts je Ladung (HUD), Laser an/aus und Reichweite (der
-     * Server prueft beides). Der Server schickt sie beim Einloggen und nach jedem Tweaks-Befehl.
+     * Server prueft beides), seit dem Config-Umbau 2026-09-28 auch die Luftsprung-Abklingzeit
+     * ({@code airJumpCooldownTicks}: der Server-Waechter {@code AirJumpGuard} lehnte sonst Spruenge
+     * ab, die ein Client mit kuerzerer eigener Abklingzeit schon zeigte). Der Server schickt sie beim
+     * Einloggen, nach jedem Tweaks-Befehl und nach {@code /simplebuilding config set}.
      */
-    public record ServerValues(int rocketStackSize, int maxBoosts, boolean laserEnabled, int laserRange) {
+    public record ServerValues(int rocketStackSize, int maxBoosts, boolean laserEnabled, int laserRange,
+                               int airJumpCooldownTicks) {
     }
 
     /** Zuletzt vom Server gemeldet; null = nicht verbunden oder Server ohne diese Mod. */
@@ -76,8 +80,10 @@ public final class SimpleTweaks {
     /** Die Werte aus der eigenen Config (Server-Seite; Inhalt des Sync-Pakets). */
     public static ServerValues localValues() {
         TweaksConfig config = config();
+        SimplebuildingConfig root = Simplebuilding.getConfig();
         return new ServerValues(config.balancing.rocketStackSize, config.spawn.boostCount(),
-                config.laserPointer.enable, config.laserPointer.range);
+                config.laserPointer.enable, config.laserPointer.range,
+                root == null ? 100 : Math.max(0, root.airJumpCooldownTicks));
     }
 
     /** Vom Client beim Empfang gesetzt, beim Trennen geloescht. */

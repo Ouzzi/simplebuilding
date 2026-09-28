@@ -208,6 +208,11 @@ public final class TweaksCommands {
         spawn.spawn1Z = pos.getZ();
     }
 
+    /** Reichweite von /killboats und /killcarts: Config {@code tweaks.commands.killCommandRadius} (Standard {@link #KILL_RADIUS}). */
+    public static double killRadius() {
+        return Math.max(1, SimpleTweaks.config().commands.killCommandRadius);
+    }
+
     private static int executeKill(CommandContext<CommandSourceStack> ctx, String mode, boolean boats) {
         TweaksConfig.Commands config = SimpleTweaks.config().commands;
         if (boats ? !config.enableKillBoatsCommand : !config.enableKillCartsCommand) {
@@ -222,7 +227,7 @@ public final class TweaksCommands {
             ctx.getSource().sendFailure(Component.translatable("commands.simplebuilding.tweaks.invalid_mode", mode));
             return 0;
         }
-        AABB box = player.getBoundingBox().inflate(KILL_RADIUS);
+        AABB box = player.getBoundingBox().inflate(killRadius());
         int count = boats ? killBoats(player.level(), box, mode) : killCarts(player.level(), box, mode);
         String key = boats ? "commands.simplebuilding.killboats.success" : "commands.simplebuilding.killcarts.success";
         ctx.getSource().sendSuccess(() -> Component.translatable(key, count, mode), true);

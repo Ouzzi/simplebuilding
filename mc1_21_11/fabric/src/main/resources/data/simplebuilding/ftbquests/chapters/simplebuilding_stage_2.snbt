@@ -1,0 +1,176 @@
+{
+	id: "26B6E0ED9AD2C2CA",
+	group: "0FF8ACD95EC2930E",
+	order_index: 1,
+	filename: "simplebuilding_stage_2",
+	icon: {
+		id: "simplebuilding:iron_sledgehammer"
+	},
+	default_quest_shape: "",
+	default_hide_dependency_lines: false,
+	progression_mode: "flexible",
+	quests: [
+		{
+			id: "453660E4D74E236A",
+			x: 0.0d,
+			y: -0.75d,
+			dependencies: ["00CDA54453F00B28"],
+			tasks: [
+				{
+					id: "1112B89360085E01",
+					type: "advancement",
+					advancement: "simplebuilding:tiers/ironclad",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "041CAE072668FB38",
+			x: 0.0d,
+			y: 0.75d,
+			optional: true,
+			dependencies: ["00CDA54453F00B28"],
+			tasks: [
+				{
+					id: "14E940CD83B69FF8",
+					type: "advancement",
+					advancement: "simplebuilding:tiers/step_by_step",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "27AB28073CA0EA1A",
+			x: 2.0d,
+			y: -0.75d,
+			optional: true,
+			dependencies: ["453660E4D74E236A"],
+			tasks: [
+				{
+					id: "69874E9A2C092BED",
+					type: "advancement",
+					advancement: "simplebuilding:tiers/golden_touch",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "6677913661F1DAD0",
+			x: 2.0d,
+			y: 0.75d,
+			dependencies: ["453660E4D74E236A"],
+			tasks: [
+				{
+					id: "227DFD9052FFA859",
+					type: "advancement",
+					advancement: "minecraft:story/mine_diamond",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "051BADADCABBF46F",
+			x: 4.0d,
+			y: -1.5d,
+			dependencies: ["6677913661F1DAD0"],
+			tasks: [
+				{
+					id: "778AAEE503DF5AAB",
+					type: "item",
+					item: {
+						id: "minecraft:diamond_block",
+						count: 1
+					}
+				}
+			]
+		},
+		{
+			id: "5022B021DD5E0964",
+			x: 6.0d,
+			y: 0.0d,
+			dependencies: ["051BADADCABBF46F"],
+			tasks: [
+				{
+					id: "0082B91725D2D81B",
+					type: "advancement",
+					advancement: "simplebuilding:hammer/pebble_dash",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "3019B51AE69CAFDB",
+			x: 8.0d,
+			y: 0.0d,
+			dependencies: ["5022B021DD5E0964"],
+			tasks: [
+				{
+					id: "1C880372F0CAAAB1",
+					type: "advancement",
+					advancement: "simplebuilding:hammer/cracked_up",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "4C3B613301694BB7",
+			x: 10.0d,
+			y: 0.0d,
+			dependencies: ["3019B51AE69CAFDB"],
+			tasks: [
+				{
+					id: "6B502D6858B25CC1",
+					type: "advancement",
+					advancement: "simplebuilding:machines/reinforcements",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "1A8ECA7911F26489",
+			x: 4.0d,
+			y: 0.0d,
+			dependencies: ["6677913661F1DAD0"],
+			tasks: [
+				{
+					id: "617DD620254989C7",
+					type: "advancement",
+					advancement: "simplebuilding:tiers/diamond_standard",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "5C496A9F8FDB2481",
+			x: 4.0d,
+			y: 1.5d,
+			dependencies: ["6677913661F1DAD0"],
+			tasks: [
+				{
+					id: "4FC3E1225431FEED",
+					type: "advancement",
+					advancement: "minecraft:story/enchant_item",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "44EAC11C2B788D27",
+			x: 12.0d,
+			y: 0.0d,
+			shape: "gear",
+			size: 1.5d,
+			dependencies: ["453660E4D74E236A", "6677913661F1DAD0", "051BADADCABBF46F", "5022B021DD5E0964", "3019B51AE69CAFDB", "4C3B613301694BB7", "1A8ECA7911F26489", "5C496A9F8FDB2481"],
+			tasks: [
+				{
+					id: "053E46E511F33DF3",
+					type: "advancement",
+					advancement: "minecraft:story/enter_the_nether",
+					criterion: ""
+				}
+			]
+		}
+	],
+	quest_links: [ ],
+	images: [ ]
+}

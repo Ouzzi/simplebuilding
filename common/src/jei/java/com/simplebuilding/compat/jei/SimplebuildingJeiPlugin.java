@@ -1,6 +1,7 @@
 package com.simplebuilding.compat.jei;
 
 import com.simplebuilding.compat.InWorldRecipeCatalog;
+import com.simplebuilding.compat.MobDropCatalog;
 import com.simplebuilding.compat.RecipelessJeiInfo;
 import com.simplebuilding.recipe.CountBasedSmithingRecipe;
 import mezz.jei.api.IModPlugin;
@@ -24,7 +25,8 @@ import org.slf4j.LoggerFactory;
 /**
  * JEI support: one category per in-world transformation (machine upgrade, reshaping, diamond block,
  * chisel, shears on wool, trim template in an item frame, washing an octant in a cauldron) and the
- * count-based smithing recipes in JEI's smithing category.
+ * count-based smithing recipes in JEI's smithing category, plus "Mob drops" ({@link MobDropCatalog}:
+ * heads from a charged creeper's explosion, music discs from a creeper a skeleton killed).
  *
  * <p><b>Only loaded by JEI.</b> NeoForge finds this class through the {@link JeiPlugin} annotation,
  * Fabric through the {@code jei_mod_plugin} entrypoint in {@code fabric.mod.json}; nothing in the mod
@@ -63,6 +65,7 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
         for (InWorldRecipeCatalog.Kind kind : InWorldRecipeCatalog.Kind.values()) {
             registration.addRecipeCategories(new InWorldCategory(kind, gui, catalog().of(kind)));
         }
+        registration.addRecipeCategories(new MobDropCategory(gui));
     }
 
     @Override
@@ -75,6 +78,7 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
         for (InWorldRecipeCatalog.Kind kind : InWorldRecipeCatalog.Kind.values()) {
             registration.addRecipes(InWorldCategory.recipeType(kind), catalog().of(kind));
         }
+        registration.addRecipes(MobDropCategory.TYPE, MobDropCatalog.drops());
         // Infoseiten der aus Simple Tweaks uebernommenen Pads, Platten und Werkzeuge.
         for (Map.Entry<String, List<ItemLike>> family : TweaksJeiInfo.families().entrySet()) {
             List<ItemStack> stacks = family.getValue().stream().map(ItemStack::new).toList();
@@ -89,6 +93,7 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+        registration.addCraftingStation(MobDropCategory.TYPE, net.minecraft.world.item.Items.CREEPER_SPAWN_EGG);
         for (InWorldRecipeCatalog.Kind kind : InWorldRecipeCatalog.Kind.values()) {
             for (Item tool : catalog().toolsOf(kind)) {
                 registration.addCraftingStation(InWorldCategory.recipeType(kind), tool);

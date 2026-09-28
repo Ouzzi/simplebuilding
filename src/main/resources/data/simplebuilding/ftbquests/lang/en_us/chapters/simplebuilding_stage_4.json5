@@ -1,0 +1,76 @@
+{
+	"chapter.137A2A3D23FB765D.title": "{\"translate\": \"quests.simplebuilding.stage_4.title\"}",
+	"chapter.137A2A3D23FB765D.chapter_subtitle": [
+		"{\"translate\": \"quests.simplebuilding.stage_4.subtitle\"}"
+	],
+	"quest.4D103E60B03143AF.title": "{\"translate\": \"advancements.story.enter_the_end.title\"}",
+	"quest.4D103E60B03143AF.quest_desc": [
+		"{\"translate\": \"advancements.story.enter_the_end.description\"}"
+	],
+	"quest.2FE4294EEC658713.title": "{\"translate\": \"advancements.end.kill_dragon.title\"}",
+	"quest.2FE4294EEC658713.quest_desc": [
+		"{\"translate\": \"advancements.end.kill_dragon.description\"}"
+	],
+	"quest.3DC43D0D51E65180.title": "{\"translate\": \"advancements.end.find_end_city.title\"}",
+	"quest.3DC43D0D51E65180.quest_desc": [
+		"{\"translate\": \"advancements.end.find_end_city.description\"}"
+	],
+	"quest.39A85867A3583889.title": "{\"translate\": \"advancements.simplebuilding.end.stardust.title\"}",
+	"quest.39A85867A3583889.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.end.stardust.description\"}"
+	],
+	"quest.54041D5DCDB2D5FF.title": "{\"translate\": \"advancements.simplebuilding.end.quartz_fusion.title\"}",
+	"quest.54041D5DCDB2D5FF.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.end.quartz_fusion.description\"}"
+	],
+	"quest.763B6314EEA2E2F4.title": "{\"translate\": \"advancements.simplebuilding.enderite.raw_deal.title\"}",
+	"quest.763B6314EEA2E2F4.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.enderite.raw_deal.description\"}"
+	],
+	"quest.4BD96CF62EC3B676.title": "{\"translate\": \"advancements.simplebuilding.enderite.patience_is_a_virtue.title\"}",
+	"quest.4BD96CF62EC3B676.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.enderite.patience_is_a_virtue.description\"}"
+	],
+	"quest.1DD10BF4A20C446B.title": "{\"translate\": \"advancements.simplebuilding.enderite.beyond_netherite.title\"}",
+	"quest.1DD10BF4A20C446B.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.enderite.beyond_netherite.description\"}"
+	],
+	"quest.5C8766501AAFE235.title": "{\"translate\": \"advancements.simplebuilding.enderite.template_of_the_end.title\"}",
+	"quest.5C8766501AAFE235.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.enderite.template_of_the_end.description\"}"
+	],
+	"quest.644355157DEEC894.title": "{\"translate\": \"advancements.simplebuilding.enderite.cover_me_in_enderite.title\"}",
+	"quest.644355157DEEC894.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.enderite.cover_me_in_enderite.description\"}"
+	],
+	"quest.1BB2F2D8715F07EC.title": "{\"translate\": \"advancements.simplebuilding.enderite.cutting_edge.title\"}",
+	"quest.1BB2F2D8715F07EC.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.enderite.cutting_edge.description\"}"
+	],
+	"quest.3DB200C8EDE26C58.title": "{\"translate\": \"advancements.simplebuilding.enderite.hammer_of_the_end.title\"}",
+	"quest.3DB200C8EDE26C58.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.enderite.hammer_of_the_end.description\"}"
+	],
+	"quest.51D044D1C8D46F05.title": "{\"translate\": \"advancements.simplebuilding.machines.end_of_the_line.title\"}",
+	"quest.51D044D1C8D46F05.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.machines.end_of_the_line.description\"}"
+	],
+	"quest.00FA70FB89886437.title": "{\"translate\": \"advancements.nether.summon_wither.title\"}",
+	"quest.00FA70FB89886437.quest_desc": [
+		"{\"translate\": \"advancements.nether.summon_wither.description\"}",
+		"{\"translate\": \"quests.simplebuilding.stage_4.wither.hint\"}"
+	],
+	"quest.7BE69CC9480D2FE0.title": "{\"translate\": \"advancements.simplebuilding.enderite.heart_of_the_end.title\"}",
+	"quest.7BE69CC9480D2FE0.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.enderite.heart_of_the_end.description\"}"
+	],
+	"quest.1120C7FA7250D008.title": "{\"translate\": \"advancements.simplebuilding.enderite.echolocation.title\"}",
+	"quest.1120C7FA7250D008.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.enderite.echolocation.description\"}"
+	],
+	"quest.0A6D3D01F8647984.title": "{\"translate\": \"quests.simplebuilding.stage_4.done.title\"}",
+	"quest.0A6D3D01F8647984.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.enderite.void_walker.description\"}",
+		"{\"translate\": \"quests.simplebuilding.stage_4.done.hint\"}"
+	]
+}

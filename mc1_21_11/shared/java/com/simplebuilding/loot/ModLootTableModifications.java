@@ -345,9 +345,24 @@ public final class ModLootTableModifications {
      * {@code chance} Kerne pro Kiste im Mittel und nie mehr als einer.
      */
     private static void rareCore(Editor editor, ItemLike core, float chance) {
+        float scaled = coreChance(chance);
+        if (scaled <= 0.0f) {
+            return;
+        }
         editor.addPool(LootPool.lootPool()
-                .setRolls(BinomialDistributionGenerator.binomial(1, chance))
+                .setRolls(BinomialDistributionGenerator.binomial(1, scaled))
                 .add(item(core, 1)));
+    }
+
+    /**
+     * Kern-Chance mit dem Faktor {@code worldGen.buildingCoreLootChanceMultiplier} (Standard 1),
+     * hoechstens 1 je Kiste; 0 = kein Kern-Pool. Gelesen beim Laden der Datenpakete.
+     */
+    public static float coreChance(float base) {
+        com.simplebuilding.config.SimplebuildingConfig config = Simplebuilding.getConfig();
+        double factor = config == null ? 1.0
+                : com.simplebuilding.config.SimplebuildingConfig.nonNegative(config.worldGen.buildingCoreLootChanceMultiplier, 1.0);
+        return (float) Math.min(1.0, base * factor);
     }
 
     private static LootPoolSingletonContainer.Builder<?> item(ItemLike item, int weight) {

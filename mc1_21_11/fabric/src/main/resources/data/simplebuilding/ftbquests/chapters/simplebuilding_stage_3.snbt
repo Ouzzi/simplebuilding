@@ -1,0 +1,249 @@
+{
+	id: "2FCCD5055BF48120",
+	group: "0FF8ACD95EC2930E",
+	order_index: 2,
+	filename: "simplebuilding_stage_3",
+	icon: {
+		id: "simplebuilding:netherite_sledgehammer"
+	},
+	default_quest_shape: "",
+	default_hide_dependency_lines: false,
+	progression_mode: "flexible",
+	quests: [
+		{
+			id: "58E0CC7D9AC48404",
+			x: 0.0d,
+			y: -3.75d,
+			dependencies: ["44EAC11C2B788D27"],
+			tasks: [
+				{
+					id: "0DC95C3A3455F7D5",
+					type: "advancement",
+					advancement: "minecraft:nether/find_fortress",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "221D75BA98EFA678",
+			x: 0.0d,
+			y: -2.25d,
+			dependencies: ["44EAC11C2B788D27"],
+			tasks: [
+				{
+					id: "64CE99EC9B95F654",
+					type: "advancement",
+					advancement: "minecraft:nether/find_bastion",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "4F33A64F0904C3B5",
+			x: 0.0d,
+			y: -0.75d,
+			dependencies: ["44EAC11C2B788D27"],
+			tasks: [
+				{
+					id: "59E45AF941DAE2DC",
+					type: "advancement",
+					advancement: "simplebuilding:nether/nugget_of_wisdom",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "6A36628AB8A0043B",
+			x: 0.0d,
+			y: 0.75d,
+			dependencies: ["44EAC11C2B788D27"],
+			tasks: [
+				{
+					id: "7D418FA358D691FB",
+					type: "advancement",
+					advancement: "minecraft:nether/obtain_ancient_debris",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "5070A7D5C93E43CF",
+			x: 2.0d,
+			y: -3.0d,
+			dependencies: ["6A36628AB8A0043B"],
+			tasks: [
+				{
+					id: "7891B2057AF6F8DD",
+					type: "item",
+					item: {
+						id: "minecraft:netherite_ingot",
+						count: 1
+					}
+				}
+			]
+		},
+		{
+			id: "5BFB5EAAB13F32CD",
+			x: 2.0d,
+			y: -1.5d,
+			dependencies: ["221D75BA98EFA678"],
+			tasks: [
+				{
+					id: "5CFF890177377FD4",
+					type: "item",
+					item: {
+						id: "minecraft:netherite_upgrade_smithing_template",
+						count: 1
+					}
+				}
+			]
+		},
+		{
+			id: "221A4CB41EF038D2",
+			x: 4.0d,
+			y: -1.5d,
+			dependencies: ["5070A7D5C93E43CF", "5BFB5EAAB13F32CD"],
+			tasks: [
+				{
+					id: "28D50682CF4DE61E",
+					type: "advancement",
+					advancement: "simplebuilding:hammer/heavy_metal",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "5A1B2C25B3F2AC06",
+			x: 4.0d,
+			y: 0.0d,
+			optional: true,
+			dependencies: ["5070A7D5C93E43CF", "5BFB5EAAB13F32CD"],
+			tasks: [
+				{
+					id: "5437FF4D7A6438F3",
+					type: "advancement",
+					advancement: "simplebuilding:tiers/nether_forged",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "2D80F7BE69082234",
+			x: 2.0d,
+			y: 0.0d,
+			dependencies: ["4F33A64F0904C3B5"],
+			tasks: [
+				{
+					id: "60A2DCE46228C7A5",
+					type: "advancement",
+					advancement: "simplebuilding:machines/forged_in_place",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "09EA0E0E9F62BEF3",
+			x: 0.0d,
+			y: 2.25d,
+			dependencies: ["44EAC11C2B788D27"],
+			tasks: [
+				{
+					id: "311D86DD4C852CA1",
+					type: "advancement",
+					advancement: "simplebuilding:pads/under_pressure",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "059628FBC8427060",
+			x: 0.0d,
+			y: 3.75d,
+			dependencies: ["44EAC11C2B788D27"],
+			tasks: [
+				{
+					id: "39FC51C4557941EC",
+					type: "advancement",
+					advancement: "simplebuilding:pads/liftoff",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "26F2188B9BD804BC",
+			x: 4.0d,
+			y: 1.5d,
+			dependencies: ["09EA0E0E9F62BEF3", "5070A7D5C93E43CF", "5BFB5EAAB13F32CD"],
+			tasks: [
+				{
+					id: "27F11CB973CFC531",
+					type: "item",
+					item: {
+						id: "simplebuilding:netherite_pressure_plate",
+						count: 1
+					}
+				}
+			]
+		},
+		{
+			id: "780EF56D8570D720",
+			x: 2.0d,
+			y: 1.5d,
+			dependencies: ["58E0CC7D9AC48404"],
+			tasks: [
+				{
+					id: "4EFC26FBF65BD1F4",
+					type: "advancement",
+					advancement: "minecraft:nether/obtain_blaze_rod",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "655B524674EC8340",
+			x: 2.0d,
+			y: 3.0d,
+			dependencies: ["58E0CC7D9AC48404"],
+			tasks: [
+				{
+					id: "480087C0ACA7B57C",
+					type: "advancement",
+					advancement: "simplebuilding:pads/hot_head",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "146CCE240C9E3674",
+			x: 6.0d,
+			y: 0.0d,
+			dependencies: ["655B524674EC8340", "26F2188B9BD804BC"],
+			tasks: [
+				{
+					id: "0C28057CCF21DB16",
+					type: "advancement",
+					advancement: "simplebuilding:pads/bottoms_up",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "4594F34D7F938B95",
+			x: 8.0d,
+			y: 0.0d,
+			shape: "gear",
+			size: 1.5d,
+			dependencies: ["58E0CC7D9AC48404", "221D75BA98EFA678", "4F33A64F0904C3B5", "6A36628AB8A0043B", "5070A7D5C93E43CF", "5BFB5EAAB13F32CD", "221A4CB41EF038D2", "2D80F7BE69082234", "09EA0E0E9F62BEF3", "059628FBC8427060", "26F2188B9BD804BC", "780EF56D8570D720", "655B524674EC8340", "146CCE240C9E3674"],
+			tasks: [
+				{
+					id: "3C10853954FB26C1",
+					type: "advancement",
+					advancement: "minecraft:story/follow_ender_eye",
+					criterion: ""
+				}
+			]
+		}
+	],
+	quest_links: [ ],
+	images: [ ]
+}

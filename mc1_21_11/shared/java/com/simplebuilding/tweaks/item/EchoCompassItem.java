@@ -85,6 +85,11 @@ public class EchoCompassItem extends Item {
     }
 
     /** Ladezeit in Ticks fuer den aktuellen Zustand. */
+    /** Abklingzeit nach einem Sprung: Config {@code tweaks.balancing.echoSounderJumpCooldownTicks} (Standard {@link #COOLDOWN_TICKS}). */
+    public static int cooldownTicks() {
+        return Math.max(0, com.simplebuilding.tweaks.SimpleTweaks.config().balancing.echoSounderJumpCooldownTicks);
+    }
+
     public static int chargeTicks(ItemStack stack) {
         return isCracked(stack) ? CRACKED_CHARGE_TICKS : CHARGE_TICKS;
     }
@@ -242,7 +247,10 @@ public class EchoCompassItem extends Item {
         player.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 20, 9, true, false, true));
         player.addEffect(new MobEffectInstance(MobEffects.NAUSEA, 120, 0, true, false, true));
 
-        player.getCooldowns().addCooldown(stack, COOLDOWN_TICKS);
+        int cooldown = cooldownTicks();
+        if (cooldown > 0) {
+            player.getCooldowns().addCooldown(stack, cooldown);
+        }
         wear(player, hand, stack, targetLevel, x, y, z);
         return true;
     }

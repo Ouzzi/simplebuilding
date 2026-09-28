@@ -1,0 +1,37 @@
+{
+  "parent": "simplebuilding:tiers/step_by_step",
+  "criteria": {
+    "gold_tool": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:gold_chisel",
+              "simplebuilding:gold_sledgehammer",
+              "simplebuilding:gold_building_wand"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.tiers.golden_touch.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:gold_sledgehammer"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.tiers.golden_touch.title"
+    }
+  },
+  "requirements": [
+    [
+      "gold_tool"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,5 +1,5 @@
 {
-  "parent": "simplebuilding:wand/core_values",
+  "parent": "simplebuilding:tweaks/root",
   "criteria": {
     "ore_detected": {
       "conditions": {
