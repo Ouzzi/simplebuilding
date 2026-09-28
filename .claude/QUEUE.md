@@ -133,12 +133,13 @@ Verlauf im Detail: git log.
 - [x] Anfaengerbuch beim Erstbeitritt + Themenbuecher an der Werkbank (laeuft)
 - [x] Trank-Pad ins Easter Egg aufnehmen (Endstufe doppelt so lange Wirkdauer)
 - [x] 26.3-Absturz Hammer+Ofen: kein Code-Fehler, Build waehrend laufendem Client (Regel gemerkt)
-- [ ] Trank-Pad: Abklingzeit 2x Wirkdauer (nur platziert, abgebaut eigener nicht stapelbarer Zustand mit Restzeit, animierte Textur), Anwendung ueber 3 s (25/50/100 %); alle Pads nicht stapelbar (laeuft)
-- [ ] Namen- und Raritaeten-Konsistenz aller Items (laeuft)
-- [ ] Wiki: bessere UI/UX, Wichtigstes oben je Item, Navigation, URL-Suchparameter (laeuft)
-- [ ] Vollstaendigkeits-Audit aller Wuensche (laeuft)
+- [x] Trank-Pad: Abklingzeit 2x Wirkdauer (nur platziert, abgebaut eigener nicht stapelbarer Zustand mit Restzeit, animierte Textur), Anwendung ueber 3 s (25/50/100 %); alle Pads nicht stapelbar 
+- [x] Namen- und Raritaeten-Konsistenz aller Items (laeuft)
+- [x] Wiki: bessere UI/UX, Wichtigstes oben je Item, Navigation, URL-Suchparameter (laeuft)
+- [x] Vollstaendigkeits-Audit aller Wuensche (laeuft)
 - [x] Minecraft-Stand 2026-09-28: neuestes Stable 26.3 (abgedeckt), Snapshot 26.4-snapshot-1 (vorbereitet)
-- [ ] Client-Gate: 2 Dev-Prozesse des Besitzers laufen noch
+- [ ] Client-Gate: wartet auf geschlossene Besitzer-Clients
+- [ ] Entscheidung Besitzer: Mending/Unbreaking fuer Amethystlinse und Rotator sperren?
 
 ## Wartet auf den Besitzer
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
