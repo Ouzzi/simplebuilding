@@ -1,6 +1,7 @@
 {
   "values": [
     "simplebuilding:glowing_trim_template",
-    "simplebuilding:emitting_trim_template"
+    "simplebuilding:emitting_trim_template",
+    "simplebuilding:pulsating_trim_template"
   ]
 }

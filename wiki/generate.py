@@ -852,6 +852,12 @@ def collect_trades(roots: dict) -> list[dict]:
                     "weight": option.get("weight"),
                 })
 
+        # merchant_predicate minecraft:random_chance: a drawn offer only appears with this chance
+        predicate = data.get("merchant_predicate") or {}
+        offer_chance = None
+        if predicate.get("condition") == "minecraft:random_chance" or predicate.get("type") == "minecraft:random_chance":
+            offer_chance = predicate.get("chance")
+
         conditions = data.get("fabric:load_conditions") or data.get("neoforge:conditions") or []
         flags = [c.get("flag") for c in conditions if c.get("flag")]
 
@@ -860,11 +866,12 @@ def collect_trades(roots: dict) -> list[dict]:
             "profession": profession,
             "level": level,
             "wants": stack_summary(data.get("wants")),
-            "alsoWants": stack_summary(data.get("also_wants")),
+            "alsoWants": stack_summary(data.get("additional_wants") or data.get("also_wants")),
             "gives": stack_summary(data.get("gives")),
             "maxUses": data.get("max_uses"),
             "xp": data.get("xp"),
             "reputationDiscount": data.get("reputation_discount"),
+            "offerChance": offer_chance,
             "enchantmentPool": enchant_pool,
             "configFlags": flags,
             "source": rel(path),

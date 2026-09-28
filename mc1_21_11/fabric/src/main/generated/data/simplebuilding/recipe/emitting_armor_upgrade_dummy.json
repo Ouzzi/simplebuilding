@@ -5,5 +5,5 @@
   "result": {
     "id": "simplebuilding:emitting_trim_template"
   },
-  "template": "#minecraft:trim_templates"
+  "template": "simplebuilding:emitting_trim_template"
 }

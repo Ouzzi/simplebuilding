@@ -114,7 +114,21 @@ public final class TradeAndMigrationTests {
     /** {@code librarian/4/emerald_advanced_book}. */
     private static final Set<String> ADVANCED_BOOK_POOL = Set.of(
             "simplebuilding:linear@1",
-            "simplebuilding:override@1");
+            "simplebuilding:override@1",
+            "simplebuilding:drawer@1");
+
+    /** The four core offers of the wandering trader, cheapest first, with their offer chance. */
+    private static final java.util.Map<Item, Float> CORE_OFFER_CHANCES = new java.util.LinkedHashMap<>();
+
+    static {
+        CORE_OFFER_CHANCES.put(ModItems.COPPER_CORE, 1.0F);
+        CORE_OFFER_CHANCES.put(ModItems.IRON_CORE, 0.5F);
+        CORE_OFFER_CHANCES.put(ModItems.GOLD_CORE, 0.25F);
+        CORE_OFFER_CHANCES.put(ModItems.DIAMOND_CORE, 0.1F);
+    }
+
+    /** Rolls per core offer when measuring its chance: one standard deviation is at most 0.008. */
+    private static final int CORE_ROLLS = 4000;
 
     /** {@code librarian/5/emerald_master_book} - the only place Master Builder is sold. */
     private static final Set<String> MASTER_BOOK_POOL = Set.of(
@@ -304,14 +318,14 @@ public final class TradeAndMigrationTests {
         for (WanderingTradeGroup group : ModTradeDefinitions.wanderingTraderTrades()) {
             all.addAll(group.trades());
         }
-        helper.assertTrue(all.size() >= 21, "only " + all.size() + " mod trades were found");
+        helper.assertTrue(all.size() >= 20, "only " + all.size() + " mod trades were found");
 
         List<String> problems = new ArrayList<>();
         java.util.Map<Item, Double> cheapestBuy = new java.util.LinkedHashMap<>();
         java.util.Map<Item, Double> bestSale = new java.util.LinkedHashMap<>();
         Item emerald = net.minecraft.world.item.Items.EMERALD;
         for (TradeDefinition trade : all) {
-            MerchantOffer offer = trade.toListing().getOffer(helper.getLevel(), villager, RandomSource.create(OFFER_SEED));
+            MerchantOffer offer = firstOffer(helper, trade.toListing(), villager);
             helper.assertTrue(offer != null, "a mod trade produced no offer");
             ItemStack costA = offer.getBaseCostA();
             ItemStack result = offer.getResult();
@@ -375,13 +389,13 @@ public final class TradeAndMigrationTests {
     public static void tradeDefinitionsProduceTheExpectedOffers(GameTestHelper helper) {
         Villager villager = helper.spawnWithNoFreeWill(EntityType.VILLAGER, new BlockPos(1, 2, 1));
 
-        // mason/2/emerald_copper_core: 25 emeralds -> 1 copper core, 2 uses, 10 xp.
+        // wandering_trader/emerald_copper_cores: 24 emeralds -> 1 copper core, 2 uses, 10 xp.
         MerchantOffer core = offerOf(helper, villager,
-                villagerTrade(helper, VillagerProfession.MASON, 2, ModItems.COPPER_CORE));
-        assertOffer(helper, core, "mason/2/emerald_copper_core",
-                net.minecraft.world.item.Items.EMERALD, 25, ModItems.COPPER_CORE, 1, 2, 10);
+                wanderingTrade(helper, WanderingTraderPool.UNCOMMON, ModItems.COPPER_CORE));
+        assertOffer(helper, core, "wandering_trader/emerald_copper_cores",
+                net.minecraft.world.item.Items.EMERALD, 24, ModItems.COPPER_CORE, 1, 2, 10);
         helper.assertTrue(core.getCostB().isEmpty(),
-                "mason/2/emerald_copper_core must not have a second cost item");
+                "wandering_trader/emerald_copper_cores must not have a second cost item");
 
         // wandering_trader/octant_emerald is a buying trade: 1 octant -> 8 emeralds.
         MerchantOffer buying = offerOf(helper, villager,
@@ -436,15 +450,16 @@ public final class TradeAndMigrationTests {
     }
 
     /**
-     * End-to-end: a real villager with the mason profession at level 2 has to be able to roll one
-     * of our trades. The villager draws a random subset of the merged pool, so the offers are
-     * regenerated a bounded number of times; missing every single time means the mod trades are
-     * not part of the pool the merchant draws from.
+     * End-to-end: a real villager with the mason profession at level 4 has to be able to roll our
+     * trade, the copper building wand. The villager draws a random subset of the merged pool, so
+     * the offers are regenerated a bounded number of times; missing every single time means the mod
+     * trade is not part of the pool the merchant draws from. (Level 2 used to sell the copper and
+     * the diamond core; since 2026-09-28 the mason sells no cores.)
      */
     public static void masonVillagerCanRollAModTrade(GameTestHelper helper) {
         Villager villager = helper.spawnWithNoFreeWill(EntityType.VILLAGER, new BlockPos(1, 2, 1));
 
-        Set<Item> wanted = Set.of(ModItems.COPPER_CORE, ModItems.DIAMOND_CORE);
+        Set<Item> wanted = Set.of(ModItems.COPPER_BUILDING_WAND);
         Set<Item> seen = new LinkedHashSet<>();
         boolean rolledModTrade = false;
         int emptyRolls = 0;
@@ -452,7 +467,7 @@ public final class TradeAndMigrationTests {
         for (int attempt = 0; attempt < 64 && !rolledModTrade; attempt++) {
             // Switching the profession clears the cached offers; the next getOffers() re-rolls them.
             setProfession(helper, villager, VillagerProfession.NITWIT, 1);
-            setProfession(helper, villager, VillagerProfession.MASON, 2);
+            setProfession(helper, villager, VillagerProfession.MASON, 4);
 
             List<MerchantOffer> offers = villager.getOffers();
             if (offers.isEmpty()) {
@@ -468,9 +483,9 @@ public final class TradeAndMigrationTests {
             }
         }
 
-        Assertions.valueEqual(helper, emptyRolls, 0, "mason level 2 produced empty offer lists");
+        Assertions.valueEqual(helper, emptyRolls, 0, "mason level 4 produced empty offer lists");
         helper.assertTrue(rolledModTrade,
-                "a mason villager (level 2) never offered copper_core or diamond_core in 64 rolls; "
+                "a mason villager (level 4) never offered the copper building wand in 64 rolls; "
                         + "results seen were " + seen);
 
         helper.succeed();
@@ -483,7 +498,7 @@ public final class TradeAndMigrationTests {
      */
     public static void wanderingTraderCanRollAModTrade(GameTestHelper helper) {
         Set<Item> wanted = Set.of(ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE,
-                ModItems.OCTANT, ModItems.REINFORCED_BUNDLE);
+                ModItems.DIAMOND_CORE, ModItems.DIAMOND_PEBBLE, ModItems.OCTANT, ModItems.REINFORCED_BUNDLE);
         Set<Item> seen = new LinkedHashSet<>();
         boolean rolledModTrade = false;
         int emptyRolls = 0;
@@ -508,6 +523,111 @@ public final class TradeAndMigrationTests {
         helper.assertTrue(rolledModTrade,
                 "a wandering trader never offered one of " + wanted + " in 64 rolls; results seen were " + seen);
 
+        helper.succeed();
+    }
+
+    /**
+     * The building cores at merchants (owner 2026-09-28): the mason sells none, and the wandering
+     * trader sells copper, iron, gold and diamond cores - all four in his special ("uncommon")
+     * pool, dearer and rarer with every tier, so an early player gets one only by luck.
+     *
+     * <p>Rarity comes from two dice: the special pool draws two of its listings per trader, and the
+     * iron, gold and diamond listings answer {@code null} unless a chance roll (0.5, 0.25, 0.1)
+     * passes - the counterpart of 26.2's {@code random_chance} merchant predicate. The second die
+     * is measured here by rolling each core listing {@value #CORE_ROLLS} times on one random
+     * source: the share of rolls that yield an offer has to sit within 0.04 of the declared chance,
+     * and the shares have to fall strictly from copper to diamond - as do the prices. The vanilla
+     * pools are checked too: the mason's five levels hold no core, the special pool holds all four.
+     *
+     * <p>What breaks it: a core trade back at the mason or in the common pool, a core sold by any
+     * other mod trade, a chance dropped or loosened, or a cheaper higher tier.
+     */
+    public static void coresAreSoldOnlyByTheWanderingTraderAndGetRarerByTier(GameTestHelper helper) {
+        Villager villager = helper.spawnWithNoFreeWill(EntityType.VILLAGER, new BlockPos(1, 2, 1));
+        Set<Item> cores = Set.of(ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE,
+                ModItems.DIAMOND_CORE, ModItems.NETHERITE_CORE, ModItems.ENDERITE_CORE);
+        List<String> problems = new ArrayList<>();
+
+        // --- the table: no villager sells a core, only the special wandering trader pool does ---
+        for (VillagerTradeGroup group : ModTradeDefinitions.villagerTrades()) {
+            for (TradeDefinition trade : group.trades()) {
+                if (cores.contains(trade.result().getItem())) {
+                    problems.add(group.profession().identifier() + " level " + group.level() + " sells " + trade.result());
+                }
+            }
+        }
+        java.util.Map<Item, TradeDefinition> coreTrades = new java.util.LinkedHashMap<>();
+        for (WanderingTradeGroup group : ModTradeDefinitions.wanderingTraderTrades()) {
+            for (TradeDefinition trade : group.trades()) {
+                if (!cores.contains(trade.result().getItem())) {
+                    continue;
+                }
+                if (group.pool() != WanderingTraderPool.UNCOMMON) {
+                    problems.add(trade.result() + " sits in the " + group.pool() + " wandering trader pool");
+                }
+                coreTrades.put(trade.result().getItem(), trade);
+            }
+        }
+        if (!coreTrades.keySet().equals(CORE_OFFER_CHANCES.keySet())) {
+            problems.add("the wandering trader sells the cores " + coreTrades.keySet() + " instead of " + CORE_OFFER_CHANCES.keySet());
+        }
+
+        // --- the pools a real merchant draws from ---
+        for (int level = 1; level <= 5; level++) {
+            VillagerTrades.ItemListing[] pool = effectiveVillagerPool(helper, VillagerProfession.MASON, level);
+            if (pool == null) {
+                continue;
+            }
+            for (OfferKey key : offersOf(helper, pool, villager)) {
+                if (cores.contains(key.result())) {
+                    problems.add("mason level " + level + " offers " + key.result());
+                }
+            }
+        }
+        Set<Item> special = new LinkedHashSet<>();
+        for (OfferKey key : offersOf(helper, VillagerTrades.WANDERING_TRADER_TRADES.get(poolIndex(WanderingTraderPool.UNCOMMON)).getLeft(), villager)) {
+            special.add(key.result());
+        }
+        for (Item core : CORE_OFFER_CHANCES.keySet()) {
+            if (!special.contains(core)) {
+                problems.add(core + " is missing from the special wandering trader pool");
+            }
+        }
+
+        // --- the chance: measured share of rolls that yield an offer, falling by tier ---
+        RandomSource random = RandomSource.create(OFFER_SEED);
+        double previousShare = 2.0;
+        int previousPrice = 0;
+        for (java.util.Map.Entry<Item, Float> core : CORE_OFFER_CHANCES.entrySet()) {
+            TradeDefinition trade = coreTrades.get(core.getKey());
+            if (trade == null) {
+                continue;
+            }
+            VillagerTrades.ItemListing listing = trade.toListing();
+            int offered = 0;
+            int price = 0;
+            for (int roll = 0; roll < CORE_ROLLS; roll++) {
+                MerchantOffer offer = listing.getOffer(helper.getLevel(), villager, random);
+                if (offer != null) {
+                    offered++;
+                    price = offer.getBaseCostA().getCount();
+                }
+            }
+            double share = (double) offered / CORE_ROLLS;
+            if (Math.abs(share - core.getValue()) > 0.04) {
+                problems.add(core.getKey() + " appeared in " + share + " of the rolls, declared " + core.getValue());
+            }
+            if (share >= previousShare) {
+                problems.add(core.getKey() + " is not rarer than the tier below it (" + share + ")");
+            }
+            if (price <= previousPrice) {
+                problems.add(core.getKey() + " costs " + price + " emeralds, not more than the tier below it");
+            }
+            previousShare = share;
+            previousPrice = price;
+        }
+
+        helper.assertTrue(problems.isEmpty(), problems.size() + " core trade problems: " + problems);
         helper.succeed();
     }
 
@@ -776,7 +896,7 @@ public final class TradeAndMigrationTests {
         for (VillagerTrades.ItemListing listing : listings) {
             MerchantOffer offer;
             try {
-                offer = listing.getOffer(helper.getLevel(), merchant, RandomSource.create(OFFER_SEED));
+                offer = firstOffer(helper, listing, merchant);
             } catch (RuntimeException e) {
                 continue;
             }
@@ -829,9 +949,22 @@ public final class TradeAndMigrationTests {
     }
 
     private static OfferKey expectedKey(GameTestHelper helper, TradeDefinition trade, Entity merchant) {
-        MerchantOffer offer = trade.toListing()
-                .getOffer(helper.getLevel(), merchant, RandomSource.create(OFFER_SEED));
-        return keyOf(offer);
+        return keyOf(firstOffer(helper, trade.toListing(), merchant));
+    }
+
+    /**
+     * The offer of the first of 200 seeds (from {@link #OFFER_SEED}, spread by the golden ratio constant -
+     * consecutive seeds give a fresh LegacyRandomSource nearly the same first draw) that yields one.
+     * The rare core offers answer {@code null} on a failed chance roll, exactly as the trader sees
+     * them; everything else yields on the first seed. At 10 % 200 misses in a row happen about once
+     * in a billion runs, and the sequence is fixed, so this is deterministic.
+     */
+    private static MerchantOffer firstOffer(GameTestHelper helper, VillagerTrades.ItemListing listing, Entity merchant) {
+        MerchantOffer offer = null;
+        for (int seed = 0; seed < 200 && offer == null; seed++) {
+            offer = listing.getOffer(helper.getLevel(), merchant, RandomSource.create(OFFER_SEED + seed * 0x9E3779B97F4A7C15L));
+        }
+        return offer;
     }
 
     private static OfferKey keyOf(MerchantOffer offer) {
@@ -878,8 +1011,7 @@ public final class TradeAndMigrationTests {
     }
 
     private static MerchantOffer offerOf(GameTestHelper helper, Entity merchant, TradeDefinition trade) {
-        MerchantOffer offer = trade.toListing()
-                .getOffer(helper.getLevel(), merchant, RandomSource.create(OFFER_SEED));
+        MerchantOffer offer = firstOffer(helper, trade.toListing(), merchant);
         helper.assertTrue(offer != null, "trade definition " + trade + " produced no offer");
         return offer;
     }

@@ -42,7 +42,7 @@ public class GlowingTrimUtils {
             // Optional: Setze auch die LIGHT_SOURCE Component auf true, damit man es leicht abfragen kann
             // stack.set(ModDataComponentTypes.LIGHT_SOURCE, true);
 
-            Simplebuilding.LOGGER.info("Applied Emitting Upgrade! New Level: " + newLevel + "/5");
+            Simplebuilding.LOGGER.debug("Applied Emitting Upgrade! New Level: {}/5", newLevel);
         }
     }
 
@@ -86,5 +86,39 @@ public class GlowingTrimUtils {
     public  static void setGlowLevel(ItemStack stack, int level) {
         if (stack.isEmpty()) return;
         stack.set(ModDataComponentTypes.GLOW_LEVEL, level);
+    }
+
+    // --- LOGIK FÜR PULSATING (Besatz blendet im Takt nach Schwarz und zurueck) ---
+
+    /** Pulsiert der Besatz dieses Stapels? (Pulsating Armor Trim, Besitzer 2026-09-28) */
+    public static boolean isPulsating(ItemStack stack) {
+        return !stack.isEmpty() && stack.getOrDefault(ModDataComponentTypes.PULSATING, false);
+    }
+
+    public static void setPulsating(ItemStack stack, boolean pulsating) {
+        if (stack.isEmpty()) return;
+        if (pulsating) {
+            stack.set(ModDataComponentTypes.PULSATING, true);
+        } else {
+            stack.remove(ModDataComponentTypes.PULSATING);
+        }
+    }
+
+    /** Dauer eines Pulses (hell - schwarz - hell) in Millisekunden: ein ruhiger Herzschlag wie der des Wardens. */
+    public static final long PULSE_PERIOD_MS = 2400L;
+
+    /**
+     * Helligkeit des pulsierenden Besatzes zur Zeit {@code millis}: 1 = volle Farbe, 0 = schwarz.
+     * Weicher Kosinus, damit der Besatz einen Moment hell und einen Moment dunkel verweilt.
+     */
+    public static float pulseBrightness(long millis) {
+        double phase = (millis % PULSE_PERIOD_MS) / (double) PULSE_PERIOD_MS;
+        return (float) (0.5 + 0.5 * Math.cos(phase * Math.PI * 2.0));
+    }
+
+    /** Die Tönung (ARGB) fuer den Besatz: Weiss mit der Helligkeit {@code brightness} multipliziert. */
+    public static int pulseTint(float brightness) {
+        int v = Math.round(Math.max(0.0F, Math.min(1.0F, brightness)) * 255.0F);
+        return 0xFF000000 | (v << 16) | (v << 8) | v;
     }
 }

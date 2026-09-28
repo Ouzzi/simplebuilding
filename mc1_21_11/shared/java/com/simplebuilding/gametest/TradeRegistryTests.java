@@ -33,8 +33,8 @@ import net.minecraft.world.item.trading.ItemCost;
  */
 public final class TradeRegistryTests {
 
-    private static final int EXPECTED_VILLAGER_TRADES = 12;
-    private static final int EXPECTED_WANDERING_TRADES = 9;
+    private static final int EXPECTED_VILLAGER_TRADES = 10;
+    private static final int EXPECTED_WANDERING_TRADES = 10;
     private static final int EXPECTED_TRADES = EXPECTED_VILLAGER_TRADES + EXPECTED_WANDERING_TRADES;
 
     public static void allModTradesResolveAgainstTheServerRegistries(GameTestHelper helper) {

@@ -222,6 +222,7 @@ public final class ConfigOptionTests {
                     book(ModEnchantments.DOUBLE_JUMP, 2),
                     book(ModEnchantments.VERSATILITY, 1),
                     book(ModEnchantments.VERSATILITY, 2),
+                    book(ModEnchantments.BRIDGE, 1),
                     id(ModItems.DIAMOND_BUILDING_WAND),
                     id(ModItems.DIAMOND_SLEDGEHAMMER),
                     id(ModItems.ENDERITE_APPLE),
@@ -262,6 +263,7 @@ public final class ConfigOptionTests {
                     book(ModEnchantments.LINEAR, 1),
                     book(ModEnchantments.VEIN_MINER, 4),
                     book(ModEnchantments.VEIN_MINER, 5),
+                    book(ModEnchantments.DRAWER, 1),
                     id(ModItems.IRON_BUILDING_WAND),
                     id(ModItems.IRON_CORE),
                     id(ModItems.QUIVER))),
@@ -296,6 +298,7 @@ public final class ConfigOptionTests {
                     book(ModEnchantments.VEIN_MINER, 3),
                     book(ModEnchantments.VEIN_MINER, 4),
                     id(ModItems.REINFORCED_BUNDLE),
+                    id(ModItems.IRON_CORE),
                     id(ModItems.DIAMOND_PEBBLE))),
             Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_COMMON, VAULT_COMMON_LOOT),
             Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS, VAULT_OMINOUS_LOOT),
@@ -317,9 +320,10 @@ public final class ConfigOptionTests {
     private static final String BOOK_MARKER = "@";
 
     /**
-     * The enchantments the mod deliberately gives no chest at all: Drawer and Kinetic Protection
-     * are meant to be reachable from the creative inventory and nowhere else, so no mod loot pool
-     * may ever hand out a book for them.
+     * The enchantments the mod deliberately gives no chest at all: Kinetic Protection is built like
+     * vanilla Protection and comes from the enchanting table (since 2026-09-28), so no mod loot pool
+     * may ever hand out a book for it. (Drawer used to be listed here too; it now comes from the
+     * woodland mansion and the librarian.)
      *
      * <p>This is the one thing about the loot tables that cannot be pinned by listing something,
      * because it is a statement about what is absent. Adding one {@code .add(enchantedBook(...))}
@@ -329,19 +333,18 @@ public final class ConfigOptionTests {
      * book into both lists at once is not a way past it either.
      */
     private static final Set<String> ENCHANTMENTS_WITHOUT_A_CHEST = Set.of(
-            ModEnchantments.DRAWER.identifier().toString(),
             ModEnchantments.KINETIC_PROTECTION.identifier().toString());
 
     /**
      * How often each recorded pool is rolled when looking for the entries above.
      *
-     * <p>The thinnest wanted entry decides this number. Since 2026-09-27 that is the gold core in
-     * the bastion: its own pool with a 0.6 % chance per roll, so this many rolls are worth about
-     * 12 expected hits and missing it by chance is about one in 160000 (the seed is fixed, so it is
-     * the same answer every run). The other cores (0.8 %, netherite 4 %) and the enchanted
-     * netherite apple of the ominous vault (1 of 55, drawn {@code between(0, 1)} times, about 18
-     * hits) come next; everything else sits far higher. The Enderite core (0.25 %, about 5 hits)
-     * is too thin for this list and is watched by {@link #buildingCoresAreVeryRareInLootChests}
+     * <p>The thinnest wanted entry decides this number. Since 2026-09-28 that is the iron core in
+     * the mineshaft: its own pool with a 0.5 % chance per roll, so this many rolls are worth about
+     * 10 expected hits and missing it by chance is about one in 28000 (the seed is fixed, so it is
+     * the same answer every run). The other cores (1.05 % to 1.65 %, netherite 6 %) and the
+     * enchanted netherite apple of the ominous vault (1 of 55, drawn {@code between(0, 1)} times,
+     * about 18 hits) come next; everything else sits far higher. The Enderite core (0.175 %, about
+     * 4 hits) is too thin for this list and is watched by {@link #buildingCoresAreVeryRareInLootChests}
      * with {@link #CORE_CHESTS} chests instead.
      *
      * <p>Those margins are the reason a thin entry may be listed at all; they are computed from
@@ -389,21 +392,23 @@ public final class ConfigOptionTests {
 
     /**
      * Cores per chest, as {@code [min, max]} around the chances in
-     * {@code ModLootTableModifications} (docs/LOOT-BALANCE.md): iron 0.8 % in the mansion, gold
-     * 0.6 % in every bastion chest and 0.8 % in the fortress, diamond 0.8 % in the ominous and rare
-     * vault, netherite 4 % in the bastion treasure room, Enderite 0.25 % in the End City. Every
-     * pair not listed has to be zero. The bands are wide for the dice and narrow enough that the
-     * old weights (netherite core 12 % per treasure room) are red.
+     * {@code ModLootTableModifications} (docs/KERNE-SELTENHEIT.md, owner 2026-09-28 "Zeitalter B"):
+     * iron 1.5 % in the mansion and 0.5 % in the mineshaft, gold 1.25 % in every bastion chest and
+     * 1.65 % in the fortress, diamond 1.05 % in the ominous and rare vault, netherite 6 % in the
+     * bastion treasure room, Enderite 0.175 % in the End City. Every pair not listed has to be
+     * zero. The bands are about three standard deviations of {@link #CORE_CHESTS} chests wide and
+     * leave out the chances of the previous balance (iron 0.8 %, gold 0.6 %, Enderite 0.25 %).
      */
     private static final Map<ResourceKey<LootTable>, Map<Item, Budget>> CORE_CHANCES = Map.ofEntries(
-            Map.entry(BuiltInLootTables.WOODLAND_MANSION, Map.of(ModItems.IRON_CORE, new Budget(0.004, 0.012))),
-            Map.entry(BuiltInLootTables.BASTION_OTHER, Map.of(ModItems.GOLD_CORE, new Budget(0.003, 0.010))),
-            Map.entry(BuiltInLootTables.BASTION_TREASURE, Map.of(ModItems.GOLD_CORE, new Budget(0.003, 0.010),
-                    ModItems.NETHERITE_CORE, new Budget(0.025, 0.06))),
-            Map.entry(BuiltInLootTables.NETHER_BRIDGE, Map.of(ModItems.GOLD_CORE, new Budget(0.004, 0.012))),
-            Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS, Map.of(ModItems.DIAMOND_CORE, new Budget(0.004, 0.012))),
-            Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_RARE, Map.of(ModItems.DIAMOND_CORE, new Budget(0.004, 0.012))),
-            Map.entry(BuiltInLootTables.END_CITY_TREASURE, Map.of(ModItems.ENDERITE_CORE, new Budget(0.001, 0.004))));
+            Map.entry(BuiltInLootTables.WOODLAND_MANSION, Map.of(ModItems.IRON_CORE, new Budget(0.0115, 0.0185))),
+            Map.entry(BuiltInLootTables.ABANDONED_MINESHAFT, Map.of(ModItems.IRON_CORE, new Budget(0.0028, 0.0072))),
+            Map.entry(BuiltInLootTables.BASTION_OTHER, Map.of(ModItems.GOLD_CORE, new Budget(0.009, 0.016))),
+            Map.entry(BuiltInLootTables.BASTION_TREASURE, Map.of(ModItems.GOLD_CORE, new Budget(0.009, 0.016),
+                    ModItems.NETHERITE_CORE, new Budget(0.052, 0.068))),
+            Map.entry(BuiltInLootTables.NETHER_BRIDGE, Map.of(ModItems.GOLD_CORE, new Budget(0.0125, 0.0205))),
+            Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS, Map.of(ModItems.DIAMOND_CORE, new Budget(0.0072, 0.0138))),
+            Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_RARE, Map.of(ModItems.DIAMOND_CORE, new Budget(0.0072, 0.0138))),
+            Map.entry(BuiltInLootTables.END_CITY_TREASURE, Map.of(ModItems.ENDERITE_CORE, new Budget(0.0006, 0.0023))));
 
     /** Seed for the loot rolls, so a failure is reproducible instead of a coin flip. */
     private static final long POOL_ROLL_SEED = 20260904L;

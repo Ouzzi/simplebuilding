@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "simplebuilding:fast_chiseling"
+    "simplebuilding:fast_chiseling",
+    "simplebuilding:kinetic_protection"
   ]
 }

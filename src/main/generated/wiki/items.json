@@ -941,6 +941,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:pulsating_trim_template"
+    },
+    {
       "id": "simplebuilding:purpur_quartz_checker"
     },
     {

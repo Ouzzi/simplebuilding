@@ -32,8 +32,8 @@ public final class ReinforcedBundleGameTest {
     }
 
     @GameTest
-    public void drawerCapsTheBundleAtFiveKinds(GameTestHelper helper) {
-        ReinforcedBundleTests.drawerCapsTheBundleAtFiveKinds(helper);
+    public void drawerHoldsOnlyTheKindAlreadyInside(GameTestHelper helper) {
+        ReinforcedBundleTests.drawerHoldsOnlyTheKindAlreadyInside(helper);
     }
 
     @GameTest

@@ -22,8 +22,8 @@ public final class StorageEnchantmentGameTest {
     }
 
     @GameTest
-    public void drawerKindCapHoldsAgainstTheFunnelToo(GameTestHelper helper) {
-        StorageEnchantmentTests.drawerKindCapHoldsAgainstTheFunnelToo(helper);
+    public void drawerKindLockHoldsAgainstTheFunnelToo(GameTestHelper helper) {
+        StorageEnchantmentTests.drawerKindLockHoldsAgainstTheFunnelToo(helper);
     }
 
     @GameTest

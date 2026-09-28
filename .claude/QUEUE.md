@@ -174,7 +174,7 @@ Verlauf im Detail: git log.
 
 ## Spaeter (Besitzer 2026-09-28)
 - [ ] Vorlagen teurer machen (mehrere Materialien statt 1 Glowstone/Tintenbeutel/Echoscherbe)
-- [ ] Curios/Trinkets fuer Rucksack/Koecher
+- [ ] U: Curios/Trinkets fuer Rucksack/Koecher (optional, nach Q; Besitzer 2026-09-28: ja)
 - [ ] Punkte 64-69: Sprachen, Attractor mit Ladung, neue Bloecke, Baustab ueber Planer, Kern-Module, Rucksack-Sortierung/Multi-Mod-Repo
 
 ## Wartet auf den Besitzer

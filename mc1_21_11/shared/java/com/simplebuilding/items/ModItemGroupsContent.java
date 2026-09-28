@@ -267,6 +267,7 @@ public final class ModItemGroupsContent {
         List<ItemLike> trims = new java.util.ArrayList<>(vanillaTrimTemplates());
         trims.add(ModItems.GLOWING_TRIM_TEMPLATE);
         trims.add(ModItems.EMITTING_TRIM_TEMPLATE);
+        trims.add(ModItems.PULSATING_TRIM_TEMPLATE);
         return List.of(
                 CreativeTabLayout.Row.of("end_ores",
                         ModItems.NIHILITH_ORE_ITEM, ModItems.NIHILITH_SHARD, CreativeTabLayout.GAP,

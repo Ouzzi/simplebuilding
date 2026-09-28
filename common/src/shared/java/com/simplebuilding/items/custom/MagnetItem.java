@@ -89,13 +89,20 @@ public class MagnetItem extends Item {
         if (rangeLevel > 0) {
             range += (rangeLevel * RANGE_ENCHANTMENT_BOOST);
         }
-        // Config tools.magnetRangeMultiplier (Standard 1): Faktor auf die ganze Reichweite.
-        com.simplebuilding.config.SimplebuildingConfig config = com.simplebuilding.Simplebuilding.getConfig();
-        return config == null ? range
-                : range * com.simplebuilding.config.SimplebuildingConfig.nonNegative(config.tools.magnetRangeMultiplier, 1.0);
+        return range * rangeMultiplier();
     }
 
-    private static boolean passesFilter(ItemEntity itemEntity, @Nullable String filterId) {
+    /**
+     * Config tools.magnetRangeMultiplier (Standard 1): Faktor auf die ganze Reichweite, fuer den
+     * gehaltenen und den abgelegten Attractor ({@code PlacedAttractors}).
+     */
+    public static double rangeMultiplier() {
+        com.simplebuilding.config.SimplebuildingConfig config = com.simplebuilding.Simplebuilding.getConfig();
+        return config == null ? 1.0
+                : com.simplebuilding.config.SimplebuildingConfig.nonNegative(config.tools.magnetRangeMultiplier, 1.0);
+    }
+
+    public static boolean passesFilter(ItemEntity itemEntity, @Nullable String filterId) {
         if (filterId == null || filterId.isEmpty()) {
             return true;
         }
@@ -170,6 +177,13 @@ public class MagnetItem extends Item {
         if (id == null) nbt.remove(FILTER_KEY);
         else nbt.putString(FILTER_KEY, id);
         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
+    }
+
+    /** Der Filter (Item-Id) dieses Attractors, oder null ohne Filter. */
+    public static @Nullable String filterOf(ItemStack stack) {
+        CustomData nbtComponent = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+        CompoundTag nbt = nbtComponent.copyTag();
+        return nbt.contains(FILTER_KEY) ? nbt.getStringOr(FILTER_KEY, "") : null;
     }
 
     private String getFilterId(ItemStack stack) {

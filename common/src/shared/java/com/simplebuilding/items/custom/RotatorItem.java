@@ -39,6 +39,8 @@ import net.minecraft.world.phys.Vec3;
  * dreht er nichts mehr und zeigt das Leer-Bild ({@code item/rotator_empty}). Aufladen im Amboss mit
  * Enderperlen, ohne Stufenkosten: 16 Perlen (ein Stapel) laden ganz auf, jede Perle
  * {@link #CHARGE_PER_PEARL} = 1/16; verbraucht wird nur, was bis voll fehlt.
+ * Unbreaking ja, Mending nein (Besitzer 2026-09-28): Erfahrung laedt keine Ladung auf, der Rotator
+ * steht in {@code simplebuilding:xp_repair_incompatible} ({@code EnchantmentMixin}).
  *
  * <p><b>Klang:</b> zuerst das metallische Ratschen (Fernrohr), kurz bevor es verklingt
  * ({@link #ECHO_DELAY_TICKS} spaeter) ein leises Ender-Teleport - das erste Ratschen ist das Metall,

@@ -8,7 +8,9 @@ import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Slice;
 
 @Mixin(EquipmentLayerRenderer.class)
 public class EquipmentRendererMixin {
@@ -31,6 +33,11 @@ public class EquipmentRendererMixin {
         // Level abrufen (0, 1 oder 2)
         int level = GlowingTrimUtils.getGlowLevel(stack);
 
+        // Pulsating + Glowing: volles Licht, das Pulsieren macht die Farbe (simplebuilding$pulseTrim).
+        if (level > 0 && GlowingTrimUtils.isPulsating(stack)) {
+            return LightCoordsUtil.FULL_BRIGHT;
+        }
+
         if (level > 0) {
             // LEVEL 1: Statisches, volles Leuchten
             if (level == 1) {
@@ -44,6 +51,34 @@ public class EquipmentRendererMixin {
         }
 
         return light;
+    }
+
+    /**
+     * Pulsating Armor Trim (Besitzer 2026-09-28): die Toenung des Besatz-Submits (Vanilla: -1, weiss)
+     * blendet im Takt {@link GlowingTrimUtils#PULSE_PERIOD_MS} nach Schwarz und zurueck. Ohne Glowing
+     * bleibt das Licht der Umgebung (kein Leuchten), mit Glowing ist es voll - der Besatz pulsiert dann
+     * leuchtend. Nur der erste Submit nach dem Besatz-RenderType ist der Besatz; danach kommt hoechstens
+     * noch der Glanz.
+     */
+    @ModifyArg(
+            method = "renderLayers(Lnet/minecraft/client/resources/model/EquipmentClientInfo$LayerType;Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lnet/minecraft/world/item/ItemStack;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;ILnet/minecraft/resources/Identifier;II)V",
+            slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/Sheets;armorTrimsSheet(Z)Lnet/minecraft/client/renderer/rendertype/RenderType;")),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/OrderedSubmitNodeCollector;submitModel(Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/rendertype/RenderType;IIILnet/minecraft/client/renderer/texture/TextureAtlasSprite;ILnet/minecraft/client/renderer/feature/ModelFeatureRenderer$CrumblingOverlay;)V", ordinal = 0),
+            index = 6
+    )
+    private int simplebuilding$pulseTrim(int color, @Local(argsOnly = true) ItemStack stack) {
+        if (!GlowingTrimUtils.isPulsating(stack)) {
+            return color;
+        }
+        int tint = GlowingTrimUtils.pulseTint(GlowingTrimUtils.pulseBrightness(System.currentTimeMillis()));
+        if (color == -1) {
+            return tint;
+        }
+        int v = tint & 0xFF;
+        int r = ((color >> 16) & 0xFF) * v / 255;
+        int g = ((color >> 8) & 0xFF) * v / 255;
+        int b = (color & 0xFF) * v / 255;
+        return (color & 0xFF000000) | (r << 16) | (g << 8) | b;
     }
 
     @Unique

@@ -4,6 +4,16 @@ import com.simplebuilding.compat.InWorldRecipeCatalog;
 import com.simplebuilding.compat.MobDropCatalog;
 import com.simplebuilding.compat.RecipelessJeiInfo;
 import com.simplebuilding.recipe.CountBasedSmithingRecipe;
+import com.simplebuilding.recipe.UpgradeSmithingRecipe;
+import java.util.ArrayList;
+import mezz.jei.api.constants.RecipeTypes;
+import mezz.jei.api.recipe.IRecipeManager;
+import mezz.jei.api.runtime.IJeiRuntime;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.SmithingRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -71,6 +81,7 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
     @Override
     public void registerVanillaCategoryExtensions(IVanillaCategoryExtensionRegistration registration) {
         registration.getSmithingCategory().addExtension(CountBasedSmithingRecipe.class, new CountBasedSmithingExtension());
+        registration.getSmithingCategory().addExtension(UpgradeSmithingRecipe.class, new TrimUpgradeSmithingExtension());
     }
 
     @Override
@@ -79,6 +90,15 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
             registration.addRecipes(InWorldCategory.recipeType(kind), catalog().of(kind));
         }
         registration.addRecipes(MobDropCategory.TYPE, MobDropCatalog.drops());
+        // Besatz-Aufwertungen am Schmiedetisch mit der Ruestung als Ergebnis (die Platzhalter-Rezepte
+        // nennen die Vorlage; sie werden in onRuntimeAvailable ausgeblendet).
+        List<RecipeHolder<SmithingRecipe>> trimUpgrades = new ArrayList<>();
+        for (UpgradeSmithingRecipe recipe : TrimUpgradeSmithingExtension.displayRecipes()) {
+            ResourceKey<Recipe<?>> key = ResourceKey.create(Registries.RECIPE,
+                    Identifier.fromNamespaceAndPath("simplebuilding", "jei/trim_upgrade_" + trimUpgrades.size()));
+            trimUpgrades.add(new RecipeHolder<>(key, recipe));
+        }
+        registration.addRecipes(RecipeTypes.SMITHING, trimUpgrades);
         // Infoseiten der aus Simple Tweaks uebernommenen Pads, Platten und Werkzeuge.
         for (Map.Entry<String, List<ItemLike>> family : TweaksJeiInfo.families().entrySet()) {
             List<ItemStack> stacks = family.getValue().stream().map(ItemStack::new).toList();
@@ -92,6 +112,18 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
         for (Map.Entry<String, List<ItemLike>> page : RecipelessJeiInfo.pages().entrySet()) {
             List<ItemStack> stacks = page.getValue().stream().map(ItemStack::new).toList();
             registration.addItemStackInfo(stacks, Component.translatable(RecipelessJeiInfo.KEY_PREFIX + page.getKey()));
+        }
+    }
+
+    /** Die Platzhalter-Rezepte der Besatz-Aufwertungen ausblenden (Ergebnis dort: die Vorlage). */
+    @Override
+    public void onRuntimeAvailable(IJeiRuntime runtime) {
+        IRecipeManager recipes = runtime.getRecipeManager();
+        List<RecipeHolder<SmithingRecipe>> dummies = recipes.createRecipeLookup(RecipeTypes.SMITHING).get()
+                .filter(holder -> TrimUpgradeSmithingExtension.DUMMIES.contains(holder.id().identifier()))
+                .toList();
+        if (!dummies.isEmpty()) {
+            recipes.hideRecipes(RecipeTypes.SMITHING, dummies);
         }
     }
 
