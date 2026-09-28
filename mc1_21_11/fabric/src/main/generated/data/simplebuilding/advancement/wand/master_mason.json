@@ -1,0 +1,31 @@
+{
+  "parent": "simplebuilding:wand/one_click_wonder",
+  "criteria": {
+    "wand_blocks": {
+      "conditions": {
+        "counter": "wand_blocks",
+        "min": 10000
+      },
+      "trigger": "simplebuilding:counter"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.wand.master_mason.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:gold_building_wand"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.wand.master_mason.title"
+    }
+  },
+  "requirements": [
+    [
+      "wand_blocks"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

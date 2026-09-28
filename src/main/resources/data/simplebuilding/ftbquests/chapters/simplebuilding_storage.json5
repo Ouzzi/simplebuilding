@@ -13,7 +13,7 @@
 		{
 			"id": "2E85101929018FD8",
 			"x": 0.0,
-			"y": -2.25,
+			"y": -3.75,
 			"dependencies": [
 				"4E943829CB624FC9"
 			],
@@ -31,7 +31,7 @@
 		{
 			"id": "725C94255AECD179",
 			"x": 0.0,
-			"y": -0.75,
+			"y": -2.25,
 			"optional": true,
 			"dependencies": [
 				"4E943829CB624FC9",
@@ -65,6 +65,40 @@
 			]
 		},
 		{
+			"id": "50DE9DE878403C25",
+			"x": 0.0,
+			"y": -0.75,
+			"optional": true,
+			"dependencies": [
+				"4E943829CB624FC9"
+			],
+			"tasks": [
+				{
+					"id": "0F76CAD87A799E99",
+					"type": "advancement",
+					"advancement": "simplebuilding:storage/pitching_camp",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "7ADAB2B01DE7E36B",
+			"x": 0.0,
+			"y": 0.75,
+			"optional": true,
+			"dependencies": [
+				"4E943829CB624FC9"
+			],
+			"tasks": [
+				{
+					"id": "583D8448D0A948BE",
+					"type": "advancement",
+					"advancement": "simplebuilding:storage/splash_of_color",
+					"criterion": ""
+				}
+			]
+		},
+		{
 			"id": "380C5BBCA73F614F",
 			"x": 2.0,
 			"y": 0.0,
@@ -84,7 +118,7 @@
 		{
 			"id": "4B7DA8049B62E403",
 			"x": 0.0,
-			"y": 0.75,
+			"y": 2.25,
 			"dependencies": [
 				"5022B021DD5E0964"
 			],
@@ -172,7 +206,7 @@
 		{
 			"id": "7D651A0615605010",
 			"x": 0.0,
-			"y": 2.25,
+			"y": 3.75,
 			"dependencies": [
 				"5C8766501AAFE235"
 			],

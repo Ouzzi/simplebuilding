@@ -1,0 +1,31 @@
+{
+  "parent": "simplebuilding:hammer/stair_master",
+  "criteria": {
+    "hammer_blocks": {
+      "conditions": {
+        "counter": "hammer_blocks",
+        "min": 10000
+      },
+      "trigger": "simplebuilding:counter"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.hammer.demolition_crew.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:diamond_sledgehammer"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.hammer.demolition_crew.title"
+    }
+  },
+  "requirements": [
+    [
+      "hammer_blocks"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

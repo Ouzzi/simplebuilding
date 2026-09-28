@@ -27,6 +27,15 @@
 	"quest.1A252AE1755EAC75.quest_desc": [
 		"{\"translate\": \"advancements.simplebuilding.gadgets.burning_focus.description\"}"
 	],
+	"quest.0A3C11A5DB1DCB3C.title": "{\"translate\": \"advancements.simplebuilding.gadgets.remote_detonation.title\"}",
+	"quest.0A3C11A5DB1DCB3C.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.gadgets.remote_detonation.description\"}"
+	],
+	"quest.599C76EDE26DEBD5.title": "{\"translate\": \"advancements.simplebuilding.tweaks.leap_of_faith.title\"}",
+	"quest.599C76EDE26DEBD5.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.tweaks.leap_of_faith.description\"}",
+		"{\"translate\": \"quests.simplebuilding.gadgets.leap_of_faith.hint\"}"
+	],
 	"quest.61693D442E70F11C.title": "{\"translate\": \"advancements.simplebuilding.gadgets.ping.title\"}",
 	"quest.61693D442E70F11C.quest_desc": [
 		"{\"translate\": \"advancements.simplebuilding.gadgets.ping.description\"}",
@@ -64,6 +73,10 @@
 	"quest.05F7DAC8D4D72DE7.title": "{\"translate\": \"advancements.simplebuilding.pads.fine_feathers.title\"}",
 	"quest.05F7DAC8D4D72DE7.quest_desc": [
 		"{\"translate\": \"advancements.simplebuilding.pads.fine_feathers.description\"}"
+	],
+	"quest.533F15328C2A0868.title": "{\"translate\": \"advancements.simplebuilding.tweaks.crumple_zone.title\"}",
+	"quest.533F15328C2A0868.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.tweaks.crumple_zone.description\"}"
 	],
 	"quest.76E2630E5FC6E10B.title": "{\"translate\": \"advancements.simplebuilding.pads.fly_me_to_the_moon.title\"}",
 	"quest.76E2630E5FC6E10B.quest_desc": [

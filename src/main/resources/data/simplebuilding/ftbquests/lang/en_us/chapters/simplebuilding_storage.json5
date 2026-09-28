@@ -15,6 +15,14 @@
 	"quest.65B574C773D89B43.quest_desc": [
 		"{\"translate\": \"advancements.simplebuilding.storage.quiver_in_fear.description\"}"
 	],
+	"quest.50DE9DE878403C25.title": "{\"translate\": \"advancements.simplebuilding.storage.pitching_camp.title\"}",
+	"quest.50DE9DE878403C25.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.storage.pitching_camp.description\"}"
+	],
+	"quest.7ADAB2B01DE7E36B.title": "{\"translate\": \"advancements.simplebuilding.storage.splash_of_color.title\"}",
+	"quest.7ADAB2B01DE7E36B.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.storage.splash_of_color.description\"}"
+	],
 	"quest.380C5BBCA73F614F.title": "{\"translate\": \"advancements.simplebuilding.storage.bundle_of_joy.title\"}",
 	"quest.380C5BBCA73F614F.quest_desc": [
 		"{\"translate\": \"advancements.simplebuilding.storage.bundle_of_joy.description\"}"

@@ -1,5 +1,6 @@
 package com.simplebuilding.datagen;
 
+import com.simplebuilding.advancement.ModCounters;
 import com.simplebuilding.advancement.ModTriggers;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.tweaks.block.TweaksBlocks;
@@ -18,12 +19,18 @@ import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.criterion.DataComponentMatchers;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.NbtPredicate;
 import net.minecraft.core.ClientAsset;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.component.predicates.CustomDataPredicate;
+import net.minecraft.core.component.predicates.DataComponentPredicates;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.DyeColor;
@@ -51,7 +58,9 @@ import net.minecraft.world.level.ItemLike;
  * reward (vanilla style); recipes unlock through the recipe advancements as before.
  *
  * <p>Criteria: vanilla {@code inventory_changed} for "have this item", and the mod's own
- * {@code simplebuilding:feature_used} ({@link ModTriggers}) for actions no vanilla trigger sees.
+ * {@code simplebuilding:feature_used} ({@link ModTriggers}) for actions no vanilla trigger sees,
+ * {@code simplebuilding:counter} ({@link ModCounters}) for "do it N times", and
+ * {@code inventory_changed} with a component predicate for dyed storage and Radiance V.
  * Titles and descriptions: {@code advancements.simplebuilding.<path with dots>.title|description}
  * in both lang files. Nothing is hidden - the only secrets are the easter advancements
  * ({@code tweaks.datagen.EasterEggData}), which stay separate. The paths are ids players' progress
@@ -134,10 +143,21 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             node("hammer/diamond_in_the_rough", cracked, ModItems.CRACKED_DIAMOND_BLOCK, AdvancementType.TASK,
                     "cracked_diamond_block", any(ModItems.CRACKED_DIAMOND_BLOCK));
             AdvancementHolder glow = feature("hammer/glow_up", stairs, ModItems.GLOWING_TRIM_TEMPLATE, AdvancementType.TASK, ModTriggers.TRIM_TEMPLATE_FORGED);
-            node("hammer/bright_idea", glow, ModItems.EMITTING_TRIM_TEMPLATE, AdvancementType.TASK,
+            AdvancementHolder bright = node("hammer/bright_idea", glow, ModItems.EMITTING_TRIM_TEMPLATE, AdvancementType.TASK,
                     "emitting_trim_template", any(ModItems.EMITTING_TRIM_TEMPLATE));
             node("hammer/heavy_metal", stairs, ModItems.NETHERITE_SLEDGEHAMMER, AdvancementType.GOAL,
                     "netherite_sledgehammer", any(ModItems.NETHERITE_SLEDGEHAMMER));
+            counter("hammer/demolition_crew", stairs, ModItems.DIAMOND_SLEDGEHAMMER, AdvancementType.CHALLENGE,
+                    ModCounters.HAMMER_BLOCKS, 10_000);
+            // Radiance V: an armor piece whose emission level (GlowingTrimUtils) reached the maximum.
+            CompoundTag radiance = new CompoundTag();
+            radiance.putInt(com.simplebuilding.util.GlowingTrimUtils.EMISSION_LEVEL_KEY, 5);
+            node("hammer/full_radiance", bright, Items.GLOWSTONE,
+                    AdvancementType.GOAL, "radiance_5", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item()
+                            .withComponents(DataComponentMatchers.Builder.components()
+                                    .partial(DataComponentPredicates.CUSTOM_DATA, CustomDataPredicate.customData(new NbtPredicate(radiance)))
+                                    .build())));
+            feature("trims/fashion_statement", root, Items.DIAMOND_CHESTPLATE, AdvancementType.GOAL, ModTriggers.FULL_TRIM_SET);
 
             AdvancementHolder reinforced = node("machines/reinforcements", cracked, ModItems.REINFORCED_FURNACE, AdvancementType.TASK,
                     "reinforced_machine", any(ModItems.REINFORCED_FURNACE, ModItems.REINFORCED_SMOKER, ModItems.REINFORCED_BLAST_FURNACE,
@@ -147,6 +167,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                     ModTriggers.HAMMER_UPGRADE_NETHERITE);
             feature("machines/end_of_the_line", netherite, ModItems.ENDERITE_FURNACE, AdvancementType.CHALLENGE,
                     ModTriggers.HAMMER_UPGRADE_ENDERITE);
+            feature("machines/good_as_new", netherite, ModItems.NETHERITE_PISTON, AdvancementType.TASK, ModTriggers.PISTON_REPAIR);
         }
 
         /** The tool tiers, one step per material - the mod's version of "Getting an Upgrade". */
@@ -157,6 +178,10 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                     "basic_upgrade_template", any(ModItems.BASIC_UPGRADE_TEMPLATE));
             AdvancementHolder iron = node("tiers/ironclad", copper, ModItems.IRON_SLEDGEHAMMER, AdvancementType.TASK, "iron_tool",
                     any(ModItems.IRON_CHISEL, ModItems.IRON_SLEDGEHAMMER, ModItems.IRON_BUILDING_WAND));
+            // The mining enchantments: books from chests and traders, used while sneaking.
+            feature("mining/all_in_vein", iron, Items.IRON_ORE, AdvancementType.TASK, ModTriggers.VEIN_MINE);
+            feature("mining/tunnel_vision", iron, Items.IRON_PICKAXE, AdvancementType.TASK, ModTriggers.STRIP_MINE);
+            feature("mining/right_tool_for_the_job", iron, Items.IRON_AXE, AdvancementType.TASK, ModTriggers.VERSATILITY_SWAP);
             node("tiers/golden_touch", template, ModItems.GOLD_SLEDGEHAMMER, AdvancementType.TASK, "gold_tool",
                     any(ModItems.GOLD_CHISEL, ModItems.GOLD_SLEDGEHAMMER, ModItems.GOLD_BUILDING_WAND));
             AdvancementHolder diamond = node("tiers/diamond_standard", iron, ModItems.DIAMOND_SLEDGEHAMMER, AdvancementType.TASK, "diamond_tool",
@@ -172,6 +197,13 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                     any(ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK));
             node("storage/heavy_luggage", backpack, ModItems.NETHERITE_BACKPACK, AdvancementType.GOAL, "netherite_backpack",
                     any(ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK));
+            feature("storage/pitching_camp", backpack, Items.CAMPFIRE, AdvancementType.TASK, ModTriggers.BACKPACK_PLACED);
+            node("storage/splash_of_color", sheet, Items.RED_DYE, AdvancementType.TASK, "dyed_storage",
+                    InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(items, ModItems.BACKPACK,
+                                    ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK,
+                                    ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE, ModItems.QUIVER,
+                                    ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER)
+                            .withComponents(DataComponentMatchers.Builder.components().any(DataComponents.DYED_COLOR).build())));
             AdvancementHolder bundle = node("storage/bundle_of_joy", sheet, ModItems.REINFORCED_BUNDLE, AdvancementType.TASK, "reinforced_bundle",
                     any(ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE));
             node("storage/deeper_pockets", bundle, ModItems.NETHERITE_BUNDLE, AdvancementType.TASK, "netherite_bundle",
@@ -186,6 +218,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             AdvancementHolder chip = feature("chisel/chip_off_the_old_block", building, ModItems.STONE_CHISEL, AdvancementType.TASK, ModTriggers.CHISEL);
             node("chisel/fine_detail", chip, ModItems.DIAMOND_CHISEL, AdvancementType.TASK, "better_chisel",
                     any(ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL, ModItems.ENDERITE_CHISEL));
+            counter("chisel/sculptor", chip, ModItems.IRON_CHISEL, AdvancementType.GOAL, ModCounters.CHISEL_STEPS, 1_000);
         }
 
         private void wandsAndBlueprints(AdvancementHolder building) {
@@ -195,11 +228,18 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
             AdvancementHolder oneClick = feature("wand/one_click_wonder", cores, ModItems.COPPER_BUILDING_WAND, AdvancementType.TASK, ModTriggers.WAND_BUILD);
             node("wand/wand_erful", oneClick, ModItems.NETHERITE_BUILDING_WAND, AdvancementType.GOAL, "netherite_wand",
                     any(ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND));
+            counter("wand/master_mason", oneClick, ModItems.GOLD_BUILDING_WAND, AdvancementType.CHALLENGE, ModCounters.WAND_BLOCKS, 10_000);
             feature("gadgets/spin_doctor", building, ModItems.ROTATOR, AdvancementType.TASK, ModTriggers.ROTATE);
 
             AdvancementHolder measure = feature("octant/measure_twice", building, ModItems.OCTANT, AdvancementType.TASK, ModTriggers.OCTANT_MARK);
-            node("octant/colour_coded", measure, ModItems.COLORED_OCTANT_ITEMS.get(DyeColor.LIGHT_BLUE), AdvancementType.TASK, "dyed_octant",
-                    any(ModItems.COLORED_OCTANT_ITEMS.values().toArray(new ItemLike[0])));
+            AdvancementHolder coloured = node("octant/colour_coded", measure, ModItems.COLORED_OCTANT_ITEMS.get(DyeColor.LIGHT_BLUE),
+                    AdvancementType.TASK, "dyed_octant", any(ModItems.COLORED_OCTANT_ITEMS.values().toArray(new ItemLike[0])));
+            Map<String, Criterion<?>> spectrum = new LinkedHashMap<>();
+            for (DyeColor colour : DyeColor.values()) {
+                spectrum.put(colour.getSerializedName() + "_octant", any(ModItems.COLORED_OCTANT_ITEMS.get(colour)));
+            }
+            node("octant/full_spectrum", coloured, ModItems.COLORED_OCTANT_ITEMS.get(DyeColor.MAGENTA), AdvancementType.GOAL,
+                    spectrum, AdvancementRequirements.Strategy.AND);
             AdvancementHolder scan = feature("blueprint/copy_that", measure, ModItems.BLUEPRINT, AdvancementType.TASK, ModTriggers.BLUEPRINT_SCAN);
             feature("blueprint/carbon_copy", scan, Items.CARTOGRAPHY_TABLE, AdvancementType.TASK, ModTriggers.BLUEPRINT_COPY);
             feature("blueprint/instant_architect", scan, ModItems.DIAMOND_BUILDING_WAND, AdvancementType.GOAL, ModTriggers.BLUEPRINT_BUILD);
@@ -216,7 +256,11 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
 
         private void gadgets(AdvancementHolder tweaks) {
             node("gadgets/attractive_personality", tweaks, ModItems.MAGNET, AdvancementType.TASK, "magnet", any(ModItems.MAGNET));
-            feature("gadgets/burning_focus", tweaks, TweaksItems.LASER_POINTER, AdvancementType.TASK, ModTriggers.LENS_BEAM);
+            AdvancementHolder focus = feature("gadgets/burning_focus", tweaks, TweaksItems.LASER_POINTER, AdvancementType.TASK, ModTriggers.LENS_BEAM);
+            feature("gadgets/remote_detonation", focus, Items.TNT, AdvancementType.GOAL, ModTriggers.LASER_TNT);
+            // Boot and armor enchantments at work.
+            feature("tweaks/leap_of_faith", tweaks, Items.FEATHER, AdvancementType.TASK, ModTriggers.AIR_JUMP);
+            feature("tweaks/crumple_zone", tweaks, Items.ELYTRA, AdvancementType.TASK, ModTriggers.KINETIC_PROTECTION);
             feature("gadgets/ping", tweaks, ModItems.ORE_DETECTOR, AdvancementType.TASK, ModTriggers.ORE_DETECTED);
             node("gadgets/speed_reader", tweaks, ModItems.VELOCITY_GAUGE, AdvancementType.TASK, "velocity_gauge", any(ModItems.VELOCITY_GAUGE));
         }
@@ -272,6 +316,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
 
             AdvancementHolder raw = node("enderite/raw_deal", dust, ModItems.RAW_ENDERITE, AdvancementType.TASK, "raw_enderite",
                     any(ModItems.RAW_ENDERITE));
+            feature("enderite/not_today_void", raw, Items.ENDER_EYE, AdvancementType.TASK, ModTriggers.VOID_RESCUE);
             AdvancementHolder scrap = node("enderite/patience_is_a_virtue", raw, ModItems.ENDERITE_SCRAP, AdvancementType.TASK,
                     "enderite_scrap", any(ModItems.ENDERITE_SCRAP));
             AdvancementHolder ingot = node("enderite/beyond_netherite", scrap, ModItems.ENDERITE_INGOT, AdvancementType.GOAL,
@@ -280,7 +325,8 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                     any(ModItems.ENDERITE_BLOCK_ITEM));
             AdvancementHolder nugget = node("enderite/pocket_change", ingot, ModItems.ENDERITE_NUGGET, AdvancementType.TASK,
                     "enderite_nugget", any(ModItems.ENDERITE_NUGGET));
-            feature("enderite/echolocation", nugget, TweaksItems.ECHO_COMPASS, AdvancementType.GOAL, ModTriggers.ECHO_TELEPORT);
+            AdvancementHolder echo = feature("enderite/echolocation", nugget, TweaksItems.ECHO_COMPASS, AdvancementType.GOAL, ModTriggers.ECHO_TELEPORT);
+            feature("enderite/broken_record", echo, Items.ECHO_SHARD, AdvancementType.TASK, ModTriggers.ECHO_SHATTER);
             AdvancementHolder feast = node("enderite/void_feast", nugget, ModItems.ENDERITE_APPLE, AdvancementType.TASK, "enderite_food",
                     any(ModItems.ENDERITE_APPLE, ModItems.ENDERITE_CARROT));
             node("enderite/the_last_bite", feast, ModItems.ENCHANTED_ENDERITE_APPLE, AdvancementType.CHALLENGE, "enchanted_enderite_apple",
@@ -327,6 +373,11 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
 
         private AdvancementHolder feature(String path, AdvancementHolder parent, ItemLike icon, AdvancementType type, String feature) {
             return node(path, parent, icon, type, feature, ModTriggers.FEATURE_USED.used(feature));
+        }
+
+        /** "Do it {@code min} times": the player's own count ({@link ModCounters}) must reach {@code min}. */
+        private AdvancementHolder counter(String path, AdvancementHolder parent, ItemLike icon, AdvancementType type, String counter, long min) {
+            return node(path, parent, icon, type, counter, ModTriggers.COUNTER.reached(counter, min));
         }
 
         private AdvancementHolder node(String path, AdvancementHolder parent, ItemLike icon, AdvancementType type,

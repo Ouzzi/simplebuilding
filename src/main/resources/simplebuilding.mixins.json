@@ -5,6 +5,7 @@
   "mixins": [
     "AbstractFurnaceBlockEntityMixin",
     "AbstractFurnaceMenuMixin",
+    "AdvancementHooksMixin",
     "AnvilScreenHandlerMixin",
     "BlockAttachedEntityTickMixin",
     "BlockStateBaseMixin",

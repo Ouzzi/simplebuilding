@@ -50,6 +50,7 @@ public final class SledgehammerUsageEvent {
                 try {
                     boolean wasBroken = serverPlayer.gameMode.destroyBlock(position);
                     if (wasBroken) {
+                        com.simplebuilding.advancement.ModCounters.add(serverPlayer, com.simplebuilding.advancement.ModCounters.HAMMER_BLOCKS, 1);
                         // Die Grundabnutzung (SledgehammerItem#WEAR_PER_BLOCK) hat destroyBlock ueber
                         // mineBlock schon abgezogen; das falsche Werkzeug kostet einen Punkt mehr.
                         boolean isSuitable = mainHandItem.getItem().isCorrectToolForDrops(mainHandItem, targetState);

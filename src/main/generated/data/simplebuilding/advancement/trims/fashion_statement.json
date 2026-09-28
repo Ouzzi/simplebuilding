@@ -1,0 +1,29 @@
+{
+  "parent": "simplebuilding:root",
+  "criteria": {
+    "full_trim_set": {
+      "conditions": {
+        "feature": "full_trim_set"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.trims.fashion_statement.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "minecraft:diamond_chestplate"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.trims.fashion_statement.title"
+    }
+  },
+  "requirements": [
+    [
+      "full_trim_set"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

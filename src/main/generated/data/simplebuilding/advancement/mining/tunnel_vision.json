@@ -1,0 +1,28 @@
+{
+  "parent": "simplebuilding:tiers/ironclad",
+  "criteria": {
+    "strip_mine": {
+      "conditions": {
+        "feature": "strip_mine"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.mining.tunnel_vision.description"
+    },
+    "icon": {
+      "id": "minecraft:iron_pickaxe"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.mining.tunnel_vision.title"
+    }
+  },
+  "requirements": [
+    [
+      "strip_mine"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
