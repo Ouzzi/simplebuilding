@@ -5,7 +5,7 @@ Schubplatte, Kopf, Stange und Brecher-Verschleiss, Ofen, Raeucherofen, Schmelzof
 den Vanilla-Flaechen, siehe MACHINE_TIERS), die Netherit-Griffe von Vorschlaghammer, Meissel, Baustab
 und Spachtel, die Nihilith-/Astralit-Quarz-Schachbretter, die Enderit-Stufen der Tweak-Bloecke (Pads,
 Teleporter, Druckplatte, Chunk-Loader, Launchpad), Enderitblock, Enderquarz, Enderitbarren, -schrott,
--klumpen, Laserpointer, die beiden Aufwertungen, den Diamant-Kiesel und die
+-klumpen, Laserpointer, die beiden Aufwertungen, den Diamant-Kiesel, die sechs Baukerne und die
 Blaupause; dazu aus Code (nicht aus
 Pixelkarten) die drei End-Paletten Astralit, Nihilith und Enderquarz (Grundblock, Ziegel, polierter
 Block, Saeule, gemeisselte Ziegel), die Rueckentextur des getragenen Rucksacks (entity/backpack/*, aus
@@ -142,30 +142,28 @@ CHISEL_WOOD = {"1": "#2b210e", "2": "#3c2c12", "3": "#483515", "4": "#584219",
 # Pixelkarten
 # ---------------------------------------------------------------------------
 
-# --- Lederbogen: schraeg liegender Bogen, Ziernaht, umgeschlagene Ecke mit Wildlederseite
+# --- Lederbogen: zugeschnittene, flach liegende Haut im Stil von Vanilla-Leder/-Kaninchenfell -
+# breiter als hoch, Ecken leicht ausgezogen, wellige Kanten, oben links heller, unten rechts dunkler.
 LEATHER_SHEET = [
     "................",
     "................",
-    "....RRRRRRRR....",
-    "...R55555544O...",
-    "...R5t4t4t44O...",
-    "...R544434t3O...",
-    "...R5t434443O...",
-    "...R444344t3O...",
-    "...R4t443433O...",
-    "...R444434t3O...",
-    "...R4t4433USO...",
-    "...R4443USVO....",
-    "...R4t3USVO.....",
-    "...R333VVO......",
-    "....OOOOO.......",
+    "................",
+    "..RR..RRRR..RR..",
+    "..R5RR5555RR54O.",
+    "...R554545443O..",
+    "...R544444443O..",
+    "..R54444434432O.",
+    "..R44434444332O.",
+    "...R444434332O..",
+    "...R443433332O..",
+    "..R44333332222O.",
+    "..R3OO2222OO22O.",
+    "..OO..OOOO..OO..",
+    "................",
     "................",
 ]
-LEATHER_SHEET_PAL = {
-    "O": "#541c0d", "R": "#7f2d14",
-    "1": "#893b25", "2": "#9e492a", "3": "#b85632", "4": "#c65c35", "5": "#d76b43",
-    "t": "#e6b58a",
-    "U": "#dcb09a", "S": "#c19382", "V": "#a26f5c",
+LEATHER_SHEET_PAL = {  # Toene von Vanilla-Leder
+    "O": "#3d1c10", "R": "#542716", "2": "#893b25", "3": "#9e492a", "4": "#c65c35", "5": "#d76b43",
 }
 
 # --- Blaupause: ein Kartenblatt (kein Buch) in Cyanotypie-Blau - Raster, ein weiss gezeichnetes
@@ -1847,38 +1845,104 @@ UPGRADE_TEMPLATE = [
 ]
 ENDERITE_UPGRADE_TEMPLATE_PAL = {
     "4": "#3e2173", "5": "#55309a", "0": "#6d45b8", "1": "#7b51c9", "3": "#8e63dc", "2": "#a57de9",
-    "7": "#8a878a", "8": "#737173", "6": "#5a575a", "9": "#4d494d", "a": "#484548", "b": "#3b393b",
-    "c": "#31292a",
+    "7": "#5b555a", "8": "#4a4549", "6": "#3a3539", "9": "#332e32", "a": "#2d282c", "b": "#241f23",
+    "c": "#1b1619", "w": "#f1e8ff", "p": "#eaaaff", "v": "#d58cff",
 }
+# Enderit-Aufwertung: dieselbe Karte, dazu ein wenig Glimmer wie beim Enderitbarren (w weiss, p/v rosa);
+# der Netherit-Pfeil ist dunkler als der Barren, damit er sich vom Lila abhebt.
+ENDERITE_UPGRADE_TEMPLATE = [
+    "................",
+    "....000000000...",
+    "...01232322p20..",
+    "...02w31311114..",
+    "...41111501114..",
+    "...41105651104..",
+    "...41056785054..",
+    "...40567789504..",
+    "...41338893314..",
+    "...4v1369a3114..",
+    "...4111abc1w04..",
+    "...40113331154..",
+    "...45011000054..",
+    "....455005444...",
+    ".....44444......",
+    "................",
+]
 BASIC_UPGRADE_TEMPLATE_PAL = {
     "4": "#8a4a0c", "5": "#b26411", "0": "#dc9613", "1": "#e9b115", "3": "#fad64a", "2": "#fdf55f",
     "7": "#f2f2f2", "8": "#ececec", "6": "#e6e6e6", "9": "#dcdcdc", "a": "#d6d6d6", "b": "#c1c1c1",
     "c": "#b1b0b0",
 }
 
-# Diamant-Kiesel: kleiner, scharf geschliffener Edelstein (Raute), Licht von oben links.
+# Diamant-Kiesel: kleiner, rund geschliffener Stein (liegendes Oval wie ein Flusskiesel) in den
+# Toenen des Vanilla-Diamanten, Licht von oben links.
 DIAMOND_PEBBLE = [
     "................",
     "................",
     "................",
     "................",
     "................",
-    ".......RO.......",
-    "......RW4O......",
-    ".....RW4432.....",
-    ".....R43321O....",
-    "......O321O.....",
-    ".......O1O......",
-    "........O.......",
+    "......AAAA......",
+    ".....ABCEDG.....",
+    "....ABEEDDFG....",
+    "....AEDDFDHG....",
+    "....ADFFHHIG....",
+    ".....GHHIIG.....",
+    "......GGGG......",
     "................",
     "................",
     "................",
     "................",
 ]
 DIAMOND_PEBBLE_PAL = {
-    "O": "#0a4f53", "R": "#0fa8ad", "1": "#0b858a", "2": "#0cc0c6", "3": "#2de0e0", "4": "#78f4f4",
-    "W": "#eafffc",
+    "A": "#11727a", "G": "#0a4f53", "B": "#ffffff", "C": "#d5fff6", "D": "#4aedd9", "E": "#a1fbe8",
+    "F": "#20c5b5", "H": "#1aaaa7", "I": "#1c919a",
 }
+
+# Baukerne (copper_core ... enderite_core): vierzackiger Stern wie der Netherstern, in der Mitte eine
+# runde Kugel. Zacken in den Toenen des Stufenmaterials (Barren/Meissel), Kontur oben links heller (R),
+# unten rechts dunkel (O); Kugel Amethyst, beim Diamantkern tiefblau, beim Enderitkern Enderperlen-Tuerkis.
+BUILDING_CORE = [
+    "................",
+    "................",
+    "........R.......",
+    ".......RHO......",
+    ".......R4O......",
+    "......R443O.....",
+    "....RR4ggg3OO...",
+    "...RH4gLWGg32O..",
+    "..RH43gWLGd322O.",
+    "...R43gGGGd22O..",
+    "....OO3gdd2OO...",
+    "......O322O.....",
+    ".......O2O......",
+    ".......O2O......",
+    "........O.......",
+    "................",
+]
+BUILDING_CORE_RAMPS = {  # O R 2 3 4 H
+    "copper": ("#5a2a1a", "#8a4129", "#c15a36", "#e77c56", "#fc9982", "#fbc3b6"),
+    "iron": ("#353535", "#5e5e5e", "#a8a8a8", "#c8c8c8", "#d8d8d8", "#ffffff"),
+    "gold": ("#752802", "#b26411", "#e9b115", "#fad64a", "#fdf55f", "#fffde0"),
+    "diamond": ("#042a25", "#095348", "#13b299", "#1be7c7", "#6ff0dc", "#d5fff6"),
+    "netherite": ("#1a1415", "#31292a", "#4d494d", "#5a575a", "#737173", "#8a878a"),
+    "enderite": ("#1c0a33", "#3e2173", "#6d45b8", "#7b51c9", "#a57de9", "#cfb2fb"),
+}
+_CORE_AMETHYST = {"d": "#3f2a6b", "g": "#54398a", "G": "#8d6acc", "L": "#b38ef3", "W": "#fecbe6"}
+BUILDING_CORE_GEMS = {
+    "copper": _CORE_AMETHYST, "iron": _CORE_AMETHYST, "gold": _CORE_AMETHYST, "netherite": _CORE_AMETHYST,
+    "diamond": {"d": "#132c66", "g": "#1b3f8f", "G": "#2f6fd6", "L": "#6fb1ff", "W": "#e0f4ff"},
+    "enderite": {"d": "#063a31", "g": "#0b4d42", "G": "#258474", "L": "#56c9b3", "W": "#c8fff2"},
+}
+
+
+def building_core_textures():
+    tex = {}
+    for tier, ramp in BUILDING_CORE_RAMPS.items():
+        pal = dict(zip("OR234H", ramp))
+        pal.update(BUILDING_CORE_GEMS[tier])
+        tex[f"item/{tier}_core.png"] = render(f"{tier}_core", BUILDING_CORE, pal, False)
+    return tex
 
 
 def end_palette_textures():
@@ -1898,11 +1962,12 @@ def end_palette_textures():
     tex["item/enderite_ingot.png"] = render("enderite_ingot", ENDERITE_INGOT, ENDERITE_INGOT_PAL, False)
     tex["item/enderite_scrap.png"] = render("enderite_scrap", ENDERITE_SCRAP, ENDERITE_SCRAP_PAL, False)
     tex["item/enderite_nugget.png"] = render("enderite_nugget", ENDERITE_NUGGET, ENDERITE_NUGGET_PAL, False)
-    tex["item/enderite_upgrade_template.png"] = render("enderite_upgrade_template", UPGRADE_TEMPLATE,
+    tex["item/enderite_upgrade_template.png"] = render("enderite_upgrade_template", ENDERITE_UPGRADE_TEMPLATE,
                                                         ENDERITE_UPGRADE_TEMPLATE_PAL, False)
     tex["item/basic_upgrade_template.png"] = render("basic_upgrade_template", UPGRADE_TEMPLATE,
                                                      BASIC_UPGRADE_TEMPLATE_PAL, False)
     tex["item/diamond_pebble.png"] = render("diamond_pebble", DIAMOND_PEBBLE, DIAMOND_PEBBLE_PAL, False)
+    tex.update(building_core_textures())
     tex.update(enderite_gear_variant(ENDERITE_GEAR_ACTIVE))
     apply_enderite_handles(tex)
     tex.update(vanilla_book_textures())
@@ -2974,6 +3039,7 @@ def build_preview(tex):
         "item/ender_quartz.png", "item/enderite_ingot.png", "item/enderite_scrap.png",
         "item/enderite_nugget.png", "item/enderite_upgrade_template.png", "item/basic_upgrade_template.png",
         "item/diamond_pebble.png")], []))
+    groups.append(("Baukerne", [(f"item/{t}_core.png", tex[f"item/{t}_core.png"]) for t in BUILDING_CORE_RAMPS], []))
     width = max(pad + len(items) * (cell + pad) + sum(iso.width + pad for iso in isos) + pad
                 for _, items, isos in groups)
     height = pad + len(groups) * (16 + cell + label_h + pad + 4)
