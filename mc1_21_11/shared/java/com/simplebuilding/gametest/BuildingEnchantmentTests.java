@@ -761,10 +761,19 @@ public final class BuildingEnchantmentTests {
                 helper.getLevel(), player, paletteWand, origin, Direction.NORTH, diameter);
         Assertions.valueEqual(helper, palette.size(), 9,
                 "Color Palette changed how many blocks the wand previews");
-        Set<Block> paletteBlocks = distinctBlocks(palette);
+        // paletteIndex hashes the absolute position, and the test structure lands somewhere new on
+        // every run - so "both blocks appear" holds only if the nine positions happen to hash to both
+        // entries (it did not on one gate run). Check what paletteIndex assigns instead, and that the
+        // two carried blocks are the only ones used.
         Set<Block> bothBlocks = Set.of(Blocks.OAK_PLANKS, Blocks.GLASS);
-        Assertions.valueEqual(helper, paletteBlocks, bothBlocks,
-                "Color Palette did not spread both carried blocks over the plane, it used " + paletteBlocks);
+        for (Map.Entry<BlockPos, BlockState> entry : palette.entrySet()) {
+            Block expectedHere = BuildingWandItem.paletteIndex(entry.getKey(), 2) == 0 ? Blocks.OAK_PLANKS : Blocks.GLASS;
+            helper.assertTrue(entry.getValue().getBlock() == expectedHere,
+                    "Color Palette placed " + entry.getValue().getBlock() + " at " + entry.getKey()
+                            + " instead of the palette entry " + expectedHere);
+        }
+        helper.assertTrue(bothBlocks.containsAll(distinctBlocks(palette)),
+                "Color Palette used a block that is not carried: " + distinctBlocks(palette));
 
         // --- and does so deterministically, or the preview would flicker every frame ---
         Map<BlockPos, BlockState> again = BuildingWandItem.getPreviewStates(
