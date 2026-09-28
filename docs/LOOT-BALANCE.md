@@ -68,6 +68,11 @@ Vorher (Gewichte in den Mehrwurf-Pools): Eisenkern ~1,8 %, Goldkern ~1,7 % (Bast
 Band je Kern und Tabelle, jeder andere Kern in jeder anderen Tabelle = 0, Enderit-Kern seltener
 als jeder andere).
 
+Spielzeit bis zum ersten und zehnten Kern je Sorte, Haendler zum Vergleich und Vorschlaege:
+`docs/KERNE-SELTENHEIT.md` (2026-09-28). Seit 2026-09-28 stapeln Kerne nicht mehr; der fahrende
+Haendler gibt Kupfer- und Eisenkerne deshalb einzeln (23 bzw. 28 Smaragde, 8 Nutzungen) statt
+paarweise.
+
 ## Handel
 
 | Änderung | Vorher | Nachher | Grund |
