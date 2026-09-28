@@ -141,7 +141,7 @@ public class MagnetItem extends Item {
         if (player.isShiftKeyDown() && getFilterId(stack) != null) {
             if (!world.isClientSide()) {
                 setFilterId(stack, null);
-                player.sendOverlayMessage(Component.translatable("message.simplebuilding.magnet.filter_cleared").withStyle(ChatFormatting.YELLOW));
+                // Keine Einblendung (Besitzer 2026-09-28): Rueckmeldung sind Klang und Tooltip.
                 world.playSound(null, player.blockPosition(), SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.PLAYERS, 0.5f, 1.0f);
             }
             return InteractionResult.SUCCESS;

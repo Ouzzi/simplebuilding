@@ -3227,14 +3227,12 @@ public final class DataIntegrityTests {
             keys.add("simplebuilding.ore_detector.mode." + mode);
         }
         keys.addAll(List.of(
-                "message.simplebuilding.ore_detector.mode", "message.simplebuilding.ore_detector.calibrated",
-                "message.simplebuilding.ore_detector.not_calibratable", "tooltip.simplebuilding.ore_detector.mode",
+                "tooltip.simplebuilding.ore_detector.mode",
                 "tooltip.simplebuilding.ore_detector.target", "tooltip.simplebuilding.ore_detector.no_target",
                 "tooltip.simplebuilding.ore_detector.cycle_hint", "tooltip.simplebuilding.ore_detector.power",
                 "tooltip.simplebuilding.ore_detector.all_classes", "tooltip.simplebuilding.ore_detector.damping",
                 "message.simplebuilding.item_frame.locked", "message.simplebuilding.item_frame.unlocked",
                 "message.simplebuilding.item_frame.hidden", "message.simplebuilding.item_frame.shown",
-                "message.simplebuilding.magnet.filter_set", "message.simplebuilding.magnet.filter_cleared",
                 "tooltip.simplebuilding.magnet.filtering", "tooltip.simplebuilding.magnet.no_filter",
                 "tooltip.simplebuilding.magnet.clear",
                 "simplebuilding.hopper_filter.none", "simplebuilding.hopper_filter.whitelist", "simplebuilding.hopper_filter.type",

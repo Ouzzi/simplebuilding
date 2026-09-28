@@ -1531,8 +1531,9 @@ public final class SmokeClientTest {
      * {@code GLASS_BREAK} at 1.0 / 1.0, {@code SHEEP_SHEAR} at 1.0 / 1.2, {@code BRUSH_GENERIC} at
      * 1.0 / 1.0 - through the same {@link SoundRecorder} and the same hearing self check the tool
      * sounds use. A fifth step, with the sneak key released, sets a Constructor's Touch Magnet's
-     * filter from the framed stone: message "Magnet Filter set to: minecraft:stone" and
-     * {@code RESPAWN_ANCHOR_SET_SPAWN} at 0.5 / 1.5. Until 2026-09 the mixin played all five with
+     * filter from the framed stone: {@code RESPAWN_ANCHOR_SET_SPAWN} at 0.5 / 1.5 and, since
+     * 2026-09-28 (owner: magnet, rotator and ore detector show no text over the hotbar), no action
+     * bar message - the primed sentinel has to survive the click. Until 2026-09 the mixin played all five with
      * {@code player.playSound}, which skips the acting player, and this client heard none of them.
      *
      * <p><b>Not covered:</b> that the frame really ends up locked or invisible. That is server
@@ -1583,7 +1584,7 @@ public final class SmokeClientTest {
         script.command("enchant @a simplebuilding:constructors_touch 1");
         script.awaitPackets();
         script.idle("let the enchanted magnet reach the client", 10);
-        expectOverlayMessage(script, "Magnet Filter set to: minecraft:stone", "set the magnet filter", null,
+        expectOverlayMessage(script, null, "set the magnet filter", null,
                 SoundEvents.RESPAWN_ANCHOR_SET_SPAWN.location(), 0.5f, 1.5f, false);
 
         script.command("kill @e[type=minecraft:item_frame]", true);
@@ -1677,6 +1678,19 @@ public final class SmokeClientTest {
         script.verify("start recording sounds for \"" + step + "\"", SoundRecorder::arm);
         script.harness("right click the item frame to " + step, harness -> harness.pressMouse(InputConstants.MOUSE_BUTTON_RIGHT));
 
+        if (expected == null) {
+            // A step without a message: wait for its sound, then the sentinel must still be there.
+            script.await("the item frame step \"" + step + "\" is heard", 40,
+                    client -> firstOf(SoundRecorder.heard(), sound) != null,
+                    client -> "the item frame step \"" + step + "\" played no " + sound + " to the client. "
+                            + TestScene.describeAim(client));
+            script.act("the item frame step \"" + step + "\" shows no action bar message", client -> {
+                if (!ACTION_BAR_SENTINEL.equals(currentActionBarMessage(client))) {
+                    throw new AssertionError("The item frame step \"" + step + "\" put \""
+                            + currentActionBarMessage(client) + "\" on the action bar; it must show no text.");
+                }
+            });
+        } else
         script.await("the item frame step \"" + step + "\" reaches the client", 40,
                 client -> expected.equals(currentActionBarMessage(client)),
                 client -> "the item frame step \"" + step + "\" sent no action bar message \""

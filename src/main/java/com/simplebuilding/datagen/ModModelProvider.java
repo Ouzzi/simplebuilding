@@ -191,6 +191,60 @@ public class ModModelProvider extends FabricModelProvider {
      * der drei Flaechen gibt es ungefaerbt und - mit {@code minecraft:dyed_color} - als
      * Leder-Ebene mit Farbquelle {@code minecraft:dye} plus ungefaerbter Beschlag-Ebene.
      */
+    /**
+     * Rotator (seit 2026-09-28 mit Ladung wie die Amethystlinse): leer (Schaden = Haltbarkeit,
+     * normiert 1,0) zeigt {@code item/rotator_empty} - die Enderperle ist erloschen.
+     */
+    private static void generateRotator(ItemModelGenerators generator) {
+        Item rotator = ModItems.ROTATOR;
+        Identifier full = ModelTemplates.FLAT_HANDHELD_ITEM.create(rotator, TextureMapping.layer0(rotator), generator.modelOutput);
+        Identifier empty = ModelTemplates.FLAT_HANDHELD_ITEM.create(ModelLocationUtils.getModelLocation(rotator, "_empty"),
+                TextureMapping.layer0(TextureMapping.getItemTexture(rotator, "_empty")), generator.modelOutput);
+        generator.itemModelOutput.accept(rotator, ItemModelUtils.rangeSelect(
+                new net.minecraft.client.renderer.item.properties.numeric.Damage(true),
+                ItemModelUtils.plainModel(full), ItemModelUtils.override(ItemModelUtils.plainModel(empty), 1.0F)));
+    }
+
+    /**
+     * Erzdetektor als Kompass (2026-09-28): liegt ein {@code lodestone_tracker} auf dem Stapel (der
+     * Server setzt ihn auf das naechste gefundene Erz), zeigt eine Amethyst-Nadel mit Vanillas
+     * Kompass-Eigenschaft dorthin - 32 Stellungen wie der Kompass, Bild 16 = oben. Ebene 0 ist das
+     * Gehaeuse ({@code item/ore_detector_dial}), Ebene 1 die Nadel ({@code item/ore_detector_needle_NN}),
+     * getoent mit der Farbe aus {@code custom_model_data} (heller je naeher, siehe
+     * {@code OreDetectorItem.RESONANCE_COLORS}). Ohne Ziel ruht die Nadel ({@code item/ore_detector}).
+     * Kein Ausholen der Hand, wenn der Server Nadel oder Haltbarkeit aendert.
+     */
+    private static void generateOreDetector(ItemModelGenerators generator) {
+        Item detector = ModItems.ORE_DETECTOR;
+        Identifier idle = ModelTemplates.FLAT_ITEM.create(detector, TextureMapping.layer0(detector), generator.modelOutput);
+        java.util.List<net.minecraft.client.renderer.item.RangeSelectItemModel.Entry> frames = new java.util.ArrayList<>();
+        ItemModel.Unbaked north = oreDetectorFrame(generator, 16);
+        frames.add(ItemModelUtils.override(north, 0.0F));
+        for (int i = 1; i < 32; i++) {
+            frames.add(ItemModelUtils.override(oreDetectorFrame(generator, Math.floorMod(i - 16, 32)), i - 0.5F));
+        }
+        frames.add(ItemModelUtils.override(north, 31.5F));
+        ItemModel.Unbaked compass = ItemModelUtils.rangeSelect(
+                new net.minecraft.client.renderer.item.properties.numeric.CompassAngle(true,
+                        net.minecraft.client.renderer.item.properties.numeric.CompassAngleState.CompassTarget.LODESTONE),
+                32.0F, frames);
+        generator.itemModelOutput.accept(detector, ItemModelUtils.conditional(
+                        new net.minecraft.client.renderer.item.properties.conditional.HasComponent(DataComponents.LODESTONE_TRACKER, false),
+                        compass, ItemModelUtils.plainModel(idle)),
+                new ClientItem.Properties(false, false, 1.0F));
+    }
+
+    private static ItemModel.Unbaked oreDetectorFrame(ItemModelGenerators generator, int index) {
+        Item detector = ModItems.ORE_DETECTOR;
+        String suffix = String.format(java.util.Locale.ROOT, "_%02d", index);
+        Identifier model = ModelTemplates.TWO_LAYERED_ITEM.create(ModelLocationUtils.getModelLocation(detector, suffix),
+                TextureMapping.layered(TextureMapping.getItemTexture(detector, "_dial"),
+                        TextureMapping.getItemTexture(detector, "_needle" + suffix)), generator.modelOutput);
+        return ItemModelUtils.tintedModel(model, new net.minecraft.client.color.item.Constant(-1),
+                new net.minecraft.client.color.item.CustomModelDataSource(0,
+                        com.simplebuilding.items.custom.OreDetectorItem.RESONANCE_COLORS[0]));
+    }
+
     private static void generateDyeableBundle(ItemModelGenerators generator, Item item) {
         ItemModel.Unbaked closed = dyeable(generator, item, "", ModelTemplates.FLAT_ITEM, ModelTemplates.TWO_LAYERED_ITEM);
         ItemModel.Unbaked back = dyeable(generator, item, "_open_back", ModelTemplates.BUNDLE_OPEN_BACK_INVENTORY, BUNDLE_OPEN_BACK_DYED);
@@ -489,9 +543,9 @@ public class ModModelProvider extends FabricModelProvider {
 
         // --- CORES & MISC ---
         itemModelGenerator.generateFlatItem(ModItems.VELOCITY_GAUGE, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.ORE_DETECTOR, ModelTemplates.FLAT_ITEM);
+        generateOreDetector(itemModelGenerator);
         itemModelGenerator.generateFlatItem(ModItems.MAGNET, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.ROTATOR, ModelTemplates.FLAT_HANDHELD_ITEM);
+        generateRotator(itemModelGenerator);
 
         itemModelGenerator.generateFlatItem(ModItems.COPPER_CORE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.IRON_CORE, ModelTemplates.FLAT_ITEM);

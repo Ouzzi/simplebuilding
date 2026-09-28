@@ -1,6 +1,7 @@
 package com.simplebuilding.gametest;
 
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.items.custom.RotatorItem;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -87,12 +88,9 @@ import net.minecraft.world.phys.Vec3;
  *   <li><b>The click sound.</b> {@code world.playSound(null, ...)} on the server only queues a
  *       packet for nearby players; a mock player's connection swallows it, so there is nothing to
  *       observe.</li>
- *   <li><b>The unused lang key {@code tooltip.simplebuilding.rotator}.</b> {@code RotatorItem}
- *       does not override {@code appendHoverText} at all, so a test asserting "no tooltip line
- *       carries that key" would be asserting a property of vanilla's default {@code Item}, not of
- *       mod code - a tautology from this mod's point of view. On top of that the tooltip is
- *       assembled and translated client side, and the lang file is a client asset the server test
- *       environment never loads, so such a test would pass for the wrong reason as well.</li>
+ *   <li><b>The tooltip.</b> {@code RotatorItem#appendHoverText} (empty warning, recharge hint) is
+ *       assembled and translated client side; the lang file is a client asset the server test
+ *       environment never loads.</li>
  *   <li><b>The inner {@code cycleDirectionList} call inside {@code handleFacingRotation}</b> (the
  *       one guarded by {@code nextFacing == currentFacing} <em>after</em>
  *       {@code getStandardRotationStart}). It is unreachable for every vanilla direction property:
@@ -121,7 +119,7 @@ public final class RotatorTests {
     /** The block every test turns; a fresh 8x8x8 room per test means one position is enough. */
     private static final BlockPos TARGET = new BlockPos(2, 1, 2);
 
-    /** The rotator's rated durability, as set in {@code ModItems.ROTATOR}. */
+    /** The rotator's full charge (= durability), as set in {@code ModItems.ROTATOR}: 1024 turns. */
     private static final int RATED_DURABILITY = 1024;
 
     /** {@code ENCHANTABILITY_NETHERITE}, the enchantability the rotator is registered with. */
@@ -639,40 +637,24 @@ public final class RotatorTests {
     // =====================================================================================
 
     /**
-     * The rotator is registered as a single, netherite grade tool: it stacks to one, it may be
-     * enchanted with value 15, it sits in {@code #minecraft:enchantable/durability} so those
-     * enchantments are actually offered for it, and it survives exactly 1024 accepted clicks.
+     * The rotator is registered as a single, netherite grade tool whose durability is a charge (owner
+     * 2026-09-28, like the amethyst lens): it stacks to one, it may be enchanted with value 15, it sits
+     * in {@code #minecraft:enchantable/durability}, and it holds {@link RotatorItem#MAX_CHARGE} turns.
+     * It never breaks: the last point of charge leaves an empty rotator in the hand, and an empty
+     * rotator refuses to turn anything (FAIL, block unchanged, no further wear).
      *
-     * <p>The durability is pinned through behaviour rather than through {@code getMaxDamage}
-     * alone: the click that takes it to one point short of the limit leaves a working tool in the
-     * hand, the next one leaves an empty slot. That half is driven off the measured
-     * {@code getMaxDamage} and not off {@link #RATED_DURABILITY}, so that a deliberate balance
-     * change moves exactly one assertion - the balance pin above it, which is the whole reason the
-     * number is named at all - instead of also reddening a wear test that is about
-     * {@code hurtAndBreak} and not about the number.
+     * <p>The click that changes nothing is checked here too - the other half of the
+     * {@code newState != state} guard in {@code RotatorItem#useOn}: aiming a log at the axis it
+     * already lies along answers PASS and costs nothing.
      *
-     * <p>The click that changes nothing is checked in the same place, because it is the other half
-     * of the {@code newState != state} guard in {@code RotatorItem#useOn} (the
-     * {@code newState != null} half belongs to {@code ConsumptionAndDurabilityTests}): aiming a log
-     * at the axis it already lies along has to answer PASS and cost nothing. Without that guard the
-     * click would spend a point of durability, play the sound and answer SUCCESS - and a consumed
-     * action also swallows whatever else the player would have done with that block.
-     *
-     * <p>The tag membership is a claim about the mod's generated data, not about vanilla: whether
-     * an enchanting table then offers Unbreaking is vanilla's business, and enchanting the stack by
-     * hand would work with or without the tag, so there is nothing further to assert here that
-     * would not be a tautology.
-     *
-     * <p>What breaks this: changing the durability, the stack size or the enchantability in
-     * {@code ModItems.ROTATOR}; dropping the rotator from the durability tag in
-     * {@code ModItemTagProvider}, which would make the enchantability number dead weight; anything
-     * that stops the item from breaking at its limit, e.g. writing {@code setDamageValue} instead
-     * of going through {@code hurtAndBreak}; and dropping the {@code newState != state} guard,
-     * which would turn every wasted click into a point of wear.
+     * <p>What breaks this: changing the charge, the stack size or the enchantability in
+     * {@code ModItems.ROTATOR}; dropping it from the durability tag; going back to
+     * {@code hurtAndBreak} (the rotator would vanish at its last point); letting an empty rotator
+     * still turn blocks; and dropping the {@code newState != state} guard.
      */
-    public static void wearsOutAtItsRatedDurabilityAndTakesDurabilityEnchantments(GameTestHelper helper) {
+    public static void chargeRunsDownButTheRotatorNeverBreaks(GameTestHelper helper) {
         ItemStack probe = new ItemStack(ModItems.ROTATOR);
-        Assertions.valueEqual(helper, probe.getMaxDamage(), RATED_DURABILITY, "the rotator's rated durability");
+        Assertions.valueEqual(helper, probe.getMaxDamage(), RATED_DURABILITY, "the rotator's full charge");
         Assertions.valueEqual(helper, probe.getMaxStackSize(), 1, "the rotator's stack size");
 
         Enchantable enchantable = probe.get(DataComponents.ENCHANTABLE);
@@ -683,8 +665,6 @@ public final class RotatorTests {
                 "the rotator left #minecraft:enchantable/durability, so no durability enchantment "
                         + "is offered for it any more");
 
-        // A player who pays for their tools: the in-level mock is creative, and vanilla refuses to
-        // damage anything held by a player with instabuild set.
         ServerPlayer player = mockPlayer(helper, false);
         ItemStack rotator = new ItemStack(ModItems.ROTATOR);
 
@@ -693,37 +673,126 @@ public final class RotatorTests {
         InteractionResult noChange =
                 useOn(helper, player, rotator, TARGET, Direction.UP, new Vec3(0.05, 1.0, 0.5));
         helper.assertTrue(noChange == InteractionResult.PASS,
-                "aiming a log at the axis it already lies along has to be refused - a consumed "
-                        + "action would cost a point of wear and swallow the rest of the "
-                        + "interaction - but the result was " + noChange);
-        helper.assertTrue(logAxis(helper) == Direction.Axis.X,
-                "the log moved off X, so this click was not the no-op this case is about");
-        Assertions.valueEqual(helper, rotator.getDamageValue(), 0,
-                "wear taken by a click that changed nothing");
+                "aiming a log at the axis it already lies along has to be refused, but the result was " + noChange);
+        Assertions.valueEqual(helper, rotator.getDamageValue(), 0, "charge spent on a click that changed nothing");
 
-        // --- and the two clicks that straddle the limit ---
+        // --- the last point of charge: the turn happens, the rotator stays, empty ---
         int max = probe.getMaxDamage();
-        rotator.setDamageValue(max - 2);
+        rotator.setDamageValue(max - 1);
         setLogAxis(helper, Direction.Axis.Y);
+        InteractionResult last = useOn(helper, player, rotator, TARGET, Direction.UP, TOP_CENTRE);
+        helper.assertTrue(last == InteractionResult.SUCCESS, "the turn with the last point of charge was refused: " + last);
+        helper.assertTrue(logAxis(helper) == Direction.Axis.Z, "the last point of charge did not turn the log");
+        helper.assertTrue(!rotator.isEmpty() && rotator.is(ModItems.ROTATOR),
+                "the rotator broke at its last point of charge instead of staying in the hand empty");
+        Assertions.valueEqual(helper, rotator.getDamageValue(), max, "charge left after the last turn (damage)");
+        helper.assertTrue(RotatorItem.isEmpty(rotator), "a fully spent rotator does not count as empty");
 
-        InteractionResult secondToLast = useOn(helper, player, rotator, TARGET, Direction.UP, TOP_CENTRE);
-        helper.assertTrue(secondToLast == InteractionResult.SUCCESS,
-                "the click before the last one was refused, result was " + secondToLast);
-        helper.assertTrue(logAxis(helper) == Direction.Axis.Z,
-                "the log did not turn, so the wear below cannot be attributed to this click");
-        helper.assertTrue(!rotator.isEmpty(),
-                "the rotator broke one click early, i.e. before reaching " + max);
-        Assertions.valueEqual(helper, rotator.getDamageValue(), max - 1,
-                "wear after the second to last click");
-
-        useOn(helper, player, rotator, TARGET, Direction.UP, TOP_CENTRE);
-        helper.assertTrue(logAxis(helper) == Direction.Axis.Y,
-                "the last click did not turn the log, so a broken rotator would prove nothing");
-        helper.assertTrue(rotator.isEmpty(),
-                "the rotator survived its " + max + "th point of wear; it is at "
-                        + rotator.getDamageValue());
+        // --- empty: nothing turns, nothing is spent, nothing breaks ---
+        InteractionResult refused = useOn(helper, player, rotator, TARGET, Direction.UP, TOP_CENTRE);
+        helper.assertTrue(refused == InteractionResult.FAIL, "an empty rotator answered " + refused + " instead of FAIL");
+        helper.assertTrue(logAxis(helper) == Direction.Axis.Z, "an empty rotator still turned the log");
+        helper.assertTrue(!rotator.isEmpty() && rotator.getDamageValue() == max,
+                "clicking with an empty rotator broke it or overshot: damage " + rotator.getDamageValue());
+        RotatorItem.drain(player, rotator, 50);
+        helper.assertTrue(!rotator.isEmpty() && rotator.getDamageValue() == max, "draining an empty rotator broke it");
 
         TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Recharging at the anvil: ender pearls, no level cost, {@link RotatorItem#PEARLS_FOR_FULL} (16,
+     * one stack) fill an empty rotator, and only the pearls the rotator needs are taken. A survival
+     * player at level 0 may take the result, and a full rotator is not offered a recharge.
+     *
+     * <p>What breaks this: the anvil hook no longer covering the rotator (the generic
+     * {@code AnvilRechargeable} path in {@code AnvilScreenHandlerMixin}), a level cost, a different
+     * charge per pearl, or consuming the whole stack for a top-up.
+     */
+    public static void anvilRechargesWithSixteenEnderPearlsForNoLevels(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, false);
+        player.experienceLevel = 0;
+        Assertions.valueEqual(helper, RotatorItem.PEARLS_FOR_FULL * RotatorItem.CHARGE_PER_PEARL, RotatorItem.MAX_CHARGE,
+                "16 pearls times the charge per pearl");
+
+        ItemStack empty = new ItemStack(ModItems.ROTATOR);
+        empty.setDamageValue(RotatorItem.MAX_CHARGE);
+        net.minecraft.world.inventory.AnvilMenu full = recharge(player, empty, 16);
+        ItemStack out = full.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem();
+        helper.assertTrue(out.is(ModItems.ROTATOR) && out.getDamageValue() == 0,
+                "16 ender pearls did not fully charge an empty rotator: " + out + " damage " + out.getDamageValue());
+        Assertions.valueEqual(helper, full.getCost(), 0, "levels a recharge costs");
+        takeResult(helper, player, full);
+        helper.assertTrue(full.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).getItem().isEmpty(),
+                "a full recharge from empty left pearls behind");
+        Assertions.valueEqual(helper, player.experienceLevel, 0, "the player's level after a recharge");
+
+        ItemStack partial = new ItemStack(ModItems.ROTATOR);
+        partial.setDamageValue(100);
+        net.minecraft.world.inventory.AnvilMenu topUp = recharge(player, partial, 16);
+        Assertions.valueEqual(helper, topUp.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().getDamageValue(), 0,
+                "damage after topping up 100 missing charge");
+        takeResult(helper, player, topUp);
+        Assertions.valueEqual(helper, topUp.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).getItem().getCount(), 14,
+                "pearls left after topping up 100 charge (two pearls needed)");
+
+        ItemStack drained = new ItemStack(ModItems.ROTATOR);
+        drained.setDamageValue(RotatorItem.MAX_CHARGE);
+        net.minecraft.world.inventory.AnvilMenu some = recharge(player, drained, 4);
+        Assertions.valueEqual(helper, some.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().getDamageValue(),
+                RotatorItem.MAX_CHARGE - 4 * RotatorItem.CHARGE_PER_PEARL, "damage after four pearls into an empty rotator");
+
+        net.minecraft.world.inventory.AnvilMenu none = recharge(player, new ItemStack(ModItems.ROTATOR), 5);
+        helper.assertTrue(none.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().isEmpty(),
+                "the anvil offers to recharge a full rotator");
+
+        ItemStack wrong = new ItemStack(ModItems.ROTATOR);
+        wrong.setDamageValue(RotatorItem.MAX_CHARGE);
+        net.minecraft.world.inventory.AnvilMenu redstone = new net.minecraft.world.inventory.AnvilMenu(1, player.getInventory(),
+                net.minecraft.world.inventory.ContainerLevelAccess.NULL);
+        redstone.getSlot(net.minecraft.world.inventory.AnvilMenu.INPUT_SLOT).set(wrong);
+        redstone.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).set(new ItemStack(Items.REDSTONE, 64));
+        helper.assertTrue(redstone.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().isEmpty(),
+                "redstone (the lens's material) recharges the rotator too");
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Two sounds per turn: the metal ratchet at once, and {@link RotatorItem#ECHO_DELAY_TICKS} later a
+     * quiet ender teleport at the turned block ("the second says something was teleported"). The
+     * second one is queued per player and played from the rotator's inventory tick; it is not played
+     * early, it is played exactly once, and a refused click queues nothing.
+     *
+     * <p>What breaks this: dropping the queue, playing the echo in the same tick as the ratchet, or
+     * queueing it for clicks that turned nothing.
+     */
+    public static void aTurnQueuesTheEnderEchoShortlyAfterTheRatchet(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, true);
+        ItemStack rotator = new ItemStack(ModItems.ROTATOR);
+        helper.assertTrue(RotatorItem.ECHO_DELAY_TICKS > 0 && RotatorItem.ECHO_DELAY_TICKS <= 10,
+                "the echo has to follow the ratchet shortly (1..10 ticks), it is " + RotatorItem.ECHO_DELAY_TICKS);
+        helper.assertTrue(RotatorItem.ECHO_VOLUME < RotatorItem.RATCHET_VOLUME, "the ender echo is not quieter than the ratchet");
+
+        BlockPos stone = new BlockPos(4, 1, 4);
+        helper.setBlock(stone, Blocks.STONE);
+        useOn(helper, player, rotator, stone, Direction.UP, TOP_CENTRE);
+        Assertions.valueEqual(helper, RotatorItem.pendingEchoTick(player), -1L, "echo queued by a click that turned nothing");
+
+        setLogAxis(helper, Direction.Axis.Y);
+        long now = helper.getLevel().getGameTime();
+        useOn(helper, player, rotator, TARGET, Direction.UP, TOP_CENTRE);
+        // Out of the inventory, so the rotator's own inventory tick cannot play the echo before we look.
+        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        Assertions.valueEqual(helper, RotatorItem.pendingEchoTick(player), now + RotatorItem.ECHO_DELAY_TICKS,
+                "tick the ender echo is due at");
+        helper.assertFalse(RotatorItem.playDueEcho(helper.getLevel(), player), "the ender echo played together with the ratchet");
+
+        helper.runAfterDelay(RotatorItem.ECHO_DELAY_TICKS, () -> {
+            helper.assertTrue(RotatorItem.playDueEcho(helper.getLevel(), player), "the ender echo did not play when it was due");
+            Assertions.valueEqual(helper, RotatorItem.pendingEchoTick(player), -1L, "echo still queued after it played");
+            helper.assertFalse(RotatorItem.playDueEcho(helper.getLevel(), player), "the ender echo played twice");
+            TestCleanup.succeed(helper);
+        });
     }
 
     /**
@@ -839,6 +908,20 @@ public final class RotatorTests {
         player.getAbilities().instabuild = instabuild;
         TestCleanup.before(helper, () -> helper.getLevel().getServer().getPlayerList().remove(player));
         return player;
+    }
+
+    private static net.minecraft.world.inventory.AnvilMenu recharge(ServerPlayer player, ItemStack rotator, int pearls) {
+        net.minecraft.world.inventory.AnvilMenu menu = new net.minecraft.world.inventory.AnvilMenu(1, player.getInventory(),
+                net.minecraft.world.inventory.ContainerLevelAccess.NULL);
+        menu.getSlot(net.minecraft.world.inventory.AnvilMenu.INPUT_SLOT).set(rotator);
+        menu.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).set(new ItemStack(Items.ENDER_PEARL, pearls));
+        return menu;
+    }
+
+    private static void takeResult(GameTestHelper helper, ServerPlayer player, net.minecraft.world.inventory.AnvilMenu menu) {
+        net.minecraft.world.inventory.Slot result = menu.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT);
+        helper.assertTrue(result.mayPickup(player), "a level-0 survival player may not take the free recharge");
+        result.onTake(player, result.getItem());
     }
 
     /**
