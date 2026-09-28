@@ -1,0 +1,71 @@
+{
+	"chapter.2FCCD5055BF48120.title": "{\"translate\": \"quests.simplebuilding.stage_3.title\"}",
+	"chapter.2FCCD5055BF48120.chapter_subtitle": [
+		"{\"translate\": \"quests.simplebuilding.stage_3.subtitle\"}"
+	],
+	"quest.58E0CC7D9AC48404.title": "{\"translate\": \"advancements.nether.find_fortress.title\"}",
+	"quest.58E0CC7D9AC48404.quest_desc": [
+		"{\"translate\": \"advancements.nether.find_fortress.description\"}"
+	],
+	"quest.221D75BA98EFA678.title": "{\"translate\": \"advancements.nether.find_bastion.title\"}",
+	"quest.221D75BA98EFA678.quest_desc": [
+		"{\"translate\": \"advancements.nether.find_bastion.description\"}"
+	],
+	"quest.4F33A64F0904C3B5.title": "{\"translate\": \"advancements.simplebuilding.nether.nugget_of_wisdom.title\"}",
+	"quest.4F33A64F0904C3B5.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.nether.nugget_of_wisdom.description\"}"
+	],
+	"quest.6A36628AB8A0043B.title": "{\"translate\": \"advancements.nether.obtain_ancient_debris.title\"}",
+	"quest.6A36628AB8A0043B.quest_desc": [
+		"{\"translate\": \"advancements.nether.obtain_ancient_debris.description\"}"
+	],
+	"quest.5070A7D5C93E43CF.title": "{\"translate\": \"quests.simplebuilding.stage_3.netherite.title\"}",
+	"quest.5070A7D5C93E43CF.quest_desc": [
+		"{\"translate\": \"quests.simplebuilding.stage_3.netherite.description\"}"
+	],
+	"quest.5BFB5EAAB13F32CD.title": "{\"translate\": \"quests.simplebuilding.stage_3.netherite_template.title\"}",
+	"quest.5BFB5EAAB13F32CD.quest_desc": [
+		"{\"translate\": \"quests.simplebuilding.stage_3.netherite_template.description\"}"
+	],
+	"quest.221A4CB41EF038D2.title": "{\"translate\": \"advancements.simplebuilding.hammer.heavy_metal.title\"}",
+	"quest.221A4CB41EF038D2.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.hammer.heavy_metal.description\"}"
+	],
+	"quest.5A1B2C25B3F2AC06.title": "{\"translate\": \"advancements.simplebuilding.tiers.nether_forged.title\"}",
+	"quest.5A1B2C25B3F2AC06.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.tiers.nether_forged.description\"}"
+	],
+	"quest.2D80F7BE69082234.title": "{\"translate\": \"advancements.simplebuilding.machines.forged_in_place.title\"}",
+	"quest.2D80F7BE69082234.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.machines.forged_in_place.description\"}"
+	],
+	"quest.09EA0E0E9F62BEF3.title": "{\"translate\": \"advancements.simplebuilding.pads.under_pressure.title\"}",
+	"quest.09EA0E0E9F62BEF3.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.pads.under_pressure.description\"}"
+	],
+	"quest.059628FBC8427060.title": "{\"translate\": \"advancements.simplebuilding.pads.liftoff.title\"}",
+	"quest.059628FBC8427060.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.pads.liftoff.description\"}"
+	],
+	"quest.26F2188B9BD804BC.title": "{\"translate\": \"quests.simplebuilding.stage_3.netherite_plate.title\"}",
+	"quest.26F2188B9BD804BC.quest_desc": [
+		"{\"translate\": \"quests.simplebuilding.stage_3.netherite_plate.description\"}"
+	],
+	"quest.780EF56D8570D720.title": "{\"translate\": \"advancements.nether.obtain_blaze_rod.title\"}",
+	"quest.780EF56D8570D720.quest_desc": [
+		"{\"translate\": \"advancements.nether.obtain_blaze_rod.description\"}"
+	],
+	"quest.655B524674EC8340.title": "{\"translate\": \"advancements.simplebuilding.pads.hot_head.title\"}",
+	"quest.655B524674EC8340.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.pads.hot_head.description\"}"
+	],
+	"quest.146CCE240C9E3674.title": "{\"translate\": \"advancements.simplebuilding.pads.bottoms_up.title\"}",
+	"quest.146CCE240C9E3674.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.pads.bottoms_up.description\"}"
+	],
+	"quest.4594F34D7F938B95.title": "{\"translate\": \"quests.simplebuilding.stage_3.done.title\"}",
+	"quest.4594F34D7F938B95.quest_desc": [
+		"{\"translate\": \"advancements.story.follow_ender_eye.description\"}",
+		"{\"translate\": \"quests.simplebuilding.stage_3.done.hint\"}"
+	]
+}

@@ -1,0 +1,259 @@
+{
+	id: "137A2A3D23FB765D",
+	group: "0FF8ACD95EC2930E",
+	order_index: 3,
+	filename: "simplebuilding_stage_4",
+	icon: {
+		id: "simplebuilding:enderite_ingot"
+	},
+	default_quest_shape: "",
+	default_hide_dependency_lines: false,
+	progression_mode: "flexible",
+	quests: [
+		{
+			id: "4D103E60B03143AF",
+			x: 0.0d,
+			y: -0.75d,
+			dependencies: ["4594F34D7F938B95"],
+			tasks: [
+				{
+					id: "72AFFC624192209D",
+					type: "advancement",
+					advancement: "minecraft:story/enter_the_end",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "2FE4294EEC658713",
+			x: 2.0d,
+			y: -0.75d,
+			dependencies: ["4D103E60B03143AF"],
+			tasks: [
+				{
+					id: "2CE8DB4BFA937CA3",
+					type: "advancement",
+					advancement: "minecraft:end/kill_dragon",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "3DC43D0D51E65180",
+			x: 4.0d,
+			y: -1.5d,
+			dependencies: ["2FE4294EEC658713"],
+			tasks: [
+				{
+					id: "7BB52772A161BE53",
+					type: "advancement",
+					advancement: "minecraft:end/find_end_city",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "39A85867A3583889",
+			x: 2.0d,
+			y: 0.75d,
+			dependencies: ["4D103E60B03143AF"],
+			tasks: [
+				{
+					id: "74A28EF9AAF3034F",
+					type: "advancement",
+					advancement: "simplebuilding:end/stardust",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "54041D5DCDB2D5FF",
+			x: 4.0d,
+			y: 0.0d,
+			dependencies: ["39A85867A3583889"],
+			tasks: [
+				{
+					id: "064C6316B6A37DAE",
+					type: "advancement",
+					advancement: "simplebuilding:end/quartz_fusion",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "763B6314EEA2E2F4",
+			x: 4.0d,
+			y: 1.5d,
+			dependencies: ["39A85867A3583889"],
+			tasks: [
+				{
+					id: "26BD66E09C0775C4",
+					type: "advancement",
+					advancement: "simplebuilding:enderite/raw_deal",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "4BD96CF62EC3B676",
+			x: 6.0d,
+			y: -0.75d,
+			dependencies: ["763B6314EEA2E2F4"],
+			tasks: [
+				{
+					id: "3B83ED9606239A98",
+					type: "advancement",
+					advancement: "simplebuilding:enderite/patience_is_a_virtue",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "1DD10BF4A20C446B",
+			x: 8.0d,
+			y: -0.75d,
+			dependencies: ["4BD96CF62EC3B676"],
+			tasks: [
+				{
+					id: "04D4B55474EB0EAC",
+					type: "advancement",
+					advancement: "simplebuilding:enderite/beyond_netherite",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "5C8766501AAFE235",
+			x: 6.0d,
+			y: 0.75d,
+			dependencies: ["3DC43D0D51E65180"],
+			tasks: [
+				{
+					id: "6E2F666E62D5833F",
+					type: "advancement",
+					advancement: "simplebuilding:enderite/template_of_the_end",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "644355157DEEC894",
+			x: 10.0d,
+			y: -3.0d,
+			dependencies: ["1DD10BF4A20C446B", "5C8766501AAFE235"],
+			tasks: [
+				{
+					id: "77BE0BC8794CF171",
+					type: "advancement",
+					advancement: "simplebuilding:enderite/cover_me_in_enderite",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "1BB2F2D8715F07EC",
+			x: 10.0d,
+			y: -1.5d,
+			dependencies: ["1DD10BF4A20C446B", "5C8766501AAFE235"],
+			tasks: [
+				{
+					id: "63B0C63EA0650D2B",
+					type: "advancement",
+					advancement: "simplebuilding:enderite/cutting_edge",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "3DB200C8EDE26C58",
+			x: 10.0d,
+			y: 0.0d,
+			dependencies: ["1DD10BF4A20C446B", "5C8766501AAFE235"],
+			tasks: [
+				{
+					id: "1F3E3B6A83F97B2B",
+					type: "advancement",
+					advancement: "simplebuilding:enderite/hammer_of_the_end",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "51D044D1C8D46F05",
+			x: 10.0d,
+			y: 1.5d,
+			dependencies: ["1DD10BF4A20C446B"],
+			tasks: [
+				{
+					id: "0474C99892D44145",
+					type: "advancement",
+					advancement: "simplebuilding:machines/end_of_the_line",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "00FA70FB89886437",
+			x: 0.0d,
+			y: 0.75d,
+			optional: true,
+			dependencies: ["4594F34D7F938B95"],
+			tasks: [
+				{
+					id: "155C7BC0C31D9C12",
+					type: "advancement",
+					advancement: "minecraft:nether/summon_wither",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "7BE69CC9480D2FE0",
+			x: 8.0d,
+			y: 0.75d,
+			optional: true,
+			dependencies: ["5C8766501AAFE235", "00FA70FB89886437"],
+			tasks: [
+				{
+					id: "28E0E68BCCFE7E31",
+					type: "advancement",
+					advancement: "simplebuilding:enderite/heart_of_the_end",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "1120C7FA7250D008",
+			x: 10.0d,
+			y: 3.0d,
+			optional: true,
+			dependencies: ["7BE69CC9480D2FE0"],
+			tasks: [
+				{
+					id: "790F324393BB4CC0",
+					type: "advancement",
+					advancement: "simplebuilding:enderite/echolocation",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "0A6D3D01F8647984",
+			x: 12.0d,
+			y: 0.0d,
+			shape: "gear",
+			size: 1.5d,
+			dependencies: ["4D103E60B03143AF", "2FE4294EEC658713", "3DC43D0D51E65180", "39A85867A3583889", "54041D5DCDB2D5FF", "763B6314EEA2E2F4", "4BD96CF62EC3B676", "1DD10BF4A20C446B", "5C8766501AAFE235", "644355157DEEC894", "1BB2F2D8715F07EC", "3DB200C8EDE26C58", "51D044D1C8D46F05"],
+			tasks: [
+				{
+					id: "56252BE6227246BF",
+					type: "advancement",
+					advancement: "simplebuilding:enderite/void_walker",
+					criterion: ""
+				}
+			]
+		}
+	],
+	quest_links: [ ],
+	images: [ ]
+}

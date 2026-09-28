@@ -1,0 +1,52 @@
+{
+	"chapter.26B6E0ED9AD2C2CA.title": "{\"translate\": \"quests.simplebuilding.stage_2.title\"}",
+	"chapter.26B6E0ED9AD2C2CA.chapter_subtitle": [
+		"{\"translate\": \"quests.simplebuilding.stage_2.subtitle\"}"
+	],
+	"quest.453660E4D74E236A.title": "{\"translate\": \"advancements.simplebuilding.tiers.ironclad.title\"}",
+	"quest.453660E4D74E236A.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.tiers.ironclad.description\"}"
+	],
+	"quest.041CAE072668FB38.title": "{\"translate\": \"advancements.simplebuilding.tiers.step_by_step.title\"}",
+	"quest.041CAE072668FB38.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.tiers.step_by_step.description\"}"
+	],
+	"quest.27AB28073CA0EA1A.title": "{\"translate\": \"advancements.simplebuilding.tiers.golden_touch.title\"}",
+	"quest.27AB28073CA0EA1A.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.tiers.golden_touch.description\"}"
+	],
+	"quest.6677913661F1DAD0.title": "{\"translate\": \"advancements.story.mine_diamond.title\"}",
+	"quest.6677913661F1DAD0.quest_desc": [
+		"{\"translate\": \"advancements.story.mine_diamond.description\"}"
+	],
+	"quest.051BADADCABBF46F.title": "{\"translate\": \"quests.simplebuilding.stage_2.diamond_block.title\"}",
+	"quest.051BADADCABBF46F.quest_desc": [
+		"{\"translate\": \"quests.simplebuilding.stage_2.diamond_block.description\"}"
+	],
+	"quest.5022B021DD5E0964.title": "{\"translate\": \"advancements.simplebuilding.hammer.pebble_dash.title\"}",
+	"quest.5022B021DD5E0964.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.hammer.pebble_dash.description\"}"
+	],
+	"quest.3019B51AE69CAFDB.title": "{\"translate\": \"advancements.simplebuilding.hammer.cracked_up.title\"}",
+	"quest.3019B51AE69CAFDB.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.hammer.cracked_up.description\"}"
+	],
+	"quest.4C3B613301694BB7.title": "{\"translate\": \"advancements.simplebuilding.machines.reinforcements.title\"}",
+	"quest.4C3B613301694BB7.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.machines.reinforcements.description\"}"
+	],
+	"quest.1A8ECA7911F26489.title": "{\"translate\": \"advancements.simplebuilding.tiers.diamond_standard.title\"}",
+	"quest.1A8ECA7911F26489.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.tiers.diamond_standard.description\"}"
+	],
+	"quest.5C496A9F8FDB2481.title": "{\"translate\": \"advancements.story.enchant_item.title\"}",
+	"quest.5C496A9F8FDB2481.quest_desc": [
+		"{\"translate\": \"advancements.story.enchant_item.description\"}",
+		"{\"translate\": \"quests.simplebuilding.stage_2.enchanter.hint\"}"
+	],
+	"quest.44EAC11C2B788D27.title": "{\"translate\": \"quests.simplebuilding.stage_2.done.title\"}",
+	"quest.44EAC11C2B788D27.quest_desc": [
+		"{\"translate\": \"advancements.story.enter_the_nether.description\"}",
+		"{\"translate\": \"quests.simplebuilding.stage_2.done.hint\"}"
+	]
+}

@@ -1183,6 +1183,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("advancement_tree_game_test_every_recipe_unlock_hands_out_an_existing_recipe", AdvancementTreeTests::everyRecipeUnlockHandsOutAnExistingRecipe)
                     .build(),
+            GameTestSpec.named("advancement_tree_game_test_the_ftb_quests_book_is_complete_and_forms_stages", AdvancementTreeTests::theFtbQuestsBookIsCompleteAndFormsStages)
+                    .build(),
+            GameTestSpec.named("advancement_tree_game_test_installing_the_quest_book_adds_but_never_overwrites", AdvancementTreeTests::installingTheQuestBookAddsButNeverOverwrites)
+                    .build(),
             GameTestSpec.named("potion_pad_game_test_splash_potions_landing_on_the_pad_are_stored_and_replaced", PotionPadTests::splashPotionsLandingOnThePadAreStoredAndReplaced)
                     .build(),
             GameTestSpec.named("potion_pad_game_test_standing_on_the_pad_ramps_the_effect_to_twenty_five_fifty_and_one_hundred_percent_in_three_seconds", PotionPadTests::standingOnThePadRampsTheEffectToTwentyFiveFiftyAndOneHundredPercentInThreeSeconds)

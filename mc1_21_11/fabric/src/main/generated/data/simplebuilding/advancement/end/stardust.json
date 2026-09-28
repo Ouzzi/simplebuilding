@@ -1,5 +1,5 @@
 {
-  "parent": "simplebuilding:root",
+  "parent": "simplebuilding:end/root",
   "criteria": {
     "end_mineral": {
       "conditions": {

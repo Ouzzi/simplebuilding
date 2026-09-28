@@ -1,5 +1,5 @@
 {
-  "parent": "simplebuilding:wand/core_values",
+  "parent": "simplebuilding:building/root",
   "criteria": {
     "rotate": {
       "conditions": {

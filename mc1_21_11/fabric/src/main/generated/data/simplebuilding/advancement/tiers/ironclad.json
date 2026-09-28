@@ -1,0 +1,37 @@
+{
+  "parent": "simplebuilding:tiers/copper_crafter",
+  "criteria": {
+    "iron_tool": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:iron_chisel",
+              "simplebuilding:iron_sledgehammer",
+              "simplebuilding:iron_building_wand"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.tiers.ironclad.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:iron_sledgehammer"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.tiers.ironclad.title"
+    }
+  },
+  "requirements": [
+    [
+      "iron_tool"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

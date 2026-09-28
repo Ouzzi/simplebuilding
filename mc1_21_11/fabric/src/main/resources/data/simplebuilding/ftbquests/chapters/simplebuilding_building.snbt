@@ -1,0 +1,294 @@
+{
+	id: "7534D089413BE950",
+	group: "0FF8ACD95EC2930E",
+	order_index: 4,
+	filename: "simplebuilding_building",
+	icon: {
+		id: "simplebuilding:octant"
+	},
+	default_quest_shape: "",
+	default_hide_dependency_lines: false,
+	progression_mode: "flexible",
+	quests: [
+		{
+			id: "64ABD46EBD9692AA",
+			x: 0.0d,
+			y: -3.75d,
+			dependencies: ["1DFAEA31C9E9163A"],
+			tasks: [
+				{
+					id: "59B3478BE591BA5D",
+					type: "advancement",
+					advancement: "simplebuilding:building/root",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "5FD6D4CD0B327C6E",
+			x: 2.0d,
+			y: -3.75d,
+			optional: true,
+			dependencies: ["64ABD46EBD9692AA", "4E11526B4A90FF79"],
+			tasks: [
+				{
+					id: "7D0FA9A4CA33921F",
+					type: "item",
+					item: {
+						id: "simplebuilding:guide_book_building",
+						count: 1
+					}
+				}
+			]
+		},
+		{
+			id: "225A9DCA5D753D47",
+			x: 2.0d,
+			y: -2.25d,
+			dependencies: ["64ABD46EBD9692AA"],
+			tasks: [
+				{
+					id: "6A78F238195E3C82",
+					type: "item",
+					item: {
+						id: "simplebuilding:octant",
+						count: 1
+					}
+				}
+			]
+		},
+		{
+			id: "3A042478F138601D",
+			x: 4.0d,
+			y: -1.5d,
+			dependencies: ["225A9DCA5D753D47"],
+			tasks: [
+				{
+					id: "7DEE5FD83F4A6342",
+					type: "advancement",
+					advancement: "simplebuilding:octant/measure_twice",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "02D4353ADE7705C4",
+			x: 4.0d,
+			y: 0.0d,
+			optional: true,
+			dependencies: ["225A9DCA5D753D47"],
+			tasks: [
+				{
+					id: "40B0727003665925",
+					type: "advancement",
+					advancement: "simplebuilding:octant/colour_coded",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "77DDBB44E0D5BD95",
+			x: 2.0d,
+			y: -0.75d,
+			dependencies: ["64ABD46EBD9692AA"],
+			tasks: [
+				{
+					id: "308E3C768C5D5E83",
+					type: "advancement",
+					advancement: "simplebuilding:building/let_there_be_light",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "1323A898FCF1A07F",
+			x: 2.0d,
+			y: 0.75d,
+			dependencies: ["64ABD46EBD9692AA"],
+			tasks: [
+				{
+					id: "20D2162DF35FE062",
+					type: "advancement",
+					advancement: "simplebuilding:building/checkmate",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "4E33E195CC3BD7A4",
+			x: 2.0d,
+			y: 2.25d,
+			dependencies: ["64ABD46EBD9692AA", "65D88117838EB4F9"],
+			tasks: [
+				{
+					id: "209018E69002861F",
+					type: "advancement",
+					advancement: "simplebuilding:hammer/glow_up",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "27796F48C671CD72",
+			x: 4.0d,
+			y: 1.5d,
+			optional: true,
+			dependencies: ["4E33E195CC3BD7A4"],
+			tasks: [
+				{
+					id: "7FA6D630E981DFE8",
+					type: "advancement",
+					advancement: "simplebuilding:hammer/bright_idea",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "672E11EB510CF691",
+			x: 0.0d,
+			y: -2.25d,
+			dependencies: ["1A8ECA7911F26489"],
+			tasks: [
+				{
+					id: "4664A5D4A7C73335",
+					type: "advancement",
+					advancement: "simplebuilding:chisel/fine_detail",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "3F5B3AEC2AD9D856",
+			x: 2.0d,
+			y: 3.75d,
+			optional: true,
+			dependencies: ["64ABD46EBD9692AA", "00CDA54453F00B28"],
+			tasks: [
+				{
+					id: "4E980113C3094D46",
+					type: "advancement",
+					advancement: "simplebuilding:gadgets/spin_doctor",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "318A737D32392749",
+			x: 0.0d,
+			y: -0.75d,
+			optional: true,
+			dependencies: ["4594F34D7F938B95"],
+			tasks: [
+				{
+					id: "218A9CB81AAD28F6",
+					type: "advancement",
+					advancement: "simplebuilding:wand/wand_erful",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "502775D06B4897BF",
+			x: 0.0d,
+			y: 0.75d,
+			dependencies: ["39A85867A3583889"],
+			tasks: [
+				{
+					id: "7278052DD824F12E",
+					type: "advancement",
+					advancement: "simplebuilding:end/palette_cleanser",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "41116BB1559BB2D2",
+			x: 0.0d,
+			y: 2.25d,
+			optional: true,
+			dependencies: ["39A85867A3583889"],
+			tasks: [
+				{
+					id: "78609D846F392996",
+					type: "advancement",
+					advancement: "simplebuilding:end/astral_projection",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "2E4C916A82384A29",
+			x: 0.0d,
+			y: 3.75d,
+			dependencies: ["39A85867A3583889"],
+			tasks: [
+				{
+					id: "46259B5A91531465",
+					type: "advancement",
+					advancement: "simplebuilding:end/defying_gravity",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "57E65915F6F64339",
+			x: 6.0d,
+			y: 0.0d,
+			dependencies: ["3A042478F138601D", "54041D5DCDB2D5FF"],
+			tasks: [
+				{
+					id: "4E6C39F630D64755",
+					type: "item",
+					item: {
+						id: "simplebuilding:blueprint",
+						count: 1
+					}
+				}
+			]
+		},
+		{
+			id: "68AFE2CC6633DCEB",
+			x: 8.0d,
+			y: 0.0d,
+			dependencies: ["57E65915F6F64339"],
+			tasks: [
+				{
+					id: "3885166187BCD9B0",
+					type: "advancement",
+					advancement: "simplebuilding:blueprint/copy_that",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "40FF5DFBCD2285B8",
+			x: 10.0d,
+			y: -0.75d,
+			dependencies: ["68AFE2CC6633DCEB"],
+			tasks: [
+				{
+					id: "648D2442E4CBB613",
+					type: "advancement",
+					advancement: "simplebuilding:blueprint/carbon_copy",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "5601001720D2EC48",
+			x: 10.0d,
+			y: 0.75d,
+			dependencies: ["68AFE2CC6633DCEB"],
+			tasks: [
+				{
+					id: "1EC7140597B4282C",
+					type: "advancement",
+					advancement: "simplebuilding:blueprint/instant_architect",
+					criterion: ""
+				}
+			]
+		}
+	],
+	quest_links: [ ],
+	images: [ ]
+}

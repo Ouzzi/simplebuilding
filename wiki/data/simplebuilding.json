@@ -49685,8 +49685,107 @@
       "source": "src/main/generated/data/simplebuilding/advancement/blueprint/instant_architect.json"
     },
     {
+      "id": "simplebuilding:building/checkmate",
+      "parent": "simplebuilding:building/root",
+      "icon": "simplebuilding:purpur_quartz_checker",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Checkmate",
+        "de_de": "Schachmatt"
+      },
+      "description": {
+        "en_us": "Craft a quartz checker block: quartz with purpur, lapis, blackstone, resin or an End mineral",
+        "de_de": "Bau einen Quarz-Schachbrettblock: Quarz mit Purpur, Lapislazuli, Schwarzstein, Harz oder einem End-Mineral"
+      },
+      "criteria": [
+        {
+          "name": "quartz_checker",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:purpur_quartz_checker",
+            "simplebuilding:lapis_quartz_checker",
+            "simplebuilding:blackstone_quartz_checker",
+            "simplebuilding:resin_quartz_checker",
+            "simplebuilding:astralit_quartz_checker",
+            "simplebuilding:nihilith_quartz_checker",
+            "simplebuilding:ender_quartz_checker"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/building/checkmate.json"
+    },
+    {
+      "id": "simplebuilding:building/let_there_be_light",
+      "parent": "simplebuilding:building/root",
+      "icon": "simplebuilding:construction_light",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Let There Be Light",
+        "de_de": "Es werde Licht"
+      },
+      "description": {
+        "en_us": "Glass, a torch and lapis make a Construction Light for dark building sites",
+        "de_de": "Glas, eine Fackel und Lapislazuli ergeben ein Baulicht für dunkle Baustellen"
+      },
+      "criteria": [
+        {
+          "name": "construction_light",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:construction_light"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/building/let_there_be_light.json"
+    },
+    {
+      "id": "simplebuilding:building/root",
+      "parent": null,
+      "icon": "simplebuilding:gold_chisel",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Building & Blueprints",
+        "de_de": "Bauen & Blaupausen"
+      },
+      "description": {
+        "en_us": "Chisels, building wands, octants and blueprints. Get any building tool to open this tab",
+        "de_de": "Meißel, Baustäbe, Oktanten und Blaupausen. Besorg dir ein Bauwerkzeug, um diesen Tab zu öffnen"
+      },
+      "criteria": [
+        {
+          "name": "building_tool",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:stone_chisel",
+            "simplebuilding:copper_chisel",
+            "simplebuilding:iron_chisel",
+            "simplebuilding:gold_chisel",
+            "simplebuilding:diamond_chisel",
+            "simplebuilding:netherite_chisel",
+            "simplebuilding:enderite_chisel",
+            "simplebuilding:copper_building_wand",
+            "simplebuilding:iron_building_wand",
+            "simplebuilding:gold_building_wand",
+            "simplebuilding:diamond_building_wand",
+            "simplebuilding:netherite_building_wand",
+            "simplebuilding:enderite_building_wand",
+            "simplebuilding:octant",
+            "simplebuilding:rotator",
+            "simplebuilding:construction_light"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/building/root.json"
+    },
+    {
       "id": "simplebuilding:chisel/chip_off_the_old_block",
-      "parent": "simplebuilding:root",
+      "parent": "simplebuilding:building/root",
       "icon": "simplebuilding:stone_chisel",
       "frame": "task",
       "hidden": false,
@@ -49735,6 +49834,35 @@
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/chisel/fine_detail.json"
+    },
+    {
+      "id": "simplebuilding:end/astral_projection",
+      "parent": "simplebuilding:end/stardust",
+      "icon": "simplebuilding:astral_purpur_block",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Astral Projection",
+        "de_de": "Astralreise"
+      },
+      "description": {
+        "en_us": "Ring Astralit Dust or a Nihilith Shard with purpur or polished end stone",
+        "de_de": "Umring Astralitstaub oder einen Nihilithsplitter mit Purpur oder Poliertem Endstein"
+      },
+      "criteria": [
+        {
+          "name": "astral_block",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:astral_purpur_block",
+            "simplebuilding:nihil_purpur_block",
+            "simplebuilding:astral_end_stone",
+            "simplebuilding:nihil_end_stone"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/end/astral_projection.json"
     },
     {
       "id": "simplebuilding:end/defying_gravity",
@@ -49794,6 +49922,32 @@
       "source": "src/main/generated/data/simplebuilding/advancement/end/palette_cleanser.json"
     },
     {
+      "id": "simplebuilding:end/polished_off",
+      "parent": "simplebuilding:end/root",
+      "icon": "simplebuilding:polished_end_stone",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Polished Off",
+        "de_de": "Auf Hochglanz"
+      },
+      "description": {
+        "en_us": "Four end stone make Polished End Stone - the base of the astral and nihil blocks",
+        "de_de": "Vier Endstein ergeben Polierten Endstein - die Basis der Astral- und Nihil-Blöcke"
+      },
+      "criteria": [
+        {
+          "name": "polished_end_stone",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:polished_end_stone"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/end/polished_off.json"
+    },
+    {
       "id": "simplebuilding:end/quartz_fusion",
       "parent": "simplebuilding:end/stardust",
       "icon": "simplebuilding:ender_quartz",
@@ -49820,8 +49974,34 @@
       "source": "src/main/generated/data/simplebuilding/advancement/end/quartz_fusion.json"
     },
     {
+      "id": "simplebuilding:end/root",
+      "parent": null,
+      "icon": "simplebuilding:astral_end_stone",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Beyond the End",
+        "de_de": "Jenseits des Endes"
+      },
+      "description": {
+        "en_us": "The End hides new minerals and a metal stronger than netherite. Pick up some end stone to begin",
+        "de_de": "Das Ende birgt neue Minerale und ein Metall, stärker als Netherit. Heb etwas Endstein auf, um loszulegen"
+      },
+      "criteria": [
+        {
+          "name": "end_stone",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:end_stone"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/end/root.json"
+    },
+    {
       "id": "simplebuilding:end/stardust",
-      "parent": "simplebuilding:root",
+      "parent": "simplebuilding:end/root",
       "icon": "simplebuilding:astralit_dust",
       "frame": "task",
       "hidden": false,
@@ -49871,6 +50051,32 @@
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/enderite/beyond_netherite.json"
+    },
+    {
+      "id": "simplebuilding:enderite/block_party",
+      "parent": "simplebuilding:enderite/beyond_netherite",
+      "icon": "simplebuilding:enderite_block",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Block Party",
+        "de_de": "Blockparty"
+      },
+      "description": {
+        "en_us": "Nine Enderite Ingots make a Block of Enderite",
+        "de_de": "Neun Enderitbarren ergeben einen Enderitblock"
+      },
+      "criteria": [
+        {
+          "name": "enderite_block",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enderite_block"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/block_party.json"
     },
     {
       "id": "simplebuilding:enderite/cover_me_in_enderite",
@@ -50037,6 +50243,33 @@
       "source": "src/main/generated/data/simplebuilding/advancement/enderite/heart_of_the_end.json"
     },
     {
+      "id": "simplebuilding:enderite/master_builder",
+      "parent": "simplebuilding:enderite/template_of_the_end",
+      "icon": "simplebuilding:enderite_building_wand",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Master Builder",
+        "de_de": "Baumeister"
+      },
+      "description": {
+        "en_us": "Smith a netherite Chisel or Building Wand into Enderite",
+        "de_de": "Schmiede einen Netheritmeißel oder Netherit-Baustab zu Enderit"
+      },
+      "criteria": [
+        {
+          "name": "enderite_building_tool",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enderite_chisel",
+            "simplebuilding:enderite_building_wand"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/master_builder.json"
+    },
+    {
       "id": "simplebuilding:enderite/patience_is_a_virtue",
       "parent": "simplebuilding:enderite/raw_deal",
       "icon": "simplebuilding:enderite_scrap",
@@ -50141,6 +50374,59 @@
       "source": "src/main/generated/data/simplebuilding/advancement/enderite/template_of_the_end.json"
     },
     {
+      "id": "simplebuilding:enderite/the_last_bite",
+      "parent": "simplebuilding:enderite/void_feast",
+      "icon": "simplebuilding:enchanted_enderite_apple",
+      "frame": "challenge",
+      "hidden": false,
+      "title": {
+        "en_us": "The Last Bite",
+        "de_de": "Der letzte Bissen"
+      },
+      "description": {
+        "en_us": "Find an Enchanted Enderite Apple in an End city chest",
+        "de_de": "Finde einen Verzauberten Enderitapfel in einer Truhe einer Endsiedlung"
+      },
+      "criteria": [
+        {
+          "name": "enchanted_enderite_apple",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enchanted_enderite_apple"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/the_last_bite.json"
+    },
+    {
+      "id": "simplebuilding:enderite/void_feast",
+      "parent": "simplebuilding:enderite/pocket_change",
+      "icon": "simplebuilding:enderite_apple",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Void Feast",
+        "de_de": "Festmahl der Leere"
+      },
+      "description": {
+        "en_us": "An apple or a carrot ringed with Enderite Nuggets - stronger than its netherite cousin",
+        "de_de": "Ein Apfel oder eine Karotte, umringt von Enderitklumpen - stärker als der Netherit-Vetter"
+      },
+      "criteria": [
+        {
+          "name": "enderite_food",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enderite_apple",
+            "simplebuilding:enderite_carrot"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/void_feast.json"
+    },
+    {
       "id": "simplebuilding:enderite/void_walker",
       "parent": "simplebuilding:enderite/cover_me_in_enderite",
       "icon": "simplebuilding:enderite_boots",
@@ -50189,7 +50475,7 @@
     },
     {
       "id": "simplebuilding:gadgets/attractive_personality",
-      "parent": "simplebuilding:wand/core_values",
+      "parent": "simplebuilding:tweaks/root",
       "icon": "simplebuilding:magnet",
       "frame": "task",
       "hidden": false,
@@ -50215,7 +50501,7 @@
     },
     {
       "id": "simplebuilding:gadgets/burning_focus",
-      "parent": "simplebuilding:wand/core_values",
+      "parent": "simplebuilding:tweaks/root",
       "icon": "simplebuilding:laser_pointer",
       "frame": "task",
       "hidden": false,
@@ -50239,7 +50525,7 @@
     },
     {
       "id": "simplebuilding:gadgets/ping",
-      "parent": "simplebuilding:wand/core_values",
+      "parent": "simplebuilding:tweaks/root",
       "icon": "simplebuilding:ore_detector",
       "frame": "task",
       "hidden": false,
@@ -50263,7 +50549,7 @@
     },
     {
       "id": "simplebuilding:gadgets/speed_reader",
-      "parent": "simplebuilding:wand/core_values",
+      "parent": "simplebuilding:tweaks/root",
       "icon": "simplebuilding:velocity-gauge",
       "frame": "task",
       "hidden": false,
@@ -50289,7 +50575,7 @@
     },
     {
       "id": "simplebuilding:gadgets/spin_doctor",
-      "parent": "simplebuilding:wand/core_values",
+      "parent": "simplebuilding:building/root",
       "icon": "simplebuilding:rotator",
       "frame": "task",
       "hidden": false,
@@ -50310,6 +50596,32 @@
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/gadgets/spin_doctor.json"
+    },
+    {
+      "id": "simplebuilding:hammer/bright_idea",
+      "parent": "simplebuilding:hammer/glow_up",
+      "icon": "simplebuilding:emitting_trim_template",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Bright Idea",
+        "de_de": "Geistesblitz"
+      },
+      "description": {
+        "en_us": "Glowstone Dust instead of Glow Ink turns a trim template into an Emitting one",
+        "de_de": "Glowstonestaub statt Leuchttinte macht aus einer Besatz-Vorlage eine Strahlende"
+      },
+      "criteria": [
+        {
+          "name": "emitting_trim_template",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:emitting_trim_template"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/hammer/bright_idea.json"
     },
     {
       "id": "simplebuilding:hammer/cracked_up",
@@ -50336,6 +50648,32 @@
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/hammer/cracked_up.json"
+    },
+    {
+      "id": "simplebuilding:hammer/diamond_in_the_rough",
+      "parent": "simplebuilding:hammer/cracked_up",
+      "icon": "simplebuilding:cracked_diamond_block",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Diamond in the Rough",
+        "de_de": "Ungeschliffener Diamant"
+      },
+      "description": {
+        "en_us": "Nine Cracked Diamonds make a Block of Cracked Diamond - a compact store for the next machines",
+        "de_de": "Neun Rissige Diamanten ergeben einen Rissigen Diamantblock - ein kompakter Vorrat für die nächsten Maschinen"
+      },
+      "criteria": [
+        {
+          "name": "cracked_diamond_block",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:cracked_diamond_block"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/hammer/diamond_in_the_rough.json"
     },
     {
       "id": "simplebuilding:hammer/glow_up",
@@ -50541,8 +50879,49 @@
       "source": "src/main/generated/data/simplebuilding/advancement/nether/nugget_of_wisdom.json"
     },
     {
+      "id": "simplebuilding:octant/colour_coded",
+      "parent": "simplebuilding:octant/measure_twice",
+      "icon": "simplebuilding:octant_light_blue",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Colour Coded",
+        "de_de": "Farblich sortiert"
+      },
+      "description": {
+        "en_us": "Craft an Octant with a dye to tell your selections apart; a cauldron washes the colour off again",
+        "de_de": "Bau einen Oktanten mit einem Farbstoff, um deine Auswahlen auseinanderzuhalten; ein Kessel wäscht die Farbe wieder ab"
+      },
+      "criteria": [
+        {
+          "name": "dyed_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_white",
+            "simplebuilding:octant_orange",
+            "simplebuilding:octant_magenta",
+            "simplebuilding:octant_light_blue",
+            "simplebuilding:octant_yellow",
+            "simplebuilding:octant_lime",
+            "simplebuilding:octant_pink",
+            "simplebuilding:octant_gray",
+            "simplebuilding:octant_light_gray",
+            "simplebuilding:octant_cyan",
+            "simplebuilding:octant_purple",
+            "simplebuilding:octant_blue",
+            "simplebuilding:octant_brown",
+            "simplebuilding:octant_green",
+            "simplebuilding:octant_red",
+            "simplebuilding:octant_black"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/octant/colour_coded.json"
+    },
+    {
       "id": "simplebuilding:octant/measure_twice",
-      "parent": "simplebuilding:root",
+      "parent": "simplebuilding:building/root",
       "icon": "simplebuilding:octant",
       "frame": "task",
       "hidden": false,
@@ -50617,6 +50996,65 @@
       "source": "src/main/generated/data/simplebuilding/advancement/pads/bottoms_up.json"
     },
     {
+      "id": "simplebuilding:pads/copper_plated",
+      "parent": "simplebuilding:tweaks/root",
+      "icon": "simplebuilding:copper_pressure_plate",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Copper Plated",
+        "de_de": "Verkupfert"
+      },
+      "description": {
+        "en_us": "A copper block makes Copper Pressure Plates: they press only after you stood on them a moment - the longer, the more they have weathered",
+        "de_de": "Ein Kupferblock ergibt Kupfer-Druckplatten: sie lösen erst aus, wenn du einen Moment darauf stehst - je verwitterter, desto länger"
+      },
+      "criteria": [
+        {
+          "name": "copper_pressure_plate",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:copper_pressure_plate",
+            "simplebuilding:exposed_copper_pressure_plate",
+            "simplebuilding:weathered_copper_pressure_plate",
+            "simplebuilding:oxidized_copper_pressure_plate",
+            "simplebuilding:waxed_copper_pressure_plate",
+            "simplebuilding:waxed_exposed_copper_pressure_plate",
+            "simplebuilding:waxed_weathered_copper_pressure_plate",
+            "simplebuilding:waxed_oxidized_copper_pressure_plate"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/pads/copper_plated.json"
+    },
+    {
+      "id": "simplebuilding:pads/fine_feathers",
+      "parent": "simplebuilding:pads/wings_on_loan",
+      "icon": "simplebuilding:fine_elytra_pad",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Fine Feathers",
+        "de_de": "Feine Federn"
+      },
+      "description": {
+        "en_us": "A Nether Star and a netherite template turn an Enderite Elytra Pad into the Fine Elytra Pad",
+        "de_de": "Ein Netherstern und eine Netherit-Schmiedevorlage machen aus einem Enderit-Elytra-Pad das Feine Elytra-Pad"
+      },
+      "criteria": [
+        {
+          "name": "fine_elytra_pad",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:fine_elytra_pad"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/pads/fine_feathers.json"
+    },
+    {
       "id": "simplebuilding:pads/fly_me_to_the_moon",
       "parent": "simplebuilding:pads/wings_on_loan",
       "icon": "simplebuilding:flypad",
@@ -50639,6 +51077,60 @@
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/pads/fly_me_to_the_moon.json"
+    },
+    {
+      "id": "simplebuilding:pads/frequent_traveller",
+      "parent": "simplebuilding:pads/home_sweet_spawn",
+      "icon": "simplebuilding:enderite_spawn_teleporter",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Frequent Traveller",
+        "de_de": "Vielreisender"
+      },
+      "description": {
+        "en_us": "Smith a Spawn Teleporter up to tier IV or V - tier V carries you to your own respawn point",
+        "de_de": "Schmiede einen Spawn-Teleporter bis Stufe IV oder V - Stufe V bringt dich zu deinem eigenen Wiedereinstiegspunkt"
+      },
+      "criteria": [
+        {
+          "name": "best_spawn_teleporter",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:spawn_teleporter_tier_4",
+            "simplebuilding:enderite_spawn_teleporter"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/pads/frequent_traveller.json"
+    },
+    {
+      "id": "simplebuilding:pads/higher_ground",
+      "parent": "simplebuilding:pads/liftoff",
+      "icon": "simplebuilding:netherite_launchpad",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Higher Ground",
+        "de_de": "Höher hinaus"
+      },
+      "description": {
+        "en_us": "Smith a Launchpad into Netherite: it holds twice as many wind charges",
+        "de_de": "Schmiede eine Startrampe zu Netherit: sie fasst doppelt so viele Windkugeln"
+      },
+      "criteria": [
+        {
+          "name": "better_launchpad",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:netherite_launchpad",
+            "simplebuilding:enderite_launchpad"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/pads/higher_ground.json"
     },
     {
       "id": "simplebuilding:pads/home_sweet_spawn",
@@ -50666,7 +51158,7 @@
     },
     {
       "id": "simplebuilding:pads/hot_head",
-      "parent": "simplebuilding:pads/under_pressure",
+      "parent": "simplebuilding:tweaks/root",
       "icon": "simplebuilding:blaze_head",
       "frame": "task",
       "hidden": false,
@@ -50689,6 +51181,32 @@
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/pads/hot_head.json"
+    },
+    {
+      "id": "simplebuilding:pads/infusion",
+      "parent": "simplebuilding:pads/bottoms_up",
+      "icon": "simplebuilding:infused_potion_pad",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Infusion",
+        "de_de": "Durchtränkt"
+      },
+      "description": {
+        "en_us": "Smith a Potion Pad up to the Infused Potion Pad",
+        "de_de": "Schmiede ein Trank-Pad bis zum Durchtränkten Trank-Pad"
+      },
+      "criteria": [
+        {
+          "name": "infused_potion_pad",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:infused_potion_pad"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/pads/infusion.json"
     },
     {
       "id": "simplebuilding:pads/liftoff",
@@ -50715,8 +51233,34 @@
       "source": "src/main/generated/data/simplebuilding/advancement/pads/liftoff.json"
     },
     {
+      "id": "simplebuilding:pads/stellar",
+      "parent": "simplebuilding:pads/fly_me_to_the_moon",
+      "icon": "simplebuilding:stellar_flypad",
+      "frame": "challenge",
+      "hidden": false,
+      "title": {
+        "en_us": "Stellar",
+        "de_de": "Stellar"
+      },
+      "description": {
+        "en_us": "Smith a Flypad up to the Stellar Flypad, its last tier",
+        "de_de": "Schmiede ein Flugpad bis zum Stellaren Flugpad, seiner letzten Stufe"
+      },
+      "criteria": [
+        {
+          "name": "stellar_flypad",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:stellar_flypad"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/pads/stellar.json"
+    },
+    {
       "id": "simplebuilding:pads/under_pressure",
-      "parent": "simplebuilding:root",
+      "parent": "simplebuilding:tweaks/root",
       "icon": "simplebuilding:diamond_pressure_plate",
       "frame": "task",
       "hidden": false,
@@ -50819,6 +51363,33 @@
       "source": "src/main/generated/data/simplebuilding/advancement/storage/bundle_of_joy.json"
     },
     {
+      "id": "simplebuilding:storage/deeper_pockets",
+      "parent": "simplebuilding:storage/bundle_of_joy",
+      "icon": "simplebuilding:netherite_bundle",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Deeper Pockets",
+        "de_de": "Tiefere Taschen"
+      },
+      "description": {
+        "en_us": "Smith a Reinforced Bundle into a Netherite Bundle",
+        "de_de": "Schmiede ein Verstärktes Bündel zum Netheritbündel"
+      },
+      "criteria": [
+        {
+          "name": "netherite_bundle",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:netherite_bundle",
+            "simplebuilding:enderite_bundle"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/storage/deeper_pockets.json"
+    },
+    {
       "id": "simplebuilding:storage/heavy_luggage",
       "parent": "simplebuilding:storage/pack_mule",
       "icon": "simplebuilding:netherite_backpack",
@@ -50904,6 +51475,33 @@
       "source": "src/main/generated/data/simplebuilding/advancement/storage/quiver_in_fear.json"
     },
     {
+      "id": "simplebuilding:storage/sharpshooter",
+      "parent": "simplebuilding:storage/quiver_in_fear",
+      "icon": "simplebuilding:netherite_quiver",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Sharpshooter",
+        "de_de": "Scharfschütze"
+      },
+      "description": {
+        "en_us": "Reinforce a Quiver with Diamond Pebbles, then smith it into Netherite",
+        "de_de": "Verstärke einen Köcher mit Diamantkieseln und schmiede ihn dann zu Netherit"
+      },
+      "criteria": [
+        {
+          "name": "netherite_quiver",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:netherite_quiver",
+            "simplebuilding:enderite_quiver"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/storage/sharpshooter.json"
+    },
+    {
       "id": "simplebuilding:storage/sheet_happens",
       "parent": "simplebuilding:root",
       "icon": "simplebuilding:leather_sheet",
@@ -50962,8 +51560,148 @@
       "source": "src/main/generated/data/simplebuilding/advancement/story/hammer_time.json"
     },
     {
-      "id": "simplebuilding:tiers/step_by_step",
+      "id": "simplebuilding:tiers/copper_crafter",
       "parent": "simplebuilding:root",
+      "icon": "simplebuilding:copper_chisel",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Copper Crafter",
+        "de_de": "Kupferschmied"
+      },
+      "description": {
+        "en_us": "Craft a copper Chisel or Sledgehammer, or trade a Copper Core for a copper Building Wand",
+        "de_de": "Bau einen Kupfermeißel oder Kupfer-Vorschlaghammer oder ertausch einen Kupferkern für einen Kupfer-Baustab"
+      },
+      "criteria": [
+        {
+          "name": "copper_tool",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:copper_chisel",
+            "simplebuilding:copper_sledgehammer",
+            "simplebuilding:copper_building_wand"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/tiers/copper_crafter.json"
+    },
+    {
+      "id": "simplebuilding:tiers/diamond_standard",
+      "parent": "simplebuilding:tiers/ironclad",
+      "icon": "simplebuilding:diamond_sledgehammer",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Diamond Standard",
+        "de_de": "Diamantstandard"
+      },
+      "description": {
+        "en_us": "Get a diamond Chisel, Sledgehammer or Building Wand",
+        "de_de": "Besorg dir einen Diamantmeißel, Diamant-Vorschlaghammer oder Diamant-Baustab"
+      },
+      "criteria": [
+        {
+          "name": "diamond_tool",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:diamond_chisel",
+            "simplebuilding:diamond_sledgehammer",
+            "simplebuilding:diamond_building_wand"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/tiers/diamond_standard.json"
+    },
+    {
+      "id": "simplebuilding:tiers/golden_touch",
+      "parent": "simplebuilding:tiers/step_by_step",
+      "icon": "simplebuilding:gold_sledgehammer",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Golden Touch",
+        "de_de": "Goldenes Händchen"
+      },
+      "description": {
+        "en_us": "Gold tools are fast and enchant well: get a gold Chisel, Sledgehammer or Building Wand",
+        "de_de": "Goldwerkzeuge sind schnell und lassen sich gut verzaubern: besorg dir einen Goldmeißel, Gold-Vorschlaghammer oder Gold-Baustab"
+      },
+      "criteria": [
+        {
+          "name": "gold_tool",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:gold_chisel",
+            "simplebuilding:gold_sledgehammer",
+            "simplebuilding:gold_building_wand"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/tiers/golden_touch.json"
+    },
+    {
+      "id": "simplebuilding:tiers/ironclad",
+      "parent": "simplebuilding:tiers/copper_crafter",
+      "icon": "simplebuilding:iron_sledgehammer",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Ironclad",
+        "de_de": "Eisern"
+      },
+      "description": {
+        "en_us": "Get an iron Chisel, Sledgehammer or Building Wand - craft it, or upgrade the copper one with a Basic Upgrade Template",
+        "de_de": "Besorg dir einen Eisenmeißel, Eisen-Vorschlaghammer oder Eisen-Baustab - selbst gebaut oder mit einer Basis-Schmiedevorlage aufgewertet"
+      },
+      "criteria": [
+        {
+          "name": "iron_tool",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:iron_chisel",
+            "simplebuilding:iron_sledgehammer",
+            "simplebuilding:iron_building_wand"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/tiers/ironclad.json"
+    },
+    {
+      "id": "simplebuilding:tiers/nether_forged",
+      "parent": "simplebuilding:tiers/diamond_standard",
+      "icon": "simplebuilding:netherite_chisel",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Nether-Forged",
+        "de_de": "In der Hölle geschmiedet"
+      },
+      "description": {
+        "en_us": "Smith a diamond Chisel, Sledgehammer or Building Wand into Netherite",
+        "de_de": "Schmiede einen Diamantmeißel, Diamant-Vorschlaghammer oder Diamant-Baustab zu Netherit"
+      },
+      "criteria": [
+        {
+          "name": "netherite_tool",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:netherite_chisel",
+            "simplebuilding:netherite_sledgehammer",
+            "simplebuilding:netherite_building_wand"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/tiers/nether_forged.json"
+    },
+    {
+      "id": "simplebuilding:tiers/step_by_step",
+      "parent": "simplebuilding:tiers/copper_crafter",
       "icon": "simplebuilding:basic_upgrade_template",
       "frame": "task",
       "hidden": false,
@@ -50988,8 +51726,95 @@
       "source": "src/main/generated/data/simplebuilding/advancement/tiers/step_by_step.json"
     },
     {
+      "id": "simplebuilding:tweaks/crown_jewel",
+      "parent": "simplebuilding:tweaks/forbidden_fruit",
+      "icon": "simplebuilding:enchanted_netherite_apple",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Crown Jewel",
+        "de_de": "Kronjuwel"
+      },
+      "description": {
+        "en_us": "Find an Enchanted Netherite Apple in a bastion treasure room, an ancient city or an ominous vault",
+        "de_de": "Finde einen Verzauberten Netheritapfel im Bastion-Schatzraum, in einer antiken Stadt oder einem unheilvollen Tresor"
+      },
+      "criteria": [
+        {
+          "name": "enchanted_netherite_apple",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enchanted_netherite_apple"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/tweaks/crown_jewel.json"
+    },
+    {
+      "id": "simplebuilding:tweaks/forbidden_fruit",
+      "parent": "simplebuilding:tweaks/root",
+      "icon": "simplebuilding:netherite_apple",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Forbidden Fruit",
+        "de_de": "Verbotene Frucht"
+      },
+      "description": {
+        "en_us": "An apple or a carrot ringed with Netherite Nuggets is a meal that fights back",
+        "de_de": "Ein Apfel oder eine Karotte, umringt von Netheritklumpen, ist eine Mahlzeit mit Biss"
+      },
+      "criteria": [
+        {
+          "name": "netherite_food",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:netherite_apple",
+            "simplebuilding:netherite_carrot"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/tweaks/forbidden_fruit.json"
+    },
+    {
+      "id": "simplebuilding:tweaks/root",
+      "parent": null,
+      "icon": "simplebuilding:netherite_launchpad",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Gadgets & Tweaks",
+        "de_de": "Gadgets & Kniffe"
+      },
+      "description": {
+        "en_us": "Magnets, detectors, lenses and pads that launch, lend wings or carry you home",
+        "de_de": "Magnete, Detektoren, Linsen und Pads, die dich hochschleudern, dir Flügel leihen oder nach Hause bringen"
+      },
+      "criteria": [
+        {
+          "name": "gadget",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:copper_pressure_plate",
+            "simplebuilding:diamond_pressure_plate",
+            "simplebuilding:magnet",
+            "simplebuilding:ore_detector",
+            "simplebuilding:velocity-gauge",
+            "simplebuilding:laser_pointer",
+            "simplebuilding:netherite_apple",
+            "simplebuilding:netherite_carrot",
+            "simplebuilding:blaze_head"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/tweaks/root.json"
+    },
+    {
       "id": "simplebuilding:wand/core_values",
-      "parent": "simplebuilding:root",
+      "parent": "simplebuilding:building/root",
       "icon": "simplebuilding:copper_core",
       "frame": "task",
       "hidden": false,
@@ -51070,6 +51895,2181 @@
       "source": "src/main/generated/data/simplebuilding/advancement/wand/wand_erful.json"
     }
   ],
+  "quests": [
+    {
+      "id": "stage_1",
+      "stage": 1,
+      "icon": "simplebuilding:stone_chisel",
+      "title": {
+        "en_us": "Stage 1: First Steps",
+        "de_de": "Stufe 1: Erste Schritte"
+      },
+      "subtitle": {
+        "en_us": "Vanilla basics and your first SimpleBuilding tools. Finish this chapter to unlock Stage 2.",
+        "de_de": "Vanilla-Grundlagen und deine ersten SimpleBuilding-Werkzeuge. Schließ dieses Kapitel ab, um Stufe 2 freizuschalten."
+      },
+      "quests": [
+        {
+          "key": "welcome",
+          "task": {
+            "type": "item",
+            "id": "minecraft:crafting_table"
+          },
+          "title": {
+            "en_us": "Welcome to SimpleBuilding",
+            "de_de": "Willkommen bei SimpleBuilding"
+          },
+          "description": {
+            "en_us": "This book leads you through SimpleBuilding in four stages; each one unlocks when the previous one is done, the side chapters open along the way. Items you already carry or find by luck count too.",
+            "de_de": "Dieses Buch führt dich in vier Stufen durch SimpleBuilding; jede wird frei, sobald die vorige geschafft ist, die Nebenkapitel öffnen sich unterwegs. Gegenstände, die du schon trägst oder zufällig findest, zählen auch."
+          },
+          "dependencies": []
+        },
+        {
+          "key": "guide_book",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:guide_book"
+          },
+          "title": {
+            "en_us": "A Book for Beginners",
+            "de_de": "Ein Buch für Einsteiger"
+          },
+          "description": {
+            "en_us": "A book and a crafting table make the Beginner's Guide. Crafted with a matching item it becomes one of seven topic guides.",
+            "de_de": "Ein Buch und eine Werkbank ergeben das Einsteiger-Handbuch. Mit dem passenden Gegenstand wird daraus eines von sieben Themen-Handbüchern."
+          },
+          "dependencies": [
+            "stage_1.welcome"
+          ],
+          "optional": true
+        },
+        {
+          "key": "stone_age",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:story/mine_stone"
+          },
+          "title": {
+            "en_us": "Mine Stone"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_1.welcome"
+          ]
+        },
+        {
+          "key": "stone_chisel",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:stone_chisel"
+          },
+          "title": {
+            "en_us": "Stone Chisel",
+            "de_de": "Steinmeißel"
+          },
+          "description": {
+            "en_us": "Cobblestone, a copper nugget and a stick make a Stone Chisel.",
+            "de_de": "Bruchstein, ein Kupferklumpen und ein Stock ergeben einen Steinmeißel."
+          },
+          "dependencies": [
+            "stage_1.stone_age"
+          ]
+        },
+        {
+          "key": "chisel",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:chisel/chip_off_the_old_block"
+          },
+          "title": {
+            "en_us": "Chip Off the Old Block",
+            "de_de": "Feinschliff"
+          },
+          "description": {
+            "en_us": "Right-click a block with a chisel to turn it into the next block of its chain; sneak to go back",
+            "de_de": "Klick mit einem Meißel auf einen Block, um ihn in den nächsten seiner Reihe zu verwandeln; schleichend geht es zurück"
+          },
+          "dependencies": [
+            "stage_1.stone_chisel"
+          ]
+        },
+        {
+          "key": "iron",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:story/smelt_iron"
+          },
+          "title": {
+            "en_us": "Smelt Iron"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_1.stone_age"
+          ]
+        },
+        {
+          "key": "stone_sledgehammer",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:stone_sledgehammer"
+          },
+          "title": {
+            "en_us": "Stone Sledgehammer",
+            "de_de": "Stein-Vorschlaghammer"
+          },
+          "description": {
+            "en_us": "Cobblestone, an iron ingot and sticks make a Stone Sledgehammer: it mines 3x3 at once.",
+            "de_de": "Bruchstein, ein Eisenbarren und Stöcke ergeben einen Stein-Vorschlaghammer: er baut 3×3 auf einmal ab."
+          },
+          "dependencies": [
+            "stage_1.iron"
+          ]
+        },
+        {
+          "key": "reshape",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:hammer/stair_master"
+          },
+          "title": {
+            "en_us": "Stair Master",
+            "de_de": "Treppenmeister"
+          },
+          "description": {
+            "en_us": "Hold right-click with a sledgehammer on a full block: it turns into stairs, then into a slab",
+            "de_de": "Halte mit dem Vorschlaghammer Rechtsklick auf einem vollen Block: er wird zur Treppe, dann zur Stufe"
+          },
+          "dependencies": [
+            "stage_1.stone_sledgehammer"
+          ]
+        },
+        {
+          "key": "leather_sheet",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:leather_sheet"
+          },
+          "title": {
+            "en_us": "Leather Sheet",
+            "de_de": "Lederplatte"
+          },
+          "description": {
+            "en_us": "Nine leather make a Leather Sheet - backpacks, bundles and quivers are cut from it.",
+            "de_de": "Neun Leder ergeben eine Lederplatte - daraus werden Rucksäcke, Bündel und Köcher geschnitten."
+          },
+          "dependencies": [
+            "stage_1.welcome"
+          ]
+        },
+        {
+          "key": "backpack",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:storage/pack_mule"
+          },
+          "title": {
+            "en_us": "Pack Mule",
+            "de_de": "Packesel"
+          },
+          "description": {
+            "en_us": "Craft a Backpack: wear it in the chest slot and open it with B, or set it down as a block",
+            "de_de": "Bau einen Rucksack: trag ihn im Brustplatz und öffne ihn mit B, oder stell ihn als Block ab"
+          },
+          "dependencies": [
+            "stage_1.leather_sheet",
+            "stage_1.iron"
+          ]
+        },
+        {
+          "key": "copper_tool",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:tiers/copper_crafter"
+          },
+          "title": {
+            "en_us": "Copper Crafter",
+            "de_de": "Kupferschmied"
+          },
+          "description": {
+            "en_us": "Craft a copper Chisel or Sledgehammer, or trade a Copper Core for a copper Building Wand",
+            "de_de": "Bau einen Kupfermeißel oder Kupfer-Vorschlaghammer oder ertausch einen Kupferkern für einen Kupfer-Baustab"
+          },
+          "dependencies": [
+            "stage_1.stone_chisel"
+          ]
+        },
+        {
+          "key": "trade",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:adventure/trade"
+          },
+          "title": {
+            "en_us": "Trade"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_1.welcome"
+          ],
+          "hint": {
+            "en_us": "Masons (from level 2) and wandering traders sell Copper Cores.",
+            "de_de": "Maurer (ab Stufe 2) und fahrende Händler verkaufen Kupferkerne."
+          }
+        },
+        {
+          "key": "copper_core",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:copper_core"
+          },
+          "title": {
+            "en_us": "A Core of Copper",
+            "de_de": "Ein Kern aus Kupfer"
+          },
+          "description": {
+            "en_us": "Buy a Copper Core from a mason or a wandering trader. Every building wand is built around a core.",
+            "de_de": "Kauf einem Maurer oder fahrenden Händler einen Kupferkern ab. Jeder Baustab ist um einen Kern gebaut."
+          },
+          "dependencies": [
+            "stage_1.trade"
+          ]
+        },
+        {
+          "key": "copper_wand",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:copper_building_wand"
+          },
+          "title": {
+            "en_us": "Copper Building Wand",
+            "de_de": "Kupfer-Baustab"
+          },
+          "description": {
+            "en_us": "A Copper Core on two sticks is a Copper Building Wand.",
+            "de_de": "Ein Kupferkern auf zwei Stöcken ist ein Kupfer-Baustab."
+          },
+          "dependencies": [
+            "stage_1.copper_core"
+          ]
+        },
+        {
+          "key": "wand",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:wand/one_click_wonder"
+          },
+          "title": {
+            "en_us": "One-Click Wonder",
+            "de_de": "Ein Klick, ein Wunder"
+          },
+          "description": {
+            "en_us": "Click a block face with a Building Wand: it fills a whole square with blocks from your inventory",
+            "de_de": "Klick mit dem Baustab auf eine Blockseite: er füllt eine ganze Fläche mit Blöcken aus deinem Inventar"
+          },
+          "dependencies": [
+            "stage_1.copper_wand"
+          ]
+        },
+        {
+          "key": "done",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:story/iron_tools"
+          },
+          "title": {
+            "en_us": "Stage 1 Complete",
+            "de_de": "Stufe 1 geschafft"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_1.welcome",
+            "stage_1.stone_age",
+            "stage_1.stone_chisel",
+            "stage_1.chisel",
+            "stage_1.iron",
+            "stage_1.stone_sledgehammer",
+            "stage_1.reshape",
+            "stage_1.leather_sheet",
+            "stage_1.backpack",
+            "stage_1.copper_tool",
+            "stage_1.trade",
+            "stage_1.copper_core",
+            "stage_1.copper_wand",
+            "stage_1.wand"
+          ],
+          "hint": {
+            "en_us": "Finish every quest of this chapter and craft an iron pickaxe to unlock Stage 2.",
+            "de_de": "Schließ jede Quest dieses Kapitels ab und bau eine Eisenspitzhacke, um Stufe 2 freizuschalten."
+          },
+          "capstone": true
+        }
+      ]
+    },
+    {
+      "id": "stage_2",
+      "stage": 2,
+      "icon": "simplebuilding:iron_sledgehammer",
+      "title": {
+        "en_us": "Stage 2: Iron & Diamonds",
+        "de_de": "Stufe 2: Eisen & Diamanten"
+      },
+      "subtitle": {
+        "en_us": "Better tiers, diamond pebbles and the first reinforced machines. Finish this chapter to unlock Stage 3.",
+        "de_de": "Bessere Stufen, Diamantkiesel und die ersten verstärkten Maschinen. Schließ dieses Kapitel ab, um Stufe 3 freizuschalten."
+      },
+      "quests": [
+        {
+          "key": "ironclad",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:tiers/ironclad"
+          },
+          "title": {
+            "en_us": "Ironclad",
+            "de_de": "Eisern"
+          },
+          "description": {
+            "en_us": "Get an iron Chisel, Sledgehammer or Building Wand - craft it, or upgrade the copper one with a Basic Upgrade Template",
+            "de_de": "Besorg dir einen Eisenmeißel, Eisen-Vorschlaghammer oder Eisen-Baustab - selbst gebaut oder mit einer Basis-Schmiedevorlage aufgewertet"
+          },
+          "dependencies": [
+            "stage_1.done"
+          ]
+        },
+        {
+          "key": "template",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:tiers/step_by_step"
+          },
+          "title": {
+            "en_us": "Step by Step",
+            "de_de": "Schritt für Schritt"
+          },
+          "description": {
+            "en_us": "Find a Basic Upgrade Smithing Template in a chest: at a smithing table it lifts a tool one tier - wood, stone, iron, gold, diamond",
+            "de_de": "Finde eine Basis-Schmiedevorlage in einer Truhe: am Schmiedetisch hebt sie ein Werkzeug um eine Stufe - Holz, Stein, Eisen, Gold, Diamant"
+          },
+          "dependencies": [
+            "stage_1.done"
+          ],
+          "optional": true
+        },
+        {
+          "key": "golden",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:tiers/golden_touch"
+          },
+          "title": {
+            "en_us": "Golden Touch",
+            "de_de": "Goldenes Händchen"
+          },
+          "description": {
+            "en_us": "Gold tools are fast and enchant well: get a gold Chisel, Sledgehammer or Building Wand",
+            "de_de": "Goldwerkzeuge sind schnell und lassen sich gut verzaubern: besorg dir einen Goldmeißel, Gold-Vorschlaghammer oder Gold-Baustab"
+          },
+          "dependencies": [
+            "stage_2.ironclad"
+          ],
+          "optional": true
+        },
+        {
+          "key": "diamonds",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:story/mine_diamond"
+          },
+          "title": {
+            "en_us": "Mine Diamond"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_2.ironclad"
+          ]
+        },
+        {
+          "key": "diamond_block",
+          "task": {
+            "type": "item",
+            "id": "minecraft:diamond_block"
+          },
+          "title": {
+            "en_us": "A Block to Break",
+            "de_de": "Ein Block zum Zerschlagen"
+          },
+          "description": {
+            "en_us": "Nine diamonds make a Block of Diamond - a sledgehammer crushes it into Diamond Pebbles.",
+            "de_de": "Neun Diamanten ergeben einen Diamantblock - ein Vorschlaghammer zerschlägt ihn zu Diamantkieseln."
+          },
+          "dependencies": [
+            "stage_2.diamonds"
+          ]
+        },
+        {
+          "key": "pebbles",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:hammer/pebble_dash"
+          },
+          "title": {
+            "en_us": "Pebble Dash",
+            "de_de": "Kieselsturm"
+          },
+          "description": {
+            "en_us": "Hold right-click with a sledgehammer on a Block of Diamond to crush it into Diamond Pebbles",
+            "de_de": "Halte mit dem Vorschlaghammer Rechtsklick auf einem Diamantblock, um ihn zu Diamantkieseln zu zerschlagen"
+          },
+          "dependencies": [
+            "stage_2.diamond_block"
+          ]
+        },
+        {
+          "key": "cracked",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:hammer/cracked_up"
+          },
+          "title": {
+            "en_us": "Cracked Up",
+            "de_de": "Einen Riss in der Schüssel"
+          },
+          "description": {
+            "en_us": "Nine Diamond Pebbles make a Cracked Diamond - reinforced machines are built from them",
+            "de_de": "Neun Diamantkiesel ergeben einen Rissigen Diamanten - daraus werden verstärkte Maschinen gebaut"
+          },
+          "dependencies": [
+            "stage_2.pebbles"
+          ]
+        },
+        {
+          "key": "reinforced",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:machines/reinforcements"
+          },
+          "title": {
+            "en_us": "Reinforcements Have Arrived",
+            "de_de": "Die Verstärkung ist da"
+          },
+          "description": {
+            "en_us": "Craft a reinforced furnace, smoker, blast furnace, hopper or piston with Cracked Diamonds",
+            "de_de": "Bau mit Rissigen Diamanten einen verstärkten Ofen, Räucherofen, Schmelzofen, Trichter oder Kolben"
+          },
+          "dependencies": [
+            "stage_2.cracked"
+          ]
+        },
+        {
+          "key": "diamond_tool",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:tiers/diamond_standard"
+          },
+          "title": {
+            "en_us": "Diamond Standard",
+            "de_de": "Diamantstandard"
+          },
+          "description": {
+            "en_us": "Get a diamond Chisel, Sledgehammer or Building Wand",
+            "de_de": "Besorg dir einen Diamantmeißel, Diamant-Vorschlaghammer oder Diamant-Baustab"
+          },
+          "dependencies": [
+            "stage_2.diamonds"
+          ]
+        },
+        {
+          "key": "enchanter",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:story/enchant_item"
+          },
+          "title": {
+            "en_us": "Enchant Item"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_2.diamonds"
+          ],
+          "hint": {
+            "en_us": "SimpleBuilding adds its own enchantments for chisels, hammers, wands and storage - look for them in chests and villager trades.",
+            "de_de": "SimpleBuilding bringt eigene Verzauberungen für Meißel, Hämmer, Baustäbe und Lager mit - such sie in Truhen und beim Handel."
+          }
+        },
+        {
+          "key": "done",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:story/enter_the_nether"
+          },
+          "title": {
+            "en_us": "Stage 2 Complete",
+            "de_de": "Stufe 2 geschafft"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_2.ironclad",
+            "stage_2.diamonds",
+            "stage_2.diamond_block",
+            "stage_2.pebbles",
+            "stage_2.cracked",
+            "stage_2.reinforced",
+            "stage_2.diamond_tool",
+            "stage_2.enchanter"
+          ],
+          "hint": {
+            "en_us": "Finish every quest of this chapter and step through a Nether portal to unlock Stage 3.",
+            "de_de": "Schließ jede Quest dieses Kapitels ab und geh durch ein Netherportal, um Stufe 3 freizuschalten."
+          },
+          "capstone": true
+        }
+      ]
+    },
+    {
+      "id": "stage_3",
+      "stage": 3,
+      "icon": "simplebuilding:netherite_sledgehammer",
+      "title": {
+        "en_us": "Stage 3: The Nether",
+        "de_de": "Stufe 3: Der Nether"
+      },
+      "subtitle": {
+        "en_us": "Netherite tools, machines hammered in place and the first pads. Finish this chapter to unlock Stage 4.",
+        "de_de": "Netherit-Werkzeuge, vor Ort gehämmerte Maschinen und die ersten Pads. Schließ dieses Kapitel ab, um Stufe 4 freizuschalten."
+      },
+      "quests": [
+        {
+          "key": "fortress",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:nether/find_fortress"
+          },
+          "title": {
+            "en_us": "Find Fortress"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_2.done"
+          ]
+        },
+        {
+          "key": "bastion",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:nether/find_bastion"
+          },
+          "title": {
+            "en_us": "Find Bastion"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_2.done"
+          ]
+        },
+        {
+          "key": "nugget",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:nether/nugget_of_wisdom"
+          },
+          "title": {
+            "en_us": "Nugget of Wisdom",
+            "de_de": "Ein Klümpchen Weisheit"
+          },
+          "description": {
+            "en_us": "Find a Netherite Nugget in a bastion or fortress, or split an ingot. In the off hand it lets a sledgehammer upgrade machines",
+            "de_de": "Finde einen Netheritklumpen in einer Bastion oder Festung oder teile einen Barren. In der Nebenhand wertet er mit dem Vorschlaghammer Maschinen auf"
+          },
+          "dependencies": [
+            "stage_2.done"
+          ]
+        },
+        {
+          "key": "debris",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:nether/obtain_ancient_debris"
+          },
+          "title": {
+            "en_us": "Obtain Ancient Debris"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_2.done"
+          ]
+        },
+        {
+          "key": "netherite",
+          "task": {
+            "type": "item",
+            "id": "minecraft:netherite_ingot"
+          },
+          "title": {
+            "en_us": "Netherite",
+            "de_de": "Netherit"
+          },
+          "description": {
+            "en_us": "Four netherite scrap and four gold ingots make a Netherite Ingot.",
+            "de_de": "Vier Netheritplatten und vier Goldbarren ergeben einen Netheritbarren."
+          },
+          "dependencies": [
+            "stage_3.debris"
+          ]
+        },
+        {
+          "key": "netherite_template",
+          "task": {
+            "type": "item",
+            "id": "minecraft:netherite_upgrade_smithing_template"
+          },
+          "title": {
+            "en_us": "Netherite Upgrade",
+            "de_de": "Netherit-Aufwertung"
+          },
+          "description": {
+            "en_us": "Bastion treasure rooms always hold a Netherite Upgrade Smithing Template; diamonds and netherrack copy it. Every netherite tier of SimpleBuilding is smithed with it.",
+            "de_de": "Der Schatzraum einer Bastion enthält immer eine Netherit-Schmiedevorlage; Diamanten und Netherrack vervielfältigen sie. Jede Netherit-Stufe von SimpleBuilding wird damit geschmiedet."
+          },
+          "dependencies": [
+            "stage_3.bastion"
+          ]
+        },
+        {
+          "key": "heavy_metal",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:hammer/heavy_metal"
+          },
+          "title": {
+            "en_us": "Heavy Metal",
+            "de_de": "Schwermetall"
+          },
+          "description": {
+            "en_us": "Smith a Diamond Sledgehammer into Netherite: strong enough to hammer machines all the way to Enderite",
+            "de_de": "Schmiede einen Diamant-Vorschlaghammer zu Netherit: stark genug, um Maschinen bis zu Enderit aufzuwerten"
+          },
+          "dependencies": [
+            "stage_3.netherite",
+            "stage_3.netherite_template"
+          ]
+        },
+        {
+          "key": "nether_forged",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:tiers/nether_forged"
+          },
+          "title": {
+            "en_us": "Nether-Forged",
+            "de_de": "In der Hölle geschmiedet"
+          },
+          "description": {
+            "en_us": "Smith a diamond Chisel, Sledgehammer or Building Wand into Netherite",
+            "de_de": "Schmiede einen Diamantmeißel, Diamant-Vorschlaghammer oder Diamant-Baustab zu Netherit"
+          },
+          "dependencies": [
+            "stage_3.netherite",
+            "stage_3.netherite_template"
+          ],
+          "optional": true
+        },
+        {
+          "key": "forged_in_place",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:machines/forged_in_place"
+          },
+          "title": {
+            "en_us": "Forged in Place",
+            "de_de": "Vor Ort geschmiedet"
+          },
+          "description": {
+            "en_us": "Diamond Sledgehammer in hand, Netherite Nugget in the off hand: hold right-click on a placed reinforced machine until the fifth blow",
+            "de_de": "Diamant-Vorschlaghammer in der Hand, Netheritklumpen in der Nebenhand: halte Rechtsklick auf einer verstärkten Maschine bis zum fünften Schlag"
+          },
+          "dependencies": [
+            "stage_3.nugget"
+          ]
+        },
+        {
+          "key": "diamond_plate",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/under_pressure"
+          },
+          "title": {
+            "en_us": "Under Pressure",
+            "de_de": "Unter Druck"
+          },
+          "description": {
+            "en_us": "Craft a Diamond Pressure Plate: smithed onto other plates it makes Launchpads, Chunk Loaders and more",
+            "de_de": "Bau eine Diamant-Druckplatte: auf andere Platten geschmiedet ergibt sie Startrampen, Chunk-Lader und mehr"
+          },
+          "dependencies": [
+            "stage_2.done"
+          ]
+        },
+        {
+          "key": "launchpad",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/liftoff"
+          },
+          "title": {
+            "en_us": "Liftoff!",
+            "de_de": "Abheben!"
+          },
+          "description": {
+            "en_us": "Smith a Launchpad from a heavy pressure plate and a Diamond Pressure Plate, then step on it",
+            "de_de": "Schmiede eine Startrampe aus einer schweren Druckplatte und einer Diamant-Druckplatte und tritt dann drauf"
+          },
+          "dependencies": [
+            "stage_3.diamond_plate"
+          ]
+        },
+        {
+          "key": "netherite_plate",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:netherite_pressure_plate"
+          },
+          "title": {
+            "en_us": "Netherite Pressure Plate",
+            "de_de": "Netherit-Druckplatte"
+          },
+          "description": {
+            "en_us": "Smith a Diamond Pressure Plate into Netherite: the base of the Potion Pad and of every netherite pad tier.",
+            "de_de": "Schmiede eine Diamant-Druckplatte zu Netherit: die Basis des Trank-Pads und jeder Netherit-Pad-Stufe."
+          },
+          "dependencies": [
+            "stage_3.diamond_plate",
+            "stage_3.netherite",
+            "stage_3.netherite_template"
+          ]
+        },
+        {
+          "key": "blaze_rod",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:nether/obtain_blaze_rod"
+          },
+          "title": {
+            "en_us": "Obtain Blaze Rod"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_3.fortress"
+          ]
+        },
+        {
+          "key": "blaze_head",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/hot_head"
+          },
+          "title": {
+            "en_us": "Hot Head",
+            "de_de": "Hitzkopf"
+          },
+          "description": {
+            "en_us": "Let a charged creeper blow up a Blaze: it drops a Blaze Head",
+            "de_de": "Lass eine Lohe von einem geladenen Creeper sprengen: sie lässt einen Lohenkopf fallen"
+          },
+          "dependencies": [
+            "stage_3.fortress"
+          ]
+        },
+        {
+          "key": "potion_pad",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/bottoms_up"
+          },
+          "title": {
+            "en_us": "Bottoms Up",
+            "de_de": "Zum Wohl"
+          },
+          "description": {
+            "en_us": "A Blaze Head and a Netherite Pressure Plate make a Potion Pad: splash a potion on it, then step on it",
+            "de_de": "Lohenkopf und Netherit-Druckplatte ergeben ein Trank-Pad: wirf einen Wurftrank darauf und tritt dann drauf"
+          },
+          "dependencies": [
+            "stage_3.blaze_head",
+            "stage_3.netherite_plate"
+          ]
+        },
+        {
+          "key": "done",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:story/follow_ender_eye"
+          },
+          "title": {
+            "en_us": "Stage 3 Complete",
+            "de_de": "Stufe 3 geschafft"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_3.fortress",
+            "stage_3.bastion",
+            "stage_3.nugget",
+            "stage_3.debris",
+            "stage_3.netherite",
+            "stage_3.netherite_template",
+            "stage_3.heavy_metal",
+            "stage_3.forged_in_place",
+            "stage_3.diamond_plate",
+            "stage_3.launchpad",
+            "stage_3.netherite_plate",
+            "stage_3.blaze_rod",
+            "stage_3.blaze_head",
+            "stage_3.potion_pad"
+          ],
+          "hint": {
+            "en_us": "Finish every quest of this chapter and follow an Eye of Ender to a stronghold to unlock Stage 4.",
+            "de_de": "Schließ jede Quest dieses Kapitels ab und folge einem Enderauge zu einer Festung, um Stufe 4 freizuschalten."
+          },
+          "capstone": true
+        }
+      ]
+    },
+    {
+      "id": "stage_4",
+      "stage": 4,
+      "icon": "simplebuilding:enderite_ingot",
+      "title": {
+        "en_us": "Stage 4: The End and Beyond",
+        "de_de": "Stufe 4: Das Ende und darüber hinaus"
+      },
+      "subtitle": {
+        "en_us": "New minerals, enderite and the strongest tier of every tool.",
+        "de_de": "Neue Minerale, Enderit und die stärkste Stufe jedes Werkzeugs."
+      },
+      "quests": [
+        {
+          "key": "enter_end",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:story/enter_the_end"
+          },
+          "title": {
+            "en_us": "Enter The End"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_3.done"
+          ]
+        },
+        {
+          "key": "dragon",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:end/kill_dragon"
+          },
+          "title": {
+            "en_us": "Kill Dragon"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_4.enter_end"
+          ]
+        },
+        {
+          "key": "end_city",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:end/find_end_city"
+          },
+          "title": {
+            "en_us": "Find End City"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_4.dragon"
+          ]
+        },
+        {
+          "key": "stardust",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:end/stardust"
+          },
+          "title": {
+            "en_us": "Stardust",
+            "de_de": "Sternenstaub"
+          },
+          "description": {
+            "en_us": "Astralit Ore glitters on top of the End islands, Nihilith Ore hides beneath them: bring a diamond pickaxe",
+            "de_de": "Astraliterz glitzert oben auf den Endinseln, Nihilitherz versteckt sich darunter: nimm eine Diamantspitzhacke mit"
+          },
+          "dependencies": [
+            "stage_4.enter_end"
+          ]
+        },
+        {
+          "key": "ender_quartz",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:end/quartz_fusion"
+          },
+          "title": {
+            "en_us": "Quartz Fusion",
+            "de_de": "Quarzfusion"
+          },
+          "description": {
+            "en_us": "Mix Astralit Dust, a Nihilith Shard and Quartz into Ender Quartz - Blueprints need it",
+            "de_de": "Misch Astralitstaub, einen Nihilithsplitter und Quarz zu Enderquarz - Blaupausen brauchen ihn"
+          },
+          "dependencies": [
+            "stage_4.stardust"
+          ]
+        },
+        {
+          "key": "raw_enderite",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/raw_deal"
+          },
+          "title": {
+            "en_us": "Raw Deal",
+            "de_de": "Rohkost"
+          },
+          "description": {
+            "en_us": "Four Nihilith Shards, four Astralit Dust and an Ender Pearl make Raw Enderite - End cities hide some too",
+            "de_de": "Vier Nihilithsplitter, vier Astralitstaub und eine Enderperle ergeben Rohenderit - Endsiedlungen verstecken auch welches"
+          },
+          "dependencies": [
+            "stage_4.stardust"
+          ]
+        },
+        {
+          "key": "scrap",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/patience_is_a_virtue"
+          },
+          "title": {
+            "en_us": "Patience Is a Virtue",
+            "de_de": "Geduld ist eine Tugend"
+          },
+          "description": {
+            "en_us": "Blast Raw Enderite into Enderite Scrap: a whole hour in a vanilla blast furnace - faster furnaces help",
+            "de_de": "Schmelz Rohenderit zu Enderitplatten: eine ganze Stunde im Vanilla-Schmelzofen - schnellere Öfen helfen"
+          },
+          "dependencies": [
+            "stage_4.raw_enderite"
+          ]
+        },
+        {
+          "key": "ingot",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/beyond_netherite"
+          },
+          "title": {
+            "en_us": "Beyond Netherite",
+            "de_de": "Jenseits von Netherit"
+          },
+          "description": {
+            "en_us": "Four Enderite Scrap, four diamonds and a Netherite Ingot forge an Enderite Ingot",
+            "de_de": "Vier Enderitplatten, vier Diamanten und ein Netheritbarren ergeben einen Enderitbarren"
+          },
+          "dependencies": [
+            "stage_4.scrap"
+          ]
+        },
+        {
+          "key": "template",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/template_of_the_end"
+          },
+          "title": {
+            "en_us": "Template of the End",
+            "de_de": "Vorlage vom Ende"
+          },
+          "description": {
+            "en_us": "Find an Enderite Upgrade Smithing Template in an End city; diamonds and end stone copy it",
+            "de_de": "Finde eine Enderit-Schmiedevorlage in einer Endsiedlung; Diamanten und Endstein vervielfältigen sie"
+          },
+          "dependencies": [
+            "stage_4.end_city"
+          ]
+        },
+        {
+          "key": "armor",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/cover_me_in_enderite"
+          },
+          "title": {
+            "en_us": "Cover Me in Enderite",
+            "de_de": "Hüll mich in Enderit"
+          },
+          "description": {
+            "en_us": "Smith a piece of netherite armor with an Enderite Upgrade Smithing Template and an Enderite Ingot",
+            "de_de": "Schmiede ein Netherit-Rüstungsteil mit einer Enderit-Schmiedevorlage und einem Enderitbarren"
+          },
+          "dependencies": [
+            "stage_4.ingot",
+            "stage_4.template"
+          ]
+        },
+        {
+          "key": "tool",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/cutting_edge"
+          },
+          "title": {
+            "en_us": "Cutting Edge",
+            "de_de": "Auf Messers Schneide"
+          },
+          "description": {
+            "en_us": "Smith a netherite tool or weapon into Enderite",
+            "de_de": "Schmiede ein Netherit-Werkzeug oder eine Netherit-Waffe zu Enderit"
+          },
+          "dependencies": [
+            "stage_4.ingot",
+            "stage_4.template"
+          ]
+        },
+        {
+          "key": "hammer",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/hammer_of_the_end"
+          },
+          "title": {
+            "en_us": "Hammer of the End",
+            "de_de": "Der Hammer vom Ende"
+          },
+          "description": {
+            "en_us": "Smith the Netherite Sledgehammer into Enderite: the strongest hammer there is",
+            "de_de": "Schmiede den Netherit-Vorschlaghammer zu Enderit: den stärksten Hammer, den es gibt"
+          },
+          "dependencies": [
+            "stage_4.ingot",
+            "stage_4.template"
+          ]
+        },
+        {
+          "key": "machine",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:machines/end_of_the_line"
+          },
+          "title": {
+            "en_us": "End of the Line",
+            "de_de": "Endstation"
+          },
+          "description": {
+            "en_us": "Hammer a netherite machine into Enderite: a Netherite Sledgehammer and an Enderite Nugget do the trick",
+            "de_de": "Hämmere eine Netherit-Maschine zu Enderit: Netherit-Vorschlaghammer und Enderitklumpen machen es möglich"
+          },
+          "dependencies": [
+            "stage_4.ingot"
+          ]
+        },
+        {
+          "key": "wither",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:nether/summon_wither"
+          },
+          "title": {
+            "en_us": "Summon Wither"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_3.done"
+          ],
+          "hint": {
+            "en_us": "Iron, gold and diamond cores are crafted around a Nether Star, and the netherite and enderite cores are smithed from the diamond one.",
+            "de_de": "Eisen-, Gold- und Diamantkerne entstehen um einen Netherstern, und aus dem Diamantkern werden Netherit- und Enderitkern geschmiedet."
+          },
+          "optional": true
+        },
+        {
+          "key": "core",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/heart_of_the_end"
+          },
+          "title": {
+            "en_us": "Heart of the End",
+            "de_de": "Herz des Endes"
+          },
+          "description": {
+            "en_us": "Smith a Netherite Core into an Enderite Core - Flypads and the Echo Sounder want one",
+            "de_de": "Schmiede einen Netheritkern zum Enderitkern - Flugpads und Echolot brauchen einen"
+          },
+          "dependencies": [
+            "stage_4.template",
+            "stage_4.wither"
+          ],
+          "optional": true
+        },
+        {
+          "key": "echo",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/echolocation"
+          },
+          "title": {
+            "en_us": "Echolocation",
+            "de_de": "Echoortung"
+          },
+          "description": {
+            "en_us": "Link an Echo Sounder to a lodestone, then hold use for three seconds to jump onto it",
+            "de_de": "Verbinde ein Echolot mit einem Leitstein und halte dann drei Sekunden lang Benutzen, um dorthin zu springen"
+          },
+          "dependencies": [
+            "stage_4.core"
+          ],
+          "optional": true
+        },
+        {
+          "key": "done",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/void_walker"
+          },
+          "title": {
+            "en_us": "Void Walker",
+            "de_de": "Leerenwandler"
+          },
+          "description": {
+            "en_us": "Collect a full set of Enderite armor: it never falls into the void and lets you drift down gently",
+            "de_de": "Sammle eine volle Enderit-Rüstung: sie fällt nie in die Leere und lässt dich sanft hinabschweben"
+          },
+          "dependencies": [
+            "stage_4.enter_end",
+            "stage_4.dragon",
+            "stage_4.end_city",
+            "stage_4.stardust",
+            "stage_4.ender_quartz",
+            "stage_4.raw_enderite",
+            "stage_4.scrap",
+            "stage_4.ingot",
+            "stage_4.template",
+            "stage_4.armor",
+            "stage_4.tool",
+            "stage_4.hammer",
+            "stage_4.machine"
+          ],
+          "hint": {
+            "en_us": "The last quest of the SimpleBuilding stages. Congratulations!",
+            "de_de": "Die letzte Quest der SimpleBuilding-Stufen. Glückwunsch!"
+          },
+          "capstone": true
+        }
+      ]
+    },
+    {
+      "id": "building",
+      "stage": null,
+      "icon": "simplebuilding:octant",
+      "title": {
+        "en_us": "Building & Blueprints",
+        "de_de": "Bauen & Blaupausen"
+      },
+      "subtitle": {
+        "en_us": "Side chapter: chisels, wands, octants and blueprints. Opens with your first chisel.",
+        "de_de": "Nebenkapitel: Meißel, Baustäbe, Oktanten und Blaupausen. Öffnet sich mit deinem ersten Meißel."
+      },
+      "quests": [
+        {
+          "key": "toolkit",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:building/root"
+          },
+          "title": {
+            "en_us": "Building & Blueprints",
+            "de_de": "Bauen & Blaupausen"
+          },
+          "description": {
+            "en_us": "Chisels, building wands, octants and blueprints. Get any building tool to open this tab",
+            "de_de": "Meißel, Baustäbe, Oktanten und Blaupausen. Besorg dir ein Bauwerkzeug, um diesen Tab zu öffnen"
+          },
+          "dependencies": [
+            "stage_1.stone_chisel"
+          ]
+        },
+        {
+          "key": "guide",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:guide_book_building"
+          },
+          "title": {
+            "en_us": "Guide: Building",
+            "de_de": "Handbuch: Bauen"
+          },
+          "description": {
+            "en_us": "The Beginner's Guide crafted with a brick is the building guide.",
+            "de_de": "Das Einsteiger-Handbuch mit einem Ziegel ergibt das Bau-Handbuch."
+          },
+          "dependencies": [
+            "building.toolkit",
+            "stage_1.guide_book"
+          ],
+          "optional": true
+        },
+        {
+          "key": "octant",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:octant"
+          },
+          "title": {
+            "en_us": "Octant",
+            "de_de": "Oktant"
+          },
+          "description": {
+            "en_us": "A compass, a lightning rod, a lead and the two weighted pressure plates make an Octant.",
+            "de_de": "Kompass, Blitzableiter, Leine und die beiden Wägeplatten ergeben einen Oktanten."
+          },
+          "dependencies": [
+            "building.toolkit"
+          ]
+        },
+        {
+          "key": "measure",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:octant/measure_twice"
+          },
+          "title": {
+            "en_us": "Measure Twice",
+            "de_de": "Zweimal messen"
+          },
+          "description": {
+            "en_us": "Mark two corners with an Octant (sneak for the second): it shows distance, area and volume",
+            "de_de": "Markiere mit dem Oktanten zwei Ecken (die zweite schleichend): er zeigt Abstand, Fläche und Volumen"
+          },
+          "dependencies": [
+            "building.octant"
+          ]
+        },
+        {
+          "key": "colour",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:octant/colour_coded"
+          },
+          "title": {
+            "en_us": "Colour Coded",
+            "de_de": "Farblich sortiert"
+          },
+          "description": {
+            "en_us": "Craft an Octant with a dye to tell your selections apart; a cauldron washes the colour off again",
+            "de_de": "Bau einen Oktanten mit einem Farbstoff, um deine Auswahlen auseinanderzuhalten; ein Kessel wäscht die Farbe wieder ab"
+          },
+          "dependencies": [
+            "building.octant"
+          ],
+          "optional": true
+        },
+        {
+          "key": "light",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:building/let_there_be_light"
+          },
+          "title": {
+            "en_us": "Let There Be Light",
+            "de_de": "Es werde Licht"
+          },
+          "description": {
+            "en_us": "Glass, a torch and lapis make a Construction Light for dark building sites",
+            "de_de": "Glas, eine Fackel und Lapislazuli ergeben ein Baulicht für dunkle Baustellen"
+          },
+          "dependencies": [
+            "building.toolkit"
+          ]
+        },
+        {
+          "key": "checker",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:building/checkmate"
+          },
+          "title": {
+            "en_us": "Checkmate",
+            "de_de": "Schachmatt"
+          },
+          "description": {
+            "en_us": "Craft a quartz checker block: quartz with purpur, lapis, blackstone, resin or an End mineral",
+            "de_de": "Bau einen Quarz-Schachbrettblock: Quarz mit Purpur, Lapislazuli, Schwarzstein, Harz oder einem End-Mineral"
+          },
+          "dependencies": [
+            "building.toolkit"
+          ]
+        },
+        {
+          "key": "glow",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:hammer/glow_up"
+          },
+          "title": {
+            "en_us": "Glow Up",
+            "de_de": "Glanzleistung"
+          },
+          "description": {
+            "en_us": "Put an armor trim template in an item frame, hold Glow Ink or Glowstone Dust in the off hand and hit the frame with a sledgehammer",
+            "de_de": "Häng eine Rüstungsbesatz-Vorlage in einen Rahmen, nimm Leuchttinte oder Glowstonestaub in die Nebenhand und schlag mit dem Vorschlaghammer auf den Rahmen"
+          },
+          "dependencies": [
+            "building.toolkit",
+            "stage_1.stone_sledgehammer"
+          ]
+        },
+        {
+          "key": "emitting",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:hammer/bright_idea"
+          },
+          "title": {
+            "en_us": "Bright Idea",
+            "de_de": "Geistesblitz"
+          },
+          "description": {
+            "en_us": "Glowstone Dust instead of Glow Ink turns a trim template into an Emitting one",
+            "de_de": "Glowstonestaub statt Leuchttinte macht aus einer Besatz-Vorlage eine Strahlende"
+          },
+          "dependencies": [
+            "building.glow"
+          ],
+          "optional": true
+        },
+        {
+          "key": "fine_detail",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:chisel/fine_detail"
+          },
+          "title": {
+            "en_us": "Fine Detail",
+            "de_de": "Liebe zum Detail"
+          },
+          "description": {
+            "en_us": "Get a Diamond Chisel or better: higher tiers know more chains, and Constructor's Touch teaches even more",
+            "de_de": "Besorg dir einen Diamantmeißel oder besser: höhere Stufen kennen mehr Reihen, die Berührung des Konstrukteurs noch mehr"
+          },
+          "dependencies": [
+            "stage_2.diamond_tool"
+          ]
+        },
+        {
+          "key": "rotator",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:gadgets/spin_doctor"
+          },
+          "title": {
+            "en_us": "Spin Doctor",
+            "de_de": "Dreh- und Angelpunkt"
+          },
+          "description": {
+            "en_us": "Turn a placed block right where it stands with a Rotator",
+            "de_de": "Dreh einen platzierten Block mit dem Rotator an Ort und Stelle"
+          },
+          "dependencies": [
+            "building.toolkit",
+            "stage_1.done"
+          ],
+          "hint": {
+            "en_us": "The Rotator needs an Iron Core - woodland mansions hide them.",
+            "de_de": "Der Rotator braucht einen Eisenkern - Waldanwesen verstecken welche."
+          },
+          "optional": true
+        },
+        {
+          "key": "wand_erful",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:wand/wand_erful"
+          },
+          "title": {
+            "en_us": "Wand-erful",
+            "de_de": "Stab-il"
+          },
+          "description": {
+            "en_us": "Upgrade the wand with ever better Cores until it is Netherite - the better the core, the wider it builds",
+            "de_de": "Werte den Baustab mit immer besseren Kernen auf, bis er aus Netherit ist - je besser der Kern, desto breiter baut er"
+          },
+          "dependencies": [
+            "stage_3.done"
+          ],
+          "optional": true
+        },
+        {
+          "key": "palette",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:end/palette_cleanser"
+          },
+          "title": {
+            "en_us": "Palette Cleanser",
+            "de_de": "Farbenlehre"
+          },
+          "description": {
+            "en_us": "Craft End bricks: Astralit, Nihilith and Ender Quartz each make a whole building palette",
+            "de_de": "Bau End-Ziegel: Astralit, Nihilith und Enderquarz ergeben je eine ganze Baupalette"
+          },
+          "dependencies": [
+            "stage_4.stardust"
+          ]
+        },
+        {
+          "key": "astral",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:end/astral_projection"
+          },
+          "title": {
+            "en_us": "Astral Projection",
+            "de_de": "Astralreise"
+          },
+          "description": {
+            "en_us": "Ring Astralit Dust or a Nihilith Shard with purpur or polished end stone",
+            "de_de": "Umring Astralitstaub oder einen Nihilithsplitter mit Purpur oder Poliertem Endstein"
+          },
+          "dependencies": [
+            "stage_4.stardust"
+          ],
+          "optional": true
+        },
+        {
+          "key": "gravity",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:end/defying_gravity"
+          },
+          "title": {
+            "en_us": "Defying Gravity",
+            "de_de": "Schwerelos"
+          },
+          "description": {
+            "en_us": "A Nihilith Shard keeps sand or gravel hanging in the air, Astralit Dust makes it rise",
+            "de_de": "Ein Nihilithsplitter lässt Sand oder Kies in der Luft hängen, Astralitstaub lässt ihn aufsteigen"
+          },
+          "dependencies": [
+            "stage_4.stardust"
+          ]
+        },
+        {
+          "key": "blueprint",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:blueprint"
+          },
+          "title": {
+            "en_us": "Blueprint",
+            "de_de": "Blaupause"
+          },
+          "description": {
+            "en_us": "Paper, an ink sac and Ender Quartz make a blank Blueprint.",
+            "de_de": "Papier, ein Tintenbeutel und Enderquarz ergeben eine leere Blaupause."
+          },
+          "dependencies": [
+            "building.measure",
+            "stage_4.ender_quartz"
+          ]
+        },
+        {
+          "key": "scan",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:blueprint/copy_that"
+          },
+          "title": {
+            "en_us": "Copy That",
+            "de_de": "Verstanden, gespeichert"
+          },
+          "description": {
+            "en_us": "Octant with a selection on top, blank Blueprint below: a cartography table scans the building into it",
+            "de_de": "Oktant mit Auswahl oben, leere Blaupause unten: der Kartentisch scannt das Bauwerk hinein"
+          },
+          "dependencies": [
+            "building.blueprint"
+          ]
+        },
+        {
+          "key": "copy",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:blueprint/carbon_copy"
+          },
+          "title": {
+            "en_us": "Carbon Copy",
+            "de_de": "Durchschlag"
+          },
+          "description": {
+            "en_us": "Sign a Blueprint, then put it above a blank one in a cartography table to copy it",
+            "de_de": "Signiere eine Blaupause und leg sie im Kartentisch über eine leere, um sie zu kopieren"
+          },
+          "dependencies": [
+            "building.scan"
+          ]
+        },
+        {
+          "key": "architect",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:blueprint/instant_architect"
+          },
+          "title": {
+            "en_us": "Instant Architect",
+            "de_de": "Architekt im Handumdrehen"
+          },
+          "description": {
+            "en_us": "Building Wand in hand, signed Blueprint in the off hand: click the ground and watch the building rise",
+            "de_de": "Baustab in der Hand, signierte Blaupause in der Nebenhand: klick auf den Boden und sieh zu, wie das Bauwerk wächst"
+          },
+          "dependencies": [
+            "building.scan"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "storage",
+      "stage": null,
+      "icon": "simplebuilding:backpack",
+      "title": {
+        "en_us": "Storage",
+        "de_de": "Lagerung"
+      },
+      "subtitle": {
+        "en_us": "Side chapter: backpacks, bundles and quivers, from leather to enderite. Opens with your first backpack.",
+        "de_de": "Nebenkapitel: Rucksäcke, Bündel und Köcher, von Leder bis Enderit. Öffnet sich mit deinem ersten Rucksack."
+      },
+      "quests": [
+        {
+          "key": "bundle",
+          "task": {
+            "type": "item",
+            "id": "minecraft:bundle"
+          },
+          "title": {
+            "en_us": "Bundle Up",
+            "de_de": "Gut verschnürt"
+          },
+          "description": {
+            "en_us": "Leather and string make a bundle - the base of the Quiver and the Reinforced Bundle.",
+            "de_de": "Leder und Faden ergeben ein Bündel - die Basis von Köcher und Verstärktem Bündel."
+          },
+          "dependencies": [
+            "stage_1.backpack"
+          ]
+        },
+        {
+          "key": "guide",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:guide_book_storage"
+          },
+          "title": {
+            "en_us": "Guide: Storage",
+            "de_de": "Handbuch: Lagerung"
+          },
+          "description": {
+            "en_us": "Everything about backpacks, bundles and quivers in one topic guide.",
+            "de_de": "Alles über Rucksäcke, Bündel und Köcher in einem Themen-Handbuch."
+          },
+          "dependencies": [
+            "stage_1.backpack",
+            "stage_1.guide_book"
+          ],
+          "optional": true
+        },
+        {
+          "key": "quiver",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:storage/quiver_in_fear"
+          },
+          "title": {
+            "en_us": "Quiver in Fear",
+            "de_de": "Köcherfieber"
+          },
+          "description": {
+            "en_us": "A Quiver holds only arrows and feeds your bow from the off hand, chest slot or hotbar",
+            "de_de": "Ein Köcher fasst nur Pfeile und versorgt deinen Bogen aus Nebenhand, Brustplatz oder Schnellleiste"
+          },
+          "dependencies": [
+            "storage.bundle"
+          ]
+        },
+        {
+          "key": "reinforced_bundle",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:storage/bundle_of_joy"
+          },
+          "title": {
+            "en_us": "Bundle of Joy",
+            "de_de": "Freudenbündel"
+          },
+          "description": {
+            "en_us": "Diamond Pebbles and a Leather Sheet make a bundle hold half as much again",
+            "de_de": "Mit Diamantkieseln und einer Lederplatte fasst ein Bündel die Hälfte mehr"
+          },
+          "dependencies": [
+            "storage.bundle",
+            "stage_2.pebbles"
+          ]
+        },
+        {
+          "key": "reinforced_backpack",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:reinforced_backpack"
+          },
+          "title": {
+            "en_us": "Reinforced Backpack",
+            "de_de": "Verstärkter Rucksack"
+          },
+          "description": {
+            "en_us": "Diamond Pebbles, a Leather Sheet and string reinforce a backpack: more room for your things.",
+            "de_de": "Diamantkiesel, eine Lederplatte und Faden verstärken einen Rucksack: mehr Platz für deine Sachen."
+          },
+          "dependencies": [
+            "stage_2.pebbles"
+          ]
+        },
+        {
+          "key": "reinforced_quiver",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:reinforced_quiver"
+          },
+          "title": {
+            "en_us": "Reinforced Quiver",
+            "de_de": "Verstärkter Köcher"
+          },
+          "description": {
+            "en_us": "Diamond Pebbles and a Leather Sheet reinforce a quiver, just like a bundle.",
+            "de_de": "Diamantkiesel und eine Lederplatte verstärken einen Köcher, genau wie ein Bündel."
+          },
+          "dependencies": [
+            "storage.quiver",
+            "stage_2.pebbles"
+          ]
+        },
+        {
+          "key": "netherite_backpack",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:storage/heavy_luggage"
+          },
+          "title": {
+            "en_us": "Heavy Luggage",
+            "de_de": "Schweres Gepäck"
+          },
+          "description": {
+            "en_us": "Reinforce a backpack with Diamond Pebbles, then smith it into Netherite",
+            "de_de": "Verstärke einen Rucksack mit Diamantkieseln und schmiede ihn dann zu Netherit"
+          },
+          "dependencies": [
+            "storage.reinforced_backpack",
+            "stage_3.netherite_template"
+          ]
+        },
+        {
+          "key": "netherite_bundle",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:storage/deeper_pockets"
+          },
+          "title": {
+            "en_us": "Deeper Pockets",
+            "de_de": "Tiefere Taschen"
+          },
+          "description": {
+            "en_us": "Smith a Reinforced Bundle into a Netherite Bundle",
+            "de_de": "Schmiede ein Verstärktes Bündel zum Netheritbündel"
+          },
+          "dependencies": [
+            "storage.reinforced_bundle",
+            "stage_3.netherite_template"
+          ]
+        },
+        {
+          "key": "netherite_quiver",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:storage/sharpshooter"
+          },
+          "title": {
+            "en_us": "Sharpshooter",
+            "de_de": "Scharfschütze"
+          },
+          "description": {
+            "en_us": "Reinforce a Quiver with Diamond Pebbles, then smith it into Netherite",
+            "de_de": "Verstärke einen Köcher mit Diamantkieseln und schmiede ihn dann zu Netherit"
+          },
+          "dependencies": [
+            "storage.reinforced_quiver",
+            "stage_3.netherite_template"
+          ]
+        },
+        {
+          "key": "enderite",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/endless_pockets"
+          },
+          "title": {
+            "en_us": "Endless Pockets",
+            "de_de": "Taschen ohne Boden"
+          },
+          "description": {
+            "en_us": "Smith a netherite bundle, quiver or backpack into Enderite",
+            "de_de": "Schmiede ein Netheritbündel, einen Netheritköcher oder einen Netherit-Rucksack zu Enderit"
+          },
+          "dependencies": [
+            "stage_4.template"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gadgets",
+      "stage": null,
+      "icon": "simplebuilding:magnet",
+      "title": {
+        "en_us": "Gadgets & Tweaks",
+        "de_de": "Gadgets & Kniffe"
+      },
+      "subtitle": {
+        "en_us": "Side chapter: gadgets, pressure plates and pads. Opens right at the start.",
+        "de_de": "Nebenkapitel: Gadgets, Druckplatten und Pads. Öffnet sich gleich zu Beginn."
+      },
+      "quests": [
+        {
+          "key": "intro",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:tweaks/root"
+          },
+          "title": {
+            "en_us": "Gadgets & Tweaks",
+            "de_de": "Gadgets & Kniffe"
+          },
+          "description": {
+            "en_us": "Magnets, detectors, lenses and pads that launch, lend wings or carry you home",
+            "de_de": "Magnete, Detektoren, Linsen und Pads, die dich hochschleudern, dir Flügel leihen oder nach Hause bringen"
+          },
+          "dependencies": [
+            "stage_1.welcome"
+          ]
+        },
+        {
+          "key": "guide",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:guide_book_tweaks"
+          },
+          "title": {
+            "en_us": "Guide: Pads & Gadgets",
+            "de_de": "Handbuch: Pads & Geräte"
+          },
+          "description": {
+            "en_us": "Every pad and gadget explained in one topic guide.",
+            "de_de": "Jedes Pad und jedes Gerät in einem Themen-Handbuch erklärt."
+          },
+          "dependencies": [
+            "gadgets.intro",
+            "stage_1.guide_book"
+          ],
+          "optional": true
+        },
+        {
+          "key": "copper_plate",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/copper_plated"
+          },
+          "title": {
+            "en_us": "Copper Plated",
+            "de_de": "Verkupfert"
+          },
+          "description": {
+            "en_us": "A copper block makes Copper Pressure Plates: they press only after you stood on them a moment - the longer, the more they have weathered",
+            "de_de": "Ein Kupferblock ergibt Kupfer-Druckplatten: sie lösen erst aus, wenn du einen Moment darauf stehst - je verwitterter, desto länger"
+          },
+          "dependencies": [
+            "gadgets.intro"
+          ]
+        },
+        {
+          "key": "velocity",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:gadgets/speed_reader"
+          },
+          "title": {
+            "en_us": "Speed Reader",
+            "de_de": "Tempomacher"
+          },
+          "description": {
+            "en_us": "A Copper Core, a compass, quartz and amethyst make a Velocity Gauge: see how fast you really are",
+            "de_de": "Kupferkern, Kompass, Quarz und Amethyst ergeben einen Geschwindigkeitsmesser: sieh, wie schnell du wirklich bist"
+          },
+          "dependencies": [
+            "gadgets.intro",
+            "stage_1.copper_core"
+          ]
+        },
+        {
+          "key": "magnet",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:gadgets/attractive_personality"
+          },
+          "title": {
+            "en_us": "Attractive Personality",
+            "de_de": "Anziehende Persönlichkeit"
+          },
+          "description": {
+            "en_us": "An Iron Core, iron, redstone and lapis make a Magnet: hold it and loose items fly to you",
+            "de_de": "Eisenkern, Eisen, Redstone und Lapislazuli ergeben einen Magneten: halte ihn, und lose Gegenstände fliegen zu dir"
+          },
+          "dependencies": [
+            "gadgets.intro"
+          ],
+          "optional": true
+        },
+        {
+          "key": "laser",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:gadgets/burning_focus"
+          },
+          "title": {
+            "en_us": "Burning Focus",
+            "de_de": "Brennpunkt"
+          },
+          "description": {
+            "en_us": "Hold the Amethyst Lens on ice, a candle, a campfire or a wet sponge until it gives in",
+            "de_de": "Halte die Amethystlinse auf Eis, eine Kerze, ein Lagerfeuer oder einen nassen Schwamm, bis er nachgibt"
+          },
+          "dependencies": [
+            "gadgets.intro"
+          ],
+          "optional": true
+        },
+        {
+          "key": "detector",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:gadgets/ping"
+          },
+          "title": {
+            "en_us": "Ping!",
+            "de_de": "Ping!"
+          },
+          "description": {
+            "en_us": "Hold an Ore Detector: its needle and a chime point you to the nearest ore",
+            "de_de": "Halte einen Erzdetektor: Nadel und Klang weisen dir den Weg zum nächsten Erz"
+          },
+          "dependencies": [
+            "gadgets.intro"
+          ],
+          "hint": {
+            "en_us": "The Ore Detector needs a Gold Core - bastions and fortresses hide them.",
+            "de_de": "Der Erzdetektor braucht einen Goldkern - Bastionen und Festungen verstecken welche."
+          },
+          "optional": true
+        },
+        {
+          "key": "netherite_food",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:tweaks/forbidden_fruit"
+          },
+          "title": {
+            "en_us": "Forbidden Fruit",
+            "de_de": "Verbotene Frucht"
+          },
+          "description": {
+            "en_us": "An apple or a carrot ringed with Netherite Nuggets is a meal that fights back",
+            "de_de": "Ein Apfel oder eine Karotte, umringt von Netheritklumpen, ist eine Mahlzeit mit Biss"
+          },
+          "dependencies": [
+            "stage_3.nugget"
+          ]
+        },
+        {
+          "key": "crown_jewel",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:tweaks/crown_jewel"
+          },
+          "title": {
+            "en_us": "Crown Jewel",
+            "de_de": "Kronjuwel"
+          },
+          "description": {
+            "en_us": "Find an Enchanted Netherite Apple in a bastion treasure room, an ancient city or an ominous vault",
+            "de_de": "Finde einen Verzauberten Netheritapfel im Bastion-Schatzraum, in einer antiken Stadt oder einem unheilvollen Tresor"
+          },
+          "dependencies": [
+            "gadgets.netherite_food"
+          ],
+          "optional": true
+        },
+        {
+          "key": "chunk_loader",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/always_loaded"
+          },
+          "title": {
+            "en_us": "Always Loaded",
+            "de_de": "Immer geladen"
+          },
+          "description": {
+            "en_us": "Smith a Chunk Loader: it keeps its chunks ticking while you are away",
+            "de_de": "Schmiede einen Chunk-Lader: er hält seine Chunks am Laufen, während du weg bist"
+          },
+          "dependencies": [
+            "gadgets.copper_plate",
+            "stage_3.diamond_plate",
+            "stage_3.netherite_template"
+          ]
+        },
+        {
+          "key": "spawn",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/home_sweet_spawn"
+          },
+          "title": {
+            "en_us": "Home Sweet Spawn",
+            "de_de": "Trautes Heim"
+          },
+          "description": {
+            "en_us": "Stand still on a Spawn Teleporter for five seconds",
+            "de_de": "Steh fünf Sekunden still auf einem Spawn-Teleporter"
+          },
+          "dependencies": [
+            "stage_3.diamond_plate"
+          ]
+        },
+        {
+          "key": "traveller",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/frequent_traveller"
+          },
+          "title": {
+            "en_us": "Frequent Traveller",
+            "de_de": "Vielreisender"
+          },
+          "description": {
+            "en_us": "Smith a Spawn Teleporter up to tier IV or V - tier V carries you to your own respawn point",
+            "de_de": "Schmiede einen Spawn-Teleporter bis Stufe IV oder V - Stufe V bringt dich zu deinem eigenen Wiedereinstiegspunkt"
+          },
+          "dependencies": [
+            "gadgets.spawn"
+          ],
+          "optional": true
+        },
+        {
+          "key": "higher_ground",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/higher_ground"
+          },
+          "title": {
+            "en_us": "Higher Ground",
+            "de_de": "Höher hinaus"
+          },
+          "description": {
+            "en_us": "Smith a Launchpad into Netherite: it holds twice as many wind charges",
+            "de_de": "Schmiede eine Startrampe zu Netherit: sie fasst doppelt so viele Windkugeln"
+          },
+          "dependencies": [
+            "stage_3.launchpad",
+            "stage_3.netherite_plate"
+          ]
+        },
+        {
+          "key": "elytra_pad",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/wings_on_loan"
+          },
+          "title": {
+            "en_us": "Wings on Loan",
+            "de_de": "Flügel auf Pump"
+          },
+          "description": {
+            "en_us": "Stand on an Elytra Pad with an empty chest slot: it lends you a pair of wings",
+            "de_de": "Stell dich mit leerem Brustplatz auf ein Elytra-Pad: es leiht dir ein Paar Flügel"
+          },
+          "dependencies": [
+            "stage_3.launchpad",
+            "stage_4.end_city"
+          ]
+        },
+        {
+          "key": "fine_feathers",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/fine_feathers"
+          },
+          "title": {
+            "en_us": "Fine Feathers",
+            "de_de": "Feine Federn"
+          },
+          "description": {
+            "en_us": "A Nether Star and a netherite template turn an Enderite Elytra Pad into the Fine Elytra Pad",
+            "de_de": "Ein Netherstern und eine Netherit-Schmiedevorlage machen aus einem Enderit-Elytra-Pad das Feine Elytra-Pad"
+          },
+          "dependencies": [
+            "gadgets.elytra_pad"
+          ],
+          "optional": true
+        },
+        {
+          "key": "flypad",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/fly_me_to_the_moon"
+          },
+          "title": {
+            "en_us": "Fly Me to the Moon",
+            "de_de": "Fly Me to the Moon"
+          },
+          "description": {
+            "en_us": "Stand above a Flypad - an Enderite Core smithed onto an Enderite Pressure Plate - and fly like in creative",
+            "de_de": "Stell dich über ein Flugpad - ein Enderitkern auf einer Enderit-Druckplatte - und flieg wie im Kreativmodus"
+          },
+          "dependencies": [
+            "stage_4.core"
+          ],
+          "optional": true
+        },
+        {
+          "key": "stellar",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/stellar"
+          },
+          "title": {
+            "en_us": "Stellar",
+            "de_de": "Stellar"
+          },
+          "description": {
+            "en_us": "Smith a Flypad up to the Stellar Flypad, its last tier",
+            "de_de": "Schmiede ein Flugpad bis zum Stellaren Flugpad, seiner letzten Stufe"
+          },
+          "dependencies": [
+            "gadgets.flypad"
+          ],
+          "optional": true
+        },
+        {
+          "key": "infusion",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/infusion"
+          },
+          "title": {
+            "en_us": "Infusion",
+            "de_de": "Durchtränkt"
+          },
+          "description": {
+            "en_us": "Smith a Potion Pad up to the Infused Potion Pad",
+            "de_de": "Schmiede ein Trank-Pad bis zum Durchtränkten Trank-Pad"
+          },
+          "dependencies": [
+            "stage_3.potion_pad",
+            "stage_4.core"
+          ],
+          "optional": true
+        },
+        {
+          "key": "enderite_food",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/void_feast"
+          },
+          "title": {
+            "en_us": "Void Feast",
+            "de_de": "Festmahl der Leere"
+          },
+          "description": {
+            "en_us": "An apple or a carrot ringed with Enderite Nuggets - stronger than its netherite cousin",
+            "de_de": "Ein Apfel oder eine Karotte, umringt von Enderitklumpen - stärker als der Netherit-Vetter"
+          },
+          "dependencies": [
+            "stage_4.ingot"
+          ]
+        },
+        {
+          "key": "last_bite",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/the_last_bite"
+          },
+          "title": {
+            "en_us": "The Last Bite",
+            "de_de": "Der letzte Bissen"
+          },
+          "description": {
+            "en_us": "Find an Enchanted Enderite Apple in an End city chest",
+            "de_de": "Finde einen Verzauberten Enderitapfel in einer Truhe einer Endsiedlung"
+          },
+          "dependencies": [
+            "gadgets.enderite_food"
+          ],
+          "optional": true
+        }
+      ]
+    }
+  ],
   "vanillaRecipes": {
     "lines": [
       "1.21.11",
@@ -51089,7 +54089,7 @@
     "tags": 27,
     "config": 25,
     "inWorld": 389,
-    "advancements": 55,
+    "advancements": 84,
     "features": 34,
     "undocumented": 0,
     "incompleteProse": 0

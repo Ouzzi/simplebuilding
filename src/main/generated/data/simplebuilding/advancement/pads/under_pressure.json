@@ -1,5 +1,5 @@
 {
-  "parent": "simplebuilding:root",
+  "parent": "simplebuilding:tweaks/root",
   "criteria": {
     "diamond_pressure_plate": {
       "conditions": {
