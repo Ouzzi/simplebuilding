@@ -71,6 +71,7 @@ public final class VersatilityUsageEvent {
 
         // Wenn ein besseres Werkzeug gefunden wurde -> Tauschen
         if (bestSlot != -1) {
+            com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.VERSATILITY_SWAP);
 
             // Fall 1: Das bessere Item ist in der Hotbar (0-8)
             if (bestSlot < 9) {

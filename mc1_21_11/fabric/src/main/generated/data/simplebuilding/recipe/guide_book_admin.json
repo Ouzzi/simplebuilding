@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    [
+      "minecraft:book",
+      "simplebuilding:guide_book"
+    ],
+    "minecraft:comparator"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:guide_book_admin"
+  }
+}

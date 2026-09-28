@@ -120,8 +120,9 @@ public final class GuideBookTests {
 
     /**
      * Jedes Buch traegt seine Seiten fertig aufgeloest als Standardkomponente: Seite 1 ist ein
-     * Inhaltsverzeichnis mit einem Sprung je Kapitel (Handbuch: plus Themenbuecher), jede
-     * Kapitelseite springt zurueck auf Seite 1, kein Sprung zeigt ins Leere. Jeder Mod-Schluessel
+     * Inhaltsverzeichnis (ueber mehrere Seiten, wenn die Kapitel nicht auf eine passen) mit einem Sprung
+     * je Kapitel (Handbuch: plus Themenbuecher), jede Kapitelseite springt zurueck auf Seite 1, kein
+     * Sprung zeigt ins Leere. Jeder Mod-Schluessel
      * auf einer Seite steht in {@code en_us} und {@code de_de} (gleiche Platzhalterzahl), jeder
      * Vanilla-Schluessel (Namen der Schluesselitems) in Vanillas Sprachdatei; umgekehrt ist jeder
      * {@code book.simplebuilding.*}-Schluessel der Sprachdatei auf einer Seite in Gebrauch.
@@ -142,7 +143,8 @@ public final class GuideBookTests {
                 problems.add(book + " is not resolved, vanilla would rewrite it per reader");
             }
             List<Component> pages = content.getPages(false);
-            int expectedPages = 1 + book.chapters() + (book == GuideBooks.Book.GUIDE ? 2 : 0);
+            int contentsPages = GuideBooks.contentsPages(book);
+            int expectedPages = contentsPages + book.chapters() + (book == GuideBooks.Book.GUIDE ? GuideBooks.topicPages() : 0);
             if (pages.size() != expectedPages) {
                 problems.add(book + " has " + pages.size() + " pages instead of " + expectedPages);
             }
@@ -158,17 +160,22 @@ public final class GuideBookTests {
                         problems.add(book + " page " + (p + 1) + " jumps to page " + jump + " of " + pages.size());
                     }
                 }
-                int expectedJumps = p == 0 ? book.chapters() + (book == GuideBooks.Book.GUIDE ? 1 : 0) : 1;
+                int expectedJumps = p < contentsPages ? GuideBooks.contentsLinksOn(book, p) : 1;
                 if (jumps.size() != expectedJumps) {
                     problems.add(book + " page " + (p + 1) + " has " + jumps.size() + " links instead of " + expectedJumps);
                 }
-                if (p > 0 && !jumps.equals(List.of(1))) {
+                if (p >= contentsPages && !jumps.equals(List.of(1))) {
                     problems.add(book + " page " + (p + 1) + " does not lead back to the contents: " + jumps);
                 }
-                if (p == 0) {
+                if (p < contentsPages) {
+                    int before = 0;
+                    for (int q = 0; q < p; q++) {
+                        before += GuideBooks.contentsLinksOn(book, q);
+                    }
                     for (int i = 0; i < jumps.size(); i++) {
-                        if (jumps.get(i) != i + 2) {
-                            problems.add(book + " contents link " + (i + 1) + " jumps to page " + jumps.get(i) + " instead of " + (i + 2));
+                        int expected = GuideBooks.chapterPage(book, before + i + 1);
+                        if (jumps.get(i) != expected) {
+                            problems.add(book + " contents link " + (before + i + 1) + " jumps to page " + jumps.get(i) + " instead of " + expected);
                         }
                     }
                 }
@@ -323,6 +330,115 @@ public final class GuideBookTests {
             }
         }
         helper.assertTrue(problems.isEmpty(), problems.size() + " guide screen problems: " + problems);
+        succeed(helper);
+    }
+
+
+    /**
+     * Every enchantment of the mod is explained in the guides: its English name stands in the English
+     * text of at least one chapter and its German name in the German text - Air Jump, Kinetic
+     * Protection, Bridge, Cover and Range included. Every item the 2026-09-28 wave added to the books
+     * (Velocity Gauge, Construction Light, the netherite and enderite apples and carrots, the Enderite
+     * Spear, the Blaze Head, the seven quartz checkers) shows up on the screen of a chapter, as its
+     * icon, an item or a recipe.
+     */
+    public static void theGuidesExplainEveryEnchantmentAndTheWaveItems(GameTestHelper helper) {
+        JsonObject en = langFile(helper, "en_us");
+        JsonObject de = langFile(helper, "de_de");
+        StringBuilder english = new StringBuilder();
+        StringBuilder german = new StringBuilder();
+        Set<Item> onScreen = new java.util.HashSet<>();
+        for (GuideBooks.Book book : GuideBooks.Book.values()) {
+            for (int i = 1; i <= book.chapters(); i++) {
+                String key = book.key() + "." + i + ".text";
+                english.append(en.has(key) ? en.get(key).getAsString() : "").append('\n');
+                german.append(de.has(key) ? de.get(key).getAsString() : "").append('\n');
+                GuideContent.Chapter chapter = GuideContent.chapter(book, i - 1);
+                onScreen.add(GuideContent.item(chapter.icon()));
+                chapter.items().forEach(id -> onScreen.add(GuideContent.item(id)));
+                chapter.recipes().forEach(id -> onScreen.add(GuideContent.item(id)));
+            }
+        }
+        List<String> problems = new ArrayList<>();
+        var enchantments = helper.getLevel().registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT);
+        int mod = 0;
+        for (var holder : enchantments.listElements().toList()) {
+            net.minecraft.resources.Identifier id = holder.key().identifier();
+            if (!id.getNamespace().equals(Simplebuilding.MOD_ID)) {
+                continue;
+            }
+            mod++;
+            String nameKey = "enchantment." + id.getNamespace() + "." + id.getPath();
+            String englishName = en.has(nameKey) ? en.get(nameKey).getAsString() : null;
+            String germanName = de.has(nameKey) ? de.get(nameKey).getAsString() : null;
+            if (englishName == null || !english.toString().contains(englishName)) {
+                problems.add(id + " (" + englishName + ") is named in no English guide chapter");
+            }
+            if (germanName == null || !german.toString().contains(germanName)) {
+                problems.add(id + " (" + germanName + ") is named in no German guide chapter");
+            }
+        }
+        helper.assertTrue(mod >= 19, "only " + mod + " mod enchantments are registered");
+        for (Item item : List.of(ModItems.VELOCITY_GAUGE, ModItems.CONSTRUCTION_LIGHT, ModItems.NETHERITE_APPLE,
+                ModItems.NETHERITE_CARROT, ModItems.ENDERITE_APPLE, ModItems.ENDERITE_CARROT, ModItems.ENDERITE_SPEAR,
+                com.simplebuilding.tweaks.item.TweaksItems.BLAZE_HEAD, ModItems.PURPUR_QUARTZ_CHECKER, ModItems.LAPIS_QUARTZ_CHECKER,
+                ModItems.BLACKSTONE_QUARTZ_CHECKER, ModItems.RESIN_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,
+                ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ENDER_QUARTZ_CHECKER, ModItems.GUIDE_BOOK_ADMIN)) {
+            if (!onScreen.contains(item) && item != ModItems.GUIDE_BOOK_ADMIN) {
+                problems.add(item + " is on no guide chapter's screen");
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " gaps in the guides: " + problems);
+        succeed(helper);
+    }
+
+    /**
+     * The Server Admin guide only names what exists: every command of {@link GuideBooks#ADMIN_COMMANDS}
+     * is a path of literals in the server's command tree and stands as {@code /command} in the English
+     * and the German text of the book; every option of {@link GuideBooks#ADMIN_OPTIONS} is a config
+     * path ({@link com.simplebuilding.config.ConfigOptions#byPath}) and stands in both texts. The book
+     * is crafted like the other topic books (Book + Redstone Comparator).
+     *
+     * <p>What breaks this test: a renamed or removed command or config option the book still names.
+     */
+    public static void theAdminGuideNamesOnlyCommandsAndOptionsThatExist(GameTestHelper helper) {
+        JsonObject en = langFile(helper, "en_us");
+        JsonObject de = langFile(helper, "de_de");
+        GuideBooks.Book admin = GuideBooks.Book.ADMIN;
+        StringBuilder english = new StringBuilder();
+        StringBuilder german = new StringBuilder();
+        for (int i = 1; i <= admin.chapters(); i++) {
+            String key = admin.key() + "." + i + ".text";
+            english.append(en.get(key).getAsString()).append('\n');
+            german.append(de.get(key).getAsString()).append('\n');
+        }
+        List<String> problems = new ArrayList<>();
+        com.mojang.brigadier.CommandDispatcher<net.minecraft.commands.CommandSourceStack> dispatcher =
+                helper.getLevel().getServer().getCommands().getDispatcher();
+        for (String command : GuideBooks.ADMIN_COMMANDS) {
+            com.mojang.brigadier.tree.CommandNode<net.minecraft.commands.CommandSourceStack> node = dispatcher.getRoot();
+            for (String literal : command.split(" ")) {
+                node = node == null ? null : node.getChild(literal);
+            }
+            if (!(node instanceof com.mojang.brigadier.tree.LiteralCommandNode)) {
+                problems.add("/" + command + " is no command of the server");
+            }
+            if (!english.toString().contains("/" + command) || !german.toString().contains("/" + command)) {
+                problems.add("/" + command + " is not named in the English and German admin guide");
+            }
+        }
+        for (String option : GuideBooks.ADMIN_OPTIONS) {
+            if (com.simplebuilding.config.ConfigOptions.byPath(option) == null) {
+                problems.add(option + " is no config option");
+            }
+            if (!english.toString().contains(option) || !german.toString().contains(option)) {
+                problems.add(option + " is not named in the English and German admin guide");
+            }
+        }
+        helper.assertTrue(GuideBooks.item(admin) == ModItems.GUIDE_BOOK_ADMIN && admin.isTopic(), "the admin guide is not a topic book");
+        expect(helper, problems, List.of(new ItemStack(ModItems.GUIDE_BOOK), new ItemStack(GuideBooks.keyItem(admin).asItem())),
+                ModItems.GUIDE_BOOK_ADMIN, true);
+        helper.assertTrue(problems.isEmpty(), problems.size() + " admin guide problems: " + problems);
         succeed(helper);
     }
 

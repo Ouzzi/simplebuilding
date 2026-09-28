@@ -110,6 +110,11 @@ public class BlockHighlightRenderer {
         }
 
         BlockPos centerPos = blockHit.getBlockPos();
+        if (!client.player.isShiftKeyDown() && SledgehammerUtils.octantSelection(client.player, centerPos) != null) {
+            // Der Hammer bricht die Oktant-Auswahl: die zeigt schon der Oktant selbst (drawOctantHighlights),
+            // bis zu 4096 Kaesten je Frame doppelt zu zeichnen braechte nichts.
+            return;
+        }
         List<BlockPos> targetPositions = SledgehammerItem.getBlocksToBeDestroyed(1, centerPos, client.player);
         if (targetPositions.isEmpty()) {
             return;

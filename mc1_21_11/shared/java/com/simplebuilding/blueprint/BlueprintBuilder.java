@@ -887,6 +887,7 @@ public final class BlueprintBuilder {
                 }
                 BlueprintMaterials.Cost paid = BlueprintMaterials.cost(state);
                 com.simplebuilding.util.WandUndo.record(player, level, pos, state, paid.item(), paid.count());
+                com.simplebuilding.advancement.ModCounters.add(player, com.simplebuilding.advancement.ModCounters.WAND_BLOCKS, 1);
                 if (holder[0] != null && holder[0].sound == null) {
                     holder[0].sound = state.getSoundType();
                 }

@@ -64,6 +64,7 @@ public final class VeinMinerUsageEvent {
         // will: den bricht Vanilla selbst.
         List<BlockPos> blocksToMine = MiningUtils.getVeinMinerBlocks(world, pos, state, level, stack);
 
+        boolean brokeAny = false;
         for (BlockPos targetPos : blocksToMine) {
             if (targetPos.equals(pos)) continue;
 
@@ -73,7 +74,7 @@ public final class VeinMinerUsageEvent {
 
             MINED_BLOCKS.add(targetPos);
             try {
-                serverPlayer.gameMode.destroyBlock(targetPos);
+                brokeAny |= serverPlayer.gameMode.destroyBlock(targetPos);
             } finally {
                 // MINED_BLOCKS ist statisch und wird nie geleert. Ohne finally bliebe targetPos
                 // nach einer Ausnahme aus destroyBlock (Blockentity, Loot, ein anderer Mod im
@@ -82,6 +83,9 @@ public final class VeinMinerUsageEvent {
                 // stillschweigend verschlucken. SledgehammerUsageEvent sichert sich genauso ab.
                 MINED_BLOCKS.remove(targetPos);
             }
+        }
+        if (brokeAny) {
+            com.simplebuilding.advancement.ModTriggers.feature(serverPlayer, com.simplebuilding.advancement.ModTriggers.VEIN_MINE);
         }
 
         return true;

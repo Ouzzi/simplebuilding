@@ -4,7 +4,6 @@ import com.simplebuilding.component.BackpackContents;
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.items.custom.BackpackItem;
 import java.util.Objects;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -23,9 +22,10 @@ import net.minecraft.world.item.ItemStack;
  * Brust-Stapel samt Inhalt nur dann an Besitzer und Umgebung - die bewusst in Kauf genommene
  * Bandbreite eines getragenen Rucksacks (wie bei einer gehaltenen Shulkerkiste).
  *
- * <p><b>Nur solange er getragen wird.</b> Geschrieben wird nur, wenn der Brust-Slot noch genau
- * <em>diesen</em> Stapel haelt (Identitaet). Ein Menue, dessen Rucksack weg ist, schliesst
- * {@link #stillValid} beim naechsten Tick.
+ * <p><b>Nur solange er dort liegt.</b> Geschrieben wird nur, wenn der Inventar-Slot, aus dem das
+ * Menue geoeffnet wurde (Brust-Slot oder - seit 2026-09-28 - ein Slot im Inventar), noch genau
+ * <em>diesen</em> Stapel haelt (Identitaet). Das Menue sperrt diesen Slot ({@code BackpackMenu});
+ * ein Menue, dessen Rucksack trotzdem weg ist, schliesst {@link #stillValid} beim naechsten Tick.
  *
  * <p><b>Aenderungen von aussen gewinnen.</b> Der Bauzauberstab (Meisterbauer), Trichter,
  * Konstrukteurs Hand und die Meisterbauer-Blockwahl nehmen direkt aus der Komponente, auch
@@ -36,12 +36,19 @@ import net.minecraft.world.item.ItemStack;
 public class WornBackpackContainer extends BackpackContainer {
     private final Player owner;
     private final ItemStack backingStack;
+    /** Inventar-Index des Rucksacks ({@code Inventory#getItem}); der Brust-Slot ist 38. */
+    private final int inventorySlot;
     private BackpackContents lastWritten;
 
     public WornBackpackContainer(Player owner, ItemStack backingStack, int multiplier) {
+        this(owner, backingStack, multiplier, BackpackItem.CHEST_INVENTORY_SLOT);
+    }
+
+    public WornBackpackContainer(Player owner, ItemStack backingStack, int multiplier, int inventorySlot) {
         super(((BackpackItem) backingStack.getItem()).getTier(), multiplier);
         this.owner = owner;
         this.backingStack = backingStack;
+        this.inventorySlot = inventorySlot;
         this.lastWritten = currentComponent();
         load(this.lastWritten);
     }
@@ -50,8 +57,13 @@ public class WornBackpackContainer extends BackpackContainer {
         return this.backingStack;
     }
 
+    public int inventorySlot() {
+        return this.inventorySlot;
+    }
+
+    /** Liegt der Rucksack noch in seinem Slot (getragen oder im Inventar)? */
     public boolean isStillWorn() {
-        return this.owner.getItemBySlot(EquipmentSlot.CHEST) == this.backingStack;
+        return this.owner.getInventory().getItem(this.inventorySlot) == this.backingStack;
     }
 
     private BackpackContents currentComponent() {

@@ -82,6 +82,11 @@ public class LaunchpadBlock extends WaterloggedPadBlock {
         return tier;
     }
 
+    @Override
+    protected boolean isRedstoneControlled() {
+        return true;
+    }
+
     public boolean isEnderite() {
         return tier >= ENDERITE_TIER;
     }

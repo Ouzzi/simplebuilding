@@ -1,0 +1,29 @@
+{
+  "parent": "simplebuilding:enderite/raw_deal",
+  "criteria": {
+    "void_rescue": {
+      "conditions": {
+        "feature": "void_rescue"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.enderite.not_today_void.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:ender_eye"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.enderite.not_today_void.title"
+    }
+  },
+  "requirements": [
+    [
+      "void_rescue"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

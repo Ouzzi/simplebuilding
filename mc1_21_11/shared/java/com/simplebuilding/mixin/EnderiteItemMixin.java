@@ -24,6 +24,8 @@ public abstract class EnderiteItemMixin extends Entity {
 
     @Shadow public abstract ItemStack getItem();
 
+    @Shadow public abstract Entity getOwner();
+
     @Inject(method = "tick", at = @At("HEAD"))
     private void onTick(CallbackInfo ci) {
         if (this.level().isClientSide()) return;
@@ -44,6 +46,10 @@ public abstract class EnderiteItemMixin extends Entity {
         boolean isVoidProtected = stack.is(ModTags.Items.VOID_PROTECTED);
 
         if (isVoidProtected) {
+            // Erster Tick unter dem Boden: der Werfer (Spieler) wurde vor dem Verlust bewahrt.
+            if (!this.isNoGravity() && this.getOwner() instanceof net.minecraft.world.entity.player.Player thrower) {
+                com.simplebuilding.advancement.ModTriggers.feature(thrower, com.simplebuilding.advancement.ModTriggers.VOID_RESCUE);
+            }
             // Physik manipulieren: Schweben lassen
             this.setDeltaMovement(0, 0, 0);
             this.setNoGravity(true);

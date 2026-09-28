@@ -27,7 +27,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 /** Elytra-Pad, 1:1 aus Simple Tweaks; ab Stufe IV (Enderit) laden Boosts im ganzen Bereich. */
-public class ElytraPadBlockEntity extends OwnedBlockEntity {
+public class ElytraPadBlockEntity extends OwnedBlockEntity implements PadSignalSource {
+    /** Spieler im Bereich beim letzten Durchlauf (Komparator-Signal, hoechstens 15). */
+    private int served;
 
     public ElytraPadBlockEntity(BlockPos pos, BlockState state) {
         super(TweaksBlockEntities.ELYTRA_PAD, pos, state);
@@ -39,14 +41,28 @@ public class ElytraPadBlockEntity extends OwnedBlockEntity {
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, ElytraPadBlockEntity be) {
         if (level.getGameTime() % 10 == 0) {
-            applyArea(level, pos, state);
+            int count = applyArea(level, pos, state);
+            int before = be.comparatorSignal();
+            be.served = count;
+            if (be.comparatorSignal() != before) {
+                level.updateNeighbourForOutputSignal(pos, state.getBlock());
+            }
         }
     }
 
-    /** Ein Durchlauf ueber alle Spieler im Bereich (der Tick macht das alle halbe Sekunde). */
-    public static void applyArea(Level level, BlockPos pos, BlockState state) {
-        if (!SimpleTweaks.config().pads.enableElytraPads) {
-            return;
+    /** Zahl der versorgten Spieler (0..15) fuer den Komparator. */
+    @Override
+    public int comparatorSignal() {
+        return Math.min(15, served);
+    }
+
+    /**
+     * Ein Durchlauf ueber alle Spieler im Bereich (der Tick macht das alle halbe Sekunde); liefert,
+     * wie viele es waren. Abgeschaltet (Config oder Redstone-Signal, Besitzer 2026-09-28): niemand.
+     */
+    public static int applyArea(Level level, BlockPos pos, BlockState state) {
+        if (!SimpleTweaks.config().pads.enableElytraPads || com.simplebuilding.tweaks.block.PadBlock.isDisabledByRedstone(level, pos)) {
+            return 0;
         }
         int tier = tierOf(state);
         AABB range = areaOf(level, pos, state);
@@ -56,6 +72,7 @@ public class ElytraPadBlockEntity extends OwnedBlockEntity {
         for (ServerPlayer player : players) {
             applyTo(level, pos, tier, player, config);
         }
+        return players.size();
     }
 
     /** Bereich dieses gesetzten Pads; die letzte Easter-Stufe ({@link EasterEggs}) ist doppelt so breit und hoch. */

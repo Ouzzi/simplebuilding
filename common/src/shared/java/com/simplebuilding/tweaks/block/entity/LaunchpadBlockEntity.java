@@ -15,6 +15,10 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
+import net.minecraft.world.WorldlyContainer;
+import net.minecraft.core.Direction;
+import org.jetbrains.annotations.Nullable;
+import com.simplebuilding.tweaks.block.PadBlock;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -29,8 +33,15 @@ import net.minecraft.world.phys.AABB;
  * Launchpad, aus Simple Tweaks: Ladungen, 3 s Countdown mit Spirale, Start je nach Ladung. Seit den
  * drei Stufen (2026-09-27) zaehlt eine Ladung doppelt; Launchpads aus aelteren Welten, die mehr
  * geladen haben, als ihre Stufe jetzt fasst, werfen den Ueberschuss beim ersten Tick aus.
+ *
+ * <p><b>Trichter</b> (Besitzer 2026-09-28): das Launchpad ist ein {@link WorldlyContainer}, das nur
+ * Windkugeln annimmt - jede eingelegte Windkugel ist sofort eine Ladung ({@link #setItem}), und
+ * herausnehmen kann kein Trichter etwas ({@link #getItem} ist immer leer). Ein volles Pad nimmt
+ * nichts mehr an. Redstone haelt den Start an, der Komparator liest den Fuellstand.
  */
-public class LaunchpadBlockEntity extends OwnedBlockEntity {
+public class LaunchpadBlockEntity extends OwnedBlockEntity implements WorldlyContainer, PadSignalSource {
+    private static final int[] SLOTS = {0};
+
     public static final int LAUNCH_TICKS = 60;
 
     private int charges;
@@ -103,7 +114,8 @@ public class LaunchpadBlockEntity extends OwnedBlockEntity {
             // Sichtbarer Fuellstand (Blockzustand CHARGE); holt auch Pads aus alten Welten nach.
             state = be.refreshChargeState(level, pos, state);
         }
-        if (!SimpleTweaks.config().pads.enableLaunchpads) {
+        if (!SimpleTweaks.config().pads.enableLaunchpads || PadBlock.isDisabledByRedstone(level, pos)) {
+            // Abgeschaltet (Config oder Redstone-Signal): kein Countdown, kein Start; Laden geht weiter.
             be.chargeTimer = 0;
             return;
         }
@@ -206,6 +218,101 @@ public class LaunchpadBlockEntity extends OwnedBlockEntity {
             charges = 0;
         }
         super.preRemoveSideEffects(pos, state);
+    }
+
+    // =====================================================================================
+    // Komparator und Trichter
+    // =====================================================================================
+
+    /** Fassungsvermoegen dieses gesetzten Pads (Easter-Endstufe doppelt). */
+    private int capacity() {
+        return level != null && getBlockState().getBlock() instanceof LaunchpadBlock pad
+                ? pad.capacityAt(level, worldPosition) : LaunchpadBlock.maxCharges(1);
+    }
+
+    /** Fuellstand der Ladungen: leer 0, voll 15. */
+    @Override
+    public int comparatorSignal() {
+        return PadSignalSource.fillSignal(charges, capacity());
+    }
+
+    @Override
+    public int[] getSlotsForFace(Direction side) {
+        return SLOTS;
+    }
+
+    @Override
+    public boolean canPlaceItemThroughFace(int slot, ItemStack stack, @Nullable Direction side) {
+        return canPlaceItem(slot, stack);
+    }
+
+    @Override
+    public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction side) {
+        return false;
+    }
+
+    /** Nur Windkugeln, und nur solange noch eine Ladung Platz hat. */
+    @Override
+    public boolean canPlaceItem(int slot, ItemStack stack) {
+        return stack.is(Items.WIND_CHARGE) && charges < capacity();
+    }
+
+    @Override
+    public int getContainerSize() {
+        return 1;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return true;
+    }
+
+    /** Immer leer: die Windkugeln sind sofort Ladungen und lassen sich nicht wieder herausziehen. */
+    @Override
+    public ItemStack getItem(int slot) {
+        return ItemStack.EMPTY;
+    }
+
+    @Override
+    public ItemStack removeItem(int slot, int amount) {
+        return ItemStack.EMPTY;
+    }
+
+    @Override
+    public ItemStack removeItemNoUpdate(int slot) {
+        return ItemStack.EMPTY;
+    }
+
+    /**
+     * Ein Trichter (oder Werfer) legt Windkugeln ein: sie werden zu Ladungen. Was ueber das
+     * Fassungsvermoegen hinausgeht - Vanillas Trichter reicht nur eine, andere Mods vielleicht mehr -,
+     * faellt als Windkugel heraus statt zu verschwinden.
+     */
+    @Override
+    public void setItem(int slot, ItemStack stack) {
+        if (stack.isEmpty() || !stack.is(Items.WIND_CHARGE) || level == null || level.isClientSide()) {
+            return;
+        }
+        int added = addCharges(stack.getCount(), capacity());
+        int rest = stack.getCount() - added;
+        if (rest > 0) {
+            Containers.dropItemStack(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5,
+                    new ItemStack(Items.WIND_CHARGE, rest));
+        }
+    }
+
+    @Override
+    public int getMaxStackSize() {
+        return 1;
+    }
+
+    @Override
+    public boolean stillValid(Player player) {
+        return false;
+    }
+
+    @Override
+    public void clearContent() {
     }
 
     @Override

@@ -1,0 +1,228 @@
+{
+  "parent": "simplebuilding:octant/colour_coded",
+  "criteria": {
+    "black_octant": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:octant_black"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "blue_octant": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:octant_blue"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "brown_octant": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:octant_brown"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "cyan_octant": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:octant_cyan"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "gray_octant": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:octant_gray"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "green_octant": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:octant_green"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "light_blue_octant": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:octant_light_blue"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "light_gray_octant": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:octant_light_gray"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "lime_octant": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:octant_lime"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "magenta_octant": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:octant_magenta"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "orange_octant": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:octant_orange"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "pink_octant": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:octant_pink"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "purple_octant": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:octant_purple"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "red_octant": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:octant_red"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "white_octant": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:octant_white"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "yellow_octant": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:octant_yellow"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.octant.full_spectrum.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "simplebuilding:octant_magenta"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.octant.full_spectrum.title"
+    }
+  },
+  "requirements": [
+    [
+      "white_octant"
+    ],
+    [
+      "orange_octant"
+    ],
+    [
+      "magenta_octant"
+    ],
+    [
+      "light_blue_octant"
+    ],
+    [
+      "yellow_octant"
+    ],
+    [
+      "lime_octant"
+    ],
+    [
+      "pink_octant"
+    ],
+    [
+      "gray_octant"
+    ],
+    [
+      "light_gray_octant"
+    ],
+    [
+      "cyan_octant"
+    ],
+    [
+      "purple_octant"
+    ],
+    [
+      "blue_octant"
+    ],
+    [
+      "brown_octant"
+    ],
+    [
+      "green_octant"
+    ],
+    [
+      "red_octant"
+    ],
+    [
+      "black_octant"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

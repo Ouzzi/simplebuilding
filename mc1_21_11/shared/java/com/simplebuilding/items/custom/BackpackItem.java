@@ -37,7 +37,8 @@ import static com.simplebuilding.util.EnchantmentHelper.hasEnchantment;
  *   <li><b>Abstellen:</b> Schleichen + Rechtsklick auf einen Block stellt ihn als Block ab
  *       ({@link #useOn}). Ohne Schleichen gibt {@code useOn} PASS zurueck, damit Vanilla danach
  *       {@code use} aufruft und der Rucksack angezogen wird statt abgestellt.</li>
- *   <li><b>Oeffnen:</b> nur getragen, ueber die Rucksack-Taste (Standard B), oder als abgestellter
+ *   <li><b>Oeffnen:</b> ueber die Rucksack-Taste (Standard B) - der getragene Rucksack, sonst seit
+ *       2026-09-28 der erste im Inventar ({@link #carriedBackpackSlot}) -, oder als abgestellter
  *       Block per Rechtsklick.</li>
  * </ul>
  *
@@ -144,6 +145,28 @@ public class BackpackItem extends BlockItem {
         return chest.getItem() instanceof BackpackItem ? chest : ItemStack.EMPTY;
     }
 
+    /** Inventar-Index des Brust-Slots ({@code Inventory#getItem}): 36 + Index der Brust = 38. */
+    public static final int CHEST_INVENTORY_SLOT = net.minecraft.world.entity.player.Inventory.INVENTORY_SIZE + EquipmentSlot.CHEST.getIndex();
+
+    /**
+     * Inventar-Index des Rucksacks, den die Rucksack-Taste oeffnet (Besitzer 2026-09-28): der
+     * getragene zuerst, sonst der erste im Inventar (Schnellleiste, Hauptinventar, dann Nebenhand);
+     * -1 ohne Rucksack. Client (ob die Taste fragt) und Server (was geoeffnet wird) rechnen dasselbe.
+     */
+    public static int carriedBackpackSlot(Player player) {
+        net.minecraft.world.entity.player.Inventory inventory = player.getInventory();
+        if (inventory.getItem(CHEST_INVENTORY_SLOT).getItem() instanceof BackpackItem) {
+            return CHEST_INVENTORY_SLOT;
+        }
+        for (int slot = 0; slot < net.minecraft.world.entity.player.Inventory.INVENTORY_SIZE; slot++) {
+            if (inventory.getItem(slot).getItem() instanceof BackpackItem) {
+                return slot;
+            }
+        }
+        return inventory.getItem(net.minecraft.world.entity.player.Inventory.SLOT_OFFHAND).getItem() instanceof BackpackItem
+                ? net.minecraft.world.entity.player.Inventory.SLOT_OFFHAND : -1;
+    }
+
     /** Darf {@code stack} in einen Rucksack-Slot? Keine Rucksaecke, keine Shulkerkisten. */
     public static boolean mayStore(ItemStack stack) {
         return !(stack.getItem() instanceof BackpackItem) && stack.getItem().canFitInsideContainerItems();
@@ -233,6 +256,14 @@ public class BackpackItem extends BlockItem {
     /** Kopien aller Stapel im Rucksack. */
     public static List<ItemStack> entryStacks(ItemStack backpack) {
         return contents(backpack).stacks();
+    }
+
+    /** Ersetzt den Stapel am Eintrag {@code index} (etwa einen Koecher, aus dem ein Pfeil genommen wurde). */
+    public static void replaceEntry(ItemStack backpack, int index, ItemStack stack) {
+        BackpackContents contents = contents(backpack);
+        if (index >= 0 && index < contents.size()) {
+            setContents(backpack, contents.withStackAt(index, stack));
+        }
     }
 
     /** Nimmt ein Stueck aus dem Eintrag {@code index}. */

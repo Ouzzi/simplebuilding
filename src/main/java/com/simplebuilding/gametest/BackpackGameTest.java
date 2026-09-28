@@ -36,8 +36,8 @@ public final class BackpackGameTest {
     }
 
     @GameTest
-    public void openKeyOpensTheMenuOnlyForTheWornBackpack(GameTestHelper helper) {
-        BackpackTests.openKeyOpensTheMenuOnlyForTheWornBackpack(helper);
+    public void openKeyOpensTheWornBackpackOrElseTheFirstOneCarried(GameTestHelper helper) {
+        BackpackTests.openKeyOpensTheWornBackpackOrElseTheFirstOneCarried(helper);
     }
 
     @GameTest
@@ -83,5 +83,15 @@ public final class BackpackGameTest {
     @GameTest
     public void tooltipImageCarriesTheStoredItemsOfEveryTierDyedToo(GameTestHelper helper) {
         BackpackTests.tooltipImageCarriesTheStoredItemsOfEveryTierDyedToo(helper);
+    }
+
+    @GameTest
+    public void backpackKeyLocksTheInventorySlotOfTheBackpackItOpened(GameTestHelper helper) {
+        BackpackTests.backpackKeyLocksTheInventorySlotOfTheBackpackItOpened(helper);
+    }
+
+    @GameTest
+    public void placedBackpackOutputsItsFillLevelToAComparator(GameTestHelper helper) {
+        BackpackTests.placedBackpackOutputsItsFillLevelToAComparator(helper);
     }
 }

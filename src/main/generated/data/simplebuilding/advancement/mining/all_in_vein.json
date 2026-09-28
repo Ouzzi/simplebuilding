@@ -1,0 +1,28 @@
+{
+  "parent": "simplebuilding:tiers/ironclad",
+  "criteria": {
+    "vein_mine": {
+      "conditions": {
+        "feature": "vein_mine"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.mining.all_in_vein.description"
+    },
+    "icon": {
+      "id": "minecraft:iron_ore"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.mining.all_in_vein.title"
+    }
+  },
+  "requirements": [
+    [
+      "vein_mine"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -424,54 +424,60 @@ public final class BackpackTests {
     // =====================================================================================
 
     /**
-     * The backpack key ({@code OpenBackpackPayload}) opens a backpack menu only for a worn backpack.
+     * The backpack key ({@code OpenBackpackPayload}) opens the worn backpack, or - since the owner's
+     * decision of 2026-09-28 - the first backpack anywhere in the inventory; the server picks and
+     * checks it itself.
      *
      * <ul>
-     *   <li><b>Nothing on the chest:</b> the gate is shut and the handler leaves the player in vanilla's
+     *   <li><b>No backpack at all:</b> the gate is shut and the handler leaves the player in vanilla's
      *       own inventory menu with its 46 slots - the client shows the normal inventory then.</li>
-     *   <li><b>A backpack only in the hand:</b> still shut.</li>
-     *   <li><b>Worn:</b> the gate opens, and the menu the provider builds is a backpack menu with 46 + 9
-     *       slots.</li>
+     *   <li><b>A backpack only in the inventory:</b> the gate opens, the real handler opens a backpack
+     *       menu on that backpack and locks exactly its slot.</li>
+     *   <li><b>Worn and in the inventory:</b> the worn one wins.</li>
      *   <li><b>Another menu already open:</b> shut again, so the key never stacks a menu on a menu.</li>
      * </ul>
      *
-     * <p>What breaks this test: a gate that does not look at the chest slot, one that accepts a
-     * backpack anywhere else, and one that ignores an open menu.
+     * <p>What breaks this test: a gate that ignores the inventory, one that opens a menu without any
+     * backpack, one that prefers the inventory over the worn backpack, and one that ignores an open
+     * menu.
      */
-    public static void openKeyOpensTheMenuOnlyForTheWornBackpack(GameTestHelper helper) {
+    public static void openKeyOpensTheWornBackpackOrElseTheFirstOneCarried(GameTestHelper helper) {
         ServerPlayer player = serverPlayer(helper);
         player.getInventory().clearContent();
 
-        // --- nothing on the chest ---
-        helper.assertFalse(BackpackMenuProviders.canOpenWorn(player),
-                "the backpack key may open a menu for a player with nothing on the chest");
+        // --- no backpack anywhere ---
+        helper.assertFalse(BackpackMenuProviders.canOpenCarried(player),
+                "the backpack key may open a menu for a player without any backpack");
         ModMessageHandlers.handleOpenBackpack(new OpenBackpackPayload(), player);
         helper.assertTrue(player.containerMenu == player.inventoryMenu,
-                "the backpack key opened " + player.containerMenu + " without a worn backpack");
+                "the backpack key opened " + player.containerMenu + " without a backpack");
         Assertions.valueEqual(helper, player.inventoryMenu.slots.size(), 46, "slots of the vanilla inventory menu");
 
-        // --- only in the hand ---
-        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.BACKPACK));
-        helper.assertFalse(BackpackMenuProviders.canOpenWorn(player),
-                "the backpack key may open a menu for a backpack that is only held, not worn");
-        ModMessageHandlers.handleOpenBackpack(new OpenBackpackPayload(), player);
-        helper.assertTrue(player.containerMenu == player.inventoryMenu,
-                "the backpack key opened a menu for a backpack in the hand");
+        // --- only in the inventory: the first one found is opened, and its slot is locked ---
+        ItemStack carried = new ItemStack(ModItems.BACKPACK);
+        player.getInventory().setItem(20, carried);
+        player.getInventory().setItem(30, new ItemStack(ModItems.REINFORCED_BACKPACK));
+        helper.assertTrue(BackpackMenuProviders.canOpenCarried(player),
+                "the backpack key may not open a backpack that lies in the inventory");
+        Assertions.valueEqual(helper, BackpackItem.carriedBackpackSlot(player), 20,
+                "inventory slot of the backpack the key picks - the first one in inventory order");
+        BackpackMenu fromInventory = (BackpackMenu) BackpackMenuProviders.carried(player).provider()
+                .createMenu(1, player.getInventory(), player);
+        Assertions.valueEqual(helper, fromInventory.tier(), BackpackTier.BASIC, "tier of the backpack the key opened");
+        Assertions.valueEqual(helper, fromInventory.lockedSlot(), 20, "inventory slot the backpack menu locks");
 
-        // --- worn ---
-        player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
-        player.setItemSlot(EquipmentSlot.CHEST, new ItemStack(ModItems.BACKPACK));
-        helper.assertTrue(BackpackMenuProviders.canOpenWorn(player),
-                "the backpack key may not open the menu of a worn backpack");
+        // --- worn and carried: the worn one wins ---
+        player.setItemSlot(EquipmentSlot.CHEST, new ItemStack(ModItems.NETHERITE_BACKPACK));
+        Assertions.valueEqual(helper, BackpackItem.carriedBackpackSlot(player), BackpackItem.CHEST_INVENTORY_SLOT,
+                "slot the key picks with a worn backpack and one in the inventory");
         AbstractContainerMenu menu = BackpackMenuProviders.worn(player).provider()
                 .createMenu(1, player.getInventory(), player);
         helper.assertTrue(menu instanceof BackpackMenu,
                 "the worn backpack's provider built " + menu + " instead of a backpack menu");
-        Assertions.valueEqual(helper, menu.slots.size(), 46 + 9, "slots of the basic backpack's menu");
 
         // --- another menu open ---
         player.containerMenu = menu;
-        helper.assertFalse(BackpackMenuProviders.canOpenWorn(player),
+        helper.assertFalse(BackpackMenuProviders.canOpenCarried(player),
                 "the backpack key may open a second menu on top of an open one");
         player.containerMenu = player.inventoryMenu;
 
@@ -1085,6 +1091,110 @@ public final class BackpackTests {
 
         TestCleanup.succeed(helper);
     }
+
+    // ---- owner decisions 2026-09-28 (begin)
+
+    /**
+     * The backpack key opens a backpack that lies in the inventory (owner, 2026-09-28), and the menu
+     * locks exactly the slot that backpack lies in: it cannot be picked up, shift-clicked, swapped away
+     * with its number key or covered, and what goes into the menu is written into that very stack.
+     * Once the backpack is gone from its slot the menu is no longer valid.
+     *
+     * <p>What breaks it: a lock that looks at the chest slot only, the missing SWAP guard in
+     * {@code BackpackMenu#clicked} (vanilla's SWAP asks only the target slot), and a container that
+     * writes back to the chest slot instead of the slot the backpack was opened from.
+     */
+    public static void backpackKeyLocksTheInventorySlotOfTheBackpackItOpened(GameTestHelper helper) {
+        ServerPlayer player = serverPlayer(helper);
+        player.getInventory().clearContent();
+        ItemStack backpack = new ItemStack(ModItems.BACKPACK);
+        player.getInventory().setItem(2, backpack);
+        player.getInventory().setItem(5, new ItemStack(Items.STONE, 16));
+
+        helper.assertTrue(BackpackMenuProviders.canOpenCarried(player),
+                "the backpack key may not open a backpack in hotbar slot 2");
+        BackpackMenu menu = (BackpackMenu) BackpackMenuProviders.carried(player).provider()
+                .createMenu(1, player.getInventory(), player);
+        player.containerMenu = menu;
+        Assertions.valueEqual(helper, menu.lockedSlot(), 2, "inventory slot the menu locks");
+
+        int lockedIndex = BackpackMenu.USE_ROW_SLOT_START + 2;
+        net.minecraft.world.inventory.Slot locked = menu.getSlot(lockedIndex);
+        helper.assertFalse(locked.mayPickup(player), "the open backpack can be picked up out of its own slot");
+        helper.assertFalse(locked.mayPlace(new ItemStack(Items.DIRT)), "something can be put into the open backpack's slot");
+        helper.assertTrue(menu.getSlot(BackpackMenu.USE_ROW_SLOT_START + 5).mayPickup(player),
+                "the lock spread to a hotbar slot that holds no open backpack");
+        helper.assertTrue(menu.getSlot(BackpackMenu.ARMOR_SLOT_START + 1).mayPlace(new ItemStack(Items.IRON_CHESTPLATE)),
+                "the chest slot is locked although the backpack was opened from the inventory");
+
+        // --- every click path leaves the backpack where it is ---
+        menu.clicked(lockedIndex, 0, net.minecraft.world.inventory.ClickType.PICKUP, player);
+        menu.clicked(lockedIndex, 0, net.minecraft.world.inventory.ClickType.QUICK_MOVE, player);
+        menu.clicked(BackpackMenu.INV_SLOT_START, 2, net.minecraft.world.inventory.ClickType.SWAP, player);
+        menu.clicked(lockedIndex, 0, net.minecraft.world.inventory.ClickType.THROW, player);
+        helper.assertTrue(player.getInventory().getItem(2) == backpack,
+                "the open backpack left hotbar slot 2 (now " + player.getInventory().getItem(2) + ")");
+        helper.assertTrue(menu.getCarried().isEmpty(), "the open backpack ended up on the cursor");
+        helper.assertTrue(player.getInventory().getItem(9).isEmpty(),
+                "the number key 3 swapped the open backpack into the main inventory");
+
+        // --- the menu writes into the backpack in slot 2 ---
+        menu.clicked(BackpackMenu.USE_ROW_SLOT_START + 5, 0, net.minecraft.world.inventory.ClickType.QUICK_MOVE, player);
+        Assertions.valueEqual(helper, BackpackItem.contents(backpack).size(), 1,
+                "entries in the carried backpack after shift-clicking stone from the hotbar");
+        helper.assertTrue(menu.stillValid(player), "the menu of the carried backpack is not valid");
+
+        // --- gone from its slot, the menu closes ---
+        player.getInventory().setItem(2, ItemStack.EMPTY);
+        helper.assertFalse(menu.stillValid(player), "the menu stays valid although its backpack left slot 2");
+        player.containerMenu = player.inventoryMenu;
+
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * A placed backpack gives a comparator its fill level, the way a chest does but with the
+     * backpack's own stack limits: empty 0, every slot full 15. Checked on the block itself and on a
+     * real comparator that reads it, which also shows that a change of the contents wakes the
+     * comparator up.
+     *
+     * <p>What breaks it: {@code hasAnalogOutputSignal} missing, a signal that ignores the contents, or
+     * a container change that no longer calls {@code setChanged} on the block entity.
+     */
+    public static void placedBackpackOutputsItsFillLevelToAComparator(GameTestHelper helper) {
+        BlockPos backpackPos = new BlockPos(2, 1, 2);
+        BlockPos comparatorPos = backpackPos.east();
+        helper.setBlock(backpackPos.below(), Blocks.STONE);
+        helper.setBlock(comparatorPos.below(), Blocks.STONE);
+        helper.setBlock(backpackPos, ModBlocks.BACKPACK);
+        helper.setBlock(comparatorPos, Blocks.COMPARATOR.defaultBlockState()
+                .setValue(net.minecraft.world.level.block.ComparatorBlock.FACING, Direction.WEST));
+        BlockPos absolute = helper.absolutePos(backpackPos);
+        ServerLevel level = helper.getLevel();
+        BackpackBlockEntity entity = (BackpackBlockEntity) level.getBlockEntity(absolute);
+        net.minecraft.world.level.block.state.BlockState state = level.getBlockState(absolute);
+
+        helper.assertTrue(state.hasAnalogOutputSignal(), "a placed backpack has no comparator output");
+        Assertions.valueEqual(helper, state.getAnalogOutputSignal(level, absolute, Direction.EAST), 0,
+                "comparator signal of an empty backpack");
+        entity.container().setItem(0, new ItemStack(Items.STONE, 1));
+        int one = state.getAnalogOutputSignal(level, absolute, Direction.EAST);
+        helper.assertTrue(one >= 1 && one < 15, "one stone in a backpack gives signal " + one);
+        for (int slot = 0; slot < entity.container().getContainerSize(); slot++) {
+            entity.container().setItem(slot, new ItemStack(Items.STONE, 64));
+        }
+        Assertions.valueEqual(helper, state.getAnalogOutputSignal(level, absolute, Direction.EAST), 15,
+                "comparator signal of a backpack with every slot full");
+
+        helper.succeedWhen(() -> {
+            net.minecraft.world.level.block.entity.BlockEntity comparator = level.getBlockEntity(helper.absolutePos(comparatorPos));
+            helper.assertTrue(comparator instanceof net.minecraft.world.level.block.entity.ComparatorBlockEntity c
+                            && c.getOutputSignal() == 15,
+                    "the comparator behind the full backpack does not read 15");
+        });
+    }
+
+    // ---- owner decisions 2026-09-28 (end)
 
     // =====================================================================================
     // HELPERS - PLAYERS AND MENUS

@@ -58,6 +58,9 @@ public class ItemMixin {
         if (glowLevel > 0) {
             textConsumer.accept(Component.translatable(glowLevel == 2 ? "tooltip.simplebuilding.glow_level_2" : "tooltip.simplebuilding.glow_level", glowLevel).withStyle(ChatFormatting.AQUA));
         }
+        if (GlowingTrimUtils.isPulsating(stack)) {
+            textConsumer.accept(Component.translatable("tooltip.simplebuilding.pulsating").withStyle(ChatFormatting.DARK_AQUA));
+        }
 
         // 2. Armor Trim Boni - im Stil der Vanilla-Attributliste, Werte aus TrimBonusCatalog
         // (dieselben Konstanten, mit denen TrimEffectUtil rechnet).

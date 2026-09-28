@@ -64,13 +64,15 @@ public final class PlacedTemplates {
 
     /**
      * Vorlagen, die sich ablegen lassen: jede {@link SmithingTemplateItem} (Netherit-Aufwertung, alle
-     * Besatzvorlagen, die leuchtende und die strahlende Vorlage, Vorlagen anderer Mods) und die beiden
-     * Aufwertungsvorlagen der Mod, die schlichte Items sind.
+     * Besatzvorlagen, die Besatz-Aufwertungen der Mod, Vorlagen anderer Mods), die beiden
+     * Aufwertungsvorlagen der Mod, die schlichte Items sind, und der Attractor ({@link PlacedAttractors}:
+     * abgelegt zieht er lose Items an).
      */
     public static boolean isPlaceableTemplate(ItemStack stack) {
         Item item = stack.getItem();
         return !stack.isEmpty() && (item instanceof SmithingTemplateItem
-                || item == ModItems.ENDERITE_UPGRADE_TEMPLATE || item == ModItems.BASIC_UPGRADE_TEMPLATE);
+                || item == ModItems.ENDERITE_UPGRADE_TEMPLATE || item == ModItems.BASIC_UPGRADE_TEMPLATE
+                || item == ModItems.MAGNET);
     }
 
     /** Blaupausen lassen sich genauso ablegen (Besitzer 2026-09-28), als eigener Block. */

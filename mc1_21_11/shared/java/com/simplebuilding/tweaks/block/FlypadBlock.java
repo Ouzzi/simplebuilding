@@ -75,6 +75,11 @@ public class FlypadBlock extends PadBlock {
     }
 
     @Override
+    protected boolean isRedstoneControlled() {
+        return true;
+    }
+
+    @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }

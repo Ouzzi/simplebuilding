@@ -84,6 +84,11 @@ public class PotionPadBlock extends PadBlock {
         return tier;
     }
 
+    @Override
+    protected boolean isRedstoneControlled() {
+        return true;
+    }
+
     /** Wirkdauer der gespeicherten Effekte beim Betreten, in Ticks. */
     public int effectDuration() {
         return effectDuration(tier);

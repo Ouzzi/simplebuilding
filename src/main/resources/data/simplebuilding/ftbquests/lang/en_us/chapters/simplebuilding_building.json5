@@ -23,6 +23,10 @@
 	"quest.02D4353ADE7705C4.quest_desc": [
 		"{\"translate\": \"advancements.simplebuilding.octant.colour_coded.description\"}"
 	],
+	"quest.412E872E9C43A266.title": "{\"translate\": \"advancements.simplebuilding.octant.full_spectrum.title\"}",
+	"quest.412E872E9C43A266.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.octant.full_spectrum.description\"}"
+	],
 	"quest.77DDBB44E0D5BD95.title": "{\"translate\": \"advancements.simplebuilding.building.let_there_be_light.title\"}",
 	"quest.77DDBB44E0D5BD95.quest_desc": [
 		"{\"translate\": \"advancements.simplebuilding.building.let_there_be_light.description\"}"
@@ -42,6 +46,14 @@
 	"quest.672E11EB510CF691.title": "{\"translate\": \"advancements.simplebuilding.chisel.fine_detail.title\"}",
 	"quest.672E11EB510CF691.quest_desc": [
 		"{\"translate\": \"advancements.simplebuilding.chisel.fine_detail.description\"}"
+	],
+	"quest.7CDEA51CA3255512.title": "{\"translate\": \"advancements.simplebuilding.chisel.sculptor.title\"}",
+	"quest.7CDEA51CA3255512.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.chisel.sculptor.description\"}"
+	],
+	"quest.119E3969374C58D5.title": "{\"translate\": \"advancements.simplebuilding.wand.master_mason.title\"}",
+	"quest.119E3969374C58D5.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.wand.master_mason.description\"}"
 	],
 	"quest.3F5B3AEC2AD9D856.title": "{\"translate\": \"advancements.simplebuilding.gadgets.spin_doctor.title\"}",
 	"quest.3F5B3AEC2AD9D856.quest_desc": [

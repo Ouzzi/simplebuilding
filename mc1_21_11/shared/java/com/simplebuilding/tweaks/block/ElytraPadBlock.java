@@ -52,6 +52,11 @@ public class ElytraPadBlock extends WaterloggedPadBlock {
     }
 
     @Override
+    protected boolean isRedstoneControlled() {
+        return true;
+    }
+
+    @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }

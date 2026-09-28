@@ -63,7 +63,8 @@ public class GuideBookScreen extends Screen {
     /** Inhaltsflaeche je Seite, relativ zum Buch. */
     static final int LEFT_X = 17, RIGHT_X = 159, CONTENT_Y = 15, CONTENT_W = 116, CONTENT_H = 142;
     static final int INK = 0xFF3B2A1C, INK_SOFT = 0xFF7A6248, INK_FAINT = 0xFFA08A6A;
-    private static final int TAB_Y = 12, TAB_STEP = 20;
+    /** Neun Lesezeichen passen mit 18 px Abstand an die Buchkante (20 px hoch, 2 px ueberlappend). */
+    private static final int TAB_Y = 12, TAB_STEP = 18;
 
     private static final Map<GuideBooks.Book, Integer> LAST_SPREAD = new EnumMap<>(GuideBooks.Book.class);
 
