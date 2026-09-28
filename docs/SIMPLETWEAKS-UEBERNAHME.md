@@ -112,12 +112,19 @@ Familie.
 | Launchpad | I | `launchpad` | bis **4** Windkugeln | Schmiede: beliebige Vorlage + schwere Waegeplatte + **Diamant-Druckplatte** |
 | | **II (neu)** | `netherite_launchpad` | bis **8** Windkugeln | Schmiede: Netherit-Vorlage + Launchpad I + **Netherit-Druckplatte** |
 | | III | `enderite_launchpad` | bis **16** Windkugeln, **kein Fallschaden** bis zur naechsten Landung | Schmiede: Enderit-Vorlage + Launchpad II + **Enderit-Druckplatte** |
-| Trank-Pad (neu) | I | `potion_pad` | gespeicherter Wurftrank, **30 s** je Betreten | Werkbank (formlos): **Netherit-Druckplatte + Lohenkopf** |
-| | II | `reinforced_potion_pad` | **60 s** | Schmiede: Enderit-Vorlage + Trank-Pad I + **Enderit-Druckplatte** |
-| | III | `infused_potion_pad` | **120 s** | Schmiede: Enderit-Vorlage + Trank-Pad II + **Enderit-Kern** |
+| Trank-Pad (neu) | I | `potion_pad` | gespeicherter Wurftrank, **30 s** nach 3 s Stehen, danach **60 s** Abklingzeit | Werkbank (formlos): **Netherit-Druckplatte + Lohenkopf** |
+| | II | `reinforced_potion_pad` | **60 s**, Abklingzeit **120 s** | Schmiede: Enderit-Vorlage + Trank-Pad I + **Enderit-Druckplatte** |
+| | III | `infused_potion_pad` | **120 s**, Abklingzeit **240 s** | Schmiede: Enderit-Vorlage + Trank-Pad II + **Enderit-Kern** |
 
 Kupfer-Druckplatten sind Oxidationsstufen, keine Materialstufen, und bekommen deshalb keine
 Enderit-Variante.
+
+**Stapelgroesse (Besitzer 2026-09-28):** jedes Pad-Item stapelt nicht (Stapelgroesse 1) - alle Stufen
+aller Familien (Elytra-Pad, Flypad, Spawn-Teleporter, Launchpad, Chunk-Loader, Trank-Pad), ihre
+Easter-Stufen und die alten Flypads. Grund: jedes Pad ist ein Einzelstueck (Easter-Stufe, gespeicherter
+Trank, Restabklingzeit). Umsetzung `TweaksItems#isPad` (jeder `PadBlock` ausser den Kupfer-Druckplatten)
+setzt `stacksTo(1)`; die Druckplatten stapeln weiter bis 64. Test
+`potion_pad_game_test_every_pad_item_stacks_to_one`.
 
 ### 2.1 Aufwertungen zahlen mit Druckplatten (Besitzer-Aenderung 2026-09-27)
 
@@ -193,14 +200,27 @@ die Kette ueber den Endstufen), Code `PotionPadBlock` / `PotionPadBlockEntity`.
   (vom Server gesendet, kein Client-Code); Rechtsklick ohne Gegenstand zeigt Trank und Dauer. Kein
   Komparator-Ausgang. Beim Abbau behaelt das Item den Trank (`potion_contents`) und gibt ihn beim
   Setzen zurueck (seit 2026-09-28, zusammen mit der Easter-Kette; vorher ging er verloren).
-- **Wirkung**: jeder **Spieler** (keine Mobs), der das Pad betritt, bekommt die gespeicherten
-  Dauerwirkungen mit der **Verstaerkung des Tranks** fuer **30 s / 60 s / 120 s** (I/II/III). Steht er
-  weiter darauf, wird jede Sekunde wieder auf diese Dauer aufgefrischt; Vanillas
-  `MobEffectInstance#update` verlaengert dabei nur bis zu dieser Dauer, nie darueber (kein Aufstocken).
-  Eine laengere Wirkung, die der Spieler schon hat, wird nicht gekuerzt.
-- **Sofortwirkungen** (Heilung, Schaden): **einmal je Betreten**, hoechstens **alle 2 s je Spieler**
-  (`INSTANT_COOLDOWN_TICKS` = 40); Stehenbleiben wiederholt sie nie. So bleibt Hin- und Herhuepfen
-  hoechstens ein Heiltrank je 2 s. Schaden trifft ohne Verursacher (`magic`).
+- **Wirkung, Aufladen in drei Schritten** (Besitzer 2026-09-28, ersetzt "volle Dauer beim Betreten"):
+  jeder **Spieler** (keine Mobs), der auf dem Pad steht, bekommt die gespeicherten Dauerwirkungen mit der
+  **Verstaerkung des Tranks**: nach **1 s 25 %**, nach **2 s 50 %**, nach **3 s 100 %** von
+  **30 s / 60 s / 120 s** (I/II/III; letzte Easter-Stufe 240 s). Jeder Schritt zeigt Wirkungspartikel in
+  der Trankfarbe und einen leisen Klang (Amethyst-Klingen, hoeher je Schritt; bei 100 % das Braustand-
+  Geraeusch). Wer vorher absteigt, **behaelt das bisher Erhaltene** und beginnt beim naechsten Betreten
+  wieder bei 0 (`PotionPadBlockEntity#standing`, nicht gespeichert). Eine laengere Wirkung, die der Spieler
+  schon hat, wird nicht gekuerzt (`MobEffectInstance#update`).
+- **Sofortwirkungen** (Heilung, Schaden): **einmal, beim 3-s-Schritt**; die alte 2-s-Sperre je Spieler
+  entfaellt, die Abklingzeit des Pads uebernimmt das. Schaden trifft ohne Verursacher (`magic`).
+- **Abklingzeit** (Besitzer 2026-09-28): der 100-%-Schritt setzt das **ganze Pad** fuer die **doppelte
+  Wirkdauer** in die Abklingzeit - **60 s / 120 s / 240 s**, letzte Easter-Stufe **480 s**
+  (`PotionPadBlock#cooldownAt`). **Entschieden: erst 100 % startet sie**; ein abgebrochenes Aufladen
+  nicht, sonst koennte ein kurzer Schritt das Pad fuer alle sperren. Waehrend der Abklingzeit gibt das Pad
+  niemandem etwas (auch Mitstehende gehen leer aus). Sie laeuft **nur, solange das Pad gesetzt ist** (der
+  Block-Entity-Ticker zaehlt, BE-Schluessel `Cooldown`); Blockzustand `cooling=true` zeigt die animierte
+  Textur, Rechtsklick nennt die Restzeit. **Abbau in der Abklingzeit**: das Item traegt die Restticks als
+  Komponente `simplebuilding:potion_pad_cooldown` (eigener Item-Zustand: animiertes Item-Modell ueber
+  `minecraft:has_component`, Tooltip "Klingt ab: noch m:ss", Stapelgroesse 1), zusammen mit Trank und
+  Easter-Stufe; gesetzt laeuft die Zeit dort weiter (`getStateForPlacement` setzt `cooling`,
+  `applyImplicitComponents` die Restzeit). Ein bereites Pad faellt ohne diese Komponente.
 - **Haltbarkeit**: unbegrenzt (keine Ladungen, Besitzer-Vorgabe).
 - **Bereich**: die Blockspalte des Pads bis einen halben Block hoch (`PotionPadBlockEntity#area`).
 - Alle Stufen brennen nicht (Netherit), II und III sind episch; Besitzer-Abbau und kein Kolben wie alle Pads.
@@ -211,7 +231,10 @@ die Kette ueber den Endstufen), Code `PotionPadBlock` / `PotionPadBlockEntity`.
   diesen Zweck aufgehoben) in der Netherit-Palette: Stein auf die Netherit-Rampe, die blauen Adern auf
   eine Glut-Rampe je Stufe (I Lohen-Orange, II Enderit-Violett, III Gold), die Funkelsterne des
   stellaren Bildes warmweiss; in der Mitte eine kleine Trankflasche in der Stufenfarbe.
-  `tools/textures/potion_pad_textures.py` (von `generate_textures.py` eingebunden). Abnahme offen.
+  Abklingzeit: je Stufe ein Streifen `<id>_cooling.png` mit 12 Bildern (je 8 Ticks, `.mcmeta` vom
+  Generator): die Adern verlieren die Glut und pulsieren langsam, die Flasche steht leer und fuellt sich
+  Bild fuer Bild wieder. `tools/textures/potion_pad_textures.py` (von `generate_textures.py`
+  eingebunden). Abnahme offen.
 
 **Lohenkopf** (`blaze_head`, Wandvariante `blaze_wall_head`): Mob-Kopf wie die Vanilla-Koepfe, als
 Vanillas `SkullBlock`/`WallSkullBlock` mit eigenem Kopf-Typ `BlazeHeadType` (`simplebuilding:blaze`).
@@ -525,9 +548,15 @@ Familienreihenfolge, fuenf Rezept-JSONs) machte ihre Tests auf allen drei Linien
 
 `PotionPadTests` (Fabric-Adapter `PotionPadGameTest`, Test-ID `simplebuilding:potion_pad_game_test_*`),
 beide Codelinien: Speichern (echter Wurf und Treffer), Ersetzen durch einen Verweiltrank, Leerwischen
-mit Wasser, Wirkdauer 30/60/120 s mit der Verstaerkung des Tranks ohne Aufstocken, volle Dauer nach
-erneutem Betreten, Sofortwirkung einmal je Betreten mit 2-s-Abklingzeit, Rezepte aller Stufen, ein
-Lohenkopf je Explosion eines geladenen Creepers und keiner bei anderem Tod. Gegenprobe 2026-09-28: fuenf
+mit Wasser, Aufladen 25/50/100 % von 30/60/120 s mit der Verstaerkung des Tranks (Abbruch behaelt das
+Erhaltene, startet keine Abklingzeit, Neustart bei 0), Sofortwirkung einmal beim 3-s-Schritt,
+Abklingzeit 2x Wirkdauer je Stufe ohne Wirkung und mit Tick-Ablauf, Abbau in der Abklingzeit
+(Restzeit als Komponente, Trank und Easter-Stufe bleiben, nicht stapelbar, laeuft gesetzt weiter),
+Stapelgroesse 1 aller Pad-Items (Gegenprobe Druckplatten 64), Rezepte aller Stufen, ein
+Lohenkopf je Explosion eines geladenen Creepers und keiner bei anderem Tod. Gegenprobe Abklingzeit/
+Aufladen 2026-09-28 (Fabric 26.2 und 1.21.11): Faktor 3 statt 2, Stufen 50/50/100, keine Sperre in
+der Abklingzeit, Restzeit nicht auf das Item, Restzeit beim Setzen verworfen, Abklingzeit zaehlt nicht,
+kein `stacksTo(1)` - jede machte ihre Tests rot. Gegenprobe 2026-09-28: fuenf
 Mutationen (Speichern aus, Dauer 30/30/30, Sofortwirkung ohne Betreten-Pruefung, Pool an der
 Lohen-Beutetabelle statt an charged_creeper, Rezept-JSON mit Enderitbarren) machten alle sechs Tests auf
 allen drei Linien rot.
@@ -642,7 +671,7 @@ ersten erscheint; Toast und Chatmeldung):
 - Doppelte Kraft: `EasterEggs#isBoosted(level, pos)`, abgefragt in `ElytraPadBlockEntity#areaOf`,
   `FlypadBlockEntity#areaOf` (auch fuer die Uebergabe zwischen Flypads), `LaunchpadBlock#capacityAt`,
   `ChunkLoaderBlockEntity` (Radius 2, `MAX_RADIUS` = 2), `SpawnTeleporterBlockEntity#requiredTicks(level, pos, tier)`
-  und `PotionPadBlock#effectDurationAt(level, pos)` (Betreten und Rechtsklick-Anzeige).
+  und `PotionPadBlock#effectDurationAt(level, pos)` (Aufladen, Abklingzeit = doppelte Dauer, Rechtsklick-Anzeige).
 - Trank-Pad: der gespeicherte Trank reist als `potion_contents` mit dem Item (`PotionPadBlock#getDrops`,
   `PotionPadBlockEntity#collectImplicitComponents`) und kommt beim Setzen zurueck
   (`applyImplicitComponents`), neben der Easter-Stufe; das gilt auch fuer normale Trank-Pads.
@@ -651,7 +680,7 @@ ersten erscheint; Toast und Chatmeldung):
 `simplebuilding:tweaks_easter_game_test_*`), beide Codelinien: Einstieg je Familie mit echtem Setzen,
 Abbauen und Wiedersetzen, Stufe-I-Verhalten, Amboss-Umbenennung; ganze Kette je Familie (Namen, Stufen,
 gleiche Kosten wie die normale Stufe, kein normales Rezept nimmt ein Easter-Pad, Sprachdateien mit
-Formatcodes); doppelte Kraft je Familie (Trank-Pad: 240 s am Spieler, Setzen/Abbauen behaelt Stufe und Trank);
+Formatcodes); doppelte Kraft je Familie (Trank-Pad: 240 s am Spieler, 480 s Abklingzeit, Setzen/Abbauen behaelt Stufe und Trank);
 Advancements (versteckt, Kette, Ausloeser); Funny Stick
 (nur aus der letzten Stufe, frisches Item, Funken); Unsichtbarkeit (Tag, Kreativ-Tabs, Rezepte,
 Testzentrale).

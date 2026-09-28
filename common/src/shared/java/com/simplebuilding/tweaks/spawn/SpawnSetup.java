@@ -52,19 +52,14 @@ public final class SpawnSetup {
      */
     public static void giveStarterItems(ServerPlayer player, int teleporters, int elytraPads) {
         if (teleporters > 0) {
-            ItemStack teleporter = new ItemStack(TweaksBlocks.SPAWN_TELEPORTER, teleporters);
+            ItemStack teleporter = new ItemStack(TweaksBlocks.SPAWN_TELEPORTER);
             teleporter.set(DataComponents.CUSTOM_NAME,
                     Component.translatable("item.simplebuilding.home_teleporter").withStyle(ChatFormatting.AQUA));
-            if (!player.getInventory().add(teleporter)) {
-                McVersion.drop(player, teleporter, false, false);
-            }
+            give(player, teleporter, teleporters);
         }
         // Simple Tweaks gab das Pad nur, wenn der Teleporter NICHT ins Inventar passte; behoben.
         if (elytraPads > 0) {
-            ItemStack elytraPad = new ItemStack(TweaksBlocks.ELYTRA_PAD, elytraPads);
-            if (!player.getInventory().add(elytraPad)) {
-                McVersion.drop(player, elytraPad, false, false);
-            }
+            give(player, new ItemStack(TweaksBlocks.ELYTRA_PAD), elytraPads);
         }
         Component message;
         if (teleporters > 0 && elytraPads > 0) {
@@ -77,6 +72,19 @@ public final class SpawnSetup {
             return;
         }
         player.sendSystemMessage(message.copy().withStyle(ChatFormatting.GREEN));
+    }
+
+    /**
+     * Gibt {@code count} Stueck einzeln (Pads stapeln seit 2026-09-28 nicht); was nicht ins Inventar
+     * passt, faellt vor die Fuesse.
+     */
+    private static void give(ServerPlayer player, ItemStack template, int count) {
+        for (int i = 0; i < count; i++) {
+            ItemStack one = template.copyWithCount(1);
+            if (!player.getInventory().add(one)) {
+                McVersion.drop(player, one, false, false);
+            }
+        }
     }
 
     /** Beim Laden der Oberwelt: Weltspawn auf die Config-Koordinaten setzen (y = -1: oberster Block). */
