@@ -696,6 +696,7 @@ en: {
   iwStatDamageTotal: '{0} durability in total',
   iwStatDamage: '{0} durability',
   iwStatWater: '{0} water level',
+  iwStatPlacedHits: 'placed: {0} hits',
   iwStatTouch: 'needs Constructor\'s Touch',
   iwTicks: '{0} ticks ({1} s)',
   iwFactsUpgrade: 'An upgrade takes {0} ticks ({1} s): one blow every {2} ticks, {3} blows in all, the last one upgrades. Afterwards the hammer cools down for {4} ticks. Hammers that can upgrade:',
@@ -1067,6 +1068,7 @@ de: {
   iwStatDamageTotal: '{0} Haltbarkeit insgesamt',
   iwStatDamage: '{0} Haltbarkeit',
   iwStatWater: '{0} Stufe Wasser',
+  iwStatPlacedHits: 'abgelegt: {0} Schläge',
   iwStatTouch: 'braucht Constructor\'s Touch',
   iwTicks: '{0} Ticks ({1} s)',
   iwFactsUpgrade: 'Eine Aufwertung dauert {0} Ticks ({1} s): alle {2} Ticks ein Schlag, {3} Schläge insgesamt, der letzte wertet auf. Danach kühlt der Hammer {4} Ticks ab. Hämmer, die aufwerten können:',
@@ -2451,6 +2453,7 @@ function iwStats(e) {
   if (s.damagePerHit != null) out.push(T('iwStatDamagePerHit', s.damagePerHit));
   if (s.damage != null) out.push(s.damagePerHit != null ? T('iwStatDamageTotal', s.damage) : T('iwStatDamage', s.damage));
   if (s.waterLevels != null) out.push(T('iwStatWater', s.waterLevels));
+  if (s.placedHits != null) out.push(T('iwStatPlacedHits', s.placedHits));
   return out;
 }
 function iwEntryHtml(e, opts) {

@@ -73,6 +73,9 @@ public final class SimplebuildingForgeClient {
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(com.simplebuilding.entity.ModEntities.LEVITATING_BLOCK,
                 net.minecraft.client.renderer.entity.FallingBlockRenderer::new);
+        // Abgelegte Schmiedevorlage: das Item-Modell der Vorlage als flache Platte.
+        event.registerBlockEntityRenderer(com.simplebuilding.forge.ForgeModRegistries.PLACED_TEMPLATE_BE.get(),
+                com.simplebuilding.client.render.PlacedTemplateRenderer::new);
     }
 
     /** Der getragene Rucksack bzw. Koecher auf dem Ruecken: beide Spielermodelle und die Mannequins. */

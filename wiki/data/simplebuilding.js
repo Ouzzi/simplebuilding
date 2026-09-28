@@ -443,6 +443,41 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "placed_templates",
+      "related": [
+        "sledgehammer"
+      ],
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedTemplateBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/entity/custom/PlacedTemplateBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/client/render/PlacedTemplateRenderer.java",
+        "common/src/shared/java/com/simplebuilding/mixin/ItemUseOnMixin.java"
+      ],
+      "en": {
+        "title": "Placed smithing templates",
+        "summary": "Sneak + right-click on a block with a smithing template to lay it down: flat on the floor, flat against a wall or under the ceiling, as a thin plate made from the item texture.",
+        "details": [
+          "Every smithing template can be placed: the netherite upgrade, all armor trim templates, the Glowing and the Emitting Trim Upgrade Template, the Basic and the Enderite Upgrade Template, and smithing templates from other mods. Without sneaking a template behaves as before.",
+          "On the floor the top edge points the way you looked when placing it, on a wall the front faces away from the wall. The plate covers 14 of 16 pixels and stands about 1.4 pixels high; it has no collision, like a pressure plate.",
+          "Water does not wash it away: a template can be placed into water (it becomes waterlogged), and flowing water runs around it. Breaking it - by hand, explosion, piston or by taking away the block it lies on - drops exactly the stored template with all its data (name, enchantments). Middle-click picks the template itself.",
+          "Placed armor trim templates can be upgraded with the sledgehammer just like in an item frame, but it takes 3 hits instead of 1: sledgehammer in the main hand, Glow Ink Sac or Glowstone Dust in the off hand, left-click the template. Each hit gives sparks and a rising chime; the third turns it into the Glowing or Emitting Trim Upgrade Template and uses up the off-hand item (not in creative). The count restarts after 5 seconds without a hit or when the material changes. Holding hammer and material, you cannot break the template; the hammer tilts towards it like towards any other valid target.",
+          "Hint: while a player holding Glow Ink Sac or Glowstone Dust (either hand) is within 6 blocks, an upgradable placed template shows a few sparks circling over it every half second and chimes quietly at most every 3 seconds."
+        ]
+      },
+      "de": {
+        "title": "Abgelegte Schmiedevorlagen",
+        "summary": "Schleichen + Rechtsklick mit einer Schmiedevorlage auf einen Block legt sie ab: flach auf den Boden, flach an die Wand oder unter die Decke, als dünne Platte aus der Item-Textur.",
+        "details": [
+          "Jede Schmiedevorlage lässt sich ablegen: die Netherit-Aufwertung, alle Rüstungsbesatz-Vorlagen, die leuchtende und die strahlende Besatzvorlage, die schlichte und die Enderit-Aufwertungsvorlage sowie Schmiedevorlagen anderer Mods. Ohne Schleichen verhält sich eine Vorlage wie bisher.",
+          "Auf dem Boden zeigt die Oberkante in die Blickrichtung beim Ablegen, an der Wand zeigt die Vorderseite von der Wand weg. Die Platte bedeckt 14 von 16 Pixeln und ist etwa 1,4 Pixel hoch; wie eine Druckplatte hat sie keine Kollision.",
+          "Wasser spült sie nicht weg: Eine Vorlage lässt sich ins Wasser legen (sie wird wassergefüllt), und fließendes Wasser läuft um sie herum. Abbauen – von Hand, durch Explosion, Kolben oder indem man den Block darunter wegnimmt – gibt genau die gespeicherte Vorlage mit allen Daten (Name, Verzauberungen) zurück. Die mittlere Maustaste nimmt die Vorlage selbst.",
+          "Abgelegte Rüstungsbesatz-Vorlagen lassen sich wie im Rahmen mit dem Vorschlaghammer aufwerten, brauchen aber 3 Schläge statt einem: Vorschlaghammer in der Haupthand, Leuchttintenbeutel oder Glowstonestaub in der Nebenhand, Linksklick auf die Vorlage. Jeder Schlag gibt Funken und einen höher werdenden Klang; der dritte macht daraus die leuchtende bzw. strahlende Besatzvorlage und verbraucht das Item aus der Nebenhand (nicht im Kreativmodus). Nach 5 Sekunden ohne Schlag oder bei einem anderen Material beginnt die Zählung von vorn. Mit Hammer und Material in den Händen lässt sich die Vorlage nicht abbauen; der Hammer neigt sich zu ihr wie zu jedem anderen gültigen Ziel.",
+          "Hinweis: Solange ein Spieler mit Leuchttintenbeutel oder Glowstonestaub (in einer der beiden Hände) höchstens 6 Blöcke entfernt ist, kreisen über einer aufwertbaren abgelegten Vorlage alle halbe Sekunde ein paar Funken, und höchstens alle 3 Sekunden klingt sie leise."
+        ]
+      }
+    },
+    {
       "id": "chisel",
       "related": [
         "simplebuilding:stone_chisel",
@@ -18629,6 +18664,41 @@ window.WIKI_DATA = {
         ]
       },
       "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:placed_smithing_template",
+      "name": {
+        "en_us": "Placed Smithing Template",
+        "de_de": "Abgelegte Schmiedevorlage"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "note": {
+        "en": {
+          "summary": "A smithing template laid down with sneak + right-click: flat on the floor, on a wall or under the ceiling. There is no item for it - it holds the template itself.",
+          "details": [
+            "Class PlacedTemplateBlock (a face-attached block like a button) with a block entity that stores the template stack with all its components; the client draws the template's item model as a plate 14 pixels wide and about 1.4 pixels thick (PlacedTemplateRenderer).",
+            "Waterloggable, no collision, destroyed by pistons. It has no loot table: breaking it in any way drops the stored template (getDrops reads the block entity).",
+            "With a sledgehammer in the main hand and Glow Ink Sac or Glowstone Dust in the off hand it cannot be broken; 3 left-clicks upgrade a placed armor trim template (see Placed smithing templates)."
+          ]
+        },
+        "de": {
+          "summary": "Eine mit Schleichen + Rechtsklick abgelegte Schmiedevorlage: flach auf dem Boden, an der Wand oder unter der Decke. Es gibt kein Item dafür – der Block hält die Vorlage selbst.",
+          "details": [
+            "Klasse PlacedTemplateBlock (ein angehefteter Block wie ein Knopf) mit einer Block-Entity, die den Vorlagen-Stapel samt allen Komponenten speichert; der Client zeichnet das Item-Modell der Vorlage als Platte von 14 Pixeln Breite und etwa 1,4 Pixeln Dicke (PlacedTemplateRenderer).",
+            "Wassergefüllt möglich, ohne Kollision, von Kolben zerstört. Eine Loot-Tabelle gibt es nicht: Wie auch immer der Block verschwindet, er gibt die gespeicherte Vorlage zurück (getDrops liest die Block-Entity).",
+            "Mit Vorschlaghammer in der Haupthand und Leuchttintenbeutel oder Glowstonestaub in der Nebenhand lässt er sich nicht abbauen; 3 Linksklicks werten eine abgelegte Rüstungsbesatz-Vorlage auf (siehe Abgelegte Schmiedevorlagen)."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedTemplateBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/PlacedTemplateBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/client/render/PlacedTemplateRenderer.java"
+        ]
+      },
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:polished_astralit",
@@ -37321,7 +37391,9 @@ window.WIKI_DATA = {
         "note": {
           "sources": [
             "common/src/shared/java/com/simplebuilding/util/SledgehammerEntityInteraction.java",
-            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java"
+            "common/src/shared/java/com/simplebuilding/util/InWorldTransformations.java",
+            "common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java",
+            "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedTemplateBlock.java"
           ],
           "en": {
             "title": "Trim template in an item frame",
@@ -37329,7 +37401,8 @@ window.WIKI_DATA = {
             "details": [
               "Glow Ink Sac gives the Glowing Trim Template, Glowstone Dust the Emitting Trim Template.",
               "Every item whose id contains trim_smithing_template counts as a template - all vanilla armor trim templates.",
-              "One off-hand item and 1 durability of the hammer are used; nothing in creative mode."
+              "One off-hand item and 1 durability of the hammer are used; nothing in creative mode.",
+              "A placed trim template (sneak + right-click with it on a block) takes 3 hits instead of 1; the third uses the off-hand item."
             ]
           },
           "de": {
@@ -37338,7 +37411,8 @@ window.WIKI_DATA = {
             "details": [
               "Leuchttintenbeutel ergibt die leuchtende Besatzvorlage, Glowstonestaub die strahlende.",
               "Als Vorlage zählt jedes Item, dessen Id trim_smithing_template enthält - alle Rüstungsbesatz-Vorlagen aus Vanilla.",
-              "Verbraucht werden ein Item aus der Nebenhand und 1 Haltbarkeit des Hammers; im Kreativmodus nichts."
+              "Verbraucht werden ein Item aus der Nebenhand und 1 Haltbarkeit des Hammers; im Kreativmodus nichts.",
+              "Eine abgelegte Besatzvorlage (Schleichen + Rechtsklick damit auf einen Block) braucht 3 Schläge statt einem; der dritte verbraucht das Item aus der Nebenhand."
             ]
           }
         }
@@ -37836,7 +37910,8 @@ window.WIKI_DATA = {
           "count": 1
         },
         "stats": {
-          "damage": 1
+          "damage": 1,
+          "placedHits": 3
         },
         "lines": [
           "1.21.11",
@@ -37871,7 +37946,8 @@ window.WIKI_DATA = {
           "count": 1
         },
         "stats": {
-          "damage": 1
+          "damage": 1,
+          "placedHits": 3
         },
         "lines": [
           "1.21.11",
@@ -47528,7 +47604,7 @@ window.WIKI_DATA = {
   },
   "counts": {
     "items": 166,
-    "blocks": 115,
+    "blocks": 116,
     "recipes": 349,
     "lootTables": 112,
     "trades": 21,
@@ -47536,7 +47612,7 @@ window.WIKI_DATA = {
     "tags": 27,
     "config": 24,
     "inWorld": 343,
-    "features": 33,
+    "features": 34,
     "undocumented": 0,
     "incompleteProse": 0
   },

@@ -80,7 +80,8 @@ public class HeldItemRendererMixin {
                 // Nebenhand jetzt aufwerten koennte, genau wie vor einem umformbaren Block
                 else if (item.getItem() instanceof SledgehammerItem sledgehammerItem) {
                     if (hand == InteractionHand.MAIN_HAND
-                            && SledgehammerUpgrades.showsUpgradeHint(this.minecraft.level, blockHit.getBlockPos(), player)) {
+                            && (SledgehammerUpgrades.showsUpgradeHint(this.minecraft.level, blockHit.getBlockPos(), player)
+                            || com.simplebuilding.util.PlacedTemplates.isHammerTarget(this.minecraft.level, blockHit.getBlockPos(), player))) {
                         targetProgress = 1.0F;
                     }
                     net.minecraft.world.phys.Vec3 relativeHit = blockHit.getLocation().subtract(net.minecraft.world.phys.Vec3.atLowerCornerOf(blockHit.getBlockPos()));

@@ -25,6 +25,7 @@ import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.CommandBlock;
 import net.minecraft.world.level.block.WallSignBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity;
 import net.minecraft.world.level.block.entity.CommandBlockEntity;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -165,6 +166,8 @@ public final class TestCentreBuilder {
                             container.setItem(i, fill.contents().get(i).copy());
                         }
                         container.setChanged();
+                    } else if (level.getBlockEntity(fill.pos()) instanceof PlacedTemplateBlockEntity placed && !fill.contents().isEmpty()) {
+                        placed.setTemplate(fill.contents().getFirst());
                     }
                     count++;
                 }

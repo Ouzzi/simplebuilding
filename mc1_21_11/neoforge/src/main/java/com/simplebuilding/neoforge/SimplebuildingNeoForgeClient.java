@@ -110,6 +110,8 @@ public final class SimplebuildingNeoForgeClient {
     /** Der aufsteigende Block wird wie fallender Sand gezeichnet. */
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.LEVITATING_BLOCK, FallingBlockRenderer::new);
+        // Abgelegte Schmiedevorlage: das Item-Modell der Vorlage als flache Platte.
+        event.registerBlockEntityRenderer(NeoForgeModRegistries.PLACED_TEMPLATE_BE.get(), com.simplebuilding.client.render.PlacedTemplateRenderer::new);
     }
 
     private void onClientSetup(FMLClientSetupEvent event) {

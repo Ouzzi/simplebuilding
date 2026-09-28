@@ -2,6 +2,8 @@ package com.simplebuilding.items.custom;
 
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.blocks.custom.PlacedTemplateBlock;
+import com.simplebuilding.util.PlacedTemplates;
 import com.simplebuilding.util.SledgehammerUpgrades;
 import com.simplebuilding.util.SledgehammerUtils;
 import net.minecraft.core.BlockPos;
@@ -139,6 +141,24 @@ public class SledgehammerItem extends Item {
         // Die Verlangsamung je mitabgebautem Block rechnet SledgehammerUtils#miningSpeedDivisor,
         // angewendet in BlockStateBaseMixin, weil erst dort Spieler und Position bekannt sind.
         return baseSpeed;
+    }
+
+    /**
+     * Abgelegte Schmiedevorlage mit Aufwertungs-Material in der Nebenhand: der Hammer bricht sie
+     * nie. Im Kreativmodus ist das die Stelle, an der ein Linksklick ankommt (Vanilla zerstoert dort
+     * sofort und ruft {@code attack} nicht), also zaehlt hier der Schlag ({@link PlacedTemplates#hit});
+     * im Ueberlebensmodus zaehlt ihn {@code PlacedTemplateBlock#attack}.
+     */
+    @Override
+    public boolean canDestroyBlock(ItemStack stack, BlockState state, Level level, BlockPos pos, LivingEntity user) {
+        if (user instanceof Player player && state.getBlock() instanceof PlacedTemplateBlock
+                && PlacedTemplates.isHammerStance(player)) {
+            if (player.getAbilities().instabuild) {
+                PlacedTemplates.hit(level, pos, player);
+            }
+            return false;
+        }
+        return super.canDestroyBlock(stack, state, level, pos, user);
     }
 
     /**

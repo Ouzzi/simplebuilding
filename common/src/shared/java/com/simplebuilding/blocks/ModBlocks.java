@@ -102,6 +102,14 @@ public class ModBlocks {
     public static final Block NETHERITE_BACKPACK = registerBlock("netherite_backpack", s -> new BackpackBlock(BackpackTier.NETHERITE, backpackProperties(s, true)));
     public static final Block ENDERITE_BACKPACK = registerBlock("enderite_backpack", s -> new BackpackBlock(BackpackTier.ENDERITE, backpackProperties(s, true)));
 
+    // --- 6. ABGELEGTE SCHMIEDEVORLAGE ---
+    // Schleichen + Rechtsklick mit einer Vorlage (PlacedTemplates). Kein Item: die Vorlage selbst
+    // liegt in der Block-Entity und faellt beim Abbauen wieder heraus (getDrops, keine Loot-Tabelle).
+    // Ohne Kollision wie eine Druckplatte, von Kolben zerstoert, mit Metallklang.
+    public static final Block PLACED_SMITHING_TEMPLATE = registerBlock("placed_smithing_template", s -> new PlacedTemplateBlock(s
+            .strength(0.5F).sound(SoundType.METAL).noCollision().noLootTable().mapColor(MapColor.NONE)
+            .pushReaction(McVersion.PUSH_DESTROYS)));
+
 
     // --- 1. DECORATION BLOCKS --- // todo add stonecutting and crafting recipie like vanilla
     public static final Block POLISHED_END_STONE = registerBlock("polished_end_stone", unused -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).requiresCorrectToolForDrops().strength(3.0F, 9.0F).sound(SoundType.STONE).setId(keyOf("polished_end_stone"))));

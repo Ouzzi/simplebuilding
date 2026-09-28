@@ -101,6 +101,10 @@ public final class NeoForgeModRegistries {
             BLOCK_ENTITIES.register("backpack", () -> new BlockEntityType<>(BackpackBlockEntity::new,
                     ModBlocks.BACKPACK, ModBlocks.REINFORCED_BACKPACK, ModBlocks.NETHERITE_BACKPACK, ModBlocks.ENDERITE_BACKPACK));
 
+    public static final Supplier<BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity>> PLACED_TEMPLATE_BE =
+            BLOCK_ENTITIES.register("placed_smithing_template", () -> new BlockEntityType<>(
+                    com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity::new, ModBlocks.PLACED_SMITHING_TEMPLATE));
+
     public static final Supplier<RecipeSerializer<BackpackUpgradeRecipe>> BACKPACK_UPGRADE_SERIALIZER =
             RECIPE_SERIALIZERS.register("backpack_upgrade", () -> BackpackUpgradeRecipe.SERIALIZER);
 
@@ -193,6 +197,7 @@ public final class NeoForgeModRegistries {
         ModScreenHandlers.NETHERITE_HOPPER_SCREEN_HANDLER = NETHERITE_HOPPER_MENU.get();
         ModScreenHandlers.BACKPACK_MENU = BACKPACK_MENU.get();
         ModBlockEntities.BACKPACK_BE = BACKPACK_BE.get();
+        ModBlockEntities.PLACED_TEMPLATE_BE = PLACED_TEMPLATE_BE.get();
         ModBlockEntities.MOD_HOPPER_BE = MOD_HOPPER_BE.get();
         ModBlockEntities.MOD_BLAST_FURNACE_BE = MOD_BLAST_FURNACE_BE.get();
         ModBlockEntities.MOD_FURNACE_BE = MOD_FURNACE_BE.get();

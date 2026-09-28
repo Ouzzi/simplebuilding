@@ -86,6 +86,7 @@
       "com.simplebuilding.gametest.TweaksGameTest",
       "com.simplebuilding.gametest.TweaksTierGameTest",
       "com.simplebuilding.gametest.PotionPadGameTest",
+      "com.simplebuilding.gametest.PlacedTemplateGameTest",
       "com.simplebuilding.gametest.TweaksEasterGameTest",
       "com.simplebuilding.gametest.PressurePlateGameTest"
     ]

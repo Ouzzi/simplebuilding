@@ -303,7 +303,7 @@ public final class TestCentreTests {
             }
         }
         helper.assertTrue(stations.isEmpty(), "give buttons: " + String.join("; ", stations));
-        for (String withOffHand : List.of("tools", "chisel", "inworld", "planning")) {
+        for (String withOffHand : List.of("tools", "chisel", "inworld", "templates", "planning")) {
             TestCentreKits.Kit kit = plan.kits().get(withOffHand);
             helper.assertTrue(kit != null && !kit.offHand().isEmpty(), "the kit of " + withOffHand + " should fill the off hand");
         }
