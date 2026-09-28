@@ -5,6 +5,7 @@ import com.simplebuilding.version.BlockCodecs;
 import com.mojang.serialization.MapCodec;
 import com.simplebuilding.blocks.entity.ModBlockEntities;
 import com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity;
+import com.simplebuilding.util.PlacedPlate;
 import com.simplebuilding.util.PlacedTemplates;
 import java.util.List;
 import net.minecraft.core.BlockPos;
@@ -57,13 +58,6 @@ public class PlacedTemplateBlock extends FaceAttachedHorizontalDirectionalBlock 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final MapCodec<PlacedTemplateBlock> CODEC = BlockCodecs.simple(PlacedTemplateBlock::new);
 
-    private static final VoxelShape FLOOR = Block.box(1.0, 0.0, 1.0, 15.0, 1.5, 15.0);
-    private static final VoxelShape CEILING = Block.box(1.0, 14.5, 1.0, 15.0, 16.0, 15.0);
-    private static final VoxelShape WALL_NORTH = Block.box(1.0, 1.0, 14.5, 15.0, 15.0, 16.0);
-    private static final VoxelShape WALL_SOUTH = Block.box(1.0, 1.0, 0.0, 15.0, 15.0, 1.5);
-    private static final VoxelShape WALL_EAST = Block.box(0.0, 1.0, 1.0, 1.5, 15.0, 15.0);
-    private static final VoxelShape WALL_WEST = Block.box(14.5, 1.0, 1.0, 16.0, 15.0, 15.0);
-
     public PlacedTemplateBlock(BlockBehaviour.Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH)
@@ -99,18 +93,15 @@ public class PlacedTemplateBlock extends FaceAttachedHorizontalDirectionalBlock 
         return state.setValue(WATERLOGGED, water);
     }
 
+    /**
+     * Genau die gezeichneten Pixel der Platte ({@link PlacedPlate}): trifft nur, wer auf die Vorlage
+     * zeigt, nicht auf die freien Ecken daneben. Ohne Block-Entity (Blockzustand ohne Welt) die ganze
+     * Plattenflaeche.
+     */
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return switch (state.getValue(FACE)) {
-            case FLOOR -> FLOOR;
-            case CEILING -> CEILING;
-            case WALL -> switch (state.getValue(FACING)) {
-                case SOUTH -> WALL_SOUTH;
-                case EAST -> WALL_EAST;
-                case WEST -> WALL_WEST;
-                default -> WALL_NORTH;
-            };
-        };
+        ItemStack stored = PlacedTemplates.templateAt(level, pos);
+        return PlacedPlate.shape(stored.isEmpty() ? null : stored.getItem(), state.getValue(FACE), state.getValue(FACING));
     }
 
     @Override
@@ -153,7 +144,7 @@ public class PlacedTemplateBlock extends FaceAttachedHorizontalDirectionalBlock 
         return List.of();
     }
 
-    /** Mittlere Maustaste: die abgelegte Vorlage selbst. */
+    /** Mittlere Maustaste: die abgelegte Vorlage selbst (samt Namen, siehe {@link PlacedTemplateBlockEntity#getName()}). */
     @Override
     protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
         return PlacedTemplates.templateAt(level, pos).copy();

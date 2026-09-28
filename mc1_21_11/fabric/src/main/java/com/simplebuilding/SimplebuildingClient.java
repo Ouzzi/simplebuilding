@@ -70,17 +70,22 @@ public class SimplebuildingClient implements ClientModInitializer {
         // Abgelegte Schmiedevorlage: das Item-Modell der Vorlage als flache Platte.
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_TEMPLATE_BE, com.simplebuilding.client.render.PlacedTemplateRenderer::new);
+        // Abgestelltes Buendel: das gezeigte Item schwebt darueber, solange man schleichend hinschaut.
+        net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
+                com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_BUNDLE_BE, com.simplebuilding.client.render.PlacedBundleRenderer::new);
         // Der getragene Rucksack bzw. Koecher auf dem Ruecken - auf jedem Avatar-Renderer (beide Spielermodelle, Mannequins).
         // Abgestellter gefaerbter Rucksack: Leder-Ebene in der Farbe der Block-Entity; die Ebenen
         // brauchen Cutout (26.2 erkennt das an den Texturen selbst, 1.21.11 nicht).
         net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.BLOCK.register(
                 com.simplebuilding.client.render.BackpackBlockTint.INSTANCE,
                 com.simplebuilding.blocks.ModBlocks.BACKPACK, com.simplebuilding.blocks.ModBlocks.REINFORCED_BACKPACK,
-                com.simplebuilding.blocks.ModBlocks.NETHERITE_BACKPACK, com.simplebuilding.blocks.ModBlocks.ENDERITE_BACKPACK);
+                com.simplebuilding.blocks.ModBlocks.NETHERITE_BACKPACK, com.simplebuilding.blocks.ModBlocks.ENDERITE_BACKPACK,
+                com.simplebuilding.blocks.ModBlocks.PLACED_BUNDLE);
         net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(
                 net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
                 com.simplebuilding.blocks.ModBlocks.BACKPACK, com.simplebuilding.blocks.ModBlocks.REINFORCED_BACKPACK,
-                com.simplebuilding.blocks.ModBlocks.NETHERITE_BACKPACK, com.simplebuilding.blocks.ModBlocks.ENDERITE_BACKPACK);
+                com.simplebuilding.blocks.ModBlocks.NETHERITE_BACKPACK, com.simplebuilding.blocks.ModBlocks.ENDERITE_BACKPACK,
+                com.simplebuilding.blocks.ModBlocks.PLACED_BUNDLE);
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, renderer, helper, context) -> {
             if (renderer instanceof net.minecraft.client.renderer.entity.player.AvatarRenderer<?> avatar) {
                 helper.register(new com.simplebuilding.client.render.BackpackLayer(avatar));

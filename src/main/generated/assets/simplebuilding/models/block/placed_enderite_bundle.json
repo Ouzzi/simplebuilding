@@ -1,0 +1,7 @@
+{
+  "parent": "simplebuilding:block/template_placed_bundle",
+  "textures": {
+    "bundle": "simplebuilding:block/placed_enderite_bundle",
+    "particle": "simplebuilding:block/placed_enderite_bundle"
+  }
+}

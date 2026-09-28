@@ -22,6 +22,7 @@ public class ModBlockEntities {
     public static BlockEntityType<ModSmokerBlockEntity> MOD_SMOKER_BE;
     public static BlockEntityType<BackpackBlockEntity> BACKPACK_BE;
     public static BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity> PLACED_TEMPLATE_BE;
+    public static BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity> PLACED_BUNDLE_BE;
 
     public static void registerBlockEntities() {
         MOD_HOPPER_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
@@ -64,6 +65,10 @@ public class ModBlockEntities {
         PLACED_TEMPLATE_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "placed_smithing_template"),
                 FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity::new,
-                        ModBlocks.PLACED_SMITHING_TEMPLATE).build());
+                        ModBlocks.PLACED_SMITHING_TEMPLATE, ModBlocks.PLACED_BLUEPRINT).build());
+
+        PLACED_BUNDLE_BE = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE,
+                Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "placed_bundle"),
+                FabricBlockEntityTypeBuilder.create(com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity::new, ModBlocks.PLACED_BUNDLE).build());
     }
 }

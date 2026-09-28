@@ -96,7 +96,10 @@ public final class ForgeModRegistries {
 
     public static final RegistryObject<BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity>> PLACED_TEMPLATE_BE =
             BLOCK_ENTITIES.register("placed_smithing_template", () -> new BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity>(
-                    com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity::new, Set.of(ModBlocks.PLACED_SMITHING_TEMPLATE)));
+                    com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity::new, Set.of(ModBlocks.PLACED_SMITHING_TEMPLATE, ModBlocks.PLACED_BLUEPRINT)));
+
+    public static final RegistryObject<BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity>> PLACED_BUNDLE_BE =
+            BLOCK_ENTITIES.register("placed_bundle", () -> new BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity>(com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity::new, Set.of(ModBlocks.PLACED_BUNDLE)));
 
     public static final RegistryObject<RecipeSerializer<com.simplebuilding.recipe.BackpackUpgradeRecipe>> BACKPACK_UPGRADE_SERIALIZER =
             RECIPE_SERIALIZERS.register("backpack_upgrade", () -> com.simplebuilding.recipe.BackpackUpgradeRecipe.SERIALIZER);
@@ -191,6 +194,7 @@ public final class ForgeModRegistries {
         ModScreenHandlers.BACKPACK_MENU = BACKPACK_MENU.get();
         ModBlockEntities.BACKPACK_BE = BACKPACK_BE.get();
         ModBlockEntities.PLACED_TEMPLATE_BE = PLACED_TEMPLATE_BE.get();
+        ModBlockEntities.PLACED_BUNDLE_BE = PLACED_BUNDLE_BE.get();
         ModBlockEntities.MOD_HOPPER_BE = MOD_HOPPER_BE.get();
         ModBlockEntities.MOD_BLAST_FURNACE_BE = MOD_BLAST_FURNACE_BE.get();
         ModBlockEntities.MOD_FURNACE_BE = MOD_FURNACE_BE.get();

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.simplebuilding.blocks.custom.PlacedTemplateBlock;
 import com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity;
+import com.simplebuilding.util.PlacedPlate;
 import com.simplebuilding.version.McClientVersion;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -30,15 +31,17 @@ import org.jetbrains.annotations.Nullable;
  *
  * <p>Ausrichtung: an der Wand zeigt die Vorlage in {@code FACING} (Oberkante nach oben), am Boden
  * und an der Decke zeigt ihre Oberkante in die Blickrichtung beim Ablegen, man liest sie also
- * aufrecht. Loader-neutral; registriert wird der Renderer je Loader.
+ * aufrecht. Dieselbe Lage rechnet {@link PlacedPlate#transform} fuer die pixelgenaue Trefferform -
+ * wer hier etwas an der Lage aendert, muss es dort mitziehen. Loader-neutral; registriert wird der
+ * Renderer je Loader.
  */
 public class PlacedTemplateRenderer implements BlockEntityRenderer<PlacedTemplateBlockEntity, PlacedTemplateRenderer.State> {
-    /** Kantenlaenge der Vorlage in Blockbreiten (14 von 16 Pixeln). */
-    public static final float SCALE = 14.0F / 16.0F;
+    /** Kantenlaenge der Vorlage in Blockbreiten; Lage und Trefferform rechnet {@link PlacedPlate}. */
+    public static final float SCALE = PlacedPlate.SCALE;
     /** Streckung der Dicke: das Item-Modell ist 1/16 dick, gestreckt gut 1,4 Pixel. */
-    public static final float THICKNESS_SCALE = 1.6F;
+    public static final float THICKNESS_SCALE = PlacedPlate.THICKNESS_SCALE;
     /** Abstand zur Auflageflaeche gegen Z-Fighting. */
-    private static final float GAP = 0.002F;
+    private static final float GAP = PlacedPlate.GAP;
 
     private final ItemModelResolver itemModelResolver;
 

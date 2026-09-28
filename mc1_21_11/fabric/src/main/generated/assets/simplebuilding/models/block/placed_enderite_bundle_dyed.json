@@ -1,0 +1,8 @@
+{
+  "parent": "simplebuilding:block/template_placed_bundle_dyed",
+  "textures": {
+    "bundle": "simplebuilding:block/placed_enderite_bundle_dyed",
+    "overlay": "simplebuilding:block/placed_enderite_bundle_dyed_overlay",
+    "particle": "simplebuilding:block/placed_enderite_bundle"
+  }
+}

@@ -108,6 +108,19 @@ public class ModBlocks {
             .strength(0.5F).sound(SoundType.METAL).noCollision().noLootTable().mapColor(MapColor.NONE)
             .pushReaction(PushReaction.DESTROY)));
 
+    // Abgelegte Blaupause: derselbe Block (Klasse, Block-Entity, Renderer), eigener Name und eigene Id.
+    public static final Block PLACED_BLUEPRINT = registerBlock("placed_blueprint", s -> new PlacedTemplateBlock(s
+            .strength(0.5F).sound(SoundType.WOOL).noCollision().noLootTable().mapColor(MapColor.NONE)
+            .pushReaction(PushReaction.DESTROY)));
+
+    // --- 7. ABGESTELLTES BUENDEL ---
+    // Schleichen + Rechtsklick mit einem Buendel auf die Oberseite eines Blocks (PlacedBundles): ein
+    // 3D-Buendel je Stufe. Kein Item - das Buendel samt Inhalt liegt in der Block-Entity und faellt
+    // beim Abbauen wieder heraus (getDrops, keine Loot-Tabelle). Weich wie Wolle, von Kolben zerstoert.
+    public static final Block PLACED_BUNDLE = registerBlock("placed_bundle", s -> new com.simplebuilding.blocks.custom.PlacedBundleBlock(s
+            .strength(0.3F).sound(SoundType.WOOL).noLootTable().mapColor(MapColor.COLOR_BROWN)
+            .pushReaction(PushReaction.DESTROY)));
+
 
     // --- 1. DECORATION BLOCKS --- // todo add stonecutting and crafting recipie like vanilla
     public static final Block POLISHED_END_STONE = registerBlock("polished_end_stone", unused -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.SAND).requiresCorrectToolForDrops().strength(3.0F, 9.0F).sound(SoundType.STONE).setId(keyOf("polished_end_stone"))));

@@ -1,0 +1,124 @@
+{
+  "variants": {
+    "dyed=false,facing=east,tier=bundle": {
+      "model": "simplebuilding:block/placed_bundle",
+      "y": 90
+    },
+    "dyed=false,facing=east,tier=enderite": {
+      "model": "simplebuilding:block/placed_enderite_bundle",
+      "y": 90
+    },
+    "dyed=false,facing=east,tier=netherite": {
+      "model": "simplebuilding:block/placed_netherite_bundle",
+      "y": 90
+    },
+    "dyed=false,facing=east,tier=reinforced": {
+      "model": "simplebuilding:block/placed_reinforced_bundle",
+      "y": 90
+    },
+    "dyed=false,facing=north,tier=bundle": {
+      "model": "simplebuilding:block/placed_bundle"
+    },
+    "dyed=false,facing=north,tier=enderite": {
+      "model": "simplebuilding:block/placed_enderite_bundle"
+    },
+    "dyed=false,facing=north,tier=netherite": {
+      "model": "simplebuilding:block/placed_netherite_bundle"
+    },
+    "dyed=false,facing=north,tier=reinforced": {
+      "model": "simplebuilding:block/placed_reinforced_bundle"
+    },
+    "dyed=false,facing=south,tier=bundle": {
+      "model": "simplebuilding:block/placed_bundle",
+      "y": 180
+    },
+    "dyed=false,facing=south,tier=enderite": {
+      "model": "simplebuilding:block/placed_enderite_bundle",
+      "y": 180
+    },
+    "dyed=false,facing=south,tier=netherite": {
+      "model": "simplebuilding:block/placed_netherite_bundle",
+      "y": 180
+    },
+    "dyed=false,facing=south,tier=reinforced": {
+      "model": "simplebuilding:block/placed_reinforced_bundle",
+      "y": 180
+    },
+    "dyed=false,facing=west,tier=bundle": {
+      "model": "simplebuilding:block/placed_bundle",
+      "y": 270
+    },
+    "dyed=false,facing=west,tier=enderite": {
+      "model": "simplebuilding:block/placed_enderite_bundle",
+      "y": 270
+    },
+    "dyed=false,facing=west,tier=netherite": {
+      "model": "simplebuilding:block/placed_netherite_bundle",
+      "y": 270
+    },
+    "dyed=false,facing=west,tier=reinforced": {
+      "model": "simplebuilding:block/placed_reinforced_bundle",
+      "y": 270
+    },
+    "dyed=true,facing=east,tier=bundle": {
+      "model": "simplebuilding:block/placed_bundle_dyed",
+      "y": 90
+    },
+    "dyed=true,facing=east,tier=enderite": {
+      "model": "simplebuilding:block/placed_enderite_bundle_dyed",
+      "y": 90
+    },
+    "dyed=true,facing=east,tier=netherite": {
+      "model": "simplebuilding:block/placed_netherite_bundle_dyed",
+      "y": 90
+    },
+    "dyed=true,facing=east,tier=reinforced": {
+      "model": "simplebuilding:block/placed_reinforced_bundle_dyed",
+      "y": 90
+    },
+    "dyed=true,facing=north,tier=bundle": {
+      "model": "simplebuilding:block/placed_bundle_dyed"
+    },
+    "dyed=true,facing=north,tier=enderite": {
+      "model": "simplebuilding:block/placed_enderite_bundle_dyed"
+    },
+    "dyed=true,facing=north,tier=netherite": {
+      "model": "simplebuilding:block/placed_netherite_bundle_dyed"
+    },
+    "dyed=true,facing=north,tier=reinforced": {
+      "model": "simplebuilding:block/placed_reinforced_bundle_dyed"
+    },
+    "dyed=true,facing=south,tier=bundle": {
+      "model": "simplebuilding:block/placed_bundle_dyed",
+      "y": 180
+    },
+    "dyed=true,facing=south,tier=enderite": {
+      "model": "simplebuilding:block/placed_enderite_bundle_dyed",
+      "y": 180
+    },
+    "dyed=true,facing=south,tier=netherite": {
+      "model": "simplebuilding:block/placed_netherite_bundle_dyed",
+      "y": 180
+    },
+    "dyed=true,facing=south,tier=reinforced": {
+      "model": "simplebuilding:block/placed_reinforced_bundle_dyed",
+      "y": 180
+    },
+    "dyed=true,facing=west,tier=bundle": {
+      "model": "simplebuilding:block/placed_bundle_dyed",
+      "y": 270
+    },
+    "dyed=true,facing=west,tier=enderite": {
+      "model": "simplebuilding:block/placed_enderite_bundle_dyed",
+      "y": 270
+    },
+    "dyed=true,facing=west,tier=netherite": {
+      "model": "simplebuilding:block/placed_netherite_bundle_dyed",
+      "y": 270
+    },
+    "dyed=true,facing=west,tier=reinforced": {
+      "model": "simplebuilding:block/placed_reinforced_bundle_dyed",
+      "y": 270
+    }
+  }
+}

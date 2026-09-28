@@ -70,12 +70,16 @@ public class SimplebuildingClient implements ClientModInitializer {
         // Abgelegte Schmiedevorlage: das Item-Modell der Vorlage als flache Platte.
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
                 com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_TEMPLATE_BE, com.simplebuilding.client.render.PlacedTemplateRenderer::new);
+        // Abgestelltes Buendel: das gezeigte Item schwebt darueber, solange man schleichend hinschaut.
+        net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(
+                com.simplebuilding.blocks.entity.ModBlockEntities.PLACED_BUNDLE_BE, com.simplebuilding.client.render.PlacedBundleRenderer::new);
         // Der getragene Rucksack bzw. Koecher auf dem Ruecken - auf jedem Avatar-Renderer (beide Spielermodelle, Mannequins).
         // Abgestellter gefaerbter Rucksack: Leder-Ebene in der Farbe der Block-Entity.
         net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry.register(
                 java.util.List.of(com.simplebuilding.client.render.BackpackBlockTint.INSTANCE),
                 com.simplebuilding.blocks.ModBlocks.BACKPACK, com.simplebuilding.blocks.ModBlocks.REINFORCED_BACKPACK,
-                com.simplebuilding.blocks.ModBlocks.NETHERITE_BACKPACK, com.simplebuilding.blocks.ModBlocks.ENDERITE_BACKPACK);
+                com.simplebuilding.blocks.ModBlocks.NETHERITE_BACKPACK, com.simplebuilding.blocks.ModBlocks.ENDERITE_BACKPACK,
+                com.simplebuilding.blocks.ModBlocks.PLACED_BUNDLE);
         LivingEntityRenderLayerRegistrationCallback.EVENT.register((entityType, renderer, helper, context) -> {
             if (renderer instanceof net.minecraft.client.renderer.entity.player.AvatarRenderer<?> avatar) {
                 helper.register(new com.simplebuilding.client.render.BackpackLayer(avatar));

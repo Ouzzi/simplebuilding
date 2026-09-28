@@ -4,6 +4,7 @@ import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.custom.PlacedTemplateBlock;
 import com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.util.PlacedPlate;
 import com.simplebuilding.util.PlacedTemplates;
 import java.util.List;
 import net.minecraft.core.BlockPos;
@@ -27,6 +28,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
  * Spieltests der abgelegten Schmiedevorlagen (Besitzer 2026-09-28, {@link PlacedTemplates}):
@@ -302,6 +304,177 @@ public final class PlacedTemplateTests {
                         && !be.takeHintSound(now + 1001, PlacedTemplates.HINT_SOUND_INTERVAL)
                         && be.takeHintSound(now + 1000 + PlacedTemplates.HINT_SOUND_INTERVAL, PlacedTemplates.HINT_SOUND_INTERVAL),
                 "the hint sound is not rate limited to once per " + PlacedTemplates.HINT_SOUND_INTERVAL + " ticks");
+        succeed(helper);
+    }
+
+    // =====================================================================================
+    // Name, Trefferform, Blaupausen (Besitzer 2026-09-28)
+    // =====================================================================================
+
+    /**
+     * Eine abgelegte Vorlage heisst wie die Vorlage selbst, nicht "Abgelegte Schmiedevorlage": die
+     * Block-Entity ist {@code Nameable} (Jade fragt dort), Pick-Block liefert die Vorlage, ein
+     * Amboss-Name reist mit. Der Block selbst behaelt seinen Namen.
+     */
+    public static void placedTemplatesCarryTheNameOfTheirTemplate(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 2.0, 3.5));
+        player.setShiftKeyDown(true);
+        helper.setBlock(new BlockPos(1, 1, 1), Blocks.STONE);
+        helper.setBlock(new BlockPos(3, 1, 1), Blocks.STONE);
+        ItemStack glowing = new ItemStack(ModItems.GLOWING_TRIM_TEMPLATE);
+        use(helper, player, glowing.copy(), new BlockPos(1, 1, 1), Direction.UP);
+        ItemStack named = new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE);
+        named.set(DataComponents.CUSTOM_NAME, Component.literal("Anvil note"));
+        use(helper, player, named.copy(), new BlockPos(3, 1, 1), Direction.UP);
+
+        for (Object[] check : new Object[][]{{new BlockPos(1, 2, 1), glowing}, {new BlockPos(3, 2, 1), named}}) {
+            BlockPos pos = (BlockPos) check[0];
+            ItemStack expected = (ItemStack) check[1];
+            PlacedTemplateBlockEntity be = helper.getBlockEntity(pos, PlacedTemplateBlockEntity.class);
+            String want = expected.getHoverName().getString();
+            helper.assertTrue(be.hasCustomName() && be.getCustomName() != null && be.getCustomName().getString().equals(want),
+                    "the placed template's custom name is " + be.getCustomName() + " instead of " + want);
+            helper.assertTrue(be.getDisplayName().getString().equals(want) && be.getName().getString().equals(want),
+                    "the placed template is displayed as " + be.getDisplayName().getString() + " instead of " + want);
+            ItemStack picked = helper.getBlockState(pos).getCloneItemStack(helper.getLevel(), helper.absolutePos(pos), true);
+            helper.assertTrue(ItemStack.isSameItemSameComponents(picked, expected) && picked.getHoverName().getString().equals(want),
+                    "pick block on the placed template gave " + picked);
+        }
+        helper.assertTrue(!helper.getBlockEntity(new BlockPos(1, 2, 1), PlacedTemplateBlockEntity.class).getDisplayName().getString()
+                        .equals(ModBlocks.PLACED_SMITHING_TEMPLATE.getName().getString()),
+                "the glowing template still shows the block name " + ModBlocks.PLACED_SMITHING_TEMPLATE.getName().getString());
+        succeed(helper);
+    }
+
+    /**
+     * Die Trefferform ist genau die Platte: je Lage duenn (hoechstens gut 1,5 Pixel) und nur dort, wo
+     * die Item-Textur deckt - ein Strahl durch die freie Ecke neben der Vorlage geht durch, einer durch
+     * die Mitte trifft. Die Maske der Mod-Vorlage kommt aus ihrer Textur (nicht die volle Flaeche),
+     * die Vanilla-Masken aus der Tabelle. Und die Texturen der ablegbaren Mod-Vorlagen haben kein fast
+     * durchsichtiges Pixel mehr, das dem Ausstanzen eine Seitenflaeche stiehlt (Loch links in der
+     * leuchtenden Vorlage).
+     */
+    public static void theHitboxCoversOnlyThePixelsOfThePlate(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 2.0, 5.5));
+        player.setShiftKeyDown(true);
+        double thin = PlacedPlate.SCALE * PlacedPlate.THICKNESS_SCALE / 16.0 + PlacedPlate.GAP + 1.0E-3;
+        // Alle Lagen: duenn an der richtigen Seite, innerhalb des Blocks, nicht leer.
+        for (AttachFace face : AttachFace.values()) {
+            for (Direction facing : Direction.Plane.HORIZONTAL) {
+                VoxelShape shape = PlacedPlate.shape(ModItems.GLOWING_TRIM_TEMPLATE, face, facing);
+                helper.assertTrue(!shape.isEmpty(), "empty shape for " + face + "/" + facing);
+                net.minecraft.world.phys.AABB box = shape.bounds();
+                Direction normal = face == AttachFace.FLOOR ? Direction.UP : face == AttachFace.CEILING ? Direction.DOWN : facing;
+                double depth = switch (normal.getAxis()) {
+                    case X -> box.getXsize();
+                    case Y -> box.getYsize();
+                    case Z -> box.getZsize();
+                };
+                helper.assertTrue(depth <= thin, face + "/" + facing + " is " + depth + " thick, more than the plate (" + thin + ")");
+                double back = normal.getAxisDirection() == Direction.AxisDirection.POSITIVE ? box.min(normal.getAxis()) : 1.0 - box.max(normal.getAxis());
+                helper.assertTrue(back < 0.01, face + "/" + facing + " floats " + back + " away from its support");
+                helper.assertTrue(box.minX >= 0 && box.minY >= 0 && box.minZ >= 0 && box.maxX <= 1 && box.maxY <= 1 && box.maxZ <= 1,
+                        face + "/" + facing + " leaves the block: " + box);
+            }
+        }
+        // Die Maske der Mod-Vorlage kommt aus der Textur: Ecke oben links frei, Mitte deckend.
+        short[] mask = PlacedPlate.mask(ModItems.GLOWING_TRIM_TEMPLATE);
+        helper.assertTrue(mask != PlacedPlate.FULL && (mask[0] & 0x8000) == 0 && (mask[8] & 0x0100) != 0,
+                "the glowing template's mask was not read from its texture: " + java.util.Arrays.toString(mask));
+        helper.assertTrue((PlacedPlate.mask(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)[0] & 0xFFFF) == 0,
+                "the netherite upgrade's top row should be empty (vanilla table)");
+
+        // In der Welt: Strahl von oben durch die freie Ecke vs. durch die Mitte.
+        helper.setBlock(new BlockPos(1, 1, 1), Blocks.STONE);
+        use(helper, player, new ItemStack(ModItems.GLOWING_TRIM_TEMPLATE), new BlockPos(1, 1, 1), Direction.UP);
+        BlockPos abs = helper.absolutePos(new BlockPos(1, 2, 1));
+        BlockState state = helper.getBlockState(new BlockPos(1, 2, 1));
+        VoxelShape shape = state.getShape(helper.getLevel(), abs);
+        helper.assertTrue(shape.bounds().getYsize() <= thin, "the placed template's shape is " + shape.bounds().getYsize() + " high");
+        net.minecraft.world.phys.BlockHitResult centre = shape.clip(new Vec3(abs.getX() + 0.5, abs.getY() + 1.0, abs.getZ() + 0.5),
+                new Vec3(abs.getX() + 0.5, abs.getY() - 0.1, abs.getZ() + 0.5), abs);
+        helper.assertTrue(centre != null, "a ray through the middle of the template misses it");
+        int corners = 0;
+        for (double[] c : new double[][]{{0.08, 0.08}, {0.92, 0.08}, {0.08, 0.92}, {0.92, 0.92}}) {
+            net.minecraft.world.phys.BlockHitResult hit = shape.clip(new Vec3(abs.getX() + c[0], abs.getY() + 1.0, abs.getZ() + c[1]),
+                    new Vec3(abs.getX() + c[0], abs.getY() - 0.1, abs.getZ() + c[1]), abs);
+            if (hit == null) {
+                corners++;
+            }
+        }
+        // Die Besatzvorlage ist ein schraeges Schild: mindestens zwei Ecken des Blocks sind frei.
+        helper.assertTrue(corners >= 2, "only " + corners + " of the block's corners are free, the shape is not the template's outline");
+        // Die volle Platte (ohne Block-Entity) ist breiter als die Vorlage.
+        VoxelShape full = PlacedPlate.shape(null, AttachFace.FLOOR, state.getValue(PlacedTemplateBlock.FACING));
+        helper.assertTrue(full.bounds().getXsize() * full.bounds().getZsize() > shape.bounds().getXsize() * shape.bounds().getZsize() - 1.0E-6,
+                "the full plate is smaller than the template");
+
+        // Keine fast durchsichtigen Pixel in den ablegbaren Mod-Texturen.
+        List<String> holes = new java.util.ArrayList<>();
+        for (Item item : List.of(ModItems.GLOWING_TRIM_TEMPLATE, ModItems.EMITTING_TRIM_TEMPLATE, ModItems.BASIC_UPGRADE_TEMPLATE,
+                ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.BLUEPRINT)) {
+            String path = "/assets/simplebuilding/textures/item/" + net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(item).getPath() + ".png";
+            try (java.io.InputStream in = PlacedPlate.class.getResourceAsStream(path)) {
+                helper.assertTrue(in != null, "missing texture " + path);
+                java.awt.image.BufferedImage image = javax.imageio.ImageIO.read(in);
+                for (int y = 0; y < image.getHeight(); y++) {
+                    for (int x = 0; x < image.getWidth(); x++) {
+                        int alpha = image.getRGB(x, y) >>> 24;
+                        if (alpha > 0 && alpha < PlacedPlate.SOLID_ALPHA) {
+                            holes.add(path + " (" + x + "," + y + ") alpha " + alpha);
+                        }
+                    }
+                }
+            } catch (java.io.IOException e) {
+                holes.add(path + ": " + e);
+            }
+        }
+        helper.assertTrue(holes.isEmpty(), "nearly transparent pixels leave holes in the extruded plate: " + holes);
+        succeed(helper);
+    }
+
+    /**
+     * Blaupausen legen sich wie Vorlagen ab (eigener Block {@code placed_blueprint}, gleiche
+     * Block-Entity): Boden, Wand, Decke; sie heissen wie die Blaupause, haben die duenne Plattenform
+     * und fallen beim Abbauen mit allen Komponenten heraus. Ohne Schleichen wird nichts abgelegt.
+     */
+    public static void blueprintsArePlacedLikeTemplatesAndDropThemselves(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(3.5, 2.0, 5.5));
+        player.setShiftKeyDown(false);
+        helper.setBlock(new BlockPos(1, 1, 1), Blocks.STONE);
+        ItemStack blueprint = new ItemStack(ModItems.BLUEPRINT);
+        blueprint.set(DataComponents.CUSTOM_NAME, Component.literal("Tower plan"));
+        InteractionResult plain = use(helper, player, blueprint.copy(), new BlockPos(1, 1, 1), Direction.UP);
+        helper.assertTrue(!plain.consumesAction() && helper.getBlockState(new BlockPos(1, 2, 1)).isAir(),
+                "a blueprint was placed without sneaking: " + plain);
+
+        player.setShiftKeyDown(true);
+        InteractionResult floor = use(helper, player, blueprint.copy(), new BlockPos(1, 1, 1), Direction.UP);
+        BlockState state = helper.getBlockState(new BlockPos(1, 2, 1));
+        helper.assertTrue(floor.consumesAction() && state.is(ModBlocks.PLACED_BLUEPRINT) && state.getValue(PlacedTemplateBlock.FACE) == AttachFace.FLOOR,
+                "sneak + use did not lay the blueprint on the floor: " + floor + ", " + state);
+        PlacedTemplateBlockEntity be = helper.getBlockEntity(new BlockPos(1, 2, 1), PlacedTemplateBlockEntity.class);
+        helper.assertTrue(ItemStack.isSameItemSameComponents(be.getTemplate(), blueprint), "the placed blueprint holds " + be.getTemplate());
+        helper.assertTrue(be.getDisplayName().getString().equals("Tower plan"), "the placed blueprint is called " + be.getDisplayName().getString());
+        double thin = PlacedPlate.SCALE * PlacedPlate.THICKNESS_SCALE / 16.0 + PlacedPlate.GAP + 1.0E-3;
+        helper.assertTrue(state.getShape(helper.getLevel(), helper.absolutePos(new BlockPos(1, 2, 1))).bounds().getYsize() <= thin,
+                "the placed blueprint is not a thin plate");
+
+        helper.setBlock(new BlockPos(3, 2, 2), Blocks.STONE);
+        use(helper, player, new ItemStack(ModItems.BLUEPRINT), new BlockPos(3, 2, 2), Direction.NORTH);
+        BlockState wall = helper.getBlockState(new BlockPos(3, 2, 1));
+        helper.assertTrue(wall.is(ModBlocks.PLACED_BLUEPRINT) && wall.getValue(PlacedTemplateBlock.FACE) == AttachFace.WALL,
+                "the blueprint on the wall is " + wall);
+        helper.setBlock(new BlockPos(5, 4, 1), Blocks.STONE);
+        use(helper, player, new ItemStack(ModItems.BLUEPRINT), new BlockPos(5, 4, 1), Direction.DOWN);
+        BlockState ceiling = helper.getBlockState(new BlockPos(5, 3, 1));
+        helper.assertTrue(ceiling.is(ModBlocks.PLACED_BLUEPRINT) && ceiling.getValue(PlacedTemplateBlock.FACE) == AttachFace.CEILING,
+                "the blueprint under the ceiling is " + ceiling);
+
+        helper.getLevel().destroyBlock(helper.absolutePos(new BlockPos(1, 2, 1)), true);
+        ItemEntity broken = dropped(helper, ModItems.BLUEPRINT);
+        helper.assertTrue(broken != null && ItemStack.isSameItemSameComponents(broken.getItem(), blueprint) && broken.getItem().getCount() == 1,
+                "breaking the placed blueprint dropped " + (broken == null ? "nothing (items: " + items(helper) + ")" : broken.getItem()));
         succeed(helper);
     }
 
