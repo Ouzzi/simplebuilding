@@ -50,8 +50,8 @@ public class MagnetItem extends Item {
 
         if (!isHeldInHand(player, stack, slot)) return;
 
-        // Shift deaktiviert den Magneten
-        if (player.isShiftKeyDown()) return;
+        // Shift deaktiviert den Magneten, der Serverschalter server.features.attractor ganz.
+        if (player.isShiftKeyDown() || !com.simplebuilding.config.ServerTuning.get().features.attractor) return;
 
         double currentRange = getCurrentRange(stack, world);
 

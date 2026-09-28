@@ -327,13 +327,14 @@ public class ModHopperBlockEntity extends RandomizableContainerBlockEntity imple
             if (bl) {
                 int speed = 8;
                 Block block = state.getBlock();
+                // Tempo je Stufe aus server.machines (Standard 2x/4x/8x = 4/2/1 Ticks).
                 if (block == ModBlocks.NETHERITE_HOPPER) {
-                    speed = 2;
+                    speed = com.simplebuilding.config.ServerTuning.hopperCooldown(2);
                 } else if (block == ModBlocks.REINFORCED_HOPPER) {
-                    speed = 4;
+                    speed = com.simplebuilding.config.ServerTuning.hopperCooldown(1);
                 } else if (block == ModBlocks.ENDERITE_HOPPER) {
-                    // Enderit-Stufe: jeden Tick ein Transfer.
-                    speed = 1;
+                    // Enderit-Stufe: standardmaessig jeden Tick ein Transfer.
+                    speed = com.simplebuilding.config.ServerTuning.hopperCooldown(3);
                 }
 
                 blockEntity.setTransferCooldown(speed);

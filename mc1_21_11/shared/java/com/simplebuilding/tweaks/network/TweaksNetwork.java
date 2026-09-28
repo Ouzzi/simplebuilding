@@ -192,5 +192,6 @@ public final class TweaksNetwork {
     /** Clientseitig: Werte des Servers uebernehmen. */
     public static void receiveConfig(TweaksConfigPayload payload) {
         SimpleTweaks.setServerValues(payload.values());
+        com.simplebuilding.config.ServerTuning.checkStartupValues(payload.serverTuning());
     }
 }

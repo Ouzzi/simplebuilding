@@ -586,7 +586,19 @@ MACHINE_TICK_CODE = {
 }
 MACHINE_BRANCH = re.compile(
     r'(?:state\.is\(ModBlocks\.(?P<a>[A-Z0-9_]+)\)|block\s*==\s*ModBlocks\.(?P<b>[A-Z0-9_]+))\s*\)\s*\{'
-    r'\s*(?://[^\n]*\n\s*)*(?P<var>extraTicks|speed)\s*=\s*(?P<n>\d+)\s*;')
+    r'\s*(?://[^\n]*\n\s*)*(?P<var>extraTicks|speed)\s*=\s*'
+    r'(?:(?P<n>\d+)|(?:com\.simplebuilding\.config\.)?ServerTuning\.(?P<fn>furnaceExtraTicks|hopperCooldown)\((?P<tier>\d)\))\s*;')
+# Seit 2026-09-28 kommt das Tempo aus server.machines (ServerTuningConfig); die Wiki-Zahl ist der Standard.
+MACHINE_TUNING_FIELD = re.compile(r'public\s+int\s+(reinforced|netherite|enderite)(Hopper|Furnace)Speed\s*=\s*(\d+)\s*;')
+MACHINE_TIERS = {"1": "reinforced", "2": "netherite", "3": "enderite"}
+
+
+def machine_tuning_defaults(code: Path) -> dict:
+    """(tier word, 'Hopper'|'Furnace') -> default speed multiplier from ServerTuningConfig."""
+    path = code / "config" / "ServerTuningConfig.java"
+    if not path.exists():
+        return {}
+    return {(t, k): int(v) for t, k, v in MACHINE_TUNING_FIELD.findall(path.read_text(encoding="utf-8"))}
 MOD_BLOCK_REGISTRATION = re.compile(
     r'public\s+static\s+final\s+Block\s+([A-Z0-9_]+)\s*=\s*registerBlock\(\s*"([a-z0-9_]+)"\s*,\s*Blocks\.([A-Z0-9_]+)')
 
@@ -619,6 +631,7 @@ def collect_machine_speeds(roots: dict, vanilla_constants: dict) -> tuple[dict, 
     registrations = {const: (name, base) for const, name, base
                      in MOD_BLOCK_REGISTRATION.findall(registry_path.read_text(encoding="utf-8"))}
     out: dict[str, dict] = {}
+    tuning = machine_tuning_defaults(code)
     for relative, kind in MACHINE_TICK_CODE.items():
         path = code / relative
         if not path.exists():
@@ -632,10 +645,20 @@ def collect_machine_speeds(roots: dict, vanilla_constants: dict) -> tuple[dict, 
             if match.group("var") != expected or const not in registrations:
                 continue
             name, base = registrations[const]
-            line_no = text.count("\n", 0, match.start("n")) + 1
+            if match.group("n") is not None:
+                value = int(match.group("n"))
+                anchor = match.start("n")
+            else:
+                speed = tuning.get((MACHINE_TIERS.get(match.group("tier"), ""),
+                                    "Furnace" if match.group("fn") == "furnaceExtraTicks" else "Hopper"))
+                if speed is None:
+                    problems.append(f"{rel(path)}: {match.group('fn')}({match.group('tier')}) has no default in ServerTuningConfig")
+                    continue
+                value = speed - 1 if match.group("fn") == "furnaceExtraTicks" else max(1, round(8 / speed))
+                anchor = match.start("fn")
+            line_no = text.count("\n", 0, anchor) + 1
             entry = {"kind": kind, "vanilla": f"minecraft:{base.lower()}",
                      "source": f"{rel(path)}:{line_no}"}
-            value = int(match.group("n"))
             if kind == "cooking":
                 entry["extraTicks"] = value
                 entry["cookingTicksPerTick"] = 1 + value
@@ -1055,6 +1078,10 @@ def collect_config(roots: dict, lang: dict) -> list[dict]:
     tweaks_path = path.parents[1] / "tweaks" / "TweaksConfig.java"
     if tweaks_path.exists():
         classes.update(parse_config_classes(tweaks_path))
+    # Reiter "Server & Modpack Tuning" (2026-09-28) in seiner eigenen Datei.
+    server_path = path.parent / "ServerTuningConfig.java"
+    if server_path.exists():
+        classes.update(parse_config_classes(server_path))
     en = lang.get("en_us", {})
     de = lang.get("de_de", {})
     prefix = f"text.autoconfig.{NS}."

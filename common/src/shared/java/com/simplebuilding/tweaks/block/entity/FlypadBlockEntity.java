@@ -68,7 +68,8 @@ public class FlypadBlockEntity extends OwnedBlockEntity {
     /** Ein Durchlauf: Flug geben, Flug nehmen (der Tick macht das alle 5 Ticks). */
     public static void update(Level level, BlockPos pos, BlockState state, FlypadBlockEntity be) {
         int tier = tierOf(state);
-        if (!SimpleTweaks.config().pads.enableFlypads) {
+        if (!SimpleTweaks.config().pads.enableFlypads
+                || com.simplebuilding.config.ServerTuning.flypadBlockedIn(level.dimension().identifier())) {
             be.revokeAll(level, tier);
             return;
         }
@@ -130,7 +131,8 @@ public class FlypadBlockEntity extends OwnedBlockEntity {
 
     /** Ob ein anderes eingeschaltetes Flypad den Spieler abdeckt (Suche ueber die Chunks in Reichweite des groessten Pads). */
     private boolean anotherPadCovers(ServerLevel level, ServerPlayer player) {
-        if (!SimpleTweaks.config().pads.enableFlypads) {
+        if (!SimpleTweaks.config().pads.enableFlypads
+                || com.simplebuilding.config.ServerTuning.flypadBlockedIn(level.dimension().identifier())) {
             return false;
         }
         // Groesster Bereich: die letzte Easter-Stufe, doppelt so breit wie Stufe III.

@@ -50,6 +50,8 @@ public final class SimplebuildingCommand {
         // Eigene Wurzel /sbtestcentre (Befehlsrechte statt nur Operator-Spieler, damit Befehlsbloecke ihn nutzen).
         com.simplebuilding.dev.testcentre.TestCentreCommand.register(dispatcher);
         dispatcher.register(Commands.literal("simplebuilding")
+                // Admin: alle Chunk-Loader auflisten / entfernen (Besitzer 2026-09-28).
+                .then(com.simplebuilding.tweaks.command.ChunkLoaderCommand.node())
                 .requires(OPERATOR_ONLY)
                 .then(Commands.literal("config")
                         .then(Commands.literal("setTrimMultiplier")
@@ -202,6 +204,14 @@ public final class SimplebuildingCommand {
         if (option.appliesOnReload()) {
             context.getSource().sendSuccess(() -> Component.translatable("commands.simplebuilding.config.on_reload")
                     .withStyle(ChatFormatting.GRAY), false);
+        }
+        if (option.recipesOnReload()) {
+            context.getSource().sendSuccess(() -> Component.translatable("commands.simplebuilding.config.recipes_on_reload")
+                    .withStyle(ChatFormatting.GRAY), false);
+        }
+        if (option.restartRequired()) {
+            context.getSource().sendSuccess(() -> Component.translatable("commands.simplebuilding.config.restart")
+                    .withStyle(ChatFormatting.GOLD), false);
         }
         return 1;
     }

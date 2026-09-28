@@ -1,4 +1,8 @@
 {
+  "forge:condition": {
+    "type": "simplebuilding:config",
+    "flag": "astralitOre"
+  },
   "type": "forge:add_features",
   "biomes": "#minecraft:is_end",
   "features": "simplebuilding:astralit_ore_placed",

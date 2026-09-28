@@ -61,6 +61,10 @@ public final class TweaksContent {
 
     public static void onServerTick(MinecraftServer server) {
         SpawnElytra.serverTick(server);
+        // Chunk-Loader wecken bzw. anhalten (Besitzer kommt/geht, Schalter), siehe ChunkLoaderRegistry.
+        if (server.getTickCount() % com.simplebuilding.tweaks.block.entity.ChunkLoaderBlockEntity.CHECK_INTERVAL == 0) {
+            com.simplebuilding.tweaks.block.entity.ChunkLoaderRegistry.reconcile(server);
+        }
         LaunchSafety.serverTick(server);
         // Testzentrale: faelliger Neubau einer veralteten Zentrale (nur in der Entwicklungswelt geplant).
         com.simplebuilding.dev.testcentre.TestCentreCommand.serverTick(server);

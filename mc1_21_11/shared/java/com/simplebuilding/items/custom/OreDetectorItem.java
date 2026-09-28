@@ -102,7 +102,9 @@ public class OreDetectorItem extends Item {
 
         /** Groesste Entfernung in Bloecken (Augenblock bis Erz), auch durch reine Luft. */
         public int range(boolean radius) {
-            return radius ? rangeWithRadius : range;
+            // Faktor server.oreDetector.rangeMultiplier (0,25..1,5); auf dem Client der des Servers (Tooltip).
+            int base = radius ? rangeWithRadius : range;
+            return Math.max(1, (int) Math.round(base * com.simplebuilding.config.ServerTuning.oreDetectorRange()));
         }
     }
 
@@ -232,6 +234,11 @@ public class OreDetectorItem extends Item {
     @Override
     public void inventoryTick(ItemStack stack, ServerLevel world, Entity entity, @Nullable EquipmentSlot slot) {
         if (!(entity instanceof Player player)) return;
+        // Serverschalter server.features.oreDetector: aus = keine Suche, die Nadel ruht.
+        if (!com.simplebuilding.config.ServerTuning.get().features.oreDetector) {
+            clearNeedle(stack);
+            return;
+        }
 
         if (!isHeldInHands(slot)) {
             // Weggesteckt: die Nadel ruht, sie zeigt nicht auf ein Erz von vor einer Stunde.
@@ -258,7 +265,9 @@ public class OreDetectorItem extends Item {
 
     /** Ticks zwischen zwei Pings: {@link #SCAN_INTERVAL_MAIN_HAND} oder {@link #SCAN_INTERVAL_OFF_HAND}. */
     public static int scanInterval(@Nullable EquipmentSlot slot) {
-        return slot == EquipmentSlot.OFFHAND ? SCAN_INTERVAL_OFF_HAND : SCAN_INTERVAL_MAIN_HAND;
+        // server.oreDetector.scanIntervalTicks (Standard {@link #SCAN_INTERVAL_MAIN_HAND}); die Nebenhand halb so oft.
+        int main = com.simplebuilding.config.ServerTuning.oreDetectorInterval();
+        return slot == EquipmentSlot.OFFHAND ? main * 2 : main;
     }
 
     /** Lautstaerke-Faktor der Ping-Toene: Haupthand 1.0, Nebenhand {@link #OFF_HAND_VOLUME}. */

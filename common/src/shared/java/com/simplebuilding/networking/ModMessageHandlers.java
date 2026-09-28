@@ -336,6 +336,11 @@ public final class ModMessageHandlers {
         if (!BackpackMenuProviders.canOpenWorn(player)) {
             return;
         }
+        // Serverschalter server.features.backpack: der getragene Rucksack oeffnet nicht mehr; abgestellt
+        // bleibt er zugaenglich, damit niemand seinen Inhalt verliert.
+        if (com.simplebuilding.config.ServerTuning.featureDenied(com.simplebuilding.config.ServerTuning.get().features.backpack, player)) {
+            return;
+        }
         BackpackMenus.openWorn(player);
     }
 

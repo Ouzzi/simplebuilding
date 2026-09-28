@@ -19,7 +19,8 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
  *
  * <p>Was der Client vom Server braucht, schickt der Server mit ({@code TweaksConfigPayload},
  * {@code PistonConfigPayload}, {@code TrimDataPayload}); reine Client-Optionen listet
- * {@link ConfigOptions#CLIENT_SIDE}. Ueberblick: docs/CONFIG.md.
+ * {@link ConfigOptions#CLIENT_SIDE}. Der Reiter "Server & Modpack Tuning" ({@link ServerTuningConfig})
+ * geht als Ganzes an die Clients und gilt dort statt ihrer eigenen Datei. Ueberblick: docs/CONFIG.md.
  */
 @Config(name = Simplebuilding.MOD_ID)
 public class SimplebuildingConfig implements ConfigData {
@@ -160,6 +161,17 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean showDevEnchantedTab = false;
 
+    // =====================================================================================
+    // Reiter 8: Server & Modpack Tuning (Besitzer 2026-09-28)
+    // =====================================================================================
+
+    // Jede Gameplay-Stellschraube fuer Server- und Modpack-Ersteller, serverseitig verbindlich: die
+    // Clients bekommen den Abschnitt vom Server (TweaksConfigPayload) und lesen ihn ueber
+    // ServerTuning.get(). Siehe ServerTuningConfig.
+    @ConfigEntry.Category("server")
+    @ConfigEntry.Gui.TransitiveObject
+    public ServerTuningConfig server = new ServerTuningConfig();
+
     /** Nach dem Laden (und fuer eine neue Datei): alte Schluessel auf ihre Nachfolger verteilen, Werte begrenzen. */
     @Override
     public void validatePostLoad() {
@@ -184,6 +196,10 @@ public class SimplebuildingConfig implements ConfigData {
         if (tweaks != null) {
             tweaks.validate();
         }
+        if (server == null) {
+            server = new ServerTuningConfig();
+        }
+        server.validate();
     }
 
     /** Endliche, nicht negative Zahl; sonst {@code fallback} (NaN/Unendlich aus handeditierten Dateien). */

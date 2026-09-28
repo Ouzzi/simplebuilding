@@ -582,6 +582,10 @@ public final class BlueprintBuilder {
         }
         ItemStack wand = context.getItemInHand();
         ItemStack blueprint = player.getOffhandItem();
+        // Serverschalter server.features.blueprint (der Client liest den Wert des Servers).
+        if (com.simplebuilding.config.ServerTuning.featureDenied(com.simplebuilding.config.ServerTuning.get().features.blueprint, player)) {
+            return InteractionResult.FAIL;
+        }
         if (level.isClientSide()) {
             clientClick(level, player, wand, blueprint,
                     new BlockHitResult(context.getClickLocation(), context.getClickedFace(), context.getClickedPos(), false));
@@ -908,7 +912,9 @@ public final class BlueprintBuilder {
         planner.resumeAt(index, placedBefore);
         Job job = new Job(planner, player, wand, blueprint, placer, target,
                 content == null ? null : BlueprintJobs.hash(content.code()), content == null ? "" : content.title(), rotation);
-        job.visitsPerTick = BlueprintScanner.smallBudget(player) ? 3 : visitsPerTick(planner.layout.size());
+        // Obergrenze je Tick: server.blueprint.maxBlocksPerTick (der Bau dauert dann entsprechend laenger).
+        job.visitsPerTick = BlueprintScanner.smallBudget(player) ? 3
+                : Math.min(visitsPerTick(planner.layout.size()), com.simplebuilding.config.ServerTuning.blueprintBlocksPerTick());
         holder[0] = job;
         job.lastTick = level.getGameTime();
         step(level, player, job);

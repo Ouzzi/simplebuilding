@@ -74,10 +74,16 @@ public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
         }
     }
 
-    /** Erzwingt den Bereich seiner Stufe (Config an) bzw. gibt die eigenen Chunks frei (Config aus). */
+    /**
+     * Erzwingt den Bereich seiner Stufe bzw. gibt die eigenen Chunks frei, wenn er nicht laufen darf
+     * ({@link ChunkLoaderRegistry#mayRun}: Pads-Schalter aus, Dimension gesperrt oder - seit 2026-09-28
+     * standardmaessig - Besitzer offline). Traegt sich dabei in die {@link ChunkLoaderRegistry} ein.
+     */
     public void update(ServerLevel level) {
-        if (!enabled()) {
+        int tierNow = tierOf(getBlockState());
+        if (!mayRun(level)) {
             release(level);
+            ChunkLoaderRegistry.update(level, worldPosition, getOwner(), tierNow, false);
             return;
         }
         int cx = worldPosition.getX() >> 4;
@@ -99,6 +105,12 @@ public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
         if (changed) {
             setChanged();
         }
+        ChunkLoaderRegistry.update(level, worldPosition, getOwner(), tier, true);
+    }
+
+    /** Ob dieser Loader gerade Chunks halten darf (siehe {@link ChunkLoaderRegistry#mayRun}). */
+    public boolean mayRun(ServerLevel level) {
+        return ChunkLoaderRegistry.mayRun(level, getOwner());
     }
 
     /**
@@ -133,7 +145,8 @@ public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
                     continue;
                 }
                 for (BlockEntity be : chunk.getBlockEntities().values()) {
-                    if (be != this && !be.isRemoved() && be instanceof ChunkLoaderBlockEntity other && other.covers(chunkX, chunkZ)) {
+                    if (be != this && !be.isRemoved() && be instanceof ChunkLoaderBlockEntity other && other.covers(chunkX, chunkZ)
+                            && other.mayRun(level)) {
                         return other;
                     }
                 }
@@ -157,6 +170,7 @@ public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
         if (level instanceof ServerLevel serverLevel) {
             release(serverLevel);
+            ChunkLoaderRegistry.remove(serverLevel, worldPosition);
         }
         super.preRemoveSideEffects(pos, state);
     }
@@ -171,8 +185,9 @@ public class ChunkLoaderBlockEntity extends OwnedBlockEntity {
      */
     @Override
     public void setRemoved() {
-        if (level instanceof ServerLevel serverLevel && !ownForced.isEmpty() && replacedInWorld(serverLevel)) {
+        if (level instanceof ServerLevel serverLevel && replacedInWorld(serverLevel)) {
             release(serverLevel);
+            ChunkLoaderRegistry.remove(serverLevel, worldPosition);
         }
         super.setRemoved();
     }

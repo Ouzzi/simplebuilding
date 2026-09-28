@@ -32,6 +32,15 @@ public class DynamicLightHandler {
     /** Ruhende Traeger pruefen nur alle so viele Ticks (versetzt nach Entity-ID). */
     public static final int HOLDER_INTERVAL = 10;
 
+    /**
+     * Serverschalter {@code server.features.dynamicLight} (2026-09-28). Aus: jeder Traeger setzt Level 0,
+     * sein stehender Lichtblock verschwindet also bei seinem naechsten Takt (Spieler sofort, ruhende
+     * Traeger nach hoechstens {@value #HOLDER_INTERVAL} Ticks, sobald ihr Chunk geladen ist).
+     */
+    public static boolean enabled() {
+        return com.simplebuilding.config.ServerTuning.get().features.dynamicLight;
+    }
+
     /** Ein Aufwertungslevel bringt 3 Lichtpunkte -> 5 Level = 15 (Max). */
     public static int lightLevelFor(int emissionPoints) {
         return Math.min(15, Math.max(0, emissionPoints) * 3);
@@ -56,8 +65,9 @@ public class DynamicLightHandler {
         UUID uuid = player.getUUID();
         BlockPos currentPos = player.blockPosition().above(); // Kopfhöhe für bessere Ausleuchtung
 
-        // 1. Licht-Level NUR aus der Emission (nicht Visual Glow)
-        int lightLevel = lightLevelFor(wornEmission(player));
+        // 1. Licht-Level NUR aus der Emission (nicht Visual Glow); Serverschalter aus = 0, das raeumt
+        // ein stehendes Licht im selben Durchlauf weg.
+        int lightLevel = enabled() ? lightLevelFor(wornEmission(player)) : 0;
 
         BlockPos oldPos = lightSources.get(uuid);
 
@@ -105,7 +115,7 @@ public class DynamicLightHandler {
     }
 
     static void tickHolder(Level level, OwnedLightHolder holder, BlockPos target, int emissionPoints) {
-        int lightLevel = lightLevelFor(emissionPoints);
+        int lightLevel = enabled() ? lightLevelFor(emissionPoints) : 0;
         BlockPos owned = holder.simplebuilding$getOwnedLight();
         if (owned != null && (lightLevel == 0 || !owned.equals(target))) {
             removeLight(level, owned);

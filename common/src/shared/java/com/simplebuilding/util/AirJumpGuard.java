@@ -39,7 +39,8 @@ public final class AirJumpGuard {
      * level of the boots (already checked to be at least 1).
      */
     public static boolean tryUse(ServerPlayer player, int level) {
-        if (player.onGround()) {
+        // Serverschalter server.features.airJump (2026-09-28): aus = kein Luftsprung, egal was der Client meint.
+        if (player.onGround() || !com.simplebuilding.config.ServerTuning.get().features.airJump) {
             return false;
         }
         int now = player.level().getServer() != null ? player.level().getServer().getTickCount() : 0;

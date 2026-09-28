@@ -1,4 +1,10 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "simplebuilding:config",
+      "flag": "astralitOre"
+    }
+  ],
   "type": "neoforge:add_features",
   "biomes": "#minecraft:is_end",
   "features": "simplebuilding:astralit_ore_placed",

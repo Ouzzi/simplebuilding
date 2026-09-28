@@ -425,6 +425,16 @@ public class ChiselItem extends Item {
     public void setCooldownTicks(int ticks) { this.cooldownTicks = ticks; }
     /** Fuer den Wiki-Export (WikiDataProvider): die Abklingzeit dieser Stufe. */
     public int getCooldownTicks() { return this.cooldownTicks; }
+
+    /**
+     * Die Abklingzeit, die gerade gilt: {@code server.tools.<stufe>ChiselCooldownTicks} nach dem
+     * Registernamen (Meissel und Spachtel derselben Stufe teilen sich den Wert); auf dem Client der
+     * Wert des Servers.
+     */
+    public int effectiveCooldownTicks() {
+        return com.simplebuilding.config.ServerTuning.chiselCooldown(
+                net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(this), this.cooldownTicks);
+    }
     public void setChiselSound(SoundEvent chiselSound) { this.chiselSound = chiselSound; }
     public void setChiselDirectionCycle(Direction direction) { this.chiselDirection = direction; }
     private boolean isDedicatedSpatula = false;
@@ -522,7 +532,8 @@ public class ChiselItem extends Item {
 
             int fastChiselingLevel = getFastChiselingLevel(stack);
 
-            int finalCooldown = this.cooldownTicks;
+            // Abklingzeit je Stufe aus server.tools (Standard = der beim Registrieren gesetzte Wert).
+            int finalCooldown = effectiveCooldownTicks();
             if (fastChiselingLevel > 0) {
                 finalCooldown = Math.max(1, (int)(finalCooldown * (1.0f - (fastChiselingLevel * 0.3f))));
             }

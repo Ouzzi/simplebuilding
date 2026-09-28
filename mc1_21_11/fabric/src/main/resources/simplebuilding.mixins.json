@@ -26,6 +26,7 @@
     "PistonHandlerMixin",
     "PistonHeadBlockMixin",
     "PlayerEntityMixin",
+    "RecipeMapFilterMixin",
     "ShearsItemMixin",
     "SlotMixin",
     "SmithingScreenHandlerMixin",

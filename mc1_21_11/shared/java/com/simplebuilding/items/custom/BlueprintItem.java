@@ -74,6 +74,9 @@ public class BlueprintItem extends Item {
         if (hand == InteractionHand.OFF_HAND && player.getMainHandItem().getItem() instanceof BuildingWandItem) {
             return InteractionResult.PASS;
         }
+        if (com.simplebuilding.config.ServerTuning.featureDenied(com.simplebuilding.config.ServerTuning.get().features.blueprint, player)) {
+            return InteractionResult.FAIL;
+        }
         if (level.isClientSide()) {
             clientOpener.accept(player, hand);
         }

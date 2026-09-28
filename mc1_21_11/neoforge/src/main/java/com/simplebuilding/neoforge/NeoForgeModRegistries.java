@@ -74,6 +74,15 @@ public final class NeoForgeModRegistries {
             DeferredRegister.create(Registries.RECIPE_TYPE, Simplebuilding.MOD_ID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Simplebuilding.MOD_ID);
+    /**
+     * NeoForges Bedingungs-System fuer Datapack-Eintraege: {@code simplebuilding:config} fuer die
+     * Biom-Modifikatoren der End-Erze (server.oreGeneration, 2026-09-28), wie im 26.2-Modul.
+     */
+    public static final DeferredRegister<MapCodec<? extends net.neoforged.neoforge.common.conditions.ICondition>> CONDITION_CODECS =
+            DeferredRegister.create(net.neoforged.neoforge.registries.NeoForgeRegistries.Keys.CONDITION_CODECS, Simplebuilding.MOD_ID);
+
+    public static final Supplier<MapCodec<ConfigLoadCondition>> CONFIG_CONDITION =
+            CONDITION_CODECS.register("config", () -> ConfigLoadCondition.CODEC);
 
     public static final Supplier<MenuType<NetheriteHopperScreenHandler>> NETHERITE_HOPPER_MENU =
             MENUS.register("netherite_hopper", () -> IMenuTypeExtension.create(
@@ -250,6 +259,7 @@ public final class NeoForgeModRegistries {
         RECIPE_SERIALIZERS.register(modEventBus);
         RECIPE_TYPES.register(modEventBus);
         CREATIVE_TABS.register(modEventBus);
+        CONDITION_CODECS.register(modEventBus);
     }
 
     public static void assignStaticFields() {

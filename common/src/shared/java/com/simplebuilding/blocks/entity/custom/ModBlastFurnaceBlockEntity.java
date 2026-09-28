@@ -106,13 +106,14 @@ public class ModBlastFurnaceBlockEntity extends AbstractFurnaceBlockEntity {
         if (isBurning && cookTime > 0 && totalTime > 0) {
             int extraTicks = 0;
 
+            // Tempo je Stufe aus server.machines (Standard 2x/4x/8x = 1/3/7 Zusatzticks).
             if (state.is(ModBlocks.NETHERITE_BLAST_FURNACE)) {
-                extraTicks = 3;
+                extraTicks = com.simplebuilding.config.ServerTuning.furnaceExtraTicks(2);
             } else if (state.is(ModBlocks.REINFORCED_BLAST_FURNACE)) {
-                extraTicks = 1;
+                extraTicks = com.simplebuilding.config.ServerTuning.furnaceExtraTicks(1);
             } else if (state.is(ModBlocks.ENDERITE_BLAST_FURNACE)) {
                 // Enderit-Stufe: 1 + 7 = achtfache Geschwindigkeit, ebenfalls ohne Brennstoffkosten.
-                extraTicks = 7;
+                extraTicks = com.simplebuilding.config.ServerTuning.furnaceExtraTicks(3);
             }
 
             if (extraTicks > 0) {

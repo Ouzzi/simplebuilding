@@ -507,7 +507,109 @@ public final class ConfigOptionTests {
             "worldGen.enableLootTableChanges boolean=true",
             "worldGen.buildingCoreLootChanceMultiplier double=1.0",
             "worldGen.enableVillagerTrades boolean=true",
-            "worldGen.enableWanderingTrades boolean=true");
+            "worldGen.enableWanderingTrades boolean=true",
+            // Reiter "Server & Modpack Tuning" (2026-09-28)
+            "root.server group:ServerTuningConfig",
+            "server.features group:Features",
+            "server.chunkLoaders group:ChunkLoaders",
+            "server.dimensionLocks group:DimensionLocks",
+            "server.laser group:Laser",
+            "server.oreGeneration group:OreGeneration",
+            "server.pads group:Pads",
+            "server.charges group:Charges",
+            "server.tools group:Tools",
+            "server.machines group:Machines",
+            "server.oreDetector group:OreDetector",
+            "server.loot group:Loot",
+            "server.blueprint group:Blueprint",
+            "server.trimStrengths group:TrimStrengths",
+            "server.features.airJump boolean=true",
+            "server.features.dynamicLight boolean=true",
+            "server.features.backpack boolean=true",
+            "server.features.attractor boolean=true",
+            "server.features.echoSounder boolean=true",
+            "server.features.blueprint boolean=true",
+            "server.features.oreDetector boolean=true",
+            "server.features.levitatingBlocks boolean=true",
+            "server.chunkLoaders.requireOwnerOnline boolean=true",
+            "server.dimensionLocks.chunkLoaderBlockedDimensions String=",
+            "server.dimensionLocks.flypadBlockedDimensions String=",
+            "server.dimensionLocks.echoSounderBlockedDimensions String=",
+            "server.laser.igniteFlammables boolean=true",
+            "server.laser.igniteTnt boolean=true",
+            "server.laser.igniteEntities boolean=true",
+            "server.oreGeneration.endOres boolean=true",
+            "server.oreGeneration.astralitOre boolean=true",
+            "server.oreGeneration.nihilitOre boolean=true",
+            "server.pads.strangerPadBreakSeconds int=60",
+            "server.pads.strangerPlateBreakSeconds int=10",
+            "server.charges.lensMaxCharge int=640",
+            "server.charges.rotatorMaxCharge int=1024",
+            "server.charges.echoSounderMaxCharge int=1500",
+            "server.tools.sledgehammerUpgradeSeconds int=5",
+            "server.tools.reinforcedUpgradeDamagePerHit int=2",
+            "server.tools.netheriteUpgradeDamagePerHit int=4",
+            "server.tools.enderiteUpgradeDamagePerHit int=10",
+            "server.tools.stoneChiselCooldownTicks int=30",
+            "server.tools.copperChiselCooldownTicks int=25",
+            "server.tools.ironChiselCooldownTicks int=25",
+            "server.tools.goldChiselCooldownTicks int=20",
+            "server.tools.diamondChiselCooldownTicks int=10",
+            "server.tools.netheriteChiselCooldownTicks int=5",
+            "server.tools.enderiteChiselCooldownTicks int=5",
+            "server.machines.reinforcedHopperSpeed int=2",
+            "server.machines.netheriteHopperSpeed int=4",
+            "server.machines.enderiteHopperSpeed int=8",
+            "server.machines.reinforcedFurnaceSpeed int=2",
+            "server.machines.netheriteFurnaceSpeed int=4",
+            "server.machines.enderiteFurnaceSpeed int=8",
+            "server.oreDetector.rangeMultiplier double=1.0",
+            "server.oreDetector.scanIntervalTicks int=20",
+            "server.loot.globalLootMultiplier double=1.0",
+            "server.loot.strongholdLoot boolean=true",
+            "server.loot.endCityLoot boolean=true",
+            "server.loot.ancientCityLoot boolean=true",
+            "server.loot.bastionLoot boolean=true",
+            "server.loot.netherFortressLoot boolean=true",
+            "server.loot.pillagerOutpostLoot boolean=true",
+            "server.loot.woodlandMansionLoot boolean=true",
+            "server.loot.buriedTreasureLoot boolean=true",
+            "server.loot.dungeonLoot boolean=true",
+            "server.loot.shipwreckLoot boolean=true",
+            "server.loot.iglooLoot boolean=true",
+            "server.loot.mineshaftLoot boolean=true",
+            "server.loot.trialChambersLoot boolean=true",
+            "server.loot.ruinedPortalLoot boolean=true",
+            "server.loot.fishingLoot boolean=true",
+            "server.loot.tradePriceMultiplier double=1.0",
+            "server.blueprint.maxBlocksPerTick int=32768",
+            "server.trimStrengths.projectileProtection double=1.0",
+            "server.trimStrengths.magicProtection double=1.0",
+            "server.trimStrengths.thornProtection double=1.0",
+            "server.trimStrengths.blastProtection double=1.0",
+            "server.trimStrengths.drowningProtection double=1.0",
+            "server.trimStrengths.breathSaving double=1.0",
+            "server.trimStrengths.allProtection double=1.0",
+            "server.trimStrengths.sonicProtection double=1.0",
+            "server.trimStrengths.stealth double=1.0",
+            "server.trimStrengths.fireProtection double=1.0",
+            "server.trimStrengths.witherProtection double=1.0",
+            "server.trimStrengths.witherShortening double=1.0",
+            "server.trimStrengths.dragonBreathProtection double=1.0",
+            "server.trimStrengths.fallProtection double=1.0",
+            "server.trimStrengths.windChargeProtection double=1.0",
+            "server.trimStrengths.lightningProtection double=1.0",
+            "server.trimStrengths.walkingSpeed double=1.0",
+            "server.trimStrengths.swimmingSpeed double=1.0",
+            "server.trimStrengths.sprintHunger double=1.0",
+            "server.trimStrengths.experience double=1.0",
+            "server.trimStrengths.luck double=1.0",
+            "server.trimStrengths.blockReach double=1.0",
+            "server.trimStrengths.physicalProtection double=1.0",
+            "server.trimStrengths.illagerProtection double=1.0",
+            "server.trimStrengths.witherPiercingProtection double=1.0",
+            "server.trimStrengths.healingChance double=1.0",
+            "server.trimStrengths.knockbackResistance double=1.0");
 
     // =====================================================================================
     // tools.invertBundleInteractions
@@ -881,6 +983,19 @@ public final class ConfigOptionTests {
             }
         }
 
+        // Reiter "Server & Modpack Tuning" mit allen Gruppen (2026-09-28).
+        collectOptions(found, problems, "server", com.simplebuilding.config.ServerTuningConfig.class, defaults.server);
+        for (Field group : com.simplebuilding.config.ServerTuningConfig.class.getFields()) {
+            if (Modifier.isStatic(group.getModifiers())) {
+                continue;
+            }
+            try {
+                collectOptions(found, problems, "server." + group.getName(), group.getType(), group.get(defaults.server));
+            } catch (IllegalAccessException e) {
+                problems.add("server." + group.getName() + " could not be read (" + e + ")");
+            }
+        }
+
         helper.assertTrue(problems.isEmpty(),
                 "config options could not be read by reflection:\n" + String.join("\n", problems));
         Assertions.valueEqual(helper, found, new TreeSet<>(EXPECTED_OPTIONS),
@@ -915,7 +1030,7 @@ public final class ConfigOptionTests {
 
     /** The tabs of the config screen, in the order Cloth shows them (first field of each wins). */
     private static final List<String> EXPECTED_TABS =
-            List.of("building", "equipment", "pistons", "tweaks", "world", "visuals", "advanced");
+            List.of("building", "equipment", "pistons", "tweaks", "world", "visuals", "advanced", "server");
 
     /**
      * Fields that are persisted but deliberately not options: legacy keys read only for a
@@ -2367,7 +2482,9 @@ public final class ConfigOptionTests {
                 into.add(name + " " + type + " runtime-only(static)");
             } else if (field.getType().getEnclosingClass() == SimplebuildingConfig.class
                     || field.getType() == TweaksConfig.class
-                    || field.getType().getEnclosingClass() == TweaksConfig.class) {
+                    || field.getType().getEnclosingClass() == TweaksConfig.class
+                    || field.getType() == com.simplebuilding.config.ServerTuningConfig.class
+                    || field.getType().getEnclosingClass() == com.simplebuilding.config.ServerTuningConfig.class) {
                 into.add(name + " group:" + type);
             } else {
                 try {

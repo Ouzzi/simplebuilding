@@ -82,7 +82,11 @@ public final class SimplebuildingJeiPlugin implements IModPlugin {
         // Infoseiten der aus Simple Tweaks uebernommenen Pads, Platten und Werkzeuge.
         for (Map.Entry<String, List<ItemLike>> family : TweaksJeiInfo.families().entrySet()) {
             List<ItemStack> stacks = family.getValue().stream().map(ItemStack::new).toList();
-            registration.addItemStackInfo(stacks, Component.translatable(TweaksJeiInfo.KEY_PREFIX + family.getKey()));
+            // Dazu, was dieser Server eingestellt hat (Reiter Server & Modpack Tuning), wo der Text Zahlen nennt.
+            List<Component> lines = new java.util.ArrayList<>();
+            lines.add(Component.translatable(TweaksJeiInfo.KEY_PREFIX + family.getKey()));
+            lines.addAll(com.simplebuilding.config.ServerTuningInfo.jeiLines(family.getKey()));
+            registration.addItemStackInfo(stacks, lines.toArray(new Component[0]));
         }
         // Infoseiten der Gegenstaende ohne JEI-sichtbares Rezept (Loot, Erzabbau, Altbestand).
         for (Map.Entry<String, List<ItemLike>> page : RecipelessJeiInfo.pages().entrySet()) {
