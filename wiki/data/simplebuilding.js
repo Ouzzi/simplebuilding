@@ -485,7 +485,7 @@ window.WIKI_DATA = {
         "summary": "With the chisel you reshape blocks right in the world without breaking them: one right-click turns stone into chiseled stone bricks, sandstone into smooth sandstone or planks into stairs. Higher material tiers unlock further transformations, and sneaking reverses the direction.",
         "details": [
           "Getting started: the Stone Chisel is made from a stick, a cobblestone and two copper nuggets; the Copper, Iron, Gold and Diamond Chisels are built the same way, just with a copper ingot, iron ingot, gold ingot or diamond instead of the cobblestone.",
-          "There are four transformation tiers: stone (sandstone variants, stone, stone slabs), iron/copper (stone bricks, polished stones, tuff, planks -> stairs -> slab), gold/diamond (quartz, tuff bricks, blackstone, basalt, deepslate) and netherite/enderite (the nether brick cycle, resin bricks, chiseled sandstone -> sand); every tier contains all the transformations of the lower ones.",
+          "There are five transformation tiers: stone (sandstone variants, stone, stone slabs), iron/copper (stone bricks, polished stones, tuff, planks -> stairs -> slab), gold/diamond (quartz, tuff bricks, blackstone, basalt, deepslate), netherite (the nether brick cycle, resin bricks, chiseled sandstone -> sand) and enderite (the Astralit, Nihilith and Ender Quartz palettes: polished -> pillar -> bricks -> chiseled -> block, plus their stairs, slabs and walls); every tier contains all the transformations of the lower ones.",
           "Sneak + right-click walks the chain backwards, at a cost of 2 durability instead of 1.",
           "Where you click on the block decides the orientation of the result: the edge of a face (the outer 0.25 blocks) lines pillars and stairs up with that edge (stairs end up facing away from it), while the middle uses the clicked face or your own facing.",
           "After every transformation there is a cooldown (30 ticks on the Stone Chisel down to 5 ticks on netherite and enderite); the Fast Chiseling enchantment shortens it to 70% (level I) or 40% (level II).",
@@ -502,7 +502,7 @@ window.WIKI_DATA = {
         "summary": "Mit dem Meißel formst du Blöcke direkt in der Welt um, ohne sie abzubauen: Ein Rechtsklick macht aus Stein gemeißelte Steinziegel, aus Sandstein glatten Sandstein oder aus Brettern eine Treppe. Höhere Materialstufen schalten weitere Umwandlungen frei, Schleichen dreht die Richtung um.",
         "details": [
           "Einstieg: Der Steinmeißel entsteht aus einem Stock, einem Bruchstein und zwei Kupferklumpen; Kupfer-, Eisen-, Gold- und Diamantmeißel werden gleich gebaut, nur mit Kupferbarren, Eisenbarren, Goldbarren bzw. Diamant statt Bruchstein.",
-          "Es gibt vier Umwandlungsstufen: Stein (Sandstein-Varianten, Stein, Steinstufen), Eisen/Kupfer (Steinziegel, polierte Steine, Tuff, Bretter → Treppe → Stufe), Gold/Diamant (Quarz, Tuff-Ziegel, Schwarzstein, Basalt, Tiefenschiefer) und Netherit/Enderit (Netherziegel-Kreislauf, Harzziegel, gemeißelter Sandstein → Sand); jede Stufe enthält alle Umwandlungen der niedrigeren.",
+          "Es gibt fünf Umwandlungsstufen: Stein (Sandstein-Varianten, Stein, Steinstufen), Eisen/Kupfer (Steinziegel, polierte Steine, Tuff, Bretter → Treppe → Stufe), Gold/Diamant (Quarz, Tuff-Ziegel, Schwarzstein, Basalt, Tiefenschiefer), Netherit (Netherziegel-Kreislauf, Harzziegel, gemeißelter Sandstein → Sand) und Enderit (die Astralit-, Nihilith- und Enderquarz-Paletten: poliert → Säule → Ziegel → gemeißelt → Block, dazu ihre Treppen, Stufen und Mauern); jede Stufe enthält alle Umwandlungen der niedrigeren.",
           "Schleichen + Rechtsklick läuft die Kette rückwärts, kostet dafür 2 statt 1 Haltbarkeit.",
           "Wo du auf den Block klickst, bestimmt die Ausrichtung des Ergebnisses: Der Rand einer Seite (äußere 0,25 Blockbreite) richtet Säulen und Treppen zur Kante aus, die Mitte nutzt die angeklickte Seite bzw. deine Blickrichtung.",
           "Nach jeder Umwandlung gilt eine Abklingzeit (30 Ticks beim Steinmeißel bis 5 Ticks bei Netherit und Enderit); die Verzauberung Schnelles Meißeln verkürzt sie auf 70 % (Stufe I) bzw. 40 % (Stufe II).",
@@ -3990,12 +3990,13 @@ window.WIKI_DATA = {
           "details": [
             "Registered are the Stone Chisel, Copper Chisel, Iron Chisel, Gold Chisel, Diamond Chisel, Netherite Chisel and Enderite Chisel.",
             "Right-clicking a block from the transformation map replaces it with the next block in its chain; sneak + right-click replaces it with the previous block in the chain.",
-            "There are four maps (stone, iron/copper, gold/diamond, netherite/enderite); every higher tier contains all entries of the lower ones, and where the same source block appears twice the higher tier's entry wins (the maps are merged with putAll).",
-            "The Copper Chisel uses the iron map, the Gold Chisel the diamond map and the Enderite Chisel the netherite map; only stone, iron, diamond and netherite have maps of their own.",
+            "There are five maps (stone, iron/copper, gold/diamond, netherite, enderite); every higher tier contains all entries of the lower ones, and where the same source block appears twice the higher tier's entry wins (the maps are merged with putAll).",
+            "The Copper Chisel uses the iron map and the Gold Chisel the diamond map; stone, iron, diamond, netherite and enderite have maps of their own.",
             "Stone map: Smooth Sandstone -> Cut Sandstone -> Sandstone -> Chiseled Sandstone (the same for red sandstone); Sandstone Stairs -> Smooth Sandstone Stairs; Sandstone Slab -> Cut Sandstone Slab -> Smooth Sandstone Slab (red likewise); Stone -> Chiseled Stone Bricks; Smooth Stone Slab -> Stone Slab; Stone Stairs -> Cobblestone Stairs.",
             "Iron/copper map adds: Chiseled Stone Bricks -> Stone Bricks -> Cracked Stone Bricks; Stone Brick Stairs and Slab -> mossy variant; Polished Andesite, Diorite and Granite -> unpolished variant (stairs and slabs too); Polished Tuff -> Tuff (stairs and slabs too); Planks -> Stairs -> Slab for oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, bamboo and pale oak.",
             "Gold/diamond map adds: Smooth Quartz Block -> Quartz Pillar -> Quartz Bricks -> Chiseled Quartz Block -> Block of Quartz (Smooth Quartz Stairs -> Quartz Stairs, slabs likewise); Polished Tuff -> Tuff -> Chiseled Tuff -> Tuff Bricks (Tuff Stairs -> Tuff Brick Stairs -> Polished Tuff Stairs, slabs likewise); Polished Blackstone -> Blackstone -> Chiseled Polished Blackstone -> Polished Blackstone Bricks -> Cracked Polished Blackstone Bricks (stairs/slabs: polished -> blackstone -> polished bricks); Basalt -> Smooth Basalt -> Polished Basalt; Polished Deepslate -> Chiseled Deepslate -> Deepslate Bricks -> Cracked Deepslate Bricks -> Deepslate Tiles -> Cracked Deepslate Tiles -> Deepslate -> Cobbled Deepslate (stairs/slabs: polished -> bricks -> tiles -> cobbled); Cracked Stone Bricks -> Cobblestone.",
-            "Netherite/enderite map adds: Netherrack -> Nether Bricks -> Cracked Nether Bricks -> Chiseled Nether Bricks -> Netherrack (a cycle); Resin Bricks -> Chiseled Resin Bricks; Chiseled Sandstone -> Sand; Chiseled Red Sandstone -> Red Sand.",
+            "Netherite map adds: Netherrack -> Nether Bricks -> Cracked Nether Bricks -> Chiseled Nether Bricks -> Netherrack (a cycle); Resin Bricks -> Chiseled Resin Bricks; Chiseled Sandstone -> Sand; Chiseled Red Sandstone -> Red Sand.",
+            "Enderite map adds (only the Enderite Chisel): Polished Astralit -> Astralit Pillar -> Astralit Bricks -> Chiseled Astralit Bricks -> Block of Astralit, the same chain for Nihilith and for Ender Quartz (Polished Ender Quartz -> Ender Quartz Pillar -> Ender Quartz Bricks -> Chiseled Ender Quartz Bricks -> Block of Ender Quartz); Polished Astralit/Nihilith Stairs, Slab and Wall -> the brick variant; Polished Ender Quartz Stairs and Slab -> Ender Quartz Brick Stairs/Slab -> Ender Quartz Stairs/Slab, Polished Ender Quartz Wall -> Ender Quartz Brick Wall. Every block in these chains comes out of the stonecutter 1:1 from the same base block, so the chisel neither gains nor loses material.",
             "With the Constructor's Touch enchantment each tier gains extra entries - stone: Mud Bricks -> Packed Mud -> Mud, Cobblestone -> Mossy Cobblestone (stairs and slab too), nine log types -> stripped log (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak); iron: Bricks -> Mud Bricks (stairs and slab too), nine wood types (bark blocks) -> stripped wood, crimson and warped planks -> stairs -> slab; diamond: Prismarine -> Prismarine Bricks (stairs and slab too), Smooth Stone -> Stone (Smooth Stone Slab -> Stone Slab as well), End Stone -> End Stone Bricks, Purpur Pillar -> Purpur Block, Block of Copper -> Cut Copper -> Chiseled Copper -> Copper Grate, dead coral blocks in a cycle (brain -> bubble -> fire -> horn -> tube -> brain), living coral blocks in a cycle; netherite: Polished Diorite -> Diorite -> Calcite -> Dripstone Block, Obsidian -> Crying Obsidian, crimson and warped stems -> stripped, each of the 16 concrete colors -> concrete powder of the same color.",
             "Block properties such as waterlogged, or a slab's type (top, bottom, double), are carried over to the new block when that block has the same property.",
             "Pillar blocks (axis) and stairs (facing and top/bottom half) are re-oriented after the transformation from the click position and the player's facing; the edge zone of a block face is a strip 0.25 blocks wide. A further code branch for blocks with a six-way FACING exists, but it applies to no target block in the maps.",
@@ -4031,8 +4032,8 @@ window.WIKI_DATA = {
             "Iron Chisel: 256 durability, 25 tick cooldown, enchantability 14, iron/copper map.",
             "Gold Chisel: 128 durability, 20 tick cooldown, enchantability 22, gold/diamond map.",
             "Diamond Chisel: 392 durability, 10 tick cooldown, enchantability 10, gold/diamond map.",
-            "Netherite Chisel: 512 durability, 5 tick cooldown, enchantability 15, netherite/enderite map.",
-            "Enderite Chisel: 600 durability, 5 tick cooldown, enchantability 18, material base speed 10.0, netherite/enderite map.",
+            "Netherite Chisel: 512 durability, 5 tick cooldown, enchantability 15, netherite map.",
+            "Enderite Chisel: 600 durability, 5 tick cooldown, enchantability 18, material base speed 10.0, enderite map (netherite map plus the End palettes).",
             "On every tier the mining speed also depends on the base speed of the tool material, and is halved. (For the cooldowns above: 20 ticks = 1 second.)"
           ],
           "caveats": [
@@ -4052,12 +4053,13 @@ window.WIKI_DATA = {
           "details": [
             "Registriert sind Steinmeißel, Kupfermeißel, Eisenmeißel, Goldmeißel, Diamantmeißel, Netheritmeißel und Enderitmeißel.",
             "Rechtsklick auf einen Block aus der Umwandlungstabelle ersetzt ihn durch den nächsten Block seiner Kette; Schleichen + Rechtsklick ersetzt ihn durch den vorherigen Block der Kette.",
-            "Es gibt vier Tabellen (Stein, Eisen/Kupfer, Gold/Diamant, Netherit/Enderit); jede höhere Stufe enthält alle Einträge der niedrigeren, und bei gleichem Ausgangsblock gilt der Eintrag der höheren Stufe (die Tabellen werden per putAll zusammengeführt).",
-            "Der Kupfermeißel nutzt die Eisen-Tabelle, der Goldmeißel die Diamant-Tabelle und der Enderit-Meißel die Netherit-Tabelle; eigene Tabellen haben nur Stein, Eisen, Diamant und Netherit.",
+            "Es gibt fünf Tabellen (Stein, Eisen/Kupfer, Gold/Diamant, Netherit, Enderit); jede höhere Stufe enthält alle Einträge der niedrigeren, und bei gleichem Ausgangsblock gilt der Eintrag der höheren Stufe (die Tabellen werden per putAll zusammengeführt).",
+            "Der Kupfermeißel nutzt die Eisen-Tabelle, der Goldmeißel die Diamant-Tabelle; eigene Tabellen haben Stein, Eisen, Diamant, Netherit und Enderit.",
             "Stein-Tabelle: Glatter Sandstein → Geschnittener Sandstein → Sandstein → Gemeißelter Sandstein (ebenso für roten Sandstein); Sandsteintreppe → Glatte Sandsteintreppe; Sandsteinstufe → Geschnittene Sandsteinstufe → Glatte Sandsteinstufe (ebenso rot); Stein → Gemeißelte Steinziegel; Glatte Steinstufe → Steinstufe; Steintreppe → Bruchsteintreppe.",
             "Eisen-/Kupfer-Tabelle zusätzlich: Gemeißelte Steinziegel → Steinziegel → Rissige Steinziegel; Steinziegeltreppe und -stufe → bemooste Variante; Polierter Andesit, Diorit und Granit → unpolierte Variante (auch Treppen und Stufen); Polierter Tuff → Tuff (auch Treppen und Stufen); Bretter → Treppe → Stufe für Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Bambus und Blasseiche.",
             "Gold-/Diamant-Tabelle zusätzlich: Glatter Quarzblock → Quarzsäule → Quarzziegel → Gemeißelter Quarzblock → Quarzblock (Glatte Quarztreppe → Quarztreppe, Stufen analog); Polierter Tuff → Tuff → Gemeißelter Tuff → Tuffziegel (Tufftreppe → Tuffziegeltreppe → Polierte Tufftreppe, Stufen analog); Polierter Schwarzstein → Schwarzstein → Gemeißelter polierter Schwarzstein → Polierte Schwarzsteinziegel → Rissige polierte Schwarzsteinziegel (Treppen/Stufen: poliert → Schwarzstein → polierte Ziegel); Basalt → Glatter Basalt → Polierter Basalt; Polierter Tiefenschiefer → Gemeißelter Tiefenschiefer → Tiefenschieferziegel → Rissige Tiefenschieferziegel → Tiefenschieferfliesen → Rissige Tiefenschieferfliesen → Tiefenschiefer → Bruchtiefenschiefer (Treppen/Stufen: poliert → Ziegel → Fliesen → Bruchtiefenschiefer); Rissige Steinziegel → Bruchstein.",
-            "Netherit-/Enderit-Tabelle zusätzlich: Netherrack → Netherziegel → Rissige Netherziegel → Gemeißelte Netherziegel → Netherrack (Kreislauf); Harzziegel → Gemeißelte Harzziegel; Gemeißelter Sandstein → Sand; Gemeißelter roter Sandstein → Roter Sand.",
+            "Netherit-Tabelle zusätzlich: Netherrack → Netherziegel → Rissige Netherziegel → Gemeißelte Netherziegel → Netherrack (Kreislauf); Harzziegel → Gemeißelte Harzziegel; Gemeißelter Sandstein → Sand; Gemeißelter roter Sandstein → Roter Sand.",
+            "Enderit-Tabelle zusätzlich (nur der Enderitmeißel): Polierter Astralit → Astralit-Säule → Astralit-Ziegel → Gemeißelte Astralit-Ziegel → Astralitblock, dieselbe Kette für Nihilith und für Enderquarz (Polierter Enderquarz → Enderquarzsäule → Enderquarzziegel → Gemeißelte Enderquarzziegel → Enderquarzblock); Treppe, Stufe und Mauer aus poliertem Astralit/Nihilith → Ziegel-Variante; Treppe und Stufe aus poliertem Enderquarz → Enderquarzziegel-Treppe/-Stufe → Enderquarztreppe/-stufe, Mauer aus poliertem Enderquarz → Enderquarzziegelmauer. Jeder Block dieser Ketten kommt 1:1 aus der Steinsäge vom selben Grundblock, der Meißel gewinnt oder verliert also kein Material.",
             "Mit der Verzauberung Berührung des Konstrukteurs kommen je Stufe Zusatz-Einträge dazu – Stein: Schlammziegel → Gepackter Schlamm → Schlamm, Bruchstein → Bemooster Bruchstein (auch Treppe/Stufe), neun Stammarten → entrindeter Stamm (Eiche, Fichte, Birke, Tropenbaum, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche); Eisen: Ziegel → Schlammziegel (auch Treppe/Stufe), neun Holzarten (Rindenblöcke) → entrindetes Holz, Karmesin- und Wirrbretter → Treppe → Stufe; Diamant: Prismarin → Prismarinziegel (auch Treppe/Stufe), Glatter Stein → Stein (auch Stufe), Endstein → Endsteinziegel, Purpursäule → Purpurblock, Kupferblock → Geschnittener Kupferblock → Gemeißelter Kupferblock → Kupfergitter, tote Korallenblöcke im Kreis (Hirn → Blasen → Feuer → Horn → Röhren → Hirn), lebende Korallenblöcke im Kreis; Netherit: Polierter Diorit → Diorit → Kalzit → Tropfsteinblock, Obsidian → Weinender Obsidian, Karmesin- und Wirrstiel → entrindet, jede der 16 Betonfarben → gleichfarbiger Trockenbeton.",
             "Blockeigenschaften wie „mit Wasser gefüllt“ oder die Lage einer Stufe (oben, unten, doppelt) werden auf den neuen Block übernommen, wenn dieser dieselbe Eigenschaft besitzt.",
             "Säulenblöcke (Achse) und Treppen (Richtung und obere/untere Hälfte) werden nach der Umwandlung aus der Klickposition und der Blickrichtung des Spielers neu ausgerichtet; als Randbereich einer Blockseite gilt ein Streifen von 0,25 Blockbreite. Ein weiterer Code-Zweig für Blöcke mit sechsseitiger Blickrichtung (FACING) existiert, trifft aber auf keinen Zielblock der Tabellen zu.",
@@ -4093,8 +4095,8 @@ window.WIKI_DATA = {
             "Eisenmeißel: Haltbarkeit 256, Abklingzeit 25 Ticks, Verzauberbarkeit 14, Tabelle Eisen/Kupfer.",
             "Goldmeißel: Haltbarkeit 128, Abklingzeit 20 Ticks, Verzauberbarkeit 22, Tabelle Gold/Diamant.",
             "Diamantmeißel: Haltbarkeit 392, Abklingzeit 10 Ticks, Verzauberbarkeit 10, Tabelle Gold/Diamant.",
-            "Netheritmeißel: Haltbarkeit 512, Abklingzeit 5 Ticks, Verzauberbarkeit 15, Tabelle Netherit/Enderit.",
-            "Enderitmeißel: Haltbarkeit 600, Abklingzeit 5 Ticks, Verzauberbarkeit 18, Material-Grundgeschwindigkeit 10,0, Tabelle Netherit/Enderit.",
+            "Netheritmeißel: Haltbarkeit 512, Abklingzeit 5 Ticks, Verzauberbarkeit 15, Tabelle Netherit.",
+            "Enderitmeißel: Haltbarkeit 600, Abklingzeit 5 Ticks, Verzauberbarkeit 18, Material-Grundgeschwindigkeit 10,0, Tabelle Enderit (Netherit-Tabelle plus die End-Paletten).",
             "Die Abbaugeschwindigkeit hängt bei allen Stufen zusätzlich von der Grundgeschwindigkeit des jeweiligen Werkzeugmaterials ab und wird halbiert (20 Ticks = 1 Sekunde)."
           ],
           "caveats": [
@@ -4831,12 +4833,13 @@ window.WIKI_DATA = {
           "details": [
             "Registered are the Stone Chisel, Copper Chisel, Iron Chisel, Gold Chisel, Diamond Chisel, Netherite Chisel and Enderite Chisel.",
             "Right-clicking a block from the transformation map replaces it with the next block in its chain; sneak + right-click replaces it with the previous block in the chain.",
-            "There are four maps (stone, iron/copper, gold/diamond, netherite/enderite); every higher tier contains all entries of the lower ones, and where the same source block appears twice the higher tier's entry wins (the maps are merged with putAll).",
-            "The Copper Chisel uses the iron map, the Gold Chisel the diamond map and the Enderite Chisel the netherite map; only stone, iron, diamond and netherite have maps of their own.",
+            "There are five maps (stone, iron/copper, gold/diamond, netherite, enderite); every higher tier contains all entries of the lower ones, and where the same source block appears twice the higher tier's entry wins (the maps are merged with putAll).",
+            "The Copper Chisel uses the iron map and the Gold Chisel the diamond map; stone, iron, diamond, netherite and enderite have maps of their own.",
             "Stone map: Smooth Sandstone -> Cut Sandstone -> Sandstone -> Chiseled Sandstone (the same for red sandstone); Sandstone Stairs -> Smooth Sandstone Stairs; Sandstone Slab -> Cut Sandstone Slab -> Smooth Sandstone Slab (red likewise); Stone -> Chiseled Stone Bricks; Smooth Stone Slab -> Stone Slab; Stone Stairs -> Cobblestone Stairs.",
             "Iron/copper map adds: Chiseled Stone Bricks -> Stone Bricks -> Cracked Stone Bricks; Stone Brick Stairs and Slab -> mossy variant; Polished Andesite, Diorite and Granite -> unpolished variant (stairs and slabs too); Polished Tuff -> Tuff (stairs and slabs too); Planks -> Stairs -> Slab for oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, bamboo and pale oak.",
             "Gold/diamond map adds: Smooth Quartz Block -> Quartz Pillar -> Quartz Bricks -> Chiseled Quartz Block -> Block of Quartz (Smooth Quartz Stairs -> Quartz Stairs, slabs likewise); Polished Tuff -> Tuff -> Chiseled Tuff -> Tuff Bricks (Tuff Stairs -> Tuff Brick Stairs -> Polished Tuff Stairs, slabs likewise); Polished Blackstone -> Blackstone -> Chiseled Polished Blackstone -> Polished Blackstone Bricks -> Cracked Polished Blackstone Bricks (stairs/slabs: polished -> blackstone -> polished bricks); Basalt -> Smooth Basalt -> Polished Basalt; Polished Deepslate -> Chiseled Deepslate -> Deepslate Bricks -> Cracked Deepslate Bricks -> Deepslate Tiles -> Cracked Deepslate Tiles -> Deepslate -> Cobbled Deepslate (stairs/slabs: polished -> bricks -> tiles -> cobbled); Cracked Stone Bricks -> Cobblestone.",
-            "Netherite/enderite map adds: Netherrack -> Nether Bricks -> Cracked Nether Bricks -> Chiseled Nether Bricks -> Netherrack (a cycle); Resin Bricks -> Chiseled Resin Bricks; Chiseled Sandstone -> Sand; Chiseled Red Sandstone -> Red Sand.",
+            "Netherite map adds: Netherrack -> Nether Bricks -> Cracked Nether Bricks -> Chiseled Nether Bricks -> Netherrack (a cycle); Resin Bricks -> Chiseled Resin Bricks; Chiseled Sandstone -> Sand; Chiseled Red Sandstone -> Red Sand.",
+            "Enderite map adds (only the Enderite Chisel): Polished Astralit -> Astralit Pillar -> Astralit Bricks -> Chiseled Astralit Bricks -> Block of Astralit, the same chain for Nihilith and for Ender Quartz (Polished Ender Quartz -> Ender Quartz Pillar -> Ender Quartz Bricks -> Chiseled Ender Quartz Bricks -> Block of Ender Quartz); Polished Astralit/Nihilith Stairs, Slab and Wall -> the brick variant; Polished Ender Quartz Stairs and Slab -> Ender Quartz Brick Stairs/Slab -> Ender Quartz Stairs/Slab, Polished Ender Quartz Wall -> Ender Quartz Brick Wall. Every block in these chains comes out of the stonecutter 1:1 from the same base block, so the chisel neither gains nor loses material.",
             "With the Constructor's Touch enchantment each tier gains extra entries - stone: Mud Bricks -> Packed Mud -> Mud, Cobblestone -> Mossy Cobblestone (stairs and slab too), nine log types -> stripped log (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak); iron: Bricks -> Mud Bricks (stairs and slab too), nine wood types (bark blocks) -> stripped wood, crimson and warped planks -> stairs -> slab; diamond: Prismarine -> Prismarine Bricks (stairs and slab too), Smooth Stone -> Stone (Smooth Stone Slab -> Stone Slab as well), End Stone -> End Stone Bricks, Purpur Pillar -> Purpur Block, Block of Copper -> Cut Copper -> Chiseled Copper -> Copper Grate, dead coral blocks in a cycle (brain -> bubble -> fire -> horn -> tube -> brain), living coral blocks in a cycle; netherite: Polished Diorite -> Diorite -> Calcite -> Dripstone Block, Obsidian -> Crying Obsidian, crimson and warped stems -> stripped, each of the 16 concrete colors -> concrete powder of the same color.",
             "Block properties such as waterlogged, or a slab's type (top, bottom, double), are carried over to the new block when that block has the same property.",
             "Pillar blocks (axis) and stairs (facing and top/bottom half) are re-oriented after the transformation from the click position and the player's facing; the edge zone of a block face is a strip 0.25 blocks wide. A further code branch for blocks with a six-way FACING exists, but it applies to no target block in the maps.",
@@ -4872,8 +4875,8 @@ window.WIKI_DATA = {
             "Iron Chisel: 256 durability, 25 tick cooldown, enchantability 14, iron/copper map.",
             "Gold Chisel: 128 durability, 20 tick cooldown, enchantability 22, gold/diamond map.",
             "Diamond Chisel: 392 durability, 10 tick cooldown, enchantability 10, gold/diamond map.",
-            "Netherite Chisel: 512 durability, 5 tick cooldown, enchantability 15, netherite/enderite map.",
-            "Enderite Chisel: 600 durability, 5 tick cooldown, enchantability 18, material base speed 10.0, netherite/enderite map.",
+            "Netherite Chisel: 512 durability, 5 tick cooldown, enchantability 15, netherite map.",
+            "Enderite Chisel: 600 durability, 5 tick cooldown, enchantability 18, material base speed 10.0, enderite map (netherite map plus the End palettes).",
             "On every tier the mining speed also depends on the base speed of the tool material, and is halved. (For the cooldowns above: 20 ticks = 1 second.)"
           ],
           "caveats": [
@@ -4893,12 +4896,13 @@ window.WIKI_DATA = {
           "details": [
             "Registriert sind Steinmeißel, Kupfermeißel, Eisenmeißel, Goldmeißel, Diamantmeißel, Netheritmeißel und Enderitmeißel.",
             "Rechtsklick auf einen Block aus der Umwandlungstabelle ersetzt ihn durch den nächsten Block seiner Kette; Schleichen + Rechtsklick ersetzt ihn durch den vorherigen Block der Kette.",
-            "Es gibt vier Tabellen (Stein, Eisen/Kupfer, Gold/Diamant, Netherit/Enderit); jede höhere Stufe enthält alle Einträge der niedrigeren, und bei gleichem Ausgangsblock gilt der Eintrag der höheren Stufe (die Tabellen werden per putAll zusammengeführt).",
-            "Der Kupfermeißel nutzt die Eisen-Tabelle, der Goldmeißel die Diamant-Tabelle und der Enderit-Meißel die Netherit-Tabelle; eigene Tabellen haben nur Stein, Eisen, Diamant und Netherit.",
+            "Es gibt fünf Tabellen (Stein, Eisen/Kupfer, Gold/Diamant, Netherit, Enderit); jede höhere Stufe enthält alle Einträge der niedrigeren, und bei gleichem Ausgangsblock gilt der Eintrag der höheren Stufe (die Tabellen werden per putAll zusammengeführt).",
+            "Der Kupfermeißel nutzt die Eisen-Tabelle, der Goldmeißel die Diamant-Tabelle; eigene Tabellen haben Stein, Eisen, Diamant, Netherit und Enderit.",
             "Stein-Tabelle: Glatter Sandstein → Geschnittener Sandstein → Sandstein → Gemeißelter Sandstein (ebenso für roten Sandstein); Sandsteintreppe → Glatte Sandsteintreppe; Sandsteinstufe → Geschnittene Sandsteinstufe → Glatte Sandsteinstufe (ebenso rot); Stein → Gemeißelte Steinziegel; Glatte Steinstufe → Steinstufe; Steintreppe → Bruchsteintreppe.",
             "Eisen-/Kupfer-Tabelle zusätzlich: Gemeißelte Steinziegel → Steinziegel → Rissige Steinziegel; Steinziegeltreppe und -stufe → bemooste Variante; Polierter Andesit, Diorit und Granit → unpolierte Variante (auch Treppen und Stufen); Polierter Tuff → Tuff (auch Treppen und Stufen); Bretter → Treppe → Stufe für Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Bambus und Blasseiche.",
             "Gold-/Diamant-Tabelle zusätzlich: Glatter Quarzblock → Quarzsäule → Quarzziegel → Gemeißelter Quarzblock → Quarzblock (Glatte Quarztreppe → Quarztreppe, Stufen analog); Polierter Tuff → Tuff → Gemeißelter Tuff → Tuffziegel (Tufftreppe → Tuffziegeltreppe → Polierte Tufftreppe, Stufen analog); Polierter Schwarzstein → Schwarzstein → Gemeißelter polierter Schwarzstein → Polierte Schwarzsteinziegel → Rissige polierte Schwarzsteinziegel (Treppen/Stufen: poliert → Schwarzstein → polierte Ziegel); Basalt → Glatter Basalt → Polierter Basalt; Polierter Tiefenschiefer → Gemeißelter Tiefenschiefer → Tiefenschieferziegel → Rissige Tiefenschieferziegel → Tiefenschieferfliesen → Rissige Tiefenschieferfliesen → Tiefenschiefer → Bruchtiefenschiefer (Treppen/Stufen: poliert → Ziegel → Fliesen → Bruchtiefenschiefer); Rissige Steinziegel → Bruchstein.",
-            "Netherit-/Enderit-Tabelle zusätzlich: Netherrack → Netherziegel → Rissige Netherziegel → Gemeißelte Netherziegel → Netherrack (Kreislauf); Harzziegel → Gemeißelte Harzziegel; Gemeißelter Sandstein → Sand; Gemeißelter roter Sandstein → Roter Sand.",
+            "Netherit-Tabelle zusätzlich: Netherrack → Netherziegel → Rissige Netherziegel → Gemeißelte Netherziegel → Netherrack (Kreislauf); Harzziegel → Gemeißelte Harzziegel; Gemeißelter Sandstein → Sand; Gemeißelter roter Sandstein → Roter Sand.",
+            "Enderit-Tabelle zusätzlich (nur der Enderitmeißel): Polierter Astralit → Astralit-Säule → Astralit-Ziegel → Gemeißelte Astralit-Ziegel → Astralitblock, dieselbe Kette für Nihilith und für Enderquarz (Polierter Enderquarz → Enderquarzsäule → Enderquarzziegel → Gemeißelte Enderquarzziegel → Enderquarzblock); Treppe, Stufe und Mauer aus poliertem Astralit/Nihilith → Ziegel-Variante; Treppe und Stufe aus poliertem Enderquarz → Enderquarzziegel-Treppe/-Stufe → Enderquarztreppe/-stufe, Mauer aus poliertem Enderquarz → Enderquarzziegelmauer. Jeder Block dieser Ketten kommt 1:1 aus der Steinsäge vom selben Grundblock, der Meißel gewinnt oder verliert also kein Material.",
             "Mit der Verzauberung Berührung des Konstrukteurs kommen je Stufe Zusatz-Einträge dazu – Stein: Schlammziegel → Gepackter Schlamm → Schlamm, Bruchstein → Bemooster Bruchstein (auch Treppe/Stufe), neun Stammarten → entrindeter Stamm (Eiche, Fichte, Birke, Tropenbaum, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche); Eisen: Ziegel → Schlammziegel (auch Treppe/Stufe), neun Holzarten (Rindenblöcke) → entrindetes Holz, Karmesin- und Wirrbretter → Treppe → Stufe; Diamant: Prismarin → Prismarinziegel (auch Treppe/Stufe), Glatter Stein → Stein (auch Stufe), Endstein → Endsteinziegel, Purpursäule → Purpurblock, Kupferblock → Geschnittener Kupferblock → Gemeißelter Kupferblock → Kupfergitter, tote Korallenblöcke im Kreis (Hirn → Blasen → Feuer → Horn → Röhren → Hirn), lebende Korallenblöcke im Kreis; Netherit: Polierter Diorit → Diorit → Kalzit → Tropfsteinblock, Obsidian → Weinender Obsidian, Karmesin- und Wirrstiel → entrindet, jede der 16 Betonfarben → gleichfarbiger Trockenbeton.",
             "Blockeigenschaften wie „mit Wasser gefüllt“ oder die Lage einer Stufe (oben, unten, doppelt) werden auf den neuen Block übernommen, wenn dieser dieselbe Eigenschaft besitzt.",
             "Säulenblöcke (Achse) und Treppen (Richtung und obere/untere Hälfte) werden nach der Umwandlung aus der Klickposition und der Blickrichtung des Spielers neu ausgerichtet; als Randbereich einer Blockseite gilt ein Streifen von 0,25 Blockbreite. Ein weiterer Code-Zweig für Blöcke mit sechsseitiger Blickrichtung (FACING) existiert, trifft aber auf keinen Zielblock der Tabellen zu.",
@@ -4934,8 +4938,8 @@ window.WIKI_DATA = {
             "Eisenmeißel: Haltbarkeit 256, Abklingzeit 25 Ticks, Verzauberbarkeit 14, Tabelle Eisen/Kupfer.",
             "Goldmeißel: Haltbarkeit 128, Abklingzeit 20 Ticks, Verzauberbarkeit 22, Tabelle Gold/Diamant.",
             "Diamantmeißel: Haltbarkeit 392, Abklingzeit 10 Ticks, Verzauberbarkeit 10, Tabelle Gold/Diamant.",
-            "Netheritmeißel: Haltbarkeit 512, Abklingzeit 5 Ticks, Verzauberbarkeit 15, Tabelle Netherit/Enderit.",
-            "Enderitmeißel: Haltbarkeit 600, Abklingzeit 5 Ticks, Verzauberbarkeit 18, Material-Grundgeschwindigkeit 10,0, Tabelle Netherit/Enderit.",
+            "Netheritmeißel: Haltbarkeit 512, Abklingzeit 5 Ticks, Verzauberbarkeit 15, Tabelle Netherit.",
+            "Enderitmeißel: Haltbarkeit 600, Abklingzeit 5 Ticks, Verzauberbarkeit 18, Material-Grundgeschwindigkeit 10,0, Tabelle Enderit (Netherit-Tabelle plus die End-Paletten).",
             "Die Abbaugeschwindigkeit hängt bei allen Stufen zusätzlich von der Grundgeschwindigkeit des jeweiligen Werkzeugmaterials ab und wird halbiert (20 Ticks = 1 Sekunde)."
           ],
           "caveats": [
@@ -6416,12 +6420,13 @@ window.WIKI_DATA = {
           "details": [
             "Registered are the Stone Chisel, Copper Chisel, Iron Chisel, Gold Chisel, Diamond Chisel, Netherite Chisel and Enderite Chisel.",
             "Right-clicking a block from the transformation map replaces it with the next block in its chain; sneak + right-click replaces it with the previous block in the chain.",
-            "There are four maps (stone, iron/copper, gold/diamond, netherite/enderite); every higher tier contains all entries of the lower ones, and where the same source block appears twice the higher tier's entry wins (the maps are merged with putAll).",
-            "The Copper Chisel uses the iron map, the Gold Chisel the diamond map and the Enderite Chisel the netherite map; only stone, iron, diamond and netherite have maps of their own.",
+            "There are five maps (stone, iron/copper, gold/diamond, netherite, enderite); every higher tier contains all entries of the lower ones, and where the same source block appears twice the higher tier's entry wins (the maps are merged with putAll).",
+            "The Copper Chisel uses the iron map and the Gold Chisel the diamond map; stone, iron, diamond, netherite and enderite have maps of their own.",
             "Stone map: Smooth Sandstone -> Cut Sandstone -> Sandstone -> Chiseled Sandstone (the same for red sandstone); Sandstone Stairs -> Smooth Sandstone Stairs; Sandstone Slab -> Cut Sandstone Slab -> Smooth Sandstone Slab (red likewise); Stone -> Chiseled Stone Bricks; Smooth Stone Slab -> Stone Slab; Stone Stairs -> Cobblestone Stairs.",
             "Iron/copper map adds: Chiseled Stone Bricks -> Stone Bricks -> Cracked Stone Bricks; Stone Brick Stairs and Slab -> mossy variant; Polished Andesite, Diorite and Granite -> unpolished variant (stairs and slabs too); Polished Tuff -> Tuff (stairs and slabs too); Planks -> Stairs -> Slab for oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, bamboo and pale oak.",
             "Gold/diamond map adds: Smooth Quartz Block -> Quartz Pillar -> Quartz Bricks -> Chiseled Quartz Block -> Block of Quartz (Smooth Quartz Stairs -> Quartz Stairs, slabs likewise); Polished Tuff -> Tuff -> Chiseled Tuff -> Tuff Bricks (Tuff Stairs -> Tuff Brick Stairs -> Polished Tuff Stairs, slabs likewise); Polished Blackstone -> Blackstone -> Chiseled Polished Blackstone -> Polished Blackstone Bricks -> Cracked Polished Blackstone Bricks (stairs/slabs: polished -> blackstone -> polished bricks); Basalt -> Smooth Basalt -> Polished Basalt; Polished Deepslate -> Chiseled Deepslate -> Deepslate Bricks -> Cracked Deepslate Bricks -> Deepslate Tiles -> Cracked Deepslate Tiles -> Deepslate -> Cobbled Deepslate (stairs/slabs: polished -> bricks -> tiles -> cobbled); Cracked Stone Bricks -> Cobblestone.",
-            "Netherite/enderite map adds: Netherrack -> Nether Bricks -> Cracked Nether Bricks -> Chiseled Nether Bricks -> Netherrack (a cycle); Resin Bricks -> Chiseled Resin Bricks; Chiseled Sandstone -> Sand; Chiseled Red Sandstone -> Red Sand.",
+            "Netherite map adds: Netherrack -> Nether Bricks -> Cracked Nether Bricks -> Chiseled Nether Bricks -> Netherrack (a cycle); Resin Bricks -> Chiseled Resin Bricks; Chiseled Sandstone -> Sand; Chiseled Red Sandstone -> Red Sand.",
+            "Enderite map adds (only the Enderite Chisel): Polished Astralit -> Astralit Pillar -> Astralit Bricks -> Chiseled Astralit Bricks -> Block of Astralit, the same chain for Nihilith and for Ender Quartz (Polished Ender Quartz -> Ender Quartz Pillar -> Ender Quartz Bricks -> Chiseled Ender Quartz Bricks -> Block of Ender Quartz); Polished Astralit/Nihilith Stairs, Slab and Wall -> the brick variant; Polished Ender Quartz Stairs and Slab -> Ender Quartz Brick Stairs/Slab -> Ender Quartz Stairs/Slab, Polished Ender Quartz Wall -> Ender Quartz Brick Wall. Every block in these chains comes out of the stonecutter 1:1 from the same base block, so the chisel neither gains nor loses material.",
             "With the Constructor's Touch enchantment each tier gains extra entries - stone: Mud Bricks -> Packed Mud -> Mud, Cobblestone -> Mossy Cobblestone (stairs and slab too), nine log types -> stripped log (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak); iron: Bricks -> Mud Bricks (stairs and slab too), nine wood types (bark blocks) -> stripped wood, crimson and warped planks -> stairs -> slab; diamond: Prismarine -> Prismarine Bricks (stairs and slab too), Smooth Stone -> Stone (Smooth Stone Slab -> Stone Slab as well), End Stone -> End Stone Bricks, Purpur Pillar -> Purpur Block, Block of Copper -> Cut Copper -> Chiseled Copper -> Copper Grate, dead coral blocks in a cycle (brain -> bubble -> fire -> horn -> tube -> brain), living coral blocks in a cycle; netherite: Polished Diorite -> Diorite -> Calcite -> Dripstone Block, Obsidian -> Crying Obsidian, crimson and warped stems -> stripped, each of the 16 concrete colors -> concrete powder of the same color.",
             "Block properties such as waterlogged, or a slab's type (top, bottom, double), are carried over to the new block when that block has the same property.",
             "Pillar blocks (axis) and stairs (facing and top/bottom half) are re-oriented after the transformation from the click position and the player's facing; the edge zone of a block face is a strip 0.25 blocks wide. A further code branch for blocks with a six-way FACING exists, but it applies to no target block in the maps.",
@@ -6457,8 +6462,8 @@ window.WIKI_DATA = {
             "Iron Chisel: 256 durability, 25 tick cooldown, enchantability 14, iron/copper map.",
             "Gold Chisel: 128 durability, 20 tick cooldown, enchantability 22, gold/diamond map.",
             "Diamond Chisel: 392 durability, 10 tick cooldown, enchantability 10, gold/diamond map.",
-            "Netherite Chisel: 512 durability, 5 tick cooldown, enchantability 15, netherite/enderite map.",
-            "Enderite Chisel: 600 durability, 5 tick cooldown, enchantability 18, material base speed 10.0, netherite/enderite map.",
+            "Netherite Chisel: 512 durability, 5 tick cooldown, enchantability 15, netherite map.",
+            "Enderite Chisel: 600 durability, 5 tick cooldown, enchantability 18, material base speed 10.0, enderite map (netherite map plus the End palettes).",
             "On every tier the mining speed also depends on the base speed of the tool material, and is halved. (For the cooldowns above: 20 ticks = 1 second.)"
           ],
           "caveats": [
@@ -6478,12 +6483,13 @@ window.WIKI_DATA = {
           "details": [
             "Registriert sind Steinmeißel, Kupfermeißel, Eisenmeißel, Goldmeißel, Diamantmeißel, Netheritmeißel und Enderitmeißel.",
             "Rechtsklick auf einen Block aus der Umwandlungstabelle ersetzt ihn durch den nächsten Block seiner Kette; Schleichen + Rechtsklick ersetzt ihn durch den vorherigen Block der Kette.",
-            "Es gibt vier Tabellen (Stein, Eisen/Kupfer, Gold/Diamant, Netherit/Enderit); jede höhere Stufe enthält alle Einträge der niedrigeren, und bei gleichem Ausgangsblock gilt der Eintrag der höheren Stufe (die Tabellen werden per putAll zusammengeführt).",
-            "Der Kupfermeißel nutzt die Eisen-Tabelle, der Goldmeißel die Diamant-Tabelle und der Enderit-Meißel die Netherit-Tabelle; eigene Tabellen haben nur Stein, Eisen, Diamant und Netherit.",
+            "Es gibt fünf Tabellen (Stein, Eisen/Kupfer, Gold/Diamant, Netherit, Enderit); jede höhere Stufe enthält alle Einträge der niedrigeren, und bei gleichem Ausgangsblock gilt der Eintrag der höheren Stufe (die Tabellen werden per putAll zusammengeführt).",
+            "Der Kupfermeißel nutzt die Eisen-Tabelle, der Goldmeißel die Diamant-Tabelle; eigene Tabellen haben Stein, Eisen, Diamant, Netherit und Enderit.",
             "Stein-Tabelle: Glatter Sandstein → Geschnittener Sandstein → Sandstein → Gemeißelter Sandstein (ebenso für roten Sandstein); Sandsteintreppe → Glatte Sandsteintreppe; Sandsteinstufe → Geschnittene Sandsteinstufe → Glatte Sandsteinstufe (ebenso rot); Stein → Gemeißelte Steinziegel; Glatte Steinstufe → Steinstufe; Steintreppe → Bruchsteintreppe.",
             "Eisen-/Kupfer-Tabelle zusätzlich: Gemeißelte Steinziegel → Steinziegel → Rissige Steinziegel; Steinziegeltreppe und -stufe → bemooste Variante; Polierter Andesit, Diorit und Granit → unpolierte Variante (auch Treppen und Stufen); Polierter Tuff → Tuff (auch Treppen und Stufen); Bretter → Treppe → Stufe für Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Bambus und Blasseiche.",
             "Gold-/Diamant-Tabelle zusätzlich: Glatter Quarzblock → Quarzsäule → Quarzziegel → Gemeißelter Quarzblock → Quarzblock (Glatte Quarztreppe → Quarztreppe, Stufen analog); Polierter Tuff → Tuff → Gemeißelter Tuff → Tuffziegel (Tufftreppe → Tuffziegeltreppe → Polierte Tufftreppe, Stufen analog); Polierter Schwarzstein → Schwarzstein → Gemeißelter polierter Schwarzstein → Polierte Schwarzsteinziegel → Rissige polierte Schwarzsteinziegel (Treppen/Stufen: poliert → Schwarzstein → polierte Ziegel); Basalt → Glatter Basalt → Polierter Basalt; Polierter Tiefenschiefer → Gemeißelter Tiefenschiefer → Tiefenschieferziegel → Rissige Tiefenschieferziegel → Tiefenschieferfliesen → Rissige Tiefenschieferfliesen → Tiefenschiefer → Bruchtiefenschiefer (Treppen/Stufen: poliert → Ziegel → Fliesen → Bruchtiefenschiefer); Rissige Steinziegel → Bruchstein.",
-            "Netherit-/Enderit-Tabelle zusätzlich: Netherrack → Netherziegel → Rissige Netherziegel → Gemeißelte Netherziegel → Netherrack (Kreislauf); Harzziegel → Gemeißelte Harzziegel; Gemeißelter Sandstein → Sand; Gemeißelter roter Sandstein → Roter Sand.",
+            "Netherit-Tabelle zusätzlich: Netherrack → Netherziegel → Rissige Netherziegel → Gemeißelte Netherziegel → Netherrack (Kreislauf); Harzziegel → Gemeißelte Harzziegel; Gemeißelter Sandstein → Sand; Gemeißelter roter Sandstein → Roter Sand.",
+            "Enderit-Tabelle zusätzlich (nur der Enderitmeißel): Polierter Astralit → Astralit-Säule → Astralit-Ziegel → Gemeißelte Astralit-Ziegel → Astralitblock, dieselbe Kette für Nihilith und für Enderquarz (Polierter Enderquarz → Enderquarzsäule → Enderquarzziegel → Gemeißelte Enderquarzziegel → Enderquarzblock); Treppe, Stufe und Mauer aus poliertem Astralit/Nihilith → Ziegel-Variante; Treppe und Stufe aus poliertem Enderquarz → Enderquarzziegel-Treppe/-Stufe → Enderquarztreppe/-stufe, Mauer aus poliertem Enderquarz → Enderquarzziegelmauer. Jeder Block dieser Ketten kommt 1:1 aus der Steinsäge vom selben Grundblock, der Meißel gewinnt oder verliert also kein Material.",
             "Mit der Verzauberung Berührung des Konstrukteurs kommen je Stufe Zusatz-Einträge dazu – Stein: Schlammziegel → Gepackter Schlamm → Schlamm, Bruchstein → Bemooster Bruchstein (auch Treppe/Stufe), neun Stammarten → entrindeter Stamm (Eiche, Fichte, Birke, Tropenbaum, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche); Eisen: Ziegel → Schlammziegel (auch Treppe/Stufe), neun Holzarten (Rindenblöcke) → entrindetes Holz, Karmesin- und Wirrbretter → Treppe → Stufe; Diamant: Prismarin → Prismarinziegel (auch Treppe/Stufe), Glatter Stein → Stein (auch Stufe), Endstein → Endsteinziegel, Purpursäule → Purpurblock, Kupferblock → Geschnittener Kupferblock → Gemeißelter Kupferblock → Kupfergitter, tote Korallenblöcke im Kreis (Hirn → Blasen → Feuer → Horn → Röhren → Hirn), lebende Korallenblöcke im Kreis; Netherit: Polierter Diorit → Diorit → Kalzit → Tropfsteinblock, Obsidian → Weinender Obsidian, Karmesin- und Wirrstiel → entrindet, jede der 16 Betonfarben → gleichfarbiger Trockenbeton.",
             "Blockeigenschaften wie „mit Wasser gefüllt“ oder die Lage einer Stufe (oben, unten, doppelt) werden auf den neuen Block übernommen, wenn dieser dieselbe Eigenschaft besitzt.",
             "Säulenblöcke (Achse) und Treppen (Richtung und obere/untere Hälfte) werden nach der Umwandlung aus der Klickposition und der Blickrichtung des Spielers neu ausgerichtet; als Randbereich einer Blockseite gilt ein Streifen von 0,25 Blockbreite. Ein weiterer Code-Zweig für Blöcke mit sechsseitiger Blickrichtung (FACING) existiert, trifft aber auf keinen Zielblock der Tabellen zu.",
@@ -6519,8 +6525,8 @@ window.WIKI_DATA = {
             "Eisenmeißel: Haltbarkeit 256, Abklingzeit 25 Ticks, Verzauberbarkeit 14, Tabelle Eisen/Kupfer.",
             "Goldmeißel: Haltbarkeit 128, Abklingzeit 20 Ticks, Verzauberbarkeit 22, Tabelle Gold/Diamant.",
             "Diamantmeißel: Haltbarkeit 392, Abklingzeit 10 Ticks, Verzauberbarkeit 10, Tabelle Gold/Diamant.",
-            "Netheritmeißel: Haltbarkeit 512, Abklingzeit 5 Ticks, Verzauberbarkeit 15, Tabelle Netherit/Enderit.",
-            "Enderitmeißel: Haltbarkeit 600, Abklingzeit 5 Ticks, Verzauberbarkeit 18, Material-Grundgeschwindigkeit 10,0, Tabelle Netherit/Enderit.",
+            "Netheritmeißel: Haltbarkeit 512, Abklingzeit 5 Ticks, Verzauberbarkeit 15, Tabelle Netherit.",
+            "Enderitmeißel: Haltbarkeit 600, Abklingzeit 5 Ticks, Verzauberbarkeit 18, Material-Grundgeschwindigkeit 10,0, Tabelle Enderit (Netherit-Tabelle plus die End-Paletten).",
             "Die Abbaugeschwindigkeit hängt bei allen Stufen zusätzlich von der Grundgeschwindigkeit des jeweiligen Werkzeugmaterials ab und wird halbiert (20 Ticks = 1 Sekunde)."
           ],
           "caveats": [
@@ -7839,12 +7845,13 @@ window.WIKI_DATA = {
           "details": [
             "Registered are the Stone Chisel, Copper Chisel, Iron Chisel, Gold Chisel, Diamond Chisel, Netherite Chisel and Enderite Chisel.",
             "Right-clicking a block from the transformation map replaces it with the next block in its chain; sneak + right-click replaces it with the previous block in the chain.",
-            "There are four maps (stone, iron/copper, gold/diamond, netherite/enderite); every higher tier contains all entries of the lower ones, and where the same source block appears twice the higher tier's entry wins (the maps are merged with putAll).",
-            "The Copper Chisel uses the iron map, the Gold Chisel the diamond map and the Enderite Chisel the netherite map; only stone, iron, diamond and netherite have maps of their own.",
+            "There are five maps (stone, iron/copper, gold/diamond, netherite, enderite); every higher tier contains all entries of the lower ones, and where the same source block appears twice the higher tier's entry wins (the maps are merged with putAll).",
+            "The Copper Chisel uses the iron map and the Gold Chisel the diamond map; stone, iron, diamond, netherite and enderite have maps of their own.",
             "Stone map: Smooth Sandstone -> Cut Sandstone -> Sandstone -> Chiseled Sandstone (the same for red sandstone); Sandstone Stairs -> Smooth Sandstone Stairs; Sandstone Slab -> Cut Sandstone Slab -> Smooth Sandstone Slab (red likewise); Stone -> Chiseled Stone Bricks; Smooth Stone Slab -> Stone Slab; Stone Stairs -> Cobblestone Stairs.",
             "Iron/copper map adds: Chiseled Stone Bricks -> Stone Bricks -> Cracked Stone Bricks; Stone Brick Stairs and Slab -> mossy variant; Polished Andesite, Diorite and Granite -> unpolished variant (stairs and slabs too); Polished Tuff -> Tuff (stairs and slabs too); Planks -> Stairs -> Slab for oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, bamboo and pale oak.",
             "Gold/diamond map adds: Smooth Quartz Block -> Quartz Pillar -> Quartz Bricks -> Chiseled Quartz Block -> Block of Quartz (Smooth Quartz Stairs -> Quartz Stairs, slabs likewise); Polished Tuff -> Tuff -> Chiseled Tuff -> Tuff Bricks (Tuff Stairs -> Tuff Brick Stairs -> Polished Tuff Stairs, slabs likewise); Polished Blackstone -> Blackstone -> Chiseled Polished Blackstone -> Polished Blackstone Bricks -> Cracked Polished Blackstone Bricks (stairs/slabs: polished -> blackstone -> polished bricks); Basalt -> Smooth Basalt -> Polished Basalt; Polished Deepslate -> Chiseled Deepslate -> Deepslate Bricks -> Cracked Deepslate Bricks -> Deepslate Tiles -> Cracked Deepslate Tiles -> Deepslate -> Cobbled Deepslate (stairs/slabs: polished -> bricks -> tiles -> cobbled); Cracked Stone Bricks -> Cobblestone.",
-            "Netherite/enderite map adds: Netherrack -> Nether Bricks -> Cracked Nether Bricks -> Chiseled Nether Bricks -> Netherrack (a cycle); Resin Bricks -> Chiseled Resin Bricks; Chiseled Sandstone -> Sand; Chiseled Red Sandstone -> Red Sand.",
+            "Netherite map adds: Netherrack -> Nether Bricks -> Cracked Nether Bricks -> Chiseled Nether Bricks -> Netherrack (a cycle); Resin Bricks -> Chiseled Resin Bricks; Chiseled Sandstone -> Sand; Chiseled Red Sandstone -> Red Sand.",
+            "Enderite map adds (only the Enderite Chisel): Polished Astralit -> Astralit Pillar -> Astralit Bricks -> Chiseled Astralit Bricks -> Block of Astralit, the same chain for Nihilith and for Ender Quartz (Polished Ender Quartz -> Ender Quartz Pillar -> Ender Quartz Bricks -> Chiseled Ender Quartz Bricks -> Block of Ender Quartz); Polished Astralit/Nihilith Stairs, Slab and Wall -> the brick variant; Polished Ender Quartz Stairs and Slab -> Ender Quartz Brick Stairs/Slab -> Ender Quartz Stairs/Slab, Polished Ender Quartz Wall -> Ender Quartz Brick Wall. Every block in these chains comes out of the stonecutter 1:1 from the same base block, so the chisel neither gains nor loses material.",
             "With the Constructor's Touch enchantment each tier gains extra entries - stone: Mud Bricks -> Packed Mud -> Mud, Cobblestone -> Mossy Cobblestone (stairs and slab too), nine log types -> stripped log (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak); iron: Bricks -> Mud Bricks (stairs and slab too), nine wood types (bark blocks) -> stripped wood, crimson and warped planks -> stairs -> slab; diamond: Prismarine -> Prismarine Bricks (stairs and slab too), Smooth Stone -> Stone (Smooth Stone Slab -> Stone Slab as well), End Stone -> End Stone Bricks, Purpur Pillar -> Purpur Block, Block of Copper -> Cut Copper -> Chiseled Copper -> Copper Grate, dead coral blocks in a cycle (brain -> bubble -> fire -> horn -> tube -> brain), living coral blocks in a cycle; netherite: Polished Diorite -> Diorite -> Calcite -> Dripstone Block, Obsidian -> Crying Obsidian, crimson and warped stems -> stripped, each of the 16 concrete colors -> concrete powder of the same color.",
             "Block properties such as waterlogged, or a slab's type (top, bottom, double), are carried over to the new block when that block has the same property.",
             "Pillar blocks (axis) and stairs (facing and top/bottom half) are re-oriented after the transformation from the click position and the player's facing; the edge zone of a block face is a strip 0.25 blocks wide. A further code branch for blocks with a six-way FACING exists, but it applies to no target block in the maps.",
@@ -7880,8 +7887,8 @@ window.WIKI_DATA = {
             "Iron Chisel: 256 durability, 25 tick cooldown, enchantability 14, iron/copper map.",
             "Gold Chisel: 128 durability, 20 tick cooldown, enchantability 22, gold/diamond map.",
             "Diamond Chisel: 392 durability, 10 tick cooldown, enchantability 10, gold/diamond map.",
-            "Netherite Chisel: 512 durability, 5 tick cooldown, enchantability 15, netherite/enderite map.",
-            "Enderite Chisel: 600 durability, 5 tick cooldown, enchantability 18, material base speed 10.0, netherite/enderite map.",
+            "Netherite Chisel: 512 durability, 5 tick cooldown, enchantability 15, netherite map.",
+            "Enderite Chisel: 600 durability, 5 tick cooldown, enchantability 18, material base speed 10.0, enderite map (netherite map plus the End palettes).",
             "On every tier the mining speed also depends on the base speed of the tool material, and is halved. (For the cooldowns above: 20 ticks = 1 second.)"
           ],
           "caveats": [
@@ -7901,12 +7908,13 @@ window.WIKI_DATA = {
           "details": [
             "Registriert sind Steinmeißel, Kupfermeißel, Eisenmeißel, Goldmeißel, Diamantmeißel, Netheritmeißel und Enderitmeißel.",
             "Rechtsklick auf einen Block aus der Umwandlungstabelle ersetzt ihn durch den nächsten Block seiner Kette; Schleichen + Rechtsklick ersetzt ihn durch den vorherigen Block der Kette.",
-            "Es gibt vier Tabellen (Stein, Eisen/Kupfer, Gold/Diamant, Netherit/Enderit); jede höhere Stufe enthält alle Einträge der niedrigeren, und bei gleichem Ausgangsblock gilt der Eintrag der höheren Stufe (die Tabellen werden per putAll zusammengeführt).",
-            "Der Kupfermeißel nutzt die Eisen-Tabelle, der Goldmeißel die Diamant-Tabelle und der Enderit-Meißel die Netherit-Tabelle; eigene Tabellen haben nur Stein, Eisen, Diamant und Netherit.",
+            "Es gibt fünf Tabellen (Stein, Eisen/Kupfer, Gold/Diamant, Netherit, Enderit); jede höhere Stufe enthält alle Einträge der niedrigeren, und bei gleichem Ausgangsblock gilt der Eintrag der höheren Stufe (die Tabellen werden per putAll zusammengeführt).",
+            "Der Kupfermeißel nutzt die Eisen-Tabelle, der Goldmeißel die Diamant-Tabelle; eigene Tabellen haben Stein, Eisen, Diamant, Netherit und Enderit.",
             "Stein-Tabelle: Glatter Sandstein → Geschnittener Sandstein → Sandstein → Gemeißelter Sandstein (ebenso für roten Sandstein); Sandsteintreppe → Glatte Sandsteintreppe; Sandsteinstufe → Geschnittene Sandsteinstufe → Glatte Sandsteinstufe (ebenso rot); Stein → Gemeißelte Steinziegel; Glatte Steinstufe → Steinstufe; Steintreppe → Bruchsteintreppe.",
             "Eisen-/Kupfer-Tabelle zusätzlich: Gemeißelte Steinziegel → Steinziegel → Rissige Steinziegel; Steinziegeltreppe und -stufe → bemooste Variante; Polierter Andesit, Diorit und Granit → unpolierte Variante (auch Treppen und Stufen); Polierter Tuff → Tuff (auch Treppen und Stufen); Bretter → Treppe → Stufe für Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Bambus und Blasseiche.",
             "Gold-/Diamant-Tabelle zusätzlich: Glatter Quarzblock → Quarzsäule → Quarzziegel → Gemeißelter Quarzblock → Quarzblock (Glatte Quarztreppe → Quarztreppe, Stufen analog); Polierter Tuff → Tuff → Gemeißelter Tuff → Tuffziegel (Tufftreppe → Tuffziegeltreppe → Polierte Tufftreppe, Stufen analog); Polierter Schwarzstein → Schwarzstein → Gemeißelter polierter Schwarzstein → Polierte Schwarzsteinziegel → Rissige polierte Schwarzsteinziegel (Treppen/Stufen: poliert → Schwarzstein → polierte Ziegel); Basalt → Glatter Basalt → Polierter Basalt; Polierter Tiefenschiefer → Gemeißelter Tiefenschiefer → Tiefenschieferziegel → Rissige Tiefenschieferziegel → Tiefenschieferfliesen → Rissige Tiefenschieferfliesen → Tiefenschiefer → Bruchtiefenschiefer (Treppen/Stufen: poliert → Ziegel → Fliesen → Bruchtiefenschiefer); Rissige Steinziegel → Bruchstein.",
-            "Netherit-/Enderit-Tabelle zusätzlich: Netherrack → Netherziegel → Rissige Netherziegel → Gemeißelte Netherziegel → Netherrack (Kreislauf); Harzziegel → Gemeißelte Harzziegel; Gemeißelter Sandstein → Sand; Gemeißelter roter Sandstein → Roter Sand.",
+            "Netherit-Tabelle zusätzlich: Netherrack → Netherziegel → Rissige Netherziegel → Gemeißelte Netherziegel → Netherrack (Kreislauf); Harzziegel → Gemeißelte Harzziegel; Gemeißelter Sandstein → Sand; Gemeißelter roter Sandstein → Roter Sand.",
+            "Enderit-Tabelle zusätzlich (nur der Enderitmeißel): Polierter Astralit → Astralit-Säule → Astralit-Ziegel → Gemeißelte Astralit-Ziegel → Astralitblock, dieselbe Kette für Nihilith und für Enderquarz (Polierter Enderquarz → Enderquarzsäule → Enderquarzziegel → Gemeißelte Enderquarzziegel → Enderquarzblock); Treppe, Stufe und Mauer aus poliertem Astralit/Nihilith → Ziegel-Variante; Treppe und Stufe aus poliertem Enderquarz → Enderquarzziegel-Treppe/-Stufe → Enderquarztreppe/-stufe, Mauer aus poliertem Enderquarz → Enderquarzziegelmauer. Jeder Block dieser Ketten kommt 1:1 aus der Steinsäge vom selben Grundblock, der Meißel gewinnt oder verliert also kein Material.",
             "Mit der Verzauberung Berührung des Konstrukteurs kommen je Stufe Zusatz-Einträge dazu – Stein: Schlammziegel → Gepackter Schlamm → Schlamm, Bruchstein → Bemooster Bruchstein (auch Treppe/Stufe), neun Stammarten → entrindeter Stamm (Eiche, Fichte, Birke, Tropenbaum, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche); Eisen: Ziegel → Schlammziegel (auch Treppe/Stufe), neun Holzarten (Rindenblöcke) → entrindetes Holz, Karmesin- und Wirrbretter → Treppe → Stufe; Diamant: Prismarin → Prismarinziegel (auch Treppe/Stufe), Glatter Stein → Stein (auch Stufe), Endstein → Endsteinziegel, Purpursäule → Purpurblock, Kupferblock → Geschnittener Kupferblock → Gemeißelter Kupferblock → Kupfergitter, tote Korallenblöcke im Kreis (Hirn → Blasen → Feuer → Horn → Röhren → Hirn), lebende Korallenblöcke im Kreis; Netherit: Polierter Diorit → Diorit → Kalzit → Tropfsteinblock, Obsidian → Weinender Obsidian, Karmesin- und Wirrstiel → entrindet, jede der 16 Betonfarben → gleichfarbiger Trockenbeton.",
             "Blockeigenschaften wie „mit Wasser gefüllt“ oder die Lage einer Stufe (oben, unten, doppelt) werden auf den neuen Block übernommen, wenn dieser dieselbe Eigenschaft besitzt.",
             "Säulenblöcke (Achse) und Treppen (Richtung und obere/untere Hälfte) werden nach der Umwandlung aus der Klickposition und der Blickrichtung des Spielers neu ausgerichtet; als Randbereich einer Blockseite gilt ein Streifen von 0,25 Blockbreite. Ein weiterer Code-Zweig für Blöcke mit sechsseitiger Blickrichtung (FACING) existiert, trifft aber auf keinen Zielblock der Tabellen zu.",
@@ -7942,8 +7950,8 @@ window.WIKI_DATA = {
             "Eisenmeißel: Haltbarkeit 256, Abklingzeit 25 Ticks, Verzauberbarkeit 14, Tabelle Eisen/Kupfer.",
             "Goldmeißel: Haltbarkeit 128, Abklingzeit 20 Ticks, Verzauberbarkeit 22, Tabelle Gold/Diamant.",
             "Diamantmeißel: Haltbarkeit 392, Abklingzeit 10 Ticks, Verzauberbarkeit 10, Tabelle Gold/Diamant.",
-            "Netheritmeißel: Haltbarkeit 512, Abklingzeit 5 Ticks, Verzauberbarkeit 15, Tabelle Netherit/Enderit.",
-            "Enderitmeißel: Haltbarkeit 600, Abklingzeit 5 Ticks, Verzauberbarkeit 18, Material-Grundgeschwindigkeit 10,0, Tabelle Netherit/Enderit.",
+            "Netheritmeißel: Haltbarkeit 512, Abklingzeit 5 Ticks, Verzauberbarkeit 15, Tabelle Netherit.",
+            "Enderitmeißel: Haltbarkeit 600, Abklingzeit 5 Ticks, Verzauberbarkeit 18, Material-Grundgeschwindigkeit 10,0, Tabelle Enderit (Netherit-Tabelle plus die End-Paletten).",
             "Die Abbaugeschwindigkeit hängt bei allen Stufen zusätzlich von der Grundgeschwindigkeit des jeweiligen Werkzeugmaterials ab und wird halbiert (20 Ticks = 1 Sekunde)."
           ],
           "caveats": [
@@ -8598,12 +8606,13 @@ window.WIKI_DATA = {
           "details": [
             "Registered are the Stone Chisel, Copper Chisel, Iron Chisel, Gold Chisel, Diamond Chisel, Netherite Chisel and Enderite Chisel.",
             "Right-clicking a block from the transformation map replaces it with the next block in its chain; sneak + right-click replaces it with the previous block in the chain.",
-            "There are four maps (stone, iron/copper, gold/diamond, netherite/enderite); every higher tier contains all entries of the lower ones, and where the same source block appears twice the higher tier's entry wins (the maps are merged with putAll).",
-            "The Copper Chisel uses the iron map, the Gold Chisel the diamond map and the Enderite Chisel the netherite map; only stone, iron, diamond and netherite have maps of their own.",
+            "There are five maps (stone, iron/copper, gold/diamond, netherite, enderite); every higher tier contains all entries of the lower ones, and where the same source block appears twice the higher tier's entry wins (the maps are merged with putAll).",
+            "The Copper Chisel uses the iron map and the Gold Chisel the diamond map; stone, iron, diamond, netherite and enderite have maps of their own.",
             "Stone map: Smooth Sandstone -> Cut Sandstone -> Sandstone -> Chiseled Sandstone (the same for red sandstone); Sandstone Stairs -> Smooth Sandstone Stairs; Sandstone Slab -> Cut Sandstone Slab -> Smooth Sandstone Slab (red likewise); Stone -> Chiseled Stone Bricks; Smooth Stone Slab -> Stone Slab; Stone Stairs -> Cobblestone Stairs.",
             "Iron/copper map adds: Chiseled Stone Bricks -> Stone Bricks -> Cracked Stone Bricks; Stone Brick Stairs and Slab -> mossy variant; Polished Andesite, Diorite and Granite -> unpolished variant (stairs and slabs too); Polished Tuff -> Tuff (stairs and slabs too); Planks -> Stairs -> Slab for oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, bamboo and pale oak.",
             "Gold/diamond map adds: Smooth Quartz Block -> Quartz Pillar -> Quartz Bricks -> Chiseled Quartz Block -> Block of Quartz (Smooth Quartz Stairs -> Quartz Stairs, slabs likewise); Polished Tuff -> Tuff -> Chiseled Tuff -> Tuff Bricks (Tuff Stairs -> Tuff Brick Stairs -> Polished Tuff Stairs, slabs likewise); Polished Blackstone -> Blackstone -> Chiseled Polished Blackstone -> Polished Blackstone Bricks -> Cracked Polished Blackstone Bricks (stairs/slabs: polished -> blackstone -> polished bricks); Basalt -> Smooth Basalt -> Polished Basalt; Polished Deepslate -> Chiseled Deepslate -> Deepslate Bricks -> Cracked Deepslate Bricks -> Deepslate Tiles -> Cracked Deepslate Tiles -> Deepslate -> Cobbled Deepslate (stairs/slabs: polished -> bricks -> tiles -> cobbled); Cracked Stone Bricks -> Cobblestone.",
-            "Netherite/enderite map adds: Netherrack -> Nether Bricks -> Cracked Nether Bricks -> Chiseled Nether Bricks -> Netherrack (a cycle); Resin Bricks -> Chiseled Resin Bricks; Chiseled Sandstone -> Sand; Chiseled Red Sandstone -> Red Sand.",
+            "Netherite map adds: Netherrack -> Nether Bricks -> Cracked Nether Bricks -> Chiseled Nether Bricks -> Netherrack (a cycle); Resin Bricks -> Chiseled Resin Bricks; Chiseled Sandstone -> Sand; Chiseled Red Sandstone -> Red Sand.",
+            "Enderite map adds (only the Enderite Chisel): Polished Astralit -> Astralit Pillar -> Astralit Bricks -> Chiseled Astralit Bricks -> Block of Astralit, the same chain for Nihilith and for Ender Quartz (Polished Ender Quartz -> Ender Quartz Pillar -> Ender Quartz Bricks -> Chiseled Ender Quartz Bricks -> Block of Ender Quartz); Polished Astralit/Nihilith Stairs, Slab and Wall -> the brick variant; Polished Ender Quartz Stairs and Slab -> Ender Quartz Brick Stairs/Slab -> Ender Quartz Stairs/Slab, Polished Ender Quartz Wall -> Ender Quartz Brick Wall. Every block in these chains comes out of the stonecutter 1:1 from the same base block, so the chisel neither gains nor loses material.",
             "With the Constructor's Touch enchantment each tier gains extra entries - stone: Mud Bricks -> Packed Mud -> Mud, Cobblestone -> Mossy Cobblestone (stairs and slab too), nine log types -> stripped log (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak); iron: Bricks -> Mud Bricks (stairs and slab too), nine wood types (bark blocks) -> stripped wood, crimson and warped planks -> stairs -> slab; diamond: Prismarine -> Prismarine Bricks (stairs and slab too), Smooth Stone -> Stone (Smooth Stone Slab -> Stone Slab as well), End Stone -> End Stone Bricks, Purpur Pillar -> Purpur Block, Block of Copper -> Cut Copper -> Chiseled Copper -> Copper Grate, dead coral blocks in a cycle (brain -> bubble -> fire -> horn -> tube -> brain), living coral blocks in a cycle; netherite: Polished Diorite -> Diorite -> Calcite -> Dripstone Block, Obsidian -> Crying Obsidian, crimson and warped stems -> stripped, each of the 16 concrete colors -> concrete powder of the same color.",
             "Block properties such as waterlogged, or a slab's type (top, bottom, double), are carried over to the new block when that block has the same property.",
             "Pillar blocks (axis) and stairs (facing and top/bottom half) are re-oriented after the transformation from the click position and the player's facing; the edge zone of a block face is a strip 0.25 blocks wide. A further code branch for blocks with a six-way FACING exists, but it applies to no target block in the maps.",
@@ -8639,8 +8648,8 @@ window.WIKI_DATA = {
             "Iron Chisel: 256 durability, 25 tick cooldown, enchantability 14, iron/copper map.",
             "Gold Chisel: 128 durability, 20 tick cooldown, enchantability 22, gold/diamond map.",
             "Diamond Chisel: 392 durability, 10 tick cooldown, enchantability 10, gold/diamond map.",
-            "Netherite Chisel: 512 durability, 5 tick cooldown, enchantability 15, netherite/enderite map.",
-            "Enderite Chisel: 600 durability, 5 tick cooldown, enchantability 18, material base speed 10.0, netherite/enderite map.",
+            "Netherite Chisel: 512 durability, 5 tick cooldown, enchantability 15, netherite map.",
+            "Enderite Chisel: 600 durability, 5 tick cooldown, enchantability 18, material base speed 10.0, enderite map (netherite map plus the End palettes).",
             "On every tier the mining speed also depends on the base speed of the tool material, and is halved. (For the cooldowns above: 20 ticks = 1 second.)"
           ],
           "caveats": [
@@ -8660,12 +8669,13 @@ window.WIKI_DATA = {
           "details": [
             "Registriert sind Steinmeißel, Kupfermeißel, Eisenmeißel, Goldmeißel, Diamantmeißel, Netheritmeißel und Enderitmeißel.",
             "Rechtsklick auf einen Block aus der Umwandlungstabelle ersetzt ihn durch den nächsten Block seiner Kette; Schleichen + Rechtsklick ersetzt ihn durch den vorherigen Block der Kette.",
-            "Es gibt vier Tabellen (Stein, Eisen/Kupfer, Gold/Diamant, Netherit/Enderit); jede höhere Stufe enthält alle Einträge der niedrigeren, und bei gleichem Ausgangsblock gilt der Eintrag der höheren Stufe (die Tabellen werden per putAll zusammengeführt).",
-            "Der Kupfermeißel nutzt die Eisen-Tabelle, der Goldmeißel die Diamant-Tabelle und der Enderit-Meißel die Netherit-Tabelle; eigene Tabellen haben nur Stein, Eisen, Diamant und Netherit.",
+            "Es gibt fünf Tabellen (Stein, Eisen/Kupfer, Gold/Diamant, Netherit, Enderit); jede höhere Stufe enthält alle Einträge der niedrigeren, und bei gleichem Ausgangsblock gilt der Eintrag der höheren Stufe (die Tabellen werden per putAll zusammengeführt).",
+            "Der Kupfermeißel nutzt die Eisen-Tabelle, der Goldmeißel die Diamant-Tabelle; eigene Tabellen haben Stein, Eisen, Diamant, Netherit und Enderit.",
             "Stein-Tabelle: Glatter Sandstein → Geschnittener Sandstein → Sandstein → Gemeißelter Sandstein (ebenso für roten Sandstein); Sandsteintreppe → Glatte Sandsteintreppe; Sandsteinstufe → Geschnittene Sandsteinstufe → Glatte Sandsteinstufe (ebenso rot); Stein → Gemeißelte Steinziegel; Glatte Steinstufe → Steinstufe; Steintreppe → Bruchsteintreppe.",
             "Eisen-/Kupfer-Tabelle zusätzlich: Gemeißelte Steinziegel → Steinziegel → Rissige Steinziegel; Steinziegeltreppe und -stufe → bemooste Variante; Polierter Andesit, Diorit und Granit → unpolierte Variante (auch Treppen und Stufen); Polierter Tuff → Tuff (auch Treppen und Stufen); Bretter → Treppe → Stufe für Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Bambus und Blasseiche.",
             "Gold-/Diamant-Tabelle zusätzlich: Glatter Quarzblock → Quarzsäule → Quarzziegel → Gemeißelter Quarzblock → Quarzblock (Glatte Quarztreppe → Quarztreppe, Stufen analog); Polierter Tuff → Tuff → Gemeißelter Tuff → Tuffziegel (Tufftreppe → Tuffziegeltreppe → Polierte Tufftreppe, Stufen analog); Polierter Schwarzstein → Schwarzstein → Gemeißelter polierter Schwarzstein → Polierte Schwarzsteinziegel → Rissige polierte Schwarzsteinziegel (Treppen/Stufen: poliert → Schwarzstein → polierte Ziegel); Basalt → Glatter Basalt → Polierter Basalt; Polierter Tiefenschiefer → Gemeißelter Tiefenschiefer → Tiefenschieferziegel → Rissige Tiefenschieferziegel → Tiefenschieferfliesen → Rissige Tiefenschieferfliesen → Tiefenschiefer → Bruchtiefenschiefer (Treppen/Stufen: poliert → Ziegel → Fliesen → Bruchtiefenschiefer); Rissige Steinziegel → Bruchstein.",
-            "Netherit-/Enderit-Tabelle zusätzlich: Netherrack → Netherziegel → Rissige Netherziegel → Gemeißelte Netherziegel → Netherrack (Kreislauf); Harzziegel → Gemeißelte Harzziegel; Gemeißelter Sandstein → Sand; Gemeißelter roter Sandstein → Roter Sand.",
+            "Netherit-Tabelle zusätzlich: Netherrack → Netherziegel → Rissige Netherziegel → Gemeißelte Netherziegel → Netherrack (Kreislauf); Harzziegel → Gemeißelte Harzziegel; Gemeißelter Sandstein → Sand; Gemeißelter roter Sandstein → Roter Sand.",
+            "Enderit-Tabelle zusätzlich (nur der Enderitmeißel): Polierter Astralit → Astralit-Säule → Astralit-Ziegel → Gemeißelte Astralit-Ziegel → Astralitblock, dieselbe Kette für Nihilith und für Enderquarz (Polierter Enderquarz → Enderquarzsäule → Enderquarzziegel → Gemeißelte Enderquarzziegel → Enderquarzblock); Treppe, Stufe und Mauer aus poliertem Astralit/Nihilith → Ziegel-Variante; Treppe und Stufe aus poliertem Enderquarz → Enderquarzziegel-Treppe/-Stufe → Enderquarztreppe/-stufe, Mauer aus poliertem Enderquarz → Enderquarzziegelmauer. Jeder Block dieser Ketten kommt 1:1 aus der Steinsäge vom selben Grundblock, der Meißel gewinnt oder verliert also kein Material.",
             "Mit der Verzauberung Berührung des Konstrukteurs kommen je Stufe Zusatz-Einträge dazu – Stein: Schlammziegel → Gepackter Schlamm → Schlamm, Bruchstein → Bemooster Bruchstein (auch Treppe/Stufe), neun Stammarten → entrindeter Stamm (Eiche, Fichte, Birke, Tropenbaum, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche); Eisen: Ziegel → Schlammziegel (auch Treppe/Stufe), neun Holzarten (Rindenblöcke) → entrindetes Holz, Karmesin- und Wirrbretter → Treppe → Stufe; Diamant: Prismarin → Prismarinziegel (auch Treppe/Stufe), Glatter Stein → Stein (auch Stufe), Endstein → Endsteinziegel, Purpursäule → Purpurblock, Kupferblock → Geschnittener Kupferblock → Gemeißelter Kupferblock → Kupfergitter, tote Korallenblöcke im Kreis (Hirn → Blasen → Feuer → Horn → Röhren → Hirn), lebende Korallenblöcke im Kreis; Netherit: Polierter Diorit → Diorit → Kalzit → Tropfsteinblock, Obsidian → Weinender Obsidian, Karmesin- und Wirrstiel → entrindet, jede der 16 Betonfarben → gleichfarbiger Trockenbeton.",
             "Blockeigenschaften wie „mit Wasser gefüllt“ oder die Lage einer Stufe (oben, unten, doppelt) werden auf den neuen Block übernommen, wenn dieser dieselbe Eigenschaft besitzt.",
             "Säulenblöcke (Achse) und Treppen (Richtung und obere/untere Hälfte) werden nach der Umwandlung aus der Klickposition und der Blickrichtung des Spielers neu ausgerichtet; als Randbereich einer Blockseite gilt ein Streifen von 0,25 Blockbreite. Ein weiterer Code-Zweig für Blöcke mit sechsseitiger Blickrichtung (FACING) existiert, trifft aber auf keinen Zielblock der Tabellen zu.",
@@ -8701,8 +8711,8 @@ window.WIKI_DATA = {
             "Eisenmeißel: Haltbarkeit 256, Abklingzeit 25 Ticks, Verzauberbarkeit 14, Tabelle Eisen/Kupfer.",
             "Goldmeißel: Haltbarkeit 128, Abklingzeit 20 Ticks, Verzauberbarkeit 22, Tabelle Gold/Diamant.",
             "Diamantmeißel: Haltbarkeit 392, Abklingzeit 10 Ticks, Verzauberbarkeit 10, Tabelle Gold/Diamant.",
-            "Netheritmeißel: Haltbarkeit 512, Abklingzeit 5 Ticks, Verzauberbarkeit 15, Tabelle Netherit/Enderit.",
-            "Enderitmeißel: Haltbarkeit 600, Abklingzeit 5 Ticks, Verzauberbarkeit 18, Material-Grundgeschwindigkeit 10,0, Tabelle Netherit/Enderit.",
+            "Netheritmeißel: Haltbarkeit 512, Abklingzeit 5 Ticks, Verzauberbarkeit 15, Tabelle Netherit.",
+            "Enderitmeißel: Haltbarkeit 600, Abklingzeit 5 Ticks, Verzauberbarkeit 18, Material-Grundgeschwindigkeit 10,0, Tabelle Enderit (Netherit-Tabelle plus die End-Paletten).",
             "Die Abbaugeschwindigkeit hängt bei allen Stufen zusätzlich von der Grundgeschwindigkeit des jeweiligen Werkzeugmaterials ab und wird halbiert (20 Ticks = 1 Sekunde)."
           ],
           "caveats": [
@@ -10214,12 +10224,13 @@ window.WIKI_DATA = {
           "details": [
             "Registered are the Stone Chisel, Copper Chisel, Iron Chisel, Gold Chisel, Diamond Chisel, Netherite Chisel and Enderite Chisel.",
             "Right-clicking a block from the transformation map replaces it with the next block in its chain; sneak + right-click replaces it with the previous block in the chain.",
-            "There are four maps (stone, iron/copper, gold/diamond, netherite/enderite); every higher tier contains all entries of the lower ones, and where the same source block appears twice the higher tier's entry wins (the maps are merged with putAll).",
-            "The Copper Chisel uses the iron map, the Gold Chisel the diamond map and the Enderite Chisel the netherite map; only stone, iron, diamond and netherite have maps of their own.",
+            "There are five maps (stone, iron/copper, gold/diamond, netherite, enderite); every higher tier contains all entries of the lower ones, and where the same source block appears twice the higher tier's entry wins (the maps are merged with putAll).",
+            "The Copper Chisel uses the iron map and the Gold Chisel the diamond map; stone, iron, diamond, netherite and enderite have maps of their own.",
             "Stone map: Smooth Sandstone -> Cut Sandstone -> Sandstone -> Chiseled Sandstone (the same for red sandstone); Sandstone Stairs -> Smooth Sandstone Stairs; Sandstone Slab -> Cut Sandstone Slab -> Smooth Sandstone Slab (red likewise); Stone -> Chiseled Stone Bricks; Smooth Stone Slab -> Stone Slab; Stone Stairs -> Cobblestone Stairs.",
             "Iron/copper map adds: Chiseled Stone Bricks -> Stone Bricks -> Cracked Stone Bricks; Stone Brick Stairs and Slab -> mossy variant; Polished Andesite, Diorite and Granite -> unpolished variant (stairs and slabs too); Polished Tuff -> Tuff (stairs and slabs too); Planks -> Stairs -> Slab for oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, bamboo and pale oak.",
             "Gold/diamond map adds: Smooth Quartz Block -> Quartz Pillar -> Quartz Bricks -> Chiseled Quartz Block -> Block of Quartz (Smooth Quartz Stairs -> Quartz Stairs, slabs likewise); Polished Tuff -> Tuff -> Chiseled Tuff -> Tuff Bricks (Tuff Stairs -> Tuff Brick Stairs -> Polished Tuff Stairs, slabs likewise); Polished Blackstone -> Blackstone -> Chiseled Polished Blackstone -> Polished Blackstone Bricks -> Cracked Polished Blackstone Bricks (stairs/slabs: polished -> blackstone -> polished bricks); Basalt -> Smooth Basalt -> Polished Basalt; Polished Deepslate -> Chiseled Deepslate -> Deepslate Bricks -> Cracked Deepslate Bricks -> Deepslate Tiles -> Cracked Deepslate Tiles -> Deepslate -> Cobbled Deepslate (stairs/slabs: polished -> bricks -> tiles -> cobbled); Cracked Stone Bricks -> Cobblestone.",
-            "Netherite/enderite map adds: Netherrack -> Nether Bricks -> Cracked Nether Bricks -> Chiseled Nether Bricks -> Netherrack (a cycle); Resin Bricks -> Chiseled Resin Bricks; Chiseled Sandstone -> Sand; Chiseled Red Sandstone -> Red Sand.",
+            "Netherite map adds: Netherrack -> Nether Bricks -> Cracked Nether Bricks -> Chiseled Nether Bricks -> Netherrack (a cycle); Resin Bricks -> Chiseled Resin Bricks; Chiseled Sandstone -> Sand; Chiseled Red Sandstone -> Red Sand.",
+            "Enderite map adds (only the Enderite Chisel): Polished Astralit -> Astralit Pillar -> Astralit Bricks -> Chiseled Astralit Bricks -> Block of Astralit, the same chain for Nihilith and for Ender Quartz (Polished Ender Quartz -> Ender Quartz Pillar -> Ender Quartz Bricks -> Chiseled Ender Quartz Bricks -> Block of Ender Quartz); Polished Astralit/Nihilith Stairs, Slab and Wall -> the brick variant; Polished Ender Quartz Stairs and Slab -> Ender Quartz Brick Stairs/Slab -> Ender Quartz Stairs/Slab, Polished Ender Quartz Wall -> Ender Quartz Brick Wall. Every block in these chains comes out of the stonecutter 1:1 from the same base block, so the chisel neither gains nor loses material.",
             "With the Constructor's Touch enchantment each tier gains extra entries - stone: Mud Bricks -> Packed Mud -> Mud, Cobblestone -> Mossy Cobblestone (stairs and slab too), nine log types -> stripped log (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak); iron: Bricks -> Mud Bricks (stairs and slab too), nine wood types (bark blocks) -> stripped wood, crimson and warped planks -> stairs -> slab; diamond: Prismarine -> Prismarine Bricks (stairs and slab too), Smooth Stone -> Stone (Smooth Stone Slab -> Stone Slab as well), End Stone -> End Stone Bricks, Purpur Pillar -> Purpur Block, Block of Copper -> Cut Copper -> Chiseled Copper -> Copper Grate, dead coral blocks in a cycle (brain -> bubble -> fire -> horn -> tube -> brain), living coral blocks in a cycle; netherite: Polished Diorite -> Diorite -> Calcite -> Dripstone Block, Obsidian -> Crying Obsidian, crimson and warped stems -> stripped, each of the 16 concrete colors -> concrete powder of the same color.",
             "Block properties such as waterlogged, or a slab's type (top, bottom, double), are carried over to the new block when that block has the same property.",
             "Pillar blocks (axis) and stairs (facing and top/bottom half) are re-oriented after the transformation from the click position and the player's facing; the edge zone of a block face is a strip 0.25 blocks wide. A further code branch for blocks with a six-way FACING exists, but it applies to no target block in the maps.",
@@ -10255,8 +10266,8 @@ window.WIKI_DATA = {
             "Iron Chisel: 256 durability, 25 tick cooldown, enchantability 14, iron/copper map.",
             "Gold Chisel: 128 durability, 20 tick cooldown, enchantability 22, gold/diamond map.",
             "Diamond Chisel: 392 durability, 10 tick cooldown, enchantability 10, gold/diamond map.",
-            "Netherite Chisel: 512 durability, 5 tick cooldown, enchantability 15, netherite/enderite map.",
-            "Enderite Chisel: 600 durability, 5 tick cooldown, enchantability 18, material base speed 10.0, netherite/enderite map.",
+            "Netherite Chisel: 512 durability, 5 tick cooldown, enchantability 15, netherite map.",
+            "Enderite Chisel: 600 durability, 5 tick cooldown, enchantability 18, material base speed 10.0, enderite map (netherite map plus the End palettes).",
             "On every tier the mining speed also depends on the base speed of the tool material, and is halved. (For the cooldowns above: 20 ticks = 1 second.)"
           ],
           "caveats": [
@@ -10276,12 +10287,13 @@ window.WIKI_DATA = {
           "details": [
             "Registriert sind Steinmeißel, Kupfermeißel, Eisenmeißel, Goldmeißel, Diamantmeißel, Netheritmeißel und Enderitmeißel.",
             "Rechtsklick auf einen Block aus der Umwandlungstabelle ersetzt ihn durch den nächsten Block seiner Kette; Schleichen + Rechtsklick ersetzt ihn durch den vorherigen Block der Kette.",
-            "Es gibt vier Tabellen (Stein, Eisen/Kupfer, Gold/Diamant, Netherit/Enderit); jede höhere Stufe enthält alle Einträge der niedrigeren, und bei gleichem Ausgangsblock gilt der Eintrag der höheren Stufe (die Tabellen werden per putAll zusammengeführt).",
-            "Der Kupfermeißel nutzt die Eisen-Tabelle, der Goldmeißel die Diamant-Tabelle und der Enderit-Meißel die Netherit-Tabelle; eigene Tabellen haben nur Stein, Eisen, Diamant und Netherit.",
+            "Es gibt fünf Tabellen (Stein, Eisen/Kupfer, Gold/Diamant, Netherit, Enderit); jede höhere Stufe enthält alle Einträge der niedrigeren, und bei gleichem Ausgangsblock gilt der Eintrag der höheren Stufe (die Tabellen werden per putAll zusammengeführt).",
+            "Der Kupfermeißel nutzt die Eisen-Tabelle, der Goldmeißel die Diamant-Tabelle; eigene Tabellen haben Stein, Eisen, Diamant, Netherit und Enderit.",
             "Stein-Tabelle: Glatter Sandstein → Geschnittener Sandstein → Sandstein → Gemeißelter Sandstein (ebenso für roten Sandstein); Sandsteintreppe → Glatte Sandsteintreppe; Sandsteinstufe → Geschnittene Sandsteinstufe → Glatte Sandsteinstufe (ebenso rot); Stein → Gemeißelte Steinziegel; Glatte Steinstufe → Steinstufe; Steintreppe → Bruchsteintreppe.",
             "Eisen-/Kupfer-Tabelle zusätzlich: Gemeißelte Steinziegel → Steinziegel → Rissige Steinziegel; Steinziegeltreppe und -stufe → bemooste Variante; Polierter Andesit, Diorit und Granit → unpolierte Variante (auch Treppen und Stufen); Polierter Tuff → Tuff (auch Treppen und Stufen); Bretter → Treppe → Stufe für Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Bambus und Blasseiche.",
             "Gold-/Diamant-Tabelle zusätzlich: Glatter Quarzblock → Quarzsäule → Quarzziegel → Gemeißelter Quarzblock → Quarzblock (Glatte Quarztreppe → Quarztreppe, Stufen analog); Polierter Tuff → Tuff → Gemeißelter Tuff → Tuffziegel (Tufftreppe → Tuffziegeltreppe → Polierte Tufftreppe, Stufen analog); Polierter Schwarzstein → Schwarzstein → Gemeißelter polierter Schwarzstein → Polierte Schwarzsteinziegel → Rissige polierte Schwarzsteinziegel (Treppen/Stufen: poliert → Schwarzstein → polierte Ziegel); Basalt → Glatter Basalt → Polierter Basalt; Polierter Tiefenschiefer → Gemeißelter Tiefenschiefer → Tiefenschieferziegel → Rissige Tiefenschieferziegel → Tiefenschieferfliesen → Rissige Tiefenschieferfliesen → Tiefenschiefer → Bruchtiefenschiefer (Treppen/Stufen: poliert → Ziegel → Fliesen → Bruchtiefenschiefer); Rissige Steinziegel → Bruchstein.",
-            "Netherit-/Enderit-Tabelle zusätzlich: Netherrack → Netherziegel → Rissige Netherziegel → Gemeißelte Netherziegel → Netherrack (Kreislauf); Harzziegel → Gemeißelte Harzziegel; Gemeißelter Sandstein → Sand; Gemeißelter roter Sandstein → Roter Sand.",
+            "Netherit-Tabelle zusätzlich: Netherrack → Netherziegel → Rissige Netherziegel → Gemeißelte Netherziegel → Netherrack (Kreislauf); Harzziegel → Gemeißelte Harzziegel; Gemeißelter Sandstein → Sand; Gemeißelter roter Sandstein → Roter Sand.",
+            "Enderit-Tabelle zusätzlich (nur der Enderitmeißel): Polierter Astralit → Astralit-Säule → Astralit-Ziegel → Gemeißelte Astralit-Ziegel → Astralitblock, dieselbe Kette für Nihilith und für Enderquarz (Polierter Enderquarz → Enderquarzsäule → Enderquarzziegel → Gemeißelte Enderquarzziegel → Enderquarzblock); Treppe, Stufe und Mauer aus poliertem Astralit/Nihilith → Ziegel-Variante; Treppe und Stufe aus poliertem Enderquarz → Enderquarzziegel-Treppe/-Stufe → Enderquarztreppe/-stufe, Mauer aus poliertem Enderquarz → Enderquarzziegelmauer. Jeder Block dieser Ketten kommt 1:1 aus der Steinsäge vom selben Grundblock, der Meißel gewinnt oder verliert also kein Material.",
             "Mit der Verzauberung Berührung des Konstrukteurs kommen je Stufe Zusatz-Einträge dazu – Stein: Schlammziegel → Gepackter Schlamm → Schlamm, Bruchstein → Bemooster Bruchstein (auch Treppe/Stufe), neun Stammarten → entrindeter Stamm (Eiche, Fichte, Birke, Tropenbaum, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche); Eisen: Ziegel → Schlammziegel (auch Treppe/Stufe), neun Holzarten (Rindenblöcke) → entrindetes Holz, Karmesin- und Wirrbretter → Treppe → Stufe; Diamant: Prismarin → Prismarinziegel (auch Treppe/Stufe), Glatter Stein → Stein (auch Stufe), Endstein → Endsteinziegel, Purpursäule → Purpurblock, Kupferblock → Geschnittener Kupferblock → Gemeißelter Kupferblock → Kupfergitter, tote Korallenblöcke im Kreis (Hirn → Blasen → Feuer → Horn → Röhren → Hirn), lebende Korallenblöcke im Kreis; Netherit: Polierter Diorit → Diorit → Kalzit → Tropfsteinblock, Obsidian → Weinender Obsidian, Karmesin- und Wirrstiel → entrindet, jede der 16 Betonfarben → gleichfarbiger Trockenbeton.",
             "Blockeigenschaften wie „mit Wasser gefüllt“ oder die Lage einer Stufe (oben, unten, doppelt) werden auf den neuen Block übernommen, wenn dieser dieselbe Eigenschaft besitzt.",
             "Säulenblöcke (Achse) und Treppen (Richtung und obere/untere Hälfte) werden nach der Umwandlung aus der Klickposition und der Blickrichtung des Spielers neu ausgerichtet; als Randbereich einer Blockseite gilt ein Streifen von 0,25 Blockbreite. Ein weiterer Code-Zweig für Blöcke mit sechsseitiger Blickrichtung (FACING) existiert, trifft aber auf keinen Zielblock der Tabellen zu.",
@@ -10317,8 +10329,8 @@ window.WIKI_DATA = {
             "Eisenmeißel: Haltbarkeit 256, Abklingzeit 25 Ticks, Verzauberbarkeit 14, Tabelle Eisen/Kupfer.",
             "Goldmeißel: Haltbarkeit 128, Abklingzeit 20 Ticks, Verzauberbarkeit 22, Tabelle Gold/Diamant.",
             "Diamantmeißel: Haltbarkeit 392, Abklingzeit 10 Ticks, Verzauberbarkeit 10, Tabelle Gold/Diamant.",
-            "Netheritmeißel: Haltbarkeit 512, Abklingzeit 5 Ticks, Verzauberbarkeit 15, Tabelle Netherit/Enderit.",
-            "Enderitmeißel: Haltbarkeit 600, Abklingzeit 5 Ticks, Verzauberbarkeit 18, Material-Grundgeschwindigkeit 10,0, Tabelle Netherit/Enderit.",
+            "Netheritmeißel: Haltbarkeit 512, Abklingzeit 5 Ticks, Verzauberbarkeit 15, Tabelle Netherit.",
+            "Enderitmeißel: Haltbarkeit 600, Abklingzeit 5 Ticks, Verzauberbarkeit 18, Material-Grundgeschwindigkeit 10,0, Tabelle Enderit (Netherit-Tabelle plus die End-Paletten).",
             "Die Abbaugeschwindigkeit hängt bei allen Stufen zusätzlich von der Grundgeschwindigkeit des jeweiligen Werkzeugmaterials ab und wird halbiert (20 Ticks = 1 Sekunde)."
           ],
           "caveats": [
@@ -13832,12 +13844,13 @@ window.WIKI_DATA = {
           "details": [
             "Registered are the Stone Chisel, Copper Chisel, Iron Chisel, Gold Chisel, Diamond Chisel, Netherite Chisel and Enderite Chisel.",
             "Right-clicking a block from the transformation map replaces it with the next block in its chain; sneak + right-click replaces it with the previous block in the chain.",
-            "There are four maps (stone, iron/copper, gold/diamond, netherite/enderite); every higher tier contains all entries of the lower ones, and where the same source block appears twice the higher tier's entry wins (the maps are merged with putAll).",
-            "The Copper Chisel uses the iron map, the Gold Chisel the diamond map and the Enderite Chisel the netherite map; only stone, iron, diamond and netherite have maps of their own.",
+            "There are five maps (stone, iron/copper, gold/diamond, netherite, enderite); every higher tier contains all entries of the lower ones, and where the same source block appears twice the higher tier's entry wins (the maps are merged with putAll).",
+            "The Copper Chisel uses the iron map and the Gold Chisel the diamond map; stone, iron, diamond, netherite and enderite have maps of their own.",
             "Stone map: Smooth Sandstone -> Cut Sandstone -> Sandstone -> Chiseled Sandstone (the same for red sandstone); Sandstone Stairs -> Smooth Sandstone Stairs; Sandstone Slab -> Cut Sandstone Slab -> Smooth Sandstone Slab (red likewise); Stone -> Chiseled Stone Bricks; Smooth Stone Slab -> Stone Slab; Stone Stairs -> Cobblestone Stairs.",
             "Iron/copper map adds: Chiseled Stone Bricks -> Stone Bricks -> Cracked Stone Bricks; Stone Brick Stairs and Slab -> mossy variant; Polished Andesite, Diorite and Granite -> unpolished variant (stairs and slabs too); Polished Tuff -> Tuff (stairs and slabs too); Planks -> Stairs -> Slab for oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, bamboo and pale oak.",
             "Gold/diamond map adds: Smooth Quartz Block -> Quartz Pillar -> Quartz Bricks -> Chiseled Quartz Block -> Block of Quartz (Smooth Quartz Stairs -> Quartz Stairs, slabs likewise); Polished Tuff -> Tuff -> Chiseled Tuff -> Tuff Bricks (Tuff Stairs -> Tuff Brick Stairs -> Polished Tuff Stairs, slabs likewise); Polished Blackstone -> Blackstone -> Chiseled Polished Blackstone -> Polished Blackstone Bricks -> Cracked Polished Blackstone Bricks (stairs/slabs: polished -> blackstone -> polished bricks); Basalt -> Smooth Basalt -> Polished Basalt; Polished Deepslate -> Chiseled Deepslate -> Deepslate Bricks -> Cracked Deepslate Bricks -> Deepslate Tiles -> Cracked Deepslate Tiles -> Deepslate -> Cobbled Deepslate (stairs/slabs: polished -> bricks -> tiles -> cobbled); Cracked Stone Bricks -> Cobblestone.",
-            "Netherite/enderite map adds: Netherrack -> Nether Bricks -> Cracked Nether Bricks -> Chiseled Nether Bricks -> Netherrack (a cycle); Resin Bricks -> Chiseled Resin Bricks; Chiseled Sandstone -> Sand; Chiseled Red Sandstone -> Red Sand.",
+            "Netherite map adds: Netherrack -> Nether Bricks -> Cracked Nether Bricks -> Chiseled Nether Bricks -> Netherrack (a cycle); Resin Bricks -> Chiseled Resin Bricks; Chiseled Sandstone -> Sand; Chiseled Red Sandstone -> Red Sand.",
+            "Enderite map adds (only the Enderite Chisel): Polished Astralit -> Astralit Pillar -> Astralit Bricks -> Chiseled Astralit Bricks -> Block of Astralit, the same chain for Nihilith and for Ender Quartz (Polished Ender Quartz -> Ender Quartz Pillar -> Ender Quartz Bricks -> Chiseled Ender Quartz Bricks -> Block of Ender Quartz); Polished Astralit/Nihilith Stairs, Slab and Wall -> the brick variant; Polished Ender Quartz Stairs and Slab -> Ender Quartz Brick Stairs/Slab -> Ender Quartz Stairs/Slab, Polished Ender Quartz Wall -> Ender Quartz Brick Wall. Every block in these chains comes out of the stonecutter 1:1 from the same base block, so the chisel neither gains nor loses material.",
             "With the Constructor's Touch enchantment each tier gains extra entries - stone: Mud Bricks -> Packed Mud -> Mud, Cobblestone -> Mossy Cobblestone (stairs and slab too), nine log types -> stripped log (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak); iron: Bricks -> Mud Bricks (stairs and slab too), nine wood types (bark blocks) -> stripped wood, crimson and warped planks -> stairs -> slab; diamond: Prismarine -> Prismarine Bricks (stairs and slab too), Smooth Stone -> Stone (Smooth Stone Slab -> Stone Slab as well), End Stone -> End Stone Bricks, Purpur Pillar -> Purpur Block, Block of Copper -> Cut Copper -> Chiseled Copper -> Copper Grate, dead coral blocks in a cycle (brain -> bubble -> fire -> horn -> tube -> brain), living coral blocks in a cycle; netherite: Polished Diorite -> Diorite -> Calcite -> Dripstone Block, Obsidian -> Crying Obsidian, crimson and warped stems -> stripped, each of the 16 concrete colors -> concrete powder of the same color.",
             "Block properties such as waterlogged, or a slab's type (top, bottom, double), are carried over to the new block when that block has the same property.",
             "Pillar blocks (axis) and stairs (facing and top/bottom half) are re-oriented after the transformation from the click position and the player's facing; the edge zone of a block face is a strip 0.25 blocks wide. A further code branch for blocks with a six-way FACING exists, but it applies to no target block in the maps.",
@@ -13873,8 +13886,8 @@ window.WIKI_DATA = {
             "Iron Chisel: 256 durability, 25 tick cooldown, enchantability 14, iron/copper map.",
             "Gold Chisel: 128 durability, 20 tick cooldown, enchantability 22, gold/diamond map.",
             "Diamond Chisel: 392 durability, 10 tick cooldown, enchantability 10, gold/diamond map.",
-            "Netherite Chisel: 512 durability, 5 tick cooldown, enchantability 15, netherite/enderite map.",
-            "Enderite Chisel: 600 durability, 5 tick cooldown, enchantability 18, material base speed 10.0, netherite/enderite map.",
+            "Netherite Chisel: 512 durability, 5 tick cooldown, enchantability 15, netherite map.",
+            "Enderite Chisel: 600 durability, 5 tick cooldown, enchantability 18, material base speed 10.0, enderite map (netherite map plus the End palettes).",
             "On every tier the mining speed also depends on the base speed of the tool material, and is halved. (For the cooldowns above: 20 ticks = 1 second.)"
           ],
           "caveats": [
@@ -13894,12 +13907,13 @@ window.WIKI_DATA = {
           "details": [
             "Registriert sind Steinmeißel, Kupfermeißel, Eisenmeißel, Goldmeißel, Diamantmeißel, Netheritmeißel und Enderitmeißel.",
             "Rechtsklick auf einen Block aus der Umwandlungstabelle ersetzt ihn durch den nächsten Block seiner Kette; Schleichen + Rechtsklick ersetzt ihn durch den vorherigen Block der Kette.",
-            "Es gibt vier Tabellen (Stein, Eisen/Kupfer, Gold/Diamant, Netherit/Enderit); jede höhere Stufe enthält alle Einträge der niedrigeren, und bei gleichem Ausgangsblock gilt der Eintrag der höheren Stufe (die Tabellen werden per putAll zusammengeführt).",
-            "Der Kupfermeißel nutzt die Eisen-Tabelle, der Goldmeißel die Diamant-Tabelle und der Enderit-Meißel die Netherit-Tabelle; eigene Tabellen haben nur Stein, Eisen, Diamant und Netherit.",
+            "Es gibt fünf Tabellen (Stein, Eisen/Kupfer, Gold/Diamant, Netherit, Enderit); jede höhere Stufe enthält alle Einträge der niedrigeren, und bei gleichem Ausgangsblock gilt der Eintrag der höheren Stufe (die Tabellen werden per putAll zusammengeführt).",
+            "Der Kupfermeißel nutzt die Eisen-Tabelle, der Goldmeißel die Diamant-Tabelle; eigene Tabellen haben Stein, Eisen, Diamant, Netherit und Enderit.",
             "Stein-Tabelle: Glatter Sandstein → Geschnittener Sandstein → Sandstein → Gemeißelter Sandstein (ebenso für roten Sandstein); Sandsteintreppe → Glatte Sandsteintreppe; Sandsteinstufe → Geschnittene Sandsteinstufe → Glatte Sandsteinstufe (ebenso rot); Stein → Gemeißelte Steinziegel; Glatte Steinstufe → Steinstufe; Steintreppe → Bruchsteintreppe.",
             "Eisen-/Kupfer-Tabelle zusätzlich: Gemeißelte Steinziegel → Steinziegel → Rissige Steinziegel; Steinziegeltreppe und -stufe → bemooste Variante; Polierter Andesit, Diorit und Granit → unpolierte Variante (auch Treppen und Stufen); Polierter Tuff → Tuff (auch Treppen und Stufen); Bretter → Treppe → Stufe für Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Bambus und Blasseiche.",
             "Gold-/Diamant-Tabelle zusätzlich: Glatter Quarzblock → Quarzsäule → Quarzziegel → Gemeißelter Quarzblock → Quarzblock (Glatte Quarztreppe → Quarztreppe, Stufen analog); Polierter Tuff → Tuff → Gemeißelter Tuff → Tuffziegel (Tufftreppe → Tuffziegeltreppe → Polierte Tufftreppe, Stufen analog); Polierter Schwarzstein → Schwarzstein → Gemeißelter polierter Schwarzstein → Polierte Schwarzsteinziegel → Rissige polierte Schwarzsteinziegel (Treppen/Stufen: poliert → Schwarzstein → polierte Ziegel); Basalt → Glatter Basalt → Polierter Basalt; Polierter Tiefenschiefer → Gemeißelter Tiefenschiefer → Tiefenschieferziegel → Rissige Tiefenschieferziegel → Tiefenschieferfliesen → Rissige Tiefenschieferfliesen → Tiefenschiefer → Bruchtiefenschiefer (Treppen/Stufen: poliert → Ziegel → Fliesen → Bruchtiefenschiefer); Rissige Steinziegel → Bruchstein.",
-            "Netherit-/Enderit-Tabelle zusätzlich: Netherrack → Netherziegel → Rissige Netherziegel → Gemeißelte Netherziegel → Netherrack (Kreislauf); Harzziegel → Gemeißelte Harzziegel; Gemeißelter Sandstein → Sand; Gemeißelter roter Sandstein → Roter Sand.",
+            "Netherit-Tabelle zusätzlich: Netherrack → Netherziegel → Rissige Netherziegel → Gemeißelte Netherziegel → Netherrack (Kreislauf); Harzziegel → Gemeißelte Harzziegel; Gemeißelter Sandstein → Sand; Gemeißelter roter Sandstein → Roter Sand.",
+            "Enderit-Tabelle zusätzlich (nur der Enderitmeißel): Polierter Astralit → Astralit-Säule → Astralit-Ziegel → Gemeißelte Astralit-Ziegel → Astralitblock, dieselbe Kette für Nihilith und für Enderquarz (Polierter Enderquarz → Enderquarzsäule → Enderquarzziegel → Gemeißelte Enderquarzziegel → Enderquarzblock); Treppe, Stufe und Mauer aus poliertem Astralit/Nihilith → Ziegel-Variante; Treppe und Stufe aus poliertem Enderquarz → Enderquarzziegel-Treppe/-Stufe → Enderquarztreppe/-stufe, Mauer aus poliertem Enderquarz → Enderquarzziegelmauer. Jeder Block dieser Ketten kommt 1:1 aus der Steinsäge vom selben Grundblock, der Meißel gewinnt oder verliert also kein Material.",
             "Mit der Verzauberung Berührung des Konstrukteurs kommen je Stufe Zusatz-Einträge dazu – Stein: Schlammziegel → Gepackter Schlamm → Schlamm, Bruchstein → Bemooster Bruchstein (auch Treppe/Stufe), neun Stammarten → entrindeter Stamm (Eiche, Fichte, Birke, Tropenbaum, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche); Eisen: Ziegel → Schlammziegel (auch Treppe/Stufe), neun Holzarten (Rindenblöcke) → entrindetes Holz, Karmesin- und Wirrbretter → Treppe → Stufe; Diamant: Prismarin → Prismarinziegel (auch Treppe/Stufe), Glatter Stein → Stein (auch Stufe), Endstein → Endsteinziegel, Purpursäule → Purpurblock, Kupferblock → Geschnittener Kupferblock → Gemeißelter Kupferblock → Kupfergitter, tote Korallenblöcke im Kreis (Hirn → Blasen → Feuer → Horn → Röhren → Hirn), lebende Korallenblöcke im Kreis; Netherit: Polierter Diorit → Diorit → Kalzit → Tropfsteinblock, Obsidian → Weinender Obsidian, Karmesin- und Wirrstiel → entrindet, jede der 16 Betonfarben → gleichfarbiger Trockenbeton.",
             "Blockeigenschaften wie „mit Wasser gefüllt“ oder die Lage einer Stufe (oben, unten, doppelt) werden auf den neuen Block übernommen, wenn dieser dieselbe Eigenschaft besitzt.",
             "Säulenblöcke (Achse) und Treppen (Richtung und obere/untere Hälfte) werden nach der Umwandlung aus der Klickposition und der Blickrichtung des Spielers neu ausgerichtet; als Randbereich einer Blockseite gilt ein Streifen von 0,25 Blockbreite. Ein weiterer Code-Zweig für Blöcke mit sechsseitiger Blickrichtung (FACING) existiert, trifft aber auf keinen Zielblock der Tabellen zu.",
@@ -13935,8 +13949,8 @@ window.WIKI_DATA = {
             "Eisenmeißel: Haltbarkeit 256, Abklingzeit 25 Ticks, Verzauberbarkeit 14, Tabelle Eisen/Kupfer.",
             "Goldmeißel: Haltbarkeit 128, Abklingzeit 20 Ticks, Verzauberbarkeit 22, Tabelle Gold/Diamant.",
             "Diamantmeißel: Haltbarkeit 392, Abklingzeit 10 Ticks, Verzauberbarkeit 10, Tabelle Gold/Diamant.",
-            "Netheritmeißel: Haltbarkeit 512, Abklingzeit 5 Ticks, Verzauberbarkeit 15, Tabelle Netherit/Enderit.",
-            "Enderitmeißel: Haltbarkeit 600, Abklingzeit 5 Ticks, Verzauberbarkeit 18, Material-Grundgeschwindigkeit 10,0, Tabelle Netherit/Enderit.",
+            "Netheritmeißel: Haltbarkeit 512, Abklingzeit 5 Ticks, Verzauberbarkeit 15, Tabelle Netherit.",
+            "Enderitmeißel: Haltbarkeit 600, Abklingzeit 5 Ticks, Verzauberbarkeit 18, Material-Grundgeschwindigkeit 10,0, Tabelle Enderit (Netherit-Tabelle plus die End-Paletten).",
             "Die Abbaugeschwindigkeit hängt bei allen Stufen zusätzlich von der Grundgeschwindigkeit des jeweiligen Werkzeugmaterials ab und wird halbiert (20 Ticks = 1 Sekunde)."
           ],
           "caveats": [
@@ -37231,11 +37245,11 @@ window.WIKI_DATA = {
               "cooldownTicks": 20
             },
             {
-              "id": "simplebuilding:enderite_chisel",
+              "id": "simplebuilding:netherite_chisel",
               "cooldownTicks": 5
             },
             {
-              "id": "simplebuilding:netherite_chisel",
+              "id": "simplebuilding:enderite_chisel",
               "cooldownTicks": 5
             }
           ]
@@ -37295,11 +37309,11 @@ window.WIKI_DATA = {
               "cooldownTicks": 20
             },
             {
-              "id": "simplebuilding:enderite_chisel",
+              "id": "simplebuilding:netherite_chisel",
               "cooldownTicks": 5
             },
             {
-              "id": "simplebuilding:netherite_chisel",
+              "id": "simplebuilding:enderite_chisel",
               "cooldownTicks": 5
             }
           ]
@@ -37947,8 +37961,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:acacia_stairs",
@@ -37977,8 +37991,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:acacia_slab",
@@ -38007,8 +38021,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:bamboo_stairs",
@@ -38037,8 +38051,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:bamboo_slab",
@@ -38065,8 +38079,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:smooth_basalt",
@@ -38095,8 +38109,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:birch_stairs",
@@ -38125,8 +38139,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:birch_slab",
@@ -38153,8 +38167,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:chiseled_polished_blackstone",
@@ -38181,8 +38195,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_blackstone_brick_slab",
@@ -38209,8 +38223,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_blackstone_brick_stairs",
@@ -38239,8 +38253,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cherry_stairs",
@@ -38269,8 +38283,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cherry_slab",
@@ -38297,8 +38311,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:deepslate_bricks",
@@ -38323,8 +38337,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:netherrack",
@@ -38351,8 +38365,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_blackstone_bricks",
@@ -38379,8 +38393,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:quartz_block",
@@ -38405,8 +38419,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:red_sand",
@@ -38431,8 +38445,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:sand",
@@ -38461,8 +38475,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stone_bricks",
@@ -38489,8 +38503,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:tuff_bricks",
@@ -38517,8 +38531,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:deepslate_tiles",
@@ -38545,8 +38559,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:deepslate",
@@ -38571,8 +38585,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:chiseled_nether_bricks",
@@ -38599,8 +38613,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cobblestone",
@@ -38630,8 +38644,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:red_sandstone",
@@ -38661,8 +38675,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:smooth_red_sandstone_slab",
@@ -38692,8 +38706,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:sandstone",
@@ -38723,8 +38737,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:smooth_sandstone_slab",
@@ -38753,8 +38767,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:dark_oak_stairs",
@@ -38783,8 +38797,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:dark_oak_slab",
@@ -38811,8 +38825,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cobbled_deepslate",
@@ -38839,8 +38853,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:deepslate_tile_slab",
@@ -38867,8 +38881,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:deepslate_tile_stairs",
@@ -38895,8 +38909,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cracked_deepslate_bricks",
@@ -38923,8 +38937,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cobbled_deepslate_slab",
@@ -38951,8 +38965,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cobbled_deepslate_stairs",
@@ -38979,8 +38993,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cracked_deepslate_tiles",
@@ -39009,8 +39023,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:jungle_stairs",
@@ -39039,8 +39053,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:jungle_slab",
@@ -39069,8 +39083,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:mangrove_stairs",
@@ -39099,8 +39113,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:mangrove_slab",
@@ -39125,8 +39139,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cracked_nether_bricks",
@@ -39151,8 +39165,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:nether_bricks",
@@ -39181,8 +39195,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:oak_stairs",
@@ -39211,8 +39225,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:oak_slab",
@@ -39241,8 +39255,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:pale_oak_stairs",
@@ -39271,8 +39285,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:pale_oak_slab",
@@ -39301,8 +39315,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:andesite",
@@ -39331,8 +39345,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:andesite_slab",
@@ -39361,8 +39375,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:andesite_stairs",
@@ -39389,8 +39403,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:blackstone",
@@ -39417,8 +39431,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cracked_polished_blackstone_bricks",
@@ -39445,8 +39459,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:blackstone_slab",
@@ -39473,8 +39487,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:blackstone_stairs",
@@ -39501,8 +39515,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:chiseled_deepslate",
@@ -39529,8 +39543,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:deepslate_brick_slab",
@@ -39557,8 +39571,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:deepslate_brick_stairs",
@@ -39587,8 +39601,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:diorite",
@@ -39617,8 +39631,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:diorite_slab",
@@ -39647,8 +39661,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:diorite_stairs",
@@ -39677,8 +39691,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:granite",
@@ -39707,8 +39721,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:granite_slab",
@@ -39737,8 +39751,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:granite_stairs",
@@ -39767,8 +39781,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:tuff",
@@ -39797,8 +39811,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:tuff_slab",
@@ -39827,8 +39841,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:tuff_stairs",
@@ -39855,8 +39869,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:chiseled_quartz_block",
@@ -39883,8 +39897,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:quartz_bricks",
@@ -39914,8 +39928,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:chiseled_red_sandstone",
@@ -39945,8 +39959,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cut_red_sandstone_slab",
@@ -39976,8 +39990,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:smooth_red_sandstone_stairs",
@@ -40002,8 +40016,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:chiseled_resin_bricks",
@@ -40033,8 +40047,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:chiseled_sandstone",
@@ -40064,8 +40078,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cut_sandstone_slab",
@@ -40095,8 +40109,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:smooth_sandstone_stairs",
@@ -40123,8 +40137,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_basalt",
@@ -40151,8 +40165,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:quartz_pillar",
@@ -40179,8 +40193,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:quartz_slab",
@@ -40207,8 +40221,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:quartz_stairs",
@@ -40238,8 +40252,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cut_red_sandstone",
@@ -40269,8 +40283,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cut_sandstone",
@@ -40300,8 +40314,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stone_slab",
@@ -40330,8 +40344,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:spruce_stairs",
@@ -40360,8 +40374,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:spruce_slab",
@@ -40391,8 +40405,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:chiseled_stone_bricks",
@@ -40421,8 +40435,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:mossy_stone_brick_slab",
@@ -40451,8 +40465,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:mossy_stone_brick_stairs",
@@ -40481,8 +40495,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cracked_stone_bricks",
@@ -40512,8 +40526,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cobblestone_stairs",
@@ -40540,8 +40554,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:chiseled_tuff",
@@ -40568,8 +40582,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_tuff_slab",
@@ -40596,8 +40610,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_tuff_stairs",
@@ -40624,8 +40638,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:tuff_brick_slab",
@@ -40652,11 +40666,586 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:tuff_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:astralit_bricks/simplebuilding:chiseled_astralit_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:astralit_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:chiseled_astralit_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:astralit_pillar/simplebuilding:astralit_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:astralit_pillar",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:astralit_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:chiseled_astralit_bricks/simplebuilding:astralit_block",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:chiseled_astralit_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:astralit_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:chiseled_ender_quartz_bricks/simplebuilding:ender_quartz_block",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:chiseled_ender_quartz_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:ender_quartz_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:chiseled_nihilith_bricks/simplebuilding:nihilith_block",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:chiseled_nihilith_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:nihilith_block",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:ender_quartz_brick_slab/simplebuilding:ender_quartz_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:ender_quartz_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:ender_quartz_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:ender_quartz_brick_stairs/simplebuilding:ender_quartz_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:ender_quartz_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:ender_quartz_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:ender_quartz_bricks/simplebuilding:chiseled_ender_quartz_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:ender_quartz_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:chiseled_ender_quartz_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:ender_quartz_pillar/simplebuilding:ender_quartz_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:ender_quartz_pillar",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:ender_quartz_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:nihilith_bricks/simplebuilding:chiseled_nihilith_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:nihilith_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:chiseled_nihilith_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:nihilith_pillar/simplebuilding:nihilith_bricks",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:nihilith_pillar",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:nihilith_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:polished_astralit/simplebuilding:astralit_pillar",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:polished_astralit",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:astralit_pillar",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:polished_astralit_slab/simplebuilding:astralit_brick_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:polished_astralit_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:astralit_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:polished_astralit_stairs/simplebuilding:astralit_brick_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:polished_astralit_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:astralit_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:polished_astralit_wall/simplebuilding:astralit_brick_wall",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:polished_astralit_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:astralit_brick_wall",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:polished_ender_quartz/simplebuilding:ender_quartz_pillar",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:polished_ender_quartz",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:ender_quartz_pillar",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:polished_ender_quartz_slab/simplebuilding:ender_quartz_brick_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:polished_ender_quartz_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:ender_quartz_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:polished_ender_quartz_stairs/simplebuilding:ender_quartz_brick_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:polished_ender_quartz_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:ender_quartz_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:polished_ender_quartz_wall/simplebuilding:ender_quartz_brick_wall",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:polished_ender_quartz_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:ender_quartz_brick_wall",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:polished_nihilith/simplebuilding:nihilith_pillar",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:polished_nihilith",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:nihilith_pillar",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:polished_nihilith_slab/simplebuilding:nihilith_brick_slab",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:polished_nihilith_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:nihilith_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:polished_nihilith_stairs/simplebuilding:nihilith_brick_stairs",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:polished_nihilith_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:nihilith_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 1
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel/simplebuilding:polished_nihilith_wall/simplebuilding:nihilith_brick_wall",
+        "kind": "chisel",
+        "inputs": [
+          {
+            "id": "simplebuilding:polished_nihilith_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:nihilith_brick_wall",
           "count": 1
         },
         "stats": {
@@ -40683,8 +41272,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stripped_acacia_log",
@@ -40714,8 +41303,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stripped_acacia_wood",
@@ -40746,8 +41335,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stripped_birch_log",
@@ -40777,8 +41366,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stripped_birch_wood",
@@ -40804,8 +41393,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:black_concrete_powder",
@@ -40831,8 +41420,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:blue_concrete_powder",
@@ -40860,8 +41449,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:bubble_coral_block",
@@ -40891,8 +41480,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:mud_brick_slab",
@@ -40922,8 +41511,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:mud_brick_stairs",
@@ -40953,8 +41542,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:mud_bricks",
@@ -40980,8 +41569,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:brown_concrete_powder",
@@ -41009,8 +41598,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:fire_coral_block",
@@ -41036,8 +41625,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:dripstone_block",
@@ -41068,8 +41657,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stripped_cherry_log",
@@ -41099,8 +41688,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stripped_cherry_wood",
@@ -41128,8 +41717,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:copper_grate",
@@ -41160,8 +41749,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:mossy_cobblestone",
@@ -41192,8 +41781,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:mossy_cobblestone_slab",
@@ -41224,8 +41813,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:mossy_cobblestone_stairs",
@@ -41253,8 +41842,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cut_copper",
@@ -41284,8 +41873,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:crimson_stairs",
@@ -41315,8 +41904,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:crimson_slab",
@@ -41342,8 +41931,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stripped_crimson_stem",
@@ -41371,8 +41960,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:chiseled_copper",
@@ -41398,8 +41987,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cyan_concrete_powder",
@@ -41430,8 +42019,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stripped_dark_oak_log",
@@ -41461,8 +42050,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stripped_dark_oak_wood",
@@ -41490,8 +42079,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:dead_bubble_coral_block",
@@ -41519,8 +42108,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:dead_fire_coral_block",
@@ -41548,8 +42137,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:dead_horn_coral_block",
@@ -41577,8 +42166,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:dead_tube_coral_block",
@@ -41606,8 +42195,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:dead_brain_coral_block",
@@ -41633,8 +42222,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:calcite",
@@ -41662,8 +42251,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:end_stone_bricks",
@@ -41691,8 +42280,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:horn_coral_block",
@@ -41718,8 +42307,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:gray_concrete_powder",
@@ -41745,8 +42334,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:green_concrete_powder",
@@ -41774,8 +42363,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:tube_coral_block",
@@ -41806,8 +42395,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stripped_jungle_log",
@@ -41837,8 +42426,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stripped_jungle_wood",
@@ -41864,8 +42453,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:light_blue_concrete_powder",
@@ -41891,8 +42480,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:light_gray_concrete_powder",
@@ -41918,8 +42507,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:lime_concrete_powder",
@@ -41945,8 +42534,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:magenta_concrete_powder",
@@ -41977,8 +42566,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stripped_mangrove_log",
@@ -42008,8 +42597,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stripped_mangrove_wood",
@@ -42040,8 +42629,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:packed_mud",
@@ -42072,8 +42661,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stripped_oak_log",
@@ -42103,8 +42692,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stripped_oak_wood",
@@ -42130,8 +42719,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:crying_obsidian",
@@ -42157,8 +42746,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:orange_concrete_powder",
@@ -42189,8 +42778,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:mud",
@@ -42221,8 +42810,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stripped_pale_oak_log",
@@ -42252,8 +42841,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stripped_pale_oak_wood",
@@ -42279,8 +42868,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:pink_concrete_powder",
@@ -42308,8 +42897,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:prismarine_bricks",
@@ -42337,8 +42926,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:prismarine_brick_slab",
@@ -42366,8 +42955,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:prismarine_brick_stairs",
@@ -42393,8 +42982,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:purple_concrete_powder",
@@ -42422,8 +43011,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:purpur_block",
@@ -42449,8 +43038,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:red_concrete_powder",
@@ -42478,8 +43067,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stone",
@@ -42510,8 +43099,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stripped_spruce_log",
@@ -42541,8 +43130,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stripped_spruce_wood",
@@ -42570,8 +43159,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:brain_coral_block",
@@ -42601,8 +43190,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:warped_stairs",
@@ -42632,8 +43221,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:warped_slab",
@@ -42659,8 +43248,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stripped_warped_stem",
@@ -42686,8 +43275,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:white_concrete_powder",
@@ -42713,8 +43302,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:yellow_concrete_powder",
@@ -42744,8 +43333,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:acacia_stairs",
@@ -42774,8 +43363,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:acacia_planks",
@@ -42804,8 +43393,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_andesite",
@@ -42834,8 +43423,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_andesite_slab",
@@ -42864,8 +43453,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_andesite_stairs",
@@ -42894,8 +43483,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:bamboo_stairs",
@@ -42924,8 +43513,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:bamboo_planks",
@@ -42954,8 +43543,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:birch_stairs",
@@ -42984,8 +43573,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:birch_planks",
@@ -43012,8 +43601,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_blackstone",
@@ -43040,8 +43629,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_blackstone_slab",
@@ -43068,8 +43657,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_blackstone_stairs",
@@ -43098,8 +43687,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cherry_stairs",
@@ -43128,8 +43717,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cherry_planks",
@@ -43156,8 +43745,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_deepslate",
@@ -43182,8 +43771,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cracked_nether_bricks",
@@ -43210,8 +43799,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:blackstone",
@@ -43238,8 +43827,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:quartz_bricks",
@@ -43269,8 +43858,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:red_sandstone",
@@ -43295,8 +43884,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:resin_bricks",
@@ -43326,8 +43915,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:sandstone",
@@ -43357,8 +43946,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stone",
@@ -43385,8 +43974,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:tuff",
@@ -43413,8 +44002,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:deepslate",
@@ -43441,8 +44030,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:deepslate_tile_slab",
@@ -43469,8 +44058,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:deepslate_tile_stairs",
@@ -43497,8 +44086,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cracked_stone_bricks",
@@ -43528,8 +44117,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stone_stairs",
@@ -43556,8 +44145,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:deepslate_bricks",
@@ -43584,8 +44173,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:deepslate_tiles",
@@ -43610,8 +44199,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:nether_bricks",
@@ -43638,8 +44227,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_blackstone_bricks",
@@ -43668,8 +44257,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stone_bricks",
@@ -43699,8 +44288,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:smooth_red_sandstone",
@@ -43730,8 +44319,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:red_sandstone_slab",
@@ -43761,8 +44350,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:smooth_sandstone",
@@ -43792,8 +44381,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:sandstone_slab",
@@ -43822,8 +44411,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:dark_oak_stairs",
@@ -43852,8 +44441,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:dark_oak_planks",
@@ -43880,8 +44469,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cracked_deepslate_tiles",
@@ -43908,8 +44497,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_deepslate_slab",
@@ -43936,8 +44525,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_deepslate_stairs",
@@ -43964,8 +44553,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:chiseled_deepslate",
@@ -43992,8 +44581,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:deepslate_brick_slab",
@@ -44020,8 +44609,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:deepslate_brick_stairs",
@@ -44048,8 +44637,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cracked_deepslate_bricks",
@@ -44078,8 +44667,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_diorite",
@@ -44108,8 +44697,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_diorite_slab",
@@ -44138,8 +44727,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_diorite_stairs",
@@ -44168,8 +44757,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_granite",
@@ -44198,8 +44787,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_granite_slab",
@@ -44228,8 +44817,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_granite_stairs",
@@ -44258,8 +44847,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:jungle_stairs",
@@ -44288,8 +44877,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:jungle_planks",
@@ -44318,8 +44907,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:mangrove_stairs",
@@ -44348,8 +44937,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:mangrove_planks",
@@ -44378,8 +44967,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stone_brick_slab",
@@ -44408,8 +44997,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:stone_brick_stairs",
@@ -44434,8 +45023,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:netherrack",
@@ -44460,8 +45049,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:chiseled_nether_bricks",
@@ -44490,8 +45079,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:oak_stairs",
@@ -44520,8 +45109,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:oak_planks",
@@ -44550,8 +45139,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:pale_oak_stairs",
@@ -44580,8 +45169,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:pale_oak_planks",
@@ -44608,8 +45197,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:smooth_basalt",
@@ -44636,8 +45225,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:blackstone_slab",
@@ -44664,8 +45253,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:blackstone_stairs",
@@ -44692,8 +45281,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:chiseled_polished_blackstone",
@@ -44720,8 +45309,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:tuff_brick_slab",
@@ -44748,8 +45337,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:tuff_brick_stairs",
@@ -44776,8 +45365,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:chiseled_quartz_block",
@@ -44804,8 +45393,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:quartz_pillar",
@@ -44832,8 +45421,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:smooth_quartz",
@@ -44860,8 +45449,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:smooth_quartz_slab",
@@ -44888,8 +45477,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:smooth_quartz_stairs",
@@ -44914,8 +45503,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:chiseled_red_sandstone",
@@ -44945,8 +45534,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cut_red_sandstone",
@@ -44971,8 +45560,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:chiseled_sandstone",
@@ -45002,8 +45591,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cut_sandstone",
@@ -45030,8 +45619,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:basalt",
@@ -45061,8 +45650,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cut_red_sandstone_slab",
@@ -45092,8 +45681,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:red_sandstone_stairs",
@@ -45123,8 +45712,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cut_sandstone_slab",
@@ -45154,8 +45743,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:sandstone_stairs",
@@ -45184,8 +45773,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:spruce_stairs",
@@ -45214,8 +45803,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:spruce_planks",
@@ -45244,8 +45833,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:chiseled_stone_bricks",
@@ -45275,8 +45864,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:smooth_stone_slab",
@@ -45305,8 +45894,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_tuff",
@@ -45333,8 +45922,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:tuff_slab",
@@ -45361,8 +45950,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:tuff_stairs",
@@ -45389,8 +45978,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:chiseled_tuff",
@@ -45419,8 +46008,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_tuff_slab",
@@ -45449,11 +46038,586 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:polished_tuff_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:astralit_block/simplebuilding:chiseled_astralit_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:astralit_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:chiseled_astralit_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:astralit_brick_slab/simplebuilding:polished_astralit_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:astralit_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:polished_astralit_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:astralit_brick_stairs/simplebuilding:polished_astralit_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:astralit_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:polished_astralit_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:astralit_brick_wall/simplebuilding:polished_astralit_wall",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:astralit_brick_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:polished_astralit_wall",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:astralit_bricks/simplebuilding:astralit_pillar",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:astralit_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:astralit_pillar",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:astralit_pillar/simplebuilding:polished_astralit",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:astralit_pillar",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:polished_astralit",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:chiseled_astralit_bricks/simplebuilding:astralit_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:chiseled_astralit_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:astralit_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:chiseled_ender_quartz_bricks/simplebuilding:ender_quartz_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:chiseled_ender_quartz_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:ender_quartz_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:chiseled_nihilith_bricks/simplebuilding:nihilith_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:chiseled_nihilith_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:nihilith_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:ender_quartz_block/simplebuilding:chiseled_ender_quartz_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:ender_quartz_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:chiseled_ender_quartz_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:ender_quartz_brick_slab/simplebuilding:polished_ender_quartz_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:ender_quartz_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:polished_ender_quartz_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:ender_quartz_brick_stairs/simplebuilding:polished_ender_quartz_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:ender_quartz_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:polished_ender_quartz_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:ender_quartz_brick_wall/simplebuilding:polished_ender_quartz_wall",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:ender_quartz_brick_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:polished_ender_quartz_wall",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:ender_quartz_bricks/simplebuilding:ender_quartz_pillar",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:ender_quartz_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:ender_quartz_pillar",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:ender_quartz_pillar/simplebuilding:polished_ender_quartz",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:ender_quartz_pillar",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:polished_ender_quartz",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:ender_quartz_slab/simplebuilding:ender_quartz_brick_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:ender_quartz_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:ender_quartz_brick_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:ender_quartz_stairs/simplebuilding:ender_quartz_brick_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:ender_quartz_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:ender_quartz_brick_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:nihilith_block/simplebuilding:chiseled_nihilith_bricks",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:nihilith_block",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:chiseled_nihilith_bricks",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:nihilith_brick_slab/simplebuilding:polished_nihilith_slab",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:nihilith_brick_slab",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:polished_nihilith_slab",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:nihilith_brick_stairs/simplebuilding:polished_nihilith_stairs",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:nihilith_brick_stairs",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:polished_nihilith_stairs",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:nihilith_brick_wall/simplebuilding:polished_nihilith_wall",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:nihilith_brick_wall",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:polished_nihilith_wall",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:nihilith_bricks/simplebuilding:nihilith_pillar",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:nihilith_bricks",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:nihilith_pillar",
+          "count": 1
+        },
+        "stats": {
+          "damage": 2
+        },
+        "lines": [
+          "1.21.11",
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
+        "id": "chisel_reverse/simplebuilding:nihilith_pillar/simplebuilding:polished_nihilith",
+        "kind": "chisel_reverse",
+        "inputs": [
+          {
+            "id": "simplebuilding:nihilith_pillar",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:enderite_chisel"
+        ],
+        "output": {
+          "id": "simplebuilding:polished_nihilith",
           "count": 1
         },
         "stats": {
@@ -45475,8 +46639,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:black_concrete",
@@ -45502,8 +46666,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:blue_concrete",
@@ -45531,8 +46695,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:tube_coral_block",
@@ -45558,8 +46722,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:brown_concrete",
@@ -45587,8 +46751,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:brain_coral_block",
@@ -45614,8 +46778,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:diorite",
@@ -45643,8 +46807,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cut_copper",
@@ -45672,8 +46836,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:chiseled_copper",
@@ -45703,8 +46867,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:crimson_stairs",
@@ -45734,8 +46898,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:crimson_planks",
@@ -45761,8 +46925,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:obsidian",
@@ -45790,8 +46954,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:copper_block",
@@ -45817,8 +46981,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cyan_concrete",
@@ -45846,8 +47010,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:dead_tube_coral_block",
@@ -45875,8 +47039,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:dead_brain_coral_block",
@@ -45904,8 +47068,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:dead_bubble_coral_block",
@@ -45933,8 +47097,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:dead_fire_coral_block",
@@ -45962,8 +47126,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:dead_horn_coral_block",
@@ -45989,8 +47153,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:calcite",
@@ -46018,8 +47182,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:end_stone",
@@ -46047,8 +47211,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:bubble_coral_block",
@@ -46074,8 +47238,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:gray_concrete",
@@ -46101,8 +47265,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:green_concrete",
@@ -46130,8 +47294,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:fire_coral_block",
@@ -46157,8 +47321,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:light_blue_concrete",
@@ -46184,8 +47348,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:light_gray_concrete",
@@ -46211,8 +47375,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:lime_concrete",
@@ -46238,8 +47402,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:magenta_concrete",
@@ -46270,8 +47434,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cobblestone",
@@ -46302,8 +47466,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cobblestone_slab",
@@ -46334,8 +47498,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cobblestone_stairs",
@@ -46366,8 +47530,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:packed_mud",
@@ -46397,8 +47561,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:brick_slab",
@@ -46428,8 +47592,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:brick_stairs",
@@ -46459,8 +47623,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:bricks",
@@ -46486,8 +47650,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:orange_concrete",
@@ -46518,8 +47682,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:mud_bricks",
@@ -46545,8 +47709,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:pink_concrete",
@@ -46574,8 +47738,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:prismarine_slab",
@@ -46603,8 +47767,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:prismarine_stairs",
@@ -46632,8 +47796,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:prismarine",
@@ -46659,8 +47823,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:purple_concrete",
@@ -46688,8 +47852,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:purpur_pillar",
@@ -46715,8 +47879,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:red_concrete",
@@ -46744,8 +47908,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:smooth_stone",
@@ -46776,8 +47940,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:acacia_log",
@@ -46807,8 +47971,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:acacia_wood",
@@ -46839,8 +48003,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:birch_log",
@@ -46870,8 +48034,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:birch_wood",
@@ -46902,8 +48066,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cherry_log",
@@ -46933,8 +48097,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:cherry_wood",
@@ -46960,8 +48124,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:crimson_stem",
@@ -46992,8 +48156,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:dark_oak_log",
@@ -47023,8 +48187,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:dark_oak_wood",
@@ -47055,8 +48219,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:jungle_log",
@@ -47086,8 +48250,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:jungle_wood",
@@ -47118,8 +48282,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:mangrove_log",
@@ -47149,8 +48313,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:mangrove_wood",
@@ -47181,8 +48345,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:oak_log",
@@ -47212,8 +48376,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:oak_wood",
@@ -47244,8 +48408,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:pale_oak_log",
@@ -47275,8 +48439,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:pale_oak_wood",
@@ -47307,8 +48471,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:spruce_log",
@@ -47338,8 +48502,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:spruce_wood",
@@ -47365,8 +48529,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:warped_stem",
@@ -47394,8 +48558,8 @@ window.WIKI_DATA = {
         "tools": [
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:horn_coral_block",
@@ -47425,8 +48589,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:warped_stairs",
@@ -47456,8 +48620,8 @@ window.WIKI_DATA = {
           "simplebuilding:iron_chisel",
           "simplebuilding:diamond_chisel",
           "simplebuilding:gold_chisel",
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:warped_planks",
@@ -47483,8 +48647,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:white_concrete",
@@ -47510,8 +48674,8 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:enderite_chisel",
-          "simplebuilding:netherite_chisel"
+          "simplebuilding:netherite_chisel",
+          "simplebuilding:enderite_chisel"
         ],
         "output": {
           "id": "minecraft:yellow_concrete",
@@ -47547,7 +48711,7 @@ window.WIKI_DATA = {
     "enchantments": 19,
     "tags": 27,
     "config": 24,
-    "inWorld": 343,
+    "inWorld": 389,
     "features": 33,
     "undocumented": 0,
     "incompleteProse": 0

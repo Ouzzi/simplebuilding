@@ -58,7 +58,10 @@ public class QuiverItem extends ReinforcedBundleItem {
     @Override
     public boolean overrideOtherStackedOnMe(ItemStack bundle, ItemStack cursorStack, Slot slot, ClickAction clickAction, Player player, SlotAccess cursorStackReference) {
         if (clickAction == getInsertClick() && !cursorStack.isEmpty()) {
-            if (!cursorStack.is(ItemTags.ARROWS)) return false;
+            if (!cursorStack.is(ItemTags.ARROWS)) {
+                clearBundleSelection(bundle); // falls through to a swap, closed as in super
+                return false;
+            }
         }
         return super.overrideOtherStackedOnMe(bundle, cursorStack, slot, clickAction, player, cursorStackReference);
     }

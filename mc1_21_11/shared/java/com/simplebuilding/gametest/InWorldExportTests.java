@@ -109,7 +109,8 @@ public final class InWorldExportTests {
     /**
      * The stone chisel's table has the stone-tier step and not the iron-tier one, the iron chisel
      * has both; a step that points at its own block (mud brick stairs) does nothing and is left
-     * out; the enderite chisel shares the netherite table, and no legacy spatula is a chisel.
+     * out; the enderite chisel has a table of its own (netherite plus the End palettes), and no
+     * legacy spatula is a chisel.
      */
     public static void chiselTablesFollowTheToolTiers(GameTestHelper helper) {
         JsonObject chisel = InWorldTransformations.chisel();
@@ -135,7 +136,8 @@ public final class InWorldExportTests {
         String shared = (tableOf.get("enderite_chisel").equals(tableOf.get("netherite_chisel"))) + "/"
                 + (tableOf.get("copper_chisel").equals(tableOf.get("iron_chisel"))) + "/"
                 + (tableOf.get("stone_chisel").equals(tableOf.get("iron_chisel")));
-        helper.assertTrue(shared.equals("true/true/false"), "enderite=netherite / copper=iron / stone=iron tables: " + shared);
+        helper.assertTrue(shared.equals("false/true/false"),
+                "enderite=netherite / copper=iron / stone=iron tables: expected false/true/false but was " + shared);
         String wear = chisel.get("damage").getAsInt() + "/" + chisel.get("reverseDamage").getAsInt();
         helper.assertTrue(wear.equals("1/2"), "chisel durability forward/backward: expected 1/2 but was " + wear);
         // Die Tabellen im Export sind dieselben Objekte wie am Werkzeug.

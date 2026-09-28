@@ -106,6 +106,32 @@ public class ReinforcedBundleItem extends BundleItem {
         toggleSelectedItem(stack, index);
     }
 
+    /**
+     * Closes the bundle: no entry selected, so the item model's {@code bundle/has_selected_item}
+     * goes back to the closed bundle and the tooltip highlights nothing. The same call vanilla's
+     * {@code BundleMouseActions.unselectedBundleItem} makes on the client stack and vanilla's
+     * {@code BundleItem.overrideOtherStackedOnMe} makes on a click that falls through. Harmless on
+     * a stack without contents or without a selection.
+     */
+    public static void clearBundleSelection(ItemStack stack) {
+        toggleSelectedItem(stack, BundleContents.NO_SELECTED_ITEM_INDEX);
+    }
+
+    /**
+     * The entry a wheel step selects, exactly as vanilla's client-only
+     * {@code ScrollWheelHandler.getNextScrollWheelSelection}: a step down ({@code wheel < 0})
+     * moves to the next entry, from "nothing selected" to the first; a step up from "nothing
+     * selected" goes to the last shown entry; both ends wrap. Lives here, not in the client
+     * handler, so a server test can pin it down.
+     */
+    public static int nextScrollSelection(int wheel, int currentSelected, int shownEntries) {
+        if (shownEntries <= 0) return BundleContents.NO_SELECTED_ITEM_INDEX;
+        int selected = Math.max(-1, currentSelected - Integer.signum(wheel));
+        while (selected < 0) selected += shownEntries;
+        while (selected >= shownEntries) selected -= shownEntries;
+        return selected;
+    }
+
     @Override
     public boolean canFitInsideContainerItems() {
         return true;
@@ -186,6 +212,10 @@ public class ReinforcedBundleItem extends BundleItem {
                 return true;
             }
         }
+        // The click falls through to vanilla (picking the bundle up, swapping it with the
+        // cursor): like vanilla's BundleItem, close the bundle first, otherwise it stays open on
+        // the cursor and in whichever slot it lands next.
+        clearBundleSelection(bundle);
         return false;
     }
 

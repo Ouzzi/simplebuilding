@@ -67,6 +67,11 @@ public final class ChiselGameTest {
     }
 
     @GameTest
+    public void enderiteTierWalksTheEndStonePalettes(GameTestHelper helper) {
+        ChiselTests.enderiteTierWalksTheEndStonePalettes(helper);
+    }
+
+    @GameTest
     public void conversionTablesArePinnedEntryByEntry(GameTestHelper helper) {
         ChiselTests.conversionTablesArePinnedEntryByEntry(helper);
     }

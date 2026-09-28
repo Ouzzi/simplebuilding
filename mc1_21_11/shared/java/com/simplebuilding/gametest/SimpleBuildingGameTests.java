@@ -159,6 +159,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("chisel_game_test_conversion_tables_are_pinned_entry_by_entry", ChiselTests::conversionTablesArePinnedEntryByEntry)
                     .build(),
+            GameTestSpec.named("chisel_game_test_enderite_tier_walks_the_end_stone_palettes", ChiselTests::enderiteTierWalksTheEndStonePalettes)
+                    .build(),
             GameTestSpec.named("trade_and_migration_game_test_mod_trades_are_merged_into_the_villager_trade_pools", TradeAndMigrationTests::modTradesAreMergedIntoTheVillagerTradePools)
                     .build(),
             GameTestSpec.named("trade_and_migration_game_test_mod_trades_are_merged_into_the_wandering_trader_pools", TradeAndMigrationTests::modTradesAreMergedIntoTheWanderingTraderPools)
@@ -590,6 +592,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("bundle_wiring_game_test_netherite_bundle_on_the_ground_survives_fire_and_explosions", BundleWiringTests::netheriteBundleOnTheGroundSurvivesFireAndExplosions)
                     .build(),
             GameTestSpec.named("bundle_wiring_game_test_bundle_packets_only_touch_the_slots_they_own", BundleWiringTests::bundlePacketsOnlyTouchTheSlotsTheyOwn)
+                    .build(),
+            GameTestSpec.named("bundle_wiring_game_test_bundles_close_like_vanilla_when_picked_up_or_left", BundleWiringTests::bundlesCloseLikeVanillaWhenPickedUpOrLeft)
                     .build(),
             GameTestSpec.named("bundle_wiring_game_test_anvil_blanks_the_result_for_colour_palette_without_master_builder", BundleWiringTests::anvilBlanksTheResultForColourPaletteWithoutMasterBuilder)
                     .build(),

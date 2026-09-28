@@ -1,5 +1,6 @@
 package com.simplebuilding.items.custom;
 
+import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.enchantment.ModEnchantments;
 import net.minecraft.ChatFormatting;
@@ -80,6 +81,7 @@ public class ChiselItem extends Item {
     // diamond constructor's touch transformations [endstone, endstone_bricks] , [purpur_pillar, purpur_block] , [copper_block, cut_copper, chiseled_copper_block, copper_grate], [dead corals -> cycle trough (circle)], [corals -> cycle trough (circle)];
     // netherite chisel/spatula transformations [netherrack, netzer_bricks, cracke_bether_bricks, chiseled_netzer_bricks, netherrack (circle)] , [resin_bricks, chisled_resin_bricks], [chiseled_sand_stone, sand], [chiseled_red_sand_stone, red_sand];
     // netherite constructor's touch transformations [tuff_bricks, calcelite_block, dripstone_block] , [obsidian, crying_obsidian], [all stems -> stripped stems], [every concrete, concrete_powder];
+    // enderite chisel/spatula transformations (on top of netherite) [polished_astralit, astralit_pillar, astralit_bricks, chiseled_astralit_bricks, astralit_block], same for nihilith and ender quartz, plus their stairs/slabs/walls;
 
 
     private static final Map<Block, Block> STONE_CHISEL_MAP = new HashMap<>();
@@ -102,10 +104,14 @@ public class ChiselItem extends Item {
     private static final Map<Block, Block> NETHERITE_TOUCH_MAP = new HashMap<>();
     private static final Map<Block, Block> NETHERITE_TOUCH_SPATULA_MAP = new HashMap<>();
 
+    private static final Map<Block, Block> ENDERITE_CHISEL_MAP = new HashMap<>();
+    private static final Map<Block, Block> ENDERITE_SPATULA_MAP = new HashMap<>();
+
     public static Map<Block, Block> FINAL_STONE_FWD, FINAL_STONE_BWD, FINAL_STONE_TOUCH_FWD, FINAL_STONE_TOUCH_BWD;
     public static Map<Block, Block> FINAL_IRON_FWD, FINAL_IRON_BWD, FINAL_IRON_TOUCH_FWD, FINAL_IRON_TOUCH_BWD;
     public static Map<Block, Block> FINAL_DIAMOND_FWD, FINAL_DIAMOND_BWD, FINAL_DIAMOND_TOUCH_FWD, FINAL_DIAMOND_TOUCH_BWD;
     public static Map<Block, Block> FINAL_NETHERITE_FWD, FINAL_NETHERITE_BWD, FINAL_NETHERITE_TOUCH_FWD, FINAL_NETHERITE_TOUCH_BWD;
+    public static Map<Block, Block> FINAL_ENDERITE_FWD, FINAL_ENDERITE_BWD, FINAL_ENDERITE_TOUCH_FWD, FINAL_ENDERITE_TOUCH_BWD;
 
     static {
         // =================================================================================
@@ -262,6 +268,32 @@ public class ChiselItem extends Item {
         registerConcrete();
 
         // =================================================================================
+        // 6. ENDERITE TIER (Linear) - the mod's three End stone families
+        // =================================================================================
+        // Until 2026-09-28 the enderite chisel shared the netherite table and could do nothing a
+        // netherite chisel could not. Every member of each family below comes 1:1 out of the
+        // stonecutter from the family's base block (astral/nihil end stone, ender quartz block),
+        // so moving along the chain neither creates nor destroys value - the same kind of chain
+        // as vanilla quartz in the gold tier: [polished -> pillar -> bricks -> chiseled -> block].
+        registerEndStoneFamily(ModBlocks.POLISHED_ASTRALIT, ModBlocks.ASTRALIT_PILLAR, ModBlocks.ASTRALIT_BRICKS,
+                ModBlocks.CHISELED_ASTRALIT_BRICKS, ModBlocks.ASTRALIT_BLOCK);
+        registerLinear(ENDERITE_CHISEL_MAP, ENDERITE_SPATULA_MAP, ModBlocks.POLISHED_ASTRALIT_STAIRS, ModBlocks.ASTRALIT_BRICK_STAIRS);
+        registerLinear(ENDERITE_CHISEL_MAP, ENDERITE_SPATULA_MAP, ModBlocks.POLISHED_ASTRALIT_SLAB, ModBlocks.ASTRALIT_BRICK_SLAB);
+        registerLinear(ENDERITE_CHISEL_MAP, ENDERITE_SPATULA_MAP, ModBlocks.POLISHED_ASTRALIT_WALL, ModBlocks.ASTRALIT_BRICK_WALL);
+
+        registerEndStoneFamily(ModBlocks.POLISHED_NIHILITH, ModBlocks.NIHILITH_PILLAR, ModBlocks.NIHILITH_BRICKS,
+                ModBlocks.CHISELED_NIHILITH_BRICKS, ModBlocks.NIHILITH_BLOCK);
+        registerLinear(ENDERITE_CHISEL_MAP, ENDERITE_SPATULA_MAP, ModBlocks.POLISHED_NIHILITH_STAIRS, ModBlocks.NIHILITH_BRICK_STAIRS);
+        registerLinear(ENDERITE_CHISEL_MAP, ENDERITE_SPATULA_MAP, ModBlocks.POLISHED_NIHILITH_SLAB, ModBlocks.NIHILITH_BRICK_SLAB);
+        registerLinear(ENDERITE_CHISEL_MAP, ENDERITE_SPATULA_MAP, ModBlocks.POLISHED_NIHILITH_WALL, ModBlocks.NIHILITH_BRICK_WALL);
+
+        registerEndStoneFamily(ModBlocks.POLISHED_ENDER_QUARTZ, ModBlocks.ENDER_QUARTZ_PILLAR, ModBlocks.ENDER_QUARTZ_BRICKS,
+                ModBlocks.CHISELED_ENDER_QUARTZ_BRICKS, ModBlocks.ENDER_QUARTZ_BLOCK);
+        registerLinear(ENDERITE_CHISEL_MAP, ENDERITE_SPATULA_MAP, ModBlocks.POLISHED_ENDER_QUARTZ_STAIRS, ModBlocks.ENDER_QUARTZ_BRICK_STAIRS, ModBlocks.ENDER_QUARTZ_STAIRS);
+        registerLinear(ENDERITE_CHISEL_MAP, ENDERITE_SPATULA_MAP, ModBlocks.POLISHED_ENDER_QUARTZ_SLAB, ModBlocks.ENDER_QUARTZ_BRICK_SLAB, ModBlocks.ENDER_QUARTZ_SLAB);
+        registerLinear(ENDERITE_CHISEL_MAP, ENDERITE_SPATULA_MAP, ModBlocks.POLISHED_ENDER_QUARTZ_WALL, ModBlocks.ENDER_QUARTZ_BRICK_WALL);
+
+        // =================================================================================
         // MERGING
         // =================================================================================
         FINAL_STONE_FWD = Map.copyOf(STONE_CHISEL_MAP);
@@ -283,6 +315,18 @@ public class ChiselItem extends Item {
         FINAL_NETHERITE_BWD = merge(FINAL_DIAMOND_BWD, NETHERITE_SPATULA_MAP);
         FINAL_NETHERITE_TOUCH_FWD = merge(FINAL_DIAMOND_TOUCH_FWD, merge(NETHERITE_CHISEL_MAP, NETHERITE_TOUCH_MAP));
         FINAL_NETHERITE_TOUCH_BWD = merge(FINAL_DIAMOND_TOUCH_BWD, merge(NETHERITE_SPATULA_MAP, NETHERITE_TOUCH_SPATULA_MAP));
+
+        // Enderite has no touch-only transformations of its own; Constructor's Touch keeps the
+        // chisel entries, exactly as on every other tier.
+        FINAL_ENDERITE_FWD = merge(FINAL_NETHERITE_FWD, ENDERITE_CHISEL_MAP);
+        FINAL_ENDERITE_BWD = merge(FINAL_NETHERITE_BWD, ENDERITE_SPATULA_MAP);
+        FINAL_ENDERITE_TOUCH_FWD = merge(FINAL_NETHERITE_TOUCH_FWD, ENDERITE_CHISEL_MAP);
+        FINAL_ENDERITE_TOUCH_BWD = merge(FINAL_NETHERITE_TOUCH_BWD, ENDERITE_SPATULA_MAP);
+    }
+
+    /** [polished -> pillar -> bricks -> chiseled -> block], the vanilla quartz order. */
+    private static void registerEndStoneFamily(Block polished, Block pillar, Block bricks, Block chiseled, Block block) {
+        registerLinear(ENDERITE_CHISEL_MAP, ENDERITE_SPATULA_MAP, polished, pillar, bricks, chiseled, block);
     }
 
     // =================================================================================
@@ -312,11 +356,16 @@ public class ChiselItem extends Item {
             this.backwardMap = FINAL_DIAMOND_BWD;
             this.touchForwardMap = FINAL_DIAMOND_TOUCH_FWD;
             this.touchBackwardMap = FINAL_DIAMOND_TOUCH_BWD;
-        } else if (material == ToolMaterial.NETHERITE || material == ModToolMaterials.ENDERITE) {
+        } else if (material == ToolMaterial.NETHERITE) {
             this.forwardMap = FINAL_NETHERITE_FWD;
             this.backwardMap = FINAL_NETHERITE_BWD;
             this.touchForwardMap = FINAL_NETHERITE_TOUCH_FWD;
             this.touchBackwardMap = FINAL_NETHERITE_TOUCH_BWD;
+        } else if (material == ModToolMaterials.ENDERITE) {
+            this.forwardMap = FINAL_ENDERITE_FWD;
+            this.backwardMap = FINAL_ENDERITE_BWD;
+            this.touchForwardMap = FINAL_ENDERITE_TOUCH_FWD;
+            this.touchBackwardMap = FINAL_ENDERITE_TOUCH_BWD;
         } else {
             // Fallback
             this.forwardMap = Map.of();

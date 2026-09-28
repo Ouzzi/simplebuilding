@@ -2,6 +2,7 @@ package com.simplebuilding.gametest;
 
 import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.enchantment.ModEnchantments;
+import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.ModToolMaterials;
 import com.simplebuilding.items.custom.ChiselItem;
@@ -223,7 +224,7 @@ public final class ChiselTests {
 
     /**
      * Every tier's table is the union of its own entries and all the lower ones, and the seven
-     * materials collapse into four tables: stone, copper+iron, gold+diamond, netherite+enderite.
+     * materials collapse into five tables: stone, copper+iron, gold+diamond, netherite, and enderite (netherite plus the End palettes).
      *
      * <p>The merge is only visible from above: {@code STONE -> CHISELED_STONE_BRICKS} is registered
      * in the stone table and nowhere else, so a diamond, netherite or enderite chisel performing it
@@ -320,13 +321,80 @@ public final class ChiselTests {
                 Blocks.SMOOTH_QUARTZ, Blocks.QUARTZ_PILLAR, "gold/diamond");
         assertSamePair(helper, player, ModItems.GOLD_SPATULA, ModItems.DIAMOND_SPATULA,
                 Blocks.QUARTZ_PILLAR, Blocks.SMOOTH_QUARTZ, "gold/diamond backwards");
-        // --- netherite and enderite share one table ---
+        // --- enderite builds on the netherite table (and adds the End palettes, see
+        //     enderiteTierWalksTheEndStonePalettes) ---
         assertSamePair(helper, player, ModItems.NETHERITE_CHISEL, ModItems.ENDERITE_CHISEL,
                 Blocks.NETHERRACK, Blocks.NETHER_BRICKS, "netherite/enderite");
         // There is no enderite spatula, so the top backward table is pinned on its own member.
         assertChisels(helper, player, new ItemStack(ModItems.NETHERITE_SPATULA), false,
                 Blocks.NETHER_BRICKS, Blocks.NETHERRACK,
                 "a netherite spatula, the only spatula on the top table");
+
+        helper.succeed();
+    }
+
+    /**
+     * The enderite chisel is more than a netherite chisel with a new texture: on top of the whole
+     * netherite table it walks the mod's three End stone palettes - Astralit, Nihilith and Ender
+     * Quartz - along the vanilla quartz order [polished -> pillar -> bricks -> chiseled -> block],
+     * and moves their polished stairs, slabs and walls to the brick variant (2026-09-28; until then
+     * both tiers shared one table).
+     *
+     * <p>Each chain is walked to its end, then one sneaking click walks back, so both
+     * {@code registerLinear} halves are exercised. The netherite chisel is then pointed at every
+     * member in both directions and must leave it alone - otherwise the new entries had landed in
+     * the netherite table and the enderite tier would still add nothing. The nether brick step at
+     * the end holds the inheritance: the enderite chisel still does the netherite chisel's work.
+     *
+     * <p>What breaks this: dropping or reordering a family, registering it into a netherite map,
+     * wiring {@code ModToolMaterials.ENDERITE} back to the netherite tables, or losing the merge
+     * with the netherite table.
+     */
+    public static void enderiteTierWalksTheEndStonePalettes(GameTestHelper helper) {
+        ServerPlayer player = creativePlayer(helper, new Vec3(3.5, 2.0, 5.5), 180.0F);
+        ItemStack enderite = new ItemStack(ModItems.ENDERITE_CHISEL);
+        ItemStack netherite = new ItemStack(ModItems.NETHERITE_CHISEL);
+
+        Block[][] families = {
+                {ModBlocks.POLISHED_ASTRALIT, ModBlocks.ASTRALIT_PILLAR, ModBlocks.ASTRALIT_BRICKS,
+                        ModBlocks.CHISELED_ASTRALIT_BRICKS, ModBlocks.ASTRALIT_BLOCK},
+                {ModBlocks.POLISHED_NIHILITH, ModBlocks.NIHILITH_PILLAR, ModBlocks.NIHILITH_BRICKS,
+                        ModBlocks.CHISELED_NIHILITH_BRICKS, ModBlocks.NIHILITH_BLOCK},
+                {ModBlocks.POLISHED_ENDER_QUARTZ, ModBlocks.ENDER_QUARTZ_PILLAR, ModBlocks.ENDER_QUARTZ_BRICKS,
+                        ModBlocks.CHISELED_ENDER_QUARTZ_BRICKS, ModBlocks.ENDER_QUARTZ_BLOCK},
+        };
+        for (Block[] family : families) {
+            String name = blockName(family[0]);
+            helper.setBlock(TARGET, family[0]);
+            for (int step = 1; step < family.length; step++) {
+                Block got = chiselAt(helper, player, enderite, TARGET, false,
+                        "enderite chisel, step " + step + " of the " + name + " chain");
+                helper.assertValueEqual(got, family[step], "step " + step + " of the " + name + " chain");
+            }
+            Block back = chiselAt(helper, player, enderite, TARGET, true,
+                    "sneaking enderite chisel at the end of the " + name + " chain");
+            helper.assertValueEqual(back, family[family.length - 2],
+                    "sneaking at the end of the " + name + " chain");
+
+            for (Block member : family) {
+                assertRefuses(helper, player, netherite, false, member,
+                        "a netherite chisel transformed " + blockName(member) + ", which only the enderite chisel may");
+                assertRefuses(helper, player, netherite, true, member,
+                        "a sneaking netherite chisel transformed " + blockName(member) + ", which only the enderite chisel may");
+            }
+        }
+
+        assertChisels(helper, player, enderite, false, ModBlocks.POLISHED_ASTRALIT_STAIRS,
+                ModBlocks.ASTRALIT_BRICK_STAIRS, "enderite chisel on polished astralit stairs");
+        assertChisels(helper, player, enderite, false, ModBlocks.POLISHED_NIHILITH_WALL,
+                ModBlocks.NIHILITH_BRICK_WALL, "enderite chisel on a polished nihilith wall");
+        assertChisels(helper, player, enderite, false, ModBlocks.ENDER_QUARTZ_BRICK_SLAB,
+                ModBlocks.ENDER_QUARTZ_SLAB, "enderite chisel on an ender quartz brick slab");
+        assertRefuses(helper, player, netherite, false, ModBlocks.POLISHED_ASTRALIT_STAIRS,
+                "a netherite chisel transformed polished astralit stairs");
+
+        assertChisels(helper, player, enderite, false, Blocks.NETHERRACK, Blocks.NETHER_BRICKS,
+                "the enderite chisel lost the netherite table it builds on");
 
         helper.succeed();
     }
@@ -1552,6 +1620,37 @@ public final class ChiselTests {
             "tuff_stairs>tuff_brick_stairs"
     };
     /**
+     * Eigenanteil der Enderit-Stufe (seit 2026-09-28): die drei End-Paletten der Mod. Dieselbe
+     * Liste gilt mit und ohne Berührung des Konstrukteurs - Enderit hat keine eigenen
+     * Berührungs-Eintraege. Schreibweise wie oben, ohne Namensraum (hier Mod-Bloecke).
+     */
+    private static final String[] ENDERITE_OWN = {
+            "astralit_bricks>chiseled_astralit_bricks",
+            "astralit_pillar>astralit_bricks",
+            "chiseled_astralit_bricks>astralit_block",
+            "polished_astralit>astralit_pillar",
+            "polished_astralit_slab>astralit_brick_slab",
+            "polished_astralit_stairs>astralit_brick_stairs",
+            "polished_astralit_wall>astralit_brick_wall",
+            "nihilith_bricks>chiseled_nihilith_bricks",
+            "nihilith_pillar>nihilith_bricks",
+            "chiseled_nihilith_bricks>nihilith_block",
+            "polished_nihilith>nihilith_pillar",
+            "polished_nihilith_slab>nihilith_brick_slab",
+            "polished_nihilith_stairs>nihilith_brick_stairs",
+            "polished_nihilith_wall>nihilith_brick_wall",
+            "ender_quartz_bricks>chiseled_ender_quartz_bricks",
+            "ender_quartz_pillar>ender_quartz_bricks",
+            "chiseled_ender_quartz_bricks>ender_quartz_block",
+            "polished_ender_quartz>ender_quartz_pillar",
+            "polished_ender_quartz_slab>ender_quartz_brick_slab",
+            "ender_quartz_brick_slab>ender_quartz_slab",
+            "polished_ender_quartz_stairs>ender_quartz_brick_stairs",
+            "ender_quartz_brick_stairs>ender_quartz_stairs",
+            "polished_ender_quartz_wall>ender_quartz_brick_wall",
+    };
+
+    /**
      * was diese Stufe zu DIAMOND_TOUCH hinzufuegt - 32 Eintraege, die Stufe fuehrt damit 176.
      *
      * <p>Schreibweise {@code von>nach}, beides ohne Namensraum, weil alles Vanilla-Bloecke sind.
@@ -1637,6 +1736,8 @@ public final class ChiselTests {
                 ChiselItem.FINAL_IRON_FWD, DIAMOND_OWN);
         assertOwnContribution(helper, "netherite", ChiselItem.FINAL_NETHERITE_FWD,
                 ChiselItem.FINAL_DIAMOND_FWD, NETHERITE_OWN);
+        assertOwnContribution(helper, "enderite", ChiselItem.FINAL_ENDERITE_FWD,
+                ChiselItem.FINAL_NETHERITE_FWD, ENDERITE_OWN);
 
         assertOwnContribution(helper, "stone+touch", ChiselItem.FINAL_STONE_TOUCH_FWD,
                 ChiselItem.FINAL_STONE_FWD, STONE_TOUCH_OWN);
@@ -1646,6 +1747,8 @@ public final class ChiselTests {
                 ChiselItem.FINAL_IRON_TOUCH_FWD, DIAMOND_TOUCH_OWN);
         assertOwnContribution(helper, "netherite+touch", ChiselItem.FINAL_NETHERITE_TOUCH_FWD,
                 ChiselItem.FINAL_DIAMOND_TOUCH_FWD, NETHERITE_TOUCH_OWN);
+        assertOwnContribution(helper, "enderite+touch", ChiselItem.FINAL_ENDERITE_TOUCH_FWD,
+                ChiselItem.FINAL_NETHERITE_TOUCH_FWD, ENDERITE_OWN);
 
         assertReversible(helper, "stone", ChiselItem.FINAL_STONE_FWD, ChiselItem.FINAL_STONE_BWD);
         assertReversible(helper, "iron", ChiselItem.FINAL_IRON_FWD, ChiselItem.FINAL_IRON_BWD);
@@ -1660,6 +1763,10 @@ public final class ChiselTests {
                 ChiselItem.FINAL_DIAMOND_TOUCH_BWD);
         assertReversible(helper, "netherite+touch", ChiselItem.FINAL_NETHERITE_TOUCH_FWD,
                 ChiselItem.FINAL_NETHERITE_TOUCH_BWD);
+        assertReversible(helper, "enderite", ChiselItem.FINAL_ENDERITE_FWD,
+                ChiselItem.FINAL_ENDERITE_BWD);
+        assertReversible(helper, "enderite+touch", ChiselItem.FINAL_ENDERITE_TOUCH_FWD,
+                ChiselItem.FINAL_ENDERITE_TOUCH_BWD);
 
         helper.succeed();
     }
