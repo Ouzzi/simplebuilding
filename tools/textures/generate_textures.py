@@ -1879,29 +1879,32 @@ BASIC_UPGRADE_TEMPLATE_PAL = {
     "c": "#b1b0b0",
 }
 
-# Diamant-Kiesel: kleiner, rund geschliffener Stein (liegendes Oval wie ein Flusskiesel) in den
-# Toenen des Vanilla-Diamanten, Licht von oben links.
+# Diamant-Kiesel (Besitzer 2026-09-28, neu gezeichnet): abgebrochenes Diamantstueck in Rautenform,
+# etwa so gross wie der Netheritklumpen (8 x 8). Oben gewoelbt wie eine Kralle, die nach rechts in
+# eine Spitze auslaeuft; darunter die Bruchkante (Kerbe unter der Spitze, heller Bruchglanz innen);
+# unten zwei gerade Kanten, die sich zur Spitze treffen. Toene des Vanilla-Diamanten, Licht von oben
+# links, Kontur oben/links #11727a, unten/rechts dunkel; diagonale Konturstufen bleiben offen.
 DIAMOND_PEBBLE = [
     "................",
     "................",
     "................",
     "................",
-    "................",
-    "......AAAA......",
-    ".....ABCEDG.....",
-    "....ABEEDDFG....",
-    "....AEDDFDHG....",
-    "....ADFFHHIG....",
-    ".....GHHIIG.....",
-    "......GGGG......",
+    "........OOO.....",
+    ".......OWPLO....",
+    "......OWPLMSo...",
+    ".....OPLMCo.....",
+    ".....OLMCLTo....",
+    "......oSTDo.....",
+    ".......oDo......",
+    "........o.......",
     "................",
     "................",
     "................",
     "................",
 ]
 DIAMOND_PEBBLE_PAL = {
-    "A": "#11727a", "G": "#0a4f53", "B": "#ffffff", "C": "#d5fff6", "D": "#4aedd9", "E": "#a1fbe8",
-    "F": "#20c5b5", "H": "#1aaaa7", "I": "#1c919a",
+    "O": "#11727a", "o": "#145e53", "W": "#ffffff", "P": "#d5fff6", "L": "#a1fbe8", "M": "#4aedd9",
+    "C": "#2ce0d8", "S": "#20c5b5", "T": "#1aaaa7", "D": "#1c919a",
 }
 
 # Baukerne (copper_core ... enderite_core): vierzackiger Stern wie der Netherstern, in der Mitte eine
