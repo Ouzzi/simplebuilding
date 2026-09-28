@@ -90,6 +90,7 @@
       "com.simplebuilding.gametest.PotionPadGameTest",
       "com.simplebuilding.gametest.PerformanceGameTest",
       "com.simplebuilding.gametest.PlacedTemplateGameTest",
+      "com.simplebuilding.gametest.PlacedBundleGameTest",
       "com.simplebuilding.gametest.TweaksEasterGameTest",
       "com.simplebuilding.gametest.AdvancementTreeGameTest",
       "com.simplebuilding.gametest.PressurePlateGameTest",

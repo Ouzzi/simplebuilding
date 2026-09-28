@@ -1293,6 +1293,19 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("placed_template_game_test_hint_sparks_only_show_near_players_holding_glowstone_or_glow_ink", PlacedTemplateTests::hintSparksOnlyShowNearPlayersHoldingGlowstoneOrGlowInk)
                     .build(),
+            GameTestSpec.named("placed_template_game_test_placed_templates_carry_the_name_of_their_template", PlacedTemplateTests::placedTemplatesCarryTheNameOfTheirTemplate)
+                    .build(),
+            GameTestSpec.named("placed_template_game_test_the_hitbox_covers_only_the_pixels_of_the_plate", PlacedTemplateTests::theHitboxCoversOnlyThePixelsOfThePlate)
+                    .build(),
+            GameTestSpec.named("placed_template_game_test_blueprints_are_placed_like_templates_and_drop_themselves", PlacedTemplateTests::blueprintsArePlacedLikeTemplatesAndDropThemselves)
+                    .build(),
+            GameTestSpec.named("placed_bundle_game_test_sneak_use_places_bundles_only_on_top_faces", PlacedBundleTests::sneakUsePlacesBundlesOnlyOnTopFaces)
+                    .build(),
+            GameTestSpec.named("placed_bundle_game_test_sneaking_viewers_cycle_the_top_item_and_right_click_takes_it", PlacedBundleTests::sneakingViewersCycleTheTopItemAndRightClickTakesIt)
+                    .maxTicks(PlacedBundleTests.CYCLE_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("placed_bundle_game_test_placed_bundles_drop_themselves_with_their_contents", PlacedBundleTests::placedBundlesDropThemselvesWithTheirContents)
+                    .build(),
             GameTestSpec.named("guide_book_game_test_the_first_join_gives_the_guide_once_and_honours_the_config", GuideBookTests::theFirstJoinGivesTheGuideOnceAndHonoursTheConfig)
                     .build(),
             GameTestSpec.named("guide_book_game_test_every_topic_book_recipe_takes_book_or_guide_and_the_guide_stays", GuideBookTests::everyTopicBookRecipeTakesBookOrGuideAndTheGuideStays)

@@ -454,7 +454,8 @@ RENDER_DIR = "assets/textures/render"
 # Blockmodell der abgelegten Schmiedevorlage hat nur ein particle. PlacedTemplateRenderer legt
 # die Vorlage als Platte (14/16 Blockbreite) flach auf den Boden - hier mit der eigenen
 # Enderit-Aufwertungsvorlage, damit keine Mojang-Textur ins committete Bild geraet.
-LYING_ITEM_BLOCKS = {f"{NS}:placed_smithing_template": f"{NS}:item/enderite_upgrade_template"}
+LYING_ITEM_BLOCKS = {f"{NS}:placed_smithing_template": f"{NS}:item/enderite_upgrade_template",
+                     f"{NS}:placed_blueprint": f"{NS}:item/blueprint"}
 
 
 def item_definition(roots: dict, item_id: str) -> dict | None:

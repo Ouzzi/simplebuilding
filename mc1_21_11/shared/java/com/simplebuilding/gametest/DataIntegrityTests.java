@@ -138,7 +138,7 @@ public final class DataIntegrityTests {
 
     /** Blocks that intentionally have no item form (mirrors vanilla's piston head). */
     private static final Set<String> BLOCKS_WITHOUT_ITEM = Set.of("reinforced_piston_head", "netherite_piston_head", "enderite_piston_head",
-            "blaze_wall_head", "enderman_wall_head", "placed_smithing_template");
+            "blaze_wall_head", "enderman_wall_head", "placed_smithing_template", "placed_blueprint", "placed_bundle");
 
     /** Wall variants that share the loot table (and drop) of their standing block, like vanilla's {@code wallVariant}. */
     private static final Map<String, String> WALL_VARIANTS = Map.of("blaze_wall_head", "blaze_head", "enderman_wall_head", "enderman_head");
@@ -146,7 +146,9 @@ public final class DataIntegrityTests {
     /** Blocks registered with {@code noLootTable()}. */
     private static final Set<String> BLOCKS_WITHOUT_LOOT_TABLE = Set.of("reinforced_piston_head", "netherite_piston_head", "enderite_piston_head",
             // drops the template stored in its block entity (PlacedTemplateBlock#getDrops)
-            "placed_smithing_template");
+            "placed_smithing_template", "placed_blueprint",
+            // drops the bundle (with its contents) stored in its block entity (PlacedBundleBlock#getDrops)
+            "placed_bundle");
 
     /**
      * The blocks that do <em>not</em> drop themselves, and what they drop instead without Silk

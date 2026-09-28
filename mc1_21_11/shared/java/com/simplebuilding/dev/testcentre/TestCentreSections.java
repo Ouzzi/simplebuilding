@@ -578,13 +578,29 @@ public final class TestCentreSections {
             x++;
         }
         x++;
+
+        // c) Blaupausen legen sich genauso ab (eigener Block placed_blueprint): Boden, Wand, Decke.
+        c.wallSign(x, 1, wallZ, TcText.bold(TcText.t("templates.blueprint", "Blueprints too")),
+                TcText.t("templates.blueprint.sub", "sneak + use:"), TcText.t("templates.blueprint.sub2", "floor, wall, ceiling"));
+        x++;
+        ItemStack blueprint = new ItemStack(ModItems.BLUEPRINT);
+        placedTemplate(c, x, 0, 3, AttachFace.FLOOR, Direction.SOUTH, blueprint);
+        c.place(x, 2, wallZ, TcCanvas.WALL);
+        placedTemplate(c, x, 2, wallZ - 1, AttachFace.WALL, Direction.NORTH, blueprint);
+        c.place(x + 1, 3, 3, TcCanvas.WALL);
+        placedTemplate(c, x + 1, 2, 3, AttachFace.CEILING, Direction.SOUTH, blueprint);
+        x += 3;
         c.backWall(0, x, wallZ, 6);
         return c;
     }
 
-    /** Eine abgelegte Vorlage: Block samt Lage, die Vorlage selbst kommt beim Bau in die Block-Entity. */
+    /**
+     * Eine abgelegte Vorlage oder Blaupause: Block samt Lage, der Stapel selbst kommt beim Bau in die
+     * Block-Entity.
+     */
     private static void placedTemplate(TcCanvas c, int x, int y, int z, AttachFace face, Direction facing, ItemStack template) {
-        c.place(x, y, z, ModBlocks.PLACED_SMITHING_TEMPLATE.defaultBlockState()
+        net.minecraft.world.level.block.Block block = com.simplebuilding.util.PlacedTemplates.placedBlockFor(template);
+        c.place(x, y, z, (block == null ? ModBlocks.PLACED_SMITHING_TEMPLATE : block).defaultBlockState()
                 .setValue(com.simplebuilding.blocks.custom.PlacedTemplateBlock.FACE, face)
                 .setValue(com.simplebuilding.blocks.custom.PlacedTemplateBlock.FACING, facing));
         c.contents(x, y, z, List.of(template));
@@ -642,11 +658,47 @@ public final class TestCentreSections {
                 lines.add(new TcCanvas.Line(TcText.t("storage.dyed", "%s, dyed", label), dyed));
             }
         }
+        bx = placedBundles(c, bx);
         c.title(0, lines.size() + 1, wallZ, TcText.t("section.storage", "Storage"),
                 TcText.t("section.storage.sub", "plain, enchanted, dyed"));
         int end = c.rowsPanel(0, lines.size(), wallZ, lines);
         c.backWall(0, Math.max(end, bx), wallZ, lines.size() + 3);
         return c;
+    }
+
+    /**
+     * Abgestellte Buendel ({@code PlacedBundles}) neben den Rucksaecken: jede Stufe mit etwas Inhalt
+     * (schleichend hinsehen zeigt das oberste Item, Rechtsklick nimmt es), dazu ein gefaerbtes und ein
+     * farbiges Vanilla-Buendel. Liefert die naechste freie x-Position.
+     */
+    private static int placedBundles(TcCanvas c, int bx) {
+        c.sign(bx, 0, 2, Direction.NORTH, TcText.bold(TcText.t("storage.placed_bundle", "Placed bundles")),
+                TcText.t("storage.placed_bundle.sub", "sneak + look: top item"),
+                TcText.t("storage.placed_bundle.sub2", "right-click takes it"));
+        bx++;
+        List<ItemStack> bundles = new ArrayList<>();
+        bundles.add(new ItemStack(Items.BUNDLE));
+        bundles.add(new ItemStack(ModItems.REINFORCED_BUNDLE));
+        bundles.add(new ItemStack(ModItems.NETHERITE_BUNDLE));
+        bundles.add(new ItemStack(ModItems.ENDERITE_BUNDLE));
+        ItemStack dyed = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        dyed.set(DataComponents.DYED_COLOR, new DyedItemColor(dyeRgb(DyeColor.LIME)));
+        bundles.add(dyed);
+        // Per Id: 26.2 fuehrt die farbigen Buendel als ColorCollection, 1.21.11 je Farbe ein Feld.
+        bundles.add(new ItemStack(net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(
+                net.minecraft.resources.Identifier.withDefaultNamespace("blue_bundle"))));
+        List<ItemStack> sample = List.of(new ItemStack(Items.TORCH, 16), new ItemStack(Items.APPLE, 3),
+                new ItemStack(Items.COBBLESTONE, 32), new ItemStack(Items.FEATHER, 5));
+        for (ItemStack bundle : bundles) {
+            com.simplebuilding.util.PlacedBundles.setContents(bundle, sample);
+            c.place(bx, 0, 1, ModBlocks.PLACED_BUNDLE.defaultBlockState()
+                    .setValue(com.simplebuilding.blocks.custom.PlacedBundleBlock.TIER, com.simplebuilding.util.PlacedBundles.tierOf(bundle))
+                    .setValue(com.simplebuilding.blocks.custom.PlacedBundleBlock.DYED,
+                            com.simplebuilding.util.PlacedBundles.dyeColor(bundle) != com.simplebuilding.util.DyedStorage.UNDYED));
+            c.contents(bx, 0, 1, List.of(bundle));
+            bx += 2;
+        }
+        return bx;
     }
 
     // =====================================================================================

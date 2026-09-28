@@ -34,4 +34,19 @@ public final class PlacedTemplateGameTest {
     public void hintSparksOnlyShowNearPlayersHoldingGlowstoneOrGlowInk(GameTestHelper helper) {
         PlacedTemplateTests.hintSparksOnlyShowNearPlayersHoldingGlowstoneOrGlowInk(helper);
     }
+
+    @GameTest
+    public void placedTemplatesCarryTheNameOfTheirTemplate(GameTestHelper helper) {
+        PlacedTemplateTests.placedTemplatesCarryTheNameOfTheirTemplate(helper);
+    }
+
+    @GameTest
+    public void theHitboxCoversOnlyThePixelsOfThePlate(GameTestHelper helper) {
+        PlacedTemplateTests.theHitboxCoversOnlyThePixelsOfThePlate(helper);
+    }
+
+    @GameTest
+    public void blueprintsArePlacedLikeTemplatesAndDropThemselves(GameTestHelper helper) {
+        PlacedTemplateTests.blueprintsArePlacedLikeTemplatesAndDropThemselves(helper);
+    }
 }

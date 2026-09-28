@@ -445,22 +445,26 @@ window.WIKI_DATA = {
     {
       "id": "placed_templates",
       "related": [
-        "sledgehammer"
+        "sledgehammer",
+        "simplebuilding:blueprint"
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java",
         "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedTemplateBlock.java",
         "common/src/shared/java/com/simplebuilding/blocks/entity/custom/PlacedTemplateBlockEntity.java",
         "common/src/shared/java/com/simplebuilding/client/render/PlacedTemplateRenderer.java",
-        "common/src/shared/java/com/simplebuilding/mixin/ItemUseOnMixin.java"
+        "common/src/shared/java/com/simplebuilding/mixin/ItemUseOnMixin.java",
+        "common/src/shared/java/com/simplebuilding/util/PlacedPlate.java"
       ],
       "en": {
         "title": "Placed smithing templates",
         "summary": "Sneak + right-click on a block with a smithing template to lay it down: flat on the floor, flat against a wall or under the ceiling, as a thin plate made from the item texture.",
         "details": [
           "Every smithing template can be placed: the netherite upgrade, all armor trim templates, the Glowing and the Emitting Trim Smithing Template, the Basic and the Enderite Upgrade Smithing Template, and smithing templates from other mods. Without sneaking a template behaves as before.",
-          "On the floor the top edge points the way you looked when placing it, on a wall the front faces away from the wall. The plate covers 14 of 16 pixels and stands about 1.4 pixels high; it has no collision, like a pressure plate.",
+          "On the floor the top edge points the way you looked when placing it, on a wall the front faces away from the wall. The plate covers 14 of 16 pixels and stands about 1.4 pixels high; it has no collision, like a pressure plate. Its hitbox follows the pixels of the template exactly, so only the plate itself can be targeted, broken or used - not the empty corners next to it.",
           "Water does not wash it away: a template can be placed into water (it becomes waterlogged), and flowing water runs around it. Breaking it - by hand, explosion, piston or by taking away the block it lies on - drops exactly the stored template with all its data (name, enchantments). Middle-click picks the template itself.",
+          "A placed template carries the name of the template it holds (for example \"Glowing Trim Smithing Template\", or its anvil name) wherever the game or a mod like Jade names the block.",
+          "Blueprints can be placed the same way: sneak + right-click lays one flat on the floor, on a wall or under the ceiling as a thin plate showing the blueprint's current look. It keeps all its data (code, title, author) and drops itself when broken; its hitbox is the plate, and it is named like the blueprint.",
           "Placed armor trim templates can be upgraded with the sledgehammer just like in an item frame, but it takes 3 hits instead of 1: sledgehammer in the main hand, Glow Ink Sac or Glowstone Dust in the off hand, left-click the template. Each hit gives sparks and a rising chime; the third turns it into the Glowing or Emitting Trim Smithing Template and uses up the off-hand item (not in creative). The count restarts after 5 seconds without a hit or when the material changes. Holding hammer and material, you cannot break the template; the hammer tilts towards it like towards any other valid target.",
           "Hint: while a player holding Glow Ink Sac or Glowstone Dust (either hand) is within 6 blocks, an upgradable placed template shows a few sparks circling over it every half second and chimes quietly at most every 3 seconds."
         ]
@@ -470,10 +474,49 @@ window.WIKI_DATA = {
         "summary": "Schleichen + Rechtsklick mit einer Schmiedevorlage auf einen Block legt sie ab: flach auf den Boden, flach an die Wand oder unter die Decke, als dünne Platte aus der Item-Textur.",
         "details": [
           "Jede Schmiedevorlage lässt sich ablegen: die Netherit-Schmiedevorlage, alle Rüstungsbesatz-Vorlagen, die leuchtende und die strahlende Besatzvorlage, die Basis- und die Enderit-Schmiedevorlage sowie Schmiedevorlagen anderer Mods. Ohne Schleichen verhält sich eine Vorlage wie bisher.",
-          "Auf dem Boden zeigt die Oberkante in die Blickrichtung beim Ablegen, an der Wand zeigt die Vorderseite von der Wand weg. Die Platte bedeckt 14 von 16 Pixeln und ist etwa 1,4 Pixel hoch; wie eine Druckplatte hat sie keine Kollision.",
+          "Auf dem Boden zeigt die Oberkante in die Blickrichtung beim Ablegen, an der Wand zeigt die Vorderseite von der Wand weg. Die Platte bedeckt 14 von 16 Pixeln und ist etwa 1,4 Pixel hoch; wie eine Druckplatte hat sie keine Kollision. Die Trefferform folgt genau den Pixeln der Vorlage: anvisieren, abbauen und benutzen lässt sich nur die Platte selbst, nicht die freien Ecken daneben.",
           "Wasser spült sie nicht weg: Eine Vorlage lässt sich ins Wasser legen (sie wird wassergefüllt), und fließendes Wasser läuft um sie herum. Abbauen – von Hand, durch Explosion, Kolben oder indem man den Block darunter wegnimmt – gibt genau die gespeicherte Vorlage mit allen Daten (Name, Verzauberungen) zurück. Die mittlere Maustaste nimmt die Vorlage selbst.",
+          "Eine abgelegte Vorlage trägt den Namen der Vorlage, die sie hält (etwa „Leuchtende Besatz-Schmiedevorlage“ oder ihren Amboss-Namen), überall dort, wo das Spiel oder eine Mod wie Jade den Block benennt.",
+          "Blaupausen lassen sich genauso ablegen: Schleichen + Rechtsklick legt eine flach auf den Boden, an die Wand oder unter die Decke, als dünne Platte in ihrem aktuellen Aussehen. Sie behält alle Daten (Code, Titel, Autor) und fällt beim Abbauen als sie selbst heraus; ihre Trefferform ist die Platte, und sie heißt wie die Blaupause.",
           "Abgelegte Rüstungsbesatz-Vorlagen lassen sich wie im Rahmen mit dem Vorschlaghammer aufwerten, brauchen aber 3 Schläge statt einem: Vorschlaghammer in der Haupthand, Leuchttintenbeutel oder Glowstonestaub in der Nebenhand, Linksklick auf die Vorlage. Jeder Schlag gibt Funken und einen höher werdenden Klang; der dritte macht daraus die leuchtende bzw. strahlende Besatzvorlage und verbraucht das Item aus der Nebenhand (nicht im Kreativmodus). Nach 5 Sekunden ohne Schlag oder bei einem anderen Material beginnt die Zählung von vorn. Mit Hammer und Material in den Händen lässt sich die Vorlage nicht abbauen; der Hammer neigt sich zu ihr wie zu jedem anderen gültigen Ziel.",
           "Hinweis: Solange ein Spieler mit Leuchttintenbeutel oder Glowstonestaub (in einer der beiden Hände) höchstens 6 Blöcke entfernt ist, kreisen über einer aufwertbaren abgelegten Vorlage alle halbe Sekunde ein paar Funken, und höchstens alle 3 Sekunden klingt sie leise."
+        ]
+      }
+    },
+    {
+      "id": "placed_bundles",
+      "related": [
+        "bundles",
+        "simplebuilding:reinforced_bundle",
+        "simplebuilding:netherite_bundle",
+        "simplebuilding:enderite_bundle"
+      ],
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/util/PlacedBundles.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedBundleBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/entity/custom/PlacedBundleBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/client/render/PlacedBundleRenderer.java",
+        "common/src/shared/java/com/simplebuilding/mixin/ItemUseOnMixin.java",
+        "tools/textures/placed_bundle_textures.py"
+      ],
+      "en": {
+        "title": "Placed bundles",
+        "summary": "Sneak + right-click on the top of a block with a bundle to set it down as a 3D bundle. Sneak and look at it to see its top item floating above it; right-click takes that item out.",
+        "details": [
+          "Works with the Reinforced, Netherite and Enderite Bundle (dyed ones too) and with the vanilla bundle in all 17 colours. Only on the top face of a block that can hold it up, like a lantern - never on a wall or under a ceiling. Without sneaking, and on walls or ceilings, a bundle behaves as before. Quivers cannot be placed.",
+          "Each tier has its own 3D model; dyed bundles and the coloured vanilla bundles show their colour on the leather. The bundle faces the player who placed it. The item itself stays a flat item.",
+          "While you sneak and look at a placed bundle, its top item floats and turns above it, and every second the next item comes to the top (with at least two items inside). Right-click takes exactly the shown item out - into your empty hand, otherwise into your inventory - and the next one moves up.",
+          "Breaking it - by hand, explosion, piston or by taking away the block below - drops the bundle with all its contents and data (colour, name, enchantments). In creative mode a bundle with contents drops too. Middle-click picks the bundle; Jade and other displays show the bundle's name."
+        ]
+      },
+      "de": {
+        "title": "Abgestellte Bündel",
+        "summary": "Schleichen + Rechtsklick mit einem Bündel auf die Oberseite eines Blocks stellt es als 3D-Bündel ab. Schleichend hinsehen zeigt das oberste Item darüber schwebend; Rechtsklick nimmt es heraus.",
+        "details": [
+          "Geht mit dem verstärkten, dem Netherit- und dem Enderit-Bündel (auch gefärbt) und mit dem Vanilla-Bündel in allen 17 Farben. Nur auf die Oberseite eines Blocks, der es trägt wie eine Laterne – nie an eine Wand oder unter eine Decke. Ohne Schleichen und an Wänden oder Decken verhält sich ein Bündel wie bisher. Köcher lassen sich nicht abstellen.",
+          "Jede Stufe hat ein eigenes 3D-Modell; gefärbte Bündel und die farbigen Vanilla-Bündel zeigen ihre Farbe auf dem Leder. Das Bündel schaut zu dem Spieler, der es abstellt. Das Item selbst bleibt flach.",
+          "Solange du schleichst und auf ein abgestelltes Bündel schaust, schwebt sein oberstes Item drehend darüber, und jede Sekunde kommt das nächste nach oben (ab zwei Items). Rechtsklick nimmt genau das gezeigte Item heraus – in die leere Hand, sonst ins Inventar – und das nächste rückt nach.",
+          "Abbauen – von Hand, durch Explosion, Kolben oder indem man den Block darunter wegnimmt – gibt das Bündel mit seinem ganzen Inhalt und allen Daten (Farbe, Name, Verzauberungen) zurück. Im Kreativmodus fällt ein Bündel mit Inhalt trotzdem heraus. Die mittlere Maustaste nimmt das Bündel; Jade und andere Anzeigen zeigen den Namen des Bündels."
         ]
       }
     },
@@ -19990,6 +20033,74 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:placed_blueprint",
+      "name": {
+        "en_us": "Placed Blueprint",
+        "de_de": "Abgelegte Blaupause"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/placed_blueprint.png",
+      "note": {
+        "en": {
+          "summary": "A blueprint laid down with sneak + right-click: flat on the floor, on a wall or under the ceiling. There is no item for it - it holds the blueprint itself.",
+          "details": [
+            "The same block class, block entity and renderer as the placed smithing template, under its own id and name: the plate shows the blueprint's item model, the hitbox follows its pixels.",
+            "No collision, waterloggable, destroyed by pistons; breaking it in any way drops the stored blueprint with all its data."
+          ]
+        },
+        "de": {
+          "summary": "Eine mit Schleichen + Rechtsklick abgelegte Blaupause: flach auf dem Boden, an der Wand oder unter der Decke. Es gibt kein Item dafür – der Block hält die Blaupause selbst.",
+          "details": [
+            "Dieselbe Blockklasse, Block-Entity und derselbe Renderer wie bei der abgelegten Schmiedevorlage, mit eigener Id und eigenem Namen: die Platte zeigt das Item-Modell der Blaupause, die Trefferform folgt ihren Pixeln.",
+            "Ohne Kollision, wassergefüllt möglich, von Kolben zerstört; wie auch immer der Block verschwindet, er gibt die gespeicherte Blaupause mit allen Daten zurück."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/util/PlacedTemplates.java",
+          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedTemplateBlock.java",
+          "common/src/shared/java/com/simplebuilding/util/PlacedPlate.java"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:placed_bundle",
+      "name": {
+        "en_us": "Placed Bundle",
+        "de_de": "Abgestelltes Bündel"
+      },
+      "texture": "assets/textures/block/placed_bundle.png",
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/block/placed_bundle.png",
+      "note": {
+        "en": {
+          "summary": "A bundle set down with sneak + right-click on the top of a block, drawn as a 3D bundle. There is no item for it - it holds the bundle and its contents itself.",
+          "details": [
+            "Class PlacedBundleBlock with a block entity that stores the bundle stack with all its components and which item is shown on top; the block state picks the tier model (bundle, reinforced, netherite, enderite) and the dyed two-layer model, whose leather layer takes the colour from the block entity.",
+            "Needs a floor that holds it up like a lantern; soft like wool, destroyed by pistons. It has no loot table: breaking it drops the stored bundle with its contents (getDrops reads the block entity)."
+          ]
+        },
+        "de": {
+          "summary": "Ein mit Schleichen + Rechtsklick auf die Oberseite eines Blocks abgestelltes Bündel, als 3D-Bündel gezeichnet. Es gibt kein Item dafür – der Block hält das Bündel samt Inhalt selbst.",
+          "details": [
+            "Klasse PlacedBundleBlock mit einer Block-Entity, die den Bündel-Stapel samt allen Komponenten speichert und welches Item oben gezeigt wird; der Blockzustand wählt das Modell der Stufe (Bündel, verstärkt, Netherit, Enderit) und das gefärbte Zwei-Ebenen-Modell, dessen Leder-Ebene die Farbe aus der Block-Entity nimmt.",
+            "Braucht einen tragenden Boden wie eine Laterne; weich wie Wolle, von Kolben zerstört. Eine Loot-Tabelle gibt es nicht: Abbauen gibt das gespeicherte Bündel mit Inhalt zurück (getDrops liest die Block-Entity)."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedBundleBlock.java",
+          "common/src/shared/java/com/simplebuilding/blocks/entity/custom/PlacedBundleBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/util/PlacedBundles.java"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
       "id": "simplebuilding:placed_smithing_template",
       "name": {
         "en_us": "Placed Smithing Template",
@@ -20004,7 +20115,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "A smithing template laid down with sneak + right-click: flat on the floor, on a wall or under the ceiling. There is no item for it - it holds the template itself.",
           "details": [
-            "Class PlacedTemplateBlock (a face-attached block like a button) with a block entity that stores the template stack with all its components; the client draws the template's item model as a plate 14 pixels wide and about 1.4 pixels thick (PlacedTemplateRenderer).",
+            "Class PlacedTemplateBlock (a face-attached block like a button) with a block entity that stores the template stack with all its components and names itself after it (Nameable); the client draws the template's item model as a plate 14 pixels wide and about 1.4 pixels thick (PlacedTemplateRenderer), and the hitbox is the same plate, pixel by pixel (PlacedPlate).",
             "Waterloggable, no collision, destroyed by pistons. It has no loot table: breaking it in any way drops the stored template (getDrops reads the block entity).",
             "With a sledgehammer in the main hand and Glow Ink Sac or Glowstone Dust in the off hand it cannot be broken; 3 left-clicks upgrade a placed armor trim template (see Placed smithing templates)."
           ]
@@ -20012,7 +20123,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Eine mit Schleichen + Rechtsklick abgelegte Schmiedevorlage: flach auf dem Boden, an der Wand oder unter der Decke. Es gibt kein Item dafür – der Block hält die Vorlage selbst.",
           "details": [
-            "Klasse PlacedTemplateBlock (ein angehefteter Block wie ein Knopf) mit einer Block-Entity, die den Vorlagen-Stapel samt allen Komponenten speichert; der Client zeichnet das Item-Modell der Vorlage als Platte von 14 Pixeln Breite und etwa 1,4 Pixeln Dicke (PlacedTemplateRenderer).",
+            "Klasse PlacedTemplateBlock (ein angehefteter Block wie ein Knopf) mit einer Block-Entity, die den Vorlagen-Stapel samt allen Komponenten speichert und nach ihm heißt (Nameable); der Client zeichnet das Item-Modell der Vorlage als Platte von 14 Pixeln Breite und etwa 1,4 Pixeln Dicke (PlacedTemplateRenderer), und die Trefferform ist dieselbe Platte, Pixel für Pixel (PlacedPlate).",
             "Wassergefüllt möglich, ohne Kollision, von Kolben zerstört. Eine Loot-Tabelle gibt es nicht: Wie auch immer der Block verschwindet, er gibt die gespeicherte Vorlage zurück (getDrops liest die Block-Entity).",
             "Mit Vorschlaghammer in der Haupthand und Leuchttintenbeutel oder Glowstonestaub in der Nebenhand lässt er sich nicht abbauen; 3 Linksklicks werten eine abgelegte Rüstungsbesatz-Vorlage auf (siehe Abgelegte Schmiedevorlagen)."
           ]
@@ -20020,7 +20131,8 @@ window.WIKI_DATA = {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedTemplateBlock.java",
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/PlacedTemplateBlockEntity.java",
-          "common/src/shared/java/com/simplebuilding/client/render/PlacedTemplateRenderer.java"
+          "common/src/shared/java/com/simplebuilding/client/render/PlacedTemplateRenderer.java",
+          "common/src/shared/java/com/simplebuilding/util/PlacedPlate.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -59359,7 +59471,7 @@ window.WIKI_DATA = {
   },
   "counts": {
     "items": 177,
-    "blocks": 122,
+    "blocks": 124,
     "recipes": 355,
     "lootTables": 116,
     "trades": 21,
@@ -59368,7 +59480,7 @@ window.WIKI_DATA = {
     "config": 76,
     "inWorld": 392,
     "advancements": 84,
-    "features": 36,
+    "features": 37,
     "undocumented": 0,
     "incompleteProse": 0
   },

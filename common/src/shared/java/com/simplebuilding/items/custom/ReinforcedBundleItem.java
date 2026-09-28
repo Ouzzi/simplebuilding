@@ -229,6 +229,13 @@ public class ReinforcedBundleItem extends BundleItem {
         Player player = context.getPlayer();
         ItemStack bundleStack = context.getItemInHand();
 
+        // Schleichen + Rechtsklick auf eine Oberseite stellt das Buendel ab (vor dem Meisterbauer:
+        // der wuerde sonst ein Item aus dem Buendel setzen). Koecher liefern hier immer null.
+        InteractionResult placed = com.simplebuilding.util.PlacedBundles.tryPlace(context);
+        if (placed != null) {
+            return placed;
+        }
+
         assert player != null;
 
         boolean hasMasterBuilder = hasEnchantment(bundleStack, player.level(), ModEnchantments.MASTER_BUILDER);

@@ -7,10 +7,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.Nameable;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -27,10 +29,14 @@ import org.jetbrains.annotations.Nullable;
  * Komponenten (Schluessel {@code Template}) und schickt ihn zum Client, der ihn mit dem
  * {@code PlacedTemplateRenderer} als flache, leicht erhabene Platte zeichnet.
  *
+ * <p>Name ({@link Nameable}): der Name der abgelegten Vorlage bzw. Blaupause, nicht der des Blocks -
+ * Jade und alle anderen Anzeigen, die nach dem Namen der Block-Entity fragen, zeigen so
+ * "Leuchtende Besatz-Schmiedevorlage" statt "Abgelegte Schmiedevorlage" (Besitzer 2026-09-28).
+ *
  * <p>Nicht gespeichert: der Zaehler der Hammerschlaege (verfaellt ohnehin nach
  * {@link PlacedTemplates#HIT_RESET_TICKS}) und der Zeitpunkt des letzten Hinweis-Tons.
  */
-public class PlacedTemplateBlockEntity extends BlockEntity {
+public class PlacedTemplateBlockEntity extends BlockEntity implements Nameable {
     private static final String TEMPLATE_TAG = "Template";
 
     private ItemStack template = ItemStack.EMPTY;
@@ -55,6 +61,18 @@ public class PlacedTemplateBlockEntity extends BlockEntity {
         if (this.level != null && !this.level.isClientSide()) {
             this.level.sendBlockUpdated(this.worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
         }
+    }
+
+    /** Der Name des abgelegten Stapels (samt Amboss-Namen), ohne Stapel der des Blocks. */
+    @Override
+    public Component getName() {
+        return this.template.isEmpty() ? getBlockState().getBlock().getName() : this.template.getHoverName();
+    }
+
+    /** Jade fragt erst hiernach, dann nach {@link #getDisplayName()}. */
+    @Override
+    public @Nullable Component getCustomName() {
+        return this.template.isEmpty() ? null : this.template.getHoverName();
     }
 
     /** Bisher gezaehlte Hammerschlaege (0, solange keiner zaehlt). */

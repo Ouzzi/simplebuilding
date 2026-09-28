@@ -4,6 +4,7 @@ import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.custom.PlacedTemplateBlock;
 import com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.items.custom.BlueprintItem;
 import com.simplebuilding.items.custom.SledgehammerItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -23,6 +24,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -32,7 +34,8 @@ import org.jetbrains.annotations.Nullable;
 /**
  * Abgelegte Schmiedevorlagen (Besitzer 2026-09-28): Schleichen + Rechtsklick mit einer Vorlage legt
  * sie flach auf den Boden, an die Wand oder unter die Decke ({@link PlacedTemplateBlock}); ohne
- * Schleichen bleibt alles beim Alten.
+ * Schleichen bleibt alles beim Alten. Blaupausen legen sich genauso ab, als {@code placed_blueprint}
+ * mit derselben Block-Entity und demselben Renderer.
  *
  * <p>Die Besatz-Aufwertung ({@link SledgehammerEntityInteraction}) geht auch an der abgelegten Vorlage:
  * Vorschlaghammer in der Haupthand, Leuchttinte oder Glowstonestaub in der Nebenhand, dann
@@ -70,14 +73,28 @@ public final class PlacedTemplates {
                 || item == ModItems.ENDERITE_UPGRADE_TEMPLATE || item == ModItems.BASIC_UPGRADE_TEMPLATE);
     }
 
+    /** Blaupausen lassen sich genauso ablegen (Besitzer 2026-09-28), als eigener Block. */
+    public static boolean isPlaceableBlueprint(ItemStack stack) {
+        return !stack.isEmpty() && stack.getItem() instanceof BlueprintItem;
+    }
+
+    /** Der Block, als der dieser Stapel abgelegt wird, oder null, wenn er sich nicht ablegen laesst. */
+    public static @Nullable Block placedBlockFor(ItemStack stack) {
+        if (isPlaceableTemplate(stack)) {
+            return ModBlocks.PLACED_SMITHING_TEMPLATE;
+        }
+        return isPlaceableBlueprint(stack) ? ModBlocks.PLACED_BLUEPRINT : null;
+    }
+
     /**
-     * Rechtsklick einer Vorlage auf einen Block (aus {@code Item#useOn}). Null, wenn nichts abgelegt
-     * wird - dann laeuft das gewohnte Verhalten des Items weiter.
+     * Rechtsklick einer Vorlage oder Blaupause auf einen Block (aus {@code Item#useOn}). Null, wenn
+     * nichts abgelegt wird - dann laeuft das gewohnte Verhalten des Items weiter.
      */
     public static @Nullable InteractionResult tryPlace(UseOnContext context) {
         Player player = context.getPlayer();
         ItemStack stack = context.getItemInHand();
-        if (player == null || !player.isSecondaryUseActive() || !isPlaceableTemplate(stack) || !player.mayBuild()) {
+        Block block = placedBlockFor(stack);
+        if (player == null || !player.isSecondaryUseActive() || block == null || !player.mayBuild()) {
             return null;
         }
         BlockPlaceContext place = new BlockPlaceContext(context);
@@ -86,7 +103,7 @@ public final class PlacedTemplates {
         }
         Level level = context.getLevel();
         BlockPos pos = place.getClickedPos();
-        BlockState state = ModBlocks.PLACED_SMITHING_TEMPLATE.getStateForPlacement(place);
+        BlockState state = block.getStateForPlacement(place);
         if (state == null || !state.canSurvive(level, pos)) {
             return null;
         }

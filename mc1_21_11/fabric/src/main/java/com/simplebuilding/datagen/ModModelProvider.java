@@ -67,6 +67,14 @@ public class ModModelProvider extends FabricModelProvider {
     /** Zwei-Ebenen-Vorlage des gefaerbten abgestellten Rucksacks (Ressource, nicht aus Datagen). */
     private static final ModelTemplate BACKPACK_DYED_MODEL = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/template_backpack_dyed")), Optional.of("_dyed"), TextureSlot.FRONT, TextureSlot.BACK, TextureSlot.SIDE, TextureSlot.TOP, FRONT_OVERLAY, BACK_OVERLAY, SIDE_OVERLAY, TOP_OVERLAY, TextureSlot.PARTICLE);
 
+    // Abgestelltes Buendel (PlacedBundleBlock): handgeschriebene Vorlagen aus
+    // tools/textures/placed_bundle_textures.py, eine 32x32-Textur je Stufe; gefaerbt zwei Ebenen
+    // (#bundle getoent, #overlay ungefaerbt) wie beim Rucksack.
+    private static final TextureSlot PLACED_BUNDLE_TEXTURE = TextureSlot.create("bundle");
+    private static final TextureSlot PLACED_BUNDLE_OVERLAY = TextureSlot.create("overlay");
+    private static final ModelTemplate PLACED_BUNDLE_MODEL = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/template_placed_bundle")), Optional.empty(), PLACED_BUNDLE_TEXTURE, TextureSlot.PARTICLE);
+    private static final ModelTemplate PLACED_BUNDLE_DYED_MODEL = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/template_placed_bundle_dyed")), Optional.empty(), PLACED_BUNDLE_TEXTURE, PLACED_BUNDLE_OVERLAY, TextureSlot.PARTICLE);
+
     public ModModelProvider(FabricDataOutput output) {
         super(output);
     }
@@ -176,6 +184,9 @@ public class ModModelProvider extends FabricModelProvider {
         // Abgelegte Schmiedevorlage: gezeichnet vom PlacedTemplateRenderer, das Blockmodell traegt
         // nur die Partikeltextur (dunkel wie die Vorlagen selbst).
         blockStateModelGenerator.createParticleOnlyBlock(ModBlocks.PLACED_SMITHING_TEMPLATE, net.minecraft.world.level.block.Blocks.POLISHED_DEEPSLATE);
+        // Abgelegte Blaupause: ebenso, Partikel blau wie das Papier.
+        blockStateModelGenerator.createParticleOnlyBlock(ModBlocks.PLACED_BLUEPRINT, net.minecraft.world.level.block.Blocks.LAPIS_BLOCK);
+        registerPlacedBundle(blockStateModelGenerator);
 
         // --- 7. Aus Simple Tweaks: Druckplatten und Pads ---
         com.simplebuilding.tweaks.datagen.TweaksModelGen.blocks(blockStateModelGenerator);
@@ -349,6 +360,38 @@ public class ModModelProvider extends FabricModelProvider {
                             };
                         })
                 ));
+    }
+
+    /**
+     * Abgestelltes Buendel: je Stufe ein Modell und ein gefaerbtes Zwei-Ebenen-Modell, gedreht nach
+     * der Blickrichtung (Vorderseite nach Norden im Modell).
+     */
+    private void registerPlacedBundle(BlockModelGenerators generator) {
+        java.util.Map<com.simplebuilding.blocks.custom.PlacedBundleBlock.Tier, Identifier> plain = new java.util.EnumMap<>(com.simplebuilding.blocks.custom.PlacedBundleBlock.Tier.class);
+        java.util.Map<com.simplebuilding.blocks.custom.PlacedBundleBlock.Tier, Identifier> dyed = new java.util.EnumMap<>(com.simplebuilding.blocks.custom.PlacedBundleBlock.Tier.class);
+        for (com.simplebuilding.blocks.custom.PlacedBundleBlock.Tier tier : com.simplebuilding.blocks.custom.PlacedBundleBlock.Tier.values()) {
+            String base = tier == com.simplebuilding.blocks.custom.PlacedBundleBlock.Tier.BUNDLE ? "placed_bundle" : "placed_" + tier.getSerializedName() + "_bundle";
+            Identifier texture = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/" + base);
+            Identifier dyedTexture = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/" + base + "_dyed");
+            Identifier overlay = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "block/" + base + "_dyed_overlay");
+            plain.put(tier, PLACED_BUNDLE_MODEL.create(texture,
+                    new TextureMapping().put(PLACED_BUNDLE_TEXTURE, texture).put(TextureSlot.PARTICLE, texture), generator.modelOutput));
+            dyed.put(tier, PLACED_BUNDLE_DYED_MODEL.create(dyedTexture,
+                    new TextureMapping().put(PLACED_BUNDLE_TEXTURE, dyedTexture).put(PLACED_BUNDLE_OVERLAY, overlay).put(TextureSlot.PARTICLE, texture),
+                    generator.modelOutput));
+        }
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(ModBlocks.PLACED_BUNDLE)
+                .with(PropertyDispatch.initial(com.simplebuilding.blocks.custom.PlacedBundleBlock.FACING,
+                                com.simplebuilding.blocks.custom.PlacedBundleBlock.TIER, com.simplebuilding.blocks.custom.PlacedBundleBlock.DYED)
+                        .generate((facing, tier, isDyed) -> {
+                            Identifier id = isDyed ? dyed.get(tier) : plain.get(tier);
+                            return switch (facing) {
+                                case EAST -> BlockModelGenerators.plainVariant(id).with(BlockModelGenerators.Y_ROT_90);
+                                case SOUTH -> BlockModelGenerators.plainVariant(id).with(BlockModelGenerators.Y_ROT_180);
+                                case WEST -> BlockModelGenerators.plainVariant(id).with(BlockModelGenerators.Y_ROT_270);
+                                default -> BlockModelGenerators.plainVariant(id);
+                            };
+                        })));
     }
 
     private void registerTieredChest(BlockModelGenerators generator, Block chest, Block particle) {

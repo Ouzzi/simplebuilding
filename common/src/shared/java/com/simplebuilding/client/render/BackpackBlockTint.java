@@ -1,6 +1,7 @@
 package com.simplebuilding.client.render;
 
 import com.simplebuilding.blocks.entity.custom.BackpackBlockEntity;
+import com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity;
 import com.simplebuilding.util.DyedStorage;
 import net.minecraft.client.color.block.BlockTintSource;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
@@ -9,7 +10,7 @@ import net.minecraft.util.ARGB;
 import net.minecraft.world.level.block.state.BlockState;
 
 /**
- * Farbe des abgestellten gefaerbten Rucksacks: Ebene 0 (die Leder-Ebene von
+ * Farbe des abgestellten gefaerbten Rucksacks (und des abgestellten gefaerbten Buendels): Ebene 0 (die Leder-Ebene von
  * {@code block/template_backpack_dyed}) nimmt die Farbe der Block-Entity, alles andere bleibt weiss.
  * Registriert je Loader fuer die vier Rucksack-Bloecke (Fabric {@code BlockColorRegistry}, NeoForge
  * {@code RegisterColorHandlersEvent.BlockTintSources}, Forge {@code RegisterColorHandlersEvent.Block}).
@@ -28,6 +29,11 @@ public final class BackpackBlockTint implements BlockTintSource {
         if (level != null && pos != null && level.getBlockEntity(pos) instanceof BackpackBlockEntity backpack
                 && backpack.dyeColor() != DyedStorage.UNDYED) {
             return ARGB.opaque(backpack.dyeColor());
+        }
+        // Abgestelltes gefaerbtes Buendel (block/template_placed_bundle_dyed): dieselbe Leder-Ebene 0.
+        if (level != null && pos != null && level.getBlockEntity(pos) instanceof PlacedBundleBlockEntity bundle
+                && bundle.dyeColor() != DyedStorage.UNDYED) {
+            return ARGB.opaque(bundle.dyeColor());
         }
         return -1;
     }

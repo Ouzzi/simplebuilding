@@ -102,7 +102,10 @@ public final class NeoForgeModRegistries {
 
     public static final Supplier<BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity>> PLACED_TEMPLATE_BE =
             BLOCK_ENTITIES.register("placed_smithing_template", () -> new BlockEntityType<>(
-                    com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity::new, ModBlocks.PLACED_SMITHING_TEMPLATE));
+                    com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity::new, ModBlocks.PLACED_SMITHING_TEMPLATE, ModBlocks.PLACED_BLUEPRINT));
+
+    public static final Supplier<BlockEntityType<com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity>> PLACED_BUNDLE_BE =
+            BLOCK_ENTITIES.register("placed_bundle", () -> new BlockEntityType<>(com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity::new, ModBlocks.PLACED_BUNDLE));
 
     public static final Supplier<RecipeSerializer<BackpackUpgradeRecipe>> BACKPACK_UPGRADE_SERIALIZER =
             RECIPE_SERIALIZERS.register("backpack_upgrade", () -> BackpackUpgradeRecipe.SERIALIZER);
@@ -256,6 +259,7 @@ public final class NeoForgeModRegistries {
         ModBlockEntities.TIERED_CHEST_BE = TIERED_CHEST_BE.get();
         ModBlockEntities.BACKPACK_BE = BACKPACK_BE.get();
         ModBlockEntities.PLACED_TEMPLATE_BE = PLACED_TEMPLATE_BE.get();
+        ModBlockEntities.PLACED_BUNDLE_BE = PLACED_BUNDLE_BE.get();
         ModBlockEntities.MOD_HOPPER_BE = MOD_HOPPER_BE.get();
         ModBlockEntities.MOD_BLAST_FURNACE_BE = MOD_BLAST_FURNACE_BE.get();
         ModBlockEntities.MOD_FURNACE_BE = MOD_FURNACE_BE.get();
