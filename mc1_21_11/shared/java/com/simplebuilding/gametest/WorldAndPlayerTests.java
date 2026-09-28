@@ -323,7 +323,8 @@ public final class WorldAndPlayerTests {
             Map.entry(BuiltInLootTables.SIMPLE_DUNGEON, 1),
             Map.entry(BuiltInLootTables.SHIPWRECK_TREASURE, 1),
             Map.entry(BuiltInLootTables.IGLOO_CHEST, 1),
-            Map.entry(BuiltInLootTables.ABANDONED_MINESHAFT, 1),
+            // the book pool plus the iron core pool (second iron core source, 2026-09-28)
+            Map.entry(BuiltInLootTables.ABANDONED_MINESHAFT, 2),
             Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_COMMON, 1),
             Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_RARE, 3),
             Map.entry(BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS, 2),

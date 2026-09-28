@@ -12,6 +12,7 @@
     "BowItemMixin",
     "BrushItemMixin",
     "CartographyTableMenuMixin",
+    "EnchantmentMixin",
     "EnderiteItemMixin",
     "EntityLightRemovalMixin",
     "EndermanSpawnMixin",

@@ -27,6 +27,11 @@ public final class DataIntegrityGameTest {
     }
 
     @GameTest
+    public void basicUpgradeTemplateTextNamesOnlyRealToolsAndMaterials(GameTestHelper helper) {
+        DataIntegrityTests.basicUpgradeTemplateTextNamesOnlyRealToolsAndMaterials(helper);
+    }
+
+    @GameTest
     public void everyModBlockIsRegisteredAndHasItsBlockItem(GameTestHelper helper) {
         DataIntegrityTests.everyModBlockIsRegisteredAndHasItsBlockItem(helper);
     }

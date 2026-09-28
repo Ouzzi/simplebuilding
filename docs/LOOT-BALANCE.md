@@ -1,4 +1,4 @@
-# Loot-Balance (Stand 2026-09-27)
+# Loot-Balance (Stand 2026-09-28)
 
 Gilt für beide MC-Linien (26.2 und 1.21.11) und alle Loader; Quelle ist
 `loot/ModLootTableModifications.java` (auf beiden Linien identisch), Handel in
@@ -21,46 +21,51 @@ Gilt für beide MC-Linien (26.2 und 1.21.11) und alle Loader; Quelle ist
   Enderit-Template 30 % pro End-City-Kiste (vorher 50 %). Verzauberter Goldapfel
   ~1/60 pro Wurf in Ancient City → verzauberte Netherit-/Enderit-Äpfel Gewicht 1 von 58–84.
   Angel-Schatz: Vanilla-Buch ~1/6 der Schatzfänge → Mod-Bücher ~9/33.
-- **Brücke** bleibt ohne Truhenquelle (Verzauberung hat derzeit keine Wirkung).
+- **Verzauberungen ohne Quelle gibt es nicht mehr** (2026-09-28): **Brücke** ist die End-Verzauberung
+  des Baustabs und liegt nur in der End City; **Schublade** im Waldanwesen und beim Bibliothekar
+  Stufe 4; **Kinetischer Schutz** ist wie Vanillas Schutz eine Zaubertisch-Verzauberung
+  (`minecraft:in_enchanting_table`), keine Truhe. **Abdeckung** (Cover) bleibt im
+  Plünderer-Außenposten und im Waldanwesen (Besitzer 2026-09-28).
 
 ## Kisten (Würfe; Einträge mit Gewicht, Anzahl; Ø Mod-Stapel/Kiste)
 
 | Tabelle | Würfe | Inhalt | Leer | Ø |
 |---|---|---|---|---|
 | Stronghold-Bibliothek | 0–2 | Reichweite II 4, Baumeister 3, Vielseitigkeit I 4 / II 2 | 12 | 0,52 |
-| End City | 15 % / 30 % / 1 / 0–3 | Schrott; Template; Roh-Enderit 4 (1–2), Enderit-Nugget 6 (2–5), Astralitstaub 6 (2–6), Nihilit-Splitter 6 (1–4) [leer 14]; Enderit-Kern 0,25 % (eigener Pool); Reichweite III 4, Baumeister 3, Übersteuerung II 5, Luftsprung II 5, Vielseitigkeit I 6 / II 3, Diamant-Baustab* 6, Diamant-Vorschlaghammer* 8, Enderit-Apfel 3, verz. Enderit-Apfel 1 | 40 | 1,88 |
+| End City | 15 % / 30 % / 1 / 0–3 | Schrott; Template; Roh-Enderit 4 (1–2), Enderit-Nugget 6 (2–5), Astralitstaub 6 (2–6), Nihilit-Splitter 6 (1–4) [leer 14]; Enderit-Kern 0,175 % (eigener Pool); Reichweite III 4, Baumeister 3, Übersteuerung II 5, Luftsprung II 5, Vielseitigkeit I 6 / II 3, Brücke 4, Diamant-Baustab* 6, Diamant-Vorschlaghammer* 8, Enderit-Apfel 3, verz. Enderit-Apfel 1 | 40 | 1,88 |
 | Ancient City | 0–2 | Tiefe Taschen II 5, Radius 4, Oktant* 5, Diamant-Vorschlaghammer 3, Köcher* 3, Netherit-Apfel 2, verz. Netherit-Apfel 1, Netherit-Nugget 4 (1–3), Diamantkiesel 6 (2–5) | 25 | 0,57 |
-| Bastion (alle Kisten) | 0–2 | Trichter I 5, Durchbruch I 5, Gold-Vorschlaghammer 6, Netherit-Nugget 12 (1–4), Netherit-Karotte 6 (1–2); Goldkern 0,6 % (eigener Pool) | 25 | 0,58 |
-| + nur Bastion-Schatz | 1 | Netherit-Apfel 4, verz. Netherit-Apfel 2, Durchbruch II 3; Netheritkern 4 % (eigener Pool) | 7 | +0,57 |
-| Netherfestung | 0–2 | Tunnelgräber I 6 / II 3, Trichter 2, Durchbruch 2, Oktant* 3, Netherit-Nugget 6 (1–3), Netherit-Karotte 3 (1–3); Goldkern 0,8 % (eigener Pool) | 14 | 0,65 |
+| Bastion (alle Kisten) | 0–2 | Trichter I 5, Durchbruch I 5, Gold-Vorschlaghammer 6, Netherit-Nugget 12 (1–4), Netherit-Karotte 6 (1–2); Goldkern 1,25 % (eigener Pool) | 25 | 0,58 |
+| + nur Bastion-Schatz | 1 | Netherit-Apfel 4, verz. Netherit-Apfel 2, Durchbruch II 3; Netheritkern 6 % (eigener Pool) | 7 | +0,57 |
+| Netherfestung | 0–2 | Tunnelgräber I 6 / II 3, Trichter 2, Durchbruch 2, Oktant* 3, Netherit-Nugget 6 (1–3), Netherit-Karotte 3 (1–3); Goldkern 1,65 % (eigener Pool) | 14 | 0,65 |
 | Plünderer-Außenposten | 0–2 | Farbpalette 6, Abdeckung 8, Linear 8, Oktant 5, Köcher 5, Kupfermeißel 4 | 20 | 0,64 |
-| Waldanwesen | 0–2 | Farbpalette 3, Abdeckung 5, Linear 5, Aderabbau V 1 / IV 3, Eisen-Baustab 4, Köcher 3; Eisenkern 0,8 % (eigener Pool) | 30 | 0,45 |
+| Waldanwesen | 0–2 | Farbpalette 3, Abdeckung 5, Linear 5, Aderabbau V 1 / IV 3, Schublade I 3, Eisen-Baustab 4, Köcher 3; Eisenkern 1,5 % (eigener Pool) | 30 | 0,48 |
 | Buried Treasure | 0–2 | Berührung d. K. 3, Schnelles Meißeln II 2, Goldmeißel 10, Diamantmeißel 6, Diamantkiesel 10 (2–6) | 30 | 0,51 |
 | Verlies | 0–2 | Schnelles Meißeln I 5, Trichter 8, Durchbruch 8, Aderabbau IV 3 / III 8 / II 12, Verst. Bündel 8, Basis-Template 2, Diamantkiesel 6 (1–3) | 40 | 0,60 |
 | Schiffswrack-Schatz | 0–1 | Schnelles Meißeln I 10, Verst. Bündel 8, Diamantkiesel 10 (1–4) | 20 | 0,29 |
 | Iglu | 0–1 | Berührung d. K. 3, Schnelles Meißeln I 3, Diamantmeißel 6 | 8 | 0,30 |
-| Verlassene Mine | 0–2 | Schnelles Meißeln I 2, Tunnelgräber I 8 / III 3, Aderabbau III 4 / IV 3, Verst. Bündel* 6, Diamantkiesel 8 (1–3) | 30 | 0,53 |
+| Verlassene Mine | 0–2 | Schnelles Meißeln I 2, Tunnelgräber I 8 / III 3, Aderabbau III 4 / IV 3, Verst. Bündel* 6, Diamantkiesel 8 (1–3); Eisenkern 0,5 % (eigener Pool) | 30 | 0,53 |
 | Vault normal (+selten) | 0–1 | Berührung d. K. 3, Schnelles Meißeln II 2, Diamantkiesel 3 (2–4) | 12 | 0,20 |
-| Vault unheilvoll (+selten) | 0–1 | Baumeister 10, Luftsprung I 7, Netherit-Apfel 2, verz. Netherit-Apfel 1; Diamantkern 0,8 % (eigener Pool) | 35 | 0,19 |
+| Vault unheilvoll (+selten) | 0–1 | Baumeister 10, Luftsprung I 7, Netherit-Apfel 2, verz. Netherit-Apfel 1; Diamantkern 1,05 % (eigener Pool) | 35 | 0,19 |
 | Portalruine (neu) | 0–1 | Netherit-Nugget 3 (1–2), Goldmeißel 3, Netherit-Karotte 2 | 12 | 0,20 |
 | Angeln, Schatz (neu) | 1 | Schnelles Meißeln I 3, Berührung d. K. 2, Tiefe Taschen I 2, Linear I 2, Diamantkiesel 4 (1–3) | 20 | 0,39 |
 
 `*` = zufällig verzaubert (EnchantRandomlyFunction). Der seltene Vault bekommt beide Vault-Pools.
 
-## Kerne (2026-09-27)
+## Kerne (2026-09-28, "Zeitalter B")
 
 Jeder Kern liegt in einem eigenen Pool (`ModLootTableModifications#rareCore`: ein Wurf,
 `binomial(1, p)`), die Chance pro Kiste steht also direkt im Code (`*_CORE_CHANCE`):
 
 | Kern | Tabelle | pro Kiste | grob pro Struktur |
 |---|---|---|---|
-| Kupferkern | – (keine Kiste; Steinmetz und fahrender Händler verkaufen ihn) | 0 | – |
-| Eisenkern | Waldanwesen | 0,8 % | ~15–25 % je Anwesen (20–30 Kisten) |
-| Goldkern | Bastion (jede Kiste, auch Schatzraum) | 0,6 % | ~5–10 % je Bastion |
-| Goldkern | Netherfestung | 0,8 % | ~2–4 % je Festung |
-| Diamantkern | Tresor unheilvoll und selten | 0,8 % | ~0,8 % je Tresor-Öffnung |
-| Netheritkern | nur Bastion-Schatzraum | 4 % (vorher ~12 %) | 4 % je Schatz-Bastion |
-| Enderit-Kern | Endsiedlung (End City) | 0,25 % (vorher gar nicht) | ~1–2 % je Stadt (4–8 Kisten) |
+| Kupferkern | – (keine Kiste; nur selten beim fahrenden Händler) | 0 | – |
+| Eisenkern | Waldanwesen | 1,5 % | ~25–35 % je Anwesen (20–30 Kisten) |
+| Eisenkern | Verlassene Mine (neu) | 0,5 % | ~3–5 % je Mine (6–10 Kistenloren) |
+| Goldkern | Bastion (jede Kiste, auch Schatzraum) | 1,25 % | ~5–8 % je Bastion |
+| Goldkern | Netherfestung | 1,65 % | ~4–6 % je Festung |
+| Diamantkern | Tresor unheilvoll und selten | 1,05 % | ~1 % je Tresor-Öffnung |
+| Netheritkern | nur Bastion-Schatzraum | 6 % (bis 2026-09-27 ~12 %, dann 4 %) | 6 % je Schatz-Bastion |
+| Enderit-Kern | Endsiedlung (End City) | 0,175 % (2026-09-27: 0,25 %) | ~1 % je Stadt (4–8 Kisten) |
 
 Vorher (Gewichte in den Mehrwurf-Pools): Eisenkern ~1,8 %, Goldkern ~1,7 % (Bastion) / ~2,5 %
 (Festung), Diamantkern ~1,8 %, Netheritkern ~12 % pro Kiste. Test:
@@ -69,9 +74,9 @@ Band je Kern und Tabelle, jeder andere Kern in jeder anderen Tabelle = 0, Enderi
 als jeder andere).
 
 Spielzeit bis zum ersten und zehnten Kern je Sorte, Haendler zum Vergleich und Vorschlaege:
-`docs/KERNE-SELTENHEIT.md` (2026-09-28). Seit 2026-09-28 stapeln Kerne nicht mehr; der fahrende
-Haendler gibt Kupfer- und Eisenkerne deshalb einzeln (23 bzw. 28 Smaragde, 8 Nutzungen) statt
-paarweise.
+`docs/KERNE-SELTENHEIT.md` (Abschnitt 5.3: Ziel "Zeitalter B", mittlere Zeit gezielter Suche bis zum
+ersten Kern: Eisen 6,7 h, Gold 12,5 h, Diamant 21 h, Netherit 25 h, Enderit 38 h). Seit 2026-09-28
+stapeln Kerne nicht mehr.
 
 ## Handel
 
@@ -82,6 +87,9 @@ paarweise.
 | Diamantkern (Steinmetz 2) | 6 Netheritbarren | 3 Netheritbarren | 6 Barren lohnten sich gegenüber Rezept (4 Diamanten + Netherstern) nie |
 | Radius-Buch (fahrender Händler) | 60 Smaragde | 40 Smaragde | einzige Handelsquelle für Radius, sonst nur Ancient City |
 | neu: 3 Diamantkiesel (fahrender Händler, häufig) | – | 5 Smaragde, 4×, Rabatt 0,05 | ~15 Smaragde pro Diamant, nicht zurückverkaufbar |
+| Kerne beim Steinmetz (Stufe 2: Kupferkern 25 Smaragde, Diamantkern 3 Netheritbarren) | je 2×, frischt auf | entfernt (2026-09-28) | Besitzer: Steinmetz verkauft keine Kerne; der Diamantkern-Tausch untergrub jede Seltenheit |
+| Kerne beim fahrenden Händler | Kupfer 23 / Eisen 28 (häufig, 8×), Gold 30 (selten, 1×) | alle im seltenen Pool: Kupfer 24 (2×), Eisen 32, Gold 48, neu Diamant 64 (je 1×); Angebots-Chance 100 / 50 / 25 / 10 % | Glückstreffer statt Farm: je Händlerbesuch ~10 / 5 / 2,4 / 1 % (KERNE-SELTENHEIT 5.3) |
+| Schublade I (Bibliothekar Stufe 4, Fortgeschrittenen-Buch) | – | Gewicht 15 neben Linear 25, Übersteuerung 20 | Handelsquelle für die Schublade (2026-09-28) |
 
 Arbitrage: Jedes Item, das ein Händler ankauft (Oktant 8, Verst. Bündel 12), kostet beim
 Kauf mehr (10 bzw. 16). Test: `TradeAndMigrationTests.modTradesStayWorthItWithoutBeingExploitable`.
