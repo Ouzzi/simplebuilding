@@ -39,6 +39,10 @@ sourceSets {
             srcDir rootProject.layout.projectDirectory.dir('mc1_21_11/jei/java')
             // Jade plugin, same tree as 26.x (see mc1_21_11/fabric/build.gradle)
             srcDir rootProject.layout.projectDirectory.dir('common/src/jade/java')
+            // REI plugin (compileOnly REI API, see the root build.gradle) plus the two NeoForge
+            // registration subclasses (@REIPluginClient/@REIPluginCommon exist only in REI's NeoForge API)
+            srcDir rootProject.layout.projectDirectory.dir('mc1_21_11/rei/java')
+            srcDir 'src/rei/java'
         }
         resources {
             srcDir 'src/main/resources'
@@ -213,6 +217,7 @@ neoForge {
 repositories {
     maven { url = 'https://maven.shedaniel.me/' }
     maven { url = 'https://maven.blamejared.com/' }
+    maven { url = 'https://maven.architectury.dev/' }
     exclusiveContent {
         forRepository { maven { url = 'https://api.modrinth.com/maven' } }
         filter { includeGroup 'maven.modrinth' }
@@ -259,6 +264,12 @@ dependencies {
     compileOnly "mezz.jei:jei-${project.mc11_minecraft_version}-common-api:${project.mc11_jei_version}"
     // Jade plugin (common/src/jade/java). compileOnly: the mod runs without Jade.
     compileOnly("maven.modrinth:jade:${project.mc11_dev_jade_neoforge}") { transitive = false }
+
+    // REI plugin API (mc1_21_11/rei/java + src/rei/java). compileOnly, non-transitive, Mojang names
+    // (REI's NeoForge artifacts are published in them). No REI dev runtime (it would sit next to JEI).
+    compileOnly("me.shedaniel:RoughlyEnoughItems-api-neoforge:${project.mc11_rei_version}") { transitive = false }
+    compileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-neoforge:${project.mc11_rei_version}") { transitive = false }
+    compileOnly("dev.architectury:architectury-neoforge:${project.mc11_rei_architectury_version}") { transitive = false }
 
     devMods("mezz.jei:jei-${project.mc11_minecraft_version}-neoforge:${project.mc11_jei_version}") { transitive = false }
     devMods("maven.modrinth:jade:${project.mc11_dev_jade_neoforge}") { transitive = false }
