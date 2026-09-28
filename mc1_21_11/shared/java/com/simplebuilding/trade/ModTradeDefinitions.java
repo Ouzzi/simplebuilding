@@ -64,7 +64,8 @@ public final class ModTradeDefinitions {
     private static EnchantmentPool librarianAdvancedPool() {
         return EnchantmentPool.of(
                 EnchantmentPool.entry(ModEnchantments.LINEAR, 1, 25),
-                EnchantmentPool.entry(ModEnchantments.OVERRIDE, 1, 20));
+                EnchantmentPool.entry(ModEnchantments.OVERRIDE, 1, 20),
+                EnchantmentPool.entry(ModEnchantments.DRAWER, 1, 15));
     }
 
     private static EnchantmentPool librarianMasterPool() {
@@ -133,12 +134,7 @@ public final class ModTradeDefinitions {
                         TradeDefinition.enchanted(new ItemCost(Items.EMERALD, 25),
                                 new ItemStack(Items.ENCHANTED_BOOK), librarianMasterPool(), 1, 100, 0.2F))),
 
-                // mason/2/emerald_copper_core + mason/2/netherite_diamond_core
-                new VillagerTradeGroup(VillagerProfession.MASON, 2, List.of(
-                        TradeDefinition.of(new ItemCost(Items.EMERALD, 25),
-                                new ItemStack(ModItems.COPPER_CORE), 2, 10, 0.1F),
-                        TradeDefinition.of(new ItemCost(Items.NETHERITE_INGOT, 3),
-                                new ItemStack(ModItems.DIAMOND_CORE), 2, 15, 0.1F))),
+                // Steinmetz Stufe 2 verkauft seit 2026-09-28 keine Kerne mehr (Besitzer).
 
                 // mason/4/emerald_copper_building_wand
                 new VillagerTradeGroup(VillagerProfession.MASON, 4, List.of(
@@ -185,10 +181,6 @@ public final class ModTradeDefinitions {
 
                 // tags/villager_trade/wandering_trader/common
                 new WanderingTradeGroup(WanderingTraderPool.COMMON, List.of(
-                        TradeDefinition.of(new ItemCost(Items.EMERALD, 23),
-                                new ItemStack(ModItems.COPPER_CORE), 8, 10, 0.1F),
-                        TradeDefinition.of(new ItemCost(Items.EMERALD, 28),
-                                new ItemStack(ModItems.IRON_CORE), 8, 10, 0.1F),
                         TradeDefinition.of(new ItemCost(Items.EMERALD, 5),
                                 new ItemStack(ModItems.DIAMOND_PEBBLE, 3), 4, 5, 0.05F))),
 
@@ -198,9 +190,17 @@ public final class ModTradeDefinitions {
                                 new ItemStack(ModItems.OCTANT), 1, 15, 0.1F),
                         TradeDefinition.of(new ItemCost(Items.EMERALD, 16),
                                 new ItemStack(ModItems.REINFORCED_BUNDLE), 1, 15, 0.1F),
-                        TradeDefinition.of(new ItemCost(Items.EMERALD, 30),
-                                new ItemStack(ModItems.GOLD_CORE), 1, 5, 0.1F),
                         TradeDefinition.enchanted(new ItemCost(Items.EMERALD, 40),
-                                new ItemStack(Items.ENCHANTED_BOOK), wandBookPool(), 1, 10, 0.2F))));
+                                new ItemStack(Items.ENCHANTED_BOOK), wandBookPool(), 1, 10, 0.2F),
+                        // Kerne: nur hier, selten und teuer, je hoeher die Stufe desto seltener
+                        // (Besitzer 2026-09-28; Chancen je Besuch in docs/KERNE-SELTENHEIT.md).
+                        TradeDefinition.of(new ItemCost(Items.EMERALD, 24),
+                                new ItemStack(ModItems.COPPER_CORE), 2, 10, 0.1F),
+                        TradeDefinition.of(new ItemCost(Items.EMERALD, 32),
+                                new ItemStack(ModItems.IRON_CORE), 1, 10, 0.1F).withChance(0.5F),
+                        TradeDefinition.of(new ItemCost(Items.EMERALD, 48),
+                                new ItemStack(ModItems.GOLD_CORE), 1, 15, 0.1F).withChance(0.25F),
+                        TradeDefinition.of(new ItemCost(Items.EMERALD, 64),
+                                new ItemStack(ModItems.DIAMOND_CORE), 1, 20, 0.1F).withChance(0.1F))));
     }
 }

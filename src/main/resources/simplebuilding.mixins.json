@@ -13,6 +13,7 @@
     "BrushItemMixin",
     "CartographyTableMenuMixin",
     "DataFixTypesMixin",
+    "EnchantmentMixin",
     "EnderiteItemMixin",
     "EntityLightRemovalMixin",
     "EndermanSpawnMixin",

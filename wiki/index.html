@@ -750,6 +750,8 @@ en: {
   kvTraderXp: 'Experience (trader)',
   kvDiscount: 'Discount factor',
   kvDiscountHint: '(price multiplier from reputation/demand)',
+  kvOfferChance: 'Offer chance',
+  kvOfferChanceHint: '(a drawn offer only appears this often)',
   kvConfig: 'Config',
   noCondition: 'no condition',
   tradeFor: 'for',
@@ -1229,6 +1231,8 @@ de: {
   kvTraderXp: 'Erfahrung (Händler)',
   kvDiscount: 'Rabatt-Faktor',
   kvDiscountHint: '(Preis-Multiplikator bei Reputation/Nachfrage)',
+  kvOfferChance: 'Angebots-Chance',
+  kvOfferChanceHint: '(so oft erscheint ein gezogenes Angebot)',
   kvConfig: 'Konfiguration',
   noCondition: 'keine Bedingung',
   tradeFor: 'für',
@@ -2097,6 +2101,7 @@ function tradeCard(tr, opts) {
   h += '<dt>' + esc(T('kvMaxUses')) + '</dt><dd>' + esc(tr.maxUses != null ? tr.maxUses : '–') + '</dd>';
   h += '<dt>' + esc(T('kvTraderXp')) + '</dt><dd>' + esc(tr.xp != null ? tr.xp + ' XP' : '–') + '</dd>';
   h += '<dt>' + esc(T('kvDiscount')) + '</dt><dd>' + esc(tr.reputationDiscount != null ? fmtNum(tr.reputationDiscount) : '–') + ' <span class="muted tiny">' + esc(T('kvDiscountHint')) + '</span></dd>';
+  if (tr.offerChance != null) h += '<dt>' + esc(T('kvOfferChance')) + '</dt><dd>' + esc(fmtNum(tr.offerChance * 100) + ' %') + ' <span class="muted tiny">' + esc(T('kvOfferChanceHint')) + '</span></dd>';
   var flags = strs(tr.configFlags);
   h += '<dt>' + esc(T('kvConfig')) + '</dt><dd>' + (flags.length ? flags.map(function (f) { return '<a href="#/config/' + esc(f) + '"><code>' + esc(f) + '</code></a>'; }).join(' ') : '<span class="muted">' + esc(T('noCondition')) + '</span>') + '</dd>';
   h += '</dl>';

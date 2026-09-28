@@ -163,10 +163,7 @@ public final class ReinforcedBundleTests {
      */
     private static final int DRAWER_OFFSET = 16;
 
-    /** Kinds a Drawer bundle may hold at once - {@code DRAWER_MAX_TYPES} in the item. */
-    private static final int DRAWER_KINDS = 5;
-
-    /** Six block items, so that the sixth kind meets a full drawer. All stack to 64. */
+    /** Six block items, one for the Drawer lock and five it has to refuse. All stack to 64. */
     private static final Item[] SIX_KINDS = {
             Items.STONE, Items.DIRT, Items.OAK_PLANKS, Items.COBBLESTONE, Items.SAND, Items.GRAVEL,
     };
@@ -174,7 +171,7 @@ public final class ReinforcedBundleTests {
     /**
      * One kind in an amount the merge has to split into two entries - more than a vanilla stack,
      * and not a multiple of one. That is what pulls the entry count ahead of the kind count in
-     * {@link #drawerCapsTheBundleAtFiveKinds}.
+     * {@link #drawerHoldsOnlyTheKindAlreadyInside}.
      */
     private static final int SPLIT_STOCK = 80;
 
@@ -430,136 +427,104 @@ public final class ReinforcedBundleTests {
     }
 
     /**
-     * The Drawer restriction: a bundle carrying it holds five <em>kinds</em> - not five entries,
-     * and not five stacks.
+     * The Drawer lock (owner 2026-09-28): a bundle carrying Drawer takes more of the one kind it
+     * already holds, and nothing else. An empty Drawer bundle takes any first kind, and that kind
+     * decides what the bundle holds from then on. It used to allow up to five kinds.
      *
-     * <p>The fixture is built so that entries and kinds are different numbers at the moment the
-     * limit is asked. One of the kinds goes in 80 items at a time, and the merge stores those as a
-     * full stack plus a remainder, so the bundle sits at <em>four</em> kinds in <em>five</em>
-     * entries when the fifth kind is offered. A limit on entries turns that fifth kind away; the
-     * limit on kinds has to take it and only refuse the sixth. Both answers are asserted, which is
-     * what makes the difference between the two readings load-bearing here - with five kinds in
-     * five entries the two count the same and either implementation passes.
+     * <p>The first kind goes in {@value #SPLIT_STOCK} at a time, which the merge stores as a full
+     * stack plus a remainder: two entries, one kind. A lock that compared against the first entry
+     * only, or counted entries, would read that differently from one that compares kinds.
      *
-     * <p>A kind is item <em>and</em> components, which the second half pins: five stone stacks that
-     * differ only in their custom name are five kinds, not one, so a sixth named stone is refused
-     * although its item has been in the bundle all along. Comparing by item alone would let it in.
+     * <p>A kind is item <em>and</em> components: a stone with a custom name is another kind than
+     * plain stone, so a Drawer bundle that holds plain stone refuses it although its item has been
+     * inside all along - and one that started with the named stone refuses plain stone.
      *
-     * <p>Both halves pair every refusal with an insert that has to succeed - more of something the
-     * bundle already holds - because a refusal on its own is also what a full bundle looks like.
-     * The control at the end runs the same six kinds into a bundle without Drawer: the enchantment
-     * is what forbids the sixth kind, not the item.
+     * <p>Every refusal is paired with an insert that has to succeed - more of the kind inside -
+     * because a refusal on its own is also what a full bundle looks like. A bundle that already
+     * held two kinds before it got the Drawer takes neither of them any more (it is not one kind),
+     * and the control at the end runs six kinds into a bundle without Drawer.
      *
-     * <p>The last block runs the kind limit on a <em>quiver</em>, which inherits
-     * {@code insertItemIntoBundle} unchanged and is therefore bound by the same rule. Every other
-     * quiver in the suite is filled with plain arrows, i.e. with a single kind, so the inherited
-     * check is never asked there: exempting the subclass - or dropping the check out of the shared
-     * method for it - would let a Drawer quiver swallow every tipped arrow in the game while the
-     * whole suite stayed green. The kinds are named arrows, so the quiver's own arrow filter lets
-     * them all through and only the kind limit can turn one away.
+     * <p>The last block runs the lock on a <em>quiver</em>, which inherits
+     * {@code insertItemIntoBundle} unchanged: named arrows, so the quiver's own arrow filter lets
+     * them all through and only the lock can turn one away.
      *
-     * <p>What breaks it: deleting the type count, counting entries instead of kinds, comparing by
-     * item only rather than by item and components, applying the restriction to bundles without
-     * the enchantment, or exempting the quiver from it.
+     * <p>What breaks it: dropping the lock, letting a second kind in, comparing by item only,
+     * closing the bundle for the kind it holds, applying the lock without the enchantment, or
+     * exempting the quiver.
      */
-    public static void drawerCapsTheBundleAtFiveKinds(GameTestHelper helper) {
+    public static void drawerHoldsOnlyTheKindAlreadyInside(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
 
-        // Four kinds, five entries: the 80 of the first kind are stored as 64 + 16 by the merge.
+        // --- the first kind decides: 80 stone in two entries, one kind ---
         ItemStack bundle = enchanted(helper, ModItems.REINFORCED_BUNDLE, ModEnchantments.DRAWER, 1);
         insertExactly(helper, player, bundle, SIX_KINDS[0], SPLIT_STOCK);
-        for (int kind = 1; kind < DRAWER_KINDS - 1; kind++) {
-            insertExactly(helper, player, bundle, SIX_KINDS[kind], 1);
+        helper.assertValueEqual(kindsIn(bundle), 1, "kinds inside the Drawer bundle after the first kind went in");
+        helper.assertValueEqual(entries(bundle).size(), 2,
+                "setup guard: the " + SPLIT_STOCK + " " + SIX_KINDS[0] + " have to sit in two entries, "
+                        + "otherwise entries and kinds are the same number here");
+
+        // --- every other kind is refused ---
+        for (int kind = 1; kind < SIX_KINDS.length; kind++) {
+            ItemStack other = new ItemStack(SIX_KINDS[kind], 1);
+            helper.assertTrue(!bundleItem(bundle).tryInsertStackFromWorld(bundle, other, player),
+                    "a Drawer bundle holding " + SIX_KINDS[0] + " accepted " + SIX_KINDS[kind]);
+            helper.assertValueEqual(other.getCount(), 1, SIX_KINDS[kind] + " left outside the Drawer bundle");
         }
-        helper.assertValueEqual(kindsIn(bundle), DRAWER_KINDS - 1,
-                "kinds inside the Drawer bundle before the fifth kind is offered");
-        helper.assertValueEqual(entries(bundle).size(), DRAWER_KINDS,
-                "setup guard: entries inside the Drawer bundle - the " + SPLIT_STOCK + " " + SIX_KINDS[0]
-                        + " have to sit in two of them, otherwise entries and kinds are the same number and "
-                        + "this test cannot tell which of the two the limit counts");
+        helper.assertTrue(!bundleItem(bundle).tryInsertStackFromWorld(bundle, namedStone("drawer stone"), player),
+                "a Drawer bundle holding plain stone accepted a named stone - the lock compares by item "
+                        + "alone, not by item and components");
+        helper.assertValueEqual(kindsIn(bundle), 1, "kinds inside the Drawer bundle after the refusals");
 
-        // Five entries, four kinds - and the fifth kind still has to get in.
-        ItemStack fifth = new ItemStack(SIX_KINDS[DRAWER_KINDS - 1], 1);
-        helper.assertTrue(bundleItem(bundle).tryInsertStackFromWorld(bundle, fifth, player),
-                "a Drawer bundle holding " + (DRAWER_KINDS - 1) + " kinds in " + DRAWER_KINDS
-                        + " entries refused the fifth kind - the limit is counting entries, not kinds");
-        helper.assertValueEqual(fifth.getCount(), 0, "the fifth kind left outside the bundle");
-        helper.assertValueEqual(kindsIn(bundle), DRAWER_KINDS,
-                "kinds inside the Drawer bundle after the fifth one went in");
-
-        // Now it really is five kinds, and the sixth is the one that has to bounce.
-        ItemStack sixth = new ItemStack(SIX_KINDS[DRAWER_KINDS], 1);
-        helper.assertTrue(!bundleItem(bundle).tryInsertStackFromWorld(bundle, sixth, player),
-                "a Drawer bundle already holding " + DRAWER_KINDS + " kinds accepted a sixth one");
-        helper.assertValueEqual(sixth.getCount(), 1, "the sixth kind left outside the bundle");
-        helper.assertValueEqual(kindsIn(bundle), DRAWER_KINDS,
-                "kinds inside the Drawer bundle after the sixth was refused");
-
-        // The refusal has to be the kind limit, not a full bundle: more of a kind it holds fits.
+        // --- the refusals are the lock, not a full bundle: more of the kind inside fits ---
         ItemStack more = new ItemStack(SIX_KINDS[0], 64);
         helper.assertTrue(bundleItem(bundle).tryInsertStackFromWorld(bundle, more, player),
-                "the Drawer bundle refused more of a kind it already holds, so the refusal of the sixth "
-                        + "kind was a full bundle and this test proves nothing about the kind limit");
+                "the Drawer bundle refused more of the kind it holds, so the refusals above say nothing "
+                        + "about the lock");
         helper.assertValueEqual(countIn(bundle, SIX_KINDS[0]), SPLIT_STOCK + 64,
                 SIX_KINDS[0] + " inside the Drawer bundle after it took a second helping");
 
-        // --- a kind is item plus components, not item ---
+        // --- a named first kind locks out the plain item ---
         ItemStack byName = enchanted(helper, ModItems.REINFORCED_BUNDLE, ModEnchantments.DRAWER, 1);
-        for (int n = 0; n < DRAWER_KINDS; n++) {
-            ItemStack named = namedStone("drawer stone " + n);
-            helper.assertTrue(bundleItem(byName).tryInsertStackFromWorld(byName, named, player),
-                    "test setup broken: the Drawer bundle refused named stone number " + n);
-        }
-        helper.assertValueEqual(kindsIn(byName), DRAWER_KINDS,
-                DRAWER_KINDS + " stone stacks that differ only in their custom name have to count as "
-                        + DRAWER_KINDS + " kinds; the bundle holds " + entries(byName));
+        helper.assertTrue(bundleItem(byName).tryInsertStackFromWorld(byName, namedStone("drawer stone 0"), player),
+                "an empty Drawer bundle refused its first kind");
+        helper.assertTrue(!bundleItem(byName).tryInsertStackFromWorld(byName, new ItemStack(Items.STONE), player),
+                "a Drawer bundle holding a named stone accepted plain stone");
+        helper.assertTrue(!bundleItem(byName).tryInsertStackFromWorld(byName, namedStone("drawer stone 1"), player),
+                "a Drawer bundle holding one named stone accepted a differently named one");
+        helper.assertTrue(bundleItem(byName).tryInsertStackFromWorld(byName, namedStone("drawer stone 0"), player),
+                "a Drawer bundle refused a second helping of the named stone it holds");
+        helper.assertValueEqual(kindsIn(byName), 1, "kinds inside the named-stone Drawer bundle");
 
-        ItemStack sixthName = namedStone("drawer stone " + DRAWER_KINDS);
-        helper.assertTrue(!bundleItem(byName).tryInsertStackFromWorld(byName, sixthName, player),
-                "the bundle took a sixth differently named stone although it already held " + DRAWER_KINDS
-                        + " of them - the kind count compares by item alone, so every named stone looks "
-                        + "like the stone that is already inside");
-        helper.assertValueEqual(sixthName.getCount(), 1, "the sixth named stone left outside the bundle");
+        // --- two kinds from before the Drawer: nothing goes in any more ---
+        ItemStack mixed = new ItemStack(ModItems.REINFORCED_BUNDLE);
+        insertExactly(helper, player, mixed, SIX_KINDS[0], 1);
+        insertExactly(helper, player, mixed, SIX_KINDS[1], 1);
+        mixed.enchant(helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
+                .getOrThrow(ModEnchantments.DRAWER), 1);
+        helper.assertTrue(!bundleItem(mixed).tryInsertStackFromWorld(mixed, new ItemStack(SIX_KINDS[0]), player),
+                "a bundle that held two kinds before it got Drawer still takes one of them - it is not one kind");
 
-        ItemStack knownName = namedStone("drawer stone 0");
-        helper.assertTrue(bundleItem(byName).tryInsertStackFromWorld(byName, knownName, player),
-                "the bundle refused a second helping of a name it already holds, so the refusal above was "
-                        + "a full bundle and says nothing about the kind limit");
-        helper.assertValueEqual(kindsIn(byName), DRAWER_KINDS,
-                "kinds inside the bundle after a name it already held came back");
-
-        // --- control: without Drawer the sixth kind goes in ---
+        // --- control: without Drawer all six kinds go in ---
         ItemStack plain = new ItemStack(ModItems.REINFORCED_BUNDLE);
-        for (int kind = 0; kind <= DRAWER_KINDS; kind++) {
-            insertExactly(helper, player, plain, SIX_KINDS[kind], 1);
+        for (Item kind : SIX_KINDS) {
+            insertExactly(helper, player, plain, kind, 1);
         }
-        helper.assertValueEqual(kindsIn(plain), DRAWER_KINDS + 1,
-                "kinds inside a bundle without Drawer - the kind limit is the enchantment's, not the item's");
+        helper.assertValueEqual(kindsIn(plain), SIX_KINDS.length,
+                "kinds inside a bundle without Drawer - the lock is the enchantment's, not the item's");
 
-        // --- the quiver inherits the same limit ---
-        // Named arrows, so that the quiver's arrow filter cannot be what refuses the sixth one.
+        // --- the quiver inherits the same lock ---
         ItemStack quiver = enchanted(helper, ModItems.QUIVER, ModEnchantments.DRAWER, 1);
-        for (int n = 0; n < DRAWER_KINDS; n++) {
-            ItemStack arrow = namedArrow("drawer arrow " + n);
-            helper.assertTrue(bundleItem(quiver).tryInsertStackFromWorld(quiver, arrow, player),
-                    "test setup broken: the Drawer quiver refused named arrow number " + n);
-        }
-        helper.assertValueEqual(kindsIn(quiver), DRAWER_KINDS,
-                DRAWER_KINDS + " differently named arrows have to count as " + DRAWER_KINDS
-                        + " kinds in the quiver too; it holds " + entries(quiver));
-
-        ItemStack sixthArrow = namedArrow("drawer arrow " + DRAWER_KINDS);
-        helper.assertTrue(!bundleItem(quiver).tryInsertStackFromWorld(quiver, sixthArrow, player),
-                "a Drawer quiver already holding " + DRAWER_KINDS + " kinds of arrow accepted a sixth one - "
-                        + "the quiver inherits the kind limit, it is not exempt from it");
-        helper.assertValueEqual(sixthArrow.getCount(), 1, "the sixth kind of arrow left outside the quiver");
-        helper.assertValueEqual(kindsIn(quiver), DRAWER_KINDS,
-                "kinds inside the Drawer quiver after the sixth was refused");
-
-        ItemStack knownArrow = namedArrow("drawer arrow 0");
-        helper.assertTrue(bundleItem(quiver).tryInsertStackFromWorld(quiver, knownArrow, player),
-                "the Drawer quiver refused more of an arrow it already holds, so the refusal above was a full "
-                        + "quiver and says nothing about the kind limit");
+        helper.assertTrue(bundleItem(quiver).tryInsertStackFromWorld(quiver, namedArrow("drawer arrow 0"), player),
+                "an empty Drawer quiver refused its first arrow");
+        ItemStack otherArrow = namedArrow("drawer arrow 1");
+        helper.assertTrue(!bundleItem(quiver).tryInsertStackFromWorld(quiver, otherArrow, player),
+                "a Drawer quiver holding one kind of arrow accepted another - the quiver is not exempt from the lock");
+        helper.assertValueEqual(otherArrow.getCount(), 1, "the other arrow left outside the quiver");
+        helper.assertTrue(!bundleItem(quiver).tryInsertStackFromWorld(quiver, new ItemStack(Items.ARROW), player),
+                "a Drawer quiver holding named arrows accepted a plain arrow");
+        helper.assertTrue(bundleItem(quiver).tryInsertStackFromWorld(quiver, namedArrow("drawer arrow 0"), player),
+                "the Drawer quiver refused more of the arrow it holds");
+        helper.assertValueEqual(kindsIn(quiver), 1, "kinds inside the Drawer quiver");
 
         helper.succeed();
     }

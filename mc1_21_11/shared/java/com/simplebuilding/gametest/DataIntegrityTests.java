@@ -3632,6 +3632,82 @@ public final class DataIntegrityTests {
     }
 
     /**
+     * The Basic Upgrade Smithing Template's "applies to" and "ingredients" lines name exactly the
+     * tools and materials its smithing recipes really take. They once said "Hammer, Excavator" and
+     * "Diamond Ingots" - neither exists in the game.
+     *
+     * <p>Derived from the loaded recipes: every {@code count_based_smithing} recipe whose template
+     * is the basic template contributes the tool kind of its result (the base is the same kind one
+     * tier lower) and the material of its addition. The English "applies to" line has to list
+     * exactly those kinds, and the "ingredients" line has to name every material.
+     */
+    public static void basicUpgradeTemplateTextNamesOnlyRealToolsAndMaterials(GameTestHelper helper) {
+        Map<String, String> kindNames = new LinkedHashMap<>();
+        kindNames.put("_building_wand", "Building Wand");
+        kindNames.put("_sledgehammer", "Sledgehammer");
+        kindNames.put("_chisel", "Chisel");
+        kindNames.put("_pickaxe", "Pickaxe");
+        kindNames.put("_axe", "Axe");
+        kindNames.put("_shovel", "Shovel");
+        kindNames.put("_hoe", "Hoe");
+        kindNames.put("_sword", "Sword");
+        Map<Item, String> materialNames = new LinkedHashMap<>();
+        materialNames.put(Items.COBBLESTONE, "Cobblestone");
+        materialNames.put(Items.IRON_INGOT, "Iron Ingots");
+        materialNames.put(Items.GOLD_INGOT, "Gold Ingots");
+        materialNames.put(Items.DIAMOND, "Diamonds");
+        materialNames.put(ModItems.IRON_CORE, "Cores");
+        materialNames.put(ModItems.GOLD_CORE, "Cores");
+        materialNames.put(ModItems.DIAMOND_CORE, "Cores");
+
+        ItemStack template = new ItemStack(ModItems.BASIC_UPGRADE_TEMPLATE);
+        Set<String> kinds = new java.util.TreeSet<>();
+        Set<String> materials = new java.util.TreeSet<>();
+        List<String> problems = new ArrayList<>();
+        int recipes = 0;
+        for (RecipeHolder<?> holder : helper.getLevel().getServer().getRecipeManager().getRecipes()) {
+            if (!(holder.value() instanceof CountBasedSmithingRecipe recipe)
+                    || recipe.templateIngredient().isEmpty() || !recipe.templateIngredient().get().test(template)) {
+                continue;
+            }
+            recipes++;
+            String path = BuiltInRegistries.ITEM.getKey(recipe.getResultStack().getItem()).getPath();
+            String kind = kindNames.entrySet().stream().filter(e -> path.endsWith(e.getKey()))
+                    .map(Map.Entry::getValue).findFirst().orElse(null);
+            if (kind == null) {
+                problems.add("the template upgrades to " + path + ", a tool kind this test does not know");
+            } else {
+                kinds.add(kind);
+            }
+            String material = recipe.additionIngredient()
+                    .flatMap(addition -> materialNames.entrySet().stream()
+                            .filter(e -> addition.test(new ItemStack(e.getKey()))).map(Map.Entry::getValue).findFirst())
+                    .orElse(null);
+            if (material == null) {
+                problems.add(holder.id().identifier() + " takes a material this test does not know");
+            } else {
+                materials.add(material);
+            }
+        }
+        helper.assertTrue(recipes >= 30, "only " + recipes + " basic template recipes loaded");
+
+        JsonObject en = langFile(helper, "en_us");
+        Set<String> listed = new java.util.TreeSet<>(List.of(
+                en.get("item.simplebuilding.basic_upgrade_template.applies_to").getAsString().split(",\\s*")));
+        if (!listed.equals(kinds)) {
+            problems.add("applies_to lists " + listed + " but the recipes upgrade " + kinds);
+        }
+        String ingredients = en.get("item.simplebuilding.basic_upgrade_template.ingredients").getAsString();
+        for (String material : materials) {
+            if (!ingredients.contains(material)) {
+                problems.add("ingredients \"" + ingredients + "\" does not name " + material);
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " template text problems: " + problems);
+        TestCleanup.succeed(helper);
+    }
+
+    /**
      * JEI shows how to get an item through its recipes and the mod's in-world categories. Every mod
      * item that has neither - loot, ore drops, legacy items - needs an information page instead, or
      * JEI shows it without any hint where it comes from.

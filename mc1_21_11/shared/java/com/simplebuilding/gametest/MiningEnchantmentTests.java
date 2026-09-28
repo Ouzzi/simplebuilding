@@ -758,8 +758,10 @@ public final class MiningEnchantmentTests {
      * <p>{@code minecraft:in_enchanting_table} is merged into, not replaced. The existing data
      * test asserts that Fast Chiseling is in it and that the vanilla entries survived; it says
      * nothing about what else the mod may have added. All six mining enchantments are meant to
-     * be treasure only, so the mod namespace inside that tag has to be exactly Fast Chiseling -
-     * an accidentally enchantable Vein Miner would be a balance change no other test sees.
+     * be treasure only, so the mod namespace inside that tag has to be exactly Fast Chiseling and
+     * Kinetic Protection (the armor enchantment built like vanilla Protection, at the table since
+     * 2026-09-28) - an accidentally enchantable Vein Miner would be a balance change no other test
+     * sees.
      *
      * <p>What breaks it: a datagen run that widens or narrows {@code veinmine_enchantable} by a
      * single item or by a whole nested tag, a definition that stops reading it, and any mod
@@ -805,7 +807,7 @@ public final class MiningEnchantmentTests {
             problems.add("simplebuilding:veinmine_enchantable contains minecraft:diamond_shovel");
         }
 
-        // --- in_enchanting_table: exactly one mod entry, and it is not a mining enchantment ---
+        // --- in_enchanting_table: exactly two mod entries, neither a mining enchantment ---
         Set<Identifier> table = tagContents(registry, EnchantmentTags.IN_ENCHANTING_TABLE);
         helper.assertTrue(!table.isEmpty(),
                 "minecraft:in_enchanting_table came back empty, so the filter below would accept "
@@ -817,9 +819,11 @@ public final class MiningEnchantmentTests {
                 modEntries.add(id);
             }
         }
-        if (!modEntries.equals(Set.of(ModEnchantments.FAST_CHISELING.identifier()))) {
+        Set<Identifier> expectedTable = Set.of(ModEnchantments.FAST_CHISELING.identifier(),
+                ModEnchantments.KINETIC_PROTECTION.identifier());
+        if (!modEntries.equals(expectedTable)) {
             problems.add("minecraft:in_enchanting_table holds the mod entries " + modEntries
-                    + " instead of only " + ModEnchantments.FAST_CHISELING.identifier());
+                    + " instead of exactly " + expectedTable);
         }
         for (ResourceKey<Enchantment> key : MINING_ENCHANTMENTS) {
             if (table.contains(key.identifier())) {
