@@ -8,8 +8,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
- * FOV-Sog beim Aufladen des Echo-Kompasses (Fabric und NeoForge; Forge nutzt ComputeFovModifierEvent).
- * Am Ende von getFieldOfViewModifier multipliziert - auf NeoForge also nach dessen eigenem Ereignis.
+ * FOV-Sog beim Aufladen des Echo-Kompasses - einziger Pfad auf allen Loadern (Fabric, NeoForge und
+ * Forge; Forge laedt simplebuilding.tweaks.mixins.json per Manifest/-mixin.config). Am Ende von
+ * getFieldOfViewModifier multipliziert - auf NeoForge/Forge also nach deren FOV-Ereignis. Kein
+ * zusaetzlicher ComputeFovModifierEvent-Hoerer auf Forge, sonst wirkt der Faktor doppelt.
  */
 @Mixin(AbstractClientPlayer.class)
 public abstract class EchoCompassFovMixin {

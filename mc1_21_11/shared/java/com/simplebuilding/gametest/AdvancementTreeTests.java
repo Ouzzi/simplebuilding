@@ -213,6 +213,36 @@ public final class AdvancementTreeTests {
         TestCleanup.succeed(helper);
     }
 
+    /**
+     * Every recipe unlock of the mod ({@code recipes/...}) hands out at least one recipe, and every
+     * recipe it hands out is loaded. Until 2026-09-28 the 34 {@code upgrade_*} unlocks of
+     * {@code ModRecipeProvider#createUpgradeRecipe} only waited for the template and granted
+     * nothing; a new provider method that forgets the reward turns this red.
+     */
+    public static void everyRecipeUnlockHandsOutAnExistingRecipe(GameTestHelper helper) {
+        var server = helper.getLevel().getServer();
+        int unlocks = 0;
+        List<String> problems = new ArrayList<>();
+        for (AdvancementHolder holder : server.getAdvancements().getAllAdvancements()) {
+            if (!holder.id().getNamespace().equals(MOD_ID) || !holder.id().getPath().startsWith("recipes/")) {
+                continue;
+            }
+            unlocks++;
+            var recipes = holder.value().rewards().recipes();
+            if (recipes.isEmpty()) {
+                problems.add(holder.id() + " unlocks no recipe");
+            }
+            for (var key : recipes) {
+                if (server.getRecipeManager().byKey(key).isEmpty()) {
+                    problems.add(holder.id() + " hands out the missing recipe " + key);
+                }
+            }
+        }
+        helper.assertTrue(unlocks >= 300, "only " + unlocks + " recipe unlocks are loaded");
+        helper.assertTrue(problems.isEmpty(), problems.size() + " broken recipe unlocks: " + problems);
+        TestCleanup.succeed(helper);
+    }
+
     // -------------------------------------------------------------------------------------
 
     private static boolean inTree(String path) {
