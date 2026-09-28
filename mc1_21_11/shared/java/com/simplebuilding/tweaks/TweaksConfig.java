@@ -129,11 +129,13 @@ public class TweaksConfig {
             return Math.max(1, Math.min(MAX_BOOSTS, maxBoosts));
         }
 
-        /** Ziele der Spawn-Teleporter I-IV; y = -1000 heisst "nicht gesetzt" (dann Weltspawn). */
+        /**
+         * Ziel aller Spawn-Teleporter (per {@code worldspawn setspawn1}); y = -1000 heisst "nicht gesetzt"
+         * (dann Weltspawn). Die Ziele 2-4 der frueheren Stufen II-IV gibt es seit 2026-09-28 nicht mehr
+         * (drei Stufen, die sich nur in der Wartezeit unterscheiden); alte Schluessel in einer
+         * Config-Datei werden beim Laden ignoriert.
+         */
         public int spawn1X = 0, spawn1Y = -1000, spawn1Z = 0;
-        public int spawn2X = 0, spawn2Y = -1000, spawn2Z = 0;
-        public int spawn3X = 0, spawn3Y = -1000, spawn3Z = 0;
-        public int spawn4X = 0, spawn4Y = -1000, spawn4Z = 0;
 
         /**
          * Uebernimmt einen alten {@code spawnTeleporterCount} aus einer bestehenden Config-Datei.

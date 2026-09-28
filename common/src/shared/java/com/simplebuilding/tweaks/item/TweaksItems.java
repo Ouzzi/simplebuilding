@@ -50,6 +50,12 @@ public final class TweaksItems {
                     Waypoint.addHideAttribute(p.useBlockDescriptionPrefix().rarity(Rarity.UNCOMMON).equippableUnswappable(EquipmentSlot.HEAD)
                             .component(DataComponents.NOTE_BLOCK_SOUND, SoundEvents.BLAZE_AMBIENT.location()))));
 
+    /** Endermankopf (2026-09-28), Zutat des Spawn-Teleporters I; Notenblock spielt das Enderman-Geraeusch. */
+    public static final Item ENDERMAN_HEAD = register("enderman_head",
+            p -> new StandingAndWallBlockItem(TweaksBlocks.ENDERMAN_HEAD, TweaksBlocks.ENDERMAN_WALL_HEAD, Direction.DOWN,
+                    Waypoint.addHideAttribute(p.useBlockDescriptionPrefix().rarity(Rarity.UNCOMMON).equippableUnswappable(EquipmentSlot.HEAD)
+                            .component(DataComponents.NOTE_BLOCK_SOUND, SoundEvents.ENDERMAN_AMBIENT.location()))));
+
     static {
         for (Block block : TweaksBlocks.all()) {
             String path = BuiltInRegistries.BLOCK.getKey(block).getPath();
@@ -73,7 +79,7 @@ public final class TweaksItems {
                     props = props.rarity(rarity);
                 }
                 // Alte Stufenbloecke tauschen sich im Inventar gegen ihre neue Stufe (LegacyTierBlockItem).
-                if (block instanceof com.simplebuilding.tweaks.block.LegacyFlypadBlock legacy) {
+                if (block instanceof com.simplebuilding.tweaks.block.LegacyTierBlock legacy) {
                     return new LegacyTierBlockItem(block, props, () -> legacy.target().asItem());
                 }
                 if (block instanceof com.simplebuilding.tweaks.block.PotionPadBlock) {
@@ -140,42 +146,50 @@ public final class TweaksItems {
         all.add(LASER_POINTER);
         all.add(ECHO_COMPASS);
         all.add(BLAZE_HEAD);
+        all.add(ENDERMAN_HEAD);
         return all;
     }
 
     /**
-     * Zeilen fuer den Tab "Maschinen & Lager" (ModItemGroupsContent#functionalRows). Druckplatten nach
-     * Material in aufsteigender Stufe, Vanilla vor den Mod-Platten (Besitzer 2026-09-27): Holz, Stein,
-     * Kupfer (vier Oxidationsstufen, dann gewachst), dann Eisen (schwer), Gold (leicht), Diamant, Netherit,
-     * Enderit. Danach je Familie eine Zeile, Stufen aufsteigend.
+     * Zeilen fuer den Tab "Maschinen & Lager" (ModItemGroupsContent#functionalRows), Besitzer 2026-09-28:
+     * erst die Druckplatten - Holz (eine Zeile und ein Rest), dann Stein und polierter Schwarzstein mit den
+     * Metall-/Materialplatten (schwer = Eisen, leicht = Gold, Diamant, Netherit, Enderit) in einer Zeile,
+     * dann Kupfer (vier Stufen, dann gewachst). Danach die Pads in Erz-Reihenfolge Kupfer, Eisen, Gold,
+     * Diamant, Netherit, Enderit: jede Familie mit drei Stufen als "drei Stufen + ihre Freischalt-Zutat
+     * im vierten Feld", eine Luecke, dann die naechste Familie in derselben Zeile.
      */
     public static List<CreativeTabLayout.Row> functionalRows() {
         return List.of(
                 CreativeTabLayout.Row.of("wooden_pressure_plates", woodenPressurePlates()),
-                CreativeTabLayout.Row.of("stone_pressure_plates",
-                        Items.STONE_PRESSURE_PLATE, Items.POLISHED_BLACKSTONE_PRESSURE_PLATE),
+                CreativeTabLayout.Row.of("pressure_plates",
+                        Items.STONE_PRESSURE_PLATE, Items.POLISHED_BLACKSTONE_PRESSURE_PLATE,
+                        Items.HEAVY_WEIGHTED_PRESSURE_PLATE, Items.LIGHT_WEIGHTED_PRESSURE_PLATE,
+                        TweaksBlocks.DIAMOND_PRESSURE_PLATE, TweaksBlocks.NETHERITE_PRESSURE_PLATE, TweaksBlocks.ENDERITE_PRESSURE_PLATE),
                 CreativeTabLayout.Row.of("copper_pressure_plates",
                         TweaksBlocks.COPPER_PRESSURE_PLATE, TweaksBlocks.EXPOSED_COPPER_PRESSURE_PLATE,
                         TweaksBlocks.WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.OXIDIZED_COPPER_PRESSURE_PLATE,
                         TweaksBlocks.WAXED_COPPER_PRESSURE_PLATE, TweaksBlocks.WAXED_EXPOSED_COPPER_PRESSURE_PLATE,
                         TweaksBlocks.WAXED_WEATHERED_COPPER_PRESSURE_PLATE, TweaksBlocks.WAXED_OXIDIZED_COPPER_PRESSURE_PLATE),
-                CreativeTabLayout.Row.of("pressure_plates",
-                        Items.HEAVY_WEIGHTED_PRESSURE_PLATE, Items.LIGHT_WEIGHTED_PRESSURE_PLATE,
-                        TweaksBlocks.DIAMOND_PRESSURE_PLATE, TweaksBlocks.NETHERITE_PRESSURE_PLATE, TweaksBlocks.ENDERITE_PRESSURE_PLATE),
+                // Kupfer (Chunk-Loader + Kupferkern), Luecke, Eisen (Launchpad + Eisenkern)
+                CreativeTabLayout.Row.of("chunk_loaders_and_launchpads",
+                        TweaksBlocks.CHUNK_LOADER, TweaksBlocks.NETHERITE_CHUNK_LOADER, TweaksBlocks.ENDERITE_CHUNK_LOADER,
+                        com.simplebuilding.items.ModItems.COPPER_CORE, CreativeTabLayout.GAP,
+                        TweaksBlocks.LAUNCHPAD, TweaksBlocks.NETHERITE_LAUNCHPAD, TweaksBlocks.ENDERITE_LAUNCHPAD,
+                        com.simplebuilding.items.ModItems.IRON_CORE),
+                // Gold: Spawn-Teleporter I-III + Endermankopf
+                CreativeTabLayout.Row.of("spawn_teleporters",
+                        TweaksBlocks.SPAWN_TELEPORTER, TweaksBlocks.SPAWN_TELEPORTER_TIER_2, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER,
+                        ENDERMAN_HEAD),
+                // Diamant: Elytra-Pads I-V, dann die Spawn-Elytra
                 CreativeTabLayout.Row.of("elytra_pads",
                         TweaksBlocks.ELYTRA_PAD, TweaksBlocks.REINFORCED_ELYTRA_PAD, TweaksBlocks.NETHERITE_ELYTRA_PAD,
                         TweaksBlocks.ENDERITE_ELYTRA_PAD, TweaksBlocks.FINE_ELYTRA_PAD, SPAWN_ELYTRA),
-                CreativeTabLayout.Row.of("flypads",
-                        TweaksBlocks.FLYPAD, TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.STELLAR_FLYPAD),
-                CreativeTabLayout.Row.of("spawn_teleporters",
-                        TweaksBlocks.SPAWN_TELEPORTER, TweaksBlocks.SPAWN_TELEPORTER_TIER_2, TweaksBlocks.SPAWN_TELEPORTER_TIER_3,
-                        TweaksBlocks.SPAWN_TELEPORTER_TIER_4, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER),
-                CreativeTabLayout.Row.of("launchpads",
-                        TweaksBlocks.LAUNCHPAD, TweaksBlocks.NETHERITE_LAUNCHPAD, TweaksBlocks.ENDERITE_LAUNCHPAD),
-                CreativeTabLayout.Row.of("chunk_loaders",
-                        TweaksBlocks.CHUNK_LOADER, TweaksBlocks.NETHERITE_CHUNK_LOADER, TweaksBlocks.ENDERITE_CHUNK_LOADER),
-                CreativeTabLayout.Row.of("potion_pads",
-                        BLAZE_HEAD, TweaksBlocks.POTION_PAD, TweaksBlocks.REINFORCED_POTION_PAD, TweaksBlocks.INFUSED_POTION_PAD));
+                // Netherit (Trank-Pad + Lohenkopf), Luecke, Enderit (Flypad + Enderit-Kern)
+                CreativeTabLayout.Row.of("potion_pads_and_flypads",
+                        TweaksBlocks.POTION_PAD, TweaksBlocks.REINFORCED_POTION_PAD, TweaksBlocks.INFUSED_POTION_PAD, BLAZE_HEAD,
+                        CreativeTabLayout.GAP,
+                        TweaksBlocks.FLYPAD, TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.STELLAR_FLYPAD,
+                        com.simplebuilding.items.ModItems.ENDERITE_CORE));
     }
 
     /**

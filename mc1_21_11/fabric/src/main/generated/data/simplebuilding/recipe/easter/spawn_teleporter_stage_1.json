@@ -1,6 +1,6 @@
 {
   "type": "simplebuilding:easter_smithing",
-  "addition": "minecraft:diamond_block",
+  "addition": "simplebuilding:enderman_head",
   "base": "simplebuilding:enderite_spawn_teleporter",
   "result": "simplebuilding:spawn_teleporter",
   "result_stage": 1,

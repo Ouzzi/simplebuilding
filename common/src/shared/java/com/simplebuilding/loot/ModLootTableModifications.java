@@ -61,6 +61,15 @@ public final class ModLootTableModifications {
                         EntityPredicate.Builder.entity().entityType(
                                 EntityTypePredicate.of(registry.lookupOrThrow(Registries.ENTITY_TYPE), EntityTypes.BLAZE))));
     }
+    /** Pool fuer charged_creeper/root: ein Endermankopf, nur wenn das Opfer ein Enderman ist (Spawn-Teleporter I). */
+    public static LootPool.Builder endermanHeadPool(HolderGetter.Provider registry) {
+        return LootPool.lootPool()
+                .setRolls(LootNumbers.exactly(1))
+                .add(LootItem.lootTableItem(TweaksItems.ENDERMAN_HEAD))
+                .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
+                        EntityPredicate.Builder.entity().entityType(
+                                EntityTypePredicate.of(registry.lookupOrThrow(Registries.ENTITY_TYPE), EntityTypes.ENDERMAN))));
+    }
     /** Eisenkern pro Waldanwesen-Kiste. */
     public static final float IRON_CORE_CHANCE = 0.008f;
     /** Goldkern pro Bastion-Kiste (alle Bastion-Kisten, auch der Schatzraum). */
@@ -83,6 +92,8 @@ public final class ModLootTableModifications {
         // enableLootTableChanges: der Kopf ist die einzige Quelle fuer das Trank-Pad.
         if (BuiltInLootTables.CHARGED_CREEPER.equals(key)) {
             editor.addPool(blazeHeadPool(registry));
+            // Endermankopf genauso (2026-09-28): einzige Quelle fuer den Spawn-Teleporter I.
+            editor.addPool(endermanHeadPool(registry));
         }
 
         if (!Simplebuilding.getConfig().worldGen.enableLootTableChanges) {

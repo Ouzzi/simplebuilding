@@ -51,9 +51,20 @@ public abstract class OwnedBlockEntity extends BlockEntity {
         return owner != null && owner.equals(player.getUUID());
     }
 
-    /** Easter-Stufe (0 = normales Pad); nur Stufen, die zum Block passen, zaehlen. */
+    /**
+     * Easter-Stufe (0 = normales Pad); nur Stufen, die zum Block passen, zaehlen. Eine gespeicherte
+     * Stufe ueber der Stufenzahl der Familie (Spawn-Teleporter vor 2026-09-28: fuenf statt drei Stufen)
+     * wird auf die Stufe des Blocks umgerechnet ({@link EasterEggs#migrateStage}).
+     */
     public int easterStage() {
-        return EasterEggs.fits(getBlockState().getBlock(), easterStage) ? easterStage : 0;
+        Block block = getBlockState().getBlock();
+        int stage = EasterEggs.migrateStage(block, easterStage);
+        return EasterEggs.fits(block, stage) ? stage : 0;
+    }
+
+    /** Die gespeicherte Easter-Stufe ohne Pruefung (fuer den Umbau alter Stufenbloecke). */
+    public int rawEasterStage() {
+        return easterStage;
     }
 
     public void setEasterStage(int stage) {

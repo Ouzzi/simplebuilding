@@ -122,6 +122,26 @@ public final class EasterEggs {
         return TweaksFamilies.tiers(family).get(stage - 1);
     }
 
+    /** Stufe des Blocks in seiner Familie (1 = Stufe I), 0 ausserhalb einer Familie mit Kette. */
+    public static int tierIndex(Block block) {
+        Family family = familyOf(block);
+        return family == null ? 0 : TweaksFamilies.tiers(family).indexOf(block) + 1;
+    }
+
+    /**
+     * Rechnet eine gespeicherte Easter-Stufe um, die hoeher ist als die Stufenzahl der Familie: der
+     * Spawn-Teleporter hatte bis 2026-09-28 fuenf Stufen (Kette 1..5), jetzt drei - ein altes Easter-V
+     * auf dem Enderit-Teleporter (jetzt Stufe III) wird so zur letzten Easter-Stufe 3. Passende Stufen
+     * bleiben unveraendert.
+     */
+    public static int migrateStage(Block block, int stage) {
+        Family family = familyOf(block);
+        if (family != null && stage > stageCount(family)) {
+            return tierIndex(block);
+        }
+        return stage;
+    }
+
     public static int stageOf(ItemStack stack) {
         Integer stage = stack.get(EASTER_STAGE);
         return stage == null ? 0 : stage;
@@ -237,20 +257,25 @@ public final class EasterEggs {
                 add(templates, additions, enderite, TweaksBlocks.REINFORCED_FLYPAD.asItem());
             }
             case SPAWN_TELEPORTER -> {
-                add(templates, additions, any, Items.DIAMOND_BLOCK);
-                add(templates, additions, netherite, netheritePlate);
-                add(templates, additions, netherite, netheritePlate);
+                // Drei Stufen seit 2026-09-28: I = leichte Waegeplatte + Endermankopf
+                add(templates, additions, any, TweaksItems.ENDERMAN_HEAD);
                 add(templates, additions, netherite, netheritePlate);
                 add(templates, additions, enderite, enderitePlate);
             }
-            case LAUNCHPAD, CHUNK_LOADER -> {
-                add(templates, additions, any, diamondPlate);
+            case LAUNCHPAD -> {
+                // I = schwere Waegeplatte + Eisenkern (2026-09-28)
+                add(templates, additions, any, ModItems.IRON_CORE);
+                add(templates, additions, netherite, netheritePlate);
+                add(templates, additions, enderite, enderitePlate);
+            }
+            case CHUNK_LOADER -> {
+                // I = Kupfer-Druckplatte + Kupferkern (2026-09-28)
+                add(templates, additions, any, ModItems.COPPER_CORE);
                 add(templates, additions, netherite, netheritePlate);
                 add(templates, additions, enderite, enderitePlate);
             }
             case POTION_PAD -> {
-                // Stufe I entsteht an der Werkbank (Netherit-Druckplatte + Lohenkopf): der Einstieg nimmt
-                // wie beim Elytra-Pad eine beliebige Vorlage und die Hauptzutat, den Lohenkopf.
+                // I = beliebige Vorlage + Netherit-Druckplatte + Lohenkopf (Schmiede seit 2026-09-28)
                 add(templates, additions, any, TweaksItems.BLAZE_HEAD);
                 add(templates, additions, enderite, enderitePlate);
                 add(templates, additions, enderite, ModItems.ENDERITE_CORE);

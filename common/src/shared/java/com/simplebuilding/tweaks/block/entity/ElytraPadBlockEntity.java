@@ -1,5 +1,7 @@
 package com.simplebuilding.tweaks.block.entity;
 
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.sounds.SoundEvents;
 import com.simplebuilding.util.PlayerScan;
 import com.simplebuilding.tweaks.SimpleTweaks;
 import com.simplebuilding.tweaks.TweaksConfig;
@@ -69,7 +71,8 @@ public class ElytraPadBlockEntity extends OwnedBlockEntity {
             elytra.set(TweaksComponents.IS_SAFE_ELYTRA, false);
             elytra.set(TweaksComponents.LAST_PAD_TICK, level.getGameTime());
             player.setItemSlot(EquipmentSlot.CHEST, elytra);
-            player.sendOverlayMessage(Component.translatable("message.simplebuilding.elytra_pad.equipped").withStyle(ChatFormatting.GREEN));
+            // Angelegt: Vanillas Elytra-Anlegeklang statt einer Meldung (keine Bildschirmtexte).
+            level.playSound(null, player.blockPosition(), SoundEvents.ARMOR_EQUIP_ELYTRA.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
             com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.ELYTRA_PAD);
         } else if (chest.is(TweaksItems.SPAWN_ELYTRA)) {
             chest.set(TweaksComponents.LAST_PAD_TICK, level.getGameTime());

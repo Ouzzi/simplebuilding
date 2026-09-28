@@ -135,8 +135,10 @@ public final class ModMessageHandlers {
             payload.pos2().filter(p -> octantCornerInRange(player, p.getX(), p.getY(), p.getZ()))
                     .ifPresent(p -> nbt.putIntArray("Pos2", new int[]{p.getX(), p.getY(), p.getZ()}));
             if (refused) {
-                player.displayClientMessage(net.minecraft.network.chat.Component.translatable("simplebuilding.octant.corner_refused", OCTANT_CORNER_RANGE)
-                        .withStyle(net.minecraft.ChatFormatting.RED), true);
+                // Keine Bildschirmtexte bei Geraeten (Besitzer 2026-09-28): die Zusammenfassung im Oktant-Bildschirm
+                // nennt den verworfenen Eckpunkt, hier nur ein Klang.
+                player.level().playSound(null, player.blockPosition(), net.minecraft.sounds.SoundEvents.CHEST_LOCKED,
+                        net.minecraft.sounds.SoundSource.PLAYERS, 0.6f, 1.2f);
             }
             if (payload.shapeName() != null && isEnumName(OctantItem.SelectionShape.class, payload.shapeName())) {
                 nbt.putString("Shape", payload.shapeName());

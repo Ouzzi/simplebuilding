@@ -62,7 +62,8 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
         // Lohenkopf (Simple Tweaks, Trank-Pad): ein Mob-Kopf wie die Vanilla-Koepfe (Fluch der
         // Bindung/des Verschwindens ueber #equippable_enchantable/#vanishing_enchantable).
-        builder(ItemTags.SKULLS).add(key(com.simplebuilding.tweaks.item.TweaksItems.BLAZE_HEAD));
+        builder(ItemTags.SKULLS).add(key(com.simplebuilding.tweaks.item.TweaksItems.BLAZE_HEAD))
+                .add(key(com.simplebuilding.tweaks.item.TweaksItems.ENDERMAN_HEAD));
         // Handbuecher aufs Lesepult und ins gemeisselte Buecherregal wie jedes beschriebene Buch.
         var lecternBooks = builder(ItemTags.LECTERN_BOOKS);
         var bookshelfBooks = builder(ItemTags.BOOKSHELF_BOOKS);
@@ -145,6 +146,9 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 // Alte, abgeloeste Stufenbloecke (netherite_flypad, enderite_flypad): nur fuer alte Welten.
                 .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.NETHERITE_FLYPAD.asItem()))
                 .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.ENDERITE_FLYPAD.asItem()))
+                // Alte Spawn-Teleporter III und IV (bis 2026-09-28 fuenf Stufen)
+                .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.SPAWN_TELEPORTER_TIER_3.asItem()))
+                .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.SPAWN_TELEPORTER_TIER_4.asItem()))
                 // Versteckt, Ende der Easter-Kette (docs/SIMPLETWEAKS-UEBERNAHME.md, Spoiler).
                 .add(key(com.simplebuilding.tweaks.easter.EasterEggs.funnyStick()));
 

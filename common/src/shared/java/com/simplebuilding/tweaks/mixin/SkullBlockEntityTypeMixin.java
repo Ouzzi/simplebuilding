@@ -23,7 +23,7 @@ public abstract class SkullBlockEntityTypeMixin {
     @Inject(method = "isValid", at = @At("HEAD"), cancellable = true)
     private void simplebuilding$acceptModSkulls(BlockState state, CallbackInfoReturnable<Boolean> cir) {
         if ((Object) this == BlockEntityTypes.SKULL && state.getBlock() instanceof AbstractSkullBlock skull
-                && skull.getType() == BlazeHeadType.BLAZE) {
+                && skull.getType() instanceof BlazeHeadType) {
             cir.setReturnValue(true);
         }
     }

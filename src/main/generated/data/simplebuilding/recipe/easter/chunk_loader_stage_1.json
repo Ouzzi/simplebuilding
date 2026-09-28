@@ -1,6 +1,6 @@
 {
   "type": "simplebuilding:easter_smithing",
-  "addition": "simplebuilding:diamond_pressure_plate",
+  "addition": "simplebuilding:copper_core",
   "base": "simplebuilding:enderite_chunk_loader",
   "result": "simplebuilding:chunk_loader",
   "result_stage": 1,

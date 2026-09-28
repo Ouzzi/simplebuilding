@@ -1,6 +1,7 @@
 {
   "type": "minecraft:smithing_transform",
-  "base": "minecraft:elytra",
+  "addition": "minecraft:elytra",
+  "base": "simplebuilding:diamond_pressure_plate",
   "result": {
     "id": "simplebuilding:elytra_pad"
   },

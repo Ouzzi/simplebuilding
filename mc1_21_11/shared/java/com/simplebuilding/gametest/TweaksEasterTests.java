@@ -302,14 +302,18 @@ public final class TweaksEasterTests {
         helper.assertTrue(stored == 32 && charges.getCount() == 32, "the final easter launchpad holds " + stored + " wind charges instead of 32");
         helper.setBlock(launch, Blocks.AIR);
 
-        // Spawn-Teleporter V: 60 -> 30 Ticks.
+        // Spawn-Teleporter III (drei Stufen seit 2026-09-28): 100 -> 50 Ticks. Ein altes Easter-V
+        // (gespeicherte Stufe 5 aus der Zeit mit fuenf Stufen) zaehlt als die letzte Stufe 3.
         BlockPos tp = new BlockPos(9, 1, 1);
         OwnedBlockEntity tpBe = placeStaged(helper, tp, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER, 0);
-        int normalTicks = SpawnTeleporterBlockEntity.requiredTicks(level, helper.absolutePos(tp), 5);
-        tpBe.setEasterStage(5);
-        int easterTicks = SpawnTeleporterBlockEntity.requiredTicks(level, helper.absolutePos(tp), 5);
+        int normalTicks = SpawnTeleporterBlockEntity.requiredTicks(level, helper.absolutePos(tp), 3);
+        tpBe.setEasterStage(3);
+        int easterTicks = SpawnTeleporterBlockEntity.requiredTicks(level, helper.absolutePos(tp), 3);
         helper.assertTrue(normalTicks == SpawnTeleporterBlockEntity.ENDERITE_TICKS && easterTicks * 2 == normalTicks,
                 "the final easter spawn teleporter waits " + easterTicks + " ticks, the normal one " + normalTicks);
+        tpBe.setEasterStage(5);
+        helper.assertTrue(tpBe.easterStage() == 3 && EasterEggs.isBoosted(level, helper.absolutePos(tp)),
+                "an old easter stage 5 on the enderite spawn teleporter reads as stage " + tpBe.easterStage() + " instead of the final 3");
         helper.setBlock(tp, Blocks.AIR);
 
         // Trank-Pad III: 120 s -> 240 s, auch wirklich am Spieler; Easter-Stufe 2 wirkt wie Stufe II (60 s).

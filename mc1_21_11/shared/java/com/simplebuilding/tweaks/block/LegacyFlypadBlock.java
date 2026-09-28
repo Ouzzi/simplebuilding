@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
  * ersten Tick zu ihr (Besitzer und verfolgte Flieger bleiben), das Item wird im Inventar
  * umgetauscht ({@code LegacyTierBlockItem}). Kein Rezept, nicht im Kreativ-Tab, alte Textur.
  */
-public class LegacyFlypadBlock extends FlypadBlock {
+public class LegacyFlypadBlock extends FlypadBlock implements LegacyTierBlock {
     private final Supplier<Block> target;
 
     public LegacyFlypadBlock(BlockBehaviour.Properties properties, int tier, Supplier<Block> target) {
@@ -26,6 +26,7 @@ public class LegacyFlypadBlock extends FlypadBlock {
     }
 
     /** Die neue Stufe, zu der dieses alte Flypad wird. */
+    @Override
     public Block target() {
         return target.get();
     }
@@ -33,6 +34,7 @@ public class LegacyFlypadBlock extends FlypadBlock {
     /** Ersetzt das alte Flypad durch seine neue Stufe, ohne dass jemand den Flug verliert. */
     public void migrate(Level level, BlockPos pos, FlypadBlockEntity be) {
         UUID owner = be.getOwner();
+        int stage = be.rawEasterStage();
         Set<UUID> flying = new HashSet<>(be.flyingPlayers());
         // Das Ersetzen entfernt die alte Block-Entity; ihr setRemoved nimmt sonst allen den Flug.
         be.flyingPlayers().clear();
@@ -40,6 +42,9 @@ public class LegacyFlypadBlock extends FlypadBlock {
         if (level.getBlockEntity(pos) instanceof FlypadBlockEntity fresh) {
             fresh.setOwner(owner);
             fresh.flyingPlayers().addAll(flying);
+            if (stage > 0) {
+                fresh.setEasterStage(com.simplebuilding.tweaks.easter.EasterEggs.tierIndex(target()));
+            }
         }
     }
 }

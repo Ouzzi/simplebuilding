@@ -345,26 +345,26 @@ public final class PotionPadTests {
     // =====================================================================================
 
     /**
-     * I = Netherit-Druckplatte + Lohenkopf (Werkbank, formlos, in beliebiger Lage); II = Enderit-Vorlage
-     * + I + Enderit-Druckplatte; III = Enderit-Vorlage + II + Enderit-Kern. Ohne Lohenkopf keine Platte,
-     * und die Aufwertungen nehmen keine Netherit-Platte bzw. keinen Barren.
+     * I = beliebige Vorlage + Netherit-Druckplatte + Lohenkopf (Schmiede seit 2026-09-28, wie das
+     * Elytra-Pad; die formlose Werkbank-Variante gibt es nicht mehr); II = Enderit-Vorlage + I +
+     * Enderit-Druckplatte; III = Enderit-Vorlage + II + Enderit-Kern. Ohne Lohenkopf kein Pad, und die
+     * Aufwertungen nehmen keine Netherit-Platte bzw. keinen Barren.
      */
     public static void potionPadRecipesCoverAllThreeTiers(GameTestHelper helper) {
         Item netheritePlate = TweaksBlocks.NETHERITE_PRESSURE_PLATE.asItem();
         Item enderitePlate = TweaksBlocks.ENDERITE_PRESSURE_PLATE.asItem();
         Item end = ModItems.ENDERITE_UPGRADE_TEMPLATE;
 
+        for (Item template : List.of(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)) {
+            expect(helper, template, netheritePlate, TweaksItems.BLAZE_HEAD, TweaksBlocks.POTION_PAD);
+        }
+        expectNothing(helper, Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE, netheritePlate, Items.SKELETON_SKULL);
         for (List<ItemStack> grid : List.of(List.of(new ItemStack(netheritePlate), new ItemStack(TweaksItems.BLAZE_HEAD)),
                 List.of(new ItemStack(TweaksItems.BLAZE_HEAD), new ItemStack(netheritePlate)))) {
             CraftingInput input = CraftingInput.of(2, 1, grid);
-            var match = helper.getLevel().getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, helper.getLevel());
-            helper.assertTrue(match.isPresent(), "no crafting recipe turns " + grid + " into a potion pad");
-            ItemStack out = match.get().value().assemble(input, helper.getLevel().registryAccess());
-            helper.assertTrue(out.is(TweaksBlocks.POTION_PAD.asItem()), "crafting " + grid + " made " + out + " instead of a potion pad");
+            helper.assertTrue(helper.getLevel().getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, helper.getLevel()).isEmpty(),
+                    "the old shapeless crafting recipe still turns " + grid + " into a potion pad");
         }
-        CraftingInput withoutHead = CraftingInput.of(2, 1, List.of(new ItemStack(netheritePlate), new ItemStack(Items.SKELETON_SKULL)));
-        helper.assertTrue(helper.getLevel().getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING, withoutHead, helper.getLevel()).isEmpty(),
-                "a skeleton skull makes a potion pad too");
 
         expect(helper, end, TweaksBlocks.POTION_PAD, enderitePlate, TweaksBlocks.REINFORCED_POTION_PAD);
         expect(helper, end, TweaksBlocks.REINFORCED_POTION_PAD, ModItems.ENDERITE_CORE, TweaksBlocks.INFUSED_POTION_PAD);

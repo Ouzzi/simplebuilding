@@ -56,6 +56,7 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         com.simplebuilding.tweaks.block.TweaksBlocks.all().forEach(this::dropSelf);
         // Lohenkopf: der Wandkopf teilt die Tabelle des stehenden (wie Vanillas wallVariant).
         dropSelf(com.simplebuilding.tweaks.block.TweaksBlocks.BLAZE_HEAD);
+        dropSelf(com.simplebuilding.tweaks.block.TweaksBlocks.ENDERMAN_HEAD);
 
         // Definiert, dass diese Blöcke sich selbst droppen, wenn sie abgebaut werden
         dropSelf(ModBlocks.CONSTRUCTION_LIGHT);

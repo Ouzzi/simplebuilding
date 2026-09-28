@@ -1,6 +1,6 @@
 {
   "type": "simplebuilding:easter_smithing",
-  "addition": "simplebuilding:diamond_pressure_plate",
+  "addition": "simplebuilding:iron_core",
   "base": "simplebuilding:enderite_launchpad",
   "result": "simplebuilding:launchpad",
   "result_stage": 1,

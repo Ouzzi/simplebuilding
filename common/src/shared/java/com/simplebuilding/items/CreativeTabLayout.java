@@ -4,6 +4,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.ItemLike;
 
@@ -23,6 +24,9 @@ import java.util.List;
  * nie im Suchtab. Weil Vanilla denselben Stapel in einem Tab nur einmal annimmt, traegt jeder
  * Platzhalter seine laufende Nummer in {@code custom_data}.
  *
+ * <p>Eine Zeile darf auch zwei Familien nebeneinander tragen: {@link #GAP} zwischen ihnen wird zu einem
+ * Platzhalter, also einer leeren Zelle (Besitzer 2026-09-28, etwa "4 Trichter, Luecke, 4 Oefen").
+ *
  * <p>Neue Tabs uebernehmen das Layout, indem sie ihre Kategorien als {@link Row}-Liste beschreiben
  * und {@link #emit} aufrufen.
  */
@@ -32,6 +36,9 @@ public final class CreativeTabLayout {
 
     /** Schluessel der laufenden Nummer im {@code custom_data} eines Platzhalters. */
     public static final String SPACER_INDEX_KEY = "simplebuilding_spacer";
+
+    /** Leere Zelle innerhalb einer Zeile ({@link Row#of} macht daraus einen leeren Stapel, {@link #emit} einen Platzhalter). */
+    public static final ItemLike GAP = Items.AIR;
 
     private CreativeTabLayout() {
     }
@@ -52,7 +59,11 @@ public final class CreativeTabLayout {
         for (int r = 0; r < rows.size(); r++) {
             List<ItemStack> stacks = rows.get(r).stacks();
             for (ItemStack stack : stacks) {
-                entries.accept(stack.copy());
+                if (stack.isEmpty()) {
+                    entries.accept(spacer(spacers++), CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
+                } else {
+                    entries.accept(stack.copy());
+                }
             }
             if (r == rows.size() - 1) {
                 break;

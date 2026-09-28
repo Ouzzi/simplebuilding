@@ -25,7 +25,7 @@ public final class TweaksFamilies {
                     TweaksBlocks.ENDERITE_ELYTRA_PAD, TweaksBlocks.FINE_ELYTRA_PAD);
             case FLYPAD -> List.of(TweaksBlocks.FLYPAD, TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.STELLAR_FLYPAD);
             case SPAWN_TELEPORTER -> List.of(TweaksBlocks.SPAWN_TELEPORTER, TweaksBlocks.SPAWN_TELEPORTER_TIER_2,
-                    TweaksBlocks.SPAWN_TELEPORTER_TIER_3, TweaksBlocks.SPAWN_TELEPORTER_TIER_4, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER);
+                    TweaksBlocks.ENDERITE_SPAWN_TELEPORTER);
             case LAUNCHPAD -> List.of(TweaksBlocks.LAUNCHPAD, TweaksBlocks.NETHERITE_LAUNCHPAD, TweaksBlocks.ENDERITE_LAUNCHPAD);
             case CHUNK_LOADER -> List.of(TweaksBlocks.CHUNK_LOADER, TweaksBlocks.NETHERITE_CHUNK_LOADER, TweaksBlocks.ENDERITE_CHUNK_LOADER);
             case PRESSURE_PLATE -> List.of(TweaksBlocks.DIAMOND_PRESSURE_PLATE, TweaksBlocks.NETHERITE_PRESSURE_PLATE,

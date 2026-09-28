@@ -18,12 +18,16 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Spawn-Teleporter (Simple Tweaks): 5 s stillstehen teleportiert zum Ziel der Stufe (Spawn 1-4,
- * sonst Weltspawn). Stufe V ({@link #ENDERITE_TIER}) ist neu: Ziel ist der eigene
- * Wiedereinstiegspunkt (Bett/Anker), 3 s.
+ * Spawn-Teleporter, drei Stufen (Besitzer 2026-09-28, wie das Launchpad): stillstehen teleportiert zum
+ * Spawn-Ziel ({@code worldspawn setspawn1}, sonst Weltspawn). Die Stufen unterscheiden sich in der
+ * Wartezeit - I 50 s, II 20 s, III 5 s ({@code SpawnTeleporterBlockEntity#requiredTicks}); Stufe III
+ * ({@link #ENDERITE_TIER}, Enderit) behaelt die Zusatzfunktion des frueheren Enderit-Teleporters V:
+ * Ziel ist der eigene Wiedereinstiegspunkt (Bett/Anker), sonst ebenfalls das Spawn-Ziel.
  */
 public class SpawnTeleporterBlock extends WaterloggedPadBlock {
-    public static final int ENDERITE_TIER = 5;
+    public static final int ENDERITE_TIER = 3;
+    /** Hoechste Stufe. */
+    public static final int MAX_TIER = 3;
     public static final MapCodec<SpawnTeleporterBlock> CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
             BlockCodecs.propertiesField(),
             Codec.INT.fieldOf("tier").forGetter(SpawnTeleporterBlock::getTier)

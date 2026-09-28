@@ -100,6 +100,11 @@ public final class DataIntegrityGameTest {
     }
 
     @GameTest
+    public void materialsTabIsLaidOutInRows(GameTestHelper helper) {
+        DataIntegrityTests.materialsTabIsLaidOutInRows(helper);
+    }
+
+    @GameTest
     public void toolsTabIsLaidOutInRowsOfNine(GameTestHelper helper) {
         DataIntegrityTests.toolsTabIsLaidOutInRowsOfNine(helper);
     }

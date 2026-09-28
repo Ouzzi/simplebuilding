@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_spawn_teleporter_tier_3": {
+    "has_netherite_pressure_plate": {
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:spawn_teleporter_tier_3"
+            "items": "simplebuilding:netherite_pressure_plate"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipes": "simplebuilding:spawn_teleporter_tier4_smithing"
+        "recipes": "simplebuilding:potion_pad_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_spawn_teleporter_tier_3"
+      "has_netherite_pressure_plate"
     ]
   ],
   "rewards": {
     "recipes": [
-      "simplebuilding:spawn_teleporter_tier4_smithing"
+      "simplebuilding:potion_pad_smithing"
     ]
   }
 }

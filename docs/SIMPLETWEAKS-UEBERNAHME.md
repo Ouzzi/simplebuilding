@@ -26,7 +26,7 @@ Status: **port** = uebernommen, **neu** = in SimpleBuilding neu hinzugekommen (B
 | Netherit-Druckplatte (Fass darunter = Item-Whitelist, Besitzer baut schnell ab) | port | Smithing aus Diamant-Platte |
 | Enderit-Druckplatte | neu | Stufe nach Netherit, siehe Stufentabelle |
 | Kupfer-Druckplatten (4 Oxidationsstufen, loest erst nach 1-4 s Stehen aus, oxidiert, Axt kratzt eine Stufe ab) | port | seit 2026-09-27 **wachsbar** wie Vanilla-Kupfer (Abschnitt 2.4), Loslassen so verzoegert wie Ausloesen, gedrueckt sichtbar eingesunken |
-| Chunk-Loader (Kupferplatte + Netherit, haelt den eigenen Chunk geladen) | port | abschaltbar; seit 2026-09-27 Stufe I von drei |
+| Chunk-Loader (Kupferplatte + Netherit, haelt den eigenen Chunk geladen) | port | abschaltbar; seit 2026-09-27 Stufe I von drei, seit 2026-09-28 aus Kupferplatte + Kupferkern |
 | Netherit-Chunk-Loader II | neu | Kreuz aus 5 Chunks (eigener + 4 Nachbarn mit gemeinsamer Kante) |
 | Enderit-Chunk-Loader III | neu | haelt 3x3 Chunks |
 | Launchpad (Windkugeln laden, 3 s stehen, Start) | port | abschaltbar; seit 2026-09-27 Stufe I (4 Ladungen) von drei, Schleichen + Rechtsklick laedt alle Windkugeln der Hand |
@@ -34,8 +34,8 @@ Status: **port** = uebernommen, **neu** = in SimpleBuilding neu hinzugekommen (B
 | Enderit-Launchpad III | neu | 16 Ladungen (Schub wie frueher 32), kein Fallschaden nach dem Start |
 | Elytra-Pads I-IV (Radius 5/15/31/63, Hoehe 15/31/63/127) | port | jetzt I-V (1x1 bis 128x128, Abschnitt 2.3), abschaltbar |
 | Flypads I-IV (Kreativflug im Radius) | port | jetzt drei Stufen aus Enderit (Abschnitt 2.3), abschaltbar |
-| Spawn-Teleporter Stufe 1-4 (= Modi: Ziel Spawn 1-4, Fallback Weltspawn) | port | abschaltbar |
-| Enderit-Spawn-Teleporter | neu | Ziel = eigener Wiedereinstiegspunkt (Bett/Anker) |
+| Spawn-Teleporter Stufe 1-4 (= Modi: Ziel Spawn 1-4, Fallback Weltspawn) | port, umgebaut | seit 2026-09-28 drei Stufen mit 50/20/5 s Wartezeit und einem Ziel (Abschnitt 2.5), abschaltbar |
+| Enderit-Spawn-Teleporter | neu | jetzt Stufe III: Ziel = eigener Wiedereinstiegspunkt (Bett/Anker) |
 | Besitzer-Abbau (Besitzer schnell, Fremde sehr langsam, kein Kolben) | port | fuer alle Pads/Platten |
 | Partikel fuer den Besitzer auf dem Spawn-Teleporter (Client-Mixin auf die eigene BE) | port | ohne Mixin, direkter Client-Tick der BE |
 
@@ -93,7 +93,7 @@ Familie.
 
 | Familie | Stufe | ID | Radius (Breite x Breite x Hoehe) / Wirkung | Rezept |
 |---|---|---|---|---|
-| Elytra-Pad | I | `elytra_pad` | **1x1**x15 | Schmiede: beliebige Vorlage + **Elytra** (keine dritte Zutat) |
+| Elytra-Pad | I | `elytra_pad` | **1x1**x15 | Schmiede: beliebige Vorlage + **Diamant-Druckplatte** + **Elytra** (seit 2026-09-28; vorher Elytra ohne dritte Zutat) |
 | | II | `reinforced_elytra_pad` | **5x5**x31 | Schmiede: beliebige Vorlage + Pad I + **Diamant-Druckplatte** |
 | | III | `netherite_elytra_pad` | **16x16**x63 | Schmiede: Netherit-Vorlage + Pad II + **Netherit-Druckplatte** |
 | | **IV (neu)** | `enderite_elytra_pad` | **32x32**x95, **Boosts laden im ganzen Bereich** (sonst nur 3x3-Saeule) | Schmiede: Enderit-Vorlage + Pad III + **Enderit-Druckplatte** |
@@ -105,15 +105,17 @@ Familie.
 | Druckplatte | - | `diamond_pressure_plate` | nur Spieler | Werkbank `DD` |
 | | - | `netherite_pressure_plate` | Fass darunter = Item-Whitelist | Schmiede: Netherit-Vorlage + Diamant-Platte + Netheritbarren |
 | | **neu** | `enderite_pressure_plate` | wie Netherit, plus **Spielerschloss**: ohne Fass nur der Besitzer; mit Fass zusaetzlich jeder, dessen Name auf einem umbenannten Namensschild im Fass steht | Schmiede: Enderit-Vorlage + Netherit-Platte + Enderitbarren |
-| Spawn-Teleporter | I-IV | `spawn_teleporter`, `_tier_2..4` | Ziel Spawn 1-4 (per `/simplebuilding tweaks worldspawn setspawnN`), sonst Weltspawn; 5 s stillstehen | I: beliebige Vorlage + leichte Waegeplatte + Diamantblock **oder** Netherit-Vorlage + leichte Waegeplatte + Netheritbarren; II-IV: Netherit-Vorlage + vorige Stufe + **Netherit-Druckplatte** |
-| | **V (neu)** | `enderite_spawn_teleporter` | **Ziel = eigener Wiedereinstiegspunkt** (Bett/Anker, auch in anderer Dimension), Fallback Spawn 1/Weltspawn; nur 3 s stillstehen | Schmiede: Enderit-Vorlage + Teleporter IV + **Enderit-Druckplatte** |
-| Chunk-Loader | I | `chunk_loader` | nur der eigene Chunk | Schmiede: beliebige Vorlage + Kupfer-Druckplatte + **Diamant-Druckplatte** |
+| Spawn-Teleporter | I | `spawn_teleporter` | Spawn-Ziel (per `/simplebuilding tweaks worldspawn setspawn1`), sonst Weltspawn; **50 s** stillstehen | Schmiede: beliebige Vorlage + leichte Waegeplatte + **Endermankopf** |
+| | II | `spawn_teleporter_tier_2` | wie I; **20 s** | Schmiede: Netherit-Vorlage + I + **Netherit-Druckplatte** |
+| | III | `enderite_spawn_teleporter` | **5 s**; Ziel zuerst der eigene Wiedereinstiegspunkt (Bett/Anker, auch in anderer Dimension), sonst das Spawn-Ziel | Schmiede: Enderit-Vorlage + II + **Enderit-Druckplatte** |
+| | alt | `spawn_teleporter_tier_3`, `_tier_4` | wird zu II bzw. III (Abschnitt 2.5) | kein Rezept, nicht im Kreativ-Tab |
+| Chunk-Loader | I | `chunk_loader` | nur der eigene Chunk | Schmiede: beliebige Vorlage + Kupfer-Druckplatte + **Kupferkern** |
 | | **II (neu)** | `netherite_chunk_loader` | **5 Chunks**: der eigene und die vier mit gemeinsamer Kante (Kreuz) | Schmiede: Netherit-Vorlage + Chunk-Loader I + **Netherit-Druckplatte** |
 | | III | `enderite_chunk_loader` | **3x3 Chunks** um den eigenen | Schmiede: Enderit-Vorlage + Chunk-Loader II + **Enderit-Druckplatte** |
-| Launchpad | I | `launchpad` | bis **4** Windkugeln | Schmiede: beliebige Vorlage + schwere Waegeplatte + **Diamant-Druckplatte** |
+| Launchpad | I | `launchpad` | bis **4** Windkugeln | Schmiede: beliebige Vorlage + schwere Waegeplatte + **Eisenkern** |
 | | **II (neu)** | `netherite_launchpad` | bis **8** Windkugeln | Schmiede: Netherit-Vorlage + Launchpad I + **Netherit-Druckplatte** |
 | | III | `enderite_launchpad` | bis **16** Windkugeln, **kein Fallschaden** bis zur naechsten Landung | Schmiede: Enderit-Vorlage + Launchpad II + **Enderit-Druckplatte** |
-| Trank-Pad (neu) | I | `potion_pad` | gespeicherter Wurftrank, **30 s** nach 3 s Stehen, danach **60 s** Abklingzeit | Werkbank (formlos): **Netherit-Druckplatte + Lohenkopf** |
+| Trank-Pad (neu) | I | `potion_pad` | gespeicherter Wurftrank, **30 s** nach 3 s Stehen, danach **60 s** Abklingzeit | Schmiede: beliebige Vorlage + **Netherit-Druckplatte + Lohenkopf** (bis 2026-09-28 Werkbank, formlos) |
 | | II | `reinforced_potion_pad` | **60 s**, Abklingzeit **120 s** | Schmiede: Enderit-Vorlage + Trank-Pad I + **Enderit-Druckplatte** |
 | | III | `infused_potion_pad` | **120 s**, Abklingzeit **240 s** | Schmiede: Enderit-Vorlage + Trank-Pad II + **Enderit-Kern** |
 
@@ -136,9 +138,9 @@ die Druckplatten selbst (sie sind die Quelle der Platten) und die Netherstern-St
 
 | Ziel-Material | Zutat vorher | Zutat jetzt | Aufwertungen |
 |---|---|---|---|
-| Diamant | Diamantblock (Pads) bzw. - (neu) | Diamant-Druckplatte | Elytra-Pad II, Launchpad I, Chunk-Loader I |
-| Netherit | Netheritbarren / Netheritblock | Netherit-Druckplatte | Elytra-Pad III, Spawn-Teleporter II-IV, Launchpad II, Chunk-Loader II |
-| Enderit | Enderitbarren | Enderit-Druckplatte | Elytra-Pad IV, Flypad I (Basis) und II, Spawn-Teleporter V, Launchpad III, Chunk-Loader III |
+| Diamant | Diamantblock (Pads) bzw. - (neu) | Diamant-Druckplatte | Elytra-Pad II (bis 2026-09-28 auch Launchpad I und Chunk-Loader I) |
+| Netherit | Netheritbarren / Netheritblock | Netherit-Druckplatte | Elytra-Pad III, Spawn-Teleporter II, Launchpad II, Chunk-Loader II |
+| Enderit | Enderitbarren | Enderit-Druckplatte | Elytra-Pad IV, Flypad I (Basis) und II, Spawn-Teleporter III, Launchpad III, Chunk-Loader III |
 
 - Die frueheren Rezepte `launchpad_smithing_alternative` (Netherit-Vorlage + schwere Waegeplatte +
   Netheritbarren) und der Chunk-Loader aus Netheritbarren entfallen; Launchpad I und Chunk-Loader I
@@ -262,9 +264,91 @@ Wurftraenke.
 
 Namen (en): "Elytra Pad I", "Reinforced Elytra Pad II", "Netherite Elytra Pad III",
 "Enderite Elytra Pad IV", "Fine Elytra Pad V"; "Flypad I", "Reinforced Flypad II", "Stellar Flypad III"
-(alt: "Netherite Flypad (Legacy)", "Enderite Flypad (Legacy)" - bis 2026-09-28 "Old ... Flypad"); "Spawn Teleporter I" ... "IV",
-"Spawn Teleporter V" (Besitzer 2026-09-28, vorher "Enderite Spawn Teleporter V"); "Launchpad I", "Netherite Launchpad II", "Enderite Launchpad III";
+(alt: "Netherite Flypad (Legacy)", "Enderite Flypad (Legacy)" - bis 2026-09-28 "Old ... Flypad"); "Spawn Teleporter I", "II",
+"Spawn Teleporter III" (die Id enderite_spawn_teleporter; bis 2026-09-28 "Spawn Teleporter V", davor "Enderite Spawn Teleporter V"; alt: "Spawn Teleporter III (Legacy)", "Spawn Teleporter IV (Legacy)"); "Launchpad I", "Netherite Launchpad II", "Enderite Launchpad III";
 "Chunk Loader I", "Netherite Chunk Loader II", "Enderite Chunk Loader III".
+
+### 2.5 Pad-Ueberarbeitung (Besitzer 2026-09-28)
+
+**Spawn-Teleporter: drei Stufen wie das Launchpad.** Die Stufen unterscheiden sich nur in der Wartezeit:
+I 50 s (1000 Ticks), II 20 s (400), III 5 s (100; letzte Easter-Stufe die Haelfte). Alle springen zum
+Spawn-Ziel der bisherigen Stufe I (`worldspawn setspawn1`, sonst Weltspawn); die Ziele Spawn 2-4 samt
+Befehlen `setspawn2..4` und Config-Feldern `spawn2X..spawn4Z` entfallen (alte Schluessel in einer
+Config-Datei werden ignoriert). **Entschieden:** Stufe III behaelt die Zusatzfunktion des frueheren
+Enderit-Teleporters V (zuerst der eigene Wiedereinstiegspunkt) - jede Enderit-Stufe einer Familie hat ein
+Extra (Elytra-Pad IV Boosts im Bereich, Launchpad III Fallschutz), und ein altes V verliert beim Umbau so
+nichts. IDs: I `spawn_teleporter`, II `spawn_teleporter_tier_2`, III `enderite_spawn_teleporter` (die
+bestehenden IDs, darum kein DataFixer). Rezepte: I = beliebige Vorlage + **leichte Waegeplatte** (die
+Gold-Platte der Familie - nach der Erz-Reihenfolge Kupfer/Eisen/Gold ist Gold die Familienplatte, parallel
+zum Trank-Pad, das die Netherit-Platte als Basis nimmt) + **Endermankopf**; II/III mit Netherit- bzw.
+Enderit-Druckplatte (Regel 2.1).
+- **Bestehende Welten**: `spawn_teleporter_tier_3` (alt III) wird Stufe II, `spawn_teleporter_tier_4`
+  (alt IV) Stufe III, das alte V behaelt seine ID als Stufe III. Die zwei alten IDs bleiben als
+  `LegacySpawnTeleporterBlock` registriert (gemeinsame Schnittstelle `LegacyTierBlock` mit
+  `LegacyFlypadBlock`): gesetzt arbeiten sie als ihre neue Stufe und werden beim ersten Tick zu ihr
+  (Besitzer, Wasser und Easter-Stufe bleiben), ihr Item tauscht sich im Spielerinventar
+  (`LegacyTierBlockItem`), Name "... (Legacy)" / "... (alt)", kein Rezept, kein Kreativ-Tab, in JEI
+  ausgeblendet, in der Testzentrale unter "Alte Stufen".
+- **Easter-Kette**: drei Stufen (letzte = III, 1,5 s -> jetzt 50 Ticks). Eine gespeicherte Easter-Stufe
+  ueber der Stufenzahl (altes Easter-V auf dem Enderit-Teleporter) zaehlt als die Stufe des Blocks
+  (`EasterEggs#migrateStage`), ein altes IV mit Easter-Stufe 4 wird beim Umbau zur letzten Stufe 3.
+  Ein Easter-Item mit Stufe 5, das nur in einer Truhe liegt, wird erst beim Setzen umgerechnet.
+
+**Endermankopf** (`enderman_head`, Wandvariante `enderman_wall_head`): wie der Lohenkopf ein Vanilla-
+`SkullBlock` mit eigenem Kopf-Typ (`BlazeHeadType.ENDERMAN`, `simplebuilding:enderman`), Quelle nur ein
+Enderman, den die Explosion eines geladenen Creepers toetet (zweiter Pool in `charged_creeper/root`,
+`ModLootTableModifications#endermanHeadPool`), Notenblock spielt das Enderman-Geraeusch, Textur neue
+Pixelkunst (fast schwarz, violette Augenschlitze; `tools/textures/potion_pad_textures.py`), ungewoehnlich.
+
+**Stufe I jeder Familie im Schmiedetisch** (Vorlage + Familienplatte als Basis + Freischalt-Zutat, Erz-
+Reihenfolge): Chunk-Loader = Kupfer-Druckplatte + **Kupferkern**, Launchpad = schwere Waegeplatte +
+**Eisenkern**, Spawn-Teleporter = leichte Waegeplatte + **Endermankopf**, Elytra-Pad = **Diamant-
+Druckplatte + Elytra** (das Rezept ohne dritte Zutat war kaputt), Trank-Pad = Netherit-Druckplatte +
+**Lohenkopf** (statt formlos an der Werkbank), Flypad = Enderit-Druckplatte + Enderit-Kern (Enderit-
+Vorlage, unveraendert). Jede andere Stufe wie gehabt: Aufwertungen zahlen mit Druckplatten. Rezept-IDs:
+`chunk_loader_smithing`, `launchpad_smithing`, `spawn_teleporter_smithing`, `elytra_pad_smithing`, neu
+`potion_pad_smithing`; entfallen: `potion_pad` (Werkbank), `spawn_teleporter_smithing_alternative`,
+`spawn_teleporter_tier3_smithing`, `spawn_teleporter_tier4_smithing`.
+
+**Keine Bildschirmtexte** (das Spiel soll sich wie Vanilla anfuehlen). Entfernt, ersetzt durch Klang/Partikel:
+
+| Wo | Frueher (Aktionsleiste) | Jetzt |
+|---|---|---|
+| Spawn-Teleporter | Countdown "Teleporting in ...", "Teleport cancelled", "Welcome to Spawn N" / "Welcome home" | steigender Klang und Portal-Partikel (wie bisher), Abbruch nach mind. 1 s Warten: Leuchtfeuer-Aus-Klang + Rauch, Ankunft: Klang + Partikel (wie bisher) |
+| Launchpad | "Wind Charges x/y" beim Laden und beim Rechtsklick, "Launchpad is full", "Right-click with Wind Charges", Countdown "Power ... Launch in ..." | Einlege-Klang steigt mit dem Fuellstand (0,8 leer bis 1,8 voll), voll: Buendel-Ablehnungsklang, leer draufstehen: Klick eines leeren Werfers (alle 2 s), Countdown: Hi-Hat (wie bisher); Rechtsklick ohne Windkugel tut nichts |
+| Elytra-Pad | "Elytra equipped by Pad!" | Vanillas Elytra-Anlegeklang |
+| Spawn-Elytra | "Spawn Elytra expired", "Elytra expires in 10 seconds!" | Ablegen: Elytra-Klang tiefer; 10 s vorher: tiefe Glocke |
+| Trank-Pad | Rechtsklick zeigte Trank/Dauer bzw. Restzeit | nichts (die Trankfarb-Partikel und die Abkling-Textur zeigen den Zustand) |
+| Echolot | "Link the Echo Sounder to a lodestone first", "The linked lodestone is gone" | Werfer-Klick bzw. Seelenanker-Entladen |
+| Oktant (Geraet) | "Locked" beim Klick mit gesperrtem Oktant, "corner refused" nach dem Bildschirm | Klang einer verschlossenen Truhe (Tooltip und Oktant-Bildschirm nennen es weiter) |
+
+Die Sprachschluessel der entfernten Meldungen sind geloescht. Bleiben bewusst: Befehlsrueckmeldungen, das
+Startgeschenk im Chat, die Dimensionssperre (`SpawnRules`, keine Pad-/Geraete-Meldung) und die Bau-Werkzeuge
+(Baustab, Blaupause - Werkzeuge, keine Geraete).
+
+**Echolot**: Abklingzeit 480 statt 120 Ticks (24 s). Rechtsklick auf den Leitstein, mit dem es schon
+verknuepft ist, tut nichts (`FAIL`: kein Klang, keine Blindheit, kein Aufladen); ein anderer Leitstein
+verknuepft neu.
+
+**Kreativ-Tabs** (Besitzer, neun Spalten, `CreativeTabLayout.GAP` = leere Zelle in einer Zeile):
+SimpleMachines: 4 Trichter | 4 Oefen; 4 Raeucheroefen | 4 Schmelzoefen; 6 Kolben; 4 Buendel | 4 Koecher;
+4 Rucksaecke (hier kommen gestufte Truhen als eigene Zeile hin); Holzplatten; Stein, polierter
+Schwarzstein, schwer, leicht, Diamant, Netherit, Enderit; Kupfer (4 + 4 gewachst); Chunk-Loader I-III +
+Kupferkern | Launchpad I-III + Eisenkern; Spawn-Teleporter I-III + Endermankopf; Elytra-Pads I-V +
+Spawn-Elytra; Trank-Pad I-III + Lohenkopf | Flypad I-III + Enderit-Kern; Bauplanung. Kupfer-, Eisen- und
+Enderit-Kern stehen damit auch in SimpleMachines (wie Oktant/Baustaebe in zwei Tabs). SimpleMaterials in
+Zeilen: End-Erze (Nihilit-Erz, -Splitter | Astralit-Erz, -Staub | Enderquarz); Werkstoffe in Erz-
+Reihenfolge (Diamantkiesel, gesprungener Diamant, Netheritklumpen, Roh-Enderit, -Schrott, -Klumpen,
+-Barren | Lederfetzen); Baukerne; alle Schmiedevorlagen an einem Ort - Aufwertungen (Basis, Vanillas
+Netherit, Enderit), dann alle Vanilla-Besaetze in Vanillas Reihenfolge plus Leuchtend/Strahlend; Nahrung
+(Netherit | Enderit).
+
+Tests: `PadOverhaulTests` (Fabric-Adapter `PadOverhaulGameTest`, IDs `simplebuilding:pad_overhaul_game_test_*`),
+beide Codelinien: Wartezeiten je Stufe mit echtem Stehen, gleiches Ziel aller Stufen, Umbau alter Stufen in
+Welt und Inventar samt Easter-Stufe, Stufe-I-Rezepte aller Familien (und die alten Wege weg), keine
+Bildschirmtexte (ein Spieler, der jede Meldung mitschreibt, faehrt alle Pads/Geraete durch), Echolot-
+Abklingzeit und keine Doppelverknuepfung; dazu `DataIntegrityTests#machinesAndStorageTabIsLaidOutInRowsOfNine`
+und `#materialsTabIsLaidOutInRows` (Feld fuer Feld).
 
 ### 2.4 Druckplatten wie Vanilla (Besitzer-Aenderung 2026-09-27)
 
@@ -283,7 +367,8 @@ Namen (en): "Elytra Pad I", "Reinforced Elytra Pad II", "Netherite Elytra Pad II
   zeigen bei `powered=true` das Modell `pressure_plate_down` und sind gedrueckt nur einen halben Pixel hoch -
   vorher blieben alle Platten optisch oben.
 - **Kreativ-Tab** (Maschinen & Lager): alle Vanilla-Druckplatten neben den Mod-Platten, nach Material mit
-  aufsteigender Stufe: Holz (12, ab MC 26.3 mit Pappel 13; zwei Zeilen), Stein + polierter Schwarzstein, Kupfer (vier Stufen, dann
+  aufsteigender Stufe (seit 2026-09-28 Abschnitt 2.5: Holz, dann Stein/Schwarzstein mit den Metallplatten in
+  einer Zeile, dann Kupfer): Holz (12, ab MC 26.3 mit Pappel 13; zwei Zeilen), Stein + polierter Schwarzstein, Kupfer (vier Stufen, dann
   gewachst), dann schwere (Eisen) und leichte Waegeplatte (Gold), Diamant, Netherit, Enderit. Launchpads und
   Chunk-Loader haben je eine eigene Zeile (vorher gemeinsam "travel_and_loading"); in der Elytra-Pad-Zeile stehen
   erst die Pads I-V, dann die Spawn-Elytra. SimpleTools: eine Geraete-Zeile (siehe Abschnitt 3).
@@ -310,7 +395,7 @@ Namen (en): "Elytra Pad I", "Reinforced Elytra Pad II", "Netherite Elytra Pad II
   Manifest `MixinConfigs` laedt). Einen eigenen `ComputeFovModifierEvent`-Hoerer auf Forge gab es bis
   2026-09-28; er wirkte zusaetzlich zum Mixin (Faktor doppelt) und ist entfernt.
 - Sprung am Ende der Ladung auf den Block ueber dem Leitstein, **ohne Enderperle** (bis 2026-09-27
-  kostete er eine; jetzt bezahlt allein die Haltbarkeit), 6 s Abklingzeit, Schallknall +
+  kostete er eine; jetzt bezahlt allein die Haltbarkeit), 24 s Abklingzeit (bis 2026-09-28 6 s), Schallknall +
   Seelenanker-Klang + Partikel bei der Ankunft (Wolke mit Streuung ~1,4 Bloecke plus ein Ring aus
   Sculk-Seelen, der am Boden nach aussen laeuft), Rueckwaerts-Portal-Wolke am Abflugort (Streuung 1,1). Effekte wie im Datenpaket (Blindheit 1 s, Leuchten 3 s,
   Sanfter Fall 1 s, Langsamkeit 1 s, Uebelkeit 6 s).
@@ -594,7 +679,7 @@ normale Stufe-I-Block mit derselben Funktion, nur ein Easter Egg. Wer weitermach
 Kette hinauf, deren letzte Stufe doppelt so stark ist wie die echte Endstufe, und kann sie zuletzt zu
 einem Stock schmieden.
 
-**Familien:** Elytra-Pad (5 Stufen), Spawn-Teleporter (5), Flypad (3), Launchpad (3), Chunk-Loader (3),
+**Familien:** Elytra-Pad (5 Stufen), Spawn-Teleporter (3, bis 2026-09-28 5), Flypad (3), Launchpad (3), Chunk-Loader (3),
 Trank-Pad (3, seit 2026-09-28).
 Die Druckplatten-Familie (`TweaksFamilies.Family.PRESSURE_PLATE`) hat keine Kette: Platten sind keine
 Pads, haben keine Kraft zum Verdoppeln und sind selbst Zutat der Pad-Aufwertungen.
@@ -620,7 +705,7 @@ Endnamen folgen den deutschen Blocknamen.
 |---|---|---|
 | Elytra-Pad V | 128x128, 127 hoch | 256x256, 254 hoch |
 | Flypad III | 16x16x24 | 32x32x48 |
-| Spawn-Teleporter V | 3 s stillstehen | 1,5 s |
+| Spawn-Teleporter III | 5 s stillstehen | 2,5 s |
 | Launchpad III | 16 Windkugeln | 32 Windkugeln (Schub pro Ladung unveraendert) |
 | Chunk-Loader III | 3x3 Chunks | 5x5 Chunks (Radius verdoppelt) |
 | Trank-Pad III | Wirkdauer 120 s | 240 s (Verstaerkung des Tranks unveraendert) |
@@ -630,9 +715,9 @@ dieselbe Zutat (`EasterEggs#steps`, gleiche Liste wie `ModRecipeProvider#buildTw
 
 - Einstieg (Endstufe -> "Don't do it"): Vorlage und Hauptzutat der Stufe I, die Endstufe als Basis.
   Elytra-Pad: beliebige Vorlage + **Elytra**; Flypad: Enderit-Vorlage + Enderit-Kern; Spawn-Teleporter:
-  beliebige Vorlage + Diamantblock; Launchpad und Chunk-Loader: beliebige Vorlage + Diamant-Druckplatte;
-  Trank-Pad (Stufe I entsteht an der Werkbank, ohne Vorlage): wie beim Elytra-Pad beliebige Vorlage +
-  Hauptzutat, also **Lohenkopf**. Danach Enderit-Vorlage + Enderit-Druckplatte, dann Enderit-Vorlage +
+  beliebige Vorlage + **Endermankopf**; Launchpad: beliebige Vorlage + **Eisenkern**; Chunk-Loader: beliebige
+  Vorlage + **Kupferkern** (seit 2026-09-28 die Freischalt-Zutaten der Stufe I); Trank-Pad: beliebige Vorlage +
+  **Lohenkopf**. Danach Enderit-Vorlage + Enderit-Druckplatte, dann Enderit-Vorlage +
   Enderit-Kern.
 - Easter-Stufe n -> n+1: Vorlage und Zutat der normalen Aufwertung von Stufe n auf n+1
   (Flypad II -> III also ein zweites Flypad II).
@@ -668,7 +753,7 @@ ersten erscheint; Toast und Chatmeldung):
   zeigt fremde Schmiede-Klassen ohne Erweiterung nicht). Weil die Kette dieselben Zutaten nimmt wie die
   normalen Aufwertungen, lehnt `SmithingTransformEasterGuardMixin` (in `simplebuilding.tweaks.mixins.json`,
   laedt auf Fabric, NeoForge und Forge) jede Basis mit Easter-Stufe fuer normale Umwandlungsrezepte ab.
-  Rezepte unter `recipe/easter/`, 28 Stueck.
+  Rezepte unter `recipe/easter/`, 26 Stueck (seit der Spawn-Teleporter drei Stufen hat).
 - Advancements per Datagen (`EasterEggData`, aus `ModRecipeProvider`): sie reisen ueber
   `RecipeOutput#accept` mit den Elytra-Pad-Rezepten, damit dieselbe Datei auf 26.2 und 26.3 baut.
 - Versteckt: kein Kreativ-Tab, `c:hidden_from_recipe_viewers` (Funny Stick; Easter-Pads sind nur

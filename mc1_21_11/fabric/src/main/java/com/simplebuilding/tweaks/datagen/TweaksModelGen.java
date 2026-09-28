@@ -59,22 +59,26 @@ public final class TweaksModelGen {
             generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block, BlockModelGenerators.plainVariant(model)));
             generator.registerSimpleItemModel(block, model);
         }
-        blazeHead(generator);
+        head(generator, TweaksBlocks.BLAZE_HEAD, TweaksBlocks.BLAZE_WALL_HEAD, TweaksItems.BLAZE_HEAD,
+                com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE);
+        head(generator, TweaksBlocks.ENDERMAN_HEAD, TweaksBlocks.ENDERMAN_WALL_HEAD, TweaksItems.ENDERMAN_HEAD,
+                com.simplebuilding.tweaks.block.BlazeHeadType.ENDERMAN);
     }
 
     /**
-     * Lohenkopf wie Vanillas {@code BlockModelGenerators#createHead}: beide Bloecke zeigen nur die
+     * Mob-Koepfe (Lohen-, Endermankopf) wie Vanillas {@code BlockModelGenerators#createHead}: beide Bloecke zeigen nur die
      * Partikel von {@code block/skull} (gezeichnet wird der Kopf vom SkullBlockRenderer), das Item ist
      * ein {@code minecraft:head}-Sondermodell auf {@code item/template_skull}.
      */
-    private static void blazeHead(BlockModelGenerators generator) {
+    private static void head(BlockModelGenerators generator, net.minecraft.world.level.block.Block standing,
+            net.minecraft.world.level.block.Block wall, net.minecraft.world.item.Item item, com.simplebuilding.tweaks.block.BlazeHeadType type) {
         net.minecraft.client.data.models.MultiVariant skull =
                 BlockModelGenerators.plainVariant(ModelLocationUtils.decorateBlockModelLocation("skull"));
-        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(TweaksBlocks.BLAZE_HEAD, skull));
-        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(TweaksBlocks.BLAZE_WALL_HEAD, skull));
-        generator.itemModelOutput.accept(TweaksItems.BLAZE_HEAD, ItemModelUtils.specialModel(
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(standing, skull));
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(wall, skull));
+        generator.itemModelOutput.accept(item, ItemModelUtils.specialModel(
                 ModelLocationUtils.decorateItemModelLocation("template_skull"),
-                new net.minecraft.client.renderer.special.SkullSpecialRenderer.Unbaked(com.simplebuilding.tweaks.block.BlazeHeadType.BLAZE)));
+                new net.minecraft.client.renderer.special.SkullSpecialRenderer.Unbaked(type)));
     }
 
     /**

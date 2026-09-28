@@ -93,10 +93,8 @@ public final class TweaksCommands {
                                                     return setElytraCenter(ctx, pos.getX(), pos.getZ());
                                                 })))))
                         .then(Commands.literal("worldspawn")
-                                .then(Commands.literal("setspawn1").executes(ctx -> setTeleporterSpawn(ctx, 1)))
-                                .then(Commands.literal("setspawn2").executes(ctx -> setTeleporterSpawn(ctx, 2)))
-                                .then(Commands.literal("setspawn3").executes(ctx -> setTeleporterSpawn(ctx, 3)))
-                                .then(Commands.literal("setspawn4").executes(ctx -> setTeleporterSpawn(ctx, 4)))
+                                // Ein Ziel fuer alle Spawn-Teleporter (seit 2026-09-28 keine Ziele je Stufe mehr)
+                                .then(Commands.literal("setspawn1").executes(TweaksCommands::setTeleporterSpawn))
                                 .then(boolSetting("forceExact", (c, v) -> c.spawn.forceExactSpawn = v))
                                 .then(boolSetting("custom", true, (c, v) -> c.spawn.useCustomWorldSpawn = v))
                                 .then(Commands.literal("set")
@@ -188,28 +186,26 @@ public final class TweaksCommands {
         });
     }
 
-    private static int setTeleporterSpawn(CommandContext<CommandSourceStack> ctx, int tier) {
+    private static int setTeleporterSpawn(CommandContext<CommandSourceStack> ctx) {
         ServerPlayer player = ctx.getSource().getPlayer();
         if (player == null) {
             return 0;
         }
         BlockPos pos = player.blockPosition();
-        setTeleporterSpawn(tier, pos);
+        setTeleporterSpawn(pos);
         SimpleTweaks.saveConfig();
         afterChange(ctx.getSource().getServer(), false);
-        ctx.getSource().sendSuccess(() -> Component.translatable("commands.simplebuilding.tweaks.teleporter_spawn", tier, pos.toShortString())
+        ctx.getSource().sendSuccess(() -> Component.translatable("commands.simplebuilding.tweaks.teleporter_spawn", pos.toShortString())
                 .withStyle(ChatFormatting.GREEN), true);
         return 1;
     }
 
-    public static void setTeleporterSpawn(int tier, BlockPos pos) {
+    /** Setzt das Ziel aller Spawn-Teleporter. */
+    public static void setTeleporterSpawn(BlockPos pos) {
         TweaksConfig.Spawn spawn = SimpleTweaks.config().spawn;
-        switch (tier) {
-            case 2 -> { spawn.spawn2X = pos.getX(); spawn.spawn2Y = pos.getY(); spawn.spawn2Z = pos.getZ(); }
-            case 3 -> { spawn.spawn3X = pos.getX(); spawn.spawn3Y = pos.getY(); spawn.spawn3Z = pos.getZ(); }
-            case 4 -> { spawn.spawn4X = pos.getX(); spawn.spawn4Y = pos.getY(); spawn.spawn4Z = pos.getZ(); }
-            default -> { spawn.spawn1X = pos.getX(); spawn.spawn1Y = pos.getY(); spawn.spawn1Z = pos.getZ(); }
-        }
+        spawn.spawn1X = pos.getX();
+        spawn.spawn1Y = pos.getY();
+        spawn.spawn1Z = pos.getZ();
     }
 
     private static int executeKill(CommandContext<CommandSourceStack> ctx, String mode, boolean boats) {

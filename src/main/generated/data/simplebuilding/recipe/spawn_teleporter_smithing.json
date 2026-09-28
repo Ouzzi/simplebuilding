@@ -1,6 +1,6 @@
 {
   "type": "minecraft:smithing_transform",
-  "addition": "minecraft:diamond_block",
+  "addition": "simplebuilding:enderman_head",
   "base": "minecraft:light_weighted_pressure_plate",
   "result": {
     "id": "simplebuilding:spawn_teleporter"

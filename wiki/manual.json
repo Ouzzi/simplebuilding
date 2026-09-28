@@ -8455,10 +8455,11 @@
         "summary": "Elytra Pads (from Simple Tweaks) hand a Spawn Elytra to every player with an empty chest slot inside their area and keep it charged; five tiers, from Elytra Pad I to Fine Elytra Pad V.",
         "details": [
           "Every half second the pad checks all players in its area. An empty chest slot gets a Spawn Elytra with full flight time and full boosts; a pad elytra does NOT protect against fall or kinetic damage (only an elytra from the spawn area does). A worn chestplate is never replaced.",
+          "Putting an elytra on you plays the vanilla elytra equip sound - no text on the screen.",
           "A player already wearing a Spawn Elytra in the area gets full flight time again, a short glowing effect, and the pad remembers the time so the elytra does not vanish for 3 seconds after leaving the area.",
           "Boosts (press jump while gliding) recharge only in the 3x3 column up to 4 blocks above the pad - from the Enderite tier (IV) on, in the whole area.",
           "Area per tier (width x width x height): I 1x1x15 (only the pad column), II 5x5x31, III 16x16x63, IV (Enderite) 32x32x95, V (Fine) 128x128x127, centred on the pad. The area reaches one block below the pad. Existing pads keep their id and tier; only the areas changed.",
-          "Recipes (smithing table): I = any trim template or netherite upgrade + elytra, with the addition slot left empty; II = template + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade template + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
+          "Recipes (smithing table): I = any trim template or netherite upgrade + Diamond Pressure Plate + elytra (since 2026-09-28; before, the elytra alone); II = template + pad I + Diamond Pressure Plate; III = netherite upgrade + pad II + Netherite Pressure Plate; IV = enderite upgrade template + pad III + Enderite Pressure Plate; V = netherite upgrade + pad IV + nether star.",
           "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
           "Can be switched off with the config option tweaks.pads.enableElytraPads; a switched-off pad stays in place but does nothing.",
           "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
@@ -8468,10 +8469,11 @@
         "summary": "Elytra-Pads (aus Simple Tweaks) geben jedem Spieler mit leerem Brust-Slot in ihrem Bereich eine Spawn-Elytra und halten sie geladen; fünf Stufen, vom Elytra-Pad I bis zum Feinen Elytra-Pad V.",
         "details": [
           "Jede halbe Sekunde prüft das Pad alle Spieler im Bereich. Ein leerer Brust-Slot bekommt eine Spawn-Elytra mit voller Flugzeit und vollen Boosts; eine Pad-Elytra schützt NICHT vor Fall- oder Aufprallschaden (das tut nur eine Elytra aus dem Spawnbereich). Eine getragene Brustplatte wird nie ersetzt.",
+          "Beim Anlegen klingt Vanillas Elytra-Anlegegeräusch - kein Text auf dem Bildschirm.",
           "Wer im Bereich schon eine Spawn-Elytra trägt, bekommt wieder volle Flugzeit und kurz Leuchten; das Pad merkt sich die Zeit, sodass die Elytra nach dem Verlassen des Bereichs 3 Sekunden lang nicht verschwindet.",
           "Boosts (Springen im Gleitflug) laden nur in der 3x3-Säule bis 4 Blöcke über dem Pad - ab der Enderit-Stufe (IV) im ganzen Bereich.",
           "Bereich je Stufe (Breite x Breite x Höhe): I 1x1x15 (nur die Säule über dem Pad), II 5x5x31, III 16x16x63, IV (Enderit) 32x32x95, V (Fein) 128x128x127, mittig um das Pad. Der Bereich reicht einen Block unter das Pad. Bestehende Pads behalten ID und Stufe; nur die Bereiche haben sich geändert.",
-          "Rezepte (Schmiedetisch): I = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Elytra, der Zutat-Slot bleibt leer; II = Vorlage + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Schmiedevorlage + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
+          "Rezepte (Schmiedetisch): I = beliebige Besatz-Vorlage oder Netherit-Aufwertung + Diamant-Druckplatte + Elytra (seit 2026-09-28; vorher die Elytra allein); II = Vorlage + Pad I + Diamant-Druckplatte; III = Netherit-Aufwertung + Pad II + Netherit-Druckplatte; IV = Enderit-Schmiedevorlage + Pad III + Enderit-Druckplatte; V = Netherit-Aufwertung + Pad IV + Netherstern.",
           "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
           "Abschaltbar über tweaks.pads.enableElytraPads; ein abgeschaltetes Pad bleibt liegen, tut aber nichts.",
           "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
@@ -8528,13 +8530,13 @@
     },
     "*spawn_teleporter*": {
       "en": {
-        "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), Spawn Teleporter V takes you to your own respawn point.",
+        "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one and you are taken two blocks above the spawn target with Slow Falling. Three tiers that differ only in the waiting time: Spawn Teleporter I 50 seconds, II 20 seconds, III (Enderite) 5 seconds - and III takes you to your own respawn point first.",
         "details": [
-          "Tier I goes to Spawn 1, II to Spawn 2, III to Spawn 3, IV to Spawn 4. Operators set them with /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (their own position). An unset target means the world spawn.",
-          "Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
-          "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
+          "All tiers go to the same spawn target: operators set it with /simplebuilding tweaks worldspawn setspawn1 (their own position); unset, it is the world spawn. The per-tier targets Spawn 2-4 of the old five tiers are gone (owner 2026-09-28).",
+          "Spawn Teleporter III (Enderite) keeps the extra of the old Enderite tier: its target is your bed or respawn anchor (also in another dimension); without one it goes to the spawn target like the others. Worlds from before: the old tiers III and IV turn into tier II and III on their first tick (owner and easter stage kept), their items swap in the inventory; the old V keeps its id as tier III.",
+          "No text on the screen: while you wait portal particles rise and a sound climbs towards the jump; moving after a second of waiting cancels with an audible fizzle and a puff of smoke; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
           "The owner sees enchanting particles over their own teleporter. Waterloggable.",
-          "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + Netherite Pressure Plate; V = enderite upgrade template + IV + Enderite Pressure Plate.",
+          "Recipes (smithing): I = any template + light weighted pressure plate + Enderman Head; II = netherite upgrade + tier I + Netherite Pressure Plate; III = enderite upgrade template + tier II + Enderite Pressure Plate.",
           "On their first join players can get Spawn Teleporters named 'Home Teleporter' (firstJoinTeleporterCount) and Elytra Pads (firstJoinElytraPadCount) - once; both default to 0, so nothing is handed out until an operator sets them, and a family switched off under pads is not handed out at all (config screen or /simplebuilding tweaks spawn teleporterCount|elytraPadCount). An old spawnTeleporterCount other than its old default 1 is taken over for both. The player tag is the one Simple Tweaks used, so nobody gets them twice after switching.",
           "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
           "Can be switched off with tweaks.pads.enableSpawnTeleporters.",
@@ -8542,13 +8544,13 @@
         ]
       },
       "de": {
-        "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
+        "summary": "Spawn-Teleporter (aus Simple Tweaks): still darauf stehen bringt dich zwei Blöcke über das Spawn-Ziel, mit Sanftem Fall. Drei Stufen, die sich nur in der Wartezeit unterscheiden: Spawn-Teleporter I 50 Sekunden, II 20 Sekunden, III (Enderit) 5 Sekunden - und III bringt dich zuerst zu deinem eigenen Wiedereinstiegspunkt.",
         "details": [
-          "Stufe I führt zu Spawn 1, II zu Spawn 2, III zu Spawn 3, IV zu Spawn 4. Operatoren setzen sie mit /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (eigene Position). Ohne gesetztes Ziel geht es zum Weltspawn.",
-          "Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
-          "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
+          "Alle Stufen führen zum selben Spawn-Ziel: Operatoren setzen es mit /simplebuilding tweaks worldspawn setspawn1 (eigene Position); ohne gesetztes Ziel geht es zum Weltspawn. Die Ziele Spawn 2-4 der alten fünf Stufen gibt es nicht mehr (Besitzer 2026-09-28).",
+          "Spawn-Teleporter III (Enderit) behält die Zusatzfunktion der alten Enderit-Stufe: sein Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen geht es wie bei den anderen zum Spawn-Ziel. Alte Welten: die früheren Stufen III und IV werden beim ersten Tick zu Stufe II bzw. III (Besitzer und Easter-Stufe bleiben), ihre Items tauschen sich im Inventar; das alte V behält seine ID als Stufe III.",
+          "Keine Bildschirmtexte: beim Warten steigen Portal-Partikel auf und ein Ton steigt bis zum Sprung; wer nach einer Sekunde Warten weitergeht, bricht mit einem hörbaren Verpuffen und etwas Rauch ab; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
           "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
-          "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netherit-Druckplatte; V = Enderit-Schmiedevorlage + IV + Enderit-Druckplatte.",
+          "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Endermankopf; II = Netherit-Aufwertung + Stufe I + Netherit-Druckplatte; III = Enderit-Schmiedevorlage + Stufe II + Enderit-Druckplatte.",
           "Beim ersten Betreten koennen Spieler Spawn-Teleporter mit dem Namen 'Heim-Teleporter' (firstJoinTeleporterCount) und Elytra-Pads (firstJoinElytraPadCount) bekommen - einmal; beide stehen standardmaessig auf 0, es gibt also nichts, bis ein Operator sie einstellt, und eine unter pads abgeschaltete Familie wird gar nicht verschenkt (Config-Bildschirm oder /simplebuilding tweaks spawn teleporterCount|elytraPadCount). Ein alter spawnTeleporterCount ungleich dem alten Standard 1 gilt fuer beide. Der Spieler-Tag ist derselbe wie in Simple Tweaks, nach dem Umstieg gibt es sie also nicht doppelt.",
           "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
           "Abschaltbar über tweaks.pads.enableSpawnTeleporters.",
@@ -8571,7 +8573,7 @@
         "summary": "Chunk Loaders (from Simple Tweaks) keep chunks loaded, in three tiers: Chunk Loader I only its own chunk, Netherite Chunk Loader II also the four chunks sharing an edge with it (5 chunks in a cross), Enderite Chunk Loader III the 3x3 chunks around it.",
         "details": [
           "It remembers which chunks it forced itself and releases exactly those when it is broken or switched off (tweaks.pads.enableChunkLoaders) - chunks forced by /forceload or anything else stay forced. It keeps working after a server restart (in Simple Tweaks it stopped). Replacing it with /setblock or /fill releases its chunks as well; where two loaders overlap, breaking one leaves the shared chunks to the other - only those inside the other loader's own area (a Netherite loader takes no diagonal chunk).",
-          "Recipes (smithing): I = any template + Copper Pressure Plate + Diamond Pressure Plate; II = netherite upgrade + Chunk Loader I + Netherite Pressure Plate; III = enderite upgrade template + Chunk Loader II + Enderite Pressure Plate. Existing Chunk Loaders keep their id and function: the plain one is tier I, the Enderite one tier III.",
+          "Recipes (smithing): I = any template + Copper Pressure Plate + Copper Core; II = netherite upgrade + Chunk Loader I + Netherite Pressure Plate; III = enderite upgrade template + Chunk Loader II + Enderite Pressure Plate. Existing Chunk Loaders keep their id and function: the plain one is tier I, the Enderite one tier III.",
           "Whoever places it owns it: the owner breaks it in about 1.5 seconds, anyone else needs about 10 seconds; creative mode breaks it normally.",
           "Stacks to 1 like every pad (owner 2026-09-28): each pad is a single piece with its owner, easter stage and stored state."
         ]
@@ -8580,7 +8582,7 @@
         "summary": "Chunk-Lader (aus Simple Tweaks) halten Chunks geladen, in drei Stufen: Chunk-Lader I nur den eigenen, Netherit-Chunk-Lader II dazu die vier Chunks mit gemeinsamer Kante (5 Chunks im Kreuz), Enderit-Chunk-Lader III die 3x3 Chunks darum.",
         "details": [
           "Er merkt sich, welche Chunks er selbst erzwungen hat, und gibt genau diese frei, wenn er abgebaut oder abgeschaltet wird (tweaks.pads.enableChunkLoaders) - von /forceload oder anderem erzwungene Chunks bleiben erzwungen. Er arbeitet auch nach einem Neustart weiter (in Simple Tweaks nicht). Auch ein Ersetzen per /setblock oder /fill gibt seine Chunks frei; überlappen sich zwei Lader, übernimmt beim Abbau des einen der andere die gemeinsamen Chunks - nur die in seinem eigenen Bereich (ein Netherit-Lader übernimmt keinen Diagonal-Chunk).",
-          "Rezepte (Schmiede): I = beliebige Vorlage + Kupfer-Druckplatte + Diamant-Druckplatte; II = Netherit-Aufwertung + Chunk-Lader I + Netherit-Druckplatte; III = Enderit-Schmiedevorlage + Chunk-Lader II + Enderit-Druckplatte. Bestehende Chunk-Lader behalten ID und Wirkung: der einfache ist Stufe I, der Enderit-Chunk-Lader Stufe III.",
+          "Rezepte (Schmiede): I = beliebige Vorlage + Kupfer-Druckplatte + Kupferkern; II = Netherit-Aufwertung + Chunk-Lader I + Netherit-Druckplatte; III = Enderit-Schmiedevorlage + Chunk-Lader II + Enderit-Druckplatte. Bestehende Chunk-Lader behalten ID und Wirkung: der einfache ist Stufe I, der Enderit-Chunk-Lader Stufe III.",
           "Wer sie setzt, besitzt sie: der Besitzer baut sie in etwa 1,5 Sekunden ab, alle anderen brauchen etwa 10 Sekunden; im Kreativmodus wie gewohnt.",
           "Stapelt nicht, wie jedes Pad (Besitzer 2026-09-28): jedes Pad ist ein Einzelstück mit Besitzer, Easter-Stufe und gespeichertem Zustand."
         ]
@@ -8600,10 +8602,10 @@
       "en": {
         "summary": "Launchpads (from Simple Tweaks) are charged with wind charges and launch you after 3 seconds of standing on them; the more charges, the higher. Three tiers: Launchpad I, Netherite Launchpad II, Enderite Launchpad III.",
         "details": [
-          "Right-click with a wind charge adds one charge (consumed outside creative); sneak + right-click loads every wind charge in your hand at once, up to the capacity; right-click without shows the count. Tier I holds 4, Netherite II 8, Enderite III 16; breaking it drops the stored wind charges.",
+          "Right-click with a wind charge adds one charge (consumed outside creative); sneak + right-click loads every wind charge in your hand at once, up to the capacity; the higher the loading sound, the fuller the pad; a full pad answers with the bundle's refusal sound. There is no text on the screen: an empty pad clicks like an empty dispenser when you stand on it, the countdown ticks audibly. Tier I holds 4, Netherite II 8, Enderite III 16; breaking it drops the stored wind charges.",
           "Standing on a charged pad starts a 3-second countdown with a particle spiral; then you get 1.5 + 0.8 per charge blocks per tick of upward speed and the pad is empty again. A charge counts twice what it did in Simple Tweaks (0.4), so 16 charges launch as high as the old 32.",
           "Enderite Launchpad: no fall damage until your next landing.",
-          "Recipes (smithing): I = any template + heavy weighted pressure plate + Diamond Pressure Plate; II = netherite upgrade + Launchpad I + Netherite Pressure Plate; III = enderite upgrade template + Launchpad II + Enderite Pressure Plate.",
+          "Recipes (smithing): I = any template + heavy weighted pressure plate + Iron Core; II = netherite upgrade + Launchpad I + Netherite Pressure Plate; III = enderite upgrade template + Launchpad II + Enderite Pressure Plate.",
           "Launchpads from older worlds keep their id (the plain one is tier I, the Enderite one tier III); one holding more charges than its tier takes now (up to 32 or 16) keeps 16 or 4 on its first tick and drops the rest as wind charges.",
           "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it.",
           "Can be switched off with tweaks.pads.enableLaunchpads.",
@@ -8613,10 +8615,10 @@
       "de": {
         "summary": "Startrampen (aus Simple Tweaks) werden mit Windkugeln geladen und schießen dich nach 3 Sekunden Stehen hoch; je mehr Ladungen, desto höher. Drei Stufen: Startrampe I, Netherit-Startrampe II, Enderit-Startrampe III.",
         "details": [
-          "Rechtsklick mit einer Windkugel fügt eine Ladung hinzu (außer im Kreativmodus verbraucht); Schleichen + Rechtsklick lädt alle Windkugeln der Hand auf einmal, bis sie voll ist; Rechtsklick ohne zeigt den Stand. Stufe I fasst 4, Netherit II 8, Enderit III 16; beim Abbau fallen die geladenen Windkugeln heraus.",
+          "Rechtsklick mit einer Windkugel fügt eine Ladung hinzu (außer im Kreativmodus verbraucht); Schleichen + Rechtsklick lädt alle Windkugeln der Hand auf einmal, bis sie voll ist; je höher der Klang beim Laden, desto voller; eine volle Rampe antwortet mit dem Ablehnungsgeräusch des Bündels. Kein Text auf dem Bildschirm: eine leere Rampe klickt wie ein leerer Werfer, wenn man darauf steht, der Countdown tickt hörbar. Stufe I fasst 4, Netherit II 8, Enderit III 16; beim Abbau fallen die geladenen Windkugeln heraus.",
           "Auf einer geladenen Rampe läuft ein 3-Sekunden-Countdown mit Partikelspirale; dann gibt es 1,5 + 0,8 je Ladung Blöcke pro Tick Aufwärtsgeschwindigkeit, und die Rampe ist wieder leer. Eine Ladung zählt doppelt so viel wie in Simple Tweaks (0,4), 16 Ladungen starten also so hoch wie die alten 32.",
           "Enderit-Startrampe: kein Fallschaden bis zur nächsten Landung.",
-          "Rezepte (Schmiede): I = beliebige Vorlage + schwere Wägeplatte + Diamant-Druckplatte; II = Netherit-Aufwertung + Startrampe I + Netherit-Druckplatte; III = Enderit-Schmiedevorlage + Startrampe II + Enderit-Druckplatte.",
+          "Rezepte (Schmiede): I = beliebige Vorlage + schwere Wägeplatte + Eisenkern; II = Netherit-Aufwertung + Startrampe I + Netherit-Druckplatte; III = Enderit-Schmiedevorlage + Startrampe II + Enderit-Druckplatte.",
           "Startrampen aus älteren Welten behalten ihre ID (die einfache ist Stufe I, die Enderit-Startrampe Stufe III); trägt eine mehr Ladungen, als ihre Stufe jetzt fasst (bis 32 bzw. 16), behält sie beim ersten Tick 16 bzw. 4 und wirft den Rest als Windkugeln aus.",
           "Wer ihn setzt, besitzt ihn: der Besitzer baut ihn in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen ihn nicht.",
           "Abschaltbar über tweaks.pads.enableLaunchpads.",
@@ -8640,22 +8642,22 @@
       "en": {
         "summary": "Potion Pads (new, 2026-09-28) store the effects of a thrown potion and give them to every player who steps onto them. Three tiers: Potion Pad I, Reinforced Potion Pad II, Infused Potion Pad III.",
         "details": [
-          "Throw a splash or lingering potion onto the pad: when it shatters on the pad, the pad stores its effects and replaces whatever it held before; a water splash potion (or any potion without effects) wipes it. Right-click without an item shows the stored potion.",
+          "Throw a splash or lingering potion onto the pad: when it shatters on the pad, the pad stores its effects and replaces whatever it held before; a water splash potion (or any potion without effects) wipes it. The particles in the potion's colour show what it holds - there is no text on the screen.",
           "Stand on the pad for 3 seconds to take the stored effects at the potion's own level: after 1 s you have 25 %, after 2 s 50 % and after 3 s the full 30 s (I), 60 s (II) or 120 s (III); every step shows particles in the potion's colour and a soft chime. Step off early and you keep what you got so far; stepping on again starts from zero. A longer effect you already have is never shortened.",
-          "Instant effects (Healing, Harming) apply once, at the 3 second mark. The full application puts the whole pad on cooldown for twice the effect duration - 60 s (I), 120 s (II), 240 s (III), 480 s for the final easter stage; a partial application starts no cooldown. While cooling down the pad gives nothing to anyone, its texture drains and pulses, and right-clicking it shows the time left. Only players are affected, mobs are not.",
+          "Instant effects (Healing, Harming) apply once, at the 3 second mark. The full application puts the whole pad on cooldown for twice the effect duration - 60 s (I), 120 s (II), 240 s (III), 480 s for the final easter stage; a partial application starts no cooldown. While cooling down the pad gives nothing to anyone, its texture drains and pulses. Only players are affected, mobs are not.",
           "Unlimited uses; tinted particles in the potion's colour rise from a filled, ready pad. The cooldown only counts down while the pad is placed: broken during its cooldown, the pad drops as a cooling item (animated, tooltip shows the time left) that keeps the remaining time, the stored potion and its easter stage, and resumes when placed again. Stacks to 1 like every pad.",
-          "Recipes: I = Netherite Pressure Plate + Blaze Head (crafting table, shapeless); II = enderite upgrade template + Potion Pad I + Enderite Pressure Plate (smithing, upgrades pay with the pressure plate of their material); III = enderite upgrade template + Potion Pad II + Enderite Core (smithing).",
+          "Recipes: I = any template + Netherite Pressure Plate + Blaze Head (smithing since 2026-09-28, before shapeless crafting); II = enderite upgrade template + Potion Pad I + Enderite Pressure Plate (smithing, upgrades pay with the pressure plate of their material); III = enderite upgrade template + Potion Pad II + Enderite Core (smithing).",
           "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it. Does not burn."
         ]
       },
       "de": {
         "summary": "Trank-Pads (neu, 2026-09-28) speichern die Wirkungen eines geworfenen Tranks und geben sie jedem Spieler, der sie betritt. Drei Stufen: Trank-Pad I, Verstärktes Trank-Pad II, Durchtränktes Trank-Pad III.",
         "details": [
-          "Wirf einen Wurf- oder Verweiltrank auf das Pad: zerschellt er darauf, speichert das Pad seine Wirkungen und ersetzt, was es vorher hatte; ein Wasser-Wurftrank (oder jeder Trank ohne Wirkung) wischt es leer. Rechtsklick ohne Gegenstand zeigt den gespeicherten Trank.",
+          "Wirf einen Wurf- oder Verweiltrank auf das Pad: zerschellt er darauf, speichert das Pad seine Wirkungen und ersetzt, was es vorher hatte; ein Wasser-Wurftrank (oder jeder Trank ohne Wirkung) wischt es leer. Die Partikel in der Trankfarbe zeigen, was es hält - kein Text auf dem Bildschirm.",
           "3 Sekunden auf dem Pad stehen gibt die gespeicherten Wirkungen in der Stufe des Tranks: nach 1 s hast du 25 %, nach 2 s 50 % und nach 3 s die vollen 30 s (I), 60 s (II) oder 120 s (III); jeder Schritt zeigt Partikel in der Trankfarbe und einen leisen Klang. Wer früher absteigt, behält das bisher Erhaltene; wieder aufsteigen beginnt bei null. Eine längere Wirkung, die du schon hast, wird nie gekürzt.",
-          "Sofortwirkungen (Heilung, Schaden) wirken einmal, bei 3 Sekunden. Die volle Anwendung setzt das ganze Pad für die doppelte Wirkdauer in die Abklingzeit - 60 s (I), 120 s (II), 240 s (III), 480 s für die letzte Easter-Stufe; eine halbe Anwendung startet keine Abklingzeit. Solange es abklingt, gibt das Pad niemandem etwas, seine Textur leert sich pulsierend, und ein Rechtsklick zeigt die Restzeit. Nur Spieler, keine Mobs.",
+          "Sofortwirkungen (Heilung, Schaden) wirken einmal, bei 3 Sekunden. Die volle Anwendung setzt das ganze Pad für die doppelte Wirkdauer in die Abklingzeit - 60 s (I), 120 s (II), 240 s (III), 480 s für die letzte Easter-Stufe; eine halbe Anwendung startet keine Abklingzeit. Solange es abklingt, gibt das Pad niemandem etwas, seine Textur leert sich pulsierend. Nur Spieler, keine Mobs.",
           "Unbegrenzt nutzbar; über einem gefüllten, bereiten Pad steigen Partikel in der Trankfarbe auf. Die Abklingzeit läuft nur, solange das Pad gesetzt ist: in der Abklingzeit abgebaut, fällt es als abklingendes Item (animiert, Tooltip mit Restzeit), das Restzeit, gespeicherten Trank und Easter-Stufe behält und gesetzt weiterläuft. Stapelt nicht, wie jedes Pad.",
-          "Rezepte: I = Netherit-Druckplatte + Lohenkopf (Werkbank, formlos); II = Enderit-Schmiedevorlage + Trank-Pad I + Enderit-Druckplatte (Schmiede, Aufwertungen zahlen mit der Druckplatte ihres Materials); III = Enderit-Schmiedevorlage + Trank-Pad II + Enderitkern (Schmiede).",
+          "Rezepte: I = beliebige Vorlage + Netherit-Druckplatte + Lohenkopf (Schmiede seit 2026-09-28, vorher formlos an der Werkbank); II = Enderit-Schmiedevorlage + Trank-Pad I + Enderit-Druckplatte (Schmiede, Aufwertungen zahlen mit der Druckplatte ihres Materials); III = Enderit-Schmiedevorlage + Trank-Pad II + Enderitkern (Schmiede).",
           "Wer es setzt, besitzt es: der Besitzer baut es in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen es nicht. Brennt nicht."
         ]
       },
@@ -8676,7 +8678,7 @@
         "details": [
           "Only a charged creeper's explosion drops it, and like the vanilla heads only one head per explosion; blazes killed any other way (players, uncharged creepers) never drop one.",
           "Placeable on the ground (16 rotations) and on walls, wearable on the head (the curses of Binding and Vanishing apply like on the vanilla heads); on top of a note block it plays the blaze sound.",
-          "Used for the Potion Pad: Netherite Pressure Plate + Blaze Head."
+          "Used for the Potion Pad: any template + Netherite Pressure Plate + Blaze Head at the smithing table."
         ]
       },
       "de": {
@@ -8684,7 +8686,7 @@
         "details": [
           "Nur die Explosion eines geladenen Creepers lässt ihn fallen, und wie bei den Vanilla-Köpfen nur einen je Explosion; auf jede andere Art getötete Lohen (Spieler, ungeladene Creeper) nie.",
           "Auf den Boden (16 Drehungen) und an Wände setzbar, auf dem Kopf tragbar (Fluch der Bindung und des Verschwindens wie bei den Vanilla-Köpfen); auf einem Notenblock spielt er das Lohen-Geräusch.",
-          "Zutat des Trank-Pads: Netherit-Druckplatte + Lohenkopf."
+          "Zutat des Trank-Pads: beliebige Vorlage + Netherit-Druckplatte + Lohenkopf im Schmiedetisch."
         ]
       },
       "sources": [
@@ -8697,6 +8699,36 @@
         "common/src/shared/java/com/simplebuilding/gametest/PotionPadTests.java",
         "src/main/resources/assets/simplebuilding/lang/en_us.json",
         "src/main/resources/assets/simplebuilding/lang/de_de.json"
+      ]
+    },
+    "enderman_head": {
+      "en": {
+        "summary": "The Enderman Head (2026-09-28) is a mob head like the vanilla ones: an enderman killed by the explosion of a charged creeper drops it.",
+        "details": [
+          "Only a charged creeper's explosion drops it, and like the vanilla heads only one head per explosion; endermen killed any other way never drop one.",
+          "Placeable on the ground (16 rotations) and on walls, wearable on the head (the curses of Binding and Vanishing apply like on the vanilla heads); on top of a note block it plays the enderman sound.",
+          "Used for the Spawn Teleporter I: any template + light weighted pressure plate + Enderman Head at the smithing table."
+        ]
+      },
+      "de": {
+        "summary": "Der Endermankopf (2026-09-28) ist ein Mob-Kopf wie die Vanilla-Köpfe: ein Enderman, der von der Explosion eines geladenen Creepers getötet wird, lässt ihn fallen.",
+        "details": [
+          "Nur die Explosion eines geladenen Creepers lässt ihn fallen, und wie bei den Vanilla-Köpfen nur einen je Explosion; auf jede andere Art getötete Endermen nie.",
+          "Auf den Boden (16 Drehungen) und an Wände setzbar, auf dem Kopf tragbar (Fluch der Bindung und des Verschwindens wie bei den Vanilla-Köpfen); auf einem Notenblock spielt er das Enderman-Geräusch.",
+          "Zutat des Spawn-Teleporters I: beliebige Vorlage + leichte Wägeplatte + Endermankopf im Schmiedetisch."
+        ]
+      },
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/tweaks/block/BlazeHeadType.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/TweaksBlocks.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/item/TweaksItems.java",
+        "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/mixin/SkullBlockEntityTypeMixin.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/mixin/client/SkullModelMixin.java",
+        "src/main/resources/assets/simplebuilding/lang/en_us.json",
+        "src/main/resources/assets/simplebuilding/lang/de_de.json",
+        "common/src/shared/java/com/simplebuilding/gametest/PadOverhaulTests.java",
+        "tools/textures/potion_pad_textures.py"
       ]
     },
     "diamond_pressure_plate": {
@@ -8890,8 +8922,8 @@
       "en": {
         "summary": "The Echo Sounder (formerly Echo Compass; item id still echo_compass) links to a lodestone and teleports you on top of it - no ender pearl needed: hold use for 3 seconds to charge the jump. One jump empties it; it has to be recharged (1500 repair points, Mending or echo shards) before it works normally again, and forcing it while empty shatters it.",
         "details": [
-          "Right-click a lodestone to link it; the needle then points there. If the lodestone is removed the link is lost.",
-          "Jumping: hold use for 3 seconds (60 ticks). While it charges, sculk souls circle in three arms from well over two blocks out ever closer, widely scattered portal particles are drawn in, an amethyst tone rises, sculk clicks and respawn-anchor charges mark the thirds and a warden sonic charge builds up at the end; the field of view narrows gently and pulses (scaled by the vanilla accessibility option FOV Effects - at 0 it is off). Releasing early does nothing and costs nothing. The jump needs no ender pearl any more (since 2026-09-27) and sets a 6 second cooldown; afterwards blindness, glowing, slow falling, slowness and nausea for a moment, sonic boom and respawn-anchor sound on arrival, where a wide particle cloud and a ring of sculk souls spread out over the ground. Works into any dimension the server knows; a jump that is blocked (for example into a dimension locked by tweaks.dimensions) costs nothing - no charge, no cooldown.",
+          "Right-click a lodestone to link it; the needle then points there. Clicking the lodestone it is already linked to does nothing (no sound, no effects). If the lodestone is removed the link is lost.",
+          "Jumping: hold use for 3 seconds (60 ticks). While it charges, sculk souls circle in three arms from well over two blocks out ever closer, widely scattered portal particles are drawn in, an amethyst tone rises, sculk clicks and respawn-anchor charges mark the thirds and a warden sonic charge builds up at the end; the field of view narrows gently and pulses (scaled by the vanilla accessibility option FOV Effects - at 0 it is off). Releasing early does nothing and costs nothing. The jump needs no ender pearl any more (since 2026-09-27) and sets a 24 second cooldown (four times the old 6 seconds, owner 2026-09-28); afterwards blindness, glowing, slow falling, slowness and nausea for a moment, sonic boom and respawn-anchor sound on arrival, where a wide particle cloud and a ring of sculk souls spread out over the ground. Works into any dimension the server knows; a jump that is blocked (for example into a dimension locked by tweaks.dimensions) costs nothing - no charge, no cooldown.",
           "Charge: the compass has 1500 repair points. A jump empties it completely (Unbreaking works per point as on any tool: with Unbreaking III a jump empties only about a quarter). Empty or not fully recharged it shows a cracked texture in three stages (empty, half, almost full), has no enchantment glint and its bar shows the charge. Recharge it with Mending (2 points per XP point, 750 XP when empty) or at an anvil with echo shards (each restores a quarter, four fill it). Only when it is fully recharged does it jump normally again and get its glint back.",
           "Forcing it: using an echo sounder that is not fully recharged provokes the break - the charge takes twice as long (6 seconds) with warning signs (cracking, sparks, smoke, a sculk shriek halfway, everything louder), the jump still works, then the echo sounder shatters for good. Unbreaking does not save it. In creative mode it neither empties nor shatters.",
           "Recipe (crafting, shaped \"NNN\" / \"NRN\" / \"NEN\"): seven enderite nuggets around the outside, the recovery compass in the middle, the enderite core bottom middle.",
@@ -8901,8 +8933,8 @@
       "de": {
         "summary": "Das Echolot (früher Echo-Kompass; Item-Id weiter echo_compass) verknüpft sich mit einem Leitstein und teleportiert dich darauf - ganz ohne Enderperle: 3 Sekunden gedrückt halten lädt den Sprung. Ein Sprung leert es; erst wieder aufgeladen (1500 Reparaturpunkte, Reparatur oder Echoscherben) funktioniert es normal, und leer erzwungen zerspringt es.",
         "details": [
-          "Rechtsklick auf einen Leitstein verknüpft; die Nadel zeigt dann dorthin. Wird der Leitstein entfernt, ist die Verknüpfung weg.",
-          "Springen: 3 Sekunden (60 Ticks) gedrückt halten. Beim Laden kreisen Sculk-Seelen in drei Armen von gut zwei Blöcken außen immer enger, weit gestreute Portalpartikel werden hineingezogen, ein Amethystton steigt, Sculk-Klicken und Seelenanker-Aufladen markieren die Drittel, zum Schluss lädt der Schallangriff des Wärters; das Sichtfeld zieht sich sanft zusammen und pulsiert (skaliert mit der Vanilla-Barrierefreiheitsoption FOV-Effekte - auf 0 aus). Vorher loslassen tut nichts und kostet nichts. Der Sprung braucht seit dem 27.09.2026 keine Enderperle mehr und setzt 6 Sekunden Abklingzeit; danach kurz Blindheit, Leuchten, Sanfter Fall, Langsamkeit und Übelkeit, bei der Ankunft Schallknall und Seelenanker-Klang, dazu eine weite Partikelwolke und ein Ring aus Sculk-Seelen, der über den Boden auseinanderläuft. Funktioniert in jede Dimension, die der Server kennt; ein blockierter Sprung (etwa in eine per tweaks.dimensions gesperrte Dimension) kostet nichts - keine Ladung, keine Abklingzeit.",
+          "Rechtsklick auf einen Leitstein verknüpft; die Nadel zeigt dann dorthin. Ein Klick auf den schon verknüpften Leitstein tut nichts (kein Klang, keine Effekte). Wird der Leitstein entfernt, ist die Verknüpfung weg.",
+          "Springen: 3 Sekunden (60 Ticks) gedrückt halten. Beim Laden kreisen Sculk-Seelen in drei Armen von gut zwei Blöcken außen immer enger, weit gestreute Portalpartikel werden hineingezogen, ein Amethystton steigt, Sculk-Klicken und Seelenanker-Aufladen markieren die Drittel, zum Schluss lädt der Schallangriff des Wärters; das Sichtfeld zieht sich sanft zusammen und pulsiert (skaliert mit der Vanilla-Barrierefreiheitsoption FOV-Effekte - auf 0 aus). Vorher loslassen tut nichts und kostet nichts. Der Sprung braucht seit dem 27.09.2026 keine Enderperle mehr und setzt 24 Sekunden Abklingzeit (viermal die früheren 6 Sekunden, Besitzer 2026-09-28); danach kurz Blindheit, Leuchten, Sanfter Fall, Langsamkeit und Übelkeit, bei der Ankunft Schallknall und Seelenanker-Klang, dazu eine weite Partikelwolke und ein Ring aus Sculk-Seelen, der über den Boden auseinanderläuft. Funktioniert in jede Dimension, die der Server kennt; ein blockierter Sprung (etwa in eine per tweaks.dimensions gesperrte Dimension) kostet nichts - keine Ladung, keine Abklingzeit.",
           "Ladung: Das Echolot hat 1500 Reparaturpunkte. Ein Sprung leert es ganz (Haltbarkeit/Unbreaking wirkt je Punkt wie bei jedem Werkzeug: mit Haltbarkeit III leert ein Sprung nur etwa ein Viertel). Leer oder nicht voll aufgeladen zeigt es eine Riss-Textur in drei Stufen (leer, halb, fast voll), hat keinen Verzauberungsglanz, und sein Balken zeigt die Ladung. Aufladen mit Reparatur/Mending (2 Punkte je XP-Punkt, 750 XP im leeren Zustand) oder am Amboss mit Echoscherben (jede stellt ein Viertel wieder her, vier füllen es). Erst voll aufgeladen springt es wieder normal und glänzt wieder.",
           "Erzwingen: Ein nicht voll aufgeladenes Echolot zu benutzen provoziert den Bruch - das Laden dauert doppelt so lange (6 Sekunden) mit Warnzeichen (Knacken, Funken, Rauch, zur Hälfte ein Sculk-Kreischen, alles lauter), der Sprung gelingt noch, danach zerspringt das Echolot endgültig. Haltbarkeit rettet es dabei nicht. Im Kreativmodus leert und zerspringt es nicht.",
           "Rezept (Werkbank, geformt \"NNN\" / \"NRN\" / \"NEN\"): sieben Enderitklumpen außen herum, der Bergungskompass in der Mitte, der Enderitkern unten mittig.",

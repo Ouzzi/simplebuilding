@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_spawn_teleporter_tier_4": {
+    "has_spawn_teleporter_tier_2": {
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:spawn_teleporter_tier_4"
+            "items": "simplebuilding:spawn_teleporter_tier_2"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_spawn_teleporter_tier_4"
+      "has_spawn_teleporter_tier_2"
     ]
   ],
   "rewards": {
