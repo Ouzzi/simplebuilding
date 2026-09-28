@@ -1474,7 +1474,7 @@ def collect_in_world(roots: dict, manual: dict, item_ids: set[str]) -> tuple[dic
                                {"id": upgrade["catalyst"], "count": upgrade["catalystCount"]}],
                     "tools": trim_hammers,
                     "output": {"id": upgrade["result"], "count": 1},
-                    "stats": {"damage": trim["damage"]},
+                    "stats": {"damage": trim["damage"], "placedHits": trim.get("placedHits")},
                 })
 
         wash = exported.get("cauldronWash")

@@ -379,6 +379,8 @@ public final class InWorldRecipeCatalog {
         }
         List<Component> notes = List.of(
                 Component.translatable("jei.simplebuilding.note.trim_template.how"),
+                Component.translatable("jei.simplebuilding.note.trim_template.placed",
+                        trim.has("placedHits") ? trim.get("placedHits").getAsInt() : 1),
                 Component.translatable("jei.simplebuilding.note.damage", trim.get("damage").getAsInt()));
         for (JsonElement element : trim.getAsJsonArray("upgrades")) {
             JsonObject upgrade = element.getAsJsonObject();

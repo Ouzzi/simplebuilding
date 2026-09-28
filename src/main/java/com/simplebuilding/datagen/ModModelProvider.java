@@ -171,6 +171,9 @@ public class ModModelProvider extends FabricModelProvider {
         registerBackpack(blockStateModelGenerator, ModBlocks.REINFORCED_BACKPACK);
         registerBackpack(blockStateModelGenerator, ModBlocks.NETHERITE_BACKPACK);
         registerBackpack(blockStateModelGenerator, ModBlocks.ENDERITE_BACKPACK);
+        // Abgelegte Schmiedevorlage: gezeichnet vom PlacedTemplateRenderer, das Blockmodell traegt
+        // nur die Partikeltextur (dunkel wie die Vorlagen selbst).
+        blockStateModelGenerator.createParticleOnlyBlock(ModBlocks.PLACED_SMITHING_TEMPLATE, net.minecraft.world.level.block.Blocks.POLISHED_DEEPSLATE);
 
         // --- 7. Aus Simple Tweaks: Druckplatten und Pads ---
         com.simplebuilding.tweaks.datagen.TweaksModelGen.blocks(blockStateModelGenerator);

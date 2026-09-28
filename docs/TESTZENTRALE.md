@@ -58,7 +58,8 @@ Schild "Items holen" darüber; die Station rückt dafür zwei Spalten nach recht
 (`TestCentreKits`):
 
 - **Haupt- und Nebenhand** für die Interaktionstests der Station, z. B. `inworld`: höchster
-  Vorschlaghammer + Aufwertungs-Nugget, `chisel`: höchster Meißel + derselbe mit Constructor's Touch,
+  Vorschlaghammer + Aufwertungs-Nugget, `templates`: höchster Vorschlaghammer + Glowstonestaub
+  (Leuchttinte im Inventar), `chisel`: höchster Meißel + derselbe mit Constructor's Touch,
   `planning`: höchster Baustab + Oktant (der Dach-Modus braucht ihn in der Nebenhand), `tools`:
   höchste Spitzhacke + höchster Meißel (max. verzaubert), `ores`: Erzdetektor, `mining`: Werkzeug mit
   Vielseitigkeit, `blocks`: höchster Baustab, `lightroom`: Baulichter, `tweaks`: Windkugeln,
@@ -90,6 +91,7 @@ steht im Log des Bau-Tests (`test centre ... sections:`), weil sie aus den Inhal
 | `materials` | der ganze Tab SimpleMaterials mit Namensschildern | Tab MATERIALS |
 | `chisel` | je Meißel-Kette ein Turm (Block für Block) mit dem Startblock davor zum Meißeln; Rahmen mit dem nötigen Meißel (mit Constructor's Touch, wenn nur die Touch-Tabelle die Kette kennt), Schild mit Stufe, Länge, "Kreislauf" | Tabellen des höchsten Meißels (`getForwardMap`/`getTouchForwardMap`) |
 | `inworld` | je In-World-Umwandlung eine Station: Umformen mit dem Vorschlaghammer (Block → Treppe → Stufe, Mod-Blöcke + Stein/Eichenbretter), Diamantblock zerschlagen, Maschinen-Aufwertung (Maschine, Nugget, schwächster passender Hammer), Schere an Wolle, Besatzvorlage im Rahmen, Oktant im Kessel waschen | `InWorldTransformations`, `SledgehammerUpgrades`, `SledgehammerEntityInteraction`, `OctantCauldronWash` |
+| `templates` | abgelegte Schmiedevorlagen: vorn vier aufwertbare Besatzvorlagen auf dem Boden zum Draufhauen (Hammer + Glowstone/Leuchttinte, drei Schläge, Hinweis-Funken in der Nähe), dahinter Netherit-, schlichte und Enderit-Aufwertungsvorlage sowie die leuchtende und strahlende Vorlage je auf dem Boden und an der Wand; die Vorlagen kommen per `TcOp.Fill` in die Block-Entity | `PlacedTemplates`, `PlacedTemplateBlock`, `SledgehammerEntityInteraction` |
 | `blocks` | Musterwand des Tabs SimpleBuilding (je Block eine Säule mit Namensschild), Schachbretter zusätzlich als Bodenflächen, Schwebesand/-kies frei schwebend, Levitationssand/-kies unter Glas | Tab BUILDING_BLOCKS |
 | `lightroom` | geschlossener Dunkelraum mit Baulichtern und Tür; Monster dürfen trotz Licht spawnen (Knöpfe auf der Steuerwand) | - |
 | `machines` | je Ofen-Familie und Stufe eine laufende Kette: Truhe → Trichter (gleiche Stufe) → Ofen → Trichter → Truhe, Kohle von der Seite; Kolben aller Stufen mit Hebel (Reihe rechts neben den Maschinen an der Gangkante; bis 2026-09-25 stand sie hinter der Rückwand und war vom Gang aus unsichtbar): 13 Steine (Vanilla schafft es nicht), Netherit-Kolben zerbricht, Enderit-Kolben vor verstärktem Tiefenschiefer mit Redstoneblöcken in der Truhe (Durchbruch) | Tab-Zeilen hoppers, furnaces, smokers, blast_furnaces, pistons |
@@ -122,7 +124,7 @@ Rückfall Englisch im Code): ein deutscher Client liest Deutsch, ein englischer 
   Befehlsblock berührt einen anderen oder dessen Knopf, kein Leiterblock berührt zwei Befehlsblöcke,
   Knopf- und Schildplatz sind frei; jede Station außer der Steuerwand hat ihren Ausgabe-Knopf in der
   vordersten Reihe nach Norden, ihr Kit füllt die Haupthand und passt ins Inventar (`tools`, `chisel`,
-  `inworld`, `planning` auch die Nebenhand); `/sbtestcentre give` ist registriert und ersetzt an einem
+  `inworld`, `templates`, `planning` auch die Nebenhand); `/sbtestcentre give` ist registriert und ersetzt an einem
   Testspieler das Inventar (Erde vorher weg, alle Kit-Stapel da); der Fingerabdruck ist stabil und
   hängt am Ursprung; im Flypad-Flugfeld steht kein anderes Pad. Außerdem prüft der Abdeckungstest
   jetzt, dass jeder Mod-Block mit Item auch **gesetzt** ist (nicht nur gerahmt), außer `frameOnly`.

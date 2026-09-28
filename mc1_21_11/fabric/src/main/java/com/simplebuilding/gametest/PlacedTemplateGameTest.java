@@ -1,0 +1,37 @@
+package com.simplebuilding.gametest;
+
+import net.fabricmc.fabric.api.gametest.v1.GameTest;
+import net.minecraft.gametest.framework.GameTestHelper;
+
+/**
+ * Fabric adapter for the placed smithing templates ({@link PlacedTemplateTests}). No logic here; class
+ * and method names are load bearing, Fabric derives the test id from them. Registered via the
+ * {@code fabric-gametest} entrypoint in fabric.mod.json.
+ */
+public final class PlacedTemplateGameTest {
+
+    @GameTest
+    public void sneakUsePlacesTemplatesOnTheFloorAgainstTheWallAndUnderTheCeiling(GameTestHelper helper) {
+        PlacedTemplateTests.sneakUsePlacesTemplatesOnTheFloorAgainstTheWallAndUnderTheCeiling(helper);
+    }
+
+    @GameTest
+    public void withoutSneakingTheTemplateKeepsItsNormalBehaviour(GameTestHelper helper) {
+        PlacedTemplateTests.withoutSneakingTheTemplateKeepsItsNormalBehaviour(helper);
+    }
+
+    @GameTest(maxTicks = PlacedTemplateTests.WATER_MAX_TICKS)
+    public void placedTemplatesSurviveWaterAndDropThemselvesWithTheirData(GameTestHelper helper) {
+        PlacedTemplateTests.placedTemplatesSurviveWaterAndDropThemselvesWithTheirData(helper);
+    }
+
+    @GameTest
+    public void placedTrimTemplatesNeedThreeHammerHits(GameTestHelper helper) {
+        PlacedTemplateTests.placedTrimTemplatesNeedThreeHammerHits(helper);
+    }
+
+    @GameTest
+    public void hintSparksOnlyShowNearPlayersHoldingGlowstoneOrGlowInk(GameTestHelper helper) {
+        PlacedTemplateTests.hintSparksOnlyShowNearPlayersHoldingGlowstoneOrGlowInk(helper);
+    }
+}

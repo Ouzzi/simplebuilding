@@ -41,7 +41,7 @@ public final class TestCentreLayout {
 
     /** Reihenfolge der Abschnitte = Reihenfolge in der Welt. */
     public static final List<String> SECTION_IDS = List.of("controls", "armour", "books", "tools", "storage", "food",
-            "materials", "chisel", "inworld", "blocks", "lightroom", "machines", "ores", "planning", "mining", "tweaks", "devices", "gallery", "unsorted");
+            "materials", "chisel", "inworld", "templates", "blocks", "lightroom", "machines", "ores", "planning", "mining", "tweaks", "devices", "gallery", "unsorted");
 
     /**
      * Mod-Items und -Bloecke, die bewusst NICHT in der Zentrale stehen, mit Grund. Jede Ausnahme muss
@@ -187,6 +187,7 @@ public final class TestCentreLayout {
         builders.put("materials", TestCentreSections::materials);
         builders.put("chisel", TestCentreSections::chisel);
         builders.put("inworld", TestCentreSections::inWorld);
+        builders.put("templates", TestCentreSections::templates);
         builders.put("blocks", TestCentreSections::blocks);
         builders.put("lightroom", TestCentreSections::lightRoom);
         builders.put("machines", TestCentreSections::machines);

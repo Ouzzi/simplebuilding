@@ -161,6 +161,10 @@ public final class TestCentreKits {
                 main = top(ctx, "sledgehammers");
                 off = full(firstUpgradeNugget());
             }
+            case "templates" -> {
+                main = top(ctx, "sledgehammers");
+                off = full(new ItemStack(Items.GLOWSTONE_DUST));
+            }
             case "blocks" -> main = top(ctx, "building_wands");
             case "planning" -> {
                 main = top(ctx, "building_wands");

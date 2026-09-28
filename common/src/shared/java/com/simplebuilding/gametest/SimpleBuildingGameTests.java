@@ -1212,6 +1212,17 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("potion_pad_game_test_blazes_killed_otherwise_drop_no_head", PotionPadTests::blazesKilledOtherwiseDropNoHead)
                     .build(),
+            GameTestSpec.named("placed_template_game_test_sneak_use_places_templates_on_the_floor_against_the_wall_and_under_the_ceiling", PlacedTemplateTests::sneakUsePlacesTemplatesOnTheFloorAgainstTheWallAndUnderTheCeiling)
+                    .build(),
+            GameTestSpec.named("placed_template_game_test_without_sneaking_the_template_keeps_its_normal_behaviour", PlacedTemplateTests::withoutSneakingTheTemplateKeepsItsNormalBehaviour)
+                    .build(),
+            GameTestSpec.named("placed_template_game_test_placed_templates_survive_water_and_drop_themselves_with_their_data", PlacedTemplateTests::placedTemplatesSurviveWaterAndDropThemselvesWithTheirData)
+                    .maxTicks(PlacedTemplateTests.WATER_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("placed_template_game_test_placed_trim_templates_need_three_hammer_hits", PlacedTemplateTests::placedTrimTemplatesNeedThreeHammerHits)
+                    .build(),
+            GameTestSpec.named("placed_template_game_test_hint_sparks_only_show_near_players_holding_glowstone_or_glow_ink", PlacedTemplateTests::hintSparksOnlyShowNearPlayersHoldingGlowstoneOrGlowInk)
+                    .build(),
             GameTestSpec.named("pressure_plate_game_test_honeycomb_waxes_every_stage_and_waxed_plates_stop_oxidizing", PressurePlateTests::honeycombWaxesEveryStageAndWaxedPlatesStopOxidizing)
                     .build(),
             GameTestSpec.named("pressure_plate_game_test_the_axe_scrapes_the_wax_off_before_the_oxidation", PressurePlateTests::theAxeScrapesTheWaxOffBeforeTheOxidation)

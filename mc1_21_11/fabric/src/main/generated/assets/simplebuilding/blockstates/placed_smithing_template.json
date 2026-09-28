@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "simplebuilding:block/placed_smithing_template"
+    }
+  }
+}

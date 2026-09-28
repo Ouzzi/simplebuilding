@@ -523,6 +523,69 @@ public final class TestCentreSections {
     }
 
     // =====================================================================================
+    // 5b. Abgelegte Schmiedevorlagen
+    // =====================================================================================
+
+    /**
+     * Abgelegte Schmiedevorlagen ({@code PlacedTemplates}): vorn eine Reihe aufwertbarer
+     * Besatzvorlagen auf dem Boden zum Ausprobieren (Kit: Hammer + Glowstonestaub, Leuchttinte im
+     * Inventar; drei Schlaege je Vorlage, Funken in der Naehe), dahinter je eine Aufwertungs- und die
+     * beiden Mod-Vorlagen auf dem Boden und an der Wand.
+     */
+    public static TcCanvas templates(TcContext ctx) {
+        TcCanvas c = new TcCanvas();
+        int wallZ = 5;
+        c.title(0, 4, wallZ, TcText.t("section.templates", "Placed Templates"),
+                TcText.t("section.templates.sub", "sneak + use with a template"));
+        List<Item> trims = new ArrayList<>();
+        for (Item item : sortedItems()) {
+            if (SledgehammerEntityInteraction.isTrimTemplate(item)) {
+                trims.add(item);
+            }
+        }
+        int x = 2;
+        // a) Uebungsreihe: aufwertbare Besatzvorlagen flach auf dem Boden (Oberkante vom Gang weg).
+        c.wallSign(x, 1, wallZ, TcText.bold(TcText.t("templates.hit", "Hammer them")),
+                TcText.t("templates.hit.sub", "glowstone / glow ink"), TcText.t("templates.hit.sub2", "in off hand: 3 hits"));
+        for (Map.Entry<Item, Item> upgrade : SledgehammerEntityInteraction.trimUpgrades().entrySet()) {
+            c.wallFrame(x, 2, wallZ, new ItemStack(upgrade.getKey()));
+            x++;
+        }
+        for (int i = 0; i < Math.min(4, trims.size()); i++) {
+            placedTemplate(c, x + i, 0, 1, AttachFace.FLOOR, Direction.SOUTH, new ItemStack(trims.get(i)));
+        }
+        x += Math.min(4, trims.size()) + 1;
+
+        // b) Alle Arten: auf dem Boden und an der Wand.
+        c.wallSign(x, 1, wallZ, TcText.bold(TcText.t("templates.kinds", "Floor and wall")),
+                TcText.t("templates.kinds.sub", "upgrade and trim"), TcText.t("templates.kinds.sub2", "templates, mod ones too"));
+        x++;
+        List<ItemStack> kinds = new ArrayList<>();
+        kinds.add(new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE));
+        kinds.add(new ItemStack(ModItems.BASIC_UPGRADE_TEMPLATE));
+        kinds.add(new ItemStack(ModItems.ENDERITE_UPGRADE_TEMPLATE));
+        kinds.add(new ItemStack(ModItems.GLOWING_TRIM_TEMPLATE));
+        kinds.add(new ItemStack(ModItems.EMITTING_TRIM_TEMPLATE));
+        for (ItemStack kind : kinds) {
+            placedTemplate(c, x, 0, 3, AttachFace.FLOOR, Direction.SOUTH, kind);
+            c.place(x, 2, wallZ, TcCanvas.WALL);
+            placedTemplate(c, x, 2, wallZ - 1, AttachFace.WALL, Direction.NORTH, kind);
+            x++;
+        }
+        x++;
+        c.backWall(0, x, wallZ, 6);
+        return c;
+    }
+
+    /** Eine abgelegte Vorlage: Block samt Lage, die Vorlage selbst kommt beim Bau in die Block-Entity. */
+    private static void placedTemplate(TcCanvas c, int x, int y, int z, AttachFace face, Direction facing, ItemStack template) {
+        c.place(x, y, z, ModBlocks.PLACED_SMITHING_TEMPLATE.defaultBlockState()
+                .setValue(com.simplebuilding.blocks.custom.PlacedTemplateBlock.FACE, face)
+                .setValue(com.simplebuilding.blocks.custom.PlacedTemplateBlock.FACING, facing));
+        c.contents(x, y, z, List.of(template));
+    }
+
+    // =====================================================================================
     // 6. Lager: Buendel, Koecher, Rucksaecke
     // =====================================================================================
 
