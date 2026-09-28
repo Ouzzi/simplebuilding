@@ -241,11 +241,13 @@ public class ModItems {
 
     public static final Item BASIC_UPGRADE_TEMPLATE = registerItem("basic_upgrade_template", settings -> new Item(settings.stacksTo(64).rarity(UNCOMMON)));
 
-    public static final Item ENDERITE_UPGRADE_TEMPLATE = registerItem("enderite_upgrade_template", s -> new Item(s));
+    public static final Item ENDERITE_UPGRADE_TEMPLATE = registerItem("enderite_upgrade_template", s -> new Item(s.rarity(UNCOMMON)));
 
     // Unsichtbarer Platzhalter fuer das Zeilen-Layout der Kreativ-Tabs (CreativeTabLayout); nicht erhaeltlich.
     public static final Item CREATIVE_SPACER = registerItem("creative_spacer", s -> new CreativeSpacerItem(s
             .stacksTo(1)
+            // technisch wie Vanillas Barriere/Licht/Strukturleere: EPIC (docs/RARITAETEN.md)
+            .rarity(Rarity.EPIC)
             .component(DataComponents.CREATIVE_SLOT_LOCK, net.minecraft.util.Unit.INSTANCE)
             .component(DataComponents.TOOLTIP_DISPLAY, new net.minecraft.world.item.component.TooltipDisplay(true,
                     it.unimi.dsi.fastutil.objects.ReferenceSortedSets.emptySet()))));
@@ -263,7 +265,7 @@ public class ModItems {
 
     public static final Item CRACKED_DIAMOND_BLOCK = registerItem("cracked_diamond_block", settings -> new BlockItem(ModBlocks.CRACKED_DIAMOND_BLOCK, settings)); // todo: wie diamond_block nur härter
 
-    public static final Item NETHERITE_NUGGET = registerItem("netherite_nugget", settings -> new Item(settings));
+    public static final Item NETHERITE_NUGGET = registerItem("netherite_nugget", settings -> new Item(settings.fireResistant()));
 
     public static final Item ENDERITE_NUGGET = registerItem("enderite_nugget", settings -> new Item(settings.fireResistant()));
 
@@ -316,9 +318,9 @@ public class ModItems {
 
     public static final Item DIAMOND_CORE = registerItem("diamond_core", s -> new Item(s.stacksTo(16)));
 
-    public static final Item NETHERITE_CORE = registerItem("netherite_core", s -> new Item(s.stacksTo(16).fireResistant()));
+    public static final Item NETHERITE_CORE = registerItem("netherite_core", s -> new Item(s.stacksTo(16).fireResistant().rarity(UNCOMMON)));
 
-    public static final Item ENDERITE_CORE = registerItem("enderite_core", s -> new Item(s.stacksTo(16).fireResistant()));
+    public static final Item ENDERITE_CORE = registerItem("enderite_core", s -> new Item(s.stacksTo(16).fireResistant().rarity(Rarity.EPIC)));
 
 
 
@@ -410,9 +412,9 @@ public class ModItems {
 
     public static final Item VELOCITY_GAUGE = registerItem("velocity-gauge", settings -> new com.simplebuilding.items.custom.VelocityGaugeItem(settings.stacksTo(1)));
 
-    public static final Item ORE_DETECTOR = registerItem("ore_detector", settings -> new OreDetectorItem(settings.enchantable(ENCHANTABILITY_NETHERITE).rarity(RARE)));
+    public static final Item ORE_DETECTOR = registerItem("ore_detector", settings -> new OreDetectorItem(settings.enchantable(ENCHANTABILITY_NETHERITE).rarity(UNCOMMON)));
 
-    public static final Item MAGNET = registerItem("magnet", settings -> new MagnetItem(settings.stacksTo(1).rarity(UNCOMMON)));
+    public static final Item MAGNET = registerItem("magnet", settings -> new MagnetItem(settings.stacksTo(1)));
 
     public static final Item ROTATOR = registerItem("rotator", settings -> new RotatorItem(settings.durability(RotatorItem.MAX_CHARGE).stacksTo(1).enchantable(ENCHANTABILITY_NETHERITE)));
 
@@ -420,7 +422,7 @@ public class ModItems {
 
     // Blaupause (docs/BLUEPRINT.md): leer stapelbar wie Karten, gefuellt einzeln verschieden.
     public static final com.simplebuilding.items.custom.BlueprintItem BLUEPRINT = (com.simplebuilding.items.custom.BlueprintItem) registerItem("blueprint",
-            settings -> new com.simplebuilding.items.custom.BlueprintItem(settings.stacksTo(16).rarity(UNCOMMON)));
+            settings -> new com.simplebuilding.items.custom.BlueprintItem(settings.stacksTo(16)));
 
     // EnumMap, not HashMap: datagen iterates this to build the octants_enchantable tag, and a
     // HashMap keyed by an enum orders by identity hash -- i.e. differently on every JVM run,
@@ -446,6 +448,7 @@ public class ModItems {
 
     // Die Stufe zwischen Koecher und Netherit-Koecher: wie der Koecher weder feuerfest noch
     // explosionssicher (ItemEntityMixin nennt ihn nicht), gewoehnliche Seltenheit.
+    // Seltenheiten aller Familien: docs/RARITAETEN.md (Netherit UNCOMMON, Enderit EPIC, Ausruestung COMMON).
     public static final Item REINFORCED_QUIVER = registerItem("reinforced_quiver", settings -> new QuiverItem(settings.stacksTo(1).component(DataComponents.EQUIPPABLE, quiverChestSlot())));
 
     public static final Item NETHERITE_QUIVER = registerItem("netherite_quiver", settings -> new QuiverItem(settings.stacksTo(1).fireResistant().rarity(UNCOMMON).component(DataComponents.EQUIPPABLE, quiverChestSlot())));
@@ -458,7 +461,7 @@ public class ModItems {
     public static final Item BACKPACK = registerItem("backpack", settings -> new BackpackItem(BackpackTier.BASIC, ModBlocks.BACKPACK,
             backpack(settings, BackpackTier.BASIC, SoundEvents.ARMOR_EQUIP_LEATHER)));
     public static final Item REINFORCED_BACKPACK = registerItem("reinforced_backpack", settings -> new BackpackItem(BackpackTier.REINFORCED, ModBlocks.REINFORCED_BACKPACK,
-            backpack(settings.rarity(UNCOMMON), BackpackTier.REINFORCED, SoundEvents.ARMOR_EQUIP_LEATHER)));
+            backpack(settings, BackpackTier.REINFORCED, SoundEvents.ARMOR_EQUIP_LEATHER)));
     public static final Item NETHERITE_BACKPACK = registerItem("netherite_backpack", settings -> new BackpackItem(BackpackTier.NETHERITE, ModBlocks.NETHERITE_BACKPACK,
             backpack(settings.fireResistant().rarity(UNCOMMON), BackpackTier.NETHERITE, SoundEvents.ARMOR_EQUIP_NETHERITE)));
     public static final Item ENDERITE_BACKPACK = registerItem("enderite_backpack", settings -> new BackpackItem(BackpackTier.ENDERITE, ModBlocks.ENDERITE_BACKPACK,
@@ -474,27 +477,27 @@ public class ModItems {
 
     public static final Item REINFORCED_HOPPER = registerItem("reinforced_hopper", s -> new BlockItem(ModBlocks.REINFORCED_HOPPER, s));
 
-    public static final Item NETHERITE_HOPPER = registerItem("netherite_hopper", s -> new BlockItem(ModBlocks.NETHERITE_HOPPER, s.fireResistant()));
+    public static final Item NETHERITE_HOPPER = registerItem("netherite_hopper", s -> new BlockItem(ModBlocks.NETHERITE_HOPPER, s.fireResistant().rarity(UNCOMMON)));
 
     public static final Item REINFORCED_PISTON = registerItem("reinforced_piston", s -> new BlockItem(ModBlocks.REINFORCED_PISTON, s));
 
     public static final Item REINFORCED_STICKY_PISTON = registerItem("reinforced_sticky_piston", s -> new BlockItem(ModBlocks.REINFORCED_STICKY_PISTON, s));
 
-    public static final Item NETHERITE_PISTON = registerItem("netherite_piston", s -> new com.simplebuilding.items.custom.NetheritePistonItem(ModBlocks.NETHERITE_PISTON, s.fireResistant()));
+    public static final Item NETHERITE_PISTON = registerItem("netherite_piston", s -> new com.simplebuilding.items.custom.NetheritePistonItem(ModBlocks.NETHERITE_PISTON, s.fireResistant().rarity(UNCOMMON)));
 
     public static final Item ENDERITE_PISTON = registerItem("enderite_piston", s -> new com.simplebuilding.items.custom.NetheritePistonItem(ModBlocks.ENDERITE_PISTON, s.fireResistant().rarity(Rarity.EPIC), "tooltip.simplebuilding.enderite_piston"));
 
     public static final Item REINFORCED_BLAST_FURNACE = registerItem("reinforced_blast_furnace", s -> new BlockItem(ModBlocks.REINFORCED_BLAST_FURNACE, s));
 
-    public static final Item NETHERITE_BLAST_FURNACE = registerItem("netherite_blast_furnace", s -> new BlockItem(ModBlocks.NETHERITE_BLAST_FURNACE, s.fireResistant()));
+    public static final Item NETHERITE_BLAST_FURNACE = registerItem("netherite_blast_furnace", s -> new BlockItem(ModBlocks.NETHERITE_BLAST_FURNACE, s.fireResistant().rarity(UNCOMMON)));
 
     public static final Item REINFORCED_FURNACE = registerItem("reinforced_furnace", s -> new BlockItem(ModBlocks.REINFORCED_FURNACE, s));
 
-    public static final Item NETHERITE_FURNACE = registerItem("netherite_furnace", s -> new BlockItem(ModBlocks.NETHERITE_FURNACE, s.fireResistant()));
+    public static final Item NETHERITE_FURNACE = registerItem("netherite_furnace", s -> new BlockItem(ModBlocks.NETHERITE_FURNACE, s.fireResistant().rarity(UNCOMMON)));
 
     public static final Item REINFORCED_SMOKER = registerItem("reinforced_smoker", s -> new BlockItem(ModBlocks.REINFORCED_SMOKER, s));
 
-    public static final Item NETHERITE_SMOKER = registerItem("netherite_smoker", s -> new BlockItem(ModBlocks.NETHERITE_SMOKER, s.fireResistant()));
+    public static final Item NETHERITE_SMOKER = registerItem("netherite_smoker", s -> new BlockItem(ModBlocks.NETHERITE_SMOKER, s.fireResistant().rarity(UNCOMMON)));
 
     // Enderit-Maschinen: feuerfest und EPIC wie die uebrigen Enderit-Gegenstaende (Buendel, Koecher,
     // Rucksack, Enderitkolben). Kein Werkbankrezept - sie entstehen nur in der Welt, siehe
@@ -707,13 +710,13 @@ public class ModItems {
 
 
 
-    public static final Item NETHERITE_CARROT = registerItem("netherite_carrot", settings -> new Item(settings.food(NETHERITE_CARROT_FOOD, createNetheriteFoodEffects(false)).fireResistant()));
+    public static final Item NETHERITE_CARROT = registerItem("netherite_carrot", settings -> new Item(settings.food(NETHERITE_CARROT_FOOD, createNetheriteFoodEffects(false)).fireResistant().rarity(UNCOMMON)));
 
-    public static final Item NETHERITE_APPLE = registerItem("netherite_apple", settings -> new Item(settings.food(NETHERITE_APPLE_FOOD, createNetheriteFoodEffects(true)).fireResistant()));
+    public static final Item NETHERITE_APPLE = registerItem("netherite_apple", settings -> new Item(settings.food(NETHERITE_APPLE_FOOD, createNetheriteFoodEffects(true)).fireResistant().rarity(UNCOMMON)));
 
-    public static final Item ENDERITE_CARROT = registerItem("enderite_carrot", settings -> new Item(settings.food(ENDERITE_CARROT_FOOD, createEnderiteFoodEffects(false)).fireResistant()));
+    public static final Item ENDERITE_CARROT = registerItem("enderite_carrot", settings -> new Item(settings.food(ENDERITE_CARROT_FOOD, createEnderiteFoodEffects(false)).fireResistant().rarity(Rarity.EPIC)));
 
-    public static final Item ENDERITE_APPLE = registerItem("enderite_apple", settings -> new Item(settings.food(ENDERITE_APPLE_FOOD, createEnderiteFoodEffects(true)).fireResistant()));
+    public static final Item ENDERITE_APPLE = registerItem("enderite_apple", settings -> new Item(settings.food(ENDERITE_APPLE_FOOD, createEnderiteFoodEffects(true)).fireResistant().rarity(Rarity.EPIC)));
 
 
 
@@ -723,7 +726,8 @@ public class ModItems {
 
             .fireResistant()
 
-            .rarity(Rarity.EPIC)
+            // RARE wie Vanillas verzauberter goldener Apfel (docs/RARITAETEN.md)
+            .rarity(RARE)
 
             .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true))); // Aktiviert den Schimmer
 

@@ -203,7 +203,7 @@ die Kette ueber den Endstufen), Code `PotionPadBlock` / `PotionPadBlockEntity`.
   hoechstens ein Heiltrank je 2 s. Schaden trifft ohne Verursacher (`magic`).
 - **Haltbarkeit**: unbegrenzt (keine Ladungen, Besitzer-Vorgabe).
 - **Bereich**: die Blockspalte des Pads bis einen halben Block hoch (`PotionPadBlockEntity#area`).
-- Alle Stufen brennen nicht (Netherit), II und III sind episch; Besitzer-Abbau und kein Kolben wie alle Pads.
+- Alle Stufen brennen nicht (Netherit); I ist ungewoehnlich (Netherit-Druckplatte), II und III sind episch (docs/RARITAETEN.md); Besitzer-Abbau und kein Kolben wie alle Pads.
 - **Rezepte**: I = Werkbank formlos Netherit-Druckplatte + Lohenkopf. II = Schmiede Enderit-Vorlage +
   I + **Enderit-Druckplatte** (Regel 2.1: Aufwertungen zahlen mit der Druckplatte des Zielmaterials).
   III = Schmiede Enderit-Vorlage + II + **Enderit-Kern** (wie Flypad I; es gibt keine hoehere Platte).
@@ -238,8 +238,8 @@ Wurftraenke.
 
 Namen (en): "Elytra Pad I", "Reinforced Elytra Pad II", "Netherite Elytra Pad III",
 "Enderite Elytra Pad IV", "Fine Elytra Pad V"; "Flypad I", "Reinforced Flypad II", "Stellar Flypad III"
-(alt: "Old Netherite Flypad", "Old Enderite Flypad"); "Spawn Teleporter I" ... "IV",
-"Enderite Spawn Teleporter V"; "Launchpad I", "Netherite Launchpad II", "Enderite Launchpad III";
+(alt: "Netherite Flypad (Legacy)", "Enderite Flypad (Legacy)" - bis 2026-09-28 "Old ... Flypad"); "Spawn Teleporter I" ... "IV",
+"Spawn Teleporter V" (Besitzer 2026-09-28, vorher "Enderite Spawn Teleporter V"); "Launchpad I", "Netherite Launchpad II", "Enderite Launchpad III";
 "Chunk Loader I", "Netherite Chunk Loader II", "Enderite Chunk Loader III".
 
 ### 2.4 Druckplatten wie Vanilla (Besitzer-Aenderung 2026-09-27)

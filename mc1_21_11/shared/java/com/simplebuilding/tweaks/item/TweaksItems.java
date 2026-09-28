@@ -35,7 +35,7 @@ public final class TweaksItems {
     public static final Item LASER_POINTER = register("laser_pointer",
             // "Amethystlinse"; die Haltbarkeit ist die Ladung (nie zerbrechend, Redstone im Amboss
             // laedt auf, siehe LaserPointerItem). Rezept in ModRecipeProvider.
-            p -> new LaserPointerItem(p.durability(LaserPointerItem.MAX_CHARGE).rarity(Rarity.EPIC)));
+            p -> new LaserPointerItem(p.durability(LaserPointerItem.MAX_CHARGE)));
     public static final Item ECHO_COMPASS = register("echo_compass",
             // 1500 Reparaturpunkte, ein Sprung leert ihn; Echoscherben reparieren am Amboss je ein Viertel.
             p -> new EchoCompassItem(p.stacksTo(1).durability(EchoCompassItem.MAX_DAMAGE).enchantable(15)
@@ -53,20 +53,18 @@ public final class TweaksItems {
     static {
         for (Block block : TweaksBlocks.all()) {
             String path = BuiltInRegistries.BLOCK.getKey(block).getPath();
-            // Enderit und die Netherstern-Stufen: episch; alles aus Netherit/Enderit brennt nicht
-            // (wie Netherit-Gegenstaende, vgl. EnderiteMachineTests#enderiteGearInheritsEveryNetheriteTrait).
-            // Trank-Pads: alle aus Netherit (brennen nicht), II und III aus Enderit-Aufwertungen (episch).
-            boolean potionPad = path.endsWith("potion_pad");
-            boolean epic = path.startsWith("enderite_") || path.equals("fine_elytra_pad") || path.equals("stellar_flypad")
-                    || (potionPad && !path.equals("potion_pad"));
-            boolean fireproof = epic || potionPad || path.startsWith("netherite_");
+            // Seltenheit nach dem Material, mit dem die Stufe gebaut wird (docs/RARITAETEN.md):
+            // Netherit UNCOMMON, Enderit EPIC, sonst COMMON; beides brennt nicht (wie Netherit-Gegenstaende,
+            // vgl. EnderiteMachineTests#enderiteGearInheritsEveryNetheriteTrait).
+            Rarity rarity = padRarity(path);
+            boolean fireproof = rarity != Rarity.COMMON;
             Item item = register(path, p -> {
                 Item.Properties props = p.useBlockDescriptionPrefix();
                 if (fireproof) {
                     props = props.fireResistant();
                 }
-                if (epic) {
-                    props = props.rarity(Rarity.EPIC);
+                if (rarity != Rarity.COMMON) {
+                    props = props.rarity(rarity);
                 }
                 // Alte Stufenbloecke tauschen sich im Inventar gegen ihre neue Stufe (LegacyTierBlockItem).
                 if (block instanceof com.simplebuilding.tweaks.block.LegacyFlypadBlock legacy) {
@@ -79,6 +77,23 @@ public final class TweaksItems {
     }
 
     private TweaksItems() {
+    }
+
+    /**
+     * Seltenheit eines Druckplatten- oder Pad-Blocks nach dem Material seiner Stufe (docs/RARITAETEN.md):
+     * mit Netherit gebaut (Netherit-Platten, Spawn-Teleporter II-IV aus Netherit-Druckplatten, Trank-Pad I aus
+     * der Netherit-Druckplatte) UNCOMMON, mit Enderit gebaut (Enderit-Platten, alle Flypads aus Enderit-Platte
+     * und -Kern, Feines Elytra-Pad V und Trank-Pad II/III als Aufwertungen darueber) EPIC, sonst COMMON.
+     */
+    static Rarity padRarity(String path) {
+        if (path.startsWith("enderite_") || (path.endsWith("flypad") && !path.startsWith("netherite_"))
+                || path.equals("fine_elytra_pad") || path.equals("reinforced_potion_pad") || path.equals("infused_potion_pad")) {
+            return Rarity.EPIC;
+        }
+        if (path.startsWith("netherite_") || path.startsWith("spawn_teleporter_tier_") || path.equals("potion_pad")) {
+            return Rarity.UNCOMMON;
+        }
+        return Rarity.COMMON;
     }
 
     public static void init() {
