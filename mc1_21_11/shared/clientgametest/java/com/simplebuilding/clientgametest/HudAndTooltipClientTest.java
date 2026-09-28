@@ -104,7 +104,10 @@ import org.joml.Vector2f;
  * {@link #bundleTooltipBarUsesCapacityScale} therefore measures the netherite bundle, where
  * intended and actual behaviour agree, and does not pin the truncation down anywhere.
  *
- * <p><b>Known defect (ReinforcedBundleTooltipSubmenuHandler.onStopHovering).</b> Leaving the slot
+ * <p><b>Fixed 2026-09-28 - formerly a known defect (ReinforcedBundleTooltipSubmenuHandler.onStopHovering).</b>
+ * The handler now writes the client stack too (the bundle closes on screen as in vanilla); the
+ * rest of this paragraph describes the old behaviour, and the test below still asserts only the
+ * server half. Old behaviour: leaving the slot
  * only sends {@code ReinforcedBundleSelectionPayload(slot.index, -1)}; the client stack keeps the
  * old selection. Its own {@code onMouseScrolled} does both halves, and so does the vanilla handler
  * it stands in for: {@code BundleMouseActions.onStopHovering} goes through
@@ -118,7 +121,10 @@ import org.joml.Vector2f;
  * clearing on the server stack, which is the half that works, and asserts nothing about the client
  * stack in either direction.
  *
- * <p><b>Known defect (ReinforcedBundleTooltipSubmenuHandler:39).</b> When nothing is selected the
+ * <p><b>Fixed 2026-09-28 - formerly a known defect (ReinforcedBundleTooltipSubmenuHandler:39):</b> the
+ * wheel now steps through {@code ReinforcedBundleItem.nextScrollSelection}, vanilla's
+ * {@code ScrollWheelHandler} rule (server test bundlesCloseLikeVanillaWhenPickedUpOrLeft). Old
+ * behaviour: when nothing was selected the
  * handler substitutes index 0 for "no selection" and then still adds the wheel delta, so the very
  * first notch downwards lands on the <em>second</em> entry and the first entry cannot be reached by
  * scrolling down at all. {@link #bundleWheelSelectsAndLeavingClears} only asserts that a notch

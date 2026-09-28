@@ -1608,6 +1608,60 @@ public final class TweaksTests {
 
     private static final int SHORT_LASER_RANGE = 2;
 
+    /**
+     * Messen mit der Amethystlinse (Besitzer 2026-09-28): ohne Verzauberung schreibt die Linse nie
+     * eine Messung; mit Berührung des Konstrukteurs steht die letzte Messung
+     * ({@link com.simplebuilding.component.LensMeasurement}: Entfernung Auge -> Trefferpunkt auf
+     * 0,1 gerundet, Hoehenunterschied, Zielblock) schon nach dem ersten Tick in der Linse und wird
+     * beim Loslassen auf das neue Ziel aktualisiert.
+     */
+    public static void theLensRecordsTheLastMeasurementOnlyWithConstructorsTouch(GameTestHelper helper) {
+        ServerPlayer player = survivalLikePlayer(helper, new Vec3(2.5, 2.0, 5.5));
+        faceNorth(player);
+        BlockPos stone = new BlockPos(2, 3, 3);
+        BlockPos nearer = new BlockPos(2, 3, 4);
+        helper.setBlock(stone, Blocks.STONE);
+        helper.assertTrue(player.pick(8.0, 1.0f, false) instanceof BlockHitResult hit
+                        && hit.getType() == HitResult.Type.BLOCK && hit.getBlockPos().equals(helper.absolutePos(stone)),
+                "the player does not look at the stone block");
+        double stoneDistance = player.pick(8.0, 1.0f, false).getLocation().distanceTo(player.getEyePosition());
+        var component = com.simplebuilding.component.ModDataComponentTypes.LENS_MEASUREMENT;
+
+        ItemStack plain = new ItemStack(TweaksItems.LASER_POINTER);
+        player.setItemInHand(InteractionHand.MAIN_HAND, plain);
+        helper.assertTrue(plain.use(helper.getLevel(), player, InteractionHand.MAIN_HAND).consumesAction(), "the plain lens could not be used");
+        tickUse(player, 21);
+        player.releaseUsingItem();
+        helper.assertFalse(LaserPointerItem.measures(plain, helper.getLevel()), "a plain lens counts as measuring");
+        helper.assertTrue(!plain.has(component), "a lens without Constructor's Touch stored a measurement: " + plain.get(component));
+
+        ItemStack touched = new ItemStack(TweaksItems.LASER_POINTER);
+        touched.enchant(helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
+                .getOrThrow(com.simplebuilding.enchantment.ModEnchantments.CONSTRUCTORS_TOUCH), 1);
+        player.setItemInHand(InteractionHand.MAIN_HAND, touched);
+        helper.assertTrue(LaserPointerItem.measures(touched, helper.getLevel()), "a lens with Constructor's Touch does not count as measuring");
+        helper.assertTrue(touched.use(helper.getLevel(), player, InteractionHand.MAIN_HAND).consumesAction(), "the enchanted lens could not be used");
+        tickUse(player, 1);
+        com.simplebuilding.component.LensMeasurement first = touched.get(component);
+        helper.assertTrue(first != null, "the enchanted lens stored no measurement after the first tick");
+        helper.assertTrue(Math.abs(first.distance() - com.simplebuilding.component.LensMeasurement.round(stoneDistance)) < 0.001f,
+                "measured " + first.distance() + " blocks to the stone instead of " + stoneDistance);
+        helper.assertValueEqual(first.heightDifference(), 1, "height difference to the stone one block above the feet");
+        helper.assertValueEqual(first.target(), Blocks.STONE.getDescriptionId(), "measured target");
+
+        // Neues Ziel einen Block naeher: das Loslassen misst noch einmal.
+        helper.setBlock(nearer, Blocks.COBBLESTONE);
+        player.releaseUsingItem();
+        com.simplebuilding.component.LensMeasurement last = touched.get(component);
+        helper.assertTrue(last != null && last.target().equals(Blocks.COBBLESTONE.getDescriptionId()),
+                "releasing the lens did not record the new target: " + last);
+        helper.assertTrue(Math.abs(last.distance() - com.simplebuilding.component.LensMeasurement.round(stoneDistance - 1.0)) < 0.001f,
+                "measured " + last.distance() + " blocks to the nearer block instead of " + (stoneDistance - 1.0));
+        helper.setBlock(nearer, Blocks.AIR);
+        helper.setBlock(stone, Blocks.AIR);
+        helper.succeed();
+    }
+
     private static final net.minecraft.world.entity.EntityType<? extends Mob> PIG_TYPE = EntityTypes.PIG;
 
     private static void lensDrainsChargeEvenWhenItPointsIntoTheAir(GameTestHelper helper) {

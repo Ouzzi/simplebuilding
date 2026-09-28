@@ -1,7 +1,14 @@
 package com.simplebuilding.tweaks.item;
 
+import com.simplebuilding.component.LensMeasurement;
+import com.simplebuilding.component.ModDataComponentTypes;
 import com.simplebuilding.tweaks.SimpleTweaks;
+import com.simplebuilding.util.EnchantmentHelper;
+import java.util.function.Consumer;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -9,6 +16,8 @@ import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
@@ -27,6 +36,12 @@ import net.minecraft.world.phys.Vec3;
  * {@link #EFFECT_COST}. Die Linse zerbricht nie, sie wird nur leer und
  * strahlt dann nicht mehr. Aufladen im Amboss mit Redstone, ohne Stufenkosten: ein voller Stapel
  * (64) laedt ganz auf ({@link #CHARGE_PER_REDSTONE} je Staub).
+ *
+ * <p>Messen (Besitzer 2026-09-28): ohne Verzauberung zeigt das HUD neben dem Fadenkreuz nur
+ * "Laser". Mit Beruehrung des Konstrukteurs (Amboss + Buch, wie beim Geschwindigkeitsmesser)
+ * wird die Linse zum Entfernungsmesser: das HUD zeigt Entfernung, Zielblock und Hoehe, und der
+ * Server schreibt die letzte Messung ({@link LensMeasurement}) in die Linse - beim ersten Tick,
+ * danach je Sekunde und beim Loslassen; der Tooltip zeigt sie.
  */
 public class LaserPointerItem extends Item implements com.simplebuilding.items.AnvilRechargeable {
     /** Volle Ladung (= Haltbarkeit). */
@@ -122,24 +137,18 @@ public class LaserPointerItem extends Item implements com.simplebuilding.items.A
         // Je angefangene Sekunde, beginnend mit dem ersten Tick: jeder Weg, die Linse zu benutzen,
         // kostet Ladung - auch Antippen und Zeigen ins Leere.
         int usedTicks = getUseDuration(stack, user) - ticksRemaining;
+        HitResult target = aim(player);
         if (usedTicks >= 0 && usedTicks % 20 == 0) {
             drain(player, stack, BEAM_COST);
+            recordMeasurement(player, stack, target);
         }
-        double range = effectRange(player);
-        HitResult hit = player.pick(range, 1.0f, false);
-        Vec3 eye = player.getEyePosition();
-        Vec3 view = player.getViewVector(1.0f);
-        double reach = Math.min(LaserBeam.ENTITY_RANGE, hit.getType() == HitResult.Type.MISS ? range : hit.getLocation().distanceTo(eye));
-        EntityHitResult entityHit = ProjectileUtil.getEntityHitResult(player, eye, eye.add(view.scale(reach)),
-                player.getBoundingBox().expandTowards(view.scale(reach)).inflate(1.0),
-                entity -> entity instanceof LivingEntity && !entity.isSpectator() && entity.isPickable(), reach * reach);
         boolean hum = usedTicks % LaserBeam.HUM_PERIOD == 0;
-        if (entityHit != null) {
+        if (target instanceof EntityHitResult entityHit) {
             if (hum) {
                 LaserBeam.hum(player, entityHit.getLocation());
             }
             LaserBeam.beamAtEntity(player, stack, entityHit);
-        } else if (hit instanceof BlockHitResult blockHit && hit.getType() == HitResult.Type.BLOCK) {
+        } else if (target instanceof BlockHitResult blockHit && target.getType() == HitResult.Type.BLOCK) {
             if (hum) {
                 LaserBeam.hum(player, blockHit.getLocation());
             }
@@ -149,11 +158,79 @@ public class LaserPointerItem extends Item implements com.simplebuilding.items.A
         }
     }
 
+    /**
+     * Worauf der Strahl zeigt: das erste Lebewesen innerhalb {@link LaserBeam#ENTITY_RANGE} vor dem
+     * Block, sonst der Block ({@link #effectRange}), sonst ein Fehlschuss.
+     */
+    public static HitResult aim(ServerPlayer player) {
+        double range = effectRange(player);
+        HitResult hit = player.pick(range, 1.0f, false);
+        Vec3 eye = player.getEyePosition();
+        Vec3 view = player.getViewVector(1.0f);
+        double reach = Math.min(LaserBeam.ENTITY_RANGE, hit.getType() == HitResult.Type.MISS ? range : hit.getLocation().distanceTo(eye));
+        EntityHitResult entityHit = ProjectileUtil.getEntityHitResult(player, eye, eye.add(view.scale(reach)),
+                player.getBoundingBox().expandTowards(view.scale(reach)).inflate(1.0),
+                entity -> entity instanceof LivingEntity && !entity.isSpectator() && entity.isPickable(), reach * reach);
+        return entityHit != null ? entityHit : hit;
+    }
+
+    /** Ob die Linse misst: nur mit Beruehrung des Konstrukteurs. */
+    public static boolean measures(ItemStack stack, Level level) {
+        return EnchantmentHelper.hasConstructorsTouch(stack, level);
+    }
+
+    /**
+     * Schreibt die Messung zu {@code target} als {@link ModDataComponentTypes#LENS_MEASUREMENT} in
+     * die Linse - nur mit Beruehrung des Konstrukteurs und nur bei einem Treffer. Liefert, ob
+     * geschrieben wurde.
+     */
+    public static boolean recordMeasurement(ServerPlayer player, ItemStack stack, HitResult target) {
+        if (target == null || target.getType() == HitResult.Type.MISS || !measures(stack, player.level())) {
+            return false;
+        }
+        int targetY;
+        String key;
+        if (target instanceof EntityHitResult entityHit) {
+            targetY = Mth.floor(entityHit.getEntity().getY());
+            key = entityHit.getEntity().getType().getDescriptionId();
+        } else if (target instanceof BlockHitResult blockHit) {
+            targetY = blockHit.getBlockPos().getY();
+            key = player.level().getBlockState(blockHit.getBlockPos()).getBlock().getDescriptionId();
+        } else {
+            return false;
+        }
+        float distance = LensMeasurement.round(target.getLocation().distanceTo(player.getEyePosition()));
+        stack.set(ModDataComponentTypes.LENS_MEASUREMENT,
+                new LensMeasurement(distance, targetY - Mth.floor(player.getY()), key));
+        return true;
+    }
+
     @Override
     public boolean releaseUsing(ItemStack stack, Level level, LivingEntity user, int ticksRemaining) {
         if (user instanceof ServerPlayer player) {
             LaserBeam.reset(player);
+            if (canBeam(stack)) {
+                recordMeasurement(player, stack, aim(player));
+            }
         }
         return super.releaseUsing(stack, level, user, ticksRemaining);
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> lines, TooltipFlag flag) {
+        LensMeasurement last = stack.get(ModDataComponentTypes.LENS_MEASUREMENT);
+        if (last != null) {
+            lines.accept(Component.translatable("tooltip.simplebuilding.laser_pointer.last_measured",
+                    String.format("%.1f", last.distance())).withStyle(ChatFormatting.GRAY));
+            lines.accept(Component.translatable("tooltip.simplebuilding.laser_pointer.last_target",
+                    Component.translatable(last.target()), signed(last.heightDifference())).withStyle(ChatFormatting.DARK_GRAY));
+        } else if (!stack.isEnchanted()) {
+            lines.accept(Component.translatable("tooltip.simplebuilding.laser_pointer.touch_hint").withStyle(ChatFormatting.DARK_GRAY));
+        }
+    }
+
+    /** Hoehenunterschied mit Vorzeichen: "+3", "-2", "0". */
+    public static String signed(int value) {
+        return value > 0 ? "+" + value : Integer.toString(value);
     }
 }

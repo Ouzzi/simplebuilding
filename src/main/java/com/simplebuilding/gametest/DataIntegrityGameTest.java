@@ -160,4 +160,9 @@ public final class DataIntegrityGameTest {
     public void everyPlayerFacingTextHasEnglishAndGermanTranslations(GameTestHelper helper) {
         DataIntegrityTests.everyPlayerFacingTextHasEnglishAndGermanTranslations(helper);
     }
+
+    @GameTest
+    public void toolNamesCarryNoLeftoverOldNames(GameTestHelper helper) {
+        DataIntegrityTests.toolNamesCarryNoLeftoverOldNames(helper);
+    }
 }

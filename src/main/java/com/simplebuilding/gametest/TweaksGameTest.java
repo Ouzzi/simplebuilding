@@ -281,6 +281,11 @@ public final class TweaksGameTest {
     }
 
     @GameTest
+    public void theLensRecordsTheLastMeasurementOnlyWithConstructorsTouch(GameTestHelper helper) {
+        TweaksTests.theLensRecordsTheLastMeasurementOnlyWithConstructorsTouch(helper);
+    }
+
+    @GameTest
     public void theLensDwellTimeGrowsModeratelyWithDistance(GameTestHelper helper) {
         TweaksTests.theLensDwellTimeGrowsModeratelyWithDistance(helper);
     }

@@ -109,8 +109,8 @@ Verlauf im Detail: git log.
 - [x] Elytra-Pad 5 Stufen (Elytra+Vorlage 1x1, Diamant 5x5, Netherit+Vorlage 16x16, Enderit 32x32, 128x128); Flypad neu: 3 Stufen aus Enderit-Druckplatte (Kern+Vorlage, +Enderit-Platte, 2x Stufe 2), 4x4x6 / 8x8x12 / 16x16x24; Magnet-Rezept " R "/"I  "/"CIL" (laeuft im Stufen-Agenten)
 - [x] Kupfer-Druckplatten: gewachste Varianten (Honigwabe, Axt schabt Wachs ab, wie Vanilla-Kupfer); Namen bleiben (Vanilla-Muster reicht); Kupferplatte: Abschalten dauert so lang wie Einschalten, Platte senkt sich sichtbar wie Vanilla (pressed-Modell); Creative-Tab aufraeumen + Vanilla-Druckplatten dazu (laeuft)
 - [x] Echo-Kompass -> "Echo Sounder" (Name), Partikel weiter gestreut (Nutzung + Landung), keine Perle mehr noetig, Rezept + Nugget oben (NNN/NRN/NEN); Laser zuendet auch TNT, verliert auch beim normalen Zielen Haltbarkeit; Velocity Gauge QAQ/NCN/NKN (Kupfer-Nuggets); Kerne in Beutekisten sehr selten (Enderit-Kern besonders) (laeuft)
-- [ ] Trank-Pad (laeuft): Wurftrank auf Netherit-Pad speichern, Effekt beim Drueberlaufen 30 s / 60 s / 120 s; Stufe I Netherit-Druckplatte + Lohenkopf (Lohe durch geladenen Creeper), II Enderit-Upgrade, III Enderit-Kern; alte Flypad-Texturen in Netherit-Palette
-- [ ] Easter Egg (laeuft): letzte Stufe -> Stufe 1 im Schmiedetisch = "Don't do it" (Erfolg "What have you done?"), naechste "Seriously?", Stufen 3/4 ausdenken, 5 = Pad-Name verschleiert + Texteffekte, 2x staerker; + Netherit -> "Funny Stick" (Partikel); Erfolge fuer 2x-Stufe-5 und Funny Stick
+- [x] Trank-Pad (laeuft): Wurftrank auf Netherit-Pad speichern, Effekt beim Drueberlaufen 30 s / 60 s / 120 s; Stufe I Netherit-Druckplatte + Lohenkopf (Lohe durch geladenen Creeper), II Enderit-Upgrade, III Enderit-Kern; alte Flypad-Texturen in Netherit-Palette
+- [x] Easter Egg (laeuft): letzte Stufe -> Stufe 1 im Schmiedetisch = "Don't do it" (Erfolg "What have you done?"), naechste "Seriously?", Stufen 3/4 ausdenken, 5 = Pad-Name verschleiert + Texteffekte, 2x staerker; + Netherit -> "Funny Stick" (Partikel); Erfolge fuer 2x-Stufe-5 und Funny Stick
 - [x] Laser (Amethystlinse, gepusht, Gate 3614/3614): in den Werkzeug-Tab; Vanilla-Name, Punktgroesse, Abstand der Meterzahl, Rezept (Eisen-Kern/Amethyst/Eisen-U/Redstone), Eis/Schnee schmelzen, Brennbares entzuenden, Seelenfeuer, Lagerfeuer, kein Netherportal, Ladung statt Bruch, Amboss-Aufladen mit Redstone ohne Level (64 = voll)
 - [x] JEI-Infoseiten fuer Items ohne Rezept (+ Test)
 - [x] Blaupausen-Code: Formen und Variablen
@@ -121,13 +121,18 @@ Verlauf im Detail: git log.
 - [x] Laser: Sounds am Auftreffpunkt (Brummen / Zischen bei Brennbarem), Zeit steigt mit Entfernung (~3 s nah, ~20 s bei 200 m), Lebewesen anzuendbar (2x Zeit, PvP beachten) - im Echo-Sounder-Agenten
 - [x] Tabs: SimpleTools-Kompasszeile (Kompass, Bergungskompass, Echo Sounder, Velocity Gauge, Erzdetektor, Magnet, Rotator, Amethystlinse, Oktant) + farbige Oktanten; Spawn-Elytra hinter die Elytra-Pads - im Kupfer-Agenten
 - [x] Kartografietisch: signierte Blaupause oben -> Vorschau im Kartenfeld wie im Tooltip (laeuft)
-- [ ] Rotator wie Linse (nie kaputt, Amboss + 16 Enderperlen = voll), zweiter Ender-Sound + Teleport-Partikel; Magnet-Rezept Lapis rechts Mitte; Erzdetektor-Rezept 6 Echoscherben (4 Ecken dazu); Erzdetektor als Kompass (lila Nadel zum naechsten Erz, heller je naeher, viel weniger Partikel, Nebenhand leiser/schwaecher/langsamer) (laeuft)
+- [x] Rotator wie Linse (nie kaputt, Amboss + 16 Enderperlen = voll), zweiter Ender-Sound + Teleport-Partikel; Magnet-Rezept Lapis rechts Mitte; Erzdetektor-Rezept 6 Echoscherben (4 Ecken dazu); Erzdetektor als Kompass (lila Nadel zum naechsten Erz, heller je naeher, viel weniger Partikel, Nebenhand leiser/schwaecher/langsamer) (laeuft)
 - [x] Rucksack: Shift-Tooltip mit Inhalts-Vorschau wie Buendel (laeuft)
-- [ ] Laufwerk C voll gewesen: 60 gemergte Agenten-Arbeitskopien entfernt
-- [ ] Velocity-Gauge-HUD als Tacho (Nadel unten links -> unten rechts), Titel "Velocity"; Namen/Texte aller Werkzeuge konsistent; Linse: normal nur "Laser", Entfernung nur verzaubert + letzte Messung gespeichert (laeuft)
-- [ ] Buendel schliesst wie Vanilla; Enderit-Meissel zusaetzliche Bloecke (laeuft)
-- [ ] Texturen: Enderit-Vorlage (Innenteil dunkler, Glimmer), Kerne, Lederbogen, Diamant-Kiesel runder (laeuft)
-- [ ] Rotator/Magnet/Erzdetektor ohne HUD-Overlay (im Rotator-Agenten)
+- [x] Laufwerk C voll gewesen: 60 gemergte Agenten-Arbeitskopien entfernt
+- [x] Velocity-Gauge-HUD als Tacho (Nadel unten links -> unten rechts), Titel "Velocity"; Namen/Texte aller Werkzeuge konsistent; Linse: normal nur "Laser", Entfernung nur verzaubert + letzte Messung gespeichert (laeuft)
+- [x] Buendel schliesst wie Vanilla; Enderit-Meissel zusaetzliche Bloecke (laeuft)
+- [x] Texturen: Enderit-Vorlage (Innenteil dunkler, Glimmer), Kerne, Lederbogen, Diamant-Kiesel runder (laeuft)
+- [x] Rotator/Magnet/Erzdetektor ohne HUD-Overlay (im Rotator-Agenten)
+- [ ] Erfolge/Advancements mit Hinweisen fuer den naechsten Schritt (ganzer Baum) (laeuft)
+- [ ] Schmiedevorlagen platzierbar (flach, 3D, wasserfest), Leucht-Transformation am Boden in 3 Schlaegen, Hinweis-Partikel bei Glowstone/Leuchttinte (laeuft)
+- [ ] Anfaengerbuch beim Erstbeitritt + Themenbuecher an der Werkbank (laeuft)
+- [ ] Trank-Pad ins Easter Egg aufnehmen (Endstufe doppelt so lange Wirkdauer)
+- [ ] 26.3-Absturz Hammer+Ofen: kein Code-Fehler, Build waehrend laufendem Client (Regel gemerkt)
 
 ## Wartet auf den Besitzer
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs

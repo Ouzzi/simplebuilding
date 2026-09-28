@@ -4,8 +4,12 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.simplebuilding.tweaks.SimpleTweaks;
+import com.simplebuilding.tweaks.item.LaserPointerItem;
 import com.simplebuilding.tweaks.network.TweaksNetwork;
 import java.util.UUID;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
@@ -103,27 +107,42 @@ public final class LaserRenderer {
         buffer.addVertex(pose, x1, y2, 0).setColor(r, g, b, 255);
     }
 
-    /**
-     * Entfernung neben dem Fadenkreuz, solange man zielt (Simple Tweaks: InGameScreenHudMixin). Misst
-     * bis zum Laserpunkt ({@link TweaksClient#laserHit}, volle Laser-Reichweite) - frueher bis
-     * {@code client.hitResult}, das an der Blockreichweite (~4,5 Bloecke) endet (Audit #34).
-     */
-    /** Abstand der Entfernungszahl zur Fadenkreuzmitte (GUI-Pixel; frueher 10). */
+    /** Abstand der Anzeige zur Fadenkreuzmitte (GUI-Pixel; frueher 10). */
     public static final int HUD_GAP = 13;
+    private static final int COLOR_LASER = 0xFFFF5555;
+    private static final int COLOR_READOUT = 0xFFAAAAAA;
 
+    /**
+     * Anzeige neben dem Fadenkreuz, solange man zielt (Simple Tweaks: InGameScreenHudMixin).
+     * Ohne Verzauberung nur "Laser" (Besitzer 2026-09-28); mit Beruehrung des Konstrukteurs
+     * ({@link LaserPointerItem#measures}) die Entfernung bis zum Laserpunkt (volle Laser-Reichweite,
+     * nicht die Blockreichweite von {@code client.hitResult}, Audit #34), darunter grau der Zielblock
+     * und seine Hoehe (Y und Unterschied zur eigenen Fusshoehe).
+     */
     public static void renderHud(GuiGraphics graphics) {
         Minecraft client = Minecraft.getInstance();
         LocalPlayer me = client.player;
         if (me == null || !TweaksClient.isAimingLaser(me)) {
             return;
         }
-        float partialTick = client.getDeltaTracker().getGameTimeDeltaPartialTick(true);
-        Vec3 hit = TweaksClient.laserHit(me, partialTick);
-        if (hit == null) {
+        int x = graphics.guiWidth() / 2 + HUD_GAP;
+        int y = graphics.guiHeight() / 2 - 4;
+        if (!LaserPointerItem.measures(me.getUseItem(), me.level())) {
+            graphics.drawString(client.font, Component.translatable("hud.simplebuilding.laser_pointer.laser"), x, y, COLOR_LASER, true);
             return;
         }
-        double distance = hit.distanceTo(me.getEyePosition(partialTick));
-        String text = String.format("%.1fm", distance);
-        graphics.drawString(client.font, text, graphics.guiWidth() / 2 + HUD_GAP, graphics.guiHeight() / 2 - 4, 0xFFFF5555, true);
+        float partialTick = client.getDeltaTracker().getGameTimeDeltaPartialTick(true);
+        HitResult hit = me.pick(SimpleTweaks.effectiveValues().laserRange(), partialTick, false);
+        if (!(hit instanceof BlockHitResult blockHit) || hit.getType() == HitResult.Type.MISS) {
+            graphics.drawString(client.font, Component.translatable("hud.simplebuilding.laser_pointer.distance", "--"), x, y, COLOR_LASER, true);
+            return;
+        }
+        double distance = hit.getLocation().distanceTo(me.getEyePosition(partialTick));
+        graphics.drawString(client.font, Component.translatable("hud.simplebuilding.laser_pointer.distance",
+                String.format("%.1f", distance)), x, y, COLOR_LASER, true);
+        BlockPos pos = blockHit.getBlockPos();
+        graphics.drawString(client.font, me.level().getBlockState(pos).getBlock().getName(), x, y + 10, COLOR_READOUT, true);
+        graphics.drawString(client.font, Component.translatable("hud.simplebuilding.laser_pointer.height", pos.getY(),
+                LaserPointerItem.signed(pos.getY() - Mth.floor(me.getY()))), x, y + 20, COLOR_READOUT, true);
     }
 }

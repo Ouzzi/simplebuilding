@@ -131,6 +131,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_every_player_facing_text_has_english_and_german_translations", DataIntegrityTests::everyPlayerFacingTextHasEnglishAndGermanTranslations)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_tool_names_carry_no_leftover_old_names", DataIntegrityTests::toolNamesCarryNoLeftoverOldNames)
+                    .build(),
             GameTestSpec.named("tool_behaviour_game_test_sledgehammer_breaks_three_by_three_around_origin", ToolBehaviourTests::sledgehammerBreaksThreeByThreeAroundOrigin)
                     .rotation(Rotation.NONE)
                     .build(),
@@ -156,6 +158,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("tool_behaviour_game_test_shears_turn_placed_wool_into_four_string_and_wear_by_one", ToolBehaviourTests::shearsTurnPlacedWoolIntoFourStringAndWearByOne)
                     .build(),
             GameTestSpec.named("chisel_game_test_conversion_tables_are_pinned_entry_by_entry", ChiselTests::conversionTablesArePinnedEntryByEntry)
+                    .build(),
+            GameTestSpec.named("chisel_game_test_enderite_tier_walks_the_end_stone_palettes", ChiselTests::enderiteTierWalksTheEndStonePalettes)
                     .build(),
             GameTestSpec.named("trade_and_migration_game_test_mod_trades_are_merged_into_the_villager_trade_pools", TradeAndMigrationTests::modTradesAreMergedIntoTheVillagerTradePools)
                     .build(),
@@ -588,6 +592,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("bundle_wiring_game_test_netherite_bundle_on_the_ground_survives_fire_and_explosions", BundleWiringTests::netheriteBundleOnTheGroundSurvivesFireAndExplosions)
                     .build(),
             GameTestSpec.named("bundle_wiring_game_test_bundle_packets_only_touch_the_slots_they_own", BundleWiringTests::bundlePacketsOnlyTouchTheSlotsTheyOwn)
+                    .build(),
+            GameTestSpec.named("bundle_wiring_game_test_bundles_close_like_vanilla_when_picked_up_or_left", BundleWiringTests::bundlesCloseLikeVanillaWhenPickedUpOrLeft)
                     .build(),
             GameTestSpec.named("bundle_wiring_game_test_anvil_blanks_the_result_for_colour_palette_without_master_builder", BundleWiringTests::anvilBlanksTheResultForColourPaletteWithoutMasterBuilder)
                     .build(),
@@ -1257,6 +1263,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("tweaks_game_test_the_lens_charge_runs_down_but_the_lens_never_breaks", TweaksTests::theLensChargeRunsDownButTheLensNeverBreaks)
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_lens_drains_charge_even_when_it_points_into_the_air", TweaksTests::theLensDrainsChargeEvenWhenItPointsIntoTheAir)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_the_lens_records_the_last_measurement_only_with_constructors_touch", TweaksTests::theLensRecordsTheLastMeasurementOnlyWithConstructorsTouch)
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_lens_dwell_time_grows_moderately_with_distance", TweaksTests::theLensDwellTimeGrowsModeratelyWithDistance)
                     .build(),
