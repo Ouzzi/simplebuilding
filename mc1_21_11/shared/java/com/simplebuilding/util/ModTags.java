@@ -118,7 +118,8 @@ public class ModTags {
 
         /**
          * Items the attractor (magnet) never pulls - for modpacks: display items, markers or
-         * quest items of other mods that lie around as item entities. Empty by default; the
+         * quest items of other mods that lie around as item entities. By default only the
+         * creative-only structure void (it shows the format and keeps the check testable); the
          * attractor also leaves items alone that can never be picked up, that belong to another
          * player, and death drops of other players ({@code com.simplebuilding.util.AttractorFilter}).
          */
@@ -126,7 +127,8 @@ public class ModTags {
 
         /**
          * Items that may not go into a backpack slot, on top of the built-in rule (no backpacks, no
-         * shulker boxes or anything else that refuses to sit inside a container item). Empty by default.
+         * shulker boxes or anything else that refuses to sit inside a container item). By default
+         * only the creative-only structure void.
          */
         public static final TagKey<Item> NOT_ALLOWED_IN_BACKPACK = createTag("not_allowed_in_backpack");
 
@@ -152,8 +154,8 @@ public class ModTags {
 
         /**
          * Blocks the building wand never places - neither on a plane nor from a blueprint or an
-         * octant fill. Empty by default; for modpacks that want to keep e.g. a mod's machine or a
-         * valuable block out of mass placement.
+         * octant fill. By default only the creative-only structure void; for modpacks that want to
+         * keep e.g. a mod's machine or a valuable block out of mass placement.
          */
         public static final TagKey<Block> BUILDING_WAND_BLACKLIST = createTag("building_wand_blacklist");
 

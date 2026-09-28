@@ -935,7 +935,8 @@ window.WIKI_DATA = {
         "src/main/generated/data/simplebuilding/tags/item/chisel_and_mining_tools.json",
         "src/main/generated/data/simplebuilding/enchantment/constructors_touch.json",
         "src/main/resources/data/minecraft/tags/enchantment/in_enchanting_table.json",
-        "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        "src/main/resources/assets/simplebuilding/lang/de_de.json",
+        "common/src/shared/java/com/simplebuilding/util/AttractorFilter.java"
       ],
       "en": {
         "title": "Magnet: Collecting Items From a Distance",
@@ -948,7 +949,8 @@ window.WIKI_DATA = {
           "Only a Magnet enchanted that way can learn a filter: right-click an item frame holding the item you want. After that the Magnet attracts only that item type.",
           "Sneak + right-click (not on an item frame) clears the filter again; the tooltip always shows whether a filter is active and which one it is.",
           "The Range enchantment would add 2 blocks per level according to the code, but there is no way to get it onto the Magnet: the Magnet is not one of the enchantment's allowed items, so the anvil refuses it, and Range is not offered at the enchanting table either.",
-          "The Magnet has no durability, does not attract experience orbs, and has no right-click effect of its own on animals or monsters."
+          "The Magnet has no durability, does not attract experience orbs, and has no right-click effect of its own on animals or monsters.",
+          "The Magnet leaves alone: items that can never be picked up (pickup delay 32767 - other mods' display and pedestal items), items reserved for another player (vanilla's Owner field), the death drops of other players (the mod tags every item a dying player drops; your own death drop is still pulled) and items in the item tag simplebuilding:attractor_ignore."
         ]
       },
       "de": {
@@ -962,7 +964,8 @@ window.WIKI_DATA = {
           "Nur ein so verzauberter Magnet kann einen Filter lernen: Rechtsklick auf einen Rahmen, in dem das gewünschte Item steckt. Danach zieht der Magnet ausschließlich diese Item-Sorte an.",
           "Schleichen + Rechtsklick (nicht auf einen Rahmen) löscht den Filter wieder; der Tooltip zeigt jederzeit, ob und welcher Filter aktiv ist.",
           "Die Verzauberung Reichweite würde laut Code 2 Blöcke je Stufe hinzufügen, lässt sich aber weder am Zaubertisch noch am Amboss auf den Magneten legen, weil der Magnet nicht zu ihren erlaubten Items gehört.",
-          "Der Magnet hat keine Haltbarkeit, zieht keine Erfahrungskugeln an und hat selbst keine Rechtsklick-Wirkung auf Tiere oder Monster."
+          "Der Magnet hat keine Haltbarkeit, zieht keine Erfahrungskugeln an und hat selbst keine Rechtsklick-Wirkung auf Tiere oder Monster.",
+          "Der Magnet lässt in Ruhe: Items, die nie aufgehoben werden können (Aufhebe-Verzögerung 32767 – Ausstellungs- und Sockel-Items anderer Mods), Items, die einem anderen Spieler vorbehalten sind (Vanillas Owner-Feld), die Todes-Drops anderer Spieler (die Mod markiert jedes Item, das ein sterbender Spieler fallen lässt; der eigene Todes-Drop wird weiter angezogen) und Items aus dem Item-Tag simplebuilding:attractor_ignore."
         ]
       }
     },
@@ -1939,8 +1942,8 @@ window.WIKI_DATA = {
           "Where to find them: enchanted books sit in chests (woodland mansion, dungeon, abandoned mineshaft, nether fortress, bastion, ancient city, end city, stronghold library) and with traders (toolsmith level 4/5, librarian level 4/5, wandering trader); the loot entries hang off the enableLootTableChanges option, the traders off enableVillagerTrades and enableWanderingTrades respectively.",
           "The end city treasure chest also holds a Diamond Sledgehammer (weight 8) with a random enchantment (EnchantRandomlyFunction.randomEnchantment()).",
           "In the creative inventory there is a book at max level for each of the six enchantments; on Fabric, NeoForge and Forge every book has its own texture (select model minecraft:enchanted_book with the property simplebuilding:enchant_type).",
-          "The mining code lives once in the shared tree and is the same on Fabric, Forge and NeoForge. In the 1.21.11 branch MiningUtils differs only in how it reaches the ore tags (BlockTags instead of BlockItemTags) - VeinMinerUsageEvent asks MiningUtils.isOre and is byte-identical on both lines - and MultiBlockBreakingSupport differs in its render-state imports, in the BlockBreakingRenderState constructor it calls and in how it reads the position of vanilla's crack (a blockPos field instead of the record accessor); the trader pools are code there (ModTradeDefinitions) with the same weights.",
-          "Protection: Vein Miner, Strip Miner and the sledgehammer skip every extra block the player may not interact with (Level.mayInteract - vanilla spawn protection and the world border). The block you actually hit is vanilla's, and claim mods hook in through the loader's break events as before."
+          "The mining code lives once in the shared tree and is the same on Fabric, Forge and NeoForge. In the 1.21.11 branch MiningUtils is identical (the ore check asks the tag simplebuilding:vein_miner_ores on both lines) and VeinMinerUsageEvent is byte-identical as well; MultiBlockBreakingSupport differs in its render-state imports, in the BlockBreakingRenderState constructor it calls and in how it reads the position of vanilla's crack (a blockPos field instead of the record accessor); the trader pools are code there (ModTradeDefinitions) with the same weights.",
+          "Protection: Vein Miner, Strip Miner and the sledgehammer skip every extra block the player may not interact with (Level.mayInteract - vanilla spawn protection and the world border), and they break each extra block through ServerPlayerGameMode#destroyBlock, which fires the loader's break event for it - a claim mod refusing one block keeps exactly that block (see Modpacks and servers)."
         ]
       },
       "de": {
@@ -1961,8 +1964,8 @@ window.WIKI_DATA = {
           "Fundorte: verzauberte Bücher liegen in Truhen (Waldanwesen, Verlies, verlassene Mine, Netherfestung, Bastion, Antike Stadt, Endsiedlung, Festungsbibliothek) und bei Händlern (Werkzeugschmied Stufe 4/5, Bibliothekar Stufe 4/5, Wanderhändler); die Loot-Einträge hängen an der Option enableLootTableChanges, die Händler an enableVillagerTrades bzw. enableWanderingTrades.",
           "Die Endsiedlungs-Truhe enthält außerdem einen Diamant-Vorschlaghammer (Gewicht 8) mit Zufallsverzauberung (EnchantRandomlyFunction.randomEnchantment()).",
           "Im Kreativ-Inventar liegt zu jeder der sechs Verzauberungen ein Buch auf Höchststufe; auf Fabric, NeoForge und Forge hat jedes Buch eine eigene Textur (Select-Modell minecraft:enchanted_book mit Property simplebuilding:enchant_type).",
-          "Der Abbau-Code liegt einmal im gemeinsamen Baum und ist auf Fabric, Forge und NeoForge derselbe. Im 1.21.11-Zweig unterscheidet sich MiningUtils nur im Zugriff auf die Erz-Tags (BlockTags statt BlockItemTags) – VeinMinerUsageEvent fragt MiningUtils.isOre und ist auf beiden Linien Byte für Byte gleich –, MultiBlockBreakingSupport zusätzlich in den Render-State-Importen, im Aufruf des BlockBreakingRenderState-Konstruktors, im Lesen der Position des Vanilla-Risses (Feld blockPos statt Record-Accessor) und in einem Kommentar (LevelRenderEvents gegen WorldRenderEvents); die Händler-Pools liegen dort als Code (ModTradeDefinitions) mit denselben Gewichten vor.",
-          "Schutz: Aderabbau, Tunnelgräber und Vorschlaghammer überspringen jeden Zusatzblock, an dem der Spieler nicht interagieren darf (Level.mayInteract - Vanilla-Spawnschutz und Weltgrenze). Den angeschlagenen Block selbst bricht Vanilla; Claim-Mods greifen wie bisher über die Abbau-Events des Loaders."
+          "Der Abbau-Code liegt einmal im gemeinsamen Baum und ist auf Fabric, Forge und NeoForge derselbe. Im 1.21.11-Zweig ist MiningUtils gleich (die Erzprüfung fragt auf beiden Linien den Tag simplebuilding:vein_miner_ores) und VeinMinerUsageEvent ebenfalls Byte für Byte; MultiBlockBreakingSupport unterscheidet sich in den Render-State-Importen, im Aufruf des BlockBreakingRenderState-Konstruktors, im Lesen der Position des Vanilla-Risses (Feld blockPos statt Record-Accessor) und in einem Kommentar (LevelRenderEvents gegen WorldRenderEvents); die Händler-Pools liegen dort als Code (ModTradeDefinitions) mit denselben Gewichten vor.",
+          "Schutz: Aderabbau, Tunnelgräber und Vorschlaghammer überspringen jeden Zusatzblock, an dem der Spieler nicht interagieren darf (Level.mayInteract - Vanilla-Spawnschutz und Weltgrenze), und brechen jeden Zusatzblock über ServerPlayerGameMode#destroyBlock, das dafür das Abbau-Event des Loaders feuert - lehnt eine Claim-Mod einen Block ab, bleibt genau dieser stehen (siehe Modpacks und Server)."
         ]
       }
     },
@@ -2499,7 +2502,8 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "mc1_21_11/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
         "common/src/shared/java/com/simplebuilding/gametest/ConfigOptionTests.java",
-        "docs/LOOT-BALANCE.md"
+        "docs/LOOT-BALANCE.md",
+        "common/src/shared/java/com/simplebuilding/loot/LootInjection.java"
       ],
       "en": {
         "title": "Loot Balance",
@@ -2512,7 +2516,8 @@ window.WIKI_DATA = {
           "Ruined portals roll 0 to 1 time from Netherite Nuggets 1-2 weight 3, Gold Chisel 3, Netherite Carrot 2, empty 12.",
           "Fishing: every treasure catch rolls the mod pool once more - Fast Chiseling I book 3, Constructor's Touch I book 2, Deep Pockets I book 2, Linear I book 2, 1-3 Diamond Pebbles 4, empty 20 - so roughly two treasure catches in five bring an extra mod item.",
           "Building cores are very rare in chests (owner 2026-09-27); each sits in a pool of its own with one chance per chest: Iron Core 0.8 % per woodland mansion chest, Gold Core 0.6 % per bastion chest (treasure room included) and 0.8 % per nether fortress chest, Diamond Core 0.8 % per ominous or rare vault, Netherite Core 4 % in the bastion treasure room only, Enderite Core 0.25 % per end city chest (the rarest, about 1-2 % per city). The Copper Core is in no chest (the Mason sells it).",
-          "Trades: no mod trade has a reputation discount above 0.2 (vanilla's value for books and enchanted tools), and every item a trader buys costs more emeralds to buy back than the trader pays, so buying and selling in a loop loses emeralds. The Diamond Core costs 3 netherite ingots at the mason, the Radius book 40 emeralds at the wandering trader, who also sells 3 Diamond Pebbles for 5 emeralds."
+          "Trades: no mod trade has a reputation discount above 0.2 (vanilla's value for books and enchanted tools), and every item a trader buys costs more emeralds to buy back than the trader pays, so buying and selling in a loop loses emeralds. The Diamond Core costs 3 netherite ingots at the mason, the Radius book 40 emeralds at the wandering trader, who also sells 3 Diamond Pebbles for 5 emeralds.",
+          "The mod's loot is not written into the vanilla tables: each vanilla table the mod has loot for gets one pool that rolls the mod's table simplebuilding:inject/<vanilla path> (for example data/simplebuilding/loot_table/inject/chests/end_city_treasure.json). A datapack changes or empties the mod's loot for a chest by overriding that file. The building core pools carry the loot condition simplebuilding:core_chance, which multiplies the chance with the config factor buildingCoreLootChanceMultiplier when the chest is rolled."
         ]
       },
       "de": {
@@ -2526,7 +2531,8 @@ window.WIKI_DATA = {
           "Portalruinen würfeln 0 bis 1 Mal aus Netheritklumpen 1–2 Gewicht 3, Goldmeißel 3, Netheritkarotte 2, leer 12.",
           "Angeln: Jeder Schatzfang würfelt den Mod-Pool einmal zusätzlich – Buch Schnelles Meißeln I 3, Buch Berührung des Konstrukteurs I 2, Buch Tiefe Taschen I 2, Buch Linear I 2, 1–3 Diamantkiesel 4, leer 20 –, sodass etwa zwei von fünf Schatzfängen ein zusätzliches Mod-Item bringen.",
           "Baukerne sind in Truhen sehr selten (Besitzer 27.09.2026); jeder liegt in einem eigenen Pool mit genau einer Chance pro Kiste: Eisenkern 0,8 % je Waldanwesen-Kiste, Goldkern 0,6 % je Bastion-Kiste (Schatzraum eingeschlossen) und 0,8 % je Netherfestungs-Kiste, Diamantkern 0,8 % je unheilvollem oder seltenem Tresor, Netheritkern 4 % nur im Bastion-Schatzraum, Enderitkern 0,25 % je Endsiedlungs-Kiste (der seltenste, etwa 1-2 % pro Stadt). Der Kupferkern liegt in keiner Kiste (den verkauft der Steinmetz).",
-          "Handel: Kein Mod-Angebot hat einen Rabattfaktor über 0,2 (der Vanilla-Wert für Bücher und verzauberte Werkzeuge), und jedes Item, das ein Händler ankauft, kostet beim Rückkauf mehr Smaragde, als er zahlt – Kaufen und Verkaufen im Kreis verliert also Smaragde. Der Diamantkern kostet beim Steinmetz 3 Netheritbarren, das Radius-Buch beim fahrenden Händler 40 Smaragde; dieser verkauft außerdem 3 Diamantkiesel für 5 Smaragde."
+          "Handel: Kein Mod-Angebot hat einen Rabattfaktor über 0,2 (der Vanilla-Wert für Bücher und verzauberte Werkzeuge), und jedes Item, das ein Händler ankauft, kostet beim Rückkauf mehr Smaragde, als er zahlt – Kaufen und Verkaufen im Kreis verliert also Smaragde. Der Diamantkern kostet beim Steinmetz 3 Netheritbarren, das Radius-Buch beim fahrenden Händler 40 Smaragde; dieser verkauft außerdem 3 Diamantkiesel für 5 Smaragde.",
+          "Die Beute der Mod wird nicht in die Vanilla-Tabellen geschrieben: jede Vanilla-Tabelle, für die die Mod Beute hat, bekommt einen Pool, der die Tabelle simplebuilding:inject/<Vanilla-Pfad> der Mod würfelt (zum Beispiel data/simplebuilding/loot_table/inject/chests/end_city_treasure.json). Ein Datapack ändert oder leert die Mod-Beute einer Truhe, indem es diese Datei überschreibt. Die Kern-Pools tragen die Loot-Bedingung simplebuilding:core_chance, die die Chance beim Würfeln mit dem Config-Faktor buildingCoreLootChanceMultiplier multipliert."
         ]
       }
     },
@@ -3054,6 +3060,58 @@ window.WIKI_DATA = {
           "Befehle (Operatoren): /killboats und /killcarts [standard|empty|all] entfernen unbesetzte Boote/Loren im Umkreis von 100 Blöcken; /simplebuilding tweaks ... ändert die Config im Spiel (früher /simpletweaks ...); ein eigener Weltspawn gilt sofort, nicht erst nach einem Neustart. Die Reichweite von /killboats und /killcarts ist tweaks.commands.killCommandRadius (Standard 100); jede Config-Option lässt sich auch mit /simplebuilding config set ändern.",
           "Jede Pad-Familie lässt sich im Config-Abschnitt tweaks.pads abschalten.",
           "Nicht alles steht im Rezeptbuch - manches ist versteckt."
+        ]
+      }
+    },
+    {
+      "id": "modpack",
+      "related": [
+        "simplebuilding:building_wand",
+        "simplebuilding:magnet",
+        "simplebuilding:vein_miner",
+        "simplebuilding:stone_chisel"
+      ],
+      "sources": [
+        "docs/MODPACK.md",
+        "common/src/shared/java/com/simplebuilding/platform/BuildGuard.java",
+        "common/src/shared/java/com/simplebuilding/util/BuildPermissions.java",
+        "src/main/java/com/simplebuilding/platform/FabricBuildGuard.java",
+        "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeBuildGuard.java",
+        "forge/src/main/java/com/simplebuilding/forge/ForgeBuildGuard.java",
+        "common/src/shared/java/com/simplebuilding/util/AttractorFilter.java",
+        "common/src/shared/java/com/simplebuilding/data/ChiselTables.java",
+        "common/src/shared/java/com/simplebuilding/data/SledgehammerUpgradeData.java",
+        "common/src/shared/java/com/simplebuilding/data/ModDataTables.java",
+        "common/src/shared/java/com/simplebuilding/loot/LootInjection.java",
+        "common/src/shared/java/com/simplebuilding/loot/CoreChanceCondition.java",
+        "common/src/shared/java/com/simplebuilding/stats/ModStats.java",
+        "common/src/shared/java/com/simplebuilding/util/ModTags.java",
+        "common/src/shared/java/com/simplebuilding/gametest/ModpackTests.java"
+      ],
+      "en": {
+        "title": "Modpacks and Servers",
+        "summary": "What pack authors and server admins can change without code: the mod asks claim and protection mods through the loader's own events for every block its multi-block tools touch, reads its chisel chains, sledgehammer upgrades and loot from datapack files, offers tags for Vein Miner, the building wand, the magnet and the backpack, fills the common c: tags with its materials and records three player statistics.",
+        "details": [
+          "Claims: the building wand (plane, line, bridge, roof, blueprint build, octant fill) fires the loader's place event for every cell, the amethyst lens beam the place event for the fire cell or the break event for the block it melts, dries, lights or primes; the sledgehammer, Vein Miner and Strip Miner break their extra blocks through ServerPlayerGameMode#destroyBlock, which fires the break event itself. A refused cell stays untouched and costs nothing.",
+          "Events per loader: Fabric PlayerBlockBreakEvents.BEFORE (Fabric has no place event, so placements are checked through the same event for the cell about to be filled); NeoForge BreakBlockEvent (BlockEvent.BreakEvent on 1.21.11) and BlockEvent.EntityPlaceEvent; Forge BlockEvent.BreakEvent and BlockEvent.EntityPlaceEvent. Spawn protection and the world border (Level.mayInteract) are checked as well.",
+          "Tags: simplebuilding:vein_miner_ores (#c:ores, the vanilla ores, nether quartz ore, nether gold ore, ancient debris, the mod ores), simplebuilding:building_wand_blacklist (never placed by the wand), simplebuilding:attractor_ignore (never pulled by the magnet), simplebuilding:not_allowed_in_backpack. The last three hold only structure void by default.",
+          "Common tags: c:ingots/enderite, c:nuggets/enderite and /netherite, c:raw_materials/enderite, c:gems/ender_quartz and /nihilith, c:dusts/astralit, c:storage_blocks/enderite, /cracked_diamond, /ender_quartz, /astralit and /nihilith, c:ores/nihilith and /astralit, c:ores_in_ground/end_stone, each also in its group tag.",
+          "Datapack tables: data/<namespace>/chisel_transformations/<name>.json holds the chisel and spatula chains per tier (stone, iron, diamond, netherite, enderite) and table (chisel, touch), data/<namespace>/sledgehammer_upgrades/<name>.json the machine upgrades (from, to, material, min_hammer, damage_per_hit, tier). They load on every datapack reload and are sent to each client, so the client and JEI show what the server does. The shipped files are generated from the built-in tables.",
+          "Loot: each vanilla chest the mod has loot for rolls the mod's table simplebuilding:inject/<vanilla path>; override that file to change the mod's loot for the chest.",
+          "Statistics (vanilla statistics screen, General): Blocks Placed by Building Wand, Blocks Chiseled and SimpleBuilding Teleports (spawn teleporter and echo sounder)."
+        ]
+      },
+      "de": {
+        "title": "Modpacks und Server",
+        "summary": "Was Modpack-Autoren und Server-Admins ohne Code ändern können: die Mod fragt Claim- und Schutz-Mods über die Loader-Events für jeden Block, den ihre Mehrblock-Werkzeuge anfassen, liest Meißel-Ketten, Vorschlaghammer-Aufwertungen und Beute aus Datapack-Dateien, bietet Tags für Aderabbau, Baustab, Magnet und Rucksack, trägt ihre Materialien in die gemeinsamen c:-Tags ein und zählt drei Spielerstatistiken.",
+        "details": [
+          "Claims: der Baustab (Fläche, Linie, Brücke, Dach, Blaupausen-Bau, Oktant-Füllung) feuert für jede Stelle das Platzier-Event des Loaders, der Amethyst-Linsenstrahl das Platzier-Event für die Feuerstelle bzw. das Abbau-Event für den Block, den er schmilzt, trocknet, entzündet oder scharf macht; Vorschlaghammer, Aderabbau und Tunnelgräber brechen ihre Zusatzblöcke über ServerPlayerGameMode#destroyBlock, das das Abbau-Event selbst feuert. Eine abgelehnte Stelle bleibt unberührt und kostet nichts.",
+          "Events je Loader: Fabric PlayerBlockBreakEvents.BEFORE (Fabric hat kein Platzier-Event, Platzierungen werden über dasselbe Event für die zu füllende Stelle geprüft); NeoForge BreakBlockEvent (BlockEvent.BreakEvent auf 1.21.11) und BlockEvent.EntityPlaceEvent; Forge BlockEvent.BreakEvent und BlockEvent.EntityPlaceEvent. Spawnschutz und Weltgrenze (Level.mayInteract) gelten zusätzlich.",
+          "Tags: simplebuilding:vein_miner_ores (#c:ores, die Vanilla-Erze, Netherquarzerz, Nethergolderz, Antiker Schutt, die Mod-Erze), simplebuilding:building_wand_blacklist (setzt der Baustab nie), simplebuilding:attractor_ignore (zieht der Magnet nie an), simplebuilding:not_allowed_in_backpack. Die letzten drei enthalten standardmäßig nur den Strukturleere-Block.",
+          "Gemeinsame Tags: c:ingots/enderite, c:nuggets/enderite und /netherite, c:raw_materials/enderite, c:gems/ender_quartz und /nihilith, c:dusts/astralit, c:storage_blocks/enderite, /cracked_diamond, /ender_quartz, /astralit und /nihilith, c:ores/nihilith und /astralit, c:ores_in_ground/end_stone, jeweils auch im Gruppen-Tag.",
+          "Datapack-Tabellen: data/<namespace>/chisel_transformations/<name>.json enthält die Meißel- und Spachtel-Ketten je Stufe (stone, iron, diamond, netherite, enderite) und Tabelle (chisel, touch), data/<namespace>/sledgehammer_upgrades/<name>.json die Maschinen-Aufwertungen (from, to, material, min_hammer, damage_per_hit, tier). Sie laden bei jedem Datapack-Reload und gehen an jeden Client, damit Client und JEI zeigen, was der Server tut. Die mitgelieferten Dateien sind aus den eingebauten Tabellen erzeugt.",
+          "Beute: jede Vanilla-Truhe, für die die Mod Beute hat, würfelt die Mod-Tabelle simplebuilding:inject/<Vanilla-Pfad>; wer die Datei überschreibt, ändert die Mod-Beute dieser Truhe.",
+          "Statistiken (Vanilla-Statistikbildschirm, Allgemein): Mit dem Baustab gesetzte Blöcke, Gemeißelte Blöcke und SimpleBuilding-Teleports (Spawn-Teleporter und Echolot)."
         ]
       }
     },
@@ -10495,7 +10553,8 @@ window.WIKI_DATA = {
             "Right-clicking animals or monsters: the Magnet itself does nothing (returns PASS); the mob's normal interaction runs exactly as it would without the Magnet.",
             "The Magnet is one of the items Constructor's Touch can go on (tag constructors_touch_enchantable): max level I, weight 1, cost 20 to 50, anvil cost 1. It can only be applied at the anvil with an enchanted book; books are available in the mod's creative tab, as chest loot (buried treasure, igloo, trial chamber reward common/rare) and from fishing treasure.",
             "A gametest (registered on all four targets, 200 tick budget) confirms the behaviour: a diamond 3 blocks away is pulled into the player's inventory, while a gold ingot 6 blocks away on both horizontal axes stays where it dropped (less than 0.5 blocks of drift allowed).",
-            "Behaviour is identical on every loader (Fabric and NeoForge, MC 26.2 as well as 1.21.11): MagnetItem is the same in both version lines, and the frame filter runs through the ItemFrameEntityMixin in simplebuilding.mixins.json, which both fabric.mod.json and neoforge.mods.toml of both lines load (the NeoForge modules take the Fabric resources folder as a source)."
+            "Behaviour is identical on every loader (Fabric and NeoForge, MC 26.2 as well as 1.21.11): MagnetItem is the same in both version lines, and the frame filter runs through the ItemFrameEntityMixin in simplebuilding.mixins.json, which both fabric.mod.json and neoforge.mods.toml of both lines load (the NeoForge modules take the Fabric resources folder as a source).",
+            "Left alone: items that can never be picked up (pickup delay 32767, the mark of other mods' display items), items reserved for another player (Owner), other players' death drops (entity tag simplebuilding.death_drop.<uuid>, set while a player's inventory drops on death) and the item tag simplebuilding:attractor_ignore (AttractorFilter)."
           ],
           "controls": [
             "Hold the Magnet in your main or off hand: attracts items in range.",
@@ -10542,7 +10601,8 @@ window.WIKI_DATA = {
             "Rechtsklick auf Tiere oder Monster: Der Magnet selbst tut nichts (gibt PASS zurück); die normale Interaktion des Lebewesens läuft wie ohne Magnet ab.",
             "Der Magnet gehört zu den Zielitems von Berührung des Konstrukteurs (Tag constructors_touch_enchantable): Höchststufe I, Gewicht 1, Kosten 20 bis 50, Amboss-Kosten 1. Anlegbar nur am Amboss per verzaubertem Buch; Bücher gibt es im Kreativ-Tab der Mod, als Truhenloot (Vergrabener Schatz, Iglu, Prüfungskammer-Belohnung gewöhnlich/selten) und im Schatzfang beim Angeln.",
             "Ein Spieltest (auf allen vier Zielen registriert, Zeitbudget 200 Ticks) belegt das Verhalten: Ein Diamant 3 Blöcke entfernt wird in das Inventar des Spielers gezogen, ein Goldbarren 6 Blöcke entfernt (auf beiden waagerechten Achsen) bleibt liegen (weniger als 0,5 Blöcke Drift erlaubt).",
-            "Verhalten ist auf allen Loadern gleich (Fabric und NeoForge, MC 26.2 sowie 1.21.11): MagnetItem ist in beiden Versionslinien identisch, und der Rahmen-Filter läuft über den Mixin ItemFrameEntityMixin in simplebuilding.mixins.json, die sowohl fabric.mod.json als auch neoforge.mods.toml beider Linien einbinden (die NeoForge-Module übernehmen den Fabric-Ressourcenordner als Quelle)."
+            "Verhalten ist auf allen Loadern gleich (Fabric und NeoForge, MC 26.2 sowie 1.21.11): MagnetItem ist in beiden Versionslinien identisch, und der Rahmen-Filter läuft über den Mixin ItemFrameEntityMixin in simplebuilding.mixins.json, die sowohl fabric.mod.json als auch neoforge.mods.toml beider Linien einbinden (die NeoForge-Module übernehmen den Fabric-Ressourcenordner als Quelle).",
+            "In Ruhe gelassen werden: Items, die nie aufgehoben werden können (Aufhebe-Verzögerung 32767, das Zeichen für Ausstellungs-Items anderer Mods), Items, die einem anderen Spieler vorbehalten sind (Owner), Todes-Drops anderer Spieler (Entity-Tag simplebuilding.death_drop.<uuid>, gesetzt, während das Inventar eines Spielers beim Tod fällt) und der Item-Tag simplebuilding:attractor_ignore (AttractorFilter)."
           ],
           "controls": [
             "Magnet in Haupt- oder Nebenhand halten: zieht Items im Umkreis an.",
@@ -10598,7 +10658,8 @@ window.WIKI_DATA = {
           "mc1_21_11/neoforge/src/main/resources/META-INF/neoforge.mods.toml",
           "neoforge/build.gradle",
           "mc1_21_11/neoforge/build.gradle",
-          "todo.md"
+          "todo.md",
+          "common/src/shared/java/com/simplebuilding/util/AttractorFilter.java"
         ]
       },
       "hasCustomBehaviour": true
@@ -38208,7 +38269,7 @@ window.WIKI_DATA = {
             "Cannot be combined with Strip Miner: Vein Miner declares the exclusive set simplebuilding:exclusive_set/mining (which holds strip_miner and vein_miner); the mod's data test asserts that Enchantment.areCompatible(vein_miner, strip_miner) returns false.",
             "Only triggers when you sneak while breaking; without sneaking you simply break the one block as usual.",
             "The tool in your main hand has to be able to harvest the struck block normally (isCorrectToolForDrops), otherwise nothing happens.",
-            "With a pickaxe only ores from the coal, iron, copper, gold, redstone, lapis, diamond and emerald ore tags count; with an axe only blocks from the log tag #minecraft:logs. The crack preview asks that same list (MiningUtils.isOre, which VeinMinerUsageEvent calls as well), so nothing is outlined that the server then refuses to break.",
+            "With a pickaxe only blocks from the block tag simplebuilding:vein_miner_ores count: the loader's #c:ores (so every mod ore that follows the convention), the vanilla coal, iron, copper, gold, redstone, lapis, diamond and emerald ore tags, nether quartz ore, nether gold ore, ancient debris and the mod's nihilith and astralit ores; with an axe only blocks from the log tag #minecraft:logs. A datapack can add to the tag. The crack preview asks that same list (MiningUtils.isOre, which VeinMinerUsageEvent calls as well), so nothing is outlined that the server then refuses to break.",
             "Only blocks that are exactly the same block as the one struck belong to the vein (compared via getBlock()); coal ore and deepslate coal ore therefore form separate veins.",
             "The search runs over all 26 neighbours of a block, diagonals included, and spreads out from there as a breadth-first search.",
             "Block budget per level, the struck block included: I = 3, II = 6, III = 9, IV = 12, V = 18.",
@@ -38247,7 +38308,7 @@ window.WIKI_DATA = {
             "Nicht mit Tunnelgräber kombinierbar: Aderabbau deklariert das Exklusiv-Set simplebuilding:exclusive_set/mining (enthält strip_miner und vein_miner); der Datentest der Mod prüft, dass Enchantment.areCompatible(vein_miner, strip_miner) false liefert.",
             "Löst nur aus, wenn beim Abbauen geschlichen wird; ohne Schleichen wird ganz normal nur der eine Block abgebaut.",
             "Das Werkzeug in der Haupthand muss den angeschlagenen Block regulär abbauen können (isCorrectToolForDrops), sonst passiert nichts.",
-            "Mit Spitzhacke zählen nur Erze aus den Tags Kohle-, Eisen-, Kupfer-, Gold-, Redstone-, Lapislazuli-, Diamant- und Smaragderz; mit Axt nur Blöcke aus dem Stämme-Tag #minecraft:logs. Die Riss-Vorschau fragt genau dieselbe Liste (MiningUtils.isOre, die auch VeinMinerUsageEvent aufruft), es wird also nichts angezeigt, was der Server danach stehen lässt.",
+            "Mit Spitzhacke zählen nur Blöcke aus dem Block-Tag simplebuilding:vein_miner_ores: #c:ores des Loaders (also jedes Mod-Erz nach Konvention), die Vanilla-Tags Kohle-, Eisen-, Kupfer-, Gold-, Redstone-, Lapislazuli-, Diamant- und Smaragderz, Netherquarzerz, Nethergolderz, Antiker Schutt und die Mod-Erze Nihilith- und Astralit-Erz; mit Axt nur Blöcke aus dem Stämme-Tag #minecraft:logs. Ein Datapack kann den Tag erweitern. Die Riss-Vorschau fragt genau dieselbe Liste (MiningUtils.isOre, die auch VeinMinerUsageEvent aufruft), es wird also nichts angezeigt, was der Server danach stehen lässt.",
             "Zur Ader gehören nur Blöcke, die exakt derselbe Block wie der angeschlagene sind (Vergleich über getBlock()); Kohleerz und Tiefenschiefer-Kohleerz bilden deshalb getrennte Adern.",
             "Die Suche läuft über alle 26 Nachbarn eines Blocks, also auch diagonal, und arbeitet sich von dort per Breitensuche weiter.",
             "Blockbudget je Stufe, den angeschlagenen Block eingerechnet: I = 3, II = 6, III = 9, IV = 12, V = 18.",
@@ -39385,7 +39446,12 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:block/building_wand_blacklist",
       "replace": false,
-      "values": [],
+      "values": [
+        {
+          "id": "minecraft:structure_void",
+          "required": true
+        }
+      ],
       "source": "src/main/resources/data/simplebuilding/tags/block/building_wand_blacklist.json"
     },
     {
@@ -39465,13 +39531,23 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:item/attractor_ignore",
       "replace": false,
-      "values": [],
+      "values": [
+        {
+          "id": "minecraft:structure_void",
+          "required": true
+        }
+      ],
       "source": "src/main/resources/data/simplebuilding/tags/item/attractor_ignore.json"
     },
     {
       "id": "simplebuilding:item/not_allowed_in_backpack",
       "replace": false,
-      "values": [],
+      "values": [
+        {
+          "id": "minecraft:structure_void",
+          "required": true
+        }
+      ],
       "source": "src/main/resources/data/simplebuilding/tags/item/not_allowed_in_backpack.json"
     },
     {
@@ -60228,7 +60304,7 @@ window.WIKI_DATA = {
     "config": 76,
     "inWorld": 392,
     "advancements": 84,
-    "features": 37,
+    "features": 38,
     "undocumented": 0,
     "incompleteProse": 0
   },
