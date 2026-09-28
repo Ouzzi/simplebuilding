@@ -3206,7 +3206,7 @@ public final class DataIntegrityTests {
     /**
      * Audit #37/#39/#46: the player-facing texts that used to be hardcoded - ore detector, item
      * frame lock, magnet, hopper filter modes, smithing templates, structure compasses, toggle
-     * keys, rangefinder/speedometer HUD, trim stats panel, chisel tooltip - now go through
+     * keys, octant/velocity gauge HUD, trim stats panel, chisel tooltip - now go through
      * {@code Component.translatable}, and the legacy spatulas have names. Every one of those keys
      * has to exist in the shipped {@code en_us.json} and {@code de_de.json}, non-empty and with
      * the same number of {@code %s} placeholders; both files have to hold exactly the same key
@@ -3241,8 +3241,12 @@ public final class DataIntegrityTests {
                 "hud.simplebuilding.rangefinder.pos1", "hud.simplebuilding.rangefinder.pos2",
                 "hud.simplebuilding.rangefinder.set_pos1", "hud.simplebuilding.rangefinder.set_pos2",
                 "hud.simplebuilding.rangefinder.distance", "hud.simplebuilding.rangefinder.area",
-                "hud.simplebuilding.rangefinder.volume", "hud.simplebuilding.speedometer.title",
-                "hud.simplebuilding.speedometer.stats",
+                "hud.simplebuilding.rangefinder.volume", "hud.simplebuilding.velocity_gauge.title",
+                "hud.simplebuilding.velocity_gauge.stats", "hud.simplebuilding.velocity_gauge.unit",
+                "tooltip.simplebuilding.velocity-gauge.tooltip", "tooltip.simplebuilding.velocity-gauge.touch_hint",
+                "hud.simplebuilding.laser_pointer.laser", "hud.simplebuilding.laser_pointer.distance",
+                "hud.simplebuilding.laser_pointer.height", "tooltip.simplebuilding.laser_pointer.last_measured",
+                "tooltip.simplebuilding.laser_pointer.last_target", "tooltip.simplebuilding.laser_pointer.touch_hint",
                 "item.simplebuilding.structure_compass.dimension", "item.simplebuilding.structure_compass.no_signal",
                 "item.simplebuilding.structure_compass.no_signal.line1", "item.simplebuilding.structure_compass.no_signal.line2"));
         for (String template : List.of("glowing", "emitting")) {
@@ -3287,6 +3291,56 @@ public final class DataIntegrityTests {
         }
         helper.assertTrue(problems.isEmpty(), problems.size() + " translation problems: " + problems);
                 helper.succeed();
+    }
+
+    /**
+     * Konsistenz der Werkzeugnamen (Besitzer 2026-09-28): nach den Umbenennungen Laserpointer ->
+     * Amethystlinse, Echo-Kompass -> Echolot und Tachometer -> "Velocity" (wie der
+     * Geschwindigkeitsmesser, "Velocity Gauge") darf keine Sprachdatei die alten Namen mehr zeigen,
+     * und die Verzauberung Berührung des Konstrukteurs heisst im Deutschen ueberall gleich.
+     *
+     * <p>What breaks it: a lang value that still says Speedometer/Laser Pointer/Echo Compass (or
+     * Tachometer/Laserpointer/Echo-Kompass/Entfernungsmesser in German), the old
+     * hud.simplebuilding.speedometer.* keys coming back, or the Velocity Gauge HUD title losing its
+     * new name in either language.
+     */
+    public static void toolNamesCarryNoLeftoverOldNames(GameTestHelper helper) {
+        JsonObject en = langFile(helper, "en_us");
+        JsonObject de = langFile(helper, "de_de");
+        List<String> problems = new ArrayList<>();
+        List<String> oldEnglish = List.of("speedometer", "laser pointer", "laserpointer", "echo compass", "rangefinder");
+        List<String> oldGerman = List.of("tachometer", "laserpointer", "echo-kompass", "echokompass", "entfernungsmesser", "konstrukteurs-händchen");
+        for (String key : en.keySet()) {
+            String value = en.get(key).getAsString().toLowerCase(java.util.Locale.ROOT);
+            for (String old : oldEnglish) {
+                if (value.contains(old)) problems.add("en_us " + key + " still says '" + old + "'");
+            }
+            if (key.startsWith("hud.simplebuilding.speedometer.")) problems.add("old key " + key + " is back");
+        }
+        for (String key : de.keySet()) {
+            String value = de.get(key).getAsString();
+            String lower = value.toLowerCase(java.util.Locale.ROOT);
+            for (String old : oldGerman) {
+                if (lower.contains(old)) problems.add("de_de " + key + " still says '" + old + "'");
+            }
+            if (lower.contains("konstrukteur") && !value.contains("Berührung des Konstrukteurs")) {
+                problems.add("de_de " + key + " names Constructor's Touch differently: " + value);
+            }
+        }
+        java.util.Map<String, String[]> expected = new java.util.LinkedHashMap<>();
+        expected.put("hud.simplebuilding.velocity_gauge.title", new String[]{"Velocity", "Geschwindigkeit"});
+        expected.put("item.simplebuilding.velocity-gauge", new String[]{"Velocity Gauge", "Geschwindigkeitsmesser"});
+        expected.put("item.simplebuilding.laser_pointer", new String[]{"Amethyst Lens", "Amethystlinse"});
+        expected.put("item.simplebuilding.echo_compass", new String[]{"Echo Sounder", "Echolot"});
+        expected.put("hud.simplebuilding.laser_pointer.laser", new String[]{"Laser", "Laser"});
+        for (var entry : expected.entrySet()) {
+            String english = en.has(entry.getKey()) ? en.get(entry.getKey()).getAsString() : null;
+            String german = de.has(entry.getKey()) ? de.get(entry.getKey()).getAsString() : null;
+            if (!entry.getValue()[0].equals(english)) problems.add(entry.getKey() + " is '" + english + "' in en_us, not '" + entry.getValue()[0] + "'");
+            if (!entry.getValue()[1].equals(german)) problems.add(entry.getKey() + " is '" + german + "' in de_de, not '" + entry.getValue()[1] + "'");
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " name problems: " + problems);
+        helper.succeed();
     }
 
     /**

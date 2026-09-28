@@ -44,6 +44,12 @@ public class ModDataComponentTypes {
                     .persistent(Codec.intRange(0, 3))
                     .networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.VAR_INT));
 
+    // Amethystlinse mit Beruehrung des Konstrukteurs: letzte gemessene Entfernung (Tooltip).
+    public static final DataComponentType<LensMeasurement> LENS_MEASUREMENT =
+            register("lens_measurement", builder -> builder
+                    .persistent(LensMeasurement.CODEC)
+                    .networkSynchronized(LensMeasurement.STREAM_CODEC));
+
 
     private static <T> DataComponentType<T> register(String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
         return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, name), (builderOperator.apply(DataComponentType.builder())).build());

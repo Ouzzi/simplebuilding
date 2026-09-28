@@ -408,7 +408,7 @@ public class ModItems {
 
     // Gadgets
 
-    public static final Item VELOCITY_GAUGE = registerItem("velocity-gauge", settings -> new Item(settings.stacksTo(1)));
+    public static final Item VELOCITY_GAUGE = registerItem("velocity-gauge", settings -> new com.simplebuilding.items.custom.VelocityGaugeItem(settings.stacksTo(1)));
 
     public static final Item ORE_DETECTOR = registerItem("ore_detector", settings -> new OreDetectorItem(settings.enchantable(ENCHANTABILITY_NETHERITE).rarity(RARE)));
 
