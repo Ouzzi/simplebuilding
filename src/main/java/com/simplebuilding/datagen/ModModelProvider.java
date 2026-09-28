@@ -562,6 +562,10 @@ public class ModModelProvider extends FabricModelProvider {
         generateDyeableItem(itemModelGenerator, ModItems.REINFORCED_QUIVER);
         generateDyeableItem(itemModelGenerator, ModItems.NETHERITE_QUIVER);
         itemModelGenerator.generateFlatItem(ModItems.LEATHER_SHEET, ModelTemplates.FLAT_ITEM);
+        // Handbuecher (GuideBooks): flache Item-Modelle, je Buch eine eigene Textur.
+        for (com.simplebuilding.guide.GuideBooks.Book book : com.simplebuilding.guide.GuideBooks.Book.values()) {
+            itemModelGenerator.generateFlatItem(com.simplebuilding.guide.GuideBooks.item(book), ModelTemplates.FLAT_ITEM);
+        }
         // Layout-Platzhalter der Kreativ-Tabs: zeichnet nichts (minecraft:empty).
         itemModelGenerator.itemModelOutput.accept(ModItems.CREATIVE_SPACER, new net.minecraft.client.renderer.item.EmptyModel.Unbaked());
         itemModelGenerator.generateFlatItem(ModItems.DIAMOND_PEBBLE, ModelTemplates.FLAT_ITEM);

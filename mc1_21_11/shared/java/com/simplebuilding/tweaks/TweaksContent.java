@@ -69,6 +69,9 @@ public final class TweaksContent {
     public static void onPlayerJoin(ServerPlayer player) {
         TweaksNetwork.sendConfig(player);
         SpawnSetup.onPlayerJoin(player);
+        // Einsteiger-Handbuch: einmal je Spieler, Config giveGuideBookOnFirstJoin (kein Tweak, aber
+        // dies ist der gemeinsame Beitritts-Einstieg aller Loader).
+        com.simplebuilding.guide.GuideBooks.onPlayerJoin(player);
         SpawnElytra.onJoinOrRespawn(player);
     }
 

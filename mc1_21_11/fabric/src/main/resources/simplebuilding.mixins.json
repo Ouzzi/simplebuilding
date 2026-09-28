@@ -29,7 +29,8 @@
     "ShearsItemMixin",
     "SlotMixin",
     "SmithingScreenHandlerMixin",
-    "SurvivalTracerMixin"
+    "SurvivalTracerMixin",
+    "ItemCraftRemainderAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -31,7 +31,8 @@
     "SlotMixin",
     "SmithingScreenHandlerMixin",
     "SurvivalTracerMixin",
-    "CauldronInteractionDispatcherAccessor"
+    "CauldronInteractionDispatcherAccessor",
+    "ItemCraftRemainderAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -62,6 +62,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 from echo_compass_textures import echo_compass_textures  # Echo-Kompass: Nadelbilder + Riss-Stufen
 from potion_pad_textures import potion_pad_textures  # Trank-Pads I-III (aus den alten Flypads) + Lohenkopf
+from guide_book_textures import guide_book_textures  # Einsteiger-Handbuch + sieben Themenbuecher
 from ore_detector_textures import ore_detector_textures  # Erzdetektor: Gehaeuse, 32 Nadeln, Ruhebild
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -2767,6 +2768,7 @@ def build():
     tex.update(pad_textures(tex))  # braucht die Enderitplatte aus end_palette_textures
     tex.update(echo_compass_textures())
     tex.update(potion_pad_textures())
+    tex.update(guide_book_textures())
     tex.update(ore_detector_textures())
     return tex
 

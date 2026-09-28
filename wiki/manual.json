@@ -8933,6 +8933,47 @@
         "common/src/shared/java/com/simplebuilding/blocks/entity/custom/PlacedTemplateBlockEntity.java",
         "common/src/shared/java/com/simplebuilding/client/render/PlacedTemplateRenderer.java"
       ]
+    },
+    "guide_book*": {
+      "en": {
+        "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server: a short, clickable walk through the first steps. Seven topic books (Tools & Upgrades, Building, Storage, Machines & Pistons, End & Enderite, Pads & Gadgets, Trims & Radiance) go deeper and are crafted at the crafting table.",
+        "details": [
+          "Reading: right-click opens the vanilla book screen. Page 1 of every book is a table of contents whose chapter names are links; every chapter page ends with a link back to the contents. The books also go on a lectern and into a chiseled bookshelf.",
+          "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
+          "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, Diamond Pebbles, hammering machines up a tier, the Building Wand, the Octant, the Backpack, upgrading tools and where enchantments come from, and ends with the list of topic books and their recipes.",
+          "Topic book recipes (shapeless): a book or the Beginner's Guide plus Stone Chisel (Tools & Upgrades), Brick (Building), Chest (Storage), Piston (Machines & Pistons), Ender Pearl (End & Enderite), Stone Pressure Plate (Pads & Gadgets) or Amethyst Shard (Trims & Radiance). Made from the guide, the guide stays in the crafting grid. The recipes unlock with the key item or with the guide.",
+          "A lost guide is crafted again from a book and a crafting table.",
+          "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
+          "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
+        ]
+      },
+      "de": {
+        "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers: ein kurzer, anklickbarer Weg durch die ersten Schritte. Sieben Themenbücher (Werkzeuge & Aufwertungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads & Geräte, Besätze & Strahlkraft) gehen tiefer und entstehen an der Werkbank.",
+        "details": [
+          "Lesen: Rechtsklick öffnet den Vanilla-Buchbildschirm. Seite 1 jedes Buchs ist ein Inhaltsverzeichnis, dessen Kapitelnamen Links sind; jede Kapitelseite endet mit einem Link zurück zum Inhalt. Die Bücher passen auch aufs Lesepult und ins gemeißelte Bücherregal.",
+          "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
+          "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Diamantkiesel, das Aufhämmern von Maschinen, Baustab, Oktant, Rucksack, das Aufwerten von Werkzeugen und woher Verzauberungen kommen, und endet mit der Liste der Themenbücher samt Rezept.",
+          "Rezepte der Themenbücher (formlos): ein Buch oder das Einsteiger-Handbuch plus Steinmeißel (Werkzeuge & Aufwertungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen & Kolben), Enderperle (Ende & Enderit), Steindruckplatte (Pads & Geräte) oder Amethystscherbe (Besätze & Strahlkraft). Mit dem Handbuch hergestellt, bleibt das Handbuch im Raster liegen. Freigeschaltet werden die Rezepte durch das Schlüsselitem oder durch das Handbuch.",
+          "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
+          "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
+          "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
+        ]
+      },
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
+        "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
+        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+        "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
+        "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+        "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+        "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
+        "src/main/resources/assets/simplebuilding/lang/en_us.json",
+        "src/main/resources/assets/simplebuilding/lang/de_de.json",
+        "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java"
+      ]
     }
   },
   "inWorld": {
