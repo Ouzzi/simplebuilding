@@ -1192,6 +1192,7 @@ public final class PistonBreachTests {
                 "a damaged netherite piston broken by a player dropped " + drops + " instead of itself");
         ItemStack picked = drops.get(0).getItem().copy();
         drops.forEach(ItemEntity::discard);
+        helper.assertTrue(picked.has(DataComponents.MAX_DAMAGE), "the dropped damaged netherite piston carries no durability: " + picked);
         Assertions.valueEqual(helper, picked.get(DataComponents.MAX_DAMAGE), 226, "max_damage of the dropped netherite piston");
         Assertions.valueEqual(helper, picked.getDamageValue(), 100, "damage the dropped netherite piston carries");
         Assertions.valueEqual(helper, picked.getMaxStackSize(), 1, "stack size of a damaged netherite piston");
