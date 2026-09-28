@@ -87,6 +87,9 @@ public final class StripMinerUsageEvent {
             }
         }
 
+        if (brokenBlocks > 0) {
+            com.simplebuilding.advancement.ModTriggers.feature(serverPlayer, com.simplebuilding.advancement.ModTriggers.STRIP_MINE);
+        }
         if (brokenBlocks > 0 && !stack.isEmpty()) {
             // Rabatt: ein Drittel des Schadens, den die Zusatzbloecke WIRKLICH gekostet haben
             // (gerundet). Frueher hing er an der Blockzahl ((n + 1) / 3); mit Unbreaking kosten

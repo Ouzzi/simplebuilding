@@ -1281,6 +1281,28 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("advancement_tree_game_test_installing_the_quest_book_adds_but_never_overwrites", AdvancementTreeTests::installingTheQuestBookAddsButNeverOverwrites)
                     .build(),
+            GameTestSpec.named("advancement_trigger_game_test_the_counter_grants_at_its_threshold_and_survives_save_and_respawn", AdvancementTriggerTests::theCounterGrantsAtItsThresholdAndSurvivesSaveAndRespawn)
+                    .build(),
+            GameTestSpec.named("advancement_trigger_game_test_a_sledgehammer_swing_counts_the_blocks_it_took_along", AdvancementTriggerTests::aSledgehammerSwingCountsTheBlocksItTookAlong)
+                    .build(),
+            GameTestSpec.named("advancement_trigger_game_test_the_mining_enchantments_earn_their_advancements_on_first_use", AdvancementTriggerTests::theMiningEnchantmentsEarnTheirAdvancementsOnFirstUse)
+                    .build(),
+            GameTestSpec.named("advancement_trigger_game_test_air_jump_and_kinetic_protection_earn_their_advancements_on_first_use", AdvancementTriggerTests::airJumpAndKineticProtectionEarnTheirAdvancementsOnFirstUse)
+                    .build(),
+            GameTestSpec.named("advancement_trigger_game_test_radiance_dyed_storage_and_all_octant_colors_follow_the_inventory", AdvancementTriggerTests::radianceDyedStorageAndAllOctantColorsFollowTheInventory)
+                    .build(),
+            GameTestSpec.named("advancement_trigger_game_test_a_full_bonus_trim_set_is_noticed_by_the_player_tick", AdvancementTriggerTests::aFullBonusTrimSetIsNoticedByThePlayerTick)
+                    .build(),
+            GameTestSpec.named("advancement_trigger_game_test_setting_down_the_backpack_earns_pitching_camp", AdvancementTriggerTests::settingDownTheBackpackEarnsPitchingCamp)
+                    .build(),
+            GameTestSpec.named("advancement_trigger_game_test_repairing_the_breaker_piston_earns_good_as_new", AdvancementTriggerTests::repairingTheBreakerPistonEarnsGoodAsNew)
+                    .build(),
+            GameTestSpec.named("advancement_trigger_game_test_the_void_catches_athrown_enderite_item_for_its_thrower", AdvancementTriggerTests::theVoidCatchesAThrownEnderiteItemForItsThrower)
+                    .build(),
+            GameTestSpec.named("advancement_trigger_game_test_the_cracked_echo_sounder_shatters_and_earns_broken_record", AdvancementTriggerTests::theCrackedEchoSounderShattersAndEarnsBrokenRecord)
+                    .build(),
+            GameTestSpec.named("advancement_trigger_game_test_the_lens_beam_priming_tnt_earns_remote_detonation", AdvancementTriggerTests::theLensBeamPrimingTntEarnsRemoteDetonation)
+                    .build(),
             GameTestSpec.named("potion_pad_game_test_splash_potions_landing_on_the_pad_are_stored_and_replaced", PotionPadTests::splashPotionsLandingOnThePadAreStoredAndReplaced)
                     .build(),
             GameTestSpec.named("potion_pad_game_test_standing_on_the_pad_ramps_the_effect_to_twenty_five_fifty_and_one_hundred_percent_in_three_seconds", PotionPadTests::standingOnThePadRampsTheEffectToTwentyFiveFiftyAndOneHundredPercentInThreeSeconds)
@@ -1338,6 +1360,10 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("guide_book_game_test_guide_books_read_like_written_books", GuideBookTests::guideBooksReadLikeWrittenBooks)
                     .build(),
             GameTestSpec.named("guide_book_game_test_every_guide_chapter_icon_and_recipe_resolves", GuideBookTests::everyGuideChapterIconAndRecipeResolves)
+                    .build(),
+            GameTestSpec.named("guide_book_game_test_the_guides_explain_every_enchantment_and_the_wave_items", GuideBookTests::theGuidesExplainEveryEnchantmentAndTheWaveItems)
+                    .build(),
+            GameTestSpec.named("guide_book_game_test_the_admin_guide_names_only_commands_and_options_that_exist", GuideBookTests::theAdminGuideNamesOnlyCommandsAndOptionsThatExist)
                     .build(),
             GameTestSpec.named("pressure_plate_game_test_honeycomb_waxes_every_stage_and_waxed_plates_stop_oxidizing", PressurePlateTests::honeycombWaxesEveryStageAndWaxedPlatesStopOxidizing)
                     .build(),

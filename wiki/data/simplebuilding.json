@@ -8,7 +8,7 @@
     "itemProperties": {
       "source": "src/main/generated/wiki/items.json",
       "present": true,
-      "count": 221,
+      "count": 222,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -8817,6 +8817,7 @@
         "simplebuilding:guide_book"
       ],
       "usedIn": [
+        "simplebuilding:guide_book_admin",
         "simplebuilding:guide_book_building",
         "simplebuilding:guide_book_end",
         "simplebuilding:guide_book_machines",
@@ -8825,6 +8826,72 @@
         "simplebuilding:guide_book_trims",
         "simplebuilding:guide_book_tweaks"
       ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "note": {
+        "en": {
+          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server: a short, clickable walk through the first steps. Seven topic books (Tools & Upgrades, Building, Storage, Machines & Pistons, End & Enderite, Pads & Gadgets, Trims & Radiance) go deeper and are crafted at the crafting table.",
+          "details": [
+            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back (after a chapter jump) or to the contents, Home to the contents, the bookmark on the left always leads to the contents. Each book remembers its last spread until the game restarts. The bookmarks on the right switch between the eight books - a book you do not carry stays locked and its tooltip names the recipe.",
+            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
+            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
+            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
+            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, Diamond Pebbles, hammering machines up a tier, the Building Wand, the Octant, the Backpack, upgrading tools and where enchantments come from, and ends with the list of topic books and their recipes.",
+            "Topic book recipes (shapeless): a book or the Beginner's Guide plus Stone Chisel (Tools & Upgrades), Brick (Building), Chest (Storage), Piston (Machines & Pistons), Ender Pearl (End & Enderite), Stone Pressure Plate (Pads & Gadgets) or Amethyst Shard (Trims & Radiance). Made from the guide, the guide stays in the crafting grid. The recipes unlock with the key item or with the guide.",
+            "A lost guide is crafted again from a book and a crafting table.",
+            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
+            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
+          ]
+        },
+        "de": {
+          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers: ein kurzer, anklickbarer Weg durch die ersten Schritte. Sieben Themenbücher (Werkzeuge & Aufwertungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads & Geräte, Besätze & Strahlkraft) gehen tiefer und entstehen an der Werkbank.",
+          "details": [
+            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück (nach einem Kapitelsprung) oder zum Inhalt, Pos1 zum Inhalt, das Lesezeichen links führt immer zum Inhalt. Jedes Buch merkt sich seine letzte Doppelseite bis zum Neustart des Spiels. Die Lesezeichen rechts wechseln zwischen den acht Büchern - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept.",
+            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
+            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
+            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
+            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Diamantkiesel, das Aufhämmern von Maschinen, Baustab, Oktant, Rucksack, das Aufwerten von Werkzeugen und woher Verzauberungen kommen, und endet mit der Liste der Themenbücher samt Rezept.",
+            "Rezepte der Themenbücher (formlos): ein Buch oder das Einsteiger-Handbuch plus Steinmeißel (Werkzeuge & Aufwertungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen & Kolben), Enderperle (Ende & Enderit), Steindruckplatte (Pads & Geräte) oder Amethystscherbe (Besätze & Strahlkraft). Mit dem Handbuch hergestellt, bleibt das Handbuch im Raster liegen. Freigeschaltet werden die Rezepte durch das Schlüsselitem oder durch das Handbuch.",
+            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
+            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
+            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
+          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
+          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:guide_book_admin",
+      "name": {
+        "en_us": "Guide: Server Admin",
+        "de_de": "Handbuch: Server-Verwaltung"
+      },
+      "texture": "assets/textures/item/guide_book_admin.png",
+      "craftedBy": [
+        "simplebuilding:guide_book_admin"
+      ],
+      "usedIn": [],
       "trades": [],
       "properties": {
         "maxStackSize": 16
@@ -26878,6 +26945,36 @@
       ]
     },
     {
+      "id": "simplebuilding:guide_book_admin",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_admin",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_admin.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:comparator",
+        "simplebuilding:guide_book"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book"
+        ],
+        [
+          "minecraft:comparator"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:guide_book_building",
       "type": "minecraft:crafting_shapeless",
       "category": null,
@@ -36874,7 +36971,7 @@
       "effects": [
         "minecraft:damage_protection"
       ],
-      "implementedIn": "data",
+      "implementedIn": "both",
       "hasEffect": true,
       "source": "src/main/generated/data/simplebuilding/enchantment/kinetic_protection.json",
       "note": {
@@ -55216,6 +55313,29 @@
       "source": "src/main/generated/data/simplebuilding/advancement/chisel/fine_detail.json"
     },
     {
+      "id": "simplebuilding:chisel/sculptor",
+      "parent": "simplebuilding:chisel/chip_off_the_old_block",
+      "icon": "simplebuilding:iron_chisel",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Sculptor",
+        "de_de": "Bildhauer"
+      },
+      "description": {
+        "en_us": "Move blocks along their chains 1,000 times with a chisel",
+        "de_de": "Bewege mit dem Meißel 1.000-mal Blöcke entlang ihrer Kette"
+      },
+      "criteria": [
+        {
+          "name": "chisel_steps",
+          "trigger": "simplebuilding:counter"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/chisel/sculptor.json"
+    },
+    {
       "id": "simplebuilding:end/astral_projection",
       "parent": "simplebuilding:end/stardust",
       "icon": "simplebuilding:astral_purpur_block",
@@ -55459,6 +55579,30 @@
       "source": "src/main/generated/data/simplebuilding/advancement/enderite/block_party.json"
     },
     {
+      "id": "simplebuilding:enderite/broken_record",
+      "parent": "simplebuilding:enderite/echolocation",
+      "icon": "minecraft:echo_shard",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Broken Record",
+        "de_de": "Zersprungen"
+      },
+      "description": {
+        "en_us": "Jump with an Echo Sounder that is not fully repaired: it gets you there, then shatters",
+        "de_de": "Spring mit einem nicht voll reparierten Echolot: es bringt dich hin und zerspringt dann"
+      },
+      "criteria": [
+        {
+          "name": "echo_shatter",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "echo_shatter"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/broken_record.json"
+    },
+    {
       "id": "simplebuilding:enderite/cover_me_in_enderite",
       "parent": "simplebuilding:enderite/template_of_the_end",
       "icon": "simplebuilding:enderite_chestplate",
@@ -55648,6 +55792,30 @@
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/enderite/master_builder.json"
+    },
+    {
+      "id": "simplebuilding:enderite/not_today_void",
+      "parent": "simplebuilding:enderite/raw_deal",
+      "icon": "minecraft:ender_eye",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Not Today, Void",
+        "de_de": "Heute nicht, Leere"
+      },
+      "description": {
+        "en_us": "Throw an Enderite item into the void: instead of vanishing, it hangs below the world",
+        "de_de": "Wirf ein Enderit-Item in die Leere: statt zu verschwinden, schwebt es unter der Welt"
+      },
+      "criteria": [
+        {
+          "name": "void_rescue",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "void_rescue"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/not_today_void.json"
     },
     {
       "id": "simplebuilding:enderite/patience_is_a_virtue",
@@ -55928,6 +56096,30 @@
       "source": "src/main/generated/data/simplebuilding/advancement/gadgets/ping.json"
     },
     {
+      "id": "simplebuilding:gadgets/remote_detonation",
+      "parent": "simplebuilding:gadgets/burning_focus",
+      "icon": "minecraft:tnt",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Remote Detonation",
+        "de_de": "Fernzündung"
+      },
+      "description": {
+        "en_us": "Hold the Amethyst Lens beam on TNT until it lights",
+        "de_de": "Halte den Strahl der Amethystlinse auf TNT, bis es zündet"
+      },
+      "criteria": [
+        {
+          "name": "laser_tnt",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "laser_tnt"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/gadgets/remote_detonation.json"
+    },
+    {
       "id": "simplebuilding:gadgets/speed_reader",
       "parent": "simplebuilding:tweaks/root",
       "icon": "simplebuilding:velocity-gauge",
@@ -56030,6 +56222,29 @@
       "source": "src/main/generated/data/simplebuilding/advancement/hammer/cracked_up.json"
     },
     {
+      "id": "simplebuilding:hammer/demolition_crew",
+      "parent": "simplebuilding:hammer/stair_master",
+      "icon": "simplebuilding:diamond_sledgehammer",
+      "frame": "challenge",
+      "hidden": false,
+      "title": {
+        "en_us": "Demolition Crew",
+        "de_de": "Abrisskommando"
+      },
+      "description": {
+        "en_us": "Break 10,000 blocks with sledgehammers around the block you hit",
+        "de_de": "Brich mit Vorschlaghämmern 10.000 Blöcke rund um den getroffenen Block"
+      },
+      "criteria": [
+        {
+          "name": "hammer_blocks",
+          "trigger": "simplebuilding:counter"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/hammer/demolition_crew.json"
+    },
+    {
       "id": "simplebuilding:hammer/diamond_in_the_rough",
       "parent": "simplebuilding:hammer/cracked_up",
       "icon": "simplebuilding:cracked_diamond_block",
@@ -56054,6 +56269,29 @@
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/hammer/diamond_in_the_rough.json"
+    },
+    {
+      "id": "simplebuilding:hammer/full_radiance",
+      "parent": "simplebuilding:hammer/bright_idea",
+      "icon": "minecraft:glowstone",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Full Radiance",
+        "de_de": "Volle Strahlkraft"
+      },
+      "description": {
+        "en_us": "Add Radiance at the smithing table - Emitting template, armor, Glowstone Dust - until one armor piece shows Radiance 5",
+        "de_de": "Füge am Schmiedetisch Strahlkraft hinzu - Strahlende Vorlage, Rüstung, Glowstonestaub -, bis ein Rüstungsteil Strahlkraft 5 zeigt"
+      },
+      "criteria": [
+        {
+          "name": "radiance_5",
+          "trigger": "minecraft:inventory_changed"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/hammer/full_radiance.json"
     },
     {
       "id": "simplebuilding:hammer/glow_up",
@@ -56202,6 +56440,30 @@
       "source": "src/main/generated/data/simplebuilding/advancement/machines/forged_in_place.json"
     },
     {
+      "id": "simplebuilding:machines/good_as_new",
+      "parent": "simplebuilding:machines/forged_in_place",
+      "icon": "simplebuilding:netherite_piston",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Good as New",
+        "de_de": "Wie neu"
+      },
+      "description": {
+        "en_us": "Right-click a worn Netherite or Enderite Piston with its nugget to restore its full durability",
+        "de_de": "Rechtsklicke einen abgenutzten Netherit- oder Enderitkolben mit seinem Klumpen, um seine volle Haltbarkeit herzustellen"
+      },
+      "criteria": [
+        {
+          "name": "piston_repair",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "piston_repair"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/machines/good_as_new.json"
+    },
+    {
       "id": "simplebuilding:machines/reinforcements",
       "parent": "simplebuilding:hammer/cracked_up",
       "icon": "simplebuilding:reinforced_furnace",
@@ -56232,6 +56494,78 @@
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/machines/reinforcements.json"
+    },
+    {
+      "id": "simplebuilding:mining/all_in_vein",
+      "parent": "simplebuilding:tiers/ironclad",
+      "icon": "minecraft:iron_ore",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "All in Vein",
+        "de_de": "Alles in einer Ader"
+      },
+      "description": {
+        "en_us": "Sneak while you mine ore with a Vein Miner pickaxe (or a log with a Vein Miner axe): the connected blocks come along",
+        "de_de": "Bau schleichend Erz mit einer Aderabbau-Spitzhacke ab (oder einen Stamm mit einer Aderabbau-Axt): die verbundenen Blöcke kommen mit"
+      },
+      "criteria": [
+        {
+          "name": "vein_mine",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "vein_mine"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/mining/all_in_vein.json"
+    },
+    {
+      "id": "simplebuilding:mining/right_tool_for_the_job",
+      "parent": "simplebuilding:tiers/ironclad",
+      "icon": "minecraft:iron_axe",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "The Right Tool for the Job",
+        "de_de": "Das richtige Werkzeug"
+      },
+      "description": {
+        "en_us": "Sneak and hit a block with a Versatility tool: a better tool from your hotbar jumps into your hand",
+        "de_de": "Schlag schleichend mit einem Werkzeug mit Vielseitigkeit auf einen Block: ein besseres Werkzeug aus deiner Schnellleiste springt dir in die Hand"
+      },
+      "criteria": [
+        {
+          "name": "versatility_swap",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "versatility_swap"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/mining/right_tool_for_the_job.json"
+    },
+    {
+      "id": "simplebuilding:mining/tunnel_vision",
+      "parent": "simplebuilding:tiers/ironclad",
+      "icon": "minecraft:iron_pickaxe",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Tunnel Vision",
+        "de_de": "Tunnelblick"
+      },
+      "description": {
+        "en_us": "Sneak while you mine with a Strip Miner pickaxe: it digs a short tunnel straight ahead",
+        "de_de": "Bau schleichend mit einer Tunnelgräber-Spitzhacke ab: sie gräbt einen kurzen Tunnel geradeaus"
+      },
+      "criteria": [
+        {
+          "name": "strip_mine",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "strip_mine"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/mining/tunnel_vision.json"
     },
     {
       "id": "simplebuilding:nether/nugget_of_wisdom",
@@ -56299,6 +56633,137 @@
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/octant/colour_coded.json"
+    },
+    {
+      "id": "simplebuilding:octant/full_spectrum",
+      "parent": "simplebuilding:octant/colour_coded",
+      "icon": "simplebuilding:octant_magenta",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Full Spectrum",
+        "de_de": "Das volle Spektrum"
+      },
+      "description": {
+        "en_us": "Collect Octants in all 16 colors",
+        "de_de": "Sammle Oktanten in allen 16 Farben"
+      },
+      "criteria": [
+        {
+          "name": "black_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_black"
+          ]
+        },
+        {
+          "name": "blue_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_blue"
+          ]
+        },
+        {
+          "name": "brown_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_brown"
+          ]
+        },
+        {
+          "name": "cyan_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_cyan"
+          ]
+        },
+        {
+          "name": "gray_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_gray"
+          ]
+        },
+        {
+          "name": "green_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_green"
+          ]
+        },
+        {
+          "name": "light_blue_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_light_blue"
+          ]
+        },
+        {
+          "name": "light_gray_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_light_gray"
+          ]
+        },
+        {
+          "name": "lime_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_lime"
+          ]
+        },
+        {
+          "name": "magenta_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_magenta"
+          ]
+        },
+        {
+          "name": "orange_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_orange"
+          ]
+        },
+        {
+          "name": "pink_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_pink"
+          ]
+        },
+        {
+          "name": "purple_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_purple"
+          ]
+        },
+        {
+          "name": "red_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_red"
+          ]
+        },
+        {
+          "name": "white_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_white"
+          ]
+        },
+        {
+          "name": "yellow_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_yellow"
+          ]
+        }
+      ],
+      "needs": "all",
+      "source": "src/main/generated/data/simplebuilding/advancement/octant/full_spectrum.json"
     },
     {
       "id": "simplebuilding:octant/measure_twice",
@@ -56826,6 +57291,30 @@
       "source": "src/main/generated/data/simplebuilding/advancement/storage/pack_mule.json"
     },
     {
+      "id": "simplebuilding:storage/pitching_camp",
+      "parent": "simplebuilding:storage/pack_mule",
+      "icon": "minecraft:campfire",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Pitching Camp",
+        "de_de": "Lager aufschlagen"
+      },
+      "description": {
+        "en_us": "Sneak and right-click a block with a backpack to set it down with everything inside",
+        "de_de": "Rechtsklicke schleichend mit einem Rucksack auf einen Block, um ihn samt Inhalt abzustellen"
+      },
+      "criteria": [
+        {
+          "name": "backpack_placed",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "backpack_placed"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/storage/pitching_camp.json"
+    },
+    {
       "id": "simplebuilding:storage/quiver_in_fear",
       "parent": "simplebuilding:storage/sheet_happens",
       "icon": "simplebuilding:quiver",
@@ -56906,6 +57395,42 @@
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/storage/sheet_happens.json"
+    },
+    {
+      "id": "simplebuilding:storage/splash_of_color",
+      "parent": "simplebuilding:storage/sheet_happens",
+      "icon": "minecraft:red_dye",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "A Splash of Color",
+        "de_de": "Ein Hauch Farbe"
+      },
+      "description": {
+        "en_us": "Craft a backpack, bundle or quiver with a dye, just like leather armor",
+        "de_de": "Stell einen Rucksack, ein Bündel oder einen Köcher mit einem Farbstoff her, genau wie Lederrüstung"
+      },
+      "criteria": [
+        {
+          "name": "dyed_storage",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:backpack",
+            "simplebuilding:reinforced_backpack",
+            "simplebuilding:netherite_backpack",
+            "simplebuilding:enderite_backpack",
+            "simplebuilding:reinforced_bundle",
+            "simplebuilding:netherite_bundle",
+            "simplebuilding:enderite_bundle",
+            "simplebuilding:quiver",
+            "simplebuilding:reinforced_quiver",
+            "simplebuilding:netherite_quiver",
+            "simplebuilding:enderite_quiver"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/storage/splash_of_color.json"
     },
     {
       "id": "simplebuilding:story/hammer_time",
@@ -57106,6 +57631,30 @@
       "source": "src/main/generated/data/simplebuilding/advancement/tiers/step_by_step.json"
     },
     {
+      "id": "simplebuilding:trims/fashion_statement",
+      "parent": "simplebuilding:root",
+      "icon": "minecraft:diamond_chestplate",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Fashion Statement",
+        "de_de": "Modebewusst"
+      },
+      "description": {
+        "en_us": "Wear four armor pieces trimmed with the same pattern that gives a bonus: the pattern's bonus counts four times",
+        "de_de": "Trag vier Rüstungsteile mit demselben Besatzmuster, das einen Bonus gibt: der Bonus des Musters zählt vierfach"
+      },
+      "criteria": [
+        {
+          "name": "full_trim_set",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "full_trim_set"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/trims/fashion_statement.json"
+    },
+    {
       "id": "simplebuilding:tweaks/crown_jewel",
       "parent": "simplebuilding:tweaks/forbidden_fruit",
       "icon": "simplebuilding:enchanted_netherite_apple",
@@ -57130,6 +57679,30 @@
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/tweaks/crown_jewel.json"
+    },
+    {
+      "id": "simplebuilding:tweaks/crumple_zone",
+      "parent": "simplebuilding:tweaks/root",
+      "icon": "minecraft:elytra",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Crumple Zone",
+        "de_de": "Knautschzone"
+      },
+      "description": {
+        "en_us": "Fly into a wall with an elytra while wearing armor with Kinetic Protection - it softens the blow",
+        "de_de": "Flieg mit Elytren gegen eine Wand, während du Rüstung mit Kinetischem Schutz trägst - er dämpft den Aufprall"
+      },
+      "criteria": [
+        {
+          "name": "kinetic_protection",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "kinetic_protection"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/tweaks/crumple_zone.json"
     },
     {
       "id": "simplebuilding:tweaks/forbidden_fruit",
@@ -57157,6 +57730,30 @@
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/tweaks/forbidden_fruit.json"
+    },
+    {
+      "id": "simplebuilding:tweaks/leap_of_faith",
+      "parent": "simplebuilding:tweaks/root",
+      "icon": "minecraft:feather",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Leap of Faith",
+        "de_de": "Sprung ins Ungewisse"
+      },
+      "description": {
+        "en_us": "Wear boots with Air Jump and press jump again in mid-air",
+        "de_de": "Trag Stiefel mit Luftsprung und drück in der Luft noch einmal Springen"
+      },
+      "criteria": [
+        {
+          "name": "air_jump",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "air_jump"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/tweaks/leap_of_faith.json"
     },
     {
       "id": "simplebuilding:tweaks/root",
@@ -57222,6 +57819,29 @@
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/wand/core_values.json"
+    },
+    {
+      "id": "simplebuilding:wand/master_mason",
+      "parent": "simplebuilding:wand/one_click_wonder",
+      "icon": "simplebuilding:gold_building_wand",
+      "frame": "challenge",
+      "hidden": false,
+      "title": {
+        "en_us": "Master Mason",
+        "de_de": "Maurermeister"
+      },
+      "description": {
+        "en_us": "Place 10,000 blocks with Building Wands - areas, Octant shapes and Blueprints all count",
+        "de_de": "Setz 10.000 Blöcke mit Baustäben - Flächen, Oktant-Figuren und Blaupausen zählen alle"
+      },
+      "criteria": [
+        {
+          "name": "wand_blocks",
+          "trigger": "simplebuilding:counter"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/wand/master_mason.json"
     },
     {
       "id": "simplebuilding:wand/one_click_wonder",
@@ -58590,6 +59210,25 @@
           "optional": true
         },
         {
+          "key": "full_spectrum",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:octant/full_spectrum"
+          },
+          "title": {
+            "en_us": "Full Spectrum",
+            "de_de": "Das volle Spektrum"
+          },
+          "description": {
+            "en_us": "Collect Octants in all 16 colors",
+            "de_de": "Sammle Oktanten in allen 16 Farben"
+          },
+          "dependencies": [
+            "building.colour"
+          ],
+          "optional": true
+        },
+        {
           "key": "light",
           "task": {
             "type": "advancement",
@@ -58680,6 +59319,44 @@
           "dependencies": [
             "stage_2.diamond_tool"
           ]
+        },
+        {
+          "key": "sculptor",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:chisel/sculptor"
+          },
+          "title": {
+            "en_us": "Sculptor",
+            "de_de": "Bildhauer"
+          },
+          "description": {
+            "en_us": "Move blocks along their chains 1,000 times with a chisel",
+            "de_de": "Bewege mit dem Meißel 1.000-mal Blöcke entlang ihrer Kette"
+          },
+          "dependencies": [
+            "building.toolkit"
+          ],
+          "optional": true
+        },
+        {
+          "key": "master_mason",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:wand/master_mason"
+          },
+          "title": {
+            "en_us": "Master Mason",
+            "de_de": "Maurermeister"
+          },
+          "description": {
+            "en_us": "Place 10,000 blocks with Building Wands - areas, Octant shapes and Blueprints all count",
+            "de_de": "Setz 10.000 Blöcke mit Baustäben - Flächen, Oktant-Figuren und Blaupausen zählen alle"
+          },
+          "dependencies": [
+            "building.toolkit"
+          ],
+          "optional": true
         },
         {
           "key": "rotator",
@@ -58922,6 +59599,44 @@
           "dependencies": [
             "storage.bundle"
           ]
+        },
+        {
+          "key": "pitching_camp",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:storage/pitching_camp"
+          },
+          "title": {
+            "en_us": "Pitching Camp",
+            "de_de": "Lager aufschlagen"
+          },
+          "description": {
+            "en_us": "Sneak and right-click a block with a backpack to set it down with everything inside",
+            "de_de": "Rechtsklicke schleichend mit einem Rucksack auf einen Block, um ihn samt Inhalt abzustellen"
+          },
+          "dependencies": [
+            "stage_1.backpack"
+          ],
+          "optional": true
+        },
+        {
+          "key": "splash_of_color",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:storage/splash_of_color"
+          },
+          "title": {
+            "en_us": "A Splash of Color",
+            "de_de": "Ein Hauch Farbe"
+          },
+          "description": {
+            "en_us": "Craft a backpack, bundle or quiver with a dye, just like leather armor",
+            "de_de": "Stell einen Rucksack, ein Bündel oder einen Köcher mit einem Farbstoff her, genau wie Lederrüstung"
+          },
+          "dependencies": [
+            "stage_1.backpack"
+          ],
+          "optional": true
         },
         {
           "key": "reinforced_bundle",
@@ -59183,6 +59898,48 @@
           "optional": true
         },
         {
+          "key": "remote_detonation",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:gadgets/remote_detonation"
+          },
+          "title": {
+            "en_us": "Remote Detonation",
+            "de_de": "Fernzündung"
+          },
+          "description": {
+            "en_us": "Hold the Amethyst Lens beam on TNT until it lights",
+            "de_de": "Halte den Strahl der Amethystlinse auf TNT, bis es zündet"
+          },
+          "dependencies": [
+            "gadgets.laser"
+          ],
+          "optional": true
+        },
+        {
+          "key": "leap_of_faith",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:tweaks/leap_of_faith"
+          },
+          "title": {
+            "en_us": "Leap of Faith",
+            "de_de": "Sprung ins Ungewisse"
+          },
+          "description": {
+            "en_us": "Wear boots with Air Jump and press jump again in mid-air",
+            "de_de": "Trag Stiefel mit Luftsprung und drück in der Luft noch einmal Springen"
+          },
+          "dependencies": [
+            "gadgets.intro"
+          ],
+          "hint": {
+            "en_us": "Air Jump is an enchanted book found in chests; it goes on boots.",
+            "de_de": "Luftsprung ist ein verzaubertes Buch aus Truhen; es kommt auf Stiefel."
+          },
+          "optional": true
+        },
+        {
           "key": "detector",
           "task": {
             "type": "advancement",
@@ -59360,6 +60117,25 @@
           "optional": true
         },
         {
+          "key": "crumple_zone",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:tweaks/crumple_zone"
+          },
+          "title": {
+            "en_us": "Crumple Zone",
+            "de_de": "Knautschzone"
+          },
+          "description": {
+            "en_us": "Fly into a wall with an elytra while wearing armor with Kinetic Protection - it softens the blow",
+            "de_de": "Flieg mit Elytren gegen eine Wand, während du Rüstung mit Kinetischem Schutz trägst - er dämpft den Aufprall"
+          },
+          "dependencies": [
+            "gadgets.elytra_pad"
+          ],
+          "optional": true
+        },
+        {
           "key": "flypad",
           "task": {
             "type": "advancement",
@@ -59467,16 +60243,16 @@
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 177,
+    "items": 178,
     "blocks": 124,
-    "recipes": 355,
+    "recipes": 356,
     "lootTables": 116,
     "trades": 21,
     "enchantments": 19,
     "tags": 28,
     "config": 76,
     "inWorld": 392,
-    "advancements": 84,
+    "advancements": 101,
     "features": 37,
     "undocumented": 0,
     "incompleteProse": 0

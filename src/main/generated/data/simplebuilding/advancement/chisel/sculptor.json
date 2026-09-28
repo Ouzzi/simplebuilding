@@ -1,0 +1,30 @@
+{
+  "parent": "simplebuilding:chisel/chip_off_the_old_block",
+  "criteria": {
+    "chisel_steps": {
+      "conditions": {
+        "counter": "chisel_steps",
+        "min": 1000
+      },
+      "trigger": "simplebuilding:counter"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.chisel.sculptor.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "simplebuilding:iron_chisel"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.chisel.sculptor.title"
+    }
+  },
+  "requirements": [
+    [
+      "chisel_steps"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

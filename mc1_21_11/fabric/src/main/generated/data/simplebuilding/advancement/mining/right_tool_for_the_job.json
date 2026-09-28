@@ -1,0 +1,29 @@
+{
+  "parent": "simplebuilding:tiers/ironclad",
+  "criteria": {
+    "versatility_swap": {
+      "conditions": {
+        "feature": "versatility_swap"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.mining.right_tool_for_the_job.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:iron_axe"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.mining.right_tool_for_the_job.title"
+    }
+  },
+  "requirements": [
+    [
+      "versatility_swap"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

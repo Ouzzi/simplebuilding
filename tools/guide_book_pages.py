@@ -29,14 +29,18 @@ LANG_DIRS = ["src/main/resources/assets/simplebuilding/lang",
              "mc1_21_11/fabric/src/main/resources/assets/simplebuilding/lang"]
 MAX_LINES = 13
 LINE_WIDTH = 114
-BOOKS = ["guide", "tools", "building", "storage", "machines", "end", "tweaks", "trims"]
+BOOKS = ["guide", "tools", "building", "storage", "machines", "end", "tweaks", "trims", "admin"]
 TOPICS_ON_FIRST_PAGE = 2
+TOPICS_PER_PAGE = 4
+# GuideBooks.CONTENTS_FIRST_TOPIC / CONTENTS_FIRST_GUIDE / CONTENTS_MORE: links on contents page 1 and each further one.
+CONTENTS_FIRST_TOPIC, CONTENTS_FIRST_GUIDE, CONTENTS_MORE = 6, 11, 11
 # What the keybind arguments and key items render as (vanilla names, en/de).
 KEYBINDS = {"%1$s": "G", "%2$s": "B"}
 KEY_ITEMS = {
     "tools": ("Stone Chisel", "Steinmeißel"), "building": ("Brick", "Ziegel"), "storage": ("Chest", "Truhe"),
     "machines": ("Piston", "Kolben"), "end": ("Ender Pearl", "Enderperle"),
     "tweaks": ("Stone Pressure Plate", "Steindruckplatte"), "trims": ("Amethyst Shard", "Amethystscherbe"),
+    "admin": ("Redstone Comparator", "Redstone-Komparator"),
 }
 
 _WIDTHS = {}
@@ -118,7 +122,11 @@ def pages(lang, locale):
         links = [t("%s.%d.title" % (base, i)) for i in range(1, chapters + 1)]
         if book == "guide":
             links.append(t("book.simplebuilding.guide.topics.title"))
-        out.append(("%s contents" % book, segs + [("\n".join(links), False)]))
+        first = CONTENTS_FIRST_GUIDE if book == "guide" else CONTENTS_FIRST_TOPIC
+        out.append(("%s contents" % book, segs + [("\n".join(links[:first]), False)]))
+        rest = links[first:]
+        for n in range(0, len(rest), CONTENTS_MORE):
+            out.append(("%s contents %d" % (book, 2 + n // CONTENTS_MORE), [("\n".join(rest[n:n + CONTENTS_MORE]), False)]))
         for i in range(1, chapters + 1):
             out.append(("%s %d" % (book, i), [(t("%s.%d.title" % (base, i)), True), ("\n\n", False),
                                               (sub(t("%s.%d.text" % (base, i))), False)] + back))
@@ -136,7 +144,9 @@ def pages(lang, locale):
             first = [(t("book.simplebuilding.guide.topics.title"), True), ("\n\n", False),
                      (t("book.simplebuilding.guide.topics.text"), False), ("\n\n", False)]
             out.append(("guide topics 1", first + listing(BOOKS[1:1 + TOPICS_ON_FIRST_PAGE]) + back))
-            out.append(("guide topics 2", listing(BOOKS[1 + TOPICS_ON_FIRST_PAGE:]) + back))
+            rest = BOOKS[1 + TOPICS_ON_FIRST_PAGE:]
+            for n in range(0, len(rest), TOPICS_PER_PAGE):
+                out.append(("guide topics %d" % (2 + n // TOPICS_PER_PAGE), listing(rest[n:n + TOPICS_PER_PAGE]) + back))
     return out
 
 

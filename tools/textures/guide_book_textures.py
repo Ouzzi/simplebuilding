@@ -13,6 +13,7 @@ Eckfuellung), eine Spalte Abstand zu jedem Bildrand. Auf dem Deckel ein kleines 
   end       violett, Enderauge                             (Ende & Enderit)
   tweaks    gruen, Druckplatte mit Pfeil nach oben         (Pads & Geraete)
   trims     nachtblau, Brustpanzer mit goldenem Besatz     (Besaetze & Strahlkraft)
+  admin     schiefergrau-dunkel, Konsole mit gruener Eingabe (Server & Admin, 2026-09-28)
 """
 from PIL import Image
 
@@ -56,6 +57,7 @@ COVERS = {
     "end": ("#24122f", "#361b47", "#8a5cb0", "#6a3f8f", "#532f72"),
     "tweaks": ("#18301a", "#244826", "#6fa35e", "#4e8040", "#3c6532"),
     "trims": ("#10142a", "#1b2342", "#4f5f99", "#343f73", "#28315a"),
+    "admin": ("#1a1c1f", "#2a2d31", "#8b9199", "#636870", "#4c5057"),
 }
 GOLD = {"g": "#e8b93a"}
 
@@ -149,9 +151,20 @@ EMBLEMS = {
         "......",
         "......",
     ], {"A": "#c8ced6", "a": "#8d96a3", "y": "#f0c84a"}),
+    "admin": ([
+        "......",
+        ".FFFF.",
+        "FkkkkF",
+        "FgkkkF",
+        "FkgkkF",
+        "FgkggF",
+        ".FFFF.",
+        "......",
+        "......",
+    ], {"F": "#c8ced6", "k": "#16191d", "g": "#62d662"}),
 }
 
-ORDER = ["guide", "tools", "building", "storage", "machines", "end", "tweaks", "trims"]
+ORDER = ["guide", "tools", "building", "storage", "machines", "end", "tweaks", "trims", "admin"]
 
 
 def guide_book(topic):

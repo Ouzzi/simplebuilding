@@ -43,6 +43,7 @@ public final class ModMessageHandlers {
             int level = EnchantmentHelper.getItemEnchantmentLevel(doubleJump.get(), bootStack);
             // Nicht mehr blind vertrauen (Audit #30): nur in der Luft, einmal je Sturz bzw. je Abklingzeit.
             if (level > 0 && AirJumpGuard.tryUse(player, level)) {
+                com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.AIR_JUMP);
                 player.fallDistance = 0;
                 if (!player.isCreative()) {
                     bootStack.hurtAndBreak(1, player, EquipmentSlot.FEET);

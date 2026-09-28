@@ -109,6 +109,15 @@ public class BackpackBlock extends BaseEntityBlock {
         return InteractionResult.SUCCESS;
     }
 
+    /** Ein Spieler hat den Rucksack abgestellt: Erfolg "Lager aufschlagen" ({@code storage/pitching_camp}). */
+    @Override
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable net.minecraft.world.entity.LivingEntity placer, ItemStack stack) {
+        super.setPlacedBy(level, pos, state, placer, stack);
+        if (placer instanceof Player player) {
+            com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.BACKPACK_PLACED);
+        }
+    }
+
     /**
      * Im Kreativmodus droppt Vanilla beim Abbauen nichts. Ein voller Rucksack faellt trotzdem als
      * Item mit Inhalt heraus - dasselbe, was eine Shulkerkiste tut; ein leerer verschwindet.

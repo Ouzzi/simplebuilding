@@ -517,6 +517,7 @@ public class ChiselItem extends Item {
 
             world.setBlockAndUpdate(pos, newState);
             com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.CHISEL);
+            com.simplebuilding.advancement.ModCounters.add(player, com.simplebuilding.advancement.ModCounters.CHISEL_STEPS, 1);
 
             // Cooldown Berechnung mit Fast Chiseling
 

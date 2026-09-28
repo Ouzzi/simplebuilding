@@ -47,6 +47,7 @@ public final class SledgehammerUsageEvent {
                 try {
                     boolean wasBroken = serverPlayer.gameMode.destroyBlock(position);
                     if (wasBroken) {
+                        com.simplebuilding.advancement.ModCounters.add(serverPlayer, com.simplebuilding.advancement.ModCounters.HAMMER_BLOCKS, 1);
                         boolean isSuitable = mainHandItem.getItem().isCorrectToolForDrops(mainHandItem, targetState);
                         int damageAmount = isSuitable ? 1 : 2;
                         mainHandItem.hurtAndBreak(damageAmount, serverPlayer, EquipmentSlot.MAINHAND);
