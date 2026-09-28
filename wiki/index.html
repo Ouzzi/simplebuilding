@@ -952,6 +952,12 @@ en: {
   navAdvancements: 'Advancements',
   advIntro: 'The mod\'s own advancement tab in the game. Every entry says what to do; once one is done, the next ones become visible - that is the clue for how to progress. Read from the datagen output (advancement/**), recipe unlocks and the secret easter chain left out.',
   advTab: 'SimpleBuilding tab',
+  advQuests: 'FTB Quests chapters',
+  advQuestsIntro: 'With FTB Quests installed, the mod adds a chapter group "SimpleBuilding" to the quest book on first start: four stage chapters that unlock one after another and three side chapters. Items you already carry count too. Details: docs/QUESTS.md.',
+  advStage: 'Stage {0}',
+  advSide: 'Side chapter',
+  advOptional: 'optional',
+  advCapstone: 'ends the stage',
   advVanilla: 'Teasers in vanilla tabs',
   advUnder: 'under {0}',
   advFrame_task: 'task', advFrame_goal: 'goal', advFrame_challenge: 'challenge',
@@ -1423,8 +1429,14 @@ de: {
   /* Umwandlung in der Welt */
   navInWorld: 'In der Welt',
   navAdvancements: 'Fortschritte',
-  advIntro: 'Der eigene Fortschritts-Tab der Mod im Spiel. Jeder Eintrag sagt, was zu tun ist; ist einer erledigt, werden die nächsten sichtbar - das ist der Hinweis, wie es weitergeht. Gelesen aus der Datagen-Ausgabe (advancement/**), ohne Rezept-Freischaltungen und ohne die geheime Easter-Kette.',
+  advIntro: 'Die eigenen Fortschritts-Tabs der Mod im Spiel (wie Vanilla: ein Story-Tab, Bauen & Blaupausen, Gadgets & Kniffe, Jenseits des Endes). Jeder Eintrag sagt, was zu tun ist; ist einer erledigt, werden die nächsten sichtbar - das ist der Hinweis, wie es weitergeht. Gelesen aus der Datagen-Ausgabe (advancement/**), ohne Rezept-Freischaltungen und ohne die geheime Easter-Kette.',
   advTab: 'SimpleBuilding-Tab',
+  advQuests: 'FTB-Quests-Kapitel',
+  advQuestsIntro: 'Ist FTB Quests installiert, legt die Mod beim ersten Start eine Kapitelgruppe „SimpleBuilding“ im Questbuch an: vier Stufen-Kapitel, die nacheinander frei werden, und drei Nebenkapitel. Gegenstände, die du schon trägst, zählen auch. Details: docs/QUESTS.md.',
+  advStage: 'Stufe {0}',
+  advSide: 'Nebenkapitel',
+  advOptional: 'optional',
+  advCapstone: 'schließt die Stufe ab',
   advVanilla: 'Teaser in Vanilla-Tabs',
   advUnder: 'unter {0}',
   advFrame_task: 'Aufgabe', advFrame_goal: 'Ziel', advFrame_challenge: 'Herausforderung',
@@ -3220,8 +3232,10 @@ function pageAdvancements() {
   }
   var h = '<h1>' + esc(T('navAdvancements')) + ' <span class="muted tiny" style="font-weight:400">' + all.length + '</span></h1>';
   h += '<p class="muted">' + esc(T('advIntro')) + '</p>';
-  var roots = kids.get('') || [];
-  if (roots.length) h += section(T('advTab'), '<ul class="advtree top">' + roots.map(node).join('') + '</ul>');
+  // One section per tab root, like the tabs of the advancement screen.
+  (kids.get('') || []).forEach(function (root) {
+    h += section(advText(root, 'title') || T('advTab'), '<ul class="advtree top">' + node(root) + '</ul>');
+  });
   var teasers = [];
   kids.forEach(function (list, key) {
     if (key.indexOf('vanilla:') === 0) list.forEach(function (a) { teasers.push({ a: a, under: key.slice(8) }); });
@@ -3230,6 +3244,27 @@ function pageAdvancements() {
     h += section(T('advVanilla'), teasers.map(function (t) {
       return '<p class="muted tiny" style="margin:.6rem 0 0">' + esc(T('advUnder', t.under)) + '</p><ul class="advtree top">' + node(t.a) + '</ul>';
     }).join(''));
+  }
+  var chapters = arr(D.quests).filter(isObj);
+  if (chapters.length) {
+    var qh = '<p class="muted">' + esc(T('advQuestsIntro')) + '</p>';
+    chapters.forEach(function (c) {
+      qh += '<h3>' + slotHtml(c.icon) + ' ' + esc(advText(c, 'title')) + ' <span class="muted tiny" style="font-weight:400">' +
+        esc(c.stage ? T('advStage', c.stage) : T('advSide')) + '</span></h3><p class="tiny muted">' + esc(advText(c, 'subtitle')) + '</p><ul class="advtree top">';
+      arr(c.quests).filter(isObj).forEach(function (q) {
+        var task = isObj(q.task) ? q.task : {};
+        var what = task.type === 'item' ? refLink(task.id, { noId: true }) : esc(task.id);
+        var flags = [];
+        if (q.optional) flags.push(T('advOptional'));
+        if (q.capstone) flags.push(T('advCapstone'));
+        qh += '<li><div class="adv">' + (task.type === 'item' ? slotHtml(task.id) : '') + '<div><b>' + esc(advText(q, 'title')) + '</b>' +
+          (flags.length ? '<span class="adv-frame">' + esc(flags.join(', ')) + '</span>' : '') +
+          '<div class="tiny">' + esc(advText(q, 'description')) + (q.hint ? ' ' + esc(advText(q, 'hint')) : '') + '</div>' +
+          '<div class="muted tiny">' + what + '</div></div></div></li>';
+      });
+      qh += '</ul>';
+    });
+    h += section(T('advQuests'), qh);
   }
   return h;
 }

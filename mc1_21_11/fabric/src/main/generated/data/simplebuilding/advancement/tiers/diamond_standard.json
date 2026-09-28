@@ -1,0 +1,37 @@
+{
+  "parent": "simplebuilding:tiers/ironclad",
+  "criteria": {
+    "diamond_tool": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:diamond_chisel",
+              "simplebuilding:diamond_sledgehammer",
+              "simplebuilding:diamond_building_wand"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.tiers.diamond_standard.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:diamond_sledgehammer"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.tiers.diamond_standard.title"
+    }
+  },
+  "requirements": [
+    [
+      "diamond_tool"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

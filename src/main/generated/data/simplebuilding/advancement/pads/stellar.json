@@ -1,0 +1,33 @@
+{
+  "parent": "simplebuilding:pads/fly_me_to_the_moon",
+  "criteria": {
+    "stellar_flypad": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:stellar_flypad"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.pads.stellar.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "id": "simplebuilding:stellar_flypad"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.pads.stellar.title"
+    }
+  },
+  "requirements": [
+    [
+      "stellar_flypad"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

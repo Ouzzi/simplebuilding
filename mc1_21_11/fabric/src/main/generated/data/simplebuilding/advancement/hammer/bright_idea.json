@@ -1,0 +1,33 @@
+{
+  "parent": "simplebuilding:hammer/glow_up",
+  "criteria": {
+    "emitting_trim_template": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:emitting_trim_template"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.hammer.bright_idea.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:emitting_trim_template"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.hammer.bright_idea.title"
+    }
+  },
+  "requirements": [
+    [
+      "emitting_trim_template"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

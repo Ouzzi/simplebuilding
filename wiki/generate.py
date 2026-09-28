@@ -1926,6 +1926,59 @@ def collect_advancements(roots: dict, lang: dict) -> list[dict]:
     return out
 
 
+# ---------------------------------------------------------------------------
+# FTB Quests: the optional quest book (tools/quests/generate_quests.py)
+# ---------------------------------------------------------------------------
+
+def collect_quests(lang: dict) -> list[dict]:
+    """
+    The chapters of the FTB Quests book the mod ships (docs/QUESTS.md), straight from its
+    source tools/quests/generate_quests.py: stage, icon, both lang texts and every quest with
+    its task. Quests with an advancement task show that advancement's texts, as in the game.
+    """
+    import importlib.util
+    path = REPO / "tools" / "quests" / "generate_quests.py"
+    if not path.exists():
+        return []
+    spec = importlib.util.spec_from_file_location("sb_generate_quests", path)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    book = module.Book()
+    out = []
+    for chapter in module.CHAPTERS:
+        stem = f"{module.LANG_KEY}.{chapter.key}"
+        quests = []
+        for q in chapter.quests:
+            kind, _, ident = q.task.partition(":")
+            own = f"{stem}.{q.key}"
+            title_key = own + ".title" if q.title else module.adv_key(ident, "title")
+            desc_key = own + ".description" if q.desc else module.adv_key(ident, "description")
+            entry = {
+                "key": q.key,
+                "task": {"type": "item" if kind == "item" else "advancement", "id": ident},
+                "title": display_name(lang, title_key, ident.split("/")[-1].split(":")[-1]),
+                "description": display_name(lang, desc_key, ""),
+                "dependencies": book.deps[f"{chapter.key}.{q.key}"],
+            }
+            if q.hint:
+                entry["hint"] = display_name(lang, own + ".hint", "")
+            if q.optional:
+                entry["optional"] = True
+            if q.capstone:
+                entry["capstone"] = True
+            quests.append(entry)
+        out.append({
+            "id": chapter.key,
+            "stage": chapter.stage,
+            "icon": chapter.icon,
+            "title": display_name(lang, stem + ".title", chapter.key),
+            "subtitle": display_name(lang, stem + ".subtitle", ""),
+            "quests": quests,
+        })
+    return out
+
+
 def build(line: str, check: bool = False) -> tuple[dict, list[str]]:
     roots = LINES[line]
     lang = load_lang(roots)
@@ -1937,6 +1990,7 @@ def build(line: str, check: bool = False) -> tuple[dict, list[str]]:
     tags = collect_tags(roots)
     config = collect_config(roots, lang)
     advancements = collect_advancements(roots, lang)
+    quests = collect_quests(lang)
     # Vanilla-Texturen aus dem Client-Jar holen, damit Zutaten wie
     # minecraft:stick nicht als Textkachel erscheinen. Bewusst nicht im
     # Payload: der Jar-Pfad ist maschinenabhaengig und der Cache kann fehlen -
@@ -2106,6 +2160,7 @@ def build(line: str, check: bool = False) -> tuple[dict, list[str]]:
         "inWorld": in_world,
         "obtain": obtain,
         "advancements": advancements,
+        "quests": quests,
         "vanillaRecipes": {
             "lines": sorted(LINES),
             "file": VANILLA_RECIPE_FILE,

@@ -1,0 +1,73 @@
+{
+	"chapter_group.0FF8ACD95EC2930E.title": "{\"translate\": \"quests.simplebuilding.group.title\"}",
+	"chapter.14D15A108D9A17DC.title": "{\"translate\": \"quests.simplebuilding.stage_1.title\"}",
+	"chapter.14D15A108D9A17DC.chapter_subtitle": [
+		"{\"translate\": \"quests.simplebuilding.stage_1.subtitle\"}"
+	],
+	"quest.5391FBC8E17B94E8.title": "{\"translate\": \"quests.simplebuilding.stage_1.welcome.title\"}",
+	"quest.5391FBC8E17B94E8.quest_desc": [
+		"{\"translate\": \"quests.simplebuilding.stage_1.welcome.description\"}"
+	],
+	"quest.4E11526B4A90FF79.title": "{\"translate\": \"quests.simplebuilding.stage_1.guide_book.title\"}",
+	"quest.4E11526B4A90FF79.quest_desc": [
+		"{\"translate\": \"quests.simplebuilding.stage_1.guide_book.description\"}"
+	],
+	"quest.7F408FA50648B423.title": "{\"translate\": \"advancements.story.mine_stone.title\"}",
+	"quest.7F408FA50648B423.quest_desc": [
+		"{\"translate\": \"advancements.story.mine_stone.description\"}"
+	],
+	"quest.1DFAEA31C9E9163A.title": "{\"translate\": \"quests.simplebuilding.stage_1.stone_chisel.title\"}",
+	"quest.1DFAEA31C9E9163A.quest_desc": [
+		"{\"translate\": \"quests.simplebuilding.stage_1.stone_chisel.description\"}"
+	],
+	"quest.4E1F1E04C4CCACF9.title": "{\"translate\": \"advancements.simplebuilding.chisel.chip_off_the_old_block.title\"}",
+	"quest.4E1F1E04C4CCACF9.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.chisel.chip_off_the_old_block.description\"}"
+	],
+	"quest.0ED93D28BB8C2171.title": "{\"translate\": \"advancements.story.smelt_iron.title\"}",
+	"quest.0ED93D28BB8C2171.quest_desc": [
+		"{\"translate\": \"advancements.story.smelt_iron.description\"}"
+	],
+	"quest.65D88117838EB4F9.title": "{\"translate\": \"quests.simplebuilding.stage_1.stone_sledgehammer.title\"}",
+	"quest.65D88117838EB4F9.quest_desc": [
+		"{\"translate\": \"quests.simplebuilding.stage_1.stone_sledgehammer.description\"}"
+	],
+	"quest.2F00290C112A04C2.title": "{\"translate\": \"advancements.simplebuilding.hammer.stair_master.title\"}",
+	"quest.2F00290C112A04C2.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.hammer.stair_master.description\"}"
+	],
+	"quest.5987FB3CF82C5FC4.title": "{\"translate\": \"quests.simplebuilding.stage_1.leather_sheet.title\"}",
+	"quest.5987FB3CF82C5FC4.quest_desc": [
+		"{\"translate\": \"quests.simplebuilding.stage_1.leather_sheet.description\"}"
+	],
+	"quest.4E943829CB624FC9.title": "{\"translate\": \"advancements.simplebuilding.storage.pack_mule.title\"}",
+	"quest.4E943829CB624FC9.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.storage.pack_mule.description\"}"
+	],
+	"quest.6EC695A947AFFA85.title": "{\"translate\": \"advancements.simplebuilding.tiers.copper_crafter.title\"}",
+	"quest.6EC695A947AFFA85.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.tiers.copper_crafter.description\"}"
+	],
+	"quest.19DB77F5F314A5D9.title": "{\"translate\": \"advancements.adventure.trade.title\"}",
+	"quest.19DB77F5F314A5D9.quest_desc": [
+		"{\"translate\": \"advancements.adventure.trade.description\"}",
+		"{\"translate\": \"quests.simplebuilding.stage_1.trade.hint\"}"
+	],
+	"quest.08F000C8C84FDF74.title": "{\"translate\": \"quests.simplebuilding.stage_1.copper_core.title\"}",
+	"quest.08F000C8C84FDF74.quest_desc": [
+		"{\"translate\": \"quests.simplebuilding.stage_1.copper_core.description\"}"
+	],
+	"quest.7E8F3FE9F8ABFFDE.title": "{\"translate\": \"quests.simplebuilding.stage_1.copper_wand.title\"}",
+	"quest.7E8F3FE9F8ABFFDE.quest_desc": [
+		"{\"translate\": \"quests.simplebuilding.stage_1.copper_wand.description\"}"
+	],
+	"quest.7B2E6454D46A43F4.title": "{\"translate\": \"advancements.simplebuilding.wand.one_click_wonder.title\"}",
+	"quest.7B2E6454D46A43F4.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.wand.one_click_wonder.description\"}"
+	],
+	"quest.00CDA54453F00B28.title": "{\"translate\": \"quests.simplebuilding.stage_1.done.title\"}",
+	"quest.00CDA54453F00B28.quest_desc": [
+		"{\"translate\": \"advancements.story.iron_tools.description\"}",
+		"{\"translate\": \"quests.simplebuilding.stage_1.done.hint\"}"
+	]
+}

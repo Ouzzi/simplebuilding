@@ -35,6 +35,8 @@ public final class SimplebuildingNeoForge {
     public SimplebuildingNeoForge(IEventBus modEventBus, ModContainer modContainer) {
         ModEnvironment.setModLoadedCheck(modId -> ModList.get().isLoaded(modId));
         ModEnvironment.setDevelopmentEnvironment(!net.neoforged.fml.loading.FMLEnvironment.isProduction());
+        // FTB Quests (optional): copy the SimpleBuilding chapters into its quest book once.
+        com.simplebuilding.compat.FtbQuestsDefaults.installIfPresent(net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get());
         NeoForgeModRegistries.register(modEventBus);
         modEventBus.addListener(NeoForgeRegistryBootstrap::onRegister);
         modEventBus.addListener(this::commonSetup);

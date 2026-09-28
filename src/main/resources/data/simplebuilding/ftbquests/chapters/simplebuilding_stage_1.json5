@@ -1,0 +1,301 @@
+{
+	"id": "14D15A108D9A17DC",
+	"group": "0FF8ACD95EC2930E",
+	"order_index": 0,
+	"filename": "simplebuilding_stage_1",
+	"icon": {
+		"id": "simplebuilding:stone_chisel"
+	},
+	"default_quest_shape": "",
+	"default_hide_dependency_lines": false,
+	"progression_mode": "flexible",
+	"quests": [
+		{
+			"id": "5391FBC8E17B94E8",
+			"x": 0.0,
+			"y": 0.0,
+			"dependencies": [],
+			"tasks": [
+				{
+					"id": "5C80D9A377E9A2A8",
+					"type": "item",
+					"item": {
+						"id": "minecraft:crafting_table",
+						"count": 1
+					}
+				}
+			]
+		},
+		{
+			"id": "4E11526B4A90FF79",
+			"x": 2.0,
+			"y": -2.25,
+			"optional": true,
+			"dependencies": [
+				"5391FBC8E17B94E8"
+			],
+			"tasks": [
+				{
+					"id": "64DBC06821A3B367",
+					"type": "item",
+					"item": {
+						"id": "simplebuilding:guide_book",
+						"count": 1
+					}
+				}
+			]
+		},
+		{
+			"id": "7F408FA50648B423",
+			"x": 2.0,
+			"y": -0.75,
+			"dependencies": [
+				"5391FBC8E17B94E8"
+			],
+			"tasks": [
+				{
+					"id": "6FBA83DFC1AA7AE0",
+					"type": "advancement",
+					"advancement": "minecraft:story/mine_stone",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "1DFAEA31C9E9163A",
+			"x": 4.0,
+			"y": -1.5,
+			"dependencies": [
+				"7F408FA50648B423"
+			],
+			"tasks": [
+				{
+					"id": "1EECA115E87FEAD7",
+					"type": "item",
+					"item": {
+						"id": "simplebuilding:stone_chisel",
+						"count": 1
+					}
+				}
+			]
+		},
+		{
+			"id": "4E1F1E04C4CCACF9",
+			"x": 6.0,
+			"y": -3.0,
+			"dependencies": [
+				"1DFAEA31C9E9163A"
+			],
+			"tasks": [
+				{
+					"id": "4987FDA3143C797A",
+					"type": "advancement",
+					"advancement": "simplebuilding:chisel/chip_off_the_old_block",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "0ED93D28BB8C2171",
+			"x": 4.0,
+			"y": 0.0,
+			"dependencies": [
+				"7F408FA50648B423"
+			],
+			"tasks": [
+				{
+					"id": "18715C4EB7370DAD",
+					"type": "advancement",
+					"advancement": "minecraft:story/smelt_iron",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "65D88117838EB4F9",
+			"x": 6.0,
+			"y": -1.5,
+			"dependencies": [
+				"0ED93D28BB8C2171"
+			],
+			"tasks": [
+				{
+					"id": "2D129AD799F9A07B",
+					"type": "item",
+					"item": {
+						"id": "simplebuilding:stone_sledgehammer",
+						"count": 1
+					}
+				}
+			]
+		},
+		{
+			"id": "2F00290C112A04C2",
+			"x": 8.0,
+			"y": -0.75,
+			"dependencies": [
+				"65D88117838EB4F9"
+			],
+			"tasks": [
+				{
+					"id": "495A9B72347E5978",
+					"type": "advancement",
+					"advancement": "simplebuilding:hammer/stair_master",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "5987FB3CF82C5FC4",
+			"x": 2.0,
+			"y": 0.75,
+			"dependencies": [
+				"5391FBC8E17B94E8"
+			],
+			"tasks": [
+				{
+					"id": "1EDC763F711450EE",
+					"type": "item",
+					"item": {
+						"id": "simplebuilding:leather_sheet",
+						"count": 1
+					}
+				}
+			]
+		},
+		{
+			"id": "4E943829CB624FC9",
+			"x": 6.0,
+			"y": 0.0,
+			"dependencies": [
+				"5987FB3CF82C5FC4",
+				"0ED93D28BB8C2171"
+			],
+			"tasks": [
+				{
+					"id": "63D8D6FECC299597",
+					"type": "advancement",
+					"advancement": "simplebuilding:storage/pack_mule",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "6EC695A947AFFA85",
+			"x": 6.0,
+			"y": 1.5,
+			"dependencies": [
+				"1DFAEA31C9E9163A"
+			],
+			"tasks": [
+				{
+					"id": "7F4B4E2C1B0501DD",
+					"type": "advancement",
+					"advancement": "simplebuilding:tiers/copper_crafter",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "19DB77F5F314A5D9",
+			"x": 2.0,
+			"y": 2.25,
+			"dependencies": [
+				"5391FBC8E17B94E8"
+			],
+			"tasks": [
+				{
+					"id": "32DA484542B15B41",
+					"type": "advancement",
+					"advancement": "minecraft:adventure/trade",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "08F000C8C84FDF74",
+			"x": 4.0,
+			"y": 1.5,
+			"dependencies": [
+				"19DB77F5F314A5D9"
+			],
+			"tasks": [
+				{
+					"id": "70069B7E7E34814D",
+					"type": "item",
+					"item": {
+						"id": "simplebuilding:copper_core",
+						"count": 1
+					}
+				}
+			]
+		},
+		{
+			"id": "7E8F3FE9F8ABFFDE",
+			"x": 6.0,
+			"y": 3.0,
+			"dependencies": [
+				"08F000C8C84FDF74"
+			],
+			"tasks": [
+				{
+					"id": "2A5A488EA8349DD3",
+					"type": "item",
+					"item": {
+						"id": "simplebuilding:copper_building_wand",
+						"count": 1
+					}
+				}
+			]
+		},
+		{
+			"id": "7B2E6454D46A43F4",
+			"x": 8.0,
+			"y": 0.75,
+			"dependencies": [
+				"7E8F3FE9F8ABFFDE"
+			],
+			"tasks": [
+				{
+					"id": "4FF003A6DDB063C2",
+					"type": "advancement",
+					"advancement": "simplebuilding:wand/one_click_wonder",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "00CDA54453F00B28",
+			"x": 10.0,
+			"y": 0.0,
+			"shape": "gear",
+			"size": 1.5,
+			"dependencies": [
+				"5391FBC8E17B94E8",
+				"7F408FA50648B423",
+				"1DFAEA31C9E9163A",
+				"4E1F1E04C4CCACF9",
+				"0ED93D28BB8C2171",
+				"65D88117838EB4F9",
+				"2F00290C112A04C2",
+				"5987FB3CF82C5FC4",
+				"4E943829CB624FC9",
+				"6EC695A947AFFA85",
+				"19DB77F5F314A5D9",
+				"08F000C8C84FDF74",
+				"7E8F3FE9F8ABFFDE",
+				"7B2E6454D46A43F4"
+			],
+			"tasks": [
+				{
+					"id": "54363FE96DE6B148",
+					"type": "advancement",
+					"advancement": "minecraft:story/iron_tools",
+					"criterion": ""
+				}
+			]
+		}
+	],
+	"quest_links": [],
+	"images": []
+}

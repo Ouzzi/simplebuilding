@@ -1,0 +1,37 @@
+{
+  "parent": "simplebuilding:end/stardust",
+  "criteria": {
+    "astral_block": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:astral_purpur_block",
+              "simplebuilding:nihil_purpur_block",
+              "simplebuilding:astral_end_stone",
+              "simplebuilding:nihil_end_stone"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.end.astral_projection.description"
+    },
+    "icon": {
+      "id": "simplebuilding:astral_purpur_block"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.end.astral_projection.title"
+    }
+  },
+  "requirements": [
+    [
+      "astral_block"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

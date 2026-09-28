@@ -1,5 +1,5 @@
 {
-  "parent": "simplebuilding:root",
+  "parent": "simplebuilding:tiers/copper_crafter",
   "criteria": {
     "basic_upgrade_template": {
       "conditions": {
