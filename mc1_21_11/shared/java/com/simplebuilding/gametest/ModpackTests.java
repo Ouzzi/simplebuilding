@@ -539,8 +539,11 @@ public final class ModpackTests {
                 problems.add(injectKey.identifier() + " differs from the code:\n  file " + loaded + "\n  code " + expected);
             }
             String vanilla = LootTable.DIRECT_CODEC.encodeStart(ops, server.reloadableRegistries().getLootTable(key)).getOrThrow().toString();
-            if (!vanilla.contains(injectKey.identifier().toString())) {
-                problems.add(key.identifier() + " does not roll " + injectKey.identifier());
+            // 26.2 writes the reference as the table id; 26.3 holds it as a bound Holder and the codec
+            // writes the loaded inject table inline - either way it is the loaded table that rolls.
+            if (!vanilla.contains(injectKey.identifier().toString()) && (loaded == null || !vanilla.contains(loaded.toString()))) {
+                problems.add(key.identifier() + " does not roll " + injectKey.identifier() + " (table ends "
+                        + vanilla.substring(Math.max(0, vanilla.length() - 300)) + ")");
             }
         }
         helper.assertTrue(injected >= 15, "the mod injects into only " + injected + " vanilla tables");
