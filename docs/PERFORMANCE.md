@@ -97,6 +97,7 @@ Mods; die Forge-Linie der Mod ist davon nicht betroffen.
 | Distant Horizons | Fabric + NeoForge | kompatibel | LODs zeigen nur Terrain - Block-Entities der Mod erscheinen erst in normaler Sichtweite (wie alle BERs). |
 | ScalableLux (Starlight-Nachfolger) | Fabric + NeoForge (Alpha) | kompatibel | Keine Mixins in die Licht-Engine; dynamisches Licht setzt echte Lichtbloecke ueber `setBlock`. |
 | VMP (Very Many Players) | Fabric | kompatibel | Keine Mixins in `ChunkMap`/Entity-Tracking. |
+| Jade | Fabric + NeoForge, 1.21.11 bis 26.3 (kein Forge 26.2, kein 26.4-Snapshot) | kompatibel, **eigenes Plugin** | Optionales Plugin (`common/src/jade/java`, nur von Jade geladen: Fabric-Entrypoint `jade`, NeoForge `@WailaPlugin`): Besitzer der Platten, Launchpad-Ladungen `x / max`, Trank und Abklingzeit der Trankplatte, erzwungene Chunks des Chunk-Laders, Filter der Mod-Trichter (ueber Jades Serverdaten, also nur mit Jade auch auf dem Server), dazu Kolbenhaltbarkeit, Truhenplaetze und Ofentempo (aus dem Blockzustand, auch ohne Jade auf dem Server). Jeder Punkt einzeln in Jades Plugin-Config abschaltbar. Werte aus `compat.BlockInfo`, per Server-Spieltest geprueft (`block_info_game_test_*`). Auf dem 26.4-Snapshot gegen das 26.3-Jade-Jar kompiliert. |
 
 ### Mixin-Ziele mit Konfliktpotenzial
 

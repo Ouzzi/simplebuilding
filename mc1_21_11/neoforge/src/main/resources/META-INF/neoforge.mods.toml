@@ -59,6 +59,7 @@ versionRange="[27,)"
 ordering="NONE"
 side="BOTH"
 
+# Jade: the mod ships a Jade plugin (@WailaPlugin, pad owner/charges, piston durability, ...).
 [[dependencies.${modId}]]
 modId="jade"
 type="optional"

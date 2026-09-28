@@ -20,6 +20,9 @@ sourceSets {
 			srcDir rootProject.layout.projectDirectory.dir('mc1_21_11/shared/java')
 			// JEI plugin, compileOnly JEI API (see the root build.gradle)
 			srcDir rootProject.layout.projectDirectory.dir('mc1_21_11/jei/java')
+			// Jade plugin: the same tree as 26.x (Jade 21.x has the same API surface; the data comes from
+			// this line's own compat.BlockInfo copy in mc1_21_11/shared/java)
+			srcDir rootProject.layout.projectDirectory.dir('common/src/jade/java')
 		}
 		resources {
 			// Datagen output for this Minecraft line. Copied from the 26.2 tree as a
@@ -155,6 +158,9 @@ dependencies {
 	// JEI plugin API (mc1_21_11/jei/java). compileOnly and NOT modCompileOnly: JEI's common API is
 	// published in Mojang names, which is what this module compiles against.
 	compileOnly "mezz.jei:jei-${project.mc11_minecraft_version}-common-api:${project.mc11_jei_version}"
+	// Jade plugin (common/src/jade/java). modCompileOnly, unlike JEI: the Jade Fabric jar for 1.21.11
+	// is intermediary-mapped and has to be remapped to Mojang names first.
+	modCompileOnly("maven.modrinth:jade:${project.mc11_dev_jade_fabric}") { transitive = false }
 
 	devMods "mezz.jei:jei-${project.mc11_minecraft_version}-fabric:${project.mc11_jei_version}"
 	devMods "maven.modrinth:jade:${project.mc11_dev_jade_fabric}"

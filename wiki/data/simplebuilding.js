@@ -2985,6 +2985,48 @@ window.WIKI_DATA = {
       }
     },
     {
+      "id": "block_info_jade",
+      "related": [
+        "simplebuilding:launchpad",
+        "simplebuilding:potion_pad",
+        "simplebuilding:chunk_loader",
+        "simplebuilding:netherite_piston",
+        "simplebuilding:netherite_hopper",
+        "simplebuilding:netherite_chest"
+      ],
+      "sources": [
+        "common/src/jade/java/com/simplebuilding/compat/jade/SimplebuildingJadePlugin.java",
+        "common/src/jade/java/com/simplebuilding/compat/jade/BlockInfoProvider.java",
+        "common/src/shared/java/com/simplebuilding/compat/BlockInfo.java",
+        "common/src/shared/java/com/simplebuilding/gametest/BlockInfoTests.java",
+        "src/main/resources/fabric.mod.json",
+        "neoforge/src/main/resources/META-INF/neoforge.mods.toml",
+        "src/main/resources/assets/simplebuilding/lang/en_us.json"
+      ],
+      "en": {
+        "title": "Block Info (Jade)",
+        "summary": "With Jade installed, looking at the mod's blocks shows extra lines in Jade's tooltip. Jade is optional: without it nothing changes. Supported on Fabric and NeoForge on both Minecraft lines; there is no Jade for MinecraftForge 26.2.",
+        "details": [
+          "Pads and plates from Simple Tweaks: the owner's name.",
+          "Launchpad: charges as \"x / max\"; Potion Pad: the stored effects and the remaining cooldown (or \"Ready\"); Chunk Loader: how many chunks it keeps loaded.",
+          "Reinforced, Netherite and Enderite Hopper: the filter mode and the filtered items.",
+          "Netherite and Enderite Piston: the remaining durability. Tiered chests: the slots (doubled for a double chest) and the stack bonus. Upgraded furnaces, smokers and blast furnaces: the speed compared to the vanilla block (2x, 4x, 8x).",
+          "Owner, pad status and hopper filter come from the server, so the server needs Jade too; durability, chest slots and furnace speed are worked out from the block itself. Every line can be switched off in Jade's plugin settings."
+        ]
+      },
+      "de": {
+        "title": "Blockinfo (Jade)",
+        "summary": "Ist Jade installiert, zeigt der Blick auf die Blöcke der Mod zusätzliche Zeilen in Jades Tooltip. Jade ist optional: ohne Jade ändert sich nichts. Unterstützt auf Fabric und NeoForge in beiden Minecraft-Linien; für MinecraftForge 26.2 gibt es kein Jade.",
+        "details": [
+          "Platten und Pads aus Simple Tweaks: der Name des Besitzers.",
+          "Startrampe: die Ladungen als „x / max“; Trankplatte: die gespeicherten Effekte und die restliche Abklingzeit (oder „Bereit“); Chunk-Lader: wie viele Chunks er geladen hält.",
+          "Verstärkter, Netherit- und Enderit-Trichter: der Filtermodus und die gefilterten Items.",
+          "Netherit- und Enderit-Kolben: die restliche Haltbarkeit. Mod-Truhen: die Plätze (bei der Doppeltruhe doppelt) und der Stapelfaktor. Aufgewertete Öfen, Räucheröfen und Schmelzöfen: das Tempo gegenüber dem Vanilla-Block (2×, 4×, 8×).",
+          "Besitzer, Plattenstatus und Trichterfilter kommen vom Server, der Server braucht also auch Jade; Haltbarkeit, Truhenplätze und Ofentempo ergeben sich aus dem Block selbst. Jede Zeile lässt sich in Jades Plugin-Einstellungen abschalten."
+        ]
+      }
+    },
+    {
       "id": "simple_tweaks",
       "related": [
         "simplebuilding:elytra_pad",
@@ -59480,7 +59522,7 @@ window.WIKI_DATA = {
     "config": 76,
     "inWorld": 392,
     "advancements": 84,
-    "features": 37,
+    "features": 38,
     "undocumented": 0,
     "incompleteProse": 0
   },

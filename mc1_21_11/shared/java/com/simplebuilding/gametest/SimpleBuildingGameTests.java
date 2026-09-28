@@ -1093,6 +1093,24 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tiered_chest_game_test_chest_items_follow_the_family_scheme", TieredChestTests::chestItemsFollowTheFamilyScheme)
                     .build(),
+            GameTestSpec.named("block_info_game_test_launchpad_shows_its_charges_against_its_capacity", BlockInfoTests::launchpadShowsItsChargesAgainstItsCapacity)
+                    .build(),
+            GameTestSpec.named("block_info_game_test_pad_owner_is_named_by_the_server", BlockInfoTests::padOwnerIsNamedByTheServer)
+                    .build(),
+            GameTestSpec.named("block_info_game_test_potion_pad_shows_its_potion_and_cooldown", BlockInfoTests::potionPadShowsItsPotionAndCooldown)
+                    .build(),
+            GameTestSpec.named("block_info_game_test_chunk_loader_shows_how_many_chunks_it_holds", BlockInfoTests::chunkLoaderShowsHowManyChunksItHolds)
+                    .build(),
+            GameTestSpec.named("block_info_game_test_piston_durability_follows_the_block_state", BlockInfoTests::pistonDurabilityFollowsTheBlockState)
+                    .build(),
+            GameTestSpec.named("block_info_game_test_chest_slots_follow_the_tier_and_double_chests", BlockInfoTests::chestSlotsFollowTheTierAndDoubleChests)
+                    .build(),
+            GameTestSpec.named("block_info_game_test_hopper_filter_names_the_mode_and_items", BlockInfoTests::hopperFilterNamesTheModeAndItems)
+                    .build(),
+            GameTestSpec.named("block_info_game_test_furnace_speed_follows_the_tier", BlockInfoTests::furnaceSpeedFollowsTheTier)
+                    .build(),
+            GameTestSpec.named("block_info_game_test_lines_survive_the_server_data_tag", BlockInfoTests::linesSurviveTheServerDataTag)
+                    .build(),
             GameTestSpec.named("in_world_export_game_test_upgrade_steps_name_the_weakest_hammer_that_works", InWorldExportTests::upgradeStepsNameTheWeakestHammerThatWorks)
                     .build(),
             GameTestSpec.named("in_world_export_game_test_reshape_ticks_match_the_use_duration_of_every_hammer", InWorldExportTests::reshapeTicksMatchTheUseDurationOfEveryHammer)
