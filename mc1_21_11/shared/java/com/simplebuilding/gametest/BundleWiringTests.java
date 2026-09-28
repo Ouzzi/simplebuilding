@@ -361,8 +361,8 @@ public final class BundleWiringTests {
      *       green.</li>
      * </ul>
      *
-     * <p>The netherite quiver is in neither half on purpose: it is not in {@code ignoreExplosion}
-     * today, and asserting that in either direction would cement a gap nobody has decided about.
+     * <p>The netherite quiver joined {@code ignoreExplosion} on 2026-09-28 (owner decision); its
+     * blast immunity is pinned by {@code QuiverTests#netheriteQuiverSurvivesAnExplosionLikeTheNetheriteBundle}.
      *
      * <p>What breaks this test: deleting the {@code ignoreExplosion} inject, narrowing <em>or</em>
      * widening its item check, and dropping {@code fireResistant()} from either upper tier.

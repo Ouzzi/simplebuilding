@@ -327,7 +327,7 @@ public final class PadOverhaulTests {
                                 "message.simplebuilding.spawn_teleporter.cancelled", "message.simplebuilding.spawn_teleporter.welcome",
                                 "message.simplebuilding.elytra_pad.equipped", "message.simplebuilding.launchpad.charges",
                                 "message.simplebuilding.launchpad.countdown", "message.simplebuilding.potion_pad.stored",
-                                "message.simplebuilding.echo_compass.unlinked", "message.simplebuilding.spawn_elytra.expired")) {
+                                "message.simplebuilding.echo_sounder.unlinked", "message.simplebuilding.spawn_elytra.expired")) {
                             helper.assertFalse(lang.has(key), "the removed on-screen text " + key + " is still translated");
                         }
                     }

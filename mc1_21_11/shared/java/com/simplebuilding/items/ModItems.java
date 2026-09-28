@@ -410,7 +410,7 @@ public class ModItems {
 
     // Gadgets
 
-    public static final Item VELOCITY_GAUGE = registerItem("velocity-gauge", settings -> new com.simplebuilding.items.custom.VelocityGaugeItem(settings.stacksTo(1)));
+    public static final Item VELOCITY_GAUGE = registerItem("velocity_gauge", settings -> new com.simplebuilding.items.custom.VelocityGaugeItem(settings.stacksTo(1)));
 
     public static final Item ORE_DETECTOR = registerItem("ore_detector", settings -> new OreDetectorItem(settings.enchantable(ENCHANTABILITY_NETHERITE).rarity(UNCOMMON)));
 
@@ -447,7 +447,7 @@ public class ModItems {
     public static final Item QUIVER = registerItem("quiver", settings -> new QuiverItem(settings.stacksTo(1).component(DataComponents.EQUIPPABLE, quiverChestSlot())));
 
     // Die Stufe zwischen Koecher und Netherit-Koecher: wie der Koecher weder feuerfest noch
-    // explosionssicher (ItemEntityMixin nennt ihn nicht), gewoehnliche Seltenheit.
+    // explosionssicher (ItemEntityMixin nennt ihn nicht; ab Netherit ja), gewoehnliche Seltenheit.
     // Seltenheiten aller Familien: docs/RARITAETEN.md (Netherit UNCOMMON, Enderit EPIC, Ausruestung COMMON).
     public static final Item REINFORCED_QUIVER = registerItem("reinforced_quiver", settings -> new QuiverItem(settings.stacksTo(1).component(DataComponents.EQUIPPABLE, quiverChestSlot())));
 
@@ -581,6 +581,16 @@ public class ModItems {
     public static final Item ENDERITE_LEGGINGS = registerArmor("enderite_leggings", ModArmorMaterials.ENDERITE, ArmorType.LEGGINGS, 42);
 
     public static final Item ENDERITE_BOOTS = registerArmor("enderite_boots", ModArmorMaterials.ENDERITE, ArmorType.BOOTS, 42);
+
+    // Pferde- und Nautilusruestung (Besitzer 2026-09-28): eine Stufe ueber Vanillas Netherit-Ruestung
+    // (Koerper-Schutz 22 statt 19, Haerte 4 statt 3, Rueckstoss 0,2 statt 0,1 - ModArmorMaterials),
+    // am Schmiedetisch aus der Netherit-Variante mit Enderit-Aufwertung + Enderit-Barren. Wie Vanilla
+    // ohne Haltbarkeit, feuerfest wie alles aus Enderit.
+    public static final Item ENDERITE_HORSE_ARMOR = registerItem("enderite_horse_armor",
+            settings -> new Item(settings.horseArmor(ModArmorMaterials.ENDERITE).fireResistant()));
+
+    public static final Item ENDERITE_NAUTILUS_ARMOR = registerItem("enderite_nautilus_armor",
+            settings -> new Item(settings.nautilusArmor(ModArmorMaterials.ENDERITE).fireResistant()));
 
 
 

@@ -67,7 +67,7 @@ public final class EnderiteMachineTests {
     /** Tick budget for {@link #enderiteHopperAndPistonDropThemselvesWhenBroken}. */
     public static final int DROP_MAX_TICKS = 40;
 
-    /** Tick budget for {@link #enderiteIngotTierDropsLastTwiceAsLongAsVanilla}. */
+    /** Tick budget for {@link #everyEnderiteItemDropLastsTwiceAsLongAsVanilla}. */
     public static final int LIFETIME_MAX_TICKS = 40;
 
     /** Netherite tools of the mod that vanilla's netherite rule (fire resistant) applies to as well. */
@@ -400,34 +400,39 @@ public final class EnderiteMachineTests {
     }
 
     /**
-     * Dropped enderite from the ingot upwards lies twice as long as vanilla allows: 12000 ticks
-     * instead of 6000. Four drops start at age 5999: the enderite sledgehammer and ingot outlive
-     * the next tick, enderite scrap (before the ingot) and a netherite ingot vanish like vanilla.
-     * Set to 11999, the enderite drops vanish on the next tick too - longer, not forever.
+     * Every dropped enderite item lies twice as long as vanilla allows: 12000 ticks instead of 6000
+     * (owner decision 2026-09-28 - before, only the ingot tier did). Four drops start at age 5999:
+     * the enderite sledgehammer, enderite scrap (before the ingot, now included) and the stellar
+     * flypad (an enderite tier without the word in its id) outlive the next tick, a netherite ingot
+     * vanishes like vanilla. Set to 11999, the enderite drops vanish on the next tick too - longer,
+     * not forever.
      *
-     * <p>What breaks this test: the lifetime hook in {@code EnderiteItemMixin} missing or matching
-     * the wrong items, and a lifetime other than twice vanilla.
+     * <p>What breaks this test: the lifetime hook in {@code EnderiteItemMixin} missing or reading
+     * another tag than {@code simplebuilding:double_despawn_time}, that tag no longer holding
+     * {@code #simplebuilding:enderite_items}, and a lifetime other than twice vanilla.
      */
-    public static void enderiteIngotTierDropsLastTwiceAsLongAsVanilla(GameTestHelper helper) {
+    public static void everyEnderiteItemDropLastsTwiceAsLongAsVanilla(GameTestHelper helper) {
         ItemEntity hammer = drop(helper, new BlockPos(1, 2, 1), ModItems.ENDERITE_SLEDGEHAMMER);
-        ItemEntity ingot = drop(helper, new BlockPos(3, 2, 1), ModItems.ENDERITE_INGOT);
-        ItemEntity scrap = drop(helper, new BlockPos(5, 2, 1), ModItems.ENDERITE_SCRAP);
+        ItemEntity scrap = drop(helper, new BlockPos(3, 2, 1), ModItems.ENDERITE_SCRAP);
+        ItemEntity flypad = drop(helper, new BlockPos(5, 2, 1), com.simplebuilding.tweaks.block.TweaksBlocks.STELLAR_FLYPAD.asItem());
         ItemEntity netherite = drop(helper, new BlockPos(1, 2, 4), Items.NETHERITE_INGOT);
-        for (ItemEntity entity : List.of(hammer, ingot, scrap, netherite)) {
+        for (ItemEntity entity : List.of(hammer, scrap, flypad, netherite)) {
             setAge(helper, entity, 5999);
         }
         helper.assertTrue(hammer.getAge() == 5999, "the age could not be set, it reads " + hammer.getAge());
 
         helper.runAfterDelay(2, () -> {
-            Assertions.valueEqual(helper, "hammer " + state(hammer) + ", ingot " + state(ingot) + ", scrap " + state(scrap)
-                            + ", netherite ingot " + state(netherite),
-                    "hammer lying, ingot lying, scrap gone, netherite ingot gone",
-                    "the drops two ticks after reaching age 5999");
-            setAge(helper, hammer, 11999);
-            setAge(helper, ingot, 11999);
+            String now = "hammer " + state(hammer) + ", scrap " + state(scrap) + ", flypad " + state(flypad)
+                    + ", netherite ingot " + state(netherite);
+            helper.assertTrue(now.equals("hammer lying, scrap lying, flypad lying, netherite ingot gone"),
+                    "the drops two ticks after reaching age 5999: " + now);
+            for (ItemEntity entity : List.of(hammer, scrap, flypad)) {
+                setAge(helper, entity, 11999);
+            }
             helper.runAfterDelay(2, () -> {
-                Assertions.valueEqual(helper, "hammer " + state(hammer) + ", ingot " + state(ingot),
-                        "hammer gone, ingot gone", "the enderite drops two ticks after reaching age 11999");
+                String later = "hammer " + state(hammer) + ", scrap " + state(scrap) + ", flypad " + state(flypad);
+                helper.assertTrue(later.equals("hammer gone, scrap gone, flypad gone"),
+                        "the enderite drops two ticks after reaching age 11999: " + later);
                 TestCleanup.succeed(helper);
             });
         });

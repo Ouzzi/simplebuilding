@@ -25,7 +25,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * Amethystlinse (Registry-Id weiter {@code laser_pointer}; Simple Tweaks: Laserpointer). Gedrueckt
+ * Amethystlinse (Registry-Id {@code amethyst_lens}, bis 2026-09-28 laser_pointer; Simple Tweaks: Laserpointer). Gedrueckt
  * halten zeigt einen Punkt, den alle in der Naehe sehen; ruht der Strahl auf einem Block, wirkt er
  * dort ({@link LaserBeam}: schmelzen, zuenden, trocknen, TNT, Lebewesen anzuenden - Verweildauer
  * waechst mit dem Abstand, Klaenge am Trefferpunkt).
@@ -230,12 +230,12 @@ public class LaserPointerItem extends Item implements com.simplebuilding.items.A
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> lines, TooltipFlag flag) {
         LensMeasurement last = stack.get(ModDataComponentTypes.LENS_MEASUREMENT);
         if (last != null) {
-            lines.accept(Component.translatable("tooltip.simplebuilding.laser_pointer.last_measured",
+            lines.accept(Component.translatable("tooltip.simplebuilding.amethyst_lens.last_measured",
                     String.format("%.1f", last.distance())).withStyle(ChatFormatting.GRAY));
-            lines.accept(Component.translatable("tooltip.simplebuilding.laser_pointer.last_target",
+            lines.accept(Component.translatable("tooltip.simplebuilding.amethyst_lens.last_target",
                     Component.translatable(last.target()), signed(last.heightDifference())).withStyle(ChatFormatting.DARK_GRAY));
         } else if (!stack.isEnchanted()) {
-            lines.accept(Component.translatable("tooltip.simplebuilding.laser_pointer.touch_hint").withStyle(ChatFormatting.DARK_GRAY));
+            lines.accept(Component.translatable("tooltip.simplebuilding.amethyst_lens.touch_hint").withStyle(ChatFormatting.DARK_GRAY));
         }
     }
 

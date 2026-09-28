@@ -140,7 +140,7 @@ public final class GuideContent {
                         "minecraft:wind_charge")),
                 ch("simplebuilding:flypad", List.of("simplebuilding:flypad", "simplebuilding:spawn_teleporter"), List.of()),
                 ch("simplebuilding:potion_pad", List.of("simplebuilding:potion_pad", "simplebuilding:chunk_loader"), List.of("minecraft:splash_potion")),
-                ch("simplebuilding:echo_compass", List.of("simplebuilding:echo_compass", "simplebuilding:laser_pointer"), List.of("minecraft:lodestone")))));
+                ch("simplebuilding:echo_sounder", List.of("simplebuilding:echo_sounder", "simplebuilding:amethyst_lens"), List.of("minecraft:lodestone")))));
         STYLES.put(GuideBooks.Book.TRIMS, new BookStyle(0x5ECBC4, List.of(
                 ch("minecraft:smithing_table", List.of(), List.of("minecraft:coast_armor_trim_smithing_template", "simplebuilding:astralit_dust",
                         "simplebuilding:nihilith_shard", "simplebuilding:enderite_ingot")),

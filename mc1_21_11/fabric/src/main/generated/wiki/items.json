@@ -128,6 +128,11 @@
   "generator": "com.simplebuilding.datagen.WikiDataProvider",
   "items": [
     {
+      "durability": 640,
+      "id": "simplebuilding:amethyst_lens",
+      "maxStackSize": 1
+    },
+    {
       "id": "simplebuilding:astral_end_stone"
     },
     {
@@ -285,7 +290,7 @@
     {
       "durability": 1500,
       "enchantability": 15,
-      "id": "simplebuilding:echo_compass",
+      "id": "simplebuilding:echo_sounder",
       "maxStackSize": 1
     },
     {
@@ -427,6 +432,10 @@
       "id": "simplebuilding:enderite_hopper"
     },
     {
+      "id": "simplebuilding:enderite_horse_armor",
+      "maxStackSize": 1
+    },
+    {
       "id": "simplebuilding:enderite_ingot"
     },
     {
@@ -437,6 +446,10 @@
       "durability": 630,
       "enchantability": 18,
       "id": "simplebuilding:enderite_leggings",
+      "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:enderite_nautilus_armor",
       "maxStackSize": 1
     },
     {
@@ -635,11 +648,6 @@
     },
     {
       "id": "simplebuilding:lapis_quartz_checker"
-    },
-    {
-      "durability": 640,
-      "id": "simplebuilding:laser_pointer",
-      "maxStackSize": 1
     },
     {
       "id": "simplebuilding:launchpad",
@@ -1062,7 +1070,7 @@
       "id": "simplebuilding:suspended_sand"
     },
     {
-      "id": "simplebuilding:velocity-gauge",
+      "id": "simplebuilding:velocity_gauge",
       "maxStackSize": 1
     },
     {

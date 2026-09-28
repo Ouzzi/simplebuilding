@@ -1241,6 +1241,117 @@ public final class TradeAndMigrationTests {
                 id + ": expected reputation_discount " + expected.reputationDiscount() + ", was " + discount);
     }
 
+    /**
+     * Three item ids were renamed on 2026-09-28 to match the item names (owner decision):
+     * {@code velocity-gauge} -> {@code velocity_gauge}, {@code echo_compass} -> {@code echo_sounder},
+     * {@code laser_pointer} -> {@code amethyst_lens}. Worlds saved before still hold the old ids -
+     * in chunks, containers, player data and data packs - on the same Minecraft version, where no
+     * DataFixer step runs. {@code LegacyItemIds} + {@code MappedRegistryAliasMixin} answer a
+     * missed item lookup under an old id with the renamed item. This test drives every path an
+     * old id takes back into the game:
+     * <ul>
+     *   <li>the registry itself ({@code getValue}, {@code get}, {@code containsKey});</li>
+     *   <li>a saved item stack decodes as the renamed item and is saved back under the new id;</li>
+     *   <li>a chest saved with the old ids loads the renamed items;</li>
+     *   <li>a data-pack recipe ingredient naming the old id accepts the renamed item.</li>
+     * </ul>
+     * Controls: an id that was never renamed stays unknown, and the old path in another namespace
+     * is not redirected.
+     *
+     * <p>What breaks this test: the mixin missing from {@code simplebuilding.mixins.json}, a
+     * renamed item registered under its old id again, a typo in the rename table, or an alias that
+     * redirects more than the item registry's missed lookups.
+     */
+    public static void renamedItemIdsStillLoadAsTheRenamedItems(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        net.minecraft.core.RegistryAccess registries = helper.getLevel().registryAccess();
+        Map<String, Item> renamed = new LinkedHashMap<>();
+        renamed.put("velocity-gauge", ModItems.VELOCITY_GAUGE);
+        renamed.put("echo_compass", com.simplebuilding.tweaks.item.TweaksItems.ECHO_COMPASS);
+        renamed.put("laser_pointer", com.simplebuilding.tweaks.item.TweaksItems.LASER_POINTER);
+        Map<String, String> newPaths = Map.of("velocity-gauge", "velocity_gauge", "echo_compass", "echo_sounder",
+                "laser_pointer", "amethyst_lens");
+        net.minecraft.resources.RegistryOps<net.minecraft.nbt.Tag> nbt = registries.createSerializationContext(net.minecraft.nbt.NbtOps.INSTANCE);
+
+        net.minecraft.nbt.ListTag chestItems = new net.minecraft.nbt.ListTag();
+        int slot = 0;
+        for (Map.Entry<String, Item> entry : renamed.entrySet()) {
+            Identifier oldId = Identifier.fromNamespaceAndPath("simplebuilding", entry.getKey());
+            Item now = entry.getValue();
+            Identifier newId = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(now);
+            if (!newId.getPath().equals(newPaths.get(entry.getKey()))) {
+                problems.add(oldId + " should now be registered as simplebuilding:" + newPaths.get(entry.getKey())
+                        + ", but the item is registered as " + newId);
+            }
+            if (net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(oldId) != now) {
+                problems.add("the item registry answers " + oldId + " with "
+                        + net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(oldId) + " instead of " + newId);
+            }
+            if (net.minecraft.core.registries.BuiltInRegistries.ITEM.get(oldId).map(Holder::value).orElse(null) != now) {
+                problems.add("the item registry has no holder for " + oldId);
+            }
+            if (!net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(oldId)) {
+                problems.add("the item registry does not contain " + oldId);
+            }
+
+            net.minecraft.nbt.CompoundTag saved = new net.minecraft.nbt.CompoundTag();
+            saved.putString("id", oldId.toString());
+            saved.putInt("count", 1);
+            ItemStack loaded = ItemStack.CODEC.parse(nbt, saved).result().orElse(ItemStack.EMPTY);
+            if (!loaded.is(now)) {
+                problems.add("an item stack saved as " + oldId + " loads as " + loaded);
+            } else {
+                net.minecraft.nbt.Tag resaved = ItemStack.CODEC.encodeStart(nbt, loaded).result().orElse(null);
+                String resavedId = resaved instanceof net.minecraft.nbt.CompoundTag compound ? compound.getStringOr("id", "") : "?";
+                if (!resavedId.equals(newId.toString())) {
+                    problems.add("an item stack loaded from " + oldId + " is saved back as " + resavedId + " instead of " + newId);
+                }
+            }
+
+            net.minecraft.world.item.crafting.Ingredient ingredient = net.minecraft.world.item.crafting.Ingredient.CODEC
+                    .parse(registries.createSerializationContext(com.mojang.serialization.JsonOps.INSTANCE),
+                            new com.google.gson.JsonPrimitive(oldId.toString()))
+                    .result().orElse(null);
+            if (ingredient == null || !ingredient.test(new ItemStack(now))) {
+                problems.add("a recipe ingredient naming " + oldId + " does not accept " + newId);
+            }
+
+            net.minecraft.nbt.CompoundTag inChest = saved.copy();
+            inChest.putByte("Slot", (byte) slot++);
+            chestItems.add(inChest);
+        }
+
+        BlockPos chestPos = new BlockPos(1, 2, 1);
+        helper.setBlock(chestPos, net.minecraft.world.level.block.Blocks.CHEST);
+        net.minecraft.world.level.block.entity.ChestBlockEntity chest =
+                helper.getBlockEntity(chestPos, net.minecraft.world.level.block.entity.ChestBlockEntity.class);
+        net.minecraft.nbt.CompoundTag chestTag = new net.minecraft.nbt.CompoundTag();
+        chestTag.put("Items", chestItems);
+        chest.loadWithComponents(net.minecraft.world.level.storage.TagValueInput.create(
+                net.minecraft.util.ProblemReporter.DISCARDING, registries, chestTag));
+        slot = 0;
+        for (Map.Entry<String, Item> entry : renamed.entrySet()) {
+            ItemStack inSlot = chest.getItem(slot++);
+            if (!inSlot.is(entry.getValue())) {
+                problems.add("a chest saved with simplebuilding:" + entry.getKey() + " loads " + inSlot);
+            }
+        }
+
+        // Controls: the alias is a table, not a pattern.
+        Identifier neverRenamed = Identifier.fromNamespaceAndPath("simplebuilding", "not_a_renamed_item");
+        if (net.minecraft.core.registries.BuiltInRegistries.ITEM.get(neverRenamed).isPresent()
+                || net.minecraft.core.registries.BuiltInRegistries.ITEM.containsKey(neverRenamed)) {
+            problems.add(neverRenamed + " resolves to an item although it never existed");
+        }
+        Identifier otherNamespace = Identifier.withDefaultNamespace("echo_compass");
+        if (net.minecraft.core.registries.BuiltInRegistries.ITEM.get(otherNamespace).isPresent()) {
+            problems.add(otherNamespace + " is redirected too, the alias must only look at simplebuilding ids");
+        }
+
+        helper.assertTrue(problems.isEmpty(), "renamed item ids: " + problems);
+        helper.succeed();
+    }
+
     private static Holder<Enchantment> enchantment(GameTestHelper helper, ResourceKey<Enchantment> key) {
         return helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(key);
     }

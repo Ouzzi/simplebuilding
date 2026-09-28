@@ -129,21 +129,21 @@ public final class LaserRenderer {
         int x = graphics.guiWidth() / 2 + HUD_GAP;
         int y = graphics.guiHeight() / 2 - 4;
         if (!LaserPointerItem.measures(me.getUseItem(), me.level())) {
-            graphics.text(client.font, Component.translatable("hud.simplebuilding.laser_pointer.laser"), x, y, COLOR_LASER, true);
+            graphics.text(client.font, Component.translatable("hud.simplebuilding.amethyst_lens.laser"), x, y, COLOR_LASER, true);
             return;
         }
         float partialTick = client.getDeltaTracker().getGameTimeDeltaPartialTick(true);
         HitResult hit = me.pick(SimpleTweaks.effectiveValues().laserRange(), partialTick, false);
         if (!(hit instanceof BlockHitResult blockHit) || hit.getType() == HitResult.Type.MISS) {
-            graphics.text(client.font, Component.translatable("hud.simplebuilding.laser_pointer.distance", "--"), x, y, COLOR_LASER, true);
+            graphics.text(client.font, Component.translatable("hud.simplebuilding.amethyst_lens.distance", "--"), x, y, COLOR_LASER, true);
             return;
         }
         double distance = hit.getLocation().distanceTo(me.getEyePosition(partialTick));
-        graphics.text(client.font, Component.translatable("hud.simplebuilding.laser_pointer.distance",
+        graphics.text(client.font, Component.translatable("hud.simplebuilding.amethyst_lens.distance",
                 String.format("%.1f", distance)), x, y, COLOR_LASER, true);
         BlockPos pos = blockHit.getBlockPos();
         graphics.text(client.font, me.level().getBlockState(pos).getBlock().getName(), x, y + 10, COLOR_READOUT, true);
-        graphics.text(client.font, Component.translatable("hud.simplebuilding.laser_pointer.height", pos.getY(),
+        graphics.text(client.font, Component.translatable("hud.simplebuilding.amethyst_lens.height", pos.getY(),
                 LaserPointerItem.signed(pos.getY() - Mth.floor(me.getY()))), x, y + 20, COLOR_READOUT, true);
     }
 }

@@ -32,11 +32,11 @@ public final class TweaksItems {
 
     public static final Item SPAWN_ELYTRA = register("spawn_elytra",
             p -> new SpawnElytraItem(p.stacksTo(1).fireResistant()));
-    public static final Item LASER_POINTER = register("laser_pointer",
+    public static final Item LASER_POINTER = register("amethyst_lens",
             // "Amethystlinse"; die Haltbarkeit ist die Ladung (nie zerbrechend, Redstone im Amboss
             // laedt auf, siehe LaserPointerItem). Rezept in ModRecipeProvider.
             p -> new LaserPointerItem(p.durability(LaserPointerItem.MAX_CHARGE)));
-    public static final Item ECHO_COMPASS = register("echo_compass",
+    public static final Item ECHO_COMPASS = register("echo_sounder",
             // 1500 Reparaturpunkte, ein Sprung leert ihn; Echoscherben reparieren am Amboss je ein Viertel.
             p -> new EchoCompassItem(p.stacksTo(1).durability(EchoCompassItem.MAX_DAMAGE).enchantable(15)
                     .repairable(Items.ECHO_SHARD).rarity(Rarity.EPIC).fireResistant()));

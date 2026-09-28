@@ -379,6 +379,12 @@ und `#materialsTabIsLaidOutInRows` (Feld fuer Feld).
   `simplebuilding:echo_compass` (alte Welten, Rezept-/Modell-/Textur-Pfade, Lang-Schluessel
   `item.simplebuilding.echo_compass*`), nur die angezeigten Texte (Name, Meldungen, JEI, Testzentrale,
   Wiki) sagen Echolot. Unten steht aus historischen Gruenden oft noch "Kompass".
+- **Id-Umbenennung 2026-09-28** (Besitzer): `echo_compass` -> `echo_sounder`, `laser_pointer` -> `amethyst_lens`,
+  `velocity-gauge` -> `velocity_gauge` - samt Rezepten, Modellen, Texturen, Lang-Schluesseln und JEI-Seiten. Alte
+  Welten laden weiter: `datafix/LegacyItemIds` + `MappedRegistryAliasMixin` (Forge: `NamespacedWrapperAliasMixin`)
+  beantworten eine verfehlte Item-Suche unter der alten Id mit dem umbenannten Item; beim naechsten Speichern steht
+  die neue Id da. Test `trade_and_migration_game_test_renamed_item_ids_still_load_as_the_renamed_items`.
+  Die Abschnitte unten nennen die alten Ids aus historischen Gruenden.
 - Eigenes Item `simplebuilding:echo_compass` (vorher: Vanilla-Kompass mit `custom_data` aus einem
   Fremd-Datenpaket). Neu geschrieben, kein Code aus dem AGPL-Datenpaket uebernommen.
 - Rechtsklick auf einen Leitstein verknuepft (Vanilla-Komponente `lodestone_tracker`, der Kompass

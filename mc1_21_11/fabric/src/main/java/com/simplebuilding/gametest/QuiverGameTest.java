@@ -52,7 +52,7 @@ public final class QuiverGameTest {
     }
 
     @GameTest
-    public void netheriteQuiverBurnsInAnExplosionWhileTheNetheriteBundleSurvives(GameTestHelper helper) {
-        QuiverTests.netheriteQuiverBurnsInAnExplosionWhileTheNetheriteBundleSurvives(helper);
+    public void netheriteQuiverSurvivesAnExplosionLikeTheNetheriteBundle(GameTestHelper helper) {
+        QuiverTests.netheriteQuiverSurvivesAnExplosionLikeTheNetheriteBundle(helper);
     }
 }

@@ -131,8 +131,8 @@ public final class TweaksGameTest {
     }
 
     @GameTest
-    public void theEchoSounderKeepsItsIdButIsNamedEchoSounder(GameTestHelper helper) {
-        TweaksTests.theEchoSounderKeepsItsIdButIsNamedEchoSounder(helper);
+    public void theEchoSounderIsRegisteredAndNamedEchoSounder(GameTestHelper helper) {
+        TweaksTests.theEchoSounderIsRegisteredAndNamedEchoSounder(helper);
     }
 
     @GameTest

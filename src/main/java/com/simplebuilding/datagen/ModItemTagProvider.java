@@ -143,6 +143,14 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         // Layout-Platzhalter der Kreativ-Tabs: in JEI, REI und EMI versteckt (Konventions-Tag).
         builder(TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "hidden_from_recipe_viewers")))
                 .add(key(ModItems.CREATIVE_SPACER))
+                // Alte Spachtel (vor der Umbenennung in Meissel): kein Rezept, nur fuer alte Welten -
+                // LegacySpatulaMigration macht sie beim Beitreten zu Meisseln (Besitzer 2026-09-28).
+                .add(key(ModItems.STONE_SPATULA))
+                .add(key(ModItems.COPPER_SPATULA))
+                .add(key(ModItems.IRON_SPATULA))
+                .add(key(ModItems.GOLD_SPATULA))
+                .add(key(ModItems.DIAMOND_SPATULA))
+                .add(key(ModItems.NETHERITE_SPATULA))
                 // Alte, abgeloeste Stufenbloecke (netherite_flypad, enderite_flypad): nur fuer alte Welten.
                 .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.NETHERITE_FLYPAD.asItem()))
                 .add(key(com.simplebuilding.tweaks.block.TweaksBlocks.ENDERITE_FLYPAD.asItem()))
@@ -265,25 +273,27 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
     }
 
     /**
-     * Befuellt {@link ModTags.Items#VOID_PROTECTED} deterministisch aus der Item-Registry statt
-     * aus einer handgepflegten Liste: alles, was
-     * {@link ModTags.Items#isVoidProtectedByRule(Identifier)} akzeptiert. Neue Enderite-Items
-     * sind damit automatisch gegen den Void geschuetzt, ohne dass jemand daran denken muss --
-     * und der Mixin braucht keinen sprachabhaengigen Check auf den Anzeigenamen mehr.
+     * Befuellt {@link ModTags.Items#ENDERITE_ITEMS} deterministisch aus der Item-Registry statt
+     * aus einer handgepflegten Liste: alles, was {@link ModTags.Items#isEnderiteItemByRule(Identifier)}
+     * akzeptiert. Neue Enderit-Items sind damit automatisch gegen den Void geschuetzt und liegen
+     * doppelt so lange, ohne dass jemand daran denken muss. {@link ModTags.Items#VOID_PROTECTED} und
+     * {@link ModTags.Items#DOUBLE_DESPAWN_TIME} enthalten nur diesen Tag.
      */
     private void addVoidProtected() {
         // Sortiert, damit die erzeugte JSON unabhaengig von der Registrierungsreihenfolge ist.
         Set<Identifier> ids = new TreeSet<>(Comparator.comparing(Identifier::toString));
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
-            if (ModTags.Items.isVoidProtectedByRule(id)) {
+            if (ModTags.Items.isEnderiteItemByRule(id)) {
                 ids.add(id);
             }
         }
 
-        var voidProtected = builder(ModTags.Items.VOID_PROTECTED);
+        var enderite = builder(ModTags.Items.ENDERITE_ITEMS);
         for (Identifier id : ids) {
-            voidProtected.add(ResourceKey.create(Registries.ITEM, id));
+            enderite.add(ResourceKey.create(Registries.ITEM, id));
         }
+        builder(ModTags.Items.VOID_PROTECTED).addTag(ModTags.Items.ENDERITE_ITEMS);
+        builder(ModTags.Items.DOUBLE_DESPAWN_TIME).addTag(ModTags.Items.ENDERITE_ITEMS);
     }
 
     /** Befuellt {@link ModTags.Items#ENDERITE_INGOT_TIER} nach derselben Art wie den Void-Tag. */

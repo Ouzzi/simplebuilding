@@ -60,7 +60,8 @@ import sys
 
 from PIL import Image, ImageDraw, ImageFont
 
-from echo_compass_textures import echo_compass_textures  # Echo-Kompass: Nadelbilder + Riss-Stufen
+from echo_sounder_textures import echo_sounder_textures  # Echolot: Nadelbilder + Riss-Stufen
+from mount_armor_textures import mount_armor_textures  # Enderit-Pferde-/Nautilusruestung: Icons + getragene Ebenen
 from potion_pad_textures import POTION_PAD_ANIMATIONS, potion_pad_textures  # Trank-Pads I-III (aus den alten Flypads) + Lohenkopf
 from guide_book_textures import guide_book_textures  # Einsteiger-Handbuch + sieben Themenbuecher
 from ore_detector_textures import ore_detector_textures  # Erzdetektor: Gehaeuse, 32 Nadeln, Ruhebild
@@ -1779,7 +1780,7 @@ ENDERITE_BLOCK_PAL = {
 # Laserpointer (2026-09-27): schlankes Handgeraet schraeg wie das Vanilla-Fernrohr - Eisenrohr (Rezept:
 # Eisen-Baukern + Eisen) mit Endkappe k/c, roter Redstone-Taster R/r/q, Eisenring vor der Spitze und
 # ein Amethyst-Kristall als Linse mit heller Facettenkante A. o/O Umriss oben links hell, unten rechts
-# dunkel, E Umriss des Kristalls. Die Pfadangabe item/laser_pointer.png bleibt; laser_pointer_empty.png
+# dunkel, E Umriss des Kristalls. Die Pfadangabe item/amethyst_lens.png bleibt; amethyst_lens_empty.png
 # ist dieselbe Karte mit erloschenem Kristall und dunklem Taster (fuer einen leeren/ungeladenen Zustand,
 # falls das Item einen bekommt).
 LASER_POINTER = [
@@ -2033,8 +2034,8 @@ def end_palette_textures():
     tex["item/ender_quartz.png"] = render("ender_quartz", ENDER_QUARTZ_ITEM, ENDER_QUARTZ_ITEM_PAL, False)
     tex["block/enderite_block.png"] = render("enderite_block", ENDERITE_BLOCK, ENDERITE_BLOCK_PAL, True)
     tex["block/enderite_pressure_plate.png"] = tex["block/enderite_block.png"].copy()
-    tex["item/laser_pointer.png"] = render("laser_pointer", LASER_POINTER, LASER_POINTER_PAL, False)
-    tex["item/laser_pointer_empty.png"] = render("laser_pointer_empty", LASER_POINTER, LASER_POINTER_EMPTY_PAL, False)
+    tex["item/amethyst_lens.png"] = render("amethyst_lens", LASER_POINTER, LASER_POINTER_PAL, False)
+    tex["item/amethyst_lens_empty.png"] = render("amethyst_lens_empty", LASER_POINTER, LASER_POINTER_EMPTY_PAL, False)
     tex["item/enderite_ingot.png"] = render("enderite_ingot", ENDERITE_INGOT, ENDERITE_INGOT_PAL, False)
     tex["item/enderite_scrap.png"] = render("enderite_scrap", ENDERITE_SCRAP, ENDERITE_SCRAP_PAL, False)
     tex["item/enderite_nugget.png"] = render("enderite_nugget", ENDERITE_NUGGET, ENDERITE_NUGGET_PAL, False)
@@ -2842,10 +2843,11 @@ def build():
     tex.update(backpack_gui_textures())
     tex.update(end_palette_textures())
     tex.update(pad_textures(tex))  # braucht die Enderitplatte aus end_palette_textures
-    tex.update(echo_compass_textures())
+    tex.update(echo_sounder_textures())
     tex.update(potion_pad_textures())
     tex.update(guide_book_textures())
     tex.update(ore_detector_textures())
+    tex.update(mount_armor_textures())
     return tex
 
 

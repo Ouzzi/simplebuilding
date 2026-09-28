@@ -38,7 +38,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Echolot (en "Echo Sounder", Registry-Id weiter {@code echo_compass}; ersetzt das Datenpaket "Echo
+ * Echolot (en "Echo Sounder", Registry-Id {@code echo_sounder}, bis 2026-09-28 echo_compass; ersetzt das Datenpaket "Echo
  * Compass", das Simple Tweaks per libs/ einband; neu geschrieben, kein Code daraus). Rechtsklick auf
  * einen Leitstein verknuepft; zum Springen haelt man die Benutzen-Taste {@value #CHARGE_TICKS} Ticks
  * lang gedrueckt (Aufladen mit steigenden Klaengen, weit gestreuten Partikeln und einem FOV-Sog auf
@@ -393,10 +393,10 @@ public class EchoCompassItem extends Item {
                                 Consumer<Component> builder, TooltipFlag flag) {
         if (isCracked(stack)) {
             int percent = Math.round(100.0f * (stack.getMaxDamage() - stack.getDamageValue()) / stack.getMaxDamage());
-            builder.accept(Component.translatable("item.simplebuilding.echo_compass.cracked", percent).withStyle(ChatFormatting.RED));
-            builder.accept(Component.translatable("item.simplebuilding.echo_compass.cracked_hint").withStyle(ChatFormatting.GRAY));
+            builder.accept(Component.translatable("item.simplebuilding.echo_sounder.cracked", percent).withStyle(ChatFormatting.RED));
+            builder.accept(Component.translatable("item.simplebuilding.echo_sounder.cracked_hint").withStyle(ChatFormatting.GRAY));
         } else {
-            builder.accept(Component.translatable("item.simplebuilding.echo_compass.charged").withStyle(ChatFormatting.DARK_AQUA));
+            builder.accept(Component.translatable("item.simplebuilding.echo_sounder.charged").withStyle(ChatFormatting.DARK_AQUA));
         }
     }
 }

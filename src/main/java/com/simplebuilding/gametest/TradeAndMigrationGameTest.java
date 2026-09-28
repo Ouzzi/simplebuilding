@@ -65,4 +65,9 @@ public final class TradeAndMigrationGameTest {
     public void legacySpatulaAboveTheBuildLimitIsRewrittenToo(GameTestHelper helper) {
         TradeAndMigrationTests.legacySpatulaAboveTheBuildLimitIsRewrittenToo(helper);
     }
+
+    @GameTest
+    public void renamedItemIdsStillLoadAsTheRenamedItems(GameTestHelper helper) {
+        TradeAndMigrationTests.renamedItemIdsStillLoadAsTheRenamedItems(helper);
+    }
 }

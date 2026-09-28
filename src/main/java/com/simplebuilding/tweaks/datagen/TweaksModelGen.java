@@ -146,8 +146,8 @@ public final class TweaksModelGen {
     }
 
     /**
-     * Amethystlinse ({@code laser_pointer}): leer (Schaden = Haltbarkeit, normiert 1,0) zeigt
-     * {@code item/laser_pointer_empty}. Solange dieses Bild noch nicht gezeichnet ist, nimmt das
+     * Amethystlinse ({@code amethyst_lens}): leer (Schaden = Haltbarkeit, normiert 1,0) zeigt
+     * {@code item/amethyst_lens_empty}. Solange dieses Bild noch nicht gezeichnet ist, nimmt das
      * Leer-Modell das normale Bild, damit nie die Fehltextur erscheint - nach dem Zeichnen reicht ein
      * neuer Datagen-Lauf.
      */
@@ -173,7 +173,7 @@ public final class TweaksModelGen {
         return false;
     }
 
-    /** Wie ItemModelGenerators#createCompassModels, mit den Bildern echo_compass_00..31 aus generate_textures.py. */
+    /** Wie ItemModelGenerators#createCompassModels, mit den Bildern echo_sounder_00..31 aus generate_textures.py. */
     private static List<RangeSelectItemModel.Entry> echoCompassModels(ItemModelGenerators generator) {
         List<RangeSelectItemModel.Entry> overrides = new ArrayList<>();
         ItemModel.Unbaked base = ItemModelUtils.plainModel(flat(generator, TweaksItems.ECHO_COMPASS, "_16"));

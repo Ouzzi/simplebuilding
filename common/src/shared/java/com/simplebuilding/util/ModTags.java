@@ -59,50 +59,68 @@ public class ModTags {
         public static final TagKey<Item> FURNACE_BONUS_EXCLUDED = createTag("furnace_bonus_excluded");
 
         /**
+         * Jeder Enderit-Gegenstand der Mod (Besitzer-Entscheidung 2026-09-28): Werkzeuge, Ruestung,
+         * Pferde-/Nautilusruestung, Bloecke als Items, Pads, Aepfel samt verzaubertem Enderit-Apfel,
+         * Rohstoff, Schrott, Vorlage. Aus diesem einen Tag speisen sich der Void-Schutz
+         * ({@link #VOID_PROTECTED}) und die doppelte Liegezeit ({@link #DOUBLE_DESPAWN_TIME}); beide
+         * Tags enthalten nur {@code #simplebuilding:enderite_items}, Modpacks koennen jeden einzeln
+         * erweitern. Befuellt per Datagen ueber {@link #isEnderiteItemByRule(Identifier)}.
+         */
+        public static final TagKey<Item> ENDERITE_ITEMS = createTag("enderite_items");
+
+        /**
+         * Enderit-Stufen, deren Registry-Pfad das Wort "enderite" nicht enthaelt: die drei Flypads
+         * (alle aus der Enderit-Druckplatte), das Fine Elytra Pad V (ueber dem Enderit-Pad IV) und
+         * das Infused Potion Pad III (Enderit-Aufwertung).
+         */
+        public static final Set<String> ENDERITE_ITEMS_EXTRA_PATHS = Set.of(
+                "flypad", "reinforced_flypad", "stellar_flypad", "fine_elytra_pad", "infused_potion_pad");
+
+        /**
+         * Die Regel fuer {@link #ENDERITE_ITEMS}: jedes {@code simplebuilding}-Item, dessen Pfad
+         * "enderite" enthaelt (auch {@code raw_enderite}, {@code enchanted_enderite_apple}), plus
+         * {@link #ENDERITE_ITEMS_EXTRA_PATHS}. Datagen und Gametest teilen sie.
+         */
+        public static boolean isEnderiteItemByRule(Identifier id) {
+            return Simplebuilding.MOD_ID.equals(id.getNamespace())
+                    && (id.getPath().contains("enderite") || ENDERITE_ITEMS_EXTRA_PATHS.contains(id.getPath()));
+        }
+
+        /**
          * Items, die im Void nicht verloren gehen duerfen; ausgewertet von
-         * {@code com.simplebuilding.mixin.EnderiteItemMixin}.
+         * {@code com.simplebuilding.mixin.EnderiteItemMixin}. Enthaelt {@link #ENDERITE_ITEMS}.
          *
          * <p>Frueher hat der Mixin die geschuetzten Items am Anzeigenamen erkannt
          * ({@code getHoverName().getString().contains("Enderite")}). Das war sprachabhaengig: in
          * jeder nicht-englischen Lokalisierung griff der Schutz nicht, und umgekehrt war jedes im
          * Amboss auf "Enderite" umbenannte Fremditem geschuetzt. Der Tag wird stattdessen per
-         * Datagen deterministisch aus der Item-Registry befuellt, siehe
-         * {@link #isVoidProtectedByRule(Identifier)}.
+         * Datagen deterministisch aus der Item-Registry befuellt.
          */
         public static final TagKey<Item> VOID_PROTECTED = createTag("void_protected");
 
-        /** Registry-Pfad-Praefix, aus dem {@link #VOID_PROTECTED} befuellt wird. */
-        public static final String VOID_PROTECTED_PATH_PREFIX = "enderite_";
-
-        /**
-         * Registry-Pfade, die dem Praefix nicht folgen, aber trotzdem in den Tag gehoeren:
-         * {@code raw_enderite} heisst im Englischen "Raw Enderite" und war damit vom alten
-         * Namens-Check erfasst.
-         */
-        public static final Set<String> VOID_PROTECTED_EXTRA_PATHS = Set.of("raw_enderite");
-
-        /**
-         * Die Regel, nach der der Datagen-Provider {@link #VOID_PROTECTED} befuellt. Der
-         * Gametest berechnet den Sollzustand ueber dieselbe Methode, damit Tag-Inhalt und Regel
-         * nicht auseinanderlaufen koennen.
-         */
+        /** Die Regel hinter {@link #VOID_PROTECTED}: dieselbe wie {@link #ENDERITE_ITEMS}. */
         public static boolean isVoidProtectedByRule(Identifier id) {
-            return Simplebuilding.MOD_ID.equals(id.getNamespace())
-                    && (id.getPath().startsWith(VOID_PROTECTED_PATH_PREFIX)
-                            || VOID_PROTECTED_EXTRA_PATHS.contains(id.getPath()));
+            return isEnderiteItemByRule(id);
         }
 
         /**
-         * Alles ab dem Enderit-Barren aufwaerts (Barren, Nugget, Block, Werkzeuge, Ruestung,
-         * aufgewertete Gegenstaende und Maschinen). Als liegengelassenes Item verschwindet es erst
-         * nach {@link #ENDERITE_INGOT_TIER_LIFETIME} statt nach den 6000 Vanilla-Ticks;
-         * ausgewertet von {@code com.simplebuilding.mixin.EnderiteItemMixin}. Befuellt wird der
-         * Tag per Datagen ueber {@link #isEnderiteIngotTierByRule(Identifier)}.
+         * Items, die als Item-Entity nach {@link #DOUBLE_DESPAWN_LIFETIME} statt nach den 6000
+         * Vanilla-Ticks verschwinden; ausgewertet von {@code EnderiteLifetime}. Enthaelt
+         * {@link #ENDERITE_ITEMS}.
          */
-        public static final TagKey<Item> ENDERITE_INGOT_TIER = createTag("enderite_ingot_tier");
+        public static final TagKey<Item> DOUBLE_DESPAWN_TIME = createTag("double_despawn_time");
 
         /** Doppelte Vanilla-Lebensdauer eines Item-Entities (6000 Ticks = 5 Minuten). */
-        public static final int ENDERITE_INGOT_TIER_LIFETIME = 12000;
+        public static final int DOUBLE_DESPAWN_LIFETIME = 12000;
+
+        /**
+         * Alles ab dem Enderit-Barren aufwaerts (Barren, Nugget, Block, Werkzeuge, Ruestung,
+         * aufgewertete Gegenstaende und Maschinen) - was Netherit enthaelt und deshalb feuerfest
+         * ist. Steuert seit 2026-09-28 nicht mehr die Liegezeit (die gilt fuer alle
+         * {@link #ENDERITE_ITEMS}); bleibt als Daten-Tag fuer Modpacks. Befuellt per Datagen ueber
+         * {@link #isEnderiteIngotTierByRule(Identifier)}.
+         */
+        public static final TagKey<Item> ENDERITE_INGOT_TIER = createTag("enderite_ingot_tier");
 
         /**
          * Enderit-Pfade vor dem Barren (Rohstoff und Schrott) und die Schmiedevorlage, die nicht
@@ -113,7 +131,9 @@ public class ModTags {
 
         /** Die Regel fuer {@link #ENDERITE_INGOT_TIER}; Datagen und Gametest teilen sie. */
         public static boolean isEnderiteIngotTierByRule(Identifier id) {
-            return isVoidProtectedByRule(id) && !ENDERITE_INGOT_TIER_EXCLUDED_PATHS.contains(id.getPath());
+            return Simplebuilding.MOD_ID.equals(id.getNamespace())
+                    && (id.getPath().startsWith("enderite_") || "raw_enderite".equals(id.getPath()))
+                    && !ENDERITE_INGOT_TIER_EXCLUDED_PATHS.contains(id.getPath());
         }
 
         private static TagKey<Item> createTag(String name) {

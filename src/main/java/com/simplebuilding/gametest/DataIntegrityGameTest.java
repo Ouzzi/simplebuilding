@@ -167,6 +167,21 @@ public final class DataIntegrityGameTest {
     }
 
     @GameTest
+    public void everyEnderiteItemIsInTheEnderiteItemsTag(GameTestHelper helper) {
+        DataIntegrityTests.everyEnderiteItemIsInTheEnderiteItemsTag(helper);
+    }
+
+    @GameTest
+    public void legacySpatulasAreHiddenFromRecipeViewers(GameTestHelper helper) {
+        DataIntegrityTests.legacySpatulasAreHiddenFromRecipeViewers(helper);
+    }
+
+    @GameTest
+    public void enderiteHorseAndNautilusArmorRankOneStepAboveNetherite(GameTestHelper helper) {
+        DataIntegrityTests.enderiteHorseAndNautilusArmorRankOneStepAboveNetherite(helper);
+    }
+
+    @GameTest
     public void everyPlayerFacingTextHasEnglishAndGermanTranslations(GameTestHelper helper) {
         DataIntegrityTests.everyPlayerFacingTextHasEnglishAndGermanTranslations(helper);
     }
