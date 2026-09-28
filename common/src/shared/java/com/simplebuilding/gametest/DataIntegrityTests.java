@@ -3858,12 +3858,14 @@ public final class DataIntegrityTests {
                 }
             }
         }
-        List<String> oldEnglish = List.of("Upgrade Template", "Old Netherite", "Old Enderite", "Enderite Block", "Cracked Diamond Block");
+        List<String> oldEnglish = List.of("Upgrade Template", "Old Netherite", "Old Enderite", "Enderite Block", "Cracked Diamond Block",
+                // 2026-09-28: Nihilith heisst jetzt Nihilit (Anzeige; die Ids bleiben nihilith_*)
+                "Nihilith");
         List<String> oldGerman = List.of("Nugget", "Enderiten-", "Altes Netherit", "Altes Enderit", "Basisaufwertung", "Roh-Enderit",
                 "Enderitschrott", "Enderit-Schrott", "Enderit-Brustpanzer", "Enderit-Hose", "Enderit-Speer", "Netherit-Bündel",
                 "Enderit-Bündel", "Netherit-Köcher", "Enderit-Köcher", "Netherit-Apfel", "Enderit-Apfel", "Netherit-Karotte",
-                "Enderit-Karotte", "Netherit-Kern", "Enderit-Kern", "Astralit-Ziegel", "Nihilith-Ziegel", "Nihilith-Splitter",
-                "Astralit-Erz", "Nihilith-Erz", "Astralit-Säule", "Nihilith-Säule", "Aufwertungsvorlage");
+                "Enderit-Karotte", "Netherit-Kern", "Enderit-Kern", "Astralit-Ziegel", "Nihilith",
+                "Astralit-Erz", "Astralit-Säule", "Aufwertungsvorlage");
         for (String key : en.keySet()) {
             for (String old : oldEnglish) {
                 if (en.get(key).getAsString().contains(old)) problems.add("en_us " + key + " still says '" + old + "'");

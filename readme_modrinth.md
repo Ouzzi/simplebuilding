@@ -8,7 +8,7 @@ Build bigger. Mine faster. Keep it survival-friendly.
 SimpleBuilding is a Fabric & NeoForge mod for Minecraft 26.2 and 1.21.11 focused on practical building gameplay:
 - High-impact construction tools
 - Better inventory flow
-- Endgame progression (Enderite, Astralit, Nihilith)
+- Endgame progression (Enderite, Astralit, Nihilit)
 - Powerful but configurable world integration
 
 ### [📚 Read the Full Documentation](https://github.com/Ouzzi/simplebuilding)
@@ -38,7 +38,7 @@ fast_chiseling, constructors_touch, range, deep_pockets, master_builder, funnel,
 
 ## Included World Integration
 
-- End ore generation for Astralit and Nihilith
+- End ore generation for Astralit and Nihilit
 - Villager trade pools (Librarian, Mason, Toolsmith)
 - Wandering Trader offers
 - Loot additions in major vanilla structures
