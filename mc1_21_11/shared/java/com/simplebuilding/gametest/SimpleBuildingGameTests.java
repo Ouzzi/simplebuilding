@@ -119,6 +119,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_every_trimmable_armour_shows_every_trim_pattern_on_its_icon", DataIntegrityTests::everyTrimmableArmourShowsEveryTrimPatternOnItsIcon)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_every_item_has_an_item_definition_whose_models_and_textures_exist", DataIntegrityTests::everyItemHasAnItemDefinitionWhoseModelsAndTexturesExist)
+                    .build(),
             GameTestSpec.named("data_integrity_game_test_every_vanilla_enchantment_has_its_own_book_model", DataIntegrityTests::everyVanillaEnchantmentHasItsOwnBookModel)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_vanilla_book_texture_follows_the_client_option", DataIntegrityTests::vanillaBookTextureFollowsTheClientOption)
