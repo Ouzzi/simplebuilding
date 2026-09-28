@@ -3126,7 +3126,7 @@ window.WIKI_DATA = {
         "en_us": "Astralit Brick Wall",
         "de_de": "Astralitziegelmauer"
       },
-      "texture": null,
+      "texture": "assets/textures/block/astralit_bricks.png",
       "craftedBy": [
         "simplebuilding:astralit_brick_wall",
         "simplebuilding:astralit_brick_wall_from_astral_end_stone_stonecutting",
@@ -4546,7 +4546,7 @@ window.WIKI_DATA = {
         "en_us": "Creative Spacer",
         "de_de": "Kreativ-Platzhalter"
       },
-      "texture": null,
+      "texture": "assets/textures/wiki/empty_slot.png",
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -5372,7 +5372,7 @@ window.WIKI_DATA = {
         "en_us": "Echo Sounder",
         "de_de": "Echolot"
       },
-      "texture": null,
+      "texture": "assets/textures/item/echo_compass_16.png",
       "craftedBy": [
         "simplebuilding:echo_compass"
       ],
@@ -5595,7 +5595,7 @@ window.WIKI_DATA = {
         "en_us": "Ender Quartz Brick Wall",
         "de_de": "Enderquarzziegelmauer"
       },
-      "texture": null,
+      "texture": "assets/textures/block/ender_quartz_bricks.png",
       "craftedBy": [
         "simplebuilding:ender_quartz_brick_wall",
         "simplebuilding:ender_quartz_brick_wall_from_end_stone_brick_wall",
@@ -11803,7 +11803,7 @@ window.WIKI_DATA = {
         "en_us": "Nihilith Brick Wall",
         "de_de": "Nihilithziegelmauer"
       },
-      "texture": null,
+      "texture": "assets/textures/block/nihilith_bricks.png",
       "craftedBy": [
         "simplebuilding:nihilith_brick_wall",
         "simplebuilding:nihilith_brick_wall_from_end_stone_brick_wall",
@@ -12695,7 +12695,7 @@ window.WIKI_DATA = {
         "en_us": "Polished Astralit Wall",
         "de_de": "Polierte Astralitmauer"
       },
-      "texture": null,
+      "texture": "assets/textures/block/polished_astralit.png",
       "craftedBy": [
         "simplebuilding:polished_astralit_wall",
         "simplebuilding:polished_astralit_wall_from_astralit_block_stonecutting",
@@ -12796,7 +12796,7 @@ window.WIKI_DATA = {
         "en_us": "Polished Ender Quartz Wall",
         "de_de": "Polierte Enderquarzmauer"
       },
-      "texture": null,
+      "texture": "assets/textures/block/polished_ender_quartz.png",
       "craftedBy": [
         "simplebuilding:polished_ender_quartz_wall",
         "simplebuilding:polished_ender_quartz_wall_from_ender_quartz_block_stonecutting",
@@ -12877,7 +12877,7 @@ window.WIKI_DATA = {
         "en_us": "Polished Nihilith Wall",
         "de_de": "Polierte Nihilithmauer"
       },
-      "texture": null,
+      "texture": "assets/textures/block/polished_nihilith.png",
       "craftedBy": [
         "simplebuilding:polished_nihilith_wall",
         "simplebuilding:polished_nihilith_wall_from_nihilith_block_stonecutting",
@@ -15107,7 +15107,7 @@ window.WIKI_DATA = {
         "en_us": "Astralit Brick Wall",
         "de_de": "Astralitziegelmauer"
       },
-      "texture": null,
+      "texture": "assets/textures/block/astralit_bricks.png",
       "craftedBy": [
         "simplebuilding:astralit_brick_wall",
         "simplebuilding:astralit_brick_wall_from_astral_end_stone_stonecutting",
@@ -16088,7 +16088,7 @@ window.WIKI_DATA = {
         "en_us": "Ender Quartz Brick Wall",
         "de_de": "Enderquarzziegelmauer"
       },
-      "texture": null,
+      "texture": "assets/textures/block/ender_quartz_bricks.png",
       "craftedBy": [
         "simplebuilding:ender_quartz_brick_wall",
         "simplebuilding:ender_quartz_brick_wall_from_end_stone_brick_wall",
@@ -19036,7 +19036,7 @@ window.WIKI_DATA = {
         "en_us": "Nihilith Brick Wall",
         "de_de": "Nihilithziegelmauer"
       },
-      "texture": null,
+      "texture": "assets/textures/block/nihilith_bricks.png",
       "craftedBy": [
         "simplebuilding:nihilith_brick_wall",
         "simplebuilding:nihilith_brick_wall_from_end_stone_brick_wall",
@@ -19366,7 +19366,7 @@ window.WIKI_DATA = {
         "en_us": "Polished Astralit Wall",
         "de_de": "Polierte Astralitmauer"
       },
-      "texture": null,
+      "texture": "assets/textures/block/polished_astralit.png",
       "craftedBy": [
         "simplebuilding:polished_astralit_wall",
         "simplebuilding:polished_astralit_wall_from_astralit_block_stonecutting",
@@ -19499,7 +19499,7 @@ window.WIKI_DATA = {
         "en_us": "Polished Ender Quartz Wall",
         "de_de": "Polierte Enderquarzmauer"
       },
-      "texture": null,
+      "texture": "assets/textures/block/polished_ender_quartz.png",
       "craftedBy": [
         "simplebuilding:polished_ender_quartz_wall",
         "simplebuilding:polished_ender_quartz_wall_from_ender_quartz_block_stonecutting",
@@ -19602,7 +19602,7 @@ window.WIKI_DATA = {
         "en_us": "Polished Nihilith Wall",
         "de_de": "Polierte Nihilithmauer"
       },
-      "texture": null,
+      "texture": "assets/textures/block/polished_nihilith.png",
       "craftedBy": [
         "simplebuilding:polished_nihilith_wall",
         "simplebuilding:polished_nihilith_wall_from_nihilith_block_stonecutting",
@@ -21270,7 +21270,7 @@ window.WIKI_DATA = {
         "en_us": "Waxed Copper Pressure Plate",
         "de_de": "Gewachste Kupfer-Druckplatte"
       },
-      "texture": null,
+      "texture": "assets/textures/block/copper_pressure_plate.png",
       "craftedBy": [
         "simplebuilding:waxed_copper_pressure_plate_from_honeycomb"
       ],
@@ -21320,7 +21320,7 @@ window.WIKI_DATA = {
         "en_us": "Waxed Exposed Copper Pressure Plate",
         "de_de": "Gewachste angelaufene Kupfer-Druckplatte"
       },
-      "texture": null,
+      "texture": "assets/textures/block/exposed_copper_pressure_plate.png",
       "craftedBy": [
         "simplebuilding:waxed_exposed_copper_pressure_plate_from_honeycomb"
       ],
@@ -21370,7 +21370,7 @@ window.WIKI_DATA = {
         "en_us": "Waxed Oxidized Copper Pressure Plate",
         "de_de": "Gewachste oxidierte Kupfer-Druckplatte"
       },
-      "texture": null,
+      "texture": "assets/textures/block/oxidized_copper_pressure_plate.png",
       "craftedBy": [
         "simplebuilding:waxed_oxidized_copper_pressure_plate_from_honeycomb"
       ],
@@ -21420,7 +21420,7 @@ window.WIKI_DATA = {
         "en_us": "Waxed Weathered Copper Pressure Plate",
         "de_de": "Gewachste verwitterte Kupfer-Druckplatte"
       },
-      "texture": null,
+      "texture": "assets/textures/block/weathered_copper_pressure_plate.png",
       "craftedBy": [
         "simplebuilding:waxed_weathered_copper_pressure_plate_from_honeycomb"
       ],
