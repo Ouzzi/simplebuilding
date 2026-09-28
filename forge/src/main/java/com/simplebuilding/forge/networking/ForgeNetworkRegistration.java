@@ -76,6 +76,8 @@ public final class ForgeNetworkRegistration {
                         }
                         com.simplebuilding.util.TrimMultiplierLogic.setClientSyncedBase(payload.baseMultiplier());
                     }))
+                    .add(com.simplebuilding.networking.DataTablesSyncPayload.ID, com.simplebuilding.networking.DataTablesSyncPayload.CODEC,
+                            (payload, ctx) -> handled(ctx).enqueueWork(() -> com.simplebuilding.data.ModDataTables.receive(payload)))
                     .add(SurvivalSyncPayload.ID, SurvivalSyncPayload.CODEC, (payload, ctx) -> handled(ctx).enqueueWork(() -> {
                         if (Minecraft.getInstance().player instanceof SurvivalTracerAccessor accessor) {
                             accessor.simplebuilding$setCurrentValues(payload.currentDist(), payload.currentTime(), payload.currentHostile(), payload.currentPassive(), payload.currentDamage());

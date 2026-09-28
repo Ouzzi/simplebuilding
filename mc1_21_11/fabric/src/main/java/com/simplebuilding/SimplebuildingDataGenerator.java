@@ -20,6 +20,8 @@ public class SimplebuildingDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(ModBlockTagProvider::new);
         pack.addProvider(ModItemTagProvider::new);
         pack.addProvider(ModLootTableProvider::new);
+        // Datapack defaults: chisel chains, sledgehammer upgrades, loot injection tables
+        pack.addProvider((FabricDataOutput out, CompletableFuture<HolderLookup.Provider> reg) -> new ModDataTablesProvider(out, reg));
         pack.addProvider(ModModelProvider::new);
         // Sichtbare Besatzmuster auf den Ruestungs-Icons (Vanilla- und Enderit-Ruestung)
         pack.addProvider((FabricDataOutput out, CompletableFuture<HolderLookup.Provider> reg) -> new ArmorTrimModelProvider(out, reg));

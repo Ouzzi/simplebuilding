@@ -48,6 +48,7 @@ public final class SimplebuildingForge {
         ForgeItemAutomation.install();
         ForgePistonBreakGuard.install();
         ForgeBuildGuard.install();
+        ForgeDataTables.register();
         configure();
     }
 

@@ -24,7 +24,7 @@ public final class NeoForgeLootEvents {
 
         ResourceKey<LootTable> key = ResourceKey.create(Registries.LOOT_TABLE, name);
         LootTable table = event.getTable();
-        ModLootTableModifications.apply(key, new ModLootTableModifications.Editor() {
+        com.simplebuilding.loot.LootInjection.apply(key, new ModLootTableModifications.Editor() {
             @Override
             public void addPool(LootPool.Builder pool) {
                 table.addPool(pool.build());

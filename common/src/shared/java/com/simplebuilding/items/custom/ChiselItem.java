@@ -63,10 +63,12 @@ public class ChiselItem extends Item {
     // Wir speichern das Material selbst, da "Item" kein Material hat.
     private final ToolMaterial material;
 
-    private final Map<Block, Block> forwardMap;
-    private final Map<Block, Block> backwardMap;
-    private final Map<Block, Block> touchForwardMap;
-    private final Map<Block, Block> touchBackwardMap;
+    /**
+     * Which transformation tier this chisel uses ({@link com.simplebuilding.data.ChiselTables#TIERS}).
+     * The maps themselves come from the datapack files ({@code data/<ns>/chisel_transformations/})
+     * on every call; the static tables below are the built-in defaults those files are generated from.
+     */
+    private final String tier;
 
     // =================================================================================
     // STATIC MAPS
@@ -343,36 +345,18 @@ public class ChiselItem extends Item {
         // Vergleiche Referenzen (== funktioniert für die statischen ToolMaterial Felder).
 
         if (material == ToolMaterial.STONE) {
-            this.forwardMap = FINAL_STONE_FWD;
-            this.backwardMap = FINAL_STONE_BWD;
-            this.touchForwardMap = FINAL_STONE_TOUCH_FWD;
-            this.touchBackwardMap = FINAL_STONE_TOUCH_BWD;
+            this.tier = "stone";
         } else if (material == ToolMaterial.COPPER || material == ToolMaterial.IRON) {
-            this.forwardMap = FINAL_IRON_FWD;
-            this.backwardMap = FINAL_IRON_BWD;
-            this.touchForwardMap = FINAL_IRON_TOUCH_FWD;
-            this.touchBackwardMap = FINAL_IRON_TOUCH_BWD;
+            this.tier = "iron";
         } else if (material == ToolMaterial.GOLD || material == ToolMaterial.DIAMOND) {
-            this.forwardMap = FINAL_DIAMOND_FWD;
-            this.backwardMap = FINAL_DIAMOND_BWD;
-            this.touchForwardMap = FINAL_DIAMOND_TOUCH_FWD;
-            this.touchBackwardMap = FINAL_DIAMOND_TOUCH_BWD;
+            this.tier = "diamond";
         } else if (material == ToolMaterial.NETHERITE) {
-            this.forwardMap = FINAL_NETHERITE_FWD;
-            this.backwardMap = FINAL_NETHERITE_BWD;
-            this.touchForwardMap = FINAL_NETHERITE_TOUCH_FWD;
-            this.touchBackwardMap = FINAL_NETHERITE_TOUCH_BWD;
+            this.tier = "netherite";
         } else if (material == ModToolMaterials.ENDERITE) {
-            this.forwardMap = FINAL_ENDERITE_FWD;
-            this.backwardMap = FINAL_ENDERITE_BWD;
-            this.touchForwardMap = FINAL_ENDERITE_TOUCH_FWD;
-            this.touchBackwardMap = FINAL_ENDERITE_TOUCH_BWD;
+            this.tier = "enderite";
         } else {
-            // Fallback
-            this.forwardMap = Map.of();
-            this.backwardMap = Map.of();
-            this.touchForwardMap = Map.of();
-            this.touchBackwardMap = Map.of();
+            // Fallback: kein Eintrag, keine Umformung
+            this.tier = "";
         }
     }
 
@@ -432,13 +416,13 @@ public class ChiselItem extends Item {
     /** Fuer den Wiki-Export: unterscheidet Spachtel von Meissel. */
     public boolean isDedicatedSpatula() { return this.isDedicatedSpatula; }
     /** Fuer den Wiki-Export (InWorldTransformations): was diese Stufe vorwaerts umformt. */
-    public Map<Block, Block> getForwardMap() { return this.forwardMap; }
+    public Map<Block, Block> getForwardMap() { return com.simplebuilding.data.ChiselTables.tier(this.tier).forward(); }
     /** Fuer den Wiki-Export: was diese Stufe rueckwaerts umformt (Spachtel, Meissel mit Schleichen). */
-    public Map<Block, Block> getBackwardMap() { return this.backwardMap; }
+    public Map<Block, Block> getBackwardMap() { return com.simplebuilding.data.ChiselTables.tier(this.tier).backward(); }
     /** Fuer den Wiki-Export: vorwaerts mit Constructor's Touch (enthaelt die Grundtabelle). */
-    public Map<Block, Block> getTouchForwardMap() { return this.touchForwardMap; }
+    public Map<Block, Block> getTouchForwardMap() { return com.simplebuilding.data.ChiselTables.tier(this.tier).touchForward(); }
     /** Fuer den Wiki-Export: rueckwaerts mit Constructor's Touch (enthaelt die Grundtabelle). */
-    public Map<Block, Block> getTouchBackwardMap() { return this.touchBackwardMap; }
+    public Map<Block, Block> getTouchBackwardMap() { return com.simplebuilding.data.ChiselTables.tier(this.tier).touchBackward(); }
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
@@ -452,8 +436,8 @@ public class ChiselItem extends Item {
                 return InteractionResult.PASS;
             }
             Block block = context.getLevel().getBlockState(context.getClickedPos()).getBlock();
-            if (this.forwardMap.containsKey(block) || this.backwardMap.containsKey(block)
-                    || this.touchForwardMap.containsKey(block) || this.touchBackwardMap.containsKey(block)) {
+            if (getForwardMap().containsKey(block) || getBackwardMap().containsKey(block)
+                    || getTouchForwardMap().containsKey(block) || getTouchBackwardMap().containsKey(block)) {
                 return InteractionResult.SUCCESS;
             }
             return InteractionResult.PASS;
@@ -486,18 +470,18 @@ public class ChiselItem extends Item {
             // Spatel Logik: Standard ist Rückwärts
             if (isSneaking) {
                 // Spatel + Sneak = Vorwärts? (Optional, aktuell nicht gefordert, aber logisch)
-                currentMap = hasConstructorsTouch ? this.touchForwardMap : this.forwardMap;
+                currentMap = hasConstructorsTouch ? getTouchForwardMap() : getForwardMap();
             } else {
-                currentMap = hasConstructorsTouch ? this.touchBackwardMap : this.backwardMap;
+                currentMap = hasConstructorsTouch ? getTouchBackwardMap() : getBackwardMap();
             }
         } else {
             // Meißel Logik: Standard ist Vorwärts
             if (isSneaking) {
                 // Meißel + Sneak = Rückwärts ("Entchisseln") -> TEUER!
-                currentMap = hasConstructorsTouch ? this.touchBackwardMap : this.backwardMap;
+                currentMap = hasConstructorsTouch ? getTouchBackwardMap() : getBackwardMap();
                 isReverseAction = true;
             } else {
-                currentMap = hasConstructorsTouch ? this.touchForwardMap : this.forwardMap;
+                currentMap = hasConstructorsTouch ? getTouchForwardMap() : getForwardMap();
             }
         }
 
@@ -574,6 +558,7 @@ public class ChiselItem extends Item {
 
     private static void registerLinear(Map<Block, Block> forward, Map<Block, Block> backward, Block... blocks) {
         if (blocks.length < 2) return;
+        recordChain(forward, false, blocks);
         for (int i = 0; i < blocks.length - 1; i++) {
             Block current = blocks[i];
             Block next = blocks[i + 1];
@@ -584,12 +569,39 @@ public class ChiselItem extends Item {
 
     private static void registerCyclic(Map<Block, Block> forward, Map<Block, Block> backward, Block... blocks) {
         if (blocks.length < 2) return;
+        recordChain(forward, true, blocks);
         for (int i = 0; i < blocks.length; i++) {
             Block current = blocks[i];
             Block next = blocks[(i + 1) % blocks.length];
             forward.put(current, next);
             backward.put(next, current);
         }
+    }
+
+    /**
+     * Hands every built-in chain to {@link com.simplebuilding.data.ChiselTables}, which generates the
+     * default datapack files from them (and falls back to them before the first datapack load). The
+     * forward map names the tier and the table.
+     */
+    private static void recordChain(Map<Block, Block> forward, boolean cyclic, Block... blocks) {
+        String tier;
+        String table = "chisel";
+        if (forward == STONE_CHISEL_MAP) tier = "stone";
+        else if (forward == STONE_TOUCH_MAP) { tier = "stone"; table = "touch"; }
+        else if (forward == IRON_CHISEL_MAP) tier = "iron";
+        else if (forward == IRON_TOUCH_MAP) { tier = "iron"; table = "touch"; }
+        else if (forward == DIAMOND_CHISEL_MAP) tier = "diamond";
+        else if (forward == DIAMOND_TOUCH_MAP) { tier = "diamond"; table = "touch"; }
+        else if (forward == NETHERITE_CHISEL_MAP) tier = "netherite";
+        else if (forward == NETHERITE_TOUCH_MAP) { tier = "netherite"; table = "touch"; }
+        else if (forward == ENDERITE_CHISEL_MAP) tier = "enderite";
+        else throw new IllegalStateException("chisel chain registered into an unknown table");
+        com.simplebuilding.data.ChiselTables.record(tier, table, cyclic, blocks);
+    }
+
+    /** Forces the static tables above to load (their chains are recorded while they do). */
+    public static void ensureTablesLoaded() {
+        // Calling any static method initialises the class, which runs the static block.
     }
 
     private static Map<Block, Block> merge(Map<Block, Block> base, Map<Block, Block> addition) {
@@ -720,15 +732,15 @@ public class ChiselItem extends Item {
 
         if (this.isDedicatedSpatula) {
             if (isSneaking) {
-                currentMap = hasConstructorsTouch ? this.touchForwardMap : this.forwardMap;
+                currentMap = hasConstructorsTouch ? getTouchForwardMap() : getForwardMap();
             } else {
-                currentMap = hasConstructorsTouch ? this.touchBackwardMap : this.backwardMap;
+                currentMap = hasConstructorsTouch ? getTouchBackwardMap() : getBackwardMap();
             }
         } else {
             if (isSneaking) {
-                currentMap = hasConstructorsTouch ? this.touchBackwardMap : this.backwardMap;
+                currentMap = hasConstructorsTouch ? getTouchBackwardMap() : getBackwardMap();
             } else {
-                currentMap = hasConstructorsTouch ? this.touchForwardMap : this.forwardMap;
+                currentMap = hasConstructorsTouch ? getTouchForwardMap() : getForwardMap();
             }
         }
         return currentMap.containsKey(block);

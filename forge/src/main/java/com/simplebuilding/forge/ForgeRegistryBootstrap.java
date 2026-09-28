@@ -44,6 +44,10 @@ public final class ForgeRegistryBootstrap {
             ModDataComponentTypes.registerDataComponentTypes();
             return;
         }
+        if (event.getRegistryKey().equals(Registries.LOOT_CONDITION_TYPE)) {
+            // simplebuilding:core_chance in the loot injection tables (data/simplebuilding/loot_table/inject/).
+            com.simplebuilding.loot.ModLootConditions.register();
+        }
         if (event.getRegistryKey().equals(Registries.LOOT_FUNCTION_TYPE)) {
             // Die Trade-JSONs unter data/simplebuilding/villager_trade/ referenzieren
             // simplebuilding:weighted_enchant und liegen auch im Forge-Jar; ohne die Registrierung

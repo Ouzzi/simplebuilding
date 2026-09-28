@@ -144,6 +144,9 @@ public class Simplebuilding implements ModInitializer {
         PlatformServices.setItemAutomation(new com.simplebuilding.platform.FabricItemAutomation());
         com.simplebuilding.platform.FabricPistonBreakGuard.install();
         com.simplebuilding.platform.FabricBuildGuard.install();
+        // Datapack tables (chisel transformations, sledgehammer upgrades): load on every datapack
+        // (re)load, send to each client on join and after /reload.
+        com.simplebuilding.platform.FabricDataTables.register();
         PlatformServices.setHopperSync((blockEntity, slot, stack) -> {
             var payload = new SyncHopperGhostItemPayload(blockEntity.getBlockPos(), slot, stack);
             for (net.minecraft.server.level.ServerPlayer player
