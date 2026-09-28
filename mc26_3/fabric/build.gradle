@@ -22,6 +22,7 @@ sourceSets {
 		java {
 			srcDir root.dir('common/src/shared/java')
 			srcDir root.dir('common/src/jei/java')
+			srcDir root.dir('common/src/jade/java')
 			srcDir root.dir('src/main/java')
 			srcDir root.dir('mc26_3/overlay/java')
 		}
@@ -123,6 +124,8 @@ dependencies {
 	implementation "com.terraformersmc:modmenu:${project.mc263_modmenu_version}"
 
 	compileOnly "mezz.jei:jei-${project.mc263_minecraft_version}-common-api:${project.mc263_jei_version}"
+	// Jade plugin (common/src/jade/java), see the root build.gradle
+	compileOnly "maven.modrinth:jade:${project.mc263_dev_jade_fabric}"
 	devMods "mezz.jei:jei-${project.mc263_minecraft_version}-fabric:${project.mc263_jei_version}"
 	devMods "maven.modrinth:jade:${project.mc263_dev_jade_fabric}"
 	devMods "maven.modrinth:mouse-tweaks:${project.mc263_dev_mousetweaks_fabric}"

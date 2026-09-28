@@ -39,6 +39,8 @@ sourceSets {
             srcDir rootProject.layout.projectDirectory.dir('common/src/mc26_2/java')
             // JEI plugin, compileOnly JEI API (see the root build.gradle)
             srcDir rootProject.layout.projectDirectory.dir('common/src/jei/java')
+            // Jade plugin, compileOnly Jade jar (see the root build.gradle)
+            srcDir rootProject.layout.projectDirectory.dir('common/src/jade/java')
         }
         resources {
             srcDir 'src/main/resources'
@@ -213,6 +215,8 @@ dependencies {
 
     // JEI plugin API (common/src/jei/java). compileOnly: the mod runs without JEI.
     compileOnly "mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}"
+    // Jade plugin (common/src/jade/java). compileOnly: the mod runs without Jade.
+    compileOnly("maven.modrinth:jade:${rootProject.dev_jade_neoforge}") { transitive = false }
 
     devMods("mezz.jei:jei-${rootProject.minecraft_version}-neoforge:${rootProject.jei_version}") { transitive = false }
     devMods("maven.modrinth:jade:${rootProject.dev_jade_neoforge}") { transitive = false }
