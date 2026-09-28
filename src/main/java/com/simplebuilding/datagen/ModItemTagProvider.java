@@ -232,7 +232,8 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
         builder(TRIM_TEMPLATES)
                 .add(key(ModItems.GLOWING_TRIM_TEMPLATE))
-                .add(key(ModItems.EMITTING_TRIM_TEMPLATE));
+                .add(key(ModItems.EMITTING_TRIM_TEMPLATE))
+                .add(key(ModItems.PULSATING_TRIM_TEMPLATE));
 
         // Optional: Damit der Leuchtbeutel generell als "Trim Material" erkannt wird (hilft bei der GUI-Validierung)
         builder(ItemTags.TRIM_MATERIALS)

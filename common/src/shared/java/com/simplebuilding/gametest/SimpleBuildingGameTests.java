@@ -1322,6 +1322,15 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("placed_template_game_test_blueprints_are_placed_like_templates_and_drop_themselves", PlacedTemplateTests::blueprintsArePlacedLikeTemplatesAndDropThemselves)
                     .build(),
+            GameTestSpec.named("placed_template_game_test_placed_attractors_pull_loose_items_toward_themselves", PlacedTemplateTests::placedAttractorsPullLooseItemsTowardThemselves)
+                    .maxTicks(PlacedTemplateTests.ATTRACTOR_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("pulsating_trim_game_test_the_pulsating_template_is_crafted_from_an_echo_shard_and_any_sledgehammer_that_stays", PulsatingTrimTests::thePulsatingTemplateIsCraftedFromAnEchoShardAndAnySledgehammerThatStays)
+                    .build(),
+            GameTestSpec.named("pulsating_trim_game_test_the_pulsating_upgrade_makes_the_trim_pulse_once_and_combines_with_glowing", PulsatingTrimTests::thePulsatingUpgradeMakesTheTrimPulseOnceAndCombinesWithGlowing)
+                    .build(),
+            GameTestSpec.named("pulsating_trim_game_test_templates_and_the_attractor_carry_their_new_names", PulsatingTrimTests::templatesAndTheAttractorCarryTheirNewNames)
+                    .build(),
             GameTestSpec.named("placed_bundle_game_test_sneak_use_places_bundles_only_on_top_faces", PlacedBundleTests::sneakUsePlacesBundlesOnlyOnTopFaces)
                     .build(),
             GameTestSpec.named("placed_bundle_game_test_sneaking_viewers_cycle_the_top_item_and_right_click_takes_it", PlacedBundleTests::sneakingViewersCycleTheTopItemAndRightClickTakesIt)

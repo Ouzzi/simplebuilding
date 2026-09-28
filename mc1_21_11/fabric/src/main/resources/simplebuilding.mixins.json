@@ -26,6 +26,7 @@
     "PistonHandlerMixin",
     "PistonHeadBlockMixin",
     "PlayerEntityMixin",
+    "ShapelessRecipeMixin",
     "ShearsItemMixin",
     "SlotMixin",
     "SmithingScreenHandlerMixin",
