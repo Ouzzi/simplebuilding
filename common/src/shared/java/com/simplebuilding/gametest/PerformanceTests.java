@@ -59,11 +59,11 @@ public final class PerformanceTests {
                     PadTiers.elytraArea(origin, PadTiers.MAX, true));
             for (AABB box : boxes) {
                 assertSame(helper, "players in " + box,
-                        level.getEntitiesOfClass(ServerPlayer.class, box, p -> true), PlayerScan.playersIn(level, box, ServerPlayer.class));
+                        level.getEntitiesOfClass(ServerPlayer.class, box, p -> inList(level, p)), PlayerScan.playersIn(level, box, ServerPlayer.class));
                 assertSame(helper, "non-spectators in " + box,
-                        level.getEntitiesOfClass(Player.class, box, p -> !p.isSpectator()),
+                        level.getEntitiesOfClass(Player.class, box, p -> inList(level, p) && !p.isSpectator()),
                         PlayerScan.playersIn(level, box, Player.class, p -> !p.isSpectator()));
-                helper.assertTrue(PlayerScan.anyPlayerIn(level, box) == !level.getEntitiesOfClass(Player.class, box, p -> true).isEmpty(),
+                helper.assertTrue(PlayerScan.anyPlayerIn(level, box) == !level.getEntitiesOfClass(Player.class, box, p -> inList(level, p)).isEmpty(),
                         "anyPlayerIn disagrees with the section search for " + box);
             }
             helper.assertTrue(PlayerScan.playersIn(level, boxes.get(0), ServerPlayer.class).contains(inside), "the player on the pad was not found");
@@ -76,6 +76,14 @@ public final class PerformanceTests {
             }
         }
         helper.succeed();
+    }
+
+    /**
+     * Nur Spieler aus {@code level.players()} zaehlen: die Elytra-Flaeche ist 256 Bloecke breit und faengt
+     * Mock-Spieler parallel laufender Tests ein, die nie in der Spielerliste stehen (echte Spieler immer).
+     */
+    private static boolean inList(ServerLevel level, Player player) {
+        return level.players().contains(player);
     }
 
     /**
