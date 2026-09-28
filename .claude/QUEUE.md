@@ -131,7 +131,7 @@ Verlauf im Detail: git log.
 - [x] Erfolge/Advancements mit Hinweisen fuer den naechsten Schritt (ganzer Baum) (laeuft)
 - [x] Schmiedevorlagen platzierbar (flach, 3D, wasserfest), Leucht-Transformation am Boden in 3 Schlaegen, Hinweis-Partikel bei Glowstone/Leuchttinte (laeuft)
 - [x] Anfaengerbuch beim Erstbeitritt + Themenbuecher an der Werkbank (laeuft)
-- [ ] Trank-Pad ins Easter Egg aufnehmen (laeuft) (Endstufe doppelt so lange Wirkdauer)
+- [x] Trank-Pad ins Easter Egg aufnehmen (Endstufe doppelt so lange Wirkdauer)
 - [x] 26.3-Absturz Hammer+Ofen: kein Code-Fehler, Build waehrend laufendem Client (Regel gemerkt)
 
 ## Wartet auf den Besitzer
