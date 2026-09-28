@@ -3034,6 +3034,7 @@ window.WIKI_DATA = {
         "simplebuilding:chiseled_astralit_bricks_from_astral_end_stone_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/astral_end_stone.png",
       "hasCustomBehaviour": false
     },
     {
@@ -3050,6 +3051,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_astralit_from_astral_purpur_block_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/astral_purpur_block.png",
       "hasCustomBehaviour": false
     },
     {
@@ -3078,6 +3080,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_astralit_wall_from_astralit_block_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/astralit_block.png",
       "hasCustomBehaviour": false
     },
     {
@@ -3099,6 +3102,7 @@ window.WIKI_DATA = {
         "simplebuilding:chiseled_astralit_bricks"
       ],
       "trades": [],
+      "icon": "assets/textures/render/astralit_brick_slab.png",
       "hasCustomBehaviour": false
     },
     {
@@ -3118,6 +3122,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/astralit_brick_stairs.png",
       "hasCustomBehaviour": false
     },
     {
@@ -3137,6 +3142,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/astralit_brick_wall.png",
       "hasCustomBehaviour": false
     },
     {
@@ -3163,6 +3169,7 @@ window.WIKI_DATA = {
         "simplebuilding:chiseled_astralit_bricks_from_astralit_bricks_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/astralit_bricks.png",
       "hasCustomBehaviour": false
     },
     {
@@ -3204,6 +3211,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/astralit_ore.png",
       "hasCustomBehaviour": false
     },
     {
@@ -3222,6 +3230,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/astralit_pillar.png",
       "hasCustomBehaviour": false
     },
     {
@@ -3236,6 +3245,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/astralit_quartz_checker.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -3500,6 +3510,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/blackstone_quartz_checker.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -3595,6 +3606,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/chiseled_astralit_bricks.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -3636,6 +3648,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/chiseled_ender_quartz_bricks.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -3677,6 +3690,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/chiseled_nihilith_bricks.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -3714,6 +3728,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/construction_light.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -4538,6 +4553,7 @@ window.WIKI_DATA = {
         "simplebuilding:cracked_diamond_from_cracked_diamond_block"
       ],
       "trades": [],
+      "icon": "assets/textures/render/cracked_diamond_block.png",
       "hasCustomBehaviour": false
     },
     {
@@ -5372,7 +5388,7 @@ window.WIKI_DATA = {
         "en_us": "Echo Sounder",
         "de_de": "Echolot"
       },
-      "texture": null,
+      "texture": "assets/textures/item/echo_compass_16.png",
       "craftedBy": [
         "simplebuilding:echo_compass"
       ],
@@ -5549,6 +5565,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_ender_quartz_wall_from_ender_quartz_block_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_block.png",
       "hasCustomBehaviour": false
     },
     {
@@ -5569,6 +5586,7 @@ window.WIKI_DATA = {
         "simplebuilding:chiseled_ender_quartz_bricks"
       ],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_brick_slab.png",
       "hasCustomBehaviour": false
     },
     {
@@ -5587,6 +5605,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_brick_stairs.png",
       "hasCustomBehaviour": false
     },
     {
@@ -5605,6 +5624,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_brick_wall.png",
       "hasCustomBehaviour": false
     },
     {
@@ -5631,6 +5651,7 @@ window.WIKI_DATA = {
         "simplebuilding:ender_quartz_brick_wall_from_ender_quartz_bricks_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_bricks.png",
       "hasCustomBehaviour": false
     },
     {
@@ -5645,6 +5666,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_checker.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -5691,6 +5713,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_pillar.png",
       "hasCustomBehaviour": false
     },
     {
@@ -5707,6 +5730,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_slab.png",
       "hasCustomBehaviour": false
     },
     {
@@ -5723,6 +5747,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_stairs.png",
       "hasCustomBehaviour": false
     },
     {
@@ -5940,6 +5965,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/enderite_blast_furnace.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/ModBlastFurnaceBlock.java",
@@ -6028,6 +6054,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_ingot"
       ],
       "trades": [],
+      "icon": "assets/textures/render/enderite_block.png",
       "hasCustomBehaviour": false
     },
     {
@@ -6671,6 +6698,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/enderite_furnace.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/ModFurnaceBlock.java",
@@ -6959,6 +6987,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/enderite_piston.png",
       "note": {
         "en": {
           "summary": "The Enderite Piston breaks the block in front of it like the Netherite Piston, and, paid with a Redstone Block next to it, sacrifices itself to break up to three blocks deep through unbreakable blocks such as bedrock.",
@@ -7429,6 +7458,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/enderite_smoker.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/ModSmokerBlock.java",
@@ -9606,6 +9636,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/lapis_quartz_checker.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -9763,6 +9794,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/levitating_gravel.png",
       "note": {
         "en": {
           "summary": "Levitating Gravel is gravel with reversed gravity: it climbs upwards one block at a time until something stops it.",
@@ -9844,6 +9876,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/levitating_sand.png",
       "note": {
         "en": {
           "summary": "Levitating Sand is sand with reversed gravity: it climbs upwards one block at a time until something stops it.",
@@ -10257,6 +10290,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/netherite_blast_furnace.png",
       "note": {
         "en": {
           "summary": "The Netherite Blast Furnace is the mod's fastest blast furnace tier for ores and metal.",
@@ -10945,6 +10979,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/netherite_furnace.png",
       "note": {
         "en": {
           "summary": "The Netherite Furnace is the mod's fastest furnace tier and smelts noticeably faster than the Reinforced Furnace.",
@@ -11152,6 +11187,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/netherite_piston.png",
       "note": {
         "en": {
           "summary": "The Netherite Piston destroys the block directly in front of it as it extends, provided the redstone signal is strong enough for that block's hardness; otherwise it works like an ordinary piston. Paid with a Redstone Block next to it, it sacrifices itself to destroy an unbreakable block such as bedrock.",
@@ -11612,6 +11648,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/netherite_smoker.png",
       "note": {
         "en": {
           "summary": "The Netherite Smoker is the mod's fastest smoker tier for food.",
@@ -11711,6 +11748,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_pillar_from_nihil_end_stone_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/nihil_end_stone.png",
       "hasCustomBehaviour": false
     },
     {
@@ -11727,6 +11765,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_nihilith_from_nihil_purpur_block_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/nihil_purpur_block.png",
       "hasCustomBehaviour": false
     },
     {
@@ -11755,6 +11794,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_nihilith_wall_from_nihilith_block_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/nihilith_block.png",
       "hasCustomBehaviour": false
     },
     {
@@ -11776,6 +11816,7 @@ window.WIKI_DATA = {
         "simplebuilding:chiseled_nihilith_bricks"
       ],
       "trades": [],
+      "icon": "assets/textures/render/nihilith_brick_slab.png",
       "hasCustomBehaviour": false
     },
     {
@@ -11795,6 +11836,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/nihilith_brick_stairs.png",
       "hasCustomBehaviour": false
     },
     {
@@ -11814,6 +11856,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/nihilith_brick_wall.png",
       "hasCustomBehaviour": false
     },
     {
@@ -11840,6 +11883,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_brick_wall_from_nihilith_bricks_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/nihilith_bricks.png",
       "hasCustomBehaviour": false
     },
     {
@@ -11852,6 +11896,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/nihilith_ore.png",
       "hasCustomBehaviour": false
     },
     {
@@ -11870,6 +11915,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/nihilith_pillar.png",
       "hasCustomBehaviour": false
     },
     {
@@ -11884,6 +11930,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/nihilith_quartz_checker.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -12653,6 +12700,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_astralit_wall_from_polished_astralit_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/polished_astralit.png",
       "hasCustomBehaviour": false
     },
     {
@@ -12670,6 +12718,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_astralit_slab.png",
       "hasCustomBehaviour": false
     },
     {
@@ -12687,6 +12736,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_astralit_stairs.png",
       "hasCustomBehaviour": false
     },
     {
@@ -12703,6 +12753,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_astralit_wall.png",
       "hasCustomBehaviour": false
     },
     {
@@ -12720,6 +12771,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihil_end_stone"
       ],
       "trades": [],
+      "icon": "assets/textures/render/polished_end_stone.png",
       "hasCustomBehaviour": false
     },
     {
@@ -12752,6 +12804,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_ender_quartz_wall_from_polished_ender_quartz_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/polished_ender_quartz.png",
       "hasCustomBehaviour": false
     },
     {
@@ -12770,6 +12823,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_ender_quartz_slab.png",
       "hasCustomBehaviour": false
     },
     {
@@ -12788,6 +12842,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_ender_quartz_stairs.png",
       "hasCustomBehaviour": false
     },
     {
@@ -12804,6 +12859,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_ender_quartz_wall.png",
       "hasCustomBehaviour": false
     },
     {
@@ -12835,6 +12891,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_nihilith_wall_from_polished_nihilith_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/polished_nihilith.png",
       "hasCustomBehaviour": false
     },
     {
@@ -12852,6 +12909,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_nihilith_slab.png",
       "hasCustomBehaviour": false
     },
     {
@@ -12869,6 +12927,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_nihilith_stairs.png",
       "hasCustomBehaviour": false
     },
     {
@@ -12885,6 +12944,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_nihilith_wall.png",
       "hasCustomBehaviour": false
     },
     {
@@ -12899,6 +12959,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/purpur_quartz_checker.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -13286,6 +13347,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/reinforced_blast_furnace.png",
       "note": {
         "en": {
           "summary": "The Reinforced Blast Furnace is an upgraded blast furnace for ores and metal that works faster than a vanilla blast furnace.",
@@ -13559,6 +13621,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/reinforced_furnace.png",
       "note": {
         "en": {
           "summary": "The Reinforced Furnace is an upgraded furnace that finishes every smelting recipe faster than a vanilla furnace.",
@@ -13756,6 +13819,7 @@ window.WIKI_DATA = {
         "simplebuilding:reinforced_sticky_piston"
       ],
       "trades": [],
+      "icon": "assets/textures/render/reinforced_piston.png",
       "note": {
         "en": {
           "summary": "The Reinforced Piston is a plain (non-sticky) piston that can push a line of up to 18 blocks instead of the usual 12, and, paid with a Redstone Block next to it, one unbreakable block such as bedrock.",
@@ -13948,6 +14012,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/reinforced_smoker.png",
       "note": {
         "en": {
           "summary": "The Reinforced Smoker is an upgraded smoker for food that cooks faster than a vanilla smoker.",
@@ -14039,6 +14104,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/reinforced_sticky_piston.png",
       "note": {
         "en": {
           "summary": "The Reinforced Sticky Piston is the sticky version of the Reinforced Piston: it pushes up to 18 blocks, pulls a block back when it retracts, and, paid with a Redstone Block next to it, pushes one unbreakable block such as bedrock.",
@@ -14120,6 +14186,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/resin_quartz_checker.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -14816,6 +14883,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/suspended_gravel.png",
       "note": {
         "en": {
           "summary": "Suspended Gravel is gravel without gravity: it stays exactly where you put it.",
@@ -14883,6 +14951,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/suspended_sand.png",
       "note": {
         "en": {
           "summary": "Suspended Sand is sand without gravity: it stays exactly where you put it, and like Suspended Gravel it is solid - you can stand on it.",
@@ -14977,12 +15046,7 @@ window.WIKI_DATA = {
         "simplebuilding:chiseled_astralit_bricks_from_astral_end_stone_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/astral_end_stone.png",
-        "side": "assets/textures/block/astral_end_stone.png",
-        "front": "assets/textures/block/astral_end_stone.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/astral_end_stone.png",
       "lootTable": "simplebuilding:blocks/astral_end_stone",
       "drops": [
         "simplebuilding:astral_end_stone"
@@ -15003,12 +15067,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_astralit_from_astral_purpur_block_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/astral_purpur_block.png",
-        "side": "assets/textures/block/astral_purpur_block.png",
-        "front": "assets/textures/block/astral_purpur_block.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/astral_purpur_block.png",
       "lootTable": "simplebuilding:blocks/astral_purpur_block",
       "drops": [
         "simplebuilding:astral_purpur_block"
@@ -15041,12 +15100,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_astralit_wall_from_astralit_block_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/astralit_block.png",
-        "side": "assets/textures/block/astralit_block.png",
-        "front": "assets/textures/block/astralit_block.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/astralit_block.png",
       "lootTable": "simplebuilding:blocks/astralit_block",
       "drops": [
         "simplebuilding:astralit_block"
@@ -15072,6 +15126,7 @@ window.WIKI_DATA = {
         "simplebuilding:chiseled_astralit_bricks"
       ],
       "trades": [],
+      "icon": "assets/textures/render/astralit_brick_slab.png",
       "lootTable": "simplebuilding:blocks/astralit_brick_slab",
       "drops": [
         "simplebuilding:astralit_brick_slab"
@@ -15095,6 +15150,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/astralit_brick_stairs.png",
       "lootTable": "simplebuilding:blocks/astralit_brick_stairs",
       "drops": [
         "simplebuilding:astralit_brick_stairs"
@@ -15118,6 +15174,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/astralit_brick_wall.png",
       "lootTable": "simplebuilding:blocks/astralit_brick_wall",
       "drops": [
         "simplebuilding:astralit_brick_wall"
@@ -15148,12 +15205,7 @@ window.WIKI_DATA = {
         "simplebuilding:chiseled_astralit_bricks_from_astralit_bricks_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/astralit_bricks.png",
-        "side": "assets/textures/block/astralit_bricks.png",
-        "front": "assets/textures/block/astralit_bricks.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/astralit_bricks.png",
       "lootTable": "simplebuilding:blocks/astralit_bricks",
       "drops": [
         "simplebuilding:astralit_bricks"
@@ -15170,12 +15222,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/astralit_ore.png",
-        "side": "assets/textures/block/astralit_ore.png",
-        "front": "assets/textures/block/astralit_ore.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/astralit_ore.png",
       "lootTable": "simplebuilding:blocks/astralit_ore",
       "drops": [
         "simplebuilding:astralit_dust",
@@ -15199,12 +15246,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/astralit_pillar_top.png",
-        "side": "assets/textures/block/astralit_pillar.png",
-        "front": "assets/textures/block/astralit_pillar.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/astralit_pillar.png",
       "lootTable": "simplebuilding:blocks/astralit_pillar",
       "drops": [
         "simplebuilding:astralit_pillar"
@@ -15223,12 +15265,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/astralit_quartz_checker.png",
-        "side": "assets/textures/block/astralit_quartz_checker.png",
-        "front": "assets/textures/block/astralit_quartz_checker_mirror.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/astralit_quartz_checker.png",
       "lootTable": "simplebuilding:blocks/astralit_quartz_checker",
       "drops": [
         "simplebuilding:astralit_quartz_checker"
@@ -15278,6 +15315,7 @@ window.WIKI_DATA = {
         "simplebuilding:reinforced_backpack"
       ],
       "trades": [],
+      "icon": "assets/textures/render/block/backpack.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -15451,12 +15489,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/blackstone_quartz_checker.png",
-        "side": "assets/textures/block/blackstone_quartz_checker.png",
-        "front": "assets/textures/block/blackstone_quartz_checker_mirror.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/blackstone_quartz_checker.png",
       "lootTable": "simplebuilding:blocks/blackstone_quartz_checker",
       "drops": [
         "simplebuilding:blackstone_quartz_checker"
@@ -15503,6 +15536,7 @@ window.WIKI_DATA = {
         "simplebuilding:potion_pad"
       ],
       "trades": [],
+      "icon": "assets/textures/render/blaze_head.png",
       "lootTable": "simplebuilding:blocks/blaze_head",
       "drops": [
         "simplebuilding:blaze_head"
@@ -15548,6 +15582,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/blaze_head.png",
       "hasCustomBehaviour": false
     },
     {
@@ -15566,12 +15601,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/chiseled_astralit_bricks.png",
-        "side": "assets/textures/block/chiseled_astralit_bricks.png",
-        "front": "assets/textures/block/chiseled_astralit_bricks.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/chiseled_astralit_bricks.png",
       "lootTable": "simplebuilding:blocks/chiseled_astralit_bricks",
       "drops": [
         "simplebuilding:chiseled_astralit_bricks"
@@ -15617,12 +15647,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/chiseled_ender_quartz_bricks.png",
-        "side": "assets/textures/block/chiseled_ender_quartz_bricks.png",
-        "front": "assets/textures/block/chiseled_ender_quartz_bricks.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/chiseled_ender_quartz_bricks.png",
       "lootTable": "simplebuilding:blocks/chiseled_ender_quartz_bricks",
       "drops": [
         "simplebuilding:chiseled_ender_quartz_bricks"
@@ -15668,12 +15693,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/chiseled_nihilith_bricks.png",
-        "side": "assets/textures/block/chiseled_nihilith_bricks.png",
-        "front": "assets/textures/block/chiseled_nihilith_bricks.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/chiseled_nihilith_bricks.png",
       "lootTable": "simplebuilding:blocks/chiseled_nihilith_bricks",
       "drops": [
         "simplebuilding:chiseled_nihilith_bricks"
@@ -15717,6 +15737,7 @@ window.WIKI_DATA = {
         "simplebuilding:netherite_chunk_loader_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/chunk_loader.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -15768,12 +15789,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/construction_light.png",
-        "side": "assets/textures/block/construction_light.png",
-        "front": "assets/textures/block/construction_light.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/construction_light.png",
       "lootTable": "simplebuilding:blocks/construction_light",
       "drops": [
         "simplebuilding:construction_light"
@@ -15820,6 +15836,7 @@ window.WIKI_DATA = {
         "simplebuilding:waxed_copper_pressure_plate_from_honeycomb"
       ],
       "trades": [],
+      "icon": "assets/textures/render/copper_pressure_plate.png",
       "lootTable": "simplebuilding:blocks/copper_pressure_plate",
       "drops": [
         "simplebuilding:copper_pressure_plate"
@@ -15872,12 +15889,7 @@ window.WIKI_DATA = {
         "simplebuilding:cracked_diamond_from_cracked_diamond_block"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/cracked_diamond_block.png",
-        "side": "assets/textures/block/cracked_diamond_block.png",
-        "front": "assets/textures/block/cracked_diamond_block.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/cracked_diamond_block.png",
       "lootTable": "simplebuilding:blocks/cracked_diamond_block",
       "drops": [
         "simplebuilding:cracked_diamond_block"
@@ -15901,6 +15913,7 @@ window.WIKI_DATA = {
         "simplebuilding:reinforced_elytra_pad_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/diamond_pressure_plate.png",
       "lootTable": "simplebuilding:blocks/diamond_pressure_plate",
       "drops": [
         "simplebuilding:diamond_pressure_plate"
@@ -15945,6 +15958,7 @@ window.WIKI_DATA = {
         "simplebuilding:reinforced_elytra_pad_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/elytra_pad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -16024,12 +16038,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_ender_quartz_wall_from_ender_quartz_block_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/ender_quartz_block.png",
-        "side": "assets/textures/block/ender_quartz_block.png",
-        "front": "assets/textures/block/ender_quartz_block.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/ender_quartz_block.png",
       "lootTable": "simplebuilding:blocks/ender_quartz_block",
       "drops": [
         "simplebuilding:ender_quartz_block"
@@ -16054,6 +16063,7 @@ window.WIKI_DATA = {
         "simplebuilding:chiseled_ender_quartz_bricks"
       ],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_brick_slab.png",
       "lootTable": "simplebuilding:blocks/ender_quartz_brick_slab",
       "drops": [
         "simplebuilding:ender_quartz_brick_slab"
@@ -16076,6 +16086,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_brick_stairs.png",
       "lootTable": "simplebuilding:blocks/ender_quartz_brick_stairs",
       "drops": [
         "simplebuilding:ender_quartz_brick_stairs"
@@ -16098,6 +16109,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_brick_wall.png",
       "lootTable": "simplebuilding:blocks/ender_quartz_brick_wall",
       "drops": [
         "simplebuilding:ender_quartz_brick_wall"
@@ -16128,12 +16140,7 @@ window.WIKI_DATA = {
         "simplebuilding:ender_quartz_brick_wall_from_ender_quartz_bricks_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/ender_quartz_bricks.png",
-        "side": "assets/textures/block/ender_quartz_bricks.png",
-        "front": "assets/textures/block/ender_quartz_bricks.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/ender_quartz_bricks.png",
       "lootTable": "simplebuilding:blocks/ender_quartz_bricks",
       "drops": [
         "simplebuilding:ender_quartz_bricks"
@@ -16152,12 +16159,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/ender_quartz_checker.png",
-        "side": "assets/textures/block/ender_quartz_checker.png",
-        "front": "assets/textures/block/ender_quartz_checker_mirror.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/ender_quartz_checker.png",
       "lootTable": "simplebuilding:blocks/ender_quartz_checker",
       "drops": [
         "simplebuilding:ender_quartz_checker"
@@ -16208,12 +16210,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/ender_quartz_pillar_top.png",
-        "side": "assets/textures/block/ender_quartz_pillar.png",
-        "front": "assets/textures/block/ender_quartz_pillar.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/ender_quartz_pillar.png",
       "lootTable": "simplebuilding:blocks/ender_quartz_pillar",
       "drops": [
         "simplebuilding:ender_quartz_pillar"
@@ -16234,6 +16231,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_slab.png",
       "lootTable": "simplebuilding:blocks/ender_quartz_slab",
       "drops": [
         "simplebuilding:ender_quartz_slab"
@@ -16254,6 +16252,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_stairs.png",
       "lootTable": "simplebuilding:blocks/ender_quartz_stairs",
       "drops": [
         "simplebuilding:ender_quartz_stairs"
@@ -16273,6 +16272,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/block/enderite_backpack.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -16444,12 +16444,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/enderite_blast_furnace_top.png",
-        "side": "assets/textures/block/enderite_blast_furnace_side.png",
-        "front": "assets/textures/block/enderite_blast_furnace_front.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/enderite_blast_furnace.png",
       "lootTable": "simplebuilding:blocks/enderite_blast_furnace",
       "drops": [
         "simplebuilding:enderite_blast_furnace"
@@ -16549,12 +16544,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_ingot"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/enderite_block.png",
-        "side": "assets/textures/block/enderite_block.png",
-        "front": "assets/textures/block/enderite_block.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/enderite_block.png",
       "lootTable": "simplebuilding:blocks/enderite_block",
       "drops": [
         "simplebuilding:enderite_block"
@@ -16573,6 +16563,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/enderite_chunk_loader.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -16626,6 +16617,7 @@ window.WIKI_DATA = {
         "simplebuilding:fine_elytra_pad_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/enderite_elytra_pad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -16685,6 +16677,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/enderite_flypad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -16740,12 +16733,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/enderite_furnace_top.png",
-        "side": "assets/textures/block/enderite_furnace_side.png",
-        "front": "assets/textures/block/enderite_furnace_front.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/enderite_furnace.png",
       "lootTable": "simplebuilding:blocks/enderite_furnace",
       "drops": [
         "simplebuilding:enderite_furnace"
@@ -16835,6 +16823,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/block/enderite_hopper.png",
       "lootTable": "simplebuilding:blocks/enderite_hopper",
       "drops": [
         "simplebuilding:enderite_hopper"
@@ -16923,6 +16912,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/enderite_launchpad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -16982,6 +16972,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/enderite_piston.png",
       "lootTable": "simplebuilding:blocks/enderite_piston",
       "drops": [
         "simplebuilding:enderite_piston"
@@ -17064,6 +17055,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/block/enderite_piston_head.png",
       "note": {
         "en": {
           "summary": "The head of the Enderite Piston: it appears in front of the piston while it is extended and slides back in with it. There is no item for it.",
@@ -17120,6 +17112,7 @@ window.WIKI_DATA = {
         "simplebuilding:reinforced_potion_pad_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/enderite_pressure_plate.png",
       "lootTable": "simplebuilding:blocks/enderite_pressure_plate",
       "drops": [
         "simplebuilding:enderite_pressure_plate"
@@ -17163,12 +17156,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/enderite_smoker_top.png",
-        "side": "assets/textures/block/enderite_smoker_side.png",
-        "front": "assets/textures/block/enderite_smoker_front.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/enderite_smoker.png",
       "lootTable": "simplebuilding:blocks/enderite_smoker",
       "drops": [
         "simplebuilding:enderite_smoker"
@@ -17260,6 +17248,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/enderite_spawn_teleporter.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -17321,6 +17310,7 @@ window.WIKI_DATA = {
         "simplebuilding:waxed_exposed_copper_pressure_plate_from_honeycomb"
       ],
       "trades": [],
+      "icon": "assets/textures/render/exposed_copper_pressure_plate.png",
       "lootTable": "simplebuilding:blocks/exposed_copper_pressure_plate",
       "drops": [
         "simplebuilding:exposed_copper_pressure_plate"
@@ -17371,6 +17361,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/fine_elytra_pad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -17434,6 +17425,7 @@ window.WIKI_DATA = {
         "simplebuilding:flypad_tier2_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/flypad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -17491,6 +17483,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/infused_potion_pad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -17546,12 +17539,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/lapis_quartz_checker.png",
-        "side": "assets/textures/block/lapis_quartz_checker.png",
-        "front": "assets/textures/block/lapis_quartz_checker_mirror.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/lapis_quartz_checker.png",
       "lootTable": "simplebuilding:blocks/lapis_quartz_checker",
       "drops": [
         "simplebuilding:lapis_quartz_checker"
@@ -17600,6 +17588,7 @@ window.WIKI_DATA = {
         "simplebuilding:netherite_launchpad_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/launchpad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -17661,12 +17650,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/levitating_gravel.png",
-        "side": "assets/textures/block/levitating_gravel.png",
-        "front": "assets/textures/block/levitating_gravel.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/levitating_gravel.png",
       "lootTable": "simplebuilding:blocks/levitating_gravel",
       "drops": [
         "simplebuilding:levitating_gravel"
@@ -17752,12 +17736,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/levitating_sand.png",
-        "side": "assets/textures/block/levitating_sand.png",
-        "front": "assets/textures/block/levitating_sand.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/levitating_sand.png",
       "lootTable": "simplebuilding:blocks/levitating_sand",
       "drops": [
         "simplebuilding:levitating_sand"
@@ -17844,6 +17823,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_backpack_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/block/netherite_backpack.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -18015,12 +17995,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/netherite_blast_furnace_top.png",
-        "side": "assets/textures/block/netherite_blast_furnace_side.png",
-        "front": "assets/textures/block/netherite_blast_furnace_front.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/netherite_blast_furnace.png",
       "lootTable": "simplebuilding:blocks/netherite_blast_furnace",
       "drops": [
         "simplebuilding:netherite_blast_furnace"
@@ -18129,6 +18104,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_chunk_loader_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/netherite_chunk_loader.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -18182,6 +18158,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_elytra_pad_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/netherite_elytra_pad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -18241,6 +18218,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/netherite_flypad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -18296,12 +18274,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/netherite_furnace_top.png",
-        "side": "assets/textures/block/netherite_furnace_side.png",
-        "front": "assets/textures/block/netherite_furnace_front.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/netherite_furnace.png",
       "lootTable": "simplebuilding:blocks/netherite_furnace",
       "drops": [
         "simplebuilding:netherite_furnace"
@@ -18402,6 +18375,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/block/netherite_hopper.png",
       "lootTable": "simplebuilding:blocks/netherite_hopper",
       "drops": [
         "simplebuilding:netherite_hopper"
@@ -18518,6 +18492,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_launchpad_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/netherite_launchpad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -18577,6 +18552,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/netherite_piston.png",
       "lootTable": "simplebuilding:blocks/netherite_piston",
       "drops": [
         "simplebuilding:netherite_piston"
@@ -18690,6 +18666,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/block/netherite_piston_head.png",
       "note": {
         "en": {
           "summary": "The head of the Netherite Piston: it appears in front of the piston while it is extended and slides back in with it. There is no item for it.",
@@ -18747,6 +18724,7 @@ window.WIKI_DATA = {
         "simplebuilding:spawn_teleporter_tier4_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/netherite_pressure_plate.png",
       "lootTable": "simplebuilding:blocks/netherite_pressure_plate",
       "drops": [
         "simplebuilding:netherite_pressure_plate"
@@ -18790,12 +18768,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/netherite_smoker_top.png",
-        "side": "assets/textures/block/netherite_smoker_side.png",
-        "front": "assets/textures/block/netherite_smoker_front.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/netherite_smoker.png",
       "lootTable": "simplebuilding:blocks/netherite_smoker",
       "drops": [
         "simplebuilding:netherite_smoker"
@@ -18906,12 +18879,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_pillar_from_nihil_end_stone_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/nihil_end_stone.png",
-        "side": "assets/textures/block/nihil_end_stone.png",
-        "front": "assets/textures/block/nihil_end_stone.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/nihil_end_stone.png",
       "lootTable": "simplebuilding:blocks/nihil_end_stone",
       "drops": [
         "simplebuilding:nihil_end_stone"
@@ -18932,12 +18900,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_nihilith_from_nihil_purpur_block_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/nihil_purpur_block.png",
-        "side": "assets/textures/block/nihil_purpur_block.png",
-        "front": "assets/textures/block/nihil_purpur_block.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/nihil_purpur_block.png",
       "lootTable": "simplebuilding:blocks/nihil_purpur_block",
       "drops": [
         "simplebuilding:nihil_purpur_block"
@@ -18970,12 +18933,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_nihilith_wall_from_nihilith_block_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/nihilith_block.png",
-        "side": "assets/textures/block/nihilith_block.png",
-        "front": "assets/textures/block/nihilith_block.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/nihilith_block.png",
       "lootTable": "simplebuilding:blocks/nihilith_block",
       "drops": [
         "simplebuilding:nihilith_block"
@@ -19001,6 +18959,7 @@ window.WIKI_DATA = {
         "simplebuilding:chiseled_nihilith_bricks"
       ],
       "trades": [],
+      "icon": "assets/textures/render/nihilith_brick_slab.png",
       "lootTable": "simplebuilding:blocks/nihilith_brick_slab",
       "drops": [
         "simplebuilding:nihilith_brick_slab"
@@ -19024,6 +18983,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/nihilith_brick_stairs.png",
       "lootTable": "simplebuilding:blocks/nihilith_brick_stairs",
       "drops": [
         "simplebuilding:nihilith_brick_stairs"
@@ -19047,6 +19007,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/nihilith_brick_wall.png",
       "lootTable": "simplebuilding:blocks/nihilith_brick_wall",
       "drops": [
         "simplebuilding:nihilith_brick_wall"
@@ -19077,12 +19038,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_brick_wall_from_nihilith_bricks_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/nihilith_bricks.png",
-        "side": "assets/textures/block/nihilith_bricks.png",
-        "front": "assets/textures/block/nihilith_bricks.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/nihilith_bricks.png",
       "lootTable": "simplebuilding:blocks/nihilith_bricks",
       "drops": [
         "simplebuilding:nihilith_bricks"
@@ -19099,12 +19055,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/nihilith_ore.png",
-        "side": "assets/textures/block/nihilith_ore.png",
-        "front": "assets/textures/block/nihilith_ore.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/nihilith_ore.png",
       "lootTable": "simplebuilding:blocks/nihilith_ore",
       "drops": [
         "simplebuilding:nihilith_ore",
@@ -19128,12 +19079,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/nihilith_pillar_top.png",
-        "side": "assets/textures/block/nihilith_pillar.png",
-        "front": "assets/textures/block/nihilith_pillar.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/nihilith_pillar.png",
       "lootTable": "simplebuilding:blocks/nihilith_pillar",
       "drops": [
         "simplebuilding:nihilith_pillar"
@@ -19152,12 +19098,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/nihilith_quartz_checker.png",
-        "side": "assets/textures/block/nihilith_quartz_checker.png",
-        "front": "assets/textures/block/nihilith_quartz_checker_mirror.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/nihilith_quartz_checker.png",
       "lootTable": "simplebuilding:blocks/nihilith_quartz_checker",
       "drops": [
         "simplebuilding:nihilith_quartz_checker"
@@ -19204,6 +19145,7 @@ window.WIKI_DATA = {
         "simplebuilding:waxed_oxidized_copper_pressure_plate_from_honeycomb"
       ],
       "trades": [],
+      "icon": "assets/textures/render/oxidized_copper_pressure_plate.png",
       "lootTable": "simplebuilding:blocks/oxidized_copper_pressure_plate",
       "drops": [
         "simplebuilding:oxidized_copper_pressure_plate"
@@ -19252,6 +19194,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/block/placed_smithing_template.png",
       "note": {
         "en": {
           "summary": "A smithing template laid down with sneak + right-click: flat on the floor, on a wall or under the ceiling. There is no item for it - it holds the template itself.",
@@ -19306,12 +19249,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_astralit_wall_from_polished_astralit_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/polished_astralit.png",
-        "side": "assets/textures/block/polished_astralit.png",
-        "front": "assets/textures/block/polished_astralit.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/polished_astralit.png",
       "lootTable": "simplebuilding:blocks/polished_astralit",
       "drops": [
         "simplebuilding:polished_astralit"
@@ -19333,6 +19271,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_astralit_slab.png",
       "lootTable": "simplebuilding:blocks/polished_astralit_slab",
       "drops": [
         "simplebuilding:polished_astralit_slab"
@@ -19354,6 +19293,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_astralit_stairs.png",
       "lootTable": "simplebuilding:blocks/polished_astralit_stairs",
       "drops": [
         "simplebuilding:polished_astralit_stairs"
@@ -19374,6 +19314,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_astralit_wall.png",
       "lootTable": "simplebuilding:blocks/polished_astralit_wall",
       "drops": [
         "simplebuilding:polished_astralit_wall"
@@ -19395,12 +19336,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihil_end_stone"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/polished_end_stone.png",
-        "side": "assets/textures/block/polished_end_stone.png",
-        "front": "assets/textures/block/polished_end_stone.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/polished_end_stone.png",
       "lootTable": "simplebuilding:blocks/polished_end_stone",
       "drops": [
         "simplebuilding:polished_end_stone"
@@ -19437,12 +19373,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_ender_quartz_wall_from_polished_ender_quartz_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/polished_ender_quartz.png",
-        "side": "assets/textures/block/polished_ender_quartz.png",
-        "front": "assets/textures/block/polished_ender_quartz.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/polished_ender_quartz.png",
       "lootTable": "simplebuilding:blocks/polished_ender_quartz",
       "drops": [
         "simplebuilding:polished_ender_quartz"
@@ -19465,6 +19396,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_ender_quartz_slab.png",
       "lootTable": "simplebuilding:blocks/polished_ender_quartz_slab",
       "drops": [
         "simplebuilding:polished_ender_quartz_slab"
@@ -19487,6 +19419,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_ender_quartz_stairs.png",
       "lootTable": "simplebuilding:blocks/polished_ender_quartz_stairs",
       "drops": [
         "simplebuilding:polished_ender_quartz_stairs"
@@ -19507,6 +19440,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_ender_quartz_wall.png",
       "lootTable": "simplebuilding:blocks/polished_ender_quartz_wall",
       "drops": [
         "simplebuilding:polished_ender_quartz_wall"
@@ -19542,12 +19476,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_nihilith_wall_from_polished_nihilith_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/polished_nihilith.png",
-        "side": "assets/textures/block/polished_nihilith.png",
-        "front": "assets/textures/block/polished_nihilith.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/polished_nihilith.png",
       "lootTable": "simplebuilding:blocks/polished_nihilith",
       "drops": [
         "simplebuilding:polished_nihilith"
@@ -19569,6 +19498,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_nihilith_slab.png",
       "lootTable": "simplebuilding:blocks/polished_nihilith_slab",
       "drops": [
         "simplebuilding:polished_nihilith_slab"
@@ -19590,6 +19520,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_nihilith_stairs.png",
       "lootTable": "simplebuilding:blocks/polished_nihilith_stairs",
       "drops": [
         "simplebuilding:polished_nihilith_stairs"
@@ -19610,6 +19541,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_nihilith_wall.png",
       "lootTable": "simplebuilding:blocks/polished_nihilith_wall",
       "drops": [
         "simplebuilding:polished_nihilith_wall"
@@ -19630,6 +19562,7 @@ window.WIKI_DATA = {
         "simplebuilding:reinforced_potion_pad_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/potion_pad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -19685,12 +19618,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/purpur_quartz_checker.png",
-        "side": "assets/textures/block/purpur_quartz_checker.png",
-        "front": "assets/textures/block/purpur_quartz_checker_mirror.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/purpur_quartz_checker.png",
       "lootTable": "simplebuilding:blocks/purpur_quartz_checker",
       "drops": [
         "simplebuilding:purpur_quartz_checker"
@@ -19740,6 +19668,7 @@ window.WIKI_DATA = {
         "simplebuilding:netherite_backpack_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/block/reinforced_backpack.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -19913,12 +19842,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/reinforced_blast_furnace_top.png",
-        "side": "assets/textures/block/reinforced_blast_furnace_side.png",
-        "front": "assets/textures/block/reinforced_blast_furnace_front.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/reinforced_blast_furnace.png",
       "lootTable": "simplebuilding:blocks/reinforced_blast_furnace",
       "drops": [
         "simplebuilding:reinforced_blast_furnace"
@@ -20023,6 +19947,7 @@ window.WIKI_DATA = {
         "simplebuilding:netherite_elytra_pad_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/reinforced_elytra_pad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -20086,6 +20011,7 @@ window.WIKI_DATA = {
         "simplebuilding:stellar_flypad_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/reinforced_flypad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -20143,12 +20069,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/reinforced_furnace_top.png",
-        "side": "assets/textures/block/reinforced_furnace_side.png",
-        "front": "assets/textures/block/reinforced_furnace_front.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/reinforced_furnace.png",
       "lootTable": "simplebuilding:blocks/reinforced_furnace",
       "drops": [
         "simplebuilding:reinforced_furnace"
@@ -20252,6 +20173,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/block/reinforced_hopper.png",
       "lootTable": "simplebuilding:blocks/reinforced_hopper",
       "drops": [
         "simplebuilding:reinforced_hopper"
@@ -20369,6 +20291,7 @@ window.WIKI_DATA = {
         "simplebuilding:reinforced_sticky_piston"
       ],
       "trades": [],
+      "icon": "assets/textures/render/reinforced_piston.png",
       "lootTable": "simplebuilding:blocks/reinforced_piston",
       "drops": [
         "simplebuilding:reinforced_piston"
@@ -20462,6 +20385,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/block/reinforced_piston_head.png",
       "note": {
         "en": {
           "summary": "The head of the Reinforced Piston and the Reinforced Sticky Piston: it appears in front of the piston while it is extended and slides back in with it. There is no item for it.",
@@ -20512,6 +20436,7 @@ window.WIKI_DATA = {
         "simplebuilding:infused_potion_pad_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/reinforced_potion_pad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -20567,12 +20492,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/reinforced_smoker_top.png",
-        "side": "assets/textures/block/reinforced_smoker_side.png",
-        "front": "assets/textures/block/reinforced_smoker_front.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/reinforced_smoker.png",
       "lootTable": "simplebuilding:blocks/reinforced_smoker",
       "drops": [
         "simplebuilding:reinforced_smoker"
@@ -20675,6 +20595,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/reinforced_sticky_piston.png",
       "lootTable": "simplebuilding:blocks/reinforced_sticky_piston",
       "drops": [
         "simplebuilding:reinforced_sticky_piston"
@@ -20760,12 +20681,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/resin_quartz_checker.png",
-        "side": "assets/textures/block/resin_quartz_checker.png",
-        "front": "assets/textures/block/resin_quartz_checker_mirror.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/resin_quartz_checker.png",
       "lootTable": "simplebuilding:blocks/resin_quartz_checker",
       "drops": [
         "simplebuilding:resin_quartz_checker"
@@ -20815,6 +20731,7 @@ window.WIKI_DATA = {
         "simplebuilding:spawn_teleporter_tier2_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/spawn_teleporter.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -20878,6 +20795,7 @@ window.WIKI_DATA = {
         "simplebuilding:spawn_teleporter_tier3_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/spawn_teleporter_tier_2.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -20941,6 +20859,7 @@ window.WIKI_DATA = {
         "simplebuilding:spawn_teleporter_tier4_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/spawn_teleporter_tier_3.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -21004,6 +20923,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_spawn_teleporter_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/spawn_teleporter_tier_4.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -21065,6 +20985,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/stellar_flypad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -21122,12 +21043,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/suspended_gravel.png",
-        "side": "assets/textures/block/suspended_gravel.png",
-        "front": "assets/textures/block/suspended_gravel.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/suspended_gravel.png",
       "lootTable": "simplebuilding:blocks/suspended_gravel",
       "drops": [
         "simplebuilding:suspended_gravel"
@@ -21199,12 +21115,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/suspended_sand.png",
-        "side": "assets/textures/block/suspended_sand.png",
-        "front": "assets/textures/block/suspended_sand.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/suspended_sand.png",
       "lootTable": "simplebuilding:blocks/suspended_sand",
       "drops": [
         "simplebuilding:suspended_sand"
@@ -21276,6 +21187,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/waxed_copper_pressure_plate.png",
       "lootTable": "simplebuilding:blocks/waxed_copper_pressure_plate",
       "drops": [
         "simplebuilding:waxed_copper_pressure_plate"
@@ -21326,6 +21238,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/waxed_exposed_copper_pressure_plate.png",
       "lootTable": "simplebuilding:blocks/waxed_exposed_copper_pressure_plate",
       "drops": [
         "simplebuilding:waxed_exposed_copper_pressure_plate"
@@ -21376,6 +21289,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/waxed_oxidized_copper_pressure_plate.png",
       "lootTable": "simplebuilding:blocks/waxed_oxidized_copper_pressure_plate",
       "drops": [
         "simplebuilding:waxed_oxidized_copper_pressure_plate"
@@ -21426,6 +21340,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/waxed_weathered_copper_pressure_plate.png",
       "lootTable": "simplebuilding:blocks/waxed_weathered_copper_pressure_plate",
       "drops": [
         "simplebuilding:waxed_weathered_copper_pressure_plate"
@@ -21476,6 +21391,7 @@ window.WIKI_DATA = {
         "simplebuilding:waxed_weathered_copper_pressure_plate_from_honeycomb"
       ],
       "trades": [],
+      "icon": "assets/textures/render/weathered_copper_pressure_plate.png",
       "lootTable": "simplebuilding:blocks/weathered_copper_pressure_plate",
       "drops": [
         "simplebuilding:weathered_copper_pressure_plate"
@@ -49613,6 +49529,3301 @@ window.WIKI_DATA = {
         ]
       }
     ]
+  },
+  "obtain": {
+    "sources": [
+      {
+        "type": "mob",
+        "item": "simplebuilding:blaze_head",
+        "table": "minecraft:charged_creeper/root",
+        "label": {
+          "en": "Charged creeper explosion",
+          "de": "Explosion eines geladenen Creepers"
+        },
+        "chance": 100.0,
+        "perChest": 1.0,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 0,
+        "configFlag": null,
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "victim": "minecraft:blaze",
+        "how": "charged_creeper"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/stronghold_library",
+        "label": {
+          "en": "Stronghold library",
+          "de": "Festungsbibliothek"
+        },
+        "chance": 15.15,
+        "perChest": 0.16,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 4,
+        "totalWeight": 25,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:range",
+        "level": 2
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/stronghold_library",
+        "label": {
+          "en": "Stronghold library",
+          "de": "Festungsbibliothek"
+        },
+        "chance": 11.52,
+        "perChest": 0.12,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 25,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:master_builder",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/stronghold_library",
+        "label": {
+          "en": "Stronghold library",
+          "de": "Festungsbibliothek"
+        },
+        "chance": 15.15,
+        "perChest": 0.16,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 4,
+        "totalWeight": 25,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:versatility",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/stronghold_library",
+        "label": {
+          "en": "Stronghold library",
+          "de": "Festungsbibliothek"
+        },
+        "chance": 7.79,
+        "perChest": 0.08,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 25,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:versatility",
+        "level": 2
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:enderite_scrap",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 15.0,
+        "perChest": 0.15,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "binomial",
+          "n": 1,
+          "p": 0.15
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:enderite_core",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 0.25,
+        "perChest": 0.0025,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "binomial",
+          "n": 1,
+          "p": 0.0025
+        },
+        "pool": 1,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:enderite_upgrade_template",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 30.0,
+        "perChest": 0.3,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "binomial",
+          "n": 1,
+          "p": 0.3
+        },
+        "pool": 2,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:raw_enderite",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 11.11,
+        "perChest": 0.1667,
+        "count": [
+          1,
+          2
+        ],
+        "weight": 4,
+        "totalWeight": 36,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 3,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:enderite_nugget",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 16.67,
+        "perChest": 0.5833,
+        "count": [
+          2,
+          5
+        ],
+        "weight": 6,
+        "totalWeight": 36,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 3,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:astralit_dust",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 16.67,
+        "perChest": 0.6667,
+        "count": [
+          2,
+          6
+        ],
+        "weight": 6,
+        "totalWeight": 36,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 3,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:nihilith_shard",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 16.67,
+        "perChest": 0.4167,
+        "count": [
+          1,
+          4
+        ],
+        "weight": 6,
+        "totalWeight": 36,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 3,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 6.92,
+        "perChest": 0.0714,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 4,
+        "totalWeight": 84,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 3
+        },
+        "pool": 4,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:range",
+        "level": 3
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 5.23,
+        "perChest": 0.0536,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 84,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 3
+        },
+        "pool": 4,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:master_builder",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 8.58,
+        "perChest": 0.0893,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 84,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 3
+        },
+        "pool": 4,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:override",
+        "level": 2
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 8.58,
+        "perChest": 0.0893,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 84,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 3
+        },
+        "pool": 4,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:double_jump",
+        "level": 2
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 10.21,
+        "perChest": 0.1071,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 6,
+        "totalWeight": 84,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 3
+        },
+        "pool": 4,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:versatility",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 5.23,
+        "perChest": 0.0536,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 84,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 3
+        },
+        "pool": 4,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:versatility",
+        "level": 2
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:diamond_building_wand",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 10.21,
+        "perChest": 0.1071,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 6,
+        "totalWeight": 84,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 3
+        },
+        "pool": 4,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "randomEnchant": true
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:diamond_sledgehammer",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 13.4,
+        "perChest": 0.1429,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 8,
+        "totalWeight": 84,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 3
+        },
+        "pool": 4,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "randomEnchant": true
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:enderite_apple",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 5.23,
+        "perChest": 0.0536,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 84,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 3
+        },
+        "pool": 4,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:enchanted_enderite_apple",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 1.77,
+        "perChest": 0.0179,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 84,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 3
+        },
+        "pool": 4,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/ancient_city",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "chance": 8.37,
+        "perChest": 0.0862,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 58,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:deep_pockets",
+        "level": 2
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/ancient_city",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "chance": 6.74,
+        "perChest": 0.069,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 4,
+        "totalWeight": 58,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:radius",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:octant",
+        "table": "minecraft:chests/ancient_city",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "chance": 8.37,
+        "perChest": 0.0862,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 58,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "randomEnchant": true
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:diamond_sledgehammer",
+        "table": "minecraft:chests/ancient_city",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "chance": 5.08,
+        "perChest": 0.0517,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 58,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:quiver",
+        "table": "minecraft:chests/ancient_city",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "chance": 5.08,
+        "perChest": 0.0517,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 58,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "randomEnchant": true
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:netherite_apple",
+        "table": "minecraft:chests/ancient_city",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "chance": 3.41,
+        "perChest": 0.0345,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 58,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:enchanted_netherite_apple",
+        "table": "minecraft:chests/ancient_city",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "chance": 1.71,
+        "perChest": 0.0172,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 58,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:netherite_nugget",
+        "table": "minecraft:chests/ancient_city",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "chance": 6.74,
+        "perChest": 0.1379,
+        "count": [
+          1,
+          3
+        ],
+        "weight": 4,
+        "totalWeight": 58,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:diamond_pebble",
+        "table": "minecraft:chests/ancient_city",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "chance": 9.99,
+        "perChest": 0.3621,
+        "count": [
+          2,
+          5
+        ],
+        "weight": 6,
+        "totalWeight": 58,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/bastion_treasure",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "chance": 8.24,
+        "perChest": 0.0847,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 59,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:funnel",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/bastion_treasure",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "chance": 8.24,
+        "perChest": 0.0847,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 59,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:break_through",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:gold_sledgehammer",
+        "table": "minecraft:chests/bastion_treasure",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "chance": 9.82,
+        "perChest": 0.1017,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 6,
+        "totalWeight": 59,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:netherite_nugget",
+        "table": "minecraft:chests/bastion_treasure",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "chance": 18.96,
+        "perChest": 0.5085,
+        "count": [
+          1,
+          4
+        ],
+        "weight": 12,
+        "totalWeight": 59,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:netherite_carrot",
+        "table": "minecraft:chests/bastion_treasure",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "chance": 9.82,
+        "perChest": 0.1525,
+        "count": [
+          1,
+          2
+        ],
+        "weight": 6,
+        "totalWeight": 59,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:gold_core",
+        "table": "minecraft:chests/bastion_treasure",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "chance": 0.6,
+        "perChest": 0.006,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "binomial",
+          "n": 1,
+          "p": 0.006
+        },
+        "pool": 1,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/bastion_other",
+        "label": {
+          "en": "Bastion (other chests)",
+          "de": "Bastion (übrige Truhen)"
+        },
+        "chance": 8.24,
+        "perChest": 0.0847,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 59,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:funnel",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/bastion_other",
+        "label": {
+          "en": "Bastion (other chests)",
+          "de": "Bastion (übrige Truhen)"
+        },
+        "chance": 8.24,
+        "perChest": 0.0847,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 59,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:break_through",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:gold_sledgehammer",
+        "table": "minecraft:chests/bastion_other",
+        "label": {
+          "en": "Bastion (other chests)",
+          "de": "Bastion (übrige Truhen)"
+        },
+        "chance": 9.82,
+        "perChest": 0.1017,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 6,
+        "totalWeight": 59,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:netherite_nugget",
+        "table": "minecraft:chests/bastion_other",
+        "label": {
+          "en": "Bastion (other chests)",
+          "de": "Bastion (übrige Truhen)"
+        },
+        "chance": 18.96,
+        "perChest": 0.5085,
+        "count": [
+          1,
+          4
+        ],
+        "weight": 12,
+        "totalWeight": 59,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:netherite_carrot",
+        "table": "minecraft:chests/bastion_other",
+        "label": {
+          "en": "Bastion (other chests)",
+          "de": "Bastion (übrige Truhen)"
+        },
+        "chance": 9.82,
+        "perChest": 0.1525,
+        "count": [
+          1,
+          2
+        ],
+        "weight": 6,
+        "totalWeight": 59,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:gold_core",
+        "table": "minecraft:chests/bastion_other",
+        "label": {
+          "en": "Bastion (other chests)",
+          "de": "Bastion (übrige Truhen)"
+        },
+        "chance": 0.6,
+        "perChest": 0.006,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "binomial",
+          "n": 1,
+          "p": 0.006
+        },
+        "pool": 1,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:netherite_apple",
+        "table": "minecraft:chests/bastion_treasure",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "chance": 25.0,
+        "perChest": 0.25,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 4,
+        "totalWeight": 16,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:enchanted_netherite_apple",
+        "table": "minecraft:chests/bastion_treasure",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "chance": 12.5,
+        "perChest": 0.125,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 16,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/bastion_treasure",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "chance": 18.75,
+        "perChest": 0.1875,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 16,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:break_through",
+        "level": 2
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:netherite_core",
+        "table": "minecraft:chests/bastion_treasure",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "chance": 4.0,
+        "perChest": 0.04,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "binomial",
+          "n": 1,
+          "p": 0.04
+        },
+        "pool": 1,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/nether_bridge",
+        "label": {
+          "en": "Nether fortress",
+          "de": "Netherfestung"
+        },
+        "chance": 14.6,
+        "perChest": 0.1538,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 6,
+        "totalWeight": 39,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:strip_miner",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/nether_bridge",
+        "label": {
+          "en": "Nether fortress",
+          "de": "Netherfestung"
+        },
+        "chance": 7.5,
+        "perChest": 0.0769,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 39,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:strip_miner",
+        "level": 2
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/nether_bridge",
+        "label": {
+          "en": "Nether fortress",
+          "de": "Netherfestung"
+        },
+        "chance": 5.04,
+        "perChest": 0.0513,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 39,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:funnel",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/nether_bridge",
+        "label": {
+          "en": "Nether fortress",
+          "de": "Netherfestung"
+        },
+        "chance": 5.04,
+        "perChest": 0.0513,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 39,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:break_through",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:octant",
+        "table": "minecraft:chests/nether_bridge",
+        "label": {
+          "en": "Nether fortress",
+          "de": "Netherfestung"
+        },
+        "chance": 7.5,
+        "perChest": 0.0769,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 39,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "randomEnchant": true
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:netherite_nugget",
+        "table": "minecraft:chests/nether_bridge",
+        "label": {
+          "en": "Nether fortress",
+          "de": "Netherfestung"
+        },
+        "chance": 14.6,
+        "perChest": 0.3077,
+        "count": [
+          1,
+          3
+        ],
+        "weight": 6,
+        "totalWeight": 39,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:netherite_carrot",
+        "table": "minecraft:chests/nether_bridge",
+        "label": {
+          "en": "Nether fortress",
+          "de": "Netherfestung"
+        },
+        "chance": 7.5,
+        "perChest": 0.1538,
+        "count": [
+          1,
+          3
+        ],
+        "weight": 3,
+        "totalWeight": 39,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:gold_core",
+        "table": "minecraft:chests/nether_bridge",
+        "label": {
+          "en": "Nether fortress",
+          "de": "Netherfestung"
+        },
+        "chance": 0.8,
+        "perChest": 0.008,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "binomial",
+          "n": 1,
+          "p": 0.008
+        },
+        "pool": 1,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/pillager_outpost",
+        "label": {
+          "en": "Pillager outpost",
+          "de": "Plünderer-Außenposten"
+        },
+        "chance": 10.33,
+        "perChest": 0.1071,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 6,
+        "totalWeight": 56,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:color_palette",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/pillager_outpost",
+        "label": {
+          "en": "Pillager outpost",
+          "de": "Plünderer-Außenposten"
+        },
+        "chance": 13.61,
+        "perChest": 0.1429,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 8,
+        "totalWeight": 56,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:cover",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/pillager_outpost",
+        "label": {
+          "en": "Pillager outpost",
+          "de": "Plünderer-Außenposten"
+        },
+        "chance": 13.61,
+        "perChest": 0.1429,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 8,
+        "totalWeight": 56,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:linear",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:octant",
+        "table": "minecraft:chests/pillager_outpost",
+        "label": {
+          "en": "Pillager outpost",
+          "de": "Plünderer-Außenposten"
+        },
+        "chance": 8.66,
+        "perChest": 0.0893,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 56,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:quiver",
+        "table": "minecraft:chests/pillager_outpost",
+        "label": {
+          "en": "Pillager outpost",
+          "de": "Plünderer-Außenposten"
+        },
+        "chance": 8.66,
+        "perChest": 0.0893,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 56,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:copper_chisel",
+        "table": "minecraft:chests/pillager_outpost",
+        "label": {
+          "en": "Pillager outpost",
+          "de": "Plünderer-Außenposten"
+        },
+        "chance": 6.97,
+        "perChest": 0.0714,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 4,
+        "totalWeight": 56,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/woodland_mansion",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "chance": 5.45,
+        "perChest": 0.0556,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 54,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:color_palette",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/woodland_mansion",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "chance": 8.97,
+        "perChest": 0.0926,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 54,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:cover",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/woodland_mansion",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "chance": 8.97,
+        "perChest": 0.0926,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 54,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:linear",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/woodland_mansion",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "chance": 1.84,
+        "perChest": 0.0185,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 54,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:vein_miner",
+        "level": 5
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/woodland_mansion",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "chance": 5.45,
+        "perChest": 0.0556,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 54,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:vein_miner",
+        "level": 4
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:iron_building_wand",
+        "table": "minecraft:chests/woodland_mansion",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "chance": 7.22,
+        "perChest": 0.0741,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 4,
+        "totalWeight": 54,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:quiver",
+        "table": "minecraft:chests/woodland_mansion",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "chance": 5.45,
+        "perChest": 0.0556,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 54,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:iron_core",
+        "table": "minecraft:chests/woodland_mansion",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "chance": 0.8,
+        "perChest": 0.008,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "binomial",
+          "n": 1,
+          "p": 0.008
+        },
+        "pool": 1,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/buried_treasure",
+        "label": {
+          "en": "Buried treasure",
+          "de": "Vergrabener Schatz"
+        },
+        "chance": 4.84,
+        "perChest": 0.0492,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 61,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:constructors_touch",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/buried_treasure",
+        "label": {
+          "en": "Buried treasure",
+          "de": "Vergrabener Schatz"
+        },
+        "chance": 3.24,
+        "perChest": 0.0328,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 61,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:fast_chiseling",
+        "level": 2
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:gold_chisel",
+        "table": "minecraft:chests/buried_treasure",
+        "label": {
+          "en": "Buried treasure",
+          "de": "Vergrabener Schatz"
+        },
+        "chance": 15.5,
+        "perChest": 0.1639,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 10,
+        "totalWeight": 61,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:diamond_chisel",
+        "table": "minecraft:chests/buried_treasure",
+        "label": {
+          "en": "Buried treasure",
+          "de": "Vergrabener Schatz"
+        },
+        "chance": 9.51,
+        "perChest": 0.0984,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 6,
+        "totalWeight": 61,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:diamond_pebble",
+        "table": "minecraft:chests/buried_treasure",
+        "label": {
+          "en": "Buried treasure",
+          "de": "Vergrabener Schatz"
+        },
+        "chance": 15.5,
+        "perChest": 0.6557,
+        "count": [
+          2,
+          6
+        ],
+        "weight": 10,
+        "totalWeight": 61,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/simple_dungeon",
+        "label": {
+          "en": "Dungeon",
+          "de": "Verlies"
+        },
+        "chance": 4.92,
+        "perChest": 0.05,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 100,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:fast_chiseling",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/simple_dungeon",
+        "label": {
+          "en": "Dungeon",
+          "de": "Verlies"
+        },
+        "chance": 7.79,
+        "perChest": 0.08,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 8,
+        "totalWeight": 100,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:funnel",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/simple_dungeon",
+        "label": {
+          "en": "Dungeon",
+          "de": "Verlies"
+        },
+        "chance": 7.79,
+        "perChest": 0.08,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 8,
+        "totalWeight": 100,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:break_through",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/simple_dungeon",
+        "label": {
+          "en": "Dungeon",
+          "de": "Verlies"
+        },
+        "chance": 2.97,
+        "perChest": 0.03,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 100,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:vein_miner",
+        "level": 4
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/simple_dungeon",
+        "label": {
+          "en": "Dungeon",
+          "de": "Verlies"
+        },
+        "chance": 7.79,
+        "perChest": 0.08,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 8,
+        "totalWeight": 100,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:vein_miner",
+        "level": 3
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/simple_dungeon",
+        "label": {
+          "en": "Dungeon",
+          "de": "Verlies"
+        },
+        "chance": 11.52,
+        "perChest": 0.12,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 12,
+        "totalWeight": 100,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:vein_miner",
+        "level": 2
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:reinforced_bundle",
+        "table": "minecraft:chests/simple_dungeon",
+        "label": {
+          "en": "Dungeon",
+          "de": "Verlies"
+        },
+        "chance": 7.79,
+        "perChest": 0.08,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 8,
+        "totalWeight": 100,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:basic_upgrade_template",
+        "table": "minecraft:chests/simple_dungeon",
+        "label": {
+          "en": "Dungeon",
+          "de": "Verlies"
+        },
+        "chance": 1.99,
+        "perChest": 0.02,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 100,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:diamond_pebble",
+        "table": "minecraft:chests/simple_dungeon",
+        "label": {
+          "en": "Dungeon",
+          "de": "Verlies"
+        },
+        "chance": 5.88,
+        "perChest": 0.12,
+        "count": [
+          1,
+          3
+        ],
+        "weight": 6,
+        "totalWeight": 100,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/shipwreck_treasure",
+        "label": {
+          "en": "Shipwreck treasure",
+          "de": "Schiffswrack-Schatz"
+        },
+        "chance": 10.42,
+        "perChest": 0.1042,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 10,
+        "totalWeight": 48,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:fast_chiseling",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:reinforced_bundle",
+        "table": "minecraft:chests/shipwreck_treasure",
+        "label": {
+          "en": "Shipwreck treasure",
+          "de": "Schiffswrack-Schatz"
+        },
+        "chance": 8.33,
+        "perChest": 0.0833,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 8,
+        "totalWeight": 48,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:diamond_pebble",
+        "table": "minecraft:chests/shipwreck_treasure",
+        "label": {
+          "en": "Shipwreck treasure",
+          "de": "Schiffswrack-Schatz"
+        },
+        "chance": 10.42,
+        "perChest": 0.2604,
+        "count": [
+          1,
+          4
+        ],
+        "weight": 10,
+        "totalWeight": 48,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/igloo_chest",
+        "label": {
+          "en": "Igloo",
+          "de": "Iglu"
+        },
+        "chance": 7.5,
+        "perChest": 0.075,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 20,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:constructors_touch",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/igloo_chest",
+        "label": {
+          "en": "Igloo",
+          "de": "Iglu"
+        },
+        "chance": 7.5,
+        "perChest": 0.075,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 20,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:fast_chiseling",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:diamond_chisel",
+        "table": "minecraft:chests/igloo_chest",
+        "label": {
+          "en": "Igloo",
+          "de": "Iglu"
+        },
+        "chance": 15.0,
+        "perChest": 0.15,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 6,
+        "totalWeight": 20,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/abandoned_mineshaft",
+        "label": {
+          "en": "Mineshaft",
+          "de": "Verlassene Mine"
+        },
+        "chance": 3.09,
+        "perChest": 0.0312,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 64,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:fast_chiseling",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/abandoned_mineshaft",
+        "label": {
+          "en": "Mineshaft",
+          "de": "Verlassene Mine"
+        },
+        "chance": 11.98,
+        "perChest": 0.125,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 8,
+        "totalWeight": 64,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:strip_miner",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/abandoned_mineshaft",
+        "label": {
+          "en": "Mineshaft",
+          "de": "Verlassene Mine"
+        },
+        "chance": 4.61,
+        "perChest": 0.0469,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 64,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:strip_miner",
+        "level": 3
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/abandoned_mineshaft",
+        "label": {
+          "en": "Mineshaft",
+          "de": "Verlassene Mine"
+        },
+        "chance": 6.12,
+        "perChest": 0.0625,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 4,
+        "totalWeight": 64,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:vein_miner",
+        "level": 3
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/abandoned_mineshaft",
+        "label": {
+          "en": "Mineshaft",
+          "de": "Verlassene Mine"
+        },
+        "chance": 4.61,
+        "perChest": 0.0469,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 64,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:vein_miner",
+        "level": 4
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:reinforced_bundle",
+        "table": "minecraft:chests/abandoned_mineshaft",
+        "label": {
+          "en": "Mineshaft",
+          "de": "Verlassene Mine"
+        },
+        "chance": 9.08,
+        "perChest": 0.0938,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 6,
+        "totalWeight": 64,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "randomEnchant": true
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:diamond_pebble",
+        "table": "minecraft:chests/abandoned_mineshaft",
+        "label": {
+          "en": "Mineshaft",
+          "de": "Verlassene Mine"
+        },
+        "chance": 11.98,
+        "perChest": 0.25,
+        "count": [
+          1,
+          3
+        ],
+        "weight": 8,
+        "totalWeight": 64,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "vault",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/trial_chambers/reward_common",
+        "label": {
+          "en": "Trial chamber vault",
+          "de": "Prüfungskammer-Tresor"
+        },
+        "chance": 7.5,
+        "perChest": 0.075,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 20,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:constructors_touch",
+        "level": 1
+      },
+      {
+        "type": "vault",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/trial_chambers/reward_common",
+        "label": {
+          "en": "Trial chamber vault",
+          "de": "Prüfungskammer-Tresor"
+        },
+        "chance": 5.0,
+        "perChest": 0.05,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 20,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:fast_chiseling",
+        "level": 2
+      },
+      {
+        "type": "vault",
+        "item": "simplebuilding:diamond_pebble",
+        "table": "minecraft:chests/trial_chambers/reward_common",
+        "label": {
+          "en": "Trial chamber vault",
+          "de": "Prüfungskammer-Tresor"
+        },
+        "chance": 7.5,
+        "perChest": 0.225,
+        "count": [
+          2,
+          4
+        ],
+        "weight": 3,
+        "totalWeight": 20,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "vault",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/trial_chambers/reward_rare",
+        "label": {
+          "en": "Trial chamber vault (rare)",
+          "de": "Prüfungskammer-Tresor (selten)"
+        },
+        "chance": 7.5,
+        "perChest": 0.075,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 20,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:constructors_touch",
+        "level": 1
+      },
+      {
+        "type": "vault",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/trial_chambers/reward_rare",
+        "label": {
+          "en": "Trial chamber vault (rare)",
+          "de": "Prüfungskammer-Tresor (selten)"
+        },
+        "chance": 5.0,
+        "perChest": 0.05,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 20,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:fast_chiseling",
+        "level": 2
+      },
+      {
+        "type": "vault",
+        "item": "simplebuilding:diamond_pebble",
+        "table": "minecraft:chests/trial_chambers/reward_rare",
+        "label": {
+          "en": "Trial chamber vault (rare)",
+          "de": "Prüfungskammer-Tresor (selten)"
+        },
+        "chance": 7.5,
+        "perChest": 0.225,
+        "count": [
+          2,
+          4
+        ],
+        "weight": 3,
+        "totalWeight": 20,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "vault",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/trial_chambers/reward_ominous",
+        "label": {
+          "en": "Ominous vault",
+          "de": "Unheilvoller Tresor"
+        },
+        "chance": 9.09,
+        "perChest": 0.0909,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 10,
+        "totalWeight": 55,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:master_builder",
+        "level": 1
+      },
+      {
+        "type": "vault",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/trial_chambers/reward_ominous",
+        "label": {
+          "en": "Ominous vault",
+          "de": "Unheilvoller Tresor"
+        },
+        "chance": 6.36,
+        "perChest": 0.0636,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 7,
+        "totalWeight": 55,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:double_jump",
+        "level": 1
+      },
+      {
+        "type": "vault",
+        "item": "simplebuilding:netherite_apple",
+        "table": "minecraft:chests/trial_chambers/reward_ominous",
+        "label": {
+          "en": "Ominous vault",
+          "de": "Unheilvoller Tresor"
+        },
+        "chance": 1.82,
+        "perChest": 0.0182,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 55,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "vault",
+        "item": "simplebuilding:enchanted_netherite_apple",
+        "table": "minecraft:chests/trial_chambers/reward_ominous",
+        "label": {
+          "en": "Ominous vault",
+          "de": "Unheilvoller Tresor"
+        },
+        "chance": 0.91,
+        "perChest": 0.0091,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 55,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "vault",
+        "item": "simplebuilding:diamond_core",
+        "table": "minecraft:chests/trial_chambers/reward_ominous",
+        "label": {
+          "en": "Ominous vault",
+          "de": "Unheilvoller Tresor"
+        },
+        "chance": 0.8,
+        "perChest": 0.008,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "binomial",
+          "n": 1,
+          "p": 0.008
+        },
+        "pool": 1,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "vault",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/trial_chambers/reward_rare",
+        "label": {
+          "en": "Trial chamber vault (rare)",
+          "de": "Prüfungskammer-Tresor (selten)"
+        },
+        "chance": 9.09,
+        "perChest": 0.0909,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 10,
+        "totalWeight": 55,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:master_builder",
+        "level": 1
+      },
+      {
+        "type": "vault",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/trial_chambers/reward_rare",
+        "label": {
+          "en": "Trial chamber vault (rare)",
+          "de": "Prüfungskammer-Tresor (selten)"
+        },
+        "chance": 6.36,
+        "perChest": 0.0636,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 7,
+        "totalWeight": 55,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:double_jump",
+        "level": 1
+      },
+      {
+        "type": "vault",
+        "item": "simplebuilding:netherite_apple",
+        "table": "minecraft:chests/trial_chambers/reward_rare",
+        "label": {
+          "en": "Trial chamber vault (rare)",
+          "de": "Prüfungskammer-Tresor (selten)"
+        },
+        "chance": 1.82,
+        "perChest": 0.0182,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 55,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "vault",
+        "item": "simplebuilding:enchanted_netherite_apple",
+        "table": "minecraft:chests/trial_chambers/reward_rare",
+        "label": {
+          "en": "Trial chamber vault (rare)",
+          "de": "Prüfungskammer-Tresor (selten)"
+        },
+        "chance": 0.91,
+        "perChest": 0.0091,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 55,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "vault",
+        "item": "simplebuilding:diamond_core",
+        "table": "minecraft:chests/trial_chambers/reward_rare",
+        "label": {
+          "en": "Trial chamber vault (rare)",
+          "de": "Prüfungskammer-Tresor (selten)"
+        },
+        "chance": 0.8,
+        "perChest": 0.008,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "binomial",
+          "n": 1,
+          "p": 0.008
+        },
+        "pool": 1,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:netherite_nugget",
+        "table": "minecraft:chests/ruined_portal",
+        "label": {
+          "en": "Ruined portal",
+          "de": "Portalruine"
+        },
+        "chance": 7.5,
+        "perChest": 0.1125,
+        "count": [
+          1,
+          2
+        ],
+        "weight": 3,
+        "totalWeight": 20,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:gold_chisel",
+        "table": "minecraft:chests/ruined_portal",
+        "label": {
+          "en": "Ruined portal",
+          "de": "Portalruine"
+        },
+        "chance": 7.5,
+        "perChest": 0.075,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 20,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:netherite_carrot",
+        "table": "minecraft:chests/ruined_portal",
+        "label": {
+          "en": "Ruined portal",
+          "de": "Portalruine"
+        },
+        "chance": 5.0,
+        "perChest": 0.05,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 20,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "fishing",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:gameplay/fishing/treasure",
+        "label": {
+          "en": "Fishing (treasure catch)",
+          "de": "Angeln (Schatzfang)"
+        },
+        "chance": 9.09,
+        "perChest": 0.0909,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 33,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:fast_chiseling",
+        "level": 1
+      },
+      {
+        "type": "fishing",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:gameplay/fishing/treasure",
+        "label": {
+          "en": "Fishing (treasure catch)",
+          "de": "Angeln (Schatzfang)"
+        },
+        "chance": 6.06,
+        "perChest": 0.0606,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 33,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:constructors_touch",
+        "level": 1
+      },
+      {
+        "type": "fishing",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:gameplay/fishing/treasure",
+        "label": {
+          "en": "Fishing (treasure catch)",
+          "de": "Angeln (Schatzfang)"
+        },
+        "chance": 6.06,
+        "perChest": 0.0606,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 33,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:deep_pockets",
+        "level": 1
+      },
+      {
+        "type": "fishing",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:gameplay/fishing/treasure",
+        "label": {
+          "en": "Fishing (treasure catch)",
+          "de": "Angeln (Schatzfang)"
+        },
+        "chance": 6.06,
+        "perChest": 0.0606,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 33,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:linear",
+        "level": 1
+      },
+      {
+        "type": "fishing",
+        "item": "simplebuilding:diamond_pebble",
+        "table": "minecraft:gameplay/fishing/treasure",
+        "label": {
+          "en": "Fishing (treasure catch)",
+          "de": "Angeln (Schatzfang)"
+        },
+        "chance": 12.12,
+        "perChest": 0.2424,
+        "count": [
+          1,
+          3
+        ],
+        "weight": 4,
+        "totalWeight": 33,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "mob",
+        "how": "charged_creeper",
+        "victim": "minecraft:creeper",
+        "item": "minecraft:creeper_head",
+        "table": "minecraft:charged_creeper/root",
+        "chance": 100.0,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "charged_creeper",
+        "victim": "minecraft:piglin",
+        "item": "minecraft:piglin_head",
+        "table": "minecraft:charged_creeper/root",
+        "chance": 100.0,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "charged_creeper",
+        "victim": "minecraft:skeleton",
+        "item": "minecraft:skeleton_skull",
+        "table": "minecraft:charged_creeper/root",
+        "chance": 100.0,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "charged_creeper",
+        "victim": "minecraft:wither_skeleton",
+        "item": "minecraft:wither_skeleton_skull",
+        "table": "minecraft:charged_creeper/root",
+        "chance": 100.0,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "charged_creeper",
+        "victim": "minecraft:zombie",
+        "item": "minecraft:zombie_head",
+        "table": "minecraft:charged_creeper/root",
+        "chance": 100.0,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "killed_by",
+        "victim": "minecraft:creeper",
+        "killer": "#minecraft:skeletons",
+        "item": "minecraft:music_disc_11",
+        "table": "minecraft:entities/creeper",
+        "chance": 8.33,
+        "oneOf": 12,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "killed_by",
+        "victim": "minecraft:creeper",
+        "killer": "#minecraft:skeletons",
+        "item": "minecraft:music_disc_13",
+        "table": "minecraft:entities/creeper",
+        "chance": 8.33,
+        "oneOf": 12,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "killed_by",
+        "victim": "minecraft:creeper",
+        "killer": "#minecraft:skeletons",
+        "item": "minecraft:music_disc_blocks",
+        "table": "minecraft:entities/creeper",
+        "chance": 8.33,
+        "oneOf": 12,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "killed_by",
+        "victim": "minecraft:creeper",
+        "killer": "#minecraft:skeletons",
+        "item": "minecraft:music_disc_cat",
+        "table": "minecraft:entities/creeper",
+        "chance": 8.33,
+        "oneOf": 12,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "killed_by",
+        "victim": "minecraft:creeper",
+        "killer": "#minecraft:skeletons",
+        "item": "minecraft:music_disc_chirp",
+        "table": "minecraft:entities/creeper",
+        "chance": 8.33,
+        "oneOf": 12,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "killed_by",
+        "victim": "minecraft:creeper",
+        "killer": "#minecraft:skeletons",
+        "item": "minecraft:music_disc_far",
+        "table": "minecraft:entities/creeper",
+        "chance": 8.33,
+        "oneOf": 12,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "killed_by",
+        "victim": "minecraft:creeper",
+        "killer": "#minecraft:skeletons",
+        "item": "minecraft:music_disc_mall",
+        "table": "minecraft:entities/creeper",
+        "chance": 8.33,
+        "oneOf": 12,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "killed_by",
+        "victim": "minecraft:creeper",
+        "killer": "#minecraft:skeletons",
+        "item": "minecraft:music_disc_mellohi",
+        "table": "minecraft:entities/creeper",
+        "chance": 8.33,
+        "oneOf": 12,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "killed_by",
+        "victim": "minecraft:creeper",
+        "killer": "#minecraft:skeletons",
+        "item": "minecraft:music_disc_stal",
+        "table": "minecraft:entities/creeper",
+        "chance": 8.33,
+        "oneOf": 12,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "killed_by",
+        "victim": "minecraft:creeper",
+        "killer": "#minecraft:skeletons",
+        "item": "minecraft:music_disc_strad",
+        "table": "minecraft:entities/creeper",
+        "chance": 8.33,
+        "oneOf": 12,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "killed_by",
+        "victim": "minecraft:creeper",
+        "killer": "#minecraft:skeletons",
+        "item": "minecraft:music_disc_wait",
+        "table": "minecraft:entities/creeper",
+        "chance": 8.33,
+        "oneOf": 12,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "killed_by",
+        "victim": "minecraft:creeper",
+        "killer": "#minecraft:skeletons",
+        "item": "minecraft:music_disc_ward",
+        "table": "minecraft:entities/creeper",
+        "chance": 8.33,
+        "oneOf": 12,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      }
+    ],
+    "enchantmentTags": {
+      "minecraft:in_enchanting_table": [
+        "simplebuilding:fast_chiseling"
+      ]
+    }
   },
   "advancements": [
     {

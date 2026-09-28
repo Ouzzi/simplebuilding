@@ -49,7 +49,8 @@ Das ist der Kern des Aufbaus, deshalb ausführlich.
 |---|---|
 | Items, Blöcke, Namen | `src/main/resources/assets/simplebuilding/lang/*.json` |
 | Texturen | `src/main/generated/assets/simplebuilding/models/**` → `textures/**` |
-| 3D-Ansicht der Blöcke | dieselben Blockmodelle: Ober-, Seiten- und Vorderseite je Block |
+| 3D-Bilder der Blöcke und Köpfe | Item-Definitionen, Block- und Item-Modelle samt Elternkette (Vanilla-Eltern aus dem Client-Jar), gezeichnet von `wiki/model_render.py` |
+| Beute ohne Rezept (Truhen, Tresore, Angeln, Mob-Drops) | `loot/ModLootTableModifications.java` der Linie (geparst) + `wiki/data/vanilla-drops-<linie>.json` aus dem Client-Jar |
 | Vanilla-Texturen der Zutaten | `minecraft-client.jar` im Gradle-Cache (nicht im Repo, s. u.) |
 | Rezepte | `src/main/generated/data/simplebuilding/recipe/**` |
 | Loot-Tabellen | `src/main/generated/data/simplebuilding/loot_table/**` |
@@ -119,26 +120,58 @@ CI keinen Gradle-Cache hat: ohne Jar bleibt die vorhandene Datei stehen, mit Jar
 `--check`, dass sie aktuell ist. Die Seite lädt die Datei der gewählten Linie erst, wenn
 der Baum sie braucht; `tools/wiki_site.py` veröffentlicht alle mit.
 
-### 3D-Ansicht der Blöcke
+### 3D-Bilder aus den Modellen (`wiki/model_render.py`)
 
-Der Generator zieht aus jedem Blockmodell die drei sichtbaren Flächen
-(`top`, `side`, `front`) und legt sie als `faces` an den Blockeintrag. Die App
-stellt daraus einen isometrischen Würfel wie im Inventar (45° gedreht, 30° von
-oben, orthografisch) – mit reinen 2D-Matrizen, kein 3D-Kontext, kein WebGL, kein
-Build. Nur würfelartige Modelle bekommen einen (`cube_all`, `cube`,
-`orientable`, `cube_bottom_top`, …); Trichter, Kolben, Stufen, Treppen und Mauern
-haben eine Form, die drei Quadrate nicht abbilden, und behalten die flache Textur.
+Blöcke erscheinen wie im Inventar: Treppen, Stufen, Mauern, Kolben (mit Plattform
+oben), Druckplatten, Pads, Trichter, Rucksäcke, Köpfe, die abgelegte Schmiedevorlage.
+`model_render.py` zeichnet sie in Python (Pillow + numpy) aus den echten Modellen:
 
-Der Würfel steht nicht nur im Kopf der Blockseite, sondern **in jedem Slot**
-(Rezepte, Listen, Baum), sobald das Item das Blockmodell zeigt: `inventoryCube`
-am Blockeintrag setzt der Generator nur, wenn `items/<name>.json` genau auf
-`simplebuilding:block/<name>` verweist und nicht eingefärbt ist. Für Vanilla-Blöcke
-schreibt er dieselben drei Flächen aus dem Client-Jar nach
-`wiki/assets/textures/minecraft/cubes.js` (plus `faces/*.png`) – neben die
-Vanilla-Texturen, wie sie in `.gitignore` und nicht veröffentlicht. Die Seite lädt
-die Datei, wenn es sie gibt; sonst bleibt es beim flachen Bild oder der Textkachel.
-Eingefärbte Modelle (Gras, Laub) und animierte Texturen (hohe Streifen) sind
-ausgenommen.
+- **welches Modell**: die Item-Definition `items/<id>.json` (Bedingungen nehmen den
+  `false`-Zweig, `select` nach `display_context` den `gui`-Fall, sonst den Rückfall);
+  Blöcke ohne eigenes Item (Kolbenkopf, abgelegte Vorlage) den ersten Blockstate;
+- **Form**: die Elternkette (`minecraft:block/stairs` usw. aus dem Client-Jar) mit
+  Elementen, UVs, UV-Drehung, Element-Drehung samt `rescale`, Textur-Verweisen `#x`
+  (auch 26.x `{"sprite": …}`), `tintindex` mit den Tints der Item-Definition;
+- **Ansicht**: `display.gui` des Modells (Treppen und Mauern haben eine eigene), sonst
+  die von `block/block`; orthografisch, Z-Puffer, Rückseiten weg, GUI-Schattierung
+  (oben hell, links heller als rechts), Pixel ohne Glättung – 128 × 128 px;
+- **Sonderfälle**: `minecraft:special` mit `head` (Vanilla-Köpfe und der Lohenkopf aus
+  der 64 × 32-Entity-Textur, Piglin mit Schnauze), Wandköpfe wie ihr Kopf-Item, die
+  abgelegte Schmiedevorlage (nur Blockentity-Renderer) als flach liegende Platte wie
+  `PlacedTemplateRenderer` sie zeichnet (`LYING_ITEM_BLOCKS` in `generate.py`).
+
+Eigene Bilder landen unter `wiki/assets/textures/render/` (Blöcke mit flachem Item-Bild –
+Trichter, Rucksack – zusätzlich als Blockform unter `render/block/`) und **werden
+committet**: sie enthalten nur Texturen der Mod. Der Eintrag bekommt `icon`; die Seite
+nimmt `icon` vor `texture` und glättet die großen Bilder beim Verkleinern (`img.r3d`).
+Vanilla-Blöcke, -Treppen, -Mauern und -Köpfe zeichnet derselbe Renderer über ihre
+flache Textur unter `assets/textures/minecraft/` (nicht committet, nicht veröffentlicht).
+
+Ohne Pillow, numpy oder Client-Jar (CI) wird nichts gezeichnet und nichts gelöscht; das
+JSON nennt ein `icon` nur, wenn die Datei da ist, deshalb bleibt es auf jedem Rechner
+gleich. Ein Lauf, der zeichnen kann, löscht Bilder, die nichts mehr braucht.
+**`--check` schlägt fehl**, wenn ein Item oder Block weder Textur noch Bild hat (Ausnahme:
+Item-Definition `minecraft:empty`, der Kreativ-Platzhalter) oder der Renderer eine Textur
+bzw. ein Modell nicht findet.
+
+### Woher etwas ohne Rezept kommt (`wiki/obtain_sources.py`)
+
+`D.obtain.sources` listet jede Quelle als Karte: Truhen, Tresore, Angel-Schatz (aus den
+Pools in `loot/ModLootTableModifications.java` der Linie, geparst; was der Parser nicht
+versteht, wird ein PROBLEM) und Mob-Drops – die Köpfe per geladenem Creeper
+(`charged_creeper/*` aus dem Jar plus der Lohenkopf-Pool der Mod) und die Schallplatten,
+wenn ein Skelett einen Creeper tötet. Die Vanilla-Tabellen stehen zusätzlich in
+`wiki/data/vanilla-drops-<linie>.json` (committet; ohne Jar gelesen, mit Jar von `--check`
+geprüft). Die Chance ist „mindestens eins pro Truhe“: `1 − E[(1 − w/W)^Würfe]`.
+
+Die Seite zeigt die Quellen als Karten oben auf der Item-Seite („So bekommst du es“) und
+vollständig im Abschnitt „Beute & Mob-Drops“, alle zusammen auf der Seite „Loot“. Jede
+Verzauberung hat oben „Wo es sie gibt“: Zaubertisch ja/nein (Tag
+`minecraft:in_enchanting_table` der Mod), Truhen und Tresore mit Stufe und Chance, Angeln,
+Dorfbewohner mit Gewicht, Amboss-Ziele. Die Verzauberungsliste und der Abschnitt
+„Verzauberungen für dieses Item“ auf Item-Seiten tragen dieselben Kurzabzeichen. JEI
+zeigt die Mob-Drops als Kategorie „Mob-Drops“ (`compat/MobDropCatalog`, geprüft vom
+Spieltest `InWorldExportTests#mobDropCatalogMatchesTheGame`).
 
 ### Alle Rezepte und die JEI-Ansicht (`#/allrecipes`, `#/make/<id>`, `#/use/<id>`)
 

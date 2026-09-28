@@ -1055,6 +1055,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("in_world_export_game_test_jei_catalog_covers_every_in_world_entry", InWorldExportTests::jeiCatalogCoversEveryInWorldEntry)
                     .build(),
+            GameTestSpec.named("in_world_export_game_test_mob_drop_catalog_has_every_head_and_the_discs", InWorldExportTests::mobDropCatalogHasEveryHeadAndTheDiscs)
+                    .build(),
+            GameTestSpec.named("in_world_export_game_test_mob_drop_catalog_matches_the_game", InWorldExportTests::mobDropCatalogMatchesTheGame)
+                    .build(),
             GameTestSpec.named("enderite_machine_game_test_enderite_hopper_moves_an_item_every_tick", EnderiteMachineTests::enderiteHopperMovesAnItemEveryTick)
                     .maxTicks(EnderiteMachineTests.HOPPER_MAX_TICKS)
                     .build(),

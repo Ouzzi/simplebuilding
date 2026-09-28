@@ -42,6 +42,10 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import model_render  # noqa: E402  (neighbour module; draws the 3D icons when Pillow/numpy exist)
+import obtain_sources  # noqa: E402  (loot chests, fishing, vaults, mob drops)
+
 REPO = Path(__file__).resolve().parent.parent
 WIKI = REPO / "wiki"
 NS = "simplebuilding"
@@ -263,6 +267,31 @@ def texture_for(roots: dict, kind: str, item_id: str) -> str | None:
                   REPO / roots["resource_assets"] / "models" / kind]
 
     candidates: list[str] = []
+    # Seit MC 1.21.4 sagt items/<id>.json, welches Modell das Item zeigt - der Echo-Kompass
+    # zeigt item/echo_compass_16 (range_dispatch), kein item/echo_compass. Dessen Texturen zuerst.
+    if kind == "item":
+        for base in (roots["generated_assets"], roots["resource_assets"]):
+            definition_path = REPO / base / "items" / f"{name}.json"
+            if not definition_path.exists():
+                continue
+            try:
+                definition = read_json(definition_path)
+            except json.JSONDecodeError:
+                break
+            for part_kind, payload, _ in model_render.item_parts(definition.get("model")):
+                if part_kind != "model" or not isinstance(payload, str) or not is_ours(payload):
+                    continue
+                for model_base in (roots["generated_assets"], roots["resource_assets"]):
+                    model_path = REPO / model_base / "models" / (short(payload) + ".json")
+                    if model_path.exists():
+                        try:
+                            textures = read_json(model_path).get("textures", {})
+                        except json.JSONDecodeError:
+                            break
+                        if isinstance(textures.get("layer0"), str):
+                            candidates.append(textures["layer0"])
+                        break
+            break
     for model_dir in model_dirs:
         model_path = model_dir / f"{name}.json"
         if not model_path.exists():
@@ -310,79 +339,128 @@ def copy_own_texture(roots: dict, reference: str) -> str | None:
     return target.relative_to(WIKI).as_posix()
 
 
-# Modelle, aus denen sich ein Wuerfel zeichnen laesst. Alles andere - Trichter,
-# Kolben, Kolbenkopf - hat eine Form, die drei Quadrate nicht abbilden; dort
-# bleibt es bei der flachen Textur.
-CUBE_PARENTS = {
-    "minecraft:block/cube_all",
-    "minecraft:block/cube",
-    "minecraft:block/cube_column",
-    "minecraft:block/cube_bottom_top",
-    "minecraft:block/cube_top",
-    "minecraft:block/orientable",
-    "minecraft:block/orientable_with_bottom",
-}
+# ---------------------------------------------------------------------------
+# 3D icons drawn from the block and item models (wiki/model_render.py)
+# ---------------------------------------------------------------------------
+
+RENDER_DIR = "assets/textures/render"
+
+# Bloecke, deren Aussehen kein Blockmodell traegt, sondern ein Block-Entity-Renderer: das
+# Blockmodell der abgelegten Schmiedevorlage hat nur ein particle. PlacedTemplateRenderer legt
+# die Vorlage als Platte (14/16 Blockbreite) flach auf den Boden - hier mit der eigenen
+# Enderit-Aufwertungsvorlage, damit keine Mojang-Textur ins committete Bild geraet.
+LYING_ITEM_BLOCKS = {f"{NS}:placed_smithing_template": f"{NS}:item/enderite_upgrade_template"}
 
 
-def block_faces(roots: dict, block_id: str) -> dict | None:
-    """
-    Die drei sichtbaren Flaechen eines isometrischen Wuerfels: Oberseite,
-    Seite, Vorderseite. Die App zeichnet daraus per CSS-Transform einen
-    Wuerfel - kein WebGL, kein Build.
-
-    Nur fuer wuerfelartige Modelle; sonst None, damit die App auf die flache
-    Textur zurueckfaellt.
-    """
-    name = short(block_id)
-    for model_dir in (REPO / roots["generated_assets"] / "models" / "block",
-                      REPO / roots["resource_assets"] / "models" / "block"):
-        model_path = model_dir / f"{name}.json"
-        if not model_path.exists():
-            continue
-        try:
-            model = read_json(model_path)
-        except json.JSONDecodeError:
-            return None
-        if model.get("parent") not in CUBE_PARENTS:
-            return None
-        textures = model.get("textures", {})
-
-        def pick(*keys):
-            for key in keys:
-                value = textures.get(key)
-                if isinstance(value, str):
-                    return value
-            return None
-
-        top = pick("top", "up", "end", "all")
-        side = pick("side", "west", "south", "all")
-        front = pick("front", "north", "side", "west", "all")
-        if not (top and side and front):
-            return None
-        faces = {"top": copy_own_texture(roots, top),
-                 "side": copy_own_texture(roots, side),
-                 "front": copy_own_texture(roots, front)}
-        return faces if all(faces.values()) else None
+def item_definition(roots: dict, item_id: str) -> dict | None:
+    for base in (roots["generated_assets"], roots["resource_assets"]):
+        path = REPO / base / "items" / f"{short(item_id)}.json"
+        if path.exists():
+            try:
+                return read_json(path)
+            except json.JSONDecodeError:
+                return None
     return None
 
 
-def item_shows_block_model(roots: dict, block_id: str) -> bool:
+def item_shows_nothing(roots: dict, item_id: str) -> bool:
+    """An item whose definition is minecraft:empty (the creative spacer) has no icon by design."""
+    definition = item_definition(roots, item_id)
+    parts = model_render.item_parts((definition or {}).get("model"))
+    return bool(parts) and all(kind == "empty" for kind, _, _ in parts)
+
+
+class Icons:
     """
-    Whether the inventory icon of a block IS its block model - then the app may draw
-    the isometric cube in every slot, like the game's inventory does. A block whose
-    item definition points at a flat item model (a hopper, a door) keeps its icon.
+    Isometric icons like the inventory draws them: stairs, slabs, walls, pistons, pressure
+    plates, pads, heads, the placed smithing template. Rendered from the models by
+    wiki/model_render.py into wiki/assets/textures/render/ (committed - the mod's own
+    textures only) whenever Pillow, numpy and the client jar are there; the parent models
+    (minecraft:block/stairs ...) come from the jar.
+
+    The generated JSON names an icon only if its file exists after this step, so a run
+    without the jar or without Pillow (CI) keeps the committed icons and produces the same
+    JSON. A run that can render deletes icons nothing asked for any more.
     """
-    name = short(block_id)
-    for base in (roots["generated_assets"], roots["resource_assets"]):
-        path = REPO / base / "items" / f"{name}.json"
-        if path.exists():
+
+    def __init__(self, roots: dict):
+        self.roots = roots
+        self.written: set[Path] = set()
+        self.renderer = None
+        jar = client_jar(roots["client_jar_version"])
+        if model_render.AVAILABLE and jar.exists():
+            self.renderer = model_render.IconRenderer(
+                {NS: [REPO / roots["generated_assets"], REPO / roots["resource_assets"]]}, jar)
+        self.cache: dict[str, str | None] = {}
+
+    @property
+    def active(self) -> bool:
+        return self.renderer is not None
+
+    def _save(self, image, relpath: str) -> None:
+        target = WIKI / relpath
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if target.exists():
             try:
-                model = read_json(path).get("model") or {}
-            except json.JSONDecodeError:
-                return False
-            return (model.get("type") == "minecraft:model" and not model.get("tints")
-                    and model.get("model") == f"{NS}:block/{name}")
-    return False
+                from PIL import Image
+                with Image.open(target) as old:
+                    if old.convert("RGBA").tobytes() == image.tobytes() and old.size == image.size:
+                        self.written.add(target)
+                        return
+            except OSError:
+                pass
+        image.save(target, optimize=True)
+        self.written.add(target)
+
+    def _result(self, relpath: str) -> str | None:
+        target = WIKI / relpath
+        if self.active:
+            return relpath if target in self.written else None
+        return relpath if target.exists() else None
+
+    def item(self, item_id: str) -> str | None:
+        """The 3D icon of an item that shows a block model or a head; None for flat items."""
+        if item_id in self.cache:
+            return self.cache[item_id]
+        relpath = f"{RENDER_DIR}/{short(item_id)}.png"
+        if self.active and item_definition(self.roots, item_id) is not None:
+            image = self.renderer.render_item(item_id)
+            if image is not None:
+                self._save(image, relpath)
+        self.cache[item_id] = self._result(relpath)
+        return self.cache[item_id]
+
+    def block(self, block_id: str) -> str | None:
+        """
+        The block as the inventory shows it where its item is 3D; otherwise the shape of its
+        model (a hopper, a backpack on the floor, a piston head) - the block page shows the
+        block, the slots keep showing the flat item. Wall heads look like their head item.
+        """
+        if item_definition(self.roots, block_id) is not None:
+            icon = self.item(block_id)
+            if icon:
+                return icon
+        name = short(block_id)
+        if name.endswith("_wall_head"):
+            return self.item(f"{NS}:{name[:-len('_wall_head')]}_head")
+        relpath = f"{RENDER_DIR}/block/{name}.png"
+        if self.active:
+            image = None
+            if block_id in LYING_ITEM_BLOCKS:
+                image = self.renderer.render_lying_item(LYING_ITEM_BLOCKS[block_id])
+            else:
+                model = self.renderer.blockstate_model(block_id)
+                if model:
+                    image = self.renderer.render_block_model(model)
+            if image is not None:
+                self._save(image, relpath)
+        return self._result(relpath)
+
+    def finish(self) -> int:
+        """Deletes renders this run did not produce (only when it could render); returns how many."""
+        if not self.active:
+            return 0
+        return prune_unwritten(WIKI / RENDER_DIR, self.written)
 
 
 # ---------------------------------------------------------------------------
@@ -890,8 +968,9 @@ def registered_ids(roots: dict) -> tuple[set[str], set[str]] | None:
 
 
 def collect_items_and_blocks(roots: dict, lang: dict, recipes, loot_tables, trades,
-                             item_properties=None, registered=None):
+                             item_properties=None, registered=None, icons=None, iconless=None):
     en = lang.get("en_us", {})
+    iconless = iconless if iconless is not None else []
     item_properties = item_properties or {}
     phantom: list[str] = []
     unnamed: list[str] = []
@@ -942,15 +1021,16 @@ def collect_items_and_blocks(roots: dict, lang: dict, recipes, loot_tables, trad
                 "usedIn": sorted(recipes_by_ingredient.get(identifier, [])),
                 "trades": sorted(trades_by_item.get(identifier, [])),
             }
+            if icons is not None:
+                icon = icons.block(identifier) if kind == "block" else icons.item(identifier)
+                if icon:
+                    entry["icon"] = icon
+            if not entry["texture"] and not entry.get("icon") and not item_shows_nothing(roots, identifier):
+                iconless.append(f"{kind} {identifier}")
             props = item_properties.get(identifier)
             if props:
                 entry["properties"] = props
             if kind == "block":
-                faces = block_faces(roots, identifier)
-                if faces:
-                    entry["faces"] = faces
-                    if item_shows_block_model(roots, identifier):
-                        entry["inventoryCube"] = True
                 table = loot_by_block.get(name)
                 if table:
                     entry["lootTable"] = table["id"]
@@ -1005,7 +1085,7 @@ def vanilla_ids(recipes, loot_tables, trades, tags) -> set[str]:
     return found
 
 
-def copy_vanilla_textures(roots: dict, ids: set[str]) -> dict:
+def copy_vanilla_textures(roots: dict, ids: set[str], icons=None) -> dict:
     """
     Pull the referenced vanilla textures out of the Minecraft client jar in the
     Gradle cache into wiki/assets/textures/minecraft/.
@@ -1021,9 +1101,10 @@ def copy_vanilla_textures(roots: dict, ids: set[str]) -> dict:
     item icon.
 
     The folder holds exactly one line's textures: whatever this run did not write
-    (a texture only the other line references, a face of a block that is no cube
-    there) is deleted afterwards. Without that, a run with --line 1.21.11 left its
-    files behind for the next 26.2 run, and the page showed textures of both lines.
+    (a texture only the other line references) is deleted afterwards. Blocks, stairs, walls,
+    heads and chests are written as their 3D icon (wiki/model_render.py) under the same
+    name, so the page needs no lookup table for them either. Without the pruning, a run
+    with --line 1.21.11 left its files behind for the next 26.2 run, and the page showed textures of both lines.
     Nothing is pruned when the jar is missing - then the run wrote nothing either.
     """
     version = roots.get("client_jar_version")
@@ -1123,13 +1204,22 @@ def copy_vanilla_textures(roots: dict, ids: set[str]) -> dict:
             # Animierte Items (Kompass, Uhr) haben nur nummerierte Einzelbilder.
             yield f"assets/minecraft/textures/item/{name}_00.png"
 
+        renderer = icons.renderer if icons is not None else None
         for identifier in sorted(ids):
             name = short(identifier)
+            target = out_dir / f"{name}.png"
+            # Bloecke, Treppen, Mauern, Koepfe: das 3D-Bild wie im Inventar statt einer Flaeche.
+            image = renderer.render_item(identifier) if renderer is not None and not identifier.startswith("#") else None
+            if image is not None:
+                image.save(target, optimize=True)
+                kept.add(target)
+                state["copied"] += 1
+                state["rendered"] = state.get("rendered", 0) + 1
+                continue
             for entry in texture_entries(name):
                 if entry not in names:
                     continue
                 payload = archive.read(entry)
-                target = out_dir / f"{name}.png"
                 if not target.exists() or target.read_bytes() != payload:
                     target.write_bytes(payload)
                 kept.add(target)
@@ -1137,7 +1227,6 @@ def copy_vanilla_textures(roots: dict, ids: set[str]) -> dict:
                 break
             else:
                 state["missing"].append(identifier)
-        state["cubes"] = write_vanilla_cubes(archive, names, ids, out_dir, kept)
     state["pruned"] = prune_unwritten(out_dir, kept)
     return state
 
@@ -1154,87 +1243,46 @@ def prune_unwritten(out_dir: Path, kept: set[Path]) -> int:
     return pruned
 
 
-VANILLA_CUBE_FILE = "cubes.js"
+# ---------------------------------------------------------------------------
+# where things come from without a recipe (wiki/obtain_sources.py)
+# ---------------------------------------------------------------------------
 
-
-def png_is_square(payload: bytes) -> bool:
-    """Animated textures (sea lantern, magma) are tall strips - three faces cannot show them."""
-    if payload[:8] != b"\x89PNG\r\n\x1a\n" or len(payload) < 24:
-        return False
-    return payload[16:20] == payload[20:24]
-
-
-def write_vanilla_cubes(archive, names: set[str], ids: set[str], out_dir: Path, kept: set[Path]) -> int:
+def collect_obtain(roots: dict, line: str, items, blocks, enchantments, check: bool) -> tuple[dict, list[str]]:
     """
-    The isometric inventory cube for vanilla blocks, the same three faces block_faces()
-    takes from this mod's models: only where the item definition shows the block model
-    untinted (grass and leaves would come out grey) and the model is one of CUBE_PARENTS.
-
-    Written next to the vanilla textures (and like them in .gitignore) as a small
-    script the page loads if it is there: map and images exist together or not at
-    all, so the committed data never depends on the Gradle cache.
+    Loot chests, vaults, fishing and mob drops as "sources", plus the vanilla enchantment
+    tags the mod adds to (minecraft:in_enchanting_table ...). The item and enchantment pages
+    show them as cards at the top; the enchantment pages summarise them at first glance.
     """
-    cubes: dict[str, dict] = {}
-    face_dir = out_dir / "faces"
-    for identifier in sorted(ids):
-        name = short(identifier)
-        if identifier.startswith("#") or not identifier.startswith("minecraft:"):
-            continue
-        item_entry = f"assets/minecraft/items/{name}.json"
-        if item_entry not in names:
-            continue
-        try:
-            model = (json.loads(archive.read(item_entry).decode("utf-8")).get("model") or {})
-        except (json.JSONDecodeError, UnicodeDecodeError):
-            continue
-        if model.get("type") != "minecraft:model" or model.get("tints") \
-                or model.get("model") != f"minecraft:block/{name}":
-            continue
-        block_entry = f"assets/minecraft/models/block/{name}.json"
-        if block_entry not in names:
-            continue
-        try:
-            block = json.loads(archive.read(block_entry).decode("utf-8"))
-        except (json.JSONDecodeError, UnicodeDecodeError):
-            continue
-        if block.get("parent") not in CUBE_PARENTS:
-            continue
-        textures = block.get("textures", {})
+    problems: list[str] = []
+    item_ids = {e["id"] for e in items} | {e["id"] for e in blocks}
+    ench_ids = {e["id"] for e in enchantments}
+    sources: list[dict] = []
+    loot_file = next((REPO / root / "loot" / "ModLootTableModifications.java" for root in roots["code_roots"]
+                      if (REPO / root / "loot" / "ModLootTableModifications.java").exists()), None)
+    if loot_file is None:
+        problems.append("loot/ModLootTableModifications.java not found in any code root - loot sources missing")
+    else:
+        parsed, loot_problems = obtain_sources.parse_mod_loot(loot_file, item_ids, ench_ids, NS)
+        for source in parsed:
+            source["source"] = rel(loot_file)
+        sources += parsed
+        problems += loot_problems
+    drops, drop_problems = obtain_sources.load_vanilla_drops(
+        line, client_jar(roots["client_jar_version"]), WIKI, check)
+    problems += drop_problems
+    for drop in drops:
+        drop = dict(drop)
+        drop["source"] = f"wiki/data/vanilla-drops-{line}.json"
+        sources.append(drop)
 
-        def pick(*keys):
-            for key in keys:
-                value = textures.get(key)
-                if isinstance(value, str) and not value.startswith("#"):
-                    return value
-            return None
-
-        chosen = {"top": pick("top", "up", "end", "all"),
-                  "side": pick("side", "west", "south", "all"),
-                  "front": pick("front", "north", "side", "west", "all")}
-        if not all(chosen.values()):
-            continue
-        faces = {}
-        for face, reference in chosen.items():
-            entry = f"assets/minecraft/textures/{short(reference)}.png"
-            if entry not in names:
-                break
-            payload = archive.read(entry)
-            if not png_is_square(payload):
-                break
-            file_name = short(reference).split("/")[-1] + ".png"
-            target = face_dir / file_name
-            target.parent.mkdir(parents=True, exist_ok=True)
-            if not target.exists() or target.read_bytes() != payload:
-                target.write_bytes(payload)
-            kept.add(target)
-            faces[face] = f"{VANILLA_TEXTURE_DIR}/faces/{file_name}"
-        else:
-            cubes[identifier] = faces
-    kept.add(out_dir / VANILLA_CUBE_FILE)
-    write_atomic(out_dir / VANILLA_CUBE_FILE,
-                 "// Generated by wiki/generate.py from the Minecraft client jar - not committed.\n"
-                 "window.VANILLA_CUBES = " + json.dumps(cubes, sort_keys=True, indent=0) + ";\n")
-    return len(cubes)
+    ench_tags: dict[str, list[str]] = {}
+    tag_dir = (REPO / roots["resource_data"]).parent / "minecraft" / "tags" / "enchantment"
+    if tag_dir.exists():
+        for path in sorted(tag_dir.rglob("*.json")):
+            values = [v if isinstance(v, str) else v.get("id") for v in read_json(path).get("values", [])]
+            ench_tags["minecraft:" + path.relative_to(tag_dir).with_suffix("").as_posix()] = sorted(
+                v for v in values if isinstance(v, str))
+    return {"sources": sources, "enchantmentTags": ench_tags}, problems
 
 
 # ---------------------------------------------------------------------------
@@ -1769,7 +1817,7 @@ def collect_advancements(roots: dict, lang: dict) -> list[dict]:
     return out
 
 
-def build(line: str) -> tuple[dict, list[str]]:
+def build(line: str, check: bool = False) -> tuple[dict, list[str]]:
     roots = LINES[line]
     lang = load_lang(roots)
 
@@ -1786,8 +1834,10 @@ def build(line: str) -> tuple[dict, list[str]]:
     # beides wuerde checkWiki zwischen Rechnern flattern lassen.
     item_properties = load_item_properties(roots)
     registered = registered_ids(roots)
+    icons = Icons(roots)
+    iconless: list[str] = []
     items, blocks, phantom, unnamed = collect_items_and_blocks(
-        roots, lang, recipes, loot_tables, trades, item_properties, registered)
+        roots, lang, recipes, loot_tables, trades, item_properties, registered, icons, iconless)
 
     manual_path = WIKI / "manual.json"
     manual = read_json(manual_path) if manual_path.exists() else {"features": [], "notes": {}}
@@ -1816,6 +1866,8 @@ def build(line: str) -> tuple[dict, list[str]]:
                 entry["note"] = note
 
     in_world, in_world_problems = collect_in_world(roots, manual, {e["id"] for e in items})
+    obtain, obtain_problems = collect_obtain(roots, line, items, blocks, enchantments, check)
+    in_world_problems = in_world_problems + obtain_problems
 
     # Beide Minecraft-Linien in einer Rezeptansicht: jedes Rezept und jede Umwandlung
     # sagt, in welchen Linien es existiert, und was es nur in der anderen Linie gibt,
@@ -1831,6 +1883,12 @@ def build(line: str) -> tuple[dict, list[str]]:
     # Vanilla-Texturen erst jetzt: auch die Zutaten der Umwandlungen in der Welt
     # und der Vanilla-Rezepte fuer den Rezeptbaum sollen ein Bild bekommen.
     referenced = vanilla_ids(recipes, loot_tables, trades, tags)
+    for source in obtain["sources"]:
+        referenced.add(source["item"])
+    referenced |= {f"minecraft:{e.split(':')[-1]}_spawn_egg" for e in
+                   [s.get("victim") for s in obtain["sources"]] + [s.get("killer") for s in obtain["sources"]]
+                   if isinstance(e, str) and e.startswith("minecraft:")}
+    referenced |= {"minecraft:creeper_spawn_egg", "minecraft:chest", "minecraft:fishing_rod", "minecraft:vault"}
     for entry in in_world["entries"]:
         for value in [s["id"] for s in entry["inputs"]] + entry["tools"] + [entry["output"]["id"]]:
             for v in (value if isinstance(value, list) else [value]):
@@ -1838,7 +1896,16 @@ def build(line: str) -> tuple[dict, list[str]]:
                     referenced.add(v)
     referenced |= vanilla_recipe_ids(roots)
     referenced |= {a["icon"] for a in advancements if isinstance(a.get("icon"), str) and a["icon"].startswith("minecraft:")}
-    vanilla = copy_vanilla_textures(roots, referenced)
+    vanilla = copy_vanilla_textures(roots, referenced, icons)
+    icons.finish()
+    # Jeder Gegenstand und jeder Block braucht ein Bild: eine Textur oder ein 3D-Bild aus
+    # dem Modell. Fehlt beides, zeigte die Seite eine Textkachel - das faellt hier auf.
+    for entry in iconless:
+        in_world_problems.append(f"{entry} has neither a texture nor a rendered icon "
+                                 "(model, item definition or texture missing; run with Pillow + client jar)")
+    if icons.renderer is not None:
+        for problem in sorted(set(icons.renderer.problems)):
+            in_world_problems.append(f"icon renderer: {problem}")
 
     # Which entries actually owe the reader an explanation. A plain building
     # block is described well enough by its recipe and its drop; a tool with its
@@ -1928,6 +1995,7 @@ def build(line: str) -> tuple[dict, list[str]]:
         "tags": tags,
         "config": config,
         "inWorld": in_world,
+        "obtain": obtain,
         "advancements": advancements,
         "vanillaRecipes": {
             "lines": sorted(LINES),
@@ -1985,7 +2053,7 @@ def main() -> int:
     args = parser.parse_args()
 
     merge_overlay_lines()
-    data, undocumented, vanilla, incomplete, enchantment_warnings, phantom, unnamed, in_world_problems = build(args.line)
+    data, undocumented, vanilla, incomplete, enchantment_warnings, phantom, unnamed, in_world_problems = build(args.line, args.check)
     vanilla_problems = sync_vanilla_recipes(check=args.check)
     duplicates = duplicate_feature_ids(WIKI / "manual.json")
     for problem in in_world_problems + vanilla_problems:
@@ -2043,7 +2111,7 @@ def main() -> int:
 
     if vanilla["present"]:
         print(f"Vanilla textures: {vanilla['copied']} of {vanilla['referenced']} referenced ids "
-              f"copied into wiki/{VANILLA_TEXTURE_DIR}/, {vanilla.get('cubes', 0)} of them drawn as cubes, "
+              f"copied into wiki/{VANILLA_TEXTURE_DIR}/, {vanilla.get('rendered', 0)} of them drawn in 3D from their models, "
               f"{vanilla.get('pruned', 0)} left over from an earlier run removed")
         if vanilla["missing"]:
             print(f"  no texture in the client jar for: {', '.join(vanilla['missing'][:8])}"
