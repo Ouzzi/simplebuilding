@@ -4229,9 +4229,9 @@ window.WIKI_DATA = {
         "simplebuilding:wandering_trader/emerald_copper_cores"
       ],
       "properties": {
-        "maxStackSize": 16
+        "maxStackSize": 1
       },
-      "hasCustomBehaviour": false
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:copper_sledgehammer",
@@ -5072,9 +5072,9 @@ window.WIKI_DATA = {
         "simplebuilding:mason/2/netherite_diamond_core"
       ],
       "properties": {
-        "maxStackSize": 16
+        "maxStackSize": 1
       },
-      "hasCustomBehaviour": false
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:diamond_pebble",
@@ -6657,9 +6657,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "properties": {
-        "maxStackSize": 16
+        "maxStackSize": 1
       },
-      "hasCustomBehaviour": false
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:enderite_furnace",
@@ -8084,9 +8084,9 @@ window.WIKI_DATA = {
         "simplebuilding:wandering_trader/emerald_gold_core"
       ],
       "properties": {
-        "maxStackSize": 16
+        "maxStackSize": 1
       },
-      "hasCustomBehaviour": false
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:gold_sledgehammer",
@@ -9319,9 +9319,9 @@ window.WIKI_DATA = {
         "simplebuilding:wandering_trader/emerald_iron_cores"
       ],
       "properties": {
-        "maxStackSize": 16
+        "maxStackSize": 1
       },
-      "hasCustomBehaviour": false
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:iron_sledgehammer",
@@ -10931,9 +10931,9 @@ window.WIKI_DATA = {
       ],
       "trades": [],
       "properties": {
-        "maxStackSize": 16
+        "maxStackSize": 1
       },
-      "hasCustomBehaviour": false
+      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:netherite_furnace",
@@ -34691,14 +34691,14 @@ window.WIKI_DATA = {
       "level": null,
       "wants": {
         "id": "minecraft:emerald",
-        "count": 46
+        "count": 23
       },
       "alsoWants": null,
       "gives": {
         "id": "simplebuilding:copper_core",
-        "count": 2
+        "count": 1
       },
-      "maxUses": 4,
+      "maxUses": 8,
       "xp": 10,
       "reputationDiscount": 0.1,
       "enchantmentPool": [],
@@ -34757,14 +34757,14 @@ window.WIKI_DATA = {
       "level": null,
       "wants": {
         "id": "minecraft:emerald",
-        "count": 56
+        "count": 28
       },
       "alsoWants": null,
       "gives": {
         "id": "simplebuilding:iron_core",
-        "count": 2
+        "count": 1
       },
-      "maxUses": 4,
+      "maxUses": 8,
       "xp": 10,
       "reputationDiscount": 0.1,
       "enchantmentPool": [],
@@ -51094,9 +51094,16 @@ window.WIKI_DATA = {
     "inWorld": 389,
     "advancements": 55,
     "features": 34,
-    "undocumented": 0,
+    "undocumented": 6,
     "incompleteProse": 0
   },
-  "undocumented": [],
+  "undocumented": [
+    "simplebuilding:copper_core",
+    "simplebuilding:diamond_core",
+    "simplebuilding:enderite_core",
+    "simplebuilding:gold_core",
+    "simplebuilding:iron_core",
+    "simplebuilding:netherite_core"
+  ],
   "incompleteProse": {}
 };

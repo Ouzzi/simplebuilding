@@ -1000,6 +1000,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("blueprint_game_test_repeated_clicks_neither_restart_the_check_nor_exceed_the_click_budget", BlueprintTests::repeatedClicksNeitherRestartTheCheckNorExceedTheClickBudget)
                     .build(),
+            GameTestSpec.named("blueprint_game_test_blueprint_shows_its_state_in_its_texture", BlueprintTests::blueprintShowsItsStateInItsTexture)
+                    .build(),
             GameTestSpec.named("furnace_game_test_boost_only_runs_while_the_furnace_burns_and_cooks", FurnaceTests::boostOnlyRunsWhileTheFurnaceBurnsAndCooks)
                     .maxTicks(FurnaceTests.BOOST_GUARD_MAX_TICKS)
                     .build(),
