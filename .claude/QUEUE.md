@@ -141,6 +141,16 @@ Verlauf im Detail: git log.
 - [ ] Client-Gate: wartet auf geschlossene Besitzer-Clients
 - [ ] Entscheidung Besitzer: Mending/Unbreaking fuer Amethystlinse und Rotator sperren?
 
+## Welle 22 (laeuft)
+- [ ] A: fehlende Item-/Blockanzeige (Mauern, Creative Spacer, Echo Sounder), Nihilith -> Nihilit (Anzeigetext), Texte konsistent, Trank-Pad ohne Trank-Symbol, Diamant-Kiesel als Raute mit Krallenspitze
+- [ ] B: Wiki echte Blockformen (Treppen/Stufen/Mauern/Kolben/Vorlagen), fehlende Eintraege (gewachste Kupferplatten, Lohenkopf-Textur), Beschaffungskarten ohne Rezept (Charged Creeper + Lohe -> Kopf, Vanilla-Koepfe, Schallplatten, Loot), Verzauberungen woher; dasselbe in JEI
+- [ ] C: Truhen-Stufen ab Kupfertruhe (verstaerkt/Netherit/Enderit, einzeln + doppelt, mehr Slots, Netherit 2x / Enderit 4x Stapel)
+- [ ] D: alle Configs durchgehen, mehr Optionen, Config-Menue mit guter UX
+- [ ] E: Performance aller Entities/Block-Entities, Kompatibilitaet mit Optimierungs-Mods
+- [ ] F: Erfolge wie grosse Modpacks, FTB-Quests-Kapitel in Stufen (optional, falls installiert)
+- [ ] G: Liste "was fehlt noch" zur Ja/Nein-Entscheidung des Besitzers
+- [ ] Danach: Server-Gate, Push, Client-Gate (wenn Besitzer-Clients zu)
+
 ## Wartet auf den Besitzer
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
 
