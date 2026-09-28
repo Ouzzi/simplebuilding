@@ -56,7 +56,7 @@ import net.minecraft.world.phys.Vec3;
  * {@code canAutoPickup} directly, and
  * {@link BundleWiringTests#funnelBundleSweepsUpDropsOnTouchUnlessThePlayerSneaks} drives the
  * mixin with a Funnel II bundle that accepts everything. What none of them touches is the
- * <em>combinations</em>: two enchantments on one container, a filter and a kind limit reached
+ * <em>combinations</em>: two enchantments on one container, a filter and a kind lock reached
  * through the pickup path instead of through a click, and the chests the books come out of.
  *
  * <h2>Which player</h2>
@@ -90,8 +90,8 @@ import net.minecraft.world.phys.Vec3;
  *   <li><b>The single-enchantment capacity numbers</b> (tier factors, Deep Pockets 2x/4x, the
  *       Drawer slope) - {@link ReinforcedBundleTests#capacityFollowsTierAndEnchantmentsAndMatchesTheWikiExport}
  *       and {@link QuiverTests#capacityDropsTheBundleBonusAndFollowsTierAndEnchantments}.</li>
- *   <li><b>The Drawer kind limit reached through a click or a direct insert</b> -
- *       {@link ReinforcedBundleTests#drawerCapsTheBundleAtFiveKinds}. Only the way through the
+ *   <li><b>The Drawer kind lock reached through a click or a direct insert</b> -
+ *       {@link ReinforcedBundleTests#drawerHoldsOnlyTheKindAlreadyInside}. Only the way through the
  *       floor is here.</li>
  *   <li><b>{@code worldGen.enableLootTableChanges}</b>, which switches every pool below off -
  *       {@link ConfigOptionTests#lootTableChangesStopWhenTheOptionIsSwitchedOff}. The two loot
@@ -128,16 +128,11 @@ public final class StorageEnchantmentTests {
     /** Highest Funnel level the enchantment data allows; guarded against the registry. */
     private static final int FUNNEL_MAX_LEVEL = 2;
 
-    /** Kinds a Drawer container may hold at once - {@code DRAWER_MAX_TYPES} in the item. */
-    private static final int DRAWER_KINDS = 5;
+    /** The one kind a Drawer container is stocked with, which locks it to that kind. */
+    private static final Item LOCKED_KIND = Items.STONE;
 
-    /** Five kinds that fill a Drawer container up to its limit. All stack to 64. */
-    private static final Item[] FIVE_KINDS = {
-            Items.STONE, Items.DIRT, Items.OAK_PLANKS, Items.COBBLESTONE, Items.SAND,
-    };
-
-    /** The kind that arrives once the five above are inside - a sixth one the Drawer must refuse. */
-    private static final Item SIXTH_KIND = Items.GRAVEL;
+    /** A second kind that arrives afterwards - the Drawer must refuse it. */
+    private static final Item OTHER_KIND = Items.GRAVEL;
 
     /** How much of each kind is stocked - small, so the refusal below can never be about capacity. */
     private static final int KIND_STOCK = 8;
@@ -327,12 +322,12 @@ public final class StorageEnchantmentTests {
     }
 
     /**
-     * The Drawer limit of five kinds has to hold when the sixth kind arrives from the floor, not
-     * only when it is clicked in. Funnel and Drawer are compatible - nothing stops a player from
+     * The Drawer lock to the one kind inside has to hold when another kind arrives from the floor,
+     * not only when it is clicked in. Funnel and Drawer are compatible - nothing stops a player from
      * putting both on one bundle - and a bundle that hoovers everything is exactly the bundle that
-     * meets a sixth kind.
+     * meets another kind.
      *
-     * <p>{@link ReinforcedBundleTests#drawerCapsTheBundleAtFiveKinds} drives the same limit
+     * <p>{@link ReinforcedBundleTests#drawerHoldsOnlyTheKindAlreadyInside} drives the same limit
      * through {@code tryInsertStackFromWorld} directly. What is added here is the route: the
      * pickup path decides with {@code canAutoPickup} first, which knows nothing about kinds and
      * answers "yes" for everything at Funnel II, and only the insert underneath it refuses. A
@@ -341,16 +336,16 @@ public final class StorageEnchantmentTests {
      * <p>Two controls carry the case:
      * <ul>
      *   <li>the same drop, offered to an identical bundle <em>without</em> Drawer, has to be
-     *       taken - so the refusal is the kind limit and not the container being full;</li>
+     *       taken - so the refusal is the kind lock and not the container being full;</li>
      *   <li>more of a kind the bundle already holds is still swept up afterwards - so the limit
-     *       counts kinds and does not simply close the bundle once it holds five.</li>
+     *       compares kinds and does not simply close the bundle.</li>
      * </ul>
      *
-     * <p>What breaks it: dropping the {@code uniqueTypesCount >= DRAWER_MAX_TYPES} check, moving
+     * <p>What breaks it: dropping the {@code drawerAccepts} check, moving
      * it behind the capacity check so a full bundle answers first, letting it block kinds the
      * bundle already holds, or the mixin treating a refused insert as a successful pickup.
      */
-    public static void drawerKindCapHoldsAgainstTheFunnelToo(GameTestHelper helper) {
+    public static void drawerKindLockHoldsAgainstTheFunnelToo(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
 
         // Setup guard: the pairing under test has to be one an anvil would allow. Drawer is
@@ -365,39 +360,37 @@ public final class StorageEnchantmentTests {
         drawer.enchant(enchantment(helper, ModEnchantments.DRAWER), 1);
         ItemStack control = enchanted(helper, ModItems.REINFORCED_BUNDLE, ModEnchantments.FUNNEL, 2);
 
-        for (Item kind : FIVE_KINDS) {
-            insertExactly(helper, player, drawer, kind, KIND_STOCK);
-            insertExactly(helper, player, control, kind, KIND_STOCK);
-        }
-        Assertions.valueEqual(helper, kindsIn(drawer), DRAWER_KINDS,
-                "kinds inside the Drawer bundle after the setup filled it");
+        insertExactly(helper, player, drawer, LOCKED_KIND, KIND_STOCK);
+        insertExactly(helper, player, control, LOCKED_KIND, KIND_STOCK);
+        Assertions.valueEqual(helper, kindsIn(drawer), 1,
+                "kinds inside the Drawer bundle after the setup stocked it");
 
-        // --- the sixth kind is turned away, and the mixin leaves it to vanilla ---
+        // --- another kind is turned away, and the mixin leaves it to vanilla ---
         armHand(player, drawer);
-        ItemEntity sixth = drop(helper, new ItemStack(SIXTH_KIND, KIND_STOCK), new Vec3(2.5, 2.0, 2.5));
+        ItemEntity sixth = drop(helper, new ItemStack(OTHER_KIND, KIND_STOCK), new Vec3(2.5, 2.0, 2.5));
         sixth.playerTouch(player);
 
-        Assertions.valueEqual(helper, countIn(drawer, SIXTH_KIND), 0,
-                "a Drawer bundle that already holds " + DRAWER_KINDS + " kinds swept up a sixth one");
-        Assertions.valueEqual(helper, looseCount(player, SIXTH_KIND), KIND_STOCK,
+        Assertions.valueEqual(helper, countIn(drawer, OTHER_KIND), 0,
+                "a Drawer bundle that holds " + LOCKED_KIND + " swept up " + OTHER_KIND);
+        Assertions.valueEqual(helper, looseCount(player, OTHER_KIND), KIND_STOCK,
                 "the refused drop is in neither the bundle nor the inventory; the mixin reported the "
                         + "failed insert as a successful pickup and the items are gone");
 
-        // --- but a kind it already holds still goes in, so the limit counts kinds ---
-        ItemEntity known = drop(helper, new ItemStack(FIVE_KINDS[0], KIND_STOCK), new Vec3(3.5, 2.0, 2.5));
+        // --- but the kind it holds still goes in, so the lock compares kinds ---
+        ItemEntity known = drop(helper, new ItemStack(LOCKED_KIND, KIND_STOCK), new Vec3(3.5, 2.0, 2.5));
         known.playerTouch(player);
 
-        Assertions.valueEqual(helper, countIn(drawer, FIVE_KINDS[0]), KIND_STOCK * 2,
-                "a Drawer bundle at its kind limit refused more of a kind it already holds");
+        Assertions.valueEqual(helper, countIn(drawer, LOCKED_KIND), KIND_STOCK * 2,
+                "a Drawer bundle refused more of the kind it holds");
 
         // --- control: without Drawer the very same drop is taken ---
         armHand(player, control);
-        ItemEntity forControl = drop(helper, new ItemStack(SIXTH_KIND, KIND_STOCK), new Vec3(4.5, 2.0, 2.5));
+        ItemEntity forControl = drop(helper, new ItemStack(OTHER_KIND, KIND_STOCK), new Vec3(4.5, 2.0, 2.5));
         forControl.playerTouch(player);
 
-        Assertions.valueEqual(helper, countIn(control, SIXTH_KIND), KIND_STOCK,
-                "control: a bundle with the same contents but without Drawer refused the sixth kind too, "
-                        + "so the refusal above was about room and not about the kind limit");
+        Assertions.valueEqual(helper, countIn(control, OTHER_KIND), KIND_STOCK,
+                "control: a bundle with the same contents but without Drawer refused the other kind too, "
+                        + "so the refusal above was about room and not about the kind lock");
 
         TestCleanup.succeed(helper);
     }

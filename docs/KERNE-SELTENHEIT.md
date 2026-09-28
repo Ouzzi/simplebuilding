@@ -1,9 +1,10 @@
 # Baukerne: wie selten sind sie? (Stand 2026-09-28)
 
-Analyse fuer den Besitzer. **Keine Chance wurde geaendert** - die Vorschlaege am Ende sind nur
-Vorschlaege. Herstellung ueber den Netherstern (Wither) ist wie gewuenscht ausgeklammert.
+Analyse fuer den Besitzer. **Umgesetzt am 2026-09-28 ("Zeitalter B"), siehe Abschnitt 5.3** - die
+Abschnitte 1 bis 5.2 beschreiben den Stand *vor* dieser Umsetzung und bleiben als Herleitung stehen.
+Herstellung ueber den Netherstern (Wither) ist wie gewuenscht ausgeklammert.
 
-## 1. Quellen im Code
+## 1. Quellen im Code (vor dem 2026-09-28)
 
 Truhen und Tresore (`common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java`,
 Konstanten `*_CORE_CHANCE`; jeder Kern hat einen eigenen Pool mit genau einem Wurf `binomial(1, p)`,
@@ -107,6 +108,8 @@ Modellrechnung: `python` mit den Werten aus Abschnitt 2 (Skript im Scratchpad de
 
 ## 5. Median je Kernanzahl, Zeitalter und Vorschlag (2026-09-28, Besitzer-Anfrage)
 
+### 5.1 Stand vorher
+
 Median in Stunden **gezielter** Suche bis zum k-ten Kern (Gamma-Verteilung: k Treffer eines
 Poisson-Prozesses mit Rate λ aus Abschnitt 2; normales Spiel x4-5). Rezeptzahlen neu gezaehlt nach
 Welle 22 (ohne Oster-Rezepte und ohne die Rezepte, die den Kern selbst herstellen): Kupfer 3
@@ -124,6 +127,8 @@ Netherit 1, Enderit 3. Kupfer: nur Haendler (fahrender Haendler ~0,5/h; Steinmet
 
 Zeitalter-Zeiten sind Richtwerte fuer einen durchschnittlichen Spieler (Gesamtspielzeit), keine Messung.
 
+### 5.2 Vorschlag "etwas spaeter, Enderit 35 h" (nicht gewaehlt)
+
 Vorschlag "etwas spaeter, Enderit 35 h" (erster Kern Median 14/20/25/30/35 h):
 
 | Kern | Chance heute -> neu | 1 | 2 | 3 | 4 | 5 | 6 | alle Rezepte |
@@ -134,4 +139,63 @@ Vorschlag "etwas spaeter, Enderit 35 h" (erster Kern Median 14/20/25/30/35 h):
 | Netherit | 4 % -> 3,45 % | 30,0 | 72,6 | 115,7 | 158,9 | 202,2 | 245,4 | 30,0 |
 | Enderit | 0,25 % -> 0,13 % (30-40 h: 0,15-0,11 %) | 35,0 | 84,7 | 135,0 | 185,4 | 235,9 | 286,3 | 135,0 |
 
-Noch nichts geaendert - Entscheidung beim Besitzer. Skript: scratchpad `cores_tab.py` (2026-09-28).
+Stand vor der Entscheidung. Skript: scratchpad `cores_tab.py` (2026-09-28).
+
+### 5.3 Entscheidung und Umsetzung (Besitzer 2026-09-28, "Zeitalter B")
+
+Ziel: die **mittlere** Zeit gezielter Suche bis zum ersten Kern (Modell aus Abschnitt 2, `1/λ`)
+liegt kurz vor dem Zeitalter B des Kerns, bei rund 85 % davon: Eisen 8 h (Diamantzeit), Gold 15 h
+(Braustand), Diamant 25 h (Netherit), Netherit 30 h (Drache besiegt), Enderit 45 h (Wither,
+Beacon, Grossbauten). Die Chancen stehen weiter in den Konstanten `*_CORE_CHANCE` von
+`ModLootTableModifications` (Faktor `worldGen.buildingCoreLootChanceMultiplier` unveraendert).
+
+| Kern | Beutetabelle | Chance vorher -> jetzt |
+|---|---|---|
+| Eisenkern | `chests/woodland_mansion` | 0,8 % -> **1,5 %** |
+| Eisenkern | `chests/abandoned_mineshaft` (**neu**, zweite Quelle) | - -> **0,5 %** je Kistenlore |
+| Goldkern | `chests/bastion_other` und `chests/bastion_treasure` | 0,6 % -> **1,25 %** |
+| Goldkern | `chests/nether_bridge` | 0,8 % -> **1,65 %** (gleicher Faktor) |
+| Diamantkern | `chests/trial_chambers/reward_ominous` und `reward_rare` | 0,8 % -> **1,05 %** |
+| Netheritkern | `chests/bastion_treasure` | 4 % -> **6 %** |
+| Enderit-Kern | `chests/end_city_treasure` | 0,25 % -> **0,175 %** |
+
+**Zweite Eisenkern-Quelle: verlassene Mine.** Gewaehlt statt Plaenderer-Aussenposten oder
+Grabungskisten: ein Aussenposten hat genau eine Kiste (0,5 % je Aussenposten waere praktisch nichts),
+Grabungskisten sind muehsam und vom Pinsel abhaengig. Minen liegen frueh erreichbar im Untergrund,
+haben viele Kistenloren (Annahme gezielt: ~6 je Stunde) und passen thematisch - Eisen kommt aus dem
+Bergwerk. Dafuer ist die Anwesen-Chance etwas niedriger als die 1,84 %, die das Anwesen allein
+braeuchte; zusammen ergibt sich das Ziel.
+
+Ergebnis (gezielte Suche; Median bis zum k-ten Kern, Gamma-Verteilung; normales Spiel x4-5):
+
+| Kern | Quelle(n) im Modell | Kerne/h | erster Kern: Mittel (Median / 90 %) | 1 | 2 | 3 | 4 | 5 | 6 | Rezepte | alle Rezepte (Median) | Ziel Mittel |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| Eisen | Anwesen 8/h x 1,5 % + Mine 6/h x 0,5 % | 0,150 | **6,7 h** (4,6 / 15,4) | 4,6 | 11,2 | 17,8 | 24,5 | 31,1 | 37,8 | 6 | 37,8 | 6,8 h |
+| Gold | Bastion 6,375/h x 1,25 % (Festung allein: 15,2 h) | 0,080 | **12,5 h** (8,7 / 28,9) | 8,7 | 21,1 | 33,6 | 46,1 | 58,6 | 71,2 | 3 | 33,6 | 12,8 h |
+| Diamant | Tresore 4,53/h x 1,05 % | 0,048 | **21,0 h** (14,6 / 48,4) | 14,6 | 35,3 | 56,2 | 77,2 | 98,2 | 119,2 | 3 | 56,2 | 21,2 h |
+| Netherit | Schatz-Bastion 0,67/h x 6 % | 0,040 | **24,9 h** (17,2 / 57,3) | 17,2 | 41,7 | 66,5 | 91,3 | 116,2 | 141,0 | 1 | 17,2 | 25,5 h |
+| Enderit | Endsiedlung 15/h x 0,175 % | 0,026 | **38,1 h** (26,4 / 87,7) | 26,4 | 63,9 | 101,9 | 139,9 | 177,9 | 216,0 | 3 | 101,9 | 38,2 h |
+
+Kupfer: keine Truhe (Einstiegskern, nur Haendler, siehe unten).
+
+**Haendler (seit 2026-09-28).** Der Steinmetz verkauft **keine Kerne** mehr (Kupfer- und
+Diamantkern-Tausch der Stufe 2 entfernt, Stufe 4 behaelt den Kupfer-Baustab). Einzige Handelsquelle
+ist der fahrende Haendler, alle vier Kerne im *seltenen* Pool (26.2: 15 Vanilla- + 7 Mod-Eintraege,
+2 Zuege; 26.3: 16 + 7). Eisen, Gold und Diamant tragen zusaetzlich eine Angebots-Chance
+(`merchant_predicate` `minecraft:random_chance`, 1.21.11: `TradeDefinition#withChance`): faellt der
+Wurf aus, verschwindet das gezogene Angebot. So ist ein Kern ein Glueckstreffer, keine Farm.
+
+| Kern | Preis | Nutzungen | Angebots-Chance | im Angebot je Haendlerbesuch (26.2 / 26.3 / 1.21.11) |
+|---|---|---|---|---|
+| Kupferkern | 24 Smaragde | 2 | 100 % | ~10,1 % / 9,5 % / 9,1 % |
+| Eisenkern | 32 Smaragde | 1 | 50 % | ~4,9 % / 4,7 % / 4,6 % |
+| Goldkern | 48 Smaragde | 1 | 25 % | ~2,4 % / 2,3 % / 2,3 % |
+| Diamantkern | 64 Smaragde | 1 | 10 % | ~1,0 % / 0,9 % / 0,9 % |
+| irgendein Kern | | | | ~18 % / 17 % / 16 % |
+
+(Simulation mit 400000 Haendlern; 26.x zieht nach einem ausgefallenen Angebot neu, 1.21.11 zeigt
+dann ein Angebot weniger.) Bei einem Haendler je Spielstunde: Kupferkern im Mittel alle ~10 h,
+Diamantkern alle ~100 h. Tests: `TradeAndMigrationTests#coresAreSoldOnlyByTheWanderingTraderAndGetRarerByTier`,
+Truhen `ConfigOptionTests#buildingCoresAreVeryRareInLootChests`.
+Skript: scratchpad `p1/cores_model.py` (2026-09-28).
+

@@ -34,4 +34,14 @@ public final class GuideBookGameTest {
     public void everyGuideChapterIconAndRecipeResolves(GameTestHelper helper) {
         GuideBookTests.everyGuideChapterIconAndRecipeResolves(helper);
     }
+
+    @GameTest
+    public void theGuidesExplainEveryEnchantmentAndTheWaveItems(GameTestHelper helper) {
+        GuideBookTests.theGuidesExplainEveryEnchantmentAndTheWaveItems(helper);
+    }
+
+    @GameTest
+    public void theAdminGuideNamesOnlyCommandsAndOptionsThatExist(GameTestHelper helper) {
+        GuideBookTests.theAdminGuideNamesOnlyCommandsAndOptionsThatExist(helper);
+    }
 }

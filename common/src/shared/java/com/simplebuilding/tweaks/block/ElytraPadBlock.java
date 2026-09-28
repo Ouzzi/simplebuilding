@@ -35,6 +35,11 @@ public class ElytraPadBlock extends WaterloggedPadBlock {
         return tier;
     }
 
+    @Override
+    protected boolean isRedstoneControlled() {
+        return true;
+    }
+
     // No @Override: MC 26.3 removed block codecs; this only overrides on 26.2.
     protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;

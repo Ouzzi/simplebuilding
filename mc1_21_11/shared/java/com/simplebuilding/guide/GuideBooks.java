@@ -34,9 +34,10 @@ import java.util.List;
  * aus {@link GuideContent}); diese Vanilla-Seiten zeigt nur noch das Lesepult (Tag
  * {@code minecraft:lectern_books}).
  *
- * <p>Aufbau jedes Buchs: Seite 1 ist ein anklickbares Inhaltsverzeichnis
- * ({@link ClickEvent.ChangePage}), danach je Kapitel eine Seite mit Titel, Text und einem
- * Ruecksprung zum Inhalt. Das Handbuch endet mit zwei Seiten, die alle Themenbuecher samt Rezept
+ * <p>Aufbau jedes Buchs: vorn ein anklickbares Inhaltsverzeichnis ({@link ClickEvent.ChangePage});
+ * passen nicht alle Kapitel auf Seite 1 (Titel, Einleitung, {@link #CONTENTS_FIRST_TOPIC} Links),
+ * laeuft es auf weiteren Seiten mit je {@link #CONTENTS_MORE} Links weiter ({@link #contentsPages}).
+ * Danach je Kapitel eine Seite mit Titel, Text und einem Ruecksprung zu Seite 1. Das Handbuch endet mit Seiten ({@link #topicPages}), die alle Themenbuecher samt Rezept
  * nennen (Buch oder Handbuch + {@link #keyItem}). Schluessel:
  * {@code book.simplebuilding.<buch>.title}, {@code .intro} (nur Themenbuecher),
  * {@code .<n>.title}, {@code .<n>.text}. Jeder Kapiteltext bekommt zwei Argumente: die Tasten
@@ -62,20 +63,41 @@ public final class GuideBooks {
     public static final String BACKPACK_KEYBIND = "key.simplebuilding.open_backpack";
     /** So viele Themenbuecher nennt die erste Themenseite des Handbuchs, der Rest steht auf der zweiten. */
     private static final int TOPICS_ON_FIRST_PAGE = 2;
+    /** So viele Themenbuecher nennt jede weitere Themenseite. */
+    private static final int TOPICS_PER_PAGE = 4;
+    /** Kapitel-Links auf Seite 1 eines Themenbuchs (unter Titel und Einleitung) bzw. des Handbuchs (ohne Einleitung). */
+    public static final int CONTENTS_FIRST_TOPIC = 6, CONTENTS_FIRST_GUIDE = 11;
+    /** Kapitel-Links auf jeder weiteren Inhaltsseite. */
+    public static final int CONTENTS_MORE = 11;
+
+    /**
+     * Befehle, die das Admin-Buch nennt (ohne Schraegstrich, nur die woertlichen Teile); jeder steht als
+     * {@code /befehl} im Text und {@code GuideBookTests} prueft ihn gegen den Befehlsbaum des Servers.
+     */
+    public static final List<String> ADMIN_COMMANDS = List.of("simplebuilding config list", "simplebuilding config get",
+            "simplebuilding config set", "simplebuilding config reset", "simplebuilding tweaks pads",
+            "simplebuilding tweaks worldspawn setspawn1", "killboats", "killcarts");
+    /** Config-Optionen, die das Admin-Buch nennt; jede steht im Text und ist ein Pfad aus {@code ConfigOptions}. */
+    public static final List<String> ADMIN_OPTIONS = List.of("tweaks.pads.enableFlypads", "tweaks.commands.killCommandRadius",
+            "tweaks.commands.enableKillCartsCommand", "giveGuideBookOnFirstJoin", "worldGen.enableLootTableChanges",
+            "worldGen.enableVillagerTrades", "worldGen.enableWanderingTrades", "trimBenefitBaseMultiplier",
+            "airJumpCooldownTicks", "breakerPistonsLoseDurability", "tools.buildingWandHungerCost");
 
     private GuideBooks() {
     }
 
-    /** Die acht Buecher; {@code chapters} = Kapitelseiten nach dem Inhaltsverzeichnis. */
+    /** Die neun Buecher; {@code chapters} = Kapitelseiten nach dem Inhaltsverzeichnis. */
     public enum Book {
         GUIDE("guide", 10),
-        TOOLS("tools", 6),
-        BUILDING("building", 6),
+        TOOLS("tools", 8),
+        BUILDING("building", 11),
         STORAGE("storage", 4),
         MACHINES("machines", 5),
-        END("end", 4),
-        TWEAKS("tweaks", 5),
-        TRIMS("trims", 5);
+        END("end", 6),
+        TWEAKS("tweaks", 12),
+        TRIMS("trims", 6),
+        /** Befehle und die wichtigsten Config-Schalter fuer Server-Betreiber (2026-09-28). */
+        ADMIN("admin", 8);
 
         private final String id;
         private final int chapters;
@@ -124,6 +146,7 @@ public final class GuideBooks {
             case END -> ModItems.GUIDE_BOOK_END;
             case TWEAKS -> ModItems.GUIDE_BOOK_TWEAKS;
             case TRIMS -> ModItems.GUIDE_BOOK_TRIMS;
+            case ADMIN -> ModItems.GUIDE_BOOK_ADMIN;
         };
     }
 
@@ -141,6 +164,7 @@ public final class GuideBooks {
             case END -> Items.ENDER_PEARL;
             case TWEAKS -> Items.STONE_PRESSURE_PLATE;
             case TRIMS -> Items.AMETHYST_SHARD;
+            case ADMIN -> Items.COMPARATOR;
         };
     }
 
@@ -155,6 +179,41 @@ public final class GuideBooks {
     /** Macht das Handbuch zu seinem eigenen Handwerksrest (nach der Registrierung aufzurufen). */
     public static void makeSelfRemainder(Item guide) {
         ((ItemCraftRemainderAccessor) guide).simplebuilding$setCraftingRemainingItem(guide);
+    }
+
+    /** Anklickbare Eintraege im Inhalt: die Kapitel, beim Handbuch zusaetzlich die Themenbuecher. */
+    public static int contentsLinks(Book book) {
+        return book.chapters() + (book == Book.GUIDE ? 1 : 0);
+    }
+
+    /** Wie viele Kapitel-Links Inhaltsseite {@code page} (ab 0) traegt. */
+    public static int contentsLinksOn(Book book, int page) {
+        int first = book.isTopic() ? CONTENTS_FIRST_TOPIC : CONTENTS_FIRST_GUIDE;
+        int links = contentsLinks(book);
+        if (page == 0) {
+            return Math.min(links, first);
+        }
+        return Math.max(0, Math.min(CONTENTS_MORE, links - first - (page - 1) * CONTENTS_MORE));
+    }
+
+    /** Seiten des Inhaltsverzeichnisses (mindestens eine). */
+    public static int contentsPages(Book book) {
+        int pages = 1;
+        while (contentsLinksOn(book, pages) > 0) {
+            pages++;
+        }
+        return pages;
+    }
+
+    /** Seiten des Handbuchs, die alle Themenbuecher samt Rezept nennen. */
+    public static int topicPages() {
+        int rest = Book.topics().size() - TOPICS_ON_FIRST_PAGE;
+        return 1 + Math.max(0, (rest + TOPICS_PER_PAGE - 1) / TOPICS_PER_PAGE);
+    }
+
+    /** Buchseite (ab 1) von Eintrag {@code n} (ab 1) des Inhalts. */
+    public static int chapterPage(Book book, int n) {
+        return contentsPages(book) + n;
     }
 
     public static WrittenBookContent content(Book book) {
@@ -176,16 +235,20 @@ public final class GuideBooks {
         if (book.isTopic()) {
             contents.append(Component.translatable(base + ".intro")).append("\n\n");
         }
-        int links = book.chapters() + (book == Book.GUIDE ? 1 : 0);
-        for (int i = 1; i <= links; i++) {
-            if (i > 1) {
-                contents.append("\n");
+        int entry = 1;
+        for (int page = 0; page < contentsPages(book); page++) {
+            if (page > 0) {
+                contents = Component.empty();
             }
-            String title = i <= book.chapters() ? base + "." + i + ".title" : TOPICS_KEY + ".title";
-            // Seite 1 ist dieser Inhalt, Kapitel i steht auf Seite i + 1.
-            contents.append(Component.translatable(title).withStyle(link(i + 1)));
+            for (int j = 0; j < contentsLinksOn(book, page); j++, entry++) {
+                if (j > 0) {
+                    contents.append("\n");
+                }
+                String title = entry <= book.chapters() ? base + "." + entry + ".title" : TOPICS_KEY + ".title";
+                contents.append(Component.translatable(title).withStyle(link(chapterPage(book, entry))));
+            }
+            pages.add(contents);
         }
-        pages.add(contents);
 
         for (int i = 1; i <= book.chapters(); i++) {
             pages.add(Component.empty()
@@ -203,11 +266,13 @@ public final class GuideBooks {
                     .append("\n\n")
                     .append(Component.translatable(TOPICS_KEY + ".text"))
                     .append("\n\n");
-            appendTopics(first, topics.subList(0, TOPICS_ON_FIRST_PAGE));
+            appendTopics(first, topics.subList(0, Math.min(TOPICS_ON_FIRST_PAGE, topics.size())));
             pages.add(first.append("\n").append(back()));
-            MutableComponent second = Component.empty();
-            appendTopics(second, topics.subList(TOPICS_ON_FIRST_PAGE, topics.size()));
-            pages.add(second.append("\n").append(back()));
+            for (int from = TOPICS_ON_FIRST_PAGE; from < topics.size(); from += TOPICS_PER_PAGE) {
+                MutableComponent more = Component.empty();
+                appendTopics(more, topics.subList(from, Math.min(topics.size(), from + TOPICS_PER_PAGE)));
+                pages.add(more.append("\n").append(back()));
+            }
         }
         return pages;
     }

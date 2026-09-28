@@ -94,7 +94,10 @@ public final class GuideContent {
                         "simplebuilding:iron_sledgehammer@upgrade_copper_sledgehammer_to_iron_sledgehammer"), List.of()),
                 ch("simplebuilding:magnet", List.of("simplebuilding:magnet", "simplebuilding:rotator"), List.of()),
                 ch("simplebuilding:ore_detector", List.of("simplebuilding:ore_detector"), List.of("simplebuilding:gold_core")),
-                ch("minecraft:iron_pickaxe", List.of(), List.of("minecraft:enchanted_book", "minecraft:iron_pickaxe")))));
+                ch("minecraft:iron_pickaxe", List.of(), List.of("minecraft:enchanted_book", "minecraft:iron_pickaxe")),
+                ch("minecraft:iron_boots", List.of(), List.of("minecraft:enchanted_book", "minecraft:iron_boots", "minecraft:elytra")),
+                ch("minecraft:enchanted_book", List.of(), List.of("minecraft:enchanted_book", "simplebuilding:diamond_chisel",
+                        "minecraft:diamond_pickaxe", "simplebuilding:diamond_sledgehammer", "simplebuilding:octant")))));
         STYLES.put(GuideBooks.Book.BUILDING, new BookStyle(0xD8664C, List.of(
                 ch("simplebuilding:iron_building_wand", List.of("simplebuilding:iron_building_wand"), List.of("simplebuilding:copper_building_wand",
                         "simplebuilding:iron_building_wand", "simplebuilding:gold_building_wand", "simplebuilding:diamond_building_wand",
@@ -103,7 +106,16 @@ public final class GuideContent {
                 ch("simplebuilding:octant", List.of("simplebuilding:octant"), List.of("minecraft:oak_stairs")),
                 ch("simplebuilding:blueprint", List.of("simplebuilding:blueprint"), List.of("simplebuilding:ender_quartz")),
                 ch("minecraft:cartography_table", List.of(), List.of("minecraft:cartography_table", "simplebuilding:octant", "simplebuilding:blueprint")),
-                ch("simplebuilding:copper_building_wand", List.of(), List.of("simplebuilding:copper_building_wand", "minecraft:cooked_beef")))));
+                ch("simplebuilding:copper_building_wand", List.of(), List.of("simplebuilding:copper_building_wand", "minecraft:cooked_beef")),
+                ch("simplebuilding:diamond_building_wand", List.of(), List.of("minecraft:enchanted_book", "simplebuilding:iron_building_wand")),
+                ch("minecraft:moss_carpet", List.of(), List.of("minecraft:enchanted_book", "simplebuilding:gold_building_wand")),
+                ch("simplebuilding:construction_light", List.of("simplebuilding:construction_light"), List.of()),
+                ch("simplebuilding:purpur_quartz_checker", List.of("simplebuilding:purpur_quartz_checker", "simplebuilding:lapis_quartz_checker"),
+                        List.of("simplebuilding:blackstone_quartz_checker", "simplebuilding:resin_quartz_checker",
+                                "simplebuilding:astralit_quartz_checker", "simplebuilding:nihilith_quartz_checker",
+                                "simplebuilding:ender_quartz_checker")),
+                ch("minecraft:shears", List.of(), List.of("minecraft:shears", "minecraft:white_wool", "minecraft:string",
+                        "minecraft:cauldron", "simplebuilding:octant_blue", "simplebuilding:backpack")))));
         STYLES.put(GuideBooks.Book.STORAGE, new BookStyle(0xC99A62, List.of(
                 ch("simplebuilding:reinforced_bundle", List.of("simplebuilding:reinforced_bundle"), List.of("simplebuilding:netherite_bundle",
                         "simplebuilding:enderite_bundle")),
@@ -132,7 +144,10 @@ public final class GuideContent {
                         "simplebuilding:enderite_leggings", "simplebuilding:enderite_boots")),
                 ch("simplebuilding:astralit_bricks", List.of("simplebuilding:astralit_bricks", "simplebuilding:nihilith_bricks",
                         "simplebuilding:ender_quartz_bricks"), List.of("simplebuilding:chiseled_astralit_bricks", "simplebuilding:nihilith_pillar",
-                        "simplebuilding:polished_ender_quartz")))));
+                        "simplebuilding:polished_ender_quartz")),
+                ch("simplebuilding:enderite_apple", List.of("simplebuilding:enderite_apple", "simplebuilding:enderite_carrot"),
+                        List.of("simplebuilding:enchanted_enderite_apple")),
+                ch("simplebuilding:enderite_spear", List.of("simplebuilding:enderite_spear"), List.of("minecraft:netherite_spear")))));
         STYLES.put(GuideBooks.Book.TWEAKS, new BookStyle(0x86C96E, List.of(
                 ch("simplebuilding:diamond_pressure_plate", List.of("simplebuilding:diamond_pressure_plate", "simplebuilding:copper_pressure_plate"),
                         List.of("simplebuilding:enderite_pressure_plate")),
@@ -140,7 +155,18 @@ public final class GuideContent {
                         "minecraft:wind_charge")),
                 ch("simplebuilding:flypad", List.of("simplebuilding:flypad", "simplebuilding:spawn_teleporter"), List.of()),
                 ch("simplebuilding:potion_pad", List.of("simplebuilding:potion_pad", "simplebuilding:chunk_loader"), List.of("minecraft:splash_potion")),
-                ch("simplebuilding:echo_sounder", List.of("simplebuilding:echo_sounder", "simplebuilding:amethyst_lens"), List.of("minecraft:lodestone")))));
+                ch("simplebuilding:echo_sounder", List.of("simplebuilding:echo_sounder"), List.of("minecraft:lodestone")),
+                ch("minecraft:echo_shard", List.of(), List.of("simplebuilding:echo_sounder", "minecraft:echo_shard", "minecraft:anvil",
+                        "minecraft:enchanted_book")),
+                ch("simplebuilding:amethyst_lens", List.of("simplebuilding:amethyst_lens"), List.of("minecraft:ice", "minecraft:campfire",
+                        "minecraft:wet_sponge", "minecraft:tnt")),
+                ch("minecraft:redstone", List.of(), List.of("simplebuilding:amethyst_lens", "minecraft:anvil", "minecraft:redstone")),
+                ch("simplebuilding:velocity_gauge", List.of("simplebuilding:velocity_gauge"), List.of("simplebuilding:copper_core")),
+                ch("simplebuilding:blaze_head", List.of(), List.of("simplebuilding:blaze_head", "minecraft:note_block", "simplebuilding:potion_pad")),
+                ch("simplebuilding:netherite_apple", List.of("simplebuilding:netherite_apple", "simplebuilding:netherite_carrot"),
+                        List.of("simplebuilding:enchanted_netherite_apple")),
+                ch("minecraft:honeycomb", List.of(), List.of("simplebuilding:copper_pressure_plate", "simplebuilding:waxed_copper_pressure_plate",
+                        "minecraft:honeycomb", "minecraft:iron_axe")))));
         STYLES.put(GuideBooks.Book.TRIMS, new BookStyle(0x5ECBC4, List.of(
                 ch("minecraft:smithing_table", List.of(), List.of("minecraft:coast_armor_trim_smithing_template", "simplebuilding:astralit_dust",
                         "simplebuilding:nihilith_shard", "simplebuilding:enderite_ingot")),
@@ -148,7 +174,18 @@ public final class GuideContent {
                 ch("simplebuilding:emitting_trim_template", List.of(), List.of("minecraft:item_frame", "simplebuilding:iron_sledgehammer",
                         "minecraft:glowstone_dust", "simplebuilding:emitting_trim_template")),
                 ch("simplebuilding:glowing_trim_template", List.of(), List.of("minecraft:glow_ink_sac", "simplebuilding:glowing_trim_template")),
-                ch("minecraft:diamond_chestplate", List.of(), List.of("minecraft:diamond_chestplate", "minecraft:netherite_chestplate")))));
+                ch("minecraft:diamond_chestplate", List.of(), List.of("minecraft:diamond_chestplate", "minecraft:netherite_chestplate")),
+                ch("minecraft:coast_armor_trim_smithing_template", List.of(), List.of("minecraft:coast_armor_trim_smithing_template",
+                        "simplebuilding:iron_sledgehammer", "minecraft:glow_ink_sac", "simplebuilding:blueprint")))));
+        STYLES.put(GuideBooks.Book.ADMIN, new BookStyle(0xA9B1BC, List.of(
+                ch("minecraft:command_block", List.of(), List.of()),
+                ch("minecraft:writable_book", List.of(), List.of()),
+                ch("minecraft:writable_book", List.of(), List.of()),
+                ch("simplebuilding:spawn_teleporter", List.of(), List.of("simplebuilding:flypad", "simplebuilding:chunk_loader")),
+                ch("minecraft:oak_boat", List.of(), List.of("minecraft:oak_boat", "minecraft:minecart")),
+                ch("minecraft:chest", List.of(), List.of("simplebuilding:guide_book")),
+                ch("minecraft:emerald", List.of(), List.of("minecraft:emerald")),
+                ch("minecraft:comparator", List.of(), List.of("simplebuilding:netherite_piston", "simplebuilding:iron_building_wand")))));
     }
 
     public static BookStyle style(GuideBooks.Book book) {

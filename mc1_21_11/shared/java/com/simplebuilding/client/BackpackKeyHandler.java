@@ -12,8 +12,9 @@ import net.minecraft.client.player.LocalPlayer;
  * Muster wie {@link ClientToggleKeys}.
  *
  * <ul>
- *   <li>Mit getragenem Rucksack fragt sie den Server nach dem Rucksack-Menue
- *       ({@link OpenBackpackPayload}); der Server prueft selbst noch einmal.</li>
+ *   <li>Mit einem Rucksack am Koerper - getragen oder (seit 2026-09-28) irgendwo im Inventar, der
+ *       getragene zuerst ({@link BackpackItem#carriedBackpackSlot}) - fragt sie den Server nach dem
+ *       Rucksack-Menue ({@link OpenBackpackPayload}); der Server prueft und waehlt selbst.</li>
  *   <li>Ohne Rucksack oeffnet sie das normale Inventar - mit genau dem Code, den Vanilla fuer die
  *       Inventartaste E benutzt (inklusive vom Server gesteuertem Inventar, etwa beim Reiten).</li>
  * </ul>
@@ -47,7 +48,7 @@ public final class BackpackKeyHandler {
             if (player == null || client.screen != null) {
                 continue;
             }
-            if (!BackpackItem.wornBackpack(player).isEmpty()) {
+            if (BackpackItem.carriedBackpackSlot(player) >= 0) {
                 ClientNetworking.send(new OpenBackpackPayload());
             } else if (client.gameMode != null && client.gameMode.isServerControlledInventory()) {
                 player.sendOpenInventory();

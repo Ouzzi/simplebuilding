@@ -27,7 +27,7 @@
 		{
 			id: "5FD6D4CD0B327C6E",
 			x: 2.0d,
-			y: -3.75d,
+			y: -5.25d,
 			optional: true,
 			dependencies: ["64ABD46EBD9692AA", "4E11526B4A90FF79"],
 			tasks: [
@@ -44,7 +44,7 @@
 		{
 			id: "225A9DCA5D753D47",
 			x: 2.0d,
-			y: -2.25d,
+			y: -3.75d,
 			dependencies: ["64ABD46EBD9692AA"],
 			tasks: [
 				{
@@ -87,9 +87,24 @@
 			]
 		},
 		{
+			id: "412E872E9C43A266",
+			x: 6.0d,
+			y: -0.75d,
+			optional: true,
+			dependencies: ["02D4353ADE7705C4"],
+			tasks: [
+				{
+					id: "79942B97AE120418",
+					type: "advancement",
+					advancement: "simplebuilding:octant/full_spectrum",
+					criterion: ""
+				}
+			]
+		},
+		{
 			id: "77DDBB44E0D5BD95",
 			x: 2.0d,
-			y: -0.75d,
+			y: -2.25d,
 			dependencies: ["64ABD46EBD9692AA"],
 			tasks: [
 				{
@@ -103,7 +118,7 @@
 		{
 			id: "1323A898FCF1A07F",
 			x: 2.0d,
-			y: 0.75d,
+			y: -0.75d,
 			dependencies: ["64ABD46EBD9692AA"],
 			tasks: [
 				{
@@ -117,7 +132,7 @@
 		{
 			id: "4E33E195CC3BD7A4",
 			x: 2.0d,
-			y: 2.25d,
+			y: 0.75d,
 			dependencies: ["64ABD46EBD9692AA", "65D88117838EB4F9"],
 			tasks: [
 				{
@@ -158,9 +173,39 @@
 			]
 		},
 		{
-			id: "3F5B3AEC2AD9D856",
+			id: "7CDEA51CA3255512",
+			x: 2.0d,
+			y: 2.25d,
+			optional: true,
+			dependencies: ["64ABD46EBD9692AA"],
+			tasks: [
+				{
+					id: "6154635921E80805",
+					type: "advancement",
+					advancement: "simplebuilding:chisel/sculptor",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "119E3969374C58D5",
 			x: 2.0d,
 			y: 3.75d,
+			optional: true,
+			dependencies: ["64ABD46EBD9692AA"],
+			tasks: [
+				{
+					id: "04B9164DC1E18D53",
+					type: "advancement",
+					advancement: "simplebuilding:wand/master_mason",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "3F5B3AEC2AD9D856",
+			x: 2.0d,
+			y: 5.25d,
 			optional: true,
 			dependencies: ["64ABD46EBD9692AA", "00CDA54453F00B28"],
 			tasks: [
@@ -233,7 +278,7 @@
 		{
 			id: "57E65915F6F64339",
 			x: 6.0d,
-			y: 0.0d,
+			y: 0.75d,
 			dependencies: ["3A042478F138601D", "54041D5DCDB2D5FF"],
 			tasks: [
 				{

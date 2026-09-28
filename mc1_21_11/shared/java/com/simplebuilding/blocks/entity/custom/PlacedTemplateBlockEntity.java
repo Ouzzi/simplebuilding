@@ -117,7 +117,12 @@ public class PlacedTemplateBlockEntity extends BlockEntity implements Nameable {
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, PlacedTemplateBlockEntity be) {
-        if (level instanceof ServerLevel server && (level.getGameTime() + pos.asLong()) % PlacedTemplates.HINT_INTERVAL == 0) {
+        if (!(level instanceof ServerLevel server)) {
+            return;
+        }
+        // Abgelegter Attractor: zieht lose Items an (eigener Takt, siehe PlacedAttractors).
+        com.simplebuilding.util.PlacedAttractors.tick(server, pos, be);
+        if ((level.getGameTime() + pos.asLong()) % PlacedTemplates.HINT_INTERVAL == 0) {
             PlacedTemplates.tryHint(server, pos, be);
         }
     }

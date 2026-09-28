@@ -5,5 +5,5 @@
   "result": {
     "id": "simplebuilding:glowing_trim_template"
   },
-  "template": "#minecraft:trim_templates"
+  "template": "simplebuilding:glowing_trim_template"
 }

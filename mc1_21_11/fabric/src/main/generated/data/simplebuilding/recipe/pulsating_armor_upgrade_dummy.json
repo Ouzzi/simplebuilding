@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:echo_shard",
+  "base": "#minecraft:trimmable_armor",
+  "result": {
+    "id": "simplebuilding:pulsating_trim_template"
+  },
+  "template": "simplebuilding:pulsating_trim_template"
+}

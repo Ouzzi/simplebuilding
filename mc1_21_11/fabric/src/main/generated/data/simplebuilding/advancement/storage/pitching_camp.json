@@ -1,0 +1,29 @@
+{
+  "parent": "simplebuilding:storage/pack_mule",
+  "criteria": {
+    "backpack_placed": {
+      "conditions": {
+        "feature": "backpack_placed"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.storage.pitching_camp.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:campfire"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.storage.pitching_camp.title"
+    }
+  },
+  "requirements": [
+    [
+      "backpack_placed"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

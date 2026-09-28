@@ -1,0 +1,35 @@
+{
+  "parent": "simplebuilding:hammer/bright_idea",
+  "criteria": {
+    "radiance_5": {
+      "conditions": {
+        "items": [
+          {
+            "predicates": {
+              "minecraft:custom_data": "{SimpleBuildingEmissionLevel:5}"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.hammer.full_radiance.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "minecraft:glowstone"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.hammer.full_radiance.title"
+    }
+  },
+  "requirements": [
+    [
+      "radiance_5"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

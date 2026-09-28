@@ -52,6 +52,11 @@ public final class TradeAndMigrationGameTest {
     }
 
     @GameTest
+    public void coresAreSoldOnlyByTheWanderingTraderAndGetRarerByTier(GameTestHelper helper) {
+        TradeAndMigrationTests.coresAreSoldOnlyByTheWanderingTraderAndGetRarerByTier(helper);
+    }
+
+    @GameTest
     public void legacySpatulasInPlayerInventoryBecomeChisels(GameTestHelper helper) {
         TradeAndMigrationTests.legacySpatulasInPlayerInventoryBecomeChisels(helper);
     }

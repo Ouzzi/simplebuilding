@@ -658,6 +658,7 @@ public class ModModelProvider extends FabricModelProvider {
 
         itemModelGenerator.generateFlatItem(ModItems.GLOWING_TRIM_TEMPLATE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.EMITTING_TRIM_TEMPLATE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.PULSATING_TRIM_TEMPLATE, ModelTemplates.FLAT_ITEM);
 
         itemModelGenerator.generateFlatItem(ModItems.BASIC_UPGRADE_TEMPLATE, ModelTemplates.FLAT_ITEM);
 

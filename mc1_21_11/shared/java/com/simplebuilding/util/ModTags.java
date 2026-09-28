@@ -32,6 +32,12 @@ public class ModTags {
          * Eigener Tag, weil an {@code extra_inventory_items} auch die Farbpalette haengt.
          */
         public static final TagKey<Item> MASTER_BUILDER_ENCHANTABLE = createTag("master_builder_enchantable");
+        /**
+         * Items, auf die keine Erfahrungs-Reparatur (Mending) darf, obwohl sie in
+         * {@code #minecraft:enchantable/durability} stehen und Unbreaking nehmen: der Rotator, dessen
+         * Haltbarkeit eine Ladung ist. Ausgewertet von {@code EnchantmentMixin}.
+         */
+        public static final TagKey<Item> XP_REPAIR_INCOMPATIBLE = createTag("xp_repair_incompatible");
         public static final TagKey<Item> OCTANTS_ENCHANTABLE = createTag("octants_enchantable");
         public static final TagKey<Item> SLEDGEHAMMER_ENCHANTABLE = createTag("sledgehammer_tools");
         /**
@@ -71,10 +77,12 @@ public class ModTags {
         /**
          * Enderit-Stufen, deren Registry-Pfad das Wort "enderite" nicht enthaelt: die drei Flypads
          * (alle aus der Enderit-Druckplatte), das Fine Elytra Pad V (ueber dem Enderit-Pad IV) und
-         * das Infused Potion Pad III (Enderit-Aufwertung).
+         * das Infused Potion Pad III (Enderit-Aufwertung) und das Echolot (Enderit-Kern + Enderit-Klumpen,
+         * Besitzer 2026-09-29).
          */
         public static final Set<String> ENDERITE_ITEMS_EXTRA_PATHS = Set.of(
-                "flypad", "reinforced_flypad", "stellar_flypad", "fine_elytra_pad", "infused_potion_pad");
+                "flypad", "reinforced_flypad", "stellar_flypad", "fine_elytra_pad", "infused_potion_pad",
+                "echo_sounder");
 
         /**
          * Die Regel fuer {@link #ENDERITE_ITEMS}: jedes {@code simplebuilding}-Item, dessen Pfad

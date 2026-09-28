@@ -162,6 +162,12 @@ public class QuiverItem extends ReinforcedBundleItem {
         return capacity;
     }
 
+    /**
+     * Der Pfeil, den ein Bogen oder (seit 2026-09-28) eine Armbrust aus einem Koecher bekommt, sonst
+     * EMPTY. Reihenfolge: Nebenhand, Brust-Slot, Schnellleiste, restliches Inventar (nur Koecher mit
+     * Konstrukteurs Hand), zuletzt ein Koecher <em>im</em> getragenen Rucksack - nur, wenn der
+     * Rucksack Meisterbauer traegt (Besitzer 2026-09-28).
+     */
     public static ItemStack findProjectileForBow(Player player) {
         // 1. Offhand
         ItemStack arrow = findArrowInQuiver(player.getOffhandItem());
@@ -187,7 +193,29 @@ public class QuiverItem extends ReinforcedBundleItem {
                 if (!arrow.isEmpty()) return arrow;
             }
         }
-        return ItemStack.EMPTY;
+
+        // 5. Koecher im getragenen Rucksack (nur mit Meisterbauer am Rucksack)
+        ItemStack backpack = BackpackItem.wornBackpackWith(player, ModEnchantments.MASTER_BUILDER);
+        int index = quiverInBackpack(backpack);
+        return index < 0 ? ItemStack.EMPTY : findArrowInQuiver(BackpackItem.entryStack(backpack, index));
+    }
+
+    /** Eintrag des ersten Koechers mit Pfeilen im Rucksack, sonst -1 (auch ohne Rucksack). */
+    private static int quiverInBackpack(ItemStack backpack) {
+        return backpack.isEmpty() ? -1 : BackpackItem.findEntry(backpack, s -> !findArrowInQuiver(s).isEmpty());
+    }
+
+    /**
+     * Die Armbrust (Besitzer 2026-09-28): wie der Bogen, nur dass ein Geschoss in der Hand (eine
+     * Feuerwerksrakete oder ein Pfeil in der Nebenhand) vorgeht - Vanillas eigene Reihenfolge fuer
+     * gehaltene Munition, sonst liesse sich keine Rakete mehr laden, solange der Koecher Pfeile hat.
+     */
+    public static ItemStack findProjectileForCrossbow(Player player, ItemStack crossbow) {
+        if (crossbow.getItem() instanceof net.minecraft.world.item.ProjectileWeaponItem weapon
+                && !net.minecraft.world.item.ProjectileWeaponItem.getHeldProjectile(player, weapon.getSupportedHeldProjectiles()).isEmpty()) {
+            return ItemStack.EMPTY;
+        }
+        return findProjectileForBow(player);
     }
 
     public static void consumeProjectileForBow(Player player) {
@@ -214,6 +242,44 @@ public class QuiverItem extends ReinforcedBundleItem {
                 return;
             }
         }
+
+        // 5. Koecher im getragenen Rucksack mit Meisterbauer: der Eintrag ist eine Kopie, also zurueckschreiben
+        ItemStack backpack = BackpackItem.wornBackpackWith(player, ModEnchantments.MASTER_BUILDER);
+        int index = quiverInBackpack(backpack);
+        if (index >= 0) {
+            ItemStack quiver = BackpackItem.entryStack(backpack, index);
+            if (tryConsumeArrow(quiver)) {
+                BackpackItem.replaceEntry(backpack, index, quiver);
+            }
+        }
+    }
+
+    /**
+     * Pfeil-Aufnahme (Besitzer 2026-09-28): ein aufgehobener Pfeil - liegender Pfeil-Gegenstand oder
+     * steckengebliebenes, aufsammelbares Geschoss - geht nur in einen Koecher mit Trichter (Stufe I nur
+     * Sorten, die schon drin liegen; Stufe II jede Pfeilsorte). Haende zuerst, dann das Inventar
+     * einschliesslich Brust-Slot. Verkleinert {@code arrows} um das Eingelegte.
+     *
+     * @return ob etwas eingelegt wurde
+     */
+    public static boolean tryFunnelArrows(Player player, ItemStack arrows) {
+        if (arrows.isEmpty() || !arrows.is(ItemTags.ARROWS)) {
+            return false;
+        }
+        boolean any = false;
+        for (InteractionHand hand : InteractionHand.values()) {
+            any |= funnelInto(player.getItemInHand(hand), arrows, player);
+        }
+        for (int i = 0; i < player.getInventory().getContainerSize() && !arrows.isEmpty(); i++) {
+            any |= funnelInto(player.getInventory().getItem(i), arrows, player);
+        }
+        return any;
+    }
+
+    private static boolean funnelInto(ItemStack stack, ItemStack arrows, Player player) {
+        return !arrows.isEmpty() && stack.getItem() instanceof QuiverItem quiver
+                && quiver.canAutoPickup(stack, arrows, player.level())
+                && quiver.tryInsertStackFromWorld(stack, arrows, player);
     }
 
     private static ItemStack findArrowInQuiver(ItemStack stack) {

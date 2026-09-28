@@ -5,8 +5,8 @@ Schubplatte, Kopf, Stange und Brecher-Verschleiss, Ofen, Raeucherofen, Schmelzof
 den Vanilla-Flaechen, siehe MACHINE_TIERS), die Netherit-Griffe von Vorschlaghammer, Meissel, Baustab
 und Spachtel, die Nihilith-/Astralit-Quarz-Schachbretter, die Enderit-Stufen der Tweak-Bloecke (Pads,
 Teleporter, Druckplatte, Chunk-Loader, Launchpad), Enderitblock, Enderquarz, Enderitbarren, -schrott,
--klumpen, Laserpointer, die beiden Aufwertungen, den Diamant-Kiesel, die sechs Baukerne und die
-Blaupause; dazu aus Code (nicht aus
+-klumpen, Laserpointer, die beiden Aufwertungen, den Diamant-Kiesel, die sechs Baukerne, die pulsierende
+Besatz-Vorlage und die Blaupause; dazu aus Code (nicht aus
 Pixelkarten) die drei End-Paletten Astralit, Nihilith und Enderquarz (Grundblock, Ziegel, polierter
 Block, Saeule, gemeisselte Ziegel), die Rueckentextur des getragenen Rucksacks (entity/backpack/*, aus
 den Blockflaechen), die Fenster des Rucksack-Bildschirms (gui/container/backpack/*) und die
@@ -1970,56 +1970,91 @@ DIAMOND_PEBBLE_PAL = {
     "C": "#2ce0d8", "S": "#20c5b5", "T": "#1aaaa7", "D": "#1c919a",
 }
 
-# Baukerne (copper_core ... enderite_core), neu 2026-09-28 ("wie ein Netherstern, mit dem Stufenmaterial
-# belegt"): die Silhouette des Vanilla-Nethersterns, dessen blasse Strahlen innen mit dem gelben Glimmen
-# zur Mitte hin; aussen gefasst vom Stufenmaterial - Kontur (oben/links heller R, unten/rechts dunkel O),
-# Metallspitzen an allen vier Zacken und ein Ring um den Edelstein in der Mitte (Amethyst, beim
-# Diamantkern tiefblau, beim Enderitkern Enderperlen-Tuerkis). Die Eckpixel diagonal verbundener
-# Konturpixel bleiben frei.
+# Baukerne (copper_core ... enderite_core), Runde 2 2026-09-28 (Entscheid des Besitzers: in der Mitte der
+# ECHTE Vanilla-Netherstern, kein Edelstein; aussen Ringe im Stufenmaterial, mehr Farbe): eine runde
+# Fassung (13 px, wie der Netherstern auf den Spalten/Zeilen 2..14) mit dunkler Kontur (oben/links heller
+# Randton R, unten/rechts O) und einem Materialring (2 < 3 < 4, Licht von oben links); innen eine dunkle
+# Fuge (O) und vier Nieten in den Winkeln zwischen den Zacken (V oben links = Glanz H, W oben rechts/unten
+# links = Ton 4, X unten rechts = Ton 3; beim Enderitkern Ender-Magenta). Der Stern ist der Vanilla-
+# Netherstern mit dessen Farben (NETHER_STAR_PAL), auf 11 x 11 verkleinert: je Zacke ist die Pixelreihe
+# 01312 weggefallen, Schultern, Glimmkreuz und Mitte (d2d200/e0e277) sind die des Originals. Die
+# Sternspitzen reichen in den Ring. Eckpixel diagonal verbundener Konturpixel bleiben frei.
+NETHER_STAR_PAL = {  # Farben aus assets/minecraft/textures/item/nether_star.png (26.2)
+    "k": "#649090", "l": "#88a4a4", "m": "#556b6b", "w": "#dae2e2", "n": "#b9c9c9", "p": "#cbd6d6",
+    "y": "#fdffa8", "c": "#d2d200", "e": "#e0e277",
+}
 BUILDING_CORE = [
     "................",
     "................",
-    "........R.......",
-    ".......RHO......",
-    "......RswbO.....",
-    "......ReybO.....",
-    "....RRbRH4bOO...",
-    "...RseRWLG3ebO..",
-    "..RHwy4LGg2ye3O.",
-    "...Rbe3Ggd2ebO..",
-    "....OOb32ObOO...",
-    "......ObybO.....",
-    "......ObebO.....",
-    ".......O3O......",
-    "........O.......",
+    "......RRRRR.....",
+    "....RR44k33RR...",
+    "...R44OklmO32O..",
+    "...R4VOkwmOW2O..",
+    "..R44OknynmO32O.",
+    "..R4kklpyplmm2O.",
+    "..RklwyycyynnmO.",
+    "..R3mmlpenlmm2O.",
+    "..R33OmnylmO22O.",
+    "...R3WOmpmOX2O..",
+    "...R32OmlmO22O..",
+    "....OO32m22OO...",
+    "......OOOOO.....",
     "................",
 ]
-# Netherstern-Schicht (Toene aus dem Vanilla-Netherstern): b/e/s/w blass, y Glimmen.
-BUILDING_CORE_STAR = {"b": "#88a4a4", "e": "#b9c9c9", "s": "#cbd6d6", "w": "#dae2e2", "y": "#fdffa8"}
-BUILDING_CORE_RAMPS = {  # O R 2 3 4 H
-    "copper": ("#5a2a1a", "#8a4129", "#c15a36", "#e77c56", "#fc9982", "#fbc3b6"),
-    "iron": ("#353535", "#5e5e5e", "#a8a8a8", "#c8c8c8", "#d8d8d8", "#ffffff"),
-    "gold": ("#752802", "#b26411", "#e9b115", "#fad64a", "#fdf55f", "#fffde0"),
-    "diamond": ("#042a25", "#095348", "#13b299", "#1be7c7", "#6ff0dc", "#d5fff6"),
-    "netherite": ("#1a1415", "#31292a", "#4d494d", "#5a575a", "#737173", "#8a878a"),
-    "enderite": ("#1c0a33", "#3e2173", "#6d45b8", "#7b51c9", "#a57de9", "#cfb2fb"),
+BUILDING_CORE_RAMPS = {  # O R 2 3 4 H (Kontur dunkel/hell, Ring dunkel -> hell, Glanz)
+    "copper": ("#4a2114", "#8a4129", "#a04a2c", "#c15a36", "#e77c56", "#fbc3b6"),
+    "iron": ("#353535", "#6b6b6b", "#7a7a7a", "#a0a0a0", "#c4c4c4", "#ffffff"),
+    "gold": ("#5e2002", "#b26411", "#c6820f", "#e9b115", "#fad64a", "#fffde0"),
+    "diamond": ("#0b3d3a", "#11727a", "#1aaaa7", "#2ce0d8", "#4aedd9", "#d5fff6"),
+    "netherite": ("#141011", "#3a3033", "#31292a", "#443c3e", "#5a575a", "#8a878a"),
+    # Enderit: fast schwarzes Violett (Barren-Toene), deutlich dunkler als der Diamantkern
+    "enderite": ("#16082a", "#472480", "#2e1757", "#3e2173", "#55309a", "#a57de9"),
 }
-_CORE_AMETHYST = {"d": "#3f2a6b", "g": "#54398a", "G": "#8d6acc", "L": "#b38ef3", "W": "#fecbe6"}
-BUILDING_CORE_GEMS = {
-    "copper": _CORE_AMETHYST, "iron": _CORE_AMETHYST, "gold": _CORE_AMETHYST, "netherite": _CORE_AMETHYST,
-    "diamond": {"d": "#132c66", "g": "#1b3f8f", "G": "#2f6fd6", "L": "#6fb1ff", "W": "#e0f4ff"},
-    "enderite": {"d": "#063a31", "g": "#0b4d42", "G": "#258474", "L": "#56c9b3", "W": "#c8fff2"},
-}
+# Nieten: standardmaessig Glanz/4/3 der Stufe; Enderit mit dem Magenta-Schein des Enderitbarrens.
+BUILDING_CORE_RIVETS = {"enderite": {"V": "#f4d2ff", "W": "#c77dff", "X": "#9b4fd6"}}
 
 
 def building_core_textures():
     tex = {}
     for tier, ramp in BUILDING_CORE_RAMPS.items():
         pal = dict(zip("OR234H", ramp))
-        pal.update(BUILDING_CORE_GEMS[tier])
-        pal.update(BUILDING_CORE_STAR)
+        pal.update({"V": pal["H"], "W": pal["4"], "X": pal["3"]})
+        pal.update(BUILDING_CORE_RIVETS.get(tier, {}))
+        pal.update(NETHER_STAR_PAL)
         tex[f"item/{tier}_core.png"] = render(f"{tier}_core", BUILDING_CORE, pal, False)
     return tex
+
+
+# Pulsierende Rüstungsbesatz-Vorlage (pulsating_trim_template, 2026-09-28): gleiche Silhouette und
+# Aufbau wie die Vanilla-Vorlagen und die beiden handgemalten Besatz-Vorlagen des Mods (glowing/emitting:
+# Rahmen in einem Material, Flaeche in einem zweiten, in der Mitte ein leuchtendes Motiv). Rahmen aus
+# Tiefenschiefer (A oben/links hell ... D/E dicke rechte Unterkante, F Kontur unten/rechts), Flaeche aus
+# Sculk (u/s/t, einzelne Adern 1). Verstecktes Motiv: die Waechter-Buste - Kopf (h/k, dunkler Mund u) mit
+# den beiden geschwungenen Hoernern (2 -> 3 -> 4 zur Spitze), Schultern (h/g) und das pulsierende
+# Seelenherz in der Brust (5 Kern, 4/3 Glut, 2 Schein). Wie die Vorlage leicht nach links geneigt.
+PULSATING_TRIM_TEMPLATE = [
+    "......AAB.......",
+    ".....ABBABC.....",
+    ".....BAtttsCE...",
+    "....BA4ts1s4sDE.",
+    "....B3skhhgs3DDF",
+    "...Bts2hhhg2sDDF",
+    "...BssshuugsDDEF",
+    "..BtsghhhhgsDEF.",
+    "..Bsghh2hhgDDEF.",
+    ".Bssgh254hgDEF..",
+    ".Btsghh3hgDEEF..",
+    ".CsgghhggsDEF...",
+    ".FC1gggssDEEF...",
+    "..FFCCCCCDEF....",
+    "....FFCCCEEF....",
+    "......FFFFF.....",
+]
+PULSATING_TRIM_TEMPLATE_PAL = {
+    "A": "#6b6d78", "B": "#50525c", "C": "#3c3e47", "D": "#2c2e35", "E": "#202228", "F": "#131519",
+    "u": "#081a20", "s": "#0c262e", "t": "#11343d", "g": "#123a43", "h": "#1d5561", "k": "#2a707c",
+    "1": "#0a3f48", "2": "#0f6a75", "3": "#1aa8b5", "4": "#29dfeb", "5": "#c8fdff",
+}
 
 
 def end_palette_textures():
@@ -2045,6 +2080,8 @@ def end_palette_textures():
                                                      BASIC_UPGRADE_TEMPLATE_PAL, False)
     tex["item/diamond_pebble.png"] = render("diamond_pebble", DIAMOND_PEBBLE, DIAMOND_PEBBLE_PAL, False)
     tex.update(building_core_textures())
+    tex["item/pulsating_trim_template.png"] = render("pulsating_trim_template", PULSATING_TRIM_TEMPLATE,
+                                                      PULSATING_TRIM_TEMPLATE_PAL, False)
     tex.update(enderite_gear_variant(ENDERITE_GEAR_ACTIVE))
     apply_enderite_handles(tex)
     tex.update(vanilla_book_textures())
@@ -3128,7 +3165,7 @@ def build_preview(tex):
     groups.append(("Enderquarz und Enderit", [(k, tex[k]) for k in (
         "item/ender_quartz.png", "item/enderite_ingot.png", "item/enderite_scrap.png",
         "item/enderite_nugget.png", "item/enderite_upgrade_template.png", "item/basic_upgrade_template.png",
-        "item/diamond_pebble.png")], []))
+        "item/diamond_pebble.png", "item/pulsating_trim_template.png")], []))
     groups.append(("Baukerne", [(f"item/{t}_core.png", tex[f"item/{t}_core.png"]) for t in BUILDING_CORE_RAMPS], []))
     width = max(pad + len(items) * (cell + pad) + sum(iso.width + pad for iso in isos) + pad
                 for _, items, isos in groups)

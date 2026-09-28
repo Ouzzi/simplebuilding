@@ -580,6 +580,10 @@
       "maxStackSize": 16
     },
     {
+      "id": "simplebuilding:guide_book_admin",
+      "maxStackSize": 16
+    },
+    {
       "id": "simplebuilding:guide_book_building",
       "maxStackSize": 16
     },
@@ -947,6 +951,9 @@
     {
       "id": "simplebuilding:potion_pad",
       "maxStackSize": 1
+    },
+    {
+      "id": "simplebuilding:pulsating_trim_template"
     },
     {
       "id": "simplebuilding:purpur_quartz_checker"

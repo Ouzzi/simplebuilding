@@ -71,6 +71,8 @@ public final class PadOverhaulTests {
     public static final int NO_TEXT_MAX_TICKS = 300;
     /** Budget fuer den Wartezeit-Test (Stufe I darf nach Stufe III' 5 s noch nicht springen). */
     public static final int WAIT_MAX_TICKS = 200;
+    /** Budget fuer den Trichter-Test (vier Windkugeln, eine je 8 Ticks, plus Luft). */
+    public static final int HOPPER_MAX_TICKS = 200;
 
     private PadOverhaulTests() {
     }
@@ -395,6 +397,114 @@ public final class PadOverhaulTests {
                 "target after clicking another lodestone");
         helper.succeed();
     }
+
+    // ---- owner decisions 2026-09-28 (begin)
+
+    /**
+     * Redstone switches pads off and a comparator reads them (owner, 2026-09-28): a powered launchpad
+     * keeps its charges although a player stands on it for longer than the countdown, the same pad
+     * unpowered launches; a powered flypad gives no flight and takes back the flight it gave. The
+     * launchpad's comparator signal is its fill level (empty 0, half 8, full 15), the flypad's the
+     * number of players it serves.
+     *
+     * <p>What breaks it: the redstone check going missing from a pad's tick, or a comparator signal
+     * that does not follow the charges or the players.
+     */
+    public static void redstoneSwitchesLaunchpadsAndFlypadsOffAndComparatorsReadThem(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        BlockPos pad = new BlockPos(1, 1, 1);
+        helper.setBlock(pad, TweaksBlocks.LAUNCHPAD);
+        BlockPos abs = helper.absolutePos(pad);
+        LaunchpadBlockEntity launchpad = helper.getBlockEntity(pad, LaunchpadBlockEntity.class);
+
+        helper.assertTrue(level.getBlockState(abs).hasAnalogOutputSignal(), "a launchpad has no comparator output");
+        helper.assertValueEqual(padSignal(helper, pad), 0, "comparator signal of an empty launchpad");
+        launchpad.addCharges(2, 4);
+        helper.assertValueEqual(padSignal(helper, pad), 8, "comparator signal of a launchpad I with 2 of 4 charges");
+        launchpad.addCharges(2, 4);
+        helper.assertValueEqual(padSignal(helper, pad), 15, "comparator signal of a full launchpad I");
+
+        // --- powered: a player stands on it for longer than the countdown, and nothing happens ---
+        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.1, 1.5));
+        helper.setBlock(pad.east(), Blocks.REDSTONE_BLOCK);
+        helper.assertTrue(com.simplebuilding.tweaks.block.PadBlock.isDisabledByRedstone(level, abs),
+                "a launchpad next to a redstone block does not count as switched off");
+        for (int tick = 0; tick <= LaunchpadBlockEntity.LAUNCH_TICKS + 5; tick++) {
+            LaunchpadBlockEntity.tick(level, abs, level.getBlockState(abs), launchpad);
+        }
+        helper.assertValueEqual(launchpad.getCharges(), 4, "charges of a powered launchpad after a full countdown with a player on it");
+
+        // --- unpowered: the same countdown launches ---
+        helper.setBlock(pad.east(), Blocks.AIR);
+        for (int tick = 0; tick <= LaunchpadBlockEntity.LAUNCH_TICKS + 5; tick++) {
+            LaunchpadBlockEntity.tick(level, abs, level.getBlockState(abs), launchpad);
+        }
+        helper.assertValueEqual(launchpad.getCharges(), 0, "charges of the unpowered launchpad after the countdown - it should have launched");
+        helper.assertValueEqual(padSignal(helper, pad), 0, "comparator signal of the launchpad after the launch");
+        player.setDeltaMovement(Vec3.ZERO);
+
+        // --- flypad: powered means no flight ---
+        BlockPos fly = new BlockPos(4, 1, 4);
+        helper.setBlock(fly, TweaksBlocks.FLYPAD);
+        BlockPos flyAbs = helper.absolutePos(fly);
+        com.simplebuilding.tweaks.block.entity.FlypadBlockEntity flypad =
+                helper.getBlockEntity(fly, com.simplebuilding.tweaks.block.entity.FlypadBlockEntity.class);
+        Vec3 onFlypad = helper.absoluteVec(new Vec3(4.5, 1.3, 4.5));
+        player.snapTo(onFlypad.x, onFlypad.y, onFlypad.z, 0.0F, 0.0F);
+        player.getAbilities().instabuild = false;
+        player.getAbilities().mayfly = false;
+        player.getAbilities().flying = false;
+        helper.setBlock(fly.east(), Blocks.REDSTONE_BLOCK);
+        com.simplebuilding.tweaks.block.entity.FlypadBlockEntity.update(level, flyAbs, level.getBlockState(flyAbs), flypad);
+        helper.assertFalse(player.getAbilities().mayfly, "a powered flypad gave flight");
+        helper.assertValueEqual(padSignal(helper, fly), 0, "comparator signal of a powered flypad");
+
+        helper.setBlock(fly.east(), Blocks.AIR);
+        com.simplebuilding.tweaks.block.entity.FlypadBlockEntity.update(level, flyAbs, level.getBlockState(flyAbs), flypad);
+        helper.assertTrue(player.getAbilities().mayfly, "the unpowered flypad gave no flight");
+        // At least one: the flypad's area is wide, a neighbouring test's player may stand in it too.
+        helper.assertTrue(padSignal(helper, fly) >= 1, "comparator signal of a flypad serving a player: " + padSignal(helper, fly));
+
+        helper.setBlock(fly.east(), Blocks.REDSTONE_BLOCK);
+        com.simplebuilding.tweaks.block.entity.FlypadBlockEntity.update(level, flyAbs, level.getBlockState(flyAbs), flypad);
+        helper.assertFalse(player.getAbilities().mayfly, "powering the flypad did not take back the flight it gave");
+
+        helper.succeed();
+    }
+
+    /**
+     * Hoppers fill the launchpad with wind charges and with nothing else (owner, 2026-09-28): a
+     * hopper holding dirt and six wind charges above a launchpad I loads four charges, keeps the two
+     * that no longer fit and never gives up the dirt.
+     *
+     * <p>What breaks it: the launchpad no longer being a container, a filter that lets anything in,
+     * or a pad that takes more than its capacity.
+     */
+    public static void hoppersFillOnlyWindChargesIntoTheLaunchpad(GameTestHelper helper) {
+        BlockPos pad = new BlockPos(1, 1, 1);
+        BlockPos hopperPos = pad.above();
+        helper.setBlock(pad, TweaksBlocks.LAUNCHPAD);
+        helper.setBlock(hopperPos, Blocks.HOPPER);
+        LaunchpadBlockEntity launchpad = helper.getBlockEntity(pad, LaunchpadBlockEntity.class);
+        net.minecraft.world.level.block.entity.HopperBlockEntity hopper =
+                helper.getBlockEntity(hopperPos, net.minecraft.world.level.block.entity.HopperBlockEntity.class);
+        hopper.setItem(0, new ItemStack(Items.DIRT));
+        hopper.setItem(1, new ItemStack(Items.WIND_CHARGE, 6));
+
+        helper.succeedWhen(() -> {
+            helper.assertValueEqual(launchpad.getCharges(), 4, "charges the hopper loaded into the launchpad I");
+            helper.assertValueEqual(hopper.getItem(1).getCount(), 2, "wind charges left in the hopper once the pad is full");
+            helper.assertTrue(hopper.getItem(0).is(Items.DIRT), "the hopper gave the dirt away");
+        });
+    }
+
+    /** The comparator signal of the pad at {@code pad}, as a comparator facing away from it would read it. */
+    private static int padSignal(GameTestHelper helper, BlockPos pad) {
+        BlockPos abs = helper.absolutePos(pad);
+        return helper.getLevel().getBlockState(abs).getAnalogOutputSignal(helper.getLevel(), abs, Direction.EAST);
+    }
+
+    // ---- owner decisions 2026-09-28 (end)
 
     // =====================================================================================
     // HELPERS

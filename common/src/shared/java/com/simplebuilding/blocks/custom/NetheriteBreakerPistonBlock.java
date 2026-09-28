@@ -316,6 +316,7 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
             if (!player.getAbilities().instabuild) {
                 stack.shrink(1);
             }
+            com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.PISTON_REPAIR);
         }
         return InteractionResult.SUCCESS;
     }

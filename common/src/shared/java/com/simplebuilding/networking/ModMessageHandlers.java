@@ -43,6 +43,7 @@ public final class ModMessageHandlers {
             int level = EnchantmentHelper.getItemEnchantmentLevel(doubleJump.get(), bootStack);
             // Nicht mehr blind vertrauen (Audit #30): nur in der Luft, einmal je Sturz bzw. je Abklingzeit.
             if (level > 0 && AirJumpGuard.tryUse(player, level)) {
+                com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.AIR_JUMP);
                 player.fallDistance = 0;
                 if (!player.isCreative()) {
                     bootStack.hurtAndBreak(1, player, EquipmentSlot.FEET);
@@ -328,15 +329,15 @@ public final class ModMessageHandlers {
     }
 
     /**
-     * Rucksack-Taste: oeffnet das Menue des getragenen Rucksacks. Ohne getragenen Rucksack, tot,
-     * als Zuschauer oder bei schon offenem Menue passiert nichts
-     * ({@link BackpackMenuProviders#canOpenWorn}).
+     * Rucksack-Taste: oeffnet das Menue des getragenen Rucksacks, sonst (Besitzer 2026-09-28) des
+     * ersten Rucksacks im Inventar. Ohne Rucksack, tot, als Zuschauer oder bei schon offenem Menue
+     * passiert nichts ({@link BackpackMenuProviders#canOpenCarried}) - der Server prueft selbst.
      */
     public static void handleOpenBackpack(OpenBackpackPayload payload, ServerPlayer player) {
-        if (!BackpackMenuProviders.canOpenWorn(player)) {
+        if (!BackpackMenuProviders.canOpenCarried(player)) {
             return;
         }
-        BackpackMenus.openWorn(player);
+        BackpackMenus.openCarried(player);
     }
 
     // =====================================================================================

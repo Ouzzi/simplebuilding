@@ -558,6 +558,19 @@ public class ModItems {
 
     ));
 
+    // Pulsating Armor Trim (Besitzer 2026-09-28): Warden-Motiv, an der Werkbank aus Echoscherbe und
+    // Vorschlaghammer (der Hammer bleibt, verliert Haltbarkeit); am Schmiedetisch mit einer Echoscherbe
+    // pulsiert der Besatz - ohne Glowing Farbe <-> Schwarz, mit Glowing leuchtend.
+    public static final Item PULSATING_TRIM_TEMPLATE = registerItem("pulsating_trim_template", settings -> new SmithingTemplateItem(
+            Component.translatable("item.simplebuilding.pulsating_trim_template.applies_to").withStyle(ChatFormatting.DARK_AQUA),
+            Component.translatable("item.simplebuilding.pulsating_trim_template.ingredients").withStyle(ChatFormatting.GRAY),
+            Component.translatable("item.simplebuilding.pulsating_trim_template.base_slot_description").withStyle(ChatFormatting.GRAY),
+            Component.translatable("item.simplebuilding.pulsating_trim_template.additions_slot_description").withStyle(ChatFormatting.GRAY),
+            java.util.List.of(Identifier.withDefaultNamespace("container/slot/helmet"), Identifier.withDefaultNamespace("container/slot/chestplate"), Identifier.withDefaultNamespace("container/slot/leggings"), Identifier.withDefaultNamespace("container/slot/boots")),
+            java.util.List.of(Identifier.withDefaultNamespace("container/slot/amethyst_shard")),
+            settings.stacksTo(64).rarity(RARE)
+    ));
+
 
 
 
@@ -777,6 +790,7 @@ public class ModItems {
     public static final Item GUIDE_BOOK_END = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.END);
     public static final Item GUIDE_BOOK_TWEAKS = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.TWEAKS);
     public static final Item GUIDE_BOOK_TRIMS = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.TRIMS);
+    public static final Item GUIDE_BOOK_ADMIN = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.ADMIN);
 
     static {
         // Handbuch + Schluesselitem ergibt ein Themenbuch, das Handbuch bleibt im Raster liegen: es ist

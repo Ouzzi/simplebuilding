@@ -1,8 +1,7 @@
 package com.simplebuilding.mixin;
 
-import com.simplebuilding.items.ModItems;
 import com.simplebuilding.recipe.CountBasedSmithingRecipe;
-import com.simplebuilding.util.GlowingTrimUtils;
+import com.simplebuilding.util.TrimUpgrades;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -10,9 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Optional;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
@@ -21,7 +18,6 @@ import net.minecraft.world.inventory.ItemCombinerMenuSlotDefinition;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.SmithingMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -79,58 +75,14 @@ public abstract class SmithingScreenHandlerMixin extends ItemCombinerMenu {
 
     @Inject(method = "createResult", at = @At("HEAD"), cancellable = true)
     private void simplebuilding$customSmithingLogic(CallbackInfo ci) {
-        // Zugriff auf die Eingabe-Slots
-        ItemStack templateStack = this.inputSlots.getItem(0);
-        ItemStack armorStack = this.inputSlots.getItem(1);
-        ItemStack materialStack = this.inputSlots.getItem(2);
-
-        // Prüfen, ob unsere spezifische Kombination vorliegt für glowing trim upgrade
-        if (templateStack.is(ModItems.GLOWING_TRIM_TEMPLATE) && materialStack.is(Items.GLOW_INK_SAC)) {
-            boolean isValidArmor = isValidArmor(armorStack);
-
-            if (isValidArmor) {
-                int currentLevel = GlowingTrimUtils.getGlowLevel(armorStack);
-                if (currentLevel < 2) {
-                    ItemStack outputStack = armorStack.copy();
-                    GlowingTrimUtils.setGlowLevel(outputStack, currentLevel + 1);
-                    outputStack.setCount(1);
-                    this.resultSlots.setItem(0, outputStack);
-                    ci.cancel();
-                    return;
-                } else {
-                    this.resultSlots.setItem(0, ItemStack.EMPTY);
-                    ci.cancel();
-                }
-            }
+        // Glowing (Leuchttinte), Emitting (Glowstonestaub) und Pulsating (Echoscherbe): die Regeln
+        // stehen in TrimUpgrades, damit JEI dasselbe Ergebnis zeigt. null = nicht unsere Kombination,
+        // dann rechnet Vanilla; EMPTY = unsere Kombination, aber die Obergrenze ist erreicht.
+        ItemStack result = TrimUpgrades.result(this.inputSlots.getItem(0), this.inputSlots.getItem(1), this.inputSlots.getItem(2));
+        if (result != null) {
+            this.resultSlots.setItem(0, result);
+            ci.cancel();
         }
-
-        // Prüfen, ob unsere spezifische Kombination vorliegt für emitting trim upgrade
-        if (templateStack.is(ModItems.EMITTING_TRIM_TEMPLATE) && materialStack.is(Items.GLOWSTONE_DUST)) {
-            boolean isValidArmor = isValidArmor(armorStack);
-
-            if (isValidArmor) {
-                int currentLevel = GlowingTrimUtils.getEmissionLevel(armorStack);
-                if (currentLevel < 5) {
-                    ItemStack outputStack = armorStack.copy();
-                    // Erhöht den Glow-Level im NBT des Output-Stacks
-                    GlowingTrimUtils.incrementEmissionLevel(outputStack);
-                    // Wir setzen 1 Item als Output (die Menge der Rüstung ist meist 1)
-                    outputStack.setCount(1);
-                    // Das Ergebnis in den Output-Slot setzen
-                    this.resultSlots.setItem(0, outputStack);
-                    ci.cancel();
-                } else {
-                    // Wenn Level 5 erreicht ist, kein Output (oder man erlaubt es, aber erhöht nicht mehr)
-                    this.resultSlots.setItem(0, ItemStack.EMPTY);
-                    ci.cancel();
-                }
-            }
-        }
-
-    }
-
-    private static boolean isValidArmor(ItemStack armorStack) {
-        return !armorStack.isEmpty() && (armorStack.is(ItemTags.TRIMMABLE_ARMOR) || armorStack.get(DataComponents.EQUIPPABLE) != null);
     }
 
 }

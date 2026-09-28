@@ -20,6 +20,13 @@ public class ModDataComponentTypes {
     // NEU: Lichtquelle (Fackel-Effekt)
     public static final DataComponentType<Boolean> LIGHT_SOURCE = register("light_source", builder -> builder.persistent(Codec.BOOL));
 
+    // Pulsierender Besatz (Besitzer 2026-09-28): der Besatz blendet im Takt nach Schwarz und zurueck,
+    // mit Glowing leuchtend. Gesetzt am Schmiedetisch (Pulsating Armor Trim + Echoscherbe), gelesen
+    // nur vom Client (EquipmentRendererMixin) - deshalb auch zum Client synchronisiert.
+    public static final DataComponentType<Boolean> PULSATING = register("pulsating", builder -> builder
+            .persistent(Codec.BOOL)
+            .networkSynchronized(net.minecraft.network.codec.ByteBufCodecs.BOOL));
+
     public static final DataComponentType<BlockPos> COORDINATES =
             register("coordinates", builder -> builder.persistent(BlockPos.CODEC));
 
