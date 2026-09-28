@@ -128,11 +128,11 @@ Verlauf im Detail: git log.
 - [x] Buendel schliesst wie Vanilla; Enderit-Meissel zusaetzliche Bloecke (laeuft)
 - [x] Texturen: Enderit-Vorlage (Innenteil dunkler, Glimmer), Kerne, Lederbogen, Diamant-Kiesel runder (laeuft)
 - [x] Rotator/Magnet/Erzdetektor ohne HUD-Overlay (im Rotator-Agenten)
-- [ ] Erfolge/Advancements mit Hinweisen fuer den naechsten Schritt (ganzer Baum) (laeuft)
-- [ ] Schmiedevorlagen platzierbar (flach, 3D, wasserfest), Leucht-Transformation am Boden in 3 Schlaegen, Hinweis-Partikel bei Glowstone/Leuchttinte (laeuft)
-- [ ] Anfaengerbuch beim Erstbeitritt + Themenbuecher an der Werkbank (laeuft)
+- [x] Erfolge/Advancements mit Hinweisen fuer den naechsten Schritt (ganzer Baum) (laeuft)
+- [x] Schmiedevorlagen platzierbar (flach, 3D, wasserfest), Leucht-Transformation am Boden in 3 Schlaegen, Hinweis-Partikel bei Glowstone/Leuchttinte (laeuft)
+- [x] Anfaengerbuch beim Erstbeitritt + Themenbuecher an der Werkbank (laeuft)
 - [ ] Trank-Pad ins Easter Egg aufnehmen (Endstufe doppelt so lange Wirkdauer)
-- [ ] 26.3-Absturz Hammer+Ofen: kein Code-Fehler, Build waehrend laufendem Client (Regel gemerkt)
+- [x] 26.3-Absturz Hammer+Ofen: kein Code-Fehler, Build waehrend laufendem Client (Regel gemerkt)
 
 ## Wartet auf den Besitzer
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
