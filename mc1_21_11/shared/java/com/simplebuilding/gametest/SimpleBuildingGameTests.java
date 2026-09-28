@@ -76,6 +76,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_every_recipeless_mod_item_has_jei_info", DataIntegrityTests::everyRecipelessModItemHasJeiInfo)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_basic_upgrade_template_text_names_only_real_tools_and_materials", DataIntegrityTests::basicUpgradeTemplateTextNamesOnlyRealToolsAndMaterials)
+                    .build(),
             GameTestSpec.named("data_integrity_game_test_every_mod_block_is_registered_and_has_its_block_item", DataIntegrityTests::everyModBlockIsRegisteredAndHasItsBlockItem)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_mod_recipes_only_reference_registered_items", DataIntegrityTests::modRecipesOnlyReferenceRegisteredItems)
@@ -182,6 +184,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("trade_and_migration_game_test_wandering_trader_can_roll_amod_trade", TradeAndMigrationTests::wanderingTraderCanRollAModTrade)
                     .maxTicks(TradeAndMigrationTests.WANDERING_TRADER_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("trade_and_migration_game_test_cores_are_sold_only_by_the_wandering_trader_and_get_rarer_by_tier", TradeAndMigrationTests::coresAreSoldOnlyByTheWanderingTraderAndGetRarerByTier)
                     .build(),
             GameTestSpec.named("trade_and_migration_game_test_legacy_spatulas_in_player_inventory_become_chisels", TradeAndMigrationTests::legacySpatulasInPlayerInventoryBecomeChisels)
                     .build(),
@@ -542,6 +546,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("rotator_game_test_anvil_recharges_with_sixteen_ender_pearls_for_no_levels", RotatorTests::anvilRechargesWithSixteenEnderPearlsForNoLevels)
                     .build(),
+            GameTestSpec.named("rotator_game_test_anvil_takes_unbreaking_but_refuses_mending", RotatorTests::anvilTakesUnbreakingButRefusesMending)
+                    .build(),
             GameTestSpec.named("rotator_game_test_a_turn_queues_the_ender_echo_shortly_after_the_ratchet", RotatorTests::aTurnQueuesTheEnderEchoShortlyAfterTheRatchet)
                     .build(),
             GameTestSpec.named("rotator_game_test_crafting_takes_an_iron_core_four_iron_and_an_ender_pearl_in_that_shape", RotatorTests::craftingTakesAnIronCoreFourIronAndAnEnderPearlInThatShape)
@@ -607,7 +613,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("reinforced_bundle_game_test_insertion_merges_equal_stacks_and_pushes_them_to_the_top", ReinforcedBundleTests::insertionMergesEqualStacksAndPushesThemToTheTop)
                     .build(),
-            GameTestSpec.named("reinforced_bundle_game_test_drawer_caps_the_bundle_at_five_kinds", ReinforcedBundleTests::drawerCapsTheBundleAtFiveKinds)
+            GameTestSpec.named("reinforced_bundle_game_test_drawer_holds_only_the_kind_already_inside", ReinforcedBundleTests::drawerHoldsOnlyTheKindAlreadyInside)
                     .build(),
             GameTestSpec.named("reinforced_bundle_game_test_the_selected_entry_is_the_one_that_comes_out", ReinforcedBundleTests::theSelectedEntryIsTheOneThatComesOut)
                     .build(),
@@ -919,7 +925,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("storage_enchantment_game_test_funnel_filter_decides_what_the_touch_sweeps_up", StorageEnchantmentTests::funnelFilterDecidesWhatTheTouchSweepsUp)
                     .build(),
-            GameTestSpec.named("storage_enchantment_game_test_drawer_kind_cap_holds_against_the_funnel_too", StorageEnchantmentTests::drawerKindCapHoldsAgainstTheFunnelToo)
+            GameTestSpec.named("storage_enchantment_game_test_drawer_kind_lock_holds_against_the_funnel_too", StorageEnchantmentTests::drawerKindLockHoldsAgainstTheFunnelToo)
                     .build(),
             GameTestSpec.named("storage_enchantment_game_test_funnel_quiver_sweeps_arrows_only_and_stops_at_its_brim", StorageEnchantmentTests::funnelQuiverSweepsArrowsOnlyAndStopsAtItsBrim)
                     .build(),

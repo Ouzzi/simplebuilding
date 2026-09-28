@@ -758,6 +758,64 @@ public final class RotatorTests {
     }
 
     /**
+     * Unbreaking yes, Mending no (owner 2026-09-28): the rotator's durability is a charge that ender
+     * pearls refill, so experience must not refill it. Both enchantments name
+     * {@code #minecraft:enchantable/durability}; {@code EnchantmentMixin} refuses every enchantment
+     * with a {@code repair_with_xp} effect on items in {@code simplebuilding:xp_repair_incompatible}.
+     *
+     * <p>Checked on both questions an enchantment answers ({@code canEnchant} for the anvil, loot
+     * and {@code /enchant}; {@code isSupportedItem} for the enchanting table and NeoForge's
+     * {@code supportsEnchantment}) and through a real anvil: a Mending book yields nothing, an
+     * Unbreaking book yields an Unbreaking rotator. A diamond pickaxe still takes Mending, so the
+     * refusal does not leak onto other tools.
+     *
+     * <p>What breaks this: the rotator leaving the tag, the mixin leaving the mixin config, the
+     * check keying on something other than the XP repair effect, or the rotator leaving
+     * {@code #minecraft:enchantable/durability} (Unbreaking then goes too).
+     */
+    public static void anvilTakesUnbreakingButRefusesMending(GameTestHelper helper) {
+        var enchantments = helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
+        net.minecraft.core.Holder<net.minecraft.world.item.enchantment.Enchantment> mending =
+                enchantments.getOrThrow(net.minecraft.world.item.enchantment.Enchantments.MENDING);
+        net.minecraft.core.Holder<net.minecraft.world.item.enchantment.Enchantment> unbreaking =
+                enchantments.getOrThrow(net.minecraft.world.item.enchantment.Enchantments.UNBREAKING);
+        ItemStack probe = new ItemStack(ModItems.ROTATOR);
+
+        helper.assertTrue(probe.is(com.simplebuilding.util.ModTags.Items.XP_REPAIR_INCOMPATIBLE),
+                "the rotator left simplebuilding:xp_repair_incompatible");
+        helper.assertFalse(mending.value().canEnchant(probe), "Mending.canEnchant accepts the rotator");
+        helper.assertFalse(mending.value().isSupportedItem(probe), "Mending.isSupportedItem accepts the rotator");
+        helper.assertTrue(unbreaking.value().canEnchant(probe), "Unbreaking.canEnchant refuses the rotator");
+        helper.assertTrue(unbreaking.value().isSupportedItem(probe), "Unbreaking.isSupportedItem refuses the rotator");
+        helper.assertTrue(mending.value().canEnchant(new ItemStack(Items.DIAMOND_PICKAXE)),
+                "Mending no longer fits a diamond pickaxe - the refusal leaked onto other tools");
+
+        ServerPlayer player = mockPlayer(helper, false);
+        player.experienceLevel = 100;
+
+        net.minecraft.world.inventory.AnvilMenu withMending = new net.minecraft.world.inventory.AnvilMenu(1, player.getInventory(),
+                net.minecraft.world.inventory.ContainerLevelAccess.NULL);
+        withMending.getSlot(net.minecraft.world.inventory.AnvilMenu.INPUT_SLOT).set(new ItemStack(ModItems.ROTATOR));
+        withMending.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).set(
+                net.minecraft.world.item.enchantment.EnchantmentHelper.createBook(
+                        new net.minecraft.world.item.enchantment.EnchantmentInstance(mending, 1)));
+        helper.assertTrue(withMending.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().isEmpty(),
+                "the anvil puts Mending on the rotator");
+
+        net.minecraft.world.inventory.AnvilMenu withUnbreaking = new net.minecraft.world.inventory.AnvilMenu(1, player.getInventory(),
+                net.minecraft.world.inventory.ContainerLevelAccess.NULL);
+        withUnbreaking.getSlot(net.minecraft.world.inventory.AnvilMenu.INPUT_SLOT).set(new ItemStack(ModItems.ROTATOR));
+        withUnbreaking.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).set(
+                net.minecraft.world.item.enchantment.EnchantmentHelper.createBook(
+                        new net.minecraft.world.item.enchantment.EnchantmentInstance(unbreaking, 3)));
+        ItemStack out = withUnbreaking.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem();
+        helper.assertTrue(out.is(ModItems.ROTATOR), "the anvil refuses Unbreaking on the rotator: " + out);
+        Assertions.valueEqual(helper, net.minecraft.world.item.enchantment.EnchantmentHelper.getItemEnchantmentLevel(unbreaking, out), 3,
+                "Unbreaking level on the anvil result");
+        TestCleanup.succeed(helper);
+    }
+
+    /**
      * Two sounds per turn: the metal ratchet at once, and {@link RotatorItem#ECHO_DELAY_TICKS} later a
      * quiet ender teleport at the turned block ("the second says something was teleported"). The
      * second one is queued per player and played from the rotator's inventory tick; it is not played

@@ -45,6 +45,10 @@ Alles am Code oder Bytecode nachgeprüft, alle vier In-Game-Suiten danach grün
    nachweislich keine Wirkung; `bridge` war in zwei Loot-Pools und im
    Wanderhändler-Buch, `cover` war nie erhältlich. Die Registrierung bleibt,
    damit alte Welten laden. Das Wanderhändler-Buch gibt jetzt nur noch Radius.
+   *Überholt (Stand 2026-09-28):* Cover und Bridge wirken inzwischen (Baustab-Modi).
+   **Cover-Bücher liegen im Plünderer-Außenposten und im Waldanwesen** und bleiben
+   dort (Besitzer 2026-09-28); **Bridge** kommt seit 2026-09-28 als End-Verzauberung
+   aus der End-City-Truhe. Quelle: `ModLootTableModifications`, `docs/LOOT-BALANCE.md`.
 6. **Befehlsausgaben waren fest deutsch.** `/simplebuilding config
    setTrimMultiplier` und `getTrimMultiplier` nutzen jetzt Übersetzungsschlüssel
    – in allen fünf `ModCommands.java` (beide Linien, alle Loader).

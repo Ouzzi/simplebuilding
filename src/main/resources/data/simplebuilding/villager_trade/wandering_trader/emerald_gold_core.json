@@ -6,9 +6,10 @@
     { "type": "simplebuilding:config", "flag": "enableWanderingTrades" }
   ],
   "forge:condition": { "type": "simplebuilding:config", "flag": "enableWanderingTrades" },
-  "wants": { "id": "minecraft:emerald", "count": 30 },
-  "gives": { "id": "simplebuilding:gold_core" },
+  "wants": { "id": "minecraft:emerald", "count": 48 },
+  "gives": { "id": "simplebuilding:gold_core", "count": 1 },
+  "merchant_predicate": { "condition": "minecraft:random_chance", "chance": 0.25 },
   "max_uses": 1,
-  "xp": 5,
+  "xp": 15,
   "reputation_discount": 0.1
 }

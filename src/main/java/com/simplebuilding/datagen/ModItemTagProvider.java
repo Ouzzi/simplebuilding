@@ -72,6 +72,10 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
             bookshelfBooks.add(key(com.simplebuilding.guide.GuideBooks.item(book)));
         }
 
+        // Rotator: Unbreaking ja, Mending nein (Besitzer 2026-09-28) - EnchantmentMixin liest diesen Tag.
+        builder(ModTags.Items.XP_REPAIR_INCOMPATIBLE)
+                .add(key(ModItems.ROTATOR));
+
         builder(ItemTags.DURABILITY_ENCHANTABLE)
                 // Echo-Kompass (Simple Tweaks): Unbreaking/Mending wirken, siehe EchoCompassItem.
                 .add(key(com.simplebuilding.tweaks.item.TweaksItems.ECHO_COMPASS))

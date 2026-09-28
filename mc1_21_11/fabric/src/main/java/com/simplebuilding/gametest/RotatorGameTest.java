@@ -52,6 +52,11 @@ public final class RotatorGameTest {
     }
 
     @GameTest
+    public void anvilTakesUnbreakingButRefusesMending(GameTestHelper helper) {
+        RotatorTests.anvilTakesUnbreakingButRefusesMending(helper);
+    }
+
+    @GameTest
     public void aTurnQueuesTheEnderEchoShortlyAfterTheRatchet(GameTestHelper helper) {
         RotatorTests.aTurnQueuesTheEnderEchoShortlyAfterTheRatchet(helper);
     }

@@ -59,12 +59,14 @@ public final class PerformanceTests {
                     PadTiers.elytraArea(origin, PadTiers.MAX, true));
             for (AABB box : boxes) {
                 assertSame(helper, "players in " + box,
-                        level.getEntitiesOfClass(ServerPlayer.class, box, p -> inList(level, p)), PlayerScan.playersIn(level, box, ServerPlayer.class));
+                        own(players, level.getEntitiesOfClass(ServerPlayer.class, box, p -> true)),
+                        own(players, PlayerScan.playersIn(level, box, ServerPlayer.class)));
                 assertSame(helper, "non-spectators in " + box,
-                        level.getEntitiesOfClass(Player.class, box, p -> inList(level, p) && !p.isSpectator()),
-                        PlayerScan.playersIn(level, box, Player.class, p -> !p.isSpectator()));
-                helper.assertTrue(PlayerScan.anyPlayerIn(level, box) == !level.getEntitiesOfClass(Player.class, box, p -> inList(level, p)).isEmpty(),
-                        "anyPlayerIn disagrees with the section search for " + box);
+                        own(players, level.getEntitiesOfClass(Player.class, box, p -> !p.isSpectator())),
+                        own(players, PlayerScan.playersIn(level, box, Player.class, p -> !p.isSpectator())));
+                boolean ownInside = !own(players, level.getEntitiesOfClass(Player.class, box, p -> true)).isEmpty();
+                helper.assertTrue(!ownInside || PlayerScan.anyPlayerIn(level, box),
+                        "anyPlayerIn missed a player the section search finds for " + box);
             }
             helper.assertTrue(PlayerScan.playersIn(level, boxes.get(0), ServerPlayer.class).contains(inside), "the player on the pad was not found");
             helper.assertTrue(PlayerScan.playersIn(level, boxes.get(1), ServerPlayer.class).contains(edge), "the player touching the edge was not found");
@@ -79,11 +81,17 @@ public final class PerformanceTests {
     }
 
     /**
-     * Nur Spieler aus {@code level.players()} zaehlen: die Elytra-Flaeche ist 256 Bloecke breit und faengt
-     * Mock-Spieler parallel laufender Tests ein, die nie in der Spielerliste stehen (echte Spieler immer).
+     * Nur die Spieler dieses Tests zaehlen: parallel laufende Tests setzen eigene Mock-Spieler in dieselbe
+     * Welt, und die Elytra-Flaeche ist 256 Bloecke breit.
      */
-    private static boolean inList(ServerLevel level, Player player) {
-        return level.players().contains(player);
+    private static <P extends Player> List<P> own(List<ServerPlayer> mine, List<P> found) {
+        List<P> result = new ArrayList<>();
+        for (P player : found) {
+            if (mine.contains(player)) {
+                result.add(player);
+            }
+        }
+        return result;
     }
 
     /**
