@@ -1,0 +1,221 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:enderite_scrap"
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:binomial",
+        "n": 1,
+        "p": 0.15
+      }
+    },
+    {
+      "condition": {
+        "type": "simplebuilding:core_chance",
+        "chance": 0.0025
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:enderite_core"
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:enderite_upgrade_template"
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:binomial",
+        "n": 1,
+        "p": 0.3
+      }
+    },
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 2,
+              "min": 1
+            }
+          },
+          "name": "simplebuilding:raw_enderite",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 5,
+              "min": 2
+            }
+          },
+          "name": "simplebuilding:enderite_nugget",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 6,
+              "min": 2
+            }
+          },
+          "name": "simplebuilding:astralit_dust",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 4,
+              "min": 1
+            }
+          },
+          "name": "simplebuilding:nihilith_shard",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 14
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "modifier": {
+            "type": "minecraft:set_components",
+            "components": {
+              "minecraft:stored_enchantments": {
+                "simplebuilding:range": 3
+              }
+            }
+          },
+          "name": "minecraft:enchanted_book",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "modifier": {
+            "type": "minecraft:set_components",
+            "components": {
+              "minecraft:stored_enchantments": {
+                "simplebuilding:master_builder": 1
+              }
+            }
+          },
+          "name": "minecraft:enchanted_book",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "modifier": {
+            "type": "minecraft:set_components",
+            "components": {
+              "minecraft:stored_enchantments": {
+                "simplebuilding:override": 2
+              }
+            }
+          },
+          "name": "minecraft:enchanted_book",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "modifier": {
+            "type": "minecraft:set_components",
+            "components": {
+              "minecraft:stored_enchantments": {
+                "simplebuilding:double_jump": 2
+              }
+            }
+          },
+          "name": "minecraft:enchanted_book",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "modifier": {
+            "type": "minecraft:set_components",
+            "components": {
+              "minecraft:stored_enchantments": {
+                "simplebuilding:versatility": 1
+              }
+            }
+          },
+          "name": "minecraft:enchanted_book",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "modifier": {
+            "type": "minecraft:set_components",
+            "components": {
+              "minecraft:stored_enchantments": {
+                "simplebuilding:versatility": 2
+              }
+            }
+          },
+          "name": "minecraft:enchanted_book",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "modifier": {
+            "type": "minecraft:enchant_randomly"
+          },
+          "name": "simplebuilding:diamond_building_wand",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "modifier": {
+            "type": "minecraft:enchant_randomly"
+          },
+          "name": "simplebuilding:diamond_sledgehammer",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:enderite_apple",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:enchanted_enderite_apple"
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 40
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 3,
+        "min": 0
+      }
+    }
+  ]
+}

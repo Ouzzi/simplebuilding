@@ -1,0 +1,133 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "modifier": {
+            "type": "minecraft:set_components",
+            "components": {
+              "minecraft:stored_enchantments": {
+                "simplebuilding:funnel": 1
+              }
+            }
+          },
+          "name": "minecraft:enchanted_book",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "modifier": {
+            "type": "minecraft:set_components",
+            "components": {
+              "minecraft:stored_enchantments": {
+                "simplebuilding:break_through": 1
+              }
+            }
+          },
+          "name": "minecraft:enchanted_book",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:gold_sledgehammer",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 4,
+              "min": 1
+            }
+          },
+          "name": "simplebuilding:netherite_nugget",
+          "weight": 12
+        },
+        {
+          "type": "minecraft:item",
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 2,
+              "min": 1
+            }
+          },
+          "name": "simplebuilding:netherite_carrot",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 25
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 2,
+        "min": 0
+      }
+    },
+    {
+      "condition": {
+        "type": "simplebuilding:core_chance",
+        "chance": 0.006
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:gold_core"
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:netherite_apple",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:enchanted_netherite_apple",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "modifier": {
+            "type": "minecraft:set_components",
+            "components": {
+              "minecraft:stored_enchantments": {
+                "simplebuilding:break_through": 2
+              }
+            }
+          },
+          "name": "minecraft:enchanted_book",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 7
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "condition": {
+        "type": "simplebuilding:core_chance",
+        "chance": 0.04
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:netherite_core"
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

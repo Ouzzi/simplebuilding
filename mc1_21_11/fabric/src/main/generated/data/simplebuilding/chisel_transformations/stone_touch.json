@@ -1,0 +1,97 @@
+{
+  "chains": [
+    {
+      "blocks": [
+        "minecraft:mud_bricks",
+        "minecraft:packed_mud",
+        "minecraft:mud"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:mud_brick_stairs",
+        "minecraft:mud_brick_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:mud_brick_slab",
+        "minecraft:mud_brick_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:cobblestone",
+        "minecraft:mossy_cobblestone"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:cobblestone_stairs",
+        "minecraft:mossy_cobblestone_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:cobblestone_slab",
+        "minecraft:mossy_cobblestone_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:oak_log",
+        "minecraft:stripped_oak_log"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:spruce_log",
+        "minecraft:stripped_spruce_log"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:birch_log",
+        "minecraft:stripped_birch_log"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:jungle_log",
+        "minecraft:stripped_jungle_log"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:acacia_log",
+        "minecraft:stripped_acacia_log"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:dark_oak_log",
+        "minecraft:stripped_dark_oak_log"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:mangrove_log",
+        "minecraft:stripped_mangrove_log"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:cherry_log",
+        "minecraft:stripped_cherry_log"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:pale_oak_log",
+        "minecraft:stripped_pale_oak_log"
+      ]
+    }
+  ],
+  "table": "touch",
+  "tier": "stone"
+}

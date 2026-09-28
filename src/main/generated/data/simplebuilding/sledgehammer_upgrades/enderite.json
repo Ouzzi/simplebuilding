@@ -1,0 +1,52 @@
+{
+  "upgrades": [
+    {
+      "damage_per_hit": 10,
+      "from": "simplebuilding:netherite_blast_furnace",
+      "material": "simplebuilding:enderite_nugget",
+      "min_hammer": "netherite",
+      "tier": "enderite",
+      "to": "simplebuilding:enderite_blast_furnace"
+    },
+    {
+      "damage_per_hit": 10,
+      "from": "simplebuilding:netherite_chest",
+      "material": "simplebuilding:enderite_nugget",
+      "min_hammer": "netherite",
+      "tier": "enderite",
+      "to": "simplebuilding:enderite_chest"
+    },
+    {
+      "damage_per_hit": 10,
+      "from": "simplebuilding:netherite_furnace",
+      "material": "simplebuilding:enderite_nugget",
+      "min_hammer": "netherite",
+      "tier": "enderite",
+      "to": "simplebuilding:enderite_furnace"
+    },
+    {
+      "damage_per_hit": 10,
+      "from": "simplebuilding:netherite_hopper",
+      "material": "simplebuilding:enderite_nugget",
+      "min_hammer": "netherite",
+      "tier": "enderite",
+      "to": "simplebuilding:enderite_hopper"
+    },
+    {
+      "damage_per_hit": 10,
+      "from": "simplebuilding:netherite_piston",
+      "material": "simplebuilding:enderite_nugget",
+      "min_hammer": "netherite",
+      "tier": "enderite",
+      "to": "simplebuilding:enderite_piston"
+    },
+    {
+      "damage_per_hit": 10,
+      "from": "simplebuilding:netherite_smoker",
+      "material": "simplebuilding:enderite_nugget",
+      "min_hammer": "netherite",
+      "tier": "enderite",
+      "to": "simplebuilding:enderite_smoker"
+    }
+  ]
+}

@@ -1424,8 +1424,43 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("tweaks_game_test_kill_carts_obeys_its_switch_and_operators_and_drops_cart_contents", TweaksTests::killCartsObeysItsSwitchAndOperatorsAndDropsCartContents)
                     .build(),
             GameTestSpec.named("tweaks_game_test_pads_placed_in_water_are_waterlogged_and_leave_the_water_behind", TweaksTests::padsPlacedInWaterAreWaterloggedAndLeaveTheWaterBehind)
-                    .build()
+                    .build(),
             // --- /tweaks ---
+            // --- modpack ---
+            GameTestSpec.named("modpack_game_test_building_wand_skips_cells_the_loader_events_refuse_and_counts_its_blocks", ModpackTests::buildingWandSkipsCellsTheLoaderEventsRefuseAndCountsItsBlocks)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("modpack_game_test_octant_fill_skips_cells_the_loader_events_refuse", ModpackTests::octantFillSkipsCellsTheLoaderEventsRefuse)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("modpack_game_test_lens_beam_leaves_blocks_the_loader_events_protect", ModpackTests::lensBeamLeavesBlocksTheLoaderEventsProtect)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("modpack_game_test_sledgehammer_area_swing_leaves_blocks_the_loader_events_protect", ModpackTests::sledgehammerAreaSwingLeavesBlocksTheLoaderEventsProtect)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("modpack_game_test_attractor_leaves_display_items_owned_items_and_other_players_death_drops_alone", ModpackTests::attractorLeavesDisplayItemsOwnedItemsAndOtherPlayersDeathDropsAlone)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("modpack_game_test_ore_and_common_tags_cover_every_mod_material", ModpackTests::oreAndCommonTagsCoverEveryModMaterial)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("modpack_game_test_backpack_refuses_items_from_the_not_allowed_tag", ModpackTests::backpackRefusesItemsFromTheNotAllowedTag)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("modpack_game_test_chisel_and_upgrade_tables_come_from_the_datapack_and_match_the_built_in_tables", ModpackTests::chiselAndUpgradeTablesComeFromTheDatapackAndMatchTheBuiltInTables)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("modpack_game_test_datapack_files_extend_and_remove_chisel_and_upgrade_entries", ModpackTests::datapackFilesExtendAndRemoveChiselAndUpgradeEntries)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("modpack_game_test_loot_injection_tables_match_the_code_and_vanilla_tables_roll_them", ModpackTests::lootInjectionTablesMatchTheCodeAndVanillaTablesRollThem)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("modpack_game_test_mod_statistics_are_registered_and_count_chisel_use_and_teleports", ModpackTests::modStatisticsAreRegisteredAndCountChiselUseAndTeleports)
+                    .rotation(Rotation.NONE)
+                    .build()
+            // --- /modpack ---
             );
 
     private SimpleBuildingGameTests() {

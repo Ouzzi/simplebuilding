@@ -1,0 +1,89 @@
+{
+  "chains": [
+    {
+      "blocks": [
+        "simplebuilding:polished_astralit",
+        "simplebuilding:astralit_pillar",
+        "simplebuilding:astralit_bricks",
+        "simplebuilding:chiseled_astralit_bricks",
+        "simplebuilding:astralit_block"
+      ]
+    },
+    {
+      "blocks": [
+        "simplebuilding:polished_astralit_stairs",
+        "simplebuilding:astralit_brick_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "simplebuilding:polished_astralit_slab",
+        "simplebuilding:astralit_brick_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "simplebuilding:polished_astralit_wall",
+        "simplebuilding:astralit_brick_wall"
+      ]
+    },
+    {
+      "blocks": [
+        "simplebuilding:polished_nihilith",
+        "simplebuilding:nihilith_pillar",
+        "simplebuilding:nihilith_bricks",
+        "simplebuilding:chiseled_nihilith_bricks",
+        "simplebuilding:nihilith_block"
+      ]
+    },
+    {
+      "blocks": [
+        "simplebuilding:polished_nihilith_stairs",
+        "simplebuilding:nihilith_brick_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "simplebuilding:polished_nihilith_slab",
+        "simplebuilding:nihilith_brick_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "simplebuilding:polished_nihilith_wall",
+        "simplebuilding:nihilith_brick_wall"
+      ]
+    },
+    {
+      "blocks": [
+        "simplebuilding:polished_ender_quartz",
+        "simplebuilding:ender_quartz_pillar",
+        "simplebuilding:ender_quartz_bricks",
+        "simplebuilding:chiseled_ender_quartz_bricks",
+        "simplebuilding:ender_quartz_block"
+      ]
+    },
+    {
+      "blocks": [
+        "simplebuilding:polished_ender_quartz_stairs",
+        "simplebuilding:ender_quartz_brick_stairs",
+        "simplebuilding:ender_quartz_stairs"
+      ]
+    },
+    {
+      "blocks": [
+        "simplebuilding:polished_ender_quartz_slab",
+        "simplebuilding:ender_quartz_brick_slab",
+        "simplebuilding:ender_quartz_slab"
+      ]
+    },
+    {
+      "blocks": [
+        "simplebuilding:polished_ender_quartz_wall",
+        "simplebuilding:ender_quartz_brick_wall"
+      ]
+    }
+  ],
+  "table": "chisel",
+  "tier": "enderite"
+}

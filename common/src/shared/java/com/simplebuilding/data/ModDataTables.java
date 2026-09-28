@@ -117,6 +117,21 @@ public final class ModDataTables {
         return result;
     }
 
+    /** The chisel files of the last server load (file id -> JSON text), as the client sync sends them. */
+    public static Map<String, String> lastChiselFiles() {
+        return lastChisel;
+    }
+
+    /** The sledgehammer upgrade files of the last server load. */
+    public static Map<String, String> lastUpgradeFiles() {
+        return lastUpgrades;
+    }
+
+    /** Applies the files of the last server load again (undoes a test's own {@link #applyFiles}). */
+    public static void reapplyLastLoad() {
+        applyFiles(lastChisel, lastUpgrades);
+    }
+
     /** The loader's datapack sync hook: sends the server's tables to {@code player}. */
     public static void sync(ServerPlayer player) {
         if (PlatformServices.canSendToPlayer(player, DataTablesSyncPayload.ID)) {

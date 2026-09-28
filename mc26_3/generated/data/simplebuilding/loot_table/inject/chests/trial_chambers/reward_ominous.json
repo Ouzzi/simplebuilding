@@ -1,0 +1,66 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "modifier": {
+            "type": "minecraft:set_components",
+            "components": {
+              "minecraft:stored_enchantments": {
+                "simplebuilding:master_builder": 1
+              }
+            }
+          },
+          "name": "minecraft:enchanted_book",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "modifier": {
+            "type": "minecraft:set_components",
+            "components": {
+              "minecraft:stored_enchantments": {
+                "simplebuilding:double_jump": 1
+              }
+            }
+          },
+          "name": "minecraft:enchanted_book",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:netherite_apple",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:enchanted_netherite_apple"
+        },
+        {
+          "type": "minecraft:empty",
+          "weight": 35
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 1,
+        "min": 0
+      }
+    },
+    {
+      "condition": {
+        "type": "simplebuilding:core_chance",
+        "chance": 0.008
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:diamond_core"
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

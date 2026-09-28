@@ -1,0 +1,68 @@
+{
+  "upgrades": [
+    {
+      "damage_per_hit": 2,
+      "from": "minecraft:copper_chest",
+      "material": "simplebuilding:cracked_diamond",
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_chest"
+    },
+    {
+      "damage_per_hit": 2,
+      "from": "minecraft:exposed_copper_chest",
+      "material": "simplebuilding:cracked_diamond",
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_chest"
+    },
+    {
+      "damage_per_hit": 2,
+      "from": "minecraft:oxidized_copper_chest",
+      "material": "simplebuilding:cracked_diamond",
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_chest"
+    },
+    {
+      "damage_per_hit": 2,
+      "from": "minecraft:waxed_copper_chest",
+      "material": "simplebuilding:cracked_diamond",
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_chest"
+    },
+    {
+      "damage_per_hit": 2,
+      "from": "minecraft:waxed_exposed_copper_chest",
+      "material": "simplebuilding:cracked_diamond",
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_chest"
+    },
+    {
+      "damage_per_hit": 2,
+      "from": "minecraft:waxed_oxidized_copper_chest",
+      "material": "simplebuilding:cracked_diamond",
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_chest"
+    },
+    {
+      "damage_per_hit": 2,
+      "from": "minecraft:waxed_weathered_copper_chest",
+      "material": "simplebuilding:cracked_diamond",
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_chest"
+    },
+    {
+      "damage_per_hit": 2,
+      "from": "minecraft:weathered_copper_chest",
+      "material": "simplebuilding:cracked_diamond",
+      "min_hammer": "any",
+      "tier": "reinforced",
+      "to": "simplebuilding:reinforced_chest"
+    }
+  ]
+}

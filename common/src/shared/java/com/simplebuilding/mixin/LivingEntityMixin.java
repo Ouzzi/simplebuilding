@@ -36,9 +36,9 @@ public abstract class LivingEntityMixin implements OwnedLightHolder {
      * of another player leaves them alone. Vanilla sets no thrower on them, so nothing else tells
      * them apart from any other loose item.
      */
-    @Inject(method = "drop(Lnet/minecraft/world/item/ItemStack;ZZ)Lnet/minecraft/world/entity/item/ItemEntity;", at = @At("RETURN"))
-    private void simplebuilding$markDeathDrop(ItemStack stack, boolean randomly, boolean thrownFromHand,
-                                               CallbackInfoReturnable<net.minecraft.world.entity.item.ItemEntity> cir) {
+    // Nur der Callback, keine Zielparameter: 26.3 hat drop(ItemStack, boolean, Prediction) statt (ItemStack, boolean, boolean).
+    @Inject(method = "drop", at = @At("RETURN"))
+    private void simplebuilding$markDeathDrop(CallbackInfoReturnable<net.minecraft.world.entity.item.ItemEntity> cir) {
         com.simplebuilding.util.AttractorFilter.markIfDeathDrop((LivingEntity) (Object) this, cir.getReturnValue());
     }
 

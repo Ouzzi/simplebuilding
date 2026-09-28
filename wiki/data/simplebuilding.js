@@ -35163,6 +35163,610 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/weathered_copper_pressure_plate.json"
+    },
+    {
+      "id": "simplebuilding:inject/charged_creeper/root",
+      "kind": "inject",
+      "type": "minecraft:entity",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:blaze_head"
+          ],
+          "conditions": [
+            "minecraft:entity_properties"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:enderman_head"
+          ],
+          "conditions": [
+            "minecraft:entity_properties"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/inject/charged_creeper/root.json"
+    },
+    {
+      "id": "simplebuilding:inject/chests/abandoned_mineshaft",
+      "kind": "inject",
+      "type": "minecraft:chest",
+      "pools": [
+        {
+          "rolls": {
+            "type": "minecraft:uniform",
+            "max": 2.0,
+            "min": 0.0
+          },
+          "items": [
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "simplebuilding:reinforced_bundle",
+            "simplebuilding:diamond_pebble"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/abandoned_mineshaft.json"
+    },
+    {
+      "id": "simplebuilding:inject/chests/ancient_city",
+      "kind": "inject",
+      "type": "minecraft:chest",
+      "pools": [
+        {
+          "rolls": {
+            "type": "minecraft:uniform",
+            "max": 2.0,
+            "min": 0.0
+          },
+          "items": [
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "simplebuilding:octant",
+            "simplebuilding:diamond_sledgehammer",
+            "simplebuilding:quiver",
+            "simplebuilding:netherite_apple",
+            "simplebuilding:enchanted_netherite_apple",
+            "simplebuilding:netherite_nugget",
+            "simplebuilding:diamond_pebble"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/ancient_city.json"
+    },
+    {
+      "id": "simplebuilding:inject/chests/bastion_other",
+      "kind": "inject",
+      "type": "minecraft:chest",
+      "pools": [
+        {
+          "rolls": {
+            "type": "minecraft:uniform",
+            "max": 2.0,
+            "min": 0.0
+          },
+          "items": [
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "simplebuilding:gold_sledgehammer",
+            "simplebuilding:netherite_nugget",
+            "simplebuilding:netherite_carrot"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:gold_core"
+          ],
+          "conditions": [
+            "simplebuilding:core_chance"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/bastion_other.json"
+    },
+    {
+      "id": "simplebuilding:inject/chests/bastion_treasure",
+      "kind": "inject",
+      "type": "minecraft:chest",
+      "pools": [
+        {
+          "rolls": {
+            "type": "minecraft:uniform",
+            "max": 2.0,
+            "min": 0.0
+          },
+          "items": [
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "simplebuilding:gold_sledgehammer",
+            "simplebuilding:netherite_nugget",
+            "simplebuilding:netherite_carrot"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:gold_core"
+          ],
+          "conditions": [
+            "simplebuilding:core_chance"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:netherite_apple",
+            "simplebuilding:enchanted_netherite_apple",
+            "minecraft:enchanted_book"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:netherite_core"
+          ],
+          "conditions": [
+            "simplebuilding:core_chance"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/bastion_treasure.json"
+    },
+    {
+      "id": "simplebuilding:inject/chests/buried_treasure",
+      "kind": "inject",
+      "type": "minecraft:chest",
+      "pools": [
+        {
+          "rolls": {
+            "type": "minecraft:uniform",
+            "max": 2.0,
+            "min": 0.0
+          },
+          "items": [
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "simplebuilding:gold_chisel",
+            "simplebuilding:diamond_chisel",
+            "simplebuilding:diamond_pebble"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/buried_treasure.json"
+    },
+    {
+      "id": "simplebuilding:inject/chests/end_city_treasure",
+      "kind": "inject",
+      "type": "minecraft:chest",
+      "pools": [
+        {
+          "rolls": {
+            "type": "minecraft:binomial",
+            "n": 1.0,
+            "p": 0.15
+          },
+          "items": [
+            "simplebuilding:enderite_scrap"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:enderite_core"
+          ],
+          "conditions": [
+            "simplebuilding:core_chance"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": {
+            "type": "minecraft:binomial",
+            "n": 1.0,
+            "p": 0.3
+          },
+          "items": [
+            "simplebuilding:enderite_upgrade_template"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:raw_enderite",
+            "simplebuilding:enderite_nugget",
+            "simplebuilding:astralit_dust",
+            "simplebuilding:nihilith_shard"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": {
+            "type": "minecraft:uniform",
+            "max": 3.0,
+            "min": 0.0
+          },
+          "items": [
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "simplebuilding:diamond_building_wand",
+            "simplebuilding:diamond_sledgehammer",
+            "simplebuilding:enderite_apple",
+            "simplebuilding:enchanted_enderite_apple"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/end_city_treasure.json"
+    },
+    {
+      "id": "simplebuilding:inject/chests/igloo_chest",
+      "kind": "inject",
+      "type": "minecraft:chest",
+      "pools": [
+        {
+          "rolls": {
+            "type": "minecraft:uniform",
+            "max": 1.0,
+            "min": 0.0
+          },
+          "items": [
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "simplebuilding:diamond_chisel"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/igloo_chest.json"
+    },
+    {
+      "id": "simplebuilding:inject/chests/nether_bridge",
+      "kind": "inject",
+      "type": "minecraft:chest",
+      "pools": [
+        {
+          "rolls": {
+            "type": "minecraft:uniform",
+            "max": 2.0,
+            "min": 0.0
+          },
+          "items": [
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "simplebuilding:octant",
+            "simplebuilding:netherite_nugget",
+            "simplebuilding:netherite_carrot"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:gold_core"
+          ],
+          "conditions": [
+            "simplebuilding:core_chance"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/nether_bridge.json"
+    },
+    {
+      "id": "simplebuilding:inject/chests/pillager_outpost",
+      "kind": "inject",
+      "type": "minecraft:chest",
+      "pools": [
+        {
+          "rolls": {
+            "type": "minecraft:uniform",
+            "max": 2.0,
+            "min": 0.0
+          },
+          "items": [
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "simplebuilding:octant",
+            "simplebuilding:quiver",
+            "simplebuilding:copper_chisel"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/pillager_outpost.json"
+    },
+    {
+      "id": "simplebuilding:inject/chests/ruined_portal",
+      "kind": "inject",
+      "type": "minecraft:chest",
+      "pools": [
+        {
+          "rolls": {
+            "type": "minecraft:uniform",
+            "max": 1.0,
+            "min": 0.0
+          },
+          "items": [
+            "simplebuilding:netherite_nugget",
+            "simplebuilding:gold_chisel",
+            "simplebuilding:netherite_carrot"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/ruined_portal.json"
+    },
+    {
+      "id": "simplebuilding:inject/chests/shipwreck_treasure",
+      "kind": "inject",
+      "type": "minecraft:chest",
+      "pools": [
+        {
+          "rolls": {
+            "type": "minecraft:uniform",
+            "max": 1.0,
+            "min": 0.0
+          },
+          "items": [
+            "minecraft:enchanted_book",
+            "simplebuilding:reinforced_bundle",
+            "simplebuilding:diamond_pebble"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/shipwreck_treasure.json"
+    },
+    {
+      "id": "simplebuilding:inject/chests/simple_dungeon",
+      "kind": "inject",
+      "type": "minecraft:chest",
+      "pools": [
+        {
+          "rolls": {
+            "type": "minecraft:uniform",
+            "max": 2.0,
+            "min": 0.0
+          },
+          "items": [
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "simplebuilding:reinforced_bundle",
+            "simplebuilding:basic_upgrade_template",
+            "simplebuilding:diamond_pebble"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/simple_dungeon.json"
+    },
+    {
+      "id": "simplebuilding:inject/chests/stronghold_library",
+      "kind": "inject",
+      "type": "minecraft:chest",
+      "pools": [
+        {
+          "rolls": {
+            "type": "minecraft:uniform",
+            "max": 2.0,
+            "min": 0.0
+          },
+          "items": [
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/stronghold_library.json"
+    },
+    {
+      "id": "simplebuilding:inject/chests/trial_chambers/reward_common",
+      "kind": "inject",
+      "type": "minecraft:chest",
+      "pools": [
+        {
+          "rolls": {
+            "type": "minecraft:uniform",
+            "max": 1.0,
+            "min": 0.0
+          },
+          "items": [
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "simplebuilding:diamond_pebble"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/trial_chambers/reward_common.json"
+    },
+    {
+      "id": "simplebuilding:inject/chests/trial_chambers/reward_ominous",
+      "kind": "inject",
+      "type": "minecraft:chest",
+      "pools": [
+        {
+          "rolls": {
+            "type": "minecraft:uniform",
+            "max": 1.0,
+            "min": 0.0
+          },
+          "items": [
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "simplebuilding:netherite_apple",
+            "simplebuilding:enchanted_netherite_apple"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:diamond_core"
+          ],
+          "conditions": [
+            "simplebuilding:core_chance"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/trial_chambers/reward_ominous.json"
+    },
+    {
+      "id": "simplebuilding:inject/chests/trial_chambers/reward_rare",
+      "kind": "inject",
+      "type": "minecraft:chest",
+      "pools": [
+        {
+          "rolls": {
+            "type": "minecraft:uniform",
+            "max": 1.0,
+            "min": 0.0
+          },
+          "items": [
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "simplebuilding:diamond_pebble"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": {
+            "type": "minecraft:uniform",
+            "max": 1.0,
+            "min": 0.0
+          },
+          "items": [
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "simplebuilding:netherite_apple",
+            "simplebuilding:enchanted_netherite_apple"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:diamond_core"
+          ],
+          "conditions": [
+            "simplebuilding:core_chance"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/trial_chambers/reward_rare.json"
+    },
+    {
+      "id": "simplebuilding:inject/chests/woodland_mansion",
+      "kind": "inject",
+      "type": "minecraft:chest",
+      "pools": [
+        {
+          "rolls": {
+            "type": "minecraft:uniform",
+            "max": 2.0,
+            "min": 0.0
+          },
+          "items": [
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "simplebuilding:iron_building_wand",
+            "simplebuilding:quiver"
+          ],
+          "conditions": [],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:iron_core"
+          ],
+          "conditions": [
+            "simplebuilding:core_chance"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/inject/chests/woodland_mansion.json"
+    },
+    {
+      "id": "simplebuilding:inject/gameplay/fishing/treasure",
+      "kind": "inject",
+      "type": "minecraft:fishing",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "minecraft:enchanted_book",
+            "simplebuilding:diamond_pebble"
+          ],
+          "conditions": [],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/inject/gameplay/fishing/treasure.json"
     }
   ],
   "trades": [
@@ -38779,6 +39383,75 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/tags/item/void_protected.json"
     },
     {
+      "id": "simplebuilding:block/building_wand_blacklist",
+      "replace": false,
+      "values": [],
+      "source": "src/main/resources/data/simplebuilding/tags/block/building_wand_blacklist.json"
+    },
+    {
+      "id": "simplebuilding:block/vein_miner_ores",
+      "replace": false,
+      "values": [
+        {
+          "id": "#c:ores",
+          "required": false
+        },
+        {
+          "id": "#minecraft:coal_ores",
+          "required": true
+        },
+        {
+          "id": "#minecraft:iron_ores",
+          "required": true
+        },
+        {
+          "id": "#minecraft:copper_ores",
+          "required": true
+        },
+        {
+          "id": "#minecraft:gold_ores",
+          "required": true
+        },
+        {
+          "id": "#minecraft:redstone_ores",
+          "required": true
+        },
+        {
+          "id": "#minecraft:lapis_ores",
+          "required": true
+        },
+        {
+          "id": "#minecraft:diamond_ores",
+          "required": true
+        },
+        {
+          "id": "#minecraft:emerald_ores",
+          "required": true
+        },
+        {
+          "id": "minecraft:nether_quartz_ore",
+          "required": true
+        },
+        {
+          "id": "minecraft:nether_gold_ore",
+          "required": true
+        },
+        {
+          "id": "minecraft:ancient_debris",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihilith_ore",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astralit_ore",
+          "required": true
+        }
+      ],
+      "source": "src/main/resources/data/simplebuilding/tags/block/vein_miner_ores.json"
+    },
+    {
       "id": "simplebuilding:damage_type/kinetic_damage",
       "replace": false,
       "values": [
@@ -38788,6 +39461,81 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/resources/data/simplebuilding/tags/damage_type/kinetic_damage.json"
+    },
+    {
+      "id": "simplebuilding:item/attractor_ignore",
+      "replace": false,
+      "values": [],
+      "source": "src/main/resources/data/simplebuilding/tags/item/attractor_ignore.json"
+    },
+    {
+      "id": "simplebuilding:item/not_allowed_in_backpack",
+      "replace": false,
+      "values": [],
+      "source": "src/main/resources/data/simplebuilding/tags/item/not_allowed_in_backpack.json"
+    },
+    {
+      "id": "simplebuilding:item/vein_miner_ores",
+      "replace": false,
+      "values": [
+        {
+          "id": "#c:ores",
+          "required": false
+        },
+        {
+          "id": "#minecraft:coal_ores",
+          "required": true
+        },
+        {
+          "id": "#minecraft:iron_ores",
+          "required": true
+        },
+        {
+          "id": "#minecraft:copper_ores",
+          "required": true
+        },
+        {
+          "id": "#minecraft:gold_ores",
+          "required": true
+        },
+        {
+          "id": "#minecraft:redstone_ores",
+          "required": true
+        },
+        {
+          "id": "#minecraft:lapis_ores",
+          "required": true
+        },
+        {
+          "id": "#minecraft:diamond_ores",
+          "required": true
+        },
+        {
+          "id": "#minecraft:emerald_ores",
+          "required": true
+        },
+        {
+          "id": "minecraft:nether_quartz_ore",
+          "required": true
+        },
+        {
+          "id": "minecraft:nether_gold_ore",
+          "required": true
+        },
+        {
+          "id": "minecraft:ancient_debris",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:nihilith_ore",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:astralit_ore",
+          "required": true
+        }
+      ],
+      "source": "src/main/resources/data/simplebuilding/tags/item/vein_miner_ores.json"
     }
   ],
   "config": [
@@ -59473,10 +60221,10 @@ window.WIKI_DATA = {
     "items": 177,
     "blocks": 124,
     "recipes": 355,
-    "lootTables": 116,
+    "lootTables": 135,
     "trades": 21,
     "enchantments": 19,
-    "tags": 28,
+    "tags": 33,
     "config": 76,
     "inWorld": 392,
     "advancements": 84,

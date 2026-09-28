@@ -1,0 +1,128 @@
+{
+  "chains": [
+    {
+      "blocks": [
+        "minecraft:polished_diorite",
+        "minecraft:diorite",
+        "minecraft:calcite",
+        "minecraft:dripstone_block"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:obsidian",
+        "minecraft:crying_obsidian"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:crimson_stem",
+        "minecraft:stripped_crimson_stem"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:warped_stem",
+        "minecraft:stripped_warped_stem"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:white_concrete",
+        "minecraft:white_concrete_powder"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:orange_concrete",
+        "minecraft:orange_concrete_powder"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:magenta_concrete",
+        "minecraft:magenta_concrete_powder"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:light_blue_concrete",
+        "minecraft:light_blue_concrete_powder"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:yellow_concrete",
+        "minecraft:yellow_concrete_powder"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:lime_concrete",
+        "minecraft:lime_concrete_powder"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:pink_concrete",
+        "minecraft:pink_concrete_powder"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:gray_concrete",
+        "minecraft:gray_concrete_powder"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:light_gray_concrete",
+        "minecraft:light_gray_concrete_powder"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:cyan_concrete",
+        "minecraft:cyan_concrete_powder"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:purple_concrete",
+        "minecraft:purple_concrete_powder"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:blue_concrete",
+        "minecraft:blue_concrete_powder"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:brown_concrete",
+        "minecraft:brown_concrete_powder"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:green_concrete",
+        "minecraft:green_concrete_powder"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:red_concrete",
+        "minecraft:red_concrete_powder"
+      ]
+    },
+    {
+      "blocks": [
+        "minecraft:black_concrete",
+        "minecraft:black_concrete_powder"
+      ]
+    }
+  ],
+  "table": "touch",
+  "tier": "netherite"
+}
