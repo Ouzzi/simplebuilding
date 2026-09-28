@@ -29,4 +29,9 @@ public final class AdvancementTreeGameTest {
     public void markingOneCornerWithTheOctantEarnsMeasureTwice(GameTestHelper helper) {
         AdvancementTreeTests.markingOneCornerWithTheOctantEarnsMeasureTwice(helper);
     }
+
+    @GameTest
+    public void everyRecipeUnlockHandsOutAnExistingRecipe(GameTestHelper helper) {
+        AdvancementTreeTests.everyRecipeUnlockHandsOutAnExistingRecipe(helper);
+    }
 }

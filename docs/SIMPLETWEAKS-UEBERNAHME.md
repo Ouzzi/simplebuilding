@@ -65,7 +65,7 @@ Status: **port** = uebernommen, **neu** = in SimpleBuilding neu hinzugekommen (B
 | `/killboats`, `/killcarts` (standard/empty/all) | port | eigene Config-Schalter |
 | `/simpletweaks ...` Config-Befehle | port | als `/simplebuilding tweaks ...` (gleicher Unterbaum) |
 | ModMenu-/Cloth-Config-Seite | port | als Abschnitt "Simple Tweaks" in der SimpleBuilding-Config |
-| Claim-System (`/claim`, Urkunde, Schutz) | **skip** | siehe Abschnitt 3 |
+| Claim-System (`/claim`, Urkunde, Schutz) | **skip** | siehe Abschnitt 4 |
 | `brick_snowball`-Textur, `itemgroup.simpletweaks.money_items`, `vaultCooldownDays`, `key.simpletweaks.autowalk` | skip | nur Reste in Lang/Texturen, kein Code dahinter |
 | `spawn_teleporter_old.png`, `copper_block.png` usw. (unbenutzte Texturen) | skip | kein Modell verweist darauf |
 | `ModEntities` (leer) | skip | keine Entities |
@@ -77,7 +77,7 @@ Status: **port** = uebernommen, **neu** = in SimpleBuilding neu hinzugekommen (B
   eigenes Item mit Haltbarkeit; Unbreaking und Mending wirken wie bei jedem Werkzeug (das Datenpaket
   zog Haltbarkeit per `set_damage` direkt ab). Seit 2026-09-27: 1500 Punkte, ein Sprung leert ihn
   (Unbreaking je Punkt), siehe Abschnitt 3.
-- BUGS: "claim deed - not protecting land, just showing who owns it" -> Claims, siehe Abschnitt 3.
+- BUGS: "claim deed - not protecting land, just showing who owns it" -> Claims, siehe Abschnitt 4.
 - TODO-Punkte (Kompost, Wachs-Varianten, Werfer, Chat-Rechner, Questbuch, Challenges, Extra-Inventar,
   "wooden pressureplate can be turned into ?") sind unfertige Ideen ohne Code -> nicht portiert,
   bleiben hier als Ideenliste stehen.
@@ -86,8 +86,9 @@ Status: **port** = uebernommen, **neu** = in SimpleBuilding neu hinzugekommen (B
 ## 2. Stufen (Besitzer-Aenderung Phase 3a)
 
 Nach der Netherit-Stufe kommt eine Enderit-Stufe; die Netherstern-Stufe rueckt eins nach oben.
-Enderit-Stufen entstehen einheitlich im Schmiedetisch: **Enderit-Aufwertungsvorlage + Netherit-Stufe
-+ Enderitbarren**. Die Zusatzfunktion einer Enderit-Stufe behalten alle hoeheren Stufen derselben
+Enderit-Stufen entstehen im Schmiedetisch aus **Enderit-Aufwertungsvorlage + Netherit-Stufe**; die
+dritte Zutat war anfangs ein Enderitbarren und ist seit Abschnitt 2.1 die Enderit-Druckplatte (die
+Enderit-Druckplatte selbst nimmt weiter den Barren; Rezepte je Stufe in der Tabelle). Die Zusatzfunktion einer Enderit-Stufe behalten alle hoeheren Stufen derselben
 Familie.
 
 | Familie | Stufe | ID | Radius (Breite x Breite x Hoehe) / Wirkung | Rezept |
@@ -305,8 +306,9 @@ Namen (en): "Elytra Pad I", "Reinforced Elytra Pad II", "Netherite Elytra Pad II
   Seelenanker-Aufladen an den Dritteln, Warden-Schallladen zum Schluss. Client: FOV-Sog bis 12 %
   enger mit leichtem Puls (`tweaks.client.EchoCompassFov`), skaliert mit Vanillas
   Barrierefreiheitsregler "FOV-Effekte" (0 = aus); Anbindung per `EchoCompassFovMixin`
-  (Fabric + NeoForge, `simplebuilding.tweaks.mixins.json`) bzw. `ComputeFovModifierEvent`
-  (`EchoCompassForgeFov`, Forge laedt die Tweaks-Mixins nicht).
+  (`simplebuilding.tweaks.mixins.json`, auf allen Loadern einschliesslich Forge, das die Konfig per
+  Manifest `MixinConfigs` laedt). Einen eigenen `ComputeFovModifierEvent`-Hoerer auf Forge gab es bis
+  2026-09-28; er wirkte zusaetzlich zum Mixin (Faktor doppelt) und ist entfernt.
 - Sprung am Ende der Ladung auf den Block ueber dem Leitstein, **ohne Enderperle** (bis 2026-09-27
   kostete er eine; jetzt bezahlt allein die Haltbarkeit), 6 s Abklingzeit, Schallknall +
   Seelenanker-Klang + Partikel bei der Ankunft (Wolke mit Streuung ~1,4 Bloecke plus ein Ring aus
@@ -499,15 +501,16 @@ Branch `remove-ported-features` im Repo `simpletweaks` (abgezweigt von `1.21.11`
   - Ladung = Haltbarkeit 640: 1 je angefangene Sekunde Benutzen - auch blosses Zeigen ins Leere oder auf
     einen Block ohne Wirkung, und schon im ersten Tick (bis 2026-09-27 erst nach 20 Ticks, kurzes Antippen
     war dadurch gratis) -, 5 je Wirkung, kreativ gratis; zerbricht nie, leer
-    kein Strahlen mehr (Modell `item/laser_pointer_empty`, faellt auf das normale Bild zurueck, solange die
-    Textur fehlt - Datagen neu laufen lassen, sobald sie gezeichnet ist). Amboss + Redstone laedt auf,
+    kein Strahlen mehr (Modell `item/laser_pointer_empty` mit eigener Textur
+    `textures/item/laser_pointer_empty.png`, auf beiden Linien vorhanden). Amboss + Redstone laedt auf,
     0 Stufen (`AnvilScreenHandlerMixin`, auch `mayPickup`), 10 je Staub, 64 = voll, nur Noetiges wird verbraucht.
   - Kreativ-Tab: Werkzeuge, Zeile "gadgets" (nicht mehr bei den Chunk-Loadern).
   - Entfernungsanzeige misst bis zum Laserpunkt (Audit #34).
 - Echo-Kompass: ein blockierter Sprung kostet weder Haltbarkeit noch Abklingzeit (Perlen braucht er nicht mehr).
 - Launchpad: beim Abbau fallen die geladenen Windkugeln heraus. Eigener Weltspawn per Befehl gilt sofort.
 - Stufen (2026-09-27): Launchpad und Chunk-Loader haben je drei Stufen, die Aufwertungen kosten
-  Druckplatten, Flypad I eine Elytra, Launchpad laedt schleichend alle Windkugeln (Abschnitte 2.1, 2.2).
+  Druckplatten, Flypad I Enderit-Druckplatte + Enderit-Kern (Enderit-Vorlage; die Elytra kostet das
+  Elytra-Pad I), Launchpad laedt schleichend alle Windkugeln (Abschnitte 2.1-2.3).
 - XP-Verklumpen: beim Zusammenlegen ging Erfahrung verloren (Anzahl der Kugeln wurde ignoriert) -
   behoben, Obergrenze `Short.MAX_VALUE` je Kugel.
 - Kupfer-Druckplatten behalten beim Oxidieren/Abkratzen ihren Besitzer und melden den Block darunter an.
@@ -533,7 +536,9 @@ Mending, Zerspringen, Rezept mit 7 Nuggets), Amethystlinse (Wirkungen, TNT nach 
 Portal nie, Ladung schon beim ersten Tick und beim Zeigen ins Leere, Verweildauer nah/fern/200 Bloecke,
 Lebewesen nach doppelter Zeit, kein Spieler ohne PvP, Klaenge ueber den Test-Haken),
 Geschwindigkeitsmesser-Rezept (`QAQ`/`NCN`/`NKN`: Quarz, Amethystsplitter, Kupfernugget, Kompass, Kupferkern), XP-Verklumpen, Stapelgroessen,
-Spawn-Regeln, Befehle, Config-Schalter je Familie. Jeder Test wurde gegengeprueft (Mutation des
+Spawn-Regeln, Befehle (seit 2026-09-28 auch `/killcarts` ueber den echten Befehlsbaum: Schalter,
+Operator-Sperre, Modi, Inhalt der Kistenlore), Pads unter Wasser (jede wasserloggbare Platte ueber den
+echten Setz-Weg), Config-Schalter je Familie. Jeder Test wurde gegengeprueft (Mutation des
 geprueften Verhaltens macht ihn rot).
 
 `TweaksTierTests` (Fabric-Adapter `TweaksTierGameTest`, Test-ID `simplebuilding:tweaks_tier_game_test_*`),

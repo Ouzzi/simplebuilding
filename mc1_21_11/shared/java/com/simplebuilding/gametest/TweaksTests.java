@@ -2318,6 +2318,154 @@ public final class TweaksTests {
     // HELPERS
     // =====================================================================================
 
+    /**
+     * Audit 2026-09-26 #42: {@code /killcarts} ueber den echten Befehlsbaum - aus (Standard) tut er
+     * nichts, der Schalter-Befehl schaltet ihn an, ein Nicht-Operator kennt ihn gar nicht, und die
+     * Modi standard/empty/all entfernen normale, leere und volle Loren; der Inhalt einer vollen
+     * Kistenlore faellt heraus. Dazu die Sperre von {@code /killboats}.
+     */
+    public static void killCartsObeysItsSwitchAndOperatorsAndDropsCartContents(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
+        var players = helper.getLevel().getServer().getPlayerList();
+        boolean wasOp = players.isOp(player.nameAndId());
+        TweaksConfig.Commands commands = SimpleTweaks.config().commands;
+        boolean killCarts = commands.enableKillCartsCommand;
+        boolean killBoats = commands.enableKillBoatsCommand;
+        var plain = helper.spawn(EntityType.MINECART, new BlockPos(1, 2, 5));
+        var full = helper.spawn(EntityType.CHEST_MINECART, new BlockPos(4, 2, 5));
+        full.setItem(0, new ItemStack(Items.DIAMOND, 7));
+        var empty = helper.spawn(EntityType.HOPPER_MINECART, new BlockPos(6, 2, 5));
+        var boat = helper.spawn(EntityType.OAK_BOAT, new BlockPos(6, 2, 2));
+        var dispatcher = helper.getLevel().getServer().getCommands().getDispatcher();
+        var source = player.createCommandSourceStack().withSuppressedOutput();
+        try {
+            players.op(player.nameAndId());
+            commands.enableKillCartsCommand = false;
+            commands.enableKillBoatsCommand = false;
+            helper.assertValueEqual(dispatcher.execute("killcarts all", source), 0, "carts removed while /killcarts is switched off");
+            helper.assertValueEqual(dispatcher.execute("killboats all", source), 0, "boats removed while /killboats is switched off");
+            helper.assertFalse(plain.isRemoved() || full.isRemoved() || empty.isRemoved(), "a switched-off /killcarts removed a cart");
+            helper.assertFalse(boat.isRemoved(), "a switched-off /killboats removed a boat");
+
+            dispatcher.execute("simplebuilding tweaks commands enableKillCarts true", source);
+            helper.assertTrue(commands.enableKillCartsCommand, "the switch command did not turn /killcarts on");
+
+            players.deop(player.nameAndId());
+            boolean refused = false;
+            try {
+                dispatcher.execute("killcarts all", player.createCommandSourceStack().withSuppressedOutput());
+            } catch (com.mojang.brigadier.exceptions.CommandSyntaxException e) {
+                refused = true;
+            }
+            helper.assertTrue(refused, "a non-operator could run /killcarts");
+            helper.assertFalse(plain.isRemoved() || full.isRemoved() || empty.isRemoved(), "a non-operator removed a cart");
+            players.op(player.nameAndId());
+
+            helper.assertValueEqual(dispatcher.execute("killcarts", source), 1, "carts removed by /killcarts (standard)");
+            helper.assertTrue(plain.isRemoved(), "/killcarts standard left the plain minecart");
+            helper.assertFalse(full.isRemoved() || empty.isRemoved(), "/killcarts standard took a storage cart");
+            helper.assertValueEqual(dispatcher.execute("killcarts empty", source), 1, "carts removed by /killcarts empty");
+            helper.assertTrue(empty.isRemoved(), "/killcarts empty left the empty hopper minecart");
+            helper.assertFalse(full.isRemoved(), "/killcarts empty took a full chest minecart");
+            helper.assertValueEqual(dispatcher.execute("killcarts all", source), 1, "carts removed by /killcarts all");
+            helper.assertTrue(full.isRemoved(), "/killcarts all left the full chest minecart");
+            helper.assertValueEqual(droppedCount(helper, Items.DIAMOND), 7, "diamonds dropped from the removed chest minecart");
+
+            dispatcher.execute("simplebuilding tweaks commands enableKillCarts false", source);
+            helper.assertFalse(commands.enableKillCartsCommand, "the switch command did not turn /killcarts off again");
+        } catch (com.mojang.brigadier.exceptions.CommandSyntaxException e) {
+            helper.fail("command failed: " + e.getMessage());
+        } finally {
+            commands.enableKillCartsCommand = killCarts;
+            commands.enableKillBoatsCommand = killBoats;
+            SimpleTweaks.saveConfig();
+            boat.discard();
+            if (wasOp) {
+                players.op(player.nameAndId());
+            } else {
+                players.deop(player.nameAndId());
+            }
+        }
+        TestCleanup.succeed(helper);
+    }
+
+    /**
+     * Audit 2026-09-26 #42: jede wasserloggbare Tweaks-Platte (Spawn-Teleporter, Elytra-Pad, Launchpad
+     * je Stufe, Diamant-Druckplatte) wird ueber den echten Setz-Weg in eine Wasserquelle gesetzt:
+     * {@code waterlogged=true}, die Position meldet Wasserquelle, beim Abbau faellt das Item und das
+     * Wasser bleibt stehen. Trocken gesetzt bleibt sie trocken und hinterlaesst Luft.
+     */
+    public static void padsPlacedInWaterAreWaterloggedAndLeaveTheWaterBehind(GameTestHelper helper) {
+        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 1.0, 1.5));
+        BlockPos wet = new BlockPos(4, 1, 4);
+        BlockPos dry = new BlockPos(6, 1, 1);
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dz = -1; dz <= 1; dz++) {
+                helper.setBlock(wet.offset(dx, -1, dz), Blocks.STONE);
+                if (dx != 0 || dz != 0) {
+                    helper.setBlock(wet.offset(dx, 0, dz), Blocks.GLASS);
+                }
+            }
+        }
+        helper.setBlock(dry.below(), Blocks.STONE);
+
+        List<Block> pads = new ArrayList<>();
+        for (Block block : net.minecraft.core.registries.BuiltInRegistries.BLOCK) {
+            if (block.getClass().getPackageName().startsWith("com.simplebuilding.tweaks")
+                    && block.defaultBlockState().hasProperty(BlockStateProperties.WATERLOGGED)) {
+                pads.add(block);
+            }
+        }
+        for (Block expected : List.of(TweaksBlocks.SPAWN_TELEPORTER, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER,
+                TweaksBlocks.ELYTRA_PAD, TweaksBlocks.FINE_ELYTRA_PAD, TweaksBlocks.LAUNCHPAD,
+                TweaksBlocks.ENDERITE_LAUNCHPAD, TweaksBlocks.DIAMOND_PRESSURE_PLATE)) {
+            helper.assertTrue(pads.contains(expected), expected + " is not waterloggable any more");
+        }
+
+        for (Block pad : pads) {
+            helper.setBlock(wet, Blocks.WATER);
+            placeByHand(helper, player, pad, wet);
+            BlockState placed = helper.getBlockState(wet);
+            helper.assertTrue(placed.is(pad), pad + " was not placed into the water: " + placed);
+            helper.assertTrue(placed.getValue(BlockStateProperties.WATERLOGGED), pad + " placed into water is not waterlogged");
+            helper.assertTrue(helper.getLevel().getFluidState(helper.absolutePos(wet)).isSourceOfType(net.minecraft.world.level.material.Fluids.WATER),
+                    pad + " placed into water does not hold a water source");
+            helper.getLevel().destroyBlock(helper.absolutePos(wet), true);
+            helper.assertTrue(helper.getLevel().getFluidState(helper.absolutePos(wet)).isSourceOfType(net.minecraft.world.level.material.Fluids.WATER),
+                    "breaking a waterlogged " + pad + " did not leave its water behind");
+            helper.assertValueEqual(droppedCount(helper, pad.asItem()), 1, pad + " items dropped from the waterlogged block");
+
+            placeByHand(helper, player, pad, dry);
+            BlockState dryState = helper.getBlockState(dry);
+            helper.assertTrue(dryState.is(pad) && !dryState.getValue(BlockStateProperties.WATERLOGGED), pad + " placed on dry ground: " + dryState);
+            helper.getLevel().destroyBlock(helper.absolutePos(dry), true);
+            helper.assertTrue(helper.getBlockState(dry).isAir(), "breaking a dry " + pad + " left " + helper.getBlockState(dry));
+            helper.assertValueEqual(droppedCount(helper, pad.asItem()), 1, pad + " items dropped from the dry block");
+        }
+        helper.setBlock(wet, Blocks.AIR);
+        TestCleanup.succeed(helper);
+    }
+
+    /** Setzt {@code block} wie ein Spieler von oben auf den Block unter {@code relative}. */
+    private static void placeByHand(GameTestHelper helper, ServerPlayer player, Block block, BlockPos relative) {
+        BlockPos floor = helper.absolutePos(relative.below());
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(block));
+        player.getItemInHand(InteractionHand.MAIN_HAND).useOn(new net.minecraft.world.item.context.UseOnContext(player, InteractionHand.MAIN_HAND,
+                new BlockHitResult(Vec3.atCenterOf(floor).add(0, 0.5, 0), Direction.UP, floor, false)));
+    }
+
+    /** Zaehlt und entfernt die fallengelassenen {@code item}-Stapel im Testraum. */
+    private static int droppedCount(GameTestHelper helper, net.minecraft.world.item.Item item) {
+        int count = 0;
+        for (ItemEntity drop : helper.getLevel().getEntitiesOfClass(ItemEntity.class, helper.getBounds())) {
+            if (drop.getItem().is(item)) {
+                count += drop.getItem().getCount();
+                drop.discard();
+            }
+        }
+        return count;
+    }
+
     @SuppressWarnings("removal")
     private static ServerPlayer mockPlayer(GameTestHelper helper, Vec3 relative) {
         ServerPlayer player = helper.makeMockServerPlayerInLevel();

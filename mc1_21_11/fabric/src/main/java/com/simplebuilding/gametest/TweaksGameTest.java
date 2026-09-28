@@ -354,4 +354,14 @@ public final class TweaksGameTest {
     public void creativePlayersLoseTheStaleFlypadFlightTag(GameTestHelper helper) {
         TweaksTests.creativePlayersLoseTheStaleFlypadFlightTag(helper);
     }
+
+    @GameTest
+    public void killCartsObeysItsSwitchAndOperatorsAndDropsCartContents(GameTestHelper helper) {
+        TweaksTests.killCartsObeysItsSwitchAndOperatorsAndDropsCartContents(helper);
+    }
+
+    @GameTest
+    public void padsPlacedInWaterAreWaterloggedAndLeaveTheWaterBehind(GameTestHelper helper) {
+        TweaksTests.padsPlacedInWaterAreWaterloggedAndLeaveTheWaterBehind(helper);
+    }
 }

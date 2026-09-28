@@ -1173,7 +1173,12 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 count
         );
 
+        // Wie Vanillas Rezept-Advancements: Freischalten schenkt das Rezept (vorher nur "has_template"
+        // ohne Belohnung - die 34 Advancements schalteten nichts frei).
         exporter.accept(recipeKey, recipe, exporter.advancement()
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeKey))
+                .rewards(AdvancementRewards.Builder.recipe(recipeKey))
+                .requirements(AdvancementRequirements.Strategy.OR)
                 .addCriterion("has_template", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.BASIC_UPGRADE_TEMPLATE))
                 .build(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "recipes/misc/" + recipeId.getPath())));
     }

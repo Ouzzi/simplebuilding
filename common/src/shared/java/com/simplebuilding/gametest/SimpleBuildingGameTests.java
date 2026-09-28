@@ -1204,6 +1204,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("advancement_tree_game_test_marking_one_corner_with_the_octant_earns_measure_twice", AdvancementTreeTests::markingOneCornerWithTheOctantEarnsMeasureTwice)
                     .build(),
+            GameTestSpec.named("advancement_tree_game_test_every_recipe_unlock_hands_out_an_existing_recipe", AdvancementTreeTests::everyRecipeUnlockHandsOutAnExistingRecipe)
+                    .build(),
             GameTestSpec.named("potion_pad_game_test_splash_potions_landing_on_the_pad_are_stored_and_replaced", PotionPadTests::splashPotionsLandingOnThePadAreStoredAndReplaced)
                     .build(),
             GameTestSpec.named("potion_pad_game_test_standing_on_the_pad_ramps_the_effect_to_twenty_five_fifty_and_one_hundred_percent_in_three_seconds", PotionPadTests::standingOnThePadRampsTheEffectToTwentyFiveFiftyAndOneHundredPercentInThreeSeconds)
@@ -1345,6 +1347,10 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("tweaks_game_test_the_first_join_key_migration_saves_the_config_once", TweaksTests::theFirstJoinKeyMigrationSavesTheConfigOnce)
                     .build(),
             GameTestSpec.named("tweaks_game_test_creative_players_lose_the_stale_flypad_flight_tag", TweaksTests::creativePlayersLoseTheStaleFlypadFlightTag)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_kill_carts_obeys_its_switch_and_operators_and_drops_cart_contents", TweaksTests::killCartsObeysItsSwitchAndOperatorsAndDropsCartContents)
+                    .build(),
+            GameTestSpec.named("tweaks_game_test_pads_placed_in_water_are_waterlogged_and_leave_the_water_behind", TweaksTests::padsPlacedInWaterAreWaterloggedAndLeaveTheWaterBehind)
                     .build()
             // --- /tweaks ---
             );

@@ -16,6 +16,7 @@ import net.minecraft.advancements.AdvancementRewards;
 // MC 26.2: Kriterien-Trigger wurden von net.minecraft.advancements.criterion nach
 // net.minecraft.advancements.triggers verschoben (Criterion liegt jetzt ebenfalls dort).
 import net.minecraft.advancements.triggers.InventoryChangeTrigger;
+import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.advancements.triggers.RecipeUnlockedTrigger;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
@@ -563,52 +564,52 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 // Ziel-Werkzeug verlangt. Aufwerten behaelt Verzauberungen, Schaden und Namen - dafuer ist
                 // es teurer als neu bauen.
                 // Spitzhacken und Aexte (Werkbank: 3 -> Aufwerten: 6)
-                createUpgradeRecipe(items(), output, Items.WOODEN_PICKAXE, Items.STONE_PICKAXE, Items.COBBLESTONE, 6);
-                createUpgradeRecipe(items(), output, Items.STONE_PICKAXE, Items.IRON_PICKAXE, Items.IRON_INGOT, 6);
-                createUpgradeRecipe(items(), output, Items.IRON_PICKAXE, Items.GOLDEN_PICKAXE, Items.GOLD_INGOT, 6);
-                createUpgradeRecipe(items(), output, Items.GOLDEN_PICKAXE, Items.DIAMOND_PICKAXE, Items.DIAMOND, 6);
-                createUpgradeRecipe(items(), output, Items.COPPER_PICKAXE, Items.IRON_PICKAXE, Items.IRON_INGOT, 6);
-                createUpgradeRecipe(items(), output, Items.COPPER_AXE, Items.IRON_AXE, Items.IRON_INGOT, 6);
-                createUpgradeRecipe(items(), output, Items.WOODEN_AXE, Items.STONE_AXE, Items.COBBLESTONE, 6);
-                createUpgradeRecipe(items(), output, Items.STONE_AXE, Items.IRON_AXE, Items.IRON_INGOT, 6);
-                createUpgradeRecipe(items(), output, Items.IRON_AXE, Items.GOLDEN_AXE, Items.GOLD_INGOT, 6);
-                createUpgradeRecipe(items(), output, Items.GOLDEN_AXE, Items.DIAMOND_AXE, Items.DIAMOND, 6);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.WOODEN_PICKAXE, Items.STONE_PICKAXE, Items.COBBLESTONE, 6);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.STONE_PICKAXE, Items.IRON_PICKAXE, Items.IRON_INGOT, 6);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.IRON_PICKAXE, Items.GOLDEN_PICKAXE, Items.GOLD_INGOT, 6);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.GOLDEN_PICKAXE, Items.DIAMOND_PICKAXE, Items.DIAMOND, 6);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.COPPER_PICKAXE, Items.IRON_PICKAXE, Items.IRON_INGOT, 6);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.COPPER_AXE, Items.IRON_AXE, Items.IRON_INGOT, 6);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.WOODEN_AXE, Items.STONE_AXE, Items.COBBLESTONE, 6);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.STONE_AXE, Items.IRON_AXE, Items.IRON_INGOT, 6);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.IRON_AXE, Items.GOLDEN_AXE, Items.GOLD_INGOT, 6);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.GOLDEN_AXE, Items.DIAMOND_AXE, Items.DIAMOND, 6);
 
                 // Schwerter und Hacken (Werkbank: 2 -> Aufwerten: 4)
-                createUpgradeRecipe(items(), output, Items.WOODEN_SWORD, Items.STONE_SWORD, Items.COBBLESTONE, 4);
-                createUpgradeRecipe(items(), output, Items.STONE_SWORD, Items.IRON_SWORD, Items.IRON_INGOT, 4);
-                createUpgradeRecipe(items(), output, Items.IRON_SWORD, Items.GOLDEN_SWORD, Items.GOLD_INGOT, 4);
-                createUpgradeRecipe(items(), output, Items.GOLDEN_SWORD, Items.DIAMOND_SWORD, Items.DIAMOND, 4);
-                createUpgradeRecipe(items(), output, Items.COPPER_SWORD, Items.IRON_SWORD, Items.IRON_INGOT, 4);
-                createUpgradeRecipe(items(), output, Items.WOODEN_HOE, Items.STONE_HOE, Items.COBBLESTONE, 4);
-                createUpgradeRecipe(items(), output, Items.STONE_HOE, Items.IRON_HOE, Items.IRON_INGOT, 4);
-                createUpgradeRecipe(items(), output, Items.IRON_HOE, Items.GOLDEN_HOE, Items.GOLD_INGOT, 4);
-                createUpgradeRecipe(items(), output, Items.GOLDEN_HOE, Items.DIAMOND_HOE, Items.DIAMOND, 4);
-                createUpgradeRecipe(items(), output, Items.COPPER_HOE, Items.IRON_HOE, Items.IRON_INGOT, 4);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.WOODEN_SWORD, Items.STONE_SWORD, Items.COBBLESTONE, 4);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.STONE_SWORD, Items.IRON_SWORD, Items.IRON_INGOT, 4);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.IRON_SWORD, Items.GOLDEN_SWORD, Items.GOLD_INGOT, 4);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.GOLDEN_SWORD, Items.DIAMOND_SWORD, Items.DIAMOND, 4);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.COPPER_SWORD, Items.IRON_SWORD, Items.IRON_INGOT, 4);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.WOODEN_HOE, Items.STONE_HOE, Items.COBBLESTONE, 4);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.STONE_HOE, Items.IRON_HOE, Items.IRON_INGOT, 4);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.IRON_HOE, Items.GOLDEN_HOE, Items.GOLD_INGOT, 4);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.GOLDEN_HOE, Items.DIAMOND_HOE, Items.DIAMOND, 4);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.COPPER_HOE, Items.IRON_HOE, Items.IRON_INGOT, 4);
 
                 // Schaufeln (Werkbank: 1 -> Aufwerten: 2)
-                createUpgradeRecipe(items(), output, Items.WOODEN_SHOVEL, Items.STONE_SHOVEL, Items.COBBLESTONE, 2);
-                createUpgradeRecipe(items(), output, Items.STONE_SHOVEL, Items.IRON_SHOVEL, Items.IRON_INGOT, 2);
-                createUpgradeRecipe(items(), output, Items.IRON_SHOVEL, Items.GOLDEN_SHOVEL, Items.GOLD_INGOT, 2);
-                createUpgradeRecipe(items(), output, Items.GOLDEN_SHOVEL, Items.DIAMOND_SHOVEL, Items.DIAMOND, 2);
-                createUpgradeRecipe(items(), output, Items.COPPER_SHOVEL, Items.IRON_SHOVEL, Items.IRON_INGOT, 2);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.WOODEN_SHOVEL, Items.STONE_SHOVEL, Items.COBBLESTONE, 2);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.STONE_SHOVEL, Items.IRON_SHOVEL, Items.IRON_INGOT, 2);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.IRON_SHOVEL, Items.GOLDEN_SHOVEL, Items.GOLD_INGOT, 2);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.GOLDEN_SHOVEL, Items.DIAMOND_SHOVEL, Items.DIAMOND, 2);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, Items.COPPER_SHOVEL, Items.IRON_SHOVEL, Items.IRON_INGOT, 2);
 
                 // Mod-Werkzeuge
                 // Meissel (Werkbank: 1 Barren/Diamant -> Aufwerten: 2)
-                createUpgradeRecipe(items(), output, ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL, Items.IRON_INGOT, 2);
-                createUpgradeRecipe(items(), output, ModItems.IRON_CHISEL, ModItems.GOLD_CHISEL, Items.GOLD_INGOT, 2);
-                createUpgradeRecipe(items(), output, ModItems.GOLD_CHISEL, ModItems.DIAMOND_CHISEL, Items.DIAMOND, 2);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL, Items.IRON_INGOT, 2);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, ModItems.IRON_CHISEL, ModItems.GOLD_CHISEL, Items.GOLD_INGOT, 2);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, ModItems.GOLD_CHISEL, ModItems.DIAMOND_CHISEL, Items.DIAMOND, 2);
 
                 // Vorschlaghammer (Werkbank: 1 Block + 2 Barren = 11 Barren -> Aufwerten: 22)
-                createUpgradeRecipe(items(), output, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER, Items.IRON_INGOT, 22);
-                createUpgradeRecipe(items(), output, ModItems.IRON_SLEDGEHAMMER, ModItems.GOLD_SLEDGEHAMMER, Items.GOLD_INGOT, 22);
-                createUpgradeRecipe(items(), output, ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, Items.DIAMOND, 22);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER, Items.IRON_INGOT, 22);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, ModItems.IRON_SLEDGEHAMMER, ModItems.GOLD_SLEDGEHAMMER, Items.GOLD_INGOT, 22);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, Items.DIAMOND, 22);
 
                 // Baustab: kein Barren-Preis - ein Baustab braucht einen Kern (Late-Game), also kostet das
                 // Aufwerten genau einen Kern der Zielstufe (Entscheidung des Besitzers, 2026-09-25).
-                createUpgradeRecipe(items(), output, ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.IRON_CORE, 1);
-                createUpgradeRecipe(items(), output, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND, ModItems.GOLD_CORE, 1);
-                createUpgradeRecipe(items(), output, ModItems.GOLD_BUILDING_WAND, ModItems.DIAMOND_BUILDING_WAND, ModItems.DIAMOND_CORE, 1);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.IRON_CORE, 1);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND, ModItems.GOLD_CORE, 1);
+                createUpgradeRecipe(items(), output, this::unlockedRecipe, ModItems.GOLD_BUILDING_WAND, ModItems.DIAMOND_BUILDING_WAND, ModItems.DIAMOND_CORE, 1);
 
 
 
@@ -1170,7 +1171,9 @@ public class ModRecipeProvider extends RecipeProviderCompat {
         };
     }
 
-    private void createUpgradeRecipe(HolderGetter<Item> items, RecipeOutput exporter, Item base, Item result, Item material, int count) {
+    private void createUpgradeRecipe(HolderGetter<Item> items, RecipeOutput exporter,
+                                     java.util.function.Function<ResourceKey<Recipe<?>>, Criterion<RecipeUnlockedTrigger.TriggerInstance>> unlocked,
+                                     Item base, Item result, Item material, int count) {
         Identifier recipeId = Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "upgrade_" + getItemName(base) + "_to_" + getItemName(result));
 
         ResourceKey<Recipe<?>> recipeKey = ResourceKey.create(Registries.RECIPE, recipeId);
@@ -1190,7 +1193,12 @@ public class ModRecipeProvider extends RecipeProviderCompat {
                 count
         );
 
+        // Wie Vanillas Rezept-Advancements: Freischalten schenkt das Rezept (vorher nur "has_template"
+        // ohne Belohnung - die 34 Advancements schalteten nichts frei).
         exporter.accept(recipeKey, recipe, exporter.advancement()
+                .addCriterion("has_the_recipe", unlocked.apply(recipeKey))
+                .rewards(AdvancementRewards.Builder.recipe(recipeKey))
+                .requirements(AdvancementRequirements.Strategy.OR)
                 .addCriterion("has_template", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.BASIC_UPGRADE_TEMPLATE))
                 .build(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "recipes/misc/" + recipeId.getPath())));
     }
