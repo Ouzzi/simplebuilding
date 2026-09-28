@@ -434,11 +434,9 @@ public final class SledgehammerUpgrades {
         }
         BlockState old = level.getBlockState(job.pos);
         BlockState upgraded = job.upgrade.to().withPropertiesOf(old);
-        // Die Aufwertung gibt einen neuen Kolben: der Verschleiss des Netheritkolbens (sein Budget)
-        // gilt fuer den Enderitkolben nicht, er beginnt bei 0.
-        if (upgraded.hasProperty(com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock.WEAR)) {
-            upgraded = upgraded.setValue(com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock.WEAR, 0);
-        }
+        // Die Aufwertung gibt einen neuen Kolben: der Schaden des Netheritkolbens gilt fuer den
+        // Enderitkolben nicht, er beginnt mit voller Haltbarkeit.
+        upgraded = com.simplebuilding.blocks.custom.NetheriteBreakerPistonBlock.withDamage(upgraded, 0);
         level.setBlock(job.pos, upgraded, Block.UPDATE_ALL);
         SledgehammerProgress.clear(serverLevel, job.pos);
         level.gameEvent(GameEvent.BLOCK_CHANGE, job.pos, GameEvent.Context.of(player, upgraded));

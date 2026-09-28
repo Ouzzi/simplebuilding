@@ -14,6 +14,10 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SmithingRecipe;
 import net.minecraft.world.item.crafting.SmithingRecipeInput;
 import net.minecraft.world.item.crafting.TransmuteResult;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
+import net.minecraft.world.item.crafting.display.SmithingRecipeDisplay;
 import net.minecraft.world.level.Level;
 
 public class CountBasedSmithingRecipe implements SmithingRecipe {
@@ -104,6 +108,20 @@ public class CountBasedSmithingRecipe implements SmithingRecipe {
     @Override
     public RecipeSerializer<? extends SmithingRecipe> getSerializer() {
         return ModRecipes.COUNT_BASED_SMITHING_SERIALIZER;
+    }
+
+    /**
+     * Anzeige wie Vanillas Schmiede-Aufwertung (Rezeptbuch, Handbuch-Bildschirm), aber mit der
+     * Anzahl der Zugabe: ist die Zugabe genau ein Item, zeigt der Slot {@code additionCount} Stueck.
+     */
+    @Override
+    public List<RecipeDisplay> display() {
+        List<net.minecraft.core.Holder<net.minecraft.world.item.Item>> additions = this.addition.items().toList();
+        SlotDisplay additionDisplay = additions.size() == 1 && this.additionCount > 1
+                ? new SlotDisplay.ItemStackSlotDisplay(new ItemStack(additions.get(0).value(), this.additionCount))
+                : this.addition.display();
+        return List.of(new SmithingRecipeDisplay(this.template.display(), this.base.display(), additionDisplay,
+                new SlotDisplay.ItemStackSlotDisplay(getResultStack()), new SlotDisplay.ItemSlotDisplay(Items.SMITHING_TABLE)));
     }
 
     public int getAdditionCount() {

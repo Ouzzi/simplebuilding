@@ -753,7 +753,7 @@ public class ModItems {
     // HANDBUECHER (Einsteiger-Handbuch + Themenbuecher, com.simplebuilding.guide.GuideBooks)
     // =================================================================================
     // Die Seiten stehen als Standardkomponente WRITTEN_BOOK_CONTENT am Item (uebersetzbar, fertig
-    // aufgeloest), ein Rechtsklick oeffnet Vanillas Buchbildschirm. Nach STONE_CHISEL deklariert,
+    // aufgeloest, fuers Lesepult), ein Rechtsklick oeffnet den eigenen Buchbildschirm (GuideBookScreen). Nach STONE_CHISEL deklariert,
     // weil die Themenliste des Handbuchs dessen Namen braucht.
     public static final Item GUIDE_BOOK = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.GUIDE);
     public static final Item GUIDE_BOOK_TOOLS = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.TOOLS);
@@ -772,7 +772,7 @@ public class ModItems {
     }
 
     private static Item registerGuideBook(com.simplebuilding.guide.GuideBooks.Book book) {
-        return registerItem(book.itemName(), settings -> new GuideBookItem(com.simplebuilding.guide.GuideBooks.properties(settings, book)));
+        return registerItem(book.itemName(), settings -> new GuideBookItem(com.simplebuilding.guide.GuideBooks.properties(settings, book), book));
     }
 
 

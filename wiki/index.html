@@ -174,7 +174,6 @@ button { font: inherit; }
 .qs-item[aria-selected="true"] { background: var(--accent-soft); }
 .qs-item .slot { width: 34px; height: 34px; }
 .qs-item .slot img { width: 24px; height: 24px; }
-.qs-item .slot .cube { --cs: 15px; }
 .qs-item .slot-text { font-size: 7px; }
 .qs-ico { width: 34px; height: 34px; flex: none; display: inline-flex; align-items: center; justify-content: center; border-radius: var(--radius-sm); background: var(--bg-2); color: var(--muted); font-size: .75rem; font-weight: 700; }
 .qs-main { min-width: 0; flex: 1; }
@@ -198,7 +197,6 @@ button { font: inherit; }
 .sidebar a .n { margin-left: auto; color: var(--muted); font-size: .75rem; font-weight: 500; font-variant-numeric: tabular-nums; }
 .sidebar .sb-ico { width: 24px; height: 24px; flex: none; display: inline-flex; align-items: center; justify-content: center; }
 .sidebar .sb-ico img { width: 20px; height: 20px; image-rendering: pixelated; }
-.sidebar .sb-ico .cube { --cs: 12px; }
 .sidebar .sb-ico .glyph { font-size: .95rem; line-height: 1; color: var(--muted); }
 .sidebar .sb-note { margin-top: 1rem; padding: .7rem .6rem 0; font-size: .74rem; color: var(--muted); border-top: 1px solid var(--border); }
 .backdrop { display: none; }
@@ -323,6 +321,8 @@ a.slot:hover { text-decoration: none; background: color-mix(in srgb, var(--slot-
 .hero-card .hero { margin-bottom: 0; align-items: flex-start; }
 .hero-tex { width: 112px; height: 112px; background: var(--slot-bg); box-shadow: inset 3px 3px 0 var(--slot-lo), inset -3px -3px 0 var(--slot-hi); border-radius: 3px; display: flex; align-items: center; justify-content: center; flex: none; text-align: center; color: var(--slot-text); font-size: .8rem; padding: .4rem; }
 .hero-tex img { width: 80px; height: 80px; image-rendering: pixelated; image-rendering: crisp-edges; }
+.hero-tex img.r3d { width: 104px; height: 104px; }
+img.r3d { image-rendering: auto !important; }
 .hero .en { color: var(--muted); font-size: 1rem; }
 .hero .idline { margin: .35rem 0 .5rem; }
 .hero .idline code { font-size: .82rem; }
@@ -348,6 +348,15 @@ a.slot:hover { text-decoration: none; background: color-mix(in srgb, var(--slot-
 .obtain-ways { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .5rem; }
 .obtain-ways .btn { height: 30px; font-size: .82rem; }
 .obtain p { margin: .3rem 0; }
+.ob-card .iw-tool { position: relative; }
+.ob-bolt { position: absolute; right: -2px; top: -6px; font-size: .9rem; filter: drop-shadow(0 0 2px rgba(0,0,0,.6)); }
+.obtain .ob-card { background: var(--panel-2); }
+.chips { display: flex; flex-wrap: wrap; gap: .3rem; }
+.chips .chip { cursor: default; text-decoration: none; }
+a.chip { cursor: pointer; }
+.ob-kv dd { margin: 0; }
+.ob-more { margin-top: .5rem; }
+.ob-more > summary { cursor: pointer; color: var(--accent-strong); font-size: .85rem; }
 
 /* Kategorien, Kacheln mit Item */
 .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: .7rem; margin: .6rem 0 1.4rem; }
@@ -355,7 +364,6 @@ a.slot:hover { text-decoration: none; background: color-mix(in srgb, var(--slot-
 .cat-card:hover { text-decoration: none; border-color: var(--accent); transform: translateY(-1px); }
 .cat-card .slot { width: 48px; height: 48px; }
 .cat-card .slot img { width: 34px; height: 34px; }
-.cat-card .slot .cube { --cs: 22px; }
 .cat-card .ct { font-weight: 700; }
 .cat-card .ct .n { color: var(--muted); font-weight: 500; font-size: .8rem; margin-left: .25rem; }
 .cat-card .cd { color: var(--muted); font-size: .84rem; line-height: 1.4; margin-top: .15rem; }
@@ -368,7 +376,6 @@ a.slot:hover { text-decoration: none; background: color-mix(in srgb, var(--slot-
 .itile:hover { text-decoration: none; border-color: var(--accent); transform: translateY(-1px); }
 .itile .slot { width: 52px; height: 52px; }
 .itile .slot img { width: 36px; height: 36px; }
-.itile .slot .cube { --cs: 24px; }
 .itile-name { font-size: .82rem; font-weight: 600; line-height: 1.25; overflow-wrap: anywhere; }
 .itile-sub { font-size: .7rem; color: var(--muted); }
 .guide-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: .6rem; margin-bottom: 1rem; }
@@ -392,16 +399,6 @@ a.slot:hover { text-decoration: none; background: color-mix(in srgb, var(--slot-
    45 Grad gedreht, 30 Grad von oben, mit reinen 2D-Matrizen (ohne 3D-Kontext,
    der in manchen Renderern platt gezeichnet wird). --cs ist die Kantenlaenge;
    der Wuerfel ist projiziert 1,414 * cs breit und 1,573 * cs hoch. */
-.cube { --cs: 56px; width: calc(var(--cs) * 1.4142); height: calc(var(--cs) * 1.5731); position: relative; flex: none; display: block; }
-.cube span { position: absolute; left: 0; top: 0; width: var(--cs); height: var(--cs); transform-origin: 0 0; background-size: 100% 100%; background-repeat: no-repeat; image-rendering: pixelated; image-rendering: crisp-edges; }
-.cube .f-top { transform: translate(calc(var(--cs) * .7071), 0) matrix(.7071, .3536, -.7071, .3536, 0, 0); }
-.cube .f-front { transform: translate(0, calc(var(--cs) * .3536)) matrix(.7071, .3536, 0, .866, 0, 0); filter: brightness(.8); }
-.cube .f-side { transform: translate(calc(var(--cs) * .7071), calc(var(--cs) * .7071)) matrix(.7071, -.3536, 0, .866, 0, 0); filter: brightness(.62); }
-.slot .cube { --cs: 26px; }
-.slot-result .cube { --cs: 30px; }
-.row .slot .cube, .iw-entry .slot .cube, .rc .slot .cube { --cs: 18px; }
-.rc .slot-result .cube { --cs: 21px; }
-.tree-node > summary .slot .cube { --cs: 15px; }
 .pool-bar { height: 6px; background: var(--bg-2); border-radius: 3px; overflow: hidden; min-width: 80px; }
 .pool-bar i { display: block; height: 100%; background: var(--accent); }
 details summary { cursor: pointer; color: var(--accent); }
@@ -426,7 +423,6 @@ mark { background: color-mix(in srgb, var(--warn-border) 40%, transparent); colo
 .pager a.next { justify-content: flex-end; text-align: right; grid-column: 2; }
 .pager .slot { width: 36px; height: 36px; }
 .pager .slot img { width: 26px; height: 26px; }
-.pager .slot .cube { --cs: 16px; }
 .pager small { display: block; color: var(--muted); font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; }
 .pager b { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .pager span.pm { min-width: 0; }
@@ -514,7 +510,6 @@ a.chip:hover { text-decoration: none; }
 .rc-variants button[aria-pressed="true"] { border-color: var(--accent); }
 .rc-variants .slot { width: 26px; height: 26px; pointer-events: none; }
 .rc-variants .slot img { width: 20px; height: 20px; }
-.rc-variants .slot .cube { --cs: 12px; }
 .rc-variants .slot-text { display: none; }
 .badge-mod { border-color: color-mix(in srgb, var(--accent) 55%, transparent); color: var(--accent-strong); }
 .badge-line { font-variant-numeric: tabular-nums; }
@@ -564,7 +559,6 @@ a.chip:hover { text-decoration: none; }
   .hero { gap: .9rem; }
   .hero-tex { width: 76px; height: 76px; }
   .hero-tex img { width: 56px; height: 56px; }
-  .hero-tex .cube { --cs: 38px; }
   .tagline { font-size: 1rem; }
   .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ar-grid, .mk-list { grid-template-columns: 1fr; }
@@ -585,7 +579,6 @@ a.chip:hover { text-decoration: none; }
   .recipe { padding: .75rem .7rem; }
   .slot { width: 48px; height: 48px; }
   .slot img { width: 34px; height: 34px; }
-  .slot .cube { --cs: 22px; }
   .slot-result { width: 56px; height: 56px; }
   .slot-result img { width: 40px; height: 40px; }
   .recipe-body { gap: .6rem; }
@@ -859,7 +852,7 @@ en: {
   tagUnused: 'Not referenced anywhere in the wiki data.',
 
   /* Konfiguration */
-  configIntro: 'From <code>SimplebuildingConfig.java</code>. Change these in the mod’s config file, not here.',
+  configIntro: 'From <code>SimplebuildingConfig.java</code> and <code>TweaksConfig.java</code>, grouped by the tabs of the in-game config screen (ModMenu on Fabric, the Config button on NeoForge). Operators can also use <code>/simplebuilding config list|get|set|reset &lt;option&gt;</code> with the names below.',
   noOptions: 'No options.',
   thName: 'Name', thTypeCol: 'Type', thDefault: 'Default', thTooltip: 'Tooltip', thNote: 'Note', thRelation: 'Relates to',
   tradeOne: 'trade', tradeMany: 'trades',
@@ -959,6 +952,12 @@ en: {
   navAdvancements: 'Advancements',
   advIntro: 'The mod\'s own advancement tab in the game. Every entry says what to do; once one is done, the next ones become visible - that is the clue for how to progress. Read from the datagen output (advancement/**), recipe unlocks and the secret easter chain left out.',
   advTab: 'SimpleBuilding tab',
+  advQuests: 'FTB Quests chapters',
+  advQuestsIntro: 'With FTB Quests installed, the mod adds a chapter group "SimpleBuilding" to the quest book on first start: four stage chapters that unlock one after another and three side chapters. Items you already carry count too. Details: docs/QUESTS.md.',
+  advStage: 'Stage {0}',
+  advSide: 'Side chapter',
+  advOptional: 'optional',
+  advCapstone: 'ends the stage',
   advVanilla: 'Teasers in vanilla tabs',
   advUnder: 'under {0}',
   advFrame_task: 'task', advFrame_goal: 'goal', advFrame_challenge: 'challenge',
@@ -1078,6 +1077,45 @@ en: {
   qsNav: '↑↓ select · Enter open · Esc close',
   themeAuto: 'Theme: system', themeLight: 'Theme: light', themeDark: 'Theme: dark',
   menuAria: 'Open navigation',
+  obtainMob: 'Dropped by mobs – see the cards below.',
+  obtainLoot: 'Found in loot: {0}.',
+  secSources: 'Loot & mob drops',
+  secEnchantments: 'Enchantments for this item',
+  obEnchForItemIntro: 'Applied with an anvil (book + item); the badges say where each book comes from.',
+  obChargedCreeper: 'Charged creeper (struck by lightning)',
+  obChargedTitle: 'Charged creeper explosion',
+  obChargedHow: '{0} killed by the explosion of a charged creeper – one head per explosion.',
+  obKilledTitle: 'Creeper killed by a skeleton',
+  obKilledHow: 'A {0} killed by {1} drops one of {2} music discs.',
+  obPerChest: '{0} % per chest',
+  obPerVault: '{0} % per vault opening',
+  obPerCatch: '{0} % per treasure catch',
+  obRandomEnchant: 'randomly enchanted',
+  obOnlyWith: 'only with {0}',
+  obEnchTitle: 'Where to get it',
+  obTable: 'Enchanting table',
+  obYes: 'yes', obNo: 'no',
+  obTableHowYes: 'Can be rolled at the enchanting table (tag minecraft:in_enchanting_table).',
+  obTableHowNo: 'Never offered by the enchanting table – books only.',
+  obTableYes: 'Enchanting table', obTableNo: 'Not at the table',
+  obChests: 'Chests & vaults',
+  obChestsN: '{0}× in chests',
+  obFishing: 'Fishing',
+  obFishingNo: 'Not from fishing.',
+  obTrades: 'Villagers',
+  obTradesN: '{0}× traded',
+  obNowhere: 'Not obtainable',
+  obNone: 'In no chest.',
+  obAnvil: 'Anvil',
+  obRandom: 'Random enchantment',
+  obRandomOnly: 'Random loot only',
+  obRandomHint: 'These chests hold the item randomly enchanted: any enchantment that fits it can come up (vanilla ones too), this one among them. The percentage is the item\u2019s chance per chest.',
+  obAnvilHow: 'Combine the book with an item from',
+  obWeight: 'weight {0} of {1}',
+  obShowCards: 'Show all {0} loot sources as cards',
+  obOverviewIntro: 'Everything the mod adds to vanilla chests, vaults and the fishing treasure, plus the mob drops that give items shown in this wiki (charged-creeper heads, music discs). The chance is the probability of at least one per chest.',
+  obBlockLootTitle: 'Block loot tables',
+  'mob.blaze': 'Blaze', 'mob.creeper': 'Creeper', 'mob.piglin': 'Piglin', 'mob.skeleton': 'Skeleton', 'mob.wither_skeleton': 'Wither skeleton', 'mob.zombie': 'Zombie', 'mob.#minecraft:skeletons': 'a skeleton (any kind)',
   obtainTitle: 'How to get it',
   obtainCraft: 'Crafted at the {0}.',
   obtainInWorld: 'Made in the world: {0}.',
@@ -1293,7 +1331,7 @@ de: {
   tagUnused: 'Wird in den Wiki-Daten nirgends referenziert.',
 
   /* Konfiguration */
-  configIntro: 'Aus <code>SimplebuildingConfig.java</code>. Änderungen erfolgen in der Konfigurationsdatei der Mod, nicht hier.',
+  configIntro: 'Aus <code>SimplebuildingConfig.java</code> und <code>TweaksConfig.java</code>, gruppiert nach den Reitern des Config-Bildschirms im Spiel (ModMenu auf Fabric, der Config-Knopf auf NeoForge). Operatoren können auch <code>/simplebuilding config list|get|set|reset &lt;Option&gt;</code> mit den Namen unten nutzen.',
   noOptions: 'Keine Optionen.',
   thName: 'Name', thTypeCol: 'Typ', thDefault: 'Standard', thTooltip: 'Tooltip', thNote: 'Notiz', thRelation: 'Bezug',
   tradeOne: 'Handel', tradeMany: 'Handel',
@@ -1391,8 +1429,14 @@ de: {
   /* Umwandlung in der Welt */
   navInWorld: 'In der Welt',
   navAdvancements: 'Fortschritte',
-  advIntro: 'Der eigene Fortschritts-Tab der Mod im Spiel. Jeder Eintrag sagt, was zu tun ist; ist einer erledigt, werden die nächsten sichtbar - das ist der Hinweis, wie es weitergeht. Gelesen aus der Datagen-Ausgabe (advancement/**), ohne Rezept-Freischaltungen und ohne die geheime Easter-Kette.',
+  advIntro: 'Die eigenen Fortschritts-Tabs der Mod im Spiel (wie Vanilla: ein Story-Tab, Bauen & Blaupausen, Gadgets & Kniffe, Jenseits des Endes). Jeder Eintrag sagt, was zu tun ist; ist einer erledigt, werden die nächsten sichtbar - das ist der Hinweis, wie es weitergeht. Gelesen aus der Datagen-Ausgabe (advancement/**), ohne Rezept-Freischaltungen und ohne die geheime Easter-Kette.',
   advTab: 'SimpleBuilding-Tab',
+  advQuests: 'FTB-Quests-Kapitel',
+  advQuestsIntro: 'Ist FTB Quests installiert, legt die Mod beim ersten Start eine Kapitelgruppe „SimpleBuilding“ im Questbuch an: vier Stufen-Kapitel, die nacheinander frei werden, und drei Nebenkapitel. Gegenstände, die du schon trägst, zählen auch. Details: docs/QUESTS.md.',
+  advStage: 'Stufe {0}',
+  advSide: 'Nebenkapitel',
+  advOptional: 'optional',
+  advCapstone: 'schließt die Stufe ab',
   advVanilla: 'Teaser in Vanilla-Tabs',
   advUnder: 'unter {0}',
   advFrame_task: 'Aufgabe', advFrame_goal: 'Ziel', advFrame_challenge: 'Herausforderung',
@@ -1487,11 +1531,11 @@ de: {
   'cat.machines': 'Maschinen', 'cat.gadgets': 'Pads & Geräte', 'cat.end': 'End & Enderit',
   'cat.trims': 'Besätze & Aufwertungen', 'cat.materials': 'Materialien & Essen', 'cat.misc': 'Handbücher & Sonstiges',
   'catd.tools': 'Meißel, Vorschlaghämmer, Baustäbe, Oktanten, Blaupausen und die Enderit-Werkzeuge und -Rüstung.',
-  'catd.building': 'Astralit-, Nihilith- und Enderquarz-Blöcke, Schachbrettmuster, polierter Stein und schwebender Sand und Kies.',
+  'catd.building': 'Astralit-, Nihilit- und Enderquarz-Blöcke, Schachbrettmuster, polierter Stein und schwebender Sand und Kies.',
   'catd.storage': 'Rucksäcke, Bündel und Köcher in ihren Stufen.',
   'catd.machines': 'Schnellere Öfen, Räucheröfen, Schmelzöfen, Trichter und Kolben.',
   'catd.gadgets': 'Flug-, Sprung-, Elytra- und Trankpads, Teleporter, Chunk-Lader, Magnet, Rotator und mehr.',
-  'catd.end': 'Alles, was aus dem End stammt oder dort gefunden wird: Enderit, Astralit, Nihilith, Enderquarz.',
+  'catd.end': 'Alles, was aus dem End stammt oder dort gefunden wird: Enderit, Astralit, Nihilit, Enderquarz.',
   'catd.trims': 'Schmiedevorlagen, Aufwertungskerne und die platzierte Schmiedevorlage.',
   'catd.materials': 'Barren, Klumpen, Schrott, Staub, Erze und das verzauberte Essen.',
   'catd.misc': 'Die Handbücher im Spiel und Hilfsitems.',
@@ -1514,6 +1558,45 @@ de: {
   obtainTitle: 'So bekommst du es',
   obtainCraft: 'Hergestellt am {0}.',
   obtainInWorld: 'Entsteht in der Welt: {0}.',
+  obtainMob: 'Fällt von Mobs – siehe die Karten unten.',
+  obtainLoot: 'In Beute: {0}.',
+  secSources: 'Beute & Mob-Drops',
+  secEnchantments: 'Verzauberungen für dieses Item',
+  obEnchForItemIntro: 'Kommen per Amboss drauf (Buch + Item); die Abzeichen sagen, woher das Buch stammt.',
+  obChargedCreeper: 'Geladener Creeper (vom Blitz getroffen)',
+  obChargedTitle: 'Explosion eines geladenen Creepers',
+  obChargedHow: '{0}, getötet von der Explosion eines geladenen Creepers – ein Kopf pro Explosion.',
+  obKilledTitle: 'Creeper, von einem Skelett getötet',
+  obKilledHow: 'Ein {0}, getötet von {1}, lässt eine von {2} Schallplatten fallen.',
+  obPerChest: '{0} % pro Truhe',
+  obPerVault: '{0} % pro Tresor-Öffnung',
+  obPerCatch: '{0} % pro Schatzfang',
+  obRandomEnchant: 'zufällig verzaubert',
+  obOnlyWith: 'nur mit {0}',
+  obEnchTitle: 'Wo es sie gibt',
+  obTable: 'Zaubertisch',
+  obYes: 'ja', obNo: 'nein',
+  obTableHowYes: 'Kann am Zaubertisch erscheinen (Tag minecraft:in_enchanting_table).',
+  obTableHowNo: 'Nie am Zaubertisch – nur als Buch.',
+  obTableYes: 'Zaubertisch', obTableNo: 'Nicht am Tisch',
+  obChests: 'Truhen & Tresore',
+  obChestsN: '{0}× in Truhen',
+  obFishing: 'Angeln',
+  obFishingNo: 'Nicht beim Angeln.',
+  obTrades: 'Dorfbewohner',
+  obTradesN: '{0}× im Handel',
+  obNowhere: 'Nicht erhältlich',
+  obNone: 'In keiner Truhe.',
+  obAnvil: 'Amboss',
+  obRandom: 'Zufällige Verzauberung',
+  obRandomOnly: 'Nur zufällig in Beute',
+  obRandomHint: 'Diese Truhen enthalten das Item zufällig verzaubert: jede passende Verzauberung kann kommen (auch Vanilla), diese hier auch. Die Prozentzahl ist die Chance des Items pro Truhe.',
+  obAnvilHow: 'Buch mit einem Item kombinieren aus',
+  obWeight: 'Gewicht {0} von {1}',
+  obShowCards: 'Alle {0} Beutequellen als Karten zeigen',
+  obOverviewIntro: 'Alles, was die Mod in Vanilla-Truhen, Tresore und den Angel-Schatz legt, dazu die Mob-Drops, die Items aus diesem Wiki geben (Köpfe per geladenem Creeper, Schallplatten). Die Chance ist die Wahrscheinlichkeit für mindestens eins pro Truhe.',
+  obBlockLootTitle: 'Block-Beutetabellen',
+  'mob.blaze': 'Lohe', 'mob.creeper': 'Creeper', 'mob.piglin': 'Piglin', 'mob.skeleton': 'Skelett', 'mob.wither_skeleton': 'Witherskelett', 'mob.zombie': 'Zombie', 'mob.#minecraft:skeletons': 'einem Skelett (jede Art)',
   obtainDrops: 'Fällt aus {0}.',
   obtainTrade: 'Bei Dorfbewohnern erhältlich ({0}).',
   obtainSelf: 'Platzierter Block – beim Abbauen droppt er sich selbst.',
@@ -1603,6 +1686,8 @@ function buildIndex() {
   arr(D.tags).forEach(function (e) { if (isObj(e) && e.id) { IX.tags.set(e.id, e); push(IX.tagByRef, tagRefOf(e).ref, e.id); } });
   arr(D.features).forEach(function (e) { if (isObj(e) && e.id) IX.features.set(e.id, e); });
   arr(D.config).forEach(function (e) { if (isObj(e) && e.name) IX.config.set(e.name, e); });
+  // Kurzname (letztes Pfadglied) als Zweitschluessel, z. B. fuer die Handels-Flags "enableVillagerTrades".
+  arr(D.config).forEach(function (e) { if (isObj(e) && e.shortName && !IX.config.has(e.shortName)) IX.config.set(e.shortName, e); });
 
   IX.loot.forEach(function (l) {
     arr(l.pools).forEach(function (p) { arr(p && p.items).forEach(function (it) { var s = normStack(it); if (s) push(IX.dropsOf, s.id, l.id); }); });
@@ -1683,31 +1768,16 @@ function idLink(id, hint) {
    Datei (Generator noch nie gelaufen), faengt der error-Handler das Bild ab
    und ersetzt es durch die Textkachel. */
 function vanillaTexture(id) { return 'assets/textures/minecraft/' + pathOf(id) + '.png'; }
-/* Isometrischer Wuerfel aus den drei Flaechen, die generate.py aus dem
-   Blockmodell gezogen hat. Fehlen sie - Trichter, Kolben, alles ohne
-   Wuerfelform -, faellt die Seite auf die flache Textur zurueck. */
-function cubeHtml(faces, label) {
-  if (!isObj(faces) || !faces.top || !faces.side || !faces.front) return '';
-  function face(cls, src) { return '<span class="' + cls + '" style="background-image:url(' + esc(encodeURI(src)) + ')"></span>'; }
-  return '<div class="cube" role="img"' + (label ? ' aria-label="' + esc(label) + '"' : '') + '>' + face('f-top', faces.top) + face('f-front', faces.front) + face('f-side', faces.side) + '</div>';
-}
-/* Wie im Inventar: ein Block, dessen Item das Blockmodell zeigt, erscheint in
-   jedem Slot als Wuerfel. Eigene Bloecke tragen dafuer inventoryCube (generate.py
-   prueft die Item-Definition), Vanilla-Bloecke stehen in assets/textures/
-   minecraft/cubes.js - die Datei gibt es nur, wo auch die Vanilla-Texturen
-   liegen, sonst bleibt es bei Bild oder Textkachel. */
-function cubeFacesOf(id) {
-  var b = IX.blocks.get(id);
-  if (b && b.inventoryCube && isObj(b.faces)) return b.faces;
-  var v = window.VANILLA_CUBES;
-  return (isObj(v) && isObj(v[id])) ? v[id] : null;
+/* 3D-Bilder (assets/textures/render/, Vanilla-Bloecke unter minecraft/) zeichnet generate.py
+   aus den Block- und Item-Modellen, 128 px gross: verkleinert werden sie geglaettet (Klasse
+   r3d), flache 16-px-Texturen bleiben pixelig. */
+function imgHtml(tex, name, lazy) {
+  return '<img src="' + esc(tex) + '" alt="' + esc(name) + '" data-name="' + esc(name) + '"' + (/\/render\//.test(tex) ? ' class="r3d"' : '') + (lazy ? ' loading="lazy"' : '') + '>';
 }
 function iconHtml(id) {
   var name = displayName(id);
-  var cube = cubeHtml(cubeFacesOf(id), name);
-  if (cube) return cube;
   var tex = textureOf(id);
-  return tex && !MISSING_TEX[tex] ? '<img src="' + esc(tex) + '" alt="' + esc(name) + '" data-name="' + esc(name) + '" loading="lazy">' : '';
+  return tex && !MISSING_TEX[tex] ? imgHtml(tex, name, true) : '';
 }
 /* Texturen, die schon einmal nicht geladen haben (gehostete Seite ohne Vanilla-
    Texturen, Betten, Banner): nicht bei jedem Wechsel der Anzeige neu anfragen. */
@@ -1731,7 +1801,7 @@ function tagMembersAny(ref) {
 var LINKMODE = '';
 function textureOf(id) {
   var i = IX.items.get(id), b = IX.blocks.get(id);
-  var own = (i && i.texture) || (b && b.texture) || null;
+  var own = (i && (i.icon || i.texture)) || (b && (b.icon || b.texture)) || null;
   if (own) return own;
   return isVanilla(id) ? vanillaTexture(id) : null;
 }
@@ -2119,7 +2189,7 @@ function enchRow(e) {
   return '<a class="row" href="#/enchantments/' + esc(e.id) + '" data-s="' + esc(norm(e.id + ' ' + nameDe(e) + ' ' + nameEn(e))) + '">' +
     '<div class="row-main"><div class="row-title">' + esc(main) + (alt && alt !== main ? ' <span class="en">· ' + esc(alt) + '</span>' : '') + '</div>' +
     '<div class="row-sub">' + esc(T('maxLevelPrefix', e.maxLevel != null ? e.maxLevel : '?')) + ' · ' + esc(typeof e.supportedItems === 'string' ? e.supportedItems : '–') + '</div><div class="row-sub"><code>' + esc(e.id) + '</code></div></div>' +
-    '<div class="row-right">' + implBadge(e, false) + '</div></a>';
+    '<div class="row-right">' + enchObtainBadges(e) + implBadge(e, false) + '</div></a>';
 }
 
 /* ------------------------------------------------------------------ */
@@ -2186,6 +2256,8 @@ function catEntries() {
   arr(D.items).concat(arr(D.blocks)).forEach(function (e) {
     if (!isObj(e) || !e.id || seen[e.id]) return;
     seen[e.id] = true;
+    /* Der Wandkopf ist nur die an der Wand haengende Form des Kopfes, gleicher Name - einmal reicht. */
+    if (/_wall_head$/.test(e.id) && IX.blocks.has(e.id.replace(/_wall_head$/, '_head'))) return;
     catsOf(e.id).forEach(function (k) { if (CAT_MEMBERS[k]) CAT_MEMBERS[k].push(e); });
   });
   return CAT_MEMBERS;
@@ -2439,8 +2511,9 @@ function relatedIds(id) {
 }
 function secAnchor(key) { return 'sec-' + String(key).replace(/[^a-zA-Z0-9_-]/g, '-'); }
 /* "So bekommst du es": der wichtigste Weg als Karte, die anderen als Sprungmarken. */
-function obtainCard(id, e, isBlock, stations, byStation, dropsFrom, iwOut) {
-  var lines = [], jumps = [], shown = '';
+function obtainCard(id, e, isBlock, stations, byStation, dropsFrom, iwOut, srcs) {
+  var lines = [], jumps = [], shown = '', cards = '';
+  srcs = srcs || [];
   var trades = strs(e.trades);
   if (stations.length) {
     lines.push(T('obtainCraft', stations.map(stationLabel).join(', ')));
@@ -2464,10 +2537,23 @@ function obtainCard(id, e, isBlock, stations, byStation, dropsFrom, iwOut) {
     if (!shown) { var t0 = IX.trades.get(trades[0]); if (t0) shown = '<div class="rows">' + tradeRow(t0) + '</div>'; }
     jumps.push({ href: '#' + secAnchor('secTrades'), label: T('secTrades') + ' (' + trades.length + ')' });
   }
+  if (srcs.length) {
+    /* Ohne Rezept zuerst: Truhen, Tresore, Angeln, Mob-Drops als Karten oben. */
+    var mobs = srcs.filter(function (s) { return s.type === 'mob'; });
+    var loot = srcs.filter(function (s) { return s.type !== 'mob'; });
+    if (mobs.length) lines.push(T('obtainMob'));
+    if (loot.length) {
+      var labels = []; loot.slice().sort(function (a, b) { return num(b.chance, 0) - num(a.chance, 0); }).forEach(function (s) { var l = srcLabel(s); if (labels.indexOf(l) < 0) labels.push(l); });
+      lines.push(T('obtainLoot', labels.slice(0, 4).join(', ') + (labels.length > 4 ? ' …' : '')));
+    }
+    cards = sourceCards(srcs, 4);
+    jumps.push({ href: '#' + secAnchor('secSources'), label: T('secSources') + ' (' + srcs.length + ')' });
+  }
   if (!lines.length && isBlock && strs(e.drops).indexOf(id) >= 0) lines.push(T('obtainSelf'));
   if (!lines.length) lines.push(T('obtainNone'));
   var h = '<section class="obtain" id="' + secAnchor('obtain') + '"><h2>' + esc(T('obtainTitle')) + '</h2>';
   h += lines.map(function (l) { return '<p>' + esc(l) + '</p>'; }).join('');
+  if (cards) h += '<div class="ob-cards" style="margin-top:.6rem">' + cards + '</div>';
   if (shown) h += '<div style="margin-top:.6rem">' + shown + '</div>';
   var enc = esc(encodeURIComponent(id));
   h += '<div class="obtain-ways">' + (jumps.length > 1 ? jumps.map(function (j) { return '<a class="btn" href="' + esc(j.href) + '">' + esc(j.label) + '</a>'; }).join('') : '') +
@@ -2485,9 +2571,9 @@ function entryPage(id, kind) {
   var h = crumbs([{ label: catLabel(primary), href: '#/cat/' + primary }, { label: main }]);
 
   /* 1. Was ist das? Bild, Name, Kategorie, ein Satz. */
-  var cube = cubeHtml(isBlock ? e.faces : cubeFacesOf(id), main);
-  h += '<header class="hero-card"><div class="hero"><div class="hero-tex' + (cube ? ' is-cube' : '') + '" data-id="' + esc(id) + '">'
-     + (cube || (tex ? '<img src="' + esc(tex) + '" alt="' + esc(main) + '" data-name="' + esc(main) + '">' : T('noTexture')))
+  if (isBlock && (e.icon || e.texture)) tex = e.icon || e.texture;
+  h += '<header class="hero-card"><div class="hero"><div class="hero-tex" data-id="' + esc(id) + '">'
+     + (tex ? imgHtml(tex, main, false) : T('noTexture'))
      + '</div><div>';
   h += '<h1>' + esc(main) + '</h1>';
   if (alt && alt !== main) h += '<div class="en">' + esc(alt) + ' <span class="tiny">(' + (LANG === 'de' ? 'en_us' : 'de_de') + ')</span></div>';
@@ -2517,7 +2603,8 @@ function entryPage(id, kind) {
   /* Der eigene Block-Drop ("abbauen gibt sich selbst") ist kein Weg, es zu bekommen. */
   var dropsFrom = (IX.dropsOf.get(id) || []).filter(function (lid) { return lid !== e.lootTable && lid !== IX.lootOfBlock.get(id); });
   var iwOut = IW.byOutput.get(id) || [];
-  h += obtainCard(id, e, isBlock, stations, byStation, dropsFrom, iwOut);
+  var srcs = OB.byItem.get(id) || [];
+  h += obtainCard(id, e, isBlock, stations, byStation, dropsFrom, iwOut, srcs);
 
   /* 4. Alles Weitere, einklappbar. Abschnitte ohne Eintrag wandern gesammelt ans Ende. */
   var parts = [];
@@ -2547,6 +2634,9 @@ function entryPage(id, kind) {
     var hasDrops = !!(lt || e.lootTable || drops.length);
     part('secDrops', hasDrops, body, esc(T('noLootTable')) + (drops.length ? '' : esc(T('noLootTableTail'))) + '.', {});
   }
+  if (srcs.length) part('secSources', true, sourceCards(srcs), '', { count: srcs.length });
+  var fits = enchantmentsFor(id);
+  if (fits.length) part('secEnchantments', true, '<p class="muted tiny">' + esc(T('obEnchForItemIntro')) + '</p><div class="rows">' + fits.map(enchForItemRow).join('') + '</div>', '', { count: fits.length });
   if (dropsFrom.length) part('secDropsFrom', true, '<div class="rows">' + dropsFrom.map(function (lid) { return lootRow(IX.loot.get(lid)); }).join('') + '</div>', '', { count: dropsFrom.length });
 
   var trades = strs(e.trades);
@@ -2941,7 +3031,7 @@ setInterval(function () {
     var list = el.getAttribute('data-cycle').split('|'), id = list[CYC % list.length];
     var html = iconHtml(id); if (!html) return;
     var tmp = document.createElement('span'); tmp.innerHTML = html;
-    var old = el.querySelector(':scope > img, :scope > .cube, :scope > .slot-text');
+    var old = el.querySelector(':scope > img, :scope > .slot-text');
     if (old) old.replaceWith(tmp.firstChild); else el.insertBefore(tmp.firstChild, el.firstChild);
     el.classList.remove('slot-plain');
   });
@@ -2977,7 +3067,7 @@ function pageRecipe(id) {
   return h;
 }
 
-function pageLoot() { return listPage(T('navLoot'), arr(D.lootTables).filter(isObj).slice().sort(function (a, b) { return a.id.localeCompare(b.id); }).map(lootRow)); }
+function pageLoot() { return listPage(T('navLoot'), arr(D.lootTables).filter(isObj).slice().sort(function (a, b) { return a.id.localeCompare(b.id); }).map(lootRow), { intro: obtainOverview() + '<h2>' + esc(T('obBlockLootTitle')) + '</h2>' }); }
 function pageLootOne(id) {
   var l = IX.loot.get(id);
   if (!l) return notFound(T('wordLootTable'), id);
@@ -3027,6 +3117,7 @@ function pageEnchantment(id) {
   if (alt && alt !== main) h += '<div class="en muted">' + esc(alt) + ' <span class="tiny">(' + (LANG === 'de' ? 'en_us' : 'de_de') + ')</span></div>';
   h += '<div class="idline"><code>' + esc(id) + '</code></div>';
   h += '<div class="badges">' + implBadge(e, true) + (noteHasContent(e.note) ? '' : badge(T('badgeNoProse'), 'warn')) + '</div>';
+  h += enchObtainBox(e);
   if (impl === 'none') h += '<div class="box box-danger"><div class="box-title">' + esc(T('boxNotImplTitle')) + '</div>' + T('boxNotImplBody') + '</div>';
   else if (impl === 'code') h += '<div class="box box-info"><div class="box-title">' + esc(T('boxCodeTitle')) + '</div>' + T('boxCodeBody') + '</div>';
 
@@ -3099,13 +3190,24 @@ function pageTag(id) {
 
 function pageConfig(highlightName) {
   var rows = arr(D.config).filter(isObj);
+  var hl = IX.config.has(highlightName) ? IX.config.get(highlightName).name : highlightName;
   var h = '<h1>' + esc(T('navConfig')) + ' <span class="muted tiny" style="font-weight:400">' + rows.length + '</span></h1>';
   h += '<p class="muted tiny">' + T('configIntro') + '</p>';
   if (!rows.length) return h + '<p class="hint">' + esc(T('noOptions')) + '</p>';
+  var de = LANG === 'de';
+  var lastCategory = null;
   h += '<div class="table-wrap"><table class="table"><thead><tr><th>' + esc(T('thName')) + '</th><th>' + esc(T('thTypeCol')) + '</th><th>' + esc(T('thDefault')) + '</th><th>' + esc(T('thTooltip')) + '</th><th>' + esc(T('thNote')) + '</th><th>' + esc(T('thRelation')) + '</th></tr></thead><tbody>';
   rows.forEach(function (c) {
-    var tr = IX.tradesWithFlag.get(c.name) || [];
-    h += '<tr id="cfg-' + esc(c.name) + '"' + (c.name === highlightName ? ' class="highlight"' : '') + '><td><a href="#/config/' + esc(c.name) + '"><code>' + esc(c.name) + '</code></a></td><td>' + esc(c.type || '–') + '</td><td><code>' + esc(c.default != null ? c.default : '–') + '</code></td><td>' + (strs([c.tooltip]).length ? esc(c.tooltip) : '<span class="muted">–</span>') + '</td><td>' + (strs([c.note]).length ? esc(c.note) : '<span class="muted">–</span>') + '</td><td>' + (tr.length ? '<a href="#/trades">' + esc(plural(tr.length, 'tradeOne', 'tradeMany')) + '</a>' : '<span class="muted">–</span>') + '</td></tr>';
+    var category = (de && c.categoryDe) || c.category;
+    if (category && category !== lastCategory) {
+      h += '<tr><th colspan="6">' + esc(category) + '</th></tr>';
+      lastCategory = category;
+    }
+    var label = (de && c.labelDe) || c.label;
+    var tip = (de && c.tooltipDe) || c.tooltip;
+    var group = (de && c.groupDe) || c.group;
+    var tr = IX.tradesWithFlag.get(c.name) || IX.tradesWithFlag.get(c.shortName) || [];
+    h += '<tr id="cfg-' + esc(c.name) + '"' + (c.name === hl ? ' class="highlight"' : '') + '><td>' + (label ? '<strong>' + esc(label) + '</strong><br>' : '') + '<a href="#/config/' + esc(c.name) + '"><code>' + esc(c.name) + '</code></a>' + (group ? '<br><span class="muted tiny">' + esc(group) + '</span>' : '') + '</td><td>' + esc(c.type || '–') + '</td><td><code>' + esc(c.default != null ? c.default : '–') + '</code></td><td>' + (strs([tip]).length ? esc(tip) : '<span class="muted">–</span>') + '</td><td>' + (strs([c.note]).length ? esc(c.note) : '<span class="muted">–</span>') + '</td><td>' + (tr.length ? '<a href="#/trades">' + esc(plural(tr.length, 'tradeOne', 'tradeMany')) + '</a>' : '<span class="muted">–</span>') + '</td></tr>';
   });
   return h + '</tbody></table></div>';
 }
@@ -3143,8 +3245,10 @@ function pageAdvancements() {
   }
   var h = '<h1>' + esc(T('navAdvancements')) + ' <span class="muted tiny" style="font-weight:400">' + all.length + '</span></h1>';
   h += '<p class="muted">' + esc(T('advIntro')) + '</p>';
-  var roots = kids.get('') || [];
-  if (roots.length) h += section(T('advTab'), '<ul class="advtree top">' + roots.map(node).join('') + '</ul>');
+  // One section per tab root, like the tabs of the advancement screen.
+  (kids.get('') || []).forEach(function (root) {
+    h += section(advText(root, 'title') || T('advTab'), '<ul class="advtree top">' + node(root) + '</ul>');
+  });
   var teasers = [];
   kids.forEach(function (list, key) {
     if (key.indexOf('vanilla:') === 0) list.forEach(function (a) { teasers.push({ a: a, under: key.slice(8) }); });
@@ -3153,6 +3257,27 @@ function pageAdvancements() {
     h += section(T('advVanilla'), teasers.map(function (t) {
       return '<p class="muted tiny" style="margin:.6rem 0 0">' + esc(T('advUnder', t.under)) + '</p><ul class="advtree top">' + node(t.a) + '</ul>';
     }).join(''));
+  }
+  var chapters = arr(D.quests).filter(isObj);
+  if (chapters.length) {
+    var qh = '<p class="muted">' + esc(T('advQuestsIntro')) + '</p>';
+    chapters.forEach(function (c) {
+      qh += '<h3>' + slotHtml(c.icon) + ' ' + esc(advText(c, 'title')) + ' <span class="muted tiny" style="font-weight:400">' +
+        esc(c.stage ? T('advStage', c.stage) : T('advSide')) + '</span></h3><p class="tiny muted">' + esc(advText(c, 'subtitle')) + '</p><ul class="advtree top">';
+      arr(c.quests).filter(isObj).forEach(function (q) {
+        var task = isObj(q.task) ? q.task : {};
+        var what = task.type === 'item' ? refLink(task.id, { noId: true }) : esc(task.id);
+        var flags = [];
+        if (q.optional) flags.push(T('advOptional'));
+        if (q.capstone) flags.push(T('advCapstone'));
+        qh += '<li><div class="adv">' + (task.type === 'item' ? slotHtml(task.id) : '') + '<div><b>' + esc(advText(q, 'title')) + '</b>' +
+          (flags.length ? '<span class="adv-frame">' + esc(flags.join(', ')) + '</span>' : '') +
+          '<div class="tiny">' + esc(advText(q, 'description')) + (q.hint ? ' ' + esc(advText(q, 'hint')) : '') + '</div>' +
+          '<div class="muted tiny">' + what + '</div></div></div></li>';
+      });
+      qh += '</ul>';
+    });
+    h += section(T('advQuests'), qh);
   }
   return h;
 }
@@ -3239,6 +3364,150 @@ function toolTable(rows, field, label) {
   rows = arr(rows); if (!rows.length) return '';
   return '<div class="table-wrap"><table class="table"><thead><tr><th>' + esc(T('iwTool')) + '</th><th>' + esc(label) + '</th></tr></thead><tbody>' +
     rows.map(function (r) { return '<tr><td>' + refLink(r.id, { noId: true }) + '</td><td>' + esc(T('iwTicks', r[field], secondsOf(r[field]))) + '</td></tr>'; }).join('') + '</tbody></table></div>';
+}
+/* ------------------------------------------------------------------ */
+/* Quellen ohne Rezept: Truhen, Tresore, Angeln, Mob-Drops            */
+/* ------------------------------------------------------------------ */
+/* generate.py liest die Pools aus ModLootTableModifications.java und die Vanilla-Tabellen
+   fuer Mob-Koepfe (geladener Creeper) und Schallplatten (Skelett toetet Creeper) aus dem
+   Client-Jar (D.obtain.sources). Chance = mindestens einmal pro Truhe. */
+var OB = { byItem: new Map(), byEnch: new Map(), byTable: new Map(), tags: {} };
+function buildObtain() {
+  var o = D && isObj(D.obtain) ? D.obtain : {};
+  arr(o.sources).filter(isObj).forEach(function (s) {
+    if (s.item) { if (!OB.byItem.has(s.item)) OB.byItem.set(s.item, []); OB.byItem.get(s.item).push(s); }
+    if (s.enchantment) { if (!OB.byEnch.has(s.enchantment)) OB.byEnch.set(s.enchantment, []); OB.byEnch.get(s.enchantment).push(s); }
+    var tk = s.table + '|' + (s.killer || '');
+    if (!OB.byTable.has(tk)) OB.byTable.set(tk, []); OB.byTable.get(tk).push(s);
+  });
+  OB.tags = isObj(o.enchantmentTags) ? o.enchantmentTags : {};
+}
+function roman(n) { return ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'][n] || String(n); }
+function mobName(id) {
+  if (!id) return '?';
+  if (id.charAt(0) === '#') return tId('mob.', id, prettyFromId(id));
+  return tId('mob.', pathOf(id), prettyFromId(id));
+}
+function eggOf(id) { return id && id.charAt(0) !== '#' ? 'minecraft:' + pathOf(id) + '_spawn_egg' : 'minecraft:skeleton_spawn_egg'; }
+function srcLabel(s) { return isObj(s.label) ? (LANG === 'de' ? s.label.de || s.label.en : s.label.en) : prettyFromId(s.table); }
+function srcCountText(s) { var c = arr(s.count); return c.length === 2 && (c[0] !== 1 || c[1] !== 1) ? (c[0] === c[1] ? '×' + c[0] : c[0] + '–' + c[1]) : ''; }
+function srcSortKey(s) { return (s.type === 'mob' ? 0 : 1) * 1000 - num(s.chance, 0); }
+function enchLevelText(s) { return s.enchantment ? displayName(s.enchantment) + ' ' + roman(num(s.level, 1)) : ''; }
+function configNote(s) { return s.configFlag ? ' · <a href="#/config/' + esc(s.configFlag) + '">' + esc(T('obOnlyWith', s.configFlag)) + '</a>' : ''; }
+/* Eine Quelle als Karte wie ein Rezept: Behaelter/Opfer (+ Ausloeser) -> Ergebnis, darunter Chance und Bedingung. */
+function sourceCard(s) {
+  var h = '<div class="iw-entry row ob-card" data-s="' + esc(norm([displayName(s.item), srcLabel(s), enchLevelText(s), s.victim || ''].join(' '))) + '"><div class="iw-slots">';
+  var meta = [];
+  if (s.type === 'mob' && s.how === 'charged_creeper') {
+    h += slotHtml(eggOf(s.victim), 1) + '<span class="plus">+</span>';
+    h += '<span class="iw-tool" title="' + esc(T('obChargedCreeper')) + '">' + slotHtml('minecraft:creeper_spawn_egg', 1, { cls: 'slot-tool' }) + '<span class="ob-bolt" aria-hidden="true">⚡</span></span>';
+    meta.push('<b>' + esc(T('obChargedTitle')) + '</b>');
+    meta.push(esc(T('obChargedHow', mobName(s.victim))));
+  } else if (s.type === 'mob' && s.how === 'killed_by') {
+    h += slotHtml(eggOf(s.victim), 1) + '<span class="plus">+</span>';
+    h += '<span class="iw-tool" title="' + esc(mobName(s.killer)) + '">' + slotHtml(eggOf(s.killer), 1, { cls: 'slot-tool' }) + '</span>';
+    meta.push('<b>' + esc(T('obKilledTitle')) + '</b>');
+    meta.push(esc(T('obKilledHow', mobName(s.victim), mobName(s.killer), s.oneOf || 1)));
+  } else {
+    var box = s.type === 'fishing' ? 'minecraft:fishing_rod' : s.type === 'vault' ? 'minecraft:vault' : 'minecraft:chest';
+    h += slotHtml(box, 1, { noLink: true });
+    meta.push('<b>' + esc(srcLabel(s)) + '</b>');
+    meta.push(esc(T(s.type === 'fishing' ? 'obPerCatch' : s.type === 'vault' ? 'obPerVault' : 'obPerChest', fmtNum(s.chance))));
+    if (srcCountText(s)) meta.push(esc(srcCountText(s)));
+    if (s.randomEnchant) meta.push(esc(T('obRandomEnchant')));
+  }
+  var c = arr(s.count);
+  h += '<span class="arrow">→</span>' + slotHtml(s.item, c.length ? c[1] : 1, { cls: 'slot-result' }) + '</div>';
+  if (s.enchantment) meta.push('<a href="#/enchantments/' + esc(s.enchantment) + '">' + esc(enchLevelText(s)) + '</a>');
+  h += '<div class="row-main iw-meta">' + meta.join(' · ') + configNote(s) + '</div></div>';
+  return h;
+}
+function sourceCards(list, max) {
+  var sorted = list.slice().sort(function (a, b) { return srcSortKey(a) - srcSortKey(b); });
+  return '<div class="rows">' + sorted.slice(0, max || sorted.length).map(sourceCard).join('') + '</div>';
+}
+/* Kurzform fuer Zeilen und Uebersichten: "End city II · 12.3 %" */
+function sourceChip(s) {
+  var t = s.type === 'mob' ? T('obChargedTitle') : srcLabel(s);
+  if (s.level) t += ' ' + roman(s.level);
+  if (s.type !== 'mob') t += ' · ' + fmtNum(s.chance) + ' %';
+  return '<span class="chip" title="' + esc(s.table) + '">' + esc(t) + '</span>';
+}
+/* Was eine Verzauberung auf einen Blick erhaeltlich macht. */
+function enchObtain(e) {
+  var src = OB.byEnch.get(e.id) || [];
+  var chests = src.filter(function (s) { return s.type === 'chest' || s.type === 'vault'; });
+  var fishing = src.filter(function (s) { return s.type === 'fishing'; });
+  var table = arr(OB.tags['minecraft:in_enchanting_table']).indexOf(e.id) >= 0;
+  var trades = IX.tradesWithEnch.get(e.id) || [];
+  /* EnchantRandomlyFunction ohne Auswahl nimmt irgendeine Verzauberung, die auf das Item passt
+     (auch Vanilla) - also moeglich, aber ohne sichere Zahl. */
+  var fits = typeof e.supportedItems === 'string' ? (e.supportedItems.charAt(0) === '#' ? tagMembersAny(e.supportedItems) : [e.supportedItems]) : [];
+  var random = [];
+  OB.byItem.forEach(function (list, item) { if (fits.indexOf(item) >= 0) list.forEach(function (s) { if (s.randomEnchant) random.push(s); }); });
+  return { chests: chests, fishing: fishing, table: table, trades: trades, random: random, any: chests.length + fishing.length + trades.length + random.length > 0 || table };
+}
+function enchObtainBadges(e) {
+  var o = enchObtain(e), b = [];
+  b.push(badge(o.table ? T('obTableYes') : T('obTableNo'), o.table ? 'ok' : ''));
+  if (o.chests.length) b.push(badge(T('obChestsN', o.chests.length), 'ok'));
+  if (o.fishing.length) b.push(badge(T('obFishing'), 'ok'));
+  if (o.trades.length) b.push(badge(T('obTradesN', o.trades.length), 'ok'));
+  if (o.random.length && !o.chests.length) b.push(badge(T('obRandomOnly'), 'ok'));
+  if (!o.any) b.push(badge(T('obNowhere'), 'warn'));
+  return b.join('');
+}
+function enchObtainBox(e) {
+  var o = enchObtain(e);
+  var h = '<section class="obtain" id="' + secAnchor('obtain') + '"><h2>' + esc(T('obEnchTitle')) + '</h2><dl class="kv ob-kv">';
+  h += '<dt>' + esc(T('obTable')) + '</dt><dd>' + (o.table ? badge(T('obYes'), 'ok') + ' ' + esc(T('obTableHowYes')) : badge(T('obNo')) + ' ' + esc(T('obTableHowNo'))) + '</dd>';
+  var byLabel = function (list) {
+    return list.slice().sort(function (a, b) { return num(b.chance, 0) - num(a.chance, 0); }).map(function (s) {
+      return '<span class="chip" title="' + esc(s.table + ' · ' + T('obWeight', s.weight, s.totalWeight)) + '">' + esc(srcLabel(s) + ' · ' + roman(num(s.level, 1)) + ' · ' + fmtNum(s.chance) + ' %') + '</span>';
+    }).join('');
+  };
+  h += '<dt>' + esc(T('obChests')) + '</dt><dd>' + (o.chests.length ? '<div class="chips">' + byLabel(o.chests) + '</div>' + configNote(o.chests[0]).replace(/^ · /, '') : '<span class="muted">' + esc(T('obNone')) + '</span>') + '</dd>';
+  h += '<dt>' + esc(T('obFishing')) + '</dt><dd>' + (o.fishing.length ? '<div class="chips">' + byLabel(o.fishing) + '</div>' : '<span class="muted">' + esc(T('obFishingNo')) + '</span>') + '</dd>';
+  h += '<dt>' + esc(T('obTrades')) + '</dt><dd>' + (o.trades.length ? '<div class="chips">' + o.trades.map(function (tid) {
+    var t = IX.trades.get(tid); if (!t) return '';
+    var p = arr(t.enchantmentPool).filter(function (x) { return x.enchantment === e.id; })[0] || {};
+    var total = arr(t.enchantmentPool).reduce(function (a, x) { return a + num(x.weight, 0); }, 0);
+    return '<a class="chip" href="#/trades/' + esc(tid) + '">' + esc(professionLabel(t.profession) + ', ' + levelLabel(t.level) + ' · ' + displayName(normStack(t.gives) ? normStack(t.gives).id : '') + (p.level ? ' ' + roman(p.level) : '') + (total ? ' · ' + T('obWeight', p.weight, total) : '')) + '</a>';
+  }).join('') + '</div>' : '<span class="muted">' + esc(T('notInTrade')) + '</span>') + '</dd>';
+  if (o.random.length) h += '<dt>' + esc(T('obRandom')) + '</dt><dd><div class="chips">' + o.random.map(function (s) {
+    return '<span class="chip" title="' + esc(s.table) + '">' + esc(displayName(s.item) + ' · ' + srcLabel(s) + ' · ' + fmtNum(s.chance) + ' %') + '</span>';
+  }).join('') + '</div><span class="muted tiny">' + esc(T('obRandomHint')) + '</span></dd>';
+  h += '<dt>' + esc(T('obAnvil')) + '</dt><dd>' + esc(T('obAnvilHow')) + ' ' + (e.supportedItems ? refLink(e.supportedItems, { hint: 'item' }) : '–') + '</dd>';
+  h += '</dl>';
+  if (o.chests.length || o.fishing.length) h += '<details class="ob-more"><summary>' + esc(T('obShowCards', o.chests.length + o.fishing.length)) + '</summary>' + sourceCards(o.chests.concat(o.fishing)) + '</details>';
+  return h + '</section>';
+}
+/* Welche Verzauberungen passen auf ein Item (supportedItems, eigene Tags aufgeloest). */
+function enchantmentsFor(id) {
+  var out = [];
+  IX.ench.forEach(function (e) {
+    var ref = e.supportedItems;
+    if (typeof ref !== 'string') return;
+    var members = ref.charAt(0) === '#' ? tagMembersAny(ref) : [ref];
+    if (members.indexOf(id) >= 0) out.push(e);
+  });
+  return out.sort(function (a, b) { return (nameOf(a) || a.id).localeCompare(nameOf(b) || b.id); });
+}
+function enchForItemRow(e) {
+  return '<a class="row" href="#/enchantments/' + esc(e.id) + '"><div class="row-main"><div class="row-title">' + esc(nameOf(e) || prettyFromId(e.id)) + ' <span class="muted tiny">' + esc(T('maxLevelPrefix', e.maxLevel != null ? roman(e.maxLevel) : '?')) + '</span></div></div><div class="row-right">' + enchObtainBadges(e) + '</div></a>';
+}
+/* Alle Quellen der Mod und der Vanilla-Mob-Drops, nach Tabelle gruppiert (Seite "Loot"). */
+function obtainOverview() {
+  var groups = Array.from(OB.byTable.values());
+  if (!groups.length) return '';
+  groups.sort(function (a, b) { return (a[0].type === 'mob' ? 0 : 1) - (b[0].type === 'mob' ? 0 : 1) || srcLabel(a[0]).localeCompare(srcLabel(b[0])); });
+  var h = '<p class="muted tiny">' + T('obOverviewIntro') + '</p>';
+  groups.forEach(function (g) {
+    var s0 = g[0];
+    var title = s0.type === 'mob' ? (s0.how === 'killed_by' ? T('obKilledTitle') : T('obChargedTitle')) : srcLabel(s0);
+    h += section(title, sourceCards(g), { count: g.length, fold: 'ob.' + s0.table, defaultClosed: g.length > 8 });
+  });
+  return h;
 }
 function pageInWorld(kindId) {
   var kinds = Array.from(IW.kinds.values());
@@ -3499,7 +3768,7 @@ function buildSearch() {
   arr(D.tags).filter(isObj).forEach(function (t) { var info = tagRefOf(t); add('tags', t.id, info.ref, t.id, arr(t.values).map(function (v) { var id = tagValueId(v); return id + ' ' + displayName(id); }).join(' '), '#/tags/' + t.id); });
   CATS.forEach(function (c) { add('categories', c.key, catLabel(c.key), T('catd.' + c.key), STR.en['cat.' + c.key] + ' ' + STR.de['cat.' + c.key] + ' ' + c.key, '#/cat/' + c.key); });
   IW.kinds.forEach(function (k) { add('inworld', k.id, iwKindTitle(k.id), T('navInWorld'), noteText(k.note), '#/inworld/' + k.id); });
-  arr(D.config).filter(isObj).forEach(function (c) { add('config', c.name, c.name, [c.type, c.default].filter(Boolean).join(' = '), [c.tooltip, c.note].filter(Boolean).join(' '), '#/config/' + c.name); });
+  arr(D.config).filter(isObj).forEach(function (c) { add('config', c.name, c.label || c.name, [c.name, c.type, c.default].filter(Boolean).join(' = '), [c.tooltip, c.tooltipDe, c.labelDe, c.note].filter(Boolean).join(' '), '#/config/' + c.name); });
 }
 function search(q) {
   var tokens = norm(q).split(/\s+/).filter(Boolean);
@@ -3818,7 +4087,7 @@ function render(opts) {
   if (typeof opts.restoreY === 'number') { window.scrollTo(0, opts.restoreY); return; }
   if (opts.keepScroll) return;
   var target = null;
-  if (r.section === 'config' && r.id) target = document.getElementById('cfg-' + r.id);
+  if (r.section === 'config' && r.id) target = document.getElementById('cfg-' + (IX.config.has(r.id) ? IX.config.get(r.id).name : r.id));
   else if (r.section === 'inworld' && r.id) target = document.getElementById('iw-' + r.id);
   else if (r.tab && (r.section === 'items' || r.section === 'blocks')) target = tabTarget(r.tab);
   if (target) {
@@ -3836,6 +4105,11 @@ function tabTarget(tab) {
   return null;
 }
 
+/* Vanilla-Bloecke liegen als 3D-Bild unter demselben Namen wie ihre Textur: grosse Bilder glaetten. */
+document.addEventListener('load', function (ev) {
+  var img = ev.target;
+  if (img && img.tagName === 'IMG' && img.naturalWidth > 32) img.classList.add('r3d');
+}, true);
 /* Bildfehler: Textur fehlt -> Text-Kachel */
 $main.addEventListener('error', function (ev) {
   var img = ev.target;
@@ -4101,6 +4375,7 @@ $lang.addEventListener('change', function () { setLang($lang.value); });
 
 buildIndex();
 buildInWorld();
+buildObtain();
 applyStaticText();
 buildSearch();
 renderMeta();
@@ -4113,21 +4388,7 @@ renderMeta();
   } catch (err) { HASHMODE = true; }
   rewriteLinks(document.body);
 })();
-/* Wuerfel der Vanilla-Bloecke: die Datei legt generate.py neben die Vanilla-Texturen
-   (nicht committet, nicht veroeffentlicht). Kurz auf sie warten, damit die erste Seite
-   schon Wuerfel zeigt; kommt sie spaeter, wird einmal nachgezeichnet. */
-(function () {
-  var done = false, s = document.createElement('script');
-  function first() { if (!done) { done = true; render(); } }
-  s.onload = function () {
-    if (!done) { first(); return; }
-    if (isObj(window.VANILLA_CUBES)) { render({ keepScroll: true }); }
-  };
-  s.onerror = first;
-  s.src = 'assets/textures/minecraft/' + 'cubes.js';
-  document.head.appendChild(s);
-  setTimeout(first, 600);
-})();
+render();
 })();
 </script>
 </body>

@@ -1,0 +1,41 @@
+{
+  "parent": "simplebuilding:tweaks/root",
+  "criteria": {
+    "copper_pressure_plate": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:copper_pressure_plate",
+              "simplebuilding:exposed_copper_pressure_plate",
+              "simplebuilding:weathered_copper_pressure_plate",
+              "simplebuilding:oxidized_copper_pressure_plate",
+              "simplebuilding:waxed_copper_pressure_plate",
+              "simplebuilding:waxed_exposed_copper_pressure_plate",
+              "simplebuilding:waxed_weathered_copper_pressure_plate",
+              "simplebuilding:waxed_oxidized_copper_pressure_plate"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.pads.copper_plated.description"
+    },
+    "icon": {
+      "id": "simplebuilding:copper_pressure_plate"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.pads.copper_plated.title"
+    }
+  },
+  "requirements": [
+    [
+      "copper_pressure_plate"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

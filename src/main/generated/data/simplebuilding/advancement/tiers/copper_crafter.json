@@ -1,0 +1,36 @@
+{
+  "parent": "simplebuilding:root",
+  "criteria": {
+    "copper_tool": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:copper_chisel",
+              "simplebuilding:copper_sledgehammer",
+              "simplebuilding:copper_building_wand"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.tiers.copper_crafter.description"
+    },
+    "icon": {
+      "id": "simplebuilding:copper_chisel"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.tiers.copper_crafter.title"
+    }
+  },
+  "requirements": [
+    [
+      "copper_tool"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

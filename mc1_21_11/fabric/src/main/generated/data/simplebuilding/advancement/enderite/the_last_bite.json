@@ -1,0 +1,34 @@
+{
+  "parent": "simplebuilding:enderite/void_feast",
+  "criteria": {
+    "enchanted_enderite_apple": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:enchanted_enderite_apple"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.enderite.the_last_bite.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:enchanted_enderite_apple"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.enderite.the_last_bite.title"
+    }
+  },
+  "requirements": [
+    [
+      "enchanted_enderite_apple"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

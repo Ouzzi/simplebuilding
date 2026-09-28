@@ -159,6 +159,7 @@ public class SimplebuildingClient implements ClientModInitializer {
 
         registerDoubleJumpClient();
         com.simplebuilding.client.blueprint.BlueprintClient.init();
+        com.simplebuilding.client.guide.GuideBookClient.init();
 
         // --- World Render ---
         // Seit MC 26.2 wird Geometrie nicht mehr direkt gezeichnet, sondern über den

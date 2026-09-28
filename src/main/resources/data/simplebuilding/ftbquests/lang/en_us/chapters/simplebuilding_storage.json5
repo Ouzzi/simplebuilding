@@ -1,0 +1,46 @@
+{
+	"chapter.6F908F36BE3C55AD.title": "{\"translate\": \"quests.simplebuilding.storage.title\"}",
+	"chapter.6F908F36BE3C55AD.chapter_subtitle": [
+		"{\"translate\": \"quests.simplebuilding.storage.subtitle\"}"
+	],
+	"quest.2E85101929018FD8.title": "{\"translate\": \"quests.simplebuilding.storage.bundle.title\"}",
+	"quest.2E85101929018FD8.quest_desc": [
+		"{\"translate\": \"quests.simplebuilding.storage.bundle.description\"}"
+	],
+	"quest.725C94255AECD179.title": "{\"translate\": \"quests.simplebuilding.storage.guide.title\"}",
+	"quest.725C94255AECD179.quest_desc": [
+		"{\"translate\": \"quests.simplebuilding.storage.guide.description\"}"
+	],
+	"quest.65B574C773D89B43.title": "{\"translate\": \"advancements.simplebuilding.storage.quiver_in_fear.title\"}",
+	"quest.65B574C773D89B43.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.storage.quiver_in_fear.description\"}"
+	],
+	"quest.380C5BBCA73F614F.title": "{\"translate\": \"advancements.simplebuilding.storage.bundle_of_joy.title\"}",
+	"quest.380C5BBCA73F614F.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.storage.bundle_of_joy.description\"}"
+	],
+	"quest.4B7DA8049B62E403.title": "{\"translate\": \"quests.simplebuilding.storage.reinforced_backpack.title\"}",
+	"quest.4B7DA8049B62E403.quest_desc": [
+		"{\"translate\": \"quests.simplebuilding.storage.reinforced_backpack.description\"}"
+	],
+	"quest.1E4E5D19D5207CEE.title": "{\"translate\": \"quests.simplebuilding.storage.reinforced_quiver.title\"}",
+	"quest.1E4E5D19D5207CEE.quest_desc": [
+		"{\"translate\": \"quests.simplebuilding.storage.reinforced_quiver.description\"}"
+	],
+	"quest.5287CA2926331FA1.title": "{\"translate\": \"advancements.simplebuilding.storage.heavy_luggage.title\"}",
+	"quest.5287CA2926331FA1.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.storage.heavy_luggage.description\"}"
+	],
+	"quest.7E22390B37B57C1E.title": "{\"translate\": \"advancements.simplebuilding.storage.deeper_pockets.title\"}",
+	"quest.7E22390B37B57C1E.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.storage.deeper_pockets.description\"}"
+	],
+	"quest.0D263BC68778991B.title": "{\"translate\": \"advancements.simplebuilding.storage.sharpshooter.title\"}",
+	"quest.0D263BC68778991B.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.storage.sharpshooter.description\"}"
+	],
+	"quest.7D651A0615605010.title": "{\"translate\": \"advancements.simplebuilding.enderite.endless_pockets.title\"}",
+	"quest.7D651A0615605010.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.enderite.endless_pockets.description\"}"
+	]
+}

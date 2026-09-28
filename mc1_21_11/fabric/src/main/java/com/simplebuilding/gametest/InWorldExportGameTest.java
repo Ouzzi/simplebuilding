@@ -32,4 +32,14 @@ public final class InWorldExportGameTest {
     public void jeiCatalogCoversEveryInWorldEntry(GameTestHelper helper) {
         InWorldExportTests.jeiCatalogCoversEveryInWorldEntry(helper);
     }
+
+    @GameTest
+    public void mobDropCatalogHasEveryHeadAndTheDiscs(GameTestHelper helper) {
+        InWorldExportTests.mobDropCatalogHasEveryHeadAndTheDiscs(helper);
+    }
+
+    @GameTest
+    public void mobDropCatalogMatchesTheGame(GameTestHelper helper) {
+        InWorldExportTests.mobDropCatalogMatchesTheGame(helper);
+    }
 }

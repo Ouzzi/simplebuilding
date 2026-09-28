@@ -1,0 +1,356 @@
+{
+	"id": "308403B4A7403847",
+	"group": "0FF8ACD95EC2930E",
+	"order_index": 6,
+	"filename": "simplebuilding_gadgets",
+	"icon": {
+		"id": "simplebuilding:magnet"
+	},
+	"default_quest_shape": "",
+	"default_hide_dependency_lines": false,
+	"progression_mode": "flexible",
+	"quests": [
+		{
+			"id": "4C78B432B0A72429",
+			"x": 0.0,
+			"y": -5.25,
+			"dependencies": [
+				"5391FBC8E17B94E8"
+			],
+			"tasks": [
+				{
+					"id": "6CFFC19F4DFA9148",
+					"type": "advancement",
+					"advancement": "simplebuilding:tweaks/root",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "4AD8A702F2D985CE",
+			"x": 2.0,
+			"y": -7.5,
+			"optional": true,
+			"dependencies": [
+				"4C78B432B0A72429",
+				"4E11526B4A90FF79"
+			],
+			"tasks": [
+				{
+					"id": "66058623FEB81293",
+					"type": "item",
+					"item": {
+						"id": "simplebuilding:guide_book_tweaks",
+						"count": 1
+					}
+				}
+			]
+		},
+		{
+			"id": "096F91FF11CEE661",
+			"x": 2.0,
+			"y": -6.0,
+			"dependencies": [
+				"4C78B432B0A72429"
+			],
+			"tasks": [
+				{
+					"id": "3F9D6A6C9841BE32",
+					"type": "advancement",
+					"advancement": "simplebuilding:pads/copper_plated",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "34347CADC508F678",
+			"x": 2.0,
+			"y": -4.5,
+			"dependencies": [
+				"4C78B432B0A72429",
+				"08F000C8C84FDF74"
+			],
+			"tasks": [
+				{
+					"id": "11754EBE4A013A5E",
+					"type": "advancement",
+					"advancement": "simplebuilding:gadgets/speed_reader",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "26CFB89AC8E77540",
+			"x": 2.0,
+			"y": -3.0,
+			"optional": true,
+			"dependencies": [
+				"4C78B432B0A72429"
+			],
+			"tasks": [
+				{
+					"id": "30F57B89A4FB99D1",
+					"type": "advancement",
+					"advancement": "simplebuilding:gadgets/attractive_personality",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "1A252AE1755EAC75",
+			"x": 2.0,
+			"y": -1.5,
+			"optional": true,
+			"dependencies": [
+				"4C78B432B0A72429"
+			],
+			"tasks": [
+				{
+					"id": "345A8FFBC05C3A6B",
+					"type": "advancement",
+					"advancement": "simplebuilding:gadgets/burning_focus",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "61693D442E70F11C",
+			"x": 2.0,
+			"y": 0.0,
+			"optional": true,
+			"dependencies": [
+				"4C78B432B0A72429"
+			],
+			"tasks": [
+				{
+					"id": "1C1780B404A9F044",
+					"type": "advancement",
+					"advancement": "simplebuilding:gadgets/ping",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "1BBEBBF94C012D0E",
+			"x": 0.0,
+			"y": -3.75,
+			"dependencies": [
+				"4F33A64F0904C3B5"
+			],
+			"tasks": [
+				{
+					"id": "02AC6A9A4B71C636",
+					"type": "advancement",
+					"advancement": "simplebuilding:tweaks/forbidden_fruit",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "1C74AF52A4138A61",
+			"x": 2.0,
+			"y": 1.5,
+			"optional": true,
+			"dependencies": [
+				"1BBEBBF94C012D0E"
+			],
+			"tasks": [
+				{
+					"id": "1FDEB4D746C90D8F",
+					"type": "advancement",
+					"advancement": "simplebuilding:tweaks/crown_jewel",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "53B75B4689AA212D",
+			"x": 4.0,
+			"y": 0.0,
+			"dependencies": [
+				"096F91FF11CEE661",
+				"09EA0E0E9F62BEF3",
+				"5BFB5EAAB13F32CD"
+			],
+			"tasks": [
+				{
+					"id": "2EBCF623469D603A",
+					"type": "advancement",
+					"advancement": "simplebuilding:pads/always_loaded",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "1E6A20BF670EC8F7",
+			"x": 0.0,
+			"y": -2.25,
+			"dependencies": [
+				"09EA0E0E9F62BEF3"
+			],
+			"tasks": [
+				{
+					"id": "070546227C611004",
+					"type": "advancement",
+					"advancement": "simplebuilding:pads/home_sweet_spawn",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "4C05E440807CDB86",
+			"x": 2.0,
+			"y": 3.0,
+			"optional": true,
+			"dependencies": [
+				"1E6A20BF670EC8F7"
+			],
+			"tasks": [
+				{
+					"id": "2C39C8B34C1B08D8",
+					"type": "advancement",
+					"advancement": "simplebuilding:pads/frequent_traveller",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "4431B0916A55D63A",
+			"x": 0.0,
+			"y": -0.75,
+			"dependencies": [
+				"059628FBC8427060",
+				"26F2188B9BD804BC"
+			],
+			"tasks": [
+				{
+					"id": "23E7E9E555F208EE",
+					"type": "advancement",
+					"advancement": "simplebuilding:pads/higher_ground",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "7F329CF5369DFB40",
+			"x": 0.0,
+			"y": 0.75,
+			"dependencies": [
+				"059628FBC8427060",
+				"3DC43D0D51E65180"
+			],
+			"tasks": [
+				{
+					"id": "537D31A3738C8059",
+					"type": "advancement",
+					"advancement": "simplebuilding:pads/wings_on_loan",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "05F7DAC8D4D72DE7",
+			"x": 2.0,
+			"y": 4.5,
+			"optional": true,
+			"dependencies": [
+				"7F329CF5369DFB40"
+			],
+			"tasks": [
+				{
+					"id": "6182ECEB4D97BF83",
+					"type": "advancement",
+					"advancement": "simplebuilding:pads/fine_feathers",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "76E2630E5FC6E10B",
+			"x": 0.0,
+			"y": 2.25,
+			"optional": true,
+			"dependencies": [
+				"7BE69CC9480D2FE0"
+			],
+			"tasks": [
+				{
+					"id": "11A4E41DF1667A31",
+					"type": "advancement",
+					"advancement": "simplebuilding:pads/fly_me_to_the_moon",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "178A367C5F1DA46E",
+			"x": 2.0,
+			"y": 6.0,
+			"optional": true,
+			"dependencies": [
+				"76E2630E5FC6E10B"
+			],
+			"tasks": [
+				{
+					"id": "507D77187C95C066",
+					"type": "advancement",
+					"advancement": "simplebuilding:pads/stellar",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "4B0D520EBE5A94DC",
+			"x": 0.0,
+			"y": 3.75,
+			"optional": true,
+			"dependencies": [
+				"146CCE240C9E3674",
+				"7BE69CC9480D2FE0"
+			],
+			"tasks": [
+				{
+					"id": "5D91B77C5AB65D09",
+					"type": "advancement",
+					"advancement": "simplebuilding:pads/infusion",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "37C00FA3BDB204DC",
+			"x": 0.0,
+			"y": 5.25,
+			"dependencies": [
+				"1DD10BF4A20C446B"
+			],
+			"tasks": [
+				{
+					"id": "7395A1A9B1E61E33",
+					"type": "advancement",
+					"advancement": "simplebuilding:enderite/void_feast",
+					"criterion": ""
+				}
+			]
+		},
+		{
+			"id": "3F8F0638C7430BBA",
+			"x": 2.0,
+			"y": 7.5,
+			"optional": true,
+			"dependencies": [
+				"37C00FA3BDB204DC"
+			],
+			"tasks": [
+				{
+					"id": "07852BBBBBB06B7A",
+					"type": "advancement",
+					"advancement": "simplebuilding:enderite/the_last_bite",
+					"criterion": ""
+				}
+			]
+		}
+	],
+	"quest_links": [],
+	"images": []
+}

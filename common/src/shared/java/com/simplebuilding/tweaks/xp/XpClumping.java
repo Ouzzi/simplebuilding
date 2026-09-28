@@ -27,9 +27,15 @@ public final class XpClumping {
         clump(orb);
     }
 
+    /** Einsammel-Reichweite: Config {@code tweaks.optimization.xpClumpRadius} (Standard {@link #RADIUS}). */
+    public static double radius() {
+        double radius = SimpleTweaks.config().optimization.xpClumpRadius;
+        return Double.isFinite(radius) ? Math.max(0.0, radius) : RADIUS;
+    }
+
     /** Schluckt die Nachbarn; gibt die Anzahl geschluckter Kugeln zurueck. */
     public static int clump(ExperienceOrb orb) {
-        List<ExperienceOrb> others = orb.level().getEntitiesOfClass(ExperienceOrb.class, orb.getBoundingBox().inflate(RADIUS),
+        List<ExperienceOrb> others = orb.level().getEntitiesOfClass(ExperienceOrb.class, orb.getBoundingBox().inflate(radius()),
                 other -> other != orb && other.isAlive());
         ExperienceOrbAccessor self = (ExperienceOrbAccessor) orb;
         long total = (long) orb.getValue() * self.simplebuilding$getCount();

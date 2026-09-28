@@ -115,6 +115,7 @@ public final class SimplebuildingNeoForgeClient {
 
     private void onClientSetup(FMLClientSetupEvent event) {
         com.simplebuilding.client.blueprint.BlueprintClient.init();
+        com.simplebuilding.client.guide.GuideBookClient.init();
         ClientNetworking.setSender(ClientPacketDistributor::sendToServer);
     }
 

@@ -1,0 +1,83 @@
+{
+	"chapter.7534D089413BE950.title": "{\"translate\": \"quests.simplebuilding.building.title\"}",
+	"chapter.7534D089413BE950.chapter_subtitle": [
+		"{\"translate\": \"quests.simplebuilding.building.subtitle\"}"
+	],
+	"quest.64ABD46EBD9692AA.title": "{\"translate\": \"advancements.simplebuilding.building.root.title\"}",
+	"quest.64ABD46EBD9692AA.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.building.root.description\"}"
+	],
+	"quest.5FD6D4CD0B327C6E.title": "{\"translate\": \"quests.simplebuilding.building.guide.title\"}",
+	"quest.5FD6D4CD0B327C6E.quest_desc": [
+		"{\"translate\": \"quests.simplebuilding.building.guide.description\"}"
+	],
+	"quest.225A9DCA5D753D47.title": "{\"translate\": \"quests.simplebuilding.building.octant.title\"}",
+	"quest.225A9DCA5D753D47.quest_desc": [
+		"{\"translate\": \"quests.simplebuilding.building.octant.description\"}"
+	],
+	"quest.3A042478F138601D.title": "{\"translate\": \"advancements.simplebuilding.octant.measure_twice.title\"}",
+	"quest.3A042478F138601D.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.octant.measure_twice.description\"}"
+	],
+	"quest.02D4353ADE7705C4.title": "{\"translate\": \"advancements.simplebuilding.octant.colour_coded.title\"}",
+	"quest.02D4353ADE7705C4.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.octant.colour_coded.description\"}"
+	],
+	"quest.77DDBB44E0D5BD95.title": "{\"translate\": \"advancements.simplebuilding.building.let_there_be_light.title\"}",
+	"quest.77DDBB44E0D5BD95.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.building.let_there_be_light.description\"}"
+	],
+	"quest.1323A898FCF1A07F.title": "{\"translate\": \"advancements.simplebuilding.building.checkmate.title\"}",
+	"quest.1323A898FCF1A07F.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.building.checkmate.description\"}"
+	],
+	"quest.4E33E195CC3BD7A4.title": "{\"translate\": \"advancements.simplebuilding.hammer.glow_up.title\"}",
+	"quest.4E33E195CC3BD7A4.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.hammer.glow_up.description\"}"
+	],
+	"quest.27796F48C671CD72.title": "{\"translate\": \"advancements.simplebuilding.hammer.bright_idea.title\"}",
+	"quest.27796F48C671CD72.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.hammer.bright_idea.description\"}"
+	],
+	"quest.672E11EB510CF691.title": "{\"translate\": \"advancements.simplebuilding.chisel.fine_detail.title\"}",
+	"quest.672E11EB510CF691.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.chisel.fine_detail.description\"}"
+	],
+	"quest.3F5B3AEC2AD9D856.title": "{\"translate\": \"advancements.simplebuilding.gadgets.spin_doctor.title\"}",
+	"quest.3F5B3AEC2AD9D856.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.gadgets.spin_doctor.description\"}",
+		"{\"translate\": \"quests.simplebuilding.building.rotator.hint\"}"
+	],
+	"quest.318A737D32392749.title": "{\"translate\": \"advancements.simplebuilding.wand.wand_erful.title\"}",
+	"quest.318A737D32392749.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.wand.wand_erful.description\"}"
+	],
+	"quest.502775D06B4897BF.title": "{\"translate\": \"advancements.simplebuilding.end.palette_cleanser.title\"}",
+	"quest.502775D06B4897BF.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.end.palette_cleanser.description\"}"
+	],
+	"quest.41116BB1559BB2D2.title": "{\"translate\": \"advancements.simplebuilding.end.astral_projection.title\"}",
+	"quest.41116BB1559BB2D2.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.end.astral_projection.description\"}"
+	],
+	"quest.2E4C916A82384A29.title": "{\"translate\": \"advancements.simplebuilding.end.defying_gravity.title\"}",
+	"quest.2E4C916A82384A29.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.end.defying_gravity.description\"}"
+	],
+	"quest.57E65915F6F64339.title": "{\"translate\": \"quests.simplebuilding.building.blueprint.title\"}",
+	"quest.57E65915F6F64339.quest_desc": [
+		"{\"translate\": \"quests.simplebuilding.building.blueprint.description\"}"
+	],
+	"quest.68AFE2CC6633DCEB.title": "{\"translate\": \"advancements.simplebuilding.blueprint.copy_that.title\"}",
+	"quest.68AFE2CC6633DCEB.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.blueprint.copy_that.description\"}"
+	],
+	"quest.40FF5DFBCD2285B8.title": "{\"translate\": \"advancements.simplebuilding.blueprint.carbon_copy.title\"}",
+	"quest.40FF5DFBCD2285B8.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.blueprint.carbon_copy.description\"}"
+	],
+	"quest.5601001720D2EC48.title": "{\"translate\": \"advancements.simplebuilding.blueprint.instant_architect.title\"}",
+	"quest.5601001720D2EC48.quest_desc": [
+		"{\"translate\": \"advancements.simplebuilding.blueprint.instant_architect.description\"}"
+	]
+}

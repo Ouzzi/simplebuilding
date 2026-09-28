@@ -81,11 +81,11 @@ window.WIKI_DATA = {
         "details": [
           "SimpleBuilding adds building tools to Minecraft: the Sledgehammer (mines a 3x3 face in one go and reshapes blocks into stairs and slabs), the Chisel (converts blocks in place into related variants), the Building Wand (places whole faces with one click), the Octant (measures distances, areas and volumes and previews shapes), the Rotator (turns orientable blocks), the Magnet (pulls in dropped items) and the Ore Detector (a compass whose needle points at the nearest ore, with a sound and a faint particle trail).",
           "For storage there are the Reinforced Bundle, the Netherite Bundle and the Enderite Bundle (96, 192 and 288 items at a stack size of 64), plus four Quiver tiers (64, 96, 128 and 192 arrows) that only take arrows and feed the bow automatically.",
-          "The blocks are faster hoppers (Reinforced, Netherite, Enderite) with a configurable item filter, faster furnaces, blast furnaces and smokers (Reinforced, Netherite, Enderite), four stronger pistons, sand and gravel with gravity switched off or reversed, and the End ores Astralit and Nihilith.",
+          "The blocks are faster hoppers (Reinforced, Netherite, Enderite) with a configurable item filter, faster furnaces, blast furnaces and smokers (Reinforced, Netherite, Enderite), four stronger pistons, sand and gravel with gravity switched off or reversed, and the End ores Astralit and Nihilit.",
           "The mod's own enchantments cover three areas: mining (Vein Miner, Strip Miner, Versatility, Override, Radius, Break Through), building (Linear, Color Palette, Master Builder, Constructor's Touch, Fast Chiseling, Cover, Bridge) and storage and player (Deep Pockets, Drawer, Funnel, Air Jump, Kinetic Protection, Range).",
           "On top of that, armor trims grant gameplay bonuses (the resonance system), Enderite items are not lost in the void, item frames can be locked with a glass pane and made invisible with shears, and the Emitting Trim Smithing Template turns armor into a portable light source.",
           "The mod is built for Fabric, NeoForge and Forge; the codebase covers Minecraft 26.2 and 1.21.11. The Forge module has been parked since 2026-08-27: it compiles and its dev client starts, but no test runs on it. Its client-side displays are wired as on the other loaders: the Octant HUD, the Velocity Gauge's speed display and the Air Jump bar through Forge's HUD layers (AddGuiOverlayLayersEvent), the in-world markers and extra breaking cracks through the mixins LevelRendererMixin / LevelExtractorMixin, the enchantments' own book textures through SelectItemModelPropertiesMixin.",
-          "The creative inventory has four tabs of its own: \"SimpleTools\" (one family per row from the lowest tier up to Enderite: chisels, building wands, sledgehammers, pickaxes, shovels, hoes, axes, swords, spears, helmets, chestplates, leggings and boots - the vanilla tools, weapons and armour of every tier included - then the gadgets Octant, Velocity Gauge, Ore Detector, Magnet and Rotator, the compasses (vanilla Compass, Recovery Compass, Echo Sounder), the coloured octants, and enchanted books of every mod enchantment at maximum level; icon: Iron Chisel), \"SimpleBlocks\" (end stone, the Astralit, Nihilith and Ender Quartz palettes, quartz checkers including the Ender Quartz Checker, gravity blocks, Block of Cracked Diamond, Block of Enderite and Construction Light; icon: Astralit Bricks), \"SimpleMaterials\" (ores, shards, dust, Ender Quartz, nuggets, ingots, cores, smithing templates and food; icon: Enderite Ingot) and \"SimpleMachines\" (one category per row, each vanilla first and then the tiers: hoppers, pistons, furnaces, smokers, blast furnaces, bundles, quivers, backpacks, and a Building Planning row with the Blueprint, the vanilla Cartography Table, an Octant and every building wand; icon: Netherite Hopper). SimpleTools and SimpleMachines leave the rest of each row empty (invisible Creative Spacer entries that cannot be picked up and never show in the search tab). Every item except the six legacy spatulas sits in exactly one of them; only the Octant and the building wands are deliberately in two (SimpleTools and the Building Planning row). A fifth tab, \"SimpleEnchants (Dev)\", only appears in a development environment or with the config option showDevEnchantedTab: the best tier of every enchantable item (plus the Stick and the Shulker Box, which Constructor's Touch gives a function) with every fitting enchantment at maximum level, one variant per choice among mutually exclusive enchantments (for example one pair of boots per protection type). Its entries do not appear in the search tab.",
+          "The creative inventory has four tabs of its own: \"SimpleTools\" (one family per row from the lowest tier up to Enderite: chisels, building wands, sledgehammers, pickaxes, shovels, hoes, axes, swords, spears, helmets, chestplates, leggings and boots - the vanilla tools, weapons and armour of every tier included - then the gadgets Octant, Velocity Gauge, Ore Detector, Magnet and Rotator, the compasses (vanilla Compass, Recovery Compass, Echo Sounder), the coloured octants, and enchanted books of every mod enchantment at maximum level; icon: Iron Chisel), \"SimpleBlocks\" (end stone, the Astralit, Nihilit and Ender Quartz palettes, quartz checkers including the Ender Quartz Checker, gravity blocks, Block of Cracked Diamond, Block of Enderite and Construction Light; icon: Astralit Bricks), \"SimpleMaterials\" (ores, shards, dust, Ender Quartz, nuggets, ingots, cores, smithing templates and food; icon: Enderite Ingot) and \"SimpleMachines\" (one category per row, each vanilla first and then the tiers: hoppers, pistons, furnaces, smokers, blast furnaces, bundles, quivers, backpacks, and a Building Planning row with the Blueprint, the vanilla Cartography Table, an Octant and every building wand; icon: Netherite Hopper). SimpleTools and SimpleMachines leave the rest of each row empty (invisible Creative Spacer entries that cannot be picked up and never show in the search tab). Every item except the six legacy spatulas sits in exactly one of them; only the Octant and the building wands are deliberately in two (SimpleTools and the Building Planning row). A fifth tab, \"SimpleEnchants (Dev)\", only appears in a development environment or with the config option showDevEnchantedTab: the best tier of every enchantable item (plus the Stick and the Shulker Box, which Constructor's Touch gives a function) with every fitting enchantment at maximum level, one variant per choice among mutually exclusive enchantments (for example one pair of boots per protection type). Its entries do not appear in the search tab.",
           "A note on names: the German language file is complete on both lines (MC 26.2 and 1.21.11) - every key of the English file has a German entry, and a build check (LanguageFilesTest) keeps it that way. The mod's own menu, status and tooltip texts - hopper filter, Ore Detector, Magnet, item frame lock, structure compasses, toggle keys, Octant HUD and Velocity Gauge HUD, trim stats panel, chisel tooltip - come from the language files as well (since 2026-09-27); a data test checks that each of those keys exists in both files with the same placeholders.",
           "Every chapter follows the same layout: summary, details, controls (which key or click does what), a tier overview for tier families, and a limitations section. That section states plainly what does not (yet) work, e.g. tooltip texts that are never shown. Each chapter ends with the source files its statements come from.",
           "Items section: every tool and storage item, sorted by family (Sledgehammer, Chisel, Building Wand, Octant and dyed Octants, bundles, quivers), plus the standalone tools Magnet, Rotator and Ore Detector.",
@@ -105,11 +105,11 @@ window.WIKI_DATA = {
         "details": [
           "Für das Lager gibt es das Verstärkte Bündel, das Netheritbündel und das Enderitbündel (96, 192 und 288 Gegenstände bei 64er-Stapeln) sowie vier Köcher-Stufen (64, 96, 128 und 192 Pfeile), die nur Pfeile aufnehmen und den Bogen automatisch versorgen.",
           "SimpleBuilding erweitert Minecraft um Bauwerkzeuge: Vorschlaghammer (baut ein 3x3-Feld auf einmal ab und formt Blöcke zu Treppen und Stufen), Meißel (formt Blöcke an Ort und Stelle in verwandte Varianten um), Baustab (setzt ganze Flächen mit einem Klick), Oktant (misst Abstände, Flächen und Volumen und zeichnet Formen vor), Rotator (dreht ausrichtbare Blöcke), Magnet (zieht herumliegende Items an) und Erzdetektor (ein Kompass, dessen Nadel zum nächsten Erz zeigt, dazu Ton und eine schwache Partikelspur).",
-          "Als Blöcke kommen schnellere Trichter (Verstärkt, Netherit, Enderit) mit einstellbarem Item-Filter, schnellere Öfen, Schmelzöfen und Räucheröfen (Verstärkt, Netherit, Enderit), vier stärkere Kolben, Sand und Kies mit aufgehobener oder umgekehrter Schwerkraft sowie die End-Erze Astralit und Nihilith hinzu.",
+          "Als Blöcke kommen schnellere Trichter (Verstärkt, Netherit, Enderit) mit einstellbarem Item-Filter, schnellere Öfen, Schmelzöfen und Räucheröfen (Verstärkt, Netherit, Enderit), vier stärkere Kolben, Sand und Kies mit aufgehobener oder umgekehrter Schwerkraft sowie die End-Erze Astralit und Nihilit hinzu.",
           "Eigene Verzauberungen decken drei Bereiche ab: Abbau (Aderabbau, Tunnelgräber, Vielseitigkeit, Übersteuerung, Radius, Durchbruch), Bauen (Linear, Farbpalette, Baumeister, Berührung des Konstrukteurs, Schnelles Meißeln, Abdeckung, Brücke) sowie Lager und Spieler (Tiefe Taschen, Schublade, Trichter, Luftsprung, Kinetischer Schutz, Reichweite).",
           "Darüber hinaus geben Rüstungsbesätze spielerische Boni (Resonanz-System), Enderit-Gegenstände gehen in der Leere nicht verloren, Rahmen lassen sich mit einer Glasscheibe sperren und mit einer Schere unsichtbar machen, und mit der Strahlenden Schmiedevorlage wird Rüstung zur tragbaren Lichtquelle.",
           "Die Mod wird für Fabric, NeoForge und Forge gebaut; die Codebasis deckt Minecraft 26.2 und 1.21.11 ab. Das Forge-Modul ist seit dem 27.08.2026 zurückgestellt: Es kompiliert und sein Dev-Client startet, aber kein Test läuft darauf. Seine Client-Anzeigen sind wie auf den anderen Loadern verdrahtet: Oktant-HUD, Geschwindigkeitsanzeige des Geschwindigkeitsmessers und Luftsprung-Balken über Forges HUD-Ebenen (AddGuiOverlayLayersEvent), Weltmarkierungen und zusätzliche Abbau-Risse über die Mixins LevelRendererMixin / LevelExtractorMixin, die eigenen Buchtexturen der Verzauberungen über SelectItemModelPropertiesMixin.",
-          "Das Kreativinventar hat vier eigene Reiter: „SimpleTools“ (je Familie eine Reihe von der niedrigsten Stufe bis Enderit: Meißel, Baustäbe, Vorschlaghämmer, Spitzhacken, Schaufeln, Hacken, Äxte, Schwerter, Speere, Helme, Brustpanzer, Hosen und Stiefel - die Vanilla-Werkzeuge, -Waffen und -Rüstungen aller Stufen eingeschlossen -, danach die Geräte Oktant, Geschwindigkeitsmesser, Erzdetektor, Magnet und Rotator, die Kompasse (Vanilla-Kompass, Bergungskompass, Echolot), die gefärbten Oktanten und verzauberte Bücher aller Mod-Verzauberungen auf Höchststufe; Symbol: Eisenmeißel), „SimpleBlocks“ (Endstein, die Astralit-, Nihilith- und Enderquarz-Paletten, Quarz-Schachbretter samt Enderquarz-Schachbrett, Schwerkraftblöcke, Rissiger Diamantblock, Enderitblock und Baustellenlicht; Symbol: Astralitziegel), „SimpleMaterials“ (Erze, Splitter, Staub, Enderquarz, Klumpen, Barren, Kerne, Schmiedevorlagen und Nahrung; Symbol: Enderitbarren) und „SimpleMachines“ (eine Kategorie je Reihe, jeweils Vanilla zuerst und dann die Stufen: Trichter, Kolben, Öfen, Räucheröfen, Schmelzöfen, Bündel, Köcher, Rucksäcke und eine Reihe Bauplanung mit Blaupause, dem Vanilla-Kartografentisch, einem Oktanten und allen Baustäben; Symbol: Netherittrichter). SimpleTools und SimpleMachines lassen den Rest jeder Reihe leer (unsichtbare Kreativ-Platzhalter, die sich nicht aufnehmen lassen und nie im Suchreiter stehen). Jedes Item außer den sechs alten Spachteln liegt in genau einem davon; nur der Oktant und die Baustäbe stehen bewusst in zweien (SimpleTools und die Reihe Bauplanung). Ein fünfter Reiter, „SimpleEnchants (Dev)“, erscheint nur in einer Entwicklungsumgebung oder mit der Konfigurationsoption showDevEnchantedTab: die beste Stufe jedes verzauberbaren Gegenstands (dazu Stock und Shulkerkiste, denen Berührung des Konstrukteurs eine Funktion gibt) mit jeder passenden Verzauberung auf Höchststufe, je Wahl unter sich ausschließenden Verzauberungen eine Variante (etwa ein Paar Stiefel je Schutzart). Seine Einträge stehen nicht im Suchreiter.",
+          "Das Kreativinventar hat vier eigene Reiter: „SimpleTools“ (je Familie eine Reihe von der niedrigsten Stufe bis Enderit: Meißel, Baustäbe, Vorschlaghämmer, Spitzhacken, Schaufeln, Hacken, Äxte, Schwerter, Speere, Helme, Brustpanzer, Hosen und Stiefel - die Vanilla-Werkzeuge, -Waffen und -Rüstungen aller Stufen eingeschlossen -, danach die Geräte Oktant, Geschwindigkeitsmesser, Erzdetektor, Magnet und Rotator, die Kompasse (Vanilla-Kompass, Bergungskompass, Echolot), die gefärbten Oktanten und verzauberte Bücher aller Mod-Verzauberungen auf Höchststufe; Symbol: Eisenmeißel), „SimpleBlocks“ (Endstein, die Astralit-, Nihilit- und Enderquarz-Paletten, Quarz-Schachbretter samt Enderquarz-Schachbrett, Schwerkraftblöcke, Rissiger Diamantblock, Enderitblock und Baustellenlicht; Symbol: Astralitziegel), „SimpleMaterials“ (Erze, Splitter, Staub, Enderquarz, Klumpen, Barren, Kerne, Schmiedevorlagen und Nahrung; Symbol: Enderitbarren) und „SimpleMachines“ (eine Kategorie je Reihe, jeweils Vanilla zuerst und dann die Stufen: Trichter, Kolben, Öfen, Räucheröfen, Schmelzöfen, Bündel, Köcher, Rucksäcke und eine Reihe Bauplanung mit Blaupause, dem Vanilla-Kartografentisch, einem Oktanten und allen Baustäben; Symbol: Netherittrichter). SimpleTools und SimpleMachines lassen den Rest jeder Reihe leer (unsichtbare Kreativ-Platzhalter, die sich nicht aufnehmen lassen und nie im Suchreiter stehen). Jedes Item außer den sechs alten Spachteln liegt in genau einem davon; nur der Oktant und die Baustäbe stehen bewusst in zweien (SimpleTools und die Reihe Bauplanung). Ein fünfter Reiter, „SimpleEnchants (Dev)“, erscheint nur in einer Entwicklungsumgebung oder mit der Konfigurationsoption showDevEnchantedTab: die beste Stufe jedes verzauberbaren Gegenstands (dazu Stock und Shulkerkiste, denen Berührung des Konstrukteurs eine Funktion gibt) mit jeder passenden Verzauberung auf Höchststufe, je Wahl unter sich ausschließenden Verzauberungen eine Variante (etwa ein Paar Stiefel je Schutzart). Seine Einträge stehen nicht im Suchreiter.",
           "Ein Hinweis zu Namen: Die deutsche Sprachdatei ist auf beiden Linien (MC 26.2 und 1.21.11) vollständig – zu jedem Schlüssel der englischen Datei gibt es einen deutschen Eintrag, und eine Build-Prüfung (LanguageFilesTest) hält das so. Auch die eigenen Menü-, Status- und Tooltip-Texte der Mod - Trichter-Filter, Erzdetektor, Magnet, Rahmensperre, Struktur-Kompasse, Umschalttasten, Oktant- und Geschwindigkeitsmesser-HUD, Resonanzfeld, Meißel-Tooltip - kommen seit dem 27.09.2026 aus den Sprachdateien; ein Datentest prüft, dass jeder dieser Schlüssel in beiden Dateien mit denselben Platzhaltern steht.",
           "So ist jedes Kapitel aufgebaut: Zusammenfassung, Details, Bedienung (welche Taste oder welcher Klick was bewirkt), bei Stufenfamilien eine Stufenübersicht und ein Abschnitt Einschränkungen. Dort steht ausdrücklich, was nicht (oder noch nicht) funktioniert, z. B. Tooltip-Texte, die nie angezeigt werden. Am Ende nennt jedes Kapitel die Quelldateien, aus denen die Angaben stammen.",
           "Bereich Items: alle Werkzeuge und Lager-Gegenstände, sortiert nach Familien (Vorschlaghammer, Meißel, Baustab, Oktant und gefärbte Oktanten, Bündel, Köcher) sowie die Einzelwerkzeuge Magnet, Rotator und Erzdetektor.",
@@ -324,7 +324,7 @@ window.WIKI_DATA = {
           "Der Weg zu den Maschinen führt über den Vorschlaghammer: Rechtsklick halten auf einen Diamantblock zerlegt ihn in 81 Diamantkiesel, und je 9 Kiesel ergeben in der Werkbank einen Rissigen Diamanten (ein einzelner Kiesel steckt außerdem im Verstärkten Bündel und im Verstärkten Köcher). Damit baust du Verstärkte Öfen, Schmelzöfen und Räucheröfen (3 Rissige Diamanten, 3 Geräte, 3 Rissige Diamanten ergeben 3 Stück), Verstärkte Trichter (5 Trichter, Namensschild, 3 Rissige Diamanten ergeben 5 Stück) und Verstärkte Kolben (3 Rissige Diamanten, 2 Kolben, 4 Eisenbarren ergeben 2 Stück). Die Netherit-Stufen werden nicht gecraftet: Halte mit einem Diamant-Vorschlaghammer (oder besser) in der Haupthand und einem Netheritklumpen in der Nebenhand fünf Sekunden lang Rechtsklick auf die gesetzte Verstärkt-Maschine, dann wird sie zur Netherit-Maschine geschmiedet; ein Netherit-Vorschlaghammer (oder besser) mit einem Enderitklumpen macht dasselbe von Netherit zu Enderit. Übrige Rissige Diamanten werden im Hochofen wieder zu Diamanten.",
           "Verzauberungen: Nur Schnelles Meißeln erscheint am Zaubertisch. Alle anderen Mod-Verzauberungen findest du als Bücher und bringst sie am Amboss an; im Kreativ-Reiter liegen alle Bücher auf Höchststufe bereit.",
           "Beim Händler: Der Werkzeugschmied verkauft ab Stufe 3 Kupfer-, Eisen- und Goldmeißel mit Schnelles Meißeln für 6 Smaragde, ab Stufe 4 Eisen- und Diamant-Vorschlaghämmer mit einer Verzauberung aus Durchbruch, Übersteuerung, Reichweite, Haltbarkeit oder Effizienz (16 Smaragde + Eisenspitzhacke bzw. 28 Smaragde + Diamantspitzhacke) und ab Stufe 5 eine Diamantspitzhacke mit Tunnelgräber oder Aderabbau für 15 Smaragde. Der Bibliothekar bietet ab Stufe 3 Bücher mit Farbpalette, Schnelles Meißeln oder Linear, ab Stufe 4 Linear oder Übersteuerung und ab Stufe 5 Baumeister, Reichweite, Trichter, Tunnelgräber oder Aderabbau, jeweils für 25 Smaragde. Der fahrende Händler hat für 40 Smaragde ein Buch mit Radius und Diamantkiesel (3 Stück für 5 Smaragde).",
-          "In Truhen: Berührung des Konstrukteurs, die Schlüssel-Verzauberung der Mod (schaltet das Baustab-Menü, zusätzliche Meißel-Umwandlungen, das Rückwärts-Umformen beim Vorschlaghammer, den Magnetfilter und die Oktant-Vorschau frei), gibt es nur als Buch im Vergrabenen Schatz, in Iglu-Truhen, in den Tresoren der Prüfungskammern und im Schatzfang beim Angeln; kein Händler bietet sie an. Durchbruch, Trichter, Aderabbau und Schnelles Meißeln liegen in Verliesen, Farbpalette, Abdeckung und Linear in Plünderer-Außenposten und Waldanwesen, Baumeister, Vielseitigkeit und Reichweite in Festungsbibliotheken und Endsiedlungen, Übersteuerung II und Luftsprung II in Endsiedlungen, Radius und Tiefe Taschen in Antiken Städten, Tunnelgräber in Netherfestungen und verlassenen Minen. Endsiedlungen geben zusätzlich Rohenderit, Enderitklumpen, Astralitstaub und Nihilithsplitter aus; viele Truhen enthalten Diamantkiesel.",
+          "In Truhen: Berührung des Konstrukteurs, die Schlüssel-Verzauberung der Mod (schaltet das Baustab-Menü, zusätzliche Meißel-Umwandlungen, das Rückwärts-Umformen beim Vorschlaghammer, den Magnetfilter und die Oktant-Vorschau frei), gibt es nur als Buch im Vergrabenen Schatz, in Iglu-Truhen, in den Tresoren der Prüfungskammern und im Schatzfang beim Angeln; kein Händler bietet sie an. Durchbruch, Trichter, Aderabbau und Schnelles Meißeln liegen in Verliesen, Farbpalette, Abdeckung und Linear in Plünderer-Außenposten und Waldanwesen, Baumeister, Vielseitigkeit und Reichweite in Festungsbibliotheken und Endsiedlungen, Übersteuerung II und Luftsprung II in Endsiedlungen, Radius und Tiefe Taschen in Antiken Städten, Tunnelgräber in Netherfestungen und verlassenen Minen. Endsiedlungen geben zusätzlich Rohenderit, Enderitklumpen, Astralitstaub und Nihilitsplitter aus; viele Truhen enthalten Diamantkiesel.",
           "Auch fertige Werkzeuge liegen herum: Gold- und Diamantmeißel im Vergrabenen Schatz, Diamantmeißel im Iglu, Gold-Vorschlaghammer in Bastionen, Diamant-Vorschlaghammer in Endsiedlungen und Antiken Städten, Eisen-Baustab in Waldanwesen, Diamant-Baustab in Endsiedlungen, Oktant in Antiken Städten, Netherfestungen und Plünderer-Außenposten, Verstärktes Bündel in Verliesen, Schiffswracks und verlassenen Minen, Köcher in Antiken Städten, Plünderer-Außenposten und Waldanwesen.",
           "Schublade und Kinetischer Schutz haben keine gezielte Fundquelle außer dem Kreativ-Reiter; zufällig verzauberte Loot-Gegenstände (Köcher, Verstärktes Bündel, Oktant, Diamant-Vorschlaghammer, Diamant-Baustab) können aber jede auf sie passende Verzauberung tragen.",
           "Loot und Handel hängen an drei Konfigurationsschaltern (enableLootTableChanges, enableVillagerTrades, enableWanderingTrades), die standardmäßig eingeschaltet sind und beim Laden der Datenpakete (Weltstart, /reload) ausgewertet werden. Ist das Vanilla-Datenpaket „Trade Rebalance“ aktiv, verschwinden die Bibliothekar-Angebote der Mod; Steinmetz, Werkzeugschmied und fahrender Händler bleiben davon unberührt."
@@ -520,7 +520,7 @@ window.WIKI_DATA = {
         "summary": "With the chisel you reshape blocks right in the world without breaking them: one right-click turns stone into chiseled stone bricks, sandstone into smooth sandstone or planks into stairs. Higher material tiers unlock further transformations, and sneaking reverses the direction.",
         "details": [
           "Getting started: the Stone Chisel is made from a stick, a cobblestone and two copper nuggets; the Copper, Iron, Gold and Diamond Chisels are built the same way, just with a copper ingot, iron ingot, gold ingot or diamond instead of the cobblestone.",
-          "There are five transformation tiers: stone (sandstone variants, stone, stone slabs), iron/copper (stone bricks, polished stones, tuff, planks -> stairs -> slab), gold/diamond (quartz, tuff bricks, blackstone, basalt, deepslate), netherite (the nether brick cycle, resin bricks, chiseled sandstone -> sand) and enderite (the Astralit, Nihilith and Ender Quartz palettes: polished -> pillar -> bricks -> chiseled -> block, plus their stairs, slabs and walls); every tier contains all the transformations of the lower ones.",
+          "There are five transformation tiers: stone (sandstone variants, stone, stone slabs), iron/copper (stone bricks, polished stones, tuff, planks -> stairs -> slab), gold/diamond (quartz, tuff bricks, blackstone, basalt, deepslate), netherite (the nether brick cycle, resin bricks, chiseled sandstone -> sand) and enderite (the Astralit, Nihilit and Ender Quartz palettes: polished -> pillar -> bricks -> chiseled -> block, plus their stairs, slabs and walls); every tier contains all the transformations of the lower ones.",
           "Sneak + right-click walks the chain backwards, at a cost of 2 durability instead of 1.",
           "Where you click on the block decides the orientation of the result: the edge of a face (the outer 0.25 blocks) lines pillars and stairs up with that edge (stairs end up facing away from it), while the middle uses the clicked face or your own facing.",
           "After every transformation there is a cooldown (30 ticks on the Stone Chisel down to 5 ticks on netherite and enderite); the Fast Chiseling enchantment shortens it to 70% (level I) or 40% (level II).",
@@ -537,7 +537,7 @@ window.WIKI_DATA = {
         "summary": "Mit dem Meißel formst du Blöcke direkt in der Welt um, ohne sie abzubauen: Ein Rechtsklick macht aus Stein gemeißelte Steinziegel, aus Sandstein glatten Sandstein oder aus Brettern eine Treppe. Höhere Materialstufen schalten weitere Umwandlungen frei, Schleichen dreht die Richtung um.",
         "details": [
           "Einstieg: Der Steinmeißel entsteht aus einem Stock, einem Bruchstein und zwei Kupferklumpen; Kupfer-, Eisen-, Gold- und Diamantmeißel werden gleich gebaut, nur mit Kupferbarren, Eisenbarren, Goldbarren bzw. Diamant statt Bruchstein.",
-          "Es gibt fünf Umwandlungsstufen: Stein (Sandstein-Varianten, Stein, Steinstufen), Eisen/Kupfer (Steinziegel, polierte Steine, Tuff, Bretter → Treppe → Stufe), Gold/Diamant (Quarz, Tuff-Ziegel, Schwarzstein, Basalt, Tiefenschiefer), Netherit (Netherziegel-Kreislauf, Harzziegel, gemeißelter Sandstein → Sand) und Enderit (die Astralit-, Nihilith- und Enderquarz-Paletten: poliert → Säule → Ziegel → gemeißelt → Block, dazu ihre Treppen, Stufen und Mauern); jede Stufe enthält alle Umwandlungen der niedrigeren.",
+          "Es gibt fünf Umwandlungsstufen: Stein (Sandstein-Varianten, Stein, Steinstufen), Eisen/Kupfer (Steinziegel, polierte Steine, Tuff, Bretter → Treppe → Stufe), Gold/Diamant (Quarz, Tuff-Ziegel, Schwarzstein, Basalt, Tiefenschiefer), Netherit (Netherziegel-Kreislauf, Harzziegel, gemeißelter Sandstein → Sand) und Enderit (die Astralit-, Nihilit- und Enderquarz-Paletten: poliert → Säule → Ziegel → gemeißelt → Block, dazu ihre Treppen, Stufen und Mauern); jede Stufe enthält alle Umwandlungen der niedrigeren.",
           "Schleichen + Rechtsklick läuft die Kette rückwärts, kostet dafür 2 statt 1 Haltbarkeit.",
           "Wo du auf den Block klickst, bestimmt die Ausrichtung des Ergebnisses: Der Rand einer Seite (äußere 0,25 Blockbreite) richtet Säulen und Treppen zur Kante aus, die Mitte nutzt die angeklickte Seite bzw. deine Blickrichtung.",
           "Nach jeder Umwandlung gilt eine Abklingzeit (30 Ticks beim Steinmeißel bis 5 Ticks bei Netherit und Enderit); die Verzauberung Schnelles Meißeln verkürzt sie auf 70 % (Stufe I) bzw. 40 % (Stufe II).",
@@ -753,7 +753,7 @@ window.WIKI_DATA = {
           "Step 2: the HUD on the left shows both positions and the measurement: distance in blocks for a line, area with width x depth for a plane, volume with width x height x depth for a box. Both corner blocks count.",
           "Step 3: G opens the Octant Manager: adjust positions and size with the edit fields or the +/- buttons, pick shape and axis, lock the selection. Alt + mouse wheel switches the shape, Ctrl + wheel and sneak key + wheel move Pos 1 and Pos 2 in the direction you are facing without opening the menu.",
           "Shapes: Cuboid, Cylinder, Prism, Pyramid, Sphere, Rectangle (2D), Ellipse (2D). The axis (+X/+Y/+Z/-X/-Y/-Z) orients Cylinder, Ellipse, Pyramid and Prism.",
-          "By default the area figure is only drawn when the octant carries Constructor's Touch (the config option \"Invert Octant Sneak\" turns that around). The two corner outlines are always drawn once you have set them. H hides and shows the figure.",
+          "By default the area figure is only drawn when the octant carries Constructor's Touch (the config option \"Invert Octant Area Preview\" turns that around). The two corner outlines are always drawn once you have set them. H hides and shows the figure.",
           "Range on the octant increases block interaction range in the main hand (+2 / +6 / +10 blocks at levels I, II and III), so you can set corners from further away.",
           "Dyed octants (octant + dye) have their own colour for the HUD and the markers and the same 128 durability as the plain octant; the colour can be washed off in a water cauldron, and the selection survives that (enchantments and damage do not).",
           "Sneak + right-click in the air resets the octant completely. The lock protects the selection from accidental clicking and scrolling (not from changes in the manager). The server only takes corners within 320 blocks of you and inside the build height; the manager shows a farther corner in red, and the action bar says it was not taken.",
@@ -770,7 +770,7 @@ window.WIKI_DATA = {
           "Schritt 2: Das HUD links zeigt beide Positionen und den Messwert: Abstand in Blöcken bei einer Linie, Fläche mit Breite x Tiefe bei einer Ebene, Volumen mit Breite x Höhe x Tiefe bei einem Kasten. Beide Eckblöcke zählen mit.",
           "Schritt 3: Mit G öffnest du den Oktant-Manager: Positionen und Größe per Eingabefeld oder +/- Knöpfen anpassen, Form und Achse wählen, Auswahl sperren. Mit Alt + Mausrad wechselst du die Form, mit Strg + Mausrad bzw. Schleichen-Taste + Mausrad verschiebst du Pos 1 bzw. Pos 2 in Blickrichtung, ohne das Menü zu öffnen.",
           "Formen: Quader, Zylinder, Prisma, Pyramide, Kugel, Rechteck (2D), Ellipse (2D). Die Achse (+X/+Y/+Z/-X/-Y/-Z) richtet Zylinder, Ellipse, Pyramide und Prisma aus.",
-          "Die Flächenfigur wird standardmäßig nur gezeichnet, wenn der Oktant Berührung des Konstrukteurs trägt (Config \"Oktant Schleichen umkehren\" dreht das um). Die beiden Eckpunkt-Umrisse siehst du immer. Mit H blendest du die Figur aus und ein.",
+          "Die Flächenfigur wird standardmäßig nur gezeichnet, wenn der Oktant Berührung des Konstrukteurs trägt (Config \"Oktant-Flächenvorschau umkehren\" dreht das um). Die beiden Eckpunkt-Umrisse siehst du immer. Mit H blendest du die Figur aus und ein.",
           "Reichweite auf dem Oktanten erhöht die Block-Interaktionsreichweite in der Haupthand (+2/+6/+10 Blöcke je Stufe), du kannst Eckpunkte also aus größerer Entfernung setzen.",
           "Gefärbte Oktanten (Oktant + Farbstoff) haben eine eigene Farbe für HUD und Markierungen und dieselbe Haltbarkeit von 128 wie der normale Oktant; im Wasserkessel lässt sich die Farbe wieder abwaschen, die Auswahl bleibt dabei erhalten (Verzauberungen und Schaden nicht).",
           "Schleichen + Rechtsklick in die Luft setzt den Oktanten komplett zurück. Die Sperre schützt die Auswahl vor versehentlichem Klicken und Scrollen (nicht vor Änderungen im Manager). Der Server übernimmt nur Ecken bis 320 Blöcke um dich und innerhalb der Bauhöhe; der Manager zeigt eine weiter entfernte Ecke rot, und die Aktionsleiste sagt, dass sie nicht übernommen wurde.",
@@ -956,7 +956,7 @@ window.WIKI_DATA = {
         "details": [
           "Crafting (owner 2026-09-28): calibrated sculk sensor top middle, the compass in the middle, Gold Core bottom middle and echo shards in the other six slots - left and right of the compass and all four corners (\"ESE\" / \"ECE\" / \"EGE\", 6 echo shards); unlocked with your first compass.",
           "Controls: sneak + right-click without a block targeted switches the mode (costs 1 durability, not in creative mode), sneak + right-click on a block calibrates Custom mode to exactly that block type. Blocks with a block entity - chests, barrels, shulker boxes, spawners and the like - cannot be calibrated: the detector refuses with a low sculk click and stays as it was (a data pack can allow single blocks through the block tag simplebuilding:ore_detector_calibratable). A detector calibrated on such a block before 2026-09-27 keeps its data but no longer finds the block.",
-          "Signal and range by ore class, not by mode: common ores (coal, copper, iron, redstone, lapis, nether quartz) signal 18 and range 24, gold 13 and 20, diamond and emerald 9 and 16, ancient debris, Astralit Ore and Nihilith Ore 5 and 16. Iron, Gold, Diamond and Netherite mode each search one class; All Ores finds all twelve kinds, each with its own signal and range; Custom uses the class of the calibrated block (a block that is none of these ores counts as common). The range is at once the scan radius in blocks around the block your eyes are in; the tooltip shows it as \"Signal: <signal>, Range: <range>\" (All Ores: the common class plus a line with the rarer classes as signal/range).",
+          "Signal and range by ore class, not by mode: common ores (coal, copper, iron, redstone, lapis, nether quartz) signal 18 and range 24, gold 13 and 20, diamond and emerald 9 and 16, ancient debris, Astralit Ore and Nihilit Ore 5 and 16. Iron, Gold, Diamond and Netherite mode each search one class; All Ores finds all twelve kinds, each with its own signal and range; Custom uses the class of the calibrated block (a block that is none of these ores counts as common). The range is at once the scan radius in blocks around the block your eyes are in; the tooltip shows it as \"Signal: <signal>, Range: <range>\" (All Ores: the common class plus a line with the rarer classes as signal/range).",
           "Material damping: every block the line of sight crosses between the block your eyes are in and the ore costs the signal a fixed amount by its mining hardness - air and blocks that do not occlude (glass, leaves, water) 0.125; hardness below 1.0 (netherrack, dirt, sand, gravel) and end stone, the host rock of the End ores, 2; hardness 1.0 to below 3.0 (stone, cobblestone, tuff, basalt, blackstone, logs) 4; hardness 3.0 to below 10 (deepslate, ores) 6; hardness 10 and up or unbreakable (obsidian, ancient debris, bedrock) 16. The ore is found if the total stays at or below its signal. Without Radius that means: common ores through 4 stone, gold through 3, diamond and emerald through 2, ancient debris through 2 netherrack (the End ores through 2 end stone) or 1 stone - each with up to 8 blocks of air on top.",
           "Constructor's Touch multiplies every block's loss by 0.5, so the signal carries twice as far through rock (iron ore: through 8 instead of 4 stone, 5 instead of 2 deepslate); the range stays the same.",
           "Radius (level I, found as a book and applied at the anvil) fits the Ore Detector as well and raises signal and range, the signal of the rare classes the most: common 22 and 28, gold 17 and 24, diamond and emerald 17 and 24, ancient debris and the End ores 9 and 20 - diamonds then get through 4 stone instead of 2, ancient debris through 4 netherrack instead of 2, common ores through 5 stone instead of 4. Constructor's Touch and Radius stack: the one halves the loss, the other raises the signal.",
@@ -1156,7 +1156,7 @@ window.WIKI_DATA = {
           "Netherite Bundle and Enderite Bundle are fire resistant and explosion-protected as dropped items; the Enderite Bundle is additionally kept out of the void through the void_protected tag.",
           "The bundle enchantments are not available at the enchanting table, only as books from loot chests and from the librarian; Drawer has no book of its own in loot or trades. All three bundle tiers are in the tags through which the enchantments declare their items.",
           "The Reinforced Bundle turns up in dungeon chests, shipwreck treasure and abandoned mineshafts, and the wandering trader sells one for 16 emeralds and buys one for 12 emeralds (depending on the config options enableLootTableChanges and enableWanderingTrades).",
-          "The Invert Bundle Interactions config option swaps left and right click for inserting and removing.",
+          "The Invert Bundle Clicks config option swaps left and right click for inserting and removing.",
           "The mod's quivers inherit from the same item class (QuiverItem extends ReinforcedBundleItem) but only accept arrows (tag minecraft:arrows) and are described separately.",
           "Dyeing: Reinforced, Netherite and Enderite Bundle take dye like leather armour rather than turning into separate coloured items like the vanilla bundle - bundle plus one or more dyes in the crafting grid, colours mix, contents, name and enchantments stay. The colour shows on the item, in its open look and as a faint tint of the item slots in the tooltip; a water cauldron washes it off again. Like the vanilla bundle, a mod bundle opens in the inventory while an entry is selected and shows that entry sticking out of it."
         ]
@@ -1179,7 +1179,7 @@ window.WIKI_DATA = {
           "Netheritbündel und Enderitbündel sind feuerfest und als Drop explosionsgeschützt; das Enderitbündel wird als Drop zusätzlich über den Tag void_protected vor dem Void bewahrt.",
           "Die Bündel-Verzauberungen sind nicht am Zaubertisch erhältlich, sondern als Bücher aus Beutetruhen und vom Bibliothekar; Schublade hat kein eigenes Buch in Beute oder Handel. Alle drei Bündelstufen stehen in den Tags, über die die Verzauberungen ihre Gegenstände festlegen.",
           "Das Verstärkte Bündel liegt in Verliesen, Schiffswracks und verlassenen Minen und wird vom fahrenden Händler für 16 Smaragde verkauft bzw. für 12 Smaragde gekauft (abhängig von den Config-Optionen enableLootTableChanges und enableWanderingTrades).",
-          "Die Config-Option Bündel-Interaktion umkehren vertauscht Links- und Rechtsklick für Einlegen und Entnehmen.",
+          "Die Config-Option Bündel-Klicks vertauschen vertauscht Links- und Rechtsklick für Einlegen und Entnehmen.",
           "Die Köcher der Mod erben von derselben Item-Klasse (QuiverItem extends ReinforcedBundleItem), nehmen aber nur Pfeile (Tag minecraft:arrows) an und werden gesondert beschrieben.",
           "Färben: Verstärktes, Netherit- und Enderitbündel nehmen Farbstoff an wie Lederrüstung, statt wie das Vanilla-Bündel zu eigenen farbigen Items zu werden – Bündel plus ein oder mehrere Farbstoffe in die Werkbank, Farben mischen sich, Inhalt, Name und Verzauberungen bleiben. Die Farbe zeigt sich am Item, im offenen Zustand und als leichte Tönung der Felder im Tooltip; ein Wasserkessel wäscht sie wieder ab. Wie das Vanilla-Bündel öffnet sich ein Bündel der Mod im Inventar, solange ein Eintrag ausgewählt ist, und zeigt diesen Eintrag."
         ]
@@ -1301,7 +1301,7 @@ window.WIKI_DATA = {
         "summary": "The Rotator is a handy tool for turning orientable blocks right where they are in the world, without breaking and replacing them. It helps above all when building with logs and pillars, with furnaces, pistons or hoppers, and with every block that turns in 16 steps. Where you click on a block face decides how it turns. It never breaks: its durability is a charge that you top up at the anvil with ender pearls.",
         "details": [
           "Crafted from 4 iron ingots, 1 Iron Core and 1 ender pearl; the recipe shows up as soon as you own an iron ingot.",
-          "Charge instead of wear (owner 2026-09-28, like the Amethyst Lens): 1024 charge, every successful rotation costs 1 (Unbreaking saves charge as usual, nothing in creative mode). The Rotator never breaks - at 0 charge it stays in your inventory, shows a dimmed ender pearl, refuses to turn anything (a dry click) and its tooltip says it is empty. Recharge it in an anvil with ender pearls for no levels: every pearl restores 1/16 (64 charge), 16 pearls - one stack - fill an empty Rotator, and only the pearls it needs are taken. Enchantability 15 and the tag minecraft:enchantable/durability stay, so Unbreaking and Mending still fit.",
+          "Charge instead of wear (owner 2026-09-28, like the Amethyst Lens): 1024 charge, every successful rotation costs 1 (Unbreaking saves charge as usual, nothing in creative mode). The Rotator never breaks - at 0 charge it stays in your inventory, shows a dimmed ender pearl, refuses to turn anything (a dry click) and its tooltip says it is empty. Recharge it in an anvil with ender pearls for no levels: every pearl restores 1/16 (64 charge), 16 pearls - one stack - fill an empty Rotator, and only the pearls it needs are taken. Enchantability 15 and the tag minecraft:enchantable/durability stay, so Unbreaking and Mending still fit. The cost per rotation is the config option tools.rotatorChargePerTurn (default 1, 0 = free).",
           "Right-click the middle of a face to turn forward, sneak + right-click to turn backwards (no difference on logs and pillars).",
           "Click the rim of a face (outer 2 pixels) and the block aligns to that edge: logs lay their axis toward the edge, furnaces or pistons point toward the edge, 16-step blocks turn a quarter turn.",
           "Logs and pillars: clicking the middle of a face lays the axis in the direction of that face; if it already lies that way, it moves on in the cycle X -> Y -> Z -> X.",
@@ -1317,7 +1317,7 @@ window.WIKI_DATA = {
         "summary": "Der Rotator ist ein handliches Werkzeug, mit dem sich ausrichtbare Blöcke direkt in der Welt drehen lassen, ohne sie abzubauen und neu zu setzen. Er hilft vor allem beim Bauen mit Stämmen und Säulen, bei Öfen, Kolben oder Trichtern und bei allen Blöcken, die sich in 16 Schritten drehen lassen. Wo man auf eine Blockfläche klickt, entscheidet, wie gedreht wird. Er zerbricht nie: Seine Haltbarkeit ist eine Ladung, die du im Amboss mit Enderperlen auffüllst.",
         "details": [
           "Herstellung aus 4 Eisenbarren, 1 Eisenkern und 1 Enderperle; das Rezept erscheint, sobald man einen Eisenbarren besitzt.",
-          "Ladung statt Abnutzung (Besitzer 2026-09-28, wie die Amethystlinse): 1024 Ladung, jede erfolgreiche Drehung kostet 1 (Haltbarkeit spart wie gewohnt, im Kreativmodus kostet nichts). Der Rotator zerbricht nie - bei 0 Ladung bleibt er im Inventar, zeigt eine erloschene Enderperle, dreht nichts mehr (nur ein trockenes Klicken) und sein Tooltip meldet ihn als leer. Aufladen im Amboss mit Enderperlen ohne Stufenkosten: jede Perle gibt 1/16 (64 Ladung) zurück, 16 Perlen - ein Stapel - füllen einen leeren Rotator, verbraucht werden nur die nötigen. Verzauberbarkeit 15 und der Tag minecraft:enchantable/durability bleiben, Haltbarkeit und Reparatur passen also weiterhin.",
+          "Ladung statt Abnutzung (Besitzer 2026-09-28, wie die Amethystlinse): 1024 Ladung, jede erfolgreiche Drehung kostet 1 (Haltbarkeit spart wie gewohnt, im Kreativmodus kostet nichts). Der Rotator zerbricht nie - bei 0 Ladung bleibt er im Inventar, zeigt eine erloschene Enderperle, dreht nichts mehr (nur ein trockenes Klicken) und sein Tooltip meldet ihn als leer. Aufladen im Amboss mit Enderperlen ohne Stufenkosten: jede Perle gibt 1/16 (64 Ladung) zurück, 16 Perlen - ein Stapel - füllen einen leeren Rotator, verbraucht werden nur die nötigen. Verzauberbarkeit 15 und der Tag minecraft:enchantable/durability bleiben, Haltbarkeit und Reparatur passen also weiterhin. Die Kosten je Drehung sind die Config-Option tools.rotatorChargePerTurn (Standard 1, 0 = kostenlos).",
           "Rechtsklick auf die Mitte einer Fläche dreht vorwärts, Schleichen + Rechtsklick dreht rückwärts (bei Stämmen und Säulen ohne Unterschied).",
           "Klickt man auf den Rand einer Fläche (äußere 2 Pixel), richtet sich der Block an dieser Kante aus: Stämme legen ihre Achse in Richtung der Kante, Öfen oder Kolben zeigen zur Kante hin, 16-stufige Blöcke drehen eine Vierteldrehung.",
           "Stämme und Säulen: Klick auf die Mitte einer Fläche legt die Achse in die Richtung dieser Fläche; liegt sie schon so, geht es weiter im Zyklus X -> Y -> Z -> X.",
@@ -1621,23 +1621,23 @@ window.WIKI_DATA = {
           "Reinforced (and Reinforced Sticky) Piston: the unbreakable block directly in front is pushed like an ordinary one, the rest of the line follows the normal rules and it counts toward the 18. Only after the push succeeded is the Redstone Block used up (no drop). A second unbreakable block further along the line, obsidian, the build limit, the world border or a block entity still refuse the push, and so does a slime structure that would move the paying Redstone Block along. Retracting never pulls the unbreakable block back.",
           "Consuming the Redstone Block usually cuts the Reinforced Piston's only power, so it retracts again in the same tick: the sticky one leaves the pushed block at its new place, the normal one lets it finish its move.",
           "The Netherite Piston has no crafting recipe: a placed Reinforced Piston becomes one after 5 seconds of hammering with a Diamond Sledgehammer (or better) and a Netherite Nugget in the off hand, as long as it is neither extended nor powered. As it extends, it destroys the block in front of it if that block's hardness is at most (signal strength / 15) x 50 - so up to hardness 50 at full strength; otherwise it pushes like an ordinary piston. Destroyed blocks drop their normal loot.",
-          "Wear (since 2026-09-27): the Netherite Piston wears down as it breaks. Each block it breaks in the normal way costs its hardness rounded up, at least 1 (dirt 1, stone 2, deepslate 3, ancient debris 30); the config option netheriteBreakerWearBudget (default 1024, 0 = no wear) is spread over 8 wear stages, so by default one stage is 128 points and a remainder counts as a probability. The stage is the block state property wear (0-7): it stays when the piston extends and retracts or is pushed, and when the piston is mined its item keeps it (block_state component, tooltip \"Wear n/8\"), so picking it up repairs nothing; an unworn piston drops without the component and still stacks with fresh ones. When a stage rises the piston puffs smoke and creaks; its sides show deeper and deeper cracks from stage 2, 4 and 6. When the last stage is full, the break still happens and the piston crumbles, with a breaking sound and smoke, into a Reinforced Piston facing the same way, which extends at once with its own head - the netherite upgrade is gone. Right-clicking a worn Netherite Piston with a Netherite Nugget sets its wear back to 0 (the nugget is used up outside creative) - the same price as the upgrade itself. A paid breach uses the piston up anyway and costs no wear. The Enderite Piston wears the same way with a budget of its own (see below).",
+          "Durability (since 2026-09-28, replacing the wear budget of 2026-09-27): the Netherite Piston has a real durability of 226 - one ninth of the netherite pickaxe (2031 / 9), because the upgrade costs one Netherite Nugget, a ninth of an ingot. Every block it destroys while extending costs exactly 1, whatever its hardness (like a pickaxe); extending into air, retracting, being pushed and paid breaches cost nothing. The placed piston shows the damage as crack stages on its sides (the block state property wear 0-7 = damage x 8 / 226, deeper cracks from stage 2, 4 and 6; a second property, wear_step, holds the exact damage within the stage); when a stage rises the piston puffs smoke and creaks. The damage stays when the piston extends and retracts or is pushed, and when it is mined the item keeps it as a normal durability bar (max_damage, damage, stack size 1), so picking it up repairs nothing and placing it puts the same damage back; an undamaged piston drops without durability and still stacks with fresh ones. When the durability runs out, the break still happens and the piston crumbles, with a breaking sound and smoke, into a Reinforced Piston facing the same way, which extends at once with its own head - the netherite upgrade is gone. Right-clicking a damaged Netherite Piston with a Netherite Nugget restores its full durability (the nugget is used up outside creative) - the same price as the upgrade itself, so repairing is never worse than letting it crumble and upgrading again. The config option breakerPistonsLoseDurability (default on) switches the loss off. Old worlds: a piston with the old wear stage n loads with the damage that is the same fraction n/8 (e.g. stage 4 = 113), old items carrying the stage in their block_state component place with it and move over to the durability bar in the inventory.",
           "With an unbreakable block directly in front and a paying Redstone Block the Netherite Piston sacrifices itself: it queues an extend event of its own, and when that runs the unbreakable block, the Redstone Block and the piston are destroyed, all without drops. No piston head or moving block is left behind, and what lies behind the target (push limit, obsidian, build height) does not matter.",
           "The Enderite Piston breaks ordinary blocks exactly like the Netherite Piston. Its breach reaches up to 3 blocks deep in its facing direction: air is skipped, unbreakable blocks vanish without drops, ordinary blocks the breaker could break at the signal it gets are destroyed with their loot, and anything else (an immune block, a block that is too hard, a liquid) ends the breach. Then the Redstone Block and the piston itself are destroyed without drops. It has no crafting recipe either: a Netherite Piston becomes one after 5 seconds of hammering with a Netherite Sledgehammer (or better) and an Enderite Nugget in the off hand, again only while it is neither extended nor powered.",
-          "Enderite Piston wear (piston balance 2026-09-27): boring tunnels with the Enderite Piston was too easy, so it wears down exactly like the Netherite Piston - same wear property (0-7), same cost per broken block (its hardness rounded up, at least 1), same smoke, anvil creak and crack stages on its sides, and the stage travels with the item. Its budget is the config option enderitePistonWearBudget (default 2048, 0 = no wear): twice the netherite budget, 256 points a stage, so roughly 1000 stone or 680 deepslate between two repairs; a tunnel a few thousand blocks long costs a few Enderite Nuggets. When the last stage is full it does not fall all the way back: it crumbles one tier down into a Netherite Piston facing the same way, at wear 0, which extends at once with its netherite head. Right-clicking a worn Enderite Piston with an Enderite Nugget sets its wear back to 0 (the nugget is used up outside creative) - a Netherite Nugget does not repair it. Hammering a worn Netherite Piston into an Enderite one gives a fresh piston at wear 0. Enderite Pistons placed before this change load at wear 0 (the default of the new property); no data fixer is needed.",
+          "Enderite Piston durability (since 2026-09-28): 281 - one ninth of the Enderite Pickaxe (2530 / 9) - with the same rules as the Netherite Piston: 1 per block destroyed while extending, whatever its hardness, the same crack stages, smoke and anvil creak, and the durability travels with the item as a durability bar. When it runs out it does not fall all the way back: it crumbles one tier down into a Netherite Piston facing the same way with full netherite durability (only the enderite layer is used up), which extends at once with its netherite head. Right-clicking a damaged Enderite Piston with an Enderite Nugget restores its full durability (the nugget is used up outside creative) - a Netherite Nugget does not repair it. Hammering a damaged Netherite Piston into an Enderite one gives an Enderite Piston with full durability.",
           "All four pistons cannot be moved by other pistons while extended. Each tier extends with a head of its own (reinforced_piston_head for both reinforced pistons, the sticky one with the slime face of reinforced_piston_top_sticky; netherite_piston_head; enderite_piston_head): the push plate is the piston's top texture, the rim comes from its side texture, the back of the plate and the rod have their own textures. A mixin on PistonBaseBlock.moveBlocks puts that head where vanilla puts minecraft:piston_head, and on the client the retracting head is drawn in the same tier. The heads behave like vanilla's: no item, no drop, they vanish without their piston, and a mixin on PistonHeadBlock.isFittingBase lets each head fit only the pistons of its tier - extended, facing the same way, matching head type - so breaking the head breaks the piston too, dropping it in survival and not in creative. Picking a head with the middle mouse button gives its piston. A vanilla head still standing in front of an extended mod piston from an older world keeps working and is cleared on retraction.",
           "While a pushed unbreakable block is on its way (two ticks inside a moving piston) explosions leave the moving piston alone, and the Rotator refuses extended pistons, piston heads and moving blocks - both would otherwise delete an unbreakable block for free.",
           "All pistons are in the mineable/pickaxe tag. The Netherite Piston has hardness 5 and blast resistance 1200, the Enderite Piston hardness 6 and blast resistance 1500, and both items are fire resistant (the Enderite Piston's of rarity Epic); the Reinforced and the Reinforced Sticky Piston have hardness 1.5.",
           "Every block a mod piston destroys - the Netherite and Enderite Piston's ordinary break as well as each block of a breach - shows its break particles and plays its normal break sound (the world event Level.destroyBlock sends to nearby players), plus the mod's own sound simplebuilding:block.piston.bore (subtitle \"Piston bores through a block\"). The Redstone Block and the piston used up by a breach vanish with particles but without the bore sound. The three piston heads have hardness, blast resistance and sound of their piston and are in the mineable/pickaxe tag.",
           "Protection: before a mod piston destroys anything, the loader is asked. On NeoForge and Forge PistonEvent.Pre fires once per piston action (a whole enderite breach counts as one; a normal breaker extension additionally shows vanilla's own PistonEvent.Pre when the head moves out); then, for every block, NeoForge fires BreakBlockEvent with its fake player and Fabric PlayerBlockBreakEvents.BEFORE with its fake player (a refusal fires CANCELED). Forge 26.2 has no fake player, so there only the piston event decides. A cancelled event keeps the block (a refused breach consumes nothing), and nothing outside the world border is ever destroyed. The config option pistonsFireBreakEvents (default on) switches the break event with the fake player off - for protection mods that refuse every fake player (pistons would stop everywhere) or quest and statistics mods that would count piston breaks as player breaks; then only the piston event and the world border decide.",
-          "Suspended Sand and Suspended Gravel (8 Sand/Gravel + 1 Nihilith Shard each = 8) are ordinary blocks with no falling logic and the full collision box of sand and gravel: you can stand on both, items rest on them and a rising Levitating block lands underneath them.",
+          "Suspended Sand and Suspended Gravel (8 Sand/Gravel + 1 Nihilit Shard each = 8) are ordinary blocks with no falling logic and the full collision box of sand and gravel: you can stand on both, items rest on them and a rising Levitating block lands underneath them.",
           "Levitating Sand and Levitating Gravel (8 Sand/Gravel + 1 Astralit Dust each = 8) fall upwards: two ticks after being placed, and again whenever a neighbour changes and the space above is free, the block turns into a levitating_block entity and rises. The entity uses vanilla's falling-block physics with the sign of gravity flipped (v = 0.98 x v + 0.04 per tick, limit 2 blocks per tick), so it starts slowly and accelerates exactly like falling sand.",
           "A rising block that runs into a ceiling turns back into a block in the free space below it - the mirror image of sand landing on the ground. If it cannot be placed there, it drops as an item. Remove the obstacle again and it carries on rising; the blocks never come back down on their own.",
           "Above the build limit the rising block breaks and drops as an item, the way falling sand is lost in the void. Unlike vanilla, there is no 100 tick grace period before that happens, so the block breaks at the limit instead of about 115 blocks above it.",
           "Of the eight blocks that have an item, the four pistons sit in the creative tab \"SimpleMachines\" and the four sand and gravel variants in \"SimpleBlocks\".",
           "None of the four sand and gravel variants is in any tool tag the mod generates.",
           "All four sand and gravel variants ship byte-identical copies of the vanilla sand and gravel textures (checked by SHA-256 against the client jar). In game they therefore cannot be told apart from ordinary sand and gravel - on blocks whose whole point is the changed gravity.",
-          "The Netherite and the Enderite Piston's items have a tooltip: what they break (the Enderite Piston also its 3-deep breach), that they wear down, what they crumble into and which nugget repairs them, and once worn \"Wear n/8\".",
+          "The Netherite and the Enderite Piston's items have a tooltip: what they break (the Enderite Piston also its 3-deep breach), their durability (226 and 281, 1 per broken block), what they turn into and which nugget repairs them, and once damaged \"Durability: left/max\" (with advanced tooltips vanilla's own durability line instead).",
           "Game tests prove it: a 13-block column is only pushable by the Reinforced Piston, the Netherite Piston destroys stone at full signal strength and, with a Redstone Block beside it, breaks through bedrock, leaving neither itself nor the Redstone Block behind and dropping no piston, the suspended blocks stay in mid-air, the levitating blocks rise measurably faster over each of three samples (which a constant-rate movement could not do), turn back into a block under a ceiling, and drop as an item at the build limit; every mod piston extends with the head of its tier, loses it on retraction, and each destroyed block is reported to the bore effects exactly once."
         ]
       },
@@ -1651,23 +1651,23 @@ window.WIKI_DATA = {
           "Verstärkter (und Verstärkter klebriger) Kolben: Der unzerstörbare Block direkt davor wird wie ein normaler geschoben, der Rest der Reihe folgt den normalen Regeln, und er zählt zu den 18. Erst wenn der Schub gelungen ist, wird der Redstoneblock verbraucht (ohne Drop). Ein zweiter unzerstörbarer Block weiter hinten in der Reihe, Obsidian, das Baulimit, die Weltgrenze oder eine Block-Entity verweigern den Schub weiterhin, ebenso ein Schleimaufbau, der den bezahlenden Redstoneblock mitschieben würde. Beim Einfahren wird der unzerstörbare Block nie zurückgezogen.",
           "Der verbrauchte Redstoneblock ist meist die einzige Stromquelle, also fährt der Verstärkte Kolben im selben Tick wieder ein: Der klebrige lässt den geschobenen Block an seinem neuen Platz, der normale lässt ihn seine Bewegung zu Ende führen.",
           "Der Netheritkolben hat kein Werkbankrezept: Ein gesetzter Verstärkter Kolben wird nach 5 Sekunden Hämmern mit einem Diamant-Vorschlaghammer (oder besser) und einem Netheritklumpen in der Nebenhand zu einem, solange er weder ausgefahren ist noch Strom bekommt. Beim Ausfahren zerstört er den Block vor sich, wenn dessen Härte höchstens (Signalstärke / 15) × 50 beträgt – bei voller Stärke also bis Härte 50; ansonsten schiebt er wie ein normaler Kolben. Zerstörte Blöcke lassen ihre normalen Drops fallen.",
-          "Verschleiß (seit 2026-09-27): Der Netheritkolben nutzt sich beim Brechen ab. Jeder normal gebrochene Block kostet seine aufgerundete Härte, mindestens 1 (Erde 1, Stein 2, Tiefenschiefer 3, Antiker Schutt 30); die Konfigurationsoption netheriteBreakerWearBudget (Standard 1024, 0 = kein Verschleiß) verteilt sich auf 8 Verschleißstufen, standardmäßig ist eine Stufe also 128 Punkte, ein Rest zählt als Wahrscheinlichkeit. Die Stufe ist die Blockeigenschaft wear (0-7): Sie bleibt beim Aus- und Einfahren und beim Verschieben, und abgebaut behält das Item sie (block_state-Komponente, Tooltip „Verschleiß n/8“) – Aufheben repariert also nichts; ein unversehrter Kolben droppt ohne Komponente und stapelt weiter mit frischen. Steigt eine Stufe, raucht der Kolben kurz und knirscht; seine Seiten zeigen ab Stufe 2, 4 und 6 immer tiefere Risse. Ist die letzte Stufe voll, bricht er den Block noch und zerfällt dann mit Bruchklang und Rauch zu einem Verstärkten Kolben derselben Blickrichtung, der sofort mit eigenem Kopf ausfährt – die Netherit-Aufwertung ist weg. Rechtsklick mit einem Netheritklumpen auf einen abgenutzten Netheritkolben setzt den Verschleiß auf 0 (der Klumpen wird außer im Kreativmodus verbraucht) – derselbe Preis wie die Aufwertung. Ein bezahlter Durchbruch verbraucht den Kolben ohnehin und kostet keinen Verschleiß. Der Enderitkolben verschleißt genauso, mit eigenem Budget (siehe unten).",
+          "Haltbarkeit (seit 2026-09-28, ersetzt das Verschleißbudget vom 2026-09-27): Der Netheritkolben hat eine echte Haltbarkeit von 226 – ein Neuntel der Netheritspitzhacke (2031 / 9), weil die Aufwertung einen Netheritklumpen kostet, ein Neuntel Barren. Jeder Block, den er beim Ausfahren zerstört, kostet genau 1, egal wie hart (wie bei einer Spitzhacke); Ausfahren ins Leere, Einfahren, Verschieben und bezahlte Durchbrüche kosten nichts. Der gesetzte Kolben zeigt den Schaden als Rissstufen an den Seiten (Blockeigenschaft wear 0-7 = Schaden x 8 / 226, ab Stufe 2, 4 und 6 tiefere Risse; eine zweite Eigenschaft, wear_step, hält den genauen Schaden innerhalb der Stufe); steigt eine Stufe, raucht der Kolben kurz und knirscht. Der Schaden bleibt beim Aus- und Einfahren und beim Verschieben, und abgebaut trägt das Item ihn als normalen Haltbarkeitsbalken (max_damage, damage, Stapelgröße 1) – Aufheben repariert also nichts, und Platzieren setzt denselben Schaden wieder; ein unversehrter Kolben droppt ohne Haltbarkeit und stapelt weiter mit frischen. Ist die Haltbarkeit aufgebraucht, bricht er den Block noch und zerfällt dann mit Bruchklang und Rauch zu einem Verstärkten Kolben derselben Blickrichtung, der sofort mit eigenem Kopf ausfährt – die Netherit-Aufwertung ist weg. Rechtsklick mit einem Netheritklumpen auf einen beschädigten Netheritkolben stellt die volle Haltbarkeit her (der Klumpen wird außer im Kreativmodus verbraucht) – derselbe Preis wie die Aufwertung, Reparieren ist also nie schlechter als zerfallen lassen und neu aufwerten. Die Konfigurationsoption breakerPistonsLoseDurability (Standard an) schaltet den Verlust ab. Alte Welten: ein Kolben mit alter Verschleißstufe n lädt mit dem Schaden, der demselben Bruchteil n/8 entspricht (z. B. Stufe 4 = 113); alte Items mit der Stufe in der block_state-Komponente setzen sie beim Platzieren und wechseln im Inventar auf den Haltbarkeitsbalken.",
           "Mit einem unzerstörbaren Block direkt davor und einem bezahlenden Redstoneblock opfert sich der Netheritkolben: Er reiht ein eigenes Ausfahr-Ereignis ein, und wenn es läuft, werden der unzerstörbare Block, der Redstoneblock und der Kolben zerstört, alle ohne Drop. Es bleibt weder Kolbenkopf noch bewegter Block zurück, und was hinter dem Ziel liegt (Schublimit, Obsidian, Bauhöhe), spielt keine Rolle.",
           "Der Enderitkolben bricht gewöhnliche Blöcke genau wie der Netheritkolben. Sein Durchbruch reicht bis zu 3 Blöcke tief in Blickrichtung: Luft wird übersprungen, unzerstörbare Blöcke verschwinden ohne Drop, gewöhnliche Blöcke, die der Brecher bei seinem Signal brechen darf, werden mit ihren Drops zerstört, und alles andere (ein immuner Block, ein zu harter Block, eine Flüssigkeit) beendet den Durchbruch. Danach werden der Redstoneblock und der Kolben selbst ohne Drop zerstört. Auch er hat kein Werkbankrezept: Ein Netheritkolben wird nach 5 Sekunden Hämmern mit einem Netherit-Vorschlaghammer (oder besser) und einem Enderitklumpen in der Nebenhand zu einem, ebenfalls nur, solange er weder ausgefahren ist noch Strom bekommt.",
-          "Verschleiß des Enderitkolbens (Kolben-Balance 2026-09-27): Tunnelbohren mit dem Enderitkolben war zu leicht, deshalb nutzt er sich genau wie der Netheritkolben ab - dieselbe Eigenschaft wear (0-7), dieselben Kosten je gebrochenem Block (aufgerundete Härte, mindestens 1), derselbe Rauch, dasselbe Amboss-Knirschen und dieselben Rissstufen an den Seiten, und die Stufe reist mit dem Item. Sein Budget ist die Konfigurationsoption enderitePistonWearBudget (Standard 2048, 0 = kein Verschleiß): doppelt so viel wie beim Netheritkolben, 256 Punkte je Stufe, also rund 1000 Steine oder 680 Tiefenschiefer zwischen zwei Reparaturen; ein Tunnel von einigen tausend Blöcken kostet ein paar Enderitklumpen. Ist die letzte Stufe voll, fällt er nicht ganz zurück: Er zerfällt eine Stufe tiefer zu einem Netheritkolben derselben Blickrichtung mit Verschleiß 0, der sofort mit seinem Netheritkopf ausfährt. Rechtsklick mit einem Enderitklumpen auf einen abgenutzten Enderitkolben setzt den Verschleiß auf 0 (der Klumpen wird außer im Kreativmodus verbraucht) - ein Netheritklumpen repariert ihn nicht. Wird ein abgenutzter Netheritkolben zum Enderitkolben gehämmert, ist der neue Kolben unversehrt (Verschleiß 0). Enderitkolben aus der Zeit vor dieser Änderung laden mit Verschleiß 0 (Standardwert der neuen Eigenschaft); ein Datenfixer ist nicht nötig.",
+          "Haltbarkeit des Enderitkolbens (seit 2026-09-28): 281 – ein Neuntel der Enderitspitzhacke (2530 / 9) – mit denselben Regeln wie beim Netheritkolben: 1 je beim Ausfahren zerstörtem Block, egal wie hart, dieselben Rissstufen, derselbe Rauch, dasselbe Amboss-Knirschen, und die Haltbarkeit reist als Haltbarkeitsbalken mit dem Item. Ist sie aufgebraucht, fällt er nicht ganz zurück: Er zerfällt eine Stufe tiefer zu einem Netheritkolben derselben Blickrichtung mit voller Netherit-Haltbarkeit (verbraucht ist nur die Enderit-Schicht), der sofort mit seinem Netheritkopf ausfährt. Rechtsklick mit einem Enderitklumpen auf einen beschädigten Enderitkolben stellt die volle Haltbarkeit her (der Klumpen wird außer im Kreativmodus verbraucht) – ein Netheritklumpen repariert ihn nicht. Wird ein beschädigter Netheritkolben zum Enderitkolben gehämmert, hat der neue Kolben volle Haltbarkeit.",
           "Alle vier Kolben lassen sich ausgefahren nicht von anderen Kolben verschieben. Jede Stufe fährt mit einem eigenen Kopf aus (reinforced_piston_head für beide verstärkten Kolben, der klebrige mit der Schleimseite von reinforced_piston_top_sticky; netherite_piston_head; enderite_piston_head): Die Schubplatte ist die Oberseite des Kolbens, der Rand kommt aus seiner Seitentextur, Rückseite der Platte und Stange haben eigene Texturen. Ein Mixin auf PistonBaseBlock.moveBlocks setzt diesen Kopf dort, wo Vanilla minecraft:piston_head setzt, und der Client zeichnet den einfahrenden Kopf in derselben Stufe. Die Köpfe verhalten sich wie der von Vanilla: kein Item, kein Drop, ohne ihren Kolben verschwinden sie, und ein Mixin auf PistonHeadBlock.isFittingBase lässt jeden Kopf nur auf die Kolben seiner Stufe passen - ausgefahren, gleiche Blickrichtung, passender Kopftyp -, deshalb bricht mit dem Kopf auch der Kolben, im Überlebensmodus mit Drop, im Kreativmodus ohne. Mit der mittleren Maustaste gibt ein Kopf seinen Kolben. Ein Vanilla-Kopf, der aus einer älteren Welt noch vor einem ausgefahrenen Mod-Kolben steht, hält weiter und wird beim Einfahren weggeräumt.",
           "Solange ein geschobener unzerstörbarer Block unterwegs ist (zwei Ticks in einem bewegten Kolben), lassen Explosionen den bewegten Kolben in Ruhe, und der Rotator verweigert ausgefahrene Kolben, Kolbenköpfe und bewegte Blöcke - beides würde sonst einen unzerstörbaren Block umsonst löschen.",
           "Alle Kolben sind im Tag mineable/pickaxe. Der Netheritkolben hat Härte 5 und Explosionswiderstand 1200, der Enderitkolben Härte 6 und Explosionswiderstand 1500, beide Items sind feuerfest (das des Enderitkolbens von der Seltenheit Episch); der Verstärkte und der Verstärkte klebrige Kolben haben Härte 1,5.",
           "Jeder Block, den ein Mod-Kolben zerstört - das normale Brechen von Netherit- und Enderitkolben ebenso wie jeder Block eines Durchbruchs -, zeigt seine Bruchpartikel und spielt seinen normalen Abbauklang (das Weltereignis, das Level.destroyBlock an Spieler in der Nähe sendet), dazu den eigenen Klang simplebuilding:block.piston.bore (Untertitel „Kolben bohrt sich durch einen Block“). Der Redstoneblock und der Kolben, die ein Durchbruch verbraucht, verschwinden mit Partikeln, aber ohne Bohrklang. Die drei Kolbenköpfe haben Härte, Explosionswiderstand und Klang ihres Kolbens und stehen im Tag mineable/pickaxe.",
           "Schutz: Bevor ein Mod-Kolben etwas zerstört, wird der Loader gefragt. Auf NeoForge und Forge feuert PistonEvent.Pre einmal pro Kolbenaktion (ein ganzer Enderit-Durchbruch zählt als eine; ein normales Ausfahren des Brechers zeigt zusätzlich Vanillas eigenes PistonEvent.Pre, wenn der Kopf ausfährt); danach feuert für jeden Block NeoForge BreakBlockEvent mit seinem Fake-Spieler und Fabric PlayerBlockBreakEvents.BEFORE mit seinem Fake-Spieler (eine Ablehnung feuert CANCELED). Forge 26.2 hat keinen Fake-Spieler, dort entscheidet nur das Kolben-Ereignis. Ein abgebrochenes Ereignis lässt den Block stehen (ein abgelehnter Durchbruch verbraucht nichts), und außerhalb der Weltgrenze wird nie etwas zerstört. Die Konfigurationsoption pistonsFireBreakEvents (Standard an) schaltet das Abbau-Ereignis mit dem Fake-Spieler ab – für Schutz-Mods, die jeden Fake-Spieler sperren (die Kolben stünden sonst überall still), oder Quest- und Statistik-Mods, die Kolbenabbau als Spielerabbau zählen würden; dann entscheiden nur das Kolben-Ereignis und die Weltgrenze.",
-          "Suspended Sand und Suspended Gravel (je 8 Sand/Kies + 1 Nihilithsplitter = 8 Stück) sind gewöhnliche Blöcke ohne Fall-Logik und mit der vollen Kollisionsbox von Sand und Kies: Man steht auf beiden, Gegenstände bleiben darauf liegen und ein aufsteigender Levitating-Block landet darunter.",
+          "Suspended Sand und Suspended Gravel (je 8 Sand/Kies + 1 Nihilitsplitter = 8 Stück) sind gewöhnliche Blöcke ohne Fall-Logik und mit der vollen Kollisionsbox von Sand und Kies: Man steht auf beiden, Gegenstände bleiben darauf liegen und ein aufsteigender Levitating-Block landet darunter.",
           "Levitating Sand und Levitating Gravel (je 8 Sand/Kies + 1 Astralitstaub = 8 Stück) fallen nach oben: zwei Ticks nach dem Setzen – und erneut, sobald sich ein Nachbar ändert und der Platz darüber frei ist – wird aus dem Block eine levitating_block-Entity, die aufsteigt. Sie benutzt Vanillas Fallphysik mit umgedrehtem Vorzeichen der Schwerkraft (v = 0,98 × v + 0,04 pro Tick, Grenzwert 2 Blöcke pro Tick) und beschleunigt daher genauso wie fallender Sand.",
           "Stößt ein aufsteigender Block an eine Decke, wird er in der freien Zelle darunter wieder zum Block – das Spiegelbild von Sand, der auf dem Boden landet. Passt er dort nicht hin, fällt er als Gegenstand. Wird das Hindernis entfernt, steigt er weiter; von selbst kommen die Blöcke nie wieder herunter.",
           "Über dem Baulimit zerbricht der aufsteigende Block und fällt als Gegenstand, so wie fallender Sand in der Leere verloren geht. Anders als bei Vanilla gibt es davor keine Schonfrist von 100 Ticks, der Block zerbricht also am Limit statt rund 115 Blöcke darüber.",
           "Von den acht Blöcken mit Item liegen die vier Kolben im Kreativ-Tab „SimpleMachines“ und die vier Sand- und Kiesvarianten in „SimpleBlocks“.",
           "Die vier Sand- und Kiesvarianten stehen in keinem vom Mod erzeugten Werkzeug-Tag.",
           "Alle vier Sand- und Kiesvarianten liefern byte-identische Kopien der Vanilla-Texturen von Sand und Kies aus (per SHA-256 gegen das Client-Jar geprüft). Im Spiel lassen sie sich daher nicht von gewöhnlichem Sand und Kies unterscheiden – bei Blöcken, deren ganzer Sinn die veränderte Schwerkraft ist.",
-          "Die Items von Netherit- und Enderitkolben haben einen Tooltip: was sie brechen (der Enderitkolben dazu seinen 3 Blöcke tiefen Durchbruch), dass sie verschleißen, wozu sie zerfallen und welcher Klumpen sie repariert, und abgenutzt „Verschleiß n/8“.",
+          "Die Items von Netherit- und Enderitkolben haben einen Tooltip: was sie brechen (der Enderitkolben dazu seinen 3 Blöcke tiefen Durchbruch), ihre Haltbarkeit (226 und 281, 1 je gebrochenem Block), wozu sie werden und welcher Klumpen sie repariert, und beschädigt „Haltbarkeit: übrig/max“ (bei erweiterten Tooltips stattdessen Vanillas eigene Haltbarkeitszeile).",
           "Spieltests belegen: 13er-Säule nur mit Verstärktem Kolben schiebbar, Netheritkolben zerstört Stein bei voller Signalstärke und durchbricht mit einem Redstoneblock daneben Grundgestein, ohne dass er selbst oder der Redstoneblock übrig bleibt oder ein Kolben fällt, Suspended-Blöcke bleiben in der Luft, Levitating-Blöcke legen über drei Messpunkte hinweg jeweils mehr Strecke zurück (was eine gleichförmige Bewegung nicht könnte), werden unter einer Decke wieder zum Block und fallen am Baulimit als Gegenstand; jeder Mod-Kolben fährt mit dem Kopf seiner Stufe aus und verliert ihn beim Einfahren, und jeder zerstörte Block wird den Bohr-Effekten genau einmal gemeldet."
         ]
       }
@@ -1732,33 +1732,33 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java"
       ],
       "en": {
-        "title": "End Palettes: Astralit, Nihilith and Ender Quartz",
-        "summary": "Three building palettes modelled on vanilla's end stone and purpur: pink Astralit, blue Nihilith and purple Ender Quartz. Each has a base block, bricks with stairs, slab and wall, a polished block with stairs, slab and wall, a pillar and chiseled bricks. Every Astralit block glows.",
+        "title": "End Palettes: Astralit, Nihilit and Ender Quartz",
+        "summary": "Three building palettes modelled on vanilla's end stone and purpur: pink Astralit, blue Nihilit and purple Ender Quartz. Each has a base block, bricks with stairs, slab and wall, a polished block with stairs, slab and wall, a pillar and chiseled bricks. Every Astralit block glows.",
         "details": [
-          "Materials: Astralit Dust, Nihilith Shard and Ender Quartz (1 Astralit Dust + 1 Nihilith Shard + 1 Quartz, shapeless, make 2).",
+          "Materials: Astralit Dust, Nihilit Shard and Ender Quartz (1 Astralit Dust + 1 Nihilit Shard + 1 Quartz, shapeless, make 2).",
           "Crafting: 4 of the material in a square make 1 base block (like quartz and amethyst); 4 base blocks make 4 Polished; 4 Polished make 4 Bricks; 2 Polished on top of each other make 2 Pillars; 6 Bricks or Polished in a stair shape make 4 Stairs, 3 in a row 6 Slabs, 6 in two rows 6 Walls; 2 Brick Slabs on top of each other make 1 Chiseled Bricks. Like the Block of Quartz, the Block of Ender Quartz also has its own Ender Quartz Stairs (6 -> 4) and Ender Quartz Slab (3 -> 6), also cut in the stonecutter (1 stairs, 2 slabs).",
-          "Recolouring like dye: 8 of a vanilla end stone or purpur block around 1 of the material make 8 of the matching palette block - End Stone to the base block, End Stone Bricks and their stairs, slab and wall to the Bricks and theirs, Purpur Stairs and Slab to the Polished Stairs and Slab, the Purpur Pillar to the Pillar, and the Purpur Block to Polished Ender Quartz. For Astralit and Nihilith the Purpur Block grid stays the older coating recipe (Astral or Nihil Purpur Block), which the stonecutter turns into the Polished block.",
+          "Recolouring like dye: 8 of a vanilla end stone or purpur block around 1 of the material make 8 of the matching palette block - End Stone to the base block, End Stone Bricks and their stairs, slab and wall to the Bricks and theirs, Purpur Stairs and Slab to the Polished Stairs and Slab, the Purpur Pillar to the Pillar, and the Purpur Block to Polished Ender Quartz. For Astralit and Nihilit the Purpur Block grid stays the older coating recipe (Astral or Nihil Purpur Block), which the stonecutter turns into the Polished block.",
           "Ender Quartz also from vanilla quartz, the same way: 8 of a quartz block around 1 Ender Quartz make 8 - Block of Quartz to the base block, Quartz Bricks to the Bricks, the Quartz Pillar to the Pillar, Chiseled Quartz Block to the Chiseled Bricks, Smooth Quartz to Polished Ender Quartz, smooth quartz stairs and slab to the Polished Stairs and Slab, and quartz stairs and slab to Ender Quartz Stairs and Slab.",
           "Stonecutter: the base block cuts into every other block of its palette; the Polished block into its stairs, slab and wall, the Bricks and their stairs, slab and wall, the Pillar and the Chiseled Bricks; the Bricks into their stairs, slab, wall and the Chiseled Bricks. Slabs always come two for one. The older coated end stone (Astral and Nihil End Stone: 8 Polished End Stone around 1 dust or shard) still cuts into the brick set and the base block.",
-          "All blocks: hardness 3, blast resistance 9, a pickaxe is needed for the drop. Astralit blocks emit light level 10, Nihilith and Ender Quartz blocks none.",
+          "All blocks: hardness 3, blast resistance 9, a pickaxe is needed for the drop. Astralit blocks emit light level 10, Nihilit and Ender Quartz blocks none.",
           "Pillars can be placed along any axis; a double slab drops two slabs; stairs, slabs and walls are in the vanilla block and item tags of their shape, so the walls connect like any vanilla wall.",
           "Polished, Astral and Nihil End Stone and the Astral and Nihil Purpur Blocks are in the mineable/pickaxe tag as well.",
-          "All of them sit in the creative tab \"SimpleBlocks\", Ender Quartz itself under Materials. The textures are pixel art in the style of vanilla's end stone bricks, purpur block and purpur pillar - soft shading and mortar that fades into the stone - with Astralit star sparks, Nihilith turquoise shards and Ender Quartz veins; the Chiseled Bricks carry a quiet relief emblem in the block's own colours, like vanilla chiseled blocks: a shulker box with its head in the opening, an Enderman eye with a horizontal slit and a dragon eye with a vertical slit."
+          "All of them sit in the creative tab \"SimpleBlocks\", Ender Quartz itself under Materials. The textures are pixel art in the style of vanilla's end stone bricks, purpur block and purpur pillar - soft shading and mortar that fades into the stone - with Astralit star sparks, Nihilit turquoise shards and Ender Quartz veins; the Chiseled Bricks carry a quiet relief emblem in the block's own colours, like vanilla chiseled blocks: a shulker box with its head in the opening, an Enderman eye with a horizontal slit and a dragon eye with a vertical slit."
         ]
       },
       "de": {
-        "title": "End-Paletten: Astralit, Nihilith und Enderquarz",
-        "summary": "Drei Bau-Paletten nach dem Vorbild von Endstein und Purpur: rosa Astralit, blaues Nihilith und violetter Enderquarz. Jede hat einen Grundblock, Ziegel mit Treppe, Stufe und Mauer, einen polierten Block mit Treppe, Stufe und Mauer, eine Säule und gemeißelte Ziegel. Jeder Astralitblock leuchtet.",
+        "title": "End-Paletten: Astralit, Nihilit und Enderquarz",
+        "summary": "Drei Bau-Paletten nach dem Vorbild von Endstein und Purpur: rosa Astralit, blaues Nihilit und violetter Enderquarz. Jede hat einen Grundblock, Ziegel mit Treppe, Stufe und Mauer, einen polierten Block mit Treppe, Stufe und Mauer, eine Säule und gemeißelte Ziegel. Jeder Astralitblock leuchtet.",
         "details": [
-          "Materialien: Astralitstaub, Nihilithsplitter und Enderquarz (1 Astralitstaub + 1 Nihilithsplitter + 1 Quarz, formlos, ergeben 2).",
+          "Materialien: Astralitstaub, Nihilitsplitter und Enderquarz (1 Astralitstaub + 1 Nihilitsplitter + 1 Quarz, formlos, ergeben 2).",
           "Herstellung: 4 Material im Quadrat ergeben 1 Grundblock (wie bei Quarz und Amethyst); 4 Grundblöcke ergeben 4 polierte; 4 polierte ergeben 4 Ziegel; 2 polierte übereinander ergeben 2 Säulen; 6 Ziegel oder polierte in Treppenform ergeben 4 Treppen, 3 in einer Reihe 6 Stufen, 6 in zwei Reihen 6 Mauern; 2 Ziegelstufen übereinander ergeben 1 gemeißelte Ziegel. Wie der Quarzblock hat auch der Enderquarzblock eine eigene Enderquarztreppe (6 → 4) und Enderquarzstufe (3 → 6), auch im Steinmetz (1 Treppe bzw. 2 Stufen).",
-          "Umfärben wie mit Farbstoff: 8 eines Vanilla-Endstein- oder -Purpurblocks um 1 Material ergeben 8 des passenden Palettenblocks – Endstein zum Grundblock, Endsteinziegel samt Treppe, Stufe und Mauer zu den Ziegeln samt Treppe, Stufe und Mauer, Purpurtreppe und -stufe zur polierten Treppe und Stufe, die Purpursäule zur Säule und der Purpurblock zu poliertem Enderquarz. Bei Astralit und Nihilith bleibt das Purpurblock-Raster das ältere Beschichtungsrezept (Astral- bzw. Nihil-Purpurblock), das der Steinmetz in den polierten Block schneidet.",
+          "Umfärben wie mit Farbstoff: 8 eines Vanilla-Endstein- oder -Purpurblocks um 1 Material ergeben 8 des passenden Palettenblocks – Endstein zum Grundblock, Endsteinziegel samt Treppe, Stufe und Mauer zu den Ziegeln samt Treppe, Stufe und Mauer, Purpurtreppe und -stufe zur polierten Treppe und Stufe, die Purpursäule zur Säule und der Purpurblock zu poliertem Enderquarz. Bei Astralit und Nihilit bleibt das Purpurblock-Raster das ältere Beschichtungsrezept (Astral- bzw. Nihil-Purpurblock), das der Steinmetz in den polierten Block schneidet.",
           "Enderquarz auch aus Vanilla-Quarz, genauso: 8 eines Quarzblocks um 1 Enderquarz ergeben 8 – Quarzblock zum Grundblock, Quarzziegel zu den Ziegeln, Quarzsäule zur Säule, gemeißelter Quarzblock zu den gemeißelten Ziegeln, glatter Quarz zu poliertem Enderquarz, glatte Quarztreppe und -stufe zur polierten Treppe und Stufe, Quarztreppe und -stufe zu Enderquarztreppe und -stufe.",
           "Steinmetz: Der Grundblock lässt sich in jeden anderen Block seiner Palette schneiden; der polierte Block in seine Treppe, Stufe und Mauer, die Ziegel samt Treppe, Stufe und Mauer, die Säule und die gemeißelten Ziegel; die Ziegel in ihre Treppe, Stufe, Mauer und die gemeißelten Ziegel. Stufen immer zwei zu eins. Der ältere beschichtete Endstein (Astral- und Nihil-Endstein: 8 polierter Endstein um 1 Staub bzw. Splitter) schneidet weiterhin in den Ziegelbausatz und den Grundblock.",
-          "Alle Blöcke: Härte 3, Explosionsfestigkeit 9, für den Drop braucht es eine Spitzhacke. Astralit-Blöcke leuchten mit Lichtstufe 10, Nihilith- und Enderquarz-Blöcke gar nicht.",
+          "Alle Blöcke: Härte 3, Explosionsfestigkeit 9, für den Drop braucht es eine Spitzhacke. Astralit-Blöcke leuchten mit Lichtstufe 10, Nihilit- und Enderquarz-Blöcke gar nicht.",
           "Säulen lassen sich in jeder Achse setzen; eine Doppelstufe lässt zwei Stufen fallen; Treppen, Stufen und Mauern stehen in den Vanilla-Block- und -Item-Tags ihrer Form, die Mauern verbinden sich also wie jede Vanilla-Mauer.",
           "Polierter, Astral- und Nihil-Endstein sowie Astral- und Nihil-Purpurblock stehen ebenfalls im Tag mineable/pickaxe.",
-          "Alle liegen im Kreativ-Tab „SimpleBlocks“, der Enderquarz selbst unter Materialien. Die Texturen sind Pixelkunst im Stil der Vanilla-Endsteinziegel, des Purpurblocks und der Purpursäule – weiche Schattierung und Fugen, die in den Stein übergehen – mit Astralit-Sternfunken, türkisen Nihilithsplittern und Enderquarz-Adern; die gemeißelten Ziegel tragen wie gemeißelter Steinziegel oder Quarz ein leises Relief in der Farbe des Blocks: eine Shulkerkiste mit dem Kopf im Spalt, ein Enderman-Auge mit waagrechtem und ein Drachenauge mit senkrechtem Schlitz."
+          "Alle liegen im Kreativ-Tab „SimpleBlocks“, der Enderquarz selbst unter Materialien. Die Texturen sind Pixelkunst im Stil der Vanilla-Endsteinziegel, des Purpurblocks und der Purpursäule – weiche Schattierung und Fugen, die in den Stein übergehen – mit Astralit-Sternfunken, türkisen Nihilitsplittern und Enderquarz-Adern; die gemeißelten Ziegel tragen wie gemeißelter Steinziegel oder Quarz ein leises Relief in der Farbe des Blocks: eine Shulkerkiste mit dem Kopf im Spalt, ein Enderman-Auge mit waagrechtem und ein Drachenauge mit senkrechtem Schlitz."
         ]
       }
     },
@@ -2166,7 +2166,7 @@ window.WIKI_DATA = {
           "No air jump is possible while creative-flying (the \"flying\" ability).",
           "The client sends a DoubleJumpPayload; the server checks the boots slot only for the enchantment and no longer takes the packet on trust: it grants the air jump only while the player is not on the ground, and once used it stays used until the player lands - a second one in the same fall only after the cooldown (minus 3 ticks for packets that bunch up). Only then does it set the fall distance to 0 as well and take 1 durability point off the boots (not in creative mode); a refused packet changes nothing.",
           "The level is worked out client-side as the highest Air Jump level across all equipment slots.",
-          "Cooldown: level 1 uses the config value airJumpCooldownTicks (default 100 ticks = 5 seconds; negative values count as 0), level 2 and above half of that (at least 1 tick).",
+          "Cooldown: level 1 uses the config value airJumpCooldownTicks (default 100 ticks = 5 seconds; negative values count as 0), level 2 and above half of that (at least 1 tick). On a server the server's value applies: it is sent to every client (TweaksConfigPayload), so the client's jump bar and the server's AirJumpGuard wait the same time.",
           "The cooldown counts down every client tick, so it keeps running after you land - which stops the air jump from being spammed to wipe fall damage.",
           "HUD: as long as the remaining cooldown is greater than 0, vanilla's horse jump bar (sprites hud/jump_bar_background and hud/jump_bar_progress, 182x5) is drawn in the experience bar slot (29 pixels above the bottom), filling in step with the cooldown running down; the experience level number is drawn on top as usual. No label, and nothing overlaps the heart or armor rows.",
           "The bar has no separate \"ready\" state: it disappears the moment the cooldown reaches 0.",
@@ -2186,7 +2186,7 @@ window.WIKI_DATA = {
           "Im Kreativ-Flug (Fähigkeit „flying“) ist kein Luftsprung möglich.",
           "Der Client sendet ein DoubleJumpPayload; der Server prüft ausschließlich den Stiefel-Slot auf die Verzauberung und glaubt dem Paket nicht mehr blind: Er gewährt den Luftsprung nur, solange der Spieler nicht am Boden steht, und ein genutzter Luftsprung bleibt genutzt, bis der Spieler landet - ein zweiter im selben Sturz erst nach der Abklingzeit (abzüglich 3 Ticks für gebündelt ankommende Pakete). Erst dann setzt er die Fallhöhe ebenfalls auf 0 und zieht den Stiefeln 1 Haltbarkeitspunkt ab (nicht im Kreativmodus); ein abgelehntes Paket ändert nichts.",
           "Die Stufe wird clientseitig als höchste Luftsprung-Stufe über alle Ausrüstungs-Slots ermittelt.",
-          "Abklingzeit: Stufe 1 nutzt den Config-Wert airJumpCooldownTicks (Standard 100 Ticks = 5 Sekunden; negative Werte zählen als 0), Stufe 2 und höher die Hälfte davon (mindestens 1 Tick).",
+          "Abklingzeit: Stufe 1 nutzt den Config-Wert airJumpCooldownTicks (Standard 100 Ticks = 5 Sekunden; negative Werte zählen als 0), Stufe 2 und höher die Hälfte davon (mindestens 1 Tick). Auf einem Server gilt der Wert des Servers: Er wird an jeden Client geschickt (TweaksConfigPayload), damit die Sprungleiste des Clients und der AirJumpGuard des Servers gleich lange warten.",
           "Die Abklingzeit zählt jeden Client-Tick herunter, also auch nach dem Landen weiter – so kann der Luftsprung nicht ständig zum Löschen von Fallschaden benutzt werden.",
           "HUD: Solange die Restabklingzeit größer als 0 ist, wird Vanillas Pferde-Sprungleiste (Sprites hud/jump_bar_background und hud/jump_bar_progress, 182×5) an der Stelle der Erfahrungsleiste gezeichnet (29 Pixel über dem unteren Rand) und füllt sich, während die Abklingzeit abläuft; die Zahl der Erfahrungsstufe steht wie gewohnt darüber. Keine Beschriftung, nichts überdeckt Herz- oder Rüstungszeile.",
           "Einen eigenen „bereit“-Zustand hat die Leiste nicht: Sie verschwindet, sobald die Abklingzeit 0 erreicht.",
@@ -2249,7 +2249,7 @@ window.WIKI_DATA = {
       ],
       "en": {
         "title": "Armor Trim Benefits (Resonance)",
-        "summary": "Armor trims grant gameplay bonuses: patterns and materials cut specific damage types, make you faster, or give experience, luck, stealth or healing. How strong they are scales with a personal \"Resonance\" multiplier built from the experience you gathered, how long you have actively played since your last death, and combat experience. Every bonus has a vanilla-anchored cap, and the armor tooltip lists the bonuses of each piece like vanilla attribute lines. The mod adds three trim materials of its own: Astralit, Nihilith and Enderite.",
+        "summary": "Armor trims grant gameplay bonuses: patterns and materials cut specific damage types, make you faster, or give experience, luck, stealth or healing. How strong they are scales with a personal \"Resonance\" multiplier built from the experience you gathered, how long you have actively played since your last death, and combat experience. Every bonus has a vanilla-anchored cap, and the armor tooltip lists the bonuses of each piece like vanilla attribute lines. The mod adds three trim materials of its own: Astralit, Nihilit and Enderite.",
         "details": [
           "Resonance = trimBenefitBaseMultiplier (default 2.0) x the mean of the experience, survival and combat factors - so between 0.2 (fresh start) and 2.0 (fully progressed). Until 2026-09 it was the product of the three factors, which left a fresh player at 0.002.",
           "Experience factor = 0.1 + (experience points gathered since your last death / 1395) x 0.9, clamped to 0.1-1.0; 1395 points are exactly levels 0 to 30. It reads totalExperience minus the value at your last death, so spending levels on enchanting or the anvil costs no resonance, and with keepInventory the kept points do not count again.",
@@ -2261,8 +2261,8 @@ window.WIKI_DATA = {
           "Smithing table: 25 pixels to the left of the interface there is a button that cycles through the trim templates in the #minecraft:trim_templates tag (plus Enderscape's Stasis template if that mod is installed); it opens the \"Trim Resonance Reference\" screen, which lists every material and pattern under its vanilla name with its per-piece bonuses at your current resonance (vanilla scrollbar, Done button).",
           "Damage reduction by pattern (per counted piece, times the multiplier): Sentry 5% against projectiles; Vex 6% against magic damage (direct or indirect) and against hits from a Vex; Wild 10% against cactus, sweet berry bush and stalagmite; Dune 8% against explosions; Coast 10% against drowning; Ward 3% against everything; Silence 20% against the Warden's sonic boom; Snout 5% against fire; Rib 10% against wither damage; Eye 10% against dragon breath; Spire 8% against fall damage; Flow 10% against wind charges (any entity whose type id contains \"wind_charge\", so the Breeze's charge counts too); Bolt 25% against lightning; Shaper gives no protection but +0.25 blocks of block reach per piece (see below).",
           "Pattern counting: a piece counts as 1.0; if its trim material is Netherite it counts 1.75, if it is Enderite 2.0 (3.5 until 2026-09).",
-          "Damage reduction by material (per piece, times the multiplier): Diamond 3% against damage that armor works on (anything not tagged bypasses_armor); Gold 6% and Lapis Lazuli 4% against magic; Iron 5% against projectiles; Emerald 8% against illagers; Netherite 5% against enchantment-bypassing damage and against the Wither boss; Quartz 5% against fire; Enderite 5% against everything except damage that bypasses invulnerability (/kill, the void); Copper 10% against lightning; Astralit 2% and Nihilith 2% against damage that armor works on.",
-          "Caps: at least 20% of every hit always gets through (at most -80%, like vanilla's Protection cap), and the bonuses against every damage type (Ward, Diamond, Enderite, Astralit, Nihilith) share a cap of 25% between them.",
+          "Damage reduction by material (per piece, times the multiplier): Diamond 3% against damage that armor works on (anything not tagged bypasses_armor); Gold 6% and Lapis Lazuli 4% against magic; Iron 5% against projectiles; Emerald 8% against illagers; Netherite 5% against enchantment-bypassing damage and against the Wither boss; Quartz 5% against fire; Enderite 5% against everything except damage that bypasses invulnerability (/kill, the void); Copper 10% against lightning; Astralit 2% and Nihilit 2% against damage that armor works on.",
+          "Caps: at least 20% of every hit always gets through (at most -80%, like vanilla's Protection cap), and the bonuses against every damage type (Ward, Diamond, Enderite, Astralit, Nihilit) share a cap of 25% between them.",
           "Tide: +0.10 water movement efficiency per piece x multiplier, at most +0.5 - a vanilla attribute modifier on the attribute Depth Strider raises, so it works without Depth Strider (Depth Strider I is 0.33, III is 1.0).",
           "Bolt +5% and Redstone +3% movement speed per piece x multiplier, together at most +20% (Speed I) - a vanilla movement_speed modifier (add_multiplied_base), players only; gliding ignores movement speed anyway.",
           "Wayfinder: -10% hunger exhaustion while sprinting per piece x multiplier, at most -50%.",
@@ -2273,9 +2273,9 @@ window.WIKI_DATA = {
           "Rib: once a second (every 20 ticks) an active Wither effect is checked; if its remaining duration is <= (pieces x 40 x multiplier) ticks, at most 100 ticks, the effect is removed, otherwise 0.5 health is healed.",
           "Amethyst: every 10 seconds (200 ticks) a 25% x multiplier chance per piece to heal 1 health, if hurt (at most a sure heal).",
           "Astralit (material): every server tick, pieces x multiplier >= 2.0 grants Jump Boost I, >= 8.0 grants Jump Boost II (40 ticks each, refreshed continuously).",
-          "Nihilith (material): sneaking in mid-air (not on the ground, not in creative flight) pushes you down by 0.08 x pieces per tick, for as long as your downward speed has not yet reached 2.0 blocks per tick - a fast, controlled drop; this runs on both client and server.",
+          "Nihilit (material): sneaking in mid-air (not on the ground, not in creative flight) pushes you down by 0.08 x pieces per tick, for as long as your downward speed has not yet reached 2.0 blocks per tick - a fast, controlled drop; this runs on both client and server.",
           "Stasis pattern (from the \"enderscape\" namespace): multiplier x pieces >= 2 grants Resistance I, >= 8 Resistance II, never more (80 ticks each).",
-          "The mod's own trim materials: Astralit Dust -> trim \"Astralit\" (yellow, #FFFF55), Nihilith Shard -> \"Nihilith\" (purple, #AA00AA), Enderite Ingot -> \"Enderite\" (light enderite violet, #9A7BD8); Enderite armor (helmet, chestplate, leggings, boots) is in the #minecraft:trimmable_armor tag and can be trimmed.",
+          "The mod's own trim materials: Astralit Dust -> trim \"Astralit\" (yellow, #FFFF55), Nihilit Shard -> \"Nihilit\" (purple, #AA00AA), Enderite Ingot -> \"Enderite\" (light enderite violet, #9A7BD8); Enderite armor (helmet, chestplate, leggings, boots) is in the #minecraft:trimmable_armor tag and can be trimmed.",
           "The client option enableArmorTrimBenefits is sent to the server when you join a world; with it off, the pattern and material counts return 0 and the bonuses do not apply.",
           "The command /simplebuilding config setTrimMultiplier <value> (operators only, 0.0 to maxMultiplierLimit = 10.0) sets the base multiplier, saves it into the config file and sends it to every online player (the trim stats panel shows the server's value); getTrimMultiplier prints it.",
           "Tooltip: a trimmed armor piece shows a grey header \"Trim bonus (resonance X×):\" followed by blue vanilla-style attribute lines (\"+1.2% Projectile Protection\") - the per-piece values of that piece at your resonance, with the Netherite/Enderite pattern weight already applied; the rates come from the same constants the server applies (TrimBonusCatalog).",
@@ -2286,7 +2286,7 @@ window.WIKI_DATA = {
       },
       "de": {
         "title": "Rüstungsbesatz-Vorteile (Resonanz)",
-        "summary": "Rüstungsbesätze geben spielerische Boni: Muster und Materialien reduzieren bestimmte Schadensarten, beschleunigen, geben Erfahrung, Glück, Tarnung oder Heilung. Die Stärke skaliert mit einem persönlichen „Resonanz“-Multiplikator aus gesammelter Erfahrung, aktiver Spielzeit seit dem letzten Tod und Kampferfahrung. Jeder Bonus hat einen an Vanilla angelehnten Deckel, und der Tooltip eines Rüstungsteils listet seine Boni wie Vanilla-Attributzeilen. Die Mod bringt drei eigene Besatzmaterialien mit: Astralit, Nihilith und Enderit.",
+        "summary": "Rüstungsbesätze geben spielerische Boni: Muster und Materialien reduzieren bestimmte Schadensarten, beschleunigen, geben Erfahrung, Glück, Tarnung oder Heilung. Die Stärke skaliert mit einem persönlichen „Resonanz“-Multiplikator aus gesammelter Erfahrung, aktiver Spielzeit seit dem letzten Tod und Kampferfahrung. Jeder Bonus hat einen an Vanilla angelehnten Deckel, und der Tooltip eines Rüstungsteils listet seine Boni wie Vanilla-Attributzeilen. Die Mod bringt drei eigene Besatzmaterialien mit: Astralit, Nihilit und Enderit.",
         "details": [
           "Resonanz = trimBenefitBaseMultiplier (Standard 2,0) × Mittelwert aus Erfahrungs-, Überlebens- und Kampffaktor – also zwischen 0,2 (frischer Start) und 2,0 (voll fortgeschritten). Bis 2026-09 war es das Produkt der drei Faktoren; ein frischer Spieler lag damit bei 0,002.",
           "Erfahrungsfaktor = 0,1 + (seit dem letzten Tod gesammelte Erfahrungspunkte / 1395) × 0,9, begrenzt auf 0,1 bis 1,0; 1395 Punkte sind genau die Stufen 0 bis 30. Gelesen wird totalExperience minus dem Wert beim letzten Tod – ausgegebene Stufen (Zaubertisch, Amboss) kosten also keine Resonanz, und mit keepInventory zählen die behaltenen Punkte nicht noch einmal.",
@@ -2298,8 +2298,8 @@ window.WIKI_DATA = {
           "Schmiedetisch: 25 Pixel links neben der Oberfläche gibt es einen Knopf, der durch die Besatz-Vorlagen des Tags #minecraft:trim_templates wechselt (zuzüglich der Stasis-Vorlage von Enderscape, falls diese Mod installiert ist); er öffnet den Referenzbildschirm „Besatz-Resonanz: Übersicht“, der jedes Material und Muster unter seinem Vanilla-Namen mit den Boni je Teil bei der aktuellen Resonanz auflistet (Vanilla-Scrollleiste, Fertig-Knopf).",
           "Schadensminderung nach Muster (je Teil, mal Multiplikator): Sentry 5 % gegen Geschosse; Vex 6 % gegen Magie und direkte Vex-Angriffe; Wild 10 % gegen Kaktus, Süßbeerenbusch und Stalagmit; Dune 8 % gegen Explosionen; Coast 10 % gegen Ertrinken; Ward 3 % gegen alles; Silence 20 % gegen den Sonic Boom des Wardens; Snout 5 % gegen Feuer; Rib 10 % gegen Wither-Schaden; Eye 10 % gegen Drachenatem; Spire 8 % gegen Fallschaden; Flow 10 % gegen Windkugeln; Bolt 25 % gegen Blitze; Shaper schützt nicht, gibt aber +0,25 Blöcke Blockreichweite je Teil (siehe unten).",
           "Musterzählung: Ein Teil zählt 1,0; ist das Besatzmaterial Netherit, zählt es 1,75; ist es Enderit, zählt es 2,0 (bis 2026-09: 3,5).",
-          "Schadensminderung nach Material (je Teil, mal Multiplikator): Diamant 3 % gegen rüstungswirksamen Schaden; Gold 6 % und Lapislazuli 4 % gegen Magie; Eisen 5 % gegen Geschosse; Smaragd 8 % gegen Illager; Netherit 5 % gegen verzauberungsumgehenden Schaden und den Wither-Boss; Quarz 5 % gegen Feuer; Enderit 5 % gegen alles außer Schaden, der die Unverwundbarkeit umgeht (/kill, die Leere); Kupfer 10 % gegen Blitze; Astralit 2 % und Nihilith 2 % gegen rüstungswirksamen Schaden.",
-          "Deckel: Von jedem Treffer kommen mindestens 20 % an (höchstens −80 %, wie Vanillas Schutz-Deckel), und die Boni gegen jede Schadensart (Ward, Diamant, Enderit, Astralit, Nihilith) teilen sich zusammen einen Deckel von 25 %.",
+          "Schadensminderung nach Material (je Teil, mal Multiplikator): Diamant 3 % gegen rüstungswirksamen Schaden; Gold 6 % und Lapislazuli 4 % gegen Magie; Eisen 5 % gegen Geschosse; Smaragd 8 % gegen Illager; Netherit 5 % gegen verzauberungsumgehenden Schaden und den Wither-Boss; Quarz 5 % gegen Feuer; Enderit 5 % gegen alles außer Schaden, der die Unverwundbarkeit umgeht (/kill, die Leere); Kupfer 10 % gegen Blitze; Astralit 2 % und Nihilit 2 % gegen rüstungswirksamen Schaden.",
+          "Deckel: Von jedem Treffer kommen mindestens 20 % an (höchstens −80 %, wie Vanillas Schutz-Deckel), und die Boni gegen jede Schadensart (Ward, Diamant, Enderit, Astralit, Nihilit) teilen sich zusammen einen Deckel von 25 %.",
           "Tide: +0,10 Wasserbewegungs-Effizienz je Teil × Multiplikator, höchstens +0,5 – ein Vanilla-Attribut-Modifikator auf dem Attribut, das Wassertritt erhöht, wirkt also auch ohne Wassertritt (Wassertritt I = 0,33, III = 1,0).",
           "Bolt +5 % und Redstone +3 % Laufgeschwindigkeit je Teil × Multiplikator, zusammen höchstens +20 % (Schnelligkeit I) – ein Vanilla-Modifikator auf movement_speed (add_multiplied_base), nur für Spieler; beim Gleiten zählt die Laufgeschwindigkeit ohnehin nicht.",
           "Wayfinder: −10 % Hungerverbrauch beim Sprinten je Teil × Multiplikator, höchstens −50 %.",
@@ -2310,9 +2310,9 @@ window.WIKI_DATA = {
           "Rib: Jede Sekunde (alle 20 Ticks) wird bei aktivem Wither-Effekt geprüft; ist die Restdauer ≤ (Teile × 40 × Multiplikator) Ticks, höchstens 100 Ticks, wird der Effekt entfernt, sonst werden 0,5 Lebenspunkte geheilt.",
           "Amethyst: Alle 10 Sekunden (200 Ticks) je Teil 25 % × Multiplikator Chance auf 1 Lebenspunkt Heilung, wenn verletzt (höchstens eine sichere Heilung).",
           "Astralit (Material): Jeden Server-Tick gilt Teile × Multiplikator ≥ 2,0 → Sprungkraft I, ≥ 8,0 → Sprungkraft II (jeweils 40 Ticks, wird laufend erneuert).",
-          "Nihilith (Material): Wer in der Luft schleicht (nicht am Boden, nicht im Kreativ-Flug), wird pro Tick mit 0,08 × Teile nach unten gedrückt, solange die Fallgeschwindigkeit über −2,0 liegt (schnelles Absinken); das läuft auf Client und Server.",
+          "Nihilit (Material): Wer in der Luft schleicht (nicht am Boden, nicht im Kreativ-Flug), wird pro Tick mit 0,08 × Teile nach unten gedrückt, solange die Fallgeschwindigkeit über −2,0 liegt (schnelles Absinken); das läuft auf Client und Server.",
           "Stasis-Muster (aus dem Namensraum „enderscape“): Multiplikator × Teile ≥ 2 → Resistenz I, ≥ 8 → Resistenz II, nie mehr (jeweils 80 Ticks).",
-          "Eigene Besatzmaterialien: Astralitstaub → Besatz „Astralit“ (gelb, #FFFF55), Nihilithsplitter → „Nihilith“ (violett, #AA00AA), Enderitbarren → „Enderit“ (helles Enderit-Violett, #9A7BD8); Enderit-Rüstung (Helm, Brustplatte, Beinschutz, Stiefel) steht im Tag #minecraft:trimmable_armor und ist besatzfähig.",
+          "Eigene Besatzmaterialien: Astralitstaub → Besatz „Astralit“ (gelb, #FFFF55), Nihilitsplitter → „Nihilit“ (violett, #AA00AA), Enderitbarren → „Enderit“ (helles Enderit-Violett, #9A7BD8); Enderit-Rüstung (Helm, Brustplatte, Beinschutz, Stiefel) steht im Tag #minecraft:trimmable_armor und ist besatzfähig.",
           "Der Client-Schalter enableArmorTrimBenefits wird beim Betreten der Welt an den Server gesendet; ist er aus, liefern Muster- und Materialzählung 0 und die Boni entfallen.",
           "Der Befehl /simplebuilding config setTrimMultiplier <Wert> (nur Operatoren, 0,0 bis maxMultiplierLimit = 10,0) setzt den Basis-Multiplikator, speichert ihn in der Konfigurationsdatei und schickt ihn an alle Spieler online (das Besatz-Statistikfeld zeigt den Wert des Servers); getTrimMultiplier zeigt ihn an.",
           "Tooltip: Ein besetztes Rüstungsteil zeigt eine graue Kopfzeile „Besatzbonus (Resonanz X×):“ und darunter blaue Zeilen im Stil der Vanilla-Attribute („+1.2% Schusssicherheit“) – die Werte dieses Teils bei deiner Resonanz, das Netherit-/Enderit-Mustergewicht schon eingerechnet; die Raten stammen aus denselben Konstanten, mit denen der Server rechnet (TrimBonusCatalog).",
@@ -2409,7 +2409,7 @@ window.WIKI_DATA = {
         "summary": "How much mod loot a chest brings: structures with many chests (mineshaft, woodland mansion, ancient city, ordinary bastion chests, dungeon) give about half a mod stack per chest, single chests such as the bastion treasure room, a stronghold library or an end city chest give more. Everything here only applies while enableLootTableChanges is on.",
         "details": [
           "Every mod pool is rolled once per chest on top of the vanilla loot. Most pools roll 0 to 2 times and carry a large empty weight, so a chest sometimes holds nothing from the mod - that is intended.",
-          "End city treasure: 15% Enderite Scrap, 30% Enderite Upgrade Smithing Template, one roll of End materials (Raw Enderite 1-2 weight 4, Enderite Nuggets 2-5 weight 6, Astralit Dust 2-6 weight 6, Nihilith Shards 1-4 weight 6, empty 14) and 0 to 3 rolls of books and gear (Range III 4, Master Builder 3, Override II 5, Air Jump II 5, Versatility I 6 / II 3, randomly enchanted Diamond Building Wand 6 and Diamond Sledgehammer 8, Enderite Apple 3, Enchanted Enderite Apple 1, empty 40).",
+          "End city treasure: 15% Enderite Scrap, 30% Enderite Upgrade Smithing Template, one roll of End materials (Raw Enderite 1-2 weight 4, Enderite Nuggets 2-5 weight 6, Astralit Dust 2-6 weight 6, Nihilit Shards 1-4 weight 6, empty 14) and 0 to 3 rolls of books and gear (Range III 4, Master Builder 3, Override II 5, Air Jump II 5, Versatility I 6 / II 3, randomly enchanted Diamond Building Wand 6 and Diamond Sledgehammer 8, Enderite Apple 3, Enchanted Enderite Apple 1, empty 40).",
           "Bastion: every bastion chest rolls 0 to 2 times from Funnel I 5, Break Through I 5, Gold Sledgehammer 6, Netherite Nuggets 1-4 weight 12, Netherite Carrots 1-2 weight 6, empty 25. Only the treasure room additionally rolls once from Netherite Apple 4, Enchanted Netherite Apple 2, Break Through II book 3, empty 7. The cores come from their own pools (see below).",
           "Diamond Pebbles (nine make a Cracked Diamond, which smelts into a diamond) are the common filler: ancient city 2-5, buried treasure 2-6, dungeon 1-3, shipwreck treasure 1-4, abandoned mineshaft 1-3, common/rare trial chamber vault 2-4 and fishing treasure 1-3.",
           "Ruined portals roll 0 to 1 time from Netherite Nuggets 1-2 weight 3, Gold Chisel 3, Netherite Carrot 2, empty 12.",
@@ -2423,7 +2423,7 @@ window.WIKI_DATA = {
         "summary": "Wie viel Mod-Beute eine Truhe bringt: Strukturen mit vielen Truhen (verlassene Mine, Waldanwesen, Antike Stadt, gewöhnliche Bastion-Truhen, Verlies) geben etwa einen halben Mod-Stapel pro Truhe, Einzeltruhen wie der Bastion-Schatzraum, eine Festungsbibliothek oder eine Endsiedlungs-Truhe mehr. Alles hier gilt nur bei aktiver Option enableLootTableChanges.",
         "details": [
           "Jeder Mod-Pool wird pro Truhe einmal zusätzlich zur Vanilla-Beute gewürfelt. Die meisten Pools würfeln 0 bis 2 Mal und haben ein großes Leer-Gewicht, sodass eine Truhe manchmal nichts von der Mod enthält – das ist gewollt.",
-          "Endsiedlungs-Schatz: 15 % Enderitplatten, 30 % Enderit-Schmiedevorlage, ein Wurf End-Rohstoffe (Rohenderit 1–2 Gewicht 4, Enderitklumpen 2–5 Gewicht 6, Astralitstaub 2–6 Gewicht 6, Nihilithsplitter 1–4 Gewicht 6, leer 14) und 0 bis 3 Würfe Bücher und Ausrüstung (Reichweite III 4, Baumeister 3, Übersteuerung II 5, Luftsprung II 5, Vielseitigkeit I 6 / II 3, zufällig verzauberter Diamant-Baustab 6 und Diamant-Vorschlaghammer 8, Enderitapfel 3, verzauberter Enderitapfel 1, leer 40).",
+          "Endsiedlungs-Schatz: 15 % Enderitplatten, 30 % Enderit-Schmiedevorlage, ein Wurf End-Rohstoffe (Rohenderit 1–2 Gewicht 4, Enderitklumpen 2–5 Gewicht 6, Astralitstaub 2–6 Gewicht 6, Nihilitsplitter 1–4 Gewicht 6, leer 14) und 0 bis 3 Würfe Bücher und Ausrüstung (Reichweite III 4, Baumeister 3, Übersteuerung II 5, Luftsprung II 5, Vielseitigkeit I 6 / II 3, zufällig verzauberter Diamant-Baustab 6 und Diamant-Vorschlaghammer 8, Enderitapfel 3, verzauberter Enderitapfel 1, leer 40).",
           "Bastion: Jede Bastion-Truhe würfelt 0 bis 2 Mal aus Trichter I 5, Durchbruch I 5, Gold-Vorschlaghammer 6, Netheritklumpen 1–4 Gewicht 12, Netheritkarotten 1–2 Gewicht 6, leer 25. Nur der Schatzraum würfelt zusätzlich einmal aus Netheritapfel 4, verzaubertem Netheritapfel 2, Buch Durchbruch II 3, leer 7. Die Kerne kommen aus eigenen Pools (siehe unten).",
           "Diamantkiesel (neun ergeben einen rissigen Diamanten, der zu einem Diamanten geschmolzen wird) sind der häufige Füller: Antike Stadt 2–5, vergrabener Schatz 2–6, Verlies 1–3, Schiffswrack-Schatz 1–4, verlassene Mine 1–3, normaler/seltener Prüfungskammer-Tresor 2–4 und Angel-Schatz 1–3.",
           "Portalruinen würfeln 0 bis 1 Mal aus Netheritklumpen 1–2 Gewicht 3, Goldmeißel 3, Netheritkarotte 2, leer 12.",
@@ -2577,33 +2577,33 @@ window.WIKI_DATA = {
         "src/main/resources/assets/simplebuilding/lang/en_us.json"
       ],
       "en": {
-        "title": "Ore Generation in the End (Astralit and Nihilith)",
-        "summary": "Two new ores generate in end stone in the End: Astralit Ore on the surface of the islands and Nihilith Ore on their underside. Both need at least a diamond pickaxe and yield the trim materials Astralit Dust and Nihilith Shard.",
+        "title": "Ore Generation in the End (Astralit and Nihilit)",
+        "summary": "Two new ores generate in end stone in the End: Astralit Ore on the surface of the islands and Nihilit Ore on their underside. Both need at least a diamond pickaxe and yield the trim materials Astralit Dust and Nihilit Shard.",
         "details": [
           "Both ores generate in every End biome in the \"underground_ores\" step (Fabric: BiomeSelectors.foundInTheEnd; NeoForge and Forge: a biome modifier with the biome tag #minecraft:is_end). The Forge biome modifiers are covered by no test: the Forge module is parked and has never been started.",
           "Both ores replace end stone only; veins are not discarded on air exposure (discard_chance_on_air_exposure 0).",
           "Astralit Ore: vein size 4; one attempt per chunk (count 1, no rarity filter); anchored on the surface heightmap (MOTION_BLOCKING, one block above the topmost motion-blocking block) and only where the block above that anchor is replaceable. The vein can only reach from three blocks below the anchor up to the anchor's own height, so it sits in the top layers of the island.",
-          "Nihilith Ore: vein size 5; 64 attempts per chunk at a height uniformly distributed between Y 0 and Y 60; an attempt only counts on end stone with a replaceable block directly below it (the underside of an island), and the vein then starts one block higher (random_offset, y_spread 1). It can only replace end stone from two blocks below to one block above that underside block. The block directly below it is not end stone, so in practice the ore sits in the underside layer and the layer above it - the veins hang from the underside of the islands.",
+          "Nihilit Ore: vein size 5; 64 attempts per chunk at a height uniformly distributed between Y 0 and Y 60; an attempt only counts on end stone with a replaceable block directly below it (the underside of an island), and the vein then starts one block higher (random_offset, y_spread 1). It can only replace end stone from two blocks below to one block above that underside block. The block directly below it is not end stone, so in practice the ore sits in the underside layer and the layer above it - the veins hang from the underside of the islands.",
           "Astralit Ore: hardness 20, blast resistance 1200, emits light level 5, requires a diamond or better pickaxe (tags mineable/pickaxe and needs_diamond_tool), drops 3-7 experience.",
-          "Nihilith Ore: hardness 25, blast resistance 1200, requires a diamond or better pickaxe, drops 3-7 experience.",
-          "Mining: Astralit Ore drops Astralit Dust, Nihilith Ore drops Nihilith Shard; Fortune raises the amount by the ore formula (ore_drops), Silk Touch yields the ore block itself.",
+          "Nihilit Ore: hardness 25, blast resistance 1200, requires a diamond or better pickaxe, drops 3-7 experience.",
+          "Mining: Astralit Ore drops Astralit Dust, Nihilit Ore drops Nihilit Shard; Fortune raises the amount by the ore formula (ore_drops), Silk Touch yields the ore block itself.",
           "The ores also exist as block items (astralit_ore, nihilith_ore) and appear in the creative tab \"SimpleMaterials\" (simplebuilding:materials).",
-          "The names exist in both language files (Astralit Ore / Astralit-Erz, Nihilith Ore / Nihilith-Erz, Astralit Dust / Astralitstaub, Nihilith Shard / Nihilith-Splitter); every other language falls back to the English names."
+          "The names exist in both language files (Astralit Ore / Astralit-Erz, Nihilit Ore / Nihilit-Erz, Astralit Dust / Astralitstaub, Nihilit Shard / Nihilit-Splitter); every other language falls back to the English names."
         ]
       },
       "de": {
-        "title": "Erzgenerierung im End (Astralit und Nihilith)",
-        "summary": "Im End entstehen zwei neue Erze in Endstein: Astralit Ore an der Oberfläche der Inseln und Nihilith Ore an deren Unterseite. Beide brauchen mindestens eine Diamantspitzhacke und liefern die Besatzmaterialien Astralitstaub bzw. Nihilithsplitter.",
+        "title": "Erzgenerierung im End (Astralit und Nihilit)",
+        "summary": "Im End entstehen zwei neue Erze in Endstein: Astralit Ore an der Oberfläche der Inseln und Nihilit Ore an deren Unterseite. Beide brauchen mindestens eine Diamantspitzhacke und liefern die Besatzmaterialien Astralitstaub bzw. Nihilitsplitter.",
         "details": [
           "Beide Erze werden in allen End-Biomen im Schritt „underground_ores“ erzeugt (Fabric: BiomeSelectors.foundInTheEnd; NeoForge und Forge: Biom-Modifier mit Biom-Tag #minecraft:is_end). Die Forge-Biom-Modifier deckt kein Test ab: Das Forge-Modul ist zurückgestellt und wurde nie gestartet.",
           "Beide Erze ersetzen ausschließlich Endstein; Adern werden bei Luftkontakt nicht verworfen (discard_chance_on_air_exposure 0).",
           "Astralit Ore: Adergröße 4; ein Versuch pro Chunk (count 1, kein Seltenheitsfilter); verankert auf der Oberflächen-Höhenkarte (MOTION_BLOCKING, ein Block über dem obersten bewegungshemmenden Block) und nur dort, wo der Block über diesem Anker ersetzbar ist. Die Ader reicht nur von drei Blöcken unter dem Anker bis auf dessen eigene Höhe, sitzt also in den obersten Schichten der Insel.",
-          "Nihilith Ore: Adergröße 5; 64 Versuche pro Chunk auf einer Höhe gleichverteilt zwischen Y 0 und Y 60; ein Versuch zählt nur auf Endstein mit einem ersetzbaren Block direkt darunter (der Unterseite einer Insel), und die Ader beginnt dann einen Block höher (random_offset, y_spread 1). Sie kann nur Endstein von zwei Blöcken unter bis einen Block über diesem Unterseitenblock ersetzen. Der Block direkt darunter ist kein Endstein, praktisch sitzt das Erz also in der Unterseitenschicht und der Schicht darüber – die Adern hängen an der Unterseite der Inseln.",
+          "Nihilit Ore: Adergröße 5; 64 Versuche pro Chunk auf einer Höhe gleichverteilt zwischen Y 0 und Y 60; ein Versuch zählt nur auf Endstein mit einem ersetzbaren Block direkt darunter (der Unterseite einer Insel), und die Ader beginnt dann einen Block höher (random_offset, y_spread 1). Sie kann nur Endstein von zwei Blöcken unter bis einen Block über diesem Unterseitenblock ersetzen. Der Block direkt darunter ist kein Endstein, praktisch sitzt das Erz also in der Unterseitenschicht und der Schicht darüber – die Adern hängen an der Unterseite der Inseln.",
           "Astralit Ore: Härte 20, Explosionswiderstand 1200, leuchtet mit Lichtstärke 5, benötigt eine Spitzhacke aus Diamant oder besser (Tags mineable/pickaxe und needs_diamond_tool), gibt 3–7 Erfahrungspunkte.",
-          "Nihilith Ore: Härte 25, Explosionswiderstand 1200, benötigt eine Spitzhacke aus Diamant oder besser, gibt 3–7 Erfahrungspunkte.",
-          "Abbau: Astralit Ore lässt Astralitstaub fallen, Nihilith Ore Nihilithsplitter; Glück erhöht die Menge nach der Erz-Formel (ore_drops), Behutsamkeit liefert den Erzblock selbst.",
+          "Nihilit Ore: Härte 25, Explosionswiderstand 1200, benötigt eine Spitzhacke aus Diamant oder besser, gibt 3–7 Erfahrungspunkte.",
+          "Abbau: Astralit Ore lässt Astralitstaub fallen, Nihilit Ore Nihilitsplitter; Glück erhöht die Menge nach der Erz-Formel (ore_drops), Behutsamkeit liefert den Erzblock selbst.",
           "Die Erze existieren auch als Blockitems (astralit_ore, nihilith_ore) und stehen im Kreativ-Tab „SimpleMaterials“ (simplebuilding:materials).",
-          "Die Namen liegen in beiden Sprachdateien vor (Astralit Ore / Astraliterz, Nihilith Ore / Nihilitherz, Astralitstaub / Astralitstaub, Nihilithsplitter / Nihilithsplitter); andere Sprachen fallen auf die englischen Namen zurück."
+          "Die Namen liegen in beiden Sprachdateien vor (Astralit Ore / Astraliterz, Nihilit Ore / Nihiliterz, Astralitstaub / Astralitstaub, Nihilitsplitter / Nihilitsplitter); andere Sprachen fallen auf die englischen Namen zurück."
         ]
       }
     },
@@ -2754,7 +2754,7 @@ window.WIKI_DATA = {
       ],
       "en": {
         "title": "Visible Armor Trims in the Inventory",
-        "summary": "A trimmed armor piece shows its trim PATTERN on the item icon, in the colors of the trim material - like the worn armor, so you can tell a Sentry chestplate from a Rib chestplate without putting it on. This works for every vanilla armor (leather, chainmail, iron, gold, diamond, netherite, copper, turtle shell) and for Enderite armor, with all 18 vanilla trim patterns and every trim material, the mod's Astralit, Nihilith and Enderite included.",
+        "summary": "A trimmed armor piece shows its trim PATTERN on the item icon, in the colors of the trim material - like the worn armor, so you can tell a Sentry chestplate from a Rib chestplate without putting it on. This works for every vanilla armor (leather, chainmail, iron, gold, diamond, netherite, copper, turtle shell) and for Enderite armor, with all 18 vanilla trim patterns and every trim material, the mod's Astralit, Nihilit and Enderite included.",
         "details": [
           "Each pattern has its own small shape per slot (helmet, chestplate, leggings, boots): Sentry bands, Dune pyramids, Coast waves, a Wild vine, a Ward crest, an Eye, Vex wings, a Tide wave, a Snout, a Rib cage, a Spire spike, a Wayfinder compass, Shaper squares, a Silence frame, Raiser arrows, a Host chain of blocks, a Flow spiral and a Bolt lightning bolt.",
           "The colors come from the same trim palettes vanilla uses for the worn armor, including the darker variant when material and armor match (an iron trim on iron armor, gold on gold, and so on).",
@@ -2766,7 +2766,7 @@ window.WIKI_DATA = {
       },
       "de": {
         "title": "Sichtbare Rüstungsbesätze im Inventar",
-        "summary": "Ein besetztes Rüstungsteil zeigt sein Besatz-MUSTER auf dem Item-Symbol, in den Farben des Besatzmaterials – wie die getragene Rüstung. So erkennt man einen Sentry- von einem Rib-Brustpanzer, ohne ihn anzuziehen. Das gilt für jede Vanilla-Rüstung (Leder, Kette, Eisen, Gold, Diamant, Netherit, Kupfer, Schildkrötenpanzer) und für Enderit-Rüstung, mit allen 18 Vanilla-Mustern und jedem Besatzmaterial, auch Astralit, Nihilith und Enderit aus dem Mod.",
+        "summary": "Ein besetztes Rüstungsteil zeigt sein Besatz-MUSTER auf dem Item-Symbol, in den Farben des Besatzmaterials – wie die getragene Rüstung. So erkennt man einen Sentry- von einem Rib-Brustpanzer, ohne ihn anzuziehen. Das gilt für jede Vanilla-Rüstung (Leder, Kette, Eisen, Gold, Diamant, Netherit, Kupfer, Schildkrötenpanzer) und für Enderit-Rüstung, mit allen 18 Vanilla-Mustern und jedem Besatzmaterial, auch Astralit, Nihilit und Enderit aus dem Mod.",
         "details": [
           "Jedes Muster hat je Slot (Helm, Brustpanzer, Hose, Stiefel) eine eigene kleine Form: Sentry Bänder, Dune Pyramiden, Coast Wellen, Wild eine Ranke, Ward einen Kamm, Eye ein Auge, Vex Flügel, Tide eine Welle, Snout eine Schnauze, Rib Rippen, Spire einen Dorn, Wayfinder eine Kompassrose, Shaper Rechtecke, Silence einen Rahmen, Raiser Pfeile, Host eine Kette aus Blöcken, Flow eine Spirale und Bolt einen Blitz.",
           "Die Farben stammen aus denselben Besatz-Paletten, die Vanilla für die getragene Rüstung nutzt, samt der dunkleren Stufe, wenn Material und Rüstung gleich sind (Eisenbesatz auf Eisenrüstung, Gold auf Gold usw.).",
@@ -2868,7 +2868,7 @@ window.WIKI_DATA = {
           "Count-based smithing (for example copper to iron tools with several ingots) appears in JEI's smithing category with the real number of additions.",
           "The categories are built from the same export as this wiki's in-world transformation pages; a server game test checks that every entry of that export arrives in JEI.",
           "Trim Template (item frame) and Washing (cauldron): turning a trim template in an item frame into a Glowing or Emitting Trim Smithing Template, and washing a coloured octant back into the plain one.",
-          "Information pages: items that no recipe and no in-world category produce get a short JEI information page on how to obtain them and what they do - Astralit Ore, Nihilith Ore, Astralit Dust, Nihilith Shard, the Enchanted Netherite and Enderite Apples and the legacy spatulas - next to the pages for the pads, plates and tools taken over from Simple Tweaks. The creative spacer stays hidden from JEI. A server game test derives the recipeless items from the loaded recipes and the in-world catalog and fails if one has no page or a page lacks its English or German text."
+          "Information pages: items that no recipe and no in-world category produce get a short JEI information page on how to obtain them and what they do - Astralit Ore, Nihilit Ore, Astralit Dust, Nihilit Shard, the Enchanted Netherite and Enderite Apples and the legacy spatulas - next to the pages for the pads, plates and tools taken over from Simple Tweaks. The creative spacer stays hidden from JEI. A server game test derives the recipeless items from the loaded recipes and the in-world catalog and fails if one has no page or a page lacks its English or German text."
         ]
       },
       "de": {
@@ -2883,7 +2883,7 @@ window.WIKI_DATA = {
           "Schmiederezepte mit Mengenangabe (etwa Kupfer- zu Eisenwerkzeug mit mehreren Barren) erscheinen in JEIs Schmiede-Kategorie mit der echten Anzahl Zutaten.",
           "Die Kategorien entstehen aus demselben Export wie die Seiten dieses Wikis zu den Umwandlungen in der Welt; ein Server-Spieltest prüft, dass jeder Eintrag dieses Exports in JEI ankommt.",
           "Besatzvorlage (Rahmen) und Waschen (Kessel): eine Besatzvorlage im Rahmen zur Leuchtenden oder Strahlenden Schmiedevorlage machen und einen gefärbten Oktanten zurück zum einfachen waschen.",
-          "Infoseiten: Gegenstände, die kein Rezept und keine Umwandlungs-Kategorie liefert, bekommen eine kurze JEI-Infoseite, wie man sie erhält und was sie tun - Astraliterz, Nihilitherz, Astralitstaub, Nihilithsplitter, die verzauberten Netherit- und Enderitäpfel und die alten Spachtel - neben den Seiten für die aus Simple Tweaks übernommenen Pads, Platten und Werkzeuge. Der Kreativ-Platzhalter bleibt in JEI versteckt. Ein Server-Spieltest ermittelt die rezeptlosen Gegenstände aus den geladenen Rezepten und dem Umwandlungs-Katalog und schlägt fehl, wenn einer keine Seite hat oder einer Seite der englische oder deutsche Text fehlt."
+          "Infoseiten: Gegenstände, die kein Rezept und keine Umwandlungs-Kategorie liefert, bekommen eine kurze JEI-Infoseite, wie man sie erhält und was sie tun - Astraliterz, Nihiliterz, Astralitstaub, Nihilitsplitter, die verzauberten Netherit- und Enderitäpfel und die alten Spachtel - neben den Seiten für die aus Simple Tweaks übernommenen Pads, Platten und Werkzeuge. Der Kreativ-Platzhalter bleibt in JEI versteckt. Ein Server-Spieltest ermittelt die rezeptlosen Gegenstände aus den geladenen Rezepten und dem Umwandlungs-Katalog und schlägt fehl, wenn einer keine Seite hat oder einer Seite der englische oder deutsche Text fehlt."
         ]
       }
     },
@@ -2937,10 +2937,10 @@ window.WIKI_DATA = {
         "details": [
           "Tier ladder of every plate family: after Netherite comes Enderite, and the nether star tier moves up one: Netherite Elytra Pad III, Enderite Elytra Pad IV, Fine Elytra Pad V; flypads now have three enderite tiers. Each Enderite tier adds one function (see the items). Launchpads and Chunk Loaders have three tiers each (Diamond, Netherite, Enderite).",
           "Upgrades pay with pressure plates: every smithing upgrade of a pad family costs the pressure plate of its target material instead of the raw material - Diamond Pressure Plate for the diamond tiers, Netherite Pressure Plate for the netherite tiers, Enderite Pressure Plate for the enderite tiers. Unchanged: the entry tiers, the plates themselves and the nether star step of the elytra pad. Flypads are an enderite-only family of three tiers now (see the flypad).",
-          "XP orbs merge into one orb once a second within 2 blocks and can be picked up without the vanilla delay (tweaks.optimization.enableXpClumps); orbs worth more look bigger (scaleXpOrbs, client).",
+          "XP orbs merge into one orb once a second within 2 blocks and can be picked up without the vanilla delay (tweaks.optimization.enableXpClumps); orbs worth more look bigger (scaleXpOrbs, client). The merge radius is tweaks.optimization.xpClumpRadius (default 2.0).",
           "Firework rockets can be limited to a smaller stack size (tweaks.balancing.rocketStackSize).",
           "The Nether and the End can be locked (tweaks.dimensions); exact spawn without random offset and a custom world spawn are off by default so existing worlds do not change.",
-          "Commands (operators): /killboats and /killcarts [standard|empty|all] remove unoccupied boats/minecarts within 100 blocks; /simplebuilding tweaks ... changes the config in game (what was /simpletweaks ...); a custom world spawn takes effect at once, not only after a restart.",
+          "Commands (operators): /killboats and /killcarts [standard|empty|all] remove unoccupied boats/minecarts within 100 blocks; /simplebuilding tweaks ... changes the config in game (what was /simpletweaks ...); a custom world spawn takes effect at once, not only after a restart. The radius of /killboats and /killcarts is tweaks.commands.killCommandRadius (default 100); every config option can also be changed with /simplebuilding config set.",
           "Every pad family can be switched off in the config section tweaks.pads.",
           "Not everything is in the recipe book - some things are hidden."
         ]
@@ -2951,10 +2951,10 @@ window.WIKI_DATA = {
         "details": [
           "Stufenleiter aller Platten-Familien: nach Netherit kommt Enderit, die Netherstern-Stufe rückt eins auf: Netherit-Elytra-Pad III, Enderit-Elytra-Pad IV, Feines Elytra-Pad V; Flugpads haben jetzt drei Enderit-Stufen. Jede Enderit-Stufe bringt eine Zusatzfunktion (siehe die Gegenstände). Startrampen und Chunk-Lader haben je drei Stufen (Diamant, Netherit, Enderit).",
           "Aufwertungen zahlen mit Druckplatten: jede Schmiede-Aufwertung einer Pad-Familie kostet die Druckplatte des Zielmaterials statt des Rohstoffs - Diamant-Druckplatte für die Diamant-Stufen, Netherit-Druckplatte für die Netherit-Stufen, Enderit-Druckplatte für die Enderit-Stufen. Unverändert: die Einstiegsstufen, die Platten selbst und die Netherstern-Stufe des Elytra-Pads. Flugpads sind jetzt eine reine Enderit-Familie mit drei Stufen (siehe Flugpad).",
-          "XP-Kugeln verschmelzen einmal pro Sekunde im Umkreis von 2 Blöcken zu einer und lassen sich ohne die Vanilla-Verzögerung aufheben (tweaks.optimization.enableXpClumps); wertvollere Kugeln sehen größer aus (scaleXpOrbs, Client).",
+          "XP-Kugeln verschmelzen einmal pro Sekunde im Umkreis von 2 Blöcken zu einer und lassen sich ohne die Vanilla-Verzögerung aufheben (tweaks.optimization.enableXpClumps); wertvollere Kugeln sehen größer aus (scaleXpOrbs, Client). Der Radius ist tweaks.optimization.xpClumpRadius (Standard 2,0).",
           "Feuerwerksraketen lassen sich auf eine kleinere Stapelgröße begrenzen (tweaks.balancing.rocketStackSize).",
           "Nether und End lassen sich sperren (tweaks.dimensions); exakter Spawn ohne Zufallsversatz und ein eigener Weltspawn sind standardmäßig aus, damit bestehende Welten unverändert bleiben.",
-          "Befehle (Operatoren): /killboats und /killcarts [standard|empty|all] entfernen unbesetzte Boote/Loren im Umkreis von 100 Blöcken; /simplebuilding tweaks ... ändert die Config im Spiel (früher /simpletweaks ...); ein eigener Weltspawn gilt sofort, nicht erst nach einem Neustart.",
+          "Befehle (Operatoren): /killboats und /killcarts [standard|empty|all] entfernen unbesetzte Boote/Loren im Umkreis von 100 Blöcken; /simplebuilding tweaks ... ändert die Config im Spiel (früher /simpletweaks ...); ein eigener Weltspawn gilt sofort, nicht erst nach einem Neustart. Die Reichweite von /killboats und /killcarts ist tweaks.commands.killCommandRadius (Standard 100); jede Config-Option lässt sich auch mit /simplebuilding config set ändern.",
           "Jede Pad-Familie lässt sich im Config-Abschnitt tweaks.pads abschalten.",
           "Nicht alles steht im Rezeptbuch - manches ist versteckt."
         ]
@@ -2992,66 +2992,211 @@ window.WIKI_DATA = {
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
         "src/main/resources/assets/simplebuilding/lang/en_us.json",
         "common/src/shared/java/com/simplebuilding/items/DevEnchantedTab.java",
-        "common/src/shared/java/com/simplebuilding/util/WandHunger.java"
+        "common/src/shared/java/com/simplebuilding/util/WandHunger.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
+        "common/src/shared/java/com/simplebuilding/config/ConfigOptions.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/network/TweaksConfigPayload.java",
+        "common/src/shared/java/com/simplebuilding/items/custom/MagnetItem.java",
+        "common/src/shared/java/com/simplebuilding/items/custom/RotatorItem.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/PotionPadBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/SpawnTeleporterBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/LaunchpadBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/item/EchoCompassItem.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/item/LaserPointerItem.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/xp/XpClumping.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/command/TweaksCommands.java",
+        "forge/src/main/java/me/shedaniel/autoconfig/annotation/ConfigEntry.java"
       ],
       "en": {
         "title": "Configuration",
-        "summary": "The mod is configured through an AutoConfig/Cloth Config file named \"simplebuilding\"; on Fabric ModMenu opens the settings screen, on NeoForge the config button in the mod list does. There are switches for the air jump, trim benefits, tool display, trades and loot chests, plus a command for the resonance multiplier.",
+        "summary": "The mod is configured through the Cloth Config file config/simplebuilding.json: on Fabric ModMenu opens the settings screen, on NeoForge the Config button in the mod list does. The screen has seven tabs (tools, enchantments, pistons, pads, loot, visuals, advanced) with a tooltip and the default for every option; operators can change every option in game with /simplebuilding config.",
         "details": [
-          "Enable Double Jump Enchantment (enableDoubleJump, default on): switches the air jump off entirely, client-side.",
-          "Air Jump Cooldown (Ticks) (airJumpCooldownTicks, default 100): cooldown in ticks at Air Jump level 1 (20 ticks = 1 s); level 2 uses half of it; negative values are treated as 0.",
-          "Enable Armor Trim Benefits (enableArmorTrimBenefits, default on): reported by the client to the server when joining a world, and switches the pattern and material bonuses for that player; a change only takes effect after rejoining, because the value is only sent at login.",
-          "Pistons Breach End Portal Frames (pistonsBreachEndPortalFrames, default off): whether the mod's pistons treat End Portal Frames as breachable unbreakable blocks (a paid Reinforced Piston pushes one, a Netherite or Enderite Piston destroys it); off, the frame counts as immune. Read on the server by PistonBreach.",
-          "Pistons Breach Modded Unbreakables (pistonsBreachModdedUnbreakables, default off): whether the mod's pistons also treat other mods' unbreakable blocks (hardness -1) as breachable; off, only the minecraft namespace and the tag simplebuilding:piston_breachable_extra count. Read by PistonBreach on the server and sent to clients at login.",
-          "Pistons Fire Break Events (pistonsFireBreakEvents, default on): whether the piston protection guard fires the loader's block break event with a fake player before every piston break (NeoForge BreakBlockEvent, Fabric PlayerBlockBreakEvents); off, only PistonEvent.Pre (NeoForge/Forge) and the world border decide. Forge has no fake player, so nothing changes there.",
-          "Netherite Piston Wear Budget (netheriteBreakerWearBudget, default 1024): hardness points a Netherite Piston breaks before it crumbles into a Reinforced Piston, spread over 8 wear stages; 0 turns wear off; negative values are treated as 0.",
-          "Show Enchanted (Dev) Creative Tab (showDevEnchantedTab, default off): shows the creative tab \"SimpleEnchants (Dev)\" outside a development environment too (in one it is always there). Read whenever the creative tabs are rebuilt, so a change takes effect at the latest after rejoining the world (DevEnchantedTab.isShown).",
-          "Own Textures for Vanilla Enchanted Books (vanillaEnchantedBookTextures, default on, client side): every vanilla enchantment gets its own enchanted book in the style of the mod books - a cover colour and a symbol that fits the enchantment (shield for Protection, flame for Fire Protection, feather for Feather Falling, clover for Fortune, heart for Mending and so on). A book with several enchantments shows the first vanilla one; a mod enchantment always wins. Off, vanilla enchantments show the vanilla book again, so a resource pack or another mod that retextures the books is not overridden. Like the other texture switches below it takes effect immediately, without a resource reload.",
-          "Own Textures for Mod Enchanted Books (modEnchantedBookTextures, default on, client side): every enchantment of this mod shows its own enchanted book. Off, mod enchantments show the plain vanilla enchanted book (vanilla parity); a book that also carries a vanilla enchantment then shows that one's book, as long as the switch above is on. Takes effect immediately.",
-          "Visible Trim Patterns on Vanilla Armor Icons (visibleTrimIconsVanillaArmor, default on, client side): trimmed vanilla armor (and the turtle shell) shows the trim pattern on its item icon, see Visible Armor Trims in the Inventory. Off, the icon is vanilla's own, with only the material's colour mark - for resource packs or mods that draw their own trim icons. Takes effect immediately.",
-          "Visible Trim Patterns on Enderite Armor Icons (visibleTrimIconsModArmor, default on, client side): the same switch for the mod's Enderite armor, independent of the vanilla one. Takes effect immediately.",
-          "Trim Benefit Base Multiplier (trimBenefitBaseMultiplier, default 2.0): base of the resonance multiplier; changeable at runtime with /simplebuilding config setTrimMultiplier <value> (operators only), /simplebuilding config getTrimMultiplier shows it; the command saves the value into the config file (not on Forge, which keeps no config file) and sends it to every online player, and clients show the server's value.",
-          "Max Multiplier Limit (maxMultiplierLimit, default 10.0): upper bound for the value in the setTrimMultiplier command (read when the command is registered); otherwise it has no effect.",
-          "Tool Settings → Invert Octant Sneak (invertOctantSneak, default off): inverts whether the Octant's area fill is shown with or without Constructor's Touch (showFill = inverted XOR enchantment present).",
-          "Tool Settings → Building Wand Highlight Opacity (buildingHighlightOpacity, default 40): opacity of the Sledgehammer and Octant preview faces; the code reads the value as a percentage from 0 to 100 (and clamps it), even though the tooltip says \"0.0 - 1.0\".",
-          "Tool Settings → Enable Tool Animations (enableToolAnimations, default on) and Enable Chisel Animation (enableChiselAnimation, default on): the hand animation for the Chisel and Sledgehammer only plays when both are on.",
-          "Tool Settings → Invert Bundle Interactions (invertBundleInteractions, default off): swaps insert (left click) and extract (right click) on the mod's bundles (Reinforced, Netherite, Enderite); the tooltip talks about sneaking, but the code only checks the click type.",
-          "Tool Settings → Building Wand Hunger Cost (Experimental) (buildingWandHungerCost, default on): EXPERIMENTAL. Per click or blueprint build the first blocks are free (1/16 of the wand's largest cube, at least 256); every further block a Building Wand places in survival adds food exhaustion, less per block for stronger wands (table under Building Wand); creative mode is exempt. Read on the server by WandHunger; it never deals damage itself.",
-          "World Generation & Economy → Enable Villager Trades (enableVillagerTrades, default on): loads the Librarian, Mason and Toolsmith offers; evaluated when datapacks load (world start, /reload).",
-          "World Generation & Economy → Enable Wandering Trader (enableWanderingTrades, default on): loads the Wandering Trader offers; evaluated when datapacks load as well.",
-          "World Generation & Economy → Enable Loot Chests (enableLootTableChanges, default on): adds the mod pools to the stronghold library, end city treasure, ancient city, bastion (treasure and other), nether fortress, pillager outpost, woodland mansion, buried treasure, dungeon, shipwreck treasure, igloo, abandoned mineshaft, ruined portal, the trial chamber vaults (common, rare, ominous) and the fishing treasure.",
-          "Fabric: settings screen via ModMenu (AutoConfigClient.getConfigScreen); NeoForge: config button in the mod list (IConfigScreenFactory); both build the AutoConfig screen.",
+          "Screen: Cloth Config builds it from SimplebuildingConfig; on Fabric ModMenu opens it, on NeoForge the Config button in the mod list (IConfigScreenFactory). Seven tabs, most important first: Tools & Building, Enchantments & Armor, Pistons, Pads & Tweaks, Loot, Trades & World, Visuals (Client), Compatibility & Advanced. Every option shows a tooltip with its effect and its default. Forge has no Cloth Config: it runs with the defaults and keeps no file (commands change the running values only). The 26.4 snapshot line has no screen either.",
+          "File: config/simplebuilding.json. The tabs only change the screen: the JSON keeps its nesting (tools.*, worldGen.*, tweaks.*), so older files load unchanged. Values are clamped when the file loads (negative cooldowns, NaN multipliers and the like fall back to 0 or the default).",
+          "Command (operators): /simplebuilding config list [filter] lists every option with its value (gold = changed), get <option> shows value, default and type, set <option> <value> and reset <option> change it, save the file and send the new server values to every client. The option names are the dotted paths below; the list is built from the config fields themselves (ConfigOptions), so every option is reachable. setTrimMultiplier/getTrimMultiplier remain. /simplebuilding tweaks ... keeps its shorter pad and spawn commands.",
+          "Server to client: the server sends what clients must agree on at login and after every config command - rocket stack size, boosts, lens on/off and range, the air jump cooldown (TweaksConfigPayload), the two piston breach options (PistonConfigPayload) and the trim multiplier (TrimDataPayload). Options marked client-side only affect the player whose config they are in.",
+          "Tools & Building → Building Wand Hunger Cost (Experimental) (tools.buildingWandHungerCost, default on): Experimental. Building a lot at once makes you hungry: per click or blueprint build the first blocks are free (1/16 of the wand's largest cube, at least 256 - normal faces never cost anything); every block past that adds food exhaustion, less for stronger wands (a Copper Wand filling 16x16x16 takes about a quarter of the hunger bar, an Enderite Wand building 128x128x128 the whole bar). Creative mode is exempt. It never deals damage itself. Server-side.",
+          "Tools & Building → Building Wand Hunger Multiplier (tools.wandHungerMultiplier, default 1.0): Multiplies the food exhaustion of every block past the free allowance (see Building Wand Hunger Cost). 0.5 = half as hungry, 2 = twice as hungry, 0 = building is free. The free allowance itself stays. Server-side. Default: 1.0.",
+          "Tools & Building → Magnet Range Multiplier (tools.magnetRangeMultiplier, default 1.0): Multiplies how far the Magnet pulls items (4 blocks, 8 with Constructor's Touch, +2 per Radius level). 2 = twice as far, 0 = the Magnet pulls nothing. Server-side. Default: 1.0.",
+          "Tools & Building → Rotator Charge per Turn (tools.rotatorChargePerTurn, default 1): Charge one turn of the Rotator uses up (a full Rotator holds 1024, 16 Ender Pearls refill it). 0 = turning is free, 2 = half as many turns per charge. Unbreaking still applies. Server-side.",
+          "Tools & Building → Invert Bundle Clicks (tools.invertBundleInteractions, default off): Swaps the mouse buttons on the mod's bundles and quivers: off, left click puts items in and right click takes one out; on, the other way round.",
+          "Tools & Building → Invert Octant Area Preview (tools.invertOctantSneak, default off): Off: the Octant draws its area figure only while it carries Constructor's Touch. On: the other way round. The two corner outlines are always drawn. Client-side.",
+          "Tools & Building → Preview Opacity (%) (tools.buildingHighlightOpacity, default 40): Opacity of the filled preview faces of the Sledgehammer and the Octant, in percent (0 = invisible, 100 = solid). Client-side.",
+          "Tools & Building → Tool Animations (tools.enableToolAnimations, default on): Master switch for the first-person hand animations of the Chisel and the Sledgehammer. Client-side.",
+          "Tools & Building → Chisel Tilt Animation (tools.enableChiselAnimation, default on): Tilts the held Chisel when you aim at a block it can transform. Only plays while Tool Animations is on too. Client-side.",
+          "Enchantments & Armor → Air Jump (enableDoubleJump, default on): Lets you use the Air Jump (Double Jump) enchantment on boots: press jump again in mid-air. Off, no air jumps are triggered. This is your own client setting.",
+          "Enchantments & Armor → Air Jump Cooldown (Ticks) (airJumpCooldownTicks, default 100): Time between two air jumps at Air Jump level I, in ticks (20 ticks = 1 s); level II waits half as long. On a server the server's value applies and is sent to every player.",
+          "Enchantments & Armor → Armor Trim Benefits (enableArmorTrimBenefits, default on): Gives you the gameplay bonuses of armor trim patterns and materials (for example water breathing). Your client reports it when you join a world, so a change takes effect after rejoining.",
+          "Enchantments & Armor → Trim Resonance Multiplier (trimBenefitBaseMultiplier, default 2.0): Base of the trim resonance: higher values make matching trims stronger (0 to 10). Also settable with /simplebuilding config setTrimMultiplier. On a server the server's value applies and is shown to every player. Default: 2.0.",
+          "Pistons → Breaker Pistons Lose Durability (breakerPistonsLoseDurability, default on): every block a Netherite or Enderite Piston destroys while extending costs 1 durability (226 and 281); off, they never lose durability. The maximum values are fixed (they are the range of a block state property, the same on server and client); the old wear budgets netheriteBreakerWearBudget and enderitePistonWearBudget are gone.",
+          "Pistons → Pistons Breach End Portal Frames (pistonsBreachEndPortalFrames, default off): On: the mod's pistons treat End Portal Frames like other unbreakable blocks - a Reinforced Piston paid with a Redstone Block can push one, a Netherite or Enderite Piston can destroy it. Off: End Portal Frames are left alone. Server-side, sent to clients.",
+          "Pistons → Pistons Breach Unbreakables of Other Mods (pistonsBreachModdedUnbreakables, default off): On: the mod's pistons also treat unbreakable blocks (hardness -1) of other mods as breachable. Off: only vanilla's unbreakable blocks and the tag simplebuilding:piston_breachable_extra count. Server-side, sent to clients.",
+          "Pads & Tweaks → Chunk Loaders (tweaks.pads.enableChunkLoaders, default on): Off: chunk loaders stay placeable but release their chunks and do nothing.",
+          "Pads & Tweaks → Elytra Pads (tweaks.pads.enableElytraPads, default on): Off: elytra pads hand out and recharge nothing.",
+          "Pads & Tweaks → Flypads (tweaks.pads.enableFlypads, default on): Off: flypads take creative flight back and grant none.",
+          "Pads & Tweaks → Spawn Teleporters (tweaks.pads.enableSpawnTeleporters, default on): Off: spawn teleporters do not teleport.",
+          "Pads & Tweaks → Launchpads (tweaks.pads.enableLaunchpads, default on): Off: launchpads do not launch.",
+          "Pads & Tweaks → Copper Pressure Plates (tweaks.pads.enableTimedCopperPlates, default on): Off: copper pressure plates never activate.",
+          "Pads & Tweaks → Netherite/Enderite Pressure Plates (tweaks.pads.enableFilterPlates, default on): Off: netherite and enderite pressure plates never activate.",
+          "Pads & Tweaks → Potion Pads (tweaks.pads.enablePotionPads, default on): Off: potion pads keep their potion but give no effects.",
+          "Pads & Tweaks → Teleporter Warm-up (Ticks) (tweaks.padTuning.teleporterWarmupTicks, default 100): How long a player has to stand still on a spawn teleporter (tiers I-IV) before it teleports, in ticks (20 = 1 s).",
+          "Pads & Tweaks → Enderite Teleporter Warm-up (Ticks) (tweaks.padTuning.enderiteTeleporterWarmupTicks, default 60): The same for the Enderite spawn teleporter (tier V).",
+          "Pads & Tweaks → Launchpad Strength Multiplier (tweaks.padTuning.launchpadStrengthMultiplier, default 1.0): Multiplies the launch strength of launchpads (1.5 plus 0.8 per wind charge). 0.5 = half as high, 2 = twice as strong. Default: 1.0.",
+          "Pads & Tweaks → Potion Pad Charge Step (Ticks) (tweaks.padTuning.potionPadChargeStepTicks, default 20): A player standing on a potion pad gets 25 %, 50 % and then 100 % of the effect duration in three steps; this is the length of one step in ticks.",
+          "Pads & Tweaks → Potion Pad Cooldown Factor (tweaks.padTuning.potionPadCooldownFactor, default 2.0): After a full charge the potion pad cools down for this many times the effect duration. 0 = no cooldown. Default: 2.0.",
+          "Pads & Tweaks → Amethyst Lens (tweaks.laserPointer.enable, default on): Shows the beam dots and lets the lens melt, light and dry blocks. Off: the lens does nothing. Server-side, sent to clients.",
+          "Pads & Tweaks → Dot Colour (tweaks.laserPointer.color, default #FF0000): Colour of the beam dot (RGB). Client-side.",
+          "Pads & Tweaks → Dot Size (Blocks) (tweaks.laserPointer.scale, default 0.25): Size of the dot in blocks (0.05 to 1); far away it only grows so it stays visible. Client-side. Default: 0.25.",
+          "Pads & Tweaks → Max Range (Blocks) (tweaks.laserPointer.range, default 512): How far the beam reaches, in blocks (never beyond the server's view distance). Server-side, sent to clients.",
+          "Pads & Tweaks → Charge per Second of Beaming (tweaks.laserPointer.beamCostPerSecond, default 1): Charge the lens uses up for every started second of beaming (a full lens holds 640, one Redstone Dust recharges 10). 0 = beaming is free.",
+          "Pads & Tweaks → Charge per Effect (tweaks.laserPointer.effectCost, default 5): Charge used up each time the beam melts, lights, dries or ignites something. 0 = effects are free.",
+          "Pads & Tweaks → Firework Rocket Stack Size (tweaks.balancing.rocketStackSize, default 64): How many firework rockets fit in one stack (1 to 64); 16 nerfs elytra flight. Server-side, sent to clients.",
+          "Pads & Tweaks → Echo Sounder Cooldown (Ticks) (tweaks.balancing.echoSounderCooldownTicks, default 120): Cooldown of the Echo Sounder after a jump to its lodestone, in ticks (20 = 1 s). 0 = no cooldown.",
+          "Pads & Tweaks → Exact Spawn Point (tweaks.spawn.forceExactSpawn, default off): Players spawn exactly on the spawn block (and the bed centre) instead of randomly around it.",
+          "Pads & Tweaks → No Fall Damage at Spawn (tweaks.spawn.disableFallDamageInSpawn, default on): While the spawn elytra is on: no fall damage within the spawn radius.",
+          "Pads & Tweaks → Custom World Spawn (tweaks.spawn.useCustomWorldSpawn, default off): On: the world spawn is moved to the coordinates below (when the overworld loads, or right away when set by command).",
+          "Pads & Tweaks → World Spawn X (tweaks.spawn.xCoordSpawnPoint, default 0): X of the custom world spawn.",
+          "Pads & Tweaks → World Spawn Y (-1 = Auto) (tweaks.spawn.yCoordSpawnPoint, default -1): Y of the custom world spawn; -1 uses the highest block at X/Z.",
+          "Pads & Tweaks → World Spawn Z (tweaks.spawn.zCoordSpawnPoint, default 0): Z of the custom world spawn.",
+          "Pads & Tweaks → Spawn Teleporters on First Join (tweaks.spawn.firstJoinTeleporterCount, default 0): Spawn teleporters every player gets on the first join (0 to 64, 0 = none).",
+          "Pads & Tweaks → Elytra Pads on First Join (tweaks.spawn.firstJoinElytraPadCount, default 0): Elytra pads every player gets on the first join (0 to 64, 0 = none).",
+          "Pads & Tweaks → Spawn Elytra (tweaks.spawn.giveElytraOnSpawn, default off): Players get a spawn elytra while inside the spawn radius.",
+          "Pads & Tweaks → Spawn Elytra Radius (Blocks) (tweaks.spawn.spawnElytraRadius, default 25): Radius around the centre where players get the spawn elytra.",
+          "Pads & Tweaks → World Spawn as Centre (tweaks.spawn.useWorldSpawnAsCenter, default off): On: the world spawn is the centre of the spawn area; off: the custom centre below.",
+          "Pads & Tweaks → Spawn Area Centre X (tweaks.spawn.customSpawnElytraX, default 0): X of the spawn area centre.",
+          "Pads & Tweaks → Spawn Area Centre Z (tweaks.spawn.customSpawnElytraZ, default 0): Z of the spawn area centre.",
+          "Pads & Tweaks → Flight Time (Seconds) (tweaks.spawn.flightTimeSeconds, default 300): Gliding time with the spawn elytra outside the spawn area (at most 24 h).",
+          "Pads & Tweaks → Boosts per Charge (tweaks.spawn.maxBoosts, default 3): Boosts per charge of the spawn elytra (space while gliding, 1 to 100). Server-side, sent to clients.",
+          "Pads & Tweaks → Boost Strength (tweaks.spawn.boostStrength, default 0.6): Strength of one spawn elytra boost. Default: 0.6.",
+          "Pads & Tweaks → Teleporter I Target X (tweaks.spawn.spawn1X, default 0): X of the target of spawn teleporter I; set it with /simplebuilding tweaks worldspawn setspawn1.",
+          "Pads & Tweaks → Teleporter I Target Y (tweaks.spawn.spawn1Y, default -1000): Y of the target of spawn teleporter I; set it with /simplebuilding tweaks worldspawn setspawn1. -1000 = not set (world spawn).",
+          "Pads & Tweaks → Teleporter I Target Z (tweaks.spawn.spawn1Z, default 0): Z of the target of spawn teleporter I; set it with /simplebuilding tweaks worldspawn setspawn1.",
+          "Pads & Tweaks → Teleporter II Target X (tweaks.spawn.spawn2X, default 0): X of the target of spawn teleporter II; set it with /simplebuilding tweaks worldspawn setspawn2.",
+          "Pads & Tweaks → Teleporter II Target Y (tweaks.spawn.spawn2Y, default -1000): Y of the target of spawn teleporter II; set it with /simplebuilding tweaks worldspawn setspawn2. -1000 = not set (world spawn).",
+          "Pads & Tweaks → Teleporter II Target Z (tweaks.spawn.spawn2Z, default 0): Z of the target of spawn teleporter II; set it with /simplebuilding tweaks worldspawn setspawn2.",
+          "Pads & Tweaks → Teleporter III Target X (tweaks.spawn.spawn3X, default 0): X of the target of spawn teleporter III; set it with /simplebuilding tweaks worldspawn setspawn3.",
+          "Pads & Tweaks → Teleporter III Target Y (tweaks.spawn.spawn3Y, default -1000): Y of the target of spawn teleporter III; set it with /simplebuilding tweaks worldspawn setspawn3. -1000 = not set (world spawn).",
+          "Pads & Tweaks → Teleporter III Target Z (tweaks.spawn.spawn3Z, default 0): Z of the target of spawn teleporter III; set it with /simplebuilding tweaks worldspawn setspawn3.",
+          "Pads & Tweaks → Teleporter IV Target X (tweaks.spawn.spawn4X, default 0): X of the target of spawn teleporter IV; set it with /simplebuilding tweaks worldspawn setspawn4.",
+          "Pads & Tweaks → Teleporter IV Target Y (tweaks.spawn.spawn4Y, default -1000): Y of the target of spawn teleporter IV; set it with /simplebuilding tweaks worldspawn setspawn4. -1000 = not set (world spawn).",
+          "Pads & Tweaks → Teleporter IV Target Z (tweaks.spawn.spawn4Z, default 0): Z of the target of spawn teleporter IV; set it with /simplebuilding tweaks worldspawn setspawn4.",
+          "Pads & Tweaks → Allow the Nether (tweaks.dimensions.allowNether, default on): Off: no player can enter the Nether.",
+          "Pads & Tweaks → Allow the End (tweaks.dimensions.allowEnd, default on): Off: no player can enter the End.",
+          "Pads & Tweaks → Enable /killboats (tweaks.commands.enableKillBoatsCommand, default on): Operators can remove unused boats around them with /killboats [standard|empty|all].",
+          "Pads & Tweaks → Enable /killcarts (tweaks.commands.enableKillCartsCommand, default off): Operators can remove unused minecarts around them with /killcarts [standard|empty|all].",
+          "Pads & Tweaks → /killboats and /killcarts Radius (tweaks.commands.killCommandRadius, default 100): How far around the player /killboats and /killcarts reach, in blocks.",
+          "Pads & Tweaks → Merge XP Orbs (tweaks.optimization.enableXpClumps, default on): Merges nearby experience orbs into one (nothing is lost) and allows instant pickup.",
+          "Pads & Tweaks → XP Merge Radius (Blocks) (tweaks.optimization.xpClumpRadius, default 2.0): How far an orb reaches to merge its neighbours, in blocks. Larger = fewer orbs. Default: 2.0.",
+          "Pads & Tweaks → Scale XP Orbs by Value (tweaks.optimization.scaleXpOrbs, default on): Orbs worth more experience look bigger (up to three times). Client-side.",
+          "Loot, Trades & World → Mod Loot in Chests (worldGen.enableLootTableChanges, default on): Adds mod items and enchanted books to vanilla structure chests, trial chamber vaults and fishing treasure. Applies when the data packs load (world start, /reload).",
+          "Loot, Trades & World → Building Core Loot Chance Multiplier (worldGen.buildingCoreLootChanceMultiplier, default 1.0): Multiplies the (very small) chance of building cores in loot chests, at most one per chest. 0 = no cores in chests. Applies on world start or /reload. Default: 1.0.",
+          "Loot, Trades & World → Villager Trades (worldGen.enableVillagerTrades, default on): Librarians, masons and toolsmiths also offer mod items and books. Applies on world start or /reload.",
+          "Loot, Trades & World → Wandering Trader Offers (worldGen.enableWanderingTrades, default on): The wandering trader also buys and sells mod items. Applies on world start or /reload.",
+          "Loot, Trades & World → Beginner's Guide on First Join (giveGuideBookOnFirstJoin, default on): Every player gets the Beginner's Guide once, the first time they join a world or server. Off: nothing is given; switched on later, each player gets it once on their next join.",
+          "Visuals (Client) → Own Textures for Vanilla Enchanted Books (vanillaEnchantedBookTextures, default on): Every vanilla enchantment gets its own enchanted book texture. Turn it off to see the vanilla book again, e.g. when a resource pack or another mod retextures the books. Takes effect immediately.",
+          "Visuals (Client) → Own Textures for Mod Enchanted Books (modEnchantedBookTextures, default on): Every enchantment of this mod has its own enchanted book texture. Turn it off for the plain vanilla enchanted book. Takes effect immediately.",
+          "Visuals (Client) → Trim Patterns on Vanilla Armor Icons (visibleTrimIconsVanillaArmor, default on): Item icons of trimmed vanilla armor (and the turtle shell) show the trim pattern in the trim material's colours. Off: the vanilla icon with only a colour mark. Takes effect immediately.",
+          "Visuals (Client) → Trim Patterns on Enderite Armor Icons (visibleTrimIconsModArmor, default on): Item icons of trimmed Enderite armor show the trim pattern in the trim material's colours. Off: the plain icon with only a colour mark. Takes effect immediately.",
+          "Compatibility & Advanced → Pistons Fire Block Break Events (pistonsFireBreakEvents, default on): Before a Netherite or Enderite Piston destroys a block it fires the loader's block break event with a fake player, so claim and protection mods can stop it. Turn it off if a protection mod blocks every fake player (pistons would stop everywhere) or quest and statistics mods count piston breaks as player breaks. Server-side.",
+          "Compatibility & Advanced → Show \"SimpleEnchants (Dev)\" Creative Tab (showDevEnchantedTab, default off): Shows the creative tab \"SimpleEnchants (Dev)\" outside development environments too: the best tier of every enchantable item, pre-enchanted at max level. Takes effect when the creative tabs are rebuilt (at the latest after rejoining).",
+          "The trim resonance limit maxMultiplierLimit (10.0) is fixed in code: the upper bound of setTrimMultiplier and of the loaded value; it is not an option.",
           "On NeoForge the mod keeps a default config around in case loading fails (fallback new SimplebuildingConfig()).",
           "The End ore generation has no config switch."
         ]
       },
       "de": {
         "title": "Konfiguration",
-        "summary": "Die Mod wird über eine AutoConfig/Cloth-Config-Datei mit dem Namen „simplebuilding“ eingestellt; auf Fabric öffnet ModMenu den Einstellungsbildschirm, auf NeoForge der Konfigurationsknopf in der Mod-Liste. Es gibt Schalter für Luftsprung, Besatz-Vorteile, Werkzeuganzeige, Handel und Beutetruhen sowie einen Befehl für den Resonanz-Multiplikator.",
+        "summary": "Die Mod wird über die Cloth-Config-Datei config/simplebuilding.json eingestellt: Auf Fabric öffnet ModMenu den Einstellungsbildschirm, auf NeoForge der Config-Knopf in der Mod-Liste. Der Bildschirm hat sieben Reiter (Werkzeuge, Verzauberungen, Kolben, Pads, Beute, Darstellung, Erweitert) mit Tooltip und Standardwert zu jeder Option; Operatoren ändern jede Option im Spiel mit /simplebuilding config.",
         "details": [
-          "Luftsprung-Verzauberung aktivieren (enableDoubleJump, Standard an): schaltet den Luftsprung clientseitig komplett ab.",
-          "Luftsprung-Abklingzeit (airJumpCooldownTicks, Standard 100): Abklingzeit in Ticks bei Luftsprung-Stufe 1 (20 Ticks = 1 s); Stufe 2 nutzt die Hälfte; negative Werte werden als 0 behandelt.",
-          "Rüstungsbesatz-Vorteile aktivieren (enableArmorTrimBenefits, Standard an): wird beim Betreten einer Welt vom Client an den Server gemeldet und schaltet die Muster- und Material-Boni für diesen Spieler; eine Änderung wirkt erst nach erneutem Betreten, da der Wert nur beim Login gesendet wird.",
-          "Kolben durchbrechen Endportalrahmen (pistonsBreachEndPortalFrames, Standard aus): ob die Kolben der Mod Endportalrahmen als durchbrechbare unzerstörbare Blöcke behandeln (ein bezahlter Verstärkter Kolben schiebt einen, ein Netherit- oder Enderitkolben zerstört ihn); aus, gilt der Rahmen als immun. Wird serverseitig von PistonBreach gelesen.",
-          "Kolben durchbrechen Unzerstörbares anderer Mods (pistonsBreachModdedUnbreakables, Standard aus): ob die Kolben der Mod auch unzerstörbare Blöcke (Härte -1) anderer Mods als durchbrechbar behandeln; aus, zählen nur der Namensraum minecraft und der Tag simplebuilding:piston_breachable_extra. Wird serverseitig von PistonBreach gelesen und beim Einloggen an die Clients geschickt.",
-          "Kolben lösen Abbau-Ereignisse aus (pistonsFireBreakEvents, Standard an): ob der Kolben-Schutz vor jedem Kolben-Abbau das Abbau-Ereignis des Loaders mit einem Fake-Spieler feuert (NeoForge BreakBlockEvent, Fabric PlayerBlockBreakEvents); aus, entscheiden nur PistonEvent.Pre (NeoForge/Forge) und die Weltgrenze. Forge hat keinen Fake-Spieler, dort ändert sich nichts.",
-          "Verschleißbudget des Netheritkolbens (netheriteBreakerWearBudget, Standard 1024): Härtepunkte, die ein Netheritkolben bricht, bevor er zum Verstärkten Kolben zerfällt, verteilt auf 8 Verschleißstufen; 0 schaltet den Verschleiß ab, negative Werte gelten als 0.",
-          "Kreativ-Tab „Verzaubert (Dev)“ zeigen (showDevEnchantedTab, Standard aus): zeigt den Kreativ-Reiter „SimpleEnchants (Dev)“ auch außerhalb einer Entwicklungsumgebung (dort ist er immer da). Gelesen, wenn die Kreativ-Reiter neu aufgebaut werden; eine Änderung wirkt also spätestens nach erneutem Betreten der Welt (DevEnchantedTab.isShown).",
-          "Eigene Texturen für Vanilla-Zauberbücher (vanillaEnchantedBookTextures, Standard an, clientseitig): jede Vanilla-Verzauberung bekommt ein eigenes verzaubertes Buch im Stil der Mod-Bücher - eine Einbandfarbe und ein passendes Symbol (Schild für Schutz, Flamme für Feuerschutz, Feder für Federfall, Kleeblatt für Glück, Herz für Reparatur und so weiter). Ein Buch mit mehreren Verzauberungen zeigt die erste Vanilla-Verzauberung; eine Mod-Verzauberung hat immer Vorrang. Aus: Vanilla-Verzauberungen zeigen wieder das Vanilla-Buch, damit ein Ressourcenpaket oder eine andere Mod, die die Bücher neu gestaltet, nicht überschrieben wird. Wie die übrigen Textur-Schalter darunter wirkt er sofort, ohne Neuladen der Ressourcen.",
-          "Eigene Texturen für Mod-Zauberbücher (modEnchantedBookTextures, Standard an, clientseitig): jede Verzauberung dieser Mod zeigt ihr eigenes verzaubertes Buch. Aus: Mod-Verzauberungen zeigen das schlichte Vanilla-Zauberbuch (wie in Vanilla); trägt das Buch zusätzlich eine Vanilla-Verzauberung, zeigt es deren Buch, solange der Schalter darüber an ist. Wirkt sofort.",
-          "Sichtbare Besatzmuster auf Vanilla-Rüstungs-Icons (visibleTrimIconsVanillaArmor, Standard an, clientseitig): besetzte Vanilla-Rüstung (auch der Schildkrötenpanzer) zeigt das Besatzmuster auf dem Item-Symbol, siehe Sichtbare Rüstungsbesätze im Inventar. Aus: das Vanilla-Symbol mit nur dem Farbfleck des Materials – für Ressourcenpakete oder Mods mit eigenen Besatz-Symbolen. Wirkt sofort.",
-          "Sichtbare Besatzmuster auf Enderit-Rüstungs-Icons (visibleTrimIconsModArmor, Standard an, clientseitig): derselbe Schalter für die Enderit-Rüstung der Mod, unabhängig vom Vanilla-Schalter. Wirkt sofort.",
-          "trimBenefitBaseMultiplier (Standard 2,0): Basis des Resonanz-Multiplikators; per Befehl /simplebuilding config setTrimMultiplier <Wert> (nur Operatoren) zur Laufzeit änderbar, /simplebuilding config getTrimMultiplier zeigt ihn; der Befehl speichert den Wert in der Konfigurationsdatei (nicht auf Forge, das keine Konfigurationsdatei führt) und schickt ihn an alle Spieler online; Clients zeigen den Wert des Servers.",
-          "maxMultiplierLimit (Standard 10,0): Obergrenze für den Wert im Befehl setTrimMultiplier (wird bei der Befehlsregistrierung ausgelesen); sonst ohne Wirkung.",
-          "Werkzeugeinstellungen → Oktant Schleichen umkehren (invertOctantSneak, Standard aus): kehrt um, ob die Oktant-Flächenfüllung mit oder ohne „Berührung des Konstrukteurs“ angezeigt wird (showFill = invertiert XOR Verzauberung vorhanden).",
-          "Werkzeugeinstellungen → Baustab Hervorhebung Deckkraft (buildingHighlightOpacity, Standard 40): Deckkraft der Vorschau-Flächen von Vorschlaghammer und Oktant; der Code wertet den Wert als Prozent von 0 bis 100 aus (wird begrenzt), obwohl der Tooltip „0.0 – 1.0“ nennt.",
-          "Werkzeugeinstellungen → Werkzeuganimationen aktivieren (enableToolAnimations, Standard an) und Meißel-Animation aktivieren (enableChiselAnimation, Standard an): nur wenn beide an sind, wird die Handanimation für Meißel und Vorschlaghammer abgespielt.",
-          "Werkzeugeinstellungen → Bündel-Interaktion umkehren (invertBundleInteractions, Standard aus): tauscht beim Verstärkten Bündel Einfügen (Linksklick) und Entnehmen (Rechtsklick); der Tooltip spricht von Schleichen, der Code prüft aber nur die Klickart.",
-          "Werkzeugeinstellungen → Hungerkosten des Baustabs (experimentell) (buildingWandHungerCost, Standard an): EXPERIMENTELL. Pro Klick oder Blaupausen-Bau sind die ersten Blöcke frei (1/16 des größten Würfels des Stabs, mindestens 256); jeder weitere Block, den ein Baustab im Überlebensmodus setzt, erzeugt Erschöpfung, bei stärkeren Stäben weniger pro Block (Tabelle unter Baustab); der Kreativmodus ist ausgenommen. Wird serverseitig von WandHunger gelesen; verursacht nie selbst Schaden.",
-          "Weltgenerierung & Wirtschaft → Dorfbewohner-Handel aktivieren (enableVillagerTrades, Standard an): lädt die Angebote von Bibliothekar, Steinmetz und Werkzeugschmied; wird beim Laden der Datenpakete ausgewertet (Weltstart, /reload).",
-          "Weltgenerierung & Wirtschaft → Fahrender Händler aktivieren (enableWanderingTrades, Standard an): lädt die Angebote des fahrenden Händlers; ebenfalls beim Laden der Datenpakete ausgewertet.",
-          "Weltgenerierung & Wirtschaft → Beutetruhen aktivieren (enableLootTableChanges, Standard an): fügt die Mod-Pools zu Festungsbibliothek, Endsiedlung, Tiefe Stadt, Bastion (Schatz und Sonstige), Netherfestung, Plünderer-Außenposten, Waldanwesen, vergrabenem Schatz, Verlies, Schiffswrack-Schatz, Iglu, verlassener Mine, Portalruine, den Tresoren der Prüfungskammern (normal, selten, unheilvoll) und dem Angel-Schatz hinzu.",
-          "Fabric: Einstellungsbildschirm über ModMenu (AutoConfigClient.getConfigScreen); NeoForge: Konfigurationsknopf in der Mod-Liste (IConfigScreenFactory); beide bauen den AutoConfig-Bildschirm auf.",
+          "Bildschirm: Cloth Config baut ihn aus SimplebuildingConfig; auf Fabric öffnet ihn ModMenu, auf NeoForge der Config-Knopf in der Mod-Liste (IConfigScreenFactory). Sieben Reiter, Wichtiges zuerst: Werkzeuge & Bauen, Verzauberungen & Rüstung, Kolben, Pads & Tweaks, Beute, Handel & Welt, Darstellung (Client), Kompatibilität & Erweitert. Jede Option zeigt einen Tooltip mit Wirkung und Standardwert. Forge hat kein Cloth Config: Es läuft mit den Standardwerten und ohne Datei (Befehle ändern nur die laufenden Werte). Die 26.4-Snapshot-Linie hat ebenfalls keinen Bildschirm.",
+          "Datei: config/simplebuilding.json. Die Reiter ändern nur den Bildschirm: Das JSON behält seine Verschachtelung (tools.*, worldGen.*, tweaks.*), ältere Dateien laden unverändert. Beim Laden werden Werte begrenzt (negative Abklingzeiten, NaN-Faktoren und Ähnliches fallen auf 0 bzw. den Standard zurück).",
+          "Befehl (Operatoren): /simplebuilding config list [Filter] listet jede Option mit ihrem Wert (gold = geändert), get <Option> zeigt Wert, Standard und Typ, set <Option> <Wert> und reset <Option> ändern sie, speichern die Datei und schicken die neuen Server-Werte an alle Clients. Die Optionsnamen sind die Punkt-Pfade unten; die Liste entsteht aus den Config-Feldern selbst (ConfigOptions), jede Option ist also erreichbar. setTrimMultiplier/getTrimMultiplier bleiben. /simplebuilding tweaks ... behält seine kürzeren Pad- und Spawn-Befehle.",
+          "Server an Client: Was Clients mit dem Server gleich sehen müssen, schickt der Server beim Einloggen und nach jedem Config-Befehl - Raketen-Stapelgröße, Boosts, Linse an/aus und Reichweite, die Luftsprung-Abklingzeit (TweaksConfigPayload), die beiden Kolben-Durchbruch-Optionen (PistonConfigPayload) und den Besatz-Multiplikator (TrimDataPayload). Als clientseitig markierte Optionen wirken nur für den Spieler, in dessen Config sie stehen.",
+          "Werkzeuge & Bauen → Hungerkosten des Baustabs (experimentell) (tools.buildingWandHungerCost, Standard an): Experimentell. Viel auf einmal bauen macht hungrig: Pro Klick oder Blaupausen-Bau sind die ersten Blöcke frei (1/16 des größten Würfels des Stabs, mindestens 256 - normale Flächen kosten nie etwas); jeder weitere Block erzeugt Erschöpfung, bei stärkeren Stäben weniger (ein Kupfer-Baustab, der 16x16x16 füllt, kostet etwa ein Viertel der Hungerleiste, ein Enderit-Baustab mit 128x128x128 die ganze Leiste). Der Kreativmodus ist ausgenommen. Verursacht nie selbst Schaden. Serverseitig.",
+          "Werkzeuge & Bauen → Hunger-Faktor des Baustabs (tools.wandHungerMultiplier, Standard 1,0): Multipliziert die Erschöpfung jedes Blocks über dem Freibetrag (siehe Hungerkosten des Baustabs). 0,5 = halb so hungrig, 2 = doppelt so hungrig, 0 = Bauen kostet nichts. Der Freibetrag bleibt. Serverseitig.",
+          "Werkzeuge & Bauen → Reichweiten-Faktor des Magneten (tools.magnetRangeMultiplier, Standard 1,0): Multipliziert, wie weit der Magnet Gegenstände anzieht (4 Blöcke, 8 mit Berührung des Konstrukteurs, +2 je Radius-Stufe). 2 = doppelt so weit, 0 = der Magnet zieht nichts an. Serverseitig.",
+          "Werkzeuge & Bauen → Rotator-Ladung je Drehung (tools.rotatorChargePerTurn, Standard 1): Ladung, die eine Drehung des Rotators verbraucht (voll sind 1024, 16 Enderperlen laden auf). 0 = Drehen kostet nichts, 2 = halb so viele Drehungen je Ladung. Haltbarkeit wirkt weiter. Serverseitig.",
+          "Werkzeuge & Bauen → Bündel-Klicks vertauschen (tools.invertBundleInteractions, Standard aus): Vertauscht die Maustasten bei den Bündeln und Köchern der Mod: aus legt Linksklick ein und Rechtsklick nimmt heraus; an umgekehrt.",
+          "Werkzeuge & Bauen → Oktant-Flächenvorschau umkehren (tools.invertOctantSneak, Standard aus): Aus: Der Oktant zeichnet die Flächenfigur nur, wenn er Berührung des Konstrukteurs trägt. An: umgekehrt. Die beiden Eckpunkt-Umrisse werden immer gezeichnet. Clientseitig.",
+          "Werkzeuge & Bauen → Deckkraft der Vorschau (%) (tools.buildingHighlightOpacity, Standard 40): Deckkraft der gefüllten Vorschauflächen von Vorschlaghammer und Oktant in Prozent (0 = unsichtbar, 100 = deckend). Clientseitig.",
+          "Werkzeuge & Bauen → Werkzeug-Animationen (tools.enableToolAnimations, Standard an): Hauptschalter für die Handanimationen von Meißel und Vorschlaghammer in der Ich-Ansicht. Clientseitig.",
+          "Werkzeuge & Bauen → Meißel-Kippanimation (tools.enableChiselAnimation, Standard an): Kippt den gehaltenen Meißel, wenn du auf einen Block zielst, den er umwandeln kann. Spielt nur, wenn auch Werkzeug-Animationen an ist. Clientseitig.",
+          "Verzauberungen & Rüstung → Luftsprung (enableDoubleJump, Standard an): Erlaubt den Luftsprung (Doppelsprung-Verzauberung auf Stiefeln): in der Luft erneut springen. Aus: keine Luftsprünge. Das ist eine Einstellung deines eigenen Clients.",
+          "Verzauberungen & Rüstung → Luftsprung-Abklingzeit (Ticks) (airJumpCooldownTicks, Standard 100): Zeit zwischen zwei Luftsprüngen bei Luftsprung I in Ticks (20 Ticks = 1 s); Stufe II wartet halb so lange. Auf einem Server gilt der Wert des Servers und wird an alle Spieler geschickt.",
+          "Verzauberungen & Rüstung → Rüstungsbesatz-Vorteile (enableArmorTrimBenefits, Standard an): Gibt dir die Spielboni der Besatzmuster und -materialien (zum Beispiel Wasseratmung). Dein Client meldet die Einstellung beim Betreten einer Welt; eine Änderung wirkt nach erneutem Betreten.",
+          "Verzauberungen & Rüstung → Besatz-Resonanz-Multiplikator (trimBenefitBaseMultiplier, Standard 2,0): Basis der Besatz-Resonanz: höhere Werte machen passende Besätze stärker (0 bis 10). Auch mit /simplebuilding config setTrimMultiplier einstellbar. Auf einem Server gilt der Wert des Servers und wird allen Spielern angezeigt.",
+          "Kolben → Brecher-Kolben verlieren Haltbarkeit (breakerPistonsLoseDurability, Standard an): jeder Block, den ein Netherit- oder Enderitkolben beim Ausfahren zerstört, kostet 1 Haltbarkeit (226 und 281); aus, verlieren sie nie Haltbarkeit. Die Höchstwerte sind fest (Wertebereich einer Blockeigenschaft, auf Server und Client gleich); die alten Verschleißbudgets netheriteBreakerWearBudget und enderitePistonWearBudget sind entfallen.",
+          "Kolben → Kolben durchbrechen Endportalrahmen (pistonsBreachEndPortalFrames, Standard aus): An: Die Kolben der Mod behandeln Endportalrahmen wie andere unzerstörbare Blöcke - ein mit einem Redstoneblock bezahlter Verstärkter Kolben kann einen schieben, ein Netherit- oder Enderitkolben ihn zerstören. Aus: Endportalrahmen bleiben unangetastet. Serverseitig, an die Clients geschickt.",
+          "Kolben → Kolben durchbrechen Unzerstörbares anderer Mods (pistonsBreachModdedUnbreakables, Standard aus): An: Die Kolben der Mod behandeln auch unzerstörbare Blöcke (Härte -1) anderer Mods als durchbrechbar. Aus: Nur die unzerstörbaren Blöcke von Vanilla und der Tag simplebuilding:piston_breachable_extra zählen. Serverseitig, an die Clients geschickt.",
+          "Pads & Tweaks → Chunk-Lader (tweaks.pads.enableChunkLoaders, Standard an): Aus: Chunk-Lader bleiben setzbar, geben aber ihre Chunks frei und tun nichts.",
+          "Pads & Tweaks → Elytra-Pads (tweaks.pads.enableElytraPads, Standard an): Aus: Elytra-Pads verteilen und laden nichts.",
+          "Pads & Tweaks → Flugpads (tweaks.pads.enableFlypads, Standard an): Aus: Flugpads nehmen den Kreativflug zurück und geben keinen.",
+          "Pads & Tweaks → Spawn-Teleporter (tweaks.pads.enableSpawnTeleporters, Standard an): Aus: Spawn-Teleporter teleportieren nicht.",
+          "Pads & Tweaks → Startrampen (tweaks.pads.enableLaunchpads, Standard an): Aus: Startrampen starten nicht.",
+          "Pads & Tweaks → Kupfer-Druckplatten (tweaks.pads.enableTimedCopperPlates, Standard an): Aus: Kupfer-Druckplatten lösen nie aus.",
+          "Pads & Tweaks → Netherit-/Enderit-Druckplatten (tweaks.pads.enableFilterPlates, Standard an): Aus: Netherit- und Enderit-Druckplatten lösen nie aus.",
+          "Pads & Tweaks → Trank-Pads (tweaks.pads.enablePotionPads, Standard an): Aus: Trank-Pads behalten ihren Trank, geben aber keine Wirkungen.",
+          "Pads & Tweaks → Teleporter-Wartezeit (Ticks) (tweaks.padTuning.teleporterWarmupTicks, Standard 100): Wie lange ein Spieler auf einem Spawn-Teleporter (Stufen I-IV) stillstehen muss, bis er teleportiert, in Ticks (20 = 1 s).",
+          "Pads & Tweaks → Enderit-Teleporter-Wartezeit (Ticks) (tweaks.padTuning.enderiteTeleporterWarmupTicks, Standard 60): Dasselbe für den Enderit-Spawn-Teleporter (Stufe V).",
+          "Pads & Tweaks → Startrampen-Stärke-Faktor (tweaks.padTuning.launchpadStrengthMultiplier, Standard 1,0): Multipliziert die Startstärke der Startrampen (1,5 plus 0,8 je Windkugel). 0,5 = halb so hoch, 2 = doppelt so stark.",
+          "Pads & Tweaks → Trank-Pad-Ladeschritt (Ticks) (tweaks.padTuning.potionPadChargeStepTicks, Standard 20): Wer auf einem Trank-Pad steht, bekommt in drei Schritten 25 %, 50 % und dann 100 % der Wirkdauer; das ist die Länge eines Schritts in Ticks.",
+          "Pads & Tweaks → Trank-Pad-Abklingfaktor (tweaks.padTuning.potionPadCooldownFactor, Standard 2,0): Nach einer vollen Ladung kühlt das Trank-Pad so viele Male die Wirkdauer lang ab. 0 = keine Abklingzeit.",
+          "Pads & Tweaks → Amethystlinse (tweaks.laserPointer.enable, Standard an): Zeigt die Strahlpunkte und lässt die Linse Blöcke schmelzen, anzünden und trocknen. Aus: Die Linse tut nichts. Serverseitig, an die Clients geschickt.",
+          "Pads & Tweaks → Punktfarbe (tweaks.laserPointer.color, Standard #FF0000): Farbe des Strahlpunkts (RGB). Clientseitig.",
+          "Pads & Tweaks → Punktgröße (Blöcke) (tweaks.laserPointer.scale, Standard 0,25): Größe des Punkts in Blöcken (0,05 bis 1); in der Ferne wächst er nur, damit er sichtbar bleibt. Clientseitig.",
+          "Pads & Tweaks → Reichweite (Blöcke) (tweaks.laserPointer.range, Standard 512): Wie weit der Strahl reicht, in Blöcken (nie über die Sichtweite des Servers hinaus). Serverseitig, an die Clients geschickt.",
+          "Pads & Tweaks → Ladung je Sekunde Strahlen (tweaks.laserPointer.beamCostPerSecond, Standard 1): Ladung, die die Linse je angefangener Sekunde Strahlen verbraucht (voll sind 640, ein Redstonestaub lädt 10 auf). 0 = Strahlen kostet nichts.",
+          "Pads & Tweaks → Ladung je Wirkung (tweaks.laserPointer.effectCost, Standard 5): Ladung, die jedes Schmelzen, Anzünden oder Trocknen durch den Strahl verbraucht. 0 = Wirkungen kosten nichts.",
+          "Pads & Tweaks → Raketen-Stapelgröße (tweaks.balancing.rocketStackSize, Standard 64): Wie viele Feuerwerksraketen in einen Stapel passen (1 bis 64); 16 schwächt den Elytraflug ab. Serverseitig, an die Clients geschickt.",
+          "Pads & Tweaks → Echolot-Abklingzeit (Ticks) (tweaks.balancing.echoSounderCooldownTicks, Standard 120): Abklingzeit des Echolots nach einem Sprung zu seinem Leitstein, in Ticks (20 = 1 s). 0 = keine Abklingzeit.",
+          "Pads & Tweaks → Exakter Spawnpunkt (tweaks.spawn.forceExactSpawn, Standard aus): Spieler erscheinen genau auf dem Spawnblock (und der Bettmitte) statt zufällig darum.",
+          "Pads & Tweaks → Kein Fallschaden am Spawn (tweaks.spawn.disableFallDamageInSpawn, Standard an): Solange die Spawn-Elytra an ist: kein Fallschaden im Spawnradius.",
+          "Pads & Tweaks → Eigener Weltspawn (tweaks.spawn.useCustomWorldSpawn, Standard aus): An: Der Weltspawn wird auf die Koordinaten unten gesetzt (beim Laden der Oberwelt oder, per Befehl gesetzt, sofort).",
+          "Pads & Tweaks → Weltspawn X (tweaks.spawn.xCoordSpawnPoint, Standard 0): X des eigenen Weltspawns.",
+          "Pads & Tweaks → Weltspawn Y (-1 = automatisch) (tweaks.spawn.yCoordSpawnPoint, Standard -1): Y des eigenen Weltspawns; -1 nimmt den obersten Block bei X/Z.",
+          "Pads & Tweaks → Weltspawn Z (tweaks.spawn.zCoordSpawnPoint, Standard 0): Z des eigenen Weltspawns.",
+          "Pads & Tweaks → Spawn-Teleporter beim ersten Betreten (tweaks.spawn.firstJoinTeleporterCount, Standard 0): Spawn-Teleporter, die jeder Spieler beim ersten Betreten bekommt (0 bis 64, 0 = keine).",
+          "Pads & Tweaks → Elytra-Pads beim ersten Betreten (tweaks.spawn.firstJoinElytraPadCount, Standard 0): Elytra-Pads, die jeder Spieler beim ersten Betreten bekommt (0 bis 64, 0 = keine).",
+          "Pads & Tweaks → Spawn-Elytra (tweaks.spawn.giveElytraOnSpawn, Standard aus): Spieler bekommen im Spawnradius eine Spawn-Elytra.",
+          "Pads & Tweaks → Spawn-Elytra-Radius (Blöcke) (tweaks.spawn.spawnElytraRadius, Standard 25): Radius um die Mitte, in dem es die Spawn-Elytra gibt.",
+          "Pads & Tweaks → Weltspawn als Mitte (tweaks.spawn.useWorldSpawnAsCenter, Standard aus): An: Der Weltspawn ist die Mitte des Spawnbereichs; aus: die eigene Mitte unten.",
+          "Pads & Tweaks → Mitte des Spawnbereichs X (tweaks.spawn.customSpawnElytraX, Standard 0): X der Mitte des Spawnbereichs.",
+          "Pads & Tweaks → Mitte des Spawnbereichs Z (tweaks.spawn.customSpawnElytraZ, Standard 0): Z der Mitte des Spawnbereichs.",
+          "Pads & Tweaks → Flugzeit (Sekunden) (tweaks.spawn.flightTimeSeconds, Standard 300): Gleitzeit mit der Spawn-Elytra außerhalb des Spawnbereichs (höchstens 24 h).",
+          "Pads & Tweaks → Boosts je Ladung (tweaks.spawn.maxBoosts, Standard 3): Boosts je Ladung der Spawn-Elytra (Leertaste im Gleitflug, 1 bis 100). Serverseitig, an die Clients geschickt.",
+          "Pads & Tweaks → Boost-Stärke (tweaks.spawn.boostStrength, Standard 0,6): Stärke eines Boosts der Spawn-Elytra.",
+          "Pads & Tweaks → Teleporter I Ziel X (tweaks.spawn.spawn1X, Standard 0): X des Ziels von Spawn-Teleporter I; gesetzt mit /simplebuilding tweaks worldspawn setspawn1.",
+          "Pads & Tweaks → Teleporter I Ziel Y (tweaks.spawn.spawn1Y, Standard -1000): Y des Ziels von Spawn-Teleporter I; gesetzt mit /simplebuilding tweaks worldspawn setspawn1. -1000 = nicht gesetzt (Weltspawn).",
+          "Pads & Tweaks → Teleporter I Ziel Z (tweaks.spawn.spawn1Z, Standard 0): Z des Ziels von Spawn-Teleporter I; gesetzt mit /simplebuilding tweaks worldspawn setspawn1.",
+          "Pads & Tweaks → Teleporter II Ziel X (tweaks.spawn.spawn2X, Standard 0): X des Ziels von Spawn-Teleporter II; gesetzt mit /simplebuilding tweaks worldspawn setspawn2.",
+          "Pads & Tweaks → Teleporter II Ziel Y (tweaks.spawn.spawn2Y, Standard -1000): Y des Ziels von Spawn-Teleporter II; gesetzt mit /simplebuilding tweaks worldspawn setspawn2. -1000 = nicht gesetzt (Weltspawn).",
+          "Pads & Tweaks → Teleporter II Ziel Z (tweaks.spawn.spawn2Z, Standard 0): Z des Ziels von Spawn-Teleporter II; gesetzt mit /simplebuilding tweaks worldspawn setspawn2.",
+          "Pads & Tweaks → Teleporter III Ziel X (tweaks.spawn.spawn3X, Standard 0): X des Ziels von Spawn-Teleporter III; gesetzt mit /simplebuilding tweaks worldspawn setspawn3.",
+          "Pads & Tweaks → Teleporter III Ziel Y (tweaks.spawn.spawn3Y, Standard -1000): Y des Ziels von Spawn-Teleporter III; gesetzt mit /simplebuilding tweaks worldspawn setspawn3. -1000 = nicht gesetzt (Weltspawn).",
+          "Pads & Tweaks → Teleporter III Ziel Z (tweaks.spawn.spawn3Z, Standard 0): Z des Ziels von Spawn-Teleporter III; gesetzt mit /simplebuilding tweaks worldspawn setspawn3.",
+          "Pads & Tweaks → Teleporter IV Ziel X (tweaks.spawn.spawn4X, Standard 0): X des Ziels von Spawn-Teleporter IV; gesetzt mit /simplebuilding tweaks worldspawn setspawn4.",
+          "Pads & Tweaks → Teleporter IV Ziel Y (tweaks.spawn.spawn4Y, Standard -1000): Y des Ziels von Spawn-Teleporter IV; gesetzt mit /simplebuilding tweaks worldspawn setspawn4. -1000 = nicht gesetzt (Weltspawn).",
+          "Pads & Tweaks → Teleporter IV Ziel Z (tweaks.spawn.spawn4Z, Standard 0): Z des Ziels von Spawn-Teleporter IV; gesetzt mit /simplebuilding tweaks worldspawn setspawn4.",
+          "Pads & Tweaks → Nether erlauben (tweaks.dimensions.allowNether, Standard an): Aus: Kein Spieler kann den Nether betreten.",
+          "Pads & Tweaks → End erlauben (tweaks.dimensions.allowEnd, Standard an): Aus: Kein Spieler kann das End betreten.",
+          "Pads & Tweaks → /killboats erlauben (tweaks.commands.enableKillBoatsCommand, Standard an): Operatoren können mit /killboats [standard|empty|all] unbenutzte Boote um sich entfernen.",
+          "Pads & Tweaks → /killcarts erlauben (tweaks.commands.enableKillCartsCommand, Standard aus): Operatoren können mit /killcarts [standard|empty|all] unbenutzte Loren um sich entfernen.",
+          "Pads & Tweaks → Reichweite von /killboats und /killcarts (tweaks.commands.killCommandRadius, Standard 100): Wie weit /killboats und /killcarts um den Spieler reichen, in Blöcken.",
+          "Pads & Tweaks → XP-Kugeln zusammenlegen (tweaks.optimization.enableXpClumps, Standard an): Legt nahe Erfahrungskugeln zu einer zusammen (nichts geht verloren) und erlaubt sofortiges Aufheben.",
+          "Pads & Tweaks → XP-Zusammenlege-Radius (Blöcke) (tweaks.optimization.xpClumpRadius, Standard 2,0): Wie weit eine Kugel ihre Nachbarn einsammelt, in Blöcken. Größer = weniger Kugeln.",
+          "Pads & Tweaks → XP-Kugeln nach Wert skalieren (tweaks.optimization.scaleXpOrbs, Standard an): Wertvollere Kugeln sehen größer aus (bis dreifach). Clientseitig.",
+          "Beute, Handel & Welt → Mod-Beute in Truhen (worldGen.enableLootTableChanges, Standard an): Fügt Mod-Gegenstände und verzauberte Bücher zu Vanilla-Strukturtruhen, Prüfungskammer-Tresoren und dem Angelschatz hinzu. Gilt beim Laden der Datenpakete (Weltstart, /reload).",
+          "Beute, Handel & Welt → Baukern-Beutechancen-Faktor (worldGen.buildingCoreLootChanceMultiplier, Standard 1,0): Multipliziert die (sehr kleine) Chance auf Baukerne in Beutetruhen, höchstens einer je Truhe. 0 = keine Kerne in Truhen. Gilt beim Weltstart oder /reload.",
+          "Beute, Handel & Welt → Dorfbewohner-Handel (worldGen.enableVillagerTrades, Standard an): Bibliothekare, Steinmetze und Werkzeugschmiede bieten auch Mod-Gegenstände und -Bücher an. Gilt beim Weltstart oder /reload.",
+          "Beute, Handel & Welt → Angebote des fahrenden Händlers (worldGen.enableWanderingTrades, Standard an): Der fahrende Händler kauft und verkauft auch Mod-Gegenstände. Gilt beim Weltstart oder /reload.",
+          "Beute, Handel & Welt → Einsteiger-Handbuch beim ersten Betreten (giveGuideBookOnFirstJoin, Standard an): Jeder Spieler bekommt das Einsteiger-Handbuch einmal, beim ersten Betreten einer Welt oder eines Servers. Aus: nichts wird verschenkt; später eingeschaltet, bekommt es jeder Spieler einmal beim nächsten Betreten.",
+          "Darstellung (Client) → Eigene Texturen für Vanilla-Zauberbücher (vanillaEnchantedBookTextures, Standard an): Jede Vanilla-Verzauberung bekommt ihr eigenes Buch. Aus: wieder das Vanilla-Buch, etwa wenn ein Ressourcenpaket oder eine andere Mod die Bücher neu gestaltet. Wirkt sofort.",
+          "Darstellung (Client) → Eigene Texturen für Mod-Zauberbücher (modEnchantedBookTextures, Standard an): Jede Verzauberung dieser Mod hat ihr eigenes Buch. Aus: das schlichte Vanilla-Zauberbuch. Wirkt sofort.",
+          "Darstellung (Client) → Besatzmuster auf Vanilla-Rüstungs-Icons (visibleTrimIconsVanillaArmor, Standard an): Die Icons besetzter Vanilla-Rüstung (auch des Schildkrötenpanzers) zeigen das Besatzmuster in den Farben des Materials. Aus: das Vanilla-Icon mit nur einem Farbfleck. Wirkt sofort.",
+          "Darstellung (Client) → Besatzmuster auf Enderit-Rüstungs-Icons (visibleTrimIconsModArmor, Standard an): Die Icons besetzter Enderit-Rüstung zeigen das Besatzmuster in den Farben des Materials. Aus: das schlichte Icon mit nur einem Farbfleck. Wirkt sofort.",
+          "Kompatibilität & Erweitert → Kolben lösen Abbau-Ereignisse aus (pistonsFireBreakEvents, Standard an): Bevor ein Netherit- oder Enderitkolben einen Block zerstört, löst er das Abbau-Ereignis des Loaders mit einem Fake-Spieler aus, damit Claim- und Schutz-Mods es verhindern können. Ausschalten, wenn ein Schutz-Mod jeden Fake-Spieler sperrt (die Kolben stünden überall still) oder Quest- und Statistik-Mods Kolbenabbau als Spielerabbau zählen. Serverseitig.",
+          "Kompatibilität & Erweitert → Kreativ-Tab „SimpleEnchants (Dev)“ zeigen (showDevEnchantedTab, Standard aus): Zeigt den Kreativ-Tab „SimpleEnchants (Dev)“ auch außerhalb von Entwicklungsumgebungen: die beste Stufe jedes verzauberbaren Gegenstands, vorverzaubert auf Höchststufe. Wirkt beim Neuaufbau der Kreativ-Tabs (spätestens nach erneutem Betreten).",
+          "Die Obergrenze der Besatz-Resonanz maxMultiplierLimit (10,0) steht fest im Code: Obergrenze von setTrimMultiplier und des geladenen Werts; sie ist keine Option.",
           "Auf NeoForge hält die Mod eine Standard-Konfiguration vor, falls das Laden fehlschlägt (Fallback new SimplebuildingConfig()).",
           "Die Erzgenerierung im End besitzt keinen Konfigurationsschalter."
         ]
@@ -3079,6 +3224,7 @@ window.WIKI_DATA = {
         "simplebuilding:chiseled_astralit_bricks_from_astral_end_stone_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/astral_end_stone.png",
       "hasCustomBehaviour": false
     },
     {
@@ -3095,6 +3241,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_astralit_from_astral_purpur_block_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/astral_purpur_block.png",
       "hasCustomBehaviour": false
     },
     {
@@ -3123,6 +3270,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_astralit_wall_from_astralit_block_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/astralit_block.png",
       "hasCustomBehaviour": false
     },
     {
@@ -3144,6 +3292,7 @@ window.WIKI_DATA = {
         "simplebuilding:chiseled_astralit_bricks"
       ],
       "trades": [],
+      "icon": "assets/textures/render/astralit_brick_slab.png",
       "hasCustomBehaviour": false
     },
     {
@@ -3163,6 +3312,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/astralit_brick_stairs.png",
       "hasCustomBehaviour": false
     },
     {
@@ -3171,7 +3321,7 @@ window.WIKI_DATA = {
         "en_us": "Astralit Brick Wall",
         "de_de": "Astralitziegelmauer"
       },
-      "texture": null,
+      "texture": "assets/textures/block/astralit_bricks.png",
       "craftedBy": [
         "simplebuilding:astralit_brick_wall",
         "simplebuilding:astralit_brick_wall_from_astral_end_stone_stonecutting",
@@ -3182,6 +3332,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/astralit_brick_wall.png",
       "hasCustomBehaviour": false
     },
     {
@@ -3208,6 +3359,7 @@ window.WIKI_DATA = {
         "simplebuilding:chiseled_astralit_bricks_from_astralit_bricks_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/astralit_bricks.png",
       "hasCustomBehaviour": false
     },
     {
@@ -3249,6 +3401,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/astralit_ore.png",
       "hasCustomBehaviour": false
     },
     {
@@ -3267,6 +3420,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/astralit_pillar.png",
       "hasCustomBehaviour": false
     },
     {
@@ -3281,6 +3435,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/astralit_quartz_checker.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -3293,16 +3448,16 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith, Astralit und Enderquarz.",
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilithsplitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -3545,6 +3700,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/blackstone_quartz_checker.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -3557,16 +3713,16 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith, Astralit und Enderquarz.",
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilithsplitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -3642,6 +3798,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/chiseled_astralit_bricks.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -3649,18 +3806,18 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java"
         ],
         "en": {
-          "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilith and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colours, like chiseled stone bricks or quartz - a shulker box with its head peeking out of the opening (Astralit), an Enderman eye with a horizontal slit (Nihilith) and a dragon eye with a vertical slit (Ender Quartz).",
+          "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilit and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colours, like chiseled stone bricks or quartz - a shulker box with its head peeking out of the opening (Astralit), an Enderman eye with a horizontal slit (Nihilit) and a dragon eye with a vertical slit (Ender Quartz).",
           "details": [
-            "Crafted from 2 Brick Slabs of its material on top of each other (1 block), or cut one for one in the stonecutter from the palette's base block, its polished block or its bricks (Astralit and Nihilith also from the coated end stone). The Ender Quartz version is also recoloured from vanilla: 8 Chiseled Quartz Blocks around 1 Ender Quartz make 8.",
-            "Hardness 3, blast resistance 9, needs a pickaxe for the drop; the Astralit version glows at light level 10, the Nihilith and Ender Quartz versions not at all.",
+            "Crafted from 2 Brick Slabs of its material on top of each other (1 block), or cut one for one in the stonecutter from the palette's base block, its polished block or its bricks (Astralit and Nihilit also from the coated end stone). The Ender Quartz version is also recoloured from vanilla: 8 Chiseled Quartz Blocks around 1 Ender Quartz make 8.",
+            "Hardness 3, blast resistance 9, needs a pickaxe for the drop; the Astralit version glows at light level 10, the Nihilit and Ender Quartz versions not at all.",
             "Despite the name it has nothing to do with the Chisel tool: the Chisel does not convert it into anything."
           ]
         },
         "de": {
-          "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilith und Enderquarz): eine gerahmte Platte, in die ein Wesen aus dem End als leises Relief in den Farben des Blocks gemeißelt ist, wie bei gemeißeltem Steinziegel oder Quarz – eine Shulkerkiste, aus deren Spalt der Kopf lugt (Astralit), ein Enderman-Auge mit waagrechtem Schlitz (Nihilith) und ein Drachenauge mit senkrechtem Schlitz (Enderquarz).",
+          "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilit und Enderquarz): eine gerahmte Platte, in die ein Wesen aus dem End als leises Relief in den Farben des Blocks gemeißelt ist, wie bei gemeißeltem Steinziegel oder Quarz – eine Shulkerkiste, aus deren Spalt der Kopf lugt (Astralit), ein Enderman-Auge mit waagrechtem Schlitz (Nihilit) und ein Drachenauge mit senkrechtem Schlitz (Enderquarz).",
           "details": [
-            "Hergestellt aus 2 Ziegelstufen seines Materials übereinander (1 Block) oder im Steinmetz eins zu eins aus dem Grundblock, dem polierten Block oder den Ziegeln der Palette geschnitten (Astralit und Nihilith auch aus dem beschichteten Endstein). Die Enderquarz-Fassung entsteht außerdem aus Vanilla: 8 gemeißelte Quarzblöcke um 1 Enderquarz ergeben 8.",
-            "Härte 3, Explosionsfestigkeit 9, braucht für den Drop eine Spitzhacke; die Astralit-Fassung leuchtet mit Lichtstufe 10, die Nihilith- und die Enderquarz-Fassung gar nicht.",
+            "Hergestellt aus 2 Ziegelstufen seines Materials übereinander (1 Block) oder im Steinmetz eins zu eins aus dem Grundblock, dem polierten Block oder den Ziegeln der Palette geschnitten (Astralit und Nihilit auch aus dem beschichteten Endstein). Die Enderquarz-Fassung entsteht außerdem aus Vanilla: 8 gemeißelte Quarzblöcke um 1 Enderquarz ergeben 8.",
+            "Härte 3, Explosionsfestigkeit 9, braucht für den Drop eine Spitzhacke; die Astralit-Fassung leuchtet mit Lichtstufe 10, die Nihilit- und die Enderquarz-Fassung gar nicht.",
             "Trotz des Namens hat er mit dem Werkzeug Meißel nichts zu tun: Der Meißel formt ihn in nichts um."
           ]
         }
@@ -3683,6 +3840,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/chiseled_ender_quartz_bricks.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -3690,18 +3848,18 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java"
         ],
         "en": {
-          "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilith and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colours, like chiseled stone bricks or quartz - a shulker box with its head peeking out of the opening (Astralit), an Enderman eye with a horizontal slit (Nihilith) and a dragon eye with a vertical slit (Ender Quartz).",
+          "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilit and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colours, like chiseled stone bricks or quartz - a shulker box with its head peeking out of the opening (Astralit), an Enderman eye with a horizontal slit (Nihilit) and a dragon eye with a vertical slit (Ender Quartz).",
           "details": [
-            "Crafted from 2 Brick Slabs of its material on top of each other (1 block), or cut one for one in the stonecutter from the palette's base block, its polished block or its bricks (Astralit and Nihilith also from the coated end stone). The Ender Quartz version is also recoloured from vanilla: 8 Chiseled Quartz Blocks around 1 Ender Quartz make 8.",
-            "Hardness 3, blast resistance 9, needs a pickaxe for the drop; the Astralit version glows at light level 10, the Nihilith and Ender Quartz versions not at all.",
+            "Crafted from 2 Brick Slabs of its material on top of each other (1 block), or cut one for one in the stonecutter from the palette's base block, its polished block or its bricks (Astralit and Nihilit also from the coated end stone). The Ender Quartz version is also recoloured from vanilla: 8 Chiseled Quartz Blocks around 1 Ender Quartz make 8.",
+            "Hardness 3, blast resistance 9, needs a pickaxe for the drop; the Astralit version glows at light level 10, the Nihilit and Ender Quartz versions not at all.",
             "Despite the name it has nothing to do with the Chisel tool: the Chisel does not convert it into anything."
           ]
         },
         "de": {
-          "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilith und Enderquarz): eine gerahmte Platte, in die ein Wesen aus dem End als leises Relief in den Farben des Blocks gemeißelt ist, wie bei gemeißeltem Steinziegel oder Quarz – eine Shulkerkiste, aus deren Spalt der Kopf lugt (Astralit), ein Enderman-Auge mit waagrechtem Schlitz (Nihilith) und ein Drachenauge mit senkrechtem Schlitz (Enderquarz).",
+          "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilit und Enderquarz): eine gerahmte Platte, in die ein Wesen aus dem End als leises Relief in den Farben des Blocks gemeißelt ist, wie bei gemeißeltem Steinziegel oder Quarz – eine Shulkerkiste, aus deren Spalt der Kopf lugt (Astralit), ein Enderman-Auge mit waagrechtem Schlitz (Nihilit) und ein Drachenauge mit senkrechtem Schlitz (Enderquarz).",
           "details": [
-            "Hergestellt aus 2 Ziegelstufen seines Materials übereinander (1 Block) oder im Steinmetz eins zu eins aus dem Grundblock, dem polierten Block oder den Ziegeln der Palette geschnitten (Astralit und Nihilith auch aus dem beschichteten Endstein). Die Enderquarz-Fassung entsteht außerdem aus Vanilla: 8 gemeißelte Quarzblöcke um 1 Enderquarz ergeben 8.",
-            "Härte 3, Explosionsfestigkeit 9, braucht für den Drop eine Spitzhacke; die Astralit-Fassung leuchtet mit Lichtstufe 10, die Nihilith- und die Enderquarz-Fassung gar nicht.",
+            "Hergestellt aus 2 Ziegelstufen seines Materials übereinander (1 Block) oder im Steinmetz eins zu eins aus dem Grundblock, dem polierten Block oder den Ziegeln der Palette geschnitten (Astralit und Nihilit auch aus dem beschichteten Endstein). Die Enderquarz-Fassung entsteht außerdem aus Vanilla: 8 gemeißelte Quarzblöcke um 1 Enderquarz ergeben 8.",
+            "Härte 3, Explosionsfestigkeit 9, braucht für den Drop eine Spitzhacke; die Astralit-Fassung leuchtet mit Lichtstufe 10, die Nihilit- und die Enderquarz-Fassung gar nicht.",
             "Trotz des Namens hat er mit dem Werkzeug Meißel nichts zu tun: Der Meißel formt ihn in nichts um."
           ]
         }
@@ -3711,8 +3869,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:chiseled_nihilith_bricks",
       "name": {
-        "en_us": "Chiseled Nihilith Bricks",
-        "de_de": "Gemeißelte Nihilithziegel"
+        "en_us": "Chiseled Nihilit Bricks",
+        "de_de": "Gemeißelte Nihilitziegel"
       },
       "texture": "assets/textures/block/chiseled_nihilith_bricks.png",
       "craftedBy": [
@@ -3724,6 +3882,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/chiseled_nihilith_bricks.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -3731,18 +3890,18 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java"
         ],
         "en": {
-          "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilith and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colours, like chiseled stone bricks or quartz - a shulker box with its head peeking out of the opening (Astralit), an Enderman eye with a horizontal slit (Nihilith) and a dragon eye with a vertical slit (Ender Quartz).",
+          "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilit and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colours, like chiseled stone bricks or quartz - a shulker box with its head peeking out of the opening (Astralit), an Enderman eye with a horizontal slit (Nihilit) and a dragon eye with a vertical slit (Ender Quartz).",
           "details": [
-            "Crafted from 2 Brick Slabs of its material on top of each other (1 block), or cut one for one in the stonecutter from the palette's base block, its polished block or its bricks (Astralit and Nihilith also from the coated end stone). The Ender Quartz version is also recoloured from vanilla: 8 Chiseled Quartz Blocks around 1 Ender Quartz make 8.",
-            "Hardness 3, blast resistance 9, needs a pickaxe for the drop; the Astralit version glows at light level 10, the Nihilith and Ender Quartz versions not at all.",
+            "Crafted from 2 Brick Slabs of its material on top of each other (1 block), or cut one for one in the stonecutter from the palette's base block, its polished block or its bricks (Astralit and Nihilit also from the coated end stone). The Ender Quartz version is also recoloured from vanilla: 8 Chiseled Quartz Blocks around 1 Ender Quartz make 8.",
+            "Hardness 3, blast resistance 9, needs a pickaxe for the drop; the Astralit version glows at light level 10, the Nihilit and Ender Quartz versions not at all.",
             "Despite the name it has nothing to do with the Chisel tool: the Chisel does not convert it into anything."
           ]
         },
         "de": {
-          "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilith und Enderquarz): eine gerahmte Platte, in die ein Wesen aus dem End als leises Relief in den Farben des Blocks gemeißelt ist, wie bei gemeißeltem Steinziegel oder Quarz – eine Shulkerkiste, aus deren Spalt der Kopf lugt (Astralit), ein Enderman-Auge mit waagrechtem Schlitz (Nihilith) und ein Drachenauge mit senkrechtem Schlitz (Enderquarz).",
+          "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilit und Enderquarz): eine gerahmte Platte, in die ein Wesen aus dem End als leises Relief in den Farben des Blocks gemeißelt ist, wie bei gemeißeltem Steinziegel oder Quarz – eine Shulkerkiste, aus deren Spalt der Kopf lugt (Astralit), ein Enderman-Auge mit waagrechtem Schlitz (Nihilit) und ein Drachenauge mit senkrechtem Schlitz (Enderquarz).",
           "details": [
-            "Hergestellt aus 2 Ziegelstufen seines Materials übereinander (1 Block) oder im Steinmetz eins zu eins aus dem Grundblock, dem polierten Block oder den Ziegeln der Palette geschnitten (Astralit und Nihilith auch aus dem beschichteten Endstein). Die Enderquarz-Fassung entsteht außerdem aus Vanilla: 8 gemeißelte Quarzblöcke um 1 Enderquarz ergeben 8.",
-            "Härte 3, Explosionsfestigkeit 9, braucht für den Drop eine Spitzhacke; die Astralit-Fassung leuchtet mit Lichtstufe 10, die Nihilith- und die Enderquarz-Fassung gar nicht.",
+            "Hergestellt aus 2 Ziegelstufen seines Materials übereinander (1 Block) oder im Steinmetz eins zu eins aus dem Grundblock, dem polierten Block oder den Ziegeln der Palette geschnitten (Astralit und Nihilit auch aus dem beschichteten Endstein). Die Enderquarz-Fassung entsteht außerdem aus Vanilla: 8 gemeißelte Quarzblöcke um 1 Enderquarz ergeben 8.",
+            "Härte 3, Explosionsfestigkeit 9, braucht für den Drop eine Spitzhacke; die Astralit-Fassung leuchtet mit Lichtstufe 10, die Nihilit- und die Enderquarz-Fassung gar nicht.",
             "Trotz des Namens hat er mit dem Werkzeug Meißel nichts zu tun: Der Meißel formt ihn in nichts um."
           ]
         }
@@ -3761,6 +3920,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/construction_light.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -4078,7 +4238,7 @@ window.WIKI_DATA = {
             "Iron/copper map adds: Chiseled Stone Bricks -> Stone Bricks -> Cracked Stone Bricks; Stone Brick Stairs and Slab -> mossy variant; Polished Andesite, Diorite and Granite -> unpolished variant (stairs and slabs too); Polished Tuff -> Tuff (stairs and slabs too); Planks -> Stairs -> Slab for oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, bamboo and pale oak.",
             "Gold/diamond map adds: Smooth Quartz Block -> Quartz Pillar -> Quartz Bricks -> Chiseled Quartz Block -> Block of Quartz (Smooth Quartz Stairs -> Quartz Stairs, slabs likewise); Polished Tuff -> Tuff -> Chiseled Tuff -> Tuff Bricks (Tuff Stairs -> Tuff Brick Stairs -> Polished Tuff Stairs, slabs likewise); Polished Blackstone -> Blackstone -> Chiseled Polished Blackstone -> Polished Blackstone Bricks -> Cracked Polished Blackstone Bricks (stairs/slabs: polished -> blackstone -> polished bricks); Basalt -> Smooth Basalt -> Polished Basalt; Polished Deepslate -> Chiseled Deepslate -> Deepslate Bricks -> Cracked Deepslate Bricks -> Deepslate Tiles -> Cracked Deepslate Tiles -> Deepslate -> Cobbled Deepslate (stairs/slabs: polished -> bricks -> tiles -> cobbled); Cracked Stone Bricks -> Cobblestone.",
             "Netherite map adds: Netherrack -> Nether Bricks -> Cracked Nether Bricks -> Chiseled Nether Bricks -> Netherrack (a cycle); Resin Bricks -> Chiseled Resin Bricks; Chiseled Sandstone -> Sand; Chiseled Red Sandstone -> Red Sand.",
-            "Enderite map adds (only the Enderite Chisel): Polished Astralit -> Astralit Pillar -> Astralit Bricks -> Chiseled Astralit Bricks -> Block of Astralit, the same chain for Nihilith and for Ender Quartz (Polished Ender Quartz -> Ender Quartz Pillar -> Ender Quartz Bricks -> Chiseled Ender Quartz Bricks -> Block of Ender Quartz); Polished Astralit/Nihilith Stairs, Slab and Wall -> the brick variant; Polished Ender Quartz Stairs and Slab -> Ender Quartz Brick Stairs/Slab -> Ender Quartz Stairs/Slab, Polished Ender Quartz Wall -> Ender Quartz Brick Wall. Every block in these chains comes out of the stonecutter 1:1 from the same base block, so the chisel neither gains nor loses material.",
+            "Enderite map adds (only the Enderite Chisel): Polished Astralit -> Astralit Pillar -> Astralit Bricks -> Chiseled Astralit Bricks -> Block of Astralit, the same chain for Nihilit and for Ender Quartz (Polished Ender Quartz -> Ender Quartz Pillar -> Ender Quartz Bricks -> Chiseled Ender Quartz Bricks -> Block of Ender Quartz); Polished Astralit/Nihilit Stairs, Slab and Wall -> the brick variant; Polished Ender Quartz Stairs and Slab -> Ender Quartz Brick Stairs/Slab -> Ender Quartz Stairs/Slab, Polished Ender Quartz Wall -> Ender Quartz Brick Wall. Every block in these chains comes out of the stonecutter 1:1 from the same base block, so the chisel neither gains nor loses material.",
             "With the Constructor's Touch enchantment each tier gains extra entries - stone: Mud Bricks -> Packed Mud -> Mud, Cobblestone -> Mossy Cobblestone (stairs and slab too), nine log types -> stripped log (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak); iron: Bricks -> Mud Bricks (stairs and slab too), nine wood types (bark blocks) -> stripped wood, crimson and warped planks -> stairs -> slab; diamond: Prismarine -> Prismarine Bricks (stairs and slab too), Smooth Stone -> Stone (Smooth Stone Slab -> Stone Slab as well), End Stone -> End Stone Bricks, Purpur Pillar -> Purpur Block, Block of Copper -> Cut Copper -> Chiseled Copper -> Copper Grate, dead coral blocks in a cycle (brain -> bubble -> fire -> horn -> tube -> brain), living coral blocks in a cycle; netherite: Polished Diorite -> Diorite -> Calcite -> Dripstone Block, Obsidian -> Crying Obsidian, crimson and warped stems -> stripped, each of the 16 concrete colors -> concrete powder of the same color.",
             "Block properties such as waterlogged, or a slab's type (top, bottom, double), are carried over to the new block when that block has the same property.",
             "Pillar blocks (axis) and stairs (facing and top/bottom half) are re-oriented after the transformation from the click position and the player's facing; the edge zone of a block face is a strip 0.25 blocks wide. A further code branch for blocks with a six-way FACING exists, but it applies to no target block in the maps.",
@@ -4141,7 +4301,7 @@ window.WIKI_DATA = {
             "Eisen-/Kupfer-Tabelle zusätzlich: Gemeißelte Steinziegel → Steinziegel → Rissige Steinziegel; Steinziegeltreppe und -stufe → bemooste Variante; Polierter Andesit, Diorit und Granit → unpolierte Variante (auch Treppen und Stufen); Polierter Tuff → Tuff (auch Treppen und Stufen); Bretter → Treppe → Stufe für Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Bambus und Blasseiche.",
             "Gold-/Diamant-Tabelle zusätzlich: Glatter Quarzblock → Quarzsäule → Quarzziegel → Gemeißelter Quarzblock → Quarzblock (Glatte Quarztreppe → Quarztreppe, Stufen analog); Polierter Tuff → Tuff → Gemeißelter Tuff → Tuffziegel (Tufftreppe → Tuffziegeltreppe → Polierte Tufftreppe, Stufen analog); Polierter Schwarzstein → Schwarzstein → Gemeißelter polierter Schwarzstein → Polierte Schwarzsteinziegel → Rissige polierte Schwarzsteinziegel (Treppen/Stufen: poliert → Schwarzstein → polierte Ziegel); Basalt → Glatter Basalt → Polierter Basalt; Polierter Tiefenschiefer → Gemeißelter Tiefenschiefer → Tiefenschieferziegel → Rissige Tiefenschieferziegel → Tiefenschieferfliesen → Rissige Tiefenschieferfliesen → Tiefenschiefer → Bruchtiefenschiefer (Treppen/Stufen: poliert → Ziegel → Fliesen → Bruchtiefenschiefer); Rissige Steinziegel → Bruchstein.",
             "Netherit-Tabelle zusätzlich: Netherrack → Netherziegel → Rissige Netherziegel → Gemeißelte Netherziegel → Netherrack (Kreislauf); Harzziegel → Gemeißelte Harzziegel; Gemeißelter Sandstein → Sand; Gemeißelter roter Sandstein → Roter Sand.",
-            "Enderit-Tabelle zusätzlich (nur der Enderitmeißel): Polierter Astralit → Astralitsäule → Astralitziegel → Gemeißelte Astralitziegel → Astralitblock, dieselbe Kette für Nihilith und für Enderquarz (Polierter Enderquarz → Enderquarzsäule → Enderquarzziegel → Gemeißelte Enderquarzziegel → Enderquarzblock); Treppe, Stufe und Mauer aus poliertem Astralit/Nihilith → Ziegel-Variante; Treppe und Stufe aus poliertem Enderquarz → Enderquarzziegel-Treppe/-Stufe → Enderquarztreppe/-stufe, Mauer aus poliertem Enderquarz → Enderquarzziegelmauer. Jeder Block dieser Ketten kommt 1:1 aus der Steinsäge vom selben Grundblock, der Meißel gewinnt oder verliert also kein Material.",
+            "Enderit-Tabelle zusätzlich (nur der Enderitmeißel): Polierter Astralit → Astralitsäule → Astralitziegel → Gemeißelte Astralitziegel → Astralitblock, dieselbe Kette für Nihilit und für Enderquarz (Polierter Enderquarz → Enderquarzsäule → Enderquarzziegel → Gemeißelte Enderquarzziegel → Enderquarzblock); Treppe, Stufe und Mauer aus poliertem Astralit/Nihilit → Ziegel-Variante; Treppe und Stufe aus poliertem Enderquarz → Enderquarzziegel-Treppe/-Stufe → Enderquarztreppe/-stufe, Mauer aus poliertem Enderquarz → Enderquarzziegelmauer. Jeder Block dieser Ketten kommt 1:1 aus der Steinsäge vom selben Grundblock, der Meißel gewinnt oder verliert also kein Material.",
             "Mit der Verzauberung Berührung des Konstrukteurs kommen je Stufe Zusatz-Einträge dazu – Stein: Schlammziegel → Gepackter Schlamm → Schlamm, Bruchstein → Bemooster Bruchstein (auch Treppe/Stufe), neun Stammarten → entrindeter Stamm (Eiche, Fichte, Birke, Tropenbaum, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche); Eisen: Ziegel → Schlammziegel (auch Treppe/Stufe), neun Holzarten (Rindenblöcke) → entrindetes Holz, Karmesin- und Wirrbretter → Treppe → Stufe; Diamant: Prismarin → Prismarinziegel (auch Treppe/Stufe), Glatter Stein → Stein (auch Stufe), Endstein → Endsteinziegel, Purpursäule → Purpurblock, Kupferblock → Geschnittener Kupferblock → Gemeißelter Kupferblock → Kupfergitter, tote Korallenblöcke im Kreis (Hirn → Blasen → Feuer → Horn → Röhren → Hirn), lebende Korallenblöcke im Kreis; Netherit: Polierter Diorit → Diorit → Kalzit → Tropfsteinblock, Obsidian → Weinender Obsidian, Karmesin- und Wirrstiel → entrindet, jede der 16 Betonfarben → gleichfarbiger Trockenbeton.",
             "Blockeigenschaften wie „mit Wasser gefüllt“ oder die Lage einer Stufe (oben, unten, doppelt) werden auf den neuen Block übernommen, wenn dieser dieselbe Eigenschaft besitzt.",
             "Säulenblöcke (Achse) und Treppen (Richtung und obere/untere Hälfte) werden nach der Umwandlung aus der Klickposition und der Blickrichtung des Spielers neu ausgerichtet; als Randbereich einer Blockseite gilt ein Streifen von 0,25 Blockbreite. Ein weiterer Code-Zweig für Blöcke mit sechsseitiger Blickrichtung (FACING) existiert, trifft aber auf keinen Zielblock der Tabellen zu.",
@@ -4607,6 +4767,7 @@ window.WIKI_DATA = {
         "simplebuilding:cracked_diamond_from_cracked_diamond_block"
       ],
       "trades": [],
+      "icon": "assets/textures/render/cracked_diamond_block.png",
       "hasCustomBehaviour": false
     },
     {
@@ -4615,7 +4776,7 @@ window.WIKI_DATA = {
         "en_us": "Creative Spacer",
         "de_de": "Kreativ-Platzhalter"
       },
-      "texture": null,
+      "texture": "assets/textures/wiki/empty_slot.png",
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
@@ -4943,7 +5104,7 @@ window.WIKI_DATA = {
             "Iron/copper map adds: Chiseled Stone Bricks -> Stone Bricks -> Cracked Stone Bricks; Stone Brick Stairs and Slab -> mossy variant; Polished Andesite, Diorite and Granite -> unpolished variant (stairs and slabs too); Polished Tuff -> Tuff (stairs and slabs too); Planks -> Stairs -> Slab for oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, bamboo and pale oak.",
             "Gold/diamond map adds: Smooth Quartz Block -> Quartz Pillar -> Quartz Bricks -> Chiseled Quartz Block -> Block of Quartz (Smooth Quartz Stairs -> Quartz Stairs, slabs likewise); Polished Tuff -> Tuff -> Chiseled Tuff -> Tuff Bricks (Tuff Stairs -> Tuff Brick Stairs -> Polished Tuff Stairs, slabs likewise); Polished Blackstone -> Blackstone -> Chiseled Polished Blackstone -> Polished Blackstone Bricks -> Cracked Polished Blackstone Bricks (stairs/slabs: polished -> blackstone -> polished bricks); Basalt -> Smooth Basalt -> Polished Basalt; Polished Deepslate -> Chiseled Deepslate -> Deepslate Bricks -> Cracked Deepslate Bricks -> Deepslate Tiles -> Cracked Deepslate Tiles -> Deepslate -> Cobbled Deepslate (stairs/slabs: polished -> bricks -> tiles -> cobbled); Cracked Stone Bricks -> Cobblestone.",
             "Netherite map adds: Netherrack -> Nether Bricks -> Cracked Nether Bricks -> Chiseled Nether Bricks -> Netherrack (a cycle); Resin Bricks -> Chiseled Resin Bricks; Chiseled Sandstone -> Sand; Chiseled Red Sandstone -> Red Sand.",
-            "Enderite map adds (only the Enderite Chisel): Polished Astralit -> Astralit Pillar -> Astralit Bricks -> Chiseled Astralit Bricks -> Block of Astralit, the same chain for Nihilith and for Ender Quartz (Polished Ender Quartz -> Ender Quartz Pillar -> Ender Quartz Bricks -> Chiseled Ender Quartz Bricks -> Block of Ender Quartz); Polished Astralit/Nihilith Stairs, Slab and Wall -> the brick variant; Polished Ender Quartz Stairs and Slab -> Ender Quartz Brick Stairs/Slab -> Ender Quartz Stairs/Slab, Polished Ender Quartz Wall -> Ender Quartz Brick Wall. Every block in these chains comes out of the stonecutter 1:1 from the same base block, so the chisel neither gains nor loses material.",
+            "Enderite map adds (only the Enderite Chisel): Polished Astralit -> Astralit Pillar -> Astralit Bricks -> Chiseled Astralit Bricks -> Block of Astralit, the same chain for Nihilit and for Ender Quartz (Polished Ender Quartz -> Ender Quartz Pillar -> Ender Quartz Bricks -> Chiseled Ender Quartz Bricks -> Block of Ender Quartz); Polished Astralit/Nihilit Stairs, Slab and Wall -> the brick variant; Polished Ender Quartz Stairs and Slab -> Ender Quartz Brick Stairs/Slab -> Ender Quartz Stairs/Slab, Polished Ender Quartz Wall -> Ender Quartz Brick Wall. Every block in these chains comes out of the stonecutter 1:1 from the same base block, so the chisel neither gains nor loses material.",
             "With the Constructor's Touch enchantment each tier gains extra entries - stone: Mud Bricks -> Packed Mud -> Mud, Cobblestone -> Mossy Cobblestone (stairs and slab too), nine log types -> stripped log (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak); iron: Bricks -> Mud Bricks (stairs and slab too), nine wood types (bark blocks) -> stripped wood, crimson and warped planks -> stairs -> slab; diamond: Prismarine -> Prismarine Bricks (stairs and slab too), Smooth Stone -> Stone (Smooth Stone Slab -> Stone Slab as well), End Stone -> End Stone Bricks, Purpur Pillar -> Purpur Block, Block of Copper -> Cut Copper -> Chiseled Copper -> Copper Grate, dead coral blocks in a cycle (brain -> bubble -> fire -> horn -> tube -> brain), living coral blocks in a cycle; netherite: Polished Diorite -> Diorite -> Calcite -> Dripstone Block, Obsidian -> Crying Obsidian, crimson and warped stems -> stripped, each of the 16 concrete colors -> concrete powder of the same color.",
             "Block properties such as waterlogged, or a slab's type (top, bottom, double), are carried over to the new block when that block has the same property.",
             "Pillar blocks (axis) and stairs (facing and top/bottom half) are re-oriented after the transformation from the click position and the player's facing; the edge zone of a block face is a strip 0.25 blocks wide. A further code branch for blocks with a six-way FACING exists, but it applies to no target block in the maps.",
@@ -5006,7 +5167,7 @@ window.WIKI_DATA = {
             "Eisen-/Kupfer-Tabelle zusätzlich: Gemeißelte Steinziegel → Steinziegel → Rissige Steinziegel; Steinziegeltreppe und -stufe → bemooste Variante; Polierter Andesit, Diorit und Granit → unpolierte Variante (auch Treppen und Stufen); Polierter Tuff → Tuff (auch Treppen und Stufen); Bretter → Treppe → Stufe für Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Bambus und Blasseiche.",
             "Gold-/Diamant-Tabelle zusätzlich: Glatter Quarzblock → Quarzsäule → Quarzziegel → Gemeißelter Quarzblock → Quarzblock (Glatte Quarztreppe → Quarztreppe, Stufen analog); Polierter Tuff → Tuff → Gemeißelter Tuff → Tuffziegel (Tufftreppe → Tuffziegeltreppe → Polierte Tufftreppe, Stufen analog); Polierter Schwarzstein → Schwarzstein → Gemeißelter polierter Schwarzstein → Polierte Schwarzsteinziegel → Rissige polierte Schwarzsteinziegel (Treppen/Stufen: poliert → Schwarzstein → polierte Ziegel); Basalt → Glatter Basalt → Polierter Basalt; Polierter Tiefenschiefer → Gemeißelter Tiefenschiefer → Tiefenschieferziegel → Rissige Tiefenschieferziegel → Tiefenschieferfliesen → Rissige Tiefenschieferfliesen → Tiefenschiefer → Bruchtiefenschiefer (Treppen/Stufen: poliert → Ziegel → Fliesen → Bruchtiefenschiefer); Rissige Steinziegel → Bruchstein.",
             "Netherit-Tabelle zusätzlich: Netherrack → Netherziegel → Rissige Netherziegel → Gemeißelte Netherziegel → Netherrack (Kreislauf); Harzziegel → Gemeißelte Harzziegel; Gemeißelter Sandstein → Sand; Gemeißelter roter Sandstein → Roter Sand.",
-            "Enderit-Tabelle zusätzlich (nur der Enderitmeißel): Polierter Astralit → Astralitsäule → Astralitziegel → Gemeißelte Astralitziegel → Astralitblock, dieselbe Kette für Nihilith und für Enderquarz (Polierter Enderquarz → Enderquarzsäule → Enderquarzziegel → Gemeißelte Enderquarzziegel → Enderquarzblock); Treppe, Stufe und Mauer aus poliertem Astralit/Nihilith → Ziegel-Variante; Treppe und Stufe aus poliertem Enderquarz → Enderquarzziegel-Treppe/-Stufe → Enderquarztreppe/-stufe, Mauer aus poliertem Enderquarz → Enderquarzziegelmauer. Jeder Block dieser Ketten kommt 1:1 aus der Steinsäge vom selben Grundblock, der Meißel gewinnt oder verliert also kein Material.",
+            "Enderit-Tabelle zusätzlich (nur der Enderitmeißel): Polierter Astralit → Astralitsäule → Astralitziegel → Gemeißelte Astralitziegel → Astralitblock, dieselbe Kette für Nihilit und für Enderquarz (Polierter Enderquarz → Enderquarzsäule → Enderquarzziegel → Gemeißelte Enderquarzziegel → Enderquarzblock); Treppe, Stufe und Mauer aus poliertem Astralit/Nihilit → Ziegel-Variante; Treppe und Stufe aus poliertem Enderquarz → Enderquarzziegel-Treppe/-Stufe → Enderquarztreppe/-stufe, Mauer aus poliertem Enderquarz → Enderquarzziegelmauer. Jeder Block dieser Ketten kommt 1:1 aus der Steinsäge vom selben Grundblock, der Meißel gewinnt oder verliert also kein Material.",
             "Mit der Verzauberung Berührung des Konstrukteurs kommen je Stufe Zusatz-Einträge dazu – Stein: Schlammziegel → Gepackter Schlamm → Schlamm, Bruchstein → Bemooster Bruchstein (auch Treppe/Stufe), neun Stammarten → entrindeter Stamm (Eiche, Fichte, Birke, Tropenbaum, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche); Eisen: Ziegel → Schlammziegel (auch Treppe/Stufe), neun Holzarten (Rindenblöcke) → entrindetes Holz, Karmesin- und Wirrbretter → Treppe → Stufe; Diamant: Prismarin → Prismarinziegel (auch Treppe/Stufe), Glatter Stein → Stein (auch Stufe), Endstein → Endsteinziegel, Purpursäule → Purpurblock, Kupferblock → Geschnittener Kupferblock → Gemeißelter Kupferblock → Kupfergitter, tote Korallenblöcke im Kreis (Hirn → Blasen → Feuer → Horn → Röhren → Hirn), lebende Korallenblöcke im Kreis; Netherit: Polierter Diorit → Diorit → Kalzit → Tropfsteinblock, Obsidian → Weinender Obsidian, Karmesin- und Wirrstiel → entrindet, jede der 16 Betonfarben → gleichfarbiger Trockenbeton.",
             "Blockeigenschaften wie „mit Wasser gefüllt“ oder die Lage einer Stufe (oben, unten, doppelt) werden auf den neuen Block übernommen, wenn dieser dieselbe Eigenschaft besitzt.",
             "Säulenblöcke (Achse) und Treppen (Richtung und obere/untere Hälfte) werden nach der Umwandlung aus der Klickposition und der Blickrichtung des Spielers neu ausgerichtet; als Randbereich einer Blockseite gilt ein Streifen von 0,25 Blockbreite. Ein weiterer Code-Zweig für Blöcke mit sechsseitiger Blickrichtung (FACING) existiert, trifft aber auf keinen Zielblock der Tabellen zu.",
@@ -5463,7 +5624,7 @@ window.WIKI_DATA = {
         "en_us": "Echo Sounder",
         "de_de": "Echolot"
       },
-      "texture": null,
+      "texture": "assets/textures/item/echo_compass_16.png",
       "craftedBy": [
         "simplebuilding:echo_compass"
       ],
@@ -5479,7 +5640,7 @@ window.WIKI_DATA = {
           "summary": "The Echo Sounder (formerly Echo Compass; item id still echo_compass) links to a lodestone and teleports you on top of it - no ender pearl needed: hold use for 3 seconds to charge the jump. One jump empties it; it has to be recharged (1500 repair points, Mending or echo shards) before it works normally again, and forcing it while empty shatters it.",
           "details": [
             "Right-click a lodestone to link it; the needle then points there. If the lodestone is removed the link is lost.",
-            "Jumping: hold use for 3 seconds (60 ticks). While it charges, sculk souls circle in three arms from well over two blocks out ever closer, widely scattered portal particles are drawn in, an amethyst tone rises, sculk clicks and respawn-anchor charges mark the thirds and a warden sonic charge builds up at the end; the field of view narrows gently and pulses (scaled by the vanilla accessibility option FOV Effects - at 0 it is off). Releasing early does nothing and costs nothing. The jump needs no ender pearl any more (since 2026-09-27) and sets a 6 second cooldown; afterwards blindness, glowing, slow falling, slowness and nausea for a moment, sonic boom and respawn-anchor sound on arrival, where a wide particle cloud and a ring of sculk souls spread out over the ground. Works into any dimension the server knows; a jump that is blocked (for example into a dimension locked by tweaks.dimensions) costs nothing - no charge, no cooldown.",
+            "Jumping: hold use for 3 seconds (60 ticks). While it charges, sculk souls circle in three arms from well over two blocks out ever closer, widely scattered portal particles are drawn in, an amethyst tone rises, sculk clicks and respawn-anchor charges mark the thirds and a warden sonic charge builds up at the end; the field of view narrows gently and pulses (scaled by the vanilla accessibility option FOV Effects - at 0 it is off). Releasing early does nothing and costs nothing. The jump needs no ender pearl any more (since 2026-09-27) and sets a 6 second cooldown; afterwards blindness, glowing, slow falling, slowness and nausea for a moment, sonic boom and respawn-anchor sound on arrival, where a wide particle cloud and a ring of sculk souls spread out over the ground. Works into any dimension the server knows; a jump that is blocked (for example into a dimension locked by tweaks.dimensions) costs nothing - no charge, no cooldown. The cooldown after a jump is tweaks.balancing.echoSounderCooldownTicks (default 120 ticks, 0 = none).",
             "Charge: the compass has 1500 repair points. A jump empties it completely (Unbreaking works per point as on any tool: with Unbreaking III a jump empties only about a quarter). Empty or not fully recharged it shows a cracked texture in three stages (empty, half, almost full), has no enchantment glint and its bar shows the charge. Recharge it with Mending (2 points per XP point, 750 XP when empty) or at an anvil with echo shards (each restores a quarter, four fill it). Only when it is fully recharged does it jump normally again and get its glint back.",
             "Forcing it: using an echo sounder that is not fully recharged provokes the break - the charge takes twice as long (6 seconds) with warning signs (cracking, sparks, smoke, a sculk shriek halfway, everything louder), the jump still works, then the echo sounder shatters for good. Unbreaking does not save it. In creative mode it neither empties nor shatters.",
             "Recipe (crafting, shaped \"NNN\" / \"NRN\" / \"NEN\"): seven enderite nuggets around the outside, the recovery compass in the middle, the enderite core bottom middle.",
@@ -5490,7 +5651,7 @@ window.WIKI_DATA = {
           "summary": "Das Echolot (früher Echo-Kompass; Item-Id weiter echo_compass) verknüpft sich mit einem Leitstein und teleportiert dich darauf - ganz ohne Enderperle: 3 Sekunden gedrückt halten lädt den Sprung. Ein Sprung leert es; erst wieder aufgeladen (1500 Reparaturpunkte, Reparatur oder Echoscherben) funktioniert es normal, und leer erzwungen zerspringt es.",
           "details": [
             "Rechtsklick auf einen Leitstein verknüpft; die Nadel zeigt dann dorthin. Wird der Leitstein entfernt, ist die Verknüpfung weg.",
-            "Springen: 3 Sekunden (60 Ticks) gedrückt halten. Beim Laden kreisen Sculk-Seelen in drei Armen von gut zwei Blöcken außen immer enger, weit gestreute Portalpartikel werden hineingezogen, ein Amethystton steigt, Sculk-Klicken und Seelenanker-Aufladen markieren die Drittel, zum Schluss lädt der Schallangriff des Wärters; das Sichtfeld zieht sich sanft zusammen und pulsiert (skaliert mit der Vanilla-Barrierefreiheitsoption FOV-Effekte - auf 0 aus). Vorher loslassen tut nichts und kostet nichts. Der Sprung braucht seit dem 27.09.2026 keine Enderperle mehr und setzt 6 Sekunden Abklingzeit; danach kurz Blindheit, Leuchten, Sanfter Fall, Langsamkeit und Übelkeit, bei der Ankunft Schallknall und Seelenanker-Klang, dazu eine weite Partikelwolke und ein Ring aus Sculk-Seelen, der über den Boden auseinanderläuft. Funktioniert in jede Dimension, die der Server kennt; ein blockierter Sprung (etwa in eine per tweaks.dimensions gesperrte Dimension) kostet nichts - keine Ladung, keine Abklingzeit.",
+            "Springen: 3 Sekunden (60 Ticks) gedrückt halten. Beim Laden kreisen Sculk-Seelen in drei Armen von gut zwei Blöcken außen immer enger, weit gestreute Portalpartikel werden hineingezogen, ein Amethystton steigt, Sculk-Klicken und Seelenanker-Aufladen markieren die Drittel, zum Schluss lädt der Schallangriff des Wärters; das Sichtfeld zieht sich sanft zusammen und pulsiert (skaliert mit der Vanilla-Barrierefreiheitsoption FOV-Effekte - auf 0 aus). Vorher loslassen tut nichts und kostet nichts. Der Sprung braucht seit dem 27.09.2026 keine Enderperle mehr und setzt 6 Sekunden Abklingzeit; danach kurz Blindheit, Leuchten, Sanfter Fall, Langsamkeit und Übelkeit, bei der Ankunft Schallknall und Seelenanker-Klang, dazu eine weite Partikelwolke und ein Ring aus Sculk-Seelen, der über den Boden auseinanderläuft. Funktioniert in jede Dimension, die der Server kennt; ein blockierter Sprung (etwa in eine per tweaks.dimensions gesperrte Dimension) kostet nichts - keine Ladung, keine Abklingzeit. Die Abklingzeit nach einem Sprung ist tweaks.balancing.echoSounderCooldownTicks (Standard 120 Ticks, 0 = keine).",
             "Ladung: Das Echolot hat 1500 Reparaturpunkte. Ein Sprung leert es ganz (Haltbarkeit/Unbreaking wirkt je Punkt wie bei jedem Werkzeug: mit Haltbarkeit III leert ein Sprung nur etwa ein Viertel). Leer oder nicht voll aufgeladen zeigt es eine Riss-Textur in drei Stufen (leer, halb, fast voll), hat keinen Verzauberungsglanz, und sein Balken zeigt die Ladung. Aufladen mit Reparatur/Mending (2 Punkte je XP-Punkt, 750 XP im leeren Zustand) oder am Amboss mit Echoscherben (jede stellt ein Viertel wieder her, vier füllen es). Erst voll aufgeladen springt es wieder normal und glänzt wieder.",
             "Erzwingen: Ein nicht voll aufgeladenes Echolot zu benutzen provoziert den Bruch - das Laden dauert doppelt so lange (6 Sekunden) mit Warnzeichen (Knacken, Funken, Rauch, zur Hälfte ein Sculk-Kreischen, alles lauter), der Sprung gelingt noch, danach zerspringt das Echolot endgültig. Haltbarkeit rettet es dabei nicht. Im Kreativmodus leert und zerspringt es nicht.",
             "Rezept (Werkbank, geformt \"NNN\" / \"NRN\" / \"NEN\"): sieben Enderitklumpen außen herum, der Bergungskompass in der Mitte, der Enderitkern unten mittig.",
@@ -5592,17 +5753,17 @@ window.WIKI_DATA = {
           "tools/textures/generate_textures.py"
         ],
         "en": {
-          "summary": "Ender Quartz is the material of the purple end palette: a crystal of quartz with Astralit and Nihilith in it.",
+          "summary": "Ender Quartz is the material of the purple end palette: a crystal of quartz with Astralit and Nihilit in it.",
           "details": [
-            "Crafting (shapeless): 1 Astralit Dust + 1 Nihilith Shard + 1 Quartz anywhere in the grid make 2 Ender Quartz.",
+            "Crafting (shapeless): 1 Astralit Dust + 1 Nihilit Shard + 1 Quartz anywhere in the grid make 2 Ender Quartz.",
             "4 Ender Quartz in a square make 1 Block of Ender Quartz; 8 End Stone, End Stone Bricks (and their stairs, slab and wall), Purpur Blocks, Purpur Stairs, Purpur Slabs or Purpur Pillars around 1 Ender Quartz recolour them into 8 of the matching Ender Quartz block.",
             "It sits in the creative tab \"SimpleMaterials\", next to Astralit Dust."
           ]
         },
         "de": {
-          "summary": "Enderquarz ist das Material der violetten End-Palette: ein Quarzkristall mit Astralit und Nihilith darin.",
+          "summary": "Enderquarz ist das Material der violetten End-Palette: ein Quarzkristall mit Astralit und Nihilit darin.",
           "details": [
-            "Herstellung (formlos): 1 Astralitstaub + 1 Nihilithsplitter + 1 Quarz an beliebiger Stelle ergeben 2 Enderquarz.",
+            "Herstellung (formlos): 1 Astralitstaub + 1 Nihilitsplitter + 1 Quarz an beliebiger Stelle ergeben 2 Enderquarz.",
             "4 Enderquarz im Quadrat ergeben 1 Enderquarzblock; 8 Endstein, Endsteinziegel (samt Treppe, Stufe und Mauer), Purpurblöcke, Purpurtreppen, Purpurstufen oder Purpursäulen um 1 Enderquarz färben sie in 8 des passenden Enderquarz-Blocks um.",
             "Er liegt im Kreativ-Tab „SimpleMaterials“, neben dem Astralitstaub."
           ]
@@ -5640,6 +5801,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_ender_quartz_wall_from_ender_quartz_block_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_block.png",
       "hasCustomBehaviour": false
     },
     {
@@ -5660,6 +5822,7 @@ window.WIKI_DATA = {
         "simplebuilding:chiseled_ender_quartz_bricks"
       ],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_brick_slab.png",
       "hasCustomBehaviour": false
     },
     {
@@ -5678,6 +5841,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_brick_stairs.png",
       "hasCustomBehaviour": false
     },
     {
@@ -5686,7 +5850,7 @@ window.WIKI_DATA = {
         "en_us": "Ender Quartz Brick Wall",
         "de_de": "Enderquarzziegelmauer"
       },
-      "texture": null,
+      "texture": "assets/textures/block/ender_quartz_bricks.png",
       "craftedBy": [
         "simplebuilding:ender_quartz_brick_wall",
         "simplebuilding:ender_quartz_brick_wall_from_end_stone_brick_wall",
@@ -5696,6 +5860,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_brick_wall.png",
       "hasCustomBehaviour": false
     },
     {
@@ -5722,6 +5887,7 @@ window.WIKI_DATA = {
         "simplebuilding:ender_quartz_brick_wall_from_ender_quartz_bricks_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_bricks.png",
       "hasCustomBehaviour": false
     },
     {
@@ -5736,6 +5902,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_checker.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -5748,16 +5915,16 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith, Astralit und Enderquarz.",
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilithsplitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -5782,6 +5949,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_pillar.png",
       "hasCustomBehaviour": false
     },
     {
@@ -5798,6 +5966,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_slab.png",
       "hasCustomBehaviour": false
     },
     {
@@ -5814,6 +5983,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_stairs.png",
       "hasCustomBehaviour": false
     },
     {
@@ -6031,6 +6201,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/enderite_blast_furnace.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/ModBlastFurnaceBlock.java",
@@ -6119,6 +6290,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_ingot"
       ],
       "trades": [],
+      "icon": "assets/textures/render/enderite_block.png",
       "hasCustomBehaviour": false
     },
     {
@@ -6552,7 +6724,7 @@ window.WIKI_DATA = {
             "Iron/copper map adds: Chiseled Stone Bricks -> Stone Bricks -> Cracked Stone Bricks; Stone Brick Stairs and Slab -> mossy variant; Polished Andesite, Diorite and Granite -> unpolished variant (stairs and slabs too); Polished Tuff -> Tuff (stairs and slabs too); Planks -> Stairs -> Slab for oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, bamboo and pale oak.",
             "Gold/diamond map adds: Smooth Quartz Block -> Quartz Pillar -> Quartz Bricks -> Chiseled Quartz Block -> Block of Quartz (Smooth Quartz Stairs -> Quartz Stairs, slabs likewise); Polished Tuff -> Tuff -> Chiseled Tuff -> Tuff Bricks (Tuff Stairs -> Tuff Brick Stairs -> Polished Tuff Stairs, slabs likewise); Polished Blackstone -> Blackstone -> Chiseled Polished Blackstone -> Polished Blackstone Bricks -> Cracked Polished Blackstone Bricks (stairs/slabs: polished -> blackstone -> polished bricks); Basalt -> Smooth Basalt -> Polished Basalt; Polished Deepslate -> Chiseled Deepslate -> Deepslate Bricks -> Cracked Deepslate Bricks -> Deepslate Tiles -> Cracked Deepslate Tiles -> Deepslate -> Cobbled Deepslate (stairs/slabs: polished -> bricks -> tiles -> cobbled); Cracked Stone Bricks -> Cobblestone.",
             "Netherite map adds: Netherrack -> Nether Bricks -> Cracked Nether Bricks -> Chiseled Nether Bricks -> Netherrack (a cycle); Resin Bricks -> Chiseled Resin Bricks; Chiseled Sandstone -> Sand; Chiseled Red Sandstone -> Red Sand.",
-            "Enderite map adds (only the Enderite Chisel): Polished Astralit -> Astralit Pillar -> Astralit Bricks -> Chiseled Astralit Bricks -> Block of Astralit, the same chain for Nihilith and for Ender Quartz (Polished Ender Quartz -> Ender Quartz Pillar -> Ender Quartz Bricks -> Chiseled Ender Quartz Bricks -> Block of Ender Quartz); Polished Astralit/Nihilith Stairs, Slab and Wall -> the brick variant; Polished Ender Quartz Stairs and Slab -> Ender Quartz Brick Stairs/Slab -> Ender Quartz Stairs/Slab, Polished Ender Quartz Wall -> Ender Quartz Brick Wall. Every block in these chains comes out of the stonecutter 1:1 from the same base block, so the chisel neither gains nor loses material.",
+            "Enderite map adds (only the Enderite Chisel): Polished Astralit -> Astralit Pillar -> Astralit Bricks -> Chiseled Astralit Bricks -> Block of Astralit, the same chain for Nihilit and for Ender Quartz (Polished Ender Quartz -> Ender Quartz Pillar -> Ender Quartz Bricks -> Chiseled Ender Quartz Bricks -> Block of Ender Quartz); Polished Astralit/Nihilit Stairs, Slab and Wall -> the brick variant; Polished Ender Quartz Stairs and Slab -> Ender Quartz Brick Stairs/Slab -> Ender Quartz Stairs/Slab, Polished Ender Quartz Wall -> Ender Quartz Brick Wall. Every block in these chains comes out of the stonecutter 1:1 from the same base block, so the chisel neither gains nor loses material.",
             "With the Constructor's Touch enchantment each tier gains extra entries - stone: Mud Bricks -> Packed Mud -> Mud, Cobblestone -> Mossy Cobblestone (stairs and slab too), nine log types -> stripped log (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak); iron: Bricks -> Mud Bricks (stairs and slab too), nine wood types (bark blocks) -> stripped wood, crimson and warped planks -> stairs -> slab; diamond: Prismarine -> Prismarine Bricks (stairs and slab too), Smooth Stone -> Stone (Smooth Stone Slab -> Stone Slab as well), End Stone -> End Stone Bricks, Purpur Pillar -> Purpur Block, Block of Copper -> Cut Copper -> Chiseled Copper -> Copper Grate, dead coral blocks in a cycle (brain -> bubble -> fire -> horn -> tube -> brain), living coral blocks in a cycle; netherite: Polished Diorite -> Diorite -> Calcite -> Dripstone Block, Obsidian -> Crying Obsidian, crimson and warped stems -> stripped, each of the 16 concrete colors -> concrete powder of the same color.",
             "Block properties such as waterlogged, or a slab's type (top, bottom, double), are carried over to the new block when that block has the same property.",
             "Pillar blocks (axis) and stairs (facing and top/bottom half) are re-oriented after the transformation from the click position and the player's facing; the edge zone of a block face is a strip 0.25 blocks wide. A further code branch for blocks with a six-way FACING exists, but it applies to no target block in the maps.",
@@ -6615,7 +6787,7 @@ window.WIKI_DATA = {
             "Eisen-/Kupfer-Tabelle zusätzlich: Gemeißelte Steinziegel → Steinziegel → Rissige Steinziegel; Steinziegeltreppe und -stufe → bemooste Variante; Polierter Andesit, Diorit und Granit → unpolierte Variante (auch Treppen und Stufen); Polierter Tuff → Tuff (auch Treppen und Stufen); Bretter → Treppe → Stufe für Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Bambus und Blasseiche.",
             "Gold-/Diamant-Tabelle zusätzlich: Glatter Quarzblock → Quarzsäule → Quarzziegel → Gemeißelter Quarzblock → Quarzblock (Glatte Quarztreppe → Quarztreppe, Stufen analog); Polierter Tuff → Tuff → Gemeißelter Tuff → Tuffziegel (Tufftreppe → Tuffziegeltreppe → Polierte Tufftreppe, Stufen analog); Polierter Schwarzstein → Schwarzstein → Gemeißelter polierter Schwarzstein → Polierte Schwarzsteinziegel → Rissige polierte Schwarzsteinziegel (Treppen/Stufen: poliert → Schwarzstein → polierte Ziegel); Basalt → Glatter Basalt → Polierter Basalt; Polierter Tiefenschiefer → Gemeißelter Tiefenschiefer → Tiefenschieferziegel → Rissige Tiefenschieferziegel → Tiefenschieferfliesen → Rissige Tiefenschieferfliesen → Tiefenschiefer → Bruchtiefenschiefer (Treppen/Stufen: poliert → Ziegel → Fliesen → Bruchtiefenschiefer); Rissige Steinziegel → Bruchstein.",
             "Netherit-Tabelle zusätzlich: Netherrack → Netherziegel → Rissige Netherziegel → Gemeißelte Netherziegel → Netherrack (Kreislauf); Harzziegel → Gemeißelte Harzziegel; Gemeißelter Sandstein → Sand; Gemeißelter roter Sandstein → Roter Sand.",
-            "Enderit-Tabelle zusätzlich (nur der Enderitmeißel): Polierter Astralit → Astralitsäule → Astralitziegel → Gemeißelte Astralitziegel → Astralitblock, dieselbe Kette für Nihilith und für Enderquarz (Polierter Enderquarz → Enderquarzsäule → Enderquarzziegel → Gemeißelte Enderquarzziegel → Enderquarzblock); Treppe, Stufe und Mauer aus poliertem Astralit/Nihilith → Ziegel-Variante; Treppe und Stufe aus poliertem Enderquarz → Enderquarzziegel-Treppe/-Stufe → Enderquarztreppe/-stufe, Mauer aus poliertem Enderquarz → Enderquarzziegelmauer. Jeder Block dieser Ketten kommt 1:1 aus der Steinsäge vom selben Grundblock, der Meißel gewinnt oder verliert also kein Material.",
+            "Enderit-Tabelle zusätzlich (nur der Enderitmeißel): Polierter Astralit → Astralitsäule → Astralitziegel → Gemeißelte Astralitziegel → Astralitblock, dieselbe Kette für Nihilit und für Enderquarz (Polierter Enderquarz → Enderquarzsäule → Enderquarzziegel → Gemeißelte Enderquarzziegel → Enderquarzblock); Treppe, Stufe und Mauer aus poliertem Astralit/Nihilit → Ziegel-Variante; Treppe und Stufe aus poliertem Enderquarz → Enderquarzziegel-Treppe/-Stufe → Enderquarztreppe/-stufe, Mauer aus poliertem Enderquarz → Enderquarzziegelmauer. Jeder Block dieser Ketten kommt 1:1 aus der Steinsäge vom selben Grundblock, der Meißel gewinnt oder verliert also kein Material.",
             "Mit der Verzauberung Berührung des Konstrukteurs kommen je Stufe Zusatz-Einträge dazu – Stein: Schlammziegel → Gepackter Schlamm → Schlamm, Bruchstein → Bemooster Bruchstein (auch Treppe/Stufe), neun Stammarten → entrindeter Stamm (Eiche, Fichte, Birke, Tropenbaum, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche); Eisen: Ziegel → Schlammziegel (auch Treppe/Stufe), neun Holzarten (Rindenblöcke) → entrindetes Holz, Karmesin- und Wirrbretter → Treppe → Stufe; Diamant: Prismarin → Prismarinziegel (auch Treppe/Stufe), Glatter Stein → Stein (auch Stufe), Endstein → Endsteinziegel, Purpursäule → Purpurblock, Kupferblock → Geschnittener Kupferblock → Gemeißelter Kupferblock → Kupfergitter, tote Korallenblöcke im Kreis (Hirn → Blasen → Feuer → Horn → Röhren → Hirn), lebende Korallenblöcke im Kreis; Netherit: Polierter Diorit → Diorit → Kalzit → Tropfsteinblock, Obsidian → Weinender Obsidian, Karmesin- und Wirrstiel → entrindet, jede der 16 Betonfarben → gleichfarbiger Trockenbeton.",
             "Blockeigenschaften wie „mit Wasser gefüllt“ oder die Lage einer Stufe (oben, unten, doppelt) werden auf den neuen Block übernommen, wenn dieser dieselbe Eigenschaft besitzt.",
             "Säulenblöcke (Achse) und Treppen (Richtung und obere/untere Hälfte) werden nach der Umwandlung aus der Klickposition und der Blickrichtung des Spielers neu ausgerichtet; als Randbereich einer Blockseite gilt ein Streifen von 0,25 Blockbreite. Ein weiterer Code-Zweig für Blöcke mit sechsseitiger Blickrichtung (FACING) existiert, trifft aber auf keinen Zielblock der Tabellen zu.",
@@ -6784,6 +6956,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/enderite_furnace.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/ModFurnaceBlock.java",
@@ -7072,6 +7245,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/enderite_piston.png",
       "note": {
         "en": {
           "summary": "The Enderite Piston breaks the block in front of it like the Netherite Piston, and, paid with a Redstone Block next to it, sacrifices itself to break up to three blocks deep through unbreakable blocks such as bedrock.",
@@ -7542,6 +7716,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/enderite_smoker.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/custom/ModSmokerBlock.java",
@@ -7999,7 +8174,7 @@ window.WIKI_DATA = {
             "Iron/copper map adds: Chiseled Stone Bricks -> Stone Bricks -> Cracked Stone Bricks; Stone Brick Stairs and Slab -> mossy variant; Polished Andesite, Diorite and Granite -> unpolished variant (stairs and slabs too); Polished Tuff -> Tuff (stairs and slabs too); Planks -> Stairs -> Slab for oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, bamboo and pale oak.",
             "Gold/diamond map adds: Smooth Quartz Block -> Quartz Pillar -> Quartz Bricks -> Chiseled Quartz Block -> Block of Quartz (Smooth Quartz Stairs -> Quartz Stairs, slabs likewise); Polished Tuff -> Tuff -> Chiseled Tuff -> Tuff Bricks (Tuff Stairs -> Tuff Brick Stairs -> Polished Tuff Stairs, slabs likewise); Polished Blackstone -> Blackstone -> Chiseled Polished Blackstone -> Polished Blackstone Bricks -> Cracked Polished Blackstone Bricks (stairs/slabs: polished -> blackstone -> polished bricks); Basalt -> Smooth Basalt -> Polished Basalt; Polished Deepslate -> Chiseled Deepslate -> Deepslate Bricks -> Cracked Deepslate Bricks -> Deepslate Tiles -> Cracked Deepslate Tiles -> Deepslate -> Cobbled Deepslate (stairs/slabs: polished -> bricks -> tiles -> cobbled); Cracked Stone Bricks -> Cobblestone.",
             "Netherite map adds: Netherrack -> Nether Bricks -> Cracked Nether Bricks -> Chiseled Nether Bricks -> Netherrack (a cycle); Resin Bricks -> Chiseled Resin Bricks; Chiseled Sandstone -> Sand; Chiseled Red Sandstone -> Red Sand.",
-            "Enderite map adds (only the Enderite Chisel): Polished Astralit -> Astralit Pillar -> Astralit Bricks -> Chiseled Astralit Bricks -> Block of Astralit, the same chain for Nihilith and for Ender Quartz (Polished Ender Quartz -> Ender Quartz Pillar -> Ender Quartz Bricks -> Chiseled Ender Quartz Bricks -> Block of Ender Quartz); Polished Astralit/Nihilith Stairs, Slab and Wall -> the brick variant; Polished Ender Quartz Stairs and Slab -> Ender Quartz Brick Stairs/Slab -> Ender Quartz Stairs/Slab, Polished Ender Quartz Wall -> Ender Quartz Brick Wall. Every block in these chains comes out of the stonecutter 1:1 from the same base block, so the chisel neither gains nor loses material.",
+            "Enderite map adds (only the Enderite Chisel): Polished Astralit -> Astralit Pillar -> Astralit Bricks -> Chiseled Astralit Bricks -> Block of Astralit, the same chain for Nihilit and for Ender Quartz (Polished Ender Quartz -> Ender Quartz Pillar -> Ender Quartz Bricks -> Chiseled Ender Quartz Bricks -> Block of Ender Quartz); Polished Astralit/Nihilit Stairs, Slab and Wall -> the brick variant; Polished Ender Quartz Stairs and Slab -> Ender Quartz Brick Stairs/Slab -> Ender Quartz Stairs/Slab, Polished Ender Quartz Wall -> Ender Quartz Brick Wall. Every block in these chains comes out of the stonecutter 1:1 from the same base block, so the chisel neither gains nor loses material.",
             "With the Constructor's Touch enchantment each tier gains extra entries - stone: Mud Bricks -> Packed Mud -> Mud, Cobblestone -> Mossy Cobblestone (stairs and slab too), nine log types -> stripped log (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak); iron: Bricks -> Mud Bricks (stairs and slab too), nine wood types (bark blocks) -> stripped wood, crimson and warped planks -> stairs -> slab; diamond: Prismarine -> Prismarine Bricks (stairs and slab too), Smooth Stone -> Stone (Smooth Stone Slab -> Stone Slab as well), End Stone -> End Stone Bricks, Purpur Pillar -> Purpur Block, Block of Copper -> Cut Copper -> Chiseled Copper -> Copper Grate, dead coral blocks in a cycle (brain -> bubble -> fire -> horn -> tube -> brain), living coral blocks in a cycle; netherite: Polished Diorite -> Diorite -> Calcite -> Dripstone Block, Obsidian -> Crying Obsidian, crimson and warped stems -> stripped, each of the 16 concrete colors -> concrete powder of the same color.",
             "Block properties such as waterlogged, or a slab's type (top, bottom, double), are carried over to the new block when that block has the same property.",
             "Pillar blocks (axis) and stairs (facing and top/bottom half) are re-oriented after the transformation from the click position and the player's facing; the edge zone of a block face is a strip 0.25 blocks wide. A further code branch for blocks with a six-way FACING exists, but it applies to no target block in the maps.",
@@ -8062,7 +8237,7 @@ window.WIKI_DATA = {
             "Eisen-/Kupfer-Tabelle zusätzlich: Gemeißelte Steinziegel → Steinziegel → Rissige Steinziegel; Steinziegeltreppe und -stufe → bemooste Variante; Polierter Andesit, Diorit und Granit → unpolierte Variante (auch Treppen und Stufen); Polierter Tuff → Tuff (auch Treppen und Stufen); Bretter → Treppe → Stufe für Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Bambus und Blasseiche.",
             "Gold-/Diamant-Tabelle zusätzlich: Glatter Quarzblock → Quarzsäule → Quarzziegel → Gemeißelter Quarzblock → Quarzblock (Glatte Quarztreppe → Quarztreppe, Stufen analog); Polierter Tuff → Tuff → Gemeißelter Tuff → Tuffziegel (Tufftreppe → Tuffziegeltreppe → Polierte Tufftreppe, Stufen analog); Polierter Schwarzstein → Schwarzstein → Gemeißelter polierter Schwarzstein → Polierte Schwarzsteinziegel → Rissige polierte Schwarzsteinziegel (Treppen/Stufen: poliert → Schwarzstein → polierte Ziegel); Basalt → Glatter Basalt → Polierter Basalt; Polierter Tiefenschiefer → Gemeißelter Tiefenschiefer → Tiefenschieferziegel → Rissige Tiefenschieferziegel → Tiefenschieferfliesen → Rissige Tiefenschieferfliesen → Tiefenschiefer → Bruchtiefenschiefer (Treppen/Stufen: poliert → Ziegel → Fliesen → Bruchtiefenschiefer); Rissige Steinziegel → Bruchstein.",
             "Netherit-Tabelle zusätzlich: Netherrack → Netherziegel → Rissige Netherziegel → Gemeißelte Netherziegel → Netherrack (Kreislauf); Harzziegel → Gemeißelte Harzziegel; Gemeißelter Sandstein → Sand; Gemeißelter roter Sandstein → Roter Sand.",
-            "Enderit-Tabelle zusätzlich (nur der Enderitmeißel): Polierter Astralit → Astralitsäule → Astralitziegel → Gemeißelte Astralitziegel → Astralitblock, dieselbe Kette für Nihilith und für Enderquarz (Polierter Enderquarz → Enderquarzsäule → Enderquarzziegel → Gemeißelte Enderquarzziegel → Enderquarzblock); Treppe, Stufe und Mauer aus poliertem Astralit/Nihilith → Ziegel-Variante; Treppe und Stufe aus poliertem Enderquarz → Enderquarzziegel-Treppe/-Stufe → Enderquarztreppe/-stufe, Mauer aus poliertem Enderquarz → Enderquarzziegelmauer. Jeder Block dieser Ketten kommt 1:1 aus der Steinsäge vom selben Grundblock, der Meißel gewinnt oder verliert also kein Material.",
+            "Enderit-Tabelle zusätzlich (nur der Enderitmeißel): Polierter Astralit → Astralitsäule → Astralitziegel → Gemeißelte Astralitziegel → Astralitblock, dieselbe Kette für Nihilit und für Enderquarz (Polierter Enderquarz → Enderquarzsäule → Enderquarzziegel → Gemeißelte Enderquarzziegel → Enderquarzblock); Treppe, Stufe und Mauer aus poliertem Astralit/Nihilit → Ziegel-Variante; Treppe und Stufe aus poliertem Enderquarz → Enderquarzziegel-Treppe/-Stufe → Enderquarztreppe/-stufe, Mauer aus poliertem Enderquarz → Enderquarzziegelmauer. Jeder Block dieser Ketten kommt 1:1 aus der Steinsäge vom selben Grundblock, der Meißel gewinnt oder verliert also kein Material.",
             "Mit der Verzauberung Berührung des Konstrukteurs kommen je Stufe Zusatz-Einträge dazu – Stein: Schlammziegel → Gepackter Schlamm → Schlamm, Bruchstein → Bemooster Bruchstein (auch Treppe/Stufe), neun Stammarten → entrindeter Stamm (Eiche, Fichte, Birke, Tropenbaum, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche); Eisen: Ziegel → Schlammziegel (auch Treppe/Stufe), neun Holzarten (Rindenblöcke) → entrindetes Holz, Karmesin- und Wirrbretter → Treppe → Stufe; Diamant: Prismarin → Prismarinziegel (auch Treppe/Stufe), Glatter Stein → Stein (auch Stufe), Endstein → Endsteinziegel, Purpursäule → Purpurblock, Kupferblock → Geschnittener Kupferblock → Gemeißelter Kupferblock → Kupfergitter, tote Korallenblöcke im Kreis (Hirn → Blasen → Feuer → Horn → Röhren → Hirn), lebende Korallenblöcke im Kreis; Netherit: Polierter Diorit → Diorit → Kalzit → Tropfsteinblock, Obsidian → Weinender Obsidian, Karmesin- und Wirrstiel → entrindet, jede der 16 Betonfarben → gleichfarbiger Trockenbeton.",
             "Blockeigenschaften wie „mit Wasser gefüllt“ oder die Lage einer Stufe (oben, unten, doppelt) werden auf den neuen Block übernommen, wenn dieser dieselbe Eigenschaft besitzt.",
             "Säulenblöcke (Achse) und Treppen (Richtung und obere/untere Hälfte) werden nach der Umwandlung aus der Klickposition und der Blickrichtung des Spielers neu ausgerichtet; als Randbereich einer Blockseite gilt ein Streifen von 0,25 Blockbreite. Ein weiterer Code-Zweig für Blöcke mit sechsseitiger Blickrichtung (FACING) existiert, trifft aber auf keinen Zielblock der Tabellen zu.",
@@ -8519,7 +8694,10 @@ window.WIKI_DATA = {
         "en": {
           "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server: a short, clickable walk through the first steps. Seven topic books (Tools & Upgrades, Building, Storage, Machines & Pistons, End & Enderite, Pads & Gadgets, Trims & Radiance) go deeper and are crafted at the crafting table.",
           "details": [
-            "Reading: right-click opens the vanilla book screen. Page 1 of every book is a table of contents whose chapter names are links; every chapter page ends with a link back to the contents. The books also go on a lectern and into a chiseled bookshelf.",
+            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back (after a chapter jump) or to the contents, Home to the contents, the bookmark on the left always leads to the contents. Each book remembers its last spread until the game restarts. The bookmarks on the right switch between the eight books - a book you do not carry stays locked and its tooltip names the recipe.",
+            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
+            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
             "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
             "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, Diamond Pebbles, hammering machines up a tier, the Building Wand, the Octant, the Backpack, upgrading tools and where enchantments come from, and ends with the list of topic books and their recipes.",
             "Topic book recipes (shapeless): a book or the Beginner's Guide plus Stone Chisel (Tools & Upgrades), Brick (Building), Chest (Storage), Piston (Machines & Pistons), Ender Pearl (End & Enderite), Stone Pressure Plate (Pads & Gadgets) or Amethyst Shard (Trims & Radiance). Made from the guide, the guide stays in the crafting grid. The recipes unlock with the key item or with the guide.",
@@ -8531,7 +8709,10 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers: ein kurzer, anklickbarer Weg durch die ersten Schritte. Sieben Themenbücher (Werkzeuge & Aufwertungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads & Geräte, Besätze & Strahlkraft) gehen tiefer und entstehen an der Werkbank.",
           "details": [
-            "Lesen: Rechtsklick öffnet den Vanilla-Buchbildschirm. Seite 1 jedes Buchs ist ein Inhaltsverzeichnis, dessen Kapitelnamen Links sind; jede Kapitelseite endet mit einem Link zurück zum Inhalt. Die Bücher passen auch aufs Lesepult und ins gemeißelte Bücherregal.",
+            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück (nach einem Kapitelsprung) oder zum Inhalt, Pos1 zum Inhalt, das Lesezeichen links führt immer zum Inhalt. Jedes Buch merkt sich seine letzte Doppelseite bis zum Neustart des Spiels. Die Lesezeichen rechts wechseln zwischen den acht Büchern - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept.",
+            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
+            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
             "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
             "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Diamantkiesel, das Aufhämmern von Maschinen, Baustab, Oktant, Rucksack, das Aufwerten von Werkzeugen und woher Verzauberungen kommen, und endet mit der Liste der Themenbücher samt Rezept.",
             "Rezepte der Themenbücher (formlos): ein Buch oder das Einsteiger-Handbuch plus Steinmeißel (Werkzeuge & Aufwertungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen & Kolben), Enderperle (Ende & Enderit), Steindruckplatte (Pads & Geräte) oder Amethystscherbe (Besätze & Strahlkraft). Mit dem Handbuch hergestellt, bleibt das Handbuch im Raster liegen. Freigeschaltet werden die Rezepte durch das Schlüsselitem oder durch das Handbuch.",
@@ -8542,6 +8723,8 @@ window.WIKI_DATA = {
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
+          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
           "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
@@ -8577,7 +8760,10 @@ window.WIKI_DATA = {
         "en": {
           "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server: a short, clickable walk through the first steps. Seven topic books (Tools & Upgrades, Building, Storage, Machines & Pistons, End & Enderite, Pads & Gadgets, Trims & Radiance) go deeper and are crafted at the crafting table.",
           "details": [
-            "Reading: right-click opens the vanilla book screen. Page 1 of every book is a table of contents whose chapter names are links; every chapter page ends with a link back to the contents. The books also go on a lectern and into a chiseled bookshelf.",
+            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back (after a chapter jump) or to the contents, Home to the contents, the bookmark on the left always leads to the contents. Each book remembers its last spread until the game restarts. The bookmarks on the right switch between the eight books - a book you do not carry stays locked and its tooltip names the recipe.",
+            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
+            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
             "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
             "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, Diamond Pebbles, hammering machines up a tier, the Building Wand, the Octant, the Backpack, upgrading tools and where enchantments come from, and ends with the list of topic books and their recipes.",
             "Topic book recipes (shapeless): a book or the Beginner's Guide plus Stone Chisel (Tools & Upgrades), Brick (Building), Chest (Storage), Piston (Machines & Pistons), Ender Pearl (End & Enderite), Stone Pressure Plate (Pads & Gadgets) or Amethyst Shard (Trims & Radiance). Made from the guide, the guide stays in the crafting grid. The recipes unlock with the key item or with the guide.",
@@ -8589,7 +8775,10 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers: ein kurzer, anklickbarer Weg durch die ersten Schritte. Sieben Themenbücher (Werkzeuge & Aufwertungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads & Geräte, Besätze & Strahlkraft) gehen tiefer und entstehen an der Werkbank.",
           "details": [
-            "Lesen: Rechtsklick öffnet den Vanilla-Buchbildschirm. Seite 1 jedes Buchs ist ein Inhaltsverzeichnis, dessen Kapitelnamen Links sind; jede Kapitelseite endet mit einem Link zurück zum Inhalt. Die Bücher passen auch aufs Lesepult und ins gemeißelte Bücherregal.",
+            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück (nach einem Kapitelsprung) oder zum Inhalt, Pos1 zum Inhalt, das Lesezeichen links führt immer zum Inhalt. Jedes Buch merkt sich seine letzte Doppelseite bis zum Neustart des Spiels. Die Lesezeichen rechts wechseln zwischen den acht Büchern - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept.",
+            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
+            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
             "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
             "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Diamantkiesel, das Aufhämmern von Maschinen, Baustab, Oktant, Rucksack, das Aufwerten von Werkzeugen und woher Verzauberungen kommen, und endet mit der Liste der Themenbücher samt Rezept.",
             "Rezepte der Themenbücher (formlos): ein Buch oder das Einsteiger-Handbuch plus Steinmeißel (Werkzeuge & Aufwertungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen & Kolben), Enderperle (Ende & Enderit), Steindruckplatte (Pads & Geräte) oder Amethystscherbe (Besätze & Strahlkraft). Mit dem Handbuch hergestellt, bleibt das Handbuch im Raster liegen. Freigeschaltet werden die Rezepte durch das Schlüsselitem oder durch das Handbuch.",
@@ -8600,6 +8789,8 @@ window.WIKI_DATA = {
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
+          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
           "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
@@ -8635,7 +8826,10 @@ window.WIKI_DATA = {
         "en": {
           "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server: a short, clickable walk through the first steps. Seven topic books (Tools & Upgrades, Building, Storage, Machines & Pistons, End & Enderite, Pads & Gadgets, Trims & Radiance) go deeper and are crafted at the crafting table.",
           "details": [
-            "Reading: right-click opens the vanilla book screen. Page 1 of every book is a table of contents whose chapter names are links; every chapter page ends with a link back to the contents. The books also go on a lectern and into a chiseled bookshelf.",
+            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back (after a chapter jump) or to the contents, Home to the contents, the bookmark on the left always leads to the contents. Each book remembers its last spread until the game restarts. The bookmarks on the right switch between the eight books - a book you do not carry stays locked and its tooltip names the recipe.",
+            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
+            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
             "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
             "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, Diamond Pebbles, hammering machines up a tier, the Building Wand, the Octant, the Backpack, upgrading tools and where enchantments come from, and ends with the list of topic books and their recipes.",
             "Topic book recipes (shapeless): a book or the Beginner's Guide plus Stone Chisel (Tools & Upgrades), Brick (Building), Chest (Storage), Piston (Machines & Pistons), Ender Pearl (End & Enderite), Stone Pressure Plate (Pads & Gadgets) or Amethyst Shard (Trims & Radiance). Made from the guide, the guide stays in the crafting grid. The recipes unlock with the key item or with the guide.",
@@ -8647,7 +8841,10 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers: ein kurzer, anklickbarer Weg durch die ersten Schritte. Sieben Themenbücher (Werkzeuge & Aufwertungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads & Geräte, Besätze & Strahlkraft) gehen tiefer und entstehen an der Werkbank.",
           "details": [
-            "Lesen: Rechtsklick öffnet den Vanilla-Buchbildschirm. Seite 1 jedes Buchs ist ein Inhaltsverzeichnis, dessen Kapitelnamen Links sind; jede Kapitelseite endet mit einem Link zurück zum Inhalt. Die Bücher passen auch aufs Lesepult und ins gemeißelte Bücherregal.",
+            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück (nach einem Kapitelsprung) oder zum Inhalt, Pos1 zum Inhalt, das Lesezeichen links führt immer zum Inhalt. Jedes Buch merkt sich seine letzte Doppelseite bis zum Neustart des Spiels. Die Lesezeichen rechts wechseln zwischen den acht Büchern - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept.",
+            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
+            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
             "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
             "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Diamantkiesel, das Aufhämmern von Maschinen, Baustab, Oktant, Rucksack, das Aufwerten von Werkzeugen und woher Verzauberungen kommen, und endet mit der Liste der Themenbücher samt Rezept.",
             "Rezepte der Themenbücher (formlos): ein Buch oder das Einsteiger-Handbuch plus Steinmeißel (Werkzeuge & Aufwertungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen & Kolben), Enderperle (Ende & Enderit), Steindruckplatte (Pads & Geräte) oder Amethystscherbe (Besätze & Strahlkraft). Mit dem Handbuch hergestellt, bleibt das Handbuch im Raster liegen. Freigeschaltet werden die Rezepte durch das Schlüsselitem oder durch das Handbuch.",
@@ -8658,6 +8855,8 @@ window.WIKI_DATA = {
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
+          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
           "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
@@ -8693,7 +8892,10 @@ window.WIKI_DATA = {
         "en": {
           "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server: a short, clickable walk through the first steps. Seven topic books (Tools & Upgrades, Building, Storage, Machines & Pistons, End & Enderite, Pads & Gadgets, Trims & Radiance) go deeper and are crafted at the crafting table.",
           "details": [
-            "Reading: right-click opens the vanilla book screen. Page 1 of every book is a table of contents whose chapter names are links; every chapter page ends with a link back to the contents. The books also go on a lectern and into a chiseled bookshelf.",
+            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back (after a chapter jump) or to the contents, Home to the contents, the bookmark on the left always leads to the contents. Each book remembers its last spread until the game restarts. The bookmarks on the right switch between the eight books - a book you do not carry stays locked and its tooltip names the recipe.",
+            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
+            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
             "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
             "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, Diamond Pebbles, hammering machines up a tier, the Building Wand, the Octant, the Backpack, upgrading tools and where enchantments come from, and ends with the list of topic books and their recipes.",
             "Topic book recipes (shapeless): a book or the Beginner's Guide plus Stone Chisel (Tools & Upgrades), Brick (Building), Chest (Storage), Piston (Machines & Pistons), Ender Pearl (End & Enderite), Stone Pressure Plate (Pads & Gadgets) or Amethyst Shard (Trims & Radiance). Made from the guide, the guide stays in the crafting grid. The recipes unlock with the key item or with the guide.",
@@ -8705,7 +8907,10 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers: ein kurzer, anklickbarer Weg durch die ersten Schritte. Sieben Themenbücher (Werkzeuge & Aufwertungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads & Geräte, Besätze & Strahlkraft) gehen tiefer und entstehen an der Werkbank.",
           "details": [
-            "Lesen: Rechtsklick öffnet den Vanilla-Buchbildschirm. Seite 1 jedes Buchs ist ein Inhaltsverzeichnis, dessen Kapitelnamen Links sind; jede Kapitelseite endet mit einem Link zurück zum Inhalt. Die Bücher passen auch aufs Lesepult und ins gemeißelte Bücherregal.",
+            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück (nach einem Kapitelsprung) oder zum Inhalt, Pos1 zum Inhalt, das Lesezeichen links führt immer zum Inhalt. Jedes Buch merkt sich seine letzte Doppelseite bis zum Neustart des Spiels. Die Lesezeichen rechts wechseln zwischen den acht Büchern - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept.",
+            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
+            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
             "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
             "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Diamantkiesel, das Aufhämmern von Maschinen, Baustab, Oktant, Rucksack, das Aufwerten von Werkzeugen und woher Verzauberungen kommen, und endet mit der Liste der Themenbücher samt Rezept.",
             "Rezepte der Themenbücher (formlos): ein Buch oder das Einsteiger-Handbuch plus Steinmeißel (Werkzeuge & Aufwertungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen & Kolben), Enderperle (Ende & Enderit), Steindruckplatte (Pads & Geräte) oder Amethystscherbe (Besätze & Strahlkraft). Mit dem Handbuch hergestellt, bleibt das Handbuch im Raster liegen. Freigeschaltet werden die Rezepte durch das Schlüsselitem oder durch das Handbuch.",
@@ -8716,6 +8921,8 @@ window.WIKI_DATA = {
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
+          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
           "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
@@ -8751,7 +8958,10 @@ window.WIKI_DATA = {
         "en": {
           "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server: a short, clickable walk through the first steps. Seven topic books (Tools & Upgrades, Building, Storage, Machines & Pistons, End & Enderite, Pads & Gadgets, Trims & Radiance) go deeper and are crafted at the crafting table.",
           "details": [
-            "Reading: right-click opens the vanilla book screen. Page 1 of every book is a table of contents whose chapter names are links; every chapter page ends with a link back to the contents. The books also go on a lectern and into a chiseled bookshelf.",
+            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back (after a chapter jump) or to the contents, Home to the contents, the bookmark on the left always leads to the contents. Each book remembers its last spread until the game restarts. The bookmarks on the right switch between the eight books - a book you do not carry stays locked and its tooltip names the recipe.",
+            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
+            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
             "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
             "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, Diamond Pebbles, hammering machines up a tier, the Building Wand, the Octant, the Backpack, upgrading tools and where enchantments come from, and ends with the list of topic books and their recipes.",
             "Topic book recipes (shapeless): a book or the Beginner's Guide plus Stone Chisel (Tools & Upgrades), Brick (Building), Chest (Storage), Piston (Machines & Pistons), Ender Pearl (End & Enderite), Stone Pressure Plate (Pads & Gadgets) or Amethyst Shard (Trims & Radiance). Made from the guide, the guide stays in the crafting grid. The recipes unlock with the key item or with the guide.",
@@ -8763,7 +8973,10 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers: ein kurzer, anklickbarer Weg durch die ersten Schritte. Sieben Themenbücher (Werkzeuge & Aufwertungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads & Geräte, Besätze & Strahlkraft) gehen tiefer und entstehen an der Werkbank.",
           "details": [
-            "Lesen: Rechtsklick öffnet den Vanilla-Buchbildschirm. Seite 1 jedes Buchs ist ein Inhaltsverzeichnis, dessen Kapitelnamen Links sind; jede Kapitelseite endet mit einem Link zurück zum Inhalt. Die Bücher passen auch aufs Lesepult und ins gemeißelte Bücherregal.",
+            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück (nach einem Kapitelsprung) oder zum Inhalt, Pos1 zum Inhalt, das Lesezeichen links führt immer zum Inhalt. Jedes Buch merkt sich seine letzte Doppelseite bis zum Neustart des Spiels. Die Lesezeichen rechts wechseln zwischen den acht Büchern - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept.",
+            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
+            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
             "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
             "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Diamantkiesel, das Aufhämmern von Maschinen, Baustab, Oktant, Rucksack, das Aufwerten von Werkzeugen und woher Verzauberungen kommen, und endet mit der Liste der Themenbücher samt Rezept.",
             "Rezepte der Themenbücher (formlos): ein Buch oder das Einsteiger-Handbuch plus Steinmeißel (Werkzeuge & Aufwertungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen & Kolben), Enderperle (Ende & Enderit), Steindruckplatte (Pads & Geräte) oder Amethystscherbe (Besätze & Strahlkraft). Mit dem Handbuch hergestellt, bleibt das Handbuch im Raster liegen. Freigeschaltet werden die Rezepte durch das Schlüsselitem oder durch das Handbuch.",
@@ -8774,6 +8987,8 @@ window.WIKI_DATA = {
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
+          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
           "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
@@ -8809,7 +9024,10 @@ window.WIKI_DATA = {
         "en": {
           "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server: a short, clickable walk through the first steps. Seven topic books (Tools & Upgrades, Building, Storage, Machines & Pistons, End & Enderite, Pads & Gadgets, Trims & Radiance) go deeper and are crafted at the crafting table.",
           "details": [
-            "Reading: right-click opens the vanilla book screen. Page 1 of every book is a table of contents whose chapter names are links; every chapter page ends with a link back to the contents. The books also go on a lectern and into a chiseled bookshelf.",
+            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back (after a chapter jump) or to the contents, Home to the contents, the bookmark on the left always leads to the contents. Each book remembers its last spread until the game restarts. The bookmarks on the right switch between the eight books - a book you do not carry stays locked and its tooltip names the recipe.",
+            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
+            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
             "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
             "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, Diamond Pebbles, hammering machines up a tier, the Building Wand, the Octant, the Backpack, upgrading tools and where enchantments come from, and ends with the list of topic books and their recipes.",
             "Topic book recipes (shapeless): a book or the Beginner's Guide plus Stone Chisel (Tools & Upgrades), Brick (Building), Chest (Storage), Piston (Machines & Pistons), Ender Pearl (End & Enderite), Stone Pressure Plate (Pads & Gadgets) or Amethyst Shard (Trims & Radiance). Made from the guide, the guide stays in the crafting grid. The recipes unlock with the key item or with the guide.",
@@ -8821,7 +9039,10 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers: ein kurzer, anklickbarer Weg durch die ersten Schritte. Sieben Themenbücher (Werkzeuge & Aufwertungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads & Geräte, Besätze & Strahlkraft) gehen tiefer und entstehen an der Werkbank.",
           "details": [
-            "Lesen: Rechtsklick öffnet den Vanilla-Buchbildschirm. Seite 1 jedes Buchs ist ein Inhaltsverzeichnis, dessen Kapitelnamen Links sind; jede Kapitelseite endet mit einem Link zurück zum Inhalt. Die Bücher passen auch aufs Lesepult und ins gemeißelte Bücherregal.",
+            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück (nach einem Kapitelsprung) oder zum Inhalt, Pos1 zum Inhalt, das Lesezeichen links führt immer zum Inhalt. Jedes Buch merkt sich seine letzte Doppelseite bis zum Neustart des Spiels. Die Lesezeichen rechts wechseln zwischen den acht Büchern - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept.",
+            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
+            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
             "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
             "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Diamantkiesel, das Aufhämmern von Maschinen, Baustab, Oktant, Rucksack, das Aufwerten von Werkzeugen und woher Verzauberungen kommen, und endet mit der Liste der Themenbücher samt Rezept.",
             "Rezepte der Themenbücher (formlos): ein Buch oder das Einsteiger-Handbuch plus Steinmeißel (Werkzeuge & Aufwertungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen & Kolben), Enderperle (Ende & Enderit), Steindruckplatte (Pads & Geräte) oder Amethystscherbe (Besätze & Strahlkraft). Mit dem Handbuch hergestellt, bleibt das Handbuch im Raster liegen. Freigeschaltet werden die Rezepte durch das Schlüsselitem oder durch das Handbuch.",
@@ -8832,6 +9053,8 @@ window.WIKI_DATA = {
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
+          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
           "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
@@ -8867,7 +9090,10 @@ window.WIKI_DATA = {
         "en": {
           "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server: a short, clickable walk through the first steps. Seven topic books (Tools & Upgrades, Building, Storage, Machines & Pistons, End & Enderite, Pads & Gadgets, Trims & Radiance) go deeper and are crafted at the crafting table.",
           "details": [
-            "Reading: right-click opens the vanilla book screen. Page 1 of every book is a table of contents whose chapter names are links; every chapter page ends with a link back to the contents. The books also go on a lectern and into a chiseled bookshelf.",
+            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back (after a chapter jump) or to the contents, Home to the contents, the bookmark on the left always leads to the contents. Each book remembers its last spread until the game restarts. The bookmarks on the right switch between the eight books - a book you do not carry stays locked and its tooltip names the recipe.",
+            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
+            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
             "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
             "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, Diamond Pebbles, hammering machines up a tier, the Building Wand, the Octant, the Backpack, upgrading tools and where enchantments come from, and ends with the list of topic books and their recipes.",
             "Topic book recipes (shapeless): a book or the Beginner's Guide plus Stone Chisel (Tools & Upgrades), Brick (Building), Chest (Storage), Piston (Machines & Pistons), Ender Pearl (End & Enderite), Stone Pressure Plate (Pads & Gadgets) or Amethyst Shard (Trims & Radiance). Made from the guide, the guide stays in the crafting grid. The recipes unlock with the key item or with the guide.",
@@ -8879,7 +9105,10 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers: ein kurzer, anklickbarer Weg durch die ersten Schritte. Sieben Themenbücher (Werkzeuge & Aufwertungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads & Geräte, Besätze & Strahlkraft) gehen tiefer und entstehen an der Werkbank.",
           "details": [
-            "Lesen: Rechtsklick öffnet den Vanilla-Buchbildschirm. Seite 1 jedes Buchs ist ein Inhaltsverzeichnis, dessen Kapitelnamen Links sind; jede Kapitelseite endet mit einem Link zurück zum Inhalt. Die Bücher passen auch aufs Lesepult und ins gemeißelte Bücherregal.",
+            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück (nach einem Kapitelsprung) oder zum Inhalt, Pos1 zum Inhalt, das Lesezeichen links führt immer zum Inhalt. Jedes Buch merkt sich seine letzte Doppelseite bis zum Neustart des Spiels. Die Lesezeichen rechts wechseln zwischen den acht Büchern - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept.",
+            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
+            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
             "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
             "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Diamantkiesel, das Aufhämmern von Maschinen, Baustab, Oktant, Rucksack, das Aufwerten von Werkzeugen und woher Verzauberungen kommen, und endet mit der Liste der Themenbücher samt Rezept.",
             "Rezepte der Themenbücher (formlos): ein Buch oder das Einsteiger-Handbuch plus Steinmeißel (Werkzeuge & Aufwertungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen & Kolben), Enderperle (Ende & Enderit), Steindruckplatte (Pads & Geräte) oder Amethystscherbe (Besätze & Strahlkraft). Mit dem Handbuch hergestellt, bleibt das Handbuch im Raster liegen. Freigeschaltet werden die Rezepte durch das Schlüsselitem oder durch das Handbuch.",
@@ -8890,6 +9119,8 @@ window.WIKI_DATA = {
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
+          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
           "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
@@ -8925,7 +9156,10 @@ window.WIKI_DATA = {
         "en": {
           "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server: a short, clickable walk through the first steps. Seven topic books (Tools & Upgrades, Building, Storage, Machines & Pistons, End & Enderite, Pads & Gadgets, Trims & Radiance) go deeper and are crafted at the crafting table.",
           "details": [
-            "Reading: right-click opens the vanilla book screen. Page 1 of every book is a table of contents whose chapter names are links; every chapter page ends with a link back to the contents. The books also go on a lectern and into a chiseled bookshelf.",
+            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back (after a chapter jump) or to the contents, Home to the contents, the bookmark on the left always leads to the contents. Each book remembers its last spread until the game restarts. The bookmarks on the right switch between the eight books - a book you do not carry stays locked and its tooltip names the recipe.",
+            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
+            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
             "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
             "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, Diamond Pebbles, hammering machines up a tier, the Building Wand, the Octant, the Backpack, upgrading tools and where enchantments come from, and ends with the list of topic books and their recipes.",
             "Topic book recipes (shapeless): a book or the Beginner's Guide plus Stone Chisel (Tools & Upgrades), Brick (Building), Chest (Storage), Piston (Machines & Pistons), Ender Pearl (End & Enderite), Stone Pressure Plate (Pads & Gadgets) or Amethyst Shard (Trims & Radiance). Made from the guide, the guide stays in the crafting grid. The recipes unlock with the key item or with the guide.",
@@ -8937,7 +9171,10 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers: ein kurzer, anklickbarer Weg durch die ersten Schritte. Sieben Themenbücher (Werkzeuge & Aufwertungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads & Geräte, Besätze & Strahlkraft) gehen tiefer und entstehen an der Werkbank.",
           "details": [
-            "Lesen: Rechtsklick öffnet den Vanilla-Buchbildschirm. Seite 1 jedes Buchs ist ein Inhaltsverzeichnis, dessen Kapitelnamen Links sind; jede Kapitelseite endet mit einem Link zurück zum Inhalt. Die Bücher passen auch aufs Lesepult und ins gemeißelte Bücherregal.",
+            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück (nach einem Kapitelsprung) oder zum Inhalt, Pos1 zum Inhalt, das Lesezeichen links führt immer zum Inhalt. Jedes Buch merkt sich seine letzte Doppelseite bis zum Neustart des Spiels. Die Lesezeichen rechts wechseln zwischen den acht Büchern - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept.",
+            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
+            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
             "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
             "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Diamantkiesel, das Aufhämmern von Maschinen, Baustab, Oktant, Rucksack, das Aufwerten von Werkzeugen und woher Verzauberungen kommen, und endet mit der Liste der Themenbücher samt Rezept.",
             "Rezepte der Themenbücher (formlos): ein Buch oder das Einsteiger-Handbuch plus Steinmeißel (Werkzeuge & Aufwertungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen & Kolben), Enderperle (Ende & Enderit), Steindruckplatte (Pads & Geräte) oder Amethystscherbe (Besätze & Strahlkraft). Mit dem Handbuch hergestellt, bleibt das Handbuch im Raster liegen. Freigeschaltet werden die Rezepte durch das Schlüsselitem oder durch das Handbuch.",
@@ -8948,6 +9185,8 @@ window.WIKI_DATA = {
         },
         "sources": [
           "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
+          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
           "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
           "common/src/shared/java/com/simplebuilding/items/ModItems.java",
           "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
@@ -9254,7 +9493,7 @@ window.WIKI_DATA = {
             "Iron/copper map adds: Chiseled Stone Bricks -> Stone Bricks -> Cracked Stone Bricks; Stone Brick Stairs and Slab -> mossy variant; Polished Andesite, Diorite and Granite -> unpolished variant (stairs and slabs too); Polished Tuff -> Tuff (stairs and slabs too); Planks -> Stairs -> Slab for oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, bamboo and pale oak.",
             "Gold/diamond map adds: Smooth Quartz Block -> Quartz Pillar -> Quartz Bricks -> Chiseled Quartz Block -> Block of Quartz (Smooth Quartz Stairs -> Quartz Stairs, slabs likewise); Polished Tuff -> Tuff -> Chiseled Tuff -> Tuff Bricks (Tuff Stairs -> Tuff Brick Stairs -> Polished Tuff Stairs, slabs likewise); Polished Blackstone -> Blackstone -> Chiseled Polished Blackstone -> Polished Blackstone Bricks -> Cracked Polished Blackstone Bricks (stairs/slabs: polished -> blackstone -> polished bricks); Basalt -> Smooth Basalt -> Polished Basalt; Polished Deepslate -> Chiseled Deepslate -> Deepslate Bricks -> Cracked Deepslate Bricks -> Deepslate Tiles -> Cracked Deepslate Tiles -> Deepslate -> Cobbled Deepslate (stairs/slabs: polished -> bricks -> tiles -> cobbled); Cracked Stone Bricks -> Cobblestone.",
             "Netherite map adds: Netherrack -> Nether Bricks -> Cracked Nether Bricks -> Chiseled Nether Bricks -> Netherrack (a cycle); Resin Bricks -> Chiseled Resin Bricks; Chiseled Sandstone -> Sand; Chiseled Red Sandstone -> Red Sand.",
-            "Enderite map adds (only the Enderite Chisel): Polished Astralit -> Astralit Pillar -> Astralit Bricks -> Chiseled Astralit Bricks -> Block of Astralit, the same chain for Nihilith and for Ender Quartz (Polished Ender Quartz -> Ender Quartz Pillar -> Ender Quartz Bricks -> Chiseled Ender Quartz Bricks -> Block of Ender Quartz); Polished Astralit/Nihilith Stairs, Slab and Wall -> the brick variant; Polished Ender Quartz Stairs and Slab -> Ender Quartz Brick Stairs/Slab -> Ender Quartz Stairs/Slab, Polished Ender Quartz Wall -> Ender Quartz Brick Wall. Every block in these chains comes out of the stonecutter 1:1 from the same base block, so the chisel neither gains nor loses material.",
+            "Enderite map adds (only the Enderite Chisel): Polished Astralit -> Astralit Pillar -> Astralit Bricks -> Chiseled Astralit Bricks -> Block of Astralit, the same chain for Nihilit and for Ender Quartz (Polished Ender Quartz -> Ender Quartz Pillar -> Ender Quartz Bricks -> Chiseled Ender Quartz Bricks -> Block of Ender Quartz); Polished Astralit/Nihilit Stairs, Slab and Wall -> the brick variant; Polished Ender Quartz Stairs and Slab -> Ender Quartz Brick Stairs/Slab -> Ender Quartz Stairs/Slab, Polished Ender Quartz Wall -> Ender Quartz Brick Wall. Every block in these chains comes out of the stonecutter 1:1 from the same base block, so the chisel neither gains nor loses material.",
             "With the Constructor's Touch enchantment each tier gains extra entries - stone: Mud Bricks -> Packed Mud -> Mud, Cobblestone -> Mossy Cobblestone (stairs and slab too), nine log types -> stripped log (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak); iron: Bricks -> Mud Bricks (stairs and slab too), nine wood types (bark blocks) -> stripped wood, crimson and warped planks -> stairs -> slab; diamond: Prismarine -> Prismarine Bricks (stairs and slab too), Smooth Stone -> Stone (Smooth Stone Slab -> Stone Slab as well), End Stone -> End Stone Bricks, Purpur Pillar -> Purpur Block, Block of Copper -> Cut Copper -> Chiseled Copper -> Copper Grate, dead coral blocks in a cycle (brain -> bubble -> fire -> horn -> tube -> brain), living coral blocks in a cycle; netherite: Polished Diorite -> Diorite -> Calcite -> Dripstone Block, Obsidian -> Crying Obsidian, crimson and warped stems -> stripped, each of the 16 concrete colors -> concrete powder of the same color.",
             "Block properties such as waterlogged, or a slab's type (top, bottom, double), are carried over to the new block when that block has the same property.",
             "Pillar blocks (axis) and stairs (facing and top/bottom half) are re-oriented after the transformation from the click position and the player's facing; the edge zone of a block face is a strip 0.25 blocks wide. A further code branch for blocks with a six-way FACING exists, but it applies to no target block in the maps.",
@@ -9317,7 +9556,7 @@ window.WIKI_DATA = {
             "Eisen-/Kupfer-Tabelle zusätzlich: Gemeißelte Steinziegel → Steinziegel → Rissige Steinziegel; Steinziegeltreppe und -stufe → bemooste Variante; Polierter Andesit, Diorit und Granit → unpolierte Variante (auch Treppen und Stufen); Polierter Tuff → Tuff (auch Treppen und Stufen); Bretter → Treppe → Stufe für Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Bambus und Blasseiche.",
             "Gold-/Diamant-Tabelle zusätzlich: Glatter Quarzblock → Quarzsäule → Quarzziegel → Gemeißelter Quarzblock → Quarzblock (Glatte Quarztreppe → Quarztreppe, Stufen analog); Polierter Tuff → Tuff → Gemeißelter Tuff → Tuffziegel (Tufftreppe → Tuffziegeltreppe → Polierte Tufftreppe, Stufen analog); Polierter Schwarzstein → Schwarzstein → Gemeißelter polierter Schwarzstein → Polierte Schwarzsteinziegel → Rissige polierte Schwarzsteinziegel (Treppen/Stufen: poliert → Schwarzstein → polierte Ziegel); Basalt → Glatter Basalt → Polierter Basalt; Polierter Tiefenschiefer → Gemeißelter Tiefenschiefer → Tiefenschieferziegel → Rissige Tiefenschieferziegel → Tiefenschieferfliesen → Rissige Tiefenschieferfliesen → Tiefenschiefer → Bruchtiefenschiefer (Treppen/Stufen: poliert → Ziegel → Fliesen → Bruchtiefenschiefer); Rissige Steinziegel → Bruchstein.",
             "Netherit-Tabelle zusätzlich: Netherrack → Netherziegel → Rissige Netherziegel → Gemeißelte Netherziegel → Netherrack (Kreislauf); Harzziegel → Gemeißelte Harzziegel; Gemeißelter Sandstein → Sand; Gemeißelter roter Sandstein → Roter Sand.",
-            "Enderit-Tabelle zusätzlich (nur der Enderitmeißel): Polierter Astralit → Astralitsäule → Astralitziegel → Gemeißelte Astralitziegel → Astralitblock, dieselbe Kette für Nihilith und für Enderquarz (Polierter Enderquarz → Enderquarzsäule → Enderquarzziegel → Gemeißelte Enderquarzziegel → Enderquarzblock); Treppe, Stufe und Mauer aus poliertem Astralit/Nihilith → Ziegel-Variante; Treppe und Stufe aus poliertem Enderquarz → Enderquarzziegel-Treppe/-Stufe → Enderquarztreppe/-stufe, Mauer aus poliertem Enderquarz → Enderquarzziegelmauer. Jeder Block dieser Ketten kommt 1:1 aus der Steinsäge vom selben Grundblock, der Meißel gewinnt oder verliert also kein Material.",
+            "Enderit-Tabelle zusätzlich (nur der Enderitmeißel): Polierter Astralit → Astralitsäule → Astralitziegel → Gemeißelte Astralitziegel → Astralitblock, dieselbe Kette für Nihilit und für Enderquarz (Polierter Enderquarz → Enderquarzsäule → Enderquarzziegel → Gemeißelte Enderquarzziegel → Enderquarzblock); Treppe, Stufe und Mauer aus poliertem Astralit/Nihilit → Ziegel-Variante; Treppe und Stufe aus poliertem Enderquarz → Enderquarzziegel-Treppe/-Stufe → Enderquarztreppe/-stufe, Mauer aus poliertem Enderquarz → Enderquarzziegelmauer. Jeder Block dieser Ketten kommt 1:1 aus der Steinsäge vom selben Grundblock, der Meißel gewinnt oder verliert also kein Material.",
             "Mit der Verzauberung Berührung des Konstrukteurs kommen je Stufe Zusatz-Einträge dazu – Stein: Schlammziegel → Gepackter Schlamm → Schlamm, Bruchstein → Bemooster Bruchstein (auch Treppe/Stufe), neun Stammarten → entrindeter Stamm (Eiche, Fichte, Birke, Tropenbaum, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche); Eisen: Ziegel → Schlammziegel (auch Treppe/Stufe), neun Holzarten (Rindenblöcke) → entrindetes Holz, Karmesin- und Wirrbretter → Treppe → Stufe; Diamant: Prismarin → Prismarinziegel (auch Treppe/Stufe), Glatter Stein → Stein (auch Stufe), Endstein → Endsteinziegel, Purpursäule → Purpurblock, Kupferblock → Geschnittener Kupferblock → Gemeißelter Kupferblock → Kupfergitter, tote Korallenblöcke im Kreis (Hirn → Blasen → Feuer → Horn → Röhren → Hirn), lebende Korallenblöcke im Kreis; Netherit: Polierter Diorit → Diorit → Kalzit → Tropfsteinblock, Obsidian → Weinender Obsidian, Karmesin- und Wirrstiel → entrindet, jede der 16 Betonfarben → gleichfarbiger Trockenbeton.",
             "Blockeigenschaften wie „mit Wasser gefüllt“ oder die Lage einer Stufe (oben, unten, doppelt) werden auf den neuen Block übernommen, wenn dieser dieselbe Eigenschaft besitzt.",
             "Säulenblöcke (Achse) und Treppen (Richtung und obere/untere Hälfte) werden nach der Umwandlung aus der Klickposition und der Blickrichtung des Spielers neu ausgerichtet; als Randbereich einer Blockseite gilt ein Streifen von 0,25 Blockbreite. Ein weiterer Code-Zweig für Blöcke mit sechsseitiger Blickrichtung (FACING) existiert, trifft aber auf keinen Zielblock der Tabellen zu.",
@@ -9763,6 +10002,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/lapis_quartz_checker.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -9775,16 +10015,16 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith, Astralit und Enderquarz.",
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilithsplitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -9819,7 +10059,7 @@ window.WIKI_DATA = {
             "Creatures: players and mobs catch fire (4 s) when the beam rests on them, but it takes twice as long as a flammable block at the same distance (6 s up close). Not: fire-immune or invulnerable creatures, creatures in water or rain, players in creative or spectator mode, and other players only where PvP is allowed (pvp game rule, server setting, team friendly fire). Creatures are searched up to 64 blocks along the beam.",
             "Sounds at the dot, audible to players nearby: a quiet hum about once a second while the beam hits anything, a clearly audible sizzle while ice, snow or a sponge heats up and a crackle while something is about to burn or ignite (also creatures), each at most every 8 ticks; the finishing sound of every effect stays.",
             "Protection: the player must be allowed to touch and build at the block (spawn protection, world border, adventure mode), for fire also at the fire's spot.",
-            "Charge: the durability (640) is the charge. Every use costs 1 per started second - pointing into the air or at a block without an effect included, and already on the very first tick, so quick taps are not free -, every effect 5 more. The lens never breaks; empty it cannot beam any more (empty-state model). Recharge it in an anvil with redstone at no level cost: one redstone restores 10, a full stack of 64 fills an empty lens, and only as much redstone as needed is used. No charge is used in creative mode.",
+            "Charge: the durability (640) is the charge. Every use costs 1 per started second - pointing into the air or at a block without an effect included, and already on the very first tick, so quick taps are not free -, every effect 5 more. The lens never breaks; empty it cannot beam any more (empty-state model). Recharge it in an anvil with redstone at no level cost: one redstone restores 10, a full stack of 64 fills an empty lens, and only as much redstone as needed is used. No charge is used in creative mode. Both costs are config options: tweaks.laserPointer.beamCostPerSecond (default 1) and tweaks.laserPointer.effectCost (default 5).",
             "Recipe (crafting, shaped): redstone, amethyst shard, redstone; iron ingot, iron building core, iron ingot; three iron ingots. In the creative Tools tab it sits with the gadgets.",
             "Measuring: without an enchantment the HUD next to the crosshair only says \"Laser\". With Constructor's Touch (the mod's gadget enchantment; apply the book in an anvil - books come from structure chests (buried treasure, igloo, trial chambers and more) and fishing treasure) the lens is a rangefinder: next to the crosshair the distance from your eyes to the dot (one decimal, up to the lens range), below it in grey the target block's name and its height as \"Y 72 (+3)\" - the block's Y and the difference to your feet. The server stores the last measurement on the lens (component simplebuilding:lens_measurement: distance, height difference, target block or creature) on the first tick, then once a second and when you let go; the tooltip shows it as \"Last measured: 12.4 m\" with target and height. A plain lens never stores one and hints at Constructor's Touch in its tooltip."
           ]
@@ -9833,7 +10073,7 @@ window.WIKI_DATA = {
             "Lebewesen: Spieler und Mobs fangen Feuer (4 s), wenn der Strahl auf ihnen ruht, brauchen dafür aber doppelt so lange wie ein brennbarer Block im selben Abstand (aus der Nähe 6 s). Nicht: feuerfeste oder unverwundbare Wesen, Wesen im Wasser oder Regen, Spieler im Kreativ- oder Zuschauermodus, andere Spieler nur, wo PvP erlaubt ist (Spielregel pvp, Server-Einstellung, Team-Freundfeuer). Gesucht wird bis 64 Blöcke entlang des Strahls.",
             "Klänge am Punkt, für Spieler in der Nähe hörbar: ein leises Summen etwa einmal pro Sekunde, solange der Strahl etwas trifft, ein deutliches Zischen, während Eis, Schnee oder ein Schwamm heiß wird, und ein Knistern, während etwas gleich brennt oder zündet (auch Lebewesen), jeweils höchstens alle 8 Ticks; der Abschlussklang jeder Wirkung bleibt.",
             "Schutz: der Spieler muss den Block berühren und dort bauen dürfen (Spawnschutz, Weltgrenze, Abenteuermodus), für Feuer auch am Feuerplatz.",
-            "Ladung: die Haltbarkeit (640) ist die Ladung. Jede Nutzung kostet 1 je angefangene Sekunde - auch das Zeigen ins Leere oder auf einen Block ohne Wirkung, und schon im ersten Tick, kurzes Antippen ist also nicht gratis -, jede Wirkung 5 mehr. Die Linse zerbricht nie; leer kann sie nicht mehr strahlen (eigenes Leer-Modell). Aufladen im Amboss mit Redstone ohne Stufenkosten: ein Redstone lädt 10, ein voller Stapel (64) füllt eine leere Linse, verbraucht wird nur, was nötig ist. Im Kreativmodus kostet nichts Ladung.",
+            "Ladung: die Haltbarkeit (640) ist die Ladung. Jede Nutzung kostet 1 je angefangene Sekunde - auch das Zeigen ins Leere oder auf einen Block ohne Wirkung, und schon im ersten Tick, kurzes Antippen ist also nicht gratis -, jede Wirkung 5 mehr. Die Linse zerbricht nie; leer kann sie nicht mehr strahlen (eigenes Leer-Modell). Aufladen im Amboss mit Redstone ohne Stufenkosten: ein Redstone lädt 10, ein voller Stapel (64) füllt eine leere Linse, verbraucht wird nur, was nötig ist. Im Kreativmodus kostet nichts Ladung. Beide Kosten sind Config-Optionen: tweaks.laserPointer.beamCostPerSecond (Standard 1) und tweaks.laserPointer.effectCost (Standard 5).",
             "Rezept (Werkbank, geformt): Redstone, Amethystsplitter, Redstone; Eisenbarren, Eisen-Baukern, Eisenbarren; drei Eisenbarren. Im Kreativ-Tab Werkzeuge steht sie bei den Geräten.",
             "Messen: Ohne Verzauberung steht neben dem Fadenkreuz nur „Laser“. Mit Berührung des Konstrukteurs (die Geräte-Verzauberung der Mod; das Buch am Amboss anbringen - Bücher gibt es in Strukturtruhen (vergrabener Schatz, Iglu, Prüfungskammern u. a.) und als Angelschatz) wird die Linse zum Entfernungsmesser: neben dem Fadenkreuz die Entfernung von deinen Augen zum Punkt (eine Nachkommastelle, bis zur Linsenreichweite), darunter grau der Name des Zielblocks und seine Höhe als „Y 72 (+3)“ - Y des Blocks und Unterschied zu deinen Füßen. Der Server speichert die letzte Messung in der Linse (Komponente simplebuilding:lens_measurement: Entfernung, Höhenunterschied, Zielblock oder Lebewesen) beim ersten Tick, danach einmal pro Sekunde und beim Loslassen; der Tooltip zeigt sie als „Zuletzt gemessen: 12,4 m“ mit Ziel und Höhe. Eine unverzauberte Linse speichert nie etwas und weist im Tooltip auf Berührung des Konstrukteurs hin."
           ]
@@ -9920,6 +10160,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/levitating_gravel.png",
       "note": {
         "en": {
           "summary": "Levitating Gravel is gravel with reversed gravity: it climbs upwards one block at a time until something stops it.",
@@ -10001,6 +10242,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/levitating_sand.png",
       "note": {
         "en": {
           "summary": "Levitating Sand is sand with reversed gravity: it climbs upwards one block at a time until something stops it.",
@@ -10092,7 +10334,7 @@ window.WIKI_DATA = {
             "Does not stack (1 per slot), rarity Uncommon (UNCOMMON), no durability - the Magnet never wears out.",
             "In the creative tab \"SimpleTools\" it sits right after the Ore Detector and before the Rotator.",
             "Only works while held in the main or off hand - it does nothing from the rest of your inventory.",
-            "Base range: your hitbox is inflated by 4 blocks in every direction, so the area is a box, not a sphere.",
+            "Base range: your hitbox is inflated by 4 blocks in every direction, so the area is a box, not a sphere. The config option tools.magnetRangeMultiplier (default 1.0) scales the whole range.",
             "With the Constructor's Touch enchantment the range grows to 8 blocks.",
             "The code adds another 2 blocks per level of the Range enchantment - but Range cannot normally be put on the Magnet (see caveats).",
             "Only item entities (dropped items) are attracted; the search queries the ItemEntity class and nothing else.",
@@ -10139,7 +10381,7 @@ window.WIKI_DATA = {
             "Nicht stapelbar (1 pro Slot), Seltenheit Ungewöhnlich (UNCOMMON), keine Haltbarkeit - der Magnet nutzt sich nicht ab.",
             "Zu finden im Kreativ-Tab „SimpleTools“, direkt hinter dem Erzdetektor und vor dem Rotator.",
             "Wirkt nur, wenn er in der Haupt- oder Nebenhand gehalten wird - im restlichen Inventar tut er nichts.",
-            "Grundreichweite: deine Hitbox wird in jede Richtung um 4 Blöcke vergrößert (quaderförmiger Bereich, keine Kugel).",
+            "Grundreichweite: deine Hitbox wird in jede Richtung um 4 Blöcke vergrößert (quaderförmiger Bereich, keine Kugel). Die Config-Option tools.magnetRangeMultiplier (Standard 1,0) skaliert die ganze Reichweite.",
             "Mit der Verzauberung Berührung des Konstrukteurs steigt die Reichweite auf 8 Blöcke.",
             "Der Code addiert je Stufe der Verzauberung Reichweite weitere 2 Blöcke - die Verzauberung lässt sich aber normal nicht auf den Magneten legen (siehe Einschränkungen).",
             "Es werden nur Item-Entities (herumliegende Items) angezogen; die Suche fragt ausschließlich die Klasse ItemEntity ab.",
@@ -10414,6 +10656,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/netherite_blast_furnace.png",
       "note": {
         "en": {
           "summary": "The Netherite Blast Furnace is the mod's fastest blast furnace tier for ores and metal.",
@@ -10894,7 +11137,7 @@ window.WIKI_DATA = {
             "Iron/copper map adds: Chiseled Stone Bricks -> Stone Bricks -> Cracked Stone Bricks; Stone Brick Stairs and Slab -> mossy variant; Polished Andesite, Diorite and Granite -> unpolished variant (stairs and slabs too); Polished Tuff -> Tuff (stairs and slabs too); Planks -> Stairs -> Slab for oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, bamboo and pale oak.",
             "Gold/diamond map adds: Smooth Quartz Block -> Quartz Pillar -> Quartz Bricks -> Chiseled Quartz Block -> Block of Quartz (Smooth Quartz Stairs -> Quartz Stairs, slabs likewise); Polished Tuff -> Tuff -> Chiseled Tuff -> Tuff Bricks (Tuff Stairs -> Tuff Brick Stairs -> Polished Tuff Stairs, slabs likewise); Polished Blackstone -> Blackstone -> Chiseled Polished Blackstone -> Polished Blackstone Bricks -> Cracked Polished Blackstone Bricks (stairs/slabs: polished -> blackstone -> polished bricks); Basalt -> Smooth Basalt -> Polished Basalt; Polished Deepslate -> Chiseled Deepslate -> Deepslate Bricks -> Cracked Deepslate Bricks -> Deepslate Tiles -> Cracked Deepslate Tiles -> Deepslate -> Cobbled Deepslate (stairs/slabs: polished -> bricks -> tiles -> cobbled); Cracked Stone Bricks -> Cobblestone.",
             "Netherite map adds: Netherrack -> Nether Bricks -> Cracked Nether Bricks -> Chiseled Nether Bricks -> Netherrack (a cycle); Resin Bricks -> Chiseled Resin Bricks; Chiseled Sandstone -> Sand; Chiseled Red Sandstone -> Red Sand.",
-            "Enderite map adds (only the Enderite Chisel): Polished Astralit -> Astralit Pillar -> Astralit Bricks -> Chiseled Astralit Bricks -> Block of Astralit, the same chain for Nihilith and for Ender Quartz (Polished Ender Quartz -> Ender Quartz Pillar -> Ender Quartz Bricks -> Chiseled Ender Quartz Bricks -> Block of Ender Quartz); Polished Astralit/Nihilith Stairs, Slab and Wall -> the brick variant; Polished Ender Quartz Stairs and Slab -> Ender Quartz Brick Stairs/Slab -> Ender Quartz Stairs/Slab, Polished Ender Quartz Wall -> Ender Quartz Brick Wall. Every block in these chains comes out of the stonecutter 1:1 from the same base block, so the chisel neither gains nor loses material.",
+            "Enderite map adds (only the Enderite Chisel): Polished Astralit -> Astralit Pillar -> Astralit Bricks -> Chiseled Astralit Bricks -> Block of Astralit, the same chain for Nihilit and for Ender Quartz (Polished Ender Quartz -> Ender Quartz Pillar -> Ender Quartz Bricks -> Chiseled Ender Quartz Bricks -> Block of Ender Quartz); Polished Astralit/Nihilit Stairs, Slab and Wall -> the brick variant; Polished Ender Quartz Stairs and Slab -> Ender Quartz Brick Stairs/Slab -> Ender Quartz Stairs/Slab, Polished Ender Quartz Wall -> Ender Quartz Brick Wall. Every block in these chains comes out of the stonecutter 1:1 from the same base block, so the chisel neither gains nor loses material.",
             "With the Constructor's Touch enchantment each tier gains extra entries - stone: Mud Bricks -> Packed Mud -> Mud, Cobblestone -> Mossy Cobblestone (stairs and slab too), nine log types -> stripped log (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak); iron: Bricks -> Mud Bricks (stairs and slab too), nine wood types (bark blocks) -> stripped wood, crimson and warped planks -> stairs -> slab; diamond: Prismarine -> Prismarine Bricks (stairs and slab too), Smooth Stone -> Stone (Smooth Stone Slab -> Stone Slab as well), End Stone -> End Stone Bricks, Purpur Pillar -> Purpur Block, Block of Copper -> Cut Copper -> Chiseled Copper -> Copper Grate, dead coral blocks in a cycle (brain -> bubble -> fire -> horn -> tube -> brain), living coral blocks in a cycle; netherite: Polished Diorite -> Diorite -> Calcite -> Dripstone Block, Obsidian -> Crying Obsidian, crimson and warped stems -> stripped, each of the 16 concrete colors -> concrete powder of the same color.",
             "Block properties such as waterlogged, or a slab's type (top, bottom, double), are carried over to the new block when that block has the same property.",
             "Pillar blocks (axis) and stairs (facing and top/bottom half) are re-oriented after the transformation from the click position and the player's facing; the edge zone of a block face is a strip 0.25 blocks wide. A further code branch for blocks with a six-way FACING exists, but it applies to no target block in the maps.",
@@ -10957,7 +11200,7 @@ window.WIKI_DATA = {
             "Eisen-/Kupfer-Tabelle zusätzlich: Gemeißelte Steinziegel → Steinziegel → Rissige Steinziegel; Steinziegeltreppe und -stufe → bemooste Variante; Polierter Andesit, Diorit und Granit → unpolierte Variante (auch Treppen und Stufen); Polierter Tuff → Tuff (auch Treppen und Stufen); Bretter → Treppe → Stufe für Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Bambus und Blasseiche.",
             "Gold-/Diamant-Tabelle zusätzlich: Glatter Quarzblock → Quarzsäule → Quarzziegel → Gemeißelter Quarzblock → Quarzblock (Glatte Quarztreppe → Quarztreppe, Stufen analog); Polierter Tuff → Tuff → Gemeißelter Tuff → Tuffziegel (Tufftreppe → Tuffziegeltreppe → Polierte Tufftreppe, Stufen analog); Polierter Schwarzstein → Schwarzstein → Gemeißelter polierter Schwarzstein → Polierte Schwarzsteinziegel → Rissige polierte Schwarzsteinziegel (Treppen/Stufen: poliert → Schwarzstein → polierte Ziegel); Basalt → Glatter Basalt → Polierter Basalt; Polierter Tiefenschiefer → Gemeißelter Tiefenschiefer → Tiefenschieferziegel → Rissige Tiefenschieferziegel → Tiefenschieferfliesen → Rissige Tiefenschieferfliesen → Tiefenschiefer → Bruchtiefenschiefer (Treppen/Stufen: poliert → Ziegel → Fliesen → Bruchtiefenschiefer); Rissige Steinziegel → Bruchstein.",
             "Netherit-Tabelle zusätzlich: Netherrack → Netherziegel → Rissige Netherziegel → Gemeißelte Netherziegel → Netherrack (Kreislauf); Harzziegel → Gemeißelte Harzziegel; Gemeißelter Sandstein → Sand; Gemeißelter roter Sandstein → Roter Sand.",
-            "Enderit-Tabelle zusätzlich (nur der Enderitmeißel): Polierter Astralit → Astralitsäule → Astralitziegel → Gemeißelte Astralitziegel → Astralitblock, dieselbe Kette für Nihilith und für Enderquarz (Polierter Enderquarz → Enderquarzsäule → Enderquarzziegel → Gemeißelte Enderquarzziegel → Enderquarzblock); Treppe, Stufe und Mauer aus poliertem Astralit/Nihilith → Ziegel-Variante; Treppe und Stufe aus poliertem Enderquarz → Enderquarzziegel-Treppe/-Stufe → Enderquarztreppe/-stufe, Mauer aus poliertem Enderquarz → Enderquarzziegelmauer. Jeder Block dieser Ketten kommt 1:1 aus der Steinsäge vom selben Grundblock, der Meißel gewinnt oder verliert also kein Material.",
+            "Enderit-Tabelle zusätzlich (nur der Enderitmeißel): Polierter Astralit → Astralitsäule → Astralitziegel → Gemeißelte Astralitziegel → Astralitblock, dieselbe Kette für Nihilit und für Enderquarz (Polierter Enderquarz → Enderquarzsäule → Enderquarzziegel → Gemeißelte Enderquarzziegel → Enderquarzblock); Treppe, Stufe und Mauer aus poliertem Astralit/Nihilit → Ziegel-Variante; Treppe und Stufe aus poliertem Enderquarz → Enderquarzziegel-Treppe/-Stufe → Enderquarztreppe/-stufe, Mauer aus poliertem Enderquarz → Enderquarzziegelmauer. Jeder Block dieser Ketten kommt 1:1 aus der Steinsäge vom selben Grundblock, der Meißel gewinnt oder verliert also kein Material.",
             "Mit der Verzauberung Berührung des Konstrukteurs kommen je Stufe Zusatz-Einträge dazu – Stein: Schlammziegel → Gepackter Schlamm → Schlamm, Bruchstein → Bemooster Bruchstein (auch Treppe/Stufe), neun Stammarten → entrindeter Stamm (Eiche, Fichte, Birke, Tropenbaum, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche); Eisen: Ziegel → Schlammziegel (auch Treppe/Stufe), neun Holzarten (Rindenblöcke) → entrindetes Holz, Karmesin- und Wirrbretter → Treppe → Stufe; Diamant: Prismarin → Prismarinziegel (auch Treppe/Stufe), Glatter Stein → Stein (auch Stufe), Endstein → Endsteinziegel, Purpursäule → Purpurblock, Kupferblock → Geschnittener Kupferblock → Gemeißelter Kupferblock → Kupfergitter, tote Korallenblöcke im Kreis (Hirn → Blasen → Feuer → Horn → Röhren → Hirn), lebende Korallenblöcke im Kreis; Netherit: Polierter Diorit → Diorit → Kalzit → Tropfsteinblock, Obsidian → Weinender Obsidian, Karmesin- und Wirrstiel → entrindet, jede der 16 Betonfarben → gleichfarbiger Trockenbeton.",
             "Blockeigenschaften wie „mit Wasser gefüllt“ oder die Lage einer Stufe (oben, unten, doppelt) werden auf den neuen Block übernommen, wenn dieser dieselbe Eigenschaft besitzt.",
             "Säulenblöcke (Achse) und Treppen (Richtung und obere/untere Hälfte) werden nach der Umwandlung aus der Klickposition und der Blickrichtung des Spielers neu ausgerichtet; als Randbereich einer Blockseite gilt ein Streifen von 0,25 Blockbreite. Ein weiterer Code-Zweig für Blöcke mit sechsseitiger Blickrichtung (FACING) existiert, trifft aber auf keinen Zielblock der Tabellen zu.",
@@ -11124,6 +11367,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/netherite_furnace.png",
       "note": {
         "en": {
           "summary": "The Netherite Furnace is the mod's fastest furnace tier and smelts noticeably faster than the Reinforced Furnace.",
@@ -11331,6 +11575,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/netherite_piston.png",
       "note": {
         "en": {
           "summary": "The Netherite Piston destroys the block directly in front of it as it extends, provided the redstone signal is strong enough for that block's hardness; otherwise it works like an ordinary piston. Paid with a Redstone Block next to it, it sacrifices itself to destroy an unbreakable block such as bedrock.",
@@ -11791,6 +12036,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/netherite_smoker.png",
       "note": {
         "en": {
           "summary": "The Netherite Smoker is the mod's fastest smoker tier for food.",
@@ -11890,6 +12136,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_pillar_from_nihil_end_stone_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/nihil_end_stone.png",
       "hasCustomBehaviour": false
     },
     {
@@ -11906,13 +12153,14 @@ window.WIKI_DATA = {
         "simplebuilding:polished_nihilith_from_nihil_purpur_block_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/nihil_purpur_block.png",
       "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:nihilith_block",
       "name": {
-        "en_us": "Block of Nihilith",
-        "de_de": "Nihilithblock"
+        "en_us": "Block of Nihilit",
+        "de_de": "Nihilitblock"
       },
       "texture": "assets/textures/block/nihilith_block.png",
       "craftedBy": [
@@ -11934,13 +12182,14 @@ window.WIKI_DATA = {
         "simplebuilding:polished_nihilith_wall_from_nihilith_block_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/nihilith_block.png",
       "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:nihilith_brick_slab",
       "name": {
-        "en_us": "Nihilith Brick Slab",
-        "de_de": "Nihilithziegelstufe"
+        "en_us": "Nihilit Brick Slab",
+        "de_de": "Nihilitziegelstufe"
       },
       "texture": "assets/textures/block/nihilith_bricks.png",
       "craftedBy": [
@@ -11955,13 +12204,14 @@ window.WIKI_DATA = {
         "simplebuilding:chiseled_nihilith_bricks"
       ],
       "trades": [],
+      "icon": "assets/textures/render/nihilith_brick_slab.png",
       "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:nihilith_brick_stairs",
       "name": {
-        "en_us": "Nihilith Brick Stairs",
-        "de_de": "Nihilithziegeltreppe"
+        "en_us": "Nihilit Brick Stairs",
+        "de_de": "Nihilitziegeltreppe"
       },
       "texture": "assets/textures/block/nihilith_bricks.png",
       "craftedBy": [
@@ -11974,15 +12224,16 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/nihilith_brick_stairs.png",
       "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:nihilith_brick_wall",
       "name": {
-        "en_us": "Nihilith Brick Wall",
-        "de_de": "Nihilithziegelmauer"
+        "en_us": "Nihilit Brick Wall",
+        "de_de": "Nihilitziegelmauer"
       },
-      "texture": null,
+      "texture": "assets/textures/block/nihilith_bricks.png",
       "craftedBy": [
         "simplebuilding:nihilith_brick_wall",
         "simplebuilding:nihilith_brick_wall_from_end_stone_brick_wall",
@@ -11993,13 +12244,14 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/nihilith_brick_wall.png",
       "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:nihilith_bricks",
       "name": {
-        "en_us": "Nihilith Bricks",
-        "de_de": "Nihilithziegel"
+        "en_us": "Nihilit Bricks",
+        "de_de": "Nihilitziegel"
       },
       "texture": "assets/textures/block/nihilith_bricks.png",
       "craftedBy": [
@@ -12019,25 +12271,27 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_brick_wall_from_nihilith_bricks_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/nihilith_bricks.png",
       "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:nihilith_ore",
       "name": {
-        "en_us": "Nihilith Ore",
-        "de_de": "Nihilitherz"
+        "en_us": "Nihilit Ore",
+        "de_de": "Nihiliterz"
       },
       "texture": "assets/textures/block/nihilith_ore.png",
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/nihilith_ore.png",
       "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:nihilith_pillar",
       "name": {
-        "en_us": "Nihilith Pillar",
-        "de_de": "Nihilithsäule"
+        "en_us": "Nihilit Pillar",
+        "de_de": "Nihilitsäule"
       },
       "texture": "assets/textures/block/nihilith_pillar.png",
       "craftedBy": [
@@ -12049,13 +12303,14 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/nihilith_pillar.png",
       "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:nihilith_quartz_checker",
       "name": {
-        "en_us": "Nihilith Quartz Checker",
-        "de_de": "Nihilith-Quarz-Schachbrett"
+        "en_us": "Nihilit Quartz Checker",
+        "de_de": "Nihilit-Quarz-Schachbrett"
       },
       "texture": "assets/textures/block/nihilith_quartz_checker.png",
       "craftedBy": [
@@ -12063,6 +12318,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/nihilith_quartz_checker.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -12075,16 +12331,16 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith, Astralit und Enderquarz.",
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilithsplitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -12096,8 +12352,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nihilith_shard",
       "name": {
-        "en_us": "Nihilith Shard",
-        "de_de": "Nihilithsplitter"
+        "en_us": "Nihilit Shard",
+        "de_de": "Nihilitsplitter"
       },
       "texture": "assets/textures/item/nihilith_shard.png",
       "craftedBy": [],
@@ -12176,7 +12432,7 @@ window.WIKI_DATA = {
             "HUD measurement with two positions: if both sit at the same height and in a line it reads \"Distance: N blocks\"; at the same height but as an area, \"Area: N blocks²\" with \"(width x depth)\"; otherwise \"Volume: N blocks³\" with \"(width x height x depth)\". Both corner blocks count (edge length = difference + 1).",
             "If a Velocity Gauge is held at the same time, the octant box moves 35 pixels up and the Velocity Gauge box 35 pixels down so the two do not overlap.",
             "In the world (Fabric and NeoForge) Pos 1 (light colour) and Pos 2 (dark colour) are always drawn as a block outline once they are set; the octant can be in either hand for this. On the undyed octant: light orange for Pos 1, dark orange for Pos 2, golden orange for the area. Line width 4.",
-            "The area figure (outline + fill between the two points) only appears when both points are set, highlights are on (key H), the octant figure is on (its own key or the Figure button) and exactly one of the two conditions holds: the octant carries Constructor's Touch, or \"Invert Octant Sneak\" is enabled in the config.",
+            "The area figure (outline + fill between the two points) only appears when both points are set, highlights are on (key H), the octant figure is on (its own key or the Figure button) and exactly one of the two conditions holds: the octant carries Constructor's Touch, or \"Invert Octant Area Preview\" is enabled in the config.",
             "Fill opacity = 0.3 x (config \"buildingHighlightOpacity\" / 100); default value 40, so 0.12. The lines have a fixed opacity of 0.8.",
             "Preview shapes: Cuboid and Rectangle (2D) draw the complete box; Cylinder and Ellipse (2D) an elliptical cross-section over the full length of the axis; Sphere an ellipsoid that fills the box; Pyramid a base that shrinks linearly towards the tip; Prism a wedge that tapers only along the shorter base side (the ridge runs along the longer side).",
             "The axis (+X, +Y, +Z, -X, -Y, -Z; default +Y) decides which way Cylinder, Ellipse, Pyramid and Prism stand up; on a negative axis the figure is upside down.",
@@ -12212,7 +12468,7 @@ window.WIKI_DATA = {
             "The octant never places or removes a block itself; no code in the mod reads the selection for a build action. It is purely a measuring and preview tool.",
             "Hollow, Layer Mode and Order (page 2 of the manager) only act when a building wand fills the shape (wand in the main hand, octant in the off hand); the octant's own preview does not show them.",
             "Without Constructor's Touch (and with the default config) only the two corner outlines are drawn, no area figure.",
-            "Despite the name of the config option \"Invert Octant Sneak\" (tooltip: the filled area is rendered when NOT sneaking) the renderer never checks anywhere whether you are sneaking. The option only flips whether the area figure appears WITH or WITHOUT Constructor's Touch: with the option enabled an unenchanted octant shows the area and an enchanted one does not.",
+            "The config option Invert Octant Area Preview (tools.invertOctantSneak; the key still says sneak) does not look at sneaking at all: it only inverts whether the area figure appears WITH or WITHOUT Constructor's Touch - with the option on, an unenchanted Octant shows the area and an enchanted one does not.",
             "The lock only blocks setting corners by clicking, moving them with the mouse wheel (checked by the server as well, not only by the client) and clearing the selection by sneaking in the air. The Octant Manager does not check the lock: positions, shape and every other value can still be changed there on a locked octant, and the server accepts that without checking.",
             "If you open the manager before Pos 1 and Pos 2 are set, the fields read 0; the first change in the manager (even just locking) then writes Pos 1 and Pos 2 into the octant as 0, 0, 0.",
             "Wheel-moving only affects a corner that is already set; it does not create a missing point.",
@@ -12275,7 +12531,7 @@ window.WIKI_DATA = {
             "Der Oktant setzt oder entfernt selbst keine Blöcke; kein Code der Mod liest die Auswahl für Bauaktionen aus. Er ist ausschließlich Mess- und Vorschauwerkzeug.",
             "Hohl, Ebenenmodus und Reihenfolge (Seite 2 des Managers) wirken nur, wenn ein Baustab die Figur füllt (Stab in der Haupthand, Oktant in der Nebenhand); die eigene Vorschau des Oktanten zeigt sie nicht.",
             "Ohne Berührung des Konstrukteurs (und mit Standard-Config) werden nur die beiden Eckpunkt-Umrisse gezeichnet, keine Flächenfigur.",
-            "Trotz des Namens der Config-Option \"Oktant Schleichen umkehren\" (Tooltip: Fläche wird angezeigt, wenn NICHT geschlichen wird) prüft der Renderer nirgends, ob du schleichst. Die Option kehrt nur um, ob die Flächenfigur MIT oder OHNE Berührung des Konstrukteurs erscheint: bei aktivierter Option sieht ein unverzaubter Oktant die Fläche, ein verzauberter nicht.",
+            "Die Config-Option Oktant-Flächenvorschau umkehren (tools.invertOctantSneak; der Schlüssel spricht noch von Schleichen) prüft kein Schleichen: Sie kehrt nur um, ob die Flächenfigur MIT oder OHNE Berührung des Konstrukteurs erscheint - bei aktivierter Option sieht ein unverzauberter Oktant die Fläche, ein verzauberter nicht.",
             "Die Sperre verhindert nur Klick-Setzen, Mausrad-Verschieben (auch vom Server geprüft, nicht nur vom Client) und das Löschen per Schleichen in die Luft. Der Oktant-Manager prüft die Sperre nicht: Dort lassen sich Positionen, Form und alle anderen Werte auch bei gesperrtem Oktanten ändern, und der Server übernimmt das ohne Prüfung.",
             "Öffnest du den Manager, bevor Pos 1 und Pos 2 gesetzt sind, stehen die Felder auf 0; die erste Änderung im Manager (auch nur das Sperren) schreibt dann Pos 1 und Pos 2 als 0, 0, 0 in den Oktanten.",
             "Mausrad-Verschieben wirkt nur auf einen Eckpunkt, der bereits gesetzt ist; ein fehlender Punkt wird dadurch nicht angelegt.",
@@ -12675,7 +12931,7 @@ window.WIKI_DATA = {
             "There are six modes; signal and range belong to the class of the ore that is found (OreDetectorItem.OreClass): common signal 18 / range 24, gold 13 / 20, diamond and emerald 9 / 16, ancient debris and the two End ores 5 / 16 (with Radius 22 / 28, 17 / 24, 17 / 24 and 9 / 20). Iron, Gold, Diamond and Netherite mode search one class each, All Ores all of them, Custom the class of its target.",
             "Iron mode finds blocks from the vanilla tag minecraft:iron_ores, Gold from minecraft:gold_ores, Diamond from minecraft:diamond_ores.",
             "Netherite mode finds ancient debris only (Blocks.ANCIENT_DEBRIS).",
-            "All Ores mode finds blocks from the vanilla tags coal_ores, iron_ores, copper_ores, gold_ores, redstone_ores, lapis_ores, diamond_ores and emerald_ores, plus ancient debris, nether quartz ore, Astralit Ore and Nihilith Ore - each only within the signal and range of its own class.",
+            "All Ores mode finds blocks from the vanilla tags coal_ores, iron_ores, copper_ores, gold_ores, redstone_ores, lapis_ores, diamond_ores and emerald_ores, plus ancient debris, nether quartz ore, Astralit Ore and Nihilit Ore - each only within the signal and range of its own class.",
             "Custom mode finds the block the detector was calibrated to; only the block type is compared (state.is(block)), not its state (facing, for example).",
             "The mode and the calibrated block live in the CUSTOM_DATA component: \"Mode\" as the ordinal of the mode, \"CustomBlock\" as the stored block state; an invalid Mode value is clamped into the valid range.",
             "The scan area is a sphere around the block your eyes are in; its radius in blocks is the largest range the mode can use (24 for Iron, All Ores and an uncalibrated Custom, 20 for Gold, 16 for Diamond and Netherite; with Radius 28, 24, 24 and 20), a find additionally has to lie within the range of its own class, and distances are measured from block position to block position.",
@@ -12832,6 +13088,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_astralit_wall_from_polished_astralit_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/polished_astralit.png",
       "hasCustomBehaviour": false
     },
     {
@@ -12849,6 +13106,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_astralit_slab.png",
       "hasCustomBehaviour": false
     },
     {
@@ -12866,6 +13124,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_astralit_stairs.png",
       "hasCustomBehaviour": false
     },
     {
@@ -12874,7 +13133,7 @@ window.WIKI_DATA = {
         "en_us": "Polished Astralit Wall",
         "de_de": "Polierte Astralitmauer"
       },
-      "texture": null,
+      "texture": "assets/textures/block/polished_astralit.png",
       "craftedBy": [
         "simplebuilding:polished_astralit_wall",
         "simplebuilding:polished_astralit_wall_from_astralit_block_stonecutting",
@@ -12882,6 +13141,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_astralit_wall.png",
       "hasCustomBehaviour": false
     },
     {
@@ -12899,6 +13159,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihil_end_stone"
       ],
       "trades": [],
+      "icon": "assets/textures/render/polished_end_stone.png",
       "hasCustomBehaviour": false
     },
     {
@@ -12931,6 +13192,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_ender_quartz_wall_from_polished_ender_quartz_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/polished_ender_quartz.png",
       "hasCustomBehaviour": false
     },
     {
@@ -12949,6 +13211,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_ender_quartz_slab.png",
       "hasCustomBehaviour": false
     },
     {
@@ -12967,6 +13230,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_ender_quartz_stairs.png",
       "hasCustomBehaviour": false
     },
     {
@@ -12975,7 +13239,7 @@ window.WIKI_DATA = {
         "en_us": "Polished Ender Quartz Wall",
         "de_de": "Polierte Enderquarzmauer"
       },
-      "texture": null,
+      "texture": "assets/textures/block/polished_ender_quartz.png",
       "craftedBy": [
         "simplebuilding:polished_ender_quartz_wall",
         "simplebuilding:polished_ender_quartz_wall_from_ender_quartz_block_stonecutting",
@@ -12983,13 +13247,14 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_ender_quartz_wall.png",
       "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:polished_nihilith",
       "name": {
-        "en_us": "Polished Nihilith",
-        "de_de": "Polierter Nihilith"
+        "en_us": "Polished Nihilit",
+        "de_de": "Polierter Nihilit"
       },
       "texture": "assets/textures/block/polished_nihilith.png",
       "craftedBy": [
@@ -13014,13 +13279,14 @@ window.WIKI_DATA = {
         "simplebuilding:polished_nihilith_wall_from_polished_nihilith_stonecutting"
       ],
       "trades": [],
+      "icon": "assets/textures/render/polished_nihilith.png",
       "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:polished_nihilith_slab",
       "name": {
-        "en_us": "Polished Nihilith Slab",
-        "de_de": "Polierte Nihilithstufe"
+        "en_us": "Polished Nihilit Slab",
+        "de_de": "Polierte Nihilitstufe"
       },
       "texture": "assets/textures/block/polished_nihilith.png",
       "craftedBy": [
@@ -13031,13 +13297,14 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_nihilith_slab.png",
       "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:polished_nihilith_stairs",
       "name": {
-        "en_us": "Polished Nihilith Stairs",
-        "de_de": "Polierte Nihilithtreppe"
+        "en_us": "Polished Nihilit Stairs",
+        "de_de": "Polierte Nihilittreppe"
       },
       "texture": "assets/textures/block/polished_nihilith.png",
       "craftedBy": [
@@ -13048,15 +13315,16 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_nihilith_stairs.png",
       "hasCustomBehaviour": false
     },
     {
       "id": "simplebuilding:polished_nihilith_wall",
       "name": {
-        "en_us": "Polished Nihilith Wall",
-        "de_de": "Polierte Nihilithmauer"
+        "en_us": "Polished Nihilit Wall",
+        "de_de": "Polierte Nihilitmauer"
       },
-      "texture": null,
+      "texture": "assets/textures/block/polished_nihilith.png",
       "craftedBy": [
         "simplebuilding:polished_nihilith_wall",
         "simplebuilding:polished_nihilith_wall_from_nihilith_block_stonecutting",
@@ -13064,6 +13332,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_nihilith_wall.png",
       "hasCustomBehaviour": false
     },
     {
@@ -13078,6 +13347,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/purpur_quartz_checker.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -13090,16 +13360,16 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith, Astralit und Enderquarz.",
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilithsplitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -13465,6 +13735,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/reinforced_blast_furnace.png",
       "note": {
         "en": {
           "summary": "The Reinforced Blast Furnace is an upgraded blast furnace for ores and metal that works faster than a vanilla blast furnace.",
@@ -13593,7 +13864,7 @@ window.WIKI_DATA = {
             "Trades (only with the enableWanderingTrades option on, condition simplebuilding:config): the wandering trader sells a Reinforced Bundle for 16 emeralds (uncommon pool) and buys one for 12 emeralds (buying pool), each only once per trader.",
             "Books for the bundle enchantments in loot chests: Deep Pockets II in ancient cities; Funnel I in bastions, nether fortresses and dungeons; Master Builder I in stronghold libraries, end city treasure and trial chamber vaults (rare and ominous); Color Palette I in pillager outposts and woodland mansions.",
             "Books from the librarian (only with the enableVillagerTrades option on): the tier 3 book for 25 emeralds can carry Color Palette (a pool shared with Fast Chiseling and Linear); the tier 5 book for 25 emeralds can carry Master Builder or Funnel (a pool shared with Range, Strip Miner and Vein Miner).",
-            "The Invert Bundle Interactions config option (invertBundleInteractions, off by default) swaps left and right click for inserting and removing.",
+            "The Invert Bundle Clicks config option (invertBundleInteractions, off by default) swaps left and right click for inserting and removing.",
             "Offered in the mod's creative tab among the storage items; books for all bundle enchantments at max level sit there too."
           ],
           "controls": [
@@ -13605,14 +13876,14 @@ window.WIKI_DATA = {
             "Right-click with the bundle in hand: drop the selected stack, as long as it is not a block",
             "Right-click a block (with Master Builder): place the selected block straight out of the bundle",
             "Pick Block key (with Master Builder): fetch a block out of the bundle into your hand",
-            "Invert Bundle Interactions config option: swap left and right click"
+            "Invert Bundle Clicks config option: swap left and right click"
           ],
           "caveats": [
             "Deep Pockets, Funnel, Drawer, Master Builder and Color Palette are not entered into the enchanting table list (the mod only enters Fast Chiseling into minecraft:in_enchanting_table); they come as books from loot and trades and are applied at the anvil.",
             "Drawer has neither a book in a loot table nor a trade; as a book it exists only in the mod's creative tab. The randomly enchanted bundle from abandoned mineshafts uses the unfiltered vanilla random enchantment, and the mod code does not rule out Drawer (or Color Palette without Master Builder) there.",
             "Color Palette on its own does nothing on the bundle: the item code only evaluates it inside the Master Builder branch. The anvil block applies to anvil results only.",
             "The Drawer description in the language file says it locks the container to one item; that does not match the code, which allows up to 5 different item types.",
-            "The config tooltip for Invert Bundle Interactions talks about sneaking; the code never checks sneaking, it swaps left and right click permanently.",
+            "The config option Invert Bundle Clicks (tools.invertBundleInteractions) swaps left and right click permanently; it has nothing to do with sneaking (until 2026-09-28 its tooltip claimed it did).",
             "The tooltip's fill bar truncates the capacity factor to a whole number and does not scale at all at a factor of 1 or less (1.5 becomes 1): on an unenchanted Reinforced Bundle the tooltip bar is therefore left unscaled and already shows full at 64 items. The fill bar on the item itself does the maths correctly.",
             "The tooltip text \"Can hold more items if enchanted.\" sits in the language file but is displayed by no code (appendHoverText only calls super).",
             "Right-click does not drop a selected block; blocks have to be taken out in the inventory or placed with Master Builder.",
@@ -13645,7 +13916,7 @@ window.WIKI_DATA = {
             "Handel (nur bei aktiver Option enableWanderingTrades, Bedingung simplebuilding:config): Der fahrende Händler verkauft ein Verstärktes Bündel für 16 Smaragde (Pool uncommon) und kauft eines für 12 Smaragde (Pool buying), jeweils nur 1 Mal pro Händler.",
             "Bücher der Bündel-Verzauberungen in Beutetruhen: Tiefe Taschen II in Antiken Stätten; Trichter I in Bastionen, Netherfestungen und Verliesen; Baumeister I in Festungsbibliotheken, Endsiedlungen und Prüfungskammer-Tresoren (rare und ominous); Farbpalette I in Plünderer-Außenposten und Waldanwesen.",
             "Bücher beim Bibliothekar (nur bei aktiver Option enableVillagerTrades): Stufe-3-Buch für 25 Smaragde kann Farbpalette enthalten (Pool mit Schnelles Meißeln und Linear); Stufe-5-Buch für 25 Smaragde kann Baumeister oder Trichter enthalten (Pool mit Reichweite, Streckenschürfer, Adernschürfer).",
-            "Konfigurationsoption Bündel-Interaktion umkehren (invertBundleInteractions, Standard: aus) vertauscht Links- und Rechtsklick für Einlegen und Entnehmen.",
+            "Konfigurationsoption Bündel-Klicks vertauschen (invertBundleInteractions, Standard: aus) vertauscht Links- und Rechtsklick für Einlegen und Entnehmen.",
             "Wird im Kreativ-Reiter der Mod unter den Lagerungs-Items angeboten; dort liegen auch Bücher aller Bündel-Verzauberungen auf Höchststufe."
           ],
           "controls": [
@@ -13657,14 +13928,14 @@ window.WIKI_DATA = {
             "Rechtsklick mit dem Bündel in der Hand: ausgewählten Nicht-Block-Stapel fallen lassen",
             "Rechtsklick auf einen Block (mit Baumeister): ausgewählten Block aus dem Bündel platzieren",
             "Taste Block auswählen (mit Baumeister): Block aus dem Bündel in die Hand holen",
-            "Config Bündel-Interaktion umkehren: Links- und Rechtsklick vertauschen"
+            "Config Bündel-Klicks vertauschen: Links- und Rechtsklick vertauschen"
           ],
           "caveats": [
             "Tiefe Taschen, Trichter, Schublade, Baumeister und Farbpalette werden nicht in die Zaubertisch-Liste eingetragen (die Mod trägt in minecraft:in_enchanting_table nur Schnelles Meißeln ein); sie kommen als Bücher aus Beute und Handel und werden am Amboss angebracht.",
             "Für Schublade gibt es weder ein Buch in einer Beutetabelle noch einen Handel; als Buch existiert sie nur im Kreativ-Reiter der Mod. Das zufällig verzauberte Bündel aus verlassenen Minen nutzt die ungefilterte Vanilla-Zufallsverzauberung; der Mod-Code schließt Schublade (oder Farbpalette ohne Baumeister) dort nicht aus.",
             "Farbpalette allein hat auf dem Bündel keine Wirkung: Der Item-Code wertet sie nur innerhalb des Baumeister-Zweigs aus. Die Amboss-Sperre gilt nur für Amboss-Ergebnisse.",
             "Die Beschreibung von Schublade in der Sprachdatei (sperrt sie aber auf ein Item) stimmt nicht mit dem Code überein: erlaubt sind bis zu 5 verschiedene Gegenstandsarten.",
-            "Der Config-Tooltip zu Bündel-Interaktion umkehren spricht von Schleichen; der Code prüft kein Schleichen, sondern vertauscht Links- und Rechtsklick dauerhaft.",
+            "Die Config-Option Bündel-Klicks vertauschen (tools.invertBundleInteractions) vertauscht Links- und Rechtsklick dauerhaft; mit Schleichen hat sie nichts zu tun (bis 2026-09-28 behauptete ihr Tooltip das).",
             "Die Füllleiste im Tooltip schneidet den Kapazitätsfaktor auf eine ganze Zahl ab und skaliert bei Faktor <= 1 gar nicht (1,5 wird zu 1): Beim unverzauberten Verstärkten Bündel wird die Tooltip-Leiste deshalb nicht skaliert und zeigt schon bei 64 Gegenständen voll an. Der Füllbalken am Item selbst rechnet korrekt.",
             "Der Tooltip-Text Kann mehr Items halten, wenn verzaubert. steht in der Sprachdatei, wird aber von keinem Code angezeigt (appendHoverText ruft nur super auf).",
             "Rechtsklick lässt einen ausgewählten Block nicht fallen; Blöcke müssen im Inventar entnommen oder mit Baumeister platziert werden.",
@@ -13738,6 +14009,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/reinforced_furnace.png",
       "note": {
         "en": {
           "summary": "The Reinforced Furnace is an upgraded furnace that finishes every smelting recipe faster than a vanilla furnace.",
@@ -13935,6 +14207,7 @@ window.WIKI_DATA = {
         "simplebuilding:reinforced_sticky_piston"
       ],
       "trades": [],
+      "icon": "assets/textures/render/reinforced_piston.png",
       "note": {
         "en": {
           "summary": "The Reinforced Piston is a plain (non-sticky) piston that can push a line of up to 18 blocks instead of the usual 12, and, paid with a Redstone Block next to it, one unbreakable block such as bedrock.",
@@ -14127,6 +14400,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/reinforced_smoker.png",
       "note": {
         "en": {
           "summary": "The Reinforced Smoker is an upgraded smoker for food that cooks faster than a vanilla smoker.",
@@ -14218,6 +14492,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/reinforced_sticky_piston.png",
       "note": {
         "en": {
           "summary": "The Reinforced Sticky Piston is the sticky version of the Reinforced Piston: it pushes up to 18 blocks, pulls a block back when it retracts, and, paid with a Redstone Block next to it, pushes one unbreakable block such as bedrock.",
@@ -14299,6 +14574,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/resin_quartz_checker.png",
       "note": {
         "sources": [
           "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
@@ -14311,16 +14587,16 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith, Astralit und Enderquarz.",
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilithsplitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -14353,7 +14629,7 @@ window.WIKI_DATA = {
             "In game the item is called \"Rotator\" in both English and German.",
             "Recipe (crafting table, shaped): 4 iron ingots, 1 Iron Core and 1 ender pearl in the pattern \" I \" / \"IPI\" / \"CI \" (I = iron ingot, P = ender pearl, C = Iron Core bottom left); recipe category \"equipment\" (RecipeCategory.TOOLS). The item texture shows a small ender pearl inside the arc.",
             "The recipe is unlocked as soon as you have an iron ingot in your inventory.",
-            "Charge: 1024 (the durability is the charge); enchantability 15; every successful rotation costs 1 charge (RotatorItem.drain: Unbreaking applies through EnchantmentHelper.processDurabilityChange, creative costs nothing). The Rotator never breaks - at full damage it stays, is empty (RotatorItem.isEmpty), shows item/rotator_empty (range_dispatch on damage) and answers FAIL with a dispenser-fail click instead of turning. Recharge at the anvil (AnvilRechargeable, shared with the Amethyst Lens): ender pearls, 0 levels, 64 charge per pearl, 16 pearls = full, only the needed pearls are consumed.",
+            "Charge: 1024 (the durability is the charge); enchantability 15; every successful rotation costs 1 charge (RotatorItem.drain: Unbreaking applies through EnchantmentHelper.processDurabilityChange, creative costs nothing). The Rotator never breaks - at full damage it stays, is empty (RotatorItem.isEmpty), shows item/rotator_empty (range_dispatch on damage) and answers FAIL with a dispenser-fail click instead of turning. Recharge at the anvil (AnvilRechargeable, shared with the Amethyst Lens): ender pearls, 0 levels, 64 charge per pearl, 16 pearls = full, only the needed pearls are consumed. The cost is the config option tools.rotatorChargePerTurn (default 1).",
             "Stack size 1.",
             "Found in the creative tab \"SimpleTools\", right after the Magnet.",
             "The item model has the parent model minecraft:item/handheld, so the Rotator is held like a tool.",
@@ -14397,7 +14673,7 @@ window.WIKI_DATA = {
             "Im Spiel heißt das Item auf Deutsch und Englisch \"Rotator\".",
             "Rezept (Werkbank, geformt): 4 Eisenbarren, 1 Eisenkern und 1 Enderperle im Muster \" I \" / \"IPI\" / \"CI \" (I = Eisenbarren, P = Enderperle, C = Eisenkern unten links); Rezeptkategorie \"equipment\". Die Item-Textur zeigt eine kleine Enderperle im Bogen.",
             "Das Rezept wird freigeschaltet, sobald man einen Eisenbarren im Inventar hat.",
-            "Ladung: 1024 (die Haltbarkeit ist die Ladung); Verzauberbarkeit 15; jede erfolgreiche Drehung kostet 1 Ladung (RotatorItem.drain: Haltbarkeit/Unbreaking wirkt über EnchantmentHelper.processDurabilityChange, Kreativ kostet nichts). Der Rotator zerbricht nie - bei vollem Schaden bleibt er, ist leer (RotatorItem.isEmpty), zeigt item/rotator_empty (range_dispatch nach Schaden) und antwortet mit FAIL und einem Werfer-Fehlklick, statt zu drehen. Aufladen im Amboss (AnvilRechargeable, gemeinsam mit der Amethystlinse): Enderperlen, 0 Stufen, 64 Ladung je Perle, 16 Perlen = voll, verbraucht werden nur die nötigen.",
+            "Ladung: 1024 (die Haltbarkeit ist die Ladung); Verzauberbarkeit 15; jede erfolgreiche Drehung kostet 1 Ladung (RotatorItem.drain: Haltbarkeit/Unbreaking wirkt über EnchantmentHelper.processDurabilityChange, Kreativ kostet nichts). Der Rotator zerbricht nie - bei vollem Schaden bleibt er, ist leer (RotatorItem.isEmpty), zeigt item/rotator_empty (range_dispatch nach Schaden) und antwortet mit FAIL und einem Werfer-Fehlklick, statt zu drehen. Aufladen im Amboss (AnvilRechargeable, gemeinsam mit der Amethystlinse): Enderperlen, 0 Stufen, 64 Ladung je Perle, 16 Perlen = voll, verbraucht werden nur die nötigen. Die Kosten sind die Config-Option tools.rotatorChargePerTurn (Standard 1).",
             "Stapelgröße 1.",
             "Zu finden im Kreativ-Tab „SimpleTools“, direkt hinter dem Magneten.",
             "Das Item-Modell hat das Elternmodell minecraft:item/handheld, der Rotator wird also wie ein Werkzeug in der Hand gehalten.",
@@ -14538,7 +14814,7 @@ window.WIKI_DATA = {
             "Iron/copper map adds: Chiseled Stone Bricks -> Stone Bricks -> Cracked Stone Bricks; Stone Brick Stairs and Slab -> mossy variant; Polished Andesite, Diorite and Granite -> unpolished variant (stairs and slabs too); Polished Tuff -> Tuff (stairs and slabs too); Planks -> Stairs -> Slab for oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, bamboo and pale oak.",
             "Gold/diamond map adds: Smooth Quartz Block -> Quartz Pillar -> Quartz Bricks -> Chiseled Quartz Block -> Block of Quartz (Smooth Quartz Stairs -> Quartz Stairs, slabs likewise); Polished Tuff -> Tuff -> Chiseled Tuff -> Tuff Bricks (Tuff Stairs -> Tuff Brick Stairs -> Polished Tuff Stairs, slabs likewise); Polished Blackstone -> Blackstone -> Chiseled Polished Blackstone -> Polished Blackstone Bricks -> Cracked Polished Blackstone Bricks (stairs/slabs: polished -> blackstone -> polished bricks); Basalt -> Smooth Basalt -> Polished Basalt; Polished Deepslate -> Chiseled Deepslate -> Deepslate Bricks -> Cracked Deepslate Bricks -> Deepslate Tiles -> Cracked Deepslate Tiles -> Deepslate -> Cobbled Deepslate (stairs/slabs: polished -> bricks -> tiles -> cobbled); Cracked Stone Bricks -> Cobblestone.",
             "Netherite map adds: Netherrack -> Nether Bricks -> Cracked Nether Bricks -> Chiseled Nether Bricks -> Netherrack (a cycle); Resin Bricks -> Chiseled Resin Bricks; Chiseled Sandstone -> Sand; Chiseled Red Sandstone -> Red Sand.",
-            "Enderite map adds (only the Enderite Chisel): Polished Astralit -> Astralit Pillar -> Astralit Bricks -> Chiseled Astralit Bricks -> Block of Astralit, the same chain for Nihilith and for Ender Quartz (Polished Ender Quartz -> Ender Quartz Pillar -> Ender Quartz Bricks -> Chiseled Ender Quartz Bricks -> Block of Ender Quartz); Polished Astralit/Nihilith Stairs, Slab and Wall -> the brick variant; Polished Ender Quartz Stairs and Slab -> Ender Quartz Brick Stairs/Slab -> Ender Quartz Stairs/Slab, Polished Ender Quartz Wall -> Ender Quartz Brick Wall. Every block in these chains comes out of the stonecutter 1:1 from the same base block, so the chisel neither gains nor loses material.",
+            "Enderite map adds (only the Enderite Chisel): Polished Astralit -> Astralit Pillar -> Astralit Bricks -> Chiseled Astralit Bricks -> Block of Astralit, the same chain for Nihilit and for Ender Quartz (Polished Ender Quartz -> Ender Quartz Pillar -> Ender Quartz Bricks -> Chiseled Ender Quartz Bricks -> Block of Ender Quartz); Polished Astralit/Nihilit Stairs, Slab and Wall -> the brick variant; Polished Ender Quartz Stairs and Slab -> Ender Quartz Brick Stairs/Slab -> Ender Quartz Stairs/Slab, Polished Ender Quartz Wall -> Ender Quartz Brick Wall. Every block in these chains comes out of the stonecutter 1:1 from the same base block, so the chisel neither gains nor loses material.",
             "With the Constructor's Touch enchantment each tier gains extra entries - stone: Mud Bricks -> Packed Mud -> Mud, Cobblestone -> Mossy Cobblestone (stairs and slab too), nine log types -> stripped log (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak); iron: Bricks -> Mud Bricks (stairs and slab too), nine wood types (bark blocks) -> stripped wood, crimson and warped planks -> stairs -> slab; diamond: Prismarine -> Prismarine Bricks (stairs and slab too), Smooth Stone -> Stone (Smooth Stone Slab -> Stone Slab as well), End Stone -> End Stone Bricks, Purpur Pillar -> Purpur Block, Block of Copper -> Cut Copper -> Chiseled Copper -> Copper Grate, dead coral blocks in a cycle (brain -> bubble -> fire -> horn -> tube -> brain), living coral blocks in a cycle; netherite: Polished Diorite -> Diorite -> Calcite -> Dripstone Block, Obsidian -> Crying Obsidian, crimson and warped stems -> stripped, each of the 16 concrete colors -> concrete powder of the same color.",
             "Block properties such as waterlogged, or a slab's type (top, bottom, double), are carried over to the new block when that block has the same property.",
             "Pillar blocks (axis) and stairs (facing and top/bottom half) are re-oriented after the transformation from the click position and the player's facing; the edge zone of a block face is a strip 0.25 blocks wide. A further code branch for blocks with a six-way FACING exists, but it applies to no target block in the maps.",
@@ -14601,7 +14877,7 @@ window.WIKI_DATA = {
             "Eisen-/Kupfer-Tabelle zusätzlich: Gemeißelte Steinziegel → Steinziegel → Rissige Steinziegel; Steinziegeltreppe und -stufe → bemooste Variante; Polierter Andesit, Diorit und Granit → unpolierte Variante (auch Treppen und Stufen); Polierter Tuff → Tuff (auch Treppen und Stufen); Bretter → Treppe → Stufe für Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Bambus und Blasseiche.",
             "Gold-/Diamant-Tabelle zusätzlich: Glatter Quarzblock → Quarzsäule → Quarzziegel → Gemeißelter Quarzblock → Quarzblock (Glatte Quarztreppe → Quarztreppe, Stufen analog); Polierter Tuff → Tuff → Gemeißelter Tuff → Tuffziegel (Tufftreppe → Tuffziegeltreppe → Polierte Tufftreppe, Stufen analog); Polierter Schwarzstein → Schwarzstein → Gemeißelter polierter Schwarzstein → Polierte Schwarzsteinziegel → Rissige polierte Schwarzsteinziegel (Treppen/Stufen: poliert → Schwarzstein → polierte Ziegel); Basalt → Glatter Basalt → Polierter Basalt; Polierter Tiefenschiefer → Gemeißelter Tiefenschiefer → Tiefenschieferziegel → Rissige Tiefenschieferziegel → Tiefenschieferfliesen → Rissige Tiefenschieferfliesen → Tiefenschiefer → Bruchtiefenschiefer (Treppen/Stufen: poliert → Ziegel → Fliesen → Bruchtiefenschiefer); Rissige Steinziegel → Bruchstein.",
             "Netherit-Tabelle zusätzlich: Netherrack → Netherziegel → Rissige Netherziegel → Gemeißelte Netherziegel → Netherrack (Kreislauf); Harzziegel → Gemeißelte Harzziegel; Gemeißelter Sandstein → Sand; Gemeißelter roter Sandstein → Roter Sand.",
-            "Enderit-Tabelle zusätzlich (nur der Enderitmeißel): Polierter Astralit → Astralitsäule → Astralitziegel → Gemeißelte Astralitziegel → Astralitblock, dieselbe Kette für Nihilith und für Enderquarz (Polierter Enderquarz → Enderquarzsäule → Enderquarzziegel → Gemeißelte Enderquarzziegel → Enderquarzblock); Treppe, Stufe und Mauer aus poliertem Astralit/Nihilith → Ziegel-Variante; Treppe und Stufe aus poliertem Enderquarz → Enderquarzziegel-Treppe/-Stufe → Enderquarztreppe/-stufe, Mauer aus poliertem Enderquarz → Enderquarzziegelmauer. Jeder Block dieser Ketten kommt 1:1 aus der Steinsäge vom selben Grundblock, der Meißel gewinnt oder verliert also kein Material.",
+            "Enderit-Tabelle zusätzlich (nur der Enderitmeißel): Polierter Astralit → Astralitsäule → Astralitziegel → Gemeißelte Astralitziegel → Astralitblock, dieselbe Kette für Nihilit und für Enderquarz (Polierter Enderquarz → Enderquarzsäule → Enderquarzziegel → Gemeißelte Enderquarzziegel → Enderquarzblock); Treppe, Stufe und Mauer aus poliertem Astralit/Nihilit → Ziegel-Variante; Treppe und Stufe aus poliertem Enderquarz → Enderquarzziegel-Treppe/-Stufe → Enderquarztreppe/-stufe, Mauer aus poliertem Enderquarz → Enderquarzziegelmauer. Jeder Block dieser Ketten kommt 1:1 aus der Steinsäge vom selben Grundblock, der Meißel gewinnt oder verliert also kein Material.",
             "Mit der Verzauberung Berührung des Konstrukteurs kommen je Stufe Zusatz-Einträge dazu – Stein: Schlammziegel → Gepackter Schlamm → Schlamm, Bruchstein → Bemooster Bruchstein (auch Treppe/Stufe), neun Stammarten → entrindeter Stamm (Eiche, Fichte, Birke, Tropenbaum, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche); Eisen: Ziegel → Schlammziegel (auch Treppe/Stufe), neun Holzarten (Rindenblöcke) → entrindetes Holz, Karmesin- und Wirrbretter → Treppe → Stufe; Diamant: Prismarin → Prismarinziegel (auch Treppe/Stufe), Glatter Stein → Stein (auch Stufe), Endstein → Endsteinziegel, Purpursäule → Purpurblock, Kupferblock → Geschnittener Kupferblock → Gemeißelter Kupferblock → Kupfergitter, tote Korallenblöcke im Kreis (Hirn → Blasen → Feuer → Horn → Röhren → Hirn), lebende Korallenblöcke im Kreis; Netherit: Polierter Diorit → Diorit → Kalzit → Tropfsteinblock, Obsidian → Weinender Obsidian, Karmesin- und Wirrstiel → entrindet, jede der 16 Betonfarben → gleichfarbiger Trockenbeton.",
             "Blockeigenschaften wie „mit Wasser gefüllt“ oder die Lage einer Stufe (oben, unten, doppelt) werden auf den neuen Block übernommen, wenn dieser dieselbe Eigenschaft besitzt.",
             "Säulenblöcke (Achse) und Treppen (Richtung und obere/untere Hälfte) werden nach der Umwandlung aus der Klickposition und der Blickrichtung des Spielers neu ausgerichtet; als Randbereich einer Blockseite gilt ein Streifen von 0,25 Blockbreite. Ein weiterer Code-Zweig für Blöcke mit sechsseitiger Blickrichtung (FACING) existiert, trifft aber auf keinen Zielblock der Tabellen zu.",
@@ -14995,6 +15271,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/suspended_gravel.png",
       "note": {
         "en": {
           "summary": "Suspended Gravel is gravel without gravity: it stays exactly where you put it.",
@@ -15002,7 +15279,7 @@ window.WIKI_DATA = {
             "An ordinary block (class Block) with the properties copied from gravel (hardness, sound, map colour), but with no falling logic - it never falls.",
             "It keeps the normal collision box, so you can stand on it, items rest on it and a rising Levitating block lands underneath it - exactly like Suspended Sand.",
             "Loot table: drops itself (survives_explosion condition).",
-            "Recipe (crafting table, building blocks category): 8 Gravel around 1 Nihilith Shard; yields 8. Unlocked as soon as you own a Nihilith Shard.",
+            "Recipe (crafting table, building blocks category): 8 Gravel around 1 Nihilit Shard; yields 8. Unlocked as soon as you own a Nihilit Shard.",
             "In creative it sits in the tab \"SimpleBlocks\", in the gravity block group.",
             "A game test proves it: placed in mid-air it is still in the same spot after 40 ticks, while ordinary gravel next to it falls to the ground."
           ],
@@ -15021,7 +15298,7 @@ window.WIKI_DATA = {
             "Ein gewöhnlicher Block (Klasse Block) mit den kopierten Eigenschaften von Kies (Härte, Geräusch, Farbe), aber ohne Fall-Logik – er fällt nie.",
             "Er hat die normale Kollisionsbox: Man kann darauf stehen, Gegenstände bleiben liegen und ein aufsteigender Levitating-Block landet darunter – genau wie beim Suspended Sand.",
             "Beutetabelle: lässt sich selbst fallen.",
-            "Rezept (Werkbank, Kategorie Bau-Blöcke): 8 Kies rund um 1 Nihilithsplitter; ergibt 8 Stück. Freigeschaltet, sobald man einen Nihilithsplitter besitzt.",
+            "Rezept (Werkbank, Kategorie Bau-Blöcke): 8 Kies rund um 1 Nihilitsplitter; ergibt 8 Stück. Freigeschaltet, sobald man einen Nihilitsplitter besitzt.",
             "Im Kreativmodus im Reiter „SimpleBlocks“, in der Gruppe der Schwerkraftblöcke.",
             "Ein Spieltest belegt: In der Luft platziert bleibt er nach 40 Ticks an Ort und Stelle, während normaler Kies daneben zu Boden fällt."
           ],
@@ -15062,6 +15339,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/suspended_sand.png",
       "note": {
         "en": {
           "summary": "Suspended Sand is sand without gravity: it stays exactly where you put it, and like Suspended Gravel it is solid - you can stand on it.",
@@ -15069,7 +15347,7 @@ window.WIKI_DATA = {
             "An ordinary block (class Block) with the properties copied from sand (hardness, sound, map colour), but with no falling logic - it never falls.",
             "It keeps the full collision box of sand (until 2026-09-24 it was registered with noCollision() and could be walked through): players and mobs stand on it, dropped items come to rest on top, and a Levitating block rising from below stops underneath it and turns back into a block.",
             "Loot table: drops itself (survives_explosion condition).",
-            "Recipe (crafting table, building blocks category): 8 Sand around 1 Nihilith Shard; yields 8. Unlocked as soon as you own a Nihilith Shard.",
+            "Recipe (crafting table, building blocks category): 8 Sand around 1 Nihilit Shard; yields 8. Unlocked as soon as you own a Nihilit Shard.",
             "In creative it sits in the tab \"SimpleBlocks\", in the gravity block group.",
             "Game tests prove it: placed in mid-air it is still in the same spot after 40 ticks while ordinary sand next to it falls to the ground; an item dropped onto it stays on top, and Levitating Sand rising from two blocks below lands in the cell directly underneath it."
           ],
@@ -15088,7 +15366,7 @@ window.WIKI_DATA = {
             "Ein gewöhnlicher Block (Klasse Block) mit den kopierten Eigenschaften von Sand (Härte, Geräusch, Farbe), aber ohne Fall-Logik – er fällt nie.",
             "Er hat die volle Kollisionsbox von Sand (bis 2026-09-24 war er mit noCollision() registriert und man lief hindurch): Spieler und Kreaturen stehen darauf, fallengelassene Gegenstände bleiben oben liegen, und ein von unten aufsteigender Levitating-Block hält darunter an und wird wieder zum Block.",
             "Beutetabelle: lässt sich selbst fallen.",
-            "Rezept (Werkbank, Kategorie Bau-Blöcke): 8 Sand rund um 1 Nihilithsplitter; ergibt 8 Stück. Freigeschaltet, sobald man einen Nihilithsplitter besitzt.",
+            "Rezept (Werkbank, Kategorie Bau-Blöcke): 8 Sand rund um 1 Nihilitsplitter; ergibt 8 Stück. Freigeschaltet, sobald man einen Nihilitsplitter besitzt.",
             "Im Kreativmodus im Reiter „SimpleBlocks“, in der Gruppe der Schwerkraftblöcke.",
             "Spieltests belegen: In der Luft platziert bleibt er nach 40 Ticks an Ort und Stelle, während normaler Sand daneben zu Boden fällt; ein daraufgeworfener Gegenstand bleibt oben liegen, und Levitating Sand, der zwei Blöcke tiefer startet, landet im Feld direkt darunter."
           ],
@@ -15156,12 +15434,7 @@ window.WIKI_DATA = {
         "simplebuilding:chiseled_astralit_bricks_from_astral_end_stone_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/astral_end_stone.png",
-        "side": "assets/textures/block/astral_end_stone.png",
-        "front": "assets/textures/block/astral_end_stone.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/astral_end_stone.png",
       "lootTable": "simplebuilding:blocks/astral_end_stone",
       "drops": [
         "simplebuilding:astral_end_stone"
@@ -15182,12 +15455,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_astralit_from_astral_purpur_block_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/astral_purpur_block.png",
-        "side": "assets/textures/block/astral_purpur_block.png",
-        "front": "assets/textures/block/astral_purpur_block.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/astral_purpur_block.png",
       "lootTable": "simplebuilding:blocks/astral_purpur_block",
       "drops": [
         "simplebuilding:astral_purpur_block"
@@ -15220,12 +15488,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_astralit_wall_from_astralit_block_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/astralit_block.png",
-        "side": "assets/textures/block/astralit_block.png",
-        "front": "assets/textures/block/astralit_block.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/astralit_block.png",
       "lootTable": "simplebuilding:blocks/astralit_block",
       "drops": [
         "simplebuilding:astralit_block"
@@ -15251,6 +15514,7 @@ window.WIKI_DATA = {
         "simplebuilding:chiseled_astralit_bricks"
       ],
       "trades": [],
+      "icon": "assets/textures/render/astralit_brick_slab.png",
       "lootTable": "simplebuilding:blocks/astralit_brick_slab",
       "drops": [
         "simplebuilding:astralit_brick_slab"
@@ -15274,6 +15538,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/astralit_brick_stairs.png",
       "lootTable": "simplebuilding:blocks/astralit_brick_stairs",
       "drops": [
         "simplebuilding:astralit_brick_stairs"
@@ -15286,7 +15551,7 @@ window.WIKI_DATA = {
         "en_us": "Astralit Brick Wall",
         "de_de": "Astralitziegelmauer"
       },
-      "texture": null,
+      "texture": "assets/textures/block/astralit_bricks.png",
       "craftedBy": [
         "simplebuilding:astralit_brick_wall",
         "simplebuilding:astralit_brick_wall_from_astral_end_stone_stonecutting",
@@ -15297,6 +15562,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/astralit_brick_wall.png",
       "lootTable": "simplebuilding:blocks/astralit_brick_wall",
       "drops": [
         "simplebuilding:astralit_brick_wall"
@@ -15327,12 +15593,7 @@ window.WIKI_DATA = {
         "simplebuilding:chiseled_astralit_bricks_from_astralit_bricks_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/astralit_bricks.png",
-        "side": "assets/textures/block/astralit_bricks.png",
-        "front": "assets/textures/block/astralit_bricks.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/astralit_bricks.png",
       "lootTable": "simplebuilding:blocks/astralit_bricks",
       "drops": [
         "simplebuilding:astralit_bricks"
@@ -15349,12 +15610,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/astralit_ore.png",
-        "side": "assets/textures/block/astralit_ore.png",
-        "front": "assets/textures/block/astralit_ore.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/astralit_ore.png",
       "lootTable": "simplebuilding:blocks/astralit_ore",
       "drops": [
         "simplebuilding:astralit_dust",
@@ -15378,12 +15634,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/astralit_pillar_top.png",
-        "side": "assets/textures/block/astralit_pillar.png",
-        "front": "assets/textures/block/astralit_pillar.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/astralit_pillar.png",
       "lootTable": "simplebuilding:blocks/astralit_pillar",
       "drops": [
         "simplebuilding:astralit_pillar"
@@ -15402,12 +15653,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/astralit_quartz_checker.png",
-        "side": "assets/textures/block/astralit_quartz_checker.png",
-        "front": "assets/textures/block/astralit_quartz_checker_mirror.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/astralit_quartz_checker.png",
       "lootTable": "simplebuilding:blocks/astralit_quartz_checker",
       "drops": [
         "simplebuilding:astralit_quartz_checker"
@@ -15424,16 +15670,16 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith, Astralit und Enderquarz.",
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilithsplitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -15457,6 +15703,7 @@ window.WIKI_DATA = {
         "simplebuilding:reinforced_backpack"
       ],
       "trades": [],
+      "icon": "assets/textures/render/block/backpack.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -15630,12 +15877,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/blackstone_quartz_checker.png",
-        "side": "assets/textures/block/blackstone_quartz_checker.png",
-        "front": "assets/textures/block/blackstone_quartz_checker_mirror.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/blackstone_quartz_checker.png",
       "lootTable": "simplebuilding:blocks/blackstone_quartz_checker",
       "drops": [
         "simplebuilding:blackstone_quartz_checker"
@@ -15652,16 +15894,16 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith, Astralit und Enderquarz.",
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilithsplitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -15682,6 +15924,7 @@ window.WIKI_DATA = {
         "simplebuilding:potion_pad"
       ],
       "trades": [],
+      "icon": "assets/textures/render/blaze_head.png",
       "lootTable": "simplebuilding:blocks/blaze_head",
       "drops": [
         "simplebuilding:blaze_head"
@@ -15727,6 +15970,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/blaze_head.png",
       "hasCustomBehaviour": false
     },
     {
@@ -15745,12 +15989,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/chiseled_astralit_bricks.png",
-        "side": "assets/textures/block/chiseled_astralit_bricks.png",
-        "front": "assets/textures/block/chiseled_astralit_bricks.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/chiseled_astralit_bricks.png",
       "lootTable": "simplebuilding:blocks/chiseled_astralit_bricks",
       "drops": [
         "simplebuilding:chiseled_astralit_bricks"
@@ -15762,18 +16001,18 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java"
         ],
         "en": {
-          "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilith and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colours, like chiseled stone bricks or quartz - a shulker box with its head peeking out of the opening (Astralit), an Enderman eye with a horizontal slit (Nihilith) and a dragon eye with a vertical slit (Ender Quartz).",
+          "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilit and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colours, like chiseled stone bricks or quartz - a shulker box with its head peeking out of the opening (Astralit), an Enderman eye with a horizontal slit (Nihilit) and a dragon eye with a vertical slit (Ender Quartz).",
           "details": [
-            "Crafted from 2 Brick Slabs of its material on top of each other (1 block), or cut one for one in the stonecutter from the palette's base block, its polished block or its bricks (Astralit and Nihilith also from the coated end stone). The Ender Quartz version is also recoloured from vanilla: 8 Chiseled Quartz Blocks around 1 Ender Quartz make 8.",
-            "Hardness 3, blast resistance 9, needs a pickaxe for the drop; the Astralit version glows at light level 10, the Nihilith and Ender Quartz versions not at all.",
+            "Crafted from 2 Brick Slabs of its material on top of each other (1 block), or cut one for one in the stonecutter from the palette's base block, its polished block or its bricks (Astralit and Nihilit also from the coated end stone). The Ender Quartz version is also recoloured from vanilla: 8 Chiseled Quartz Blocks around 1 Ender Quartz make 8.",
+            "Hardness 3, blast resistance 9, needs a pickaxe for the drop; the Astralit version glows at light level 10, the Nihilit and Ender Quartz versions not at all.",
             "Despite the name it has nothing to do with the Chisel tool: the Chisel does not convert it into anything."
           ]
         },
         "de": {
-          "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilith und Enderquarz): eine gerahmte Platte, in die ein Wesen aus dem End als leises Relief in den Farben des Blocks gemeißelt ist, wie bei gemeißeltem Steinziegel oder Quarz – eine Shulkerkiste, aus deren Spalt der Kopf lugt (Astralit), ein Enderman-Auge mit waagrechtem Schlitz (Nihilith) und ein Drachenauge mit senkrechtem Schlitz (Enderquarz).",
+          "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilit und Enderquarz): eine gerahmte Platte, in die ein Wesen aus dem End als leises Relief in den Farben des Blocks gemeißelt ist, wie bei gemeißeltem Steinziegel oder Quarz – eine Shulkerkiste, aus deren Spalt der Kopf lugt (Astralit), ein Enderman-Auge mit waagrechtem Schlitz (Nihilit) und ein Drachenauge mit senkrechtem Schlitz (Enderquarz).",
           "details": [
-            "Hergestellt aus 2 Ziegelstufen seines Materials übereinander (1 Block) oder im Steinmetz eins zu eins aus dem Grundblock, dem polierten Block oder den Ziegeln der Palette geschnitten (Astralit und Nihilith auch aus dem beschichteten Endstein). Die Enderquarz-Fassung entsteht außerdem aus Vanilla: 8 gemeißelte Quarzblöcke um 1 Enderquarz ergeben 8.",
-            "Härte 3, Explosionsfestigkeit 9, braucht für den Drop eine Spitzhacke; die Astralit-Fassung leuchtet mit Lichtstufe 10, die Nihilith- und die Enderquarz-Fassung gar nicht.",
+            "Hergestellt aus 2 Ziegelstufen seines Materials übereinander (1 Block) oder im Steinmetz eins zu eins aus dem Grundblock, dem polierten Block oder den Ziegeln der Palette geschnitten (Astralit und Nihilit auch aus dem beschichteten Endstein). Die Enderquarz-Fassung entsteht außerdem aus Vanilla: 8 gemeißelte Quarzblöcke um 1 Enderquarz ergeben 8.",
+            "Härte 3, Explosionsfestigkeit 9, braucht für den Drop eine Spitzhacke; die Astralit-Fassung leuchtet mit Lichtstufe 10, die Nihilit- und die Enderquarz-Fassung gar nicht.",
             "Trotz des Namens hat er mit dem Werkzeug Meißel nichts zu tun: Der Meißel formt ihn in nichts um."
           ]
         }
@@ -15796,12 +16035,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/chiseled_ender_quartz_bricks.png",
-        "side": "assets/textures/block/chiseled_ender_quartz_bricks.png",
-        "front": "assets/textures/block/chiseled_ender_quartz_bricks.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/chiseled_ender_quartz_bricks.png",
       "lootTable": "simplebuilding:blocks/chiseled_ender_quartz_bricks",
       "drops": [
         "simplebuilding:chiseled_ender_quartz_bricks"
@@ -15813,18 +16047,18 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java"
         ],
         "en": {
-          "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilith and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colours, like chiseled stone bricks or quartz - a shulker box with its head peeking out of the opening (Astralit), an Enderman eye with a horizontal slit (Nihilith) and a dragon eye with a vertical slit (Ender Quartz).",
+          "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilit and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colours, like chiseled stone bricks or quartz - a shulker box with its head peeking out of the opening (Astralit), an Enderman eye with a horizontal slit (Nihilit) and a dragon eye with a vertical slit (Ender Quartz).",
           "details": [
-            "Crafted from 2 Brick Slabs of its material on top of each other (1 block), or cut one for one in the stonecutter from the palette's base block, its polished block or its bricks (Astralit and Nihilith also from the coated end stone). The Ender Quartz version is also recoloured from vanilla: 8 Chiseled Quartz Blocks around 1 Ender Quartz make 8.",
-            "Hardness 3, blast resistance 9, needs a pickaxe for the drop; the Astralit version glows at light level 10, the Nihilith and Ender Quartz versions not at all.",
+            "Crafted from 2 Brick Slabs of its material on top of each other (1 block), or cut one for one in the stonecutter from the palette's base block, its polished block or its bricks (Astralit and Nihilit also from the coated end stone). The Ender Quartz version is also recoloured from vanilla: 8 Chiseled Quartz Blocks around 1 Ender Quartz make 8.",
+            "Hardness 3, blast resistance 9, needs a pickaxe for the drop; the Astralit version glows at light level 10, the Nihilit and Ender Quartz versions not at all.",
             "Despite the name it has nothing to do with the Chisel tool: the Chisel does not convert it into anything."
           ]
         },
         "de": {
-          "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilith und Enderquarz): eine gerahmte Platte, in die ein Wesen aus dem End als leises Relief in den Farben des Blocks gemeißelt ist, wie bei gemeißeltem Steinziegel oder Quarz – eine Shulkerkiste, aus deren Spalt der Kopf lugt (Astralit), ein Enderman-Auge mit waagrechtem Schlitz (Nihilith) und ein Drachenauge mit senkrechtem Schlitz (Enderquarz).",
+          "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilit und Enderquarz): eine gerahmte Platte, in die ein Wesen aus dem End als leises Relief in den Farben des Blocks gemeißelt ist, wie bei gemeißeltem Steinziegel oder Quarz – eine Shulkerkiste, aus deren Spalt der Kopf lugt (Astralit), ein Enderman-Auge mit waagrechtem Schlitz (Nihilit) und ein Drachenauge mit senkrechtem Schlitz (Enderquarz).",
           "details": [
-            "Hergestellt aus 2 Ziegelstufen seines Materials übereinander (1 Block) oder im Steinmetz eins zu eins aus dem Grundblock, dem polierten Block oder den Ziegeln der Palette geschnitten (Astralit und Nihilith auch aus dem beschichteten Endstein). Die Enderquarz-Fassung entsteht außerdem aus Vanilla: 8 gemeißelte Quarzblöcke um 1 Enderquarz ergeben 8.",
-            "Härte 3, Explosionsfestigkeit 9, braucht für den Drop eine Spitzhacke; die Astralit-Fassung leuchtet mit Lichtstufe 10, die Nihilith- und die Enderquarz-Fassung gar nicht.",
+            "Hergestellt aus 2 Ziegelstufen seines Materials übereinander (1 Block) oder im Steinmetz eins zu eins aus dem Grundblock, dem polierten Block oder den Ziegeln der Palette geschnitten (Astralit und Nihilit auch aus dem beschichteten Endstein). Die Enderquarz-Fassung entsteht außerdem aus Vanilla: 8 gemeißelte Quarzblöcke um 1 Enderquarz ergeben 8.",
+            "Härte 3, Explosionsfestigkeit 9, braucht für den Drop eine Spitzhacke; die Astralit-Fassung leuchtet mit Lichtstufe 10, die Nihilit- und die Enderquarz-Fassung gar nicht.",
             "Trotz des Namens hat er mit dem Werkzeug Meißel nichts zu tun: Der Meißel formt ihn in nichts um."
           ]
         }
@@ -15834,8 +16068,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:chiseled_nihilith_bricks",
       "name": {
-        "en_us": "Chiseled Nihilith Bricks",
-        "de_de": "Gemeißelte Nihilithziegel"
+        "en_us": "Chiseled Nihilit Bricks",
+        "de_de": "Gemeißelte Nihilitziegel"
       },
       "texture": "assets/textures/block/chiseled_nihilith_bricks.png",
       "craftedBy": [
@@ -15847,12 +16081,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/chiseled_nihilith_bricks.png",
-        "side": "assets/textures/block/chiseled_nihilith_bricks.png",
-        "front": "assets/textures/block/chiseled_nihilith_bricks.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/chiseled_nihilith_bricks.png",
       "lootTable": "simplebuilding:blocks/chiseled_nihilith_bricks",
       "drops": [
         "simplebuilding:chiseled_nihilith_bricks"
@@ -15864,18 +16093,18 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/items/custom/ChiselItem.java"
         ],
         "en": {
-          "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilith and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colours, like chiseled stone bricks or quartz - a shulker box with its head peeking out of the opening (Astralit), an Enderman eye with a horizontal slit (Nihilith) and a dragon eye with a vertical slit (Ender Quartz).",
+          "summary": "The decorative block of the three end palettes (see End Palettes: Astralit, Nihilit and Ender Quartz): a framed panel with a creature of the End carved into it as a quiet relief in the block's own colours, like chiseled stone bricks or quartz - a shulker box with its head peeking out of the opening (Astralit), an Enderman eye with a horizontal slit (Nihilit) and a dragon eye with a vertical slit (Ender Quartz).",
           "details": [
-            "Crafted from 2 Brick Slabs of its material on top of each other (1 block), or cut one for one in the stonecutter from the palette's base block, its polished block or its bricks (Astralit and Nihilith also from the coated end stone). The Ender Quartz version is also recoloured from vanilla: 8 Chiseled Quartz Blocks around 1 Ender Quartz make 8.",
-            "Hardness 3, blast resistance 9, needs a pickaxe for the drop; the Astralit version glows at light level 10, the Nihilith and Ender Quartz versions not at all.",
+            "Crafted from 2 Brick Slabs of its material on top of each other (1 block), or cut one for one in the stonecutter from the palette's base block, its polished block or its bricks (Astralit and Nihilit also from the coated end stone). The Ender Quartz version is also recoloured from vanilla: 8 Chiseled Quartz Blocks around 1 Ender Quartz make 8.",
+            "Hardness 3, blast resistance 9, needs a pickaxe for the drop; the Astralit version glows at light level 10, the Nihilit and Ender Quartz versions not at all.",
             "Despite the name it has nothing to do with the Chisel tool: the Chisel does not convert it into anything."
           ]
         },
         "de": {
-          "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilith und Enderquarz): eine gerahmte Platte, in die ein Wesen aus dem End als leises Relief in den Farben des Blocks gemeißelt ist, wie bei gemeißeltem Steinziegel oder Quarz – eine Shulkerkiste, aus deren Spalt der Kopf lugt (Astralit), ein Enderman-Auge mit waagrechtem Schlitz (Nihilith) und ein Drachenauge mit senkrechtem Schlitz (Enderquarz).",
+          "summary": "Der Zierblock der drei End-Paletten (siehe End-Paletten: Astralit, Nihilit und Enderquarz): eine gerahmte Platte, in die ein Wesen aus dem End als leises Relief in den Farben des Blocks gemeißelt ist, wie bei gemeißeltem Steinziegel oder Quarz – eine Shulkerkiste, aus deren Spalt der Kopf lugt (Astralit), ein Enderman-Auge mit waagrechtem Schlitz (Nihilit) und ein Drachenauge mit senkrechtem Schlitz (Enderquarz).",
           "details": [
-            "Hergestellt aus 2 Ziegelstufen seines Materials übereinander (1 Block) oder im Steinmetz eins zu eins aus dem Grundblock, dem polierten Block oder den Ziegeln der Palette geschnitten (Astralit und Nihilith auch aus dem beschichteten Endstein). Die Enderquarz-Fassung entsteht außerdem aus Vanilla: 8 gemeißelte Quarzblöcke um 1 Enderquarz ergeben 8.",
-            "Härte 3, Explosionsfestigkeit 9, braucht für den Drop eine Spitzhacke; die Astralit-Fassung leuchtet mit Lichtstufe 10, die Nihilith- und die Enderquarz-Fassung gar nicht.",
+            "Hergestellt aus 2 Ziegelstufen seines Materials übereinander (1 Block) oder im Steinmetz eins zu eins aus dem Grundblock, dem polierten Block oder den Ziegeln der Palette geschnitten (Astralit und Nihilit auch aus dem beschichteten Endstein). Die Enderquarz-Fassung entsteht außerdem aus Vanilla: 8 gemeißelte Quarzblöcke um 1 Enderquarz ergeben 8.",
+            "Härte 3, Explosionsfestigkeit 9, braucht für den Drop eine Spitzhacke; die Astralit-Fassung leuchtet mit Lichtstufe 10, die Nihilit- und die Enderquarz-Fassung gar nicht.",
             "Trotz des Namens hat er mit dem Werkzeug Meißel nichts zu tun: Der Meißel formt ihn in nichts um."
           ]
         }
@@ -15896,6 +16125,7 @@ window.WIKI_DATA = {
         "simplebuilding:netherite_chunk_loader_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/chunk_loader.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -15947,12 +16177,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/construction_light.png",
-        "side": "assets/textures/block/construction_light.png",
-        "front": "assets/textures/block/construction_light.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/construction_light.png",
       "lootTable": "simplebuilding:blocks/construction_light",
       "drops": [
         "simplebuilding:construction_light"
@@ -15999,6 +16224,7 @@ window.WIKI_DATA = {
         "simplebuilding:waxed_copper_pressure_plate_from_honeycomb"
       ],
       "trades": [],
+      "icon": "assets/textures/render/copper_pressure_plate.png",
       "lootTable": "simplebuilding:blocks/copper_pressure_plate",
       "drops": [
         "simplebuilding:copper_pressure_plate"
@@ -16051,12 +16277,7 @@ window.WIKI_DATA = {
         "simplebuilding:cracked_diamond_from_cracked_diamond_block"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/cracked_diamond_block.png",
-        "side": "assets/textures/block/cracked_diamond_block.png",
-        "front": "assets/textures/block/cracked_diamond_block.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/cracked_diamond_block.png",
       "lootTable": "simplebuilding:blocks/cracked_diamond_block",
       "drops": [
         "simplebuilding:cracked_diamond_block"
@@ -16080,6 +16301,7 @@ window.WIKI_DATA = {
         "simplebuilding:reinforced_elytra_pad_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/diamond_pressure_plate.png",
       "lootTable": "simplebuilding:blocks/diamond_pressure_plate",
       "drops": [
         "simplebuilding:diamond_pressure_plate"
@@ -16124,6 +16346,7 @@ window.WIKI_DATA = {
         "simplebuilding:reinforced_elytra_pad_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/elytra_pad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -16203,12 +16426,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_ender_quartz_wall_from_ender_quartz_block_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/ender_quartz_block.png",
-        "side": "assets/textures/block/ender_quartz_block.png",
-        "front": "assets/textures/block/ender_quartz_block.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/ender_quartz_block.png",
       "lootTable": "simplebuilding:blocks/ender_quartz_block",
       "drops": [
         "simplebuilding:ender_quartz_block"
@@ -16233,6 +16451,7 @@ window.WIKI_DATA = {
         "simplebuilding:chiseled_ender_quartz_bricks"
       ],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_brick_slab.png",
       "lootTable": "simplebuilding:blocks/ender_quartz_brick_slab",
       "drops": [
         "simplebuilding:ender_quartz_brick_slab"
@@ -16255,6 +16474,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_brick_stairs.png",
       "lootTable": "simplebuilding:blocks/ender_quartz_brick_stairs",
       "drops": [
         "simplebuilding:ender_quartz_brick_stairs"
@@ -16267,7 +16487,7 @@ window.WIKI_DATA = {
         "en_us": "Ender Quartz Brick Wall",
         "de_de": "Enderquarzziegelmauer"
       },
-      "texture": null,
+      "texture": "assets/textures/block/ender_quartz_bricks.png",
       "craftedBy": [
         "simplebuilding:ender_quartz_brick_wall",
         "simplebuilding:ender_quartz_brick_wall_from_end_stone_brick_wall",
@@ -16277,6 +16497,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_brick_wall.png",
       "lootTable": "simplebuilding:blocks/ender_quartz_brick_wall",
       "drops": [
         "simplebuilding:ender_quartz_brick_wall"
@@ -16307,12 +16528,7 @@ window.WIKI_DATA = {
         "simplebuilding:ender_quartz_brick_wall_from_ender_quartz_bricks_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/ender_quartz_bricks.png",
-        "side": "assets/textures/block/ender_quartz_bricks.png",
-        "front": "assets/textures/block/ender_quartz_bricks.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/ender_quartz_bricks.png",
       "lootTable": "simplebuilding:blocks/ender_quartz_bricks",
       "drops": [
         "simplebuilding:ender_quartz_bricks"
@@ -16331,12 +16547,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/ender_quartz_checker.png",
-        "side": "assets/textures/block/ender_quartz_checker.png",
-        "front": "assets/textures/block/ender_quartz_checker_mirror.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/ender_quartz_checker.png",
       "lootTable": "simplebuilding:blocks/ender_quartz_checker",
       "drops": [
         "simplebuilding:ender_quartz_checker"
@@ -16353,16 +16564,16 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith, Astralit und Enderquarz.",
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilithsplitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -16387,12 +16598,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/ender_quartz_pillar_top.png",
-        "side": "assets/textures/block/ender_quartz_pillar.png",
-        "front": "assets/textures/block/ender_quartz_pillar.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/ender_quartz_pillar.png",
       "lootTable": "simplebuilding:blocks/ender_quartz_pillar",
       "drops": [
         "simplebuilding:ender_quartz_pillar"
@@ -16413,6 +16619,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_slab.png",
       "lootTable": "simplebuilding:blocks/ender_quartz_slab",
       "drops": [
         "simplebuilding:ender_quartz_slab"
@@ -16433,6 +16640,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/ender_quartz_stairs.png",
       "lootTable": "simplebuilding:blocks/ender_quartz_stairs",
       "drops": [
         "simplebuilding:ender_quartz_stairs"
@@ -16452,6 +16660,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/block/enderite_backpack.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -16623,12 +16832,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/enderite_blast_furnace_top.png",
-        "side": "assets/textures/block/enderite_blast_furnace_side.png",
-        "front": "assets/textures/block/enderite_blast_furnace_front.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/enderite_blast_furnace.png",
       "lootTable": "simplebuilding:blocks/enderite_blast_furnace",
       "drops": [
         "simplebuilding:enderite_blast_furnace"
@@ -16728,12 +16932,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_ingot"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/enderite_block.png",
-        "side": "assets/textures/block/enderite_block.png",
-        "front": "assets/textures/block/enderite_block.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/enderite_block.png",
       "lootTable": "simplebuilding:blocks/enderite_block",
       "drops": [
         "simplebuilding:enderite_block"
@@ -16752,6 +16951,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/enderite_chunk_loader.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -16805,6 +17005,7 @@ window.WIKI_DATA = {
         "simplebuilding:fine_elytra_pad_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/enderite_elytra_pad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -16864,6 +17065,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/enderite_flypad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -16919,12 +17121,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/enderite_furnace_top.png",
-        "side": "assets/textures/block/enderite_furnace_side.png",
-        "front": "assets/textures/block/enderite_furnace_front.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/enderite_furnace.png",
       "lootTable": "simplebuilding:blocks/enderite_furnace",
       "drops": [
         "simplebuilding:enderite_furnace"
@@ -17014,6 +17211,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/block/enderite_hopper.png",
       "lootTable": "simplebuilding:blocks/enderite_hopper",
       "drops": [
         "simplebuilding:enderite_hopper"
@@ -17102,6 +17300,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/enderite_launchpad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -17114,7 +17313,7 @@ window.WIKI_DATA = {
           "summary": "Launchpads (from Simple Tweaks) are charged with wind charges and launch you after 3 seconds of standing on them; the more charges, the higher. Three tiers: Launchpad I, Netherite Launchpad II, Enderite Launchpad III.",
           "details": [
             "Right-click with a wind charge adds one charge (consumed outside creative); sneak + right-click loads every wind charge in your hand at once, up to the capacity; right-click without shows the count. Tier I holds 4, Netherite II 8, Enderite III 16; breaking it drops the stored wind charges.",
-            "Standing on a charged pad starts a 3-second countdown with a particle spiral; then you get 1.5 + 0.8 per charge blocks per tick of upward speed and the pad is empty again. A charge counts twice what it did in Simple Tweaks (0.4), so 16 charges launch as high as the old 32.",
+            "Standing on a charged pad starts a 3-second countdown with a particle spiral; then you get 1.5 + 0.8 per charge blocks per tick of upward speed and the pad is empty again. A charge counts twice what it did in Simple Tweaks (0.4), so 16 charges launch as high as the old 32. tweaks.padTuning.launchpadStrengthMultiplier (default 1.0) scales that speed.",
             "Enderite Launchpad: no fall damage until your next landing.",
             "Recipes (smithing): I = any template + heavy weighted pressure plate + Diamond Pressure Plate; II = netherite upgrade + Launchpad I + Netherite Pressure Plate; III = enderite upgrade template + Launchpad II + Enderite Pressure Plate.",
             "Launchpads from older worlds keep their id (the plain one is tier I, the Enderite one tier III); one holding more charges than its tier takes now (up to 32 or 16) keeps 16 or 4 on its first tick and drops the rest as wind charges.",
@@ -17127,7 +17326,7 @@ window.WIKI_DATA = {
           "summary": "Startrampen (aus Simple Tweaks) werden mit Windkugeln geladen und schießen dich nach 3 Sekunden Stehen hoch; je mehr Ladungen, desto höher. Drei Stufen: Startrampe I, Netherit-Startrampe II, Enderit-Startrampe III.",
           "details": [
             "Rechtsklick mit einer Windkugel fügt eine Ladung hinzu (außer im Kreativmodus verbraucht); Schleichen + Rechtsklick lädt alle Windkugeln der Hand auf einmal, bis sie voll ist; Rechtsklick ohne zeigt den Stand. Stufe I fasst 4, Netherit II 8, Enderit III 16; beim Abbau fallen die geladenen Windkugeln heraus.",
-            "Auf einer geladenen Rampe läuft ein 3-Sekunden-Countdown mit Partikelspirale; dann gibt es 1,5 + 0,8 je Ladung Blöcke pro Tick Aufwärtsgeschwindigkeit, und die Rampe ist wieder leer. Eine Ladung zählt doppelt so viel wie in Simple Tweaks (0,4), 16 Ladungen starten also so hoch wie die alten 32.",
+            "Auf einer geladenen Rampe läuft ein 3-Sekunden-Countdown mit Partikelspirale; dann gibt es 1,5 + 0,8 je Ladung Blöcke pro Tick Aufwärtsgeschwindigkeit, und die Rampe ist wieder leer. Eine Ladung zählt doppelt so viel wie in Simple Tweaks (0,4), 16 Ladungen starten also so hoch wie die alten 32. tweaks.padTuning.launchpadStrengthMultiplier (Standard 1,0) skaliert diese Geschwindigkeit.",
             "Enderit-Startrampe: kein Fallschaden bis zur nächsten Landung.",
             "Rezepte (Schmiede): I = beliebige Vorlage + schwere Wägeplatte + Diamant-Druckplatte; II = Netherit-Aufwertung + Startrampe I + Netherit-Druckplatte; III = Enderit-Schmiedevorlage + Startrampe II + Enderit-Druckplatte.",
             "Startrampen aus älteren Welten behalten ihre ID (die einfache ist Stufe I, die Enderit-Startrampe Stufe III); trägt eine mehr Ladungen, als ihre Stufe jetzt fasst (bis 32 bzw. 16), behält sie beim ersten Tick 16 bzw. 4 und wirft den Rest als Windkugeln aus.",
@@ -17161,6 +17360,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/enderite_piston.png",
       "lootTable": "simplebuilding:blocks/enderite_piston",
       "drops": [
         "simplebuilding:enderite_piston"
@@ -17243,6 +17443,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/block/enderite_piston_head.png",
       "note": {
         "en": {
           "summary": "The head of the Enderite Piston: it appears in front of the piston while it is extended and slides back in with it. There is no item for it.",
@@ -17299,6 +17500,7 @@ window.WIKI_DATA = {
         "simplebuilding:reinforced_potion_pad_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/enderite_pressure_plate.png",
       "lootTable": "simplebuilding:blocks/enderite_pressure_plate",
       "drops": [
         "simplebuilding:enderite_pressure_plate"
@@ -17342,12 +17544,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/enderite_smoker_top.png",
-        "side": "assets/textures/block/enderite_smoker_side.png",
-        "front": "assets/textures/block/enderite_smoker_front.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/enderite_smoker.png",
       "lootTable": "simplebuilding:blocks/enderite_smoker",
       "drops": [
         "simplebuilding:enderite_smoker"
@@ -17439,6 +17636,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/enderite_spawn_teleporter.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -17451,7 +17649,7 @@ window.WIKI_DATA = {
           "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), Spawn Teleporter V takes you to your own respawn point.",
           "details": [
             "Tier I goes to Spawn 1, II to Spawn 2, III to Spawn 3, IV to Spawn 4. Operators set them with /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (their own position). An unset target means the world spawn.",
-            "Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
+            "Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn. The waiting times are tweaks.padTuning.teleporterWarmupTicks (tiers I-IV, default 100) and enderiteTeleporterWarmupTicks (tier V, default 60).",
             "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
             "The owner sees enchanting particles over their own teleporter. Waterloggable.",
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + Netherite Pressure Plate; V = enderite upgrade template + IV + Enderite Pressure Plate.",
@@ -17465,7 +17663,7 @@ window.WIKI_DATA = {
           "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
           "details": [
             "Stufe I führt zu Spawn 1, II zu Spawn 2, III zu Spawn 3, IV zu Spawn 4. Operatoren setzen sie mit /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (eigene Position). Ohne gesetztes Ziel geht es zum Weltspawn.",
-            "Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
+            "Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück. Die Wartezeiten sind tweaks.padTuning.teleporterWarmupTicks (Stufen I-IV, Standard 100) und enderiteTeleporterWarmupTicks (Stufe V, Standard 60).",
             "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
             "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netherit-Druckplatte; V = Enderit-Schmiedevorlage + IV + Enderit-Druckplatte.",
@@ -17500,6 +17698,7 @@ window.WIKI_DATA = {
         "simplebuilding:waxed_exposed_copper_pressure_plate_from_honeycomb"
       ],
       "trades": [],
+      "icon": "assets/textures/render/exposed_copper_pressure_plate.png",
       "lootTable": "simplebuilding:blocks/exposed_copper_pressure_plate",
       "drops": [
         "simplebuilding:exposed_copper_pressure_plate"
@@ -17550,6 +17749,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/fine_elytra_pad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -17613,6 +17813,7 @@ window.WIKI_DATA = {
         "simplebuilding:flypad_tier2_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/flypad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -17670,6 +17871,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/infused_potion_pad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -17682,8 +17884,8 @@ window.WIKI_DATA = {
           "summary": "Potion Pads (new, 2026-09-28) store the effects of a thrown potion and give them to every player who steps onto them. Three tiers: Potion Pad I, Reinforced Potion Pad II, Infused Potion Pad III.",
           "details": [
             "Throw a splash or lingering potion onto the pad: when it shatters on the pad, the pad stores its effects and replaces whatever it held before; a water splash potion (or any potion without effects) wipes it. Right-click without an item shows the stored potion.",
-            "Stand on the pad for 3 seconds to take the stored effects at the potion's own level: after 1 s you have 25 %, after 2 s 50 % and after 3 s the full 30 s (I), 60 s (II) or 120 s (III); every step shows particles in the potion's colour and a soft chime. Step off early and you keep what you got so far; stepping on again starts from zero. A longer effect you already have is never shortened.",
-            "Instant effects (Healing, Harming) apply once, at the 3 second mark. The full application puts the whole pad on cooldown for twice the effect duration - 60 s (I), 120 s (II), 240 s (III), 480 s for the final easter stage; a partial application starts no cooldown. While cooling down the pad gives nothing to anyone, its texture drains and pulses, and right-clicking it shows the time left. Only players are affected, mobs are not.",
+            "Stand on the pad for 3 seconds to take the stored effects at the potion's own level: after 1 s you have 25 %, after 2 s 50 % and after 3 s the full 30 s (I), 60 s (II) or 120 s (III); every step shows particles in the potion's colour and a soft chime. Step off early and you keep what you got so far; stepping on again starts from zero. A longer effect you already have is never shortened. The step length is tweaks.padTuning.potionPadChargeStepTicks (default 20 ticks); tweaks.pads.enablePotionPads switches the pads off.",
+            "Instant effects (Healing, Harming) apply once, at the 3 second mark. The full application puts the whole pad on cooldown for twice the effect duration - 60 s (I), 120 s (II), 240 s (III), 480 s for the final easter stage; a partial application starts no cooldown. While cooling down the pad gives nothing to anyone, its texture drains and pulses, and right-clicking it shows the time left. Only players are affected, mobs are not. The factor is tweaks.padTuning.potionPadCooldownFactor (default 2.0, 0 = no cooldown).",
             "Unlimited uses; tinted particles in the potion's colour rise from a filled, ready pad. The cooldown only counts down while the pad is placed: broken during its cooldown, the pad drops as a cooling item (animated, tooltip shows the time left) that keeps the remaining time, the stored potion and its easter stage, and resumes when placed again. Stacks to 1 like every pad.",
             "Recipes: I = Netherite Pressure Plate + Blaze Head (crafting table, shapeless); II = enderite upgrade template + Potion Pad I + Enderite Pressure Plate (smithing, upgrades pay with the pressure plate of their material); III = enderite upgrade template + Potion Pad II + Enderite Core (smithing).",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it. Does not burn."
@@ -17693,8 +17895,8 @@ window.WIKI_DATA = {
           "summary": "Trank-Pads (neu, 2026-09-28) speichern die Wirkungen eines geworfenen Tranks und geben sie jedem Spieler, der sie betritt. Drei Stufen: Trank-Pad I, Verstärktes Trank-Pad II, Durchtränktes Trank-Pad III.",
           "details": [
             "Wirf einen Wurf- oder Verweiltrank auf das Pad: zerschellt er darauf, speichert das Pad seine Wirkungen und ersetzt, was es vorher hatte; ein Wasser-Wurftrank (oder jeder Trank ohne Wirkung) wischt es leer. Rechtsklick ohne Gegenstand zeigt den gespeicherten Trank.",
-            "3 Sekunden auf dem Pad stehen gibt die gespeicherten Wirkungen in der Stufe des Tranks: nach 1 s hast du 25 %, nach 2 s 50 % und nach 3 s die vollen 30 s (I), 60 s (II) oder 120 s (III); jeder Schritt zeigt Partikel in der Trankfarbe und einen leisen Klang. Wer früher absteigt, behält das bisher Erhaltene; wieder aufsteigen beginnt bei null. Eine längere Wirkung, die du schon hast, wird nie gekürzt.",
-            "Sofortwirkungen (Heilung, Schaden) wirken einmal, bei 3 Sekunden. Die volle Anwendung setzt das ganze Pad für die doppelte Wirkdauer in die Abklingzeit - 60 s (I), 120 s (II), 240 s (III), 480 s für die letzte Easter-Stufe; eine halbe Anwendung startet keine Abklingzeit. Solange es abklingt, gibt das Pad niemandem etwas, seine Textur leert sich pulsierend, und ein Rechtsklick zeigt die Restzeit. Nur Spieler, keine Mobs.",
+            "3 Sekunden auf dem Pad stehen gibt die gespeicherten Wirkungen in der Stufe des Tranks: nach 1 s hast du 25 %, nach 2 s 50 % und nach 3 s die vollen 30 s (I), 60 s (II) oder 120 s (III); jeder Schritt zeigt Partikel in der Trankfarbe und einen leisen Klang. Wer früher absteigt, behält das bisher Erhaltene; wieder aufsteigen beginnt bei null. Eine längere Wirkung, die du schon hast, wird nie gekürzt. Die Schrittlänge ist tweaks.padTuning.potionPadChargeStepTicks (Standard 20 Ticks); tweaks.pads.enablePotionPads schaltet die Pads ab.",
+            "Sofortwirkungen (Heilung, Schaden) wirken einmal, bei 3 Sekunden. Die volle Anwendung setzt das ganze Pad für die doppelte Wirkdauer in die Abklingzeit - 60 s (I), 120 s (II), 240 s (III), 480 s für die letzte Easter-Stufe; eine halbe Anwendung startet keine Abklingzeit. Solange es abklingt, gibt das Pad niemandem etwas, seine Textur leert sich pulsierend, und ein Rechtsklick zeigt die Restzeit. Nur Spieler, keine Mobs. Der Faktor ist tweaks.padTuning.potionPadCooldownFactor (Standard 2,0, 0 = keine Abklingzeit).",
             "Unbegrenzt nutzbar; über einem gefüllten, bereiten Pad steigen Partikel in der Trankfarbe auf. Die Abklingzeit läuft nur, solange das Pad gesetzt ist: in der Abklingzeit abgebaut, fällt es als abklingendes Item (animiert, Tooltip mit Restzeit), das Restzeit, gespeicherten Trank und Easter-Stufe behält und gesetzt weiterläuft. Stapelt nicht, wie jedes Pad.",
             "Rezepte: I = Netherit-Druckplatte + Lohenkopf (Werkbank, formlos); II = Enderit-Schmiedevorlage + Trank-Pad I + Enderit-Druckplatte (Schmiede, Aufwertungen zahlen mit der Druckplatte ihres Materials); III = Enderit-Schmiedevorlage + Trank-Pad II + Enderitkern (Schmiede).",
             "Wer es setzt, besitzt es: der Besitzer baut es in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen es nicht. Brennt nicht."
@@ -17725,12 +17927,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/lapis_quartz_checker.png",
-        "side": "assets/textures/block/lapis_quartz_checker.png",
-        "front": "assets/textures/block/lapis_quartz_checker_mirror.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/lapis_quartz_checker.png",
       "lootTable": "simplebuilding:blocks/lapis_quartz_checker",
       "drops": [
         "simplebuilding:lapis_quartz_checker"
@@ -17747,16 +17944,16 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith, Astralit und Enderquarz.",
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilithsplitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -17779,6 +17976,7 @@ window.WIKI_DATA = {
         "simplebuilding:netherite_launchpad_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/launchpad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -17791,7 +17989,7 @@ window.WIKI_DATA = {
           "summary": "Launchpads (from Simple Tweaks) are charged with wind charges and launch you after 3 seconds of standing on them; the more charges, the higher. Three tiers: Launchpad I, Netherite Launchpad II, Enderite Launchpad III.",
           "details": [
             "Right-click with a wind charge adds one charge (consumed outside creative); sneak + right-click loads every wind charge in your hand at once, up to the capacity; right-click without shows the count. Tier I holds 4, Netherite II 8, Enderite III 16; breaking it drops the stored wind charges.",
-            "Standing on a charged pad starts a 3-second countdown with a particle spiral; then you get 1.5 + 0.8 per charge blocks per tick of upward speed and the pad is empty again. A charge counts twice what it did in Simple Tweaks (0.4), so 16 charges launch as high as the old 32.",
+            "Standing on a charged pad starts a 3-second countdown with a particle spiral; then you get 1.5 + 0.8 per charge blocks per tick of upward speed and the pad is empty again. A charge counts twice what it did in Simple Tweaks (0.4), so 16 charges launch as high as the old 32. tweaks.padTuning.launchpadStrengthMultiplier (default 1.0) scales that speed.",
             "Enderite Launchpad: no fall damage until your next landing.",
             "Recipes (smithing): I = any template + heavy weighted pressure plate + Diamond Pressure Plate; II = netherite upgrade + Launchpad I + Netherite Pressure Plate; III = enderite upgrade template + Launchpad II + Enderite Pressure Plate.",
             "Launchpads from older worlds keep their id (the plain one is tier I, the Enderite one tier III); one holding more charges than its tier takes now (up to 32 or 16) keeps 16 or 4 on its first tick and drops the rest as wind charges.",
@@ -17804,7 +18002,7 @@ window.WIKI_DATA = {
           "summary": "Startrampen (aus Simple Tweaks) werden mit Windkugeln geladen und schießen dich nach 3 Sekunden Stehen hoch; je mehr Ladungen, desto höher. Drei Stufen: Startrampe I, Netherit-Startrampe II, Enderit-Startrampe III.",
           "details": [
             "Rechtsklick mit einer Windkugel fügt eine Ladung hinzu (außer im Kreativmodus verbraucht); Schleichen + Rechtsklick lädt alle Windkugeln der Hand auf einmal, bis sie voll ist; Rechtsklick ohne zeigt den Stand. Stufe I fasst 4, Netherit II 8, Enderit III 16; beim Abbau fallen die geladenen Windkugeln heraus.",
-            "Auf einer geladenen Rampe läuft ein 3-Sekunden-Countdown mit Partikelspirale; dann gibt es 1,5 + 0,8 je Ladung Blöcke pro Tick Aufwärtsgeschwindigkeit, und die Rampe ist wieder leer. Eine Ladung zählt doppelt so viel wie in Simple Tweaks (0,4), 16 Ladungen starten also so hoch wie die alten 32.",
+            "Auf einer geladenen Rampe läuft ein 3-Sekunden-Countdown mit Partikelspirale; dann gibt es 1,5 + 0,8 je Ladung Blöcke pro Tick Aufwärtsgeschwindigkeit, und die Rampe ist wieder leer. Eine Ladung zählt doppelt so viel wie in Simple Tweaks (0,4), 16 Ladungen starten also so hoch wie die alten 32. tweaks.padTuning.launchpadStrengthMultiplier (Standard 1,0) skaliert diese Geschwindigkeit.",
             "Enderit-Startrampe: kein Fallschaden bis zur nächsten Landung.",
             "Rezepte (Schmiede): I = beliebige Vorlage + schwere Wägeplatte + Diamant-Druckplatte; II = Netherit-Aufwertung + Startrampe I + Netherit-Druckplatte; III = Enderit-Schmiedevorlage + Startrampe II + Enderit-Druckplatte.",
             "Startrampen aus älteren Welten behalten ihre ID (die einfache ist Stufe I, die Enderit-Startrampe Stufe III); trägt eine mehr Ladungen, als ihre Stufe jetzt fasst (bis 32 bzw. 16), behält sie beim ersten Tick 16 bzw. 4 und wirft den Rest als Windkugeln aus.",
@@ -17840,12 +18038,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/levitating_gravel.png",
-        "side": "assets/textures/block/levitating_gravel.png",
-        "front": "assets/textures/block/levitating_gravel.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/levitating_gravel.png",
       "lootTable": "simplebuilding:blocks/levitating_gravel",
       "drops": [
         "simplebuilding:levitating_gravel"
@@ -17931,12 +18124,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/levitating_sand.png",
-        "side": "assets/textures/block/levitating_sand.png",
-        "front": "assets/textures/block/levitating_sand.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/levitating_sand.png",
       "lootTable": "simplebuilding:blocks/levitating_sand",
       "drops": [
         "simplebuilding:levitating_sand"
@@ -18023,6 +18211,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_backpack_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/block/netherite_backpack.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -18194,12 +18383,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/netherite_blast_furnace_top.png",
-        "side": "assets/textures/block/netherite_blast_furnace_side.png",
-        "front": "assets/textures/block/netherite_blast_furnace_front.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/netherite_blast_furnace.png",
       "lootTable": "simplebuilding:blocks/netherite_blast_furnace",
       "drops": [
         "simplebuilding:netherite_blast_furnace"
@@ -18308,6 +18492,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_chunk_loader_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/netherite_chunk_loader.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -18361,6 +18546,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_elytra_pad_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/netherite_elytra_pad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -18420,6 +18606,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/netherite_flypad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -18475,12 +18662,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/netherite_furnace_top.png",
-        "side": "assets/textures/block/netherite_furnace_side.png",
-        "front": "assets/textures/block/netherite_furnace_front.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/netherite_furnace.png",
       "lootTable": "simplebuilding:blocks/netherite_furnace",
       "drops": [
         "simplebuilding:netherite_furnace"
@@ -18581,6 +18763,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/block/netherite_hopper.png",
       "lootTable": "simplebuilding:blocks/netherite_hopper",
       "drops": [
         "simplebuilding:netherite_hopper"
@@ -18697,6 +18880,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_launchpad_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/netherite_launchpad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -18709,7 +18893,7 @@ window.WIKI_DATA = {
           "summary": "Launchpads (from Simple Tweaks) are charged with wind charges and launch you after 3 seconds of standing on them; the more charges, the higher. Three tiers: Launchpad I, Netherite Launchpad II, Enderite Launchpad III.",
           "details": [
             "Right-click with a wind charge adds one charge (consumed outside creative); sneak + right-click loads every wind charge in your hand at once, up to the capacity; right-click without shows the count. Tier I holds 4, Netherite II 8, Enderite III 16; breaking it drops the stored wind charges.",
-            "Standing on a charged pad starts a 3-second countdown with a particle spiral; then you get 1.5 + 0.8 per charge blocks per tick of upward speed and the pad is empty again. A charge counts twice what it did in Simple Tweaks (0.4), so 16 charges launch as high as the old 32.",
+            "Standing on a charged pad starts a 3-second countdown with a particle spiral; then you get 1.5 + 0.8 per charge blocks per tick of upward speed and the pad is empty again. A charge counts twice what it did in Simple Tweaks (0.4), so 16 charges launch as high as the old 32. tweaks.padTuning.launchpadStrengthMultiplier (default 1.0) scales that speed.",
             "Enderite Launchpad: no fall damage until your next landing.",
             "Recipes (smithing): I = any template + heavy weighted pressure plate + Diamond Pressure Plate; II = netherite upgrade + Launchpad I + Netherite Pressure Plate; III = enderite upgrade template + Launchpad II + Enderite Pressure Plate.",
             "Launchpads from older worlds keep their id (the plain one is tier I, the Enderite one tier III); one holding more charges than its tier takes now (up to 32 or 16) keeps 16 or 4 on its first tick and drops the rest as wind charges.",
@@ -18722,7 +18906,7 @@ window.WIKI_DATA = {
           "summary": "Startrampen (aus Simple Tweaks) werden mit Windkugeln geladen und schießen dich nach 3 Sekunden Stehen hoch; je mehr Ladungen, desto höher. Drei Stufen: Startrampe I, Netherit-Startrampe II, Enderit-Startrampe III.",
           "details": [
             "Rechtsklick mit einer Windkugel fügt eine Ladung hinzu (außer im Kreativmodus verbraucht); Schleichen + Rechtsklick lädt alle Windkugeln der Hand auf einmal, bis sie voll ist; Rechtsklick ohne zeigt den Stand. Stufe I fasst 4, Netherit II 8, Enderit III 16; beim Abbau fallen die geladenen Windkugeln heraus.",
-            "Auf einer geladenen Rampe läuft ein 3-Sekunden-Countdown mit Partikelspirale; dann gibt es 1,5 + 0,8 je Ladung Blöcke pro Tick Aufwärtsgeschwindigkeit, und die Rampe ist wieder leer. Eine Ladung zählt doppelt so viel wie in Simple Tweaks (0,4), 16 Ladungen starten also so hoch wie die alten 32.",
+            "Auf einer geladenen Rampe läuft ein 3-Sekunden-Countdown mit Partikelspirale; dann gibt es 1,5 + 0,8 je Ladung Blöcke pro Tick Aufwärtsgeschwindigkeit, und die Rampe ist wieder leer. Eine Ladung zählt doppelt so viel wie in Simple Tweaks (0,4), 16 Ladungen starten also so hoch wie die alten 32. tweaks.padTuning.launchpadStrengthMultiplier (Standard 1,0) skaliert diese Geschwindigkeit.",
             "Enderit-Startrampe: kein Fallschaden bis zur nächsten Landung.",
             "Rezepte (Schmiede): I = beliebige Vorlage + schwere Wägeplatte + Diamant-Druckplatte; II = Netherit-Aufwertung + Startrampe I + Netherit-Druckplatte; III = Enderit-Schmiedevorlage + Startrampe II + Enderit-Druckplatte.",
             "Startrampen aus älteren Welten behalten ihre ID (die einfache ist Stufe I, die Enderit-Startrampe Stufe III); trägt eine mehr Ladungen, als ihre Stufe jetzt fasst (bis 32 bzw. 16), behält sie beim ersten Tick 16 bzw. 4 und wirft den Rest als Windkugeln aus.",
@@ -18756,6 +18940,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/netherite_piston.png",
       "lootTable": "simplebuilding:blocks/netherite_piston",
       "drops": [
         "simplebuilding:netherite_piston"
@@ -18869,6 +19054,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/block/netherite_piston_head.png",
       "note": {
         "en": {
           "summary": "The head of the Netherite Piston: it appears in front of the piston while it is extended and slides back in with it. There is no item for it.",
@@ -18926,6 +19112,7 @@ window.WIKI_DATA = {
         "simplebuilding:spawn_teleporter_tier4_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/netherite_pressure_plate.png",
       "lootTable": "simplebuilding:blocks/netherite_pressure_plate",
       "drops": [
         "simplebuilding:netherite_pressure_plate"
@@ -18969,12 +19156,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/netherite_smoker_top.png",
-        "side": "assets/textures/block/netherite_smoker_side.png",
-        "front": "assets/textures/block/netherite_smoker_front.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/netherite_smoker.png",
       "lootTable": "simplebuilding:blocks/netherite_smoker",
       "drops": [
         "simplebuilding:netherite_smoker"
@@ -19085,12 +19267,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_pillar_from_nihil_end_stone_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/nihil_end_stone.png",
-        "side": "assets/textures/block/nihil_end_stone.png",
-        "front": "assets/textures/block/nihil_end_stone.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/nihil_end_stone.png",
       "lootTable": "simplebuilding:blocks/nihil_end_stone",
       "drops": [
         "simplebuilding:nihil_end_stone"
@@ -19111,12 +19288,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_nihilith_from_nihil_purpur_block_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/nihil_purpur_block.png",
-        "side": "assets/textures/block/nihil_purpur_block.png",
-        "front": "assets/textures/block/nihil_purpur_block.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/nihil_purpur_block.png",
       "lootTable": "simplebuilding:blocks/nihil_purpur_block",
       "drops": [
         "simplebuilding:nihil_purpur_block"
@@ -19126,8 +19298,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nihilith_block",
       "name": {
-        "en_us": "Block of Nihilith",
-        "de_de": "Nihilithblock"
+        "en_us": "Block of Nihilit",
+        "de_de": "Nihilitblock"
       },
       "texture": "assets/textures/block/nihilith_block.png",
       "craftedBy": [
@@ -19149,12 +19321,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_nihilith_wall_from_nihilith_block_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/nihilith_block.png",
-        "side": "assets/textures/block/nihilith_block.png",
-        "front": "assets/textures/block/nihilith_block.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/nihilith_block.png",
       "lootTable": "simplebuilding:blocks/nihilith_block",
       "drops": [
         "simplebuilding:nihilith_block"
@@ -19164,8 +19331,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nihilith_brick_slab",
       "name": {
-        "en_us": "Nihilith Brick Slab",
-        "de_de": "Nihilithziegelstufe"
+        "en_us": "Nihilit Brick Slab",
+        "de_de": "Nihilitziegelstufe"
       },
       "texture": "assets/textures/block/nihilith_bricks.png",
       "craftedBy": [
@@ -19180,6 +19347,7 @@ window.WIKI_DATA = {
         "simplebuilding:chiseled_nihilith_bricks"
       ],
       "trades": [],
+      "icon": "assets/textures/render/nihilith_brick_slab.png",
       "lootTable": "simplebuilding:blocks/nihilith_brick_slab",
       "drops": [
         "simplebuilding:nihilith_brick_slab"
@@ -19189,8 +19357,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nihilith_brick_stairs",
       "name": {
-        "en_us": "Nihilith Brick Stairs",
-        "de_de": "Nihilithziegeltreppe"
+        "en_us": "Nihilit Brick Stairs",
+        "de_de": "Nihilitziegeltreppe"
       },
       "texture": "assets/textures/block/nihilith_bricks.png",
       "craftedBy": [
@@ -19203,6 +19371,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/nihilith_brick_stairs.png",
       "lootTable": "simplebuilding:blocks/nihilith_brick_stairs",
       "drops": [
         "simplebuilding:nihilith_brick_stairs"
@@ -19212,10 +19381,10 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nihilith_brick_wall",
       "name": {
-        "en_us": "Nihilith Brick Wall",
-        "de_de": "Nihilithziegelmauer"
+        "en_us": "Nihilit Brick Wall",
+        "de_de": "Nihilitziegelmauer"
       },
-      "texture": null,
+      "texture": "assets/textures/block/nihilith_bricks.png",
       "craftedBy": [
         "simplebuilding:nihilith_brick_wall",
         "simplebuilding:nihilith_brick_wall_from_end_stone_brick_wall",
@@ -19226,6 +19395,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/nihilith_brick_wall.png",
       "lootTable": "simplebuilding:blocks/nihilith_brick_wall",
       "drops": [
         "simplebuilding:nihilith_brick_wall"
@@ -19235,8 +19405,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nihilith_bricks",
       "name": {
-        "en_us": "Nihilith Bricks",
-        "de_de": "Nihilithziegel"
+        "en_us": "Nihilit Bricks",
+        "de_de": "Nihilitziegel"
       },
       "texture": "assets/textures/block/nihilith_bricks.png",
       "craftedBy": [
@@ -19256,12 +19426,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihilith_brick_wall_from_nihilith_bricks_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/nihilith_bricks.png",
-        "side": "assets/textures/block/nihilith_bricks.png",
-        "front": "assets/textures/block/nihilith_bricks.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/nihilith_bricks.png",
       "lootTable": "simplebuilding:blocks/nihilith_bricks",
       "drops": [
         "simplebuilding:nihilith_bricks"
@@ -19271,19 +19436,14 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nihilith_ore",
       "name": {
-        "en_us": "Nihilith Ore",
-        "de_de": "Nihilitherz"
+        "en_us": "Nihilit Ore",
+        "de_de": "Nihiliterz"
       },
       "texture": "assets/textures/block/nihilith_ore.png",
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/nihilith_ore.png",
-        "side": "assets/textures/block/nihilith_ore.png",
-        "front": "assets/textures/block/nihilith_ore.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/nihilith_ore.png",
       "lootTable": "simplebuilding:blocks/nihilith_ore",
       "drops": [
         "simplebuilding:nihilith_ore",
@@ -19294,8 +19454,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nihilith_pillar",
       "name": {
-        "en_us": "Nihilith Pillar",
-        "de_de": "Nihilithsäule"
+        "en_us": "Nihilit Pillar",
+        "de_de": "Nihilitsäule"
       },
       "texture": "assets/textures/block/nihilith_pillar.png",
       "craftedBy": [
@@ -19307,12 +19467,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/nihilith_pillar_top.png",
-        "side": "assets/textures/block/nihilith_pillar.png",
-        "front": "assets/textures/block/nihilith_pillar.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/nihilith_pillar.png",
       "lootTable": "simplebuilding:blocks/nihilith_pillar",
       "drops": [
         "simplebuilding:nihilith_pillar"
@@ -19322,8 +19477,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:nihilith_quartz_checker",
       "name": {
-        "en_us": "Nihilith Quartz Checker",
-        "de_de": "Nihilith-Quarz-Schachbrett"
+        "en_us": "Nihilit Quartz Checker",
+        "de_de": "Nihilit-Quarz-Schachbrett"
       },
       "texture": "assets/textures/block/nihilith_quartz_checker.png",
       "craftedBy": [
@@ -19331,12 +19486,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/nihilith_quartz_checker.png",
-        "side": "assets/textures/block/nihilith_quartz_checker.png",
-        "front": "assets/textures/block/nihilith_quartz_checker_mirror.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/nihilith_quartz_checker.png",
       "lootTable": "simplebuilding:blocks/nihilith_quartz_checker",
       "drops": [
         "simplebuilding:nihilith_quartz_checker"
@@ -19353,16 +19503,16 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith, Astralit und Enderquarz.",
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilithsplitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -19383,6 +19533,7 @@ window.WIKI_DATA = {
         "simplebuilding:waxed_oxidized_copper_pressure_plate_from_honeycomb"
       ],
       "trades": [],
+      "icon": "assets/textures/render/oxidized_copper_pressure_plate.png",
       "lootTable": "simplebuilding:blocks/oxidized_copper_pressure_plate",
       "drops": [
         "simplebuilding:oxidized_copper_pressure_plate"
@@ -19431,6 +19582,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/block/placed_smithing_template.png",
       "note": {
         "en": {
           "summary": "A smithing template laid down with sneak + right-click: flat on the floor, on a wall or under the ceiling. There is no item for it - it holds the template itself.",
@@ -19485,12 +19637,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_astralit_wall_from_polished_astralit_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/polished_astralit.png",
-        "side": "assets/textures/block/polished_astralit.png",
-        "front": "assets/textures/block/polished_astralit.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/polished_astralit.png",
       "lootTable": "simplebuilding:blocks/polished_astralit",
       "drops": [
         "simplebuilding:polished_astralit"
@@ -19512,6 +19659,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_astralit_slab.png",
       "lootTable": "simplebuilding:blocks/polished_astralit_slab",
       "drops": [
         "simplebuilding:polished_astralit_slab"
@@ -19533,6 +19681,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_astralit_stairs.png",
       "lootTable": "simplebuilding:blocks/polished_astralit_stairs",
       "drops": [
         "simplebuilding:polished_astralit_stairs"
@@ -19545,7 +19694,7 @@ window.WIKI_DATA = {
         "en_us": "Polished Astralit Wall",
         "de_de": "Polierte Astralitmauer"
       },
-      "texture": null,
+      "texture": "assets/textures/block/polished_astralit.png",
       "craftedBy": [
         "simplebuilding:polished_astralit_wall",
         "simplebuilding:polished_astralit_wall_from_astralit_block_stonecutting",
@@ -19553,6 +19702,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_astralit_wall.png",
       "lootTable": "simplebuilding:blocks/polished_astralit_wall",
       "drops": [
         "simplebuilding:polished_astralit_wall"
@@ -19574,12 +19724,7 @@ window.WIKI_DATA = {
         "simplebuilding:nihil_end_stone"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/polished_end_stone.png",
-        "side": "assets/textures/block/polished_end_stone.png",
-        "front": "assets/textures/block/polished_end_stone.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/polished_end_stone.png",
       "lootTable": "simplebuilding:blocks/polished_end_stone",
       "drops": [
         "simplebuilding:polished_end_stone"
@@ -19616,12 +19761,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_ender_quartz_wall_from_polished_ender_quartz_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/polished_ender_quartz.png",
-        "side": "assets/textures/block/polished_ender_quartz.png",
-        "front": "assets/textures/block/polished_ender_quartz.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/polished_ender_quartz.png",
       "lootTable": "simplebuilding:blocks/polished_ender_quartz",
       "drops": [
         "simplebuilding:polished_ender_quartz"
@@ -19644,6 +19784,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_ender_quartz_slab.png",
       "lootTable": "simplebuilding:blocks/polished_ender_quartz_slab",
       "drops": [
         "simplebuilding:polished_ender_quartz_slab"
@@ -19666,6 +19807,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_ender_quartz_stairs.png",
       "lootTable": "simplebuilding:blocks/polished_ender_quartz_stairs",
       "drops": [
         "simplebuilding:polished_ender_quartz_stairs"
@@ -19678,7 +19820,7 @@ window.WIKI_DATA = {
         "en_us": "Polished Ender Quartz Wall",
         "de_de": "Polierte Enderquarzmauer"
       },
-      "texture": null,
+      "texture": "assets/textures/block/polished_ender_quartz.png",
       "craftedBy": [
         "simplebuilding:polished_ender_quartz_wall",
         "simplebuilding:polished_ender_quartz_wall_from_ender_quartz_block_stonecutting",
@@ -19686,6 +19828,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_ender_quartz_wall.png",
       "lootTable": "simplebuilding:blocks/polished_ender_quartz_wall",
       "drops": [
         "simplebuilding:polished_ender_quartz_wall"
@@ -19695,8 +19838,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:polished_nihilith",
       "name": {
-        "en_us": "Polished Nihilith",
-        "de_de": "Polierter Nihilith"
+        "en_us": "Polished Nihilit",
+        "de_de": "Polierter Nihilit"
       },
       "texture": "assets/textures/block/polished_nihilith.png",
       "craftedBy": [
@@ -19721,12 +19864,7 @@ window.WIKI_DATA = {
         "simplebuilding:polished_nihilith_wall_from_polished_nihilith_stonecutting"
       ],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/polished_nihilith.png",
-        "side": "assets/textures/block/polished_nihilith.png",
-        "front": "assets/textures/block/polished_nihilith.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/polished_nihilith.png",
       "lootTable": "simplebuilding:blocks/polished_nihilith",
       "drops": [
         "simplebuilding:polished_nihilith"
@@ -19736,8 +19874,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:polished_nihilith_slab",
       "name": {
-        "en_us": "Polished Nihilith Slab",
-        "de_de": "Polierte Nihilithstufe"
+        "en_us": "Polished Nihilit Slab",
+        "de_de": "Polierte Nihilitstufe"
       },
       "texture": "assets/textures/block/polished_nihilith.png",
       "craftedBy": [
@@ -19748,6 +19886,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_nihilith_slab.png",
       "lootTable": "simplebuilding:blocks/polished_nihilith_slab",
       "drops": [
         "simplebuilding:polished_nihilith_slab"
@@ -19757,8 +19896,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:polished_nihilith_stairs",
       "name": {
-        "en_us": "Polished Nihilith Stairs",
-        "de_de": "Polierte Nihilithtreppe"
+        "en_us": "Polished Nihilit Stairs",
+        "de_de": "Polierte Nihilittreppe"
       },
       "texture": "assets/textures/block/polished_nihilith.png",
       "craftedBy": [
@@ -19769,6 +19908,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_nihilith_stairs.png",
       "lootTable": "simplebuilding:blocks/polished_nihilith_stairs",
       "drops": [
         "simplebuilding:polished_nihilith_stairs"
@@ -19778,10 +19918,10 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:polished_nihilith_wall",
       "name": {
-        "en_us": "Polished Nihilith Wall",
-        "de_de": "Polierte Nihilithmauer"
+        "en_us": "Polished Nihilit Wall",
+        "de_de": "Polierte Nihilitmauer"
       },
-      "texture": null,
+      "texture": "assets/textures/block/polished_nihilith.png",
       "craftedBy": [
         "simplebuilding:polished_nihilith_wall",
         "simplebuilding:polished_nihilith_wall_from_nihilith_block_stonecutting",
@@ -19789,6 +19929,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/polished_nihilith_wall.png",
       "lootTable": "simplebuilding:blocks/polished_nihilith_wall",
       "drops": [
         "simplebuilding:polished_nihilith_wall"
@@ -19809,6 +19950,7 @@ window.WIKI_DATA = {
         "simplebuilding:reinforced_potion_pad_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/potion_pad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -19821,8 +19963,8 @@ window.WIKI_DATA = {
           "summary": "Potion Pads (new, 2026-09-28) store the effects of a thrown potion and give them to every player who steps onto them. Three tiers: Potion Pad I, Reinforced Potion Pad II, Infused Potion Pad III.",
           "details": [
             "Throw a splash or lingering potion onto the pad: when it shatters on the pad, the pad stores its effects and replaces whatever it held before; a water splash potion (or any potion without effects) wipes it. Right-click without an item shows the stored potion.",
-            "Stand on the pad for 3 seconds to take the stored effects at the potion's own level: after 1 s you have 25 %, after 2 s 50 % and after 3 s the full 30 s (I), 60 s (II) or 120 s (III); every step shows particles in the potion's colour and a soft chime. Step off early and you keep what you got so far; stepping on again starts from zero. A longer effect you already have is never shortened.",
-            "Instant effects (Healing, Harming) apply once, at the 3 second mark. The full application puts the whole pad on cooldown for twice the effect duration - 60 s (I), 120 s (II), 240 s (III), 480 s for the final easter stage; a partial application starts no cooldown. While cooling down the pad gives nothing to anyone, its texture drains and pulses, and right-clicking it shows the time left. Only players are affected, mobs are not.",
+            "Stand on the pad for 3 seconds to take the stored effects at the potion's own level: after 1 s you have 25 %, after 2 s 50 % and after 3 s the full 30 s (I), 60 s (II) or 120 s (III); every step shows particles in the potion's colour and a soft chime. Step off early and you keep what you got so far; stepping on again starts from zero. A longer effect you already have is never shortened. The step length is tweaks.padTuning.potionPadChargeStepTicks (default 20 ticks); tweaks.pads.enablePotionPads switches the pads off.",
+            "Instant effects (Healing, Harming) apply once, at the 3 second mark. The full application puts the whole pad on cooldown for twice the effect duration - 60 s (I), 120 s (II), 240 s (III), 480 s for the final easter stage; a partial application starts no cooldown. While cooling down the pad gives nothing to anyone, its texture drains and pulses, and right-clicking it shows the time left. Only players are affected, mobs are not. The factor is tweaks.padTuning.potionPadCooldownFactor (default 2.0, 0 = no cooldown).",
             "Unlimited uses; tinted particles in the potion's colour rise from a filled, ready pad. The cooldown only counts down while the pad is placed: broken during its cooldown, the pad drops as a cooling item (animated, tooltip shows the time left) that keeps the remaining time, the stored potion and its easter stage, and resumes when placed again. Stacks to 1 like every pad.",
             "Recipes: I = Netherite Pressure Plate + Blaze Head (crafting table, shapeless); II = enderite upgrade template + Potion Pad I + Enderite Pressure Plate (smithing, upgrades pay with the pressure plate of their material); III = enderite upgrade template + Potion Pad II + Enderite Core (smithing).",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it. Does not burn."
@@ -19832,8 +19974,8 @@ window.WIKI_DATA = {
           "summary": "Trank-Pads (neu, 2026-09-28) speichern die Wirkungen eines geworfenen Tranks und geben sie jedem Spieler, der sie betritt. Drei Stufen: Trank-Pad I, Verstärktes Trank-Pad II, Durchtränktes Trank-Pad III.",
           "details": [
             "Wirf einen Wurf- oder Verweiltrank auf das Pad: zerschellt er darauf, speichert das Pad seine Wirkungen und ersetzt, was es vorher hatte; ein Wasser-Wurftrank (oder jeder Trank ohne Wirkung) wischt es leer. Rechtsklick ohne Gegenstand zeigt den gespeicherten Trank.",
-            "3 Sekunden auf dem Pad stehen gibt die gespeicherten Wirkungen in der Stufe des Tranks: nach 1 s hast du 25 %, nach 2 s 50 % und nach 3 s die vollen 30 s (I), 60 s (II) oder 120 s (III); jeder Schritt zeigt Partikel in der Trankfarbe und einen leisen Klang. Wer früher absteigt, behält das bisher Erhaltene; wieder aufsteigen beginnt bei null. Eine längere Wirkung, die du schon hast, wird nie gekürzt.",
-            "Sofortwirkungen (Heilung, Schaden) wirken einmal, bei 3 Sekunden. Die volle Anwendung setzt das ganze Pad für die doppelte Wirkdauer in die Abklingzeit - 60 s (I), 120 s (II), 240 s (III), 480 s für die letzte Easter-Stufe; eine halbe Anwendung startet keine Abklingzeit. Solange es abklingt, gibt das Pad niemandem etwas, seine Textur leert sich pulsierend, und ein Rechtsklick zeigt die Restzeit. Nur Spieler, keine Mobs.",
+            "3 Sekunden auf dem Pad stehen gibt die gespeicherten Wirkungen in der Stufe des Tranks: nach 1 s hast du 25 %, nach 2 s 50 % und nach 3 s die vollen 30 s (I), 60 s (II) oder 120 s (III); jeder Schritt zeigt Partikel in der Trankfarbe und einen leisen Klang. Wer früher absteigt, behält das bisher Erhaltene; wieder aufsteigen beginnt bei null. Eine längere Wirkung, die du schon hast, wird nie gekürzt. Die Schrittlänge ist tweaks.padTuning.potionPadChargeStepTicks (Standard 20 Ticks); tweaks.pads.enablePotionPads schaltet die Pads ab.",
+            "Sofortwirkungen (Heilung, Schaden) wirken einmal, bei 3 Sekunden. Die volle Anwendung setzt das ganze Pad für die doppelte Wirkdauer in die Abklingzeit - 60 s (I), 120 s (II), 240 s (III), 480 s für die letzte Easter-Stufe; eine halbe Anwendung startet keine Abklingzeit. Solange es abklingt, gibt das Pad niemandem etwas, seine Textur leert sich pulsierend, und ein Rechtsklick zeigt die Restzeit. Nur Spieler, keine Mobs. Der Faktor ist tweaks.padTuning.potionPadCooldownFactor (Standard 2,0, 0 = keine Abklingzeit).",
             "Unbegrenzt nutzbar; über einem gefüllten, bereiten Pad steigen Partikel in der Trankfarbe auf. Die Abklingzeit läuft nur, solange das Pad gesetzt ist: in der Abklingzeit abgebaut, fällt es als abklingendes Item (animiert, Tooltip mit Restzeit), das Restzeit, gespeicherten Trank und Easter-Stufe behält und gesetzt weiterläuft. Stapelt nicht, wie jedes Pad.",
             "Rezepte: I = Netherit-Druckplatte + Lohenkopf (Werkbank, formlos); II = Enderit-Schmiedevorlage + Trank-Pad I + Enderit-Druckplatte (Schmiede, Aufwertungen zahlen mit der Druckplatte ihres Materials); III = Enderit-Schmiedevorlage + Trank-Pad II + Enderitkern (Schmiede).",
             "Wer es setzt, besitzt es: der Besitzer baut es in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen es nicht. Brennt nicht."
@@ -19864,12 +20006,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/purpur_quartz_checker.png",
-        "side": "assets/textures/block/purpur_quartz_checker.png",
-        "front": "assets/textures/block/purpur_quartz_checker_mirror.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/purpur_quartz_checker.png",
       "lootTable": "simplebuilding:blocks/purpur_quartz_checker",
       "drops": [
         "simplebuilding:purpur_quartz_checker"
@@ -19886,16 +20023,16 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith, Astralit und Enderquarz.",
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilithsplitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -19919,6 +20056,7 @@ window.WIKI_DATA = {
         "simplebuilding:netherite_backpack_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/block/reinforced_backpack.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -20092,12 +20230,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/reinforced_blast_furnace_top.png",
-        "side": "assets/textures/block/reinforced_blast_furnace_side.png",
-        "front": "assets/textures/block/reinforced_blast_furnace_front.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/reinforced_blast_furnace.png",
       "lootTable": "simplebuilding:blocks/reinforced_blast_furnace",
       "drops": [
         "simplebuilding:reinforced_blast_furnace"
@@ -20202,6 +20335,7 @@ window.WIKI_DATA = {
         "simplebuilding:netherite_elytra_pad_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/reinforced_elytra_pad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -20265,6 +20399,7 @@ window.WIKI_DATA = {
         "simplebuilding:stellar_flypad_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/reinforced_flypad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -20322,12 +20457,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/reinforced_furnace_top.png",
-        "side": "assets/textures/block/reinforced_furnace_side.png",
-        "front": "assets/textures/block/reinforced_furnace_front.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/reinforced_furnace.png",
       "lootTable": "simplebuilding:blocks/reinforced_furnace",
       "drops": [
         "simplebuilding:reinforced_furnace"
@@ -20431,6 +20561,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/block/reinforced_hopper.png",
       "lootTable": "simplebuilding:blocks/reinforced_hopper",
       "drops": [
         "simplebuilding:reinforced_hopper"
@@ -20548,6 +20679,7 @@ window.WIKI_DATA = {
         "simplebuilding:reinforced_sticky_piston"
       ],
       "trades": [],
+      "icon": "assets/textures/render/reinforced_piston.png",
       "lootTable": "simplebuilding:blocks/reinforced_piston",
       "drops": [
         "simplebuilding:reinforced_piston"
@@ -20641,6 +20773,7 @@ window.WIKI_DATA = {
       "craftedBy": [],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/block/reinforced_piston_head.png",
       "note": {
         "en": {
           "summary": "The head of the Reinforced Piston and the Reinforced Sticky Piston: it appears in front of the piston while it is extended and slides back in with it. There is no item for it.",
@@ -20691,6 +20824,7 @@ window.WIKI_DATA = {
         "simplebuilding:infused_potion_pad_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/reinforced_potion_pad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -20703,8 +20837,8 @@ window.WIKI_DATA = {
           "summary": "Potion Pads (new, 2026-09-28) store the effects of a thrown potion and give them to every player who steps onto them. Three tiers: Potion Pad I, Reinforced Potion Pad II, Infused Potion Pad III.",
           "details": [
             "Throw a splash or lingering potion onto the pad: when it shatters on the pad, the pad stores its effects and replaces whatever it held before; a water splash potion (or any potion without effects) wipes it. Right-click without an item shows the stored potion.",
-            "Stand on the pad for 3 seconds to take the stored effects at the potion's own level: after 1 s you have 25 %, after 2 s 50 % and after 3 s the full 30 s (I), 60 s (II) or 120 s (III); every step shows particles in the potion's colour and a soft chime. Step off early and you keep what you got so far; stepping on again starts from zero. A longer effect you already have is never shortened.",
-            "Instant effects (Healing, Harming) apply once, at the 3 second mark. The full application puts the whole pad on cooldown for twice the effect duration - 60 s (I), 120 s (II), 240 s (III), 480 s for the final easter stage; a partial application starts no cooldown. While cooling down the pad gives nothing to anyone, its texture drains and pulses, and right-clicking it shows the time left. Only players are affected, mobs are not.",
+            "Stand on the pad for 3 seconds to take the stored effects at the potion's own level: after 1 s you have 25 %, after 2 s 50 % and after 3 s the full 30 s (I), 60 s (II) or 120 s (III); every step shows particles in the potion's colour and a soft chime. Step off early and you keep what you got so far; stepping on again starts from zero. A longer effect you already have is never shortened. The step length is tweaks.padTuning.potionPadChargeStepTicks (default 20 ticks); tweaks.pads.enablePotionPads switches the pads off.",
+            "Instant effects (Healing, Harming) apply once, at the 3 second mark. The full application puts the whole pad on cooldown for twice the effect duration - 60 s (I), 120 s (II), 240 s (III), 480 s for the final easter stage; a partial application starts no cooldown. While cooling down the pad gives nothing to anyone, its texture drains and pulses, and right-clicking it shows the time left. Only players are affected, mobs are not. The factor is tweaks.padTuning.potionPadCooldownFactor (default 2.0, 0 = no cooldown).",
             "Unlimited uses; tinted particles in the potion's colour rise from a filled, ready pad. The cooldown only counts down while the pad is placed: broken during its cooldown, the pad drops as a cooling item (animated, tooltip shows the time left) that keeps the remaining time, the stored potion and its easter stage, and resumes when placed again. Stacks to 1 like every pad.",
             "Recipes: I = Netherite Pressure Plate + Blaze Head (crafting table, shapeless); II = enderite upgrade template + Potion Pad I + Enderite Pressure Plate (smithing, upgrades pay with the pressure plate of their material); III = enderite upgrade template + Potion Pad II + Enderite Core (smithing).",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it. Does not burn."
@@ -20714,8 +20848,8 @@ window.WIKI_DATA = {
           "summary": "Trank-Pads (neu, 2026-09-28) speichern die Wirkungen eines geworfenen Tranks und geben sie jedem Spieler, der sie betritt. Drei Stufen: Trank-Pad I, Verstärktes Trank-Pad II, Durchtränktes Trank-Pad III.",
           "details": [
             "Wirf einen Wurf- oder Verweiltrank auf das Pad: zerschellt er darauf, speichert das Pad seine Wirkungen und ersetzt, was es vorher hatte; ein Wasser-Wurftrank (oder jeder Trank ohne Wirkung) wischt es leer. Rechtsklick ohne Gegenstand zeigt den gespeicherten Trank.",
-            "3 Sekunden auf dem Pad stehen gibt die gespeicherten Wirkungen in der Stufe des Tranks: nach 1 s hast du 25 %, nach 2 s 50 % und nach 3 s die vollen 30 s (I), 60 s (II) oder 120 s (III); jeder Schritt zeigt Partikel in der Trankfarbe und einen leisen Klang. Wer früher absteigt, behält das bisher Erhaltene; wieder aufsteigen beginnt bei null. Eine längere Wirkung, die du schon hast, wird nie gekürzt.",
-            "Sofortwirkungen (Heilung, Schaden) wirken einmal, bei 3 Sekunden. Die volle Anwendung setzt das ganze Pad für die doppelte Wirkdauer in die Abklingzeit - 60 s (I), 120 s (II), 240 s (III), 480 s für die letzte Easter-Stufe; eine halbe Anwendung startet keine Abklingzeit. Solange es abklingt, gibt das Pad niemandem etwas, seine Textur leert sich pulsierend, und ein Rechtsklick zeigt die Restzeit. Nur Spieler, keine Mobs.",
+            "3 Sekunden auf dem Pad stehen gibt die gespeicherten Wirkungen in der Stufe des Tranks: nach 1 s hast du 25 %, nach 2 s 50 % und nach 3 s die vollen 30 s (I), 60 s (II) oder 120 s (III); jeder Schritt zeigt Partikel in der Trankfarbe und einen leisen Klang. Wer früher absteigt, behält das bisher Erhaltene; wieder aufsteigen beginnt bei null. Eine längere Wirkung, die du schon hast, wird nie gekürzt. Die Schrittlänge ist tweaks.padTuning.potionPadChargeStepTicks (Standard 20 Ticks); tweaks.pads.enablePotionPads schaltet die Pads ab.",
+            "Sofortwirkungen (Heilung, Schaden) wirken einmal, bei 3 Sekunden. Die volle Anwendung setzt das ganze Pad für die doppelte Wirkdauer in die Abklingzeit - 60 s (I), 120 s (II), 240 s (III), 480 s für die letzte Easter-Stufe; eine halbe Anwendung startet keine Abklingzeit. Solange es abklingt, gibt das Pad niemandem etwas, seine Textur leert sich pulsierend, und ein Rechtsklick zeigt die Restzeit. Nur Spieler, keine Mobs. Der Faktor ist tweaks.padTuning.potionPadCooldownFactor (Standard 2,0, 0 = keine Abklingzeit).",
             "Unbegrenzt nutzbar; über einem gefüllten, bereiten Pad steigen Partikel in der Trankfarbe auf. Die Abklingzeit läuft nur, solange das Pad gesetzt ist: in der Abklingzeit abgebaut, fällt es als abklingendes Item (animiert, Tooltip mit Restzeit), das Restzeit, gespeicherten Trank und Easter-Stufe behält und gesetzt weiterläuft. Stapelt nicht, wie jedes Pad.",
             "Rezepte: I = Netherit-Druckplatte + Lohenkopf (Werkbank, formlos); II = Enderit-Schmiedevorlage + Trank-Pad I + Enderit-Druckplatte (Schmiede, Aufwertungen zahlen mit der Druckplatte ihres Materials); III = Enderit-Schmiedevorlage + Trank-Pad II + Enderitkern (Schmiede).",
             "Wer es setzt, besitzt es: der Besitzer baut es in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen es nicht. Brennt nicht."
@@ -20746,12 +20880,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/reinforced_smoker_top.png",
-        "side": "assets/textures/block/reinforced_smoker_side.png",
-        "front": "assets/textures/block/reinforced_smoker_front.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/reinforced_smoker.png",
       "lootTable": "simplebuilding:blocks/reinforced_smoker",
       "drops": [
         "simplebuilding:reinforced_smoker"
@@ -20854,6 +20983,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/reinforced_sticky_piston.png",
       "lootTable": "simplebuilding:blocks/reinforced_sticky_piston",
       "drops": [
         "simplebuilding:reinforced_sticky_piston"
@@ -20939,12 +21069,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/resin_quartz_checker.png",
-        "side": "assets/textures/block/resin_quartz_checker.png",
-        "front": "assets/textures/block/resin_quartz_checker_mirror.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/resin_quartz_checker.png",
       "lootTable": "simplebuilding:blocks/resin_quartz_checker",
       "drops": [
         "simplebuilding:resin_quartz_checker"
@@ -20961,16 +21086,16 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Quartz checkers are decorative pillar blocks in a quartz chessboard pattern: purpur, lapis, blackstone, resin, nihilith, astralit and ender quartz.",
           "details": [
-            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilith, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
+            "Crafting: two of the material diagonal to two quartz blocks give 4 (purpur block, lapis block, blackstone, red nether bricks; nihilith shard for the Nihilit, astralit dust for the Astralit Quartz Checker, ender quartz for the Ender Quartz Checker).",
             "Placed like a log (the pattern follows the axis); no mob spawns on them. All seven are mined with a pickaxe and drop themselves.",
             "The Astralit Quartz Checker glows with light level 5.",
             "The Ender Quartz Checker (id ender_quartz_checker, without a second \"quartz\") copies the Ender Quartz Block: pickaxe, no light; it sits in \"SimpleBlocks\" after the Astralit Quartz Checker."
           ]
         },
         "de": {
-          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilith, Astralit und Enderquarz.",
+          "summary": "Quarz-Schachbretter sind dekorative Säulenblöcke im Schachbrettmuster mit Quarz: Purpur, Lapis, Schwarzstein, Harz, Nihilit, Astralit und Enderquarz.",
           "details": [
-            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilithsplitter für das Nihilith-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
+            "Herstellung: zwei Stück Material diagonal zu zwei Quarzblöcken ergeben 4 (Purpurblock, Lapisblock, Schwarzstein, rote Netherziegel; Nihilitsplitter für das Nihilit-, Astralitstaub für das Astralit-Quarz-Schachbrett, Enderquarz für das Enderquarz-Schachbrett).",
             "Wird wie ein Stamm gesetzt (das Muster folgt der Achse); auf ihnen spawnen keine Mobs. Alle sieben werden mit der Spitzhacke abgebaut und droppen sich selbst.",
             "Das Astralit-Quarz-Schachbrett leuchtet mit Lichtstufe 5.",
             "Das Enderquarz-Schachbrett (Id ender_quartz_checker, ohne zweites „quartz“) übernimmt die Eigenschaften des Enderquarzblocks: Spitzhacke, kein Licht; es steht in „SimpleBlocks“ hinter dem Astralit-Quarz-Schachbrett."
@@ -20994,6 +21119,7 @@ window.WIKI_DATA = {
         "simplebuilding:spawn_teleporter_tier2_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/spawn_teleporter.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -21006,7 +21132,7 @@ window.WIKI_DATA = {
           "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), Spawn Teleporter V takes you to your own respawn point.",
           "details": [
             "Tier I goes to Spawn 1, II to Spawn 2, III to Spawn 3, IV to Spawn 4. Operators set them with /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (their own position). An unset target means the world spawn.",
-            "Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
+            "Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn. The waiting times are tweaks.padTuning.teleporterWarmupTicks (tiers I-IV, default 100) and enderiteTeleporterWarmupTicks (tier V, default 60).",
             "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
             "The owner sees enchanting particles over their own teleporter. Waterloggable.",
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + Netherite Pressure Plate; V = enderite upgrade template + IV + Enderite Pressure Plate.",
@@ -21020,7 +21146,7 @@ window.WIKI_DATA = {
           "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
           "details": [
             "Stufe I führt zu Spawn 1, II zu Spawn 2, III zu Spawn 3, IV zu Spawn 4. Operatoren setzen sie mit /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (eigene Position). Ohne gesetztes Ziel geht es zum Weltspawn.",
-            "Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
+            "Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück. Die Wartezeiten sind tweaks.padTuning.teleporterWarmupTicks (Stufen I-IV, Standard 100) und enderiteTeleporterWarmupTicks (Stufe V, Standard 60).",
             "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
             "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netherit-Druckplatte; V = Enderit-Schmiedevorlage + IV + Enderit-Druckplatte.",
@@ -21057,6 +21183,7 @@ window.WIKI_DATA = {
         "simplebuilding:spawn_teleporter_tier3_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/spawn_teleporter_tier_2.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -21069,7 +21196,7 @@ window.WIKI_DATA = {
           "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), Spawn Teleporter V takes you to your own respawn point.",
           "details": [
             "Tier I goes to Spawn 1, II to Spawn 2, III to Spawn 3, IV to Spawn 4. Operators set them with /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (their own position). An unset target means the world spawn.",
-            "Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
+            "Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn. The waiting times are tweaks.padTuning.teleporterWarmupTicks (tiers I-IV, default 100) and enderiteTeleporterWarmupTicks (tier V, default 60).",
             "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
             "The owner sees enchanting particles over their own teleporter. Waterloggable.",
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + Netherite Pressure Plate; V = enderite upgrade template + IV + Enderite Pressure Plate.",
@@ -21083,7 +21210,7 @@ window.WIKI_DATA = {
           "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
           "details": [
             "Stufe I führt zu Spawn 1, II zu Spawn 2, III zu Spawn 3, IV zu Spawn 4. Operatoren setzen sie mit /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (eigene Position). Ohne gesetztes Ziel geht es zum Weltspawn.",
-            "Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
+            "Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück. Die Wartezeiten sind tweaks.padTuning.teleporterWarmupTicks (Stufen I-IV, Standard 100) und enderiteTeleporterWarmupTicks (Stufe V, Standard 60).",
             "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
             "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netherit-Druckplatte; V = Enderit-Schmiedevorlage + IV + Enderit-Druckplatte.",
@@ -21120,6 +21247,7 @@ window.WIKI_DATA = {
         "simplebuilding:spawn_teleporter_tier4_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/spawn_teleporter_tier_3.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -21132,7 +21260,7 @@ window.WIKI_DATA = {
           "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), Spawn Teleporter V takes you to your own respawn point.",
           "details": [
             "Tier I goes to Spawn 1, II to Spawn 2, III to Spawn 3, IV to Spawn 4. Operators set them with /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (their own position). An unset target means the world spawn.",
-            "Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
+            "Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn. The waiting times are tweaks.padTuning.teleporterWarmupTicks (tiers I-IV, default 100) and enderiteTeleporterWarmupTicks (tier V, default 60).",
             "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
             "The owner sees enchanting particles over their own teleporter. Waterloggable.",
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + Netherite Pressure Plate; V = enderite upgrade template + IV + Enderite Pressure Plate.",
@@ -21146,7 +21274,7 @@ window.WIKI_DATA = {
           "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
           "details": [
             "Stufe I führt zu Spawn 1, II zu Spawn 2, III zu Spawn 3, IV zu Spawn 4. Operatoren setzen sie mit /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (eigene Position). Ohne gesetztes Ziel geht es zum Weltspawn.",
-            "Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
+            "Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück. Die Wartezeiten sind tweaks.padTuning.teleporterWarmupTicks (Stufen I-IV, Standard 100) und enderiteTeleporterWarmupTicks (Stufe V, Standard 60).",
             "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
             "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netherit-Druckplatte; V = Enderit-Schmiedevorlage + IV + Enderit-Druckplatte.",
@@ -21183,6 +21311,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_spawn_teleporter_smithing"
       ],
       "trades": [],
+      "icon": "assets/textures/render/spawn_teleporter_tier_4.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -21195,7 +21324,7 @@ window.WIKI_DATA = {
           "summary": "Spawn Teleporters (from Simple Tweaks): stand still on one for 5 seconds and you are taken two blocks above its target with Slow Falling. Tiers I-IV are four targets (Spawn 1-4), Spawn Teleporter V takes you to your own respawn point.",
           "details": [
             "Tier I goes to Spawn 1, II to Spawn 2, III to Spawn 3, IV to Spawn 4. Operators set them with /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (their own position). An unset target means the world spawn.",
-            "Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn.",
+            "Spawn Teleporter V: only 3 seconds of standing still, target is your bed or respawn anchor (also in another dimension); without one it falls back to Spawn 1 or the world spawn. The waiting times are tweaks.padTuning.teleporterWarmupTicks (tiers I-IV, default 100) and enderiteTeleporterWarmupTicks (tier V, default 60).",
             "Moving cancels the countdown (actionbar message). While you wait: portal particles and a rising sound; on arrival nausea (1 s), darkness (3 s) and slow falling (2 s) plus particles and a chime.",
             "The owner sees enchanting particles over their own teleporter. Waterloggable.",
             "Recipes (smithing): I = any template + light weighted pressure plate + diamond block, or netherite upgrade + light weighted pressure plate + netherite ingot; II-IV = netherite upgrade + previous tier + Netherite Pressure Plate; V = enderite upgrade template + IV + Enderite Pressure Plate.",
@@ -21209,7 +21338,7 @@ window.WIKI_DATA = {
           "summary": "Spawn-Teleporter (aus Simple Tweaks): 5 Sekunden still darauf stehen bringt dich zwei Blöcke über sein Ziel, mit Sanftem Fall. Stufen I-IV sind vier Ziele (Spawn 1-4), Spawn-Teleporter V bringt dich zu deinem eigenen Wiedereinstiegspunkt.",
           "details": [
             "Stufe I führt zu Spawn 1, II zu Spawn 2, III zu Spawn 3, IV zu Spawn 4. Operatoren setzen sie mit /simplebuilding tweaks worldspawn setspawn1 ... setspawn4 (eigene Position). Ohne gesetztes Ziel geht es zum Weltspawn.",
-            "Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück.",
+            "Spawn-Teleporter V: nur 3 Sekunden stillstehen, Ziel ist dein Bett oder Seelenanker (auch in einer anderen Dimension); ohne einen fällt er auf Spawn 1 bzw. den Weltspawn zurück. Die Wartezeiten sind tweaks.padTuning.teleporterWarmupTicks (Stufen I-IV, Standard 100) und enderiteTeleporterWarmupTicks (Stufe V, Standard 60).",
             "Bewegen bricht den Countdown ab (Meldung in der Aktionsleiste). Beim Warten Portal-Partikel und ein ansteigender Ton; beim Ankommen Übelkeit (1 s), Dunkelheit (3 s) und Sanfter Fall (2 s), dazu Partikel und ein Klang.",
             "Der Besitzer sieht Zauberpartikel über seinem Teleporter. Wasserfüllbar.",
             "Rezepte (Schmiede): I = beliebige Vorlage + leichte Wägeplatte + Diamantblock oder Netherit-Aufwertung + leichte Wägeplatte + Netheritbarren; II-IV = Netherit-Aufwertung + vorige Stufe + Netherit-Druckplatte; V = Enderit-Schmiedevorlage + IV + Enderit-Druckplatte.",
@@ -21244,6 +21373,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/stellar_flypad.png",
       "properties": {
         "maxStackSize": 1
       },
@@ -21301,12 +21431,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/suspended_gravel.png",
-        "side": "assets/textures/block/suspended_gravel.png",
-        "front": "assets/textures/block/suspended_gravel.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/suspended_gravel.png",
       "lootTable": "simplebuilding:blocks/suspended_gravel",
       "drops": [
         "simplebuilding:suspended_gravel"
@@ -21318,7 +21443,7 @@ window.WIKI_DATA = {
             "An ordinary block (class Block) with the properties copied from gravel (hardness, sound, map colour), but with no falling logic - it never falls.",
             "It keeps the normal collision box, so you can stand on it, items rest on it and a rising Levitating block lands underneath it - exactly like Suspended Sand.",
             "Loot table: drops itself (survives_explosion condition).",
-            "Recipe (crafting table, building blocks category): 8 Gravel around 1 Nihilith Shard; yields 8. Unlocked as soon as you own a Nihilith Shard.",
+            "Recipe (crafting table, building blocks category): 8 Gravel around 1 Nihilit Shard; yields 8. Unlocked as soon as you own a Nihilit Shard.",
             "In creative it sits in the tab \"SimpleBlocks\", in the gravity block group.",
             "A game test proves it: placed in mid-air it is still in the same spot after 40 ticks, while ordinary gravel next to it falls to the ground."
           ],
@@ -21337,7 +21462,7 @@ window.WIKI_DATA = {
             "Ein gewöhnlicher Block (Klasse Block) mit den kopierten Eigenschaften von Kies (Härte, Geräusch, Farbe), aber ohne Fall-Logik – er fällt nie.",
             "Er hat die normale Kollisionsbox: Man kann darauf stehen, Gegenstände bleiben liegen und ein aufsteigender Levitating-Block landet darunter – genau wie beim Suspended Sand.",
             "Beutetabelle: lässt sich selbst fallen.",
-            "Rezept (Werkbank, Kategorie Bau-Blöcke): 8 Kies rund um 1 Nihilithsplitter; ergibt 8 Stück. Freigeschaltet, sobald man einen Nihilithsplitter besitzt.",
+            "Rezept (Werkbank, Kategorie Bau-Blöcke): 8 Kies rund um 1 Nihilitsplitter; ergibt 8 Stück. Freigeschaltet, sobald man einen Nihilitsplitter besitzt.",
             "Im Kreativmodus im Reiter „SimpleBlocks“, in der Gruppe der Schwerkraftblöcke.",
             "Ein Spieltest belegt: In der Luft platziert bleibt er nach 40 Ticks an Ort und Stelle, während normaler Kies daneben zu Boden fällt."
           ],
@@ -21378,12 +21503,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [],
       "trades": [],
-      "faces": {
-        "top": "assets/textures/block/suspended_sand.png",
-        "side": "assets/textures/block/suspended_sand.png",
-        "front": "assets/textures/block/suspended_sand.png"
-      },
-      "inventoryCube": true,
+      "icon": "assets/textures/render/suspended_sand.png",
       "lootTable": "simplebuilding:blocks/suspended_sand",
       "drops": [
         "simplebuilding:suspended_sand"
@@ -21395,7 +21515,7 @@ window.WIKI_DATA = {
             "An ordinary block (class Block) with the properties copied from sand (hardness, sound, map colour), but with no falling logic - it never falls.",
             "It keeps the full collision box of sand (until 2026-09-24 it was registered with noCollision() and could be walked through): players and mobs stand on it, dropped items come to rest on top, and a Levitating block rising from below stops underneath it and turns back into a block.",
             "Loot table: drops itself (survives_explosion condition).",
-            "Recipe (crafting table, building blocks category): 8 Sand around 1 Nihilith Shard; yields 8. Unlocked as soon as you own a Nihilith Shard.",
+            "Recipe (crafting table, building blocks category): 8 Sand around 1 Nihilit Shard; yields 8. Unlocked as soon as you own a Nihilit Shard.",
             "In creative it sits in the tab \"SimpleBlocks\", in the gravity block group.",
             "Game tests prove it: placed in mid-air it is still in the same spot after 40 ticks while ordinary sand next to it falls to the ground; an item dropped onto it stays on top, and Levitating Sand rising from two blocks below lands in the cell directly underneath it."
           ],
@@ -21414,7 +21534,7 @@ window.WIKI_DATA = {
             "Ein gewöhnlicher Block (Klasse Block) mit den kopierten Eigenschaften von Sand (Härte, Geräusch, Farbe), aber ohne Fall-Logik – er fällt nie.",
             "Er hat die volle Kollisionsbox von Sand (bis 2026-09-24 war er mit noCollision() registriert und man lief hindurch): Spieler und Kreaturen stehen darauf, fallengelassene Gegenstände bleiben oben liegen, und ein von unten aufsteigender Levitating-Block hält darunter an und wird wieder zum Block.",
             "Beutetabelle: lässt sich selbst fallen.",
-            "Rezept (Werkbank, Kategorie Bau-Blöcke): 8 Sand rund um 1 Nihilithsplitter; ergibt 8 Stück. Freigeschaltet, sobald man einen Nihilithsplitter besitzt.",
+            "Rezept (Werkbank, Kategorie Bau-Blöcke): 8 Sand rund um 1 Nihilitsplitter; ergibt 8 Stück. Freigeschaltet, sobald man einen Nihilitsplitter besitzt.",
             "Im Kreativmodus im Reiter „SimpleBlocks“, in der Gruppe der Schwerkraftblöcke.",
             "Spieltests belegen: In der Luft platziert bleibt er nach 40 Ticks an Ort und Stelle, während normaler Sand daneben zu Boden fällt; ein daraufgeworfener Gegenstand bleibt oben liegen, und Levitating Sand, der zwei Blöcke tiefer startet, landet im Feld direkt darunter."
           ],
@@ -21449,12 +21569,13 @@ window.WIKI_DATA = {
         "en_us": "Waxed Copper Pressure Plate",
         "de_de": "Gewachste Kupfer-Druckplatte"
       },
-      "texture": null,
+      "texture": "assets/textures/block/copper_pressure_plate.png",
       "craftedBy": [
         "simplebuilding:waxed_copper_pressure_plate_from_honeycomb"
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/waxed_copper_pressure_plate.png",
       "lootTable": "simplebuilding:blocks/waxed_copper_pressure_plate",
       "drops": [
         "simplebuilding:waxed_copper_pressure_plate"
@@ -21499,12 +21620,13 @@ window.WIKI_DATA = {
         "en_us": "Waxed Exposed Copper Pressure Plate",
         "de_de": "Gewachste angelaufene Kupfer-Druckplatte"
       },
-      "texture": null,
+      "texture": "assets/textures/block/exposed_copper_pressure_plate.png",
       "craftedBy": [
         "simplebuilding:waxed_exposed_copper_pressure_plate_from_honeycomb"
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/waxed_exposed_copper_pressure_plate.png",
       "lootTable": "simplebuilding:blocks/waxed_exposed_copper_pressure_plate",
       "drops": [
         "simplebuilding:waxed_exposed_copper_pressure_plate"
@@ -21549,12 +21671,13 @@ window.WIKI_DATA = {
         "en_us": "Waxed Oxidized Copper Pressure Plate",
         "de_de": "Gewachste oxidierte Kupfer-Druckplatte"
       },
-      "texture": null,
+      "texture": "assets/textures/block/oxidized_copper_pressure_plate.png",
       "craftedBy": [
         "simplebuilding:waxed_oxidized_copper_pressure_plate_from_honeycomb"
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/waxed_oxidized_copper_pressure_plate.png",
       "lootTable": "simplebuilding:blocks/waxed_oxidized_copper_pressure_plate",
       "drops": [
         "simplebuilding:waxed_oxidized_copper_pressure_plate"
@@ -21599,12 +21722,13 @@ window.WIKI_DATA = {
         "en_us": "Waxed Weathered Copper Pressure Plate",
         "de_de": "Gewachste verwitterte Kupfer-Druckplatte"
       },
-      "texture": null,
+      "texture": "assets/textures/block/weathered_copper_pressure_plate.png",
       "craftedBy": [
         "simplebuilding:waxed_weathered_copper_pressure_plate_from_honeycomb"
       ],
       "usedIn": [],
       "trades": [],
+      "icon": "assets/textures/render/waxed_weathered_copper_pressure_plate.png",
       "lootTable": "simplebuilding:blocks/waxed_weathered_copper_pressure_plate",
       "drops": [
         "simplebuilding:waxed_weathered_copper_pressure_plate"
@@ -21655,6 +21779,7 @@ window.WIKI_DATA = {
         "simplebuilding:waxed_weathered_copper_pressure_plate_from_honeycomb"
       ],
       "trades": [],
+      "icon": "assets/textures/render/weathered_copper_pressure_plate.png",
       "lootTable": "simplebuilding:blocks/weathered_copper_pressure_plate",
       "drops": [
         "simplebuilding:weathered_copper_pressure_plate"
@@ -35397,7 +35522,7 @@ window.WIKI_DATA = {
             "Magnet: pull range 8.0 instead of 4.0 blocks (each Range level adds another 2.0). On top of that, right-clicking an item frame that holds an item with the enchanted Magnet sets the magnet filter to that item (respawn anchor sound, no text on screen; ItemFrameEntityMixin).",
             "Quiver: when shooting a bow (BowItemMixin), arrows are also drawn from quivers lying anywhere else in the inventory (slot 9 and up) - but only if that quiver carries the enchantment. Offhand, chest armor slot and hotbar work without it.",
             "Backpack (worn): when placing a block from your hand uses up that stack, a matching stack (same item and components) from the worn backpack refills the hand - at most one normal stack, not in creative mode, and only for placements straight from the hand (BlockItem.place).",
-            "Octant: the filled-in area/figure preview is shown when the octant carries the enchantment (with the \"Invert Octant Sneak\" option on it is exactly the other way round: showFill = invert XOR enchantment); on top of that both positions must be set and the highlights (ClientState.showHighlights) must be switched on.",
+            "Octant: the filled-in area/figure preview is shown when the octant carries the enchantment (with the \"Invert Octant Area Preview\" option on it is exactly the other way round: showFill = invert XOR enchantment); on top of that both positions must be set and the highlights (ClientState.showHighlights) must be switched on.",
             "An enchanted book gets its own book model (\"constructors_touch\").",
             "Not in the enchanting table (minecraft:in_enchanting_table contains only Fast Chiseling from the mod); no villager offer in the trade files.",
             "Where to find it as a book (option enableLootTableChanges): buried treasure (weight 3), igloo (weight 3), common and rare trial chamber reward vaults (weight 3), fishing treasure (weight 2); plus the mod's creative tab.",
@@ -35431,7 +35556,7 @@ window.WIKI_DATA = {
             "Magnet: Anziehungsreichweite 8.0 statt 4.0 Blöcke (jede Stufe „Reichweite“ addiert weitere 2.0). Außerdem setzt ein Rechtsklick mit dem verzauberten Magneten auf einen Rahmen mit Item den Magnetfilter auf dieses Item (Ton des Seelenankers, kein Text auf dem Bildschirm; ItemFrameEntityMixin).",
             "Köcher: Beim Schießen mit dem Bogen (BowItemMixin) werden Pfeile auch aus Köchern gezogen, die irgendwo im restlichen Inventar (ab Slot 9) liegen – aber nur, wenn dieser Köcher die Verzauberung trägt. Nebenhand, Brustplatz und Hotbar funktionieren ohne.",
             "Rucksack (getragen): Verbraucht das Platzieren eines Blocks aus der Hand den Stapel, füllt ein passender Stapel (gleiches Item, gleiche Komponenten) aus dem getragenen Rucksack die Hand wieder auf – höchstens ein normaler Stapel, nicht im Kreativmodus und nur beim Platzieren direkt aus der Hand (BlockItem.place).",
-            "Oktant: Die gefüllte Flächen-/Figur-Vorschau wird angezeigt, wenn der Oktant die Verzauberung trägt (mit aktiver Option „Oktant Schleichen umkehren“ genau umgekehrt: showFill = invert XOR Verzauberung); zusätzlich müssen beide Positionen gesetzt und die Hervorhebungen (ClientState.showHighlights) eingeschaltet sein.",
+            "Oktant: Die gefüllte Flächen-/Figur-Vorschau wird angezeigt, wenn der Oktant die Verzauberung trägt (mit aktiver Option „Oktant-Flächenvorschau umkehren“ genau umgekehrt: showFill = invert XOR Verzauberung); zusätzlich müssen beide Positionen gesetzt und die Hervorhebungen (ClientState.showHighlights) eingeschaltet sein.",
             "Ein verzaubertes Buch bekommt ein eigenes Buchmodell („constructors_touch“).",
             "Nicht in der Verzauberungstabelle (minecraft:in_enchanting_table enthält aus der Mod nur Schnelles Meißeln); kein Händlerangebot in den Handelsdateien.",
             "Fundorte als Buch (Option enableLootTableChanges): vergrabener Schatz (Gewicht 3), Iglu (Gewicht 3), Prüfungskammer normal/selten (Gewicht 3), Angel-Schatz (Gewicht 2); Kreativ-Reiter der Mod.",
@@ -37980,179 +38105,1264 @@ window.WIKI_DATA = {
   ],
   "config": [
     {
-      "name": "enableDoubleJump",
+      "name": "tools.buildingWandHungerCost",
+      "shortName": "buildingWandHungerCost",
       "type": "boolean",
       "default": "true",
       "note": null,
-      "tooltip": "Enable Double Jump Enchantment"
+      "category": "Tools & Building",
+      "categoryDe": "Werkzeuge & Bauen",
+      "group": "Tools & Building",
+      "groupDe": "Werkzeuge & Bauen",
+      "label": "Building Wand Hunger Cost (Experimental)",
+      "labelDe": "Hungerkosten des Baustabs (experimentell)",
+      "tooltip": "Experimental. Building a lot at once makes you hungry: per click or blueprint build the first blocks are free (1/16 of the wand's largest cube, at least 256 - normal faces never cost anything); every block past that adds food exhaustion, less for stronger wands (a Copper Wand filling 16x16x16 takes about a quarter of the hunger bar, an Enderite Wand building 128x128x128 the whole bar). Creative mode is exempt. It never deals damage itself. Server-side. Default: on.",
+      "tooltipDe": "Experimentell. Viel auf einmal bauen macht hungrig: Pro Klick oder Blaupausen-Bau sind die ersten Blöcke frei (1/16 des größten Würfels des Stabs, mindestens 256 - normale Flächen kosten nie etwas); jeder weitere Block erzeugt Erschöpfung, bei stärkeren Stäben weniger (ein Kupfer-Baustab, der 16x16x16 füllt, kostet etwa ein Viertel der Hungerleiste, ein Enderit-Baustab mit 128x128x128 die ganze Leiste). Der Kreativmodus ist ausgenommen. Verursacht nie selbst Schaden. Serverseitig. Standard: an."
     },
     {
-      "name": "airJumpCooldownTicks",
-      "type": "int",
-      "default": "100",
-      "note": null,
-      "tooltip": "Air Jump Cooldown (Ticks)"
-    },
-    {
-      "name": "enableArmorTrimBenefits",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "tooltip": "Enable Armor Trim Benefits"
-    },
-    {
-      "name": "pistonsBreachEndPortalFrames",
-      "type": "boolean",
-      "default": "false",
-      "note": null,
-      "tooltip": "Pistons Breach End Portal Frames"
-    },
-    {
-      "name": "pistonsBreachModdedUnbreakables",
-      "type": "boolean",
-      "default": "false",
-      "note": null,
-      "tooltip": "Pistons Breach Modded Unbreakables"
-    },
-    {
-      "name": "pistonsFireBreakEvents",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "tooltip": "Pistons Fire Break Events"
-    },
-    {
-      "name": "netheriteBreakerWearBudget",
-      "type": "int",
-      "default": "1024",
-      "note": null,
-      "tooltip": "Netherite Piston Wear Budget"
-    },
-    {
-      "name": "enderitePistonWearBudget",
-      "type": "int",
-      "default": "2048",
-      "note": null,
-      "tooltip": "Enderite Piston Wear Budget"
-    },
-    {
-      "name": "showDevEnchantedTab",
-      "type": "boolean",
-      "default": "false",
-      "note": null,
-      "tooltip": "Show Enchanted (Dev) Creative Tab"
-    },
-    {
-      "name": "giveGuideBookOnFirstJoin",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "tooltip": "Beginner's Guide on First Join"
-    },
-    {
-      "name": "vanillaEnchantedBookTextures",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "tooltip": "Own Textures for Vanilla Enchanted Books"
-    },
-    {
-      "name": "modEnchantedBookTextures",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "tooltip": "Own Textures for Mod Enchanted Books"
-    },
-    {
-      "name": "visibleTrimIconsVanillaArmor",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "tooltip": "Visible Trim Patterns on Vanilla Armor Icons"
-    },
-    {
-      "name": "visibleTrimIconsModArmor",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "tooltip": "Visible Trim Patterns on Enderite Armor Icons"
-    },
-    {
-      "name": "trimBenefitBaseMultiplier",
+      "name": "tools.wandHungerMultiplier",
+      "shortName": "wandHungerMultiplier",
       "type": "double",
-      "default": "2.0",
+      "default": "1.0",
       "note": null,
-      "tooltip": "Trim Benefit Base Multiplier"
+      "category": "Tools & Building",
+      "categoryDe": "Werkzeuge & Bauen",
+      "group": "Tools & Building",
+      "groupDe": "Werkzeuge & Bauen",
+      "label": "Building Wand Hunger Multiplier",
+      "labelDe": "Hunger-Faktor des Baustabs",
+      "tooltip": "Multiplies the food exhaustion of every block past the free allowance (see Building Wand Hunger Cost). 0.5 = half as hungry, 2 = twice as hungry, 0 = building is free. The free allowance itself stays. Server-side. Default: 1.0.",
+      "tooltipDe": "Multipliziert die Erschöpfung jedes Blocks über dem Freibetrag (siehe Hungerkosten des Baustabs). 0,5 = halb so hungrig, 2 = doppelt so hungrig, 0 = Bauen kostet nichts. Der Freibetrag bleibt. Serverseitig. Standard: 1,0."
     },
     {
-      "name": "maxMultiplierLimit",
+      "name": "tools.magnetRangeMultiplier",
+      "shortName": "magnetRangeMultiplier",
       "type": "double",
-      "default": "10.0",
+      "default": "1.0",
       "note": null,
-      "tooltip": "Max Multiplier Limit"
+      "category": "Tools & Building",
+      "categoryDe": "Werkzeuge & Bauen",
+      "group": "Tools & Building",
+      "groupDe": "Werkzeuge & Bauen",
+      "label": "Magnet Range Multiplier",
+      "labelDe": "Reichweiten-Faktor des Magneten",
+      "tooltip": "Multiplies how far the Magnet pulls items (4 blocks, 8 with Constructor's Touch, +2 per Radius level). 2 = twice as far, 0 = the Magnet pulls nothing. Server-side. Default: 1.0.",
+      "tooltipDe": "Multipliziert, wie weit der Magnet Gegenstände anzieht (4 Blöcke, 8 mit Berührung des Konstrukteurs, +2 je Radius-Stufe). 2 = doppelt so weit, 0 = der Magnet zieht nichts an. Serverseitig. Standard: 1,0."
     },
     {
-      "name": "invertOctantSneak",
+      "name": "tools.rotatorChargePerTurn",
+      "shortName": "rotatorChargePerTurn",
+      "type": "int",
+      "default": "1",
+      "note": null,
+      "category": "Tools & Building",
+      "categoryDe": "Werkzeuge & Bauen",
+      "group": "Tools & Building",
+      "groupDe": "Werkzeuge & Bauen",
+      "label": "Rotator Charge per Turn",
+      "labelDe": "Rotator-Ladung je Drehung",
+      "tooltip": "Charge one turn of the Rotator uses up (a full Rotator holds 1024, 16 Ender Pearls refill it). 0 = turning is free, 2 = half as many turns per charge. Unbreaking still applies. Server-side. Default: 1.",
+      "tooltipDe": "Ladung, die eine Drehung des Rotators verbraucht (voll sind 1024, 16 Enderperlen laden auf). 0 = Drehen kostet nichts, 2 = halb so viele Drehungen je Ladung. Haltbarkeit wirkt weiter. Serverseitig. Standard: 1."
+    },
+    {
+      "name": "tools.invertBundleInteractions",
+      "shortName": "invertBundleInteractions",
+      "type": "boolean",
+      "default": "false",
+      "note": null,
+      "category": "Tools & Building",
+      "categoryDe": "Werkzeuge & Bauen",
+      "group": "Tools & Building",
+      "groupDe": "Werkzeuge & Bauen",
+      "label": "Invert Bundle Clicks",
+      "labelDe": "Bündel-Klicks vertauschen",
+      "tooltip": "Swaps the mouse buttons on the mod's bundles and quivers: off, left click puts items in and right click takes one out; on, the other way round. Default: off.",
+      "tooltipDe": "Vertauscht die Maustasten bei den Bündeln und Köchern der Mod: aus legt Linksklick ein und Rechtsklick nimmt heraus; an umgekehrt. Standard: aus."
+    },
+    {
+      "name": "tools.invertOctantSneak",
+      "shortName": "invertOctantSneak",
       "type": "boolean",
       "default": "false",
       "note": "Constructor's Touch Invertierung",
-      "tooltip": ""
+      "category": "Tools & Building",
+      "categoryDe": "Werkzeuge & Bauen",
+      "group": "Tools & Building",
+      "groupDe": "Werkzeuge & Bauen",
+      "label": "Invert Octant Area Preview",
+      "labelDe": "Oktant-Flächenvorschau umkehren",
+      "tooltip": "Off: the Octant draws its area figure only while it carries Constructor's Touch. On: the other way round. The two corner outlines are always drawn. Client-side. Default: off.",
+      "tooltipDe": "Aus: Der Oktant zeichnet die Flächenfigur nur, wenn er Berührung des Konstrukteurs trägt. An: umgekehrt. Die beiden Eckpunkt-Umrisse werden immer gezeichnet. Clientseitig. Standard: aus."
     },
     {
-      "name": "buildingHighlightOpacity",
+      "name": "tools.buildingHighlightOpacity",
+      "shortName": "buildingHighlightOpacity",
       "type": "int",
       "default": "40",
       "note": null,
-      "tooltip": ""
+      "category": "Tools & Building",
+      "categoryDe": "Werkzeuge & Bauen",
+      "group": "Tools & Building",
+      "groupDe": "Werkzeuge & Bauen",
+      "label": "Preview Opacity (%)",
+      "labelDe": "Deckkraft der Vorschau (%)",
+      "tooltip": "Opacity of the filled preview faces of the Sledgehammer and the Octant, in percent (0 = invisible, 100 = solid). Client-side. Default: 40.",
+      "tooltipDe": "Deckkraft der gefüllten Vorschauflächen von Vorschlaghammer und Oktant in Prozent (0 = unsichtbar, 100 = deckend). Clientseitig. Standard: 40."
     },
     {
-      "name": "enableToolAnimations",
+      "name": "tools.enableToolAnimations",
+      "shortName": "enableToolAnimations",
       "type": "boolean",
       "default": "true",
       "note": "Hauptschalter",
-      "tooltip": ""
+      "category": "Tools & Building",
+      "categoryDe": "Werkzeuge & Bauen",
+      "group": "Tools & Building",
+      "groupDe": "Werkzeuge & Bauen",
+      "label": "Tool Animations",
+      "labelDe": "Werkzeug-Animationen",
+      "tooltip": "Master switch for the first-person hand animations of the Chisel and the Sledgehammer. Client-side. Default: on.",
+      "tooltipDe": "Hauptschalter für die Handanimationen von Meißel und Vorschlaghammer in der Ich-Ansicht. Clientseitig. Standard: an."
     },
     {
-      "name": "enableChiselAnimation",
+      "name": "tools.enableChiselAnimation",
+      "shortName": "enableChiselAnimation",
       "type": "boolean",
       "default": "true",
       "note": null,
-      "tooltip": ""
+      "category": "Tools & Building",
+      "categoryDe": "Werkzeuge & Bauen",
+      "group": "Tools & Building",
+      "groupDe": "Werkzeuge & Bauen",
+      "label": "Chisel Tilt Animation",
+      "labelDe": "Meißel-Kippanimation",
+      "tooltip": "Tilts the held Chisel when you aim at a block it can transform. Only plays while Tool Animations is on too. Client-side. Default: on.",
+      "tooltipDe": "Kippt den gehaltenen Meißel, wenn du auf einen Block zielst, den er umwandeln kann. Spielt nur, wenn auch Werkzeug-Animationen an ist. Clientseitig. Standard: an."
     },
     {
-      "name": "invertBundleInteractions",
+      "name": "enableDoubleJump",
+      "shortName": "enableDoubleJump",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Enchantments & Armor",
+      "categoryDe": "Verzauberungen & Rüstung",
+      "group": null,
+      "groupDe": null,
+      "label": "Air Jump",
+      "labelDe": "Luftsprung",
+      "tooltip": "Lets you use the Air Jump (Double Jump) enchantment on boots: press jump again in mid-air. Off, no air jumps are triggered. This is your own client setting. Default: on.",
+      "tooltipDe": "Erlaubt den Luftsprung (Doppelsprung-Verzauberung auf Stiefeln): in der Luft erneut springen. Aus: keine Luftsprünge. Das ist eine Einstellung deines eigenen Clients. Standard: an."
+    },
+    {
+      "name": "airJumpCooldownTicks",
+      "shortName": "airJumpCooldownTicks",
+      "type": "int",
+      "default": "100",
+      "note": null,
+      "category": "Enchantments & Armor",
+      "categoryDe": "Verzauberungen & Rüstung",
+      "group": null,
+      "groupDe": null,
+      "label": "Air Jump Cooldown (Ticks)",
+      "labelDe": "Luftsprung-Abklingzeit (Ticks)",
+      "tooltip": "Time between two air jumps at Air Jump level I, in ticks (20 ticks = 1 s); level II waits half as long. On a server the server's value applies and is sent to every player. Default: 100.",
+      "tooltipDe": "Zeit zwischen zwei Luftsprüngen bei Luftsprung I in Ticks (20 Ticks = 1 s); Stufe II wartet halb so lange. Auf einem Server gilt der Wert des Servers und wird an alle Spieler geschickt. Standard: 100."
+    },
+    {
+      "name": "enableArmorTrimBenefits",
+      "shortName": "enableArmorTrimBenefits",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Enchantments & Armor",
+      "categoryDe": "Verzauberungen & Rüstung",
+      "group": null,
+      "groupDe": null,
+      "label": "Armor Trim Benefits",
+      "labelDe": "Rüstungsbesatz-Vorteile",
+      "tooltip": "Gives you the gameplay bonuses of armor trim patterns and materials (for example water breathing). Your client reports it when you join a world, so a change takes effect after rejoining. Default: on.",
+      "tooltipDe": "Gibt dir die Spielboni der Besatzmuster und -materialien (zum Beispiel Wasseratmung). Dein Client meldet die Einstellung beim Betreten einer Welt; eine Änderung wirkt nach erneutem Betreten. Standard: an."
+    },
+    {
+      "name": "trimBenefitBaseMultiplier",
+      "shortName": "trimBenefitBaseMultiplier",
+      "type": "double",
+      "default": "2.0",
+      "note": null,
+      "category": "Enchantments & Armor",
+      "categoryDe": "Verzauberungen & Rüstung",
+      "group": null,
+      "groupDe": null,
+      "label": "Trim Resonance Multiplier",
+      "labelDe": "Besatz-Resonanz-Multiplikator",
+      "tooltip": "Base of the trim resonance: higher values make matching trims stronger (0 to 10). Also settable with /simplebuilding config setTrimMultiplier. On a server the server's value applies and is shown to every player. Default: 2.0.",
+      "tooltipDe": "Basis der Besatz-Resonanz: höhere Werte machen passende Besätze stärker (0 bis 10). Auch mit /simplebuilding config setTrimMultiplier einstellbar. Auf einem Server gilt der Wert des Servers und wird allen Spielern angezeigt. Standard: 2,0."
+    },
+    {
+      "name": "breakerPistonsLoseDurability",
+      "shortName": "breakerPistonsLoseDurability",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Pistons",
+      "categoryDe": "Kolben",
+      "group": null,
+      "groupDe": null,
+      "label": "Breaker Pistons Lose Durability",
+      "labelDe": "Brecher-Kolben verlieren Haltbarkeit",
+      "tooltip": "If enabled (the default), every block a Netherite or Enderite Piston destroys while extending costs 1 durability: 226 for the Netherite Piston, 281 for the Enderite Piston (1/9 of the pickaxe of their tier). When it runs out, the Enderite Piston turns into a Netherite Piston with full durability and the Netherite Piston into a Reinforced Piston. A nugget of the tier restores full durability. Disabled: they never lose durability.",
+      "tooltipDe": "Wenn aktiviert (Standard), kostet jeder Block, den ein Netherit- oder Enderitkolben beim Ausfahren zerstört, 1 Haltbarkeit: 226 beim Netheritkolben, 281 beim Enderitkolben (1/9 der Spitzhacke ihrer Stufe). Ist sie aufgebraucht, wird der Enderitkolben zum Netheritkolben mit voller Haltbarkeit und der Netheritkolben zum Verstärkten Kolben. Ein Klumpen der Stufe stellt die volle Haltbarkeit wieder her. Deaktiviert: sie verlieren nie Haltbarkeit."
+    },
+    {
+      "name": "pistonsBreachEndPortalFrames",
+      "shortName": "pistonsBreachEndPortalFrames",
       "type": "boolean",
       "default": "false",
       "note": null,
-      "tooltip": ""
+      "category": "Pistons",
+      "categoryDe": "Kolben",
+      "group": null,
+      "groupDe": null,
+      "label": "Pistons Breach End Portal Frames",
+      "labelDe": "Kolben durchbrechen Endportalrahmen",
+      "tooltip": "On: the mod's pistons treat End Portal Frames like other unbreakable blocks - a Reinforced Piston paid with a Redstone Block can push one, a Netherite or Enderite Piston can destroy it. Off: End Portal Frames are left alone. Server-side, sent to clients. Default: off.",
+      "tooltipDe": "An: Die Kolben der Mod behandeln Endportalrahmen wie andere unzerstörbare Blöcke - ein mit einem Redstoneblock bezahlter Verstärkter Kolben kann einen schieben, ein Netherit- oder Enderitkolben ihn zerstören. Aus: Endportalrahmen bleiben unangetastet. Serverseitig, an die Clients geschickt. Standard: aus."
     },
     {
-      "name": "buildingWandHungerCost",
+      "name": "pistonsBreachModdedUnbreakables",
+      "shortName": "pistonsBreachModdedUnbreakables",
+      "type": "boolean",
+      "default": "false",
+      "note": null,
+      "category": "Pistons",
+      "categoryDe": "Kolben",
+      "group": null,
+      "groupDe": null,
+      "label": "Pistons Breach Unbreakables of Other Mods",
+      "labelDe": "Kolben durchbrechen Unzerstörbares anderer Mods",
+      "tooltip": "On: the mod's pistons also treat unbreakable blocks (hardness -1) of other mods as breachable. Off: only vanilla's unbreakable blocks and the tag simplebuilding:piston_breachable_extra count. Server-side, sent to clients. Default: off.",
+      "tooltipDe": "An: Die Kolben der Mod behandeln auch unzerstörbare Blöcke (Härte -1) anderer Mods als durchbrechbar. Aus: Nur die unzerstörbaren Blöcke von Vanilla und der Tag simplebuilding:piston_breachable_extra zählen. Serverseitig, an die Clients geschickt. Standard: aus."
+    },
+    {
+      "name": "tweaks.pads.enableChunkLoaders",
+      "shortName": "enableChunkLoaders",
       "type": "boolean",
       "default": "true",
       "note": null,
-      "tooltip": ""
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Pads & Plates: On/Off",
+      "groupDe": "Pads & Platten: an/aus",
+      "label": "Chunk Loaders",
+      "labelDe": "Chunk-Lader",
+      "tooltip": "Off: chunk loaders stay placeable but release their chunks and do nothing. Default: on.",
+      "tooltipDe": "Aus: Chunk-Lader bleiben setzbar, geben aber ihre Chunks frei und tun nichts. Standard: an."
     },
     {
-      "name": "enableVillagerTrades",
+      "name": "tweaks.pads.enableElytraPads",
+      "shortName": "enableElytraPads",
       "type": "boolean",
       "default": "true",
       "note": null,
-      "tooltip": ""
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Pads & Plates: On/Off",
+      "groupDe": "Pads & Platten: an/aus",
+      "label": "Elytra Pads",
+      "labelDe": "Elytra-Pads",
+      "tooltip": "Off: elytra pads hand out and recharge nothing. Default: on.",
+      "tooltipDe": "Aus: Elytra-Pads verteilen und laden nichts. Standard: an."
     },
     {
-      "name": "enableWanderingTrades",
+      "name": "tweaks.pads.enableFlypads",
+      "shortName": "enableFlypads",
       "type": "boolean",
       "default": "true",
       "note": null,
-      "tooltip": ""
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Pads & Plates: On/Off",
+      "groupDe": "Pads & Platten: an/aus",
+      "label": "Flypads",
+      "labelDe": "Flugpads",
+      "tooltip": "Off: flypads take creative flight back and grant none. Default: on.",
+      "tooltipDe": "Aus: Flugpads nehmen den Kreativflug zurück und geben keinen. Standard: an."
     },
     {
-      "name": "enableLootTableChanges",
+      "name": "tweaks.pads.enableSpawnTeleporters",
+      "shortName": "enableSpawnTeleporters",
       "type": "boolean",
       "default": "true",
       "note": null,
-      "tooltip": ""
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Pads & Plates: On/Off",
+      "groupDe": "Pads & Platten: an/aus",
+      "label": "Spawn Teleporters",
+      "labelDe": "Spawn-Teleporter",
+      "tooltip": "Off: spawn teleporters do not teleport. Default: on.",
+      "tooltipDe": "Aus: Spawn-Teleporter teleportieren nicht. Standard: an."
+    },
+    {
+      "name": "tweaks.pads.enableLaunchpads",
+      "shortName": "enableLaunchpads",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Pads & Plates: On/Off",
+      "groupDe": "Pads & Platten: an/aus",
+      "label": "Launchpads",
+      "labelDe": "Startrampen",
+      "tooltip": "Off: launchpads do not launch. Default: on.",
+      "tooltipDe": "Aus: Startrampen starten nicht. Standard: an."
+    },
+    {
+      "name": "tweaks.pads.enableTimedCopperPlates",
+      "shortName": "enableTimedCopperPlates",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Pads & Plates: On/Off",
+      "groupDe": "Pads & Platten: an/aus",
+      "label": "Copper Pressure Plates",
+      "labelDe": "Kupfer-Druckplatten",
+      "tooltip": "Off: copper pressure plates never activate. Default: on.",
+      "tooltipDe": "Aus: Kupfer-Druckplatten lösen nie aus. Standard: an."
+    },
+    {
+      "name": "tweaks.pads.enableFilterPlates",
+      "shortName": "enableFilterPlates",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Pads & Plates: On/Off",
+      "groupDe": "Pads & Platten: an/aus",
+      "label": "Netherite/Enderite Pressure Plates",
+      "labelDe": "Netherit-/Enderit-Druckplatten",
+      "tooltip": "Off: netherite and enderite pressure plates never activate. Default: on.",
+      "tooltipDe": "Aus: Netherit- und Enderit-Druckplatten lösen nie aus. Standard: an."
+    },
+    {
+      "name": "tweaks.pads.enablePotionPads",
+      "shortName": "enablePotionPads",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Pads & Plates: On/Off",
+      "groupDe": "Pads & Platten: an/aus",
+      "label": "Potion Pads",
+      "labelDe": "Trank-Pads",
+      "tooltip": "Off: potion pads keep their potion but give no effects. Default: on.",
+      "tooltipDe": "Aus: Trank-Pads behalten ihren Trank, geben aber keine Wirkungen. Standard: an."
+    },
+    {
+      "name": "tweaks.padTuning.teleporterWarmupTicks",
+      "shortName": "teleporterWarmupTicks",
+      "type": "int",
+      "default": "100",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Pad Timings & Strength",
+      "groupDe": "Pad-Zeiten & -Stärke",
+      "label": "Teleporter Warm-up (Ticks)",
+      "labelDe": "Teleporter-Wartezeit (Ticks)",
+      "tooltip": "How long a player has to stand still on a spawn teleporter (tiers I-IV) before it teleports, in ticks (20 = 1 s). Default: 100 (5 s).",
+      "tooltipDe": "Wie lange ein Spieler auf einem Spawn-Teleporter (Stufen I-IV) stillstehen muss, bis er teleportiert, in Ticks (20 = 1 s). Standard: 100 (5 s)."
+    },
+    {
+      "name": "tweaks.padTuning.enderiteTeleporterWarmupTicks",
+      "shortName": "enderiteTeleporterWarmupTicks",
+      "type": "int",
+      "default": "60",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Pad Timings & Strength",
+      "groupDe": "Pad-Zeiten & -Stärke",
+      "label": "Enderite Teleporter Warm-up (Ticks)",
+      "labelDe": "Enderit-Teleporter-Wartezeit (Ticks)",
+      "tooltip": "The same for the Enderite spawn teleporter (tier V). Default: 60 (3 s).",
+      "tooltipDe": "Dasselbe für den Enderit-Spawn-Teleporter (Stufe V). Standard: 60 (3 s)."
+    },
+    {
+      "name": "tweaks.padTuning.launchpadStrengthMultiplier",
+      "shortName": "launchpadStrengthMultiplier",
+      "type": "double",
+      "default": "1.0",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Pad Timings & Strength",
+      "groupDe": "Pad-Zeiten & -Stärke",
+      "label": "Launchpad Strength Multiplier",
+      "labelDe": "Startrampen-Stärke-Faktor",
+      "tooltip": "Multiplies the launch strength of launchpads (1.5 plus 0.8 per wind charge). 0.5 = half as high, 2 = twice as strong. Default: 1.0.",
+      "tooltipDe": "Multipliziert die Startstärke der Startrampen (1,5 plus 0,8 je Windkugel). 0,5 = halb so hoch, 2 = doppelt so stark. Standard: 1,0."
+    },
+    {
+      "name": "tweaks.padTuning.potionPadChargeStepTicks",
+      "shortName": "potionPadChargeStepTicks",
+      "type": "int",
+      "default": "20",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Pad Timings & Strength",
+      "groupDe": "Pad-Zeiten & -Stärke",
+      "label": "Potion Pad Charge Step (Ticks)",
+      "labelDe": "Trank-Pad-Ladeschritt (Ticks)",
+      "tooltip": "A player standing on a potion pad gets 25 %, 50 % and then 100 % of the effect duration in three steps; this is the length of one step in ticks. Default: 20 (1 s, full after 3 s).",
+      "tooltipDe": "Wer auf einem Trank-Pad steht, bekommt in drei Schritten 25 %, 50 % und dann 100 % der Wirkdauer; das ist die Länge eines Schritts in Ticks. Standard: 20 (1 s, voll nach 3 s)."
+    },
+    {
+      "name": "tweaks.padTuning.potionPadCooldownFactor",
+      "shortName": "potionPadCooldownFactor",
+      "type": "double",
+      "default": "2.0",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Pad Timings & Strength",
+      "groupDe": "Pad-Zeiten & -Stärke",
+      "label": "Potion Pad Cooldown Factor",
+      "labelDe": "Trank-Pad-Abklingfaktor",
+      "tooltip": "After a full charge the potion pad cools down for this many times the effect duration. 0 = no cooldown. Default: 2.0.",
+      "tooltipDe": "Nach einer vollen Ladung kühlt das Trank-Pad so viele Male die Wirkdauer lang ab. 0 = keine Abklingzeit. Standard: 2,0."
+    },
+    {
+      "name": "tweaks.laserPointer.enable",
+      "shortName": "enable",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Amethyst Lens",
+      "groupDe": "Amethystlinse",
+      "label": "Amethyst Lens",
+      "labelDe": "Amethystlinse",
+      "tooltip": "Shows the beam dots and lets the lens melt, light and dry blocks. Off: the lens does nothing. Server-side, sent to clients. Default: on.",
+      "tooltipDe": "Zeigt die Strahlpunkte und lässt die Linse Blöcke schmelzen, anzünden und trocknen. Aus: Die Linse tut nichts. Serverseitig, an die Clients geschickt. Standard: an."
+    },
+    {
+      "name": "tweaks.laserPointer.color",
+      "shortName": "color",
+      "type": "int",
+      "default": "0xFF0000",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Amethyst Lens",
+      "groupDe": "Amethystlinse",
+      "label": "Dot Colour",
+      "labelDe": "Punktfarbe",
+      "tooltip": "Colour of the beam dot (RGB). Client-side. Default: red (#FF0000).",
+      "tooltipDe": "Farbe des Strahlpunkts (RGB). Clientseitig. Standard: rot (#FF0000)."
+    },
+    {
+      "name": "tweaks.laserPointer.scale",
+      "shortName": "scale",
+      "type": "float",
+      "default": "0.25f",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Amethyst Lens",
+      "groupDe": "Amethystlinse",
+      "label": "Dot Size (Blocks)",
+      "labelDe": "Punktgröße (Blöcke)",
+      "tooltip": "Size of the dot in blocks (0.05 to 1); far away it only grows so it stays visible. Client-side. Default: 0.25.",
+      "tooltipDe": "Größe des Punkts in Blöcken (0,05 bis 1); in der Ferne wächst er nur, damit er sichtbar bleibt. Clientseitig. Standard: 0,25."
+    },
+    {
+      "name": "tweaks.laserPointer.range",
+      "shortName": "range",
+      "type": "int",
+      "default": "512",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Amethyst Lens",
+      "groupDe": "Amethystlinse",
+      "label": "Max Range (Blocks)",
+      "labelDe": "Reichweite (Blöcke)",
+      "tooltip": "How far the beam reaches, in blocks (never beyond the server's view distance). Server-side, sent to clients. Default: 512.",
+      "tooltipDe": "Wie weit der Strahl reicht, in Blöcken (nie über die Sichtweite des Servers hinaus). Serverseitig, an die Clients geschickt. Standard: 512."
+    },
+    {
+      "name": "tweaks.laserPointer.beamCostPerSecond",
+      "shortName": "beamCostPerSecond",
+      "type": "int",
+      "default": "1",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Amethyst Lens",
+      "groupDe": "Amethystlinse",
+      "label": "Charge per Second of Beaming",
+      "labelDe": "Ladung je Sekunde Strahlen",
+      "tooltip": "Charge the lens uses up for every started second of beaming (a full lens holds 640, one Redstone Dust recharges 10). 0 = beaming is free. Default: 1.",
+      "tooltipDe": "Ladung, die die Linse je angefangener Sekunde Strahlen verbraucht (voll sind 640, ein Redstonestaub lädt 10 auf). 0 = Strahlen kostet nichts. Standard: 1."
+    },
+    {
+      "name": "tweaks.laserPointer.effectCost",
+      "shortName": "effectCost",
+      "type": "int",
+      "default": "5",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Amethyst Lens",
+      "groupDe": "Amethystlinse",
+      "label": "Charge per Effect",
+      "labelDe": "Ladung je Wirkung",
+      "tooltip": "Charge used up each time the beam melts, lights, dries or ignites something. 0 = effects are free. Default: 5.",
+      "tooltipDe": "Ladung, die jedes Schmelzen, Anzünden oder Trocknen durch den Strahl verbraucht. 0 = Wirkungen kosten nichts. Standard: 5."
+    },
+    {
+      "name": "tweaks.balancing.rocketStackSize",
+      "shortName": "rocketStackSize",
+      "type": "int",
+      "default": "64",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Balancing",
+      "groupDe": "Abstimmung",
+      "label": "Firework Rocket Stack Size",
+      "labelDe": "Raketen-Stapelgröße",
+      "tooltip": "How many firework rockets fit in one stack (1 to 64); 16 nerfs elytra flight. Server-side, sent to clients. Default: 64.",
+      "tooltipDe": "Wie viele Feuerwerksraketen in einen Stapel passen (1 bis 64); 16 schwächt den Elytraflug ab. Serverseitig, an die Clients geschickt. Standard: 64."
+    },
+    {
+      "name": "tweaks.balancing.echoSounderCooldownTicks",
+      "shortName": "echoSounderCooldownTicks",
+      "type": "int",
+      "default": "120",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Balancing",
+      "groupDe": "Abstimmung",
+      "label": "Echo Sounder Cooldown (Ticks)",
+      "labelDe": "Echolot-Abklingzeit (Ticks)",
+      "tooltip": "Cooldown of the Echo Sounder after a jump to its lodestone, in ticks (20 = 1 s). 0 = no cooldown. Default: 120 (6 s).",
+      "tooltipDe": "Abklingzeit des Echolots nach einem Sprung zu seinem Leitstein, in Ticks (20 = 1 s). 0 = keine Abklingzeit. Standard: 120 (6 s)."
+    },
+    {
+      "name": "tweaks.spawn.forceExactSpawn",
+      "shortName": "forceExactSpawn",
+      "type": "boolean",
+      "default": "false",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "Exact Spawn Point",
+      "labelDe": "Exakter Spawnpunkt",
+      "tooltip": "Players spawn exactly on the spawn block (and the bed centre) instead of randomly around it. Default: off.",
+      "tooltipDe": "Spieler erscheinen genau auf dem Spawnblock (und der Bettmitte) statt zufällig darum. Standard: aus."
+    },
+    {
+      "name": "tweaks.spawn.disableFallDamageInSpawn",
+      "shortName": "disableFallDamageInSpawn",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "No Fall Damage at Spawn",
+      "labelDe": "Kein Fallschaden am Spawn",
+      "tooltip": "While the spawn elytra is on: no fall damage within the spawn radius. Default: on.",
+      "tooltipDe": "Solange die Spawn-Elytra an ist: kein Fallschaden im Spawnradius. Standard: an."
+    },
+    {
+      "name": "tweaks.spawn.useCustomWorldSpawn",
+      "shortName": "useCustomWorldSpawn",
+      "type": "boolean",
+      "default": "false",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "Custom World Spawn",
+      "labelDe": "Eigener Weltspawn",
+      "tooltip": "On: the world spawn is moved to the coordinates below (when the overworld loads, or right away when set by command). Default: off.",
+      "tooltipDe": "An: Der Weltspawn wird auf die Koordinaten unten gesetzt (beim Laden der Oberwelt oder, per Befehl gesetzt, sofort). Standard: aus."
+    },
+    {
+      "name": "tweaks.spawn.xCoordSpawnPoint",
+      "shortName": "xCoordSpawnPoint",
+      "type": "int",
+      "default": "0",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "World Spawn X",
+      "labelDe": "Weltspawn X",
+      "tooltip": "X of the custom world spawn. Default: 0.",
+      "tooltipDe": "X des eigenen Weltspawns. Standard: 0."
+    },
+    {
+      "name": "tweaks.spawn.yCoordSpawnPoint",
+      "shortName": "yCoordSpawnPoint",
+      "type": "int",
+      "default": "-1",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "World Spawn Y (-1 = Auto)",
+      "labelDe": "Weltspawn Y (-1 = automatisch)",
+      "tooltip": "Y of the custom world spawn; -1 uses the highest block at X/Z. Default: -1.",
+      "tooltipDe": "Y des eigenen Weltspawns; -1 nimmt den obersten Block bei X/Z. Standard: -1."
+    },
+    {
+      "name": "tweaks.spawn.zCoordSpawnPoint",
+      "shortName": "zCoordSpawnPoint",
+      "type": "int",
+      "default": "0",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "World Spawn Z",
+      "labelDe": "Weltspawn Z",
+      "tooltip": "Z of the custom world spawn. Default: 0.",
+      "tooltipDe": "Z des eigenen Weltspawns. Standard: 0."
+    },
+    {
+      "name": "tweaks.spawn.firstJoinTeleporterCount",
+      "shortName": "firstJoinTeleporterCount",
+      "type": "int",
+      "default": "0",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "Spawn Teleporters on First Join",
+      "labelDe": "Spawn-Teleporter beim ersten Betreten",
+      "tooltip": "Spawn teleporters every player gets on the first join (0 to 64, 0 = none). Default: 0.",
+      "tooltipDe": "Spawn-Teleporter, die jeder Spieler beim ersten Betreten bekommt (0 bis 64, 0 = keine). Standard: 0."
+    },
+    {
+      "name": "tweaks.spawn.firstJoinElytraPadCount",
+      "shortName": "firstJoinElytraPadCount",
+      "type": "int",
+      "default": "0",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "Elytra Pads on First Join",
+      "labelDe": "Elytra-Pads beim ersten Betreten",
+      "tooltip": "Elytra pads every player gets on the first join (0 to 64, 0 = none). Default: 0.",
+      "tooltipDe": "Elytra-Pads, die jeder Spieler beim ersten Betreten bekommt (0 bis 64, 0 = keine). Standard: 0."
+    },
+    {
+      "name": "tweaks.spawn.giveElytraOnSpawn",
+      "shortName": "giveElytraOnSpawn",
+      "type": "boolean",
+      "default": "false",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "Spawn Elytra",
+      "labelDe": "Spawn-Elytra",
+      "tooltip": "Players get a spawn elytra while inside the spawn radius. Default: off.",
+      "tooltipDe": "Spieler bekommen im Spawnradius eine Spawn-Elytra. Standard: aus."
+    },
+    {
+      "name": "tweaks.spawn.spawnElytraRadius",
+      "shortName": "spawnElytraRadius",
+      "type": "int",
+      "default": "25",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "Spawn Elytra Radius (Blocks)",
+      "labelDe": "Spawn-Elytra-Radius (Blöcke)",
+      "tooltip": "Radius around the centre where players get the spawn elytra. Default: 25.",
+      "tooltipDe": "Radius um die Mitte, in dem es die Spawn-Elytra gibt. Standard: 25."
+    },
+    {
+      "name": "tweaks.spawn.useWorldSpawnAsCenter",
+      "shortName": "useWorldSpawnAsCenter",
+      "type": "boolean",
+      "default": "false",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "World Spawn as Centre",
+      "labelDe": "Weltspawn als Mitte",
+      "tooltip": "On: the world spawn is the centre of the spawn area; off: the custom centre below. Default: off.",
+      "tooltipDe": "An: Der Weltspawn ist die Mitte des Spawnbereichs; aus: die eigene Mitte unten. Standard: aus."
+    },
+    {
+      "name": "tweaks.spawn.customSpawnElytraX",
+      "shortName": "customSpawnElytraX",
+      "type": "int",
+      "default": "0",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "Spawn Area Centre X",
+      "labelDe": "Mitte des Spawnbereichs X",
+      "tooltip": "X of the spawn area centre. Default: 0.",
+      "tooltipDe": "X der Mitte des Spawnbereichs. Standard: 0."
+    },
+    {
+      "name": "tweaks.spawn.customSpawnElytraZ",
+      "shortName": "customSpawnElytraZ",
+      "type": "int",
+      "default": "0",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "Spawn Area Centre Z",
+      "labelDe": "Mitte des Spawnbereichs Z",
+      "tooltip": "Z of the spawn area centre. Default: 0.",
+      "tooltipDe": "Z der Mitte des Spawnbereichs. Standard: 0."
+    },
+    {
+      "name": "tweaks.spawn.flightTimeSeconds",
+      "shortName": "flightTimeSeconds",
+      "type": "int",
+      "default": "300",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "Flight Time (Seconds)",
+      "labelDe": "Flugzeit (Sekunden)",
+      "tooltip": "Gliding time with the spawn elytra outside the spawn area (at most 24 h). Default: 300.",
+      "tooltipDe": "Gleitzeit mit der Spawn-Elytra außerhalb des Spawnbereichs (höchstens 24 h). Standard: 300."
+    },
+    {
+      "name": "tweaks.spawn.maxBoosts",
+      "shortName": "maxBoosts",
+      "type": "int",
+      "default": "3",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "Boosts per Charge",
+      "labelDe": "Boosts je Ladung",
+      "tooltip": "Boosts per charge of the spawn elytra (space while gliding, 1 to 100). Server-side, sent to clients. Default: 3.",
+      "tooltipDe": "Boosts je Ladung der Spawn-Elytra (Leertaste im Gleitflug, 1 bis 100). Serverseitig, an die Clients geschickt. Standard: 3."
+    },
+    {
+      "name": "tweaks.spawn.boostStrength",
+      "shortName": "boostStrength",
+      "type": "float",
+      "default": "0.6f",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "Boost Strength",
+      "labelDe": "Boost-Stärke",
+      "tooltip": "Strength of one spawn elytra boost. Default: 0.6.",
+      "tooltipDe": "Stärke eines Boosts der Spawn-Elytra. Standard: 0,6."
+    },
+    {
+      "name": "tweaks.spawn.spawn1X",
+      "shortName": "spawn1X",
+      "type": "int",
+      "default": "0",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "Teleporter I Target X",
+      "labelDe": "Teleporter I Ziel X",
+      "tooltip": "X of the target of spawn teleporter I; set it with /simplebuilding tweaks worldspawn setspawn1. Default: 0.",
+      "tooltipDe": "X des Ziels von Spawn-Teleporter I; gesetzt mit /simplebuilding tweaks worldspawn setspawn1. Standard: 0."
+    },
+    {
+      "name": "tweaks.spawn.spawn1Y",
+      "shortName": "spawn1Y",
+      "type": "int",
+      "default": "-1000",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "Teleporter I Target Y",
+      "labelDe": "Teleporter I Ziel Y",
+      "tooltip": "Y of the target of spawn teleporter I; set it with /simplebuilding tweaks worldspawn setspawn1. -1000 = not set (world spawn). Default: -1000.",
+      "tooltipDe": "Y des Ziels von Spawn-Teleporter I; gesetzt mit /simplebuilding tweaks worldspawn setspawn1. -1000 = nicht gesetzt (Weltspawn). Standard: -1000."
+    },
+    {
+      "name": "tweaks.spawn.spawn1Z",
+      "shortName": "spawn1Z",
+      "type": "int",
+      "default": "0",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "Teleporter I Target Z",
+      "labelDe": "Teleporter I Ziel Z",
+      "tooltip": "Z of the target of spawn teleporter I; set it with /simplebuilding tweaks worldspawn setspawn1. Default: 0.",
+      "tooltipDe": "Z des Ziels von Spawn-Teleporter I; gesetzt mit /simplebuilding tweaks worldspawn setspawn1. Standard: 0."
+    },
+    {
+      "name": "tweaks.spawn.spawn2X",
+      "shortName": "spawn2X",
+      "type": "int",
+      "default": "0",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "Teleporter II Target X",
+      "labelDe": "Teleporter II Ziel X",
+      "tooltip": "X of the target of spawn teleporter II; set it with /simplebuilding tweaks worldspawn setspawn2. Default: 0.",
+      "tooltipDe": "X des Ziels von Spawn-Teleporter II; gesetzt mit /simplebuilding tweaks worldspawn setspawn2. Standard: 0."
+    },
+    {
+      "name": "tweaks.spawn.spawn2Y",
+      "shortName": "spawn2Y",
+      "type": "int",
+      "default": "-1000",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "Teleporter II Target Y",
+      "labelDe": "Teleporter II Ziel Y",
+      "tooltip": "Y of the target of spawn teleporter II; set it with /simplebuilding tweaks worldspawn setspawn2. -1000 = not set (world spawn). Default: -1000.",
+      "tooltipDe": "Y des Ziels von Spawn-Teleporter II; gesetzt mit /simplebuilding tweaks worldspawn setspawn2. -1000 = nicht gesetzt (Weltspawn). Standard: -1000."
+    },
+    {
+      "name": "tweaks.spawn.spawn2Z",
+      "shortName": "spawn2Z",
+      "type": "int",
+      "default": "0",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "Teleporter II Target Z",
+      "labelDe": "Teleporter II Ziel Z",
+      "tooltip": "Z of the target of spawn teleporter II; set it with /simplebuilding tweaks worldspawn setspawn2. Default: 0.",
+      "tooltipDe": "Z des Ziels von Spawn-Teleporter II; gesetzt mit /simplebuilding tweaks worldspawn setspawn2. Standard: 0."
+    },
+    {
+      "name": "tweaks.spawn.spawn3X",
+      "shortName": "spawn3X",
+      "type": "int",
+      "default": "0",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "Teleporter III Target X",
+      "labelDe": "Teleporter III Ziel X",
+      "tooltip": "X of the target of spawn teleporter III; set it with /simplebuilding tweaks worldspawn setspawn3. Default: 0.",
+      "tooltipDe": "X des Ziels von Spawn-Teleporter III; gesetzt mit /simplebuilding tweaks worldspawn setspawn3. Standard: 0."
+    },
+    {
+      "name": "tweaks.spawn.spawn3Y",
+      "shortName": "spawn3Y",
+      "type": "int",
+      "default": "-1000",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "Teleporter III Target Y",
+      "labelDe": "Teleporter III Ziel Y",
+      "tooltip": "Y of the target of spawn teleporter III; set it with /simplebuilding tweaks worldspawn setspawn3. -1000 = not set (world spawn). Default: -1000.",
+      "tooltipDe": "Y des Ziels von Spawn-Teleporter III; gesetzt mit /simplebuilding tweaks worldspawn setspawn3. -1000 = nicht gesetzt (Weltspawn). Standard: -1000."
+    },
+    {
+      "name": "tweaks.spawn.spawn3Z",
+      "shortName": "spawn3Z",
+      "type": "int",
+      "default": "0",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "Teleporter III Target Z",
+      "labelDe": "Teleporter III Ziel Z",
+      "tooltip": "Z of the target of spawn teleporter III; set it with /simplebuilding tweaks worldspawn setspawn3. Default: 0.",
+      "tooltipDe": "Z des Ziels von Spawn-Teleporter III; gesetzt mit /simplebuilding tweaks worldspawn setspawn3. Standard: 0."
+    },
+    {
+      "name": "tweaks.spawn.spawn4X",
+      "shortName": "spawn4X",
+      "type": "int",
+      "default": "0",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "Teleporter IV Target X",
+      "labelDe": "Teleporter IV Ziel X",
+      "tooltip": "X of the target of spawn teleporter IV; set it with /simplebuilding tweaks worldspawn setspawn4. Default: 0.",
+      "tooltipDe": "X des Ziels von Spawn-Teleporter IV; gesetzt mit /simplebuilding tweaks worldspawn setspawn4. Standard: 0."
+    },
+    {
+      "name": "tweaks.spawn.spawn4Y",
+      "shortName": "spawn4Y",
+      "type": "int",
+      "default": "-1000",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "Teleporter IV Target Y",
+      "labelDe": "Teleporter IV Ziel Y",
+      "tooltip": "Y of the target of spawn teleporter IV; set it with /simplebuilding tweaks worldspawn setspawn4. -1000 = not set (world spawn). Default: -1000.",
+      "tooltipDe": "Y des Ziels von Spawn-Teleporter IV; gesetzt mit /simplebuilding tweaks worldspawn setspawn4. -1000 = nicht gesetzt (Weltspawn). Standard: -1000."
+    },
+    {
+      "name": "tweaks.spawn.spawn4Z",
+      "shortName": "spawn4Z",
+      "type": "int",
+      "default": "0",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Spawn, Spawn Elytra & Teleporter Targets",
+      "groupDe": "Spawn, Spawn-Elytra & Teleporter-Ziele",
+      "label": "Teleporter IV Target Z",
+      "labelDe": "Teleporter IV Ziel Z",
+      "tooltip": "Z of the target of spawn teleporter IV; set it with /simplebuilding tweaks worldspawn setspawn4. Default: 0.",
+      "tooltipDe": "Z des Ziels von Spawn-Teleporter IV; gesetzt mit /simplebuilding tweaks worldspawn setspawn4. Standard: 0."
+    },
+    {
+      "name": "tweaks.dimensions.allowNether",
+      "shortName": "allowNether",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Dimensions",
+      "groupDe": "Dimensionen",
+      "label": "Allow the Nether",
+      "labelDe": "Nether erlauben",
+      "tooltip": "Off: no player can enter the Nether. Default: on.",
+      "tooltipDe": "Aus: Kein Spieler kann den Nether betreten. Standard: an."
+    },
+    {
+      "name": "tweaks.dimensions.allowEnd",
+      "shortName": "allowEnd",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Dimensions",
+      "groupDe": "Dimensionen",
+      "label": "Allow the End",
+      "labelDe": "Ende erlauben",
+      "tooltip": "Off: no player can enter the End. Default: on.",
+      "tooltipDe": "Aus: Kein Spieler kann das End betreten. Standard: an."
+    },
+    {
+      "name": "tweaks.commands.enableKillBoatsCommand",
+      "shortName": "enableKillBoatsCommand",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Commands",
+      "groupDe": "Befehle",
+      "label": "Enable /killboats",
+      "labelDe": "/killboats erlauben",
+      "tooltip": "Operators can remove unused boats around them with /killboats [standard|empty|all]. Default: on.",
+      "tooltipDe": "Operatoren können mit /killboats [standard|empty|all] unbenutzte Boote um sich entfernen. Standard: an."
+    },
+    {
+      "name": "tweaks.commands.enableKillCartsCommand",
+      "shortName": "enableKillCartsCommand",
+      "type": "boolean",
+      "default": "false",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Commands",
+      "groupDe": "Befehle",
+      "label": "Enable /killcarts",
+      "labelDe": "/killcarts erlauben",
+      "tooltip": "Operators can remove unused minecarts around them with /killcarts [standard|empty|all]. Default: off.",
+      "tooltipDe": "Operatoren können mit /killcarts [standard|empty|all] unbenutzte Loren um sich entfernen. Standard: aus."
+    },
+    {
+      "name": "tweaks.commands.killCommandRadius",
+      "shortName": "killCommandRadius",
+      "type": "int",
+      "default": "100",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Commands",
+      "groupDe": "Befehle",
+      "label": "/killboats and /killcarts Radius",
+      "labelDe": "Reichweite von /killboats und /killcarts",
+      "tooltip": "How far around the player /killboats and /killcarts reach, in blocks. Default: 100.",
+      "tooltipDe": "Wie weit /killboats und /killcarts um den Spieler reichen, in Blöcken. Standard: 100."
+    },
+    {
+      "name": "tweaks.optimization.enableXpClumps",
+      "shortName": "enableXpClumps",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Performance",
+      "groupDe": "Leistung",
+      "label": "Merge XP Orbs",
+      "labelDe": "XP-Kugeln zusammenlegen",
+      "tooltip": "Merges nearby experience orbs into one (nothing is lost) and allows instant pickup. Default: on.",
+      "tooltipDe": "Legt nahe Erfahrungskugeln zu einer zusammen (nichts geht verloren) und erlaubt sofortiges Aufheben. Standard: an."
+    },
+    {
+      "name": "tweaks.optimization.xpClumpRadius",
+      "shortName": "xpClumpRadius",
+      "type": "double",
+      "default": "2.0",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Performance",
+      "groupDe": "Leistung",
+      "label": "XP Merge Radius (Blocks)",
+      "labelDe": "XP-Zusammenlege-Radius (Blöcke)",
+      "tooltip": "How far an orb reaches to merge its neighbours, in blocks. Larger = fewer orbs. Default: 2.0.",
+      "tooltipDe": "Wie weit eine Kugel ihre Nachbarn einsammelt, in Blöcken. Größer = weniger Kugeln. Standard: 2,0."
+    },
+    {
+      "name": "tweaks.optimization.scaleXpOrbs",
+      "shortName": "scaleXpOrbs",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Performance",
+      "groupDe": "Leistung",
+      "label": "Scale XP Orbs by Value",
+      "labelDe": "XP-Kugeln nach Wert skalieren",
+      "tooltip": "Orbs worth more experience look bigger (up to three times). Client-side. Default: on.",
+      "tooltipDe": "Wertvollere Kugeln sehen größer aus (bis dreifach). Clientseitig. Standard: an."
+    },
+    {
+      "name": "worldGen.enableLootTableChanges",
+      "shortName": "enableLootTableChanges",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Loot, Trades & World",
+      "categoryDe": "Beute, Handel & Welt",
+      "group": "Loot & Trades",
+      "groupDe": "Beute & Handel",
+      "label": "Mod Loot in Chests",
+      "labelDe": "Mod-Beute in Truhen",
+      "tooltip": "Adds mod items and enchanted books to vanilla structure chests, trial chamber vaults and fishing treasure. Applies when the data packs load (world start, /reload). Default: on.",
+      "tooltipDe": "Fügt Mod-Gegenstände und verzauberte Bücher zu Vanilla-Strukturtruhen, Prüfungskammer-Tresoren und dem Angelschatz hinzu. Gilt beim Laden der Datenpakete (Weltstart, /reload). Standard: an."
+    },
+    {
+      "name": "worldGen.buildingCoreLootChanceMultiplier",
+      "shortName": "buildingCoreLootChanceMultiplier",
+      "type": "double",
+      "default": "1.0",
+      "note": null,
+      "category": "Loot, Trades & World",
+      "categoryDe": "Beute, Handel & Welt",
+      "group": "Loot & Trades",
+      "groupDe": "Beute & Handel",
+      "label": "Building Core Loot Chance Multiplier",
+      "labelDe": "Baukern-Beutechancen-Faktor",
+      "tooltip": "Multiplies the (very small) chance of building cores in loot chests, at most one per chest. 0 = no cores in chests. Applies on world start or /reload. Default: 1.0.",
+      "tooltipDe": "Multipliziert die (sehr kleine) Chance auf Baukerne in Beutetruhen, höchstens einer je Truhe. 0 = keine Kerne in Truhen. Gilt beim Weltstart oder /reload. Standard: 1,0."
+    },
+    {
+      "name": "worldGen.enableVillagerTrades",
+      "shortName": "enableVillagerTrades",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Loot, Trades & World",
+      "categoryDe": "Beute, Handel & Welt",
+      "group": "Loot & Trades",
+      "groupDe": "Beute & Handel",
+      "label": "Villager Trades",
+      "labelDe": "Dorfbewohner-Handel",
+      "tooltip": "Librarians, masons and toolsmiths also offer mod items and books. Applies on world start or /reload. Default: on.",
+      "tooltipDe": "Bibliothekare, Steinmetze und Werkzeugschmiede bieten auch Mod-Gegenstände und -Bücher an. Gilt beim Weltstart oder /reload. Standard: an."
+    },
+    {
+      "name": "worldGen.enableWanderingTrades",
+      "shortName": "enableWanderingTrades",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Loot, Trades & World",
+      "categoryDe": "Beute, Handel & Welt",
+      "group": "Loot & Trades",
+      "groupDe": "Beute & Handel",
+      "label": "Wandering Trader Offers",
+      "labelDe": "Angebote des fahrenden Händlers",
+      "tooltip": "The wandering trader also buys and sells mod items. Applies on world start or /reload. Default: on.",
+      "tooltipDe": "Der fahrende Händler kauft und verkauft auch Mod-Gegenstände. Gilt beim Weltstart oder /reload. Standard: an."
+    },
+    {
+      "name": "giveGuideBookOnFirstJoin",
+      "shortName": "giveGuideBookOnFirstJoin",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Loot, Trades & World",
+      "categoryDe": "Beute, Handel & Welt",
+      "group": null,
+      "groupDe": null,
+      "label": "Beginner's Guide on First Join",
+      "labelDe": "Einsteiger-Handbuch beim ersten Betreten",
+      "tooltip": "Every player gets the Beginner's Guide once, the first time they join a world or server. Off: nothing is given; switched on later, each player gets it once on their next join. Default: on.",
+      "tooltipDe": "Jeder Spieler bekommt das Einsteiger-Handbuch einmal, beim ersten Betreten einer Welt oder eines Servers. Aus: nichts wird verschenkt; später eingeschaltet, bekommt es jeder Spieler einmal beim nächsten Betreten. Standard: an."
+    },
+    {
+      "name": "vanillaEnchantedBookTextures",
+      "shortName": "vanillaEnchantedBookTextures",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Visuals (Client)",
+      "categoryDe": "Darstellung (Client)",
+      "group": null,
+      "groupDe": null,
+      "label": "Own Textures for Vanilla Enchanted Books",
+      "labelDe": "Eigene Texturen für Vanilla-Zauberbücher",
+      "tooltip": "Every vanilla enchantment gets its own enchanted book texture. Turn it off to see the vanilla book again, e.g. when a resource pack or another mod retextures the books. Takes effect immediately. Default: on.",
+      "tooltipDe": "Jede Vanilla-Verzauberung bekommt ihr eigenes Buch. Aus: wieder das Vanilla-Buch, etwa wenn ein Ressourcenpaket oder eine andere Mod die Bücher neu gestaltet. Wirkt sofort. Standard: an."
+    },
+    {
+      "name": "modEnchantedBookTextures",
+      "shortName": "modEnchantedBookTextures",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Visuals (Client)",
+      "categoryDe": "Darstellung (Client)",
+      "group": null,
+      "groupDe": null,
+      "label": "Own Textures for Mod Enchanted Books",
+      "labelDe": "Eigene Texturen für Mod-Zauberbücher",
+      "tooltip": "Every enchantment of this mod has its own enchanted book texture. Turn it off for the plain vanilla enchanted book. Takes effect immediately. Default: on.",
+      "tooltipDe": "Jede Verzauberung dieser Mod hat ihr eigenes Buch. Aus: das schlichte Vanilla-Zauberbuch. Wirkt sofort. Standard: an."
+    },
+    {
+      "name": "visibleTrimIconsVanillaArmor",
+      "shortName": "visibleTrimIconsVanillaArmor",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Visuals (Client)",
+      "categoryDe": "Darstellung (Client)",
+      "group": null,
+      "groupDe": null,
+      "label": "Trim Patterns on Vanilla Armor Icons",
+      "labelDe": "Besatzmuster auf Vanilla-Rüstungs-Icons",
+      "tooltip": "Item icons of trimmed vanilla armor (and the turtle shell) show the trim pattern in the trim material's colours. Off: the vanilla icon with only a colour mark. Takes effect immediately. Default: on.",
+      "tooltipDe": "Die Icons besetzter Vanilla-Rüstung (auch des Schildkrötenpanzers) zeigen das Besatzmuster in den Farben des Materials. Aus: das Vanilla-Icon mit nur einem Farbfleck. Wirkt sofort. Standard: an."
+    },
+    {
+      "name": "visibleTrimIconsModArmor",
+      "shortName": "visibleTrimIconsModArmor",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Visuals (Client)",
+      "categoryDe": "Darstellung (Client)",
+      "group": null,
+      "groupDe": null,
+      "label": "Trim Patterns on Enderite Armor Icons",
+      "labelDe": "Besatzmuster auf Enderit-Rüstungs-Icons",
+      "tooltip": "Item icons of trimmed Enderite armor show the trim pattern in the trim material's colours. Off: the plain icon with only a colour mark. Takes effect immediately. Default: on.",
+      "tooltipDe": "Die Icons besetzter Enderit-Rüstung zeigen das Besatzmuster in den Farben des Materials. Aus: das schlichte Icon mit nur einem Farbfleck. Wirkt sofort. Standard: an."
+    },
+    {
+      "name": "pistonsFireBreakEvents",
+      "shortName": "pistonsFireBreakEvents",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Compatibility & Advanced",
+      "categoryDe": "Kompatibilität & Erweitert",
+      "group": null,
+      "groupDe": null,
+      "label": "Pistons Fire Block Break Events",
+      "labelDe": "Kolben lösen Abbau-Ereignisse aus",
+      "tooltip": "Before a Netherite or Enderite Piston destroys a block it fires the loader's block break event with a fake player, so claim and protection mods can stop it. Turn it off if a protection mod blocks every fake player (pistons would stop everywhere) or quest and statistics mods count piston breaks as player breaks. Server-side. Default: on.",
+      "tooltipDe": "Bevor ein Netherit- oder Enderitkolben einen Block zerstört, löst er das Abbau-Ereignis des Loaders mit einem Fake-Spieler aus, damit Claim- und Schutz-Mods es verhindern können. Ausschalten, wenn ein Schutz-Mod jeden Fake-Spieler sperrt (die Kolben stünden überall still) oder Quest- und Statistik-Mods Kolbenabbau als Spielerabbau zählen. Serverseitig. Standard: an."
+    },
+    {
+      "name": "showDevEnchantedTab",
+      "shortName": "showDevEnchantedTab",
+      "type": "boolean",
+      "default": "false",
+      "note": null,
+      "category": "Compatibility & Advanced",
+      "categoryDe": "Kompatibilität & Erweitert",
+      "group": null,
+      "groupDe": null,
+      "label": "Show \"SimpleEnchants (Dev)\" Creative Tab",
+      "labelDe": "Kreativ-Tab „SimpleEnchants (Dev)“ zeigen",
+      "tooltip": "Shows the creative tab \"SimpleEnchants (Dev)\" outside development environments too: the best tier of every enchantable item, pre-enchanted at max level. Takes effect when the creative tabs are rebuilt (at the latest after rejoining). Default: off.",
+      "tooltipDe": "Zeigt den Kreativ-Tab „SimpleEnchants (Dev)“ auch außerhalb von Entwicklungsumgebungen: die beste Stufe jedes verzauberbaren Gegenstands, vorverzaubert auf Höchststufe. Wirkt beim Neuaufbau der Kreativ-Tabs (spätestens nach erneutem Betreten). Standard: aus."
     }
   ],
   "inWorld": {
@@ -49793,6 +51003,3301 @@ window.WIKI_DATA = {
       }
     ]
   },
+  "obtain": {
+    "sources": [
+      {
+        "type": "mob",
+        "item": "simplebuilding:blaze_head",
+        "table": "minecraft:charged_creeper/root",
+        "label": {
+          "en": "Charged creeper explosion",
+          "de": "Explosion eines geladenen Creepers"
+        },
+        "chance": 100.0,
+        "perChest": 1.0,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 0,
+        "configFlag": null,
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "victim": "minecraft:blaze",
+        "how": "charged_creeper"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/stronghold_library",
+        "label": {
+          "en": "Stronghold library",
+          "de": "Festungsbibliothek"
+        },
+        "chance": 15.15,
+        "perChest": 0.16,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 4,
+        "totalWeight": 25,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:range",
+        "level": 2
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/stronghold_library",
+        "label": {
+          "en": "Stronghold library",
+          "de": "Festungsbibliothek"
+        },
+        "chance": 11.52,
+        "perChest": 0.12,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 25,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:master_builder",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/stronghold_library",
+        "label": {
+          "en": "Stronghold library",
+          "de": "Festungsbibliothek"
+        },
+        "chance": 15.15,
+        "perChest": 0.16,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 4,
+        "totalWeight": 25,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:versatility",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/stronghold_library",
+        "label": {
+          "en": "Stronghold library",
+          "de": "Festungsbibliothek"
+        },
+        "chance": 7.79,
+        "perChest": 0.08,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 25,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:versatility",
+        "level": 2
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:enderite_scrap",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 15.0,
+        "perChest": 0.15,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "binomial",
+          "n": 1,
+          "p": 0.15
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:enderite_core",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 0.25,
+        "perChest": 0.0025,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "binomial",
+          "n": 1,
+          "p": 0.0025
+        },
+        "pool": 1,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:enderite_upgrade_template",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 30.0,
+        "perChest": 0.3,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "binomial",
+          "n": 1,
+          "p": 0.3
+        },
+        "pool": 2,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:raw_enderite",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 11.11,
+        "perChest": 0.1667,
+        "count": [
+          1,
+          2
+        ],
+        "weight": 4,
+        "totalWeight": 36,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 3,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:enderite_nugget",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 16.67,
+        "perChest": 0.5833,
+        "count": [
+          2,
+          5
+        ],
+        "weight": 6,
+        "totalWeight": 36,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 3,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:astralit_dust",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 16.67,
+        "perChest": 0.6667,
+        "count": [
+          2,
+          6
+        ],
+        "weight": 6,
+        "totalWeight": 36,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 3,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:nihilith_shard",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 16.67,
+        "perChest": 0.4167,
+        "count": [
+          1,
+          4
+        ],
+        "weight": 6,
+        "totalWeight": 36,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 3,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 6.92,
+        "perChest": 0.0714,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 4,
+        "totalWeight": 84,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 3
+        },
+        "pool": 4,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:range",
+        "level": 3
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 5.23,
+        "perChest": 0.0536,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 84,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 3
+        },
+        "pool": 4,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:master_builder",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 8.58,
+        "perChest": 0.0893,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 84,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 3
+        },
+        "pool": 4,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:override",
+        "level": 2
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 8.58,
+        "perChest": 0.0893,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 84,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 3
+        },
+        "pool": 4,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:double_jump",
+        "level": 2
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 10.21,
+        "perChest": 0.1071,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 6,
+        "totalWeight": 84,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 3
+        },
+        "pool": 4,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:versatility",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 5.23,
+        "perChest": 0.0536,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 84,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 3
+        },
+        "pool": 4,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:versatility",
+        "level": 2
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:diamond_building_wand",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 10.21,
+        "perChest": 0.1071,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 6,
+        "totalWeight": 84,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 3
+        },
+        "pool": 4,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "randomEnchant": true
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:diamond_sledgehammer",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 13.4,
+        "perChest": 0.1429,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 8,
+        "totalWeight": 84,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 3
+        },
+        "pool": 4,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "randomEnchant": true
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:enderite_apple",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 5.23,
+        "perChest": 0.0536,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 84,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 3
+        },
+        "pool": 4,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:enchanted_enderite_apple",
+        "table": "minecraft:chests/end_city_treasure",
+        "label": {
+          "en": "End city",
+          "de": "Endsiedlung"
+        },
+        "chance": 1.77,
+        "perChest": 0.0179,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 84,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 3
+        },
+        "pool": 4,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/ancient_city",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "chance": 8.37,
+        "perChest": 0.0862,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 58,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:deep_pockets",
+        "level": 2
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/ancient_city",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "chance": 6.74,
+        "perChest": 0.069,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 4,
+        "totalWeight": 58,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:radius",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:octant",
+        "table": "minecraft:chests/ancient_city",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "chance": 8.37,
+        "perChest": 0.0862,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 58,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "randomEnchant": true
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:diamond_sledgehammer",
+        "table": "minecraft:chests/ancient_city",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "chance": 5.08,
+        "perChest": 0.0517,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 58,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:quiver",
+        "table": "minecraft:chests/ancient_city",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "chance": 5.08,
+        "perChest": 0.0517,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 58,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "randomEnchant": true
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:netherite_apple",
+        "table": "minecraft:chests/ancient_city",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "chance": 3.41,
+        "perChest": 0.0345,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 58,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:enchanted_netherite_apple",
+        "table": "minecraft:chests/ancient_city",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "chance": 1.71,
+        "perChest": 0.0172,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 58,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:netherite_nugget",
+        "table": "minecraft:chests/ancient_city",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "chance": 6.74,
+        "perChest": 0.1379,
+        "count": [
+          1,
+          3
+        ],
+        "weight": 4,
+        "totalWeight": 58,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:diamond_pebble",
+        "table": "minecraft:chests/ancient_city",
+        "label": {
+          "en": "Ancient city",
+          "de": "Antike Stätte"
+        },
+        "chance": 9.99,
+        "perChest": 0.3621,
+        "count": [
+          2,
+          5
+        ],
+        "weight": 6,
+        "totalWeight": 58,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/bastion_treasure",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "chance": 8.24,
+        "perChest": 0.0847,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 59,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:funnel",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/bastion_treasure",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "chance": 8.24,
+        "perChest": 0.0847,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 59,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:break_through",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:gold_sledgehammer",
+        "table": "minecraft:chests/bastion_treasure",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "chance": 9.82,
+        "perChest": 0.1017,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 6,
+        "totalWeight": 59,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:netherite_nugget",
+        "table": "minecraft:chests/bastion_treasure",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "chance": 18.96,
+        "perChest": 0.5085,
+        "count": [
+          1,
+          4
+        ],
+        "weight": 12,
+        "totalWeight": 59,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:netherite_carrot",
+        "table": "minecraft:chests/bastion_treasure",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "chance": 9.82,
+        "perChest": 0.1525,
+        "count": [
+          1,
+          2
+        ],
+        "weight": 6,
+        "totalWeight": 59,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:gold_core",
+        "table": "minecraft:chests/bastion_treasure",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "chance": 0.6,
+        "perChest": 0.006,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "binomial",
+          "n": 1,
+          "p": 0.006
+        },
+        "pool": 1,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/bastion_other",
+        "label": {
+          "en": "Bastion (other chests)",
+          "de": "Bastion (übrige Truhen)"
+        },
+        "chance": 8.24,
+        "perChest": 0.0847,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 59,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:funnel",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/bastion_other",
+        "label": {
+          "en": "Bastion (other chests)",
+          "de": "Bastion (übrige Truhen)"
+        },
+        "chance": 8.24,
+        "perChest": 0.0847,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 59,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:break_through",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:gold_sledgehammer",
+        "table": "minecraft:chests/bastion_other",
+        "label": {
+          "en": "Bastion (other chests)",
+          "de": "Bastion (übrige Truhen)"
+        },
+        "chance": 9.82,
+        "perChest": 0.1017,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 6,
+        "totalWeight": 59,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:netherite_nugget",
+        "table": "minecraft:chests/bastion_other",
+        "label": {
+          "en": "Bastion (other chests)",
+          "de": "Bastion (übrige Truhen)"
+        },
+        "chance": 18.96,
+        "perChest": 0.5085,
+        "count": [
+          1,
+          4
+        ],
+        "weight": 12,
+        "totalWeight": 59,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:netherite_carrot",
+        "table": "minecraft:chests/bastion_other",
+        "label": {
+          "en": "Bastion (other chests)",
+          "de": "Bastion (übrige Truhen)"
+        },
+        "chance": 9.82,
+        "perChest": 0.1525,
+        "count": [
+          1,
+          2
+        ],
+        "weight": 6,
+        "totalWeight": 59,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:gold_core",
+        "table": "minecraft:chests/bastion_other",
+        "label": {
+          "en": "Bastion (other chests)",
+          "de": "Bastion (übrige Truhen)"
+        },
+        "chance": 0.6,
+        "perChest": 0.006,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "binomial",
+          "n": 1,
+          "p": 0.006
+        },
+        "pool": 1,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:netherite_apple",
+        "table": "minecraft:chests/bastion_treasure",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "chance": 25.0,
+        "perChest": 0.25,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 4,
+        "totalWeight": 16,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:enchanted_netherite_apple",
+        "table": "minecraft:chests/bastion_treasure",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "chance": 12.5,
+        "perChest": 0.125,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 16,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/bastion_treasure",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "chance": 18.75,
+        "perChest": 0.1875,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 16,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:break_through",
+        "level": 2
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:netherite_core",
+        "table": "minecraft:chests/bastion_treasure",
+        "label": {
+          "en": "Bastion treasure room",
+          "de": "Bastion-Schatzraum"
+        },
+        "chance": 4.0,
+        "perChest": 0.04,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "binomial",
+          "n": 1,
+          "p": 0.04
+        },
+        "pool": 1,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/nether_bridge",
+        "label": {
+          "en": "Nether fortress",
+          "de": "Netherfestung"
+        },
+        "chance": 14.6,
+        "perChest": 0.1538,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 6,
+        "totalWeight": 39,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:strip_miner",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/nether_bridge",
+        "label": {
+          "en": "Nether fortress",
+          "de": "Netherfestung"
+        },
+        "chance": 7.5,
+        "perChest": 0.0769,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 39,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:strip_miner",
+        "level": 2
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/nether_bridge",
+        "label": {
+          "en": "Nether fortress",
+          "de": "Netherfestung"
+        },
+        "chance": 5.04,
+        "perChest": 0.0513,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 39,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:funnel",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/nether_bridge",
+        "label": {
+          "en": "Nether fortress",
+          "de": "Netherfestung"
+        },
+        "chance": 5.04,
+        "perChest": 0.0513,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 39,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:break_through",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:octant",
+        "table": "minecraft:chests/nether_bridge",
+        "label": {
+          "en": "Nether fortress",
+          "de": "Netherfestung"
+        },
+        "chance": 7.5,
+        "perChest": 0.0769,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 39,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "randomEnchant": true
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:netherite_nugget",
+        "table": "minecraft:chests/nether_bridge",
+        "label": {
+          "en": "Nether fortress",
+          "de": "Netherfestung"
+        },
+        "chance": 14.6,
+        "perChest": 0.3077,
+        "count": [
+          1,
+          3
+        ],
+        "weight": 6,
+        "totalWeight": 39,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:netherite_carrot",
+        "table": "minecraft:chests/nether_bridge",
+        "label": {
+          "en": "Nether fortress",
+          "de": "Netherfestung"
+        },
+        "chance": 7.5,
+        "perChest": 0.1538,
+        "count": [
+          1,
+          3
+        ],
+        "weight": 3,
+        "totalWeight": 39,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:gold_core",
+        "table": "minecraft:chests/nether_bridge",
+        "label": {
+          "en": "Nether fortress",
+          "de": "Netherfestung"
+        },
+        "chance": 0.8,
+        "perChest": 0.008,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "binomial",
+          "n": 1,
+          "p": 0.008
+        },
+        "pool": 1,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/pillager_outpost",
+        "label": {
+          "en": "Pillager outpost",
+          "de": "Plünderer-Außenposten"
+        },
+        "chance": 10.33,
+        "perChest": 0.1071,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 6,
+        "totalWeight": 56,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:color_palette",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/pillager_outpost",
+        "label": {
+          "en": "Pillager outpost",
+          "de": "Plünderer-Außenposten"
+        },
+        "chance": 13.61,
+        "perChest": 0.1429,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 8,
+        "totalWeight": 56,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:cover",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/pillager_outpost",
+        "label": {
+          "en": "Pillager outpost",
+          "de": "Plünderer-Außenposten"
+        },
+        "chance": 13.61,
+        "perChest": 0.1429,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 8,
+        "totalWeight": 56,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:linear",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:octant",
+        "table": "minecraft:chests/pillager_outpost",
+        "label": {
+          "en": "Pillager outpost",
+          "de": "Plünderer-Außenposten"
+        },
+        "chance": 8.66,
+        "perChest": 0.0893,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 56,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:quiver",
+        "table": "minecraft:chests/pillager_outpost",
+        "label": {
+          "en": "Pillager outpost",
+          "de": "Plünderer-Außenposten"
+        },
+        "chance": 8.66,
+        "perChest": 0.0893,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 56,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:copper_chisel",
+        "table": "minecraft:chests/pillager_outpost",
+        "label": {
+          "en": "Pillager outpost",
+          "de": "Plünderer-Außenposten"
+        },
+        "chance": 6.97,
+        "perChest": 0.0714,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 4,
+        "totalWeight": 56,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/woodland_mansion",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "chance": 5.45,
+        "perChest": 0.0556,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 54,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:color_palette",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/woodland_mansion",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "chance": 8.97,
+        "perChest": 0.0926,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 54,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:cover",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/woodland_mansion",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "chance": 8.97,
+        "perChest": 0.0926,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 54,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:linear",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/woodland_mansion",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "chance": 1.84,
+        "perChest": 0.0185,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 54,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:vein_miner",
+        "level": 5
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/woodland_mansion",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "chance": 5.45,
+        "perChest": 0.0556,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 54,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:vein_miner",
+        "level": 4
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:iron_building_wand",
+        "table": "minecraft:chests/woodland_mansion",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "chance": 7.22,
+        "perChest": 0.0741,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 4,
+        "totalWeight": 54,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:quiver",
+        "table": "minecraft:chests/woodland_mansion",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "chance": 5.45,
+        "perChest": 0.0556,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 54,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:iron_core",
+        "table": "minecraft:chests/woodland_mansion",
+        "label": {
+          "en": "Woodland mansion",
+          "de": "Waldanwesen"
+        },
+        "chance": 0.8,
+        "perChest": 0.008,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "binomial",
+          "n": 1,
+          "p": 0.008
+        },
+        "pool": 1,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/buried_treasure",
+        "label": {
+          "en": "Buried treasure",
+          "de": "Vergrabener Schatz"
+        },
+        "chance": 4.84,
+        "perChest": 0.0492,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 61,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:constructors_touch",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/buried_treasure",
+        "label": {
+          "en": "Buried treasure",
+          "de": "Vergrabener Schatz"
+        },
+        "chance": 3.24,
+        "perChest": 0.0328,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 61,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:fast_chiseling",
+        "level": 2
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:gold_chisel",
+        "table": "minecraft:chests/buried_treasure",
+        "label": {
+          "en": "Buried treasure",
+          "de": "Vergrabener Schatz"
+        },
+        "chance": 15.5,
+        "perChest": 0.1639,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 10,
+        "totalWeight": 61,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:diamond_chisel",
+        "table": "minecraft:chests/buried_treasure",
+        "label": {
+          "en": "Buried treasure",
+          "de": "Vergrabener Schatz"
+        },
+        "chance": 9.51,
+        "perChest": 0.0984,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 6,
+        "totalWeight": 61,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:diamond_pebble",
+        "table": "minecraft:chests/buried_treasure",
+        "label": {
+          "en": "Buried treasure",
+          "de": "Vergrabener Schatz"
+        },
+        "chance": 15.5,
+        "perChest": 0.6557,
+        "count": [
+          2,
+          6
+        ],
+        "weight": 10,
+        "totalWeight": 61,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/simple_dungeon",
+        "label": {
+          "en": "Dungeon",
+          "de": "Verlies"
+        },
+        "chance": 4.92,
+        "perChest": 0.05,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 5,
+        "totalWeight": 100,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:fast_chiseling",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/simple_dungeon",
+        "label": {
+          "en": "Dungeon",
+          "de": "Verlies"
+        },
+        "chance": 7.79,
+        "perChest": 0.08,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 8,
+        "totalWeight": 100,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:funnel",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/simple_dungeon",
+        "label": {
+          "en": "Dungeon",
+          "de": "Verlies"
+        },
+        "chance": 7.79,
+        "perChest": 0.08,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 8,
+        "totalWeight": 100,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:break_through",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/simple_dungeon",
+        "label": {
+          "en": "Dungeon",
+          "de": "Verlies"
+        },
+        "chance": 2.97,
+        "perChest": 0.03,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 100,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:vein_miner",
+        "level": 4
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/simple_dungeon",
+        "label": {
+          "en": "Dungeon",
+          "de": "Verlies"
+        },
+        "chance": 7.79,
+        "perChest": 0.08,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 8,
+        "totalWeight": 100,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:vein_miner",
+        "level": 3
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/simple_dungeon",
+        "label": {
+          "en": "Dungeon",
+          "de": "Verlies"
+        },
+        "chance": 11.52,
+        "perChest": 0.12,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 12,
+        "totalWeight": 100,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:vein_miner",
+        "level": 2
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:reinforced_bundle",
+        "table": "minecraft:chests/simple_dungeon",
+        "label": {
+          "en": "Dungeon",
+          "de": "Verlies"
+        },
+        "chance": 7.79,
+        "perChest": 0.08,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 8,
+        "totalWeight": 100,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:basic_upgrade_template",
+        "table": "minecraft:chests/simple_dungeon",
+        "label": {
+          "en": "Dungeon",
+          "de": "Verlies"
+        },
+        "chance": 1.99,
+        "perChest": 0.02,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 100,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:diamond_pebble",
+        "table": "minecraft:chests/simple_dungeon",
+        "label": {
+          "en": "Dungeon",
+          "de": "Verlies"
+        },
+        "chance": 5.88,
+        "perChest": 0.12,
+        "count": [
+          1,
+          3
+        ],
+        "weight": 6,
+        "totalWeight": 100,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/shipwreck_treasure",
+        "label": {
+          "en": "Shipwreck treasure",
+          "de": "Schiffswrack-Schatz"
+        },
+        "chance": 10.42,
+        "perChest": 0.1042,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 10,
+        "totalWeight": 48,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:fast_chiseling",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:reinforced_bundle",
+        "table": "minecraft:chests/shipwreck_treasure",
+        "label": {
+          "en": "Shipwreck treasure",
+          "de": "Schiffswrack-Schatz"
+        },
+        "chance": 8.33,
+        "perChest": 0.0833,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 8,
+        "totalWeight": 48,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:diamond_pebble",
+        "table": "minecraft:chests/shipwreck_treasure",
+        "label": {
+          "en": "Shipwreck treasure",
+          "de": "Schiffswrack-Schatz"
+        },
+        "chance": 10.42,
+        "perChest": 0.2604,
+        "count": [
+          1,
+          4
+        ],
+        "weight": 10,
+        "totalWeight": 48,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/igloo_chest",
+        "label": {
+          "en": "Igloo",
+          "de": "Iglu"
+        },
+        "chance": 7.5,
+        "perChest": 0.075,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 20,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:constructors_touch",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/igloo_chest",
+        "label": {
+          "en": "Igloo",
+          "de": "Iglu"
+        },
+        "chance": 7.5,
+        "perChest": 0.075,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 20,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:fast_chiseling",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:diamond_chisel",
+        "table": "minecraft:chests/igloo_chest",
+        "label": {
+          "en": "Igloo",
+          "de": "Iglu"
+        },
+        "chance": 15.0,
+        "perChest": 0.15,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 6,
+        "totalWeight": 20,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/abandoned_mineshaft",
+        "label": {
+          "en": "Mineshaft",
+          "de": "Verlassene Mine"
+        },
+        "chance": 3.09,
+        "perChest": 0.0312,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 64,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:fast_chiseling",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/abandoned_mineshaft",
+        "label": {
+          "en": "Mineshaft",
+          "de": "Verlassene Mine"
+        },
+        "chance": 11.98,
+        "perChest": 0.125,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 8,
+        "totalWeight": 64,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:strip_miner",
+        "level": 1
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/abandoned_mineshaft",
+        "label": {
+          "en": "Mineshaft",
+          "de": "Verlassene Mine"
+        },
+        "chance": 4.61,
+        "perChest": 0.0469,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 64,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:strip_miner",
+        "level": 3
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/abandoned_mineshaft",
+        "label": {
+          "en": "Mineshaft",
+          "de": "Verlassene Mine"
+        },
+        "chance": 6.12,
+        "perChest": 0.0625,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 4,
+        "totalWeight": 64,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:vein_miner",
+        "level": 3
+      },
+      {
+        "type": "chest",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/abandoned_mineshaft",
+        "label": {
+          "en": "Mineshaft",
+          "de": "Verlassene Mine"
+        },
+        "chance": 4.61,
+        "perChest": 0.0469,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 64,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:vein_miner",
+        "level": 4
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:reinforced_bundle",
+        "table": "minecraft:chests/abandoned_mineshaft",
+        "label": {
+          "en": "Mineshaft",
+          "de": "Verlassene Mine"
+        },
+        "chance": 9.08,
+        "perChest": 0.0938,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 6,
+        "totalWeight": 64,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "randomEnchant": true
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:diamond_pebble",
+        "table": "minecraft:chests/abandoned_mineshaft",
+        "label": {
+          "en": "Mineshaft",
+          "de": "Verlassene Mine"
+        },
+        "chance": 11.98,
+        "perChest": 0.25,
+        "count": [
+          1,
+          3
+        ],
+        "weight": 8,
+        "totalWeight": 64,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 2
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "vault",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/trial_chambers/reward_common",
+        "label": {
+          "en": "Trial chamber vault",
+          "de": "Prüfungskammer-Tresor"
+        },
+        "chance": 7.5,
+        "perChest": 0.075,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 20,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:constructors_touch",
+        "level": 1
+      },
+      {
+        "type": "vault",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/trial_chambers/reward_common",
+        "label": {
+          "en": "Trial chamber vault",
+          "de": "Prüfungskammer-Tresor"
+        },
+        "chance": 5.0,
+        "perChest": 0.05,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 20,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:fast_chiseling",
+        "level": 2
+      },
+      {
+        "type": "vault",
+        "item": "simplebuilding:diamond_pebble",
+        "table": "minecraft:chests/trial_chambers/reward_common",
+        "label": {
+          "en": "Trial chamber vault",
+          "de": "Prüfungskammer-Tresor"
+        },
+        "chance": 7.5,
+        "perChest": 0.225,
+        "count": [
+          2,
+          4
+        ],
+        "weight": 3,
+        "totalWeight": 20,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "vault",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/trial_chambers/reward_rare",
+        "label": {
+          "en": "Trial chamber vault (rare)",
+          "de": "Prüfungskammer-Tresor (selten)"
+        },
+        "chance": 7.5,
+        "perChest": 0.075,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 20,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:constructors_touch",
+        "level": 1
+      },
+      {
+        "type": "vault",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/trial_chambers/reward_rare",
+        "label": {
+          "en": "Trial chamber vault (rare)",
+          "de": "Prüfungskammer-Tresor (selten)"
+        },
+        "chance": 5.0,
+        "perChest": 0.05,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 20,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:fast_chiseling",
+        "level": 2
+      },
+      {
+        "type": "vault",
+        "item": "simplebuilding:diamond_pebble",
+        "table": "minecraft:chests/trial_chambers/reward_rare",
+        "label": {
+          "en": "Trial chamber vault (rare)",
+          "de": "Prüfungskammer-Tresor (selten)"
+        },
+        "chance": 7.5,
+        "perChest": 0.225,
+        "count": [
+          2,
+          4
+        ],
+        "weight": 3,
+        "totalWeight": 20,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "vault",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/trial_chambers/reward_ominous",
+        "label": {
+          "en": "Ominous vault",
+          "de": "Unheilvoller Tresor"
+        },
+        "chance": 9.09,
+        "perChest": 0.0909,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 10,
+        "totalWeight": 55,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:master_builder",
+        "level": 1
+      },
+      {
+        "type": "vault",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/trial_chambers/reward_ominous",
+        "label": {
+          "en": "Ominous vault",
+          "de": "Unheilvoller Tresor"
+        },
+        "chance": 6.36,
+        "perChest": 0.0636,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 7,
+        "totalWeight": 55,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:double_jump",
+        "level": 1
+      },
+      {
+        "type": "vault",
+        "item": "simplebuilding:netherite_apple",
+        "table": "minecraft:chests/trial_chambers/reward_ominous",
+        "label": {
+          "en": "Ominous vault",
+          "de": "Unheilvoller Tresor"
+        },
+        "chance": 1.82,
+        "perChest": 0.0182,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 55,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "vault",
+        "item": "simplebuilding:enchanted_netherite_apple",
+        "table": "minecraft:chests/trial_chambers/reward_ominous",
+        "label": {
+          "en": "Ominous vault",
+          "de": "Unheilvoller Tresor"
+        },
+        "chance": 0.91,
+        "perChest": 0.0091,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 55,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "vault",
+        "item": "simplebuilding:diamond_core",
+        "table": "minecraft:chests/trial_chambers/reward_ominous",
+        "label": {
+          "en": "Ominous vault",
+          "de": "Unheilvoller Tresor"
+        },
+        "chance": 0.8,
+        "perChest": 0.008,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "binomial",
+          "n": 1,
+          "p": 0.008
+        },
+        "pool": 1,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "vault",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/trial_chambers/reward_rare",
+        "label": {
+          "en": "Trial chamber vault (rare)",
+          "de": "Prüfungskammer-Tresor (selten)"
+        },
+        "chance": 9.09,
+        "perChest": 0.0909,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 10,
+        "totalWeight": 55,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:master_builder",
+        "level": 1
+      },
+      {
+        "type": "vault",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:chests/trial_chambers/reward_rare",
+        "label": {
+          "en": "Trial chamber vault (rare)",
+          "de": "Prüfungskammer-Tresor (selten)"
+        },
+        "chance": 6.36,
+        "perChest": 0.0636,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 7,
+        "totalWeight": 55,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:double_jump",
+        "level": 1
+      },
+      {
+        "type": "vault",
+        "item": "simplebuilding:netherite_apple",
+        "table": "minecraft:chests/trial_chambers/reward_rare",
+        "label": {
+          "en": "Trial chamber vault (rare)",
+          "de": "Prüfungskammer-Tresor (selten)"
+        },
+        "chance": 1.82,
+        "perChest": 0.0182,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 55,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "vault",
+        "item": "simplebuilding:enchanted_netherite_apple",
+        "table": "minecraft:chests/trial_chambers/reward_rare",
+        "label": {
+          "en": "Trial chamber vault (rare)",
+          "de": "Prüfungskammer-Tresor (selten)"
+        },
+        "chance": 0.91,
+        "perChest": 0.0091,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 55,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "vault",
+        "item": "simplebuilding:diamond_core",
+        "table": "minecraft:chests/trial_chambers/reward_rare",
+        "label": {
+          "en": "Trial chamber vault (rare)",
+          "de": "Prüfungskammer-Tresor (selten)"
+        },
+        "chance": 0.8,
+        "perChest": 0.008,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "binomial",
+          "n": 1,
+          "p": 0.008
+        },
+        "pool": 1,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:netherite_nugget",
+        "table": "minecraft:chests/ruined_portal",
+        "label": {
+          "en": "Ruined portal",
+          "de": "Portalruine"
+        },
+        "chance": 7.5,
+        "perChest": 0.1125,
+        "count": [
+          1,
+          2
+        ],
+        "weight": 3,
+        "totalWeight": 20,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:gold_chisel",
+        "table": "minecraft:chests/ruined_portal",
+        "label": {
+          "en": "Ruined portal",
+          "de": "Portalruine"
+        },
+        "chance": 7.5,
+        "perChest": 0.075,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 20,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "chest",
+        "item": "simplebuilding:netherite_carrot",
+        "table": "minecraft:chests/ruined_portal",
+        "label": {
+          "en": "Ruined portal",
+          "de": "Portalruine"
+        },
+        "chance": 5.0,
+        "perChest": 0.05,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 20,
+        "rolls": {
+          "type": "uniform",
+          "min": 0,
+          "max": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "fishing",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:gameplay/fishing/treasure",
+        "label": {
+          "en": "Fishing (treasure catch)",
+          "de": "Angeln (Schatzfang)"
+        },
+        "chance": 9.09,
+        "perChest": 0.0909,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 3,
+        "totalWeight": 33,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:fast_chiseling",
+        "level": 1
+      },
+      {
+        "type": "fishing",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:gameplay/fishing/treasure",
+        "label": {
+          "en": "Fishing (treasure catch)",
+          "de": "Angeln (Schatzfang)"
+        },
+        "chance": 6.06,
+        "perChest": 0.0606,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 33,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:constructors_touch",
+        "level": 1
+      },
+      {
+        "type": "fishing",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:gameplay/fishing/treasure",
+        "label": {
+          "en": "Fishing (treasure catch)",
+          "de": "Angeln (Schatzfang)"
+        },
+        "chance": 6.06,
+        "perChest": 0.0606,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 33,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:deep_pockets",
+        "level": 1
+      },
+      {
+        "type": "fishing",
+        "item": "minecraft:enchanted_book",
+        "table": "minecraft:gameplay/fishing/treasure",
+        "label": {
+          "en": "Fishing (treasure catch)",
+          "de": "Angeln (Schatzfang)"
+        },
+        "chance": 6.06,
+        "perChest": 0.0606,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 2,
+        "totalWeight": 33,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "enchantment": "simplebuilding:linear",
+        "level": 1
+      },
+      {
+        "type": "fishing",
+        "item": "simplebuilding:diamond_pebble",
+        "table": "minecraft:gameplay/fishing/treasure",
+        "label": {
+          "en": "Fishing (treasure catch)",
+          "de": "Angeln (Schatzfang)"
+        },
+        "chance": 12.12,
+        "perChest": 0.2424,
+        "count": [
+          1,
+          3
+        ],
+        "weight": 4,
+        "totalWeight": 33,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 0,
+        "configFlag": "enableLootTableChanges",
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
+      },
+      {
+        "type": "mob",
+        "how": "charged_creeper",
+        "victim": "minecraft:creeper",
+        "item": "minecraft:creeper_head",
+        "table": "minecraft:charged_creeper/root",
+        "chance": 100.0,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "charged_creeper",
+        "victim": "minecraft:piglin",
+        "item": "minecraft:piglin_head",
+        "table": "minecraft:charged_creeper/root",
+        "chance": 100.0,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "charged_creeper",
+        "victim": "minecraft:skeleton",
+        "item": "minecraft:skeleton_skull",
+        "table": "minecraft:charged_creeper/root",
+        "chance": 100.0,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "charged_creeper",
+        "victim": "minecraft:wither_skeleton",
+        "item": "minecraft:wither_skeleton_skull",
+        "table": "minecraft:charged_creeper/root",
+        "chance": 100.0,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "charged_creeper",
+        "victim": "minecraft:zombie",
+        "item": "minecraft:zombie_head",
+        "table": "minecraft:charged_creeper/root",
+        "chance": 100.0,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "killed_by",
+        "victim": "minecraft:creeper",
+        "killer": "#minecraft:skeletons",
+        "item": "minecraft:music_disc_11",
+        "table": "minecraft:entities/creeper",
+        "chance": 8.33,
+        "oneOf": 12,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "killed_by",
+        "victim": "minecraft:creeper",
+        "killer": "#minecraft:skeletons",
+        "item": "minecraft:music_disc_13",
+        "table": "minecraft:entities/creeper",
+        "chance": 8.33,
+        "oneOf": 12,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "killed_by",
+        "victim": "minecraft:creeper",
+        "killer": "#minecraft:skeletons",
+        "item": "minecraft:music_disc_blocks",
+        "table": "minecraft:entities/creeper",
+        "chance": 8.33,
+        "oneOf": 12,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "killed_by",
+        "victim": "minecraft:creeper",
+        "killer": "#minecraft:skeletons",
+        "item": "minecraft:music_disc_cat",
+        "table": "minecraft:entities/creeper",
+        "chance": 8.33,
+        "oneOf": 12,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "killed_by",
+        "victim": "minecraft:creeper",
+        "killer": "#minecraft:skeletons",
+        "item": "minecraft:music_disc_chirp",
+        "table": "minecraft:entities/creeper",
+        "chance": 8.33,
+        "oneOf": 12,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "killed_by",
+        "victim": "minecraft:creeper",
+        "killer": "#minecraft:skeletons",
+        "item": "minecraft:music_disc_far",
+        "table": "minecraft:entities/creeper",
+        "chance": 8.33,
+        "oneOf": 12,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "killed_by",
+        "victim": "minecraft:creeper",
+        "killer": "#minecraft:skeletons",
+        "item": "minecraft:music_disc_mall",
+        "table": "minecraft:entities/creeper",
+        "chance": 8.33,
+        "oneOf": 12,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "killed_by",
+        "victim": "minecraft:creeper",
+        "killer": "#minecraft:skeletons",
+        "item": "minecraft:music_disc_mellohi",
+        "table": "minecraft:entities/creeper",
+        "chance": 8.33,
+        "oneOf": 12,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "killed_by",
+        "victim": "minecraft:creeper",
+        "killer": "#minecraft:skeletons",
+        "item": "minecraft:music_disc_stal",
+        "table": "minecraft:entities/creeper",
+        "chance": 8.33,
+        "oneOf": 12,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "killed_by",
+        "victim": "minecraft:creeper",
+        "killer": "#minecraft:skeletons",
+        "item": "minecraft:music_disc_strad",
+        "table": "minecraft:entities/creeper",
+        "chance": 8.33,
+        "oneOf": 12,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "killed_by",
+        "victim": "minecraft:creeper",
+        "killer": "#minecraft:skeletons",
+        "item": "minecraft:music_disc_wait",
+        "table": "minecraft:entities/creeper",
+        "chance": 8.33,
+        "oneOf": 12,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      },
+      {
+        "type": "mob",
+        "how": "killed_by",
+        "victim": "minecraft:creeper",
+        "killer": "#minecraft:skeletons",
+        "item": "minecraft:music_disc_ward",
+        "table": "minecraft:entities/creeper",
+        "chance": 8.33,
+        "oneOf": 12,
+        "source": "wiki/data/vanilla-drops-26.2.json"
+      }
+    ],
+    "enchantmentTags": {
+      "minecraft:in_enchanting_table": [
+        "simplebuilding:fast_chiseling"
+      ]
+    }
+  },
   "advancements": [
     {
       "id": "simplebuilding:blueprint/carbon_copy",
@@ -49867,8 +54372,107 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/blueprint/instant_architect.json"
     },
     {
+      "id": "simplebuilding:building/checkmate",
+      "parent": "simplebuilding:building/root",
+      "icon": "simplebuilding:purpur_quartz_checker",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Checkmate",
+        "de_de": "Schachmatt"
+      },
+      "description": {
+        "en_us": "Craft a quartz checker block: quartz with purpur, lapis, blackstone, resin or an End mineral",
+        "de_de": "Bau einen Quarz-Schachbrettblock: Quarz mit Purpur, Lapislazuli, Schwarzstein, Harz oder einem End-Mineral"
+      },
+      "criteria": [
+        {
+          "name": "quartz_checker",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:purpur_quartz_checker",
+            "simplebuilding:lapis_quartz_checker",
+            "simplebuilding:blackstone_quartz_checker",
+            "simplebuilding:resin_quartz_checker",
+            "simplebuilding:astralit_quartz_checker",
+            "simplebuilding:nihilith_quartz_checker",
+            "simplebuilding:ender_quartz_checker"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/building/checkmate.json"
+    },
+    {
+      "id": "simplebuilding:building/let_there_be_light",
+      "parent": "simplebuilding:building/root",
+      "icon": "simplebuilding:construction_light",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Let There Be Light",
+        "de_de": "Es werde Licht"
+      },
+      "description": {
+        "en_us": "Glass, a torch and lapis make a Construction Light for dark building sites",
+        "de_de": "Glas, eine Fackel und Lapislazuli ergeben ein Baulicht für dunkle Baustellen"
+      },
+      "criteria": [
+        {
+          "name": "construction_light",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:construction_light"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/building/let_there_be_light.json"
+    },
+    {
+      "id": "simplebuilding:building/root",
+      "parent": null,
+      "icon": "simplebuilding:gold_chisel",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Building & Blueprints",
+        "de_de": "Bauen & Blaupausen"
+      },
+      "description": {
+        "en_us": "Chisels, building wands, octants and blueprints. Get any building tool to open this tab",
+        "de_de": "Meißel, Baustäbe, Oktanten und Blaupausen. Besorg dir ein Bauwerkzeug, um diesen Tab zu öffnen"
+      },
+      "criteria": [
+        {
+          "name": "building_tool",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:stone_chisel",
+            "simplebuilding:copper_chisel",
+            "simplebuilding:iron_chisel",
+            "simplebuilding:gold_chisel",
+            "simplebuilding:diamond_chisel",
+            "simplebuilding:netherite_chisel",
+            "simplebuilding:enderite_chisel",
+            "simplebuilding:copper_building_wand",
+            "simplebuilding:iron_building_wand",
+            "simplebuilding:gold_building_wand",
+            "simplebuilding:diamond_building_wand",
+            "simplebuilding:netherite_building_wand",
+            "simplebuilding:enderite_building_wand",
+            "simplebuilding:octant",
+            "simplebuilding:rotator",
+            "simplebuilding:construction_light"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/building/root.json"
+    },
+    {
       "id": "simplebuilding:chisel/chip_off_the_old_block",
-      "parent": "simplebuilding:root",
+      "parent": "simplebuilding:building/root",
       "icon": "simplebuilding:stone_chisel",
       "frame": "task",
       "hidden": false,
@@ -49919,6 +54523,35 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/chisel/fine_detail.json"
     },
     {
+      "id": "simplebuilding:end/astral_projection",
+      "parent": "simplebuilding:end/stardust",
+      "icon": "simplebuilding:astral_purpur_block",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Astral Projection",
+        "de_de": "Astralreise"
+      },
+      "description": {
+        "en_us": "Ring Astralit Dust or a Nihilith Shard with purpur or polished end stone",
+        "de_de": "Umring Astralitstaub oder einen Nihilithsplitter mit Purpur oder Poliertem Endstein"
+      },
+      "criteria": [
+        {
+          "name": "astral_block",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:astral_purpur_block",
+            "simplebuilding:nihil_purpur_block",
+            "simplebuilding:astral_end_stone",
+            "simplebuilding:nihil_end_stone"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/end/astral_projection.json"
+    },
+    {
       "id": "simplebuilding:end/defying_gravity",
       "parent": "simplebuilding:end/stardust",
       "icon": "simplebuilding:levitating_sand",
@@ -49929,8 +54562,8 @@ window.WIKI_DATA = {
         "de_de": "Schwerelos"
       },
       "description": {
-        "en_us": "A Nihilith Shard keeps sand or gravel hanging in the air, Astralit Dust makes it rise",
-        "de_de": "Ein Nihilithsplitter lässt Sand oder Kies in der Luft hängen, Astralitstaub lässt ihn aufsteigen"
+        "en_us": "A Nihilit Shard keeps sand or gravel hanging in the air, Astralit Dust makes it rise",
+        "de_de": "Ein Nihilitsplitter lässt Sand oder Kies in der Luft hängen, Astralitstaub lässt ihn aufsteigen"
       },
       "criteria": [
         {
@@ -49958,8 +54591,8 @@ window.WIKI_DATA = {
         "de_de": "Farbenlehre"
       },
       "description": {
-        "en_us": "Craft End bricks: Astralit, Nihilith and Ender Quartz each make a whole building palette",
-        "de_de": "Bau End-Ziegel: Astralit, Nihilith und Enderquarz ergeben je eine ganze Baupalette"
+        "en_us": "Craft End bricks: Astralit, Nihilit and Ender Quartz each make a whole building palette",
+        "de_de": "Bau End-Ziegel: Astralit, Nihilit und Enderquarz ergeben je eine ganze Baupalette"
       },
       "criteria": [
         {
@@ -49976,6 +54609,32 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/end/palette_cleanser.json"
     },
     {
+      "id": "simplebuilding:end/polished_off",
+      "parent": "simplebuilding:end/root",
+      "icon": "simplebuilding:polished_end_stone",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Polished Off",
+        "de_de": "Auf Hochglanz"
+      },
+      "description": {
+        "en_us": "Four end stone make Polished End Stone - the base of the astral and nihil blocks",
+        "de_de": "Vier Endstein ergeben Polierten Endstein - die Basis der Astral- und Nihil-Blöcke"
+      },
+      "criteria": [
+        {
+          "name": "polished_end_stone",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:polished_end_stone"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/end/polished_off.json"
+    },
+    {
       "id": "simplebuilding:end/quartz_fusion",
       "parent": "simplebuilding:end/stardust",
       "icon": "simplebuilding:ender_quartz",
@@ -49986,8 +54645,8 @@ window.WIKI_DATA = {
         "de_de": "Quarzfusion"
       },
       "description": {
-        "en_us": "Mix Astralit Dust, a Nihilith Shard and Quartz into Ender Quartz - Blueprints need it",
-        "de_de": "Misch Astralitstaub, einen Nihilithsplitter und Quarz zu Enderquarz - Blaupausen brauchen ihn"
+        "en_us": "Mix Astralit Dust, a Nihilit Shard and Quartz into Ender Quartz - Blueprints need it",
+        "de_de": "Misch Astralitstaub, einen Nihilitsplitter und Quarz zu Enderquarz - Blaupausen brauchen ihn"
       },
       "criteria": [
         {
@@ -50002,8 +54661,34 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/end/quartz_fusion.json"
     },
     {
+      "id": "simplebuilding:end/root",
+      "parent": null,
+      "icon": "simplebuilding:astral_end_stone",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Beyond the End",
+        "de_de": "Jenseits des Endes"
+      },
+      "description": {
+        "en_us": "The End hides new minerals and a metal stronger than netherite. Pick up some end stone to begin",
+        "de_de": "Das Ende birgt neue Minerale und ein Metall, stärker als Netherit. Heb etwas Endstein auf, um loszulegen"
+      },
+      "criteria": [
+        {
+          "name": "end_stone",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "minecraft:end_stone"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/end/root.json"
+    },
+    {
       "id": "simplebuilding:end/stardust",
-      "parent": "simplebuilding:root",
+      "parent": "simplebuilding:end/root",
       "icon": "simplebuilding:astralit_dust",
       "frame": "task",
       "hidden": false,
@@ -50012,8 +54697,8 @@ window.WIKI_DATA = {
         "de_de": "Sternenstaub"
       },
       "description": {
-        "en_us": "Astralit Ore glitters on top of the End islands, Nihilith Ore hides beneath them: bring a diamond pickaxe",
-        "de_de": "Astraliterz glitzert oben auf den Endinseln, Nihilitherz versteckt sich darunter: nimm eine Diamantspitzhacke mit"
+        "en_us": "Astralit Ore glitters on top of the End islands, Nihilit Ore hides beneath them: bring a diamond pickaxe",
+        "de_de": "Astraliterz glitzert oben auf den End-Inseln, Nihiliterz versteckt sich darunter: nimm eine Diamantspitzhacke mit"
       },
       "criteria": [
         {
@@ -50053,6 +54738,32 @@ window.WIKI_DATA = {
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/enderite/beyond_netherite.json"
+    },
+    {
+      "id": "simplebuilding:enderite/block_party",
+      "parent": "simplebuilding:enderite/beyond_netherite",
+      "icon": "simplebuilding:enderite_block",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Block Party",
+        "de_de": "Blockparty"
+      },
+      "description": {
+        "en_us": "Nine Enderite Ingots make a Block of Enderite",
+        "de_de": "Neun Enderitbarren ergeben einen Enderitblock"
+      },
+      "criteria": [
+        {
+          "name": "enderite_block",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enderite_block"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/block_party.json"
     },
     {
       "id": "simplebuilding:enderite/cover_me_in_enderite",
@@ -50219,6 +54930,33 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/enderite/heart_of_the_end.json"
     },
     {
+      "id": "simplebuilding:enderite/master_builder",
+      "parent": "simplebuilding:enderite/template_of_the_end",
+      "icon": "simplebuilding:enderite_building_wand",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Master Builder",
+        "de_de": "Baumeister"
+      },
+      "description": {
+        "en_us": "Smith a netherite Chisel or Building Wand into Enderite",
+        "de_de": "Schmiede einen Netheritmeißel oder Netherit-Baustab zu Enderit"
+      },
+      "criteria": [
+        {
+          "name": "enderite_building_tool",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enderite_chisel",
+            "simplebuilding:enderite_building_wand"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/master_builder.json"
+    },
+    {
       "id": "simplebuilding:enderite/patience_is_a_virtue",
       "parent": "simplebuilding:enderite/raw_deal",
       "icon": "simplebuilding:enderite_scrap",
@@ -50255,7 +54993,7 @@ window.WIKI_DATA = {
         "de_de": "Kleingeld"
       },
       "description": {
-        "en_us": "Split an Enderite Ingot into nuggets: they upgrade machines under the hammer and charge the Echo Sounder",
+        "en_us": "Split an Enderite Ingot into nuggets: they upgrade machines under the hammer and go into the Echo Sounder",
         "de_de": "Teile einen Enderitbarren in Klumpen: sie werten unter dem Hammer Maschinen auf und stecken im Echolot"
       },
       "criteria": [
@@ -50281,8 +55019,8 @@ window.WIKI_DATA = {
         "de_de": "Rohkost"
       },
       "description": {
-        "en_us": "Four Nihilith Shards, four Astralit Dust and an Ender Pearl make Raw Enderite - End cities hide some too",
-        "de_de": "Vier Nihilithsplitter, vier Astralitstaub und eine Enderperle ergeben Rohenderit - Endsiedlungen verstecken auch welches"
+        "en_us": "Four Nihilit Shards, four Astralit Dust and an Ender Pearl make Raw Enderite - End cities hide some too",
+        "de_de": "Vier Nihilitsplitter, vier Astralitstaub und eine Enderperle ergeben Rohenderit - Endsiedlungen verstecken auch welches"
       },
       "criteria": [
         {
@@ -50321,6 +55059,59 @@ window.WIKI_DATA = {
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/enderite/template_of_the_end.json"
+    },
+    {
+      "id": "simplebuilding:enderite/the_last_bite",
+      "parent": "simplebuilding:enderite/void_feast",
+      "icon": "simplebuilding:enchanted_enderite_apple",
+      "frame": "challenge",
+      "hidden": false,
+      "title": {
+        "en_us": "The Last Bite",
+        "de_de": "Der letzte Bissen"
+      },
+      "description": {
+        "en_us": "Find an Enchanted Enderite Apple in an End city chest",
+        "de_de": "Finde einen Verzauberten Enderitapfel in einer Truhe einer Endsiedlung"
+      },
+      "criteria": [
+        {
+          "name": "enchanted_enderite_apple",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enchanted_enderite_apple"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/the_last_bite.json"
+    },
+    {
+      "id": "simplebuilding:enderite/void_feast",
+      "parent": "simplebuilding:enderite/pocket_change",
+      "icon": "simplebuilding:enderite_apple",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Void Feast",
+        "de_de": "Festmahl der Leere"
+      },
+      "description": {
+        "en_us": "An apple or a carrot ringed with Enderite Nuggets - stronger than its netherite cousin",
+        "de_de": "Ein Apfel oder eine Karotte, umringt von Enderitklumpen - stärker als der Netherit-Vetter"
+      },
+      "criteria": [
+        {
+          "name": "enderite_food",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enderite_apple",
+            "simplebuilding:enderite_carrot"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/void_feast.json"
     },
     {
       "id": "simplebuilding:enderite/void_walker",
@@ -50371,7 +55162,7 @@ window.WIKI_DATA = {
     },
     {
       "id": "simplebuilding:gadgets/attractive_personality",
-      "parent": "simplebuilding:wand/core_values",
+      "parent": "simplebuilding:tweaks/root",
       "icon": "simplebuilding:magnet",
       "frame": "task",
       "hidden": false,
@@ -50397,7 +55188,7 @@ window.WIKI_DATA = {
     },
     {
       "id": "simplebuilding:gadgets/burning_focus",
-      "parent": "simplebuilding:wand/core_values",
+      "parent": "simplebuilding:tweaks/root",
       "icon": "simplebuilding:laser_pointer",
       "frame": "task",
       "hidden": false,
@@ -50421,7 +55212,7 @@ window.WIKI_DATA = {
     },
     {
       "id": "simplebuilding:gadgets/ping",
-      "parent": "simplebuilding:wand/core_values",
+      "parent": "simplebuilding:tweaks/root",
       "icon": "simplebuilding:ore_detector",
       "frame": "task",
       "hidden": false,
@@ -50445,7 +55236,7 @@ window.WIKI_DATA = {
     },
     {
       "id": "simplebuilding:gadgets/speed_reader",
-      "parent": "simplebuilding:wand/core_values",
+      "parent": "simplebuilding:tweaks/root",
       "icon": "simplebuilding:velocity-gauge",
       "frame": "task",
       "hidden": false,
@@ -50471,7 +55262,7 @@ window.WIKI_DATA = {
     },
     {
       "id": "simplebuilding:gadgets/spin_doctor",
-      "parent": "simplebuilding:wand/core_values",
+      "parent": "simplebuilding:building/root",
       "icon": "simplebuilding:rotator",
       "frame": "task",
       "hidden": false,
@@ -50492,6 +55283,32 @@ window.WIKI_DATA = {
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/gadgets/spin_doctor.json"
+    },
+    {
+      "id": "simplebuilding:hammer/bright_idea",
+      "parent": "simplebuilding:hammer/glow_up",
+      "icon": "simplebuilding:emitting_trim_template",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Bright Idea",
+        "de_de": "Geistesblitz"
+      },
+      "description": {
+        "en_us": "Glowstone Dust instead of Glow Ink turns a trim template into an Emitting one",
+        "de_de": "Glowstonestaub statt Leuchttinte macht aus einer Besatz-Vorlage eine Strahlende"
+      },
+      "criteria": [
+        {
+          "name": "emitting_trim_template",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:emitting_trim_template"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/hammer/bright_idea.json"
     },
     {
       "id": "simplebuilding:hammer/cracked_up",
@@ -50518,6 +55335,32 @@ window.WIKI_DATA = {
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/hammer/cracked_up.json"
+    },
+    {
+      "id": "simplebuilding:hammer/diamond_in_the_rough",
+      "parent": "simplebuilding:hammer/cracked_up",
+      "icon": "simplebuilding:cracked_diamond_block",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Diamond in the Rough",
+        "de_de": "Ungeschliffener Diamant"
+      },
+      "description": {
+        "en_us": "Nine Cracked Diamonds make a Block of Cracked Diamond - a compact store for the next machines",
+        "de_de": "Neun Rissige Diamanten ergeben einen Rissigen Diamantblock - ein kompakter Vorrat für die nächsten Maschinen"
+      },
+      "criteria": [
+        {
+          "name": "cracked_diamond_block",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:cracked_diamond_block"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/hammer/diamond_in_the_rough.json"
     },
     {
       "id": "simplebuilding:hammer/glow_up",
@@ -50708,7 +55551,7 @@ window.WIKI_DATA = {
       },
       "description": {
         "en_us": "Find a Netherite Nugget in a bastion or fortress, or split an ingot. In the off hand it lets a sledgehammer upgrade machines",
-        "de_de": "Finde einen Netheritklumpen in einer Bastion oder Festung oder teile einen Barren. In der Nebenhand wertet er mit dem Vorschlaghammer Maschinen auf"
+        "de_de": "Finde einen Netheritklumpen in einer Bastion oder Netherfestung oder teile einen Barren. In der Nebenhand wertet er mit dem Vorschlaghammer Maschinen auf"
       },
       "criteria": [
         {
@@ -50723,8 +55566,49 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/nether/nugget_of_wisdom.json"
     },
     {
+      "id": "simplebuilding:octant/colour_coded",
+      "parent": "simplebuilding:octant/measure_twice",
+      "icon": "simplebuilding:octant_light_blue",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Colour Coded",
+        "de_de": "Farblich sortiert"
+      },
+      "description": {
+        "en_us": "Craft an Octant with a dye to tell your selections apart; a cauldron washes the colour off again",
+        "de_de": "Bau einen Oktanten mit einem Farbstoff, um deine Auswahlen auseinanderzuhalten; ein Kessel wäscht die Farbe wieder ab"
+      },
+      "criteria": [
+        {
+          "name": "dyed_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_white",
+            "simplebuilding:octant_orange",
+            "simplebuilding:octant_magenta",
+            "simplebuilding:octant_light_blue",
+            "simplebuilding:octant_yellow",
+            "simplebuilding:octant_lime",
+            "simplebuilding:octant_pink",
+            "simplebuilding:octant_gray",
+            "simplebuilding:octant_light_gray",
+            "simplebuilding:octant_cyan",
+            "simplebuilding:octant_purple",
+            "simplebuilding:octant_blue",
+            "simplebuilding:octant_brown",
+            "simplebuilding:octant_green",
+            "simplebuilding:octant_red",
+            "simplebuilding:octant_black"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/octant/colour_coded.json"
+    },
+    {
       "id": "simplebuilding:octant/measure_twice",
-      "parent": "simplebuilding:root",
+      "parent": "simplebuilding:building/root",
       "icon": "simplebuilding:octant",
       "frame": "task",
       "hidden": false,
@@ -50799,6 +55683,65 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/pads/bottoms_up.json"
     },
     {
+      "id": "simplebuilding:pads/copper_plated",
+      "parent": "simplebuilding:tweaks/root",
+      "icon": "simplebuilding:copper_pressure_plate",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Copper Plated",
+        "de_de": "Verkupfert"
+      },
+      "description": {
+        "en_us": "A copper block makes Copper Pressure Plates: they press only after you stood on them a moment - the longer, the more they have weathered",
+        "de_de": "Ein Kupferblock ergibt Kupfer-Druckplatten: sie lösen erst aus, wenn du einen Moment darauf stehst - je verwitterter, desto länger"
+      },
+      "criteria": [
+        {
+          "name": "copper_pressure_plate",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:copper_pressure_plate",
+            "simplebuilding:exposed_copper_pressure_plate",
+            "simplebuilding:weathered_copper_pressure_plate",
+            "simplebuilding:oxidized_copper_pressure_plate",
+            "simplebuilding:waxed_copper_pressure_plate",
+            "simplebuilding:waxed_exposed_copper_pressure_plate",
+            "simplebuilding:waxed_weathered_copper_pressure_plate",
+            "simplebuilding:waxed_oxidized_copper_pressure_plate"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/pads/copper_plated.json"
+    },
+    {
+      "id": "simplebuilding:pads/fine_feathers",
+      "parent": "simplebuilding:pads/wings_on_loan",
+      "icon": "simplebuilding:fine_elytra_pad",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Fine Feathers",
+        "de_de": "Feine Federn"
+      },
+      "description": {
+        "en_us": "A Nether Star and a netherite template turn an Enderite Elytra Pad into the Fine Elytra Pad",
+        "de_de": "Ein Netherstern und eine Netherit-Schmiedevorlage machen aus einem Enderit-Elytra-Pad das Feine Elytra-Pad"
+      },
+      "criteria": [
+        {
+          "name": "fine_elytra_pad",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:fine_elytra_pad"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/pads/fine_feathers.json"
+    },
+    {
       "id": "simplebuilding:pads/fly_me_to_the_moon",
       "parent": "simplebuilding:pads/wings_on_loan",
       "icon": "simplebuilding:flypad",
@@ -50821,6 +55764,60 @@ window.WIKI_DATA = {
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/pads/fly_me_to_the_moon.json"
+    },
+    {
+      "id": "simplebuilding:pads/frequent_traveller",
+      "parent": "simplebuilding:pads/home_sweet_spawn",
+      "icon": "simplebuilding:enderite_spawn_teleporter",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Frequent Traveller",
+        "de_de": "Vielreisender"
+      },
+      "description": {
+        "en_us": "Smith a Spawn Teleporter up to tier IV or V - tier V carries you to your own respawn point",
+        "de_de": "Schmiede einen Spawn-Teleporter bis Stufe IV oder V - Stufe V bringt dich zu deinem eigenen Wiedereinstiegspunkt"
+      },
+      "criteria": [
+        {
+          "name": "best_spawn_teleporter",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:spawn_teleporter_tier_4",
+            "simplebuilding:enderite_spawn_teleporter"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/pads/frequent_traveller.json"
+    },
+    {
+      "id": "simplebuilding:pads/higher_ground",
+      "parent": "simplebuilding:pads/liftoff",
+      "icon": "simplebuilding:netherite_launchpad",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Higher Ground",
+        "de_de": "Höher hinaus"
+      },
+      "description": {
+        "en_us": "Smith a Launchpad into Netherite: it holds twice as many wind charges",
+        "de_de": "Schmiede eine Startrampe zu Netherit: sie fasst doppelt so viele Windkugeln"
+      },
+      "criteria": [
+        {
+          "name": "better_launchpad",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:netherite_launchpad",
+            "simplebuilding:enderite_launchpad"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/pads/higher_ground.json"
     },
     {
       "id": "simplebuilding:pads/home_sweet_spawn",
@@ -50848,7 +55845,7 @@ window.WIKI_DATA = {
     },
     {
       "id": "simplebuilding:pads/hot_head",
-      "parent": "simplebuilding:pads/under_pressure",
+      "parent": "simplebuilding:tweaks/root",
       "icon": "simplebuilding:blaze_head",
       "frame": "task",
       "hidden": false,
@@ -50873,6 +55870,32 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/pads/hot_head.json"
     },
     {
+      "id": "simplebuilding:pads/infusion",
+      "parent": "simplebuilding:pads/bottoms_up",
+      "icon": "simplebuilding:infused_potion_pad",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Infusion",
+        "de_de": "Durchtränkt"
+      },
+      "description": {
+        "en_us": "Smith a Potion Pad up to the Infused Potion Pad",
+        "de_de": "Schmiede ein Trank-Pad bis zum Durchtränkten Trank-Pad"
+      },
+      "criteria": [
+        {
+          "name": "infused_potion_pad",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:infused_potion_pad"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/pads/infusion.json"
+    },
+    {
       "id": "simplebuilding:pads/liftoff",
       "parent": "simplebuilding:pads/under_pressure",
       "icon": "simplebuilding:launchpad",
@@ -50884,7 +55907,7 @@ window.WIKI_DATA = {
       },
       "description": {
         "en_us": "Smith a Launchpad from a heavy pressure plate and a Diamond Pressure Plate, then step on it",
-        "de_de": "Schmiede eine Startrampe aus einer schweren Druckplatte und einer Diamant-Druckplatte und tritt dann drauf"
+        "de_de": "Schmiede eine Startrampe aus einer schweren Wägeplatte und einer Diamant-Druckplatte und tritt dann drauf"
       },
       "criteria": [
         {
@@ -50897,8 +55920,34 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/pads/liftoff.json"
     },
     {
+      "id": "simplebuilding:pads/stellar",
+      "parent": "simplebuilding:pads/fly_me_to_the_moon",
+      "icon": "simplebuilding:stellar_flypad",
+      "frame": "challenge",
+      "hidden": false,
+      "title": {
+        "en_us": "Stellar",
+        "de_de": "Stellar"
+      },
+      "description": {
+        "en_us": "Smith a Flypad up to the Stellar Flypad, its last tier",
+        "de_de": "Schmiede ein Flugpad bis zum Stellaren Flugpad, seiner letzten Stufe"
+      },
+      "criteria": [
+        {
+          "name": "stellar_flypad",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:stellar_flypad"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/pads/stellar.json"
+    },
+    {
       "id": "simplebuilding:pads/under_pressure",
-      "parent": "simplebuilding:root",
+      "parent": "simplebuilding:tweaks/root",
       "icon": "simplebuilding:diamond_pressure_plate",
       "frame": "task",
       "hidden": false,
@@ -51001,6 +56050,33 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/storage/bundle_of_joy.json"
     },
     {
+      "id": "simplebuilding:storage/deeper_pockets",
+      "parent": "simplebuilding:storage/bundle_of_joy",
+      "icon": "simplebuilding:netherite_bundle",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Deeper Pockets",
+        "de_de": "Tiefere Taschen"
+      },
+      "description": {
+        "en_us": "Smith a Reinforced Bundle into a Netherite Bundle",
+        "de_de": "Schmiede ein Verstärktes Bündel zum Netheritbündel"
+      },
+      "criteria": [
+        {
+          "name": "netherite_bundle",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:netherite_bundle",
+            "simplebuilding:enderite_bundle"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/storage/deeper_pockets.json"
+    },
+    {
       "id": "simplebuilding:storage/heavy_luggage",
       "parent": "simplebuilding:storage/pack_mule",
       "icon": "simplebuilding:netherite_backpack",
@@ -51086,6 +56162,33 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/storage/quiver_in_fear.json"
     },
     {
+      "id": "simplebuilding:storage/sharpshooter",
+      "parent": "simplebuilding:storage/quiver_in_fear",
+      "icon": "simplebuilding:netherite_quiver",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Sharpshooter",
+        "de_de": "Scharfschütze"
+      },
+      "description": {
+        "en_us": "Reinforce a Quiver with Diamond Pebbles, then smith it into Netherite",
+        "de_de": "Verstärke einen Köcher mit Diamantkieseln und schmiede ihn dann zu Netherit"
+      },
+      "criteria": [
+        {
+          "name": "netherite_quiver",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:netherite_quiver",
+            "simplebuilding:enderite_quiver"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/storage/sharpshooter.json"
+    },
+    {
       "id": "simplebuilding:storage/sheet_happens",
       "parent": "simplebuilding:root",
       "icon": "simplebuilding:leather_sheet",
@@ -51144,8 +56247,148 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/story/hammer_time.json"
     },
     {
-      "id": "simplebuilding:tiers/step_by_step",
+      "id": "simplebuilding:tiers/copper_crafter",
       "parent": "simplebuilding:root",
+      "icon": "simplebuilding:copper_chisel",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Copper Crafter",
+        "de_de": "Kupferschmied"
+      },
+      "description": {
+        "en_us": "Craft a copper Chisel or Sledgehammer, or trade a Copper Core for a copper Building Wand",
+        "de_de": "Bau einen Kupfermeißel oder Kupfer-Vorschlaghammer oder ertausch einen Kupferkern für einen Kupfer-Baustab"
+      },
+      "criteria": [
+        {
+          "name": "copper_tool",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:copper_chisel",
+            "simplebuilding:copper_sledgehammer",
+            "simplebuilding:copper_building_wand"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/tiers/copper_crafter.json"
+    },
+    {
+      "id": "simplebuilding:tiers/diamond_standard",
+      "parent": "simplebuilding:tiers/ironclad",
+      "icon": "simplebuilding:diamond_sledgehammer",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Diamond Standard",
+        "de_de": "Diamantstandard"
+      },
+      "description": {
+        "en_us": "Get a diamond Chisel, Sledgehammer or Building Wand",
+        "de_de": "Besorg dir einen Diamantmeißel, Diamant-Vorschlaghammer oder Diamant-Baustab"
+      },
+      "criteria": [
+        {
+          "name": "diamond_tool",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:diamond_chisel",
+            "simplebuilding:diamond_sledgehammer",
+            "simplebuilding:diamond_building_wand"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/tiers/diamond_standard.json"
+    },
+    {
+      "id": "simplebuilding:tiers/golden_touch",
+      "parent": "simplebuilding:tiers/step_by_step",
+      "icon": "simplebuilding:gold_sledgehammer",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Golden Touch",
+        "de_de": "Goldenes Händchen"
+      },
+      "description": {
+        "en_us": "Gold tools are fast and enchant well: get a gold Chisel, Sledgehammer or Building Wand",
+        "de_de": "Goldwerkzeuge sind schnell und lassen sich gut verzaubern: besorg dir einen Goldmeißel, Gold-Vorschlaghammer oder Gold-Baustab"
+      },
+      "criteria": [
+        {
+          "name": "gold_tool",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:gold_chisel",
+            "simplebuilding:gold_sledgehammer",
+            "simplebuilding:gold_building_wand"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/tiers/golden_touch.json"
+    },
+    {
+      "id": "simplebuilding:tiers/ironclad",
+      "parent": "simplebuilding:tiers/copper_crafter",
+      "icon": "simplebuilding:iron_sledgehammer",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Ironclad",
+        "de_de": "Eisern"
+      },
+      "description": {
+        "en_us": "Get an iron Chisel, Sledgehammer or Building Wand - craft it, or upgrade the copper one with a Basic Upgrade Template",
+        "de_de": "Besorg dir einen Eisenmeißel, Eisen-Vorschlaghammer oder Eisen-Baustab - selbst gebaut oder mit einer Basis-Schmiedevorlage aufgewertet"
+      },
+      "criteria": [
+        {
+          "name": "iron_tool",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:iron_chisel",
+            "simplebuilding:iron_sledgehammer",
+            "simplebuilding:iron_building_wand"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/tiers/ironclad.json"
+    },
+    {
+      "id": "simplebuilding:tiers/nether_forged",
+      "parent": "simplebuilding:tiers/diamond_standard",
+      "icon": "simplebuilding:netherite_chisel",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Nether-Forged",
+        "de_de": "In der Hölle geschmiedet"
+      },
+      "description": {
+        "en_us": "Smith a diamond Chisel, Sledgehammer or Building Wand into Netherite",
+        "de_de": "Schmiede einen Diamantmeißel, Diamant-Vorschlaghammer oder Diamant-Baustab zu Netherit"
+      },
+      "criteria": [
+        {
+          "name": "netherite_tool",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:netherite_chisel",
+            "simplebuilding:netherite_sledgehammer",
+            "simplebuilding:netherite_building_wand"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/tiers/nether_forged.json"
+    },
+    {
+      "id": "simplebuilding:tiers/step_by_step",
+      "parent": "simplebuilding:tiers/copper_crafter",
       "icon": "simplebuilding:basic_upgrade_template",
       "frame": "task",
       "hidden": false,
@@ -51170,8 +56413,95 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/tiers/step_by_step.json"
     },
     {
+      "id": "simplebuilding:tweaks/crown_jewel",
+      "parent": "simplebuilding:tweaks/forbidden_fruit",
+      "icon": "simplebuilding:enchanted_netherite_apple",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Crown Jewel",
+        "de_de": "Kronjuwel"
+      },
+      "description": {
+        "en_us": "Find an Enchanted Netherite Apple in a bastion treasure room, an ancient city or an ominous vault",
+        "de_de": "Finde einen Verzauberten Netheritapfel im Bastion-Schatzraum, in einer antiken Stadt oder einem unheilvollen Tresor"
+      },
+      "criteria": [
+        {
+          "name": "enchanted_netherite_apple",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enchanted_netherite_apple"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/tweaks/crown_jewel.json"
+    },
+    {
+      "id": "simplebuilding:tweaks/forbidden_fruit",
+      "parent": "simplebuilding:tweaks/root",
+      "icon": "simplebuilding:netherite_apple",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Forbidden Fruit",
+        "de_de": "Verbotene Frucht"
+      },
+      "description": {
+        "en_us": "An apple or a carrot ringed with Netherite Nuggets is a meal that fights back",
+        "de_de": "Ein Apfel oder eine Karotte, umringt von Netheritklumpen, ist eine Mahlzeit mit Biss"
+      },
+      "criteria": [
+        {
+          "name": "netherite_food",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:netherite_apple",
+            "simplebuilding:netherite_carrot"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/tweaks/forbidden_fruit.json"
+    },
+    {
+      "id": "simplebuilding:tweaks/root",
+      "parent": null,
+      "icon": "simplebuilding:netherite_launchpad",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Gadgets & Tweaks",
+        "de_de": "Gadgets & Kniffe"
+      },
+      "description": {
+        "en_us": "Magnets, detectors, lenses and pads that launch, lend wings or carry you home",
+        "de_de": "Magnete, Detektoren, Linsen und Pads, die dich hochschleudern, dir Flügel leihen oder nach Hause bringen"
+      },
+      "criteria": [
+        {
+          "name": "gadget",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:copper_pressure_plate",
+            "simplebuilding:diamond_pressure_plate",
+            "simplebuilding:magnet",
+            "simplebuilding:ore_detector",
+            "simplebuilding:velocity-gauge",
+            "simplebuilding:laser_pointer",
+            "simplebuilding:netherite_apple",
+            "simplebuilding:netherite_carrot",
+            "simplebuilding:blaze_head"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/tweaks/root.json"
+    },
+    {
       "id": "simplebuilding:wand/core_values",
-      "parent": "simplebuilding:root",
+      "parent": "simplebuilding:building/root",
       "icon": "simplebuilding:copper_core",
       "frame": "task",
       "hidden": false,
@@ -51252,6 +56582,2181 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/wand/wand_erful.json"
     }
   ],
+  "quests": [
+    {
+      "id": "stage_1",
+      "stage": 1,
+      "icon": "simplebuilding:stone_chisel",
+      "title": {
+        "en_us": "Stage 1: First Steps",
+        "de_de": "Stufe 1: Erste Schritte"
+      },
+      "subtitle": {
+        "en_us": "Vanilla basics and your first SimpleBuilding tools. Finish this chapter to unlock Stage 2.",
+        "de_de": "Vanilla-Grundlagen und deine ersten SimpleBuilding-Werkzeuge. Schließ dieses Kapitel ab, um Stufe 2 freizuschalten."
+      },
+      "quests": [
+        {
+          "key": "welcome",
+          "task": {
+            "type": "item",
+            "id": "minecraft:crafting_table"
+          },
+          "title": {
+            "en_us": "Welcome to SimpleBuilding",
+            "de_de": "Willkommen bei SimpleBuilding"
+          },
+          "description": {
+            "en_us": "This book leads you through SimpleBuilding in four stages; each one unlocks when the previous one is done, the side chapters open along the way. Items you already carry or find by luck count too.",
+            "de_de": "Dieses Buch führt dich in vier Stufen durch SimpleBuilding; jede wird frei, sobald die vorige geschafft ist, die Nebenkapitel öffnen sich unterwegs. Gegenstände, die du schon trägst oder zufällig findest, zählen auch."
+          },
+          "dependencies": []
+        },
+        {
+          "key": "guide_book",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:guide_book"
+          },
+          "title": {
+            "en_us": "A Book for Beginners",
+            "de_de": "Ein Buch für Einsteiger"
+          },
+          "description": {
+            "en_us": "A book and a crafting table make the Beginner's Guide. Crafted with a matching item it becomes one of seven topic guides.",
+            "de_de": "Ein Buch und eine Werkbank ergeben das Einsteiger-Handbuch. Mit dem passenden Gegenstand wird daraus eines von sieben Themen-Handbüchern."
+          },
+          "dependencies": [
+            "stage_1.welcome"
+          ],
+          "optional": true
+        },
+        {
+          "key": "stone_age",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:story/mine_stone"
+          },
+          "title": {
+            "en_us": "Mine Stone"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_1.welcome"
+          ]
+        },
+        {
+          "key": "stone_chisel",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:stone_chisel"
+          },
+          "title": {
+            "en_us": "Stone Chisel",
+            "de_de": "Steinmeißel"
+          },
+          "description": {
+            "en_us": "Cobblestone, a copper nugget and a stick make a Stone Chisel.",
+            "de_de": "Bruchstein, ein Kupferklumpen und ein Stock ergeben einen Steinmeißel."
+          },
+          "dependencies": [
+            "stage_1.stone_age"
+          ]
+        },
+        {
+          "key": "chisel",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:chisel/chip_off_the_old_block"
+          },
+          "title": {
+            "en_us": "Chip Off the Old Block",
+            "de_de": "Feinschliff"
+          },
+          "description": {
+            "en_us": "Right-click a block with a chisel to turn it into the next block of its chain; sneak to go back",
+            "de_de": "Klick mit einem Meißel auf einen Block, um ihn in den nächsten seiner Reihe zu verwandeln; schleichend geht es zurück"
+          },
+          "dependencies": [
+            "stage_1.stone_chisel"
+          ]
+        },
+        {
+          "key": "iron",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:story/smelt_iron"
+          },
+          "title": {
+            "en_us": "Smelt Iron"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_1.stone_age"
+          ]
+        },
+        {
+          "key": "stone_sledgehammer",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:stone_sledgehammer"
+          },
+          "title": {
+            "en_us": "Stone Sledgehammer",
+            "de_de": "Stein-Vorschlaghammer"
+          },
+          "description": {
+            "en_us": "Cobblestone, an iron ingot and sticks make a Stone Sledgehammer: it mines 3x3 at once.",
+            "de_de": "Bruchstein, ein Eisenbarren und Stöcke ergeben einen Stein-Vorschlaghammer: er baut 3×3 auf einmal ab."
+          },
+          "dependencies": [
+            "stage_1.iron"
+          ]
+        },
+        {
+          "key": "reshape",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:hammer/stair_master"
+          },
+          "title": {
+            "en_us": "Stair Master",
+            "de_de": "Treppenmeister"
+          },
+          "description": {
+            "en_us": "Hold right-click with a sledgehammer on a full block: it turns into stairs, then into a slab",
+            "de_de": "Halte mit dem Vorschlaghammer Rechtsklick auf einem vollen Block: er wird zur Treppe, dann zur Stufe"
+          },
+          "dependencies": [
+            "stage_1.stone_sledgehammer"
+          ]
+        },
+        {
+          "key": "leather_sheet",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:leather_sheet"
+          },
+          "title": {
+            "en_us": "Leather Sheet",
+            "de_de": "Lederplatte"
+          },
+          "description": {
+            "en_us": "Nine leather make a Leather Sheet - backpacks, bundles and quivers are cut from it.",
+            "de_de": "Neun Leder ergeben eine Lederplatte - daraus werden Rucksäcke, Bündel und Köcher geschnitten."
+          },
+          "dependencies": [
+            "stage_1.welcome"
+          ]
+        },
+        {
+          "key": "backpack",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:storage/pack_mule"
+          },
+          "title": {
+            "en_us": "Pack Mule",
+            "de_de": "Packesel"
+          },
+          "description": {
+            "en_us": "Craft a Backpack: wear it in the chest slot and open it with B, or set it down as a block",
+            "de_de": "Bau einen Rucksack: trag ihn im Brustplatz und öffne ihn mit B, oder stell ihn als Block ab"
+          },
+          "dependencies": [
+            "stage_1.leather_sheet",
+            "stage_1.iron"
+          ]
+        },
+        {
+          "key": "copper_tool",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:tiers/copper_crafter"
+          },
+          "title": {
+            "en_us": "Copper Crafter",
+            "de_de": "Kupferschmied"
+          },
+          "description": {
+            "en_us": "Craft a copper Chisel or Sledgehammer, or trade a Copper Core for a copper Building Wand",
+            "de_de": "Bau einen Kupfermeißel oder Kupfer-Vorschlaghammer oder ertausch einen Kupferkern für einen Kupfer-Baustab"
+          },
+          "dependencies": [
+            "stage_1.stone_chisel"
+          ]
+        },
+        {
+          "key": "trade",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:adventure/trade"
+          },
+          "title": {
+            "en_us": "Trade"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_1.welcome"
+          ],
+          "hint": {
+            "en_us": "Masons (from level 2) and wandering traders sell Copper Cores.",
+            "de_de": "Maurer (ab Stufe 2) und fahrende Händler verkaufen Kupferkerne."
+          }
+        },
+        {
+          "key": "copper_core",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:copper_core"
+          },
+          "title": {
+            "en_us": "A Core of Copper",
+            "de_de": "Ein Kern aus Kupfer"
+          },
+          "description": {
+            "en_us": "Buy a Copper Core from a mason or a wandering trader. Every building wand is built around a core.",
+            "de_de": "Kauf einem Maurer oder fahrenden Händler einen Kupferkern ab. Jeder Baustab ist um einen Kern gebaut."
+          },
+          "dependencies": [
+            "stage_1.trade"
+          ]
+        },
+        {
+          "key": "copper_wand",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:copper_building_wand"
+          },
+          "title": {
+            "en_us": "Copper Building Wand",
+            "de_de": "Kupfer-Baustab"
+          },
+          "description": {
+            "en_us": "A Copper Core on two sticks is a Copper Building Wand.",
+            "de_de": "Ein Kupferkern auf zwei Stöcken ist ein Kupfer-Baustab."
+          },
+          "dependencies": [
+            "stage_1.copper_core"
+          ]
+        },
+        {
+          "key": "wand",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:wand/one_click_wonder"
+          },
+          "title": {
+            "en_us": "One-Click Wonder",
+            "de_de": "Ein Klick, ein Wunder"
+          },
+          "description": {
+            "en_us": "Click a block face with a Building Wand: it fills a whole square with blocks from your inventory",
+            "de_de": "Klick mit dem Baustab auf eine Blockseite: er füllt eine ganze Fläche mit Blöcken aus deinem Inventar"
+          },
+          "dependencies": [
+            "stage_1.copper_wand"
+          ]
+        },
+        {
+          "key": "done",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:story/iron_tools"
+          },
+          "title": {
+            "en_us": "Stage 1 Complete",
+            "de_de": "Stufe 1 geschafft"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_1.welcome",
+            "stage_1.stone_age",
+            "stage_1.stone_chisel",
+            "stage_1.chisel",
+            "stage_1.iron",
+            "stage_1.stone_sledgehammer",
+            "stage_1.reshape",
+            "stage_1.leather_sheet",
+            "stage_1.backpack",
+            "stage_1.copper_tool",
+            "stage_1.trade",
+            "stage_1.copper_core",
+            "stage_1.copper_wand",
+            "stage_1.wand"
+          ],
+          "hint": {
+            "en_us": "Finish every quest of this chapter and craft an iron pickaxe to unlock Stage 2.",
+            "de_de": "Schließ jede Quest dieses Kapitels ab und bau eine Eisenspitzhacke, um Stufe 2 freizuschalten."
+          },
+          "capstone": true
+        }
+      ]
+    },
+    {
+      "id": "stage_2",
+      "stage": 2,
+      "icon": "simplebuilding:iron_sledgehammer",
+      "title": {
+        "en_us": "Stage 2: Iron & Diamonds",
+        "de_de": "Stufe 2: Eisen & Diamanten"
+      },
+      "subtitle": {
+        "en_us": "Better tiers, diamond pebbles and the first reinforced machines. Finish this chapter to unlock Stage 3.",
+        "de_de": "Bessere Stufen, Diamantkiesel und die ersten verstärkten Maschinen. Schließ dieses Kapitel ab, um Stufe 3 freizuschalten."
+      },
+      "quests": [
+        {
+          "key": "ironclad",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:tiers/ironclad"
+          },
+          "title": {
+            "en_us": "Ironclad",
+            "de_de": "Eisern"
+          },
+          "description": {
+            "en_us": "Get an iron Chisel, Sledgehammer or Building Wand - craft it, or upgrade the copper one with a Basic Upgrade Template",
+            "de_de": "Besorg dir einen Eisenmeißel, Eisen-Vorschlaghammer oder Eisen-Baustab - selbst gebaut oder mit einer Basis-Schmiedevorlage aufgewertet"
+          },
+          "dependencies": [
+            "stage_1.done"
+          ]
+        },
+        {
+          "key": "template",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:tiers/step_by_step"
+          },
+          "title": {
+            "en_us": "Step by Step",
+            "de_de": "Schritt für Schritt"
+          },
+          "description": {
+            "en_us": "Find a Basic Upgrade Smithing Template in a chest: at a smithing table it lifts a tool one tier - wood, stone, iron, gold, diamond",
+            "de_de": "Finde eine Basis-Schmiedevorlage in einer Truhe: am Schmiedetisch hebt sie ein Werkzeug um eine Stufe - Holz, Stein, Eisen, Gold, Diamant"
+          },
+          "dependencies": [
+            "stage_1.done"
+          ],
+          "optional": true
+        },
+        {
+          "key": "golden",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:tiers/golden_touch"
+          },
+          "title": {
+            "en_us": "Golden Touch",
+            "de_de": "Goldenes Händchen"
+          },
+          "description": {
+            "en_us": "Gold tools are fast and enchant well: get a gold Chisel, Sledgehammer or Building Wand",
+            "de_de": "Goldwerkzeuge sind schnell und lassen sich gut verzaubern: besorg dir einen Goldmeißel, Gold-Vorschlaghammer oder Gold-Baustab"
+          },
+          "dependencies": [
+            "stage_2.ironclad"
+          ],
+          "optional": true
+        },
+        {
+          "key": "diamonds",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:story/mine_diamond"
+          },
+          "title": {
+            "en_us": "Mine Diamond"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_2.ironclad"
+          ]
+        },
+        {
+          "key": "diamond_block",
+          "task": {
+            "type": "item",
+            "id": "minecraft:diamond_block"
+          },
+          "title": {
+            "en_us": "A Block to Break",
+            "de_de": "Ein Block zum Zerschlagen"
+          },
+          "description": {
+            "en_us": "Nine diamonds make a Block of Diamond - a sledgehammer crushes it into Diamond Pebbles.",
+            "de_de": "Neun Diamanten ergeben einen Diamantblock - ein Vorschlaghammer zerschlägt ihn zu Diamantkieseln."
+          },
+          "dependencies": [
+            "stage_2.diamonds"
+          ]
+        },
+        {
+          "key": "pebbles",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:hammer/pebble_dash"
+          },
+          "title": {
+            "en_us": "Pebble Dash",
+            "de_de": "Kieselsturm"
+          },
+          "description": {
+            "en_us": "Hold right-click with a sledgehammer on a Block of Diamond to crush it into Diamond Pebbles",
+            "de_de": "Halte mit dem Vorschlaghammer Rechtsklick auf einem Diamantblock, um ihn zu Diamantkieseln zu zerschlagen"
+          },
+          "dependencies": [
+            "stage_2.diamond_block"
+          ]
+        },
+        {
+          "key": "cracked",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:hammer/cracked_up"
+          },
+          "title": {
+            "en_us": "Cracked Up",
+            "de_de": "Einen Riss in der Schüssel"
+          },
+          "description": {
+            "en_us": "Nine Diamond Pebbles make a Cracked Diamond - reinforced machines are built from them",
+            "de_de": "Neun Diamantkiesel ergeben einen Rissigen Diamanten - daraus werden verstärkte Maschinen gebaut"
+          },
+          "dependencies": [
+            "stage_2.pebbles"
+          ]
+        },
+        {
+          "key": "reinforced",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:machines/reinforcements"
+          },
+          "title": {
+            "en_us": "Reinforcements Have Arrived",
+            "de_de": "Die Verstärkung ist da"
+          },
+          "description": {
+            "en_us": "Craft a reinforced furnace, smoker, blast furnace, hopper or piston with Cracked Diamonds",
+            "de_de": "Bau mit Rissigen Diamanten einen verstärkten Ofen, Räucherofen, Schmelzofen, Trichter oder Kolben"
+          },
+          "dependencies": [
+            "stage_2.cracked"
+          ]
+        },
+        {
+          "key": "diamond_tool",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:tiers/diamond_standard"
+          },
+          "title": {
+            "en_us": "Diamond Standard",
+            "de_de": "Diamantstandard"
+          },
+          "description": {
+            "en_us": "Get a diamond Chisel, Sledgehammer or Building Wand",
+            "de_de": "Besorg dir einen Diamantmeißel, Diamant-Vorschlaghammer oder Diamant-Baustab"
+          },
+          "dependencies": [
+            "stage_2.diamonds"
+          ]
+        },
+        {
+          "key": "enchanter",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:story/enchant_item"
+          },
+          "title": {
+            "en_us": "Enchant Item"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_2.diamonds"
+          ],
+          "hint": {
+            "en_us": "SimpleBuilding adds its own enchantments for chisels, hammers, wands and storage - look for them in chests and villager trades.",
+            "de_de": "SimpleBuilding bringt eigene Verzauberungen für Meißel, Hämmer, Baustäbe und Lager mit - such sie in Truhen und beim Handel."
+          }
+        },
+        {
+          "key": "done",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:story/enter_the_nether"
+          },
+          "title": {
+            "en_us": "Stage 2 Complete",
+            "de_de": "Stufe 2 geschafft"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_2.ironclad",
+            "stage_2.diamonds",
+            "stage_2.diamond_block",
+            "stage_2.pebbles",
+            "stage_2.cracked",
+            "stage_2.reinforced",
+            "stage_2.diamond_tool",
+            "stage_2.enchanter"
+          ],
+          "hint": {
+            "en_us": "Finish every quest of this chapter and step through a Nether portal to unlock Stage 3.",
+            "de_de": "Schließ jede Quest dieses Kapitels ab und geh durch ein Netherportal, um Stufe 3 freizuschalten."
+          },
+          "capstone": true
+        }
+      ]
+    },
+    {
+      "id": "stage_3",
+      "stage": 3,
+      "icon": "simplebuilding:netherite_sledgehammer",
+      "title": {
+        "en_us": "Stage 3: The Nether",
+        "de_de": "Stufe 3: Der Nether"
+      },
+      "subtitle": {
+        "en_us": "Netherite tools, machines hammered in place and the first pads. Finish this chapter to unlock Stage 4.",
+        "de_de": "Netherit-Werkzeuge, vor Ort gehämmerte Maschinen und die ersten Pads. Schließ dieses Kapitel ab, um Stufe 4 freizuschalten."
+      },
+      "quests": [
+        {
+          "key": "fortress",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:nether/find_fortress"
+          },
+          "title": {
+            "en_us": "Find Fortress"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_2.done"
+          ]
+        },
+        {
+          "key": "bastion",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:nether/find_bastion"
+          },
+          "title": {
+            "en_us": "Find Bastion"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_2.done"
+          ]
+        },
+        {
+          "key": "nugget",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:nether/nugget_of_wisdom"
+          },
+          "title": {
+            "en_us": "Nugget of Wisdom",
+            "de_de": "Ein Klümpchen Weisheit"
+          },
+          "description": {
+            "en_us": "Find a Netherite Nugget in a bastion or fortress, or split an ingot. In the off hand it lets a sledgehammer upgrade machines",
+            "de_de": "Finde einen Netheritklumpen in einer Bastion oder Netherfestung oder teile einen Barren. In der Nebenhand wertet er mit dem Vorschlaghammer Maschinen auf"
+          },
+          "dependencies": [
+            "stage_2.done"
+          ]
+        },
+        {
+          "key": "debris",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:nether/obtain_ancient_debris"
+          },
+          "title": {
+            "en_us": "Obtain Ancient Debris"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_2.done"
+          ]
+        },
+        {
+          "key": "netherite",
+          "task": {
+            "type": "item",
+            "id": "minecraft:netherite_ingot"
+          },
+          "title": {
+            "en_us": "Netherite",
+            "de_de": "Netherit"
+          },
+          "description": {
+            "en_us": "Four netherite scrap and four gold ingots make a Netherite Ingot.",
+            "de_de": "Vier Netheritplatten und vier Goldbarren ergeben einen Netheritbarren."
+          },
+          "dependencies": [
+            "stage_3.debris"
+          ]
+        },
+        {
+          "key": "netherite_template",
+          "task": {
+            "type": "item",
+            "id": "minecraft:netherite_upgrade_smithing_template"
+          },
+          "title": {
+            "en_us": "Netherite Upgrade",
+            "de_de": "Netherit-Aufwertung"
+          },
+          "description": {
+            "en_us": "Bastion treasure rooms always hold a Netherite Upgrade Smithing Template; diamonds and netherrack copy it. Every netherite tier of SimpleBuilding is smithed with it.",
+            "de_de": "Der Schatzraum einer Bastion enthält immer eine Netherit-Schmiedevorlage; Diamanten und Netherrack vervielfältigen sie. Jede Netherit-Stufe von SimpleBuilding wird damit geschmiedet."
+          },
+          "dependencies": [
+            "stage_3.bastion"
+          ]
+        },
+        {
+          "key": "heavy_metal",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:hammer/heavy_metal"
+          },
+          "title": {
+            "en_us": "Heavy Metal",
+            "de_de": "Schwermetall"
+          },
+          "description": {
+            "en_us": "Smith a Diamond Sledgehammer into Netherite: strong enough to hammer machines all the way to Enderite",
+            "de_de": "Schmiede einen Diamant-Vorschlaghammer zu Netherit: stark genug, um Maschinen bis zu Enderit aufzuwerten"
+          },
+          "dependencies": [
+            "stage_3.netherite",
+            "stage_3.netherite_template"
+          ]
+        },
+        {
+          "key": "nether_forged",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:tiers/nether_forged"
+          },
+          "title": {
+            "en_us": "Nether-Forged",
+            "de_de": "In der Hölle geschmiedet"
+          },
+          "description": {
+            "en_us": "Smith a diamond Chisel, Sledgehammer or Building Wand into Netherite",
+            "de_de": "Schmiede einen Diamantmeißel, Diamant-Vorschlaghammer oder Diamant-Baustab zu Netherit"
+          },
+          "dependencies": [
+            "stage_3.netherite",
+            "stage_3.netherite_template"
+          ],
+          "optional": true
+        },
+        {
+          "key": "forged_in_place",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:machines/forged_in_place"
+          },
+          "title": {
+            "en_us": "Forged in Place",
+            "de_de": "Vor Ort geschmiedet"
+          },
+          "description": {
+            "en_us": "Diamond Sledgehammer in hand, Netherite Nugget in the off hand: hold right-click on a placed reinforced machine until the fifth blow",
+            "de_de": "Diamant-Vorschlaghammer in der Hand, Netheritklumpen in der Nebenhand: halte Rechtsklick auf einer verstärkten Maschine bis zum fünften Schlag"
+          },
+          "dependencies": [
+            "stage_3.nugget"
+          ]
+        },
+        {
+          "key": "diamond_plate",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/under_pressure"
+          },
+          "title": {
+            "en_us": "Under Pressure",
+            "de_de": "Unter Druck"
+          },
+          "description": {
+            "en_us": "Craft a Diamond Pressure Plate: smithed onto other plates it makes Launchpads, Chunk Loaders and more",
+            "de_de": "Bau eine Diamant-Druckplatte: auf andere Platten geschmiedet ergibt sie Startrampen, Chunk-Lader und mehr"
+          },
+          "dependencies": [
+            "stage_2.done"
+          ]
+        },
+        {
+          "key": "launchpad",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/liftoff"
+          },
+          "title": {
+            "en_us": "Liftoff!",
+            "de_de": "Abheben!"
+          },
+          "description": {
+            "en_us": "Smith a Launchpad from a heavy pressure plate and a Diamond Pressure Plate, then step on it",
+            "de_de": "Schmiede eine Startrampe aus einer schweren Wägeplatte und einer Diamant-Druckplatte und tritt dann drauf"
+          },
+          "dependencies": [
+            "stage_3.diamond_plate"
+          ]
+        },
+        {
+          "key": "netherite_plate",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:netherite_pressure_plate"
+          },
+          "title": {
+            "en_us": "Netherite Pressure Plate",
+            "de_de": "Netherit-Druckplatte"
+          },
+          "description": {
+            "en_us": "Smith a Diamond Pressure Plate into Netherite: the base of the Potion Pad and of every netherite pad tier.",
+            "de_de": "Schmiede eine Diamant-Druckplatte zu Netherit: die Basis des Trank-Pads und jeder Netherit-Pad-Stufe."
+          },
+          "dependencies": [
+            "stage_3.diamond_plate",
+            "stage_3.netherite",
+            "stage_3.netherite_template"
+          ]
+        },
+        {
+          "key": "blaze_rod",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:nether/obtain_blaze_rod"
+          },
+          "title": {
+            "en_us": "Obtain Blaze Rod"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_3.fortress"
+          ]
+        },
+        {
+          "key": "blaze_head",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/hot_head"
+          },
+          "title": {
+            "en_us": "Hot Head",
+            "de_de": "Hitzkopf"
+          },
+          "description": {
+            "en_us": "Let a charged creeper blow up a Blaze: it drops a Blaze Head",
+            "de_de": "Lass eine Lohe von einem geladenen Creeper sprengen: sie lässt einen Lohenkopf fallen"
+          },
+          "dependencies": [
+            "stage_3.fortress"
+          ]
+        },
+        {
+          "key": "potion_pad",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/bottoms_up"
+          },
+          "title": {
+            "en_us": "Bottoms Up",
+            "de_de": "Zum Wohl"
+          },
+          "description": {
+            "en_us": "A Blaze Head and a Netherite Pressure Plate make a Potion Pad: splash a potion on it, then step on it",
+            "de_de": "Lohenkopf und Netherit-Druckplatte ergeben ein Trank-Pad: wirf einen Wurftrank darauf und tritt dann drauf"
+          },
+          "dependencies": [
+            "stage_3.blaze_head",
+            "stage_3.netherite_plate"
+          ]
+        },
+        {
+          "key": "done",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:story/follow_ender_eye"
+          },
+          "title": {
+            "en_us": "Stage 3 Complete",
+            "de_de": "Stufe 3 geschafft"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_3.fortress",
+            "stage_3.bastion",
+            "stage_3.nugget",
+            "stage_3.debris",
+            "stage_3.netherite",
+            "stage_3.netherite_template",
+            "stage_3.heavy_metal",
+            "stage_3.forged_in_place",
+            "stage_3.diamond_plate",
+            "stage_3.launchpad",
+            "stage_3.netherite_plate",
+            "stage_3.blaze_rod",
+            "stage_3.blaze_head",
+            "stage_3.potion_pad"
+          ],
+          "hint": {
+            "en_us": "Finish every quest of this chapter and follow an Eye of Ender to a stronghold to unlock Stage 4.",
+            "de_de": "Schließ jede Quest dieses Kapitels ab und folge einem Enderauge zu einer Festung, um Stufe 4 freizuschalten."
+          },
+          "capstone": true
+        }
+      ]
+    },
+    {
+      "id": "stage_4",
+      "stage": 4,
+      "icon": "simplebuilding:enderite_ingot",
+      "title": {
+        "en_us": "Stage 4: The End and Beyond",
+        "de_de": "Stufe 4: Das Ende und darüber hinaus"
+      },
+      "subtitle": {
+        "en_us": "New minerals, enderite and the strongest tier of every tool.",
+        "de_de": "Neue Minerale, Enderit und die stärkste Stufe jedes Werkzeugs."
+      },
+      "quests": [
+        {
+          "key": "enter_end",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:story/enter_the_end"
+          },
+          "title": {
+            "en_us": "Enter The End"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_3.done"
+          ]
+        },
+        {
+          "key": "dragon",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:end/kill_dragon"
+          },
+          "title": {
+            "en_us": "Kill Dragon"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_4.enter_end"
+          ]
+        },
+        {
+          "key": "end_city",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:end/find_end_city"
+          },
+          "title": {
+            "en_us": "Find End City"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_4.dragon"
+          ]
+        },
+        {
+          "key": "stardust",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:end/stardust"
+          },
+          "title": {
+            "en_us": "Stardust",
+            "de_de": "Sternenstaub"
+          },
+          "description": {
+            "en_us": "Astralit Ore glitters on top of the End islands, Nihilit Ore hides beneath them: bring a diamond pickaxe",
+            "de_de": "Astraliterz glitzert oben auf den End-Inseln, Nihiliterz versteckt sich darunter: nimm eine Diamantspitzhacke mit"
+          },
+          "dependencies": [
+            "stage_4.enter_end"
+          ]
+        },
+        {
+          "key": "ender_quartz",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:end/quartz_fusion"
+          },
+          "title": {
+            "en_us": "Quartz Fusion",
+            "de_de": "Quarzfusion"
+          },
+          "description": {
+            "en_us": "Mix Astralit Dust, a Nihilit Shard and Quartz into Ender Quartz - Blueprints need it",
+            "de_de": "Misch Astralitstaub, einen Nihilitsplitter und Quarz zu Enderquarz - Blaupausen brauchen ihn"
+          },
+          "dependencies": [
+            "stage_4.stardust"
+          ]
+        },
+        {
+          "key": "raw_enderite",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/raw_deal"
+          },
+          "title": {
+            "en_us": "Raw Deal",
+            "de_de": "Rohkost"
+          },
+          "description": {
+            "en_us": "Four Nihilit Shards, four Astralit Dust and an Ender Pearl make Raw Enderite - End cities hide some too",
+            "de_de": "Vier Nihilitsplitter, vier Astralitstaub und eine Enderperle ergeben Rohenderit - Endsiedlungen verstecken auch welches"
+          },
+          "dependencies": [
+            "stage_4.stardust"
+          ]
+        },
+        {
+          "key": "scrap",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/patience_is_a_virtue"
+          },
+          "title": {
+            "en_us": "Patience Is a Virtue",
+            "de_de": "Geduld ist eine Tugend"
+          },
+          "description": {
+            "en_us": "Blast Raw Enderite into Enderite Scrap: a whole hour in a vanilla blast furnace - faster furnaces help",
+            "de_de": "Schmelz Rohenderit zu Enderitplatten: eine ganze Stunde im Vanilla-Schmelzofen - schnellere Öfen helfen"
+          },
+          "dependencies": [
+            "stage_4.raw_enderite"
+          ]
+        },
+        {
+          "key": "ingot",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/beyond_netherite"
+          },
+          "title": {
+            "en_us": "Beyond Netherite",
+            "de_de": "Jenseits von Netherit"
+          },
+          "description": {
+            "en_us": "Four Enderite Scrap, four diamonds and a Netherite Ingot forge an Enderite Ingot",
+            "de_de": "Vier Enderitplatten, vier Diamanten und ein Netheritbarren ergeben einen Enderitbarren"
+          },
+          "dependencies": [
+            "stage_4.scrap"
+          ]
+        },
+        {
+          "key": "template",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/template_of_the_end"
+          },
+          "title": {
+            "en_us": "Template of the End",
+            "de_de": "Vorlage vom Ende"
+          },
+          "description": {
+            "en_us": "Find an Enderite Upgrade Smithing Template in an End city; diamonds and end stone copy it",
+            "de_de": "Finde eine Enderit-Schmiedevorlage in einer Endsiedlung; Diamanten und Endstein vervielfältigen sie"
+          },
+          "dependencies": [
+            "stage_4.end_city"
+          ]
+        },
+        {
+          "key": "armor",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/cover_me_in_enderite"
+          },
+          "title": {
+            "en_us": "Cover Me in Enderite",
+            "de_de": "Hüll mich in Enderit"
+          },
+          "description": {
+            "en_us": "Smith a piece of netherite armor with an Enderite Upgrade Smithing Template and an Enderite Ingot",
+            "de_de": "Schmiede ein Netherit-Rüstungsteil mit einer Enderit-Schmiedevorlage und einem Enderitbarren"
+          },
+          "dependencies": [
+            "stage_4.ingot",
+            "stage_4.template"
+          ]
+        },
+        {
+          "key": "tool",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/cutting_edge"
+          },
+          "title": {
+            "en_us": "Cutting Edge",
+            "de_de": "Auf Messers Schneide"
+          },
+          "description": {
+            "en_us": "Smith a netherite tool or weapon into Enderite",
+            "de_de": "Schmiede ein Netherit-Werkzeug oder eine Netherit-Waffe zu Enderit"
+          },
+          "dependencies": [
+            "stage_4.ingot",
+            "stage_4.template"
+          ]
+        },
+        {
+          "key": "hammer",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/hammer_of_the_end"
+          },
+          "title": {
+            "en_us": "Hammer of the End",
+            "de_de": "Der Hammer vom Ende"
+          },
+          "description": {
+            "en_us": "Smith the Netherite Sledgehammer into Enderite: the strongest hammer there is",
+            "de_de": "Schmiede den Netherit-Vorschlaghammer zu Enderit: den stärksten Hammer, den es gibt"
+          },
+          "dependencies": [
+            "stage_4.ingot",
+            "stage_4.template"
+          ]
+        },
+        {
+          "key": "machine",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:machines/end_of_the_line"
+          },
+          "title": {
+            "en_us": "End of the Line",
+            "de_de": "Endstation"
+          },
+          "description": {
+            "en_us": "Hammer a netherite machine into Enderite: a Netherite Sledgehammer and an Enderite Nugget do the trick",
+            "de_de": "Hämmere eine Netherit-Maschine zu Enderit: Netherit-Vorschlaghammer und Enderitklumpen machen es möglich"
+          },
+          "dependencies": [
+            "stage_4.ingot"
+          ]
+        },
+        {
+          "key": "wither",
+          "task": {
+            "type": "advancement",
+            "id": "minecraft:nether/summon_wither"
+          },
+          "title": {
+            "en_us": "Summon Wither"
+          },
+          "description": {
+            "en_us": ""
+          },
+          "dependencies": [
+            "stage_3.done"
+          ],
+          "hint": {
+            "en_us": "Iron, gold and diamond cores are crafted around a Nether Star, and the netherite and enderite cores are smithed from the diamond one.",
+            "de_de": "Eisen-, Gold- und Diamantkerne entstehen um einen Netherstern, und aus dem Diamantkern werden Netherit- und Enderitkern geschmiedet."
+          },
+          "optional": true
+        },
+        {
+          "key": "core",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/heart_of_the_end"
+          },
+          "title": {
+            "en_us": "Heart of the End",
+            "de_de": "Herz des Endes"
+          },
+          "description": {
+            "en_us": "Smith a Netherite Core into an Enderite Core - Flypads and the Echo Sounder want one",
+            "de_de": "Schmiede einen Netheritkern zum Enderitkern - Flugpads und Echolot brauchen einen"
+          },
+          "dependencies": [
+            "stage_4.template",
+            "stage_4.wither"
+          ],
+          "optional": true
+        },
+        {
+          "key": "echo",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/echolocation"
+          },
+          "title": {
+            "en_us": "Echolocation",
+            "de_de": "Echoortung"
+          },
+          "description": {
+            "en_us": "Link an Echo Sounder to a lodestone, then hold use for three seconds to jump onto it",
+            "de_de": "Verbinde ein Echolot mit einem Leitstein und halte dann drei Sekunden lang Benutzen, um dorthin zu springen"
+          },
+          "dependencies": [
+            "stage_4.core"
+          ],
+          "optional": true
+        },
+        {
+          "key": "done",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/void_walker"
+          },
+          "title": {
+            "en_us": "Void Walker",
+            "de_de": "Leerenwandler"
+          },
+          "description": {
+            "en_us": "Collect a full set of Enderite armor: it never falls into the void and lets you drift down gently",
+            "de_de": "Sammle eine volle Enderit-Rüstung: sie fällt nie in die Leere und lässt dich sanft hinabschweben"
+          },
+          "dependencies": [
+            "stage_4.enter_end",
+            "stage_4.dragon",
+            "stage_4.end_city",
+            "stage_4.stardust",
+            "stage_4.ender_quartz",
+            "stage_4.raw_enderite",
+            "stage_4.scrap",
+            "stage_4.ingot",
+            "stage_4.template",
+            "stage_4.armor",
+            "stage_4.tool",
+            "stage_4.hammer",
+            "stage_4.machine"
+          ],
+          "hint": {
+            "en_us": "The last quest of the SimpleBuilding stages. Congratulations!",
+            "de_de": "Die letzte Quest der SimpleBuilding-Stufen. Glückwunsch!"
+          },
+          "capstone": true
+        }
+      ]
+    },
+    {
+      "id": "building",
+      "stage": null,
+      "icon": "simplebuilding:octant",
+      "title": {
+        "en_us": "Building & Blueprints",
+        "de_de": "Bauen & Blaupausen"
+      },
+      "subtitle": {
+        "en_us": "Side chapter: chisels, wands, octants and blueprints. Opens with your first chisel.",
+        "de_de": "Nebenkapitel: Meißel, Baustäbe, Oktanten und Blaupausen. Öffnet sich mit deinem ersten Meißel."
+      },
+      "quests": [
+        {
+          "key": "toolkit",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:building/root"
+          },
+          "title": {
+            "en_us": "Building & Blueprints",
+            "de_de": "Bauen & Blaupausen"
+          },
+          "description": {
+            "en_us": "Chisels, building wands, octants and blueprints. Get any building tool to open this tab",
+            "de_de": "Meißel, Baustäbe, Oktanten und Blaupausen. Besorg dir ein Bauwerkzeug, um diesen Tab zu öffnen"
+          },
+          "dependencies": [
+            "stage_1.stone_chisel"
+          ]
+        },
+        {
+          "key": "guide",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:guide_book_building"
+          },
+          "title": {
+            "en_us": "Guide: Building",
+            "de_de": "Handbuch: Bauen"
+          },
+          "description": {
+            "en_us": "The Beginner's Guide crafted with a brick is the building guide.",
+            "de_de": "Das Einsteiger-Handbuch mit einem Ziegel ergibt das Bau-Handbuch."
+          },
+          "dependencies": [
+            "building.toolkit",
+            "stage_1.guide_book"
+          ],
+          "optional": true
+        },
+        {
+          "key": "octant",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:octant"
+          },
+          "title": {
+            "en_us": "Octant",
+            "de_de": "Oktant"
+          },
+          "description": {
+            "en_us": "A compass, a lightning rod, a lead and the two weighted pressure plates make an Octant.",
+            "de_de": "Kompass, Blitzableiter, Leine und die beiden Wägeplatten ergeben einen Oktanten."
+          },
+          "dependencies": [
+            "building.toolkit"
+          ]
+        },
+        {
+          "key": "measure",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:octant/measure_twice"
+          },
+          "title": {
+            "en_us": "Measure Twice",
+            "de_de": "Zweimal messen"
+          },
+          "description": {
+            "en_us": "Mark two corners with an Octant (sneak for the second): it shows distance, area and volume",
+            "de_de": "Markiere mit dem Oktanten zwei Ecken (die zweite schleichend): er zeigt Abstand, Fläche und Volumen"
+          },
+          "dependencies": [
+            "building.octant"
+          ]
+        },
+        {
+          "key": "colour",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:octant/colour_coded"
+          },
+          "title": {
+            "en_us": "Colour Coded",
+            "de_de": "Farblich sortiert"
+          },
+          "description": {
+            "en_us": "Craft an Octant with a dye to tell your selections apart; a cauldron washes the colour off again",
+            "de_de": "Bau einen Oktanten mit einem Farbstoff, um deine Auswahlen auseinanderzuhalten; ein Kessel wäscht die Farbe wieder ab"
+          },
+          "dependencies": [
+            "building.octant"
+          ],
+          "optional": true
+        },
+        {
+          "key": "light",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:building/let_there_be_light"
+          },
+          "title": {
+            "en_us": "Let There Be Light",
+            "de_de": "Es werde Licht"
+          },
+          "description": {
+            "en_us": "Glass, a torch and lapis make a Construction Light for dark building sites",
+            "de_de": "Glas, eine Fackel und Lapislazuli ergeben ein Baulicht für dunkle Baustellen"
+          },
+          "dependencies": [
+            "building.toolkit"
+          ]
+        },
+        {
+          "key": "checker",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:building/checkmate"
+          },
+          "title": {
+            "en_us": "Checkmate",
+            "de_de": "Schachmatt"
+          },
+          "description": {
+            "en_us": "Craft a quartz checker block: quartz with purpur, lapis, blackstone, resin or an End mineral",
+            "de_de": "Bau einen Quarz-Schachbrettblock: Quarz mit Purpur, Lapislazuli, Schwarzstein, Harz oder einem End-Mineral"
+          },
+          "dependencies": [
+            "building.toolkit"
+          ]
+        },
+        {
+          "key": "glow",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:hammer/glow_up"
+          },
+          "title": {
+            "en_us": "Glow Up",
+            "de_de": "Glanzleistung"
+          },
+          "description": {
+            "en_us": "Put an armor trim template in an item frame, hold Glow Ink or Glowstone Dust in the off hand and hit the frame with a sledgehammer",
+            "de_de": "Häng eine Rüstungsbesatz-Vorlage in einen Rahmen, nimm Leuchttinte oder Glowstonestaub in die Nebenhand und schlag mit dem Vorschlaghammer auf den Rahmen"
+          },
+          "dependencies": [
+            "building.toolkit",
+            "stage_1.stone_sledgehammer"
+          ]
+        },
+        {
+          "key": "emitting",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:hammer/bright_idea"
+          },
+          "title": {
+            "en_us": "Bright Idea",
+            "de_de": "Geistesblitz"
+          },
+          "description": {
+            "en_us": "Glowstone Dust instead of Glow Ink turns a trim template into an Emitting one",
+            "de_de": "Glowstonestaub statt Leuchttinte macht aus einer Besatz-Vorlage eine Strahlende"
+          },
+          "dependencies": [
+            "building.glow"
+          ],
+          "optional": true
+        },
+        {
+          "key": "fine_detail",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:chisel/fine_detail"
+          },
+          "title": {
+            "en_us": "Fine Detail",
+            "de_de": "Liebe zum Detail"
+          },
+          "description": {
+            "en_us": "Get a Diamond Chisel or better: higher tiers know more chains, and Constructor's Touch teaches even more",
+            "de_de": "Besorg dir einen Diamantmeißel oder besser: höhere Stufen kennen mehr Reihen, die Berührung des Konstrukteurs noch mehr"
+          },
+          "dependencies": [
+            "stage_2.diamond_tool"
+          ]
+        },
+        {
+          "key": "rotator",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:gadgets/spin_doctor"
+          },
+          "title": {
+            "en_us": "Spin Doctor",
+            "de_de": "Dreh- und Angelpunkt"
+          },
+          "description": {
+            "en_us": "Turn a placed block right where it stands with a Rotator",
+            "de_de": "Dreh einen platzierten Block mit dem Rotator an Ort und Stelle"
+          },
+          "dependencies": [
+            "building.toolkit",
+            "stage_1.done"
+          ],
+          "hint": {
+            "en_us": "The Rotator needs an Iron Core - woodland mansions hide them.",
+            "de_de": "Der Rotator braucht einen Eisenkern - Waldanwesen verstecken welche."
+          },
+          "optional": true
+        },
+        {
+          "key": "wand_erful",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:wand/wand_erful"
+          },
+          "title": {
+            "en_us": "Wand-erful",
+            "de_de": "Stab-il"
+          },
+          "description": {
+            "en_us": "Upgrade the wand with ever better Cores until it is Netherite - the better the core, the wider it builds",
+            "de_de": "Werte den Baustab mit immer besseren Kernen auf, bis er aus Netherit ist - je besser der Kern, desto breiter baut er"
+          },
+          "dependencies": [
+            "stage_3.done"
+          ],
+          "optional": true
+        },
+        {
+          "key": "palette",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:end/palette_cleanser"
+          },
+          "title": {
+            "en_us": "Palette Cleanser",
+            "de_de": "Farbenlehre"
+          },
+          "description": {
+            "en_us": "Craft End bricks: Astralit, Nihilit and Ender Quartz each make a whole building palette",
+            "de_de": "Bau End-Ziegel: Astralit, Nihilit und Enderquarz ergeben je eine ganze Baupalette"
+          },
+          "dependencies": [
+            "stage_4.stardust"
+          ]
+        },
+        {
+          "key": "astral",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:end/astral_projection"
+          },
+          "title": {
+            "en_us": "Astral Projection",
+            "de_de": "Astralreise"
+          },
+          "description": {
+            "en_us": "Ring Astralit Dust or a Nihilith Shard with purpur or polished end stone",
+            "de_de": "Umring Astralitstaub oder einen Nihilithsplitter mit Purpur oder Poliertem Endstein"
+          },
+          "dependencies": [
+            "stage_4.stardust"
+          ],
+          "optional": true
+        },
+        {
+          "key": "gravity",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:end/defying_gravity"
+          },
+          "title": {
+            "en_us": "Defying Gravity",
+            "de_de": "Schwerelos"
+          },
+          "description": {
+            "en_us": "A Nihilit Shard keeps sand or gravel hanging in the air, Astralit Dust makes it rise",
+            "de_de": "Ein Nihilitsplitter lässt Sand oder Kies in der Luft hängen, Astralitstaub lässt ihn aufsteigen"
+          },
+          "dependencies": [
+            "stage_4.stardust"
+          ]
+        },
+        {
+          "key": "blueprint",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:blueprint"
+          },
+          "title": {
+            "en_us": "Blueprint",
+            "de_de": "Blaupause"
+          },
+          "description": {
+            "en_us": "Paper, an ink sac and Ender Quartz make a blank Blueprint.",
+            "de_de": "Papier, ein Tintenbeutel und Enderquarz ergeben eine leere Blaupause."
+          },
+          "dependencies": [
+            "building.measure",
+            "stage_4.ender_quartz"
+          ]
+        },
+        {
+          "key": "scan",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:blueprint/copy_that"
+          },
+          "title": {
+            "en_us": "Copy That",
+            "de_de": "Verstanden, gespeichert"
+          },
+          "description": {
+            "en_us": "Octant with a selection on top, blank Blueprint below: a cartography table scans the building into it",
+            "de_de": "Oktant mit Auswahl oben, leere Blaupause unten: der Kartentisch scannt das Bauwerk hinein"
+          },
+          "dependencies": [
+            "building.blueprint"
+          ]
+        },
+        {
+          "key": "copy",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:blueprint/carbon_copy"
+          },
+          "title": {
+            "en_us": "Carbon Copy",
+            "de_de": "Durchschlag"
+          },
+          "description": {
+            "en_us": "Sign a Blueprint, then put it above a blank one in a cartography table to copy it",
+            "de_de": "Signiere eine Blaupause und leg sie im Kartentisch über eine leere, um sie zu kopieren"
+          },
+          "dependencies": [
+            "building.scan"
+          ]
+        },
+        {
+          "key": "architect",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:blueprint/instant_architect"
+          },
+          "title": {
+            "en_us": "Instant Architect",
+            "de_de": "Architekt im Handumdrehen"
+          },
+          "description": {
+            "en_us": "Building Wand in hand, signed Blueprint in the off hand: click the ground and watch the building rise",
+            "de_de": "Baustab in der Hand, signierte Blaupause in der Nebenhand: klick auf den Boden und sieh zu, wie das Bauwerk wächst"
+          },
+          "dependencies": [
+            "building.scan"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "storage",
+      "stage": null,
+      "icon": "simplebuilding:backpack",
+      "title": {
+        "en_us": "Storage",
+        "de_de": "Lagerung"
+      },
+      "subtitle": {
+        "en_us": "Side chapter: backpacks, bundles and quivers, from leather to enderite. Opens with your first backpack.",
+        "de_de": "Nebenkapitel: Rucksäcke, Bündel und Köcher, von Leder bis Enderit. Öffnet sich mit deinem ersten Rucksack."
+      },
+      "quests": [
+        {
+          "key": "bundle",
+          "task": {
+            "type": "item",
+            "id": "minecraft:bundle"
+          },
+          "title": {
+            "en_us": "Bundle Up",
+            "de_de": "Gut verschnürt"
+          },
+          "description": {
+            "en_us": "Leather and string make a bundle - the base of the Quiver and the Reinforced Bundle.",
+            "de_de": "Leder und Faden ergeben ein Bündel - die Basis von Köcher und Verstärktem Bündel."
+          },
+          "dependencies": [
+            "stage_1.backpack"
+          ]
+        },
+        {
+          "key": "guide",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:guide_book_storage"
+          },
+          "title": {
+            "en_us": "Guide: Storage",
+            "de_de": "Handbuch: Lagerung"
+          },
+          "description": {
+            "en_us": "Everything about backpacks, bundles and quivers in one topic guide.",
+            "de_de": "Alles über Rucksäcke, Bündel und Köcher in einem Themen-Handbuch."
+          },
+          "dependencies": [
+            "stage_1.backpack",
+            "stage_1.guide_book"
+          ],
+          "optional": true
+        },
+        {
+          "key": "quiver",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:storage/quiver_in_fear"
+          },
+          "title": {
+            "en_us": "Quiver in Fear",
+            "de_de": "Köcherfieber"
+          },
+          "description": {
+            "en_us": "A Quiver holds only arrows and feeds your bow from the off hand, chest slot or hotbar",
+            "de_de": "Ein Köcher fasst nur Pfeile und versorgt deinen Bogen aus Nebenhand, Brustplatz oder Schnellleiste"
+          },
+          "dependencies": [
+            "storage.bundle"
+          ]
+        },
+        {
+          "key": "reinforced_bundle",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:storage/bundle_of_joy"
+          },
+          "title": {
+            "en_us": "Bundle of Joy",
+            "de_de": "Freudenbündel"
+          },
+          "description": {
+            "en_us": "Diamond Pebbles and a Leather Sheet make a bundle hold half as much again",
+            "de_de": "Mit Diamantkieseln und einer Lederplatte fasst ein Bündel die Hälfte mehr"
+          },
+          "dependencies": [
+            "storage.bundle",
+            "stage_2.pebbles"
+          ]
+        },
+        {
+          "key": "reinforced_backpack",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:reinforced_backpack"
+          },
+          "title": {
+            "en_us": "Reinforced Backpack",
+            "de_de": "Verstärkter Rucksack"
+          },
+          "description": {
+            "en_us": "Diamond Pebbles, a Leather Sheet and string reinforce a backpack: more room for your things.",
+            "de_de": "Diamantkiesel, eine Lederplatte und Faden verstärken einen Rucksack: mehr Platz für deine Sachen."
+          },
+          "dependencies": [
+            "stage_2.pebbles"
+          ]
+        },
+        {
+          "key": "reinforced_quiver",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:reinforced_quiver"
+          },
+          "title": {
+            "en_us": "Reinforced Quiver",
+            "de_de": "Verstärkter Köcher"
+          },
+          "description": {
+            "en_us": "Diamond Pebbles and a Leather Sheet reinforce a quiver, just like a bundle.",
+            "de_de": "Diamantkiesel und eine Lederplatte verstärken einen Köcher, genau wie ein Bündel."
+          },
+          "dependencies": [
+            "storage.quiver",
+            "stage_2.pebbles"
+          ]
+        },
+        {
+          "key": "netherite_backpack",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:storage/heavy_luggage"
+          },
+          "title": {
+            "en_us": "Heavy Luggage",
+            "de_de": "Schweres Gepäck"
+          },
+          "description": {
+            "en_us": "Reinforce a backpack with Diamond Pebbles, then smith it into Netherite",
+            "de_de": "Verstärke einen Rucksack mit Diamantkieseln und schmiede ihn dann zu Netherit"
+          },
+          "dependencies": [
+            "storage.reinforced_backpack",
+            "stage_3.netherite_template"
+          ]
+        },
+        {
+          "key": "netherite_bundle",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:storage/deeper_pockets"
+          },
+          "title": {
+            "en_us": "Deeper Pockets",
+            "de_de": "Tiefere Taschen"
+          },
+          "description": {
+            "en_us": "Smith a Reinforced Bundle into a Netherite Bundle",
+            "de_de": "Schmiede ein Verstärktes Bündel zum Netheritbündel"
+          },
+          "dependencies": [
+            "storage.reinforced_bundle",
+            "stage_3.netherite_template"
+          ]
+        },
+        {
+          "key": "netherite_quiver",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:storage/sharpshooter"
+          },
+          "title": {
+            "en_us": "Sharpshooter",
+            "de_de": "Scharfschütze"
+          },
+          "description": {
+            "en_us": "Reinforce a Quiver with Diamond Pebbles, then smith it into Netherite",
+            "de_de": "Verstärke einen Köcher mit Diamantkieseln und schmiede ihn dann zu Netherit"
+          },
+          "dependencies": [
+            "storage.reinforced_quiver",
+            "stage_3.netherite_template"
+          ]
+        },
+        {
+          "key": "enderite",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/endless_pockets"
+          },
+          "title": {
+            "en_us": "Endless Pockets",
+            "de_de": "Taschen ohne Boden"
+          },
+          "description": {
+            "en_us": "Smith a netherite bundle, quiver or backpack into Enderite",
+            "de_de": "Schmiede ein Netheritbündel, einen Netheritköcher oder einen Netherit-Rucksack zu Enderit"
+          },
+          "dependencies": [
+            "stage_4.template"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gadgets",
+      "stage": null,
+      "icon": "simplebuilding:magnet",
+      "title": {
+        "en_us": "Gadgets & Tweaks",
+        "de_de": "Gadgets & Kniffe"
+      },
+      "subtitle": {
+        "en_us": "Side chapter: gadgets, pressure plates and pads. Opens right at the start.",
+        "de_de": "Nebenkapitel: Gadgets, Druckplatten und Pads. Öffnet sich gleich zu Beginn."
+      },
+      "quests": [
+        {
+          "key": "intro",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:tweaks/root"
+          },
+          "title": {
+            "en_us": "Gadgets & Tweaks",
+            "de_de": "Gadgets & Kniffe"
+          },
+          "description": {
+            "en_us": "Magnets, detectors, lenses and pads that launch, lend wings or carry you home",
+            "de_de": "Magnete, Detektoren, Linsen und Pads, die dich hochschleudern, dir Flügel leihen oder nach Hause bringen"
+          },
+          "dependencies": [
+            "stage_1.welcome"
+          ]
+        },
+        {
+          "key": "guide",
+          "task": {
+            "type": "item",
+            "id": "simplebuilding:guide_book_tweaks"
+          },
+          "title": {
+            "en_us": "Guide: Pads & Gadgets",
+            "de_de": "Handbuch: Pads & Geräte"
+          },
+          "description": {
+            "en_us": "Every pad and gadget explained in one topic guide.",
+            "de_de": "Jedes Pad und jedes Gerät in einem Themen-Handbuch erklärt."
+          },
+          "dependencies": [
+            "gadgets.intro",
+            "stage_1.guide_book"
+          ],
+          "optional": true
+        },
+        {
+          "key": "copper_plate",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/copper_plated"
+          },
+          "title": {
+            "en_us": "Copper Plated",
+            "de_de": "Verkupfert"
+          },
+          "description": {
+            "en_us": "A copper block makes Copper Pressure Plates: they press only after you stood on them a moment - the longer, the more they have weathered",
+            "de_de": "Ein Kupferblock ergibt Kupfer-Druckplatten: sie lösen erst aus, wenn du einen Moment darauf stehst - je verwitterter, desto länger"
+          },
+          "dependencies": [
+            "gadgets.intro"
+          ]
+        },
+        {
+          "key": "velocity",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:gadgets/speed_reader"
+          },
+          "title": {
+            "en_us": "Speed Reader",
+            "de_de": "Tempomacher"
+          },
+          "description": {
+            "en_us": "A Copper Core, a compass, quartz and amethyst make a Velocity Gauge: see how fast you really are",
+            "de_de": "Kupferkern, Kompass, Quarz und Amethyst ergeben einen Geschwindigkeitsmesser: sieh, wie schnell du wirklich bist"
+          },
+          "dependencies": [
+            "gadgets.intro",
+            "stage_1.copper_core"
+          ]
+        },
+        {
+          "key": "magnet",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:gadgets/attractive_personality"
+          },
+          "title": {
+            "en_us": "Attractive Personality",
+            "de_de": "Anziehende Persönlichkeit"
+          },
+          "description": {
+            "en_us": "An Iron Core, iron, redstone and lapis make a Magnet: hold it and loose items fly to you",
+            "de_de": "Eisenkern, Eisen, Redstone und Lapislazuli ergeben einen Magneten: halte ihn, und lose Gegenstände fliegen zu dir"
+          },
+          "dependencies": [
+            "gadgets.intro"
+          ],
+          "optional": true
+        },
+        {
+          "key": "laser",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:gadgets/burning_focus"
+          },
+          "title": {
+            "en_us": "Burning Focus",
+            "de_de": "Brennpunkt"
+          },
+          "description": {
+            "en_us": "Hold the Amethyst Lens on ice, a candle, a campfire or a wet sponge until it gives in",
+            "de_de": "Halte die Amethystlinse auf Eis, eine Kerze, ein Lagerfeuer oder einen nassen Schwamm, bis er nachgibt"
+          },
+          "dependencies": [
+            "gadgets.intro"
+          ],
+          "optional": true
+        },
+        {
+          "key": "detector",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:gadgets/ping"
+          },
+          "title": {
+            "en_us": "Ping!",
+            "de_de": "Ping!"
+          },
+          "description": {
+            "en_us": "Hold an Ore Detector: its needle and a chime point you to the nearest ore",
+            "de_de": "Halte einen Erzdetektor: Nadel und Klang weisen dir den Weg zum nächsten Erz"
+          },
+          "dependencies": [
+            "gadgets.intro"
+          ],
+          "hint": {
+            "en_us": "The Ore Detector needs a Gold Core - bastions and fortresses hide them.",
+            "de_de": "Der Erzdetektor braucht einen Goldkern - Bastionen und Festungen verstecken welche."
+          },
+          "optional": true
+        },
+        {
+          "key": "netherite_food",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:tweaks/forbidden_fruit"
+          },
+          "title": {
+            "en_us": "Forbidden Fruit",
+            "de_de": "Verbotene Frucht"
+          },
+          "description": {
+            "en_us": "An apple or a carrot ringed with Netherite Nuggets is a meal that fights back",
+            "de_de": "Ein Apfel oder eine Karotte, umringt von Netheritklumpen, ist eine Mahlzeit mit Biss"
+          },
+          "dependencies": [
+            "stage_3.nugget"
+          ]
+        },
+        {
+          "key": "crown_jewel",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:tweaks/crown_jewel"
+          },
+          "title": {
+            "en_us": "Crown Jewel",
+            "de_de": "Kronjuwel"
+          },
+          "description": {
+            "en_us": "Find an Enchanted Netherite Apple in a bastion treasure room, an ancient city or an ominous vault",
+            "de_de": "Finde einen Verzauberten Netheritapfel im Bastion-Schatzraum, in einer antiken Stadt oder einem unheilvollen Tresor"
+          },
+          "dependencies": [
+            "gadgets.netherite_food"
+          ],
+          "optional": true
+        },
+        {
+          "key": "chunk_loader",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/always_loaded"
+          },
+          "title": {
+            "en_us": "Always Loaded",
+            "de_de": "Immer geladen"
+          },
+          "description": {
+            "en_us": "Smith a Chunk Loader: it keeps its chunks ticking while you are away",
+            "de_de": "Schmiede einen Chunk-Lader: er hält seine Chunks am Laufen, während du weg bist"
+          },
+          "dependencies": [
+            "gadgets.copper_plate",
+            "stage_3.diamond_plate",
+            "stage_3.netherite_template"
+          ]
+        },
+        {
+          "key": "spawn",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/home_sweet_spawn"
+          },
+          "title": {
+            "en_us": "Home Sweet Spawn",
+            "de_de": "Trautes Heim"
+          },
+          "description": {
+            "en_us": "Stand still on a Spawn Teleporter for five seconds",
+            "de_de": "Steh fünf Sekunden still auf einem Spawn-Teleporter"
+          },
+          "dependencies": [
+            "stage_3.diamond_plate"
+          ]
+        },
+        {
+          "key": "traveller",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/frequent_traveller"
+          },
+          "title": {
+            "en_us": "Frequent Traveller",
+            "de_de": "Vielreisender"
+          },
+          "description": {
+            "en_us": "Smith a Spawn Teleporter up to tier IV or V - tier V carries you to your own respawn point",
+            "de_de": "Schmiede einen Spawn-Teleporter bis Stufe IV oder V - Stufe V bringt dich zu deinem eigenen Wiedereinstiegspunkt"
+          },
+          "dependencies": [
+            "gadgets.spawn"
+          ],
+          "optional": true
+        },
+        {
+          "key": "higher_ground",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/higher_ground"
+          },
+          "title": {
+            "en_us": "Higher Ground",
+            "de_de": "Höher hinaus"
+          },
+          "description": {
+            "en_us": "Smith a Launchpad into Netherite: it holds twice as many wind charges",
+            "de_de": "Schmiede eine Startrampe zu Netherit: sie fasst doppelt so viele Windkugeln"
+          },
+          "dependencies": [
+            "stage_3.launchpad",
+            "stage_3.netherite_plate"
+          ]
+        },
+        {
+          "key": "elytra_pad",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/wings_on_loan"
+          },
+          "title": {
+            "en_us": "Wings on Loan",
+            "de_de": "Flügel auf Pump"
+          },
+          "description": {
+            "en_us": "Stand on an Elytra Pad with an empty chest slot: it lends you a pair of wings",
+            "de_de": "Stell dich mit leerem Brustplatz auf ein Elytra-Pad: es leiht dir ein Paar Flügel"
+          },
+          "dependencies": [
+            "stage_3.launchpad",
+            "stage_4.end_city"
+          ]
+        },
+        {
+          "key": "fine_feathers",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/fine_feathers"
+          },
+          "title": {
+            "en_us": "Fine Feathers",
+            "de_de": "Feine Federn"
+          },
+          "description": {
+            "en_us": "A Nether Star and a netherite template turn an Enderite Elytra Pad into the Fine Elytra Pad",
+            "de_de": "Ein Netherstern und eine Netherit-Schmiedevorlage machen aus einem Enderit-Elytra-Pad das Feine Elytra-Pad"
+          },
+          "dependencies": [
+            "gadgets.elytra_pad"
+          ],
+          "optional": true
+        },
+        {
+          "key": "flypad",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/fly_me_to_the_moon"
+          },
+          "title": {
+            "en_us": "Fly Me to the Moon",
+            "de_de": "Fly Me to the Moon"
+          },
+          "description": {
+            "en_us": "Stand above a Flypad - an Enderite Core smithed onto an Enderite Pressure Plate - and fly like in creative",
+            "de_de": "Stell dich über ein Flugpad - ein Enderitkern auf einer Enderit-Druckplatte - und flieg wie im Kreativmodus"
+          },
+          "dependencies": [
+            "stage_4.core"
+          ],
+          "optional": true
+        },
+        {
+          "key": "stellar",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/stellar"
+          },
+          "title": {
+            "en_us": "Stellar",
+            "de_de": "Stellar"
+          },
+          "description": {
+            "en_us": "Smith a Flypad up to the Stellar Flypad, its last tier",
+            "de_de": "Schmiede ein Flugpad bis zum Stellaren Flugpad, seiner letzten Stufe"
+          },
+          "dependencies": [
+            "gadgets.flypad"
+          ],
+          "optional": true
+        },
+        {
+          "key": "infusion",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:pads/infusion"
+          },
+          "title": {
+            "en_us": "Infusion",
+            "de_de": "Durchtränkt"
+          },
+          "description": {
+            "en_us": "Smith a Potion Pad up to the Infused Potion Pad",
+            "de_de": "Schmiede ein Trank-Pad bis zum Durchtränkten Trank-Pad"
+          },
+          "dependencies": [
+            "stage_3.potion_pad",
+            "stage_4.core"
+          ],
+          "optional": true
+        },
+        {
+          "key": "enderite_food",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/void_feast"
+          },
+          "title": {
+            "en_us": "Void Feast",
+            "de_de": "Festmahl der Leere"
+          },
+          "description": {
+            "en_us": "An apple or a carrot ringed with Enderite Nuggets - stronger than its netherite cousin",
+            "de_de": "Ein Apfel oder eine Karotte, umringt von Enderitklumpen - stärker als der Netherit-Vetter"
+          },
+          "dependencies": [
+            "stage_4.ingot"
+          ]
+        },
+        {
+          "key": "last_bite",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:enderite/the_last_bite"
+          },
+          "title": {
+            "en_us": "The Last Bite",
+            "de_de": "Der letzte Bissen"
+          },
+          "description": {
+            "en_us": "Find an Enchanted Enderite Apple in an End city chest",
+            "de_de": "Finde einen Verzauberten Enderitapfel in einer Truhe einer Endsiedlung"
+          },
+          "dependencies": [
+            "gadgets.enderite_food"
+          ],
+          "optional": true
+        }
+      ]
+    }
+  ],
   "vanillaRecipes": {
     "lines": [
       "1.21.11",
@@ -51269,9 +58774,9 @@ window.WIKI_DATA = {
     "trades": 21,
     "enchantments": 19,
     "tags": 27,
-    "config": 25,
+    "config": 84,
     "inWorld": 389,
-    "advancements": 55,
+    "advancements": 84,
     "features": 35,
     "undocumented": 0,
     "incompleteProse": 0

@@ -81,14 +81,19 @@ public final class PistonBreachGameTest {
         PistonBreachTests.modPistonsAskThePlatformGuardBeforeEveryBreak(helper);
     }
 
-    @GameTest(maxTicks = PistonBreachTests.WEAR_MAX_TICKS)
-    public void netheriteBreakerWearsDownAndCrumblesToReinforcedPiston(GameTestHelper helper) {
-        PistonBreachTests.netheriteBreakerWearsDownAndCrumblesToReinforcedPiston(helper);
+    @GameTest(maxTicks = PistonBreachTests.DURABILITY_MAX_TICKS)
+    public void netheriteBreakerLosesDurabilityAndCrumblesToReinforcedPiston(GameTestHelper helper) {
+        PistonBreachTests.netheriteBreakerLosesDurabilityAndCrumblesToReinforcedPiston(helper);
     }
 
-    @GameTest(maxTicks = PistonBreachTests.ENDERITE_WEAR_MAX_TICKS)
-    public void enderitePistonWearsDownAndCrumblesToNetheriteBreaker(GameTestHelper helper) {
-        PistonBreachTests.enderitePistonWearsDownAndCrumblesToNetheriteBreaker(helper);
+    @GameTest(maxTicks = PistonBreachTests.ENDERITE_DURABILITY_MAX_TICKS)
+    public void enderitePistonLosesDurabilityAndCrumblesToNetheriteBreaker(GameTestHelper helper) {
+        PistonBreachTests.enderitePistonLosesDurabilityAndCrumblesToNetheriteBreaker(helper);
+    }
+
+    @GameTest
+    public void breakerPistonDurabilityTravelsWithTheItemAsItsDurabilityBar(GameTestHelper helper) {
+        PistonBreachTests.breakerPistonDurabilityTravelsWithTheItemAsItsDurabilityBar(helper);
     }
 
     @GameTest(maxTicks = PistonBreachTests.LOADER_EVENTS_MAX_TICKS)

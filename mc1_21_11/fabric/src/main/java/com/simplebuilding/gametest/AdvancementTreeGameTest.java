@@ -34,4 +34,14 @@ public final class AdvancementTreeGameTest {
     public void everyRecipeUnlockHandsOutAnExistingRecipe(GameTestHelper helper) {
         AdvancementTreeTests.everyRecipeUnlockHandsOutAnExistingRecipe(helper);
     }
+
+    @GameTest
+    public void theFtbQuestsBookIsCompleteAndFormsStages(GameTestHelper helper) {
+        AdvancementTreeTests.theFtbQuestsBookIsCompleteAndFormsStages(helper);
+    }
+
+    @GameTest
+    public void installingTheQuestBookAddsButNeverOverwrites(GameTestHelper helper) {
+        AdvancementTreeTests.installingTheQuestBookAddsButNeverOverwrites(helper);
+    }
 }

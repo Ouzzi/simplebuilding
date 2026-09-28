@@ -1,0 +1,32 @@
+{
+  "parent": "simplebuilding:enderite/beyond_netherite",
+  "criteria": {
+    "enderite_block": {
+      "conditions": {
+        "items": [
+          {
+            "items": "simplebuilding:enderite_block"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.enderite.block_party.description"
+    },
+    "icon": {
+      "id": "simplebuilding:enderite_block"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.enderite.block_party.title"
+    }
+  },
+  "requirements": [
+    [
+      "enderite_block"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,36 @@
+{
+  "parent": "simplebuilding:pads/liftoff",
+  "criteria": {
+    "better_launchpad": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "simplebuilding:netherite_launchpad",
+              "simplebuilding:enderite_launchpad"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.pads.higher_ground.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "simplebuilding:netherite_launchpad"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.pads.higher_ground.title"
+    }
+  },
+  "requirements": [
+    [
+      "better_launchpad"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

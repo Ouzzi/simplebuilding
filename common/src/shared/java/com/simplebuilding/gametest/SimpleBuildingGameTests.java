@@ -122,6 +122,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_every_trimmable_armour_shows_every_trim_pattern_on_its_icon", DataIntegrityTests::everyTrimmableArmourShowsEveryTrimPatternOnItsIcon)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_every_item_has_an_item_definition_whose_models_and_textures_exist", DataIntegrityTests::everyItemHasAnItemDefinitionWhoseModelsAndTexturesExist)
+                    .build(),
             GameTestSpec.named("data_integrity_game_test_every_vanilla_enchantment_has_its_own_book_model", DataIntegrityTests::everyVanillaEnchantmentHasItsOwnBookModel)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_vanilla_book_texture_follows_the_client_option", DataIntegrityTests::vanillaBookTextureFollowsTheClientOption)
@@ -441,6 +443,20 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("config_option_game_test_trade_switch_conditions_still_name_real_config_fields_on_both_loaders", ConfigOptionTests::tradeSwitchConditionsStillNameRealConfigFieldsOnBothLoaders)
                     .build(),
             GameTestSpec.named("config_option_game_test_every_config_option_keeps_its_persisted_name_and_default", ConfigOptionTests::everyConfigOptionKeepsItsPersistedNameAndDefault)
+                    .build(),
+            GameTestSpec.named("config_option_game_test_every_option_has_name_tooltip_and_tab", ConfigOptionTests::everyOptionHasNameTooltipAndTab)
+                    .build(),
+            GameTestSpec.named("config_option_game_test_the_config_command_reaches_every_option", ConfigOptionTests::theConfigCommandReachesEveryOption)
+                    .build(),
+            GameTestSpec.named("config_option_game_test_new_tool_options_change_what_the_tools_do", ConfigOptionTests::newToolOptionsChangeWhatTheToolsDo)
+                    .build(),
+            GameTestSpec.named("config_option_game_test_new_pad_options_change_what_the_pads_do", ConfigOptionTests::newPadOptionsChangeWhatThePadsDo)
+                    .build(),
+            GameTestSpec.named("config_option_game_test_new_tweak_options_change_what_the_tweaks_do", ConfigOptionTests::newTweakOptionsChangeWhatTheTweaksDo)
+                    .build(),
+            GameTestSpec.named("config_option_game_test_core_loot_chance_follows_its_multiplier", ConfigOptionTests::coreLootChanceFollowsItsMultiplier)
+                    .build(),
+            GameTestSpec.named("config_option_game_test_the_air_jump_cooldown_travels_from_server_to_client", ConfigOptionTests::theAirJumpCooldownTravelsFromServerToClient)
                     .build(),
             GameTestSpec.named("dynamic_light_game_test_the_two_level_counters_keep_their_own_storage_and_caps", DynamicLightTests::theTwoLevelCountersKeepTheirOwnStorageAndCaps)
                     .build(),
@@ -770,11 +786,13 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("piston_breach_game_test_mod_pistons_ask_the_platform_guard_before_every_break", PistonBreachTests::modPistonsAskThePlatformGuardBeforeEveryBreak)
                     .maxTicks(PistonBreachTests.GUARD_MAX_TICKS)
                     .build(),
-            GameTestSpec.named("piston_breach_game_test_netherite_breaker_wears_down_and_crumbles_to_reinforced_piston", PistonBreachTests::netheriteBreakerWearsDownAndCrumblesToReinforcedPiston)
-                    .maxTicks(PistonBreachTests.WEAR_MAX_TICKS)
+            GameTestSpec.named("piston_breach_game_test_netherite_breaker_loses_durability_and_crumbles_to_reinforced_piston", PistonBreachTests::netheriteBreakerLosesDurabilityAndCrumblesToReinforcedPiston)
+                    .maxTicks(PistonBreachTests.DURABILITY_MAX_TICKS)
                     .build(),
-            GameTestSpec.named("piston_breach_game_test_enderite_piston_wears_down_and_crumbles_to_netherite_breaker", PistonBreachTests::enderitePistonWearsDownAndCrumblesToNetheriteBreaker)
-                    .maxTicks(PistonBreachTests.ENDERITE_WEAR_MAX_TICKS)
+            GameTestSpec.named("piston_breach_game_test_enderite_piston_loses_durability_and_crumbles_to_netherite_breaker", PistonBreachTests::enderitePistonLosesDurabilityAndCrumblesToNetheriteBreaker)
+                    .maxTicks(PistonBreachTests.ENDERITE_DURABILITY_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("piston_breach_game_test_breaker_piston_durability_travels_with_the_item_as_its_durability_bar", PistonBreachTests::breakerPistonDurabilityTravelsWithTheItemAsItsDurabilityBar)
                     .build(),
             GameTestSpec.named("piston_breach_game_test_mod_pistons_fire_the_real_loader_events_and_honour_their_config_switch", PistonBreachTests::modPistonsFireTheRealLoaderEventsAndHonourTheirConfigSwitch)
                     .maxTicks(PistonBreachTests.LOADER_EVENTS_MAX_TICKS)
@@ -1071,6 +1089,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("in_world_export_game_test_jei_catalog_covers_every_in_world_entry", InWorldExportTests::jeiCatalogCoversEveryInWorldEntry)
                     .build(),
+            GameTestSpec.named("in_world_export_game_test_mob_drop_catalog_has_every_head_and_the_discs", InWorldExportTests::mobDropCatalogHasEveryHeadAndTheDiscs)
+                    .build(),
+            GameTestSpec.named("in_world_export_game_test_mob_drop_catalog_matches_the_game", InWorldExportTests::mobDropCatalogMatchesTheGame)
+                    .build(),
             GameTestSpec.named("enderite_machine_game_test_enderite_hopper_moves_an_item_every_tick", EnderiteMachineTests::enderiteHopperMovesAnItemEveryTick)
                     .maxTicks(EnderiteMachineTests.HOPPER_MAX_TICKS)
                     .build(),
@@ -1222,6 +1244,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("advancement_tree_game_test_every_recipe_unlock_hands_out_an_existing_recipe", AdvancementTreeTests::everyRecipeUnlockHandsOutAnExistingRecipe)
                     .build(),
+            GameTestSpec.named("advancement_tree_game_test_the_ftb_quests_book_is_complete_and_forms_stages", AdvancementTreeTests::theFtbQuestsBookIsCompleteAndFormsStages)
+                    .build(),
+            GameTestSpec.named("advancement_tree_game_test_installing_the_quest_book_adds_but_never_overwrites", AdvancementTreeTests::installingTheQuestBookAddsButNeverOverwrites)
+                    .build(),
             GameTestSpec.named("potion_pad_game_test_splash_potions_landing_on_the_pad_are_stored_and_replaced", PotionPadTests::splashPotionsLandingOnThePadAreStoredAndReplaced)
                     .build(),
             GameTestSpec.named("potion_pad_game_test_standing_on_the_pad_ramps_the_effect_to_twenty_five_fifty_and_one_hundred_percent_in_three_seconds", PotionPadTests::standingOnThePadRampsTheEffectToTwentyFiveFiftyAndOneHundredPercentInThreeSeconds)
@@ -1264,6 +1290,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("guide_book_game_test_every_guide_page_uses_translation_keys_that_exist_in_english_and_german", GuideBookTests::everyGuidePageUsesTranslationKeysThatExistInEnglishAndGerman)
                     .build(),
             GameTestSpec.named("guide_book_game_test_guide_books_read_like_written_books", GuideBookTests::guideBooksReadLikeWrittenBooks)
+                    .build(),
+            GameTestSpec.named("guide_book_game_test_every_guide_chapter_icon_and_recipe_resolves", GuideBookTests::everyGuideChapterIconAndRecipeResolves)
                     .build(),
             GameTestSpec.named("pressure_plate_game_test_honeycomb_waxes_every_stage_and_waxed_plates_stop_oxidizing", PressurePlateTests::honeycombWaxesEveryStageAndWaxedPlatesStopOxidizing)
                     .build(),
