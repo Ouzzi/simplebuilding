@@ -159,6 +159,14 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
             palette.walls().forEach(block -> builder(BlockItemTags.WALLS.item()).add(key(block.asItem())));
         }
 
+        // Alle acht Vanilla-Kupfertruhen (Oxidationsstufen, gewachst): Zutat der Verstaerkten Truhe.
+        var copperChests = builder(ModTags.Items.COPPER_CHESTS);
+        net.minecraft.core.registries.BuiltInRegistries.ITEM.stream()
+                .filter(item -> item instanceof net.minecraft.world.item.BlockItem blockItem
+                        && blockItem.getBlock() instanceof net.minecraft.world.level.block.CopperChestBlock)
+                .sorted(java.util.Comparator.comparing(item -> net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(item).toString()))
+                .forEach(item -> copperChests.add(key(item)));
+
         // Rucksaecke: eigene Tags fuer Tiefe Taschen, Trichter und Meisterbauer, damit Schublade
         // (bundle_enchantable) und Farbpalette (extra_inventory_items) sie nicht mitbekommen.
         builder(ModTags.Items.BACKPACKS)

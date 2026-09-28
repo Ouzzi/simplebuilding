@@ -6,9 +6,9 @@
     { "type": "simplebuilding:config", "flag": "enableWanderingTrades" }
   ],
   "forge:condition": { "type": "simplebuilding:config", "flag": "enableWanderingTrades" },
-  "wants": { "id": "minecraft:emerald", "count": 46 },
-  "gives": { "id": "simplebuilding:copper_core", "count": 2 },
-  "max_uses": 4,
+  "wants": { "id": "minecraft:emerald", "count": 23 },
+  "gives": { "id": "simplebuilding:copper_core", "count": 1 },
+  "max_uses": 8,
   "xp": 10,
   "reputation_discount": 0.1
 }

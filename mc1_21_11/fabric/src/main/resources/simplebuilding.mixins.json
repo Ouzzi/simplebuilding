@@ -30,6 +30,9 @@
     "SlotMixin",
     "SmithingScreenHandlerMixin",
     "SurvivalTracerMixin",
+    "ChestBlockMixin",
+    "CompoundContainerAccessor",
+    "HopperBlockEntityMixin",
     "ItemCraftRemainderAccessor"
   ],
   "injectors": {

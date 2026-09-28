@@ -11,7 +11,8 @@
               "simplebuilding:reinforced_blast_furnace",
               "simplebuilding:reinforced_hopper",
               "simplebuilding:reinforced_piston",
-              "simplebuilding:reinforced_sticky_piston"
+              "simplebuilding:reinforced_sticky_piston",
+              "simplebuilding:reinforced_chest"
             ]
           }
         ]

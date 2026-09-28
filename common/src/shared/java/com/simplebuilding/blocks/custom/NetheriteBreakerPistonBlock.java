@@ -39,41 +39,69 @@ import org.jetbrains.annotations.Nullable;
  * Der Netheritkolben: bricht beim Ausfahren den Block davor (Haerte bis {@code Signal / 15 * 50}) und
  * durchbricht bezahlt "Unzerstoerbares" ({@link PistonBreach}).
  *
- * <h2>Verschleiss (Audit 2026-09-26 #23, Besitzer-Entscheidung 2026-09-27)</h2>
- * Bis dahin brach der Brecher ewig und bis Haerte 50 (Antiker Schutt, Obsidian, Spawner) - ein
- * billiger Dauer-Tunnelbohrer. Jetzt nutzt er sich ab:
+ * <h2>Haltbarkeit (Besitzer-Entscheidung 2026-09-28, ersetzt den Verschleiss vom 2026-09-27)</h2>
+ * Der Brecher hat eine echte Haltbarkeit wie ein Werkzeug:
  * <ul>
- *   <li>Die Eigenschaft {@link #WEAR} (0 bis {@link #WEAR_STAGES}{@code - 1}) zeigt die Stufe. Sie
- *       bleibt beim Aus- und Einfahren (Vanilla legt beim Einfahren den Standardzustand in den
- *       bewegten Block, {@code PistonBlockMixin#simplebuilding$keepWear} traegt sie hinueber), beim
- *       Verschieben durch andere Kolben und am Item: {@link #getDrops} schreibt sie in die
- *       Block-Zustands-Komponente, und {@code BlockItem} setzt sie beim Platzieren wieder.
- *       Aufheben setzt also nichts zurueck.</li>
- *   <li>Jeder normal gebrochene Block kostet {@link #wearCost} Punkte ({@code max(1, aufgerundete
- *       Haerte)}: Erde 1, Stein 2, Tiefenschiefer 3, Antiker Schutt 30). Eine Stufe sind
- *       {@code netheriteBreakerWearBudget / 8} Punkte (Standard 1024 -> 128); Reste zaehlen als
- *       Wahrscheinlichkeit, im Mittel also genau das Budget. Budget 0 schaltet den Verschleiss ab.</li>
- *   <li>Steigt eine Stufe, raucht der Kolben kurz und knirscht (Amboss); die Seiten zeigen ab Stufe
- *       2, 4 und 6 immer tiefere Risse. Ist die letzte Stufe voll, zerfaellt er mit Bruchklang und
- *       Partikeln zum verstaerkten Kolben (die Netherit-Aufwertung ist weg) und faehrt als solcher
- *       aus.</li>
- *   <li>Reparatur: Rechtsklick mit einem Netheritklumpen setzt den Verschleiss auf 0 und kostet den
- *       Klumpen (ausser im Kreativmodus) - so viel wie die Aufwertung selbst.</li>
- *   <li>Tooltip des Items: {@code Verschleiss n/8}, sobald er nicht 0 ist.</li>
+ *   <li><b>Hoechstwert:</b> ein Neuntel der Spitzhacke seiner Stufe, weil die Aufwertung einen
+ *       Klumpen (1/9 Barren) kostet: Netherit {@code 2031 / 9 = 226}
+ *       ({@link #NETHERITE_MAX_DURABILITY}), Enderit {@code 2530 / 9 = 281}
+ *       ({@code EnderitePistonBlock#ENDERITE_MAX_DURABILITY}).</li>
+ *   <li><b>Kosten:</b> genau 1 je Block, den der Kolben beim Ausfahren zerstoert - wie eine
+ *       Spitzhacke, unabhaengig von der Haerte (vorhersehbar, der Balken ist ehrlich). Aus- und
+ *       Einfahren ohne Brechen, Schieben und Ziehen kosten nichts; bezahlte Durchbrueche verbrauchen
+ *       den Kolben ohnehin.</li>
+ *   <li><b>Im Block:</b> der Schaden steckt in zwei Eigenschaften. {@link #WEAR} (0 bis 7) ist die
+ *       sichtbare Rissstufe = {@code Schaden * 8 / Hoechstwert}, die Modelle haengen nur an ihr;
+ *       {@code wear_step} ({@link #wearStepProperty}) zaehlt den Schaden innerhalb der Stufe. Beide
+ *       ueberleben Aus-/Einfahren ({@code PistonBlockMixin#simplebuilding$keepWear}) und das
+ *       Verschieben durch andere Kolben. Eine Block-Entity kaeme nicht in Frage: Vanilla schiebt
+ *       keine Bloecke mit Block-Entity.</li>
+ *   <li><b>Am Item:</b> {@link #getDrops} gibt einem beschaedigten Kolben {@code max_damage},
+ *       {@code damage} und Stapelgroesse 1 - der normale Haltbarkeitsbalken in Hand und Inventar; ein
+ *       unversehrter bleibt stapelbar und ohne Balken. {@link #getStateForPlacement} liest den Schaden
+ *       beim Setzen zurueck. Aufheben repariert also nichts.</li>
+ *   <li><b>Aufgebraucht:</b> der Kolben zerfaellt eine Stufe tiefer ({@link #wornOutState}):
+ *       Enderit zum Netheritkolben mit voller Netherit-Haltbarkeit (die Netherit-Aufwertung darunter
+ *       ist unversehrt, verbraucht ist nur die Enderit-Schicht), Netherit zum verstaerkten Kolben, und
+ *       faehrt sofort als solcher aus.</li>
+ *   <li><b>Reparatur:</b> Rechtsklick mit dem Klumpen der Stufe ({@link #repairNugget}) stellt die
+ *       volle Haltbarkeit her und kostet den Klumpen (Kreativ: kostenlos) - so viel wie die
+ *       Aufwertung. Weniger waere sinnlos: zerfallen lassen und neu aufwerten gaebe fuer denselben
+ *       Klumpen volle Haltbarkeit.</li>
+ *   <li><b>Alte Welten:</b> ein Kolben mit altem {@code wear=n} laedt mit {@code wear_step=0}, also
+ *       mit Schaden {@link #firstDamageOfStage}{@code (n)} = derselbe Bruchteil n/8. Alte Items mit
+ *       {@code block_state {wear:n}} setzen beim Platzieren dieselbe Stufe; einzeln im Inventar
+ *       stellt {@code NetheritePistonItem#inventoryTick} sie auf den Haltbarkeitsbalken um.</li>
+ *   <li><b>Konfiguration:</b> {@code breakerPistonsLoseDurability} (Standard an) schaltet die
+ *       Abnutzung ab. Die alten Budgets (Haertepunkte) sind entfallen: der Hoechstwert steckt im
+ *       Wertebereich der Blockeigenschaft und muss auf Server und Client gleich sein.</li>
  * </ul>
- * Bezahlte Durchbrueche verbrauchen den Kolben ohnehin und kosten keinen Verschleiss. Der
- * Enderitkolben ({@link EnderitePistonBlock}) nutzt sich genauso ab (Kolben-Balance 2026-09-27),
- * mit eigenem Budget ({@link #configuredWearBudget}), eigenem Reparaturklumpen
- * ({@link #repairNugget}) und dem Netheritkolben als Zerfallsziel ({@link #wornOutState}).
  */
 public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
     public static final MapCodec<NetheriteBreakerPistonBlock> CODEC = BlockCodecs.simple(NetheriteBreakerPistonBlock::new);
 
-    /** Sichtbare Verschleissstufen; bei der achten ist der Brecher verbraucht. */
+    /** Sichtbare Rissstufen; die Modelle zeigen je zwei Stufen dieselbe Textur. */
     public static final int WEAR_STAGES = 8;
 
-    /** Verschleissstufe 0 (neu) bis 7 (kurz vor dem Zerfall). */
+    /** Rissstufe 0 (neu) bis 7 (fast aufgebraucht) = {@code Schaden * 8 / Hoechstwert}. */
     public static final IntegerProperty WEAR = IntegerProperty.create("wear", 0, WEAR_STAGES - 1);
+
+    /** Ein Neuntel einer Werkzeughaltbarkeit, gerundet: die Aufwertung kostet 1 Klumpen = 1/9 Barren. */
+    public static int ninthOf(int toolDurability) {
+        return Math.round(toolDurability / 9.0F);
+    }
+
+    /** Haltbarkeit des Netheritkolbens: ein Neuntel der Netheritspitzhacke (2031 -> 226). */
+    public static final int NETHERITE_MAX_DURABILITY = ninthOf(net.minecraft.world.item.ToolMaterial.NETHERITE.durability());
+
+    /** Die groesste Stufe bei {@code max} Haltbarkeit hat {@code ceil(max / 8)} Schadenspunkte. */
+    public static int stepsPerStage(int maxDurability) {
+        return (maxDurability + WEAR_STAGES - 1) / WEAR_STAGES;
+    }
+
+    /** Schaden innerhalb der Rissstufe beim Netheritkolben (0 bis 28). */
+    public static final IntegerProperty NETHERITE_WEAR_STEP =
+            IntegerProperty.create("wear_step", 0, stepsPerStage(NETHERITE_MAX_DURABILITY) - 1);
 
     public NetheriteBreakerPistonBlock(Properties settings) {
         super(false, settings);
@@ -86,60 +114,92 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
     }
 
     /**
-     * Ob dieser Kolben verschleisst und die Eigenschaft {@link #WEAR} traegt. Wird schon im
-     * Konstruktor von {@code Block} gefragt (Zustandsdefinition), darf also nur eine Konstante
-     * liefern.
+     * Die Eigenschaft, die den Schaden innerhalb der Rissstufe zaehlt. Wird schon im Konstruktor von
+     * {@code Block} gefragt (Zustandsdefinition), darf also nur eine Konstante liefern.
      */
-    protected boolean wears() {
-        return true;
+    protected IntegerProperty wearStepProperty() {
+        return NETHERITE_WEAR_STEP;
+    }
+
+    /** Die volle Haltbarkeit dieser Kolbenstufe; eine Konstante (sie bestimmt den Wertebereich oben). */
+    public int maxDurability() {
+        return NETHERITE_MAX_DURABILITY;
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
-        if (wears()) {
-            builder.add(WEAR);
-        }
+        builder.add(WEAR, wearStepProperty());
     }
 
-    /** Die Verschleissstufe eines Zustands; 0 fuer Kolben ohne Verschleiss. */
+    /** Die Rissstufe eines Zustands; 0 fuer Kolben ohne Haltbarkeit. */
     public static int wearOf(BlockState state) {
         return state.hasProperty(WEAR) ? state.getValue(WEAR) : 0;
     }
 
-    /** Was ein normal gebrochener Block kostet: {@code max(1, aufgerundete Haerte)}. */
-    public static int wearCost(float hardness) {
-        return Math.max(1, Mth.ceil(hardness));
+    /** Die Rissstufe bei {@code damage} von {@code max}: {@code damage * 8 / max}, hoechstens 7. */
+    public static int stageOf(int damage, int maxDurability) {
+        return Mth.clamp(damage * WEAR_STAGES / maxDurability, 0, WEAR_STAGES - 1);
     }
 
-    /** Das Verschleissbudget aus der Konfiguration; 0 = kein Verschleiss. */
-    public static int wearBudget() {
-        SimplebuildingConfig config = Simplebuilding.getConfig();
-        return config == null ? 1024 : Math.max(0, config.netheriteBreakerWearBudget);
+    /** Der kleinste Schaden der Rissstufe {@code stage}: {@code ceil(stage * max / 8)}. */
+    public static int firstDamageOfStage(int stage, int maxDurability) {
+        return (stage * maxDurability + WEAR_STAGES - 1) / WEAR_STAGES;
     }
 
-    /** Budgets einzelner Kolbenstellen, nur fuer Spieltests ({@link #overrideWearBudgetAt}). */
-    private static final java.util.Map<BlockPos, Integer> BUDGET_OVERRIDES = new java.util.concurrent.ConcurrentHashMap<>();
+    /** Die volle Haltbarkeit des Kolbens in diesem Zustand; 0, wenn er keine hat. */
+    public static int maxDurabilityOf(BlockState state) {
+        return state.getBlock() instanceof NetheriteBreakerPistonBlock breaker ? breaker.maxDurability() : 0;
+    }
+
+    /** Der Schaden eines Zustands (0 = neu); 0 fuer Kolben ohne Haltbarkeit. */
+    public static int damageOf(BlockState state) {
+        if (!(state.getBlock() instanceof NetheriteBreakerPistonBlock breaker)) {
+            return 0;
+        }
+        int max = breaker.maxDurability();
+        int stage = state.getValue(WEAR);
+        int nextStage = stage + 1 < WEAR_STAGES ? firstDamageOfStage(stage + 1, max) : max;
+        return Math.min(firstDamageOfStage(stage, max) + state.getValue(breaker.wearStepProperty()), nextStage - 1);
+    }
+
+    /** Die verbleibende Haltbarkeit eines Zustands. */
+    public static int durabilityOf(BlockState state) {
+        return maxDurabilityOf(state) - damageOf(state);
+    }
 
     /**
-     * Spieltests: ein festes Budget fuer den Kolben an {@code pos}, bis das Runnable laeuft. Die
-     * Tests laufen parallel; die Konfiguration umzustellen, wuerde jeden anderen Brecher mittreffen.
+     * Setzt den Schaden (auf 0 bis Hoechstwert - 1 begrenzt); Rissstufe und Schritt folgen daraus.
+     * Zustaende anderer Bloecke kommen unveraendert zurueck.
      */
-    public static Runnable overrideWearBudgetAt(BlockPos pos, int budget) {
+    public static BlockState withDamage(BlockState state, int damage) {
+        if (!(state.getBlock() instanceof NetheriteBreakerPistonBlock breaker)) {
+            return state;
+        }
+        int max = breaker.maxDurability();
+        int clamped = Mth.clamp(damage, 0, max - 1);
+        int stage = stageOf(clamped, max);
+        return state.setValue(WEAR, stage).setValue(breaker.wearStepProperty(), clamped - firstDamageOfStage(stage, max));
+    }
+
+    /** Ob die Brecher Haltbarkeit verlieren ({@code breakerPistonsLoseDurability}). */
+    public static boolean losesDurability() {
+        SimplebuildingConfig config = Simplebuilding.getConfig();
+        return config == null || config.breakerPistonsLoseDurability;
+    }
+
+    /** Kolbenstellen, an denen die Abnutzung wie bei ausgeschalteter Option ruht; nur fuer Spieltests. */
+    private static final java.util.Set<BlockPos> DURABILITY_FROZEN = java.util.concurrent.ConcurrentHashMap.newKeySet();
+
+    /**
+     * Spieltests: der Kolben an {@code pos} verliert keine Haltbarkeit, bis das Runnable laeuft - wie
+     * mit {@code breakerPistonsLoseDurability = false}, ohne die Konfiguration umzustellen (die Tests
+     * laufen parallel, jeder andere Brecher wuerde es mitbekommen).
+     */
+    public static Runnable freezeDurabilityAt(BlockPos pos) {
         BlockPos key = pos.immutable();
-        BUDGET_OVERRIDES.put(key, budget);
-        return () -> BUDGET_OVERRIDES.remove(key);
-    }
-
-    /** Das Budget fuer den Kolben an {@code pos}: Test-Ueberschreibung oder Konfiguration. */
-    public int wearBudgetAt(BlockPos pos) {
-        Integer override = BUDGET_OVERRIDES.isEmpty() ? null : BUDGET_OVERRIDES.get(pos);
-        return override != null ? override : configuredWearBudget();
-    }
-
-    /** Das Budget dieser Kolbenstufe aus der Konfiguration ({@code netheriteBreakerWearBudget}). */
-    protected int configuredWearBudget() {
-        return wearBudget();
+        DURABILITY_FROZEN.add(key);
+        return () -> DURABILITY_FROZEN.remove(key);
     }
 
     /** Der Klumpen, der diesen Kolben repariert (so viel wie seine Aufwertung kostet). */
@@ -148,7 +208,7 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
     }
 
     /**
-     * Der Zustand, zu dem der verbrauchte Kolben zerfaellt: eine Stufe tiefer, hier der verstaerkte
+     * Der Zustand, zu dem der aufgebrauchte Kolben zerfaellt: eine Stufe tiefer, hier der verstaerkte
      * Kolben, mit derselben Blickrichtung.
      */
     protected BlockState wornOutState(BlockState state) {
@@ -156,48 +216,33 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
     }
 
     /**
-     * Wie viele Stufen ein Block der Haerte {@code hardness} kostet: {@code Kosten / (Budget / 8)},
-     * der Rest als Wahrscheinlichkeit ({@code roll} gleichverteilt in [0, 1)). 0, wenn der
-     * Verschleiss abgeschaltet ist.
-     */
-    public static int wearSteps(float hardness, int budget, double roll) {
-        if (budget <= 0) {
-            return 0;
-        }
-        double exact = wearCost(hardness) / (budget / (double) WEAR_STAGES);
-        int whole = (int) Math.floor(exact);
-        return whole + (roll < exact - whole ? 1 : 0);
-    }
-
-    /**
-     * Rechnet den Verschleiss fuer einen normal gebrochenen Block an.
+     * Zieht fuer einen beim Ausfahren zerstoerten Block 1 Haltbarkeit ab.
      *
-     * @return der neue Zustand (eine hoehere Stufe ist schon gesetzt), oder {@code null}, wenn der
-     *         Brecher damit verbraucht ist
+     * @return der neue Zustand (schon gesetzt), oder {@code null}, wenn der Brecher damit aufgebraucht ist
      */
-    private @Nullable BlockState addWear(ServerLevel world, BlockPos pos, BlockState state, float hardness) {
-        if (!state.hasProperty(WEAR)) {
+    private @Nullable BlockState addWear(ServerLevel world, BlockPos pos, BlockState state) {
+        if (!(state.getBlock() instanceof NetheriteBreakerPistonBlock) || !losesDurability()
+                || (!DURABILITY_FROZEN.isEmpty() && DURABILITY_FROZEN.contains(pos))) {
             return state;
         }
-        int steps = wearSteps(hardness, wearBudgetAt(pos), world.getRandom().nextDouble());
-        if (steps <= 0) {
-            return state;
-        }
-        int wear = state.getValue(WEAR) + steps;
-        if (wear >= WEAR_STAGES) {
+        int damage = damageOf(state) + 1;
+        if (damage >= maxDurability()) {
             return null;
         }
-        BlockState worn = state.setValue(WEAR, wear);
+        BlockState worn = withDamage(state, damage);
         world.setBlock(pos, worn, Block.UPDATE_CLIENTS);
-        world.sendParticles(ParticleTypes.SMOKE, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
-                6 + wear * 2, 0.35, 0.35, 0.35, 0.01);
-        world.playSound(null, pos, SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 0.25F, 1.4F - wear * 0.05F);
+        int wear = worn.getValue(WEAR);
+        if (wear > state.getValue(WEAR)) {
+            world.sendParticles(ParticleTypes.SMOKE, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+                    6 + wear * 2, 0.35, 0.35, 0.35, 0.01);
+            world.playSound(null, pos, SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 0.25F, 1.4F - wear * 0.05F);
+        }
         return worn;
     }
 
     /**
-     * Der verbrauchte Brecher zerfaellt eine Stufe tiefer ({@link #wornOutState}: Netherit zum
-     * verstaerkten Kolben, Enderit zum Netheritkolben mit Verschleiss 0) und faehrt sofort als
+     * Der aufgebrauchte Brecher zerfaellt eine Stufe tiefer ({@link #wornOutState}: Netherit zum
+     * verstaerkten Kolben, Enderit zum Netheritkolben mit voller Haltbarkeit) und faehrt sofort als
      * solcher aus. Der neue Block geht wie beim Brechen sofort an die Clients: das
      * Block-Ereignis-Paket, das der Server gleich schickt, spielt der Client an dem Block nach, der
      * dann bei ihm steht - sonst fuehre er mit dem alten Kopf aus.
@@ -214,21 +259,20 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
     }
 
     /**
-     * Der Verschleiss reist mit dem Item: die Beutetabelle droppt den Kolben schlicht, hier bekommt
-     * er die Stufe in die Block-Zustands-Komponente, aus der {@code BlockItem} sie beim Platzieren
-     * wieder setzt. Nur bei Verschleiss: ein unversehrter Kolben stapelt weiter mit frisch
-     * aufgewerteten. (Im Code statt als {@code copy_state} in der Beutetabelle, weil deren Bedingungen
-     * zwischen 1.21.11, 26.2 und 26.3 ihr Format wechseln.)
+     * Die Haltbarkeit reist mit dem Item: die Beutetabelle droppt den Kolben schlicht, hier bekommt
+     * ein beschaedigter {@code max_damage}, {@code damage} und Stapelgroesse 1 (ein Item mit
+     * Haltbarkeit darf nicht stapeln) - Vanilla zeichnet dann den Balken. Ein unversehrter Kolben
+     * bleibt ohne Komponenten und stapelt weiter mit frisch aufgewerteten. (Im Code statt in der
+     * Beutetabelle, weil deren Format zwischen 1.21.11, 26.2 und 26.3 wechselt.)
      */
     @Override
     protected java.util.List<ItemStack> getDrops(BlockState state, net.minecraft.world.level.storage.loot.LootParams.Builder params) {
         java.util.List<ItemStack> drops = super.getDrops(state, params);
-        int wear = wearOf(state);
-        if (wear > 0) {
+        int damage = damageOf(state);
+        if (damage > 0) {
             for (ItemStack drop : drops) {
-                if (drop.is(asItem())) {
-                    drop.set(net.minecraft.core.component.DataComponents.BLOCK_STATE,
-                            net.minecraft.world.item.component.BlockItemStateProperties.EMPTY.with(WEAR, wear));
+                if (drop.is(asItem()) && drop.getCount() == 1) {
+                    com.simplebuilding.items.custom.NetheritePistonItem.setDamage(drop, damage, maxDurability());
                 }
             }
         }
@@ -236,18 +280,36 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
     }
 
     /**
-     * Reparatur: der Klumpen der Stufe ({@link #repairNugget}: Netherit bzw. Enderit) setzt den
-     * Verschleiss auf 0 (Kreativ: kostenlos). Ohne Verschleiss oder mit etwas anderem in der Hand
+     * Setzt den Schaden aus dem Item ({@code damage} bei {@code max_damage}) auf den Block. Ein altes
+     * Item mit {@code block_state {wear:n}} bringt keinen Schaden mit; dessen Stufe setzt
+     * {@code BlockItem} danach selbst (Schritt 0 = derselbe Bruchteil n/8).
+     */
+    @Override
+    public @Nullable BlockState getStateForPlacement(net.minecraft.world.item.context.BlockPlaceContext context) {
+        BlockState state = super.getStateForPlacement(context);
+        if (state == null) {
+            return null;
+        }
+        ItemStack stack = context.getItemInHand();
+        if (stack.has(net.minecraft.core.component.DataComponents.MAX_DAMAGE)) {
+            state = withDamage(state, stack.getDamageValue());
+        }
+        return state;
+    }
+
+    /**
+     * Reparatur: der Klumpen der Stufe ({@link #repairNugget}: Netherit bzw. Enderit) stellt die
+     * volle Haltbarkeit her (Kreativ: kostenlos). Unversehrt oder mit etwas anderem in der Hand
      * verhaelt sich der Kolben wie immer.
      */
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player,
                                           InteractionHand hand, BlockHitResult hit) {
-        if (!stack.is(repairNugget()) || wearOf(state) == 0) {
+        if (!stack.is(repairNugget()) || damageOf(state) == 0) {
             return super.useItemOn(stack, state, world, pos, player, hand, hit);
         }
         if (world instanceof ServerLevel server) {
-            server.setBlock(pos, state.setValue(WEAR, 0), Block.UPDATE_CLIENTS);
+            server.setBlock(pos, withDamage(state, 0), Block.UPDATE_CLIENTS);
             server.playSound(null, pos, SoundEvents.SMITHING_TABLE_USE, SoundSource.BLOCKS, 1.0F, 1.0F);
             server.sendParticles(ParticleTypes.WAX_OFF, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
                     10, 0.4, 0.4, 0.4, 0.05);
@@ -353,8 +415,8 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
      *       NeoForge/Forge-{@code PistonEvent.Pre}, das den Zug absagt, hat der Wächter schon vorher
      *       gefragt.</li>
      * </ol>
-     * Jeder so gebrochene Block kostet Verschleiss ({@link #addWear}); ist der Brecher damit
-     * verbraucht, faehrt statt seiner die Stufe darunter aus ({@link #wearOut}).
+     * Jeder so gebrochene Block kostet 1 Haltbarkeit ({@link #addWear}); ist der Brecher damit
+     * aufgebraucht, faehrt statt seiner die Stufe darunter aus ({@link #wearOut}).
      * Der Client bricht nie selbst (audit 2026-09-26 #47: Geisterbloecke, wenn Client und Server
      * verschieden entschieden). Damit er beim Nachspielen des Ausfahr-Ereignisses den Block nicht
      * mitschiebt, schickt {@link PistonBoreEffects#destroy} die Entfernung sofort, also vor dem
@@ -380,7 +442,7 @@ public class NetheriteBreakerPistonBlock extends PistonBaseBlock {
                             && mayBreak(server, pos, facing, targetPos)) {
                         // Mit Beute, Bruchpartikeln, Abbauklang und dem Bohrklang der Mod.
                         PistonBoreEffects.destroy(server, targetPos, true);
-                        BlockState worn = addWear(server, pos, state, blockHardness);
+                        BlockState worn = addWear(server, pos, state);
                         if (worn == null) {
                             return wearOut(server, pos, state, type, data);
                         }

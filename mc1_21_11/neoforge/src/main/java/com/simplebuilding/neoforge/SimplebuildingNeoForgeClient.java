@@ -112,10 +112,13 @@ public final class SimplebuildingNeoForgeClient {
         event.registerEntityRenderer(ModEntities.LEVITATING_BLOCK, FallingBlockRenderer::new);
         // Abgelegte Schmiedevorlage: das Item-Modell der Vorlage als flache Platte.
         event.registerBlockEntityRenderer(NeoForgeModRegistries.PLACED_TEMPLATE_BE.get(), com.simplebuilding.client.render.PlacedTemplateRenderer::new);
+        // Mod-Truhen: Vanillas Truhenmodell mit den Texturen der Stufe.
+        event.registerBlockEntityRenderer(NeoForgeModRegistries.TIERED_CHEST_BE.get(), com.simplebuilding.client.render.TieredChestRenderer::new);
     }
 
     private void onClientSetup(FMLClientSetupEvent event) {
         com.simplebuilding.client.blueprint.BlueprintClient.init();
+        com.simplebuilding.client.guide.GuideBookClient.init();
         ClientNetworking.setSender(ClientPacketDistributor::sendToServer);
     }
 
@@ -133,6 +136,7 @@ public final class SimplebuildingNeoForgeClient {
     public static void registerMenus(RegisterMenuScreensEvent event) {
         event.register(NeoForgeModRegistries.NETHERITE_HOPPER_MENU.get(), NetheriteHopperScreen::new);
         event.register(NeoForgeModRegistries.BACKPACK_MENU.get(), BackpackScreen::new);
+        event.register(NeoForgeModRegistries.TIERED_CHEST_MENU.get(), com.simplebuilding.client.gui.TieredChestScreen::new);
     }
 
     public static void registerKeys(RegisterKeyMappingsEvent event) {
@@ -175,6 +179,8 @@ public final class SimplebuildingNeoForgeClient {
         event.register(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "enchant_type"), ENCHANTMENT_PROPERTY_TYPE);
         TrimIconsModelProperty.PROPERTY_TYPE = SelectItemModelProperty.Type.create(TrimIconsModelProperty.CODEC, Codec.STRING);
         event.register(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "visible_trim_icons"), TrimIconsModelProperty.PROPERTY_TYPE);
+        event.register(com.simplebuilding.client.property.BlueprintStateModelProperty.ID,
+                com.simplebuilding.client.property.BlueprintStateModelProperty.PROPERTY_TYPE);
     }
 
     /** Abgestellter gefaerbter Rucksack; Cutout kommt hier aus render_type in template_backpack_dyed.json. */

@@ -7952,12 +7952,30 @@
     "hits": 5,
     "steps": [
       {
+        "damagePerHit": 2,
+        "from": "minecraft:copper_chest",
+        "minimumHammer": "simplebuilding:copper_sledgehammer",
+        "nugget": "simplebuilding:cracked_diamond",
+        "nuggetCount": 1,
+        "to": "simplebuilding:reinforced_chest",
+        "totalDamage": 10
+      },
+      {
         "damagePerHit": 10,
         "from": "simplebuilding:netherite_blast_furnace",
         "minimumHammer": "simplebuilding:netherite_sledgehammer",
         "nugget": "simplebuilding:enderite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:enderite_blast_furnace",
+        "totalDamage": 50
+      },
+      {
+        "damagePerHit": 10,
+        "from": "simplebuilding:netherite_chest",
+        "minimumHammer": "simplebuilding:netherite_sledgehammer",
+        "nugget": "simplebuilding:enderite_nugget",
+        "nuggetCount": 1,
+        "to": "simplebuilding:enderite_chest",
         "totalDamage": 50
       },
       {
@@ -8003,6 +8021,15 @@
         "nugget": "simplebuilding:netherite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:netherite_blast_furnace",
+        "totalDamage": 20
+      },
+      {
+        "damagePerHit": 4,
+        "from": "simplebuilding:reinforced_chest",
+        "minimumHammer": "simplebuilding:diamond_sledgehammer",
+        "nugget": "simplebuilding:netherite_nugget",
+        "nuggetCount": 1,
+        "to": "simplebuilding:netherite_chest",
         "totalDamage": 20
       },
       {

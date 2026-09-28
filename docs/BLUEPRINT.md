@@ -11,6 +11,10 @@ ein Buch.
 - **Stapel**: leer bis 16; wird eine Blaupause aus einem Stapel beschrieben, bleibt sie im Slot
   und der Rest des Stapels wandert ins Inventar (so trifft jede weitere Autospeicherung dieselbe).
 - **Neu** ist eine Blaupause leer; Beispielcode gibt es erst per Knopf im Editor (Abschnitt 2.2).
+- **Textur nach Zustand** (2026-09-28): leer das normale Blatt, bearbeitet (nicht signiert) mit
+  Bleistift, signiert mit rotem Wachssiegel. `items/blueprint.json` fragt `minecraft:has_component`
+  (`simplebuilding:blueprint`), dann `simplebuilding:blueprint_state` (`BlueprintItem#modelState`;
+  wieder geleerter Code und Titel gelten als leer). Texturen aus `tools/textures/generate_textures.py`.
 - **Kreativ-Tab**: Werkzeuge, hinter den Oktanten.
 - **Datenkomponenten**: `simplebuilding:blueprint` = `{code, title, author, signed}`,
   `simplebuilding:blueprint_rotation` = 0..3 (Viertelumdrehungen im Baumodus).

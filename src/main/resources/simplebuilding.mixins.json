@@ -31,6 +31,9 @@
     "SlotMixin",
     "SmithingScreenHandlerMixin",
     "SurvivalTracerMixin",
+    "ChestBlockMixin",
+    "CompoundContainerAccessor",
+    "HopperBlockEntityMixin",
     "CauldronInteractionDispatcherAccessor",
     "ItemCraftRemainderAccessor"
   ],

@@ -66,6 +66,11 @@ public class ModLootTableProvider extends FabricBlockLootSubProvider {
         dropSelf(ModBlocks.NETHERITE_HOPPER);
         dropSelf(ModBlocks.ENDERITE_HOPPER);
 
+        // Truhen wie Vanillas Truhe: sich selbst, mit dem Namen aus dem Amboss (der Inhalt faellt heraus).
+        add(ModBlocks.REINFORCED_CHEST, createNameableBlockEntityTable(ModBlocks.REINFORCED_CHEST));
+        add(ModBlocks.NETHERITE_CHEST, createNameableBlockEntityTable(ModBlocks.NETHERITE_CHEST));
+        add(ModBlocks.ENDERITE_CHEST, createNameableBlockEntityTable(ModBlocks.ENDERITE_CHEST));
+
         dropSelf(ModBlocks.REINFORCED_PISTON);
         dropSelf(ModBlocks.REINFORCED_STICKY_PISTON);
         dropSelf(ModBlocks.NETHERITE_PISTON);

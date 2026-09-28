@@ -31,8 +31,10 @@ import java.util.List;
  * seine Seiten als Standardkomponente {@code WRITTEN_BOOK_CONTENT} traegt: fertig aufgeloest
  * ({@code resolved = true}, Vanillas {@code resolveForItem} greift also nie), ohne Titel und Autor
  * (der Itemname bleibt der uebersetzte Name) und nur aus Uebersetzungsschluesseln gebaut, damit der
- * Client jede Seite in seiner eigenen Sprache zeigt. Ein Rechtsklick oeffnet Vanillas
- * Buchbildschirm, ein Lesepult nimmt die Buecher auch (Tag {@code minecraft:lectern_books}).
+ * Client jede Seite in seiner eigenen Sprache zeigt. Ein Rechtsklick oeffnet den eigenen
+ * Buchbildschirm ({@code client.guide.GuideBookScreen}, gleiche Texte plus Symbole und Rezeptkarten
+ * aus {@link GuideContent}); diese Vanilla-Seiten zeigt nur noch das Lesepult (Tag
+ * {@code minecraft:lectern_books}).
  *
  * <p>Aufbau jedes Buchs: Seite 1 ist ein anklickbares Inhaltsverzeichnis
  * ({@link ClickEvent.ChangePage}), danach je Kapitel eine Seite mit Titel, Text und einem
@@ -191,8 +193,7 @@ public final class GuideBooks {
             pages.add(Component.empty()
                     .append(Component.translatable(base + "." + i + ".title").withStyle(ChatFormatting.BOLD))
                     .append("\n\n")
-                    .append(Component.translatable(base + "." + i + ".text",
-                            Component.keybind(SETTINGS_KEYBIND), Component.keybind(BACKPACK_KEYBIND)))
+                    .append(chapterText(book, i))
                     .append("\n")
                     .append(back()));
         }
@@ -211,6 +212,11 @@ public final class GuideBooks {
             pages.add(second.append("\n").append(back()));
         }
         return pages;
+    }
+
+    /** Text von Kapitel {@code n} (ab 1), mit den beiden Tasten als Argumente; auch der Buchbildschirm nutzt ihn. */
+    public static MutableComponent chapterText(Book book, int n) {
+        return Component.translatable(book.key() + "." + n + ".text", Component.keybind(SETTINGS_KEYBIND), Component.keybind(BACKPACK_KEYBIND));
     }
 
     private static void appendTopics(MutableComponent page, List<Book> topics) {

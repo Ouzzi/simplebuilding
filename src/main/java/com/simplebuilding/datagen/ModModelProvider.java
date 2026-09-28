@@ -143,13 +143,12 @@ public class ModModelProvider extends FabricModelProvider {
 
 
         // --- 3. Chests ---
-        // todo chest:
-
-        // blockStateModelGenerator.registerChest(ModBlocks.REINFORCED_CHEST, ModBlocks.REINFORCED_CHEST, Identifier.of(Simplebuilding.MOD_ID, "entity/chest/reinforced_chest"), false);
-        // blockStateModelGenerator.registerChest(ModBlocks.NETHERITE_CHEST, ModBlocks.NETHERITE_CHEST, Identifier.of(Simplebuilding.MOD_ID, "entity/chest/netherite_chest"), false);
-
-        //blockStateModelGenerator.registerParentedItemModel(ModBlocks.REINFORCED_CHEST, ModelIds.getBlockModelId(ModBlocks.REINFORCED_CHEST));
-        //blockStateModelGenerator.registerParentedItemModel(ModBlocks.NETHERITE_CHEST, ModelIds.getBlockModelId(ModBlocks.NETHERITE_CHEST));
+        // Truhen: wie Vanillas Truhen nur ein Partikel-Blockmodell (gezeichnet wird vom
+        // TieredChestRenderer), das Item ueber Vanillas Spezialmodell "minecraft:chest" mit der
+        // Stufen-Textur aus dem Truhen-Atlas.
+        registerTieredChest(blockStateModelGenerator, ModBlocks.REINFORCED_CHEST, ModBlocks.CRACKED_DIAMOND_BLOCK);
+        registerTieredChest(blockStateModelGenerator, ModBlocks.NETHERITE_CHEST, net.minecraft.world.level.block.Blocks.NETHERITE_BLOCK);
+        registerTieredChest(blockStateModelGenerator, ModBlocks.ENDERITE_CHEST, ModBlocks.ENDERITE_BLOCK);
 
         // --- 4. Hoppers ---
         registerCustomHopper(blockStateModelGenerator, ModBlocks.REINFORCED_HOPPER);
@@ -248,6 +247,33 @@ public class ModModelProvider extends FabricModelProvider {
                         com.simplebuilding.items.custom.OreDetectorItem.RESONANCE_COLORS[0]));
     }
 
+    /**
+     * Blaupause mit drei Texturen (Besitzer 2026-09-28): frisch gebaut die normale, bearbeitet eine
+     * leicht veraenderte ({@code _edited}), signiert eine deutlich andere ({@code _signed}). Das Modell
+     * fragt erst {@code minecraft:has_component} (ohne Komponente: frisch), dann
+     * {@code simplebuilding:blueprint_state} ({@code BlueprintItem#modelState}). Die Eigenschaft muss
+     * dafuer schon hier am {@code ID_MAPPER} haengen - die Datagen schreibt sie ueber deren Codec.
+     */
+    private static void generateBlueprint(ItemModelGenerators generator) {
+        Item blueprint = ModItems.BLUEPRINT;
+        net.minecraft.client.renderer.item.properties.select.SelectItemModelProperties.ID_MAPPER.put(
+                com.simplebuilding.client.property.BlueprintStateModelProperty.ID,
+                com.simplebuilding.client.property.BlueprintStateModelProperty.PROPERTY_TYPE);
+        Identifier plain = ModelTemplates.FLAT_ITEM.create(blueprint, TextureMapping.layer0(blueprint), generator.modelOutput);
+        Identifier edited = ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(blueprint, "_edited"),
+                TextureMapping.layer0(TextureMapping.getItemTexture(blueprint, "_edited")), generator.modelOutput);
+        Identifier signed = ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(blueprint, "_signed"),
+                TextureMapping.layer0(TextureMapping.getItemTexture(blueprint, "_signed")), generator.modelOutput);
+        ItemModel.Unbaked byState = ItemModelUtils.select(new com.simplebuilding.client.property.BlueprintStateModelProperty(),
+                ItemModelUtils.plainModel(plain),
+                ItemModelUtils.when(com.simplebuilding.items.custom.BlueprintItem.STATE_EDITED, ItemModelUtils.plainModel(edited)),
+                ItemModelUtils.when(com.simplebuilding.items.custom.BlueprintItem.STATE_SIGNED, ItemModelUtils.plainModel(signed)));
+        generator.itemModelOutput.accept(blueprint, ItemModelUtils.conditional(
+                new net.minecraft.client.renderer.item.properties.conditional.HasComponent(
+                        com.simplebuilding.component.ModDataComponentTypes.BLUEPRINT, false),
+                byState, ItemModelUtils.plainModel(plain)));
+    }
+
     private static void generateDyeableBundle(ItemModelGenerators generator, Item item) {
         ItemModel.Unbaked closed = dyeable(generator, item, "", ModelTemplates.FLAT_ITEM, ModelTemplates.TWO_LAYERED_ITEM);
         ItemModel.Unbaked back = dyeable(generator, item, "_open_back", ModelTemplates.BUNDLE_OPEN_BACK_INVENTORY, BUNDLE_OPEN_BACK_DYED);
@@ -320,6 +346,14 @@ public class ModModelProvider extends FabricModelProvider {
                             };
                         })
                 ));
+    }
+
+    private void registerTieredChest(BlockModelGenerators generator, Block chest, Block particle) {
+        generator.createParticleOnlyBlock(chest, particle);
+        com.simplebuilding.blocks.custom.ChestTier tier = ((com.simplebuilding.blocks.custom.TieredChestBlock) chest).tier();
+        generator.itemModelOutput.accept(chest.asItem(), ItemModelUtils.specialModel(Identifier.withDefaultNamespace("item/chest"),
+                new net.minecraft.client.renderer.special.ChestSpecialRenderer.Unbaked(
+                        Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, tier.textureName()))));
     }
 
     private void registerCustomHopper(BlockModelGenerators generator, Block block) {
@@ -466,7 +500,7 @@ public class ModModelProvider extends FabricModelProvider {
 
         // --- 1. RANGEFINDER (Generated / Flach) ---
         itemModelGenerator.generateFlatItem(ModItems.OCTANT, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.BLUEPRINT, ModelTemplates.FLAT_ITEM);
+        generateBlueprint(itemModelGenerator);
         for (DyeColor color : DyeColor.values()) {
             Item item = ModItems.COLORED_OCTANT_ITEMS.get(color);
             if (item != null) itemModelGenerator.generateFlatItem(item, ModelTemplates.FLAT_ITEM);

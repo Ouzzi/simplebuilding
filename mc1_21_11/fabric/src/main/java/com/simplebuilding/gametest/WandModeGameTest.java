@@ -52,6 +52,16 @@ public final class WandModeGameTest {
     }
 
     @GameTest(rotation = Rotation.NONE)
+    public void aHeldUseKeyDoesNotRestartTheRunningLinearLine(GameTestHelper helper) {
+        WandModeTests.aHeldUseKeyDoesNotRestartTheRunningLinearLine(helper);
+    }
+
+    @GameTest(rotation = Rotation.NONE)
+    public void bridgeAlsoStartsWhenTheClickAimsAcrossTheGap(GameTestHelper helper) {
+        WandModeTests.bridgeAlsoStartsWhenTheClickAimsAcrossTheGap(helper);
+    }
+
+    @GameTest(rotation = Rotation.NONE)
     public void roofModeWorksWithTheTestCentreKitEnderiteWand(GameTestHelper helper) {
         WandModeTests.roofModeWorksWithTheTestCentreKitEnderiteWand(helper);
     }

@@ -308,19 +308,19 @@ public class ModItems {
 
 
 
-    // Building Cores
+    // Building Cores - nicht stapelbar, Rechtsklick spielt eine Animation (BuildingCoreItem)
 
-    public static final Item COPPER_CORE = registerItem("copper_core", s -> new Item(s.stacksTo(16)));
+    public static final Item COPPER_CORE = registerItem("copper_core", s -> new BuildingCoreItem(s.stacksTo(1), 0xE77C56));
 
-    public static final Item IRON_CORE = registerItem("iron_core", s -> new Item(s.stacksTo(16)));
+    public static final Item IRON_CORE = registerItem("iron_core", s -> new BuildingCoreItem(s.stacksTo(1), 0xD8D8D8));
 
-    public static final Item GOLD_CORE = registerItem("gold_core", s -> new Item(s.stacksTo(16)));
+    public static final Item GOLD_CORE = registerItem("gold_core", s -> new BuildingCoreItem(s.stacksTo(1), 0xFAD64A));
 
-    public static final Item DIAMOND_CORE = registerItem("diamond_core", s -> new Item(s.stacksTo(16)));
+    public static final Item DIAMOND_CORE = registerItem("diamond_core", s -> new BuildingCoreItem(s.stacksTo(1), 0x1BE7C7));
 
-    public static final Item NETHERITE_CORE = registerItem("netherite_core", s -> new Item(s.stacksTo(16).fireResistant().rarity(UNCOMMON)));
+    public static final Item NETHERITE_CORE = registerItem("netherite_core", s -> new BuildingCoreItem(s.stacksTo(1).fireResistant().rarity(UNCOMMON), 0x8A878A));
 
-    public static final Item ENDERITE_CORE = registerItem("enderite_core", s -> new Item(s.stacksTo(16).fireResistant().rarity(Rarity.EPIC)));
+    public static final Item ENDERITE_CORE = registerItem("enderite_core", s -> new BuildingCoreItem(s.stacksTo(1).fireResistant().rarity(Rarity.EPIC), 0xA57DE9));
 
 
 
@@ -471,9 +471,13 @@ public class ModItems {
 
     // Reinforced Block Items
 
-    // Todo: public static final Item REINFORCED_CHEST = registerItem("reinforced_chest", s -> new BlockItem(ModBlocks.REINFORCED_CHEST, s));
+    // Truhen-Stufen: Verstaerkt COMMON, Netherit UNCOMMON und Enderit EPIC wie die Maschinen
+    // (docs/RARITAETEN.md), Netherit und Enderit feuerfest.
+    public static final Item REINFORCED_CHEST = registerItem("reinforced_chest", s -> new BlockItem(ModBlocks.REINFORCED_CHEST, s));
 
-    // Todo: public static final Item NETHERITE_CHEST = registerItem("netherite_chest", s -> new BlockItem(ModBlocks.NETHERITE_CHEST, s.fireResistant()));
+    public static final Item NETHERITE_CHEST = registerItem("netherite_chest", s -> new BlockItem(ModBlocks.NETHERITE_CHEST, s.fireResistant().rarity(UNCOMMON)));
+
+    public static final Item ENDERITE_CHEST = registerItem("enderite_chest", s -> new BlockItem(ModBlocks.ENDERITE_CHEST, s.fireResistant().rarity(Rarity.EPIC)));
 
     public static final Item REINFORCED_HOPPER = registerItem("reinforced_hopper", s -> new BlockItem(ModBlocks.REINFORCED_HOPPER, s));
 
@@ -753,7 +757,7 @@ public class ModItems {
     // HANDBUECHER (Einsteiger-Handbuch + Themenbuecher, com.simplebuilding.guide.GuideBooks)
     // =================================================================================
     // Die Seiten stehen als Standardkomponente WRITTEN_BOOK_CONTENT am Item (uebersetzbar, fertig
-    // aufgeloest), ein Rechtsklick oeffnet Vanillas Buchbildschirm. Nach STONE_CHISEL deklariert,
+    // aufgeloest, fuers Lesepult), ein Rechtsklick oeffnet den eigenen Buchbildschirm (GuideBookScreen). Nach STONE_CHISEL deklariert,
     // weil die Themenliste des Handbuchs dessen Namen braucht.
     public static final Item GUIDE_BOOK = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.GUIDE);
     public static final Item GUIDE_BOOK_TOOLS = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.TOOLS);
@@ -772,7 +776,7 @@ public class ModItems {
     }
 
     private static Item registerGuideBook(com.simplebuilding.guide.GuideBooks.Book book) {
-        return registerItem(book.itemName(), settings -> new GuideBookItem(com.simplebuilding.guide.GuideBooks.properties(settings, book)));
+        return registerItem(book.itemName(), settings -> new GuideBookItem(com.simplebuilding.guide.GuideBooks.properties(settings, book), book));
     }
 
 

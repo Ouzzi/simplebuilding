@@ -2216,7 +2216,8 @@ public final class DataIntegrityTests {
         // -Waffen und -Ruestungen aller Stufen sowie die beiden Vanilla-Kompasse.
         Map<Item, ModItemGroupsContent.Tab> vanillaHome = new HashMap<>();
         for (Item counterpart : List.of(Items.HOPPER, Items.PISTON, Items.STICKY_PISTON,
-                Items.FURNACE, Items.SMOKER, Items.BLAST_FURNACE, Items.BUNDLE, Items.CARTOGRAPHY_TABLE)) {
+                Items.FURNACE, Items.SMOKER, Items.BLAST_FURNACE, Items.BUNDLE, Items.CARTOGRAPHY_TABLE,
+                Items.CHEST, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("copper_chest")))) {
             vanillaHome.put(counterpart, ModItemGroupsContent.Tab.FUNCTIONAL);
         }
         // Alle Vanilla-Druckplatten neben den Mod-Platten (Besitzer 2026-09-27; 16, ab MC 26.3 mit Pappel 17).
@@ -2249,7 +2250,7 @@ public final class DataIntegrityTests {
         if (trims < 18) {
             problems.add("only " + trims + " vanilla armour trim templates are registered");
         }
-        if (vanillaPressurePlates().size() < 16 || vanillaHome.size() != 8 + vanillaPressurePlates().size() + 42 + 28 + 2 + 1 + trims
+        if (vanillaPressurePlates().size() < 16 || vanillaHome.size() != 10 + vanillaPressurePlates().size() + 42 + 28 + 2 + 1 + trims
                 || vanillaHome.containsKey(Items.AIR)) {
             problems.add("the vanilla tool and armour list names an item that does not exist: " + vanillaHome.size() + " entries");
         }
@@ -2312,7 +2313,8 @@ public final class DataIntegrityTests {
     /**
      * SimpleMachines is laid out in rows of nine exactly as the owner drew it (2026-09-28), a gap being
      * one empty cell ({@code simplebuilding:creative_spacer}): 4 hoppers, gap, 4 furnaces; 4 smokers,
-     * gap, 4 blast furnaces; the 6 pistons; 4 bundles, gap, 4 quivers; the 4 backpacks; then the
+     * gap, 4 blast furnaces; the 6 pistons; 4 bundles, gap, 4 quivers; the 4 backpacks; the chests (vanilla chest, copper chest,
+     * reinforced, netherite, enderite); then the
      * pressure plates - wooden (a row and a rest), stone and polished blackstone together with the
      * heavy, light, diamond, netherite and enderite plates, copper (4 stages, then waxed) -; then the
      * pads in ore order, each three-tier family as "three tiers + its unlock item", a gap and the next
@@ -2350,6 +2352,9 @@ public final class DataIntegrityTests {
                 List.of(Items.BUNDLE, ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, ModItems.ENDERITE_BUNDLE, gap,
                         ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER, ModItems.ENDERITE_QUIVER),
                 List.of(ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK, ModItems.ENDERITE_BACKPACK),
+                // Truhen: Vanilla-Truhe, Kupfertruhe (die erste Aufwertungsstufe), dann die Mod-Stufen.
+                List.of(Items.CHEST, BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("copper_chest")),
+                        ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST, ModItems.ENDERITE_CHEST),
                 woodenPlates,
                 List.of(Items.STONE_PRESSURE_PLATE, Items.POLISHED_BLACKSTONE_PRESSURE_PLATE,
                         Items.HEAVY_WEIGHTED_PRESSURE_PLATE, Items.LIGHT_WEIGHTED_PRESSURE_PLATE,

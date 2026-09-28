@@ -29,4 +29,9 @@ public final class GuideBookGameTest {
     public void guideBooksReadLikeWrittenBooks(GameTestHelper helper) {
         GuideBookTests.guideBooksReadLikeWrittenBooks(helper);
     }
+
+    @GameTest
+    public void everyGuideChapterIconAndRecipeResolves(GameTestHelper helper) {
+        GuideBookTests.everyGuideChapterIconAndRecipeResolves(helper);
+    }
 }

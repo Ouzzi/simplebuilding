@@ -89,6 +89,17 @@ public final class ForgeModRegistries {
                             com.simplebuilding.screen.BackpackOpenData.STREAM_CODEC.decode(buffer))
             ));
 
+    public static final RegistryObject<MenuType<com.simplebuilding.screen.TieredChestMenu>> TIERED_CHEST_MENU =
+            MENUS.register("tiered_chest", () -> IForgeMenuType.create(
+                    (syncId, inventory, buffer) -> new com.simplebuilding.screen.TieredChestMenu(syncId, inventory,
+                            com.simplebuilding.screen.TieredChestOpenData.STREAM_CODEC.decode(buffer))
+            ));
+
+    public static final RegistryObject<BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity>> TIERED_CHEST_BE =
+            BLOCK_ENTITIES.register("tiered_chest", () -> new BlockEntityType<com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity>(
+                    com.simplebuilding.blocks.entity.custom.TieredChestBlockEntity::new,
+                    Set.of(ModBlocks.REINFORCED_CHEST, ModBlocks.NETHERITE_CHEST, ModBlocks.ENDERITE_CHEST)));
+
     public static final RegistryObject<BlockEntityType<com.simplebuilding.blocks.entity.custom.BackpackBlockEntity>> BACKPACK_BE =
             BLOCK_ENTITIES.register("backpack", () -> new BlockEntityType<com.simplebuilding.blocks.entity.custom.BackpackBlockEntity>(
                     com.simplebuilding.blocks.entity.custom.BackpackBlockEntity::new,
@@ -189,6 +200,8 @@ public final class ForgeModRegistries {
     public static void assignStaticFields() {
         ModScreenHandlers.NETHERITE_HOPPER_SCREEN_HANDLER = NETHERITE_HOPPER_MENU.get();
         ModScreenHandlers.BACKPACK_MENU = BACKPACK_MENU.get();
+        ModScreenHandlers.TIERED_CHEST_MENU = TIERED_CHEST_MENU.get();
+        ModBlockEntities.TIERED_CHEST_BE = TIERED_CHEST_BE.get();
         ModBlockEntities.BACKPACK_BE = BACKPACK_BE.get();
         ModBlockEntities.PLACED_TEMPLATE_BE = PLACED_TEMPLATE_BE.get();
         ModBlockEntities.MOD_HOPPER_BE = MOD_HOPPER_BE.get();
