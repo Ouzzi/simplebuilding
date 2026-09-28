@@ -12,14 +12,20 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.StandingAndWallBlockItem;
+import net.minecraft.world.waypoints.Waypoint;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
-/** Items aus Simple Tweaks: je Block ein BlockItem, dazu Spawn-Elytra, Laserpointer, Echo-Kompass. */
+/** Items aus Simple Tweaks: je Block ein BlockItem, dazu Spawn-Elytra, Laserpointer, Echo-Kompass, Lohenkopf. */
 public final class TweaksItems {
 
     private static final List<Item> BLOCK_ITEMS = new ArrayList<>();
@@ -35,13 +41,25 @@ public final class TweaksItems {
             p -> new EchoCompassItem(p.stacksTo(1).durability(EchoCompassItem.MAX_DAMAGE).enchantable(15)
                     .repairable(Items.ECHO_SHARD).rarity(Rarity.EPIC).fireResistant()));
 
+    /**
+     * Lohenkopf: wie Vanillas Mob-Koepfe (stehend und an der Wand, auf dem Kopf tragbar), Notenblock
+     * spielt das Lohen-Geraeusch (Instrument CUSTOM_HEAD liest {@code note_block_sound}).
+     */
+    public static final Item BLAZE_HEAD = register("blaze_head",
+            p -> new StandingAndWallBlockItem(TweaksBlocks.BLAZE_HEAD, TweaksBlocks.BLAZE_WALL_HEAD, Direction.DOWN,
+                    Waypoint.addHideAttribute(p.useBlockDescriptionPrefix().rarity(Rarity.UNCOMMON).equippableUnswappable(EquipmentSlot.HEAD)
+                            .component(DataComponents.NOTE_BLOCK_SOUND, SoundEvents.BLAZE_AMBIENT.location()))));
+
     static {
         for (Block block : TweaksBlocks.all()) {
             String path = BuiltInRegistries.BLOCK.getKey(block).getPath();
             // Enderit und die Netherstern-Stufen: episch; alles aus Netherit/Enderit brennt nicht
             // (wie Netherit-Gegenstaende, vgl. EnderiteMachineTests#enderiteGearInheritsEveryNetheriteTrait).
-            boolean epic = path.startsWith("enderite_") || path.equals("fine_elytra_pad") || path.equals("stellar_flypad");
-            boolean fireproof = epic || path.startsWith("netherite_");
+            // Trank-Pads: alle aus Netherit (brennen nicht), II und III aus Enderit-Aufwertungen (episch).
+            boolean potionPad = path.endsWith("potion_pad");
+            boolean epic = path.startsWith("enderite_") || path.equals("fine_elytra_pad") || path.equals("stellar_flypad")
+                    || (potionPad && !path.equals("potion_pad"));
+            boolean fireproof = epic || potionPad || path.startsWith("netherite_");
             Item item = register(path, p -> {
                 Item.Properties props = p.useBlockDescriptionPrefix();
                 if (fireproof) {
@@ -76,6 +94,7 @@ public final class TweaksItems {
         all.add(SPAWN_ELYTRA);
         all.add(LASER_POINTER);
         all.add(ECHO_COMPASS);
+        all.add(BLAZE_HEAD);
         return all;
     }
 
@@ -109,7 +128,9 @@ public final class TweaksItems {
                 CreativeTabLayout.Row.of("launchpads",
                         TweaksBlocks.LAUNCHPAD, TweaksBlocks.NETHERITE_LAUNCHPAD, TweaksBlocks.ENDERITE_LAUNCHPAD),
                 CreativeTabLayout.Row.of("chunk_loaders",
-                        TweaksBlocks.CHUNK_LOADER, TweaksBlocks.NETHERITE_CHUNK_LOADER, TweaksBlocks.ENDERITE_CHUNK_LOADER));
+                        TweaksBlocks.CHUNK_LOADER, TweaksBlocks.NETHERITE_CHUNK_LOADER, TweaksBlocks.ENDERITE_CHUNK_LOADER),
+                CreativeTabLayout.Row.of("potion_pads",
+                        BLAZE_HEAD, TweaksBlocks.POTION_PAD, TweaksBlocks.REINFORCED_POTION_PAD, TweaksBlocks.INFUSED_POTION_PAD));
     }
 
     /**

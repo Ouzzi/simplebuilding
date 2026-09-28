@@ -11,10 +11,13 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SkullBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.WallSkullBlock;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 
 /**
@@ -90,6 +93,14 @@ public final class TweaksBlocks {
     public static final Block ENDERITE_CHUNK_LOADER = register("enderite_chunk_loader",
             p -> new ChunkLoaderBlock(sturdy(p).mapColor(MapColor.COLOR_PURPLE).strength(5.0f).lightLevel(s -> 9), 3));
 
+    // --- Trank-Pads I-III (Besitzer 2026-09-28): gespeicherter Wurftrank fuer 30/60/120 s beim Betreten ---
+    public static final Block POTION_PAD = register("potion_pad",
+            p -> new PotionPadBlock(sturdy(p).mapColor(MapColor.COLOR_BLACK).strength(4.0f).sound(SoundType.NETHERITE_BLOCK).lightLevel(s -> 5), 1));
+    public static final Block REINFORCED_POTION_PAD = register("reinforced_potion_pad",
+            p -> new PotionPadBlock(sturdy(p).mapColor(MapColor.COLOR_BLACK).strength(4.5f).sound(SoundType.NETHERITE_BLOCK).lightLevel(s -> 7), 2));
+    public static final Block INFUSED_POTION_PAD = register("infused_potion_pad",
+            p -> new PotionPadBlock(sturdy(p).mapColor(MapColor.COLOR_BLACK).strength(5.0f).sound(SoundType.NETHERITE_BLOCK).lightLevel(s -> 10), 3));
+
     // --- Kupfer-Druckplatten (zerbrechlich, oxidieren; gewachst wie Vanilla-Kupfer: oxidieren nicht) ---
     public static final Block COPPER_PRESSURE_PLATE = register("copper_pressure_plate",
             p -> new CopperPressurePlateBlock(WeatheringCopper.WeatherState.UNAFFECTED, false, fragile(p).mapColor(MapColor.COLOR_ORANGE)));
@@ -108,12 +119,27 @@ public final class TweaksBlocks {
     public static final Block WAXED_OXIDIZED_COPPER_PRESSURE_PLATE = register("waxed_oxidized_copper_pressure_plate",
             p -> new CopperPressurePlateBlock(WeatheringCopper.WeatherState.OXIDIZED, true, fragile(p).mapColor(MapColor.WARPED_NYLIUM)));
 
+    // --- Lohenkopf (Mob-Kopf, kein Pad): nicht in all(), eigene Liste heads() ---
+    private static final List<Block> HEADS = new ArrayList<>();
+    public static final Block BLAZE_HEAD = registerHead("blaze_head",
+            p -> new SkullBlock(BlazeHeadType.BLAZE, p.instrument(NoteBlockInstrument.CUSTOM_HEAD).strength(1.0f)
+                    .pushReaction(PushReaction.DESTROY).noOcclusion()));
+    // Wie Vanillas wallVariant(kopf, true): Beute und Name vom stehenden Kopf.
+    public static final Block BLAZE_WALL_HEAD = registerHead("blaze_wall_head",
+            p -> new WallSkullBlock(BlazeHeadType.BLAZE, p.overrideLootTable(BLAZE_HEAD.getLootTable())
+                    .overrideDescription(BLAZE_HEAD.getDescriptionId()).strength(1.0f).pushReaction(PushReaction.DESTROY)));
+
     private TweaksBlocks() {
     }
 
     /** Alte, abgeloeste Stufenbloecke (nur zum Laden alter Welten; kein Rezept, kein Kreativ-Tab). */
     public static List<Block> legacy() {
         return List.of(NETHERITE_FLYPAD, ENDERITE_FLYPAD);
+    }
+
+    /** Mob-Koepfe (Lohenkopf stehend und an der Wand); keine Pads, darum nicht in {@link #all()}. */
+    public static List<Block> heads() {
+        return Collections.unmodifiableList(HEADS);
     }
 
     /** Alle Bloecke in Registrierungsreihenfolge (Datagen, Tests, Kreativ-Tab). */
@@ -141,6 +167,13 @@ public final class TweaksBlocks {
                 .strength(1.5f)
                 .sound(SoundType.COPPER)
                 .noCollision();
+    }
+
+    private static Block registerHead(String name, Function<BlockBehaviour.Properties, Block> factory) {
+        ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, SimpleTweaks.id(name));
+        Block block = Registry.register(BuiltInRegistries.BLOCK, SimpleTweaks.id(name), factory.apply(BlockBehaviour.Properties.of().setId(key)));
+        HEADS.add(block);
+        return block;
     }
 
     private static Block register(String name, Function<BlockBehaviour.Properties, Block> factory) {

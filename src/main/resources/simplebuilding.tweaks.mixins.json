@@ -9,6 +9,7 @@
     "LaunchpadWindChargeMixin",
     "SpawnElytraDamageMixin",
     "SpawnElytraItemEntityMixin",
+    "SkullBlockEntityTypeMixin",
     "SmithingTransformEasterGuardMixin",
     "SpawnElytraSlotMixin",
     "TweaksServerPlayerMixin",
@@ -19,7 +20,8 @@
     "client.ExperienceBarMixin",
     "client.ExperienceOrbRendererMixin",
     "client.ExperienceOrbRenderStateMixin",
-    "client.HudExperienceLevelMixin"
+    "client.HudExperienceLevelMixin",
+    "client.SkullModelMixin"
   ],
   "injectors": {
     "defaultRequire": 1

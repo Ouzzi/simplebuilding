@@ -3,6 +3,12 @@ package com.simplebuilding.loot;
 import com.simplebuilding.Simplebuilding;
 import com.simplebuilding.enchantment.ModEnchantments;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.tweaks.item.TweaksItems;
+import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.criterion.EntityTypePredicate;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
@@ -47,6 +53,15 @@ public final class ModLootTableModifications {
     private ModLootTableModifications() {
     }
 
+    /** Pool fuer charged_creeper/root: ein Lohenkopf, nur wenn das Opfer ({@code this}) eine Lohe ist. */
+    public static LootPool.Builder blazeHeadPool(HolderLookup.Provider registry) {
+        return LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1))
+                .add(LootItem.lootTableItem(TweaksItems.BLAZE_HEAD))
+                .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
+                        EntityPredicate.Builder.entity().entityType(
+                                EntityTypePredicate.of(registry.lookupOrThrow(Registries.ENTITY_TYPE), EntityType.BLAZE))));
+    }
     /** Eisenkern pro Waldanwesen-Kiste. */
     public static final float IRON_CORE_CHANCE = 0.008f;
     /** Goldkern pro Bastion-Kiste (alle Bastion-Kisten, auch der Schatzraum). */
@@ -61,6 +76,14 @@ public final class ModLootTableModifications {
     public static final float ENDERITE_CORE_CHANCE = 0.0025f;
 
     public static void apply(ResourceKey<LootTable> key, Editor editor, HolderLookup.Provider registry) {
+        // 0. Lohenkopf: wie Vanillas Mob-Koepfe aus charged_creeper/root - toetet eine geladene
+        // Creeper-Explosion eine Lohe, faellt ihr Kopf (Creeper#killedEntity rollt die Tabelle nur
+        // einmal je Explosion). Eigener Pool, der nur fuer Lohen greift. Unabhaengig vom Schalter
+        // enableLootTableChanges: der Kopf ist die einzige Quelle fuer das Trank-Pad.
+        if (BuiltInLootTables.CHARGED_CREEPER.equals(key)) {
+            editor.addPool(blazeHeadPool(registry));
+        }
+
         if (!Simplebuilding.getConfig().worldGen.enableLootTableChanges) {
             return;
         }

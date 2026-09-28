@@ -1155,6 +1155,18 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tweaks_easter_game_test_the_easter_eggs_are_hidden_from_recipe_viewers_and_creative_tabs", TweaksEasterTests::theEasterEggsAreHiddenFromRecipeViewersAndCreativeTabs)
                     .build(),
+            GameTestSpec.named("potion_pad_game_test_splash_potions_landing_on_the_pad_are_stored_and_replaced", PotionPadTests::splashPotionsLandingOnThePadAreStoredAndReplaced)
+                    .build(),
+            GameTestSpec.named("potion_pad_game_test_stepping_on_the_pad_gives_the_stored_effects_for_thirty_sixty_or_one_hundred_twenty_seconds", PotionPadTests::steppingOnThePadGivesTheStoredEffectsForThirtySixtyOrOneHundredTwentySeconds)
+                    .build(),
+            GameTestSpec.named("potion_pad_game_test_instant_effects_apply_once_per_step_and_respect_their_cooldown", PotionPadTests::instantEffectsApplyOncePerStepAndRespectTheirCooldown)
+                    .build(),
+            GameTestSpec.named("potion_pad_game_test_potion_pad_recipes_cover_all_three_tiers", PotionPadTests::potionPadRecipesCoverAllThreeTiers)
+                    .build(),
+            GameTestSpec.named("potion_pad_game_test_charged_creeper_explosions_drop_one_blaze_head_each", PotionPadTests::chargedCreeperExplosionsDropOneBlazeHeadEach)
+                    .build(),
+            GameTestSpec.named("potion_pad_game_test_blazes_killed_otherwise_drop_no_head", PotionPadTests::blazesKilledOtherwiseDropNoHead)
+                    .build(),
             GameTestSpec.named("pressure_plate_game_test_honeycomb_waxes_every_stage_and_waxed_plates_stop_oxidizing", PressurePlateTests::honeycombWaxesEveryStageAndWaxedPlatesStopOxidizing)
                     .build(),
             GameTestSpec.named("pressure_plate_game_test_the_axe_scrapes_the_wax_off_before_the_oxidation", PressurePlateTests::theAxeScrapesTheWaxOffBeforeTheOxidation)

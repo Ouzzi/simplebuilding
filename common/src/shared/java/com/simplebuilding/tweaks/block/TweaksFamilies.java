@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.Block;
 public final class TweaksFamilies {
 
     public enum Family {
-        ELYTRA_PAD, FLYPAD, SPAWN_TELEPORTER, LAUNCHPAD, CHUNK_LOADER, PRESSURE_PLATE
+        ELYTRA_PAD, FLYPAD, SPAWN_TELEPORTER, LAUNCHPAD, CHUNK_LOADER, PRESSURE_PLATE, POTION_PAD
     }
 
     private TweaksFamilies() {
@@ -30,6 +30,7 @@ public final class TweaksFamilies {
             case CHUNK_LOADER -> List.of(TweaksBlocks.CHUNK_LOADER, TweaksBlocks.NETHERITE_CHUNK_LOADER, TweaksBlocks.ENDERITE_CHUNK_LOADER);
             case PRESSURE_PLATE -> List.of(TweaksBlocks.DIAMOND_PRESSURE_PLATE, TweaksBlocks.NETHERITE_PRESSURE_PLATE,
                     TweaksBlocks.ENDERITE_PRESSURE_PLATE);
+            case POTION_PAD -> List.of(TweaksBlocks.POTION_PAD, TweaksBlocks.REINFORCED_POTION_PAD, TweaksBlocks.INFUSED_POTION_PAD);
         };
     }
 

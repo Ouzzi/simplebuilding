@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -19,7 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
  * Station "tweaks" der Testzentrale: die aus Simple Tweaks uebernommenen Pads, Platten und Werkzeuge.
  * An der Wand alle Tab-Zeilen der Familie als Rahmen; davor je Familie ein Vorfuehrstueck zum
  * Ausprobieren (Teleporter, Elytra-Pad, Flypad, Launchpad mit Windkugeln, Druckplatten an Lampen,
- * Filterplatten mit Fass darunter, Leitstein fuer das Echolot).
+ * Filterplatten mit Fass darunter, Leitstein fuer das Echolot, Trank-Pad mit Wurftraenken).
  *
  * <p>Der Chunk-Loader steht bewusst nur im Rahmen: gesetzt wuerde er beim Bau Chunks erzwingen.
  * Die Kupferplatte ist die oxidierte Stufe, damit sie waehrend des Bautests nicht weiter altert.
@@ -88,6 +90,20 @@ public final class TweaksStation {
                 TcText.t("tweaks.echo.2", "no pearl needed"));
         c.place(echo, 0, floorZ + 1, Blocks.CHEST);
         c.contents(echo, 0, floorZ + 1, List.of(new ItemStack(TweaksItems.ECHO_COMPASS)));
+
+        // Trank-Pad mit einer Truhe Wurftraenke daneben (Wasser wischt es leer).
+        int potion = x;
+        x = station(c, x, floorZ, wallZ, TweaksBlocks.POTION_PAD,
+                TcText.t("tweaks.potion_pad", "Potion Pad"), TcText.t("tweaks.potion_pad.1", "throw a splash potion"),
+                TcText.t("tweaks.potion_pad.2", "then step on it"));
+        c.place(potion, 0, floorZ + 1, Blocks.CHEST);
+        c.contents(potion, 0, floorZ + 1, List.of(
+                PotionContents.createItemStack(Items.SPLASH_POTION, Potions.SWIFTNESS),
+                PotionContents.createItemStack(Items.SPLASH_POTION, Potions.LEAPING),
+                PotionContents.createItemStack(Items.SPLASH_POTION, Potions.HEALING),
+                PotionContents.createItemStack(Items.LINGERING_POTION, Potions.NIGHT_VISION),
+                PotionContents.createItemStack(Items.SPLASH_POTION, Potions.WATER),
+                new ItemStack(TweaksItems.BLAZE_HEAD)));
 
         c.backWall(0, Math.max(end, x), wallZ, panelTop + 3);
         return c;

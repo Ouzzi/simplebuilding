@@ -112,6 +112,9 @@ Familie.
 | Launchpad | I | `launchpad` | bis **4** Windkugeln | Schmiede: beliebige Vorlage + schwere Waegeplatte + **Diamant-Druckplatte** |
 | | **II (neu)** | `netherite_launchpad` | bis **8** Windkugeln | Schmiede: Netherit-Vorlage + Launchpad I + **Netherit-Druckplatte** |
 | | III | `enderite_launchpad` | bis **16** Windkugeln, **kein Fallschaden** bis zur naechsten Landung | Schmiede: Enderit-Vorlage + Launchpad II + **Enderit-Druckplatte** |
+| Trank-Pad (neu) | I | `potion_pad` | gespeicherter Wurftrank, **30 s** je Betreten | Werkbank (formlos): **Netherit-Druckplatte + Lohenkopf** |
+| | II | `reinforced_potion_pad` | **60 s** | Schmiede: Enderit-Vorlage + Trank-Pad I + **Enderit-Druckplatte** |
+| | III | `infused_potion_pad` | **120 s** | Schmiede: Enderit-Vorlage + Trank-Pad II + **Enderit-Kern** |
 
 Kupfer-Druckplatten sind Oxidationsstufen, keine Materialstufen, und bekommen deshalb keine
 Enderit-Variante.
@@ -173,9 +176,64 @@ die Druckplatten selbst (sie sind die Quelle der Platten) und die Netherstern-St
 - **Texturen**: die neuen Flypad-Stufen tragen `flypad_ender`, `reinforced_flypad_ender`,
   `stellar_flypad_ender` (Enderit-Rahmen und Motiv des alten Enderit-Flypads, Akzent je Stufe: Violett,
   Ender-Magenta, Goldweiss). Die alten `flypad.png`, `reinforced_flypad.png`, `stellar_flypad.png` bleiben
-  liegen - der Besitzer will sie fuer eine neue Netherit-Druckplatte wiederverwenden (offen).
+  liegen - seit 2026-09-28 in der Netherit-Palette die Vorlage der Trank-Pads (Abschnitt 2.4).
 - **Endstufen**: `TweaksFamilies.tiers(Family)` / `lastTier(Family)` nennt je Familie die Stufen und die
   hoechste, als Ansatzpunkt fuer spaetere Erweiterungen ueber den Endstufen.
+
+### 2.4 Trank-Pad und Lohenkopf (Besitzer 2026-09-28)
+
+Neue Pad-Familie `TweaksFamilies.Family.POTION_PAD` (Endstufe `infused_potion_pad`, damit greift auch
+die Kette ueber den Endstufen), Code `PotionPadBlock` / `PotionPadBlockEntity`.
+
+- **Speichern**: ein Wurftrank, der auf dem Pad zerschellt (`Block#onProjectileHit`, also Treffer auf
+  Ober- oder Seitenflaeche), wird gespeichert (`PotionContents`, BE-Schluessel `Potion`) und ersetzt den
+  vorigen. **Verweiltraenke zaehlen wie Wurftraenke** (entschieden: beide sind Wurftraenke, und ein
+  teurer gebrauter Trank soll nicht wirkungslos zerschellen). Ein Trank ohne Wirkung (Wasser, seltsamer
+  Trank) **wischt das Pad leer**. Anzeige: alle halbe Sekunde Wirkungspartikel in der Trankfarbe
+  (vom Server gesendet, kein Client-Code); Rechtsklick ohne Gegenstand zeigt Trank und Dauer. Kein
+  Komparator-Ausgang. Beim Abbau geht der Trank verloren (das Item traegt ihn nicht mit).
+- **Wirkung**: jeder **Spieler** (keine Mobs), der das Pad betritt, bekommt die gespeicherten
+  Dauerwirkungen mit der **Verstaerkung des Tranks** fuer **30 s / 60 s / 120 s** (I/II/III). Steht er
+  weiter darauf, wird jede Sekunde wieder auf diese Dauer aufgefrischt; Vanillas
+  `MobEffectInstance#update` verlaengert dabei nur bis zu dieser Dauer, nie darueber (kein Aufstocken).
+  Eine laengere Wirkung, die der Spieler schon hat, wird nicht gekuerzt.
+- **Sofortwirkungen** (Heilung, Schaden): **einmal je Betreten**, hoechstens **alle 2 s je Spieler**
+  (`INSTANT_COOLDOWN_TICKS` = 40); Stehenbleiben wiederholt sie nie. So bleibt Hin- und Herhuepfen
+  hoechstens ein Heiltrank je 2 s. Schaden trifft ohne Verursacher (`magic`).
+- **Haltbarkeit**: unbegrenzt (keine Ladungen, Besitzer-Vorgabe).
+- **Bereich**: die Blockspalte des Pads bis einen halben Block hoch (`PotionPadBlockEntity#area`).
+- Alle Stufen brennen nicht (Netherit), II und III sind episch; Besitzer-Abbau und kein Kolben wie alle Pads.
+- **Rezepte**: I = Werkbank formlos Netherit-Druckplatte + Lohenkopf. II = Schmiede Enderit-Vorlage +
+  I + **Enderit-Druckplatte** (Regel 2.1: Aufwertungen zahlen mit der Druckplatte des Zielmaterials).
+  III = Schmiede Enderit-Vorlage + II + **Enderit-Kern** (wie Flypad I; es gibt keine hoehere Platte).
+- **Texturen**: die alten `flypad.png`, `reinforced_flypad.png`, `stellar_flypad.png` (fuer genau
+  diesen Zweck aufgehoben) in der Netherit-Palette: Stein auf die Netherit-Rampe, die blauen Adern auf
+  eine Glut-Rampe je Stufe (I Lohen-Orange, II Enderit-Violett, III Gold), die Funkelsterne des
+  stellaren Bildes warmweiss; in der Mitte eine kleine Trankflasche in der Stufenfarbe.
+  `tools/textures/potion_pad_textures.py` (von `generate_textures.py` eingebunden). Abnahme offen.
+
+**Lohenkopf** (`blaze_head`, Wandvariante `blaze_wall_head`): Mob-Kopf wie die Vanilla-Koepfe, als
+Vanillas `SkullBlock`/`WallSkullBlock` mit eigenem Kopf-Typ `BlazeHeadType` (`simplebuilding:blaze`).
+Setzbar (16 Drehungen, Wand), tragbar (`equippable` Kopf, `#minecraft:skulls` fuer die Flueche),
+Notenblock spielt das Lohen-Geraeusch (Instrument `CUSTOM_HEAD` + Item-Komponente `note_block_sound`).
+Keine Redstone-Animation (Vanillas Kopfwuerfel hat keine bewegten Teile).
+- **Quelle**: nur eine Lohe, die von der Explosion eines **geladenen Creepers** stirbt, genau wie die
+  Vanilla-Koepfe (ein Kopf je Explosion - `Creeper#killedEntity` rollt `charged_creeper/root` nur
+  einmal). Umgesetzt als zusaetzlicher Pool in `minecraft:charged_creeper/root` mit Bedingung "Opfer ist
+  eine Lohe" (`ModLootTableModifications#blazeHeadPool`), unabhaengig vom Schalter
+  `enableLootTableChanges`, weil der Kopf die einzige Quelle fuer das Trank-Pad ist.
+- **Technik**: `SkullBlockEntityTypeMixin` laesst den Lohenkopf als gueltigen Block des Vanilla-Typs
+  `minecraft:skull` zu (sonst verweigert `BlockEntity#validateBlockState` das Setzen); das Modell
+  (Vanillas Mob-Kopf-Wuerfel, `SkullModel.createMobHeadLayer`) und die Textur
+  `textures/entity/blaze_head.png` haengt `SkullModelMixin` an `SkullBlockRenderer` - das nutzen
+  Block, Item-Modell (`minecraft:head`, `kind: simplebuilding:blaze`) und der getragene Kopf.
+- **Textur**: neue Pixelkunst (64x32, Kopf bei UV 0,0), Glutgesicht mit Brauenkante und Lohenaugen.
+
+Namen (en/de): "Potion Pad I" / "Trank-Pad I", "Reinforced Potion Pad II" / "Verstaerktes Trank-Pad II",
+"Infused Potion Pad III" / "Durchtraenktes Trank-Pad III", "Blaze Head" / "Lohenkopf". Kreativ-Tab:
+Zeile `potion_pads` (Lohenkopf + drei Stufen) am Ende der Pad-Zeilen; JEI-Infoseiten `potion_pad` und
+`blaze_head` (inklusive Herkunft des Kopfes); Testzentrale: Station mit Trank-Pad und einer Truhe
+Wurftraenke.
 
 Namen (en): "Elytra Pad I", "Reinforced Elytra Pad II", "Netherite Elytra Pad III",
 "Enderite Elytra Pad IV", "Fine Elytra Pad V"; "Flypad I", "Reinforced Flypad II", "Stellar Flypad III"
@@ -463,6 +521,15 @@ Flypad-Bereiche je Stufe (Geometrie und echter Durchlauf), Umbau alter Flypads i
 Endstufe je Familie. Gegenprobe 2026-09-27: jede der 16 Mutationen (Fassungsvermoegen, Schleich-Laden,
 Schub, Ueberschuss-Auswurf, Kreuzform, Flypad-Umbau, Item-Tausch, Bereiche, Sicherheitsnetz,
 Familienreihenfolge, fuenf Rezept-JSONs) machte ihre Tests auf allen drei Linien rot.
+
+`PotionPadTests` (Fabric-Adapter `PotionPadGameTest`, Test-ID `simplebuilding:potion_pad_game_test_*`),
+beide Codelinien: Speichern (echter Wurf und Treffer), Ersetzen durch einen Verweiltrank, Leerwischen
+mit Wasser, Wirkdauer 30/60/120 s mit der Verstaerkung des Tranks ohne Aufstocken, volle Dauer nach
+erneutem Betreten, Sofortwirkung einmal je Betreten mit 2-s-Abklingzeit, Rezepte aller Stufen, ein
+Lohenkopf je Explosion eines geladenen Creepers und keiner bei anderem Tod. Gegenprobe 2026-09-28: fuenf
+Mutationen (Speichern aus, Dauer 30/30/30, Sofortwirkung ohne Betreten-Pruefung, Pool an der
+Lohen-Beutetabelle statt an charged_creeper, Rezept-JSON mit Enderitbarren) machten alle sechs Tests auf
+allen drei Linien rot.
 
 Testzentrale: eigene Station `tweaks` (`com.simplebuilding.dev.testcentre.TweaksStation`, siehe
 `docs/TESTZENTRALE.md`); Gegenprobe: Zeile `travel_and_loading` (seit 2026-09-27 `launchpads` und

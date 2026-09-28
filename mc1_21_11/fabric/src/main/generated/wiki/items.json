@@ -12,6 +12,8 @@
     "simplebuilding:astralit_quartz_checker",
     "simplebuilding:backpack",
     "simplebuilding:blackstone_quartz_checker",
+    "simplebuilding:blaze_head",
+    "simplebuilding:blaze_wall_head",
     "simplebuilding:chiseled_astralit_bricks",
     "simplebuilding:chiseled_ender_quartz_bricks",
     "simplebuilding:chiseled_nihilith_bricks",
@@ -47,6 +49,7 @@
     "simplebuilding:exposed_copper_pressure_plate",
     "simplebuilding:fine_elytra_pad",
     "simplebuilding:flypad",
+    "simplebuilding:infused_potion_pad",
     "simplebuilding:lapis_quartz_checker",
     "simplebuilding:launchpad",
     "simplebuilding:levitating_gravel",
@@ -87,6 +90,7 @@
     "simplebuilding:polished_nihilith_slab",
     "simplebuilding:polished_nihilith_stairs",
     "simplebuilding:polished_nihilith_wall",
+    "simplebuilding:potion_pad",
     "simplebuilding:purpur_quartz_checker",
     "simplebuilding:reinforced_backpack",
     "simplebuilding:reinforced_blast_furnace",
@@ -96,6 +100,7 @@
     "simplebuilding:reinforced_hopper",
     "simplebuilding:reinforced_piston",
     "simplebuilding:reinforced_piston_head",
+    "simplebuilding:reinforced_potion_pad",
     "simplebuilding:reinforced_smoker",
     "simplebuilding:reinforced_sticky_piston",
     "simplebuilding:resin_quartz_checker",
@@ -156,6 +161,9 @@
     },
     {
       "id": "simplebuilding:blackstone_quartz_checker"
+    },
+    {
+      "id": "simplebuilding:blaze_head"
     },
     {
       "id": "simplebuilding:blueprint",
@@ -532,6 +540,9 @@
       "maxStackSize": 1
     },
     {
+      "id": "simplebuilding:infused_potion_pad"
+    },
+    {
       "durability": 2000,
       "enchantability": 14,
       "id": "simplebuilding:iron_building_wand",
@@ -862,6 +873,9 @@
       "id": "simplebuilding:polished_nihilith_wall"
     },
     {
+      "id": "simplebuilding:potion_pad"
+    },
+    {
       "id": "simplebuilding:purpur_quartz_checker"
     },
     {
@@ -898,6 +912,9 @@
     },
     {
       "id": "simplebuilding:reinforced_piston"
+    },
+    {
+      "id": "simplebuilding:reinforced_potion_pad"
     },
     {
       "bundleCapacityItems": 96,
