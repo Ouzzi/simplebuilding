@@ -535,8 +535,11 @@ public final class ModpackTests {
                 expected.add(LootPool.CODEC.encodeStart(ops, pool).getOrThrow());
             }
             JsonElement loaded = LootTable.DIRECT_CODEC.encodeStart(ops, table).getOrThrow().getAsJsonObject().get("pools");
-            if (!expected.equals(loaded)) {
-                problems.add(injectKey.identifier() + " differs from the code:\n  file " + loaded + "\n  code " + expected);
+            // A copy: the reference check below looks for the loaded pools as they are, names included.
+            JsonElement comparable = loaded == null ? null : loaded.deepCopy();
+            withoutLoaderPoolNames(comparable, expected);
+            if (!expected.equals(comparable)) {
+                problems.add(injectKey.identifier() + " differs from the code:\n  file " + comparable + "\n  code " + expected);
             }
             String vanilla = LootTable.DIRECT_CODEC.encodeStart(ops, server.reloadableRegistries().getLootTable(key)).getOrThrow().toString();
             // 26.2 writes the reference as the table id; 26.3 holds it as a bound Holder and the codec
@@ -562,6 +565,25 @@ public final class ModpackTests {
             Simplebuilding.getConfig().worldGen.buildingCoreLootChanceMultiplier = original;
         }
         TestCleanup.succeed(helper);
+    }
+
+    /**
+     * NeoForge gives every loot pool a name and fills one in for a pool loaded without it
+     * ({@code "main"} for a table's only pool, {@code "pool<n>"} otherwise), so a loaded table encodes
+     * a {@code name} the code's pools never set. That name is the loader's bookkeeping, not loot: it is
+     * dropped from a loaded pool whose code pool has none. Fabric and Forge have no pool names, so
+     * nothing changes there; a pool the code does name keeps its name in the comparison.
+     */
+    private static void withoutLoaderPoolNames(@org.jetbrains.annotations.Nullable JsonElement loaded, JsonArray expected) {
+        if (loaded == null || !loaded.isJsonArray() || loaded.getAsJsonArray().size() != expected.size()) {
+            return;
+        }
+        JsonArray pools = loaded.getAsJsonArray();
+        for (int i = 0; i < pools.size(); i++) {
+            if (pools.get(i).isJsonObject() && expected.get(i).isJsonObject() && !expected.get(i).getAsJsonObject().has("name")) {
+                pools.get(i).getAsJsonObject().remove("name");
+            }
+        }
     }
 
     // =====================================================================================

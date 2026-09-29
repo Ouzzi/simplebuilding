@@ -16,6 +16,7 @@
     "GuiGraphicsExtractorAccessor",
     "HandledScreenMixin",
     "HeldItemRendererMixin",
+    "HudContextualBarMixin",
     "InventoryScreenMixin",
     "ItemDecorationsMixin",
     "ItemFrameEntityRendererMixin",

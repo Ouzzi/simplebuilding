@@ -8,9 +8,9 @@
     "X": "simplebuilding:leather_sheet"
   },
   "pattern": [
-    " S ",
-    "DB ",
-    " X "
+    "DSD",
+    "DBD",
+    "DXD"
   ],
   "result": {
     "id": "simplebuilding:reinforced_bundle"

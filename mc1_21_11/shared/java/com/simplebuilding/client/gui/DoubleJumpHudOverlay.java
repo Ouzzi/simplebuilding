@@ -1,67 +1,80 @@
 package com.simplebuilding.client.gui;
 
 import com.simplebuilding.client.DoubleJumpController;
+import com.simplebuilding.tweaks.client.SpawnElytraHud;
+import com.simplebuilding.util.AirJumpBarRule;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.contextualbar.ContextualBarRenderer;
+import net.minecraft.client.gui.contextualbar.JumpableVehicleBarRenderer;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
+import org.jetbrains.annotations.Nullable;
 
 /**
- * HUD cooldown bar for the air jump (double jump), drawn like vanilla's horse jump bar: the
- * {@code hud/jump_bar_*} sprites in the contextual bar slot (182x5, where the experience bar sits),
- * filling up while the ability recharges and gone once it is ready. Vanilla swaps that slot the
- * same way while riding a horse, so nothing collides with the heart and armour rows any more
- * (the old 80x5 fill bar with an "Air Jump" label sat 55 px above the bottom, right on top of
- * extra heart rows). The experience level number is drawn again on top, as vanilla does.
+ * The air jump cooldown as a bar in vanilla's contextual bar slot - exactly where and as large as
+ * the experience bar (182x5, 29 px above the bottom), in the mod's own sky-blue sprites
+ * ({@code simplebuilding:hud/air_jump_bar_*}), filling up while the ability recharges (owner
+ * 2026-09-29). It is the only thing on screen for the air jump: no box, no label.
+ *
+ * <p>It is not a HUD layer of its own. {@code HudContextualBarMixin} asks {@link #takesTheSlot}
+ * where vanilla draws its contextual bar (experience, locator or vehicle jump bar) and draws this
+ * bar instead, so it follows vanilla's own switching - see {@link AirJumpBarRule} for the order.
+ * The experience level number stays vanilla's (it is drawn over the locator bar as well).
  */
 public final class DoubleJumpHudOverlay {
-    public static final Identifier BACKGROUND_SPRITE = Identifier.withDefaultNamespace("hud/jump_bar_background");
-    public static final Identifier PROGRESS_SPRITE = Identifier.withDefaultNamespace("hud/jump_bar_progress");
+    public static final Identifier BACKGROUND_SPRITE = Identifier.fromNamespaceAndPath("simplebuilding", "hud/air_jump_bar_background");
+    public static final Identifier PROGRESS_SPRITE = Identifier.fromNamespaceAndPath("simplebuilding", "hud/air_jump_bar_progress");
     /** Vanilla's contextual bar: 182x5, 24 px above the bottom edge plus its own height. */
-    public static final int BAR_WIDTH = 182;
-    public static final int BAR_HEIGHT = 5;
-    public static final int BAR_BOTTOM_OFFSET = 24 + BAR_HEIGHT;
+    public static final int BAR_WIDTH = ContextualBarRenderer.WIDTH;
+    public static final int BAR_HEIGHT = ContextualBarRenderer.HEIGHT;
+    public static final int BAR_BOTTOM_OFFSET = ContextualBarRenderer.MARGIN_BOTTOM + ContextualBarRenderer.HEIGHT;
 
     private DoubleJumpHudOverlay() {
     }
 
+    /**
+     * Whether the air jump bar takes the contextual bar slot now. {@code vanillaBar} is the bar
+     * vanilla is about to draw (null when unknown, e.g. a direct call from a test).
+     */
+    public static boolean takesTheSlot(@Nullable ContextualBarRenderer vanillaBar) {
+        Minecraft client = Minecraft.getInstance();
+        if (client.player == null || client.gameMode == null) {
+            return false;
+        }
+        return AirJumpBarRule.showsAirJumpBar(
+                vanillaBar instanceof JumpableVehicleBarRenderer,
+                client.gameMode.hasExperience(),
+                AirJumpBarRule.experienceChangedRecently(client.player.experienceDisplayStartTick, client.player.tickCount),
+                DoubleJumpController.getCooldownRemaining(),
+                DoubleJumpController.getCooldownMax(),
+                ModHud.visible(),
+                SpawnElytraHud.wearsSpawnElytra(client.player));
+    }
+
+    /**
+     * Draws the bar if it takes the slot now. Used by tests and anyone without vanilla's bar at
+     * hand; the mixin calls {@link #takesTheSlot} with vanilla's bar and then {@link #drawBar}.
+     */
     public static void render(GuiGraphics context) {
         Minecraft client = Minecraft.getInstance();
-        if (client.player == null) {
-            return;
+        if (client.player == null || client.options.hideGui) {
+            return; // F1: vanilla skips the whole hotbar group, a direct call has to ask itself
         }
-        if (!ModHud.visible()) {
-            return; // HUD key / config showModHud
+        if (takesTheSlot(null)) {
+            drawBar(context);
         }
-        if (client.options.hideGui) {
-            // Fabric's element registry hangs the mod's overlays inside vanilla's own layers,
-            // which F1 switches off as a whole; NeoForge's layer event does not, and there the
-            // air jump bar, the speedometer and the rangefinder stayed on a hidden HUD. The
-            // question has to be asked here, once, so both loaders give the same answer.
-            return;
-        }
-        if (!DoubleJumpController.isOnCooldown()) {
-            return; // only visible while the air-jump is recharging
-        }
-        int max = DoubleJumpController.getCooldownMax();
-        if (max <= 0) {
-            return;
-        }
-        int remaining = DoubleJumpController.getCooldownRemaining();
-        float charged = Math.max(0.0f, Math.min(1.0f, (float) (max - remaining) / (float) max));
+    }
 
+    /** The bar itself, at the running cooldown's progress. */
+    public static void drawBar(GuiGraphics context) {
         int x = (context.guiWidth() - BAR_WIDTH) / 2;
         int y = context.guiHeight() - BAR_BOTTOM_OFFSET;
         context.blitSprite(RenderPipelines.GUI_TEXTURED, BACKGROUND_SPRITE, x, y, BAR_WIDTH, BAR_HEIGHT);
-        int fillWidth = Math.round(BAR_WIDTH * charged);
+        int fillWidth = AirJumpBarRule.progressWidth(DoubleJumpController.getCooldownRemaining(), DoubleJumpController.getCooldownMax());
         if (fillWidth > 0) {
             context.blitSprite(RenderPipelines.GUI_TEXTURED, PROGRESS_SPRITE, BAR_WIDTH, BAR_HEIGHT, 0, 0,
                     x, y, fillWidth, BAR_HEIGHT);
-        }
-
-        if (client.gameMode != null && client.gameMode.hasExperience() && client.player.experienceLevel > 0) {
-            ContextualBarRenderer.renderExperienceLevel(context, client.font, client.player.experienceLevel);
         }
     }
 }

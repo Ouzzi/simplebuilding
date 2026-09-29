@@ -980,71 +980,34 @@ public final class BuildingEnchantmentTests {
     // =====================================================================================
 
     /**
-     * Linear <em>without sneaking</em> (the name of this test predates the line mode, which
-     * {@code WandModeTests#linearWhileSneakingBuildsTheLineAwayFromTheClickedFace} owns): the
-     * wand picks {@code DELAY_TICKS_LINE} instead of {@code DELAY_TICKS} for the pause between two
-     * rings, and the shape it builds is position for position the same square plane.
-     *
-     * <p>This test pins both halves of that. The two runs are compared position by position, so a
-     * Linear branch that changed the shape of a click without sneaking fails here. And the tick
-     * counts are measured, so removing the branch (or swapping the two constants) is caught as
-     * well.
+     * Linear builds only a single line (owner 2026-09-29) - also <em>without sneaking</em>, where
+     * until then the same wand built the whole square plane, only faster. The line runs straight
+     * away from the clicked face, {@code lineLength(radius)} long (radius 1: six blocks), and the
+     * wand paces it with {@code DELAY_TICKS_LINE} between its steps; a wand without Linear still
+     * builds the plane ring by ring with {@code DELAY_TICKS}.
      *
      * <p>The wand's {@code inventoryTick} is called directly instead of through the player tick:
-     * a gametest server never pumps a mock player's connection, and driving the item hook is the
-     * only way to count ticks exactly rather than "somewhere in the next twenty". The expected
-     * counts are {@code DELAY + 2}: one tick places the centre and arms the timer, {@code DELAY}
-     * ticks drain it, and one more places the outer ring and switches the wand off.
+     * that is the only way to count ticks exactly. The expected counts are {@code DELAY + 2}: one
+     * tick places the first step and arms the timer, {@code DELAY} ticks drain it, one more places
+     * the rest and switches the wand off. A two ring plain run closes that formula (one tick for the
+     * centre plus {@code DELAY_TICKS + 1} per ring), and the whole 8x8x8 room is compared afterwards,
+     * so a Linear click that still grew a plane - or a line that reached sideways - shows up.
      *
-     * <p><strong>A third run, two rings wide, closes that formula.</strong> The two runs the
-     * enchantment is measured on have a radius of one, which is a single step outwards - so they
-     * see one single pause, the one between the centre and the outer ring. A wand that armed the
-     * timer on the way out of ring zero and left it at zero for every further ring would pace both
-     * of them exactly as it does today, and a 9x9 plane would appear in one blink after its first
-     * ring. The run at the end therefore builds a radius of two and states the general shape of the
-     * formula: one tick for the centre plus {@code DELAY_TICKS + 1} per ring, with the inner 3x3
-     * standing alone for the whole first delay and the outer ring for the whole second one.
-     *
-     * <p>Three things are measured that a plain "how many ticks did the run take" cannot see:
-     *
-     * <ul>
-     *   <li><strong>The plane really is built ring by ring.</strong> The block count is read back
-     *       after <em>every single</em> tick, and the first tick has to show exactly the one
-     *       centre block. A wand that computed all rings in its first tick would still spend the
-     *       same number of ticks draining the same timer afterwards, and would still finish with
-     *       the same nine blocks - the tick count alone cannot tell the two apart.</li>
-     *   <li><strong>The two delays are the numbers they are supposed to be.</strong> Comparing
-     *       the measurement against {@code DELAY_TICKS} only proves the wand uses the constant,
-     *       not what the constant says; setting {@code DELAY_TICKS} to 40 would keep both sides
-     *       of that comparison in step and make the wand ten times slower in silence. The two
-     *       balancing numbers are therefore spelled out here as well - they are pinned nowhere
-     *       else in the repository.</li>
-     *   <li><strong>Nothing is built anywhere else.</strong> The runs are compared against a
-     *       scan of the <em>whole</em> 8x8x8 room instead of the 5x5 window above each anchor.
-     *       A Linear branch that quietly added a second layer, or reached further out sideways,
-     *       lands outside that window and would otherwise be invisible.</li>
-     * </ul>
-     *
-     * <p><strong>What breaks this test:</strong> dropping the {@code isLinePlace} ternary (both
-     * runs would take {@code DELAY_TICKS + 2}), swapping or retuning the two constants, reading
-     * Linear from the wrong stack, collapsing the per-ring loop into a single tick, arming the
-     * timer for the first ring only, or Linear starting to change {@code calculatePositions} - in
-     * the plane or out of it.
+     * <p><strong>What breaks this test:</strong> Linear falling back to the plane without sneaking,
+     * a line longer or shorter than {@code lineLength}, a wrong direction, swapping or retuning the
+     * two delay constants, collapsing the step loop into a single tick, or arming the timer for the
+     * first ring only.
      */
-    public static void linearOnlyShortensTheWandStepDelay(GameTestHelper helper) {
+    public static void linearBuildsOnlyTheLineAndPacesItWithTheLineDelay(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
+        helper.assertTrue(!player.isShiftKeyDown(), "test setup broken: the mock player sneaks, the case is about not sneaking");
 
-        // Two separate layers, so the 5x5 windows the two runs are read back through cannot
-        // overlap and count each other's blocks.
-        BlockPos plainAnchor = new BlockPos(3, 1, 3);
-        BlockPos linearAnchor = new BlockPos(3, 4, 3);
-        // A third layer for the two ring wide run at the end, far enough from the other two that
-        // its 5x5 window cannot reach them either.
-        BlockPos wideAnchor = new BlockPos(3, 6, 3);
+        // The plain plane and the two ring plane in two layers, the line in a column of its own at
+        // x = z = 0 that neither 5x5 window reaches.
+        BlockPos plainAnchor = new BlockPos(4, 1, 4);
+        BlockPos wideAnchor = new BlockPos(3, 5, 3);
+        BlockPos lineAnchor = new BlockPos(0, 0, 0);
 
-        // Whatever the empty test room already contains - the loaders do not agree on whether it
-        // has a floor - so the "nothing else was touched" comparison below states a difference
-        // instead of a room layout.
         Set<BlockPos> roomBefore = solidPositions(helper);
 
         ItemStack plainWand = wandWithRadiusOne(new ItemStack(ModItems.DIAMOND_BUILDING_WAND));
@@ -1053,39 +1016,28 @@ public final class BuildingEnchantmentTests {
 
         List<Integer> plainProgress =
                 runWandTickByTick(helper, player, plainWand, plainAnchor, new ItemStack(Items.STONE, 64));
-        List<Integer> linearProgress =
-                runWandTickByTick(helper, player, linearWand, linearAnchor, new ItemStack(Items.STONE, 64));
+        List<Integer> lineProgress = runWandTickByTick(helper, player, linearWand, lineAnchor,
+                () -> columnCount(helper, lineAnchor), new ItemStack(Items.STONE, 64));
         int plainTicks = plainProgress.size();
-        int linearTicks = linearProgress.size();
+        int lineTicks = lineProgress.size();
 
-        // A third run, two rings wide. Both runs above take exactly one step outwards, so they
-        // measure one single pause; a wand that arms the timer for the first ring and leaves it at
-        // zero for every ring after that paces them identically and only shows up here.
         ItemStack wideWand = wandWithRadius(new ItemStack(ModItems.DIAMOND_BUILDING_WAND), 2);
         List<Integer> wideProgress =
                 runWandTickByTick(helper, player, wideWand, wideAnchor, new ItemStack(Items.STONE, 64));
         int wideTicks = wideProgress.size();
 
-        // --- the shape is untouched ---
-        Set<BlockPos> plainShape = placedOffsets(helper, plainAnchor);
-        Set<BlockPos> linearShape = placedOffsets(helper, linearAnchor);
-        helper.assertValueEqual(plainShape.size(), 9,
-                "the unenchanted wand did not fill the expected 3x3, it placed " + plainShape.size() + " blocks");
-        helper.assertValueEqual(linearShape, plainShape,
-                "Linear changed the shape the wand builds. That is a real feature now, so this test "
-                        + "has to be replaced by one that states what the new shape is.");
-
-        // --- and nothing at all stands outside those three planes ---
-        // The window above only looks at one layer, five blocks wide. A run that also placed a
-        // block one step higher, or six blocks out, would fill exactly the same window.
+        // --- the shapes: a 3x3 plane without Linear, a single six block line with it ---
+        helper.assertValueEqual(placedOffsets(helper, plainAnchor).size(), 9,
+                "the unenchanted wand did not fill the expected 3x3");
+        int lineLength = BuildingWandItem.lineLength(1);
+        helper.assertValueEqual(lineLength, 6, "lineLength(1) is no longer twice the 3x3 diameter");
         Set<BlockPos> expected = new HashSet<>(roomBefore);
         expected.add(plainAnchor);
-        expected.add(linearAnchor);
         expected.add(wideAnchor);
+        expected.add(lineAnchor);
         for (int dx = -1; dx <= 1; dx++) {
             for (int dz = -1; dz <= 1; dz++) {
                 expected.add(plainAnchor.offset(dx, 1, dz));
-                expected.add(linearAnchor.offset(dx, 1, dz));
             }
         }
         for (int dx = -2; dx <= 2; dx++) {
@@ -1093,43 +1045,39 @@ public final class BuildingEnchantmentTests {
                 expected.add(wideAnchor.offset(dx, 1, dz));
             }
         }
-        Set<BlockPos> stray = new HashSet<>(solidPositions(helper));
+        for (int dy = 1; dy <= lineLength; dy++) {
+            expected.add(lineAnchor.above(dy));
+        }
+        Set<BlockPos> solid = solidPositions(helper);
+        Set<BlockPos> stray = new HashSet<>(solid);
         stray.removeAll(expected);
-        helper.assertTrue(stray.isEmpty(),
-                "the wand put blocks outside the two 3x3 planes and the one 5x5 plane it was asked "
-                        + "for, at " + stray + " (relative positions). Linear is only supposed to "
-                        + "change the pacing.");
+        Set<BlockPos> missing = new HashSet<>(expected);
+        missing.removeAll(solid);
+        helper.assertTrue(stray.isEmpty() && missing.isEmpty(),
+                "the Linear click without sneaking did not build exactly one line of " + lineLength
+                        + " blocks straight up (the plane runs are fixed): extra blocks at " + stray
+                        + ", missing " + missing + " (relative positions)");
 
-        // --- one ring per step: the centre first, the outer ring only on the very last tick ---
-        helper.assertValueEqual(plainProgress.get(0), 1,
-                "the unenchanted wand did not start with the single centre block; it placed "
-                        + plainProgress.get(0) + " blocks in its first tick, so the ring by ring build "
-                        + "is gone and the delay measured below paces nothing");
+        // --- step by step: the plane ring by ring, the line in two halves ---
+        helper.assertValueEqual(plainProgress.get(0), 1, "blocks after the first plain tick (the centre alone)");
         helper.assertValueEqual(plainProgress.get(plainTicks - 2), 1,
-                "the unenchanted wand had already placed " + plainProgress.get(plainTicks - 2)
-                        + " blocks one tick before it finished; the outer ring is supposed to wait "
-                        + "out the whole delay");
+                "the outer ring stood before the plain wand's delay ran out");
         helper.assertValueEqual(plainProgress.get(plainTicks - 1), 9, "blocks after the last plain tick");
-        helper.assertValueEqual(linearProgress.get(0), 1,
-                "the Linear wand did not start with the single centre block either, it placed "
-                        + linearProgress.get(0));
-        helper.assertValueEqual(linearProgress.get(linearTicks - 2), 1,
-                "the Linear wand had already placed " + linearProgress.get(linearTicks - 2)
-                        + " blocks one tick before it finished");
-        helper.assertValueEqual(linearProgress.get(linearTicks - 1), 9, "blocks after the last Linear tick");
+        int steps = Math.min(2, lineLength); // radius 1 = two steps, like the plane's two rings
+        helper.assertValueEqual(lineProgress.get(0), lineLength / steps,
+                "the line did not start with its first half (" + (lineLength / steps) + " blocks)");
+        helper.assertValueEqual(lineProgress.get(lineTicks - 2), lineLength / steps,
+                "the line's second half stood before its delay ran out");
+        helper.assertValueEqual(lineProgress.get(lineTicks - 1), lineLength, "blocks after the last line tick");
 
-        // --- only the pacing is ---
-        helper.assertTrue(linearTicks < plainTicks,
-                "Linear did not speed the wand up at all: " + linearTicks + " ticks against " + plainTicks);
+        // --- the pacing ---
         helper.assertValueEqual(plainTicks, BuildingWandItem.DELAY_TICKS + 2,
                 "the unenchanted wand no longer paces itself with DELAY_TICKS");
-        helper.assertValueEqual(linearTicks, BuildingWandItem.DELAY_TICKS_LINE + 2,
-                "the Linear wand no longer paces itself with DELAY_TICKS_LINE");
-
-        // The two constants themselves, because the two assertions above compare the wand against
-        // them and would follow them anywhere. These are the only two places in the repository
-        // where the wand's step delay is stated as a number; if one of them is retuned on purpose,
-        // this is the line that has to be updated with it.
+        helper.assertValueEqual(lineTicks, BuildingWandItem.DELAY_TICKS_LINE + 2,
+                "the Linear line no longer paces itself with DELAY_TICKS_LINE");
+        helper.assertTrue(lineTicks < plainTicks,
+                "Linear did not speed the line up at all: " + lineTicks + " ticks against " + plainTicks);
+        // The two constants themselves - the only places the step delays are stated as numbers.
         helper.assertValueEqual(BuildingWandItem.DELAY_TICKS, 4,
                 "BuildingWandItem.DELAY_TICKS was retuned. Nothing else pins it, so state the new "
                         + "pause between two rings here on purpose or the wand can be slowed down at will.");
@@ -1137,21 +1085,13 @@ public final class BuildingEnchantmentTests {
                 "BuildingWandItem.DELAY_TICKS_LINE was retuned; same story as DELAY_TICKS above.");
 
         // --- every ring waits, not only the first one ---
-        // Everything above this line is measured on a radius of one, which is a single step
-        // outwards: centre, one pause, outer ring. A timer that is armed on the way out of ring
-        // zero and left at zero afterwards produces exactly those numbers as well. The two ring
-        // run separates the two readings - a run of n rings costs one tick for the centre plus
-        // DELAY_TICKS + 1 for every ring after it.
         helper.assertValueEqual(wideTicks, 2 * BuildingWandItem.DELAY_TICKS + 3,
                 "a two ring wand took " + wideTicks + " ticks; every ring after the first one is "
-                        + "supposed to wait out the same delay, so the wand is no longer pacing the "
-                        + "rings past the first");
+                        + "supposed to wait out the same delay");
         helper.assertValueEqual(wideProgress.get(BuildingWandItem.DELAY_TICKS + 1), 9,
-                "the two ring wand did not have exactly the inner 3x3 standing on the tick its "
-                        + "first delay ran out, it had " + wideProgress.get(BuildingWandItem.DELAY_TICKS + 1));
+                "the two ring wand did not have exactly the inner 3x3 standing when its first delay ran out");
         helper.assertValueEqual(wideProgress.get(wideTicks - 2), 9,
-                "the outer ring of the two ring wand was already standing one tick before the run "
-                        + "ended, so the second delay paced nothing");
+                "the outer ring of the two ring wand stood before the second delay ran out");
         helper.assertValueEqual(wideProgress.get(wideTicks - 1), 25,
                 "the two ring wand did not finish the 5x5 plane its radius setting asks for");
 
@@ -1298,6 +1238,13 @@ public final class BuildingEnchantmentTests {
      */
     private static List<Integer> runWandTickByTick(GameTestHelper helper, ServerPlayer player, ItemStack wand,
                                                    BlockPos anchor, ItemStack... supplies) {
+        return runWandTickByTick(helper, player, wand, anchor, () -> placedOffsets(helper, anchor).size(), supplies);
+    }
+
+    /** The same, counting the placed blocks with {@code counter} (the line case counts a column). */
+    private static List<Integer> runWandTickByTick(GameTestHelper helper, ServerPlayer player, ItemStack wand,
+                                                   BlockPos anchor, java.util.function.IntSupplier counter,
+                                                   ItemStack... supplies) {
         helper.setBlock(anchor, Blocks.STONE);
         player.getInventory().clearContent();
         player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
@@ -1316,7 +1263,7 @@ public final class BuildingEnchantmentTests {
         List<Integer> perTick = new ArrayList<>();
         while (wandIsActive(wand) && perTick.size() < WAND_TICK_CAP) {
             item.inventoryTick(wand, helper.getLevel(), player, EquipmentSlot.MAINHAND);
-            perTick.add(placedOffsets(helper, anchor).size());
+            perTick.add(counter.getAsInt());
         }
         helper.assertTrue(perTick.size() < WAND_TICK_CAP,
                 "the wand never finished within " + WAND_TICK_CAP + " ticks");
@@ -1324,6 +1271,17 @@ public final class BuildingEnchantmentTests {
                 "the wand finished in " + perTick.size() + " tick(s); the per tick assertions below "
                         + "need at least an arming tick and a closing tick to compare");
         return perTick;
+    }
+
+    /** Non-air blocks in the column above {@code anchor}, up to the top of the 8 high room. */
+    private static int columnCount(GameTestHelper helper, BlockPos anchor) {
+        int count = 0;
+        for (int dy = 1; anchor.getY() + dy < 8; dy++) {
+            if (!helper.getBlockState(anchor.above(dy)).isAir()) {
+                count++;
+            }
+        }
+        return count;
     }
 
     /**

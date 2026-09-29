@@ -807,6 +807,71 @@ public final class OctantTests {
         TestCleanup.succeed(helper);
     }
 
+    /**
+     * The octant is rarer in chests (owner 2026-09-29): its weight went from 5 to 2 in the ancient
+     * city, from 3 to 1 in the nether fortress and from 5 to 2 in the pillager outpost, and the
+     * difference went to the empty entry, so each pool keeps its total and every other entry its
+     * chance. Read off the serialised pools the mod hands to the loot loader, like the test above.
+     *
+     * <p>What breaks it: the old weights, or lowering the octant by shrinking the pool (the other
+     * entries would then come up more often).
+     */
+    public static void theOctantIsRarerInChestLoot(GameTestHelper helper) {
+        HolderLookup.Provider registries = helper.getLevel().registryAccess();
+        // table, new octant weight, old octant weight, pool total (unchanged)
+        Object[][] cases = {
+                {BuiltInLootTables.ANCIENT_CITY, 2, 5, 58},
+                {BuiltInLootTables.NETHER_BRIDGE, 1, 3, 39},
+                {BuiltInLootTables.PILLAGER_OUTPOST, 2, 5, 56},
+        };
+        for (Object[] row : cases) {
+            @SuppressWarnings("unchecked")
+            ResourceKey<LootTable> table = (ResourceKey<LootTable>) row[0];
+            int[] weights = octantWeightAndPoolTotal(helper, registries, table);
+            helper.assertTrue(weights != null, "the octant is no longer in the " + table.identifier() + " loot");
+            helper.assertTrue(weights[0] == (int) row[1] && weights[1] == (int) row[3],
+                    table.identifier() + ": the octant has weight " + weights[0] + " of " + weights[1]
+                            + ", expected " + row[1] + " of " + row[3] + " (was " + row[2] + " of " + row[3] + ")");
+        }
+        TestCleanup.succeed(helper);
+    }
+
+    /** The octant entry's weight and the total weight of its pool, or {@code null} without an octant. */
+    private static int[] octantWeightAndPoolTotal(GameTestHelper helper, HolderLookup.Provider registries,
+                                                  ResourceKey<LootTable> table) {
+        PoolCollector collector = new PoolCollector();
+        ModLootTableModifications.apply(table, collector, registries);
+        RegistryOps<JsonElement> ops = registries.createSerializationContext(JsonOps.INSTANCE);
+        for (LootPool pool : collector.pools) {
+            JsonElement encoded = LootPool.CODEC.encodeStart(ops, pool)
+                    .getOrThrow(message -> helper.assertionException("a loot pool of " + table.identifier()
+                            + " cannot be serialised: " + message));
+            JsonElement entries = encoded.isJsonObject() ? encoded.getAsJsonObject().get("entries") : null;
+            if (entries == null || !entries.isJsonArray()) {
+                continue;
+            }
+            int total = 0;
+            int octant = -1;
+            for (JsonElement entry : entries.getAsJsonArray()) {
+                if (!entry.isJsonObject()) {
+                    continue;
+                }
+                JsonObject object = entry.getAsJsonObject();
+                JsonElement weight = object.get("weight");
+                int w = weight != null && weight.isJsonPrimitive() ? weight.getAsInt() : 1;
+                total += w;
+                JsonElement name = object.get("name");
+                if (name != null && name.isJsonPrimitive() && OCTANT_ID.equals(name.getAsString())) {
+                    octant = w;
+                }
+            }
+            if (octant >= 0) {
+                return new int[] {octant, total};
+            }
+        }
+        return null;
+    }
+
     // =====================================================================================
     // (g) MARKER: THE OCTANT BUILDS NOTHING
     // =====================================================================================
@@ -1136,23 +1201,21 @@ public final class OctantTests {
     private static final Item ROD = Items.LIGHTNING_ROD;
 
     /**
-     * The octant's crafting recipe as the owner set it on 2026-09-25: two light weighted pressure
-     * plates where the gold ingots were, lightning rods where the gold nuggets were, a heavy
-     * weighted pressure plate where the copper ingot was, compass in the middle and the lead top
-     * right - resolved through the server's recipe manager the way a crafting table does. The old
-     * gold/copper pattern and a grid with the two plate kinds swapped must not craft an octant.
+     * The octant's crafting recipe as the owner set it on 2026-09-29: gold nuggets where the light
+     * weighted pressure plates were and a gold core where the heavy one was (2026-09-25 to
+     * 2026-09-28), lightning rods on the arms, compass in the middle and the lead top right - resolved through the server's recipe manager the way a crafting table does. The
+     * pressure plate pattern and a grid with core and nuggets swapped must not craft an octant.
      *
      * <p>What breaks this test: any change to {@code recipe/octant.json} - pattern, key, result or
      * count - or the recipe failing to load.
      */
     public static void theOctantRecipeCraftsFromItsDocumentedPattern(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
-        // " RL" / "PCR" / "HP " with R=lightning rod, L=lead, P=light and H=heavy weighted
-        // pressure plate, C=compass.
+        // " RL" / "NCR" / "GN " with R=lightning rod, L=lead, N=gold nugget, G=gold core, C=compass.
         CraftingInput grid = documentedGrid(
                 null, ROD, Items.LEAD,
-                Items.LIGHT_WEIGHTED_PRESSURE_PLATE, Items.COMPASS, ROD,
-                Items.HEAVY_WEIGHTED_PRESSURE_PLATE, Items.LIGHT_WEIGHTED_PRESSURE_PLATE, null);
+                Items.GOLD_NUGGET, Items.COMPASS, ROD,
+                ModItems.GOLD_CORE, Items.GOLD_NUGGET, null);
         Optional<RecipeHolder<CraftingRecipe>> match = level.getServer().getRecipeManager()
                 .getRecipeFor(RecipeType.CRAFTING, grid, level);
         helper.assertTrue(match.isPresent(), "the documented octant pattern does not match any crafting recipe");
@@ -1162,20 +1225,20 @@ public final class OctantTests {
         helper.assertTrue(result.is(ModItems.OCTANT), "the octant recipe produced " + result + " instead of an octant");
         Assertions.valueEqual(helper, result.getCount(), 1, "octants produced per craft");
 
-        // --- the old gold/copper pattern and swapped plates must not craft an octant ---
+        // --- the pressure plate pattern (2026-09-25) and core/nuggets swapped must not craft an octant ---
         CraftingInput old = documentedGrid(
-                null, Items.GOLD_NUGGET, Items.LEAD,
-                Items.GOLD_INGOT, Items.COMPASS, Items.GOLD_NUGGET,
-                Items.COPPER_INGOT, Items.GOLD_INGOT, null);
+                null, ROD, Items.LEAD,
+                Items.LIGHT_WEIGHTED_PRESSURE_PLATE, Items.COMPASS, ROD,
+                Items.HEAVY_WEIGHTED_PRESSURE_PLATE, Items.LIGHT_WEIGHTED_PRESSURE_PLATE, null);
         CraftingInput swapped = documentedGrid(
                 null, ROD, Items.LEAD,
-                Items.HEAVY_WEIGHTED_PRESSURE_PLATE, Items.COMPASS, ROD,
-                Items.LIGHT_WEIGHTED_PRESSURE_PLATE, Items.HEAVY_WEIGHTED_PRESSURE_PLATE, null);
+                ModItems.GOLD_CORE, Items.COMPASS, ROD,
+                Items.GOLD_NUGGET, ModItems.GOLD_CORE, null);
         for (CraftingInput wrong : List.of(old, swapped)) {
             Optional<RecipeHolder<CraftingRecipe>> wrongMatch = level.getServer().getRecipeManager()
                     .getRecipeFor(RecipeType.CRAFTING, wrong, level);
             helper.assertTrue(wrongMatch.isEmpty() || !wrongMatch.get().value().assemble(wrong, level.registryAccess()).is(ModItems.OCTANT),
-                    (wrong == old ? "the old gold and copper pattern" : "the grid with light and heavy plates swapped")
+                    (wrong == old ? "the old pressure plate pattern" : "the grid with gold core and nuggets swapped")
                             + " still crafts an octant");
         }
         TestCleanup.succeed(helper);

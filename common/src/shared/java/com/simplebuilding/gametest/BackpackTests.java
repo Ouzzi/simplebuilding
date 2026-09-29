@@ -312,7 +312,11 @@ public final class BackpackTests {
         worn.enchant(enchantment(helper, ModEnchantments.FUNNEL), 1);
 
         ItemStack d = new ItemStack(ModItems.DIAMOND_PEBBLE);
-        ItemStack reinforced = craft(helper, level, CraftingInput.of(3, 3, List.of(ItemStack.EMPTY, s, ItemStack.EMPTY, d, worn, d, p, p, p)),
+        // "DSD" / "DBD" / "LLL": four diamond pebbles since 2026-09-29; the old two-pebble grid crafts nothing.
+        helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING,
+                        CraftingInput.of(3, 3, List.of(ItemStack.EMPTY, s, ItemStack.EMPTY, d, worn, d, p, p, p)), level).isEmpty(),
+                "the old reinforced backpack pattern with two diamond pebbles still crafts something");
+        ItemStack reinforced = craft(helper, level, CraftingInput.of(3, 3, List.of(d, s, d, d, worn, d, p, p, p)),
                 "the reinforced backpack pattern", "simplebuilding:reinforced_backpack");
         helper.assertTrue(reinforced.is(ModItems.REINFORCED_BACKPACK),
                 "the reinforced backpack pattern crafts " + reinforced);
@@ -320,7 +324,7 @@ public final class BackpackTests {
                 "contents the reinforced backpack kept from the backpack it was made of");
         assertKeptNameAndFunnel(helper, reinforced, "Kit", "the reinforced backpack");
         helper.assertTrue(level.getServer().getRecipeManager().getRecipeFor(RecipeType.CRAFTING,
-                        CraftingInput.of(3, 3, List.of(ItemStack.EMPTY, s, ItemStack.EMPTY, worn, d, d, p, p, p)), level).isEmpty(),
+                        CraftingInput.of(3, 3, List.of(d, s, d, worn, d, d, p, p, p)), level).isEmpty(),
                 "the reinforced backpack pattern with the backpack in a corner crafts something, so the "
                         + "upgrade recipe is not shaped");
 

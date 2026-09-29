@@ -177,14 +177,15 @@ public final class ModLootTableModifications {
                     .setRolls(LootNumbers.between(0, 2))
                     .add(enchantedBook(ModEnchantments.DEEP_POCKETS, 2, enchantments, 5))
                     .add(enchantedBook(ModEnchantments.RADIUS, 1, enchantments, 4))
-                    .add(LootItem.lootTableItem(ModItems.OCTANT).setWeight(5).apply(EnchantRandomlyFunction.randomEnchantment()))
+                    // Oktant seltener (Besitzer 2026-09-29): Gewicht 5 -> 2, die 3 gehen an Leer (25 -> 28).
+                    .add(LootItem.lootTableItem(ModItems.OCTANT).setWeight(2).apply(EnchantRandomlyFunction.randomEnchantment()))
                     .add(item(ModItems.DIAMOND_SLEDGEHAMMER, 3))
                     .add(LootItem.lootTableItem(ModItems.QUIVER).setWeight(3).apply(EnchantRandomlyFunction.randomEnchantment()))
                     .add(item(ModItems.NETHERITE_APPLE, 2))
                     .add(item(ModItems.ENCHANTED_NETHERITE_APPLE, 1))
                     .add(counted(ModItems.NETHERITE_NUGGET, 4, 1, 3))
                     .add(counted(ModItems.DIAMOND_PEBBLE, 6, 2, 5))
-                    .add(EmptyLootItem.emptyItem().setWeight(25)));
+                    .add(EmptyLootItem.emptyItem().setWeight(28)));
         }
 
         // 4. BASTION - ein gemeinsamer Pool fuer jede Bastion-Kiste ...
@@ -218,10 +219,11 @@ public final class ModLootTableModifications {
                     .add(enchantedBook(ModEnchantments.STRIP_MINER, 2, enchantments, 3))
                     .add(enchantedBook(ModEnchantments.FUNNEL, 1, enchantments, 2))
                     .add(enchantedBook(ModEnchantments.BREAK_THROUGH, 1, enchantments, 2))
-                    .add(LootItem.lootTableItem(ModItems.OCTANT).setWeight(3).apply(EnchantRandomlyFunction.randomEnchantment()))
+                    // Oktant seltener (Besitzer 2026-09-29): Gewicht 3 -> 1, die 2 gehen an Leer (14 -> 16).
+                    .add(LootItem.lootTableItem(ModItems.OCTANT).setWeight(1).apply(EnchantRandomlyFunction.randomEnchantment()))
                     .add(counted(ModItems.NETHERITE_NUGGET, 6, 1, 3))
                     .add(counted(ModItems.NETHERITE_CARROT, 3, 1, 3))
-                    .add(EmptyLootItem.emptyItem().setWeight(14)));
+                    .add(EmptyLootItem.emptyItem().setWeight(16)));
             rareCore(editor, ModItems.GOLD_CORE, GOLD_CORE_FORTRESS_CHANCE);
         }
 
@@ -232,10 +234,11 @@ public final class ModLootTableModifications {
                     .add(enchantedBook(ModEnchantments.COLOR_PALETTE, 1, enchantments, 6))
                     .add(enchantedBook(ModEnchantments.COVER, 1, enchantments, 8))
                     .add(enchantedBook(ModEnchantments.LINEAR, 1, enchantments, 8))
-                    .add(item(ModItems.OCTANT, 5))
+                    // Oktant seltener (Besitzer 2026-09-29): Gewicht 5 -> 2, die 3 gehen an Leer (20 -> 23).
+                    .add(item(ModItems.OCTANT, 2))
                     .add(item(ModItems.QUIVER, 5))
                     .add(item(ModItems.COPPER_CHISEL, 4))
-                    .add(EmptyLootItem.emptyItem().setWeight(20)));
+                    .add(EmptyLootItem.emptyItem().setWeight(23)));
         }
 
         // 7. WOODLAND MANSION - sehr viele Kisten, daher sparsam; Vein Miner V bleibt der Jackpot

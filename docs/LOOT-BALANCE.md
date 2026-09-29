@@ -1,4 +1,4 @@
-# Loot-Balance (Stand 2026-09-28)
+# Loot-Balance (Stand 2026-09-29)
 
 Gilt für beide MC-Linien (26.2 und 1.21.11) und alle Loader; Quelle ist
 `loot/ModLootTableModifications.java` (auf beiden Linien identisch), Handel in
@@ -33,11 +33,11 @@ Gilt für beide MC-Linien (26.2 und 1.21.11) und alle Loader; Quelle ist
 |---|---|---|---|---|
 | Stronghold-Bibliothek | 0–2 | Reichweite II 4, Baumeister 3, Vielseitigkeit I 4 / II 2 | 12 | 0,52 |
 | End City | 15 % / 30 % / 1 / 0–3 | Schrott; Template; Roh-Enderit 4 (1–2), Enderit-Nugget 6 (2–5), Astralitstaub 6 (2–6), Nihilit-Splitter 6 (1–4) [leer 14]; Enderit-Kern 0,175 % (eigener Pool); Reichweite III 4, Baumeister 3, Übersteuerung II 5, Luftsprung II 5, Vielseitigkeit I 6 / II 3, Brücke 4, Diamant-Baustab* 6, Diamant-Vorschlaghammer* 8, Enderit-Apfel 3, verz. Enderit-Apfel 1 | 40 | 1,88 |
-| Ancient City | 0–2 | Tiefe Taschen II 5, Radius 4, Oktant* 5, Diamant-Vorschlaghammer 3, Köcher* 3, Netherit-Apfel 2, verz. Netherit-Apfel 1, Netherit-Nugget 4 (1–3), Diamantkiesel 6 (2–5) | 25 | 0,57 |
+| Ancient City | 0–2 | Tiefe Taschen II 5, Radius 4, Oktant* 2, Diamant-Vorschlaghammer 3, Köcher* 3, Netherit-Apfel 2, verz. Netherit-Apfel 1, Netherit-Nugget 4 (1–3), Diamantkiesel 6 (2–5) | 28 | 0,52 |
 | Bastion (alle Kisten) | 0–2 | Trichter I 5, Durchbruch I 5, Gold-Vorschlaghammer 6, Netherit-Nugget 12 (1–4), Netherit-Karotte 6 (1–2); Goldkern 1,25 % (eigener Pool) | 25 | 0,58 |
 | + nur Bastion-Schatz | 1 | Netherit-Apfel 4, verz. Netherit-Apfel 2, Durchbruch II 3; Netheritkern 6 % (eigener Pool) | 7 | +0,57 |
-| Netherfestung | 0–2 | Tunnelgräber I 6 / II 3, Trichter 2, Durchbruch 2, Oktant* 3, Netherit-Nugget 6 (1–3), Netherit-Karotte 3 (1–3); Goldkern 1,65 % (eigener Pool) | 14 | 0,65 |
-| Plünderer-Außenposten | 0–2 | Farbpalette 6, Abdeckung 8, Linear 8, Oktant 5, Köcher 5, Kupfermeißel 4 | 20 | 0,64 |
+| Netherfestung | 0–2 | Tunnelgräber I 6 / II 3, Trichter 2, Durchbruch 2, Oktant* 1, Netherit-Nugget 6 (1–3), Netherit-Karotte 3 (1–3); Goldkern 1,65 % (eigener Pool) | 16 | 0,61 |
+| Plünderer-Außenposten | 0–2 | Farbpalette 6, Abdeckung 8, Linear 8, Oktant 2, Köcher 5, Kupfermeißel 4 | 23 | 0,59 |
 | Waldanwesen | 0–2 | Farbpalette 3, Abdeckung 5, Linear 5, Aderabbau V 1 / IV 3, Schublade I 3, Eisen-Baustab 4, Köcher 3; Eisenkern 1,5 % (eigener Pool) | 30 | 0,48 |
 | Buried Treasure | 0–2 | Berührung d. K. 3, Schnelles Meißeln II 2, Goldmeißel 10, Diamantmeißel 6, Diamantkiesel 10 (2–6) | 30 | 0,51 |
 | Verlies | 0–2 | Schnelles Meißeln I 5, Trichter 8, Durchbruch 8, Aderabbau IV 3 / III 8 / II 12, Verst. Bündel 8, Basis-Template 2, Diamantkiesel 6 (1–3) | 40 | 0,60 |
@@ -50,6 +50,17 @@ Gilt für beide MC-Linien (26.2 und 1.21.11) und alle Loader; Quelle ist
 | Angeln, Schatz (neu) | 1 | Schnelles Meißeln I 3, Berührung d. K. 2, Tiefe Taschen I 2, Linear I 2, Diamantkiesel 4 (1–3) | 20 | 0,39 |
 
 `*` = zufällig verzaubert (EnchantRandomlyFunction). Der seltene Vault bekommt beide Vault-Pools.
+
+**Oktant seltener (Besitzer 2026-09-29):** Gewicht alt -> neu, die Differenz geht an Leer, damit die
+übrigen Einträge ihre Chance behalten. Chance pro Wurf (Gewicht/Summe, Summen unverändert):
+
+| Tabelle | Gewicht | Leer | pro Wurf | Ø Oktanten/Kiste (1 Wurf im Schnitt) |
+|---|---|---|---|---|
+| Ancient City | 5 -> 2 | 25 -> 28 | 8,6 % -> 3,4 % (von 58) | 0,086 -> 0,034 |
+| Netherfestung | 3 -> 1 | 14 -> 16 | 7,7 % -> 2,6 % (von 39) | 0,077 -> 0,026 |
+| Plünderer-Außenposten | 5 -> 2 | 20 -> 23 | 8,9 % -> 3,6 % (von 56) | 0,089 -> 0,036 |
+
+Dazu kostet das Rezept seit demselben Tag einen Goldkern und zwei Goldnuggets statt der Wägeplatten.
 
 ## Kerne (2026-09-28, "Zeitalter B")
 

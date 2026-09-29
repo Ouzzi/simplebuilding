@@ -2442,7 +2442,8 @@ public final class DataIntegrityTests {
                 List.of(ModItems.NIHILITH_ORE_ITEM, ModItems.NIHILITH_SHARD, gap, ModItems.ASTRALIT_ORE_ITEM, ModItems.ASTRALIT_DUST,
                         gap, ModItems.ENDER_QUARTZ),
                 List.of(ModItems.DIAMOND_PEBBLE, ModItems.CRACKED_DIAMOND, ModItems.NETHERITE_NUGGET, ModItems.RAW_ENDERITE,
-                        ModItems.ENDERITE_SCRAP, ModItems.ENDERITE_NUGGET, ModItems.ENDERITE_INGOT, gap, ModItems.LEATHER_SHEET),
+                        ModItems.LAYERED_RAW_ENDERITE, ModItems.ENDERITE_SCRAP, ModItems.ENDERITE_NUGGET, ModItems.ENDERITE_INGOT,
+                        ModItems.LEATHER_SHEET),
                 List.of(ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE, ModItems.DIAMOND_CORE,
                         ModItems.NETHERITE_CORE, ModItems.ENDERITE_CORE),
                 List.of(ModItems.BASIC_UPGRADE_TEMPLATE, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModItems.ENDERITE_UPGRADE_TEMPLATE),
@@ -2549,7 +2550,7 @@ public final class DataIntegrityTests {
         }
 
         // Anchors, spelled out: a finder that goes blind must not make the loop below pass trivially.
-        for (Item anchor : List.of(ModItems.ENDERITE_INGOT, ModItems.RAW_ENDERITE, ModItems.ENDERITE_SCRAP,
+        for (Item anchor : List.of(ModItems.ENDERITE_INGOT, ModItems.RAW_ENDERITE, ModItems.LAYERED_RAW_ENDERITE, ModItems.ENDERITE_SCRAP,
                 ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_CHESTPLATE,
                 ModItems.ENDERITE_HORSE_ARMOR, ModItems.ENDERITE_NAUTILUS_ARMOR, ModItems.ENDERITE_APPLE,
                 ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_BLOCK_ITEM, ModItems.ENDERITE_QUIVER,

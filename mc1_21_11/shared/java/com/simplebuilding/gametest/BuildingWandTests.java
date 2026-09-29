@@ -86,7 +86,7 @@ import net.minecraft.world.phys.Vec3;
  *       reach.</li>
  *   <li><b>Colour Palette and Linear</b> -
  *       {@link BuildingEnchantmentTests#colorPaletteKeepsTheWandBuildingWhenOneBlockRunsOut} and
- *       {@link BuildingEnchantmentTests#linearOnlyShortensTheWandStepDelay}. The one palette case
+ *       {@link BuildingEnchantmentTests#linearBuildsOnlyTheLineAndPacesItWithTheLineDelay}. The one palette case
  *       below is the creative-with-nothing-to-build-from fallback, which neither of them reaches
  *       because both always carry material.</li>
  *   <li><b>Storing the two settings</b> -

@@ -160,19 +160,19 @@ Verlauf im Detail: git log.
 - [ ] Client-Gate + Testzentrale im Spiel (wenn Besitzer-Clients zu): Buch-Screen, Truhen, platziertes Buendel, Kern-Animation
 - [ ] Rueckfragen neu: 12 Config-Ideen (Run D), Kern-Vorschlaege (Maurer-Diamantkern, 2. Eisenkern-Quelle, Enderit 0,5 %)
 
-## Welle 23 (Antworten Besitzer 2026-09-28, siehe Memory besitzer-entscheidungen-2026-09-28)
-- [ ] M Config/Server: Luftsprung-Serverschalter, Chunk-Loader nur online + Admin-Befehl, Laser-Schalter, Erz-Gen-Schalter, dyn. Licht, Pad-Abbauzeit, max. Ladungen, Hammer/Meissel, Trichter/Ofen-Tempo, Erzdetektor, Loot-/Preis-Multiplikatoren, Blaupausen-Tempo, Trim-Staerken, Feature-Schalter samt Rezept, Server-Werte in Tooltip/JEI, Dimensionssperre erweitert; alles serverseitig, Obergrenzen, eigener Profi-Tab
-- [ ] N Modpack: Claim-Schutz, Vein-Miner-Erztag, c:-Tags, Tabellen als Datapack, Loot als Tabellen, Sperr-Tags, Statistiken
-- [ ] O Erfolge 33-37 + Handbuecher 38-42 (Admin-Buch)
-- [ ] P1 Beute/Handel: Rotator (kein Mending, entladen statt kaputt), Vorlagen-Tooltip, Cover-Doku, Steinmetz ohne Kerne, Kupferkern selten beim fahrenden Haendler, 2. Eisenkern-Quelle, Enderit-Kern 30-40 h, Quellen fuer Drawer/Bridge/Kinetic Protection (Bridge im End), Drawer-Umbau (nur gleicher Item-Typ)
-- [ ] P2 Items: Enderit ueberall Leere-Schutz + doppelte Despawnzeit, Netherit-Koecher explosionsfest, alte Spachtel aus JEI, ID-Umbenennung mit Datenfix, Enderit-Pferde-/Nautilusruestung
-- [ ] Q Zusammenspiel: B oeffnet Rucksack aus Inventar, Koecher->Armbrust + Rucksack nur mit Master Builder, Pfeile->Koecher nur mit Funnel, Redstone/Komparator Pads, Trichter nur Windladungen ins Launchpad (Trank-Pad nur per Wurftrank), Rucksack-Komparator, Hammer baut Oktant-Auswahl ab + Hammer-Tempo-Balance
-- [ ] R Immersion: Sounds/Partikel, sichtbare Zustaende, Tooltips, HUD-Taste, HUD Position/Groesse, Jade-Plugin, EMI/REI
-- [ ] S Optik: Pulsating Armor Trim (Warden, Echoscherbe+Hammer), Vorlagen ohne "Smithing" im Namen, Magnet->Attractor + platzierbar zieht Items an, Kern-Texturen bunter (Netherstern-Mitte), JEI-Schmiedeanzeige der Trims reparieren
+## Welle 23 (Server-Gate gruen nach Fixes, gepusht 2026-09-29; Antworten Besitzer 2026-09-28, siehe Memory besitzer-entscheidungen-2026-09-28)
+- [x] M Config/Server: Luftsprung-Serverschalter, Chunk-Loader nur online + Admin-Befehl, Laser-Schalter, Erz-Gen-Schalter, dyn. Licht, Pad-Abbauzeit, max. Ladungen, Hammer/Meissel, Trichter/Ofen-Tempo, Erzdetektor, Loot-/Preis-Multiplikatoren, Blaupausen-Tempo, Trim-Staerken, Feature-Schalter samt Rezept, Server-Werte in Tooltip/JEI, Dimensionssperre erweitert; alles serverseitig, Obergrenzen, eigener Profi-Tab
+- [x] N Modpack: Claim-Schutz, Vein-Miner-Erztag, c:-Tags, Tabellen als Datapack, Loot als Tabellen, Sperr-Tags, Statistiken
+- [x] O Erfolge 33-37 + Handbuecher 38-42 (Admin-Buch)
+- [x] P1 Beute/Handel: Rotator (kein Mending, entladen statt kaputt), Vorlagen-Tooltip, Cover-Doku, Steinmetz ohne Kerne, Kupferkern selten beim fahrenden Haendler, 2. Eisenkern-Quelle, Enderit-Kern 30-40 h, Quellen fuer Drawer/Bridge/Kinetic Protection (Bridge im End), Drawer-Umbau (nur gleicher Item-Typ)
+- [x] P2 Items: Enderit ueberall Leere-Schutz + doppelte Despawnzeit, Netherit-Koecher explosionsfest, alte Spachtel aus JEI, ID-Umbenennung mit Datenfix, Enderit-Pferde-/Nautilusruestung
+- [x] Q Zusammenspiel: B oeffnet Rucksack aus Inventar, Koecher->Armbrust + Rucksack nur mit Master Builder, Pfeile->Koecher nur mit Funnel, Redstone/Komparator Pads, Trichter nur Windladungen ins Launchpad (Trank-Pad nur per Wurftrank), Rucksack-Komparator, Hammer baut Oktant-Auswahl ab + Hammer-Tempo-Balance
+- [x] R Immersion: Sounds/Partikel, sichtbare Zustaende, Tooltips, HUD-Taste, HUD Position/Groesse, Jade-Plugin, EMI/REI
+- [x] S Optik: Pulsating Armor Trim (Warden, Echoscherbe+Hammer), Vorlagen ohne "Smithing" im Namen, Magnet->Attractor + platzierbar zieht Items an, Kern-Texturen bunter (Netherstern-Mitte), JEI-Schmiedeanzeige der Trims reparieren
 - [ ] T danach: amerikanisches Englisch, Zeilen-Layout alle Tabs
-- [ ] V: Pulsating-Vorlage (Muster wie Glowing/Emitting, Deep-Dark-Stil, Warden-Gesicht), Kerne mit Stern-Rahmen, Leuchtregeln (Glowing II steady, Helligkeit nur Pulsating+Glowing, Pulsating allein Saettigung)
-- [ ] X Fix: Tippen im Blaupausen-Editor geht nicht (Einfuegen/Loeschen geht) - Start sobald Worktrees wieder angelegt werden
-- [ ] Y: Endermankopf + Lohenkopf mit echter Vanilla-Mob-Textur (Item, Boden, Wand, getragen)
+- [x] V: Pulsating-Vorlage (Muster wie Glowing/Emitting, Deep-Dark-Stil, Warden-Gesicht), Kerne mit Stern-Rahmen, Leuchtregeln (Glowing II steady, Helligkeit nur Pulsating+Glowing, Pulsating allein Saettigung)
+- [x] X Fix: Tippen im Blaupausen-Editor geht nicht (Einfuegen/Loeschen geht) - Start sobald Worktrees wieder angelegt werden
+- [x] Y: Endermankopf + Lohenkopf mit echter Vanilla-Mob-Textur (Item, Boden, Wand, getragen)
 - [ ] Z: Luftsprung-Abklingzeit Stufe I 20 s / II 10 s; Anzeige als Leiste an der XP-Leiste (Prioritaet: XP-Aenderung > Luftsprung-Abklingzeit > Locator-Leiste), sonst nichts auf dem Bildschirm; Linear baut nur eine Linie; Bridge baut von einem Ende aus, doppelt so schnell; Oktant-Rezept Goldkern + Goldnuggets statt Druckplatten, Oktant seltener in Beute (nach M/R-Merge)
 - [x] W1: Balancing-Zentrale Phase 1 (gemergt; Start: python tools/devserver/serve.py)
 - [ ] W2: Balancing-Zentrale Phase 2 nach Merge von M/N/P2/R: gespeicherte Werte wirken im Mod (Konstanten -> Variablen/Datapack) - Plan: docs/BALANCING-ZENTRALE.md Abschnitt 5
@@ -192,7 +192,7 @@ Verlauf im Detail: git log.
 
 ## Spaeter (Besitzer 2026-09-28)
 - [ ] Vorlagen teurer machen (mehrere Materialien statt 1 Glowstone/Tintenbeutel/Echoscherbe)
-- [ ] U: Curios/Trinkets fuer Rucksack/Koecher (optional, nach Q; Besitzer 2026-09-28: ja)
+- [x] U: Curios/Trinkets fuer Rucksack/Koecher (optional, nach Q; Besitzer 2026-09-28: ja)
 - [ ] Punkte 64-69: Sprachen, Attractor mit Ladung, neue Bloecke, Baustab ueber Planer, Kern-Module, Rucksack-Sortierung/Multi-Mod-Repo
 
 ## Wartet auf den Besitzer

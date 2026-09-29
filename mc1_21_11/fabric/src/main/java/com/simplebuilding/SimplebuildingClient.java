@@ -157,11 +157,8 @@ public class SimplebuildingClient implements ClientModInitializer {
                 Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "speedometer_hud"),
                 (context, tickCounter) -> SpeedometerHudOverlay.render(context)
         );
-        HudElementRegistry.attachElementBefore(
-                VanillaHudElements.CHAT,
-                Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "air_jump_cooldown_hud"),
-                (context, tickCounter) -> DoubleJumpHudOverlay.render(context)
-        );
+        // The air jump cooldown bar is no HUD element: it takes vanilla's contextual bar slot
+        // (HudContextualBarMixin, both loaders), 2026-09-29.
         WorldRenderEvents.BEFORE_BLOCK_OUTLINE.register((context, outlineRenderState) ->
                 !BlockOutlineSupport.suppressVanillaBlockOutline());
 

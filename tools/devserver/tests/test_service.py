@@ -94,8 +94,8 @@ class RoundTripTests(unittest.TestCase):
 
     def test_reset_removes_the_plan_and_unchanged_values_are_skipped(self):
         self.save([{"id": ENDERITE, "value": 0.002}])
-        pv = self.s.preview({"baseVersion": 1, "changes": [{"id": AIRJUMP, "value": 100}]})
-        self.assertEqual(pv["skipped"], [AIRJUMP])  # 100 ist schon der Wert
+        pv = self.s.preview({"baseVersion": 1, "changes": [{"id": AIRJUMP, "value": 400}]})
+        self.assertEqual(pv["skipped"], [AIRJUMP])  # 400 ist schon der Wert
         self.save([{"id": ENDERITE, "reset": True}])
         self.assertEqual(self.s.store.state()["entries"], {})
 
