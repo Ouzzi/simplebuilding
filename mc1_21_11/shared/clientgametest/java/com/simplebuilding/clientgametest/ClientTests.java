@@ -45,6 +45,10 @@ public final class ClientTests {
      * for the wrong reason.
      */
     public static List<Entry> beforeWorld() {
+        return only(allBeforeWorld());
+    }
+
+    private static List<Entry> allBeforeWorld() {
         return List.of(
                 new Entry("boot", SmokeClientTest::beforeWorld),
                 new Entry("client-bootstrap-setup", ClientBootstrapClientTest::beforeWorld));
@@ -60,6 +64,10 @@ public final class ClientTests {
      * the restore steps are there rather than a nicety.
      */
     public static List<Entry> inWorld() {
+        return only(allInWorld());
+    }
+
+    private static List<Entry> allInWorld() {
         return List.of(
                 // FIRST, and that is not cosmetic: its beforeWorld phase switches
                 // enableArmorTrimBenefits off so the value the client reports on join differs from
@@ -77,7 +85,33 @@ public final class ClientTests {
                 new Entry("item-rendering", ItemRenderingClientTest::inWorld),
                 new Entry("mod-screens", ModScreensClientTest::inWorld),
                 new Entry("backpack", BackpackClientTest::inWorld),
+                new Entry("blueprint-editor", BlueprintEditorClientTest::inWorld),
                 // Reads only the baked block models, so it needs no scene and leaves none behind.
                 new Entry("piston-textures", PistonTextureClientTest::inWorld));
+    }
+
+    /**
+     * Narrows a run to the entries named in {@code SIMPLEBUILDING_CLIENT_ONLY} (comma separated,
+     * before-world names included), for checking one test while working on it. Unset - as in every
+     * gate and runner call - the full list runs. A name that matches nothing fails loudly instead
+     * of turning into an empty, green run.
+     */
+    private static List<Entry> only(List<Entry> all) {
+        String only = System.getenv("SIMPLEBUILDING_CLIENT_ONLY");
+        if (only == null || only.isBlank()) {
+            return all;
+        }
+        java.util.Set<String> names = new java.util.TreeSet<>();
+        for (String name : only.split(",")) {
+            names.add(name.strip());
+        }
+        java.util.Set<String> known = new java.util.TreeSet<>();
+        allBeforeWorld().forEach(entry -> known.add(entry.name()));
+        allInWorld().forEach(entry -> known.add(entry.name()));
+        if (!known.containsAll(names)) {
+            throw new IllegalArgumentException("SIMPLEBUILDING_CLIENT_ONLY names unknown client tests: " + names
+                    + ", known: " + known);
+        }
+        return all.stream().filter(entry -> names.contains(entry.name())).toList();
     }
 }

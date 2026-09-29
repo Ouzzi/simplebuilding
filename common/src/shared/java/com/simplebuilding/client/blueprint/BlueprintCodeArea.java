@@ -358,6 +358,12 @@ public final class BlueprintCodeArea extends AbstractWidget {
         if (focused) {
             focusedTime = Util.getMillis();
         }
+        // Text input on/off, as vanilla's MultiLineEditBox and EditBox do. From 26.3 on the window
+        // is SDL, which delivers typed characters (charTyped) only while text input is started;
+        // without this, Backspace and Control+V (key events) worked and letters never arrived
+        // (owner report 2026-09-29). On 26.2 (GLFW) it switches the IME. A signed, read-only
+        // blueprint takes no text, so it never asks.
+        net.minecraft.client.Minecraft.getInstance().onTextInputFocusChange(this, focused && !readOnly);
     }
 
     @Override
