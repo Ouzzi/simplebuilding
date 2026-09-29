@@ -112,7 +112,8 @@ public final class PulsatingTrimTests {
      * {@code simplebuilding:pulsating} auf einer Kopie (Basis unveraendert, Glowing/Emitting bleiben),
      * ein zweites Mal gibt es kein Ergebnis. Falsches Material, gekreuzte Vorlagen und Nicht-Ruestung
      * tun nichts. Mit Glowing kombiniert pulsiert der Besatz leuchtend - beide Komponenten liegen dann
-     * auf demselben Teil. Die Helligkeit laeuft zwischen voll und schwarz.
+     * auf demselben Teil. Lichtregeln: Pulsating allein laesst das Licht, Glowing I/II leuchten ruhig,
+     * nur beide zusammen schwanken zwischen 15 und 1; allein pulsiert die Saettigung (Farbe -> grau).
      */
     public static void thePulsatingUpgradeMakesTheTrimPulseOnceAndCombinesWithGlowing(GameTestHelper helper) {
         SmithingMenu table = new SmithingMenu(1, menuPlayer(helper).getInventory());
@@ -160,14 +161,56 @@ public final class PulsatingTrimTests {
                         && TrimUpgrades.ALL.get(2).material() == Items.ECHO_SHARD,
                 "TrimUpgrades.ALL is " + TrimUpgrades.ALL);
 
-        // Der Puls: voll -> schwarz -> voll innerhalb einer Periode.
+        // Der Puls: Spitze -> Tal -> Spitze innerhalb einer Periode.
         long period = GlowingTrimUtils.PULSE_PERIOD_MS;
-        helper.assertTrue(Math.abs(GlowingTrimUtils.pulseBrightness(0) - 1.0F) < 1.0E-4
-                        && GlowingTrimUtils.pulseBrightness(period / 2) < 1.0E-4
-                        && Math.abs(GlowingTrimUtils.pulseBrightness(period) - 1.0F) < 1.0E-4,
-                "the pulse does not run full -> black -> full");
-        helper.assertTrue(GlowingTrimUtils.pulseTint(1.0F) == 0xFFFFFFFF && GlowingTrimUtils.pulseTint(0.0F) == 0xFF000000,
-                "the pulse tint is not white at full and black at zero");
+        helper.assertTrue(Math.abs(GlowingTrimUtils.pulseWave(0) - 1.0F) < 1.0E-4
+                        && GlowingTrimUtils.pulseWave(period / 2) < 1.0E-4
+                        && Math.abs(GlowingTrimUtils.pulseWave(period) - 1.0F) < 1.0E-4,
+                "the pulse does not run peak -> trough -> peak");
+
+        // Lichtregeln (Besitzer 2026-09-29). Umgebung: Block 3, Himmel 7.
+        int env = GlowingTrimUtils.packLight(3, 7);
+        int full = GlowingTrimUtils.packLight(15, 15);
+        long[] times = {0L, period / 4, period / 2, 3 * period / 4};
+        for (long t : times) {
+            // Pulsating allein: das Licht bleibt genau das der Umgebung - kein Leuchten, kein Abdunkeln.
+            helper.assertTrue(GlowingTrimUtils.trimLight(env, 0, true, t) == env,
+                    "pulsating alone changed the trim light at " + t + " ms");
+            helper.assertTrue(GlowingTrimUtils.trimLight(env, 0, false, t) == env, "a plain trim changed its light");
+            // Glowing I und II leuchten ruhig, II heller als I.
+            helper.assertTrue(GlowingTrimUtils.trimLight(env, 1, false, t) == GlowingTrimUtils.packLight(12, 12),
+                    "glowing I is not a steady light 12 at " + t + " ms");
+            helper.assertTrue(GlowingTrimUtils.trimLight(env, 2, false, t) == full,
+                    "glowing II is not a steady full bright at " + t + " ms");
+        }
+        // Glowing I hebt nur an: im hellen Tageslicht bleibt der Besatz so hell wie die Umgebung.
+        helper.assertTrue(GlowingTrimUtils.trimLight(GlowingTrimUtils.packLight(14, 15), 1, false, 0L)
+                        == GlowingTrimUtils.packLight(14, 15),
+                "glowing I darkened a trim in daylight");
+        // Nur Pulsating + Glowing schwankt: 15 auf der Spitze, 1 im Tal, auf beiden Stufen.
+        for (int level = 1; level <= 2; level++) {
+            helper.assertTrue(GlowingTrimUtils.trimLight(env, level, true, 0L) == full
+                            && GlowingTrimUtils.trimLight(env, level, true, period / 2) == GlowingTrimUtils.packLight(1, 1),
+                    "pulsating + glowing " + level + " does not swing between 15 and 1");
+        }
+
+        // Saettigung: Stufe 0 auf der Spitze (volle Farbe), die letzte Stufe im Tal (grau).
+        helper.assertTrue(GlowingTrimUtils.desaturationStep(0L) == 0
+                        && GlowingTrimUtils.desaturationStep(period / 2) == GlowingTrimUtils.DESATURATION_STEPS - 1
+                        && GlowingTrimUtils.desaturationStep(period) == 0,
+                "the saturation pulse does not run color -> gray -> color");
+        int gold = 0xFFDEB12D;
+        int gray = GlowingTrimUtils.desaturate(gold, 1.0F);
+        int r = (gray >> 16) & 0xFF, g = (gray >> 8) & 0xFF, b = gray & 0xFF;
+        helper.assertTrue(r == g && g == b && (gray >>> 24) == 0xFF,
+                "a fully desaturated pixel is not gray: " + Integer.toHexString(gray));
+        int luma = Math.round(0.299F * 0xDE + 0.587F * 0xB1 + 0.114F * 0x2D);
+        helper.assertTrue(Math.abs(r - luma) <= 1,
+                "the gray of a desaturated pixel does not keep its brightness: " + r + " instead of " + luma);
+        helper.assertTrue(GlowingTrimUtils.desaturate(gold, 0.0F) == gold,
+                "desaturating by nothing changed the pixel");
+        helper.assertTrue(GlowingTrimUtils.desaturate(0x00123456, 1.0F) >>> 24 == 0,
+                "desaturation changed the alpha of a transparent pixel");
         helper.succeed();
     }
 

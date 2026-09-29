@@ -111,25 +111,22 @@ import net.minecraft.world.phys.AABB;
  * control then moves), or wiring the tilt to only one of the two config switches.
  *
  * <h2>5. Glowing armour trim</h2>
- * {@code EquipmentRendererMixin} replaces the light coordinates of the trim submit: glow level 1
- * is a constant full bright, level 2 pulses along a sine with a 500 ms divisor. Proven in a sealed,
- * unlit stone room where the difference between light 0 and full bright is the whole signal:
+ * {@code EquipmentRendererMixin} replaces the light coordinates of the trim submit
+ * ({@code GlowingTrimUtils#trimLight}, owner 2026-09-29): glow level 1 is a steady light of at
+ * least 12, level 2 a steady full bright, and only Pulsating + Glowing swings between light 15 and 1
+ * with {@code GlowingTrimUtils#pulseWave} (period 2.4 s). Proven in a sealed, unlit stone room where
+ * the difference between light 0 and a glow is the whole signal:
  * <ul>
  *   <li>level 1 must change the picture against the unlit trim, and must produce the
- *       <em>same</em> picture at two opposite points of the sine, which is what separates a
+ *       <em>same</em> picture at two opposite points of the pulse, which is what separates a
  *       constant from a pulse;</li>
- *   <li>level 2 must produce different pictures at the peak and at the trough of that same sine,
- *       and must come back at the following peak.</li>
+ *   <li>level 2 must differ from level 1 (brighter) and be the same at peak and trough;</li>
+ *   <li>Pulsating + Glowing must produce different pictures at the peak and at the trough, and must
+ *       come back at the following peak.</li>
  * </ul>
  *
- * <p>All three of those comparisons report exactly the same number of changed pixels within one
- * run - around 7 % of the frame; the absolute figure moves a little between runs, the equality
- * does not. That is not a coincidence and is worth writing down: the level 1 shot and the level 2
- * peak shot are byte identical, because both branches end up packing light 15, and the level 2
- * trough shot is indistinguishable from the unlit one, because light 1 on a trim that stands in
- * light 0 at gamma 0 renders the same. So the run really only sees two distinct pictures here. The
- * assertions still bite: with the level 2 branch deleted, or turned into a constant, both level 2
- * comparisons collapse to zero changed pixels and fail.
+ * <p>Pulsating alone keeps the light and pulses the saturation instead; in the unlit room the trim is
+ * black either way, so that effect is not measured here.
  *
  * <p>The armour hangs on an armour stand rather than on the player: the vanilla humanoid model bobs
  * its arms with {@code ageInTicks}, so a player (or a chestplate on the stand, whose sleeves
@@ -137,9 +134,8 @@ import net.minecraft.world.phys.AABB;
  * arms by default ({@code ShowArms} defaults to false), and helmet, leggings and boots hang on
  * parts that do not move.
  *
- * <p>What breaks it: removing the mixin or its injection point, letting level 1 pulse or level 2
- * stand still, or changing the sine divisor far enough that peak and trough no longer line up with
- * the 500 ms period this test waits for.
+ * <p>What breaks it: removing the mixin or its injection point, letting a glow level pulse, making
+ * level 2 no brighter than level 1, or letting Pulsating + Glowing stand still.
  *
  * <h2>What the port to the shared step form changed, and why</h2>
  * <ul>
@@ -212,12 +208,10 @@ import net.minecraft.world.phys.AABB;
  *       {@code TrimEffectUtil} applies) and the player's real resonance, formatted with
  *       {@code Locale.ROOT} like vanilla attribute lines. {@link #armourTrimTooltipNumbers} spells
  *       the server rates out as literals, so the two cannot agree by construction.</li>
- *   <li><b>The pulse never reaches the low end of its own range.</b>
- *       {@code simplebuilding$calculatePulsingLight} interpolates towards {@code maxLight = 20.0}
- *       and then clamps to 15, so roughly a third of every cycle sits flat at full bright, and the
- *       {@code lightValue < 0} clamp below it is unreachable because {@code minLight} is 1. The
- *       comment above the code says 1 to 15 and a divisor of 150; the code uses 20.0 and 500.0.
- *       Nothing here asserts the plateau, so fixing the bound will not turn this test red.</li>
+ *   <li><b>Fixed 2026-09-29: the pulse never reached the low end of its own range.</b>
+ *       The old level 2 sine interpolated towards 20 and clamped to 15. Glow levels no longer pulse;
+ *       the swing (light 1 to 15) belongs to Pulsating + Glowing and is
+ *       {@code GlowingTrimUtils#pulseLight}, which the server tests pin at both ends.</li>
  * </ul>
  */
 public final class ItemRenderingClientTest {
@@ -234,12 +228,14 @@ public final class ItemRenderingClientTest {
      */
     private static final int HAND_SETTLE_TICKS = 60;
 
-    /** Mirrors the divisor in {@code EquipmentRendererMixin#simplebuilding$calculatePulsingLight}. */
-    private static final double PULSE_DIVISOR_MILLIS = 500.0;
+    /** The pulse the mixin reads ({@code GlowingTrimUtils#pulseWave}), as -1 (trough) .. 1 (peak). */
+    private static double pulseSine() {
+        return GlowingTrimUtils.pulseWave(System.currentTimeMillis()) * 2.0 - 1.0;
+    }
 
     /**
      * Wall clock budget for one half of a pulse wait, unchanged from the Fabric-only class.
-     * One period is 2 * pi * 500 ms, so 20 s is a little over six of them.
+     * One period is GlowingTrimUtils.PULSE_PERIOD_MS (2.4 s), so 20 s is a little over eight of them.
      */
     private static final long PULSE_WAIT_MILLIS = 20_000L;
 
@@ -1241,8 +1237,8 @@ public final class ItemRenderingClientTest {
             noiseFloor.set(diff);
         });
 
-        // Level 1: constant full bright. Sampled at both extremes of the sine that level 2 uses,
-        // so a level 1 that started pulsing would fail the second comparison.
+        // Level 1: a constant glow. Sampled at both extremes of the pulse that Pulsating + Glowing
+        // uses, so a level 1 that started pulsing would fail the second comparison.
         wearTrimmedArmour(script, 1);
         waitForPulse(script, true);
         Later<Path> levelOnePeak = script.shot("glowtrim-c-level-one-at-peak");
@@ -1258,35 +1254,55 @@ public final class ItemRenderingClientTest {
                 ScreenshotDiff.assertLooksIdentical(noiseFloor.get(),
                         ScreenshotDiff.compare("glow level 1 across half a pulse period",
                                 levelOnePeak.get(), levelOneTrough.get()),
-                        "glow level 1 is supposed to be a flat FULL_BRIGHT and only level 2 pulses, so "
-                                + "the peak and the trough of the level 2 sine have to look the same"));
+                        "glow level 1 is supposed to be a steady glow (only Pulsating + Glowing pulses), so "
+                                + "the peak and the trough of the pulse have to look the same"));
 
-        // Level 2: has to differ between the peak and the trough, and has to come back.
+        // Level 2: steady as well, but brighter than level 1 (light 15 instead of 12).
         wearTrimmedArmour(script, 2);
         waitForPulse(script, true);
-        Later<Path> bright = script.shot("glowtrim-e-level-two-bright");
+        Later<Path> levelTwoPeak = script.shot("glowtrim-e-level-two-at-peak");
         waitForPulse(script, false);
-        Later<Path> dim = script.shot("glowtrim-f-level-two-dim");
-        waitForPulse(script, true);
-        Later<Path> brightAgain = script.shot("glowtrim-g-level-two-bright-again");
+        Later<Path> levelTwoTrough = script.shot("glowtrim-f-level-two-at-trough");
 
-        script.verify("glow level 2 differs between the peak and the trough", () ->
-                ScreenshotDiff.assertDrew("EquipmentRendererMixin (glow level 2, peak against trough)",
+        script.verify("glow level 2 is brighter than glow level 1", () ->
+                ScreenshotDiff.assertDrew("EquipmentRendererMixin (glow level 2 against level 1)",
                         noiseFloor.get(),
-                        ScreenshotDiff.compare("glow level 2 bright against dim",
+                        ScreenshotDiff.compare("glow level 2 against glow level 1",
+                                levelOnePeak.get(), levelTwoPeak.get())));
+
+        script.verify("glow level 2 is constant across half a pulse period", () ->
+                ScreenshotDiff.assertLooksIdentical(noiseFloor.get(),
+                        ScreenshotDiff.compare("glow level 2 across half a pulse period",
+                                levelTwoPeak.get(), levelTwoTrough.get()),
+                        "glow level 2 no longer pulses (owner 2026-09-29), so the peak and the trough "
+                                + "of the pulse have to look the same"));
+
+        // Pulsating + Glowing: the only combination whose brightness swings; has to come back.
+        wearTrimmedArmour(script, 1, true);
+        waitForPulse(script, true);
+        Later<Path> bright = script.shot("glowtrim-g-pulsating-glow-bright");
+        waitForPulse(script, false);
+        Later<Path> dim = script.shot("glowtrim-h-pulsating-glow-dim");
+        waitForPulse(script, true);
+        Later<Path> brightAgain = script.shot("glowtrim-i-pulsating-glow-bright-again");
+
+        script.verify("pulsating + glowing differs between the peak and the trough", () ->
+                ScreenshotDiff.assertDrew("EquipmentRendererMixin (pulsating + glowing, peak against trough)",
+                        noiseFloor.get(),
+                        ScreenshotDiff.compare("pulsating + glowing bright against dim",
                                 bright.get(), dim.get())));
 
-        script.verify("glow level 2 comes back at the following peak", () ->
-                ScreenshotDiff.assertDrew("EquipmentRendererMixin (glow level 2, trough against next peak)",
+        script.verify("pulsating + glowing comes back at the following peak", () ->
+                ScreenshotDiff.assertDrew("EquipmentRendererMixin (pulsating + glowing, trough against next peak)",
                         noiseFloor.get(),
-                        ScreenshotDiff.compare("glow level 2 dim against the next bright phase",
+                        ScreenshotDiff.compare("pulsating + glowing dim against the next bright phase",
                                 dim.get(), brightAgain.get())));
 
         // Control: without the component the picture has to be the unlit baseline again. Without
         // this step the measured differences could not be attributed to EquipmentRendererMixin at
         // all - "the dark room drifts anyway" would explain them just as well.
         wearTrimmedArmour(script, 0);
-        Later<Path> removed = script.shot("glowtrim-h-glow-removed");
+        Later<Path> removed = script.shot("glowtrim-j-glow-removed");
 
         script.verify("removing the glow component restores the unlit trim", () ->
                 ScreenshotDiff.assertBackToBaseline("removing the glow component", noiseFloor.get(),
@@ -1381,7 +1397,12 @@ public final class ItemRenderingClientTest {
      * has no reason to touch.
      */
     private static void wearTrimmedArmour(Script script, int glowLevel) {
-        String glow = glowLevel > 0 ? ",simplebuilding:glow_level=" + glowLevel : "";
+        wearTrimmedArmour(script, glowLevel, false);
+    }
+
+    private static void wearTrimmedArmour(Script script, int glowLevel, boolean pulsating) {
+        String glow = (glowLevel > 0 ? ",simplebuilding:glow_level=" + glowLevel : "")
+                + (pulsating ? ",simplebuilding:pulsating=true" : "");
 
         for (String[] piece : STAND_PIECES) {
             script.command("item replace entity @e[tag=" + STAND_TAG + "] " + piece[0]
@@ -1488,15 +1509,14 @@ public final class ItemRenderingClientTest {
                         deadline[0] = System.currentTimeMillis() + PULSE_WAIT_MILLIS;
                     }
 
-                    if (reached.test(Math.sin(System.currentTimeMillis() / PULSE_DIVISOR_MILLIS))) {
+                    if (reached.test(pulseSine())) {
                         return true;
                     }
 
                     if (System.currentTimeMillis() > deadline[0]) {
                         throw new AssertionError("Waiting for the pulse phase timed out while " + stage
-                                + " the " + (bright ? "bright" : "dim") + " end. The sine in this test uses "
-                                + "the divisor " + PULSE_DIVISOR_MILLIS + " ms; if the mixin no longer does, "
-                                + "the two cannot line up.");
+                                + " the " + (bright ? "bright" : "dim") + " end. This test reads the pulse from "
+                                + "GlowingTrimUtils.pulseWave; if the mixin no longer does, the two cannot line up.");
                     }
 
                     return false;
