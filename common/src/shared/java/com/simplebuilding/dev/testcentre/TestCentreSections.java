@@ -979,14 +979,20 @@ public final class TestCentreSections {
             }
         }
         c.title(0, 4, wallZ, TcText.t("section.planning", "Planning"), TcText.t("section.planning.sub", "octant, blueprint, wand"));
+        // Bauplanung (seit 2026-09-29 in SimpleTools neben den Baustaeben): Blaupause, Kartografentisch
+        // und der Enderit-Baustab, der sie baut.
+        List<Item> wands = ctx.rowItems("building_wands");
+        ItemStack wand = wands.isEmpty() ? ItemStack.EMPTY : new ItemStack(wands.getLast());
+        List<ItemStack> planningRow = new ArrayList<>(ctx.row("building_planning"));
+        if (!wand.isEmpty()) {
+            planningRow.add(wand.copy());
+        }
         int end = c.rowsPanel(0, 3, wallZ, List.of(
                 new TcCanvas.Line(TcText.t("planning.octants", "Octants"), octants),
-                new TcCanvas.Line(TcText.t("planning.row", "Building planning"), ctx.row("building_planning"))));
+                new TcCanvas.Line(TcText.t("planning.row", "Building planning"), planningRow)));
         c.backWall(0, end, wallZ, 6);
 
         // Baustab-Modi: je Modus eine Flaeche mit Stab auf dem Pfosten.
-        List<Item> wands = ctx.rowItems("building_wands");
-        ItemStack wand = wands.isEmpty() ? ItemStack.EMPTY : new ItemStack(wands.getLast());
         record Mode(String key, String fallback, ResourceKey<Enchantment> enchantment) {
         }
         List<Mode> modes = List.of(
@@ -1153,10 +1159,10 @@ public final class TestCentreSections {
     /** Zeilen aus SimpleTools, die eigene Abschnitte zeigen (Werkzeuge, Ruestung, Oktanten, Buecher). */
     static final Set<String> KNOWN_TOOL_ROWS = Set.of("chisels", "building_wands", "sledgehammers", "pickaxes", "shovels",
             "hoes", "axes", "swords", "spears", "gadgets", "helmets", "chestplates", "leggings", "boots", "colored_octants",
-            "enchanted_books");
+            "enchanted_books", "building_planning");
     /** Zeilen aus Maschinen &amp; Lager, die eigene Abschnitte zeigen. */
     static final Set<String> KNOWN_FUNCTIONAL_ROWS = Set.of("hoppers", "pistons", "furnaces", "smokers", "blast_furnaces",
-            "bundles", "quivers", "backpacks", "building_planning");
+            "bundles", "quivers", "backpacks");
 
     /**
      * Neue Tab-Zeilen erscheinen hier von selbst - als Rahmen an der Wand und, wenn es Bloecke sind,

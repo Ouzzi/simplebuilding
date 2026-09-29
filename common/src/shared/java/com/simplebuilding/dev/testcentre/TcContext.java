@@ -43,7 +43,7 @@ public record TcContext(HolderLookup.Provider lookup) {
         return enchantmentLookup().get(key).map(ref -> (Holder<Enchantment>) ref);
     }
 
-    /** Zeile {@code name} aus SimpleTools oder Maschinen &amp; Lager; leer, wenn es sie nicht gibt. */
+    /** Zeile {@code name} aus SimpleTools, SimpleMachines oder SimplePads; leer, wenn es sie nicht gibt. */
     public List<ItemStack> row(String name) {
         for (CreativeTabLayout.Row row : ModItemGroupsContent.toolsRows(enchantmentLookup())) {
             if (row.name().equals(name)) {
@@ -51,6 +51,11 @@ public record TcContext(HolderLookup.Provider lookup) {
             }
         }
         for (CreativeTabLayout.Row row : ModItemGroupsContent.functionalRows()) {
+            if (row.name().equals(name)) {
+                return row.stacks();
+            }
+        }
+        for (CreativeTabLayout.Row row : ModItemGroupsContent.padsRows()) {
             if (row.name().equals(name)) {
                 return row.stacks();
             }

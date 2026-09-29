@@ -179,7 +179,7 @@ public final class PadOverhaulTests {
         for (Block legacy : old) {
             helper.assertTrue(TweaksBlocks.legacy().contains(legacy), legacy + " is not listed as a legacy block");
             helper.assertTrue(new ItemStack(legacy).is(hidden), legacy + " is not hidden from recipe viewers");
-            for (CreativeTabLayout.Row row : TweaksItems.functionalRows()) {
+            for (CreativeTabLayout.Row row : TweaksItems.padsRows()) {
                 for (ItemStack stack : row.stacks()) {
                     helper.assertTrue(!stack.is(legacy.asItem()), legacy + " is still in the creative tab row " + row.name());
                 }

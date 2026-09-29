@@ -27,6 +27,11 @@ import java.util.List;
  * <p>Eine Zeile darf auch zwei Familien nebeneinander tragen: {@link #GAP} zwischen ihnen wird zu einem
  * Platzhalter, also einer leeren Zelle (Besitzer 2026-09-28, etwa "4 Trichter, Luecke, 4 Oefen").
  *
+ * <p>Eine Zeile kann auch in der Zeile ihres Vorgaengers weiterlaufen ({@link Row#besides}): dann steht
+ * zwischen beiden genau eine leere Zelle statt der Auffuellung bis zum Zeilenende - etwa die Bauplanung
+ * (Blaupause, Kartografentisch) rechts neben den Baustaeben, eine eigene Kategorie, die aber keine
+ * eigene Zeile braucht. Passt sie nicht mehr in die Zeile, beginnt sie wie jede andere links.
+ *
  * <p>Neue Tabs uebernehmen das Layout, indem sie ihre Kategorien als {@link Row}-Liste beschreiben
  * und {@link #emit} aufrufen.
  */
@@ -47,17 +52,28 @@ public final class CreativeTabLayout {
      * Eine Kategorie: ein Name (nur fuer Tests und Fehlermeldungen) und ihre Stapel in Anzeigereihenfolge.
      * Vanilla zuerst, dann die Stufen aufsteigend.
      */
-    public record Row(String name, List<ItemStack> stacks) {
+    public record Row(String name, List<ItemStack> stacks, boolean besidePrevious) {
+        public Row(String name, List<ItemStack> stacks) {
+            this(name, stacks, false);
+        }
+
         public static Row of(String name, ItemLike... items) {
             return new Row(name, Arrays.stream(items).map(ItemStack::new).toList());
+        }
+
+        /** Eine Kategorie, die nach einer leeren Zelle in der Zeile der vorigen weiterlaeuft, wenn sie dort passt. */
+        public static Row besides(String name, ItemLike... items) {
+            return new Row(name, Arrays.stream(items).map(ItemStack::new).toList(), true);
         }
     }
 
     /** Gibt alle Zeilen aus, jede bis auf die letzte bis zum Zeilenende mit Platzhaltern aufgefuellt. */
     public static void emit(CreativeModeTab.Output entries, List<Row> rows) {
         int spacers = 0;
+        int column = 0;
         for (int r = 0; r < rows.size(); r++) {
             List<ItemStack> stacks = rows.get(r).stacks();
+            column += stacks.size();
             for (ItemStack stack : stacks) {
                 if (stack.isEmpty()) {
                     entries.accept(spacer(spacers++), CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
@@ -68,8 +84,13 @@ public final class CreativeTabLayout {
             if (r == rows.size() - 1) {
                 break;
             }
-            int remainder = stacks.size() % ROW_WIDTH;
+            int remainder = column % ROW_WIDTH;
+            Row next = rows.get(r + 1);
             int padding = remainder == 0 ? 0 : ROW_WIDTH - remainder;
+            if (next.besidePrevious() && remainder != 0 && remainder + 1 + next.stacks().size() <= ROW_WIDTH) {
+                padding = 1;
+            }
+            column += padding;
             for (int i = 0; i < padding; i++) {
                 entries.accept(spacer(spacers++), CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
             }

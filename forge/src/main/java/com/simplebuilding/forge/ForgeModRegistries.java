@@ -173,7 +173,7 @@ public final class ForgeModRegistries {
     }
 
     /**
-     * Entwickler-Tab hinter den vier Tabs. Immer registriert, aber nur gefuellt, wenn
+     * Entwickler-Tab hinter den Tabs der Mod. Immer registriert, aber nur gefuellt, wenn
      * {@link com.simplebuilding.items.DevEnchantedTab#isShown()} gilt - leer blendet Vanilla ihn aus.
      */
     public static final RegistryObject<CreativeModeTab> DEV_ENCHANTED_TAB = CREATIVE_TABS.register(
@@ -185,7 +185,7 @@ public final class ForgeModRegistries {
                             com.simplebuilding.items.DevEnchantedTab.populateIfShown(entries, displayContext.holders()))
                     .withTabsBefore(net.minecraft.resources.ResourceKey.create(Registries.CREATIVE_MODE_TAB,
                             net.minecraft.resources.Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID,
-                                    ModItemGroupsContent.Tab.FUNCTIONAL.id)))
+                                    ModItemGroupsContent.Tab.values()[ModItemGroupsContent.Tab.values().length - 1].id)))
                     .build());
 
     private ForgeModRegistries() {

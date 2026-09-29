@@ -11,7 +11,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import java.util.EnumMap;
 import java.util.Map;
 
-/** Die vier Kreativ-Tabs der Mod, in {@link ModItemGroupsContent.Tab}-Reihenfolge registriert. */
+/** Die Kreativ-Tabs der Mod, in {@link ModItemGroupsContent.Tab}-Reihenfolge registriert. */
 public class ModItemGroups {
     public static final Map<ModItemGroupsContent.Tab, CreativeModeTab> GROUPS = new EnumMap<>(ModItemGroupsContent.Tab.class);
 
@@ -28,7 +28,7 @@ public class ModItemGroups {
     }
 
     /**
-     * Entwickler-Tab hinter den vier Tabs. Immer registriert, aber nur gefuellt, wenn
+     * Entwickler-Tab hinter den Tabs der Mod. Immer registriert, aber nur gefuellt, wenn
      * {@link DevEnchantedTab#isShown()} gilt - leer blendet Vanilla ihn aus.
      */
     public static final CreativeModeTab DEV_ENCHANTED = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB,

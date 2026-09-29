@@ -151,18 +151,18 @@ public final class TweaksItems {
     }
 
     /**
-     * Zeilen fuer den Tab "Maschinen & Lager" (ModItemGroupsContent#functionalRows), Besitzer 2026-09-28:
-     * erst die Druckplatten - Holz (eine Zeile und ein Rest), dann Stein und polierter Schwarzstein mit den
-     * Metall-/Materialplatten (schwer = Eisen, leicht = Gold, Diamant, Netherit, Enderit) in einer Zeile,
-     * dann Kupfer (vier Stufen, dann gewachst). Danach die Pads in Erz-Reihenfolge Kupfer, Eisen, Gold,
-     * Diamant, Netherit, Enderit: jede Familie mit drei Stufen als "drei Stufen + ihre Freischalt-Zutat
-     * im vierten Feld", eine Luecke, dann die naechste Familie in derselben Zeile.
+     * Zeilen des Tabs "SimplePads" (ModItemGroupsContent#padsRows; bis 2026-09-29 in SimpleMachines), Besitzer 2026-09-28/29:
+     * erst die Druckplatten - Eiche (als einzige Holzplatte, die anderen Holzarten stehen nur noch im
+     * Vanilla-Tab), Stein und polierter Schwarzstein mit den Metall-/Materialplatten (schwer = Eisen,
+     * leicht = Gold, Diamant, Netherit, Enderit) in einer Zeile, dann Kupfer (vier Stufen, dann gewachst).
+     * Danach die Pads in Erz-Reihenfolge Kupfer, Eisen, Gold, Diamant, Netherit, Enderit: jede Familie mit
+     * drei Stufen als "drei Stufen + ihre Freischalt-Zutat im vierten Feld", eine Luecke, dann die naechste
+     * Familie in derselben Zeile. Zuletzt die weiteren Mobkoepfe ({@link #extraMobHeads()}).
      */
-    public static List<CreativeTabLayout.Row> functionalRows() {
-        return List.of(
-                CreativeTabLayout.Row.of("wooden_pressure_plates", woodenPressurePlates()),
+    public static List<CreativeTabLayout.Row> padsRows() {
+        List<CreativeTabLayout.Row> rows = new ArrayList<>(List.of(
                 CreativeTabLayout.Row.of("pressure_plates",
-                        Items.STONE_PRESSURE_PLATE, Items.POLISHED_BLACKSTONE_PRESSURE_PLATE,
+                        Items.OAK_PRESSURE_PLATE, Items.STONE_PRESSURE_PLATE, Items.POLISHED_BLACKSTONE_PRESSURE_PLATE,
                         Items.HEAVY_WEIGHTED_PRESSURE_PLATE, Items.LIGHT_WEIGHTED_PRESSURE_PLATE,
                         TweaksBlocks.DIAMOND_PRESSURE_PLATE, TweaksBlocks.NETHERITE_PRESSURE_PLATE, TweaksBlocks.ENDERITE_PRESSURE_PLATE),
                 CreativeTabLayout.Row.of("copper_pressure_plates",
@@ -189,23 +189,22 @@ public final class TweaksItems {
                         TweaksBlocks.POTION_PAD, TweaksBlocks.REINFORCED_POTION_PAD, TweaksBlocks.INFUSED_POTION_PAD, BLAZE_HEAD,
                         CreativeTabLayout.GAP,
                         TweaksBlocks.FLYPAD, TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.STELLAR_FLYPAD,
-                        com.simplebuilding.items.ModItems.ENDERITE_CORE));
+                        com.simplebuilding.items.ModItems.ENDERITE_CORE)));
+        // Weitere Mobkoepfe: eigene Zeile direkt unter Lohen- und Endermankopf, nur wenn es welche gibt.
+        List<ItemLike> heads = extraMobHeads();
+        if (!heads.isEmpty()) {
+            rows.add(CreativeTabLayout.Row.of("mob_heads", heads.toArray(ItemLike[]::new)));
+        }
+        return List.copyOf(rows);
     }
 
     /**
-     * Holzarten in Vanilla-Reihenfolge (Baeume, dann Bambus, dann Nether). Pappel gibt es erst ab MC 26.3;
-     * was eine Linie nicht kennt, faellt weg.
+     * Platz fuer weitere Mobkoepfe (etwa die der Pruefkammer-Mobs): hier eintragen, dann erscheinen sie in
+     * SimplePads als Zeile "mob_heads" direkt unter der Zeile mit dem Lohenkopf (Lohen- und Endermankopf
+     * bleiben als Freischalt-Zutat bei ihren Pads). Leer erscheint die Zeile nicht.
      */
-    public static final List<String> WOODS = List.of("oak", "spruce", "birch", "jungle", "acacia", "dark_oak",
-            "mangrove", "cherry", "pale_oak", "poplar", "bamboo", "crimson", "warped");
-
-    /** Alle Holzdruckplatten dieser Minecraft-Version in {@link #WOODS}-Reihenfolge. */
-    private static ItemLike[] woodenPressurePlates() {
-        List<ItemLike> plates = new ArrayList<>();
-        for (String wood : WOODS) {
-            BuiltInRegistries.ITEM.getOptional(Identifier.withDefaultNamespace(wood + "_pressure_plate")).ifPresent(plates::add);
-        }
-        return plates.toArray(ItemLike[]::new);
+    public static List<ItemLike> extraMobHeads() {
+        return List.of();
     }
 
     private static Item register(String name, Function<Item.Properties, Item> factory) {

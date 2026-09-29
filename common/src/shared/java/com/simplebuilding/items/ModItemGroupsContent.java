@@ -18,12 +18,13 @@ import java.util.List;
 import java.util.function.Supplier;
 
 /**
- * Inhalt der vier Kreativ-Tabs der Mod. SimpleTools und SimpleMachines sind zeilenweise angelegt
- * ({@link CreativeTabLayout}): eine Kategorie je Zeile, der Rest der Zeile bleibt leer. Jeder Loader registriert je {@link Tab} einen Tab mit der
+ * Inhalt der fuenf Kreativ-Tabs der Mod. Alle sind zeilenweise angelegt ({@link CreativeTabLayout},
+ * Besitzer 2026-09-28 "Zeilen-Layout fuer alle Tabs"): eine Kategorie je Zeile, der Rest der Zeile
+ * bleibt leer. Jeder Loader registriert je {@link Tab} einen Tab mit der
  * Id {@code simplebuilding:<id>}, dem Titel {@code itemgroup.simplebuilding.<id>} und
  * {@link #populate(Tab, CreativeModeTab.Output, HolderLookup.Provider)} als Inhalt. Jedes Item der
  * Mod steht in genau einem Tab ({@code DataIntegrityTests#everyModItemIsInExactlyOneCreativeTab}) -
- * ausser dem Oktanten und den Baustaeben (auch in der Zeile Bauplanung von SimpleMachines), dem Layout-Platzhalter {@link ModItems#CREATIVE_SPACER} (nur Fueller, nie im Suchtab, siehe
+ * ausser Kupfer-, Eisen- und Enderit-Kern (auch als Freischalt-Zutat in SimplePads), dem Layout-Platzhalter {@link ModItems#CREATIVE_SPACER} (nur Fueller, nie im Suchtab, siehe
  * {@link CreativeTabLayout}) und den Duplikaten des Entwickler-Tabs {@link DevEnchantedTab}, der
  * kein {@link Tab} ist, weil er nur in Entwicklungsumgebungen oder per Konfig gefuellt wird.
  */
@@ -35,7 +36,9 @@ public final class ModItemGroupsContent {
         TOOLS("tools", () -> new ItemStack(ModItems.IRON_CHISEL)),
         BUILDING_BLOCKS("building_blocks", () -> new ItemStack(ModItems.ASTRALIT_BRICKS)),
         MATERIALS("materials", () -> new ItemStack(ModItems.ENDERITE_INGOT)),
-        FUNCTIONAL("functional", () -> new ItemStack(ModItems.NETHERITE_HOPPER));
+        FUNCTIONAL("functional", () -> new ItemStack(ModItems.NETHERITE_HOPPER)),
+        /** Druckplatten und Pads (Besitzer 2026-09-29: passen nicht zu den Maschinen). */
+        PADS("pads", () -> new ItemStack(com.simplebuilding.tweaks.block.TweaksBlocks.ELYTRA_PAD));
 
         public final String id;
         public final Supplier<ItemStack> icon;
@@ -63,6 +66,7 @@ public final class ModItemGroupsContent {
             case BUILDING_BLOCKS -> buildingBlocks(entries);
             case MATERIALS -> materials(entries);
             case FUNCTIONAL -> functional(entries);
+            case PADS -> CreativeTabLayout.emit(entries, padsRows());
         }
     }
 
@@ -72,7 +76,8 @@ public final class ModItemGroupsContent {
 
     /**
      * Zeilen des Tabs "SimpleTools": je Familie eine Zeile von der niedrigsten Stufe bis Enderit -
-     * erst die Werkzeuge (Meissel, Baustab, Vorschlaghammer, Spitzhacke, Schaufel, Hacke, Axt), dann
+     * erst die Werkzeuge (Meissel, Baustab - rechts daneben nach einer Luecke die Bauplanung mit Blaupause
+     * und Kartografentisch -, Vorschlaghammer, Spitzhacke, Schaufel, Hacke, Axt), dann
      * die Waffen (Schwert, Speer), die Ruestung (Helm, Brust, Hose, Stiefel), die Geraete (Kompass,
      * Bergungs- und Echo-Kompass, Geschwindigkeitsmesser, Erzdetektor, Magnet, Rotator, Amethystlinse,
      * Oktant), die gefaerbten Oktanten und zuletzt die
@@ -86,6 +91,7 @@ public final class ModItemGroupsContent {
                         ModItems.STONE_CHISEL, ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL, ModItems.GOLD_CHISEL,
                         ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL, ModItems.ENDERITE_CHISEL),
                 CreativeTabLayout.Row.of("building_wands", buildingWands()),
+                buildingPlanningRow(),
                 CreativeTabLayout.Row.of("sledgehammers",
                         ModItems.STONE_SLEDGEHAMMER, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER,
                         ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_SLEDGEHAMMER,
@@ -183,79 +189,57 @@ public final class ModItemGroupsContent {
         return rows;
     }
 
-    /** Alle Baustab-Stufen, aufsteigend - in SimpleTools und in der Zeile Bauplanung von SimpleMachines. */
+    /** Alle Baustab-Stufen, aufsteigend. */
     private static ItemLike[] buildingWands() {
         return new ItemLike[]{ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND,
                 ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND};
     }
 
     private static void buildingBlocks(CreativeModeTab.Output entries) {
-        entries.accept(ModItems.POLISHED_END_STONE);
+        CreativeTabLayout.emit(entries, buildingBlocksRows());
+    }
 
-        // --- Astralit ---
-        entries.accept(ModItems.ASTRAL_END_STONE);
-        entries.accept(ModItems.ASTRALIT_BLOCK);
-        entries.accept(ModItems.ASTRALIT_BRICKS);
-        entries.accept(ModItems.ASTRALIT_BRICK_STAIRS);
-        entries.accept(ModItems.ASTRALIT_BRICK_SLAB);
-        entries.accept(ModItems.ASTRALIT_BRICK_WALL);
-        entries.accept(ModItems.POLISHED_ASTRALIT);
-        entries.accept(ModItems.POLISHED_ASTRALIT_STAIRS);
-        entries.accept(ModItems.POLISHED_ASTRALIT_SLAB);
-        entries.accept(ModItems.POLISHED_ASTRALIT_WALL);
-        entries.accept(ModItems.ASTRALIT_PILLAR);
-        entries.accept(ModItems.CHISELED_ASTRALIT_BRICKS);
-        entries.accept(ModItems.ASTRAL_PURPUR_BLOCK);
-
-        // --- Nihilith ---
-        entries.accept(ModItems.NIHIL_END_STONE);
-        entries.accept(ModItems.NIHILITH_BLOCK);
-        entries.accept(ModItems.NIHILITH_BRICKS);
-        entries.accept(ModItems.NIHILITH_BRICK_STAIRS);
-        entries.accept(ModItems.NIHILITH_BRICK_SLAB);
-        entries.accept(ModItems.NIHILITH_BRICK_WALL);
-        entries.accept(ModItems.POLISHED_NIHILITH);
-        entries.accept(ModItems.POLISHED_NIHILITH_STAIRS);
-        entries.accept(ModItems.POLISHED_NIHILITH_SLAB);
-        entries.accept(ModItems.POLISHED_NIHILITH_WALL);
-        entries.accept(ModItems.NIHILITH_PILLAR);
-        entries.accept(ModItems.CHISELED_NIHILITH_BRICKS);
-        entries.accept(ModItems.NIHIL_PURPUR_BLOCK);
-
-        // --- Enderquarz ---
-        entries.accept(ModItems.ENDER_QUARTZ_BLOCK);
-        entries.accept(ModItems.ENDER_QUARTZ_STAIRS);
-        entries.accept(ModItems.ENDER_QUARTZ_SLAB);
-        entries.accept(ModItems.ENDER_QUARTZ_BRICKS);
-        entries.accept(ModItems.ENDER_QUARTZ_BRICK_STAIRS);
-        entries.accept(ModItems.ENDER_QUARTZ_BRICK_SLAB);
-        entries.accept(ModItems.ENDER_QUARTZ_BRICK_WALL);
-        entries.accept(ModItems.POLISHED_ENDER_QUARTZ);
-        entries.accept(ModItems.POLISHED_ENDER_QUARTZ_STAIRS);
-        entries.accept(ModItems.POLISHED_ENDER_QUARTZ_SLAB);
-        entries.accept(ModItems.POLISHED_ENDER_QUARTZ_WALL);
-        entries.accept(ModItems.ENDER_QUARTZ_PILLAR);
-        entries.accept(ModItems.CHISELED_ENDER_QUARTZ_BRICKS);
-
-        // --- Checkers ---
-        entries.accept(ModItems.PURPUR_QUARTZ_CHECKER);
-        entries.accept(ModItems.LAPIS_QUARTZ_CHECKER);
-        entries.accept(ModItems.BLACKSTONE_QUARTZ_CHECKER);
-        entries.accept(ModItems.RESIN_QUARTZ_CHECKER);
-        entries.accept(ModItems.NIHILITH_QUARTZ_CHECKER);
-        entries.accept(ModItems.ASTRALIT_QUARTZ_CHECKER);
-        entries.accept(ModItems.ENDER_QUARTZ_CHECKER);
-
-        // --- Gravity Blocks ---
-        entries.accept(ModItems.SUSPENDED_SAND);
-        entries.accept(ModItems.SUSPENDED_GRAVEL);
-        entries.accept(ModItems.LEVITATING_SAND);
-        entries.accept(ModItems.LEVITATING_GRAVEL);
-
-        // --- Storage & Light ---
-        entries.accept(ModItems.CRACKED_DIAMOND_BLOCK);
-        entries.accept(ModItems.ENDERITE_BLOCK_ITEM);
-        entries.accept(ModItems.CONSTRUCTION_LIGHT);
+    /**
+     * Zeilen des Tabs "SimpleBlocks" (Besitzer 2026-09-28: Zeilen-Layout fuer alle Tabs): die drei
+     * Endsteine (poliert, astral, nihil), je Palette eine Zeile Block, Ziegel mit Treppe, Stufe und Mauer,
+     * Saeule, gemeisselte Ziegel (und der Purpur der Palette) und darunter die polierte Reihe; die
+     * Quarz-Schachbretter; die Schwerkraftbloecke (schwebend | levitierend) und zuletzt Lager und Licht.
+     */
+    public static List<CreativeTabLayout.Row> buildingBlocksRows() {
+        return List.of(
+                CreativeTabLayout.Row.of("end_stones",
+                        ModItems.POLISHED_END_STONE, ModItems.ASTRAL_END_STONE, ModItems.NIHIL_END_STONE),
+                CreativeTabLayout.Row.of("astralit",
+                        ModItems.ASTRALIT_BLOCK, ModItems.ASTRALIT_BRICKS, ModItems.ASTRALIT_BRICK_STAIRS,
+                        ModItems.ASTRALIT_BRICK_SLAB, ModItems.ASTRALIT_BRICK_WALL, ModItems.ASTRALIT_PILLAR,
+                        ModItems.CHISELED_ASTRALIT_BRICKS, ModItems.ASTRAL_PURPUR_BLOCK),
+                CreativeTabLayout.Row.of("polished_astralit",
+                        ModItems.POLISHED_ASTRALIT, ModItems.POLISHED_ASTRALIT_STAIRS, ModItems.POLISHED_ASTRALIT_SLAB,
+                        ModItems.POLISHED_ASTRALIT_WALL),
+                CreativeTabLayout.Row.of("nihilith",
+                        ModItems.NIHILITH_BLOCK, ModItems.NIHILITH_BRICKS, ModItems.NIHILITH_BRICK_STAIRS,
+                        ModItems.NIHILITH_BRICK_SLAB, ModItems.NIHILITH_BRICK_WALL, ModItems.NIHILITH_PILLAR,
+                        ModItems.CHISELED_NIHILITH_BRICKS, ModItems.NIHIL_PURPUR_BLOCK),
+                CreativeTabLayout.Row.of("polished_nihilith",
+                        ModItems.POLISHED_NIHILITH, ModItems.POLISHED_NIHILITH_STAIRS, ModItems.POLISHED_NIHILITH_SLAB,
+                        ModItems.POLISHED_NIHILITH_WALL),
+                CreativeTabLayout.Row.of("ender_quartz",
+                        ModItems.ENDER_QUARTZ_BLOCK, ModItems.ENDER_QUARTZ_STAIRS, ModItems.ENDER_QUARTZ_SLAB,
+                        ModItems.ENDER_QUARTZ_BRICKS, ModItems.ENDER_QUARTZ_BRICK_STAIRS, ModItems.ENDER_QUARTZ_BRICK_SLAB,
+                        ModItems.ENDER_QUARTZ_BRICK_WALL, ModItems.ENDER_QUARTZ_PILLAR, ModItems.CHISELED_ENDER_QUARTZ_BRICKS),
+                CreativeTabLayout.Row.of("polished_ender_quartz",
+                        ModItems.POLISHED_ENDER_QUARTZ, ModItems.POLISHED_ENDER_QUARTZ_STAIRS, ModItems.POLISHED_ENDER_QUARTZ_SLAB,
+                        ModItems.POLISHED_ENDER_QUARTZ_WALL),
+                CreativeTabLayout.Row.of("checkers",
+                        ModItems.PURPUR_QUARTZ_CHECKER, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.BLACKSTONE_QUARTZ_CHECKER,
+                        ModItems.RESIN_QUARTZ_CHECKER, ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,
+                        ModItems.ENDER_QUARTZ_CHECKER),
+                CreativeTabLayout.Row.of("gravity_blocks",
+                        ModItems.SUSPENDED_SAND, ModItems.SUSPENDED_GRAVEL, CreativeTabLayout.GAP,
+                        ModItems.LEVITATING_SAND, ModItems.LEVITATING_GRAVEL),
+                CreativeTabLayout.Row.of("storage_and_light",
+                        ModItems.CRACKED_DIAMOND_BLOCK, ModItems.ENDERITE_BLOCK_ITEM, CreativeTabLayout.GAP,
+                        ModItems.CONSTRUCTION_LIGHT));
     }
 
     private static void materials(CreativeModeTab.Output entries) {
@@ -323,17 +307,22 @@ public final class ModItemGroupsContent {
     }
 
     /**
-     * Zeilen des Tabs "Maschinen & Lager": eine Kategorie je Zeile, Vanilla zuerst, dann die Stufen.
+     * Zeilen des Tabs "SimpleMachines": eine Kategorie je Zeile, Vanilla zuerst, dann die Stufen.
      * Neue Kategorien (etwa gefaerbte Varianten) als weitere {@link CreativeTabLayout.Row} anhaengen;
-     * eine Zeile mit mehr als neun Eintraegen laeuft in die naechste weiter.
+     * eine Zeile mit mehr als neun Eintraegen laeuft in die naechste weiter. Druckplatten und Pads stehen
+     * seit 2026-09-29 in SimplePads ({@link #padsRows()}), die Bauplanung in SimpleTools.
      */
     public static List<CreativeTabLayout.Row> functionalRows() {
-        List<CreativeTabLayout.Row> rows = new java.util.ArrayList<>(baseFunctionalRows());
-        // Aus Simple Tweaks: Druckplatten, Pads, Teleporter, Launchpads/Chunk-Loader - vor der
-        // Bauplanung, die als volle Neunerzeile am Ende bleibt.
-        rows.addAll(com.simplebuilding.tweaks.item.TweaksItems.functionalRows());
-        rows.add(buildingPlanningRow());
-        return List.copyOf(rows);
+        return baseFunctionalRows();
+    }
+
+    /**
+     * Zeilen des Tabs "SimplePads" (Besitzer 2026-09-29, aus SimpleMachines herausgeloest): erst die
+     * Druckplatten nach Material, dann die Pad-Familien in Erz-Reihenfolge, jede mit ihrer
+     * Freischalt-Zutat und einer Luecke zur naechsten ({@code TweaksItems#padsRows}).
+     */
+    public static List<CreativeTabLayout.Row> padsRows() {
+        return com.simplebuilding.tweaks.item.TweaksItems.padsRows();
     }
 
     /**
@@ -364,18 +353,16 @@ public final class ModItemGroupsContent {
                 CreativeTabLayout.Row.of("chests",
                         Items.CHEST, Items.COPPER_CHEST.weathering().unaffected(), ModItems.REINFORCED_CHEST, ModItems.NETHERITE_CHEST,
                         ModItems.ENDERITE_CHEST));
-        // Bauplanung (in functionalRows angehaengt): Blaupause, Kartografentisch (dort wird sie
-        // beschrieben), ein Oktant fuer die Flaeche und alle Baustaebe. Oktant und Baustaebe stehen
-        // damit auch in SimpleTools.
     }
 
+    /**
+     * Bauplanung (Besitzer 2026-09-29, aus SimpleMachines nach SimpleTools): Blaupause und
+     * Kartografentisch (dort wird sie beschrieben), nach einer Luecke rechts neben den Baustaeben - so
+     * steht die Blaupause direkt beim Enderit-Baustab, der sie baut. Ein Stapel darf in einem Tab nur
+     * einmal stehen, darum wiederholt die Zeile den Enderit-Baustab nicht, sondern teilt sich seine Zeile.
+     */
     public static CreativeTabLayout.Row buildingPlanningRow() {
-        List<ItemStack> stacks = new java.util.ArrayList<>(List.of(new ItemStack(ModItems.BLUEPRINT),
-                new ItemStack(Items.CARTOGRAPHY_TABLE), new ItemStack(ModItems.OCTANT)));
-        for (ItemLike wand : buildingWands()) {
-            stacks.add(new ItemStack(wand));
-        }
-        return new CreativeTabLayout.Row("building_planning", stacks);
+        return CreativeTabLayout.Row.besides("building_planning", ModItems.BLUEPRINT, Items.CARTOGRAPHY_TABLE);
     }
 
     private static void addEnchantAtMax(List<ItemStack> entries, HolderLookup<Enchantment> registry, ResourceKey<Enchantment> key) {

@@ -433,7 +433,7 @@ public final class TweaksTierTests {
             ItemStack after = player.getInventory().getItem(10 + i);
             helper.assertTrue(after.is(now[i].asItem()) && after.getCount() == 3, "an old " + old[i] + " stack in the inventory became " + after);
         }
-        for (com.simplebuilding.items.CreativeTabLayout.Row row : com.simplebuilding.tweaks.item.TweaksItems.functionalRows()) {
+        for (com.simplebuilding.items.CreativeTabLayout.Row row : com.simplebuilding.tweaks.item.TweaksItems.padsRows()) {
             for (ItemStack stack : row.stacks()) {
                 helper.assertTrue(!stack.is(old[0].asItem()) && !stack.is(old[1].asItem()), "an old flypad is still in the creative tab row " + row.name());
             }
