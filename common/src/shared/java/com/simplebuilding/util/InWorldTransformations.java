@@ -162,13 +162,21 @@ public final class InWorldTransformations {
         }
     }
 
-    /** Diamantblock mit dem Vorschlaghammer zerschlagen. */
+    /** Diamantblock mit dem Vorschlaghammer zerschlagen (Haemmer ab der Eisenstufe). */
     public static JsonObject diamondCrush() {
         JsonObject o = new JsonObject();
         o.addProperty("block", id(Blocks.DIAMOND_BLOCK));
         o.addProperty("result", id(ModItems.DIAMOND_PEBBLE));
         o.addProperty("count", SledgehammerItem.DIAMOND_BLOCK_PEBBLES);
         o.addProperty("damage", SledgehammerItem.DIAMOND_CRUSH_DAMAGE);
+        // Nur Haemmer ab der Eisenstufe (SledgehammerItem#canCrushDiamondBlock).
+        JsonArray hammers = new JsonArray();
+        for (Item item : modItems(SledgehammerItem.class)) {
+            if (SledgehammerItem.canCrushDiamondBlock(item)) {
+                hammers.add(id(item));
+            }
+        }
+        o.add("hammers", hammers);
         return o;
     }
 

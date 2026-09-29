@@ -251,7 +251,16 @@ public final class InWorldRecipeCatalog {
         }
     }
 
-    private static void diamondCrush(JsonObject crush, List<Item> hammers, Resolver resolver, List<Entry> out) {
+    private static void diamondCrush(JsonObject crush, List<Item> allHammers, Resolver resolver, List<Entry> out) {
+        // Seit 2026-09-29 nennt der Export die Haemmer, die zerschlagen duerfen (ab Eisen); aeltere Exporte: alle.
+        List<Item> hammers = allHammers;
+        if (crush.has("hammers")) {
+            List<String> ids = new ArrayList<>();
+            for (JsonElement element : crush.getAsJsonArray("hammers")) {
+                ids.add(element.getAsString());
+            }
+            hammers = resolver.items(ids);
+        }
         String blockId = crush.get("block").getAsString();
         Item block = resolver.block(blockId);
         Item result = resolver.item(crush.get("result").getAsString());

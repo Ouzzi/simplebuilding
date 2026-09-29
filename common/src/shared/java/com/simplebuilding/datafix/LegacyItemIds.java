@@ -34,7 +34,9 @@ public final class LegacyItemIds {
     public static final Map<String, String> RENAMED = Map.of(
             "velocity-gauge", "velocity_gauge",
             "echo_compass", "echo_sounder",
-            "laser_pointer", "amethyst_lens");
+            "laser_pointer", "amethyst_lens",
+            // Besitzer 2026-09-29: "Ore Detector" heisst jetzt "Detector".
+            "ore_detector", "detector");
 
     private LegacyItemIds() {
     }

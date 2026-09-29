@@ -13,7 +13,7 @@
       "translate": "advancements.simplebuilding.gadgets.ping.description"
     },
     "icon": {
-      "id": "simplebuilding:ore_detector"
+      "id": "simplebuilding:detector"
     },
     "title": {
       "translate": "advancements.simplebuilding.gadgets.ping.title"

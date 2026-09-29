@@ -3915,7 +3915,7 @@ public final class DataIntegrityTests {
         keys.addAll(List.of(
                 "tooltip.simplebuilding.ore_detector.mode",
                 "tooltip.simplebuilding.ore_detector.target", "tooltip.simplebuilding.ore_detector.no_target",
-                "tooltip.simplebuilding.ore_detector.cycle_hint", "tooltip.simplebuilding.ore_detector.power",
+                "tooltip.simplebuilding.ore_detector.cycle_hint", "tooltip.simplebuilding.ore_detector.place_hint", "tooltip.simplebuilding.ore_detector.power",
                 "tooltip.simplebuilding.ore_detector.all_classes", "tooltip.simplebuilding.ore_detector.damping",
                 "message.simplebuilding.item_frame.locked", "message.simplebuilding.item_frame.unlocked",
                 "message.simplebuilding.item_frame.hidden", "message.simplebuilding.item_frame.shown",
@@ -4218,7 +4218,7 @@ public final class DataIntegrityTests {
             Map.entry("stellar_flypad", net.minecraft.world.item.Rarity.EPIC),
             Map.entry("fine_elytra_pad", net.minecraft.world.item.Rarity.EPIC),
             // Geraete nach ihrer wertvollsten Zutat: Echoscherben (Vanilla UNCOMMON), Enderit-Kern
-            Map.entry("ore_detector", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("detector", net.minecraft.world.item.Rarity.UNCOMMON),
             Map.entry("echo_sounder", net.minecraft.world.item.Rarity.EPIC),
             // Koepfe wie Vanillas Mob-Koepfe, Easter wie das Drachenei, Technik wie die Barriere
             Map.entry("blaze_head", net.minecraft.world.item.Rarity.UNCOMMON),
@@ -4366,7 +4366,9 @@ public final class DataIntegrityTests {
         vanillaTwins.put("enderite_nugget", new String[]{"Enderite Nugget", "Enderitklumpen"});
         vanillaTwins.put("netherite_nugget", new String[]{"Netherite Nugget", "Netheritklumpen"});
         vanillaTwins.put("enderite_scrap", new String[]{"Enderite Scrap", "Enderitplatten"});
-        vanillaTwins.put("raw_enderite", new String[]{"Raw Enderite", "Rohenderit"});
+        // Besitzer 2026-09-29: drei Fragmente ergeben den rohen Schrott, der zu Enderite Scrap schmilzt.
+        vanillaTwins.put("raw_enderite", new String[]{"Raw Enderite Fragment", "Rohes Enderitfragment"});
+        vanillaTwins.put("layered_raw_enderite", new String[]{"Raw Enderite Scrap", "Rohe Enderitplatten"});
         vanillaTwins.put("enderite_chestplate", new String[]{"Enderite Chestplate", "Enderitharnisch"});
         vanillaTwins.put("enderite_leggings", new String[]{"Enderite Leggings", "Enderitbeinschutz"});
         vanillaTwins.put("enderite_spear", new String[]{"Enderite Spear", "Enderitspeer"});

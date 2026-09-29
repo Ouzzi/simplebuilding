@@ -2139,9 +2139,9 @@ public final class HudAndTooltipClientTest {
     private static final int GLINT_SLOT = 36;
     private static final int GLINT_PLAIN_SLOT = 37;
     private static final String DETECTOR_UNCALIBRATED =
-            "simplebuilding:ore_detector[minecraft:custom_data={Mode:5}]";
+            "simplebuilding:detector[minecraft:custom_data={Mode:5}]";
     private static final String DETECTOR_ON_DIAMOND =
-            "simplebuilding:ore_detector[minecraft:custom_data={Mode:5,CustomBlock:{Name:\"minecraft:diamond_ore\"}}]";
+            "simplebuilding:detector[minecraft:custom_data={Mode:5,CustomBlock:{Name:\"minecraft:diamond_ore\"}}]";
     /** Diamond ore's glimmer colour, {@code OreDetectorItem#targetColor}. */
     private static final int GLINT_DIAMOND_RGB = 0x5DECF5;
 

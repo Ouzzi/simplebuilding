@@ -69,14 +69,16 @@ public final class PlacedTemplates {
     /**
      * Vorlagen, die sich ablegen lassen: jede {@link SmithingTemplateItem} (Netherit-Aufwertung, alle
      * Besatzvorlagen, die Besatz-Aufwertungen der Mod, Vorlagen anderer Mods), die beiden
-     * Aufwertungsvorlagen der Mod, die schlichte Items sind, und der Attractor ({@link PlacedAttractors}:
-     * abgelegt zieht er lose Items an).
+     * Aufwertungsvorlagen der Mod, die schlichte Items sind, der Attractor ({@link PlacedAttractors}:
+     * abgelegt zieht er lose Items an) und der kalibrierte Detector ({@link PlacedDetectors}).
      */
     public static boolean isPlaceableTemplate(ItemStack stack) {
         Item item = stack.getItem();
         return !stack.isEmpty() && (item instanceof SmithingTemplateItem
                 || item == ModItems.ENDERITE_UPGRADE_TEMPLATE || item == ModItems.BASIC_UPGRADE_TEMPLATE
-                || item == ModItems.MAGNET);
+                || item == ModItems.MAGNET
+                // Kalibrierter Detector (PlacedDetectors: abgelegt sucht er weiter nach seinem Zielblock).
+                || com.simplebuilding.items.custom.OreDetectorItem.isArmed(stack));
     }
 
     /** Blaupausen lassen sich genauso ablegen (Besitzer 2026-09-28), als eigener Block. */

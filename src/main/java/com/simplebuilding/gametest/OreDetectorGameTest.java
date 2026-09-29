@@ -100,4 +100,9 @@ public final class OreDetectorGameTest {
     public void offHandDetectorIsSlowerQuieterAndFainter(GameTestHelper helper) {
         OreDetectorTests.offHandDetectorIsSlowerQuieterAndFainter(helper);
     }
+
+    @GameTest
+    public void calibratedDetectorsLieDownAndKeepSearching(GameTestHelper helper) {
+        OreDetectorTests.calibratedDetectorsLieDownAndKeepSearching(helper);
+    }
 }

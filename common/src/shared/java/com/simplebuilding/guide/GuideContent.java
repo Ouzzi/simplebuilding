@@ -93,7 +93,7 @@ public final class GuideContent {
                 ch("simplebuilding:basic_upgrade_template", List.of("simplebuilding:basic_upgrade_template",
                         "simplebuilding:iron_sledgehammer@upgrade_copper_sledgehammer_to_iron_sledgehammer"), List.of()),
                 ch("simplebuilding:magnet", List.of("simplebuilding:magnet", "simplebuilding:rotator"), List.of()),
-                ch("simplebuilding:ore_detector", List.of("simplebuilding:ore_detector"), List.of("simplebuilding:gold_core")),
+                ch("simplebuilding:detector", List.of("simplebuilding:detector"), List.of("simplebuilding:gold_core")),
                 ch("minecraft:iron_pickaxe", List.of(), List.of("minecraft:enchanted_book", "minecraft:iron_pickaxe")),
                 ch("minecraft:iron_boots", List.of(), List.of("minecraft:enchanted_book", "minecraft:iron_boots", "minecraft:elytra")),
                 ch("minecraft:enchanted_book", List.of(), List.of("minecraft:enchanted_book", "simplebuilding:diamond_chisel",

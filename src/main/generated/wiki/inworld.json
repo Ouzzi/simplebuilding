@@ -7850,6 +7850,13 @@
     "block": "minecraft:diamond_block",
     "count": 81,
     "damage": 1,
+    "hammers": [
+      "simplebuilding:diamond_sledgehammer",
+      "simplebuilding:enderite_sledgehammer",
+      "simplebuilding:gold_sledgehammer",
+      "simplebuilding:iron_sledgehammer",
+      "simplebuilding:netherite_sledgehammer"
+    ],
     "result": "simplebuilding:diamond_pebble"
   },
   "generator": "com.simplebuilding.datagen.WikiDataProvider",
@@ -8066,6 +8073,15 @@
         "nugget": "simplebuilding:netherite_nugget",
         "nuggetCount": 1,
         "to": "simplebuilding:netherite_smoker",
+        "totalDamage": 20
+      },
+      {
+        "damagePerHit": 4,
+        "from": "simplebuilding:reinforced_sticky_piston",
+        "minimumHammer": "simplebuilding:diamond_sledgehammer",
+        "nugget": "simplebuilding:netherite_nugget",
+        "nuggetCount": 1,
+        "to": "simplebuilding:netherite_piston",
         "totalDamage": 20
       }
     ]

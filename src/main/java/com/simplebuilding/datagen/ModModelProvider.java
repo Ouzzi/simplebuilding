@@ -222,9 +222,9 @@ public class ModModelProvider extends FabricModelProvider {
      * Erzdetektor als Kompass (2026-09-28): liegt ein {@code lodestone_tracker} auf dem Stapel (der
      * Server setzt ihn auf das naechste gefundene Erz), zeigt eine Amethyst-Nadel mit Vanillas
      * Kompass-Eigenschaft dorthin - 32 Stellungen wie der Kompass, Bild 16 = oben. Ebene 0 ist das
-     * Gehaeuse ({@code item/ore_detector_dial}), Ebene 1 die Nadel ({@code item/ore_detector_needle_NN}),
+     * Gehaeuse ({@code item/detector_dial}), Ebene 1 die Nadel ({@code item/detector_needle_NN}),
      * getoent mit der Farbe aus {@code custom_model_data} (heller je naeher, siehe
-     * {@code OreDetectorItem.RESONANCE_COLORS}). Ohne Ziel ruht die Nadel ({@code item/ore_detector}).
+     * {@code OreDetectorItem.RESONANCE_COLORS}). Ohne Ziel ruht die Nadel ({@code item/detector}).
      * Kein Ausholen der Hand, wenn der Server Nadel oder Haltbarkeit aendert.
      */
     private static void generateOreDetector(ItemModelGenerators generator) {

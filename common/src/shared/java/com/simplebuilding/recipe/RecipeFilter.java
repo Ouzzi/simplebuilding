@@ -47,7 +47,7 @@ public final class RecipeFilter {
                 || (!f.attractor && (p.contains("magnet") || p.contains("attractor")))
                 || (!f.echoSounder && (p.contains("echo_compass") || p.contains("echo_sounder")))
                 || (!f.blueprint && p.contains("blueprint"))
-                || (!f.oreDetector && p.contains("ore_detector"))
+                || (!f.oreDetector && p.contains("detector"))
                 || (!f.levitatingBlocks && (p.startsWith("levitating_") || p.startsWith("suspended_")))
                 || (!t.pads.enableChunkLoaders && p.contains("chunk_loader"))
                 || (!t.pads.enableElytraPads && p.contains("elytra_pad"))

@@ -82,6 +82,11 @@ public final class SledgehammerGameTest {
     }
 
     @GameTest
+    public void onlyIronOrBetterSledgehammersCrushDiamondBlocks(GameTestHelper helper) {
+        SledgehammerTests.onlyIronOrBetterSledgehammersCrushDiamondBlocks(helper);
+    }
+
+    @GameTest
     public void sledgehammerBreaksTheOctantSelectionAtTwiceTheAreaTimePerBlock(GameTestHelper helper) {
         SledgehammerTests.sledgehammerBreaksTheOctantSelectionAtTwiceTheAreaTimePerBlock(helper);
     }

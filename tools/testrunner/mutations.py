@@ -1700,7 +1700,7 @@ P11_MUTATIONS: list[Mutation] = [
              'the all-ores mode finds the two End ores', kind="server"),
     Mutation('p11-radius-tag-without-detector',
              f'{_GEN}/tags/item/radius_enchantable.json',
-             '    "#simplebuilding:sledgehammer_tools",\n    "simplebuilding:ore_detector"',
+             '    "#simplebuilding:sledgehammer_tools",\n    "simplebuilding:detector"',
              '    "#simplebuilding:sledgehammer_tools"',
              _OD + 'all_ores_reach_follows_the_ore_rarity_and_radius_stretches_the_rare_ones',
              'Radius no longer lists the ore detector',

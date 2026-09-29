@@ -31,8 +31,8 @@ public final class TweaksGameTest {
     }
 
     @GameTest
-    public void theVelocityGaugeIsCraftedWithQuartzCornersCopperNuggetsAndTheCopperCore(GameTestHelper helper) {
-        TweaksTests.theVelocityGaugeIsCraftedWithQuartzCornersCopperNuggetsAndTheCopperCore(helper);
+    public void theVelocityGaugeIsCraftedFromAmethystCopperNuggetsAndTheCopperCore(GameTestHelper helper) {
+        TweaksTests.theVelocityGaugeIsCraftedFromAmethystCopperNuggetsAndTheCopperCore(helper);
     }
 
     @GameTest

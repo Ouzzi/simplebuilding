@@ -74,7 +74,8 @@ public final class InWorldExportTests {
                 + "reinforced_furnace>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
                 + "reinforced_hopper>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
                 + "reinforced_piston>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
-                + "reinforced_smoker>diamond_sledgehammer/netherite_nuggetx1/4per/20]";
+                + "reinforced_smoker>diamond_sledgehammer/netherite_nuggetx1/4per/20, "
+                + "reinforced_sticky_piston>diamond_sledgehammer/netherite_nuggetx1/4per/20]";
         helper.assertTrue(summary.toString().equals(expected), "upgrade steps: expected " + expected + " but were " + summary);
         String timing = up.get("durationTicks").getAsInt() + "/" + up.get("hitIntervalTicks").getAsInt() + "/" + up.get("hits").getAsInt();
         helper.assertTrue(timing.equals("100/20/5"), "duration/interval/blows: expected 100/20/5 but were " + timing);
@@ -249,6 +250,10 @@ public final class InWorldExportTests {
         InWorldRecipeCatalog.Entry crush = byId.get("diamond_crush/minecraft:diamond_block");
         helper.assertTrue(crush != null && crush.output().items().get(0) == ModItems.DIAMOND_PEBBLE && crush.output().count() == 81,
                 "diamond block -> 81 diamond pebbles in JEI");
+        // Owner 2026-09-29: only iron-tier-and-up hammers crush, and JEI names exactly those.
+        helper.assertTrue(crush.tools().contains(ModItems.IRON_SLEDGEHAMMER) && crush.tools().contains(ModItems.ENDERITE_SLEDGEHAMMER)
+                        && !crush.tools().contains(ModItems.STONE_SLEDGEHAMMER) && !crush.tools().contains(ModItems.COPPER_SLEDGEHAMMER),
+                "JEI lists " + crush.tools() + " as diamond crushing hammers instead of iron and better");
         InWorldRecipeCatalog.Entry wool = byId.get("shear_wool");
         helper.assertTrue(wool != null && wool.inputs().get(0).items().size() == 16
                         && wool.output().items().get(0) == net.minecraft.world.item.Items.STRING && wool.output().count() == 4

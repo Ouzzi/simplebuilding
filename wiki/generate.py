@@ -1735,7 +1735,8 @@ def collect_in_world(roots: dict, manual: dict, item_ids: set[str]) -> tuple[dic
                 "id": "diamond_crush",
                 "kind": "diamond_crush",
                 "inputs": [{"id": crush["block"], "count": 1}],
-                "tools": hammers,
+                # Since 2026-09-29 only hammers from the iron tier up crush a diamond block.
+                "tools": [h for h in crush["hammers"] if h in item_ids] if "hammers" in crush else hammers,
                 "output": {"id": crush["result"], "count": crush["count"]},
                 "stats": {"damage": crush["damage"]},
             })

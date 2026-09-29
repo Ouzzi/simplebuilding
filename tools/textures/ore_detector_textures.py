@@ -1,14 +1,14 @@
 """Erzdetektor als Kompass (2026-09-28) fuer generate_textures.py.
 
-- item/ore_detector_dial: das Gehaeuse ohne Nadel (Ebene 0 der Nadelmodelle), runde Aufsicht wie der
+- item/detector_dial: das Gehaeuse ohne Nadel (Ebene 0 der Nadelmodelle), runde Aufsicht wie der
   alte Detektor: Sculk-Gehaeuse, ein Ring Echo-Metall, Goldmarke oben (Goldkern im Rezept) und
   goldener Zapfen in der Mitte, dunkles Sonarfeld.
-- item/ore_detector_needle_00..31: nur die Nadel (Ebene 1), gleiche Zaehlung wie Vanillas
+- item/detector_needle_00..31: nur die Nadel (Ebene 1), gleiche Zaehlung wie Vanillas
   compass_XX (16 = Nadel nach oben, im Uhrzeigersinn weiter). Die Nadel ist hell gemalt; das
   Modell toent sie mit der Farbe aus custom_model_data (OreDetectorItem.RESONANCE_COLORS), sie
   wird also amethystlila und heller, je naeher das Erz ist. Mit ihr getoent wird ein schwacher
   Resonanzring im Sonarfeld - er glueht mit.
-- item/ore_detector: Ruhebild ohne Ziel (Nadel nach oben, gedaempft).
+- item/detector: Ruhebild ohne Ziel (Nadel nach oben, gedaempft).
 """
 import math
 
@@ -198,7 +198,7 @@ def idle_image():
 
 
 def ore_detector_textures():
-    tex = {"item/ore_detector_dial.png": dial(), "item/ore_detector.png": idle_image()}
+    tex = {"item/detector_dial.png": dial(), "item/detector.png": idle_image()}
     for f in range(32):
-        tex[f"item/ore_detector_needle_{f:02d}.png"] = needle_image(f)
+        tex[f"item/detector_needle_{f:02d}.png"] = needle_image(f)
     return tex

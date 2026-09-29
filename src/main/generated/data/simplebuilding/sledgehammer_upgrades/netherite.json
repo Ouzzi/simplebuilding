@@ -47,6 +47,14 @@
       "min_hammer": "diamond",
       "tier": "netherite",
       "to": "simplebuilding:netherite_smoker"
+    },
+    {
+      "damage_per_hit": 4,
+      "from": "simplebuilding:reinforced_sticky_piston",
+      "material": "simplebuilding:netherite_nugget",
+      "min_hammer": "diamond",
+      "tier": "netherite",
+      "to": "simplebuilding:netherite_piston"
     }
   ]
 }

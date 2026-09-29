@@ -9,9 +9,9 @@
     "R": "minecraft:lightning_rod"
   },
   "pattern": [
-    " RL",
-    "NCR",
-    "GN "
+    " NR",
+    "NCN",
+    "GNL"
   ],
   "result": {
     "id": "simplebuilding:octant"

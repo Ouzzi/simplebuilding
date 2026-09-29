@@ -121,7 +121,7 @@ public final class SledgehammerUpgradeTests {
     }
 
     /**
-     * The five families. Every one is placed facing a direction other than its default, so "the
+     * The six families (the sticky piston shares the piston's upper tiers). Every one is placed facing a direction other than its default, so "the
      * facing survived" cannot pass by the upgraded block simply falling back to its default state.
      */
     private static final List<Family> FAMILIES = List.of(
@@ -135,12 +135,15 @@ public final class SledgehammerUpgradeTests {
                     ModBlocks.ENDERITE_BLAST_FURNACE,
                     ModBlocks.REINFORCED_BLAST_FURNACE.defaultBlockState().setValue(AbstractFurnaceBlock.FACING, Direction.EAST)),
             new Family("piston", ModBlocks.REINFORCED_PISTON, ModBlocks.NETHERITE_PISTON, ModBlocks.ENDERITE_PISTON,
-                    ModBlocks.REINFORCED_PISTON.defaultBlockState().setValue(PistonBaseBlock.FACING, Direction.EAST)));
+                    ModBlocks.REINFORCED_PISTON.defaultBlockState().setValue(PistonBaseBlock.FACING, Direction.EAST)),
+            // Besitzer 2026-09-29: der klebrige verstaerkte Kolben geht denselben Weg zum Netherit-Kolben.
+            new Family("sticky piston", ModBlocks.REINFORCED_STICKY_PISTON, ModBlocks.NETHERITE_PISTON, ModBlocks.ENDERITE_PISTON,
+                    ModBlocks.REINFORCED_STICKY_PISTON.defaultBlockState().setValue(PistonBaseBlock.FACING, Direction.EAST)));
 
-    /** Five spots, two blocks apart; the hopper points east into the empty cell beside it. */
+    /** Six spots, two blocks apart; the hopper points east into the empty cell beside it. */
     private static final List<BlockPos> FAMILY_SPOTS = List.of(
             new BlockPos(1, 1, 1), new BlockPos(3, 1, 1), new BlockPos(5, 1, 1),
-            new BlockPos(1, 1, 4), new BlockPos(3, 1, 4));
+            new BlockPos(1, 1, 4), new BlockPos(3, 1, 4), new BlockPos(5, 1, 4));
 
     /** Seven spots for the interruption cases, two blocks apart. */
     private static final List<BlockPos> CASE_SPOTS = List.of(
@@ -158,7 +161,7 @@ public final class SledgehammerUpgradeTests {
     // =====================================================================================
 
     /**
-     * Each of the five families is hammered from reinforced to netherite with a diamond
+     * Each of the six families is hammered from reinforced to netherite with a diamond
      * sledgehammer and a netherite nugget, and then from netherite to enderite with a netherite
      * sledgehammer and an enderite nugget - the weakest hammer each step accepts, so the gate is met
      * exactly and not by a margin.
@@ -417,8 +420,8 @@ public final class SledgehammerUpgradeTests {
                             "a netherite nugget on a netherite furnace");
                     assertRefused(helper, player, topTier, ModItems.ENDERITE_SLEDGEHAMMER, ModItems.ENDERITE_NUGGET, true,
                             "an enderite nugget on an enderite furnace, the top tier");
-                    assertRefused(helper, player, stickyPiston, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_NUGGET, false,
-                            "a netherite nugget on a reinforced sticky piston");
+                    assertRefused(helper, player, stickyPiston, ModItems.NETHERITE_SLEDGEHAMMER, ModItems.ENDERITE_NUGGET, false,
+                            "an enderite nugget on a reinforced sticky piston (it climbs to netherite first, since 2026-09-29)");
                     // Power off: the retraction is only queued as a block event, so for the rest of this
                     // tick the piston is extended without a signal - only EXTENDED can refuse it now.
                     helper.setBlock(extendedPiston.below(), Blocks.AIR);
