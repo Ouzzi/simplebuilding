@@ -21,12 +21,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
- * Modell und Textur der Mod-Koepfe (Lohenkopf, Endermankopf). Vanillas {@code SkullBlockRenderer#createModel}
+ * Modell und Textur der Mod-Koepfe (docs/MOBKOEPFE.md). Vanillas {@code SkullBlockRenderer#createModel}
  * kennt nur die eigenen Kopf-Typen und liefert fuer alle anderen null; Block-Renderer, Item-Modell
  * ({@code minecraft:head}) und der getragene Kopf ({@code CustomHeadLayer}) holen ihr Modell alle
  * dort und zeichnen ueber {@code submitSkull}. Die Texturen sind die echten Vanilla-Mob-Texturen
- * (Lohe, Enderman), siehe {@link ModSkullModels}; der Endermankopf bekommt in {@code submitSkull}
- * zusaetzlich seine leuchtenden Augen.
+ * der Mobs, siehe {@link ModSkullModels}; Koepfe mit Augen, Kleidung oder durchscheinender Huelle bekommen in {@code submitSkull}
+ * zusaetzlich ihre Schichten.
  */
 @Mixin(SkullBlockRenderer.class)
 public abstract class SkullModelMixin {
@@ -54,6 +54,6 @@ public abstract class SkullModelMixin {
                                                    ModelFeatureRenderer.CrumblingOverlay breakProgress, CallbackInfo ci) {
         SkullModelBase.State state = new SkullModelBase.State();
         state.animationPos = animationValue;
-        ModSkullModels.submitGlow(model, state, poseStack, collector, lightCoords, outlineColor);
+        ModSkullModels.submitLayers(model, state, poseStack, collector, lightCoords, outlineColor);
     }
 }

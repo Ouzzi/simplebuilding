@@ -60,10 +60,19 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)
                 .forceAddTag(ModTags.Items.OCTANTS_ENCHANTABLE);
 
-        // Lohenkopf (Simple Tweaks, Trank-Pad): ein Mob-Kopf wie die Vanilla-Koepfe (Fluch der
-        // Bindung/des Verschwindens ueber #equippable_enchantable/#vanishing_enchantable).
-        builder(ItemTags.SKULLS).add(key(com.simplebuilding.tweaks.item.TweaksItems.BLAZE_HEAD))
-                .add(key(com.simplebuilding.tweaks.item.TweaksItems.ENDERMAN_HEAD));
+        // Mob-Koepfe (docs/MOBKOEPFE.md): Koepfe wie die Vanilla-Koepfe (Fluch der Bindung/des Verschwindens
+        // ueber #equippable_enchantable/#vanishing_enchantable).
+        var skulls = builder(ItemTags.SKULLS);
+        for (Item head : com.simplebuilding.tweaks.item.TweaksItems.heads()) {
+            skulls.add(key(head));
+        }
+        // Trial-Chamber-Koepfe: eine beliebige Zutat von Chunk-Loader I und Launchpad I (Vanilla-Zombie/-Skelett + Mod).
+        var trialHeads = builder(com.simplebuilding.tweaks.heads.ModHeads.TRIAL_CHAMBER_HEADS);
+        for (Item head : com.simplebuilding.tweaks.heads.ModHeads.trialChamberHeads()) {
+            trialHeads.add(key(head));
+        }
+        // Eiswanderer-Schaedel: Pulverschnee friert nicht ein - wie ein Lederhelm (geheime Kopf-Faehigkeit).
+        builder(ItemTags.FREEZE_IMMUNE_WEARABLES).add(key(com.simplebuilding.tweaks.item.TweaksItems.STRAY_SKULL));
         // Handbuecher aufs Lesepult und ins gemeisselte Buecherregal wie jedes beschriebene Buch.
         var lecternBooks = builder(ItemTags.LECTERN_BOOKS);
         var bookshelfBooks = builder(ItemTags.BOOKSHELF_BOOKS);

@@ -130,7 +130,7 @@ def run(snapshot: dict, state: dict, repo: Path, store_root: Path, record_for=No
                                f"src/main/generated/wiki/items.json {record['refs'].get('item')} {vid.rsplit(':', 1)[1]} = "
                                f"{record['value']}, Code {record.get('derived')} = {target['value'] * alias['factor']} - "
                                "runDatagen fehlt"})
-    errors += _loot_generated(snapshot, js, stats)
+    errors += _loot_generated(snapshot, js, stats, repo)
     return {"ok": not errors, "errors": errors, "warnings": warnings, "stats": stats}
 
 
@@ -188,16 +188,37 @@ def _count(entry: dict):
     return None
 
 
-def _loot_generated(snapshot: dict, js: _Json, stats: dict) -> list[dict]:
+def _line_loot_tables(repo: Path | None) -> dict[str, dict[str, dict]]:
+    """
+    Beute-Tabellen der Linien mit eigener ModLootTableModifications (1.21.11-Kopie): {Linie: {Tabellen-Id: Tabelle}}.
+    Ihre erzeugten Dateien werden gegen den eigenen Code geprueft - hinkt eine Linie bis zum Port-Run hinterher
+    (Hauptlinie 26.3 zuerst, 2026-09-29), meldet der Check keinen falschen Datagen-Fehler.
+    """
+    if repo is None:
+        return {}
+    from . import ex_loot, sites
+    out: dict[str, dict[str, dict]] = {}
+    for mc, twin_rel in sites.twin_paths(repo, ex_loot.LOOT_FILE):
+        try:
+            tables, _values, _problems = ex_loot.extract(repo, set(), set(), {}, rel=twin_rel)
+        except Exception:  # ein kaputter Zwilling faellt auf die Hauptdatei zurueck
+            continue
+        out[mc] = {t["id"]: t for t in tables.get("tables", [])}
+    return out
+
+
+def _loot_generated(snapshot: dict, js: _Json, stats: dict, repo: Path | None = None) -> list[dict]:
     errors = []
     values = snapshot["values"]
+    line_tables = _line_loot_tables(repo)
+    main_tables = snapshot.get("loot", {}).get("tables", [])
 
     def val(vid, fallback):
         record = values.get(vid) if vid else None
         return record["value"] if record else fallback
 
-    for table in snapshot.get("loot", {}).get("tables", []):
-        ns, path = table["id"].split(":", 1)
+    for main_table in main_tables:
+        ns, path = main_table["id"].split(":", 1)
         if ns != "minecraft":
             continue
         for mc, root in GENERATED_ROOTS:
@@ -205,6 +226,10 @@ def _loot_generated(snapshot: dict, js: _Json, stats: dict) -> list[dict]:
             data = js.get(rel)
             if data is None:
                 continue
+            # Die eigene Tabelle der Linie nur, wo sie anders gebaut ist (andere Pool-Zahl); sonst gilt die Hauptdatei
+            # mit ihren aufgeloesten Konstanten.
+            line_table = line_tables.get(mc, {}).get(main_table["id"])
+            table = line_table if line_table is not None and len(line_table["pools"]) != len(main_table["pools"]) else main_table
             stats["generatedChecked"] += 1
             problems = []
             pools = data.get("pools") or []

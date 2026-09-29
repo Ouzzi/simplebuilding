@@ -1,8 +1,8 @@
 {
   "type": "simplebuilding:easter_smithing",
-  "addition": "simplebuilding:enderite_core",
+  "addition": "simplebuilding:shulker_head",
   "base": "simplebuilding:stellar_flypad",
   "result": "simplebuilding:flypad",
   "result_stage": 1,
-  "template": "simplebuilding:enderite_upgrade_template"
+  "template": "simplebuilding:enderite_core"
 }

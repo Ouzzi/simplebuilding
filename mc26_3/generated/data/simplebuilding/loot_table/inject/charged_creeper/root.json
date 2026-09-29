@@ -32,6 +32,166 @@
         }
       ],
       "rolls": 1
+    },
+    {
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "this",
+        "predicate": {
+          "minecraft:entity_type": "minecraft:husk"
+        }
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:husk_head"
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "this",
+        "predicate": {
+          "minecraft:entity_type": "minecraft:spider"
+        }
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:spider_head"
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "this",
+        "predicate": {
+          "minecraft:entity_type": "minecraft:cave_spider"
+        }
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:cave_spider_head"
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "this",
+        "predicate": {
+          "minecraft:entity_type": "minecraft:stray"
+        }
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:stray_skull"
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "this",
+        "predicate": {
+          "minecraft:entity_type": "minecraft:bogged"
+        }
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:bogged_skull"
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "this",
+        "predicate": {
+          "minecraft:entity_type": "minecraft:slime"
+        }
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:slime_head"
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "this",
+        "predicate": {
+          "minecraft:entity_type": "minecraft:silverfish"
+        }
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:silverfish_head"
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "this",
+        "predicate": {
+          "minecraft:entity_type": "minecraft:breeze"
+        }
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:breeze_head"
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "this",
+        "predicate": {
+          "minecraft:entity_type": "minecraft:shulker"
+        }
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:shulker_head"
+        }
+      ],
+      "rolls": 1
+    },
+    {
+      "condition": {
+        "type": "minecraft:entity_properties",
+        "entity": "this",
+        "predicate": {
+          "minecraft:entity_type": "minecraft:drowned"
+        }
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "simplebuilding:drowned_head"
+        }
+      ],
+      "rolls": 1
     }
   ]
 }

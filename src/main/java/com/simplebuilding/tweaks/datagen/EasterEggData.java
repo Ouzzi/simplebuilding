@@ -56,7 +56,7 @@ public final class EasterEggData {
                 ResourceKey<Recipe<?>> key = ResourceKey.create(Registries.RECIPE, SimpleTweaks.id(name));
                 Recipe<?> recipe = new EasterSmithingRecipe(Optional.of(Ingredient.of(step.templates().toArray(ItemLike[]::new))),
                         Ingredient.of(step.base()), step.fromStage(),
-                        step.addition() == null ? Optional.empty() : Optional.of(Ingredient.of(step.addition())),
+                        step.additions().isEmpty() ? Optional.empty() : Optional.of(Ingredient.of(step.additions().toArray(ItemLike[]::new))),
                         step.result(), step.toStage());
                 // Die Advancements haengen an den Schritten des Elytra-Pads (nur als Transportmittel).
                 output.accept(key, recipe, family == Family.ELYTRA_PAD ? advancements.get(stepKey(step)) : null);

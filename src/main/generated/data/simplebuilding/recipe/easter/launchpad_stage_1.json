@@ -1,28 +1,19 @@
 {
   "type": "simplebuilding:easter_smithing",
-  "addition": "simplebuilding:iron_core",
+  "addition": [
+    "minecraft:zombie_head",
+    "minecraft:skeleton_skull",
+    "simplebuilding:husk_head",
+    "simplebuilding:spider_head",
+    "simplebuilding:cave_spider_head",
+    "simplebuilding:stray_skull",
+    "simplebuilding:bogged_skull",
+    "simplebuilding:slime_head",
+    "simplebuilding:silverfish_head",
+    "simplebuilding:breeze_head"
+  ],
   "base": "simplebuilding:enderite_launchpad",
   "result": "simplebuilding:launchpad",
   "result_stage": 1,
-  "template": [
-    "minecraft:netherite_upgrade_smithing_template",
-    "minecraft:sentry_armor_trim_smithing_template",
-    "minecraft:dune_armor_trim_smithing_template",
-    "minecraft:coast_armor_trim_smithing_template",
-    "minecraft:wild_armor_trim_smithing_template",
-    "minecraft:ward_armor_trim_smithing_template",
-    "minecraft:eye_armor_trim_smithing_template",
-    "minecraft:vex_armor_trim_smithing_template",
-    "minecraft:tide_armor_trim_smithing_template",
-    "minecraft:snout_armor_trim_smithing_template",
-    "minecraft:rib_armor_trim_smithing_template",
-    "minecraft:spire_armor_trim_smithing_template",
-    "minecraft:wayfinder_armor_trim_smithing_template",
-    "minecraft:shaper_armor_trim_smithing_template",
-    "minecraft:silence_armor_trim_smithing_template",
-    "minecraft:raiser_armor_trim_smithing_template",
-    "minecraft:host_armor_trim_smithing_template",
-    "minecraft:flow_armor_trim_smithing_template",
-    "minecraft:bolt_armor_trim_smithing_template"
-  ]
+  "template": "simplebuilding:iron_core"
 }

@@ -360,10 +360,12 @@ public final class PotionPadTests {
         Item enderitePlate = TweaksBlocks.ENDERITE_PRESSURE_PLATE.asItem();
         Item end = ModItems.ENDERITE_UPGRADE_TEMPLATE;
 
+        // Stufe I seit 2026-09-29: Netheritkern im Vorlagen-Feld statt einer beliebigen Vorlage.
+        expect(helper, ModItems.NETHERITE_CORE, netheritePlate, TweaksItems.BLAZE_HEAD, TweaksBlocks.POTION_PAD);
         for (Item template : List.of(Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE)) {
-            expect(helper, template, netheritePlate, TweaksItems.BLAZE_HEAD, TweaksBlocks.POTION_PAD);
+            expectNothing(helper, template, netheritePlate, TweaksItems.BLAZE_HEAD);
         }
-        expectNothing(helper, Items.WILD_ARMOR_TRIM_SMITHING_TEMPLATE, netheritePlate, Items.SKELETON_SKULL);
+        expectNothing(helper, ModItems.NETHERITE_CORE, netheritePlate, Items.SKELETON_SKULL);
         for (List<ItemStack> grid : List.of(List.of(new ItemStack(netheritePlate), new ItemStack(TweaksItems.BLAZE_HEAD)),
                 List.of(new ItemStack(TweaksItems.BLAZE_HEAD), new ItemStack(netheritePlate)))) {
             CraftingInput input = CraftingInput.of(2, 1, grid);
