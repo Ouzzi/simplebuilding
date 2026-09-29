@@ -282,13 +282,20 @@ public final class MobHeadTests {
     /** Hoehlenspinnenkopf: die blosse Hand baut Spinnennetze so schnell ab wie ein Schwert; anderes nicht schneller. */
     public static void caveSpiderHeadCutsCobwebsAsFastAsSwords(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper, new Vec3(2.5, 2.0, 2.5));
+        player.setOnGround(true);
         player.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
         BlockState cobweb = Blocks.COBWEB.defaultBlockState();
         float bare = player.getDestroySpeed(cobweb);
         wear(player, BlazeHeadType.CAVE_SPIDER);
-        helper.assertTrue(player.getDestroySpeed(cobweb) >= HeadAbilities.COBWEB_SPEED,
-                "the cave spider head cuts cobwebs at " + player.getDestroySpeed(cobweb) + " instead of " + HeadAbilities.COBWEB_SPEED);
+        helper.assertValueEqual(player.getDestroySpeed(cobweb), 15.0F, "grounded cobweb speed with the cave spider head");
         helper.assertValueEqual(player.getDestroySpeed(Blocks.STONE.defaultBlockState()), 1.0F, "bare hand speed on stone with the head");
+        player.setOnGround(false);
+        float airborneHeadSpeed = player.getDestroySpeed(cobweb);
+        wear(player, null);
+        player.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
+        helper.assertValueEqual(airborneHeadSpeed, player.getDestroySpeed(cobweb), "head and sword share the airborne penalty");
+        player.setOnGround(true);
+        player.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
         wear(player, null);
         helper.assertTrue(bare < HeadAbilities.COBWEB_SPEED, "a bare hand already cuts cobwebs at " + bare);
         helper.assertValueEqual(player.getDestroySpeed(cobweb), bare, "bare hand speed on a cobweb without the head");
