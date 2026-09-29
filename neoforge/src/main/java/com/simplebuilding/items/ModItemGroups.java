@@ -7,7 +7,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 /**
- * Die vier Kreativ-Tabs der Mod. Registriert werden sie ueber das DeferredRegister des Loaders;
+ * Die Kreativ-Tabs der Mod. Registriert werden sie ueber das DeferredRegister des Loaders;
  * sobald es gefeuert hat, traegt {@code assignStaticFields} sie hier ein.
  */
 public final class ModItemGroups {

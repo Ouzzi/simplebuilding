@@ -29,7 +29,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public final class TweaksStation {
 
     /** Tab-Zeilen, die diese Station zeigt (fehlen deshalb unter "devices"). */
-    public static final Set<String> ROWS = TweaksItems.functionalRows().stream()
+    public static final Set<String> ROWS = TweaksItems.padsRows().stream()
             .map(CreativeTabLayout.Row::name).collect(Collectors.toUnmodifiableSet());
 
     private TweaksStation() {
@@ -41,7 +41,7 @@ public final class TweaksStation {
         int floorZ = 2;
 
         List<TcCanvas.Line> lines = new ArrayList<>();
-        for (CreativeTabLayout.Row row : TweaksItems.functionalRows()) {
+        for (CreativeTabLayout.Row row : TweaksItems.padsRows()) {
             List<ItemStack> stacks = row.stacks().stream().filter(s -> !s.isEmpty() && !TcContext.isSpacer(s.getItem())).toList();
             lines.add(new TcCanvas.Line(TcText.t("tweaks.row." + row.name(), row.name().replace('_', ' ')), stacks));
         }

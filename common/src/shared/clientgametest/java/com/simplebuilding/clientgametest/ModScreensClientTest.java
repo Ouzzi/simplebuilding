@@ -800,7 +800,7 @@ public final class ModScreensClientTest {
 
     /**
      * @return everything wrong with the mod's tabs, empty when they offer exactly what they should:
-     * all four tabs are filled, the chisels sit in the tools tab, and no tab shows a spatula
+     * all five tabs are filled, the chisels sit in the tools tab, and no tab shows a spatula
      */
     private static List<String> creativeTabProblems() {
         List<String> found = new ArrayList<>();

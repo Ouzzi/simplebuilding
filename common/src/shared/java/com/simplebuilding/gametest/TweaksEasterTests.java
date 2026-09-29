@@ -509,7 +509,7 @@ public final class TweaksEasterTests {
                 }
             }, helper.getLevel().registryAccess());
         }
-        for (CreativeTabLayout.Row row : TweaksItems.functionalRows()) {
+        for (CreativeTabLayout.Row row : TweaksItems.padsRows()) {
             for (ItemStack stack : row.stacks()) {
                 if (EasterEggs.stageOf(stack) > 0) {
                     problems.add("the tab row " + row.name() + " holds an easter pad");

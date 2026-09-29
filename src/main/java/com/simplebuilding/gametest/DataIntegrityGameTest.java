@@ -117,6 +117,21 @@ public final class DataIntegrityGameTest {
     }
 
     @GameTest
+    public void padsTabIsLaidOutInRowsOfNine(GameTestHelper helper) {
+        DataIntegrityTests.padsTabIsLaidOutInRowsOfNine(helper);
+    }
+
+    @GameTest
+    public void buildingBlocksTabIsLaidOutInRows(GameTestHelper helper) {
+        DataIntegrityTests.buildingBlocksTabIsLaidOutInRows(helper);
+    }
+
+    @GameTest
+    public void everyModItemHasItsPlaceInTheSearchTab(GameTestHelper helper) {
+        DataIntegrityTests.everyModItemHasItsPlaceInTheSearchTab(helper);
+    }
+
+    @GameTest
     public void toolsTabIsLaidOutInRowsOfNine(GameTestHelper helper) {
         DataIntegrityTests.toolsTabIsLaidOutInRowsOfNine(helper);
     }
