@@ -980,46 +980,47 @@ public final class QuiverTests {
     // =====================================================================================
 
     /**
-     * {@code ItemEntityMixin#ignoreExplosion} names three items: the netherite bundle and, since
-     * the enderite tier was made a full tier, the enderite bundle and the enderite quiver. The
-     * <em>netherite</em> quiver is deliberately not among them, and this pins that boundary from
-     * both sides - the immunity really works, and it really stops where the mixin says it stops.
+     * {@code ItemEntityMixin#ignoreExplosion} names the top tiers of every storage family: the
+     * netherite and enderite bundles, backpacks and - since the owner's decision of 2026-09-28 -
+     * both the netherite and the enderite quiver. This pins the netherite quiver into that list
+     * and the reinforced quiver out of it, in one explosion: the immunity really works, and it
+     * really stops below the netherite tier.
      *
-     * <p>The netherite quiver is the right control precisely because it is fireproof like the
-     * bundle: if it survived here, the reason could only be the explosion hook, not its fire
-     * resistance.
-     *
-     * <p><b>Where the enderite side is pinned:</b>
+     * <p><b>Where the other items are pinned:</b>
      * {@code BundleWiringTests#netheriteBundleOnTheGroundSurvivesFireAndExplosions} covers the
-     * items the mixin does name. Together the two tests fence the list in from both ends: nothing
-     * may fall out of it, and nothing may creep into it.
+     * bundles. Together the two tests fence the list in from both ends.
      *
-     * <p>What breaks it: deleting the mixin (the bundle would burn with everything else), or
-     * widening its condition to {@code ReinforcedBundleItem} or to the netherite quiver, which
-     * would hand that tier an immunity the mod does not grant it.
+     * <p>What breaks it: deleting the mixin (all three would burn), dropping the netherite quiver
+     * from its condition again, or widening it to {@code QuiverItem}, which would hand the
+     * reinforced tier an immunity the mod does not grant it.
      */
-    public static void netheriteQuiverBurnsInAnExplosionWhileTheNetheriteBundleSurvives(GameTestHelper helper) {
+    public static void netheriteQuiverSurvivesAnExplosionLikeTheNetheriteBundle(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
 
         // Setup guard: vanilla's ItemEntity ignores every explosion while mobGriefing is off, so
-        // without this the test would "pass" with both items alive and prove nothing at all.
+        // without this the test would "pass" with every item alive and prove nothing at all.
         helper.assertTrue(level.getGameRules().get(GameRules.MOB_GRIEFING),
                 "test setup broken: mobGriefing is off, so vanilla's ItemEntity#ignoreExplosion returns true "
                         + "for every item and the mixin's own condition is never reached");
 
         ItemEntity bundle = helper.spawnItem(ModItems.NETHERITE_BUNDLE, 3.5F, 2.0F, 3.5F);
         ItemEntity quiver = helper.spawnItem(ModItems.NETHERITE_QUIVER, 4.5F, 2.0F, 3.5F);
+        ItemEntity reinforced = helper.spawnItem(ModItems.REINFORCED_QUIVER, 4.0F, 2.0F, 4.5F);
         helper.runBeforeTestEnd(bundle::discard);
         helper.runBeforeTestEnd(quiver::discard);
+        helper.runBeforeTestEnd(reinforced::discard);
 
-        Vec3 centre = helper.absoluteVec(new Vec3(4.0, 2.0, 3.5));
+        Vec3 centre = helper.absoluteVec(new Vec3(4.0, 2.0, 3.8));
         level.explode(null, centre.x, centre.y, centre.z, 3.0F, Level.ExplosionInteraction.NONE);
 
         helper.assertTrue(bundle.isAlive(),
                 "the netherite bundle was destroyed by an explosion; ItemEntityMixin no longer shields it");
-        helper.assertTrue(quiver.isRemoved(),
-                "the netherite quiver survived an explosion that killed the item next to it; the explosion "
-                        + "immunity is meant to be the netherite bundle's alone");
+        helper.assertTrue(quiver.isAlive(),
+                "the netherite quiver was destroyed by an explosion; like the other top-tier storage items "
+                        + "it is meant to survive it as a dropped item (ItemEntityMixin)");
+        helper.assertTrue(reinforced.isRemoved(),
+                "the reinforced quiver survived an explosion that it is not immune to; the explosion "
+                        + "immunity is meant for the netherite tier and above");
 
         helper.succeed();
     }

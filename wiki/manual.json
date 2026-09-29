@@ -738,7 +738,7 @@
         "simplebuilding:octant_black",
         "simplebuilding:constructors_touch",
         "simplebuilding:range",
-        "simplebuilding:velocity-gauge"
+        "simplebuilding:velocity_gauge"
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/items/custom/OctantItem.java",
@@ -1334,7 +1334,7 @@
           "Right-clicking with the quiver in hand does nothing - it does not put the quiver on either; the quiver goes into the chest slot in the inventory screen, dragged there or shift-clicked. Master Builder and Color Palette can be applied but do nothing on a quiver as long as it only holds arrows.",
           "Limits: the tooltip lines in the language file are never shown.",
           "Where to find them: only the plain Quiver lies in loot chests (Ancient City, Pillager Outpost, Woodland Mansion), provided the loot changes are enabled in the config (default: on).",
-          "The Netherite and Enderite tiers are registered with fireResistant(); the Quiver and the Reinforced Quiver are not. The Enderite Quiver additionally floats via the tag void_protected instead of vanishing into the void. The Enderite Quiver is immune to explosions as a dropped item, like the Netherite Bundle; the Quiver, the Reinforced Quiver and the Netherite Quiver are not.",
+          "The Netherite and Enderite tiers are registered with fireResistant(); the Quiver and the Reinforced Quiver are not. The Enderite Quiver additionally floats via the tag void_protected instead of vanishing into the void. The Netherite and Enderite Quivers are immune to explosions as dropped items, like the Netherite Bundle (the Netherite Quiver since 2026-09-28); the Quiver and the Reinforced Quiver are not.",
           "Accessory slots (optional): with Curios (NeoForge) or Trinkets Updated (Fabric) installed, a quiver also fits the belt or back accessory slot. A quiver there feeds bow and crossbow right after the chest slot (before the hotbar), pays the arrow from that very quiver, and takes picked up arrows with Funnel (after the quivers in the inventory). On your back only one thing shows: a backpack or quiver in the chest slot, else a backpack in an accessory slot, else the quiver. Without an accessory mod nothing changes."
         ]
       },
@@ -1354,7 +1354,7 @@
           "Rechtsklick mit dem Köcher in der Hand tut nichts - er legt den Köcher auch nicht an; in den Brustpanzer-Slot kommt der Köcher im Inventarbildschirm, per Ziehen oder Umschalt-Klick. Baumeister und Farbpalette sind zwar auflegbar, bewirken beim Köcher aber nichts, solange nur Pfeile darin liegen.",
           "Grenzen: Die Tooltip-Texte der Sprachdatei werden nicht angezeigt.",
           "Fundorte: Nur der einfache Köcher liegt in Loot-Truhen (Antike Stadt, Plünderer-Außenposten, Waldanwesen), sofern die Loot-Änderungen in der Config aktiv sind (Standard: an).",
-          "Netherit- und Enderit-Stufe sind mit fireResistant() registriert, Köcher und Verstärkter Köcher nicht; der Enderitköcher schwebt zusätzlich über das Tag void_protected, statt in der Leere zu verschwinden. Der Enderitköcher ist als Drop explosionsimmun wie das Netheritbündel; Köcher, Verstärkter Köcher und Netheritköcher sind es nicht.",
+          "Netherit- und Enderit-Stufe sind mit fireResistant() registriert, Köcher und Verstärkter Köcher nicht; der Enderitköcher schwebt zusätzlich über das Tag void_protected, statt in der Leere zu verschwinden. Netherit- und Enderitköcher sind als Drop explosionsimmun wie das Netheritbündel (der Netheritköcher seit 2026-09-28); Köcher und Verstärkter Köcher sind es nicht.",
           "Accessoire-Slots (optional): Mit Curios (NeoForge) oder Trinkets Updated (Fabric) passt ein Koecher auch in den Guertel- oder Ruecken-Accessoire-Slot. Ein Koecher dort versorgt Bogen und Armbrust gleich nach dem Brust-Slot (vor der Schnellleiste), bezahlt den Pfeil aus genau diesem Koecher und nimmt mit Trichter aufgehobene Pfeile auf (nach den Koechern im Inventar). Auf dem Ruecken ist nur eines zu sehen: Rucksack oder Koecher im Brust-Slot, sonst ein Rucksack im Accessoire-Slot, sonst der Koecher. Ohne Accessoire-Mod aendert sich nichts."
         ]
       }
@@ -2105,7 +2105,7 @@
         "simplebuilding:magnet",
         "simplebuilding:ore_detector",
         "simplebuilding:octant",
-        "simplebuilding:velocity-gauge",
+        "simplebuilding:velocity_gauge",
         "simplebuilding:stone_sledgehammer",
         "simplebuilding:copper_sledgehammer",
         "simplebuilding:iron_sledgehammer",
@@ -2423,7 +2423,16 @@
         "simplebuilding:enderite_furnace",
         "simplebuilding:enderite_smoker",
         "simplebuilding:enderite_blast_furnace",
-        "simplebuilding:enderite_piston"
+        "simplebuilding:enderite_piston",
+        "simplebuilding:enchanted_enderite_apple",
+        "simplebuilding:enderite_horse_armor",
+        "simplebuilding:enderite_nautilus_armor",
+        "simplebuilding:flypad",
+        "simplebuilding:reinforced_flypad",
+        "simplebuilding:stellar_flypad",
+        "simplebuilding:fine_elytra_pad",
+        "simplebuilding:infused_potion_pad",
+        "simplebuilding:echo_sounder"
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/mixin/EnderiteItemMixin.java",
@@ -2442,13 +2451,15 @@
         "common/src/shared/java/com/simplebuilding/items/ModArmorMaterials.java",
         "src/main/generated/data/simplebuilding/tags/item/enderite_ingot_tier.json",
         "neoforge/src/main/java/com/simplebuilding/neoforge/NeoForgeGameplayEvents.java",
-        "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java"
+        "forge/src/main/java/com/simplebuilding/forge/ForgeGameplayEvents.java",
+        "src/main/generated/data/simplebuilding/tags/item/enderite_items.json",
+        "src/main/generated/data/simplebuilding/tags/item/double_despawn_time.json"
       ],
       "en": {
         "title": "Enderite Void Protection",
-        "summary": "Enderite items are not lost to the void: if they drop below the world's bottom they hang in place and are pulled back up when needed. Enderite armor also slows void damage for the wearer and lets you drift down gently while the jump key is held.",
+        "summary": "Every enderite item of the mod is safe from the void and lies twice as long when dropped: if it falls below the world's bottom it hangs in place and is pulled back up when needed, and it despawns only after 10 minutes. Enderite armor also slows void damage for the wearer and lets you drift down gently while the jump key is held.",
         "details": [
-          "Everything in the simplebuilding:void_protected item tag is protected; datagen fills the tag automatically from every mod item whose id starts with \"enderite_\", plus raw_enderite - currently 30 entries (ingot, scrap, raw enderite, nugget, block, sword, spear, pickaxe, axe, shovel, hoe, chisel, sledgehammer, building wand, bundle, quiver, backpack, core, apple, carrot, the four armor pieces, upgrade template, piston, hopper, furnace, smoker, blast furnace).",
+          "One item tag decides: simplebuilding:enderite_items. Datagen fills it from every mod item whose id contains \"enderite\" (so raw_enderite and enchanted_enderite_apple too) plus the enderite tiers whose id does not say so - the three Flypads (all smithed from the Enderite Pressure Plate), the Fine Elytra Pad V, the Infused Potion Pad III and the Echo Sounder (enderite core and nuggets). That covers ingot, scrap, raw enderite, nugget, block, tools, weapons, armor, horse and nautilus armor, bundle, quiver, backpack, chest, core, apples, carrot, upgrade template, machines and pads. The tags simplebuilding:void_protected (void protection) and simplebuilding:double_despawn_time (lifetime) each contain #simplebuilding:enderite_items, so a modpack can widen either one on its own. A game test finds every item named \"Enderite\" in English or with \"enderite\" in its id and fails if one is missing from the tag.",
           "If such an item falls below the dimension's minimum height, its motion is zeroed and gravity is switched off - it floats.",
           "If it ends up more than 10 blocks below the minimum height, it is moved back to 5 blocks above the minimum height.",
           "The check runs on the server only, on every tick of the item entity.",
@@ -2456,16 +2467,15 @@
           "Void damage on the player: with 1/2/3/4 Enderite armor pieces worn, void damage only lands on ticks whose counter is divisible by 20/40/60/100; every other hit is cancelled.",
           "Slow descent: wearing at least 2 Enderite armor pieces, not on the ground, falling faster than 0.1 blocks per tick and holding the jump key gives you a continuously refreshed Slow Falling effect (2 ticks) on the server; the key state is sent by the client via SpaceKeyPayload whenever it changes.",
           "Limitation: void protection only covers items lying in the world as entities, not items inside chests or inventories.",
-          "Limitation: the Enchanted Enderite Apple (enchanted_enderite_apple) is not in the tag, because its id does not start with \"enderite_\" - so it is not protected from the void.",
-          "Enderite is made with netherite and keeps everything netherite gives an item: every enderite item from the ingot upwards, the scrap and the nugget are fire resistant and float on lava; the mod's Netherite Sledgehammer, Chisel, Spatula, Building Wand and Core are too (ModItems#netheriteTraits). Enderite armor resists knockback with 0.2 per piece (netherite: 0.1). The Enderite Bundle, Quiver and Backpack survive explosions as dropped items, like the Netherite Bundle and Backpack.",
-          "Dropped enderite from the ingot upwards lies twice as long as vanilla allows: 12000 ticks (10 minutes) instead of 6000. The item tag simplebuilding:enderite_ingot_tier decides; datagen fills it from the void_protected rule minus raw_enderite, enderite_scrap and enderite_upgrade_template. On Fabric EnderiteItemMixin raises vanilla's limit in ItemEntity#tick and #isMergable, on NeoForge and Forge an ItemExpireEvent handler extends the lifespan (EnderiteLifetime)."
+          "Enderite is made with netherite and keeps everything netherite gives an item: every enderite item from the ingot upwards, the scrap and the nugget are fire resistant and float on lava; the mod's Netherite Sledgehammer, Chisel, Spatula, Building Wand and Core are too (ModItems#netheriteTraits). Enderite armor resists knockback with 0.2 per piece (netherite: 0.1). The Enderite Bundle, Quiver and Backpack survive explosions as dropped items, like the Netherite Bundle, Quiver and Backpack.",
+          "Every dropped enderite item lies twice as long as vanilla allows: 12000 ticks (10 minutes) instead of 6000 - raw enderite, scrap and the upgrade template included (owner decision 2026-09-28; before, only the ingot tier did). The item tag simplebuilding:double_despawn_time decides (it contains #simplebuilding:enderite_items). On Fabric EnderiteItemMixin raises vanilla's limit in ItemEntity#tick and #isMergable, on NeoForge and Forge an ItemExpireEvent handler extends the lifespan (EnderiteLifetime). The older tag simplebuilding:enderite_ingot_tier (the ingot and everything made from it) still ships for modpacks but no longer decides anything."
         ]
       },
       "de": {
         "title": "Enderit-Schutz vor der Leere",
-        "summary": "Enderit-Gegenstände gehen in der Leere nicht verloren: Fallen sie unter die Weltgrenze, bleiben sie schweben und werden bei Bedarf wieder nach oben geholt. Zusätzlich verlangsamt Enderit-Rüstung den Leere-Schaden für den Träger und erlaubt bei gedrückter Sprungtaste sanftes Fallen.",
+        "summary": "Jeder Enderit-Gegenstand der Mod ist vor der Leere sicher und bleibt fallengelassen doppelt so lange liegen: Fällt er unter die Weltgrenze, bleibt er schweben und wird bei Bedarf wieder nach oben geholt, und er verschwindet erst nach 10 Minuten. Zusätzlich verlangsamt Enderit-Rüstung den Leere-Schaden für den Träger und erlaubt bei gedrückter Sprungtaste sanftes Fallen.",
         "details": [
-          "Geschützt sind alle Items im Tag simplebuilding:void_protected; er wird per Datagen automatisch aus allen Mod-Items gefüllt, deren Kennung mit „enderite_“ beginnt, plus raw_enderite – zurzeit 30 Einträge (Barren, Platten, Rohenderit, Klumpen, Block, Schwert, Speer, Spitzhacke, Axt, Schaufel, Hacke, Meißel, Vorschlaghammer, Baustab, Bündel, Köcher, Rucksack, Kern, Apfel, Karotte, vier Rüstungsteile, Upgrade-Vorlage, Kolben, Trichter, Ofen, Räucherofen, Schmelzofen).",
+          "Ein Item-Tag entscheidet: simplebuilding:enderite_items. Der Datagen füllt es aus allen Mod-Items, deren Kennung „enderite“ enthält (also auch raw_enderite und enchanted_enderite_apple), dazu die Enderit-Stufen, deren Kennung das nicht sagt – die drei Flypads (alle aus der Enderit-Druckplatte geschmiedet), das Feine Elytra-Pad V, das Durchtränkte Trank-Pad III und das Echolot (Enderit-Kern und -Klumpen). Das umfasst Barren, Platten, Rohenderit, Klumpen, Block, Werkzeuge, Waffen, Rüstung, Ross- und Nautilusrüstung, Bündel, Köcher, Rucksack, Truhe, Kern, Äpfel, Karotte, Upgrade-Vorlage, Maschinen und Pads. Die Tags simplebuilding:void_protected (Leere-Schutz) und simplebuilding:double_despawn_time (Liegezeit) enthalten jeweils #simplebuilding:enderite_items, ein Modpack kann also jedes für sich erweitern. Ein Spieltest sucht jeden Gegenstand mit „Enderite“ im englischen Namen oder „enderite“ in der Kennung und schlägt fehl, wenn einer im Tag fehlt.",
           "Fällt ein solches Item unter die Mindesthöhe der jeweiligen Dimension, wird seine Bewegung gestoppt und die Schwerkraft abgeschaltet – es schwebt.",
           "Liegt es mehr als 10 Blöcke unter der Mindesthöhe, wird es auf 5 Blöcke über der Mindesthöhe zurückversetzt.",
           "Die Prüfung erfolgt nur auf dem Server, jeden Tick des Item-Objekts.",
@@ -2473,9 +2483,8 @@
           "Leere-Schaden beim Spieler: Mit 1/2/3/4 getragenen Enderit-Rüstungsteilen trifft der Schaden aus der Leere nur noch in Ticks, deren Zähler durch 20/40/60/100 teilbar ist; alle anderen Treffer werden abgefangen.",
           "Sanftes Fallen: Wer mindestens 2 Enderit-Rüstungsteile trägt, nicht am Boden ist, schneller als 0,1 Blöcke pro Tick fällt und die Sprungtaste hält, bekommt serverseitig laufend den Effekt Sanfter Fall (2 Ticks); der Tastenzustand wird vom Client bei jeder Änderung per SpaceKeyPayload übermittelt.",
           "Einschränkung: Der Leere-Schutz gilt nur für Items, die als Gegenstand in der Welt liegen, nicht für Items in Truhen oder Inventaren.",
-          "Einschränkung: Der verzauberte Enderitapfel (enchanted_enderite_apple) ist nicht im Tag, weil seine Kennung nicht mit „enderite_“ beginnt – er ist damit nicht vor der Leere geschützt.",
-          "Enderit wird aus Netherit gemacht und behält alles, was Netherit einem Gegenstand gibt: jeder Enderit-Gegenstand ab dem Barren, dazu Enderitplatten und Enderitklumpen, ist feuerfest und schwimmt auf Lava; ebenso Netherit-Vorschlaghammer, -Meißel, -Spachtel, -Baustab und -Kern der Mod (ModItems#netheriteTraits). Enderit-Rüstung widersteht Rückstoß mit 0,2 je Teil (Netherit: 0,1). Enderitbündel, -Köcher und -Rucksack überstehen als fallengelassene Gegenstände Explosionen, wie Netheritbündel und Netherit-Rucksack.",
-          "Fallengelassenes Enderit ab dem Barren bleibt doppelt so lange liegen wie in Vanilla: 12000 Ticks (10 Minuten) statt 6000. Maßgeblich ist das Item-Tag simplebuilding:enderite_ingot_tier; der Datagen füllt es nach der void_protected-Regel ohne raw_enderite, enderite_scrap und enderite_upgrade_template. Auf Fabric hebt EnderiteItemMixin Vanillas Grenze in ItemEntity#tick und #isMergable an, auf NeoForge und Forge verlängert ein ItemExpireEvent-Handler die Lebensdauer (EnderiteLifetime)."
+          "Enderit wird aus Netherit gemacht und behält alles, was Netherit einem Gegenstand gibt: jeder Enderit-Gegenstand ab dem Barren, dazu Enderitplatten und Enderitklumpen, ist feuerfest und schwimmt auf Lava; ebenso Netherit-Vorschlaghammer, -Meißel, -Spachtel, -Baustab und -Kern der Mod (ModItems#netheriteTraits). Enderit-Rüstung widersteht Rückstoß mit 0,2 je Teil (Netherit: 0,1). Enderitbündel, -Köcher und -Rucksack überstehen als fallengelassene Gegenstände Explosionen, wie Netheritbündel, Netheritköcher und Netherit-Rucksack.",
+          "Jeder fallengelassene Enderit-Gegenstand bleibt doppelt so lange liegen wie in Vanilla: 12000 Ticks (10 Minuten) statt 6000 – Rohenderit, Platten und die Upgrade-Vorlage eingeschlossen (Besitzer-Entscheidung 2026-09-28; vorher nur ab dem Barren). Maßgeblich ist das Item-Tag simplebuilding:double_despawn_time (es enthält #simplebuilding:enderite_items). Auf Fabric hebt EnderiteItemMixin Vanillas Grenze in ItemEntity#tick und #isMergable an, auf NeoForge und Forge verlängert ein ItemExpireEvent-Handler die Lebensdauer (EnderiteLifetime). Das ältere Tag simplebuilding:enderite_ingot_tier (der Barren und alles daraus) wird für Modpacks weiter mitgeliefert, entscheidet aber nichts mehr."
         ]
       }
     },
@@ -2900,7 +2909,7 @@
           "On joining the server, the player's entire inventory plus the slots of a currently open menu (the crafting grid, for example) are converted.",
           "Stack size and all components (damage, custom name and so on) are transferred to the new item.",
           "Chisels that are already there and items from elsewhere are left untouched.",
-          "The spatula items are still registered (a chisel variant with the reversed cycle direction and a sand sound), but appear in no recipe and not in the mod's creative tab; they only exist so that old worlds load and get converted. They carry proper names (\"Stone Spatula (Legacy)\" / \"Steinspachtel (alt)\" and so on), so one that has not been converted yet - or the row in the test centre - no longer shows a raw translation key.",
+          "The spatula items are still registered (a chisel variant with the reversed cycle direction and a sand sound), but appear in no recipe, not in the mod's creative tab and - since 2026-09-28 - not in JEI, REI or EMI either (tag c:hidden_from_recipe_viewers); they only exist so that old worlds load and get converted. They carry proper names (\"Stone Spatula (Legacy)\" / \"Steinspachtel (alt)\" and so on), so one that has not been converted yet - or the row in the test centre - no longer shows a raw translation key.",
           "On Fabric the migration hangs off SERVER_STARTED and ServerPlayConnectionEvents.JOIN, on NeoForge and Forge off ServerStartedEvent and PlayerLoggedInEvent.",
           "Limitation (by design): items in chests or other containers (barrels, shulker boxes, ender chests, bundles, item frames) are not scanned - only loose items in the world and player inventories. Such a spatula stays a working backward chisel with a name until a player picks it up and joins again; converting on every stack load would need a hook into every item codec for six legacy items.",
           "Limitation: the world scan only catches items in chunks loaded at the time of the start (getEntitiesOfClass); spatulas in unloaded chunks are only caught on the next server start at which that chunk is loaded."
@@ -2915,7 +2924,7 @@
           "Beim Betreten des Servers werden das gesamte Inventar des Spielers sowie die Slots eines gerade geöffneten Menüs (z. B. das Handwerksfeld) umgewandelt.",
           "Stapelgröße und alle Komponenten (Schaden, eigener Name usw.) werden auf das neue Item übertragen.",
           "Bereits vorhandene Meißel und Fremd-Items bleiben unangetastet.",
-          "Die Spachtel-Items sind weiterhin registriert (Meißel-Variante mit umgekehrter Zyklusrichtung und Sandgeräusch), tauchen aber in keinem Rezept und im Kreativ-Tab der Mod nicht auf; sie existieren nur noch, damit alte Welten laden und umgewandelt werden können. Sie tragen richtige Namen („Steinspachtel (alt)“ / „Stone Spatula (Legacy)“ usw.), sodass ein noch nicht umgewandelter Spachtel - oder die Reihe im Testzentrum - keinen rohen Übersetzungsschlüssel mehr zeigt.",
+          "Die Spachtel-Items sind weiterhin registriert (Meißel-Variante mit umgekehrter Zyklusrichtung und Sandgeräusch), tauchen aber in keinem Rezept, im Kreativ-Tab der Mod nicht und seit 2026-09-28 auch in JEI, REI und EMI nicht auf (Tag c:hidden_from_recipe_viewers); sie existieren nur noch, damit alte Welten laden und umgewandelt werden können. Sie tragen richtige Namen („Steinspachtel (alt)“ / „Stone Spatula (Legacy)“ usw.), sodass ein noch nicht umgewandelter Spachtel - oder die Reihe im Testzentrum - keinen rohen Übersetzungsschlüssel mehr zeigt.",
           "Auf Fabric hängt die Umwandlung an SERVER_STARTED und ServerPlayConnectionEvents.JOIN, auf NeoForge und Forge an ServerStartedEvent und PlayerLoggedInEvent.",
           "Einschränkung (gewollt): Gegenstände in Truhen oder anderen Behältern (Fässer, Shulkerkisten, Endertruhen, Bündel, Rahmen) werden nicht durchsucht – nur lose Gegenstände in der Welt und Spielerinventare. Ein solcher Spachtel bleibt ein funktionierender Rückwärts-Meißel mit Namen, bis ein Spieler ihn aufhebt und neu beitritt; beim Laden jedes Stapels umzuwandeln bräuchte einen Eingriff in jeden Item-Codec für sechs Alt-Items.",
           "Einschränkung: Die Weltdurchsuchung erfasst nur Gegenstände in zum Startzeitpunkt geladenen Chunks (getEntitiesOfClass); Spachtel in ungeladenen Chunks werden erst beim nächsten Serverstart erwischt, bei dem der Chunk geladen ist."
@@ -2934,6 +2943,8 @@
         "common/src/jei/java/com/simplebuilding/compat/jei/SimplebuildingJeiPlugin.java",
         "common/src/jei/java/com/simplebuilding/compat/jei/InWorldCategory.java",
         "common/src/jei/java/com/simplebuilding/compat/jei/CountBasedSmithingExtension.java",
+        "common/src/rei/java/com/simplebuilding/compat/rei/SimplebuildingReiClientPlugin.java",
+        "common/src/rei/java/com/simplebuilding/compat/rei/SimplebuildingReiCommonPlugin.java",
         "common/src/shared/java/com/simplebuilding/compat/InWorldRecipeCatalog.java",
         "common/src/shared/java/com/simplebuilding/compat/RecipelessJeiInfo.java",
         "common/src/shared/java/com/simplebuilding/tweaks/item/TweaksJeiInfo.java",
@@ -2946,8 +2957,8 @@
         "src/main/resources/assets/simplebuilding/lang/en_us.json"
       ],
       "en": {
-        "title": "Recipe Viewer (JEI)",
-        "summary": "With Just Enough Items (JEI) installed, the mod adds seven categories for its in-world transformations and shows its count-based smithing recipes. JEI is optional: without it nothing changes. Supported on Fabric and NeoForge on both Minecraft lines; there is no JEI for MinecraftForge 26.2.",
+        "title": "Recipe Viewer (JEI, REI)",
+        "summary": "With Just Enough Items (JEI) installed, the mod adds seven categories for its in-world transformations and shows its count-based smithing recipes. JEI is optional: without it nothing changes. Supported on Fabric and NeoForge on both Minecraft lines; there is no JEI for MinecraftForge 26.2. Roughly Enough Items (REI) gets the same content through its own plugin on Fabric and NeoForge for Minecraft 26.2 and 1.21.11 (REI has no build for Forge 26.2 or 26.3); EMI has no build for these Minecraft versions, so there is no EMI plugin.",
         "details": [
           "Machine Upgrade (Sledgehammer): machine and nugget, every sledgehammer strong enough for the step (weakest first) and the upgraded machine, with the number of hits, the duration (the arrow fills over the same 100 ticks) and the durability per hit and in total.",
           "Reshaping (Sledgehammer): every full block the hammer turns into stairs and every stairs it turns into a slab; sneaking with Constructor's Touch, slabs back into stairs and stairs into the full block. Worked out with the same naming rule the hammer uses, so blocks of other mods show up as well.",
@@ -2955,14 +2966,15 @@
           "Chiseling: every chisel step forward (right-click) and backward (sneak + right-click), with the chisels whose tier can do it and a note when it needs Constructor's Touch.",
           "Shearing Wool: shears used on any placed wool drop 4 String.",
           "Count-based smithing (for example copper to iron tools with several ingots) appears in JEI's smithing category with the real number of additions.",
+          "REI: the same seven in-world categories and Mob Drops (same titles, notes and tools as workstations), the count-based smithing recipes in REI's smithing category with the real number of additions, and the same information pages as REI information entries. The hidden easter smithing chain stays hidden in REI as well.",
           "The categories are built from the same export as this wiki's in-world transformation pages; a server game test checks that every entry of that export arrives in JEI.",
           "Trim Template (item frame) and Washing (cauldron): turning a trim template in an item frame into a Glowing or Emitting Armor Trim, and washing a coloured octant back into the plain one.",
-          "Information pages: items that no recipe and no in-world category produce get a short JEI information page on how to obtain them and what they do - Astralit Ore, Nihilit Ore, Astralit Dust, Nihilit Shard, the Enchanted Netherite and Enderite Apples and the legacy spatulas - next to the pages for the pads, plates and tools taken over from Simple Tweaks. The creative spacer stays hidden from JEI. A server game test derives the recipeless items from the loaded recipes and the in-world catalog and fails if one has no page or a page lacks its English or German text."
+          "Information pages: items that no recipe and no in-world category produce get a short JEI information page on how to obtain them and what they do - Astralit Ore, Nihilit Ore, Astralit Dust, Nihilit Shard, the Enchanted Netherite and Enderite Apples - next to the pages for the pads, plates and tools taken over from Simple Tweaks. The creative spacer and the six legacy spatulas (no recipe, only kept for old worlds) are hidden from JEI, REI and EMI through the convention tag c:hidden_from_recipe_viewers. A server game test derives the recipeless items from the loaded recipes and the in-world catalog and fails if one has no page or a page lacks its English or German text."
         ]
       },
       "de": {
-        "title": "Rezeptanzeige (JEI)",
-        "summary": "Ist Just Enough Items (JEI) installiert, bringt die Mod sieben Kategorien für ihre Umwandlungen in der Welt mit und zeigt ihre Schmiederezepte mit Mengenangabe. JEI ist optional: ohne JEI ändert sich nichts. Unterstützt auf Fabric und NeoForge in beiden Minecraft-Linien; für MinecraftForge 26.2 gibt es kein JEI.",
+        "title": "Rezeptanzeige (JEI, REI)",
+        "summary": "Ist Just Enough Items (JEI) installiert, bringt die Mod sieben Kategorien für ihre Umwandlungen in der Welt mit und zeigt ihre Schmiederezepte mit Mengenangabe. JEI ist optional: ohne JEI ändert sich nichts. Unterstützt auf Fabric und NeoForge in beiden Minecraft-Linien; für MinecraftForge 26.2 gibt es kein JEI. Roughly Enough Items (REI) bekommt über ein eigenes Plugin dieselben Inhalte, auf Fabric und NeoForge für Minecraft 26.2 und 1.21.11 (für Forge 26.2 und 26.3 gibt es kein REI); EMI gibt es für diese Minecraft-Versionen nicht, deshalb kein EMI-Plugin.",
         "details": [
           "Maschinen-Aufwertung (Vorschlaghammer): Maschine und Klumpen, jeder Vorschlaghammer, der für die Stufe stark genug ist (der schwächste zuerst), und die aufgewertete Maschine, dazu Schlagzahl, Dauer (der Pfeil füllt sich über dieselben 100 Ticks) und die Haltbarkeit je Schlag und insgesamt.",
           "Umformen (Vorschlaghammer): jeder volle Block, den der Hammer zur Treppe macht, und jede Treppe, die er zur Stufe macht; schleichend mit Berührung des Konstrukteurs Stufen zurück zur Treppe und Treppen zum vollen Block. Ermittelt mit derselben Namensregel, die der Hammer benutzt, deshalb erscheinen auch Blöcke anderer Mods.",
@@ -2970,9 +2982,52 @@
           "Meißeln: jeder Meißelschritt vorwärts (Rechtsklick) und rückwärts (Schleichen + Rechtsklick), mit den Meißeln, deren Stufe ihn kann, und einem Hinweis, wenn er Berührung des Konstrukteurs braucht.",
           "Wolle scheren: eine Schere auf beliebiger platzierter Wolle lässt 4 Fäden fallen.",
           "Schmiederezepte mit Mengenangabe (etwa Kupfer- zu Eisenwerkzeug mit mehreren Barren) erscheinen in JEIs Schmiede-Kategorie mit der echten Anzahl Zutaten.",
+          "REI: dieselben sieben Umwandlungs-Kategorien und Mob-Drops (gleiche Titel, Hinweise und Werkzeuge als Arbeitsstationen), die Schmiederezepte mit Mengenangabe in REIs Schmiede-Kategorie mit der echten Anzahl Zutaten und dieselben Infoseiten als REI-Informationseinträge. Die versteckte Easter-Schmiedekette bleibt auch in REI versteckt.",
           "Die Kategorien entstehen aus demselben Export wie die Seiten dieses Wikis zu den Umwandlungen in der Welt; ein Server-Spieltest prüft, dass jeder Eintrag dieses Exports in JEI ankommt.",
           "Besatzvorlage (Rahmen) und Waschen (Kessel): eine Besatzvorlage im Rahmen zum Leuchtenden oder Strahlenden Rüstungsbesatz machen und einen gefärbten Oktanten zurück zum einfachen waschen.",
-          "Infoseiten: Gegenstände, die kein Rezept und keine Umwandlungs-Kategorie liefert, bekommen eine kurze JEI-Infoseite, wie man sie erhält und was sie tun - Astraliterz, Nihiliterz, Astralitstaub, Nihilitsplitter, die verzauberten Netherit- und Enderitäpfel und die alten Spachtel - neben den Seiten für die aus Simple Tweaks übernommenen Pads, Platten und Werkzeuge. Der Kreativ-Platzhalter bleibt in JEI versteckt. Ein Server-Spieltest ermittelt die rezeptlosen Gegenstände aus den geladenen Rezepten und dem Umwandlungs-Katalog und schlägt fehl, wenn einer keine Seite hat oder einer Seite der englische oder deutsche Text fehlt."
+          "Infoseiten: Gegenstände, die kein Rezept und keine Umwandlungs-Kategorie liefert, bekommen eine kurze JEI-Infoseite, wie man sie erhält und was sie tun - Astraliterz, Nihiliterz, Astralitstaub, Nihilitsplitter, die verzauberten Netherit- und Enderitäpfel - neben den Seiten für die aus Simple Tweaks übernommenen Pads, Platten und Werkzeuge. Der Kreativ-Platzhalter und die sechs alten Spachtel (kein Rezept, nur für alte Welten) sind über das Konventions-Tag c:hidden_from_recipe_viewers in JEI, REI und EMI versteckt. Ein Server-Spieltest ermittelt die rezeptlosen Gegenstände aus den geladenen Rezepten und dem Umwandlungs-Katalog und schlägt fehl, wenn einer keine Seite hat oder einer Seite der englische oder deutsche Text fehlt."
+        ]
+      }
+    },
+    {
+      "id": "block_info_jade",
+      "related": [
+        "simplebuilding:launchpad",
+        "simplebuilding:potion_pad",
+        "simplebuilding:chunk_loader",
+        "simplebuilding:netherite_piston",
+        "simplebuilding:netherite_hopper",
+        "simplebuilding:netherite_chest"
+      ],
+      "sources": [
+        "common/src/jade/java/com/simplebuilding/compat/jade/SimplebuildingJadePlugin.java",
+        "common/src/jade/java/com/simplebuilding/compat/jade/BlockInfoProvider.java",
+        "common/src/shared/java/com/simplebuilding/compat/BlockInfo.java",
+        "common/src/shared/java/com/simplebuilding/gametest/BlockInfoTests.java",
+        "src/main/resources/fabric.mod.json",
+        "neoforge/src/main/resources/META-INF/neoforge.mods.toml",
+        "src/main/resources/assets/simplebuilding/lang/en_us.json"
+      ],
+      "en": {
+        "title": "Block Info (Jade)",
+        "summary": "With Jade installed, looking at the mod's blocks shows extra lines in Jade's tooltip. Jade is optional: without it nothing changes. Supported on Fabric and NeoForge on both Minecraft lines; there is no Jade for MinecraftForge 26.2.",
+        "details": [
+          "Pads and plates from Simple Tweaks: the owner's name.",
+          "Launchpad: charges as \"x / max\"; Potion Pad: the stored effects and the remaining cooldown (or \"Ready\"); Chunk Loader: how many chunks it keeps loaded.",
+          "Reinforced, Netherite and Enderite Hopper: the filter mode and the filtered items.",
+          "Netherite and Enderite Piston: the remaining durability. Tiered chests: the slots (doubled for a double chest) and the stack bonus. Upgraded furnaces, smokers and blast furnaces: the speed compared to the vanilla block (2x, 4x, 8x).",
+          "Owner, pad status and hopper filter come from the server, so the server needs Jade too; durability, chest slots and furnace speed are worked out from the block itself. Every line can be switched off in Jade's plugin settings."
+        ]
+      },
+      "de": {
+        "title": "Blockinfo (Jade)",
+        "summary": "Ist Jade installiert, zeigt der Blick auf die Blöcke der Mod zusätzliche Zeilen in Jades Tooltip. Jade ist optional: ohne Jade ändert sich nichts. Unterstützt auf Fabric und NeoForge in beiden Minecraft-Linien; für MinecraftForge 26.2 gibt es kein Jade.",
+        "details": [
+          "Platten und Pads aus Simple Tweaks: der Name des Besitzers.",
+          "Startrampe: die Ladungen als „x / max“; Trankplatte: die gespeicherten Effekte und die restliche Abklingzeit (oder „Bereit“); Chunk-Lader: wie viele Chunks er geladen hält.",
+          "Verstärkter, Netherit- und Enderit-Trichter: der Filtermodus und die gefilterten Items.",
+          "Netherit- und Enderit-Kolben: die restliche Haltbarkeit. Mod-Truhen: die Plätze (bei der Doppeltruhe doppelt) und der Stapelfaktor. Aufgewertete Öfen, Räucheröfen und Schmelzöfen: das Tempo gegenüber dem Vanilla-Block (2×, 4×, 8×).",
+          "Besitzer, Plattenstatus und Trichterfilter kommen vom Server, der Server braucht also auch Jade; Haltbarkeit, Truhenplätze und Ofentempo ergeben sich aus dem Block selbst. Jede Zeile lässt sich in Jades Plugin-Einstellungen abschalten."
         ]
       }
     },
@@ -3001,8 +3056,8 @@
         "simplebuilding:enderite_pressure_plate",
         "simplebuilding:copper_pressure_plate",
         "simplebuilding:spawn_elytra",
-        "simplebuilding:laser_pointer",
-        "simplebuilding:echo_compass"
+        "simplebuilding:amethyst_lens",
+        "simplebuilding:echo_sounder"
       ],
       "sources": [
         "common/src/shared/java/com/simplebuilding/tweaks/TweaksConfig.java",
@@ -3056,6 +3111,79 @@
       }
     },
     {
+      "id": "immersion",
+      "related": [
+        "simplebuilding:launchpad",
+        "simplebuilding:netherite_launchpad",
+        "simplebuilding:enderite_launchpad",
+        "simplebuilding:chunk_loader",
+        "simplebuilding:netherite_chunk_loader",
+        "simplebuilding:enderite_chunk_loader",
+        "simplebuilding:flypad",
+        "simplebuilding:reinforced_flypad",
+        "simplebuilding:stellar_flypad",
+        "simplebuilding:elytra_pad",
+        "simplebuilding:potion_pad",
+        "simplebuilding:backpack",
+        "simplebuilding:octant",
+        "simplebuilding:velocity-gauge",
+        "simplebuilding:copper_core",
+        "simplebuilding:enderite_apple",
+        "simplebuilding:enderite_helmet"
+      ],
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/tweaks/block/LaunchpadBlock.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/LaunchpadBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/ChunkLoaderBlock.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/FlypadBlock.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/FlypadBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/ElytraPadBlock.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ElytraPadBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/PotionPadBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/BackpackBlock.java",
+        "common/src/shared/java/com/simplebuilding/util/OctantCauldronWash.java",
+        "common/src/shared/java/com/simplebuilding/util/Feedback.java",
+        "common/src/shared/java/com/simplebuilding/items/tooltip/InfoTooltips.java",
+        "common/src/shared/java/com/simplebuilding/client/gui/ModHud.java",
+        "common/src/shared/java/com/simplebuilding/client/gui/HudLayout.java",
+        "common/src/shared/java/com/simplebuilding/gametest/ImmersionTests.java",
+        "tools/textures/generate_textures.py",
+        "src/main/resources/assets/simplebuilding/lang/en_us.json",
+        "src/main/resources/assets/simplebuilding/lang/de_de.json"
+      ],
+      "en": {
+        "title": "Feedback: sounds, particles, visible states, tooltips and the HUD key",
+        "summary": "Gadgets answer without on-screen text: pads show their state in their texture and light, sounds and particles confirm what happened, item tooltips name the numbers, and one key hides or shows the mod's whole HUD.",
+        "details": [
+          "Launchpad: the block state charge (0-3) shows the fill level in thirds, rounded up - the spiral of the texture lights up from the middle outward, one third per step, its outermost lit turn brighter. Loading wind charges blows a small gust into the pad, more puffs for more charges; the insert sound still rises with the fill level.",
+          "Chunk Loader: active=true while it keeps its chunks loaded - the spiral glows violet, the sparkle stars turn almost white and the light rises from 3 to the tier's 7, 8 or 9. Switching on plays a beacon's activation sound with a swirl of portal sparks, switching off the beacon's deactivation sound and a puff of smoke; while active it drips reverse-portal sparks and hums like a respawn anchor now and then (1 in 100 ticks).",
+          "Flypad: active=true while at least one player is in its field - the spiral glows (tiers I and II light cyan, the Stellar Flypad gold), and the four vertical edges of the field shimmer with end rod sparks so you can see where the field ends. Getting flight plays a soft beacon chime only you hear, losing it the beacon's deactivation sound. Flying closer than 1.5 blocks to a side or the ceiling of the field gives a warning note (only you hear it) at most every half second, higher the closer you are, with electric sparks on the nearest wall of the field.",
+          "Elytra Pad: a small cloud rises from the pad now and then (bubbles when waterlogged); handing out an elytra adds a puff of clouds, and a boost that is recharged from empty or partly used plays a firework twinkle with a few sparks for the wearer.",
+          "Potion Pad: when its cooldown ends it rings an amethyst chime and swirls in the color of the stored potion.",
+          "Octant: washing a colored octant in a water cauldron splashes (sound and water droplets) instead of happening silently.",
+          "Backpack: setting it down rustles like leather armor and puffs a little dust; opening a placed backpack rustles too.",
+          "Item tooltips (gray lines, not on-screen text): every pad names its tier (Tier II of III) and what the tier gives - wind charges, the chunk area, the elytra or flight area, the teleport wait, the potion duration and cooldown. Upgraded furnaces, smokers and blast furnaces say how much faster they work (2x, 4x, 8x), double experience and the blast furnace's raw metal bonus; hoppers their transfer rate and filter; the Reinforced Pistons their push limit of 18 and the redstone-block breach; levitating and suspended sand and gravel what they do. Building cores list what they are used in (checked against the loaded recipes by a game test); Enderite armor explains its void protection and glide; the netherite and enderite apples and carrots list their effects with level and duration, like a potion.",
+          "HUD key: Toggle Mod HUD (unbound by default, category SimpleMods in Controls) hides or shows every HUD box of the mod - velocity gauge, rangefinder, air jump bar and the spawn elytra bar (the vanilla experience bar comes back instead). It gives no text, only a click, and is remembered in the client config (showModHud). hudPositionX and hudPositionY place the velocity gauge and rangefinder boxes in percent of the free screen room (0 = left/top margin, 100 = right/bottom margin, default 0 and 50 = the old place at the left middle), hudScale sizes them from 50 to 200 %."
+        ]
+      },
+      "de": {
+        "title": "Rückmeldung: Klänge, Partikel, sichtbare Zustände, Tooltips und die HUD-Taste",
+        "summary": "Geräte antworten ohne Bildschirmtext: Pads zeigen ihren Zustand in Textur und Licht, Klänge und Partikel bestätigen, was passiert ist, Item-Tooltips nennen die Zahlen, und eine Taste blendet das ganze HUD der Mod aus und ein.",
+        "details": [
+          "Launchpad: der Blockzustand charge (0-3) zeigt den Füllstand in Dritteln, aufgerundet - die Spirale der Textur leuchtet von der Mitte nach außen, je Stufe ein Drittel, die äußerste leuchtende Windung heller. Beim Laden fährt ein kleiner Windstoß ins Pad, mehr Wölkchen für mehr Windkugeln; der Einlegeklang steigt weiter mit dem Füllstand.",
+          "Chunk-Loader: active=true, solange er seine Chunks geladen hält - die Spirale glimmt violett, die Funkelsterne werden fast weiß und das Licht steigt von 3 auf die 7, 8 oder 9 der Stufe. Einschalten spielt den Aktivierungsklang eines Leuchtfeuers mit einem Wirbel aus Portalfunken, Ausschalten dessen Abschaltklang und ein Rauchwölkchen; eingeschaltet steigen Portalfunken auf, und ab und zu summt er wie ein Seelenanker (1 von 100 Ticks).",
+          "Flypad: active=true, solange mindestens ein Spieler im Feld ist - die Spirale glimmt (Stufe I und II hell türkis, das Stellar-Flypad golden), und die vier senkrechten Kanten des Felds schimmern mit Endstab-Funken, damit man sieht, wo das Feld endet. Flug bekommen spielt einen leisen Leuchtfeuer-Ton, den nur du hörst, Flug verlieren den Abschaltklang des Leuchtfeuers. Wer fliegend näher als 1,5 Blöcke an eine Seite oder die Decke des Felds kommt, hört höchstens jede halbe Sekunde einen Warnton (nur er), höher je näher, mit elektrischen Funken an der nächsten Feldwand.",
+          "Elytra-Pad: ab und zu steigt ein Wölkchen vom Pad auf (unter Wasser Blasen); das Ausgeben einer Elytra macht eine Wolke, und ein Boost, der aus leerem oder angebrauchtem Zustand wieder voll wird, knistert wie ein Feuerwerk, mit ein paar Funken für den Träger.",
+          "Trank-Pad: endet die Abklingzeit, erklingt ein Amethyst-Glockenspiel und ein Wirbel in der Farbe des gespeicherten Tranks.",
+          "Oktant: einen gefärbten Oktanten im Wasserkessel zu waschen plätschert (Klang und Wassertropfen), statt lautlos zu geschehen.",
+          "Rucksack: abgestellt raschelt er wie Lederrüstung und staubt ein wenig; einen abgestellten Rucksack öffnen raschelt ebenfalls.",
+          "Item-Tooltips (graue Zeilen, kein Bildschirmtext): jedes Pad nennt seine Stufe (Stufe II von III) und was sie gibt - Windkugeln, den Chunk-Bereich, den Elytra- oder Flugbereich, die Teleport-Wartezeit, Trankdauer und Abklingzeit. Aufgewertete Öfen, Räucheröfen und Schmelzöfen sagen, wie viel schneller sie arbeiten (2x, 4x, 8x), doppelte Erfahrung und den Rohmetall-Bonus des Schmelzofens; Trichter ihr Tempo und ihren Filter; die verstärkten Kolben ihr Schublimit von 18 und den Durchbruch per Redstone-Block; schwebender und steigender Sand und Kies, was sie tun. Baukerne listen, wofür sie gebraucht werden (ein Spieltest gleicht das mit den geladenen Rezepten ab); Enderit-Rüstung erklärt Leere-Schutz und Gleiten; Netherit- und Enderit-Äpfel und -Karotten listen ihre Wirkungen mit Stufe und Dauer wie ein Trank.",
+          "HUD-Taste: Mod-HUD ein/aus (anfangs nicht belegt, Kategorie SimpleMods in der Steuerung) blendet jeden HUD-Kasten der Mod aus und ein - Tacho, Entfernungsmesser, Luftsprung-Leiste und Spawn-Elytra-Leiste (statt ihrer kommt die Vanilla-Erfahrungsleiste zurück). Sie zeigt keinen Text, nur ein Klick, und bleibt in der Client-Config gespeichert (showModHud). hudPositionX und hudPositionY setzen die Kästen von Tacho und Entfernungsmesser in Prozent des freien Bildschirmraums (0 = linker/oberer Rand, 100 = rechter/unterer Rand, Standard 0 und 50 = die alte Stelle links in der Mitte), hudScale ihre Größe von 50 bis 200 %."
+        ]
+      }
+    },
+    {
       "id": "configuration",
       "related": [
         "simplebuilding:double_jump",
@@ -3100,7 +3228,8 @@
         "common/src/shared/java/com/simplebuilding/tweaks/item/LaserPointerItem.java",
         "common/src/shared/java/com/simplebuilding/tweaks/xp/XpClumping.java",
         "common/src/shared/java/com/simplebuilding/tweaks/command/TweaksCommands.java",
-        "forge/src/main/java/me/shedaniel/autoconfig/annotation/ConfigEntry.java"
+        "forge/src/main/java/me/shedaniel/autoconfig/annotation/ConfigEntry.java",
+        "common/src/shared/java/com/simplebuilding/client/gui/ModHud.java"
       ],
       "en": {
         "title": "Configuration",
@@ -3184,6 +3313,9 @@
           "Visuals (Client) → Own Textures for Mod Enchanted Books (modEnchantedBookTextures, default on): Every enchantment of this mod has its own enchanted book texture. Turn it off for the plain vanilla enchanted book. Takes effect immediately.",
           "Visuals (Client) → Trim Patterns on Vanilla Armor Icons (visibleTrimIconsVanillaArmor, default on): Item icons of trimmed vanilla armor (and the turtle shell) show the trim pattern in the trim material's colours. Off: the vanilla icon with only a colour mark. Takes effect immediately.",
           "Visuals (Client) → Trim Patterns on Enderite Armor Icons (visibleTrimIconsModArmor, default on): Item icons of trimmed Enderite armor show the trim pattern in the trim material's colours. Off: the plain icon with only a colour mark. Takes effect immediately.",
+          "Visuals (Client) → Show Mod HUD (showModHud, default on): shows the mod's HUD boxes - velocity gauge, rangefinder, air jump bar and spawn elytra bar. The Toggle Mod HUD key (unbound by default) flips this option and saves it; off, the vanilla experience bar replaces the spawn elytra bar.",
+          "Visuals (Client) → HUD Position: Horizontal / Vertical (hudPositionX, default 0; hudPositionY, default 50; 0 to 100): where the velocity gauge and rangefinder boxes sit, in percent of the free room between the 10 px margins - 0 = left/top, 100 = right/bottom. The defaults are the old place at the left middle; with both held, the rangefinder sits 35 px above and the gauge 35 px below that place.",
+          "Visuals (Client) → HUD Size (hudScale, default 100, 50 to 200): size of the velocity gauge and rangefinder boxes in percent.",
           "Compatibility & Advanced → Pistons Fire Block Break Events (pistonsFireBreakEvents, default on): Before a Netherite or Enderite Piston destroys a block it fires the loader's block break event with a fake player, so claim and protection mods can stop it. Turn it off if a protection mod blocks every fake player (pistons would stop everywhere) or quest and statistics mods count piston breaks as player breaks. Server-side.",
           "Compatibility & Advanced → Show \"SimpleEnchants (Dev)\" Creative Tab (showDevEnchantedTab, default off): Shows the creative tab \"SimpleEnchants (Dev)\" outside development environments too: the best tier of every enchantable item, pre-enchanted at max level. Takes effect when the creative tabs are rebuilt (at the latest after rejoining).",
           "The trim resonance limit maxMultiplierLimit (10.0) is fixed in code: the upper bound of setTrimMultiplier and of the loaded value; it is not an option.",
@@ -3273,6 +3405,9 @@
           "Darstellung (Client) → Eigene Texturen für Mod-Zauberbücher (modEnchantedBookTextures, Standard an): Jede Verzauberung dieser Mod hat ihr eigenes Buch. Aus: das schlichte Vanilla-Zauberbuch. Wirkt sofort.",
           "Darstellung (Client) → Besatzmuster auf Vanilla-Rüstungs-Icons (visibleTrimIconsVanillaArmor, Standard an): Die Icons besetzter Vanilla-Rüstung (auch des Schildkrötenpanzers) zeigen das Besatzmuster in den Farben des Materials. Aus: das Vanilla-Icon mit nur einem Farbfleck. Wirkt sofort.",
           "Darstellung (Client) → Besatzmuster auf Enderit-Rüstungs-Icons (visibleTrimIconsModArmor, Standard an): Die Icons besetzter Enderit-Rüstung zeigen das Besatzmuster in den Farben des Materials. Aus: das schlichte Icon mit nur einem Farbfleck. Wirkt sofort.",
+          "Darstellung (Client) → Mod-HUD anzeigen (showModHud, Standard an): zeigt die HUD-Kästen der Mod - Tacho, Entfernungsmesser, Luftsprung-Leiste und Spawn-Elytra-Leiste. Die Taste „Mod-HUD ein/aus“ (anfangs nicht belegt) schaltet diese Option um und speichert sie; aus ersetzt die Vanilla-Erfahrungsleiste die Spawn-Elytra-Leiste.",
+          "Darstellung (Client) → HUD-Position waagerecht / senkrecht (hudPositionX, Standard 0; hudPositionY, Standard 50; 0 bis 100): wo die Kästen von Tacho und Entfernungsmesser stehen, in Prozent des freien Raums zwischen den 10-px-Rändern - 0 = links/oben, 100 = rechts/unten. Die Standardwerte sind die alte Stelle links in der Mitte; mit beiden in der Hand steht der Entfernungsmesser 35 px darüber und der Tacho 35 px darunter.",
+          "Darstellung (Client) → HUD-Größe (hudScale, Standard 100, 50 bis 200): Größe der Kästen von Tacho und Entfernungsmesser in Prozent.",
           "Kompatibilität & Erweitert → Kolben lösen Abbau-Ereignisse aus (pistonsFireBreakEvents, Standard an): Bevor ein Netherit- oder Enderitkolben einen Block zerstört, löst er das Abbau-Ereignis des Loaders mit einem Fake-Spieler aus, damit Claim- und Schutz-Mods es verhindern können. Ausschalten, wenn ein Schutz-Mod jeden Fake-Spieler sperrt (die Kolben stünden überall still) oder Quest- und Statistik-Mods Kolbenabbau als Spielerabbau zählen. Serverseitig.",
           "Kompatibilität & Erweitert → Kreativ-Tab „SimpleEnchants (Dev)“ zeigen (showDevEnchantedTab, Standard aus): Zeigt den Kreativ-Tab „SimpleEnchants (Dev)“ auch außerhalb von Entwicklungsumgebungen: die beste Stufe jedes verzauberbaren Gegenstands, vorverzaubert auf Höchststufe. Wirkt beim Neuaufbau der Kreativ-Tabs (spätestens nach erneutem Betreten).",
           "Die Obergrenze der Besatz-Resonanz maxMultiplierLimit (10,0) steht fest im Code: Obergrenze von setTrimMultiplier und des geladenen Werts; sie ist keine Option.",
@@ -3736,7 +3871,7 @@
           "Sneak + right-click: the next block in the chain (costs 1 durability)."
         ],
         "caveats": [
-          "Spatulas have no recipe, no entry in the language files, are not in the creative tab and are in no chisel tag. They do have an item model: assets/simplebuilding/items/<tier>_spatula.json, held like the chisels (item/handheld) with the texture textures/item/<tier>_spatula.png.",
+          "Spatulas have no recipe, no entry in the language files, are not in the creative tab, are hidden from recipe viewers (c:hidden_from_recipe_viewers) and are in no chisel tag. They do have an item model: assets/simplebuilding/items/<tier>_spatula.json, held like the chisels (item/handheld) with the texture textures/item/<tier>_spatula.png.",
           "Spatulas in chests or other containers that are not open at join time are not converted; only the player inventory and the open menu (on join) and loose items (on server start) are covered.",
           "Unlike on the chisel, the backward step on a spatula costs only 1 durability; the doubled price applies only to the sneaking chisel."
         ]
@@ -3759,7 +3894,7 @@
           "Schleichen + Rechtsklick: nächster Block der Kette (kostet 1 Haltbarkeit)."
         ],
         "caveats": [
-          "Spatel haben kein Rezept, keinen Eintrag in den Sprachdateien, sind nicht im Kreativ-Tab und stehen in keinem Meißel-Tag. Ein Item-Modell haben sie: assets/simplebuilding/items/<stufe>_spatula.json, gehalten wie die Meißel (item/handheld), mit der Textur textures/item/<stufe>_spatula.png.",
+          "Spatel haben kein Rezept, keinen Eintrag in den Sprachdateien, sind nicht im Kreativ-Tab, in Rezeptanzeigen versteckt (c:hidden_from_recipe_viewers) und stehen in keinem Meißel-Tag. Ein Item-Modell haben sie: assets/simplebuilding/items/<stufe>_spatula.json, gehalten wie die Meißel (item/handheld), mit der Textur textures/item/<stufe>_spatula.png.",
           "Spatel in Truhen oder anderen Behältern, die beim Beitritt nicht geöffnet sind, werden nicht umgewandelt; nur Spielerinventar und offenes Menü (beim Beitritt) sowie herumliegende Items (beim Serverstart) werden erfasst.",
           "Anders als beim Meißel kostet der Rückwärtsschritt beim Spatel nur 1 Haltbarkeit; der doppelte Preis gilt nur für den schleichenden Meißel."
         ]
@@ -5145,7 +5280,7 @@
           "Handled like the Quiver: left-click inserts, right-click takes out, the mouse wheel picks the stack; drawing and releasing a bow consumes arrows automatically."
         ],
         "caveats": [
-          "Not blast-proof: the explosion immunity for dropped items (ItemEntityMixin.ignoreExplosion) applies to the Netherite Bundle, the Enderite Bundle and the Enderite Quiver, not to the Netherite Quiver.",
+          "Blast-proof as a dropped item since 2026-09-28 (owner decision): ItemEntityMixin.ignoreExplosion protects it like the Netherite Bundle, the Enderite Bundle and the Enderite Quiver.",
           "Appears in no loot chest; only the plain Quiver is in the loot tables.",
           "The description line in the language file (tooltip.simplebuilding.netherite_quiver: \"Holds more arrows. Works in Offhand or Chest slot.\") is shown by no code.",
           "All of the Quiver's limits apply as well: there is no crossbow code."
@@ -5167,7 +5302,7 @@
           "Bedienung wie beim Köcher: Linksklick legt ein, Rechtsklick nimmt heraus, Mausrad wählt den Stapel; Bogen spannen und loslassen verbraucht Pfeile automatisch."
         ],
         "caveats": [
-          "Nicht explosionsgeschützt: Die Explosions-Immunität für fallengelassene Gegenstände (ItemEntityMixin.ignoreExplosion) gilt für das Netheritbündel, das Enderitbündel und den Enderitköcher, nicht für den Netheritköcher.",
+          "Seit 2026-09-28 (Besitzer-Entscheidung) als fallengelassener Gegenstand explosionsgeschützt: ItemEntityMixin.ignoreExplosion schützt ihn wie Netheritbündel, Enderitbündel und Enderitköcher.",
           "Kommt in keiner Loot-Truhe vor; nur der einfache Köcher steht in den Loot-Tabellen.",
           "Der Beschreibungstext in der Sprachdatei (tooltip.simplebuilding.netherite_quiver: \"Hält mehr Pfeile. Funktioniert in der Nebenhand oder im Brustpanzer-Slot.\") wird von keinem Code angezeigt.",
           "Alle Einschränkungen des Köchers gelten ebenfalls: kein Armbrust-Code."
@@ -5199,11 +5334,11 @@
           "Registered with fireResistant(): as a dropped item it is protected from fire and lava damage.",
           "Rarity EPIC.",
           "Stack size 1.",
-          "In the tag simplebuilding:void_protected (put there by the datagen rule: every item id with the prefix enderite_): if it falls as an item below the world's bottom (getMinY), its motion is set to 0 and gravity is switched off server-side; more than 10 blocks below the bottom it is put back to bottom + 5.",
+          "In the tag simplebuilding:void_protected (through #simplebuilding:enderite_items, like every enderite item): if it falls as an item below the world's bottom (getMinY), its motion is set to 0 and gravity is switched off server-side; more than 10 blocks below the bottom it is put back to bottom + 5.",
           "Arrow filter, bow search order, consumption on the shot and click handling are identical to the Quiver (same class QuiverItem).",
           "Creative tab: directly after the Netherite Quiver.",
           "Enchantable: enderite_quiver is in the tags bundle_enchantable, extra_inventory_items and constructors_touch_enchantable (in the generated data for MC 26.2 and 1.21.11 as well as in the datagen provider). Drawer, Deep Pockets, Funnel, Constructor's Touch, Master Builder and Color Palette can therefore be applied at an anvil (supported_items); the enchanting table stays shut for every quiver tier, because no quiver carries an enchantable component.",
-          "Immune to explosions as a dropped item, like the Netherite Bundle and the Enderite Bundle (ItemEntityMixin.ignoreExplosion)."
+          "Immune to explosions as a dropped item, like the Netherite Bundle, the Enderite Bundle and the Netherite Quiver (ItemEntityMixin.ignoreExplosion)."
         ],
         "controls": [
           "Handled like the Quiver: left-click inserts, right-click takes out, the mouse wheel picks the stack; drawing and releasing a bow consumes arrows automatically."
@@ -5222,11 +5357,11 @@
           "Registrierung mit fireResistant(): Als fallengelassener Gegenstand ist er gegen Feuer- und Lavaschaden geschützt.",
           "Seltenheit EPIC.",
           "Stapelgröße 1.",
-          "Steht im Tag simplebuilding:void_protected (per Datagen-Regel: alle Item-Ids mit Präfix enderite_): Fällt er als Gegenstand unter die Unterkante der Welt (getMinY), wird serverseitig die Bewegung auf 0 gesetzt und die Schwerkraft abgeschaltet; bei mehr als 10 Blöcken unter der Unterkante wird er auf Unterkante + 5 zurückgesetzt.",
+          "Steht im Tag simplebuilding:void_protected (über #simplebuilding:enderite_items, wie jeder Enderit-Gegenstand): Fällt er als Gegenstand unter die Unterkante der Welt (getMinY), wird serverseitig die Bewegung auf 0 gesetzt und die Schwerkraft abgeschaltet; bei mehr als 10 Blöcken unter der Unterkante wird er auf Unterkante + 5 zurückgesetzt.",
           "Pfeil-Filter, Suchreihenfolge für den Bogen, Verbrauch beim Schuss und Klick-Bedienung sind identisch mit dem Köcher (gleiche Klasse QuiverItem).",
           "Kreativ-Tab: direkt hinter dem Netheritköcher.",
           "Verzauberbar: enderite_quiver steht in den Tags bundle_enchantable, extra_inventory_items und constructors_touch_enchantable (in den generierten Daten für MC 26.2 und 1.21.11 sowie im Datagen-Provider). Schublade, Tiefe Taschen, Trichter, Berührung des Konstrukteurs, Baumeister und Farbpalette lassen sich daher am Amboss (supported_items) auflegen; der Zaubertisch bleibt für alle Köcher-Stufen zu, weil kein Köcher eine Verzauberbarkeit trägt.",
-          "Als fallengelassener Gegenstand immun gegen Explosionen wie Netheritbündel und Enderitbündel (ItemEntityMixin.ignoreExplosion)."
+          "Als fallengelassener Gegenstand immun gegen Explosionen wie Netheritbündel, Enderitbündel und Netheritköcher (ItemEntityMixin.ignoreExplosion)."
         ],
         "controls": [
           "Bedienung wie beim Köcher: Linksklick legt ein, Rechtsklick nimmt heraus, Mausrad wählt den Stapel; Bogen spannen und loslassen verbraucht Pfeile automatisch."
@@ -8109,7 +8244,7 @@
           "Handled like the Quiver: left-click inserts arrows, right-click takes a stack out, the mouse wheel picks the stack; drawing and releasing a bow uses arrows from it automatically."
         ],
         "caveats": [
-          "Not fire resistant, not blast-proof as a dropped item (ItemEntityMixin only protects the Netherite Bundle, the Enderite Bundle and the Enderite Quiver) and not void protected (void_protected only takes ids starting with enderite_).",
+          "Not fire resistant, not blast-proof as a dropped item (ItemEntityMixin protects the quivers from the netherite tier up, the Netherite and Enderite Bundles and Backpacks) and not void protected (it is no enderite item).",
           "Appears in no loot table and no trade.",
           "The tooltip's fill bar divides only by the integer part of the capacity factor (1.5 becomes 1): on an unenchanted Reinforced Quiver the tooltip bar therefore already reads full at 64 of its 96 arrows. The bar on the item in the slot computes it exactly.",
           "The description line in the language file (tooltip.simplebuilding.reinforced_quiver) is shown by no code.",
@@ -8134,7 +8269,7 @@
           "Bedienung wie beim Köcher: Linksklick legt Pfeile ein, Rechtsklick nimmt einen Stapel heraus, Mausrad wählt den Stapel; Bogen spannen und loslassen verbraucht Pfeile daraus automatisch."
         ],
         "caveats": [
-          "Nicht feuerfest, als fallengelassener Gegenstand nicht explosionsgeschützt (ItemEntityMixin schützt nur Netheritbündel, Enderitbündel und Enderitköcher) und nicht vor dem Void geschützt (void_protected nimmt nur Kennungen, die mit enderite_ beginnen).",
+          "Nicht feuerfest, als fallengelassener Gegenstand nicht explosionsgeschützt (ItemEntityMixin schützt die Köcher ab der Netherit-Stufe sowie Netherit- und Enderitbündel und -rucksack) und nicht vor dem Void geschützt (kein Enderit-Gegenstand).",
           "Kommt in keiner Loot-Tabelle und keinem Handel vor.",
           "Die Füllleiste im Tooltip teilt nur durch den ganzzahligen Teil des Kapazitätsfaktors (1,5 wird zu 1): Beim unverzauberten Verstärkten Köcher zeigt die Tooltip-Leiste deshalb schon bei 64 von 96 Pfeilen voll an. Der Balken am Item im Slot rechnet exakt.",
           "Der Beschreibungstext in der Sprachdatei (tooltip.simplebuilding.reinforced_quiver) wird von keinem Code angezeigt.",
@@ -9176,9 +9311,9 @@
         "src/main/resources/assets/simplebuilding/lang/de_de.json"
       ]
     },
-    "laser_pointer": {
+    "amethyst_lens": {
       "en": {
-        "summary": "The Amethyst Lens (the former laser pointer from Simple Tweaks, item id still laser_pointer) shows a red dot where you aim while you hold right-click, visible to the players within 128 blocks of you or the dot; next to the crosshair a small \"Laser\" shows while you aim. With Constructor's Touch it also measures (distance, target block, height) and remembers the last measurement. Held on a block for a moment, its beam melts, lights, dries and primes TNT; held on a creature it sets it on fire.",
+        "summary": "The Amethyst Lens (the former laser pointer from Simple Tweaks, item id amethyst_lens, formerly laser_pointer - old worlds keep their lenses) shows a red dot where you aim while you hold right-click, visible to the players within 128 blocks of you or the dot; next to the crosshair a small \"Laser\" shows while you aim. With Constructor's Touch it also measures (distance, target block, height) and remembers the last measurement. Held on a block for a moment, its beam melts, lights, dries and primes TNT; held on a creature it sets it on fire.",
         "details": [
           "Range, colour and dot size come from the config section tweaks.laserPointer (default 512 blocks, red). The dot keeps its size in the world (the config size, 0.05-1 block) and only grows far away so it stays about three pixels wide, instead of turning into a huge circle on a distant wall. Range and the on/off switch are the server's: the server sends them to the client and only passes a dot on while the player really uses the lens, at most 12 times a second.",
           "Beam effects (server side, up to the lens range - capped at the server's view distance so the beam never loads chunks -, while the beam rests on the same block face; the times below apply up to 5 blocks away): ice and frosted ice melt into water after 2 s (they evaporate where water does, like in the Nether), packed ice becomes ice and blue ice packed ice; snow layers, snow blocks and powder snow melt away. Campfires, soul campfires, candles and candle cakes light after 1 s. Soul sand and soul soil get soul fire on top after 2 s. Flammable blocks (anything fire can catch: planks, logs, leaves, wool ...) catch fire on the beamed face after 3 s, but only where the fire_spread_radius_around_player game rule lets fire spread. Wet sponges dry after 5 s. TNT is primed after 3 s like with flint and steel (the player counts as the igniter; the tnt_explodes game rule is respected, fire spread and mob griefing are not involved). It never lights a nether portal (unlike flint and steel, no fire is placed into an empty portal frame). Smoke rises while the heat builds up; a sound and particles mark the result.",
@@ -9192,7 +9327,7 @@
         ]
       },
       "de": {
-        "summary": "Die Amethystlinse (der frühere Laserpointer aus Simple Tweaks, Item-Id weiter laser_pointer) zeigt einen roten Punkt, wohin du bei gedrücktem Rechtsklick zielst - sichtbar für die Spieler im Umkreis von 128 Blöcken um dich oder den Punkt; neben dem Fadenkreuz steht beim Zielen ein kleines „Laser“. Mit Berührung des Konstrukteurs misst sie auch (Entfernung, Zielblock, Höhe) und merkt sich die letzte Messung. Ruht der Strahl kurz auf einem Block, schmilzt, zündet und trocknet er und zündet TNT; auf einem Lebewesen setzt er es in Brand.",
+        "summary": "Die Amethystlinse (der frühere Laserpointer aus Simple Tweaks, Item-Id amethyst_lens, früher laser_pointer - alte Welten behalten ihre Linsen) zeigt einen roten Punkt, wohin du bei gedrücktem Rechtsklick zielst - sichtbar für die Spieler im Umkreis von 128 Blöcken um dich oder den Punkt; neben dem Fadenkreuz steht beim Zielen ein kleines „Laser“. Mit Berührung des Konstrukteurs misst sie auch (Entfernung, Zielblock, Höhe) und merkt sich die letzte Messung. Ruht der Strahl kurz auf einem Block, schmilzt, zündet und trocknet er und zündet TNT; auf einem Lebewesen setzt er es in Brand.",
         "details": [
           "Reichweite, Farbe und Punktgröße stehen in der Config unter tweaks.laserPointer (Standard 512 Blöcke, rot). Der Punkt behält seine Größe in der Welt (die Config-Größe, 0,05-1 Block) und wächst erst in der Ferne mit, damit er etwa drei Pixel breit sichtbar bleibt - statt auf einer fernen Wand zum riesigen Kreis zu werden. Reichweite und Schalter gelten vom Server: er schickt sie dem Client und gibt einen Punkt nur weiter, solange der Spieler die Linse wirklich benutzt, höchstens 12-mal pro Sekunde.",
           "Strahlwirkungen (auf dem Server, bis zur Reichweite der Linse - höchstens bis zur Sichtweite des Servers, damit der Strahl keine Chunks lädt -, solange der Strahl auf derselben Blockseite ruht; die Zeiten gelten bis 5 Blöcke Abstand): Eis und Frosteis schmelzen nach 2 s zu Wasser (verdampfen, wo Wasser verdampft, wie im Nether), Packeis wird zu Eis, Blaueis zu Packeis; Schneeschichten, Schneeblöcke und Pulverschnee schmelzen weg. Lagerfeuer, Seelenlagerfeuer, Kerzen und Kerzenkuchen gehen nach 1 s an. Seelensand und Seelenerde bekommen nach 2 s oben Seelenfeuer. Brennbare Blöcke (alles, was Feuer fangen kann: Bretter, Stämme, Laub, Wolle ...) fangen nach 3 s auf der angestrahlten Seite Feuer - nur, wo die Spielregel fire_spread_radius_around_player Feuer sich ausbreiten lässt. Nasse Schwämme trocknen nach 5 s. TNT wird nach 3 s gezündet wie mit einem Feuerzeug (der Spieler gilt als Zünder; die Spielregel tnt_explodes gilt, Feuerausbreitung und Mob-Griefing spielen keine Rolle). Nie: ein Netherportal (anders als ein Feuerzeug setzt der Strahl kein Feuer in einen leeren Portalrahmen). Solange sich die Hitze aufbaut, steigt Rauch auf; ein Geräusch und Partikel zeigen das Ergebnis.",
@@ -9221,9 +9356,9 @@
         "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java"
       ]
     },
-    "echo_compass": {
+    "echo_sounder": {
       "en": {
-        "summary": "The Echo Sounder (formerly Echo Compass; item id still echo_compass) links to a lodestone and teleports you on top of it - no ender pearl needed: hold use for 3 seconds to charge the jump. One jump empties it; it has to be recharged (1500 repair points, Mending or echo shards) before it works normally again, and forcing it while empty shatters it.",
+        "summary": "The Echo Sounder (formerly Echo Compass; item id echo_sounder, formerly echo_compass - old worlds keep their sounders) links to a lodestone and teleports you on top of it - no ender pearl needed: hold use for 3 seconds to charge the jump. One jump empties it; it has to be recharged (1500 repair points, Mending or echo shards) before it works normally again, and forcing it while empty shatters it.",
         "details": [
           "Right-click a lodestone to link it; the needle then points there. Clicking the lodestone it is already linked to does nothing (no sound, no effects). If the lodestone is removed the link is lost.",
           "Jumping: hold use for 3 seconds (60 ticks). While it charges, sculk souls circle in three arms from well over two blocks out ever closer, widely scattered portal particles are drawn in, an amethyst tone rises, sculk clicks and respawn-anchor charges mark the thirds and a warden sonic charge builds up at the end; the field of view narrows gently and pulses (scaled by the vanilla accessibility option FOV Effects - at 0 it is off). Releasing early does nothing and costs nothing. The jump needs no ender pearl any more (since 2026-09-27) and sets a 24 second cooldown (four times the old 6 seconds, owner 2026-09-28); afterwards blindness, glowing, slow falling, slowness and nausea for a moment, sonic boom and respawn-anchor sound on arrival, where a wide particle cloud and a ring of sculk souls spread out over the ground. Works into any dimension the server knows; a jump that is blocked (for example into a dimension locked by tweaks.dimensions) costs nothing - no charge, no cooldown. The cooldown after a jump is tweaks.balancing.echoSounderCooldownTicks (default 120 ticks, 0 = none).",
@@ -9234,7 +9369,7 @@
         ]
       },
       "de": {
-        "summary": "Das Echolot (früher Echo-Kompass; Item-Id weiter echo_compass) verknüpft sich mit einem Leitstein und teleportiert dich darauf - ganz ohne Enderperle: 3 Sekunden gedrückt halten lädt den Sprung. Ein Sprung leert es; erst wieder aufgeladen (1500 Reparaturpunkte, Reparatur oder Echoscherben) funktioniert es normal, und leer erzwungen zerspringt es.",
+        "summary": "Das Echolot (früher Echo-Kompass; Item-Id echo_sounder, früher echo_compass - alte Welten behalten ihre Echolote) verknüpft sich mit einem Leitstein und teleportiert dich darauf - ganz ohne Enderperle: 3 Sekunden gedrückt halten lädt den Sprung. Ein Sprung leert es; erst wieder aufgeladen (1500 Reparaturpunkte, Reparatur oder Echoscherben) funktioniert es normal, und leer erzwungen zerspringt es.",
         "details": [
           "Rechtsklick auf einen Leitstein verknüpft; die Nadel zeigt dann dorthin. Ein Klick auf den schon verknüpften Leitstein tut nichts (kein Klang, keine Effekte). Wird der Leitstein entfernt, ist die Verknüpfung weg.",
           "Springen: 3 Sekunden (60 Ticks) gedrückt halten. Beim Laden kreisen Sculk-Seelen in drei Armen von gut zwei Blöcken außen immer enger, weit gestreute Portalpartikel werden hineingezogen, ein Amethystton steigt, Sculk-Klicken und Seelenanker-Aufladen markieren die Drittel, zum Schluss lädt der Schallangriff des Wärters; das Sichtfeld zieht sich sanft zusammen und pulsiert (skaliert mit der Vanilla-Barrierefreiheitsoption FOV-Effekte - auf 0 aus). Vorher loslassen tut nichts und kostet nichts. Der Sprung braucht seit dem 27.09.2026 keine Enderperle mehr und setzt 24 Sekunden Abklingzeit (viermal die früheren 6 Sekunden, Besitzer 2026-09-28); danach kurz Blindheit, Leuchten, Sanfter Fall, Langsamkeit und Übelkeit, bei der Ankunft Schallknall und Seelenanker-Klang, dazu eine weite Partikelwolke und ein Ring aus Sculk-Seelen, der über den Boden auseinanderläuft. Funktioniert in jede Dimension, die der Server kennt; ein blockierter Sprung (etwa in eine per tweaks.dimensions gesperrte Dimension) kostet nichts - keine Ladung, keine Abklingzeit. Die Abklingzeit nach einem Sprung ist tweaks.balancing.echoSounderCooldownTicks (Standard 120 Ticks, 0 = keine).",
@@ -9251,7 +9386,7 @@
         "docs/SIMPLETWEAKS-UEBERNAHME.md",
         "src/main/resources/assets/simplebuilding/lang/en_us.json",
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
-        "tools/textures/echo_compass_textures.py",
+        "tools/textures/echo_sounder_textures.py",
         "src/main/java/com/simplebuilding/tweaks/datagen/TweaksModelGen.java",
         "common/src/shared/java/com/simplebuilding/tweaks/client/EchoCompassFov.java"
       ]
@@ -9531,6 +9666,58 @@
         "common/src/shared/java/com/simplebuilding/blocks/custom/PlacedBundleBlock.java",
         "common/src/shared/java/com/simplebuilding/blocks/entity/custom/PlacedBundleBlockEntity.java",
         "common/src/shared/java/com/simplebuilding/util/PlacedBundles.java"
+      ]
+    },
+    "enderite_*_armor": {
+      "en": {
+        "summary": "Enderite Horse Armor and Enderite Nautilus Armor are the top tier of mount armor, one step above vanilla's netherite versions: 22 armor on the body slot instead of 19, armor toughness 4 instead of 3 and knockback resistance 0.2 instead of 0.1.",
+        "details": [
+          "Smithing: Enderite Upgrade Smithing Template + Netherite Horse Armor (or Netherite Nautilus Armor) + Enderite Ingot, the same pattern as every other enderite upgrade.",
+          "Worn like vanilla's: the horse armor fits the animals in the vanilla tag can_wear_horse_armor, the nautilus armor those in can_wear_nautilus_armor; no durability, can be sheared off.",
+          "Fire resistant, safe from the void and twice as long-lived as a dropped item, like every enderite item (tag simplebuilding:enderite_items).",
+          "On the animal it is drawn with the enderite equipment asset (layers horse_body and nautilus_body)."
+        ]
+      },
+      "de": {
+        "summary": "Enderitrossharnisch und Enderit-Nautilusrüstung sind die höchste Stufe der Reittier-Rüstung, eine Stufe über Vanillas Netherit-Varianten: 22 Rüstungspunkte am Körper statt 19, Rüstungshärte 4 statt 3 und Rückstoßwiderstand 0,2 statt 0,1.",
+        "details": [
+          "Schmiede: Enderit-Aufwertung + Netheritrossharnisch (bzw. Netherit-Nautilusrüstung) + Enderitbarren, nach demselben Muster wie jede andere Enderit-Aufwertung.",
+          "Getragen wie bei Vanilla: der Rossharnisch passt den Tieren im Vanilla-Tag can_wear_horse_armor, die Nautilusrüstung denen in can_wear_nautilus_armor; keine Haltbarkeit, mit der Schere abnehmbar.",
+          "Feuerfest, vor der Leere geschützt und als fallengelassener Gegenstand doppelt so lange liegend, wie jeder Enderit-Gegenstand (Tag simplebuilding:enderite_items).",
+          "Am Tier wird sie mit dem Enderit-Ausrüstungsmodell gezeichnet (Ebenen horse_body und nautilus_body)."
+        ]
+      },
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+        "common/src/shared/java/com/simplebuilding/items/ModArmorMaterials.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "src/main/resources/assets/simplebuilding/equipment/enderite.json",
+        "tools/textures/mount_armor_textures.py",
+        "common/src/shared/java/com/simplebuilding/gametest/DataIntegrityTests.java"
+      ]
+    },
+    "velocity_gauge": {
+      "en": {
+        "summary": "The Velocity Gauge shows your speed while you hold it in either hand: a small needle speedometer (\"Velocity\") in a tooltip-style box, from standstill at the bottom left to full scale (50 blocks per second) at the bottom right, next to the number in blocks per second.",
+        "details": [
+          "The scale is a square-root scale, so walking (4.3 b/s) and sprinting (5.6 b/s) stay apart while an elytra flight still fits; the arc turns red from 80 % of the scale.",
+          "With Constructor's Touch the top and average speed since you took it in hand are shown below in gray.",
+          "Item id simplebuilding:velocity_gauge since 2026-09-28 (before: velocity-gauge); old worlds keep their gauges, the old id is redirected (LegacyItemIds)."
+        ]
+      },
+      "de": {
+        "summary": "Der Geschwindigkeitsmesser zeigt dein Tempo, solange du ihn in einer Hand hältst: ein kleiner Zeigertacho („Velocity“) in einem Kasten im Tooltip-Stil, von Stillstand unten links bis Vollausschlag (50 Blöcke pro Sekunde) unten rechts, daneben die Zahl in Blöcken pro Sekunde.",
+        "details": [
+          "Die Skala ist eine Wurzelskala, damit Gehen (4,3 b/s) und Sprinten (5,6 b/s) auseinanderliegen und trotzdem ein Elytra-Flug passt; ab 80 % der Skala ist der Bogen rot.",
+          "Mit Berührung des Konstrukteurs stehen darunter grau Höchst- und Durchschnittstempo seit dem In-die-Hand-Nehmen.",
+          "Item-Id simplebuilding:velocity_gauge seit 2026-09-28 (vorher velocity-gauge); alte Welten behalten ihre Geschwindigkeitsmesser, die alte Id wird umgeleitet (LegacyItemIds)."
+        ]
+      },
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/items/custom/VelocityGaugeItem.java",
+        "common/src/shared/java/com/simplebuilding/client/gui/SpeedometerHudOverlay.java",
+        "common/src/shared/java/com/simplebuilding/datafix/LegacyItemIds.java",
+        "src/main/resources/assets/simplebuilding/lang/en_us.json"
       ]
     }
   },

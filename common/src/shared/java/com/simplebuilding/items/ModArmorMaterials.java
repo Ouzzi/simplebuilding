@@ -27,6 +27,8 @@ public class ModArmorMaterials {
                 put(ArmorType.CHESTPLATE, 9);
                 put(ArmorType.LEGGINGS, 7);
                 put(ArmorType.BOOTS, 4);
+                // Pferde-/Nautilusruestung: Vanilla-Netherit 19, Enderit eine Stufe darueber
+                put(ArmorType.BODY, 22);
             }},
             18,
             SoundEvents.ARMOR_EQUIP_NETHERITE,

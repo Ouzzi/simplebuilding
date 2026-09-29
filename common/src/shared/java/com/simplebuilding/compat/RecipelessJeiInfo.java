@@ -17,7 +17,8 @@ import net.minecraft.world.level.ItemLike;
  *
  * <p>Die rezeptlosen Simple-Tweaks-Gegenstaende (Leih-Elytra, verwitterte Kupferplatten) haben
  * ihre Seite schon ueber {@link com.simplebuilding.tweaks.item.TweaksJeiInfo}; der Kreativ-Platzhalter
- * ist per {@code c:hidden_from_recipe_viewers} aus JEI ausgeblendet.
+ * und die sechs alten Spachtel (seit 2026-09-28, vorher mit eigener Infoseite) sind per
+ * {@code c:hidden_from_recipe_viewers} aus JEI, REI und EMI ausgeblendet.
  */
 public final class RecipelessJeiInfo {
     public static final String KEY_PREFIX = "jei.simplebuilding.info.";
@@ -33,8 +34,6 @@ public final class RecipelessJeiInfo {
         map.put("nihilith_shard", List.of(ModItems.NIHILITH_SHARD));
         map.put("enchanted_netherite_apple", List.of(ModItems.ENCHANTED_NETHERITE_APPLE));
         map.put("enchanted_enderite_apple", List.of(ModItems.ENCHANTED_ENDERITE_APPLE));
-        map.put("legacy_spatula", List.of(ModItems.STONE_SPATULA, ModItems.COPPER_SPATULA, ModItems.IRON_SPATULA,
-                ModItems.GOLD_SPATULA, ModItems.DIAMOND_SPATULA, ModItems.NETHERITE_SPATULA));
         return map;
     }
 }

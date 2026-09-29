@@ -29,6 +29,7 @@ sourceSets {
         java {
             srcDir root.dir('common/src/shared/java')
             srcDir root.dir('common/src/jei/java')
+            srcDir root.dir('common/src/jade/java')
             srcDir root.dir('neoforge/src/main/java')
             srcDir root.dir('mc26_3/overlay/java')
         }
@@ -169,6 +170,8 @@ dependencies {
     compileOnly "mezz.jei:jei-${rootProject.mc263_minecraft_version}-common-api:${rootProject.mc263_jei_version}"
     // Curios API for CuriosCompat (optional, see neoforge/build.gradle)
     compileOnly("top.theillusivec4.curios:curios-neoforge:${rootProject.mc263_curios_version}:api") { transitive = false }
+    // Jade plugin (common/src/jade/java), see the root build.gradle
+    compileOnly("maven.modrinth:jade:${rootProject.mc263_dev_jade_neoforge}") { transitive = false }
     devMods("mezz.jei:jei-${rootProject.mc263_minecraft_version}-neoforge:${rootProject.mc263_jei_version}") { transitive = false }
     devMods("maven.modrinth:jade:${rootProject.mc263_dev_jade_neoforge}") { transitive = false }
     devMods("maven.modrinth:mouse-tweaks:${rootProject.mc263_dev_mousetweaks_neoforge}") { transitive = false }

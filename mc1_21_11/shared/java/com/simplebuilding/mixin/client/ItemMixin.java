@@ -35,6 +35,8 @@ public class ItemMixin {
         // Aufwertbare Maschinen (verstaerkt und Netherit): Hinweis auf den Vorschlaghammer, seit
         // es fuer die Netherit- und Enderit-Stufe kein Werkbankrezept mehr gibt.
         com.simplebuilding.util.TieredChests.tooltip(stack).forEach(textConsumer);
+        // Info-Zeilen (Pads, Maschinen, Kolben, Kerne, Enderit-Ruestung, Aepfel), Immersion 2026-09-28.
+        com.simplebuilding.items.tooltip.InfoTooltips.lines(stack).forEach(textConsumer);
         Component upgradeHint = SledgehammerUpgrades.tooltipHint(stack);
         if (upgradeHint != null) {
             textConsumer.accept(upgradeHint);

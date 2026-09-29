@@ -89,11 +89,11 @@ public final class TweaksBlocks {
 
     // --- Chunk-Loader I-III (eigener Chunk / 5 Chunks im Kreuz / 3x3) ---
     public static final Block CHUNK_LOADER = register("chunk_loader",
-            p -> new ChunkLoaderBlock(sturdy(p).mapColor(MapColor.DIAMOND).strength(4.0f).lightLevel(s -> 7), 1));
+            p -> new ChunkLoaderBlock(sturdy(p).mapColor(MapColor.DIAMOND).strength(4.0f).lightLevel(s -> ChunkLoaderBlock.lightLevel(s, 7)), 1));
     public static final Block NETHERITE_CHUNK_LOADER = register("netherite_chunk_loader",
-            p -> new ChunkLoaderBlock(sturdy(p).mapColor(MapColor.COLOR_BLACK).strength(4.5f).lightLevel(s -> 8).sound(SoundType.NETHERITE_BLOCK), 2));
+            p -> new ChunkLoaderBlock(sturdy(p).mapColor(MapColor.COLOR_BLACK).strength(4.5f).lightLevel(s -> ChunkLoaderBlock.lightLevel(s, 8)).sound(SoundType.NETHERITE_BLOCK), 2));
     public static final Block ENDERITE_CHUNK_LOADER = register("enderite_chunk_loader",
-            p -> new ChunkLoaderBlock(sturdy(p).mapColor(MapColor.COLOR_PURPLE).strength(5.0f).lightLevel(s -> 9), 3));
+            p -> new ChunkLoaderBlock(sturdy(p).mapColor(MapColor.COLOR_PURPLE).strength(5.0f).lightLevel(s -> ChunkLoaderBlock.lightLevel(s, 9)), 3));
 
     // --- Trank-Pads I-III (Besitzer 2026-09-28): gespeicherter Wurftrank fuer 30/60/120 s beim Betreten ---
     public static final Block POTION_PAD = register("potion_pad",

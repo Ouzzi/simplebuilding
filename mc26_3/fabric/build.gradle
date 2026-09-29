@@ -22,6 +22,7 @@ sourceSets {
 		java {
 			srcDir root.dir('common/src/shared/java')
 			srcDir root.dir('common/src/jei/java')
+			srcDir root.dir('common/src/jade/java')
 			srcDir root.dir('src/main/java')
 			srcDir root.dir('mc26_3/overlay/java')
 		}
@@ -130,6 +131,8 @@ dependencies {
 	compileOnly "mezz.jei:jei-${project.mc263_minecraft_version}-common-api:${project.mc263_jei_version}"
 	// Trinkets Updated API for TrinketsCompat (optional, see the root build.gradle)
 	compileOnly("eu.pb4:trinkets:${project.mc263_trinkets_version}") { transitive = false }
+	// Jade plugin (common/src/jade/java), see the root build.gradle
+	compileOnly "maven.modrinth:jade:${project.mc263_dev_jade_fabric}"
 	devMods "mezz.jei:jei-${project.mc263_minecraft_version}-fabric:${project.mc263_jei_version}"
 	devMods "maven.modrinth:jade:${project.mc263_dev_jade_fabric}"
 	devMods "maven.modrinth:mouse-tweaks:${project.mc263_dev_mousetweaks_fabric}"
@@ -147,6 +150,9 @@ processResources {
 		filter { String line ->
 			line.replace('"minecraft": "~26.2"', '"minecraft": "~26.3"')
 				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3"')
+				// No REI for this line: the REI plugin tree is not compiled here, so no entrypoints.
+				.replace('"com.simplebuilding.compat.rei.SimplebuildingReiClientPlugin"', '')
+				.replace('"com.simplebuilding.compat.rei.SimplebuildingReiCommonPlugin"', '')
 		}
 	}
 }

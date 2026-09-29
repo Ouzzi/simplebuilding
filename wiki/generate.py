@@ -268,7 +268,7 @@ def texture_for(roots: dict, kind: str, item_id: str) -> str | None:
 
     candidates: list[str] = []
     # Seit MC 1.21.4 sagt items/<id>.json, welches Modell das Item zeigt - der Echo-Kompass
-    # zeigt item/echo_compass_16 (range_dispatch), kein item/echo_compass. Dessen Texturen zuerst.
+    # zeigt item/echo_sounder_16 (range_dispatch), kein item/echo_sounder. Dessen Texturen zuerst.
     if kind == "item":
         for base in (roots["generated_assets"], roots["resource_assets"]):
             definition_path = REPO / base / "items" / f"{name}.json"

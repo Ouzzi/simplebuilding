@@ -37,6 +37,12 @@ sourceSets {
             srcDir rootProject.layout.projectDirectory.dir('mc1_21_11/shared/java')
             // JEI plugin, compileOnly JEI API (see the root build.gradle)
             srcDir rootProject.layout.projectDirectory.dir('mc1_21_11/jei/java')
+            // Jade plugin, same tree as 26.x (see mc1_21_11/fabric/build.gradle)
+            srcDir rootProject.layout.projectDirectory.dir('common/src/jade/java')
+            // REI plugin (compileOnly REI API, see the root build.gradle) plus the two NeoForge
+            // registration subclasses (@REIPluginClient/@REIPluginCommon exist only in REI's NeoForge API)
+            srcDir rootProject.layout.projectDirectory.dir('mc1_21_11/rei/java')
+            srcDir 'src/rei/java'
         }
         resources {
             srcDir 'src/main/resources'
@@ -216,6 +222,7 @@ repositories {
         forRepository { maven { url = 'https://maven.theillusivec4.top/' } }
         filter { includeGroup 'top.theillusivec4.curios' }
     }
+    maven { url = 'https://maven.architectury.dev/' }
     exclusiveContent {
         forRepository { maven { url = 'https://api.modrinth.com/maven' } }
         filter { includeGroup 'maven.modrinth' }
@@ -260,6 +267,14 @@ dependencies {
 
     // JEI plugin API (mc1_21_11/jei/java). compileOnly: the mod runs without JEI.
     compileOnly "mezz.jei:jei-${project.mc11_minecraft_version}-common-api:${project.mc11_jei_version}"
+    // Jade plugin (common/src/jade/java). compileOnly: the mod runs without Jade.
+    compileOnly("maven.modrinth:jade:${project.mc11_dev_jade_neoforge}") { transitive = false }
+
+    // REI plugin API (mc1_21_11/rei/java + src/rei/java). compileOnly, non-transitive, Mojang names
+    // (REI's NeoForge artifacts are published in them). No REI dev runtime (it would sit next to JEI).
+    compileOnly("me.shedaniel:RoughlyEnoughItems-api-neoforge:${project.mc11_rei_version}") { transitive = false }
+    compileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-neoforge:${project.mc11_rei_version}") { transitive = false }
+    compileOnly("dev.architectury:architectury-neoforge:${project.mc11_rei_architectury_version}") { transitive = false }
 
     // Curios API for CuriosCompat (optional, see neoforge/build.gradle)
     compileOnly("top.theillusivec4.curios:curios-neoforge:${project.mc11_curios_version}:api") { transitive = false }

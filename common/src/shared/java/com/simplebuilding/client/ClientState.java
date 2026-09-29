@@ -12,6 +12,8 @@ public final class ClientState {
     public static KeyMapping settingsKey;
     /** Rucksack-Taste (Standard B); ausgewertet in {@link BackpackKeyHandler}. */
     public static KeyMapping backpackKey;
+    /** HUD-Taste (Standard: nicht belegt): schaltet alle HUD-Kaesten der Mod, siehe {@code ModHud}. */
+    public static KeyMapping hudToggleKey;
 
     private ClientState() {
     }

@@ -42,8 +42,8 @@ public final class EnderiteMachineGameTest {
     }
 
     @GameTest(maxTicks = EnderiteMachineTests.LIFETIME_MAX_TICKS)
-    public void enderiteIngotTierDropsLastTwiceAsLongAsVanilla(GameTestHelper helper) {
-        EnderiteMachineTests.enderiteIngotTierDropsLastTwiceAsLongAsVanilla(helper);
+    public void everyEnderiteItemDropLastsTwiceAsLongAsVanilla(GameTestHelper helper) {
+        EnderiteMachineTests.everyEnderiteItemDropLastsTwiceAsLongAsVanilla(helper);
     }
 
     @GameTest

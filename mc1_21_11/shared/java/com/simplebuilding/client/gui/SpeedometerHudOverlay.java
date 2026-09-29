@@ -74,6 +74,9 @@ public class SpeedometerHudOverlay {
     public static void render(GuiGraphics context) {
         Minecraft client = Minecraft.getInstance();
         if (client.player == null) return;
+        if (!ModHud.visible()) {
+            return; // HUD key / config showModHud
+        }
         if (client.options.hideGui) {
             // Fabric's element registry hangs the mod's overlays inside vanilla's own layers,
             // which F1 switches off as a whole; NeoForge's layer event does not, and there the
@@ -177,11 +180,10 @@ public class SpeedometerHudOverlay {
         int contentHeight = font.lineHeight + titleGap + dialHeight + (extras.isEmpty() ? 0 : 3 + extras.size() * lineStep - 2);
 
         int padding = 6;
-        int x = 10 + padding;
-        int y = context.guiHeight() / 2 - (contentHeight + padding * 2) / 2 + padding;
-        if (hasOctant) {
-            y += 35;
-        }
+        // Ort und Groesse aus der Client-Config (ModHud); mit Oktant rueckt der Kasten 35 px nach unten.
+        ModHud.begin(context, contentWidth + padding * 2, contentHeight + padding * 2, hasOctant ? 35 : 0);
+        int x = padding;
+        int y = padding;
 
         // Vanilla-Tooltip-Hintergrund (Sprites tooltip/background + tooltip/frame); bekommt den
         // INHALT und legt selbst 3 px Rand darum.
@@ -201,6 +203,7 @@ public class SpeedometerHudOverlay {
             context.drawString(font, line, x, lineY, 0xFFFFFFFF, true);
             lineY += lineStep;
         }
+        ModHud.end(context);
     }
 
     /** Bogen (270 Grad, unten offen), fuenf Skalenstriche, Zeiger und Nabe; links oben bei (left, top). */

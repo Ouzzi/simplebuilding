@@ -1,5 +1,10 @@
 {
   "layers": {
+    "horse_body": [
+      {
+        "texture": "simplebuilding:enderite"
+      }
+    ],
     "humanoid": [
       {
         "texture": "simplebuilding:enderite"
@@ -8,6 +13,11 @@
     "humanoid_leggings": [
       {
         "texture": "simplebuilding:enderite_leggings"
+      }
+    ],
+    "nautilus_body": [
+      {
+        "texture": "simplebuilding:enderite"
       }
     ]
   },

@@ -140,6 +140,25 @@ public class SimplebuildingConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean visibleTrimIconsModArmor = true;
 
+    // Client: die HUD-Kaesten der Mod (Tacho, Entfernungsmesser, Luftsprung-Leiste, Spawn-Elytra).
+    // showModHud schaltet auch die HUD-Taste (ModHud.toggle) und bleibt gespeichert; Position in
+    // Prozent der Bildschirmbreite/-hoehe (0 = links/oben, 100 = rechts/unten), Groesse in Prozent.
+    @ConfigEntry.Category("visuals")
+    @ConfigEntry.Gui.Tooltip
+    public boolean showModHud = true;
+    @ConfigEntry.Category("visuals")
+    @ConfigEntry.Gui.Tooltip
+    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+    public int hudPositionX = 0;
+    @ConfigEntry.Category("visuals")
+    @ConfigEntry.Gui.Tooltip
+    @ConfigEntry.BoundedDiscrete(min = 0, max = 100)
+    public int hudPositionY = 50;
+    @ConfigEntry.Category("visuals")
+    @ConfigEntry.Gui.Tooltip
+    @ConfigEntry.BoundedDiscrete(min = 50, max = 200)
+    public int hudScale = 100;
+
     // =====================================================================================
     // Reiter 7: Kompatibilitaet & Erweitert
     // =====================================================================================
@@ -173,6 +192,9 @@ public class SimplebuildingConfig implements ConfigData {
         }
         trimBenefitBaseMultiplier = Math.max(0.0, Math.min(maxMultiplierLimit, trimBenefitBaseMultiplier));
         airJumpCooldownTicks = Math.max(0, airJumpCooldownTicks);
+        hudPositionX = Math.max(0, Math.min(100, hudPositionX));
+        hudPositionY = Math.max(0, Math.min(100, hudPositionY));
+        hudScale = Math.max(50, Math.min(200, hudScale));
         if (tools == null) {
             tools = new Tools();
         }

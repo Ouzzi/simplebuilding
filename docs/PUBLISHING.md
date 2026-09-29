@@ -39,7 +39,7 @@ file the same `[26,)` range as on 26.2.
 | Environment | "Environment" (project level) | "Environment" | client and server | client and server |
 | Version number / display name (suggested) | "Version number" / "Version title" | "Display name" | `26.3-<v>` / `SimpleBuilding <v> (Fabric 26.3)` | `26.3-neoforge-<v>` / `SimpleBuilding <v> (NeoForge 26.3, beta)` |
 | Required relations | "Dependencies: required" | "Required Dependency" | Fabric API, Cloth Config | Cloth Config |
-| Optional relations | "Dependencies: optional" | "Optional Dependency" | JEI (recommended), Jade, AppleSkin, Mouse Tweaks, Mod Menu | JEI (recommended), Jade, AppleSkin, Mouse Tweaks |
+| Optional relations | "Dependencies: optional" | "Optional Dependency" | JEI (recommended), Jade, AppleSkin, Mouse Tweaks, Mod Menu (no REI: none for 26.3) | JEI (recommended), Jade, AppleSkin, Mouse Tweaks (no REI: none for 26.3) |
 | Changelog | "Changelog" | "Changelog" | mention "26.3: requires Fabric API 0.161.0+26.3" | mention "NeoForge 26.3 is beta - report loader crashes to NeoForge first" |
 
 Do not tick 26.2 on a 26.3 file (or the other way round): the 26.3 jars check `~26.3` (Fabric) /
@@ -60,24 +60,34 @@ once 26.4 is a release, with its own row in the tables above.
 | Mod | Why | Fabric 26.2 | NeoForge 26.2 | Forge 26.2 | Fabric 1.21.11 | NeoForge 1.21.11 | Fabric 26.3 | NeoForge 26.3 |
 |---|---|---|---|---|---|---|---|---|
 | **JEI** (Just Enough Items) - recommended | the mod ships a JEI plugin: in-world transformation categories + count-based smithing | yes | yes | no JEI build | yes | yes | yes (31.x beta) | yes (31.x beta) |
+| REI (Roughly Enough Items) | the mod ships an REI plugin: the same in-world and mob-drop categories, count-based smithing, information pages | yes (26.2.820) | yes (26.2.820) | no REI build | yes (21.11.816) | yes (21.11.816) | no REI build | no REI build |
+| EMI | - (no plugin) | no EMI build | no EMI build | no EMI build | no EMI build | no EMI build | no EMI build | no EMI build |
 | Jade | block/entity tooltips | yes | yes | no build | yes | yes | yes (26.3.1) | yes (26.3.1) |
 | AppleSkin | food values | yes | yes | no build | yes | yes | yes (3.0.10+mc26.3) | yes (3.0.10+mc26.3) |
 | Mouse Tweaks | inventory handling | yes | yes | yes | yes | yes | yes (26.3-2.31) | yes (26.3-2.31) |
 | Mod Menu (Fabric only) | opens the config screen (ModMenu entrypoint) | yes | - | - | yes | - | yes (21.0.0) | - |
 
-Mark JEI as the one "recommended"/featured relation; the others are plain optional. Mod ids, in case
-an upload tool asks: `jei`, `jade`, `appleskin`, `mousetweaks`, `modmenu`, `cloth-config` (Fabric) /
+Mark JEI as the one "recommended"/featured relation; the others are plain optional. Tick REI only on
+the four files it exists for (Fabric/NeoForge 26.2 and 1.21.11). EMI is not a relation at all: it has
+no build newer than Minecraft 1.21.1 (Modrinth and maven.terraformersmc.com, checked 2026-09-28), so
+the mod ships no EMI plugin. Mod ids, in case
+an upload tool asks: `jei`, `roughlyenoughitems`, `jade`, `appleskin`, `mousetweaks`, `modmenu`, `cloth-config` (Fabric) /
 `cloth_config` (NeoForge), `fabric-api`.
 
 In the jars these are declared as `recommends` (JEI) / `suggests` (the rest) in `fabric.mod.json`,
 and as `type="optional"` (NeoForge) / `mandatory=false` (Forge) with ordering `NONE` in the
 mods.toml files. An optional dependency with a version range still fails the start when an
-incompatible version is installed (JEI: `[30,)` on 26.2 and 26.3 - JEI 31 for 26.3 satisfies it -, `[27,)` on 1.21.11).
+incompatible version is installed (JEI: `[30,)` on 26.2 and 26.3 - JEI 31 for 26.3 satisfies it -, `[27,)` on 1.21.11;
+REI: `[26.2,)` on 26.2, `[21.11,)` on 1.21.11). The REI plugin registers through the `rei_client`/`rei_common`
+entrypoints (Fabric) and `@REIPluginClient`/`@REIPluginCommon` subclasses (NeoForge); the 26.3/26.4 Fabric
+builds strip those entrypoints, since their jars contain no REI plugin.
 
 ## Dev-only runtime mods (not shipped, not a relation)
 
 The dev clients/servers (`runClient`, `runServer`) load these extra mods so JEI support can be
-checked by hand. They never reach a gametest or client-gametest run and never the jar.
+checked by hand. REI is deliberately not among them: REI and JEI both lay an item list over the
+inventory screens, so to check the REI plugin by hand, drop REI (plus Architectury) into the run's mods
+folder with `-Pdev_mods=false`. They never reach a gametest or client-gametest run and never the jar.
 Switch off with `-Pdev_mods=false`. Versions are pinned in `gradle.properties`.
 
 | | Fabric 26.2 | NeoForge 26.2 | Forge 26.2 | Fabric 1.21.11 | NeoForge 1.21.11 | Fabric 26.3 | NeoForge 26.3 |

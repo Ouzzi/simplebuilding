@@ -1,6 +1,9 @@
 package com.simplebuilding.tweaks.datagen;
 
+import com.simplebuilding.tweaks.block.ChunkLoaderBlock;
 import com.simplebuilding.tweaks.block.CopperPressurePlateBlock;
+import com.simplebuilding.tweaks.block.FlypadBlock;
+import com.simplebuilding.tweaks.block.LaunchpadBlock;
 import com.simplebuilding.tweaks.block.PotionPadBlock;
 import com.simplebuilding.tweaks.block.TweaksBlocks;
 import com.simplebuilding.tweaks.item.TweaksItems;
@@ -53,6 +56,18 @@ public final class TweaksModelGen {
                 potionPad(generator, block);
                 continue;
             }
+            if (block instanceof LaunchpadBlock) {
+                launchpad(generator, block);
+                continue;
+            }
+            if (block instanceof ChunkLoaderBlock) {
+                activePad(generator, block, "", ChunkLoaderBlock.ACTIVE);
+                continue;
+            }
+            if (enderFlypad) {
+                activePad(generator, block, "_ender", FlypadBlock.ACTIVE);
+                continue;
+            }
             TextureMapping texture = enderFlypad ? TextureMapping.defaultTexture(TextureMapping.getBlockTexture(block, "_ender"))
                     : TextureMapping.defaultTexture(block);
             Identifier model = ModelTemplates.PRESSURE_PLATE_UP.create(block, texture, generator.modelOutput);
@@ -96,6 +111,43 @@ public final class TweaksModelGen {
         generator.itemModelOutput.accept(block.asItem(), ItemModelUtils.conditional(
                 new HasComponent(com.simplebuilding.tweaks.component.TweaksComponents.POTION_PAD_COOLDOWN, false),
                 ItemModelUtils.plainModel(cooling), ItemModelUtils.plainModel(ready)));
+    }
+
+    /**
+     * Launchpad (Immersion 2026-09-28): {@code charge=0} die normale Textur, {@code charge=1..3}
+     * {@code <id>_charge_<n>} - die Spirale leuchtet mit jeder Stufe ein Stueck weiter
+     * (tools/textures/generate_textures.py, pad_state_textures). Das Item zeigt das leere Pad.
+     */
+    private static void launchpad(BlockModelGenerators generator, Block block) {
+        Identifier empty = ModelTemplates.PRESSURE_PLATE_UP.create(block, TextureMapping.defaultTexture(block), generator.modelOutput);
+        PropertyDispatch.C1<net.minecraft.client.data.models.MultiVariant, Integer> dispatch = PropertyDispatch.initial(LaunchpadBlock.CHARGE);
+        dispatch.select(0, BlockModelGenerators.plainVariant(empty));
+        for (int level = 1; level <= 3; level++) {
+            String suffix = "_charge_" + level;
+            Identifier model = ModelTemplates.PRESSURE_PLATE_UP.createWithSuffix(block, suffix,
+                    TextureMapping.defaultTexture(TextureMapping.getBlockTexture(block, suffix)), generator.modelOutput);
+            dispatch.select(level, BlockModelGenerators.plainVariant(model));
+        }
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(dispatch));
+        generator.registerSimpleItemModel(block, empty);
+    }
+
+    /**
+     * Pads mit sichtbarem Ein-Zustand (Chunk-Loader, Flypads; Immersion 2026-09-28): {@code active=false}
+     * die Textur {@code <id><base>}, {@code active=true} {@code <id><base>_active}. Das Item zeigt das
+     * ausgeschaltete Pad.
+     */
+    private static void activePad(BlockModelGenerators generator, Block block, String base,
+                                  net.minecraft.world.level.block.state.properties.BooleanProperty active) {
+        Identifier off = ModelTemplates.PRESSURE_PLATE_UP.create(block,
+                TextureMapping.defaultTexture(base.isEmpty() ? TextureMapping.getBlockTexture(block) : TextureMapping.getBlockTexture(block, base)),
+                generator.modelOutput);
+        Identifier on = ModelTemplates.PRESSURE_PLATE_UP.createWithSuffix(block, "_active",
+                TextureMapping.defaultTexture(TextureMapping.getBlockTexture(block, base + "_active")), generator.modelOutput);
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(PropertyDispatch.initial(active)
+                .select(true, BlockModelGenerators.plainVariant(on))
+                .select(false, BlockModelGenerators.plainVariant(off))));
+        generator.registerSimpleItemModel(block, off);
     }
 
     /** Echte Druckplatten (nicht die Pads): sinken gedrueckt ein wie Vanilla-Platten. */
@@ -142,8 +194,8 @@ public final class TweaksModelGen {
     }
 
     /**
-     * Amethystlinse ({@code laser_pointer}): leer (Schaden = Haltbarkeit, normiert 1,0) zeigt
-     * {@code item/laser_pointer_empty}. Solange dieses Bild noch nicht gezeichnet ist, nimmt das
+     * Amethystlinse ({@code amethyst_lens}): leer (Schaden = Haltbarkeit, normiert 1,0) zeigt
+     * {@code item/amethyst_lens_empty}. Solange dieses Bild noch nicht gezeichnet ist, nimmt das
      * Leer-Modell das normale Bild, damit nie die Fehltextur erscheint - nach dem Zeichnen reicht ein
      * neuer Datagen-Lauf.
      */
@@ -169,7 +221,7 @@ public final class TweaksModelGen {
         return false;
     }
 
-    /** Wie ItemModelGenerators#createCompassModels, mit den Bildern echo_compass_00..31 aus generate_textures.py. */
+    /** Wie ItemModelGenerators#createCompassModels, mit den Bildern echo_sounder_00..31 aus generate_textures.py. */
     private static List<RangeSelectItemModel.Entry> echoCompassModels(ItemModelGenerators generator) {
         List<RangeSelectItemModel.Entry> overrides = new ArrayList<>();
         ItemModel.Unbaked base = ItemModelUtils.plainModel(flat(generator, TweaksItems.ECHO_COMPASS, "_16"));

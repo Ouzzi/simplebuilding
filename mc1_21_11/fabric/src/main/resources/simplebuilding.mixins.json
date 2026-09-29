@@ -25,6 +25,7 @@
     "ItemParserStateMixin",
     "ItemUseOnMixin",
     "LivingEntityMixin",
+    "MappedRegistryAliasMixin",
     "MovingPistonExplosionMixin",
     "PistonBlockMixin",
     "PistonHandlerMixin",

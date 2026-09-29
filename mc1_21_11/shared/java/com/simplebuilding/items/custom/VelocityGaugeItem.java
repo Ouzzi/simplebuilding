@@ -11,7 +11,7 @@ import net.minecraft.world.item.component.TooltipDisplay;
 /**
  * Geschwindigkeitsmesser: die Anzeige selbst ist das HUD
  * ({@code client.gui.SpeedometerHudOverlay}); hier nur der Tooltip, der den seit jeher vorhandenen,
- * aber nie gezeigten Schluessel {@code tooltip.simplebuilding.velocity-gauge.tooltip} benutzt und
+ * aber nie gezeigten Schluessel {@code tooltip.simplebuilding.velocity_gauge.tooltip} benutzt und
  * ohne Verzauberung auf Beruehrung des Konstrukteurs hinweist.
  */
 public class VelocityGaugeItem extends Item {
@@ -22,9 +22,9 @@ public class VelocityGaugeItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> lines, TooltipFlag flag) {
-        lines.accept(Component.translatable("tooltip.simplebuilding.velocity-gauge.tooltip").withStyle(ChatFormatting.GRAY));
+        lines.accept(Component.translatable("tooltip.simplebuilding.velocity_gauge.tooltip").withStyle(ChatFormatting.GRAY));
         if (!stack.isEnchanted()) {
-            lines.accept(Component.translatable("tooltip.simplebuilding.velocity-gauge.touch_hint").withStyle(ChatFormatting.DARK_GRAY));
+            lines.accept(Component.translatable("tooltip.simplebuilding.velocity_gauge.touch_hint").withStyle(ChatFormatting.DARK_GRAY));
         }
     }
 }

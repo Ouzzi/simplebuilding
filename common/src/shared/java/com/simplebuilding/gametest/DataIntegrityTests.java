@@ -25,6 +25,7 @@ import com.simplebuilding.items.ModItemGroupsContent;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.recipe.CountBasedSmithingRecipe;
+import com.simplebuilding.util.EnderiteLifetime;
 import com.simplebuilding.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
@@ -41,6 +42,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.ReloadableServerRegistries;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.tags.ItemTags;
@@ -1163,10 +1165,11 @@ public final class DataIntegrityTests {
      * {@code ModTags.Items.isVoidProtectedByRule}, which is the very method the datagen fills it
      * with, so it can only catch a stale tag json - widening or narrowing that rule and re-running
      * datagen would move both sides together. Step 1b therefore states the rule a second time, in
-     * this file, in words: every {@code simplebuilding} item whose registry path begins with
-     * {@code enderite_}, plus {@code raw_enderite}, and nothing else. Changing
-     * {@code VOID_PROTECTED_PATH_PREFIX} or adding to {@code VOID_PROTECTED_EXTRA_PATHS} now has
-     * to be a decision made here as well. The spelled out lists of items that must and must not be
+     * this file, in words: every {@code simplebuilding} item whose registry path contains
+     * {@code enderite}, plus the three flypads, the fine elytra pad and the infused potion pad, and
+     * nothing else (owner decision 2026-09-28: every enderite item). Changing
+     * {@code ModTags.Items#isEnderiteItemByRule} or {@code ENDERITE_ITEMS_EXTRA_PATHS} now has to
+     * be a decision made here as well. The spelled out lists of items that must and must not be
      * protected are the third, coarsest net under both.
      *
      * <p>The list of anchors is not a sample of one family: the enderite bundle and quiver are on
@@ -1207,14 +1210,15 @@ public final class DataIntegrityTests {
         Set<Identifier> byWrittenRule = new TreeSet<>(Comparator.comparing(Identifier::toString));
         for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
             if (MOD_ID.equals(id.getNamespace())
-                    && (id.getPath().startsWith("enderite_") || "raw_enderite".equals(id.getPath()))) {
+                    && (id.getPath().contains("enderite") || Set.of("flypad", "reinforced_flypad", "stellar_flypad",
+                            "fine_elytra_pad", "infused_potion_pad", "echo_sounder").contains(id.getPath()))) {
                 byWrittenRule.add(id);
             }
         }
         if (!actual.equals(byWrittenRule)) {
             problems.add(ModTags.Items.VOID_PROTECTED.location() + " holds " + actual
-                    + ", but the rule this test states - every simplebuilding item whose path starts "
-                    + "with \"enderite_\", plus raw_enderite - selects " + byWrittenRule
+                    + ", but the rule this test states - every simplebuilding item whose path contains "
+                    + "\"enderite\", plus the three flypads, the fine elytra pad, the infused potion pad and the echo sounder - selects " + byWrittenRule
                     + "; the void protection rule was changed, which is a decision that belongs here too");
         }
 
@@ -1233,7 +1237,13 @@ public final class DataIntegrityTests {
                 ModItems.ENDERITE_QUIVER,
                 ModItems.ENDERITE_SLEDGEHAMMER,
                 ModItems.ENDERITE_BUILDING_WAND,
-                ModItems.ENDERITE_UPGRADE_TEMPLATE)) {
+                ModItems.ENDERITE_UPGRADE_TEMPLATE,
+                ModItems.ENCHANTED_ENDERITE_APPLE,
+                ModItems.ENDERITE_HORSE_ARMOR,
+                ModItems.ENDERITE_NAUTILUS_ARMOR,
+                TweaksBlocks.STELLAR_FLYPAD.asItem(),
+                TweaksBlocks.FINE_ELYTRA_PAD.asItem(),
+                TweaksBlocks.INFUSED_POTION_PAD.asItem())) {
             if (!isVoidProtected(new ItemStack(item))) {
                 problems.add(BuiltInRegistries.ITEM.getKey(item) + " is not covered by "
                         + ModTags.Items.VOID_PROTECTED.location());
@@ -2247,6 +2257,12 @@ public final class DataIntegrityTests {
                 vanillaHome.put(BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(tier + "_" + kind)), ModItemGroupsContent.Tab.TOOLS);
             }
         }
+        // Reittier-Ruestung aller Vanilla-Stufen neben der Enderit-Stufe (2026-09-28): 6 Ross-, 5 Nautilus-.
+        for (Item mountArmor : List.of(Items.LEATHER_HORSE_ARMOR, Items.COPPER_HORSE_ARMOR, Items.IRON_HORSE_ARMOR,
+                Items.GOLDEN_HORSE_ARMOR, Items.DIAMOND_HORSE_ARMOR, Items.NETHERITE_HORSE_ARMOR, Items.COPPER_NAUTILUS_ARMOR,
+                Items.IRON_NAUTILUS_ARMOR, Items.GOLDEN_NAUTILUS_ARMOR, Items.DIAMOND_NAUTILUS_ARMOR, Items.NETHERITE_NAUTILUS_ARMOR)) {
+            vanillaHome.put(mountArmor, ModItemGroupsContent.Tab.TOOLS);
+        }
         // Kompass und Bergungskompass neben dem Echo-Kompass in SimpleTools (Besitzer 2026-09-27).
         vanillaHome.put(Items.COMPASS, ModItemGroupsContent.Tab.TOOLS);
         vanillaHome.put(Items.RECOVERY_COMPASS, ModItemGroupsContent.Tab.TOOLS);
@@ -2263,7 +2279,7 @@ public final class DataIntegrityTests {
         if (trims < 18) {
             problems.add("only " + trims + " vanilla armour trim templates are registered");
         }
-        if (vanillaPressurePlates().size() < 16 || vanillaHome.size() != 10 + vanillaPressurePlates().size() + 42 + 28 + 2 + 1 + trims
+        if (vanillaPressurePlates().size() < 16 || vanillaHome.size() != 10 + vanillaPressurePlates().size() + 42 + 28 + 11 + 2 + 1 + trims
                 || vanillaHome.containsKey(Items.AIR)) {
             problems.add("the vanilla tool and armour list names an item that does not exist: " + vanillaHome.size() + " entries");
         }
@@ -2498,6 +2514,238 @@ public final class DataIntegrityTests {
         }
     }
 
+    /** Mod items whose English name says "Enderite" but that are not made of it. */
+    private static final Map<String, String> ENDERITE_NAME_EXEMPT = Map.of(
+            "guide_book_end", "the guide book about the End and enderite, paper and leather");
+
+    /**
+     * Every enderite item of the mod carries both enderite perks (owner decision 2026-09-28): as a
+     * dropped item it floats instead of falling into the void, and it lies twice as long before it
+     * despawns. Both perks read one tag, {@code simplebuilding:enderite_items}, through
+     * {@code void_protected} and {@code double_despawn_time}.
+     *
+     * <p>The test finds the enderite items on its own, twice over: by registry path ("enderite"
+     * anywhere in it - that catches {@code raw_enderite} and {@code enchanted_enderite_apple}) and
+     * by English name ("Enderite" anywhere in the shipped {@code en_us.json}). On top it names the
+     * enderite tiers whose id and name say neither - the three flypads (all smithed from the
+     * enderite pressure plate), the Fine Elytra Pad V, the Infused Potion Pad III and the Echo Sounder
+     * (enderite core and nuggets). Each of them
+     * must be in the tag, reach both perks through it, and a real drop of two of them must float
+     * below the world floor (the mixin, not only the tag).
+     *
+     * <p>What breaks this test: a new enderite item the datagen rule misses, a stale tag json,
+     * {@code void_protected} or {@code double_despawn_time} no longer including the tag, a mixin
+     * that reads another tag, and a rule so wide that netherite or ender items slip in.
+     */
+    public static void everyEnderiteItemIsInTheEnderiteItemsTag(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        JsonObject en = langFile(helper, "en_us");
+
+        Set<String> found = new TreeSet<>();
+        for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
+            if (!MOD_ID.equals(id.getNamespace()) || ENDERITE_NAME_EXEMPT.containsKey(id.getPath())) {
+                continue;
+            }
+            Item item = BuiltInRegistries.ITEM.getValue(id);
+            JsonElement name = en.get(item.getDescriptionId());
+            if (id.getPath().contains("enderite") || (name != null && name.getAsString().contains("Enderite"))) {
+                found.add(id.toString());
+            }
+        }
+        List<Item> tiersWithoutTheWord = List.of(TweaksBlocks.FLYPAD.asItem(), TweaksBlocks.REINFORCED_FLYPAD.asItem(),
+                TweaksBlocks.STELLAR_FLYPAD.asItem(), TweaksBlocks.FINE_ELYTRA_PAD.asItem(),
+                TweaksBlocks.INFUSED_POTION_PAD.asItem(), TweaksItems.ECHO_COMPASS);
+        for (Item item : tiersWithoutTheWord) {
+            found.add(BuiltInRegistries.ITEM.getKey(item).toString());
+        }
+
+        // Anchors, spelled out: a finder that goes blind must not make the loop below pass trivially.
+        for (Item anchor : List.of(ModItems.ENDERITE_INGOT, ModItems.RAW_ENDERITE, ModItems.ENDERITE_SCRAP,
+                ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_CHESTPLATE,
+                ModItems.ENDERITE_HORSE_ARMOR, ModItems.ENDERITE_NAUTILUS_ARMOR, ModItems.ENDERITE_APPLE,
+                ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_BLOCK_ITEM, ModItems.ENDERITE_QUIVER,
+                TweaksBlocks.ENDERITE_SPAWN_TELEPORTER.asItem())) {
+            if (!found.contains(BuiltInRegistries.ITEM.getKey(anchor).toString())) {
+                problems.add("test broken: the enderite finder does not see " + BuiltInRegistries.ITEM.getKey(anchor));
+            }
+        }
+
+        for (String id : found) {
+            ItemStack stack = new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse(id)));
+            List<String> missing = new ArrayList<>();
+            if (!stack.typeHolder().is(ModTags.Items.ENDERITE_ITEMS)) {
+                missing.add(ModTags.Items.ENDERITE_ITEMS.location().toString());
+            }
+            if (!isVoidProtected(stack)) {
+                missing.add(ModTags.Items.VOID_PROTECTED.location().toString());
+            }
+            if (EnderiteLifetime.lifetime(stack, 6000) != ModTags.Items.DOUBLE_DESPAWN_LIFETIME) {
+                missing.add(ModTags.Items.DOUBLE_DESPAWN_TIME.location() + " (lifetime "
+                        + EnderiteLifetime.lifetime(stack, 6000) + ")");
+            }
+            if (!missing.isEmpty()) {
+                problems.add(id + " is an enderite item but not in " + missing);
+            }
+        }
+
+        // The other end: the tag holds exactly what the rule names, and nothing that is not enderite.
+        Set<String> tagged = new TreeSet<>();
+        for (Holder<Item> holder : BuiltInRegistries.ITEM.getTagOrEmpty(ModTags.Items.ENDERITE_ITEMS)) {
+            holder.unwrapKey().ifPresent(key -> tagged.add(key.identifier().toString()));
+        }
+        if (!tagged.equals(found)) {
+            Set<String> extra = new TreeSet<>(tagged);
+            extra.removeAll(found);
+            Set<String> lacking = new TreeSet<>(found);
+            lacking.removeAll(tagged);
+            problems.add(ModTags.Items.ENDERITE_ITEMS.location() + " additionally holds " + extra
+                    + " and lacks " + lacking + " (datagen not re-run, or the rule drifted from this test)");
+        }
+        for (Item control : List.of(ModItems.NETHERITE_QUIVER, ModItems.NETHERITE_CORE, ModItems.ENDER_QUARTZ,
+                TweaksBlocks.NETHERITE_FLYPAD.asItem(), ModItems.GUIDE_BOOK_END, Items.NETHERITE_INGOT,
+                Items.NETHERITE_HORSE_ARMOR, Items.ENDER_PEARL)) {
+            ItemStack stack = new ItemStack(control);
+            if (stack.typeHolder().is(ModTags.Items.ENDERITE_ITEMS) || isVoidProtected(stack)
+                    || EnderiteLifetime.lifetime(stack, 6000) != 6000) {
+                problems.add(BuiltInRegistries.ITEM.getKey(control) + " gets an enderite perk but is no enderite item");
+            }
+        }
+
+        // The mixin, for two items the old "enderite_" prefix rule missed.
+        ServerLevel level = helper.getLevel();
+        int minY = level.getMinY();
+        BlockPos anchor = helper.absolutePos(new BlockPos(3, 1, 3));
+        for (Item item : List.of(TweaksBlocks.STELLAR_FLYPAD.asItem(), ModItems.ENCHANTED_ENDERITE_APPLE)) {
+            ItemEntity entity = dropBelowTheWorld(helper, new ItemStack(item), anchor, minY - 20.0);
+            entity.tick();
+            if (!entity.isNoGravity() || entity.getY() < minY) {
+                problems.add("a dropped " + BuiltInRegistries.ITEM.getKey(item) + " below the world was left in the void at Y="
+                        + entity.getY());
+            }
+        }
+
+        helper.assertTrue(problems.isEmpty(), "enderite perks: " + problems);
+        helper.succeed();
+    }
+
+    /**
+     * The six legacy spatulas (from before the rename to chisels) have no recipe and only exist
+     * for old worlds; recipe viewers must not list them (owner decision 2026-09-28). JEI, REI and
+     * EMI all hide what is in the convention tag {@code c:hidden_from_recipe_viewers}; the JEI info
+     * page that used to explain them is gone, and the chisels they turn into stay visible.
+     *
+     * <p>What breaks this test: a spatula dropped from the hidden tag (it shows up in JEI without a
+     * recipe again), the info page brought back, or the chisels hidden by mistake.
+     */
+    public static void legacySpatulasAreHiddenFromRecipeViewers(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        TagKey<Item> hidden = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "hidden_from_recipe_viewers"));
+        List<Item> spatulas = List.of(ModItems.STONE_SPATULA, ModItems.COPPER_SPATULA, ModItems.IRON_SPATULA,
+                ModItems.GOLD_SPATULA, ModItems.DIAMOND_SPATULA, ModItems.NETHERITE_SPATULA);
+        for (Item spatula : spatulas) {
+            if (!new ItemStack(spatula).is(hidden)) {
+                problems.add(BuiltInRegistries.ITEM.getKey(spatula) + " is not in c:hidden_from_recipe_viewers, so JEI/REI/EMI list it");
+            }
+        }
+        com.simplebuilding.compat.RecipelessJeiInfo.pages().forEach((page, items) -> {
+            for (net.minecraft.world.level.ItemLike item : items) {
+                if (spatulas.contains(item.asItem())) {
+                    problems.add("the JEI info page " + page + " still lists " + BuiltInRegistries.ITEM.getKey(item.asItem()));
+                }
+            }
+        });
+        if (langFile(helper, "en_us").has("jei.simplebuilding.info.legacy_spatula")) {
+            problems.add("en_us.json still carries the removed JEI page jei.simplebuilding.info.legacy_spatula");
+        }
+        for (Item chisel : List.of(ModItems.STONE_CHISEL, ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL)) {
+            if (new ItemStack(chisel).is(hidden)) {
+                problems.add(BuiltInRegistries.ITEM.getKey(chisel) + " is hidden from recipe viewers, but it is the current tool");
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), "legacy spatulas in recipe viewers: " + problems);
+        helper.succeed();
+    }
+
+    /**
+     * Enderite horse armor and enderite nautilus armor (owner decision 2026-09-28) sit a step
+     * above vanilla's netherite ones: more armor on the body slot (22 against 19), at least as much
+     * toughness and knockback resistance, fire resistant, worn only by the animals vanilla's
+     * versions fit, drawn with the {@code simplebuilding:enderite} equipment asset - whose
+     * {@code horse_body} and {@code nautilus_body} layers and textures must ship, or the armor is
+     * invisible on the animal. The smithing recipes are pinned in
+     * {@link #everyEnderiteGearPieceUpgradesFromItsNetheriteTwin}.
+     *
+     * <p>What breaks this test: a weaker or missing BODY value on the enderite armor material, the
+     * wrong equippable (humanoid slot, no entity restriction), a missing equipment layer or texture.
+     */
+    public static void enderiteHorseAndNautilusArmorRankOneStepAboveNetherite(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        Object[][] pairs = {
+                {ModItems.ENDERITE_HORSE_ARMOR, Items.NETHERITE_HORSE_ARMOR, EntityTypes.HORSE, EntityTypes.ZOMBIE, "horse_body"},
+                {ModItems.ENDERITE_NAUTILUS_ARMOR, Items.NETHERITE_NAUTILUS_ARMOR, EntityTypes.NAUTILUS, EntityTypes.HORSE, "nautilus_body"}};
+        for (Object[] pair : pairs) {
+            ItemStack enderite = new ItemStack((Item) pair[0]);
+            ItemStack netherite = new ItemStack((Item) pair[1]);
+            net.minecraft.world.entity.EntityType<?> wearer = (net.minecraft.world.entity.EntityType<?>) pair[2];
+            net.minecraft.world.entity.EntityType<?> stranger = (net.minecraft.world.entity.EntityType<?>) pair[3];
+            String name = BuiltInRegistries.ITEM.getKey(enderite.getItem()).getPath();
+
+            double armor = bodyValue(enderite, net.minecraft.world.entity.ai.attributes.Attributes.ARMOR);
+            double netheriteArmor = bodyValue(netherite, net.minecraft.world.entity.ai.attributes.Attributes.ARMOR);
+            if (armor != 22.0 || armor <= netheriteArmor) {
+                problems.add(name + " gives " + armor + " armor on the body slot, netherite gives " + netheriteArmor
+                        + "; expected 22, a step above");
+            }
+            for (var attribute : List.of(net.minecraft.world.entity.ai.attributes.Attributes.ARMOR_TOUGHNESS,
+                    net.minecraft.world.entity.ai.attributes.Attributes.KNOCKBACK_RESISTANCE)) {
+                if (bodyValue(enderite, attribute) < bodyValue(netherite, attribute)) {
+                    problems.add(name + " has less " + attribute.getRegisteredName() + " than its netherite twin");
+                }
+            }
+
+            net.minecraft.world.item.equipment.Equippable equippable = enderite.get(DataComponents.EQUIPPABLE);
+            if (equippable == null || equippable.slot() != net.minecraft.world.entity.EquipmentSlot.BODY) {
+                problems.add(name + " is not worn on the body slot: " + equippable);
+            } else {
+                if (!equippable.canBeEquippedBy(wearer.builtInRegistryHolder())) {
+                    problems.add(name + " cannot be worn by " + BuiltInRegistries.ENTITY_TYPE.getKey(wearer));
+                }
+                if (equippable.canBeEquippedBy(stranger.builtInRegistryHolder())) {
+                    problems.add(name + " can be worn by " + BuiltInRegistries.ENTITY_TYPE.getKey(stranger));
+                }
+                if (!equippable.assetId().map(key -> key.identifier().toString()).orElse("").equals(MOD_ID + ":enderite")) {
+                    problems.add(name + " is drawn with " + equippable.assetId() + " instead of " + MOD_ID + ":enderite");
+                }
+            }
+            if (!isFireResistant(helper, enderite)) {
+                problems.add(name + " burns in fire and lava, but everything made of enderite is fire resistant");
+            }
+
+            String layer = (String) pair[4];
+            JsonObject asset = shippedJson("assets/simplebuilding/equipment/enderite.json", json -> json.has("layers"));
+            if (asset == null || !asset.getAsJsonObject("layers").has(layer)) {
+                problems.add("equipment/enderite.json has no " + layer + " layer, so " + name + " is invisible on the animal");
+            }
+            String texture = "/assets/simplebuilding/textures/entity/equipment/" + layer + "/enderite.png";
+            if (DataIntegrityTests.class.getResource(texture) == null) {
+                problems.add(texture + " is not shipped");
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), "enderite mount armor: " + problems);
+        helper.succeed();
+    }
+
+    /** The value an item's attribute modifiers add to {@code attribute} on the body slot, from 0. */
+    private static double bodyValue(ItemStack stack, Holder<net.minecraft.world.entity.ai.attributes.Attribute> attribute) {
+        return stack.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, net.minecraft.world.item.component.ItemAttributeModifiers.EMPTY)
+                .compute(attribute, 0.0, net.minecraft.world.entity.EquipmentSlot.BODY);
+    }
+
+    private static boolean isFireResistant(GameTestHelper helper, ItemStack stack) {
+        net.minecraft.world.item.component.DamageResistant resistant = stack.get(DataComponents.DAMAGE_RESISTANT);
+        return resistant != null && resistant.isResistantTo(helper.getLevel().damageSources().lava());
+    }
+
     /**
      * Every enderite gear piece comes from its netherite twin at the smithing table: enderite
      * upgrade template + netherite piece + enderite ingot, under {@code simplebuilding:enderite_<kind>_smithing}.
@@ -2509,7 +2757,7 @@ public final class DataIntegrityTests {
         RecipeManager recipes = level.getServer().getRecipeManager();
         List<String> problems = new ArrayList<>();
         for (String kind : List.of("pickaxe", "shovel", "hoe", "axe", "sword", "spear",
-                "helmet", "chestplate", "leggings", "boots")) {
+                "helmet", "chestplate", "leggings", "boots", "horse_armor", "nautilus_armor")) {
             Item netherite = BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("netherite_" + kind));
             Item enderite = BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(MOD_ID, "enderite_" + kind));
             if (netherite == Items.AIR || enderite == Items.AIR) {
@@ -2577,6 +2825,11 @@ public final class DataIntegrityTests {
             family.add(top);
             expected.add(family);
         });
+        // Reittier-Ruestung (2026-09-28): alle Vanilla-Stufen, oben Enderit.
+        expected.add(List.of(Items.LEATHER_HORSE_ARMOR, Items.COPPER_HORSE_ARMOR, Items.IRON_HORSE_ARMOR,
+                Items.GOLDEN_HORSE_ARMOR, Items.DIAMOND_HORSE_ARMOR, Items.NETHERITE_HORSE_ARMOR, ModItems.ENDERITE_HORSE_ARMOR));
+        expected.add(List.of(Items.COPPER_NAUTILUS_ARMOR, Items.IRON_NAUTILUS_ARMOR, Items.GOLDEN_NAUTILUS_ARMOR,
+                Items.DIAMOND_NAUTILUS_ARMOR, Items.NETHERITE_NAUTILUS_ARMOR, ModItems.ENDERITE_NAUTILUS_ARMOR));
         // Geraete (Besitzer 2026-09-27): Kompassartiges zuerst, dann Magnet, Rotator, Amethystlinse, Oktant.
         // Genau neun, also ohne Fueller: im Tab laufen sie direkt in die gefaerbten Oktanten der naechsten
         // Zeile weiter, und rowLayout liest beides als eine Kategorie - die Neun vorne belegt die Zeilengrenze.
@@ -2588,10 +2841,19 @@ public final class DataIntegrityTests {
         }
         expected.add(gadgetsThenColored);
         // Handbuecher: Einsteiger-Handbuch, dann die sieben Themenbuecher (GuideBooks.Book-Reihenfolge).
-        expected.add(java.util.Arrays.stream(com.simplebuilding.guide.GuideBooks.Book.values()).map(com.simplebuilding.guide.GuideBooks::item).toList());
+        List<Item> guideBooks = java.util.Arrays.stream(com.simplebuilding.guide.GuideBooks.Book.values()).map(com.simplebuilding.guide.GuideBooks::item).toList();
         int modEnchantments = (int) helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
                 .listElements().filter(h -> MOD_ID.equals(h.key().identifier().getNamespace())).count();
-        expected.add(Collections.nCopies(modEnchantments, Items.ENCHANTED_BOOK));
+        // Seit dem Admin-Buch sind es neun Handbuecher: eine volle Zeile ohne Fueller, die verzauberten
+        // Buecher laufen direkt weiter - rowLayout liest beides dann als eine Kategorie (wie bei den Geraeten).
+        if (guideBooks.size() % 9 == 0) {
+            List<Item> booksThenEnchanted = new ArrayList<>(guideBooks);
+            booksThenEnchanted.addAll(Collections.nCopies(modEnchantments, Items.ENCHANTED_BOOK));
+            expected.add(booksThenEnchanted);
+        } else {
+            expected.add(guideBooks);
+            expected.add(Collections.nCopies(modEnchantments, Items.ENCHANTED_BOOK));
+        }
 
         List<List<Item>> categories = rowLayout(helper, ModItemGroupsContent.Tab.TOOLS, problems);
         if (!categories.equals(expected)) {
@@ -3543,10 +3805,10 @@ public final class DataIntegrityTests {
                 "hud.simplebuilding.rangefinder.distance", "hud.simplebuilding.rangefinder.area",
                 "hud.simplebuilding.rangefinder.volume", "hud.simplebuilding.velocity_gauge.title",
                 "hud.simplebuilding.velocity_gauge.stats", "hud.simplebuilding.velocity_gauge.unit",
-                "tooltip.simplebuilding.velocity-gauge.tooltip", "tooltip.simplebuilding.velocity-gauge.touch_hint",
-                "hud.simplebuilding.laser_pointer.laser", "hud.simplebuilding.laser_pointer.distance",
-                "hud.simplebuilding.laser_pointer.height", "tooltip.simplebuilding.laser_pointer.last_measured",
-                "tooltip.simplebuilding.laser_pointer.last_target", "tooltip.simplebuilding.laser_pointer.touch_hint",
+                "tooltip.simplebuilding.velocity_gauge.tooltip", "tooltip.simplebuilding.velocity_gauge.touch_hint",
+                "hud.simplebuilding.amethyst_lens.laser", "hud.simplebuilding.amethyst_lens.distance",
+                "hud.simplebuilding.amethyst_lens.height", "tooltip.simplebuilding.amethyst_lens.last_measured",
+                "tooltip.simplebuilding.amethyst_lens.last_target", "tooltip.simplebuilding.amethyst_lens.touch_hint",
                 "item.simplebuilding.structure_compass.dimension", "item.simplebuilding.structure_compass.no_signal",
                 "item.simplebuilding.structure_compass.no_signal.line1", "item.simplebuilding.structure_compass.no_signal.line2"));
         for (String template : List.of("glowing", "emitting")) {
@@ -3629,10 +3891,10 @@ public final class DataIntegrityTests {
         }
         java.util.Map<String, String[]> expected = new java.util.LinkedHashMap<>();
         expected.put("hud.simplebuilding.velocity_gauge.title", new String[]{"Velocity", "Geschwindigkeit"});
-        expected.put("item.simplebuilding.velocity-gauge", new String[]{"Velocity Gauge", "Geschwindigkeitsmesser"});
-        expected.put("item.simplebuilding.laser_pointer", new String[]{"Amethyst Lens", "Amethystlinse"});
-        expected.put("item.simplebuilding.echo_compass", new String[]{"Echo Sounder", "Echolot"});
-        expected.put("hud.simplebuilding.laser_pointer.laser", new String[]{"Laser", "Laser"});
+        expected.put("item.simplebuilding.velocity_gauge", new String[]{"Velocity Gauge", "Geschwindigkeitsmesser"});
+        expected.put("item.simplebuilding.amethyst_lens", new String[]{"Amethyst Lens", "Amethystlinse"});
+        expected.put("item.simplebuilding.echo_sounder", new String[]{"Echo Sounder", "Echolot"});
+        expected.put("hud.simplebuilding.amethyst_lens.laser", new String[]{"Laser", "Laser"});
         for (var entry : expected.entrySet()) {
             String english = en.has(entry.getKey()) ? en.get(entry.getKey()).getAsString() : null;
             String german = de.has(entry.getKey()) ? de.get(entry.getKey()).getAsString() : null;
@@ -3805,7 +4067,8 @@ public final class DataIntegrityTests {
 
     /** Ausruestung im Vanilla-Sinn: bleibt auf jeder Stufe COMMON, wie Vanillas Netheritschwert. */
     private static final List<String> GEAR_SUFFIXES = List.of("_sword", "_spear", "_pickaxe", "_axe", "_shovel", "_hoe",
-            "_helmet", "_chestplate", "_leggings", "_boots", "_chisel", "_spatula", "_sledgehammer", "_building_wand");
+            "_helmet", "_chestplate", "_leggings", "_boots", "_chisel", "_spatula", "_sledgehammer", "_building_wand",
+            "_horse_armor", "_nautilus_armor");
     /** Werkstoffe: COMMON wie Netheritbarren, -platten und -block, auch aus Enderit. */
     private static final Set<String> MATERIALS = Set.of("enderite_ingot", "enderite_scrap", "enderite_nugget",
             "enderite_block", "netherite_nugget", "raw_enderite");
@@ -3832,7 +4095,7 @@ public final class DataIntegrityTests {
             Map.entry("fine_elytra_pad", net.minecraft.world.item.Rarity.EPIC),
             // Geraete nach ihrer wertvollsten Zutat: Echoscherben (Vanilla UNCOMMON), Enderit-Kern
             Map.entry("ore_detector", net.minecraft.world.item.Rarity.UNCOMMON),
-            Map.entry("echo_compass", net.minecraft.world.item.Rarity.EPIC),
+            Map.entry("echo_sounder", net.minecraft.world.item.Rarity.EPIC),
             // Koepfe wie Vanillas Mob-Koepfe, Easter wie das Drachenei, Technik wie die Barriere
             Map.entry("blaze_head", net.minecraft.world.item.Rarity.UNCOMMON),
             Map.entry("enderman_head", net.minecraft.world.item.Rarity.UNCOMMON),
@@ -3840,7 +4103,7 @@ public final class DataIntegrityTests {
             Map.entry("creative_spacer", net.minecraft.world.item.Rarity.EPIC));
     /** Feuerfest ausser allem mit netherite_/enderite_ vorn: alles, was mit Netherit oder Enderit gebaut wird. */
     private static final Set<String> FIRE_RESISTANT_EXTRA = Set.of("enchanted_netherite_apple", "enchanted_enderite_apple",
-            "echo_compass", "spawn_teleporter_tier_2", "spawn_teleporter_tier_3", "spawn_teleporter_tier_4",
+            "echo_sounder", "spawn_teleporter_tier_2", "spawn_teleporter_tier_3", "spawn_teleporter_tier_4",
             "potion_pad", "reinforced_potion_pad", "infused_potion_pad", "flypad", "reinforced_flypad", "stellar_flypad",
             "fine_elytra_pad",
             // Ausnahmen mit eigenem Grund: die geliehene Spawn-Elytra verbrennt nicht ueber Lava, der Easter-Stock nie

@@ -618,6 +618,8 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.RAW_ENDERITE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_INGOT, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDERITE_SCRAP, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_HORSE_ARMOR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ENDERITE_NAUTILUS_ARMOR, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.NIHILITH_SHARD, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ASTRALIT_DUST, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDER_QUARTZ, ModelTemplates.FLAT_ITEM);
