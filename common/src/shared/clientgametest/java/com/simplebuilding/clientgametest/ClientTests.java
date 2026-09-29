@@ -87,7 +87,10 @@ public final class ClientTests {
                 new Entry("backpack", BackpackClientTest::inWorld),
                 new Entry("blueprint-editor", BlueprintEditorClientTest::inWorld),
                 // Reads only the baked block models, so it needs no scene and leaves none behind.
-                new Entry("piston-textures", PistonTextureClientTest::inWorld));
+                new Entry("piston-textures", PistonTextureClientTest::inWorld),
+                // Reads the stitched items atlas, then shows trimmed armour in the inventory and
+                // puts the hotbar back empty.
+                new Entry("trim-textures", TrimTextureClientTest::inWorld));
     }
 
     /**

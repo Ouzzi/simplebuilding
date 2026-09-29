@@ -158,6 +158,23 @@ ext.mcVersionResourceRewrites = { SourceSet sourceSet ->
         from(new File(sharedResources, 'assets/simplebuilding/textures/trims/color_palettes')) {
             into 'assets/simplebuilding/textures/palettes/trim'
         }
+        // ...and the 26.2 copies stay out. 26.3 reads no palette from textures/trims/color_palettes
+        // (vanilla moved its own to textures/palettes/trim), but NeoForge 26.3 still ships an items
+        // atlas source neoforge:directory_paletted_permutations that pairs every palette found there
+        // with every texture in textures/trims/items, keyed with the 26.2 palette
+        // minecraft:trims/color_palettes/trim_palette. With the mod's 26.2 palettes present that made
+        // 456 broken sprites (6 palettes x 76 trim masks, "Failed to load palette image") and replaced
+        // the mod's own Astralit/Enderite/Nihilith trim item sprites. The armor_trims atlas is gone in
+        // 26.3 as well. checkAtlases (gradle/check-atlases.gradle) guards both.
+        List<String> droppedOn263 = ['assets/*/textures/trims/color_palettes/**', 'assets/minecraft/atlases/armor_trims.json']
+        filesMatching(droppedOn263) {
+            exclude()
+        }
+        // ProcessResources copies without deleting: copies from an earlier build would stay behind.
+        doFirst {
+            File out = destinationDir
+            project.delete(project.fileTree(out) { include droppedOn263 })
+        }
         // The items atlas (vanilla trim layers + the mod's 72 trim pattern masks) is written once, in
         // 26.2 terms, in src/main/resources. 26.3 names the palettes differently: key palette
         // minecraft:trim_base (pixel for pixel the 26.2 trim_palette) and palettes under

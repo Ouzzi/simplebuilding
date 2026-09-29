@@ -211,3 +211,6 @@ java {
 	sourceCompatibility = JavaVersion.VERSION_25
 	targetCompatibility = JavaVersion.VERSION_25
 }
+
+// Texture atlas sources vs. the textures the game finds (gradle/check-atlases.gradle).
+apply from: rootProject.file('gradle/check-atlases.gradle')

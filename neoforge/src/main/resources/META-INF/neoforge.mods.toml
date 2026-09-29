@@ -28,11 +28,19 @@ displayURL="https://azarfane.de/"
 # The 1.21.11 line keeps logoFile -- NeoForge 21.11.45 has no such warning and no iconFile.
 iconFile="assets/simplebuilding/icon.png"
 
+# AFTER, not NONE: the mod's resource pack must sit above NeoForge's. NeoForge 26.x ships its own
+# assets/minecraft/items/<armour>.json (neoforge:trimmed_armor) for all 25 vanilla armour pieces
+# plus the turtle shell, and the pack order follows the mod order - with NONE NeoForge loaded last
+# and those files hid the mod's trim icon definitions (simplebuilding:visible_trim_icons): on 26.2
+# the icons fell back to NeoForge's plain material spot, on 26.3 (NeoForge 26.3.0.16-beta has the
+# trim layer commented out, "TODO 26.3") trimmed vanilla armour showed no trim at all. Nothing
+# else of NeoForge's is overridden by the mod (the other shared paths are tags and atlases,
+# which merge). The client test trim-textures checks which model the client resolves.
 [[dependencies.${modId}]]
 modId="neoforge"
 type="required"
 versionRange="[26,)"
-ordering="NONE"
+ordering="AFTER"
 side="BOTH"
 
 [[dependencies.${modId}]]
