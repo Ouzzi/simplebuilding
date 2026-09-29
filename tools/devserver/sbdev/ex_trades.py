@@ -2,9 +2,9 @@
 Handel (26.2 und 26.3): data/simplebuilding/villager_trade/**.json plus die Tag-Dateien, die die
 Angebote in die Vanilla-Pools einhaengen (data/minecraft/tags/villager_trade/...).
 
-Handelswerte sind die einzigen, die schon in Phase 1 "in der Mod wirken": Speichern schreibt sie
-chirurgisch (jsonedit) in genau diese Dateien. Die 1.21.11-Linie baut ihre Angebote in Java
-(ModTradeDefinitions) - dort wirkt eine Änderung erst mit Phase 2; die Oberfläche sagt das.
+Speichern schreibt Handelswerte chirurgisch (jsonedit) in genau diese Dateien. Die 1.21.11-Linie baut
+ihre Angebote in Java (ModTradeDefinitions); ex_javadata.link_trades_legacy hängt die passenden
+Java-Stellen als Zwillinge an, damit Speichern dort mitschreibt (wo die Zuordnung eindeutig ist).
 """
 
 from __future__ import annotations
@@ -17,7 +17,8 @@ from .values import problem, value
 
 TRADE_DIR = "src/main/resources/data/simplebuilding/villager_trade"
 TAG_DIR = "src/main/resources/data/minecraft/tags/villager_trade"
-LEGACY_NOTE = "1.21.11: ModTradeDefinitions.java (Java) - wirkt dort erst mit Phase 2"
+LEGACY_NOTE = ("Speichern schreibt in villager_trade/*.json (26.2/26.3) und, wo eindeutig zuordenbar, in "
+               "ModTradeDefinitions.java (1.21.11)")
 
 PROFESSIONS_DE = {
     "librarian": "Bibliothekar", "mason": "Steinmetz", "toolsmith": "Werkzeugschmied", "armorer": "Rüstungsschmied",
@@ -84,7 +85,8 @@ def extract(repo: Path, vanilla_pools: dict) -> tuple[list[dict], list[dict], li
                     record["source"]["insert"] = insert
                 else:
                     record["readonly"] = True
-                    record["note"] = f"fehlt in der Datei (Standard {default}); nur in Phase 2 änderbar"
+                    record["note"] = f"fehlt in der Datei (Standard {default}); nur von Hand änderbar (Feld einfügen)"
+                    record["apply"] = "plan"
             values.append(record)
             return record["id"]
 

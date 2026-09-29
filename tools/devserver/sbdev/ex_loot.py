@@ -1,7 +1,7 @@
 """
 Beute-Pools der Mod aus ModLootTableModifications.java lesen - mit Datei, Zeile und Zeichenbereich
-jedes Zahlenliterals, damit Phase 2 genau diese Stelle ersetzen (oder in ein Datenpaket
-ueberfuehren) kann.
+jedes Zahlenliterals: Speichern ersetzt genau dieses Literal (javaedit) - hier und in der Kopie der
+Linie 1.21.11 -, und runDatagen macht daraus die Inject-Tabellen (LootInjection).
 
 Die Pools werden in Java gebaut, nicht in JSON. Der Parser kennt die Bausteine, die die Datei
 benutzt (enchantedBook, item, counted, EmptyLootItem, LootItem.lootTableItem ... setWeight/apply,
@@ -19,8 +19,11 @@ import re
 import sys
 from pathlib import Path
 
-from . import javasrc
+from . import javasrc, sites
 from .values import problem, value
+
+DATAGEN_NOTE = ("Speichern schreibt das Literal in ModLootTableModifications.java (26.2/26.3/26.4 und 1.21.11); "
+                "die Inject-Tabellen (data/simplebuilding/loot_table/inject/...) entstehen daraus mit runDatagen.")
 
 LOOT_FILE = "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java"
 
@@ -47,16 +50,19 @@ def loot_table_names(repo: Path) -> dict:
     return tables
 
 
-ROLLS = re.compile(r"LootNumbers\.(exactly|between|binomial)\(")
+# 26.2: LootNumbers.exactly/between/binomial (Versions-Shim), 1.21.11: die Vanilla-Klassen direkt
+ROLLS = re.compile(r"(?:LootNumbers|ConstantValue|UniformGenerator|BinomialDistributionGenerator)\.(exactly|between|binomial)\(")
 
 
-def extract(repo: Path, item_ids: set[str], ench_ids: set[str], constants: dict) -> tuple[dict, list[dict], list[dict]]:
+def extract(repo: Path, item_ids: set[str], ench_ids: set[str], constants: dict,
+            rel: str = LOOT_FILE) -> tuple[dict, list[dict], list[dict]]:
     """
     -> ({"tables": [...], "coreConstants": [...]}, values, problems)
 
     constants: Name -> Wertdatensatz der Code-Konstanten dieser Datei (aus ex_constants), damit
     rareCore(..., IRON_CORE_CHANCE) auf denselben Wert zeigt, den die Konstanten-Seite zeigt.
     """
+    LOOT_FILE = rel  # noqa: N806 - dieselbe Auslese für die Zwillingsdatei der Linie 1.21.11
     path = repo / LOOT_FILE
     problems: list[dict] = []
     values: list[dict] = []
@@ -68,10 +74,11 @@ def extract(repo: Path, item_ids: set[str], ench_ids: set[str], constants: dict)
     lines = javasrc.Lines(text)
     names = loot_table_names(repo)
 
-    def src(start, end=None):
-        out = {"file": LOOT_FILE, "line": lines.line(start)}
-        if end is not None:
-            out["span"] = [start, end]
+    def src(start, end=None, kind="int"):
+        if end is None:
+            return {"file": LOOT_FILE, "line": lines.line(start)}
+        out = sites.java_site(LOOT_FILE, text, lines, start, end, "float" if kind == "prob" else "int")
+        out["lines"] = sites.main_lines(LOOT_FILE)
         return out
 
     def item_id(owner_const: str, at: int) -> str:
@@ -97,7 +104,8 @@ def extract(repo: Path, item_ids: set[str], ench_ids: set[str], constants: dict)
         if javasrc.NUMBER.fullmatch(token):
             number, is_int = javasrc.parse_number(token)
             record = value(vid, "loot", label, kind, javasrc.format_number(number, is_int and kind == "int"),
-                           group=group, min=lo, max=hi, source=src(start, end), refs=refs, unit=unit)
+                           group=group, min=lo, max=hi, source=src(start, end, kind), refs=refs, unit=unit, apply="mod",
+                           note=DATAGEN_NOTE)
             values.append(record)
             return record["id"], record["value"]
         name = token.split(".")[-1]
@@ -140,7 +148,7 @@ def extract(repo: Path, item_ids: set[str], ench_ids: set[str], constants: dict)
         block_start = text.index("{", cond_end)
         block_end = javasrc.closing(text, block_start, "{", "}")
         pos = block_end
-        if "enableLootTableChanges" in cond:
+        if "enableLootTableChanges" in cond or "ServerTuning" in cond:
             gated = True
             continue
         consts = re.findall(r"BuiltInLootTables\.(\w+)\.equals\(key\)", cond)
@@ -261,7 +269,24 @@ def extract(repo: Path, item_ids: set[str], ench_ids: set[str], constants: dict)
                 table["pools"].append(dict(pool, block=block_key))
     if not tables:
         problems.append(problem("loot", "keine Pools gefunden", file=LOOT_FILE, why="Parser passt nicht mehr zur Datei"))
+    if rel == LOOT_FILE_MAIN:
+        sites.attach_twins(repo, {r["id"]: r for r in values}, LOOT_FILE, read_twin)
     return {"tables": list(tables.values())}, values, problems
+
+
+LOOT_FILE_MAIN = LOOT_FILE
+
+
+def read_twin(repo: Path, twin_rel: str) -> dict[str, dict]:
+    """Dieselben Beute-Ids in der Zwillingsdatei (1.21.11) - Stelle und Wert je Literal."""
+    _tables, twin_values, _problems = extract(repo, set(), set(), {}, rel=twin_rel)
+    out = {}
+    for record in twin_values:
+        site = dict(record["source"])
+        site.pop("lines", None)
+        site["value"] = record["value"]
+        out[record["id"]] = site
+    return out
 
 
 def _entry(text: str, start: int, end: int, item_id, ench_id) -> dict | None:

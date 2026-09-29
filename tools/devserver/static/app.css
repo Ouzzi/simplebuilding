@@ -130,6 +130,8 @@ a.tile:hover { text-decoration: none; border-color: var(--accent); transform: tr
 .b-mod { border-color: color-mix(in srgb, var(--accent) 55%, transparent); color: var(--accent-strong); background: var(--accent-soft); }
 .b-p2 { border-color: var(--warn-border); color: var(--warn-text); background: var(--warn-bg); }
 .b-tool { border-color: var(--info-border); color: var(--info-text); background: var(--info-bg); }
+.b-lines { border-style: dashed; color: var(--muted); margin-left: .2em; }
+.joblog { max-height: 260px; overflow: auto; background: var(--code-bg); padding: .6rem; border-radius: 8px; font-size: .72rem; white-space: pre-wrap; word-break: break-all; margin: .4rem 0; }
 .b-planned { border-color: color-mix(in srgb, var(--end) 55%, transparent); color: var(--end); background: var(--end-soft); }
 .b-drift, .b-danger { border-color: var(--danger-border); color: var(--danger-text); background: var(--danger-bg); font-weight: 700; }
 .b-draft { border-color: var(--warn-border); color: var(--warn-text); background: var(--warn-bg); font-weight: 700; }
@@ -296,3 +298,4 @@ a.tile:hover { text-decoration: none; border-color: var(--accent); transform: tr
   .filters input[type="search"] { min-width: 0; width: 100%; }
   .pending { left: 12px; right: 12px; transform: none; flex-wrap: wrap; }
 }
+.box li { overflow-wrap: anywhere; }

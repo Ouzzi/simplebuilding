@@ -3,8 +3,9 @@ Werte aus den Datendateien der Mod: Item-Werte (Export von WikiDataProvider), Re
 Verzauberungen, Erz-Generierung, Block-Drops, Namen und Icons.
 
 Alle hier gelesenen Dateien unter src/main/generated/ erzeugt runDatagen aus Java - eine Änderung
-dort wäre beim nächsten Datagen weg. Darum sind diese Werte Phase 2: die Zentrale plant, Phase 2
-aendert die Java-Quelle (oder laesst Datagen aus balance.json lesen).
+dort wäre beim nächsten Datagen weg. ex_javadata stellt darum jeden dieser Werte auf das Java-Literal
+um, aus dem er entsteht (Speichern schreibt dort, danach Datagen); was sich nicht zuordnen laesst,
+bleibt Planung mit Grund.
 """
 
 from __future__ import annotations
@@ -32,7 +33,7 @@ ITEM_PROPS = {
     "bundleCapacityItems": ("Kapazität", "int", 1, 100000, "Items"),
 }
 EXPORT_NOTE = ("gelesen aus dem Export von WikiDataProvider (runDatagen); die Quelle ist Java "
-               "(ModItems/Werkzeugklassen, siehe Code-Konstanten) - ändern = Phase 2")
+               "(ModItems/Werkzeugklassen, siehe Code-Konstanten) - ändern über die Java-Quelle")
 
 ROMAN = {1: "I", 2: "II", 3: "III", 4: "IV", 5: "V", 6: "VI", 7: "VII", 8: "VIII", 9: "IX", 10: "X"}
 
@@ -229,7 +230,7 @@ def extract_recipes(repo: Path) -> tuple[list[dict], list[dict], list[dict]]:
                                source={"file": rel, "line": jsonedit.line_of(text, span["start"]) if span else None,
                                        "path": list(path_), "generated": generated},
                                refs={"recipe": rid, "item": result.get("id")},
-                               note="von runDatagen erzeugt - ändern = Phase 2 (Rezept-Provider in Java)" if generated else "")
+                               note="von runDatagen erzeugt (Rezept-Provider in Java)" if generated else "handgeschrieben (src/main/resources)")
                 values.append(record)
                 ids[field] = record["id"]
 
@@ -271,7 +272,7 @@ def extract_enchantments(repo: Path, names: Names) -> tuple[list[dict], list[dic
                 record = value(f"enchant:{eid}:{'.'.join(key)}", "enchant", label, kind, jsonedit.get(data, key),
                                group=names.enchantment(eid)["de"], min=lo, max=hi,
                                source={"file": rel, "line": jsonedit.line_of(text, spans[key]["start"]), "path": list(key), "generated": True},
-                               refs={"enchantment": eid}, note="von runDatagen erzeugt (ModEnchantments) - ändern = Phase 2")
+                               refs={"enchantment": eid}, note="von runDatagen erzeugt (ModEnchantments) - ändern über die Java-Quelle")
                 values.append(record)
                 ids[".".join(key)] = record["id"]
         for key, span in spans.items():
@@ -284,7 +285,7 @@ def extract_enchantments(repo: Path, names: Names) -> tuple[list[dict], list[dic
             record = value(f"enchant:{eid}:{'.'.join(map(str, key))}", "enchant", label[:90], "float", float(number),
                            group=names.enchantment(eid)["de"],
                            source={"file": rel, "line": jsonedit.line_of(text, span["start"]), "path": list(key), "generated": True},
-                           refs={"enchantment": eid}, note="Wirkungswert aus der Verzauberungsdefinition - ändern = Phase 2")
+                           refs={"enchantment": eid}, note="Wirkungswert aus der Verzauberungsdefinition - ändern über die Java-Quelle")
             values.append(record)
             ids[".".join(map(str, key))] = record["id"]
         out.append({"id": eid, "name": names.enchantment(eid), "file": rel, "ids": ids,
@@ -326,7 +327,7 @@ def extract_worldgen(repo: Path) -> tuple[list[dict], list[dict], list[dict]]:
                 record = value(f"worldgen:{fid}:{'.'.join(map(str, key))}", "worldgen", label, kind, jsonedit.get(data, key),
                                group=group, min=lo, max=hi,
                                source={"file": rel, "line": jsonedit.line_of(text, spans[key]["start"]), "path": list(key), "generated": True},
-                               refs={"feature": fid}, note="von runDatagen erzeugt (ModWorldGen) - ändern = Phase 2")
+                               refs={"feature": fid}, note="von runDatagen erzeugt (ModWorldGen) - ändern über die Java-Quelle")
                 values.append(record)
             out.append({"id": fid, "kind": kind_dir, "file": rel})
     return out, values, problems

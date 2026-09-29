@@ -1081,21 +1081,32 @@ def collect_config(roots: dict, lang: dict) -> list[dict]:
     path = REPO / roots["config"]
     if not path.exists():
         return []
-    classes = parse_config_classes(path)
+    # Klassennamen gelten je Datei: SimplebuildingConfig.Tools und ServerTuningConfig.Tools (Reiter
+    # "Server & Modpack Tuning", 2026-09-28, eigene Datei) sind verschiedene Klassen, ebenso
+    # TweaksConfig.Pads und ServerTuningConfig.Pads - ein gemeinsames Woerterbuch liess die zweite die
+    # erste ueberschreiben (die Wiki-Liste zeigte unter tools.* die Server-Felder).
+    by_file = {path: parse_config_classes(path)}
     tweaks_path = path.parents[1] / "tweaks" / "TweaksConfig.java"
     if tweaks_path.exists():
-        classes.update(parse_config_classes(tweaks_path))
-    # Reiter "Server & Modpack Tuning" (2026-09-28) in seiner eigenen Datei.
+        by_file[tweaks_path] = parse_config_classes(tweaks_path)
     server_path = path.parent / "ServerTuningConfig.java"
     if server_path.exists():
-        classes.update(parse_config_classes(server_path))
+        by_file[server_path] = parse_config_classes(server_path)
+
+    def resolve(type_name: str, from_file: Path):
+        if type_name in by_file.get(from_file, {}):
+            return from_file, by_file[from_file][type_name]
+        for file, found in by_file.items():
+            if type_name in found:
+                return file, found[type_name]
+        return None, None
     en = lang.get("en_us", {})
     de = lang.get("de_de", {})
     prefix = f"text.autoconfig.{NS}."
     out: list[dict] = []
 
-    def walk(class_name: str, path_prefix: str, category: str | None, group: str | None):
-        for field in classes.get(class_name, []):
+    def walk(fields: list, file: Path, path_prefix: str, category: str | None, group: str | None):
+        for field in fields:
             annotations = " ".join(field["annotations"])
             if field["static"] or "Gui.Excluded" in annotations:
                 continue
@@ -1103,8 +1114,9 @@ def collect_config(roots: dict, lang: dict) -> list[dict]:
             tab = match.group(1) if match else category
             name = path_prefix + field["name"]
             type_name = field["type"].split(".")[-1]
-            if type_name in classes and type_name not in VALUE_TYPES:
-                walk(type_name, name + ".", tab, name)
+            sub_file, sub_fields = resolve(type_name, file) if type_name not in VALUE_TYPES else (None, None)
+            if sub_fields is not None:
+                walk(sub_fields, sub_file, name + ".", tab, name)
                 continue
             if type_name not in VALUE_TYPES:
                 continue
@@ -1125,7 +1137,7 @@ def collect_config(roots: dict, lang: dict) -> list[dict]:
                 "tooltipDe": de.get(key + ".@Tooltip"),
             })
 
-    walk("SimplebuildingConfig", "", None, None)
+    walk(by_file[path].get("SimplebuildingConfig", []), path, "", None, None)
     return out
 
 

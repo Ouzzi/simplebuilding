@@ -8,10 +8,13 @@ Ein Balance-Wert, wie ihn Auslesen, Ablage, API und Oberfläche teilen - als ein
     type      int | float | prob | bool | string | json
     value     aktueller Wert in der Mod (bzw. Standard der Annahme)
     min, max  erlaubter Bereich (None = offen)
-    apply     "mod"    - Speichern schreibt den Wert direkt in die Mod-Datei (Phase 1: Handel)
-              "phase2" - nur Planung; wirkt erst nach Phase 2 (docs/BALANCING-ZENTRALE.md)
+    apply     "mod"    - Speichern schreibt den Wert in die Mod-Quelle (JSON-Datei oder Java-Literal, alle Linien)
+              "plan"   - nur Planung; die Zentrale kann ihn nicht schreiben (Grund in note)
               "tool"   - nur für die Rechner (Annahmen), wirkt nie in der Mod
-    source    {"file": repo-relativ, "line": n, "path": [...] (JSON) oder "span": [a, b] (Java)}
+    source    {"file": repo-relativ, "line": n, "path": [...] (JSON) oder "kind": "java", "span": [a, b],
+               "token", "jtype" (Java), "twins": [Stellen der anderen Linien], "generated": [erzeugte JSON-Stellen]}
+    alias     {"id", "factor"}: der Wert ist Konstante x Faktor - bearbeitet wird die Konstante
+    lines     Linien, in denen Speichern den Wert ändert (["26.2", "26.3", "26.4", "1.21.11"])
     refs      Querverweise für die Oberfläche und die Rechner (item, table, trade, ...)
 """
 
@@ -31,6 +34,7 @@ CATEGORIES = {
     "constant": "Code-Konstanten",
     "config": "Config-Standardwerte",
     "param": "Rechner-Annahmen",
+    "potionpad": "Trank-Pads (Regeln je Wirkung)",
     "source": "Geplante Quellen",
 }
 
@@ -38,7 +42,7 @@ TYPES = ("int", "float", "prob", "bool", "string", "json")
 
 
 def value(id: str, category: str, label: str, type: str, current, *, group: str = "",
-          min=None, max=None, apply: str = "phase2", source: dict | None = None,
+          min=None, max=None, apply: str = "plan", source: dict | None = None,
           refs: dict | None = None, unit: str = "", note: str = "", nullable: bool = False) -> dict:
     assert category in CATEGORIES, category
     assert type in TYPES, type

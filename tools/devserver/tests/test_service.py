@@ -14,7 +14,7 @@ OCTANT_CHANCE = "trade:simplebuilding:wandering_trader/emerald_octant:offerChanc
 
 
 class RoundTripTests(unittest.TestCase):
-    """Auf dem echten Repo (nur Phase-2-Werte, nichts wird in Mod-Dateien geschrieben)."""
+    """Auf dem echten Repo mit schreibgeschütztem Service (read_only): nur die Ablage, keine Mod-Datei."""
 
     def setUp(self):
         self.s = helpers.fresh_store(helpers.shared_service())
@@ -62,7 +62,9 @@ class RoundTripTests(unittest.TestCase):
             ({"id": ENDERITE, "value": float("inf")}, "keine endliche Zahl"),
             ({"id": "config:tools.buildingWandHungerCost", "value": "vielleicht"}, "an/aus"),
             ({"id": "gibt:es:nicht", "value": 1}, "Unbekannter Wert"),
-            ({"id": "const:RotatorItem.CHARGE_PER_PEARL", "value": 10}, "nur lesbar"),
+            ({"id": "item:simplebuilding:iron_chisel:durability", "value": 300}, "bitte dort ändern"),
+            ({"id": "const:EchoCompassItem.CRACKED_CHARGE_TICKS", "value": 100}, "bitte dort ändern"),
+            ({"id": "const:ModItems.DURABILITY_IRON", "value": 257}, "ganze Zahl"),
             ({"id": "param:eras", "value": [{"name": "X", "hours": -3}]}, "Stunden"),
             ({"id": "param:rate.end_city.chest", "value": "viele"}, "keine Zahl"),
             ({"id": "source:simplebuilding:iron_core:x1", "value": {"kind": "mob", "chance": 2, "countMin": 1, "countMax": 1, "rate": 1}}, "Chance"),
@@ -130,7 +132,7 @@ class RoundTripTests(unittest.TestCase):
 
 
 class ApplyToModTests(unittest.TestCase):
-    """Handelswerte wirken schon in Phase 1: auf einer Kopie des Repos pruefen, dass genau ein Token wechselt."""
+    """Handelswerte: auf einer Kopie des Repos pruefen, dass genau ein Token wechselt."""
 
     @classmethod
     def setUpClass(cls):

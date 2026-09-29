@@ -15,7 +15,7 @@ from pathlib import Path
 
 # Datei -> (Gruppe, Kurzname). Was hier fehlt, erscheint unter "Weitere" - ausser WIKI_ONLY.
 DOCS = {
-    "BALANCING-ZENTRALE.md": ("Balance", "Balancing-Zentrale: Phase 2"),
+    "BALANCING-ZENTRALE.md": ("Balance", "Balancing-Zentrale: Bedienung und Aufbau"),
     "KERNE-SELTENHEIT.md": ("Balance", "Baukerne: Seltenheit"),
     "LOOT-BALANCE.md": ("Balance", "Loot-Balance"),
     "RARITAETEN.md": ("Balance", "Seltenheiten & Namen"),

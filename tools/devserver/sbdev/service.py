@@ -1,5 +1,5 @@
 """
-Die Logik hinter der API: Schnappschuss + Ablage + Prüfung + Anwenden + Rechner.
+Die Logik hinter der API: Schnappschuss + Ablage + Prüfung + Anwenden + Rechner + Datagen + checkBalance.
 
 Änderungen kommen als Liste {"id", "value"} oder {"id", "reset": true} (zurück auf den Mod-Wert),
 jeweils mit "expected" = der Wert, den die Oberfläche beim Bearbeiten gesehen hat. Ablauf immer:
@@ -18,7 +18,8 @@ import time
 from pathlib import Path
 
 from . import apply as applier
-from . import docs, extract, model, params
+from . import check as balance_checker
+from . import docs, extract, javaedit, jobs, model, params
 from .store import Store, StoreError
 from .values import CATEGORIES, Invalid, same, validate
 
@@ -28,13 +29,17 @@ DYNAMIC_RATE = re.compile(r"^param:(rate)\.([a-z_]+)\.([a-z_]+)@(.+)$")
 
 
 class Service:
-    def __init__(self, repo: Path, store_root: Path, *, refresh_vanilla: bool = False):
+    def __init__(self, repo: Path, store_root: Path, *, refresh_vanilla: bool = False, read_only: bool = False):
         self.repo = Path(repo)
+        # read_only: nie in Mod-Dateien schreiben und kein Datagen (Tests auf dem echten Repo)
+        self.read_only = read_only
         self.store = Store(store_root)
         self._lock = threading.RLock()
         self.snapshot = extract.build(self.repo, refresh_vanilla)
         self.fingerprint = extract.fingerprint(self.repo)
         self.checked = time.time()
+        self.job: jobs.Job | None = None
+        self.datagen_steps = None  # Tests setzen hier eigene Schritte statt Gradle
 
     # ---- Schnappschuss -------------------------------------------------------------------
 
@@ -70,13 +75,13 @@ class Service:
         if vid.startswith("source:"):
             item = vid.split(":", 1)[1].rsplit(":", 1)[0]
             return {"id": vid, "category": "source", "label": "geplante Quelle", "group": item, "type": "json", "value": None,
-                    "nullable": True, "apply": "phase2", "source": {}, "refs": {"item": item}, "min": None, "max": None}
+                    "nullable": True, "apply": "plan", "source": {}, "refs": {"item": item}, "min": None, "max": None}
         if vid.startswith("sourceoff:"):
             rest = vid[len("sourceoff:"):]
             for item, srcs in self.snapshot["sources"].items():
                 if rest.startswith(item + ":") and any(s["key"] == rest[len(item) + 1:] for s in srcs):
                     return {"id": vid, "category": "source", "label": "Quelle abgeschaltet (Planung)", "group": item,
-                            "type": "bool", "value": False, "apply": "phase2", "source": {}, "refs": {"item": item,
+                            "type": "bool", "value": False, "apply": "plan", "source": {}, "refs": {"item": item,
                             "source": rest[len(item) + 1:]}, "min": None, "max": None}
         return None
 
@@ -85,10 +90,24 @@ class Service:
             return validate_source_spec(raw)
         if record["id"] == "param:eras":
             return validate_eras(raw)
+        alias = record.get("alias")
+        if alias:
+            target = self.record_for(alias["id"]) or {}
+            raise Invalid(f"{record['label']}: wird über {target.get('group', '')} {target.get('label', alias['id'])} geändert "
+                          f"(Wert = {'Konstante' if alias['id'].startswith('const:') else 'Standard'} × {alias['factor']:g}) - "
+                          "bitte dort ändern")
         if record.get("readonly"):
             raise Invalid(f"{record['label']}: nur lesbar" + (f" (berechnet aus {record['derived']} - ändere die Bestandteile)"
                                                                 if record.get("derived") else f" ({record.get('note', '')})"))
-        return validate(record, raw)
+        value = validate(record, raw)
+        if record.get("apply") == "mod":
+            for site in applier.sites_of(record):
+                if site.get("transform"):
+                    try:
+                        javaedit.inverse(site, value)
+                    except javaedit.JavaEditError as err:
+                        raise Invalid(f"{record['label']}: {err}") from None
+        return value
 
     # ---- Effektive Werte -------------------------------------------------------------------
 
@@ -125,6 +144,7 @@ class Service:
     def statuses(self, entries: dict) -> dict:
         """Für jeden geplanten Wert: planned | applied | orphan, plus drift."""
         out = {}
+        log = balance_checker.applied_log(self.store.root)
         for vid, entry in entries.items():
             record = self.record_for(vid)
             if record is None:
@@ -132,8 +152,10 @@ class Service:
                 continue
             mod = record.get("value")
             status = "applied" if same(entry["value"], mod) else "planned"
+            written = balance_checker.was_applied(entry, log, vid)
             drift = entry.get("mod") is not None and not same(entry.get("mod"), mod) and status != "applied"
-            out[vid] = {"status": status, "drift": drift, "modAtSave": entry.get("mod"), "origin": entry.get("origin")}
+            out[vid] = {"status": status, "drift": drift or (written and status == "planned"), "modAtSave": entry.get("mod"),
+                        "origin": entry.get("origin"), "written": written}
         return out
 
     # ---- Zustand für die Oberfläche ------------------------------------------------------
@@ -181,7 +203,7 @@ class Service:
                     normalized.append({"id": vid, "remove": True, "mod": None} if reset or raw.get("value") is None
                                       else {"id": vid, "new": raw.get("value"), "mod": None})
                     summary.append({"id": vid, "label": vid, "group": "", "category": "orphan", "old": current,
-                                    "new": None if reset else raw.get("value"), "reset": reset, "apply": "phase2", "applyNow": False,
+                                    "new": None if reset else raw.get("value"), "reset": reset, "apply": "plan", "applyNow": False,
                                     "warnings": ["Diesen Wert gibt es in der Mod nicht mehr (umbenannt/entfernt?)"]})
                 else:
                     errors.append({"id": vid, "message": f"Unbekannter Wert {vid} (gibt es in der Mod nicht)"})
@@ -197,12 +219,11 @@ class Service:
                     skipped.append(vid)
                     continue
                 if record["apply"] == "mod":
+                    # Plan verwerfen = Eintrag weg; steht in der Mod noch der geplante Wert, kommt der
+                    # Ursprungswert zurück (mit dem Original-Literal, siehe originText)
                     origin = entry.get("origin", entry.get("mod"))
                     new = origin if origin is not None else mod
-                    if same(new, current):
-                        normalized.append({"id": vid, "remove": True, "mod": mod})
-                    else:
-                        normalized.append({"id": vid, "new": new, "mod": mod})
+                    normalized.append({"id": vid, "remove": True, "mod": mod, "writeBack": new})
                     summary.append(self._line(record, current, new, mod, apply_to_mod, reset=True))
                 else:
                     normalized.append({"id": vid, "remove": True, "mod": mod})
@@ -230,19 +251,64 @@ class Service:
 
     def _line(self, record, old, new, mod, apply_to_mod, reset=False):
         warnings = []
+        source = record.get("source") or {}
         if record["apply"] == "mod":
-            warnings.append(record.get("note") or "")
+            for note in source.get("twinNotes", []):
+                warnings.append(note)
+            affected = (record.get("refs") or {}).get("usedByItems") or []
+            if affected:
+                names = sorted({a["item"].split(":")[1] for a in affected})
+                warnings.append(f"wirkt auf {len(names)} Items: {', '.join(names[:8])}{' …' if len(names) > 8 else ''}")
+            for pin in self.pins(record):
+                warnings.append(pin)
         if isinstance(old, (int, float)) and isinstance(new, (int, float)) and not isinstance(old, bool) and old and new:
             factor = max(abs(new / old), abs(old / new)) if old * new > 0 else math.inf
             if factor >= 10:
                 warnings.append(f"Faktor {factor:.0f}x gegenüber vorher - Tippfehler?")
         entry_status = None
+        where = [{"mc": s.get("mc") or "/".join(source.get("lines") or ["26.2"]), "file": s.get("file"), "line": s.get("line")}
+                 for s in applier.sites_of(record)] if record["apply"] == "mod" else []
         return {"id": record["id"], "label": record["label"], "group": record.get("group", ""), "category": record["category"],
                 "categoryLabel": CATEGORIES.get(record["category"], record["category"]), "type": record["type"],
                 "old": old, "new": new, "mod": mod, "reset": reset, "apply": record["apply"],
                 "applyNow": record["apply"] == "mod" and apply_to_mod and not same(new, mod),
-                "file": record.get("source", {}).get("file"), "line": record.get("source", {}).get("line"),
+                "file": source.get("file"), "line": source.get("line"), "sites": where, "lines": record.get("lines", []),
+                "datagen": self.needs_datagen(record),
                 "warnings": [w for w in warnings if w], "status": entry_status}
+
+    @staticmethod
+    def needs_datagen(record: dict) -> bool:
+        """Folgen aus dem Wert erzeugte Dateien (Beute-Tabellen, Verzauberungen, Rezepte, Erze, Item-Export)?"""
+        source = record.get("source") or {}
+        refs = record.get("refs") or {}
+        return bool(isinstance(source.get("generated"), list) or record["category"] == "loot"
+                    or refs.get("usedByItems") or refs.get("material"))
+
+    def pins(self, record: dict) -> list[str]:
+        """Spieltests, die den heutigen Wert festhalten (Hinweis im Speichern-Dialog)."""
+        out = []
+        if record["category"] == "config":
+            text = self._pin_text()
+            path = record["refs"].get("path", "")
+            parts = path.rsplit(".", 1)
+            owner = parts[0].split(".")[-1] if len(parts) == 2 else "root"
+            needle = f"{owner}.{parts[-1]} "
+            if needle in text or f"root.{path} " in text:
+                out.append("Spieltest ConfigOptionTests hält diesen Standard fest (EXPECTED_OPTIONS) - dort mitändern, "
+                           "sonst wird das Gate rot")
+        if record["id"].endswith("_CORE_CHANCE") or (record["category"] == "loot" and "Kern" in record.get("group", "")):
+            out.append("Spieltest config_option_game_test_building_cores_are_very_rare_in_loot_chests prüft Bänder um die Kern-Chancen "
+                       "(ConfigOptionTests.CORE_CHANCES) - ein Wert außerhalb macht ihn rot")
+        return out
+
+    def _pin_text(self) -> str:
+        if not hasattr(self, "_pins_cache"):
+            path = self.repo / "common/src/shared/java/com/simplebuilding/gametest/ConfigOptionTests.java"
+            try:
+                self._pins_cache = path.read_text(encoding="utf-8")
+            except OSError:
+                self._pins_cache = ""
+        return self._pins_cache
 
     def preview(self, payload: dict) -> dict:
         state = self.store.state()
@@ -257,40 +323,53 @@ class Service:
     def save(self, payload: dict, *, rollback_of: int | None = None, rollback: bool = False) -> dict:
         with self._lock:
             state = self.store.state()
-            apply_to_mod = bool(payload.get("applyToMod", True))
+            apply_to_mod = bool(payload.get("applyToMod", True)) and not self.read_only
             result = self.check(state, payload.get("changes"), apply_to_mod, rollback=rollback)
             if result["errors"]:
                 raise StoreError(400, "Ungültige Werte - nichts wurde gespeichert.", result["errors"])
             if result["conflicts"]:
                 raise StoreError(409, "Werte wurden inzwischen geändert - nichts wurde gespeichert.", result["conflicts"])
             to_apply = []
-            if apply_to_mod:
-                for change in result["changes"]:
-                    record = self.record_for(change["id"])
-                    if record and record["apply"] == "mod" and not change.get("remove") and not same(change["new"], record["value"]):
-                        to_apply.append((record, change["new"]))
+            entries = state["entries"]
+            for change in result["changes"]:
+                record = self.record_for(change["id"])
+                if not record or record["apply"] != "mod":
+                    continue
+                entry = entries.get(change["id"]) or {}
+                if not entry.get("originText") and not change.get("remove"):
+                    change["originText"] = applier.origin_tokens(record)
+                if change.get("remove"):
+                    # Plan verworfen: steht ein anderer Wert in der Mod als beim ersten Planen, zurück aufs Original
+                    back = change.get("writeBack")
+                    if apply_to_mod and back is not None and not same(back, record["value"]):
+                        to_apply.append((record, back, entry.get("originText")))
+                    continue
+                prefer = entry.get("originText") if same(change["new"], entry.get("origin")) else None
+                if same(change["new"], record["value"]):
+                    change["applied"] = True          # steht schon so in der Mod (z. B. Rücksetzen)
+                elif apply_to_mod:
+                    to_apply.append((record, change["new"], prefer))
+                    change["applied"] = True
 
             def before_write(_record):
-                problems = []
-                for record, _new in to_apply:
-                    try:
-                        applier.precheck(self.repo, record)
-                    except applier.ApplyConflict as err:
-                        problems.append({"id": record["id"], "message": str(err)})
+                problems = applier.check_all(self.repo, to_apply)
                 if problems:
                     raise StoreError(409, "Mod-Dateien wurden seit dem Einlesen geändert - nichts wurde gespeichert.", problems)
 
             def after_version(_record):
-                done = []
-                for record, new in to_apply:
-                    done.append(applier.write(self.repo, record, new))
-                return done
+                try:
+                    return applier.write_all(self.repo, to_apply)
+                except (applier.ApplyConflict, javaedit.JavaEditError, OSError) as err:
+                    raise StoreError(500, f"Schreiben in die Mod-Dateien fehlgeschlagen ({err}) - die Dateien sind "
+                                          "unverändert; die Version ist angelegt, die Werte stehen als 'geplant' darin.") from None
 
             new_state = self.store.commit(payload.get("baseVersion"), result["changes"], payload.get("message", ""),
                                           rollback_of=rollback_of, before_write=before_write, after_version=after_version)
             if to_apply:
                 self.reload()
-            return {"version": new_state["version"], "applied": len(to_apply), "summary": result["summary"]}
+            datagen = any(self.needs_datagen(item[0]) for item in to_apply)
+            return {"version": new_state["version"], "applied": len(to_apply), "summary": result["summary"],
+                    "datagen": datagen}
 
     # ---- Rollback --------------------------------------------------------------------------
 
@@ -335,32 +414,35 @@ class Service:
             record = self.record_for(vid)
             if record and record["apply"] == "mod" and not same(entry["value"], record["value"]):
                 out.append({"id": vid, "label": record["label"], "group": record["group"], "old": record["value"],
-                            "new": entry["value"], "file": record["source"].get("file")})
+                            "new": entry["value"], "file": record["source"].get("file"), "lines": record.get("lines", []),
+                            "datagen": self.needs_datagen(record)})
         return out
 
     def apply_planned(self, payload: dict) -> dict:
+        if self.read_only:
+            raise StoreError(403, "Diese Zentrale ist schreibgeschützt (read_only) - nichts geschrieben.")
         with self._lock:
             pending = self.pending_apply()
             wanted = set(payload.get("ids") or [p["id"] for p in pending])
             chosen = [p for p in pending if p["id"] in wanted]
             if not chosen:
-                raise StoreError(400, "Keine geplanten Handelswerte, die noch nicht in der Mod stehen.")
-            problems = []
-            for p in chosen:
-                try:
-                    applier.precheck(self.repo, self.record_for(p["id"]))
-                except applier.ApplyConflict as err:
-                    problems.append({"id": p["id"], "message": str(err)})
+                raise StoreError(400, "Keine geplanten Werte, die noch nicht in der Mod stehen.")
+            entries = self.store.state()["entries"]
+            items = [(self.record_for(p["id"]), p["new"],
+                      entries.get(p["id"], {}).get("originText") if same(p["new"], entries.get(p["id"], {}).get("origin")) else None)
+                     for p in chosen]
+            problems = applier.check_all(self.repo, items)
             if problems:
                 raise StoreError(409, "Mod-Dateien wurden seit dem Einlesen geändert - nichts geschrieben.", problems)
-            done = [applier.write(self.repo, self.record_for(p["id"]), p["new"]) for p in chosen]
+            done = applier.write_all(self.repo, items)
             log = self.store.root / "applied-log.jsonl"
             self.store.root.mkdir(parents=True, exist_ok=True)
             with open(log, "a", encoding="utf-8") as handle:
                 for d in done:
                     handle.write(json.dumps(dict(d, at=time.strftime("%Y-%m-%dT%H:%M:%S"), version=self.store.state()["version"])) + "\n")
             self.reload()
-            return {"applied": len(done)}
+            return {"applied": len(chosen), "sites": len(done),
+                    "datagen": any(self.needs_datagen(item[0]) for item in items)}
 
     # ---- Rechner -----------------------------------------------------------------------------
 
@@ -422,9 +504,11 @@ class Service:
         offers = {t["id"]: model.trade_offer_chance(ctx, t)[0] for t in self.snapshot["trades"]}
         return {"rows": _finite(model.overview(ctx, keys)), "offers": _finite(offers)}
 
-    # ---- Phase 2 -----------------------------------------------------------------------------
+    # ---- Übergabe: was geplant ist, aber (noch) nicht in der Mod wirkt ------------------------
 
     def phase2(self) -> dict:
+        """Geplante Werte, die die Zentrale nicht schreiben kann (apply "plan", Quellen) oder die noch nicht
+        angewendet sind - mit Grund, Datei und Zeile. (Name aus Phase 1; Route /api/phase2 und /api/handover.)"""
         state = self.store.state()
         groups: dict[str, list] = {}
         for vid, entry in sorted(state["entries"].items()):
@@ -441,9 +525,47 @@ class Service:
             groups.setdefault(record["category"], []).append({
                 "id": vid, "label": record["label"], "group": record.get("group"), "mod": record.get("value"),
                 "planned": entry["value"], "source": record.get("source"), "refs": record.get("refs"),
-                "apply": record["apply"]})
+                "apply": record["apply"], "why": record.get("note") if record["apply"] != "mod" else
+                "gespeichert, aber noch nicht in die Mod geschrieben ('Jetzt anwenden' auf der Übersicht)"})
         return {"version": state["version"], "generatedAt": time.strftime("%Y-%m-%dT%H:%M:%S"), "groups": groups,
                 "howTo": "docs/BALANCING-ZENTRALE.md"}
+
+    # ---- checkBalance und Datagen -------------------------------------------------------------
+
+    def balance_check(self) -> dict:
+        self.maybe_reload()
+        return balance_checker.run(self.snapshot, self.store.state(), self.repo, self.store.root, self.record_for)
+
+    def start_datagen(self, payload: dict) -> dict:
+        if self.read_only:
+            raise StoreError(403, "Diese Zentrale ist schreibgeschützt (read_only) - kein Datagen.")
+        with self._lock:
+            if self.job and self.job.status == "running":
+                raise StoreError(409, "Datagen läuft schon.")
+            if not payload.get("force"):
+                games = jobs.running_dev_games(self.repo) if self.datagen_steps is None else []
+                if games:
+                    raise StoreError(409, "Es laufen Dev-Clients/-Server (runClient/runServer). Datagen übersetzt die Mod in "
+                                          "diesem Checkout neu - das laufende Spiel stürzt dann mit NoClassDefFoundError ab. "
+                                          "Spiel beenden oder 'trotzdem starten'.", [{"message": g} for g in games[:5]])
+            steps = self.datagen_steps or jobs.default_steps(self.repo, bool(payload.get("include264")))
+
+            def done(job):
+                self.reload()
+                return {"check": self.balance_check(), "diff": jobs.git_diff_stat(self.repo)}
+            self.job = jobs.Job(steps, self.repo, on_done=done).start()
+            return self.job.payload()
+
+    def datagen_status(self) -> dict:
+        if not self.job:
+            return {"status": "idle"}
+        return self.job.payload()
+
+    def cancel_datagen(self, _payload=None) -> dict:
+        if not self.job or self.job.status != "running":
+            raise StoreError(400, "Es läuft kein Datagen.")
+        self.job.cancel()
+        return {"status": "cancelling"}
 
     # ---- Doku --------------------------------------------------------------------------------
 

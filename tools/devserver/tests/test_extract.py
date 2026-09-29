@@ -75,6 +75,8 @@ class ExtractTests(unittest.TestCase):
         for c in wiki:
             v = mine[c["name"]]
             expected = {"true": True, "false": False}.get(c["default"], c["default"])
+            if v["type"] == "string":
+                expected = json.loads(c["default"])
             if v["type"] in ("int", "float"):
                 raw = c["default"].rstrip("fFdD") if not c["default"].startswith("0x") else c["default"]
                 expected = float(int(raw, 16)) if raw.startswith("0x") else float(raw)
@@ -89,12 +91,54 @@ class ExtractTests(unittest.TestCase):
         self.assertTrue(counts)
 
     def test_constants_scan(self):
-        v = self.values["const:RotatorItem.MAX_CHARGE"]
-        self.assertEqual(v["value"], 1024)
-        derived = self.values["const:RotatorItem.CHARGE_PER_PEARL"]
-        self.assertEqual(derived["value"], 64)
-        self.assertTrue(derived["readonly"])
+        # Ladung des Drehers kommt seit Lauf M aus der Server-Config (Standard 1024)
+        self.assertEqual(self.values["config:server.charges.rotatorMaxCharge"]["value"], 1024)
+        self.assertEqual(self.values["item:simplebuilding:rotator:durability"]["alias"]["id"], "config:server.charges.rotatorMaxCharge")
+        # 190 * BASE_DURABILITY_MULTIPLIER: das Literal 190 ist schreibbar (Wert = Literal x 4)
+        v = self.values["const:SledgehammerItem.DURABILITY_STONE_SLEDGEHAMMER"]
+        self.assertEqual(v["value"], 760)
+        self.assertEqual(v["apply"], "mod")
+        self.assertEqual(v["source"]["token"], "190")
+        self.assertEqual(v["source"]["transform"], {"op": "*", "k": 4, "operand": "left"})
+        # NAME * 2: Verweis auf die Konstante
+        alias = self.values["const:EchoCompassItem.CRACKED_CHARGE_TICKS"]
+        self.assertTrue(alias["readonly"])
+        self.assertEqual(alias["alias"], {"id": "const:EchoCompassItem.CHARGE_TICKS", "factor": 2})
         self.assertNotIn("const:BlueprintCartography.MAP_SLOT", self.values)  # Oberflaechen-Konstante
+
+    def test_every_writable_value_has_its_lines_and_twins(self):
+        """Beute, Config und Verzauberungen stehen in 1.21.11 genauso - Speichern schreibt beide."""
+        for cat in ("loot", "config", "enchant"):
+            recs = [v for v in self.values.values() if v["category"] == cat and v["apply"] == "mod"]
+            self.assertGreater(len(recs), 50, cat)
+            for v in recs:
+                self.assertIn("1.21.11", v["lines"], v["id"])
+                self.assertIn("26.2", v["lines"], v["id"])
+        core = self.values["const:ModLootTableModifications.ENDERITE_CORE_CHANCE"]
+        self.assertEqual([t["mc"] for t in core["source"]["twins"]], ["1.21.11"])
+        self.assertTrue(core["source"]["twins"][0]["file"].startswith("mc1_21_11/"))
+        # Erze: 26.2 + Overlay 26.3 (gilt auch für 26.4) + 1.21.11
+        size = self.values["worldgen:simplebuilding:astralit_ore:config.size"]
+        self.assertEqual(size["lines"], ["26.2", "26.3", "26.4", "1.21.11"])
+        # Verzauberungen: die Java-Stelle, die erzeugte Datei als "generated"
+        weight = self.values["enchant:simplebuilding:range:weight"]
+        self.assertTrue(weight["source"]["file"].endswith("ModEnchantments.java"))
+        self.assertEqual(weight["source"]["generated"][0]["file"], "src/main/generated/data/simplebuilding/enchantment/range.json")
+        # Handel: 1.21.11-Zwilling in ModTradeDefinitions, wo eindeutig
+        price = self.values["trade:simplebuilding:wandering_trader/emerald_iron_cores:price"]
+        self.assertEqual(price["lines"], ["26.2", "26.3", "1.21.11"])
+
+    def test_nothing_in_the_zentrale_is_a_silent_plan(self):
+        """Jeder Wert, der nicht wirkt, sagt warum (Notiz)."""
+        for v in self.values.values():
+            if v["apply"] == "plan":
+                self.assertTrue(v.get("note") or v.get("derived"), v["id"])
+        counts = {}
+        for v in self.values.values():
+            counts.setdefault(v["category"], {}).setdefault(v["apply"], 0)
+            counts[v["category"]][v["apply"]] += 1
+        for cat in ("loot", "constant", "config", "enchant", "worldgen", "trade"):
+            self.assertGreater(counts[cat].get("mod", 0), counts[cat].get("plan", 0), (cat, counts[cat]))
 
     def test_unreadable_places_are_reported_not_hidden(self):
         problems = self.snap["report"]["problems"]

@@ -16,18 +16,23 @@ from __future__ import annotations
 import time
 from pathlib import Path
 
-from . import ex_config, ex_constants, ex_data, ex_loot, ex_trades, params, vanilla
+from . import ex_config, ex_constants, ex_data, ex_javadata, ex_loot, ex_trades, params, sites, vanilla
 from .values import CATEGORIES, problem
 
 # Was grundsaetzlich nicht (oder nur als Annahme) auslesbar ist - steht im Bericht, damit niemand
 # eine Luecke für einen ausgelesenen Wert hält.
 KNOWN_GAPS = [
-    {"area": "Linien", "message": "Nur die Linie 26.2 (gilt auch für 26.3/26.4 über die Overlays) wird gelesen.",
-     "why": "1.21.11 baut Handel in Java (mc1_21_11/.../ModTradeDefinitions.java) und hat eigene Kopien der Loot- und "
-            "Config-Klassen; Abweichungen dort zeigt die Zentrale nicht. Phase 2 synchronisiert beide Linien."},
-    {"area": "Item-Werte", "message": "Haltbarkeit, Angriffswerte, Verzauberbarkeit, Kapazitäten kommen aus src/main/generated/wiki/items.json.",
-     "why": "Die Werte entstehen in Java (ModItems, Werkzeugklassen, ModToolMaterials); der Export ist nur so aktuell wie "
-            "der letzte runDatagen. Die Zuordnung Export-Wert -> Java-Konstante ist nicht automatisch (Phase 2)."},
+    {"area": "Linien", "message": "Gelesen wird die Linie 26.2; die anderen Linien sind Zwillinge (gleiche Id in der Kopie).",
+     "why": "26.3/26.4 teilen die meisten Dateien mit 26.2 (Overlays nur, wo die API abweicht), 1.21.11 hat eigene Kopien. "
+            "Speichern schreibt jeden Zwilling mit, der denselben Wert hat; weicht er ab oder fehlt er, steht das am Wert "
+            "(Zwillinge) und die Linie bleibt, wie sie ist."},
+    {"area": "Datagen", "message": "Beute-Tabellen, Verzauberungen, Rezepte, Erze und der Item-Export entstehen mit runDatagen aus Java.",
+     "why": "Speichern schreibt die Java-Stelle; danach 'Datagen starten' (Seite Übersicht) oder gradlew runDatagen "
+            "(+ :mc26_3:fabric:runDatagen, :mc1_21_11:fabric:runDatagen). checkBalance meldet, solange die erzeugten Dateien "
+            "nicht zum Code passen."},
+    {"area": "Item-Werte", "message": "Haltbarkeit, Verzauberbarkeit, Abklingzeit und Baustab-Fläche zeigen auf die Konstante dahinter.",
+     "why": "Ändern ändert die Konstante (und jedes Item, das sie nutzt). Angriffswerte und Kapazitäten sind berechnet "
+            "(Spieler-Grundwert + Modifier) und nur über die Konstanten der Werkzeugklassen änderbar."},
     {"area": "Strukturen", "message": "Kisten je Struktur, Strukturen je Stunde, Händlerbesuche, Tötungen: Annahmen, keine Mod-Werte.",
      "why": "Das hängt vom Spieler ab. Standardwerte aus docs/KERNE-SELTENHEIT.md Abschnitt 2, der Rest geschätzt (Seite Annahmen)."},
     {"area": "Tresore", "message": "Vanilla-Tresor wählt reward_rare mit 80 % (reward.json 8:2) - als Annahme hinterlegt.",
@@ -38,8 +43,11 @@ KNOWN_GAPS = [
      "why": "Rechner nimmt an: der Spieler kauft jedes Angebot voll aus; Vanilla-Angebote mit Bedingung zählen als immer vorhanden."},
     {"area": "Config", "message": "Die Rechner nehmen alle Schalter (enableLootTableChanges, enable...Trades) als an.",
      "why": "Standard der Mod; ein Server kann sie ausschalten."},
-    {"area": "Rezepte", "message": "Zutaten sind nur als Liste lesbar; Änderungen an Mustern/Zutaten sind Planung (Notiz), nicht Werte.",
-     "why": "Rezepte erzeugt runDatagen aus Java (ModRecipeProvider)."},
+    {"area": "Rezepte", "message": "Zutaten und Muster sind Planung (Notiz); Mengen aus Vanilla-Hilfsmethoden (Treppe 4, Stufe 6, Steinsäge) sind keine Mod-Zahl.",
+     "why": "Die Zentrale ändert Zahlen, keine Rezept-Struktur. Eigene Mengen, Erfahrung und Garzeiten wirken in der Mod."},
+    {"area": "Geplante Quellen", "message": "Neue Quellen und abgeschaltete Quellen bleiben Planung (Seite Übergabe).",
+     "why": "Eine neue Quelle ist ein neuer Pool/Eintrag im Code (Struktur, nicht Zahl) - das macht ein Lauf von Hand; "
+            "eine vorhandene Quelle abschalten = ihr Gewicht auf 0 setzen (wirkt)."},
 ]
 
 
@@ -74,15 +82,28 @@ def build(repo: Path, refresh_vanilla: bool = False) -> dict:
 
     by_class, const_values, p = ex_constants.scan(repo)
     problems += p
+    material_values, p = ex_javadata.material_values(repo)
+    problems += p
+    const_values += material_values
+    const_index: dict[str, list[dict]] = {}
+    for record in const_values:
+        const_index.setdefault(record["label"], []).append(record)
+    problems += ex_javadata.link_enchantments(repo, ench_values)
     loot, loot_values, p = ex_loot.extract(repo, item_ids, ench_ids, by_class.get("ModLootTableModifications", {}))
     problems += p
     trades, trade_values, p = ex_trades.extract(repo, pools)
     problems += p
     config, config_values, p = ex_config.extract(repo)
     problems += p
+    problems += ex_javadata.link_items(repo, item_values, const_index, {v["id"]: v for v in config_values})
+    problems += ex_javadata.link_trades_legacy(repo, trades, {v["id"]: v for v in trade_values})
     recipes, recipe_values, p = ex_data.extract_recipes(repo)
     problems += p
+    problems += ex_javadata.link_recipes(repo, recipe_values)
     worldgen, wg_values, p = ex_data.extract_worldgen(repo)
+    problems += p
+    problems += ex_javadata.link_worldgen(repo, wg_values)
+    potion_pads, pp_values, p = ex_javadata.potion_pad_values(repo, names)
     problems += p
     block_drops, p = ex_data.extract_block_drops(repo)
     problems += p
@@ -95,7 +116,20 @@ def build(repo: Path, refresh_vanilla: bool = False) -> dict:
             record["refs"]["constant"] = record["label"]
             record["label"] = f"{names.item(item)['de']} je Kiste" + (f" ({', '.join(tables)})" if tables else "")
 
-    add_all(item_values + ench_values + const_values + loot_values + trade_values + config_values + recipe_values + wg_values)
+    add_all(item_values + ench_values + const_values + loot_values + trade_values + config_values + recipe_values + wg_values
+            + pp_values)
+    for record in values.values():
+        record["lines"] = sites.lines_of(record) if record["apply"] == "mod" and not record.get("alias") else []
+    for record in values.values():
+        alias = record.get("alias")
+        if alias:
+            target = values.get(alias["id"])
+            if target is None:
+                record.pop("alias")
+                record["apply"] = "plan"
+                continue
+            record["lines"] = list(target.get("lines", []))
+            target.setdefault("refs", {}).setdefault("aliases", []).append(record["id"])
 
     # ---- Beschaffungsquellen je Item -------------------------------------------------------
     sources: dict[str, list[dict]] = {}
@@ -232,6 +266,7 @@ def build(repo: Path, refresh_vanilla: bool = False) -> dict:
         "blockDrops": block_drops,
         "mobDrops": mob_drops,
         "config": config,
+        "potionPads": potion_pads,
         "sources": sources,
         "structures": {k: {"label": s["label"], "containers": {c: {"label": v["label"]} for c, v in s["containers"].items()}}
                        for k, s in params.STRUCTURES.items()},
@@ -239,9 +274,10 @@ def build(repo: Path, refresh_vanilla: bool = False) -> dict:
     }
 
 
-WATCHED = [ex_loot.LOOT_FILE, ex_config.CONFIG, ex_config.TWEAKS, ex_data.ITEMS_EXPORT, ex_trades.TRADE_DIR,
-           ex_trades.TAG_DIR, ex_data.GEN + "/recipe", ex_data.GEN + "/enchantment", ex_data.GEN + "/worldgen",
-           ex_data.LANG]
+WATCHED = [ex_data.ITEMS_EXPORT, ex_trades.TRADE_DIR, ex_trades.TAG_DIR, ex_data.GEN, ex_data.LANG,
+           "common/src/shared/java/com/simplebuilding", "common/src/mc26_2/java/com/simplebuilding",
+           "src/main/java/com/simplebuilding/datagen", "mc1_21_11/shared/java/com/simplebuilding",
+           "mc1_21_11/fabric/src/main/java/com/simplebuilding/datagen", "mc26_3/overlay/java/com/simplebuilding"]
 
 
 def fingerprint(repo: Path) -> float:

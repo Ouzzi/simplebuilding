@@ -92,8 +92,8 @@ function rec(id) {
     const base = V[`param:rate.${m[1]}.${m[2]}`];
     return Object.assign({}, base, { id, value: null, nullable: true, label: `${base.label} (nur dieses Item)` });
   }
-  if (id.startsWith('source:')) return { id, category: 'source', type: 'json', label: 'geplante Quelle', apply: 'phase2', value: null, nullable: true, source: {}, refs: {} };
-  if (id.startsWith('sourceoff:')) return { id, category: 'source', type: 'bool', label: 'Quelle abgeschaltet', apply: 'phase2', value: false, source: {}, refs: {} };
+  if (id.startsWith('source:')) return { id, category: 'source', type: 'json', label: 'geplante Quelle', apply: 'plan', value: null, nullable: true, source: {}, refs: {}, note: 'neue Quelle = neuer Pool im Code - Übergabe an einen Lauf' };
+  if (id.startsWith('sourceoff:')) return { id, category: 'source', type: 'bool', label: 'Quelle abgeschaltet', apply: 'plan', value: false, source: {}, refs: {}, note: 'eine vorhandene Beute-Quelle schaltest du ab, indem du ihr Gewicht auf 0 setzt' };
   return null;
 }
 function storedEntry(id) { return S.store.entries[id]; }
@@ -156,11 +156,31 @@ function overrides() {
 // ---------------------------------------------------------------------------------------------
 // Bausteine
 // ---------------------------------------------------------------------------------------------
+function linesLabel(lines) {
+  const l = lines || [];
+  if (!l.length) return '';
+  const main = l.filter((x) => x !== '1.21.11');
+  const txt = main.length > 1 ? `${main[0]}–${main[main.length - 1]}` : (main[0] || '');
+  return txt + (l.includes('1.21.11') ? (txt ? ' + ' : '') + '1.21.11' : '');
+}
+function needsDatagen(r) {
+  const src = (r && r.source) || {}; const refs = (r && r.refs) || {};
+  return Array.isArray(src.generated) || (r && r.category === 'loot') || !!(refs.usedByItems && refs.usedByItems.length) || !!refs.material || !!(r && r.alias);
+}
 function applyBadge(r) {
   if (!r) return '';
-  if (r.apply === 'mod') return '<span class="badge b-mod" title="Speichern schreibt diesen Wert direkt in die Mod-Datei">wirkt in Mod</span>';
+  if (r.alias) {
+    const t = rec(r.alias.id);
+    if (!t || t.apply !== 'mod') return `<span class="badge b-p2" title="${h(r.note || '')}">nur Planung</span>`;
+    return `<span class="badge b-mod" title="${h(`Wert = ${r.derived || t.label}. Ändern ändert ${t.group} ${t.label} (${linesLabel(t.lines)}); der Item-Export folgt mit Datagen.`)}">wirkt in Mod</span><span class="badge b-lines" title="über diese Stelle">über ${h(t.label)}</span>`;
+  }
+  if (r.apply === 'mod') {
+    const twins = ((r.source || {}).twinNotes || []);
+    const tip = `Speichern schreibt den Wert in die Mod-Quelle – Linien ${linesLabel(r.lines)}${needsDatagen(r) ? '; danach Datagen (erzeugte Dateien)' : ''}${twins.length ? '\n' + twins.join('\n') : ''}`;
+    return `<span class="badge b-mod" title="${h(tip)}">wirkt in Mod</span>${r.lines && r.lines.length ? `<span class="badge b-lines" title="${h('Linien: ' + r.lines.join(', '))}">${h(linesLabel(r.lines))}</span>` : ''}`;
+  }
   if (r.apply === 'tool') return '<span class="badge b-tool" title="Annahme der Rechner - wirkt nie in der Mod">Rechner</span>';
-  return '<span class="badge b-p2" title="Nur Planung - wirkt erst nach Phase 2 (docs/BALANCING-ZENTRALE.md)">Phase 2</span>';
+  return `<span class="badge b-p2" title="${h(r.note || 'Nur Planung - die Zentrale kann diesen Wert nicht schreiben')}">nur Planung</span>`;
 }
 function statusBadge(id) {
   const st = statusOf(id);
@@ -169,6 +189,7 @@ function statusBadge(id) {
   if (st) {
     if (st.status === 'planned') out += `<span class="badge b-planned" title="Gespeicherter Plan weicht vom Mod-Wert ab">geplant</span>`;
     if (st.status === 'applied') out += `<span class="badge b-mod" title="Gespeicherter Wert steht so in der Mod">in Mod</span>`;
+    if (st.status === 'planned' && st.written) out += `<span class="badge b-danger" title="Angewendet, aber im Code steht inzwischen etwas anderes - checkBalance schlägt fehl">Code weicht ab</span>`;
     if (st.status === 'orphan') out += `<span class="badge b-danger" title="Diesen Wert gibt es in der Mod nicht mehr">verwaist</span>`;
     if (st.drift) out += `<span class="badge b-drift" title="Der Mod-Wert hat sich seit dem Speichern geändert (war ${h(fmtVal(st.modAtSave, (rec(id) || {}).type))})">Mod geändert</span>`;
   }
@@ -183,14 +204,26 @@ function srcRef(r) {
 function ed(id, opts = {}) {
   const r = rec(id);
   if (!r) return '<span class="muted">–</span>';
+  const t = r.alias ? rec(r.alias.id) : null;
+  if (t && t.apply === 'mod' && !t.readonly && t.type !== 'bool') {
+    // bearbeitet wird die Konstante dahinter; angezeigt wird Konstante x Faktor
+    const f = r.alias.factor;
+    return `<span class="ve${drafts[t.id] ? ' changed' : ''}" data-ve="${h(t.id)}" data-factor="${h(f)}" data-alias="${h(id)}">${edInner(t.id, t, Object.assign({}, opts, { factor: f, aliasOf: r }))}</span>`;
+  }
   return `<span class="ve${drafts[id] ? ' changed' : ''}" data-ve="${h(id)}">${edInner(id, r, opts)}</span>`;
 }
 function edInner(id, r, opts = {}) {
-  const cur = curValue(id);
-  const base = baseValue(id);
+  const f = opts.factor || 1;
+  const scale = (v) => (typeof v === 'number' && f !== 1 ? +(v * f).toPrecision(12) : v);
+  const cur = scale(curValue(id));
+  const base = scale(baseValue(id));
   const changed = !!drafts[id];
-  const unit = r.type === 'prob' ? '%' : (r.unit || '');
+  const shown = opts.aliasOf || r;
+  const unit = shown.type === 'prob' ? '%' : (shown.unit || '');
   let html = '';
+  if (opts.aliasOf) {
+    r = Object.assign({}, r, { type: opts.aliasOf.type, label: opts.aliasOf.label, min: null, max: null });
+  }
   if (changed) html += `<del class="old" title="gespeicherter Wert">${h(fmtVal(base, r.type))}</del>`;
   if (r.readonly) {
     html += `<span class="ro" title="${h(r.derived ? 'berechnet: ' + r.derived : (r.note || 'nur lesbar'))}">${h(fmtVal(cur, r.type))}</span>${unit && r.type !== 'prob' ? `<span class="unit">${h(unit)}</span>` : ''}${r.derived ? `<span class="badge" title="${h('berechnet aus ' + r.derived)}">berechnet</span>` : ''}`;
@@ -200,12 +233,14 @@ function edInner(id, r, opts = {}) {
     html += `<span class="ro">${h(fmtVal(cur, r.type))}</span>`;
   } else {
     const ph = r.nullable && (cur === null || cur === undefined) ? (opts.placeholder || 'auto') : '';
-    html += `<input type="text" inputmode="decimal" class="${r.type === 'string' || opts.wide ? 'wide' : ''}" data-vid="${h(id)}" value="${h(inputText(cur, r.type))}" placeholder="${h(ph)}" aria-label="${h(r.label)}" spellcheck="false">`;
+    const aliasAttr = opts.aliasOf ? ` data-factor="${h(f)}" title="${h(`= ${opts.aliasOf.derived || ''} – ändert die Quelle (${(rec(id) || {}).group || ''} ${(rec(id) || {}).label || id})`)}"` : '';
+    html += `<input type="text" inputmode="decimal" class="${r.type === 'string' || opts.wide ? 'wide' : ''}" data-vid="${h(id)}"${aliasAttr} value="${h(inputText(cur, r.type))}" placeholder="${h(ph)}" aria-label="${h(r.label)}" spellcheck="false">`;
     if (unit) html += `<span class="unit">${h(unit)}</span>`;
   }
   if (changed) html += `<button class="undo" data-undo="${h(id)}" title="Entwurf verwerfen">↺</button>`;
   else if (storedEntry(id) && !r.readonly && opts.reset !== false) html += `<button class="undo" data-reset="${h(id)}" title="Plan verwerfen: zurück auf den Mod-Wert (${h(fmtVal(resetTarget(id), r.type))})">⟲</button>`;
-  if (opts.badges) html += ' ' + statusBadge(id) + (opts.apply === false ? '' : applyBadge(r));
+  if (opts.aliasOf && opts.aliasOf.generatedStale) html += '<span class="badge b-drift" title="Der Item-Export (items.json) ist älter als der Code - Datagen fehlt">Export alt</span>';
+  if (opts.badges) html += ' ' + statusBadge(id) + (opts.apply === false ? '' : applyBadge(opts.aliasOf || r));
   return html;
 }
 function refreshEditor(id) {
@@ -214,15 +249,18 @@ function refreshEditor(id) {
     if (focused) {
       wrap.classList.toggle('changed', !!drafts[id]);
       let del = wrap.querySelector('del.old');
-      if (drafts[id] && !del) { wrap.insertAdjacentHTML('afterbegin', `<del class="old">${h(fmtVal(baseValue(id), rec(id).type))}</del>`); }
+      const fac = +(wrap.dataset.factor || 1);
+      const shownBase = typeof baseValue(id) === 'number' ? +(baseValue(id) * fac).toPrecision(12) : baseValue(id);
+      if (drafts[id] && !del) { wrap.insertAdjacentHTML('afterbegin', `<del class="old">${h(fmtVal(shownBase, rec(id).type))}</del>`); }
       if (!drafts[id] && del) del.remove();
-      const oldDel = wrap.querySelector('del.old'); if (oldDel) oldDel.textContent = fmtVal(baseValue(id), rec(id).type);
+      const oldDel = wrap.querySelector('del.old'); if (oldDel) oldDel.textContent = fmtVal(shownBase, rec(id).type);
       continue;
     }
     const badges = !!wrap.querySelector('.badge.b-p2, .badge.b-mod, .badge.b-tool');
     wrap.classList.toggle('changed', !!drafts[id]);
     wrap.classList.remove('invalid');
-    wrap.innerHTML = edInner(id, rec(id), { badges });
+    const extra = wrap.dataset.alias ? { factor: +wrap.dataset.factor, aliasOf: rec(wrap.dataset.alias) } : {};
+    wrap.innerHTML = edInner(id, rec(id), Object.assign({ badges }, extra));
   }
   for (const row of $$(`tr[data-row="${CSS.escape(id)}"]`)) row.classList.toggle('drafted', !!drafts[id]);
 }
@@ -295,9 +333,10 @@ const NAV = [
   ['Start', [['#/', '⌂', 'Übersicht']]],
   ['Werte', [['#/items', '◆', 'Gegenstände & Rechner'], ['#/loot', '▣', 'Beute (Truhen)', 'loot'], ['#/trades', '⇄', 'Handel', 'trade'],
     ['#/drops', '☠', 'Mob-, Block-Drops & Erze', 'worldgen'], ['#/stats', '⚒', 'Werkzeuge & Rüstung', 'item'], ['#/enchant', '✦', 'Verzauberungen', 'enchant'],
-    ['#/recipes', '⌗', 'Rezepte', 'recipe'], ['#/constants', 'ƒ', 'Code-Konstanten', 'constant'], ['#/config', '⚙', 'Config-Standards', 'config']]],
+    ['#/recipes', '⌗', 'Rezepte', 'recipe'], ['#/constants', 'ƒ', 'Code-Konstanten', 'constant'], ['#/config', '⚙', 'Config-Standards', 'config'],
+    ['#/potionpads', '⚗', 'Trank-Pads', 'potionpad']]],
   ['Rechner', [['#/calc', '⏱', 'Seltenheit & Zeitalter'], ['#/params', '≈', 'Annahmen', 'param']]],
-  ['Verlauf', [['#/versions', '↶', 'Versionen'], ['#/phase2', '→', 'Phase 2: Übergabe']]],
+  ['Verlauf', [['#/versions', '↶', 'Versionen'], ['#/phase2', '→', 'Übergabe (nur Planung)']]],
   ['Wissen', [['#/docs', '§', 'Dokumentation'], ['#/report', '!', 'Auslese-Bericht']]],
 ];
 function renderChrome() {
@@ -351,7 +390,7 @@ function buildSearch() {
 }
 function pageFor(r) {
   return { loot: '#/loot', trade: '#/trades', worldgen: '#/drops', mobdrop: '#/drops', blockdrop: '#/drops', item: '#/stats', enchant: '#/enchant',
-    recipe: '#/recipes', constant: '#/constants', config: '#/config', param: '#/params' }[r.category] || '#/';
+    recipe: '#/recipes', constant: '#/constants', config: '#/config', param: '#/params', potionpad: '#/potionpads' }[r.category] || '#/';
 }
 function runSearch(q) {
   const box = $('#qs');
@@ -378,6 +417,7 @@ const routes = [
   [/^#\/?$/, pageHome], [/^#\/items$/, pageItems], [/^#\/item\/(.+)$/, pageItem], [/^#\/loot$/, pageLoot], [/^#\/trades$/, pageTrades],
   [/^#\/drops$/, pageDrops], [/^#\/stats$/, pageStats], [/^#\/enchant$/, pageEnchant], [/^#\/recipes$/, pageRecipes],
   [/^#\/constants$/, pageConstants], [/^#\/config$/, pageConfig], [/^#\/calc$/, pageCalc], [/^#\/params$/, pageParams],
+  [/^#\/potionpads$/, pagePotionPads],
   [/^#\/versions$/, pageVersions], [/^#\/version\/(\d+)$/, pageVersion], [/^#\/phase2$/, pagePhase2], [/^#\/docs$/, pageDocs],
   [/^#\/docs\/(.+)$/, pageDoc], [/^#\/report$/, pageReport],
 ];
@@ -429,7 +469,8 @@ async function pageHome(main) {
   const drift = statuses.filter(([, s]) => s.drift);
   const orphans = statuses.filter(([, s]) => s.status === 'orphan');
   const nMod = Object.values(V).filter((r) => r.apply === 'mod').length;
-  const pendingApply = statuses.filter(([id, s]) => s.status === 'planned' && (rec(id) || {}).apply === 'mod');
+  const nPlan = Object.values(V).filter((r) => r.apply === 'plan').length;
+  const pendingApply = statuses.filter(([id, s]) => s.status === 'planned' && (rec(id) || {}).apply === 'mod' && !s.written);
   const cats = Object.entries(S.categories).filter(([k]) => snap.counts[k]);
   main.innerHTML = `
     <h1>Balancing-Zentrale</h1>
@@ -437,15 +478,16 @@ async function pageHome(main) {
     ${S.store.warnings.length ? `<div class="box box-warn"><div class="box-title">Hinweise der Ablage</div><ul>${S.store.warnings.map((w) => `<li>${h(w)}</li>`).join('')}</ul></div>` : ''}
     <div class="tiles">
       <div class="tile"><div class="big">${num(Object.keys(V).length)}</div><div class="lbl">Werte eingelesen</div></div>
-      <a class="tile" href="#/trades"><div class="big">${num(nMod)}</div><div class="lbl">wirken sofort in der Mod</div></a>
-      <a class="tile" href="#/phase2"><div class="big">${num(planned)}</div><div class="lbl">geplant (Phase 2)</div></a>
+      <div class="tile" title="Speichern schreibt diese Werte in die Mod-Quelle (JSON/Java, alle Linien)"><div class="big">${num(nMod)}</div><div class="lbl">wirken in der Mod</div></div>
+      <a class="tile" href="#/report" title="Werte, die die Zentrale nicht schreiben kann - jeder mit Grund"><div class="big">${num(nPlan)}</div><div class="lbl">nur Planung</div></a>
+      <a class="tile" href="#/phase2"><div class="big">${num(planned)}</div><div class="lbl">geplant, nicht in der Mod</div></a>
       <div class="tile ${Object.keys(drafts).length ? 'warn' : ''}"><div class="big">${num(Object.keys(drafts).length)}</div><div class="lbl">ungespeichert</div></div>
       <a class="tile" href="#/versions"><div class="big">v${S.store.version}</div><div class="lbl">${S.history.length - 1} Versionen</div></a>
       <a class="tile ${snap.report.problems.length ? 'warn' : ''}" href="#/report"><div class="big">${snap.report.problems.length}</div><div class="lbl">nicht auslesbare Stellen</div></a>
     </div>
     <div class="card"><div class="legend">
-      <span><span class="badge b-mod">wirkt in Mod</span> Speichern schreibt den Wert in die Mod-Datei (heute: Handel)</span>
-      <span><span class="badge b-p2">Phase 2</span> nur geplant – wirkt nach Phase 2</span>
+      <span><span class="badge b-mod">wirkt in Mod</span><span class="badge b-lines">26.2–26.4 + 1.21.11</span> Speichern schreibt den Wert in die Mod-Quelle dieser Linien (danach ggf. Datagen)</span>
+      <span><span class="badge b-p2">nur Planung</span> die Zentrale kann ihn nicht schreiben (Grund im Tooltip / Auslese-Bericht)</span>
       <span><span class="badge b-tool">Rechner</span> Annahme, wirkt nie in der Mod</span>
       <span><span class="badge b-planned">geplant</span> gespeicherter Plan ≠ Mod</span>
       <span><span class="badge b-drift">Mod geändert</span> Mod-Wert hat sich seit dem Speichern bewegt</span>
@@ -454,7 +496,8 @@ async function pageHome(main) {
       ${drift.length ? `<p>${drift.length} geplante Werte, deren Mod-Wert sich seit dem Speichern geändert hat (z. B. durch einen parallelen Lauf):</p><ul>${drift.slice(0, 12).map(([id, s]) => `<li><a href="${pageFor(rec(id))}?f=${encodeURIComponent(id)}">${h(rec(id).group)} – ${h(rec(id).label)}</a>: Mod jetzt ${h(fmtVal(rec(id).value, rec(id).type))}, beim Speichern ${h(fmtVal(s.modAtSave, rec(id).type))}, Plan ${h(fmtVal(entries[id].value, rec(id).type))}</li>`).join('')}</ul>` : ''}
       ${orphans.length ? `<p>${orphans.length} gespeicherte Werte gibt es in der Mod nicht mehr (umbenannt?). Sie bleiben erhalten, bis du sie bewusst entfernst:</p><ul>${orphans.map(([id]) => `<li><code>${h(id)}</code> = ${h(JSON.stringify(entries[id].value))} <button class="btn small" data-reset="${h(id)}">entfernen (als Entwurf)</button></li>`).join('')}</ul>` : ''}
     </div>` : ''}
-    ${pendingApply.length ? `<div class="box box-warn"><div class="box-title">Noch nicht angewendet</div>${pendingApply.length} gespeicherte Handelswerte stehen noch nicht in den Mod-Dateien. <button class="btn small primary" id="apply-planned">Jetzt anwenden …</button></div>` : ''}
+    ${pendingApply.length ? `<div class="box box-warn"><div class="box-title">Noch nicht angewendet</div>${pendingApply.length} gespeicherte Werte stehen noch nicht in den Mod-Dateien. <button class="btn small primary" id="apply-planned">Jetzt anwenden …</button></div>` : ''}
+    <div class="card" id="modstate"><div class="card-head"><h2>Mod-Stand: checkBalance & Datagen</h2><span class="sp"></span><button class="btn small" id="check-btn">Prüfen</button></div><div id="check-box"><span class="spinner"></span></div><div id="job-box"></div></div>
     <div class="grid2">
       <div class="card"><h2>Baukerne auf einen Blick</h2><div id="cores"><span class="spinner"></span></div>
         <p class="tiny muted">Erstes Stück, beste einzelne Quelle gezielt vs. normales Spiel (alle Quellen, normale Raten). Modell wie docs/KERNE-SELTENHEIT.md Abschnitt 2.</p></div>
@@ -463,10 +506,66 @@ async function pageHome(main) {
       </tbody></table></div>
     </div>`;
   const btn = $('#apply-planned'); if (btn) btn.onclick = openApplyPlanned;
+  $('#check-btn').onclick = () => fillCheck();
+  fillCheck();
+  pollJob(true);
   const cores = ['copper', 'iron', 'gold', 'diamond', 'netherite', 'enderite'].map((c) => `simplebuilding:${c}_core`);
   page.onDraft = () => fillCores(cores);
   fillCores(cores);
 }
+// checkBalance und Datagen (Übersicht)
+async function fillCheck() {
+  const box = $('#check-box'); if (!box) return;
+  box.innerHTML = '<span class="spinner"></span> prüfe …';
+  let res;
+  try { res = await api('/api/check'); } catch (err) { box.innerHTML = errorBox(err); return; }
+  const st = res.stats;
+  const datagen = res.errors.some((e) => e.kind === 'datagen');
+  box.innerHTML = `${res.ok ? `<div class="box box-info"><b>checkBalance: ok</b> – ${st.entries} gespeicherte Werte (${st.applied} stehen so in der Mod), ${st.generatedChecked} erzeugte Stellen passen zum Code.</div>`
+    : `<div class="box box-danger"><div class="box-title">checkBalance: ${res.errors.length} Fehler – das Gate (gradlew check) wäre rot</div><ul>${res.errors.slice(0, 10).map((e) => `<li>${h(e.message)}</li>`).join('')}${res.errors.length > 10 ? `<li>… ${res.errors.length - 10} weitere</li>` : ''}</ul></div>`}
+    ${res.warnings.length ? `<details><summary class="tiny muted">${res.warnings.length} Hinweise (geplant, nicht angewendet / verwaist)</summary><ul class="tiny">${res.warnings.map((w) => `<li>${h(w.message)}</li>`).join('')}</ul></details>` : ''}
+    <div class="row-actions" style="display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin-top:.5rem">
+      <button class="btn ${datagen ? 'primary' : ''}" id="datagen-btn">Datagen starten …</button>
+      <label class="tiny"><input type="checkbox" id="dg-264"> auch 26.4-Snapshot</label>
+      <span class="tiny muted">baut die erzeugten Dateien aller Linien neu (Beute-Tabellen, Verzauberungen, Rezepte, Erze, Item-Export, Wiki) – dauert einige Minuten</span></div>`;
+  $('#datagen-btn').onclick = () => startDatagen(false);
+}
+async function startDatagen(force) {
+  const box = $('#job-box');
+  try {
+    await api('/api/datagen', { force, include264: !!($('#dg-264') || {}).checked });
+  } catch (err) {
+    if (err.status === 409 && !force && /Dev-Client/.test(err.message)) {
+      openModal(`<h2>Datagen trotzdem starten?</h2>${errorBox(err)}<div class="foot"><button class="btn" onclick="closeModal()">Abbrechen</button><button class="btn danger" id="dg-force">Trotzdem starten</button></div>`);
+      $('#dg-force').onclick = () => { closeModal(); startDatagen(true); };
+      return;
+    }
+    if (box) box.innerHTML = errorBox(err);
+    return;
+  }
+  pollJob();
+}
+let jobTimer = null;
+async function pollJob(quiet) {
+  clearTimeout(jobTimer);
+  const box = $('#job-box'); if (!box) return;
+  let job;
+  try { job = await api('/api/datagen'); } catch (err) { box.innerHTML = errorBox(err); return; }
+  if (job.status === 'idle') { if (!quiet) box.innerHTML = ''; return; }
+  const icon = { waiting: '·', running: '<span class="spinner"></span>', ok: '✓', failed: '✗', skipped: '–', cancelled: '✗' };
+  const res = job.result || {};
+  box.innerHTML = `<h3>Datagen ${job.status === 'running' ? 'läuft' : job.status === 'ok' ? 'fertig' : job.status === 'cancelled' ? 'abgebrochen' : 'fehlgeschlagen'} (${num(job.seconds, 0)} s)</h3>
+    <table class="table"><tbody>${job.steps.map((st) => `<tr><td>${icon[st.status] || ''}</td><td>${h(st.label)}</td><td class="num sub">${st.seconds !== null && st.seconds !== undefined ? num(st.seconds, 0) + ' s' : ''}</td></tr>`).join('')}</tbody></table>
+    ${job.status === 'running' ? '<button class="btn small danger" id="job-cancel">Abbrechen</button>' : ''}
+    <details ${job.status === 'failed' ? 'open' : ''}><summary class="tiny muted">Ausgabe (letzte Zeilen)</summary><pre class="joblog">${h(job.log.join('\n'))}</pre></details>
+    ${res.diff ? `<div class="box box-info"><div class="box-title">Geänderte Dateien im Arbeitsbaum (${res.diff.count ?? 0})</div>${res.diff.error ? h(res.diff.error) : `<pre class="joblog">${h(res.diff.stat || '(keine)')}</pre>`}</div>` : ''}
+    ${res.check ? (res.check.ok ? '<div class="box box-info"><b>checkBalance nach dem Datagen: ok</b> – Code, Ablage und erzeugte Dateien passen zusammen.</div>' : `<div class="box box-danger"><div class="box-title">checkBalance nach dem Datagen: ${res.check.errors.length} Fehler</div><ul>${res.check.errors.slice(0, 8).map((e) => `<li>${h(e.message)}</li>`).join('')}</ul></div>`) : ''}`;
+  const cancel = $('#job-cancel'); if (cancel) cancel.onclick = () => api('/api/datagen/cancel', {}).catch((err) => toast(h(err.message), true));
+  const log = box.querySelector('pre.joblog'); if (log) log.scrollTop = log.scrollHeight;
+  if (job.status === 'running') jobTimer = setTimeout(() => pollJob(), 1500);
+  else if (!quiet) { await loadState(); fillCheck(); toast(job.status === 'ok' ? 'Datagen fertig – neu eingelesen.' : 'Datagen nicht erfolgreich – siehe Ausgabe.', job.status !== 'ok'); }
+}
+
 async function getOverview() {
   if (!overviewCache) overviewCache = await api('/api/overview', { overrides: overrides() });
   return overviewCache;
@@ -780,14 +879,14 @@ function pageLoot(main) {
   const cores = Object.values(V).filter((r) => r.category === 'loot' && r.group === 'Kern-Chancen');
   const mult = 'config:worldGen.buildingCoreLootChanceMultiplier';
   const draw = () => {
-    let html = `<div class="listhead"><div><h1>Beute (Truhen, Tresore, Angeln)</h1><p class="lead">Die Pools, die die Mod an Vanilla-Tabellen hängt – gelesen aus <code>ModLootTableModifications.java</code>. Anteil, Chance je Kiste und Ø rechnen live mit deinen Entwürfen.</p></div>
+    let html = `<div class="listhead"><div><h1>Beute (Truhen, Tresore, Angeln)</h1><p class="lead">Die Pools, die die Mod an Vanilla-Tabellen hängt – gelesen aus <code>ModLootTableModifications.java</code>. Speichern schreibt jede Zahl dort hinein (26.2–26.4 und die 1.21.11-Kopie); die Inject-Tabellen unter <code>loot_table/inject/</code> baut danach Datagen. Anteil, Chance je Kiste und Ø rechnen live mit deinen Entwürfen.</p></div>
       <div class="filters"><input type="search" id="lq" placeholder="Tabelle oder Item …"></div></div>
       <div class="card" id="cores-card"><h2>Kern-Chancen</h2><p class="tiny muted">Je Kern ein eigener Pool mit einem Wurf; die Chance gilt je Kiste. Darauf wirkt der Config-Faktor ${ed(mult)} (Standard 1,0).</p>
       ${valueTable(cores.sort((a, b) => a.label.localeCompare(b.label)), { notes: true })}</div>`;
     for (const t of tables) {
       if (t.kind === 'mob') continue;
       html += `<div class="card loot-table" data-search="${h((t.label + ' ' + t.id + ' ' + t.pools.flatMap((p) => p.entries.map((e) => e.name ? e.name.de : '')).join(' ')).toLowerCase())}">
-        <div class="card-head"><h2>${h(t.label)}</h2><code class="tiny">${h(t.id)}</code><span class="sp"></span>${t.gatedBy ? `<span class="badge" title="nur wenn ${h(t.gatedBy)} an ist">${h(t.gatedBy.split('.').pop())}</span>` : ''}<span class="badge b-p2">Phase 2</span></div>`;
+        <div class="card-head"><h2>${h(t.label)}</h2><code class="tiny">${h(t.id)}</code><span class="sp"></span>${t.gatedBy ? `<span class="badge" title="nur wenn ${h(t.gatedBy)} an ist">${h(t.gatedBy.split('.').pop())}</span>` : ''}<span class="badge b-mod" title="Speichern schreibt die Zahl in ModLootTableModifications.java (26.2–26.4 und 1.21.11); die Inject-Tabellen entstehen mit Datagen">wirkt in Mod</span><span class="badge b-lines">26.2–26.4 + 1.21.11</span></div>`;
       t.pools.forEach((pool, pi) => {
         const st = poolStats(pool);
         const r = pool.rolls;
@@ -825,7 +924,7 @@ async function pageTrades(main) {
   for (const t of trades) { const g = (t.pools[0] && t.pools[0].label) || t.professionDe; (groups[g] = groups[g] || []).push(t); }
   const order = Object.keys(groups).sort((a, b) => (a.startsWith('Fahrender') ? 1 : 0) - (b.startsWith('Fahrender') ? 1 : 0) || a.localeCompare(b, DE));
   const draw = (offers) => {
-    let html = `<h1>Handel</h1><p class="lead">Dorfbewohner- und Händler-Angebote aus <code>villager_trade/*.json</code>. <span class="badge b-mod">wirkt in Mod</span> Diese Werte schreibt Speichern direkt in die JSON-Dateien (26.2 und 26.3). Die 1.21.11-Linie (Java) folgt erst mit Phase 2.</p>`;
+    let html = `<h1>Handel</h1><p class="lead">Dorfbewohner- und Händler-Angebote aus <code>villager_trade/*.json</code>. <span class="badge b-mod">wirkt in Mod</span> Speichern schreibt diese Werte in die JSON-Dateien (26.2 und 26.3) und, wo die Zuordnung eindeutig ist, in <code>ModTradeDefinitions.java</code> (1.21.11) – die Linien stehen am Wert.</p>`;
     for (const g of order) {
       const pool = groups[g][0].pools[0];
       html += `<div class="card"><div class="card-head"><h2>${h(g)}</h2><span class="sp"></span>${pool ? `<span class="tiny muted">${pool.vanilla.length} Vanilla + ${pool.mod.length} Mod-Angebote, ${pool.amount ?? '?'} werden gezogen</span>` : ''}</div>
@@ -871,7 +970,7 @@ function pageDrops(main) {
     <div class="card"><h2>Block-Drops</h2><p class="tiny muted">Blöcke, die etwas anderes als sich selbst fallen lassen (aus den erzeugten Block-Loot-Tabellen).</p>
       <table class="table"><thead><tr><th>Block</th><th>Drop</th><th class="num">Anzahl</th><th>Glück</th><th class="num">Annahme (abgebaut/h)</th></tr></thead><tbody>
       ${snap.blockDrops.map((d) => `<tr><td>${itemRef(d.block)}</td><td>${itemRef(d.item)}</td><td class="num">${d.count[0]}${d.count[1] !== d.count[0] ? '–' + d.count[1] : ''}</td><td>${h(d.fortune || '–')}</td><td class="num">${ed('param:block.' + d.block)}</td></tr>`).join('')}</tbody></table></div>
-    <div class="card"><h2>Erz-Generierung</h2><span class="badge b-p2">Phase 2</span> <span class="tiny muted">aus <code>worldgen/</code> (von runDatagen erzeugt)</span>
+    <div class="card"><h2>Erz-Generierung</h2><span class="tiny muted">aus <code>ModWorldGen.java</code> (26.2, Overlay 26.3/26.4, 1.21.11); die Dateien unter <code>worldgen/</code> baut Datagen</span>
       ${Object.entries(byFeature).map(([g, rs]) => `<h3>${h(g)}</h3>${valueTable(rs, { notes: false })}`).join('')}</div>`;
 }
 
@@ -883,17 +982,17 @@ function pageStats(main) {
   const families = {};
   for (const it of S.snapshot.items) if (Object.keys(it.stats).length) (families[it.family] = families[it.family] || []).push(it);
   const used = props.filter(([p]) => S.snapshot.items.some((i) => i.stats[p]));
-  let html = `<h1>Werkzeuge & Rüstung</h1><p class="lead">Aus dem Item-Export (<code>src/main/generated/wiki/items.json</code>, WikiDataProvider). Die Werte entstehen in Java – ändern ist Phase 2. Die Java-Konstanten dahinter stehen unter <a href="#/constants">Code-Konstanten</a> (z. B. SledgehammerItem, ModItems).</p>`;
+  let html = `<h1>Werkzeuge & Rüstung</h1><p class="lead">Aus dem Item-Export (<code>src/main/generated/wiki/items.json</code>, WikiDataProvider). Jeder Wert zeigt auf seine Quelle im Code: eine Konstante (<code>ModItems.DURABILITY_IRON</code>, Material, Config-Standard der Ladungen) oder eine Zahl im Registrierungs-Code. Ändern hier ändert diese Quelle – und damit jedes Item, das sie nutzt (steht im Speichern-Dialog); der Export folgt mit Datagen. Angriffswerte und Kapazitäten sind berechnet.</p>`;
   for (const [fam, items] of Object.entries(families).sort()) {
     const cols = used.filter(([p]) => items.some((i) => i.stats[p]));
-    html += `<div class="card"><div class="card-head"><h2>${h(fam)}</h2><span class="sp"></span><span class="badge b-p2">Phase 2</span></div><div class="table-wrap"><table class="table"><thead><tr><th>Item</th>${cols.map(([, l]) => `<th class="num">${h(l)}</th>`).join('')}</tr></thead><tbody>
+    html += `<div class="card"><div class="card-head"><h2>${h(fam)}</h2></div><div class="table-wrap"><table class="table"><thead><tr><th>Item</th>${cols.map(([, l]) => `<th class="num">${h(l)}</th>`).join('')}</tr></thead><tbody>
       ${items.map((i) => `<tr><td>${itemRef(i.id)}</td>${cols.map(([p]) => `<td class="num">${i.stats[p] ? ed(i.stats[p]) : ''}</td>`).join('')}</tr>`).join('')}</tbody></table></div></div>`;
   }
   main.innerHTML = html;
 }
 
 function pageEnchant(main) {
-  let html = `<h1>Verzauberungen</h1><p class="lead">Aus den erzeugten Verzauberungsdateien (<code>src/main/generated/data/simplebuilding/enchantment</code>): Gewicht, Stufen, Kosten und die Wirkungswerte, die in der Datei stehen. Wirkungen, die im Java-Code stecken, fehlen (siehe Auslese-Bericht).</p>`;
+  let html = `<h1>Verzauberungen</h1><p class="lead">Gewicht, Stufen, Kosten und Wirkungswerte aus <code>ModEnchantments.java</code> (26.2–26.4 und 1.21.11); die Dateien unter <code>enchantment/</code> baut Datagen daraus. Wirkungen, die nur im Java-Code stecken, fehlen (siehe Auslese-Bericht).</p>`;
   for (const e of S.snapshot.enchantments) {
     const rs = Object.values(e.ids).map((id) => V[id]).filter(Boolean);
     html += `<details class="card"><summary><b>${h(e.name.de)}</b> <span class="muted">${h(e.name.en)} · max. Stufe ${e.maxLevel} · Gewicht ${e.weight}</span></summary>${valueTable(rs, { notes: false })}</details>`;
@@ -904,7 +1003,7 @@ function pageEnchant(main) {
 function pageRecipes(main) {
   const recipes = S.snapshot.recipes.filter((r) => !r.easter);
   const types = [...new Set(recipes.map((r) => r.type.split(':').pop()))].sort();
-  main.innerHTML = `<div class="listhead"><div><h1>Rezepte</h1><p class="lead">Ergebnis-Mengen, Garzeiten und Erfahrung (von runDatagen erzeugt – ändern = Phase 2). Zutaten zur Übersicht.</p></div>
+  main.innerHTML = `<div class="listhead"><div><h1>Rezepte</h1><p class="lead">Ergebnis-Mengen, Garzeiten und Erfahrung aus <code>ModRecipeProvider.java</code> (26.2/26.3 und 1.21.11), wo eine eigene Zahl im Code steht; Mengen aus Vanilla-Mustern (Treppe, Stufe, Steinsäge) sind nur Planung. Zutaten zur Übersicht. Danach Datagen.</p></div>
     <div class="filters"><input type="search" id="rq" placeholder="Rezept oder Item …"><select id="rt"><option value="">alle Arten</option>${types.map((t) => `<option>${h(t)}</option>`).join('')}</select></div></div>
     <div class="card"><div class="table-wrap"><table class="table" id="rtab"><thead><tr><th class="sortable">Ergebnis</th><th class="num">Menge</th><th class="sortable">Art</th><th>Zutaten</th><th class="num">Garzeit</th><th class="num">XP</th></tr></thead><tbody id="rbody"></tbody></table></div></div>`;
   const ingr = (list) => list.map((i) => `${i.count}× ${h(i.id.split(' / ').map((x) => x.startsWith('#') ? x : nameOf(x)).join(' / '))}`).join(', ');
@@ -919,7 +1018,7 @@ function pageRecipes(main) {
 function pageConstants(main) {
   const byClass = {};
   for (const r of Object.values(V)) if (r.category === 'constant') (byClass[r.group] = byClass[r.group] || []).push(r);
-  main.innerHTML = `<div class="listhead"><div><h1>Code-Konstanten</h1><p class="lead">Ladungen, Abklingzeiten, Reichweiten, Tempo, Haltbarkeiten – jede <code>static final</code>-Zahl im gemeinsamen Code, deren Name nach Balance klingt. „berechnet“ = Ausdruck aus anderen Konstanten; ändere dann die Bestandteile. Alles Phase 2.</p></div>
+  main.innerHTML = `<div class="listhead"><div><h1>Code-Konstanten</h1><p class="lead">Ladungen, Abklingzeiten, Reichweiten, Tempo, Haltbarkeiten – jede <code>static final</code>-Zahl im gemeinsamen Code, deren Name nach Balance klingt. Speichern ersetzt die Zahl im Code (26.2–26.4 und die 1.21.11-Kopie). Bei Ausdrücken wie <code>64*4</code> oder <code>190 * BASE_DURABILITY_MULTIPLIER</code> wird das Literal zurückgerechnet; <code>NAME * 2</code> zeigt auf NAME.</p></div>
     <div class="filters"><input type="search" id="cq" placeholder="Klasse, Name, Beschreibung …"></div></div><div id="clist"></div>`;
   const draw = () => {
     const q = $('#cq').value.toLowerCase();
@@ -937,7 +1036,7 @@ function pageConstants(main) {
 function pageConfig(main) {
   const byTab = {};
   for (const r of Object.values(V)) if (r.category === 'config') (byTab[r.group] = byTab[r.group] || []).push(r);
-  let html = `<h1>Config-Standardwerte</h1><p class="lead">Die Standards aus <code>SimplebuildingConfig.java</code> / <code>TweaksConfig.java</code> – das, was ein neuer Server bekommt. Eine bestehende <code>config/simplebuilding.json</code> behält ihre Werte. Standard ändern = Phase 2 (Feld-Initialisierer). Grenzen stammen aus <code>@BoundedDiscrete</code> und <code>validate()</code>.</p>`;
+  let html = `<h1>Config-Standardwerte</h1><p class="lead">Die Standards aus <code>SimplebuildingConfig.java</code>, <code>TweaksConfig.java</code> und <code>ServerTuningConfig.java</code> (Reiter Server & Modpack Tuning) – das, was ein neuer Server bekommt. Speichern ersetzt den Feld-Initialisierer (26.2–26.4 und 1.21.11); eine bestehende <code>config/simplebuilding.json</code> behält ihre Werte. Grenzen aus <code>@BoundedDiscrete</code> und <code>validate()</code>. Spieltests, die einen Standard festhalten, nennt der Speichern-Dialog.</p>`;
   for (const [tab, rs] of Object.entries(byTab)) {
     html += `<div class="card"><div class="card-head"><h2>${h(tab)}</h2></div><div class="table-wrap"><table class="table"><thead><tr><th>Option</th><th class="num">Standard</th><th>Seite</th><th>Bereich</th><th>Status</th></tr></thead><tbody>`;
     for (const r of rs) html += `<tr data-row="${h(r.id)}"><td><b>${h(r.label)}</b> <code class="tiny">${h(r.refs.path)}</code>${r.refs.subgroup && r.refs.subgroup !== tab ? ` <span class="badge">${h(r.refs.subgroup)}</span>` : ''}<div class="sub" title="${h(r.note || '')}">${h((r.note || '').slice(0, 160))}${(r.note || '').length > 160 ? ' …' : ''}</div></td>
@@ -945,6 +1044,18 @@ function pageConfig(main) {
     html += '</tbody></table></div></div>';
   }
   main.innerHTML = html;
+}
+
+function pagePotionPads(main) {
+  const t = S.snapshot.potionPads || { rows: [] };
+  if (!t.rows.length) {
+    main.innerHTML = `<h1>Trank-Pads</h1><div class="card empty">Die Regeln je Wirkung (<code>PotionPadRules.java</code>, Lauf AA) gibt es in diesem Stand noch nicht. Sobald die Datei da ist, stehen die Regeln hier – lesbar und änderbar wie alle Werte.</div>`;
+    return;
+  }
+  main.innerHTML = `<h1>Trank-Pads: Regeln je Wirkung</h1><p class="lead">Aus <code>${h(t.file)}</code> (Tabelle <code>TABLE</code> und <code>DEFAULT</code>). Speichern schreibt die Zahl in die Regel. Wer eine Wirkung bekommt, steuern die Tags <code>#simplebuilding:potion_pad/*</code> (Datenpaket).</p>
+    <div class="card"><div class="table-wrap"><table class="table"><thead><tr><th>Wirkung</th>${t.fields.map((f) => `<th class="num">${h(f.label)}</th>`).join('')}</tr></thead><tbody>
+    ${t.rows.map((r) => `<tr data-row="${h(r.ids[t.fields[0].key])}"><td><b>${h(r.effect === 'default' ? 'jede andere Wirkung (DEFAULT)' : r.effect)}</b><div class="sub">Zeile ${r.line}</div></td>${t.fields.map((f) => `<td class="num">${ed(r.ids[f.key])}</td>`).join('')}</tr>`).join('')}
+    </tbody></table></div></div>`;
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -1017,7 +1128,7 @@ async function pageVersion(main, n) {
     <p class="lead">${h(v.message || '')} <span class="muted">${h((v.savedAt || '').replace('T', ' '))}</span></p>
     ${Number(n) !== S.store.version ? `<button class="btn" data-rollback="${v.version}">Auf diesen Stand zurücksetzen …</button>` : ''}
     <div class="card"><h2>Änderungen in dieser Version (${changes.length})</h2>${changeTable(changes.map((c) => ({ id: c.id, old: c.old, new: c.removed ? null : c.new, reset: c.removed })))}</div>
-    ${(v.applied || []).length ? `<div class="card"><h2>In Mod-Dateien geschrieben</h2><table class="table"><tbody>${v.applied.map((a) => `<tr><td><code>${h(a.file)}</code></td><td>${h(a.path.join('/'))}</td><td><span class="diff-old">${h(a.old)}</span> → <span class="diff-new">${h(a.new)}</span></td></tr>`).join('')}</tbody></table></div>` : ''}
+    ${(v.applied || []).length ? `<div class="card"><h2>In Mod-Dateien geschrieben (${v.applied.length} Stellen)</h2><table class="table"><tbody>${v.applied.map((a) => `<tr><td><code>${h(a.file)}</code>${a.mc ? ` <span class="badge b-lines">${h(a.mc)}</span>` : ''}</td><td>${h(a.path ? a.path.join('/') : 'Zeile ' + (a.line ?? '?'))}</td><td><span class="diff-old">${h(a.old)}</span> → <span class="diff-new">${h(a.new)}</span></td></tr>`).join('')}</tbody></table></div>` : ''}
     <div class="card"><h2>Geplante Werte in diesem Stand (${Object.keys(v.entries).length})</h2>${changeTable(Object.entries(v.entries).map(([id, e]) => ({ id, old: e.mod, new: e.value })), 'Mod beim Speichern')}</div>`;
 }
 function changeTable(items, oldLabel = 'vorher') {
@@ -1030,10 +1141,10 @@ function changeTable(items, oldLabel = 'vorher') {
 async function pagePhase2(main) {
   const data = await api('/api/phase2');
   const groups = Object.entries(data.groups);
-  main.innerHTML = `<div class="listhead"><div><h1>Phase 2: Übergabe</h1><p class="lead">Alles, was geplant ist, aber noch nicht in der Mod wirkt – mit Datei und Zeile, damit Phase 2 (oder ein Lauf) es umsetzen kann. Wie die Werte in die Mod kommen: <a href="#/docs/BALANCING-ZENTRALE.md">docs/BALANCING-ZENTRALE.md</a>.</p></div>
+  main.innerHTML = `<div class="listhead"><div><h1>Übergabe: was (noch) nicht in der Mod wirkt</h1><p class="lead">Gespeicherte Pläne, die die Zentrale nicht schreiben kann (neue Quellen, Werte ohne eigene Zahl im Code) oder die noch nicht angewendet sind – mit Grund, Datei und Zeile, damit ein Lauf sie von Hand umsetzen kann. Siehe <a href="#/docs/BALANCING-ZENTRALE.md">docs/BALANCING-ZENTRALE.md</a>.</p></div>
     <a class="btn" href="/api/phase2" download="balance-phase2.json">Als JSON herunterladen</a></div>
     ${groups.length ? groups.map(([cat, list]) => `<div class="card"><h2>${h(S.categories[cat] || cat)} (${list.length})</h2><div class="table-wrap"><table class="table"><thead><tr><th>Wert</th><th class="num">Mod</th><th></th><th>Plan</th><th>Stelle</th></tr></thead><tbody>
-      ${list.map((e) => { const r = rec(e.id) || { type: 'json' }; return `<tr><td><b>${h(e.label || e.id)}</b><div class="sub">${h(e.group || '')}</div></td><td class="num diff-old">${h(fmtVal(e.mod, r.type))}</td><td class="diff-arrow">→</td><td class="diff-new">${h(r.type === 'json' ? JSON.stringify(e.planned) : fmtVal(e.planned, r.type))}</td><td>${e.source && e.source.file ? `<span class="srcref" data-copy="${h(e.source.file + (e.source.line ? ':' + e.source.line : ''))}">${h(e.source.file.split('/').slice(-2).join('/'))}${e.source.line ? ':' + e.source.line : ''}</span>` : ''}</td></tr>`; }).join('')}
+      ${list.map((e) => { const r = rec(e.id) || { type: 'json' }; return `<tr><td><b>${h(e.label || e.id)}</b><div class="sub">${h(e.group || '')}</div>${e.why ? `<div class="sub" style="color:var(--warn-text)">${h(e.why)}</div>` : ''}</td><td class="num diff-old">${h(fmtVal(e.mod, r.type))}</td><td class="diff-arrow">→</td><td class="diff-new">${h(r.type === 'json' ? JSON.stringify(e.planned) : fmtVal(e.planned, r.type))}</td><td>${e.source && e.source.file ? `<span class="srcref" data-copy="${h(e.source.file + (e.source.line ? ':' + e.source.line : ''))}">${h(e.source.file.split('/').slice(-2).join('/'))}${e.source.line ? ':' + e.source.line : ''}</span>` : ''}</td></tr>`; }).join('')}
     </tbody></table></div></div>`).join('') : '<div class="card empty">Nichts offen – alle gespeicherten Pläne stehen schon so in der Mod (oder es gibt noch keine).</div>'}`;
 }
 
@@ -1069,9 +1180,10 @@ function draftPayload() { return Object.entries(drafts).map(([id, d]) => (d.rese
 function summaryTable(summary) {
   const byCat = {};
   for (const s of summary) (byCat[s.categoryLabel || s.category] = byCat[s.categoryLabel || s.category] || []).push(s);
-  return Object.entries(byCat).map(([cat, list]) => `<h3>${h(cat)} (${list.length})</h3><div class="table-wrap"><table class="table"><tbody>${list.map((s) => `<tr><td><b>${h(s.label)}</b><div class="sub">${h(s.group || '')}${s.file ? ` · ${h(s.file.split('/').pop())}${s.line ? ':' + s.line : ''}` : ''}</div>${s.warnings.map((w) => `<div class="tiny" style="color:var(--warn-text)">⚠ ${h(w)}</div>`).join('')}</td>
+  const where = (s) => (s.sites && s.sites.length ? s.sites.map((x) => `${x.mc}: ${String(x.file || '').split('/').pop()}${x.line ? ':' + x.line : ''}`).join(' · ') : (s.file ? `${s.file.split('/').pop()}${s.line ? ':' + s.line : ''}` : ''));
+  return Object.entries(byCat).map(([cat, list]) => `<h3>${h(cat)} (${list.length})</h3><div class="table-wrap"><table class="table"><tbody>${list.map((s) => `<tr><td><b>${h(s.label)}</b><div class="sub">${h(s.group || '')}${where(s) ? ' · ' + h(where(s)) : ''}</div>${s.datagen && s.apply === 'mod' ? '<div class="tiny muted">danach Datagen (erzeugte Dateien)</div>' : ''}${s.warnings.map((w) => `<div class="tiny" style="color:var(--warn-text)">⚠ ${h(w)}</div>`).join('')}</td>
     <td class="num diff-old">${h(fmtVal(s.old, s.type))}</td><td class="diff-arrow">→</td><td class="diff-new">${h(fmtVal(s.new, s.type))}${s.reset ? ' <span class="badge">Plan verworfen</span>' : ''}</td>
-    <td>${s.applyNow ? `<span class="badge b-mod apply-now">wird in Mod-Datei geschrieben</span>` : s.apply === 'tool' ? '<span class="badge b-tool">Rechner</span>' : s.apply === 'mod' ? '<span class="badge b-planned">nur geplant</span>' : '<span class="badge b-p2">Phase 2</span>'}</td></tr>`).join('')}</tbody></table></div>`).join('');
+    <td>${s.applyNow ? `<span class="badge b-mod apply-now">wird in die Mod geschrieben</span>${s.lines && s.lines.length ? `<span class="badge b-lines">${h(linesLabel(s.lines))}</span>` : ''}` : s.apply === 'tool' ? '<span class="badge b-tool">Rechner</span>' : s.apply === 'mod' ? (s.reset ? '<span class="badge">steht so in der Mod</span>' : '<span class="badge b-planned">nur geplant</span>') : '<span class="badge b-p2">nur Planung</span>'}</td></tr>`).join('')}</tbody></table></div>`).join('');
 }
 
 async function openSave() {
@@ -1089,7 +1201,8 @@ async function openSave() {
     ${pv.skipped.length ? `<p class="tiny muted">${pv.skipped.length} Entwürfe entsprechen schon dem gespeicherten Wert und werden verworfen.</p>` : ''}
     ${summaryTable(pv.summary)}
     <div class="field" style="margin-top:.8rem"><label for="save-msg">Notiz zu dieser Version (was und warum?)</label><input id="save-msg" autofocus placeholder="z. B. Enderit-Kern seltener, Zeitalter B"></div>
-    ${hasMod ? `<label style="display:flex;gap:.5rem;align-items:center;margin-top:.6rem"><input type="checkbox" id="save-apply" checked> Handelswerte direkt in die Mod-Dateien schreiben (26.2/26.3 <code>villager_trade/*.json</code>)</label>` : ''}
+    ${hasMod ? `<label style="display:flex;gap:.5rem;align-items:center;margin-top:.6rem"><input type="checkbox" id="save-apply" checked> Werte direkt in die Mod schreiben (JSON- und Java-Quellen aller angezeigten Linien; ohne Haken bleiben sie „geplant“)</label>` : ''}
+    ${pv.summary.some((s) => s.applyNow && s.datagen) ? '<p class="tiny muted">Einige Werte erzeugen Dateien (Beute-Tabellen, Verzauberungen, Rezepte, Item-Export): danach auf der Übersicht „Datagen starten“ – bis dahin meldet checkBalance die Abweichung.</p>' : ''}
     <div class="foot"><span class="sp tiny muted">Ablage: ${h(S.store.path)}/versions/</span><button class="btn" id="save-cancel">Abbrechen</button><button class="btn primary" id="save-ok" ${blocked ? 'disabled' : ''}>Bestätigen & als v${pv.nextVersion} speichern</button></div>`);
   $('#save-cancel').onclick = closeModal;
   const applyToggle = $('#save-apply');
@@ -1106,7 +1219,7 @@ async function openSave() {
       closeModal();
       await loadState();
       route();
-      toast(`<b>v${res.version} gespeichert.</b> ${res.applied ? `${res.applied} Werte in Mod-Dateien geschrieben.` : ''}`);
+      toast(`<b>v${res.version} gespeichert.</b> ${res.applied ? `${res.applied} Werte in die Mod geschrieben.` : ''}${res.datagen ? ' Datagen nötig – <a href="#/">Übersicht</a>.' : ''}`);
     } catch (err) {
       $('#save-ok').disabled = false;
       $('#modal-body').insertAdjacentHTML('afterbegin', errorBox(err));
@@ -1126,7 +1239,7 @@ async function openRollback(target) {
     ${pv.errors.length ? `<div class="box box-danger"><ul>${pv.errors.map((e) => `<li>${h(e.message)}</li>`).join('')}</ul></div>` : ''}
     ${pv.summary.length ? summaryTable(pv.summary) : '<p>Keine Änderung – der Stand entspricht schon v' + target + '.</p>'}
     <div class="field" style="margin-top:.8rem"><label for="rb-msg">Notiz</label><input id="rb-msg" autofocus value="Rückgängig: Stand von v${target}"></div>
-    ${hasMod ? `<label style="display:flex;gap:.5rem;align-items:center;margin-top:.6rem"><input type="checkbox" id="rb-apply" checked> Handelswerte auch in den Mod-Dateien zurücksetzen</label>` : ''}
+    ${hasMod ? `<label style="display:flex;gap:.5rem;align-items:center;margin-top:.6rem"><input type="checkbox" id="rb-apply" checked> Werte auch in der Mod zurücksetzen (Original-Literale, alle Linien)</label>` : ''}
     <div class="foot"><button class="btn" id="rb-cancel">Abbrechen</button><button class="btn primary" id="rb-ok" ${pv.summary.length && !pv.errors.length ? '' : 'disabled'}>Bestätigen & als v${pv.nextVersion} speichern</button></div>`);
   $('#rb-cancel').onclick = closeModal;
   $('#rb-ok').onclick = async () => {
@@ -1149,8 +1262,8 @@ function openDraftList() {
 
 async function openApplyPlanned() {
   const data = await api('/api/pending-apply');
-  openModal(`<h2>Geplante Handelswerte anwenden?</h2><p class="muted">Diese gespeicherten Werte stehen noch nicht in den Mod-Dateien. Anwenden schreibt sie hinein (keine neue Version – der Plan ist schon gespeichert).</p>
-    <table class="table"><tbody>${data.pending.map((p) => `<tr><td><b>${h(p.label)}</b><div class="sub">${h(p.group)} · ${h(p.file)}</div></td><td class="num diff-old">${h(p.old)}</td><td class="diff-arrow">→</td><td class="diff-new">${h(p.new)}</td></tr>`).join('')}</tbody></table>
+  openModal(`<h2>Geplante Werte anwenden?</h2><p class="muted">Diese gespeicherten Werte stehen noch nicht in der Mod. Anwenden schreibt sie hinein – in alle angezeigten Linien (keine neue Version – der Plan ist schon gespeichert).</p>
+    <table class="table"><tbody>${data.pending.map((p) => `<tr><td><b>${h(p.label)}</b><div class="sub">${h(p.group)} · ${h(p.file)}${p.lines && p.lines.length ? ' · ' + h(linesLabel(p.lines)) : ''}${p.datagen ? ' · danach Datagen' : ''}</div></td><td class="num diff-old">${h(p.old)}</td><td class="diff-arrow">→</td><td class="diff-new">${h(p.new)}</td></tr>`).join('')}</tbody></table>
     <div class="foot"><button class="btn" onclick="closeModal()">Abbrechen</button><button class="btn primary" id="ap-ok">Bestätigen & schreiben</button></div>`);
   $('#ap-ok').onclick = async () => {
     try { const res = await api('/api/apply-planned', {}); closeModal(); await loadState(); route(); toast(`${res.applied} Werte in die Mod geschrieben.`); } catch (err) { $('#modal-body').insertAdjacentHTML('afterbegin', errorBox(err)); }
@@ -1163,12 +1276,27 @@ async function openApplyPlanned() {
 document.addEventListener('input', (e) => {
   const t = e.target;
   if (t.matches('input[type="text"][data-vid]')) {
-    const id = t.dataset.vid; const r = rec(id);
+    const id = t.dataset.vid; let r = rec(id);
     const wrap = t.closest('.ve');
-    const res = parseInput(r, t.value);
+    const factor = +(t.dataset.factor || 1);
+    if (factor !== 1 || wrap.dataset.alias) r = Object.assign({}, r, { min: null, max: null });
+    let res = parseInput(r, t.value);
+    if (res.ok && factor !== 1 && res.value !== null) {
+      const v = res.value / factor;
+      const target = rec(id);
+      if (target.type === 'int' && Math.abs(v - Math.round(v)) > 1e-9) res = { ok: false, error: `Vielfaches von ${factor} nötig`, title: `= ${target.label} × ${factor}` };
+      else res = parseInput(target, String(target.type === 'int' ? Math.round(v) : +v.toPrecision(12)).replace('.', ','));
+    }
+    if (res.ok && res.value !== null) {
+      const tr = ((rec(id) || {}).source || {}).transform;
+      const k = tr && tr.op === '*' ? tr.k : null;
+      if (k && rec(id).type === 'int' && Math.abs(res.value / k - Math.round(res.value / k)) > 1e-9) {
+        res = { ok: false, error: `Vielfaches von ${k * factor} nötig`, title: `im Code steht ${(rec(id).source || {}).expr || 'ein Produkt'}` };
+      }
+    }
     wrap.classList.toggle('invalid', !res.ok);
     let err = wrap.querySelector('.err');
-    if (!res.ok) { if (!err) { err = document.createElement('span'); err.className = 'err'; wrap.appendChild(err); } err.textContent = res.error; return; }
+    if (!res.ok) { if (!err) { err = document.createElement('span'); err.className = 'err'; wrap.appendChild(err); } err.textContent = res.error; err.title = res.title || ''; return; }
     if (err) err.remove();
     setDraft(id, res.value);
     refreshEditor(id);

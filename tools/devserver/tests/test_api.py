@@ -79,7 +79,9 @@ class ApiTests(unittest.TestCase):
         status, pv = self.json("/api/preview", {"baseVersion": base, "changes": [{"id": vid, "value": "140", "expected": 400}]})
         self.assertEqual(status, 200)
         self.assertEqual(pv["summary"][0]["new"], 140)
-        self.assertEqual(pv["summary"][0]["apply"], "phase2")
+        self.assertEqual(pv["summary"][0]["apply"], "mod")
+        self.assertEqual([x["mc"] for x in pv["summary"][0]["sites"]], ["26.2/26.3/26.4", "1.21.11"])
+        self.assertTrue(any("ConfigOptionTests" in w for w in pv["summary"][0]["warnings"]))  # Spieltest hält den Standard
         status, bad = self.json("/api/save", {"baseVersion": base, "changes": [{"id": vid, "value": "x"}]})
         self.assertEqual(status, 400)
         self.assertIn("keine Zahl", bad["details"][0]["message"])
@@ -111,6 +113,18 @@ class ApiTests(unittest.TestCase):
         row = next(r for r in ov["rows"] if r["item"] == "simplebuilding:enderite_core")
         self.assertLess(row["bestMean"], 38.0)
         self.assertIn("simplebuilding:wandering_trader/emerald_iron_cores", ov["offers"])
+
+    def test_check_and_datagen_routes(self):
+        status, res = self.json("/api/check")
+        self.assertEqual(status, 200)
+        self.assertTrue(res["ok"], res["errors"][:3])
+        self.assertGreater(res["stats"]["generatedChecked"], 300)
+        status, job = self.json("/api/datagen")
+        self.assertEqual((status, job["status"]), (200, "idle"))
+        status, err = self.json("/api/datagen", {})
+        self.assertEqual(status, 403)  # der Test-Service ist schreibgeschützt
+        self.assertEqual(self.json("/api/datagen/cancel", {})[0], 400)
+        self.assertEqual(self.json("/api/handover")[0], 200)
 
     def test_docs_and_phase2(self):
         status, doc = self.json("/api/docs/LOOT-BALANCE.md")
