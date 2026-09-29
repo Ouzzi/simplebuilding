@@ -102,6 +102,7 @@
       "com.simplebuilding.gametest.TweaksTierGameTest",
       "com.simplebuilding.gametest.PadOverhaulGameTest",
       "com.simplebuilding.gametest.PotionPadGameTest",
+      "com.simplebuilding.gametest.PotionPadRuleGameTest",
       "com.simplebuilding.gametest.PerformanceGameTest",
       "com.simplebuilding.gametest.PlacedTemplateGameTest",
       "com.simplebuilding.gametest.PulsatingTrimGameTest",

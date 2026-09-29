@@ -21,8 +21,8 @@ public final class LeatherAndQuiverGameTest {
     }
 
     @GameTest
-    public void reinforcedQuiverCraftsFromThePlainQuiverWithSheetPebbleAndNugget(GameTestHelper helper) {
-        LeatherAndQuiverTests.reinforcedQuiverCraftsFromThePlainQuiverWithSheetPebbleAndNugget(helper);
+    public void reinforcedQuiverCraftsFromThePlainQuiverWithTheBundlePatternAndSixPebbles(GameTestHelper helper) {
+        LeatherAndQuiverTests.reinforcedQuiverCraftsFromThePlainQuiverWithTheBundlePatternAndSixPebbles(helper);
     }
 
     @GameTest

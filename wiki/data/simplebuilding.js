@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "src/main/generated/wiki/items.json",
       "present": true,
-      "count": 225,
+      "count": 226,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -290,14 +290,14 @@ window.WIKI_DATA = {
           "Your first tool is the Stone Chisel: a stick in the bottom left, cobblestone in the middle, and one copper nugget each to the left of and below the cobblestone. Right-click with it to turn stone into chiseled stone bricks or smooth sandstone into cut sandstone; sneak + right-click walks the chain back (costing 2 durability instead of 1). After every conversion the Stone Chisel goes on a 30-tick cooldown (1.5 seconds).",
           "As soon as you have an iron ingot to spare, craft the Stone Sledgehammer: an iron ingot top left, two cobblestone next to it, two sticks in the middle column below. It mines like a stone pickaxe but takes a whole 3x3 face of identical blocks per swing, and holding right-click turns a full block into stairs and stairs into a slab. Every extra block broken costs 1 durability, so keep an eye on those 760 points.",
           "Sneaking is the mod's universal modifier: on the Chisel it reverses the direction, on the Sledgehammer it mines a single block, on enchanted pickaxes and axes it triggers Vein Miner, Strip Miner and Versatility, on the Octant it sets Pos 2, and the Attractor and a Funnel bundle pause while you do it.",
-          "More room: the Reinforced Bundle is made from a bundle in the middle with a Diamond Pebble beside it, string on top and a Leather Sheet (nine leather in the crafting grid) below, and holds 96 items (at a stack size of 64); whatever the bundle held, its enchantments and its name carry over. The Quiver (bundle, string, leather, copper nugget) only takes arrows and feeds the bow automatically when it is in your offhand, in your chest slot or on your hotbar; the same crafting upgrade with a Quiver, a Leather Sheet and a Diamond Pebble makes the Reinforced Quiver (96 arrows, arrows and enchantments kept). The Diamond Pebble has one source, the Sledgehammer crushing a diamond block (see below).",
+          "More room: the Reinforced Bundle is made from a bundle in the middle, string on top, a Leather Sheet (nine leather in the crafting grid) below and six Diamond Pebbles in the two side columns, and holds 96 items (at a stack size of 64); whatever the bundle held, its enchantments and its name carry over. The Quiver (bundle, string, leather, copper nugget) only takes arrows and feeds the bow automatically when it is in your offhand, in your chest slot or on your hotbar; the same crafting pattern with a Quiver in the bundle's place makes the Reinforced Quiver (96 arrows, arrows and enchantments kept). The Diamond Pebble has one source, the Sledgehammer crushing a diamond block (see below).",
           "For planning the build site: the Octant needs two light and one heavy weighted pressure plate, two lightning rods, a lead and a compass; alternatively the Wandering Trader sells it for 10 emeralds. Right-click sets Pos 1, sneak + right-click sets Pos 2, the HUD shows you distance, area or volume; G opens the Octant Manager.",
           "A bit of iron brings the helpers: the Attractor (an Iron Core bottom left, iron ingots bottom middle and left middle, redstone top middle, lapis lazuli right middle; pulls in items within 4 blocks and never wears out) and the Rotator (4 iron ingots, an Iron Core and an ender pearl; turns logs, furnaces, pistons and hoppers in place with a right-click, never breaks and is recharged with ender pearls at the anvil). The Ore Detector (calibrated sculk sensor on top, compass in the middle, Gold Core at the bottom, echo shards in the six other slots) is worth it once you have a Gold Core; the Wandering Trader sells a Gold Core for 30 emeralds.",
           "The Building Wand is your first area tool: the Copper Building Wand is built from a Copper Core (top right) and two sticks diagonally below it. Copper Cores are a lucky find at the Wandering Trader (24 emeralds, about one trader in ten has them); the finished Copper Building Wand is also available from the Mason at level 4 for 62 emeralds. With blocks in your offhand or on your hotbar, right-click places a 3x3 face against the side of the block you clicked.",
           "Material tiers for the Sledgehammer and Chisel: stone, copper, iron, gold, diamond, netherite, enderite; for the Building Wand the series starts at copper (3x3) and grows through iron (5x5), gold (7x7), diamond (9x9) and netherite (11x11) up to enderite (13x13). Higher hammer tiers are crafted with the matching block plus two ingots or diamonds, chisels with the ingot or diamond in the middle, building wands with the core of that tier.",
           "Upgrade instead of rebuild: with the Basic Upgrade at the smithing table, copper becomes iron, iron becomes gold and gold becomes diamond (vanilla tools: wood to stone with cobblestone, then stone to iron, iron to gold, gold to diamond, and the copper pickaxe, axe, shovel, sword and hoe to iron). It costs twice the material the crafting table asks for the new tool: a pickaxe or axe 6, a sword or hoe 4, a shovel 2, a chisel 2 and a sledgehammer 22 ingots or diamonds; a building wand takes one core of the new tier instead. Enchantments, damage and the name are kept. The Stone Sledgehammer cannot be upgraded, and the Diamond Core for the Diamond Building Wand is sold by the Mason (level 2) for 3 netherite ingots.",
           "Netherite and enderite only exist at the smithing table: Netherite Upgrade + diamond tool + netherite ingot, then Enderite Upgrade + netherite tool + Enderite Ingot (every netherite tool including the spear, and every armour piece). Enderite items are not lost in the void; the Enderite Bundle and the Enderite Quiver take the mod's enchantments at an anvil like the tiers below them, while the Enderite building wand, chisel and sledgehammer are still missing from the enchantment tags and cannot be given them by normal means.",
-          "The road to the machines runs through the Sledgehammer: holding right-click on a diamond block breaks it into 81 Diamond Pebbles, and 9 pebbles make one Cracked Diamond in the crafting grid (a single pebble also goes into the Reinforced Bundle and the Reinforced Quiver). With those you build Reinforced Furnaces, Blast Furnaces and Smokers (3 Cracked Diamonds, 3 appliances, 3 Cracked Diamonds yield 3), Reinforced Hoppers (5 hoppers, a name tag, 3 Cracked Diamonds yield 5) and Reinforced Pistons (3 Cracked Diamonds, 2 pistons, 4 iron ingots yield 2). The netherite tiers are not crafted: hold right-click for five seconds on a placed Reinforced machine with a Diamond Sledgehammer (or better) in your main hand and a Netherite Nugget in your off hand, and it is hammered into the Netherite machine; a Netherite Sledgehammer (or better) with an Enderite Nugget does the same from Netherite to Enderite. Leftover Cracked Diamonds go back to diamonds in the blast furnace.",
+          "The road to the machines runs through the Sledgehammer: holding right-click on a diamond block breaks it into 81 Diamond Pebbles, and 9 pebbles make one Cracked Diamond in the crafting grid (six pebbles also go into the Reinforced Bundle and the Reinforced Quiver, four into the Reinforced Backpack). With those you build Reinforced Furnaces, Blast Furnaces and Smokers (3 Cracked Diamonds, 3 appliances, 3 Cracked Diamonds yield 3), Reinforced Hoppers (5 hoppers, a name tag, 3 Cracked Diamonds yield 5) and Reinforced Pistons (3 Cracked Diamonds, 2 pistons, 4 iron ingots yield 2). The netherite tiers are not crafted: hold right-click for five seconds on a placed Reinforced machine with a Diamond Sledgehammer (or better) in your main hand and a Netherite Nugget in your off hand, and it is hammered into the Netherite machine; a Netherite Sledgehammer (or better) with an Enderite Nugget does the same from Netherite to Enderite. Leftover Cracked Diamonds go back to diamonds in the blast furnace.",
           "Enchantments: only Fast Chiseling and Kinetic Protection appear at the enchanting table. Every other mod enchantment is found as a book and applied at the anvil; the creative tab has every book ready at maximum level.",
           "At the traders: the Toolsmith sells copper, iron and gold chisels with Fast Chiseling from level 3 for 6 emeralds, from level 4 iron and diamond sledgehammers with one enchantment out of Break Through, Override, Range, Unbreaking or Efficiency (16 emeralds + an iron pickaxe, or 28 emeralds + a diamond pickaxe), and from level 5 a diamond pickaxe with Strip Miner or Vein Miner for 15 emeralds. The Librarian offers books with Color Palette, Fast Chiseling or Linear from level 3, Linear or Override from level 4, and Master Builder, Range, Funnel, Strip Miner or Vein Miner from level 5, each for 25 emeralds. The Wandering Trader has a book with Radius for 40 emeralds and Diamond Pebbles (3 for 5 emeralds).",
           "In chests: Constructor's Touch, the mod's key enchantment (it unlocks the Building Wand menu, extra chisel conversions, reverse reshaping on the Sledgehammer, the magnet filter and the Octant preview), exists only as a book in Buried Treasure, in igloo chests, in the vaults of the trial chambers and in the treasure catch of fishing; no trader offers it. Break Through, Funnel, Vein Miner and Fast Chiseling lie in dungeons, Color Palette, Cover and Linear in pillager outposts and woodland mansions, Master Builder, Versatility and Range in stronghold libraries and end cities, Override II and Air Jump II in end cities, Radius and Deep Pockets in ancient cities, Strip Miner in nether fortresses and abandoned mineshafts. End cities additionally hand out raw enderite, enderite nuggets, astralit dust and nihilith shards; many chests hold Diamond Pebbles.",
@@ -313,14 +313,14 @@ window.WIKI_DATA = {
           "Dein erstes Werkzeug ist der Steinmeißel: Stock unten links, Bruchstein in der Mitte, je ein Kupferklumpen links vom und unter dem Bruchstein. Damit wandelst du per Rechtsklick Stein in gemeißelte Steinziegel oder glatten Sandstein in geschnittenen Sandstein um; Schleichen + Rechtsklick geht die Kette zurück (kostet 2 statt 1 Haltbarkeit). Nach jeder Umwandlung wartet der Steinmeißel 30 Ticks.",
           "Sobald du einen Eisenbarren übrig hast, baust du den Stein-Vorschlaghammer: Eisenbarren oben links, daneben zwei Bruchstein, darunter zwei Stöcke mittig. Er baut wie eine Steinspitzhacke, nimmt aber pro Schlag ein ganzes 3x3-Feld gleicher Blöcke mit, und mit gedrücktem Rechtsklick machst du aus einem vollen Block eine Treppe und aus der Treppe eine Stufe. Jeder zusätzlich abgebaute Block kostet 1 Haltbarkeit, also behalte die 760 Punkte im Blick.",
           "Schleichen ist der Universal-Modifikator der Mod: Beim Meißel kehrt es die Richtung um, beim Vorschlaghammer baut es nur einen Block ab, bei verzauberten Spitzhacken und Äxten löst es Aderabbau, Tunnelgräber und Vielseitigkeit aus, beim Oktanten setzt es Pos 2, und Attraktor sowie Trichter-Bündel pausieren dabei.",
-          "Mehr Platz: Das Verstärkte Bündel entsteht aus einem Bündel in der Mitte mit einem Diamantkiesel daneben, Faden oben und einer Lederplatte (neun Leder in der Werkbank) unten und fasst 96 Gegenstände (bei 64er-Stapeln); Inhalt, Verzauberungen und Name des Bündels bleiben dabei erhalten. Der Köcher (Bündel, Faden, Leder, Kupferklumpen) nimmt nur Pfeile auf und versorgt den Bogen automatisch, wenn er in der Nebenhand, im Brustpanzer-Slot oder der Schnellzugriffsleiste liegt; dieselbe Werkbank-Aufwertung mit Köcher, Lederplatte und Diamantkiesel ergibt den Verstärkten Köcher (96 Pfeile, Pfeile und Verzauberungen bleiben). Den Diamantkiesel gibt es nur auf einem Weg: der Vorschlaghammer zerkleinert einen Diamantblock (siehe unten).",
+          "Mehr Platz: Das Verstärkte Bündel entsteht aus einem Bündel in der Mitte, Faden oben, einer Lederplatte (neun Leder in der Werkbank) unten und sechs Diamantkieseln in den beiden Seitenspalten und fasst 96 Gegenstände (bei 64er-Stapeln); Inhalt, Verzauberungen und Name des Bündels bleiben dabei erhalten. Der Köcher (Bündel, Faden, Leder, Kupferklumpen) nimmt nur Pfeile auf und versorgt den Bogen automatisch, wenn er in der Nebenhand, im Brustpanzer-Slot oder der Schnellzugriffsleiste liegt; dasselbe Werkbank-Muster mit einem Köcher an der Stelle des Bündels ergibt den Verstärkten Köcher (96 Pfeile, Pfeile und Verzauberungen bleiben). Den Diamantkiesel gibt es nur auf einem Weg: der Vorschlaghammer zerkleinert einen Diamantblock (siehe unten).",
           "Zum Planen der Baustelle: Der Oktant braucht zwei leichte und eine schwere Wägeplatte, zwei Blitzableiter, eine Leine und einen Kompass; alternativ verkauft ihn der fahrende Händler für 10 Smaragde. Rechtsklick setzt Pos 1, Schleichen + Rechtsklick Pos 2, das HUD zeigt dir Abstand, Fläche oder Volumen; mit G öffnest du den Oktant-Manager.",
           "Mit etwas Eisen kommen die Helfer dazu: der Attraktor (Eisenkern unten links, Eisenbarren unten Mitte und links Mitte, Redstone oben Mitte, Lapislazuli rechts Mitte; zieht Items im Umkreis von 4 Blöcken an und nutzt sich nie ab) und der Rotator (4 Eisenbarren, Eisenkern und Enderperle; dreht Stämme, Öfen, Kolben und Trichter per Rechtsklick an Ort und Stelle, zerbricht nie und wird im Amboss mit Enderperlen aufgeladen). Der Erzdetektor (kalibrierter Sculk-Sensor oben, Kompass in der Mitte, Goldkern unten, Echoscherben in den sechs übrigen Feldern) lohnt sich, sobald du einen Goldkern hast; den verkauft der fahrende Händler für 30 Smaragde.",
           "Der Baustab ist dein erstes Flächenwerkzeug: Der Kupfer-Baustab wird aus einem Kupferkern (oben rechts) und zwei Stöcken diagonal darunter gebaut. Kupferkerne sind ein Glückstreffer beim fahrenden Händler (24 Smaragde, etwa jeder zehnte Händler hat sie); den fertigen Kupfer-Baustab gibt es auch beim Steinmetz ab Stufe 4 für 62 Smaragde. Mit Blöcken in Zweithand oder Hotbar setzt er per Rechtsklick eine 3x3-Fläche vor die angeklickte Blockseite.",
           "Materialstufen bei Vorschlaghammer und Meißel: Stein, Kupfer, Eisen, Gold, Diamant, Netherit, Enderit; beim Baustab beginnt die Reihe bei Kupfer (3x3) und wächst über Eisen (5x5), Gold (7x7), Diamant (9x9) und Netherit (11x11) bis Enderit (13x13). Höhere Hammerstufen werden mit dem jeweiligen Block plus zwei Barren bzw. Diamanten gebaut, Meißel mit dem Barren bzw. Diamanten in der Mitte, Baustäbe mit dem Kern der Stufe.",
           "Aufwerten statt neu bauen: Mit der Basis-Aufwertung am Schmiedetisch wird Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant (Vanilla-Werkzeuge: Holz mit Bruchstein zu Stein, dann Stein zu Eisen, Eisen zu Gold, Gold zu Diamant, dazu Kupferspitzhacke, -axt, -schaufel, -schwert und -hacke zu Eisen). Es kostet das Doppelte des Materials, das die Werkbank für das neue Werkzeug verlangt: Spitzhacke oder Axt 6, Schwert oder Hacke 4, Schaufel 2, Meißel 2 und Vorschlaghammer 22 Barren bzw. Diamanten; ein Baustab kostet stattdessen einen Kern der neuen Stufe. Verzauberungen, Schaden und Name bleiben dabei erhalten. Der Stein-Vorschlaghammer lässt sich nicht aufwerten, und den Diamantkern für den Diamant-Baustab verkauft der Steinmetz (Stufe 2) für 3 Netheritbarren.",
           "Netherit und Enderit gibt es nur am Schmiedetisch: Netherit-Aufwertung + Diamant-Werkzeug + Netheritbarren, danach Enderit-Aufwertung + Netherit-Werkzeug + Enderitbarren (jedes Netherit-Werkzeug einschließlich des Speers und jedes Rüstungsteil). Enderit-Gegenstände gehen in der Leere nicht verloren; Enderitbündel und Enderitköcher nehmen die Mod-Verzauberungen am Amboss an wie die Stufen darunter, während Enderit-Baustab, -Meißel und -Vorschlaghammer weiterhin in den Verzauberungs-Tags fehlen und sich auf normalem Weg nicht verzaubern lassen.",
-          "Der Weg zu den Maschinen führt über den Vorschlaghammer: Rechtsklick halten auf einen Diamantblock zerlegt ihn in 81 Diamantkiesel, und je 9 Kiesel ergeben in der Werkbank einen Rissigen Diamanten (ein einzelner Kiesel steckt außerdem im Verstärkten Bündel und im Verstärkten Köcher). Damit baust du Verstärkte Öfen, Schmelzöfen und Räucheröfen (3 Rissige Diamanten, 3 Geräte, 3 Rissige Diamanten ergeben 3 Stück), Verstärkte Trichter (5 Trichter, Namensschild, 3 Rissige Diamanten ergeben 5 Stück) und Verstärkte Kolben (3 Rissige Diamanten, 2 Kolben, 4 Eisenbarren ergeben 2 Stück). Die Netherit-Stufen werden nicht gecraftet: Halte mit einem Diamant-Vorschlaghammer (oder besser) in der Haupthand und einem Netheritklumpen in der Nebenhand fünf Sekunden lang Rechtsklick auf die gesetzte Verstärkt-Maschine, dann wird sie zur Netherit-Maschine geschmiedet; ein Netherit-Vorschlaghammer (oder besser) mit einem Enderitklumpen macht dasselbe von Netherit zu Enderit. Übrige Rissige Diamanten werden im Hochofen wieder zu Diamanten.",
+          "Der Weg zu den Maschinen führt über den Vorschlaghammer: Rechtsklick halten auf einen Diamantblock zerlegt ihn in 81 Diamantkiesel, und je 9 Kiesel ergeben in der Werkbank einen Rissigen Diamanten (je sechs Kiesel stecken außerdem im Verstärkten Bündel und im Verstärkten Köcher, vier im Verstärkten Rucksack). Damit baust du Verstärkte Öfen, Schmelzöfen und Räucheröfen (3 Rissige Diamanten, 3 Geräte, 3 Rissige Diamanten ergeben 3 Stück), Verstärkte Trichter (5 Trichter, Namensschild, 3 Rissige Diamanten ergeben 5 Stück) und Verstärkte Kolben (3 Rissige Diamanten, 2 Kolben, 4 Eisenbarren ergeben 2 Stück). Die Netherit-Stufen werden nicht gecraftet: Halte mit einem Diamant-Vorschlaghammer (oder besser) in der Haupthand und einem Netheritklumpen in der Nebenhand fünf Sekunden lang Rechtsklick auf die gesetzte Verstärkt-Maschine, dann wird sie zur Netherit-Maschine geschmiedet; ein Netherit-Vorschlaghammer (oder besser) mit einem Enderitklumpen macht dasselbe von Netherit zu Enderit. Übrige Rissige Diamanten werden im Hochofen wieder zu Diamanten.",
           "Verzauberungen: Nur Schnelles Meißeln und Kinetischer Schutz erscheinen am Zaubertisch. Alle anderen Mod-Verzauberungen findest du als Bücher und bringst sie am Amboss an; im Kreativ-Reiter liegen alle Bücher auf Höchststufe bereit.",
           "Beim Händler: Der Werkzeugschmied verkauft ab Stufe 3 Kupfer-, Eisen- und Goldmeißel mit Schnelles Meißeln für 6 Smaragde, ab Stufe 4 Eisen- und Diamant-Vorschlaghämmer mit einer Verzauberung aus Durchbruch, Übersteuerung, Reichweite, Haltbarkeit oder Effizienz (16 Smaragde + Eisenspitzhacke bzw. 28 Smaragde + Diamantspitzhacke) und ab Stufe 5 eine Diamantspitzhacke mit Tunnelgräber oder Aderabbau für 15 Smaragde. Der Bibliothekar bietet ab Stufe 3 Bücher mit Farbpalette, Schnelles Meißeln oder Linear, ab Stufe 4 Linear oder Übersteuerung und ab Stufe 5 Baumeister, Reichweite, Trichter, Tunnelgräber oder Aderabbau, jeweils für 25 Smaragde. Der fahrende Händler hat für 40 Smaragde ein Buch mit Radius und Diamantkiesel (3 Stück für 5 Smaragde).",
           "In Truhen: Berührung des Konstrukteurs, die Schlüssel-Verzauberung der Mod (schaltet das Baustab-Menü, zusätzliche Meißel-Umwandlungen, das Rückwärts-Umformen beim Vorschlaghammer, den Attraktor-Filter und die Oktant-Vorschau frei), gibt es nur als Buch im Vergrabenen Schatz, in Iglu-Truhen, in den Tresoren der Prüfungskammern und im Schatzfang beim Angeln; kein Händler bietet sie an. Durchbruch, Trichter, Aderabbau und Schnelles Meißeln liegen in Verliesen, Farbpalette, Abdeckung und Linear in Plünderer-Außenposten und Waldanwesen, Baumeister, Vielseitigkeit und Reichweite in Festungsbibliotheken und Endsiedlungen, Übersteuerung II und Luftsprung II in Endsiedlungen, Radius und Tiefe Taschen in Antiken Städten, Tunnelgräber in Netherfestungen und verlassenen Minen. Endsiedlungen geben zusätzlich Rohenderit, Enderitklumpen, Astralitstaub und Nihilitsplitter aus; viele Truhen enthalten Diamantkiesel.",
@@ -401,7 +401,7 @@ window.WIKI_DATA = {
           "Preview: before the swing you see every neighbouring block that will be taken with a black outline and a grey fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
           "Octant selection: with an Octant holding both corners in your off hand, a swing on a block inside its figure breaks the whole selection (every block of the figure the hammer may take, with the same Override rules). It costs the durability of mining each block and takes, per block, twice as long as the area action; the cracks run over the whole selection. Selections longer than 32 blocks on an edge or larger than 4096 positions are ignored (the hammer mines its normal area), and sneaking still mines a single block.",
           "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
-          "Diamond Pebbles: charging a right-click on a diamond block breaks it down into 81 Diamond Pebbles; 9 pebbles make one Cracked Diamond, which turns back into a diamond in the blast furnace. One pebble is also an ingredient of the Reinforced Bundle and the Reinforced Quiver.",
+          "Diamond Pebbles: charging a right-click on a diamond block breaks it down into 81 Diamond Pebbles; 9 pebbles make one Cracked Diamond, which turns back into a diamond in the blast furnace. Six pebbles also go into the Reinforced Bundle and the Reinforced Quiver, four into the Reinforced Backpack.",
           "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston has no higher tier (SledgehammerUpgrades).",
           "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
           "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items, filter items and filter mode, furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
@@ -428,7 +428,7 @@ window.WIKI_DATA = {
           "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
           "Oktant-Auswahl: Mit einem Oktanten mit beiden Ecken in der Nebenhand bricht ein Schlag auf einen Block in seiner Figur die ganze Auswahl (jeder Block der Figur, den der Hammer nehmen darf, nach denselben Override-Regeln). Das kostet die Haltbarkeit, als würde jeder Block einzeln abgebaut, und dauert je Block doppelt so lange wie das Feld; die Risse laufen über die ganze Auswahl. Auswahlen mit einer Kante über 32 Blöcke oder mehr als 4096 Plätzen zählen nicht (der Hammer baut sein normales Feld ab), und Schleichen baut weiter nur einen Block ab.",
           "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
-          "Diamantkiesel: Rechtsklick-Aufladen auf einem Diamantblock zerlegt ihn in 81 Diamantkiesel; 9 Kiesel ergeben einen Rissigen Diamanten, der im Hochofen wieder zum Diamanten wird. Ein Kiesel ist außerdem Zutat des Verstärkten Bündels und des Verstärkten Köchers.",
+          "Diamantkiesel: Rechtsklick-Aufladen auf einem Diamantblock zerlegt ihn in 81 Diamantkiesel; 9 Kiesel ergeben einen Rissigen Diamanten, der im Hochofen wieder zum Diamanten wird. Je sechs Kiesel sind außerdem Zutat des Verstärkten Bündels und des Verstärkten Köchers, vier des Verstärkten Rucksacks.",
           "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; der Verstärkte klebrige Kolben hat keine höhere Stufe (SledgehammerUpgrades).",
           "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
           "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt, Filter-Items und Filtermodus, Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
@@ -1122,7 +1122,7 @@ window.WIKI_DATA = {
         "title": "Backpacks",
         "summary": "Backpacks are storage you wear in the chest slot: four tiers from 9 to 50 slots, opened with their own key (default B) as your normal inventory plus the backpack's slots. They can also be set down as a block and picked up again with everything inside. Deep Pockets, Funnel, Master Builder and Constructor's Touch give them bigger stacks, automatic pickup, a material source for the Building Wand and pick block, and a hand that refills itself while building.",
         "details": [
-          "Getting started: craft Leather Sheets from 9 Leather each, then the Backpack from 2 Copper Nuggets, String, 3 Leather Sheets and 3 Heavy Weighted Pressure Plates. The Reinforced Backpack is crafted around a Backpack (Diamond Pebbles and Leather Sheets) and keeps everything the Backpack had; Netherite and Enderite Backpack follow at the smithing table like the other tool families, again with their contents.",
+          "Getting started: craft Leather Sheets from 9 Leather each, then the Backpack from 2 Copper Nuggets, String, 3 Leather Sheets and 3 Heavy Weighted Pressure Plates. The Reinforced Backpack is crafted around a Backpack (4 Diamond Pebbles, String and 3 Leather Sheets) and keeps everything the Backpack had; Netherite and Enderite Backpack follow at the smithing table like the other tool families, again with their contents.",
           "Tiers: Backpack 9 slots (1 row), Reinforced 18 (2 rows), Netherite 33 (3 rows plus one extra column of 6 on the right), Enderite 50 (4 rows plus two extra columns of 7, right and left). Worn they give 1 / 2 / 3 / 4 armor points and take no damage.",
           "Wearing it: right-click puts it into the chest slot, swapping with a worn chestplate or elytra - a backpack takes their place. A worn backpack shows on the player's back, in the look of its tier.",
           "Opening: press the backpack key. It opens the worn backpack, or else the first backpack in your inventory (hotbar, main inventory, then off hand); the server picks and checks the backpack itself. The screen is the vanilla inventory with the backpack rows between the crafting area and the main inventory; the whole screen is one vanilla-style window, backpack rows carry a faint brown tint and the extra columns a light purple one. The slot the opened backpack lies in - the chest slot or its inventory slot - is locked while it is open: it can't be picked up, shift-clicked, swapped away with a number key or covered. Without a backpack the key simply opens the normal inventory; E never changes.",
@@ -1140,7 +1140,7 @@ window.WIKI_DATA = {
         "title": "Rucksäcke",
         "summary": "Rucksäcke sind Stauraum, den man im Brust-Slot trägt: vier Stufen von 9 bis 50 Plätzen, geöffnet mit einer eigenen Taste (Standard B) als normales Inventar plus Rucksack-Plätze. Man kann sie auch als Block abstellen und mit allem Inhalt wieder aufnehmen. Tiefe Taschen, Trichter, Baumeister und Berührung des Konstrukteurs geben ihnen größere Stapel, automatisches Aufsammeln, eine Materialquelle für Baustab und Blockauswahl und eine Hand, die sich beim Bauen selbst nachfüllt.",
         "details": [
-          "Einstieg: Lederplatten aus je 9 Leder herstellen, dann den Rucksack aus 2 Kupferklumpen, Faden, 3 Lederplatten und 3 schweren Wägeplatten. Der Verstärkte Rucksack wird um einen Rucksack herum gebaut (Diamantkiesel und Lederplatten) und behält alles, was der Rucksack hatte; Netherit- und Enderit-Rucksack folgen am Schmiedetisch wie bei den anderen Werkzeugfamilien, ebenfalls mit Inhalt.",
+          "Einstieg: Lederplatten aus je 9 Leder herstellen, dann den Rucksack aus 2 Kupferklumpen, Faden, 3 Lederplatten und 3 schweren Wägeplatten. Der Verstärkte Rucksack wird um einen Rucksack herum gebaut (4 Diamantkiesel, Faden und 3 Lederplatten) und behält alles, was der Rucksack hatte; Netherit- und Enderit-Rucksack folgen am Schmiedetisch wie bei den anderen Werkzeugfamilien, ebenfalls mit Inhalt.",
           "Stufen: Rucksack 9 Plätze (1 Reihe), Verstärkt 18 (2 Reihen), Netherit 33 (3 Reihen plus eine Zusatzspalte mit 6 Plätzen rechts), Enderit 50 (4 Reihen plus zwei Zusatzspalten mit je 7 Plätzen, rechts und links). Getragen geben sie 1 / 2 / 3 / 4 Rüstungspunkte und nehmen keinen Schaden.",
           "Tragen: Rechtsklick legt ihn in den Brust-Slot und tauscht dabei mit einem getragenen Brustpanzer oder einer Elytra – der Rucksack nimmt deren Platz ein. Ein getragener Rucksack ist auf dem Rücken des Spielers zu sehen, im Aussehen seiner Stufe.",
           "Öffnen: die Rucksack-Taste drücken. Sie öffnet den getragenen Rucksack, sonst den ersten Rucksack im Inventar (Schnellleiste, Hauptinventar, dann Nebenhand); der Server wählt und prüft den Rucksack selbst. Der Bildschirm ist das Vanilla-Inventar mit den Rucksack-Reihen zwischen Werkbank-Bereich und Hauptinventar; der ganze Bildschirm ist ein Fenster im Vanilla-Stil, Rucksack-Reihen sind ganz leicht braun getönt, Zusatzspalten leicht violett. Der Platz des geöffneten Rucksacks - Brust-Slot oder sein Inventarplatz - ist gesperrt, solange er offen ist: kein Herausnehmen, kein Shift-Klick, kein Wegtauschen per Zifferntaste, nichts darauflegen. Ohne Rucksack öffnet die Taste einfach das normale Inventar; E ändert sich nie.",
@@ -1253,7 +1253,7 @@ window.WIKI_DATA = {
         "title": "Bundles: Reinforced, Netherite, Enderite",
         "summary": "SimpleBuilding extends the vanilla bundle into a three-tier family: the Reinforced Bundle holds 1.5x as much (96 items), the Netherite Bundle twice that (192) and the Enderite Bundle three times as much (288). All three handle the same way, let you pick an entry with the mouse wheel, and can be built out with Deep Pockets, Funnel, Drawer, Master Builder and Color Palette.",
         "details": [
-          "Upgrade path: Reinforced Bundle at a crafting table from a bundle, string, a Diamond Pebble and a Leather Sheet (the bundle's contents, enchantments and name carry over); Netherite Bundle at a smithing table with a Netherite Upgrade and a netherite ingot; Enderite Bundle at a smithing table with an Enderite Upgrade and an Enderite Ingot.",
+          "Upgrade path: Reinforced Bundle at a crafting table from a bundle, string, six Diamond Pebbles and a Leather Sheet (the bundle's contents, enchantments and name carry over); Netherite Bundle at a smithing table with a Netherite Upgrade and a netherite ingot; Enderite Bundle at a smithing table with an Enderite Upgrade and an Enderite Ingot.",
           "Capacity: 96 / 192 / 288 items of stack size 64; items with a smaller stack size take up correspondingly more room.",
           "Inserting: left-click the bundle onto an item, or an item onto the bundle. Removing: right-click the bundle onto an empty slot, or an empty cursor onto the bundle; the selected (otherwise topmost) entry always comes out as a whole stack.",
           "The mouse wheel over the bundle picks an entry; the selection is sent to the server and cleared when the mouse leaves the slot.",
@@ -1276,7 +1276,7 @@ window.WIKI_DATA = {
         "title": "Bündel: Verstärkt, Netherit, Enderit",
         "summary": "SimpleBuilding erweitert das Vanilla-Bündel zu einer dreistufigen Familie: Das Verstärkte Bündel fasst das 1,5-fache (96 Gegenstände), das Netheritbündel das Doppelte davon (192) und das Enderitbündel das Dreifache (288). Alle drei bedienen sich gleich, lassen per Mausrad einen Eintrag auswählen und lassen sich mit Tiefe Taschen, Trichter, Schublade, Baumeister und Farbpalette ausbauen.",
         "details": [
-          "Aufstieg: Verstärktes Bündel in der Werkbank aus Bündel, Faden, Diamantkiesel und Lederplatte (Inhalt, Verzauberungen und Name des Bündels bleiben erhalten); Netheritbündel am Schmiedetisch mit Netherit-Aufwertung und Netheritbarren; Enderitbündel am Schmiedetisch mit Enderit-Aufwertung und Enderitbarren.",
+          "Aufstieg: Verstärktes Bündel in der Werkbank aus Bündel, Faden, sechs Diamantkieseln und Lederplatte (Inhalt, Verzauberungen und Name des Bündels bleiben erhalten); Netheritbündel am Schmiedetisch mit Netherit-Aufwertung und Netheritbarren; Enderitbündel am Schmiedetisch mit Enderit-Aufwertung und Enderitbarren.",
           "Kapazität: 96 / 192 / 288 Gegenstände der Stapelgröße 64; Gegenstände mit kleinerer Stapelgröße belegen entsprechend mehr Platz.",
           "Einlegen: Linksklick mit dem Bündel auf einen Gegenstand oder mit einem Gegenstand auf das Bündel. Entnehmen: Rechtsklick mit dem Bündel auf einen leeren Slot oder mit leerem Cursor auf das Bündel; es wird immer der ausgewählte (sonst oberste) Eintrag als ganzer Stapel entnommen.",
           "Mausrad über dem Bündel wählt einen Eintrag aus; die Auswahl wird an den Server gesendet und beim Verlassen des Slots aufgehoben.",
@@ -1357,7 +1357,7 @@ window.WIKI_DATA = {
         "title": "Quivers",
         "summary": "Quivers are arrow bundles: they take only arrows and supply a bow automatically as soon as they sit in the off-hand, in the chest slot, in the hotbar or - with Constructor's Touch - anywhere in the inventory. There are four tiers with the capacity factors 1, 3/2, 2 and 3: the Quiver and the Reinforced Quiver come from the crafting table, the Netherite and the Enderite Quiver build on them at the smithing table. The bundle enchantments Drawer, Deep Pockets, Funnel and Constructor's Touch work on all four quiver tiers.",
         "details": [
-          "Getting started: craft the Quiver at the crafting table from a Bundle, String, Leather and a Copper Nugget, and upgrade it at the crafting table to the Reinforced Quiver - the same pattern with the Quiver where the Bundle was, a Leather Sheet in the centre instead of the two Leather and a Diamond Pebble top right; arrows, enchantments and name carry over. After that the Netherite Quiver (Netherite Upgrade + Reinforced Quiver + Netherite Ingot) and the Enderite Quiver (Enderite Upgrade + Netherite Quiver + Enderite Ingot) at the smithing table. The plain Quiver has no smithing recipe; no tier can be skipped.",
+          "Getting started: craft the Quiver at the crafting table from a Bundle, String, Leather and a Copper Nugget, and upgrade it at the crafting table to the Reinforced Quiver - the Reinforced Bundle's pattern with the Quiver where the Bundle goes (string on top, a Leather Sheet below, six Diamond Pebbles in the side columns); arrows, enchantments and name carry over. After that the Netherite Quiver (Netherite Upgrade + Reinforced Quiver + Netherite Ingot) and the Enderite Quiver (Enderite Upgrade + Netherite Quiver + Enderite Ingot) at the smithing table. The plain Quiver has no smithing recipe; no tier can be skipped.",
           "Capacity: Quiver factor 1, Reinforced Quiver factor 3/2, Netherite Quiver factor 2, Enderite Quiver factor 3; the tooltip shows factor x 64 (64 / 96 / 128 / 192 units, and since arrows stack to 64 that is the same number of arrows). Unlike the Reinforced Bundle, quivers get no x3/2 bonus on top of their tier factor - the Reinforced Quiver's 3/2 is its tier factor.",
           "Arrows only: anything without the tag minecraft:arrows is refused both on insertion by click and on pickup from the ground; the click filter follows the configured insert click, so it holds with tools.invertBundleInteractions on as well.",
           "Bow and crossbow: when a bow is drawn and released, or a crossbow is loaded, the quiver is searched before every arrow in the inventory, in the order off-hand, chest slot, hotbar, then - only with Constructor's Touch - the rest of the inventory, and last a quiver inside the worn backpack, which counts only if the backpack carries Master Builder. The weapon always gets the topmost arrow stack in the quiver. A crossbow still prefers ammunition held in a hand (a firework rocket in the off hand), as in vanilla.",
@@ -1377,7 +1377,7 @@ window.WIKI_DATA = {
         "title": "Köcher",
         "summary": "Köcher sind Pfeil-Bündel: Sie nehmen nur Pfeile auf und versorgen den Bogen automatisch, sobald sie in der Nebenhand, im Brustpanzer-Slot, in der Schnellzugriffsleiste oder (mit Berührung des Konstrukteurs) irgendwo im Inventar liegen. Es gibt vier Stufen mit den Kapazitätsfaktoren 1, 3/2, 2 und 3: Köcher und Verstärkter Köcher entstehen an der Werkbank, Netherit- und Enderite-Köcher bauen am Schmiedetisch darauf auf. Die Bündel-Verzauberungen Schublade, Tiefe Taschen, Trichter und Berührung des Konstrukteurs funktionieren auf allen vier Köcher-Stufen.",
         "details": [
-          "Einstieg: Köcher an der Werkbank aus Bündel, Faden, Leder und Kupferklumpen bauen und ebenfalls an der Werkbank zum Verstärkten Köcher aufwerten - dasselbe Muster mit dem Köcher an der Stelle des Bündels, einer Lederplatte in der Mitte statt der zwei Leder und einem Diamantkiesel oben rechts; Pfeile, Verzauberungen und Name bleiben erhalten. Danach Netheritköcher (Netherit-Aufwertung + Verstärkter Köcher + Netheritbarren) und Enderitköcher (Enderit-Aufwertung + Netheritköcher + Enderitbarren) am Schmiedetisch. Für den einfachen Köcher gibt es kein Schmiederezept; keine Stufe lässt sich überspringen.",
+          "Einstieg: Köcher an der Werkbank aus Bündel, Faden, Leder und Kupferklumpen bauen und ebenfalls an der Werkbank zum Verstärkten Köcher aufwerten - das Muster des Verstärkten Bündels mit dem Köcher an der Stelle des Bündels (Faden oben, Lederplatte unten, sechs Diamantkiesel in den Seitenspalten); Pfeile, Verzauberungen und Name bleiben erhalten. Danach Netheritköcher (Netherit-Aufwertung + Verstärkter Köcher + Netheritbarren) und Enderitköcher (Enderit-Aufwertung + Netheritköcher + Enderitbarren) am Schmiedetisch. Für den einfachen Köcher gibt es kein Schmiederezept; keine Stufe lässt sich überspringen.",
           "Kapazität: Köcher Faktor 1, Verstärkter Köcher Faktor 3/2, Netheritköcher Faktor 2, Enderitköcher Faktor 3; der Tooltip zeigt Faktor x 64 (64 / 96 / 128 / 192). Anders als das verstärkte Bündel bekommen Köcher keinen x3/2-Bonus zusätzlich zu ihrem Stufenfaktor - die 3/2 des Verstärkten Köchers sind sein Stufenfaktor.",
           "Nur Pfeile: Alles, was nicht das Tag minecraft:arrows trägt, wird beim Einlegen per Klick und beim Aufsaugen vom Boden abgewiesen; der Klick-Filter folgt dem konfigurierten Einlege-Klick und greift daher auch bei eingeschalteter Option tools.invertBundleInteractions.",
           "Bogen und Armbrust: Beim Spannen und Loslassen eines Bogens oder beim Laden einer Armbrust wird der Köcher vor allen Pfeilen im Inventar durchsucht, in der Reihenfolge Nebenhand, Brustpanzer-Slot, Schnellzugriffsleiste, dann (nur mit Berührung des Konstrukteurs) restliches Inventar und zuletzt ein Köcher im getragenen Rucksack, der nur zählt, wenn der Rucksack Baumeister trägt. Verschossen wird immer der oberste Stapel im Köcher. Eine Armbrust nimmt weiterhin zuerst Munition aus einer Hand (eine Feuerwerksrakete in der Nebenhand), wie bei Vanilla.",
@@ -1561,6 +1561,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_smoker",
         "simplebuilding:enderite_nugget",
         "simplebuilding:raw_enderite",
+        "simplebuilding:layered_raw_enderite",
         "simplebuilding:enderite_scrap"
       ],
       "sources": [
@@ -1598,7 +1599,8 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/mixin/AbstractFurnaceMenuMixin.java",
         "common/src/shared/java/com/simplebuilding/util/LongCookContainerData.java",
         "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
-        "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_raw_enderite.json",
+        "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_layered_raw_enderite.json",
+        "src/main/generated/data/simplebuilding/recipe/layered_raw_enderite.json",
         "src/main/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json",
         "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json",
         "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java"
@@ -1625,8 +1627,8 @@ window.WIKI_DATA = {
           "The furnace code (block classes, block entities, registration in ModBlocks and ModItems) is identical in both supported Minecraft versions (26.2 under common/src/shared and 1.21.11 under mc1_21_11/shared).",
           "Rewards of the upper tiers (FurnaceTierPerks, called from setRecipeUsed): every item a Netherite or Enderite furnace, smoker or blast furnace finishes counts its recipe twice, so taking the result out pays double experience.",
           "The Netherite Blast Furnace gives one extra item on every 4th finished smelt (+25 %), the Enderite Blast Furnace on every 2nd (+50 %) - but only for recipes whose ingredient consists only of items in simplebuilding:blast_furnace_bonus: Raw Iron, Raw Gold and Raw Copper. If the result slot is full the bonus waits for the next such smelt; the count is saved with the block (simplebuilding:bonus_progress).",
-          "Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded) get neither double experience nor extra output: a diamond block crushed into 81 pebbles makes 9 Cracked Diamonds and those make 9 diamonds again, so any bonus would be an endless source. Raw Enderite is not in the bonus tag either.",
-          "Enderite Scrap: blasting Raw Enderite takes 72000 ticks and gives 10 experience - one hour in a vanilla blast furnace, 36001 ticks (30 minutes) in the Reinforced, 18001 ticks (15 minutes) in the Netherite and 9001 ticks (about 7.5 minutes) in the Enderite Blast Furnace, the last two with double experience. It is a blasting recipe only, so furnaces and smokers cannot process it.",
+          "Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded) get neither double experience nor extra output: a diamond block crushed into 81 pebbles makes 9 Cracked Diamonds and those make 9 diamonds again, so any bonus would be an endless source. Raw Enderite and Layered Raw Enderite are not in the bonus tag either.",
+          "Enderite Scrap: Raw Enderite no longer smelts on its own (since 2026-09-29). Three Raw Enderite stacked in a crafting column make one Layered Raw Enderite, and blasting that takes 144000 ticks for one Enderite Scrap and 10 experience - twice the 72000 ticks per scrap of the old direct route, and three Raw Enderite per scrap instead of one (cooking recipes can only give a single item on 1.21.11, so all lines give one). That is two hours in a vanilla blast furnace, one in the Reinforced, 30 minutes in the Netherite and about 15 minutes in the Enderite Blast Furnace, the last two with double experience. It is a blasting recipe only, so furnaces and smokers cannot process it.",
           "Cook times above 32767 ticks: vanilla saves the four furnace timers as shorts and sends the menu data as shorts, which would cut 72000 down to 6464. AbstractFurnaceBlockEntityMixin saves them as ints under the same keys (NeoForge and Forge already do that themselves), and AbstractFurnaceMenuMixin divides long times before they are sent, keeping the ratio the progress arrow and the flame are drawn from; both apply to every furnace, vanilla ones included.",
           "Changing between the tiers of one family - by hammering or by /setblock in replace mode - keeps the block entity with its contents (shouldChangedStateKeepBlockEntity); the block entity types accept all three tiers on every loader.",
           "With a sledgehammer in the main hand and a nugget in the off hand, right-clicking a machine that can be upgraded starts the upgrade instead of opening the menu; if it cannot be upgraded with that nugget and hammer, the menu opens as usual.",
@@ -1655,8 +1657,8 @@ window.WIKI_DATA = {
           "Der Code für die Öfen (Block-Klassen, Block-Entities, Registrierung in ModBlocks und ModItems) ist in beiden unterstützten Minecraft-Linien (26.2 unter common/src/shared und 1.21.11 unter mc1_21_11/shared) identisch.",
           "Belohnungen der oberen Stufen (FurnaceTierPerks, aufgerufen aus setRecipeUsed): Jeder Gegenstand, den ein Netherit- oder Enderit-Ofen, -Räucherofen oder -Schmelzofen fertigstellt, zählt sein Rezept doppelt, beim Herausnehmen gibt es also doppelte Erfahrung.",
           "Der Netherit-Schmelzofen gibt bei jedem 4. fertigen Schmelzvorgang einen Gegenstand mehr (+25 %), der Enderit-Schmelzofen bei jedem 2. (+50 %) - aber nur für Rezepte, deren Zutat ausschließlich aus Gegenständen im Tag simplebuilding:blast_furnace_bonus besteht: Roheisen, Rohgold und Rohkupfer. Ist der Ausgabeslot voll, wartet der Bonus auf den nächsten solchen Vorgang; der Zähler wird mit dem Block gespeichert (simplebuilding:bonus_progress).",
-          "Rissige Diamanten (Tag simplebuilding:furnace_bonus_excluded) bekommen weder doppelte Erfahrung noch mehr Ausbeute: Ein zu 81 Kieseln zerschlagener Diamantblock ergibt 9 Rissige Diamanten und die wieder 9 Diamanten, jeder Bonus wäre also eine Endlosquelle. Rohenderit steht ebenfalls nicht im Bonus-Tag.",
-          "Enderitplatten: Rohenderit braucht im Schmelzofen 72000 Ticks und gibt 10 Erfahrung - eine Stunde im Vanilla-Schmelzofen, 36001 Ticks (30 Minuten) im verstärkten, 18001 Ticks (15 Minuten) im Netherit- und 9001 Ticks (rund 7,5 Minuten) im Enderit-Schmelzofen, die letzten beiden mit doppelter Erfahrung. Es ist nur ein Schmelzofen-Rezept, Öfen und Räucheröfen können es nicht verarbeiten.",
+          "Rissige Diamanten (Tag simplebuilding:furnace_bonus_excluded) bekommen weder doppelte Erfahrung noch mehr Ausbeute: Ein zu 81 Kieseln zerschlagener Diamantblock ergibt 9 Rissige Diamanten und die wieder 9 Diamanten, jeder Bonus wäre also eine Endlosquelle. Rohenderit und Geschichtetes Rohenderit stehen ebenfalls nicht im Bonus-Tag.",
+          "Enderitplatten: Rohenderit schmilzt seit 2026-09-29 nicht mehr allein. Drei Rohenderit übereinander in der Werkbank ergeben ein Geschichtetes Rohenderit, und das braucht im Schmelzofen 144000 Ticks für eine Enderitplatte und 10 Erfahrung - doppelt so lange je Platte wie die 72000 Ticks des alten Direktwegs, und drei Rohenderit je Platte statt einem (Kochrezepte können auf 1.21.11 nur ein einzelnes Item liefern, darum liefern alle Linien eines). Das sind zwei Stunden im Vanilla-Schmelzofen, eine im verstärkten, 30 Minuten im Netherit- und rund 15 Minuten im Enderit-Schmelzofen, die letzten beiden mit doppelter Erfahrung. Es ist nur ein Schmelzofen-Rezept, Öfen und Räucheröfen können es nicht verarbeiten.",
           "Kochzeiten über 32767 Ticks: Vanilla speichert die vier Ofen-Zeiten als short und schickt die Menüdaten als short, aus 72000 würde so 6464. AbstractFurnaceBlockEntityMixin speichert sie als int unter denselben Schlüsseln (NeoForge und Forge tun das bereits selbst), und AbstractFurnaceMenuMixin teilt lange Zeiten vor dem Senden herunter und erhält das Verhältnis, aus dem Pfeil und Flamme gezeichnet werden; beide gelten für jeden Ofen, auch für die Vanilla-Öfen.",
           "Ein Wechsel zwischen den Stufen einer Familie - durch Hämmern oder per /setblock im Modus replace - behält die Block-Entity samt Inhalt (shouldChangedStateKeepBlockEntity); die Block-Entity-Typen nehmen auf jedem Loader alle drei Stufen an.",
           "Mit Vorschlaghammer in der Haupthand und Klumpen in der Nebenhand startet ein Rechtsklick auf eine aufwertbare Maschine die Aufwertung statt das Menü zu öffnen; lässt sie sich mit diesem Klumpen und Hammer nicht aufwerten, öffnet das Menü wie gewohnt.",
@@ -2446,6 +2448,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_ingot",
         "simplebuilding:enderite_scrap",
         "simplebuilding:raw_enderite",
+        "simplebuilding:layered_raw_enderite",
         "simplebuilding:enderite_nugget",
         "simplebuilding:enderite_block",
         "simplebuilding:enderite_helmet",
@@ -2503,7 +2506,7 @@ window.WIKI_DATA = {
           "Slow descent: wearing at least 2 Enderite armor pieces, not on the ground, falling faster than 0.1 blocks per tick and holding the jump key gives you a continuously refreshed Slow Falling effect (2 ticks) on the server; the key state is sent by the client via SpaceKeyPayload whenever it changes.",
           "Limitation: void protection only covers items lying in the world as entities, not items inside chests or inventories.",
           "Enderite is made with netherite and keeps everything netherite gives an item: every enderite item from the ingot upwards, the scrap and the nugget are fire resistant and float on lava; the mod's Netherite Sledgehammer, Chisel, Spatula, Building Wand and Core are too (ModItems#netheriteTraits). Enderite armor resists knockback with 0.2 per piece (netherite: 0.1). The Enderite Bundle, Quiver and Backpack survive explosions as dropped items, like the Netherite Bundle, Quiver and Backpack.",
-          "Every dropped enderite item lies twice as long as vanilla allows: 12000 ticks (10 minutes) instead of 6000 - raw enderite, scrap and the upgrade template included (owner decision 2026-09-28; before, only the ingot tier did). The item tag simplebuilding:double_despawn_time decides (it contains #simplebuilding:enderite_items). On Fabric EnderiteItemMixin raises vanilla's limit in ItemEntity#tick and #isMergable, on NeoForge and Forge an ItemExpireEvent handler extends the lifespan (EnderiteLifetime). The older tag simplebuilding:enderite_ingot_tier (the ingot and everything made from it) still ships for modpacks but no longer decides anything."
+          "Every dropped enderite item lies twice as long as vanilla allows: 12000 ticks (10 minutes) instead of 6000 - raw and layered raw enderite, scrap and the upgrade template included (owner decision 2026-09-28; before, only the ingot tier did). The item tag simplebuilding:double_despawn_time decides (it contains #simplebuilding:enderite_items). On Fabric EnderiteItemMixin raises vanilla's limit in ItemEntity#tick and #isMergable, on NeoForge and Forge an ItemExpireEvent handler extends the lifespan (EnderiteLifetime). The older tag simplebuilding:enderite_ingot_tier (the ingot and everything made from it) still ships for modpacks but no longer decides anything."
         ]
       },
       "de": {
@@ -2519,7 +2522,7 @@ window.WIKI_DATA = {
           "Sanftes Fallen: Wer mindestens 2 Enderit-Rüstungsteile trägt, nicht am Boden ist, schneller als 0,1 Blöcke pro Tick fällt und die Sprungtaste hält, bekommt serverseitig laufend den Effekt Sanfter Fall (2 Ticks); der Tastenzustand wird vom Client bei jeder Änderung per SpaceKeyPayload übermittelt.",
           "Einschränkung: Der Leere-Schutz gilt nur für Items, die als Gegenstand in der Welt liegen, nicht für Items in Truhen oder Inventaren.",
           "Enderit wird aus Netherit gemacht und behält alles, was Netherit einem Gegenstand gibt: jeder Enderit-Gegenstand ab dem Barren, dazu Enderitplatten und Enderitklumpen, ist feuerfest und schwimmt auf Lava; ebenso Netherit-Vorschlaghammer, -Meißel, -Spachtel, -Baustab und -Kern der Mod (ModItems#netheriteTraits). Enderit-Rüstung widersteht Rückstoß mit 0,2 je Teil (Netherit: 0,1). Enderitbündel, -Köcher und -Rucksack überstehen als fallengelassene Gegenstände Explosionen, wie Netheritbündel, Netheritköcher und Netherit-Rucksack.",
-          "Jeder fallengelassene Enderit-Gegenstand bleibt doppelt so lange liegen wie in Vanilla: 12000 Ticks (10 Minuten) statt 6000 – Rohenderit, Platten und die Upgrade-Vorlage eingeschlossen (Besitzer-Entscheidung 2026-09-28; vorher nur ab dem Barren). Maßgeblich ist das Item-Tag simplebuilding:double_despawn_time (es enthält #simplebuilding:enderite_items). Auf Fabric hebt EnderiteItemMixin Vanillas Grenze in ItemEntity#tick und #isMergable an, auf NeoForge und Forge verlängert ein ItemExpireEvent-Handler die Lebensdauer (EnderiteLifetime). Das ältere Tag simplebuilding:enderite_ingot_tier (der Barren und alles daraus) wird für Modpacks weiter mitgeliefert, entscheidet aber nichts mehr."
+          "Jeder fallengelassene Enderit-Gegenstand bleibt doppelt so lange liegen wie in Vanilla: 12000 Ticks (10 Minuten) statt 6000 – Rohenderit, Geschichtetes Rohenderit, Platten und die Upgrade-Vorlage eingeschlossen (Besitzer-Entscheidung 2026-09-28; vorher nur ab dem Barren). Maßgeblich ist das Item-Tag simplebuilding:double_despawn_time (es enthält #simplebuilding:enderite_items). Auf Fabric hebt EnderiteItemMixin Vanillas Grenze in ItemEntity#tick und #isMergable an, auf NeoForge und Forge verlängert ein ItemExpireEvent-Handler die Lebensdauer (EnderiteLifetime). Das ältere Tag simplebuilding:enderite_ingot_tier (der Barren und alles daraus) wird für Modpacks weiter mitgeliefert, entscheidet aber nichts mehr."
         ]
       }
     },
@@ -3941,7 +3944,7 @@ window.WIKI_DATA = {
             "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
             "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
             "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Heavy Weighted Pressure Plates (iron); it unlocks with the first Leather Sheet.",
-            "Reinforced Backpack at the crafting table: empty, String, empty / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Reinforced Backpack at the crafting table: Diamond Pebble, String, Diamond Pebble / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets (four pebbles since 2026-09-29, two before). Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
             "Netherite Backpack: smithing table with Netherite Upgrade, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
             "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
             "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -3991,7 +3994,7 @@ window.WIKI_DATA = {
             "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderitbündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
             "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
             "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Wägeplatten (schwer, aus Eisen); freigeschaltet mit der ersten Lederplatte.",
-            "Verstärkter Rucksack an der Werkbank: leer, Faden, leer / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Faden, Diamantkiesel / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten (seit 2026-09-29 vier Kiesel statt zwei). Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
             "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertung, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Aufwertung, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
             "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
             "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -6497,7 +6500,7 @@ window.WIKI_DATA = {
             "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
             "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
             "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Heavy Weighted Pressure Plates (iron); it unlocks with the first Leather Sheet.",
-            "Reinforced Backpack at the crafting table: empty, String, empty / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Reinforced Backpack at the crafting table: Diamond Pebble, String, Diamond Pebble / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets (four pebbles since 2026-09-29, two before). Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
             "Netherite Backpack: smithing table with Netherite Upgrade, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
             "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
             "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -6547,7 +6550,7 @@ window.WIKI_DATA = {
             "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderitbündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
             "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
             "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Wägeplatten (schwer, aus Eisen); freigeschaltet mit der ersten Lederplatte.",
-            "Verstärkter Rucksack an der Werkbank: leer, Faden, leer / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Faden, Diamantkiesel / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten (seit 2026-09-29 vier Kiesel statt zwei). Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
             "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertung, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Aufwertung, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
             "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
             "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -6610,7 +6613,8 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/FurnaceTierPerks.java",
           "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json",
           "src/main/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json",
-          "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_raw_enderite.json",
+          "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_layered_raw_enderite.json",
+          "src/main/generated/data/simplebuilding/recipe/layered_raw_enderite.json",
           "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_blast_furnace.json"
         ],
         "en": {
@@ -7950,7 +7954,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/item/enderite_scrap.png",
       "craftedBy": [
-        "simplebuilding:enderite_scrap_from_blasting_raw_enderite"
+        "simplebuilding:enderite_scrap_from_blasting_layered_raw_enderite"
       ],
       "usedIn": [
         "simplebuilding:enderite_ingot_from_scrap"
@@ -10645,6 +10649,22 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:layered_raw_enderite",
+      "name": {
+        "en_us": "Layered Raw Enderite",
+        "de_de": "Geschichtetes Rohenderit"
+      },
+      "texture": "assets/textures/item/layered_raw_enderite.png",
+      "craftedBy": [
+        "simplebuilding:layered_raw_enderite"
+      ],
+      "usedIn": [
+        "simplebuilding:enderite_scrap_from_blasting_layered_raw_enderite"
+      ],
+      "trades": [],
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:leather_sheet",
       "name": {
         "en_us": "Leather Sheet",
@@ -11115,7 +11135,7 @@ window.WIKI_DATA = {
             "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
             "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
             "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Heavy Weighted Pressure Plates (iron); it unlocks with the first Leather Sheet.",
-            "Reinforced Backpack at the crafting table: empty, String, empty / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Reinforced Backpack at the crafting table: Diamond Pebble, String, Diamond Pebble / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets (four pebbles since 2026-09-29, two before). Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
             "Netherite Backpack: smithing table with Netherite Upgrade, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
             "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
             "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -11165,7 +11185,7 @@ window.WIKI_DATA = {
             "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderitbündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
             "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
             "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Wägeplatten (schwer, aus Eisen); freigeschaltet mit der ersten Lederplatte.",
-            "Verstärkter Rucksack an der Werkbank: leer, Faden, leer / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Faden, Diamantkiesel / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten (seit 2026-09-29 vier Kiesel statt zwei). Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
             "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertung, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Aufwertung, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
             "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
             "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -11286,7 +11306,8 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java",
           "src/main/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json",
           "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json",
-          "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_raw_enderite.json"
+          "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_layered_raw_enderite.json",
+          "src/main/generated/data/simplebuilding/recipe/layered_raw_enderite.json"
         ]
       },
       "hasCustomBehaviour": true
@@ -14175,7 +14196,7 @@ window.WIKI_DATA = {
         "simplebuilding:raw_enderite_synthesis"
       ],
       "usedIn": [
-        "simplebuilding:enderite_scrap_from_blasting_raw_enderite"
+        "simplebuilding:layered_raw_enderite"
       ],
       "trades": [],
       "hasCustomBehaviour": false
@@ -14270,7 +14291,7 @@ window.WIKI_DATA = {
             "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
             "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
             "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Heavy Weighted Pressure Plates (iron); it unlocks with the first Leather Sheet.",
-            "Reinforced Backpack at the crafting table: empty, String, empty / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Reinforced Backpack at the crafting table: Diamond Pebble, String, Diamond Pebble / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets (four pebbles since 2026-09-29, two before). Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
             "Netherite Backpack: smithing table with Netherite Upgrade, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
             "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
             "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -14320,7 +14341,7 @@ window.WIKI_DATA = {
             "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderitbündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
             "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
             "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Wägeplatten (schwer, aus Eisen); freigeschaltet mit der ersten Lederplatte.",
-            "Verstärkter Rucksack an der Werkbank: leer, Faden, leer / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Faden, Diamantkiesel / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten (seit 2026-09-29 vier Kiesel statt zwei). Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
             "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertung, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Aufwertung, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
             "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
             "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -14470,7 +14491,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "The Reinforced Bundle is an upgraded bundle with 1.5x the capacity of a vanilla one. In the inventory the mouse wheel picks which entry it hands back, and it is the base item for the bundle enchantments Deep Pockets, Funnel, Drawer, Master Builder and Color Palette.",
           "details": [
-            "Crafted at a crafting table: string in the top middle, a vanilla bundle in the center with a Diamond Pebble to its left, a Leather Sheet below the bundle (pattern \" S \" / \"DB \" / \" X \"; the pattern is two slots wide, and the mirrored layout with the pebble on the right works as well); the recipe unlocks as soon as you own a bundle. The Diamond Pebble only comes from a Sledgehammer crushing a diamond block, the Leather Sheet from nine leather.",
+            "Crafted at a crafting table: string in the top middle, a vanilla bundle in the center, a Leather Sheet below the bundle and six Diamond Pebbles filling the left and right columns (pattern \"DSD\" / \"DBD\" / \"DXD\"; six pebbles since 2026-09-29, one before); the recipe unlocks as soon as you own a bundle. The Diamond Pebble only comes from a Sledgehammer crushing a diamond block, the Leather Sheet from nine leather.",
             "The recipe has the type simplebuilding:reinforced_bundle (class ReinforcedBundleRecipe): the result takes over the whole component patch of the vanilla bundle in the grid - contents, enchantments, custom name - the same way the smithing table does for the netherite upgrade. A filled bundle therefore keeps what it holds when it is upgraded.",
             "Stack size 1.",
             "Base capacity: 1.5x a vanilla bundle (fraction 3/2), so 96 items of stack size 64. On insertion an item weighs 1 / (its maximum stack size), so a non-stackable item takes up as much room as a full stack of 64 - except, as in vanilla, a bundle or quiver, which weighs its own contents plus 1/16 (one holding 16 items weighs 20 items' worth, a full one more than it can hold, so a full bundle never fits into one of its size; a mod bundle that never held anything still counts as a whole stack), and a beehive with bees, which weighs a whole stack.",
@@ -14522,7 +14543,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Das Verstärkte Bündel ist ein aufgerüstetes Bündel mit 1,5-facher Kapazität, das im Inventar per Mausrad einen Eintrag auswählen lässt und die Grundlage für die Bündel-Verzauberungen Tiefe Taschen, Trichter, Schublade, Baumeister und Farbpalette bildet.",
           "details": [
-            "Herstellung in der Werkbank: oben mittig Faden, in der Mitte ein Vanilla-Bündel mit einem Diamantkiesel links daneben, unter dem Bündel eine Lederplatte (Muster \" S \" / \"DB \" / \" X \"; das Muster ist zwei Felder breit, und die gespiegelte Anordnung mit dem Kiesel rechts gilt ebenso); das Rezept wird freigeschaltet, sobald man ein Bündel besitzt. Den Diamantkiesel gibt es nur vom Vorschlaghammer, der einen Diamantblock zerkleinert, die Lederplatte aus neun Leder.",
+            "Herstellung in der Werkbank: oben mittig Faden, in der Mitte ein Vanilla-Bündel, unter dem Bündel eine Lederplatte und sechs Diamantkiesel in der linken und rechten Spalte (Muster \"DSD\" / \"DBD\" / \"DXD\"; seit 2026-09-29 sechs Kiesel statt einem); das Rezept wird freigeschaltet, sobald man ein Bündel besitzt. Den Diamantkiesel gibt es nur vom Vorschlaghammer, der einen Diamantblock zerkleinert, die Lederplatte aus neun Leder.",
             "Das Rezept hat den Typ simplebuilding:reinforced_bundle (Klasse ReinforcedBundleRecipe): Das Ergebnis übernimmt den ganzen Komponenten-Patch des Vanilla-Bündels im Raster - Inhalt, Verzauberungen, eigenen Namen -, so wie es der Schmiedetisch bei der Netherit-Aufwertung tut. Ein gefülltes Bündel behält beim Aufwerten also seinen Inhalt.",
             "Stapelgröße 1.",
             "Grundkapazität: das 1,5-fache eines Vanilla-Bündels (Bruch 3/2), also 96 Gegenstände der Stapelgröße 64; beim Einlegen wiegt jeder Gegenstand 1 / (seine Stapelgröße), ein nicht stapelbarer Gegenstand füllt also ein ganzes 64er-Fach - außer, wie in Vanilla, ein Bündel oder Köcher, das seinen eigenen Inhalt plus 1/16 wiegt (mit 16 Gegenständen so viel wie 20, voll mehr, als es fasst, ein volles Bündel passt also nie in eines seiner Größe; ein nie benutztes Bündel der Mod zählt noch als ganzes Fach), und ein Bienenstock mit Bienen, der ein ganzes Fach wiegt.",
@@ -15001,7 +15022,7 @@ window.WIKI_DATA = {
           "summary": "The Reinforced Quiver is the second quiver tier, between the Quiver and the Netherite Quiver: a QuiverItem with capacity factor 3/2 (96 arrows), crafted from a Quiver at the crafting table without losing its arrows, and the only item the Netherite Quiver is smithed from.",
           "details": [
             "Stack size 1 (stacksTo(1)); ordinary rarity; not fireResistant().",
-            "Crafting table recipe (type simplebuilding:reinforced_bundle, 3x3): row 1 \" SD\", row 2 \"SXN\", row 3 \"Q  \" with S = String (minecraft:string), D = Diamond Pebble, X = Leather Sheet, N = Copper Nugget (minecraft:copper_nugget) and Q = Quiver - the Quiver's own pattern with the Quiver where the Bundle goes, one Leather Sheet in the centre instead of the two Leather and a Diamond Pebble in the top right corner. The recipe unlocks as soon as you own a Quiver; the mirrored layout works as well.",
+            "Crafting table recipe (type simplebuilding:reinforced_bundle, 3x3): row 1 \"DSD\", row 2 \"DQD\", row 3 \"DXD\" with S = String (minecraft:string), D = Diamond Pebble, X = Leather Sheet and Q = Quiver - the Reinforced Bundle's pattern with the Quiver where the Bundle goes (six pebbles since 2026-09-29; before, the Quiver's own pattern with one pebble and a copper nugget). The recipe unlocks as soon as you own a Quiver.",
             "The upgrade keeps everything on the Quiver: ReinforcedBundleRecipe takes over the whole component patch of the first bundle-type ingredient in the grid (the Quiver is one, through ReinforcedBundleItem) - arrows, enchantments, custom name - as the smithing table does for the netherite upgrade.",
             "Capacity factor 3/2 (QuiverItem.getTierCapacityMultiplier). Quivers use the tier factor as their base capacity without the bundle's extra 3/2, so the Reinforced Quiver holds 96 units, i.e. 96 arrows. By calculation Deep Pockets I and II make that 192 and 384, Drawer I 204 and Drawer VIII 288.",
             "Next tier: Netherite Upgrade + Reinforced Quiver + Netherite Ingot give the Netherite Quiver, which keeps the components as well. The plain Quiver has no smithing recipe any more.",
@@ -15026,7 +15047,7 @@ window.WIKI_DATA = {
           "summary": "Der Verstärkte Köcher ist die zweite Köcher-Stufe zwischen Köcher und Netheritköcher: ein QuiverItem mit Kapazitätsfaktor 3/2 (96 Pfeile), an der Werkbank aus einem Köcher gebaut, ohne dessen Pfeile zu verlieren, und der einzige Gegenstand, aus dem der Netheritköcher geschmiedet wird.",
           "details": [
             "Stapelgröße 1 (stacksTo(1)); gewöhnliche Seltenheit; nicht fireResistant().",
-            "Rezept an der Werkbank (Typ simplebuilding:reinforced_bundle, 3x3): Reihe 1 \" SD\", Reihe 2 \"SXN\", Reihe 3 \"Q  \" mit S = Faden (minecraft:string), D = Diamantkiesel, X = Lederplatte, N = Kupferklumpen (minecraft:copper_nugget) und Q = Köcher - das Köcher-Muster mit dem Köcher an der Stelle des Bündels, einer Lederplatte in der Mitte statt der zwei Leder und einem Diamantkiesel oben rechts. Das Rezept wird freigeschaltet, sobald man einen Köcher besitzt; die gespiegelte Anordnung gilt ebenso.",
+            "Rezept an der Werkbank (Typ simplebuilding:reinforced_bundle, 3x3): Reihe 1 \"DSD\", Reihe 2 \"DQD\", Reihe 3 \"DXD\" mit S = Faden (minecraft:string), D = Diamantkiesel, X = Lederplatte und Q = Köcher - das Muster des Verstärkten Bündels mit dem Köcher an der Stelle des Bündels (seit 2026-09-29 sechs Kiesel; vorher das Köcher-Muster mit einem Kiesel und einem Kupferklumpen). Das Rezept wird freigeschaltet, sobald man einen Köcher besitzt.",
             "Die Aufwertung behält alles, was am Köcher hängt: ReinforcedBundleRecipe übernimmt den ganzen Komponenten-Patch der ersten Bündel-Zutat im Raster (der Köcher ist über ReinforcedBundleItem eine) - Pfeile, Verzauberungen, eigenen Namen -, so wie der Schmiedetisch bei der Netherit-Aufwertung.",
             "Kapazitätsfaktor 3/2 (QuiverItem.getTierCapacityMultiplier). Köcher nehmen den Stufenfaktor als Grundkapazität ohne den zusätzlichen Bündel-Faktor 3/2, der Verstärkte Köcher fasst also 96 Einheiten, d. h. 96 Pfeile. Rechnerisch werden daraus mit Tiefe Taschen I und II 192 und 384, mit Schublade I 204 und mit Schublade VIII 288.",
             "Nächste Stufe: Netherit-Aufwertung + Verstärkter Köcher + Netheritbarren ergeben den Netheritköcher, der die Komponenten ebenfalls behält. Für den einfachen Köcher gibt es kein Schmiederezept mehr.",
@@ -16497,7 +16518,7 @@ window.WIKI_DATA = {
             "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
             "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
             "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Heavy Weighted Pressure Plates (iron); it unlocks with the first Leather Sheet.",
-            "Reinforced Backpack at the crafting table: empty, String, empty / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Reinforced Backpack at the crafting table: Diamond Pebble, String, Diamond Pebble / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets (four pebbles since 2026-09-29, two before). Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
             "Netherite Backpack: smithing table with Netherite Upgrade, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
             "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
             "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -16547,7 +16568,7 @@ window.WIKI_DATA = {
             "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderitbündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
             "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
             "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Wägeplatten (schwer, aus Eisen); freigeschaltet mit der ersten Lederplatte.",
-            "Verstärkter Rucksack an der Werkbank: leer, Faden, leer / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Faden, Diamantkiesel / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten (seit 2026-09-29 vier Kiesel statt zwei). Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
             "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertung, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Aufwertung, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
             "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
             "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -17455,7 +17476,7 @@ window.WIKI_DATA = {
             "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
             "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
             "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Heavy Weighted Pressure Plates (iron); it unlocks with the first Leather Sheet.",
-            "Reinforced Backpack at the crafting table: empty, String, empty / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Reinforced Backpack at the crafting table: Diamond Pebble, String, Diamond Pebble / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets (four pebbles since 2026-09-29, two before). Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
             "Netherite Backpack: smithing table with Netherite Upgrade, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
             "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
             "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -17505,7 +17526,7 @@ window.WIKI_DATA = {
             "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderitbündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
             "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
             "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Wägeplatten (schwer, aus Eisen); freigeschaltet mit der ersten Lederplatte.",
-            "Verstärkter Rucksack an der Werkbank: leer, Faden, leer / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Faden, Diamantkiesel / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten (seit 2026-09-29 vier Kiesel statt zwei). Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
             "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertung, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Aufwertung, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
             "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
             "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -17572,7 +17593,8 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/blocks/entity/custom/FurnaceTierPerks.java",
           "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json",
           "src/main/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json",
-          "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_raw_enderite.json",
+          "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_layered_raw_enderite.json",
+          "src/main/generated/data/simplebuilding/recipe/layered_raw_enderite.json",
           "src/main/generated/data/simplebuilding/loot_table/blocks/enderite_blast_furnace.json"
         ],
         "en": {
@@ -18728,9 +18750,10 @@ window.WIKI_DATA = {
           "summary": "Potion Pads (new, 2026-09-28) store the effects of a thrown potion and give them to every player who steps onto them. Three tiers: Potion Pad I, Reinforced Potion Pad II, Infused Potion Pad III.",
           "details": [
             "Throw a splash or lingering potion onto the pad: when it shatters on the pad, the pad stores its effects and replaces whatever it held before; a water splash potion (or any potion without effects) wipes it. The particles in the potion's colour show what it holds - there is no text on the screen.",
-            "Stand on the pad for 3 seconds to take the stored effects at the potion's own level: after 1 s you have 25 %, after 2 s 50 % and after 3 s the full 30 s (I), 60 s (II) or 120 s (III); every step shows particles in the potion's colour and a soft chime. Step off early and you keep what you got so far; stepping on again starts from zero. A longer effect you already have is never shortened. The step length is tweaks.padTuning.potionPadChargeStepTicks (default 20 ticks); tweaks.pads.enablePotionPads switches the pads off.",
-            "Instant effects (Healing, Harming) apply once, at the 3 second mark. The full application puts the whole pad on cooldown for twice the effect duration - 60 s (I), 120 s (II), 240 s (III), 480 s for the final easter stage; a partial application starts no cooldown. While cooling down the pad gives nothing to anyone, its texture drains and pulses. Only players are affected, mobs are not. The factor is tweaks.padTuning.potionPadCooldownFactor (default 2.0, 0 = no cooldown).",
-            "Unlimited uses; tinted particles in the potion's colour rise from a filled, ready pad. The cooldown only counts down while the pad is placed: broken during its cooldown, the pad drops as a cooling item (animated, tooltip shows the time left) that keeps the remaining time, the stored potion and its easter stage, and resumes when placed again. Stacks to 1 like every pad.",
+            "Stand on the pad for 3 seconds to take the stored effects at the potion's own level (at most the level a vanilla potion brews): after 1 s you have 25 %, after 2 s 50 % and after 3 s the full 30 s (I), 60 s (II) or 120 s (III), but never longer than the potion itself lasts when drunk; every step shows particles in the potion's colour and a soft chime. Step off early and you keep what you got so far; stepping on again starts from zero. A longer effect you already have is never shortened. The step length is tweaks.padTuning.potionPadChargeStepTicks (default 20 ticks); tweaks.pads.enablePotionPads switches the pads off.",
+            "Instant effects (Healing, Harming) apply once, at the 3 second mark. The full application puts the whole pad on cooldown for twice the granted duration times the effect's own multiplier - for a long potion 60 s (I), 120 s (II), 240 s (III), 480 s for the final easter stage; a partial application starts no cooldown. While cooling down the pad gives nothing to anyone, its texture drains and pulses. Only players are affected, mobs are not. The potion is never used up: the pad keeps it until it is broken. The factor is tweaks.padTuning.potionPadCooldownFactor (default 2.0, 0 = no cooldown).",
+            "Per-effect rules (since 2026-09-29, docs/TRANK-PADS.md, PotionPadRules): beneficial effects reach every player on the pad; harmful ones and Glowing (mob effect tag simplebuilding:potion_pad/owner_only) only the player who placed it - a stranger on such a pad does not even charge it, so they cannot put it on cooldown; Saturation, Absorption, Health Boost, Conduit Power, Dolphin's Grace, Hero of the Village, Breath of the Nautilus and the three omens (tag simplebuilding:potion_pad/blocked) are never given; simplebuilding:potion_pad/public makes an effect public again. Cooldown multipliers: Healing and Harming 2 (on a basis of 30 s, so 2 min on every tier), Regeneration, Resistance and Invisibility 1.5, Night Vision 0.5; Levitation lasts at most 10 s. Healing, Harming and Regeneration lock the player out of every pad for 60 s after a full charge, so a row of pads cannot chain them.",
+            "Unlimited uses; tinted particles in the potion's color rise from a filled, ready pad. The cooldown only counts down while the pad is placed: broken during its cooldown, the pad drops as a cooling item (animated, tooltip shows the time left) that keeps the remaining time, the stored potion and its easter stage, and resumes when placed again. Stacks to 1 like every pad.",
             "Recipes: I = any template + Netherite Pressure Plate + Blaze Head (smithing since 2026-09-28, before shapeless crafting); II = enderite upgrade template + Potion Pad I + Enderite Pressure Plate (smithing, upgrades pay with the pressure plate of their material); III = enderite upgrade template + Potion Pad II + Enderite Core (smithing).",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it. Does not burn."
           ]
@@ -18739,8 +18762,9 @@ window.WIKI_DATA = {
           "summary": "Trank-Pads (neu, 2026-09-28) speichern die Wirkungen eines geworfenen Tranks und geben sie jedem Spieler, der sie betritt. Drei Stufen: Trank-Pad I, Verstärktes Trank-Pad II, Durchtränktes Trank-Pad III.",
           "details": [
             "Wirf einen Wurf- oder Verweiltrank auf das Pad: zerschellt er darauf, speichert das Pad seine Wirkungen und ersetzt, was es vorher hatte; ein Wasser-Wurftrank (oder jeder Trank ohne Wirkung) wischt es leer. Die Partikel in der Trankfarbe zeigen, was es hält - kein Text auf dem Bildschirm.",
-            "3 Sekunden auf dem Pad stehen gibt die gespeicherten Wirkungen in der Stufe des Tranks: nach 1 s hast du 25 %, nach 2 s 50 % und nach 3 s die vollen 30 s (I), 60 s (II) oder 120 s (III); jeder Schritt zeigt Partikel in der Trankfarbe und einen leisen Klang. Wer früher absteigt, behält das bisher Erhaltene; wieder aufsteigen beginnt bei null. Eine längere Wirkung, die du schon hast, wird nie gekürzt. Die Schrittlänge ist tweaks.padTuning.potionPadChargeStepTicks (Standard 20 Ticks); tweaks.pads.enablePotionPads schaltet die Pads ab.",
-            "Sofortwirkungen (Heilung, Schaden) wirken einmal, bei 3 Sekunden. Die volle Anwendung setzt das ganze Pad für die doppelte Wirkdauer in die Abklingzeit - 60 s (I), 120 s (II), 240 s (III), 480 s für die letzte Easter-Stufe; eine halbe Anwendung startet keine Abklingzeit. Solange es abklingt, gibt das Pad niemandem etwas, seine Textur leert sich pulsierend. Nur Spieler, keine Mobs. Der Faktor ist tweaks.padTuning.potionPadCooldownFactor (Standard 2,0, 0 = keine Abklingzeit).",
+            "3 Sekunden auf dem Pad stehen gibt die gespeicherten Wirkungen in der Stufe des Tranks (höchstens der Stufe, die ein Vanilla-Trank braut): nach 1 s hast du 25 %, nach 2 s 50 % und nach 3 s die vollen 30 s (I), 60 s (II) oder 120 s (III), aber nie länger, als der Trank getrunken wirken würde; jeder Schritt zeigt Partikel in der Trankfarbe und einen leisen Klang. Wer früher absteigt, behält das bisher Erhaltene; wieder aufsteigen beginnt bei null. Eine längere Wirkung, die du schon hast, wird nie gekürzt. Die Schrittlänge ist tweaks.padTuning.potionPadChargeStepTicks (Standard 20 Ticks); tweaks.pads.enablePotionPads schaltet die Pads ab.",
+            "Sofortwirkungen (Heilung, Schaden) wirken einmal, bei 3 Sekunden. Die volle Anwendung setzt das ganze Pad für die doppelte gegebene Wirkdauer mal dem eigenen Faktor der Wirkung in die Abklingzeit - bei einem langen Trank 60 s (I), 120 s (II), 240 s (III), 480 s für die letzte Easter-Stufe; eine halbe Anwendung startet keine Abklingzeit. Solange es abklingt, gibt das Pad niemandem etwas, seine Textur leert sich pulsierend. Nur Spieler, keine Mobs. Der Trank wird nie verbraucht: das Pad behält ihn, bis es abgebaut wird. Der Faktor ist tweaks.padTuning.potionPadCooldownFactor (Standard 2,0, 0 = keine Abklingzeit).",
+            "Regeln je Wirkung (seit 2026-09-29, docs/TRANK-PADS.md, PotionPadRules): positive Wirkungen bekommt jeder Spieler auf dem Pad; schädliche und Leuchten (Mob-Effekt-Tag simplebuilding:potion_pad/owner_only) nur, wer es gesetzt hat - ein Fremder auf so einem Pad lädt es gar nicht erst auf und kann es so auch nicht in die Abklingzeit schicken; Sättigung, Absorption, Extraenergie, Meereskraft, Gunst des Delfins, Held des Dorfes, Atem des Nautilus und die drei Omen (Tag simplebuilding:potion_pad/blocked) gibt es nie; simplebuilding:potion_pad/public macht eine Wirkung wieder öffentlich. Abklingfaktoren: Direktheilung und Direktschaden 2 (auf 30 s Grundlage, also 2 min auf jeder Stufe), Regeneration, Resistenz und Unsichtbarkeit 1,5, Nachtsicht 0,5; Schwebe hält höchstens 10 s. Direktheilung, Direktschaden und Regeneration sperren den Spieler nach einer vollen Ladung 60 s für alle Pads, damit eine Pad-Reihe sie nicht verketten kann.",
             "Unbegrenzt nutzbar; über einem gefüllten, bereiten Pad steigen Partikel in der Trankfarbe auf. Die Abklingzeit läuft nur, solange das Pad gesetzt ist: in der Abklingzeit abgebaut, fällt es als abklingendes Item (animiert, Tooltip mit Restzeit), das Restzeit, gespeicherten Trank und Easter-Stufe behält und gesetzt weiterläuft. Stapelt nicht, wie jedes Pad.",
             "Rezepte: I = beliebige Vorlage + Netherit-Druckplatte + Lohenkopf (Schmiede seit 2026-09-28, vorher formlos an der Werkbank); II = Enderit-Aufwertung + Trank-Pad I + Enderit-Druckplatte (Schmiede, Aufwertungen zahlen mit der Druckplatte ihres Materials); III = Enderit-Aufwertung + Trank-Pad II + Enderitkern (Schmiede).",
             "Wer es setzt, besitzt es: der Besitzer baut es in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen es nicht. Brennt nicht."
@@ -18749,8 +18773,14 @@ window.WIKI_DATA = {
         "sources": [
           "common/src/shared/java/com/simplebuilding/tweaks/block/PotionPadBlock.java",
           "common/src/shared/java/com/simplebuilding/tweaks/block/entity/PotionPadBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/PotionPadRules.java",
+          "src/main/resources/data/simplebuilding/tags/mob_effect/potion_pad/blocked.json",
+          "src/main/resources/data/simplebuilding/tags/mob_effect/potion_pad/owner_only.json",
+          "src/main/resources/data/simplebuilding/tags/mob_effect/potion_pad/public.json",
+          "docs/TRANK-PADS.md",
           "common/src/shared/java/com/simplebuilding/tweaks/block/TweaksBlocks.java",
           "common/src/shared/java/com/simplebuilding/gametest/PotionPadTests.java",
+          "common/src/shared/java/com/simplebuilding/gametest/PotionPadRuleTests.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "docs/SIMPLETWEAKS-UEBERNAHME.md",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
@@ -19135,7 +19165,7 @@ window.WIKI_DATA = {
             "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
             "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
             "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Heavy Weighted Pressure Plates (iron); it unlocks with the first Leather Sheet.",
-            "Reinforced Backpack at the crafting table: empty, String, empty / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Reinforced Backpack at the crafting table: Diamond Pebble, String, Diamond Pebble / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets (four pebbles since 2026-09-29, two before). Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
             "Netherite Backpack: smithing table with Netherite Upgrade, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
             "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
             "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -19185,7 +19215,7 @@ window.WIKI_DATA = {
             "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderitbündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
             "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
             "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Wägeplatten (schwer, aus Eisen); freigeschaltet mit der ersten Lederplatte.",
-            "Verstärkter Rucksack an der Werkbank: leer, Faden, leer / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Faden, Diamantkiesel / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten (seit 2026-09-29 vier Kiesel statt zwei). Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
             "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertung, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Aufwertung, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
             "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
             "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -19310,7 +19340,8 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/mixin/client/ItemMixin.java",
           "src/main/generated/data/simplebuilding/tags/item/blast_furnace_bonus.json",
           "src/main/generated/data/simplebuilding/tags/item/furnace_bonus_excluded.json",
-          "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_raw_enderite.json"
+          "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_layered_raw_enderite.json",
+          "src/main/generated/data/simplebuilding/recipe/layered_raw_enderite.json"
         ]
       },
       "machine": {
@@ -20941,9 +20972,10 @@ window.WIKI_DATA = {
           "summary": "Potion Pads (new, 2026-09-28) store the effects of a thrown potion and give them to every player who steps onto them. Three tiers: Potion Pad I, Reinforced Potion Pad II, Infused Potion Pad III.",
           "details": [
             "Throw a splash or lingering potion onto the pad: when it shatters on the pad, the pad stores its effects and replaces whatever it held before; a water splash potion (or any potion without effects) wipes it. The particles in the potion's colour show what it holds - there is no text on the screen.",
-            "Stand on the pad for 3 seconds to take the stored effects at the potion's own level: after 1 s you have 25 %, after 2 s 50 % and after 3 s the full 30 s (I), 60 s (II) or 120 s (III); every step shows particles in the potion's colour and a soft chime. Step off early and you keep what you got so far; stepping on again starts from zero. A longer effect you already have is never shortened. The step length is tweaks.padTuning.potionPadChargeStepTicks (default 20 ticks); tweaks.pads.enablePotionPads switches the pads off.",
-            "Instant effects (Healing, Harming) apply once, at the 3 second mark. The full application puts the whole pad on cooldown for twice the effect duration - 60 s (I), 120 s (II), 240 s (III), 480 s for the final easter stage; a partial application starts no cooldown. While cooling down the pad gives nothing to anyone, its texture drains and pulses. Only players are affected, mobs are not. The factor is tweaks.padTuning.potionPadCooldownFactor (default 2.0, 0 = no cooldown).",
-            "Unlimited uses; tinted particles in the potion's colour rise from a filled, ready pad. The cooldown only counts down while the pad is placed: broken during its cooldown, the pad drops as a cooling item (animated, tooltip shows the time left) that keeps the remaining time, the stored potion and its easter stage, and resumes when placed again. Stacks to 1 like every pad.",
+            "Stand on the pad for 3 seconds to take the stored effects at the potion's own level (at most the level a vanilla potion brews): after 1 s you have 25 %, after 2 s 50 % and after 3 s the full 30 s (I), 60 s (II) or 120 s (III), but never longer than the potion itself lasts when drunk; every step shows particles in the potion's colour and a soft chime. Step off early and you keep what you got so far; stepping on again starts from zero. A longer effect you already have is never shortened. The step length is tweaks.padTuning.potionPadChargeStepTicks (default 20 ticks); tweaks.pads.enablePotionPads switches the pads off.",
+            "Instant effects (Healing, Harming) apply once, at the 3 second mark. The full application puts the whole pad on cooldown for twice the granted duration times the effect's own multiplier - for a long potion 60 s (I), 120 s (II), 240 s (III), 480 s for the final easter stage; a partial application starts no cooldown. While cooling down the pad gives nothing to anyone, its texture drains and pulses. Only players are affected, mobs are not. The potion is never used up: the pad keeps it until it is broken. The factor is tweaks.padTuning.potionPadCooldownFactor (default 2.0, 0 = no cooldown).",
+            "Per-effect rules (since 2026-09-29, docs/TRANK-PADS.md, PotionPadRules): beneficial effects reach every player on the pad; harmful ones and Glowing (mob effect tag simplebuilding:potion_pad/owner_only) only the player who placed it - a stranger on such a pad does not even charge it, so they cannot put it on cooldown; Saturation, Absorption, Health Boost, Conduit Power, Dolphin's Grace, Hero of the Village, Breath of the Nautilus and the three omens (tag simplebuilding:potion_pad/blocked) are never given; simplebuilding:potion_pad/public makes an effect public again. Cooldown multipliers: Healing and Harming 2 (on a basis of 30 s, so 2 min on every tier), Regeneration, Resistance and Invisibility 1.5, Night Vision 0.5; Levitation lasts at most 10 s. Healing, Harming and Regeneration lock the player out of every pad for 60 s after a full charge, so a row of pads cannot chain them.",
+            "Unlimited uses; tinted particles in the potion's color rise from a filled, ready pad. The cooldown only counts down while the pad is placed: broken during its cooldown, the pad drops as a cooling item (animated, tooltip shows the time left) that keeps the remaining time, the stored potion and its easter stage, and resumes when placed again. Stacks to 1 like every pad.",
             "Recipes: I = any template + Netherite Pressure Plate + Blaze Head (smithing since 2026-09-28, before shapeless crafting); II = enderite upgrade template + Potion Pad I + Enderite Pressure Plate (smithing, upgrades pay with the pressure plate of their material); III = enderite upgrade template + Potion Pad II + Enderite Core (smithing).",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it. Does not burn."
           ]
@@ -20952,8 +20984,9 @@ window.WIKI_DATA = {
           "summary": "Trank-Pads (neu, 2026-09-28) speichern die Wirkungen eines geworfenen Tranks und geben sie jedem Spieler, der sie betritt. Drei Stufen: Trank-Pad I, Verstärktes Trank-Pad II, Durchtränktes Trank-Pad III.",
           "details": [
             "Wirf einen Wurf- oder Verweiltrank auf das Pad: zerschellt er darauf, speichert das Pad seine Wirkungen und ersetzt, was es vorher hatte; ein Wasser-Wurftrank (oder jeder Trank ohne Wirkung) wischt es leer. Die Partikel in der Trankfarbe zeigen, was es hält - kein Text auf dem Bildschirm.",
-            "3 Sekunden auf dem Pad stehen gibt die gespeicherten Wirkungen in der Stufe des Tranks: nach 1 s hast du 25 %, nach 2 s 50 % und nach 3 s die vollen 30 s (I), 60 s (II) oder 120 s (III); jeder Schritt zeigt Partikel in der Trankfarbe und einen leisen Klang. Wer früher absteigt, behält das bisher Erhaltene; wieder aufsteigen beginnt bei null. Eine längere Wirkung, die du schon hast, wird nie gekürzt. Die Schrittlänge ist tweaks.padTuning.potionPadChargeStepTicks (Standard 20 Ticks); tweaks.pads.enablePotionPads schaltet die Pads ab.",
-            "Sofortwirkungen (Heilung, Schaden) wirken einmal, bei 3 Sekunden. Die volle Anwendung setzt das ganze Pad für die doppelte Wirkdauer in die Abklingzeit - 60 s (I), 120 s (II), 240 s (III), 480 s für die letzte Easter-Stufe; eine halbe Anwendung startet keine Abklingzeit. Solange es abklingt, gibt das Pad niemandem etwas, seine Textur leert sich pulsierend. Nur Spieler, keine Mobs. Der Faktor ist tweaks.padTuning.potionPadCooldownFactor (Standard 2,0, 0 = keine Abklingzeit).",
+            "3 Sekunden auf dem Pad stehen gibt die gespeicherten Wirkungen in der Stufe des Tranks (höchstens der Stufe, die ein Vanilla-Trank braut): nach 1 s hast du 25 %, nach 2 s 50 % und nach 3 s die vollen 30 s (I), 60 s (II) oder 120 s (III), aber nie länger, als der Trank getrunken wirken würde; jeder Schritt zeigt Partikel in der Trankfarbe und einen leisen Klang. Wer früher absteigt, behält das bisher Erhaltene; wieder aufsteigen beginnt bei null. Eine längere Wirkung, die du schon hast, wird nie gekürzt. Die Schrittlänge ist tweaks.padTuning.potionPadChargeStepTicks (Standard 20 Ticks); tweaks.pads.enablePotionPads schaltet die Pads ab.",
+            "Sofortwirkungen (Heilung, Schaden) wirken einmal, bei 3 Sekunden. Die volle Anwendung setzt das ganze Pad für die doppelte gegebene Wirkdauer mal dem eigenen Faktor der Wirkung in die Abklingzeit - bei einem langen Trank 60 s (I), 120 s (II), 240 s (III), 480 s für die letzte Easter-Stufe; eine halbe Anwendung startet keine Abklingzeit. Solange es abklingt, gibt das Pad niemandem etwas, seine Textur leert sich pulsierend. Nur Spieler, keine Mobs. Der Trank wird nie verbraucht: das Pad behält ihn, bis es abgebaut wird. Der Faktor ist tweaks.padTuning.potionPadCooldownFactor (Standard 2,0, 0 = keine Abklingzeit).",
+            "Regeln je Wirkung (seit 2026-09-29, docs/TRANK-PADS.md, PotionPadRules): positive Wirkungen bekommt jeder Spieler auf dem Pad; schädliche und Leuchten (Mob-Effekt-Tag simplebuilding:potion_pad/owner_only) nur, wer es gesetzt hat - ein Fremder auf so einem Pad lädt es gar nicht erst auf und kann es so auch nicht in die Abklingzeit schicken; Sättigung, Absorption, Extraenergie, Meereskraft, Gunst des Delfins, Held des Dorfes, Atem des Nautilus und die drei Omen (Tag simplebuilding:potion_pad/blocked) gibt es nie; simplebuilding:potion_pad/public macht eine Wirkung wieder öffentlich. Abklingfaktoren: Direktheilung und Direktschaden 2 (auf 30 s Grundlage, also 2 min auf jeder Stufe), Regeneration, Resistenz und Unsichtbarkeit 1,5, Nachtsicht 0,5; Schwebe hält höchstens 10 s. Direktheilung, Direktschaden und Regeneration sperren den Spieler nach einer vollen Ladung 60 s für alle Pads, damit eine Pad-Reihe sie nicht verketten kann.",
             "Unbegrenzt nutzbar; über einem gefüllten, bereiten Pad steigen Partikel in der Trankfarbe auf. Die Abklingzeit läuft nur, solange das Pad gesetzt ist: in der Abklingzeit abgebaut, fällt es als abklingendes Item (animiert, Tooltip mit Restzeit), das Restzeit, gespeicherten Trank und Easter-Stufe behält und gesetzt weiterläuft. Stapelt nicht, wie jedes Pad.",
             "Rezepte: I = beliebige Vorlage + Netherit-Druckplatte + Lohenkopf (Schmiede seit 2026-09-28, vorher formlos an der Werkbank); II = Enderit-Aufwertung + Trank-Pad I + Enderit-Druckplatte (Schmiede, Aufwertungen zahlen mit der Druckplatte ihres Materials); III = Enderit-Aufwertung + Trank-Pad II + Enderitkern (Schmiede).",
             "Wer es setzt, besitzt es: der Besitzer baut es in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen es nicht. Brennt nicht."
@@ -20962,8 +20995,14 @@ window.WIKI_DATA = {
         "sources": [
           "common/src/shared/java/com/simplebuilding/tweaks/block/PotionPadBlock.java",
           "common/src/shared/java/com/simplebuilding/tweaks/block/entity/PotionPadBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/PotionPadRules.java",
+          "src/main/resources/data/simplebuilding/tags/mob_effect/potion_pad/blocked.json",
+          "src/main/resources/data/simplebuilding/tags/mob_effect/potion_pad/owner_only.json",
+          "src/main/resources/data/simplebuilding/tags/mob_effect/potion_pad/public.json",
+          "docs/TRANK-PADS.md",
           "common/src/shared/java/com/simplebuilding/tweaks/block/TweaksBlocks.java",
           "common/src/shared/java/com/simplebuilding/gametest/PotionPadTests.java",
+          "common/src/shared/java/com/simplebuilding/gametest/PotionPadRuleTests.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "docs/SIMPLETWEAKS-UEBERNAHME.md",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
@@ -21114,7 +21153,7 @@ window.WIKI_DATA = {
             "Netherite and Enderite Backpack are fire resistant (fireResistant()) and, as dropped items, immune to explosions like the Netherite and Enderite Bundle. The Enderite Backpack is in simplebuilding:void_protected (prefix rule enderite_) and floats instead of falling into the void.",
             "Tooltip: \"x / N slots used\", the first five entries with their count, \"...and n more\", a hint with the currently bound key and a hint on setting it down.",
             "Recipes: Leather Sheet from 9 Leather (3x3). Backpack at the crafting table: Copper Nugget, String, Copper Nugget / 3 Leather Sheets / 3 Heavy Weighted Pressure Plates (iron); it unlocks with the first Leather Sheet.",
-            "Reinforced Backpack at the crafting table: empty, String, empty / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets. Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
+            "Reinforced Backpack at the crafting table: Diamond Pebble, String, Diamond Pebble / Diamond Pebble, Backpack, Diamond Pebble / 3 Leather Sheets (four pebbles since 2026-09-29, two before). Its own recipe type simplebuilding:backpack_upgrade takes the backpack from the grid with everything on it (contents, enchantments, name) instead of making a fresh one.",
             "Netherite Backpack: smithing table with Netherite Upgrade, Reinforced Backpack and Netherite Ingot. Enderite Backpack: Enderite Upgrade, Netherite Backpack and Enderite Ingot. Both are vanilla smithing_transform recipes, which keep all components.",
             "Contents stay in place on an upgrade: the component stores slot ids that do not depend on the tier (rows 0 to 35, extra columns from 36 on), so the rows keep their positions and the Netherite Backpack's column ends up in the Enderite Backpack's right column. Entries whose slot a tier does not have (for instance put there by commands) are kept aside and written back unchanged; nothing is deleted.",
             "Enchanting: anvil only (no enchantable component) with Deep Pockets (I-II), Funnel (I-II), Master Builder (I) and Constructor's Touch (I). Drawer and Color Palette do not go on backpacks: Deep Pockets and Funnel reach them through their own tags deep_pockets_enchantable and funnel_enchantable, Master Builder through master_builder_enchantable, while Drawer stays on bundle_enchantable and Color Palette on extra_inventory_items.",
@@ -21164,7 +21203,7 @@ window.WIKI_DATA = {
             "Netherit- und Enderit-Rucksack sind feuerfest (fireResistant()) und als Drop explosionsimmun wie Netherit- und Enderitbündel. Der Enderit-Rucksack steht im Tag simplebuilding:void_protected (Präfix-Regel enderite_) und schwebt, statt in die Leere zu fallen.",
             "Tooltip: „x / N Plätze belegt“, die ersten fünf Einträge mit Anzahl, „...und n weitere“, ein Hinweis mit der aktuell belegten Taste und ein Hinweis zum Abstellen.",
             "Rezepte: Lederplatte aus 9 Leder (3x3). Rucksack an der Werkbank: Kupferklumpen, Faden, Kupferklumpen / 3 Lederplatten / 3 Wägeplatten (schwer, aus Eisen); freigeschaltet mit der ersten Lederplatte.",
-            "Verstärkter Rucksack an der Werkbank: leer, Faden, leer / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten. Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
+            "Verstärkter Rucksack an der Werkbank: Diamantkiesel, Faden, Diamantkiesel / Diamantkiesel, Rucksack, Diamantkiesel / 3 Lederplatten (seit 2026-09-29 vier Kiesel statt zwei). Ein eigener Rezepttyp simplebuilding:backpack_upgrade übernimmt den Rucksack aus dem Raster mit allem, was daran hängt (Inhalt, Verzauberungen, Name), statt einen neuen zu bauen.",
             "Netherit-Rucksack: Schmiedetisch mit Netherit-Aufwertung, Verstärktem Rucksack und Netheritbarren. Enderit-Rucksack: Enderit-Aufwertung, Netherit-Rucksack und Enderitbarren. Beides sind Vanilla-Rezepte vom Typ smithing_transform, die alle Komponenten behalten.",
             "Der Inhalt bleibt bei einer Aufwertung an seinem Platz: Die Komponente speichert stufenunabhängige Slot-Ids (Reihen 0 bis 35, Zusatzspalten ab 36), die Reihen behalten also ihre Positionen, und die Spalte des Netherit-Rucksacks landet in der rechten Spalte des Enderit-Rucksacks. Einträge mit einem Slot, den eine Stufe nicht hat (etwa per Befehl gesetzt), werden beiseitegelegt und unverändert zurückgeschrieben; gelöscht wird nichts.",
             "Verzaubern: nur am Amboss (keine Verzauberbarkeits-Komponente) mit Tiefe Taschen (I-II), Trichter (I-II), Baumeister (I) und Berührung des Konstrukteurs (I). Schublade und Farbpalette gehen nicht auf Rucksäcke: Tiefe Taschen und Trichter erreichen sie über eigene Tags deep_pockets_enchantable und funnel_enchantable, Baumeister über master_builder_enchantable, während Schublade auf bundle_enchantable und Farbpalette auf extra_inventory_items bleiben.",
@@ -21882,9 +21921,10 @@ window.WIKI_DATA = {
           "summary": "Potion Pads (new, 2026-09-28) store the effects of a thrown potion and give them to every player who steps onto them. Three tiers: Potion Pad I, Reinforced Potion Pad II, Infused Potion Pad III.",
           "details": [
             "Throw a splash or lingering potion onto the pad: when it shatters on the pad, the pad stores its effects and replaces whatever it held before; a water splash potion (or any potion without effects) wipes it. The particles in the potion's colour show what it holds - there is no text on the screen.",
-            "Stand on the pad for 3 seconds to take the stored effects at the potion's own level: after 1 s you have 25 %, after 2 s 50 % and after 3 s the full 30 s (I), 60 s (II) or 120 s (III); every step shows particles in the potion's colour and a soft chime. Step off early and you keep what you got so far; stepping on again starts from zero. A longer effect you already have is never shortened. The step length is tweaks.padTuning.potionPadChargeStepTicks (default 20 ticks); tweaks.pads.enablePotionPads switches the pads off.",
-            "Instant effects (Healing, Harming) apply once, at the 3 second mark. The full application puts the whole pad on cooldown for twice the effect duration - 60 s (I), 120 s (II), 240 s (III), 480 s for the final easter stage; a partial application starts no cooldown. While cooling down the pad gives nothing to anyone, its texture drains and pulses. Only players are affected, mobs are not. The factor is tweaks.padTuning.potionPadCooldownFactor (default 2.0, 0 = no cooldown).",
-            "Unlimited uses; tinted particles in the potion's colour rise from a filled, ready pad. The cooldown only counts down while the pad is placed: broken during its cooldown, the pad drops as a cooling item (animated, tooltip shows the time left) that keeps the remaining time, the stored potion and its easter stage, and resumes when placed again. Stacks to 1 like every pad.",
+            "Stand on the pad for 3 seconds to take the stored effects at the potion's own level (at most the level a vanilla potion brews): after 1 s you have 25 %, after 2 s 50 % and after 3 s the full 30 s (I), 60 s (II) or 120 s (III), but never longer than the potion itself lasts when drunk; every step shows particles in the potion's colour and a soft chime. Step off early and you keep what you got so far; stepping on again starts from zero. A longer effect you already have is never shortened. The step length is tweaks.padTuning.potionPadChargeStepTicks (default 20 ticks); tweaks.pads.enablePotionPads switches the pads off.",
+            "Instant effects (Healing, Harming) apply once, at the 3 second mark. The full application puts the whole pad on cooldown for twice the granted duration times the effect's own multiplier - for a long potion 60 s (I), 120 s (II), 240 s (III), 480 s for the final easter stage; a partial application starts no cooldown. While cooling down the pad gives nothing to anyone, its texture drains and pulses. Only players are affected, mobs are not. The potion is never used up: the pad keeps it until it is broken. The factor is tweaks.padTuning.potionPadCooldownFactor (default 2.0, 0 = no cooldown).",
+            "Per-effect rules (since 2026-09-29, docs/TRANK-PADS.md, PotionPadRules): beneficial effects reach every player on the pad; harmful ones and Glowing (mob effect tag simplebuilding:potion_pad/owner_only) only the player who placed it - a stranger on such a pad does not even charge it, so they cannot put it on cooldown; Saturation, Absorption, Health Boost, Conduit Power, Dolphin's Grace, Hero of the Village, Breath of the Nautilus and the three omens (tag simplebuilding:potion_pad/blocked) are never given; simplebuilding:potion_pad/public makes an effect public again. Cooldown multipliers: Healing and Harming 2 (on a basis of 30 s, so 2 min on every tier), Regeneration, Resistance and Invisibility 1.5, Night Vision 0.5; Levitation lasts at most 10 s. Healing, Harming and Regeneration lock the player out of every pad for 60 s after a full charge, so a row of pads cannot chain them.",
+            "Unlimited uses; tinted particles in the potion's color rise from a filled, ready pad. The cooldown only counts down while the pad is placed: broken during its cooldown, the pad drops as a cooling item (animated, tooltip shows the time left) that keeps the remaining time, the stored potion and its easter stage, and resumes when placed again. Stacks to 1 like every pad.",
             "Recipes: I = any template + Netherite Pressure Plate + Blaze Head (smithing since 2026-09-28, before shapeless crafting); II = enderite upgrade template + Potion Pad I + Enderite Pressure Plate (smithing, upgrades pay with the pressure plate of their material); III = enderite upgrade template + Potion Pad II + Enderite Core (smithing).",
             "Whoever places it owns it: the owner breaks it in about 2 seconds, anyone else needs about 60 seconds; creative mode breaks it normally. Pistons cannot move it. Does not burn."
           ]
@@ -21893,8 +21933,9 @@ window.WIKI_DATA = {
           "summary": "Trank-Pads (neu, 2026-09-28) speichern die Wirkungen eines geworfenen Tranks und geben sie jedem Spieler, der sie betritt. Drei Stufen: Trank-Pad I, Verstärktes Trank-Pad II, Durchtränktes Trank-Pad III.",
           "details": [
             "Wirf einen Wurf- oder Verweiltrank auf das Pad: zerschellt er darauf, speichert das Pad seine Wirkungen und ersetzt, was es vorher hatte; ein Wasser-Wurftrank (oder jeder Trank ohne Wirkung) wischt es leer. Die Partikel in der Trankfarbe zeigen, was es hält - kein Text auf dem Bildschirm.",
-            "3 Sekunden auf dem Pad stehen gibt die gespeicherten Wirkungen in der Stufe des Tranks: nach 1 s hast du 25 %, nach 2 s 50 % und nach 3 s die vollen 30 s (I), 60 s (II) oder 120 s (III); jeder Schritt zeigt Partikel in der Trankfarbe und einen leisen Klang. Wer früher absteigt, behält das bisher Erhaltene; wieder aufsteigen beginnt bei null. Eine längere Wirkung, die du schon hast, wird nie gekürzt. Die Schrittlänge ist tweaks.padTuning.potionPadChargeStepTicks (Standard 20 Ticks); tweaks.pads.enablePotionPads schaltet die Pads ab.",
-            "Sofortwirkungen (Heilung, Schaden) wirken einmal, bei 3 Sekunden. Die volle Anwendung setzt das ganze Pad für die doppelte Wirkdauer in die Abklingzeit - 60 s (I), 120 s (II), 240 s (III), 480 s für die letzte Easter-Stufe; eine halbe Anwendung startet keine Abklingzeit. Solange es abklingt, gibt das Pad niemandem etwas, seine Textur leert sich pulsierend. Nur Spieler, keine Mobs. Der Faktor ist tweaks.padTuning.potionPadCooldownFactor (Standard 2,0, 0 = keine Abklingzeit).",
+            "3 Sekunden auf dem Pad stehen gibt die gespeicherten Wirkungen in der Stufe des Tranks (höchstens der Stufe, die ein Vanilla-Trank braut): nach 1 s hast du 25 %, nach 2 s 50 % und nach 3 s die vollen 30 s (I), 60 s (II) oder 120 s (III), aber nie länger, als der Trank getrunken wirken würde; jeder Schritt zeigt Partikel in der Trankfarbe und einen leisen Klang. Wer früher absteigt, behält das bisher Erhaltene; wieder aufsteigen beginnt bei null. Eine längere Wirkung, die du schon hast, wird nie gekürzt. Die Schrittlänge ist tweaks.padTuning.potionPadChargeStepTicks (Standard 20 Ticks); tweaks.pads.enablePotionPads schaltet die Pads ab.",
+            "Sofortwirkungen (Heilung, Schaden) wirken einmal, bei 3 Sekunden. Die volle Anwendung setzt das ganze Pad für die doppelte gegebene Wirkdauer mal dem eigenen Faktor der Wirkung in die Abklingzeit - bei einem langen Trank 60 s (I), 120 s (II), 240 s (III), 480 s für die letzte Easter-Stufe; eine halbe Anwendung startet keine Abklingzeit. Solange es abklingt, gibt das Pad niemandem etwas, seine Textur leert sich pulsierend. Nur Spieler, keine Mobs. Der Trank wird nie verbraucht: das Pad behält ihn, bis es abgebaut wird. Der Faktor ist tweaks.padTuning.potionPadCooldownFactor (Standard 2,0, 0 = keine Abklingzeit).",
+            "Regeln je Wirkung (seit 2026-09-29, docs/TRANK-PADS.md, PotionPadRules): positive Wirkungen bekommt jeder Spieler auf dem Pad; schädliche und Leuchten (Mob-Effekt-Tag simplebuilding:potion_pad/owner_only) nur, wer es gesetzt hat - ein Fremder auf so einem Pad lädt es gar nicht erst auf und kann es so auch nicht in die Abklingzeit schicken; Sättigung, Absorption, Extraenergie, Meereskraft, Gunst des Delfins, Held des Dorfes, Atem des Nautilus und die drei Omen (Tag simplebuilding:potion_pad/blocked) gibt es nie; simplebuilding:potion_pad/public macht eine Wirkung wieder öffentlich. Abklingfaktoren: Direktheilung und Direktschaden 2 (auf 30 s Grundlage, also 2 min auf jeder Stufe), Regeneration, Resistenz und Unsichtbarkeit 1,5, Nachtsicht 0,5; Schwebe hält höchstens 10 s. Direktheilung, Direktschaden und Regeneration sperren den Spieler nach einer vollen Ladung 60 s für alle Pads, damit eine Pad-Reihe sie nicht verketten kann.",
             "Unbegrenzt nutzbar; über einem gefüllten, bereiten Pad steigen Partikel in der Trankfarbe auf. Die Abklingzeit läuft nur, solange das Pad gesetzt ist: in der Abklingzeit abgebaut, fällt es als abklingendes Item (animiert, Tooltip mit Restzeit), das Restzeit, gespeicherten Trank und Easter-Stufe behält und gesetzt weiterläuft. Stapelt nicht, wie jedes Pad.",
             "Rezepte: I = beliebige Vorlage + Netherit-Druckplatte + Lohenkopf (Schmiede seit 2026-09-28, vorher formlos an der Werkbank); II = Enderit-Aufwertung + Trank-Pad I + Enderit-Druckplatte (Schmiede, Aufwertungen zahlen mit der Druckplatte ihres Materials); III = Enderit-Aufwertung + Trank-Pad II + Enderitkern (Schmiede).",
             "Wer es setzt, besitzt es: der Besitzer baut es in etwa 2 Sekunden ab, alle anderen brauchen etwa 60 Sekunden; im Kreativmodus wie gewohnt. Kolben bewegen es nicht. Brennt nicht."
@@ -21903,8 +21944,14 @@ window.WIKI_DATA = {
         "sources": [
           "common/src/shared/java/com/simplebuilding/tweaks/block/PotionPadBlock.java",
           "common/src/shared/java/com/simplebuilding/tweaks/block/entity/PotionPadBlockEntity.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/PotionPadRules.java",
+          "src/main/resources/data/simplebuilding/tags/mob_effect/potion_pad/blocked.json",
+          "src/main/resources/data/simplebuilding/tags/mob_effect/potion_pad/owner_only.json",
+          "src/main/resources/data/simplebuilding/tags/mob_effect/potion_pad/public.json",
+          "docs/TRANK-PADS.md",
           "common/src/shared/java/com/simplebuilding/tweaks/block/TweaksBlocks.java",
           "common/src/shared/java/com/simplebuilding/gametest/PotionPadTests.java",
+          "common/src/shared/java/com/simplebuilding/gametest/PotionPadRuleTests.java",
           "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
           "docs/SIMPLETWEAKS-UEBERNAHME.md",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
@@ -26916,7 +26963,7 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:enderite_scrap_from_blasting_raw_enderite",
+      "id": "simplebuilding:enderite_scrap_from_blasting_layered_raw_enderite",
       "type": "minecraft:blasting",
       "category": null,
       "group": "enderite_scrap",
@@ -26924,16 +26971,16 @@ window.WIKI_DATA = {
         "id": "simplebuilding:enderite_scrap",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_raw_enderite.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/enderite_scrap_from_blasting_layered_raw_enderite.json",
       "ingredients": [
-        "simplebuilding:raw_enderite"
+        "simplebuilding:layered_raw_enderite"
       ],
       "slots": {
         "ingredient": [
-          "simplebuilding:raw_enderite"
+          "simplebuilding:layered_raw_enderite"
         ]
       },
-      "cookingtime": 72000,
+      "cookingtime": 144000,
       "experience": 10.0,
       "lines": [
         "1.21.11",
@@ -27938,6 +27985,35 @@ window.WIKI_DATA = {
         ],
         "addition": [
           "simplebuilding:iron_core"
+        ]
+      },
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:layered_raw_enderite",
+      "type": "minecraft:crafting_shaped",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:layered_raw_enderite",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/layered_raw_enderite.json",
+      "ingredients": [
+        "simplebuilding:raw_enderite"
+      ],
+      "pattern": [
+        "R",
+        "R",
+        "R"
+      ],
+      "key": {
+        "R": [
+          "simplebuilding:raw_enderite"
         ]
       },
       "lines": [
@@ -31585,7 +31661,7 @@ window.WIKI_DATA = {
         "simplebuilding:leather_sheet"
       ],
       "pattern": [
-        " S ",
+        "DSD",
         "DBD",
         "LLL"
       ],
@@ -31675,9 +31751,9 @@ window.WIKI_DATA = {
         "simplebuilding:leather_sheet"
       ],
       "pattern": [
-        " S ",
-        "DB ",
-        " X "
+        "DSD",
+        "DBD",
+        "DXD"
       ],
       "key": {
         "B": [
@@ -31966,23 +32042,19 @@ window.WIKI_DATA = {
       },
       "source": "src/main/generated/data/simplebuilding/recipe/reinforced_quiver.json",
       "ingredients": [
-        "minecraft:copper_nugget",
         "minecraft:string",
         "simplebuilding:diamond_pebble",
         "simplebuilding:leather_sheet",
         "simplebuilding:quiver"
       ],
       "pattern": [
-        " SD",
-        "SXN",
-        "Q  "
+        "DSD",
+        "DQD",
+        "DXD"
       ],
       "key": {
         "D": [
           "simplebuilding:diamond_pebble"
-        ],
-        "N": [
-          "minecraft:copper_nugget"
         ],
         "Q": [
           "simplebuilding:quiver"
@@ -39827,6 +39899,10 @@ window.WIKI_DATA = {
           "required": true
         },
         {
+          "id": "simplebuilding:layered_raw_enderite",
+          "required": true
+        },
+        {
           "id": "simplebuilding:raw_enderite",
           "required": true
         },
@@ -40252,6 +40328,134 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/resources/data/simplebuilding/tags/item/vein_miner_ores.json"
+    },
+    {
+      "id": "simplebuilding:mob_effect/potion_pad/blocked",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:saturation",
+          "required": true
+        },
+        {
+          "id": "minecraft:absorption",
+          "required": true
+        },
+        {
+          "id": "minecraft:health_boost",
+          "required": true
+        },
+        {
+          "id": "minecraft:conduit_power",
+          "required": true
+        },
+        {
+          "id": "minecraft:dolphins_grace",
+          "required": true
+        },
+        {
+          "id": "minecraft:hero_of_the_village",
+          "required": true
+        },
+        {
+          "id": "minecraft:bad_omen",
+          "required": true
+        },
+        {
+          "id": "minecraft:raid_omen",
+          "required": true
+        },
+        {
+          "id": "minecraft:trial_omen",
+          "required": true
+        },
+        {
+          "id": "minecraft:breath_of_the_nautilus",
+          "required": false
+        }
+      ],
+      "source": "src/main/resources/data/simplebuilding/tags/mob_effect/potion_pad/blocked.json"
+    },
+    {
+      "id": "simplebuilding:mob_effect/potion_pad/owner_only",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:slowness",
+          "required": true
+        },
+        {
+          "id": "minecraft:mining_fatigue",
+          "required": true
+        },
+        {
+          "id": "minecraft:instant_damage",
+          "required": true
+        },
+        {
+          "id": "minecraft:nausea",
+          "required": true
+        },
+        {
+          "id": "minecraft:blindness",
+          "required": true
+        },
+        {
+          "id": "minecraft:hunger",
+          "required": true
+        },
+        {
+          "id": "minecraft:weakness",
+          "required": true
+        },
+        {
+          "id": "minecraft:poison",
+          "required": true
+        },
+        {
+          "id": "minecraft:wither",
+          "required": true
+        },
+        {
+          "id": "minecraft:levitation",
+          "required": true
+        },
+        {
+          "id": "minecraft:unluck",
+          "required": true
+        },
+        {
+          "id": "minecraft:darkness",
+          "required": true
+        },
+        {
+          "id": "minecraft:wind_charged",
+          "required": true
+        },
+        {
+          "id": "minecraft:weaving",
+          "required": true
+        },
+        {
+          "id": "minecraft:oozing",
+          "required": true
+        },
+        {
+          "id": "minecraft:infested",
+          "required": true
+        },
+        {
+          "id": "minecraft:glowing",
+          "required": true
+        }
+      ],
+      "source": "src/main/resources/data/simplebuilding/tags/mob_effect/potion_pad/owner_only.json"
+    },
+    {
+      "id": "simplebuilding:mob_effect/potion_pad/public",
+      "replace": false,
+      "values": [],
+      "source": "src/main/resources/data/simplebuilding/tags/mob_effect/potion_pad/public.json"
     }
   ],
   "config": [
@@ -40642,8 +40846,8 @@ window.WIKI_DATA = {
       "groupDe": "Pad-Zeiten & -Stärke",
       "label": "Potion Pad Cooldown Factor",
       "labelDe": "Trank-Pad-Abklingfaktor",
-      "tooltip": "After a full charge the potion pad cools down for this many times the effect duration. 0 = no cooldown. Default: 2.0.",
-      "tooltipDe": "Nach einer vollen Ladung kühlt das Trank-Pad so viele Male die Wirkdauer lang ab. 0 = keine Abklingzeit. Standard: 2,0."
+      "tooltip": "After a full charge the potion pad cools down for this many times the granted effect duration, times the effect's own multiplier (Healing and Harming 2, Night Vision 0.5, see docs/TRANK-PADS.md). 0 = no cooldown. Default: 2.0.",
+      "tooltipDe": "Nach einer vollen Ladung kühlt das Trank-Pad so viele Male die gegebene Wirkdauer lang ab, mal dem eigenen Faktor der Wirkung (Direktheilung und Direktschaden 2, Nachtsicht 0,5, siehe docs/TRANK-PADS.md). 0 = keine Abklingzeit. Standard: 2,0."
     },
     {
       "name": "tweaks.laserPointer.enable",
@@ -58583,8 +58787,8 @@ window.WIKI_DATA = {
         "de_de": "Geduld ist eine Tugend"
       },
       "description": {
-        "en_us": "Blast Raw Enderite into Enderite Scrap: a whole hour in a vanilla blast furnace - faster furnaces help",
-        "de_de": "Schmelz Rohenderit zu Enderitplatten: eine ganze Stunde im Vanilla-Schmelzofen - schnellere Öfen helfen"
+        "en_us": "Stack three Raw Enderite into Layered Raw Enderite and blast it into Enderite Scrap: two hours in a vanilla blast furnace - faster furnaces help",
+        "de_de": "Stapel drei Rohenderit zu Geschichtetem Rohenderit und schmelz es zu Enderitplatten: zwei Stunden im Vanilla-Schmelzofen - schnellere Öfen helfen"
       },
       "criteria": [
         {
@@ -61643,8 +61847,8 @@ window.WIKI_DATA = {
             "de_de": "Geduld ist eine Tugend"
           },
           "description": {
-            "en_us": "Blast Raw Enderite into Enderite Scrap: a whole hour in a vanilla blast furnace - faster furnaces help",
-            "de_de": "Schmelz Rohenderit zu Enderitplatten: eine ganze Stunde im Vanilla-Schmelzofen - schnellere Öfen helfen"
+            "en_us": "Stack three Raw Enderite into Layered Raw Enderite and blast it into Enderite Scrap: two hours in a vanilla blast furnace - faster furnaces help",
+            "de_de": "Stapel drei Rohenderit zu Geschichtetem Rohenderit und schmelz es zu Enderitplatten: zwei Stunden im Vanilla-Schmelzofen - schnellere Öfen helfen"
           },
           "dependencies": [
             "stage_4.raw_enderite"
@@ -62998,13 +63202,13 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 181,
+    "items": 182,
     "blocks": 124,
-    "recipes": 360,
+    "recipes": 361,
     "lootTables": 135,
     "trades": 20,
     "enchantments": 19,
-    "tags": 36,
+    "tags": 39,
     "config": 163,
     "inWorld": 392,
     "advancements": 101,

@@ -1,6 +1,7 @@
 package com.simplebuilding.tweaks.block.entity;
 
 import com.simplebuilding.util.PlayerScan;
+import com.simplebuilding.tweaks.PotionPadRules;
 import com.simplebuilding.tweaks.SimpleTweaks;
 import com.simplebuilding.tweaks.block.PotionPadBlock;
 import com.simplebuilding.tweaks.component.TweaksComponents;
@@ -11,6 +12,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
@@ -19,6 +21,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -58,6 +61,13 @@ import org.jetbrains.annotations.Nullable;
  * kein Behaelter), und weitergegeben wird genau die Wirkung dieses Tranks. Redstone schaltet das Pad
  * ab (die Abklingzeit laeuft weiter); der Komparator liest 0 ohne Trank, 15 bereit und waehrend der
  * Abklingzeit 1..14, je nachdem, wie weit sie ist ({@link #comparatorSignal}).
+ *
+ * <p><b>Balance je Wirkung</b> (Besitzer 2026-09-29, docs/TRANK-PADS.md, {@link PotionPadRules}): der Trank
+ * wird nie verbraucht. Wer eine Wirkung bekommt (alle, nur der Besitzer, niemand), wie stark (hoechstens die
+ * Vanilla-Stufe), wie lange (Stufendauer, aber nie laenger als der Trank selbst) und wie oft (Abklingzeit aus
+ * der laengsten gegebenen Dauer mal Wirkungsfaktor, dazu eine Sperre je Spieler fuer Heilung/Schaden/
+ * Regeneration ueber alle Pads) steht in den Regeln. Ein Spieler, fuer den nichts erlaubt ist, laedt gar
+ * nicht auf und kann das Pad so auch nicht fuer andere in die Abklingzeit schicken. Mobs bekommen nie etwas.
  */
 public class PotionPadBlockEntity extends OwnedBlockEntity implements PadSignalSource {
     /** Ein Aufladeschritt dauert eine Sekunde. */
@@ -70,6 +80,8 @@ public class PotionPadBlockEntity extends OwnedBlockEntity implements PadSignalS
     private @Nullable PotionContents stored;
     /** Verbleibende Abklingzeit in Ticks (0 = bereit). */
     private int cooldown;
+    /** Volle Laenge der laufenden Abklingzeit (fuer den Komparator; 0 = unbekannt, dann die Stufen-Abklingzeit). */
+    private int cooldownTotal;
     /** Wie lange jeder Spieler schon ununterbrochen auf dem Pad steht, in Ticks (nicht gespeichert). */
     private final Map<UUID, Integer> standing = new HashMap<>();
 
@@ -105,6 +117,7 @@ public class PotionPadBlockEntity extends OwnedBlockEntity implements PadSignalS
     /** Setzt die Abklingzeit und zieht den Blockzustand {@link PotionPadBlock#COOLING} nach. */
     public void setCooldown(int ticks) {
         this.cooldown = Math.max(0, ticks);
+        this.cooldownTotal = cooldown == 0 ? 0 : Math.max(cooldownTotal, cooldown);
         this.standing.clear();
         setChanged();
         syncCoolingState();
@@ -132,7 +145,8 @@ public class PotionPadBlockEntity extends OwnedBlockEntity implements PadSignalS
         if (cooldown <= 0) {
             return 15;
         }
-        int total = level != null && getBlockState().getBlock() instanceof PotionPadBlock pad ? pad.cooldownAt(level, worldPosition) : 0;
+        int total = cooldownTotal > 0 ? cooldownTotal
+                : level != null && getBlockState().getBlock() instanceof PotionPadBlock pad ? pad.cooldownAt(level, worldPosition) : 0;
         if (total <= 0) {
             return 1;
         }
@@ -180,6 +194,10 @@ public class PotionPadBlockEntity extends OwnedBlockEntity implements PadSignalS
         List<Player> players = PlayerScan.playersIn(level, area(pos), Player.class, p -> p.isAlive() && !p.isSpectator());
         Set<UUID> now = new HashSet<>();
         for (Player player : players) {
+            if (!be.hasAnythingFor(player, time)) {
+                // Nichts erlaubt (fremdes Pad mit schaedlicher Wirkung, gesperrt): kein Aufladen, keine Abklingzeit.
+                continue;
+            }
             UUID id = player.getUUID();
             now.add(id);
             int ticks = be.standing.merge(id, 1, Integer::sum);
@@ -209,28 +227,74 @@ public class PotionPadBlockEntity extends OwnedBlockEntity implements PadSignalS
     }
 
     /**
-     * Aufladeschritt {@code step} (1..{@link #RAMP_STEPS}): die Dauerwirkungen mit {@link #rampPercent}
-     * der Stufendauer und der Verstaerkung des Tranks (eine laengere Wirkung, die der Spieler schon hat,
-     * bleibt, siehe {@code MobEffectInstance#update}); beim letzten Schritt zusaetzlich die
-     * Sofortwirkungen, danach beginnt die Abklingzeit. Ohne Trank oder in der Abklingzeit: nichts.
+     * Ob der Spieler von diesem Pad gerade irgendetwas bekaeme: mindestens eine gespeicherte Wirkung, die
+     * {@link PotionPadRules} ihm erlaubt (Besitzer bzw. herrenloses Pad fuer schaedliche Wirkungen) und fuer
+     * die er nicht gesperrt ist.
+     */
+    public boolean hasAnythingFor(Player player, long gameTime) {
+        if (stored == null) {
+            return false;
+        }
+        boolean owner = isOwnerOrUnowned(player);
+        for (MobEffectInstance effect : stored.getAllEffects()) {
+            if (PotionPadRules.allows(effect.getEffect(), owner)
+                    && !PotionPadRules.isLockedOut(player.getUUID(), effect.getEffect(), gameTime)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /** Besitzer des Pads - oder niemandem gehoert es (per Befehl gesetzt), dann zaehlt jeder als Besitzer. */
+    public boolean isOwnerOrUnowned(Player player) {
+        return getOwner() == null || isOwner(player);
+    }
+
+    /**
+     * Aufladeschritt {@code step} (1..{@link #RAMP_STEPS}) nach {@link PotionPadRules}: jede fuer diesen
+     * Spieler erlaubte, nicht gesperrte Dauerwirkung mit {@link #rampPercent} ihrer vollen Dauer (Stufendauer,
+     * gedeckelt durch die Dauer im Trank und die Regel) und hoechstens der Regel-Stufe (eine laengere Wirkung,
+     * die der Spieler schon hat, bleibt, siehe {@code MobEffectInstance#update}); beim letzten Schritt
+     * zusaetzlich die Sofortwirkungen, die Sperren je Spieler und die Abklingzeit aus der teuersten gegebenen
+     * Wirkung. Ohne Trank, in der Abklingzeit oder wenn fuer den Spieler nichts erlaubt ist: nichts. Der Trank
+     * bleibt immer im Pad.
      */
     public void grant(ServerLevel level, Player player, int step) {
         if (stored == null || cooldown > 0 || step < 1 || step > RAMP_STEPS) {
             return;
         }
         BlockState state = getBlockState();
-        int full = state.getBlock() instanceof PotionPadBlock pad ? pad.effectDurationAt(level, worldPosition) : PotionPadBlock.effectDuration(1);
-        int duration = full * rampPercent(step) / 100;
+        int tierTicks = state.getBlock() instanceof PotionPadBlock pad ? pad.effectDurationAt(level, worldPosition) : PotionPadBlock.effectDuration(1);
         boolean last = step == RAMP_STEPS;
+        boolean owner = isOwnerOrUnowned(player);
+        long now = level.getGameTime();
+        double factor = SimpleTweaks.config().padTuning.potionPadCooldown();
+        int padCooldown = 0;
+        boolean gave = false;
         for (MobEffectInstance effect : stored.getAllEffects()) {
-            if (effect.getEffect().value().isInstantenous()) {
+            Holder<MobEffect> type = effect.getEffect();
+            if (!PotionPadRules.allows(type, owner) || PotionPadRules.isLockedOut(player.getUUID(), type, now)) {
+                continue;
+            }
+            gave = true;
+            int amplifier = PotionPadRules.amplifier(type, effect.getAmplifier());
+            boolean instant = type.value().isInstantenous();
+            int full = instant ? 0 : PotionPadRules.fullDuration(effect, tierTicks);
+            if (instant) {
                 if (last) {
-                    effect.getEffect().value().applyInstantenousEffect(level, null, null, player, effect.getAmplifier(), 1.0);
+                    type.value().applyInstantenousEffect(level, null, null, player, amplifier, 1.0);
                 }
             } else {
-                player.addEffect(new MobEffectInstance(effect.getEffect(), duration, effect.getAmplifier(),
+                player.addEffect(new MobEffectInstance(type, Math.max(1, full * rampPercent(step) / 100), amplifier,
                         effect.isAmbient(), effect.isVisible(), effect.showIcon()));
             }
+            if (last) {
+                PotionPadRules.lockOut(player.getUUID(), type, now);
+                padCooldown = Math.max(padCooldown, PotionPadRules.cooldownFor(type, instant, full, factor));
+            }
+        }
+        if (!gave) {
+            return;
         }
         double x = worldPosition.getX() + 0.5;
         double y = worldPosition.getY() + 0.2;
@@ -240,7 +304,8 @@ public class PotionPadBlockEntity extends OwnedBlockEntity implements PadSignalS
         if (last) {
             level.playSound(null, worldPosition, SoundEvents.BREWING_STAND_BREW, SoundSource.BLOCKS, 0.6F, 1.2F);
             com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.POTION_PAD);
-            setCooldown(state.getBlock() instanceof PotionPadBlock pad ? pad.cooldownAt(level, worldPosition) : 2 * full);
+            this.cooldownTotal = 0;
+            setCooldown(padCooldown);
         } else {
             level.playSound(null, worldPosition, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 0.5F, 0.8F + 0.3F * step);
         }
@@ -293,6 +358,7 @@ public class PotionPadBlockEntity extends OwnedBlockEntity implements PadSignalS
         super.removeComponentsFromTag(output);
         output.discard("Potion");
         output.discard("Cooldown");
+        output.discard("CooldownTotal");
     }
 
     @Override
@@ -303,6 +369,7 @@ public class PotionPadBlockEntity extends OwnedBlockEntity implements PadSignalS
         }
         if (cooldown > 0) {
             output.putInt("Cooldown", cooldown);
+            output.putInt("CooldownTotal", cooldownTotal);
         }
     }
 
@@ -311,5 +378,6 @@ public class PotionPadBlockEntity extends OwnedBlockEntity implements PadSignalS
         super.loadAdditional(input);
         this.stored = input.read("Potion", PotionContents.CODEC).filter(PotionContents::hasEffects).orElse(null);
         this.cooldown = Math.max(0, input.getIntOr("Cooldown", 0));
+        this.cooldownTotal = cooldown == 0 ? 0 : Math.max(cooldown, input.getIntOr("CooldownTotal", 0));
     }
 }

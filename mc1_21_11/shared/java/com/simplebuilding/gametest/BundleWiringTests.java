@@ -715,30 +715,37 @@ public final class BundleWiringTests {
         ItemStack sheet = new ItemStack(ModItems.LEATHER_SHEET);
         ItemStack vanillaBundle = new ItemStack(Items.BUNDLE);
 
-        // " S " / "DB " / " X "
+        // "DSD" / "DBD" / "DXD" - six diamond pebbles since 2026-09-29
         CraftingInput asShipped = CraftingInput.of(3, 3, List.of(
-                ItemStack.EMPTY, string, ItemStack.EMPTY,
-                pebble, vanillaBundle, ItemStack.EMPTY,
-                ItemStack.EMPTY, sheet, ItemStack.EMPTY));
+                pebble, string, pebble,
+                pebble, vanillaBundle, pebble,
+                pebble, sheet, pebble));
 
         Optional<RecipeHolder<net.minecraft.world.item.crafting.CraftingRecipe>> crafted =
                 recipes.getRecipeFor(RecipeType.CRAFTING, asShipped, level);
         helper.assertTrue(crafted.isPresent(),
-                "string / diamond pebble - bundle / leather sheet crafts nothing at all");
+                "string / bundle / leather sheet between six diamond pebbles crafts nothing at all");
         // 1.21.11 still passes the registries into assemble; 26.2 dropped that parameter.
         ItemStack result = crafted.get().value().assemble(asShipped, level.registryAccess());
         helper.assertTrue(result.is(ModItems.REINFORCED_BUNDLE),
                 "the bundle pattern crafts " + result + " instead of a reinforced bundle");
         Assertions.valueEqual(helper, result.getCount(), 1, "reinforced bundles produced per craft");
 
-        // Same four items, string and leather sheet swapped: a pattern that is only a checklist would match.
+        // Same items, string and leather sheet swapped: a pattern that is only a checklist would match.
         CraftingInput upsideDown = CraftingInput.of(3, 3, List.of(
-                ItemStack.EMPTY, sheet, ItemStack.EMPTY,
-                pebble, vanillaBundle, ItemStack.EMPTY,
-                ItemStack.EMPTY, string, ItemStack.EMPTY));
+                pebble, sheet, pebble,
+                pebble, vanillaBundle, pebble,
+                pebble, string, pebble));
         helper.assertTrue(recipes.getRecipeFor(RecipeType.CRAFTING, upsideDown, level).isEmpty(),
                 "the same ingredients in the wrong rows still crafted something; the pattern is not "
                         + "being checked");
+        // The pattern before 2026-09-29 with a single pebble next to the bundle crafts nothing any more.
+        CraftingInput onePebble = CraftingInput.of(3, 3, List.of(
+                ItemStack.EMPTY, string, ItemStack.EMPTY,
+                pebble, vanillaBundle, ItemStack.EMPTY,
+                ItemStack.EMPTY, sheet, ItemStack.EMPTY));
+        helper.assertTrue(recipes.getRecipeFor(RecipeType.CRAFTING, onePebble, level).isEmpty(),
+                "the old one-pebble reinforced bundle pattern still crafts something");
 
         // --- reinforced -> netherite ---
         SmithingRecipeInput toNetherite = new SmithingRecipeInput(

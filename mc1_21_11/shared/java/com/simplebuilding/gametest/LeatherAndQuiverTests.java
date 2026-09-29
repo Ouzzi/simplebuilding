@@ -35,8 +35,8 @@ import net.minecraft.world.level.GameType;
  *
  * <p>The leather sheet is a plain material made from nine leather; it is an ingredient of the
  * reinforced bundle, the reinforced quiver and the backpacks. The reinforced quiver sits between
- * the plain and the netherite quiver: it is crafted from the plain quiver with a leather sheet, a
- * diamond pebble, string and a copper nugget, holds 3/2 of a stack of arrows (96), and is the only
+ * the plain and the netherite quiver: it is crafted from the plain quiver in the reinforced bundle's
+ * pattern (string, leather sheet, six diamond pebbles), holds 3/2 of a stack of arrows (96), and is the only
  * base the netherite quiver smithing recipe accepts.
  *
  * <p>Both reinforced recipes are of the mod's {@code simplebuilding:reinforced_bundle} type, which
@@ -115,45 +115,59 @@ public final class LeatherAndQuiverTests {
     }
 
     /**
-     * The reinforced quiver is crafted from the plain quiver: {@code " SD" / "SXN" / "Q  "} - string,
-     * diamond pebble, leather sheet, copper nugget and the quiver in the bottom left corner.
+     * The reinforced quiver is crafted from the plain quiver in the reinforced bundle's pattern
+     * (owner 2026-09-29): {@code "DSD" / "DQD" / "DXD"} - string on top, the quiver in the middle, a
+     * leather sheet below and six diamond pebbles in the side columns.
      *
      * <ul>
      *   <li>The documented grid crafts exactly one reinforced quiver.</li>
-     *   <li>A vanilla bundle in the quiver's place crafts nothing: the plain quiver is the base, so
-     *       it is not a dead end once the netherite quiver needs the reinforced one.</li>
-     *   <li>Without the copper nugget the grid crafts nothing.</li>
+     *   <li>A vanilla bundle in the quiver's place crafts the reinforced bundle, never a quiver: the
+     *       plain quiver is the base, so it is not a dead end once the netherite quiver needs the
+     *       reinforced one.</li>
+     *   <li>With one pebble missing the grid crafts nothing.</li>
+     *   <li>The pattern before 2026-09-29 ({@code " SD" / "SXN" / "Q  "}, one pebble and a copper
+     *       nugget) crafts nothing any more.</li>
      *   <li>The same items turned upside down craft nothing - the recipe is shaped.</li>
      * </ul>
      *
      * <p>What breaks this test: a changed key or pattern in {@code recipe/reinforced_quiver.json}, a
      * bundle accepted as the base, and a recipe that stops loading.
      */
-    public static void reinforcedQuiverCraftsFromThePlainQuiverWithSheetPebbleAndNugget(GameTestHelper helper) {
+    public static void reinforcedQuiverCraftsFromThePlainQuiverWithTheBundlePatternAndSixPebbles(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
 
-        ItemStack crafted = craft(helper, level, quiverGrid(new ItemStack(ModItems.QUIVER), true),
-                "string, diamond pebble, leather sheet, copper nugget and a quiver",
+        ItemStack crafted = craft(helper, level, quiverGrid(new ItemStack(ModItems.QUIVER), 6),
+                "string, leather sheet, six diamond pebbles and a quiver",
                 "simplebuilding:reinforced_quiver");
         helper.assertTrue(crafted.is(ModItems.REINFORCED_QUIVER),
                 "the reinforced quiver pattern crafts " + crafted + " instead of a reinforced quiver");
         Assertions.valueEqual(helper, crafted.getCount(), 1, "reinforced quivers per craft");
 
-        assertCraftsNothing(helper, level, quiverGrid(new ItemStack(Items.BUNDLE), true),
-                "the reinforced quiver pattern with a vanilla bundle in the quiver's place crafts "
-                        + "something - the plain quiver is supposed to be the base");
-        assertCraftsNothing(helper, level, quiverGrid(new ItemStack(ModItems.QUIVER), false),
-                "the reinforced quiver pattern without its copper nugget still crafts something");
+        ItemStack fromBundle = craft(helper, level, quiverGrid(new ItemStack(Items.BUNDLE), 6),
+                "the same pattern with a vanilla bundle in the quiver's place", "simplebuilding:reinforced_bundle");
+        helper.assertTrue(fromBundle.is(ModItems.REINFORCED_BUNDLE),
+                "the pattern with a vanilla bundle in the quiver's place crafts " + fromBundle
+                        + " - the plain quiver is supposed to be the quiver's only base");
+        assertCraftsNothing(helper, level, quiverGrid(new ItemStack(ModItems.QUIVER), 5),
+                "the reinforced quiver pattern with only five diamond pebbles still crafts something");
 
-        CraftingInput upsideDown = CraftingInput.of(3, 3, List.of(
-                new ItemStack(ModItems.QUIVER), ItemStack.EMPTY, ItemStack.EMPTY,
+        CraftingInput oldPattern = CraftingInput.of(3, 3, List.of(
+                ItemStack.EMPTY, new ItemStack(Items.STRING), new ItemStack(ModItems.DIAMOND_PEBBLE),
                 new ItemStack(Items.STRING), new ItemStack(ModItems.LEATHER_SHEET), new ItemStack(Items.COPPER_NUGGET),
-                ItemStack.EMPTY, new ItemStack(Items.STRING), new ItemStack(ModItems.DIAMOND_PEBBLE)));
+                new ItemStack(ModItems.QUIVER), ItemStack.EMPTY, ItemStack.EMPTY));
+        assertCraftsNothing(helper, level, oldPattern,
+                "the reinforced quiver pattern before 2026-09-29 (one pebble, copper nugget) still crafts something");
+
+        ItemStack d = new ItemStack(ModItems.DIAMOND_PEBBLE);
+        CraftingInput upsideDown = CraftingInput.of(3, 3, List.of(
+                d, new ItemStack(ModItems.LEATHER_SHEET), d,
+                d, new ItemStack(ModItems.QUIVER), d,
+                d, new ItemStack(Items.STRING), d));
         assertCraftsNothing(helper, level, upsideDown,
                 "the reinforced quiver pattern turned upside down crafts something too, so the recipe "
                         + "is not shaped");
 
-        TestCleanup.succeed(helper);
+        helper.succeed();
     }
 
     /**
@@ -238,10 +252,7 @@ public final class LeatherAndQuiverTests {
         vanillaBundle.enchant(enchantment(helper, ModEnchantments.FUNNEL), 1);
         Assertions.valueEqual(helper, countIn(vanillaBundle, Items.STONE), 5, "setup: stone in the vanilla bundle");
 
-        CraftingInput bundleGrid = CraftingInput.of(3, 3, List.of(
-                ItemStack.EMPTY, new ItemStack(Items.STRING), ItemStack.EMPTY,
-                new ItemStack(ModItems.DIAMOND_PEBBLE), vanillaBundle, ItemStack.EMPTY,
-                ItemStack.EMPTY, new ItemStack(ModItems.LEATHER_SHEET), ItemStack.EMPTY));
+        CraftingInput bundleGrid = quiverGrid(vanillaBundle, 6);
         ItemStack reinforcedBundle = craft(helper, level, bundleGrid, "the reinforced bundle pattern",
                 "simplebuilding:reinforced_bundle");
         helper.assertTrue(reinforcedBundle.is(ModItems.REINFORCED_BUNDLE),
@@ -257,7 +268,7 @@ public final class LeatherAndQuiverTests {
         quiver.enchant(enchantment(helper, ModEnchantments.FUNNEL), 1);
         Assertions.valueEqual(helper, countIn(quiver, Items.ARROW), 64, "setup: arrows in the plain quiver");
 
-        ItemStack reinforcedQuiver = craft(helper, level, quiverGrid(quiver, true),
+        ItemStack reinforcedQuiver = craft(helper, level, quiverGrid(quiver, 6),
                 "the reinforced quiver pattern", "simplebuilding:reinforced_quiver");
         Assertions.valueEqual(helper, countIn(reinforcedQuiver, Items.ARROW), 64,
                 "arrows the reinforced quiver kept from the quiver it was made of");
@@ -330,13 +341,21 @@ public final class LeatherAndQuiverTests {
     // HELPERS
     // =====================================================================================
 
-    /** {@code " SD" / "SXN" / "Q  "}, with or without the copper nugget. */
-    private static CraftingInput quiverGrid(ItemStack base, boolean withNugget) {
-        return CraftingInput.of(3, 3, List.of(
-                ItemStack.EMPTY, new ItemStack(Items.STRING), new ItemStack(ModItems.DIAMOND_PEBBLE),
-                new ItemStack(Items.STRING), new ItemStack(ModItems.LEATHER_SHEET),
-                withNugget ? new ItemStack(Items.COPPER_NUGGET) : ItemStack.EMPTY,
-                base, ItemStack.EMPTY, ItemStack.EMPTY));
+    /**
+     * {@code "DSD" / "DBD" / "DXD"} with {@code base} in the middle - the shared pattern of the
+     * reinforced bundle and the reinforced quiver. {@code pebbles} below six leaves the last side
+     * slots empty.
+     */
+    private static CraftingInput quiverGrid(ItemStack base, int pebbles) {
+        int[] sides = {0, 2, 3, 5, 6, 8};
+        List<ItemStack> grid = new java.util.ArrayList<>(java.util.Collections.nCopies(9, ItemStack.EMPTY));
+        for (int i = 0; i < Math.min(pebbles, sides.length); i++) {
+            grid.set(sides[i], new ItemStack(ModItems.DIAMOND_PEBBLE));
+        }
+        grid.set(1, new ItemStack(Items.STRING));
+        grid.set(4, base);
+        grid.set(7, new ItemStack(ModItems.LEATHER_SHEET));
+        return CraftingInput.of(3, 3, grid);
     }
 
     /** A 3x3 crafting grid, row by row; {@code null} stands for an empty slot. */
