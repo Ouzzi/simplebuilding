@@ -1578,7 +1578,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("immersion_game_test_core_tooltips_list_exactly_the_recipes_that_take_the_core", ImmersionTests::coreTooltipsListExactlyTheRecipesThatTakeTheCore)
                     .build(),
             GameTestSpec.named("immersion_game_test_hud_boxes_follow_the_configured_position_and_scale", ImmersionTests::hudBoxesFollowTheConfiguredPositionAndScale)
-                    .build()
+                    .build(),
             // --- /tweaks ---
             // --- modpack ---
             GameTestSpec.named("modpack_game_test_building_wand_skips_cells_the_loader_events_refuse_and_counts_its_blocks", ModpackTests::buildingWandSkipsCellsTheLoaderEventsRefuseAndCountsItsBlocks)
