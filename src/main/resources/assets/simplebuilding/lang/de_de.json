@@ -1407,7 +1407,7 @@
   "book.simplebuilding.pads.3.title": "Platten wachsen",
   "book.simplebuilding.pads.3.text": "Kupferplatten oxidieren wie Kupferblöcke, und je oxidierter, desto länger warten sie.\nHonigwaben wachsen sie, damit sie bleiben, wie sie sind; eine Axt schabt Wachs oder eine Stufe ab.",
   "book.simplebuilding.pads.4.title": "Besitzer & Redstone",
-  "book.simplebuilding.pads.4.text": "Pads gehören ihrem Erbauer; Fremde brauchen eine Minute zum Abbau.\nRedstone sperrt Flug- und Sprungpads; Teleporter nutzen dann den Weltspawn. Komparatoren lesen Pads aus.",
+  "book.simplebuilding.pads.4.text": "Pads gehören ihrem Erbauer. Fremde brauchen 1 Minute zum Abbau.\nRedstone sperrt Flug und Sprung; Teleporter nutzen dann das Spawn-Ziel. Komparatoren lesen Pads aus.",
   "book.simplebuilding.pads.5.title": "Elytra-Pads",
   "book.simplebuilding.pads.5.text": "Tritt mit freiem Brustfeld in den Bereich: du bekommst Spawn-Elytren mit ein paar Raketenschüben.\nSie lassen sich nicht verstauen und verschwinden nach fünf Minuten oder bei einer Landung außerhalb.",
   "book.simplebuilding.pads.6.title": "Startpads",
@@ -1444,7 +1444,7 @@
   "book.simplebuilding.gadgets.7.text": "Rechtsklick auf einen Leitstein verknüpft es. Ein Klick startet den Sprung nach 3 Sekunden, auch durch Dimensionen.\nDanach ruht es 24 Sekunden; andere Versuche sperren es 1 bis 5 Sekunden.",
   "book.simplebuilding.gadgets.8.title": "Echoladung",
   "book.simplebuilding.gadgets.8.text": "Ein Sprung leert das Echolot. Vier Echoscherben am Amboss oder Reparatur füllen es wieder.\nNicht voll benutzt springt es nach kurzem Aufladen trotzdem - und zerbricht dann.",
-  "book.simplebuilding.gadgets.9.title": "Amethyst-Resonanzstab",
+  "book.simplebuilding.gadgets.9.title": "Resonanzstab",
   "book.simplebuilding.gadgets.9.text": "Halte Rechtsklick für einen roten Punkt. Auf einer Stelle gehalten, schmilzt der Strahl Eis und Schnee, entzündet Lagerfeuer und Kerzen, trocknet Schwämme und zündet TNT.",
   "book.simplebuilding.gadgets.10.title": "Stabladung",
   "book.simplebuilding.gadgets.10.text": "Zielen kostet standardmäßig 4 Ladungen pro Sekunde. Ein leerer Stab zerbricht nicht.\nAm Amboss laden 16 Amethystscherben ihn ganz auf, ohne Levelkosten.",
@@ -2396,6 +2396,6 @@
   "hud.simplebuilding.velocity_gauge.impact": "✖ %s ❤",
   "text.autoconfig.simplebuilding.option.tweaks.laserPointer.chargePerSecond": "Ladung je Sekunde Strahlen",
   "text.autoconfig.simplebuilding.option.tweaks.laserPointer.chargePerSecond.@Tooltip": "Ladung, die der Stab je angefangener Sekunde Strahlen verbraucht (voll sind 640, eine Amethystscherbe lädt 40 auf). 0 = Strahlen kostet nichts. Standard: 4.",
-  "book.simplebuilding.storage.9.title": "Shulkerkisten-Stufen",
+  "book.simplebuilding.storage.9.title": "Shulkerkisten",
   "book.simplebuilding.storage.9.text": "Verstärkt: 36 Plätze. Netherit: 45, Stapel x2. Enderit: 54, Stapel x4.\nGesetzte Kiste: 10 Hammerschläge und 2 Stufenmaterialien zum Aufwerten. Inhalt, Name und Farbe bleiben."
 }

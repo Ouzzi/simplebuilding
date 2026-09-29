@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "src/main/generated/wiki/items.json",
       "present": true,
-      "count": 229,
+      "count": 250,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -79,16 +79,17 @@ window.WIKI_DATA = {
         "title": "Welcome",
         "summary": "SimpleBuilding is a Minecraft mod for anyone who likes to build, dig and keep their storage under control: it brings tools like the Sledgehammer, Chisel, Building Wand and Octant, larger bundles and quivers, faster furnaces, hoppers and pistons, and a whole set of custom enchantments. This wiki describes every feature the way it actually behaves in game, including controls, tiers, where things are found, and the parts that do not (yet) work. This page sums up what is in the mod and where to find each topic in the wiki.",
         "details": [
-          "SimpleBuilding adds building tools to Minecraft: the Sledgehammer (mines a 3x3 face in one go and reshapes blocks into stairs and slabs), the Chisel (converts blocks in place into related variants), the Building Wand (places whole faces with one click), the Octant (measures distances, areas and volumes and previews shapes), the Rotator (turns orientable blocks), the Attractor (pulls in dropped items) and the Ore Detector (a compass whose needle points at the nearest ore, with a sound and a faint particle trail).",
+          "SimpleBuilding adds building tools to Minecraft: the Sledgehammer (mines a 3x3 face in one go and reshapes blocks into stairs and slabs), the Chisel (converts blocks in place into related variants), the Building Wand (places whole faces with one click), the Octant (measures distances, areas and volumes and previews shapes), the Rotator (turns orientable blocks), the Attractor (pulls in dropped items) and the Detector (a compass whose needle points at the nearest ore, with a sound and a faint particle trail).",
           "For storage there are the Reinforced Bundle, the Netherite Bundle and the Enderite Bundle (96, 192 and 288 items at a stack size of 64), plus four Quiver tiers (64, 96, 128 and 192 arrows) that only take arrows and feed the bow automatically.",
           "The blocks are faster hoppers (Reinforced, Netherite, Enderite) with a configurable item filter, faster furnaces, blast furnaces and smokers (Reinforced, Netherite, Enderite), four stronger pistons, sand and gravel with gravity switched off or reversed, and the End ores Astralit and Nihilit.",
           "The mod's own enchantments cover three areas: mining (Vein Miner, Strip Miner, Versatility, Override, Radius, Break Through), building (Linear, Color Palette, Master Builder, Constructor's Touch, Fast Chiseling, Cover, Bridge) and storage and player (Deep Pockets, Drawer, Funnel, Air Jump, Kinetic Protection, Range).",
           "On top of that, armor trims grant gameplay bonuses (the resonance system), Enderite items are not lost in the void, item frames can be locked with a glass pane and made invisible with shears, and the Emitting Armor Trim turns armor into a portable light source.",
           "The mod is built for Fabric, NeoForge and Forge; the codebase covers Minecraft 26.2 and 1.21.11. The Forge module has been parked since 2026-08-27: it compiles and its dev client starts, but no test runs on it. Its client-side displays are wired as on the other loaders: the Octant HUD and the Velocity Gauge's speed display through Forge's HUD layers (AddGuiOverlayLayersEvent), the Air Jump bar through the shared mixin on vanilla's contextual bar, the in-world markers and extra breaking cracks through the mixins LevelRendererMixin / LevelExtractorMixin, the enchantments' own book textures through SelectItemModelPropertiesMixin.",
-          "The creative inventory has four tabs of its own: \"SimpleTools\" (one family per row from the lowest tier up to Enderite: chisels, building wands, sledgehammers, pickaxes, shovels, hoes, axes, swords, spears, helmets, chestplates, leggings and boots - the vanilla tools, weapons and armour of every tier included - then the gadgets Octant, Velocity Gauge, Ore Detector, Attractor and Rotator, the compasses (vanilla Compass, Recovery Compass, Echo Sounder), the coloured octants, and enchanted books of every mod enchantment at maximum level; icon: Iron Chisel), \"SimpleBlocks\" (end stone, the Astralit, Nihilit and Ender Quartz palettes, quartz checkers including the Ender Quartz Checker, gravity blocks, Block of Cracked Diamond, Block of Enderite and Construction Light; icon: Astralit Bricks), \"SimpleMaterials\" (ores, shards, dust, Ender Quartz, nuggets, ingots, cores, smithing templates and food; icon: Enderite Ingot) and \"SimpleMachines\" (one category per row, each vanilla first and then the tiers: hoppers, pistons, furnaces, smokers, blast furnaces, bundles, quivers, backpacks, and a Building Planning row with the Blueprint, the vanilla Cartography Table, an Octant and every building wand; icon: Netherite Hopper). SimpleTools and SimpleMachines leave the rest of each row empty (invisible Creative Spacer entries that cannot be picked up and never show in the search tab). Every item except the six legacy spatulas sits in exactly one of them; only the Octant and the building wands are deliberately in two (SimpleTools and the Building Planning row). A fifth tab, \"SimpleEnchants (Dev)\", only appears in a development environment or with the config option showDevEnchantedTab: the best tier of every enchantable item (plus the Stick and the Shulker Box, which Constructor's Touch gives a function) with every fitting enchantment at maximum level, one variant per choice among mutually exclusive enchantments (for example one pair of boots per protection type). Its entries do not appear in the search tab.",
-          "A note on names: the German language file is complete on both lines (MC 26.2 and 1.21.11) - every key of the English file has a German entry, and a build check (LanguageFilesTest) keeps it that way. The mod's own menu, status and tooltip texts - hopper filter, Ore Detector, Attractor, item frame lock, structure compasses, toggle keys, Octant HUD and Velocity Gauge HUD, trim stats panel, chisel tooltip - come from the language files as well (since 2026-09-27); a data test checks that each of those keys exists in both files with the same placeholders.",
+          "The creative inventory has four tabs of its own: \"SimpleTools\" (one family per row from the lowest tier up to Enderite: chisels, building wands, sledgehammers, pickaxes, shovels, hoes, axes, swords, spears, helmets, chestplates, leggings and boots - the vanilla tools, weapons and armour of every tier included - then the gadgets Octant, Velocity Gauge, Detector, Attractor and Rotator, the compasses (vanilla Compass, Recovery Compass, Echo Sounder), the coloured octants, and enchanted books of every mod enchantment at maximum level; icon: Iron Chisel), \"SimpleBlocks\" (end stone, the Astralit, Nihilit and Ender Quartz palettes, quartz checkers including the Ender Quartz Checker, gravity blocks, Block of Cracked Diamond, Block of Enderite and Construction Light; icon: Astralit Bricks), \"SimpleMaterials\" (ores, shards, dust, Ender Quartz, nuggets, ingots, cores, smithing templates and food; icon: Enderite Ingot) and \"SimpleMachines\" (one category per row, each vanilla first and then the tiers: hoppers, pistons, furnaces, smokers, blast furnaces, bundles, quivers, backpacks, and a Building Planning row with the Blueprint, the vanilla Cartography Table, an Octant and every building wand; icon: Netherite Hopper). SimpleTools and SimpleMachines leave the rest of each row empty (invisible Creative Spacer entries that cannot be picked up and never show in the search tab). Every item except the six legacy spatulas sits in exactly one of them; only the Octant and the building wands are deliberately in two (SimpleTools and the Building Planning row). A fifth tab, \"SimpleEnchants (Dev)\", only appears in a development environment or with the config option showDevEnchantedTab: the best tier of every enchantable item (plus the Stick and the Shulker Box, which Constructor's Touch gives a function) with every fitting enchantment at maximum level, one variant per choice among mutually exclusive enchantments (for example one pair of boots per protection type). Its entries do not appear in the search tab.",
+          "A note on names: the German language file is complete on both lines (MC 26.2 and 1.21.11) - every key of the English file has a German entry, and a build check (LanguageFilesTest) keeps it that way. The mod's own menu, status and tooltip texts - hopper filter, Detector, Attractor, item frame lock, structure compasses, toggle keys, Octant HUD and Velocity Gauge HUD, trim stats panel, chisel tooltip - come from the language files as well (since 2026-09-27); a data test checks that each of those keys exists in both files with the same placeholders.",
+          "The creative inventory has five tabs of its own, each laid out in rows of nine - one category per row, two short families side by side with an empty cell between them: \"SimpleTools\" (one family per row from the lowest tier up to Enderite: chisels, building wands - with the Building Planning next to the Enderite wand after an empty cell: the Blueprint and the vanilla Cartography Table -, sledgehammers, pickaxes, shovels, hoes, axes, swords, spears, helmets, chestplates, leggings and boots - the vanilla tools, weapons and armor of every tier included - then horse and nautilus armor, the gadgets (Compass, Recovery Compass, Echo Sounder, Velocity Gauge, Ore Detector, Attractor, Rotator, Amethyst Lens, Octant), the dyed octants, the guide books, and enchanted books of every mod enchantment at maximum level; icon: Iron Chisel), \"SimpleBlocks\" (the end stones, one row per Astralit, Nihilit and Ender Quartz palette with its polished row below, the quartz checkers, the gravity blocks, then Block of Cracked Diamond, Block of Enderite and Construction Light; icon: Astralit Bricks), \"SimpleMaterials\" (end ores, resources, building cores, smithing templates and food; icon: Enderite Ingot), \"SimpleMachines\" (each vanilla first and then the tiers: hoppers and furnaces, smokers and blast furnaces, pistons, bundles and quivers, backpacks, chests; icon: Netherite Hopper) and \"SimplePads\" (the pressure plates - oak, stone, polished blackstone, heavy and light weighted, diamond, netherite and enderite in one row, the copper plates in the next; the other wooden plates stay in the vanilla tab - then the pad families in ore order, each followed by its unlock item: chunk loaders, launchpads, spawn teleporters, elytra pads, potion pads and flypads; icon: Elytra Pad). The rest of each row stays empty (invisible Creative Spacer entries that cannot be picked up and never show in the search tab). Every item except the six legacy spatulas sits in exactly one of them; only the Copper, Iron and Enderite Core are deliberately in two (SimpleMaterials and, as unlock items, SimplePads). In addition every mod item stands in the matching vanilla tab right after its vanilla counterpart (the reinforced, netherite and enderite hoppers after the Hopper, the enderite tools after the netherite ones, the mod plates by the vanilla plates, the Blaze and Enderman Heads by the vanilla heads), so the search tab lists it there - once - instead of at the very end; the mod enchanted books already sit among vanilla's books. A sixth tab, \"SimpleEnchants (Dev)\", only appears in a development environment or with the config option showDevEnchantedTab: the best tier of every enchantable item (plus the Stick and the Shulker Box, which Constructor's Touch gives a function) with every fitting enchantment at maximum level, one variant per choice among mutually exclusive enchantments (for example one pair of boots per protection type). Its entries do not appear in the search tab.",
           "Every chapter follows the same layout: summary, details, controls (which key or click does what), a tier overview for tier families, and a limitations section. That section states plainly what does not (yet) work, e.g. tooltip texts that are never shown. Each chapter ends with the source files its statements come from.",
-          "Items section: every tool and storage item, sorted by family (Sledgehammer, Chisel, Building Wand, Octant and dyed Octants, bundles, quivers), plus the standalone tools Attractor, Rotator and Ore Detector.",
+          "Items section: every tool and storage item, sorted by family (Sledgehammer, Chisel, Building Wand, Octant and dyed Octants, bundles, quivers), plus the standalone tools Attractor, Rotator and Detector.",
           "Blocks section: hoppers, furnaces, pistons, gravity blocks and ores, with hardness, tool tags, loot tables and the differences between the Reinforced and Netherite tiers.",
           "Recipes section: crafting recipes, smithing table upgrades (Netherite Upgrade and Enderite Upgrade) and the mod's own recipe type for the Basic Upgrade, which upgrades copper, iron and gold tools one tier at a time without losing enchantments, damage or the name.",
           "Loot section: which structure chests (among them Buried Treasure, Igloo, Dungeon, Abandoned Mineshaft, Shipwreck, Pillager Outpost, Woodland Mansion, Stronghold Library, End City, Ancient City, Bastion, Nether Fortress, Ruined Portal, Trial Chambers) and the treasure catch of fishing hold mod items and books; every entry only applies while the enableLootTableChanges option is on.",
@@ -104,15 +105,16 @@ window.WIKI_DATA = {
         "summary": "SimpleBuilding ist eine Minecraft-Mod für alle, die gern bauen, graben und ihr Lager im Griff haben wollen: Sie bringt Werkzeuge wie Vorschlaghammer, Meißel, Baustab und Oktant, größere Bündel und Köcher, schnellere Öfen, Trichter und Kolben sowie eine ganze Reihe eigener Verzauberungen mit. Dieses Wiki beschreibt jede Funktion so, wie sie tatsächlich im Spiel funktioniert, inklusive Bedienung, Stufen, Fundorten und der Dinge, die (noch) nicht funktionieren. Hier erfährst du, was drin ist und wo du im Wiki was findest.",
         "details": [
           "Für das Lager gibt es das Verstärkte Bündel, das Netheritbündel und das Enderitbündel (96, 192 und 288 Gegenstände bei 64er-Stapeln) sowie vier Köcher-Stufen (64, 96, 128 und 192 Pfeile), die nur Pfeile aufnehmen und den Bogen automatisch versorgen.",
-          "SimpleBuilding erweitert Minecraft um Bauwerkzeuge: Vorschlaghammer (baut ein 3x3-Feld auf einmal ab und formt Blöcke zu Treppen und Stufen), Meißel (formt Blöcke an Ort und Stelle in verwandte Varianten um), Baustab (setzt ganze Flächen mit einem Klick), Oktant (misst Abstände, Flächen und Volumen und zeichnet Formen vor), Rotator (dreht ausrichtbare Blöcke), Attraktor (zieht herumliegende Items an) und Erzdetektor (ein Kompass, dessen Nadel zum nächsten Erz zeigt, dazu Ton und eine schwache Partikelspur).",
+          "SimpleBuilding erweitert Minecraft um Bauwerkzeuge: Vorschlaghammer (baut ein 3x3-Feld auf einmal ab und formt Blöcke zu Treppen und Stufen), Meißel (formt Blöcke an Ort und Stelle in verwandte Varianten um), Baustab (setzt ganze Flächen mit einem Klick), Oktant (misst Abstände, Flächen und Volumen und zeichnet Formen vor), Rotator (dreht ausrichtbare Blöcke), Attraktor (zieht herumliegende Items an) und Detektor (ein Kompass, dessen Nadel zum nächsten Erz zeigt, dazu Ton und eine schwache Partikelspur).",
           "Als Blöcke kommen schnellere Trichter (Verstärkt, Netherit, Enderit) mit einstellbarem Item-Filter, schnellere Öfen, Schmelzöfen und Räucheröfen (Verstärkt, Netherit, Enderit), vier stärkere Kolben, Sand und Kies mit aufgehobener oder umgekehrter Schwerkraft sowie die End-Erze Astralit und Nihilit hinzu.",
           "Eigene Verzauberungen decken drei Bereiche ab: Abbau (Aderabbau, Tunnelgräber, Vielseitigkeit, Übersteuerung, Radius, Durchbruch), Bauen (Linear, Farbpalette, Baumeister, Berührung des Konstrukteurs, Schnelles Meißeln, Abdeckung, Brücke) sowie Lager und Spieler (Tiefe Taschen, Schublade, Trichter, Luftsprung, Kinetischer Schutz, Reichweite).",
           "Darüber hinaus geben Rüstungsbesätze spielerische Boni (Resonanz-System), Enderit-Gegenstände gehen in der Leere nicht verloren, Rahmen lassen sich mit einer Glasscheibe sperren und mit einer Schere unsichtbar machen, und mit der Strahlenden Schmiedevorlage wird Rüstung zur tragbaren Lichtquelle.",
           "Die Mod wird für Fabric, NeoForge und Forge gebaut; die Codebasis deckt Minecraft 26.2 und 1.21.11 ab. Das Forge-Modul ist seit dem 27.08.2026 zurückgestellt: Es kompiliert und sein Dev-Client startet, aber kein Test läuft darauf. Seine Client-Anzeigen sind wie auf den anderen Loadern verdrahtet: Oktant-HUD, Geschwindigkeitsanzeige des Geschwindigkeitsmessers und Luftsprung-Balken über Forges HUD-Ebenen (AddGuiOverlayLayersEvent), Weltmarkierungen und zusätzliche Abbau-Risse über die Mixins LevelRendererMixin / LevelExtractorMixin, die eigenen Buchtexturen der Verzauberungen über SelectItemModelPropertiesMixin.",
-          "Das Kreativinventar hat vier eigene Reiter: „SimpleTools“ (je Familie eine Reihe von der niedrigsten Stufe bis Enderit: Meißel, Baustäbe, Vorschlaghämmer, Spitzhacken, Schaufeln, Hacken, Äxte, Schwerter, Speere, Helme, Brustpanzer, Hosen und Stiefel - die Vanilla-Werkzeuge, -Waffen und -Rüstungen aller Stufen eingeschlossen -, danach die Geräte Oktant, Geschwindigkeitsmesser, Erzdetektor, Attraktor und Rotator, die Kompasse (Vanilla-Kompass, Bergungskompass, Echolot), die gefärbten Oktanten und verzauberte Bücher aller Mod-Verzauberungen auf Höchststufe; Symbol: Eisenmeißel), „SimpleBlocks“ (Endstein, die Astralit-, Nihilit- und Enderquarz-Paletten, Quarz-Schachbretter samt Enderquarz-Schachbrett, Schwerkraftblöcke, Rissiger Diamantblock, Enderitblock und Baustellenlicht; Symbol: Astralitziegel), „SimpleMaterials“ (Erze, Splitter, Staub, Enderquarz, Klumpen, Barren, Kerne, Schmiedevorlagen und Nahrung; Symbol: Enderitbarren) und „SimpleMachines“ (eine Kategorie je Reihe, jeweils Vanilla zuerst und dann die Stufen: Trichter, Kolben, Öfen, Räucheröfen, Schmelzöfen, Bündel, Köcher, Rucksäcke und eine Reihe Bauplanung mit Blaupause, dem Vanilla-Kartografentisch, einem Oktanten und allen Baustäben; Symbol: Netherittrichter). SimpleTools und SimpleMachines lassen den Rest jeder Reihe leer (unsichtbare Kreativ-Platzhalter, die sich nicht aufnehmen lassen und nie im Suchreiter stehen). Jedes Item außer den sechs alten Spachteln liegt in genau einem davon; nur der Oktant und die Baustäbe stehen bewusst in zweien (SimpleTools und die Reihe Bauplanung). Ein fünfter Reiter, „SimpleEnchants (Dev)“, erscheint nur in einer Entwicklungsumgebung oder mit der Konfigurationsoption showDevEnchantedTab: die beste Stufe jedes verzauberbaren Gegenstands (dazu Stock und Shulkerkiste, denen Berührung des Konstrukteurs eine Funktion gibt) mit jeder passenden Verzauberung auf Höchststufe, je Wahl unter sich ausschließenden Verzauberungen eine Variante (etwa ein Paar Stiefel je Schutzart). Seine Einträge stehen nicht im Suchreiter.",
-          "Ein Hinweis zu Namen: Die deutsche Sprachdatei ist auf beiden Linien (MC 26.2 und 1.21.11) vollständig – zu jedem Schlüssel der englischen Datei gibt es einen deutschen Eintrag, und eine Build-Prüfung (LanguageFilesTest) hält das so. Auch die eigenen Menü-, Status- und Tooltip-Texte der Mod - Trichter-Filter, Erzdetektor, Attraktor, Rahmensperre, Struktur-Kompasse, Umschalttasten, Oktant- und Geschwindigkeitsmesser-HUD, Resonanzfeld, Meißel-Tooltip - kommen seit dem 27.09.2026 aus den Sprachdateien; ein Datentest prüft, dass jeder dieser Schlüssel in beiden Dateien mit denselben Platzhaltern steht.",
+          "Das Kreativinventar hat vier eigene Reiter: „SimpleTools“ (je Familie eine Reihe von der niedrigsten Stufe bis Enderit: Meißel, Baustäbe, Vorschlaghämmer, Spitzhacken, Schaufeln, Hacken, Äxte, Schwerter, Speere, Helme, Brustpanzer, Hosen und Stiefel - die Vanilla-Werkzeuge, -Waffen und -Rüstungen aller Stufen eingeschlossen -, danach die Geräte Oktant, Geschwindigkeitsmesser, Detektor, Attraktor und Rotator, die Kompasse (Vanilla-Kompass, Bergungskompass, Echolot), die gefärbten Oktanten und verzauberte Bücher aller Mod-Verzauberungen auf Höchststufe; Symbol: Eisenmeißel), „SimpleBlocks“ (Endstein, die Astralit-, Nihilit- und Enderquarz-Paletten, Quarz-Schachbretter samt Enderquarz-Schachbrett, Schwerkraftblöcke, Rissiger Diamantblock, Enderitblock und Baustellenlicht; Symbol: Astralitziegel), „SimpleMaterials“ (Erze, Splitter, Staub, Enderquarz, Klumpen, Barren, Kerne, Schmiedevorlagen und Nahrung; Symbol: Enderitbarren) und „SimpleMachines“ (eine Kategorie je Reihe, jeweils Vanilla zuerst und dann die Stufen: Trichter, Kolben, Öfen, Räucheröfen, Schmelzöfen, Bündel, Köcher, Rucksäcke und eine Reihe Bauplanung mit Blaupause, dem Vanilla-Kartografentisch, einem Oktanten und allen Baustäben; Symbol: Netherittrichter). SimpleTools und SimpleMachines lassen den Rest jeder Reihe leer (unsichtbare Kreativ-Platzhalter, die sich nicht aufnehmen lassen und nie im Suchreiter stehen). Jedes Item außer den sechs alten Spachteln liegt in genau einem davon; nur der Oktant und die Baustäbe stehen bewusst in zweien (SimpleTools und die Reihe Bauplanung). Ein fünfter Reiter, „SimpleEnchants (Dev)“, erscheint nur in einer Entwicklungsumgebung oder mit der Konfigurationsoption showDevEnchantedTab: die beste Stufe jedes verzauberbaren Gegenstands (dazu Stock und Shulkerkiste, denen Berührung des Konstrukteurs eine Funktion gibt) mit jeder passenden Verzauberung auf Höchststufe, je Wahl unter sich ausschließenden Verzauberungen eine Variante (etwa ein Paar Stiefel je Schutzart). Seine Einträge stehen nicht im Suchreiter.",
+          "Ein Hinweis zu Namen: Die deutsche Sprachdatei ist auf beiden Linien (MC 26.2 und 1.21.11) vollständig – zu jedem Schlüssel der englischen Datei gibt es einen deutschen Eintrag, und eine Build-Prüfung (LanguageFilesTest) hält das so. Auch die eigenen Menü-, Status- und Tooltip-Texte der Mod - Trichter-Filter, Detektor, Attraktor, Rahmensperre, Struktur-Kompasse, Umschalttasten, Oktant- und Geschwindigkeitsmesser-HUD, Resonanzfeld, Meißel-Tooltip - kommen seit dem 27.09.2026 aus den Sprachdateien; ein Datentest prüft, dass jeder dieser Schlüssel in beiden Dateien mit denselben Platzhaltern steht.",
+          "Das Kreativinventar hat fünf eigene Reiter, jeder in Reihen zu neun angelegt - eine Kategorie je Reihe, zwei kurze Familien nebeneinander mit einem leeren Feld dazwischen: „SimpleTools“ (je Familie eine Reihe von der niedrigsten Stufe bis Enderit: Meißel, Baustäbe - neben dem Enderit-Baustab nach einem leeren Feld die Bauplanung: Blaupause und Vanilla-Kartografentisch -, Vorschlaghämmer, Spitzhacken, Schaufeln, Hacken, Äxte, Schwerter, Speere, Helme, Brustpanzer, Hosen und Stiefel - die Vanilla-Werkzeuge, -Waffen und -Rüstungen aller Stufen eingeschlossen -, danach Pferde- und Nautilusrüstung, die Geräte (Kompass, Bergungskompass, Echolot, Geschwindigkeitsmesser, Erzdetektor, Attraktor, Rotator, Amethystlinse, Oktant), die gefärbten Oktanten, die Handbücher und verzauberte Bücher aller Mod-Verzauberungen auf Höchststufe; Symbol: Eisenmeißel), „SimpleBlocks“ (die Endsteine, je eine Reihe für die Astralit-, Nihilit- und Enderquarz-Palette mit ihrer polierten Reihe darunter, die Quarz-Schachbretter, die Schwerkraftblöcke, dann Rissiger Diamantblock, Enderitblock und Baustellenlicht; Symbol: Astralitziegel), „SimpleMaterials“ (End-Erze, Rohstoffe, Baukerne, Schmiedevorlagen und Nahrung; Symbol: Enderitbarren), „SimpleMachines“ (jeweils Vanilla zuerst und dann die Stufen: Trichter und Öfen, Räucheröfen und Schmelzöfen, Kolben, Bündel und Köcher, Rucksäcke, Truhen; Symbol: Netherittrichter) und „SimplePads“ (die Druckplatten - Eiche, Stein, polierter Schwarzstein, Wägeplatten schwer und leicht, Diamant, Netherit und Enderit in einer Reihe, die Kupferplatten in der nächsten; die übrigen Holzplatten bleiben im Vanilla-Reiter - dann die Pad-Familien in Erz-Reihenfolge, jede mit ihrer Freischalt-Zutat: Chunk-Loader, Launchpads, Spawn-Teleporter, Elytra-Pads, Trank-Pads und Flypads; Symbol: Elytra-Pad). Der Rest jeder Reihe bleibt leer (unsichtbare Kreativ-Platzhalter, die sich nicht aufnehmen lassen und nie im Suchreiter stehen). Jedes Item außer den sechs alten Spachteln liegt in genau einem davon; nur Kupfer-, Eisen- und Enderit-Kern stehen bewusst in zweien (SimpleMaterials und, als Freischalt-Zutat, SimplePads). Zusätzlich steht jedes Mod-Item im passenden Vanilla-Reiter direkt hinter seinem Vanilla-Vorbild (verstärkter, Netherit- und Enderit-Trichter hinter dem Trichter, die Enderit-Werkzeuge hinter den Netherit-Werkzeugen, die Mod-Platten bei den Vanilla-Platten, Lohen- und Endermankopf bei den Vanilla-Köpfen), sodass der Suchreiter es dort zeigt - einmal - statt ganz am Ende; die verzauberten Bücher der Mod stehen ohnehin zwischen Vanillas Büchern. Ein sechster Reiter, „SimpleEnchants (Dev)“, erscheint nur in einer Entwicklungsumgebung oder mit der Konfigurationsoption showDevEnchantedTab: die beste Stufe jedes verzauberbaren Gegenstands (dazu Stock und Shulkerkiste, denen Berührung des Konstrukteurs eine Funktion gibt) mit jeder passenden Verzauberung auf Höchststufe, je Wahl unter sich ausschließenden Verzauberungen eine Variante (etwa ein Paar Stiefel je Schutzart). Seine Einträge stehen nicht im Suchreiter.",
           "So ist jedes Kapitel aufgebaut: Zusammenfassung, Details, Bedienung (welche Taste oder welcher Klick was bewirkt), bei Stufenfamilien eine Stufenübersicht und ein Abschnitt Einschränkungen. Dort steht ausdrücklich, was nicht (oder noch nicht) funktioniert, z. B. Tooltip-Texte, die nie angezeigt werden. Am Ende nennt jedes Kapitel die Quelldateien, aus denen die Angaben stammen.",
-          "Bereich Items: alle Werkzeuge und Lager-Gegenstände, sortiert nach Familien (Vorschlaghammer, Meißel, Baustab, Oktant und gefärbte Oktanten, Bündel, Köcher) sowie die Einzelwerkzeuge Attraktor, Rotator und Erzdetektor.",
+          "Bereich Items: alle Werkzeuge und Lager-Gegenstände, sortiert nach Familien (Vorschlaghammer, Meißel, Baustab, Oktant und gefärbte Oktanten, Bündel, Köcher) sowie die Einzelwerkzeuge Attraktor, Rotator und Detektor.",
           "Bereich Blöcke: Trichter, Öfen, Kolben, Schwerkraftblöcke und Erze samt Härte, Werkzeug-Tags, Beutetabellen und den Unterschieden zwischen Verstärkt- und Netherit-Stufe.",
           "Bereich Rezepte: Werkbank-Rezepte, Schmiedetisch-Aufwertungen (Netherit-Aufwertung bzw. Enderit-Aufwertung) und der eigene Rezepttyp für die Basis-Aufwertung, mit dem du Kupfer-, Eisen- und Gold-Werkzeuge stufenweise aufwertest, ohne Verzauberungen, Schaden oder Namen zu verlieren.",
           "Bereich Loot: welche Strukturtruhen (u. a. Vergrabener Schatz, Iglu, Verlies, Verlassene Mine, Schiffswrack, Plünderer-Außenposten, Waldanwesen, Festungsbibliothek, Endsiedlung, Antike Stadt, Bastion, Netherfestung, Portalruine, Prüfungskammer) und der Schatzfang beim Angeln Mod-Gegenstände und Bücher enthalten; alle Einträge gelten nur bei aktiver Option enableLootTableChanges.",
@@ -154,7 +156,7 @@ window.WIKI_DATA = {
         "simplebuilding:octant",
         "simplebuilding:magnet",
         "simplebuilding:rotator",
-        "simplebuilding:ore_detector",
+        "simplebuilding:detector",
         "simplebuilding:reinforced_bundle",
         "simplebuilding:quiver",
         "simplebuilding:reinforced_quiver",
@@ -244,7 +246,7 @@ window.WIKI_DATA = {
         "src/main/generated/data/simplebuilding/recipe/octant.json",
         "src/main/generated/data/simplebuilding/recipe/magnet.json",
         "src/main/generated/data/simplebuilding/recipe/rotator.json",
-        "src/main/generated/data/simplebuilding/recipe/ore_detector.json",
+        "src/main/generated/data/simplebuilding/recipe/detector.json",
         "src/main/generated/data/simplebuilding/recipe/reinforced_bundle.json",
         "src/main/generated/data/simplebuilding/recipe/quiver.json",
         "src/main/generated/data/simplebuilding/recipe/cracked_diamond.json",
@@ -290,9 +292,9 @@ window.WIKI_DATA = {
           "Your first tool is the Stone Chisel: a stick in the bottom left, cobblestone in the middle, and one copper nugget each to the left of and below the cobblestone. Right-click with it to turn stone into chiseled stone bricks or smooth sandstone into cut sandstone; sneak + right-click walks the chain back (costing 2 durability instead of 1). After every conversion the Stone Chisel goes on a 30-tick cooldown (1.5 seconds).",
           "As soon as you have an iron ingot to spare, craft the Stone Sledgehammer: an iron ingot top left, two cobblestone next to it, two sticks in the middle column below. It mines like a stone pickaxe but takes a whole 3x3 face of identical blocks per swing, and holding right-click turns a full block into stairs and stairs into a slab. Every extra block broken costs 1 durability, so keep an eye on those 760 points.",
           "Sneaking is the mod's universal modifier: on the Chisel it reverses the direction, on the Sledgehammer it mines a single block, on enchanted pickaxes and axes it triggers Vein Miner, Strip Miner and Versatility, on the Octant it sets Pos 2, and the Attractor and a Funnel bundle pause while you do it.",
-          "For planning the build site: the Octant needs a gold core, two gold nuggets, two lightning rods, a lead and a compass; alternatively the Wandering Trader sells it for 10 emeralds. Right-click sets Pos 1, sneak + right-click sets Pos 2, the HUD shows you distance, area or volume; G opens the Octant Manager.",
+          "For planning the build site: the Octant needs a gold core, four gold nuggets, a lightning rod, a lead and a compass; alternatively the Wandering Trader sells it for 10 emeralds. Right-click sets Pos 1, sneak + right-click sets Pos 2, the HUD shows you distance, area or volume; G opens the Octant Manager.",
           "More room: the Reinforced Bundle is made from a bundle in the middle, string on top, a Leather Sheet (nine leather in the crafting grid) below and six Diamond Pebbles in the two side columns, and holds 96 items (at a stack size of 64); whatever the bundle held, its enchantments and its name carry over. The Quiver (bundle, string, leather, copper nugget) only takes arrows and feeds the bow automatically when it is in your offhand, in your chest slot or on your hotbar; the same crafting pattern with a Quiver in the bundle's place makes the Reinforced Quiver (96 arrows, arrows and enchantments kept). The Diamond Pebble has one source, the Sledgehammer crushing a diamond block (see below).",
-          "A bit of iron brings the helpers: the Attractor (an Iron Core bottom left, iron ingots bottom middle and left middle, redstone top middle, lapis lazuli right middle; pulls in items within 4 blocks and never wears out) and the Rotator (4 iron ingots, an Iron Core and an ender pearl; turns logs, furnaces, pistons and hoppers in place with a right-click, never breaks and is recharged with ender pearls at the anvil). The Ore Detector (calibrated sculk sensor on top, compass in the middle, Gold Core at the bottom, echo shards in the six other slots) is worth it once you have a Gold Core; the Wandering Trader sells a Gold Core for 30 emeralds.",
+          "A bit of iron brings the helpers: the Attractor (an Iron Core bottom left, iron ingots bottom middle and left middle, redstone top middle, lapis lazuli right middle; pulls in items within 4 blocks and never wears out) and the Rotator (4 iron ingots, an Iron Core and an ender pearl; turns logs, furnaces, pistons and hoppers in place with a right-click, never breaks and is recharged with ender pearls at the anvil). The Detector (compass in the middle, echo shards above, below, left and right, Gold Core bottom left, calibrated sculk sensor top right) is worth it once you have a Gold Core; the Wandering Trader sells a Gold Core for 30 emeralds.",
           "The Building Wand is your first area tool: the Copper Building Wand is built from a Copper Core (top right) and two sticks diagonally below it. Copper Cores are a lucky find at the Wandering Trader (24 emeralds, about one trader in ten has them); the finished Copper Building Wand is also available from the Mason at level 4 for 62 emeralds. With blocks in your offhand or on your hotbar, right-click places a 3x3 face against the side of the block you clicked.",
           "Material tiers for the Sledgehammer and Chisel: stone, copper, iron, gold, diamond, netherite, enderite; for the Building Wand the series starts at copper (3x3) and grows through iron (5x5), gold (7x7), diamond (9x9) and netherite (11x11) up to enderite (13x13). Higher hammer tiers are crafted with the matching block plus two ingots or diamonds, chisels with the ingot or diamond in the middle, building wands with the core of that tier.",
           "Upgrade instead of rebuild: with the Basic Upgrade at the smithing table, copper becomes iron, iron becomes gold and gold becomes diamond (vanilla tools: wood to stone with cobblestone, then stone to iron, iron to gold, gold to diamond, and the copper pickaxe, axe, shovel, sword and hoe to iron). It costs twice the material the crafting table asks for the new tool: a pickaxe or axe 6, a sword or hoe 4, a shovel 2, a chisel 2 and a sledgehammer 22 ingots or diamonds; a building wand takes one core of the new tier instead. Enchantments, damage and the name are kept. The Stone Sledgehammer cannot be upgraded, and the Diamond Core for the Diamond Building Wand is sold by the Mason (level 2) for 3 netherite ingots.",
@@ -300,7 +302,7 @@ window.WIKI_DATA = {
           "The road to the machines runs through the Sledgehammer: holding right-click on a diamond block breaks it into 81 Diamond Pebbles, and 9 pebbles make one Cracked Diamond in the crafting grid (six pebbles also go into the Reinforced Bundle and the Reinforced Quiver, four into the Reinforced Backpack). With those you build Reinforced Furnaces, Blast Furnaces and Smokers (3 Cracked Diamonds, 3 appliances, 3 Cracked Diamonds yield 3), Reinforced Hoppers (5 hoppers, a name tag, 3 Cracked Diamonds yield 5) and Reinforced Pistons (3 Cracked Diamonds, 2 pistons, 4 iron ingots yield 2). The netherite tiers are not crafted: hold right-click for five seconds on a placed Reinforced machine with a Diamond Sledgehammer (or better) in your main hand and a Netherite Nugget in your off hand, and it is hammered into the Netherite machine; a Netherite Sledgehammer (or better) with an Enderite Nugget does the same from Netherite to Enderite. Leftover Cracked Diamonds go back to diamonds in the blast furnace.",
           "Enchantments: only Fast Chiseling and Kinetic Protection appear at the enchanting table. Every other mod enchantment is found as a book and applied at the anvil; the creative tab has every book ready at maximum level.",
           "At the traders: the Toolsmith sells copper, iron and gold chisels with Fast Chiseling from level 3 for 6 emeralds, from level 4 iron and diamond sledgehammers with one enchantment out of Break Through, Override, Range, Unbreaking or Efficiency (16 emeralds + an iron pickaxe, or 28 emeralds + a diamond pickaxe), and from level 5 a diamond pickaxe with Strip Miner or Vein Miner for 15 emeralds. The Librarian offers books with Color Palette, Fast Chiseling or Linear from level 3, Linear or Override from level 4, and Master Builder, Range, Funnel, Strip Miner or Vein Miner from level 5, each for 25 emeralds. The Wandering Trader has a book with Radius for 40 emeralds and Diamond Pebbles (3 for 5 emeralds).",
-          "In chests: Constructor's Touch, the mod's key enchantment (it unlocks the Building Wand menu, extra chisel conversions, reverse reshaping on the Sledgehammer, the magnet filter and the Octant preview), exists only as a book in Buried Treasure, in igloo chests, in the vaults of the trial chambers and in the treasure catch of fishing; no trader offers it. Break Through, Funnel, Vein Miner and Fast Chiseling lie in dungeons, Color Palette, Cover and Linear in pillager outposts and woodland mansions, Master Builder, Versatility and Range in stronghold libraries and end cities, Override II and Air Jump II in end cities, Radius and Deep Pockets in ancient cities, Strip Miner in nether fortresses and abandoned mineshafts. End cities additionally hand out raw enderite, enderite nuggets, astralit dust and nihilith shards; many chests hold Diamond Pebbles.",
+          "In chests: Constructor's Touch, the mod's key enchantment (it unlocks the Building Wand menu, extra chisel conversions, reverse reshaping on the Sledgehammer, the magnet filter and the Octant preview), exists only as a book in Buried Treasure, in igloo chests, in the vaults of the trial chambers and in the treasure catch of fishing; no trader offers it. Break Through, Funnel, Vein Miner and Fast Chiseling lie in dungeons, Color Palette, Cover and Linear in pillager outposts and woodland mansions, Master Builder, Versatility and Range in stronghold libraries and end cities, Override II and Air Jump II in end cities, Radius and Deep Pockets in ancient cities, Strip Miner in nether fortresses and abandoned mineshafts. End cities additionally hand out Raw Enderite Fragments, enderite nuggets, astralit dust and nihilith shards; many chests hold Diamond Pebbles.",
           "Finished tools lie around too: Gold and Diamond Chisels in Buried Treasure, a Diamond Chisel in the igloo, a Gold Sledgehammer in bastions, a Diamond Sledgehammer in end cities and ancient cities, an Iron Building Wand in woodland mansions, a Diamond Building Wand in end cities, an Octant in ancient cities, nether fortresses and pillager outposts, a Reinforced Bundle in dungeons, shipwrecks and abandoned mineshafts, a Quiver in ancient cities, pillager outposts and woodland mansions.",
           "Every mod enchantment has a survival source (since 2026-09-28): Bridge comes from end city treasure, Drawer from woodland mansions and the level 4 librarian, Kinetic Protection from the enchanting table; randomly enchanted loot items (Quiver, Reinforced Bundle, Octant, Diamond Sledgehammer, Diamond Building Wand) can also carry any enchantment that fits them.",
           "Loot and trades hang on three config switches (enableLootTableChanges, enableVillagerTrades, enableWanderingTrades), which are on by default and are evaluated when datapacks load (world start, /reload). If the vanilla \"Trade Rebalance\" datapack is active, the mod's Librarian offers disappear; the Mason, the Toolsmith and the Wandering Trader are unaffected."
@@ -313,9 +315,9 @@ window.WIKI_DATA = {
           "Dein erstes Werkzeug ist der Steinmeißel: Stock unten links, Bruchstein in der Mitte, je ein Kupferklumpen links vom und unter dem Bruchstein. Damit wandelst du per Rechtsklick Stein in gemeißelte Steinziegel oder glatten Sandstein in geschnittenen Sandstein um; Schleichen + Rechtsklick geht die Kette zurück (kostet 2 statt 1 Haltbarkeit). Nach jeder Umwandlung wartet der Steinmeißel 30 Ticks.",
           "Sobald du einen Eisenbarren übrig hast, baust du den Stein-Vorschlaghammer: Eisenbarren oben links, daneben zwei Bruchstein, darunter zwei Stöcke mittig. Er baut wie eine Steinspitzhacke, nimmt aber pro Schlag ein ganzes 3x3-Feld gleicher Blöcke mit, und mit gedrücktem Rechtsklick machst du aus einem vollen Block eine Treppe und aus der Treppe eine Stufe. Jeder zusätzlich abgebaute Block kostet 1 Haltbarkeit, also behalte die 760 Punkte im Blick.",
           "Schleichen ist der Universal-Modifikator der Mod: Beim Meißel kehrt es die Richtung um, beim Vorschlaghammer baut es nur einen Block ab, bei verzauberten Spitzhacken und Äxten löst es Aderabbau, Tunnelgräber und Vielseitigkeit aus, beim Oktanten setzt es Pos 2, und Attraktor sowie Trichter-Bündel pausieren dabei.",
-          "Zum Planen der Baustelle: Der Oktant braucht einen Goldkern, zwei Goldnuggets, zwei Blitzableiter, eine Leine und einen Kompass; alternativ verkauft ihn der fahrende Händler für 10 Smaragde. Rechtsklick setzt Pos 1, Schleichen + Rechtsklick Pos 2, das HUD zeigt dir Abstand, Fläche oder Volumen; mit G öffnest du den Oktant-Manager.",
+          "Zum Planen der Baustelle: Der Oktant braucht einen Goldkern, vier Goldnuggets, einen Blitzableiter, eine Leine und einen Kompass; alternativ verkauft ihn der fahrende Händler für 10 Smaragde. Rechtsklick setzt Pos 1, Schleichen + Rechtsklick Pos 2, das HUD zeigt dir Abstand, Fläche oder Volumen; mit G öffnest du den Oktant-Manager.",
           "Mehr Platz: Das Verstärkte Bündel entsteht aus einem Bündel in der Mitte, Faden oben, einer Lederplatte (neun Leder in der Werkbank) unten und sechs Diamantkieseln in den beiden Seitenspalten und fasst 96 Gegenstände (bei 64er-Stapeln); Inhalt, Verzauberungen und Name des Bündels bleiben dabei erhalten. Der Köcher (Bündel, Faden, Leder, Kupferklumpen) nimmt nur Pfeile auf und versorgt den Bogen automatisch, wenn er in der Nebenhand, im Brustpanzer-Slot oder der Schnellzugriffsleiste liegt; dasselbe Werkbank-Muster mit einem Köcher an der Stelle des Bündels ergibt den Verstärkten Köcher (96 Pfeile, Pfeile und Verzauberungen bleiben). Den Diamantkiesel gibt es nur auf einem Weg: der Vorschlaghammer zerkleinert einen Diamantblock (siehe unten).",
-          "Mit etwas Eisen kommen die Helfer dazu: der Attraktor (Eisenkern unten links, Eisenbarren unten Mitte und links Mitte, Redstone oben Mitte, Lapislazuli rechts Mitte; zieht Items im Umkreis von 4 Blöcken an und nutzt sich nie ab) und der Rotator (4 Eisenbarren, Eisenkern und Enderperle; dreht Stämme, Öfen, Kolben und Trichter per Rechtsklick an Ort und Stelle, zerbricht nie und wird im Amboss mit Enderperlen aufgeladen). Der Erzdetektor (kalibrierter Sculk-Sensor oben, Kompass in der Mitte, Goldkern unten, Echoscherben in den sechs übrigen Feldern) lohnt sich, sobald du einen Goldkern hast; den verkauft der fahrende Händler für 30 Smaragde.",
+          "Mit etwas Eisen kommen die Helfer dazu: der Attraktor (Eisenkern unten links, Eisenbarren unten Mitte und links Mitte, Redstone oben Mitte, Lapislazuli rechts Mitte; zieht Items im Umkreis von 4 Blöcken an und nutzt sich nie ab) und der Rotator (4 Eisenbarren, Eisenkern und Enderperle; dreht Stämme, Öfen, Kolben und Trichter per Rechtsklick an Ort und Stelle, zerbricht nie und wird im Amboss mit Enderperlen aufgeladen). Der Detektor (kalibrierter Sculk-Sensor oben, Kompass in der Mitte, Goldkern unten, Echoscherben in den sechs übrigen Feldern) lohnt sich, sobald du einen Goldkern hast; den verkauft der fahrende Händler für 30 Smaragde.",
           "Der Baustab ist dein erstes Flächenwerkzeug: Der Kupfer-Baustab wird aus einem Kupferkern (oben rechts) und zwei Stöcken diagonal darunter gebaut. Kupferkerne sind ein Glückstreffer beim fahrenden Händler (24 Smaragde, etwa jeder zehnte Händler hat sie); den fertigen Kupfer-Baustab gibt es auch beim Steinmetz ab Stufe 4 für 62 Smaragde. Mit Blöcken in Zweithand oder Hotbar setzt er per Rechtsklick eine 3x3-Fläche vor die angeklickte Blockseite.",
           "Materialstufen bei Vorschlaghammer und Meißel: Stein, Kupfer, Eisen, Gold, Diamant, Netherit, Enderit; beim Baustab beginnt die Reihe bei Kupfer (3x3) und wächst über Eisen (5x5), Gold (7x7), Diamant (9x9) und Netherit (11x11) bis Enderit (13x13). Höhere Hammerstufen werden mit dem jeweiligen Block plus zwei Barren bzw. Diamanten gebaut, Meißel mit dem Barren bzw. Diamanten in der Mitte, Baustäbe mit dem Kern der Stufe.",
           "Aufwerten statt neu bauen: Mit der Basis-Aufwertung am Schmiedetisch wird Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant (Vanilla-Werkzeuge: Holz mit Bruchstein zu Stein, dann Stein zu Eisen, Eisen zu Gold, Gold zu Diamant, dazu Kupferspitzhacke, -axt, -schaufel, -schwert und -hacke zu Eisen). Es kostet das Doppelte des Materials, das die Werkbank für das neue Werkzeug verlangt: Spitzhacke oder Axt 6, Schwert oder Hacke 4, Schaufel 2, Meißel 2 und Vorschlaghammer 22 Barren bzw. Diamanten; ein Baustab kostet stattdessen einen Kern der neuen Stufe. Verzauberungen, Schaden und Name bleiben dabei erhalten. Der Stein-Vorschlaghammer lässt sich nicht aufwerten, und den Diamantkern für den Diamant-Baustab verkauft der Steinmetz (Stufe 2) für 3 Netheritbarren.",
@@ -402,14 +404,14 @@ window.WIKI_DATA = {
           "Octant selection: with an Octant holding both corners in your off hand, a swing on a block inside its figure breaks the whole selection (every block of the figure the hammer may take, with the same Override rules). It costs the durability of mining each block and takes, per block, twice as long as the area action; the cracks run over the whole selection. Selections longer than 32 blocks on an edge or larger than 4096 positions are ignored (the hammer mines its normal area), and sneaking still mines a single block.",
           "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
           "Diamond Pebbles: charging a right-click on a diamond block breaks it down into 81 Diamond Pebbles; 9 pebbles make one Cracked Diamond, which turns back into a diamond in the blast furnace. Six pebbles also go into the Reinforced Bundle and the Reinforced Quiver, four into the Reinforced Backpack.",
-          "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston has no higher tier (SledgehammerUpgrades).",
+          "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
           "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
           "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items, filter items and filter mode, furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
           "The upgrade is cancelled without using the nugget - strikes already landed stay paid - when you let go of right-click, look away from the block (the server allows 2 ticks of lag), leave reach, the block stops being the starting tier, the nugget leaves your off hand or the hammer breaks.",
           "Progress is kept on the block: every strike is saved with the world, and the machine shows it to everyone nearby as cracks (as if mined to stage 2, 4, 6 or 8 of 9 after strike 1 to 4). Anyone who hammers it again with a fitting nugget continues from there and only needs the missing strikes (2 strikes done: 3 seconds left), which are the only ones that cost durability. The progress is lost only when the block is broken or replaced by another block; lighting a furnace or turning the machine keeps it (SledgehammerProgress).",
-          "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, or a piston that is extended or powered by redstone leaves a hint in the action bar (at most every 3 seconds); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
+          "With a nugget in the off hand the hammer only starts hammering if that block can be upgraded with that nugget and that hammer; everywhere else it behaves as usual (menus open, blocks are reshaped, diamond blocks are crushed). A wrong nugget, a too weak hammer, a piston that is extended or powered by redstone, or too few nuggets for a double chest writes nothing on the screen - the right-click just makes a quiet clunk (at most once a second); a piston is upgraded in neither state, because as a breaker it would fire right after the swap.",
           "While hammering you see the work going on: between two strikes the hammer is drawn back like a bow being pulled - in first person up over the shoulder, in third person with the arm raised over the head - for 0.8 seconds, then it swings down onto the machine and the strike's arm swing follows (HeldItemRendererMixin, AvatarRendererMixin).",
-          "Hint: with a fitting nugget in your off hand the hammer tilts in your hand while you look at a machine it can upgrade right now, just like the chisel does in front of a block it can transform; a wrong nugget, a too weak hammer or a busy piston leaves it upright (needs the tool animations switched on).",
+          "Hint: with a fitting nugget in your off hand the nugget tilts towards the machine and bobs gently, and the hammer tilts too, while you look at a machine they can upgrade right now - just like the chisel does in front of a block it can transform; a wrong nugget, a too weak hammer or a busy piston leaves both still (needs the tool animations switched on).",
           "Smithing templates: hit an item frame holding a smithing template with the hammer while a Glow Ink Sac or Glowstone Dust sits in your off hand, and you get a Glowing or an Emitting Armor Trim.",
           "Special anvil rules: two hammers can be combined for 1 level with a 12 percent durability bonus and merged enchantments, repair material restores one eleventh per piece, and the cost always stays below 40, so the hammer never becomes too expensive.",
           "Crafting: a crafting table pattern of one block, two pieces of material and two sticks (stone: iron ingot + cobblestone; copper, iron, gold and diamond with the matching block and ingot or gem). Netherite and enderite are made at the smithing table; with the Basic Upgrade and 22 ingots or diamonds (twice the eleven ingots' worth in the recipe) you can upgrade copper to iron, iron to gold and gold to diamond, keeping enchantments, damage and name.",
@@ -429,14 +431,14 @@ window.WIKI_DATA = {
           "Oktant-Auswahl: Mit einem Oktanten mit beiden Ecken in der Nebenhand bricht ein Schlag auf einen Block in seiner Figur die ganze Auswahl (jeder Block der Figur, den der Hammer nehmen darf, nach denselben Override-Regeln). Das kostet die Haltbarkeit, als würde jeder Block einzeln abgebaut, und dauert je Block doppelt so lange wie das Feld; die Risse laufen über die ganze Auswahl. Auswahlen mit einer Kante über 32 Blöcke oder mehr als 4096 Plätzen zählen nicht (der Hammer baut sein normales Feld ab), und Schleichen baut weiter nur einen Block ab.",
           "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
           "Diamantkiesel: Rechtsklick-Aufladen auf einem Diamantblock zerlegt ihn in 81 Diamantkiesel; 9 Kiesel ergeben einen Rissigen Diamanten, der im Hochofen wieder zum Diamanten wird. Je sechs Kiesel sind außerdem Zutat des Verstärkten Bündels und des Verstärkten Köchers, vier des Verstärkten Rucksacks.",
-          "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; der Verstärkte klebrige Kolben hat keine höhere Stufe (SledgehammerUpgrades).",
+          "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
           "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
           "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt, Filter-Items und Filtermodus, Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
           "Abgebrochen wird ohne Klumpenverbrauch - bereits geschlagene Schläge bleiben bezahlt -, wenn du den Rechtsklick loslässt, vom Block wegschaust (der Server lässt 2 Ticks Verzögerung zu), die Reichweite verlässt, der Block nicht mehr die Ausgangsstufe ist, der Klumpen die Nebenhand verlässt oder der Hammer zerbricht.",
           "Der Fortschritt bleibt am Block: Jeder Schlag wird mit der Welt gespeichert, und die Maschine zeigt ihn allen in der Nähe als Risse (wie beim Abbauen Stufe 2, 4, 6 bzw. 8 von 9 nach Schlag 1 bis 4). Wer sie mit passendem Klumpen erneut bearbeitet, setzt dort fort und braucht nur noch die fehlenden Schläge (2 geschlagen: noch 3 Sekunden), und nur die kosten Haltbarkeit. Verloren geht der Fortschritt erst, wenn der Block abgebaut oder durch einen anderen ersetzt wird; ein angezündeter Ofen oder eine gedrehte Maschine behalten ihn (SledgehammerProgress).",
-          "Mit einem Klumpen in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Klumpen und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falscher Klumpen, ein zu schwacher Hammer oder ein ausgefahrener bzw. mit Redstone versorgter Kolben ergeben einen Hinweis in der Aktionsleiste (höchstens alle 3 Sekunden); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
+          "Mit einem Klumpen in der Nebenhand beginnt der Hammer nur zu schmieden, wenn genau dieser Block mit diesem Klumpen und diesem Hammer aufgewertet werden kann; überall sonst verhält er sich wie gewohnt (Menüs öffnen, Blöcke werden umgeformt, Diamantblöcke zerschlagen). Ein falscher Klumpen, ein zu schwacher Hammer, ein ausgefahrener bzw. mit Redstone versorgter Kolben oder zu wenige Klumpen für eine Doppeltruhe schreiben nichts auf den Bildschirm - der Rechtsklick macht nur ein leises Klonk (höchstens einmal pro Sekunde); ein Kolben wird in keinem der beiden Zustände aufgewertet, weil er als Brecher sofort nach dem Tausch auslösen würde.",
           "Beim Schmieden siehst du die Arbeit: Zwischen zwei Schlägen holt der Hammer 0,8 Sekunden lang aus wie ein gespannter Bogen - in der Ichansicht über die Schulter, in der Außenansicht mit dem Arm über dem Kopf -, dann saust er auf die Maschine, und der Armschwung des Schlags folgt (HeldItemRendererMixin, AvatarRendererMixin).",
-          "Hinweis: Mit passendem Klumpen in der Nebenhand neigt sich der Hammer in der Hand, solange du auf eine Maschine schaust, die er jetzt aufwerten kann - wie der Meißel vor einem umformbaren Block; ein falscher Klumpen, ein zu schwacher Hammer oder ein beschäftigter Kolben lassen ihn gerade (bei eingeschalteten Werkzeug-Animationen).",
+          "Hinweis: Mit passendem Klumpen in der Nebenhand kippt der Klumpen der Maschine entgegen und wippt sachte, und auch der Hammer neigt sich, solange du auf eine Maschine schaust, die sie jetzt aufwerten können - wie der Meißel vor einem umformbaren Block; ein falscher Klumpen, ein zu schwacher Hammer oder ein beschäftigter Kolben lassen beide ruhig (bei eingeschalteten Werkzeug-Animationen).",
           "Schmiedevorlagen: Schlägst du mit dem Hammer auf einen Rahmen mit einer Schmiedevorlage und hast einen Leuchttintenbeutel bzw. Leuchtsteinstaub in der Nebenhand, entsteht eine Leuchtende bzw. Strahlender Rüstungsbesatz.",
           "Amboss-Sonderregeln: Zwei Hämmer lassen sich für 1 Level mit 12 Prozent Bonus-Haltbarkeit und zusammengeführten Verzauberungen kombinieren, Material repariert ein Elftel je Stück, und die Kosten bleiben immer unter 40, sodass der Hammer nie zu teuer wird.",
           "Herstellung: Werkbank-Muster aus einem Block, zwei Material-Stücken und zwei Stöcken (Stein: Eisenbarren + Bruchstein; Kupfer, Eisen, Gold, Diamant mit dem jeweiligen Block und Barren/Edelstein). Netherit und Enderit entstehen im Schmiedetisch; mit der Basis-Aufwertung und 22 Barren bzw. Diamanten (das Doppelte der elf Barren im Rezept) lässt sich Kupfer zu Eisen, Eisen zu Gold und Gold zu Diamant aufwerten, wobei Verzauberungen, Schaden und Name erhalten bleiben.",
@@ -458,7 +460,9 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/client/render/PlacedTemplateRenderer.java",
         "common/src/shared/java/com/simplebuilding/mixin/ItemUseOnMixin.java",
         "common/src/shared/java/com/simplebuilding/util/PlacedPlate.java",
-        "common/src/shared/java/com/simplebuilding/util/PlacedAttractors.java"
+        "common/src/shared/java/com/simplebuilding/util/PlacedAttractors.java",
+        "common/src/shared/java/com/simplebuilding/items/custom/OctantItem.java",
+        "common/src/shared/java/com/simplebuilding/client/render/BlockHighlightRenderer.java"
       ],
       "en": {
         "title": "Placed smithing templates",
@@ -471,7 +475,8 @@ window.WIKI_DATA = {
           "Blueprints can be placed the same way: sneak + right-click lays one flat on the floor, on a wall or under the ceiling as a thin plate showing the blueprint's current look. It keeps all its data (code, title, author) and drops itself when broken; its hitbox is the plate, and it is named like the blueprint.",
           "Placed armor trim templates can be upgraded with the sledgehammer just like in an item frame, but it takes 3 hits instead of 1: sledgehammer in the main hand, Glow Ink Sac or Glowstone Dust in the off hand, left-click the template. Each hit gives sparks and a rising chime; the third turns it into the Glowing or Emitting Armor Trim and uses up the off-hand item (not in creative). The count restarts after 5 seconds without a hit or when the material changes. Holding hammer and material, you cannot break the template; the hammer tilts towards it like towards any other valid target.",
           "Hint: while a player holding Glow Ink Sac or Glowstone Dust (either hand) is within 6 blocks, an upgradable placed template shows a few sparks circling over it every half second and chimes quietly at most every 3 seconds.",
-          "The Attractor can be placed the same way (sneak + right-click) and then pulls loose items toward itself, see the Attractor chapter."
+          "The Attractor can be placed the same way (sneak + right-click) and then pulls loose items toward itself, see the Attractor chapter.",
+          "A locked Octant can be put down the same way (sneak + right-click; an unlocked one still sets Pos 2 with that click) and keeps its corners, shape and colour. Right-click the placed octant to show its selection for yourself - corners and the full figure, as at the cartography table - and right-click again to hide it. While it is shown for you, the placed octant also glows in its colour through walls, so you can find it again to switch it off. The switch is per player: others only see what they switched on themselves. It is saved with the block and also works while the mod's highlights are hidden with the toggle key."
         ]
       },
       "de": {
@@ -485,7 +490,8 @@ window.WIKI_DATA = {
           "Blaupausen lassen sich genauso ablegen: Schleichen + Rechtsklick legt eine flach auf den Boden, an die Wand oder unter die Decke, als dünne Platte in ihrem aktuellen Aussehen. Sie behält alle Daten (Code, Titel, Autor) und fällt beim Abbauen als sie selbst heraus; ihre Trefferform ist die Platte, und sie heißt wie die Blaupause.",
           "Abgelegte Rüstungsbesatz-Vorlagen lassen sich wie im Rahmen mit dem Vorschlaghammer aufwerten, brauchen aber 3 Schläge statt einem: Vorschlaghammer in der Haupthand, Leuchttintenbeutel oder Glowstonestaub in der Nebenhand, Linksklick auf die Vorlage. Jeder Schlag gibt Funken und einen höher werdenden Klang; der dritte macht daraus die leuchtende bzw. strahlende Besatzvorlage und verbraucht das Item aus der Nebenhand (nicht im Kreativmodus). Nach 5 Sekunden ohne Schlag oder bei einem anderen Material beginnt die Zählung von vorn. Mit Hammer und Material in den Händen lässt sich die Vorlage nicht abbauen; der Hammer neigt sich zu ihr wie zu jedem anderen gültigen Ziel.",
           "Hinweis: Solange ein Spieler mit Leuchttintenbeutel oder Glowstonestaub (in einer der beiden Hände) höchstens 6 Blöcke entfernt ist, kreisen über einer aufwertbaren abgelegten Vorlage alle halbe Sekunde ein paar Funken, und höchstens alle 3 Sekunden klingt sie leise.",
-          "Der Attraktor lässt sich genauso ablegen (Schleichen + Rechtsklick) und zieht dann lose Items zu sich, siehe das Kapitel zum Attraktor."
+          "Der Attraktor lässt sich genauso ablegen (Schleichen + Rechtsklick) und zieht dann lose Items zu sich, siehe das Kapitel zum Attraktor.",
+          "Ein gesperrter Oktant lässt sich genauso ablegen (Schleichen + Rechtsklick; ein ungesperrter setzt mit diesem Klick weiter Pos 2) und behält Ecken, Form und Farbe. Rechtsklick auf den abgelegten Oktanten blendet seine Auswahl für dich ein – Ecken und die ganze Figur, wie am Kartentisch –, ein zweiter Rechtsklick blendet sie wieder aus. Solange sie für dich eingeblendet ist, leuchtet der abgelegte Oktant außerdem in seiner Farbe durch Wände, damit du ihn zum Ausschalten wiederfindest. Der Schalter gilt je Spieler: andere sehen nur, was sie selbst eingeschaltet haben. Er wird mit dem Block gespeichert und wirkt auch, wenn die Hervorhebungen der Mod per Taste ausgeblendet sind."
         ]
       }
     },
@@ -503,25 +509,28 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/blocks/entity/custom/PlacedBundleBlockEntity.java",
         "common/src/shared/java/com/simplebuilding/client/render/PlacedBundleRenderer.java",
         "common/src/shared/java/com/simplebuilding/mixin/ItemUseOnMixin.java",
-        "tools/textures/placed_bundle_textures.py"
+        "tools/textures/placed_bundle_textures.py",
+        "common/src/shared/java/com/simplebuilding/mixin/ItemStackUseOnMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/client/MouseMixin.java",
+        "common/src/shared/java/com/simplebuilding/networking/PlacedBundleScrollPayload.java"
       ],
       "en": {
         "title": "Placed bundles",
-        "summary": "Sneak + right-click on the top of a block with a bundle to set it down as a 3D bundle. Sneak and look at it to see its top item floating above it; right-click takes that item out.",
+        "summary": "Sneak + right-click on the top of a block with a bundle to set it down as a 3D bundle. Sneak and look at it to see its top item floating above it; sneak + mouse wheel picks the item, right-click takes it out, and sneak + right-click with an item puts that item in.",
         "details": [
           "Works with the Reinforced, Netherite and Enderite Bundle (dyed ones too) and with the vanilla bundle in all 17 colours. Only on the top face of a block that can hold it up, like a lantern - never on a wall or under a ceiling. Without sneaking, and on walls or ceilings, a bundle behaves as before. Quivers cannot be placed.",
           "Each tier has its own 3D model; dyed bundles and the coloured vanilla bundles show their colour on the leather. The bundle faces the player who placed it. The item itself stays a flat item.",
-          "While you sneak and look at a placed bundle, its top item floats and turns above it, and every second the next item comes to the top (with at least two items inside). Right-click takes exactly the shown item out - into your empty hand, otherwise into your inventory - and the next one moves up.",
+          "While you sneak and look at a placed bundle, its top item floats above it, always turned towards your own camera (every player sees its front). Sneak + mouse wheel switches the shown item - wheel down to the next, wheel up to the previous, round and round; the hotbar selection does not move while you do it, and nothing changes by itself. Right-click takes exactly the shown item out - into your empty hand, otherwise into your inventory, and dropped at your feet if the inventory is full - and the next one moves up. Sneak + right-click with an item in your main hand puts as much of it in as fits, with the same rules as the bundle item: the tier's capacity (vanilla bundle 64, Reinforced 96, Netherite 192, Enderite 288), Deep Pockets and Drawer, and nothing that may not go into a bundle (like a shulker box). What you put in lies on top and is shown.",
           "Breaking it - by hand, explosion, piston or by taking away the block below - drops the bundle with all its contents and data (colour, name, enchantments). In creative mode a bundle with contents drops too. Middle-click picks the bundle; Jade and other displays show the bundle's name."
         ]
       },
       "de": {
         "title": "Abgestellte Bündel",
-        "summary": "Schleichen + Rechtsklick mit einem Bündel auf die Oberseite eines Blocks stellt es als 3D-Bündel ab. Schleichend hinsehen zeigt das oberste Item darüber schwebend; Rechtsklick nimmt es heraus.",
+        "summary": "Schleichen + Rechtsklick mit einem Bündel auf die Oberseite eines Blocks stellt es als 3D-Bündel ab. Schleichend hinsehen zeigt das oberste Item darüber schwebend; Schleichen + Mausrad wählt das Item, Rechtsklick nimmt es heraus, Schleichen + Rechtsklick mit einem Item legt dieses hinein.",
         "details": [
           "Geht mit dem verstärkten, dem Netherit- und dem Enderit-Bündel (auch gefärbt) und mit dem Vanilla-Bündel in allen 17 Farben. Nur auf die Oberseite eines Blocks, der es trägt wie eine Laterne – nie an eine Wand oder unter eine Decke. Ohne Schleichen und an Wänden oder Decken verhält sich ein Bündel wie bisher. Köcher lassen sich nicht abstellen.",
           "Jede Stufe hat ein eigenes 3D-Modell; gefärbte Bündel und die farbigen Vanilla-Bündel zeigen ihre Farbe auf dem Leder. Das Bündel schaut zu dem Spieler, der es abstellt. Das Item selbst bleibt flach.",
-          "Solange du schleichst und auf ein abgestelltes Bündel schaust, schwebt sein oberstes Item drehend darüber, und jede Sekunde kommt das nächste nach oben (ab zwei Items). Rechtsklick nimmt genau das gezeigte Item heraus – in die leere Hand, sonst ins Inventar – und das nächste rückt nach.",
+          "Solange du schleichst und auf ein abgestelltes Bündel schaust, schwebt sein oberstes Item darüber, immer zu deiner eigenen Kamera gedreht (jeder Spieler sieht die Vorderseite). Schleichen + Mausrad wechselt das gezeigte Item – Rad nach unten zum nächsten, nach oben zum vorigen, reihum; die Auswahl in der Schnellleiste bleibt dabei stehen, und von selbst wechselt nichts. Rechtsklick nimmt genau das gezeigte Item heraus – in die leere Hand, sonst ins Inventar, bei vollem Inventar fällt es vor die Füße – und das nächste rückt nach. Schleichen + Rechtsklick mit einem Item in der Haupthand legt so viel davon hinein, wie passt, nach denselben Regeln wie beim Bündel-Item: Fassungsvermögen der Stufe (Vanilla-Bündel 64, verstärkt 96, Netherit 192, Enderit 288), Tiefe Taschen und Schublade, und nichts, was nicht in ein Bündel darf (etwa eine Shulkerkiste). Was du hineinlegst, liegt oben und wird gezeigt.",
           "Abbauen – von Hand, durch Explosion, Kolben oder indem man den Block darunter wegnimmt – gibt das Bündel mit seinem ganzen Inhalt und allen Daten (Farbe, Name, Verzauberungen) zurück. Im Kreativmodus fällt ein Bündel mit Inhalt trotzdem heraus. Die mittlere Maustaste nimmt das Bündel; Jade und andere Anzeigen zeigen den Namen des Bündels."
         ]
       }
@@ -727,23 +736,25 @@ window.WIKI_DATA = {
       ],
       "en": {
         "title": "Building Cores",
-        "summary": "Six cores - copper, iron, gold, diamond, netherite and enderite - carry the mod's tool tiers: every building wand, several helpers and the enderite pads need one. A core is a nether star set in the tier's material; cores do not stack, and right-clicking one plays a short animation.",
+        "summary": "Six cores - copper, iron, gold, diamond, netherite and enderite - carry the mod's tool tiers: every building wand, several helpers and the enderite pads need one. A core is a nether star set in the tier's material; cores do not stack, and right-clicking one plays a short animation - with a tiny chance of turning the stone you click into ore.",
         "details": [
           "Recipes: copper, iron, gold and diamond cores are a nether star surrounded by four of the tier's ingots (diamonds for the diamond core) in a plus shape. The netherite core is forged from a diamond core with a netherite ingot on the netherite upgrade template, the enderite core from a netherite core with an enderite ingot on the enderite upgrade template.",
-          "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Amethyst Lens, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Ore Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
+          "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Amethyst Lens, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
           "Cores do not stack (stack size 1, since 2026-09-28; before 16). Since 2026-09-28 only the Wandering Trader sells cores, all four in his uncommon pool and each a lucky find: Copper Core 24 emeralds (2 uses), Iron Core 32, Gold Core 48, Diamond Core 64 (1 use each); iron, gold and diamond only show up in 50 / 25 / 10 % of the draws, so a trader offers them in about 10 / 5 / 2.4 / 1 % of visits. The mason sells no cores.",
-          "Right-clicking a core plays one of three animations, rolled 70 / 20 / 10: a gentle glow (dust in the core's colour and glimmer around the hand, a soft amethyst chime), orbiting sparks (two rings of sparks circling you and rising, amethyst resonance), or - rarely - a nether-star burst (four long rays of end rod sparks, a shower of firework sparks and the sound of a beacon waking up). It has no gameplay effect; particles and sound reach every player nearby, and the core then cools down for 1.5 seconds.",
+          "Right-clicking a core plays one of three short animations, rolled 70 / 20 / 10 and timed by the server over a few ticks: a glow (sparks shoot into your hand, then a ring of dust in the core's color flares across your view with an amethyst chime and a softer echo ring), a spiral (after the same quick charge two sparks corkscrew from your feet to above your head to a rising chime arpeggio and end in a crown of end rod sparks) or - rarely - a star burst (a two-step charge, then an eight-ray star like the nether star with firework and totem sparks, a bang and a beacon, then glitter and a ring running out along the ground). Particles and sound reach every player nearby; the animation is over before the core's one-second cooldown ends.",
+          "Easter egg: right-clicking a block that ores generate in (stone, granite, diorite, andesite, deepslate, tuff, netherrack, end stone) has a tiny chance per click to turn it into an ore - 1 in 10000 with the copper core, 1 in 7000 iron, 1 in 5000 gold, 1 in 3500 diamond, 1 in 2500 netherite, 1 in 2000 enderite. The core is not used up, and only the cooldown limits the clicks. The ore fits the block and is rolled by how common it is there: stone gives coal 40 %, iron 24 %, copper 20 %, redstone 5 %, gold 4 %, lapis 4 %, diamond 2 %, emerald 1 %; deepslate and tuff give the deepslate ores (redstone 24 %, iron 22 %, copper 12 %, gold 12 %, lapis 10 %, diamond 9 %, coal 8 %, emerald 3 %); netherrack gives nether quartz 70 %, nether gold 27 %, ancient debris 3 %; end stone gives nihilith ore 92 %, astralit ore 8 %. Not in adventure mode or where you may not build.",
           "In chests (config enableLootTableChanges) cores are rare, one pool per core with a single roll (owner 2026-09-28, \"age B\": the mean time of targeted search to the first core sits just before the age that needs it): iron 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, gold 1.25 % per bastion chest (not the bridge or hoglin stable chests) and 1.65 % per nether fortress chest, diamond 1.05 % per ominous vault and per roll of the rare vault table, netherite 6 % in the bastion treasure chest, enderite 0.175 % per end city chest. The copper core is in no chest. docs/KERNE-SELTENHEIT.md (section 5.3) gives the playtime until the first to sixth core of each kind."
         ]
       },
       "de": {
         "title": "Baukerne",
-        "summary": "Sechs Kerne - Kupfer, Eisen, Gold, Diamant, Netherit und Enderit - tragen die Werkzeugstufen der Mod: jeder Baustab, mehrere Helfer und die Enderit-Pads brauchen einen. Ein Kern ist ein Netherstern, gefasst im Material seiner Stufe; Kerne stapeln nicht, und ein Rechtsklick spielt eine kurze Animation.",
+        "summary": "Sechs Kerne - Kupfer, Eisen, Gold, Diamant, Netherit und Enderit - tragen die Werkzeugstufen der Mod: jeder Baustab, mehrere Helfer und die Enderit-Pads brauchen einen. Ein Kern ist ein Netherstern, gefasst im Material seiner Stufe; Kerne stapeln nicht, und ein Rechtsklick spielt eine kurze Animation - mit winziger Chance, den angeklickten Stein in Erz zu verwandeln.",
         "details": [
           "Rezepte: Kupfer-, Eisen-, Gold- und Diamantkern sind ein Netherstern mit vier Barren der Stufe (beim Diamantkern Diamanten) im Plus darum. Der Netheritkern wird aus einem Diamantkern mit einem Netheritbarren auf der Netherit-Aufwertungsvorlage geschmiedet, der Enderit-Kern aus einem Netheritkern mit einem Enderitbarren auf der Enderit-Aufwertungsvorlage.",
-          "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Erzdetektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
+          "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
           "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
-          "Ein Rechtsklick mit einem Kern spielt eine von drei Animationen, gewürfelt 70 / 20 / 10: ein sanftes Leuchten (Staub in der Farbe des Kerns und Glimmer um die Hand, leises Amethyst-Klingen), kreisende Funken (zwei Funkenringe, die um dich laufen und aufsteigen, Amethyst-Resonanz) oder - selten - ein Netherstern-Ausbruch (vier lange Strahlen aus Endstab-Funken, ein Feuerwerksfunkenregen und der Klang eines erwachenden Leuchtfeuers). Das hat keine Spielwirkung; Partikel und Klang erreichen alle Spieler in der Nähe, danach kühlt der Kern 1,5 Sekunden ab.",
+          "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
+          "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilith-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
           "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
         ]
       }
@@ -796,7 +807,7 @@ window.WIKI_DATA = {
         "title": "Octant: Measuring and Planning Shapes",
         "summary": "The Octant is SimpleBuilding's tape measure and planning tool. Two clicks mark two corner points, the HUD works out distance, area or volume for you, and in the world you see coloured outlines of your selection. Anyone with the Constructor's Touch enchantment on the octant additionally gets the complete shape (cuboid, cylinder, sphere, pyramid, prism) drawn in as a translucent preview.",
         "details": [
-          "Getting started: craft an octant (a gold core, two gold nuggets, two lightning rods, a lead and a compass) or buy one from the wandering trader for 10 emeralds; it is also found in ancient cities, nether fortresses and pillager outposts (trading and loot can each be switched off in the config).",
+          "Getting started: craft an octant (a gold core, four gold nuggets, a lightning rod, a lead and a compass) or buy one from the wandering trader for 10 emeralds; it is also found in ancient cities, nether fortresses and pillager outposts (trading and loot can each be switched off in the config).",
           "Step 1: right-clicking a block sets Pos 1, sneak + right-click sets Pos 2. Every click costs 1 durability (the plain octant has 128).",
           "Step 2: the HUD on the left shows both positions and the measurement: distance in blocks for a line, area with width x depth for a plane, volume with width x height x depth for a box. Both corner blocks count.",
           "Step 3: G opens the Octant Manager: adjust positions and size with the edit fields or the +/- buttons, pick shape and axis, lock the selection. Alt + mouse wheel switches the shape, Ctrl + wheel and sneak key + wheel move Pos 1 and Pos 2 in the direction you are facing without opening the menu.",
@@ -806,6 +817,7 @@ window.WIKI_DATA = {
           "Dyed octants (octant + dye) have their own colour for the HUD and the markers and the same 128 durability as the plain octant; the colour can be washed off in a water cauldron, and the selection survives that (enchantments and damage do not).",
           "Sneak + right-click in the air resets the octant completely. The lock protects the selection from accidental clicking and scrolling (not from changes in the manager). The server only takes corners within 320 blocks of you and inside the build height; the manager shows a farther corner in red, and the action bar says it was not taken.",
           "The octant itself does not build anything - it measures and displays. Together with a building wand it becomes a building plan: wand in the main hand, octant in the off hand, and a click fills the shape (or lays a roof of stairs on a prism or pyramid). The fill options Hollow, Layer Mode and Order on page 2 of the manager apply to that fill; see Building Wand.",
+          "Placed octant: sneak + right-click with a locked octant puts it down as a marker plate (see Placed smithing templates); right-clicking it shows or hides its selection just for you, and while shown it glows through walls.",
           "Loader note: HUD and world markers exist on Fabric, NeoForge and Forge alike."
         ]
       },
@@ -813,7 +825,7 @@ window.WIKI_DATA = {
         "title": "Oktant: Messen und Formen planen",
         "summary": "Der Oktant ist das Maßband und Planungswerkzeug von SimpleBuilding. Mit zwei Klicks markierst du zwei Eckpunkte, das HUD rechnet dir Abstand, Fläche oder Volumen aus, und in der Welt siehst du farbige Umrisse deiner Auswahl. Wer die Verzauberung Berührung des Konstrukteurs auf dem Oktanten hat, bekommt zusätzlich die komplette Form (Quader, Zylinder, Kugel, Pyramide, Prisma) als durchscheinende Vorschau eingeblendet.",
         "details": [
-          "Einstieg: Oktant craften (Goldkern, zwei Goldnuggets, zwei Blitzableiter, Leine und Kompass) oder beim fahrenden Händler für 10 Smaragde kaufen; auch in Antiken Städten, Netherfestungen und Plünderer-Außenposten zu finden (Handel und Beute jeweils per Config abschaltbar).",
+          "Einstieg: Oktant craften (Goldkern, vier Goldnuggets, ein Blitzableiter, Leine und Kompass) oder beim fahrenden Händler für 10 Smaragde kaufen; auch in Antiken Städten, Netherfestungen und Plünderer-Außenposten zu finden (Handel und Beute jeweils per Config abschaltbar).",
           "Schritt 1: Rechtsklick auf einen Block setzt Pos 1, Schleichen + Rechtsklick setzt Pos 2. Jeder Klick kostet 1 Haltbarkeit (128 beim normalen Oktanten).",
           "Schritt 2: Das HUD links zeigt beide Positionen und den Messwert: Abstand in Blöcken bei einer Linie, Fläche mit Breite x Tiefe bei einer Ebene, Volumen mit Breite x Höhe x Tiefe bei einem Kasten. Beide Eckblöcke zählen mit.",
           "Schritt 3: Mit G öffnest du den Oktant-Manager: Positionen und Größe per Eingabefeld oder +/- Knöpfen anpassen, Form und Achse wählen, Auswahl sperren. Mit Alt + Mausrad wechselst du die Form, mit Strg + Mausrad bzw. Schleichen-Taste + Mausrad verschiebst du Pos 1 bzw. Pos 2 in Blickrichtung, ohne das Menü zu öffnen.",
@@ -823,6 +835,7 @@ window.WIKI_DATA = {
           "Gefärbte Oktanten (Oktant + Farbstoff) haben eine eigene Farbe für HUD und Markierungen und dieselbe Haltbarkeit von 128 wie der normale Oktant; im Wasserkessel lässt sich die Farbe wieder abwaschen, die Auswahl bleibt dabei erhalten (Verzauberungen und Schaden nicht).",
           "Schleichen + Rechtsklick in die Luft setzt den Oktanten komplett zurück. Die Sperre schützt die Auswahl vor versehentlichem Klicken und Scrollen (nicht vor Änderungen im Manager). Der Server übernimmt nur Ecken bis 320 Blöcke um dich und innerhalb der Bauhöhe; der Manager zeigt eine weiter entfernte Ecke rot, und die Aktionsleiste sagt, dass sie nicht übernommen wurde.",
           "Der Oktant selbst baut nichts - er misst und zeigt an. Zusammen mit einem Baustab wird er zum Bauplan: Stab in der Haupthand, Oktant in der Nebenhand, und ein Klick füllt die Figur (oder legt auf ein Prisma oder eine Pyramide ein Dach aus Treppen). Die Fülloptionen Hohl, Ebenenmodus und Reihenfolge auf Seite 2 des Managers gelten für diese Füllung; siehe Baustab.",
+          "Abgelegter Oktant: Schleichen + Rechtsklick mit einem gesperrten Oktanten legt ihn als Merkplatte ab (siehe Abgelegte Schmiedevorlagen); Rechtsklick darauf blendet seine Auswahl nur für dich ein oder aus, und eingeblendet leuchtet er durch Wände.",
           "Loader-Hinweis: HUD und Weltmarkierungen gibt es auf Fabric, NeoForge und Forge gleichermaßen."
         ]
       }
@@ -868,7 +881,7 @@ window.WIKI_DATA = {
         "title": "Blueprint: Writing, Scanning and Building Structures",
         "summary": "A Blueprint stores a whole structure as a short, readable build code. You can write the code yourself in a map-style editor with a live 3D preview, scan an existing building with an Octant at a cartography table, and build it again anywhere with a building wand - using only the blocks you carry.",
         "details": [
-          "Recipe (shapeless): 1 Ender Quartz + 1 Paper + 1 Ink Sac give one empty Blueprint. Empty blueprints stack to 16.",
+          "Recipe (shapeless): 1 Ender Quartz + 1 Paper + 1 Glow Ink Sac give one empty Blueprint. Empty blueprints stack to 16.",
           "The item shows its state: a freshly crafted (empty) blueprint has the normal sheet, an edited but unsigned one a pencil lying on the sheet, a signed one a red wax seal. The item model asks minecraft:has_component for simplebuilding:blueprint first and then the property simplebuilding:blueprint_state; a blueprint whose code and title were cleared again counts as empty.",
           "Using a blueprint opens the editor: materials on the left (item icon and amount, largest first), the code in the middle with syntax colours, line numbers and underlined errors, the finished structure in 3D on the right (drag to rotate in any direction, mouse wheel to zoom, double-click to reset). The bar below shows the bounding box and which building wand can build it.",
           "The code, one statement per line: a block followed by positions. stone 0..4,0,0..4 is a 5x1x5 plate (x,y,z, a..b is an inclusive range per axis); stone 1,1,1..1,1,5 is the same thing written corner to corner; oak_stairs[facing=east,half=top] 0,3,0 sets block state properties; oak_fence 0,1,0*5@2,0,0 repeats a position five times two blocks apart; air 1..3,1..3,1..3 clears what earlier lines placed; $roof = oak_stairs[facing=north] defines an alias used as $roof 0..4,4,0. The minecraft: namespace is optional, # starts a comment, later lines overwrite earlier ones, coordinates run from 0 to 255.",
@@ -896,7 +909,7 @@ window.WIKI_DATA = {
         "title": "Blaupause: Bauwerke schreiben, scannen und bauen",
         "summary": "Eine Blaupause speichert ein ganzes Bauwerk als kurzen, lesbaren Bau-Code. Du kannst den Code selbst in einem Editor im Kartenstil mit 3D-Vorschau schreiben, ein bestehendes Gebäude am Kartentisch mit einem Oktanten scannen und es mit einem Baustab überall wieder aufbauen - nur mit den Blöcken, die du dabeihast.",
         "details": [
-          "Rezept (formlos): 1 Enderquarz + 1 Papier + 1 Tintenbeutel ergeben eine leere Blaupause. Leere Blaupausen stapeln bis 16.",
+          "Rezept (formlos): 1 Enderquarz + 1 Papier + 1 Leuchttintenbeutel ergeben eine leere Blaupause. Leere Blaupausen stapeln bis 16.",
           "Das Item zeigt seinen Zustand: Eine frisch hergestellte (leere) Blaupause hat das normale Blatt, eine bearbeitete, nicht signierte einen Bleistift auf dem Blatt, eine signierte ein rotes Wachssiegel. Das Item-Modell fragt zuerst minecraft:has_component nach simplebuilding:blueprint und dann die Eigenschaft simplebuilding:blueprint_state; eine Blaupause, deren Code und Titel wieder geleert wurden, gilt als leer.",
           "Benutzen öffnet den Editor: links die Materialien (Item-Symbol und Menge, größte zuerst), in der Mitte der Code mit Syntax-Farben, Zeilennummern und unterstrichenen Fehlern, rechts das fertige Bauwerk in 3D (Ziehen dreht in jede Richtung, Mausrad zoomt, Doppelklick setzt zurück). Die Leiste darunter zeigt die Bounding Box und welcher Baustab es bauen kann.",
           "Der Code, eine Anweisung pro Zeile: ein Block, dann Positionen. stone 0..4,0,0..4 ist eine 5x1x5-Platte (x,y,z, a..b ist ein Bereich je Achse, beide Enden inklusive); stone 1,1,1..1,1,5 ist dasselbe von Ecke zu Ecke geschrieben; oak_stairs[facing=east,half=top] 0,3,0 setzt Blockzustands-Eigenschaften; oak_fence 0,1,0*5@2,0,0 wiederholt eine Position fünfmal im Abstand von zwei Blöcken; air 1..3,1..3,1..3 räumt, was frühere Zeilen gesetzt haben; $dach = oak_stairs[facing=north] definiert einen Alias, benutzt als $dach 0..4,4,0. Der Namensraum minecraft: ist optional, # beginnt einen Kommentar, spätere Zeilen überschreiben frühere, Koordinaten laufen von 0 bis 255.",
@@ -978,9 +991,9 @@ window.WIKI_DATA = {
       }
     },
     {
-      "id": "ore_detector",
+      "id": "detector",
       "related": [
-        "simplebuilding:ore_detector",
+        "simplebuilding:detector",
         "simplebuilding:constructors_touch",
         "simplebuilding:gold_core",
         "simplebuilding:radius"
@@ -989,8 +1002,8 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/items/custom/OreDetectorItem.java",
         "mc1_21_11/shared/java/com/simplebuilding/items/custom/OreDetectorItem.java",
         "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-        "src/main/generated/data/simplebuilding/recipe/ore_detector.json",
-        "src/main/generated/data/simplebuilding/advancement/recipes/tools/ore_detector.json",
+        "src/main/generated/data/simplebuilding/recipe/detector.json",
+        "src/main/generated/data/simplebuilding/advancement/recipes/tools/detector.json",
         "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
         "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
         "src/main/generated/data/simplebuilding/enchantment/constructors_touch.json",
@@ -1005,15 +1018,16 @@ window.WIKI_DATA = {
         "src/main/java/com/simplebuilding/datagen/ModModelProvider.java"
       ],
       "en": {
-        "title": "Ore Detector",
-        "summary": "The Ore Detector is sonar for mining: hold it in your hand and once every 20 ticks it looks for the nearest ore in a sphere around you, turns its amethyst needle toward the find like a compass toward a lodestone, and plays a sound with a faint particle trail from your eyes to the ore; which of the twenty ticks that falls on depends on the player, so that the detectors of several players do not all scan in the same tick. Six modes decide what it looks for, from iron to ancient debris or any block you calibrate it to yourself. Every block between you and the ore damps the ore's signal - soft rock such as netherrack a little, stone more, deepslate and obsidian a lot - and the rarer the ore, the weaker its signal: common ores are read through 4 blocks of stone, diamonds through 2, ancient debris only through 2 netherrack. Through open cave air it finds ores 16 to 24 blocks away. Every ping that finds something costs 1 durability; empty pings are free. The Radius enchantment roughly doubles how much rock the rare ores get through, Constructor's Touch halves every block's loss.",
+        "title": "Detector",
+        "summary": "The Detector is sonar for mining: hold it in your hand and once every 20 ticks it looks for the nearest ore in a sphere around you, turns its amethyst needle toward the find like a compass toward a lodestone, and plays a sound with a faint particle trail from your eyes to the ore; which of the twenty ticks that falls on depends on the player, so that the detectors of several players do not all scan in the same tick. Six modes decide what it looks for, from iron to ancient debris or any block you calibrate it to yourself. Every block between you and the ore damps the ore's signal - soft rock such as netherrack a little, stone more, deepslate and obsidian a lot - and the rarer the ore, the weaker its signal: common ores are read through 4 blocks of stone, diamonds through 2, ancient debris only through 2 netherrack. Through open cave air it finds ores 16 to 24 blocks away. Every ping that finds something costs 1 durability; empty pings are free. The Radius enchantment roughly doubles how much rock the rare ores get through, Constructor's Touch halves every block's loss.",
         "details": [
-          "Crafting (owner 2026-09-28): calibrated sculk sensor top middle, the compass in the middle, Gold Core bottom middle and echo shards in the other six slots - left and right of the compass and all four corners (\"ESE\" / \"ECE\" / \"EGE\", 6 echo shards); unlocked with your first compass.",
-          "Controls: sneak + right-click without a block targeted switches the mode (costs 1 durability, not in creative mode), sneak + right-click on a block calibrates Custom mode to exactly that block type. Blocks with a block entity - chests, barrels, shulker boxes, spawners and the like - cannot be calibrated: the detector refuses with a low sculk click and stays as it was (a data pack can allow single blocks through the block tag simplebuilding:ore_detector_calibratable). A detector calibrated on such a block before 2026-09-27 keeps its data but no longer finds the block.",
+          "Crafting (owner 2026-09-29): the old recipe turned by 45 degrees with two echo shards fewer - compass in the middle, echo shards above, below, left and right of it, Gold Core bottom left, calibrated sculk sensor top right, top left and bottom right empty (\" ES\" / \"ECE\" / \"GE \", 4 echo shards); unlocked with your first compass.",
+          "Controls: sneak + right-click without a block targeted switches the mode (costs 1 durability, not in creative mode), sneak + right-click on a block calibrates Custom mode to exactly that block type. Blocks with a block entity - chests, barrels, shulker boxes, spawners and the like - cannot be calibrated: the detector refuses with a low sculk click and stays as it was (a data pack can allow single blocks through the block tag simplebuilding:detector_calibratable). A detector calibrated on such a block before 2026-09-27 keeps its data but no longer finds the block.",
+          "Placing (owner 2026-09-29): a calibrated detector (Custom mode with a target block) lays down like a smithing template with sneak + right-click on a block - flat on the floor, on a wall or under a ceiling, with a pixel-exact hitbox; breaking it gives back exactly that detector with its mode, target and enchantments. To calibrate a different block, first sneak + right-click in the air to leave Custom mode. Placed, it keeps searching for its target from the middle of the plate every 2 seconds (twice the main-hand interval, same range, damping and enchantments, no durability cost): a find sends a sculk vibration from the target to the detector, a short trail of the target's block particles and the chime and sculk click of the hand-held ping. It also reacts when a player or mob within 8 blocks holds the target block as an item in either hand: a vibration flies from the detector to them with a high amethyst resonance. No on-screen text. Cheap: it only works while a player is within 32 blocks, and its sphere scans share the 16-per-tick cap of the held detectors (PlacedDetectors).",
           "Signal and range by ore class, not by mode: common ores (coal, copper, iron, redstone, lapis, nether quartz) signal 18 and range 24, gold 13 and 20, diamond and emerald 9 and 16, ancient debris, Astralit Ore and Nihilit Ore 5 and 16. Iron, Gold, Diamond and Netherite mode each search one class; All Ores finds all twelve kinds, each with its own signal and range; Custom uses the class of the calibrated block (a block that is none of these ores counts as common). The range is at once the scan radius in blocks around the block your eyes are in; the tooltip shows it as \"Signal: <signal>, Range: <range>\" (All Ores: the common class plus a line with the rarer classes as signal/range).",
           "Material damping: every block the line of sight crosses between the block your eyes are in and the ore costs the signal a fixed amount by its mining hardness - air and blocks that do not occlude (glass, leaves, water) 0.125; hardness below 1.0 (netherrack, dirt, sand, gravel) and end stone, the host rock of the End ores, 2; hardness 1.0 to below 3.0 (stone, cobblestone, tuff, basalt, blackstone, logs) 4; hardness 3.0 to below 10 (deepslate, ores) 6; hardness 10 and up or unbreakable (obsidian, ancient debris, bedrock) 16. The ore is found if the total stays at or below its signal. Without Radius that means: common ores through 4 stone, gold through 3, diamond and emerald through 2, ancient debris through 2 netherrack (the End ores through 2 end stone) or 1 stone - each with up to 8 blocks of air on top.",
           "Constructor's Touch multiplies every block's loss by 0.5, so the signal carries twice as far through rock (iron ore: through 8 instead of 4 stone, 5 instead of 2 deepslate); the range stays the same.",
-          "Radius (level I, found as a book and applied at the anvil) fits the Ore Detector as well and raises signal and range, the signal of the rare classes the most: common 22 and 28, gold 17 and 24, diamond and emerald 17 and 24, ancient debris and the End ores 9 and 20 - diamonds then get through 4 stone instead of 2, ancient debris through 4 netherrack instead of 2, common ores through 5 stone instead of 4. Constructor's Touch and Radius stack: the one halves the loss, the other raises the signal.",
+          "Radius (level I, found as a book and applied at the anvil) fits the Detector as well and raises signal and range, the signal of the rare classes the most: common 22 and 28, gold 17 and 24, diamond and emerald 17 and 24, ancient debris and the End ores 9 and 20 - diamonds then get through 4 stone instead of 2, ancient debris through 4 netherrack instead of 2, common ores through 5 stone instead of 4. Constructor's Touch and Radius stack: the one halves the loss, the other raises the signal.",
           "A detector calibrated in Custom mode marks its slot in the hotbar and inventory: a one pixel glimmer with two fading tail pixels circles the edge of the slot once every 3 seconds, in the colour of the target block - ores in the colour of their mineral (diamond turquoise, gold yellow, Astralit pink and so on), any other block in its map colour. The fixed modes and an uncalibrated detector show nothing. Drawn client side on Fabric, NeoForge and Forge alike.",
           "Compass needle (2026-09-28): a ping that finds something stores the ore on the detector (the vanilla lodestone_tracker component, not tracked), and the item model uses the vanilla compass property to turn the amethyst needle toward it - 32 needle positions, in the hand, the hotbar and the inventory. The needle resonates: it is tinted from dark violet to a bright lavender glow in five steps the closer the ore is (measured against that ore's own range), together with four small marks around the dial. An empty ping, or putting the detector away (not in a hand), clears the target and the needle rests, dimmed and pointing up. The hand does not bob when the needle or the durability changes.",
           "Main hand or off hand: the detector works in either hand. The main hand is the precise one: a ping every second, full volume. In the off hand it pings every two seconds, its tones play at 30 % volume and its particle trail is much fainter - handy while you mine with a pickaxe in the main hand.",
@@ -1025,15 +1039,16 @@ window.WIKI_DATA = {
         ]
       },
       "de": {
-        "title": "Erzdetektor",
-        "summary": "Der Erzdetektor ist ein Sonar für den Bergbau: Hältst du ihn in der Hand, sucht er alle 20 Ticks das nächstgelegene Erz in einer Kugel um dich herum, dreht seine Amethyst-Nadel dorthin wie ein Kompass zum Leitstein und meldet es mit einem Klang und einer schwachen Partikelspur von deinen Augen bis zum Fund; auf welchen der zwanzig Ticks die Suche fällt, hängt am Spieler, damit nicht die Detektoren mehrerer Spieler alle im selben Tick suchen. Über sechs Modi legst du fest, wonach gesucht wird, von Eisen bis Antikem Schrott oder einem beliebigen selbst kalibrierten Block. Jeder Block zwischen dir und dem Erz dämpft dessen Signal - weiches Gestein wie Netherrack wenig, Stein mehr, Tiefenschiefer und Obsidian stark - und je seltener das Erz, desto schwächer sein Signal: gewöhnliche Erze liest er durch 4 Blöcke Stein, Diamanten durch 2, Antiken Schrott nur durch 2 Netherrack. Durch offene Höhlenluft findet er Erze in 16 bis 24 Blöcken Entfernung. Jeder Ping, der etwas findet, kostet 1 Haltbarkeit; leere Pings sind frei. Die Verzauberung Radius verdoppelt ungefähr, wie viel Gestein die seltenen Erze durchdringen, Berührung des Konstrukteurs halbiert den Verlust jedes Blocks.",
+        "title": "Detektor",
+        "summary": "Der Detektor ist ein Sonar für den Bergbau: Hältst du ihn in der Hand, sucht er alle 20 Ticks das nächstgelegene Erz in einer Kugel um dich herum, dreht seine Amethyst-Nadel dorthin wie ein Kompass zum Leitstein und meldet es mit einem Klang und einer schwachen Partikelspur von deinen Augen bis zum Fund; auf welchen der zwanzig Ticks die Suche fällt, hängt am Spieler, damit nicht die Detektoren mehrerer Spieler alle im selben Tick suchen. Über sechs Modi legst du fest, wonach gesucht wird, von Eisen bis Antikem Schrott oder einem beliebigen selbst kalibrierten Block. Jeder Block zwischen dir und dem Erz dämpft dessen Signal - weiches Gestein wie Netherrack wenig, Stein mehr, Tiefenschiefer und Obsidian stark - und je seltener das Erz, desto schwächer sein Signal: gewöhnliche Erze liest er durch 4 Blöcke Stein, Diamanten durch 2, Antiken Schrott nur durch 2 Netherrack. Durch offene Höhlenluft findet er Erze in 16 bis 24 Blöcken Entfernung. Jeder Ping, der etwas findet, kostet 1 Haltbarkeit; leere Pings sind frei. Die Verzauberung Radius verdoppelt ungefähr, wie viel Gestein die seltenen Erze durchdringen, Berührung des Konstrukteurs halbiert den Verlust jedes Blocks.",
         "details": [
-          "Herstellung (Besitzer 2026-09-28): kalibrierter Sculk-Sensor oben Mitte, der Kompass in der Mitte, Goldkern unten Mitte und Echoscherben in den sechs übrigen Feldern - links und rechts vom Kompass und in allen vier Ecken („ESE“ / „ECE“ / „EGE“, 6 Echoscherben); freigeschaltet mit dem ersten Kompass.",
-          "Bedienung: Schleichen + Rechtsklick ohne anvisierten Block wechselt den Modus (kostet 1 Haltbarkeit, nicht im Kreativmodus), Schleichen + Rechtsklick auf einen Block kalibriert den Modus Kalibriert auf genau diesen Blocktyp. Blöcke mit Blockobjekt - Truhen, Fässer, Shulkerkisten, Spawner und ähnliche - lassen sich nicht kalibrieren: Der Detektor lehnt mit einem tiefen Sculk-Klicken ab und bleibt, wie er war (ein Datenpaket kann einzelne Blöcke über den Block-Tag simplebuilding:ore_detector_calibratable freigeben). Ein vor dem 27.09.2026 auf einen solchen Block kalibrierter Detektor behält seine Daten, findet den Block aber nicht mehr.",
+          "Herstellung (Besitzer 2026-09-29): das alte Rezept um 45 Grad gedreht und zwei Echoscherben weniger - Kompass in der Mitte, Echoscherben darüber, darunter, links und rechts, Goldkern unten links, kalibrierter Sculk-Sensor oben rechts, oben links und unten rechts frei („ ES“ / „ECE“ / „GE “, 4 Echoscherben); freigeschaltet mit dem ersten Kompass.",
+          "Bedienung: Schleichen + Rechtsklick ohne anvisierten Block wechselt den Modus (kostet 1 Haltbarkeit, nicht im Kreativmodus), Schleichen + Rechtsklick auf einen Block kalibriert den Modus Kalibriert auf genau diesen Blocktyp. Blöcke mit Blockobjekt - Truhen, Fässer, Shulkerkisten, Spawner und ähnliche - lassen sich nicht kalibrieren: Der Detektor lehnt mit einem tiefen Sculk-Klicken ab und bleibt, wie er war (ein Datenpaket kann einzelne Blöcke über den Block-Tag simplebuilding:detector_calibratable freigeben). Ein vor dem 27.09.2026 auf einen solchen Block kalibrierter Detektor behält seine Daten, findet den Block aber nicht mehr.",
+          "Ablegen (Besitzer 2026-09-29): Ein kalibrierter Detektor (Modus Kalibriert mit Zielblock) legt sich mit Schleichen + Rechtsklick auf einen Block wie eine Schmiedevorlage ab - flach auf den Boden, an eine Wand oder unter eine Decke, mit pixelgenauer Trefferform; abgebaut gibt er genau diesen Detektor samt Modus, Ziel und Verzauberungen zurück. Um einen anderen Block zu kalibrieren, zuerst mit Schleichen + Rechtsklick in die Luft den Modus Kalibriert verlassen. Abgelegt sucht er alle 2 Sekunden von der Mitte der Platte aus weiter nach seinem Ziel (doppelter Haupthand-Takt, gleiche Reichweite, Dämpfung und Verzauberungen, keine Haltbarkeitskosten): Ein Fund schickt eine Sculk-Vibration vom Ziel zum Detektor, eine kurze Spur aus Blockpartikeln des Ziels sowie Glocke und Sculk-Klicken wie beim Ping in der Hand. Er schlägt auch an, wenn ein Spieler oder Mob im Umkreis von 8 Blöcken den Zielblock als Item in einer Hand hält: Dann fliegt eine Vibration vom Detektor zu ihm, dazu eine hohe Amethyst-Resonanz. Kein Text auf dem Bildschirm. Sparsam: Er arbeitet nur, solange ein Spieler im Umkreis von 32 Blöcken ist, und seine Kugelsuchen teilen sich die Kappe von 16 je Tick mit den gehaltenen Detektoren (PlacedDetectors).",
           "Signal und Reichweite nach Erzklasse statt nach Modus: gewöhnliche Erze (Kohle, Kupfer, Eisen, Redstone, Lapis, Netherquarz) Signal 18 und Reichweite 24, Gold 13 und 20, Diamant und Smaragd 9 und 16, Antiker Schrott, Astraliterz und Nihiliterz 5 und 16. Die Modi Iron, Gold, Diamond und Netherite suchen je eine Klasse; All Ores findet alle zwölf Sorten, jede mit ihrem eigenen Signal und ihrer eigenen Reichweite; Custom nimmt die Klasse des kalibrierten Blocks (ein Block, der keines dieser Erze ist, zählt als gewöhnlich). Die Reichweite ist zugleich der Suchradius in Blöcken um den Block deiner Augen; der Tooltip zeigt beides als \"Signal: <Signal>, Range: <Reichweite>\" (All Ores: die gewöhnliche Klasse und eine Zeile mit den selteneren Klassen als Signal/Reichweite).",
           "Materialdämpfung: Jeder Block, den die Sichtlinie zwischen dem Block deiner Augen und dem Erz schneidet, kostet das Signal einen festen Betrag nach seiner Abbauhärte - Luft und nicht verdeckende Blöcke (Glas, Laub, Wasser) 0.125; Härte unter 1.0 (Netherrack, Erde, Sand, Kies) und Endstein, das Wirtsgestein der End-Erze, 2; Härte 1.0 bis unter 3.0 (Stein, Bruchstein, Tuff, Basalt, Schwarzstein, Stämme) 4; Härte 3.0 bis unter 10 (Tiefenschiefer, Erze) 6; Härte ab 10 oder unzerstörbar (Obsidian, Antiker Schrott, Grundgestein) 16. Das Erz wird gefunden, wenn die Summe sein Signal nicht übersteigt. Ohne Radius heißt das: gewöhnliche Erze durch 4 Stein, Gold durch 3, Diamant und Smaragd durch 2, Antiker Schrott durch 2 Netherrack (die End-Erze durch 2 Endstein) oder 1 Stein - jeweils mit bis zu 8 Blöcken Luft dazu.",
           "Berührung des Konstrukteurs multipliziert den Verlust jedes Blocks mit 0.5, das Signal trägt also doppelt so weit durch Gestein (Eisenerz: durch 8 statt 4 Stein, 5 statt 2 Tiefenschiefer); die Reichweite bleibt gleich.",
-          "Radius (Stufe I, als Buch gefunden und am Amboss angebracht) passt auch auf den Erzdetektor und hebt Signal und Reichweite an, das Signal der seltenen Klassen am stärksten: gewöhnlich 22 und 28, Gold 17 und 24, Diamant und Smaragd 17 und 24, Antiker Schrott und die End-Erze 9 und 20 - Diamanten kommen dann durch 4 statt 2 Stein, Antiker Schrott durch 4 statt 2 Netherrack, gewöhnliche Erze durch 5 statt 4 Stein. Berührung des Konstrukteurs und Radius wirken zusammen: die eine halbiert den Verlust, der andere hebt das Signal.",
+          "Radius (Stufe I, als Buch gefunden und am Amboss angebracht) passt auch auf den Detektor und hebt Signal und Reichweite an, das Signal der seltenen Klassen am stärksten: gewöhnlich 22 und 28, Gold 17 und 24, Diamant und Smaragd 17 und 24, Antiker Schrott und die End-Erze 9 und 20 - Diamanten kommen dann durch 4 statt 2 Stein, Antiker Schrott durch 4 statt 2 Netherrack, gewöhnliche Erze durch 5 statt 4 Stein. Berührung des Konstrukteurs und Radius wirken zusammen: die eine halbiert den Verlust, der andere hebt das Signal.",
           "Ein im Modus Custom kalibrierter Detektor markiert seinen Platz in Schnellleiste und Inventar: ein Ein-Pixel-Schimmer mit zwei verblassenden Schweifpixeln läuft alle 3 Sekunden einmal um den Rand des Felds, in der Farbe des Zielblocks - Erze in der Farbe ihres Minerals (Diamant türkis, Gold gelb, Astralit rosa usw.), jeder andere Block in seiner Kartenfarbe. Die festen Modi und ein unkalibrierter Detektor zeigen nichts. Gezeichnet wird clientseitig auf Fabric, NeoForge und Forge gleichermaßen.",
           "Kompassnadel (2026-09-28): Ein Ping, der etwas findet, legt das Erz auf den Detektor (die Vanilla-Komponente lodestone_tracker, ohne Leitstein-Verfolgung), und das Item-Modell dreht die Amethyst-Nadel mit der Vanilla-Kompass-Eigenschaft dorthin - 32 Nadelstellungen, in der Hand, in der Schnellleiste und im Inventar. Die Nadel schwingt mit: Sie wird in fünf Stufen von dunklem Violett bis zu hellem Lavendel getönt, je näher das Erz ist (gemessen an der Reichweite genau dieses Erzes), zusammen mit vier kleinen Marken am Zifferblatt. Ein Ping ohne Fund oder ein weggesteckter Detektor (nicht in einer Hand) löscht das Ziel, die Nadel ruht dann gedämpft nach oben. Die Hand wippt nicht, wenn sich Nadel oder Haltbarkeit ändern.",
           "Haupthand oder Nebenhand: Der Detektor arbeitet in beiden Händen. Die Haupthand ist die genaue: jede Sekunde ein Ping, volle Lautstärke. In der Nebenhand pingt er alle zwei Sekunden, seine Töne klingen mit 30 % Lautstärke und die Partikelspur ist viel schwächer - praktisch, wenn in der Haupthand die Spitzhacke arbeitet.",
@@ -1206,62 +1221,6 @@ window.WIKI_DATA = {
           "Die Menüs zeigen alles auf einmal: 9x4, 9x5 und 9x6 für einzelne Truhen, 12x6, 15x6 und 18x6 für Doppeltruhen - alles innerhalb GUI-Skala 4 bei 1080p. Übergroße Plätze sind getönt, die Titelzeile nennt den Stapelfaktor.",
           "Automatisierung: Vanilla-Trichter, Trichterloren und die Mod-Trichter füllen die übergroßen Plätze bis zur Grenze; Komparatoren zählen dagegen. Auf NeoForge sehen Rohre die Truhe (eine Doppeltruhe als ein Lager) über die Item-Capability mit denselben Grenzen. Auf Forge (nur Kompilier-Portierung) läuft Automatisierung über Forges eigenen Item-Handler und füllt übergroße Plätze nur bis zu einem normalen Stapel.",
           "Darstellung: die Truhen nutzen Vanillas Truhenmodell und Renderer-Weg mit eigenen Texturen (keine zusätzliche Arbeit je Tick). Truhen-Optimierer, die Vanillas Truhen-Renderer durch ein statisches Modell ersetzen, betreffen nur Vanilla-Truhen; die Stufen-Truhen zeichnen sich weiter selbst, nichts bricht."
-        ]
-      }
-    },
-    {
-      "id": "shulker_boxes",
-      "related": [
-        "minecraft:shulker_box",
-        "simplebuilding:reinforced_shulker_box",
-        "simplebuilding:netherite_shulker_box",
-        "simplebuilding:enderite_shulker_box",
-        "simplebuilding:cracked_diamond",
-        "simplebuilding:netherite_nugget",
-        "simplebuilding:enderite_nugget"
-      ],
-      "sources": [
-        "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
-        "common/src/shared/java/com/simplebuilding/blocks/custom/TieredShulkerBoxBlock.java",
-        "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredShulkerBoxBlockEntity.java",
-        "common/src/shared/java/com/simplebuilding/items/custom/TieredShulkerBoxItem.java",
-        "common/src/shared/java/com/simplebuilding/component/ContainerCounts.java",
-        "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
-        "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
-        "common/src/shared/java/com/simplebuilding/client/render/TieredShulkerBoxRenderer.java",
-        "common/src/shared/java/com/simplebuilding/util/TieredShulkerBoxes.java",
-        "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
-        "common/src/shared/java/com/simplebuilding/mixin/ShulkerBoxBlockMixin.java",
-        "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
-        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
-        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-        "src/main/resources/assets/minecraft/atlases/shulker_boxes.json",
-        "tools/textures/tiered_shulker_box_textures.py",
-        "common/src/shared/java/com/simplebuilding/gametest/TieredShulkerBoxTests.java"
-      ],
-      "en": {
-        "title": "Shulker box tiers",
-        "summary": "Shulker box -> Reinforced -> Netherite -> Enderite Shulker Box: the slots and stack sizes of the chest tiers (36/45/54 slots, x2 and x4 stacks from netherite on) in a box that keeps everything when broken. Upgraded in the world with the sledgehammer like the chests, but dearer: 10 blows and 2 pieces of material per step.",
-        "details": [
-          "Upgrading: hold right-click on the placed box for 10 seconds with a sledgehammer in the main hand and 2 pieces of the tier material in the off hand - Cracked Diamonds (any sledgehammer) for a vanilla shulker box of any color -> reinforced, Netherite Nuggets (Diamond Sledgehammer or better) for reinforced -> netherite, Enderite Nuggets (Netherite Sledgehammer or better) for netherite -> enderite. Contents, name, lock, facing and color stay; an interrupted upgrade keeps its blows.",
-          "The Reinforced Shulker Box can also be crafted from any vanilla shulker box and 4 Cracked Diamonds; netherite and enderite only come from the hammer.",
-          "Colors: one texture per tier, dyed by the game in all 16 colors (the shell takes the color, the metal plating stays). Dye with any dye in the crafting grid, undye in a water cauldron.",
-          "The item keeps every slot, also oversized stacks; it never goes into another shulker box, a bundle or a backpack. When the item burns, the real counts spill out.",
-          "Automation: hoppers fill oversized slots to their limit and never insert a shulker box; comparators count against the limit; dispensers place the boxes. On NeoForge pipes see the box through the item capability (sided, like vanilla's shulker box).",
-          "The menu is the tier chest menu (9x4, 9x5, 9x6) with tinted oversized slots and the stack factor in the title row."
-        ]
-      },
-      "de": {
-        "title": "Shulkerkisten-Stufen",
-        "summary": "Shulkerkiste -> Verstärkte -> Netherit- -> Enderit-Shulkerkiste: Plätze und Stapelgrößen der Truhen-Stufen (36/45/54 Plätze, ab Netherit x2 und x4) in einer Kiste, die beim Abbauen alles behält. Aufgewertet in der Welt mit dem Vorschlaghammer wie die Truhen, aber teurer: 10 Schläge und 2 Stück Material je Stufe.",
-        "details": [
-          "Aufwerten: 10 Sekunden Rechtsklick auf die gesetzte Kiste halten, Vorschlaghammer in der Haupthand und 2 Stück des Stufenmaterials in der Nebenhand - Rissige Diamanten (jeder Vorschlaghammer) für eine Vanilla-Shulkerkiste jeder Farbe -> Verstärkt, Netheritklumpen (Diamant-Vorschlaghammer oder besser) für Verstärkt -> Netherit, Enderitklumpen (Netherit-Vorschlaghammer oder besser) für Netherit -> Enderit. Inhalt, Name, Schloss, Blickrichtung und Farbe bleiben; eine abgebrochene Aufwertung behält ihre Schläge.",
-          "Die Verstärkte Shulkerkiste lässt sich auch aus einer beliebigen Vanilla-Shulkerkiste und 4 Rissigen Diamanten herstellen; Netherit und Enderit gibt es nur mit dem Hammer.",
-          "Farben: eine Textur je Stufe, vom Spiel in allen 16 Farben eingefärbt (die Schale nimmt die Farbe an, der Metallbeschlag bleibt). Färben mit einem beliebigen Farbstoff in der Werkbank, entfärben im Wasserkessel.",
-          "Das Item behält jeden Platz, auch übergroße Stapel; es passt nie in eine andere Shulkerkiste, ein Bündel oder einen Rucksack. Verbrennt das Item, fallen die echten Anzahlen heraus.",
-          "Automatisierung: Trichter füllen übergroße Plätze bis zur Grenze und legen nie eine Shulkerkiste hinein; Komparatoren messen gegen die Grenze; Werfer stellen die Kisten auf. Auf NeoForge sehen Rohre die Kiste über die Item-Capability (seitenweise wie Vanillas Shulkerkiste).",
-          "Das Menü ist das der Truhen-Stufen (9x4, 9x5, 9x6), übergroße Plätze getönt, der Stapelfaktor in der Titelzeile."
         ]
       }
     },
@@ -1683,8 +1642,8 @@ window.WIKI_DATA = {
           "The furnace code (block classes, block entities, registration in ModBlocks and ModItems) is identical in both supported Minecraft versions (26.2 under common/src/shared and 1.21.11 under mc1_21_11/shared).",
           "Rewards of the upper tiers (FurnaceTierPerks, called from setRecipeUsed): every item a Netherite or Enderite furnace, smoker or blast furnace finishes counts its recipe twice, so taking the result out pays double experience.",
           "The Netherite Blast Furnace gives one extra item on every 4th finished smelt (+25 %), the Enderite Blast Furnace on every 2nd (+50 %) - but only for recipes whose ingredient consists only of items in simplebuilding:blast_furnace_bonus: Raw Iron, Raw Gold and Raw Copper. If the result slot is full the bonus waits for the next such smelt; the count is saved with the block (simplebuilding:bonus_progress).",
-          "Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded) get neither double experience nor extra output: a diamond block crushed into 81 pebbles makes 9 Cracked Diamonds and those make 9 diamonds again, so any bonus would be an endless source. Raw Enderite and Layered Raw Enderite are not in the bonus tag either.",
-          "Enderite Scrap: Raw Enderite no longer smelts on its own (since 2026-09-29). Three Raw Enderite stacked in a crafting column make one Layered Raw Enderite, and blasting that takes 144000 ticks for one Enderite Scrap and 10 experience - twice the 72000 ticks per scrap of the old direct route, and three Raw Enderite per scrap instead of one (cooking recipes can only give a single item on 1.21.11, so all lines give one). That is two hours in a vanilla blast furnace, one in the Reinforced, 30 minutes in the Netherite and about 15 minutes in the Enderite Blast Furnace, the last two with double experience. It is a blasting recipe only, so furnaces and smokers cannot process it.",
+          "Cracked Diamonds (tag simplebuilding:furnace_bonus_excluded) get neither double experience nor extra output: a diamond block crushed into 81 pebbles makes 9 Cracked Diamonds and those make 9 diamonds again, so any bonus would be an endless source. Raw Enderite Fragments and Raw Enderite Scrap are not in the bonus tag either.",
+          "Enderite Scrap: a Raw Enderite Fragment no longer smelts on its own (since 2026-09-29). Three Raw Enderite Fragments stacked in a crafting column make one Raw Enderite Scrap (item id layered_raw_enderite), and blasting that takes 144000 ticks for one Enderite Scrap and 10 experience - twice the 72000 ticks per scrap of the old direct route, and three Raw Enderite Fragments per scrap instead of one (cooking recipes can only give a single item on 1.21.11, so all lines give one). That is two hours in a vanilla blast furnace, one in the Reinforced, 30 minutes in the Netherite and about 15 minutes in the Enderite Blast Furnace, the last two with double experience. It is a blasting recipe only, so furnaces and smokers cannot process it.",
           "Cook times above 32767 ticks: vanilla saves the four furnace timers as shorts and sends the menu data as shorts, which would cut 72000 down to 6464. AbstractFurnaceBlockEntityMixin saves them as ints under the same keys (NeoForge and Forge already do that themselves), and AbstractFurnaceMenuMixin divides long times before they are sent, keeping the ratio the progress arrow and the flame are drawn from; both apply to every furnace, vanilla ones included.",
           "Changing between the tiers of one family - by hammering or by /setblock in replace mode - keeps the block entity with its contents (shouldChangedStateKeepBlockEntity); the block entity types accept all three tiers on every loader.",
           "With a sledgehammer in the main hand and a nugget in the off hand, right-clicking a machine that can be upgraded starts the upgrade instead of opening the menu; if it cannot be upgraded with that nugget and hammer, the menu opens as usual.",
@@ -1713,8 +1672,8 @@ window.WIKI_DATA = {
           "Der Code für die Öfen (Block-Klassen, Block-Entities, Registrierung in ModBlocks und ModItems) ist in beiden unterstützten Minecraft-Linien (26.2 unter common/src/shared und 1.21.11 unter mc1_21_11/shared) identisch.",
           "Belohnungen der oberen Stufen (FurnaceTierPerks, aufgerufen aus setRecipeUsed): Jeder Gegenstand, den ein Netherit- oder Enderit-Ofen, -Räucherofen oder -Schmelzofen fertigstellt, zählt sein Rezept doppelt, beim Herausnehmen gibt es also doppelte Erfahrung.",
           "Der Netherit-Schmelzofen gibt bei jedem 4. fertigen Schmelzvorgang einen Gegenstand mehr (+25 %), der Enderit-Schmelzofen bei jedem 2. (+50 %) - aber nur für Rezepte, deren Zutat ausschließlich aus Gegenständen im Tag simplebuilding:blast_furnace_bonus besteht: Roheisen, Rohgold und Rohkupfer. Ist der Ausgabeslot voll, wartet der Bonus auf den nächsten solchen Vorgang; der Zähler wird mit dem Block gespeichert (simplebuilding:bonus_progress).",
-          "Rissige Diamanten (Tag simplebuilding:furnace_bonus_excluded) bekommen weder doppelte Erfahrung noch mehr Ausbeute: Ein zu 81 Kieseln zerschlagener Diamantblock ergibt 9 Rissige Diamanten und die wieder 9 Diamanten, jeder Bonus wäre also eine Endlosquelle. Rohenderit und Geschichtetes Rohenderit stehen ebenfalls nicht im Bonus-Tag.",
-          "Enderitplatten: Rohenderit schmilzt seit 2026-09-29 nicht mehr allein. Drei Rohenderit übereinander in der Werkbank ergeben ein Geschichtetes Rohenderit, und das braucht im Schmelzofen 144000 Ticks für eine Enderitplatte und 10 Erfahrung - doppelt so lange je Platte wie die 72000 Ticks des alten Direktwegs, und drei Rohenderit je Platte statt einem (Kochrezepte können auf 1.21.11 nur ein einzelnes Item liefern, darum liefern alle Linien eines). Das sind zwei Stunden im Vanilla-Schmelzofen, eine im verstärkten, 30 Minuten im Netherit- und rund 15 Minuten im Enderit-Schmelzofen, die letzten beiden mit doppelter Erfahrung. Es ist nur ein Schmelzofen-Rezept, Öfen und Räucheröfen können es nicht verarbeiten.",
+          "Rissige Diamanten (Tag simplebuilding:furnace_bonus_excluded) bekommen weder doppelte Erfahrung noch mehr Ausbeute: Ein zu 81 Kieseln zerschlagener Diamantblock ergibt 9 Rissige Diamanten und die wieder 9 Diamanten, jeder Bonus wäre also eine Endlosquelle. Rohe Enderitfragmente und Rohe Enderitplatten stehen ebenfalls nicht im Bonus-Tag.",
+          "Enderitplatten: Ein Rohes Enderitfragment schmilzt seit 2026-09-29 nicht mehr allein. Drei Rohe Enderitfragmente übereinander in der Werkbank ergeben Rohe Enderitplatten (Item-Kennung layered_raw_enderite), und die brauchen im Schmelzofen 144000 Ticks für eine Enderitplatte und 10 Erfahrung - doppelt so lange je Platte wie die 72000 Ticks des alten Direktwegs, und drei Rohe Enderitfragmente je Platte statt einem (Kochrezepte können auf 1.21.11 nur ein einzelnes Item liefern, darum liefern alle Linien eines). Das sind zwei Stunden im Vanilla-Schmelzofen, eine im verstärkten, 30 Minuten im Netherit- und rund 15 Minuten im Enderit-Schmelzofen, die letzten beiden mit doppelter Erfahrung. Es ist nur ein Schmelzofen-Rezept, Öfen und Räucheröfen können es nicht verarbeiten.",
           "Kochzeiten über 32767 Ticks: Vanilla speichert die vier Ofen-Zeiten als short und schickt die Menüdaten als short, aus 72000 würde so 6464. AbstractFurnaceBlockEntityMixin speichert sie als int unter denselben Schlüsseln (NeoForge und Forge tun das bereits selbst), und AbstractFurnaceMenuMixin teilt lange Zeiten vor dem Senden herunter und erhält das Verhältnis, aus dem Pfeil und Flamme gezeichnet werden; beide gelten für jeden Ofen, auch für die Vanilla-Öfen.",
           "Ein Wechsel zwischen den Stufen einer Familie - durch Hämmern oder per /setblock im Modus replace - behält die Block-Entity samt Inhalt (shouldChangedStateKeepBlockEntity); die Block-Entity-Typen nehmen auf jedem Loader alle drei Stufen an.",
           "Mit Vorschlaghammer in der Haupthand und Klumpen in der Nebenhand startet ein Rechtsklick auf eine aufwertbare Maschine die Aufwertung statt das Menü zu öffnen; lässt sie sich mit diesem Klumpen und Hammer nicht aufwerten, öffnet das Menü wie gewohnt.",
@@ -2196,7 +2155,7 @@ window.WIKI_DATA = {
         "simplebuilding:netherite_quiver",
         "simplebuilding:enderite_quiver",
         "simplebuilding:magnet",
-        "simplebuilding:ore_detector",
+        "simplebuilding:detector",
         "simplebuilding:octant",
         "simplebuilding:velocity_gauge",
         "simplebuilding:stone_sledgehammer",
@@ -2281,7 +2240,7 @@ window.WIKI_DATA = {
           "Wand tiers: copper 3, iron 5, gold 7, diamond 9, netherite 11, enderite 13 blocks of edge length (BUILDING_WAND_SQUARE_*); the radius is (edge length - 1) / 2. The radius can be lowered as far as 0 in the settings menu - and that menu only exists with Constructor's Touch on the wand ('Open Tool Settings' key, default G).",
           "Material for the building wand comes, without any enchantment, only from the off-hand and hotbar (reinforced bundles only when the bundle itself carries Master Builder). Master Builder on the wand opens up the rest of the inventory and all reinforced bundles as a source; Color Palette mixes the carried blocks per position, exactly as the preview shows.",
           "Master Builder on a reinforced bundle: right-clicking a block places blocks straight out of the bundle; in survival the pick-block key pulls blocks that are only in the bundle into your hand.",
-          "Constructor's Touch is not one single effect but a different one per tool: a stick turns a block's orientation (facing, axis, rotation, top/bottom half, hinge, stairs and rail shape - never amounts, growth or charges; main hand only, needs build rights, doors turn as a whole; neighbours update at once, a wall torch or lever only turns to a side that holds it, and on a block with nothing to turn - a double chest, a crafting table - the click goes on to the block), the chisel gains extra conversion rows, the sledgehammer can convert stairs and slabs back, the building wand gets its settings menu, the ore detector's signal loses only half as much per block, the magnet pulls from 8 instead of 4 blocks and learns filters from item frames, enchanted quivers feed arrows from the whole inventory, octants show the filled preview.",
+          "Constructor's Touch is not one single effect but a different one per tool: a stick turns a block's orientation (facing, axis, rotation, top/bottom half, hinge, stairs and rail shape - never amounts, growth or charges; main hand only, needs build rights, doors turn as a whole; neighbours update at once, a wall torch or lever only turns to a side that holds it, and on a block with nothing to turn - a double chest, a crafting table - the click goes on to the block), the chisel gains extra conversion rows, the sledgehammer can convert stairs and slabs back, the building wand gets its settings menu, the detector's signal loses only half as much per block, the magnet pulls from 8 instead of 4 blocks and learns filters from item frames, enchanted quivers feed arrows from the whole inventory, octants show the filled preview.",
           "Fast Chiseling shortens the chisel's cooldown (base x (1 - 0.3 x level), at least 1 tick) and speeds up breaking blocks with it (+5.0 or +17.0 on the material speed, then halved).",
           "Getting them: Fast Chiseling and Kinetic Protection are available at the enchanting table (the mod's two entries in the minecraft:in_enchanting_table tag). Everything else comes as books from structure chests (pillager outpost, woodland mansion, stronghold library, end city, buried treasure, igloo and trial chambers among others; option enableLootTableChanges), from the treasure catch of fishing, from librarians (levels 3 to 5) and toolsmiths (pre-enchanted chisels; option enableVillagerTrades), as well as from the mod's creative tab as books at maximum level. Bridge, the wand's End enchantment, is a book in end city treasure only (since 2026-09-28); the wandering trader's 40-emerald book (option enableWanderingTrades) holds only Radius, a sledgehammer enchantment.",
           "Compatibility: Cover excludes Bridge and Linear; Bridge and Linear get along. Drawer excludes Master Builder and Color Palette. Color Palette can only be put on an item in the anvil that already carries Master Builder or gains it at the same time - otherwise the result slot stays empty.",
@@ -2298,7 +2257,7 @@ window.WIKI_DATA = {
           "Baustab-Stufen: Kupfer 3, Eisen 5, Gold 7, Diamant 9, Netherit 11, Enderit 13 Blöcke Kantenlänge (BUILDING_WAND_SQUARE_*); der Radius ist (Kantenlänge − 1) / 2. Der Radius lässt sich im Einstellungsmenü bis auf 0 verkleinern – das Menü gibt es nur mit Berührung des Konstrukteurs auf dem Stab (Taste „Werkzeug-Einstellungen öffnen“, Standard G).",
           "Material für den Baustab kommt ohne Verzauberung nur aus Nebenhand und Hotbar (Verstärkte Bündel nur, wenn das Bündel selbst Baumeister trägt). Baumeister auf dem Stab öffnet das restliche Inventar und alle Verstärkten Bündel als Quelle; Farbpalette mischt die mitgeführten Blöcke je Stelle, genau wie die Vorschau es zeigt.",
           "Baumeister auf einem Verstärkten Bündel: Rechtsklick auf einen Block platziert Blöcke direkt aus dem Bündel; die Blockauswahl-Taste holt im Überlebensmodus Blöcke, die nur im Bündel liegen, in die Hand.",
-          "Berührung des Konstrukteurs ist kein einzelner Effekt, sondern je Werkzeug ein anderer: Stock dreht die Ausrichtung eines Blocks (Richtung, Achse, Drehung, obere/untere Hälfte, Scharnier, Treppen- und Schienenform - nie Mengen, Wachstum oder Ladungen; nur Haupthand, braucht Baurecht, Türen drehen sich ganz; Nachbarn aktualisieren sich sofort, eine Wandfackel oder ein Hebel dreht sich nur zu einer Seite, die sie hält, und bei einem Block ohne Drehbares - Doppeltruhe, Werkbank - geht der Klick an den Block weiter), Meißel bekommt zusätzliche Umwandlungsreihen, Vorschlaghammer kann Treppen und Stufen zurückverwandeln, Baustab bekommt sein Einstellungsmenü, Erzdetektor-Signal verliert je Block nur halb so viel, Attraktor zieht auf 8 statt 4 Blöcke und lernt Filter vom Rahmen, verzauberte Köcher liefern Pfeile aus dem ganzen Inventar, Oktanten zeigen die gefüllte Vorschau.",
+          "Berührung des Konstrukteurs ist kein einzelner Effekt, sondern je Werkzeug ein anderer: Stock dreht die Ausrichtung eines Blocks (Richtung, Achse, Drehung, obere/untere Hälfte, Scharnier, Treppen- und Schienenform - nie Mengen, Wachstum oder Ladungen; nur Haupthand, braucht Baurecht, Türen drehen sich ganz; Nachbarn aktualisieren sich sofort, eine Wandfackel oder ein Hebel dreht sich nur zu einer Seite, die sie hält, und bei einem Block ohne Drehbares - Doppeltruhe, Werkbank - geht der Klick an den Block weiter), Meißel bekommt zusätzliche Umwandlungsreihen, Vorschlaghammer kann Treppen und Stufen zurückverwandeln, Baustab bekommt sein Einstellungsmenü, Detektor-Signal verliert je Block nur halb so viel, Attraktor zieht auf 8 statt 4 Blöcke und lernt Filter vom Rahmen, verzauberte Köcher liefern Pfeile aus dem ganzen Inventar, Oktanten zeigen die gefüllte Vorschau.",
           "Schnelles Meißeln verkürzt die Abklingzeit des Meißels (Basis × (1 − 0,3 × Stufe), mindestens 1 Tick) und beschleunigt den Blockabbau mit ihm (+5.0 bzw. +17.0 auf die Materialgeschwindigkeit, dann halbiert).",
           "Beschaffung: Schnelles Meißeln und Kinetischer Schutz stehen am Zaubertisch (die zwei Mod-Einträge im Tag minecraft:in_enchanting_table). Alle anderen gibt es als Bücher aus Strukturtruhen (u. a. Plünderer-Außenposten, Waldanwesen, Festungs-Bibliothek, Endsiedlung, vergrabener Schatz, Iglu, Prüfungskammer; Option enableLootTableChanges), aus dem Schatzfang beim Angeln, von Bibliothekaren (Stufen 3 bis 5) und Werkzeugschmieden (vorverzauberte Meißel; Option enableVillagerTrades) sowie im Kreativ-Reiter der Mod als Buch auf Höchststufe. Brücke, die End-Verzauberung des Baustabs, gibt es als Buch nur im Endsiedlungs-Schatz (seit 2026-09-28); das 40-Smaragde-Buch des Fahrenden Händlers (Option enableWanderingTrades) enthält nur Radius, eine Vorschlaghammer-Verzauberung.",
           "Verträglichkeit: Abdeckung schließt Brücke und Linear aus; Brücke und Linear vertragen sich. Schublade schließt Baumeister und Farbpalette aus. Farbpalette lässt sich im Amboss nur auf ein Item bringen, das Baumeister trägt oder gleichzeitig bekommt – sonst bleibt das Ergebnisfeld leer.",
@@ -2433,7 +2392,7 @@ window.WIKI_DATA = {
           "Combat factor: combat score = monster kills x 1.0 + animal kills x 0.2 + damage taken (raw value of the vanilla statistic) x 0.05, each counted since your last death, fed into the same curve with scale 100.",
           "On death (respawn) distance, active time, damage taken, experience and the kill baselines are reset; the counters are stored in the player's save data under \"SimpleBuildingData\" (older saves without the active clock start it from zero), and the live values are sent to the client once a second (every 20 ticks).",
           "Anything that is not a player uses a fixed progress factor of 0.2 instead: every mob and every armor stand. Players get their real resonance on both sides - the client computes it from the synced counters, so the tooltips, the resonance panel, the reference screen and the client's own movement prediction show the same value as the server.",
-          "Inventory: 25 pixels to the left of the inventory and 5 below its top edge - the same spot as the trim button of the smithing table - sits a 20x20 button showing the Ward Armor Trim Smithing Template with the tooltip \"Toggle Resonance Stats\"; it toggles a panel on vanilla's popup background showing L (experience) + S (survival) + C (combat) = resonance, and hovering the panel adds details (the formula, level, distance, time alive, hostiles, passives, damage taken in hearts). The backpack screen shows the same button and panel (shared class TrimStatsPanel).",
+          "Inventory: a small field left of the inventory (5 pixels gap, 5 below its top edge) shows the Ward Armor Trim Smithing Template and the current resonance, e.g. 0.22x - always visible, no button since 2026-09-29. Hovering it lists the details: resonance against its maximum, the formula, L (experience points since death / 1395), S (distance, active time) and C (hostiles, passives, damage taken), each with (max 1.00), and whether the cap is reached (all three at max). The backpack screen shows the same field (shared class TrimStatsPanel).",
           "Smithing table: 25 pixels to the left of the interface there is a button that cycles through the trim templates in the #minecraft:trim_templates tag (plus Enderscape's Stasis template if that mod is installed); it opens the \"Trim Resonance Reference\" screen, which lists every material and pattern under its vanilla name with its per-piece bonuses at your current resonance (vanilla scrollbar, Done button).",
           "Damage reduction by pattern (per counted piece, times the multiplier): Sentry 5% against projectiles; Vex 6% against magic damage (direct or indirect) and against hits from a Vex; Wild 10% against cactus, sweet berry bush and stalagmite; Dune 8% against explosions; Coast 10% against drowning; Ward 3% against everything; Silence 20% against the Warden's sonic boom; Snout 5% against fire; Rib 10% against wither damage; Eye 10% against dragon breath; Spire 8% against fall damage; Flow 10% against wind charges (any entity whose type id contains \"wind_charge\", so the Breeze's charge counts too); Bolt 25% against lightning; Shaper gives no protection but +0.25 blocks of block reach per piece (see below).",
           "Pattern counting: a piece counts as 1.0; if its trim material is Netherite it counts 1.75, if it is Enderite 2.0 (3.5 until 2026-09).",
@@ -2470,7 +2429,7 @@ window.WIKI_DATA = {
           "Kampffaktor: Kampfpunkte = Monster-Kills × 1,0 + Tier-Kills × 0,2 + erlittener Schaden (Rohwert der Vanilla-Statistik) × 0,05, jeweils seit dem letzten Tod, auf dieselbe Kurve mit Skala 100 gelegt.",
           "Beim Tod (Respawn) werden Strecke, aktive Zeit, erlittener Schaden, Erfahrung und die Kill-Basiswerte neu gesetzt; die Zähler werden im Spielerdatensatz unter „SimpleBuildingData“ gespeichert (ältere Spielstände ohne Aktivzeit starten diese bei null) und die Live-Werte dem Client jede Sekunde (alle 20 Ticks) übermittelt.",
           "Für alles, was kein Spieler ist, gilt fest ein Fortschrittsfaktor von 0,2: jedes Mob und jeder Rüstungsständer. Spieler bekommen auf beiden Seiten ihre echte Resonanz – der Client rechnet sie aus den synchronisierten Zählern, sodass Tooltips, Resonanz-Panel, Referenzbildschirm und die clientseitige Bewegungsvorhersage denselben Wert zeigen wie der Server.",
-          "Inventar: 25 Pixel links neben dem Inventar und 5 unter seiner Oberkante – an derselben Stelle wie der Besatz-Knopf am Schmiedetisch – sitzt ein 20×20-Knopf mit dem Symbol der Schutz-Schmiedevorlage (Ward) und dem Tooltip „Resonanzwerte ein-/ausblenden“; er blendet auf Vanillas Popup-Hintergrund ein Feld mit L (Erfahrung) + S (Überleben) + C (Kampf) = Resonanz ein; beim Überfahren des Feldes erscheinen Details (Formel, Stufe, Strecke, Zeit am Leben, Monster, Tiere, erlittener Schaden in Herzen). Der Rucksack-Bildschirm zeigt denselben Knopf samt Feld (gemeinsame Klasse TrimStatsPanel).",
+          "Inventar: ein kleines Feld links neben dem Inventar (5 Pixel Abstand, 5 unter der Oberkante) zeigt die Schutz-Schmiedevorlage und die aktuelle Resonanz, z. B. 0.22x - immer sichtbar, seit 2026-09-29 ohne Knopf. Beim Überfahren erscheinen die Einzelheiten: Resonanz gegen ihr Maximum, die Formel, L (Erfahrungspunkte seit dem Tod / 1395), S (Strecke, aktive Zeit) und C (Monster, Tiere, erlittener Schaden), jeweils mit (max 1.00), und ob der Deckel erreicht ist (alle drei am Maximum). Der Rucksack-Bildschirm zeigt dasselbe Feld (gemeinsame Klasse TrimStatsPanel).",
           "Schmiedetisch: 25 Pixel links neben der Oberfläche gibt es einen Knopf, der durch die Besatz-Vorlagen des Tags #minecraft:trim_templates wechselt (zuzüglich der Stasis-Vorlage von Enderscape, falls diese Mod installiert ist); er öffnet den Referenzbildschirm „Besatz-Resonanz: Übersicht“, der jedes Material und Muster unter seinem Vanilla-Namen mit den Boni je Teil bei der aktuellen Resonanz auflistet (Vanilla-Scrollleiste, Fertig-Knopf).",
           "Schadensminderung nach Muster (je Teil, mal Multiplikator): Sentry 5 % gegen Geschosse; Vex 6 % gegen Magie und direkte Vex-Angriffe; Wild 10 % gegen Kaktus, Süßbeerenbusch und Stalagmit; Dune 8 % gegen Explosionen; Coast 10 % gegen Ertrinken; Ward 3 % gegen alles; Silence 20 % gegen den Sonic Boom des Wardens; Snout 5 % gegen Feuer; Rib 10 % gegen Wither-Schaden; Eye 10 % gegen Drachenatem; Spire 8 % gegen Fallschaden; Flow 10 % gegen Windkugeln; Bolt 25 % gegen Blitze; Shaper schützt nicht, gibt aber +0,25 Blöcke Blockreichweite je Teil (siehe unten).",
           "Musterzählung: Ein Teil zählt 1,0; ist das Besatzmaterial Netherit, zählt es 1,75; ist es Enderit, zählt es 2,0 (bis 2026-09: 3,5).",
@@ -2553,7 +2512,7 @@ window.WIKI_DATA = {
         "title": "Enderite Void Protection",
         "summary": "Every enderite item of the mod is safe from the void and lies twice as long when dropped: if it falls below the world's bottom it hangs in place and is pulled back up when needed, and it despawns only after 10 minutes. Enderite armor also slows void damage for the wearer and lets you drift down gently while the jump key is held.",
         "details": [
-          "One item tag decides: simplebuilding:enderite_items. Datagen fills it from every mod item whose id contains \"enderite\" (so raw_enderite and enchanted_enderite_apple too) plus the enderite tiers whose id does not say so - the three Flypads (all smithed from the Enderite Pressure Plate), the Fine Elytra Pad V, the Infused Potion Pad III and the Echo Sounder (enderite core and nuggets). That covers ingot, scrap, raw enderite, nugget, block, tools, weapons, armor, horse and nautilus armor, bundle, quiver, backpack, chest, core, apples, carrot, upgrade template, machines and pads. The tags simplebuilding:void_protected (void protection) and simplebuilding:double_despawn_time (lifetime) each contain #simplebuilding:enderite_items, so a modpack can widen either one on its own. A game test finds every item named \"Enderite\" in English or with \"enderite\" in its id and fails if one is missing from the tag.",
+          "One item tag decides: simplebuilding:enderite_items. Datagen fills it from every mod item whose id contains \"enderite\" (so raw_enderite and enchanted_enderite_apple too) plus the enderite tiers whose id does not say so - the three Flypads (all smithed from the Enderite Pressure Plate), the Fine Elytra Pad V, the Infused Potion Pad III and the Echo Sounder (enderite core and nuggets). That covers ingot, scrap, raw enderite fragments and scrap, nugget, block, tools, weapons, armor, horse and nautilus armor, bundle, quiver, backpack, chest, core, apples, carrot, upgrade template, machines and pads. The tags simplebuilding:void_protected (void protection) and simplebuilding:double_despawn_time (lifetime) each contain #simplebuilding:enderite_items, so a modpack can widen either one on its own. A game test finds every item named \"Enderite\" in English or with \"enderite\" in its id and fails if one is missing from the tag.",
           "If such an item falls below the dimension's minimum height, its motion is zeroed and gravity is switched off - it floats.",
           "If it ends up more than 10 blocks below the minimum height, it is moved back to 5 blocks above the minimum height.",
           "The check runs on the server only, on every tick of the item entity.",
@@ -2562,14 +2521,14 @@ window.WIKI_DATA = {
           "Slow descent: wearing at least 2 Enderite armor pieces, not on the ground, falling faster than 0.1 blocks per tick and holding the jump key gives you a continuously refreshed Slow Falling effect (2 ticks) on the server; the key state is sent by the client via SpaceKeyPayload whenever it changes.",
           "Limitation: void protection only covers items lying in the world as entities, not items inside chests or inventories.",
           "Enderite is made with netherite and keeps everything netherite gives an item: every enderite item from the ingot upwards, the scrap and the nugget are fire resistant and float on lava; the mod's Netherite Sledgehammer, Chisel, Spatula, Building Wand and Core are too (ModItems#netheriteTraits). Enderite armor resists knockback with 0.2 per piece (netherite: 0.1). The Enderite Bundle, Quiver and Backpack survive explosions as dropped items, like the Netherite Bundle, Quiver and Backpack.",
-          "Every dropped enderite item lies twice as long as vanilla allows: 12000 ticks (10 minutes) instead of 6000 - raw and layered raw enderite, scrap and the upgrade template included (owner decision 2026-09-28; before, only the ingot tier did). The item tag simplebuilding:double_despawn_time decides (it contains #simplebuilding:enderite_items). On Fabric EnderiteItemMixin raises vanilla's limit in ItemEntity#tick and #isMergable, on NeoForge and Forge an ItemExpireEvent handler extends the lifespan (EnderiteLifetime). The older tag simplebuilding:enderite_ingot_tier (the ingot and everything made from it) still ships for modpacks but no longer decides anything."
+          "Every dropped enderite item lies twice as long as vanilla allows: 12000 ticks (10 minutes) instead of 6000 - Raw Enderite Fragments and Raw Enderite Scrap, Enderite Scrap and the upgrade template included (owner decision 2026-09-28; before, only the ingot tier did). The item tag simplebuilding:double_despawn_time decides (it contains #simplebuilding:enderite_items). On Fabric EnderiteItemMixin raises vanilla's limit in ItemEntity#tick and #isMergable, on NeoForge and Forge an ItemExpireEvent handler extends the lifespan (EnderiteLifetime). The older tag simplebuilding:enderite_ingot_tier (the ingot and everything made from it) still ships for modpacks but no longer decides anything."
         ]
       },
       "de": {
         "title": "Enderit-Schutz vor der Leere",
         "summary": "Jeder Enderit-Gegenstand der Mod ist vor der Leere sicher und bleibt fallengelassen doppelt so lange liegen: Fällt er unter die Weltgrenze, bleibt er schweben und wird bei Bedarf wieder nach oben geholt, und er verschwindet erst nach 10 Minuten. Zusätzlich verlangsamt Enderit-Rüstung den Leere-Schaden für den Träger und erlaubt bei gedrückter Sprungtaste sanftes Fallen.",
         "details": [
-          "Ein Item-Tag entscheidet: simplebuilding:enderite_items. Der Datagen füllt es aus allen Mod-Items, deren Kennung „enderite“ enthält (also auch raw_enderite und enchanted_enderite_apple), dazu die Enderit-Stufen, deren Kennung das nicht sagt – die drei Flypads (alle aus der Enderit-Druckplatte geschmiedet), das Feine Elytra-Pad V, das Durchtränkte Trank-Pad III und das Echolot (Enderit-Kern und -Klumpen). Das umfasst Barren, Platten, Rohenderit, Klumpen, Block, Werkzeuge, Waffen, Rüstung, Ross- und Nautilusrüstung, Bündel, Köcher, Rucksack, Truhe, Kern, Äpfel, Karotte, Upgrade-Vorlage, Maschinen und Pads. Die Tags simplebuilding:void_protected (Leere-Schutz) und simplebuilding:double_despawn_time (Liegezeit) enthalten jeweils #simplebuilding:enderite_items, ein Modpack kann also jedes für sich erweitern. Ein Spieltest sucht jeden Gegenstand mit „Enderite“ im englischen Namen oder „enderite“ in der Kennung und schlägt fehl, wenn einer im Tag fehlt.",
+          "Ein Item-Tag entscheidet: simplebuilding:enderite_items. Der Datagen füllt es aus allen Mod-Items, deren Kennung „enderite“ enthält (also auch raw_enderite und enchanted_enderite_apple), dazu die Enderit-Stufen, deren Kennung das nicht sagt – die drei Flypads (alle aus der Enderit-Druckplatte geschmiedet), das Feine Elytra-Pad V, das Durchtränkte Trank-Pad III und das Echolot (Enderit-Kern und -Klumpen). Das umfasst Barren, Platten, Rohe Enderitfragmente und -platten, Klumpen, Block, Werkzeuge, Waffen, Rüstung, Ross- und Nautilusrüstung, Bündel, Köcher, Rucksack, Truhe, Kern, Äpfel, Karotte, Upgrade-Vorlage, Maschinen und Pads. Die Tags simplebuilding:void_protected (Leere-Schutz) und simplebuilding:double_despawn_time (Liegezeit) enthalten jeweils #simplebuilding:enderite_items, ein Modpack kann also jedes für sich erweitern. Ein Spieltest sucht jeden Gegenstand mit „Enderite“ im englischen Namen oder „enderite“ in der Kennung und schlägt fehl, wenn einer im Tag fehlt.",
           "Fällt ein solches Item unter die Mindesthöhe der jeweiligen Dimension, wird seine Bewegung gestoppt und die Schwerkraft abgeschaltet – es schwebt.",
           "Liegt es mehr als 10 Blöcke unter der Mindesthöhe, wird es auf 5 Blöcke über der Mindesthöhe zurückversetzt.",
           "Die Prüfung erfolgt nur auf dem Server, jeden Tick des Item-Objekts.",
@@ -2578,7 +2537,7 @@ window.WIKI_DATA = {
           "Sanftes Fallen: Wer mindestens 2 Enderit-Rüstungsteile trägt, nicht am Boden ist, schneller als 0,1 Blöcke pro Tick fällt und die Sprungtaste hält, bekommt serverseitig laufend den Effekt Sanfter Fall (2 Ticks); der Tastenzustand wird vom Client bei jeder Änderung per SpaceKeyPayload übermittelt.",
           "Einschränkung: Der Leere-Schutz gilt nur für Items, die als Gegenstand in der Welt liegen, nicht für Items in Truhen oder Inventaren.",
           "Enderit wird aus Netherit gemacht und behält alles, was Netherit einem Gegenstand gibt: jeder Enderit-Gegenstand ab dem Barren, dazu Enderitplatten und Enderitklumpen, ist feuerfest und schwimmt auf Lava; ebenso Netherit-Vorschlaghammer, -Meißel, -Spachtel, -Baustab und -Kern der Mod (ModItems#netheriteTraits). Enderit-Rüstung widersteht Rückstoß mit 0,2 je Teil (Netherit: 0,1). Enderitbündel, -Köcher und -Rucksack überstehen als fallengelassene Gegenstände Explosionen, wie Netheritbündel, Netheritköcher und Netherit-Rucksack.",
-          "Jeder fallengelassene Enderit-Gegenstand bleibt doppelt so lange liegen wie in Vanilla: 12000 Ticks (10 Minuten) statt 6000 – Rohenderit, Geschichtetes Rohenderit, Platten und die Upgrade-Vorlage eingeschlossen (Besitzer-Entscheidung 2026-09-28; vorher nur ab dem Barren). Maßgeblich ist das Item-Tag simplebuilding:double_despawn_time (es enthält #simplebuilding:enderite_items). Auf Fabric hebt EnderiteItemMixin Vanillas Grenze in ItemEntity#tick und #isMergable an, auf NeoForge und Forge verlängert ein ItemExpireEvent-Handler die Lebensdauer (EnderiteLifetime). Das ältere Tag simplebuilding:enderite_ingot_tier (der Barren und alles daraus) wird für Modpacks weiter mitgeliefert, entscheidet aber nichts mehr."
+          "Jeder fallengelassene Enderit-Gegenstand bleibt doppelt so lange liegen wie in Vanilla: 12000 Ticks (10 Minuten) statt 6000 – Rohe Enderitfragmente, Rohe Enderitplatten, Enderitplatten und die Upgrade-Vorlage eingeschlossen (Besitzer-Entscheidung 2026-09-28; vorher nur ab dem Barren). Maßgeblich ist das Item-Tag simplebuilding:double_despawn_time (es enthält #simplebuilding:enderite_items). Auf Fabric hebt EnderiteItemMixin Vanillas Grenze in ItemEntity#tick und #isMergable an, auf NeoForge und Forge verlängert ein ItemExpireEvent-Handler die Lebensdauer (EnderiteLifetime). Das ältere Tag simplebuilding:enderite_ingot_tier (der Barren und alles daraus) wird für Modpacks weiter mitgeliefert, entscheidet aber nichts mehr."
         ]
       }
     },
@@ -2596,7 +2555,7 @@ window.WIKI_DATA = {
         "summary": "How much mod loot a chest brings: structures with many chests (mineshaft, woodland mansion, ancient city, ordinary bastion chests, dungeon) give about half a mod stack per chest, single chests such as the bastion treasure room, a stronghold library or an end city chest give more. Everything here only applies while enableLootTableChanges is on.",
         "details": [
           "Every mod pool is rolled once per chest on top of the vanilla loot. Most pools roll 0 to 2 times and carry a large empty weight, so a chest sometimes holds nothing from the mod - that is intended.",
-          "End city treasure: 15% Enderite Scrap, 30% Enderite Upgrade, one roll of End materials (Raw Enderite 1-2 weight 4, Enderite Nuggets 2-5 weight 6, Astralit Dust 2-6 weight 6, Nihilit Shards 1-4 weight 6, empty 14) and 0 to 3 rolls of books and gear (Range III 4, Master Builder 3, Override II 5, Air Jump II 5, Versatility I 6 / II 3, randomly enchanted Diamond Building Wand 6 and Diamond Sledgehammer 8, Enderite Apple 3, Enchanted Enderite Apple 1, empty 40).",
+          "End city treasure: 15% Enderite Scrap, 30% Enderite Upgrade, one roll of End materials (Raw Enderite Fragment 1-2 weight 4, Enderite Nuggets 2-5 weight 6, Astralit Dust 2-6 weight 6, Nihilit Shards 1-4 weight 6, empty 14) and 0 to 3 rolls of books and gear (Range III 4, Master Builder 3, Override II 5, Air Jump II 5, Versatility I 6 / II 3, randomly enchanted Diamond Building Wand 6 and Diamond Sledgehammer 8, Enderite Apple 3, Enchanted Enderite Apple 1, empty 40).",
           "Bastion: every bastion chest rolls 0 to 2 times from Funnel I 5, Break Through I 5, Gold Sledgehammer 6, Netherite Nuggets 1-4 weight 12, Netherite Carrots 1-2 weight 6, empty 25. Only the treasure room additionally rolls once from Netherite Apple 4, Enchanted Netherite Apple 2, Break Through II book 3, empty 7. The cores come from their own pools (see below).",
           "Diamond Pebbles (nine make a Cracked Diamond, which smelts into a diamond) are the common filler: ancient city 2-5, buried treasure 2-6, dungeon 1-3, shipwreck treasure 1-4, abandoned mineshaft 1-3, common/rare trial chamber vault 2-4 and fishing treasure 1-3.",
           "Ruined portals roll 0 to 1 time from Netherite Nuggets 1-2 weight 3, Gold Chisel 3, Netherite Carrot 2, empty 12.",
@@ -2611,7 +2570,7 @@ window.WIKI_DATA = {
         "summary": "Wie viel Mod-Beute eine Truhe bringt: Strukturen mit vielen Truhen (verlassene Mine, Waldanwesen, Antike Stadt, gewöhnliche Bastion-Truhen, Verlies) geben etwa einen halben Mod-Stapel pro Truhe, Einzeltruhen wie der Bastion-Schatzraum, eine Festungsbibliothek oder eine Endsiedlungs-Truhe mehr. Alles hier gilt nur bei aktiver Option enableLootTableChanges.",
         "details": [
           "Jeder Mod-Pool wird pro Truhe einmal zusätzlich zur Vanilla-Beute gewürfelt. Die meisten Pools würfeln 0 bis 2 Mal und haben ein großes Leer-Gewicht, sodass eine Truhe manchmal nichts von der Mod enthält – das ist gewollt.",
-          "Endsiedlungs-Schatz: 15 % Enderitplatten, 30 % Enderit-Aufwertung, ein Wurf End-Rohstoffe (Rohenderit 1–2 Gewicht 4, Enderitklumpen 2–5 Gewicht 6, Astralitstaub 2–6 Gewicht 6, Nihilitsplitter 1–4 Gewicht 6, leer 14) und 0 bis 3 Würfe Bücher und Ausrüstung (Reichweite III 4, Baumeister 3, Übersteuerung II 5, Luftsprung II 5, Vielseitigkeit I 6 / II 3, zufällig verzauberter Diamant-Baustab 6 und Diamant-Vorschlaghammer 8, Enderitapfel 3, verzauberter Enderitapfel 1, leer 40).",
+          "Endsiedlungs-Schatz: 15 % Enderitplatten, 30 % Enderit-Aufwertung, ein Wurf End-Rohstoffe (Rohes Enderitfragment 1–2 Gewicht 4, Enderitklumpen 2–5 Gewicht 6, Astralitstaub 2–6 Gewicht 6, Nihilitsplitter 1–4 Gewicht 6, leer 14) und 0 bis 3 Würfe Bücher und Ausrüstung (Reichweite III 4, Baumeister 3, Übersteuerung II 5, Luftsprung II 5, Vielseitigkeit I 6 / II 3, zufällig verzauberter Diamant-Baustab 6 und Diamant-Vorschlaghammer 8, Enderitapfel 3, verzauberter Enderitapfel 1, leer 40).",
           "Bastion: Jede Bastion-Truhe würfelt 0 bis 2 Mal aus Trichter I 5, Durchbruch I 5, Gold-Vorschlaghammer 6, Netheritklumpen 1–4 Gewicht 12, Netheritkarotten 1–2 Gewicht 6, leer 25. Nur der Schatzraum würfelt zusätzlich einmal aus Netheritapfel 4, verzaubertem Netheritapfel 2, Buch Durchbruch II 3, leer 7. Die Kerne kommen aus eigenen Pools (siehe unten).",
           "Diamantkiesel (neun ergeben einen rissigen Diamanten, der zu einem Diamanten geschmolzen wird) sind der häufige Füller: Antike Stadt 2–5, vergrabener Schatz 2–6, Verlies 1–3, Schiffswrack-Schatz 1–4, verlassene Mine 1–3, normaler/seltener Prüfungskammer-Tresor 2–4 und Angel-Schatz 1–3.",
           "Portalruinen würfeln 0 bis 1 Mal aus Netheritklumpen 1–2 Gewicht 3, Goldmeißel 3, Netheritkarotte 2, leer 12.",
@@ -3187,7 +3146,8 @@ window.WIKI_DATA = {
           "The Nether and the End can be locked (tweaks.dimensions); exact spawn without random offset and a custom world spawn are off by default so existing worlds do not change.",
           "Commands (operators): /killboats and /killcarts [standard|empty|all] remove unoccupied boats/minecarts within 100 blocks; /simplebuilding tweaks ... changes the config in game (what was /simpletweaks ...); a custom world spawn takes effect at once, not only after a restart. The radius of /killboats and /killcarts is tweaks.commands.killCommandRadius (default 100); every config option can also be changed with /simplebuilding config set.",
           "Every pad family can be switched off in the config section tweaks.pads.",
-          "Redstone and comparators: a redstone signal switches a pad off (Launchpad: no countdown and no launch, charging still works; Potion Pad: no effects, a running cooldown goes on; Flypad: no flight, flight it gave is taken back; Elytra Pad and Spawn Teleporter: nothing). A comparator reads the Launchpad's fill level (empty 0, full 15), the Potion Pad's state (0 without a potion, 15 ready, 1 to 14 rising during the cooldown), the number of players a Flypad or Elytra Pad serves and the Spawn Teleporter's warm-up progress. Hoppers and droppers can fill a Launchpad with wind charges and nothing else (a full pad takes none, nothing can be pulled out); potions reach a Potion Pad only as a thrown splash or lingering potion hitting it - a dispenser facing it can throw one - and it passes on exactly that potion's effects; hoppers cannot put potions in.",
+          "Redstone and comparators: a redstone signal switches a pad off (Launchpad: no countdown and no launch, charging still works; Potion Pad: no effects, a running cooldown goes on; Flypad: no flight, flight it gave is taken back; Elytra Pad: nothing); a switched-off pad only puffs a little smoke now and then. The Spawn Teleporter is the exception: it takes you to your own respawn point (bed or respawn anchor, falling back to the spawn target or world spawn), and with a redstone signal it takes you to the spawn target / world spawn instead - purple sparks and respawn anchor sounds for your own spawn, white sparks, a bell and a beacon for the world spawn. Its warm-up sound builds up over the whole 50 s / 20 s / 5 s: sparse pulses that get denser, a drone, a cue at every quarter and a nether portal whoosh for the last seconds. A comparator reads the Launchpad's fill level (empty 0, full 15), the Potion Pad's state (0 without a potion, 15 ready, 1 to 14 rising during the cooldown), the number of players a Flypad or Elytra Pad serves and the Spawn Teleporter's warm-up progress. Hoppers and droppers can fill a Launchpad with wind charges and nothing else (a full pad takes none, nothing can be pulled out); potions reach a Potion Pad only as a thrown splash or lingering potion hitting it - a dispenser facing it can throw one - and it passes on exactly that potion's effects; hoppers cannot put potions in.",
+          "Visible states instead of text: every pad shows on its texture whether it is working - the Launchpad's spiral fills up with its charges, a Chunk Loader glows while it holds chunks, a Flypad while someone flies, an Elytra Pad's spiral shines wind-white while it serves a player, a Spawn Teleporter's spiral glows portal-purple while someone charges it, a Potion Pad's veins glow hot while it holds a potion and is ready (its cooldown has its own animated texture), and pressed Diamond, Netherite, Enderite and Copper Pressure Plates glow from the middle. Idle particles tell the rest: a charged Launchpad lets out small gusts, an Elytra Pad a thin updraft (denser with fireworks sparks while it serves someone), a Spawn Teleporter drifting sparks, a cooling Potion Pad a little steam.",
           "Not everything is in the recipe book - some things are hidden."
         ]
       },
@@ -3202,7 +3162,8 @@ window.WIKI_DATA = {
           "Nether und End lassen sich sperren (tweaks.dimensions); exakter Spawn ohne Zufallsversatz und ein eigener Weltspawn sind standardmäßig aus, damit bestehende Welten unverändert bleiben.",
           "Befehle (Operatoren): /killboats und /killcarts [standard|empty|all] entfernen unbesetzte Boote/Loren im Umkreis von 100 Blöcken; /simplebuilding tweaks ... ändert die Config im Spiel (früher /simpletweaks ...); ein eigener Weltspawn gilt sofort, nicht erst nach einem Neustart. Die Reichweite von /killboats und /killcarts ist tweaks.commands.killCommandRadius (Standard 100); jede Config-Option lässt sich auch mit /simplebuilding config set ändern.",
           "Jede Pad-Familie lässt sich im Config-Abschnitt tweaks.pads abschalten.",
-          "Redstone und Komparatoren: Ein Redstone-Signal schaltet ein Pad ab (Launchpad: kein Countdown und kein Start, Laden geht weiter; Trank-Pad: keine Wirkungen, eine laufende Abklingzeit läuft weiter; Flypad: kein Flug, gegebener Flug wird zurückgenommen; Elytra-Pad und Spawn-Teleporter: nichts). Ein Komparator liest den Füllstand des Launchpads (leer 0, voll 15), den Zustand des Trank-Pads (0 ohne Trank, 15 bereit, 1 bis 14 steigend während der Abklingzeit), die Zahl der Spieler, die ein Flypad oder Elytra-Pad versorgt, und den Fortschritt der Wartezeit des Spawn-Teleporters. Trichter und Spender können ein Launchpad mit Windkugeln füllen und mit nichts anderem (ein volles Pad nimmt keine mehr, herausziehen lässt sich nichts); Tränke kommen nur als Wurf- oder Verweiltrank auf ein Trank-Pad, der darauf zerschellt - ein Werfer, der darauf zeigt, kann ihn werfen -, und es gibt genau die Wirkungen dieses Tranks weiter; Trichter können keine Tränke einlegen.",
+          "Redstone und Komparatoren: Ein Redstone-Signal schaltet ein Pad ab (Launchpad: kein Countdown und kein Start, Laden geht weiter; Trank-Pad: keine Wirkungen, eine laufende Abklingzeit läuft weiter; Flypad: kein Flug, gegebener Flug wird zurückgenommen; Elytra-Pad: nichts); ein abgeschaltetes Pad raucht nur ab und zu ein wenig. Der Spawn-Teleporter ist die Ausnahme: Er bringt dich zu deinem eigenen Wiedereinstiegspunkt (Bett oder Seelenanker, sonst zum Spawn-Ziel bzw. Weltspawn), mit Redstone-Signal stattdessen zum Spawn-Ziel bzw. Weltspawn - violette Funken und Seelenanker-Klänge für den eigenen Spawn, weiße Funken, Glocke und Leuchtfeuer für den Weltspawn. Sein Warteklang baut sich über die ganzen 50 s / 20 s / 5 s auf: anfangs seltene, dann immer dichtere Pulse, ein Grundton, ein Signal bei jedem Viertel und für die letzten Sekunden das Rauschen eines Netherportals. Ein Komparator liest den Füllstand des Launchpads (leer 0, voll 15), den Zustand des Trank-Pads (0 ohne Trank, 15 bereit, 1 bis 14 steigend während der Abklingzeit), die Zahl der Spieler, die ein Flypad oder Elytra-Pad versorgt, und den Fortschritt der Wartezeit des Spawn-Teleporters. Trichter und Spender können ein Launchpad mit Windkugeln füllen und mit nichts anderem (ein volles Pad nimmt keine mehr, herausziehen lässt sich nichts); Tränke kommen nur als Wurf- oder Verweiltrank auf ein Trank-Pad, der darauf zerschellt - ein Werfer, der darauf zeigt, kann ihn werfen -, und es gibt genau die Wirkungen dieses Tranks weiter; Trichter können keine Tränke einlegen.",
+          "Sichtbare Zustände statt Text: Jedes Pad zeigt an seiner Textur, ob es gerade arbeitet - die Spirale des Launchpads füllt sich mit den Ladungen, ein Chunk-Lader leuchtet, solange er Chunks hält, ein Flypad, solange jemand fliegt, die Spirale eines Elytra-Pads leuchtet windweiß, solange es jemanden versorgt, die eines Spawn-Teleporters portalviolett, solange jemand auflädt, die Adern eines Trank-Pads glühen, solange es einen Trank hält und bereit ist (die Abklingzeit hat ihre eigene animierte Textur), und gedrückte Diamant-, Netherit-, Enderit- und Kupfer-Druckplatten glimmen von der Mitte her. Den Rest erzählen Partikel: ein geladenes Launchpad lässt kleine Windstöße aufsteigen, ein Elytra-Pad einen dünnen Aufwind (dichter und mit Feuerwerksfunken, solange es jemanden versorgt), ein Spawn-Teleporter treibende Funken, ein abkühlendes Trank-Pad etwas Dampf.",
           "Nicht alles steht im Rezeptbuch - manches ist versteckt."
         ]
       }
@@ -3395,12 +3356,12 @@ window.WIKI_DATA = {
           "Command (operators): /simplebuilding config list [filter] lists every option with its value (gold = changed), get <option> shows value, default and type, set <option> <value> and reset <option> change it, save the file and send the new server values to every client. The option names are the dotted paths below; the list is built from the config fields themselves (ConfigOptions), so every option is reachable. setTrimMultiplier/getTrimMultiplier remain. /simplebuilding tweaks ... keeps its shorter pad and spawn commands.",
           "Server to client: the server sends what clients must agree on at login and after every config command - rocket stack size, boosts, lens on/off and range, the air jump cooldown (TweaksConfigPayload), the two piston breach options (PistonConfigPayload) and the trim multiplier (TrimDataPayload). Options marked client-side only affect the player whose config they are in.",
           "Server & Modpack Tuning (tab server.*, 2026-09-28): every gameplay knob a server or modpack maker wants, in one advanced tab and server-authoritative - the server sends the whole tab to every client at login and after every config command (inside the TweaksConfigPayload), and clients compute tooltips, JEI pages, pad break progress and the hammer animation with the server's values; a client's own file has no say. Defaults are the previous behavior; every speed and range is clamped to a bound that keeps vanilla intact.",
-          "Feature switches (server.features): Air Jump (server-wide, on top of the client's own switch), Dynamic Light (off removes the placed light blocks), Backpack, Attractor, Echo Sounder, Blueprint, Ore Detector and Levitating/Suspended blocks. Off switches the feature off at once and removes its recipes with the next /reload; the pad switches (tweaks.pads.*) and the lens switch now remove their recipes too. Recipes are filtered when the recipe table is built, the same on Fabric, NeoForge and Forge.",
+          "Feature switches (server.features): Air Jump (server-wide, on top of the client's own switch), Dynamic Light (off removes the placed light blocks), Backpack, Attractor, Echo Sounder, Blueprint, Detector and Levitating/Suspended blocks. Off switches the feature off at once and removes its recipes with the next /reload; the pad switches (tweaks.pads.*) and the lens switch now remove their recipes too. Recipes are filtered when the recipe table is built, the same on Fabric, NeoForge and Forge.",
           "Chunk loaders (server.chunkLoaders.requireOwnerOnline, default on): a chunk loader only keeps its chunks while its owner is online and wakes up when they return; the check also runs when it is placed. /simplebuilding chunkloaders list shows every loader (position, dimension, owner, online, area, loading or idle), /simplebuilding chunkloaders remove <dimension> <pos> removes one. No per-player limit.",
           "Dimension locks (server.dimensionLocks): lists of dimension ids where chunk loaders load nothing, flypads grant no flight and the Echo Sounder does not jump (in or out).",
           "Amethyst lens (server.laser): separate switches for igniting flammable blocks, TNT and creatures. End ores (server.oreGeneration): main switch plus Astralit and Nihilit, applied through a config condition on the NeoForge/Forge biome modifiers and the Fabric biome selection (next world start, new chunks only).",
-          "Numbers: how long strangers need to break pads and plates (synced for the break progress), the maximum charge of the Amethyst Lens, Rotator and Echo Sounder (item durability: restart required, clients need the same file), sledgehammer upgrade length and damage per blow, chisel cooldown per tier, hopper and furnace speed per tier (1 to 8 times vanilla), ore detector range (0.25 to 1.5) and scan interval, a global multiplier for all mod loot (0 to 3), per-structure loot switches, a trade price multiplier (0.25 to 4), the blueprint build speed (blocks per tick) and the strength of every trim effect (0 to 2).",
-          "JEI info pages of chunk loaders, pads, the Amethyst Lens and the Echo Sounder add a line with this server's values; the Ore Detector and trim tooltips show the server's numbers.",
+          "Numbers: how long strangers need to break pads and plates (synced for the break progress), the maximum charge of the Amethyst Lens, Rotator and Echo Sounder (item durability: restart required, clients need the same file), sledgehammer upgrade length and damage per blow, chisel cooldown per tier, hopper and furnace speed per tier (1 to 8 times vanilla), detector range (0.25 to 1.5) and scan interval, a global multiplier for all mod loot (0 to 3), per-structure loot switches, a trade price multiplier (0.25 to 4), the blueprint build speed (blocks per tick) and the strength of every trim effect (0 to 2).",
+          "JEI info pages of chunk loaders, pads, the Amethyst Lens and the Echo Sounder add a line with this server's values; the Detector and trim tooltips show the server's numbers.",
           "Tools & Building → Building Wand Hunger Cost (Experimental) (tools.buildingWandHungerCost, default on): Experimental. Building a lot at once makes you hungry: per click or blueprint build the first blocks are free (1/16 of the wand's largest cube, at least 256 - normal faces never cost anything); every block past that adds food exhaustion, less for stronger wands (a Copper Wand filling 16x16x16 takes about a quarter of the hunger bar, an Enderite Wand building 128x128x128 the whole bar). Creative mode is exempt. It never deals damage itself. Server-side.",
           "Tools & Building → Building Wand Hunger Multiplier (tools.wandHungerMultiplier, default 1.0): Multiplies the food exhaustion of every block past the free allowance (see Building Wand Hunger Cost). 0.5 = half as hungry, 2 = twice as hungry, 0 = building is free. The free allowance itself stays. Server-side. Default: 1.0.",
           "Tools & Building → Attractor Range Multiplier (tools.magnetRangeMultiplier, default 1.0): Multiplies how far the Attractor pulls items (4 blocks, 8 with Constructor's Touch, +2 per Radius level). 2 = twice as far, 0 = the Attractor pulls nothing. Server-side. Default: 1.0.",
@@ -3493,12 +3454,12 @@ window.WIKI_DATA = {
           "Befehl (Operatoren): /simplebuilding config list [Filter] listet jede Option mit ihrem Wert (gold = geändert), get <Option> zeigt Wert, Standard und Typ, set <Option> <Wert> und reset <Option> ändern sie, speichern die Datei und schicken die neuen Server-Werte an alle Clients. Die Optionsnamen sind die Punkt-Pfade unten; die Liste entsteht aus den Config-Feldern selbst (ConfigOptions), jede Option ist also erreichbar. setTrimMultiplier/getTrimMultiplier bleiben. /simplebuilding tweaks ... behält seine kürzeren Pad- und Spawn-Befehle.",
           "Server an Client: Was Clients mit dem Server gleich sehen müssen, schickt der Server beim Einloggen und nach jedem Config-Befehl - Raketen-Stapelgröße, Boosts, Linse an/aus und Reichweite, die Luftsprung-Abklingzeit (TweaksConfigPayload), die beiden Kolben-Durchbruch-Optionen (PistonConfigPayload) und den Besatz-Multiplikator (TrimDataPayload). Als clientseitig markierte Optionen wirken nur für den Spieler, in dessen Config sie stehen.",
           "Server & Modpack-Tuning (Reiter server.*, 2026-09-28): jede Gameplay-Stellschraube für Server- und Modpack-Ersteller in einem fortgeschrittenen Reiter und serverseitig verbindlich - der Server schickt den ganzen Reiter beim Einloggen und nach jedem Config-Befehl an alle Clients (im TweaksConfigPayload), und die Clients rechnen Tooltips, JEI-Seiten, den Abbaufortschritt an Pads und die Hammer-Animation mit den Werten des Servers; die eigene Datei eines Clients hat nichts zu sagen. Standard = bisheriges Verhalten; jede Geschwindigkeit und Reichweite ist so begrenzt, dass Vanilla intakt bleibt.",
-          "Funktionsschalter (server.features): Luftsprung (serverweit, zusätzlich zum eigenen Schalter des Clients), dynamisches Licht (aus räumt die gesetzten Lichtblöcke weg), Rucksack, Attractor, Echolot, Blaupause, Erzdetektor und schwebende/hängende Blöcke. Aus schaltet die Funktion sofort ab und nimmt ihre Rezepte beim nächsten /reload weg; die Pad-Schalter (tweaks.pads.*) und der Linsen-Schalter nehmen ihre Rezepte jetzt auch weg. Gefiltert wird beim Aufbau der Rezepttabelle, auf Fabric, NeoForge und Forge gleich.",
+          "Funktionsschalter (server.features): Luftsprung (serverweit, zusätzlich zum eigenen Schalter des Clients), dynamisches Licht (aus räumt die gesetzten Lichtblöcke weg), Rucksack, Attractor, Echolot, Blaupause, Detektor und schwebende/hängende Blöcke. Aus schaltet die Funktion sofort ab und nimmt ihre Rezepte beim nächsten /reload weg; die Pad-Schalter (tweaks.pads.*) und der Linsen-Schalter nehmen ihre Rezepte jetzt auch weg. Gefiltert wird beim Aufbau der Rezepttabelle, auf Fabric, NeoForge und Forge gleich.",
           "Chunk-Loader (server.chunkLoaders.requireOwnerOnline, Standard an): ein Chunk-Loader hält seine Chunks nur, solange sein Besitzer online ist, und läuft wieder, wenn er zurückkommt; geprüft wird auch gleich beim Setzen. /simplebuilding chunkloaders list zeigt alle Loader (Position, Dimension, Besitzer, online, Bereich, lädt oder ruht), /simplebuilding chunkloaders remove <Dimension> <Pos> entfernt einen. Keine Obergrenze pro Spieler.",
           "Dimensionssperren (server.dimensionLocks): Listen von Dimension-IDs, in denen Chunk-Loader nichts laden, Flypads keinen Flug geben und das Echolot nicht springt (weder hinein noch heraus).",
           "Amethystlinse (server.laser): eigene Schalter für das Entzünden brennbarer Blöcke, von TNT und von Lebewesen. End-Erze (server.oreGeneration): Hauptschalter plus Astralit und Nihilit, umgesetzt über eine Config-Bedingung an den NeoForge-/Forge-Biom-Modifikatoren und die Fabric-Biomauswahl (nächster Weltstart, nur neue Chunks).",
-          "Zahlen: wie lange Fremde zum Abbauen von Pads und Platten brauchen (für den Abbaufortschritt synchronisiert), die Höchstladung von Amethystlinse, Rotator und Echolot (Haltbarkeit: Neustart nötig, Clients brauchen dieselbe Datei), Länge und Schaden je Schlag der Hammer-Aufwertung, Meißel-Abklingzeit je Stufe, Trichter- und Ofentempo je Stufe (1- bis 8-fach Vanilla), Erzdetektor-Reichweite (0,25 bis 1,5) und Suchabstand, ein globaler Faktor auf alle Mod-Beute (0 bis 3), Beute-Schalter je Struktur, ein Handelspreis-Faktor (0,25 bis 4), das Bautempo der Blaupause (Blöcke je Tick) und die Stärke jeder Besatz-Wirkung (0 bis 2).",
-          "Die JEI-Infoseiten von Chunk-Loadern, Pads, Amethystlinse und Echolot bekommen eine Zeile mit den Werten dieses Servers; Erzdetektor- und Besatz-Tooltips zeigen die Zahlen des Servers.",
+          "Zahlen: wie lange Fremde zum Abbauen von Pads und Platten brauchen (für den Abbaufortschritt synchronisiert), die Höchstladung von Amethystlinse, Rotator und Echolot (Haltbarkeit: Neustart nötig, Clients brauchen dieselbe Datei), Länge und Schaden je Schlag der Hammer-Aufwertung, Meißel-Abklingzeit je Stufe, Trichter- und Ofentempo je Stufe (1- bis 8-fach Vanilla), Detektor-Reichweite (0,25 bis 1,5) und Suchabstand, ein globaler Faktor auf alle Mod-Beute (0 bis 3), Beute-Schalter je Struktur, ein Handelspreis-Faktor (0,25 bis 4), das Bautempo der Blaupause (Blöcke je Tick) und die Stärke jeder Besatz-Wirkung (0 bis 2).",
+          "Die JEI-Infoseiten von Chunk-Loadern, Pads, Amethystlinse und Echolot bekommen eine Zeile mit den Werten dieses Servers; Detektor- und Besatz-Tooltips zeigen die Zahlen des Servers.",
           "Werkzeuge & Bauen → Hungerkosten des Baustabs (experimentell) (tools.buildingWandHungerCost, Standard an): Experimentell. Viel auf einmal bauen macht hungrig: Pro Klick oder Blaupausen-Bau sind die ersten Blöcke frei (1/16 des größten Würfels des Stabs, mindestens 256 - normale Flächen kosten nie etwas); jeder weitere Block erzeugt Erschöpfung, bei stärkeren Stäben weniger (ein Kupfer-Baustab, der 16x16x16 füllt, kostet etwa ein Viertel der Hungerleiste, ein Enderit-Baustab mit 128x128x128 die ganze Leiste). Der Kreativmodus ist ausgenommen. Verursacht nie selbst Schaden. Serverseitig.",
           "Werkzeuge & Bauen → Hunger-Faktor des Baustabs (tools.wandHungerMultiplier, Standard 1,0): Multipliziert die Erschöpfung jedes Blocks über dem Freibetrag (siehe Hungerkosten des Baustabs). 0,5 = halb so hungrig, 2 = doppelt so hungrig, 0 = Bauen kostet nichts. Der Freibetrag bleibt. Serverseitig.",
           "Werkzeuge & Bauen → Reichweiten-Faktor des Attraktors (tools.magnetRangeMultiplier, Standard 1,0): Multipliziert, wie weit der Attraktor Gegenstände anzieht (4 Blöcke, 8 mit Berührung des Konstrukteurs, +2 je Radius-Stufe). 2 = doppelt so weit, 0 = der Attraktor zieht nichts an. Serverseitig.",
@@ -3580,6 +3541,62 @@ window.WIKI_DATA = {
           "Kompatibilität & Erweitert → Kreativ-Tab „SimpleEnchants (Dev)“ zeigen (showDevEnchantedTab, Standard aus): Zeigt den Kreativ-Tab „SimpleEnchants (Dev)“ auch außerhalb von Entwicklungsumgebungen: die beste Stufe jedes verzauberbaren Gegenstands, vorverzaubert auf Höchststufe. Wirkt beim Neuaufbau der Kreativ-Tabs (spätestens nach erneutem Betreten).",
           "Die Obergrenze der Besatz-Resonanz maxMultiplierLimit (10,0) steht fest im Code: Obergrenze von setTrimMultiplier und des geladenen Werts; sie ist keine Option.",
           "Auf NeoForge hält die Mod eine Standard-Konfiguration vor, falls das Laden fehlschlägt (Fallback new SimplebuildingConfig())."
+        ]
+      }
+    },
+    {
+      "id": "shulker_boxes",
+      "related": [
+        "minecraft:shulker_box",
+        "simplebuilding:reinforced_shulker_box",
+        "simplebuilding:netherite_shulker_box",
+        "simplebuilding:enderite_shulker_box",
+        "simplebuilding:cracked_diamond",
+        "simplebuilding:netherite_nugget",
+        "simplebuilding:enderite_nugget"
+      ],
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/blocks/custom/ChestTier.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/TieredShulkerBoxBlock.java",
+        "common/src/shared/java/com/simplebuilding/blocks/entity/custom/TieredShulkerBoxBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/items/custom/TieredShulkerBoxItem.java",
+        "common/src/shared/java/com/simplebuilding/component/ContainerCounts.java",
+        "common/src/shared/java/com/simplebuilding/screen/TieredChestMenu.java",
+        "common/src/shared/java/com/simplebuilding/screen/TieredChestSlot.java",
+        "common/src/shared/java/com/simplebuilding/client/render/TieredShulkerBoxRenderer.java",
+        "common/src/shared/java/com/simplebuilding/util/TieredShulkerBoxes.java",
+        "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
+        "common/src/shared/java/com/simplebuilding/mixin/ShulkerBoxBlockMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/HopperBlockEntityMixin.java",
+        "common/src/shared/java/com/simplebuilding/blocks/ModBlocks.java",
+        "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+        "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+        "src/main/resources/assets/minecraft/atlases/shulker_boxes.json",
+        "tools/textures/tiered_shulker_box_textures.py",
+        "common/src/shared/java/com/simplebuilding/gametest/TieredShulkerBoxTests.java"
+      ],
+      "en": {
+        "title": "Shulker box tiers",
+        "summary": "Shulker box -> Reinforced -> Netherite -> Enderite Shulker Box: the slots and stack sizes of the chest tiers (36/45/54 slots, x2 and x4 stacks from netherite on) in a box that keeps everything when broken. Upgraded in the world with the sledgehammer like the chests, but dearer: 10 blows and 2 pieces of material per step.",
+        "details": [
+          "Upgrading: hold right-click on the placed box for 10 seconds with a sledgehammer in the main hand and 2 pieces of the tier material in the off hand - Cracked Diamonds (any sledgehammer) for a vanilla shulker box of any color -> reinforced, Netherite Nuggets (Diamond Sledgehammer or better) for reinforced -> netherite, Enderite Nuggets (Netherite Sledgehammer or better) for netherite -> enderite. Contents, name, lock, facing and color stay; an interrupted upgrade keeps its blows.",
+          "The Reinforced Shulker Box can also be crafted from any vanilla shulker box and 4 Cracked Diamonds; netherite and enderite only come from the hammer.",
+          "Colors: one texture per tier, dyed by the game in all 16 colors (the shell takes the color, the metal plating stays). Dye with any dye in the crafting grid, undye in a water cauldron.",
+          "The item keeps every slot, also oversized stacks; it never goes into another shulker box, a bundle or a backpack. When the item burns, the real counts spill out.",
+          "Automation: hoppers fill oversized slots to their limit and never insert a shulker box; comparators count against the limit; dispensers place the boxes. On NeoForge pipes see the box through the item capability (sided, like vanilla's shulker box).",
+          "The menu is the tier chest menu (9x4, 9x5, 9x6) with tinted oversized slots and the stack factor in the title row."
+        ]
+      },
+      "de": {
+        "title": "Shulkerkisten-Stufen",
+        "summary": "Shulkerkiste -> Verstärkte -> Netherit- -> Enderit-Shulkerkiste: Plätze und Stapelgrößen der Truhen-Stufen (36/45/54 Plätze, ab Netherit x2 und x4) in einer Kiste, die beim Abbauen alles behält. Aufgewertet in der Welt mit dem Vorschlaghammer wie die Truhen, aber teurer: 10 Schläge und 2 Stück Material je Stufe.",
+        "details": [
+          "Aufwerten: 10 Sekunden Rechtsklick auf die gesetzte Kiste halten, Vorschlaghammer in der Haupthand und 2 Stück des Stufenmaterials in der Nebenhand - Rissige Diamanten (jeder Vorschlaghammer) für eine Vanilla-Shulkerkiste jeder Farbe -> Verstärkt, Netheritklumpen (Diamant-Vorschlaghammer oder besser) für Verstärkt -> Netherit, Enderitklumpen (Netherit-Vorschlaghammer oder besser) für Netherit -> Enderit. Inhalt, Name, Schloss, Blickrichtung und Farbe bleiben; eine abgebrochene Aufwertung behält ihre Schläge.",
+          "Die Verstärkte Shulkerkiste lässt sich auch aus einer beliebigen Vanilla-Shulkerkiste und 4 Rissigen Diamanten herstellen; Netherit und Enderit gibt es nur mit dem Hammer.",
+          "Farben: eine Textur je Stufe, vom Spiel in allen 16 Farben eingefärbt (die Schale nimmt die Farbe an, der Metallbeschlag bleibt). Färben mit einem beliebigen Farbstoff in der Werkbank, entfärben im Wasserkessel.",
+          "Das Item behält jeden Platz, auch übergroße Stapel; es passt nie in eine andere Shulkerkiste, ein Bündel oder einen Rucksack. Verbrennt das Item, fallen die echten Anzahlen heraus.",
+          "Automatisierung: Trichter füllen übergroße Plätze bis zur Grenze und legen nie eine Shulkerkiste hinein; Komparatoren messen gegen die Grenze; Werfer stellen die Kisten auf. Auf NeoForge sehen Rohre die Kiste über die Item-Capability (seitenweise wie Vanillas Shulkerkiste).",
+          "Das Menü ist das der Truhen-Stufen (9x4, 9x5, 9x6), übergroße Plätze getönt, der Stapelfaktor in der Titelzeile."
         ]
       }
     }
@@ -4194,7 +4211,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "The Blueprint holds a structure as readable build code: write it in the editor, fill it by scanning an Octant selection at a cartography table, and build it with a building wand held in the other hand.",
           "details": [
-            "Crafting (shapeless): 1 Ender Quartz + 1 Paper + 1 Ink Sac -> 1 empty Blueprint, unlocked by Ender Quartz. Stacks to 16 while empty; editing one from a stack splits it off.",
+            "Crafting (shapeless): 1 Ender Quartz + 1 Paper + 1 Glow Ink Sac -> 1 empty Blueprint, unlocked by Ender Quartz. Stacks to 16 while empty; editing one from a stack splits it off.",
             "The item shows its state: a freshly crafted (empty) blueprint has the normal sheet, an edited but unsigned one a pencil lying on the sheet, a signed one a red wax seal. The item model asks minecraft:has_component for simplebuilding:blueprint first and then the property simplebuilding:blueprint_state; a blueprint whose code and title were cleared again counts as empty.",
             "Right-click opens the editor (not while a building wand is in the main hand and the blueprint in the off hand - that is build mode).",
             "Build code example: $roof = oak_stairs[facing=north] / cobblestone 0..4,0,0..4 / oak_planks 0..4,1..3,0..4 / air 1..3,1..3,1..3 / $roof 0..4,4,0 / oak_fence 0,5,0*3@2,0,0. Full grammar in docs/BLUEPRINT.md.",
@@ -4203,14 +4220,14 @@ window.WIKI_DATA = {
             "Material cost: one item per block; a double slab costs two slabs, a block that holds several items costs all of them (candles 1-4, sea pickles 1-4, turtle eggs 1-4, snow layers 1-8, pink petals and wildflowers 1-4, leaf litter 1-4 - read from the block state), glow lichen, sculk vein, resin clump and vines one per covered face; the upper half of a door or tall plant and the head of a bed cost nothing; blocks without an item (water, fire, piston head) are creative-only. Building takes exactly what the list says.",
             "Building wand size per tier (longest edge): copper 16, iron 32, gold 48, diamond 64, netherite 128, enderite 256. Building takes 1 to 9 seconds depending on size, scanning at 262 144 positions per tick; both report progress on the action bar.",
             "Only signed blueprints build; the example button, help panel, insert bar and the cartography-table copy are described in the Blueprint feature page.",
-            "Creative inventory: first entry of the Building Planning row in \"SimpleMachines\", next to the vanilla Cartography Table, an Octant and every building wand - everything a scan or a build needs at hand.",
+            "Creative inventory: in the tab \"SimpleTools\", in the building wand row after an empty cell right next to the Enderite Building Wand that builds it, followed by the vanilla Cartography Table - everything a scan or a build needs at hand.",
             "Undo: sneak + right-click into the air with the wand takes back the last blueprint build, as far as it got (same session only, unchanged blocks only, the cost items back into the inventory)."
           ]
         },
         "de": {
           "summary": "Die Blaupause trägt ein Bauwerk als lesbaren Bau-Code: im Editor schreiben, am Kartentisch per Oktant-Auswahl füllen und mit einem Baustab in der anderen Hand bauen.",
           "details": [
-            "Rezept (formlos): 1 Enderquarz + 1 Papier + 1 Tintenbeutel -> 1 leere Blaupause, freigeschaltet durch Enderquarz. Leer bis 16 stapelbar; wird eine aus einem Stapel bearbeitet, wird sie abgespalten.",
+            "Rezept (formlos): 1 Enderquarz + 1 Papier + 1 Leuchttintenbeutel -> 1 leere Blaupause, freigeschaltet durch Enderquarz. Leer bis 16 stapelbar; wird eine aus einem Stapel bearbeitet, wird sie abgespalten.",
             "Das Item zeigt seinen Zustand: Eine frisch hergestellte (leere) Blaupause hat das normale Blatt, eine bearbeitete, nicht signierte einen Bleistift auf dem Blatt, eine signierte ein rotes Wachssiegel. Das Item-Modell fragt zuerst minecraft:has_component nach simplebuilding:blueprint und dann die Eigenschaft simplebuilding:blueprint_state; eine Blaupause, deren Code und Titel wieder geleert wurden, gilt als leer.",
             "Rechtsklick öffnet den Editor (nicht, wenn ein Baustab in der Haupthand und die Blaupause in der Nebenhand liegt - das ist der Baumodus).",
             "Beispiel-Code: $dach = oak_stairs[facing=north] / cobblestone 0..4,0,0..4 / oak_planks 0..4,1..3,0..4 / air 1..3,1..3,1..3 / $dach 0..4,4,0 / oak_fence 0,5,0*3@2,0,0. Die vollständige Grammatik steht in docs/BLUEPRINT.md.",
@@ -4219,7 +4236,7 @@ window.WIKI_DATA = {
             "Materialkosten: ein Item pro Block; eine doppelte Stufe kostet zwei Stufen, ein Block, der mehrere Items hält, kostet sie alle (Kerzen 1-4, Seegurken 1-4, Schildkröteneier 1-4, Schneeschichten 1-8, Rosa Blüten und Wildblumen 1-4, Laubstreu 1-4 - aus dem Blockzustand gelesen), Leuchtflechte, Sculkader, Harzklumpen und Ranken eines je belegter Fläche; die obere Hälfte einer Tür oder hohen Pflanze und das Kopfteil eines Bettes kosten nichts; Blöcke ohne Item (Wasser, Feuer, Kolbenkopf) gibt es nur im Kreativmodus. Beim Bauen wird genau das verbraucht, was die Liste sagt.",
             "Baustab-Größe je Stufe (längste Kante): Kupfer 16, Eisen 32, Gold 48, Diamant 64, Netherit 128, Enderit 256. Gebaut wird je nach Größe in 1 bis 9 Sekunden, gescannt mit 262 144 Stellen je Tick; beides meldet den Fortschritt in der Aktionsleiste.",
             "Gebaut werden nur signierte Blaupausen; Beispiel-Knopf, Hilfe, Einfüge-Leiste und die Kopie am Kartentisch beschreibt die Feature-Seite Blaupause.",
-            "Kreativinventar: erster Eintrag der Reihe Bauplanung in „SimpleMachines“, neben dem Vanilla-Kartografentisch, einem Oktanten und allen Baustäben - alles, was Scan und Bau brauchen, griffbereit.",
+            "Kreativinventar: im Tab „SimpleTools“ in der Baustab-Reihe nach einem leeren Feld direkt neben dem Enderit-Baustab, der sie baut, gefolgt vom Vanilla-Kartografentisch - alles, was Scan und Bau brauchen, griffbereit.",
             "Rückgängig: Schleichen + Rechtsklick in die Luft mit dem Stab nimmt den letzten Blaupausen-Bau zurück, so weit er gekommen ist (nur in derselben Sitzung, nur unveränderte Blöcke, die Kosten-Items zurück ins Inventar)."
           ]
         }
@@ -4454,7 +4471,7 @@ window.WIKI_DATA = {
             "Trade (load condition on option enableVillagerTrades): a level 4 mason sells the Copper Building Wand for 62 emeralds, 1 use, 20 experience, reputation discount 0.2.",
             "Trade: a level 3 librarian sells for 25 emeralds a book holding Color Palette (weight 30), Fast Chiseling (30) or Linear (25) (3 uses); level 4 for 25 emeralds Linear (weight 25) or Override (20) (2 uses); level 5 for 25 emeralds, among others, Master Builder (weight 10, 1 use).",
             "Trade (load condition on option enableWanderingTrades): the wandering trader sells in the 'uncommon' pool a book for 40 emeralds, 1 use; its pool holds only Radius (weight 20), so no wand enchantment comes from it.",
-            "All six wands are in the creative tab \"SimpleTools\" and once more in the Building Planning row of \"SimpleMachines\", together with enchanted books for Master Builder, Color Palette, Cover, Bridge, Linear and Constructor's Touch at maximum level.",
+            "All six wands are in the creative tab \"SimpleTools\" (the Blueprint and the Cartography Table right next to the Enderite wand), together with enchanted books for Master Builder, Color Palette, Cover, Bridge, Linear and Constructor's Touch at maximum level.",
             "The enderite wand is in the void_protected tag: dropped below the dimension's build height it hovers in place, and below minY-10 it is reset to minY+5.",
             "Cover enchantment: the area only grows in front of blocks of the same kind as the clicked block, and only as far as those positions hang together with the centre edge to edge - thicken a wall by one layer or extend a floor without square overhangs. The axis setting does not apply in this mode.",
             "Bridge enchantment: right-click into the air (not sneaking) to build a bridge from the block under your feet straight ahead in your facing direction, at the height of that block - as long as a Linear line (twice the area diameter) and ending in front of the first occupied block. It grows from the edge towards the far end, block by block every tick, in half the time the old chunked bridge took (radius 2 over six blocks: 6 ticks instead of 11). If the floor you stand on runs on ahead, the bridge starts at its edge (searched up to that same length), so you do not have to stand right at the drop. Standing on nothing, or on a floor without a gap in reach, nothing is built and the action bar says why. While you look into the air, the ghost preview shows the bridge.",
@@ -4536,7 +4553,7 @@ window.WIKI_DATA = {
             "Handel (Ladebedingung an Option enableVillagerTrades): Steinmetz Stufe 4 verkauft den Kupfer-Baustab für 62 Smaragde, 1 Verwendung, 20 Erfahrung, Rabatt 0,2.",
             "Handel: Bibliothekar Stufe 3 verkauft für 25 Smaragde ein Buch, das Farbpalette (Gewicht 30), Schnelles Meißeln (30) oder Linear (25) enthält (3 Verwendungen); Stufe 4 für 25 Smaragde Linear (Gewicht 25) oder Übersteuerung (20) (2 Verwendungen); Stufe 5 für 25 Smaragde unter anderem Baumeister (Gewicht 10, 1 Verwendung).",
             "Handel (Ladebedingung an Option enableWanderingTrades): der Fahrende Händler verkauft im Pool 'uncommon' für 40 Smaragde ein Buch, 1 Verwendung; dessen Pool enthält nur Radius (Gewicht 20), also keine Baustab-Verzauberung.",
-            "Alle sechs Stäbe stehen im Kreativ-Tab „SimpleTools“ und noch einmal in der Reihe Bauplanung von „SimpleMachines“, zusammen mit verzauberten Büchern für Baumeister, Farbpalette, Abdeckung, Brücke, Linear und Berührung des Konstrukteurs in Maximalstufe.",
+            "Alle sechs Stäbe stehen im Kreativ-Tab „SimpleTools“ (Blaupause und Kartografentisch direkt neben dem Enderit-Baustab), zusammen mit verzauberten Büchern für Baumeister, Farbpalette, Abdeckung, Brücke, Linear und Berührung des Konstrukteurs in Maximalstufe.",
             "Der Enderit-Stab steht im Tag void_protected: fällt er unter die Bauhöhe der Dimension, bleibt er schweben, und unterhalb von minY-10 wird er auf minY+5 zurückgesetzt.",
             "Verzauberung Abdeckung: Die Fläche wächst nur vor Blöcken derselben Sorte wie der angeklickte Block, und nur so weit, wie diese Stellen Kante an Kante mit der Mitte zusammenhängen - eine Mauer um eine Schicht verdicken oder einen Boden erweitern, ohne quadratische Überstände. Die Achsen-Einstellung gilt in diesem Modus nicht.",
             "Verzauberung Brücke: In die Luft rechtsklicken (ohne Schleichen), und vom Block unter deinen Füßen aus entsteht geradeaus in Blickrichtung eine Brücke auf der Höhe dieses Blocks - so lang wie eine Linear-Linie (doppelter Flächen-Durchmesser), sie endet vor dem ersten belegten Block. Sie wächst von der Kante zum anderen Ende, Block für Block jeden Tick, in der halben Zeit der alten, stückweise gebauten Brücke (Radius 2 über sechs Blöcke: 6 statt 11 Ticks). Läuft der Boden unter dir noch weiter, beginnt die Brücke an seiner Kante (bis zu derselben Länge weit gesucht) - du musst nicht direkt am Abgrund stehen. Stehst du auf nichts oder auf Boden ohne Lücke in Reichweite, wird nichts gebaut, und die Aktionsleiste sagt warum. Solange du in die Luft schaust, zeigt die Geister-Vorschau die Brücke.",
@@ -4884,22 +4901,24 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A building core - a nether star set in copper, iron, gold, diamond, netherite or enderite - is the tier part of the building wands and several helpers. It does not stack, and a right-click plays a short animation without any gameplay effect.",
+          "summary": "A building core - a nether star set in copper, iron, gold, diamond, netherite or enderite - is the tier part of the building wands and several helpers. It does not stack, and a right-click plays a short animation; on stone and other ore-bearing blocks it has a tiny chance to turn the block into ore.",
           "details": [
             "Recipes: copper, iron, gold and diamond cores are a nether star surrounded by four of the tier's ingots (diamonds for the diamond core) in a plus shape. The netherite core is forged from a diamond core with a netherite ingot on the netherite upgrade template, the enderite core from a netherite core with an enderite ingot on the enderite upgrade template.",
-            "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Amethyst Lens, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Ore Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
+            "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Amethyst Lens, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
             "Cores do not stack (stack size 1, since 2026-09-28; before 16). Since 2026-09-28 only the Wandering Trader sells cores, all four in his uncommon pool and each a lucky find: Copper Core 24 emeralds (2 uses), Iron Core 32, Gold Core 48, Diamond Core 64 (1 use each); iron, gold and diamond only show up in 50 / 25 / 10 % of the draws, so a trader offers them in about 10 / 5 / 2.4 / 1 % of visits. The mason sells no cores.",
-            "Right-clicking a core plays one of three animations, rolled 70 / 20 / 10: a gentle glow (dust in the core's colour and glimmer around the hand, a soft amethyst chime), orbiting sparks (two rings of sparks circling you and rising, amethyst resonance), or - rarely - a nether-star burst (four long rays of end rod sparks, a shower of firework sparks and the sound of a beacon waking up). It has no gameplay effect; particles and sound reach every player nearby, and the core then cools down for 1.5 seconds.",
+            "Right-clicking a core plays one of three short animations, rolled 70 / 20 / 10 and timed by the server over a few ticks: a glow (sparks shoot into your hand, then a ring of dust in the core's color flares across your view with an amethyst chime and a softer echo ring), a spiral (after the same quick charge two sparks corkscrew from your feet to above your head to a rising chime arpeggio and end in a crown of end rod sparks) or - rarely - a star burst (a two-step charge, then an eight-ray star like the nether star with firework and totem sparks, a bang and a beacon, then glitter and a ring running out along the ground). Particles and sound reach every player nearby; the animation is over before the core's one-second cooldown ends.",
+            "Easter egg: right-clicking a block that ores generate in (stone, granite, diorite, andesite, deepslate, tuff, netherrack, end stone) has a tiny chance per click to turn it into an ore - 1 in 10000 with the copper core, 1 in 7000 iron, 1 in 5000 gold, 1 in 3500 diamond, 1 in 2500 netherite, 1 in 2000 enderite. The core is not used up, and only the cooldown limits the clicks. The ore fits the block and is rolled by how common it is there: stone gives coal 40 %, iron 24 %, copper 20 %, redstone 5 %, gold 4 %, lapis 4 %, diamond 2 %, emerald 1 %; deepslate and tuff give the deepslate ores (redstone 24 %, iron 22 %, copper 12 %, gold 12 %, lapis 10 %, diamond 9 %, coal 8 %, emerald 3 %); netherrack gives nether quartz 70 %, nether gold 27 %, ancient debris 3 %; end stone gives nihilith ore 92 %, astralit ore 8 %. Not in adventure mode or where you may not build.",
             "In chests (config enableLootTableChanges) cores are rare, one pool per core with a single roll (owner 2026-09-28, \"age B\": the mean time of targeted search to the first core sits just before the age that needs it): iron 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, gold 1.25 % per bastion chest (not the bridge or hoglin stable chests) and 1.65 % per nether fortress chest, diamond 1.05 % per ominous vault and per roll of the rare vault table, netherite 6 % in the bastion treasure chest, enderite 0.175 % per end city chest. The copper core is in no chest. docs/KERNE-SELTENHEIT.md (section 5.3) gives the playtime until the first to sixth core of each kind."
           ]
         },
         "de": {
-          "summary": "Ein Baukern - ein Netherstern, gefasst in Kupfer, Eisen, Gold, Diamant, Netherit oder Enderit - ist das Stufenteil der Baustäbe und mehrerer Helfer. Er stapelt nicht, und ein Rechtsklick spielt eine kurze Animation ohne Spielwirkung.",
+          "summary": "Ein Baukern - ein Netherstern, gefasst in Kupfer, Eisen, Gold, Diamant, Netherit oder Enderit - ist das Stufenteil der Baustäbe und mehrerer Helfer. Er stapelt nicht, und ein Rechtsklick spielt eine kurze Animation; auf Stein und anderen erzführenden Blöcken verwandelt er den Block mit winziger Chance in Erz.",
           "details": [
             "Rezepte: Kupfer-, Eisen-, Gold- und Diamantkern sind ein Netherstern mit vier Barren der Stufe (beim Diamantkern Diamanten) im Plus darum. Der Netheritkern wird aus einem Diamantkern mit einem Netheritbarren auf der Netherit-Aufwertungsvorlage geschmiedet, der Enderit-Kern aus einem Netheritkern mit einem Enderitbarren auf der Enderit-Aufwertungsvorlage.",
-            "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Erzdetektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
+            "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
-            "Ein Rechtsklick mit einem Kern spielt eine von drei Animationen, gewürfelt 70 / 20 / 10: ein sanftes Leuchten (Staub in der Farbe des Kerns und Glimmer um die Hand, leises Amethyst-Klingen), kreisende Funken (zwei Funkenringe, die um dich laufen und aufsteigen, Amethyst-Resonanz) oder - selten - ein Netherstern-Ausbruch (vier lange Strahlen aus Endstab-Funken, ein Feuerwerksfunkenregen und der Klang eines erwachenden Leuchtfeuers). Das hat keine Spielwirkung; Partikel und Klang erreichen alle Spieler in der Nähe, danach kühlt der Kern 1,5 Sekunden ab.",
+            "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
+            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilith-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
             "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
           ]
         }
@@ -4958,7 +4977,7 @@ window.WIKI_DATA = {
             "First-person animation: as soon as a reshape is possible on the block you are looking at, the hammer tilts in your hand (rotated -15 degrees around Y and -10 degrees around X); the settings enableToolAnimations and enableChiselAnimation must both be on (HeldItemRendererMixin).",
             "Crushing a diamond block: holding right-click on a diamond block (sneaking or not) destroys it without its normal drop (destroyBlock with drop=false) and throws out 81 Diamond Pebbles (one stack of 64 and one of 17) with the metal break sound; it costs 1 durability except in creative mode.",
             "9 Diamond Pebbles make one Cracked Diamond in the crafting table (3x3); a Cracked Diamond turns back into a diamond in the blast furnace (datagen: 100 ticks, 1.0 experience).",
-            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston has no higher tier (SledgehammerUpgrades).",
+            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
             "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items, filter items and filter mode, furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
             "The upgrade is cancelled without using the nugget - strikes already landed stay paid - when you let go of right-click, look away from the block (the server allows 2 ticks of lag), leave reach, the block stops being the starting tier, the nugget leaves your off hand or the hammer breaks.",
@@ -4987,7 +5006,7 @@ window.WIKI_DATA = {
             "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
-            "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles.",
+            "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
             "Left-click an item frame holding a smithing template with a Glow Ink Sac in the off hand: Glowing Armor Trim; with Glowstone Dust: Emitting Armor Trim.",
             "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine."
           ],
@@ -5049,7 +5068,7 @@ window.WIKI_DATA = {
             "Erste-Person-Animation: Sobald ein Umformen am angezielten Block möglich ist, neigt sich der Hammer in der Hand (Drehung -15 Grad um Y, -10 Grad um X); die Einstellungen enableToolAnimations und enableChiselAnimation müssen beide an sein (HeldItemRendererMixin).",
             "Diamantblock zerkleinern: Rechtsklick auf einen Diamantblock halten (auch beim Schleichen) zerstört ihn ohne normalen Drop (destroyBlock mit drop=false) und wirft 81 Diamantkiesel aus (ein Stapel zu 64 und einer zu 17), mit Metall-Bruchgeräusch; kostet 1 Haltbarkeit außer im Kreativmodus.",
             "9 Diamantkiesel ergeben in der Werkbank (3x3) einen Rissigen Diamanten; ein Rissiger Diamant wird im Hochofen (Datagen: 100 Ticks, 1,0 Erfahrung) wieder zu einem Diamanten.",
-            "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; der Verstärkte klebrige Kolben hat keine höhere Stufe (SledgehammerUpgrades).",
+            "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
             "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt, Filter-Items und Filtermodus, Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
             "Abgebrochen wird ohne Klumpenverbrauch - bereits geschlagene Schläge bleiben bezahlt -, wenn du den Rechtsklick loslässt, vom Block wegschaust (der Server lässt 2 Ticks Verzögerung zu), die Reichweite verlässt, der Block nicht mehr die Ausgangsstufe ist, der Klumpen die Nebenhand verlässt oder der Hammer zerbricht.",
@@ -5247,21 +5266,21 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The Creative Spacer is not a real item: it is the invisible filler that ends a row early in the \"Machines & Storage\" creative tab, so that every category starts in a new row.",
+          "summary": "The Creative Spacer is not a real item: it is the invisible filler that ends a row early in the mod's creative tabs, so that every category starts in a new row.",
           "details": [
             "Not obtainable: no recipe, no loot, not in the search tab (its entries are PARENT_TAB_ONLY), hidden from JEI, REI and EMI through the c:hidden_from_recipe_viewers tag, and its item model draws nothing (minecraft:empty).",
             "Clicking it in the creative inventory does nothing: a slot holding it counts as inactive (SlotMixin), so it is not drawn, not highlighted, shows no tooltip and cannot be picked up, swapped or middle-clicked.",
             "Should one end up in an inventory anyway (for example through /give), it deletes itself on the next inventory tick.",
-            "The layout is a declarative list of rows (CreativeTabLayout.Row); a category with more than nine entries simply continues in the next row. So far only Machines & Storage uses it."
+            "The layout is a declarative list of rows (CreativeTabLayout.Row); a category with more than nine entries simply continues in the next row. All of the mod's tabs use it; a single spacer is also the empty cell between two families in one row."
           ]
         },
         "de": {
-          "summary": "Der Kreativ-Platzhalter ist kein echter Gegenstand: Er ist der unsichtbare Füller, der im Kreativ-Reiter „Maschinen & Lager“ eine Reihe vorzeitig beendet, damit jede Kategorie in einer neuen Reihe beginnt.",
+          "summary": "Der Kreativ-Platzhalter ist kein echter Gegenstand: Er ist der unsichtbare Füller, der in den Kreativ-Reitern der Mod eine Reihe vorzeitig beendet, damit jede Kategorie in einer neuen Reihe beginnt.",
           "details": [
             "Nicht erhältlich: kein Rezept, keine Beute, nicht im Suchreiter (seine Einträge sind PARENT_TAB_ONLY), in JEI, REI und EMI über den Tag c:hidden_from_recipe_viewers versteckt, und sein Item-Modell zeichnet nichts (minecraft:empty).",
             "Ein Klick darauf im Kreativinventar tut nichts: Ein Platz mit Platzhalter gilt als inaktiv (SlotMixin), wird also nicht gezeichnet, nicht hervorgehoben, zeigt keinen Tooltip und lässt sich weder aufnehmen noch tauschen noch per Mittelklick kopieren.",
             "Gerät doch einer in ein Inventar (etwa per /give), löscht er sich beim nächsten Inventar-Tick selbst.",
-            "Das Layout ist eine deklarative Liste von Reihen (CreativeTabLayout.Row); eine Kategorie mit mehr als neun Einträgen läuft in die nächste Reihe weiter. Bisher nutzt nur Maschinen & Lager es."
+            "Das Layout ist eine deklarative Liste von Reihen (CreativeTabLayout.Row); eine Kategorie mit mehr als neun Einträgen läuft in die nächste Reihe weiter. Alle Reiter der Mod nutzen es; ein einzelner Platzhalter ist auch das leere Feld zwischen zwei Familien in einer Reihe."
           ]
         },
         "sources": [
@@ -5272,6 +5291,165 @@ window.WIKI_DATA = {
           "common/src/shared/java/com/simplebuilding/mixin/SlotMixin.java",
           "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
           "src/main/java/com/simplebuilding/datagen/ModModelProvider.java",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json"
+        ]
+      },
+      "hasCustomBehaviour": true
+    },
+    {
+      "id": "simplebuilding:detector",
+      "name": {
+        "en_us": "Detector",
+        "de_de": "Detektor"
+      },
+      "texture": "assets/textures/item/detector.png",
+      "craftedBy": [
+        "simplebuilding:detector"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "durability": 1024,
+        "enchantability": 15,
+        "maxStackSize": 1
+      },
+      "note": {
+        "en": {
+          "summary": "The Detector is a hand tool that points out the nearest reachable ore around you once a second with a sound and a particle trail, as long as you hold it in your hand.",
+          "details": [
+            "Crafted at a crafting table (pattern \" ES\" / \"ECE\" / \"GE \", owner 2026-09-29): a calibrated sculk sensor top right (minecraft:calibrated_sculk_sensor), a compass in the middle, a Gold Core bottom left (simplebuilding:gold_core) and echo shards (minecraft:echo_shard) above, below, left and right of the compass - 4 in total, top left and bottom right empty; recipe category \"equipment\" (RecipeCategory.TOOLS).",
+            "The recipe is unlocked as soon as a compass is in your inventory (criterion has_compass).",
+            "Sits in the creative tab \"SimpleTools\" (id simplebuilding:tools) right after the Velocity Gauge and before the Attractor.",
+            "Does not stack (stacksTo(1)) and has rarity RARE.",
+            "Durability 1024 (set in the item's constructor with durability(1024)); enchantability 15.",
+            "Only scans while it is in the main hand or the off hand (EquipmentSlot MAINHAND/OFFHAND); from the rest of the inventory it stays silent and clears its needle target. Main hand: a ping every 20 ticks, full volume; off hand: every 40 ticks (SCAN_INTERVAL_OFF_HAND), all three sounds at 0.3 of their volume (OFF_HAND_VOLUME), fainter trail.",
+            "The scan runs every 20 ticks (SCAN_INTERVAL), offset per player - floorMod(game time + player entity id, SCAN_INTERVAL) == 0 - so the scans of several players do not all land in the same tick and is executed server-side in inventoryTick(ServerLevel).",
+            "There are six modes; signal and range belong to the class of the ore that is found (OreDetectorItem.OreClass): common signal 18 / range 24, gold 13 / 20, diamond and emerald 9 / 16, ancient debris and the two End ores 5 / 16 (with Radius 22 / 28, 17 / 24, 17 / 24 and 9 / 20). Iron, Gold, Diamond and Netherite mode search one class each, All Ores all of them, Custom the class of its target.",
+            "Iron mode finds blocks from the vanilla tag minecraft:iron_ores, Gold from minecraft:gold_ores, Diamond from minecraft:diamond_ores.",
+            "Netherite mode finds ancient debris only (Blocks.ANCIENT_DEBRIS).",
+            "All Ores mode finds blocks from the vanilla tags coal_ores, iron_ores, copper_ores, gold_ores, redstone_ores, lapis_ores, diamond_ores and emerald_ores, plus ancient debris, nether quartz ore, Astralit Ore and Nihilit Ore - each only within the signal and range of its own class.",
+            "Custom mode finds the block the detector was calibrated to; only the block type is compared (state.is(block)), not its state (facing, for example).",
+            "The mode and the calibrated block live in the CUSTOM_DATA component: \"Mode\" as the ordinal of the mode, \"CustomBlock\" as the stored block state; an invalid Mode value is clamped into the valid range.",
+            "The scan area is a sphere around the block your eyes are in; its radius in blocks is the largest range the mode can use (24 for Iron, All Ores and an uncalibrated Custom, 20 for Gold, 16 for Diamond and Netherite; with Radius 28, 24, 24 and 20), a find additionally has to lie within the range of its own class, and distances are measured from block position to block position.",
+            "Only one target is ever reported: the nearest one whose signal survives the way there; on equal distance the one visited first wins.",
+            "Whether a target is reachable is decided along the straight line from your exact eye position to the target's block centre: every block that line crosses is charged once with the loss of its material step (an exact block-by-block walk, pathLoss), and if the total exceeds the ore's signal the target stays undetected; where the line runs exactly through an edge, one of the two neighbouring blocks is charged.",
+            "Neither the block your eyes are in nor the target block itself is charged.",
+            "Material steps (OreDetectorItem.Material, chosen by the block's mining hardness): AIR 0.125 for air and blocks without occlusion (canOcclude() == false, e.g. torches, plants, glass, leaves, water); SOFT 2 for hardness below 1.0 (netherrack, dirt, sand, gravel, calcite) and for end stone, which at hardness 3.0 would otherwise be dense but is the host rock of the End ores; STONE 4 for hardness 1.0 to below 3.0 (stone, cobblestone, tuff, basalt, blackstone, logs, nether wart block); DENSE 6 for hardness 3.0 to below 10 (deepslate, every ore, the iron block); VERY_DENSE 16 for hardness 10 and above or unbreakable blocks (obsidian, ancient debris, bedrock).",
+            "Constructor's Touch multiplies the loss of every block by 0.5 (TOUCH_LOSS_FACTOR), so the signal carries twice as far through any material; the range and the scan radius stay unchanged.",
+            "What that means without enchantments, with up to 8 blocks of air between wall and ore: common ores are found through 4 stone, 8 netherrack or 2 deepslate, gold through 3 stone, 6 netherrack or 2 deepslate, diamond and emerald through 2 stone, 4 netherrack or 1 deepslate, ancient debris through 1 stone, 2 netherrack or no deepslate at all, the End ores through 2 end stone. With Radius: 5 / 10 / 3, 4 / 8 / 2, 4 / 8 / 2 and 2 / 4 / 1. Through open air alone the range decides; the air loss of 0.125 per block only matters right at the limit (ancient debris behind two netherrack is still found with 8 blocks of air behind the wall, no longer with 9).",
+            "On a find three sounds play at the target position (SoundSource BLOCKS): the chime of an amethyst block (volume 0.9), the clicking of sculk (volume 0.6, pitch 2.0) and the break sound of the block that was found (volume 0.55).",
+            "The pitch of the amethyst chime and of the break sound gives away the distance: 1.8 minus distance divided by 32, clamped to 0.6 to 2.0; near targets sound high, distant ones low. Within the largest scan radius (28 blocks, with Radius) it only drops to about 0.93 arithmetically, so the limits of 0.6 and 2.0 are practically never reached.",
+            "On a find a sonar trail is drawn as well (reduced 2026-09-28): block particles of the found block type evenly spaced along the line of sight - one per 2 blocks, at most 6 (off hand: one per 6 blocks, at most 2) - plus a single end rod particle at the target (main hand only). The needle: the ping sets minecraft:lodestone_tracker (target = the ore, tracked = false) and minecraft:custom_model_data (colour = OreDetectorItem.RESONANCE_COLORS by distance, 5 steps); the item model (condition has_component lodestone_tracker -> range_dispatch compass/lodestone, 32 frames, needle layer tinted by custom_model_data) turns and tints the needle; hand_animation_on_swap is false.",
+            "Sounds (playSound with a null player) and particles (ServerLevel.sendParticles) are sent to all players nearby, not only to you.",
+            "Switching the mode with sneak + use costs the detector 1 durability (not in creative mode); the scanning itself and the calibrating cost no durability.",
+            "Switching the mode plays the UI click sound (volume 0.5, pitch 1.5); no text appears on screen since 2026-09-28 - the tooltip names the mode (mode name coloured: Iron gray, Gold gold, Diamond aqua, Netherite dark purple, All Ores white, Custom yellow).",
+            "The order of the modes is Iron, Gold, Diamond, Netherite, All Ores, Custom and then Iron again; new detectors start in Iron mode (Mode value 0).",
+            "Calibrating (sneak + use on a block) switches to Custom mode, stores the clicked block state, shows \"Calibrated to: <block name>\" (green, block name white) and plays the bloom sound of a sculk catalyst (SoundSource PLAYERS, volume 1.0, pitch 1.0) at the clicked position for all players nearby.",
+            "The tooltip shows \"Mode: <mode>\", in Custom mode \"Target: <block name>\" (green) or \"Target: None (Sneak-Use on block)\" (red), in every other mode \"Sneak + Use to cycle modes\" (dark gray), then a blank line, \"Signal: <signal>, Range: <range>\" (dark aqua) of the mode's class (the common one for All Ores and an uncalibrated Custom), in All Ores mode also \"Gold 13/20, Diamond/Emerald 9/16, Debris/End ores 5/16\" (with Radius the stretched numbers), and \"Rock damps the signal, dense rock more.\" (gray).",
+            "Can be enchanted with Constructor's Touch (max level I, anvil cost 1, min cost 20, max cost 50, weight 1) through the tag simplebuilding:constructors_touch_enchantable; the enchantment file contains no effect components, the detector reads the enchantment straight off the item stack in Java (EnchantmentHelper.hasEnchantment), which is why it also works in the off hand.",
+            "It is also in the vanilla tag minecraft:enchantable/durability, the tag for durability enchantments; the item settings carry enchantable(15), so the enchanting table accepts the detector as well.",
+            "Books with Constructor's Touch I are placed by loot table modification into buried treasure (weight 3, 0 to 2 rolls), igloo chests (weight 3, 0 to 1 roll), the common and rare vaults of the trial chambers (weight 3, 0 to 1 roll) and the fishing treasure (weight 2, one extra roll per treasure catch); that only applies as long as the config option worldGen.enableLootTableChanges (default: true) is on.",
+            "A gametest (item_behaviour_game_test_ore_detector_cycles_modes_and_learns_acustom_block) checks that the mode switch wraps around and that calibrating stores a diamond ore block as CustomBlock.",
+            "The build for Minecraft 1.21.11 behaves identically; it differs only in the internal game interfaces it uses (BlockTags instead of BlockItemTags, displayClientMessage instead of sendOverlayMessage)."
+          ],
+          "controls": [
+            "Hold the detector in your main or off hand: scans automatically every 20 ticks (about once a second) and pings the nearest reachable target.",
+            "Sneak + right-click without a block targeted (into the air): switches to the next mode (Iron -> Gold -> Diamond -> Netherite -> All Ores -> Custom -> Iron), costs 1 durability except in creative mode.",
+            "Sneak + right-click on a block: calibrates the detector to that block type and switches to Custom mode; costs no durability.",
+            "Right-click without sneaking: no effect (use returns PASS, useOn the item's default behaviour)."
+          ],
+          "caveats": [
+            "The detector's own texts (mode names such as \"Iron\" or \"All Ores\" and every tooltip line) are Component.translatable keys (simplebuilding.ore_detector.*, tooltip.simplebuilding.ore_detector.*) with English and German texts; the former overlays \"Detector Mode:\" and \"Calibrated to:\" were removed on 2026-09-28.",
+            "The language file entry tooltip.simplebuilding.ore_detector (\"Detects nearby ores and minerals.\") is read by no code (no Java hit for that key, not even assembled dynamically) and therefore does not appear in game.",
+            "In Custom mode without a calibrated block the detector finds nothing (customTarget == null); the tooltip then shows \"Target: None (Sneak-Use on block)\".",
+            "Only ever a single target is shown, never several at once; a nearer reachable target hides all the others.",
+            "Open air costs the signal almost nothing (0.125 per block), so in caves the range ends the search rather than the signal: 24 blocks for common ores, 20 for gold, 16 for diamond, emerald, ancient debris and the End ores.",
+            "Netherite mode has the weakest signal at 5 (9 with Radius): two netherrack or a single block of basalt or blackstone (4) is all it gets through; with Radius four netherrack or two basalt.",
+            "The detector only pings when a target was found; if it stays silent, no matching ore within range has a signal strong enough for the rock in between.",
+            "Each pass walks a cube of (2 times radius + 1) cubed positions (57 cubed at the largest radius, 28 with Radius), but only reads the block state for positions inside the sphere that are nearer than the best target so far; there is no throttling in the code for several detectors held at once.",
+            "The click sound on the mode switch is played at your position for everyone nearby, you included (level().playSound with no excluded player); a client test hears it at volume 0.5 and pitch 1.5.",
+            "The sonar sounds and particles themselves are not observable in server tests; the gametests cover the needle target and colour, the off-hand interval/volume/particle values, the mode switch and the calibration.",
+            "The loot table books drop out entirely if worldGen.enableLootTableChanges is turned off in the config."
+          ]
+        },
+        "de": {
+          "summary": "Der Detektor ist ein Handwerkzeug, das im Sekundentakt das nächstgelegene erreichbare Erz um dich herum mit einem Ton und einer Partikelspur anzeigt, solange du es in der Hand hältst.",
+          "details": [
+            "Wird in der Werkbank hergestellt (Muster \" ES\" / \"ECE\" / \"GE \", Besitzer 2026-09-29): oben rechts ein kalibrierter Sculk-Sensor (minecraft:calibrated_sculk_sensor), in der Mitte ein Kompass, unten links ein Goldkern (simplebuilding:gold_core) und Echoscherben (minecraft:echo_shard) über, unter, links und rechts vom Kompass - 4 insgesamt, oben links und unten rechts frei; Rezeptkategorie \"equipment\" (RecipeCategory.TOOLS).",
+            "Das Rezept wird freigeschaltet, sobald ein Kompass im Inventar liegt (Fortschritt-Kriterium has_compass).",
+            "Liegt im Kreativ-Tab „SimpleTools“ (Id simplebuilding:tools) direkt nach dem Geschwindigkeitsmesser und vor dem Attraktor.",
+            "Stapelt nicht (stacksTo(1)) und hat die Seltenheitsstufe RARE.",
+            "Haltbarkeit 1024 (im Konstruktor des Items mit durability(1024) gesetzt); Verzauberbarkeit 15.",
+            "Sucht nur, während er in der Haupthand oder Nebenhand liegt (EquipmentSlot MAINHAND/OFFHAND); im restlichen Inventar bleibt er stumm und löscht sein Nadelziel. Haupthand: alle 20 Ticks ein Ping, volle Lautstärke; Nebenhand: alle 40 Ticks (SCAN_INTERVAL_OFF_HAND), alle drei Töne mit 0,3 ihrer Lautstärke (OFF_HAND_VOLUME), schwächere Spur.",
+            "Die Suche läuft alle 20 Ticks (SCAN_INTERVAL), je Spieler versetzt – floorMod(Spielzeit + Entitäts-Id des Spielers, SCAN_INTERVAL) == 0 –, damit die Scans mehrerer Spieler nicht alle in denselben Tick fallen und wird serverseitig in inventoryTick(ServerLevel) ausgeführt.",
+            "Es gibt sechs Modi; Signal und Reichweite gehören zur Klasse des gefundenen Erzes (OreDetectorItem.OreClass): gewöhnlich Signal 18 / Reichweite 24, Gold 13 / 20, Diamant und Smaragd 9 / 16, Antiker Schrott und die beiden End-Erze 5 / 16 (mit Radius 22 / 28, 17 / 24, 17 / 24 und 9 / 20). Die Modi Iron, Gold, Diamond und Netherite suchen je eine Klasse, All Ores alle, Custom die Klasse seines Ziels.",
+            "Modus Iron findet Blöcke aus dem Vanilla-Tag minecraft:iron_ores, Gold aus minecraft:gold_ores, Diamond aus minecraft:diamond_ores.",
+            "Modus Netherite findet ausschließlich Antiken Schrott (Blocks.ANCIENT_DEBRIS).",
+            "Modus All Ores findet Blöcke aus den Vanilla-Tags coal_ores, iron_ores, copper_ores, gold_ores, redstone_ores, lapis_ores, diamond_ores und emerald_ores sowie Antiken Schrott, Netherquarzerz, Astraliterz und Nihiliterz - jedes nur innerhalb von Signal und Reichweite seiner Klasse.",
+            "Modus Custom findet den Block, auf den der Detektor kalibriert wurde; verglichen wird nur der Blocktyp (state.is(block)), nicht dessen Zustand (etwa Ausrichtung).",
+            "Modus und Kalibrierblock liegen in der Komponente CUSTOM_DATA: \"Mode\" als Ordnungszahl des Modus, \"CustomBlock\" als gespeicherter Blockzustand; ein ungültiger Mode-Wert wird auf den gültigen Bereich begrenzt.",
+            "Der Suchbereich ist eine Kugel um den Block, in dem sich deine Augen befinden; ihr Radius in Blöcken ist die größte Reichweite, die der Modus nutzen kann (24 für Iron, All Ores und ein unkalibriertes Custom, 20 für Gold, 16 für Diamond und Netherite; mit Radius 28, 24, 24 und 20), ein Fund muss zusätzlich innerhalb der Reichweite seiner eigenen Klasse liegen, und Entfernungen werden von Blockposition zu Blockposition gemessen.",
+            "Gefunden wird immer nur das eine Ziel, das deinen Augen am nächsten liegt und dessen Signal den Weg übersteht; bei gleicher Entfernung gewinnt das zuerst durchlaufene.",
+            "Ob ein Ziel erreichbar ist, entscheidet die gerade Linie von deiner exakten Augenposition zur Blockmitte des Ziels: Jeder Block, den sie schneidet, wird einmal mit dem Verlust seiner Materialstufe belastet (exakter Block-für-Block-Lauf, pathLoss), und übersteigt die Summe das Signal des Erzes, bleibt das Ziel unentdeckt; läuft die Linie genau durch eine Kante, zählt einer der beiden angrenzenden Blöcke.",
+            "Weder der Block deiner Augen noch der Zielblock selbst werden belastet.",
+            "Materialstufen (OreDetectorItem.Material, gewählt nach der Abbauhärte des Blocks): AIR 0.125 für Luft und Blöcke ohne Occlusion (canOcclude() == false, z. B. Fackeln, Pflanzen, Glas, Laub, Wasser); SOFT 2 für Härte unter 1.0 (Netherrack, Erde, Sand, Kies, Calcit) und für Endstein, der mit Härte 3.0 sonst dicht wäre, aber das Wirtsgestein der End-Erze ist; STONE 4 für Härte 1.0 bis unter 3.0 (Stein, Bruchstein, Tuff, Basalt, Schwarzstein, Stämme, Netherwarzenblock); DENSE 6 für Härte 3.0 bis unter 10 (Tiefenschiefer, alle Erze, der Eisenblock); VERY_DENSE 16 für Härte ab 10 oder unzerstörbare Blöcke (Obsidian, Antiker Schrott, Grundgestein).",
+            "Berührung des Konstrukteurs multipliziert den Verlust jedes Blocks mit 0.5 (TOUCH_LOSS_FACTOR), das Signal trägt also durch jedes Material doppelt so weit; Reichweite und Suchradius bleiben unverändert.",
+            "Was das ohne Verzauberungen heißt, mit bis zu 8 Blöcken Luft zwischen Wand und Erz: gewöhnliche Erze werden durch 4 Stein, 8 Netherrack oder 2 Tiefenschiefer gefunden, Gold durch 3 Stein, 6 Netherrack oder 2 Tiefenschiefer, Diamant und Smaragd durch 2 Stein, 4 Netherrack oder 1 Tiefenschiefer, Antiker Schrott durch 1 Stein, 2 Netherrack oder gar keinen Tiefenschiefer, die End-Erze durch 2 Endstein. Mit Radius: 5 / 10 / 3, 4 / 8 / 2, 4 / 8 / 2 und 2 / 4 / 1. Durch reine Luft entscheidet die Reichweite; der Luftverlust von 0.125 je Block zählt nur knapp an der Grenze (Antiker Schrott hinter zwei Netherrack wird mit 8 Blöcken Luft hinter der Wand noch gefunden, mit 9 nicht mehr).",
+            "Beim Fund erklingen an der Zielposition drei Geräusche (SoundSource BLOCKS): das Klingen eines Amethystblocks (Lautstärke 0.9), das Klicken von Sculk (Lautstärke 0.6, Tonhöhe 2.0) und das Abbaugeräusch des gefundenen Blocks (Lautstärke 0.55).",
+            "Die Tonhöhe des Amethystklangs und des Abbaugeräuschs verrät die Entfernung: 1.8 minus Entfernung geteilt durch 32, begrenzt auf 0.6 bis 2.0; nahe Ziele klingen hoch, ferne tief. Innerhalb des größten Suchradius (28 Blöcke, mit Radius) sinkt sie rechnerisch nur bis etwa 0.93, die Grenzen 0.6 und 2.0 werden praktisch nie erreicht.",
+            "Beim Fund wird außerdem eine Sonar-Spur gezeichnet (am 2026-09-28 reduziert): Block-Partikel des gefundenen Blocktyps gleichmäßig entlang der Sichtlinie - einer je 2 Blöcke, höchstens 6 (Nebenhand: einer je 6 Blöcke, höchstens 2) - und ein einzelner Endstab-Partikel am Ziel (nur Haupthand). Die Nadel: Der Ping setzt minecraft:lodestone_tracker (Ziel = das Erz, tracked = false) und minecraft:custom_model_data (Farbe = OreDetectorItem.RESONANCE_COLORS nach Entfernung, 5 Stufen); das Item-Modell (condition has_component lodestone_tracker -> range_dispatch compass/lodestone, 32 Bilder, Nadel-Ebene getönt nach custom_model_data) dreht und tönt die Nadel; hand_animation_on_swap ist false.",
+            "Geräusche (playSound mit Spieler null) und Partikel (ServerLevel.sendParticles) werden an alle Spieler in der Nähe gesendet, nicht nur an dich.",
+            "Beim Moduswechsel per Schleichen + Benutzen verliert der Detektor 1 Haltbarkeit (nicht im Kreativmodus); das Suchen selbst und das Kalibrieren kosten keine Haltbarkeit.",
+            "Der Moduswechsel ruft den UI-Klick-Ton (Lautstärke 0.5, Tonhöhe 1.5) auf; seit dem 28.09.2026 erscheint kein Text auf dem Bildschirm - der Tooltip nennt den Modus (Modusname farbig: Eisen grau, Gold golden, Diamant türkis, Netherit dunkelviolett, Alle Erze weiß, Kalibriert gelb).",
+            "Die Reihenfolge der Modi ist Iron, Gold, Diamond, Netherite, All Ores, Custom und dann wieder Iron; neue Detektoren starten im Modus Iron (Mode-Wert 0).",
+            "Das Kalibrieren (Schleichen + Benutzen auf einen Block) schaltet in den Modus Custom, speichert den angeklickten Blockzustand, zeigt \"Calibrated to: <Blockname>\" (grün, Blockname weiß) an und spielt an der angeklickten Position das Aufblüh-Geräusch eines Sculk-Katalysators (SoundSource PLAYERS, Lautstärke 1.0, Tonhöhe 1.0) für alle Spieler in der Nähe.",
+            "Der Tooltip zeigt \"Mode: <Modus>\", im Modus Custom \"Target: <Blockname>\" (grün) oder \"Target: None (Sneak-Use on block)\" (rot), in allen anderen Modi \"Sneak + Use to cycle modes\" (dunkelgrau), dann eine Leerzeile, \"Signal: <Signal>, Range: <Reichweite>\" (dunkeltürkis) der Klasse des Modus (die gewöhnliche für All Ores und ein unkalibriertes Custom), im Modus All Ores zusätzlich \"Gold 13/20, Diamond/Emerald 9/16, Debris/End ores 5/16\" (mit Radius die angehobenen Werte) und \"Rock damps the signal, dense rock more.\" (grau).",
+            "Kann mit Berührung des Konstrukteurs verzaubert werden (Höchststufe I, Amboss-Kosten 1, Mindestkosten 20, Höchstkosten 50, Gewicht 1) über den Tag simplebuilding:constructors_touch_enchantable; die Verzauberungsdatei enthält keine Effekt-Komponenten, der Detektor liest die Verzauberung direkt in Java vom Item-Stack (EnchantmentHelper.hasEnchantment), daher wirkt sie auch in der Nebenhand.",
+            "Steht zudem im Vanilla-Tag minecraft:enchantable/durability, dem Tag für Haltbarkeits-Verzauberungen; die Item-Einstellungen setzen enchantable(15), sodass auch der Verzauberungstisch den Detektor annimmt.",
+            "Bücher mit Berührung des Konstrukteurs I werden per Beutetabellen-Anpassung in vergrabene Schätze (Gewicht 3, 0 bis 2 Würfe), Iglu-Truhen (Gewicht 3, 0 bis 1 Wurf), die gewöhnlichen und seltenen Tresore der Prüfungskammern (Gewicht 3, 0 bis 1 Wurf) und den Angel-Schatz (Gewicht 2, ein zusätzlicher Wurf je Schatzfang) gelegt; das gilt nur, solange die Konfigurationsoption worldGen.enableLootTableChanges (Standard: true) aktiv ist.",
+            "Ein Spieltest (item_behaviour_game_test_ore_detector_cycles_modes_and_learns_acustom_block) prüft, dass der Moduswechsel im Kreis läuft und das Kalibrieren einen Diamanterz-Block als CustomBlock speichert.",
+            "Die Fassung für Minecraft 1.21.11 verhält sich identisch; sie unterscheidet sich nur in den intern verwendeten Spiel-Schnittstellen (BlockTags statt BlockItemTags, displayClientMessage statt sendOverlayMessage)."
+          ],
+          "controls": [
+            "Detektor in Haupt- oder Nebenhand halten: sucht automatisch alle 20 Ticks (etwa einmal pro Sekunde) und pingt das nächste erreichbare Ziel an.",
+            "Schleichen + Rechtsklick ohne anvisierten Block (in die Luft): schaltet zum nächsten Modus (Iron -> Gold -> Diamond -> Netherite -> All Ores -> Custom -> Iron), kostet 1 Haltbarkeit außer im Kreativmodus.",
+            "Schleichen + Rechtsklick auf einen Block: kalibriert den Detektor auf diesen Blocktyp und wechselt in den Modus Custom; kostet keine Haltbarkeit.",
+            "Rechtsklick ohne Schleichen: keine Wirkung (use liefert PASS, useOn das Item-Standardverhalten)."
+          ],
+          "caveats": [
+            "Die eigenen Texte des Detektors (Modusnamen wie „Eisen“ oder „Alle Erze“ sowie alle Tooltip-Zeilen) sind Übersetzungsschlüssel (simplebuilding.ore_detector.*, tooltip.simplebuilding.ore_detector.*) mit deutschem und englischem Text; die früheren Einblendungen „Detektormodus:“ und „Kalibriert auf:“ sind seit dem 28.09.2026 entfernt.",
+            "Der Sprachdatei-Eintrag tooltip.simplebuilding.ore_detector (\"Zeigt die Nähe zu Erzen an.\") wird von keinem Code gelesen (kein Java-Treffer für diesen Schlüssel, auch nicht dynamisch zusammengesetzt) und erscheint daher nicht im Spiel.",
+            "Im Modus Custom ohne kalibrierten Block findet der Detektor nichts (customTarget == null); der Tooltip zeigt dann \"Target: None (Sneak-Use on block)\".",
+            "Es wird stets nur ein einziges Ziel angezeigt, nie mehrere gleichzeitig; ein näheres erreichbares Ziel verdeckt alle weiteren.",
+            "Offene Luft kostet das Signal fast nichts (0.125 je Block), in Höhlen beendet also die Reichweite die Suche und nicht das Signal: 24 Blöcke für gewöhnliche Erze, 20 für Gold, 16 für Diamant, Smaragd, Antiken Schrott und die End-Erze.",
+            "Der Netherite-Modus hat mit 5 (mit Radius 9) das schwächste Signal: zwei Netherrack oder ein einziger Block Basalt oder Schwarzstein (4) sind alles, was er durchdringt; mit Radius vier Netherrack oder zwei Basalt.",
+            "Der Detektor pingt nur, wenn ein Ziel gefunden wurde; bleibt er still, hat kein passendes Erz in Reichweite ein Signal, das stark genug für das Gestein dazwischen ist.",
+            "Die Suche läuft pro Durchlauf über einen Würfel von (2 mal Radius + 1) hoch 3 Positionen (beim größten Radius, 28 mit Radius, also 57 hoch 3), liest den Blockzustand aber nur für Positionen innerhalb der Kugel, die näher liegen als das bisher beste Ziel; eine Drosselung für mehrere gleichzeitig gehaltene Detektoren gibt es im Code nicht.",
+            "Der Klick-Ton beim Moduswechsel erklingt an deiner Position für alle in der Nähe, dich eingeschlossen (level().playSound ohne Ausnahme); ein Client-Test hört ihn mit Lautstärke 0,5 und Tonhöhe 1,5.",
+            "Töne und Partikel des Sonar-Pings selbst sind in Server-Tests nicht beobachtbar; die Spieltests decken Nadelziel und -farbe, die Werte der Nebenhand (Takt, Lautstärke, Partikel), den Moduswechsel und die Kalibrierung ab.",
+            "Die Beutetabellen-Bücher entfallen komplett, wenn worldGen.enableLootTableChanges in der Konfiguration ausgeschaltet ist."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/items/custom/OreDetectorItem.java",
+          "mc1_21_11/shared/java/com/simplebuilding/items/custom/OreDetectorItem.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
+          "src/main/java/com/simplebuilding/items/ModItemGroups.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/detector.json",
+          "src/main/generated/data/simplebuilding/advancement/recipes/tools/detector.json",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
+          "src/main/generated/data/minecraft/tags/item/enchantable/durability.json",
+          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
+          "src/main/generated/data/simplebuilding/enchantment/constructors_touch.json",
+          "common/src/shared/java/com/simplebuilding/util/EnchantmentHelper.java",
+          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+          "common/src/shared/java/com/simplebuilding/gametest/ItemBehaviourTests.java",
+          "common/src/shared/java/com/simplebuilding/gametest/SimpleBuildingGameTests.java",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json"
         ]
@@ -5339,7 +5517,7 @@ window.WIKI_DATA = {
             "Trade (load condition on option enableVillagerTrades): a level 4 mason sells the Copper Building Wand for 62 emeralds, 1 use, 20 experience, reputation discount 0.2.",
             "Trade: a level 3 librarian sells for 25 emeralds a book holding Color Palette (weight 30), Fast Chiseling (30) or Linear (25) (3 uses); level 4 for 25 emeralds Linear (weight 25) or Override (20) (2 uses); level 5 for 25 emeralds, among others, Master Builder (weight 10, 1 use).",
             "Trade (load condition on option enableWanderingTrades): the wandering trader sells in the 'uncommon' pool a book for 40 emeralds, 1 use; its pool holds only Radius (weight 20), so no wand enchantment comes from it.",
-            "All six wands are in the creative tab \"SimpleTools\" and once more in the Building Planning row of \"SimpleMachines\", together with enchanted books for Master Builder, Color Palette, Cover, Bridge, Linear and Constructor's Touch at maximum level.",
+            "All six wands are in the creative tab \"SimpleTools\" (the Blueprint and the Cartography Table right next to the Enderite wand), together with enchanted books for Master Builder, Color Palette, Cover, Bridge, Linear and Constructor's Touch at maximum level.",
             "The enderite wand is in the void_protected tag: dropped below the dimension's build height it hovers in place, and below minY-10 it is reset to minY+5.",
             "Cover enchantment: the area only grows in front of blocks of the same kind as the clicked block, and only as far as those positions hang together with the centre edge to edge - thicken a wall by one layer or extend a floor without square overhangs. The axis setting does not apply in this mode.",
             "Bridge enchantment: right-click into the air (not sneaking) to build a bridge from the block under your feet straight ahead in your facing direction, at the height of that block - as long as a Linear line (twice the area diameter) and ending in front of the first occupied block. It grows from the edge towards the far end, block by block every tick, in half the time the old chunked bridge took (radius 2 over six blocks: 6 ticks instead of 11). If the floor you stand on runs on ahead, the bridge starts at its edge (searched up to that same length), so you do not have to stand right at the drop. Standing on nothing, or on a floor without a gap in reach, nothing is built and the action bar says why. While you look into the air, the ghost preview shows the bridge.",
@@ -5421,7 +5599,7 @@ window.WIKI_DATA = {
             "Handel (Ladebedingung an Option enableVillagerTrades): Steinmetz Stufe 4 verkauft den Kupfer-Baustab für 62 Smaragde, 1 Verwendung, 20 Erfahrung, Rabatt 0,2.",
             "Handel: Bibliothekar Stufe 3 verkauft für 25 Smaragde ein Buch, das Farbpalette (Gewicht 30), Schnelles Meißeln (30) oder Linear (25) enthält (3 Verwendungen); Stufe 4 für 25 Smaragde Linear (Gewicht 25) oder Übersteuerung (20) (2 Verwendungen); Stufe 5 für 25 Smaragde unter anderem Baumeister (Gewicht 10, 1 Verwendung).",
             "Handel (Ladebedingung an Option enableWanderingTrades): der Fahrende Händler verkauft im Pool 'uncommon' für 40 Smaragde ein Buch, 1 Verwendung; dessen Pool enthält nur Radius (Gewicht 20), also keine Baustab-Verzauberung.",
-            "Alle sechs Stäbe stehen im Kreativ-Tab „SimpleTools“ und noch einmal in der Reihe Bauplanung von „SimpleMachines“, zusammen mit verzauberten Büchern für Baumeister, Farbpalette, Abdeckung, Brücke, Linear und Berührung des Konstrukteurs in Maximalstufe.",
+            "Alle sechs Stäbe stehen im Kreativ-Tab „SimpleTools“ (Blaupause und Kartografentisch direkt neben dem Enderit-Baustab), zusammen mit verzauberten Büchern für Baumeister, Farbpalette, Abdeckung, Brücke, Linear und Berührung des Konstrukteurs in Maximalstufe.",
             "Der Enderit-Stab steht im Tag void_protected: fällt er unter die Bauhöhe der Dimension, bleibt er schweben, und unterhalb von minY-10 wird er auf minY+5 zurückgesetzt.",
             "Verzauberung Abdeckung: Die Fläche wächst nur vor Blöcken derselben Sorte wie der angeklickte Block, und nur so weit, wie diese Stellen Kante an Kante mit der Mitte zusammenhängen - eine Mauer um eine Schicht verdicken oder einen Boden erweitern, ohne quadratische Überstände. Die Achsen-Einstellung gilt in diesem Modus nicht.",
             "Verzauberung Brücke: In die Luft rechtsklicken (ohne Schleichen), und vom Block unter deinen Füßen aus entsteht geradeaus in Blickrichtung eine Brücke auf der Höhe dieses Blocks - so lang wie eine Linear-Linie (doppelter Flächen-Durchmesser), sie endet vor dem ersten belegten Block. Sie wächst von der Kante zum anderen Ende, Block für Block jeden Tick, in der halben Zeit der alten, stückweise gebauten Brücke (Radius 2 über sechs Blöcke: 6 statt 11 Ticks). Läuft der Boden unter dir noch weiter, beginnt die Brücke an seiner Kante (bis zu derselben Länge weit gesucht) - du musst nicht direkt am Abgrund stehen. Stehst du auf nichts oder auf Boden ohne Lücke in Reichweite, wird nichts gebaut, und die Aktionsleiste sagt warum. Solange du in die Luft schaust, zeigt die Geister-Vorschau die Brücke.",
@@ -5757,6 +5935,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:diamond_building_wand",
+        "simplebuilding:elytra_pad_smithing",
         "simplebuilding:netherite_core_smithing",
         "simplebuilding:upgrade_gold_building_wand_to_diamond_building_wand"
       ],
@@ -5768,22 +5947,24 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A building core - a nether star set in copper, iron, gold, diamond, netherite or enderite - is the tier part of the building wands and several helpers. It does not stack, and a right-click plays a short animation without any gameplay effect.",
+          "summary": "A building core - a nether star set in copper, iron, gold, diamond, netherite or enderite - is the tier part of the building wands and several helpers. It does not stack, and a right-click plays a short animation; on stone and other ore-bearing blocks it has a tiny chance to turn the block into ore.",
           "details": [
             "Recipes: copper, iron, gold and diamond cores are a nether star surrounded by four of the tier's ingots (diamonds for the diamond core) in a plus shape. The netherite core is forged from a diamond core with a netherite ingot on the netherite upgrade template, the enderite core from a netherite core with an enderite ingot on the enderite upgrade template.",
-            "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Amethyst Lens, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Ore Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
+            "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Amethyst Lens, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
             "Cores do not stack (stack size 1, since 2026-09-28; before 16). Since 2026-09-28 only the Wandering Trader sells cores, all four in his uncommon pool and each a lucky find: Copper Core 24 emeralds (2 uses), Iron Core 32, Gold Core 48, Diamond Core 64 (1 use each); iron, gold and diamond only show up in 50 / 25 / 10 % of the draws, so a trader offers them in about 10 / 5 / 2.4 / 1 % of visits. The mason sells no cores.",
-            "Right-clicking a core plays one of three animations, rolled 70 / 20 / 10: a gentle glow (dust in the core's colour and glimmer around the hand, a soft amethyst chime), orbiting sparks (two rings of sparks circling you and rising, amethyst resonance), or - rarely - a nether-star burst (four long rays of end rod sparks, a shower of firework sparks and the sound of a beacon waking up). It has no gameplay effect; particles and sound reach every player nearby, and the core then cools down for 1.5 seconds.",
+            "Right-clicking a core plays one of three short animations, rolled 70 / 20 / 10 and timed by the server over a few ticks: a glow (sparks shoot into your hand, then a ring of dust in the core's color flares across your view with an amethyst chime and a softer echo ring), a spiral (after the same quick charge two sparks corkscrew from your feet to above your head to a rising chime arpeggio and end in a crown of end rod sparks) or - rarely - a star burst (a two-step charge, then an eight-ray star like the nether star with firework and totem sparks, a bang and a beacon, then glitter and a ring running out along the ground). Particles and sound reach every player nearby; the animation is over before the core's one-second cooldown ends.",
+            "Easter egg: right-clicking a block that ores generate in (stone, granite, diorite, andesite, deepslate, tuff, netherrack, end stone) has a tiny chance per click to turn it into an ore - 1 in 10000 with the copper core, 1 in 7000 iron, 1 in 5000 gold, 1 in 3500 diamond, 1 in 2500 netherite, 1 in 2000 enderite. The core is not used up, and only the cooldown limits the clicks. The ore fits the block and is rolled by how common it is there: stone gives coal 40 %, iron 24 %, copper 20 %, redstone 5 %, gold 4 %, lapis 4 %, diamond 2 %, emerald 1 %; deepslate and tuff give the deepslate ores (redstone 24 %, iron 22 %, copper 12 %, gold 12 %, lapis 10 %, diamond 9 %, coal 8 %, emerald 3 %); netherrack gives nether quartz 70 %, nether gold 27 %, ancient debris 3 %; end stone gives nihilith ore 92 %, astralit ore 8 %. Not in adventure mode or where you may not build.",
             "In chests (config enableLootTableChanges) cores are rare, one pool per core with a single roll (owner 2026-09-28, \"age B\": the mean time of targeted search to the first core sits just before the age that needs it): iron 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, gold 1.25 % per bastion chest (not the bridge or hoglin stable chests) and 1.65 % per nether fortress chest, diamond 1.05 % per ominous vault and per roll of the rare vault table, netherite 6 % in the bastion treasure chest, enderite 0.175 % per end city chest. The copper core is in no chest. docs/KERNE-SELTENHEIT.md (section 5.3) gives the playtime until the first to sixth core of each kind."
           ]
         },
         "de": {
-          "summary": "Ein Baukern - ein Netherstern, gefasst in Kupfer, Eisen, Gold, Diamant, Netherit oder Enderit - ist das Stufenteil der Baustäbe und mehrerer Helfer. Er stapelt nicht, und ein Rechtsklick spielt eine kurze Animation ohne Spielwirkung.",
+          "summary": "Ein Baukern - ein Netherstern, gefasst in Kupfer, Eisen, Gold, Diamant, Netherit oder Enderit - ist das Stufenteil der Baustäbe und mehrerer Helfer. Er stapelt nicht, und ein Rechtsklick spielt eine kurze Animation; auf Stein und anderen erzführenden Blöcken verwandelt er den Block mit winziger Chance in Erz.",
           "details": [
             "Rezepte: Kupfer-, Eisen-, Gold- und Diamantkern sind ein Netherstern mit vier Barren der Stufe (beim Diamantkern Diamanten) im Plus darum. Der Netheritkern wird aus einem Diamantkern mit einem Netheritbarren auf der Netherit-Aufwertungsvorlage geschmiedet, der Enderit-Kern aus einem Netheritkern mit einem Enderitbarren auf der Enderit-Aufwertungsvorlage.",
-            "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Erzdetektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
+            "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
-            "Ein Rechtsklick mit einem Kern spielt eine von drei Animationen, gewürfelt 70 / 20 / 10: ein sanftes Leuchten (Staub in der Farbe des Kerns und Glimmer um die Hand, leises Amethyst-Klingen), kreisende Funken (zwei Funkenringe, die um dich laufen und aufsteigen, Amethyst-Resonanz) oder - selten - ein Netherstern-Ausbruch (vier lange Strahlen aus Endstab-Funken, ein Feuerwerksfunkenregen und der Klang eines erwachenden Leuchtfeuers). Das hat keine Spielwirkung; Partikel und Klang erreichen alle Spieler in der Nähe, danach kühlt der Kern 1,5 Sekunden ab.",
+            "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
+            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilith-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
             "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
           ]
         }
@@ -5864,7 +6045,7 @@ window.WIKI_DATA = {
             "First-person animation: as soon as a reshape is possible on the block you are looking at, the hammer tilts in your hand (rotated -15 degrees around Y and -10 degrees around X); the settings enableToolAnimations and enableChiselAnimation must both be on (HeldItemRendererMixin).",
             "Crushing a diamond block: holding right-click on a diamond block (sneaking or not) destroys it without its normal drop (destroyBlock with drop=false) and throws out 81 Diamond Pebbles (one stack of 64 and one of 17) with the metal break sound; it costs 1 durability except in creative mode.",
             "9 Diamond Pebbles make one Cracked Diamond in the crafting table (3x3); a Cracked Diamond turns back into a diamond in the blast furnace (datagen: 100 ticks, 1.0 experience).",
-            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston has no higher tier (SledgehammerUpgrades).",
+            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
             "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items, filter items and filter mode, furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
             "The upgrade is cancelled without using the nugget - strikes already landed stay paid - when you let go of right-click, look away from the block (the server allows 2 ticks of lag), leave reach, the block stops being the starting tier, the nugget leaves your off hand or the hammer breaks.",
@@ -5893,7 +6074,7 @@ window.WIKI_DATA = {
             "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
-            "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles.",
+            "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
             "Left-click an item frame holding a smithing template with a Glow Ink Sac in the off hand: Glowing Armor Trim; with Glowstone Dust: Emitting Armor Trim.",
             "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine."
           ],
@@ -5955,7 +6136,7 @@ window.WIKI_DATA = {
             "Erste-Person-Animation: Sobald ein Umformen am angezielten Block möglich ist, neigt sich der Hammer in der Hand (Drehung -15 Grad um Y, -10 Grad um X); die Einstellungen enableToolAnimations und enableChiselAnimation müssen beide an sein (HeldItemRendererMixin).",
             "Diamantblock zerkleinern: Rechtsklick auf einen Diamantblock halten (auch beim Schleichen) zerstört ihn ohne normalen Drop (destroyBlock mit drop=false) und wirft 81 Diamantkiesel aus (ein Stapel zu 64 und einer zu 17), mit Metall-Bruchgeräusch; kostet 1 Haltbarkeit außer im Kreativmodus.",
             "9 Diamantkiesel ergeben in der Werkbank (3x3) einen Rissigen Diamanten; ein Rissiger Diamant wird im Hochofen (Datagen: 100 Ticks, 1,0 Erfahrung) wieder zu einem Diamanten.",
-            "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; der Verstärkte klebrige Kolben hat keine höhere Stufe (SledgehammerUpgrades).",
+            "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
             "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt, Filter-Items und Filtermodus, Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
             "Abgebrochen wird ohne Klumpenverbrauch - bereits geschlagene Schläge bleiben bezahlt -, wenn du den Rechtsklick loslässt, vom Block wegschaust (der Server lässt 2 Ticks Verzögerung zu), die Reichweite verlässt, der Block nicht mehr die Ausgangsstufe ist, der Klumpen die Nebenhand verlässt oder der Hammer zerbricht.",
@@ -6835,7 +7016,7 @@ window.WIKI_DATA = {
             "Trade (load condition on option enableVillagerTrades): a level 4 mason sells the Copper Building Wand for 62 emeralds, 1 use, 20 experience, reputation discount 0.2.",
             "Trade: a level 3 librarian sells for 25 emeralds a book holding Color Palette (weight 30), Fast Chiseling (30) or Linear (25) (3 uses); level 4 for 25 emeralds Linear (weight 25) or Override (20) (2 uses); level 5 for 25 emeralds, among others, Master Builder (weight 10, 1 use).",
             "Trade (load condition on option enableWanderingTrades): the wandering trader sells in the 'uncommon' pool a book for 40 emeralds, 1 use; its pool holds only Radius (weight 20), so no wand enchantment comes from it.",
-            "All six wands are in the creative tab \"SimpleTools\" and once more in the Building Planning row of \"SimpleMachines\", together with enchanted books for Master Builder, Color Palette, Cover, Bridge, Linear and Constructor's Touch at maximum level.",
+            "All six wands are in the creative tab \"SimpleTools\" (the Blueprint and the Cartography Table right next to the Enderite wand), together with enchanted books for Master Builder, Color Palette, Cover, Bridge, Linear and Constructor's Touch at maximum level.",
             "The enderite wand is in the void_protected tag: dropped below the dimension's build height it hovers in place, and below minY-10 it is reset to minY+5.",
             "Cover enchantment: the area only grows in front of blocks of the same kind as the clicked block, and only as far as those positions hang together with the centre edge to edge - thicken a wall by one layer or extend a floor without square overhangs. The axis setting does not apply in this mode.",
             "Bridge enchantment: right-click into the air (not sneaking) to build a bridge from the block under your feet straight ahead in your facing direction, at the height of that block - as long as a Linear line (twice the area diameter) and ending in front of the first occupied block. It grows from the edge towards the far end, block by block every tick, in half the time the old chunked bridge took (radius 2 over six blocks: 6 ticks instead of 11). If the floor you stand on runs on ahead, the bridge starts at its edge (searched up to that same length), so you do not have to stand right at the drop. Standing on nothing, or on a floor without a gap in reach, nothing is built and the action bar says why. While you look into the air, the ghost preview shows the bridge.",
@@ -6917,7 +7098,7 @@ window.WIKI_DATA = {
             "Handel (Ladebedingung an Option enableVillagerTrades): Steinmetz Stufe 4 verkauft den Kupfer-Baustab für 62 Smaragde, 1 Verwendung, 20 Erfahrung, Rabatt 0,2.",
             "Handel: Bibliothekar Stufe 3 verkauft für 25 Smaragde ein Buch, das Farbpalette (Gewicht 30), Schnelles Meißeln (30) oder Linear (25) enthält (3 Verwendungen); Stufe 4 für 25 Smaragde Linear (Gewicht 25) oder Übersteuerung (20) (2 Verwendungen); Stufe 5 für 25 Smaragde unter anderem Baumeister (Gewicht 10, 1 Verwendung).",
             "Handel (Ladebedingung an Option enableWanderingTrades): der Fahrende Händler verkauft im Pool 'uncommon' für 40 Smaragde ein Buch, 1 Verwendung; dessen Pool enthält nur Radius (Gewicht 20), also keine Baustab-Verzauberung.",
-            "Alle sechs Stäbe stehen im Kreativ-Tab „SimpleTools“ und noch einmal in der Reihe Bauplanung von „SimpleMachines“, zusammen mit verzauberten Büchern für Baumeister, Farbpalette, Abdeckung, Brücke, Linear und Berührung des Konstrukteurs in Maximalstufe.",
+            "Alle sechs Stäbe stehen im Kreativ-Tab „SimpleTools“ (Blaupause und Kartografentisch direkt neben dem Enderit-Baustab), zusammen mit verzauberten Büchern für Baumeister, Farbpalette, Abdeckung, Brücke, Linear und Berührung des Konstrukteurs in Maximalstufe.",
             "Der Enderit-Stab steht im Tag void_protected: fällt er unter die Bauhöhe der Dimension, bleibt er schweben, und unterhalb von minY-10 wird er auf minY+5 zurückgesetzt.",
             "Verzauberung Abdeckung: Die Fläche wächst nur vor Blöcken derselben Sorte wie der angeklickte Block, und nur so weit, wie diese Stellen Kante an Kante mit der Mitte zusammenhängen - eine Mauer um eine Schicht verdicken oder einen Boden erweitern, ohne quadratische Überstände. Die Achsen-Einstellung gilt in diesem Modus nicht.",
             "Verzauberung Brücke: In die Luft rechtsklicken (ohne Schleichen), und vom Block unter deinen Füßen aus entsteht geradeaus in Blickrichtung eine Brücke auf der Höhe dieses Blocks - so lang wie eine Linear-Linie (doppelter Flächen-Durchmesser), sie endet vor dem ersten belegten Block. Sie wächst von der Kante zum anderen Ende, Block für Block jeden Tick, in der halben Zeit der alten, stückweise gebauten Brücke (Radius 2 über sechs Blöcke: 6 statt 11 Ticks). Läuft der Boden unter dir noch weiter, beginnt die Brücke an seiner Kante (bis zu derselben Länge weit gesucht) - du musst nicht direkt am Abgrund stehen. Stehst du auf nichts oder auf Boden ohne Lücke in Reichweite, wird nichts gebaut, und die Aktionsleiste sagt warum. Solange du in die Luft schaust, zeigt die Geister-Vorschau die Brücke.",
@@ -7439,7 +7620,7 @@ window.WIKI_DATA = {
       ],
       "usedIn": [
         "simplebuilding:echo_sounder",
-        "simplebuilding:flypad_tier1_smithing",
+        "simplebuilding:flypad_tier1_crafting",
         "simplebuilding:infused_potion_pad_smithing"
       ],
       "trades": [],
@@ -7448,22 +7629,24 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A building core - a nether star set in copper, iron, gold, diamond, netherite or enderite - is the tier part of the building wands and several helpers. It does not stack, and a right-click plays a short animation without any gameplay effect.",
+          "summary": "A building core - a nether star set in copper, iron, gold, diamond, netherite or enderite - is the tier part of the building wands and several helpers. It does not stack, and a right-click plays a short animation; on stone and other ore-bearing blocks it has a tiny chance to turn the block into ore.",
           "details": [
             "Recipes: copper, iron, gold and diamond cores are a nether star surrounded by four of the tier's ingots (diamonds for the diamond core) in a plus shape. The netherite core is forged from a diamond core with a netherite ingot on the netherite upgrade template, the enderite core from a netherite core with an enderite ingot on the enderite upgrade template.",
-            "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Amethyst Lens, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Ore Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
+            "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Amethyst Lens, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
             "Cores do not stack (stack size 1, since 2026-09-28; before 16). Since 2026-09-28 only the Wandering Trader sells cores, all four in his uncommon pool and each a lucky find: Copper Core 24 emeralds (2 uses), Iron Core 32, Gold Core 48, Diamond Core 64 (1 use each); iron, gold and diamond only show up in 50 / 25 / 10 % of the draws, so a trader offers them in about 10 / 5 / 2.4 / 1 % of visits. The mason sells no cores.",
-            "Right-clicking a core plays one of three animations, rolled 70 / 20 / 10: a gentle glow (dust in the core's colour and glimmer around the hand, a soft amethyst chime), orbiting sparks (two rings of sparks circling you and rising, amethyst resonance), or - rarely - a nether-star burst (four long rays of end rod sparks, a shower of firework sparks and the sound of a beacon waking up). It has no gameplay effect; particles and sound reach every player nearby, and the core then cools down for 1.5 seconds.",
+            "Right-clicking a core plays one of three short animations, rolled 70 / 20 / 10 and timed by the server over a few ticks: a glow (sparks shoot into your hand, then a ring of dust in the core's color flares across your view with an amethyst chime and a softer echo ring), a spiral (after the same quick charge two sparks corkscrew from your feet to above your head to a rising chime arpeggio and end in a crown of end rod sparks) or - rarely - a star burst (a two-step charge, then an eight-ray star like the nether star with firework and totem sparks, a bang and a beacon, then glitter and a ring running out along the ground). Particles and sound reach every player nearby; the animation is over before the core's one-second cooldown ends.",
+            "Easter egg: right-clicking a block that ores generate in (stone, granite, diorite, andesite, deepslate, tuff, netherrack, end stone) has a tiny chance per click to turn it into an ore - 1 in 10000 with the copper core, 1 in 7000 iron, 1 in 5000 gold, 1 in 3500 diamond, 1 in 2500 netherite, 1 in 2000 enderite. The core is not used up, and only the cooldown limits the clicks. The ore fits the block and is rolled by how common it is there: stone gives coal 40 %, iron 24 %, copper 20 %, redstone 5 %, gold 4 %, lapis 4 %, diamond 2 %, emerald 1 %; deepslate and tuff give the deepslate ores (redstone 24 %, iron 22 %, copper 12 %, gold 12 %, lapis 10 %, diamond 9 %, coal 8 %, emerald 3 %); netherrack gives nether quartz 70 %, nether gold 27 %, ancient debris 3 %; end stone gives nihilith ore 92 %, astralit ore 8 %. Not in adventure mode or where you may not build.",
             "In chests (config enableLootTableChanges) cores are rare, one pool per core with a single roll (owner 2026-09-28, \"age B\": the mean time of targeted search to the first core sits just before the age that needs it): iron 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, gold 1.25 % per bastion chest (not the bridge or hoglin stable chests) and 1.65 % per nether fortress chest, diamond 1.05 % per ominous vault and per roll of the rare vault table, netherite 6 % in the bastion treasure chest, enderite 0.175 % per end city chest. The copper core is in no chest. docs/KERNE-SELTENHEIT.md (section 5.3) gives the playtime until the first to sixth core of each kind."
           ]
         },
         "de": {
-          "summary": "Ein Baukern - ein Netherstern, gefasst in Kupfer, Eisen, Gold, Diamant, Netherit oder Enderit - ist das Stufenteil der Baustäbe und mehrerer Helfer. Er stapelt nicht, und ein Rechtsklick spielt eine kurze Animation ohne Spielwirkung.",
+          "summary": "Ein Baukern - ein Netherstern, gefasst in Kupfer, Eisen, Gold, Diamant, Netherit oder Enderit - ist das Stufenteil der Baustäbe und mehrerer Helfer. Er stapelt nicht, und ein Rechtsklick spielt eine kurze Animation; auf Stein und anderen erzführenden Blöcken verwandelt er den Block mit winziger Chance in Erz.",
           "details": [
             "Rezepte: Kupfer-, Eisen-, Gold- und Diamantkern sind ein Netherstern mit vier Barren der Stufe (beim Diamantkern Diamanten) im Plus darum. Der Netheritkern wird aus einem Diamantkern mit einem Netheritbarren auf der Netherit-Aufwertungsvorlage geschmiedet, der Enderit-Kern aus einem Netheritkern mit einem Enderitbarren auf der Enderit-Aufwertungsvorlage.",
-            "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Erzdetektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
+            "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
-            "Ein Rechtsklick mit einem Kern spielt eine von drei Animationen, gewürfelt 70 / 20 / 10: ein sanftes Leuchten (Staub in der Farbe des Kerns und Glimmer um die Hand, leises Amethyst-Klingen), kreisende Funken (zwei Funkenringe, die um dich laufen und aufsteigen, Amethyst-Resonanz) oder - selten - ein Netherstern-Ausbruch (vier lange Strahlen aus Endstab-Funken, ein Feuerwerksfunkenregen und der Klang eines erwachenden Leuchtfeuers). Das hat keine Spielwirkung; Partikel und Klang erreichen alle Spieler in der Nähe, danach kühlt der Kern 1,5 Sekunden ab.",
+            "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
+            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilith-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
             "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
           ]
         }
@@ -8203,7 +8386,7 @@ window.WIKI_DATA = {
             "First-person animation: as soon as a reshape is possible on the block you are looking at, the hammer tilts in your hand (rotated -15 degrees around Y and -10 degrees around X); the settings enableToolAnimations and enableChiselAnimation must both be on (HeldItemRendererMixin).",
             "Crushing a diamond block: holding right-click on a diamond block (sneaking or not) destroys it without its normal drop (destroyBlock with drop=false) and throws out 81 Diamond Pebbles (one stack of 64 and one of 17) with the metal break sound; it costs 1 durability except in creative mode.",
             "9 Diamond Pebbles make one Cracked Diamond in the crafting table (3x3); a Cracked Diamond turns back into a diamond in the blast furnace (datagen: 100 ticks, 1.0 experience).",
-            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston has no higher tier (SledgehammerUpgrades).",
+            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
             "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items, filter items and filter mode, furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
             "The upgrade is cancelled without using the nugget - strikes already landed stay paid - when you let go of right-click, look away from the block (the server allows 2 ticks of lag), leave reach, the block stops being the starting tier, the nugget leaves your off hand or the hammer breaks.",
@@ -8232,7 +8415,7 @@ window.WIKI_DATA = {
             "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
-            "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles.",
+            "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
             "Left-click an item frame holding a smithing template with a Glow Ink Sac in the off hand: Glowing Armor Trim; with Glowstone Dust: Emitting Armor Trim.",
             "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine."
           ],
@@ -8294,7 +8477,7 @@ window.WIKI_DATA = {
             "Erste-Person-Animation: Sobald ein Umformen am angezielten Block möglich ist, neigt sich der Hammer in der Hand (Drehung -15 Grad um Y, -10 Grad um X); die Einstellungen enableToolAnimations und enableChiselAnimation müssen beide an sein (HeldItemRendererMixin).",
             "Diamantblock zerkleinern: Rechtsklick auf einen Diamantblock halten (auch beim Schleichen) zerstört ihn ohne normalen Drop (destroyBlock mit drop=false) und wirft 81 Diamantkiesel aus (ein Stapel zu 64 und einer zu 17), mit Metall-Bruchgeräusch; kostet 1 Haltbarkeit außer im Kreativmodus.",
             "9 Diamantkiesel ergeben in der Werkbank (3x3) einen Rissigen Diamanten; ein Rissiger Diamant wird im Hochofen (Datagen: 100 Ticks, 1,0 Erfahrung) wieder zu einem Diamanten.",
-            "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; der Verstärkte klebrige Kolben hat keine höhere Stufe (SledgehammerUpgrades).",
+            "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
             "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt, Filter-Items und Filtermodus, Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
             "Abgebrochen wird ohne Klumpenverbrauch - bereits geschlagene Schläge bleiben bezahlt -, wenn du den Rechtsklick loslässt, vom Block wegschaust (der Server lässt 2 Ticks Verzögerung zu), die Reichweite verlässt, der Block nicht mehr die Ausgangsstufe ist, der Klumpen die Nebenhand verlässt oder der Hammer zerbricht.",
@@ -8576,7 +8759,6 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_spear_smithing",
         "simplebuilding:enderite_sword_smithing",
         "simplebuilding:enderite_upgrade_template",
-        "simplebuilding:flypad_tier1_smithing",
         "simplebuilding:flypad_tier2_smithing",
         "simplebuilding:infused_potion_pad_smithing",
         "simplebuilding:reinforced_potion_pad_smithing",
@@ -8662,7 +8844,7 @@ window.WIKI_DATA = {
             "Trade (load condition on option enableVillagerTrades): a level 4 mason sells the Copper Building Wand for 62 emeralds, 1 use, 20 experience, reputation discount 0.2.",
             "Trade: a level 3 librarian sells for 25 emeralds a book holding Color Palette (weight 30), Fast Chiseling (30) or Linear (25) (3 uses); level 4 for 25 emeralds Linear (weight 25) or Override (20) (2 uses); level 5 for 25 emeralds, among others, Master Builder (weight 10, 1 use).",
             "Trade (load condition on option enableWanderingTrades): the wandering trader sells in the 'uncommon' pool a book for 40 emeralds, 1 use; its pool holds only Radius (weight 20), so no wand enchantment comes from it.",
-            "All six wands are in the creative tab \"SimpleTools\" and once more in the Building Planning row of \"SimpleMachines\", together with enchanted books for Master Builder, Color Palette, Cover, Bridge, Linear and Constructor's Touch at maximum level.",
+            "All six wands are in the creative tab \"SimpleTools\" (the Blueprint and the Cartography Table right next to the Enderite wand), together with enchanted books for Master Builder, Color Palette, Cover, Bridge, Linear and Constructor's Touch at maximum level.",
             "The enderite wand is in the void_protected tag: dropped below the dimension's build height it hovers in place, and below minY-10 it is reset to minY+5.",
             "Cover enchantment: the area only grows in front of blocks of the same kind as the clicked block, and only as far as those positions hang together with the centre edge to edge - thicken a wall by one layer or extend a floor without square overhangs. The axis setting does not apply in this mode.",
             "Bridge enchantment: right-click into the air (not sneaking) to build a bridge from the block under your feet straight ahead in your facing direction, at the height of that block - as long as a Linear line (twice the area diameter) and ending in front of the first occupied block. It grows from the edge towards the far end, block by block every tick, in half the time the old chunked bridge took (radius 2 over six blocks: 6 ticks instead of 11). If the floor you stand on runs on ahead, the bridge starts at its edge (searched up to that same length), so you do not have to stand right at the drop. Standing on nothing, or on a floor without a gap in reach, nothing is built and the action bar says why. While you look into the air, the ghost preview shows the bridge.",
@@ -8744,7 +8926,7 @@ window.WIKI_DATA = {
             "Handel (Ladebedingung an Option enableVillagerTrades): Steinmetz Stufe 4 verkauft den Kupfer-Baustab für 62 Smaragde, 1 Verwendung, 20 Erfahrung, Rabatt 0,2.",
             "Handel: Bibliothekar Stufe 3 verkauft für 25 Smaragde ein Buch, das Farbpalette (Gewicht 30), Schnelles Meißeln (30) oder Linear (25) enthält (3 Verwendungen); Stufe 4 für 25 Smaragde Linear (Gewicht 25) oder Übersteuerung (20) (2 Verwendungen); Stufe 5 für 25 Smaragde unter anderem Baumeister (Gewicht 10, 1 Verwendung).",
             "Handel (Ladebedingung an Option enableWanderingTrades): der Fahrende Händler verkauft im Pool 'uncommon' für 40 Smaragde ein Buch, 1 Verwendung; dessen Pool enthält nur Radius (Gewicht 20), also keine Baustab-Verzauberung.",
-            "Alle sechs Stäbe stehen im Kreativ-Tab „SimpleTools“ und noch einmal in der Reihe Bauplanung von „SimpleMachines“, zusammen mit verzauberten Büchern für Baumeister, Farbpalette, Abdeckung, Brücke, Linear und Berührung des Konstrukteurs in Maximalstufe.",
+            "Alle sechs Stäbe stehen im Kreativ-Tab „SimpleTools“ (Blaupause und Kartografentisch direkt neben dem Enderit-Baustab), zusammen mit verzauberten Büchern für Baumeister, Farbpalette, Abdeckung, Brücke, Linear und Berührung des Konstrukteurs in Maximalstufe.",
             "Der Enderit-Stab steht im Tag void_protected: fällt er unter die Bauhöhe der Dimension, bleibt er schweben, und unterhalb von minY-10 wird er auf minY+5 zurückgesetzt.",
             "Verzauberung Abdeckung: Die Fläche wächst nur vor Blöcken derselben Sorte wie der angeklickte Block, und nur so weit, wie diese Stellen Kante an Kante mit der Mitte zusammenhängen - eine Mauer um eine Schicht verdicken oder einen Boden erweitern, ohne quadratische Überstände. Die Achsen-Einstellung gilt in diesem Modus nicht.",
             "Verzauberung Brücke: In die Luft rechtsklicken (ohne Schleichen), und vom Block unter deinen Füßen aus entsteht geradeaus in Blickrichtung eine Brücke auf der Höhe dieses Blocks - so lang wie eine Linear-Linie (doppelter Flächen-Durchmesser), sie endet vor dem ersten belegten Block. Sie wächst von der Kante zum anderen Ende, Block für Block jeden Tick, in der halben Zeit der alten, stückweise gebauten Brücke (Radius 2 über sechs Blöcke: 6 statt 11 Ticks). Läuft der Boden unter dir noch weiter, beginnt die Brücke an seiner Kante (bis zu derselben Länge weit gesucht) - du musst nicht direkt am Abgrund stehen. Stehst du auf nichts oder auf Boden ohne Lücke in Reichweite, wird nichts gebaut, und die Aktionsleiste sagt warum. Solange du in die Luft schaust, zeigt die Geister-Vorschau die Brücke.",
@@ -9081,9 +9263,10 @@ window.WIKI_DATA = {
         "simplebuilding:gold_core_plus"
       ],
       "usedIn": [
+        "simplebuilding:detector",
         "simplebuilding:gold_building_wand",
         "simplebuilding:octant",
-        "simplebuilding:ore_detector",
+        "simplebuilding:spawn_teleporter_smithing",
         "simplebuilding:upgrade_iron_building_wand_to_gold_building_wand"
       ],
       "trades": [
@@ -9094,22 +9277,24 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A building core - a nether star set in copper, iron, gold, diamond, netherite or enderite - is the tier part of the building wands and several helpers. It does not stack, and a right-click plays a short animation without any gameplay effect.",
+          "summary": "A building core - a nether star set in copper, iron, gold, diamond, netherite or enderite - is the tier part of the building wands and several helpers. It does not stack, and a right-click plays a short animation; on stone and other ore-bearing blocks it has a tiny chance to turn the block into ore.",
           "details": [
             "Recipes: copper, iron, gold and diamond cores are a nether star surrounded by four of the tier's ingots (diamonds for the diamond core) in a plus shape. The netherite core is forged from a diamond core with a netherite ingot on the netherite upgrade template, the enderite core from a netherite core with an enderite ingot on the enderite upgrade template.",
-            "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Amethyst Lens, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Ore Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
+            "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Amethyst Lens, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
             "Cores do not stack (stack size 1, since 2026-09-28; before 16). Since 2026-09-28 only the Wandering Trader sells cores, all four in his uncommon pool and each a lucky find: Copper Core 24 emeralds (2 uses), Iron Core 32, Gold Core 48, Diamond Core 64 (1 use each); iron, gold and diamond only show up in 50 / 25 / 10 % of the draws, so a trader offers them in about 10 / 5 / 2.4 / 1 % of visits. The mason sells no cores.",
-            "Right-clicking a core plays one of three animations, rolled 70 / 20 / 10: a gentle glow (dust in the core's colour and glimmer around the hand, a soft amethyst chime), orbiting sparks (two rings of sparks circling you and rising, amethyst resonance), or - rarely - a nether-star burst (four long rays of end rod sparks, a shower of firework sparks and the sound of a beacon waking up). It has no gameplay effect; particles and sound reach every player nearby, and the core then cools down for 1.5 seconds.",
+            "Right-clicking a core plays one of three short animations, rolled 70 / 20 / 10 and timed by the server over a few ticks: a glow (sparks shoot into your hand, then a ring of dust in the core's color flares across your view with an amethyst chime and a softer echo ring), a spiral (after the same quick charge two sparks corkscrew from your feet to above your head to a rising chime arpeggio and end in a crown of end rod sparks) or - rarely - a star burst (a two-step charge, then an eight-ray star like the nether star with firework and totem sparks, a bang and a beacon, then glitter and a ring running out along the ground). Particles and sound reach every player nearby; the animation is over before the core's one-second cooldown ends.",
+            "Easter egg: right-clicking a block that ores generate in (stone, granite, diorite, andesite, deepslate, tuff, netherrack, end stone) has a tiny chance per click to turn it into an ore - 1 in 10000 with the copper core, 1 in 7000 iron, 1 in 5000 gold, 1 in 3500 diamond, 1 in 2500 netherite, 1 in 2000 enderite. The core is not used up, and only the cooldown limits the clicks. The ore fits the block and is rolled by how common it is there: stone gives coal 40 %, iron 24 %, copper 20 %, redstone 5 %, gold 4 %, lapis 4 %, diamond 2 %, emerald 1 %; deepslate and tuff give the deepslate ores (redstone 24 %, iron 22 %, copper 12 %, gold 12 %, lapis 10 %, diamond 9 %, coal 8 %, emerald 3 %); netherrack gives nether quartz 70 %, nether gold 27 %, ancient debris 3 %; end stone gives nihilith ore 92 %, astralit ore 8 %. Not in adventure mode or where you may not build.",
             "In chests (config enableLootTableChanges) cores are rare, one pool per core with a single roll (owner 2026-09-28, \"age B\": the mean time of targeted search to the first core sits just before the age that needs it): iron 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, gold 1.25 % per bastion chest (not the bridge or hoglin stable chests) and 1.65 % per nether fortress chest, diamond 1.05 % per ominous vault and per roll of the rare vault table, netherite 6 % in the bastion treasure chest, enderite 0.175 % per end city chest. The copper core is in no chest. docs/KERNE-SELTENHEIT.md (section 5.3) gives the playtime until the first to sixth core of each kind."
           ]
         },
         "de": {
-          "summary": "Ein Baukern - ein Netherstern, gefasst in Kupfer, Eisen, Gold, Diamant, Netherit oder Enderit - ist das Stufenteil der Baustäbe und mehrerer Helfer. Er stapelt nicht, und ein Rechtsklick spielt eine kurze Animation ohne Spielwirkung.",
+          "summary": "Ein Baukern - ein Netherstern, gefasst in Kupfer, Eisen, Gold, Diamant, Netherit oder Enderit - ist das Stufenteil der Baustäbe und mehrerer Helfer. Er stapelt nicht, und ein Rechtsklick spielt eine kurze Animation; auf Stein und anderen erzführenden Blöcken verwandelt er den Block mit winziger Chance in Erz.",
           "details": [
             "Rezepte: Kupfer-, Eisen-, Gold- und Diamantkern sind ein Netherstern mit vier Barren der Stufe (beim Diamantkern Diamanten) im Plus darum. Der Netheritkern wird aus einem Diamantkern mit einem Netheritbarren auf der Netherit-Aufwertungsvorlage geschmiedet, der Enderit-Kern aus einem Netheritkern mit einem Enderitbarren auf der Enderit-Aufwertungsvorlage.",
-            "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Erzdetektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
+            "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
-            "Ein Rechtsklick mit einem Kern spielt eine von drei Animationen, gewürfelt 70 / 20 / 10: ein sanftes Leuchten (Staub in der Farbe des Kerns und Glimmer um die Hand, leises Amethyst-Klingen), kreisende Funken (zwei Funkenringe, die um dich laufen und aufsteigen, Amethyst-Resonanz) oder - selten - ein Netherstern-Ausbruch (vier lange Strahlen aus Endstab-Funken, ein Feuerwerksfunkenregen und der Klang eines erwachenden Leuchtfeuers). Das hat keine Spielwirkung; Partikel und Klang erreichen alle Spieler in der Nähe, danach kühlt der Kern 1,5 Sekunden ab.",
+            "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
+            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilith-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
             "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
           ]
         }
@@ -9169,7 +9354,7 @@ window.WIKI_DATA = {
             "First-person animation: as soon as a reshape is possible on the block you are looking at, the hammer tilts in your hand (rotated -15 degrees around Y and -10 degrees around X); the settings enableToolAnimations and enableChiselAnimation must both be on (HeldItemRendererMixin).",
             "Crushing a diamond block: holding right-click on a diamond block (sneaking or not) destroys it without its normal drop (destroyBlock with drop=false) and throws out 81 Diamond Pebbles (one stack of 64 and one of 17) with the metal break sound; it costs 1 durability except in creative mode.",
             "9 Diamond Pebbles make one Cracked Diamond in the crafting table (3x3); a Cracked Diamond turns back into a diamond in the blast furnace (datagen: 100 ticks, 1.0 experience).",
-            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston has no higher tier (SledgehammerUpgrades).",
+            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
             "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items, filter items and filter mode, furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
             "The upgrade is cancelled without using the nugget - strikes already landed stay paid - when you let go of right-click, look away from the block (the server allows 2 ticks of lag), leave reach, the block stops being the starting tier, the nugget leaves your off hand or the hammer breaks.",
@@ -9198,7 +9383,7 @@ window.WIKI_DATA = {
             "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
-            "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles.",
+            "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
             "Left-click an item frame holding a smithing template with a Glow Ink Sac in the off hand: Glowing Armor Trim; with Glowstone Dust: Emitting Armor Trim.",
             "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine."
           ],
@@ -9260,7 +9445,7 @@ window.WIKI_DATA = {
             "Erste-Person-Animation: Sobald ein Umformen am angezielten Block möglich ist, neigt sich der Hammer in der Hand (Drehung -15 Grad um Y, -10 Grad um X); die Einstellungen enableToolAnimations und enableChiselAnimation müssen beide an sein (HeldItemRendererMixin).",
             "Diamantblock zerkleinern: Rechtsklick auf einen Diamantblock halten (auch beim Schleichen) zerstört ihn ohne normalen Drop (destroyBlock mit drop=false) und wirft 81 Diamantkiesel aus (ein Stapel zu 64 und einer zu 17), mit Metall-Bruchgeräusch; kostet 1 Haltbarkeit außer im Kreativmodus.",
             "9 Diamantkiesel ergeben in der Werkbank (3x3) einen Rissigen Diamanten; ein Rissiger Diamant wird im Hochofen (Datagen: 100 Ticks, 1,0 Erfahrung) wieder zu einem Diamanten.",
-            "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; der Verstärkte klebrige Kolben hat keine höhere Stufe (SledgehammerUpgrades).",
+            "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
             "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt, Filter-Items und Filtermodus, Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
             "Abgebrochen wird ohne Klumpenverbrauch - bereits geschlagene Schläge bleiben bezahlt -, wenn du den Rechtsklick loslässt, vom Block wegschaust (der Server lässt 2 Ticks Verzögerung zu), die Reichweite verlässt, der Block nicht mehr die Ausgangsstufe ist, der Klumpen die Nebenhand verlässt oder der Hammer zerbricht.",
@@ -9398,7 +9583,9 @@ window.WIKI_DATA = {
       "usedIn": [
         "simplebuilding:guide_book_admin",
         "simplebuilding:guide_book_building",
+        "simplebuilding:guide_book_enchantments",
         "simplebuilding:guide_book_end",
+        "simplebuilding:guide_book_gadgets",
         "simplebuilding:guide_book_machines",
         "simplebuilding:guide_book_storage",
         "simplebuilding:guide_book_tools",
@@ -9411,30 +9598,30 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server: a short, clickable walk through the first steps. Seven topic books (Tools & Upgrades, Building, Storage, Machines & Pistons, End & Enderite, Pads & Gadgets, Trims & Radiance) go deeper and are crafted at the crafting table.",
+          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
           "details": [
             "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back (after a chapter jump) or to the contents, Home to the contents, the bookmark on the left always leads to the contents. Each book remembers its last spread until the game restarts. The bookmarks on the right switch between the eight books - a book you do not carry stays locked and its tooltip names the recipe.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
             "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
             "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
             "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, Diamond Pebbles, hammering machines up a tier, the Building Wand, the Octant, the Backpack, upgrading tools and where enchantments come from, and ends with the list of topic books and their recipes.",
-            "Topic book recipes (shapeless): a book or the Beginner's Guide plus Stone Chisel (Tools & Upgrades), Brick (Building), Chest (Storage), Piston (Machines & Pistons), Ender Pearl (End & Enderite), Stone Pressure Plate (Pads & Gadgets) or Amethyst Shard (Trims & Radiance). Made from the guide, the guide stays in the crafting grid. The recipes unlock with the key item or with the guide.",
+            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
+            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
             "A lost guide is crafted again from a book and a crafting table.",
             "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
             "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
           ]
         },
         "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers: ein kurzer, anklickbarer Weg durch die ersten Schritte. Sieben Themenbücher (Werkzeuge & Aufwertungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads & Geräte, Besätze & Strahlkraft) gehen tiefer und entstehen an der Werkbank.",
+          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
           "details": [
             "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück (nach einem Kapitelsprung) oder zum Inhalt, Pos1 zum Inhalt, das Lesezeichen links führt immer zum Inhalt. Jedes Buch merkt sich seine letzte Doppelseite bis zum Neustart des Spiels. Die Lesezeichen rechts wechseln zwischen den acht Büchern - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
             "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
             "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
             "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Diamantkiesel, das Aufhämmern von Maschinen, Baustab, Oktant, Rucksack, das Aufwerten von Werkzeugen und woher Verzauberungen kommen, und endet mit der Liste der Themenbücher samt Rezept.",
-            "Rezepte der Themenbücher (formlos): ein Buch oder das Einsteiger-Handbuch plus Steinmeißel (Werkzeuge & Aufwertungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen & Kolben), Enderperle (Ende & Enderit), Steindruckplatte (Pads & Geräte) oder Amethystscherbe (Besätze & Strahlkraft). Mit dem Handbuch hergestellt, bleibt das Handbuch im Raster liegen. Freigeschaltet werden die Rezepte durch das Schlüsselitem oder durch das Handbuch.",
+            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
+            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
             "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
             "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
             "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
@@ -9455,7 +9642,10 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java"
+          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -9464,7 +9654,7 @@ window.WIKI_DATA = {
       "id": "simplebuilding:guide_book_admin",
       "name": {
         "en_us": "Guide: Server Admin",
-        "de_de": "Handbuch: Server-Verwaltung"
+        "de_de": "Handbuch: Server-Admin"
       },
       "texture": "assets/textures/item/guide_book_admin.png",
       "craftedBy": [
@@ -9477,30 +9667,30 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server: a short, clickable walk through the first steps. Seven topic books (Tools & Upgrades, Building, Storage, Machines & Pistons, End & Enderite, Pads & Gadgets, Trims & Radiance) go deeper and are crafted at the crafting table.",
+          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
           "details": [
             "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back (after a chapter jump) or to the contents, Home to the contents, the bookmark on the left always leads to the contents. Each book remembers its last spread until the game restarts. The bookmarks on the right switch between the eight books - a book you do not carry stays locked and its tooltip names the recipe.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
             "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
             "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
             "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, Diamond Pebbles, hammering machines up a tier, the Building Wand, the Octant, the Backpack, upgrading tools and where enchantments come from, and ends with the list of topic books and their recipes.",
-            "Topic book recipes (shapeless): a book or the Beginner's Guide plus Stone Chisel (Tools & Upgrades), Brick (Building), Chest (Storage), Piston (Machines & Pistons), Ender Pearl (End & Enderite), Stone Pressure Plate (Pads & Gadgets) or Amethyst Shard (Trims & Radiance). Made from the guide, the guide stays in the crafting grid. The recipes unlock with the key item or with the guide.",
+            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
+            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
             "A lost guide is crafted again from a book and a crafting table.",
             "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
             "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
           ]
         },
         "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers: ein kurzer, anklickbarer Weg durch die ersten Schritte. Sieben Themenbücher (Werkzeuge & Aufwertungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads & Geräte, Besätze & Strahlkraft) gehen tiefer und entstehen an der Werkbank.",
+          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
           "details": [
             "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück (nach einem Kapitelsprung) oder zum Inhalt, Pos1 zum Inhalt, das Lesezeichen links führt immer zum Inhalt. Jedes Buch merkt sich seine letzte Doppelseite bis zum Neustart des Spiels. Die Lesezeichen rechts wechseln zwischen den acht Büchern - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
             "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
             "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
             "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Diamantkiesel, das Aufhämmern von Maschinen, Baustab, Oktant, Rucksack, das Aufwerten von Werkzeugen und woher Verzauberungen kommen, und endet mit der Liste der Themenbücher samt Rezept.",
-            "Rezepte der Themenbücher (formlos): ein Buch oder das Einsteiger-Handbuch plus Steinmeißel (Werkzeuge & Aufwertungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen & Kolben), Enderperle (Ende & Enderit), Steindruckplatte (Pads & Geräte) oder Amethystscherbe (Besätze & Strahlkraft). Mit dem Handbuch hergestellt, bleibt das Handbuch im Raster liegen. Freigeschaltet werden die Rezepte durch das Schlüsselitem oder durch das Handbuch.",
+            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
+            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
             "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
             "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
             "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
@@ -9521,7 +9711,10 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java"
+          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -9543,30 +9736,30 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server: a short, clickable walk through the first steps. Seven topic books (Tools & Upgrades, Building, Storage, Machines & Pistons, End & Enderite, Pads & Gadgets, Trims & Radiance) go deeper and are crafted at the crafting table.",
+          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
           "details": [
             "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back (after a chapter jump) or to the contents, Home to the contents, the bookmark on the left always leads to the contents. Each book remembers its last spread until the game restarts. The bookmarks on the right switch between the eight books - a book you do not carry stays locked and its tooltip names the recipe.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
             "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
             "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
             "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, Diamond Pebbles, hammering machines up a tier, the Building Wand, the Octant, the Backpack, upgrading tools and where enchantments come from, and ends with the list of topic books and their recipes.",
-            "Topic book recipes (shapeless): a book or the Beginner's Guide plus Stone Chisel (Tools & Upgrades), Brick (Building), Chest (Storage), Piston (Machines & Pistons), Ender Pearl (End & Enderite), Stone Pressure Plate (Pads & Gadgets) or Amethyst Shard (Trims & Radiance). Made from the guide, the guide stays in the crafting grid. The recipes unlock with the key item or with the guide.",
+            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
+            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
             "A lost guide is crafted again from a book and a crafting table.",
             "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
             "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
           ]
         },
         "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers: ein kurzer, anklickbarer Weg durch die ersten Schritte. Sieben Themenbücher (Werkzeuge & Aufwertungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads & Geräte, Besätze & Strahlkraft) gehen tiefer und entstehen an der Werkbank.",
+          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
           "details": [
             "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück (nach einem Kapitelsprung) oder zum Inhalt, Pos1 zum Inhalt, das Lesezeichen links führt immer zum Inhalt. Jedes Buch merkt sich seine letzte Doppelseite bis zum Neustart des Spiels. Die Lesezeichen rechts wechseln zwischen den acht Büchern - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
             "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
             "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
             "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Diamantkiesel, das Aufhämmern von Maschinen, Baustab, Oktant, Rucksack, das Aufwerten von Werkzeugen und woher Verzauberungen kommen, und endet mit der Liste der Themenbücher samt Rezept.",
-            "Rezepte der Themenbücher (formlos): ein Buch oder das Einsteiger-Handbuch plus Steinmeißel (Werkzeuge & Aufwertungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen & Kolben), Enderperle (Ende & Enderit), Steindruckplatte (Pads & Geräte) oder Amethystscherbe (Besätze & Strahlkraft). Mit dem Handbuch hergestellt, bleibt das Handbuch im Raster liegen. Freigeschaltet werden die Rezepte durch das Schlüsselitem oder durch das Handbuch.",
+            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
+            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
             "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
             "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
             "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
@@ -9587,7 +9780,79 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java"
+          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:guide_book_enchantments",
+      "name": {
+        "en_us": "Guide: Enchantments",
+        "de_de": "Handbuch: Verzauberungen"
+      },
+      "texture": "assets/textures/item/guide_book_enchantments.png",
+      "craftedBy": [
+        "simplebuilding:guide_book_enchantments"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "note": {
+        "en": {
+          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
+          "details": [
+            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
+            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
+            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
+            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
+            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
+            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
+            "A lost guide is crafted again from a book and a crafting table.",
+            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
+            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
+          ]
+        },
+        "de": {
+          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
+          "details": [
+            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
+            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
+            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
+            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
+            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
+            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
+            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
+            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
+            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
+          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
+          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -9609,30 +9874,30 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server: a short, clickable walk through the first steps. Seven topic books (Tools & Upgrades, Building, Storage, Machines & Pistons, End & Enderite, Pads & Gadgets, Trims & Radiance) go deeper and are crafted at the crafting table.",
+          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
           "details": [
             "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back (after a chapter jump) or to the contents, Home to the contents, the bookmark on the left always leads to the contents. Each book remembers its last spread until the game restarts. The bookmarks on the right switch between the eight books - a book you do not carry stays locked and its tooltip names the recipe.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
             "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
             "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
             "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, Diamond Pebbles, hammering machines up a tier, the Building Wand, the Octant, the Backpack, upgrading tools and where enchantments come from, and ends with the list of topic books and their recipes.",
-            "Topic book recipes (shapeless): a book or the Beginner's Guide plus Stone Chisel (Tools & Upgrades), Brick (Building), Chest (Storage), Piston (Machines & Pistons), Ender Pearl (End & Enderite), Stone Pressure Plate (Pads & Gadgets) or Amethyst Shard (Trims & Radiance). Made from the guide, the guide stays in the crafting grid. The recipes unlock with the key item or with the guide.",
+            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
+            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
             "A lost guide is crafted again from a book and a crafting table.",
             "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
             "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
           ]
         },
         "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers: ein kurzer, anklickbarer Weg durch die ersten Schritte. Sieben Themenbücher (Werkzeuge & Aufwertungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads & Geräte, Besätze & Strahlkraft) gehen tiefer und entstehen an der Werkbank.",
+          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
           "details": [
             "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück (nach einem Kapitelsprung) oder zum Inhalt, Pos1 zum Inhalt, das Lesezeichen links führt immer zum Inhalt. Jedes Buch merkt sich seine letzte Doppelseite bis zum Neustart des Spiels. Die Lesezeichen rechts wechseln zwischen den acht Büchern - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
             "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
             "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
             "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Diamantkiesel, das Aufhämmern von Maschinen, Baustab, Oktant, Rucksack, das Aufwerten von Werkzeugen und woher Verzauberungen kommen, und endet mit der Liste der Themenbücher samt Rezept.",
-            "Rezepte der Themenbücher (formlos): ein Buch oder das Einsteiger-Handbuch plus Steinmeißel (Werkzeuge & Aufwertungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen & Kolben), Enderperle (Ende & Enderit), Steindruckplatte (Pads & Geräte) oder Amethystscherbe (Besätze & Strahlkraft). Mit dem Handbuch hergestellt, bleibt das Handbuch im Raster liegen. Freigeschaltet werden die Rezepte durch das Schlüsselitem oder durch das Handbuch.",
+            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
+            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
             "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
             "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
             "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
@@ -9653,7 +9918,79 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java"
+          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:guide_book_gadgets",
+      "name": {
+        "en_us": "Guide: Gadgets",
+        "de_de": "Handbuch: Geräte"
+      },
+      "texture": "assets/textures/item/guide_book_gadgets.png",
+      "craftedBy": [
+        "simplebuilding:guide_book_gadgets"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "note": {
+        "en": {
+          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
+          "details": [
+            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
+            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
+            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
+            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
+            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
+            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
+            "A lost guide is crafted again from a book and a crafting table.",
+            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
+            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
+          ]
+        },
+        "de": {
+          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
+          "details": [
+            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
+            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
+            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
+            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
+            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
+            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
+            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
+            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
+            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
+          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
+          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -9675,30 +10012,30 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server: a short, clickable walk through the first steps. Seven topic books (Tools & Upgrades, Building, Storage, Machines & Pistons, End & Enderite, Pads & Gadgets, Trims & Radiance) go deeper and are crafted at the crafting table.",
+          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
           "details": [
             "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back (after a chapter jump) or to the contents, Home to the contents, the bookmark on the left always leads to the contents. Each book remembers its last spread until the game restarts. The bookmarks on the right switch between the eight books - a book you do not carry stays locked and its tooltip names the recipe.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
             "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
             "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
             "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, Diamond Pebbles, hammering machines up a tier, the Building Wand, the Octant, the Backpack, upgrading tools and where enchantments come from, and ends with the list of topic books and their recipes.",
-            "Topic book recipes (shapeless): a book or the Beginner's Guide plus Stone Chisel (Tools & Upgrades), Brick (Building), Chest (Storage), Piston (Machines & Pistons), Ender Pearl (End & Enderite), Stone Pressure Plate (Pads & Gadgets) or Amethyst Shard (Trims & Radiance). Made from the guide, the guide stays in the crafting grid. The recipes unlock with the key item or with the guide.",
+            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
+            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
             "A lost guide is crafted again from a book and a crafting table.",
             "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
             "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
           ]
         },
         "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers: ein kurzer, anklickbarer Weg durch die ersten Schritte. Sieben Themenbücher (Werkzeuge & Aufwertungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads & Geräte, Besätze & Strahlkraft) gehen tiefer und entstehen an der Werkbank.",
+          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
           "details": [
             "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück (nach einem Kapitelsprung) oder zum Inhalt, Pos1 zum Inhalt, das Lesezeichen links führt immer zum Inhalt. Jedes Buch merkt sich seine letzte Doppelseite bis zum Neustart des Spiels. Die Lesezeichen rechts wechseln zwischen den acht Büchern - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
             "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
             "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
             "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Diamantkiesel, das Aufhämmern von Maschinen, Baustab, Oktant, Rucksack, das Aufwerten von Werkzeugen und woher Verzauberungen kommen, und endet mit der Liste der Themenbücher samt Rezept.",
-            "Rezepte der Themenbücher (formlos): ein Buch oder das Einsteiger-Handbuch plus Steinmeißel (Werkzeuge & Aufwertungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen & Kolben), Enderperle (Ende & Enderit), Steindruckplatte (Pads & Geräte) oder Amethystscherbe (Besätze & Strahlkraft). Mit dem Handbuch hergestellt, bleibt das Handbuch im Raster liegen. Freigeschaltet werden die Rezepte durch das Schlüsselitem oder durch das Handbuch.",
+            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
+            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
             "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
             "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
             "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
@@ -9719,7 +10056,10 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java"
+          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -9741,30 +10081,30 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server: a short, clickable walk through the first steps. Seven topic books (Tools & Upgrades, Building, Storage, Machines & Pistons, End & Enderite, Pads & Gadgets, Trims & Radiance) go deeper and are crafted at the crafting table.",
+          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
           "details": [
             "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back (after a chapter jump) or to the contents, Home to the contents, the bookmark on the left always leads to the contents. Each book remembers its last spread until the game restarts. The bookmarks on the right switch between the eight books - a book you do not carry stays locked and its tooltip names the recipe.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
             "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
             "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
             "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, Diamond Pebbles, hammering machines up a tier, the Building Wand, the Octant, the Backpack, upgrading tools and where enchantments come from, and ends with the list of topic books and their recipes.",
-            "Topic book recipes (shapeless): a book or the Beginner's Guide plus Stone Chisel (Tools & Upgrades), Brick (Building), Chest (Storage), Piston (Machines & Pistons), Ender Pearl (End & Enderite), Stone Pressure Plate (Pads & Gadgets) or Amethyst Shard (Trims & Radiance). Made from the guide, the guide stays in the crafting grid. The recipes unlock with the key item or with the guide.",
+            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
+            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
             "A lost guide is crafted again from a book and a crafting table.",
             "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
             "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
           ]
         },
         "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers: ein kurzer, anklickbarer Weg durch die ersten Schritte. Sieben Themenbücher (Werkzeuge & Aufwertungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads & Geräte, Besätze & Strahlkraft) gehen tiefer und entstehen an der Werkbank.",
+          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
           "details": [
             "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück (nach einem Kapitelsprung) oder zum Inhalt, Pos1 zum Inhalt, das Lesezeichen links führt immer zum Inhalt. Jedes Buch merkt sich seine letzte Doppelseite bis zum Neustart des Spiels. Die Lesezeichen rechts wechseln zwischen den acht Büchern - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
             "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
             "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
             "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Diamantkiesel, das Aufhämmern von Maschinen, Baustab, Oktant, Rucksack, das Aufwerten von Werkzeugen und woher Verzauberungen kommen, und endet mit der Liste der Themenbücher samt Rezept.",
-            "Rezepte der Themenbücher (formlos): ein Buch oder das Einsteiger-Handbuch plus Steinmeißel (Werkzeuge & Aufwertungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen & Kolben), Enderperle (Ende & Enderit), Steindruckplatte (Pads & Geräte) oder Amethystscherbe (Besätze & Strahlkraft). Mit dem Handbuch hergestellt, bleibt das Handbuch im Raster liegen. Freigeschaltet werden die Rezepte durch das Schlüsselitem oder durch das Handbuch.",
+            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
+            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
             "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
             "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
             "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
@@ -9785,7 +10125,10 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java"
+          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -9807,30 +10150,30 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server: a short, clickable walk through the first steps. Seven topic books (Tools & Upgrades, Building, Storage, Machines & Pistons, End & Enderite, Pads & Gadgets, Trims & Radiance) go deeper and are crafted at the crafting table.",
+          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
           "details": [
             "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back (after a chapter jump) or to the contents, Home to the contents, the bookmark on the left always leads to the contents. Each book remembers its last spread until the game restarts. The bookmarks on the right switch between the eight books - a book you do not carry stays locked and its tooltip names the recipe.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
             "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
             "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
             "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, Diamond Pebbles, hammering machines up a tier, the Building Wand, the Octant, the Backpack, upgrading tools and where enchantments come from, and ends with the list of topic books and their recipes.",
-            "Topic book recipes (shapeless): a book or the Beginner's Guide plus Stone Chisel (Tools & Upgrades), Brick (Building), Chest (Storage), Piston (Machines & Pistons), Ender Pearl (End & Enderite), Stone Pressure Plate (Pads & Gadgets) or Amethyst Shard (Trims & Radiance). Made from the guide, the guide stays in the crafting grid. The recipes unlock with the key item or with the guide.",
+            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
+            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
             "A lost guide is crafted again from a book and a crafting table.",
             "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
             "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
           ]
         },
         "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers: ein kurzer, anklickbarer Weg durch die ersten Schritte. Sieben Themenbücher (Werkzeuge & Aufwertungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads & Geräte, Besätze & Strahlkraft) gehen tiefer und entstehen an der Werkbank.",
+          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
           "details": [
             "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück (nach einem Kapitelsprung) oder zum Inhalt, Pos1 zum Inhalt, das Lesezeichen links führt immer zum Inhalt. Jedes Buch merkt sich seine letzte Doppelseite bis zum Neustart des Spiels. Die Lesezeichen rechts wechseln zwischen den acht Büchern - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
             "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
             "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
             "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Diamantkiesel, das Aufhämmern von Maschinen, Baustab, Oktant, Rucksack, das Aufwerten von Werkzeugen und woher Verzauberungen kommen, und endet mit der Liste der Themenbücher samt Rezept.",
-            "Rezepte der Themenbücher (formlos): ein Buch oder das Einsteiger-Handbuch plus Steinmeißel (Werkzeuge & Aufwertungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen & Kolben), Enderperle (Ende & Enderit), Steindruckplatte (Pads & Geräte) oder Amethystscherbe (Besätze & Strahlkraft). Mit dem Handbuch hergestellt, bleibt das Handbuch im Raster liegen. Freigeschaltet werden die Rezepte durch das Schlüsselitem oder durch das Handbuch.",
+            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
+            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
             "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
             "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
             "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
@@ -9851,7 +10194,10 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java"
+          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -9873,30 +10219,30 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server: a short, clickable walk through the first steps. Seven topic books (Tools & Upgrades, Building, Storage, Machines & Pistons, End & Enderite, Pads & Gadgets, Trims & Radiance) go deeper and are crafted at the crafting table.",
+          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
           "details": [
             "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back (after a chapter jump) or to the contents, Home to the contents, the bookmark on the left always leads to the contents. Each book remembers its last spread until the game restarts. The bookmarks on the right switch between the eight books - a book you do not carry stays locked and its tooltip names the recipe.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
             "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
             "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
             "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, Diamond Pebbles, hammering machines up a tier, the Building Wand, the Octant, the Backpack, upgrading tools and where enchantments come from, and ends with the list of topic books and their recipes.",
-            "Topic book recipes (shapeless): a book or the Beginner's Guide plus Stone Chisel (Tools & Upgrades), Brick (Building), Chest (Storage), Piston (Machines & Pistons), Ender Pearl (End & Enderite), Stone Pressure Plate (Pads & Gadgets) or Amethyst Shard (Trims & Radiance). Made from the guide, the guide stays in the crafting grid. The recipes unlock with the key item or with the guide.",
+            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
+            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
             "A lost guide is crafted again from a book and a crafting table.",
             "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
             "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
           ]
         },
         "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers: ein kurzer, anklickbarer Weg durch die ersten Schritte. Sieben Themenbücher (Werkzeuge & Aufwertungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads & Geräte, Besätze & Strahlkraft) gehen tiefer und entstehen an der Werkbank.",
+          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
           "details": [
             "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück (nach einem Kapitelsprung) oder zum Inhalt, Pos1 zum Inhalt, das Lesezeichen links führt immer zum Inhalt. Jedes Buch merkt sich seine letzte Doppelseite bis zum Neustart des Spiels. Die Lesezeichen rechts wechseln zwischen den acht Büchern - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
             "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
             "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
             "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Diamantkiesel, das Aufhämmern von Maschinen, Baustab, Oktant, Rucksack, das Aufwerten von Werkzeugen und woher Verzauberungen kommen, und endet mit der Liste der Themenbücher samt Rezept.",
-            "Rezepte der Themenbücher (formlos): ein Buch oder das Einsteiger-Handbuch plus Steinmeißel (Werkzeuge & Aufwertungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen & Kolben), Enderperle (Ende & Enderit), Steindruckplatte (Pads & Geräte) oder Amethystscherbe (Besätze & Strahlkraft). Mit dem Handbuch hergestellt, bleibt das Handbuch im Raster liegen. Freigeschaltet werden die Rezepte durch das Schlüsselitem oder durch das Handbuch.",
+            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
+            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
             "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
             "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
             "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
@@ -9917,7 +10263,10 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java"
+          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -9925,8 +10274,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:guide_book_tweaks",
       "name": {
-        "en_us": "Guide: Pads & Gadgets",
-        "de_de": "Handbuch: Pads & Geräte"
+        "en_us": "Guide: Pads",
+        "de_de": "Handbuch: Pads"
       },
       "texture": "assets/textures/item/guide_book_tweaks.png",
       "craftedBy": [
@@ -9939,30 +10288,30 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server: a short, clickable walk through the first steps. Seven topic books (Tools & Upgrades, Building, Storage, Machines & Pistons, End & Enderite, Pads & Gadgets, Trims & Radiance) go deeper and are crafted at the crafting table.",
+          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
           "details": [
             "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
-            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back (after a chapter jump) or to the contents, Home to the contents, the bookmark on the left always leads to the contents. Each book remembers its last spread until the game restarts. The bookmarks on the right switch between the eight books - a book you do not carry stays locked and its tooltip names the recipe.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
             "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
             "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
             "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
-            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, Diamond Pebbles, hammering machines up a tier, the Building Wand, the Octant, the Backpack, upgrading tools and where enchantments come from, and ends with the list of topic books and their recipes.",
-            "Topic book recipes (shapeless): a book or the Beginner's Guide plus Stone Chisel (Tools & Upgrades), Brick (Building), Chest (Storage), Piston (Machines & Pistons), Ender Pearl (End & Enderite), Stone Pressure Plate (Pads & Gadgets) or Amethyst Shard (Trims & Radiance). Made from the guide, the guide stays in the crafting grid. The recipes unlock with the key item or with the guide.",
+            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
+            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
             "A lost guide is crafted again from a book and a crafting table.",
             "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
             "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
           ]
         },
         "de": {
-          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers: ein kurzer, anklickbarer Weg durch die ersten Schritte. Sieben Themenbücher (Werkzeuge & Aufwertungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads & Geräte, Besätze & Strahlkraft) gehen tiefer und entstehen an der Werkbank.",
+          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
           "details": [
             "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
-            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück (nach einem Kapitelsprung) oder zum Inhalt, Pos1 zum Inhalt, das Lesezeichen links führt immer zum Inhalt. Jedes Buch merkt sich seine letzte Doppelseite bis zum Neustart des Spiels. Die Lesezeichen rechts wechseln zwischen den acht Büchern - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
             "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
             "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
             "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
-            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Diamantkiesel, das Aufhämmern von Maschinen, Baustab, Oktant, Rucksack, das Aufwerten von Werkzeugen und woher Verzauberungen kommen, und endet mit der Liste der Themenbücher samt Rezept.",
-            "Rezepte der Themenbücher (formlos): ein Buch oder das Einsteiger-Handbuch plus Steinmeißel (Werkzeuge & Aufwertungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen & Kolben), Enderperle (Ende & Enderit), Steindruckplatte (Pads & Geräte) oder Amethystscherbe (Besätze & Strahlkraft). Mit dem Handbuch hergestellt, bleibt das Handbuch im Raster liegen. Freigeschaltet werden die Rezepte durch das Schlüsselitem oder durch das Handbuch.",
+            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
+            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
             "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
             "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
             "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
@@ -9983,7 +10332,640 @@ window.WIKI_DATA = {
           "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
           "src/main/resources/assets/simplebuilding/lang/en_us.json",
           "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java"
+          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_caves",
+      "name": {
+        "en_us": "Vanilla Guide: Caves",
+        "de_de": "Vanilla-Handbuch: Höhlen"
+      },
+      "texture": "assets/textures/item/guide_book_vanilla_caves.png",
+      "craftedBy": [
+        "simplebuilding:guide_book_vanilla_caves"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "note": {
+        "en": {
+          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
+          "details": [
+            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
+            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
+            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
+            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
+            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
+            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
+            "A lost guide is crafted again from a book and a crafting table.",
+            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
+            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
+          ]
+        },
+        "de": {
+          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
+          "details": [
+            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
+            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
+            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
+            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
+            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
+            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
+            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
+            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
+            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
+          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
+          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_end",
+      "name": {
+        "en_us": "Vanilla Guide: The End",
+        "de_de": "Vanilla-Handbuch: Das Ende"
+      },
+      "texture": "assets/textures/item/guide_book_vanilla_end.png",
+      "craftedBy": [
+        "simplebuilding:guide_book_vanilla_end"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "note": {
+        "en": {
+          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
+          "details": [
+            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
+            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
+            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
+            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
+            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
+            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
+            "A lost guide is crafted again from a book and a crafting table.",
+            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
+            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
+          ]
+        },
+        "de": {
+          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
+          "details": [
+            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
+            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
+            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
+            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
+            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
+            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
+            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
+            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
+            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
+          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
+          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_farming",
+      "name": {
+        "en_us": "Vanilla Guide: Farming & Mobs",
+        "de_de": "Vanilla-Handbuch: Landwirtschaft & Tiere"
+      },
+      "texture": "assets/textures/item/guide_book_vanilla_farming.png",
+      "craftedBy": [
+        "simplebuilding:guide_book_vanilla_farming"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "note": {
+        "en": {
+          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
+          "details": [
+            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
+            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
+            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
+            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
+            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
+            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
+            "A lost guide is crafted again from a book and a crafting table.",
+            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
+            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
+          ]
+        },
+        "de": {
+          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
+          "details": [
+            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
+            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
+            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
+            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
+            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
+            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
+            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
+            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
+            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
+          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
+          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_gear",
+      "name": {
+        "en_us": "Vanilla Guide: Gear",
+        "de_de": "Vanilla-Handbuch: Ausrüstung"
+      },
+      "texture": "assets/textures/item/guide_book_vanilla_gear.png",
+      "craftedBy": [
+        "simplebuilding:guide_book_vanilla_gear"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "note": {
+        "en": {
+          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
+          "details": [
+            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
+            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
+            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
+            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
+            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
+            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
+            "A lost guide is crafted again from a book and a crafting table.",
+            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
+            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
+          ]
+        },
+        "de": {
+          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
+          "details": [
+            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
+            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
+            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
+            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
+            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
+            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
+            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
+            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
+            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
+          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
+          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_nether",
+      "name": {
+        "en_us": "Vanilla Guide: Nether",
+        "de_de": "Vanilla-Handbuch: Nether"
+      },
+      "texture": "assets/textures/item/guide_book_vanilla_nether.png",
+      "craftedBy": [
+        "simplebuilding:guide_book_vanilla_nether"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "note": {
+        "en": {
+          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
+          "details": [
+            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
+            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
+            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
+            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
+            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
+            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
+            "A lost guide is crafted again from a book and a crafting table.",
+            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
+            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
+          ]
+        },
+        "de": {
+          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
+          "details": [
+            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
+            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
+            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
+            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
+            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
+            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
+            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
+            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
+            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
+          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
+          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_ocean",
+      "name": {
+        "en_us": "Vanilla Guide: Ocean",
+        "de_de": "Vanilla-Handbuch: Ozean"
+      },
+      "texture": "assets/textures/item/guide_book_vanilla_ocean.png",
+      "craftedBy": [
+        "simplebuilding:guide_book_vanilla_ocean"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "note": {
+        "en": {
+          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
+          "details": [
+            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
+            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
+            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
+            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
+            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
+            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
+            "A lost guide is crafted again from a book and a crafting table.",
+            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
+            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
+          ]
+        },
+        "de": {
+          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
+          "details": [
+            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
+            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
+            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
+            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
+            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
+            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
+            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
+            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
+            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
+          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
+          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_overworld",
+      "name": {
+        "en_us": "Vanilla Guide: Overworld",
+        "de_de": "Vanilla-Handbuch: Oberwelt"
+      },
+      "texture": "assets/textures/item/guide_book_vanilla_overworld.png",
+      "craftedBy": [
+        "simplebuilding:guide_book_vanilla_overworld"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "note": {
+        "en": {
+          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
+          "details": [
+            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
+            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
+            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
+            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
+            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
+            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
+            "A lost guide is crafted again from a book and a crafting table.",
+            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
+            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
+          ]
+        },
+        "de": {
+          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
+          "details": [
+            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
+            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
+            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
+            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
+            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
+            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
+            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
+            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
+            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
+          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
+          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_redstone",
+      "name": {
+        "en_us": "Vanilla Guide: Redstone",
+        "de_de": "Vanilla-Handbuch: Redstone"
+      },
+      "texture": "assets/textures/item/guide_book_vanilla_redstone.png",
+      "craftedBy": [
+        "simplebuilding:guide_book_vanilla_redstone"
+      ],
+      "usedIn": [],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "note": {
+        "en": {
+          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
+          "details": [
+            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
+            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
+            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
+            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
+            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
+            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
+            "A lost guide is crafted again from a book and a crafting table.",
+            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
+            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
+          ]
+        },
+        "de": {
+          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
+          "details": [
+            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
+            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
+            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
+            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
+            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
+            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
+            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
+            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
+            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
+          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
+          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_start",
+      "name": {
+        "en_us": "Vanilla Guide: First Steps",
+        "de_de": "Vanilla-Handbuch: Erste Schritte"
+      },
+      "texture": "assets/textures/item/guide_book_vanilla_start.png",
+      "craftedBy": [
+        "simplebuilding:guide_book_vanilla_start"
+      ],
+      "usedIn": [
+        "simplebuilding:guide_book_vanilla_caves",
+        "simplebuilding:guide_book_vanilla_end",
+        "simplebuilding:guide_book_vanilla_farming",
+        "simplebuilding:guide_book_vanilla_gear",
+        "simplebuilding:guide_book_vanilla_nether",
+        "simplebuilding:guide_book_vanilla_ocean",
+        "simplebuilding:guide_book_vanilla_overworld",
+        "simplebuilding:guide_book_vanilla_redstone"
+      ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "note": {
+        "en": {
+          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server. Two shelves of books share one book screen: the mod shelf (Beginner's Guide plus Tools & Upgrades, Enchantments, Building, Storage, Machines & Pistons, End & Enderite, Pads, Gadgets, Trims & Radiance and Server Admin) and the vanilla shelf (First Steps plus Overworld, Caves, Ocean, Nether, The End, Redstone, Gear, Farming & Mobs), one idea per page with recipe cards.",
+          "details": [
+            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back, Home to the contents, the bookmark on the left leads to the contents. Below it a second bookmark switches between the mod shelf and the vanilla shelf. The bookmarks on the right (and, past nine books, on the left) switch between the books of the open shelf - a book you do not carry stays locked and its tooltip names the recipe. Reading does not pause the game, like the inventory.",
+            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
+            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
+            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
+            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, reshaping, Diamond Pebbles, hammer upgrades, the Building Wand, the Octant, the Backpack, better tools, enchantments, resonance and the vanilla guides, and ends with the list of topic books. The Enchantments guide has one page per enchantment and tool group, each with the enchanted book at its maximum level.",
+            "Recipes (shapeless): mod topic books from a book or the Beginner's Guide plus Stone Chisel (Tools), Lapis Lazuli (Enchantments), Brick (Building), Chest (Storage), Piston (Machines), Ender Pearl (End), Stone Pressure Plate (Pads), Copper Ingot (Gadgets), Amethyst Shard (Trims) or Redstone Comparator (Server Admin). Vanilla guides from a book or First Steps plus Oak Sapling, Torch, Oak Boat, Flint and Steel, Eye of Ender, Redstone, Stone Sword or Wheat Seeds; First Steps itself is a book and a wooden pickaxe. The hub book stays in the grid. The Server Admin guide can only be crafted by operators (permission level 2): for everyone else the result slot stays empty, the recipe is never unlocked (and JEI hides it), and crafters never make it.",
+            "A lost guide is crafted again from a book and a crafting table.",
+            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
+            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
+          ]
+        },
+        "de": {
+          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers. Zwei Regale teilen sich einen Buchbildschirm: das Mod-Regal (Einsteiger-Handbuch plus Werkzeuge & Aufwertungen, Verzauberungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads, Geräte, Besätze & Strahlkraft und Server-Admin) und das Vanilla-Regal (Erste Schritte plus Oberwelt, Höhlen, Ozean, Nether, Das Ende, Redstone, Ausrüstung, Landwirtschaft & Tiere), ein Gedanke pro Seite mit Rezeptkarten.",
+          "details": [
+            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück, Pos1 zum Inhalt, das Lesezeichen links führt zum Inhalt. Darunter wechselt ein zweites Lesezeichen zwischen Mod- und Vanilla-Regal. Die Lesezeichen rechts (ab dem zehnten Buch auch links) wechseln zwischen den Büchern des offenen Regals - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept. Lesen hält das Spiel nicht an, wie das Inventar.",
+            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
+            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
+            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
+            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Umformen, Diamantkiesel, Hammer-Aufwertungen, Baustab, Oktant, Rucksack, bessere Werkzeuge, Verzauberungen, Resonanz und die Vanilla-Handbücher und endet mit der Liste der Themenbücher. Das Verzauberungs-Handbuch hat eine Seite je Zauber und Werkzeuggruppe, jeweils mit dem verzauberten Buch auf Höchststufe.",
+            "Rezepte (formlos): Mod-Themenbücher aus Buch oder Einsteiger-Handbuch plus Steinmeißel (Werkzeuge), Lapislazuli (Verzauberungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen), Enderperle (Ende), Steindruckplatte (Pads), Kupferbarren (Geräte), Amethystscherbe (Besätze) oder Redstone-Komparator (Server-Admin). Vanilla-Handbücher aus Buch oder Erste Schritte plus Eichensetzling, Fackel, Eichenboot, Feuerzeug, Enderauge, Redstone, Steinschwert oder Weizenkörner; Erste Schritte selbst aus Buch und Holzspitzhacke. Das Einstiegsbuch bleibt im Raster liegen. Das Server-Admin-Handbuch stellen nur Operatoren her (Berechtigungsstufe 2): für alle anderen bleibt das Ergebnisfeld leer, das Rezept wird nie freigeschaltet (JEI blendet es aus), und Crafter stellen es nie her.",
+            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
+            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
+            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
+          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
+          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCraftingMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookRecipeUnlockMixin.java",
+          "common/src/shared/java/com/simplebuilding/mixin/OperatorBookCrafterMixin.java"
         ]
       },
       "hasCustomBehaviour": false
@@ -10049,7 +11031,7 @@ window.WIKI_DATA = {
             "Trade (load condition on option enableVillagerTrades): a level 4 mason sells the Copper Building Wand for 62 emeralds, 1 use, 20 experience, reputation discount 0.2.",
             "Trade: a level 3 librarian sells for 25 emeralds a book holding Color Palette (weight 30), Fast Chiseling (30) or Linear (25) (3 uses); level 4 for 25 emeralds Linear (weight 25) or Override (20) (2 uses); level 5 for 25 emeralds, among others, Master Builder (weight 10, 1 use).",
             "Trade (load condition on option enableWanderingTrades): the wandering trader sells in the 'uncommon' pool a book for 40 emeralds, 1 use; its pool holds only Radius (weight 20), so no wand enchantment comes from it.",
-            "All six wands are in the creative tab \"SimpleTools\" and once more in the Building Planning row of \"SimpleMachines\", together with enchanted books for Master Builder, Color Palette, Cover, Bridge, Linear and Constructor's Touch at maximum level.",
+            "All six wands are in the creative tab \"SimpleTools\" (the Blueprint and the Cartography Table right next to the Enderite wand), together with enchanted books for Master Builder, Color Palette, Cover, Bridge, Linear and Constructor's Touch at maximum level.",
             "The enderite wand is in the void_protected tag: dropped below the dimension's build height it hovers in place, and below minY-10 it is reset to minY+5.",
             "Cover enchantment: the area only grows in front of blocks of the same kind as the clicked block, and only as far as those positions hang together with the centre edge to edge - thicken a wall by one layer or extend a floor without square overhangs. The axis setting does not apply in this mode.",
             "Bridge enchantment: right-click into the air (not sneaking) to build a bridge from the block under your feet straight ahead in your facing direction, at the height of that block - as long as a Linear line (twice the area diameter) and ending in front of the first occupied block. It grows from the edge towards the far end, block by block every tick, in half the time the old chunked bridge took (radius 2 over six blocks: 6 ticks instead of 11). If the floor you stand on runs on ahead, the bridge starts at its edge (searched up to that same length), so you do not have to stand right at the drop. Standing on nothing, or on a floor without a gap in reach, nothing is built and the action bar says why. While you look into the air, the ghost preview shows the bridge.",
@@ -10131,7 +11113,7 @@ window.WIKI_DATA = {
             "Handel (Ladebedingung an Option enableVillagerTrades): Steinmetz Stufe 4 verkauft den Kupfer-Baustab für 62 Smaragde, 1 Verwendung, 20 Erfahrung, Rabatt 0,2.",
             "Handel: Bibliothekar Stufe 3 verkauft für 25 Smaragde ein Buch, das Farbpalette (Gewicht 30), Schnelles Meißeln (30) oder Linear (25) enthält (3 Verwendungen); Stufe 4 für 25 Smaragde Linear (Gewicht 25) oder Übersteuerung (20) (2 Verwendungen); Stufe 5 für 25 Smaragde unter anderem Baumeister (Gewicht 10, 1 Verwendung).",
             "Handel (Ladebedingung an Option enableWanderingTrades): der Fahrende Händler verkauft im Pool 'uncommon' für 40 Smaragde ein Buch, 1 Verwendung; dessen Pool enthält nur Radius (Gewicht 20), also keine Baustab-Verzauberung.",
-            "Alle sechs Stäbe stehen im Kreativ-Tab „SimpleTools“ und noch einmal in der Reihe Bauplanung von „SimpleMachines“, zusammen mit verzauberten Büchern für Baumeister, Farbpalette, Abdeckung, Brücke, Linear und Berührung des Konstrukteurs in Maximalstufe.",
+            "Alle sechs Stäbe stehen im Kreativ-Tab „SimpleTools“ (Blaupause und Kartografentisch direkt neben dem Enderit-Baustab), zusammen mit verzauberten Büchern für Baumeister, Farbpalette, Abdeckung, Brücke, Linear und Berührung des Konstrukteurs in Maximalstufe.",
             "Der Enderit-Stab steht im Tag void_protected: fällt er unter die Bauhöhe der Dimension, bleibt er schweben, und unterhalb von minY-10 wird er auf minY+5 zurückgesetzt.",
             "Verzauberung Abdeckung: Die Fläche wächst nur vor Blöcken derselben Sorte wie der angeklickte Block, und nur so weit, wie diese Stellen Kante an Kante mit der Mitte zusammenhängen - eine Mauer um eine Schicht verdicken oder einen Boden erweitern, ohne quadratische Überstände. Die Achsen-Einstellung gilt in diesem Modus nicht.",
             "Verzauberung Brücke: In die Luft rechtsklicken (ohne Schleichen), und vom Block unter deinen Füßen aus entsteht geradeaus in Blickrichtung eine Brücke auf der Höhe dieses Blocks - so lang wie eine Linear-Linie (doppelter Flächen-Durchmesser), sie endet vor dem ersten belegten Block. Sie wächst von der Kante zum anderen Ende, Block für Block jeden Tick, in der halben Zeit der alten, stückweise gebauten Brücke (Radius 2 über sechs Blöcke: 6 statt 11 Ticks). Läuft der Boden unter dir noch weiter, beginnt die Brücke an seiner Kante (bis zu derselben Länge weit gesucht) - du musst nicht direkt am Abgrund stehen. Stehst du auf nichts oder auf Boden ohne Lücke in Reichweite, wird nichts gebaut, und die Aktionsleiste sagt warum. Solange du in die Luft schaust, zeigt die Geister-Vorschau die Brücke.",
@@ -10483,22 +11465,24 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A building core - a nether star set in copper, iron, gold, diamond, netherite or enderite - is the tier part of the building wands and several helpers. It does not stack, and a right-click plays a short animation without any gameplay effect.",
+          "summary": "A building core - a nether star set in copper, iron, gold, diamond, netherite or enderite - is the tier part of the building wands and several helpers. It does not stack, and a right-click plays a short animation; on stone and other ore-bearing blocks it has a tiny chance to turn the block into ore.",
           "details": [
             "Recipes: copper, iron, gold and diamond cores are a nether star surrounded by four of the tier's ingots (diamonds for the diamond core) in a plus shape. The netherite core is forged from a diamond core with a netherite ingot on the netherite upgrade template, the enderite core from a netherite core with an enderite ingot on the enderite upgrade template.",
-            "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Amethyst Lens, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Ore Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
+            "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Amethyst Lens, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
             "Cores do not stack (stack size 1, since 2026-09-28; before 16). Since 2026-09-28 only the Wandering Trader sells cores, all four in his uncommon pool and each a lucky find: Copper Core 24 emeralds (2 uses), Iron Core 32, Gold Core 48, Diamond Core 64 (1 use each); iron, gold and diamond only show up in 50 / 25 / 10 % of the draws, so a trader offers them in about 10 / 5 / 2.4 / 1 % of visits. The mason sells no cores.",
-            "Right-clicking a core plays one of three animations, rolled 70 / 20 / 10: a gentle glow (dust in the core's colour and glimmer around the hand, a soft amethyst chime), orbiting sparks (two rings of sparks circling you and rising, amethyst resonance), or - rarely - a nether-star burst (four long rays of end rod sparks, a shower of firework sparks and the sound of a beacon waking up). It has no gameplay effect; particles and sound reach every player nearby, and the core then cools down for 1.5 seconds.",
+            "Right-clicking a core plays one of three short animations, rolled 70 / 20 / 10 and timed by the server over a few ticks: a glow (sparks shoot into your hand, then a ring of dust in the core's color flares across your view with an amethyst chime and a softer echo ring), a spiral (after the same quick charge two sparks corkscrew from your feet to above your head to a rising chime arpeggio and end in a crown of end rod sparks) or - rarely - a star burst (a two-step charge, then an eight-ray star like the nether star with firework and totem sparks, a bang and a beacon, then glitter and a ring running out along the ground). Particles and sound reach every player nearby; the animation is over before the core's one-second cooldown ends.",
+            "Easter egg: right-clicking a block that ores generate in (stone, granite, diorite, andesite, deepslate, tuff, netherrack, end stone) has a tiny chance per click to turn it into an ore - 1 in 10000 with the copper core, 1 in 7000 iron, 1 in 5000 gold, 1 in 3500 diamond, 1 in 2500 netherite, 1 in 2000 enderite. The core is not used up, and only the cooldown limits the clicks. The ore fits the block and is rolled by how common it is there: stone gives coal 40 %, iron 24 %, copper 20 %, redstone 5 %, gold 4 %, lapis 4 %, diamond 2 %, emerald 1 %; deepslate and tuff give the deepslate ores (redstone 24 %, iron 22 %, copper 12 %, gold 12 %, lapis 10 %, diamond 9 %, coal 8 %, emerald 3 %); netherrack gives nether quartz 70 %, nether gold 27 %, ancient debris 3 %; end stone gives nihilith ore 92 %, astralit ore 8 %. Not in adventure mode or where you may not build.",
             "In chests (config enableLootTableChanges) cores are rare, one pool per core with a single roll (owner 2026-09-28, \"age B\": the mean time of targeted search to the first core sits just before the age that needs it): iron 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, gold 1.25 % per bastion chest (not the bridge or hoglin stable chests) and 1.65 % per nether fortress chest, diamond 1.05 % per ominous vault and per roll of the rare vault table, netherite 6 % in the bastion treasure chest, enderite 0.175 % per end city chest. The copper core is in no chest. docs/KERNE-SELTENHEIT.md (section 5.3) gives the playtime until the first to sixth core of each kind."
           ]
         },
         "de": {
-          "summary": "Ein Baukern - ein Netherstern, gefasst in Kupfer, Eisen, Gold, Diamant, Netherit oder Enderit - ist das Stufenteil der Baustäbe und mehrerer Helfer. Er stapelt nicht, und ein Rechtsklick spielt eine kurze Animation ohne Spielwirkung.",
+          "summary": "Ein Baukern - ein Netherstern, gefasst in Kupfer, Eisen, Gold, Diamant, Netherit oder Enderit - ist das Stufenteil der Baustäbe und mehrerer Helfer. Er stapelt nicht, und ein Rechtsklick spielt eine kurze Animation; auf Stein und anderen erzführenden Blöcken verwandelt er den Block mit winziger Chance in Erz.",
           "details": [
             "Rezepte: Kupfer-, Eisen-, Gold- und Diamantkern sind ein Netherstern mit vier Barren der Stufe (beim Diamantkern Diamanten) im Plus darum. Der Netheritkern wird aus einem Diamantkern mit einem Netheritbarren auf der Netherit-Aufwertungsvorlage geschmiedet, der Enderit-Kern aus einem Netheritkern mit einem Enderitbarren auf der Enderit-Aufwertungsvorlage.",
-            "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Erzdetektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
+            "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
-            "Ein Rechtsklick mit einem Kern spielt eine von drei Animationen, gewürfelt 70 / 20 / 10: ein sanftes Leuchten (Staub in der Farbe des Kerns und Glimmer um die Hand, leises Amethyst-Klingen), kreisende Funken (zwei Funkenringe, die um dich laufen und aufsteigen, Amethyst-Resonanz) oder - selten - ein Netherstern-Ausbruch (vier lange Strahlen aus Endstab-Funken, ein Feuerwerksfunkenregen und der Klang eines erwachenden Leuchtfeuers). Das hat keine Spielwirkung; Partikel und Klang erreichen alle Spieler in der Nähe, danach kühlt der Kern 1,5 Sekunden ab.",
+            "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
+            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilith-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
             "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
           ]
         }
@@ -10560,7 +11544,7 @@ window.WIKI_DATA = {
             "First-person animation: as soon as a reshape is possible on the block you are looking at, the hammer tilts in your hand (rotated -15 degrees around Y and -10 degrees around X); the settings enableToolAnimations and enableChiselAnimation must both be on (HeldItemRendererMixin).",
             "Crushing a diamond block: holding right-click on a diamond block (sneaking or not) destroys it without its normal drop (destroyBlock with drop=false) and throws out 81 Diamond Pebbles (one stack of 64 and one of 17) with the metal break sound; it costs 1 durability except in creative mode.",
             "9 Diamond Pebbles make one Cracked Diamond in the crafting table (3x3); a Cracked Diamond turns back into a diamond in the blast furnace (datagen: 100 ticks, 1.0 experience).",
-            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston has no higher tier (SledgehammerUpgrades).",
+            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
             "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items, filter items and filter mode, furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
             "The upgrade is cancelled without using the nugget - strikes already landed stay paid - when you let go of right-click, look away from the block (the server allows 2 ticks of lag), leave reach, the block stops being the starting tier, the nugget leaves your off hand or the hammer breaks.",
@@ -10589,7 +11573,7 @@ window.WIKI_DATA = {
             "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
-            "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles.",
+            "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
             "Left-click an item frame holding a smithing template with a Glow Ink Sac in the off hand: Glowing Armor Trim; with Glowstone Dust: Emitting Armor Trim.",
             "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine."
           ],
@@ -10651,7 +11635,7 @@ window.WIKI_DATA = {
             "Erste-Person-Animation: Sobald ein Umformen am angezielten Block möglich ist, neigt sich der Hammer in der Hand (Drehung -15 Grad um Y, -10 Grad um X); die Einstellungen enableToolAnimations und enableChiselAnimation müssen beide an sein (HeldItemRendererMixin).",
             "Diamantblock zerkleinern: Rechtsklick auf einen Diamantblock halten (auch beim Schleichen) zerstört ihn ohne normalen Drop (destroyBlock mit drop=false) und wirft 81 Diamantkiesel aus (ein Stapel zu 64 und einer zu 17), mit Metall-Bruchgeräusch; kostet 1 Haltbarkeit außer im Kreativmodus.",
             "9 Diamantkiesel ergeben in der Werkbank (3x3) einen Rissigen Diamanten; ein Rissiger Diamant wird im Hochofen (Datagen: 100 Ticks, 1,0 Erfahrung) wieder zu einem Diamanten.",
-            "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; der Verstärkte klebrige Kolben hat keine höhere Stufe (SledgehammerUpgrades).",
+            "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
             "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt, Filter-Items und Filtermodus, Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
             "Abgebrochen wird ohne Klumpenverbrauch - bereits geschlagene Schläge bleiben bezahlt -, wenn du den Rechtsklick loslässt, vom Block wegschaust (der Server lässt 2 Ticks Verzögerung zu), die Reichweite verlässt, der Block nicht mehr die Ausgangsstufe ist, der Klumpen die Nebenhand verlässt oder der Hammer zerbricht.",
@@ -10822,8 +11806,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:layered_raw_enderite",
       "name": {
-        "en_us": "Layered Raw Enderite",
-        "de_de": "Geschichtetes Rohenderit"
+        "en_us": "Raw Enderite Scrap",
+        "de_de": "Rohe Enderitplatten"
       },
       "texture": "assets/textures/item/layered_raw_enderite.png",
       "craftedBy": [
@@ -11071,7 +12055,7 @@ window.WIKI_DATA = {
             "Crafted at a crafting table (3x3, shaped recipe, owner's recipe of 2026-09-28): top empty, redstone, empty; middle iron ingot, empty, lapis lazuli; bottom Iron Core, iron ingot, empty (\" R \" / \"I L\" / \"CI \"). Until 2026-09-28 the lapis sat bottom right (\" R \" / \"I  \" / \"CIL\"); the old recipe with a lodestone in the middle is gone.",
             "The recipe is unlocked in the recipe book as soon as an Iron Core is in your inventory (advancement criterion has_iron_core).",
             "Does not stack (1 per slot), rarity Uncommon (UNCOMMON), no durability - the Attractor never wears out.",
-            "In the creative tab \"SimpleTools\" it sits right after the Ore Detector and before the Rotator.",
+            "In the creative tab \"SimpleTools\" it sits right after the Detector and before the Rotator.",
             "Only works while held in the main or off hand - it does nothing from the rest of your inventory.",
             "Base range: your hitbox is inflated by 4 blocks in every direction, so the area is a box, not a sphere. The config option tools.magnetRangeMultiplier (default 1.0) scales the whole range.",
             "With the Constructor's Touch enchantment the range grows to 8 blocks.",
@@ -11119,7 +12103,7 @@ window.WIKI_DATA = {
             "Herstellung in der Werkbank (3x3, geformtes Rezept, Besitzer-Rezept vom 2026-09-28): oben leer, Redstone, leer; Mitte Eisenbarren, leer, Lapislazuli; unten Eisenkern, Eisenbarren, leer (\" R \" / \"I L\" / \"CI \"). Bis zum 2026-09-28 lag der Lapislazuli unten rechts (\" R \" / \"I  \" / \"CIL\"); das alte Rezept mit Leitstein in der Mitte gibt es nicht mehr.",
             "Das Rezept wird im Rezeptbuch freigeschaltet, sobald ein Eisenkern im Inventar liegt (Fortschritt has_iron_core).",
             "Nicht stapelbar (1 pro Slot), Seltenheit Ungewöhnlich (UNCOMMON), keine Haltbarkeit - der Attraktor nutzt sich nicht ab.",
-            "Zu finden im Kreativ-Tab „SimpleTools“, direkt hinter dem Erzdetektor und vor dem Rotator.",
+            "Zu finden im Kreativ-Tab „SimpleTools“, direkt hinter dem Detektor und vor dem Rotator.",
             "Wirkt nur, wenn er in der Haupt- oder Nebenhand gehalten wird - im restlichen Inventar tut er nichts.",
             "Grundreichweite: deine Hitbox wird in jede Richtung um 4 Blöcke vergrößert (quaderförmiger Bereich, keine Kugel). Die Config-Option tools.magnetRangeMultiplier (Standard 1,0) skaliert die ganze Reichweite.",
             "Mit der Verzauberung Berührung des Konstrukteurs steigt die Reichweite auf 8 Blöcke.",
@@ -11543,7 +12527,7 @@ window.WIKI_DATA = {
             "Trade (load condition on option enableVillagerTrades): a level 4 mason sells the Copper Building Wand for 62 emeralds, 1 use, 20 experience, reputation discount 0.2.",
             "Trade: a level 3 librarian sells for 25 emeralds a book holding Color Palette (weight 30), Fast Chiseling (30) or Linear (25) (3 uses); level 4 for 25 emeralds Linear (weight 25) or Override (20) (2 uses); level 5 for 25 emeralds, among others, Master Builder (weight 10, 1 use).",
             "Trade (load condition on option enableWanderingTrades): the wandering trader sells in the 'uncommon' pool a book for 40 emeralds, 1 use; its pool holds only Radius (weight 20), so no wand enchantment comes from it.",
-            "All six wands are in the creative tab \"SimpleTools\" and once more in the Building Planning row of \"SimpleMachines\", together with enchanted books for Master Builder, Color Palette, Cover, Bridge, Linear and Constructor's Touch at maximum level.",
+            "All six wands are in the creative tab \"SimpleTools\" (the Blueprint and the Cartography Table right next to the Enderite wand), together with enchanted books for Master Builder, Color Palette, Cover, Bridge, Linear and Constructor's Touch at maximum level.",
             "The enderite wand is in the void_protected tag: dropped below the dimension's build height it hovers in place, and below minY-10 it is reset to minY+5.",
             "Cover enchantment: the area only grows in front of blocks of the same kind as the clicked block, and only as far as those positions hang together with the centre edge to edge - thicken a wall by one layer or extend a floor without square overhangs. The axis setting does not apply in this mode.",
             "Bridge enchantment: right-click into the air (not sneaking) to build a bridge from the block under your feet straight ahead in your facing direction, at the height of that block - as long as a Linear line (twice the area diameter) and ending in front of the first occupied block. It grows from the edge towards the far end, block by block every tick, in half the time the old chunked bridge took (radius 2 over six blocks: 6 ticks instead of 11). If the floor you stand on runs on ahead, the bridge starts at its edge (searched up to that same length), so you do not have to stand right at the drop. Standing on nothing, or on a floor without a gap in reach, nothing is built and the action bar says why. While you look into the air, the ghost preview shows the bridge.",
@@ -11625,7 +12609,7 @@ window.WIKI_DATA = {
             "Handel (Ladebedingung an Option enableVillagerTrades): Steinmetz Stufe 4 verkauft den Kupfer-Baustab für 62 Smaragde, 1 Verwendung, 20 Erfahrung, Rabatt 0,2.",
             "Handel: Bibliothekar Stufe 3 verkauft für 25 Smaragde ein Buch, das Farbpalette (Gewicht 30), Schnelles Meißeln (30) oder Linear (25) enthält (3 Verwendungen); Stufe 4 für 25 Smaragde Linear (Gewicht 25) oder Übersteuerung (20) (2 Verwendungen); Stufe 5 für 25 Smaragde unter anderem Baumeister (Gewicht 10, 1 Verwendung).",
             "Handel (Ladebedingung an Option enableWanderingTrades): der Fahrende Händler verkauft im Pool 'uncommon' für 40 Smaragde ein Buch, 1 Verwendung; dessen Pool enthält nur Radius (Gewicht 20), also keine Baustab-Verzauberung.",
-            "Alle sechs Stäbe stehen im Kreativ-Tab „SimpleTools“ und noch einmal in der Reihe Bauplanung von „SimpleMachines“, zusammen mit verzauberten Büchern für Baumeister, Farbpalette, Abdeckung, Brücke, Linear und Berührung des Konstrukteurs in Maximalstufe.",
+            "Alle sechs Stäbe stehen im Kreativ-Tab „SimpleTools“ (Blaupause und Kartografentisch direkt neben dem Enderit-Baustab), zusammen mit verzauberten Büchern für Baumeister, Farbpalette, Abdeckung, Brücke, Linear und Berührung des Konstrukteurs in Maximalstufe.",
             "Der Enderit-Stab steht im Tag void_protected: fällt er unter die Bauhöhe der Dimension, bleibt er schweben, und unterhalb von minY-10 wird er auf minY+5 zurückgesetzt.",
             "Verzauberung Abdeckung: Die Fläche wächst nur vor Blöcken derselben Sorte wie der angeklickte Block, und nur so weit, wie diese Stellen Kante an Kante mit der Mitte zusammenhängen - eine Mauer um eine Schicht verdicken oder einen Boden erweitern, ohne quadratische Überstände. Die Achsen-Einstellung gilt in diesem Modus nicht.",
             "Verzauberung Brücke: In die Luft rechtsklicken (ohne Schleichen), und vom Block unter deinen Füßen aus entsteht geradeaus in Blickrichtung eine Brücke auf der Höhe dieses Blocks - so lang wie eine Linear-Linie (doppelter Flächen-Durchmesser), sie endet vor dem ersten belegten Block. Sie wächst von der Kante zum anderen Ende, Block für Block jeden Tick, in der halben Zeit der alten, stückweise gebauten Brücke (Radius 2 über sechs Blöcke: 6 statt 11 Ticks). Läuft der Boden unter dir noch weiter, beginnt die Brücke an seiner Kante (bis zu derselben Länge weit gesucht) - du musst nicht direkt am Abgrund stehen. Stehst du auf nichts oder auf Boden ohne Lücke in Reichweite, wird nichts gebaut, und die Aktionsleiste sagt warum. Solange du in die Luft schaust, zeigt die Geister-Vorschau die Brücke.",
@@ -12131,7 +13115,8 @@ window.WIKI_DATA = {
         "simplebuilding:netherite_core_smithing"
       ],
       "usedIn": [
-        "simplebuilding:enderite_core_smithing"
+        "simplebuilding:enderite_core_smithing",
+        "simplebuilding:potion_pad_smithing"
       ],
       "trades": [],
       "properties": {
@@ -12139,22 +13124,24 @@ window.WIKI_DATA = {
       },
       "note": {
         "en": {
-          "summary": "A building core - a nether star set in copper, iron, gold, diamond, netherite or enderite - is the tier part of the building wands and several helpers. It does not stack, and a right-click plays a short animation without any gameplay effect.",
+          "summary": "A building core - a nether star set in copper, iron, gold, diamond, netherite or enderite - is the tier part of the building wands and several helpers. It does not stack, and a right-click plays a short animation; on stone and other ore-bearing blocks it has a tiny chance to turn the block into ore.",
           "details": [
             "Recipes: copper, iron, gold and diamond cores are a nether star surrounded by four of the tier's ingots (diamonds for the diamond core) in a plus shape. The netherite core is forged from a diamond core with a netherite ingot on the netherite upgrade template, the enderite core from a netherite core with an enderite ingot on the enderite upgrade template.",
-            "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Amethyst Lens, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Ore Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
+            "Every recipe that takes a core takes exactly one: copper - Copper Building Wand, Velocity Gauge; iron - Iron Building Wand (also the copper-to-iron wand upgrade), Amethyst Lens, Attractor, Rotator; gold - Gold Building Wand (and its upgrade), Detector; diamond - Diamond Building Wand (and its upgrade), Netherite Core; netherite - Enderite Core; enderite - Echo Sounder, Flypad I, Infused Potion Pad III.",
             "Cores do not stack (stack size 1, since 2026-09-28; before 16). Since 2026-09-28 only the Wandering Trader sells cores, all four in his uncommon pool and each a lucky find: Copper Core 24 emeralds (2 uses), Iron Core 32, Gold Core 48, Diamond Core 64 (1 use each); iron, gold and diamond only show up in 50 / 25 / 10 % of the draws, so a trader offers them in about 10 / 5 / 2.4 / 1 % of visits. The mason sells no cores.",
-            "Right-clicking a core plays one of three animations, rolled 70 / 20 / 10: a gentle glow (dust in the core's colour and glimmer around the hand, a soft amethyst chime), orbiting sparks (two rings of sparks circling you and rising, amethyst resonance), or - rarely - a nether-star burst (four long rays of end rod sparks, a shower of firework sparks and the sound of a beacon waking up). It has no gameplay effect; particles and sound reach every player nearby, and the core then cools down for 1.5 seconds.",
+            "Right-clicking a core plays one of three short animations, rolled 70 / 20 / 10 and timed by the server over a few ticks: a glow (sparks shoot into your hand, then a ring of dust in the core's color flares across your view with an amethyst chime and a softer echo ring), a spiral (after the same quick charge two sparks corkscrew from your feet to above your head to a rising chime arpeggio and end in a crown of end rod sparks) or - rarely - a star burst (a two-step charge, then an eight-ray star like the nether star with firework and totem sparks, a bang and a beacon, then glitter and a ring running out along the ground). Particles and sound reach every player nearby; the animation is over before the core's one-second cooldown ends.",
+            "Easter egg: right-clicking a block that ores generate in (stone, granite, diorite, andesite, deepslate, tuff, netherrack, end stone) has a tiny chance per click to turn it into an ore - 1 in 10000 with the copper core, 1 in 7000 iron, 1 in 5000 gold, 1 in 3500 diamond, 1 in 2500 netherite, 1 in 2000 enderite. The core is not used up, and only the cooldown limits the clicks. The ore fits the block and is rolled by how common it is there: stone gives coal 40 %, iron 24 %, copper 20 %, redstone 5 %, gold 4 %, lapis 4 %, diamond 2 %, emerald 1 %; deepslate and tuff give the deepslate ores (redstone 24 %, iron 22 %, copper 12 %, gold 12 %, lapis 10 %, diamond 9 %, coal 8 %, emerald 3 %); netherrack gives nether quartz 70 %, nether gold 27 %, ancient debris 3 %; end stone gives nihilith ore 92 %, astralit ore 8 %. Not in adventure mode or where you may not build.",
             "In chests (config enableLootTableChanges) cores are rare, one pool per core with a single roll (owner 2026-09-28, \"age B\": the mean time of targeted search to the first core sits just before the age that needs it): iron 1.5 % per woodland mansion chest and 0.5 % per abandoned mineshaft chest, gold 1.25 % per bastion chest (not the bridge or hoglin stable chests) and 1.65 % per nether fortress chest, diamond 1.05 % per ominous vault and per roll of the rare vault table, netherite 6 % in the bastion treasure chest, enderite 0.175 % per end city chest. The copper core is in no chest. docs/KERNE-SELTENHEIT.md (section 5.3) gives the playtime until the first to sixth core of each kind."
           ]
         },
         "de": {
-          "summary": "Ein Baukern - ein Netherstern, gefasst in Kupfer, Eisen, Gold, Diamant, Netherit oder Enderit - ist das Stufenteil der Baustäbe und mehrerer Helfer. Er stapelt nicht, und ein Rechtsklick spielt eine kurze Animation ohne Spielwirkung.",
+          "summary": "Ein Baukern - ein Netherstern, gefasst in Kupfer, Eisen, Gold, Diamant, Netherit oder Enderit - ist das Stufenteil der Baustäbe und mehrerer Helfer. Er stapelt nicht, und ein Rechtsklick spielt eine kurze Animation; auf Stein und anderen erzführenden Blöcken verwandelt er den Block mit winziger Chance in Erz.",
           "details": [
             "Rezepte: Kupfer-, Eisen-, Gold- und Diamantkern sind ein Netherstern mit vier Barren der Stufe (beim Diamantkern Diamanten) im Plus darum. Der Netheritkern wird aus einem Diamantkern mit einem Netheritbarren auf der Netherit-Aufwertungsvorlage geschmiedet, der Enderit-Kern aus einem Netheritkern mit einem Enderitbarren auf der Enderit-Aufwertungsvorlage.",
-            "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Erzdetektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
+            "Jedes Rezept mit Kern braucht genau einen: Kupfer - Kupfer-Baustab, Geschwindigkeitsmesser; Eisen - Eisen-Baustab (auch die Aufwertung vom Kupfer-Baustab), Amethystlinse, Attraktor, Rotator; Gold - Gold-Baustab (und seine Aufwertung), Detektor; Diamant - Diamant-Baustab (und seine Aufwertung), Netheritkern; Netherit - Enderit-Kern; Enderit - Echolot, Flugpad I, Durchtränktes Trank-Pad III.",
             "Kerne stapeln nicht (Stapelgröße 1, seit 2026-09-28; vorher 16). Seit 2026-09-28 verkauft nur noch der fahrende Händler Kerne, alle vier in seinem seltenen Pool und jeweils als Glückstreffer: Kupferkern 24 Smaragde (2 Nutzungen), Eisenkern 32, Goldkern 48, Diamantkern 64 (je 1 Nutzung); Eisen, Gold und Diamant erscheinen nur in 50 / 25 / 10 % der Ziehungen, ein Händler hat sie also bei etwa 10 / 5 / 2,4 / 1 % der Besuche. Der Steinmetz verkauft keine Kerne.",
-            "Ein Rechtsklick mit einem Kern spielt eine von drei Animationen, gewürfelt 70 / 20 / 10: ein sanftes Leuchten (Staub in der Farbe des Kerns und Glimmer um die Hand, leises Amethyst-Klingen), kreisende Funken (zwei Funkenringe, die um dich laufen und aufsteigen, Amethyst-Resonanz) oder - selten - ein Netherstern-Ausbruch (vier lange Strahlen aus Endstab-Funken, ein Feuerwerksfunkenregen und der Klang eines erwachenden Leuchtfeuers). Das hat keine Spielwirkung; Partikel und Klang erreichen alle Spieler in der Nähe, danach kühlt der Kern 1,5 Sekunden ab.",
+            "Ein Rechtsklick mit einem Kern spielt eine von drei kurzen Animationen, gewürfelt 70 / 20 / 10 und vom Server über einige Ticks getaktet: ein Leuchten (Funken schießen in die Hand, dann flammt quer zum Blick ein Staubring in der Farbe des Kerns auf, mit Amethyst-Klingen und einem leiseren Nachhall-Ring), eine Spirale (nach demselben kurzen Aufladen schrauben sich zwei Funken von den Füßen bis über den Kopf, begleitet von einem aufsteigenden Glockenspiel, und enden in einer Krone aus Endstab-Funken) oder - selten - ein Sternausbruch (zweistufiges Aufladen, dann ein achtstrahliger Stern wie der Netherstern mit Feuerwerks- und Totem-Funken, Knall und Leuchtfeuer, danach Glitzer und ein Ring, der am Boden ausläuft). Partikel und Klang erreichen alle Spieler in der Nähe; die Animation ist vorbei, bevor die Abklingzeit des Kerns von einer Sekunde endet.",
+            "Osterei: Ein Rechtsklick auf einen Block, in dem Erze entstehen (Stein, Granit, Diorit, Andesit, Tiefenschiefer, Tuffstein, Netherrack, Endstein), verwandelt ihn mit winziger Chance je Klick in ein Erz - 1 zu 10000 mit dem Kupferkern, 1 zu 7000 Eisen, 1 zu 5000 Gold, 1 zu 3500 Diamant, 1 zu 2500 Netherit, 1 zu 2000 Enderit. Der Kern wird nicht verbraucht, nur die Abklingzeit begrenzt die Klicks. Das Erz passt zum Block und wird nach seiner Häufigkeit dort gewürfelt: Stein gibt Kohle 40 %, Eisen 24 %, Kupfer 20 %, Redstone 5 %, Gold 4 %, Lapis 4 %, Diamant 2 %, Smaragd 1 %; Tiefenschiefer und Tuffstein geben die Tiefenschiefer-Erze (Redstone 24 %, Eisen 22 %, Kupfer 12 %, Gold 12 %, Lapis 10 %, Diamant 9 %, Kohle 8 %, Smaragd 3 %); Netherrack gibt Netherquarz 70 %, Nethergold 27 %, antiken Schutt 3 %; Endstein gibt Nihilith-Erz 92 %, Astralit-Erz 8 %. Nicht im Abenteuermodus und nicht, wo du nicht bauen darfst.",
             "In Truhen (Config enableLootTableChanges) sind Kerne selten, je Kern ein Pool mit einem Wurf (Besitzer 2026-09-28, „Zeitalter B“: die mittlere Zeit gezielter Suche bis zum ersten Kern liegt kurz vor dem Zeitalter, das ihn braucht): Eisen 1,5 % je Waldanwesen-Truhe und 0,5 % je Kiste einer verlassenen Mine, Gold 1,25 % je Bastion-Truhe (nicht die Brücken- und Hoglin-Stall-Truhen) und 1,65 % je Netherfestungs-Truhe, Diamant 1,05 % je unheilvollem Tresor und je Wurf der seltenen Tresor-Tabelle, Netherit 6 % in der Schatzkiste der Bastion, Enderit 0,175 % je Endsiedlungs-Truhe. Der Kupferkern liegt in keiner Truhe. docs/KERNE-SELTENHEIT.md (Abschnitt 5.3) nennt die Spielzeit bis zum ersten bis sechsten Kern jeder Sorte."
           ]
         }
@@ -12713,7 +13700,7 @@ window.WIKI_DATA = {
             "First-person animation: as soon as a reshape is possible on the block you are looking at, the hammer tilts in your hand (rotated -15 degrees around Y and -10 degrees around X); the settings enableToolAnimations and enableChiselAnimation must both be on (HeldItemRendererMixin).",
             "Crushing a diamond block: holding right-click on a diamond block (sneaking or not) destroys it without its normal drop (destroyBlock with drop=false) and throws out 81 Diamond Pebbles (one stack of 64 and one of 17) with the metal break sound; it costs 1 durability except in creative mode.",
             "9 Diamond Pebbles make one Cracked Diamond in the crafting table (3x3); a Cracked Diamond turns back into a diamond in the blast furnace (datagen: 100 ticks, 1.0 experience).",
-            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston has no higher tier (SledgehammerUpgrades).",
+            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
             "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items, filter items and filter mode, furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
             "The upgrade is cancelled without using the nugget - strikes already landed stay paid - when you let go of right-click, look away from the block (the server allows 2 ticks of lag), leave reach, the block stops being the starting tier, the nugget leaves your off hand or the hammer breaks.",
@@ -12742,7 +13729,7 @@ window.WIKI_DATA = {
             "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
-            "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles.",
+            "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
             "Left-click an item frame holding a smithing template with a Glow Ink Sac in the off hand: Glowing Armor Trim; with Glowstone Dust: Emitting Armor Trim.",
             "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine."
           ],
@@ -12804,7 +13791,7 @@ window.WIKI_DATA = {
             "Erste-Person-Animation: Sobald ein Umformen am angezielten Block möglich ist, neigt sich der Hammer in der Hand (Drehung -15 Grad um Y, -10 Grad um X); die Einstellungen enableToolAnimations und enableChiselAnimation müssen beide an sein (HeldItemRendererMixin).",
             "Diamantblock zerkleinern: Rechtsklick auf einen Diamantblock halten (auch beim Schleichen) zerstört ihn ohne normalen Drop (destroyBlock mit drop=false) und wirft 81 Diamantkiesel aus (ein Stapel zu 64 und einer zu 17), mit Metall-Bruchgeräusch; kostet 1 Haltbarkeit außer im Kreativmodus.",
             "9 Diamantkiesel ergeben in der Werkbank (3x3) einen Rissigen Diamanten; ein Rissiger Diamant wird im Hochofen (Datagen: 100 Ticks, 1,0 Erfahrung) wieder zu einem Diamanten.",
-            "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; der Verstärkte klebrige Kolben hat keine höhere Stufe (SledgehammerUpgrades).",
+            "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
             "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt, Filter-Items und Filtermodus, Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
             "Abgebrochen wird ohne Klumpenverbrauch - bereits geschlagene Schläge bleiben bezahlt -, wenn du den Rechtsklick loslässt, vom Block wegschaust (der Server lässt 2 Ticks Verzögerung zu), die Reichweite verlässt, der Block nicht mehr die Ausgangsstufe ist, der Klumpen die Nebenhand verlässt oder der Hammer zerbricht.",
@@ -13322,7 +14309,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "The Octant is a measuring and planning tool: you mark two corner points in the world, read distance, area or volume off the HUD, and can have the selection sketched into the world as a cuboid, cylinder, sphere, pyramid or prism.",
           "details": [
-            "Crafting (shaped, 3x3): row 1 \" RL\", row 2 \"NCR\", row 3 \"GN \" with R = lightning rod, L = lead, N = gold nugget, C = compass, G = gold core; the recipe is unlocked by a compass in your inventory (until 2026-09-29 light and heavy weighted pressure plates stood where the nuggets and the core are).",
+            "Crafting (shaped, 3x3): row 1 \" NR\", row 2 \"NCN\", row 3 \"GNL\" with R = lightning rod, L = lead, N = gold nugget, C = compass, G = gold core; the recipe is unlocked by a compass in your inventory (owner 2026-09-29: gold nuggets where the two lightning rods were, the lead moved to the bottom right, a single lightning rod top right; before that, light and heavy weighted pressure plates stood where the nuggets and the core are).",
             "Durability 128; enchantability 15 (the same as the netherite tier of the mod's other tools).",
             "Every click on a block that sets a corner costs 1 durability, except in Creative mode.",
             "Right-clicking a block sets Pos 1 (sound: copper step, volume 0.3, pitch 2.0); sneak + right-click on a block sets Pos 2 (same sound, pitch 1.5).",
@@ -13352,7 +14339,7 @@ window.WIKI_DATA = {
             "Range on the octant: the enchantment carries an attribute effect on minecraft:block_interaction_range (+2 at level I, +6 at II, +10 at III; base 2, +4 per further level) for the main hand. That lets you set corners from further away; in the off hand it does nothing.",
             "Trading (only with the config switch \"enableWanderingTrades\" on): the wandering trader sells 1 octant for 10 emeralds (1 use, 15 XP, pool \"uncommon\") and buys 1 octant for 8 emeralds (3 uses, 5 XP, pool \"buying\"); both offers with reputation discount 0.1.",
             "Loot (only with the config switch \"enableLootTableChanges\" on): ancient city (weight 5, randomly enchanted, 0 to 2 rolls), nether fortress (weight 3, randomly enchanted, 0 to 2 rolls), pillager outpost (weight 5, unenchanted, 0 to 2 rolls).",
-            "Creative inventory: in the tab \"SimpleTools\" at the start of the gadget row (before the Velocity Gauge), the 16 dyed octants in their own row below; a second Octant stands in the Building Planning row of \"SimpleMachines\"."
+            "Creative inventory: in the tab \"SimpleTools\" at the start of the gadget row (before the Velocity Gauge), the 16 dyed octants in their own row below."
           ],
           "controls": [
             "Right-click a block: set Pos 1",
@@ -13385,7 +14372,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "Der Oktant ist ein Mess- und Planungswerkzeug: Du markierst zwei Eckpunkte in der Welt, siehst Abstand, Fläche oder Volumen im HUD und kannst dir die Auswahl als Quader, Zylinder, Kugel, Pyramide oder Prisma in der Welt vorzeichnen lassen.",
           "details": [
-            "Herstellung (geformt, 3x3): Reihe 1 \" RL\", Reihe 2 \"NCR\", Reihe 3 \"GN \" mit R = Blitzableiter, L = Leine, N = Goldnugget, C = Kompass, G = Goldkern; das Rezept wird durch einen Kompass im Inventar freigeschaltet (bis 2026-09-29 standen leichte und schwere Wägeplatten, wo jetzt Nuggets und Kern sind).",
+            "Herstellung (geformt, 3x3): Reihe 1 \" NR\", Reihe 2 \"NCN\", Reihe 3 \"GNL\" mit R = Blitzableiter, L = Leine, N = Goldnugget, C = Kompass, G = Goldkern; das Rezept wird durch einen Kompass im Inventar freigeschaltet (Besitzer 2026-09-29: Goldnuggets statt der beiden Blitzableiter, die Leine nach unten rechts, ein einzelner Blitzableiter oben rechts; davor standen leichte und schwere Wägeplatten, wo jetzt Nuggets und Kern sind).",
             "Haltbarkeit 128; Verzauberbarkeit 15 (derselbe Wert wie die Netherit-Stufe der anderen Werkzeuge).",
             "Jeder Klick auf einen Block, der einen Eckpunkt setzt, kostet 1 Haltbarkeit; im Kreativmodus nicht.",
             "Rechtsklick auf einen Block setzt Pos 1 (Ton: Kupfer-Schritt, Lautstärke 0,3, Tonhöhe 2,0); Schleichen + Rechtsklick auf einen Block setzt Pos 2 (gleicher Ton, Tonhöhe 1,5).",
@@ -13415,7 +14402,7 @@ window.WIKI_DATA = {
             "Reichweite auf dem Oktanten: Die Verzauberung trägt einen Attribut-Effekt auf minecraft:block_interaction_range (+2 auf Stufe I, +6 auf Stufe II, +10 auf Stufe III; Basis 2, +4 je weiterer Stufe) für die Haupthand. Damit lassen sich Eckpunkte aus größerer Entfernung setzen; in der Nebenhand wirkt sie nicht.",
             "Handel (nur bei aktivem Config-Schalter \"enableWanderingTrades\"): Der fahrende Händler verkauft 1 Oktant für 10 Smaragde (1 Verwendung, 15 XP, Pool \"uncommon\") und kauft 1 Oktant für 8 Smaragde (3 Verwendungen, 5 XP, Pool \"buying\"); beide Angebote mit Rufrabatt 0,1.",
             "Beute (nur bei aktivem Config-Schalter \"enableLootTableChanges\"): Antike Stadt (Gewicht 5, zufällig verzaubert, 0 bis 2 Würfe), Netherfestung (Gewicht 3, zufällig verzaubert, 0 bis 2 Würfe), Plünderer-Außenposten (Gewicht 5, unverzaubert, 0 bis 2 Würfe).",
-            "Kreativinventar: im Tab „SimpleTools“ am Anfang der Geräte-Reihe (vor dem Geschwindigkeitsmesser), die 16 gefärbten Oktanten in einer eigenen Reihe darunter; ein zweiter Oktant steht in der Reihe Bauplanung von „SimpleMachines“."
+            "Kreativinventar: im Tab „SimpleTools“ am Anfang der Geräte-Reihe (vor dem Geschwindigkeitsmesser), die 16 gefärbten Oktanten in einer eigenen Reihe darunter."
           ],
           "controls": [
             "Rechtsklick auf Block: Pos 1 setzen",
@@ -13802,165 +14789,6 @@ window.WIKI_DATA = {
         "maxStackSize": 1
       },
       "hasCustomBehaviour": false
-    },
-    {
-      "id": "simplebuilding:ore_detector",
-      "name": {
-        "en_us": "Ore Detector",
-        "de_de": "Erzdetektor"
-      },
-      "texture": "assets/textures/item/ore_detector.png",
-      "craftedBy": [
-        "simplebuilding:ore_detector"
-      ],
-      "usedIn": [],
-      "trades": [],
-      "properties": {
-        "durability": 1024,
-        "enchantability": 15,
-        "maxStackSize": 1
-      },
-      "note": {
-        "en": {
-          "summary": "The Ore Detector is a hand tool that points out the nearest reachable ore around you once a second with a sound and a particle trail, as long as you hold it in your hand.",
-          "details": [
-            "Crafted at a crafting table (pattern \"ESE\" / \"ECE\" / \"EGE\", owner 2026-09-28): a calibrated sculk sensor top middle (minecraft:calibrated_sculk_sensor), a compass in the middle, a Gold Core bottom middle (simplebuilding:gold_core) and echo shards (minecraft:echo_shard) in the six other slots - 6 in total; recipe category \"equipment\" (RecipeCategory.TOOLS).",
-            "The recipe is unlocked as soon as a compass is in your inventory (criterion has_compass).",
-            "Sits in the creative tab \"SimpleTools\" (id simplebuilding:tools) right after the Velocity Gauge and before the Attractor.",
-            "Does not stack (stacksTo(1)) and has rarity RARE.",
-            "Durability 1024 (set in the item's constructor with durability(1024)); enchantability 15.",
-            "Only scans while it is in the main hand or the off hand (EquipmentSlot MAINHAND/OFFHAND); from the rest of the inventory it stays silent and clears its needle target. Main hand: a ping every 20 ticks, full volume; off hand: every 40 ticks (SCAN_INTERVAL_OFF_HAND), all three sounds at 0.3 of their volume (OFF_HAND_VOLUME), fainter trail.",
-            "The scan runs every 20 ticks (SCAN_INTERVAL), offset per player - floorMod(game time + player entity id, SCAN_INTERVAL) == 0 - so the scans of several players do not all land in the same tick and is executed server-side in inventoryTick(ServerLevel).",
-            "There are six modes; signal and range belong to the class of the ore that is found (OreDetectorItem.OreClass): common signal 18 / range 24, gold 13 / 20, diamond and emerald 9 / 16, ancient debris and the two End ores 5 / 16 (with Radius 22 / 28, 17 / 24, 17 / 24 and 9 / 20). Iron, Gold, Diamond and Netherite mode search one class each, All Ores all of them, Custom the class of its target.",
-            "Iron mode finds blocks from the vanilla tag minecraft:iron_ores, Gold from minecraft:gold_ores, Diamond from minecraft:diamond_ores.",
-            "Netherite mode finds ancient debris only (Blocks.ANCIENT_DEBRIS).",
-            "All Ores mode finds blocks from the vanilla tags coal_ores, iron_ores, copper_ores, gold_ores, redstone_ores, lapis_ores, diamond_ores and emerald_ores, plus ancient debris, nether quartz ore, Astralit Ore and Nihilit Ore - each only within the signal and range of its own class.",
-            "Custom mode finds the block the detector was calibrated to; only the block type is compared (state.is(block)), not its state (facing, for example).",
-            "The mode and the calibrated block live in the CUSTOM_DATA component: \"Mode\" as the ordinal of the mode, \"CustomBlock\" as the stored block state; an invalid Mode value is clamped into the valid range.",
-            "The scan area is a sphere around the block your eyes are in; its radius in blocks is the largest range the mode can use (24 for Iron, All Ores and an uncalibrated Custom, 20 for Gold, 16 for Diamond and Netherite; with Radius 28, 24, 24 and 20), a find additionally has to lie within the range of its own class, and distances are measured from block position to block position.",
-            "Only one target is ever reported: the nearest one whose signal survives the way there; on equal distance the one visited first wins.",
-            "Whether a target is reachable is decided along the straight line from your exact eye position to the target's block centre: every block that line crosses is charged once with the loss of its material step (an exact block-by-block walk, pathLoss), and if the total exceeds the ore's signal the target stays undetected; where the line runs exactly through an edge, one of the two neighbouring blocks is charged.",
-            "Neither the block your eyes are in nor the target block itself is charged.",
-            "Material steps (OreDetectorItem.Material, chosen by the block's mining hardness): AIR 0.125 for air and blocks without occlusion (canOcclude() == false, e.g. torches, plants, glass, leaves, water); SOFT 2 for hardness below 1.0 (netherrack, dirt, sand, gravel, calcite) and for end stone, which at hardness 3.0 would otherwise be dense but is the host rock of the End ores; STONE 4 for hardness 1.0 to below 3.0 (stone, cobblestone, tuff, basalt, blackstone, logs, nether wart block); DENSE 6 for hardness 3.0 to below 10 (deepslate, every ore, the iron block); VERY_DENSE 16 for hardness 10 and above or unbreakable blocks (obsidian, ancient debris, bedrock).",
-            "Constructor's Touch multiplies the loss of every block by 0.5 (TOUCH_LOSS_FACTOR), so the signal carries twice as far through any material; the range and the scan radius stay unchanged.",
-            "What that means without enchantments, with up to 8 blocks of air between wall and ore: common ores are found through 4 stone, 8 netherrack or 2 deepslate, gold through 3 stone, 6 netherrack or 2 deepslate, diamond and emerald through 2 stone, 4 netherrack or 1 deepslate, ancient debris through 1 stone, 2 netherrack or no deepslate at all, the End ores through 2 end stone. With Radius: 5 / 10 / 3, 4 / 8 / 2, 4 / 8 / 2 and 2 / 4 / 1. Through open air alone the range decides; the air loss of 0.125 per block only matters right at the limit (ancient debris behind two netherrack is still found with 8 blocks of air behind the wall, no longer with 9).",
-            "On a find three sounds play at the target position (SoundSource BLOCKS): the chime of an amethyst block (volume 0.9), the clicking of sculk (volume 0.6, pitch 2.0) and the break sound of the block that was found (volume 0.55).",
-            "The pitch of the amethyst chime and of the break sound gives away the distance: 1.8 minus distance divided by 32, clamped to 0.6 to 2.0; near targets sound high, distant ones low. Within the largest scan radius (28 blocks, with Radius) it only drops to about 0.93 arithmetically, so the limits of 0.6 and 2.0 are practically never reached.",
-            "On a find a sonar trail is drawn as well (reduced 2026-09-28): block particles of the found block type evenly spaced along the line of sight - one per 2 blocks, at most 6 (off hand: one per 6 blocks, at most 2) - plus a single end rod particle at the target (main hand only). The needle: the ping sets minecraft:lodestone_tracker (target = the ore, tracked = false) and minecraft:custom_model_data (colour = OreDetectorItem.RESONANCE_COLORS by distance, 5 steps); the item model (condition has_component lodestone_tracker -> range_dispatch compass/lodestone, 32 frames, needle layer tinted by custom_model_data) turns and tints the needle; hand_animation_on_swap is false.",
-            "Sounds (playSound with a null player) and particles (ServerLevel.sendParticles) are sent to all players nearby, not only to you.",
-            "Switching the mode with sneak + use costs the detector 1 durability (not in creative mode); the scanning itself and the calibrating cost no durability.",
-            "Switching the mode plays the UI click sound (volume 0.5, pitch 1.5); no text appears on screen since 2026-09-28 - the tooltip names the mode (mode name coloured: Iron gray, Gold gold, Diamond aqua, Netherite dark purple, All Ores white, Custom yellow).",
-            "The order of the modes is Iron, Gold, Diamond, Netherite, All Ores, Custom and then Iron again; new detectors start in Iron mode (Mode value 0).",
-            "Calibrating (sneak + use on a block) switches to Custom mode, stores the clicked block state, shows \"Calibrated to: <block name>\" (green, block name white) and plays the bloom sound of a sculk catalyst (SoundSource PLAYERS, volume 1.0, pitch 1.0) at the clicked position for all players nearby.",
-            "The tooltip shows \"Mode: <mode>\", in Custom mode \"Target: <block name>\" (green) or \"Target: None (Sneak-Use on block)\" (red), in every other mode \"Sneak + Use to cycle modes\" (dark gray), then a blank line, \"Signal: <signal>, Range: <range>\" (dark aqua) of the mode's class (the common one for All Ores and an uncalibrated Custom), in All Ores mode also \"Gold 13/20, Diamond/Emerald 9/16, Debris/End ores 5/16\" (with Radius the stretched numbers), and \"Rock damps the signal, dense rock more.\" (gray).",
-            "Can be enchanted with Constructor's Touch (max level I, anvil cost 1, min cost 20, max cost 50, weight 1) through the tag simplebuilding:constructors_touch_enchantable; the enchantment file contains no effect components, the detector reads the enchantment straight off the item stack in Java (EnchantmentHelper.hasEnchantment), which is why it also works in the off hand.",
-            "It is also in the vanilla tag minecraft:enchantable/durability, the tag for durability enchantments; the item settings carry enchantable(15), so the enchanting table accepts the detector as well.",
-            "Books with Constructor's Touch I are placed by loot table modification into buried treasure (weight 3, 0 to 2 rolls), igloo chests (weight 3, 0 to 1 roll), the common and rare vaults of the trial chambers (weight 3, 0 to 1 roll) and the fishing treasure (weight 2, one extra roll per treasure catch); that only applies as long as the config option worldGen.enableLootTableChanges (default: true) is on.",
-            "A gametest (item_behaviour_game_test_ore_detector_cycles_modes_and_learns_acustom_block) checks that the mode switch wraps around and that calibrating stores a diamond ore block as CustomBlock.",
-            "The build for Minecraft 1.21.11 behaves identically; it differs only in the internal game interfaces it uses (BlockTags instead of BlockItemTags, displayClientMessage instead of sendOverlayMessage)."
-          ],
-          "controls": [
-            "Hold the detector in your main or off hand: scans automatically every 20 ticks (about once a second) and pings the nearest reachable target.",
-            "Sneak + right-click without a block targeted (into the air): switches to the next mode (Iron -> Gold -> Diamond -> Netherite -> All Ores -> Custom -> Iron), costs 1 durability except in creative mode.",
-            "Sneak + right-click on a block: calibrates the detector to that block type and switches to Custom mode; costs no durability.",
-            "Right-click without sneaking: no effect (use returns PASS, useOn the item's default behaviour)."
-          ],
-          "caveats": [
-            "The detector's own texts (mode names such as \"Iron\" or \"All Ores\" and every tooltip line) are Component.translatable keys (simplebuilding.ore_detector.*, tooltip.simplebuilding.ore_detector.*) with English and German texts; the former overlays \"Detector Mode:\" and \"Calibrated to:\" were removed on 2026-09-28.",
-            "The language file entry tooltip.simplebuilding.ore_detector (\"Detects nearby ores and minerals.\") is read by no code (no Java hit for that key, not even assembled dynamically) and therefore does not appear in game.",
-            "In Custom mode without a calibrated block the detector finds nothing (customTarget == null); the tooltip then shows \"Target: None (Sneak-Use on block)\".",
-            "Only ever a single target is shown, never several at once; a nearer reachable target hides all the others.",
-            "Open air costs the signal almost nothing (0.125 per block), so in caves the range ends the search rather than the signal: 24 blocks for common ores, 20 for gold, 16 for diamond, emerald, ancient debris and the End ores.",
-            "Netherite mode has the weakest signal at 5 (9 with Radius): two netherrack or a single block of basalt or blackstone (4) is all it gets through; with Radius four netherrack or two basalt.",
-            "The detector only pings when a target was found; if it stays silent, no matching ore within range has a signal strong enough for the rock in between.",
-            "Each pass walks a cube of (2 times radius + 1) cubed positions (57 cubed at the largest radius, 28 with Radius), but only reads the block state for positions inside the sphere that are nearer than the best target so far; there is no throttling in the code for several detectors held at once.",
-            "The click sound on the mode switch is played at your position for everyone nearby, you included (level().playSound with no excluded player); a client test hears it at volume 0.5 and pitch 1.5.",
-            "The sonar sounds and particles themselves are not observable in server tests; the gametests cover the needle target and colour, the off-hand interval/volume/particle values, the mode switch and the calibration.",
-            "The loot table books drop out entirely if worldGen.enableLootTableChanges is turned off in the config."
-          ]
-        },
-        "de": {
-          "summary": "Der Erzdetektor ist ein Handwerkzeug, das im Sekundentakt das nächstgelegene erreichbare Erz um dich herum mit einem Ton und einer Partikelspur anzeigt, solange du es in der Hand hältst.",
-          "details": [
-            "Wird in der Werkbank hergestellt (Muster \"ESE\" / \"ECE\" / \"EGE\", Besitzer 2026-09-28): oben Mitte ein kalibrierter Sculk-Sensor (minecraft:calibrated_sculk_sensor), in der Mitte ein Kompass, unten Mitte ein Goldkern (simplebuilding:gold_core) und Echoscherben (minecraft:echo_shard) in den sechs übrigen Feldern - 6 insgesamt; Rezeptkategorie \"equipment\" (RecipeCategory.TOOLS).",
-            "Das Rezept wird freigeschaltet, sobald ein Kompass im Inventar liegt (Fortschritt-Kriterium has_compass).",
-            "Liegt im Kreativ-Tab „SimpleTools“ (Id simplebuilding:tools) direkt nach dem Geschwindigkeitsmesser und vor dem Attraktor.",
-            "Stapelt nicht (stacksTo(1)) und hat die Seltenheitsstufe RARE.",
-            "Haltbarkeit 1024 (im Konstruktor des Items mit durability(1024) gesetzt); Verzauberbarkeit 15.",
-            "Sucht nur, während er in der Haupthand oder Nebenhand liegt (EquipmentSlot MAINHAND/OFFHAND); im restlichen Inventar bleibt er stumm und löscht sein Nadelziel. Haupthand: alle 20 Ticks ein Ping, volle Lautstärke; Nebenhand: alle 40 Ticks (SCAN_INTERVAL_OFF_HAND), alle drei Töne mit 0,3 ihrer Lautstärke (OFF_HAND_VOLUME), schwächere Spur.",
-            "Die Suche läuft alle 20 Ticks (SCAN_INTERVAL), je Spieler versetzt – floorMod(Spielzeit + Entitäts-Id des Spielers, SCAN_INTERVAL) == 0 –, damit die Scans mehrerer Spieler nicht alle in denselben Tick fallen und wird serverseitig in inventoryTick(ServerLevel) ausgeführt.",
-            "Es gibt sechs Modi; Signal und Reichweite gehören zur Klasse des gefundenen Erzes (OreDetectorItem.OreClass): gewöhnlich Signal 18 / Reichweite 24, Gold 13 / 20, Diamant und Smaragd 9 / 16, Antiker Schrott und die beiden End-Erze 5 / 16 (mit Radius 22 / 28, 17 / 24, 17 / 24 und 9 / 20). Die Modi Iron, Gold, Diamond und Netherite suchen je eine Klasse, All Ores alle, Custom die Klasse seines Ziels.",
-            "Modus Iron findet Blöcke aus dem Vanilla-Tag minecraft:iron_ores, Gold aus minecraft:gold_ores, Diamond aus minecraft:diamond_ores.",
-            "Modus Netherite findet ausschließlich Antiken Schrott (Blocks.ANCIENT_DEBRIS).",
-            "Modus All Ores findet Blöcke aus den Vanilla-Tags coal_ores, iron_ores, copper_ores, gold_ores, redstone_ores, lapis_ores, diamond_ores und emerald_ores sowie Antiken Schrott, Netherquarzerz, Astraliterz und Nihiliterz - jedes nur innerhalb von Signal und Reichweite seiner Klasse.",
-            "Modus Custom findet den Block, auf den der Detektor kalibriert wurde; verglichen wird nur der Blocktyp (state.is(block)), nicht dessen Zustand (etwa Ausrichtung).",
-            "Modus und Kalibrierblock liegen in der Komponente CUSTOM_DATA: \"Mode\" als Ordnungszahl des Modus, \"CustomBlock\" als gespeicherter Blockzustand; ein ungültiger Mode-Wert wird auf den gültigen Bereich begrenzt.",
-            "Der Suchbereich ist eine Kugel um den Block, in dem sich deine Augen befinden; ihr Radius in Blöcken ist die größte Reichweite, die der Modus nutzen kann (24 für Iron, All Ores und ein unkalibriertes Custom, 20 für Gold, 16 für Diamond und Netherite; mit Radius 28, 24, 24 und 20), ein Fund muss zusätzlich innerhalb der Reichweite seiner eigenen Klasse liegen, und Entfernungen werden von Blockposition zu Blockposition gemessen.",
-            "Gefunden wird immer nur das eine Ziel, das deinen Augen am nächsten liegt und dessen Signal den Weg übersteht; bei gleicher Entfernung gewinnt das zuerst durchlaufene.",
-            "Ob ein Ziel erreichbar ist, entscheidet die gerade Linie von deiner exakten Augenposition zur Blockmitte des Ziels: Jeder Block, den sie schneidet, wird einmal mit dem Verlust seiner Materialstufe belastet (exakter Block-für-Block-Lauf, pathLoss), und übersteigt die Summe das Signal des Erzes, bleibt das Ziel unentdeckt; läuft die Linie genau durch eine Kante, zählt einer der beiden angrenzenden Blöcke.",
-            "Weder der Block deiner Augen noch der Zielblock selbst werden belastet.",
-            "Materialstufen (OreDetectorItem.Material, gewählt nach der Abbauhärte des Blocks): AIR 0.125 für Luft und Blöcke ohne Occlusion (canOcclude() == false, z. B. Fackeln, Pflanzen, Glas, Laub, Wasser); SOFT 2 für Härte unter 1.0 (Netherrack, Erde, Sand, Kies, Calcit) und für Endstein, der mit Härte 3.0 sonst dicht wäre, aber das Wirtsgestein der End-Erze ist; STONE 4 für Härte 1.0 bis unter 3.0 (Stein, Bruchstein, Tuff, Basalt, Schwarzstein, Stämme, Netherwarzenblock); DENSE 6 für Härte 3.0 bis unter 10 (Tiefenschiefer, alle Erze, der Eisenblock); VERY_DENSE 16 für Härte ab 10 oder unzerstörbare Blöcke (Obsidian, Antiker Schrott, Grundgestein).",
-            "Berührung des Konstrukteurs multipliziert den Verlust jedes Blocks mit 0.5 (TOUCH_LOSS_FACTOR), das Signal trägt also durch jedes Material doppelt so weit; Reichweite und Suchradius bleiben unverändert.",
-            "Was das ohne Verzauberungen heißt, mit bis zu 8 Blöcken Luft zwischen Wand und Erz: gewöhnliche Erze werden durch 4 Stein, 8 Netherrack oder 2 Tiefenschiefer gefunden, Gold durch 3 Stein, 6 Netherrack oder 2 Tiefenschiefer, Diamant und Smaragd durch 2 Stein, 4 Netherrack oder 1 Tiefenschiefer, Antiker Schrott durch 1 Stein, 2 Netherrack oder gar keinen Tiefenschiefer, die End-Erze durch 2 Endstein. Mit Radius: 5 / 10 / 3, 4 / 8 / 2, 4 / 8 / 2 und 2 / 4 / 1. Durch reine Luft entscheidet die Reichweite; der Luftverlust von 0.125 je Block zählt nur knapp an der Grenze (Antiker Schrott hinter zwei Netherrack wird mit 8 Blöcken Luft hinter der Wand noch gefunden, mit 9 nicht mehr).",
-            "Beim Fund erklingen an der Zielposition drei Geräusche (SoundSource BLOCKS): das Klingen eines Amethystblocks (Lautstärke 0.9), das Klicken von Sculk (Lautstärke 0.6, Tonhöhe 2.0) und das Abbaugeräusch des gefundenen Blocks (Lautstärke 0.55).",
-            "Die Tonhöhe des Amethystklangs und des Abbaugeräuschs verrät die Entfernung: 1.8 minus Entfernung geteilt durch 32, begrenzt auf 0.6 bis 2.0; nahe Ziele klingen hoch, ferne tief. Innerhalb des größten Suchradius (28 Blöcke, mit Radius) sinkt sie rechnerisch nur bis etwa 0.93, die Grenzen 0.6 und 2.0 werden praktisch nie erreicht.",
-            "Beim Fund wird außerdem eine Sonar-Spur gezeichnet (am 2026-09-28 reduziert): Block-Partikel des gefundenen Blocktyps gleichmäßig entlang der Sichtlinie - einer je 2 Blöcke, höchstens 6 (Nebenhand: einer je 6 Blöcke, höchstens 2) - und ein einzelner Endstab-Partikel am Ziel (nur Haupthand). Die Nadel: Der Ping setzt minecraft:lodestone_tracker (Ziel = das Erz, tracked = false) und minecraft:custom_model_data (Farbe = OreDetectorItem.RESONANCE_COLORS nach Entfernung, 5 Stufen); das Item-Modell (condition has_component lodestone_tracker -> range_dispatch compass/lodestone, 32 Bilder, Nadel-Ebene getönt nach custom_model_data) dreht und tönt die Nadel; hand_animation_on_swap ist false.",
-            "Geräusche (playSound mit Spieler null) und Partikel (ServerLevel.sendParticles) werden an alle Spieler in der Nähe gesendet, nicht nur an dich.",
-            "Beim Moduswechsel per Schleichen + Benutzen verliert der Detektor 1 Haltbarkeit (nicht im Kreativmodus); das Suchen selbst und das Kalibrieren kosten keine Haltbarkeit.",
-            "Der Moduswechsel ruft den UI-Klick-Ton (Lautstärke 0.5, Tonhöhe 1.5) auf; seit dem 28.09.2026 erscheint kein Text auf dem Bildschirm - der Tooltip nennt den Modus (Modusname farbig: Eisen grau, Gold golden, Diamant türkis, Netherit dunkelviolett, Alle Erze weiß, Kalibriert gelb).",
-            "Die Reihenfolge der Modi ist Iron, Gold, Diamond, Netherite, All Ores, Custom und dann wieder Iron; neue Detektoren starten im Modus Iron (Mode-Wert 0).",
-            "Das Kalibrieren (Schleichen + Benutzen auf einen Block) schaltet in den Modus Custom, speichert den angeklickten Blockzustand, zeigt \"Calibrated to: <Blockname>\" (grün, Blockname weiß) an und spielt an der angeklickten Position das Aufblüh-Geräusch eines Sculk-Katalysators (SoundSource PLAYERS, Lautstärke 1.0, Tonhöhe 1.0) für alle Spieler in der Nähe.",
-            "Der Tooltip zeigt \"Mode: <Modus>\", im Modus Custom \"Target: <Blockname>\" (grün) oder \"Target: None (Sneak-Use on block)\" (rot), in allen anderen Modi \"Sneak + Use to cycle modes\" (dunkelgrau), dann eine Leerzeile, \"Signal: <Signal>, Range: <Reichweite>\" (dunkeltürkis) der Klasse des Modus (die gewöhnliche für All Ores und ein unkalibriertes Custom), im Modus All Ores zusätzlich \"Gold 13/20, Diamond/Emerald 9/16, Debris/End ores 5/16\" (mit Radius die angehobenen Werte) und \"Rock damps the signal, dense rock more.\" (grau).",
-            "Kann mit Berührung des Konstrukteurs verzaubert werden (Höchststufe I, Amboss-Kosten 1, Mindestkosten 20, Höchstkosten 50, Gewicht 1) über den Tag simplebuilding:constructors_touch_enchantable; die Verzauberungsdatei enthält keine Effekt-Komponenten, der Detektor liest die Verzauberung direkt in Java vom Item-Stack (EnchantmentHelper.hasEnchantment), daher wirkt sie auch in der Nebenhand.",
-            "Steht zudem im Vanilla-Tag minecraft:enchantable/durability, dem Tag für Haltbarkeits-Verzauberungen; die Item-Einstellungen setzen enchantable(15), sodass auch der Verzauberungstisch den Detektor annimmt.",
-            "Bücher mit Berührung des Konstrukteurs I werden per Beutetabellen-Anpassung in vergrabene Schätze (Gewicht 3, 0 bis 2 Würfe), Iglu-Truhen (Gewicht 3, 0 bis 1 Wurf), die gewöhnlichen und seltenen Tresore der Prüfungskammern (Gewicht 3, 0 bis 1 Wurf) und den Angel-Schatz (Gewicht 2, ein zusätzlicher Wurf je Schatzfang) gelegt; das gilt nur, solange die Konfigurationsoption worldGen.enableLootTableChanges (Standard: true) aktiv ist.",
-            "Ein Spieltest (item_behaviour_game_test_ore_detector_cycles_modes_and_learns_acustom_block) prüft, dass der Moduswechsel im Kreis läuft und das Kalibrieren einen Diamanterz-Block als CustomBlock speichert.",
-            "Die Fassung für Minecraft 1.21.11 verhält sich identisch; sie unterscheidet sich nur in den intern verwendeten Spiel-Schnittstellen (BlockTags statt BlockItemTags, displayClientMessage statt sendOverlayMessage)."
-          ],
-          "controls": [
-            "Detektor in Haupt- oder Nebenhand halten: sucht automatisch alle 20 Ticks (etwa einmal pro Sekunde) und pingt das nächste erreichbare Ziel an.",
-            "Schleichen + Rechtsklick ohne anvisierten Block (in die Luft): schaltet zum nächsten Modus (Iron -> Gold -> Diamond -> Netherite -> All Ores -> Custom -> Iron), kostet 1 Haltbarkeit außer im Kreativmodus.",
-            "Schleichen + Rechtsklick auf einen Block: kalibriert den Detektor auf diesen Blocktyp und wechselt in den Modus Custom; kostet keine Haltbarkeit.",
-            "Rechtsklick ohne Schleichen: keine Wirkung (use liefert PASS, useOn das Item-Standardverhalten)."
-          ],
-          "caveats": [
-            "Die eigenen Texte des Detektors (Modusnamen wie „Eisen“ oder „Alle Erze“ sowie alle Tooltip-Zeilen) sind Übersetzungsschlüssel (simplebuilding.ore_detector.*, tooltip.simplebuilding.ore_detector.*) mit deutschem und englischem Text; die früheren Einblendungen „Detektormodus:“ und „Kalibriert auf:“ sind seit dem 28.09.2026 entfernt.",
-            "Der Sprachdatei-Eintrag tooltip.simplebuilding.ore_detector (\"Zeigt die Nähe zu Erzen an.\") wird von keinem Code gelesen (kein Java-Treffer für diesen Schlüssel, auch nicht dynamisch zusammengesetzt) und erscheint daher nicht im Spiel.",
-            "Im Modus Custom ohne kalibrierten Block findet der Detektor nichts (customTarget == null); der Tooltip zeigt dann \"Target: None (Sneak-Use on block)\".",
-            "Es wird stets nur ein einziges Ziel angezeigt, nie mehrere gleichzeitig; ein näheres erreichbares Ziel verdeckt alle weiteren.",
-            "Offene Luft kostet das Signal fast nichts (0.125 je Block), in Höhlen beendet also die Reichweite die Suche und nicht das Signal: 24 Blöcke für gewöhnliche Erze, 20 für Gold, 16 für Diamant, Smaragd, Antiken Schrott und die End-Erze.",
-            "Der Netherite-Modus hat mit 5 (mit Radius 9) das schwächste Signal: zwei Netherrack oder ein einziger Block Basalt oder Schwarzstein (4) sind alles, was er durchdringt; mit Radius vier Netherrack oder zwei Basalt.",
-            "Der Detektor pingt nur, wenn ein Ziel gefunden wurde; bleibt er still, hat kein passendes Erz in Reichweite ein Signal, das stark genug für das Gestein dazwischen ist.",
-            "Die Suche läuft pro Durchlauf über einen Würfel von (2 mal Radius + 1) hoch 3 Positionen (beim größten Radius, 28 mit Radius, also 57 hoch 3), liest den Blockzustand aber nur für Positionen innerhalb der Kugel, die näher liegen als das bisher beste Ziel; eine Drosselung für mehrere gleichzeitig gehaltene Detektoren gibt es im Code nicht.",
-            "Der Klick-Ton beim Moduswechsel erklingt an deiner Position für alle in der Nähe, dich eingeschlossen (level().playSound ohne Ausnahme); ein Client-Test hört ihn mit Lautstärke 0,5 und Tonhöhe 1,5.",
-            "Töne und Partikel des Sonar-Pings selbst sind in Server-Tests nicht beobachtbar; die Spieltests decken Nadelziel und -farbe, die Werte der Nebenhand (Takt, Lautstärke, Partikel), den Moduswechsel und die Kalibrierung ab.",
-            "Die Beutetabellen-Bücher entfallen komplett, wenn worldGen.enableLootTableChanges in der Konfiguration ausgeschaltet ist."
-          ]
-        },
-        "sources": [
-          "common/src/shared/java/com/simplebuilding/items/custom/OreDetectorItem.java",
-          "mc1_21_11/shared/java/com/simplebuilding/items/custom/OreDetectorItem.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
-          "common/src/shared/java/com/simplebuilding/items/ModItemGroupsContent.java",
-          "src/main/java/com/simplebuilding/items/ModItemGroups.java",
-          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
-          "src/main/generated/data/simplebuilding/recipe/ore_detector.json",
-          "src/main/generated/data/simplebuilding/advancement/recipes/tools/ore_detector.json",
-          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
-          "src/main/generated/data/simplebuilding/tags/item/constructors_touch_enchantable.json",
-          "src/main/generated/data/minecraft/tags/item/enchantable/durability.json",
-          "common/src/shared/java/com/simplebuilding/enchantment/ModEnchantments.java",
-          "src/main/generated/data/simplebuilding/enchantment/constructors_touch.json",
-          "common/src/shared/java/com/simplebuilding/util/EnchantmentHelper.java",
-          "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
-          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
-          "common/src/shared/java/com/simplebuilding/gametest/ItemBehaviourTests.java",
-          "common/src/shared/java/com/simplebuilding/gametest/SimpleBuildingGameTests.java",
-          "src/main/resources/assets/simplebuilding/lang/de_de.json",
-          "src/main/resources/assets/simplebuilding/lang/en_us.json"
-        ]
-      },
-      "hasCustomBehaviour": true
     },
     {
       "id": "simplebuilding:polished_astralit",
@@ -14458,8 +15286,8 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:raw_enderite",
       "name": {
-        "en_us": "Raw Enderite",
-        "de_de": "Rohenderit"
+        "en_us": "Raw Enderite Fragment",
+        "de_de": "Rohes Enderitfragment"
       },
       "texture": "assets/textures/item/raw_enderite.png",
       "craftedBy": [
@@ -16140,7 +16968,7 @@ window.WIKI_DATA = {
             "First-person animation: as soon as a reshape is possible on the block you are looking at, the hammer tilts in your hand (rotated -15 degrees around Y and -10 degrees around X); the settings enableToolAnimations and enableChiselAnimation must both be on (HeldItemRendererMixin).",
             "Crushing a diamond block: holding right-click on a diamond block (sneaking or not) destroys it without its normal drop (destroyBlock with drop=false) and throws out 81 Diamond Pebbles (one stack of 64 and one of 17) with the metal break sound; it costs 1 durability except in creative mode.",
             "9 Diamond Pebbles make one Cracked Diamond in the crafting table (3x3); a Cracked Diamond turns back into a diamond in the blast furnace (datagen: 100 ticks, 1.0 experience).",
-            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston has no higher tier (SledgehammerUpgrades).",
+            "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston becomes the (non-sticky) Netherite Piston the same way (SledgehammerUpgrades, owner 2026-09-29).",
             "Every second - ticks 20, 40, 60 and 80 - the hammer strikes: an arm swing that nearby players see as well, an anvil clang that rises in pitch with every strike plus a netherite block hit (Enderite: also an amethyst ring), block crack and spark particles (Netherite: lava drops, Enderite: reverse portal particles), and 4 durability for a Netherite upgrade or 10 for an Enderite upgrade. Tick 100 is the fifth strike, so an upgrade costs 20 or 50 durability in total; nothing in creative.",
             "The fifth strike swaps the block for the next tier, keeping its facing, its lit or enabled state and its whole block entity - hopper items, filter items and filter mode, furnace items, cooking progress and stored experience - and uses up one nugget (not in creative). It plays the smithing table and anvil sounds, with a lava hiss, flames and smoke for Netherite or the end portal frame and enderman sounds with portal and end rod particles for Enderite. The hammer then cools down for 1 second, during which the right-click you are still holding does not open the machine's menu.",
             "The upgrade is cancelled without using the nugget - strikes already landed stay paid - when you let go of right-click, look away from the block (the server allows 2 ticks of lag), leave reach, the block stops being the starting tier, the nugget leaves your off hand or the hammer breaks.",
@@ -16169,7 +16997,7 @@ window.WIKI_DATA = {
             "Sneak + mine: only the targeted block. Sneak + left-click still triggers Versatility if the hammer carries it.",
             "Hold right-click on a full block: it becomes stairs; on stairs: they become a slab.",
             "Sneak + hold right-click (only with Constructor's Touch): a slab becomes stairs, stairs become the full block.",
-            "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles.",
+            "Hold right-click on a diamond block (sneaking or not): crushes it into 81 Diamond Pebbles - only with an iron, gold, diamond, netherite or enderite sledgehammer (owner 2026-09-29); stone and copper hammers bounce off with a dull clang and the block stays.",
             "Left-click an item frame holding a smithing template with a Glow Ink Sac in the off hand: Glowing Armor Trim; with Glowstone Dust: Emitting Armor Trim.",
             "Netherite Nugget in the off hand, hold right-click for 5 seconds on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston (Diamond Sledgehammer or better): it becomes the Netherite machine; Enderite Nugget on a Netherite machine (Netherite Sledgehammer or better): the Enderite machine."
           ],
@@ -16231,7 +17059,7 @@ window.WIKI_DATA = {
             "Erste-Person-Animation: Sobald ein Umformen am angezielten Block möglich ist, neigt sich der Hammer in der Hand (Drehung -15 Grad um Y, -10 Grad um X); die Einstellungen enableToolAnimations und enableChiselAnimation müssen beide an sein (HeldItemRendererMixin).",
             "Diamantblock zerkleinern: Rechtsklick auf einen Diamantblock halten (auch beim Schleichen) zerstört ihn ohne normalen Drop (destroyBlock mit drop=false) und wirft 81 Diamantkiesel aus (ein Stapel zu 64 und einer zu 17), mit Metall-Bruchgeräusch; kostet 1 Haltbarkeit außer im Kreativmodus.",
             "9 Diamantkiesel ergeben in der Werkbank (3x3) einen Rissigen Diamanten; ein Rissiger Diamant wird im Hochofen (Datagen: 100 Ticks, 1,0 Erfahrung) wieder zu einem Diamanten.",
-            "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; der Verstärkte klebrige Kolben hat keine höhere Stufe (SledgehammerUpgrades).",
+            "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; auch der Verstärkte klebrige Kolben wird so zum (nicht klebrigen) Netheritkolben (SledgehammerUpgrades, Besitzer 2026-09-29).",
             "Jede Sekunde - in den Ticks 20, 40, 60 und 80 - schlägt der Hammer zu: ein Armschwung, den auch Spieler in der Nähe sehen, ein Amboss-Klang, der mit jedem Schlag höher wird, dazu ein Netheritblock-Schlag (Enderit: zusätzlich ein Amethyst-Klingen), Blocksplitter und Funken (Netherit: Lavatropfen, Enderit: umgekehrte Portalpartikel) und 4 Haltbarkeit bei einer Netherit-, 10 bei einer Enderit-Aufwertung. Tick 100 ist der fünfte Schlag, eine Aufwertung kostet also insgesamt 20 bzw. 50 Haltbarkeit; im Kreativmodus nichts.",
             "Der fünfte Schlag tauscht den Block gegen die nächste Stufe und behält Blickrichtung, den Zustand an/aus bzw. gesperrt und die ganze Block-Entity - Trichterinhalt, Filter-Items und Filtermodus, Ofeninhalt, Kochfortschritt und gespeicherte Erfahrung -, und er verbraucht einen Klumpen (nicht im Kreativmodus). Dazu klingen Schmiedetisch und Amboss, bei Netherit mit Lava-Zischen, Flammen und Rauch, bei Enderit mit dem Klang des Endportalrahmens und des Enderman-Teleports samt Portal- und Endstab-Partikeln. Danach kühlt der Hammer 1 Sekunde ab; solange öffnet der weiter gehaltene Rechtsklick nicht das Menü der Maschine.",
             "Abgebrochen wird ohne Klumpenverbrauch - bereits geschlagene Schläge bleiben bezahlt -, wenn du den Rechtsklick loslässt, vom Block wegschaust (der Server lässt 2 Ticks Verzögerung zu), die Reichweite verlässt, der Block nicht mehr die Ausgangsstufe ist, der Klumpen die Nebenhand verlässt oder der Hammer zerbricht.",
@@ -17095,6 +17923,96 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:bogged_skull",
+      "name": {
+        "en_us": "Bogged Skull",
+        "de_de": "Sumpfskelettschädel"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/bogged_skull.png",
+      "lootTable": "simplebuilding:blocks/bogged_skull",
+      "drops": [
+        "simplebuilding:bogged_skull"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:bogged_wall_skull",
+      "name": {
+        "en_us": "Bogged Skull",
+        "de_de": "Sumpfskelettschädel"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/bogged_skull.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:breeze_head",
+      "name": {
+        "en_us": "Breeze Head",
+        "de_de": "Breeze-Kopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/breeze_head.png",
+      "lootTable": "simplebuilding:blocks/breeze_head",
+      "drops": [
+        "simplebuilding:breeze_head"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:breeze_wall_head",
+      "name": {
+        "en_us": "Breeze Head",
+        "de_de": "Breeze-Kopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/breeze_head.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:cave_spider_head",
+      "name": {
+        "en_us": "Cave Spider Head",
+        "de_de": "Höhlenspinnenkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/cave_spider_head.png",
+      "lootTable": "simplebuilding:blocks/cave_spider_head",
+      "drops": [
+        "simplebuilding:cave_spider_head"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:cave_spider_wall_head",
+      "name": {
+        "en_us": "Cave Spider Head",
+        "de_de": "Höhlenspinnenkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/cave_spider_head.png",
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:chiseled_astralit_bricks",
       "name": {
         "en_us": "Chiseled Astralit Bricks",
@@ -17450,6 +18368,36 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
         ]
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:drowned_head",
+      "name": {
+        "en_us": "Drowned Head",
+        "de_de": "Ertrunkenenkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/drowned_head.png",
+      "lootTable": "simplebuilding:blocks/drowned_head",
+      "drops": [
+        "simplebuilding:drowned_head"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:drowned_wall_head",
+      "name": {
+        "en_us": "Drowned Head",
+        "de_de": "Ertrunkenenkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/drowned_head.png",
       "hasCustomBehaviour": false
     },
     {
@@ -18683,7 +19631,7 @@ window.WIKI_DATA = {
         "simplebuilding:enderite_elytra_pad_smithing",
         "simplebuilding:enderite_launchpad_smithing",
         "simplebuilding:enderite_spawn_teleporter_smithing",
-        "simplebuilding:flypad_tier1_smithing",
+        "simplebuilding:flypad_tier1_crafting",
         "simplebuilding:flypad_tier2_smithing",
         "simplebuilding:reinforced_potion_pad_smithing"
       ],
@@ -19160,7 +20108,7 @@ window.WIKI_DATA = {
       },
       "texture": "assets/textures/block/flypad_ender.png",
       "craftedBy": [
-        "simplebuilding:flypad_tier1_smithing"
+        "simplebuilding:flypad_tier1_crafting"
       ],
       "usedIn": [
         "simplebuilding:flypad_tier2_smithing"
@@ -19210,6 +20158,36 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
         ]
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:husk_head",
+      "name": {
+        "en_us": "Husk Head",
+        "de_de": "Wüstenzombiekopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/husk_head.png",
+      "lootTable": "simplebuilding:blocks/husk_head",
+      "drops": [
+        "simplebuilding:husk_head"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:husk_wall_head",
+      "name": {
+        "en_us": "Husk Head",
+        "de_de": "Wüstenzombiekopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/husk_head.png",
       "hasCustomBehaviour": false
     },
     {
@@ -22907,6 +23885,98 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:shulker_head",
+      "name": {
+        "en_us": "Shulker Head",
+        "de_de": "Shulkerkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [
+        "simplebuilding:flypad_tier1_crafting"
+      ],
+      "trades": [],
+      "icon": "assets/textures/render/shulker_head.png",
+      "lootTable": "simplebuilding:blocks/shulker_head",
+      "drops": [
+        "simplebuilding:shulker_head"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:shulker_wall_head",
+      "name": {
+        "en_us": "Shulker Head",
+        "de_de": "Shulkerkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/shulker_head.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:silverfish_head",
+      "name": {
+        "en_us": "Silverfish Head",
+        "de_de": "Silberfischchenkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/silverfish_head.png",
+      "lootTable": "simplebuilding:blocks/silverfish_head",
+      "drops": [
+        "simplebuilding:silverfish_head"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:silverfish_wall_head",
+      "name": {
+        "en_us": "Silverfish Head",
+        "de_de": "Silberfischchenkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/silverfish_head.png",
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:slime_head",
+      "name": {
+        "en_us": "Slime Head",
+        "de_de": "Schleimkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/slime_head.png",
+      "lootTable": "simplebuilding:blocks/slime_head",
+      "drops": [
+        "simplebuilding:slime_head"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:slime_wall_head",
+      "name": {
+        "en_us": "Slime Head",
+        "de_de": "Schleimkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/slime_head.png",
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:spawn_teleporter",
       "name": {
         "en_us": "Spawn Teleporter I",
@@ -23155,6 +24225,36 @@ window.WIKI_DATA = {
       "hasCustomBehaviour": false
     },
     {
+      "id": "simplebuilding:spider_head",
+      "name": {
+        "en_us": "Spider Head",
+        "de_de": "Spinnenkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/spider_head.png",
+      "lootTable": "simplebuilding:blocks/spider_head",
+      "drops": [
+        "simplebuilding:spider_head"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:spider_wall_head",
+      "name": {
+        "en_us": "Spider Head",
+        "de_de": "Spinnenkopf"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/spider_head.png",
+      "hasCustomBehaviour": false
+    },
+    {
       "id": "simplebuilding:stellar_flypad",
       "name": {
         "en_us": "Stellar Flypad III",
@@ -23210,6 +24310,36 @@ window.WIKI_DATA = {
           "src/main/resources/assets/simplebuilding/lang/de_de.json"
         ]
       },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:stray_skull",
+      "name": {
+        "en_us": "Stray Skull",
+        "de_de": "Eiswandererschädel"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stray_skull.png",
+      "lootTable": "simplebuilding:blocks/stray_skull",
+      "drops": [
+        "simplebuilding:stray_skull"
+      ],
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:stray_wall_skull",
+      "name": {
+        "en_us": "Stray Skull",
+        "de_de": "Eiswandererschädel"
+      },
+      "texture": null,
+      "craftedBy": [],
+      "usedIn": [],
+      "trades": [],
+      "icon": "assets/textures/render/stray_skull.png",
       "hasCustomBehaviour": false
     },
     {
@@ -24873,7 +26003,7 @@ window.WIKI_DATA = {
       },
       "source": "src/main/generated/data/simplebuilding/recipe/blueprint.json",
       "ingredients": [
-        "minecraft:ink_sac",
+        "minecraft:glow_ink_sac",
         "minecraft:paper",
         "simplebuilding:ender_quartz"
       ],
@@ -24885,11 +26015,58 @@ window.WIKI_DATA = {
           "minecraft:paper"
         ],
         [
-          "minecraft:ink_sac"
+          "minecraft:glow_ink_sac"
         ]
       ],
+      "variants": [
+        {
+          "lines": [
+            "1.21.11"
+          ],
+          "changes": [
+            {
+              "field": "ingredientGroups",
+              "this": [
+                [
+                  "simplebuilding:ender_quartz"
+                ],
+                [
+                  "minecraft:paper"
+                ],
+                [
+                  "minecraft:glow_ink_sac"
+                ]
+              ],
+              "other": [
+                [
+                  "simplebuilding:ender_quartz"
+                ],
+                [
+                  "minecraft:paper"
+                ],
+                [
+                  "minecraft:ink_sac"
+                ]
+              ]
+            },
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:glow_ink_sac",
+                "minecraft:paper",
+                "simplebuilding:ender_quartz"
+              ],
+              "other": [
+                "minecraft:ink_sac",
+                "minecraft:paper",
+                "simplebuilding:ender_quartz"
+              ]
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/blueprint.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
         "26.2",
         "26.3"
       ]
@@ -25367,59 +26544,106 @@ window.WIKI_DATA = {
       },
       "source": "src/main/generated/data/simplebuilding/recipe/chunk_loader_smithing.json",
       "ingredients": [
-        "minecraft:bolt_armor_trim_smithing_template",
-        "minecraft:coast_armor_trim_smithing_template",
-        "minecraft:dune_armor_trim_smithing_template",
-        "minecraft:eye_armor_trim_smithing_template",
-        "minecraft:flow_armor_trim_smithing_template",
-        "minecraft:host_armor_trim_smithing_template",
-        "minecraft:netherite_upgrade_smithing_template",
-        "minecraft:raiser_armor_trim_smithing_template",
-        "minecraft:rib_armor_trim_smithing_template",
-        "minecraft:sentry_armor_trim_smithing_template",
-        "minecraft:shaper_armor_trim_smithing_template",
-        "minecraft:silence_armor_trim_smithing_template",
-        "minecraft:snout_armor_trim_smithing_template",
-        "minecraft:spire_armor_trim_smithing_template",
-        "minecraft:tide_armor_trim_smithing_template",
-        "minecraft:vex_armor_trim_smithing_template",
-        "minecraft:ward_armor_trim_smithing_template",
-        "minecraft:wayfinder_armor_trim_smithing_template",
-        "minecraft:wild_armor_trim_smithing_template",
+        "#simplebuilding:trial_chamber_heads",
         "simplebuilding:copper_core",
         "simplebuilding:copper_pressure_plate"
       ],
       "slots": {
         "template": [
-          "minecraft:netherite_upgrade_smithing_template",
-          "minecraft:sentry_armor_trim_smithing_template",
-          "minecraft:dune_armor_trim_smithing_template",
-          "minecraft:coast_armor_trim_smithing_template",
-          "minecraft:wild_armor_trim_smithing_template",
-          "minecraft:ward_armor_trim_smithing_template",
-          "minecraft:eye_armor_trim_smithing_template",
-          "minecraft:vex_armor_trim_smithing_template",
-          "minecraft:tide_armor_trim_smithing_template",
-          "minecraft:snout_armor_trim_smithing_template",
-          "minecraft:rib_armor_trim_smithing_template",
-          "minecraft:spire_armor_trim_smithing_template",
-          "minecraft:wayfinder_armor_trim_smithing_template",
-          "minecraft:shaper_armor_trim_smithing_template",
-          "minecraft:silence_armor_trim_smithing_template",
-          "minecraft:raiser_armor_trim_smithing_template",
-          "minecraft:host_armor_trim_smithing_template",
-          "minecraft:flow_armor_trim_smithing_template",
-          "minecraft:bolt_armor_trim_smithing_template"
+          "simplebuilding:copper_core"
         ],
         "base": [
           "simplebuilding:copper_pressure_plate"
         ],
         "addition": [
-          "simplebuilding:copper_core"
+          "#simplebuilding:trial_chamber_heads"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "#simplebuilding:trial_chamber_heads",
+                "simplebuilding:copper_core",
+                "simplebuilding:copper_pressure_plate"
+              ],
+              "other": [
+                "minecraft:bolt_armor_trim_smithing_template",
+                "minecraft:coast_armor_trim_smithing_template",
+                "minecraft:dune_armor_trim_smithing_template",
+                "minecraft:eye_armor_trim_smithing_template",
+                "minecraft:flow_armor_trim_smithing_template",
+                "minecraft:host_armor_trim_smithing_template",
+                "minecraft:netherite_upgrade_smithing_template",
+                "minecraft:raiser_armor_trim_smithing_template",
+                "minecraft:rib_armor_trim_smithing_template",
+                "minecraft:sentry_armor_trim_smithing_template",
+                "minecraft:shaper_armor_trim_smithing_template",
+                "minecraft:silence_armor_trim_smithing_template",
+                "minecraft:snout_armor_trim_smithing_template",
+                "minecraft:spire_armor_trim_smithing_template",
+                "minecraft:tide_armor_trim_smithing_template",
+                "minecraft:vex_armor_trim_smithing_template",
+                "minecraft:ward_armor_trim_smithing_template",
+                "minecraft:wayfinder_armor_trim_smithing_template",
+                "minecraft:wild_armor_trim_smithing_template",
+                "simplebuilding:copper_core",
+                "simplebuilding:copper_pressure_plate"
+              ]
+            },
+            {
+              "field": "slots",
+              "this": {
+                "template": [
+                  "simplebuilding:copper_core"
+                ],
+                "base": [
+                  "simplebuilding:copper_pressure_plate"
+                ],
+                "addition": [
+                  "#simplebuilding:trial_chamber_heads"
+                ]
+              },
+              "other": {
+                "template": [
+                  "minecraft:netherite_upgrade_smithing_template",
+                  "minecraft:sentry_armor_trim_smithing_template",
+                  "minecraft:dune_armor_trim_smithing_template",
+                  "minecraft:coast_armor_trim_smithing_template",
+                  "minecraft:wild_armor_trim_smithing_template",
+                  "minecraft:ward_armor_trim_smithing_template",
+                  "minecraft:eye_armor_trim_smithing_template",
+                  "minecraft:vex_armor_trim_smithing_template",
+                  "minecraft:tide_armor_trim_smithing_template",
+                  "minecraft:snout_armor_trim_smithing_template",
+                  "minecraft:rib_armor_trim_smithing_template",
+                  "minecraft:spire_armor_trim_smithing_template",
+                  "minecraft:wayfinder_armor_trim_smithing_template",
+                  "minecraft:shaper_armor_trim_smithing_template",
+                  "minecraft:silence_armor_trim_smithing_template",
+                  "minecraft:raiser_armor_trim_smithing_template",
+                  "minecraft:host_armor_trim_smithing_template",
+                  "minecraft:flow_armor_trim_smithing_template",
+                  "minecraft:bolt_armor_trim_smithing_template"
+                ],
+                "base": [
+                  "simplebuilding:copper_pressure_plate"
+                ],
+                "addition": [
+                  "simplebuilding:copper_core"
+                ]
+              }
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/chunk_loader_smithing.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
         "26.2",
         "26.3"
       ]
@@ -25792,6 +27016,46 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:detector",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:detector",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/detector.json",
+      "ingredients": [
+        "minecraft:calibrated_sculk_sensor",
+        "minecraft:compass",
+        "minecraft:echo_shard",
+        "simplebuilding:gold_core"
+      ],
+      "pattern": [
+        " ES",
+        "ECE",
+        "GE "
+      ],
+      "key": {
+        "C": [
+          "minecraft:compass"
+        ],
+        "E": [
+          "minecraft:echo_shard"
+        ],
+        "G": [
+          "simplebuilding:gold_core"
+        ],
+        "S": [
+          "minecraft:calibrated_sculk_sensor"
+        ]
+      },
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:diamond_building_wand",
       "type": "minecraft:crafting_shaped",
       "category": "equipment",
@@ -26031,49 +27295,13 @@ window.WIKI_DATA = {
       },
       "source": "src/main/generated/data/simplebuilding/recipe/elytra_pad_smithing.json",
       "ingredients": [
-        "minecraft:bolt_armor_trim_smithing_template",
-        "minecraft:coast_armor_trim_smithing_template",
-        "minecraft:dune_armor_trim_smithing_template",
         "minecraft:elytra",
-        "minecraft:eye_armor_trim_smithing_template",
-        "minecraft:flow_armor_trim_smithing_template",
-        "minecraft:host_armor_trim_smithing_template",
-        "minecraft:netherite_upgrade_smithing_template",
-        "minecraft:raiser_armor_trim_smithing_template",
-        "minecraft:rib_armor_trim_smithing_template",
-        "minecraft:sentry_armor_trim_smithing_template",
-        "minecraft:shaper_armor_trim_smithing_template",
-        "minecraft:silence_armor_trim_smithing_template",
-        "minecraft:snout_armor_trim_smithing_template",
-        "minecraft:spire_armor_trim_smithing_template",
-        "minecraft:tide_armor_trim_smithing_template",
-        "minecraft:vex_armor_trim_smithing_template",
-        "minecraft:ward_armor_trim_smithing_template",
-        "minecraft:wayfinder_armor_trim_smithing_template",
-        "minecraft:wild_armor_trim_smithing_template",
+        "simplebuilding:diamond_core",
         "simplebuilding:diamond_pressure_plate"
       ],
       "slots": {
         "template": [
-          "minecraft:netherite_upgrade_smithing_template",
-          "minecraft:sentry_armor_trim_smithing_template",
-          "minecraft:dune_armor_trim_smithing_template",
-          "minecraft:coast_armor_trim_smithing_template",
-          "minecraft:wild_armor_trim_smithing_template",
-          "minecraft:ward_armor_trim_smithing_template",
-          "minecraft:eye_armor_trim_smithing_template",
-          "minecraft:vex_armor_trim_smithing_template",
-          "minecraft:tide_armor_trim_smithing_template",
-          "minecraft:snout_armor_trim_smithing_template",
-          "minecraft:rib_armor_trim_smithing_template",
-          "minecraft:spire_armor_trim_smithing_template",
-          "minecraft:wayfinder_armor_trim_smithing_template",
-          "minecraft:shaper_armor_trim_smithing_template",
-          "minecraft:silence_armor_trim_smithing_template",
-          "minecraft:raiser_armor_trim_smithing_template",
-          "minecraft:host_armor_trim_smithing_template",
-          "minecraft:flow_armor_trim_smithing_template",
-          "minecraft:bolt_armor_trim_smithing_template"
+          "simplebuilding:diamond_core"
         ],
         "base": [
           "simplebuilding:diamond_pressure_plate"
@@ -26082,8 +27310,91 @@ window.WIKI_DATA = {
           "minecraft:elytra"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:elytra",
+                "simplebuilding:diamond_core",
+                "simplebuilding:diamond_pressure_plate"
+              ],
+              "other": [
+                "minecraft:bolt_armor_trim_smithing_template",
+                "minecraft:coast_armor_trim_smithing_template",
+                "minecraft:dune_armor_trim_smithing_template",
+                "minecraft:elytra",
+                "minecraft:eye_armor_trim_smithing_template",
+                "minecraft:flow_armor_trim_smithing_template",
+                "minecraft:host_armor_trim_smithing_template",
+                "minecraft:netherite_upgrade_smithing_template",
+                "minecraft:raiser_armor_trim_smithing_template",
+                "minecraft:rib_armor_trim_smithing_template",
+                "minecraft:sentry_armor_trim_smithing_template",
+                "minecraft:shaper_armor_trim_smithing_template",
+                "minecraft:silence_armor_trim_smithing_template",
+                "minecraft:snout_armor_trim_smithing_template",
+                "minecraft:spire_armor_trim_smithing_template",
+                "minecraft:tide_armor_trim_smithing_template",
+                "minecraft:vex_armor_trim_smithing_template",
+                "minecraft:ward_armor_trim_smithing_template",
+                "minecraft:wayfinder_armor_trim_smithing_template",
+                "minecraft:wild_armor_trim_smithing_template",
+                "simplebuilding:diamond_pressure_plate"
+              ]
+            },
+            {
+              "field": "slots",
+              "this": {
+                "template": [
+                  "simplebuilding:diamond_core"
+                ],
+                "base": [
+                  "simplebuilding:diamond_pressure_plate"
+                ],
+                "addition": [
+                  "minecraft:elytra"
+                ]
+              },
+              "other": {
+                "template": [
+                  "minecraft:netherite_upgrade_smithing_template",
+                  "minecraft:sentry_armor_trim_smithing_template",
+                  "minecraft:dune_armor_trim_smithing_template",
+                  "minecraft:coast_armor_trim_smithing_template",
+                  "minecraft:wild_armor_trim_smithing_template",
+                  "minecraft:ward_armor_trim_smithing_template",
+                  "minecraft:eye_armor_trim_smithing_template",
+                  "minecraft:vex_armor_trim_smithing_template",
+                  "minecraft:tide_armor_trim_smithing_template",
+                  "minecraft:snout_armor_trim_smithing_template",
+                  "minecraft:rib_armor_trim_smithing_template",
+                  "minecraft:spire_armor_trim_smithing_template",
+                  "minecraft:wayfinder_armor_trim_smithing_template",
+                  "minecraft:shaper_armor_trim_smithing_template",
+                  "minecraft:silence_armor_trim_smithing_template",
+                  "minecraft:raiser_armor_trim_smithing_template",
+                  "minecraft:host_armor_trim_smithing_template",
+                  "minecraft:flow_armor_trim_smithing_template",
+                  "minecraft:bolt_armor_trim_smithing_template"
+                ],
+                "base": [
+                  "simplebuilding:diamond_pressure_plate"
+                ],
+                "addition": [
+                  "minecraft:elytra"
+                ]
+              }
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/elytra_pad_smithing.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
         "26.2",
         "26.3"
       ]
@@ -28252,33 +29563,36 @@ window.WIKI_DATA = {
       ]
     },
     {
-      "id": "simplebuilding:flypad_tier1_smithing",
-      "type": "minecraft:smithing_transform",
-      "category": null,
+      "id": "simplebuilding:flypad_tier1_crafting",
+      "type": "simplebuilding:enchanted_shapeless",
+      "category": "equipment",
       "group": null,
       "result": {
         "id": "simplebuilding:flypad",
         "count": 1
       },
-      "source": "src/main/generated/data/simplebuilding/recipe/flypad_tier1_smithing.json",
+      "source": "src/main/generated/data/simplebuilding/recipe/flypad_tier1_crafting.json",
       "ingredients": [
+        "minecraft:elytra",
         "simplebuilding:enderite_core",
         "simplebuilding:enderite_pressure_plate",
-        "simplebuilding:enderite_upgrade_template"
+        "simplebuilding:shulker_head"
       ],
-      "slots": {
-        "template": [
-          "simplebuilding:enderite_upgrade_template"
+      "ingredientGroups": [
+        [
+          "simplebuilding:enderite_core"
         ],
-        "base": [
+        [
           "simplebuilding:enderite_pressure_plate"
         ],
-        "addition": [
-          "simplebuilding:enderite_core"
+        [
+          "simplebuilding:shulker_head"
+        ],
+        [
+          "minecraft:elytra"
         ]
-      },
+      ],
       "lines": [
-        "1.21.11",
         "26.2",
         "26.3"
       ]
@@ -28738,6 +30052,35 @@ window.WIKI_DATA = {
       ]
     },
     {
+      "id": "simplebuilding:guide_book_enchantments",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_enchantments",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_enchantments.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:lapis_lazuli",
+        "simplebuilding:guide_book"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book"
+        ],
+        [
+          "minecraft:lapis_lazuli"
+        ]
+      ],
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
       "id": "simplebuilding:guide_book_end",
       "type": "minecraft:crafting_shapeless",
       "category": null,
@@ -28763,6 +30106,35 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_gadgets",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_gadgets",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_gadgets.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:copper_ingot",
+        "simplebuilding:guide_book"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book"
+        ],
+        [
+          "minecraft:copper_ingot"
+        ]
+      ],
+      "lines": [
         "26.2",
         "26.3"
       ]
@@ -28913,6 +30285,265 @@ window.WIKI_DATA = {
       ],
       "lines": [
         "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_caves",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_vanilla_caves",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_caves.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:torch",
+        "simplebuilding:guide_book_vanilla_start"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book_vanilla_start"
+        ],
+        [
+          "minecraft:torch"
+        ]
+      ],
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_end",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_vanilla_end",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_end.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:ender_eye",
+        "simplebuilding:guide_book_vanilla_start"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book_vanilla_start"
+        ],
+        [
+          "minecraft:ender_eye"
+        ]
+      ],
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_farming",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_vanilla_farming",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_farming.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:wheat_seeds",
+        "simplebuilding:guide_book_vanilla_start"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book_vanilla_start"
+        ],
+        [
+          "minecraft:wheat_seeds"
+        ]
+      ],
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_gear",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_vanilla_gear",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_gear.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:stone_sword",
+        "simplebuilding:guide_book_vanilla_start"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book_vanilla_start"
+        ],
+        [
+          "minecraft:stone_sword"
+        ]
+      ],
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_nether",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_vanilla_nether",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_nether.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:flint_and_steel",
+        "simplebuilding:guide_book_vanilla_start"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book_vanilla_start"
+        ],
+        [
+          "minecraft:flint_and_steel"
+        ]
+      ],
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_ocean",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_vanilla_ocean",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_ocean.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:oak_boat",
+        "simplebuilding:guide_book_vanilla_start"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book_vanilla_start"
+        ],
+        [
+          "minecraft:oak_boat"
+        ]
+      ],
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_overworld",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_vanilla_overworld",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_overworld.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:oak_sapling",
+        "simplebuilding:guide_book_vanilla_start"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book_vanilla_start"
+        ],
+        [
+          "minecraft:oak_sapling"
+        ]
+      ],
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_redstone",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_vanilla_redstone",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_redstone.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:redstone",
+        "simplebuilding:guide_book_vanilla_start"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book_vanilla_start"
+        ],
+        [
+          "minecraft:redstone"
+        ]
+      ],
+      "lines": [
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_vanilla_start",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_vanilla_start",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_vanilla_start.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:wooden_pickaxe"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book"
+        ],
+        [
+          "minecraft:wooden_pickaxe"
+        ]
+      ],
+      "lines": [
         "26.2",
         "26.3"
       ]
@@ -29132,59 +30763,106 @@ window.WIKI_DATA = {
       },
       "source": "src/main/generated/data/simplebuilding/recipe/launchpad_smithing.json",
       "ingredients": [
-        "minecraft:bolt_armor_trim_smithing_template",
-        "minecraft:coast_armor_trim_smithing_template",
-        "minecraft:dune_armor_trim_smithing_template",
-        "minecraft:eye_armor_trim_smithing_template",
-        "minecraft:flow_armor_trim_smithing_template",
+        "#simplebuilding:trial_chamber_heads",
         "minecraft:heavy_weighted_pressure_plate",
-        "minecraft:host_armor_trim_smithing_template",
-        "minecraft:netherite_upgrade_smithing_template",
-        "minecraft:raiser_armor_trim_smithing_template",
-        "minecraft:rib_armor_trim_smithing_template",
-        "minecraft:sentry_armor_trim_smithing_template",
-        "minecraft:shaper_armor_trim_smithing_template",
-        "minecraft:silence_armor_trim_smithing_template",
-        "minecraft:snout_armor_trim_smithing_template",
-        "minecraft:spire_armor_trim_smithing_template",
-        "minecraft:tide_armor_trim_smithing_template",
-        "minecraft:vex_armor_trim_smithing_template",
-        "minecraft:ward_armor_trim_smithing_template",
-        "minecraft:wayfinder_armor_trim_smithing_template",
-        "minecraft:wild_armor_trim_smithing_template",
         "simplebuilding:iron_core"
       ],
       "slots": {
         "template": [
-          "minecraft:netherite_upgrade_smithing_template",
-          "minecraft:sentry_armor_trim_smithing_template",
-          "minecraft:dune_armor_trim_smithing_template",
-          "minecraft:coast_armor_trim_smithing_template",
-          "minecraft:wild_armor_trim_smithing_template",
-          "minecraft:ward_armor_trim_smithing_template",
-          "minecraft:eye_armor_trim_smithing_template",
-          "minecraft:vex_armor_trim_smithing_template",
-          "minecraft:tide_armor_trim_smithing_template",
-          "minecraft:snout_armor_trim_smithing_template",
-          "minecraft:rib_armor_trim_smithing_template",
-          "minecraft:spire_armor_trim_smithing_template",
-          "minecraft:wayfinder_armor_trim_smithing_template",
-          "minecraft:shaper_armor_trim_smithing_template",
-          "minecraft:silence_armor_trim_smithing_template",
-          "minecraft:raiser_armor_trim_smithing_template",
-          "minecraft:host_armor_trim_smithing_template",
-          "minecraft:flow_armor_trim_smithing_template",
-          "minecraft:bolt_armor_trim_smithing_template"
+          "simplebuilding:iron_core"
         ],
         "base": [
           "minecraft:heavy_weighted_pressure_plate"
         ],
         "addition": [
-          "simplebuilding:iron_core"
+          "#simplebuilding:trial_chamber_heads"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "#simplebuilding:trial_chamber_heads",
+                "minecraft:heavy_weighted_pressure_plate",
+                "simplebuilding:iron_core"
+              ],
+              "other": [
+                "minecraft:bolt_armor_trim_smithing_template",
+                "minecraft:coast_armor_trim_smithing_template",
+                "minecraft:dune_armor_trim_smithing_template",
+                "minecraft:eye_armor_trim_smithing_template",
+                "minecraft:flow_armor_trim_smithing_template",
+                "minecraft:heavy_weighted_pressure_plate",
+                "minecraft:host_armor_trim_smithing_template",
+                "minecraft:netherite_upgrade_smithing_template",
+                "minecraft:raiser_armor_trim_smithing_template",
+                "minecraft:rib_armor_trim_smithing_template",
+                "minecraft:sentry_armor_trim_smithing_template",
+                "minecraft:shaper_armor_trim_smithing_template",
+                "minecraft:silence_armor_trim_smithing_template",
+                "minecraft:snout_armor_trim_smithing_template",
+                "minecraft:spire_armor_trim_smithing_template",
+                "minecraft:tide_armor_trim_smithing_template",
+                "minecraft:vex_armor_trim_smithing_template",
+                "minecraft:ward_armor_trim_smithing_template",
+                "minecraft:wayfinder_armor_trim_smithing_template",
+                "minecraft:wild_armor_trim_smithing_template",
+                "simplebuilding:iron_core"
+              ]
+            },
+            {
+              "field": "slots",
+              "this": {
+                "template": [
+                  "simplebuilding:iron_core"
+                ],
+                "base": [
+                  "minecraft:heavy_weighted_pressure_plate"
+                ],
+                "addition": [
+                  "#simplebuilding:trial_chamber_heads"
+                ]
+              },
+              "other": {
+                "template": [
+                  "minecraft:netherite_upgrade_smithing_template",
+                  "minecraft:sentry_armor_trim_smithing_template",
+                  "minecraft:dune_armor_trim_smithing_template",
+                  "minecraft:coast_armor_trim_smithing_template",
+                  "minecraft:wild_armor_trim_smithing_template",
+                  "minecraft:ward_armor_trim_smithing_template",
+                  "minecraft:eye_armor_trim_smithing_template",
+                  "minecraft:vex_armor_trim_smithing_template",
+                  "minecraft:tide_armor_trim_smithing_template",
+                  "minecraft:snout_armor_trim_smithing_template",
+                  "minecraft:rib_armor_trim_smithing_template",
+                  "minecraft:spire_armor_trim_smithing_template",
+                  "minecraft:wayfinder_armor_trim_smithing_template",
+                  "minecraft:shaper_armor_trim_smithing_template",
+                  "minecraft:silence_armor_trim_smithing_template",
+                  "minecraft:raiser_armor_trim_smithing_template",
+                  "minecraft:host_armor_trim_smithing_template",
+                  "minecraft:flow_armor_trim_smithing_template",
+                  "minecraft:bolt_armor_trim_smithing_template"
+                ],
+                "base": [
+                  "minecraft:heavy_weighted_pressure_plate"
+                ],
+                "addition": [
+                  "simplebuilding:iron_core"
+                ]
+              }
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/launchpad_smithing.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
         "26.2",
         "26.3"
       ]
@@ -31135,9 +32813,9 @@ window.WIKI_DATA = {
         "simplebuilding:gold_core"
       ],
       "pattern": [
-        " RL",
-        "NCR",
-        "GN "
+        " NR",
+        "NCN",
+        "GNL"
       ],
       "key": {
         "C": [
@@ -31156,8 +32834,30 @@ window.WIKI_DATA = {
           "minecraft:lightning_rod"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11"
+          ],
+          "changes": [
+            {
+              "field": "pattern",
+              "this": [
+                " NR",
+                "NCN",
+                "GNL"
+              ],
+              "other": [
+                " RL",
+                "NCR",
+                "GN "
+              ]
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/octant.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
         "26.2",
         "26.3"
       ]
@@ -31687,47 +33387,6 @@ window.WIKI_DATA = {
         ]
       },
       "lines": [
-        "26.2",
-        "26.3"
-      ]
-    },
-    {
-      "id": "simplebuilding:ore_detector",
-      "type": "minecraft:crafting_shaped",
-      "category": "equipment",
-      "group": null,
-      "result": {
-        "id": "simplebuilding:ore_detector",
-        "count": 1
-      },
-      "source": "src/main/generated/data/simplebuilding/recipe/ore_detector.json",
-      "ingredients": [
-        "minecraft:calibrated_sculk_sensor",
-        "minecraft:compass",
-        "minecraft:echo_shard",
-        "simplebuilding:gold_core"
-      ],
-      "pattern": [
-        "ESE",
-        "ECE",
-        "EGE"
-      ],
-      "key": {
-        "C": [
-          "minecraft:compass"
-        ],
-        "E": [
-          "minecraft:echo_shard"
-        ],
-        "G": [
-          "simplebuilding:gold_core"
-        ],
-        "S": [
-          "minecraft:calibrated_sculk_sensor"
-        ]
-      },
-      "lines": [
-        "1.21.11",
         "26.2",
         "26.3"
       ]
@@ -33070,49 +34729,13 @@ window.WIKI_DATA = {
       },
       "source": "src/main/generated/data/simplebuilding/recipe/potion_pad_smithing.json",
       "ingredients": [
-        "minecraft:bolt_armor_trim_smithing_template",
-        "minecraft:coast_armor_trim_smithing_template",
-        "minecraft:dune_armor_trim_smithing_template",
-        "minecraft:eye_armor_trim_smithing_template",
-        "minecraft:flow_armor_trim_smithing_template",
-        "minecraft:host_armor_trim_smithing_template",
-        "minecraft:netherite_upgrade_smithing_template",
-        "minecraft:raiser_armor_trim_smithing_template",
-        "minecraft:rib_armor_trim_smithing_template",
-        "minecraft:sentry_armor_trim_smithing_template",
-        "minecraft:shaper_armor_trim_smithing_template",
-        "minecraft:silence_armor_trim_smithing_template",
-        "minecraft:snout_armor_trim_smithing_template",
-        "minecraft:spire_armor_trim_smithing_template",
-        "minecraft:tide_armor_trim_smithing_template",
-        "minecraft:vex_armor_trim_smithing_template",
-        "minecraft:ward_armor_trim_smithing_template",
-        "minecraft:wayfinder_armor_trim_smithing_template",
-        "minecraft:wild_armor_trim_smithing_template",
         "simplebuilding:blaze_head",
+        "simplebuilding:netherite_core",
         "simplebuilding:netherite_pressure_plate"
       ],
       "slots": {
         "template": [
-          "minecraft:netherite_upgrade_smithing_template",
-          "minecraft:sentry_armor_trim_smithing_template",
-          "minecraft:dune_armor_trim_smithing_template",
-          "minecraft:coast_armor_trim_smithing_template",
-          "minecraft:wild_armor_trim_smithing_template",
-          "minecraft:ward_armor_trim_smithing_template",
-          "minecraft:eye_armor_trim_smithing_template",
-          "minecraft:vex_armor_trim_smithing_template",
-          "minecraft:tide_armor_trim_smithing_template",
-          "minecraft:snout_armor_trim_smithing_template",
-          "minecraft:rib_armor_trim_smithing_template",
-          "minecraft:spire_armor_trim_smithing_template",
-          "minecraft:wayfinder_armor_trim_smithing_template",
-          "minecraft:shaper_armor_trim_smithing_template",
-          "minecraft:silence_armor_trim_smithing_template",
-          "minecraft:raiser_armor_trim_smithing_template",
-          "minecraft:host_armor_trim_smithing_template",
-          "minecraft:flow_armor_trim_smithing_template",
-          "minecraft:bolt_armor_trim_smithing_template"
+          "simplebuilding:netherite_core"
         ],
         "base": [
           "simplebuilding:netherite_pressure_plate"
@@ -33121,8 +34744,91 @@ window.WIKI_DATA = {
           "simplebuilding:blaze_head"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "simplebuilding:blaze_head",
+                "simplebuilding:netherite_core",
+                "simplebuilding:netherite_pressure_plate"
+              ],
+              "other": [
+                "minecraft:bolt_armor_trim_smithing_template",
+                "minecraft:coast_armor_trim_smithing_template",
+                "minecraft:dune_armor_trim_smithing_template",
+                "minecraft:eye_armor_trim_smithing_template",
+                "minecraft:flow_armor_trim_smithing_template",
+                "minecraft:host_armor_trim_smithing_template",
+                "minecraft:netherite_upgrade_smithing_template",
+                "minecraft:raiser_armor_trim_smithing_template",
+                "minecraft:rib_armor_trim_smithing_template",
+                "minecraft:sentry_armor_trim_smithing_template",
+                "minecraft:shaper_armor_trim_smithing_template",
+                "minecraft:silence_armor_trim_smithing_template",
+                "minecraft:snout_armor_trim_smithing_template",
+                "minecraft:spire_armor_trim_smithing_template",
+                "minecraft:tide_armor_trim_smithing_template",
+                "minecraft:vex_armor_trim_smithing_template",
+                "minecraft:ward_armor_trim_smithing_template",
+                "minecraft:wayfinder_armor_trim_smithing_template",
+                "minecraft:wild_armor_trim_smithing_template",
+                "simplebuilding:blaze_head",
+                "simplebuilding:netherite_pressure_plate"
+              ]
+            },
+            {
+              "field": "slots",
+              "this": {
+                "template": [
+                  "simplebuilding:netherite_core"
+                ],
+                "base": [
+                  "simplebuilding:netherite_pressure_plate"
+                ],
+                "addition": [
+                  "simplebuilding:blaze_head"
+                ]
+              },
+              "other": {
+                "template": [
+                  "minecraft:netherite_upgrade_smithing_template",
+                  "minecraft:sentry_armor_trim_smithing_template",
+                  "minecraft:dune_armor_trim_smithing_template",
+                  "minecraft:coast_armor_trim_smithing_template",
+                  "minecraft:wild_armor_trim_smithing_template",
+                  "minecraft:ward_armor_trim_smithing_template",
+                  "minecraft:eye_armor_trim_smithing_template",
+                  "minecraft:vex_armor_trim_smithing_template",
+                  "minecraft:tide_armor_trim_smithing_template",
+                  "minecraft:snout_armor_trim_smithing_template",
+                  "minecraft:rib_armor_trim_smithing_template",
+                  "minecraft:spire_armor_trim_smithing_template",
+                  "minecraft:wayfinder_armor_trim_smithing_template",
+                  "minecraft:shaper_armor_trim_smithing_template",
+                  "minecraft:silence_armor_trim_smithing_template",
+                  "minecraft:raiser_armor_trim_smithing_template",
+                  "minecraft:host_armor_trim_smithing_template",
+                  "minecraft:flow_armor_trim_smithing_template",
+                  "minecraft:bolt_armor_trim_smithing_template"
+                ],
+                "base": [
+                  "simplebuilding:netherite_pressure_plate"
+                ],
+                "addition": [
+                  "simplebuilding:blaze_head"
+                ]
+              }
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/potion_pad_smithing.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
         "26.2",
         "26.3"
       ]
@@ -34536,49 +36242,13 @@ window.WIKI_DATA = {
       },
       "source": "src/main/generated/data/simplebuilding/recipe/spawn_teleporter_smithing.json",
       "ingredients": [
-        "minecraft:bolt_armor_trim_smithing_template",
-        "minecraft:coast_armor_trim_smithing_template",
-        "minecraft:dune_armor_trim_smithing_template",
-        "minecraft:eye_armor_trim_smithing_template",
-        "minecraft:flow_armor_trim_smithing_template",
-        "minecraft:host_armor_trim_smithing_template",
         "minecraft:light_weighted_pressure_plate",
-        "minecraft:netherite_upgrade_smithing_template",
-        "minecraft:raiser_armor_trim_smithing_template",
-        "minecraft:rib_armor_trim_smithing_template",
-        "minecraft:sentry_armor_trim_smithing_template",
-        "minecraft:shaper_armor_trim_smithing_template",
-        "minecraft:silence_armor_trim_smithing_template",
-        "minecraft:snout_armor_trim_smithing_template",
-        "minecraft:spire_armor_trim_smithing_template",
-        "minecraft:tide_armor_trim_smithing_template",
-        "minecraft:vex_armor_trim_smithing_template",
-        "minecraft:ward_armor_trim_smithing_template",
-        "minecraft:wayfinder_armor_trim_smithing_template",
-        "minecraft:wild_armor_trim_smithing_template",
-        "simplebuilding:enderman_head"
+        "simplebuilding:enderman_head",
+        "simplebuilding:gold_core"
       ],
       "slots": {
         "template": [
-          "minecraft:netherite_upgrade_smithing_template",
-          "minecraft:sentry_armor_trim_smithing_template",
-          "minecraft:dune_armor_trim_smithing_template",
-          "minecraft:coast_armor_trim_smithing_template",
-          "minecraft:wild_armor_trim_smithing_template",
-          "minecraft:ward_armor_trim_smithing_template",
-          "minecraft:eye_armor_trim_smithing_template",
-          "minecraft:vex_armor_trim_smithing_template",
-          "minecraft:tide_armor_trim_smithing_template",
-          "minecraft:snout_armor_trim_smithing_template",
-          "minecraft:rib_armor_trim_smithing_template",
-          "minecraft:spire_armor_trim_smithing_template",
-          "minecraft:wayfinder_armor_trim_smithing_template",
-          "minecraft:shaper_armor_trim_smithing_template",
-          "minecraft:silence_armor_trim_smithing_template",
-          "minecraft:raiser_armor_trim_smithing_template",
-          "minecraft:host_armor_trim_smithing_template",
-          "minecraft:flow_armor_trim_smithing_template",
-          "minecraft:bolt_armor_trim_smithing_template"
+          "simplebuilding:gold_core"
         ],
         "base": [
           "minecraft:light_weighted_pressure_plate"
@@ -34587,8 +36257,91 @@ window.WIKI_DATA = {
           "simplebuilding:enderman_head"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:light_weighted_pressure_plate",
+                "simplebuilding:enderman_head",
+                "simplebuilding:gold_core"
+              ],
+              "other": [
+                "minecraft:bolt_armor_trim_smithing_template",
+                "minecraft:coast_armor_trim_smithing_template",
+                "minecraft:dune_armor_trim_smithing_template",
+                "minecraft:eye_armor_trim_smithing_template",
+                "minecraft:flow_armor_trim_smithing_template",
+                "minecraft:host_armor_trim_smithing_template",
+                "minecraft:light_weighted_pressure_plate",
+                "minecraft:netherite_upgrade_smithing_template",
+                "minecraft:raiser_armor_trim_smithing_template",
+                "minecraft:rib_armor_trim_smithing_template",
+                "minecraft:sentry_armor_trim_smithing_template",
+                "minecraft:shaper_armor_trim_smithing_template",
+                "minecraft:silence_armor_trim_smithing_template",
+                "minecraft:snout_armor_trim_smithing_template",
+                "minecraft:spire_armor_trim_smithing_template",
+                "minecraft:tide_armor_trim_smithing_template",
+                "minecraft:vex_armor_trim_smithing_template",
+                "minecraft:ward_armor_trim_smithing_template",
+                "minecraft:wayfinder_armor_trim_smithing_template",
+                "minecraft:wild_armor_trim_smithing_template",
+                "simplebuilding:enderman_head"
+              ]
+            },
+            {
+              "field": "slots",
+              "this": {
+                "template": [
+                  "simplebuilding:gold_core"
+                ],
+                "base": [
+                  "minecraft:light_weighted_pressure_plate"
+                ],
+                "addition": [
+                  "simplebuilding:enderman_head"
+                ]
+              },
+              "other": {
+                "template": [
+                  "minecraft:netherite_upgrade_smithing_template",
+                  "minecraft:sentry_armor_trim_smithing_template",
+                  "minecraft:dune_armor_trim_smithing_template",
+                  "minecraft:coast_armor_trim_smithing_template",
+                  "minecraft:wild_armor_trim_smithing_template",
+                  "minecraft:ward_armor_trim_smithing_template",
+                  "minecraft:eye_armor_trim_smithing_template",
+                  "minecraft:vex_armor_trim_smithing_template",
+                  "minecraft:tide_armor_trim_smithing_template",
+                  "minecraft:snout_armor_trim_smithing_template",
+                  "minecraft:rib_armor_trim_smithing_template",
+                  "minecraft:spire_armor_trim_smithing_template",
+                  "minecraft:wayfinder_armor_trim_smithing_template",
+                  "minecraft:shaper_armor_trim_smithing_template",
+                  "minecraft:silence_armor_trim_smithing_template",
+                  "minecraft:raiser_armor_trim_smithing_template",
+                  "minecraft:host_armor_trim_smithing_template",
+                  "minecraft:flow_armor_trim_smithing_template",
+                  "minecraft:bolt_armor_trim_smithing_template"
+                ],
+                "base": [
+                  "minecraft:light_weighted_pressure_plate"
+                ],
+                "addition": [
+                  "simplebuilding:enderman_head"
+                ]
+              }
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/spawn_teleporter_smithing.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
         "26.2",
         "26.3"
       ]
@@ -35932,13 +37685,12 @@ window.WIKI_DATA = {
         "minecraft:amethyst_shard",
         "minecraft:compass",
         "minecraft:copper_nugget",
-        "minecraft:quartz",
         "simplebuilding:copper_core"
       ],
       "pattern": [
-        "QAQ",
+        " NA",
         "NCN",
-        "NKN"
+        "KN "
       ],
       "key": {
         "A": [
@@ -35952,13 +37704,82 @@ window.WIKI_DATA = {
         ],
         "N": [
           "minecraft:copper_nugget"
-        ],
-        "Q": [
-          "minecraft:quartz"
         ]
       },
+      "variants": [
+        {
+          "lines": [
+            "1.21.11"
+          ],
+          "changes": [
+            {
+              "field": "ingredients",
+              "this": [
+                "minecraft:amethyst_shard",
+                "minecraft:compass",
+                "minecraft:copper_nugget",
+                "simplebuilding:copper_core"
+              ],
+              "other": [
+                "minecraft:amethyst_shard",
+                "minecraft:compass",
+                "minecraft:copper_nugget",
+                "minecraft:quartz",
+                "simplebuilding:copper_core"
+              ]
+            },
+            {
+              "field": "key",
+              "this": {
+                "A": [
+                  "minecraft:amethyst_shard"
+                ],
+                "C": [
+                  "minecraft:compass"
+                ],
+                "K": [
+                  "simplebuilding:copper_core"
+                ],
+                "N": [
+                  "minecraft:copper_nugget"
+                ]
+              },
+              "other": {
+                "A": [
+                  "minecraft:amethyst_shard"
+                ],
+                "C": [
+                  "minecraft:compass"
+                ],
+                "K": [
+                  "simplebuilding:copper_core"
+                ],
+                "N": [
+                  "minecraft:copper_nugget"
+                ],
+                "Q": [
+                  "minecraft:quartz"
+                ]
+              }
+            },
+            {
+              "field": "pattern",
+              "this": [
+                " NA",
+                "NCN",
+                "KN "
+              ],
+              "other": [
+                "QAQ",
+                "NCN",
+                "NKN"
+              ]
+            }
+          ],
+          "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/velocity_gauge.json"
+        }
+      ],
       "lines": [
-        "1.21.11",
         "26.2",
         "26.3"
       ]
@@ -36238,7 +38059,523 @@ window.WIKI_DATA = {
       ]
     }
   ],
-  "recipesOtherLines": [],
+  "recipesOtherLines": [
+    {
+      "id": "simplebuilding:blueprint",
+      "type": "minecraft:crafting_shapeless",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:blueprint",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/blueprint.json",
+      "ingredients": [
+        "minecraft:ink_sac",
+        "minecraft:paper",
+        "simplebuilding:ender_quartz"
+      ],
+      "ingredientGroups": [
+        [
+          "simplebuilding:ender_quartz"
+        ],
+        [
+          "minecraft:paper"
+        ],
+        [
+          "minecraft:ink_sac"
+        ]
+      ],
+      "lines": [
+        "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:chunk_loader_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:chunk_loader",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/chunk_loader_smithing.json",
+      "ingredients": [
+        "minecraft:bolt_armor_trim_smithing_template",
+        "minecraft:coast_armor_trim_smithing_template",
+        "minecraft:dune_armor_trim_smithing_template",
+        "minecraft:eye_armor_trim_smithing_template",
+        "minecraft:flow_armor_trim_smithing_template",
+        "minecraft:host_armor_trim_smithing_template",
+        "minecraft:netherite_upgrade_smithing_template",
+        "minecraft:raiser_armor_trim_smithing_template",
+        "minecraft:rib_armor_trim_smithing_template",
+        "minecraft:sentry_armor_trim_smithing_template",
+        "minecraft:shaper_armor_trim_smithing_template",
+        "minecraft:silence_armor_trim_smithing_template",
+        "minecraft:snout_armor_trim_smithing_template",
+        "minecraft:spire_armor_trim_smithing_template",
+        "minecraft:tide_armor_trim_smithing_template",
+        "minecraft:vex_armor_trim_smithing_template",
+        "minecraft:ward_armor_trim_smithing_template",
+        "minecraft:wayfinder_armor_trim_smithing_template",
+        "minecraft:wild_armor_trim_smithing_template",
+        "simplebuilding:copper_core",
+        "simplebuilding:copper_pressure_plate"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template",
+          "minecraft:sentry_armor_trim_smithing_template",
+          "minecraft:dune_armor_trim_smithing_template",
+          "minecraft:coast_armor_trim_smithing_template",
+          "minecraft:wild_armor_trim_smithing_template",
+          "minecraft:ward_armor_trim_smithing_template",
+          "minecraft:eye_armor_trim_smithing_template",
+          "minecraft:vex_armor_trim_smithing_template",
+          "minecraft:tide_armor_trim_smithing_template",
+          "minecraft:snout_armor_trim_smithing_template",
+          "minecraft:rib_armor_trim_smithing_template",
+          "minecraft:spire_armor_trim_smithing_template",
+          "minecraft:wayfinder_armor_trim_smithing_template",
+          "minecraft:shaper_armor_trim_smithing_template",
+          "minecraft:silence_armor_trim_smithing_template",
+          "minecraft:raiser_armor_trim_smithing_template",
+          "minecraft:host_armor_trim_smithing_template",
+          "minecraft:flow_armor_trim_smithing_template",
+          "minecraft:bolt_armor_trim_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:copper_pressure_plate"
+        ],
+        "addition": [
+          "simplebuilding:copper_core"
+        ]
+      },
+      "lines": [
+        "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:elytra_pad_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:elytra_pad",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/elytra_pad_smithing.json",
+      "ingredients": [
+        "minecraft:bolt_armor_trim_smithing_template",
+        "minecraft:coast_armor_trim_smithing_template",
+        "minecraft:dune_armor_trim_smithing_template",
+        "minecraft:elytra",
+        "minecraft:eye_armor_trim_smithing_template",
+        "minecraft:flow_armor_trim_smithing_template",
+        "minecraft:host_armor_trim_smithing_template",
+        "minecraft:netherite_upgrade_smithing_template",
+        "minecraft:raiser_armor_trim_smithing_template",
+        "minecraft:rib_armor_trim_smithing_template",
+        "minecraft:sentry_armor_trim_smithing_template",
+        "minecraft:shaper_armor_trim_smithing_template",
+        "minecraft:silence_armor_trim_smithing_template",
+        "minecraft:snout_armor_trim_smithing_template",
+        "minecraft:spire_armor_trim_smithing_template",
+        "minecraft:tide_armor_trim_smithing_template",
+        "minecraft:vex_armor_trim_smithing_template",
+        "minecraft:ward_armor_trim_smithing_template",
+        "minecraft:wayfinder_armor_trim_smithing_template",
+        "minecraft:wild_armor_trim_smithing_template",
+        "simplebuilding:diamond_pressure_plate"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template",
+          "minecraft:sentry_armor_trim_smithing_template",
+          "minecraft:dune_armor_trim_smithing_template",
+          "minecraft:coast_armor_trim_smithing_template",
+          "minecraft:wild_armor_trim_smithing_template",
+          "minecraft:ward_armor_trim_smithing_template",
+          "minecraft:eye_armor_trim_smithing_template",
+          "minecraft:vex_armor_trim_smithing_template",
+          "minecraft:tide_armor_trim_smithing_template",
+          "minecraft:snout_armor_trim_smithing_template",
+          "minecraft:rib_armor_trim_smithing_template",
+          "minecraft:spire_armor_trim_smithing_template",
+          "minecraft:wayfinder_armor_trim_smithing_template",
+          "minecraft:shaper_armor_trim_smithing_template",
+          "minecraft:silence_armor_trim_smithing_template",
+          "minecraft:raiser_armor_trim_smithing_template",
+          "minecraft:host_armor_trim_smithing_template",
+          "minecraft:flow_armor_trim_smithing_template",
+          "minecraft:bolt_armor_trim_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:diamond_pressure_plate"
+        ],
+        "addition": [
+          "minecraft:elytra"
+        ]
+      },
+      "lines": [
+        "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:flypad_tier1_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:flypad",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/flypad_tier1_smithing.json",
+      "ingredients": [
+        "simplebuilding:enderite_core",
+        "simplebuilding:enderite_pressure_plate",
+        "simplebuilding:enderite_upgrade_template"
+      ],
+      "slots": {
+        "template": [
+          "simplebuilding:enderite_upgrade_template"
+        ],
+        "base": [
+          "simplebuilding:enderite_pressure_plate"
+        ],
+        "addition": [
+          "simplebuilding:enderite_core"
+        ]
+      },
+      "lines": [
+        "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:launchpad_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:launchpad",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/launchpad_smithing.json",
+      "ingredients": [
+        "minecraft:bolt_armor_trim_smithing_template",
+        "minecraft:coast_armor_trim_smithing_template",
+        "minecraft:dune_armor_trim_smithing_template",
+        "minecraft:eye_armor_trim_smithing_template",
+        "minecraft:flow_armor_trim_smithing_template",
+        "minecraft:heavy_weighted_pressure_plate",
+        "minecraft:host_armor_trim_smithing_template",
+        "minecraft:netherite_upgrade_smithing_template",
+        "minecraft:raiser_armor_trim_smithing_template",
+        "minecraft:rib_armor_trim_smithing_template",
+        "minecraft:sentry_armor_trim_smithing_template",
+        "minecraft:shaper_armor_trim_smithing_template",
+        "minecraft:silence_armor_trim_smithing_template",
+        "minecraft:snout_armor_trim_smithing_template",
+        "minecraft:spire_armor_trim_smithing_template",
+        "minecraft:tide_armor_trim_smithing_template",
+        "minecraft:vex_armor_trim_smithing_template",
+        "minecraft:ward_armor_trim_smithing_template",
+        "minecraft:wayfinder_armor_trim_smithing_template",
+        "minecraft:wild_armor_trim_smithing_template",
+        "simplebuilding:iron_core"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template",
+          "minecraft:sentry_armor_trim_smithing_template",
+          "minecraft:dune_armor_trim_smithing_template",
+          "minecraft:coast_armor_trim_smithing_template",
+          "minecraft:wild_armor_trim_smithing_template",
+          "minecraft:ward_armor_trim_smithing_template",
+          "minecraft:eye_armor_trim_smithing_template",
+          "minecraft:vex_armor_trim_smithing_template",
+          "minecraft:tide_armor_trim_smithing_template",
+          "minecraft:snout_armor_trim_smithing_template",
+          "minecraft:rib_armor_trim_smithing_template",
+          "minecraft:spire_armor_trim_smithing_template",
+          "minecraft:wayfinder_armor_trim_smithing_template",
+          "minecraft:shaper_armor_trim_smithing_template",
+          "minecraft:silence_armor_trim_smithing_template",
+          "minecraft:raiser_armor_trim_smithing_template",
+          "minecraft:host_armor_trim_smithing_template",
+          "minecraft:flow_armor_trim_smithing_template",
+          "minecraft:bolt_armor_trim_smithing_template"
+        ],
+        "base": [
+          "minecraft:heavy_weighted_pressure_plate"
+        ],
+        "addition": [
+          "simplebuilding:iron_core"
+        ]
+      },
+      "lines": [
+        "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:octant",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:octant",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/octant.json",
+      "ingredients": [
+        "minecraft:compass",
+        "minecraft:gold_nugget",
+        "minecraft:lead",
+        "minecraft:lightning_rod",
+        "simplebuilding:gold_core"
+      ],
+      "pattern": [
+        " RL",
+        "NCR",
+        "GN "
+      ],
+      "key": {
+        "C": [
+          "minecraft:compass"
+        ],
+        "G": [
+          "simplebuilding:gold_core"
+        ],
+        "L": [
+          "minecraft:lead"
+        ],
+        "N": [
+          "minecraft:gold_nugget"
+        ],
+        "R": [
+          "minecraft:lightning_rod"
+        ]
+      },
+      "lines": [
+        "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:ore_detector",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:ore_detector",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/ore_detector.json",
+      "ingredients": [
+        "minecraft:calibrated_sculk_sensor",
+        "minecraft:compass",
+        "minecraft:echo_shard",
+        "simplebuilding:gold_core"
+      ],
+      "pattern": [
+        "ESE",
+        "ECE",
+        "EGE"
+      ],
+      "key": {
+        "C": [
+          "minecraft:compass"
+        ],
+        "E": [
+          "minecraft:echo_shard"
+        ],
+        "G": [
+          "simplebuilding:gold_core"
+        ],
+        "S": [
+          "minecraft:calibrated_sculk_sensor"
+        ]
+      },
+      "lines": [
+        "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:potion_pad_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:potion_pad",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/potion_pad_smithing.json",
+      "ingredients": [
+        "minecraft:bolt_armor_trim_smithing_template",
+        "minecraft:coast_armor_trim_smithing_template",
+        "minecraft:dune_armor_trim_smithing_template",
+        "minecraft:eye_armor_trim_smithing_template",
+        "minecraft:flow_armor_trim_smithing_template",
+        "minecraft:host_armor_trim_smithing_template",
+        "minecraft:netherite_upgrade_smithing_template",
+        "minecraft:raiser_armor_trim_smithing_template",
+        "minecraft:rib_armor_trim_smithing_template",
+        "minecraft:sentry_armor_trim_smithing_template",
+        "minecraft:shaper_armor_trim_smithing_template",
+        "minecraft:silence_armor_trim_smithing_template",
+        "minecraft:snout_armor_trim_smithing_template",
+        "minecraft:spire_armor_trim_smithing_template",
+        "minecraft:tide_armor_trim_smithing_template",
+        "minecraft:vex_armor_trim_smithing_template",
+        "minecraft:ward_armor_trim_smithing_template",
+        "minecraft:wayfinder_armor_trim_smithing_template",
+        "minecraft:wild_armor_trim_smithing_template",
+        "simplebuilding:blaze_head",
+        "simplebuilding:netherite_pressure_plate"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template",
+          "minecraft:sentry_armor_trim_smithing_template",
+          "minecraft:dune_armor_trim_smithing_template",
+          "minecraft:coast_armor_trim_smithing_template",
+          "minecraft:wild_armor_trim_smithing_template",
+          "minecraft:ward_armor_trim_smithing_template",
+          "minecraft:eye_armor_trim_smithing_template",
+          "minecraft:vex_armor_trim_smithing_template",
+          "minecraft:tide_armor_trim_smithing_template",
+          "minecraft:snout_armor_trim_smithing_template",
+          "minecraft:rib_armor_trim_smithing_template",
+          "minecraft:spire_armor_trim_smithing_template",
+          "minecraft:wayfinder_armor_trim_smithing_template",
+          "minecraft:shaper_armor_trim_smithing_template",
+          "minecraft:silence_armor_trim_smithing_template",
+          "minecraft:raiser_armor_trim_smithing_template",
+          "minecraft:host_armor_trim_smithing_template",
+          "minecraft:flow_armor_trim_smithing_template",
+          "minecraft:bolt_armor_trim_smithing_template"
+        ],
+        "base": [
+          "simplebuilding:netherite_pressure_plate"
+        ],
+        "addition": [
+          "simplebuilding:blaze_head"
+        ]
+      },
+      "lines": [
+        "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:spawn_teleporter_smithing",
+      "type": "minecraft:smithing_transform",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:spawn_teleporter",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/spawn_teleporter_smithing.json",
+      "ingredients": [
+        "minecraft:bolt_armor_trim_smithing_template",
+        "minecraft:coast_armor_trim_smithing_template",
+        "minecraft:dune_armor_trim_smithing_template",
+        "minecraft:eye_armor_trim_smithing_template",
+        "minecraft:flow_armor_trim_smithing_template",
+        "minecraft:host_armor_trim_smithing_template",
+        "minecraft:light_weighted_pressure_plate",
+        "minecraft:netherite_upgrade_smithing_template",
+        "minecraft:raiser_armor_trim_smithing_template",
+        "minecraft:rib_armor_trim_smithing_template",
+        "minecraft:sentry_armor_trim_smithing_template",
+        "minecraft:shaper_armor_trim_smithing_template",
+        "minecraft:silence_armor_trim_smithing_template",
+        "minecraft:snout_armor_trim_smithing_template",
+        "minecraft:spire_armor_trim_smithing_template",
+        "minecraft:tide_armor_trim_smithing_template",
+        "minecraft:vex_armor_trim_smithing_template",
+        "minecraft:ward_armor_trim_smithing_template",
+        "minecraft:wayfinder_armor_trim_smithing_template",
+        "minecraft:wild_armor_trim_smithing_template",
+        "simplebuilding:enderman_head"
+      ],
+      "slots": {
+        "template": [
+          "minecraft:netherite_upgrade_smithing_template",
+          "minecraft:sentry_armor_trim_smithing_template",
+          "minecraft:dune_armor_trim_smithing_template",
+          "minecraft:coast_armor_trim_smithing_template",
+          "minecraft:wild_armor_trim_smithing_template",
+          "minecraft:ward_armor_trim_smithing_template",
+          "minecraft:eye_armor_trim_smithing_template",
+          "minecraft:vex_armor_trim_smithing_template",
+          "minecraft:tide_armor_trim_smithing_template",
+          "minecraft:snout_armor_trim_smithing_template",
+          "minecraft:rib_armor_trim_smithing_template",
+          "minecraft:spire_armor_trim_smithing_template",
+          "minecraft:wayfinder_armor_trim_smithing_template",
+          "minecraft:shaper_armor_trim_smithing_template",
+          "minecraft:silence_armor_trim_smithing_template",
+          "minecraft:raiser_armor_trim_smithing_template",
+          "minecraft:host_armor_trim_smithing_template",
+          "minecraft:flow_armor_trim_smithing_template",
+          "minecraft:bolt_armor_trim_smithing_template"
+        ],
+        "base": [
+          "minecraft:light_weighted_pressure_plate"
+        ],
+        "addition": [
+          "simplebuilding:enderman_head"
+        ]
+      },
+      "lines": [
+        "1.21.11"
+      ]
+    },
+    {
+      "id": "simplebuilding:velocity_gauge",
+      "type": "minecraft:crafting_shaped",
+      "category": "equipment",
+      "group": null,
+      "result": {
+        "id": "simplebuilding:velocity_gauge",
+        "count": 1
+      },
+      "source": "mc1_21_11/fabric/src/main/generated/data/simplebuilding/recipe/velocity_gauge.json",
+      "ingredients": [
+        "minecraft:amethyst_shard",
+        "minecraft:compass",
+        "minecraft:copper_nugget",
+        "minecraft:quartz",
+        "simplebuilding:copper_core"
+      ],
+      "pattern": [
+        "QAQ",
+        "NCN",
+        "NKN"
+      ],
+      "key": {
+        "A": [
+          "minecraft:amethyst_shard"
+        ],
+        "C": [
+          "minecraft:compass"
+        ],
+        "K": [
+          "simplebuilding:copper_core"
+        ],
+        "N": [
+          "minecraft:copper_nugget"
+        ],
+        "Q": [
+          "minecraft:quartz"
+        ]
+      },
+      "lines": [
+        "1.21.11"
+      ]
+    }
+  ],
   "lootTables": [
     {
       "id": "simplebuilding:blocks/astral_end_stone",
@@ -36470,6 +38807,60 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/blaze_head.json"
     },
     {
+      "id": "simplebuilding:blocks/bogged_skull",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:bogged_skull"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/bogged_skull.json"
+    },
+    {
+      "id": "simplebuilding:blocks/breeze_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:breeze_head"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/breeze_head.json"
+    },
+    {
+      "id": "simplebuilding:blocks/cave_spider_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:cave_spider_head"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/cave_spider_head.json"
+    },
+    {
       "id": "simplebuilding:blocks/chiseled_astralit_bricks",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -36612,6 +39003,24 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/diamond_pressure_plate.json"
+    },
+    {
+      "id": "simplebuilding:blocks/drowned_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:drowned_head"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/drowned_head.json"
     },
     {
       "id": "simplebuilding:blocks/elytra_pad",
@@ -37126,6 +39535,24 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/flypad.json"
+    },
+    {
+      "id": "simplebuilding:blocks/husk_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:husk_head"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/husk_head.json"
     },
     {
       "id": "simplebuilding:blocks/infused_potion_pad",
@@ -38137,6 +40564,60 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/resin_quartz_checker.json"
     },
     {
+      "id": "simplebuilding:blocks/shulker_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:shulker_head"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/shulker_head.json"
+    },
+    {
+      "id": "simplebuilding:blocks/silverfish_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:silverfish_head"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/silverfish_head.json"
+    },
+    {
+      "id": "simplebuilding:blocks/slime_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:slime_head"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/slime_head.json"
+    },
+    {
       "id": "simplebuilding:blocks/spawn_teleporter",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -38209,6 +40690,24 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/spawn_teleporter_tier_4.json"
     },
     {
+      "id": "simplebuilding:blocks/spider_head",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:spider_head"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/spider_head.json"
+    },
+    {
       "id": "simplebuilding:blocks/stellar_flypad",
       "kind": "blocks",
       "type": "minecraft:block",
@@ -38225,6 +40724,24 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/loot_table/blocks/stellar_flypad.json"
+    },
+    {
+      "id": "simplebuilding:blocks/stray_skull",
+      "kind": "blocks",
+      "type": "minecraft:block",
+      "pools": [
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:stray_skull"
+          ],
+          "conditions": [
+            "minecraft:survives_explosion"
+          ],
+          "functions": []
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/loot_table/blocks/stray_skull.json"
     },
     {
       "id": "simplebuilding:blocks/suspended_gravel",
@@ -38371,6 +40888,106 @@ window.WIKI_DATA = {
           "rolls": 1.0,
           "items": [
             "simplebuilding:enderman_head"
+          ],
+          "conditions": [
+            "minecraft:entity_properties"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:husk_head"
+          ],
+          "conditions": [
+            "minecraft:entity_properties"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:spider_head"
+          ],
+          "conditions": [
+            "minecraft:entity_properties"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:cave_spider_head"
+          ],
+          "conditions": [
+            "minecraft:entity_properties"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:stray_skull"
+          ],
+          "conditions": [
+            "minecraft:entity_properties"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:bogged_skull"
+          ],
+          "conditions": [
+            "minecraft:entity_properties"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:slime_head"
+          ],
+          "conditions": [
+            "minecraft:entity_properties"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:silverfish_head"
+          ],
+          "conditions": [
+            "minecraft:entity_properties"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:breeze_head"
+          ],
+          "conditions": [
+            "minecraft:entity_properties"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:shulker_head"
+          ],
+          "conditions": [
+            "minecraft:entity_properties"
+          ],
+          "functions": []
+        },
+        {
+          "rolls": 1.0,
+          "items": [
+            "simplebuilding:drowned_head"
           ],
           "conditions": [
             "minecraft:entity_properties"
@@ -39963,7 +42580,7 @@ window.WIKI_DATA = {
         "en": {
           "summary": "Constructor's Touch is the mod's all-purpose enchantment: on each tool it unlocks a different extra ability - turning a block's orientation with a plain stick, extra chisel conversions, the Building Wand's settings menu, and more.",
           "details": [
-            "Can be applied (item tag constructors_touch_enchantable) to: Reinforced Bundle, Netherite Bundle, Enderite Bundle, Quiver, Reinforced Quiver, Netherite Quiver, Enderite Quiver, Shulker Box, the four backpacks (#backpacks), chisels Stone through Enderite (#chisel_tools), sledgehammers Stone through Enderite (#sledgehammer_tools), Building Wands Copper through Enderite (#building_wand_enchantable), Velocity Gauge, Amethyst Lens, Ore Detector, Attractor, all 17 Octants (#octants_enchantable) and the plain Stick (minecraft:stick). Slot: main hand; max level I; anvil cost 1; weight 1; enchanting cost 20 (+10 per level above the first) to 50 (+10 per level above the first).",
+            "Can be applied (item tag constructors_touch_enchantable) to: Reinforced Bundle, Netherite Bundle, Enderite Bundle, Quiver, Reinforced Quiver, Netherite Quiver, Enderite Quiver, Shulker Box, the four backpacks (#backpacks), chisels Stone through Enderite (#chisel_tools), sledgehammers Stone through Enderite (#sledgehammer_tools), Building Wands Copper through Enderite (#building_wand_enchantable), Velocity Gauge, Amethyst Lens, Detector, Attractor, all 17 Octants (#octants_enchantable) and the plain Stick (minecraft:stick). Slot: main hand; max level I; anvil cost 1; weight 1; enchanting cost 20 (+10 per level above the first) to 50 (+10 per level above the first).",
             "Stick: right-clicking a block with an enchanted stick advances its first block property (the first entry of state.getProperties()) to the next value; sneaking goes back to the previous one. The new value appears on the action bar as \"property: value\" (sendOverlayMessage). Blocks with no properties are left unchanged.",
             "Chisel and spatula: the enchantment unlocks an extra set of conversions per tool tier (backwards too, by sneaking or with the spatula). Stone tier: Mud Bricks -> Packed Mud -> Mud; Cobblestone -> Mossy Cobblestone (stairs and slabs as well); every log (oak, spruce, birch, jungle, acacia, dark oak, mangrove, cherry, pale oak) -> stripped log.",
             "Copper/Iron chisel adds: Bricks -> Mud Bricks (stairs and slabs as well); every wood block (the same nine wood types) -> stripped wood; Crimson and Warped Planks -> Stairs -> Slab.",
@@ -39971,7 +42588,7 @@ window.WIKI_DATA = {
             "Netherite/Enderite chisel adds: Polished Diorite -> Diorite -> Calcite -> Dripstone Block; Obsidian -> Crying Obsidian; Crimson and Warped Stems -> stripped; each of the 16 concrete colours -> the matching concrete powder. Each tier also contains everything from the tiers below it (the maps are chained together with merge).",
             "Sledgehammer: sneak + right-click (held down, bow-drawing animation, 4 to 40 ticks depending on material and Efficiency) undoes conversions when the enchantment is present - slab -> stairs and stairs -> full block; that costs 2 durability instead of 1. Without the enchantment the sneaking branch returns null and nothing happens (forwards, block -> stairs -> slab, works without it too).",
             "Building Wand: only with this enchantment does the \"Open Tool Settings\" key (key.simplebuilding.simple_settings, default: G) open the BuildingWandScreen (window title \"Building Wand Settings\", on-screen heading \"Configuration\") with the buttons \"Radius: n / max\" (0 up to the tier's maximum, cycling) and \"Axis: Face (Auto) -> X -> Y -> Z\", plus \"Done\". The values are stored on the wand as SettingsRadius/SettingsAxis and sent to the server as a BuildingWandConfigurePayload; without the enchantment the key does nothing for a Building Wand (Fabric, NeoForge and Forge all check the same way).",
-            "Ore Detector: the signal loss of every block along the line of sight is multiplied by 0.5 (TOUCH_LOSS_FACTOR), so an ore's signal gets through twice as much rock (signals: 18 common, 13 gold, 9 diamond and emerald, 5 ancient debris and End ores); the range stays the same.",
+            "Detector: the signal loss of every block along the line of sight is multiplied by 0.5 (TOUCH_LOSS_FACTOR), so an ore's signal gets through twice as much rock (signals: 18 common, 13 gold, 9 diamond and emerald, 5 ancient debris and End ores); the range stays the same.",
             "Attractor: pull range 8.0 instead of 4.0 blocks (each Range level adds another 2.0). On top of that, right-clicking an item frame that holds an item with the enchanted Attractor sets the magnet filter to that item (respawn anchor sound, no text on screen; ItemFrameEntityMixin).",
             "Quiver: when shooting a bow (BowItemMixin), arrows are also drawn from quivers lying anywhere else in the inventory (slot 9 and up) - but only if that quiver carries the enchantment. Offhand, chest armor slot and hotbar work without it.",
             "Backpack (worn): when placing a block from your hand uses up that stack, a matching stack (same item and components) from the worn backpack refills the hand - at most one normal stack, not in creative mode, and only for placements straight from the hand (BlockItem.place).",
@@ -39997,7 +42614,7 @@ window.WIKI_DATA = {
         "de": {
           "summary": "„Berührung des Konstrukteurs“ ist die Allzweck-Verzauberung der Mod: Auf jedem Werkzeug schaltet sie eine andere Zusatzfunktion frei – vom Drehen der Blockausrichtung mit einem Stock über Extra-Umwandlungen beim Meißel bis zum Einstellungsmenü des Baustabs.",
           "details": [
-            "Anbringbar (Item-Tag constructors_touch_enchantable) auf: Verstärktes Bündel, Netheritbündel, Enderitbündel, Köcher, Verstärkter Köcher, Netheritköcher, Enderitköcher, Shulker-Kiste, die vier Rucksäcke (#backpacks), Meißel Stein bis Enderit (#chisel_tools), Vorschlaghämmer Stein bis Enderit (#sledgehammer_tools), Baustäbe Kupfer bis Enderit (#building_wand_enchantable), Geschwindigkeitsmesser, Amethystlinse, Erzdetektor, Attraktor, alle 17 Oktanten (#octants_enchantable) und den gewöhnlichen Stock (minecraft:stick). Slot: Haupthand; maximale Stufe I; Amboss-Kosten 1; Gewicht 1; Kostenbereich 20 (+10) bis 50 (+10).",
+            "Anbringbar (Item-Tag constructors_touch_enchantable) auf: Verstärktes Bündel, Netheritbündel, Enderitbündel, Köcher, Verstärkter Köcher, Netheritköcher, Enderitköcher, Shulker-Kiste, die vier Rucksäcke (#backpacks), Meißel Stein bis Enderit (#chisel_tools), Vorschlaghämmer Stein bis Enderit (#sledgehammer_tools), Baustäbe Kupfer bis Enderit (#building_wand_enchantable), Geschwindigkeitsmesser, Amethystlinse, Detektor, Attraktor, alle 17 Oktanten (#octants_enchantable) und den gewöhnlichen Stock (minecraft:stick). Slot: Haupthand; maximale Stufe I; Amboss-Kosten 1; Gewicht 1; Kostenbereich 20 (+10) bis 50 (+10).",
             "Stock: Rechtsklick mit einem verzauberten Stock auf einen Block schaltet dessen erste Blockeigenschaft (erster Eintrag von state.getProperties()) auf den nächsten Wert; mit Schleichen auf den vorherigen. Der neue Wert erscheint in der Aktionsleiste als „Eigenschaft: Wert“ (sendOverlayMessage). Blöcke ohne Eigenschaften bleiben unverändert.",
             "Meißel und Spatel: Die Verzauberung schaltet je Werkzeugstufe zusätzliche Umwandlungsreihen frei (auch rückwärts per Schleichen bzw. mit dem Spatel). Steinstufe: Schlammziegel → gepackter Schlamm → Schlamm; Bruchstein → bemooster Bruchstein (auch Treppen und Stufen); alle Stämme (Eiche, Fichte, Birke, Tropenholz, Akazie, Schwarzeiche, Mangrove, Kirsche, Blasseiche) → entrindete Stämme.",
             "Meißel Kupfer/Eisen zusätzlich: Ziegel → Schlammziegel (auch Treppen und Stufen); alle Holzblöcke (dieselben neun Holzarten) → entrindetes Holz; Karmesin- und Wirrbretter → Treppe → Stufe.",
@@ -40005,7 +42622,7 @@ window.WIKI_DATA = {
             "Meißel Netherit/Enderit zusätzlich: polierter Diorit → Diorit → Kalzit → Tropfsteinblock; Obsidian → weinender Obsidian; Karmesin- und Wirrstiel → entrindet; jede der 16 Betonfarben → passendes Betonpulver. Höhere Stufen enthalten immer die Reihen der niedrigeren (die Maps werden per merge verkettet).",
             "Vorschlaghammer: Schleichen + Rechtsklick (gedrückt halten, Bogen-Animation, Dauer 4 bis 40 Ticks je nach Material und Effizienz) macht mit der Verzauberung Umwandlungen rückgängig – Stufe → Treppe und Treppe → ganzer Block; das kostet 2 Haltbarkeit statt 1. Ohne die Verzauberung liefert der Schleich-Zweig null, es passiert nichts (vorwärts Block → Treppe → Stufe geht auch ohne).",
             "Baustab: Nur mit dieser Verzauberung öffnet die Taste „Werkzeug-Einstellungen öffnen“ (key.simplebuilding.simple_settings, Standard: G) den BuildingWandScreen (Fenstertitel „Baustab-Einstellungen“, Überschrift im Bild „Konfiguration“) mit den Knöpfen „Radius: n / max“ (0 bis zum Maximum der Stufe, zyklisch) und „Achse: Face (Auto) → X → Y → Z“ sowie „Fertig“. Die Werte werden als SettingsRadius/SettingsAxis im Stab gespeichert und per BuildingWandConfigurePayload an den Server geschickt; ohne die Verzauberung tut die Taste beim Baustab nichts (Fabric, NeoForge und Forge prüfen gleich).",
-            "Erzdetektor: Der Signalverlust jedes Blocks entlang der Sichtlinie wird mit 0.5 multipliziert (TOUCH_LOSS_FACTOR), das Signal eines Erzes durchdringt also doppelt so viel Gestein (Signale: 18 gewöhnlich, 13 Gold, 9 Diamant und Smaragd, 5 Antiker Schrott und End-Erze); die Reichweite bleibt gleich.",
+            "Detektor: Der Signalverlust jedes Blocks entlang der Sichtlinie wird mit 0.5 multipliziert (TOUCH_LOSS_FACTOR), das Signal eines Erzes durchdringt also doppelt so viel Gestein (Signale: 18 gewöhnlich, 13 Gold, 9 Diamant und Smaragd, 5 Antiker Schrott und End-Erze); die Reichweite bleibt gleich.",
             "Attraktor: Anziehungsreichweite 8.0 statt 4.0 Blöcke (jede Stufe „Reichweite“ addiert weitere 2.0). Außerdem setzt ein Rechtsklick mit dem verzauberten Attraktor auf einen Rahmen mit Item den Attraktor-Filter auf dieses Item (Ton des Seelenankers, kein Text auf dem Bildschirm; ItemFrameEntityMixin).",
             "Köcher: Beim Schießen mit dem Bogen (BowItemMixin) werden Pfeile auch aus Köchern gezogen, die irgendwo im restlichen Inventar (ab Slot 9) liegen – aber nur, wenn dieser Köcher die Verzauberung trägt. Nebenhand, Brustplatz und Hotbar funktionieren ohne.",
             "Rucksack (getragen): Verbraucht das Platzieren eines Blocks aus der Hand den Stapel, füllt ein passender Stapel (gleiches Item, gleiche Komponenten) aus dem getragenen Rucksack die Hand wieder auf – höchstens ein normaler Stapel, nicht im Kreativmodus und nur beim Platzieren direkt aus der Hand (BlockItem.place).",
@@ -41098,7 +43715,7 @@ window.WIKI_DATA = {
             "Traders (only with enableWanderingTrades): the wandering trader (\"uncommon\" pool) sells a book for 40 emeralds from a pool that holds only Radius I (weight 20), 1 use.",
             "On the MC 1.21.11 line the same wandering trader pool exists as code (ModTradeDefinitions).",
             "In the creative inventory the book sits at level I; on Fabric, NeoForge and Forge the book has its own texture (enchanted_book_radius.png).",
-            "Radius also fits the Ore Detector (item tag simplebuilding:radius_enchantable = the sledgehammers plus the Ore Detector); there it raises signal and range of every ore class, the signal of the rare classes the most: common ores from 18 to 22 (range 24 to 28), gold 13 to 17 (20 to 24), diamond and emerald 9 to 17 (16 to 24), ancient debris and the End ores 5 to 9 (16 to 20)."
+            "Radius also fits the Detector (item tag simplebuilding:radius_enchantable = the sledgehammers plus the Detector); there it raises signal and range of every ore class, the signal of the rare classes the most: common ores from 18 to 22 (range 24 to 28), gold 13 to 17 (20 to 24), diamond and emerald 9 to 17 (16 to 24), ancient debris and the End ores 5 to 9 (16 to 20)."
           ],
           "controls": [
             "No controls of its own; it works automatically while mining with the sledgehammer.",
@@ -41129,7 +43746,7 @@ window.WIKI_DATA = {
             "Händler (nur bei enableWanderingTrades): Wanderhändler (Pool „uncommon“) verkauft für 40 Smaragde ein Buch aus einem Pool, der nur Radius I (Gewicht 20) enthält, 1 Kauf.",
             "Auf der MC-1.21.11-Linie liegt derselbe Wanderhändler-Pool als Code vor (ModTradeDefinitions).",
             "Im Kreativ-Inventar liegt das Buch auf Stufe I; auf Fabric, NeoForge und Forge hat das Buch eine eigene Textur (enchanted_book_radius.png).",
-            "Radius passt auch auf den Erzdetektor (Item-Tag simplebuilding:radius_enchantable = die Vorschlaghämmer plus der Erzdetektor); dort hebt er Signal und Reichweite jeder Erzklasse an, das Signal der seltenen Klassen am stärksten: gewöhnliche Erze von 18 auf 22 (Reichweite 24 auf 28), Gold 13 auf 17 (20 auf 24), Diamant und Smaragd 9 auf 17 (16 auf 24), Antiker Schrott und die End-Erze 5 auf 9 (16 auf 20)."
+            "Radius passt auch auf den Detektor (Item-Tag simplebuilding:radius_enchantable = die Vorschlaghämmer plus der Detektor); dort hebt er Signal und Reichweite jeder Erzklasse an, das Signal der seltenen Klassen am stärksten: gewöhnliche Erze von 18 auf 22 (Reichweite 24 auf 28), Gold 13 auf 17 (20 auf 24), Diamant und Smaragd 9 auf 17 (16 auf 24), Antiker Schrott und die End-Erze 5 auf 9 (16 auf 20)."
           ],
           "controls": [
             "Keine eigene Bedienung; wirkt automatisch beim Abbauen mit dem Vorschlaghammer.",
@@ -42001,7 +44618,7 @@ window.WIKI_DATA = {
           "required": true
         },
         {
-          "id": "simplebuilding:ore_detector",
+          "id": "simplebuilding:detector",
           "required": true
         },
         {
@@ -42602,7 +45219,7 @@ window.WIKI_DATA = {
           "required": true
         },
         {
-          "id": "simplebuilding:ore_detector",
+          "id": "simplebuilding:detector",
           "required": true
         }
       ],
@@ -42661,6 +45278,53 @@ window.WIKI_DATA = {
         }
       ],
       "source": "src/main/generated/data/simplebuilding/tags/item/sledgehammer_tools.json"
+    },
+    {
+      "id": "simplebuilding:item/trial_chamber_heads",
+      "replace": false,
+      "values": [
+        {
+          "id": "minecraft:zombie_head",
+          "required": true
+        },
+        {
+          "id": "minecraft:skeleton_skull",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:husk_head",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:spider_head",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:cave_spider_head",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:stray_skull",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:bogged_skull",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:slime_head",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:silverfish_head",
+          "required": true
+        },
+        {
+          "id": "simplebuilding:breeze_head",
+          "required": true
+        }
+      ],
+      "source": "src/main/generated/data/simplebuilding/tags/item/trial_chamber_heads.json"
     },
     {
       "id": "simplebuilding:item/veinmine_enchantable",
@@ -43582,6 +46246,21 @@ window.WIKI_DATA = {
       "tooltipDe": "Abklingzeit des Echolots nach einem Sprung zu seinem Leitstein, in Ticks (20 = 1 s). 0 = keine Abklingzeit. Standard: 480 (24 s)."
     },
     {
+      "name": "tweaks.balancing.echoSounderAttemptLockTicks",
+      "shortName": "echoSounderAttemptLockTicks",
+      "type": "int",
+      "default": "100",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Balancing",
+      "groupDe": "Abstimmung",
+      "label": "Echo Sounder Attempt Lock (Ticks)",
+      "labelDe": "Echolot-Sperre nach Versuch (Ticks)",
+      "tooltip": "Longest lock of the Echo Sounder after an attempt that does not jump (released early, missing lodestone) and after linking, in ticks (20 = 1 s): 1 s right next to the lodestone, the full time from 1000 blocks away or in another dimension. Shown as the item cooldown. 0 = no lock. Default: 100 (5 s).",
+      "tooltipDe": "Längste Sperre des Echolots nach einem Versuch ohne Sprung (zu früh losgelassen, Leitstein fehlt) und nach dem Verknuepfen, in Ticks (20 = 1 s): 1 s direkt am Leitstein, die volle Zeit ab 1000 Blöcken Entfernung oder in einer anderen Dimension. Angezeigt als Abklingzeit des Items. 0 = keine Sperre. Standard: 100 (5 s)."
+    },
+    {
       "name": "tweaks.spawn.forceExactSpawn",
       "shortName": "forceExactSpawn",
       "type": "boolean",
@@ -44311,10 +46990,10 @@ window.WIKI_DATA = {
       "categoryDe": "Server & Modpack-Tuning",
       "group": "Features: On/Off",
       "groupDe": "Funktionen: an/aus",
-      "label": "Ore Detector",
-      "labelDe": "Erzdetektor",
-      "tooltip": "Off: the Ore Detector stops scanning and its needle rests. Its recipes vanish with the next /reload or world start. Server-side. Default: on.",
-      "tooltipDe": "Aus: der Erzdetektor sucht nicht mehr, seine Nadel ruht. Die Rezepte verschwinden beim nächsten /reload oder Weltstart. Serverseitig. Standard: an."
+      "label": "Detector",
+      "labelDe": "Detektor",
+      "tooltip": "Off: the Detector stops scanning and its needle rests. Its recipes vanish with the next /reload or world start. Server-side. Default: on.",
+      "tooltipDe": "Aus: der Detektor sucht nicht mehr, seine Nadel ruht. Die Rezepte verschwinden beim nächsten /reload oder Weltstart. Serverseitig. Standard: an."
     },
     {
       "name": "server.features.levitatingBlocks",
@@ -44819,8 +47498,8 @@ window.WIKI_DATA = {
       "note": null,
       "category": "Server & Modpack Tuning",
       "categoryDe": "Server & Modpack-Tuning",
-      "group": "Ore Detector",
-      "groupDe": "Erzdetektor",
+      "group": "Detector",
+      "groupDe": "Detektor",
       "label": "Range Multiplier",
       "labelDe": "Reichweiten-Faktor",
       "tooltip": "Multiplies the range and search sphere of every ore class (24/20/16/16 blocks, more with Radius), 0.25 to 1.5; the tooltip shows the server's value. Server-side, sent to clients. Default: 1.0.",
@@ -44834,8 +47513,8 @@ window.WIKI_DATA = {
       "note": null,
       "category": "Server & Modpack Tuning",
       "categoryDe": "Server & Modpack-Tuning",
-      "group": "Ore Detector",
-      "groupDe": "Erzdetektor",
+      "group": "Detector",
+      "groupDe": "Detektor",
       "label": "Scan Interval (ticks)",
       "labelDe": "Suchabstand (Ticks)",
       "tooltip": "Ticks between two pings in the main hand (the off hand pings half as often), 10 to 200. Server-side. Default: 20.",
@@ -45557,7 +48236,7 @@ window.WIKI_DATA = {
             "summary": "Hold a sledgehammer in the main hand and a Netherite or Enderite Nugget in the off hand, then keep right-click held on a placed machine: after the last blow it becomes the next tier. Time, number of blows, durability and the weakest hammer that works are listed with every step.",
             "details": [
               "Reinforced to Netherite takes a Netherite Nugget, Netherite to Enderite an Enderite Nugget; each step names the weakest sledgehammer that can do it, every stronger one works too.",
-              "Upgradeable are the hopper, the furnace, the smoker, the blast furnace and the (non-sticky) piston.",
+              "Upgradeable are the hopper, the furnace, the smoker, the blast furnace and both reinforced pistons (the sticky one also becomes the Netherite Piston).",
               "The hammer strikes once per blow interval; the last blow performs the upgrade. Every blow costs the listed durability.",
               "Exactly one nugget is consumed, on the last blow. In creative mode neither the nugget nor durability is used.",
               "The block keeps its properties (facing, lit, enabled) and its block entity: a hopper keeps its items, filter and mode, a furnace keeps cooking.",
@@ -45573,7 +48252,7 @@ window.WIKI_DATA = {
             "summary": "Vorschlaghammer in die Haupthand, Netherit- oder Enderitklumpen in die Nebenhand und Rechtsklick auf einer platzierten Maschine gedrückt halten: Nach dem letzten Schlag ist sie eine Stufe höher. Dauer, Schlagzahl, Haltbarkeit und der schwächste passende Hammer stehen bei jeder Stufe.",
             "details": [
               "Verstärkt zu Netherit braucht einen Netheritklumpen, Netherit zu Enderit einen Enderitklumpen; jede Stufe nennt den schwächsten Vorschlaghammer, der sie schafft, jeder stärkere geht auch.",
-              "Aufwertbar sind Trichter, Ofen, Räucherofen, Schmelzofen und der (nicht klebrige) Kolben.",
+              "Aufwertbar sind Trichter, Ofen, Räucherofen, Schmelzofen und beide verstärkten Kolben (auch der klebrige wird zum Netheritkolben).",
               "Der Hammer schlägt einmal je Schlagabstand zu; der letzte Schlag wertet auf. Jeder Schlag kostet die angegebene Haltbarkeit.",
               "Verbraucht wird genau ein Klumpen, beim letzten Schlag. Im Kreativmodus kostet es weder Klumpen noch Haltbarkeit.",
               "Der Block behält seine Eigenschaften (Blickrichtung, brennend, aktiviert) und seine Block-Entity: Ein Trichter behält Inhalt, Filter und Modus, ein Ofen schmilzt weiter.",
@@ -45665,7 +48344,7 @@ window.WIKI_DATA = {
           ],
           "en": {
             "title": "Crushing a Block of Diamond",
-            "summary": "Hold right-click with any sledgehammer on a Block of Diamond: when the charge is full, the block breaks without its normal drop and releases Diamond Pebbles.",
+            "summary": "Hold right-click with a sledgehammer of the iron tier or better (iron, gold, diamond, netherite, enderite) on a Block of Diamond: when the charge is full, the block breaks without its normal drop and releases Diamond Pebbles.",
             "details": [
               "The charge takes as long as a reshape with the same hammer.",
               "The pebbles drop in stacks of at most 64 at the block's position.",
@@ -45674,7 +48353,7 @@ window.WIKI_DATA = {
           },
           "de": {
             "title": "Diamantblock zerschlagen",
-            "summary": "Rechtsklick mit einem beliebigen Vorschlaghammer auf einem Diamantblock halten: Ist die Ladung voll, zerbricht der Block ohne seinen normalen Drop und gibt Diamantsplitter frei.",
+            "summary": "Rechtsklick mit einem Vorschlaghammer ab der Eisenstufe (Eisen, Gold, Diamant, Netherit, Enderit) auf einem Diamantblock halten: Ist die Ladung voll, zerbricht der Block ohne seinen normalen Drop und gibt Diamantsplitter frei.",
             "details": [
               "Die Ladung dauert so lange wie eine Umformung mit demselben Hammer.",
               "Die Splitter fallen in Stapeln zu höchstens 64 an der Stelle des Blocks.",
@@ -46426,6 +49105,38 @@ window.WIKI_DATA = {
         ]
       },
       {
+        "id": "sledgehammer_upgrade/simplebuilding:reinforced_sticky_piston",
+        "kind": "sledgehammer_upgrade",
+        "inputs": [
+          {
+            "id": "simplebuilding:reinforced_sticky_piston",
+            "count": 1
+          },
+          {
+            "id": "simplebuilding:netherite_nugget",
+            "count": 1
+          }
+        ],
+        "tools": [
+          "simplebuilding:diamond_sledgehammer"
+        ],
+        "toolOrBetter": true,
+        "output": {
+          "id": "simplebuilding:netherite_piston",
+          "count": 1
+        },
+        "stats": {
+          "ticks": 100,
+          "hits": 5,
+          "damagePerHit": 4,
+          "damage": 20
+        },
+        "lines": [
+          "26.2",
+          "26.3"
+        ]
+      },
+      {
         "id": "diamond_crush",
         "kind": "diamond_crush",
         "inputs": [
@@ -46435,13 +49146,11 @@ window.WIKI_DATA = {
           }
         ],
         "tools": [
-          "simplebuilding:copper_sledgehammer",
           "simplebuilding:diamond_sledgehammer",
           "simplebuilding:enderite_sledgehammer",
           "simplebuilding:gold_sledgehammer",
           "simplebuilding:iron_sledgehammer",
-          "simplebuilding:netherite_sledgehammer",
-          "simplebuilding:stone_sledgehammer"
+          "simplebuilding:netherite_sledgehammer"
         ],
         "output": {
           "id": "simplebuilding:diamond_pebble",
@@ -57413,6 +60122,266 @@ window.WIKI_DATA = {
         "how": "charged_creeper"
       },
       {
+        "type": "mob",
+        "item": "simplebuilding:husk_head",
+        "table": "minecraft:charged_creeper/root",
+        "label": {
+          "en": "Charged creeper explosion",
+          "de": "Explosion eines geladenen Creepers"
+        },
+        "chance": 100.0,
+        "perChest": 1.0,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 2,
+        "configFlag": null,
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "victim": "minecraft:husk",
+        "how": "charged_creeper"
+      },
+      {
+        "type": "mob",
+        "item": "simplebuilding:spider_head",
+        "table": "minecraft:charged_creeper/root",
+        "label": {
+          "en": "Charged creeper explosion",
+          "de": "Explosion eines geladenen Creepers"
+        },
+        "chance": 100.0,
+        "perChest": 1.0,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 3,
+        "configFlag": null,
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "victim": "minecraft:spider",
+        "how": "charged_creeper"
+      },
+      {
+        "type": "mob",
+        "item": "simplebuilding:cave_spider_head",
+        "table": "minecraft:charged_creeper/root",
+        "label": {
+          "en": "Charged creeper explosion",
+          "de": "Explosion eines geladenen Creepers"
+        },
+        "chance": 100.0,
+        "perChest": 1.0,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 4,
+        "configFlag": null,
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "victim": "minecraft:cave_spider",
+        "how": "charged_creeper"
+      },
+      {
+        "type": "mob",
+        "item": "simplebuilding:stray_skull",
+        "table": "minecraft:charged_creeper/root",
+        "label": {
+          "en": "Charged creeper explosion",
+          "de": "Explosion eines geladenen Creepers"
+        },
+        "chance": 100.0,
+        "perChest": 1.0,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 5,
+        "configFlag": null,
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "victim": "minecraft:stray",
+        "how": "charged_creeper"
+      },
+      {
+        "type": "mob",
+        "item": "simplebuilding:bogged_skull",
+        "table": "minecraft:charged_creeper/root",
+        "label": {
+          "en": "Charged creeper explosion",
+          "de": "Explosion eines geladenen Creepers"
+        },
+        "chance": 100.0,
+        "perChest": 1.0,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 6,
+        "configFlag": null,
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "victim": "minecraft:bogged",
+        "how": "charged_creeper"
+      },
+      {
+        "type": "mob",
+        "item": "simplebuilding:slime_head",
+        "table": "minecraft:charged_creeper/root",
+        "label": {
+          "en": "Charged creeper explosion",
+          "de": "Explosion eines geladenen Creepers"
+        },
+        "chance": 100.0,
+        "perChest": 1.0,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 7,
+        "configFlag": null,
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "victim": "minecraft:slime",
+        "how": "charged_creeper"
+      },
+      {
+        "type": "mob",
+        "item": "simplebuilding:silverfish_head",
+        "table": "minecraft:charged_creeper/root",
+        "label": {
+          "en": "Charged creeper explosion",
+          "de": "Explosion eines geladenen Creepers"
+        },
+        "chance": 100.0,
+        "perChest": 1.0,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 8,
+        "configFlag": null,
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "victim": "minecraft:silverfish",
+        "how": "charged_creeper"
+      },
+      {
+        "type": "mob",
+        "item": "simplebuilding:breeze_head",
+        "table": "minecraft:charged_creeper/root",
+        "label": {
+          "en": "Charged creeper explosion",
+          "de": "Explosion eines geladenen Creepers"
+        },
+        "chance": 100.0,
+        "perChest": 1.0,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 9,
+        "configFlag": null,
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "victim": "minecraft:breeze",
+        "how": "charged_creeper"
+      },
+      {
+        "type": "mob",
+        "item": "simplebuilding:shulker_head",
+        "table": "minecraft:charged_creeper/root",
+        "label": {
+          "en": "Charged creeper explosion",
+          "de": "Explosion eines geladenen Creepers"
+        },
+        "chance": 100.0,
+        "perChest": 1.0,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 10,
+        "configFlag": null,
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "victim": "minecraft:shulker",
+        "how": "charged_creeper"
+      },
+      {
+        "type": "mob",
+        "item": "simplebuilding:drowned_head",
+        "table": "minecraft:charged_creeper/root",
+        "label": {
+          "en": "Charged creeper explosion",
+          "de": "Explosion eines geladenen Creepers"
+        },
+        "chance": 100.0,
+        "perChest": 1.0,
+        "count": [
+          1,
+          1
+        ],
+        "weight": 1,
+        "totalWeight": 1,
+        "rolls": {
+          "type": "exactly",
+          "n": 1
+        },
+        "pool": 11,
+        "configFlag": null,
+        "source": "common/src/shared/java/com/simplebuilding/loot/ModLootTableModifications.java",
+        "victim": "minecraft:drowned",
+        "how": "charged_creeper"
+      },
+      {
         "type": "chest",
         "item": "minecraft:enchanted_book",
         "table": "minecraft:chests/stronghold_library",
@@ -61499,8 +64468,8 @@ window.WIKI_DATA = {
         "de_de": "Geduld ist eine Tugend"
       },
       "description": {
-        "en_us": "Stack three Raw Enderite into Layered Raw Enderite and blast it into Enderite Scrap: two hours in a vanilla blast furnace - faster furnaces help",
-        "de_de": "Stapel drei Rohenderit zu Geschichtetem Rohenderit und schmelz es zu Enderitplatten: zwei Stunden im Vanilla-Schmelzofen - schnellere Öfen helfen"
+        "en_us": "Stack three Raw Enderite Fragments into Raw Enderite Scrap and blast it into Enderite Scrap: two hours in a vanilla blast furnace - faster furnaces help",
+        "de_de": "Stapel drei Rohe Enderitfragmente zu Rohen Enderitplatten und schmelz sie zu Enderitplatten: zwei Stunden im Vanilla-Schmelzofen - schnellere Öfen helfen"
       },
       "criteria": [
         {
@@ -61551,8 +64520,8 @@ window.WIKI_DATA = {
         "de_de": "Rohkost"
       },
       "description": {
-        "en_us": "Four Nihilit Shards, four Astralit Dust and an Ender Pearl make Raw Enderite - End cities hide some too",
-        "de_de": "Vier Nihilitsplitter, vier Astralitstaub und eine Enderperle ergeben Rohenderit - Endsiedlungen verstecken auch welches"
+        "en_us": "Four Nihilit Shards, four Astralit Dust and an Ender Pearl make a Raw Enderite Fragment - End cities hide some too",
+        "de_de": "Vier Nihilitsplitter, vier Astralitstaub und eine Enderperle ergeben ein Rohes Enderitfragment - Endsiedlungen verstecken auch welche"
       },
       "criteria": [
         {
@@ -61745,7 +64714,7 @@ window.WIKI_DATA = {
     {
       "id": "simplebuilding:gadgets/ping",
       "parent": "simplebuilding:tweaks/root",
-      "icon": "simplebuilding:ore_detector",
+      "icon": "simplebuilding:detector",
       "frame": "task",
       "hidden": false,
       "title": {
@@ -61753,8 +64722,8 @@ window.WIKI_DATA = {
         "de_de": "Ping!"
       },
       "description": {
-        "en_us": "Hold an Ore Detector: its needle and a chime point you to the nearest ore",
-        "de_de": "Halte einen Erzdetektor: Nadel und Klang weisen dir den Weg zum nächsten Erz"
+        "en_us": "Hold an Detector: its needle and a chime point you to the nearest ore",
+        "de_de": "Halte einen Detektor: Nadel und Klang weisen dir den Weg zum nächsten Erz"
       },
       "criteria": [
         {
@@ -62025,8 +64994,8 @@ window.WIKI_DATA = {
         "de_de": "Kieselsturm"
       },
       "description": {
-        "en_us": "Hold right-click with a sledgehammer on a Block of Diamond to crush it into Diamond Pebbles",
-        "de_de": "Halte mit dem Vorschlaghammer Rechtsklick auf einem Diamantblock, um ihn zu Diamantkieseln zu zerschlagen"
+        "en_us": "Hold right-click with an iron or better sledgehammer on a Block of Diamond to crush it into Diamond Pebbles",
+        "de_de": "Halte mit einem Vorschlaghammer ab Eisen Rechtsklick auf einem Diamantblock, um ihn zu Diamantkieseln zu zerschlagen"
       },
       "criteria": [
         {
@@ -62606,8 +65575,8 @@ window.WIKI_DATA = {
         "de_de": "Vielreisender"
       },
       "description": {
-        "en_us": "Smith a Spawn Teleporter up to tier III - it waits only 5 seconds and carries you to your own respawn point",
-        "de_de": "Schmiede einen Spawn-Teleporter bis Stufe III - er wartet nur 5 Sekunden und bringt dich zu deinem eigenen Wiedereinstiegspunkt"
+        "en_us": "Smith a Spawn Teleporter up to tier III - it waits only 5 seconds before it carries you home",
+        "de_de": "Schmiede einen Spawn-Teleporter bis Stufe III - er wartet nur 5 Sekunden, bevor er dich nach Hause bringt"
       },
       "criteria": [
         {
@@ -62620,6 +65589,42 @@ window.WIKI_DATA = {
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/pads/frequent_traveller.json"
+    },
+    {
+      "id": "simplebuilding:pads/heads_up",
+      "parent": "simplebuilding:pads/hot_head",
+      "icon": "simplebuilding:silverfish_head",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Heads Up",
+        "de_de": "Kopf hoch"
+      },
+      "description": {
+        "en_us": "Let a charged creeper blow up another mob - a spider, a slime, a shulker ... - for its head. Then wear it: every head hides a small secret",
+        "de_de": "Lass einen geladenen Creeper einen anderen Mob sprengen - eine Spinne, einen Schleim, einen Shulker ... - für seinen Kopf. Dann setz ihn auf: jeder Kopf verbirgt ein kleines Geheimnis"
+      },
+      "criteria": [
+        {
+          "name": "mob_head",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:enderman_head",
+            "simplebuilding:husk_head",
+            "simplebuilding:spider_head",
+            "simplebuilding:cave_spider_head",
+            "simplebuilding:stray_skull",
+            "simplebuilding:bogged_skull",
+            "simplebuilding:slime_head",
+            "simplebuilding:silverfish_head",
+            "simplebuilding:breeze_head",
+            "simplebuilding:shulker_head",
+            "simplebuilding:drowned_head"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/pads/heads_up.json"
     },
     {
       "id": "simplebuilding:pads/higher_ground",
@@ -63448,7 +66453,7 @@ window.WIKI_DATA = {
             "simplebuilding:copper_pressure_plate",
             "simplebuilding:diamond_pressure_plate",
             "simplebuilding:magnet",
-            "simplebuilding:ore_detector",
+            "simplebuilding:detector",
             "simplebuilding:velocity_gauge",
             "simplebuilding:amethyst_lens",
             "simplebuilding:netherite_apple",
@@ -63999,8 +67004,8 @@ window.WIKI_DATA = {
             "de_de": "Kieselsturm"
           },
           "description": {
-            "en_us": "Hold right-click with a sledgehammer on a Block of Diamond to crush it into Diamond Pebbles",
-            "de_de": "Halte mit dem Vorschlaghammer Rechtsklick auf einem Diamantblock, um ihn zu Diamantkieseln zu zerschlagen"
+            "en_us": "Hold right-click with an iron or better sledgehammer on a Block of Diamond to crush it into Diamond Pebbles",
+            "de_de": "Halte mit einem Vorschlaghammer ab Eisen Rechtsklick auf einem Diamantblock, um ihn zu Diamantkieseln zu zerschlagen"
           },
           "dependencies": [
             "stage_2.diamond_block"
@@ -64541,8 +67546,8 @@ window.WIKI_DATA = {
             "de_de": "Rohkost"
           },
           "description": {
-            "en_us": "Four Nihilit Shards, four Astralit Dust and an Ender Pearl make Raw Enderite - End cities hide some too",
-            "de_de": "Vier Nihilitsplitter, vier Astralitstaub und eine Enderperle ergeben Rohenderit - Endsiedlungen verstecken auch welches"
+            "en_us": "Four Nihilit Shards, four Astralit Dust and an Ender Pearl make a Raw Enderite Fragment - End cities hide some too",
+            "de_de": "Vier Nihilitsplitter, vier Astralitstaub und eine Enderperle ergeben ein Rohes Enderitfragment - Endsiedlungen verstecken auch welche"
           },
           "dependencies": [
             "stage_4.stardust"
@@ -64559,8 +67564,8 @@ window.WIKI_DATA = {
             "de_de": "Geduld ist eine Tugend"
           },
           "description": {
-            "en_us": "Stack three Raw Enderite into Layered Raw Enderite and blast it into Enderite Scrap: two hours in a vanilla blast furnace - faster furnaces help",
-            "de_de": "Stapel drei Rohenderit zu Geschichtetem Rohenderit und schmelz es zu Enderitplatten: zwei Stunden im Vanilla-Schmelzofen - schnellere Öfen helfen"
+            "en_us": "Stack three Raw Enderite Fragments into Raw Enderite Scrap and blast it into Enderite Scrap: two hours in a vanilla blast furnace - faster furnaces help",
+            "de_de": "Stapel drei Rohe Enderitfragmente zu Rohen Enderitplatten und schmelz sie zu Enderitplatten: zwei Stunden im Vanilla-Schmelzofen - schnellere Öfen helfen"
           },
           "dependencies": [
             "stage_4.raw_enderite"
@@ -65621,8 +68626,8 @@ window.WIKI_DATA = {
             "de_de": "Ping!"
           },
           "description": {
-            "en_us": "Hold an Ore Detector: its needle and a chime point you to the nearest ore",
-            "de_de": "Halte einen Erzdetektor: Nadel und Klang weisen dir den Weg zum nächsten Erz"
+            "en_us": "Hold an Detector: its needle and a chime point you to the nearest ore",
+            "de_de": "Halte einen Detektor: Nadel und Klang weisen dir den Weg zum nächsten Erz"
           },
           "dependencies": [
             "gadgets.intro"
@@ -65722,8 +68727,8 @@ window.WIKI_DATA = {
             "de_de": "Vielreisender"
           },
           "description": {
-            "en_us": "Smith a Spawn Teleporter up to tier III - it waits only 5 seconds and carries you to your own respawn point",
-            "de_de": "Schmiede einen Spawn-Teleporter bis Stufe III - er wartet nur 5 Sekunden und bringt dich zu deinem eigenen Wiedereinstiegspunkt"
+            "en_us": "Smith a Spawn Teleporter up to tier III - it waits only 5 seconds before it carries you home",
+            "de_de": "Schmiede einen Spawn-Teleporter bis Stufe III - er wartet nur 5 Sekunden, bevor er dich nach Hause bringt"
           },
           "dependencies": [
             "gadgets.spawn"
@@ -65914,16 +68919,16 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 185,
-    "blocks": 127,
-    "recipes": 426,
-    "lootTables": 138,
+    "items": 196,
+    "blocks": 147,
+    "recipes": 437,
+    "lootTables": 148,
     "trades": 20,
     "enchantments": 19,
-    "tags": 40,
-    "config": 167,
-    "inWorld": 395,
-    "advancements": 101,
+    "tags": 41,
+    "config": 168,
+    "inWorld": 396,
+    "advancements": 102,
     "features": 41,
     "undocumented": 0,
     "incompleteProse": 0

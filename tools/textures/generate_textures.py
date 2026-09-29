@@ -75,7 +75,7 @@ TREES = [
 ]
 # Texturen nur fuer den Hauptbaum (26.2/26.3, Hauptlinie 26.3 zuerst): die 1.21.11-Kopie zieht der
 # Port-Run nach, bis dahin behaelt sie ihre alten Bilder.
-MAIN_TREE_PREFIXES = ("item/velocity_gauge",)
+MAIN_TREE_PREFIXES = ("item/velocity_gauge", "item/detector", "item/layered_raw_enderite.png")
 PREVIEW = os.path.join(HERE, "preview.png")
 GEAR_PREVIEW = os.path.join(HERE, "gear_preview.png")
 HAND = os.path.join(HERE, "hand")  # unveraenderte Vorlagen handgemalter Texturen, die der Generator nachbearbeitet

@@ -927,34 +927,22 @@
       ],
       "en": {
         "title": "Attractor: Collecting Items From a Distance",
-        "summary": "The Attractor (item id simplebuilding:magnet, formerly called Magnet) is a tool made of iron, an Iron Core, redstone and lapis lazuli that pulls loose items toward you as long as you hold it in your hand. With the Constructor's Touch enchantment it reaches twice as far and learns to take a filter from an item frame, so that it only fetches one particular item type.",
+        "summary": "The Attractor pulls loose items while held in either hand. Its base radius around the player hitbox is 3 blocks; sneaking pauses it.",
         "details": [
-          "Crafting (owner 2026-09-28): redstone top middle, an iron ingot left middle and lapis lazuli right middle, the Iron Core bottom left and an iron ingot bottom middle (\" R \" / \"I L\" / \"CI \"); before that the lapis sat bottom right.",
-          "Hold the Attractor in your main or off hand: every item within 4 blocks of your hitbox flies toward your head and can be picked up right away once it reaches you.",
-          "Sneaking pauses the Attractor - handy when you deliberately want to leave something lying where it is.",
-          "With Constructor's Touch (max level I, applicable only at the anvil with an enchanted book - not at the enchanting table) the range grows from 4 to 8 blocks.",
-          "Only an Attractor enchanted that way can learn a filter: right-click an item frame holding the item you want. After that the Attractor attracts only that item type.",
-          "Sneak + right-click into the air clears the filter again (on a block, sneak + right-click places the Attractor instead); the tooltip always shows whether a filter is active and which one it is.",
-          "The Range enchantment would add 2 blocks per level according to the code, but there is no way to get it onto the Attractor: the Attractor is not one of the enchantment's allowed items, so the anvil refuses it, and Range is not offered at the enchanting table either.",
-          "The Attractor has no durability, does not attract experience orbs, and has no right-click effect of its own on animals or monsters.",
-          "Placed Attractor (owner 2026-09-28): sneak + right-click on a block lays the Attractor down like a smithing template - flat on the floor, on a wall or under the ceiling, with a hitbox that follows its pixels. Placed, it pulls loose items within 6 blocks (times the Attractor range config, 0 turns it off) toward itself every other tick; its filter still applies, and items in the item tag #simplebuilding:attractor_ignore are never pulled. Breaking it drops the Attractor with all its data (filter, name, enchantments).",
-          "The Magnet leaves alone: items that can never be picked up (pickup delay 32767 - other mods' display and pedestal items), items reserved for another player (vanilla's Owner field), the death drops of other players (the mod tags every item a dying player drops; your own death drop is still pulled) and items in the item tag simplebuilding:attractor_ignore."
+          "Range adds 1.5 blocks per level, up to 7.5 before the server multiplier, with a hard limit of 12 afterward. Constructor's Touch unlocks filtering without increasing range.",
+          "Only Constructor's Touch enables the stored item-type filter, including on placed Attractors. Sneak-click a block or loose item, or right-click an item in the inventory to select it. Sneak-click empty air to clear it.",
+          "Place an unenchanted Attractor by sneak-clicking a block; with Constructor's Touch, use a normal right-click. Placed Attractors pull within 6 blocks before the server multiplier.",
+          "The Attractor has no durability. Display items, other players' reserved items and death drops, and items in simplebuilding:attractor_ignore stay in place."
         ]
       },
       "de": {
         "title": "Attraktor: Items einsammeln ohne Hinlaufen",
-        "summary": "Der Attraktor (Item-Id simplebuilding:magnet, früher Magnet) ist ein Werkzeug aus Eisen, Eisenkern, Redstone und Lapislazuli, das herumliegende Items zu dir zieht, solange du ihn in der Hand hältst. Mit der Verzauberung Berührung des Konstrukteurs reicht er doppelt so weit und lernt, über einen Rahmen einen Filter zu setzen, sodass er nur noch eine bestimmte Item-Sorte holt.",
+        "summary": "Der Attraktor zieht lose Items an, solange er in einer Hand liegt. Der Grundradius um die Spieler-Hitbox beträgt 3 Blöcke; Schleichen pausiert ihn.",
         "details": [
-          "Herstellung (Besitzer 2026-09-28): Redstone oben Mitte, ein Eisenbarren links Mitte und Lapislazuli rechts Mitte, der Eisenkern unten links und ein Eisenbarren unten Mitte (\" R \" / \"I L\" / \"CI \"); vorher lag der Lapislazuli unten rechts.",
-          "Halte den Attraktor in der Haupt- oder Nebenhand: Alle Items im Bereich von 4 Blöcken um deine Hitbox fliegen auf deinen Kopf zu und können sofort aufgesammelt werden, sobald sie dich erreichen.",
-          "Schleichen pausiert den Attraktor - praktisch, wenn du gezielt etwas liegen lassen willst.",
-          "Mit Berührung des Konstrukteurs (Höchststufe I, nur am Amboss per verzaubertem Buch anlegbar - nicht am Zaubertisch) steigt die Reichweite von 4 auf 8 Blöcke.",
-          "Nur ein so verzauberter Attraktor kann einen Filter lernen: Rechtsklick auf einen Rahmen, in dem das gewünschte Item steckt. Danach zieht der Attraktor ausschließlich diese Item-Sorte an.",
-          "Schleichen + Rechtsklick in die Luft löscht den Filter wieder (auf einen Block legt Schleichen + Rechtsklick den Attraktor ab); der Tooltip zeigt jederzeit, ob und welcher Filter aktiv ist.",
-          "Die Verzauberung Reichweite würde laut Code 2 Blöcke je Stufe hinzufügen, lässt sich aber weder am Zaubertisch noch am Amboss auf den Attraktor legen, weil der Attraktor nicht zu ihren erlaubten Items gehört.",
-          "Der Attraktor hat keine Haltbarkeit, zieht keine Erfahrungskugeln an und hat selbst keine Rechtsklick-Wirkung auf Tiere oder Monster.",
-          "Abgelegter Attraktor (Besitzer 2026-09-28): Schleichen + Rechtsklick auf einen Block legt den Attraktor wie eine Schmiedevorlage ab - flach auf den Boden, an die Wand oder unter die Decke, mit einer Trefferform, die seinen Pixeln folgt. Abgelegt zieht er jeden zweiten Tick lose Items im Umkreis von 6 Blöcken (mal dem Reichweiten-Faktor der Config, 0 schaltet ab) zu sich; sein Filter gilt weiter, und Items im Item-Tag #simplebuilding:attractor_ignore zieht er nie an. Abgebaut fällt er mit allen Daten (Filter, Name, Verzauberungen) heraus.",
-          "Der Magnet lässt in Ruhe: Items, die nie aufgehoben werden können (Aufhebe-Verzögerung 32767 – Ausstellungs- und Sockel-Items anderer Mods), Items, die einem anderen Spieler vorbehalten sind (Vanillas Owner-Feld), die Todes-Drops anderer Spieler (die Mod markiert jedes Item, das ein sterbender Spieler fallen lässt; der eigene Todes-Drop wird weiter angezogen) und Items aus dem Item-Tag simplebuilding:attractor_ignore."
+          "Reichweite ergänzt 1,5 Blöcke je Stufe, bis 7,5 vor dem Serverfaktor und höchstens 12 danach. Berührung des Konstrukteurs schaltet nur den Filter frei.",
+          "Nur mit Berührung wirkt der gespeicherte Itemfilter, auch abgelegt. Schleichklick auf einen Block oder ein loses Item oder Rechtsklick auf ein Inventar-Item wählt den Filter. Schleichklick ins Leere löscht ihn.",
+          "Ohne Berührung mit Schleichklick ablegen, mit Berührung per normalem Rechtsklick. Abgelegt zieht er aus 6 Blöcken vor dem Serverfaktor.",
+          "Keine Haltbarkeit. Ausstellungsitems, für andere reservierte Items und Todesbeute sowie simplebuilding:attractor_ignore bleiben liegen."
         ]
       }
     },
@@ -4586,99 +4574,37 @@
     },
     "magnet": {
       "en": {
-        "summary": "The Attractor is a non-stackable hand tool with no durability that pulls loose items within 4 blocks of your hitbox toward you as long as you hold it in your main or off hand, and that can be narrowed down to a single item type with a filter taken from an item frame once it carries Constructor's Touch.",
+        "summary": "The Attractor pulls loose items while held in either hand. Its base radius around the player hitbox is 3 blocks; sneaking pauses it.",
         "details": [
-          "Crafted at a crafting table (3x3, shaped recipe, owner's recipe of 2026-09-28): top empty, redstone, empty; middle iron ingot, empty, lapis lazuli; bottom Iron Core, iron ingot, empty (\" R \" / \"I L\" / \"CI \"). Until 2026-09-28 the lapis sat bottom right (\" R \" / \"I  \" / \"CIL\"); the old recipe with a lodestone in the middle is gone.",
-          "The recipe is unlocked in the recipe book as soon as an Iron Core is in your inventory (advancement criterion has_iron_core).",
-          "Does not stack (1 per slot), rarity Uncommon (UNCOMMON), no durability - the Attractor never wears out.",
-          "In the creative tab \"SimpleTools\" it sits right after the Detector and before the Rotator.",
-          "Only works while held in the main or off hand - it does nothing from the rest of your inventory.",
-          "Base range: your hitbox is inflated by 4 blocks in every direction, so the area is a box, not a sphere. The config option tools.magnetRangeMultiplier (default 1.0) scales the whole range.",
-          "With the Constructor's Touch enchantment the range grows to 8 blocks.",
-          "The code adds another 2 blocks per level of the Range enchantment - but Range cannot normally be put on the Attractor (see caveats).",
-          "Only item entities (dropped items) are attracted; the search queries the ItemEntity class and nothing else.",
-          "The target point is your eye height minus half a block, so items fly toward your head.",
-          "Pull per tick (while the item is more than 1 block from the target point): its existing motion is damped to 80 % and a push of 0.10 toward the target point is added; an item lying on the ground gets a further 0.15 upward so that it lifts off.",
-          "Once the item is within 1 block of the target point its motion is damped to 20 % instead, so that it does not shoot past you.",
-          "The pickup delay of every attracted item is set to 0 every tick - even freshly dropped items can be picked straight back up once they reach you.",
-          "The new motion of every attracted item is sent as a packet to all players in the same dimension that are closer than 64 blocks to the item, so that they see the pull smoothly.",
-          "Filter: an item id is stored as a string inside the item (custom_data component, key 'MagnetFilter') in namespace:name form, e.g. minecraft:diamond. With a filter set, the Attractor attracts only items with exactly that id; only the item type counts, enchantments, names and any other data are ignored.",
-          "Setting the filter: right-click a filled item frame with an Attractor that carries Constructor's Touch. The filter is set to the item in the frame and the respawn anchor's set-spawn sound (volume 0.5, pitch 1.5) is played; no text appears on screen (owner 2026-09-28), the tooltip shows the filter. The frame does not rotate its item, because the mixin cancels the frame's own interaction first.",
-          "The filter can also be set on a locked frame: the Attractor check in the mixin comes before the lock check.",
-          "Once set, a filter works regardless of the enchantment: the pull only checks the stored id, the enchantment is needed only for setting it.",
-          "Clearing the filter: sneak + right-click with the Attractor while not pointing at an item frame. The UI button click sound (volume 0.5, pitch 1.0, sound category Players) is played for everyone nearby; no text appears on screen (owner 2026-09-28). With no filter set, sneak + right-click does nothing.",
-          "Tooltip: shows 'Filtering: <id>' (gold) or 'No Filter active' (gray), and below that 'Sneak + Right Click to clear' (dark gray).",
-          "Right-clicking animals or monsters: the Attractor itself does nothing (returns PASS); the mob's normal interaction runs exactly as it would without the Attractor.",
-          "The Attractor is one of the items Constructor's Touch can go on (tag constructors_touch_enchantable): max level I, weight 1, cost 20 to 50, anvil cost 1. It can only be applied at the anvil with an enchanted book; books are available in the mod's creative tab, as chest loot (buried treasure, igloo, trial chamber reward common/rare) and from fishing treasure.",
-          "A gametest (registered on all four targets, 200 tick budget) confirms the behaviour: a diamond 3 blocks away is pulled into the player's inventory, while a gold ingot 6 blocks away on both horizontal axes stays where it dropped (less than 0.5 blocks of drift allowed).",
-          "Behaviour is identical on every loader (Fabric and NeoForge, MC 26.2 as well as 1.21.11): MagnetItem is the same in both version lines, and the frame filter runs through the ItemFrameEntityMixin in simplebuilding.mixins.json, which both fabric.mod.json and neoforge.mods.toml of both lines load (the NeoForge modules take the Fabric resources folder as a source).",
-          "Left alone: items that can never be picked up (pickup delay 32767, the mark of other mods' display items), items reserved for another player (Owner), other players' death drops (entity tag simplebuilding.death_drop.<uuid>, set while a player's inventory drops on death) and the item tag simplebuilding:attractor_ignore (AttractorFilter)."
+          "Range adds 1.5 blocks per level, up to 7.5 before the server multiplier, with a hard limit of 12 afterward. Constructor's Touch unlocks filtering without increasing range.",
+          "Only Constructor's Touch enables the stored item-type filter, including on placed Attractors. Sneak-click a block or loose item, or right-click an item in the inventory to select it. Sneak-click empty air to clear it.",
+          "Place an unenchanted Attractor by sneak-clicking a block; with Constructor's Touch, use a normal right-click. Placed Attractors pull within 6 blocks before the server multiplier.",
+          "The Attractor has no durability. Display items, other players' reserved items and death drops, and items in simplebuilding:attractor_ignore stay in place."
         ],
         "controls": [
-          "Hold the Attractor in your main or off hand: attracts items in range.",
-          "Hold sneak (Shift): the Attractor pauses, nothing is attracted.",
-          "Right-click a filled item frame (only with Constructor's Touch): sets the filter to the item in the frame.",
-          "Sneak + right-click with the Attractor while not pointing at an item frame: clears the filter."
+          "Hold in either hand to attract; sneak to pause.",
+          "With Constructor's Touch: sneak-click a block or item to filter, empty air to clear."
         ],
         "caveats": [
-          "The Range enchantment cannot normally be applied to the Attractor: at the enchanting table it is not available for any item at all (the tag minecraft:in_enchanting_table contains only fast_chiseling from the mod), and the anvil refuses it because its allowed items (tag chisel_and_mining_tools: chisels, vanilla mining tools, sledgehammers, octants) do not include the Attractor. The code for +2 blocks per level only takes effect if the enchantment gets onto the item some other way, by command for instance. The project's to-do list accordingly still lists 'magnet range enchantment' as open.",
-          "Constructor's Touch is likewise not available at the enchanting table (not in the in_enchanting_table tag); it only reaches the Attractor at the anvil with an enchanted book.",
-          "The filter cannot be set without Constructor's Touch: on an unenchanted Attractor the filter code does not run and the normal frame interaction happens instead.",
-          "The filter code never runs on an empty frame (the frame has to hold an item); the normal frame interaction happens instead.",
-          "Sneak + right-click on a frame never clears the filter, because the frame interaction consumes the click and use() is never reached. Instead the following apply in this order: a locked frame is unlocked (a glass pane is dropped), an invisible frame is made visible; if none of that applies, an enchanted Attractor on a filled frame sets the filter just like a normal right-click.",
-          "The sound when you set the filter (respawn anchor, volume 0.5, pitch 1.5) is played at your position for everyone nearby, you included (level().playSound with no excluded player); a client test hears it. The sound when the filter is cleared reaches you as well.",
-          "The tooltip is translated: it uses tooltip.simplebuilding.magnet.filtering/no_filter/clear (English and German); the Attractor shows no action bar messages since 2026-09-28. Only tooltip.simplebuilding.magnet.hand ('Works in Mainhand or Offhand') is still used by no code.",
-          "The filter distinguishes only by item type, not by enchantment, name or any other data on the item.",
-          "Experience orbs are not attracted, only item entities.",
-          "No durability, no recharging: the wear on pickup with recharging at a lodestone, the new texture and the rename to 'Attractor' named in the to-do list are not implemented in the code (no durability in the registration, no block interaction in MagnetItem)."
+          "Only dropped items are pulled, not experience orbs.",
+          "Filters compare item types, not names or enchantments."
         ]
       },
       "de": {
-        "summary": "Der Attraktor ist ein nicht stapelbares Handwerkzeug ohne Haltbarkeit, das herumliegende Items in einem Bereich von 4 Blöcken um deine Hitbox zu dir zieht, solange du ihn in der Haupt- oder Nebenhand hältst, und mit der Verzauberung Berührung des Konstrukteurs über einen Rahmen auf eine einzelne Item-Sorte gefiltert werden kann.",
+        "summary": "Der Attraktor zieht lose Items an, solange er in einer Hand liegt. Der Grundradius um die Spieler-Hitbox beträgt 3 Blöcke; Schleichen pausiert ihn.",
         "details": [
-          "Herstellung in der Werkbank (3x3, geformtes Rezept, Besitzer-Rezept vom 2026-09-28): oben leer, Redstone, leer; Mitte Eisenbarren, leer, Lapislazuli; unten Eisenkern, Eisenbarren, leer (\" R \" / \"I L\" / \"CI \"). Bis zum 2026-09-28 lag der Lapislazuli unten rechts (\" R \" / \"I  \" / \"CIL\"); das alte Rezept mit Leitstein in der Mitte gibt es nicht mehr.",
-          "Das Rezept wird im Rezeptbuch freigeschaltet, sobald ein Eisenkern im Inventar liegt (Fortschritt has_iron_core).",
-          "Nicht stapelbar (1 pro Slot), Seltenheit Ungewöhnlich (UNCOMMON), keine Haltbarkeit - der Attraktor nutzt sich nicht ab.",
-          "Zu finden im Kreativ-Tab „SimpleTools“, direkt hinter dem Detektor und vor dem Rotator.",
-          "Wirkt nur, wenn er in der Haupt- oder Nebenhand gehalten wird - im restlichen Inventar tut er nichts.",
-          "Grundreichweite: deine Hitbox wird in jede Richtung um 4 Blöcke vergrößert (quaderförmiger Bereich, keine Kugel). Die Config-Option tools.magnetRangeMultiplier (Standard 1,0) skaliert die ganze Reichweite.",
-          "Mit der Verzauberung Berührung des Konstrukteurs steigt die Reichweite auf 8 Blöcke.",
-          "Der Code addiert je Stufe der Verzauberung Reichweite weitere 2 Blöcke - die Verzauberung lässt sich aber normal nicht auf den Attraktor legen (siehe Einschränkungen).",
-          "Es werden nur Item-Entities (herumliegende Items) angezogen; die Suche fragt ausschließlich die Klasse ItemEntity ab.",
-          "Zielpunkt ist deine Augenhöhe minus einen halben Block; die Items fliegen also auf deinen Kopf zu.",
-          "Zugkraft je Tick (solange das Item weiter als 1 Block vom Zielpunkt entfernt ist): Die bisherige Bewegung wird auf 80 % abgebremst und ein Schub von 0,10 in Richtung Zielpunkt addiert; liegt das Item am Boden, bekommt es zusätzlich 0,15 Aufwärtsschub, damit es abhebt.",
-          "Ist das Item höchstens 1 Block vom Zielpunkt entfernt, wird seine Bewegung stattdessen auf 20 % gedämpft, damit es nicht an dir vorbeischießt.",
-          "Die Aufhebe-Verzögerung jedes angezogenen Items wird in jedem Tick auf 0 gesetzt - auch frisch weggeworfene Items können sofort wieder aufgesammelt werden, sobald sie dich erreichen.",
-          "Die neue Bewegung jedes angezogenen Items wird per Paket an alle Spieler derselben Dimension gesendet, die näher als 64 Blöcke am Item sind, damit sie das Anziehen flüssig sehen.",
-          "Filter: Im Item (Komponente custom_data, Schlüssel 'MagnetFilter') ist eine Item-Kennung als Text gespeichert (Namensraum:Name, z. B. minecraft:diamond). Ist ein Filter gesetzt, zieht der Attraktor ausschließlich Items mit genau dieser Kennung an; nur die Item-Sorte zählt, Verzauberungen, Namen oder sonstige Daten werden ignoriert.",
-          "Filter setzen: Rechtsklick mit einem Attraktor, der Berührung des Konstrukteurs trägt, auf einen Rahmen, in dem ein Item liegt. Der Filter wird auf dieses Item gesetzt und der Respawn-Anker-Ton (Lautstärke 0,5, Tonhöhe 1,5) wird ausgelöst; auf dem Bildschirm erscheint kein Text (Besitzer 2026-09-28), der Tooltip zeigt den Filter. Der Rahmen dreht sein Item dabei nicht weiter, weil der Mixin die Rahmen-Interaktion vorher abbricht.",
-          "Der Filter lässt sich auch an einem gesperrten Rahmen setzen: Die Attraktor-Prüfung im Mixin kommt vor der Sperr-Prüfung.",
-          "Ein einmal gesetzter Filter wirkt unabhängig von der Verzauberung: Das Anziehen prüft nur die gespeicherte Kennung, die Verzauberung wird nur zum Setzen gebraucht.",
-          "Filter löschen: Schleichen + Rechtsklick mit dem Attraktor, ohne auf einen Rahmen zu zeigen. Ein Knopf-Klickgeräusch (Lautstärke 0,5, Tonhöhe 1,0, Kanal Spieler) wird für alle in der Nähe abgespielt; auf dem Bildschirm erscheint kein Text (Besitzer 2026-09-28). Ohne gesetzten Filter passiert bei Schleichen + Rechtsklick nichts.",
-          "Tooltip: zeigt 'Filtert: <Kennung>' (gold) bzw. 'Kein Filter aktiv' (grau) und darunter 'Schleichen + Rechtsklick zum Löschen' (dunkelgrau).",
-          "Rechtsklick auf Tiere oder Monster: Der Attraktor selbst tut nichts (gibt PASS zurück); die normale Interaktion des Lebewesens läuft wie ohne Attraktor ab.",
-          "Der Attraktor gehört zu den Zielitems von Berührung des Konstrukteurs (Tag constructors_touch_enchantable): Höchststufe I, Gewicht 1, Kosten 20 bis 50, Amboss-Kosten 1. Anlegbar nur am Amboss per verzaubertem Buch; Bücher gibt es im Kreativ-Tab der Mod, als Truhenloot (Vergrabener Schatz, Iglu, Prüfungskammer-Belohnung gewöhnlich/selten) und im Schatzfang beim Angeln.",
-          "Ein Spieltest (auf allen vier Zielen registriert, Zeitbudget 200 Ticks) belegt das Verhalten: Ein Diamant 3 Blöcke entfernt wird in das Inventar des Spielers gezogen, ein Goldbarren 6 Blöcke entfernt (auf beiden waagerechten Achsen) bleibt liegen (weniger als 0,5 Blöcke Drift erlaubt).",
-          "Verhalten ist auf allen Loadern gleich (Fabric und NeoForge, MC 26.2 sowie 1.21.11): MagnetItem ist in beiden Versionslinien identisch, und der Rahmen-Filter läuft über den Mixin ItemFrameEntityMixin in simplebuilding.mixins.json, die sowohl fabric.mod.json als auch neoforge.mods.toml beider Linien einbinden (die NeoForge-Module übernehmen den Fabric-Ressourcenordner als Quelle).",
-          "In Ruhe gelassen werden: Items, die nie aufgehoben werden können (Aufhebe-Verzögerung 32767, das Zeichen für Ausstellungs-Items anderer Mods), Items, die einem anderen Spieler vorbehalten sind (Owner), Todes-Drops anderer Spieler (Entity-Tag simplebuilding.death_drop.<uuid>, gesetzt, während das Inventar eines Spielers beim Tod fällt) und der Item-Tag simplebuilding:attractor_ignore (AttractorFilter)."
+          "Reichweite ergänzt 1,5 Blöcke je Stufe, bis 7,5 vor dem Serverfaktor und höchstens 12 danach. Berührung des Konstrukteurs schaltet nur den Filter frei.",
+          "Nur mit Berührung wirkt der gespeicherte Itemfilter, auch abgelegt. Schleichklick auf einen Block oder ein loses Item oder Rechtsklick auf ein Inventar-Item wählt den Filter. Schleichklick ins Leere löscht ihn.",
+          "Ohne Berührung mit Schleichklick ablegen, mit Berührung per normalem Rechtsklick. Abgelegt zieht er aus 6 Blöcken vor dem Serverfaktor.",
+          "Keine Haltbarkeit. Ausstellungsitems, für andere reservierte Items und Todesbeute sowie simplebuilding:attractor_ignore bleiben liegen."
         ],
         "controls": [
-          "Attraktor in Haupt- oder Nebenhand halten: zieht Items im Umkreis an.",
-          "Schleichen (Shift) halten: Attraktor pausiert, nichts wird angezogen.",
-          "Rechtsklick auf einen gefüllten Rahmen (nur mit Berührung des Konstrukteurs): Filter auf das Item im Rahmen setzen.",
-          "Schleichen + Rechtsklick mit dem Attraktor, nicht auf einen Rahmen gerichtet: Filter löschen."
+          "In einer Hand halten zum Anziehen, schleichen zum Pausieren.",
+          "Mit Berührung: Schleichklick auf Block oder Item filtert, ins Leere löscht."
         ],
         "caveats": [
-          "Die Verzauberung Reichweite ist auf den Attraktor normal nicht anlegbar: Am Zaubertisch ist sie für gar kein Item erhältlich (der Tag minecraft:in_enchanting_table enthält von der Mod nur fast_chiseling), und der Amboss lehnt sie ab, weil ihre erlaubten Items (Tag chisel_and_mining_tools: Meißel, Vanilla-Abbauwerkzeuge, Vorschlaghämmer, Oktanten) den Attraktor nicht enthalten. Der Code für +2 Blöcke je Stufe greift nur, wenn die Verzauberung auf anderem Weg (z. B. Befehl) auf dem Item landet. Die Aufgabenliste des Projekts führt 'magnet range enchantment' entsprechend noch als offen.",
-          "Berührung des Konstrukteurs ist ebenfalls nicht am Zaubertisch erhältlich (nicht im Tag in_enchanting_table); auf den Attraktor kommt sie nur am Amboss über ein verzaubertes Buch.",
-          "Der Filter kann ohne Berührung des Konstrukteurs nicht gesetzt werden: Bei einem unverzauberten Attraktor greift der Filter-Code nicht, es läuft die normale Rahmen-Interaktion.",
-          "Auf einen leeren Rahmen greift der Filter-Code nie (Bedingung: der Rahmen muss ein Item enthalten); es läuft die normale Rahmen-Interaktion.",
-          "Schleichen + Rechtsklick auf einen Rahmen löscht den Filter nie, weil die Rahmen-Interaktion den Klick verbraucht und use() nicht mehr erreicht wird. Stattdessen greifen in dieser Reihenfolge: gesperrter Rahmen wird entsperrt (eine Glasscheibe wird fallen gelassen), unsichtbarer Rahmen wird sichtbar; trifft nichts davon zu, setzt ein verzauberter Attraktor an einem gefüllten Rahmen den Filter wie beim normalen Rechtsklick.",
-          "Der Ton beim Setzen des Filters (Seelenanker, Lautstärke 0,5, Tonhöhe 1,5) erklingt an deiner Position für alle in der Nähe, dich eingeschlossen (level().playSound ohne Ausnahme); ein Client-Test hört ihn. Auch der Ton beim Löschen ist für dich hörbar.",
-          "Der Tooltip ist übersetzt: Er nutzt tooltip.simplebuilding.magnet.filtering/no_filter/clear (Deutsch und Englisch); Aktionsleisten-Meldungen zeigt der Attraktor seit dem 28.09.2026 nicht mehr. Nur tooltip.simplebuilding.magnet.hand ('Funktioniert in Haupt- oder Nebenhand') verwendet weiterhin kein Code.",
-          "Der Filter unterscheidet nur nach Item-Sorte, nicht nach Verzauberung, Name oder sonstigen Daten des Items.",
-          "Erfahrungskugeln werden nicht angezogen, nur Item-Entities.",
-          "Keine Haltbarkeit, kein Aufladen: Die in der Aufgabenliste genannte Abnutzung beim Aufsammeln mit Aufladen am Leitstein, die neue Textur und die Umbenennung in 'Attractor' sind nicht im Code umgesetzt (keine durability in der Registrierung, keine Blockinteraktion in MagnetItem)."
+          "Nur lose Items werden angezogen, keine Erfahrungskugeln.",
+          "Der Filter vergleicht Itemtypen, keine Namen oder Verzauberungen."
         ]
       },
       "sources": [
@@ -9338,7 +9264,7 @@
     },
     "amethyst_lens": {
       "en": {
-        "summary": "The Amethyst Lens (the former laser pointer from Simple Tweaks, item id amethyst_lens, formerly laser_pointer - old worlds keep their lenses) shows a red dot where you aim while you hold right-click, visible to the players within 128 blocks of you or the dot; next to the crosshair a small \"Laser\" shows while you aim. With Constructor's Touch it also measures (distance, target block, height) and remembers the last measurement. Held on a block for a moment, its beam melts, lights, dries and primes TNT; held on a creature it sets it on fire.",
+        "summary": "The Amethyst Resonance Rod projects a red aiming dot while held in use. The rod tilts and emits particles; the normal crosshair is hidden while aiming.",
         "details": [
           "Range, colour and dot size come from the config section tweaks.laserPointer (default 512 blocks, red). The dot keeps its size in the world (the config size, 0.05-1 block) and only grows far away so it stays about three pixels wide, instead of turning into a huge circle on a distant wall. Range and the on/off switch are the server's: the server sends them to the client and only passes a dot on while the player really uses the lens, at most 12 times a second.",
           "Beam effects (server side, up to the lens range - capped at the server's view distance so the beam never loads chunks -, while the beam rests on the same block face; the times below apply up to 5 blocks away): ice and frosted ice melt into water after 2 s (they evaporate where water does, like in the Nether), packed ice becomes ice and blue ice packed ice; snow layers, snow blocks and powder snow melt away. Campfires, soul campfires, candles and candle cakes light after 1 s. Soul sand and soul soil get soul fire on top after 2 s. Flammable blocks (anything fire can catch: planks, logs, leaves, wool ...) catch fire on the beamed face after 3 s, but only where the fire_spread_radius_around_player game rule lets fire spread. Wet sponges dry after 5 s. TNT is primed after 3 s like with flint and steel (the player counts as the igniter; the tnt_explodes game rule is respected, fire spread and mob griefing are not involved). It never lights a nether portal (unlike flint and steel, no fire is placed into an empty portal frame). Smoke rises while the heat builds up; a sound and particles mark the result.",
@@ -9346,13 +9272,13 @@
           "Creatures: players and mobs catch fire (4 s) when the beam rests on them, but it takes twice as long as a flammable block at the same distance (6 s up close). Not: fire-immune or invulnerable creatures, creatures in water or rain, players in creative or spectator mode, and other players only where PvP is allowed (pvp game rule, server setting, team friendly fire). Creatures are searched up to 64 blocks along the beam.",
           "Sounds at the dot, audible to players nearby: a quiet hum about once a second while the beam hits anything, a clearly audible sizzle while ice, snow or a sponge heats up and a crackle while something is about to burn or ignite (also creatures), each at most every 8 ticks; the finishing sound of every effect stays.",
           "Protection: the player must be allowed to touch and build at the block (spawn protection, world border, adventure mode), for fire also at the fire's spot.",
-          "Charge: the durability (640) is the charge. Every use costs 1 per started second - pointing into the air or at a block without an effect included, and already on the very first tick, so quick taps are not free -, every effect 5 more. The lens never breaks; empty it cannot beam any more (empty-state model). Recharge it in an anvil with redstone at no level cost: one redstone restores 10, a full stack of 64 fills an empty lens, and only as much redstone as needed is used. No charge is used in creative mode. Both costs are config options: tweaks.laserPointer.beamCostPerSecond (default 1) and tweaks.laserPointer.effectCost (default 5).",
           "Recipe (crafting, shaped): redstone, amethyst shard, redstone; iron ingot, iron building core, iron ingot; three iron ingots. In the creative Tools tab it sits with the gadgets.",
-          "Measuring: without an enchantment the HUD next to the crosshair only says \"Laser\". With Constructor's Touch (the mod's gadget enchantment; apply the book in an anvil - books come from structure chests (buried treasure, igloo, trial chambers and more) and fishing treasure) the lens is a rangefinder: next to the crosshair the distance from your eyes to the dot (one decimal, up to the lens range), below it in grey the target block's name and its height as \"Y 72 (+3)\" - the block's Y and the difference to your feet. The server stores the last measurement on the lens (component simplebuilding:lens_measurement: distance, height difference, target block or creature) on the first tick, then once a second and when you let go; the tooltip shows it as \"Last measured: 12.4 m\" with target and height. A plain lens never stores one and hints at Constructor's Touch in its tooltip."
+          "Charge defaults to 640, with 4 spent per started second of aiming and 5 per effect. Empty rods do not break. At an anvil, 16 amethyst shards fully recharge a rod without levels; creative players spend no charge.",
+          "Constructor's Touch enables distance, target and height measurement in the common HUD panel. The server stores the last measurement on the item. The item id stays simplebuilding:amethyst_lens."
         ]
       },
       "de": {
-        "summary": "Die Amethystlinse (der frühere Laserpointer aus Simple Tweaks, Item-Id amethyst_lens, früher laser_pointer - alte Welten behalten ihre Linsen) zeigt einen roten Punkt, wohin du bei gedrücktem Rechtsklick zielst - sichtbar für die Spieler im Umkreis von 128 Blöcken um dich oder den Punkt; neben dem Fadenkreuz steht beim Zielen ein kleines „Laser“. Mit Berührung des Konstrukteurs misst sie auch (Entfernung, Zielblock, Höhe) und merkt sich die letzte Messung. Ruht der Strahl kurz auf einem Block, schmilzt, zündet und trocknet er und zündet TNT; auf einem Lebewesen setzt er es in Brand.",
+        "summary": "Der Amethyst-Resonanzstab zeigt beim Benutzen einen roten Zielpunkt. Er neigt sich und erzeugt Partikel; das Fadenkreuz wird beim Zielen ausgeblendet.",
         "details": [
           "Reichweite, Farbe und Punktgröße stehen in der Config unter tweaks.laserPointer (Standard 512 Blöcke, rot). Der Punkt behält seine Größe in der Welt (die Config-Größe, 0,05-1 Block) und wächst erst in der Ferne mit, damit er etwa drei Pixel breit sichtbar bleibt - statt auf einer fernen Wand zum riesigen Kreis zu werden. Reichweite und Schalter gelten vom Server: er schickt sie dem Client und gibt einen Punkt nur weiter, solange der Spieler die Linse wirklich benutzt, höchstens 12-mal pro Sekunde.",
           "Strahlwirkungen (auf dem Server, bis zur Reichweite der Linse - höchstens bis zur Sichtweite des Servers, damit der Strahl keine Chunks lädt -, solange der Strahl auf derselben Blockseite ruht; die Zeiten gelten bis 5 Blöcke Abstand): Eis und Frosteis schmelzen nach 2 s zu Wasser (verdampfen, wo Wasser verdampft, wie im Nether), Packeis wird zu Eis, Blaueis zu Packeis; Schneeschichten, Schneeblöcke und Pulverschnee schmelzen weg. Lagerfeuer, Seelenlagerfeuer, Kerzen und Kerzenkuchen gehen nach 1 s an. Seelensand und Seelenerde bekommen nach 2 s oben Seelenfeuer. Brennbare Blöcke (alles, was Feuer fangen kann: Bretter, Stämme, Laub, Wolle ...) fangen nach 3 s auf der angestrahlten Seite Feuer - nur, wo die Spielregel fire_spread_radius_around_player Feuer sich ausbreiten lässt. Nasse Schwämme trocknen nach 5 s. TNT wird nach 3 s gezündet wie mit einem Feuerzeug (der Spieler gilt als Zünder; die Spielregel tnt_explodes gilt, Feuerausbreitung und Mob-Griefing spielen keine Rolle). Nie: ein Netherportal (anders als ein Feuerzeug setzt der Strahl kein Feuer in einen leeren Portalrahmen). Solange sich die Hitze aufbaut, steigt Rauch auf; ein Geräusch und Partikel zeigen das Ergebnis.",
@@ -9360,9 +9286,8 @@
           "Lebewesen: Spieler und Mobs fangen Feuer (4 s), wenn der Strahl auf ihnen ruht, brauchen dafür aber doppelt so lange wie ein brennbarer Block im selben Abstand (aus der Nähe 6 s). Nicht: feuerfeste oder unverwundbare Wesen, Wesen im Wasser oder Regen, Spieler im Kreativ- oder Zuschauermodus, andere Spieler nur, wo PvP erlaubt ist (Spielregel pvp, Server-Einstellung, Team-Freundfeuer). Gesucht wird bis 64 Blöcke entlang des Strahls.",
           "Klänge am Punkt, für Spieler in der Nähe hörbar: ein leises Summen etwa einmal pro Sekunde, solange der Strahl etwas trifft, ein deutliches Zischen, während Eis, Schnee oder ein Schwamm heiß wird, und ein Knistern, während etwas gleich brennt oder zündet (auch Lebewesen), jeweils höchstens alle 8 Ticks; der Abschlussklang jeder Wirkung bleibt.",
           "Schutz: der Spieler muss den Block berühren und dort bauen dürfen (Spawnschutz, Weltgrenze, Abenteuermodus), für Feuer auch am Feuerplatz.",
-          "Ladung: die Haltbarkeit (640) ist die Ladung. Jede Nutzung kostet 1 je angefangene Sekunde - auch das Zeigen ins Leere oder auf einen Block ohne Wirkung, und schon im ersten Tick, kurzes Antippen ist also nicht gratis -, jede Wirkung 5 mehr. Die Linse zerbricht nie; leer kann sie nicht mehr strahlen (eigenes Leer-Modell). Aufladen im Amboss mit Redstone ohne Stufenkosten: ein Redstone lädt 10, ein voller Stapel (64) füllt eine leere Linse, verbraucht wird nur, was nötig ist. Im Kreativmodus kostet nichts Ladung. Beide Kosten sind Config-Optionen: tweaks.laserPointer.beamCostPerSecond (Standard 1) und tweaks.laserPointer.effectCost (Standard 5).",
-          "Rezept (Werkbank, geformt): Redstone, Amethystsplitter, Redstone; Eisenbarren, Eisen-Baukern, Eisenbarren; drei Eisenbarren. Im Kreativ-Tab Werkzeuge steht sie bei den Geräten.",
-          "Messen: Ohne Verzauberung steht neben dem Fadenkreuz nur „Laser“. Mit Berührung des Konstrukteurs (die Geräte-Verzauberung der Mod; das Buch am Amboss anbringen - Bücher gibt es in Strukturtruhen (vergrabener Schatz, Iglu, Prüfungskammern u. a.) und als Angelschatz) wird die Linse zum Entfernungsmesser: neben dem Fadenkreuz die Entfernung von deinen Augen zum Punkt (eine Nachkommastelle, bis zur Linsenreichweite), darunter grau der Name des Zielblocks und seine Höhe als „Y 72 (+3)“ - Y des Blocks und Unterschied zu deinen Füßen. Der Server speichert die letzte Messung in der Linse (Komponente simplebuilding:lens_measurement: Entfernung, Höhenunterschied, Zielblock oder Lebewesen) beim ersten Tick, danach einmal pro Sekunde und beim Loslassen; der Tooltip zeigt sie als „Zuletzt gemessen: 12,4 m“ mit Ziel und Höhe. Eine unverzauberte Linse speichert nie etwas und weist im Tooltip auf Berührung des Konstrukteurs hin."
+          "Standardladung 640: Zielen verbraucht 4 je angefangener Sekunde, eine Wirkung weitere 5. Leer zerbricht der Stab nicht. Am Amboss laden 16 Amethystscherben ihn ohne Levelkosten ganz auf; Kreativspieler verbrauchen keine Ladung.",
+          "Berührung des Konstrukteurs zeigt Entfernung, Ziel und Höhe im gemeinsamen Anzeigefeld. Der Server speichert die letzte Messung am Item. Die Item-ID bleibt simplebuilding:amethyst_lens."
         ]
       },
       "sources": [
@@ -9728,19 +9653,19 @@
     },
     "velocity_gauge": {
       "en": {
-        "summary": "The Velocity Gauge shows your speed while you hold it in either hand: a small needle speedometer (\"Velocity\") in a tooltip-style box, from standstill at the bottom left to full scale (50 blocks per second) at the bottom right, next to the number in blocks per second.",
+        "summary": "The Gauge shows speed while held in either hand, with an animated item needle and a HUD dial.",
         "details": [
-          "The scale is a square-root scale, so walking (4.3 b/s) and sprinting (5.6 b/s) stay apart while an elytra flight still fits; the arc turns red from 80 % of the scale.",
-          "With Constructor's Touch the top and average speed since you took it in hand are shown below in gray.",
-          "Item id simplebuilding:velocity_gauge since 2026-09-28 (before: velocity-gauge); old worlds keep their gauges, the old id is redirected (LegacyItemIds)."
+          "Constructor's Touch adds peak and average speed.",
+          "In the air it shows distance to ground and an estimated fall-damage value before armor. The base depth is 24 blocks; Range adds 16 per level, capped at 64.",
+          "The item id stays simplebuilding:velocity_gauge."
         ]
       },
       "de": {
-        "summary": "Der Geschwindigkeitsmesser zeigt dein Tempo, solange du ihn in einer Hand hältst: ein kleiner Zeigertacho („Velocity“) in einem Kasten im Tooltip-Stil, von Stillstand unten links bis Vollausschlag (50 Blöcke pro Sekunde) unten rechts, daneben die Zahl in Blöcken pro Sekunde.",
+        "summary": "Die Messuhr zeigt gehalten das Tempo, mit animierter Itemnadel und Anzeige.",
         "details": [
-          "Die Skala ist eine Wurzelskala, damit Gehen (4,3 b/s) und Sprinten (5,6 b/s) auseinanderliegen und trotzdem ein Elytra-Flug passt; ab 80 % der Skala ist der Bogen rot.",
-          "Mit Berührung des Konstrukteurs stehen darunter grau Höchst- und Durchschnittstempo seit dem In-die-Hand-Nehmen.",
-          "Item-Id simplebuilding:velocity_gauge seit 2026-09-28 (vorher velocity-gauge); alte Welten behalten ihre Geschwindigkeitsmesser, die alte Id wird umgeleitet (LegacyItemIds)."
+          "Berührung des Konstrukteurs ergänzt Spitzen- und Durchschnittstempo.",
+          "In der Luft zeigt sie Bodenabstand und geschätzten Fallschaden vor Rüstung. Messtiefe 24 Blöcke, Reichweite ergänzt 16 je Stufe bis höchstens 64.",
+          "Die Item-ID bleibt simplebuilding:velocity_gauge."
         ]
       },
       "sources": [
