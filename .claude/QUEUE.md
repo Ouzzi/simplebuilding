@@ -202,7 +202,8 @@ Verlauf im Detail: git log.
 - [ ] EE Aktiv-Texturen + Partikel fuer alle Pads, Spawn-Teleporter zum eigenen Spawn / Redstone -> Weltspawn + Sounds, Hammer ohne GUI-Text + Nugget neigt sich, Echolot Klick einmal + Sperre bis 5 s
 - [ ] FF Kerne verwandeln Wirtsblock selten in Erz (Enderit ~1/2000, Kupfer ~1/10000), coolere Kern-Animation, Warden-Gesicht gerade
 - [ ] GG Tabs: Pads/Druckplatten eigener Tab, Blaupause+Kartentisch+Enderit-Baustab zu Tools, Zeilen-Layout ueberall
-- [ ] Rueckfrage: Pads Basis-Stufe mit Kern statt Vorlage - Nachricht abgeschnitten ("dann soll die copper ...")
+- [ ] HH Pads Stufe I mit Materialkern statt Vorlage; Chunkloader I + Launchpad I nehmen einen Trial-Chamber-Mobkopf (Tag); neue Mobkoepfe mit Vanilla-Textur (nur Charged Creeper), jeder mit geheimer harmloser Faehigkeit (Silberfisch schrumpft den Spieler); Koepfe-Zeile im Tab
+- [ ] GG+: im Tab nur Eichen-Druckplatte, in derselben Zeile wie die anderen Platten
 - [ ] Danach: Buecher-Faktenpass, Server-Gate 26.3, Port-Run 26.2/Forge/1.21.11/26.4
 
 ## Wartet auf den Besitzer
