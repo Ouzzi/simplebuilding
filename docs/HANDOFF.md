@@ -34,15 +34,21 @@ Welle 24, gemergt in master (lokal/gepusht siehe Git-Log):
 - Wiki-Fakten für Gadgets und Pads nach Code korrigiert; Quest-Hinweise der Hauptlinie korrigiert.
 - Texturprüfung **470 Texturen + 9 mcmeta aktuell**. Shulker-/Gauge-Vorschau ebenfalls gezeigt.
 - Der erste `check` stoppte an `checkQuests` (Reihenfolge der generierten Lang-Schlüssel); Generator erneut ausgeführt.
-  Vollständiges Server-Gate und abschließender Build-Check stehen noch aus; bisher **kein Push** dieser Merges.
+  Vollständiges Server-Gate: **1548/1548, alles gruen** auf `fabric-263,neoforge-263`,
+  Run `2026-09-29T20-20-52Z-1579`, Code-Commit `2579653b`.
+  Nach Gesamt-Gates korrigiert: Suchtab (keine doppelten Köpfe, Shulkerkisten beim Vanilla-Vorbild), neue Kern-Zuordnung,
+  deutsche Enderitkern-Schreibweise, Range-Tag-Erwartungen, Touch-Filter-Fixture, gespeicherter alter Linse-Schlüssel
+  vs. sichtbare Config. Druckplatten-Zeittest nutzt gewachste Platte, damit zufällige Oxidation die Messung nicht ändert.
+  Testzentrale in beiden GameTest-Welten vollständig gebaut; alle Items/Blöcke abgedeckt.
+  Abschließender `gradlew.bat check -q` im selben Worktree **grün (Exit 0)**. Server-Ausgabe und Build-Ergebnis gelesen.
+  Push-fähiger Stand; tatsächlichen Remote-Stand mit `git log origin/master` prüfen.
 
 ## Nächste Schritte in Reihenfolge
-1. Laufendes vollständiges Server-Gate auf `fabric-263,neoforge-263` auswerten, Fehler beheben.
-   Alte Flypad-/Chunkloader-Rezepterwartungen im Tweaks-Test sind bereits korrigiert, im Gesamt-Gate gegenprüfen.
-2. Generiertes Wiki übernehmen; `check` im Worktree `C:/Users/oussa/AppData/Local/Temp/sbgate` grün lesen.
-3. Client-Gate für beide 26.3-Ziele seriell, erst wenn der Besitzer-Client geschlossen ist. Besitzer wurde gefragt.
-   Testzentrale neu bauen und vollständige Item-Abdeckung prüfen. Keine Besitzerwelt ungefragt ersetzen.
-4. Nur nach gelesenem grünen Gate (Runner: **alles gruen**) pushen.
+1. Push-/Remote-Stand prüfen. Server-Gate und `check` sind grün (siehe oben), Wiki `--check`, Textur- und Bücherprüfung ebenfalls.
+2. Client-Gate für beide 26.3-Ziele seriell, erst wenn der Besitzer-Client geschlossen ist. Besitzer wurde gefragt.
+3. Die Besitzer-Testwelt mit dem neuen Build öffnen und `/sbtestcentre build` ausführen. Der automatische Neubau
+   und Abdeckungstest in separaten GameTest-Welten sind grün; die laufende Besitzerwelt wurde nicht angefasst.
+4. Besitzer-Abnahme von 26.3 einholen; insbesondere neue Grafik/Bedienung im Client noch visuell testen.
 5. Nach Abnahme von 26.3 durch den Besitzer: eigener **Port-Run** auf 26.2 Fabric/NeoForge/Forge, 1.21.11 und 26.4.
    Mitzunehmen: HH/II/JJ, neue Bücher/Texturen/Texte, Pulsating-Kontrast, Quest-Fakten, drei Mixins des Admin-Buchs
    (`OperatorBook*Mixin`), Nugget-Neigung im 26.2-`HeldItemRenderer`, Textur-Scope-Schalter in `tools/textures`,
