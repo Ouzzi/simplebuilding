@@ -51,7 +51,7 @@
         {
           "type": "minecraft:item",
           "name": "simplebuilding:octant",
-          "weight": 5
+          "weight": 2
         },
         {
           "type": "minecraft:item",
@@ -65,7 +65,7 @@
         },
         {
           "type": "minecraft:empty",
-          "weight": 20
+          "weight": 23
         }
       ],
       "rolls": {

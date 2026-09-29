@@ -60,8 +60,7 @@
           "modifier": {
             "type": "minecraft:enchant_randomly"
           },
-          "name": "simplebuilding:octant",
-          "weight": 3
+          "name": "simplebuilding:octant"
         },
         {
           "type": "minecraft:item",
@@ -91,7 +90,7 @@
         },
         {
           "type": "minecraft:empty",
-          "weight": 14
+          "weight": 16
         }
       ],
       "rolls": {

@@ -299,7 +299,7 @@ class DatagenJobTests(unittest.TestCase):
 
     def test_running_dev_game_needs_force(self):
         original = jobs.running_dev_games
-        jobs.running_dev_games = lambda: ["java ... net.fabricmc.devlaunchinjector.Main runClient"]
+        jobs.running_dev_games = lambda repo=None: ["java ... net.fabricmc.devlaunchinjector.Main runClient"]
         try:
             with self.assertRaises(StoreError) as ctx:
                 self.s.start_datagen({})

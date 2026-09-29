@@ -543,7 +543,7 @@ class Service:
             if self.job and self.job.status == "running":
                 raise StoreError(409, "Datagen läuft schon.")
             if not payload.get("force"):
-                games = jobs.running_dev_games() if self.datagen_steps is None else []
+                games = jobs.running_dev_games(self.repo) if self.datagen_steps is None else []
                 if games:
                     raise StoreError(409, "Es laufen Dev-Clients/-Server (runClient/runServer). Datagen übersetzt die Mod in "
                                           "diesem Checkout neu - das laufende Spiel stürzt dann mit NoClassDefFoundError ab. "

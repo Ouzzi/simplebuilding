@@ -42,8 +42,9 @@ def default_steps(repo: Path, include_264: bool = False) -> list[dict]:
     return steps
 
 
-def running_dev_games() -> list[str]:
-    """Kommandozeilen laufender Dev-Clients/-Server (nur Windows/Unix-Bordmittel, im Zweifel leer)."""
+def running_dev_games(repo: Path | None = None) -> list[str]:
+    """Kommandozeilen laufender Dev-Clients/-Server dieses Checkouts (nur Bordmittel, im Zweifel leer).
+    Spiele aus anderen Checkouts (Haupt-Repo, andere Worktrees) stoeren nicht und zaehlen nicht."""
     markers = ("runClient", "runServer", "devlaunchinjector", "forge_userdev", "net.fabricmc.devlaunchinjector")
     try:
         if os.name == "nt":
@@ -56,9 +57,15 @@ def running_dev_games() -> list[str]:
     except (OSError, subprocess.SubprocessError):
         return []
     found = []
+    root = str(Path(repo).resolve()).replace("\\", "/").lower().rstrip("/") if repo else None
+    in_worktree = bool(root and "/.claude/worktrees/" in root)
     for line in out.splitlines():
-        if any(m in line for m in markers) and "GradleDaemon" not in line:
-            found.append(line.strip()[:200])
+        if not any(m in line for m in markers) or "GradleDaemon" in line:
+            continue
+        norm = line.replace("\\", "/").lower()
+        if root and (root not in norm or (not in_worktree and "/.claude/worktrees/" in norm)):
+            continue
+        found.append(line.strip()[:200])
     return found
 
 

@@ -298,3 +298,4 @@ a.tile:hover { text-decoration: none; border-color: var(--accent); transform: tr
   .filters input[type="search"] { min-width: 0; width: 100%; }
   .pending { left: 12px; right: 12px; transform: none; flex-wrap: wrap; }
 }
+.box li { overflow-wrap: anywhere; }
