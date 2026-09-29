@@ -13,7 +13,6 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Nameable;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -74,10 +73,10 @@ public class PlacedBundleBlockEntity extends BlockEntity implements Nameable {
         return items.isEmpty() ? ItemStack.EMPTY : items.get(clamp(this.shown));
     }
 
-    /** Zum naechsten Item weiterschalten (reihum); liefert den neuen Index. */
-    public int cycle() {
+    /** Um {@code step} Items weiterschalten (reihum, negativ = zurueck); liefert den neuen Index. */
+    public int cycle(int step) {
         int size = contents().size();
-        this.shown = size == 0 ? 0 : (clamp(this.shown) + 1) % size;
+        this.shown = size == 0 ? 0 : Math.floorMod(clamp(this.shown) + step, size);
         changed();
         return this.shown;
     }
@@ -100,12 +99,6 @@ public class PlacedBundleBlockEntity extends BlockEntity implements Nameable {
         setChanged();
         if (this.level != null && !this.level.isClientSide()) {
             this.level.sendBlockUpdated(this.worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
-        }
-    }
-
-    public static void serverTick(Level level, BlockPos pos, BlockState state, PlacedBundleBlockEntity be) {
-        if ((level.getGameTime() + pos.asLong()) % PlacedBundles.CYCLE_TICKS == 0) {
-            PlacedBundles.tickCycle(level, pos, be);
         }
     }
 

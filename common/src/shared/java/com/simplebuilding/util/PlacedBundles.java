@@ -4,6 +4,7 @@ import com.simplebuilding.blocks.ModBlocks;
 import com.simplebuilding.blocks.custom.PlacedBundleBlock;
 import com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity;
 import com.simplebuilding.items.ModItems;
+import com.simplebuilding.items.custom.ReinforcedBundleItem;
 import com.simplebuilding.version.McVersion;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +30,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -42,15 +41,17 @@ import org.jetbrains.annotations.Nullable;
  * sind Buendel nur dem Code nach.
  *
  * <p>Wer schleichend auf ein abgestelltes Buendel schaut, sieht dessen "oberstes" Item darueber
- * schweben; alle {@link #CYCLE_TICKS} Ticks wechselt es reihum zum naechsten ({@link #tickCycle}, auf
- * dem Server, damit Anzeige und Herausnehmen dasselbe Item meinen). Rechtsklick nimmt genau das
- * gezeigte Item heraus ({@link #takeShown}) - in die leere Hand, sonst ins Inventar.
+ * schweben, immer zur eigenen Kamera gedreht (Besitzer 2026-09-29). Welches Item oben liegt, waehlt
+ * der Spieler selbst: Schleichen + Mausrad schaltet reihum weiter ({@link #scroll}, ueber
+ * {@code PlacedBundleScrollPayload} auf dem Server, der den Index besitzt; die Hotbar bleibt dabei
+ * stehen). Rechtsklick nimmt genau das gezeigte Item heraus ({@link #takeShown}) - in die leere Hand,
+ * sonst ins Inventar, sonst vor die Fuesse. Schleichen + Rechtsklick mit einem Item in der Hand legt
+ * es hinein ({@link #deposit}), nach den Regeln des Buendels (Kapazitaet der Stufe, Verzauberungen,
+ * Drawer, was ueberhaupt in ein Buendel darf).
  */
 public final class PlacedBundles {
-    /** So viele Ticks bleibt ein Item oben, bevor das naechste kommt. */
-    public static final int CYCLE_TICKS = 20;
-    /** So weit (Bloecke) sucht ein abgestelltes Buendel nach schleichenden Betrachtern. */
-    public static final double VIEW_RANGE = 8.0;
+    /** Zusaetzliche Reichweite (Bloecke) fuer das Mausrad-Paket, wie Vanillas Toleranz beim Benutzen. */
+    public static final double SCROLL_RANGE_SLACK = 1.0;
 
     /**
      * Die Farben der farbigen Vanilla-Buendel (Vanillas {@code DyeColor#getTextureDiffuseColor}, hier
@@ -177,37 +178,79 @@ public final class PlacedBundles {
     // Anschauen und Herausnehmen
     // =====================================================================================
 
-    /** Schleicht der Spieler und zeigt sein Fadenkreuz auf das Buendel an {@code pos}? */
-    public static boolean isViewing(Player player, BlockPos pos) {
-        if (!player.isShiftKeyDown() || player.isSpectator()) {
+    /**
+     * Schleichen + Mausrad auf ein abgestelltes Buendel (aus {@code PlacedBundleScrollPayload}): das
+     * gezeigte Item rueckt um einen Schritt weiter ({@code step} &gt; 0, Rad nach unten wie in der
+     * Hotbar) oder zurueck. Nur fuer einen schleichenden Spieler in Reichweite und nur bei mindestens
+     * zwei Items. Liefert true, wenn weitergeschaltet wurde.
+     */
+    public static boolean scroll(Player player, BlockPos pos, int step) {
+        Level level = player.level();
+        if (step == 0 || !player.isAlive() || player.isSpectator() || !player.isShiftKeyDown()
+                || !level.isLoaded(pos) || !player.isWithinBlockInteractionRange(pos, SCROLL_RANGE_SLACK)
+                || !(level.getBlockEntity(pos) instanceof PlacedBundleBlockEntity be) || be.contents().size() < 2) {
             return false;
         }
-        HitResult hit = player.pick(player.blockInteractionRange(), 1.0F, false);
-        return hit instanceof BlockHitResult block && hit.getType() == HitResult.Type.BLOCK && block.getBlockPos().equals(pos);
-    }
-
-    /** Ein schleichender Betrachter in Reichweite, oder null. */
-    public static @Nullable Player viewer(Level level, BlockPos pos) {
-        for (Player player : level.players()) {
-            if (player.distanceToSqr(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) <= VIEW_RANGE * VIEW_RANGE
-                    && isViewing(player, pos)) {
-                return player;
-            }
-        }
-        return null;
+        be.cycle(Integer.signum(step));
+        level.playSound(null, pos, SoundEvents.BUNDLE_INSERT, SoundSource.BLOCKS, 0.4F, 1.4F + level.getRandom().nextFloat() * 0.2F);
+        return true;
     }
 
     /**
-     * Alle {@link #CYCLE_TICKS} Ticks (aus dem Server-Tick der Block-Entity): schaut jemand schleichend
-     * hin und liegen mindestens zwei Items im Buendel, kommt das naechste nach oben. Liefert true, wenn
-     * weitergeschaltet wurde.
+     * Schleichen + Rechtsklick mit {@code held} (Haupthand) auf das abgestellte Buendel: so viel wie
+     * hineinpasst kommt hinein und wird oben gezeigt. Die Buendel der Mod rechnen wie beim Einsammeln
+     * ({@link ReinforcedBundleItem#tryInsertStackFromWorld}: Stufe, Deep Pockets, Drawer), Vanillas
+     * Buendel wie Vanilla ({@code BundleContents.Mutable#tryInsert}). Liefert die Zahl der
+     * hineingelegten Items; {@code held} schrumpft um genau so viele.
      */
-    public static boolean tickCycle(Level level, BlockPos pos, PlacedBundleBlockEntity be) {
-        if (be.contents().size() < 2 || viewer(level, pos) == null) {
-            return false;
+    public static int deposit(Level level, BlockPos pos, PlacedBundleBlockEntity be, Player player, ItemStack held) {
+        if (held.isEmpty() || be.getBundle().isEmpty()) {
+            return 0;
         }
-        be.cycle();
-        return true;
+        ItemStack bundle = be.getBundle().copy();
+        int before = held.getCount();
+        boolean modBundle = bundle.getItem() instanceof ReinforcedBundleItem;
+        if (bundle.getItem() instanceof ReinforcedBundleItem reinforced) {
+            // Spielt selbst Vanillas Einlege-Ton am Spieler.
+            reinforced.tryInsertStackFromWorld(bundle, held, player);
+        } else {
+            BundleContents contents = bundle.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY);
+            BundleContents.Mutable mutable = McVersion.bundleMutable(contents);
+            if (mutable.tryInsert(held) > 0) {
+                bundle.set(DataComponents.BUNDLE_CONTENTS, mutable.toImmutable());
+            }
+        }
+        int inserted = before - held.getCount();
+        if (inserted > 0) {
+            be.setBundle(bundle);
+            be.setShownIndex(0);
+            if (!modBundle) {
+                level.playSound(null, pos, SoundEvents.BUNDLE_INSERT, SoundSource.BLOCKS, 0.8F, 0.8F + level.getRandom().nextFloat() * 0.4F);
+            }
+        } else {
+            level.playSound(null, pos, SoundEvents.BUNDLE_INSERT_FAIL, SoundSource.BLOCKS, 0.8F, 1.0F);
+        }
+        return inserted;
+    }
+
+    /**
+     * Der Haken fuer Schleichen + Rechtsklick mit einem Item (aus {@code ItemStack#useOn}, weil
+     * Vanilla den Block beim Schleichen mit Item in der Hand gar nicht fragt). Null, wenn das Ziel kein
+     * abgestelltes Buendel ist oder nicht geschlichen wird - dann laeuft das Item normal weiter.
+     */
+    public static @Nullable InteractionResult tryDeposit(UseOnContext context) {
+        Player player = context.getPlayer();
+        ItemStack held = context.getItemInHand();
+        Level level = context.getLevel();
+        BlockPos pos = context.getClickedPos();
+        if (player == null || held.isEmpty() || context.getHand() != InteractionHand.MAIN_HAND
+                || !player.isSecondaryUseActive() || !(level.getBlockEntity(pos) instanceof PlacedBundleBlockEntity be)) {
+            return null;
+        }
+        if (!level.isClientSide()) {
+            deposit(level, pos, be, player, held);
+        }
+        return InteractionResult.SUCCESS;
     }
 
     /**

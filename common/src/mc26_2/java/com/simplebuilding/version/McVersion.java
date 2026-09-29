@@ -102,6 +102,11 @@ public final class McVersion {
         return new BundleContents.Mutable(BundleContents.EMPTY);
     }
 
+    /** A mutable copy of existing bundle contents (26.3: {@code BundleContents#asMutable}). */
+    public static BundleContents.Mutable bundleMutable(BundleContents contents) {
+        return new BundleContents.Mutable(contents);
+    }
+
     /** The trades a trade set draws from (26.3 turned TradeSet into a record). */
     public static HolderSet<VillagerTrade> tradeSetTrades(TradeSet tradeSet) {
         return tradeSet.getTrades();

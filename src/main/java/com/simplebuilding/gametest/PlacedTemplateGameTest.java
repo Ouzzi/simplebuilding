@@ -54,4 +54,9 @@ public final class PlacedTemplateGameTest {
     public void placedAttractorsPullLooseItemsTowardThemselves(GameTestHelper helper) {
         PlacedTemplateTests.placedAttractorsPullLooseItemsTowardThemselves(helper);
     }
+
+    @GameTest
+    public void lockedOctantsArePlacedAndRightClickTogglesTheOutlinePerPlayer(GameTestHelper helper) {
+        PlacedTemplateTests.lockedOctantsArePlacedAndRightClickTogglesTheOutlinePerPlayer(helper);
+    }
 }

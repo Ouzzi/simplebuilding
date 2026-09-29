@@ -22,6 +22,19 @@ public class MouseMixin {
         Minecraft client = Minecraft.getInstance();
 
         if (client.player != null && client.gui.screen() == null) {
+            // Abgestelltes Buendel: Schleichen + Mausrad waehlt das gezeigte Item (der Server besitzt
+            // den Index); die Hotbar bleibt dabei stehen.
+            if (vertical != 0 && client.player.isShiftKeyDown() && !client.player.isSpectator()
+                    && client.hitResult instanceof net.minecraft.world.phys.BlockHitResult blockHit
+                    && client.hitResult.getType() == net.minecraft.world.phys.HitResult.Type.BLOCK
+                    && client.level != null
+                    && client.level.getBlockState(blockHit.getBlockPos()).getBlock() instanceof com.simplebuilding.blocks.custom.PlacedBundleBlock) {
+                // Rad nach unten = naechstes Item, wie in der Hotbar.
+                ClientNetworking.send(new com.simplebuilding.networking.PlacedBundleScrollPayload(
+                        blockHit.getBlockPos(), vertical < 0 ? 1 : -1));
+                ci.cancel();
+                return;
+            }
             // Blaupausen-Baumodus: Strg+Mausrad dreht das Bauwerk in Viertelschritten.
             if (vertical != 0
                     && client.player.getMainHandItem().getItem() instanceof com.simplebuilding.items.custom.BuildingWandItem

@@ -15,9 +15,14 @@ public final class PlacedBundleGameTest {
         PlacedBundleTests.sneakUsePlacesBundlesOnlyOnTopFaces(helper);
     }
 
-    @GameTest(maxTicks = PlacedBundleTests.CYCLE_MAX_TICKS)
-    public void sneakingViewersCycleTheTopItemAndRightClickTakesIt(GameTestHelper helper) {
-        PlacedBundleTests.sneakingViewersCycleTheTopItemAndRightClickTakesIt(helper);
+    @GameTest(maxTicks = PlacedBundleTests.SCROLL_MAX_TICKS)
+    public void sneakScrollPacketsCycleTheTopItemAndRightClickTakesIt(GameTestHelper helper) {
+        PlacedBundleTests.sneakScrollPacketsCycleTheTopItemAndRightClickTakesIt(helper);
+    }
+
+    @GameTest
+    public void sneakRightClickWithAnItemDepositsIntoThePlacedBundle(GameTestHelper helper) {
+        PlacedBundleTests.sneakRightClickWithAnItemDepositsIntoThePlacedBundle(helper);
     }
 
     @GameTest

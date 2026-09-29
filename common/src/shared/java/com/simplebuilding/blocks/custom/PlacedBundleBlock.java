@@ -3,7 +3,6 @@ package com.simplebuilding.blocks.custom;
 import com.simplebuilding.version.BlockCodecs;
 
 import com.mojang.serialization.MapCodec;
-import com.simplebuilding.blocks.entity.ModBlockEntities;
 import com.simplebuilding.blocks.entity.custom.PlacedBundleBlockEntity;
 import com.simplebuilding.util.DyedStorage;
 import com.simplebuilding.util.PlacedBundles;
@@ -28,8 +27,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -52,8 +49,9 @@ import org.jetbrains.annotations.Nullable;
  * gefaerbten Buendeln, das Zwei-Ebenen-Modell ({@link #DYED}), dessen Leder-Ebene die Farbe der
  * Block-Entity annimmt.
  *
- * <p>Wer schleichend darauf schaut, sieht das oberste Item ueber dem Buendel schweben, und es
- * wechselt reihum durch den Inhalt; ein Rechtsklick nimmt genau dieses Item heraus. Abbauen,
+ * <p>Wer schleichend darauf schaut, sieht das oberste Item ueber dem Buendel schweben (zur eigenen
+ * Kamera gedreht); Schleichen + Mausrad waehlt es, ein Rechtsklick nimmt genau dieses Item heraus,
+ * Schleichen + Rechtsklick mit einem Item legt es hinein ({@link PlacedBundles}). Abbauen,
  * Explosionen, Kolben und ein weggenommener Boden geben das Buendel mit seinem ganzen Inhalt
  * zurueck ({@link #getDrops}); im Kreativmodus faellt ein nicht leeres Buendel trotzdem heraus.
  *
@@ -150,15 +148,6 @@ public class PlacedBundleBlock extends BaseEntityBlock {
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new PlacedBundleBlockEntity(pos, state);
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public <T extends BlockEntity> @Nullable BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        if (level.isClientSide() || type != ModBlockEntities.PLACED_BUNDLE_BE) {
-            return null;
-        }
-        return (BlockEntityTicker<T>) (BlockEntityTicker<PlacedBundleBlockEntity>) PlacedBundleBlockEntity::serverTick;
     }
 
     /** Rechtsklick (mit leerer Hand, oder ohne Schleichen mit beliebiger): das gezeigte Item herausnehmen. */

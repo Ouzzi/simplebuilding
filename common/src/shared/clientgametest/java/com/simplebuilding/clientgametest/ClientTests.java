@@ -86,6 +86,7 @@ public final class ClientTests {
                 new Entry("mod-screens", ModScreensClientTest::inWorld),
                 new Entry("backpack", BackpackClientTest::inWorld),
                 new Entry("blueprint-editor", BlueprintEditorClientTest::inWorld),
+                new Entry("placed-bundle", PlacedBundleClientTest::inWorld),
                 // Reads only the baked block models, so it needs no scene and leaves none behind.
                 new Entry("piston-textures", PistonTextureClientTest::inWorld),
                 // Reads the stitched items atlas, then shows trimmed armour in the inventory and

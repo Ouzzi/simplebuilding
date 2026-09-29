@@ -1457,6 +1457,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("placed_template_game_test_placed_attractors_pull_loose_items_toward_themselves", PlacedTemplateTests::placedAttractorsPullLooseItemsTowardThemselves)
                     .maxTicks(PlacedTemplateTests.ATTRACTOR_MAX_TICKS)
                     .build(),
+            GameTestSpec.named("placed_template_game_test_locked_octants_are_placed_and_right_click_toggles_the_outline_per_player", PlacedTemplateTests::lockedOctantsArePlacedAndRightClickTogglesTheOutlinePerPlayer)
+                    .build(),
             GameTestSpec.named("pulsating_trim_game_test_the_pulsating_template_is_crafted_from_an_echo_shard_and_any_sledgehammer_that_stays", PulsatingTrimTests::thePulsatingTemplateIsCraftedFromAnEchoShardAndAnySledgehammerThatStays)
                     .build(),
             GameTestSpec.named("pulsating_trim_game_test_the_pulsating_upgrade_makes_the_trim_pulse_once_and_combines_with_glowing", PulsatingTrimTests::thePulsatingUpgradeMakesTheTrimPulseOnceAndCombinesWithGlowing)
@@ -1465,8 +1467,10 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("placed_bundle_game_test_sneak_use_places_bundles_only_on_top_faces", PlacedBundleTests::sneakUsePlacesBundlesOnlyOnTopFaces)
                     .build(),
-            GameTestSpec.named("placed_bundle_game_test_sneaking_viewers_cycle_the_top_item_and_right_click_takes_it", PlacedBundleTests::sneakingViewersCycleTheTopItemAndRightClickTakesIt)
-                    .maxTicks(PlacedBundleTests.CYCLE_MAX_TICKS)
+            GameTestSpec.named("placed_bundle_game_test_sneak_scroll_packets_cycle_the_top_item_and_right_click_takes_it", PlacedBundleTests::sneakScrollPacketsCycleTheTopItemAndRightClickTakesIt)
+                    .maxTicks(PlacedBundleTests.SCROLL_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("placed_bundle_game_test_sneak_right_click_with_an_item_deposits_into_the_placed_bundle", PlacedBundleTests::sneakRightClickWithAnItemDepositsIntoThePlacedBundle)
                     .build(),
             GameTestSpec.named("placed_bundle_game_test_placed_bundles_drop_themselves_with_their_contents", PlacedBundleTests::placedBundlesDropThemselvesWithTheirContents)
                     .build(),

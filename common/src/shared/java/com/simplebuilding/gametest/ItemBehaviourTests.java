@@ -400,14 +400,23 @@ public final class ItemBehaviourTests {
         helper.assertTrue(cornerEquals(customData(octant), "Pos1", first),
                 "a locked octant let the first corner be moved");
 
+        // Sneaking, a locked octant is put down as a marker (Besitzer 2026-09-29, PlacedTemplates):
+        // the placed copy keeps both corners, none of them moves, and it costs no durability.
         player.setShiftKeyDown(true);
+        ItemStack held = octant.copy();
         useOn(helper, player, octant, lockedRelative, Direction.UP, new Vec3(0.5, 1.0, 0.5));
-        helper.assertTrue(cornerEquals(customData(octant), "Pos2", second),
-                "a locked octant let the second corner be moved by a sneak click");
-        helper.assertTrue(cornerEquals(customData(octant), "Pos1", first),
-                "a locked octant moved the first corner on a sneak click");
-        helper.assertValueEqual(octant.getDamageValue(), damageAfterTwoClicks,
+        ItemStack placed = com.simplebuilding.util.PlacedTemplates.templateAt(helper.getLevel(), helper.absolutePos(lockedRelative.above()));
+        helper.assertTrue(placed.getItem() instanceof com.simplebuilding.items.custom.OctantItem,
+                "a locked octant was not put down by the sneak click, above the stone lies " + placed);
+        helper.assertTrue(octant.isEmpty(), "the survival player kept the octant he put down: " + octant);
+        helper.assertTrue(cornerEquals(customData(placed), "Pos2", second),
+                "putting the locked octant down moved the second corner");
+        helper.assertTrue(cornerEquals(customData(placed), "Pos1", first),
+                "putting the locked octant down moved the first corner");
+        helper.assertValueEqual(placed.getDamageValue(), damageAfterTwoClicks,
                 "durability the octant spent on two clicks it refused because it is locked");
+        octant = held;
+        player.setItemInHand(InteractionHand.MAIN_HAND, octant);
 
         // --- and the lock survives the sneak-use that otherwise wipes the selection ---
         InteractionResult lockedAir = octant.getItem().use(helper.getLevel(), player, InteractionHand.MAIN_HAND);

@@ -5,9 +5,11 @@ import com.simplebuilding.blocks.custom.PlacedTemplateBlock;
 import com.simplebuilding.blocks.entity.custom.PlacedTemplateBlockEntity;
 import com.simplebuilding.items.ModItems;
 import com.simplebuilding.items.custom.BlueprintItem;
+import com.simplebuilding.items.custom.OctantItem;
 import com.simplebuilding.items.custom.SledgehammerItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -20,6 +22,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SmithingTemplateItem;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
@@ -35,7 +38,8 @@ import org.jetbrains.annotations.Nullable;
  * Abgelegte Schmiedevorlagen (Besitzer 2026-09-28): Schleichen + Rechtsklick mit einer Vorlage legt
  * sie flach auf den Boden, an die Wand oder unter die Decke ({@link PlacedTemplateBlock}); ohne
  * Schleichen bleibt alles beim Alten. Blaupausen legen sich genauso ab, als {@code placed_blueprint}
- * mit derselben Block-Entity und demselben Renderer.
+ * mit derselben Block-Entity und demselben Renderer; gesperrte Oktanten als Merkstein, dessen Auswahl
+ * jeder Spieler per Rechtsklick fuer sich ein- und ausblendet ({@link #toggleOctantOutline}).
  *
  * <p>Die Besatz-Aufwertung ({@link SledgehammerEntityInteraction}) geht auch an der abgelegten Vorlage:
  * Vorschlaghammer in der Haupthand, Leuchttinte oder Glowstonestaub in der Nebenhand, dann
@@ -80,9 +84,21 @@ public final class PlacedTemplates {
         return !stack.isEmpty() && stack.getItem() instanceof BlueprintItem;
     }
 
+    /**
+     * Oktanten legen sich ab, wenn sie gesperrt sind (Besitzer 2026-09-29, "platzierter Oktant"):
+     * ungesperrt setzt Schleichen + Rechtsklick die zweite Ecke, gesperrt ist die Auswahl fertig und der
+     * Oktant wird zum Merkstein - mit Ecken, Form und Farbe. Abgelegt wie eine Vorlage
+     * ({@code placed_smithing_template}); Rechtsklick darauf schaltet fuer diesen Spieler die Auswahl
+     * ein und aus ({@link #toggleOctantOutline}).
+     */
+    public static boolean isPlaceableOctant(ItemStack stack) {
+        return !stack.isEmpty() && stack.getItem() instanceof OctantItem
+                && stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getBooleanOr("Locked", false);
+    }
+
     /** Der Block, als der dieser Stapel abgelegt wird, oder null, wenn er sich nicht ablegen laesst. */
     public static @Nullable Block placedBlockFor(ItemStack stack) {
-        if (isPlaceableTemplate(stack)) {
+        if (isPlaceableTemplate(stack) || isPlaceableOctant(stack)) {
             return ModBlocks.PLACED_SMITHING_TEMPLATE;
         }
         return isPlaceableBlueprint(stack) ? ModBlocks.PLACED_BLUEPRINT : null;
@@ -122,6 +138,28 @@ public final class PlacedTemplates {
             stack.consume(1, player);
         }
         return InteractionResult.SUCCESS;
+    }
+
+    // =====================================================================================
+    // Abgelegter Oktant: Auswahl je Spieler ein- und ausblenden
+    // =====================================================================================
+
+    /** Liegt an {@code pos} ein abgelegter Oktant? */
+    public static boolean isPlacedOctant(BlockGetter level, BlockPos pos) {
+        return templateAt(level, pos).getItem() instanceof OctantItem;
+    }
+
+    /**
+     * Rechtsklick auf einen abgelegten Oktanten: blendet dessen Auswahl fuer genau diesen Spieler ein
+     * oder wieder aus. Wer sie eingeblendet hat, sieht den Oktanten ausserdem durch Waende leuchten, um
+     * ihn wiederzufinden. Gespeichert und zum Client geschickt wird die Liste der Spieler in der
+     * Block-Entity ({@link PlacedTemplateBlockEntity#outlineViewers()}). Liefert den neuen Zustand fuer
+     * den Spieler (true = eingeblendet).
+     */
+    public static boolean toggleOctantOutline(Level level, BlockPos pos, PlacedTemplateBlockEntity be, Player player) {
+        boolean shown = be.toggleOutlineViewer(player.getUUID());
+        level.playSound(null, pos, SoundEvents.SPYGLASS_USE, SoundSource.BLOCKS, 0.6F, shown ? 1.4F : 0.9F);
+        return shown;
     }
 
     // =====================================================================================

@@ -25,10 +25,13 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Das gezeigte ("oberste") Item eines abgestellten Buendels ({@link PlacedBundleBlockEntity}): es
- * schwebt langsam drehend ueber dem Buendel, solange der eigene Spieler schleicht und sein Fadenkreuz
- * auf dem Buendel liegt - ohne Tooltip-Text. Welches Item oben liegt, entscheidet der Server
- * ({@link PlacedBundles#tickCycle}); hier wird nur gezeichnet. Das Buendel selbst ist ein
- * gewoehnliches Blockmodell. Loader-neutral; registriert wird der Renderer je Loader.
+ * schwebt ueber dem Buendel, solange der eigene Spieler schleicht und sein Fadenkreuz auf dem Buendel
+ * liegt - ohne Tooltip-Text. Es dreht sich nicht, sondern schaut immer zur Kamera dieses Clients
+ * (Besitzer 2026-09-29): Gier und Neigung kommen je Bild aus der Kameraposition
+ * ({@link #facingYaw}, {@link #facingPitch}), jeder Client rechnet mit seiner eigenen - im
+ * Mehrspieler sieht also jeder die Vorderseite. Welches Item oben liegt, entscheidet der Server
+ * ({@link PlacedBundles#scroll}); hier wird nur gezeichnet. Das Buendel selbst ist ein gewoehnliches
+ * Blockmodell. Loader-neutral; registriert wird der Renderer je Loader.
  */
 public class PlacedBundleRenderer implements BlockEntityRenderer<PlacedBundleBlockEntity, PlacedBundleRenderer.State> {
     /** Hoehe der Itemmitte ueber der Blockunterkante (das Buendel ist 11 Pixel hoch). */
@@ -42,10 +45,13 @@ public class PlacedBundleRenderer implements BlockEntityRenderer<PlacedBundleBlo
         this.itemModelResolver = context.itemModelResolver();
     }
 
-    /** Was der Renderer je Bild braucht: ob gezeigt wird, das Item und der Drehwinkel. */
+    /** Was der Renderer je Bild braucht: ob gezeigt wird, das Item und die Blickrichtung zur Kamera. */
     public static class State extends BlockEntityRenderState {
         public boolean visible;
-        public float spin;
+        /** Drehung um die Hochachse (Grad), damit die Vorderseite (+Z) zur Kamera zeigt. */
+        public float yaw;
+        /** Neigung (Grad, positiv = Kamera hoeher als das Item). */
+        public float pitch;
         public float bob;
         public final ItemStackRenderState item = new ItemStackRenderState();
     }
@@ -70,10 +76,29 @@ public class PlacedBundleRenderer implements BlockEntityRenderer<PlacedBundleBlo
         }
         state.visible = true;
         float time = (blockEntity.getLevel() == null ? 0L : blockEntity.getLevel().getGameTime()) + partialTicks;
-        state.spin = time * 3.0F % 360.0F;
         state.bob = (float) Math.sin(time / 10.0F) * 0.04F;
+        Vec3 item = itemCentre(blockEntity);
+        state.yaw = facingYaw(item, cameraPosition);
+        state.pitch = facingPitch(item, cameraPosition);
         this.itemModelResolver.updateForTopItem(state.item, shown, ItemDisplayContext.GROUND,
                 blockEntity.getLevel(), null, (int) blockEntity.getBlockPos().asLong());
+    }
+
+    /** Mitte des schwebenden Items in Weltkoordinaten (ohne das leichte Wippen). */
+    public static Vec3 itemCentre(PlacedBundleBlockEntity blockEntity) {
+        return Vec3.atBottomCenterOf(blockEntity.getBlockPos()).add(0.0, HOVER_Y, 0.0);
+    }
+
+    /** Gier (Grad), mit der die Vorderseite (+Z) eines Items bei {@code item} zur Kamera zeigt. */
+    public static float facingYaw(Vec3 item, Vec3 camera) {
+        return (float) Math.toDegrees(Math.atan2(camera.x - item.x, camera.z - item.z));
+    }
+
+    /** Neigung (Grad) zur Kamera: positiv, wenn sie hoeher steht als das Item. */
+    public static float facingPitch(Vec3 item, Vec3 camera) {
+        double dx = camera.x - item.x;
+        double dz = camera.z - item.z;
+        return (float) Math.toDegrees(Math.atan2(camera.y - item.y, Math.sqrt(dx * dx + dz * dz)));
     }
 
     /** Schleicht der eigene Spieler und zeigt sein Fadenkreuz auf dieses Buendel? */
@@ -92,7 +117,9 @@ public class PlacedBundleRenderer implements BlockEntityRenderer<PlacedBundleBlo
         }
         poseStack.pushPose();
         poseStack.translate(0.5F, HOVER_Y + state.bob, 0.5F);
-        McClientVersion.rotate(poseStack, Axis.YP.rotationDegrees(state.spin));
+        // Erst zur Kamera gieren, dann zu ihr hin neigen: +Z zeigt danach genau auf die Kamera.
+        McClientVersion.rotate(poseStack, Axis.YP.rotationDegrees(state.yaw));
+        McClientVersion.rotate(poseStack, Axis.XP.rotationDegrees(-state.pitch));
         poseStack.scale(ITEM_SCALE, ITEM_SCALE, ITEM_SCALE);
         state.item.submit(poseStack, collector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
         poseStack.popPose();

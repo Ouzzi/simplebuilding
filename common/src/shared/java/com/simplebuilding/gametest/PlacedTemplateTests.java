@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ServerboundPlayerActionPacket;
 import net.minecraft.server.level.ServerLevel;
@@ -23,6 +24,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -566,6 +568,113 @@ public final class PlacedTemplateTests {
                     "the item out of range moved toward the attractor");
             succeed(helper);
         });
+    }
+
+    // =====================================================================================
+    // Abgelegter Oktant
+    // =====================================================================================
+
+    /**
+     * Abgelegter Oktant (Besitzer 2026-09-29): ungesperrt setzt Schleichen + Rechtsklick weiter die
+     * zweite Ecke und legt nichts ab; gesperrt legt derselbe Klick den Oktanten samt Ecken, Form und
+     * Sperre als Platte ab. Rechtsklick auf die Platte (echter Weg {@code useItemOn}, leere Hand und mit
+     * einem Item ohne Schleichen) blendet die Auswahl fuer genau diesen Spieler ein und wieder aus - ein
+     * zweiter Spieler hat seinen eigenen Schalter. Wer eingeblendet hat, steht im Update-Paket der
+     * Block-Entity (dort liest der Client, ob er Auswahl und Leuchten zeichnet) und uebersteht Speichern
+     * und Laden. Eine abgelegte Schmiedevorlage reagiert nicht auf Rechtsklick.
+     */
+    public static void lockedOctantsArePlacedAndRightClickTogglesTheOutlinePerPlayer(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer alice = mockPlayer(helper, new Vec3(3.5, 2.0, 5.5));
+        ServerPlayer bob = mockPlayer(helper, new Vec3(4.5, 2.0, 5.5));
+        helper.setBlock(new BlockPos(2, 1, 2), Blocks.STONE);
+        helper.setBlock(new BlockPos(5, 1, 2), Blocks.STONE);
+        BlockPos first = helper.absolutePos(new BlockPos(0, 1, 0));
+        BlockPos second = helper.absolutePos(new BlockPos(3, 3, 3));
+
+        // Ungesperrt: Schleichen + Rechtsklick ist die zweite Ecke, nichts wird abgelegt.
+        ItemStack unlocked = octant(first, second, false);
+        alice.setShiftKeyDown(true);
+        use(helper, alice, unlocked, new BlockPos(2, 1, 2), Direction.UP);
+        helper.assertTrue(helper.getBlockState(new BlockPos(2, 2, 2)).isAir(), "an unlocked octant was put down by a sneak click");
+        helper.assertTrue(unlocked.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getIntArray("Pos2")
+                        .map(a -> a.length == 3 && a[0] == helper.absolutePos(new BlockPos(2, 1, 2)).getX()).orElse(false),
+                "the unlocked sneak click did not set the second corner");
+
+        // Gesperrt: abgelegt, mit allen Daten.
+        ItemStack locked = octant(first, second, true);
+        InteractionResult placed = use(helper, alice, locked.copy(), new BlockPos(2, 1, 2), Direction.UP);
+        BlockPos rel = new BlockPos(2, 2, 2);
+        BlockPos pos = helper.absolutePos(rel);
+        helper.assertTrue(placed.consumesAction() && helper.getBlockState(rel).is(ModBlocks.PLACED_SMITHING_TEMPLATE),
+                "the locked octant was not put down: " + placed + ", " + helper.getBlockState(rel));
+        PlacedTemplateBlockEntity be = helper.getBlockEntity(rel, PlacedTemplateBlockEntity.class);
+        helper.assertTrue(ItemStack.isSameItemSameComponents(be.getTemplate(), locked),
+                "the placed octant holds " + be.getTemplate() + " instead of the locked octant with its corners");
+        helper.assertTrue(PlacedTemplates.isPlacedOctant(level, pos), "the placed octant is not recognised as one");
+        helper.assertTrue(be.outlineViewers().isEmpty(), "a freshly placed octant already shows its outline to " + be.outlineViewers());
+
+        // Alice schaltet ein (leere Hand), Bob sieht nichts.
+        alice.setShiftKeyDown(false);
+        alice.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        InteractionResult on = alice.gameMode.useItemOn(alice, level, ItemStack.EMPTY, InteractionHand.MAIN_HAND, plateHit(pos));
+        helper.assertTrue(on.consumesAction(), "right-clicking the placed octant returned " + on);
+        helper.assertTrue(be.showsOutlineTo(alice.getUUID()) && !be.showsOutlineTo(bob.getUUID()),
+                "after Alice's click the outline shows to " + be.outlineViewers());
+        // Bob schaltet mit einem Item in der Hand (ohne Schleichen) seinen eigenen Schalter ein.
+        ItemStack dirt = new ItemStack(Items.DIRT);
+        bob.setItemInHand(InteractionHand.MAIN_HAND, dirt);
+        bob.gameMode.useItemOn(bob, level, dirt, InteractionHand.MAIN_HAND, plateHit(pos));
+        helper.assertTrue(be.showsOutlineTo(alice.getUUID()) && be.showsOutlineTo(bob.getUUID()),
+                "after Bob's click the outline shows to " + be.outlineViewers());
+        helper.assertTrue(bob.getMainHandItem().is(Items.DIRT) && bob.getMainHandItem().getCount() == 1,
+                "Bob's click placed or used his dirt instead of toggling the outline");
+        // Im Update-Paket fuer die Clients - und nach Speichern und Laden noch da.
+        CompoundTag update = be.getUpdateTag(level.registryAccess());
+        helper.assertTrue(update.contains("OutlineViewers"), "the client update of the placed octant does not say who sees the outline: " + update);
+        PlacedTemplateBlockEntity reloaded = new PlacedTemplateBlockEntity(pos, be.getBlockState());
+        reloaded.loadCustomOnly(net.minecraft.world.level.storage.TagValueInput.create(
+                net.minecraft.util.ProblemReporter.DISCARDING, level.registryAccess(), be.saveCustomOnly(level.registryAccess())));
+        helper.assertTrue(reloaded.showsOutlineTo(alice.getUUID()) && reloaded.showsOutlineTo(bob.getUUID()),
+                "who sees the outline did not survive saving and loading: " + reloaded.outlineViewers());
+        // Alice schaltet wieder aus, Bob behaelt seinen.
+        alice.gameMode.useItemOn(alice, level, ItemStack.EMPTY, InteractionHand.MAIN_HAND, plateHit(pos));
+        helper.assertTrue(!be.showsOutlineTo(alice.getUUID()) && be.showsOutlineTo(bob.getUUID()),
+                "after Alice's second click the outline shows to " + be.outlineViewers());
+        bob.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        bob.gameMode.useItemOn(bob, level, ItemStack.EMPTY, InteractionHand.MAIN_HAND, plateHit(pos));
+        helper.assertTrue(be.outlineViewers().isEmpty(), "after both switched off the outline still shows to " + be.outlineViewers());
+        helper.assertTrue(!be.getUpdateTag(level.registryAccess()).contains("OutlineViewers"),
+                "an octant nobody watches still sends a viewer list");
+
+        // Eine abgelegte Schmiedevorlage kennt keinen Schalter.
+        alice.setShiftKeyDown(true);
+        use(helper, alice, new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), new BlockPos(5, 1, 2), Direction.UP);
+        alice.setShiftKeyDown(false);
+        BlockPos templatePos = helper.absolutePos(new BlockPos(5, 2, 2));
+        PlacedTemplateBlockEntity template = helper.getBlockEntity(new BlockPos(5, 2, 2), PlacedTemplateBlockEntity.class);
+        alice.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
+        InteractionResult ignored = alice.gameMode.useItemOn(alice, level, ItemStack.EMPTY, InteractionHand.MAIN_HAND, plateHit(templatePos));
+        helper.assertTrue(!ignored.consumesAction() && template.outlineViewers().isEmpty(),
+                "right-clicking a placed smithing template toggled something: " + ignored + ", " + template.outlineViewers());
+        helper.succeed();
+    }
+
+    /** Ein Oktant mit beiden Ecken, gesperrt oder nicht. */
+    private static ItemStack octant(BlockPos first, BlockPos second, boolean locked) {
+        ItemStack stack = new ItemStack(ModItems.OCTANT);
+        CompoundTag nbt = new CompoundTag();
+        nbt.putIntArray("Pos1", new int[]{first.getX(), first.getY(), first.getZ()});
+        nbt.putIntArray("Pos2", new int[]{second.getX(), second.getY(), second.getZ()});
+        nbt.putString("Shape", "SPHERE");
+        nbt.putBoolean("Locked", locked);
+        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
+        return stack;
+    }
+
+    /** Treffer auf die Mitte einer am Boden liegenden Platte. */
+    private static BlockHitResult plateHit(BlockPos abs) {
+        return new BlockHitResult(new Vec3(abs.getX() + 0.5, abs.getY() + 0.05, abs.getZ() + 0.5), Direction.UP, abs, false);
     }
 
     // =====================================================================================
