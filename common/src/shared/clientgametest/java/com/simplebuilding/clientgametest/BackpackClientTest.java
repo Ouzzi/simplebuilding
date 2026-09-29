@@ -51,9 +51,13 @@ import net.minecraft.world.item.ItemStack;
  *
  * <p><b>What is pinned, case by case:</b>
  * <ul>
- *   <li>Without a worn backpack the key opens exactly vanilla's {@code InventoryScreen} on the
- *       player's own inventory menu (46 slots, none of them a backpack slot) - even with a
- *       backpack in the main hand, because carrying is not wearing.</li>
+ *   <li>Without any backpack on the player the key opens exactly vanilla's {@code InventoryScreen}
+ *       on the player's own inventory menu (46 slots, none of them a backpack slot).</li>
+ *   <li>Since 2026-09-28 a backpack anywhere in the inventory opens too
+ *       ({@code BackpackItem#carriedBackpackSlot}): one in the main hand, one deep in the main
+ *       inventory, each in its own tier's {@code BackpackScreen} in carried (not placed) mode with
+ *       the menu locking exactly that inventory slot; with one worn and one carried, the worn one
+ *       wins (locked slot 38, the chest).</li>
  *   <li>With a worn backpack the inventory key E still opens exactly vanilla's
  *       {@code InventoryScreen}, and the worn backpack sits in its chest slot.</li>
  *   <li>For each of the four tiers, the key opens {@code BackpackScreen} on a
@@ -94,8 +98,8 @@ import net.minecraft.world.item.ItemStack;
  * <ul>
  *   <li>the backpack binding not registered or moved off B;</li>
  *   <li>{@code BackpackKeyHandler} losing either branch - no payload for a worn backpack (no
- *       backpack screen opens), or no vanilla inventory without one - or testing the main hand
- *       instead of the chest slot;</li>
+ *       backpack screen opens), or no vanilla inventory without one - or looking only at the
+ *       chest slot again, or preferring a carried backpack over the worn one;</li>
  *   <li>anything that makes the inventory key open the backpack instead of the vanilla
  *       inventory;</li>
  *   <li>a tier with a different row or column count ({@code BackpackTier}), a menu that adds its
@@ -187,7 +191,12 @@ public final class BackpackClientTest {
         TestScene.build(script, "minecraft:stone", "survival");
         closeWhatTheServerStillHolds(script);
 
-        keyWithoutAWornBackpackOpensTheVanillaInventory(script);
+        keyWithoutAnyBackpackOpensTheVanillaInventory(script);
+        keyOpensACarriedBackpack(script, "weapon.mainhand", "simplebuilding:enderite_backpack", 50,
+                -1, "in the main hand");
+        keyOpensACarriedBackpack(script, "container.20", "simplebuilding:reinforced_backpack", 18,
+                20, "deep in the main inventory");
+        theWornBackpackWinsOverACarriedOne(script);
         inventoryKeyStaysVanillaWithAWornBackpack(script);
 
         for (Tier tier : TIERS) {
@@ -220,37 +229,128 @@ public final class BackpackClientTest {
     }
 
     /**
-     * The key without a worn backpack: vanilla's inventory, nothing else - with a backpack in the
-     * main hand, so the case also says the key asks about the chest slot and not about the hand.
+     * The key without any backpack on the player: vanilla's inventory, nothing else - with an
+     * ordinary item in the main hand, so the case is not about an empty inventory either.
      *
      * <p><b>What breaks this case:</b> the vanilla branch of the key handler lost (nothing opens),
-     * or the handler testing any slot but the chest (it sends the payload, the server refuses, and
-     * nothing opens either).
+     * or the handler finding a backpack where there is none (it sends the payload, the server
+     * refuses, and nothing opens either).
      */
-    private static void keyWithoutAWornBackpackOpensTheVanillaInventory(Script script) {
+    private static void keyWithoutAnyBackpackOpensTheVanillaInventory(Script script) {
         script.command("clear @a", true);
-        script.command("item replace entity @a weapon.mainhand with simplebuilding:enderite_backpack");
+        script.command("item replace entity @a weapon.mainhand with minecraft:stone 16");
         script.awaitPackets();
-        script.idle("let the carried backpack arrive", 10);
+        script.idle("let the carried stone arrive", 10);
 
-        script.act("the backpack is carried in the main hand and nothing is worn", client -> {
+        script.act("the player carries stone and no backpack anywhere", client -> {
             ItemStack hand = client.player.getMainHandItem();
-            ItemStack chest = client.player.getItemBySlot(EquipmentSlot.CHEST);
+            int backpackSlot = BackpackItem.carriedBackpackSlot(client.player);
 
-            if (!(hand.getItem() instanceof BackpackItem) || !chest.isEmpty()) {
-                throw new AssertionError("Carried backpack setup failed: the main hand holds " + hand
-                        + " and the chest slot holds " + chest + ", but the case needs a backpack in the "
-                        + "hand and nothing worn.");
+            if (!hand.is(net.minecraft.world.item.Items.STONE) || backpackSlot != -1) {
+                throw new AssertionError("No-backpack setup failed: the main hand holds " + hand
+                        + " and carriedBackpackSlot says " + backpackSlot + ", but the case needs stone in "
+                        + "the hand and no backpack anywhere.");
             }
         });
 
-        pressBackpackKey(script, "without a worn backpack");
+        pressBackpackKey(script, "without any backpack");
         awaitScreen(script, InventoryScreen.class, "vanilla inventory via the backpack key");
         script.idle("let the vanilla inventory render " + RENDER_TICKS + " frames", RENDER_TICKS);
 
         assertStillOpen(script, InventoryScreen.class, "vanilla inventory via the backpack key");
-        assertVanillaInventoryMenu(script, "the backpack key without a worn backpack");
+        assertVanillaInventoryMenu(script, "the backpack key without any backpack");
         closeWithBackpackKey(script, "vanilla inventory");
+    }
+
+    /**
+     * A backpack that is carried, not worn, opens with the key (owner 2026-09-28): its own tier's
+     * screen, in carried mode, with the menu locking exactly the inventory slot the backpack lies in
+     * - so it cannot be moved into itself while open.
+     *
+     * @param slotArg      the {@code /item replace} slot the backpack is put in
+     * @param expectedSlot the inventory index the menu has to lock; -1 for "the selected hotbar slot"
+     *
+     * <p><b>What breaks this case:</b> the key handler asking only about the chest slot again (then
+     * the vanilla inventory opens), the server opening a different stack than the one the client
+     * found, or the menu locking the chest slot for a carried backpack.
+     */
+    private static void keyOpensACarriedBackpack(Script script, String slotArg, String itemId, int slots,
+                                                 int expectedSlot, String where) {
+        String label = itemId + " screen opened " + where;
+
+        script.command("clear @a", true);
+        script.command("item replace entity @a " + slotArg + " with " + itemId);
+        script.awaitPackets();
+        script.idle("let the backpack " + where + " arrive", 10);
+
+        script.act("the backpack lies " + where + " and nothing is worn", client -> {
+            int backpackSlot = BackpackItem.carriedBackpackSlot(client.player);
+            ItemStack chest = client.player.getItemBySlot(EquipmentSlot.CHEST);
+            int wanted = expectedSlot >= 0 ? expectedSlot : client.player.getInventory().getSelectedSlot();
+
+            if (!chest.isEmpty() || backpackSlot != wanted) {
+                throw new AssertionError("Carried backpack setup failed: the chest slot holds " + chest
+                        + " and carriedBackpackSlot says " + backpackSlot + ", but the case needs nothing worn "
+                        + "and the backpack in inventory slot " + wanted + ".");
+            }
+        });
+
+        pressBackpackKey(script, "with a backpack " + where);
+        awaitScreen(script, BackpackScreen.class, label);
+        script.idle("let the " + label + " render " + RENDER_TICKS + " frames", RENDER_TICKS);
+        assertStillOpen(script, BackpackScreen.class, label);
+
+        script.act("the " + label + " is a carried backpack of the right tier locking its own slot", client -> {
+            BackpackMenu menu = backpackMenu(client, label);
+            int wanted = expectedSlot >= 0 ? expectedSlot : client.player.getInventory().getSelectedSlot();
+
+            if (menu.openData().placed()) {
+                throw new AssertionError("The backpack key opened the " + label + " in placed mode.");
+            }
+            if (menu.slots.size() != VANILLA_SLOTS + slots) {
+                throw new AssertionError("The " + label + " has " + menu.slots.size() + " slots, expected "
+                        + VANILLA_SLOTS + " vanilla plus " + slots + " backpack slots of " + itemId + ".");
+            }
+            if (menu.lockedSlot() != wanted) {
+                throw new AssertionError("The " + label + " locks inventory slot " + menu.lockedSlot()
+                        + ", expected the backpack's own slot " + wanted + ".");
+            }
+        });
+
+        closeWithBackpackKey(script, label);
+    }
+
+    /**
+     * With one backpack worn and another in the hand, the key opens the worn one: the chest slot
+     * comes first in {@code carriedBackpackSlot}. Two different tiers, so the slot count says which
+     * one the server opened.
+     */
+    private static void theWornBackpackWinsOverACarriedOne(Script script) {
+        String label = "backpack screen with one worn and one carried";
+
+        script.command("clear @a", true);
+        script.command("item replace entity @a armor.chest with simplebuilding:backpack");
+        script.command("item replace entity @a weapon.mainhand with simplebuilding:enderite_backpack");
+        script.awaitPackets();
+        script.idle("let both backpacks arrive", 10);
+        assertWorn(script, "simplebuilding:backpack");
+
+        pressBackpackKey(script, "with one backpack worn and one carried");
+        awaitScreen(script, BackpackScreen.class, label);
+        script.idle("let the " + label + " render " + RENDER_TICKS + " frames", RENDER_TICKS);
+
+        script.act("the " + label + " is the worn one", client -> {
+            BackpackMenu menu = backpackMenu(client, label);
+
+            if (menu.slots.size() != VANILLA_SLOTS + 9 || menu.lockedSlot() != BackpackItem.CHEST_INVENTORY_SLOT) {
+                throw new AssertionError("With a worn simple backpack and a carried enderite backpack the key "
+                        + "opened a menu with " + menu.slots.size() + " slots locking slot " + menu.lockedSlot()
+                        + "; expected the worn one: " + (VANILLA_SLOTS + 9) + " slots, locking the chest slot "
+                        + BackpackItem.CHEST_INVENTORY_SLOT + ".");
+            }
+        });
+
+        closeWithBackpackKey(script, label);
     }
 
     /**
