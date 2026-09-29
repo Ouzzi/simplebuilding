@@ -1,0 +1,19 @@
+{
+  "model": {
+    "type": "minecraft:range_dispatch",
+    "entries": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "simplebuilding:item/amethyst_lens_empty"
+        },
+        "threshold": 1.0
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "simplebuilding:item/amethyst_lens"
+    },
+    "property": "minecraft:damage"
+  }
+}

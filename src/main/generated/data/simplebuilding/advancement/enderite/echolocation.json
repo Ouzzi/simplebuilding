@@ -14,7 +14,7 @@
     },
     "frame": "goal",
     "icon": {
-      "id": "simplebuilding:echo_compass"
+      "id": "simplebuilding:echo_sounder"
     },
     "title": {
       "translate": "advancements.simplebuilding.enderite.echolocation.title"

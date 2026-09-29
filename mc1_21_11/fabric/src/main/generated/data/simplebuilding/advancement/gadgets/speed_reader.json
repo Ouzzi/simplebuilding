@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "simplebuilding:velocity-gauge"
+            "items": "simplebuilding:velocity_gauge"
           }
         ]
       },
@@ -18,7 +18,7 @@
     },
     "icon": {
       "count": 1,
-      "id": "simplebuilding:velocity-gauge"
+      "id": "simplebuilding:velocity_gauge"
     },
     "title": {
       "translate": "advancements.simplebuilding.gadgets.speed_reader.title"

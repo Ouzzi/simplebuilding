@@ -39,7 +39,7 @@ public abstract class EnderiteItemMixin extends Entity {
 
         ItemStack stack = this.getItem();
 
-        // Geschuetzt wird ueber den Item-Tag simplebuilding:void_protected. Der frueher hier
+        // Geschuetzt wird ueber den Item-Tag simplebuilding:void_protected (enthaelt #enderite_items). Der frueher hier
         // stehende Check auf den Anzeigenamen ("Enderite" in getHoverName()) war sprachabhaengig:
         // in jeder nicht-englischen Lokalisierung griff der Schutz nicht, und ein im Amboss
         // umbenanntes Fremditem wurde faelschlich geschuetzt.
@@ -63,8 +63,8 @@ public abstract class EnderiteItemMixin extends Entity {
     }
 
     /**
-     * Enderit ab dem Barren enthaelt Netherit und ist teurer: liegengelassen verschwindet es erst
-     * nach der doppelten Vanilla-Zeit. Vanilla prueft die Lebensdauer als Literal 6000 an zwei
+     * Jeder Enderit-Gegenstand (Tag simplebuilding:double_despawn_time, enthaelt #enderite_items)
+     * verschwindet liegengelassen erst nach der doppelten Vanilla-Zeit. Vanilla prueft die Lebensdauer als Literal 6000 an zwei
      * Stellen - beim Entfernen in {@code tick} und in {@code isMergable} (sonst wuerde ein altes
      * Item zwischen 6000 und 12000 Ticks nicht mehr mit Nachbarn verschmelzen). NeoForge und Forge
      * ersetzen das Literal in {@code tick} durch ihr Feld {@code lifespan}; dort verlaengern die

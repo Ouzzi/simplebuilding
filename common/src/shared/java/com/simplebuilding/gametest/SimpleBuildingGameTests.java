@@ -138,6 +138,12 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("data_integrity_game_test_every_enderite_gear_piece_upgrades_from_its_netherite_twin", DataIntegrityTests::everyEnderiteGearPieceUpgradesFromItsNetheriteTwin)
                     .build(),
+            GameTestSpec.named("data_integrity_game_test_every_enderite_item_is_in_the_enderite_items_tag", DataIntegrityTests::everyEnderiteItemIsInTheEnderiteItemsTag)
+                    .build(),
+            GameTestSpec.named("data_integrity_game_test_legacy_spatulas_are_hidden_from_recipe_viewers", DataIntegrityTests::legacySpatulasAreHiddenFromRecipeViewers)
+                    .build(),
+            GameTestSpec.named("data_integrity_game_test_enderite_horse_and_nautilus_armor_rank_one_step_above_netherite", DataIntegrityTests::enderiteHorseAndNautilusArmorRankOneStepAboveNetherite)
+                    .build(),
             GameTestSpec.named("data_integrity_game_test_every_player_facing_text_has_english_and_german_translations", DataIntegrityTests::everyPlayerFacingTextHasEnglishAndGermanTranslations)
                     .build(),
             GameTestSpec.named("data_integrity_game_test_tool_names_carry_no_leftover_old_names", DataIntegrityTests::toolNamesCarryNoLeftoverOldNames)
@@ -199,6 +205,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("trade_and_migration_game_test_legacy_spatula_above_the_build_limit_is_rewritten_too", TradeAndMigrationTests::legacySpatulaAboveTheBuildLimitIsRewrittenToo)
                     .maxTicks(TradeAndMigrationTests.LEGACY_ITEM_ENTITY_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("trade_and_migration_game_test_renamed_item_ids_still_load_as_the_renamed_items", TradeAndMigrationTests::renamedItemIdsStillLoadAsTheRenamedItems)
                     .build(),
             GameTestSpec.named("network_handler_game_test_double_jump_needs_enchanted_boots_and_wears_them", NetworkHandlerTests::doubleJumpNeedsEnchantedBootsAndWearsThem)
                     .build(),
@@ -537,7 +545,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("quiver_game_test_bow_shoots_from_the_quiver_and_bills_it_outside_creative_only", QuiverTests::bowShootsFromTheQuiverAndBillsItOutsideCreativeOnly)
                     .build(),
-            GameTestSpec.named("quiver_game_test_netherite_quiver_burns_in_an_explosion_while_the_netherite_bundle_survives", QuiverTests::netheriteQuiverBurnsInAnExplosionWhileTheNetheriteBundleSurvives)
+            GameTestSpec.named("quiver_game_test_netherite_quiver_survives_an_explosion_like_the_netherite_bundle", QuiverTests::netheriteQuiverSurvivesAnExplosionLikeTheNetheriteBundle)
                     .build(),
             GameTestSpec.named("quiver_game_test_crossbow_loads_from_the_quiver_and_bills_one_arrow", QuiverTests::crossbowLoadsFromTheQuiverAndBillsOneArrow)
                     .build(),
@@ -1163,7 +1171,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("enderite_machine_game_test_enderite_gear_inherits_every_netherite_trait", EnderiteMachineTests::enderiteGearInheritsEveryNetheriteTrait)
                     .build(),
-            GameTestSpec.named("enderite_machine_game_test_enderite_ingot_tier_drops_last_twice_as_long_as_vanilla", EnderiteMachineTests::enderiteIngotTierDropsLastTwiceAsLongAsVanilla)
+            GameTestSpec.named("enderite_machine_game_test_every_enderite_item_drop_lasts_twice_as_long_as_vanilla", EnderiteMachineTests::everyEnderiteItemDropLastsTwiceAsLongAsVanilla)
                     .maxTicks(EnderiteMachineTests.LIFETIME_MAX_TICKS)
                     .build(),
             GameTestSpec.named("smelting_game_test_raw_enderite_blasts_for_an_hour_and_pays_ten_experience", SmeltingTests::rawEnderiteBlastsForAnHourAndPaysTenExperience)
@@ -1435,7 +1443,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("tweaks_game_test_the_echo_sounder_links_to_the_lodestone_and_teleports_without_any_pearl", TweaksTests::theEchoSounderLinksToTheLodestoneAndTeleportsWithoutAnyPearl)
                     .build(),
-            GameTestSpec.named("tweaks_game_test_the_echo_sounder_keeps_its_id_but_is_named_echo_sounder", TweaksTests::theEchoSounderKeepsItsIdButIsNamedEchoSounder)
+            GameTestSpec.named("tweaks_game_test_the_echo_sounder_is_registered_and_named_echo_sounder", TweaksTests::theEchoSounderIsRegisteredAndNamedEchoSounder)
                     .build(),
             GameTestSpec.named("tweaks_game_test_unbreaking_lowers_how_much_the_jump_empties_the_echo_compass", TweaksTests::unbreakingLowersHowMuchTheJumpEmptiesTheEchoCompass)
                     .build(),

@@ -185,14 +185,14 @@ public final class TweaksTests {
     }
 
     /**
-     * Echolot / Echo Sounder (Id echo_compass; Besitzer-Rezept 2026-09-27): Bergungskompass in der
+     * Echolot / Echo Sounder (Id echo_sounder; Besitzer-Rezept 2026-09-27): Bergungskompass in der
      * Mitte, Enderit-Kern unten mittig, sieben Enderit-Nuggets aussen herum - seit der zweiten Runde
      * auch oben mittig ("NNN" / "NRN" / "NEN").
      */
     public static void theEchoSounderIsCraftedFromTheRecoveryCompassTheEnderiteCoreAndSevenEnderiteNuggets(GameTestHelper helper) {
         Item n = ModItems.ENDERITE_NUGGET;
         CraftingInput grid = grid(n, n, n, n, Items.RECOVERY_COMPASS, n, n, ModItems.ENDERITE_CORE, n);
-        expectCrafting(helper, grid, TweaksItems.ECHO_COMPASS, "simplebuilding:echo_compass");
+        expectCrafting(helper, grid, TweaksItems.ECHO_COMPASS, "simplebuilding:echo_sounder");
         CraftingInput swapped = grid(n, n, n, n, ModItems.ENDERITE_CORE, n, n, Items.RECOVERY_COMPASS, n);
         helper.assertTrue(craftingResult(helper, swapped).isEmpty(), "core and compass swapped still craft an echo sounder");
         CraftingInput topEmpty = grid(n, null, n, n, Items.RECOVERY_COMPASS, n, n, ModItems.ENDERITE_CORE, n);
@@ -213,7 +213,7 @@ public final class TweaksTests {
         Item n = Items.COPPER_NUGGET;
         Item o = Items.COPPER_INGOT;
         CraftingInput grid = grid(q, Items.AMETHYST_SHARD, q, n, Items.COMPASS, n, n, ModItems.COPPER_CORE, n);
-        expectCrafting(helper, grid, ModItems.VELOCITY_GAUGE, "simplebuilding:velocity-gauge");
+        expectCrafting(helper, grid, ModItems.VELOCITY_GAUGE, "simplebuilding:velocity_gauge");
         CraftingInput ingots = grid(q, Items.AMETHYST_SHARD, q, o, Items.COMPASS, o, null, ModItems.COPPER_CORE, null);
         helper.assertTrue(craftingResult(helper, ingots).isEmpty(), "the previous copper ingot recipe still crafts a velocity gauge");
         CraftingInput oldRecipe = grid(null, Items.AMETHYST_SHARD, null, o, Items.COMPASS, o, q, q, q);
@@ -684,29 +684,29 @@ public final class TweaksTests {
     }
 
     // =====================================================================================
-    // Echolot / Echo Sounder (Registry-Id echo_compass)
+    // Echolot / Echo Sounder (Registry-Id echo_sounder)
     // =====================================================================================
 
     /**
-     * Umbenennung (Besitzer 2026-09-27): das Item heisst "Echo Sounder" / "Echolot", die Registry-Id
-     * bleibt {@code echo_compass} (alte Welten behalten ihre Items), und die Texte sprechen nicht mehr
+     * Umbenennung (Besitzer 2026-09-27): das Item heisst "Echo Sounder" / "Echolot", seit 2026-09-28 auch die
+     * Registry-Id {@code echo_sounder} (alte Welten: LegacyItemIds leitet echo_compass um), und die Texte sprechen nicht mehr
      * vom Kompass oder von einer Enderperle. Gelesen werden die Sprachdateien aus dem Mod-Jar.
      */
-    public static void theEchoSounderKeepsItsIdButIsNamedEchoSounder(GameTestHelper helper) {
+    public static void theEchoSounderIsRegisteredAndNamedEchoSounder(GameTestHelper helper) {
         helper.assertValueEqual(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(TweaksItems.ECHO_COMPASS).toString(),
-                "simplebuilding:echo_compass", "registry id of the echo sounder");
+                "simplebuilding:echo_sounder", "registry id of the echo sounder");
         JsonObject en = langFile(helper, "en_us");
         JsonObject de = langFile(helper, "de_de");
-        helper.assertValueEqual(en.get("item.simplebuilding.echo_compass").getAsString(), "Echo Sounder", "english item name");
-        helper.assertValueEqual(de.get("item.simplebuilding.echo_compass").getAsString(), "Echolot", "german item name");
+        helper.assertValueEqual(en.get("item.simplebuilding.echo_sounder").getAsString(), "Echo Sounder", "english item name");
+        helper.assertValueEqual(de.get("item.simplebuilding.echo_sounder").getAsString(), "Echolot", "german item name");
         for (JsonObject lang : List.of(en, de)) {
-            helper.assertFalse(lang.has("message.simplebuilding.echo_compass.no_pearl"), "the no pearl message is still translated");
-            for (String key : List.of("jei.simplebuilding.info.echo_compass",
+            helper.assertFalse(lang.has("message.simplebuilding.echo_sounder.no_pearl"), "the no pearl message is still translated");
+            for (String key : List.of("jei.simplebuilding.info.echo_sounder",
                     "simplebuilding.testcentre.tweaks.echo")) {
                 String text = lang.get(key).getAsString();
                 helper.assertFalse(text.contains("Echo Compass") || text.contains("Echo-Kompass"), key + " still names the echo compass: " + text);
             }
-            String info = lang.get("jei.simplebuilding.info.echo_compass").getAsString();
+            String info = lang.get("jei.simplebuilding.info.echo_sounder").getAsString();
             helper.assertFalse(info.contains("for one ender pearl") || info.contains("für eine Enderperle"), "the JEI page still asks for an ender pearl: " + info);
         }
         helper.succeed();
@@ -1414,14 +1414,14 @@ public final class TweaksTests {
     }
 
     /**
-     * Amethystlinse (Id weiter laser_pointer): Redstone/Amethyst/Redstone, Eisen/Eisen-Baukern/Eisen,
+     * Amethystlinse (Id amethyst_lens, frueher laser_pointer): Redstone/Amethyst/Redstone, Eisen/Eisen-Baukern/Eisen,
      * drei Eisen - kein Glas mehr. Die Haltbarkeit ist die Ladung.
      */
     public static void theAmethystLensIsCraftedAroundAnIronCore(GameTestHelper helper) {
         Item i = Items.IRON_INGOT;
         Item r = Items.REDSTONE;
         CraftingInput grid = grid(r, Items.AMETHYST_SHARD, r, i, ModItems.IRON_CORE, i, i, i, i);
-        expectCrafting(helper, grid, TweaksItems.LASER_POINTER, "simplebuilding:laser_pointer");
+        expectCrafting(helper, grid, TweaksItems.LASER_POINTER, "simplebuilding:amethyst_lens");
         Optional<ItemStack> oldPattern = craftingResult(helper, grid(null, Items.AMETHYST_SHARD, null, i, Items.GLASS, i, i, r, i));
         helper.assertTrue(oldPattern.isEmpty() || !oldPattern.get().is(TweaksItems.LASER_POINTER), "the old glass pattern still makes the lens");
         ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
