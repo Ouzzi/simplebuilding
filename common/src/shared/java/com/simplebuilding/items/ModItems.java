@@ -313,17 +313,17 @@ public class ModItems {
 
     // Building Cores - nicht stapelbar, Rechtsklick spielt eine Animation (BuildingCoreItem)
 
-    public static final Item COPPER_CORE = registerItem("copper_core", s -> new BuildingCoreItem(s.stacksTo(1), 0xE77C56));
+    public static final Item COPPER_CORE = registerItem("copper_core", s -> new BuildingCoreItem(s.stacksTo(1), 0xE77C56, CoreOreTransmutation.COPPER_CORE_ORE_CHANCE));
 
-    public static final Item IRON_CORE = registerItem("iron_core", s -> new BuildingCoreItem(s.stacksTo(1), 0xD8D8D8));
+    public static final Item IRON_CORE = registerItem("iron_core", s -> new BuildingCoreItem(s.stacksTo(1), 0xD8D8D8, CoreOreTransmutation.IRON_CORE_ORE_CHANCE));
 
-    public static final Item GOLD_CORE = registerItem("gold_core", s -> new BuildingCoreItem(s.stacksTo(1), 0xFAD64A));
+    public static final Item GOLD_CORE = registerItem("gold_core", s -> new BuildingCoreItem(s.stacksTo(1), 0xFAD64A, CoreOreTransmutation.GOLD_CORE_ORE_CHANCE));
 
-    public static final Item DIAMOND_CORE = registerItem("diamond_core", s -> new BuildingCoreItem(s.stacksTo(1), 0x1BE7C7));
+    public static final Item DIAMOND_CORE = registerItem("diamond_core", s -> new BuildingCoreItem(s.stacksTo(1), 0x1BE7C7, CoreOreTransmutation.DIAMOND_CORE_ORE_CHANCE));
 
-    public static final Item NETHERITE_CORE = registerItem("netherite_core", s -> new BuildingCoreItem(s.stacksTo(1).fireResistant().rarity(UNCOMMON), 0x8A878A));
+    public static final Item NETHERITE_CORE = registerItem("netherite_core", s -> new BuildingCoreItem(s.stacksTo(1).fireResistant().rarity(UNCOMMON), 0x8A878A, CoreOreTransmutation.NETHERITE_CORE_ORE_CHANCE));
 
-    public static final Item ENDERITE_CORE = registerItem("enderite_core", s -> new BuildingCoreItem(s.stacksTo(1).fireResistant().rarity(Rarity.EPIC), 0xA57DE9));
+    public static final Item ENDERITE_CORE = registerItem("enderite_core", s -> new BuildingCoreItem(s.stacksTo(1).fireResistant().rarity(Rarity.EPIC), 0xA57DE9, CoreOreTransmutation.ENDERITE_CORE_ORE_CHANCE));
 
 
 

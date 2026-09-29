@@ -2059,20 +2059,26 @@ def building_core_textures():
 # Materials der beiden anderen. Motiv: der Waechter von vorn - die beiden leuchtenden Fuehler (3 -> 4 ->
 # Spitze 5) an den oberen Kopfecken, der Kopf (g < h < k < K, Licht von oben links), zwei leere
 # Augenhoehlen e (der Waechter ist blind) und das aufgerissene Maul m mit vier Reisszaehnen n.
+# Runde 3 2026-09-29 (Besitzer: das Gesicht sass schief - es folgte links der Neigung der Platte, war also
+# weder aufrecht noch parallel zu den Kanten): jetzt streng aufrecht wie die Motive der Vanilla-Vorlagen
+# (ward, eye) und spiegelgleich um Spalte 8, dem Schwerpunkt der Silhouette (x 7,8 / y 7,8); das Motiv
+# belegt Spalten 4-12 und Zeilen 3-12 und bleibt ueberall innerhalb der Randpixel. Nur die Schattierung
+# (Licht von oben links) ist nicht symmetrisch. Die Fuehler umrahmen den Kopf als Bogen ( ), weil die
+# Platte oben keinen Platz fuer nach aussen gebogene Spitzen laesst.
 PULSATING_TRIM_TEMPLATE = [
     "......TTL.......",
     ".....TvtsuB.....",
     ".....LtsqsuRB...",
-    "....L5stvts5RBB.",
-    "....L43kKKh34RRB",
-    "...LsuhkkkhgusRB",
-    "...LtheehheeguRB",
-    "..LsvkhhkkhhgsB.",
-    "..LtuhnmmmmngdB.",
-    ".LsqugmmmmmmgB..",
-    ".LtsvugnmmnguB..",
-    ".LsdsuugggguB...",
-    ".BtsqsuusdtRB...",
+    "....L5vtsdt5RBB.",
+    "....L4tsvst4uRRB",
+    "...L4ustvtsu4sRB",
+    "...L3hKKKkkh3uRB",
+    "..LshKKkkkkhgsB.",
+    "..LskeekKkeeguB.",
+    ".LtuhkkkkkhhguB.",
+    ".LvsgmnmmmnmgB..",
+    ".LtsugmnmnmgB...",
+    ".BsdsugggggRB...",
     "..BBstudsuRB....",
     "....BBusqBBB....",
     "......BBBBB.....",

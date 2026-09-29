@@ -128,6 +128,7 @@ public final class ForgeGameplayEvents {
     @SubscribeEvent
     public static void onServerTick(TickEvent.ServerTickEvent.Post event) {
         com.simplebuilding.util.SledgehammerProgress.tick(event.server());
+        com.simplebuilding.items.custom.BuildingCoreItem.tickAnimations(event.server());
         if (event.server().getTickCount() % 2 != 0) {
             return;
         }
