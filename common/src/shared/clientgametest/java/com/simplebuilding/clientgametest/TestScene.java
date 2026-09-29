@@ -106,6 +106,7 @@ public final class TestScene {
         script.command("fill -12 -1 10 32 -1 19 " + wallBlockId, true);
         script.command("clear @a", true);
         script.command("tp @a 10.5 0.0 16.5 0.0 0.0");
+        grantTheModsAdvancements(script);
 
         script.awaitPackets();
         script.idle("let the world settle", 40);
@@ -114,6 +115,7 @@ public final class TestScene {
         script.idle("let the chunks settle", 10);
 
         makeRenderingDeterministic(script);
+        wipeTheAirJumpCooldown(script);
         script.idle("let the options take effect", 10);
 
         assertAimedAt(script, TARGET, TARGET_FACE);
@@ -225,7 +227,68 @@ public final class TestScene {
             if (!client.gui.hud.isHidden()) {
                 client.gui.hud.toggle();
             }
+            // A toast from an earlier give (see grantTheModsAdvancements) would slide in or out
+            // of the top right corner between two frames.
+            client.gui.toastManager().clear();
         });
+    }
+
+    /**
+     * Awards every advancement of the mod (not the recipe unlocks) to the player, once per run in
+     * effect - the loop only awards criteria still open.
+     *
+     * <p>Since 2026-09-28 the mod has its own advancement tree, and most of it is earned by merely
+     * having an item: a diamond chisel given for a test earns "Fine Detail", and its toast slides
+     * into the top right corner in the middle of a noise floor measurement (14150 pixels in the
+     * chisel scene). Clearing the toast manager at the scene build cannot help, because the item -
+     * and with it the advancement - comes after the build. With everything already earned there is
+     * nothing left to announce. The mod's advancements carry no rewards, so this changes nothing
+     * else about the player. Done on the server thread, which owns the advancement progress.
+     */
+    public static void grantTheModsAdvancements(Script script) {
+        script.act("award the mod's advancements so no toast pops up in a later scene", client -> {
+            net.minecraft.server.MinecraftServer server = client.getSingleplayerServer();
+            if (server == null) {
+                throw new AssertionError("No integrated server to award the advancements on.");
+            }
+            server.execute(() -> {
+                for (net.minecraft.advancements.AdvancementHolder holder : server.getAdvancements().getAllAdvancements()) {
+                    if (!holder.id().getNamespace().equals("simplebuilding") || holder.id().getPath().startsWith("recipes/")) {
+                        continue;
+                    }
+                    for (net.minecraft.server.level.ServerPlayer player : server.getPlayerList().getPlayers()) {
+                        net.minecraft.server.PlayerAdvancements progress = player.getAdvancements();
+                        for (String criterion : progress.getOrStartProgress(holder).getRemainingCriteria()) {
+                            progress.award(holder, criterion);
+                        }
+                    }
+                }
+            });
+        });
+    }
+
+    /**
+     * Ends an air jump cooldown an earlier script left running, the documented way: one tick with
+     * {@code enableDoubleJump} off wipes both counters ({@code DoubleJumpController#tick}).
+     *
+     * <p>The bar sits in the XP bar slot and fills over 400 ticks by default - longer than most
+     * scripts. The scene's stable frame barrier runs with the HUD hidden and cannot see it, so the
+     * first HUD scene after the air jump script measured a moving bar as its noise floor (560
+     * pixels in the octant rangefinder scene).
+     */
+    public static void wipeTheAirJumpCooldown(Script script) {
+        boolean[] wasEnabled = {true};
+        script.act("switch the air jump off for a tick if a cooldown is still running", client -> {
+            wasEnabled[0] = com.simplebuilding.Simplebuilding.getConfig().enableDoubleJump;
+            if (com.simplebuilding.client.DoubleJumpController.isOnCooldown()) {
+                com.simplebuilding.Simplebuilding.getConfig().enableDoubleJump = false;
+            }
+        });
+        script.idle("let the controller wipe the cooldown", 2);
+        script.act("switch the air jump back the way it was", client ->
+                com.simplebuilding.Simplebuilding.getConfig().enableDoubleJump = wasEnabled[0]);
+        script.check("no air jump cooldown is left running",
+                client -> !com.simplebuilding.client.DoubleJumpController.isOnCooldown());
     }
 
     /** Undoes the HUD toggle; the options themselves are reset by the next scene build. */

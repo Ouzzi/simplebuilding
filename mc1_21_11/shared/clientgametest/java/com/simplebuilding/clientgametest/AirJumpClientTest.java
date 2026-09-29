@@ -138,10 +138,9 @@ import net.minecraft.world.item.ItemStack;
  *       work around this: it enchants the boots in the main hand, copies them onto the feet and
  *       then empties the hand again, because boots left in the hand would satisfy the client's
  *       level check for the wrong slot.</li>
- *   <li>With {@code airJumpCooldownTicks <= 1} the level 2 cooldown ({@code Math.max(1, base / 2)})
- *       is <em>longer</em> than the level 1 cooldown ({@code base}, clamped to 0). Level 2 is worse
- *       than level 1 at that setting. The assertion below states the code's documented behaviour;
- *       it does not endorse the inversion.</li>
+ *   <li>Fixed 2026-09-28: a cooldown of 1 or less used to make level 2 slower than level 1. The
+ *       synced value is now clamped to 20..6000 ticks ({@code AirJumpGuard.clampBase}), see
+ *       {@link #aCooldownBelowTheFloorIsRaisedToOneSecond}.</li>
  * </ul>
  *
  * <p><b>Not covered</b> (and why - all of these are gaps that survive a client test):
@@ -253,7 +252,7 @@ public final class AirJumpClientTest {
         theAirJumpSetsUpwardVelocityAndClearsFallDistance(script);
         theCooldownCountsDownEveryTickIncludingAfterLanding(script);
         theCooldownLengthComesFromTheConfigAndHalvesAtLevelTwo(script);
-        aNonPositiveCooldownConfigLetsTheAirJumpRepeatFreely(script);
+        aCooldownBelowTheFloorIsRaisedToOneSecond(script);
         disablingTheFeatureSkipsTheJumpAndWipesTheCooldown(script);
         theAirJumpTellsTheServerWhichSpendsBootDurability(script);
 
@@ -662,7 +661,7 @@ public final class AirJumpClientTest {
      *
      * <p>Both levels are measured with the same configured value, so the assertion is about the
      * halving and not about a balancing number. The config value used here is deliberately not the
-     * default (100): that also proves the option is read at all.
+     * default (400): that also proves the server's option reaches the controller at all.
      *
      * <p>What breaks this test: hard-coding the cooldown, reading a different option, or dropping
      * the level scaling.
@@ -695,83 +694,43 @@ public final class AirJumpClientTest {
     }
 
     /**
-     * A negative {@code airJumpCooldownTicks} is clamped to 0, which at level 1 means no cooldown
-     * at all - the air jump can be repeated as often as the key edge allows. At level 2 the
-     * {@code Math.max(1, base / 2)} floor still leaves a single tick.
+     * A cooldown configured below the floor is raised to {@code AirJumpGuard.MIN_COOLDOWN_TICKS}
+     * (20 ticks, 1 s) on its way to the client, and level 2 halves that floor to 10.
      *
-     * <p>With no cooldown the cooldown counters stop being an observable, so the repetition is
-     * counted through the impulse instead: a tick whose y velocity is exactly {@code 0.5} while the
-     * previous tick's was not can only come from the controller, because free fall and the vanilla
-     * jump never produce that value.
+     * <p>Until the config rework of 2026-09-28 a negative value was clamped to 0 and the air jump
+     * could be repeated freely - which is flight, and why the owner put a floor under it. Now the
+     * server sends {@code AirJumpGuard.clampBase} of its value ({@code SimpleTweaks.localValues}),
+     * and this case asks the client what arrived and what the controller then arms.
      *
-     * <p>What breaks this test: dropping the {@code Math.max(0, ...)} clamp (a negative cooldown
-     * would make {@code cooldownRemaining} negative and {@code isOnCooldown} permanently false in a
-     * different way, and at level 2 the halving of a negative number would go below the floor), or
-     * dropping the {@code Math.max(1, ...)} floor.
+     * <p>What breaks this test: the clamp dropped from the sync path (the client would receive -10
+     * and arm 0), the controller reading its own config instead of the synced value, or the level 2
+     * halving applied before the clamp.
      */
-    private static void aNonPositiveCooldownConfigLetsTheAirJumpRepeatFreely(Script script) {
+    private static void aCooldownBelowTheFloorIsRaisedToOneSecond(Script script) {
         setConfig(script, true, -10);
         equipBoots(script, 1);
         returnToRest(script);
+        Later<Integer> levelOne = armCooldownAndReadMaximum(script, "at level 1 with a negative config");
 
-        dropFrom(script, "the two uncooled air jumps", 22.0);
-
-        Recording twice = new Recording();
-        script.act("start recording the two uncooled air jumps", client -> twice.reset());
-        recordTicks(script, twice, "record two ticks before the first press", 2);
-        script.harness("hold the jump key for the first air jump", harness -> harness.holdKey(JUMP_KEY));
-        recordTicks(script, twice, "hold the jump key for the first air jump", 3);
-        script.harness("release the jump key after the first air jump",
-                harness -> harness.releaseKey(JUMP_KEY));
-        // At least 12 ticks between the two presses: in creative a second fresh press within 7 ticks
-        // while airborne toggles vanilla flight, which would block the second air jump.
-        recordTicks(script, twice, "wait 12 ticks so the second press cannot toggle creative flight", 12);
-        script.harness("hold the jump key for the second air jump", harness -> harness.holdKey(JUMP_KEY));
-        recordTicks(script, twice, "hold the jump key for the second air jump", 3);
-        script.harness("release the jump key after the second air jump",
-                harness -> harness.releaseKey(JUMP_KEY));
-        recordTicks(script, twice, "record two ticks after the second release", 2);
-
-        Later<List<Tick>> recorded = new Later<>("the recorded ticks of the two uncooled air jumps");
-        script.act("stop recording the two uncooled air jumps", client -> recorded.set(twice.snapshot()));
-
-        script.verify("a negative cooldown lets the air jump repeat and clamps both counters to 0", () -> {
-            List<Tick> ticks = recorded.get();
-            assertNeverFlew(ticks, "during the two uncooled air jumps");
-
-            List<Integer> kicks = upwardKickTicks(ticks);
-
-            if (kicks.size() != 2) {
-                throw new AssertionError("With the cooldown configured to a negative value two separate "
-                        + "jump presses have to produce two air jumps, but the " + AIR_JUMP_VELOCITY
-                        + " impulse appeared at tick(s) " + kicks + ". " + describe(ticks));
-            }
-
-            for (int kick : kicks) {
-                Tick tick = ticks.get(kick);
-
-                if (tick.cooldownRemaining() != 0 || tick.cooldownMax() != 0) {
-                    throw new AssertionError("A negative cooldown config has to clamp to 0, but at tick "
-                            + kick + " the controller armed remaining=" + tick.cooldownRemaining()
-                            + " max=" + tick.cooldownMax() + ". " + describe(ticks));
-                }
+        script.verify("at level 1 a negative config arms the 20 tick floor", () -> {
+            if (levelOne.get() != 20) {
+                throw new AssertionError("With airJumpCooldownTicks = -10 on the server the level 1 cooldown "
+                        + "must be the 20 tick floor, but the controller armed " + levelOne.get() + ".");
             }
         });
 
-        // Level 2 halves the clamped 0 but the floor keeps one tick.
         equipBoots(script, 2);
         returnToRest(script);
         Later<Integer> levelTwo = armCooldownAndReadMaximum(script, "at level 2 with a negative config");
 
-        script.verify("at level 2 the cooldown never drops below one tick", () -> {
-            if (levelTwo.get() != 1) {
-                throw new AssertionError("At level 2 the cooldown must never drop below 1 tick, but with "
-                        + "a negative config the controller armed " + levelTwo.get() + ".");
+        script.verify("at level 2 a negative config arms half the floor", () -> {
+            if (levelTwo.get() != 10) {
+                throw new AssertionError("With airJumpCooldownTicks = -10 on the server the level 2 cooldown "
+                        + "must be half the 20 tick floor, but the controller armed " + levelTwo.get() + ".");
             }
         });
 
-        // Put the config back to the value the rest of the file works with, so this case leaves
-        // nothing behind even though every case that follows sets its own value anyway.
+        // Put the config back to the value the rest of the file works with.
         setConfig(script, true, SHORT_COOLDOWN);
         equipBoots(script, 1);
     }
@@ -1318,14 +1277,51 @@ public final class AirJumpClientTest {
         });
     }
 
-    /** Writes both air jump options straight into the live config object the controller reads. */
+    /**
+     * Sets both air jump options where the controller reads them.
+     *
+     * <p>{@code enableDoubleJump} is the player's own switch and read from the client's config.
+     * {@code airJumpCooldownTicks} is not, since the config rework of 2026-09-28: the controller
+     * takes the value the server synced ({@code SimpleTweaks.effectiveValues()}, sent in the
+     * {@code TweaksConfigPayload}), so that its bar and the server's {@code AirJumpGuard} agree. A
+     * value written only into the client's config would never be read - which is how every cooldown
+     * case here armed the server's 400 ticks instead of the 40 it had set. So the cooldown is set on
+     * the server thread and broadcast the way {@code /simplebuilding config set} does it, and the
+     * step waits until the client really has the synced value (clamped by the sync path, as
+     * {@code SimpleTweaks.localValues} clamps it to {@code AirJumpGuard}'s 20..6000).
+     */
     private static void setConfig(Script script, boolean enabled, int cooldownTicks) {
-        script.act("set enableDoubleJump to " + enabled + " and airJumpCooldownTicks to " + cooldownTicks,
-                client -> {
+        int expectedSynced = com.simplebuilding.util.AirJumpGuard.clampBase(cooldownTicks);
+        script.act("set enableDoubleJump to " + enabled + " and, on the server, airJumpCooldownTicks to "
+                + cooldownTicks, client -> {
                     Simplebuilding.getConfig().enableDoubleJump = enabled;
-                    Simplebuilding.getConfig().airJumpCooldownTicks = cooldownTicks;
+                    setServerCooldown(client, cooldownTicks);
                 });
+        awaitSyncedCooldown(script, expectedSynced);
         script.idle("let one tick pass so the controller sees the new config", 1);
+    }
+
+    /** Writes the cooldown on the integrated server's thread and sends every client the new values. */
+    private static void setServerCooldown(net.minecraft.client.Minecraft client, int cooldownTicks) {
+        net.minecraft.server.MinecraftServer server = client.getSingleplayerServer();
+        if (server == null) {
+            throw new AssertionError("No integrated server to set airJumpCooldownTicks on.");
+        }
+        server.execute(() -> {
+            Simplebuilding.getConfig().airJumpCooldownTicks = cooldownTicks;
+            com.simplebuilding.tweaks.network.TweaksNetwork.broadcastConfig(server);
+        });
+    }
+
+    /** Waits until the server's cooldown has arrived in the client's synced values. */
+    private static void awaitSyncedCooldown(Script script, int expected) {
+        script.await("the client has the server's airJumpCooldownTicks " + expected, 100, client -> {
+            com.simplebuilding.tweaks.SimpleTweaks.ServerValues synced =
+                    com.simplebuilding.tweaks.SimpleTweaks.syncedValues();
+            return synced != null && synced.airJumpCooldownTicks() == expected
+                    && com.simplebuilding.tweaks.SimpleTweaks.effectiveValues().airJumpCooldownTicks() == expected;
+        }, client -> "the synced values are " + com.simplebuilding.tweaks.SimpleTweaks.syncedValues()
+                + ", so the TweaksConfigPayload with the new cooldown never arrived.");
     }
 
     /**
@@ -1338,7 +1334,13 @@ public final class AirJumpClientTest {
     private static void restoreConfig(Script script, Later<Boolean> enabled, Later<Integer> cooldownTicks) {
         script.act("put the air jump config back the way it was found", client -> {
             Simplebuilding.getConfig().enableDoubleJump = enabled.get();
-            Simplebuilding.getConfig().airJumpCooldownTicks = cooldownTicks.get();
+            setServerCooldown(client, cooldownTicks.get());
+        });
+        script.await("the client has the restored airJumpCooldownTicks", 100, client -> {
+            com.simplebuilding.tweaks.SimpleTweaks.ServerValues synced =
+                    com.simplebuilding.tweaks.SimpleTweaks.syncedValues();
+            return synced != null && synced.airJumpCooldownTicks()
+                    == com.simplebuilding.util.AirJumpGuard.clampBase(cooldownTicks.get());
         });
     }
 
@@ -1357,7 +1359,8 @@ public final class AirJumpClientTest {
                 client -> client.player != null && client.player.onGround(),
                 AirJumpClientTest::describePlayer);
         script.idle("let the landing settle", 4);
-        script.await("the air jump is recharged again", 400,
+        // Longer than the 400 tick default cooldown an earlier script can leave running.
+        script.await("the air jump is recharged again", 500,
                 client -> !DoubleJumpController.isOnCooldown(),
                 AirJumpClientTest::describePlayer);
     }

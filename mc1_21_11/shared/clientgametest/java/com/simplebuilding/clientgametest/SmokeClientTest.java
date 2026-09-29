@@ -1379,14 +1379,16 @@ public final class SmokeClientTest {
 
     /**
      * {@code NetheriteBreakerPistonBlock#triggerEvent} destroys the block in front of the piston
-     * and marks that with {@code ZOMBIE_ATTACK_IRON_DOOR} at volume 0.5 and pitch 0.8. The break
-     * itself is already covered by the server suite; the sound is not observable there at all.
+     * through {@code PistonBoreEffects#destroy}, which marks that with the mod's own sound
+     * {@code simplebuilding:block.piston.bore} at volume 0.7 ({@code PistonBoreEffects.BORE_VOLUME})
+     * and a pitch drawn from 0.9 to 1.1 (it used to be vanilla's {@code entity.zombie.attack_iron_door}
+     * at 0.5 / 0.8). The break itself is already covered by the server suite; the sound is not
+     * observable there at all.
      *
      * <p>It is played with {@code Level#playSound(null, ...)}, so the packet goes to every player in
-     * range including this one - unlike the item frame sounds (see the class javadoc). Unlike the
-     * chisel, nothing here is random: the mod passes fixed numbers and
-     * {@code entity.zombie.attack_iron_door} declares no volume or pitch of its own in
-     * {@code sounds.json}, so both can be asserted exactly.
+     * range including this one - unlike the item frame sounds (see the class javadoc). The mod's
+     * {@code sounds.json} entry declares no volume or pitch of its own, so the volume is asserted
+     * exactly and the pitch, random by design, against its range.
      *
      * <p>A vanilla piston with the identical wiring is fired first and must <em>not</em> produce the
      * sound. That control rules out the alternative explanation "something in vanilla plays this
@@ -1402,7 +1404,7 @@ public final class SmokeClientTest {
     private static void breakerPistonSoundReachesTheClient(Script script) {
         TestScene.build(script, "minecraft:stone", "creative");
 
-        Identifier breakSound = SoundEvents.ZOMBIE_ATTACK_IRON_DOOR.location();
+        Identifier breakSound = com.simplebuilding.util.ModSounds.PISTON_BORE_ID;
 
         script.act("install the sound listener", SoundRecorder::install);
 
@@ -1453,10 +1455,11 @@ public final class SmokeClientTest {
 
             assertFactorsAreUsable(heard, "breaker piston");
 
-            if (Math.abs(heard.sentVolume() - 0.5f) > 0.001f
-                    || Math.abs(heard.sentPitch() - 0.8f) > 0.001f) {
+            // Literals on purpose, not PistonBoreEffects.BORE_VOLUME: a changed number has to go red.
+            if (Math.abs(heard.sentVolume() - 0.7f) > 0.001f
+                    || heard.sentPitch() < 0.9f - 0.001f || heard.sentPitch() > 1.1f + 0.001f) {
                 throw new AssertionError("The breaker piston sound was played as " + heard
-                        + ", expected volume 0.5 and pitch 0.8.");
+                        + ", expected volume 0.7 and a pitch from 0.9 to 1.1.");
             }
         });
 

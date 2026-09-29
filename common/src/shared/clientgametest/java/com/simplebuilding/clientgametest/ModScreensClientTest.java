@@ -1128,7 +1128,15 @@ public final class ModScreensClientTest {
             square.set(new double[] {left * sx, top * sy, (left + 58) * sx, (top + 58) * sy});
         });
 
+        // The chat behind the screen holds the command feedback of this class's setup, and its lines
+        // fade out ten seconds after they arrived - in the middle of the four shots below, which
+        // span sixty ticks (3738 pixels on the left edge in the control step on NeoForge 26.2).
+        script.act("clear the chat behind the cartography table", client -> client.gui.hud.getChat().clearMessages(true));
+        script.idle("let the cleared chat render", 2);
+
         Later<java.nio.file.Path> unsigned = script.shot("cartography-a-unsigned-blueprint");
+        // As long as the other two intervals, so the noise floor spans real screen time too.
+        script.idle("let the unsigned blueprint render " + RENDER_TICKS + " more frames", RENDER_TICKS);
         Later<java.nio.file.Path> unsignedAgain = script.shot("cartography-b-unsigned-blueprint-again");
 
         script.act("put the signed blueprint on top instead", client -> {
