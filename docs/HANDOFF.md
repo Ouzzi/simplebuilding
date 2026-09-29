@@ -43,6 +43,10 @@ Welle 24, gemergt in master (lokal/gepusht siehe Git-Log):
   Abschließender `gradlew.bat check -q` im selben Worktree **grün (Exit 0)**. Server-Ausgabe und Build-Ergebnis gelesen.
   Push-fähiger Stand; tatsächlichen Remote-Stand mit `git log origin/master` prüfen.
 
+## Launch- und Testzentrale (Branch `hub`, noch nicht gemerged)
+Neuer Dev-Server `tools/launchhub` (Port 8771, `docs/LAUNCHHUB.md`) ersetzt die einzelnen Start-Einträge in `.claude/launch.json`.
+KI-Befehlsvorlagen (claude/codex) und das Starten echter Clients wurden beim Bau nicht ausprobiert (Trockenlauf `SB_HUB_DRY_RUN`).
+
 ## Nächste Schritte in Reihenfolge
 1. Push-/Remote-Stand prüfen. Server-Gate und `check` sind grün (siehe oben), Wiki `--check`, Textur- und Bücherprüfung ebenfalls.
 2. Client-Gate für beide 26.3-Ziele seriell, erst wenn der Besitzer-Client geschlossen ist. Besitzer wurde gefragt.

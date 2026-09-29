@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Launch- und Testzentrale</title>
+<script>
+(function () {
+  try {
+    var t = window.localStorage.getItem('simplebuilding-wiki-theme');
+    if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+  } catch (err) { /* ohne Storage: Systemeinstellung */ }
+})();
+</script>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<header class="topbar">
+  <button class="icon-btn menu-btn" id="menu-btn" aria-label="Navigation ein- oder ausblenden" aria-controls="sidebar" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <a class="brand" href="#/launch"><span class="brand-icon"><img src="/wiki/assets/textures/item/diamond_core.png" alt="" onerror="this.remove()"></span><span class="brand-text">SimpleBuilding <small>Launch- und Testzentrale</small></span></a>
+  <div class="topmeta">
+    <a class="icon-btn" id="link-wiki" href="http://127.0.0.1:8765/" target="_blank" rel="noopener" title="Wiki (Port 8765)"><span class="lbl">Wiki</span><span aria-hidden="true">&#8599;</span></a>
+    <a class="icon-btn" id="link-bz" href="http://127.0.0.1:8770/" target="_blank" rel="noopener" title="Balancing-Zentrale (Port 8770)"><span class="lbl">Balancing</span><span aria-hidden="true">&#8599;</span></a>
+    <button class="icon-btn" id="help-btn" aria-label="Tastenkürzel anzeigen" title="Tastenkürzel (?)">?</button>
+    <button class="icon-btn" id="theme-btn" aria-label="Hell/Dunkel umschalten" title="Hell/Dunkel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+  </div>
+</header>
+<div class="strip" id="strip" role="status" aria-label="Status"><span class="muted">Status wird geladen ...</span></div>
+<div class="layout">
+  <nav class="sidebar" id="sidebar" aria-label="Bereiche"></nav>
+  <div class="backdrop" id="backdrop"></div>
+  <main id="main" tabindex="-1"><div class="loading"><span class="spinner"></span> Wird geladen ...</div></main>
+</div>
+<div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+<div class="modal-back" id="modal" hidden><div class="modal" id="modal-body" role="dialog" aria-modal="true" aria-labelledby="modal-title"></div></div>
+<script src="/static/app.js"></script>
+</body>
+</html>

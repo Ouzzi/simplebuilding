@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """
+DEPRECATED: superseded by the Launch- und Testzentrale (tools/launchhub, docs/LAUNCHHUB.md); still works.
+
 Serves the SimpleBuilding test interface and lets it start test runs.
 
 A page opened from disk can show the recorded history just fine, but it cannot

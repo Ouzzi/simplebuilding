@@ -206,6 +206,8 @@ Verlauf im Detail: git log.
 - [ ] GG+: im Tab nur Eichen-Druckplatte, in derselben Zeile wie die anderen Platten
 - [ ] Danach: Buecher-Faktenpass, Server-Gate 26.3, Port-Run 26.2/Forge/1.21.11/26.4
 
+- [x] Launch- und Testzentrale (tools/launchhub, Port 8771) auf Branch `hub`: Besitzer prueft Start/Test/KI-Fix mit echten Clients und CLIs, dann mergen
+
 ## Wartet auf den Besitzer
 - [ ] Zeilen-Layout in SimpleMachines freigeben -> dann fuer alle Tabs
 
