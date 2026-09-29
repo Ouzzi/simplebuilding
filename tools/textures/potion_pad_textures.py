@@ -12,6 +12,9 @@ Abklingzeit (Besitzer 2026-09-28): je Stufe ein Animationsstreifen <id>_cooling.
 Bilder, .mcmeta ueber POTION_PAD_ANIMATIONS): die Adern verlieren ihre Glut und pulsieren langsam zwischen
 erkaltet und halb gluehend - das Pad laedt nach.
 
+Bereit (Besitzer 2026-09-29): <id>_active.png - ein Trank ist gespeichert und das Pad nicht abgeschaltet: die
+Adern gluehen heller und heisser (Rampe zur Glutfarbe der Stufe gezogen, die hellsten Adern fast weiss).
+
 Mob-Koepfe (Lohenkopf, Endermankopf): keine eigenen Texturen mehr (Besitzer 2026-09-29) - die Koepfe
 zeigen per Resource-Location die echten Vanilla-Mob-Texturen (entity/blaze/blaze.png,
 entity/enderman/enderman.png + enderman_eyes.png), siehe ModSkullModels.java.
@@ -43,14 +46,17 @@ TIERS = {
     "potion_pad": {
         "source": "flypad.png",
         "veins": ["#2e1a14", "#44231a", "#5e2e1c", "#7a3c20", "#9a4c24"],
+        "glow": "#ffa640",
     },
     "reinforced_potion_pad": {
         "source": "reinforced_flypad.png",
         "veins": ["#241a30", "#31213f", "#402a55", "#53366e", "#6a4690"],
+        "glow": "#d49cff",
     },
     "infused_potion_pad": {
         "source": "stellar_flypad.png",
         "veins": ["#2e2618", "#43361e", "#5c4a24", "#7a632c", "#9c8036"],
+        "glow": "#ffe27a",
     },
 }
 
@@ -113,10 +119,22 @@ def cooling_strip(src, tier):
     return strip
 
 
+def _hot_veins(veins, glow):
+    """Adern-Rampe eines bereiten Pads: jede Stufe zur Glutfarbe gezogen, die hellen staerker."""
+    g = _hex(glow)
+    n = len(veins)
+    return [_blend(_hex(c), g, 0.3 + 0.6 * i / (n - 1)) for i, c in enumerate(veins)]
+
+
+# Nur in den Hauptbaum (26.2/26.3), die 1.21.11-Kopie bekommt sie im Port-Lauf (generate_textures.MAIN_TREE_ONLY).
+POTION_PAD_MAIN_ONLY = {f"block/{name}_active.png" for name in TIERS}
+
+
 def potion_pad_textures():
     tex = {}
     for name, tier in TIERS.items():
         src = Image.open(os.path.join(OLD_FLYPADS, tier["source"])).convert("RGBA")
         tex[f"block/{name}.png"] = _recolour(src, tier["veins"])
         tex[f"block/{name}_cooling.png"] = cooling_strip(src, tier)
+        tex[f"block/{name}_active.png"] = _recolour(src, _hot_veins(tier["veins"], tier["glow"]))
     return tex

@@ -42,6 +42,8 @@ public class ElytraPadBlockEntity extends OwnedBlockEntity implements PadSignalS
     public static void serverTick(Level level, BlockPos pos, BlockState state, ElytraPadBlockEntity be) {
         if (level.getGameTime() % 10 == 0) {
             int count = applyArea(level, pos, state);
+            // Sichtbarer Zustand (Besitzer 2026-09-29): leuchtet, solange es jemanden versorgt.
+            com.simplebuilding.tweaks.block.PadBlock.setActive(level, pos, ElytraPadBlock.ACTIVE, count > 0);
             int before = be.comparatorSignal();
             be.served = count;
             if (be.comparatorSignal() != before) {

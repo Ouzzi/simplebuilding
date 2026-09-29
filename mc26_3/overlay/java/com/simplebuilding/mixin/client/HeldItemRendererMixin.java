@@ -45,6 +45,12 @@ public class HeldItemRendererMixin {
     @Unique private float mainHandChiselProgress = 0.0F;
     @Unique private float offHandChiselProgress = 0.0F;
     /**
+     * Neigung des Nuggets in der Nebenhand (0..1, Besitzer 2026-09-29): kann es die Maschine unter dem
+     * Fadenkreuz mit dem Hammer in der Haupthand aufwerten, kippt es der Maschine entgegen und wippt.
+     * Ersetzt den frueheren Aktionsleisten-Hinweis. Feldname fest, der Client-Test liest ihn per Reflexion.
+     */
+    @Unique private float offHandNuggetProgress = 0.0F;
+    /**
      * Wie weit der Hammer im letzten Frame ausgeholt war (0..1), siehe
      * {@link SledgehammerUpgrades#drawBack}. Nur gespeichert, damit der Client-Test es lesen kann.
      */
@@ -78,6 +84,7 @@ public class HeldItemRendererMixin {
         SimplebuildingConfig config = AutoConfig.getConfigHolder(SimplebuildingConfig.class).getConfig();
         boolean animationsEnabled = config.tools.enableToolAnimations && config.tools.enableChiselAnimation;
         float targetProgress = 0.0F;
+        float nuggetTarget = 0.0F;
 
         if (animationsEnabled) {
             HitResult hit = this.minecraft.hitResult;
@@ -110,6 +117,12 @@ public class HeldItemRendererMixin {
                         targetProgress = 1.0F;
                     }
                 }
+                // NUGGET in der Nebenhand: neigt sich nur, wenn genau dieses Nugget mit diesem Hammer die
+                // Maschine aufwerten kann (falsches Nugget, zu schwacher Hammer: bleibt ruhig)
+                else if (hand == InteractionHand.OFF_HAND && SledgehammerUpgrades.isUpgradeNugget(item)
+                        && SledgehammerUpgrades.showsUpgradeHint(this.minecraft.level, blockHit.getBlockPos(), player)) {
+                    nuggetTarget = 1.0F;
+                }
             }
         }
 
@@ -141,7 +154,24 @@ public class HeldItemRendererMixin {
             if (this.offHandChiselProgress > 0.001F) {
                 this.applyChiselTransform(matrices, this.offHandChiselProgress);
             }
+            this.offHandNuggetProgress += (nuggetTarget - this.offHandNuggetProgress) * smoothingSpeed;
+            if (this.offHandNuggetProgress > 0.001F) {
+                this.applyNuggetTilt(matrices, this.offHandNuggetProgress, player.tickCount + tickProgress);
+            }
         }
+    }
+
+    /**
+     * Nugget der Maschine entgegenkippen (Nebenhand, also zur Bildmitte hin gespiegelt) und dabei sachte
+     * wippen - wie ein Angebot "das passt hier".
+     */
+    @Unique
+    private void applyNuggetTilt(PoseStack matrices, float progress, float time) {
+        float wobble = (float) Math.sin(time * 0.35F) * 4.0F * progress;
+        matrices.translate(0.06 * progress, 0.08 * progress, -0.04 * progress);
+        matrices.rotate(Axis.YP.rotationDegrees(18.0F * progress));
+        matrices.rotate(Axis.XP.rotationDegrees(-22.0F * progress));
+        matrices.rotate(Axis.ZP.rotationDegrees(12.0F * progress + wobble));
     }
 
     /**

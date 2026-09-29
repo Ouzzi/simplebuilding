@@ -62,7 +62,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 from echo_sounder_textures import echo_sounder_textures  # Echolot: Nadelbilder + Riss-Stufen
 from mount_armor_textures import mount_armor_textures  # Enderit-Pferde-/Nautilusruestung: Icons + getragene Ebenen
-from potion_pad_textures import POTION_PAD_ANIMATIONS, potion_pad_textures  # Trank-Pads I-III (aus den alten Flypads)
+from potion_pad_textures import POTION_PAD_ANIMATIONS, POTION_PAD_MAIN_ONLY, potion_pad_textures  # Trank-Pads I-III (aus den alten Flypads)
 from guide_book_textures import guide_book_textures  # Einsteiger-Handbuch + sieben Themenbuecher
 from ore_detector_textures import ore_detector_textures  # Erzdetektor: Gehaeuse, 32 Nadeln, Ruhebild
 
@@ -2267,12 +2267,20 @@ def pad_textures(tex):
 #   Chunk-Loader active   - die ganze Spirale glimmt in Portal-Violett, die Funkelsterne werden fast
 #                           weiss und bekommen einen schwachen Hof.
 #   Flypad active         - die Spirale glimmt hell (I, II weiss-tuerkis; III Sternengold), Sterne wie oben.
-# Die Grundbilder: dieselben Texturen wie die Blockmodelle (generiert oder von Hand, chunk_loader.png
-# liegt als Vorlage in hand/).
+# Besitzer 2026-09-29: jede Pad-Familie zeigt, ob sie arbeitet, mit derselben Sprache:
+#   Elytra-Pad active     - die Spirale leuchtet windhell (I-III weiss-tuerkis, IV Lavendel, V Weissgold).
+#   Spawn-Teleporter active (jemand laedt auf) - die Spirale leuchtet portalviolett auf der Goldplatte.
+#   Trank-Pad active (bereit) - die Adern gluehen hell (potion_pad_textures.py).
+#   Druckplatten powered  - die Platte glimmt von der Mitte her in ihrer Materialfarbe (plate_active).
+# Die Grundbilder: dieselben Texturen wie die Blockmodelle (generiert, von Hand als Vorlage in hand/, oder
+# "res" = das handgemalte Bild des Besitzers, das unveraendert in den Ressourcen liegt).
 PAD_STATE_SOURCES = {
     "launchpad": "gen", "netherite_launchpad": "gen", "enderite_launchpad": "gen",
     "chunk_loader": "hand", "netherite_chunk_loader": "gen", "enderite_chunk_loader": "gen",
     "flypad_ender": "gen", "reinforced_flypad_ender": "gen", "stellar_flypad_ender": "gen",
+    "elytra_pad": "res", "reinforced_elytra_pad": "res", "netherite_elytra_pad": "res",
+    "enderite_elytra_pad": "gen", "fine_elytra_pad": "gen",
+    "spawn_teleporter": "res", "spawn_teleporter_tier_2": "res", "enderite_spawn_teleporter": "gen",
 }
 LAUNCHPAD_GLOW = {"lit": "#78d8f2", "lit_a": 0.72, "tip": "#e8fbff", "tip_a": 0.85}
 PAD_ACTIVE_GLOW = {
@@ -2283,6 +2291,28 @@ PAD_ACTIVE_GLOW = {
     "flypad_ender": ("#a8f4ff", 0.62, "#ffffff"),
     "reinforced_flypad_ender": ("#c4f8ff", 0.62, "#ffffff"),
     "stellar_flypad_ender": ("#ffd76a", 0.66, "#fffbe8"),
+    "elytra_pad": ("#f2feff", 0.74, "#ffffff"),
+    "reinforced_elytra_pad": ("#eefeff", 0.76, "#ffffff"),
+    "netherite_elytra_pad": ("#e8fdff", 0.78, "#ffffff"),
+    "enderite_elytra_pad": ("#f4e6ff", 0.74, "#ffffff"),
+    "fine_elytra_pad": ("#fff4cc", 0.74, "#ffffff"),
+    "spawn_teleporter": ("#9a3cf0", 0.72, "#fff0ff"),
+    "spawn_teleporter_tier_2": ("#8e30e8", 0.74, "#fff0ff"),
+    "enderite_spawn_teleporter": ("#b060ff", 0.74, "#ffffff"),
+}
+# Bilder, die nur in den Hauptbaum (26.2/26.3) gehen - die 1.21.11-Kopie bekommt sie erst im Port-Lauf
+# (Besitzer 2026-09-29: 26.3 zuerst, die Kopie nicht anfassen). Die Zustandsbilder vom 2026-09-29.
+MAIN_TREE_ONLY = set()
+# Druckplatten, gedrueckt (powered): Leuchtfarbe und Deckkraft in der Mitte; die Grundbilder liegen in den
+# Ressourcen (Enderit generiert).
+PLATE_ACTIVE_GLOW = {
+    "diamond_pressure_plate": ("#ffffff", 0.62),
+    "netherite_pressure_plate": ("#ff7a2a", 0.62),
+    "enderite_pressure_plate": ("#f0d4ff", 0.6),
+    "copper_pressure_plate": ("#ffe2b8", 0.6),
+    "exposed_copper_pressure_plate": ("#fae6c0", 0.6),
+    "weathered_copper_pressure_plate": ("#d0fae0", 0.6),
+    "oxidized_copper_pressure_plate": ("#c4fff0", 0.6),
 }
 
 
@@ -2368,17 +2398,44 @@ def pad_active(base, name):
     return img
 
 
+def plate_active(base, glow, alpha):
+    """Gedrueckte Druckplatte: die Innenflaeche (ohne den Rahmen) glimmt in drei Ringen, von der Mitte
+    zum Rand schwaecher; die Schattierung der Platte bleibt (glow_mix), der Rahmen bleibt unberuehrt."""
+    img = base.convert("RGB").copy()
+    px = img.load()
+    inner = [(x, y) for y in range(1, 15) for x in range(1, 15)]
+    mean = sum(pad_luma(px[x, y]) for x, y in inner) / len(inner)
+    for x, y in inner:
+        d = (((x - 7.5) ** 2 + (y - 7.5) ** 2) ** 0.5) / 7.5  # 0 Mitte .. 1 Rand
+        # in drei Ringen abgestuft statt als weicher Verlauf (Pixelkunst, keine Unschaerfe)
+        a = alpha * (1.0 if d < 0.3 else 0.62 if d < 0.56 else 0.3 if d < 0.82 else 0.0)
+        px[x, y] = glow_mix(px[x, y], hexrgb(glow), a, mean)
+    return img
+
+
 def pad_state_textures(tex):
-    """Die Zustandsbilder zu PAD_STATE_SOURCES (braucht die Pad-Texturen aus pad_textures)."""
+    """Die Zustandsbilder zu PAD_STATE_SOURCES (braucht die Pad-Texturen aus pad_textures) und die
+    gedrueckten Druckplatten (PLATE_ACTIVE_GLOW)."""
     out = {}
     for name, source in PAD_STATE_SOURCES.items():
-        base = (Image.open(os.path.join(HAND, f"{name}.png")).convert("RGB") if source == "hand"
-                else tex[f"block/{name}.png"])
+        if source == "hand":
+            base = Image.open(os.path.join(HAND, f"{name}.png")).convert("RGB")
+        elif source == "res":
+            base = Image.open(os.path.join(TREES[0], "block", f"{name}.png")).convert("RGB")
+        else:
+            base = tex[f"block/{name}.png"]
         if name.endswith("launchpad"):
             for level in (1, 2, 3):
                 out[f"block/{name}_charge_{level}.png"] = launchpad_charge(base, level)
         else:
             out[f"block/{name}_active.png"] = pad_active(base, name)
+            if name.endswith("elytra_pad") or "spawn_teleporter" in name:
+                MAIN_TREE_ONLY.add(f"block/{name}_active.png")
+    for name, (glow, alpha) in PLATE_ACTIVE_GLOW.items():
+        key = f"block/{name}.png"
+        base = tex[key] if key in tex else Image.open(os.path.join(TREES[0], "block", f"{name}.png")).convert("RGB")
+        out[f"block/{name}_active.png"] = plate_active(base, glow, alpha)
+        MAIN_TREE_ONLY.add(f"block/{name}_active.png")
     return out
 
 
@@ -3044,6 +3101,7 @@ def build():
     tex.update(pad_state_textures(tex))  # braucht die Pad-Texturen
     tex.update(echo_sounder_textures())
     tex.update(potion_pad_textures())
+    MAIN_TREE_ONLY.update(POTION_PAD_MAIN_ONLY)
     tex.update(guide_book_textures())
     tex.update(ore_detector_textures())
     tex.update(mount_armor_textures())
@@ -4193,7 +4251,7 @@ def main():
     stale = []
     for rel, img in sorted(tex.items()):
         data = png_bytes(img)
-        for tree in TREES:
+        for tree in (TREES[:1] if rel in MAIN_TREE_ONLY else TREES):
             path = os.path.join(tree, *rel.split("/"))
             if args.check:
                 try:

@@ -724,7 +724,8 @@ public final class TweaksTests {
     /**
      * Echolot: Rechtsklick auf einen Leitstein verknuepft; der Sprung teleportiert ueber den
      * Leitstein - ohne Enderperle (Besitzer 2026-09-27), auch mit Perlen im Inventar wird keine
-     * verbraucht -, das Echolot bleibt, ist danach aber leer (voller Schaden).
+     * verbraucht -, das Echolot bleibt, ist danach aber leer (voller Schaden). Das Verknuepfen sperrt es
+     * kurz (Besitzer 2026-09-29, bewusst benutzen); gesprungen wird nach Ablauf dieser Sperre.
      */
     public static void theEchoSounderLinksToTheLodestoneAndTeleportsWithoutAnyPearl(GameTestHelper helper) {
         BlockPos lodestone = new BlockPos(6, 1, 6);
@@ -737,6 +738,10 @@ public final class TweaksTests {
         compass.getItem().useOn(new net.minecraft.world.item.context.UseOnContext(player, InteractionHand.MAIN_HAND,
                 new BlockHitResult(Vec3.atCenterOf(abs), net.minecraft.core.Direction.UP, abs, false)));
         helper.assertValueEqual(EchoCompassItem.target(compass), GlobalPos.of(helper.getLevel().dimension(), abs), "linked target of the echo compass");
+        helper.assertTrue(player.getCooldowns().isOnCooldown(compass), "linking did not lock the echo sounder for a moment");
+        for (int t = 0; t < EchoCompassItem.ATTEMPT_LOCK_TICKS; t++) {
+            player.getCooldowns().tick();
+        }
 
         helper.assertFalse(player.getInventory().hasAnyOf(java.util.Set.of(Items.ENDER_PEARL)), "the mock player starts with an ender pearl, so this proves nothing");
         helper.assertTrue(EchoCompassItem.teleport(player, InteractionHand.MAIN_HAND, compass), "the echo sounder refused to teleport without an ender pearl");
@@ -776,7 +781,8 @@ public final class TweaksTests {
 
     /**
      * Aufladen (Besitzer 2026-09-27): Benutzen startet eine Ladung von 3 s (60 Ticks); wer vorher
-     * loslaesst, springt nicht und verliert nichts - keine Perle, kein Schaden, keine Abklingzeit.
+     * loslaesst, springt nicht und verliert nichts - keine Perle, kein Schaden. Seit 2026-09-29 (Besitzer,
+     * bewusst benutzen) sperrt der abgebrochene Versuch das Echolot kurz: hier, direkt am Leitstein, gut 1 s.
      */
     public static void theEchoCompassChargesForThreeSecondsAndReleasingEarlyCostsNothing(GameTestHelper helper) {
         BlockPos lodestone = new BlockPos(6, 1, 6);
@@ -800,7 +806,7 @@ public final class TweaksTests {
         helper.assertTrue(player.position().distanceTo(start) < 0.01, "an early release still jumped");
         helper.assertValueEqual(player.getInventory().getItem(8).getCount(), 2, "ender pearls left after an early release");
         helper.assertValueEqual(compass.getDamageValue(), 0, "echo compass damage after an early release");
-        helper.assertFalse(player.getCooldowns().isOnCooldown(compass), "an early release put the echo compass on cooldown");
+        helper.assertTrue(player.getCooldowns().isOnCooldown(compass), "an early release did not lock the echo sounder for a moment");
         helper.succeed();
     }
 
@@ -1072,6 +1078,7 @@ public final class TweaksTests {
                 "padTuning.teleporterTier1WarmupTicks=1000", "padTuning.teleporterTier2WarmupTicks=400", "padTuning.teleporterTier3WarmupTicks=100",
                 "padTuning.launchpadStrengthMultiplier=1.0", "padTuning.potionPadChargeStepTicks=20",
                 "padTuning.potionPadCooldownFactor=2.0", "balancing.echoSounderJumpCooldownTicks=480",
+                "balancing.echoSounderAttemptLockTicks=100",
                 "commands.killCommandRadius=100", "optimization.xpClumpRadius=2.0",
                 "laserPointer.beamCostPerSecond=1", "laserPointer.effectCost=5",
                 "balancing.rocketStackSize=64", "dimensions.allowNether=true",

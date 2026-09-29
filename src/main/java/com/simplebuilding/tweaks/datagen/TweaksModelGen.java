@@ -2,9 +2,12 @@ package com.simplebuilding.tweaks.datagen;
 
 import com.simplebuilding.tweaks.block.ChunkLoaderBlock;
 import com.simplebuilding.tweaks.block.CopperPressurePlateBlock;
+import com.simplebuilding.tweaks.block.ElytraPadBlock;
 import com.simplebuilding.tweaks.block.FlypadBlock;
+import com.simplebuilding.tweaks.block.LegacyTierBlock;
 import com.simplebuilding.tweaks.block.LaunchpadBlock;
 import com.simplebuilding.tweaks.block.PotionPadBlock;
+import com.simplebuilding.tweaks.block.SpawnTeleporterBlock;
 import com.simplebuilding.tweaks.block.TweaksBlocks;
 import com.simplebuilding.tweaks.item.TweaksItems;
 import java.util.ArrayList;
@@ -69,6 +72,16 @@ public final class TweaksModelGen {
                 activePad(generator, block, "_ender", FlypadBlock.ACTIVE);
                 continue;
             }
+            // Besitzer 2026-09-29: Elytra-Pads (versorgt jemanden) und Spawn-Teleporter (jemand laedt auf)
+            // zeigen ihren Ein-Zustand; die alten Teleporter-Stufen werden beim ersten Tick umgebaut.
+            if (block instanceof ElytraPadBlock) {
+                activePad(generator, block, "", ElytraPadBlock.ACTIVE);
+                continue;
+            }
+            if (block instanceof SpawnTeleporterBlock && !(block instanceof LegacyTierBlock)) {
+                activePad(generator, block, "", SpawnTeleporterBlock.ACTIVE);
+                continue;
+            }
             TextureMapping texture = enderFlypad ? TextureMapping.defaultTexture(TextureMapping.getBlockTexture(block, "_ender"))
                     : TextureMapping.defaultTexture(block);
             Identifier model = ModelTemplates.PRESSURE_PLATE_UP.create(block, texture, generator.modelOutput);
@@ -101,17 +114,23 @@ public final class TweaksModelGen {
     private static final com.mojang.math.Transformation SKULL_TRANSFORM = new com.mojang.math.Transformation(
             new org.joml.Vector3f(0.5F, 0.0F, 0.5F), new org.joml.Quaternionf().rotationX((float) Math.PI), null, null);
     /**
-     * Trank-Pad: bereit {@code <id>}, in der Abklingzeit ({@code cooling=true}) {@code <id>_cooling} mit
-     * der animierten Textur {@code block/<id>_cooling} (tools/textures/potion_pad_textures.py). Das Item
-     * zeigt das abklingende Modell, solange es die Restzeit traegt (abgebaut in der Abklingzeit).
+     * Trank-Pad: ohne Trank oder abgeschaltet {@code <id>}, bereit ({@code active=true}, Besitzer
+     * 2026-09-29) {@code <id>_active} mit hell gluehenden Adern, in der Abklingzeit ({@code cooling=true},
+     * geht vor) {@code <id>_cooling} mit der animierten Textur {@code block/<id>_cooling}
+     * (tools/textures/potion_pad_textures.py). Das Item zeigt das abklingende Modell, solange es die
+     * Restzeit traegt (abgebaut in der Abklingzeit).
      */
     private static void potionPad(BlockModelGenerators generator, Block block) {
         Identifier ready = ModelTemplates.PRESSURE_PLATE_UP.create(block, TextureMapping.defaultTexture(block), generator.modelOutput);
         Identifier cooling = ModelTemplates.PRESSURE_PLATE_UP.createWithSuffix(block, "_cooling",
                 TextureMapping.defaultTexture(TextureMapping.getBlockTexture(block, "_cooling")), generator.modelOutput);
-        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(PropertyDispatch.initial(PotionPadBlock.COOLING)
-                .select(true, BlockModelGenerators.plainVariant(cooling))
-                .select(false, BlockModelGenerators.plainVariant(ready))));
+        Identifier active = ModelTemplates.PRESSURE_PLATE_UP.createWithSuffix(block, "_active",
+                TextureMapping.defaultTexture(TextureMapping.getBlockTexture(block, "_active")), generator.modelOutput);
+        generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(PropertyDispatch.initial(PotionPadBlock.COOLING, PotionPadBlock.ACTIVE)
+                .select(true, true, BlockModelGenerators.plainVariant(cooling))
+                .select(true, false, BlockModelGenerators.plainVariant(cooling))
+                .select(false, true, BlockModelGenerators.plainVariant(active))
+                .select(false, false, BlockModelGenerators.plainVariant(ready))));
         generator.itemModelOutput.accept(block.asItem(), ItemModelUtils.conditional(
                 new HasComponent(com.simplebuilding.tweaks.component.TweaksComponents.POTION_PAD_COOLDOWN, false),
                 ItemModelUtils.plainModel(cooling), ItemModelUtils.plainModel(ready)));
@@ -161,7 +180,8 @@ public final class TweaksModelGen {
 
     /**
      * Wie Vanillas createPressurePlate: {@code powered=false} zeigt {@code pressure_plate_up},
-     * {@code powered=true} {@code pressure_plate_down}. Gewachste Kupferplatten nutzen wie
+     * {@code powered=true} {@code pressure_plate_down} - mit der glimmenden Textur {@code <id>_active}
+     * (Besitzer 2026-09-29: gedrueckt sieht man es auch an der Farbe). Gewachste Kupferplatten nutzen wie
      * Vanilla-Kupfer die Modelle (und damit die Textur) ihrer ungewachsten Stufe.
      */
     private static void plate(BlockModelGenerators generator, Block block) {
@@ -174,7 +194,8 @@ public final class TweaksModelGen {
         } else {
             TextureMapping texture = TextureMapping.defaultTexture(block);
             up = ModelTemplates.PRESSURE_PLATE_UP.create(block, texture, generator.modelOutput);
-            down = ModelTemplates.PRESSURE_PLATE_DOWN.create(block, texture, generator.modelOutput);
+            down = ModelTemplates.PRESSURE_PLATE_DOWN.create(block,
+                    TextureMapping.defaultTexture(TextureMapping.getBlockTexture(block, "_active")), generator.modelOutput);
         }
         generator.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(PropertyDispatch.initial(BlockStateProperties.POWERED)
                 .select(true, BlockModelGenerators.plainVariant(down))

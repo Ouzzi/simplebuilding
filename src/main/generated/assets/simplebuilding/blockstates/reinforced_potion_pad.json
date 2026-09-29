@@ -1,9 +1,15 @@
 {
   "variants": {
-    "cooling=false": {
+    "active=false,cooling=false": {
       "model": "simplebuilding:block/reinforced_potion_pad"
     },
-    "cooling=true": {
+    "active=false,cooling=true": {
+      "model": "simplebuilding:block/reinforced_potion_pad_cooling"
+    },
+    "active=true,cooling=false": {
+      "model": "simplebuilding:block/reinforced_potion_pad_active"
+    },
+    "active=true,cooling=true": {
       "model": "simplebuilding:block/reinforced_potion_pad_cooling"
     }
   }

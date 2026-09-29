@@ -64,6 +64,8 @@ import net.minecraft.world.phys.Vec3;
  * Spawn-Teleporter mit drei Stufen (50/20/5 s, alte Stufen III/IV in Welt und Inventar umgebaut),
  * Stufe I jeder Pad-Familie im Schmiedetisch aus Familienplatte + Freischalt-Zutat, keine
  * Bildschirmtexte bei Pads und Geraeten, Echolot mit vierfacher Abklingzeit ohne Doppelverknuepfung.
+ * Dazu die Entscheidungen vom 2026-09-29: Teleporter zum eigenen Spawn (Redstone: Weltspawn), Echolot
+ * mit Sperre nach jedem Versuch, Vorschlaghammer ohne Aktionsleisten-Hinweis, sichtbare Pad-Zustaende.
  * Fabric-Adapter {@code PadOverhaulGameTest}, Test-IDs {@code simplebuilding:pad_overhaul_game_test_*}.
  */
 public final class PadOverhaulTests {
@@ -73,6 +75,10 @@ public final class PadOverhaulTests {
     public static final int WAIT_MAX_TICKS = 200;
     /** Budget fuer den Trichter-Test (vier Windkugeln, eine je 8 Ticks, plus Luft). */
     public static final int HOPPER_MAX_TICKS = 200;
+    /** Budget fuer den Teleporter-Ziel-Test (Stufe III: 5 s Stehen plus Luft). */
+    public static final int DESTINATION_MAX_TICKS = 260;
+    /** Budget fuer den Zustands-Test (Elytra-Pad je halbe Sekunde, Trank-Pad, Luft). */
+    public static final int STATE_MAX_TICKS = 200;
 
     private PadOverhaulTests() {
     }
@@ -505,6 +511,319 @@ public final class PadOverhaulTests {
     }
 
     // ---- owner decisions 2026-09-28 (end)
+
+    // ---- owner decisions 2026-09-29 (begin)
+
+    /**
+     * The spawn teleporter takes a player to his own spawn and, powered by redstone, to the world spawn
+     * (owner, 2026-09-29): a player whose respawn point is a bed lands next to that bed, whatever the
+     * tier; a player without one lands at the spawn target. A redstone block next to the pad switches it
+     * to the world spawn instead of switching it off - driven for real on tier III (5 s), the bed owner
+     * charges it (the pad shows {@code active=true} meanwhile) and ends up away from his bed, and neither
+     * way writes a line on the screen. The two destinations have different arrival sounds.
+     *
+     * <p>What breaks it: the teleporter going back to the world spawn for everyone, redstone switching it
+     * off again, or the active state not following the charging player.
+     */
+    public static void theSpawnTeleporterTakesPlayersToTheirBedAndWithRedstoneToTheWorldSpawn(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        List<Component> texts = new ArrayList<>();
+        BlockPos bedFoot = new BlockPos(6, 1, 6);
+        BlockPos bedHead = bedFoot.north();
+        helper.setBlock(bedFoot, Blocks.BED.pick(net.minecraft.world.item.DyeColor.RED).defaultBlockState()
+                .setValue(net.minecraft.world.level.block.BedBlock.FACING, Direction.NORTH)
+                .setValue(net.minecraft.world.level.block.BedBlock.PART, net.minecraft.world.level.block.state.properties.BedPart.FOOT));
+        helper.setBlock(bedHead, Blocks.BED.pick(net.minecraft.world.item.DyeColor.RED).defaultBlockState()
+                .setValue(net.minecraft.world.level.block.BedBlock.FACING, Direction.NORTH)
+                .setValue(net.minecraft.world.level.block.BedBlock.PART, net.minecraft.world.level.block.state.properties.BedPart.HEAD));
+        Vec3 bed = helper.absoluteVec(Vec3.atCenterOf(bedHead));
+        ServerPlayer.RespawnConfig bedSpawn = new ServerPlayer.RespawnConfig(
+                net.minecraft.world.level.storage.LevelData.RespawnData.of(level.dimension(), helper.absolutePos(bedHead), 0.0F, 0.0F), false);
+
+        // --- own spawn, every tier: next to the bed ---
+        for (int tier = 1; tier <= 3; tier++) {
+            ServerPlayer sleeper = mockPlayer(helper, new Vec3(1.5, 1.1, 1.5));
+            sleeper.setRespawnPosition(bedSpawn, false);
+            helper.assertTrue(SpawnTeleporterBlockEntity.ownSpawn(sleeper) != null, "a player with a bed has no own spawn");
+            SpawnTeleporterBlockEntity.teleport(level, sleeper, tier);
+            helper.assertTrue(sleeper.position().distanceTo(bed) < 3.0,
+                    "spawn teleporter " + tier + " did not take a player with a bed to his bed: " + sleeper.position() + " vs " + bed);
+        }
+        // --- no own spawn: the spawn target, the same as the world spawn mode ---
+        ServerPlayer homeless = mockPlayer(helper, new Vec3(1.5, 1.1, 3.5));
+        helper.assertTrue(SpawnTeleporterBlockEntity.ownSpawn(homeless) == null, "a player without a bed has an own spawn");
+        SpawnTeleporterBlockEntity.SpawnTarget spawnTarget = SpawnTeleporterBlockEntity.spawnTarget(level);
+        SpawnTeleporterBlockEntity.teleport(level, homeless, 1);
+        helper.assertTrue(homeless.position().distanceTo(spawnTarget.position()) < 0.5,
+                "a player without a bed did not land at the spawn target: " + homeless.position() + " vs " + spawnTarget.position());
+        // --- world spawn mode: even the bed owner lands at the spawn target ---
+        ServerPlayer forced = mockPlayer(helper, new Vec3(1.5, 1.1, 5.5));
+        forced.setRespawnPosition(bedSpawn, false);
+        SpawnTeleporterBlockEntity.SpawnTarget sameTick = SpawnTeleporterBlockEntity.spawnTarget(level);
+        SpawnTeleporterBlockEntity.teleport(level, forced, 3, SpawnTeleporterBlockEntity.Destination.WORLD_SPAWN);
+        helper.assertTrue(forced.position().distanceTo(sameTick.position()) < 0.5,
+                "the world spawn mode did not take the bed owner to the spawn target: " + forced.position() + " vs " + sameTick.position());
+        helper.assertFalse(SpawnTeleporterBlockEntity.arrivalSound(SpawnTeleporterBlockEntity.Destination.OWN_SPAWN)
+                        == SpawnTeleporterBlockEntity.arrivalSound(SpawnTeleporterBlockEntity.Destination.WORLD_SPAWN),
+                "own spawn and world spawn arrive with the same sound");
+
+        // --- the real thing: tier III with a redstone block next to it ---
+        BlockPos pad = new BlockPos(2, 1, 2);
+        helper.setBlock(pad, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER);
+        BlockPos padAbs = helper.absolutePos(pad);
+        helper.assertValueEqual(SpawnTeleporterBlockEntity.destinationAt(level, padAbs), SpawnTeleporterBlockEntity.Destination.OWN_SPAWN,
+                "destination of an unpowered spawn teleporter");
+        helper.setBlock(pad.west(), Blocks.REDSTONE_BLOCK);
+        helper.assertValueEqual(SpawnTeleporterBlockEntity.destinationAt(level, padAbs), SpawnTeleporterBlockEntity.Destination.WORLD_SPAWN,
+                "destination of a powered spawn teleporter");
+        helper.assertFalse(com.simplebuilding.tweaks.block.PadBlock.isDisabledByRedstone(level, padAbs),
+                "redstone switches the spawn teleporter off instead of choosing the world spawn");
+        ServerPlayer rider = textRecordingPlayer(helper, new Vec3(2.5, 1.1, 2.5), texts);
+        rider.setRespawnPosition(bedSpawn, false);
+        rider.setDeltaMovement(Vec3.ZERO);
+        texts.clear();
+        Vec3 start = rider.position();
+        helper.startSequence()
+                .thenExecuteAfter(20, () -> helper.assertTrue(helper.getBlockState(pad).getValue(com.simplebuilding.tweaks.block.SpawnTeleporterBlock.ACTIVE),
+                        "the spawn teleporter does not show that someone is charging it"))
+                .thenWaitUntil(() -> helper.assertTrue(rider.position().distanceTo(start) > 2.0, "the powered spawn teleporter did not send the player away"))
+                .thenExecute(() -> {
+                    helper.assertTrue(rider.position().distanceTo(bed) > 3.0,
+                            "the powered spawn teleporter took the player to his bed instead of the world spawn: " + rider.position());
+                    helper.assertTrue(texts.isEmpty(), "the spawn teleporter wrote on the screen: " + texts);
+                })
+                .thenWaitUntil(() -> helper.assertFalse(helper.getBlockState(pad).getValue(com.simplebuilding.tweaks.block.SpawnTeleporterBlock.ACTIVE),
+                        "the spawn teleporter still shows a charge after the player left"))
+                .thenSucceed();
+    }
+
+    /**
+     * The echo sounder is for deliberate use (owner, 2026-09-29): linking it and every attempt that does
+     * not jump lock it for 1 s right next to the lodestone up to 5 s from 1000 blocks away or in another
+     * dimension, shown as the item cooldown. Driven: an attempt released early near its lodestone locks
+     * it for exactly {@link EchoCompassItem#attemptLockTicks} (on cooldown one tick before, free after); an
+     * attempt on a missing lodestone 2000 blocks away locks it for the full 100 ticks. The failure click
+     * sounds only once while the use key is held (repeats within {@value EchoCompassItem#HELD_GAP_TICKS}
+     * ticks stay silent), and none of it writes a line on the screen.
+     *
+     * <p>What breaks it: the lock going missing from a path, a lock that ignores the distance, or the
+     * click rattling along with the held key.
+     */
+    public static void theEchoSounderLocksForUpToFiveSecondsAfterAnAttemptDependingOnTheDistance(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        List<Component> texts = new ArrayList<>();
+        helper.assertValueEqual(EchoCompassItem.ATTEMPT_LOCK_TICKS, 5 * 20, "longest attempt lock of the echo sounder");
+        helper.assertValueEqual(SimpleTweaks.config().balancing.echoSounderAttemptLockTicks, 100, "configured attempt lock");
+        BlockPos lodestone = new BlockPos(6, 1, 6);
+        helper.setBlock(lodestone, Blocks.LODESTONE);
+        ServerPlayer player = textRecordingPlayer(helper, new Vec3(1.5, 1.0, 1.5), texts);
+        player.getAbilities().instabuild = false;
+        texts.clear();
+
+        // Distance: 1 s right next to it, 5 s far away and in another dimension, nothing unlinked.
+        BlockPos abs = helper.absolutePos(lodestone);
+        GlobalPos near = GlobalPos.of(level.dimension(), abs);
+        GlobalPos far = GlobalPos.of(level.dimension(), abs.offset(2000, 0, 0));
+        GlobalPos halfway = GlobalPos.of(level.dimension(), BlockPos.containing(player.position()).offset(500, 0, 0));
+        GlobalPos nether = GlobalPos.of(net.minecraft.world.level.Level.NETHER, abs);
+        int nearLock = EchoCompassItem.attemptLockTicks(player, near);
+        helper.assertTrue(nearLock >= 20 && nearLock <= 22, "attempt lock next to the lodestone: " + nearLock);
+        helper.assertValueEqual(EchoCompassItem.attemptLockTicks(player, far), 100, "attempt lock 2000 blocks away");
+        int half = EchoCompassItem.attemptLockTicks(player, halfway);
+        helper.assertTrue(half >= 58 && half <= 62, "attempt lock 500 blocks away: " + half);
+        helper.assertValueEqual(EchoCompassItem.attemptLockTicks(player, nether), 100, "attempt lock into another dimension");
+        helper.assertValueEqual(EchoCompassItem.attemptLockTicks(player, null), 0, "attempt lock of an unlinked echo sounder");
+
+        // Released early near its lodestone: locked for exactly the near lock.
+        ItemStack compass = linked(helper, lodestone);
+        player.setItemInHand(InteractionHand.MAIN_HAND, compass);
+        InteractionResult charge = compass.getItem().use(level, player, InteractionHand.MAIN_HAND);
+        helper.assertTrue(charge.consumesAction() && player.isUsingItem(), "the linked echo sounder did not start charging: " + charge);
+        helper.assertFalse(player.getCooldowns().isOnCooldown(compass), "starting to charge already locked the echo sounder");
+        player.releaseUsingItem();
+        helper.assertTrue(player.getCooldowns().isOnCooldown(compass), "releasing early did not lock the echo sounder");
+        int lock = EchoCompassItem.attemptLockTicks(player, EchoCompassItem.target(compass));
+        for (int t = 1; t < lock; t++) {
+            player.getCooldowns().tick();
+        }
+        helper.assertTrue(player.getCooldowns().isOnCooldown(compass), "the attempt lock ended before " + lock + " ticks");
+        player.getCooldowns().tick();
+        helper.assertFalse(player.getCooldowns().isOnCooldown(compass), "the attempt lock lasts longer than " + lock + " ticks");
+
+        // A missing lodestone 2000 blocks away: refused, locked for the full 5 s.
+        ItemStack missing = new ItemStack(TweaksItems.ECHO_COMPASS);
+        missing.set(DataComponents.LODESTONE_TRACKER, new LodestoneTracker(Optional.of(far), false));
+        player.setItemInHand(InteractionHand.MAIN_HAND, missing);
+        InteractionResult refused = missing.getItem().use(level, player, InteractionHand.MAIN_HAND);
+        helper.assertTrue(refused == InteractionResult.FAIL && !player.isUsingItem(), "an echo sounder without its lodestone charged: " + refused);
+        for (int t = 1; t < EchoCompassItem.ATTEMPT_LOCK_TICKS; t++) {
+            player.getCooldowns().tick();
+        }
+        helper.assertTrue(player.getCooldowns().isOnCooldown(missing), "the lock after a missing lodestone ended before 5 s");
+        player.getCooldowns().tick();
+        helper.assertFalse(player.getCooldowns().isOnCooldown(missing), "the lock after a missing lodestone lasts longer than 5 s");
+
+        // An unlinked echo sounder only clicks, it does not lock (the cooldown group is the item, so this
+        // is checked while no lock runs).
+        ItemStack unlinked = new ItemStack(TweaksItems.ECHO_COMPASS);
+        player.setItemInHand(InteractionHand.MAIN_HAND, unlinked);
+        unlinked.getItem().use(level, player, InteractionHand.MAIN_HAND);
+        helper.assertFalse(player.getCooldowns().isOnCooldown(unlinked), "an unlinked echo sounder locked itself");
+
+        // Linking locks it for a moment too.
+        ItemStack fresh = new ItemStack(TweaksItems.ECHO_COMPASS);
+        player.setItemInHand(InteractionHand.MAIN_HAND, fresh);
+        InteractionResult link = fresh.getItem().useOn(new UseOnContext(player, InteractionHand.MAIN_HAND, hit(helper, lodestone)));
+        helper.assertTrue(link.consumesAction() && player.getCooldowns().isOnCooldown(fresh), "linking did not lock the echo sounder: " + link);
+
+        // Held use key: the failure click sounds once, repeats inside the held gap stay silent (the refused
+        // attempt above already clicked in this tick, so the first press is checked after a pause).
+        helper.startSequence()
+                .thenExecuteAfter(EchoCompassItem.HELD_GAP_TICKS + 2, () -> {
+                    helper.assertTrue(EchoCompassItem.failCue(player, net.minecraft.sounds.SoundEvents.DISPENSER_FAIL, 0.6f, 0.8f),
+                            "the first failed click after a pause made no sound");
+                    helper.assertFalse(EchoCompassItem.failCue(player, net.minecraft.sounds.SoundEvents.DISPENSER_FAIL, 0.6f, 0.8f),
+                            "a repeated click of the held use key sounded again");
+                })
+                .thenExecuteAfter(4, () -> helper.assertFalse(EchoCompassItem.failCue(player,
+                        net.minecraft.sounds.SoundEvents.DISPENSER_FAIL, 0.6f, 0.8f), "the held use key repeating after 4 ticks sounded again"))
+                .thenExecuteAfter(EchoCompassItem.HELD_GAP_TICKS + 2, () -> {
+                    helper.assertTrue(EchoCompassItem.failCue(player, net.minecraft.sounds.SoundEvents.DISPENSER_FAIL, 0.6f, 0.8f),
+                            "a new press after letting go made no sound");
+                    helper.assertTrue(texts.isEmpty(), "the echo sounder wrote on the screen: " + texts);
+                })
+                .thenSucceed();
+    }
+
+    /**
+     * Sledgehammer upgrades show in the hand, not on the screen (owner, 2026-09-29): with a Diamond
+     * Sledgehammer and a Netherite Nugget the machine under the crosshair would be upgradable - the
+     * nugget and the hammer tilt ({@code showsUpgradeHint}); with the wrong nugget (Enderite) nothing
+     * tilts, the right-click falls through to the machine as before and writes no line on the screen, and
+     * the removed action bar texts are gone from both language files.
+     *
+     * <p>What breaks it: the old action bar hint coming back, or the tilt answering for the wrong nugget.
+     */
+    public static void aWrongNuggetOnTheSledgehammerWritesNothingAndDoesNotTilt(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        List<Component> texts = new ArrayList<>();
+        BlockPos hopper = new BlockPos(3, 1, 3);
+        helper.setBlock(hopper, com.simplebuilding.blocks.ModBlocks.REINFORCED_HOPPER);
+        ServerPlayer player = textRecordingPlayer(helper, new Vec3(3.5, 1.0, 1.5), texts);
+        texts.clear();
+        BlockPos abs = helper.absolutePos(hopper);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER));
+
+        player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(ModItems.NETHERITE_NUGGET));
+        helper.assertTrue(com.simplebuilding.util.SledgehammerUpgrades.showsUpgradeHint(level, abs, player),
+                "the fitting nugget does not tilt in front of an upgradable machine");
+
+        player.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(ModItems.ENDERITE_NUGGET));
+        helper.assertFalse(com.simplebuilding.util.SledgehammerUpgrades.showsUpgradeHint(level, abs, player),
+                "the wrong nugget tilts as if it could upgrade the machine");
+        InteractionResult begun = com.simplebuilding.util.SledgehammerUpgrades.tryBegin(
+                new UseOnContext(player, InteractionHand.MAIN_HAND, hit(helper, hopper)));
+        helper.assertTrue(begun == null, "the wrong nugget started an upgrade: " + begun);
+        helper.assertFalse(com.simplebuilding.util.SledgehammerUpgrades.shouldSkipBlockUse(helper.getBlockState(hopper), level, abs,
+                player, InteractionHand.MAIN_HAND), "the wrong nugget kept the machine from opening");
+        helper.assertTrue(texts.isEmpty(), "the sledgehammer wrote on the screen: " + texts);
+        for (com.google.gson.JsonObject lang : new com.google.gson.JsonObject[]{lang(helper, "en_us"), lang(helper, "de_de")}) {
+            for (String key : List.of("message.simplebuilding.smithing.wrong_nugget", "message.simplebuilding.smithing.hammer_too_weak",
+                    "message.simplebuilding.smithing.piston_busy", "message.simplebuilding.smithing.double_chest",
+                    "message.simplebuilding.echo_sounder.dimension_locked")) {
+                helper.assertFalse(lang.has(key), "the removed on-screen text " + key + " is still translated");
+            }
+        }
+        helper.succeed();
+    }
+
+    /**
+     * Every pad family shows whether it is working (owner, 2026-09-29): an Elytra Pad turns
+     * {@code active} while it serves a player and back off when he leaves, and stays off under a redstone
+     * signal; a Potion Pad is {@code active} only while it holds a potion, is off cooldown and unpowered.
+     * The blockstate files point every active state at its own model with its own texture, and pressed
+     * plates at their glowing texture.
+     *
+     * <p>What breaks it: a state that no longer follows the pad, or a blockstate without the active model.
+     */
+    public static void everyPadFamilyShowsWhetherItIsWorking(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        BlockPos elytra = new BlockPos(1, 1, 1);
+        helper.setBlock(elytra, TweaksBlocks.ELYTRA_PAD);
+        BlockPos potion = new BlockPos(5, 1, 5);
+        helper.setBlock(potion, TweaksBlocks.POTION_PAD);
+        PotionPadBlockEntity potionPad = helper.getBlockEntity(potion, PotionPadBlockEntity.class);
+        net.minecraft.world.level.block.state.properties.BooleanProperty elytraActive = com.simplebuilding.tweaks.block.ElytraPadBlock.ACTIVE;
+        net.minecraft.world.level.block.state.properties.BooleanProperty potionActive = com.simplebuilding.tweaks.block.PotionPadBlock.ACTIVE;
+        helper.assertFalse(helper.getBlockState(elytra).getValue(elytraActive), "a fresh elytra pad is active");
+        helper.assertFalse(helper.getBlockState(potion).getValue(potionActive), "a fresh potion pad is active");
+
+        // Blockstates and models (resources of this line).
+        for (String id : List.of("elytra_pad", "reinforced_elytra_pad", "netherite_elytra_pad", "enderite_elytra_pad", "fine_elytra_pad",
+                "spawn_teleporter", "spawn_teleporter_tier_2", "enderite_spawn_teleporter", "potion_pad", "reinforced_potion_pad", "infused_potion_pad")) {
+            String blockstate = resource(helper, "/assets/simplebuilding/blockstates/" + id + ".json");
+            helper.assertTrue(blockstate.contains("simplebuilding:block/" + id + "_active"), "the blockstate of " + id + " has no active model");
+            String model = resource(helper, "/assets/simplebuilding/models/block/" + id + "_active.json");
+            helper.assertTrue(model.contains("simplebuilding:block/" + id + "_active"), "the active model of " + id + " does not use its active texture");
+            helper.assertTrue(PadOverhaulTests.class.getResource("/assets/simplebuilding/textures/block/" + id + "_active.png") != null,
+                    "no active texture for " + id);
+        }
+        for (String id : List.of("diamond_pressure_plate", "netherite_pressure_plate", "enderite_pressure_plate", "copper_pressure_plate",
+                "exposed_copper_pressure_plate", "weathered_copper_pressure_plate", "oxidized_copper_pressure_plate")) {
+            String model = resource(helper, "/assets/simplebuilding/models/block/" + id + "_down.json");
+            helper.assertTrue(model.contains("simplebuilding:block/" + id + "_active"), "the pressed " + id + " does not glow");
+            helper.assertTrue(PadOverhaulTests.class.getResource("/assets/simplebuilding/textures/block/" + id + "_active.png") != null,
+                    "no glowing texture for the pressed " + id);
+        }
+
+        ServerPlayer player = mockPlayer(helper, new Vec3(1.5, 2.0, 1.5));
+        player.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
+        helper.startSequence()
+                .thenWaitUntil(() -> helper.assertTrue(helper.getBlockState(elytra).getValue(elytraActive),
+                        "the elytra pad does not show that it serves a player"))
+                .thenExecute(() -> {
+                    Vec3 away = helper.absoluteVec(new Vec3(7.5, 1.0, 1.5));
+                    player.snapTo(away.x, away.y, away.z, 0.0F, 0.0F);
+                })
+                .thenWaitUntil(() -> helper.assertFalse(helper.getBlockState(elytra).getValue(elytraActive),
+                        "the elytra pad still shows a player who left"))
+                .thenExecute(() -> {
+                    helper.setBlock(elytra.east(), Blocks.REDSTONE_BLOCK);
+                    Vec3 back = helper.absoluteVec(new Vec3(1.5, 2.0, 1.5));
+                    player.snapTo(back.x, back.y, back.z, 0.0F, 0.0F);
+                    // A potion arrives on the potion pad.
+                    com.simplebuilding.tweaks.block.PotionPadBlock.absorb(potionPad,
+                            net.minecraft.world.item.alchemy.PotionContents.createItemStack(Items.SPLASH_POTION, net.minecraft.world.item.alchemy.Potions.SWIFTNESS));
+                })
+                .thenExecuteAfter(25, () -> {
+                    helper.assertFalse(helper.getBlockState(elytra).getValue(elytraActive), "a powered elytra pad shows itself as working");
+                    helper.assertTrue(helper.getBlockState(potion).getValue(potionActive), "a potion pad holding a potion does not show it is ready");
+                    helper.setBlock(potion.east(), Blocks.REDSTONE_BLOCK);
+                })
+                .thenExecuteAfter(2, () -> {
+                    helper.assertFalse(helper.getBlockState(potion).getValue(potionActive), "a powered potion pad shows itself as ready");
+                    helper.setBlock(potion.east(), Blocks.AIR);
+                    potionPad.setCooldown(200);
+                })
+                .thenExecuteAfter(2, () -> {
+                    net.minecraft.world.level.block.state.BlockState cooling = helper.getBlockState(potion);
+                    helper.assertTrue(cooling.getValue(com.simplebuilding.tweaks.block.PotionPadBlock.COOLING)
+                            && !cooling.getValue(potionActive), "a cooling potion pad is " + cooling);
+                })
+                .thenSucceed();
+    }
+
+    private static String resource(GameTestHelper helper, String path) {
+        try (java.io.InputStream in = PadOverhaulTests.class.getResourceAsStream(path)) {
+            helper.assertTrue(in != null, "no " + path + " on the classpath");
+            return new String(in.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8);
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException("cannot read " + path, e);
+        }
+    }
+
+    // ---- owner decisions 2026-09-29 (end)
+
 
     // =====================================================================================
     // HELPERS

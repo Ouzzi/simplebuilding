@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "active=false": {
       "model": "simplebuilding:block/elytra_pad"
+    },
+    "active=true": {
+      "model": "simplebuilding:block/elytra_pad_active"
     }
   }
 }

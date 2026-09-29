@@ -55,10 +55,14 @@ public final class TweaksStation {
         int x = 1;
         x = station(c, x, floorZ, wallZ, TweaksBlocks.SPAWN_TELEPORTER,
                 TcText.t("tweaks.teleporter", "Teleporter"), TcText.t("tweaks.teleporter.1", "stand still 50 s"),
-                TcText.t("tweaks.teleporter.2", "to spawn"));
+                TcText.t("tweaks.teleporter.2", "to your bed"));
+        // Enderit-Teleporter mit Hebel davor (Besitzer 2026-09-29): umgelegt springt er zum Weltspawn.
+        int home = x;
         x = station(c, x, floorZ, wallZ, TweaksBlocks.ENDERITE_SPAWN_TELEPORTER,
                 TcText.t("tweaks.teleporter_home", "Enderite Tp."), TcText.t("tweaks.teleporter_home.1", "stand still 5 s"),
-                TcText.t("tweaks.teleporter_home.2", "to your bed"));
+                TcText.t("tweaks.teleporter_home.2", "lever: world spawn"));
+        c.place(home, 0, floorZ + 1, Blocks.LEVER.defaultBlockState()
+                .setValue(net.minecraft.world.level.block.LeverBlock.FACE, net.minecraft.world.level.block.state.properties.AttachFace.FLOOR));
         x = station(c, x, floorZ, wallZ, TweaksBlocks.ELYTRA_PAD,
                 TcText.t("tweaks.elytra_pad", "Elytra Pad"), TcText.t("tweaks.elytra_pad.1", "empty chest slot"),
                 TcText.t("tweaks.elytra_pad.2", "gets an elytra"));

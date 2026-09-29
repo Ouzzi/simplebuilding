@@ -1341,6 +1341,16 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("pad_overhaul_game_test_hoppers_fill_only_wind_charges_into_the_launchpad", PadOverhaulTests::hoppersFillOnlyWindChargesIntoTheLaunchpad)
                     .maxTicks(PadOverhaulTests.HOPPER_MAX_TICKS)
                     .build(),
+            GameTestSpec.named("pad_overhaul_game_test_the_spawn_teleporter_takes_players_to_their_bed_and_with_redstone_to_the_world_spawn", PadOverhaulTests::theSpawnTeleporterTakesPlayersToTheirBedAndWithRedstoneToTheWorldSpawn)
+                    .maxTicks(PadOverhaulTests.DESTINATION_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("pad_overhaul_game_test_the_echo_sounder_locks_for_up_to_five_seconds_after_an_attempt_depending_on_the_distance", PadOverhaulTests::theEchoSounderLocksForUpToFiveSecondsAfterAnAttemptDependingOnTheDistance)
+                    .build(),
+            GameTestSpec.named("pad_overhaul_game_test_a_wrong_nugget_on_the_sledgehammer_writes_nothing_and_does_not_tilt", PadOverhaulTests::aWrongNuggetOnTheSledgehammerWritesNothingAndDoesNotTilt)
+                    .build(),
+            GameTestSpec.named("pad_overhaul_game_test_every_pad_family_shows_whether_it_is_working", PadOverhaulTests::everyPadFamilyShowsWhetherItIsWorking)
+                    .maxTicks(PadOverhaulTests.STATE_MAX_TICKS)
+                    .build(),
             GameTestSpec.named("tweaks_tier_game_test_launchpad_tiers_hold_four_eight_and_sixteen_wind_charges", TweaksTierTests::launchpadTiersHoldFourEightAndSixteenWindCharges)
                     .build(),
             GameTestSpec.named("tweaks_tier_game_test_sneaking_with_wind_charges_loads_the_whole_hand_up_to_capacity", TweaksTierTests::sneakingWithWindChargesLoadsTheWholeHandUpToCapacity)

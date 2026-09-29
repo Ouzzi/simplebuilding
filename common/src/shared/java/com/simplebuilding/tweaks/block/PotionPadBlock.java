@@ -54,6 +54,12 @@ public class PotionPadBlock extends PadBlock {
 
     /** Abklingzeit laeuft: das Pad gibt nichts, die Textur ist animiert. */
     public static final BooleanProperty COOLING = BooleanProperty.create("cooling");
+    /**
+     * Bereit (Besitzer 2026-09-29): ein Trank ist gespeichert, keine Abklingzeit, nicht abgeschaltet - die
+     * Adern gluehen hell. Leer, abgeschaltet oder abklingend steht es auf false (in der Abklingzeit zeigt
+     * {@link #COOLING} die animierte Textur). Gesetzt von {@link PotionPadBlockEntity#serverTick}.
+     */
+    public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
 
     /** Hoechste Stufe. */
     public static final int MAX_TIER = 3;
@@ -65,12 +71,27 @@ public class PotionPadBlock extends PadBlock {
     public PotionPadBlock(BlockBehaviour.Properties properties, int tier) {
         super(properties, Block.box(1, 0, 1, 15, 1, 15), PadOwnership.OWNER_PAD, PadOwnership.STRANGER_PAD);
         this.tier = Math.max(1, Math.min(MAX_TIER, tier));
-        registerDefaultState(stateDefinition.any().setValue(COOLING, false));
+        registerDefaultState(stateDefinition.any().setValue(COOLING, false).setValue(ACTIVE, false));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(COOLING);
+        builder.add(COOLING, ACTIVE);
+    }
+
+    /**
+     * Nur im Client: in der Abklingzeit steigt ab und zu ein weisses Dampfwoelkchen auf (das Pad kuehlt
+     * ab), abgeschaltet ein Rauchwoelkchen. Die Trankfarbe eines bereiten Pads schickt der Server.
+     */
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, net.minecraft.util.RandomSource random) {
+        if (animateSwitchedOff(level, pos, random)) {
+            return;
+        }
+        if (state.getValue(COOLING) && random.nextInt(14) == 0) {
+            level.addParticle(net.minecraft.core.particles.ParticleTypes.WHITE_SMOKE, pos.getX() + 0.25 + random.nextDouble() * 0.5,
+                    pos.getY() + 0.1, pos.getZ() + 0.25 + random.nextDouble() * 0.5, 0.0, 0.02, 0.0);
+        }
     }
 
     /** Ein abgebautes Pad in der Abklingzeit wird wieder als abklingendes Pad gesetzt. */

@@ -88,6 +88,26 @@ public class LaunchpadBlock extends WaterloggedPadBlock {
         return true;
     }
 
+    /**
+     * Nur im Client (Besitzer 2026-09-29, sichtbare Zustaende): ein geladenes Launchpad laesst ab und zu
+     * einen Windhauch aufsteigen, je voller desto oefter; unter Wasser Blasen. Leer bleibt es still,
+     * abgeschaltet raucht es leicht ({@link PadBlock#animateSwitchedOff}).
+     */
+    @Override
+    public void animateTick(BlockState state, net.minecraft.world.level.Level level, BlockPos pos, net.minecraft.util.RandomSource random) {
+        if (animateSwitchedOff(level, pos, random)) {
+            return;
+        }
+        int charge = state.getValue(CHARGE);
+        if (charge == 0 || random.nextInt(18 - 4 * charge) != 0) {
+            return;
+        }
+        double x = pos.getX() + 0.2 + random.nextDouble() * 0.6;
+        double z = pos.getZ() + 0.2 + random.nextDouble() * 0.6;
+        level.addParticle(state.getValue(WATERLOGGED) ? net.minecraft.core.particles.ParticleTypes.BUBBLE_COLUMN_UP
+                : net.minecraft.core.particles.ParticleTypes.SMALL_GUST, x, pos.getY() + 0.15, z, 0.0, 0.04, 0.0);
+    }
+
     public boolean isEnderite() {
         return tier >= ENDERITE_TIER;
     }

@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "active=false": {
       "model": "simplebuilding:block/spawn_teleporter_tier_2"
+    },
+    "active=true": {
+      "model": "simplebuilding:block/spawn_teleporter_tier_2_active"
     }
   }
 }
