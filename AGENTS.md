@@ -65,6 +65,7 @@ Mehrere MC-Linien und Loader in einem Repo. **26.3 (Fabric + NeoForge) ist die H
 ## 7. Balancing-Zentrale (Dev-Server)
 `python tools/devserver/serve.py` (Port 8770), Code in `tools/devserver/sbdev`, Daten in `balance/` (Versionen, Rollback).
 Speichern schreibt Zahlen direkt in Java/JSON. Details: `docs/BALANCING-ZENTRALE.md`.
+**Launch- und Testzentrale:** `python tools/launchhub/server.py` (Port 8771): Clients/Server starten, Tests im Gate-Worktree, Verlauf, KI-Fix. Details: `docs/LAUNCHHUB.md`. Die Client-/Server-Einträge in `.claude/launch.json` gibt es nicht mehr.
 
 ## 8. Ablauf für neue Wünsche des Besitzers
 1. Wunsch in `.claude/QUEUE.md` eintragen. 2. Umsetzen nur auf 26.3. 3. Server-Tests gefiltert, am Ende volles Gate im Worktree.

@@ -89,3 +89,8 @@ scratchpad/
 /options.txt
 /downloads/
 /logs/
+
+# Launch- und Testzentrale (tools/launchhub): lokale Einstellungen, Job-Logs, Pruefergebnisse
+tools/launchhub/settings.json
+tools/launchhub/logs/
+tools/launchhub/data/
