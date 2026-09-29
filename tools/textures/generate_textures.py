@@ -2065,20 +2065,24 @@ def building_core_textures():
 # belegt Spalten 4-12 und Zeilen 3-12 und bleibt ueberall innerhalb der Randpixel. Nur die Schattierung
 # (Licht von oben links) ist nicht symmetrisch. Die Fuehler umrahmen den Kopf als Bogen ( ), weil die
 # Platte oben keinen Platz fuer nach aussen gebogene Spitzen laesst.
+# Runde 4 2026-09-29 (Besitzer: Motiv kleiner und um 45 Grad gedreht): der Kopf ist jetzt eine Raute
+# (|dx|+|dy| <= 3 um 8/8, Spalten 5-11, Zeilen 5-11), das Gesicht blickt nach oben rechts: Fuehler an der
+# Nord- und Ostecke (4 -> Spitze 5), Augenhoehlen e auf der Diagonale durch die Mitte, Maul m mit zwei
+# Zaehnen n darunter (parallel versetzt), Licht weiterhin von oben links (K Kante NW, g Kante SO).
 PULSATING_TRIM_TEMPLATE = [
     "......TTL.......",
     ".....TvtsuB.....",
     ".....LtsqsuRB...",
-    "....L5vtsdt5RBB.",
-    "....L4tsvst4uRRB",
-    "...L4ustvtsu4sRB",
-    "...L3hKKKkkh3uRB",
-    "..LshKKkkkkhgsB.",
-    "..LskeekKkeeguB.",
-    ".LtuhkkkkkhhguB.",
-    ".LvsgmnmmmnmgB..",
-    ".LtsugmnmnmgB...",
-    ".BsdsugggggRB...",
+    "....Luvt5dtsRBB.",
+    "....Lvts4stuuRRB",
+    "...LuustKtsutsRB",
+    "...LutsKKkssuuRB",
+    "..LssuKeKkksvsB.",
+    "..LssKnKkkkh45B.",
+    ".LtusskmkehutuB.",
+    ".LvsutsknhsvtB..",
+    ".LtsutsshuutB...",
+    ".BsdsuutsvuRB...",
     "..BBstudsuRB....",
     "....BBusqBBB....",
     "......BBBBB.....",
