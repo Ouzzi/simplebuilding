@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "R": "simplebuilding:raw_enderite"
+  },
+  "pattern": [
+    "R",
+    "R",
+    "R"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplebuilding:layered_raw_enderite"
+  }
+}

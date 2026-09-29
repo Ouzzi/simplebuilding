@@ -107,7 +107,8 @@ public final class PotionPadTests {
 
     /**
      * Wer auf dem Pad steht, bekommt nach 1 s 25 %, nach 2 s 50 % und nach 3 s 100 % von 30 s (I),
-     * 60 s (II) bzw. 120 s (III), mit der Verstaerkung des Tranks; vor der ersten Sekunde nichts. Wer
+     * 60 s (II) bzw. 120 s (III), mit der Verstaerkung des Tranks (langer Trank, 8 min: die Stufendauer
+     * deckelt, nicht der Trank - siehe PotionPadRuleTests); vor der ersten Sekunde nichts. Wer
      * nach einem Schritt absteigt, behaelt das Erhaltene, startet keine Abklingzeit und faengt beim
      * naechsten Betreten wieder bei 0 an.
      */
@@ -116,7 +117,7 @@ public final class PotionPadTests {
         int[] percent = {25, 50, 100};
         for (int i = 0; i < PADS.length; i++) {
             BlockPos pad = new BlockPos(1 + i * 3, 1, 2);
-            PotionPadBlockEntity be = placeFilled(helper, pad, PADS[i], Potions.STRONG_SWIFTNESS);
+            PotionPadBlockEntity be = placeFilled(helper, pad, PADS[i], Potions.LONG_SWIFTNESS);
             helper.assertTrue(((PotionPadBlock) PADS[i]).getTier() == i + 1, PADS[i] + " is not tier " + (i + 1));
             int full = seconds[i] * 20;
             String tier = "potion pad tier " + (i + 1);
@@ -131,7 +132,7 @@ public final class PotionPadTests {
                 int expected = full * percent[step - 1] / 100;
                 helper.assertTrue(speed != null && speed.getDuration() == expected, tier + " gave " + (speed == null ? "no" : speed.getDuration() + " ticks of")
                         + " swiftness after " + step + " s instead of " + expected + " (" + percent[step - 1] + " %)");
-                helper.assertTrue(speed.getAmplifier() == 1, tier + " gave swiftness level " + (speed.getAmplifier() + 1) + " instead of the potion's level II");
+                helper.assertTrue(speed.getAmplifier() == 0, tier + " gave swiftness level " + (speed.getAmplifier() + 1) + " instead of the potion's level I");
                 helper.assertTrue(be.isCoolingDown() == (step == 3),
                         tier + (step == 3 ? " did not start its cooldown at 100 %" : " started its cooldown at " + percent[step - 1] + " %"));
             }
@@ -140,7 +141,7 @@ public final class PotionPadTests {
 
             // Abbruch: auf einem frischen Pad derselben Stufe nach dem ersten Schritt absteigen.
             BlockPos early = pad.offset(0, 0, 3);
-            PotionPadBlockEntity earlyBe = placeFilled(helper, early, PADS[i], Potions.STRONG_SWIFTNESS);
+            PotionPadBlockEntity earlyBe = placeFilled(helper, early, PADS[i], Potions.LONG_SWIFTNESS);
             ServerPlayer leaver = mockPlayer(helper, onTop(early));
             leaver.removeAllEffects();
             tickPad(helper, early, PotionPadBlockEntity.RAMP_STEP_TICKS);
@@ -175,7 +176,7 @@ public final class PotionPadTests {
         ItemStack mixed = PotionContents.createItemStack(Items.SPLASH_POTION, Potions.HEALING);
         mixed.set(net.minecraft.core.component.DataComponents.POTION_CONTENTS,
                 mixed.get(net.minecraft.core.component.DataComponents.POTION_CONTENTS)
-                        .withEffectAdded(new MobEffectInstance(MobEffects.STRENGTH, 200, 0)));
+                        .withEffectAdded(new MobEffectInstance(MobEffects.STRENGTH, 1200, 0)));
         PotionPadBlock.absorb(be, mixed);
         ServerPlayer player = mockPlayer(helper, onTop(pad));
         player.removeAllEffects();
@@ -191,7 +192,8 @@ public final class PotionPadTests {
         be.grant(level, player, 3);
         helper.assertTrue(player.getHealth() == 8.0F, "the 3 s step healed to " + player.getHealth() + " instead of 8 (Instant Health I = 4)");
         helper.assertTrue(player.getEffect(MobEffects.STRENGTH).getDuration() == full, "the lasting effect was not given for the full tier duration at 3 s");
-        helper.assertTrue(be.getCooldown() == 2 * full, "the 3 s step set a cooldown of " + be.getCooldown() + " ticks instead of " + 2 * full);
+        // Healing asks for twice the plain cooldown on the 30 s instant basis (PotionPadRules): 2 x 2 x 600.
+        helper.assertTrue(be.getCooldown() == 4 * full, "the 3 s step set a cooldown of " + be.getCooldown() + " ticks instead of " + 4 * full);
         be.grant(level, player, 3);
         helper.assertTrue(player.getHealth() == 8.0F, "a cooling pad healed again (" + player.getHealth() + ")");
         succeed(helper);
@@ -210,7 +212,7 @@ public final class PotionPadTests {
         int[] cooldownSeconds = {60, 120, 240};
         for (int i = 0; i < PADS.length; i++) {
             BlockPos pad = new BlockPos(1 + i * 3, 1, 2);
-            PotionPadBlockEntity be = placeFilled(helper, pad, PADS[i], Potions.STRONG_SWIFTNESS);
+            PotionPadBlockEntity be = placeFilled(helper, pad, PADS[i], Potions.LONG_SWIFTNESS);
             String tier = "potion pad tier " + (i + 1);
             int cooldown = cooldownSeconds[i] * 20;
             helper.assertTrue(((PotionPadBlock) PADS[i]).cooldownAt(helper.getLevel(), helper.absolutePos(pad)) == cooldown,
@@ -255,7 +257,7 @@ public final class PotionPadTests {
         ServerPlayer builder = mockPlayer(helper, new Vec3(6.5, 1.0, 6.5));
         placeFromItem(helper, builder, EasterEggs.create(TweaksFamilies.Family.POTION_PAD, 3), pos);
         PotionPadBlockEntity be = helper.getBlockEntity(pos, PotionPadBlockEntity.class);
-        PotionPadBlock.absorb(be, PotionContents.createItemStack(Items.LINGERING_POTION, Potions.STRONG_STRENGTH));
+        PotionPadBlock.absorb(be, PotionContents.createItemStack(Items.LINGERING_POTION, Potions.LONG_STRENGTH));
         ServerPlayer drinker = mockPlayer(helper, onTop(pos));
         drinker.removeAllEffects();
         tickPad(helper, pos, 3 * PotionPadBlockEntity.RAMP_STEP_TICKS);
@@ -272,7 +274,7 @@ public final class PotionPadTests {
         PotionContents potion = dropped.get(net.minecraft.core.component.DataComponents.POTION_CONTENTS);
         helper.assertTrue(dropped.is(TweaksBlocks.INFUSED_POTION_PAD.asItem()) && rest != null && rest == expected,
                 "breaking a cooling pad dropped " + drops + " with remaining cooldown " + rest + " instead of " + expected);
-        helper.assertTrue(potion != null && potion.is(Potions.STRONG_STRENGTH) && EasterEggs.stageOf(dropped) == 3,
+        helper.assertTrue(potion != null && potion.is(Potions.LONG_STRENGTH) && EasterEggs.stageOf(dropped) == 3,
                 "the cooling pad item lost its potion (" + potion + ") or its easter stage (" + EasterEggs.stageOf(dropped) + ")");
         helper.assertTrue(dropped.getMaxStackSize() == 1 && !dropped.isStackable(), "the cooling pad item stacks to " + dropped.getMaxStackSize());
         helper.assertTrue(!ItemStack.isSameItemSameComponents(dropped, EasterEggs.create(TweaksFamilies.Family.POTION_PAD, 3)),
@@ -284,7 +286,7 @@ public final class PotionPadTests {
         boolean cooling = helper.getBlockState(pos).getValue(PotionPadBlock.COOLING);
         helper.assertTrue(again.getCooldown() == expected && cooling,
                 "placed again, the pad has " + again.getCooldown() + " ticks of cooldown (cooling=" + cooling + ") instead of " + expected);
-        helper.assertTrue(again.getStored() != null && again.getStored().is(Potions.STRONG_STRENGTH) && again.easterStage() == 3
+        helper.assertTrue(again.getStored() != null && again.getStored().is(Potions.LONG_STRENGTH) && again.easterStage() == 3
                         && EasterEggs.isBoosted(level, helper.absolutePos(pos)),
                 "placed again, the pad holds " + again.getStored() + " at easter stage " + again.easterStage());
         tickPad(helper, pos, 20);

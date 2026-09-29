@@ -284,6 +284,9 @@ public class ModItems {
 
     public static final Item RAW_ENDERITE = registerItem("raw_enderite", s -> new Item(s));     // Fix: s nutzen!
 
+    /** Drei Rohenderit uebereinander gepresst (Besitzer 2026-09-29); nur daraus schmilzt Enderitschrott. */
+    public static final Item LAYERED_RAW_ENDERITE = registerItem("layered_raw_enderite", s -> new Item(s));
+
     public static final Item ENDERITE_SCRAP = registerItem("enderite_scrap", s -> new Item(s.fireResistant()));
 
         public static final Item ENDERITE_INGOT = registerItem("enderite_ingot", s -> new Item(s

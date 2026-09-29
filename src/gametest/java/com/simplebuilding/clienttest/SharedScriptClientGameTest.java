@@ -313,6 +313,24 @@ public final class SharedScriptClientGameTest implements FabricClientGameTest {
         }
 
         @Override
+        public void pressKeyInScreen(int glfwKeyCode, int modifiers) {
+            // Not TestInput.pressKey: Fabric builds that KeyEvent with modifiers 0 even while
+            // holdControl() is in effect, so Control+V never reads as paste. Fabric's own keyboard
+            // accessor (mixed in by its client test module) takes the event as given.
+            context.runOnClient(client -> {
+                var keyboard = (net.fabricmc.fabric.mixin.client.gametest.input.KeyboardHandlerAccessor) client.keyboardHandler;
+                long window = client.getWindow().handle();
+                keyboard.invokeKeyPress(window, 1, com.simplebuilding.clientgametest.ClientTestVersion.keyEvent(glfwKeyCode, modifiers));
+                keyboard.invokeKeyPress(window, 0, com.simplebuilding.clientgametest.ClientTestVersion.keyEvent(glfwKeyCode, modifiers));
+            });
+        }
+
+        @Override
+        public void typeChars(String text) {
+            context.getInput().typeChars(text);
+        }
+
+        @Override
         public void setAttacking(boolean attacking) {
             // Fabric's input goes through the real mouse path, so the held button is all it takes.
             if (attacking) {

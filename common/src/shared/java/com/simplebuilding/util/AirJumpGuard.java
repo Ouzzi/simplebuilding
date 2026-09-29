@@ -28,6 +28,21 @@ public final class AirJumpGuard {
     /** Packets sent a cooldown apart can arrive a little closer together. */
     public static final int LATENCY_SLACK_TICKS = 3;
 
+    /**
+     * Default {@code airJumpCooldownTicks}: 20 s at level I, so 10 s at level II (owner 2026-09-29;
+     * before: 100 ticks = 5 s / 2.5 s).
+     */
+    public static final int DEFAULT_COOLDOWN_TICKS = 400;
+    /** Shortest configurable level I cooldown (1 s): below that the air jump turns into flight. */
+    public static final int MIN_COOLDOWN_TICKS = 20;
+    /** Longest configurable level I cooldown (5 min). */
+    public static final int MAX_COOLDOWN_TICKS = 6000;
+
+    /** The configured level I cooldown kept inside {@link #MIN_COOLDOWN_TICKS}..{@link #MAX_COOLDOWN_TICKS}. */
+    public static int clampBase(int configured) {
+        return Math.max(MIN_COOLDOWN_TICKS, Math.min(MAX_COOLDOWN_TICKS, configured));
+    }
+
     /** Server tick of the last accepted air jump in the current fall; absent = none used since landing. */
     private static final Map<ServerPlayer, Integer> JUMP_USED_AT = new WeakHashMap<>();
 
@@ -66,7 +81,7 @@ public final class AirJumpGuard {
 
     /** The same cooldown the client waits, see {@code DoubleJumpController#cooldownTicksForLevel}. */
     public static int cooldownTicks(int level) {
-        return cooldownTicks(level, Simplebuilding.getConfig().airJumpCooldownTicks);
+        return cooldownTicks(level, clampBase(Simplebuilding.getConfig().airJumpCooldownTicks));
     }
 
     /** Level 1 = {@code base}, level 2+ = half of it (at least 1 tick); negative bases count as 0. */

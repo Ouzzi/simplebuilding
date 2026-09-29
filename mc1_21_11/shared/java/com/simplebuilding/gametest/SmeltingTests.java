@@ -36,11 +36,11 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * Smelting with the mod: the hour long raw enderite blast, the two engine fixes that make such a
+ * Smelting with the mod: the two hour layered raw enderite blast, the two engine fixes that make such a
  * cook survive (timers stored as ints, menu data scaled into the short range the client receives)
  * and the rewards of the upper furnace tiers ({@code FurnaceTierPerks}).
  *
- * <p><b>Long cooks cannot be waited for.</b> 72000 ticks is an hour; no gametest runs that long. The
+ * <p><b>Long cooks cannot be waited for.</b> 144000 ticks are two hours; no gametest runs that long. The
  * timers are therefore injected the way a chunk load hands them over: the block entity's own saved
  * form is taken ({@code saveWithoutMetadata}, so the items come along), the four timers are
  * overwritten with ints, and the tag is loaded back through {@code loadCustomOnly}.
@@ -73,8 +73,16 @@ public final class SmeltingTests {
     /** Tick budget for {@link #blastFurnaceBonusPaysRawMetalsEveryFourthOrSecondSmelt}. */
     public static final int BONUS_MAX_TICKS = 340;
 
-    /** The raw enderite blast: an hour at 20 ticks per second, in the base device. */
-    private static final int SCRAP_COOK_TICKS = 72000;
+    /**
+     * The layered raw enderite blast (owner 2026-09-29): 144000 ticks per enderite scrap - twice the 72000
+     * the old direct raw enderite blast took - so two hours in the base device.
+     */
+    private static final int SCRAP_COOK_TICKS = 144000;
+    /**
+     * Scrap out of one layered raw enderite: one - cooking recipes give a single item on 1.21.11, so every
+     * line does the same.
+     */
+    private static final int SCRAP_PER_LAYERED = 1;
 
     /** Four timers above what a short holds, and apart from each other so none can stand in for another. */
     private static final int LIT_REMAINING = 40000;
@@ -89,35 +97,55 @@ public final class SmeltingTests {
     // =====================================================================================
 
     /**
-     * {@code simplebuilding:enderite_scrap_from_blasting_raw_enderite} is a blasting recipe of
-     * 72000 ticks - an hour in a vanilla blast furnace - worth 10 experience, and raw enderite has no
-     * smelting or smoking recipe, so it only goes into blast furnaces. All four of them - vanilla,
-     * reinforced, netherite and enderite - take the 72000 over as their total cook time the moment the
-     * raw enderite goes in, and still report it when their block entity is saved.
+     * Raw enderite no longer smelts on its own (owner 2026-09-29): three raw enderite stacked in a
+     * crafting column make one layered raw enderite, and only that has a cooking recipe -
+     * {@code simplebuilding:enderite_scrap_from_blasting_layered_raw_enderite}, a blasting recipe of
+     * 144000 ticks (two hours in a vanilla blast furnace, twice the old 72000 per scrap) for one enderite
+     * scrap and 10 experience. Neither item has a smelting or smoking recipe, so both only go into blast furnaces.
+     * All four blast furnaces - vanilla, reinforced, netherite and enderite - take the recipe time over as
+     * their total the moment the layered raw enderite goes in, and still report it when saved.
      *
-     * <p>What breaks this test: another {@code cookingtime} or {@code experience} in the generated
-     * recipe, a smelting or smoking recipe for raw enderite, and - on Fabric - a total that comes back
-     * from the save as 6464, i.e. {@code AbstractFurnaceBlockEntityMixin} not writing it as an int.
+     * <p>What breaks this test: the old direct raw enderite recipe coming back, another
+     * {@code cookingtime}, {@code experience} or result count, a crafting recipe that accepts two raw
+     * enderite or a row instead of a column, a smelting or smoking recipe, and - on Fabric - a total that
+     * comes back from the save cut to a short, i.e. {@code AbstractFurnaceBlockEntityMixin} not writing
+     * it as an int.
      */
-    public static void rawEnderiteBlastsForAnHourAndPaysTenExperience(GameTestHelper helper) {
+    public static void layeredRawEnderiteBlastsForTwoHoursIntoOneScrap(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
-        ResourceKey<Recipe<?>> key = ResourceKey.create(Registries.RECIPE,
-                Identifier.fromNamespaceAndPath(MOD_ID, "enderite_scrap_from_blasting_raw_enderite"));
-        SingleRecipeInput rawEnderite = new SingleRecipeInput(new ItemStack(ModItems.RAW_ENDERITE));
-        RecipeHolder<?> blasting = level.getServer().getRecipeManager()
-                .getRecipeFor(RecipeType.BLASTING, rawEnderite, level).orElse(null);
-        helper.assertTrue(blasting != null && blasting.id().equals(key),
-                "a blast furnace does not pick " + key.identifier() + " for raw enderite but " + blasting);
-        AbstractCookingRecipe recipe = (AbstractCookingRecipe) blasting.value();
-        Assertions.valueEqual(helper, recipe.cookingTime() + " ticks, " + recipe.experience() + " experience",
-                SCRAP_COOK_TICKS + " ticks, 10.0 experience", "the raw enderite blast");
+        var recipes = level.getServer().getRecipeManager();
 
-        Assertions.valueEqual(helper, 
-                "smelting: " + level.getServer().getRecipeManager().getRecipeFor(RecipeType.SMELTING, rawEnderite, level)
-                        .map(found -> found.id().identifier().toString()).orElse("none")
-                        + ", smoking: " + level.getServer().getRecipeManager().getRecipeFor(RecipeType.SMOKING, rawEnderite, level)
-                        .map(found -> found.id().identifier().toString()).orElse("none"),
-                "smelting: none, smoking: none", "the recipes an ordinary furnace or a smoker would use for raw enderite");
+        SingleRecipeInput raw = new SingleRecipeInput(new ItemStack(ModItems.RAW_ENDERITE));
+        Assertions.valueEqual(helper, "blasting: " + recipes.getRecipeFor(RecipeType.BLASTING, raw, level).map(found -> found.id().identifier().toString()).orElse("none") + ", smelting: " + recipes.getRecipeFor(RecipeType.SMELTING, raw, level).map(found -> found.id().identifier().toString()).orElse("none") + ", smoking: " + recipes.getRecipeFor(RecipeType.SMOKING, raw, level).map(found -> found.id().identifier().toString()).orElse("none"), "blasting: none, smelting: none, smoking: none", "the cooking recipes that still take plain raw enderite");
+
+        // Crafting: a column of three raw enderite (any of the three columns), nothing else.
+        ItemStack r = new ItemStack(ModItems.RAW_ENDERITE);
+        ItemStack e = ItemStack.EMPTY;
+        net.minecraft.world.item.crafting.CraftingInput column = net.minecraft.world.item.crafting.CraftingInput.of(3, 3,
+                List.of(e, e, r, e, e, r, e, e, r));
+        var crafted = recipes.getRecipeFor(RecipeType.CRAFTING, column, level);
+        helper.assertTrue(crafted.isPresent(), "three raw enderite in a column craft nothing");
+        ItemStack layered = crafted.get().value().assemble(column, level.registryAccess());
+        helper.assertTrue(layered.is(ModItems.LAYERED_RAW_ENDERITE) && layered.getCount() == 1,
+                "three raw enderite in a column craft " + layered + " instead of one layered raw enderite");
+        helper.assertTrue(recipes.getRecipeFor(RecipeType.CRAFTING, net.minecraft.world.item.crafting.CraftingInput.of(3, 3,
+                        List.of(r, r, r, e, e, e, e, e, e)), level).isEmpty(),
+                "three raw enderite in a row craft something - the layers are stacked, not laid side by side");
+        helper.assertTrue(recipes.getRecipeFor(RecipeType.CRAFTING, net.minecraft.world.item.crafting.CraftingInput.of(1, 2,
+                        List.of(r, r)), level).isEmpty(),
+                "two raw enderite on top of each other craft something - it takes three");
+
+        ResourceKey<Recipe<?>> key = ResourceKey.create(Registries.RECIPE,
+                Identifier.fromNamespaceAndPath(MOD_ID, "enderite_scrap_from_blasting_layered_raw_enderite"));
+        SingleRecipeInput single = new SingleRecipeInput(new ItemStack(ModItems.LAYERED_RAW_ENDERITE));
+        RecipeHolder<?> blasting = recipes.getRecipeFor(RecipeType.BLASTING, single, level).orElse(null);
+        helper.assertTrue(blasting != null && blasting.id().equals(key),
+                "a blast furnace does not pick " + key.identifier() + " for layered raw enderite but " + blasting);
+        AbstractCookingRecipe recipe = (AbstractCookingRecipe) blasting.value();
+        ItemStack out = recipe.assemble(single, level.registryAccess());
+        Assertions.valueEqual(helper, recipe.cookingTime() + " ticks, " + recipe.experience() + " experience, " + out.getCount() + " " + BuiltInRegistries.ITEM.getKey(out.getItem()), SCRAP_COOK_TICKS + " ticks, 10.0 experience, " + SCRAP_PER_LAYERED + " simplebuilding:enderite_scrap", "the layered raw enderite blast");
+        Assertions.valueEqual(helper, "per scrap: " + recipe.cookingTime() / out.getCount() + " ticks", "per scrap: " + 2 * 72000 + " ticks", "blast time per scrap, twice the old direct route");
+        Assertions.valueEqual(helper, "smelting: " + recipes.getRecipeFor(RecipeType.SMELTING, single, level).map(found -> found.id().identifier().toString()).orElse("none") + ", smoking: " + recipes.getRecipeFor(RecipeType.SMOKING, single, level).map(found -> found.id().identifier().toString()).orElse("none"), "smelting: none, smoking: none", "the recipes an ordinary furnace or a smoker would use for layered raw enderite");
 
         List<Block> blastFurnaces = List.of(Blocks.BLAST_FURNACE, ModBlocks.REINFORCED_BLAST_FURNACE,
                 ModBlocks.NETHERITE_BLAST_FURNACE, ModBlocks.ENDERITE_BLAST_FURNACE);
@@ -125,13 +153,16 @@ public final class SmeltingTests {
         for (int index = 0; index < blastFurnaces.size(); index++) {
             BlockPos pos = new BlockPos(1 + 2 * index, 1, 2);
             helper.setBlock(pos, blastFurnaces.get(index));
-            furnace(helper, pos).setItem(0, new ItemStack(ModItems.RAW_ENDERITE));
+            furnace(helper, pos).setItem(0, new ItemStack(ModItems.LAYERED_RAW_ENDERITE));
             totals.append(index > 0 ? " " : "").append(persisted(helper, furnace(helper, pos), "cooking_total_time"));
         }
-        Assertions.valueEqual(helper, totals.toString(), "72000 72000 72000 72000",
-                "total cook time the vanilla, reinforced, netherite and enderite blast furnace save for raw enderite");
+        // Before the first fuel burns, the total is the recipe time as stored: 144000 on 26.2; on 26.3
+        // the recipe holds the doubled furnace time and the fuel's fast multiplier halves it only
+        // once the device lights.
+        String unlitTotal = String.valueOf(recipe.cookingTime());
+        Assertions.valueEqual(helper, totals.toString(), String.join(" ", unlitTotal, unlitTotal, unlitTotal, unlitTotal), "total cook time the vanilla, reinforced, netherite and enderite blast furnace save for layered raw enderite");
 
-        TestCleanup.succeed(helper);
+        helper.succeed();
     }
 
     /**
@@ -159,7 +190,7 @@ public final class SmeltingTests {
 
         for (BlockPos pos : List.of(vanilla, netherite)) {
             AbstractFurnaceBlockEntity entity = furnace(helper, pos);
-            entity.setItem(0, new ItemStack(ModItems.RAW_ENDERITE, 2));
+            entity.setItem(0, new ItemStack(ModItems.LAYERED_RAW_ENDERITE, 2));
             inject(helper, entity, LIT_REMAINING, LIT_TOTAL, COOK_SPENT, SCRAP_COOK_TICKS, -1);
             Assertions.valueEqual(helper, timers(helper, entity), timerLine(LIT_REMAINING, LIT_TOTAL, COOK_SPENT, SCRAP_COOK_TICKS),
                     "the four timers of the device at " + pos + ", loaded and saved again");
@@ -202,7 +233,7 @@ public final class SmeltingTests {
         helper.setBlock(longCook, ModBlocks.NETHERITE_BLAST_FURNACE);
         helper.setBlock(shortCook, ModBlocks.NETHERITE_FURNACE);
         AbstractFurnaceBlockEntity longEntity = furnace(helper, longCook);
-        longEntity.setItem(0, new ItemStack(ModItems.RAW_ENDERITE));
+        longEntity.setItem(0, new ItemStack(ModItems.LAYERED_RAW_ENDERITE));
         inject(helper, longEntity, LIT_REMAINING, LIT_TOTAL, COOK_SPENT, SCRAP_COOK_TICKS, -1);
         AbstractFurnaceBlockEntity shortEntity = furnace(helper, shortCook);
         shortEntity.setItem(0, new ItemStack(Items.RAW_IRON));
@@ -328,7 +359,7 @@ public final class SmeltingTests {
      * <p>All seven devices are compared in one line.
      *
      * <p>What breaks this test: another bonus period for either tier, the bonus reaching the reinforced
-     * blast furnace or any furnace, the {@code blast_furnace_bonus} tag gaining raw enderite or cracked
+     * blast furnace or any furnace, the {@code blast_furnace_bonus} tag gaining (layered) raw enderite or cracked
      * diamond or losing raw iron, and the bonus progress not loaded or not saved.
      */
     public static void blastFurnaceBonusPaysRawMetalsEveryFourthOrSecondSmelt(GameTestHelper helper) {
@@ -347,7 +378,7 @@ public final class SmeltingTests {
         loadSmelt(helper, crackedDiamond, ModBlocks.ENDERITE_BLAST_FURNACE, ModItems.CRACKED_DIAMOND, 4);
 
         helper.setBlock(rawEnderite, ModBlocks.ENDERITE_BLAST_FURNACE);
-        furnace(helper, rawEnderite).setItem(0, new ItemStack(ModItems.RAW_ENDERITE));
+        furnace(helper, rawEnderite).setItem(0, new ItemStack(ModItems.LAYERED_RAW_ENDERITE));
         inject(helper, furnace(helper, rawEnderite), 800, 1600, SCRAP_COOK_TICKS - 2, SCRAP_COOK_TICKS, 1);
         helper.setBlock(injectedIron, ModBlocks.ENDERITE_BLAST_FURNACE);
         furnace(helper, injectedIron).setItem(0, new ItemStack(Items.RAW_IRON));
@@ -370,7 +401,7 @@ public final class SmeltingTests {
                                 + "; reinforced blast furnace " + output(helper, reinforced)
                                 + "; enderite furnace " + output(helper, enderiteFurnace)
                                 + "; cracked diamonds " + output(helper, crackedDiamond)
-                                + "; raw enderite " + output(helper, rawEnderite) + " owing "
+                                + "; layered raw enderite " + output(helper, rawEnderite) + " owing "
                                 + bonusProgress(helper, furnace(helper, rawEnderite))
                                 + "; injected raw iron " + output(helper, injectedIron),
                         "netherite blast furnace 11 minecraft:iron_ingot"
@@ -378,7 +409,7 @@ public final class SmeltingTests {
                                 + "; reinforced blast furnace 4 minecraft:iron_ingot"
                                 + "; enderite furnace 4 minecraft:iron_ingot"
                                 + "; cracked diamonds 4 minecraft:diamond"
-                                + "; raw enderite 1 simplebuilding:enderite_scrap owing 1"
+                                + "; layered raw enderite 1 simplebuilding:enderite_scrap owing 1"
                                 + "; injected raw iron 2 minecraft:iron_ingot",
                         "what each device put out"))
                 .thenExecute(() -> TestCleanup.run(helper))

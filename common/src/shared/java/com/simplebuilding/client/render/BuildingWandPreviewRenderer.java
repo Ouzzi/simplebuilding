@@ -93,7 +93,7 @@ public final class BuildingWandPreviewRenderer {
                     com.simplebuilding.blueprint.BlueprintBuilder.preview(level, player, stack, offHand, blockHit));
             return;
         }
-        // Flaeche, Abdeckung oder (Linear + Schleichen) Linie - ausgerichtet wie beim Bau, deshalb mit
+        // Flaeche, Abdeckung oder (Linear) Linie - ausgerichtet wie beim Bau, deshalb mit
         // der echten Trefferposition (obere/untere Blockhaelfte entscheidet ueber Treppen und Stufen).
         BlockPos clicked = blockHit.getBlockPos();
         Vec3 hitRel = blockHit.getLocation().subtract(clicked.getX(), clicked.getY(), clicked.getZ());

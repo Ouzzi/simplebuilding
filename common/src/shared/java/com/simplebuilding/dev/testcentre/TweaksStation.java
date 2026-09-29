@@ -91,7 +91,9 @@ public final class TweaksStation {
         c.place(echo, 0, floorZ + 1, Blocks.CHEST);
         c.contents(echo, 0, floorZ + 1, List.of(new ItemStack(TweaksItems.ECHO_COMPASS)));
 
-        // Trank-Pad mit einer Truhe Wurftraenke daneben (Wasser wischt es leer).
+        // Trank-Pad mit einer Truhe Wurftraenke daneben (Wasser wischt es leer). Gift zeigt die Besitzer-Regel
+        // (nur wer das Pad setzt, bekommt es), starke Regeneration die Deckelung auf die Trankdauer und die
+        // Sperre je Spieler (docs/TRANK-PADS.md).
         int potion = x;
         x = station(c, x, floorZ, wallZ, TweaksBlocks.POTION_PAD,
                 TcText.t("tweaks.potion_pad", "Potion Pad"), TcText.t("tweaks.potion_pad.1", "throw a splash potion"),
@@ -101,6 +103,8 @@ public final class TweaksStation {
                 PotionContents.createItemStack(Items.SPLASH_POTION, Potions.SWIFTNESS),
                 PotionContents.createItemStack(Items.SPLASH_POTION, Potions.LEAPING),
                 PotionContents.createItemStack(Items.SPLASH_POTION, Potions.HEALING),
+                PotionContents.createItemStack(Items.SPLASH_POTION, Potions.STRONG_REGENERATION),
+                PotionContents.createItemStack(Items.SPLASH_POTION, Potions.POISON),
                 PotionContents.createItemStack(Items.LINGERING_POTION, Potions.NIGHT_VISION),
                 PotionContents.createItemStack(Items.SPLASH_POTION, Potions.WATER),
                 new ItemStack(TweaksItems.BLAZE_HEAD), new ItemStack(TweaksItems.ENDERMAN_HEAD)));

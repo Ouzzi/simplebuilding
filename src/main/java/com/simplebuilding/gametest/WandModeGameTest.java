@@ -62,6 +62,16 @@ public final class WandModeGameTest {
     }
 
     @GameTest(rotation = Rotation.NONE)
+    public void linearWithoutSneakingAlsoBuildsOnlyTheLine(GameTestHelper helper) {
+        WandModeTests.linearWithoutSneakingAlsoBuildsOnlyTheLine(helper);
+    }
+
+    @GameTest(rotation = Rotation.NONE)
+    public void bridgeGrowsFromTheEdgeToTheFarEndInHalfTheTime(GameTestHelper helper) {
+        WandModeTests.bridgeGrowsFromTheEdgeToTheFarEndInHalfTheTime(helper);
+    }
+
+    @GameTest(rotation = Rotation.NONE)
     public void roofModeWorksWithTheTestCentreKitEnderiteWand(GameTestHelper helper) {
         WandModeTests.roofModeWorksWithTheTestCentreKitEnderiteWand(helper);
     }

@@ -178,13 +178,14 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // =================================================================
                 // Besitzer 2026-09-25: Goldbarren -> leichte Waegeplatten (Gold), Goldnugget ->
                 // Blitzableiter (gleiche Felder), Kupferbarren unten -> schwere Waegeplatte (Eisen).
+                // Besitzer 2026-09-29: statt der Waegeplatten Goldnuggets (leichte) und ein Goldkern (schwere).
                 shaped(RecipeCategory.TOOLS, ModItems.OCTANT)
                         .pattern(" RL")
-                        .pattern("PCR")
-                        .pattern("HP ")
-                        .define('P', Items.LIGHT_WEIGHTED_PRESSURE_PLATE)
+                        .pattern("NCR")
+                        .pattern("GN ")
+                        .define('N', Items.GOLD_NUGGET)
                         .define('R', Items.LIGHTNING_ROD)
-                        .define('H', Items.HEAVY_WEIGHTED_PRESSURE_PLATE)
+                        .define('G', ModItems.GOLD_CORE)
                         .define('C', Items.COMPASS)
                         .define('L', Items.LEAD)
                         .unlockedBy(getHasName(Items.COMPASS), has(Items.COMPASS))
@@ -261,14 +262,14 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 // =================================================================
                 // REINFORCED BUNDLE
                 // =================================================================
-                // Eine Lederplatte statt drei Leder, ein Diamantkiesel statt zwei Kupfer-Nuggets;
-                // Faden oben und Buendel in der Mitte bleiben. Als Aufwertung behaelt das Ergebnis
-                // Inhalt, Verzauberungen und Namen des Vanilla-Buendels (ReinforcedBundleRecipe).
+                // Faden oben, Buendel in der Mitte, Lederplatte unten und sechs Diamantkiesel in den
+                // beiden Seitenspalten (Besitzer 2026-09-29: sechs statt einem). Als Aufwertung behaelt
+                // das Ergebnis Inhalt, Verzauberungen und Namen des Vanilla-Buendels (ReinforcedBundleRecipe).
                 createContainerUpgrade(ModItems.REINFORCED_BUNDLE, Items.BUNDLE,
                         Map.of('S', Items.STRING, 'D', ModItems.DIAMOND_PEBBLE, 'B', Items.BUNDLE, 'X', ModItems.LEATHER_SHEET),
-                        " S ",
-                        "DB ",
-                        " X ");
+                        "DSD",
+                        "DBD",
+                        "DXD");
 
 
                 createSmithing(ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE, RecipeCategory.TOOLS);
@@ -288,15 +289,15 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .unlockedBy(getHasName(Items.BUNDLE), has(Items.BUNDLE))
                         .save(output);
 
-                // Das Koecher-Muster mit dem Koecher an der Stelle des Buendels, einer Lederplatte in
-                // der Mitte statt der zwei Leder und einem Diamantkiesel oben rechts; Faden und
-                // Kupfer-Nugget bleiben, wo sie waren. Behaelt Pfeile, Verzauberungen und Namen.
+                // Dasselbe Muster wie das verstaerkte Buendel (Besitzer 2026-09-29): der Koecher an der
+                // Stelle des Buendels, Faden oben, Lederplatte unten, sechs Diamantkiesel an den Seiten.
+                // Behaelt Pfeile, Verzauberungen und Namen.
                 createContainerUpgrade(ModItems.REINFORCED_QUIVER, ModItems.QUIVER,
                         Map.of('S', Items.STRING, 'D', ModItems.DIAMOND_PEBBLE, 'X', ModItems.LEATHER_SHEET,
-                                'N', Items.COPPER_NUGGET, 'Q', ModItems.QUIVER),
-                        " SD",
-                        "SXN",
-                        "Q  ");
+                                'Q', ModItems.QUIVER),
+                        "DSD",
+                        "DQD",
+                        "DXD");
 
                 // Keine Stufe ueberspringen - wie bei den Buendeln wird nur der verstaerkte Koecher
                 // zum Netherit-Koecher.
@@ -326,7 +327,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                                 'D', Ingredient.of(ModItems.DIAMOND_PEBBLE),
                                 'L', Ingredient.of(ModItems.LEATHER_SHEET),
                                 'B', Ingredient.of(ModItems.BACKPACK)),
-                        " S ",
+                        // Vier Diamantkiesel (Besitzer 2026-09-29): neben dem Faden und neben dem Rucksack.
+                        "DSD",
                         "DBD",
                         "LLL");
                 ResourceKey<Recipe<?>> reinforcedId = ResourceKey.create(Registries.RECIPE,
@@ -645,13 +647,24 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .unlockedBy(getHasName(ModItems.ASTRALIT_DUST), has(ModItems.ASTRALIT_DUST))
                         .save(output, "raw_enderite_synthesis");
 
-                // --- 2. Schmelzen: Raw -> Scrap ---
-                // Siehe oben: ENDERITE_SCRAP ist ein einfaches Item, daher liefert
-                // determineBlastingRecipeCategory(...) wieder CookingBookCategory.MISC.
-                // Eine Stunde (72000 Ticks) in einem Vanilla-Schmelzofen: 30 min verstaerkt, 15 min Netherit,
-                // rund 7,5 min Enderit. Laengere Zeiten als 32767 Ticks ueberleben Speichern und Menue-Sync
-                // nur dank AbstractFurnaceBlockEntityMixin / AbstractFurnaceMenuMixin.
-                oreBlasting(List.of(ModItems.RAW_ENDERITE), RecipeCategory.MISC, ModItems.ENDERITE_SCRAP, 10.0f, 72000, "enderite_scrap");
+                // --- 2. Schichten: 3 Rohenderit uebereinander -> Geschichtetes Rohenderit ---
+                // Besitzer 2026-09-29: Rohenderit schmilzt nicht mehr direkt zu Schrott.
+                shaped(RecipeCategory.MISC, ModItems.LAYERED_RAW_ENDERITE)
+                        .pattern("R")
+                        .pattern("R")
+                        .pattern("R")
+                        .define('R', ModItems.RAW_ENDERITE)
+                        .unlockedBy(getHasName(ModItems.RAW_ENDERITE), has(ModItems.RAW_ENDERITE))
+                        .save(output);
+
+                // --- 3. Schmelzen: Geschichtetes Rohenderit -> Enderitschrott ---
+                // Doppelt so lange je Schrott wie das fruehere Direktschmelzen (72000 Ticks): 144000 Ticks = 2 h in
+                // einem Vanilla-Schmelzofen (1 h verstaerkt, 30 min Netherit, 15 min Enderit), 10 Erfahrung.
+                // Ein Schrott je Geschichtetem Rohenderit: Kochrezepte koennen auf 1.21.11 nur ein einzelnes Item
+                // liefern (STRICT_SINGLE_ITEM_CODEC), also auf allen Linien 3 Rohenderit je Schrott. Zeiten ueber
+                // 32767 Ticks ueberleben Speichern und Menue-Sync nur dank AbstractFurnaceBlockEntityMixin /
+                // AbstractFurnaceMenuMixin. Kein Ofen- oder Raeucherofen-Rezept, wie beim Rohenderit zuvor.
+                oreBlasting(List.of(ModItems.LAYERED_RAW_ENDERITE), RecipeCategory.MISC, ModItems.ENDERITE_SCRAP, 10.0f, 2 * 72000, "enderite_scrap");
 
                 // --- 3. Barren: Enderite Ingot (4 Scrap + 4 Diamond) ---
                 // Hinweis: Du wolltest Diamanten statt Netherite, um Netherite nicht zu entwerten.

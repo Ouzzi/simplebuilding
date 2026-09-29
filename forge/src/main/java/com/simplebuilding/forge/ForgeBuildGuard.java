@@ -15,7 +15,8 @@ import net.minecraftforge.event.level.BlockEvent;
 
 /**
  * Forge's side of {@link BuildGuard}: {@code BlockEvent.BreakEvent} with the real player (refused
- * when cancelled or denied, as {@code ForgeHooks#onBlockBreakEvent} reads it) and
+ * when denied, as {@code ForgeHooks#onBlockBreakEvent} reads it, and - stricter than Forge's own
+ * break path - also when a listener only cancelled it) and
  * {@code BlockEvent.EntityPlaceEvent} through {@code ForgeEventFactory#onBlockPlace}. Unlike the
  * piston guard this needs no fake player: the tools are always used by a real one.
  */
@@ -27,8 +28,19 @@ public final class ForgeBuildGuard implements BuildGuard {
     public static void install() {
         PlatformServices.setBuildGuard(new ForgeBuildGuard());
         // Ordinary listeners like a protection mod's; they refuse only what a game test registered.
-        // EventBus 7: a Predicate listener cancels by returning true.
-        BlockEvent.BreakEvent.BUS.addListener((BlockEvent.BreakEvent event) -> ProtectionProbe.refused(event.getPos()));
+        // EventBus 7: a Predicate listener cancels by returning true. The break listener also sets
+        // DENY, because that is the only thing Forge's own break path reads:
+        // ServerPlayerGameMode#destroyBlock -> ForgeHooks#onBlockBreakEvent fires the event and checks
+        // getResult().isDenied(), never the cancellation (BreakEvent's javadoc names DENY as the way
+        // to refuse). A cancel-only listener would let every vanilla break through - and every area
+        // block of the sledgehammer, which breaks through destroyBlock like a player.
+        BlockEvent.BreakEvent.BUS.addListener((BlockEvent.BreakEvent event) -> {
+            if (!ProtectionProbe.refused(event.getPos())) {
+                return false;
+            }
+            event.setResult(Result.DENY);
+            return true;
+        });
         BlockEvent.EntityPlaceEvent.BUS.addListener((BlockEvent.EntityPlaceEvent event) -> ProtectionProbe.refused(event.getPos()));
     }
 

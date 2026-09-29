@@ -4,6 +4,9 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import com.simplebuilding.neoforge.clienttest.mixin.MouseHandlerAccessor;
 import net.minecraft.client.Minecraft;
+import com.simplebuilding.neoforge.clienttest.mixin.KeyboardHandlerAccessor;
+import net.minecraft.client.input.CharacterEvent;
+import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonInfo;
 
 /**
@@ -23,11 +26,11 @@ import net.minecraft.client.input.MouseButtonInfo;
  * to {@code InputConstants.isKeyDown}, which reads the window rather than the binding and which
  * the mod's own {@code MouseMixin} asks for Control and Alt.
  *
- * <p><b>What this still does not reach:</b> keyboard input inside a screen. A screen reads key
- * events; {@link KeyMapping#set} only moves the binding layer. A test that types into a text field
- * needs the same accessor treatment for {@code KeyboardHandler.onKey} - the mouse half of that
- * argument has since been paid for in failing tests, so the day such a test is shared this is the
- * first thing to do, not a guess.
+ * <p><b>Keyboard input inside a screen</b> is the exception: a screen reads key events, and
+ * {@link KeyMapping#set} only moves the binding layer. {@link #pressKeyInScreen} and
+ * {@link #typeChars} therefore go through vanilla's keyboard callbacks
+ * ({@code KeyboardHandler.keyPress} / {@code charTyped}) via {@code KeyboardHandlerAccessor}, the
+ * route Fabric's client test API takes too.
  */
 final class Input {
 
@@ -52,6 +55,23 @@ final class Input {
 
     static void clickKey(int glfwKeyCode) {
         KeyMapping.click(InputConstants.Type.KEYSYM.getOrCreate(glfwKeyCode));
+    }
+
+    /** A key press and release as the keyboard callback delivers them, so an open screen sees both. */
+    static void pressKeyInScreen(int glfwKeyCode, int modifiers) {
+        Minecraft client = Minecraft.getInstance();
+        KeyboardHandlerAccessor keyboard = (KeyboardHandlerAccessor) client.keyboardHandler;
+        long window = client.getWindow().handle();
+        keyboard.simplebuilding$keyPress(window, GLFW_PRESS, new KeyEvent(glfwKeyCode, 0, modifiers));
+        keyboard.simplebuilding$keyPress(window, GLFW_RELEASE, new KeyEvent(glfwKeyCode, 0, modifiers));
+    }
+
+    /** Typed text as the character callback delivers it: one event per code point. */
+    static void typeChars(String text) {
+        Minecraft client = Minecraft.getInstance();
+        KeyboardHandlerAccessor keyboard = (KeyboardHandlerAccessor) client.keyboardHandler;
+        long window = client.getWindow().handle();
+        text.codePoints().forEach(codepoint -> keyboard.simplebuilding$charTyped(window, new CharacterEvent(codepoint, 0)));
     }
 
     static void holdMouse(int button) {

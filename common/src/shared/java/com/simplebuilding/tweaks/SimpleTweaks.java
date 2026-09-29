@@ -91,7 +91,7 @@ public final class SimpleTweaks {
         SimplebuildingConfig root = Simplebuilding.getConfig();
         return new ServerValues(config.balancing.rocketStackSize, config.spawn.boostCount(),
                 config.laserPointer.enable, config.laserPointer.range,
-                root == null ? 100 : Math.max(0, root.airJumpCooldownTicks),
+                root == null ? com.simplebuilding.util.AirJumpGuard.DEFAULT_COOLDOWN_TICKS : com.simplebuilding.util.AirJumpGuard.clampBase(root.airJumpCooldownTicks),
                 com.simplebuilding.config.ServerTuning.toJson(com.simplebuilding.config.ServerTuning.local()));
     }
 

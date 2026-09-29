@@ -8,7 +8,7 @@
     "S": "minecraft:string"
   },
   "pattern": [
-    " S ",
+    "DSD",
     "DBD",
     "LLL"
   ],

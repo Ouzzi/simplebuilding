@@ -284,6 +284,12 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("wand_mode_game_test_bridge_also_starts_when_the_click_aims_across_the_gap", WandModeTests::bridgeAlsoStartsWhenTheClickAimsAcrossTheGap)
                     .rotation(Rotation.NONE)
                     .build(),
+            GameTestSpec.named("wand_mode_game_test_linear_without_sneaking_also_builds_only_the_line", WandModeTests::linearWithoutSneakingAlsoBuildsOnlyTheLine)
+                    .rotation(Rotation.NONE)
+                    .build(),
+            GameTestSpec.named("wand_mode_game_test_bridge_grows_from_the_edge_to_the_far_end_in_half_the_time", WandModeTests::bridgeGrowsFromTheEdgeToTheFarEndInHalfTheTime)
+                    .rotation(Rotation.NONE)
+                    .build(),
             GameTestSpec.named("building_core_game_test_building_cores_are_not_stackable", BuildingCoreTests::buildingCoresAreNotStackable)
                     .build(),
             GameTestSpec.named("building_core_game_test_every_core_recipe_crafts_with_one_core_per_slot", BuildingCoreTests::everyCoreRecipeCraftsWithOneCorePerSlot)
@@ -351,7 +357,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("building_enchantment_game_test_color_palette_keeps_the_wand_building_when_one_block_runs_out", BuildingEnchantmentTests::colorPaletteKeepsTheWandBuildingWhenOneBlockRunsOut)
                     .rotation(Rotation.NONE)
                     .build(),
-            GameTestSpec.named("building_enchantment_game_test_linear_only_shortens_the_wand_step_delay", BuildingEnchantmentTests::linearOnlyShortensTheWandStepDelay)
+            GameTestSpec.named("building_enchantment_game_test_linear_builds_only_the_line_and_paces_it_with_the_line_delay", BuildingEnchantmentTests::linearBuildsOnlyTheLineAndPacesItWithTheLineDelay)
                     .rotation(Rotation.NONE)
                     .build(),
             GameTestSpec.named("building_enchantment_game_test_constructors_touch_only_turns_orientation_and_needs_build_rights", BuildingEnchantmentTests::constructorsTouchOnlyTurnsOrientationAndNeedsBuildRights)
@@ -464,6 +470,12 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("config_option_game_test_core_loot_chance_follows_its_multiplier", ConfigOptionTests::coreLootChanceFollowsItsMultiplier)
                     .build(),
             GameTestSpec.named("config_option_game_test_the_air_jump_cooldown_travels_from_server_to_client", ConfigOptionTests::theAirJumpCooldownTravelsFromServerToClient)
+                    .build(),
+            GameTestSpec.named("air_jump_game_test_the_cooldown_is_twenty_seconds_at_level_one_and_ten_at_level_two", AirJumpTests::theCooldownIsTwentySecondsAtLevelOneAndTenAtLevelTwo)
+                    .build(),
+            GameTestSpec.named("air_jump_game_test_the_bar_follows_vanillas_experience_over_locator_rule", AirJumpTests::theBarFollowsVanillasExperienceOverLocatorRule)
+                    .build(),
+            GameTestSpec.named("air_jump_game_test_the_bar_fills_up_while_the_air_jump_recharges", AirJumpTests::theBarFillsUpWhileTheAirJumpRecharges)
                     .build(),
             GameTestSpec.named("server_tuning_game_test_the_server_value_wins_over_the_client_file", ServerTuningTests::theServerValueWinsOverTheClientFile)
                     .build(),
@@ -834,7 +846,7 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("leather_and_quiver_game_test_leather_sheet_takes_exactly_nine_leather", LeatherAndQuiverTests::leatherSheetTakesExactlyNineLeather)
                     .build(),
-            GameTestSpec.named("leather_and_quiver_game_test_reinforced_quiver_crafts_from_the_plain_quiver_with_sheet_pebble_and_nugget", LeatherAndQuiverTests::reinforcedQuiverCraftsFromThePlainQuiverWithSheetPebbleAndNugget)
+            GameTestSpec.named("leather_and_quiver_game_test_reinforced_quiver_crafts_from_the_plain_quiver_with_the_bundle_pattern_and_six_pebbles", LeatherAndQuiverTests::reinforcedQuiverCraftsFromThePlainQuiverWithTheBundlePatternAndSixPebbles)
                     .build(),
             GameTestSpec.named("leather_and_quiver_game_test_netherite_quiver_smiths_only_from_the_reinforced_quiver", LeatherAndQuiverTests::netheriteQuiverSmithsOnlyFromTheReinforcedQuiver)
                     .build(),
@@ -996,6 +1008,8 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("octant_game_test_water_cauldron_washes_the_colour_off_an_octant", OctantTests::waterCauldronWashesTheColourOffAnOctant)
                     .build(),
             GameTestSpec.named("octant_game_test_chest_octants_are_enchanted_in_the_two_dangerous_chests_only", OctantTests::chestOctantsAreEnchantedInTheTwoDangerousChestsOnly)
+                    .build(),
+            GameTestSpec.named("octant_game_test_the_octant_is_rarer_in_chest_loot", OctantTests::theOctantIsRarerInChestLoot)
                     .build(),
             GameTestSpec.named("octant_game_test_the_octant_only_measures_and_places_nothing", OctantTests::theOctantOnlyMeasuresAndPlacesNothing)
                     .build(),
@@ -1193,7 +1207,7 @@ public final class SimpleBuildingGameTests {
             GameTestSpec.named("enderite_machine_game_test_every_enderite_item_drop_lasts_twice_as_long_as_vanilla", EnderiteMachineTests::everyEnderiteItemDropLastsTwiceAsLongAsVanilla)
                     .maxTicks(EnderiteMachineTests.LIFETIME_MAX_TICKS)
                     .build(),
-            GameTestSpec.named("smelting_game_test_raw_enderite_blasts_for_an_hour_and_pays_ten_experience", SmeltingTests::rawEnderiteBlastsForAnHourAndPaysTenExperience)
+            GameTestSpec.named("smelting_game_test_layered_raw_enderite_blasts_for_two_hours_into_one_scrap", SmeltingTests::layeredRawEnderiteBlastsForTwoHoursIntoOneScrap)
                     .build(),
             GameTestSpec.named("smelting_game_test_long_cook_timers_survive_the_save_and_load_as_ints", SmeltingTests::longCookTimersSurviveTheSaveAndLoadAsInts)
                     .maxTicks(SmeltingTests.ROUND_TRIP_MAX_TICKS)
@@ -1377,6 +1391,20 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("potion_pad_game_test_a_dispenser_fills_the_potion_pad_but_ahopper_cannot", PotionPadTests::aDispenserFillsThePotionPadButAHopperCannot)
                     .maxTicks(PotionPadTests.AUTOMATION_MAX_TICKS)
+                    .build(),
+            GameTestSpec.named("potion_pad_rule_game_test_harmful_effects_reach_only_the_owner_and_strangers_cannot_charge_the_pad", PotionPadRuleTests::harmfulEffectsReachOnlyTheOwnerAndStrangersCannotChargeThePad)
+                    .build(),
+            GameTestSpec.named("potion_pad_rule_game_test_blocked_effects_are_never_given_and_start_no_cooldown", PotionPadRuleTests::blockedEffectsAreNeverGivenAndStartNoCooldown)
+                    .build(),
+            GameTestSpec.named("potion_pad_rule_game_test_levels_and_durations_never_exceed_vanilla_or_the_potion", PotionPadRuleTests::levelsAndDurationsNeverExceedVanillaOrThePotion)
+                    .build(),
+            GameTestSpec.named("potion_pad_rule_game_test_the_cooldown_follows_the_granted_duration_and_the_effect_multiplier", PotionPadRuleTests::theCooldownFollowsTheGrantedDurationAndTheEffectMultiplier)
+                    .build(),
+            GameTestSpec.named("potion_pad_rule_game_test_healing_locks_the_player_out_of_every_pad_for_one_minute", PotionPadRuleTests::healingLocksThePlayerOutOfEveryPadForOneMinute)
+                    .build(),
+            GameTestSpec.named("potion_pad_rule_game_test_mobs_never_receive_any_pad_effect", PotionPadRuleTests::mobsNeverReceiveAnyPadEffect)
+                    .build(),
+            GameTestSpec.named("potion_pad_rule_game_test_every_vanilla_effect_has_deliberate_rules", PotionPadRuleTests::everyVanillaEffectHasDeliberateRules)
                     .build(),
             GameTestSpec.named("performance_game_test_player_scan_finds_exactly_the_players_the_section_search_finds", PerformanceTests::playerScanFindsExactlyThePlayersTheSectionSearchFinds)
                     .build(),

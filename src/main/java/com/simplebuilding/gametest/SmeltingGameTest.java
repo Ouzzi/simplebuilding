@@ -17,8 +17,8 @@ import net.minecraft.gametest.framework.GameTestHelper;
 public final class SmeltingGameTest {
 
     @GameTest
-    public void rawEnderiteBlastsForAnHourAndPaysTenExperience(GameTestHelper helper) {
-        SmeltingTests.rawEnderiteBlastsForAnHourAndPaysTenExperience(helper);
+    public void layeredRawEnderiteBlastsForTwoHoursIntoOneScrap(GameTestHelper helper) {
+        SmeltingTests.layeredRawEnderiteBlastsForTwoHoursIntoOneScrap(helper);
     }
 
     @GameTest(maxTicks = SmeltingTests.ROUND_TRIP_MAX_TICKS)

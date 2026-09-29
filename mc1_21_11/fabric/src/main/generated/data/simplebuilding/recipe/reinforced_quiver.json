@@ -3,15 +3,14 @@
   "category": "equipment",
   "key": {
     "D": "simplebuilding:diamond_pebble",
-    "N": "minecraft:copper_nugget",
     "Q": "simplebuilding:quiver",
     "S": "minecraft:string",
     "X": "simplebuilding:leather_sheet"
   },
   "pattern": [
-    " SD",
-    "SXN",
-    "Q  "
+    "DSD",
+    "DQD",
+    "DXD"
   ],
   "result": {
     "count": 1,

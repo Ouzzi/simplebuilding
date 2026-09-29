@@ -289,6 +289,16 @@ final class SharedScriptRun implements Harness {
     }
 
     @Override
+    public void pressKeyInScreen(int glfwKeyCode, int modifiers) {
+        Input.pressKeyInScreen(glfwKeyCode, modifiers);
+    }
+
+    @Override
+    public void typeChars(String text) {
+        Input.typeChars(text);
+    }
+
+    @Override
     public void setAttacking(boolean attacking) {
         Minecraft client = Minecraft.getInstance();
         attacking = attacking && client.player != null;
