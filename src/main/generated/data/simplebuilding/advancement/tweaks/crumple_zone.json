@@ -1,0 +1,28 @@
+{
+  "parent": "simplebuilding:tweaks/root",
+  "criteria": {
+    "kinetic_protection": {
+      "conditions": {
+        "feature": "kinetic_protection"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.tweaks.crumple_zone.description"
+    },
+    "icon": {
+      "id": "minecraft:elytra"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.tweaks.crumple_zone.title"
+    }
+  },
+  "requirements": [
+    [
+      "kinetic_protection"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

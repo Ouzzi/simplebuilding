@@ -54,4 +54,14 @@ public final class PotionPadGameTest {
     public void blazesKilledOtherwiseDropNoHead(GameTestHelper helper) {
         PotionPadTests.blazesKilledOtherwiseDropNoHead(helper);
     }
+
+    @GameTest
+    public void potionPadsAreSwitchedOffByRedstoneAndReportTheirStateToAComparator(GameTestHelper helper) {
+        PotionPadTests.potionPadsAreSwitchedOffByRedstoneAndReportTheirStateToAComparator(helper);
+    }
+
+    @GameTest(maxTicks = PotionPadTests.AUTOMATION_MAX_TICKS)
+    public void aDispenserFillsThePotionPadButAHopperCannot(GameTestHelper helper) {
+        PotionPadTests.aDispenserFillsThePotionPadButAHopperCannot(helper);
+    }
 }

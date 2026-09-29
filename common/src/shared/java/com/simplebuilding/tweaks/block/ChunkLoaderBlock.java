@@ -7,6 +7,10 @@ import com.simplebuilding.tweaks.block.entity.ChunkLoaderBlockEntity;
 import com.simplebuilding.tweaks.block.entity.TweaksBlockEntities;
 import com.simplebuilding.version.BlockCodecs;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -15,6 +19,8 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -30,11 +36,47 @@ public class ChunkLoaderBlock extends PadBlock {
 
     public static final int MAX_TIER = 3;
 
+    /**
+     * Haelt gerade Chunks (Immersion 2026-09-28): leuchtende Textur, heller, schwebende Portal-Funken
+     * und das Summen eines Seelenankers; aus = matte Platte. Gesetzt von
+     * {@link ChunkLoaderBlockEntity#update}.
+     */
+    public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
+
     private final int tier;
 
     public ChunkLoaderBlock(BlockBehaviour.Properties properties, int tier) {
         super(properties, Block.box(1, 0, 1, 15, 2, 15), PadOwnership.OWNER_PLATE, PadOwnership.STRANGER_PLATE);
         this.tier = Math.max(1, Math.min(MAX_TIER, tier));
+        registerDefaultState(stateDefinition.any().setValue(ACTIVE, false));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(ACTIVE);
+    }
+
+    /** Lichtstaerke: eingeschaltet die der Stufe, ausgeschaltet nur ein Glimmen. */
+    public static int lightLevel(BlockState state, int active) {
+        return state.hasProperty(ACTIVE) && !state.getValue(ACTIVE) ? 3 : active;
+    }
+
+    /**
+     * Nur im Client, nur eingeschaltet: aufsteigende Portal-Funken ueber der Platte und selten das
+     * Summen eines Seelenankers (wie Vanillas Seelenanker: 1 in 100 Ticks).
+     */
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        if (!state.getValue(ACTIVE)) {
+            return;
+        }
+        if (random.nextInt(3) == 0) {
+            level.addParticle(ParticleTypes.REVERSE_PORTAL, pos.getX() + 0.2 + random.nextDouble() * 0.6, pos.getY() + 0.15,
+                    pos.getZ() + 0.2 + random.nextDouble() * 0.6, 0.0, 0.02 + random.nextDouble() * 0.03, 0.0);
+        }
+        if (random.nextInt(100) == 0) {
+            level.playLocalSound(pos, SoundEvents.RESPAWN_ANCHOR_AMBIENT, SoundSource.BLOCKS, 0.5f, 1.3f, false);
+        }
     }
 
     /** 1 = nur der eigene Chunk, 2 = Kreuz aus 5 Chunks, 3 = 3x3. */

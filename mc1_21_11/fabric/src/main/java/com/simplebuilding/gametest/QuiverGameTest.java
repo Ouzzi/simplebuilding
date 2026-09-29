@@ -55,4 +55,19 @@ public final class QuiverGameTest {
     public void netheriteQuiverBurnsInAnExplosionWhileTheNetheriteBundleSurvives(GameTestHelper helper) {
         QuiverTests.netheriteQuiverBurnsInAnExplosionWhileTheNetheriteBundleSurvives(helper);
     }
+
+    @GameTest
+    public void crossbowLoadsFromTheQuiverAndBillsOneArrow(GameTestHelper helper) {
+        QuiverTests.crossbowLoadsFromTheQuiverAndBillsOneArrow(helper);
+    }
+
+    @GameTest
+    public void aQuiverInsideTheBackpackFeedsTheBowOnlyWithMasterBuilder(GameTestHelper helper) {
+        QuiverTests.aQuiverInsideTheBackpackFeedsTheBowOnlyWithMasterBuilder(helper);
+    }
+
+    @GameTest
+    public void pickedUpArrowsGoIntoTheQuiverOnlyWithFunnel(GameTestHelper helper) {
+        QuiverTests.pickedUpArrowsGoIntoTheQuiverOnlyWithFunnel(helper);
+    }
 }

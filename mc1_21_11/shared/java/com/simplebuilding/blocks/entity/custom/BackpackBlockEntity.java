@@ -31,9 +31,11 @@ import net.minecraft.world.level.storage.ValueOutput;
 /**
  * Der abgestellte Rucksack.
  *
- * <p>Bewusst <em>kein</em> {@link Container}: Trichter und Komparatoren sehen ihn deshalb nicht.
- * Sie kennen nur Vanilla-Stapelgrenzen, und ein Trichter, der einen 256er-Stapel aus Tiefe Taschen
- * herauszieht, waere genau der Weg, auf dem ein uebergrosser Stapel ins Spiel entkommt.
+ * <p>Bewusst <em>kein</em> {@link Container}: Trichter sehen ihn deshalb nicht. Sie kennen nur
+ * Vanilla-Stapelgrenzen, und ein Trichter, der einen 256er-Stapel aus Tiefe Taschen herauszieht,
+ * waere genau der Weg, auf dem ein uebergrosser Stapel ins Spiel entkommt. Einen Komparator bedient
+ * seit 2026-09-28 der Block selbst ({@code BackpackBlock#getAnalogOutputSignal}), mit den
+ * Stapelgrenzen des Rucksacks.
  *
  * <p>Der Inhalt reist als Komponente {@code simplebuilding:backpack_contents}: beim Abstellen
  * liest {@link #applyImplicitComponents} sie vom Item, beim Abbauen kopiert die Loot-Tabelle

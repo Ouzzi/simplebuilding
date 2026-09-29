@@ -54,6 +54,9 @@ public final class PotionPadTests {
 
     private static final Block[] PADS = {TweaksBlocks.POTION_PAD, TweaksBlocks.REINFORCED_POTION_PAD, TweaksBlocks.INFUSED_POTION_PAD};
 
+    /** Budget fuer den Werfer-/Trichter-Test (Werfer feuert nach 4 Ticks, der Trank fliegt zwei Bloecke). */
+    public static final int AUTOMATION_MAX_TICKS = 100;
+
     private PotionPadTests() {
     }
 
@@ -414,6 +417,96 @@ public final class PotionPadTests {
         plain.discard();
         succeed(helper);
     }
+
+    // ---- owner decisions 2026-09-28 (begin)
+
+    /**
+     * A potion pad is switched off by redstone and reports its state to a comparator (owner,
+     * 2026-09-28): powered, a player standing on it for the whole three second ramp gets nothing;
+     * unpowered, the first step arrives. The comparator reads 0 without a potion, 15 while ready and
+     * 1..14 during the cooldown, rising as the cooldown runs out, and 15 again once it is over.
+     *
+     * <p>What breaks it: the redstone check going missing from {@code serverTick}, or a comparator
+     * signal that ignores the potion or the cooldown.
+     */
+    public static void potionPadsAreSwitchedOffByRedstoneAndReportTheirStateToAComparator(GameTestHelper helper) {
+        BlockPos pad = new BlockPos(2, 1, 2);
+        helper.setBlock(pad, TweaksBlocks.POTION_PAD);
+        helper.assertValueEqual(potionPadSignal(helper, pad), 0, "comparator signal of a potion pad without a potion");
+        PotionPadBlockEntity be = placeFilled(helper, pad, TweaksBlocks.POTION_PAD, net.minecraft.world.item.alchemy.Potions.SWIFTNESS);
+        helper.assertValueEqual(potionPadSignal(helper, pad), 15, "comparator signal of a ready potion pad");
+
+        ServerPlayer player = mockPlayer(helper, onTop(pad));
+        helper.setBlock(pad.east(), Blocks.REDSTONE_BLOCK);
+        tickPad(helper, pad, PotionPadBlockEntity.stepTicks() * PotionPadBlockEntity.RAMP_STEPS + 5);
+        helper.assertFalse(player.hasEffect(MobEffects.SPEED), "a powered potion pad gave its effect");
+        helper.assertFalse(be.isCoolingDown(), "a powered potion pad went into its cooldown");
+
+        helper.setBlock(pad.east(), Blocks.AIR);
+        tickPad(helper, pad, PotionPadBlockEntity.stepTicks());
+        helper.assertTrue(player.hasEffect(MobEffects.SPEED), "the unpowered potion pad gave no effect after one step");
+
+        // --- the full ramp starts the cooldown: the signal drops and climbs back ---
+        tickPad(helper, pad, PotionPadBlockEntity.stepTicks() * (PotionPadBlockEntity.RAMP_STEPS - 1));
+        helper.assertTrue(be.isCoolingDown(), "the full ramp did not start the cooldown");
+        int early = potionPadSignal(helper, pad);
+        helper.assertTrue(early >= 1 && early <= 3, "comparator signal right after the cooldown started: " + early);
+        int cooldown = be.getCooldown();
+        tickPad(helper, pad, cooldown / 2);
+        int half = potionPadSignal(helper, pad);
+        helper.assertTrue(half > early && half < 15, "comparator signal half way through the cooldown: " + half + " (start " + early + ")");
+        tickPad(helper, pad, cooldown - cooldown / 2);
+        helper.assertFalse(be.isCoolingDown(), "the cooldown did not run out");
+        helper.assertValueEqual(potionPadSignal(helper, pad), 15, "comparator signal once the cooldown is over");
+
+        succeed(helper);
+    }
+
+    /**
+     * Potions reach a pad only as a thrown potion (owner, 2026-09-28): a dispenser throwing a splash
+     * potion of Swiftness down onto a potion pad fills it with exactly that effect, while a hopper
+     * holding the same potion above a second pad cannot put it in.
+     *
+     * <p>What breaks it: a potion pad that turns into a container, or thrown potions no longer being
+     * absorbed.
+     */
+    public static void aDispenserFillsThePotionPadButAHopperCannot(GameTestHelper helper) {
+        BlockPos thrownPad = new BlockPos(1, 1, 1);
+        BlockPos dispenserPos = thrownPad.above(2);
+        helper.setBlock(thrownPad, TweaksBlocks.POTION_PAD);
+        helper.setBlock(dispenserPos, Blocks.DISPENSER.defaultBlockState()
+                .setValue(net.minecraft.world.level.block.DispenserBlock.FACING, Direction.DOWN));
+        helper.getBlockEntity(dispenserPos, net.minecraft.world.level.block.entity.DispenserBlockEntity.class)
+                .setItem(0, PotionContents.createItemStack(Items.SPLASH_POTION, net.minecraft.world.item.alchemy.Potions.SWIFTNESS));
+        helper.setBlock(dispenserPos.above(), Blocks.REDSTONE_BLOCK);
+
+        BlockPos hopperPad = new BlockPos(5, 1, 1);
+        helper.setBlock(hopperPad, TweaksBlocks.POTION_PAD);
+        helper.setBlock(hopperPad.above(), Blocks.HOPPER);
+        net.minecraft.world.level.block.entity.HopperBlockEntity hopper =
+                helper.getBlockEntity(hopperPad.above(), net.minecraft.world.level.block.entity.HopperBlockEntity.class);
+        hopper.setItem(0, PotionContents.createItemStack(Items.SPLASH_POTION, net.minecraft.world.item.alchemy.Potions.SWIFTNESS));
+
+        helper.succeedWhen(() -> {
+            PotionContents stored = helper.getBlockEntity(thrownPad, PotionPadBlockEntity.class).getStored();
+            helper.assertTrue(stored != null, "the potion the dispenser threw did not land in the pad");
+            boolean speed = false;
+            for (net.minecraft.world.effect.MobEffectInstance effect : stored.getAllEffects()) {
+                speed |= effect.getEffect().is(MobEffects.SPEED);
+            }
+            helper.assertTrue(speed, "the pad holds " + stored + " instead of the thrown Swiftness");
+            helper.assertTrue(hopper.getItem(0).is(Items.SPLASH_POTION), "the hopper gave its potion away");
+            helper.assertTrue(helper.getBlockEntity(hopperPad, PotionPadBlockEntity.class).getStored() == null,
+                    "a hopper filled a potion pad");
+        });
+    }
+
+    private static int potionPadSignal(GameTestHelper helper, BlockPos pad) {
+        BlockPos abs = helper.absolutePos(pad);
+        return helper.getLevel().getBlockState(abs).getAnalogOutputSignal(helper.getLevel(), abs, Direction.EAST);
+    }
+
+    // ---- owner decisions 2026-09-28 (end)
 
     // =====================================================================================
     // HELPERS

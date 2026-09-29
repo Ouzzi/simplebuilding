@@ -236,6 +236,9 @@ public final class LaserBeam {
             return null;
         }
         com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.LENS_BEAM);
+        if (effect == Effect.PRIME_TNT) {
+            com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.LASER_TNT);
+        }
         LaserPointerItem.drain(player, stack, LaserPointerItem.effectCost());
         return effect;
     }

@@ -780,6 +780,7 @@ public class ModItems {
     public static final Item GUIDE_BOOK_END = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.END);
     public static final Item GUIDE_BOOK_TWEAKS = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.TWEAKS);
     public static final Item GUIDE_BOOK_TRIMS = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.TRIMS);
+    public static final Item GUIDE_BOOK_ADMIN = registerGuideBook(com.simplebuilding.guide.GuideBooks.Book.ADMIN);
 
     static {
         // Handbuch + Schluesselitem ergibt ein Themenbuch, das Handbuch bleibt im Raster liegen: es ist

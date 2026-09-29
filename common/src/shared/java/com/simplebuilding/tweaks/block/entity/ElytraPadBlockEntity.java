@@ -14,6 +14,8 @@ import com.simplebuilding.tweaks.spawn.SpawnElytra;
 import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -25,7 +27,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 /** Elytra-Pad, 1:1 aus Simple Tweaks; ab Stufe IV (Enderit) laden Boosts im ganzen Bereich. */
-public class ElytraPadBlockEntity extends OwnedBlockEntity {
+public class ElytraPadBlockEntity extends OwnedBlockEntity implements PadSignalSource {
+    /** Spieler im Bereich beim letzten Durchlauf (Komparator-Signal, hoechstens 15). */
+    private int served;
 
     public ElytraPadBlockEntity(BlockPos pos, BlockState state) {
         super(TweaksBlockEntities.ELYTRA_PAD, pos, state);
@@ -37,14 +41,28 @@ public class ElytraPadBlockEntity extends OwnedBlockEntity {
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, ElytraPadBlockEntity be) {
         if (level.getGameTime() % 10 == 0) {
-            applyArea(level, pos, state);
+            int count = applyArea(level, pos, state);
+            int before = be.comparatorSignal();
+            be.served = count;
+            if (be.comparatorSignal() != before) {
+                level.updateNeighbourForOutputSignal(pos, state.getBlock());
+            }
         }
     }
 
-    /** Ein Durchlauf ueber alle Spieler im Bereich (der Tick macht das alle halbe Sekunde). */
-    public static void applyArea(Level level, BlockPos pos, BlockState state) {
-        if (!SimpleTweaks.config().pads.enableElytraPads) {
-            return;
+    /** Zahl der versorgten Spieler (0..15) fuer den Komparator. */
+    @Override
+    public int comparatorSignal() {
+        return Math.min(15, served);
+    }
+
+    /**
+     * Ein Durchlauf ueber alle Spieler im Bereich (der Tick macht das alle halbe Sekunde); liefert,
+     * wie viele es waren. Abgeschaltet (Config oder Redstone-Signal, Besitzer 2026-09-28): niemand.
+     */
+    public static int applyArea(Level level, BlockPos pos, BlockState state) {
+        if (!SimpleTweaks.config().pads.enableElytraPads || com.simplebuilding.tweaks.block.PadBlock.isDisabledByRedstone(level, pos)) {
+            return 0;
         }
         int tier = tierOf(state);
         AABB range = areaOf(level, pos, state);
@@ -54,6 +72,7 @@ public class ElytraPadBlockEntity extends OwnedBlockEntity {
         for (ServerPlayer player : players) {
             applyTo(level, pos, tier, player, config);
         }
+        return players.size();
     }
 
     /** Bereich dieses gesetzten Pads; die letzte Easter-Stufe ({@link EasterEggs}) ist doppelt so breit und hoch. */
@@ -73,12 +92,24 @@ public class ElytraPadBlockEntity extends OwnedBlockEntity {
             player.setItemSlot(EquipmentSlot.CHEST, elytra);
             // Angelegt: Vanillas Elytra-Anlegeklang statt einer Meldung (keine Bildschirmtexte).
             level.playSound(null, player.blockPosition(), SoundEvents.ARMOR_EQUIP_ELYTRA.value(), SoundSource.PLAYERS, 1.0f, 1.0f);
+            // ... und eine Wolke weisser Federn (Wolkenpartikel) um die Schultern.
+            if (level instanceof ServerLevel serverLevel) {
+                serverLevel.sendParticles(ParticleTypes.CLOUD, player.getX(), player.getY() + 1.2, player.getZ(), 8, 0.35, 0.2, 0.35, 0.01);
+            }
             com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.ELYTRA_PAD);
         } else if (chest.is(TweaksItems.SPAWN_ELYTRA)) {
             chest.set(TweaksComponents.LAST_PAD_TICK, level.getGameTime());
             chest.set(TweaksComponents.FLIGHT_TIME, config.flightTicks());
             if (PadTiers.hasEnderiteBonus(tier) || isInBoostColumn(player, pos)) {
+                Float before = chest.get(TweaksComponents.BOOST_LEVEL);
                 chest.set(TweaksComponents.BOOST_LEVEL, 1.0f);
+                if (before != null && before < 1.0f) {
+                    // Boost wieder voll: ein Feuerwerks-Knistern nur fuer ihn, Funken am Ruecken.
+                    com.simplebuilding.util.Feedback.playTo(player, SoundEvents.FIREWORK_ROCKET_TWINKLE, SoundSource.PLAYERS, 0.5f, 1.4f);
+                    if (level instanceof ServerLevel serverLevel) {
+                        serverLevel.sendParticles(ParticleTypes.FIREWORK, player.getX(), player.getY() + 1.0, player.getZ(), 6, 0.25, 0.25, 0.25, 0.02);
+                    }
+                }
             }
             player.addEffect(new MobEffectInstance(MobEffects.GLOWING, 20, 0, true, false, false));
         }

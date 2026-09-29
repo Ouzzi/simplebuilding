@@ -6,6 +6,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.simplebuilding.tweaks.block.entity.ElytraPadBlockEntity;
 import com.simplebuilding.tweaks.block.entity.TweaksBlockEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -32,6 +34,26 @@ public class ElytraPadBlock extends WaterloggedPadBlock {
 
     public int getTier() {
         return tier;
+    }
+
+    /**
+     * Nur im Client: ein Aufwind ueber dem Pad - ab und zu steigt ein weisses Woelkchen, ueber der
+     * Boost-Saeule, auf (Immersion 2026-09-28). Unter Wasser Blasen statt Wolken.
+     */
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        if (random.nextInt(8) != 0) {
+            return;
+        }
+        double x = pos.getX() + 0.15 + random.nextDouble() * 0.7;
+        double z = pos.getZ() + 0.15 + random.nextDouble() * 0.7;
+        level.addParticle(state.getValue(WATERLOGGED) ? ParticleTypes.BUBBLE_COLUMN_UP : ParticleTypes.CLOUD,
+                x, pos.getY() + 0.2, z, 0.0, 0.05, 0.0);
+    }
+
+    @Override
+    protected boolean isRedstoneControlled() {
+        return true;
     }
 
     @Override

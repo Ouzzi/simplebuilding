@@ -34,7 +34,7 @@ import net.minecraft.world.phys.Vec3;
  * Bildschirmtexte (Besitzer 2026-09-28): die Wartezeit hoert man am steigenden Klang, einen Abbruch am
  * Verpuffen, die Ankunft an Klang und Partikeln.
  */
-public class SpawnTeleporterBlockEntity extends OwnedBlockEntity {
+public class SpawnTeleporterBlockEntity extends OwnedBlockEntity implements PadSignalSource {
     /** Ticks stillstehen bis zum Sprung je Stufe I-III: 50 s, 20 s, 5 s. */
     public static final int TIER_1_TICKS = 1000;
     public static final int TIER_2_TICKS = 400;
@@ -44,6 +44,8 @@ public class SpawnTeleporterBlockEntity extends OwnedBlockEntity {
 
     private final Map<UUID, Integer> timeStanding = new HashMap<>();
     private final Map<UUID, Vec3> lastPositions = new HashMap<>();
+    /** Zuletzt gemeldetes Komparator-Signal (Fortschritt der Wartezeit). */
+    private int signal;
 
     public SpawnTeleporterBlockEntity(BlockPos pos, BlockState state) {
         super(TweaksBlockEntities.SPAWN_TELEPORTER, pos, state);
@@ -69,11 +71,38 @@ public class SpawnTeleporterBlockEntity extends OwnedBlockEntity {
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, SpawnTeleporterBlockEntity be) {
+        tickPlayers(level, pos, state, be);
+        if (!be.isRemoved()) {
+            int before = be.signal;
+            be.signal = be.progressSignal(level, pos, state);
+            if (be.signal != before) {
+                level.updateNeighbourForOutputSignal(pos, state.getBlock());
+            }
+        }
+    }
+
+    /** Fortschritt des Spielers, der am laengsten still steht: 0 niemand, sonst 1..15 bis zum Sprung. */
+    private int progressSignal(Level level, BlockPos pos, BlockState state) {
+        int longest = 0;
+        for (int ticks : timeStanding.values()) {
+            longest = Math.max(longest, ticks);
+        }
+        return PadSignalSource.fillSignal(longest, Math.max(1, requiredTicks(level, pos, tierOf(state))));
+    }
+
+    /** Komparator: Fortschritt der Wartezeit (Besitzer 2026-09-28). */
+    @Override
+    public int comparatorSignal() {
+        return signal;
+    }
+
+    private static void tickPlayers(Level level, BlockPos pos, BlockState state, SpawnTeleporterBlockEntity be) {
         if (state.getBlock() instanceof LegacySpawnTeleporterBlock legacy) {
             legacy.migrate(level, pos, state, be);
             return;
         }
-        if (!SimpleTweaks.config().pads.enableSpawnTeleporters) {
+        if (!SimpleTweaks.config().pads.enableSpawnTeleporters || com.simplebuilding.tweaks.block.PadBlock.isDisabledByRedstone(level, pos)) {
+            // Abgeschaltet (Config oder Redstone-Signal, Besitzer 2026-09-28): keine Wartezeit, kein Sprung.
             be.timeStanding.clear();
             be.lastPositions.clear();
             return;

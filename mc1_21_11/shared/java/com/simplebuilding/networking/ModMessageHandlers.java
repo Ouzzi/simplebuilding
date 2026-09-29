@@ -40,6 +40,7 @@ public final class ModMessageHandlers {
             int level = EnchantmentHelper.getItemEnchantmentLevel(doubleJump.get(), bootStack);
             // Nicht mehr blind vertrauen (Audit #30): nur in der Luft, einmal je Sturz bzw. je Abklingzeit.
             if (level > 0 && AirJumpGuard.tryUse(player, level)) {
+                com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.AIR_JUMP);
                 player.fallDistance = 0;
                 if (!player.isCreative()) {
                     bootStack.hurtAndBreak(1, player, EquipmentSlot.FEET);
@@ -325,20 +326,20 @@ public final class ModMessageHandlers {
     }
 
     /**
-     * Rucksack-Taste: oeffnet das Menue des getragenen Rucksacks. Ohne getragenen Rucksack, tot,
-     * als Zuschauer oder bei schon offenem Menue passiert nichts
-     * ({@link BackpackMenuProviders#canOpenWorn}).
+     * Rucksack-Taste: oeffnet das Menue des getragenen Rucksacks, sonst (Besitzer 2026-09-28) des
+     * ersten Rucksacks im Inventar. Ohne Rucksack, tot, als Zuschauer oder bei schon offenem Menue
+     * passiert nichts ({@link BackpackMenuProviders#canOpenCarried}) - der Server prueft selbst.
      */
     public static void handleOpenBackpack(OpenBackpackPayload payload, ServerPlayer player) {
-        if (!BackpackMenuProviders.canOpenWorn(player)) {
+        if (!BackpackMenuProviders.canOpenCarried(player)) {
             return;
         }
-        // Serverschalter server.features.backpack: der getragene Rucksack oeffnet nicht mehr; abgestellt
-        // bleibt er zugaenglich, damit niemand seinen Inhalt verliert.
+        // Serverschalter server.features.backpack: die Rucksack-Taste oeffnet nichts mehr; abgestellt
+        // bleibt ein Rucksack zugaenglich, damit niemand seinen Inhalt verliert.
         if (com.simplebuilding.config.ServerTuning.featureDenied(com.simplebuilding.config.ServerTuning.get().features.backpack, player)) {
             return;
         }
-        BackpackMenus.openWorn(player);
+        BackpackMenus.openCarried(player);
     }
 
     // =====================================================================================

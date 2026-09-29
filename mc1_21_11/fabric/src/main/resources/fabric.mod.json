@@ -32,6 +32,15 @@
     "jei_mod_plugin": [
       "com.simplebuilding.compat.jei.SimplebuildingJeiPlugin"
     ],
+    "jade": [
+      "com.simplebuilding.compat.jade.SimplebuildingJadePlugin"
+    ],
+    "rei_client": [
+      "com.simplebuilding.compat.rei.SimplebuildingReiClientPlugin"
+    ],
+    "rei_common": [
+      "com.simplebuilding.compat.rei.SimplebuildingReiCommonPlugin"
+    ],
     "fabric-gametest": [
       "com.simplebuilding.gametest.SmokeGameTest",
       "com.simplebuilding.gametest.TestCentreGameTest",
@@ -81,6 +90,7 @@
       "com.simplebuilding.gametest.FurnaceGameTest",
       "com.simplebuilding.gametest.SledgehammerUpgradeGameTest",
       "com.simplebuilding.gametest.TieredChestGameTest",
+      "com.simplebuilding.gametest.BlockInfoGameTest",
       "com.simplebuilding.gametest.InWorldExportGameTest",
       "com.simplebuilding.gametest.EnderiteMachineGameTest",
       "com.simplebuilding.gametest.SmeltingGameTest",
@@ -95,8 +105,10 @@
       "com.simplebuilding.gametest.PlacedBundleGameTest",
       "com.simplebuilding.gametest.TweaksEasterGameTest",
       "com.simplebuilding.gametest.AdvancementTreeGameTest",
+      "com.simplebuilding.gametest.AdvancementTriggerGameTest",
       "com.simplebuilding.gametest.PressurePlateGameTest",
-      "com.simplebuilding.gametest.GuideBookGameTest"
+      "com.simplebuilding.gametest.GuideBookGameTest",
+      "com.simplebuilding.gametest.ImmersionGameTest"
     ]
   },
   "mixins": [
@@ -118,6 +130,7 @@
     "jei": ">=27"
   },
   "suggests": {
+    "roughlyenoughitems": "*",
     "modmenu": "*",
     "jade": "*",
     "appleskin": "*",

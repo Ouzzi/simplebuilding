@@ -28,6 +28,12 @@ sourceSets {
 			// because the forge module compiles common/src/shared/java too and there is no JEI
 			// for Forge 26.2.
 			srcDir "common/src/jei/java"
+			// Jade plugin (compileOnly Jade jar, only ever loaded by Jade itself), same reasoning: no
+			// Jade for Forge 26.2. The data it shows comes from common/src/shared/java's compat.BlockInfo.
+			srcDir "common/src/jade/java"
+			// REI plugin (compileOnly REI API, only ever loaded by REI itself). Its own tree for
+			// the same reason, and REI has no build for Forge 26.2 or the 26.3/26.4 lines either.
+			srcDir "common/src/rei/java"
 		}
 		resources {
 			srcDir "src/main/generated"
@@ -50,6 +56,9 @@ repositories {
 
 	// JEI (API + dev runtime)
 	maven { url = "https://maven.blamejared.com/" }
+
+	// Architectury API, named in the REI API's signatures (REI itself comes from maven.shedaniel.me)
+	maven { url = "https://maven.architectury.dev/" }
 
 	// Dev-only runtime mods (Jade, Mouse Tweaks, AppleSkin), see devMods below
 	exclusiveContent {
@@ -155,6 +164,16 @@ dependencies {
 
 	// JEI plugin API (common/src/jei/java). compileOnly: the mod runs without JEI.
 	compileOnly "mezz.jei:jei-${project.minecraft_version}-common-api:${project.jei_version}"
+	// Jade plugin (common/src/jade/java). Jade publishes no API artifact; its Fabric jar is
+	// unobfuscated on 26.x, so plain compileOnly against the same jar the dev runtime uses.
+	compileOnly "maven.modrinth:jade:${project.dev_jade_fabric}"
+
+	// REI plugin API (common/src/rei/java). compileOnly: the mod runs without REI. Non-transitive,
+	// so REI's own Fabric API / Cloth Config versions never reach this module's compile classpath;
+	// Architectury is named in REI's method signatures (fluid stacks), so javac needs it too.
+	compileOnly("me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}") { transitive = false }
+	compileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${project.rei_version}") { transitive = false }
+	compileOnly("dev.architectury:architectury-fabric:${project.rei_architectury_version}") { transitive = false }
 
 	// Dev-only runtime mods, see configurations.devMods above. The JEI jar is the full distributable
 	// (its mezz_config dependency is jar-in-jar), so no transitive resolution is needed.
@@ -274,11 +293,11 @@ tasks.named('check') { dependsOn 'checkQuests' }
 // Pairs: <26.2 side> / <26.3 side> / <shared trees both sides compile>.
 def overlayPairs = [
 		['common/src/mc26_2/java', 'mc26_3/overlay/java',
-		 ['common/src/shared/java', 'common/src/jei/java', 'src/main/java', 'neoforge/src/main/java']],
+		 ['common/src/shared/java', 'common/src/jei/java', 'common/src/jade/java', 'common/src/rei/java', 'src/main/java', 'neoforge/src/main/java']],
 		['src/mc26_2/java', 'mc26_3/fabric/src/main/java',
-		 ['common/src/shared/java', 'common/src/jei/java', 'src/main/java']],
+		 ['common/src/shared/java', 'common/src/jei/java', 'common/src/jade/java', 'common/src/rei/java', 'src/main/java']],
 		['neoforge/src/mc26_2/java', 'mc26_3/neoforge/src/main/java',
-		 ['common/src/shared/java', 'common/src/jei/java', 'neoforge/src/main/java']],
+		 ['common/src/shared/java', 'common/src/jei/java', 'common/src/jade/java', 'common/src/rei/java', 'neoforge/src/main/java']],
 		['common/src/mc26_2/clientgametest/java', 'mc26_3/overlay/clientgametest/java',
 		 ['common/src/shared/clientgametest/java', 'src/gametest/java', 'neoforge/src/clientGameTest/java']],
 		['neoforge/src/mc26_2/clientGameTest/java', 'mc26_3/neoforge/src/clientGameTest/java',

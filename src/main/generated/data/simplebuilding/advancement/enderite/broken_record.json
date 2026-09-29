@@ -1,0 +1,28 @@
+{
+  "parent": "simplebuilding:enderite/echolocation",
+  "criteria": {
+    "echo_shatter": {
+      "conditions": {
+        "feature": "echo_shatter"
+      },
+      "trigger": "simplebuilding:feature_used"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.simplebuilding.enderite.broken_record.description"
+    },
+    "icon": {
+      "id": "minecraft:echo_shard"
+    },
+    "title": {
+      "translate": "advancements.simplebuilding.enderite.broken_record.title"
+    }
+  },
+  "requirements": [
+    [
+      "echo_shatter"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

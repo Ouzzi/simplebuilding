@@ -61,6 +61,34 @@ public final class FurnaceTierPerks {
         return 0;
     }
 
+    /**
+     * Zusaetzliche Kochticks je Spieltick: Verstaerkt +1, Netherit +3, Enderit +7 - also die zwei-,
+     * vier- und achtfache Geschwindigkeit der Vanilla-Maschine derselben Familie (Ofen, Raeucherofen,
+     * Schmelzofen), ohne Brennstoffkosten. 0 fuer jeden anderen Block.
+     *
+     * <p>Dieselben Zahlen, die die {@code tick}-Methoden der drei Block-Entities selbst tragen (dort
+     * bleiben sie stehen, die Mutationskataloge haengen an genau diesen Zeilen); gelesen nur fuer die
+     * Anzeige ({@code compat.BlockInfo}, Jade). {@code FurnaceTests} prueft das Tempo im Spiel,
+     * {@code BlockInfoTests#furnaceSpeedFollowsTheTier} diese Tabelle.
+     */
+    public static int extraCookTicks(BlockState state) {
+        if (state.is(ModBlocks.REINFORCED_FURNACE) || state.is(ModBlocks.REINFORCED_SMOKER) || state.is(ModBlocks.REINFORCED_BLAST_FURNACE)) {
+            return 1;
+        }
+        if (state.is(ModBlocks.NETHERITE_FURNACE) || state.is(ModBlocks.NETHERITE_SMOKER) || state.is(ModBlocks.NETHERITE_BLAST_FURNACE)) {
+            return 3;
+        }
+        if (state.is(ModBlocks.ENDERITE_FURNACE) || state.is(ModBlocks.ENDERITE_SMOKER) || state.is(ModBlocks.ENDERITE_BLAST_FURNACE)) {
+            return 7;
+        }
+        return 0;
+    }
+
+    /** Geschwindigkeit gegenueber der Vanilla-Maschine (2, 4, 8); 1 fuer jeden anderen Block. */
+    public static int speedFactor(BlockState state) {
+        return 1 + extraCookTicks(state);
+    }
+
     /** Ob die Zutat des Rezepts nur aus Bonus-Gegenstaenden besteht (und keiner ausgeschlossen ist). */
     @SuppressWarnings("deprecation") // Ingredient#items(): der einzige Blick auf die Zutaten
     public static boolean earnsOutputBonus(@Nullable RecipeHolder<?> recipe) {

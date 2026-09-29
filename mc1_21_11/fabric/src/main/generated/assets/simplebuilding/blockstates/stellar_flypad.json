@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "active=false": {
       "model": "simplebuilding:block/stellar_flypad"
+    },
+    "active=true": {
+      "model": "simplebuilding:block/stellar_flypad_active"
     }
   }
 }

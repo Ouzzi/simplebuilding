@@ -27,7 +27,7 @@
 		{
 			id: "4AD8A702F2D985CE",
 			x: 2.0d,
-			y: -7.5d,
+			y: -9.0d,
 			optional: true,
 			dependencies: ["4C78B432B0A72429", "4E11526B4A90FF79"],
 			tasks: [
@@ -44,7 +44,7 @@
 		{
 			id: "096F91FF11CEE661",
 			x: 2.0d,
-			y: -6.0d,
+			y: -7.5d,
 			dependencies: ["4C78B432B0A72429"],
 			tasks: [
 				{
@@ -58,7 +58,7 @@
 		{
 			id: "34347CADC508F678",
 			x: 2.0d,
-			y: -4.5d,
+			y: -6.0d,
 			dependencies: ["4C78B432B0A72429", "08F000C8C84FDF74"],
 			tasks: [
 				{
@@ -72,7 +72,7 @@
 		{
 			id: "26CFB89AC8E77540",
 			x: 2.0d,
-			y: -3.0d,
+			y: -4.5d,
 			optional: true,
 			dependencies: ["4C78B432B0A72429"],
 			tasks: [
@@ -87,7 +87,7 @@
 		{
 			id: "1A252AE1755EAC75",
 			x: 2.0d,
-			y: -1.5d,
+			y: -3.0d,
 			optional: true,
 			dependencies: ["4C78B432B0A72429"],
 			tasks: [
@@ -95,6 +95,36 @@
 					id: "345A8FFBC05C3A6B",
 					type: "advancement",
 					advancement: "simplebuilding:gadgets/burning_focus",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "0A3C11A5DB1DCB3C",
+			x: 4.0d,
+			y: -1.5d,
+			optional: true,
+			dependencies: ["1A252AE1755EAC75"],
+			tasks: [
+				{
+					id: "69703336E2C7EDEA",
+					type: "advancement",
+					advancement: "simplebuilding:gadgets/remote_detonation",
+					criterion: ""
+				}
+			]
+		},
+		{
+			id: "599C76EDE26DEBD5",
+			x: 2.0d,
+			y: -1.5d,
+			optional: true,
+			dependencies: ["4C78B432B0A72429"],
+			tasks: [
+				{
+					id: "41DA4BAAC9492DDD",
+					type: "advancement",
+					advancement: "simplebuilding:tweaks/leap_of_faith",
 					criterion: ""
 				}
 			]
@@ -146,7 +176,7 @@
 		{
 			id: "53B75B4689AA212D",
 			x: 4.0d,
-			y: -0.75d,
+			y: 0.0d,
 			dependencies: ["096F91FF11CEE661", "08F000C8C84FDF74"],
 			tasks: [
 				{
@@ -174,7 +204,7 @@
 		{
 			id: "4C05E440807CDB86",
 			x: 4.0d,
-			y: 0.75d,
+			y: 1.5d,
 			optional: true,
 			dependencies: ["1E6A20BF670EC8F7"],
 			tasks: [
@@ -230,6 +260,21 @@
 			]
 		},
 		{
+			id: "533F15328C2A0868",
+			x: 2.0d,
+			y: 6.0d,
+			optional: true,
+			dependencies: ["7F329CF5369DFB40"],
+			tasks: [
+				{
+					id: "02E4353999341B6E",
+					type: "advancement",
+					advancement: "simplebuilding:tweaks/crumple_zone",
+					criterion: ""
+				}
+			]
+		},
+		{
 			id: "76E2630E5FC6E10B",
 			x: 0.0d,
 			y: 1.5d,
@@ -247,7 +292,7 @@
 		{
 			id: "178A367C5F1DA46E",
 			x: 2.0d,
-			y: 6.0d,
+			y: 7.5d,
 			optional: true,
 			dependencies: ["76E2630E5FC6E10B"],
 			tasks: [
@@ -291,7 +336,7 @@
 		{
 			id: "3F8F0638C7430BBA",
 			x: 2.0d,
-			y: 7.5d,
+			y: 9.0d,
 			optional: true,
 			dependencies: ["37C00FA3BDB204DC"],
 			tasks: [

@@ -52,8 +52,14 @@ import org.jetbrains.annotations.Nullable;
  * <p>Der Trank reist als {@code potion_contents} mit dem Item (Abbau, Strg+Mittelklick) und kommt beim
  * Setzen zurueck, neben der Easter-Stufe der Basisklasse. Alle halbe Sekunde steigen Partikel in der
  * Trankfarbe auf, solange das Pad bereit ist.
+ *
+ * <p><b>Automatisierung</b> (Besitzer 2026-09-28): Traenke kommen nur ueber einen Wurftrank aufs Pad,
+ * der darauf zerschellt - ein Werfer kann ihn werfen; ein Trichter kann nichts einlegen (das Pad ist
+ * kein Behaelter), und weitergegeben wird genau die Wirkung dieses Tranks. Redstone schaltet das Pad
+ * ab (die Abklingzeit laeuft weiter); der Komparator liest 0 ohne Trank, 15 bereit und waehrend der
+ * Abklingzeit 1..14, je nachdem, wie weit sie ist ({@link #comparatorSignal}).
  */
-public class PotionPadBlockEntity extends OwnedBlockEntity {
+public class PotionPadBlockEntity extends OwnedBlockEntity implements PadSignalSource {
     /** Ein Aufladeschritt dauert eine Sekunde. */
     public static final int RAMP_STEP_TICKS = 20;
     /** Anteil der Stufendauer nach Schritt 1, 2, 3. */
@@ -114,15 +120,40 @@ public class PotionPadBlockEntity extends OwnedBlockEntity {
         return RAMP_PERCENT[Math.max(1, Math.min(RAMP_STEPS, step)) - 1];
     }
 
+    /**
+     * 0 ohne Trank, 15 bereit; in der Abklingzeit steigt das Signal von 1 bis 14, je weiter sie
+     * abgelaufen ist (gemessen an der vollen Abklingzeit des gesetzten Pads).
+     */
+    @Override
+    public int comparatorSignal() {
+        if (stored == null) {
+            return 0;
+        }
+        if (cooldown <= 0) {
+            return 15;
+        }
+        int total = level != null && getBlockState().getBlock() instanceof PotionPadBlock pad ? pad.cooldownAt(level, worldPosition) : 0;
+        if (total <= 0) {
+            return 1;
+        }
+        int elapsed = Math.max(0, total - cooldown);
+        return Math.max(1, Math.min(14, 1 + (int) (13L * elapsed / total)));
+    }
+
     public static void serverTick(Level level, BlockPos pos, BlockState state, PotionPadBlockEntity be) {
         if (!(level instanceof ServerLevel serverLevel)) {
             return;
         }
         if (be.cooldown > 0) {
+            int signalBefore = be.comparatorSignal();
             be.cooldown--;
+            if (be.comparatorSignal() != signalBefore) {
+                // Nur bei einem Stufenwechsel (hoechstens 14-mal je Abklingzeit) die Komparatoren wecken.
+                level.updateNeighbourForOutputSignal(pos, state.getBlock());
+            }
             // Nur den Chunk als ungespeichert markieren: setChanged() fragte zusaetzlich jeden Tick die
-            // vier Nachbarn nach Komparatoren ab, obwohl das Pad kein Komparator-Signal hat
-            // (docs/PERFORMANCE.md). Der Wechsel des COOLING-Zustands meldet sich selbst per setBlock.
+            // vier Nachbarn nach Komparatoren ab (docs/PERFORMANCE.md); das Komparator-Signal meldet
+            // sich oben nur, wenn es wirklich die Stufe wechselt. Der Wechsel des COOLING-Zustands meldet sich selbst per setBlock.
             level.blockEntityChanged(pos);
             if (be.cooldown == 0) {
                 be.standing.clear();
@@ -135,8 +166,9 @@ public class PotionPadBlockEntity extends OwnedBlockEntity {
             return;
         }
         be.syncCoolingState();
-        if (be.stored == null || !SimpleTweaks.config().pads.enablePotionPads) {
-            // Ohne Trank oder abgeschaltet (Config tweaks.pads.enablePotionPads): nichts geben.
+        if (be.stored == null || !SimpleTweaks.config().pads.enablePotionPads
+                || com.simplebuilding.tweaks.block.PadBlock.isDisabledByRedstone(level, pos)) {
+            // Ohne Trank oder abgeschaltet (Config tweaks.pads.enablePotionPads, Redstone-Signal): nichts geben.
             be.standing.clear();
             return;
         }
@@ -224,6 +256,12 @@ public class PotionPadBlockEntity extends OwnedBlockEntity {
         if (state.getBlock() instanceof PotionPadBlock && state.hasProperty(PotionPadBlock.COOLING)
                 && state.getValue(PotionPadBlock.COOLING) != cooling) {
             level.setBlock(worldPosition, state.setValue(PotionPadBlock.COOLING, cooling), Block.UPDATE_ALL);
+            if (!cooling && stored != null && level instanceof ServerLevel server) {
+                // Wieder bereit (Immersion 2026-09-28): ein Glockenspiel-Ton und ein Wirbel in der Trankfarbe.
+                server.playSound(null, worldPosition, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 0.8F, 1.2F);
+                server.sendParticles(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, 0xFF000000 | color()),
+                        worldPosition.getX() + 0.5, worldPosition.getY() + 0.2, worldPosition.getZ() + 0.5, 12, 0.3, 0.1, 0.3, 0.0);
+            }
         }
     }
 

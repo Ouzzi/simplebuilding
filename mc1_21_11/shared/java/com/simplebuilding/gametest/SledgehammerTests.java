@@ -90,7 +90,7 @@ import net.minecraft.world.phys.Vec3;
  *       break event runs <em>inside</em> {@code gameMode.destroyBlock} and calls the hook again.
  *       The shared suite invokes the hook directly, so a nested call cannot be produced from here
  *       and every assertion about the guard would pass without executing it. What can be checked -
- *       and is, in {@link #sledgehammerBillsOneDurabilityPerBlockAndTwoForTheWrongTool} - is the
+ *       and is, in {@link #sledgehammerBillsTwoDurabilityPerBlockAndThreeForTheWrongTool} - is the
  *       observable consequence: a swing pays for each neighbour exactly once.</li>
  *   <li><b>The second diamond block check inside {@code crushDiamondBlock}.</b> The block is read
  *       once by {@code finishUsingItem} and re-read by the crusher inside the same call; nothing
@@ -143,8 +143,9 @@ public final class SledgehammerTests {
      * block as the origin - and the test would prove nothing.
      *
      * <p>The wear half needs the detour through a measured baseline: with {@code instabuild} off,
-     * vanilla charges the tool once per block it breaks on top of the mod's own charge. Only the
-     * remainder is the mod's, and it has to come out at six blocks - not eight.
+     * every block the hammer breaks costs its base wear ({@code SledgehammerItem#WEAR_PER_BLOCK},
+     * charged through vanilla's {@code mineBlock}). Six broken stone blocks must cost exactly six
+     * times that - nothing extra for the bedrock or the hole in the face.
      *
      * <p>What breaks this: dropping the {@code getDestroySpeed() < 0} guard in
      * {@code SledgehammerUtils#shouldBreak}, which hands every Override II hammer a bedrock
@@ -182,7 +183,7 @@ public final class SledgehammerTests {
         Assertions.valueEqual(helper, cleared, NEIGHBOURS - 2, "stone neighbours the swing was meant to clear");
 
         int modShare = hammer.getDamageValue() - cleared * vanillaPerBlock;
-        Assertions.valueEqual(helper, modShare, cleared,
+        Assertions.valueEqual(helper, modShare, 0,
                 "the swing charged " + modShare + " points for " + cleared + " broken blocks; the "
                         + "bedrock or the hole in the face was billed as if it had been mined "
                         + "(vanilla's own share of " + vanillaPerBlock + " per block is already subtracted)");
@@ -279,20 +280,21 @@ public final class SledgehammerTests {
      *
      * <p>Three faces, one hammer:
      * <ul>
-     *   <li><b>stone</b>, plain hammer - the pickaxe case, one point each;</li>
+     *   <li><b>stone</b>, plain hammer - the pickaxe case, two points each (the hammer wears twice as
+     *       fast as a pickaxe, owner 2026-09-28), nothing on top;</li>
      *   <li><b>glass</b>, Override II - glass is in none of the four vanilla {@code mineable/*}
      *       tags, so Override II lets the hammer break it while
-     *       {@code SledgehammerItem#isCorrectToolForDrops} still says no: two points each;</li>
+     *       {@code SledgehammerItem#isCorrectToolForDrops} still says no: one point more each;</li>
      *   <li><b>dirt</b>, Override II - dirt <em>is</em> in {@code mineable/shovel}, which
-     *       Override II adds to the hammer's tool classes, so it drops back to one point each.</li>
+     *       Override II adds to the hammer's tool classes, so nothing on top again.</li>
      * </ul>
      * The last two together are the point: Override II is not a blanket "everything is cheap now",
      * it moves exactly the axe, shovel and hoe blocks into the cheap class.
      *
-     * <p>Every number is a <em>remainder</em>. Vanilla's {@code ItemStack#mineBlock} charges the
-     * tool once per block on top of whatever the mod does, so the vanilla share is measured on a
-     * probe block of the same type first and subtracted. Reading the raw damage value instead
-     * would bake vanilla's tool wear into the mod's expectations.
+     * <p>Every number is a <em>remainder</em>. {@code ItemStack#mineBlock} charges the base wear of
+     * {@code SledgehammerItem#WEAR_PER_BLOCK} per block (vanilla's one point plus the hammer's own),
+     * measured on a probe block of the same type first and subtracted; the probe also pins that base
+     * wear at two.
      *
      * <p>What breaks this: deleting the {@code hurtAndBreak} in the hook (an area miner that never
      * wears out); making the cost flat, which removes the entire drawback of mining foreign blocks
@@ -300,14 +302,14 @@ public final class SledgehammerTests {
      * which would silently double the price of every dirt block an Override II hammer takes. The
      * per-block arithmetic also fails if a neighbour is ever processed twice.
      */
-    public static void sledgehammerBillsOneDurabilityPerBlockAndTwoForTheWrongTool(GameTestHelper helper) {
+    public static void sledgehammerBillsTwoDurabilityPerBlockAndThreeForTheWrongTool(GameTestHelper helper) {
         ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE, 0.0F, 90.0F, false);
 
-        assertSwingCharge(helper, player, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER), Blocks.STONE, 1,
+        assertSwingCharge(helper, player, new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER), Blocks.STONE, 0,
                 "a plain hammer on its own pickaxe blocks");
-        assertSwingCharge(helper, player, hammerWith(helper, ModEnchantments.OVERRIDE, 2), Blocks.GLASS, 2,
+        assertSwingCharge(helper, player, hammerWith(helper, ModEnchantments.OVERRIDE, 2), Blocks.GLASS, 1,
                 "an Override II hammer on glass, which is in none of the mineable tags");
-        assertSwingCharge(helper, player, hammerWith(helper, ModEnchantments.OVERRIDE, 2), Blocks.DIRT, 1,
+        assertSwingCharge(helper, player, hammerWith(helper, ModEnchantments.OVERRIDE, 2), Blocks.DIRT, 0,
                 "an Override II hammer on dirt, which Override II makes a correct tool for");
 
         helper.killAllEntitiesOfClass(ItemEntity.class);
@@ -637,9 +639,10 @@ public final class SledgehammerTests {
      * Through say, and Override II lifts the blocks of the other three tool classes out of the
      * bare-hands speed of {@code 1.0} onto that same material speed. The slowdown per block lives
      * one level up, in {@code getDestroyProgress}, where player and position are known; its ladder
-     * against the enchantments is pinned here: Radius (a full 5x5, twenty-five blocks) mines at a
-     * fifth of the lone-block progress, and Radius plus Break Through - fifty blocks - lands on the
-     * same fifth, which is where the cap at twenty-five lives.
+     * against the enchantments is pinned here (owner, 2026-09-28): every block of the area takes as
+     * long as with the pickaxe one tier below, so Radius (a full 5x5, twenty-five blocks) takes
+     * twenty-five iron pickaxe blocks and Radius plus Break Through - fifty blocks - fifty; there is
+     * no cap any more.
      *
      * <p>The Override II half checks both sides: a plain hammer on dirt and on hay is exactly
      * {@code 1.0}, and the same hammer with Override II mines them at full material speed. All
@@ -649,9 +652,8 @@ public final class SledgehammerTests {
      * then take that whole tool class with it. Glass stays a wrong-tool block even at Override II.
      *
      * <p>What breaks this: a multiplier coming back into {@code getDestroySpeed} (the old 1.25 to
-     * 1.85 bonus), the cap at twenty-five disappearing, which makes a Radius plus Break Through
-     * hammer crawl at a seventh, and the {@code baseSpeed <= 1.0F} guard or a tag of the Override
-     * list going away.
+     * 1.85 bonus), a cap on the block count coming back, and the {@code baseSpeed <= 1.0F} guard or
+     * a tag of the Override list going away.
      */
     public static void sledgehammerSpeedAndBlockCountScaleWithItsEnchantments(GameTestHelper helper) {
         SledgehammerItem hammer = ModItems.DIAMOND_SLEDGEHAMMER;
@@ -694,61 +696,67 @@ public final class SledgehammerTests {
         helper.assertFalse(hammer.isCorrectToolForDrops(override, glass),
                 "Override II harvests glass, so it no longer names the three tool classes but simply says yes");
 
-        // --- the slowdown ladder: Radius and the cap at twenty-five blocks ---
+        // --- the slowdown ladder: every block as long as with the iron pickaxe, no cap ---
         // One block up, so the Break Through layer sits at y = 1 inside the room, not in its floor.
         BlockPos top = CENTRE.above();
         ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE.add(0.0, 1.0, 0.0), 0.0F, 90.0F, true);
         fillSquare(helper, top.below(), 2, Blocks.AIR);
         helper.setBlock(top, Blocks.STONE);
-        player.setItemInHand(InteractionHand.MAIN_HAND, both);
-        float lone = progress(helper, player, top);
-        helper.assertTrue(lone > 0.0F, "a lone stone block makes no mining progress at all");
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.IRON_PICKAXE));
+        float ironPickaxe = progress(helper, player, top);
+        helper.assertTrue(ironPickaxe > 0.0F, "a lone stone block makes no mining progress at all");
 
         fillSquare(helper, top, 2, Blocks.STONE);
         player.setItemInHand(InteractionHand.MAIN_HAND, radius);
-        assertRatio(helper, progress(helper, player, top), lone, 5.0F, "a full 5x5 with Radius I (25 blocks)");
+        assertRatio(helper, progress(helper, player, top), ironPickaxe, 25.0F,
+                "a full 5x5 with Radius I (25 blocks, each as long as with an iron pickaxe)");
 
         fillSquare(helper, top.below(), 2, Blocks.STONE);
         player.setItemInHand(InteractionHand.MAIN_HAND, both);
-        assertRatio(helper, progress(helper, player, top), lone, 5.0F,
-                "two full 5x5 layers with Radius I and Break Through I (50 blocks, capped at 25)");
+        assertRatio(helper, progress(helper, player, top), ironPickaxe, 50.0F,
+                "two full 5x5 layers with Radius I and Break Through I (50 blocks, no cap)");
 
-        helper.succeed();
+        TestCleanup.succeed(helper);
     }
 
     /**
-     * A full 3x3 costs about three times as long as one block, and the sneaking hammer is a plain
-     * pickaxe. The owner's complaint was the other way round: a 3x3 came down as fast as a pickaxe
-     * mines a single block. The slowdown is {@code sqrt(min(n, 25))} for the {@code n} blocks the
-     * swing really breaks, so it is measured on the real {@code getDestroyProgress} of the origin
-     * with a real player - the only place both the position and the player are known, and the
-     * value client and server both tick with.
+     * The pickaxe stays the main tool (owner, 2026-09-28). A lone block takes
+     * {@code SledgehammerUtils#SINGLE_BLOCK_SLOWDOWN} times as long as with the pickaxe of the same
+     * material; the area takes, per block, as long as the pickaxe one tier below: a diamond hammer's
+     * full 3x3 as long as nine blocks with an iron pickaxe, an enderite hammer's as long as nine with
+     * a netherite pickaxe - the owner's own example. Measured on the real {@code getDestroyProgress}
+     * of the origin with a real player - the only place both the position and the player are known,
+     * and the value client and server both tick with.
      *
-     * <p>Four situations: the lone block (the hammer must equal a diamond pickaxe), the full 3x3
-     * (a third), a 3x3 where only four stone neighbours qualify and four dirt neighbours stay
-     * standing (divided by the square root of five - the count is what really breaks, not the size
-     * of the pattern), and sneaking over the full 3x3 (back to the lone-block progress).
+     * <p>Only what really breaks counts: a 3x3 whose four dirt corners a plain hammer leaves standing
+     * is five iron pickaxe blocks. Sneaking over the full 3x3 is a single block again.
      *
-     * <p>What breaks this: the mixin on {@code BlockStateBase#getDestroyProgress} going missing
-     * (the 3x3 is as fast as one block again), counting the pattern instead of the blocks
-     * {@code shouldBreak} lets through, or sneaking still counting the 3x3.
+     * <p>What breaks this: the mixin on {@code BlockStateBase#getDestroyProgress} going missing,
+     * counting the pattern instead of the blocks {@code shouldBreak} lets through, the tier ladder
+     * pointing at the wrong pickaxe, or sneaking still counting the 3x3.
      */
-    public static void sledgehammerFieldMinesThreeTimesSlowerThanOneBlock(GameTestHelper helper) {
+    public static void sledgehammerAreaMinesEachBlockLikeThePickaxeOneTierBelow(GameTestHelper helper) {
         ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE, 0.0F, 90.0F, true);
         ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
 
-        // --- lone block: the hammer is a diamond pickaxe ---
+        // --- lone block: a little slower than the diamond pickaxe ---
         helper.setBlock(CENTRE, Blocks.STONE);
-        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.DIAMOND_PICKAXE));
-        float pickaxe = progress(helper, player, CENTRE);
-        player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
-        float lone = progress(helper, player, CENTRE);
+        float diamondPickaxe = progressWith(helper, player, new ItemStack(Items.DIAMOND_PICKAXE), CENTRE);
+        float ironPickaxe = progressWith(helper, player, new ItemStack(Items.IRON_PICKAXE), CENTRE);
+        float lone = progressWith(helper, player, hammer, CENTRE);
         helper.assertTrue(lone > 0.0F, "a lone stone block makes no mining progress at all");
-        assertRatio(helper, lone, pickaxe, 1.0F, "a diamond hammer on a lone block against a diamond pickaxe");
+        assertRatio(helper, lone, diamondPickaxe, com.simplebuilding.util.SledgehammerUtils.SINGLE_BLOCK_SLOWDOWN,
+                "a diamond hammer on a lone block against a diamond pickaxe");
 
-        // --- full 3x3: a third ---
+        // --- full 3x3: nine iron pickaxe blocks ---
         fillFace(helper, CENTRE, Blocks.STONE);
-        assertRatio(helper, progress(helper, player, CENTRE), lone, 3.0F, "a full 3x3 of stone (9 blocks)");
+        assertRatio(helper, progressWith(helper, player, hammer, CENTRE), ironPickaxe, 9.0F,
+                "a diamond hammer's full 3x3 of stone against nine blocks with an iron pickaxe");
+
+        // --- the owner's example: an enderite hammer's 3x3 is nine netherite pickaxe blocks ---
+        float netheritePickaxe = progressWith(helper, player, new ItemStack(Items.NETHERITE_PICKAXE), CENTRE);
+        assertRatio(helper, progressWith(helper, player, new ItemStack(ModItems.ENDERITE_SLEDGEHAMMER), CENTRE),
+                netheritePickaxe, 9.0F, "an enderite hammer's full 3x3 against nine blocks with a netherite pickaxe");
 
         // --- only what really breaks counts: 1 + 4 stone, the 4 dirt corners stay ---
         for (int dx = -1; dx <= 1; dx += 2) {
@@ -756,17 +764,23 @@ public final class SledgehammerTests {
                 helper.setBlock(CENTRE.offset(dx, 0, dz), Blocks.DIRT);
             }
         }
-        assertRatio(helper, progress(helper, player, CENTRE), lone, (float) Math.sqrt(5.0),
+        assertRatio(helper, progressWith(helper, player, hammer, CENTRE), ironPickaxe, 5.0F,
                 "a 3x3 with four dirt corners a plain hammer leaves standing (5 blocks)");
 
-        // --- sneaking over the full 3x3: one block, full pickaxe speed ---
+        // --- sneaking over the full 3x3: one block again ---
         fillFace(helper, CENTRE, Blocks.STONE);
         player.setShiftKeyDown(true);
-        float sneaking = progress(helper, player, CENTRE);
+        float sneaking = progressWith(helper, player, hammer, CENTRE);
         player.setShiftKeyDown(false);
         assertRatio(helper, sneaking, lone, 1.0F, "sneaking over a full 3x3");
 
-        helper.succeed();
+        TestCleanup.succeed(helper);
+    }
+
+    /** The mining progress per tick on {@code relativePos} with {@code tool} in the main hand. */
+    private static float progressWith(GameTestHelper helper, ServerPlayer player, ItemStack tool, BlockPos relativePos) {
+        player.setItemInHand(InteractionHand.MAIN_HAND, tool);
+        return progress(helper, player, relativePos);
     }
 
     /**
@@ -954,6 +968,78 @@ public final class SledgehammerTests {
         TestCleanup.succeed(helper);
     }
 
+    // ---- owner decisions 2026-09-28 (begin)
+
+    /**
+     * With an Octant holding a full selection in the offhand, the hammer breaks the whole selection
+     * (owner, 2026-09-28): a swing on a block inside it takes every block of the figure the hammer may
+     * mine, costs the durability of mining each of them, and the mining takes, per block, twice as
+     * long as the area action - here eighteen blocks at twice the iron pickaxe time each for a
+     * diamond hammer. Sneaking is a single block again, and a block outside the figure, or a
+     * selection larger than {@code SledgehammerUtils#OCTANT_MAX_EDGE}, gets the normal 3x3.
+     *
+     * <p>What breaks it: the octant branch in {@code getBlocksToBeDestroyed} going missing, the
+     * doubled time per block, or blocks of the selection being broken without paying for them.
+     */
+    public static void sledgehammerBreaksTheOctantSelectionAtTwiceTheAreaTimePerBlock(GameTestHelper helper) {
+        ServerPlayer player = inLevelPlayer(helper, ABOVE_CENTRE, 0.0F, 90.0F, false);
+        ItemStack hammer = new ItemStack(ModItems.DIAMOND_SLEDGEHAMMER);
+        BlockPos from = CENTRE.offset(-1, 0, -1);
+        BlockPos to = CENTRE.offset(1, 1, 1);
+        for (BlockPos pos : BlockPos.betweenClosed(from, to)) {
+            helper.setBlock(pos, Blocks.STONE);
+        }
+        BlockPos origin = helper.absolutePos(CENTRE);
+        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.IRON_PICKAXE));
+        float ironPickaxe = progress(helper, player, CENTRE);
+
+        player.setItemInHand(InteractionHand.MAIN_HAND, hammer);
+        player.setItemInHand(InteractionHand.OFF_HAND, octantSelecting(helper.absolutePos(from), helper.absolutePos(to)));
+        Assertions.valueEqual(helper, SledgehammerItem.getBlocksToBeDestroyed(1, origin, player).size(), 18,
+                "positions a swing inside a 3x2x3 octant selection takes");
+        assertRatio(helper, progress(helper, player, CENTRE), ironPickaxe,
+                18 * com.simplebuilding.util.SledgehammerUtils.OCTANT_TIME_FACTOR,
+                "a diamond hammer breaking an 18 block octant selection against 18 iron pickaxe blocks, doubled");
+
+        // --- sneaking: one block ---
+        player.setShiftKeyDown(true);
+        Assertions.valueEqual(helper, SledgehammerItem.getBlocksToBeDestroyed(1, origin, player).size(), 1,
+                "positions a sneaking swing inside the selection takes");
+        player.setShiftKeyDown(false);
+
+        // --- a selection longer than the limit: back to the normal face ---
+        player.setItemInHand(InteractionHand.OFF_HAND, octantSelecting(helper.absolutePos(from),
+                helper.absolutePos(from).offset(com.simplebuilding.util.SledgehammerUtils.OCTANT_MAX_EDGE, 1, 0)));
+        Assertions.valueEqual(helper, SledgehammerItem.getBlocksToBeDestroyed(1, origin, player).size(), 9,
+                "positions a swing takes with a selection longer than the limit");
+
+        // --- the swing breaks the selection and pays for every block ---
+        player.setItemInHand(InteractionHand.OFF_HAND, octantSelecting(helper.absolutePos(from), helper.absolutePos(to)));
+        swing(helper, player, CENTRE);
+        for (BlockPos pos : BlockPos.betweenClosed(from, to)) {
+            if (!pos.equals(CENTRE)) {
+                helper.assertBlockPresent(Blocks.AIR, pos);
+            }
+        }
+        Assertions.valueEqual(helper, hammer.getDamageValue(), 17 * SledgehammerItem.WEAR_PER_BLOCK,
+                "durability the octant swing cost for the 17 blocks beside the origin");
+
+        helper.killAllEntitiesOfClass(ItemEntity.class);
+        TestCleanup.succeed(helper);
+    }
+
+    /** An Octant whose selection spans the two absolute corners (a cuboid). */
+    private static ItemStack octantSelecting(BlockPos cornerA, BlockPos cornerB) {
+        ItemStack octant = new ItemStack(ModItems.OCTANT);
+        net.minecraft.nbt.CompoundTag nbt = new net.minecraft.nbt.CompoundTag();
+        nbt.putIntArray("Pos1", new int[]{cornerA.getX(), cornerA.getY(), cornerA.getZ()});
+        nbt.putIntArray("Pos2", new int[]{cornerB.getX(), cornerB.getY(), cornerB.getZ()});
+        octant.set(net.minecraft.core.component.DataComponents.CUSTOM_DATA, net.minecraft.world.item.component.CustomData.of(nbt));
+        return octant;
+    }
+
+    // ---- owner decisions 2026-09-28 (end)
+
     // =====================================================================================
     // HELPERS
     // =====================================================================================
@@ -1075,7 +1161,8 @@ public final class SledgehammerTests {
         helper.assertBlockPresent(Blocks.AIR, PROBE);
 
         int cost = hammer.getDamageValue() - before;
-        helper.assertTrue(cost >= 0, "breaking a block repaired the hammer instead of wearing it");
+        Assertions.valueEqual(helper, cost, SledgehammerItem.WEAR_PER_BLOCK,
+                "durability one block of " + block + " cost the hammer - it wears twice as fast as a pickaxe");
         return cost;
     }
 

@@ -26,6 +26,7 @@ sourceSets {
 		java {
 			srcDir root.dir('common/src/shared/java')
 			srcDir root.dir('common/src/jei/java')
+			srcDir root.dir('common/src/jade/java')
 			srcDir root.dir('src/main/java')
 			srcDir overlayJava
 			srcDir overlayFabric
@@ -83,11 +84,18 @@ repositories {
 	maven { url = "https://maven.shedaniel.me/" }
 	maven { url = "https://maven.terraformersmc.com/releases/" }
 	maven { url = "https://maven.blamejared.com/" }
+	// The 26.3 Jade jar for the Jade plugin (compileOnly, see below)
+	exclusiveContent {
+		forRepository { maven { url = "https://api.modrinth.com/maven" } }
+		filter { includeGroup "maven.modrinth" }
+	}
 }
 
 // No dev-only runtime mods (JEI, Jade, Mouse Tweaks, AppleSkin) on the snapshot: none of them has a
 // 26.4 build yet. The JEI plugin still compiles against the 26.3 JEI API (compileOnly, only ever
-// loaded by JEI itself).
+// loaded by JEI itself), the Jade plugin against the 26.3 Jade jar - kept rather than excluded,
+// because the shared fabric.mod.json names it as the "jade" entrypoint, and a 26.3 Jade that loads
+// on the snapshot would otherwise not find the class.
 dependencies {
 	implementation project(':common')
 	minecraft "com.mojang:minecraft:${project.mc264_minecraft_version}"
@@ -101,6 +109,7 @@ dependencies {
 	implementation "com.terraformersmc:modmenu:${project.mc264_modmenu_version}"
 
 	compileOnly "mezz.jei:jei-${project.mc263_minecraft_version}-common-api:${project.mc263_jei_version}"
+	compileOnly "maven.modrinth:jade:${project.mc263_dev_jade_fabric}"
 
 	implementation fabricApi.module("fabric-gametest-api-v1", project.mc264_fabric_version)
 }
@@ -119,6 +128,9 @@ processResources {
 		filter { String line ->
 			line.replace('"minecraft": "~26.2"', '"minecraft": "~26.4-"')
 				.replace('"cloth-config": ">=26.2"', '"cloth-config": ">=26.3"')
+				// No REI for this line: the REI plugin tree is not compiled here, so no entrypoints.
+				.replace('"com.simplebuilding.compat.rei.SimplebuildingReiClientPlugin"', '')
+				.replace('"com.simplebuilding.compat.rei.SimplebuildingReiCommonPlugin"', '')
 				.replace('"com.simplebuilding.compat.ModMenuIntegration"', '')
 		}
 	}

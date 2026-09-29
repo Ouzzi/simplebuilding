@@ -354,7 +354,9 @@
         "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
         "common/src/shared/java/com/simplebuilding/util/SledgehammerProgress.java",
         "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
-        "common/src/shared/java/com/simplebuilding/mixin/client/HeldItemRendererMixin.java"
+        "common/src/shared/java/com/simplebuilding/mixin/client/HeldItemRendererMixin.java",
+        "common/src/shared/java/com/simplebuilding/util/OctantShape.java",
+        "docs/SLEDGEHAMMER-BALANCE.md"
       ],
       "en": {
         "title": "Sledgehammer",
@@ -362,9 +364,10 @@
         "details": [
           "The basics: when you mine a block with the hammer in your main hand, the eight neighbouring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
           "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
-          "Bigger and deeper: Radius I turns the 3x3 area into a 5x5 one; Break Through I and II dig a second and a third layer away from you. Sneaking mines just the one block you aim at, like a pickaxe of the same material.",
-          "Cost: every additional block destroyed uses 1 durability (2 with the wrong tool); in exchange each hammer has four times the durability of its base value (Diamond 6244, Netherite 8124, Enderite 10000) and is slower the more blocks a swing takes: the mining speed of a pickaxe of its material divided by the square root of the blocks really broken (at most 25) - a 3x3 takes about three times, a 5x5 five times as long as a single block.",
+          "Bigger and deeper: Radius I turns the 3x3 area into a 5x5 one; Break Through I and II dig a second and a third layer away from you. Sneaking mines just the one block you aim at.",
+          "Speed and cost: the pickaxe stays the main tool. A single block (sneaking, or when nothing around it qualifies) takes 1.2 times as long as with a pickaxe of the hammer's material. The area takes, per block, as long as the pickaxe one tier below (wood 2, stone 4, copper 5, iron 6, diamond 8, netherite 9, enderite 10, gold 12 - the next slower one; for gold that is enderite): an Enderite hammer breaking 9 blocks takes as long as a Netherite pickaxe mining those 9 one by one, a 5x5x2 takes 50 such blocks. Efficiency counts for the hammer as it counts for that pickaxe. Every block the hammer breaks costs 2 durability (a pickaxe: 1), one more for a block it is not the correct tool for; in exchange each hammer has four times the durability of its base value (Diamond 6244, Netherite 8124, Enderite 10000).",
           "Preview: before the swing you see every neighbouring block that will be taken with a black outline and a grey fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
+          "Octant selection: with an Octant holding both corners in your off hand, a swing on a block inside its figure breaks the whole selection (every block of the figure the hammer may take, with the same Override rules). It costs the durability of mining each block and takes, per block, twice as long as the area action; the cracks run over the whole selection. Selections longer than 32 blocks on an edge or larger than 4096 positions are ignored (the hammer mines its normal area), and sneaking still mines a single block.",
           "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
           "Diamond Pebbles: charging a right-click on a diamond block breaks it down into 81 Diamond Pebbles; 9 pebbles make one Cracked Diamond, which turns back into a diamond in the blast furnace. One pebble is also an ingredient of the Reinforced Bundle and the Reinforced Quiver.",
           "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston has no higher tier (SledgehammerUpgrades).",
@@ -388,9 +391,10 @@
         "details": [
           "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
           "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
-          "Größer und tiefer: Radius I macht aus dem 3x3- ein 5x5-Feld; Durchbruch I und II graben eine zweite bzw. dritte Schicht von dir weg. Beim Schleichen baust du nur den anvisierten Block ab, wie mit einer Spitzhacke gleichen Materials.",
-          "Kosten: Jeder zusätzlich zerstörte Block verbraucht 1 Haltbarkeit (2 bei unpassendem Werkzeug); dafür haben die Hämmer einen mit 4 multiplizierten Haltbarkeits-Basiswert (z. B. Diamant 6244, Netherit 8124, Enderit 10000) und werden langsamer, je mehr Blöcke ein Schlag mitnimmt: Abbautempo einer Spitzhacke ihres Materials geteilt durch die Wurzel der wirklich abgebauten Blöcke (höchstens 25) - ein 3x3 dauert etwa dreimal, ein 5x5 fünfmal so lang wie ein einzelner Block.",
+          "Größer und tiefer: Radius I macht aus dem 3x3- ein 5x5-Feld; Durchbruch I und II graben eine zweite bzw. dritte Schicht von dir weg. Beim Schleichen baust du nur den anvisierten Block ab.",
+          "Tempo und Kosten: Die Spitzhacke bleibt das Hauptwerkzeug. Ein einzelner Block (beim Schleichen oder wenn ringsum nichts passt) dauert 1,2-mal so lange wie mit einer Spitzhacke aus dem Material des Hammers. Das Feld dauert je Block so lange wie mit der Spitzhacke eine Stufe darunter (Holz 2, Stein 4, Kupfer 5, Eisen 6, Diamant 8, Netherit 9, Enderit 10, Gold 12 - jeweils die nächst langsamere; für Gold ist das Enderit): Ein Enderit-Hammer, der 9 Blöcke bricht, braucht so lange wie eine Netherit-Spitzhacke für diese 9 nacheinander, ein 5x5x2 so lange wie 50 solcher Blöcke. Effizienz zählt für den Hammer wie für diese Spitzhacke. Jeder Block, den der Hammer bricht, kostet 2 Haltbarkeit (eine Spitzhacke: 1), einen mehr bei einem Block, für den er nicht das richtige Werkzeug ist; dafür haben die Hämmer einen mit 4 multiplizierten Haltbarkeits-Basiswert (z. B. Diamant 6244, Netherit 8124, Enderit 10000).",
           "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
+          "Oktant-Auswahl: Mit einem Oktanten mit beiden Ecken in der Nebenhand bricht ein Schlag auf einen Block in seiner Figur die ganze Auswahl (jeder Block der Figur, den der Hammer nehmen darf, nach denselben Override-Regeln). Das kostet die Haltbarkeit, als würde jeder Block einzeln abgebaut, und dauert je Block doppelt so lange wie das Feld; die Risse laufen über die ganze Auswahl. Auswahlen mit einer Kante über 32 Blöcke oder mehr als 4096 Plätzen zählen nicht (der Hammer baut sein normales Feld ab), und Schleichen baut weiter nur einen Block ab.",
           "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
           "Diamantkiesel: Rechtsklick-Aufladen auf einem Diamantblock zerlegt ihn in 81 Diamantkiesel; 9 Kiesel ergeben einen Rissigen Diamanten, der im Hochofen wieder zum Diamanten wird. Ein Kiesel ist außerdem Zutat des Verstärkten Bündels und des Verstärkten Köchers.",
           "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; der Verstärkte klebrige Kolben hat keine höhere Stufe (SledgehammerUpgrades).",
@@ -1085,14 +1089,14 @@
           "Getting started: craft Leather Sheets from 9 Leather each, then the Backpack from 2 Copper Nuggets, String, 3 Leather Sheets and 3 Heavy Weighted Pressure Plates. The Reinforced Backpack is crafted around a Backpack (Diamond Pebbles and Leather Sheets) and keeps everything the Backpack had; Netherite and Enderite Backpack follow at the smithing table like the other tool families, again with their contents.",
           "Tiers: Backpack 9 slots (1 row), Reinforced 18 (2 rows), Netherite 33 (3 rows plus one extra column of 6 on the right), Enderite 50 (4 rows plus two extra columns of 7, right and left). Worn they give 1 / 2 / 3 / 4 armor points and take no damage.",
           "Wearing it: right-click puts it into the chest slot, swapping with a worn chestplate or elytra - a backpack takes their place. A worn backpack shows on the player's back, in the look of its tier.",
-          "Opening: press the backpack key while wearing it. The screen is the vanilla inventory with the backpack rows between the crafting area and the main inventory; the whole screen is one vanilla-style window, backpack rows carry a faint brown tint and the extra columns a light purple one. The chest slot is locked while it is open. Without a backpack the key simply opens the normal inventory; E never changes.",
+          "Opening: press the backpack key. It opens the worn backpack, or else the first backpack in your inventory (hotbar, main inventory, then off hand); the server picks and checks the backpack itself. The screen is the vanilla inventory with the backpack rows between the crafting area and the main inventory; the whole screen is one vanilla-style window, backpack rows carry a faint brown tint and the extra columns a light purple one. The slot the opened backpack lies in - the chest slot or its inventory slot - is locked while it is open: it can't be picked up, shift-clicked, swapped away with a number key or covered. Without a backpack the key simply opens the normal inventory; E never changes.",
           "Shift-click works as in the vanilla inventory, with the backpack counted as part of the main inventory: from the hotbar, items first top up matching stacks anywhere in the main inventory and backpack, then fill the first free slot from top left to bottom right as the screen shows them; from the main inventory or the backpack they go to the hotbar; armor and shields go onto their empty slot.",
-          "Setting it down: sneak + right-click on a block. The placed backpack opens with a right-click, is invisible to hoppers and comparators, and always drops as the full backpack item when broken - with a tool or without, by explosion or piston.",
+          "Setting it down: sneak + right-click on a block. The placed backpack opens with a right-click, is invisible to hoppers, gives a comparator its fill level like a chest (counted against the backpack's own stack limits, Deep Pockets included) and always drops as the full backpack item when broken - with a tool or without, by explosion or piston.",
           "Tooltip: hovering a backpack lists how many slots are used and names the first five stacks; a backpack with something inside adds \"Hold Shift to see contents\". Holding Shift turns that line into a small grid like the vanilla bundle's: every stored stack as an icon with its count, in slot order, nine per row and at most three rows - whatever does not fit is summed up as \"+N\" in the last cell. Works for all four tiers, dyed or not, and needs nothing from the server: the contents travel on the item itself.",
           "Safety: a destroyed backpack item spills its contents like a shulker box; Netherite and Enderite Backpack resist fire and explosions as items, and the Enderite Backpack is protected from the void.",
           "Enchantments (anvil only): Deep Pockets I/II doubles or quadruples the stack limit of stackable items in the backpack; Funnel lets the worn backpack vacuum up items after your bundles; Master Builder on the backpack makes it a material source for the Building Wand and for pick block; Constructor's Touch refills your hand from the backpack when a block stack runs out while placing. Drawer and Color Palette do not go on backpacks.",
           "Dyeing: a backpack takes dye like leather armour - put it into the crafting grid with one or more dyes (colours mix, and a dyed backpack can be dyed again). Contents, name and enchantments stay; the colour shows on the item, on the worn backpack and as a faint tint of the backpack rows in its screen (the extra columns keep their purple). A water cauldron washes the colour off again and leaves everything else. The colour survives upgrades and setting the backpack down, and the placed backpack shows it as well.",
-          "Limits for now: the extra columns are plain storage (they are meant to become special slots later), a backpack can only be opened while worn or placed, and the recipe book does not draw from the backpack."
+          "Limits for now: the extra columns are plain storage (they are meant to become special slots later), and the recipe book does not draw from the backpack."
         ]
       },
       "de": {
@@ -1102,14 +1106,14 @@
           "Einstieg: Lederplatten aus je 9 Leder herstellen, dann den Rucksack aus 2 Kupferklumpen, Faden, 3 Lederplatten und 3 schweren Wägeplatten. Der Verstärkte Rucksack wird um einen Rucksack herum gebaut (Diamantkiesel und Lederplatten) und behält alles, was der Rucksack hatte; Netherit- und Enderit-Rucksack folgen am Schmiedetisch wie bei den anderen Werkzeugfamilien, ebenfalls mit Inhalt.",
           "Stufen: Rucksack 9 Plätze (1 Reihe), Verstärkt 18 (2 Reihen), Netherit 33 (3 Reihen plus eine Zusatzspalte mit 6 Plätzen rechts), Enderit 50 (4 Reihen plus zwei Zusatzspalten mit je 7 Plätzen, rechts und links). Getragen geben sie 1 / 2 / 3 / 4 Rüstungspunkte und nehmen keinen Schaden.",
           "Tragen: Rechtsklick legt ihn in den Brust-Slot und tauscht dabei mit einem getragenen Brustpanzer oder einer Elytra – der Rucksack nimmt deren Platz ein. Ein getragener Rucksack ist auf dem Rücken des Spielers zu sehen, im Aussehen seiner Stufe.",
-          "Öffnen: mit getragenem Rucksack die Rucksack-Taste drücken. Der Bildschirm ist das Vanilla-Inventar mit den Rucksack-Reihen zwischen Werkbank-Bereich und Hauptinventar; der ganze Bildschirm ist ein Fenster im Vanilla-Stil, Rucksack-Reihen sind ganz leicht braun getönt, Zusatzspalten leicht violett. Solange er offen ist, ist der Brust-Slot gesperrt. Ohne Rucksack öffnet die Taste einfach das normale Inventar; E ändert sich nie.",
+          "Öffnen: die Rucksack-Taste drücken. Sie öffnet den getragenen Rucksack, sonst den ersten Rucksack im Inventar (Schnellleiste, Hauptinventar, dann Nebenhand); der Server wählt und prüft den Rucksack selbst. Der Bildschirm ist das Vanilla-Inventar mit den Rucksack-Reihen zwischen Werkbank-Bereich und Hauptinventar; der ganze Bildschirm ist ein Fenster im Vanilla-Stil, Rucksack-Reihen sind ganz leicht braun getönt, Zusatzspalten leicht violett. Der Platz des geöffneten Rucksacks - Brust-Slot oder sein Inventarplatz - ist gesperrt, solange er offen ist: kein Herausnehmen, kein Shift-Klick, kein Wegtauschen per Zifferntaste, nichts darauflegen. Ohne Rucksack öffnet die Taste einfach das normale Inventar; E ändert sich nie.",
           "Shift-Klick verhält sich wie im Vanilla-Inventar, wobei der Rucksack zum Hauptinventar zählt: Aus der Hotbar füllt ein Item zuerst passende Stapel irgendwo in Hauptinventar und Rucksack auf und dann den ersten freien Platz von oben links nach unten rechts, so wie der Bildschirm sie zeigt; aus Hauptinventar oder Rucksack geht es in die Hotbar; Rüstung und Schilde gehen in ihren leeren Slot.",
-          "Abstellen: Schleichen + Rechtsklick auf einen Block. Der abgestellte Rucksack öffnet sich per Rechtsklick, ist für Trichter und Komparatoren unsichtbar und droppt beim Abbauen immer als volles Rucksack-Item – mit oder ohne Werkzeug, durch Explosion oder Kolben.",
+          "Abstellen: Schleichen + Rechtsklick auf einen Block. Der abgestellte Rucksack öffnet sich per Rechtsklick, ist für Trichter unsichtbar, gibt einem Komparator seinen Füllstand wie eine Truhe (gemessen an den Stapelgrenzen des Rucksacks, Tiefe Taschen eingerechnet) und droppt beim Abbauen immer als volles Rucksack-Item – mit oder ohne Werkzeug, durch Explosion oder Kolben.",
           "Tooltip: Beim Überfahren zeigt ein Rucksack, wie viele Plätze belegt sind, und nennt die ersten fünf Stapel; hat er Inhalt, kommt \"Umschalt halten, um den Inhalt zu sehen\" dazu. Mit gedrückter Umschalttaste wird daraus ein kleines Raster wie beim Vanilla-Bündel: jeder gelagerte Stapel als Icon mit Anzahl, in Slot-Reihenfolge, neun je Reihe und höchstens drei Reihen - was nicht passt, fasst die letzte Zelle als \"+N\" zusammen. Gilt für alle vier Stufen, gefärbt oder nicht, und braucht nichts vom Server: der Inhalt reist im Item selbst.",
           "Sicherheit: Ein zerstörtes Rucksack-Item verstreut seinen Inhalt wie eine Shulkerkiste; Netherit- und Enderit-Rucksack widerstehen als Item Feuer und Explosionen, und der Enderit-Rucksack ist vor der Leere geschützt.",
           "Verzauberungen (nur Amboss): Tiefe Taschen I/II verdoppelt bzw. vervierfacht die Stapelgrenze stapelbarer Items im Rucksack; mit Trichter saugt der getragene Rucksack Items nach den Bündeln auf; Baumeister auf dem Rucksack macht ihn zur Materialquelle für Baustab und Blockauswahl; Berührung des Konstrukteurs füllt die Hand aus dem Rucksack nach, wenn beim Platzieren ein Blockstapel aufgebraucht ist. Schublade und Farbpalette gehen nicht auf Rucksäcke.",
           "Färben: Ein Rucksack nimmt Farbstoff an wie Lederrüstung – mit einem oder mehreren Farbstoffen in die Werkbank legen (Farben mischen sich, ein gefärbter Rucksack lässt sich weiter färben). Inhalt, Name und Verzauberungen bleiben; die Farbe zeigt sich am Item, am getragenen Rucksack und als leichte Tönung der Rucksack-Reihen im Bildschirm (die Zusatzspalten bleiben violett). Ein Wasserkessel wäscht die Farbe wieder ab und lässt alles andere. Die Farbe übersteht Aufwertungen und das Abstellen, und auch der abgestellte Rucksack zeigt sie.",
-          "Grenzen vorerst: Die Zusatzspalten sind gewöhnlicher Stauraum (sie sollen später Spezial-Plätze werden), ein Rucksack lässt sich nur getragen oder abgestellt öffnen, und das Rezeptbuch greift nicht auf den Rucksack zu."
+          "Grenzen vorerst: Die Zusatzspalten sind gewöhnlicher Stauraum (sie sollen später Spezial-Plätze werden), und das Rezeptbuch greift nicht auf den Rucksack zu."
         ]
       }
     },
@@ -1306,7 +1310,9 @@
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
         "src/main/resources/assets/simplebuilding/lang/en_us.json",
         "common/src/shared/java/com/simplebuilding/recipe/ReinforcedBundleRecipe.java",
-        "src/main/generated/data/simplebuilding/recipe/reinforced_quiver.json"
+        "src/main/generated/data/simplebuilding/recipe/reinforced_quiver.json",
+        "common/src/shared/java/com/simplebuilding/mixin/CrossbowItemMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/AbstractArrowPickupMixin.java"
       ],
       "en": {
         "title": "Quivers",
@@ -1315,13 +1321,14 @@
           "Getting started: craft the Quiver at the crafting table from a Bundle, String, Leather and a Copper Nugget, and upgrade it at the crafting table to the Reinforced Quiver - the same pattern with the Quiver where the Bundle was, a Leather Sheet in the centre instead of the two Leather and a Diamond Pebble top right; arrows, enchantments and name carry over. After that the Netherite Quiver (Netherite Upgrade + Reinforced Quiver + Netherite Ingot) and the Enderite Quiver (Enderite Upgrade + Netherite Quiver + Enderite Ingot) at the smithing table. The plain Quiver has no smithing recipe; no tier can be skipped.",
           "Capacity: Quiver factor 1, Reinforced Quiver factor 3/2, Netherite Quiver factor 2, Enderite Quiver factor 3; the tooltip shows factor x 64 (64 / 96 / 128 / 192 units, and since arrows stack to 64 that is the same number of arrows). Unlike the Reinforced Bundle, quivers get no x3/2 bonus on top of their tier factor - the Reinforced Quiver's 3/2 is its tier factor.",
           "Arrows only: anything without the tag minecraft:arrows is refused both on insertion by click and on pickup from the ground; the click filter follows the configured insert click, so it holds with tools.invertBundleInteractions on as well.",
-          "Bow priority: when a bow is drawn and released the quiver is searched before every arrow in the inventory, in the order off-hand, chest slot, hotbar, then - only with Constructor's Touch - the rest of the inventory. The bow always fires the topmost arrow stack in the quiver.",
+          "Bow and crossbow: when a bow is drawn and released, or a crossbow is loaded, the quiver is searched before every arrow in the inventory, in the order off-hand, chest slot, hotbar, then - only with Constructor's Touch - the rest of the inventory, and last a quiver inside the worn backpack, which counts only if the backpack carries Master Builder. The weapon always gets the topmost arrow stack in the quiver. A crossbow still prefers ammunition held in a hand (a firework rocket in the off hand), as in vanilla.",
           "Wearing one: all four quivers can be put into the chest slot, so the second stage of the bow search is reachable without commands. The quiver is a carrier there and nothing else - it gives no armor points, and the price is the chestplate slot it occupies. A worn quiver is shown on the player's back: its item picture, slanted from the right shoulder down to the left hip. Only players can equip one themselves, and a dispenser refuses to; an armor stand takes one anyway, because ArmorStand.interact picks the slot through canUseSlot and never asks the component's allowed entities, and a dispenser will equip a quiver onto a player standing in front of it.",
           "Consumption: one arrow disappears from the quiver per successful shot - none in creative mode, and none when the shot costs no ammunition anyway, for instance with Infinity on a plain arrow, which vanilla shoots for free.",
+          "Enchantments (all four tiers): Drawer multiplies capacity by (16 + level)/8 and caps the quiver at 5 different types, Deep Pockets doubles (level 1) or quadruples (level 2) it, Funnel vacuums arrows off the ground - dropped arrows and shot arrows stuck in the ground alike (level 1 only types already inside, level 2 all of them; never while sneaking); without Funnel picked-up arrows go into the inventory as usual - and Constructor's Touch lets the quiver feed the bow from anywhere in the inventory. Drawer excludes Master Builder and Color Palette.",
           "Enchantments (all four tiers): Drawer multiplies capacity by (16 + level)/8 but locks the quiver to the one kind of arrow already inside, Deep Pockets doubles (level 1) or quadruples (level 2) it, Funnel vacuums arrows off the ground (level 1 only types already inside, level 2 all of them; never while sneaking), and Constructor's Touch lets the quiver feed the bow from anywhere in the inventory. Drawer excludes Master Builder and Color Palette.",
           "Inventory handling as on the Reinforced Bundle: left-click inserts, right-click takes out, the mouse wheel over the quiver picks the stack; the config option tools.invertBundleInteractions swaps the clicks.",
           "Right-clicking with the quiver in hand does nothing - it does not put the quiver on either; the quiver goes into the chest slot in the inventory screen, dragged there or shift-clicked. Master Builder and Color Palette can be applied but do nothing on a quiver as long as it only holds arrows.",
-          "Limits: no crossbow code; the tooltip lines in the language file are never shown.",
+          "Limits: the tooltip lines in the language file are never shown.",
           "Where to find them: only the plain Quiver lies in loot chests (Ancient City, Pillager Outpost, Woodland Mansion), provided the loot changes are enabled in the config (default: on).",
           "The Netherite and Enderite tiers are registered with fireResistant(); the Quiver and the Reinforced Quiver are not. The Enderite Quiver additionally floats via the tag void_protected instead of vanishing into the void. The Enderite Quiver is immune to explosions as a dropped item, like the Netherite Bundle; the Quiver, the Reinforced Quiver and the Netherite Quiver are not."
         ]
@@ -1333,13 +1340,14 @@
           "Einstieg: Köcher an der Werkbank aus Bündel, Faden, Leder und Kupferklumpen bauen und ebenfalls an der Werkbank zum Verstärkten Köcher aufwerten - dasselbe Muster mit dem Köcher an der Stelle des Bündels, einer Lederplatte in der Mitte statt der zwei Leder und einem Diamantkiesel oben rechts; Pfeile, Verzauberungen und Name bleiben erhalten. Danach Netheritköcher (Netherit-Aufwertung + Verstärkter Köcher + Netheritbarren) und Enderitköcher (Enderit-Aufwertung + Netheritköcher + Enderitbarren) am Schmiedetisch. Für den einfachen Köcher gibt es kein Schmiederezept; keine Stufe lässt sich überspringen.",
           "Kapazität: Köcher Faktor 1, Verstärkter Köcher Faktor 3/2, Netheritköcher Faktor 2, Enderitköcher Faktor 3; der Tooltip zeigt Faktor x 64 (64 / 96 / 128 / 192). Anders als das verstärkte Bündel bekommen Köcher keinen x3/2-Bonus zusätzlich zu ihrem Stufenfaktor - die 3/2 des Verstärkten Köchers sind sein Stufenfaktor.",
           "Nur Pfeile: Alles, was nicht das Tag minecraft:arrows trägt, wird beim Einlegen per Klick und beim Aufsaugen vom Boden abgewiesen; der Klick-Filter folgt dem konfigurierten Einlege-Klick und greift daher auch bei eingeschalteter Option tools.invertBundleInteractions.",
-          "Bogen-Vorrang: Beim Spannen und Loslassen eines Bogens wird der Köcher vor allen Pfeilen im Inventar durchsucht, in der Reihenfolge Nebenhand, Brustpanzer-Slot, Schnellzugriffsleiste, dann (nur mit Berührung des Konstrukteurs) restliches Inventar. Verschossen wird immer der oberste Stapel im Köcher.",
+          "Bogen und Armbrust: Beim Spannen und Loslassen eines Bogens oder beim Laden einer Armbrust wird der Köcher vor allen Pfeilen im Inventar durchsucht, in der Reihenfolge Nebenhand, Brustpanzer-Slot, Schnellzugriffsleiste, dann (nur mit Berührung des Konstrukteurs) restliches Inventar und zuletzt ein Köcher im getragenen Rucksack, der nur zählt, wenn der Rucksack Baumeister trägt. Verschossen wird immer der oberste Stapel im Köcher. Eine Armbrust nimmt weiterhin zuerst Munition aus einer Hand (eine Feuerwerksrakete in der Nebenhand), wie bei Vanilla.",
           "Anlegen: Alle vier Köcher passen in den Brustpanzer-Slot, damit ist die zweite Stufe der Bogen-Suche ohne Befehle erreichbar. Der Köcher ist dort reiner Träger - er gibt keine Rüstungspunkte, und der Preis ist der belegte Brustpanzer-Slot. Ein getragener Köcher ist auf dem Rücken des Spielers zu sehen: sein Item-Bild, schräg von der rechten Schulter zur linken Hüfte. Tragen können ihn nur Spieler, keine Mobs und keine Rüstungsständer; ein Spender legt einen Köcher einem davorstehenden Spieler an.",
           "Verbrauch: Pro erfolgreichem Schuss verschwindet ein Pfeil aus dem Köcher – keiner im Kreativmodus und keiner, wenn der Schuss ohnehin keine Munition kostet, etwa mit Unendlichkeit auf einem einfachen Pfeil, den Vanilla gratis verschießt.",
+          "Verzauberungen (alle vier Stufen): Schublade multipliziert die Kapazität mit (16 + Stufe)/8 und begrenzt auf 5 Sorten, Tiefe Taschen verdoppelt (Stufe 1) oder vervierfacht (Stufe 2), Trichter saugt Pfeile vom Boden an - liegende wie im Boden steckende, verschossene Pfeile (Stufe 1 nur bereits enthaltene Sorten, Stufe 2 alle; nicht beim Schleichen); ohne Trichter landen aufgehobene Pfeile wie gewohnt im Inventar -, Berührung des Konstrukteurs erlaubt den Köcher überall im Inventar. Schublade schließt Baumeister und Farbpalette aus.",
           "Verzauberungen (alle vier Stufen): Schublade multipliziert die Kapazität mit (16 + Stufe)/8, sperrt den Köcher aber auf die eine Pfeilsorte, die schon darin liegt, Tiefe Taschen verdoppelt (Stufe 1) oder vervierfacht (Stufe 2), Trichter saugt Pfeile vom Boden an (Stufe 1 nur bereits enthaltene Sorten, Stufe 2 alle; nicht beim Schleichen), Berührung des Konstrukteurs erlaubt den Köcher überall im Inventar. Schublade schließt Baumeister und Farbpalette aus.",
           "Bedienung im Inventar wie beim verstärkten Bündel: Linksklick legt ein, Rechtsklick nimmt heraus, Mausrad über dem Köcher wählt den Stapel; die Config-Option tools.invertBundleInteractions vertauscht die Klicks.",
           "Rechtsklick mit dem Köcher in der Hand tut nichts - er legt den Köcher auch nicht an; in den Brustpanzer-Slot kommt der Köcher im Inventarbildschirm, per Ziehen oder Umschalt-Klick. Baumeister und Farbpalette sind zwar auflegbar, bewirken beim Köcher aber nichts, solange nur Pfeile darin liegen.",
-          "Grenzen: Kein Code für Armbrüste; die Tooltip-Texte der Sprachdatei werden nicht angezeigt.",
+          "Grenzen: Die Tooltip-Texte der Sprachdatei werden nicht angezeigt.",
           "Fundorte: Nur der einfache Köcher liegt in Loot-Truhen (Antike Stadt, Plünderer-Außenposten, Waldanwesen), sofern die Loot-Änderungen in der Config aktiv sind (Standard: an).",
           "Netherit- und Enderit-Stufe sind mit fireResistant() registriert, Köcher und Verstärkter Köcher nicht; der Enderitköcher schwebt zusätzlich über das Tag void_protected, statt in der Leere zu verschwinden. Der Enderitköcher ist als Drop explosionsimmun wie das Netheritbündel; Köcher, Verstärkter Köcher und Netheritköcher sind es nicht."
         ]
@@ -2920,6 +2928,8 @@
         "common/src/jei/java/com/simplebuilding/compat/jei/SimplebuildingJeiPlugin.java",
         "common/src/jei/java/com/simplebuilding/compat/jei/InWorldCategory.java",
         "common/src/jei/java/com/simplebuilding/compat/jei/CountBasedSmithingExtension.java",
+        "common/src/rei/java/com/simplebuilding/compat/rei/SimplebuildingReiClientPlugin.java",
+        "common/src/rei/java/com/simplebuilding/compat/rei/SimplebuildingReiCommonPlugin.java",
         "common/src/shared/java/com/simplebuilding/compat/InWorldRecipeCatalog.java",
         "common/src/shared/java/com/simplebuilding/compat/RecipelessJeiInfo.java",
         "common/src/shared/java/com/simplebuilding/tweaks/item/TweaksJeiInfo.java",
@@ -2932,8 +2942,8 @@
         "src/main/resources/assets/simplebuilding/lang/en_us.json"
       ],
       "en": {
-        "title": "Recipe Viewer (JEI)",
-        "summary": "With Just Enough Items (JEI) installed, the mod adds seven categories for its in-world transformations and shows its count-based smithing recipes. JEI is optional: without it nothing changes. Supported on Fabric and NeoForge on both Minecraft lines; there is no JEI for MinecraftForge 26.2.",
+        "title": "Recipe Viewer (JEI, REI)",
+        "summary": "With Just Enough Items (JEI) installed, the mod adds seven categories for its in-world transformations and shows its count-based smithing recipes. JEI is optional: without it nothing changes. Supported on Fabric and NeoForge on both Minecraft lines; there is no JEI for MinecraftForge 26.2. Roughly Enough Items (REI) gets the same content through its own plugin on Fabric and NeoForge for Minecraft 26.2 and 1.21.11 (REI has no build for Forge 26.2 or 26.3); EMI has no build for these Minecraft versions, so there is no EMI plugin.",
         "details": [
           "Machine Upgrade (Sledgehammer): machine and nugget, every sledgehammer strong enough for the step (weakest first) and the upgraded machine, with the number of hits, the duration (the arrow fills over the same 100 ticks) and the durability per hit and in total.",
           "Reshaping (Sledgehammer): every full block the hammer turns into stairs and every stairs it turns into a slab; sneaking with Constructor's Touch, slabs back into stairs and stairs into the full block. Worked out with the same naming rule the hammer uses, so blocks of other mods show up as well.",
@@ -2941,14 +2951,15 @@
           "Chiseling: every chisel step forward (right-click) and backward (sneak + right-click), with the chisels whose tier can do it and a note when it needs Constructor's Touch.",
           "Shearing Wool: shears used on any placed wool drop 4 String.",
           "Count-based smithing (for example copper to iron tools with several ingots) appears in JEI's smithing category with the real number of additions.",
+          "REI: the same seven in-world categories and Mob Drops (same titles, notes and tools as workstations), the count-based smithing recipes in REI's smithing category with the real number of additions, and the same information pages as REI information entries. The hidden easter smithing chain stays hidden in REI as well.",
           "The categories are built from the same export as this wiki's in-world transformation pages; a server game test checks that every entry of that export arrives in JEI.",
           "Trim Template (item frame) and Washing (cauldron): turning a trim template in an item frame into a Glowing or Emitting Armor Trim, and washing a coloured octant back into the plain one.",
           "Information pages: items that no recipe and no in-world category produce get a short JEI information page on how to obtain them and what they do - Astralit Ore, Nihilit Ore, Astralit Dust, Nihilit Shard, the Enchanted Netherite and Enderite Apples and the legacy spatulas - next to the pages for the pads, plates and tools taken over from Simple Tweaks. The creative spacer stays hidden from JEI. A server game test derives the recipeless items from the loaded recipes and the in-world catalog and fails if one has no page or a page lacks its English or German text."
         ]
       },
       "de": {
-        "title": "Rezeptanzeige (JEI)",
-        "summary": "Ist Just Enough Items (JEI) installiert, bringt die Mod sieben Kategorien für ihre Umwandlungen in der Welt mit und zeigt ihre Schmiederezepte mit Mengenangabe. JEI ist optional: ohne JEI ändert sich nichts. Unterstützt auf Fabric und NeoForge in beiden Minecraft-Linien; für MinecraftForge 26.2 gibt es kein JEI.",
+        "title": "Rezeptanzeige (JEI, REI)",
+        "summary": "Ist Just Enough Items (JEI) installiert, bringt die Mod sieben Kategorien für ihre Umwandlungen in der Welt mit und zeigt ihre Schmiederezepte mit Mengenangabe. JEI ist optional: ohne JEI ändert sich nichts. Unterstützt auf Fabric und NeoForge in beiden Minecraft-Linien; für MinecraftForge 26.2 gibt es kein JEI. Roughly Enough Items (REI) bekommt über ein eigenes Plugin dieselben Inhalte, auf Fabric und NeoForge für Minecraft 26.2 und 1.21.11 (für Forge 26.2 und 26.3 gibt es kein REI); EMI gibt es für diese Minecraft-Versionen nicht, deshalb kein EMI-Plugin.",
         "details": [
           "Maschinen-Aufwertung (Vorschlaghammer): Maschine und Klumpen, jeder Vorschlaghammer, der für die Stufe stark genug ist (der schwächste zuerst), und die aufgewertete Maschine, dazu Schlagzahl, Dauer (der Pfeil füllt sich über dieselben 100 Ticks) und die Haltbarkeit je Schlag und insgesamt.",
           "Umformen (Vorschlaghammer): jeder volle Block, den der Hammer zur Treppe macht, und jede Treppe, die er zur Stufe macht; schleichend mit Berührung des Konstrukteurs Stufen zurück zur Treppe und Treppen zum vollen Block. Ermittelt mit derselben Namensregel, die der Hammer benutzt, deshalb erscheinen auch Blöcke anderer Mods.",
@@ -2956,9 +2967,52 @@
           "Meißeln: jeder Meißelschritt vorwärts (Rechtsklick) und rückwärts (Schleichen + Rechtsklick), mit den Meißeln, deren Stufe ihn kann, und einem Hinweis, wenn er Berührung des Konstrukteurs braucht.",
           "Wolle scheren: eine Schere auf beliebiger platzierter Wolle lässt 4 Fäden fallen.",
           "Schmiederezepte mit Mengenangabe (etwa Kupfer- zu Eisenwerkzeug mit mehreren Barren) erscheinen in JEIs Schmiede-Kategorie mit der echten Anzahl Zutaten.",
+          "REI: dieselben sieben Umwandlungs-Kategorien und Mob-Drops (gleiche Titel, Hinweise und Werkzeuge als Arbeitsstationen), die Schmiederezepte mit Mengenangabe in REIs Schmiede-Kategorie mit der echten Anzahl Zutaten und dieselben Infoseiten als REI-Informationseinträge. Die versteckte Easter-Schmiedekette bleibt auch in REI versteckt.",
           "Die Kategorien entstehen aus demselben Export wie die Seiten dieses Wikis zu den Umwandlungen in der Welt; ein Server-Spieltest prüft, dass jeder Eintrag dieses Exports in JEI ankommt.",
           "Besatzvorlage (Rahmen) und Waschen (Kessel): eine Besatzvorlage im Rahmen zum Leuchtenden oder Strahlenden Rüstungsbesatz machen und einen gefärbten Oktanten zurück zum einfachen waschen.",
           "Infoseiten: Gegenstände, die kein Rezept und keine Umwandlungs-Kategorie liefert, bekommen eine kurze JEI-Infoseite, wie man sie erhält und was sie tun - Astraliterz, Nihiliterz, Astralitstaub, Nihilitsplitter, die verzauberten Netherit- und Enderitäpfel und die alten Spachtel - neben den Seiten für die aus Simple Tweaks übernommenen Pads, Platten und Werkzeuge. Der Kreativ-Platzhalter bleibt in JEI versteckt. Ein Server-Spieltest ermittelt die rezeptlosen Gegenstände aus den geladenen Rezepten und dem Umwandlungs-Katalog und schlägt fehl, wenn einer keine Seite hat oder einer Seite der englische oder deutsche Text fehlt."
+        ]
+      }
+    },
+    {
+      "id": "block_info_jade",
+      "related": [
+        "simplebuilding:launchpad",
+        "simplebuilding:potion_pad",
+        "simplebuilding:chunk_loader",
+        "simplebuilding:netherite_piston",
+        "simplebuilding:netherite_hopper",
+        "simplebuilding:netherite_chest"
+      ],
+      "sources": [
+        "common/src/jade/java/com/simplebuilding/compat/jade/SimplebuildingJadePlugin.java",
+        "common/src/jade/java/com/simplebuilding/compat/jade/BlockInfoProvider.java",
+        "common/src/shared/java/com/simplebuilding/compat/BlockInfo.java",
+        "common/src/shared/java/com/simplebuilding/gametest/BlockInfoTests.java",
+        "src/main/resources/fabric.mod.json",
+        "neoforge/src/main/resources/META-INF/neoforge.mods.toml",
+        "src/main/resources/assets/simplebuilding/lang/en_us.json"
+      ],
+      "en": {
+        "title": "Block Info (Jade)",
+        "summary": "With Jade installed, looking at the mod's blocks shows extra lines in Jade's tooltip. Jade is optional: without it nothing changes. Supported on Fabric and NeoForge on both Minecraft lines; there is no Jade for MinecraftForge 26.2.",
+        "details": [
+          "Pads and plates from Simple Tweaks: the owner's name.",
+          "Launchpad: charges as \"x / max\"; Potion Pad: the stored effects and the remaining cooldown (or \"Ready\"); Chunk Loader: how many chunks it keeps loaded.",
+          "Reinforced, Netherite and Enderite Hopper: the filter mode and the filtered items.",
+          "Netherite and Enderite Piston: the remaining durability. Tiered chests: the slots (doubled for a double chest) and the stack bonus. Upgraded furnaces, smokers and blast furnaces: the speed compared to the vanilla block (2x, 4x, 8x).",
+          "Owner, pad status and hopper filter come from the server, so the server needs Jade too; durability, chest slots and furnace speed are worked out from the block itself. Every line can be switched off in Jade's plugin settings."
+        ]
+      },
+      "de": {
+        "title": "Blockinfo (Jade)",
+        "summary": "Ist Jade installiert, zeigt der Blick auf die Blöcke der Mod zusätzliche Zeilen in Jades Tooltip. Jade ist optional: ohne Jade ändert sich nichts. Unterstützt auf Fabric und NeoForge in beiden Minecraft-Linien; für MinecraftForge 26.2 gibt es kein Jade.",
+        "details": [
+          "Platten und Pads aus Simple Tweaks: der Name des Besitzers.",
+          "Startrampe: die Ladungen als „x / max“; Trankplatte: die gespeicherten Effekte und die restliche Abklingzeit (oder „Bereit“); Chunk-Lader: wie viele Chunks er geladen hält.",
+          "Verstärkter, Netherit- und Enderit-Trichter: der Filtermodus und die gefilterten Items.",
+          "Netherit- und Enderit-Kolben: die restliche Haltbarkeit. Mod-Truhen: die Plätze (bei der Doppeltruhe doppelt) und der Stapelfaktor. Aufgewertete Öfen, Räucheröfen und Schmelzöfen: das Tempo gegenüber dem Vanilla-Block (2×, 4×, 8×).",
+          "Besitzer, Plattenstatus und Trichterfilter kommen vom Server, der Server braucht also auch Jade; Haltbarkeit, Truhenplätze und Ofentempo ergeben sich aus dem Block selbst. Jede Zeile lässt sich in Jades Plugin-Einstellungen abschalten."
         ]
       }
     },
@@ -3004,7 +3058,11 @@
         "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
         "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
         "src/main/resources/assets/simplebuilding/lang/en_us.json",
-        "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        "src/main/resources/assets/simplebuilding/lang/de_de.json",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/PadBlock.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/PadSignalSource.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/LaunchpadBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/PotionPadBlockEntity.java"
       ],
       "en": {
         "title": "Simple Tweaks: pads, spawn and server tweaks",
@@ -3017,6 +3075,7 @@
           "The Nether and the End can be locked (tweaks.dimensions); exact spawn without random offset and a custom world spawn are off by default so existing worlds do not change.",
           "Commands (operators): /killboats and /killcarts [standard|empty|all] remove unoccupied boats/minecarts within 100 blocks; /simplebuilding tweaks ... changes the config in game (what was /simpletweaks ...); a custom world spawn takes effect at once, not only after a restart. The radius of /killboats and /killcarts is tweaks.commands.killCommandRadius (default 100); every config option can also be changed with /simplebuilding config set.",
           "Every pad family can be switched off in the config section tweaks.pads.",
+          "Redstone and comparators: a redstone signal switches a pad off (Launchpad: no countdown and no launch, charging still works; Potion Pad: no effects, a running cooldown goes on; Flypad: no flight, flight it gave is taken back; Elytra Pad and Spawn Teleporter: nothing). A comparator reads the Launchpad's fill level (empty 0, full 15), the Potion Pad's state (0 without a potion, 15 ready, 1 to 14 rising during the cooldown), the number of players a Flypad or Elytra Pad serves and the Spawn Teleporter's warm-up progress. Hoppers and droppers can fill a Launchpad with wind charges and nothing else (a full pad takes none, nothing can be pulled out); potions reach a Potion Pad only as a thrown splash or lingering potion hitting it - a dispenser facing it can throw one - and it passes on exactly that potion's effects; hoppers cannot put potions in.",
           "Not everything is in the recipe book - some things are hidden."
         ]
       },
@@ -3031,7 +3090,81 @@
           "Nether und End lassen sich sperren (tweaks.dimensions); exakter Spawn ohne Zufallsversatz und ein eigener Weltspawn sind standardmäßig aus, damit bestehende Welten unverändert bleiben.",
           "Befehle (Operatoren): /killboats und /killcarts [standard|empty|all] entfernen unbesetzte Boote/Loren im Umkreis von 100 Blöcken; /simplebuilding tweaks ... ändert die Config im Spiel (früher /simpletweaks ...); ein eigener Weltspawn gilt sofort, nicht erst nach einem Neustart. Die Reichweite von /killboats und /killcarts ist tweaks.commands.killCommandRadius (Standard 100); jede Config-Option lässt sich auch mit /simplebuilding config set ändern.",
           "Jede Pad-Familie lässt sich im Config-Abschnitt tweaks.pads abschalten.",
+          "Redstone und Komparatoren: Ein Redstone-Signal schaltet ein Pad ab (Launchpad: kein Countdown und kein Start, Laden geht weiter; Trank-Pad: keine Wirkungen, eine laufende Abklingzeit läuft weiter; Flypad: kein Flug, gegebener Flug wird zurückgenommen; Elytra-Pad und Spawn-Teleporter: nichts). Ein Komparator liest den Füllstand des Launchpads (leer 0, voll 15), den Zustand des Trank-Pads (0 ohne Trank, 15 bereit, 1 bis 14 steigend während der Abklingzeit), die Zahl der Spieler, die ein Flypad oder Elytra-Pad versorgt, und den Fortschritt der Wartezeit des Spawn-Teleporters. Trichter und Spender können ein Launchpad mit Windkugeln füllen und mit nichts anderem (ein volles Pad nimmt keine mehr, herausziehen lässt sich nichts); Tränke kommen nur als Wurf- oder Verweiltrank auf ein Trank-Pad, der darauf zerschellt - ein Werfer, der darauf zeigt, kann ihn werfen -, und es gibt genau die Wirkungen dieses Tranks weiter; Trichter können keine Tränke einlegen.",
           "Nicht alles steht im Rezeptbuch - manches ist versteckt."
+        ]
+      }
+    },
+    {
+      "id": "immersion",
+      "related": [
+        "simplebuilding:launchpad",
+        "simplebuilding:netherite_launchpad",
+        "simplebuilding:enderite_launchpad",
+        "simplebuilding:chunk_loader",
+        "simplebuilding:netherite_chunk_loader",
+        "simplebuilding:enderite_chunk_loader",
+        "simplebuilding:flypad",
+        "simplebuilding:reinforced_flypad",
+        "simplebuilding:stellar_flypad",
+        "simplebuilding:elytra_pad",
+        "simplebuilding:potion_pad",
+        "simplebuilding:backpack",
+        "simplebuilding:octant",
+        "simplebuilding:velocity-gauge",
+        "simplebuilding:copper_core",
+        "simplebuilding:enderite_apple",
+        "simplebuilding:enderite_helmet"
+      ],
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/tweaks/block/LaunchpadBlock.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/LaunchpadBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/ChunkLoaderBlock.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/FlypadBlock.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/FlypadBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/ElytraPadBlock.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ElytraPadBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/PotionPadBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/BackpackBlock.java",
+        "common/src/shared/java/com/simplebuilding/util/OctantCauldronWash.java",
+        "common/src/shared/java/com/simplebuilding/util/Feedback.java",
+        "common/src/shared/java/com/simplebuilding/items/tooltip/InfoTooltips.java",
+        "common/src/shared/java/com/simplebuilding/client/gui/ModHud.java",
+        "common/src/shared/java/com/simplebuilding/client/gui/HudLayout.java",
+        "common/src/shared/java/com/simplebuilding/gametest/ImmersionTests.java",
+        "tools/textures/generate_textures.py",
+        "src/main/resources/assets/simplebuilding/lang/en_us.json",
+        "src/main/resources/assets/simplebuilding/lang/de_de.json"
+      ],
+      "en": {
+        "title": "Feedback: sounds, particles, visible states, tooltips and the HUD key",
+        "summary": "Gadgets answer without on-screen text: pads show their state in their texture and light, sounds and particles confirm what happened, item tooltips name the numbers, and one key hides or shows the mod's whole HUD.",
+        "details": [
+          "Launchpad: the block state charge (0-3) shows the fill level in thirds, rounded up - the spiral of the texture lights up from the middle outward, one third per step, its outermost lit turn brighter. Loading wind charges blows a small gust into the pad, more puffs for more charges; the insert sound still rises with the fill level.",
+          "Chunk Loader: active=true while it keeps its chunks loaded - the spiral glows violet, the sparkle stars turn almost white and the light rises from 3 to the tier's 7, 8 or 9. Switching on plays a beacon's activation sound with a swirl of portal sparks, switching off the beacon's deactivation sound and a puff of smoke; while active it drips reverse-portal sparks and hums like a respawn anchor now and then (1 in 100 ticks).",
+          "Flypad: active=true while at least one player is in its field - the spiral glows (tiers I and II light cyan, the Stellar Flypad gold), and the four vertical edges of the field shimmer with end rod sparks so you can see where the field ends. Getting flight plays a soft beacon chime only you hear, losing it the beacon's deactivation sound. Flying closer than 1.5 blocks to a side or the ceiling of the field gives a warning note (only you hear it) at most every half second, higher the closer you are, with electric sparks on the nearest wall of the field.",
+          "Elytra Pad: a small cloud rises from the pad now and then (bubbles when waterlogged); handing out an elytra adds a puff of clouds, and a boost that is recharged from empty or partly used plays a firework twinkle with a few sparks for the wearer.",
+          "Potion Pad: when its cooldown ends it rings an amethyst chime and swirls in the color of the stored potion.",
+          "Octant: washing a colored octant in a water cauldron splashes (sound and water droplets) instead of happening silently.",
+          "Backpack: setting it down rustles like leather armor and puffs a little dust; opening a placed backpack rustles too.",
+          "Item tooltips (gray lines, not on-screen text): every pad names its tier (Tier II of III) and what the tier gives - wind charges, the chunk area, the elytra or flight area, the teleport wait, the potion duration and cooldown. Upgraded furnaces, smokers and blast furnaces say how much faster they work (2x, 4x, 8x), double experience and the blast furnace's raw metal bonus; hoppers their transfer rate and filter; the Reinforced Pistons their push limit of 18 and the redstone-block breach; levitating and suspended sand and gravel what they do. Building cores list what they are used in (checked against the loaded recipes by a game test); Enderite armor explains its void protection and glide; the netherite and enderite apples and carrots list their effects with level and duration, like a potion.",
+          "HUD key: Toggle Mod HUD (unbound by default, category SimpleMods in Controls) hides or shows every HUD box of the mod - velocity gauge, rangefinder, air jump bar and the spawn elytra bar (the vanilla experience bar comes back instead). It gives no text, only a click, and is remembered in the client config (showModHud). hudPositionX and hudPositionY place the velocity gauge and rangefinder boxes in percent of the free screen room (0 = left/top margin, 100 = right/bottom margin, default 0 and 50 = the old place at the left middle), hudScale sizes them from 50 to 200 %."
+        ]
+      },
+      "de": {
+        "title": "Rückmeldung: Klänge, Partikel, sichtbare Zustände, Tooltips und die HUD-Taste",
+        "summary": "Geräte antworten ohne Bildschirmtext: Pads zeigen ihren Zustand in Textur und Licht, Klänge und Partikel bestätigen, was passiert ist, Item-Tooltips nennen die Zahlen, und eine Taste blendet das ganze HUD der Mod aus und ein.",
+        "details": [
+          "Launchpad: der Blockzustand charge (0-3) zeigt den Füllstand in Dritteln, aufgerundet - die Spirale der Textur leuchtet von der Mitte nach außen, je Stufe ein Drittel, die äußerste leuchtende Windung heller. Beim Laden fährt ein kleiner Windstoß ins Pad, mehr Wölkchen für mehr Windkugeln; der Einlegeklang steigt weiter mit dem Füllstand.",
+          "Chunk-Loader: active=true, solange er seine Chunks geladen hält - die Spirale glimmt violett, die Funkelsterne werden fast weiß und das Licht steigt von 3 auf die 7, 8 oder 9 der Stufe. Einschalten spielt den Aktivierungsklang eines Leuchtfeuers mit einem Wirbel aus Portalfunken, Ausschalten dessen Abschaltklang und ein Rauchwölkchen; eingeschaltet steigen Portalfunken auf, und ab und zu summt er wie ein Seelenanker (1 von 100 Ticks).",
+          "Flypad: active=true, solange mindestens ein Spieler im Feld ist - die Spirale glimmt (Stufe I und II hell türkis, das Stellar-Flypad golden), und die vier senkrechten Kanten des Felds schimmern mit Endstab-Funken, damit man sieht, wo das Feld endet. Flug bekommen spielt einen leisen Leuchtfeuer-Ton, den nur du hörst, Flug verlieren den Abschaltklang des Leuchtfeuers. Wer fliegend näher als 1,5 Blöcke an eine Seite oder die Decke des Felds kommt, hört höchstens jede halbe Sekunde einen Warnton (nur er), höher je näher, mit elektrischen Funken an der nächsten Feldwand.",
+          "Elytra-Pad: ab und zu steigt ein Wölkchen vom Pad auf (unter Wasser Blasen); das Ausgeben einer Elytra macht eine Wolke, und ein Boost, der aus leerem oder angebrauchtem Zustand wieder voll wird, knistert wie ein Feuerwerk, mit ein paar Funken für den Träger.",
+          "Trank-Pad: endet die Abklingzeit, erklingt ein Amethyst-Glockenspiel und ein Wirbel in der Farbe des gespeicherten Tranks.",
+          "Oktant: einen gefärbten Oktanten im Wasserkessel zu waschen plätschert (Klang und Wassertropfen), statt lautlos zu geschehen.",
+          "Rucksack: abgestellt raschelt er wie Lederrüstung und staubt ein wenig; einen abgestellten Rucksack öffnen raschelt ebenfalls.",
+          "Item-Tooltips (graue Zeilen, kein Bildschirmtext): jedes Pad nennt seine Stufe (Stufe II von III) und was sie gibt - Windkugeln, den Chunk-Bereich, den Elytra- oder Flugbereich, die Teleport-Wartezeit, Trankdauer und Abklingzeit. Aufgewertete Öfen, Räucheröfen und Schmelzöfen sagen, wie viel schneller sie arbeiten (2x, 4x, 8x), doppelte Erfahrung und den Rohmetall-Bonus des Schmelzofens; Trichter ihr Tempo und ihren Filter; die verstärkten Kolben ihr Schublimit von 18 und den Durchbruch per Redstone-Block; schwebender und steigender Sand und Kies, was sie tun. Baukerne listen, wofür sie gebraucht werden (ein Spieltest gleicht das mit den geladenen Rezepten ab); Enderit-Rüstung erklärt Leere-Schutz und Gleiten; Netherit- und Enderit-Äpfel und -Karotten listen ihre Wirkungen mit Stufe und Dauer wie ein Trank.",
+          "HUD-Taste: Mod-HUD ein/aus (anfangs nicht belegt, Kategorie SimpleMods in der Steuerung) blendet jeden HUD-Kasten der Mod aus und ein - Tacho, Entfernungsmesser, Luftsprung-Leiste und Spawn-Elytra-Leiste (statt ihrer kommt die Vanilla-Erfahrungsleiste zurück). Sie zeigt keinen Text, nur ein Klick, und bleibt in der Client-Config gespeichert (showModHud). hudPositionX und hudPositionY setzen die Kästen von Tacho und Entfernungsmesser in Prozent des freien Bildschirmraums (0 = linker/oberer Rand, 100 = rechter/unterer Rand, Standard 0 und 50 = die alte Stelle links in der Mitte), hudScale ihre Größe von 50 bis 200 %."
         ]
       }
     },
@@ -3086,7 +3219,8 @@
         "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderRegistry.java",
         "common/src/shared/java/com/simplebuilding/tweaks/command/ChunkLoaderCommand.java",
         "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
-        "common/src/shared/java/com/simplebuilding/mixin/RecipeMapFilterMixin.java"
+        "common/src/shared/java/com/simplebuilding/mixin/RecipeMapFilterMixin.java",
+        "common/src/shared/java/com/simplebuilding/client/gui/ModHud.java"
       ],
       "en": {
         "title": "Configuration",
@@ -3177,6 +3311,9 @@
           "Visuals (Client) → Own Textures for Mod Enchanted Books (modEnchantedBookTextures, default on): Every enchantment of this mod has its own enchanted book texture. Turn it off for the plain vanilla enchanted book. Takes effect immediately.",
           "Visuals (Client) → Trim Patterns on Vanilla Armor Icons (visibleTrimIconsVanillaArmor, default on): Item icons of trimmed vanilla armor (and the turtle shell) show the trim pattern in the trim material's colours. Off: the vanilla icon with only a colour mark. Takes effect immediately.",
           "Visuals (Client) → Trim Patterns on Enderite Armor Icons (visibleTrimIconsModArmor, default on): Item icons of trimmed Enderite armor show the trim pattern in the trim material's colours. Off: the plain icon with only a colour mark. Takes effect immediately.",
+          "Visuals (Client) → Show Mod HUD (showModHud, default on): shows the mod's HUD boxes - velocity gauge, rangefinder, air jump bar and spawn elytra bar. The Toggle Mod HUD key (unbound by default) flips this option and saves it; off, the vanilla experience bar replaces the spawn elytra bar.",
+          "Visuals (Client) → HUD Position: Horizontal / Vertical (hudPositionX, default 0; hudPositionY, default 50; 0 to 100): where the velocity gauge and rangefinder boxes sit, in percent of the free room between the 10 px margins - 0 = left/top, 100 = right/bottom. The defaults are the old place at the left middle; with both held, the rangefinder sits 35 px above and the gauge 35 px below that place.",
+          "Visuals (Client) → HUD Size (hudScale, default 100, 50 to 200): size of the velocity gauge and rangefinder boxes in percent.",
           "Compatibility & Advanced → Pistons Fire Block Break Events (pistonsFireBreakEvents, default on): Before a Netherite or Enderite Piston destroys a block it fires the loader's block break event with a fake player, so claim and protection mods can stop it. Turn it off if a protection mod blocks every fake player (pistons would stop everywhere) or quest and statistics mods count piston breaks as player breaks. Server-side.",
           "Compatibility & Advanced → Show \"SimpleEnchants (Dev)\" Creative Tab (showDevEnchantedTab, default off): Shows the creative tab \"SimpleEnchants (Dev)\" outside development environments too: the best tier of every enchantable item, pre-enchanted at max level. Takes effect when the creative tabs are rebuilt (at the latest after rejoining).",
           "The trim resonance limit maxMultiplierLimit (10.0) is fixed in code: the upper bound of setTrimMultiplier and of the loaded value; it is not an option.",
@@ -3272,6 +3409,9 @@
           "Darstellung (Client) → Eigene Texturen für Mod-Zauberbücher (modEnchantedBookTextures, Standard an): Jede Verzauberung dieser Mod hat ihr eigenes Buch. Aus: das schlichte Vanilla-Zauberbuch. Wirkt sofort.",
           "Darstellung (Client) → Besatzmuster auf Vanilla-Rüstungs-Icons (visibleTrimIconsVanillaArmor, Standard an): Die Icons besetzter Vanilla-Rüstung (auch des Schildkrötenpanzers) zeigen das Besatzmuster in den Farben des Materials. Aus: das Vanilla-Icon mit nur einem Farbfleck. Wirkt sofort.",
           "Darstellung (Client) → Besatzmuster auf Enderit-Rüstungs-Icons (visibleTrimIconsModArmor, Standard an): Die Icons besetzter Enderit-Rüstung zeigen das Besatzmuster in den Farben des Materials. Aus: das schlichte Icon mit nur einem Farbfleck. Wirkt sofort.",
+          "Darstellung (Client) → Mod-HUD anzeigen (showModHud, Standard an): zeigt die HUD-Kästen der Mod - Tacho, Entfernungsmesser, Luftsprung-Leiste und Spawn-Elytra-Leiste. Die Taste „Mod-HUD ein/aus“ (anfangs nicht belegt) schaltet diese Option um und speichert sie; aus ersetzt die Vanilla-Erfahrungsleiste die Spawn-Elytra-Leiste.",
+          "Darstellung (Client) → HUD-Position waagerecht / senkrecht (hudPositionX, Standard 0; hudPositionY, Standard 50; 0 bis 100): wo die Kästen von Tacho und Entfernungsmesser stehen, in Prozent des freien Raums zwischen den 10-px-Rändern - 0 = links/oben, 100 = rechts/unten. Die Standardwerte sind die alte Stelle links in der Mitte; mit beiden in der Hand steht der Entfernungsmesser 35 px darüber und der Tacho 35 px darunter.",
+          "Darstellung (Client) → HUD-Größe (hudScale, Standard 100, 50 bis 200): Größe der Kästen von Tacho und Entfernungsmesser in Prozent.",
           "Kompatibilität & Erweitert → Kolben lösen Abbau-Ereignisse aus (pistonsFireBreakEvents, Standard an): Bevor ein Netherit- oder Enderitkolben einen Block zerstört, löst er das Abbau-Ereignis des Loaders mit einem Fake-Spieler aus, damit Claim- und Schutz-Mods es verhindern können. Ausschalten, wenn ein Schutz-Mod jeden Fake-Spieler sperrt (die Kolben stünden überall still) oder Quest- und Statistik-Mods Kolbenabbau als Spielerabbau zählen. Serverseitig.",
           "Kompatibilität & Erweitert → Kreativ-Tab „SimpleEnchants (Dev)“ zeigen (showDevEnchantedTab, Standard aus): Zeigt den Kreativ-Tab „SimpleEnchants (Dev)“ auch außerhalb von Entwicklungsumgebungen: die beste Stufe jedes verzauberbaren Gegenstands, vorverzaubert auf Höchststufe. Wirkt beim Neuaufbau der Kreativ-Tabs (spätestens nach erneutem Betreten).",
           "Die Obergrenze der Besatz-Resonanz maxMultiplierLimit (10,0) steht fest im Code: Obergrenze von setTrimMultiplier und des geladenen Werts; sie ist keine Option.",

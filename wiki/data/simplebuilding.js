@@ -11,7 +11,7 @@ window.WIKI_DATA = {
     "itemProperties": {
       "source": "src/main/generated/wiki/items.json",
       "present": true,
-      "count": 222,
+      "count": 223,
       "howToRegenerate": "gradlew runDatagen"
     }
   },
@@ -386,7 +386,9 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/util/SledgehammerUpgrades.java",
         "common/src/shared/java/com/simplebuilding/util/SledgehammerProgress.java",
         "common/src/shared/java/com/simplebuilding/mixin/client/AvatarRendererMixin.java",
-        "common/src/shared/java/com/simplebuilding/mixin/client/HeldItemRendererMixin.java"
+        "common/src/shared/java/com/simplebuilding/mixin/client/HeldItemRendererMixin.java",
+        "common/src/shared/java/com/simplebuilding/util/OctantShape.java",
+        "docs/SLEDGEHAMMER-BALANCE.md"
       ],
       "en": {
         "title": "Sledgehammer",
@@ -394,9 +396,10 @@ window.WIKI_DATA = {
         "details": [
           "The basics: when you mine a block with the hammer in your main hand, the eight neighbouring blocks in a 3x3 plane come with it; the plane lies flat when you look steeply up or down (more than 60 degrees), otherwise it stands upright in front of you.",
           "What gets taken: without an enchantment only the same block type as the target, provided it is pickaxe-mineable and the hammer is the correct tool for it; Override I widens that to all pickaxe blocks, Override II to everything breakable (the hammer then also counts as the correct tool for blocks mined with an axe, shovel or hoe).",
-          "Bigger and deeper: Radius I turns the 3x3 area into a 5x5 one; Break Through I and II dig a second and a third layer away from you. Sneaking mines just the one block you aim at, like a pickaxe of the same material.",
-          "Cost: every additional block destroyed uses 1 durability (2 with the wrong tool); in exchange each hammer has four times the durability of its base value (Diamond 6244, Netherite 8124, Enderite 10000) and is slower the more blocks a swing takes: the mining speed of a pickaxe of its material divided by the square root of the blocks really broken (at most 25) - a 3x3 takes about three times, a 5x5 five times as long as a single block.",
+          "Bigger and deeper: Radius I turns the 3x3 area into a 5x5 one; Break Through I and II dig a second and a third layer away from you. Sneaking mines just the one block you aim at.",
+          "Speed and cost: the pickaxe stays the main tool. A single block (sneaking, or when nothing around it qualifies) takes 1.2 times as long as with a pickaxe of the hammer's material. The area takes, per block, as long as the pickaxe one tier below (wood 2, stone 4, copper 5, iron 6, diamond 8, netherite 9, enderite 10, gold 12 - the next slower one; for gold that is enderite): an Enderite hammer breaking 9 blocks takes as long as a Netherite pickaxe mining those 9 one by one, a 5x5x2 takes 50 such blocks. Efficiency counts for the hammer as it counts for that pickaxe. Every block the hammer breaks costs 2 durability (a pickaxe: 1), one more for a block it is not the correct tool for; in exchange each hammer has four times the durability of its base value (Diamond 6244, Netherite 8124, Enderite 10000).",
           "Preview: before the swing you see every neighbouring block that will be taken with a black outline and a grey fill (opacity via buildingHighlightOpacity), and while you mine the cracks appear on all of them at once.",
+          "Octant selection: with an Octant holding both corners in your off hand, a swing on a block inside its figure breaks the whole selection (every block of the figure the hammer may take, with the same Override rules). It costs the durability of mining each block and takes, per block, twice as long as the area action; the cracks run over the whole selection. Selections longer than 32 blocks on an edge or larger than 4096 positions are ignored (the hammer mines its normal area), and sneaking still mines a single block.",
           "Reshaping: holding right-click (a charge-up with the bow animation, 4 to 40 ticks depending on material and Efficiency) turns a full block into its stairs and stairs into a slab; the stairs are oriented by where you clicked. The charge finishes only on the block it was started on, while you still aim at it and may build there. With Constructor's Touch it runs backwards while you sneak: slab to stairs, stairs to block.",
           "Diamond Pebbles: charging a right-click on a diamond block breaks it down into 81 Diamond Pebbles; 9 pebbles make one Cracked Diamond, which turns back into a diamond in the blast furnace. One pebble is also an ingredient of the Reinforced Bundle and the Reinforced Quiver.",
           "Machine upgrades: with a Netherite Nugget in your off hand, holding right-click for 5 seconds (100 ticks) on a Reinforced Hopper, Furnace, Smoker, Blast Furnace or Piston hammers it into its Netherite version; with an Enderite Nugget a Netherite machine becomes the Enderite one. Netherite upgrades need at least a Diamond Sledgehammer, Enderite upgrades at least a Netherite Sledgehammer; the Reinforced Sticky Piston has no higher tier (SledgehammerUpgrades).",
@@ -420,9 +423,10 @@ window.WIKI_DATA = {
         "details": [
           "Grundfunktion: Baust du mit dem Hammer in der Haupthand einen Block ab, werden die acht Nachbarblöcke in einer 3x3-Ebene gleich mit abgebaut; die Ebene liegt waagerecht, wenn du steil nach oben oder unten schaust (mehr als 60 Grad), sonst steht sie senkrecht vor dir.",
           "Was mitgenommen wird: Ohne Verzauberung nur derselbe Blocktyp wie der Zielblock, sofern er mit Spitzhacke abbaubar ist und der Hammer dafür das passende Werkzeug ist; Übersteuerung I erweitert das auf alle Spitzhacken-Blöcke, Übersteuerung II auf alles Abbaubare (dann gilt der Hammer auch für Axt-, Schaufel- und Hacken-Blöcke als passendes Werkzeug).",
-          "Größer und tiefer: Radius I macht aus dem 3x3- ein 5x5-Feld; Durchbruch I und II graben eine zweite bzw. dritte Schicht von dir weg. Beim Schleichen baust du nur den anvisierten Block ab, wie mit einer Spitzhacke gleichen Materials.",
-          "Kosten: Jeder zusätzlich zerstörte Block verbraucht 1 Haltbarkeit (2 bei unpassendem Werkzeug); dafür haben die Hämmer einen mit 4 multiplizierten Haltbarkeits-Basiswert (z. B. Diamant 6244, Netherit 8124, Enderit 10000) und werden langsamer, je mehr Blöcke ein Schlag mitnimmt: Abbautempo einer Spitzhacke ihres Materials geteilt durch die Wurzel der wirklich abgebauten Blöcke (höchstens 25) - ein 3x3 dauert etwa dreimal, ein 5x5 fünfmal so lang wie ein einzelner Block.",
+          "Größer und tiefer: Radius I macht aus dem 3x3- ein 5x5-Feld; Durchbruch I und II graben eine zweite bzw. dritte Schicht von dir weg. Beim Schleichen baust du nur den anvisierten Block ab.",
+          "Tempo und Kosten: Die Spitzhacke bleibt das Hauptwerkzeug. Ein einzelner Block (beim Schleichen oder wenn ringsum nichts passt) dauert 1,2-mal so lange wie mit einer Spitzhacke aus dem Material des Hammers. Das Feld dauert je Block so lange wie mit der Spitzhacke eine Stufe darunter (Holz 2, Stein 4, Kupfer 5, Eisen 6, Diamant 8, Netherit 9, Enderit 10, Gold 12 - jeweils die nächst langsamere; für Gold ist das Enderit): Ein Enderit-Hammer, der 9 Blöcke bricht, braucht so lange wie eine Netherit-Spitzhacke für diese 9 nacheinander, ein 5x5x2 so lange wie 50 solcher Blöcke. Effizienz zählt für den Hammer wie für diese Spitzhacke. Jeder Block, den der Hammer bricht, kostet 2 Haltbarkeit (eine Spitzhacke: 1), einen mehr bei einem Block, für den er nicht das richtige Werkzeug ist; dafür haben die Hämmer einen mit 4 multiplizierten Haltbarkeits-Basiswert (z. B. Diamant 6244, Netherit 8124, Enderit 10000).",
           "Vorschau: Vor dem Schlag siehst du alle mitgenommenen Nachbarblöcke mit schwarzem Umriss und grauer Füllung (Deckkraft über buildingHighlightOpacity), und beim Abbauen erscheinen die Risse auf allen Blöcken gleichzeitig.",
+          "Oktant-Auswahl: Mit einem Oktanten mit beiden Ecken in der Nebenhand bricht ein Schlag auf einen Block in seiner Figur die ganze Auswahl (jeder Block der Figur, den der Hammer nehmen darf, nach denselben Override-Regeln). Das kostet die Haltbarkeit, als würde jeder Block einzeln abgebaut, und dauert je Block doppelt so lange wie das Feld; die Risse laufen über die ganze Auswahl. Auswahlen mit einer Kante über 32 Blöcke oder mehr als 4096 Plätzen zählen nicht (der Hammer baut sein normales Feld ab), und Schleichen baut weiter nur einen Block ab.",
           "Umformen: Rechtsklick gedrückt halten (Aufladen mit Bogen-Animation, je nach Material und Effizienz 4 bis 40 Ticks) macht aus einem vollen Block dessen Treppe und aus einer Treppe eine Stufe; die Treppe richtet sich nach der Klickstelle aus. Die Ladung wirkt nur auf den Block, an dem sie begonnen hat, solange du ihn noch anvisierst und dort bauen darfst. Mit Berührung des Konstrukteurs geht es beim Schleichen rückwärts: Stufe zu Treppe, Treppe zu Block.",
           "Diamantkiesel: Rechtsklick-Aufladen auf einem Diamantblock zerlegt ihn in 81 Diamantkiesel; 9 Kiesel ergeben einen Rissigen Diamanten, der im Hochofen wieder zum Diamanten wird. Ein Kiesel ist außerdem Zutat des Verstärkten Bündels und des Verstärkten Köchers.",
           "Maschinen aufwerten: Mit einem Netheritklumpen in der Nebenhand schmiedet 5 Sekunden (100 Ticks) gehaltener Rechtsklick auf einen Verstärkten Trichter, Ofen, Räucherofen, Schmelzofen oder Kolben dessen Netherit-Fassung; mit einem Enderitklumpen wird aus einer Netherit-Maschine die Enderit-Maschine. Netherit-Aufwertungen brauchen mindestens einen Diamant-Vorschlaghammer, Enderit-Aufwertungen mindestens einen Netherit-Vorschlaghammer; der Verstärkte klebrige Kolben hat keine höhere Stufe (SledgehammerUpgrades).",
@@ -1117,14 +1121,14 @@ window.WIKI_DATA = {
           "Getting started: craft Leather Sheets from 9 Leather each, then the Backpack from 2 Copper Nuggets, String, 3 Leather Sheets and 3 Heavy Weighted Pressure Plates. The Reinforced Backpack is crafted around a Backpack (Diamond Pebbles and Leather Sheets) and keeps everything the Backpack had; Netherite and Enderite Backpack follow at the smithing table like the other tool families, again with their contents.",
           "Tiers: Backpack 9 slots (1 row), Reinforced 18 (2 rows), Netherite 33 (3 rows plus one extra column of 6 on the right), Enderite 50 (4 rows plus two extra columns of 7, right and left). Worn they give 1 / 2 / 3 / 4 armor points and take no damage.",
           "Wearing it: right-click puts it into the chest slot, swapping with a worn chestplate or elytra - a backpack takes their place. A worn backpack shows on the player's back, in the look of its tier.",
-          "Opening: press the backpack key while wearing it. The screen is the vanilla inventory with the backpack rows between the crafting area and the main inventory; the whole screen is one vanilla-style window, backpack rows carry a faint brown tint and the extra columns a light purple one. The chest slot is locked while it is open. Without a backpack the key simply opens the normal inventory; E never changes.",
+          "Opening: press the backpack key. It opens the worn backpack, or else the first backpack in your inventory (hotbar, main inventory, then off hand); the server picks and checks the backpack itself. The screen is the vanilla inventory with the backpack rows between the crafting area and the main inventory; the whole screen is one vanilla-style window, backpack rows carry a faint brown tint and the extra columns a light purple one. The slot the opened backpack lies in - the chest slot or its inventory slot - is locked while it is open: it can't be picked up, shift-clicked, swapped away with a number key or covered. Without a backpack the key simply opens the normal inventory; E never changes.",
           "Shift-click works as in the vanilla inventory, with the backpack counted as part of the main inventory: from the hotbar, items first top up matching stacks anywhere in the main inventory and backpack, then fill the first free slot from top left to bottom right as the screen shows them; from the main inventory or the backpack they go to the hotbar; armor and shields go onto their empty slot.",
-          "Setting it down: sneak + right-click on a block. The placed backpack opens with a right-click, is invisible to hoppers and comparators, and always drops as the full backpack item when broken - with a tool or without, by explosion or piston.",
+          "Setting it down: sneak + right-click on a block. The placed backpack opens with a right-click, is invisible to hoppers, gives a comparator its fill level like a chest (counted against the backpack's own stack limits, Deep Pockets included) and always drops as the full backpack item when broken - with a tool or without, by explosion or piston.",
           "Tooltip: hovering a backpack lists how many slots are used and names the first five stacks; a backpack with something inside adds \"Hold Shift to see contents\". Holding Shift turns that line into a small grid like the vanilla bundle's: every stored stack as an icon with its count, in slot order, nine per row and at most three rows - whatever does not fit is summed up as \"+N\" in the last cell. Works for all four tiers, dyed or not, and needs nothing from the server: the contents travel on the item itself.",
           "Safety: a destroyed backpack item spills its contents like a shulker box; Netherite and Enderite Backpack resist fire and explosions as items, and the Enderite Backpack is protected from the void.",
           "Enchantments (anvil only): Deep Pockets I/II doubles or quadruples the stack limit of stackable items in the backpack; Funnel lets the worn backpack vacuum up items after your bundles; Master Builder on the backpack makes it a material source for the Building Wand and for pick block; Constructor's Touch refills your hand from the backpack when a block stack runs out while placing. Drawer and Color Palette do not go on backpacks.",
           "Dyeing: a backpack takes dye like leather armour - put it into the crafting grid with one or more dyes (colours mix, and a dyed backpack can be dyed again). Contents, name and enchantments stay; the colour shows on the item, on the worn backpack and as a faint tint of the backpack rows in its screen (the extra columns keep their purple). A water cauldron washes the colour off again and leaves everything else. The colour survives upgrades and setting the backpack down, and the placed backpack shows it as well.",
-          "Limits for now: the extra columns are plain storage (they are meant to become special slots later), a backpack can only be opened while worn or placed, and the recipe book does not draw from the backpack."
+          "Limits for now: the extra columns are plain storage (they are meant to become special slots later), and the recipe book does not draw from the backpack."
         ]
       },
       "de": {
@@ -1134,14 +1138,14 @@ window.WIKI_DATA = {
           "Einstieg: Lederplatten aus je 9 Leder herstellen, dann den Rucksack aus 2 Kupferklumpen, Faden, 3 Lederplatten und 3 schweren Wägeplatten. Der Verstärkte Rucksack wird um einen Rucksack herum gebaut (Diamantkiesel und Lederplatten) und behält alles, was der Rucksack hatte; Netherit- und Enderit-Rucksack folgen am Schmiedetisch wie bei den anderen Werkzeugfamilien, ebenfalls mit Inhalt.",
           "Stufen: Rucksack 9 Plätze (1 Reihe), Verstärkt 18 (2 Reihen), Netherit 33 (3 Reihen plus eine Zusatzspalte mit 6 Plätzen rechts), Enderit 50 (4 Reihen plus zwei Zusatzspalten mit je 7 Plätzen, rechts und links). Getragen geben sie 1 / 2 / 3 / 4 Rüstungspunkte und nehmen keinen Schaden.",
           "Tragen: Rechtsklick legt ihn in den Brust-Slot und tauscht dabei mit einem getragenen Brustpanzer oder einer Elytra – der Rucksack nimmt deren Platz ein. Ein getragener Rucksack ist auf dem Rücken des Spielers zu sehen, im Aussehen seiner Stufe.",
-          "Öffnen: mit getragenem Rucksack die Rucksack-Taste drücken. Der Bildschirm ist das Vanilla-Inventar mit den Rucksack-Reihen zwischen Werkbank-Bereich und Hauptinventar; der ganze Bildschirm ist ein Fenster im Vanilla-Stil, Rucksack-Reihen sind ganz leicht braun getönt, Zusatzspalten leicht violett. Solange er offen ist, ist der Brust-Slot gesperrt. Ohne Rucksack öffnet die Taste einfach das normale Inventar; E ändert sich nie.",
+          "Öffnen: die Rucksack-Taste drücken. Sie öffnet den getragenen Rucksack, sonst den ersten Rucksack im Inventar (Schnellleiste, Hauptinventar, dann Nebenhand); der Server wählt und prüft den Rucksack selbst. Der Bildschirm ist das Vanilla-Inventar mit den Rucksack-Reihen zwischen Werkbank-Bereich und Hauptinventar; der ganze Bildschirm ist ein Fenster im Vanilla-Stil, Rucksack-Reihen sind ganz leicht braun getönt, Zusatzspalten leicht violett. Der Platz des geöffneten Rucksacks - Brust-Slot oder sein Inventarplatz - ist gesperrt, solange er offen ist: kein Herausnehmen, kein Shift-Klick, kein Wegtauschen per Zifferntaste, nichts darauflegen. Ohne Rucksack öffnet die Taste einfach das normale Inventar; E ändert sich nie.",
           "Shift-Klick verhält sich wie im Vanilla-Inventar, wobei der Rucksack zum Hauptinventar zählt: Aus der Hotbar füllt ein Item zuerst passende Stapel irgendwo in Hauptinventar und Rucksack auf und dann den ersten freien Platz von oben links nach unten rechts, so wie der Bildschirm sie zeigt; aus Hauptinventar oder Rucksack geht es in die Hotbar; Rüstung und Schilde gehen in ihren leeren Slot.",
-          "Abstellen: Schleichen + Rechtsklick auf einen Block. Der abgestellte Rucksack öffnet sich per Rechtsklick, ist für Trichter und Komparatoren unsichtbar und droppt beim Abbauen immer als volles Rucksack-Item – mit oder ohne Werkzeug, durch Explosion oder Kolben.",
+          "Abstellen: Schleichen + Rechtsklick auf einen Block. Der abgestellte Rucksack öffnet sich per Rechtsklick, ist für Trichter unsichtbar, gibt einem Komparator seinen Füllstand wie eine Truhe (gemessen an den Stapelgrenzen des Rucksacks, Tiefe Taschen eingerechnet) und droppt beim Abbauen immer als volles Rucksack-Item – mit oder ohne Werkzeug, durch Explosion oder Kolben.",
           "Tooltip: Beim Überfahren zeigt ein Rucksack, wie viele Plätze belegt sind, und nennt die ersten fünf Stapel; hat er Inhalt, kommt \"Umschalt halten, um den Inhalt zu sehen\" dazu. Mit gedrückter Umschalttaste wird daraus ein kleines Raster wie beim Vanilla-Bündel: jeder gelagerte Stapel als Icon mit Anzahl, in Slot-Reihenfolge, neun je Reihe und höchstens drei Reihen - was nicht passt, fasst die letzte Zelle als \"+N\" zusammen. Gilt für alle vier Stufen, gefärbt oder nicht, und braucht nichts vom Server: der Inhalt reist im Item selbst.",
           "Sicherheit: Ein zerstörtes Rucksack-Item verstreut seinen Inhalt wie eine Shulkerkiste; Netherit- und Enderit-Rucksack widerstehen als Item Feuer und Explosionen, und der Enderit-Rucksack ist vor der Leere geschützt.",
           "Verzauberungen (nur Amboss): Tiefe Taschen I/II verdoppelt bzw. vervierfacht die Stapelgrenze stapelbarer Items im Rucksack; mit Trichter saugt der getragene Rucksack Items nach den Bündeln auf; Baumeister auf dem Rucksack macht ihn zur Materialquelle für Baustab und Blockauswahl; Berührung des Konstrukteurs füllt die Hand aus dem Rucksack nach, wenn beim Platzieren ein Blockstapel aufgebraucht ist. Schublade und Farbpalette gehen nicht auf Rucksäcke.",
           "Färben: Ein Rucksack nimmt Farbstoff an wie Lederrüstung – mit einem oder mehreren Farbstoffen in die Werkbank legen (Farben mischen sich, ein gefärbter Rucksack lässt sich weiter färben). Inhalt, Name und Verzauberungen bleiben; die Farbe zeigt sich am Item, am getragenen Rucksack und als leichte Tönung der Rucksack-Reihen im Bildschirm (die Zusatzspalten bleiben violett). Ein Wasserkessel wäscht die Farbe wieder ab und lässt alles andere. Die Farbe übersteht Aufwertungen und das Abstellen, und auch der abgestellte Rucksack zeigt sie.",
-          "Grenzen vorerst: Die Zusatzspalten sind gewöhnlicher Stauraum (sie sollen später Spezial-Plätze werden), ein Rucksack lässt sich nur getragen oder abgestellt öffnen, und das Rezeptbuch greift nicht auf den Rucksack zu."
+          "Grenzen vorerst: Die Zusatzspalten sind gewöhnlicher Stauraum (sie sollen später Spezial-Plätze werden), und das Rezeptbuch greift nicht auf den Rucksack zu."
         ]
       }
     },
@@ -1338,7 +1342,9 @@ window.WIKI_DATA = {
         "src/main/resources/assets/simplebuilding/lang/de_de.json",
         "src/main/resources/assets/simplebuilding/lang/en_us.json",
         "common/src/shared/java/com/simplebuilding/recipe/ReinforcedBundleRecipe.java",
-        "src/main/generated/data/simplebuilding/recipe/reinforced_quiver.json"
+        "src/main/generated/data/simplebuilding/recipe/reinforced_quiver.json",
+        "common/src/shared/java/com/simplebuilding/mixin/CrossbowItemMixin.java",
+        "common/src/shared/java/com/simplebuilding/mixin/AbstractArrowPickupMixin.java"
       ],
       "en": {
         "title": "Quivers",
@@ -1347,13 +1353,14 @@ window.WIKI_DATA = {
           "Getting started: craft the Quiver at the crafting table from a Bundle, String, Leather and a Copper Nugget, and upgrade it at the crafting table to the Reinforced Quiver - the same pattern with the Quiver where the Bundle was, a Leather Sheet in the centre instead of the two Leather and a Diamond Pebble top right; arrows, enchantments and name carry over. After that the Netherite Quiver (Netherite Upgrade + Reinforced Quiver + Netherite Ingot) and the Enderite Quiver (Enderite Upgrade + Netherite Quiver + Enderite Ingot) at the smithing table. The plain Quiver has no smithing recipe; no tier can be skipped.",
           "Capacity: Quiver factor 1, Reinforced Quiver factor 3/2, Netherite Quiver factor 2, Enderite Quiver factor 3; the tooltip shows factor x 64 (64 / 96 / 128 / 192 units, and since arrows stack to 64 that is the same number of arrows). Unlike the Reinforced Bundle, quivers get no x3/2 bonus on top of their tier factor - the Reinforced Quiver's 3/2 is its tier factor.",
           "Arrows only: anything without the tag minecraft:arrows is refused both on insertion by click and on pickup from the ground; the click filter follows the configured insert click, so it holds with tools.invertBundleInteractions on as well.",
-          "Bow priority: when a bow is drawn and released the quiver is searched before every arrow in the inventory, in the order off-hand, chest slot, hotbar, then - only with Constructor's Touch - the rest of the inventory. The bow always fires the topmost arrow stack in the quiver.",
+          "Bow and crossbow: when a bow is drawn and released, or a crossbow is loaded, the quiver is searched before every arrow in the inventory, in the order off-hand, chest slot, hotbar, then - only with Constructor's Touch - the rest of the inventory, and last a quiver inside the worn backpack, which counts only if the backpack carries Master Builder. The weapon always gets the topmost arrow stack in the quiver. A crossbow still prefers ammunition held in a hand (a firework rocket in the off hand), as in vanilla.",
           "Wearing one: all four quivers can be put into the chest slot, so the second stage of the bow search is reachable without commands. The quiver is a carrier there and nothing else - it gives no armor points, and the price is the chestplate slot it occupies. A worn quiver is shown on the player's back: its item picture, slanted from the right shoulder down to the left hip. Only players can equip one themselves, and a dispenser refuses to; an armor stand takes one anyway, because ArmorStand.interact picks the slot through canUseSlot and never asks the component's allowed entities, and a dispenser will equip a quiver onto a player standing in front of it.",
           "Consumption: one arrow disappears from the quiver per successful shot - none in creative mode, and none when the shot costs no ammunition anyway, for instance with Infinity on a plain arrow, which vanilla shoots for free.",
+          "Enchantments (all four tiers): Drawer multiplies capacity by (16 + level)/8 and caps the quiver at 5 different types, Deep Pockets doubles (level 1) or quadruples (level 2) it, Funnel vacuums arrows off the ground - dropped arrows and shot arrows stuck in the ground alike (level 1 only types already inside, level 2 all of them; never while sneaking); without Funnel picked-up arrows go into the inventory as usual - and Constructor's Touch lets the quiver feed the bow from anywhere in the inventory. Drawer excludes Master Builder and Color Palette.",
           "Enchantments (all four tiers): Drawer multiplies capacity by (16 + level)/8 but locks the quiver to the one kind of arrow already inside, Deep Pockets doubles (level 1) or quadruples (level 2) it, Funnel vacuums arrows off the ground (level 1 only types already inside, level 2 all of them; never while sneaking), and Constructor's Touch lets the quiver feed the bow from anywhere in the inventory. Drawer excludes Master Builder and Color Palette.",
           "Inventory handling as on the Reinforced Bundle: left-click inserts, right-click takes out, the mouse wheel over the quiver picks the stack; the config option tools.invertBundleInteractions swaps the clicks.",
           "Right-clicking with the quiver in hand does nothing - it does not put the quiver on either; the quiver goes into the chest slot in the inventory screen, dragged there or shift-clicked. Master Builder and Color Palette can be applied but do nothing on a quiver as long as it only holds arrows.",
-          "Limits: no crossbow code; the tooltip lines in the language file are never shown.",
+          "Limits: the tooltip lines in the language file are never shown.",
           "Where to find them: only the plain Quiver lies in loot chests (Ancient City, Pillager Outpost, Woodland Mansion), provided the loot changes are enabled in the config (default: on).",
           "The Netherite and Enderite tiers are registered with fireResistant(); the Quiver and the Reinforced Quiver are not. The Enderite Quiver additionally floats via the tag void_protected instead of vanishing into the void. The Enderite Quiver is immune to explosions as a dropped item, like the Netherite Bundle; the Quiver, the Reinforced Quiver and the Netherite Quiver are not."
         ]
@@ -1365,13 +1372,14 @@ window.WIKI_DATA = {
           "Einstieg: Köcher an der Werkbank aus Bündel, Faden, Leder und Kupferklumpen bauen und ebenfalls an der Werkbank zum Verstärkten Köcher aufwerten - dasselbe Muster mit dem Köcher an der Stelle des Bündels, einer Lederplatte in der Mitte statt der zwei Leder und einem Diamantkiesel oben rechts; Pfeile, Verzauberungen und Name bleiben erhalten. Danach Netheritköcher (Netherit-Aufwertung + Verstärkter Köcher + Netheritbarren) und Enderitköcher (Enderit-Aufwertung + Netheritköcher + Enderitbarren) am Schmiedetisch. Für den einfachen Köcher gibt es kein Schmiederezept; keine Stufe lässt sich überspringen.",
           "Kapazität: Köcher Faktor 1, Verstärkter Köcher Faktor 3/2, Netheritköcher Faktor 2, Enderitköcher Faktor 3; der Tooltip zeigt Faktor x 64 (64 / 96 / 128 / 192). Anders als das verstärkte Bündel bekommen Köcher keinen x3/2-Bonus zusätzlich zu ihrem Stufenfaktor - die 3/2 des Verstärkten Köchers sind sein Stufenfaktor.",
           "Nur Pfeile: Alles, was nicht das Tag minecraft:arrows trägt, wird beim Einlegen per Klick und beim Aufsaugen vom Boden abgewiesen; der Klick-Filter folgt dem konfigurierten Einlege-Klick und greift daher auch bei eingeschalteter Option tools.invertBundleInteractions.",
-          "Bogen-Vorrang: Beim Spannen und Loslassen eines Bogens wird der Köcher vor allen Pfeilen im Inventar durchsucht, in der Reihenfolge Nebenhand, Brustpanzer-Slot, Schnellzugriffsleiste, dann (nur mit Berührung des Konstrukteurs) restliches Inventar. Verschossen wird immer der oberste Stapel im Köcher.",
+          "Bogen und Armbrust: Beim Spannen und Loslassen eines Bogens oder beim Laden einer Armbrust wird der Köcher vor allen Pfeilen im Inventar durchsucht, in der Reihenfolge Nebenhand, Brustpanzer-Slot, Schnellzugriffsleiste, dann (nur mit Berührung des Konstrukteurs) restliches Inventar und zuletzt ein Köcher im getragenen Rucksack, der nur zählt, wenn der Rucksack Baumeister trägt. Verschossen wird immer der oberste Stapel im Köcher. Eine Armbrust nimmt weiterhin zuerst Munition aus einer Hand (eine Feuerwerksrakete in der Nebenhand), wie bei Vanilla.",
           "Anlegen: Alle vier Köcher passen in den Brustpanzer-Slot, damit ist die zweite Stufe der Bogen-Suche ohne Befehle erreichbar. Der Köcher ist dort reiner Träger - er gibt keine Rüstungspunkte, und der Preis ist der belegte Brustpanzer-Slot. Ein getragener Köcher ist auf dem Rücken des Spielers zu sehen: sein Item-Bild, schräg von der rechten Schulter zur linken Hüfte. Tragen können ihn nur Spieler, keine Mobs und keine Rüstungsständer; ein Spender legt einen Köcher einem davorstehenden Spieler an.",
           "Verbrauch: Pro erfolgreichem Schuss verschwindet ein Pfeil aus dem Köcher – keiner im Kreativmodus und keiner, wenn der Schuss ohnehin keine Munition kostet, etwa mit Unendlichkeit auf einem einfachen Pfeil, den Vanilla gratis verschießt.",
+          "Verzauberungen (alle vier Stufen): Schublade multipliziert die Kapazität mit (16 + Stufe)/8 und begrenzt auf 5 Sorten, Tiefe Taschen verdoppelt (Stufe 1) oder vervierfacht (Stufe 2), Trichter saugt Pfeile vom Boden an - liegende wie im Boden steckende, verschossene Pfeile (Stufe 1 nur bereits enthaltene Sorten, Stufe 2 alle; nicht beim Schleichen); ohne Trichter landen aufgehobene Pfeile wie gewohnt im Inventar -, Berührung des Konstrukteurs erlaubt den Köcher überall im Inventar. Schublade schließt Baumeister und Farbpalette aus.",
           "Verzauberungen (alle vier Stufen): Schublade multipliziert die Kapazität mit (16 + Stufe)/8, sperrt den Köcher aber auf die eine Pfeilsorte, die schon darin liegt, Tiefe Taschen verdoppelt (Stufe 1) oder vervierfacht (Stufe 2), Trichter saugt Pfeile vom Boden an (Stufe 1 nur bereits enthaltene Sorten, Stufe 2 alle; nicht beim Schleichen), Berührung des Konstrukteurs erlaubt den Köcher überall im Inventar. Schublade schließt Baumeister und Farbpalette aus.",
           "Bedienung im Inventar wie beim verstärkten Bündel: Linksklick legt ein, Rechtsklick nimmt heraus, Mausrad über dem Köcher wählt den Stapel; die Config-Option tools.invertBundleInteractions vertauscht die Klicks.",
           "Rechtsklick mit dem Köcher in der Hand tut nichts - er legt den Köcher auch nicht an; in den Brustpanzer-Slot kommt der Köcher im Inventarbildschirm, per Ziehen oder Umschalt-Klick. Baumeister und Farbpalette sind zwar auflegbar, bewirken beim Köcher aber nichts, solange nur Pfeile darin liegen.",
-          "Grenzen: Kein Code für Armbrüste; die Tooltip-Texte der Sprachdatei werden nicht angezeigt.",
+          "Grenzen: Die Tooltip-Texte der Sprachdatei werden nicht angezeigt.",
           "Fundorte: Nur der einfache Köcher liegt in Loot-Truhen (Antike Stadt, Plünderer-Außenposten, Waldanwesen), sofern die Loot-Änderungen in der Config aktiv sind (Standard: an).",
           "Netherit- und Enderit-Stufe sind mit fireResistant() registriert, Köcher und Verstärkter Köcher nicht; der Enderitköcher schwebt zusätzlich über das Tag void_protected, statt in der Leere zu verschwinden. Der Enderitköcher ist als Drop explosionsimmun wie das Netheritbündel; Köcher, Verstärkter Köcher und Netheritköcher sind es nicht."
         ]
@@ -2952,6 +2960,8 @@ window.WIKI_DATA = {
         "common/src/jei/java/com/simplebuilding/compat/jei/SimplebuildingJeiPlugin.java",
         "common/src/jei/java/com/simplebuilding/compat/jei/InWorldCategory.java",
         "common/src/jei/java/com/simplebuilding/compat/jei/CountBasedSmithingExtension.java",
+        "common/src/rei/java/com/simplebuilding/compat/rei/SimplebuildingReiClientPlugin.java",
+        "common/src/rei/java/com/simplebuilding/compat/rei/SimplebuildingReiCommonPlugin.java",
         "common/src/shared/java/com/simplebuilding/compat/InWorldRecipeCatalog.java",
         "common/src/shared/java/com/simplebuilding/compat/RecipelessJeiInfo.java",
         "common/src/shared/java/com/simplebuilding/tweaks/item/TweaksJeiInfo.java",
@@ -2964,8 +2974,8 @@ window.WIKI_DATA = {
         "src/main/resources/assets/simplebuilding/lang/en_us.json"
       ],
       "en": {
-        "title": "Recipe Viewer (JEI)",
-        "summary": "With Just Enough Items (JEI) installed, the mod adds seven categories for its in-world transformations and shows its count-based smithing recipes. JEI is optional: without it nothing changes. Supported on Fabric and NeoForge on both Minecraft lines; there is no JEI for MinecraftForge 26.2.",
+        "title": "Recipe Viewer (JEI, REI)",
+        "summary": "With Just Enough Items (JEI) installed, the mod adds seven categories for its in-world transformations and shows its count-based smithing recipes. JEI is optional: without it nothing changes. Supported on Fabric and NeoForge on both Minecraft lines; there is no JEI for MinecraftForge 26.2. Roughly Enough Items (REI) gets the same content through its own plugin on Fabric and NeoForge for Minecraft 26.2 and 1.21.11 (REI has no build for Forge 26.2 or 26.3); EMI has no build for these Minecraft versions, so there is no EMI plugin.",
         "details": [
           "Machine Upgrade (Sledgehammer): machine and nugget, every sledgehammer strong enough for the step (weakest first) and the upgraded machine, with the number of hits, the duration (the arrow fills over the same 100 ticks) and the durability per hit and in total.",
           "Reshaping (Sledgehammer): every full block the hammer turns into stairs and every stairs it turns into a slab; sneaking with Constructor's Touch, slabs back into stairs and stairs into the full block. Worked out with the same naming rule the hammer uses, so blocks of other mods show up as well.",
@@ -2973,14 +2983,15 @@ window.WIKI_DATA = {
           "Chiseling: every chisel step forward (right-click) and backward (sneak + right-click), with the chisels whose tier can do it and a note when it needs Constructor's Touch.",
           "Shearing Wool: shears used on any placed wool drop 4 String.",
           "Count-based smithing (for example copper to iron tools with several ingots) appears in JEI's smithing category with the real number of additions.",
+          "REI: the same seven in-world categories and Mob Drops (same titles, notes and tools as workstations), the count-based smithing recipes in REI's smithing category with the real number of additions, and the same information pages as REI information entries. The hidden easter smithing chain stays hidden in REI as well.",
           "The categories are built from the same export as this wiki's in-world transformation pages; a server game test checks that every entry of that export arrives in JEI.",
           "Trim Template (item frame) and Washing (cauldron): turning a trim template in an item frame into a Glowing or Emitting Armor Trim, and washing a coloured octant back into the plain one.",
           "Information pages: items that no recipe and no in-world category produce get a short JEI information page on how to obtain them and what they do - Astralit Ore, Nihilit Ore, Astralit Dust, Nihilit Shard, the Enchanted Netherite and Enderite Apples and the legacy spatulas - next to the pages for the pads, plates and tools taken over from Simple Tweaks. The creative spacer stays hidden from JEI. A server game test derives the recipeless items from the loaded recipes and the in-world catalog and fails if one has no page or a page lacks its English or German text."
         ]
       },
       "de": {
-        "title": "Rezeptanzeige (JEI)",
-        "summary": "Ist Just Enough Items (JEI) installiert, bringt die Mod sieben Kategorien für ihre Umwandlungen in der Welt mit und zeigt ihre Schmiederezepte mit Mengenangabe. JEI ist optional: ohne JEI ändert sich nichts. Unterstützt auf Fabric und NeoForge in beiden Minecraft-Linien; für MinecraftForge 26.2 gibt es kein JEI.",
+        "title": "Rezeptanzeige (JEI, REI)",
+        "summary": "Ist Just Enough Items (JEI) installiert, bringt die Mod sieben Kategorien für ihre Umwandlungen in der Welt mit und zeigt ihre Schmiederezepte mit Mengenangabe. JEI ist optional: ohne JEI ändert sich nichts. Unterstützt auf Fabric und NeoForge in beiden Minecraft-Linien; für MinecraftForge 26.2 gibt es kein JEI. Roughly Enough Items (REI) bekommt über ein eigenes Plugin dieselben Inhalte, auf Fabric und NeoForge für Minecraft 26.2 und 1.21.11 (für Forge 26.2 und 26.3 gibt es kein REI); EMI gibt es für diese Minecraft-Versionen nicht, deshalb kein EMI-Plugin.",
         "details": [
           "Maschinen-Aufwertung (Vorschlaghammer): Maschine und Klumpen, jeder Vorschlaghammer, der für die Stufe stark genug ist (der schwächste zuerst), und die aufgewertete Maschine, dazu Schlagzahl, Dauer (der Pfeil füllt sich über dieselben 100 Ticks) und die Haltbarkeit je Schlag und insgesamt.",
           "Umformen (Vorschlaghammer): jeder volle Block, den der Hammer zur Treppe macht, und jede Treppe, die er zur Stufe macht; schleichend mit Berührung des Konstrukteurs Stufen zurück zur Treppe und Treppen zum vollen Block. Ermittelt mit derselben Namensregel, die der Hammer benutzt, deshalb erscheinen auch Blöcke anderer Mods.",
@@ -2988,9 +2999,52 @@ window.WIKI_DATA = {
           "Meißeln: jeder Meißelschritt vorwärts (Rechtsklick) und rückwärts (Schleichen + Rechtsklick), mit den Meißeln, deren Stufe ihn kann, und einem Hinweis, wenn er Berührung des Konstrukteurs braucht.",
           "Wolle scheren: eine Schere auf beliebiger platzierter Wolle lässt 4 Fäden fallen.",
           "Schmiederezepte mit Mengenangabe (etwa Kupfer- zu Eisenwerkzeug mit mehreren Barren) erscheinen in JEIs Schmiede-Kategorie mit der echten Anzahl Zutaten.",
+          "REI: dieselben sieben Umwandlungs-Kategorien und Mob-Drops (gleiche Titel, Hinweise und Werkzeuge als Arbeitsstationen), die Schmiederezepte mit Mengenangabe in REIs Schmiede-Kategorie mit der echten Anzahl Zutaten und dieselben Infoseiten als REI-Informationseinträge. Die versteckte Easter-Schmiedekette bleibt auch in REI versteckt.",
           "Die Kategorien entstehen aus demselben Export wie die Seiten dieses Wikis zu den Umwandlungen in der Welt; ein Server-Spieltest prüft, dass jeder Eintrag dieses Exports in JEI ankommt.",
           "Besatzvorlage (Rahmen) und Waschen (Kessel): eine Besatzvorlage im Rahmen zum Leuchtenden oder Strahlenden Rüstungsbesatz machen und einen gefärbten Oktanten zurück zum einfachen waschen.",
           "Infoseiten: Gegenstände, die kein Rezept und keine Umwandlungs-Kategorie liefert, bekommen eine kurze JEI-Infoseite, wie man sie erhält und was sie tun - Astraliterz, Nihiliterz, Astralitstaub, Nihilitsplitter, die verzauberten Netherit- und Enderitäpfel und die alten Spachtel - neben den Seiten für die aus Simple Tweaks übernommenen Pads, Platten und Werkzeuge. Der Kreativ-Platzhalter bleibt in JEI versteckt. Ein Server-Spieltest ermittelt die rezeptlosen Gegenstände aus den geladenen Rezepten und dem Umwandlungs-Katalog und schlägt fehl, wenn einer keine Seite hat oder einer Seite der englische oder deutsche Text fehlt."
+        ]
+      }
+    },
+    {
+      "id": "block_info_jade",
+      "related": [
+        "simplebuilding:launchpad",
+        "simplebuilding:potion_pad",
+        "simplebuilding:chunk_loader",
+        "simplebuilding:netherite_piston",
+        "simplebuilding:netherite_hopper",
+        "simplebuilding:netherite_chest"
+      ],
+      "sources": [
+        "common/src/jade/java/com/simplebuilding/compat/jade/SimplebuildingJadePlugin.java",
+        "common/src/jade/java/com/simplebuilding/compat/jade/BlockInfoProvider.java",
+        "common/src/shared/java/com/simplebuilding/compat/BlockInfo.java",
+        "common/src/shared/java/com/simplebuilding/gametest/BlockInfoTests.java",
+        "src/main/resources/fabric.mod.json",
+        "neoforge/src/main/resources/META-INF/neoforge.mods.toml",
+        "src/main/resources/assets/simplebuilding/lang/en_us.json"
+      ],
+      "en": {
+        "title": "Block Info (Jade)",
+        "summary": "With Jade installed, looking at the mod's blocks shows extra lines in Jade's tooltip. Jade is optional: without it nothing changes. Supported on Fabric and NeoForge on both Minecraft lines; there is no Jade for MinecraftForge 26.2.",
+        "details": [
+          "Pads and plates from Simple Tweaks: the owner's name.",
+          "Launchpad: charges as \"x / max\"; Potion Pad: the stored effects and the remaining cooldown (or \"Ready\"); Chunk Loader: how many chunks it keeps loaded.",
+          "Reinforced, Netherite and Enderite Hopper: the filter mode and the filtered items.",
+          "Netherite and Enderite Piston: the remaining durability. Tiered chests: the slots (doubled for a double chest) and the stack bonus. Upgraded furnaces, smokers and blast furnaces: the speed compared to the vanilla block (2x, 4x, 8x).",
+          "Owner, pad status and hopper filter come from the server, so the server needs Jade too; durability, chest slots and furnace speed are worked out from the block itself. Every line can be switched off in Jade's plugin settings."
+        ]
+      },
+      "de": {
+        "title": "Blockinfo (Jade)",
+        "summary": "Ist Jade installiert, zeigt der Blick auf die Blöcke der Mod zusätzliche Zeilen in Jades Tooltip. Jade ist optional: ohne Jade ändert sich nichts. Unterstützt auf Fabric und NeoForge in beiden Minecraft-Linien; für MinecraftForge 26.2 gibt es kein Jade.",
+        "details": [
+          "Platten und Pads aus Simple Tweaks: der Name des Besitzers.",
+          "Startrampe: die Ladungen als „x / max“; Trankplatte: die gespeicherten Effekte und die restliche Abklingzeit (oder „Bereit“); Chunk-Lader: wie viele Chunks er geladen hält.",
+          "Verstärkter, Netherit- und Enderit-Trichter: der Filtermodus und die gefilterten Items.",
+          "Netherit- und Enderit-Kolben: die restliche Haltbarkeit. Mod-Truhen: die Plätze (bei der Doppeltruhe doppelt) und der Stapelfaktor. Aufgewertete Öfen, Räucheröfen und Schmelzöfen: das Tempo gegenüber dem Vanilla-Block (2×, 4×, 8×).",
+          "Besitzer, Plattenstatus und Trichterfilter kommen vom Server, der Server braucht also auch Jade; Haltbarkeit, Truhenplätze und Ofentempo ergeben sich aus dem Block selbst. Jede Zeile lässt sich in Jades Plugin-Einstellungen abschalten."
         ]
       }
     },
@@ -3036,7 +3090,11 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/gametest/TweaksTests.java",
         "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
         "src/main/resources/assets/simplebuilding/lang/en_us.json",
-        "src/main/resources/assets/simplebuilding/lang/de_de.json"
+        "src/main/resources/assets/simplebuilding/lang/de_de.json",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/PadBlock.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/PadSignalSource.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/LaunchpadBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/PotionPadBlockEntity.java"
       ],
       "en": {
         "title": "Simple Tweaks: pads, spawn and server tweaks",
@@ -3049,6 +3107,7 @@ window.WIKI_DATA = {
           "The Nether and the End can be locked (tweaks.dimensions); exact spawn without random offset and a custom world spawn are off by default so existing worlds do not change.",
           "Commands (operators): /killboats and /killcarts [standard|empty|all] remove unoccupied boats/minecarts within 100 blocks; /simplebuilding tweaks ... changes the config in game (what was /simpletweaks ...); a custom world spawn takes effect at once, not only after a restart. The radius of /killboats and /killcarts is tweaks.commands.killCommandRadius (default 100); every config option can also be changed with /simplebuilding config set.",
           "Every pad family can be switched off in the config section tweaks.pads.",
+          "Redstone and comparators: a redstone signal switches a pad off (Launchpad: no countdown and no launch, charging still works; Potion Pad: no effects, a running cooldown goes on; Flypad: no flight, flight it gave is taken back; Elytra Pad and Spawn Teleporter: nothing). A comparator reads the Launchpad's fill level (empty 0, full 15), the Potion Pad's state (0 without a potion, 15 ready, 1 to 14 rising during the cooldown), the number of players a Flypad or Elytra Pad serves and the Spawn Teleporter's warm-up progress. Hoppers and droppers can fill a Launchpad with wind charges and nothing else (a full pad takes none, nothing can be pulled out); potions reach a Potion Pad only as a thrown splash or lingering potion hitting it - a dispenser facing it can throw one - and it passes on exactly that potion's effects; hoppers cannot put potions in.",
           "Not everything is in the recipe book - some things are hidden."
         ]
       },
@@ -3063,7 +3122,81 @@ window.WIKI_DATA = {
           "Nether und End lassen sich sperren (tweaks.dimensions); exakter Spawn ohne Zufallsversatz und ein eigener Weltspawn sind standardmäßig aus, damit bestehende Welten unverändert bleiben.",
           "Befehle (Operatoren): /killboats und /killcarts [standard|empty|all] entfernen unbesetzte Boote/Loren im Umkreis von 100 Blöcken; /simplebuilding tweaks ... ändert die Config im Spiel (früher /simpletweaks ...); ein eigener Weltspawn gilt sofort, nicht erst nach einem Neustart. Die Reichweite von /killboats und /killcarts ist tweaks.commands.killCommandRadius (Standard 100); jede Config-Option lässt sich auch mit /simplebuilding config set ändern.",
           "Jede Pad-Familie lässt sich im Config-Abschnitt tweaks.pads abschalten.",
+          "Redstone und Komparatoren: Ein Redstone-Signal schaltet ein Pad ab (Launchpad: kein Countdown und kein Start, Laden geht weiter; Trank-Pad: keine Wirkungen, eine laufende Abklingzeit läuft weiter; Flypad: kein Flug, gegebener Flug wird zurückgenommen; Elytra-Pad und Spawn-Teleporter: nichts). Ein Komparator liest den Füllstand des Launchpads (leer 0, voll 15), den Zustand des Trank-Pads (0 ohne Trank, 15 bereit, 1 bis 14 steigend während der Abklingzeit), die Zahl der Spieler, die ein Flypad oder Elytra-Pad versorgt, und den Fortschritt der Wartezeit des Spawn-Teleporters. Trichter und Spender können ein Launchpad mit Windkugeln füllen und mit nichts anderem (ein volles Pad nimmt keine mehr, herausziehen lässt sich nichts); Tränke kommen nur als Wurf- oder Verweiltrank auf ein Trank-Pad, der darauf zerschellt - ein Werfer, der darauf zeigt, kann ihn werfen -, und es gibt genau die Wirkungen dieses Tranks weiter; Trichter können keine Tränke einlegen.",
           "Nicht alles steht im Rezeptbuch - manches ist versteckt."
+        ]
+      }
+    },
+    {
+      "id": "immersion",
+      "related": [
+        "simplebuilding:launchpad",
+        "simplebuilding:netherite_launchpad",
+        "simplebuilding:enderite_launchpad",
+        "simplebuilding:chunk_loader",
+        "simplebuilding:netherite_chunk_loader",
+        "simplebuilding:enderite_chunk_loader",
+        "simplebuilding:flypad",
+        "simplebuilding:reinforced_flypad",
+        "simplebuilding:stellar_flypad",
+        "simplebuilding:elytra_pad",
+        "simplebuilding:potion_pad",
+        "simplebuilding:backpack",
+        "simplebuilding:octant",
+        "simplebuilding:velocity-gauge",
+        "simplebuilding:copper_core",
+        "simplebuilding:enderite_apple",
+        "simplebuilding:enderite_helmet"
+      ],
+      "sources": [
+        "common/src/shared/java/com/simplebuilding/tweaks/block/LaunchpadBlock.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/LaunchpadBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/ChunkLoaderBlock.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/FlypadBlock.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/FlypadBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/ElytraPadBlock.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ElytraPadBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/PotionPadBlockEntity.java",
+        "common/src/shared/java/com/simplebuilding/blocks/custom/BackpackBlock.java",
+        "common/src/shared/java/com/simplebuilding/util/OctantCauldronWash.java",
+        "common/src/shared/java/com/simplebuilding/util/Feedback.java",
+        "common/src/shared/java/com/simplebuilding/items/tooltip/InfoTooltips.java",
+        "common/src/shared/java/com/simplebuilding/client/gui/ModHud.java",
+        "common/src/shared/java/com/simplebuilding/client/gui/HudLayout.java",
+        "common/src/shared/java/com/simplebuilding/gametest/ImmersionTests.java",
+        "tools/textures/generate_textures.py",
+        "src/main/resources/assets/simplebuilding/lang/en_us.json",
+        "src/main/resources/assets/simplebuilding/lang/de_de.json"
+      ],
+      "en": {
+        "title": "Feedback: sounds, particles, visible states, tooltips and the HUD key",
+        "summary": "Gadgets answer without on-screen text: pads show their state in their texture and light, sounds and particles confirm what happened, item tooltips name the numbers, and one key hides or shows the mod's whole HUD.",
+        "details": [
+          "Launchpad: the block state charge (0-3) shows the fill level in thirds, rounded up - the spiral of the texture lights up from the middle outward, one third per step, its outermost lit turn brighter. Loading wind charges blows a small gust into the pad, more puffs for more charges; the insert sound still rises with the fill level.",
+          "Chunk Loader: active=true while it keeps its chunks loaded - the spiral glows violet, the sparkle stars turn almost white and the light rises from 3 to the tier's 7, 8 or 9. Switching on plays a beacon's activation sound with a swirl of portal sparks, switching off the beacon's deactivation sound and a puff of smoke; while active it drips reverse-portal sparks and hums like a respawn anchor now and then (1 in 100 ticks).",
+          "Flypad: active=true while at least one player is in its field - the spiral glows (tiers I and II light cyan, the Stellar Flypad gold), and the four vertical edges of the field shimmer with end rod sparks so you can see where the field ends. Getting flight plays a soft beacon chime only you hear, losing it the beacon's deactivation sound. Flying closer than 1.5 blocks to a side or the ceiling of the field gives a warning note (only you hear it) at most every half second, higher the closer you are, with electric sparks on the nearest wall of the field.",
+          "Elytra Pad: a small cloud rises from the pad now and then (bubbles when waterlogged); handing out an elytra adds a puff of clouds, and a boost that is recharged from empty or partly used plays a firework twinkle with a few sparks for the wearer.",
+          "Potion Pad: when its cooldown ends it rings an amethyst chime and swirls in the color of the stored potion.",
+          "Octant: washing a colored octant in a water cauldron splashes (sound and water droplets) instead of happening silently.",
+          "Backpack: setting it down rustles like leather armor and puffs a little dust; opening a placed backpack rustles too.",
+          "Item tooltips (gray lines, not on-screen text): every pad names its tier (Tier II of III) and what the tier gives - wind charges, the chunk area, the elytra or flight area, the teleport wait, the potion duration and cooldown. Upgraded furnaces, smokers and blast furnaces say how much faster they work (2x, 4x, 8x), double experience and the blast furnace's raw metal bonus; hoppers their transfer rate and filter; the Reinforced Pistons their push limit of 18 and the redstone-block breach; levitating and suspended sand and gravel what they do. Building cores list what they are used in (checked against the loaded recipes by a game test); Enderite armor explains its void protection and glide; the netherite and enderite apples and carrots list their effects with level and duration, like a potion.",
+          "HUD key: Toggle Mod HUD (unbound by default, category SimpleMods in Controls) hides or shows every HUD box of the mod - velocity gauge, rangefinder, air jump bar and the spawn elytra bar (the vanilla experience bar comes back instead). It gives no text, only a click, and is remembered in the client config (showModHud). hudPositionX and hudPositionY place the velocity gauge and rangefinder boxes in percent of the free screen room (0 = left/top margin, 100 = right/bottom margin, default 0 and 50 = the old place at the left middle), hudScale sizes them from 50 to 200 %."
+        ]
+      },
+      "de": {
+        "title": "Rückmeldung: Klänge, Partikel, sichtbare Zustände, Tooltips und die HUD-Taste",
+        "summary": "Geräte antworten ohne Bildschirmtext: Pads zeigen ihren Zustand in Textur und Licht, Klänge und Partikel bestätigen, was passiert ist, Item-Tooltips nennen die Zahlen, und eine Taste blendet das ganze HUD der Mod aus und ein.",
+        "details": [
+          "Launchpad: der Blockzustand charge (0-3) zeigt den Füllstand in Dritteln, aufgerundet - die Spirale der Textur leuchtet von der Mitte nach außen, je Stufe ein Drittel, die äußerste leuchtende Windung heller. Beim Laden fährt ein kleiner Windstoß ins Pad, mehr Wölkchen für mehr Windkugeln; der Einlegeklang steigt weiter mit dem Füllstand.",
+          "Chunk-Loader: active=true, solange er seine Chunks geladen hält - die Spirale glimmt violett, die Funkelsterne werden fast weiß und das Licht steigt von 3 auf die 7, 8 oder 9 der Stufe. Einschalten spielt den Aktivierungsklang eines Leuchtfeuers mit einem Wirbel aus Portalfunken, Ausschalten dessen Abschaltklang und ein Rauchwölkchen; eingeschaltet steigen Portalfunken auf, und ab und zu summt er wie ein Seelenanker (1 von 100 Ticks).",
+          "Flypad: active=true, solange mindestens ein Spieler im Feld ist - die Spirale glimmt (Stufe I und II hell türkis, das Stellar-Flypad golden), und die vier senkrechten Kanten des Felds schimmern mit Endstab-Funken, damit man sieht, wo das Feld endet. Flug bekommen spielt einen leisen Leuchtfeuer-Ton, den nur du hörst, Flug verlieren den Abschaltklang des Leuchtfeuers. Wer fliegend näher als 1,5 Blöcke an eine Seite oder die Decke des Felds kommt, hört höchstens jede halbe Sekunde einen Warnton (nur er), höher je näher, mit elektrischen Funken an der nächsten Feldwand.",
+          "Elytra-Pad: ab und zu steigt ein Wölkchen vom Pad auf (unter Wasser Blasen); das Ausgeben einer Elytra macht eine Wolke, und ein Boost, der aus leerem oder angebrauchtem Zustand wieder voll wird, knistert wie ein Feuerwerk, mit ein paar Funken für den Träger.",
+          "Trank-Pad: endet die Abklingzeit, erklingt ein Amethyst-Glockenspiel und ein Wirbel in der Farbe des gespeicherten Tranks.",
+          "Oktant: einen gefärbten Oktanten im Wasserkessel zu waschen plätschert (Klang und Wassertropfen), statt lautlos zu geschehen.",
+          "Rucksack: abgestellt raschelt er wie Lederrüstung und staubt ein wenig; einen abgestellten Rucksack öffnen raschelt ebenfalls.",
+          "Item-Tooltips (graue Zeilen, kein Bildschirmtext): jedes Pad nennt seine Stufe (Stufe II von III) und was sie gibt - Windkugeln, den Chunk-Bereich, den Elytra- oder Flugbereich, die Teleport-Wartezeit, Trankdauer und Abklingzeit. Aufgewertete Öfen, Räucheröfen und Schmelzöfen sagen, wie viel schneller sie arbeiten (2x, 4x, 8x), doppelte Erfahrung und den Rohmetall-Bonus des Schmelzofens; Trichter ihr Tempo und ihren Filter; die verstärkten Kolben ihr Schublimit von 18 und den Durchbruch per Redstone-Block; schwebender und steigender Sand und Kies, was sie tun. Baukerne listen, wofür sie gebraucht werden (ein Spieltest gleicht das mit den geladenen Rezepten ab); Enderit-Rüstung erklärt Leere-Schutz und Gleiten; Netherit- und Enderit-Äpfel und -Karotten listen ihre Wirkungen mit Stufe und Dauer wie ein Trank.",
+          "HUD-Taste: Mod-HUD ein/aus (anfangs nicht belegt, Kategorie SimpleMods in der Steuerung) blendet jeden HUD-Kasten der Mod aus und ein - Tacho, Entfernungsmesser, Luftsprung-Leiste und Spawn-Elytra-Leiste (statt ihrer kommt die Vanilla-Erfahrungsleiste zurück). Sie zeigt keinen Text, nur ein Klick, und bleibt in der Client-Config gespeichert (showModHud). hudPositionX und hudPositionY setzen die Kästen von Tacho und Entfernungsmesser in Prozent des freien Bildschirmraums (0 = linker/oberer Rand, 100 = rechter/unterer Rand, Standard 0 und 50 = die alte Stelle links in der Mitte), hudScale ihre Größe von 50 bis 200 %."
         ]
       }
     },
@@ -3113,28 +3246,16 @@ window.WIKI_DATA = {
         "common/src/shared/java/com/simplebuilding/tweaks/xp/XpClumping.java",
         "common/src/shared/java/com/simplebuilding/tweaks/command/TweaksCommands.java",
         "forge/src/main/java/me/shedaniel/autoconfig/annotation/ConfigEntry.java",
-        "common/src/shared/java/com/simplebuilding/config/ServerTuningConfig.java",
-        "common/src/shared/java/com/simplebuilding/config/ServerTuning.java",
-        "common/src/shared/java/com/simplebuilding/tweaks/block/entity/ChunkLoaderRegistry.java",
-        "common/src/shared/java/com/simplebuilding/tweaks/command/ChunkLoaderCommand.java",
-        "common/src/shared/java/com/simplebuilding/recipe/RecipeFilter.java",
-        "common/src/shared/java/com/simplebuilding/mixin/RecipeMapFilterMixin.java"
+        "common/src/shared/java/com/simplebuilding/client/gui/ModHud.java"
       ],
       "en": {
         "title": "Configuration",
-        "summary": "The mod is configured through the Cloth Config file config/simplebuilding.json: on Fabric ModMenu opens the settings screen, on NeoForge the Config button in the mod list does. The screen has eight tabs (tools, enchantments, pistons, pads, loot, visuals, advanced, server & modpack tuning) with a tooltip and the default for every option; operators can change every option in game with /simplebuilding config.",
+        "summary": "The mod is configured through the Cloth Config file config/simplebuilding.json: on Fabric ModMenu opens the settings screen, on NeoForge the Config button in the mod list does. The screen has seven tabs (tools, enchantments, pistons, pads, loot, visuals, advanced) with a tooltip and the default for every option; operators can change every option in game with /simplebuilding config.",
         "details": [
-          "Screen: Cloth Config builds it from SimplebuildingConfig; on Fabric ModMenu opens it, on NeoForge the Config button in the mod list (IConfigScreenFactory). Eight tabs, most important first: Tools & Building, Enchantments & Armor, Pistons, Pads & Tweaks, Loot, Trades & World, Visuals (Client), Compatibility & Advanced, Server & Modpack Tuning. Every option shows a tooltip with its effect and its default. Forge has no Cloth Config: it runs with the defaults and keeps no file (commands change the running values only). The 26.4 snapshot line has no screen either.",
+          "Screen: Cloth Config builds it from SimplebuildingConfig; on Fabric ModMenu opens it, on NeoForge the Config button in the mod list (IConfigScreenFactory). Seven tabs, most important first: Tools & Building, Enchantments & Armor, Pistons, Pads & Tweaks, Loot, Trades & World, Visuals (Client), Compatibility & Advanced. Every option shows a tooltip with its effect and its default. Forge has no Cloth Config: it runs with the defaults and keeps no file (commands change the running values only). The 26.4 snapshot line has no screen either.",
           "File: config/simplebuilding.json. The tabs only change the screen: the JSON keeps its nesting (tools.*, worldGen.*, tweaks.*), so older files load unchanged. Values are clamped when the file loads (negative cooldowns, NaN multipliers and the like fall back to 0 or the default).",
           "Command (operators): /simplebuilding config list [filter] lists every option with its value (gold = changed), get <option> shows value, default and type, set <option> <value> and reset <option> change it, save the file and send the new server values to every client. The option names are the dotted paths below; the list is built from the config fields themselves (ConfigOptions), so every option is reachable. setTrimMultiplier/getTrimMultiplier remain. /simplebuilding tweaks ... keeps its shorter pad and spawn commands.",
           "Server to client: the server sends what clients must agree on at login and after every config command - rocket stack size, boosts, lens on/off and range, the air jump cooldown (TweaksConfigPayload), the two piston breach options (PistonConfigPayload) and the trim multiplier (TrimDataPayload). Options marked client-side only affect the player whose config they are in.",
-          "Server & Modpack Tuning (tab server.*, 2026-09-28): every gameplay knob a server or modpack maker wants, in one advanced tab and server-authoritative - the server sends the whole tab to every client at login and after every config command (inside the TweaksConfigPayload), and clients compute tooltips, JEI pages, pad break progress and the hammer animation with the server's values; a client's own file has no say. Defaults are the previous behavior; every speed and range is clamped to a bound that keeps vanilla intact.",
-          "Feature switches (server.features): Air Jump (server-wide, on top of the client's own switch), Dynamic Light (off removes the placed light blocks), Backpack, Attractor, Echo Sounder, Blueprint, Ore Detector and Levitating/Suspended blocks. Off switches the feature off at once and removes its recipes with the next /reload; the pad switches (tweaks.pads.*) and the lens switch now remove their recipes too. Recipes are filtered when the recipe table is built, the same on Fabric, NeoForge and Forge.",
-          "Chunk loaders (server.chunkLoaders.requireOwnerOnline, default on): a chunk loader only keeps its chunks while its owner is online and wakes up when they return; the check also runs when it is placed. /simplebuilding chunkloaders list shows every loader (position, dimension, owner, online, area, loading or idle), /simplebuilding chunkloaders remove <dimension> <pos> removes one. No per-player limit.",
-          "Dimension locks (server.dimensionLocks): lists of dimension ids where chunk loaders load nothing, flypads grant no flight and the Echo Sounder does not jump (in or out).",
-          "Amethyst lens (server.laser): separate switches for igniting flammable blocks, TNT and creatures. End ores (server.oreGeneration): main switch plus Astralit and Nihilit, applied through a config condition on the NeoForge/Forge biome modifiers and the Fabric biome selection (next world start, new chunks only).",
-          "Numbers: how long strangers need to break pads and plates (synced for the break progress), the maximum charge of the Amethyst Lens, Rotator and Echo Sounder (item durability: restart required, clients need the same file), sledgehammer upgrade length and damage per blow, chisel cooldown per tier, hopper and furnace speed per tier (1 to 8 times vanilla), ore detector range (0.25 to 1.5) and scan interval, a global multiplier for all mod loot (0 to 3), per-structure loot switches, a trade price multiplier (0.25 to 4), the blueprint build speed (blocks per tick) and the strength of every trim effect (0 to 2).",
-          "JEI info pages of chunk loaders, pads, the Amethyst Lens and the Echo Sounder add a line with this server's values; the Ore Detector and trim tooltips show the server's numbers.",
           "Tools & Building → Building Wand Hunger Cost (Experimental) (tools.buildingWandHungerCost, default on): Experimental. Building a lot at once makes you hungry: per click or blueprint build the first blocks are free (1/16 of the wand's largest cube, at least 256 - normal faces never cost anything); every block past that adds food exhaustion, less for stronger wands (a Copper Wand filling 16x16x16 takes about a quarter of the hunger bar, an Enderite Wand building 128x128x128 the whole bar). Creative mode is exempt. It never deals damage itself. Server-side.",
           "Tools & Building → Building Wand Hunger Multiplier (tools.wandHungerMultiplier, default 1.0): Multiplies the food exhaustion of every block past the free allowance (see Building Wand Hunger Cost). 0.5 = half as hungry, 2 = twice as hungry, 0 = building is free. The free allowance itself stays. Server-side. Default: 1.0.",
           "Tools & Building → Attractor Range Multiplier (tools.magnetRangeMultiplier, default 1.0): Multiplies how far the Attractor pulls items (4 blocks, 8 with Constructor's Touch, +2 per Radius level). 2 = twice as far, 0 = the Attractor pulls nothing. Server-side. Default: 1.0.",
@@ -3209,27 +3330,24 @@ window.WIKI_DATA = {
           "Visuals (Client) → Own Textures for Mod Enchanted Books (modEnchantedBookTextures, default on): Every enchantment of this mod has its own enchanted book texture. Turn it off for the plain vanilla enchanted book. Takes effect immediately.",
           "Visuals (Client) → Trim Patterns on Vanilla Armor Icons (visibleTrimIconsVanillaArmor, default on): Item icons of trimmed vanilla armor (and the turtle shell) show the trim pattern in the trim material's colours. Off: the vanilla icon with only a colour mark. Takes effect immediately.",
           "Visuals (Client) → Trim Patterns on Enderite Armor Icons (visibleTrimIconsModArmor, default on): Item icons of trimmed Enderite armor show the trim pattern in the trim material's colours. Off: the plain icon with only a colour mark. Takes effect immediately.",
+          "Visuals (Client) → Show Mod HUD (showModHud, default on): shows the mod's HUD boxes - velocity gauge, rangefinder, air jump bar and spawn elytra bar. The Toggle Mod HUD key (unbound by default) flips this option and saves it; off, the vanilla experience bar replaces the spawn elytra bar.",
+          "Visuals (Client) → HUD Position: Horizontal / Vertical (hudPositionX, default 0; hudPositionY, default 50; 0 to 100): where the velocity gauge and rangefinder boxes sit, in percent of the free room between the 10 px margins - 0 = left/top, 100 = right/bottom. The defaults are the old place at the left middle; with both held, the rangefinder sits 35 px above and the gauge 35 px below that place.",
+          "Visuals (Client) → HUD Size (hudScale, default 100, 50 to 200): size of the velocity gauge and rangefinder boxes in percent.",
           "Compatibility & Advanced → Pistons Fire Block Break Events (pistonsFireBreakEvents, default on): Before a Netherite or Enderite Piston destroys a block it fires the loader's block break event with a fake player, so claim and protection mods can stop it. Turn it off if a protection mod blocks every fake player (pistons would stop everywhere) or quest and statistics mods count piston breaks as player breaks. Server-side.",
           "Compatibility & Advanced → Show \"SimpleEnchants (Dev)\" Creative Tab (showDevEnchantedTab, default off): Shows the creative tab \"SimpleEnchants (Dev)\" outside development environments too: the best tier of every enchantable item, pre-enchanted at max level. Takes effect when the creative tabs are rebuilt (at the latest after rejoining).",
           "The trim resonance limit maxMultiplierLimit (10.0) is fixed in code: the upper bound of setTrimMultiplier and of the loaded value; it is not an option.",
-          "On NeoForge the mod keeps a default config around in case loading fails (fallback new SimplebuildingConfig())."
+          "On NeoForge the mod keeps a default config around in case loading fails (fallback new SimplebuildingConfig()).",
+          "The End ore generation has no config switch."
         ]
       },
       "de": {
         "title": "Konfiguration",
-        "summary": "Die Mod wird über die Cloth-Config-Datei config/simplebuilding.json eingestellt: Auf Fabric öffnet ModMenu den Einstellungsbildschirm, auf NeoForge der Config-Knopf in der Mod-Liste. Der Bildschirm hat acht Reiter (Werkzeuge, Verzauberungen, Kolben, Pads, Beute, Darstellung, Erweitert, Server & Modpack-Tuning) mit Tooltip und Standardwert zu jeder Option; Operatoren ändern jede Option im Spiel mit /simplebuilding config.",
+        "summary": "Die Mod wird über die Cloth-Config-Datei config/simplebuilding.json eingestellt: Auf Fabric öffnet ModMenu den Einstellungsbildschirm, auf NeoForge der Config-Knopf in der Mod-Liste. Der Bildschirm hat sieben Reiter (Werkzeuge, Verzauberungen, Kolben, Pads, Beute, Darstellung, Erweitert) mit Tooltip und Standardwert zu jeder Option; Operatoren ändern jede Option im Spiel mit /simplebuilding config.",
         "details": [
-          "Bildschirm: Cloth Config baut ihn aus SimplebuildingConfig; auf Fabric öffnet ihn ModMenu, auf NeoForge der Config-Knopf in der Mod-Liste (IConfigScreenFactory). Acht Reiter, Wichtiges zuerst: Werkzeuge & Bauen, Verzauberungen & Rüstung, Kolben, Pads & Tweaks, Beute, Handel & Welt, Darstellung (Client), Kompatibilität & Erweitert, Server & Modpack-Tuning. Jede Option zeigt einen Tooltip mit Wirkung und Standardwert. Forge hat kein Cloth Config: Es läuft mit den Standardwerten und ohne Datei (Befehle ändern nur die laufenden Werte). Die 26.4-Snapshot-Linie hat ebenfalls keinen Bildschirm.",
+          "Bildschirm: Cloth Config baut ihn aus SimplebuildingConfig; auf Fabric öffnet ihn ModMenu, auf NeoForge der Config-Knopf in der Mod-Liste (IConfigScreenFactory). Sieben Reiter, Wichtiges zuerst: Werkzeuge & Bauen, Verzauberungen & Rüstung, Kolben, Pads & Tweaks, Beute, Handel & Welt, Darstellung (Client), Kompatibilität & Erweitert. Jede Option zeigt einen Tooltip mit Wirkung und Standardwert. Forge hat kein Cloth Config: Es läuft mit den Standardwerten und ohne Datei (Befehle ändern nur die laufenden Werte). Die 26.4-Snapshot-Linie hat ebenfalls keinen Bildschirm.",
           "Datei: config/simplebuilding.json. Die Reiter ändern nur den Bildschirm: Das JSON behält seine Verschachtelung (tools.*, worldGen.*, tweaks.*), ältere Dateien laden unverändert. Beim Laden werden Werte begrenzt (negative Abklingzeiten, NaN-Faktoren und Ähnliches fallen auf 0 bzw. den Standard zurück).",
           "Befehl (Operatoren): /simplebuilding config list [Filter] listet jede Option mit ihrem Wert (gold = geändert), get <Option> zeigt Wert, Standard und Typ, set <Option> <Wert> und reset <Option> ändern sie, speichern die Datei und schicken die neuen Server-Werte an alle Clients. Die Optionsnamen sind die Punkt-Pfade unten; die Liste entsteht aus den Config-Feldern selbst (ConfigOptions), jede Option ist also erreichbar. setTrimMultiplier/getTrimMultiplier bleiben. /simplebuilding tweaks ... behält seine kürzeren Pad- und Spawn-Befehle.",
           "Server an Client: Was Clients mit dem Server gleich sehen müssen, schickt der Server beim Einloggen und nach jedem Config-Befehl - Raketen-Stapelgröße, Boosts, Linse an/aus und Reichweite, die Luftsprung-Abklingzeit (TweaksConfigPayload), die beiden Kolben-Durchbruch-Optionen (PistonConfigPayload) und den Besatz-Multiplikator (TrimDataPayload). Als clientseitig markierte Optionen wirken nur für den Spieler, in dessen Config sie stehen.",
-          "Server & Modpack-Tuning (Reiter server.*, 2026-09-28): jede Gameplay-Stellschraube für Server- und Modpack-Ersteller in einem fortgeschrittenen Reiter und serverseitig verbindlich - der Server schickt den ganzen Reiter beim Einloggen und nach jedem Config-Befehl an alle Clients (im TweaksConfigPayload), und die Clients rechnen Tooltips, JEI-Seiten, den Abbaufortschritt an Pads und die Hammer-Animation mit den Werten des Servers; die eigene Datei eines Clients hat nichts zu sagen. Standard = bisheriges Verhalten; jede Geschwindigkeit und Reichweite ist so begrenzt, dass Vanilla intakt bleibt.",
-          "Funktionsschalter (server.features): Luftsprung (serverweit, zusätzlich zum eigenen Schalter des Clients), dynamisches Licht (aus räumt die gesetzten Lichtblöcke weg), Rucksack, Attractor, Echolot, Blaupause, Erzdetektor und schwebende/hängende Blöcke. Aus schaltet die Funktion sofort ab und nimmt ihre Rezepte beim nächsten /reload weg; die Pad-Schalter (tweaks.pads.*) und der Linsen-Schalter nehmen ihre Rezepte jetzt auch weg. Gefiltert wird beim Aufbau der Rezepttabelle, auf Fabric, NeoForge und Forge gleich.",
-          "Chunk-Loader (server.chunkLoaders.requireOwnerOnline, Standard an): ein Chunk-Loader hält seine Chunks nur, solange sein Besitzer online ist, und läuft wieder, wenn er zurückkommt; geprüft wird auch gleich beim Setzen. /simplebuilding chunkloaders list zeigt alle Loader (Position, Dimension, Besitzer, online, Bereich, lädt oder ruht), /simplebuilding chunkloaders remove <Dimension> <Pos> entfernt einen. Keine Obergrenze pro Spieler.",
-          "Dimensionssperren (server.dimensionLocks): Listen von Dimension-IDs, in denen Chunk-Loader nichts laden, Flypads keinen Flug geben und das Echolot nicht springt (weder hinein noch heraus).",
-          "Amethystlinse (server.laser): eigene Schalter für das Entzünden brennbarer Blöcke, von TNT und von Lebewesen. End-Erze (server.oreGeneration): Hauptschalter plus Astralit und Nihilit, umgesetzt über eine Config-Bedingung an den NeoForge-/Forge-Biom-Modifikatoren und die Fabric-Biomauswahl (nächster Weltstart, nur neue Chunks).",
-          "Zahlen: wie lange Fremde zum Abbauen von Pads und Platten brauchen (für den Abbaufortschritt synchronisiert), die Höchstladung von Amethystlinse, Rotator und Echolot (Haltbarkeit: Neustart nötig, Clients brauchen dieselbe Datei), Länge und Schaden je Schlag der Hammer-Aufwertung, Meißel-Abklingzeit je Stufe, Trichter- und Ofentempo je Stufe (1- bis 8-fach Vanilla), Erzdetektor-Reichweite (0,25 bis 1,5) und Suchabstand, ein globaler Faktor auf alle Mod-Beute (0 bis 3), Beute-Schalter je Struktur, ein Handelspreis-Faktor (0,25 bis 4), das Bautempo der Blaupause (Blöcke je Tick) und die Stärke jeder Besatz-Wirkung (0 bis 2).",
-          "Die JEI-Infoseiten von Chunk-Loadern, Pads, Amethystlinse und Echolot bekommen eine Zeile mit den Werten dieses Servers; Erzdetektor- und Besatz-Tooltips zeigen die Zahlen des Servers.",
           "Werkzeuge & Bauen → Hungerkosten des Baustabs (experimentell) (tools.buildingWandHungerCost, Standard an): Experimentell. Viel auf einmal bauen macht hungrig: Pro Klick oder Blaupausen-Bau sind die ersten Blöcke frei (1/16 des größten Würfels des Stabs, mindestens 256 - normale Flächen kosten nie etwas); jeder weitere Block erzeugt Erschöpfung, bei stärkeren Stäben weniger (ein Kupfer-Baustab, der 16x16x16 füllt, kostet etwa ein Viertel der Hungerleiste, ein Enderit-Baustab mit 128x128x128 die ganze Leiste). Der Kreativmodus ist ausgenommen. Verursacht nie selbst Schaden. Serverseitig.",
           "Werkzeuge & Bauen → Hunger-Faktor des Baustabs (tools.wandHungerMultiplier, Standard 1,0): Multipliziert die Erschöpfung jedes Blocks über dem Freibetrag (siehe Hungerkosten des Baustabs). 0,5 = halb so hungrig, 2 = doppelt so hungrig, 0 = Bauen kostet nichts. Der Freibetrag bleibt. Serverseitig.",
           "Werkzeuge & Bauen → Reichweiten-Faktor des Attraktors (tools.magnetRangeMultiplier, Standard 1,0): Multipliziert, wie weit der Attraktor Gegenstände anzieht (4 Blöcke, 8 mit Berührung des Konstrukteurs, +2 je Radius-Stufe). 2 = doppelt so weit, 0 = der Attraktor zieht nichts an. Serverseitig.",
@@ -3304,10 +3422,14 @@ window.WIKI_DATA = {
           "Darstellung (Client) → Eigene Texturen für Mod-Zauberbücher (modEnchantedBookTextures, Standard an): Jede Verzauberung dieser Mod hat ihr eigenes Buch. Aus: das schlichte Vanilla-Zauberbuch. Wirkt sofort.",
           "Darstellung (Client) → Besatzmuster auf Vanilla-Rüstungs-Icons (visibleTrimIconsVanillaArmor, Standard an): Die Icons besetzter Vanilla-Rüstung (auch des Schildkrötenpanzers) zeigen das Besatzmuster in den Farben des Materials. Aus: das Vanilla-Icon mit nur einem Farbfleck. Wirkt sofort.",
           "Darstellung (Client) → Besatzmuster auf Enderit-Rüstungs-Icons (visibleTrimIconsModArmor, Standard an): Die Icons besetzter Enderit-Rüstung zeigen das Besatzmuster in den Farben des Materials. Aus: das schlichte Icon mit nur einem Farbfleck. Wirkt sofort.",
+          "Darstellung (Client) → Mod-HUD anzeigen (showModHud, Standard an): zeigt die HUD-Kästen der Mod - Tacho, Entfernungsmesser, Luftsprung-Leiste und Spawn-Elytra-Leiste. Die Taste „Mod-HUD ein/aus“ (anfangs nicht belegt) schaltet diese Option um und speichert sie; aus ersetzt die Vanilla-Erfahrungsleiste die Spawn-Elytra-Leiste.",
+          "Darstellung (Client) → HUD-Position waagerecht / senkrecht (hudPositionX, Standard 0; hudPositionY, Standard 50; 0 bis 100): wo die Kästen von Tacho und Entfernungsmesser stehen, in Prozent des freien Raums zwischen den 10-px-Rändern - 0 = links/oben, 100 = rechts/unten. Die Standardwerte sind die alte Stelle links in der Mitte; mit beiden in der Hand steht der Entfernungsmesser 35 px darüber und der Tacho 35 px darunter.",
+          "Darstellung (Client) → HUD-Größe (hudScale, Standard 100, 50 bis 200): Größe der Kästen von Tacho und Entfernungsmesser in Prozent.",
           "Kompatibilität & Erweitert → Kolben lösen Abbau-Ereignisse aus (pistonsFireBreakEvents, Standard an): Bevor ein Netherit- oder Enderitkolben einen Block zerstört, löst er das Abbau-Ereignis des Loaders mit einem Fake-Spieler aus, damit Claim- und Schutz-Mods es verhindern können. Ausschalten, wenn ein Schutz-Mod jeden Fake-Spieler sperrt (die Kolben stünden überall still) oder Quest- und Statistik-Mods Kolbenabbau als Spielerabbau zählen. Serverseitig.",
           "Kompatibilität & Erweitert → Kreativ-Tab „SimpleEnchants (Dev)“ zeigen (showDevEnchantedTab, Standard aus): Zeigt den Kreativ-Tab „SimpleEnchants (Dev)“ auch außerhalb von Entwicklungsumgebungen: die beste Stufe jedes verzauberbaren Gegenstands, vorverzaubert auf Höchststufe. Wirkt beim Neuaufbau der Kreativ-Tabs (spätestens nach erneutem Betreten).",
           "Die Obergrenze der Besatz-Resonanz maxMultiplierLimit (10,0) steht fest im Code: Obergrenze von setTrimMultiplier und des geladenen Werts; sie ist keine Option.",
-          "Auf NeoForge hält die Mod eine Standard-Konfiguration vor, falls das Laden fehlschlägt (Fallback new SimplebuildingConfig())."
+          "Auf NeoForge hält die Mod eine Standard-Konfiguration vor, falls das Laden fehlschlägt (Fallback new SimplebuildingConfig()).",
+          "Die Erzgenerierung im End besitzt keinen Konfigurationsschalter."
         ]
       }
     }
@@ -5786,7 +5908,7 @@ window.WIKI_DATA = {
       "id": "simplebuilding:emitting_trim_template",
       "name": {
         "en_us": "Emitting Armor Trim",
-        "de_de": "Strahlender Rüstungsbesatz"
+        "de_de": "Strahlende Schmiedevorlage"
       },
       "texture": "assets/textures/item/emitting_trim_template.png",
       "craftedBy": [
@@ -8045,7 +8167,7 @@ window.WIKI_DATA = {
       "id": "simplebuilding:glowing_trim_template",
       "name": {
         "en_us": "Glowing Armor Trim",
-        "de_de": "Leuchtender Rüstungsbesatz"
+        "de_de": "Leuchtende Schmiedevorlage"
       },
       "texture": "assets/textures/item/glowing_trim_template.png",
       "craftedBy": [
@@ -8851,6 +8973,7 @@ window.WIKI_DATA = {
         "simplebuilding:guide_book"
       ],
       "usedIn": [
+        "simplebuilding:guide_book_admin",
         "simplebuilding:guide_book_building",
         "simplebuilding:guide_book_end",
         "simplebuilding:guide_book_machines",
@@ -8859,6 +8982,72 @@ window.WIKI_DATA = {
         "simplebuilding:guide_book_trims",
         "simplebuilding:guide_book_tweaks"
       ],
+      "trades": [],
+      "properties": {
+        "maxStackSize": 16
+      },
+      "note": {
+        "en": {
+          "summary": "The Beginner's Guide is the book every player gets once on first joining a world or server: a short, clickable walk through the first steps. Seven topic books (Tools & Upgrades, Building, Storage, Machines & Pistons, End & Enderite, Pads & Gadgets, Trims & Radiance) go deeper and are crafted at the crafting table.",
+          "details": [
+            "Reading: right-click opens the mod's own book screen, an open two-page book in blue leather. The first spread shows the title, a tagline and the chapter list with an icon per chapter (click to jump). Every chapter starts on a new spread: title with icon, text and the items it talks about on the left, recipe cards on the right (crafting grid, shapeless row, smithing with ingredient counts, furnace, stonecutter), or the chapter icon large when there is no recipe. Hover any item for its tooltip; ingredients from tags cycle once a second.",
+            "Navigation: arrows at the bottom, arrow keys, A/D, Page Up/Down or the mouse wheel; right-click or Backspace jumps back (after a chapter jump) or to the contents, Home to the contents, the bookmark on the left always leads to the contents. Each book remembers its last spread until the game restarts. The bookmarks on the right switch between the eight books - a book you do not carry stays locked and its tooltip names the recipe.",
+            "Recipes: in singleplayer the screen reads the recipe manager directly (all recipes); on a server it only knows the recipes your recipe book has unlocked and shows \"Recipe not unlocked yet\" otherwise.",
+            "Tooltip: the name in the book's colour, an italic tagline and the line SimpleBuilding. On a lectern (and in a chiseled bookshelf) the books still work; the lectern shows the plain vanilla pages with the same texts and page links.",
+            "Language: every page is built from translation keys, so it shows in the reader's client language (English and German ship with the mod); key hints such as the backpack key show the key the player actually bound.",
+            "The Beginner's Guide covers the Stone Chisel, the Sledgehammer, Diamond Pebbles, hammering machines up a tier, the Building Wand, the Octant, the Backpack, upgrading tools and where enchantments come from, and ends with the list of topic books and their recipes.",
+            "Topic book recipes (shapeless): a book or the Beginner's Guide plus Stone Chisel (Tools & Upgrades), Brick (Building), Chest (Storage), Piston (Machines & Pistons), Ender Pearl (End & Enderite), Stone Pressure Plate (Pads & Gadgets) or Amethyst Shard (Trims & Radiance). Made from the guide, the guide stays in the crafting grid. The recipes unlock with the key item or with the guide.",
+            "A lost guide is crafted again from a book and a crafting table.",
+            "First-join gift: once per player (player tag simplebuilding.guide_book_given, kept through death); with a full inventory it drops at the player's feet. The config option giveGuideBookOnFirstJoin (default on) switches it off; while it is off nothing is given and nothing is remembered, so switching it on later gives every player the guide once on their next join. Players of existing worlds get it on their next join after the update.",
+            "Stacks to 16 like a written book. The pages are fixed: they carry no author and no generation line, and they are the same for every reader."
+          ]
+        },
+        "de": {
+          "summary": "Das Einsteiger-Handbuch bekommt jeder Spieler einmal beim ersten Betreten einer Welt oder eines Servers: ein kurzer, anklickbarer Weg durch die ersten Schritte. Sieben Themenbücher (Werkzeuge & Aufwertungen, Bauen, Lagerung, Maschinen & Kolben, Ende & Enderit, Pads & Geräte, Besätze & Strahlkraft) gehen tiefer und entstehen an der Werkbank.",
+          "details": [
+            "Lesen: Rechtsklick öffnet den eigenen Buchbildschirm der Mod, ein aufgeschlagenes Buch in blauem Leder. Die erste Doppelseite zeigt Titel, Unterzeile und das Kapitelverzeichnis mit einem Symbol je Kapitel (Klick springt hin). Jedes Kapitel beginnt auf einer neuen Doppelseite: links Titel mit Symbol, Text und die besprochenen Items, rechts Rezeptkarten (Werkbankraster, formlose Reihe, Schmiede mit Zutatenzahl, Ofen, Steinsäge) oder, ohne Rezept, das Kapitelsymbol groß. Jedes Item zeigt beim Überfahren seinen Tooltip; Zutaten aus Tags wechseln im Sekundentakt.",
+            "Bedienung: Pfeile unten, Pfeiltasten, A/D, Bild auf/ab oder Mausrad; Rechtsklick oder Rücktaste springt zurück (nach einem Kapitelsprung) oder zum Inhalt, Pos1 zum Inhalt, das Lesezeichen links führt immer zum Inhalt. Jedes Buch merkt sich seine letzte Doppelseite bis zum Neustart des Spiels. Die Lesezeichen rechts wechseln zwischen den acht Büchern - ein Buch, das man nicht dabeihat, bleibt gesperrt, und sein Tooltip nennt das Rezept.",
+            "Rezepte: im Einzelspieler liest der Bildschirm den Rezeptmanager direkt (alle Rezepte); auf einem Server kennt er nur die Rezepte, die das eigene Rezeptbuch freigeschaltet hat, sonst steht dort \"Rezept noch nicht freigeschaltet\".",
+            "Tooltip: der Name in der Farbe des Buchs, eine kursive Unterzeile und die Zeile SimpleBuilding. Aufs Lesepult (und ins gemeißelte Bücherregal) passen die Bücher weiterhin; das Lesepult zeigt die schlichten Vanilla-Seiten mit denselben Texten und Seitenlinks.",
+            "Sprache: jede Seite besteht aus Übersetzungsschlüsseln und erscheint in der Sprache des lesenden Clients (Englisch und Deutsch liegen bei); Tastenhinweise wie die Rucksack-Taste zeigen die Taste, die der Spieler wirklich belegt hat.",
+            "Das Einsteiger-Handbuch behandelt Steinmeißel, Vorschlaghammer, Diamantkiesel, das Aufhämmern von Maschinen, Baustab, Oktant, Rucksack, das Aufwerten von Werkzeugen und woher Verzauberungen kommen, und endet mit der Liste der Themenbücher samt Rezept.",
+            "Rezepte der Themenbücher (formlos): ein Buch oder das Einsteiger-Handbuch plus Steinmeißel (Werkzeuge & Aufwertungen), Ziegel (Bauen), Truhe (Lagerung), Kolben (Maschinen & Kolben), Enderperle (Ende & Enderit), Steindruckplatte (Pads & Geräte) oder Amethystscherbe (Besätze & Strahlkraft). Mit dem Handbuch hergestellt, bleibt das Handbuch im Raster liegen. Freigeschaltet werden die Rezepte durch das Schlüsselitem oder durch das Handbuch.",
+            "Ein verlorenes Handbuch entsteht neu aus einem Buch und einer Werkbank.",
+            "Geschenk beim ersten Betreten: einmal je Spieler (Spieler-Tag simplebuilding.guide_book_given, bleibt über den Tod erhalten); bei vollem Inventar fällt es vor die Füße. Die Config-Option giveGuideBookOnFirstJoin (Standard an) schaltet es ab; solange sie aus ist, wird nichts verschenkt und nichts gemerkt, später eingeschaltet bekommt also jeder Spieler das Handbuch einmal beim nächsten Betreten. Spieler bestehender Welten bekommen es beim ersten Betreten nach dem Update.",
+            "Stapelbar bis 16 wie ein beschriebenes Buch. Die Seiten sind fest: kein Autor, keine Generationszeile, für jeden Leser gleich."
+          ]
+        },
+        "sources": [
+          "common/src/shared/java/com/simplebuilding/guide/GuideBooks.java",
+          "common/src/shared/java/com/simplebuilding/guide/GuideContent.java",
+          "common/src/shared/java/com/simplebuilding/client/guide/GuideBookScreen.java",
+          "common/src/shared/java/com/simplebuilding/items/custom/GuideBookItem.java",
+          "common/src/shared/java/com/simplebuilding/items/ModItems.java",
+          "common/src/shared/java/com/simplebuilding/mixin/ItemCraftRemainderAccessor.java",
+          "common/src/shared/java/com/simplebuilding/tweaks/TweaksContent.java",
+          "common/src/shared/java/com/simplebuilding/config/SimplebuildingConfig.java",
+          "common/src/shared/java/com/simplebuilding/gametest/GuideBookTests.java",
+          "src/main/java/com/simplebuilding/datagen/ModRecipeProvider.java",
+          "src/main/java/com/simplebuilding/datagen/ModItemTagProvider.java",
+          "src/main/generated/data/simplebuilding/recipe/guide_book_tools.json",
+          "src/main/resources/assets/simplebuilding/lang/en_us.json",
+          "src/main/resources/assets/simplebuilding/lang/de_de.json",
+          "mc1_21_11/shared/java/com/simplebuilding/guide/GuideBooks.java"
+        ]
+      },
+      "hasCustomBehaviour": false
+    },
+    {
+      "id": "simplebuilding:guide_book_admin",
+      "name": {
+        "en_us": "Guide: Server Admin",
+        "de_de": "Handbuch: Server-Verwaltung"
+      },
+      "texture": "assets/textures/item/guide_book_admin.png",
+      "craftedBy": [
+        "simplebuilding:guide_book_admin"
+      ],
+      "usedIn": [],
       "trades": [],
       "properties": {
         "maxStackSize": 16
@@ -17226,7 +17415,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "cooking",
         "vanilla": "minecraft:blast_furnace",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:116",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:115",
         "extraTicks": 7,
         "cookingTicksPerTick": 8
       },
@@ -17574,7 +17763,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "cooking",
         "vanilla": "minecraft:furnace",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModFurnaceBlockEntity.java:71",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModFurnaceBlockEntity.java:70",
         "extraTicks": 7,
         "cookingTicksPerTick": 8
       },
@@ -17660,7 +17849,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "hopper",
         "vanilla": "minecraft:hopper",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:337",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:336",
         "cooldownTicks": 1,
         "vanillaCooldownTicks": 8,
         "vanillaCooldownSource": "src/main/generated/wiki/items.json (HopperBlockEntity.MOVE_ITEM_SPEED)"
@@ -17997,7 +18186,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "cooking",
         "vanilla": "minecraft:smoker",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModSmokerBlockEntity.java:86",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModSmokerBlockEntity.java:85",
         "extraTicks": 7,
         "cookingTicksPerTick": 8
       },
@@ -18915,7 +19104,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "cooking",
         "vanilla": "minecraft:blast_furnace",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:111",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:110",
         "extraTicks": 3,
         "cookingTicksPerTick": 4
       },
@@ -19257,7 +19446,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "cooking",
         "vanilla": "minecraft:furnace",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModFurnaceBlockEntity.java:66",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModFurnaceBlockEntity.java:65",
         "extraTicks": 3,
         "cookingTicksPerTick": 4
       },
@@ -19369,7 +19558,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "hopper",
         "vanilla": "minecraft:hopper",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:332",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:331",
         "cooldownTicks": 2,
         "vanillaCooldownTicks": 8,
         "vanillaCooldownSource": "src/main/generated/wiki/items.json (HopperBlockEntity.MOVE_ITEM_SPEED)"
@@ -19749,7 +19938,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "cooking",
         "vanilla": "minecraft:smoker",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModSmokerBlockEntity.java:81",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModSmokerBlockEntity.java:80",
         "extraTicks": 3,
         "cookingTicksPerTick": 4
       },
@@ -20892,7 +21081,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "cooking",
         "vanilla": "minecraft:blast_furnace",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:113",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModBlastFurnaceBlockEntity.java:112",
         "extraTicks": 1,
         "cookingTicksPerTick": 2
       },
@@ -21187,7 +21376,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "cooking",
         "vanilla": "minecraft:furnace",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModFurnaceBlockEntity.java:68",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModFurnaceBlockEntity.java:67",
         "extraTicks": 1,
         "cookingTicksPerTick": 2
       },
@@ -21302,7 +21491,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "hopper",
         "vanilla": "minecraft:hopper",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:334",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModHopperBlockEntity.java:333",
         "cooldownTicks": 4,
         "vanillaCooldownTicks": 8,
         "vanillaCooldownSource": "src/main/generated/wiki/items.json (HopperBlockEntity.MOVE_ITEM_SPEED)"
@@ -21609,7 +21798,7 @@ window.WIKI_DATA = {
       "machine": {
         "kind": "cooking",
         "vanilla": "minecraft:smoker",
-        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModSmokerBlockEntity.java:83",
+        "source": "common/src/shared/java/com/simplebuilding/blocks/entity/custom/ModSmokerBlockEntity.java:82",
         "extraTicks": 1,
         "cookingTicksPerTick": 2
       },
@@ -26920,6 +27109,36 @@ window.WIKI_DATA = {
         ],
         [
           "minecraft:crafting_table"
+        ]
+      ],
+      "lines": [
+        "1.21.11",
+        "26.2",
+        "26.3"
+      ]
+    },
+    {
+      "id": "simplebuilding:guide_book_admin",
+      "type": "minecraft:crafting_shapeless",
+      "category": null,
+      "group": null,
+      "result": {
+        "id": "simplebuilding:guide_book_admin",
+        "count": 1
+      },
+      "source": "src/main/generated/data/simplebuilding/recipe/guide_book_admin.json",
+      "ingredients": [
+        "minecraft:book",
+        "minecraft:comparator",
+        "simplebuilding:guide_book"
+      ],
+      "ingredientGroups": [
+        [
+          "minecraft:book",
+          "simplebuilding:guide_book"
+        ],
+        [
+          "minecraft:comparator"
         ]
       ],
       "lines": [
@@ -36994,7 +37213,7 @@ window.WIKI_DATA = {
       "effects": [
         "minecraft:damage_protection"
       ],
-      "implementedIn": "data",
+      "implementedIn": "both",
       "hasEffect": true,
       "source": "src/main/generated/data/simplebuilding/enchantment/kinetic_protection.json",
       "note": {
@@ -38920,169 +39139,139 @@ window.WIKI_DATA = {
   ],
   "config": [
     {
-      "name": "tools.sledgehammerUpgradeSeconds",
-      "shortName": "sledgehammerUpgradeSeconds",
-      "type": "int",
-      "default": "5",
+      "name": "tools.buildingWandHungerCost",
+      "shortName": "buildingWandHungerCost",
+      "type": "boolean",
+      "default": "true",
       "note": null,
       "category": "Tools & Building",
       "categoryDe": "Werkzeuge & Bauen",
       "group": "Tools & Building",
       "groupDe": "Werkzeuge & Bauen",
-      "label": null,
-      "labelDe": null,
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Building Wand Hunger Cost (Experimental)",
+      "labelDe": "Hungerkosten des Baustabs (experimentell)",
+      "tooltip": "Experimental. Building a lot at once makes you hungry: per click or blueprint build the first blocks are free (1/16 of the wand's largest cube, at least 256 - normal faces never cost anything); every block past that adds food exhaustion, less for stronger wands (a Copper Wand filling 16x16x16 takes about a quarter of the hunger bar, an Enderite Wand building 128x128x128 the whole bar). Creative mode is exempt. It never deals damage itself. Server-side. Default: on.",
+      "tooltipDe": "Experimentell. Viel auf einmal bauen macht hungrig: Pro Klick oder Blaupausen-Bau sind die ersten Blöcke frei (1/16 des größten Würfels des Stabs, mindestens 256 - normale Flächen kosten nie etwas); jeder weitere Block erzeugt Erschöpfung, bei stärkeren Stäben weniger (ein Kupfer-Baustab, der 16x16x16 füllt, kostet etwa ein Viertel der Hungerleiste, ein Enderit-Baustab mit 128x128x128 die ganze Leiste). Der Kreativmodus ist ausgenommen. Verursacht nie selbst Schaden. Serverseitig. Standard: an."
     },
     {
-      "name": "tools.reinforcedUpgradeDamagePerHit",
-      "shortName": "reinforcedUpgradeDamagePerHit",
-      "type": "int",
-      "default": "2",
+      "name": "tools.wandHungerMultiplier",
+      "shortName": "wandHungerMultiplier",
+      "type": "double",
+      "default": "1.0",
       "note": null,
       "category": "Tools & Building",
       "categoryDe": "Werkzeuge & Bauen",
       "group": "Tools & Building",
       "groupDe": "Werkzeuge & Bauen",
-      "label": null,
-      "labelDe": null,
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Building Wand Hunger Multiplier",
+      "labelDe": "Hunger-Faktor des Baustabs",
+      "tooltip": "Multiplies the food exhaustion of every block past the free allowance (see Building Wand Hunger Cost). 0.5 = half as hungry, 2 = twice as hungry, 0 = building is free. The free allowance itself stays. Server-side. Default: 1.0.",
+      "tooltipDe": "Multipliziert die Erschöpfung jedes Blocks über dem Freibetrag (siehe Hungerkosten des Baustabs). 0,5 = halb so hungrig, 2 = doppelt so hungrig, 0 = Bauen kostet nichts. Der Freibetrag bleibt. Serverseitig. Standard: 1,0."
     },
     {
-      "name": "tools.netheriteUpgradeDamagePerHit",
-      "shortName": "netheriteUpgradeDamagePerHit",
-      "type": "int",
-      "default": "4",
+      "name": "tools.magnetRangeMultiplier",
+      "shortName": "magnetRangeMultiplier",
+      "type": "double",
+      "default": "1.0",
       "note": null,
       "category": "Tools & Building",
       "categoryDe": "Werkzeuge & Bauen",
       "group": "Tools & Building",
       "groupDe": "Werkzeuge & Bauen",
-      "label": null,
-      "labelDe": null,
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Attractor Range Multiplier",
+      "labelDe": "Reichweiten-Faktor des Attraktors",
+      "tooltip": "Multiplies how far the Attractor pulls items (4 blocks, 8 with Constructor's Touch, +2 per Radius level). 2 = twice as far, 0 = the Attractor pulls nothing. Server-side. Default: 1.0.",
+      "tooltipDe": "Multipliziert, wie weit der Attraktor Gegenstände anzieht (4 Blöcke, 8 mit Berührung des Konstrukteurs, +2 je Radius-Stufe). 2 = doppelt so weit, 0 = der Attraktor zieht nichts an. Serverseitig. Standard: 1,0."
     },
     {
-      "name": "tools.enderiteUpgradeDamagePerHit",
-      "shortName": "enderiteUpgradeDamagePerHit",
+      "name": "tools.rotatorChargePerTurn",
+      "shortName": "rotatorChargePerTurn",
       "type": "int",
-      "default": "10",
+      "default": "1",
       "note": null,
       "category": "Tools & Building",
       "categoryDe": "Werkzeuge & Bauen",
       "group": "Tools & Building",
       "groupDe": "Werkzeuge & Bauen",
-      "label": null,
-      "labelDe": null,
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Rotator Charge per Turn",
+      "labelDe": "Rotator-Ladung je Drehung",
+      "tooltip": "Charge one turn of the Rotator uses up (a full Rotator holds 1024, 16 Ender Pearls refill it). 0 = turning is free, 2 = half as many turns per charge. Unbreaking still applies. Server-side. Default: 1.",
+      "tooltipDe": "Ladung, die eine Drehung des Rotators verbraucht (voll sind 1024, 16 Enderperlen laden auf). 0 = Drehen kostet nichts, 2 = halb so viele Drehungen je Ladung. Haltbarkeit wirkt weiter. Serverseitig. Standard: 1."
     },
     {
-      "name": "tools.stoneChiselCooldownTicks",
-      "shortName": "stoneChiselCooldownTicks",
-      "type": "int",
-      "default": "30",
+      "name": "tools.invertBundleInteractions",
+      "shortName": "invertBundleInteractions",
+      "type": "boolean",
+      "default": "false",
       "note": null,
       "category": "Tools & Building",
       "categoryDe": "Werkzeuge & Bauen",
       "group": "Tools & Building",
       "groupDe": "Werkzeuge & Bauen",
-      "label": null,
-      "labelDe": null,
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Invert Bundle Clicks",
+      "labelDe": "Bündel-Klicks vertauschen",
+      "tooltip": "Swaps the mouse buttons on the mod's bundles and quivers: off, left click puts items in and right click takes one out; on, the other way round. Default: off.",
+      "tooltipDe": "Vertauscht die Maustasten bei den Bündeln und Köchern der Mod: aus legt Linksklick ein und Rechtsklick nimmt heraus; an umgekehrt. Standard: aus."
     },
     {
-      "name": "tools.copperChiselCooldownTicks",
-      "shortName": "copperChiselCooldownTicks",
-      "type": "int",
-      "default": "25",
-      "note": null,
+      "name": "tools.invertOctantSneak",
+      "shortName": "invertOctantSneak",
+      "type": "boolean",
+      "default": "false",
+      "note": "Constructor's Touch Invertierung",
       "category": "Tools & Building",
       "categoryDe": "Werkzeuge & Bauen",
       "group": "Tools & Building",
       "groupDe": "Werkzeuge & Bauen",
-      "label": null,
-      "labelDe": null,
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Invert Octant Area Preview",
+      "labelDe": "Oktant-Flächenvorschau umkehren",
+      "tooltip": "Off: the Octant draws its area figure only while it carries Constructor's Touch. On: the other way round. The two corner outlines are always drawn. Client-side. Default: off.",
+      "tooltipDe": "Aus: Der Oktant zeichnet die Flächenfigur nur, wenn er Berührung des Konstrukteurs trägt. An: umgekehrt. Die beiden Eckpunkt-Umrisse werden immer gezeichnet. Clientseitig. Standard: aus."
     },
     {
-      "name": "tools.ironChiselCooldownTicks",
-      "shortName": "ironChiselCooldownTicks",
+      "name": "tools.buildingHighlightOpacity",
+      "shortName": "buildingHighlightOpacity",
       "type": "int",
-      "default": "25",
+      "default": "40",
       "note": null,
       "category": "Tools & Building",
       "categoryDe": "Werkzeuge & Bauen",
       "group": "Tools & Building",
       "groupDe": "Werkzeuge & Bauen",
-      "label": null,
-      "labelDe": null,
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Preview Opacity (%)",
+      "labelDe": "Deckkraft der Vorschau (%)",
+      "tooltip": "Opacity of the filled preview faces of the Sledgehammer and the Octant, in percent (0 = invisible, 100 = solid). Client-side. Default: 40.",
+      "tooltipDe": "Deckkraft der gefüllten Vorschauflächen von Vorschlaghammer und Oktant in Prozent (0 = unsichtbar, 100 = deckend). Clientseitig. Standard: 40."
     },
     {
-      "name": "tools.goldChiselCooldownTicks",
-      "shortName": "goldChiselCooldownTicks",
-      "type": "int",
-      "default": "20",
-      "note": null,
+      "name": "tools.enableToolAnimations",
+      "shortName": "enableToolAnimations",
+      "type": "boolean",
+      "default": "true",
+      "note": "Hauptschalter",
       "category": "Tools & Building",
       "categoryDe": "Werkzeuge & Bauen",
       "group": "Tools & Building",
       "groupDe": "Werkzeuge & Bauen",
-      "label": null,
-      "labelDe": null,
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Tool Animations",
+      "labelDe": "Werkzeug-Animationen",
+      "tooltip": "Master switch for the first-person hand animations of the Chisel and the Sledgehammer. Client-side. Default: on.",
+      "tooltipDe": "Hauptschalter für die Handanimationen von Meißel und Vorschlaghammer in der Ich-Ansicht. Clientseitig. Standard: an."
     },
     {
-      "name": "tools.diamondChiselCooldownTicks",
-      "shortName": "diamondChiselCooldownTicks",
-      "type": "int",
-      "default": "10",
+      "name": "tools.enableChiselAnimation",
+      "shortName": "enableChiselAnimation",
+      "type": "boolean",
+      "default": "true",
       "note": null,
       "category": "Tools & Building",
       "categoryDe": "Werkzeuge & Bauen",
       "group": "Tools & Building",
       "groupDe": "Werkzeuge & Bauen",
-      "label": null,
-      "labelDe": null,
-      "tooltip": null,
-      "tooltipDe": null
-    },
-    {
-      "name": "tools.netheriteChiselCooldownTicks",
-      "shortName": "netheriteChiselCooldownTicks",
-      "type": "int",
-      "default": "5",
-      "note": null,
-      "category": "Tools & Building",
-      "categoryDe": "Werkzeuge & Bauen",
-      "group": "Tools & Building",
-      "groupDe": "Werkzeuge & Bauen",
-      "label": null,
-      "labelDe": null,
-      "tooltip": null,
-      "tooltipDe": null
-    },
-    {
-      "name": "tools.enderiteChiselCooldownTicks",
-      "shortName": "enderiteChiselCooldownTicks",
-      "type": "int",
-      "default": "5",
-      "note": null,
-      "category": "Tools & Building",
-      "categoryDe": "Werkzeuge & Bauen",
-      "group": "Tools & Building",
-      "groupDe": "Werkzeuge & Bauen",
-      "label": null,
-      "labelDe": null,
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Chisel Tilt Animation",
+      "labelDe": "Meißel-Kippanimation",
+      "tooltip": "Tilts the held Chisel when you aim at a block it can transform. Only plays while Tool Animations is on too. Client-side. Default: on.",
+      "tooltipDe": "Kippt den gehaltenen Meißel, wenn du auf einen Block zielst, den er umwandeln kann. Spielt nur, wenn auch Werkzeug-Animationen an ist. Clientseitig. Standard: an."
     },
     {
       "name": "enableDoubleJump",
@@ -39190,34 +39379,124 @@ window.WIKI_DATA = {
       "tooltipDe": "An: Die Kolben der Mod behandeln auch unzerstörbare Blöcke (Härte -1) anderer Mods als durchbrechbar. Aus: Nur die unzerstörbaren Blöcke von Vanilla und der Tag simplebuilding:piston_breachable_extra zählen. Serverseitig, an die Clients geschickt. Standard: aus."
     },
     {
-      "name": "tweaks.pads.strangerPadBreakSeconds",
-      "shortName": "strangerPadBreakSeconds",
-      "type": "int",
-      "default": "60",
+      "name": "tweaks.pads.enableChunkLoaders",
+      "shortName": "enableChunkLoaders",
+      "type": "boolean",
+      "default": "true",
       "note": null,
       "category": "Pads & Tweaks",
       "categoryDe": "Pads & Tweaks",
       "group": "Pads & Plates: On/Off",
       "groupDe": "Pads & Platten: an/aus",
-      "label": null,
-      "labelDe": null,
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Chunk Loaders",
+      "labelDe": "Chunk-Lader",
+      "tooltip": "Off: chunk loaders stay placeable but release their chunks and do nothing. Default: on.",
+      "tooltipDe": "Aus: Chunk-Lader bleiben setzbar, geben aber ihre Chunks frei und tun nichts. Standard: an."
     },
     {
-      "name": "tweaks.pads.strangerPlateBreakSeconds",
-      "shortName": "strangerPlateBreakSeconds",
-      "type": "int",
-      "default": "10",
+      "name": "tweaks.pads.enableElytraPads",
+      "shortName": "enableElytraPads",
+      "type": "boolean",
+      "default": "true",
       "note": null,
       "category": "Pads & Tweaks",
       "categoryDe": "Pads & Tweaks",
       "group": "Pads & Plates: On/Off",
       "groupDe": "Pads & Platten: an/aus",
-      "label": null,
-      "labelDe": null,
-      "tooltip": null,
-      "tooltipDe": null
+      "label": "Elytra Pads",
+      "labelDe": "Elytra-Pads",
+      "tooltip": "Off: elytra pads hand out and recharge nothing. Default: on.",
+      "tooltipDe": "Aus: Elytra-Pads verteilen und laden nichts. Standard: an."
+    },
+    {
+      "name": "tweaks.pads.enableFlypads",
+      "shortName": "enableFlypads",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Pads & Plates: On/Off",
+      "groupDe": "Pads & Platten: an/aus",
+      "label": "Flypads",
+      "labelDe": "Flugpads",
+      "tooltip": "Off: flypads take creative flight back and grant none. Default: on.",
+      "tooltipDe": "Aus: Flugpads nehmen den Kreativflug zurück und geben keinen. Standard: an."
+    },
+    {
+      "name": "tweaks.pads.enableSpawnTeleporters",
+      "shortName": "enableSpawnTeleporters",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Pads & Plates: On/Off",
+      "groupDe": "Pads & Platten: an/aus",
+      "label": "Spawn Teleporters",
+      "labelDe": "Spawn-Teleporter",
+      "tooltip": "Off: spawn teleporters do not teleport. Default: on.",
+      "tooltipDe": "Aus: Spawn-Teleporter teleportieren nicht. Standard: an."
+    },
+    {
+      "name": "tweaks.pads.enableLaunchpads",
+      "shortName": "enableLaunchpads",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Pads & Plates: On/Off",
+      "groupDe": "Pads & Platten: an/aus",
+      "label": "Launchpads",
+      "labelDe": "Startrampen",
+      "tooltip": "Off: launchpads do not launch. Default: on.",
+      "tooltipDe": "Aus: Startrampen starten nicht. Standard: an."
+    },
+    {
+      "name": "tweaks.pads.enableTimedCopperPlates",
+      "shortName": "enableTimedCopperPlates",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Pads & Plates: On/Off",
+      "groupDe": "Pads & Platten: an/aus",
+      "label": "Copper Pressure Plates",
+      "labelDe": "Kupfer-Druckplatten",
+      "tooltip": "Off: copper pressure plates never activate. Default: on.",
+      "tooltipDe": "Aus: Kupfer-Druckplatten lösen nie aus. Standard: an."
+    },
+    {
+      "name": "tweaks.pads.enableFilterPlates",
+      "shortName": "enableFilterPlates",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Pads & Plates: On/Off",
+      "groupDe": "Pads & Platten: an/aus",
+      "label": "Netherite/Enderite Pressure Plates",
+      "labelDe": "Netherit-/Enderit-Druckplatten",
+      "tooltip": "Off: netherite and enderite pressure plates never activate. Default: on.",
+      "tooltipDe": "Aus: Netherit- und Enderit-Druckplatten lösen nie aus. Standard: an."
+    },
+    {
+      "name": "tweaks.pads.enablePotionPads",
+      "shortName": "enablePotionPads",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Pads & Tweaks",
+      "categoryDe": "Pads & Tweaks",
+      "group": "Pads & Plates: On/Off",
+      "groupDe": "Pads & Platten: an/aus",
+      "label": "Potion Pads",
+      "labelDe": "Trank-Pads",
+      "tooltip": "Off: potion pads keep their potion but give no effects. Default: on.",
+      "tooltipDe": "Aus: Trank-Pads behalten ihren Trank, geben aber keine Wirkungen. Standard: an."
     },
     {
       "name": "tweaks.padTuning.teleporterTier1WarmupTicks",
@@ -39321,8 +39600,8 @@ window.WIKI_DATA = {
       "groupDe": "Amethystlinse",
       "label": "Amethyst Lens",
       "labelDe": "Amethystlinse",
-      "tooltip": "Shows the beam dots and lets the lens melt, light and dry blocks. Off: the lens does nothing. Server-side, sent to clients. Off also removes its recipes (with the next /reload or world start). Default: on.",
-      "tooltipDe": "Zeigt die Strahlpunkte und lässt die Linse Blöcke schmelzen, anzünden und trocknen. Aus: Die Linse tut nichts. Serverseitig, an die Clients geschickt. Aus nimmt auch die Rezepte weg (beim nächsten /reload oder Weltstart). Standard: an."
+      "tooltip": "Shows the beam dots and lets the lens melt, light and dry blocks. Off: the lens does nothing. Server-side, sent to clients. Default: on.",
+      "tooltipDe": "Zeigt die Strahlpunkte und lässt die Linse Blöcke schmelzen, anzünden und trocknen. Aus: Die Linse tut nichts. Serverseitig, an die Clients geschickt. Standard: an."
     },
     {
       "name": "tweaks.laserPointer.color",
@@ -39970,6 +40249,66 @@ window.WIKI_DATA = {
       "tooltipDe": "Die Icons besetzter Enderit-Rüstung zeigen das Besatzmuster in den Farben des Materials. Aus: das schlichte Icon mit nur einem Farbfleck. Wirkt sofort. Standard: an."
     },
     {
+      "name": "showModHud",
+      "shortName": "showModHud",
+      "type": "boolean",
+      "default": "true",
+      "note": null,
+      "category": "Visuals (Client)",
+      "categoryDe": "Darstellung (Client)",
+      "group": null,
+      "groupDe": null,
+      "label": "Show Mod HUD",
+      "labelDe": "Mod-HUD anzeigen",
+      "tooltip": "Shows the mod's HUD boxes: velocity gauge, rangefinder, air jump bar and spawn elytra bar. The Toggle Mod HUD key (unbound by default, see Controls) switches this too. Client-side. Default: on.",
+      "tooltipDe": "Zeigt die HUD-Kästen der Mod: Tacho, Entfernungsmesser, Luftsprung-Leiste und Spawn-Elytra-Leiste. Die Taste „Mod-HUD ein/aus“ (anfangs nicht belegt, siehe Steuerung) schaltet das ebenfalls. Nur Client. Standard: an."
+    },
+    {
+      "name": "hudPositionX",
+      "shortName": "hudPositionX",
+      "type": "int",
+      "default": "0",
+      "note": null,
+      "category": "Visuals (Client)",
+      "categoryDe": "Darstellung (Client)",
+      "group": null,
+      "groupDe": null,
+      "label": "HUD Position: Horizontal",
+      "labelDe": "HUD-Position: waagerecht",
+      "tooltip": "Where the velocity gauge and rangefinder boxes sit across the screen, in percent: 0 = left edge, 50 = center, 100 = right edge. Client-side. Default: 0.",
+      "tooltipDe": "Wo die Kästen von Tacho und Entfernungsmesser in der Breite stehen, in Prozent: 0 = linker Rand, 50 = Mitte, 100 = rechter Rand. Nur Client. Standard: 0."
+    },
+    {
+      "name": "hudPositionY",
+      "shortName": "hudPositionY",
+      "type": "int",
+      "default": "50",
+      "note": null,
+      "category": "Visuals (Client)",
+      "categoryDe": "Darstellung (Client)",
+      "group": null,
+      "groupDe": null,
+      "label": "HUD Position: Vertical",
+      "labelDe": "HUD-Position: senkrecht",
+      "tooltip": "Where the velocity gauge and rangefinder boxes sit up and down the screen, in percent: 0 = top, 50 = middle, 100 = bottom. Client-side. Default: 50.",
+      "tooltipDe": "Wo die Kästen von Tacho und Entfernungsmesser in der Höhe stehen, in Prozent: 0 = oben, 50 = Mitte, 100 = unten. Nur Client. Standard: 50."
+    },
+    {
+      "name": "hudScale",
+      "shortName": "hudScale",
+      "type": "int",
+      "default": "100",
+      "note": null,
+      "category": "Visuals (Client)",
+      "categoryDe": "Darstellung (Client)",
+      "group": null,
+      "groupDe": null,
+      "label": "HUD Size",
+      "labelDe": "HUD-Größe",
+      "tooltip": "Size of the velocity gauge and rangefinder boxes in percent (50 to 200). Client-side. Default: 100.",
+      "tooltipDe": "Größe der Kästen von Tacho und Entfernungsmesser in Prozent (50 bis 200). Nur Client. Standard: 100."
+    },
+    {
       "name": "pistonsFireBreakEvents",
       "shortName": "pistonsFireBreakEvents",
       "type": "boolean",
@@ -39998,1311 +40337,6 @@ window.WIKI_DATA = {
       "labelDe": "Kreativ-Tab „SimpleEnchants (Dev)“ zeigen",
       "tooltip": "Shows the creative tab \"SimpleEnchants (Dev)\" outside development environments too: the best tier of every enchantable item, pre-enchanted at max level. Takes effect when the creative tabs are rebuilt (at the latest after rejoining). Default: off.",
       "tooltipDe": "Zeigt den Kreativ-Tab „SimpleEnchants (Dev)“ auch außerhalb von Entwicklungsumgebungen: die beste Stufe jedes verzauberbaren Gegenstands, vorverzaubert auf Höchststufe. Wirkt beim Neuaufbau der Kreativ-Tabs (spätestens nach erneutem Betreten). Standard: aus."
-    },
-    {
-      "name": "server.features.airJump",
-      "shortName": "airJump",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Features: On/Off",
-      "groupDe": "Funktionen: an/aus",
-      "label": "Air Jump",
-      "labelDe": "Luftsprung",
-      "tooltip": "Off: the Air Jump enchantment does nothing on this server, whatever a client's own Air Jump switch says. Server-side, sent to clients. Default: on.",
-      "tooltipDe": "Aus: die Verzauberung Luftsprung wirkt auf diesem Server nicht, egal was der eigene Schalter eines Clients sagt. Serverseitig, an die Clients geschickt. Standard: an."
-    },
-    {
-      "name": "server.features.dynamicLight",
-      "shortName": "dynamicLight",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Features: On/Off",
-      "groupDe": "Funktionen: an/aus",
-      "label": "Dynamic Light",
-      "labelDe": "Dynamisches Licht",
-      "tooltip": "Radiance armor lights up the blocks around its wearer with invisible light blocks. Off: no new light blocks, and the ones already placed disappear on the wearer's next check. Server-side. Default: on.",
-      "tooltipDe": "Leuchtende Rüstung erhellt die Umgebung ihres Trägers mit unsichtbaren Lichtblöcken. Aus: keine neuen Lichtblöcke, und die schon gesetzten verschwinden beim nächsten Takt des Trägers. Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.features.backpack",
-      "shortName": "backpack",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Features: On/Off",
-      "groupDe": "Funktionen: an/aus",
-      "label": "Backpacks",
-      "labelDe": "Rucksäcke",
-      "tooltip": "Off: a worn backpack no longer opens (a placed one still does, so nobody loses the contents). Its recipes vanish with the next /reload or world start. Server-side, sent to clients. Default: on.",
-      "tooltipDe": "Aus: ein getragener Rucksack öffnet sich nicht mehr (ein abgestellter schon, damit niemand den Inhalt verliert). Die Rezepte verschwinden beim nächsten /reload oder Weltstart. Serverseitig, an die Clients geschickt. Standard: an."
-    },
-    {
-      "name": "server.features.attractor",
-      "shortName": "attractor",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Features: On/Off",
-      "groupDe": "Funktionen: an/aus",
-      "label": "Attractor",
-      "labelDe": "Attractor",
-      "tooltip": "Off: the Attractor (formerly Magnet) pulls no items. Its recipes vanish with the next /reload or world start. Server-side. Default: on.",
-      "tooltipDe": "Aus: der Attractor (früher Magnet) zieht keine Gegenstände an. Die Rezepte verschwinden beim nächsten /reload oder Weltstart. Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.features.echoSounder",
-      "shortName": "echoSounder",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Features: On/Off",
-      "groupDe": "Funktionen: an/aus",
-      "label": "Echo Sounder",
-      "labelDe": "Echolot",
-      "tooltip": "Off: the Echo Sounder no longer teleports. Its recipes vanish with the next /reload or world start. Server-side. Default: on.",
-      "tooltipDe": "Aus: das Echolot teleportiert nicht mehr. Die Rezepte verschwinden beim nächsten /reload oder Weltstart. Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.features.blueprint",
-      "shortName": "blueprint",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Features: On/Off",
-      "groupDe": "Funktionen: an/aus",
-      "label": "Blueprints",
-      "labelDe": "Blaupausen",
-      "tooltip": "Off: blueprints neither open their editor nor build with the Building Wand. Its recipes vanish with the next /reload or world start. Server-side, sent to clients. Default: on.",
-      "tooltipDe": "Aus: Blaupausen öffnen weder den Editor noch bauen sie mit dem Baustab. Die Rezepte verschwinden beim nächsten /reload oder Weltstart. Serverseitig, an die Clients geschickt. Standard: an."
-    },
-    {
-      "name": "server.features.oreDetector",
-      "shortName": "oreDetector",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Features: On/Off",
-      "groupDe": "Funktionen: an/aus",
-      "label": "Ore Detector",
-      "labelDe": "Erzdetektor",
-      "tooltip": "Off: the Ore Detector stops scanning and its needle rests. Its recipes vanish with the next /reload or world start. Server-side. Default: on.",
-      "tooltipDe": "Aus: der Erzdetektor sucht nicht mehr, seine Nadel ruht. Die Rezepte verschwinden beim nächsten /reload oder Weltstart. Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.features.levitatingBlocks",
-      "shortName": "levitatingBlocks",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Features: On/Off",
-      "groupDe": "Funktionen: an/aus",
-      "label": "Levitating & Suspended Blocks",
-      "labelDe": "Schwebende & hängende Blöcke",
-      "tooltip": "Off: Levitating and Suspended Sand and Gravel can no longer be crafted; placed blocks stay as they are. Its recipes vanish with the next /reload or world start. Server-side. Default: on.",
-      "tooltipDe": "Aus: schwebender und hängender Sand und Kies lassen sich nicht mehr herstellen; gesetzte Blöcke bleiben, wie sie sind. Die Rezepte verschwinden beim nächsten /reload oder Weltstart. Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.chunkLoaders.requireOwnerOnline",
-      "shortName": "requireOwnerOnline",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Chunk Loaders",
-      "groupDe": "Chunk-Loader",
-      "label": "Only While the Owner Is Online",
-      "labelDe": "Nur solange der Besitzer online ist",
-      "tooltip": "On: a chunk loader keeps its chunks loaded only while the player who placed it is online; it wakes up again when they return. Loaders without a stored owner always run. Operators list all loaders with /simplebuilding chunkloaders list. Server-side. Default: on.",
-      "tooltipDe": "An: ein Chunk-Loader hält seine Chunks nur, solange der Spieler, der ihn gesetzt hat, online ist; kommt er zurück, läuft der Loader wieder. Loader ohne gespeicherten Besitzer laufen immer. Operatoren listen alle Loader mit /simplebuilding chunkloaders list auf. Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.dimensionLocks.chunkLoaderBlockedDimensions",
-      "shortName": "chunkLoaderBlockedDimensions",
-      "type": "String",
-      "default": "\"\"",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Dimension Locks",
-      "groupDe": "Dimensionssperren",
-      "label": "Chunk Loaders: Blocked Dimensions",
-      "labelDe": "Chunk-Loader: gesperrte Dimensionen",
-      "tooltip": "Chunk loaders load nothing in these dimensions (placing one there says so). Dimension IDs separated by commas, e.g. minecraft:the_nether, minecraft:the_end (without a namespace minecraft: is assumed); empty = allowed everywhere. Via command, \"\" clears the list. Server-side. Default: empty.",
-      "tooltipDe": "In diesen Dimensionen laden Chunk-Loader nichts (beim Setzen gibt es eine Meldung). Dimension-IDs, durch Komma getrennt, z. B. minecraft:the_nether, minecraft:the_end (ohne Namensraum gilt minecraft:); leer = überall erlaubt. Per Befehl leert \"\" die Liste. Serverseitig. Standard: leer."
-    },
-    {
-      "name": "server.dimensionLocks.flypadBlockedDimensions",
-      "shortName": "flypadBlockedDimensions",
-      "type": "String",
-      "default": "\"\"",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Dimension Locks",
-      "groupDe": "Dimensionssperren",
-      "label": "Flypads: Blocked Dimensions",
-      "labelDe": "Flypads: gesperrte Dimensionen",
-      "tooltip": "Flypads grant no flight in these dimensions. Dimension IDs separated by commas, e.g. minecraft:the_nether, minecraft:the_end (without a namespace minecraft: is assumed); empty = allowed everywhere. Via command, \"\" clears the list. Server-side. Default: empty.",
-      "tooltipDe": "In diesen Dimensionen geben Flypads keinen Flug. Dimension-IDs, durch Komma getrennt, z. B. minecraft:the_nether, minecraft:the_end (ohne Namensraum gilt minecraft:); leer = überall erlaubt. Per Befehl leert \"\" die Liste. Serverseitig. Standard: leer."
-    },
-    {
-      "name": "server.dimensionLocks.echoSounderBlockedDimensions",
-      "shortName": "echoSounderBlockedDimensions",
-      "type": "String",
-      "default": "\"\"",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Dimension Locks",
-      "groupDe": "Dimensionssperren",
-      "label": "Echo Sounder: Blocked Dimensions",
-      "labelDe": "Echolot: gesperrte Dimensionen",
-      "tooltip": "The Echo Sounder jumps neither out of nor into these dimensions. Dimension IDs separated by commas, e.g. minecraft:the_nether, minecraft:the_end (without a namespace minecraft: is assumed); empty = allowed everywhere. Via command, \"\" clears the list. Server-side. Default: empty.",
-      "tooltipDe": "Das Echolot springt weder aus diesen Dimensionen heraus noch in sie hinein. Dimension-IDs, durch Komma getrennt, z. B. minecraft:the_nether, minecraft:the_end (ohne Namensraum gilt minecraft:); leer = überall erlaubt. Per Befehl leert \"\" die Liste. Serverseitig. Standard: leer."
-    },
-    {
-      "name": "server.laser.igniteFlammables",
-      "shortName": "igniteFlammables",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Amethyst Lens: What the Beam Ignites",
-      "groupDe": "Amethystlinse: was der Strahl entzündet",
-      "label": "Ignite Flammable Blocks",
-      "labelDe": "Brennbare Blöcke entzünden",
-      "tooltip": "Off: the beam no longer sets flammable blocks on fire or lights soul fire (melting, drying and candles still work). Server-side. Default: on.",
-      "tooltipDe": "Aus: der Strahl setzt keine brennbaren Blöcke mehr in Brand und zündet kein Seelenfeuer (Schmelzen, Trocknen und Kerzen gehen weiter). Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.laser.igniteTnt",
-      "shortName": "igniteTnt",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Amethyst Lens: What the Beam Ignites",
-      "groupDe": "Amethystlinse: was der Strahl entzündet",
-      "label": "Ignite TNT",
-      "labelDe": "TNT zünden",
-      "tooltip": "Off: the beam no longer primes TNT. Server-side. Default: on.",
-      "tooltipDe": "Aus: der Strahl zündet kein TNT mehr. Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.laser.igniteEntities",
-      "shortName": "igniteEntities",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Amethyst Lens: What the Beam Ignites",
-      "groupDe": "Amethystlinse: was der Strahl entzündet",
-      "label": "Ignite Creatures",
-      "labelDe": "Lebewesen anzünden",
-      "tooltip": "Off: the beam no longer sets mobs and players on fire. Server-side. Default: on.",
-      "tooltipDe": "Aus: der Strahl setzt keine Mobs und Spieler mehr in Brand. Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.oreGeneration.endOres",
-      "shortName": "endOres",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "End Ore Generation",
-      "groupDe": "End-Erzvorkommen",
-      "label": "End Ores",
-      "labelDe": "End-Erze",
-      "tooltip": "Main switch for both End ores. Off: neither Astralit nor Nihilit generates. Takes effect at the next world start and only in newly generated chunks. Server-side. Default: on.",
-      "tooltipDe": "Hauptschalter für beide End-Erze. Aus: weder Astralit noch Nihilit entstehen. Wirkt beim nächsten Weltstart und nur in neu erzeugten Chunks. Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.oreGeneration.astralitOre",
-      "shortName": "astralitOre",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "End Ore Generation",
-      "groupDe": "End-Erzvorkommen",
-      "label": "Astralit Ore",
-      "labelDe": "Astraliterz",
-      "tooltip": "Off: no Astralit ore on the surface of the End islands. Takes effect at the next world start and only in newly generated chunks. Server-side. Default: on.",
-      "tooltipDe": "Aus: kein Astraliterz auf der Oberfläche der End-Inseln. Wirkt beim nächsten Weltstart und nur in neu erzeugten Chunks. Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.oreGeneration.nihilitOre",
-      "shortName": "nihilitOre",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "End Ore Generation",
-      "groupDe": "End-Erzvorkommen",
-      "label": "Nihilit Ore",
-      "labelDe": "Nihiliterz",
-      "tooltip": "Off: no Nihilit ore on the underside of the End islands. Takes effect at the next world start and only in newly generated chunks. Server-side. Default: on.",
-      "tooltipDe": "Aus: kein Nihiliterz an der Unterseite der End-Inseln. Wirkt beim nächsten Weltstart und nur in neu erzeugten Chunks. Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.pads.strangerPadBreakSeconds",
-      "shortName": "strangerPadBreakSeconds",
-      "type": "int",
-      "default": "60",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Pads: Breaking by Strangers",
-      "groupDe": "Pads: Abbau durch Fremde",
-      "label": "Pads: Seconds for Strangers",
-      "labelDe": "Pads: Sekunden für Fremde",
-      "tooltip": "How long a player who did not place it needs to break a pad, spawn teleporter or launchpad (the owner needs 2 s, creative is instant), 1 to 3600. Server-side, sent to clients. Default: 60.",
-      "tooltipDe": "Wie lange ein Spieler, der es nicht gesetzt hat, zum Abbauen eines Pads, Spawn-Teleporters oder einer Startrampe braucht (der Besitzer 2 s, Kreativ sofort), 1 bis 3600. Serverseitig, an die Clients geschickt. Standard: 60."
-    },
-    {
-      "name": "server.pads.strangerPlateBreakSeconds",
-      "shortName": "strangerPlateBreakSeconds",
-      "type": "int",
-      "default": "10",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Pads: Breaking by Strangers",
-      "groupDe": "Pads: Abbau durch Fremde",
-      "label": "Plates & Chunk Loaders: Seconds for Strangers",
-      "labelDe": "Platten & Chunk-Loader: Sekunden für Fremde",
-      "tooltip": "How long a stranger needs to break a chunk loader, copper or filter plate (the owner needs 1.5 s), 1 to 3600. Server-side, sent to clients. Default: 10.",
-      "tooltipDe": "Wie lange ein Fremder zum Abbauen eines Chunk-Loaders, einer Kupfer- oder Filterplatte braucht (der Besitzer 1,5 s), 1 bis 3600. Serverseitig, an die Clients geschickt. Standard: 10."
-    },
-    {
-      "name": "server.charges.lensMaxCharge",
-      "shortName": "lensMaxCharge",
-      "type": "int",
-      "default": "640",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Maximum Charges (restart required)",
-      "groupDe": "Höchstladungen (Neustart nötig)",
-      "label": "Amethyst Lens: Maximum Charge",
-      "labelDe": "Amethystlinse: Höchstladung",
-      "tooltip": "Full charge of the Amethyst Lens (one redstone = 1/64 of it), 64 to 2560. This is the item's durability, fixed when the game starts: takes effect after a restart, and clients need the same value in their config file (ship it with the modpack), otherwise they show wrong charge bars. Default: 640.",
-      "tooltipDe": "Volle Ladung der Amethystlinse (ein Redstone = 1/64 davon), 64 bis 2560. Das ist die Haltbarkeit des Gegenstands, beim Spielstart festgelegt: wirkt nach einem Neustart, und Clients brauchen denselben Wert in ihrer Config-Datei (mit dem Modpack ausliefern), sonst zeigen sie falsche Ladebalken. Standard: 640."
-    },
-    {
-      "name": "server.charges.rotatorMaxCharge",
-      "shortName": "rotatorMaxCharge",
-      "type": "int",
-      "default": "1024",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Maximum Charges (restart required)",
-      "groupDe": "Höchstladungen (Neustart nötig)",
-      "label": "Rotator: Maximum Charge",
-      "labelDe": "Rotator: Höchstladung",
-      "tooltip": "Full charge of the Rotator in turns (16 ender pearls fill it), 64 to 4096. This is the item's durability, fixed when the game starts: takes effect after a restart, and clients need the same value in their config file (ship it with the modpack), otherwise they show wrong charge bars. Default: 1024.",
-      "tooltipDe": "Volle Ladung des Rotators in Drehungen (16 Enderperlen füllen ihn), 64 bis 4096. Das ist die Haltbarkeit des Gegenstands, beim Spielstart festgelegt: wirkt nach einem Neustart, und Clients brauchen denselben Wert in ihrer Config-Datei (mit dem Modpack ausliefern), sonst zeigen sie falsche Ladebalken. Standard: 1024."
-    },
-    {
-      "name": "server.charges.echoSounderMaxCharge",
-      "shortName": "echoSounderMaxCharge",
-      "type": "int",
-      "default": "1500",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Maximum Charges (restart required)",
-      "groupDe": "Höchstladungen (Neustart nötig)",
-      "label": "Echo Sounder: Maximum Charge",
-      "labelDe": "Echolot: Höchstladung",
-      "tooltip": "Repair points an emptied Echo Sounder needs to be fully charged again, 150 to 6000. This is the item's durability, fixed when the game starts: takes effect after a restart, and clients need the same value in their config file (ship it with the modpack), otherwise they show wrong charge bars. Default: 1500.",
-      "tooltipDe": "Reparaturpunkte, die ein geleertes Echolot bis zur vollen Ladung braucht, 150 bis 6000. Das ist die Haltbarkeit des Gegenstands, beim Spielstart festgelegt: wirkt nach einem Neustart, und Clients brauchen denselben Wert in ihrer Config-Datei (mit dem Modpack ausliefern), sonst zeigen sie falsche Ladebalken. Standard: 1500."
-    },
-    {
-      "name": "server.tools.sledgehammerUpgradeSeconds",
-      "shortName": "sledgehammerUpgradeSeconds",
-      "type": "int",
-      "default": "5",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Sledgehammer & Chisels",
-      "groupDe": "Vorschlaghammer & Meißel",
-      "label": "Hammer Upgrade: Seconds",
-      "labelDe": "Hammer-Aufwertung: Sekunden",
-      "tooltip": "How long an in-world upgrade with the sledgehammer takes; one blow per second, the last one converts the block. 1 to 30. Server-side, sent to clients. Default: 5.",
-      "tooltipDe": "Wie lange eine Aufwertung mit dem Vorschlaghammer in der Welt dauert; ein Schlag je Sekunde, der letzte baut den Block um. 1 bis 30. Serverseitig, an die Clients geschickt. Standard: 5."
-    },
-    {
-      "name": "server.tools.reinforcedUpgradeDamagePerHit",
-      "shortName": "reinforcedUpgradeDamagePerHit",
-      "type": "int",
-      "default": "2",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Sledgehammer & Chisels",
-      "groupDe": "Vorschlaghammer & Meißel",
-      "label": "Hammer Upgrade to Reinforced: Damage per Blow",
-      "labelDe": "Aufwertung zu verstärkt: Schaden je Schlag",
-      "tooltip": "Durability the sledgehammer loses per blow when upgrading a copper chest to a reinforced one, 0 to 64. Server-side. Default: 2.",
-      "tooltipDe": "Haltbarkeit, die der Vorschlaghammer je Schlag verliert, wenn er eine Kupfertruhe zur verstärkten aufwertet, 0 bis 64. Serverseitig. Standard: 2."
-    },
-    {
-      "name": "server.tools.netheriteUpgradeDamagePerHit",
-      "shortName": "netheriteUpgradeDamagePerHit",
-      "type": "int",
-      "default": "4",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Sledgehammer & Chisels",
-      "groupDe": "Vorschlaghammer & Meißel",
-      "label": "Hammer Upgrade to Netherite: Damage per Blow",
-      "labelDe": "Aufwertung zu Netherit: Schaden je Schlag",
-      "tooltip": "Durability lost per blow when upgrading a reinforced machine or chest to netherite, 0 to 64. Server-side. Default: 4.",
-      "tooltipDe": "Haltbarkeit je Schlag bei der Aufwertung einer verstärkten Maschine oder Truhe zu Netherit, 0 bis 64. Serverseitig. Standard: 4."
-    },
-    {
-      "name": "server.tools.enderiteUpgradeDamagePerHit",
-      "shortName": "enderiteUpgradeDamagePerHit",
-      "type": "int",
-      "default": "10",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Sledgehammer & Chisels",
-      "groupDe": "Vorschlaghammer & Meißel",
-      "label": "Hammer Upgrade to Enderite: Damage per Blow",
-      "labelDe": "Aufwertung zu Enderit: Schaden je Schlag",
-      "tooltip": "Durability lost per blow when upgrading a netherite machine or chest to enderite, 0 to 64. Server-side. Default: 10.",
-      "tooltipDe": "Haltbarkeit je Schlag bei der Aufwertung einer Netherit-Maschine oder -Truhe zu Enderit, 0 bis 64. Serverseitig. Standard: 10."
-    },
-    {
-      "name": "server.tools.stoneChiselCooldownTicks",
-      "shortName": "stoneChiselCooldownTicks",
-      "type": "int",
-      "default": "30",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Sledgehammer & Chisels",
-      "groupDe": "Vorschlaghammer & Meißel",
-      "label": "Stone Chisel: Cooldown (ticks)",
-      "labelDe": "Stein-Meißel: Abklingzeit (Ticks)",
-      "tooltip": "Cooldown after each use of the stone chisel and spatula, before Fast Chiseling (20 ticks = 1 s), 2 to 200. Server-side, sent to clients. Default: 30.",
-      "tooltipDe": "Abklingzeit nach jeder Benutzung von Stein-Meißel und -Spachtel, vor Schnelles Meißeln (20 Ticks = 1 s), 2 bis 200. Serverseitig, an die Clients geschickt. Standard: 30."
-    },
-    {
-      "name": "server.tools.copperChiselCooldownTicks",
-      "shortName": "copperChiselCooldownTicks",
-      "type": "int",
-      "default": "25",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Sledgehammer & Chisels",
-      "groupDe": "Vorschlaghammer & Meißel",
-      "label": "Copper Chisel: Cooldown (ticks)",
-      "labelDe": "Kupfer-Meißel: Abklingzeit (Ticks)",
-      "tooltip": "Cooldown after each use of the copper chisel and spatula, before Fast Chiseling (20 ticks = 1 s), 2 to 200. Server-side, sent to clients. Default: 25.",
-      "tooltipDe": "Abklingzeit nach jeder Benutzung von Kupfer-Meißel und -Spachtel, vor Schnelles Meißeln (20 Ticks = 1 s), 2 bis 200. Serverseitig, an die Clients geschickt. Standard: 25."
-    },
-    {
-      "name": "server.tools.ironChiselCooldownTicks",
-      "shortName": "ironChiselCooldownTicks",
-      "type": "int",
-      "default": "25",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Sledgehammer & Chisels",
-      "groupDe": "Vorschlaghammer & Meißel",
-      "label": "Iron Chisel: Cooldown (ticks)",
-      "labelDe": "Eisen-Meißel: Abklingzeit (Ticks)",
-      "tooltip": "Cooldown after each use of the iron chisel and spatula, before Fast Chiseling (20 ticks = 1 s), 2 to 200. Server-side, sent to clients. Default: 25.",
-      "tooltipDe": "Abklingzeit nach jeder Benutzung von Eisen-Meißel und -Spachtel, vor Schnelles Meißeln (20 Ticks = 1 s), 2 bis 200. Serverseitig, an die Clients geschickt. Standard: 25."
-    },
-    {
-      "name": "server.tools.goldChiselCooldownTicks",
-      "shortName": "goldChiselCooldownTicks",
-      "type": "int",
-      "default": "20",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Sledgehammer & Chisels",
-      "groupDe": "Vorschlaghammer & Meißel",
-      "label": "Gold Chisel: Cooldown (ticks)",
-      "labelDe": "Gold-Meißel: Abklingzeit (Ticks)",
-      "tooltip": "Cooldown after each use of the gold chisel and spatula, before Fast Chiseling (20 ticks = 1 s), 2 to 200. Server-side, sent to clients. Default: 20.",
-      "tooltipDe": "Abklingzeit nach jeder Benutzung von Gold-Meißel und -Spachtel, vor Schnelles Meißeln (20 Ticks = 1 s), 2 bis 200. Serverseitig, an die Clients geschickt. Standard: 20."
-    },
-    {
-      "name": "server.tools.diamondChiselCooldownTicks",
-      "shortName": "diamondChiselCooldownTicks",
-      "type": "int",
-      "default": "10",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Sledgehammer & Chisels",
-      "groupDe": "Vorschlaghammer & Meißel",
-      "label": "Diamond Chisel: Cooldown (ticks)",
-      "labelDe": "Diamant-Meißel: Abklingzeit (Ticks)",
-      "tooltip": "Cooldown after each use of the diamond chisel and spatula, before Fast Chiseling (20 ticks = 1 s), 2 to 200. Server-side, sent to clients. Default: 10.",
-      "tooltipDe": "Abklingzeit nach jeder Benutzung von Diamant-Meißel und -Spachtel, vor Schnelles Meißeln (20 Ticks = 1 s), 2 bis 200. Serverseitig, an die Clients geschickt. Standard: 10."
-    },
-    {
-      "name": "server.tools.netheriteChiselCooldownTicks",
-      "shortName": "netheriteChiselCooldownTicks",
-      "type": "int",
-      "default": "5",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Sledgehammer & Chisels",
-      "groupDe": "Vorschlaghammer & Meißel",
-      "label": "Netherite Chisel: Cooldown (ticks)",
-      "labelDe": "Netherit-Meißel: Abklingzeit (Ticks)",
-      "tooltip": "Cooldown after each use of the netherite chisel and spatula, before Fast Chiseling (20 ticks = 1 s), 2 to 200. Server-side, sent to clients. Default: 5.",
-      "tooltipDe": "Abklingzeit nach jeder Benutzung von Netherit-Meißel und -Spachtel, vor Schnelles Meißeln (20 Ticks = 1 s), 2 bis 200. Serverseitig, an die Clients geschickt. Standard: 5."
-    },
-    {
-      "name": "server.tools.enderiteChiselCooldownTicks",
-      "shortName": "enderiteChiselCooldownTicks",
-      "type": "int",
-      "default": "5",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Sledgehammer & Chisels",
-      "groupDe": "Vorschlaghammer & Meißel",
-      "label": "Enderite Chisel: Cooldown (ticks)",
-      "labelDe": "Enderit-Meißel: Abklingzeit (Ticks)",
-      "tooltip": "Cooldown after each use of the enderite chisel and spatula, before Fast Chiseling (20 ticks = 1 s), 2 to 200. Server-side, sent to clients. Default: 5.",
-      "tooltipDe": "Abklingzeit nach jeder Benutzung von Enderit-Meißel und -Spachtel, vor Schnelles Meißeln (20 Ticks = 1 s), 2 bis 200. Serverseitig, an die Clients geschickt. Standard: 5."
-    },
-    {
-      "name": "server.machines.reinforcedHopperSpeed",
-      "shortName": "reinforcedHopperSpeed",
-      "type": "int",
-      "default": "2",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Machine Speeds",
-      "groupDe": "Maschinentempo",
-      "label": "Reinforced Hopper: Speed",
-      "labelDe": "Verstärkter Trichter: Tempo",
-      "tooltip": "How many times faster than a vanilla hopper it moves items (8 = one item every tick, the fastest), 1 to 8. Server-side. Default: 2.",
-      "tooltipDe": "Wie viel schneller als ein Vanilla-Trichter er Gegenstände bewegt (8 = ein Gegenstand je Tick, das Schnellste), 1 bis 8. Serverseitig. Standard: 2."
-    },
-    {
-      "name": "server.machines.netheriteHopperSpeed",
-      "shortName": "netheriteHopperSpeed",
-      "type": "int",
-      "default": "4",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Machine Speeds",
-      "groupDe": "Maschinentempo",
-      "label": "Netherite Hopper: Speed",
-      "labelDe": "Netherit-Trichter: Tempo",
-      "tooltip": "How many times faster than a vanilla hopper it moves items (8 = one item every tick, the fastest), 1 to 8. Server-side. Default: 4.",
-      "tooltipDe": "Wie viel schneller als ein Vanilla-Trichter er Gegenstände bewegt (8 = ein Gegenstand je Tick, das Schnellste), 1 bis 8. Serverseitig. Standard: 4."
-    },
-    {
-      "name": "server.machines.enderiteHopperSpeed",
-      "shortName": "enderiteHopperSpeed",
-      "type": "int",
-      "default": "8",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Machine Speeds",
-      "groupDe": "Maschinentempo",
-      "label": "Enderite Hopper: Speed",
-      "labelDe": "Enderit-Trichter: Tempo",
-      "tooltip": "How many times faster than a vanilla hopper it moves items (8 = one item every tick, the fastest), 1 to 8. Server-side. Default: 8.",
-      "tooltipDe": "Wie viel schneller als ein Vanilla-Trichter er Gegenstände bewegt (8 = ein Gegenstand je Tick, das Schnellste), 1 bis 8. Serverseitig. Standard: 8."
-    },
-    {
-      "name": "server.machines.reinforcedFurnaceSpeed",
-      "shortName": "reinforcedFurnaceSpeed",
-      "type": "int",
-      "default": "2",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Machine Speeds",
-      "groupDe": "Maschinentempo",
-      "label": "Reinforced Furnaces: Speed",
-      "labelDe": "Verstärkte Öfen: Tempo",
-      "tooltip": "How many times faster than vanilla the reinforced furnace, smoker and blast furnace cook, without extra fuel, 1 to 8. Server-side. Default: 2.",
-      "tooltipDe": "Wie viel schneller als Vanilla Ofen, Räucherofen und Schmelzofen dieser Stufe garen, ohne zusätzlichen Brennstoff, 1 bis 8. Serverseitig. Standard: 2."
-    },
-    {
-      "name": "server.machines.netheriteFurnaceSpeed",
-      "shortName": "netheriteFurnaceSpeed",
-      "type": "int",
-      "default": "4",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Machine Speeds",
-      "groupDe": "Maschinentempo",
-      "label": "Netherite Furnaces: Speed",
-      "labelDe": "Netherit-Öfen: Tempo",
-      "tooltip": "How many times faster than vanilla the netherite furnace, smoker and blast furnace cook, without extra fuel, 1 to 8. Server-side. Default: 4.",
-      "tooltipDe": "Wie viel schneller als Vanilla Ofen, Räucherofen und Schmelzofen dieser Stufe garen, ohne zusätzlichen Brennstoff, 1 bis 8. Serverseitig. Standard: 4."
-    },
-    {
-      "name": "server.machines.enderiteFurnaceSpeed",
-      "shortName": "enderiteFurnaceSpeed",
-      "type": "int",
-      "default": "8",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Machine Speeds",
-      "groupDe": "Maschinentempo",
-      "label": "Enderite Furnaces: Speed",
-      "labelDe": "Enderit-Öfen: Tempo",
-      "tooltip": "How many times faster than vanilla the enderite furnace, smoker and blast furnace cook, without extra fuel, 1 to 8. Server-side. Default: 8.",
-      "tooltipDe": "Wie viel schneller als Vanilla Ofen, Räucherofen und Schmelzofen dieser Stufe garen, ohne zusätzlichen Brennstoff, 1 bis 8. Serverseitig. Standard: 8."
-    },
-    {
-      "name": "server.oreDetector.rangeMultiplier",
-      "shortName": "rangeMultiplier",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Ore Detector",
-      "groupDe": "Erzdetektor",
-      "label": "Range Multiplier",
-      "labelDe": "Reichweiten-Faktor",
-      "tooltip": "Multiplies the range and search sphere of every ore class (24/20/16/16 blocks, more with Radius), 0.25 to 1.5; the tooltip shows the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert Reichweite und Suchkugel jeder Erzklasse (24/20/16/16 Blöcke, mehr mit Radius), 0,25 bis 1,5; der Tooltip zeigt den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.oreDetector.scanIntervalTicks",
-      "shortName": "scanIntervalTicks",
-      "type": "int",
-      "default": "20",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Ore Detector",
-      "groupDe": "Erzdetektor",
-      "label": "Scan Interval (ticks)",
-      "labelDe": "Suchabstand (Ticks)",
-      "tooltip": "Ticks between two pings in the main hand (the off hand pings half as often), 10 to 200. Server-side. Default: 20.",
-      "tooltipDe": "Ticks zwischen zwei Pings in der Haupthand (die Nebenhand pingt halb so oft), 10 bis 200. Serverseitig. Standard: 20."
-    },
-    {
-      "name": "server.loot.globalLootMultiplier",
-      "shortName": "globalLootMultiplier",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Loot & Trading",
-      "groupDe": "Beute & Handel",
-      "label": "Global Loot Multiplier",
-      "labelDe": "Globaler Beute-Faktor",
-      "tooltip": "Multiplies all loot the mod adds to chests, vaults and fishing: 0 = none, 2 = twice as much on average, at most 3. The mob heads from charged creepers stay. Takes effect when the data packs load (/reload or world start). Server-side. Default: 1.0.",
-      "tooltipDe": "Multipliziert alle Beute, die die Mod in Truhen, Tresore und beim Angeln hinzufügt: 0 = keine, 2 = im Mittel doppelt so viel, höchstens 3. Die Köpfe von geladenen Creepern bleiben. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: 1,0."
-    },
-    {
-      "name": "server.loot.strongholdLoot",
-      "shortName": "strongholdLoot",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Loot & Trading",
-      "groupDe": "Beute & Handel",
-      "label": "Mod Loot: Strongholds",
-      "labelDe": "Mod-Beute: Festungen",
-      "tooltip": "Off: the mod adds nothing to the loot of strongholds; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Festungen nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.loot.endCityLoot",
-      "shortName": "endCityLoot",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Loot & Trading",
-      "groupDe": "Beute & Handel",
-      "label": "Mod Loot: End Cities",
-      "labelDe": "Mod-Beute: Endstädte",
-      "tooltip": "Off: the mod adds nothing to the loot of end cities; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Endstädte nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.loot.ancientCityLoot",
-      "shortName": "ancientCityLoot",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Loot & Trading",
-      "groupDe": "Beute & Handel",
-      "label": "Mod Loot: Ancient Cities",
-      "labelDe": "Mod-Beute: Antike Städte",
-      "tooltip": "Off: the mod adds nothing to the loot of ancient cities; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Antike Städte nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.loot.bastionLoot",
-      "shortName": "bastionLoot",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Loot & Trading",
-      "groupDe": "Beute & Handel",
-      "label": "Mod Loot: Bastions",
-      "labelDe": "Mod-Beute: Bastionen",
-      "tooltip": "Off: the mod adds nothing to the loot of bastions; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Bastionen nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.loot.netherFortressLoot",
-      "shortName": "netherFortressLoot",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Loot & Trading",
-      "groupDe": "Beute & Handel",
-      "label": "Mod Loot: Nether Fortresses",
-      "labelDe": "Mod-Beute: Netherfestungen",
-      "tooltip": "Off: the mod adds nothing to the loot of nether fortresses; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Netherfestungen nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.loot.pillagerOutpostLoot",
-      "shortName": "pillagerOutpostLoot",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Loot & Trading",
-      "groupDe": "Beute & Handel",
-      "label": "Mod Loot: Pillager Outposts",
-      "labelDe": "Mod-Beute: Plünderer-Außenposten",
-      "tooltip": "Off: the mod adds nothing to the loot of pillager outposts; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Plünderer-Außenposten nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.loot.woodlandMansionLoot",
-      "shortName": "woodlandMansionLoot",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Loot & Trading",
-      "groupDe": "Beute & Handel",
-      "label": "Mod Loot: Woodland Mansions",
-      "labelDe": "Mod-Beute: Waldanwesen",
-      "tooltip": "Off: the mod adds nothing to the loot of woodland mansions; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Waldanwesen nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.loot.buriedTreasureLoot",
-      "shortName": "buriedTreasureLoot",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Loot & Trading",
-      "groupDe": "Beute & Handel",
-      "label": "Mod Loot: Buried Treasure",
-      "labelDe": "Mod-Beute: Vergrabene Schätze",
-      "tooltip": "Off: the mod adds nothing to the loot of buried treasure; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Vergrabene Schätze nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.loot.dungeonLoot",
-      "shortName": "dungeonLoot",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Loot & Trading",
-      "groupDe": "Beute & Handel",
-      "label": "Mod Loot: Dungeons",
-      "labelDe": "Mod-Beute: Verliese",
-      "tooltip": "Off: the mod adds nothing to the loot of dungeons; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Verliese nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.loot.shipwreckLoot",
-      "shortName": "shipwreckLoot",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Loot & Trading",
-      "groupDe": "Beute & Handel",
-      "label": "Mod Loot: Shipwrecks",
-      "labelDe": "Mod-Beute: Schiffswracks",
-      "tooltip": "Off: the mod adds nothing to the loot of shipwrecks; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Schiffswracks nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.loot.iglooLoot",
-      "shortName": "iglooLoot",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Loot & Trading",
-      "groupDe": "Beute & Handel",
-      "label": "Mod Loot: Igloos",
-      "labelDe": "Mod-Beute: Iglus",
-      "tooltip": "Off: the mod adds nothing to the loot of igloos; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Iglus nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.loot.mineshaftLoot",
-      "shortName": "mineshaftLoot",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Loot & Trading",
-      "groupDe": "Beute & Handel",
-      "label": "Mod Loot: Mineshafts",
-      "labelDe": "Mod-Beute: Minen",
-      "tooltip": "Off: the mod adds nothing to the loot of mineshafts; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Minen nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.loot.trialChambersLoot",
-      "shortName": "trialChambersLoot",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Loot & Trading",
-      "groupDe": "Beute & Handel",
-      "label": "Mod Loot: Trial Chambers",
-      "labelDe": "Mod-Beute: Prüfungskammern",
-      "tooltip": "Off: the mod adds nothing to the loot of trial chambers; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Prüfungskammern nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.loot.ruinedPortalLoot",
-      "shortName": "ruinedPortalLoot",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Loot & Trading",
-      "groupDe": "Beute & Handel",
-      "label": "Mod Loot: Ruined Portals",
-      "labelDe": "Mod-Beute: Portalruinen",
-      "tooltip": "Off: the mod adds nothing to the loot of ruined portals; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Portalruinen nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.loot.fishingLoot",
-      "shortName": "fishingLoot",
-      "type": "boolean",
-      "default": "true",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Loot & Trading",
-      "groupDe": "Beute & Handel",
-      "label": "Mod Loot: Fishing Treasure",
-      "labelDe": "Mod-Beute: Angelschätze",
-      "tooltip": "Off: the mod adds nothing to the loot of fishing treasure; vanilla loot stays. Takes effect when the data packs load (/reload or world start). Server-side. Default: on.",
-      "tooltipDe": "Aus: die Mod fügt der Beute in Angelschätze nichts hinzu; die Vanilla-Beute bleibt. Wirkt beim Laden der Datenpakete (/reload oder Weltstart). Serverseitig. Standard: an."
-    },
-    {
-      "name": "server.loot.tradePriceMultiplier",
-      "shortName": "tradePriceMultiplier",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Loot & Trading",
-      "groupDe": "Beute & Handel",
-      "label": "Trade Price Multiplier",
-      "labelDe": "Handelspreis-Faktor",
-      "tooltip": "Multiplies the first price of every villager and wandering trader offer of the mod (rounded, at least 1, at most a stack), 0.25 to 4. Applies to newly created offers. Server-side. Default: 1.0.",
-      "tooltipDe": "Multipliziert den ersten Preis jedes Handelsangebots der Mod bei Dorfbewohnern und fahrendem Händler (gerundet, mindestens 1, höchstens ein Stapel), 0,25 bis 4. Gilt für neu erzeugte Angebote. Serverseitig. Standard: 1,0."
-    },
-    {
-      "name": "server.blueprint.maxBlocksPerTick",
-      "shortName": "maxBlocksPerTick",
-      "type": "int",
-      "default": "32768",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Blueprint",
-      "groupDe": "Blaupause",
-      "label": "Build Speed: Blocks per Tick",
-      "labelDe": "Bautempo: Blöcke je Tick",
-      "tooltip": "At most this many positions a blueprint build places per tick; lower values make big builds take longer and spare the server. 1 to 32768 (the default is above anything a build uses today). Server-side. Default: 32768.",
-      "tooltipDe": "Höchstens so viele Stellen setzt ein Blaupausen-Bau je Tick; kleinere Werte lassen große Bauten länger dauern und schonen den Server. 1 bis 32768 (der Standard liegt über allem, was ein Bau heute nutzt). Serverseitig. Standard: 32768."
-    },
-    {
-      "name": "server.trimStrengths.projectileProtection",
-      "shortName": "projectileProtection",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Projectile Protection",
-      "labelDe": "Stärke: Projektilschutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Projectile Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Projektilschutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.magicProtection",
-      "shortName": "magicProtection",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Magic Protection",
-      "labelDe": "Stärke: Magieschutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Magic Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Magieschutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.thornProtection",
-      "shortName": "thornProtection",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Thorn Protection",
-      "labelDe": "Stärke: Dornenschutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Thorn Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Dornenschutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.blastProtection",
-      "shortName": "blastProtection",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Blast Protection",
-      "labelDe": "Stärke: Explosionsschutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Blast Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Explosionsschutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.drowningProtection",
-      "shortName": "drowningProtection",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Drowning Protection",
-      "labelDe": "Stärke: Ertrinkungsschutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Drowning Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Ertrinkungsschutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.breathSaving",
-      "shortName": "breathSaving",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Breath Saving",
-      "labelDe": "Stärke: Atem sparen",
-      "tooltip": "Multiplies the rate of the trim effect \"Breath Saving\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Atem sparen“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.allProtection",
-      "shortName": "allProtection",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: All-Round Protection",
-      "labelDe": "Stärke: Rundumschutz",
-      "tooltip": "Multiplies the rate of the trim effect \"All-Round Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Rundumschutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.sonicProtection",
-      "shortName": "sonicProtection",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Sonic Boom Protection",
-      "labelDe": "Stärke: Schallschutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Sonic Boom Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Schallschutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.stealth",
-      "shortName": "stealth",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Stealth",
-      "labelDe": "Stärke: Tarnung",
-      "tooltip": "Multiplies the rate of the trim effect \"Stealth\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Tarnung“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.fireProtection",
-      "shortName": "fireProtection",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Fire Protection",
-      "labelDe": "Stärke: Feuerschutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Fire Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Feuerschutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.witherProtection",
-      "shortName": "witherProtection",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Wither Protection",
-      "labelDe": "Stärke: Wither-Schutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Wither Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Wither-Schutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.witherShortening",
-      "shortName": "witherShortening",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Shorter Wither",
-      "labelDe": "Stärke: Kürzere Ausdörrung",
-      "tooltip": "Multiplies the rate of the trim effect \"Shorter Wither\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Kürzere Ausdörrung“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.dragonBreathProtection",
-      "shortName": "dragonBreathProtection",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Dragon Breath Protection",
-      "labelDe": "Stärke: Drachenatem-Schutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Dragon Breath Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Drachenatem-Schutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.fallProtection",
-      "shortName": "fallProtection",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Fall Protection",
-      "labelDe": "Stärke: Fallschutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Fall Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Fallschutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.windChargeProtection",
-      "shortName": "windChargeProtection",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Wind Charge Protection",
-      "labelDe": "Stärke: Windkugel-Schutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Wind Charge Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Windkugel-Schutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.lightningProtection",
-      "shortName": "lightningProtection",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Lightning Protection",
-      "labelDe": "Stärke: Blitzschutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Lightning Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Blitzschutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.walkingSpeed",
-      "shortName": "walkingSpeed",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Walking Speed",
-      "labelDe": "Stärke: Laufgeschwindigkeit",
-      "tooltip": "Multiplies the rate of the trim effect \"Walking Speed\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Laufgeschwindigkeit“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.swimmingSpeed",
-      "shortName": "swimmingSpeed",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Swimming Speed",
-      "labelDe": "Stärke: Schwimmgeschwindigkeit",
-      "tooltip": "Multiplies the rate of the trim effect \"Swimming Speed\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Schwimmgeschwindigkeit“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.sprintHunger",
-      "shortName": "sprintHunger",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Less Sprint Hunger",
-      "labelDe": "Stärke: Weniger Sprinthunger",
-      "tooltip": "Multiplies the rate of the trim effect \"Less Sprint Hunger\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Weniger Sprinthunger“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.experience",
-      "shortName": "experience",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Experience",
-      "labelDe": "Stärke: Erfahrung",
-      "tooltip": "Multiplies the rate of the trim effect \"Experience\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Erfahrung“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.luck",
-      "shortName": "luck",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Luck",
-      "labelDe": "Stärke: Glück",
-      "tooltip": "Multiplies the rate of the trim effect \"Luck\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Glück“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.blockReach",
-      "shortName": "blockReach",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Block Reach",
-      "labelDe": "Stärke: Blockreichweite",
-      "tooltip": "Multiplies the rate of the trim effect \"Block Reach\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Blockreichweite“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.physicalProtection",
-      "shortName": "physicalProtection",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Physical Protection",
-      "labelDe": "Stärke: Körperlicher Schutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Physical Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Körperlicher Schutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.illagerProtection",
-      "shortName": "illagerProtection",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Illager Protection",
-      "labelDe": "Stärke: Illager-Schutz",
-      "tooltip": "Multiplies the rate of the trim effect \"Illager Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Illager-Schutz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.witherPiercingProtection",
-      "shortName": "witherPiercingProtection",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Piercing Damage Protection",
-      "labelDe": "Stärke: Schutz vor durchdringendem Schaden",
-      "tooltip": "Multiplies the rate of the trim effect \"Piercing Damage Protection\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Schutz vor durchdringendem Schaden“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.healingChance",
-      "shortName": "healingChance",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Healing Chance",
-      "labelDe": "Stärke: Heilchance",
-      "tooltip": "Multiplies the rate of the trim effect \"Healing Chance\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Heilchance“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
-    },
-    {
-      "name": "server.trimStrengths.knockbackResistance",
-      "shortName": "knockbackResistance",
-      "type": "double",
-      "default": "1.0",
-      "note": null,
-      "category": "Server & Modpack Tuning",
-      "categoryDe": "Server & Modpack-Tuning",
-      "group": "Armor Trim Effect Strengths",
-      "groupDe": "Stärke der Besatz-Wirkungen",
-      "label": "Strength: Knockback Resistance",
-      "labelDe": "Stärke: Rückstoßresistenz",
-      "tooltip": "Multiplies the rate of the trim effect \"Knockback Resistance\" from every pattern and material that gives it: 0 = off, 2 = twice as strong, at most 2; the caps (damage floor, maximum bonuses) still apply. Tooltips show the server's value. Server-side, sent to clients. Default: 1.0.",
-      "tooltipDe": "Multipliziert die Rate der Besatz-Wirkung „Rückstoßresistenz“ aus jedem Muster und Material, das sie gibt: 0 = aus, 2 = doppelt so stark, höchstens 2; die Deckel (Schadensboden, Höchstwerte) gelten weiter. Tooltips zeigen den Wert des Servers. Serverseitig, an die Clients geschickt. Standard: 1,0."
     }
   ],
   "inWorld": {
@@ -56672,6 +55706,29 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/chisel/fine_detail.json"
     },
     {
+      "id": "simplebuilding:chisel/sculptor",
+      "parent": "simplebuilding:chisel/chip_off_the_old_block",
+      "icon": "simplebuilding:iron_chisel",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Sculptor",
+        "de_de": "Bildhauer"
+      },
+      "description": {
+        "en_us": "Move blocks along their chains 1,000 times with a chisel",
+        "de_de": "Bewege mit dem Meißel 1.000-mal Blöcke entlang ihrer Kette"
+      },
+      "criteria": [
+        {
+          "name": "chisel_steps",
+          "trigger": "simplebuilding:counter"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/chisel/sculptor.json"
+    },
+    {
       "id": "simplebuilding:end/astral_projection",
       "parent": "simplebuilding:end/stardust",
       "icon": "simplebuilding:astral_purpur_block",
@@ -56915,6 +55972,30 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/enderite/block_party.json"
     },
     {
+      "id": "simplebuilding:enderite/broken_record",
+      "parent": "simplebuilding:enderite/echolocation",
+      "icon": "minecraft:echo_shard",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Broken Record",
+        "de_de": "Zersprungen"
+      },
+      "description": {
+        "en_us": "Jump with an Echo Sounder that is not fully repaired: it gets you there, then shatters",
+        "de_de": "Spring mit einem nicht voll reparierten Echolot: es bringt dich hin und zerspringt dann"
+      },
+      "criteria": [
+        {
+          "name": "echo_shatter",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "echo_shatter"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/broken_record.json"
+    },
+    {
       "id": "simplebuilding:enderite/cover_me_in_enderite",
       "parent": "simplebuilding:enderite/template_of_the_end",
       "icon": "simplebuilding:enderite_chestplate",
@@ -57104,6 +56185,30 @@ window.WIKI_DATA = {
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/enderite/master_builder.json"
+    },
+    {
+      "id": "simplebuilding:enderite/not_today_void",
+      "parent": "simplebuilding:enderite/raw_deal",
+      "icon": "minecraft:ender_eye",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Not Today, Void",
+        "de_de": "Heute nicht, Leere"
+      },
+      "description": {
+        "en_us": "Throw an Enderite item into the void: instead of vanishing, it hangs below the world",
+        "de_de": "Wirf ein Enderit-Item in die Leere: statt zu verschwinden, schwebt es unter der Welt"
+      },
+      "criteria": [
+        {
+          "name": "void_rescue",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "void_rescue"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/enderite/not_today_void.json"
     },
     {
       "id": "simplebuilding:enderite/patience_is_a_virtue",
@@ -57384,6 +56489,30 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/gadgets/ping.json"
     },
     {
+      "id": "simplebuilding:gadgets/remote_detonation",
+      "parent": "simplebuilding:gadgets/burning_focus",
+      "icon": "minecraft:tnt",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Remote Detonation",
+        "de_de": "Fernzündung"
+      },
+      "description": {
+        "en_us": "Hold the Amethyst Lens beam on TNT until it lights",
+        "de_de": "Halte den Strahl der Amethystlinse auf TNT, bis es zündet"
+      },
+      "criteria": [
+        {
+          "name": "laser_tnt",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "laser_tnt"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/gadgets/remote_detonation.json"
+    },
+    {
       "id": "simplebuilding:gadgets/speed_reader",
       "parent": "simplebuilding:tweaks/root",
       "icon": "simplebuilding:velocity-gauge",
@@ -57486,6 +56615,29 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/hammer/cracked_up.json"
     },
     {
+      "id": "simplebuilding:hammer/demolition_crew",
+      "parent": "simplebuilding:hammer/stair_master",
+      "icon": "simplebuilding:diamond_sledgehammer",
+      "frame": "challenge",
+      "hidden": false,
+      "title": {
+        "en_us": "Demolition Crew",
+        "de_de": "Abrisskommando"
+      },
+      "description": {
+        "en_us": "Break 10,000 blocks with sledgehammers around the block you hit",
+        "de_de": "Brich mit Vorschlaghämmern 10.000 Blöcke rund um den getroffenen Block"
+      },
+      "criteria": [
+        {
+          "name": "hammer_blocks",
+          "trigger": "simplebuilding:counter"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/hammer/demolition_crew.json"
+    },
+    {
       "id": "simplebuilding:hammer/diamond_in_the_rough",
       "parent": "simplebuilding:hammer/cracked_up",
       "icon": "simplebuilding:cracked_diamond_block",
@@ -57510,6 +56662,29 @@ window.WIKI_DATA = {
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/hammer/diamond_in_the_rough.json"
+    },
+    {
+      "id": "simplebuilding:hammer/full_radiance",
+      "parent": "simplebuilding:hammer/bright_idea",
+      "icon": "minecraft:glowstone",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Full Radiance",
+        "de_de": "Volle Strahlkraft"
+      },
+      "description": {
+        "en_us": "Add Radiance at the smithing table - Emitting template, armor, Glowstone Dust - until one armor piece shows Radiance 5",
+        "de_de": "Füge am Schmiedetisch Strahlkraft hinzu - Strahlende Vorlage, Rüstung, Glowstonestaub -, bis ein Rüstungsteil Strahlkraft 5 zeigt"
+      },
+      "criteria": [
+        {
+          "name": "radiance_5",
+          "trigger": "minecraft:inventory_changed"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/hammer/full_radiance.json"
     },
     {
       "id": "simplebuilding:hammer/glow_up",
@@ -57658,6 +56833,30 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/machines/forged_in_place.json"
     },
     {
+      "id": "simplebuilding:machines/good_as_new",
+      "parent": "simplebuilding:machines/forged_in_place",
+      "icon": "simplebuilding:netherite_piston",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Good as New",
+        "de_de": "Wie neu"
+      },
+      "description": {
+        "en_us": "Right-click a worn Netherite or Enderite Piston with its nugget to restore its full durability",
+        "de_de": "Rechtsklicke einen abgenutzten Netherit- oder Enderitkolben mit seinem Klumpen, um seine volle Haltbarkeit herzustellen"
+      },
+      "criteria": [
+        {
+          "name": "piston_repair",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "piston_repair"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/machines/good_as_new.json"
+    },
+    {
       "id": "simplebuilding:machines/reinforcements",
       "parent": "simplebuilding:hammer/cracked_up",
       "icon": "simplebuilding:reinforced_furnace",
@@ -57688,6 +56887,78 @@ window.WIKI_DATA = {
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/machines/reinforcements.json"
+    },
+    {
+      "id": "simplebuilding:mining/all_in_vein",
+      "parent": "simplebuilding:tiers/ironclad",
+      "icon": "minecraft:iron_ore",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "All in Vein",
+        "de_de": "Alles in einer Ader"
+      },
+      "description": {
+        "en_us": "Sneak while you mine ore with a Vein Miner pickaxe (or a log with a Vein Miner axe): the connected blocks come along",
+        "de_de": "Bau schleichend Erz mit einer Aderabbau-Spitzhacke ab (oder einen Stamm mit einer Aderabbau-Axt): die verbundenen Blöcke kommen mit"
+      },
+      "criteria": [
+        {
+          "name": "vein_mine",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "vein_mine"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/mining/all_in_vein.json"
+    },
+    {
+      "id": "simplebuilding:mining/right_tool_for_the_job",
+      "parent": "simplebuilding:tiers/ironclad",
+      "icon": "minecraft:iron_axe",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "The Right Tool for the Job",
+        "de_de": "Das richtige Werkzeug"
+      },
+      "description": {
+        "en_us": "Sneak and hit a block with a Versatility tool: a better tool from your hotbar jumps into your hand",
+        "de_de": "Schlag schleichend mit einem Werkzeug mit Vielseitigkeit auf einen Block: ein besseres Werkzeug aus deiner Schnellleiste springt dir in die Hand"
+      },
+      "criteria": [
+        {
+          "name": "versatility_swap",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "versatility_swap"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/mining/right_tool_for_the_job.json"
+    },
+    {
+      "id": "simplebuilding:mining/tunnel_vision",
+      "parent": "simplebuilding:tiers/ironclad",
+      "icon": "minecraft:iron_pickaxe",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Tunnel Vision",
+        "de_de": "Tunnelblick"
+      },
+      "description": {
+        "en_us": "Sneak while you mine with a Strip Miner pickaxe: it digs a short tunnel straight ahead",
+        "de_de": "Bau schleichend mit einer Tunnelgräber-Spitzhacke ab: sie gräbt einen kurzen Tunnel geradeaus"
+      },
+      "criteria": [
+        {
+          "name": "strip_mine",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "strip_mine"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/mining/tunnel_vision.json"
     },
     {
       "id": "simplebuilding:nether/nugget_of_wisdom",
@@ -57755,6 +57026,137 @@ window.WIKI_DATA = {
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/octant/colour_coded.json"
+    },
+    {
+      "id": "simplebuilding:octant/full_spectrum",
+      "parent": "simplebuilding:octant/colour_coded",
+      "icon": "simplebuilding:octant_magenta",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Full Spectrum",
+        "de_de": "Das volle Spektrum"
+      },
+      "description": {
+        "en_us": "Collect Octants in all 16 colors",
+        "de_de": "Sammle Oktanten in allen 16 Farben"
+      },
+      "criteria": [
+        {
+          "name": "black_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_black"
+          ]
+        },
+        {
+          "name": "blue_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_blue"
+          ]
+        },
+        {
+          "name": "brown_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_brown"
+          ]
+        },
+        {
+          "name": "cyan_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_cyan"
+          ]
+        },
+        {
+          "name": "gray_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_gray"
+          ]
+        },
+        {
+          "name": "green_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_green"
+          ]
+        },
+        {
+          "name": "light_blue_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_light_blue"
+          ]
+        },
+        {
+          "name": "light_gray_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_light_gray"
+          ]
+        },
+        {
+          "name": "lime_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_lime"
+          ]
+        },
+        {
+          "name": "magenta_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_magenta"
+          ]
+        },
+        {
+          "name": "orange_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_orange"
+          ]
+        },
+        {
+          "name": "pink_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_pink"
+          ]
+        },
+        {
+          "name": "purple_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_purple"
+          ]
+        },
+        {
+          "name": "red_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_red"
+          ]
+        },
+        {
+          "name": "white_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_white"
+          ]
+        },
+        {
+          "name": "yellow_octant",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:octant_yellow"
+          ]
+        }
+      ],
+      "needs": "all",
+      "source": "src/main/generated/data/simplebuilding/advancement/octant/full_spectrum.json"
     },
     {
       "id": "simplebuilding:octant/measure_twice",
@@ -58282,6 +57684,30 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/storage/pack_mule.json"
     },
     {
+      "id": "simplebuilding:storage/pitching_camp",
+      "parent": "simplebuilding:storage/pack_mule",
+      "icon": "minecraft:campfire",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Pitching Camp",
+        "de_de": "Lager aufschlagen"
+      },
+      "description": {
+        "en_us": "Sneak and right-click a block with a backpack to set it down with everything inside",
+        "de_de": "Rechtsklicke schleichend mit einem Rucksack auf einen Block, um ihn samt Inhalt abzustellen"
+      },
+      "criteria": [
+        {
+          "name": "backpack_placed",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "backpack_placed"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/storage/pitching_camp.json"
+    },
+    {
       "id": "simplebuilding:storage/quiver_in_fear",
       "parent": "simplebuilding:storage/sheet_happens",
       "icon": "simplebuilding:quiver",
@@ -58362,6 +57788,42 @@ window.WIKI_DATA = {
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/storage/sheet_happens.json"
+    },
+    {
+      "id": "simplebuilding:storage/splash_of_color",
+      "parent": "simplebuilding:storage/sheet_happens",
+      "icon": "minecraft:red_dye",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "A Splash of Color",
+        "de_de": "Ein Hauch Farbe"
+      },
+      "description": {
+        "en_us": "Craft a backpack, bundle or quiver with a dye, just like leather armor",
+        "de_de": "Stell einen Rucksack, ein Bündel oder einen Köcher mit einem Farbstoff her, genau wie Lederrüstung"
+      },
+      "criteria": [
+        {
+          "name": "dyed_storage",
+          "trigger": "minecraft:inventory_changed",
+          "items": [
+            "simplebuilding:backpack",
+            "simplebuilding:reinforced_backpack",
+            "simplebuilding:netherite_backpack",
+            "simplebuilding:enderite_backpack",
+            "simplebuilding:reinforced_bundle",
+            "simplebuilding:netherite_bundle",
+            "simplebuilding:enderite_bundle",
+            "simplebuilding:quiver",
+            "simplebuilding:reinforced_quiver",
+            "simplebuilding:netherite_quiver",
+            "simplebuilding:enderite_quiver"
+          ]
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/storage/splash_of_color.json"
     },
     {
       "id": "simplebuilding:story/hammer_time",
@@ -58562,6 +58024,30 @@ window.WIKI_DATA = {
       "source": "src/main/generated/data/simplebuilding/advancement/tiers/step_by_step.json"
     },
     {
+      "id": "simplebuilding:trims/fashion_statement",
+      "parent": "simplebuilding:root",
+      "icon": "minecraft:diamond_chestplate",
+      "frame": "goal",
+      "hidden": false,
+      "title": {
+        "en_us": "Fashion Statement",
+        "de_de": "Modebewusst"
+      },
+      "description": {
+        "en_us": "Wear four armor pieces trimmed with the same pattern that gives a bonus: the pattern's bonus counts four times",
+        "de_de": "Trag vier Rüstungsteile mit demselben Besatzmuster, das einen Bonus gibt: der Bonus des Musters zählt vierfach"
+      },
+      "criteria": [
+        {
+          "name": "full_trim_set",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "full_trim_set"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/trims/fashion_statement.json"
+    },
+    {
       "id": "simplebuilding:tweaks/crown_jewel",
       "parent": "simplebuilding:tweaks/forbidden_fruit",
       "icon": "simplebuilding:enchanted_netherite_apple",
@@ -58586,6 +58072,30 @@ window.WIKI_DATA = {
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/tweaks/crown_jewel.json"
+    },
+    {
+      "id": "simplebuilding:tweaks/crumple_zone",
+      "parent": "simplebuilding:tweaks/root",
+      "icon": "minecraft:elytra",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Crumple Zone",
+        "de_de": "Knautschzone"
+      },
+      "description": {
+        "en_us": "Fly into a wall with an elytra while wearing armor with Kinetic Protection - it softens the blow",
+        "de_de": "Flieg mit Elytren gegen eine Wand, während du Rüstung mit Kinetischem Schutz trägst - er dämpft den Aufprall"
+      },
+      "criteria": [
+        {
+          "name": "kinetic_protection",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "kinetic_protection"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/tweaks/crumple_zone.json"
     },
     {
       "id": "simplebuilding:tweaks/forbidden_fruit",
@@ -58613,6 +58123,30 @@ window.WIKI_DATA = {
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/tweaks/forbidden_fruit.json"
+    },
+    {
+      "id": "simplebuilding:tweaks/leap_of_faith",
+      "parent": "simplebuilding:tweaks/root",
+      "icon": "minecraft:feather",
+      "frame": "task",
+      "hidden": false,
+      "title": {
+        "en_us": "Leap of Faith",
+        "de_de": "Sprung ins Ungewisse"
+      },
+      "description": {
+        "en_us": "Wear boots with Air Jump and press jump again in mid-air",
+        "de_de": "Trag Stiefel mit Luftsprung und drück in der Luft noch einmal Springen"
+      },
+      "criteria": [
+        {
+          "name": "air_jump",
+          "trigger": "simplebuilding:feature_used",
+          "feature": "air_jump"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/tweaks/leap_of_faith.json"
     },
     {
       "id": "simplebuilding:tweaks/root",
@@ -58678,6 +58212,29 @@ window.WIKI_DATA = {
       ],
       "needs": "any",
       "source": "src/main/generated/data/simplebuilding/advancement/wand/core_values.json"
+    },
+    {
+      "id": "simplebuilding:wand/master_mason",
+      "parent": "simplebuilding:wand/one_click_wonder",
+      "icon": "simplebuilding:gold_building_wand",
+      "frame": "challenge",
+      "hidden": false,
+      "title": {
+        "en_us": "Master Mason",
+        "de_de": "Maurermeister"
+      },
+      "description": {
+        "en_us": "Place 10,000 blocks with Building Wands - areas, Octant shapes and Blueprints all count",
+        "de_de": "Setz 10.000 Blöcke mit Baustäben - Flächen, Oktant-Figuren und Blaupausen zählen alle"
+      },
+      "criteria": [
+        {
+          "name": "wand_blocks",
+          "trigger": "simplebuilding:counter"
+        }
+      ],
+      "needs": "any",
+      "source": "src/main/generated/data/simplebuilding/advancement/wand/master_mason.json"
     },
     {
       "id": "simplebuilding:wand/one_click_wonder",
@@ -60046,6 +59603,25 @@ window.WIKI_DATA = {
           "optional": true
         },
         {
+          "key": "full_spectrum",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:octant/full_spectrum"
+          },
+          "title": {
+            "en_us": "Full Spectrum",
+            "de_de": "Das volle Spektrum"
+          },
+          "description": {
+            "en_us": "Collect Octants in all 16 colors",
+            "de_de": "Sammle Oktanten in allen 16 Farben"
+          },
+          "dependencies": [
+            "building.colour"
+          ],
+          "optional": true
+        },
+        {
           "key": "light",
           "task": {
             "type": "advancement",
@@ -60136,6 +59712,44 @@ window.WIKI_DATA = {
           "dependencies": [
             "stage_2.diamond_tool"
           ]
+        },
+        {
+          "key": "sculptor",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:chisel/sculptor"
+          },
+          "title": {
+            "en_us": "Sculptor",
+            "de_de": "Bildhauer"
+          },
+          "description": {
+            "en_us": "Move blocks along their chains 1,000 times with a chisel",
+            "de_de": "Bewege mit dem Meißel 1.000-mal Blöcke entlang ihrer Kette"
+          },
+          "dependencies": [
+            "building.toolkit"
+          ],
+          "optional": true
+        },
+        {
+          "key": "master_mason",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:wand/master_mason"
+          },
+          "title": {
+            "en_us": "Master Mason",
+            "de_de": "Maurermeister"
+          },
+          "description": {
+            "en_us": "Place 10,000 blocks with Building Wands - areas, Octant shapes and Blueprints all count",
+            "de_de": "Setz 10.000 Blöcke mit Baustäben - Flächen, Oktant-Figuren und Blaupausen zählen alle"
+          },
+          "dependencies": [
+            "building.toolkit"
+          ],
+          "optional": true
         },
         {
           "key": "rotator",
@@ -60378,6 +59992,44 @@ window.WIKI_DATA = {
           "dependencies": [
             "storage.bundle"
           ]
+        },
+        {
+          "key": "pitching_camp",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:storage/pitching_camp"
+          },
+          "title": {
+            "en_us": "Pitching Camp",
+            "de_de": "Lager aufschlagen"
+          },
+          "description": {
+            "en_us": "Sneak and right-click a block with a backpack to set it down with everything inside",
+            "de_de": "Rechtsklicke schleichend mit einem Rucksack auf einen Block, um ihn samt Inhalt abzustellen"
+          },
+          "dependencies": [
+            "stage_1.backpack"
+          ],
+          "optional": true
+        },
+        {
+          "key": "splash_of_color",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:storage/splash_of_color"
+          },
+          "title": {
+            "en_us": "A Splash of Color",
+            "de_de": "Ein Hauch Farbe"
+          },
+          "description": {
+            "en_us": "Craft a backpack, bundle or quiver with a dye, just like leather armor",
+            "de_de": "Stell einen Rucksack, ein Bündel oder einen Köcher mit einem Farbstoff her, genau wie Lederrüstung"
+          },
+          "dependencies": [
+            "stage_1.backpack"
+          ],
+          "optional": true
         },
         {
           "key": "reinforced_bundle",
@@ -60639,6 +60291,48 @@ window.WIKI_DATA = {
           "optional": true
         },
         {
+          "key": "remote_detonation",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:gadgets/remote_detonation"
+          },
+          "title": {
+            "en_us": "Remote Detonation",
+            "de_de": "Fernzündung"
+          },
+          "description": {
+            "en_us": "Hold the Amethyst Lens beam on TNT until it lights",
+            "de_de": "Halte den Strahl der Amethystlinse auf TNT, bis es zündet"
+          },
+          "dependencies": [
+            "gadgets.laser"
+          ],
+          "optional": true
+        },
+        {
+          "key": "leap_of_faith",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:tweaks/leap_of_faith"
+          },
+          "title": {
+            "en_us": "Leap of Faith",
+            "de_de": "Sprung ins Ungewisse"
+          },
+          "description": {
+            "en_us": "Wear boots with Air Jump and press jump again in mid-air",
+            "de_de": "Trag Stiefel mit Luftsprung und drück in der Luft noch einmal Springen"
+          },
+          "dependencies": [
+            "gadgets.intro"
+          ],
+          "hint": {
+            "en_us": "Air Jump is an enchanted book found in chests; it goes on boots.",
+            "de_de": "Luftsprung ist ein verzaubertes Buch aus Truhen; es kommt auf Stiefel."
+          },
+          "optional": true
+        },
+        {
           "key": "detector",
           "task": {
             "type": "advancement",
@@ -60816,6 +60510,25 @@ window.WIKI_DATA = {
           "optional": true
         },
         {
+          "key": "crumple_zone",
+          "task": {
+            "type": "advancement",
+            "id": "simplebuilding:tweaks/crumple_zone"
+          },
+          "title": {
+            "en_us": "Crumple Zone",
+            "de_de": "Knautschzone"
+          },
+          "description": {
+            "en_us": "Fly into a wall with an elytra while wearing armor with Kinetic Protection - it softens the blow",
+            "de_de": "Flieg mit Elytren gegen eine Wand, während du Rüstung mit Kinetischem Schutz trägst - er dämpft den Aufprall"
+          },
+          "dependencies": [
+            "gadgets.elytra_pad"
+          ],
+          "optional": true
+        },
+        {
           "key": "flypad",
           "task": {
             "type": "advancement",
@@ -60923,17 +60636,17 @@ window.WIKI_DATA = {
     "howToRegenerate": "python wiki/generate.py (needs the client jar of each line in the Gradle cache)"
   },
   "counts": {
-    "items": 178,
+    "items": 179,
     "blocks": 124,
-    "recipes": 357,
+    "recipes": 358,
     "lootTables": 116,
     "trades": 20,
     "enchantments": 19,
     "tags": 29,
-    "config": 159,
+    "config": 80,
     "inWorld": 392,
-    "advancements": 84,
-    "features": 37,
+    "advancements": 101,
+    "features": 39,
     "undocumented": 0,
     "incompleteProse": 0
   },

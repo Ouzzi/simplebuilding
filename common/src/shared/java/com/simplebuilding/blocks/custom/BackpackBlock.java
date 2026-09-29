@@ -103,9 +103,47 @@ public class BackpackBlock extends BaseEntityBlock {
         return SHAPES.get(state.getValue(FACING));
     }
 
+    /**
+     * Abgestellt (Immersion 2026-09-28): zum Wollklang des Blocks das Rascheln von Leder und ein
+     * Staubwoelkchen am Boden.
+     */
+    @Override
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable net.minecraft.world.entity.LivingEntity by, ItemStack stack) {
+        super.setPlacedBy(level, pos, state, by, stack);
+        // Erfolg "Lager aufschlagen" ({@code storage/pitching_camp}).
+        if (by instanceof Player player) {
+            com.simplebuilding.advancement.ModTriggers.feature(player, com.simplebuilding.advancement.ModTriggers.BACKPACK_PLACED);
+        }
+        if (level instanceof net.minecraft.server.level.ServerLevel server) {
+            server.playSound(null, pos, net.minecraft.sounds.SoundEvents.ARMOR_EQUIP_LEATHER.value(),
+                    net.minecraft.sounds.SoundSource.BLOCKS, 0.8f, 0.9f);
+            server.sendParticles(net.minecraft.core.particles.ParticleTypes.POOF, pos.getX() + 0.5, pos.getY() + 0.1,
+                    pos.getZ() + 0.5, 4, 0.2, 0.02, 0.2, 0.0);
+        }
+    }
+
+    /**
+     * Komparator am abgestellten Rucksack (Besitzer 2026-09-28): der Fuellstand wie bei einer Truhe,
+     * gerechnet mit den Stapelgrenzen des Rucksacks (Tiefe Taschen eingerechnet). Trichter sehen ihn
+     * weiterhin nicht (siehe {@link BackpackBlockEntity}).
+     */
+    @Override
+    protected boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
+    }
+
+    @Override
+    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction direction) {
+        return level.getBlockEntity(pos) instanceof BackpackBlockEntity backpack
+                ? net.minecraft.world.inventory.AbstractContainerMenu.getRedstoneSignalFromContainer(backpack.container()) : 0;
+    }
+
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (player instanceof ServerPlayer serverPlayer && level.getBlockEntity(pos) instanceof BackpackBlockEntity backpack) {
+            // Aufgeschnallt: Leder-Rascheln, etwas heller als beim Abstellen.
+            level.playSound(null, pos, net.minecraft.sounds.SoundEvents.ARMOR_EQUIP_LEATHER.value(),
+                    net.minecraft.sounds.SoundSource.BLOCKS, 0.6f, 1.2f);
             BackpackMenus.openPlaced(serverPlayer, backpack);
         }
         return InteractionResult.SUCCESS;

@@ -165,6 +165,12 @@ public final class SimplebuildingNeoForgeClient {
         event.register(ClientState.octantFigureToggleKey);
         event.register(ClientState.settingsKey);
         event.register(ClientState.backpackKey);
+        ClientState.hudToggleKey = new KeyMapping(
+                "key.simplebuilding.toggle_hud",
+                InputConstants.UNKNOWN.getValue(),
+                KEY_CATEGORY_SIMPLEMODS
+        );
+        event.register(ClientState.hudToggleKey);
     }
 
     public static void registerHudLayers(RegisterGuiLayersEvent event) {

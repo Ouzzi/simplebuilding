@@ -31,6 +31,9 @@ public final class DoubleJumpHudOverlay {
         if (client.player == null) {
             return;
         }
+        if (!ModHud.visible()) {
+            return; // HUD key / config showModHud
+        }
         if (client.options.hideGui) {
             // Fabric's element registry hangs the mod's overlays inside vanilla's own layers,
             // which F1 switches off as a whole; NeoForge's layer event does not, and there the

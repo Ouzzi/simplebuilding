@@ -567,6 +567,10 @@
       "maxStackSize": 16
     },
     {
+      "id": "simplebuilding:guide_book_admin",
+      "maxStackSize": 16
+    },
+    {
       "id": "simplebuilding:guide_book_building",
       "maxStackSize": 16
     },

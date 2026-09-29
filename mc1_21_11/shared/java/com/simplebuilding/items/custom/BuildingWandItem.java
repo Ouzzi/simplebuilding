@@ -662,6 +662,7 @@ public class BuildingWandItem extends Item {
         List<BlockPos> stepPositions = plan.step(world, currentRadius);
         BlockState clicked = plan.clickedState(world);
 
+        int placedThisStep = 0;
         for (BlockPos rawPos : stepPositions) {
             // Jede Stelle einzeln wie beim Blaupausen-Bau: Welthoehe, Weltgrenze, geladener Chunk,
             // Spawn-Schutz und Claim-Mods. Frueher fragte nur Vanilla beim Klickblock.
@@ -678,6 +679,7 @@ public class BuildingWandItem extends Item {
             MaterialResult material = want == null ? null : findSpecificMaterial(player, stack, want, hasMasterBuilder);
 
             if (material == null && !player.getAbilities().instabuild) {
+                com.simplebuilding.advancement.ModCounters.add(player, com.simplebuilding.advancement.ModCounters.WAND_BLOCKS, placedThisStep);
                 nbt.putBoolean("Active", false); setNbt(stack, nbt); return;
             }
 
@@ -688,6 +690,7 @@ public class BuildingWandItem extends Item {
             if (stateToPlace == null) continue;
 
             if (world.setBlock(rawPos, stateToPlace, 3)) {
+                placedThisStep++;
                 WandPlacement.afterPlace(world, player, rawPos, stateToPlace, placeItem);
                 WandUndo.record(player, world, rawPos, stateToPlace, placeItem.getItem(),
                         !player.getAbilities().instabuild && material != null ? 1 : 0);
@@ -707,6 +710,7 @@ public class BuildingWandItem extends Item {
             }
         }
 
+        com.simplebuilding.advancement.ModCounters.add(player, com.simplebuilding.advancement.ModCounters.WAND_BLOCKS, placedThisStep);
         if (currentRadius < plan.steps() - 1) {
             nbt.putInt("CurrentRadius", currentRadius + 1);
             nbt.putInt("Timer", isLinePlace ? DELAY_TICKS_LINE : DELAY_TICKS);

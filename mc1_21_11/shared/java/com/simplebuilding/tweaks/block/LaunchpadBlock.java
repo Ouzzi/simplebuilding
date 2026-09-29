@@ -26,6 +26,8 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,15 +46,45 @@ public class LaunchpadBlock extends WaterloggedPadBlock {
     /** Hoechste Stufe (Enderit): Fallschutz nach dem Start. */
     public static final int ENDERITE_TIER = 3;
 
+    /**
+     * Sichtbarer Fuellstand (Immersion 2026-09-28): 0 leer, 1-3 = bis ein Drittel / zwei Drittel /
+     * mehr geladen; die Spirale der Textur leuchtet mit jeder Stufe ein Stueck weiter. Die
+     * Block-Entity haelt ihn nach jeder Aenderung der Ladungen nach ({@link #chargeLevel}).
+     */
+    public static final IntegerProperty CHARGE = IntegerProperty.create("charge", 0, 3);
+
     private final int tier;
 
     public LaunchpadBlock(BlockBehaviour.Properties properties, int tier) {
         super(properties, Block.box(1, 0, 1, 15, 1, 15), PadOwnership.OWNER_PAD, PadOwnership.STRANGER_PAD);
         this.tier = Math.max(1, Math.min(ENDERITE_TIER, tier));
+        registerDefaultState(defaultBlockState().setValue(CHARGE, 0));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
+        builder.add(CHARGE);
+    }
+
+    /**
+     * Sichtbarer Fuellstand zu {@code charges} von {@code max}: 0 nur, wenn leer; sonst 1-3 nach
+     * Dritteln (aufgerundet), voll ist immer 3.
+     */
+    public static int chargeLevel(int charges, int max) {
+        if (charges <= 0 || max <= 0) {
+            return 0;
+        }
+        return Math.max(1, Math.min(3, (int) Math.ceil(3.0 * charges / max)));
     }
 
     public int getTier() {
         return tier;
+    }
+
+    @Override
+    protected boolean isRedstoneControlled() {
+        return true;
     }
 
     public boolean isEnderite() {
@@ -130,6 +162,11 @@ public class LaunchpadBlock extends WaterloggedPadBlock {
             int added = launchpad.addCharges(all ? stack.getCount() : 1, max);
             if (!player.getAbilities().instabuild) {
                 stack.shrink(added);
+            }
+            // Sichtbar: ein Windstoss faehrt in die Spirale, je mehr Kugeln, desto mehr Woelkchen.
+            if (level instanceof net.minecraft.server.level.ServerLevel server) {
+                server.sendParticles(net.minecraft.core.particles.ParticleTypes.SMALL_GUST, pos.getX() + 0.5, pos.getY() + 0.15,
+                        pos.getZ() + 0.5, Math.min(12, 2 + added), 0.25, 0.03, 0.25, 0.0);
             }
             // Der Fuellstand ist hoerbar: je voller, desto hoeher das Einlegen (statt "x/y geladen" im Bild).
             level.playSound(null, pos, SoundEvents.BUNDLE_INSERT, SoundSource.BLOCKS, 1.0f, fillPitch(current + added, max));
