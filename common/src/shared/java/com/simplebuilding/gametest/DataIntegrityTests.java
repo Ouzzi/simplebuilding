@@ -2335,6 +2335,156 @@ public final class DataIntegrityTests {
         helper.succeed();
     }
 
+    /**
+     * In the vanilla search tab every mod item stands next to its vanilla counterpart, not in a block at
+     * the very end (owner 2026-09-29): the reinforced, netherite and enderite hoppers right after the
+     * vanilla hopper, the enderite tools after the netherite ones, the mod plates by the vanilla plates,
+     * the blaze and enderman heads by the vanilla heads, the mod's enchanted books among vanilla's books.
+     *
+     * <p>The search tab collects every tab's search entries in registry order - vanilla tabs first -
+     * keeping the first of equal stacks. {@code SearchTabPlacement} therefore also puts each mod item
+     * into the fitting vanilla tab right after (or before) its anchor; the loaders do that through
+     * their tab content events. The test rebuilds all tab contents the way the creative screen does
+     * ({@code CreativeModeTabs.tryRebuildTabContents}) and reads the result back:
+     * <ul>
+     *   <li>every item of a mod tab (except vanilla items and the enchanted books vanilla generates
+     *       itself) has a placement, so nothing is left for the end of the search tab;</li>
+     *   <li>in its vanilla tab each placement stands exactly after (or before) its anchor, in order;</li>
+     *   <li>in the search tab each placement's stacks follow one another, a set of pinned neighbours
+     *       holds (hopper, netherite hoe, diamond block, piglin head, netherite sword, furnace), every
+     *       mod enchanted book sits between enchanted books, and no stack appears twice.</li>
+     * </ul>
+     *
+     * <p>What breaks this: a new mod item without placement, an anchor vanilla dropped or renamed (the
+     * loader then skips the placement), a loader that no longer hooks its tab event, a duplicate.
+     */
+    public static void everyModItemHasItsPlaceInTheSearchTab(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        List<com.simplebuilding.items.SearchTabPlacement.Placement> placements =
+                com.simplebuilding.items.SearchTabPlacement.placements();
+        Set<Item> placed = new HashSet<>();
+        for (com.simplebuilding.items.SearchTabPlacement.Placement placement : placements) {
+            for (ItemStack stack : placement.stacks()) {
+                if (!placed.add(stack.getItem())) {
+                    problems.add(BuiltInRegistries.ITEM.getKey(stack.getItem()) + " is placed twice");
+                }
+            }
+        }
+        Set<Item> inModTabs = new java.util.LinkedHashSet<>();
+        for (ModItemGroupsContent.Tab tab : ModItemGroupsContent.Tab.values()) {
+            ModItemGroupsContent.populate(tab, (CreativeModeTab.Output) (stack, visibility) -> {
+                if (!stack.is(ModItems.CREATIVE_SPACER) && !stack.is(Items.ENCHANTED_BOOK)
+                        && MOD_ID.equals(BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace())) {
+                    inModTabs.add(stack.getItem());
+                }
+            }, helper.getLevel().registryAccess());
+        }
+        for (Item item : inModTabs) {
+            if (!placed.contains(item)) {
+                problems.add(BuiltInRegistries.ITEM.getKey(item) + " has no place in a vanilla tab (SearchTabPlacement), "
+                        + "so the search tab lists it at the very end");
+            }
+        }
+        for (Item item : placed) {
+            if (!inModTabs.contains(item)) {
+                problems.add(BuiltInRegistries.ITEM.getKey(item) + " is placed for the search tab but is in no mod tab");
+            }
+        }
+
+        net.minecraft.world.item.CreativeModeTabs.tryRebuildTabContents(helper.getLevel().enabledFeatures(), true,
+                helper.getLevel().registryAccess());
+
+        for (com.simplebuilding.items.SearchTabPlacement.Placement placement : placements) {
+            List<ItemStack> content = new ArrayList<>(BuiltInRegistries.CREATIVE_MODE_TAB.getValueOrThrow(placement.tab()).getDisplayItems());
+            int at = indexOf(content, new ItemStack(placement.anchor()));
+            if (at < 0) {
+                problems.add(placement.tab().identifier() + " has no " + BuiltInRegistries.ITEM.getKey(placement.anchor())
+                        + " to place " + names(placement.stacks()) + " by");
+                continue;
+            }
+            int from = placement.before() ? at - placement.stacks().size() : at + 1;
+            List<ItemStack> actual = content.subList(Math.max(0, from), Math.min(content.size(), Math.max(0, from) + placement.stacks().size()));
+            if (from < 0 || !sameStacks(actual, placement.stacks())) {
+                problems.add(placement.tab().identifier() + ": " + (placement.before() ? "before " : "after ")
+                        + BuiltInRegistries.ITEM.getKey(placement.anchor()) + " stand " + names(actual) + " instead of "
+                        + names(placement.stacks()));
+            }
+        }
+
+        List<ItemStack> search = new ArrayList<>(net.minecraft.world.item.CreativeModeTabs.searchTab().getDisplayItems());
+        Set<String> seen = new HashSet<>();
+        for (ItemStack stack : search) {
+            if (!seen.add(BuiltInRegistries.ITEM.getKey(stack.getItem()) + stack.getComponentsPatch().toString())) {
+                problems.add("the search tab lists " + stack + " twice");
+            }
+        }
+        for (com.simplebuilding.items.SearchTabPlacement.Placement placement : placements) {
+            int first = indexOf(search, placement.stacks().getFirst());
+            List<ItemStack> actual = first < 0 ? List.of()
+                    : search.subList(first, Math.min(search.size(), first + placement.stacks().size()));
+            if (!sameStacks(actual, placement.stacks())) {
+                problems.add("in the search tab " + names(placement.stacks()) + " do not follow one another: " + names(actual));
+            }
+        }
+        Map<Item, Item> neighbours = new LinkedHashMap<>();
+        neighbours.put(Items.HOPPER, ModItems.REINFORCED_HOPPER);
+        neighbours.put(Items.NETHERITE_HOE, ModItems.ENDERITE_SHOVEL);
+        neighbours.put(Items.DIAMOND_BLOCK, ModItems.CRACKED_DIAMOND_BLOCK);
+        neighbours.put(Items.PIGLIN_HEAD, TweaksItems.BLAZE_HEAD);
+        neighbours.put(Items.NETHERITE_SWORD, ModItems.ENDERITE_SWORD);
+        neighbours.put(Items.FURNACE, ModItems.REINFORCED_FURNACE);
+        neighbours.forEach((vanilla, mod) -> {
+            int at = indexOf(search, new ItemStack(vanilla));
+            if (at < 0 || at + 1 >= search.size() || !search.get(at + 1).is(mod)) {
+                problems.add("in the search tab " + BuiltInRegistries.ITEM.getKey(vanilla) + " is followed by "
+                        + (at >= 0 && at + 1 < search.size() ? search.get(at + 1) : "nothing") + " instead of "
+                        + BuiltInRegistries.ITEM.getKey(mod));
+            }
+        });
+        // Die Buecher der Mod-Verzauberungen erzeugt Vanilla selbst (Tab "Zutaten", jede Stufe im Suchtab).
+        List<ItemStack> modBooks = new ArrayList<>();
+        ModItemGroupsContent.populate(ModItemGroupsContent.Tab.TOOLS, (CreativeModeTab.Output) (stack, visibility) -> {
+            if (stack.is(Items.ENCHANTED_BOOK)) {
+                modBooks.add(stack);
+            }
+        }, helper.getLevel().registryAccess());
+        for (ItemStack book : modBooks) {
+            int at = indexOf(search, book);
+            if (at <= 0 || at + 1 >= search.size() || !search.get(at - 1).is(Items.ENCHANTED_BOOK)
+                    || !search.get(at + 1).is(Items.ENCHANTED_BOOK)) {
+                problems.add("the mod book " + book.getComponentsPatch() + " is not among vanilla's enchanted books in the search tab (index "
+                        + at + ")");
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), "search tab placement: " + problems);
+        helper.succeed();
+    }
+
+    private static int indexOf(List<ItemStack> stacks, ItemStack wanted) {
+        for (int i = 0; i < stacks.size(); i++) {
+            if (ItemStack.isSameItemSameComponents(stacks.get(i), wanted)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private static boolean sameStacks(List<ItemStack> actual, List<ItemStack> expected) {
+        if (actual.size() != expected.size()) {
+            return false;
+        }
+        for (int i = 0; i < actual.size(); i++) {
+            if (!ItemStack.isSameItemSameComponents(actual.get(i), expected.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static String names(List<ItemStack> stacks) {
+        return stacks.stream().map(stack -> BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath()).toList().toString();
+    }
+
     // =================================================================================
     // Creative tabs: layout spacer and the development tab
     // =================================================================================

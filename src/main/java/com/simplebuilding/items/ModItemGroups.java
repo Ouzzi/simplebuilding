@@ -1,14 +1,18 @@
 package com.simplebuilding.items;
 
 import com.simplebuilding.Simplebuilding;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 /** Die Kreativ-Tabs der Mod, in {@link ModItemGroupsContent.Tab}-Reihenfolge registriert. */
@@ -24,6 +28,28 @@ public class ModItemGroups {
                             .title(Component.translatable(tab.translationKey()))
                             .displayItems((displayContext, entries) -> ModItemGroupsContent.populate(tab, entries, displayContext.holders()))
                             .build()));
+        }
+        // Suchtab: die Mod-Items zusaetzlich neben ihre Vanilla-Vorbilder in die Vanilla-Tabs (SearchTabPlacement).
+        for (ResourceKey<CreativeModeTab> key : SearchTabPlacement.TABS) {
+            CreativeModeTabEvents.modifyOutputEvent(key).register(output -> {
+                for (SearchTabPlacement.Placement placement : SearchTabPlacement.placements(key)) {
+                    List<ItemStack> present = output.getDisplayStacks();
+                    if (present.stream().noneMatch(stack -> stack.is(placement.anchor()))) {
+                        continue;
+                    }
+                    List<ItemStack> fresh = placement.stacks().stream()
+                            .filter(stack -> present.stream().noneMatch(p -> ItemStack.isSameItemSameComponents(p, stack)))
+                            .toList();
+                    if (fresh.isEmpty()) {
+                        continue;
+                    }
+                    if (placement.before()) {
+                        output.insertBefore(placement.anchor(), fresh, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                    } else {
+                        output.insertAfter(placement.anchor(), fresh, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                    }
+                }
+            });
         }
     }
 
