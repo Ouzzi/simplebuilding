@@ -7,26 +7,27 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 /**
- * Server-side check of the air jump packet (audit 2026-09-26 #30).
+ * Server-side check of the air jump packet (audit 2026-09-26 #30, full cooldown owner 2026-09-29).
  *
  * <p>The client decides an air jump on its own ({@code DoubleJumpController}) and only tells the
- * server afterwards, so the server used to believe every {@code DoubleJumpPayload}: a modified
- * client could send one on every tick just before landing and never take fall damage. The server
- * now keeps its own record per player:
+ * server afterwards, so the server keeps its own record per player and believes a
+ * {@code DoubleJumpPayload} only when
  * <ul>
- *   <li>an air jump is only accepted while the player is <b>not on the ground</b>;</li>
- *   <li>once one is used, it stays used until the player is back on the ground - a second one in
- *       the same fall is only accepted after the cooldown the client itself waits
- *       ({@code airJumpCooldownTicks}, half from level II on), minus {@link #LATENCY_SLACK_TICKS}
- *       for packets that bunch up on the way.</li>
+ *   <li>the player is <b>not on the ground</b>, and</li>
+ *   <li>the <b>full cooldown</b> since the last accepted air jump has run out
+ *       ({@code airJumpCooldownTicks}, half from level II on) - landing does NOT reset it. Until
+ *       2026-09-29 landing cleared the record, so the first jump of every fall went through and a
+ *       modified client could skip the 20 s / 10 s by touching down briefly.</li>
  * </ul>
- * Landing clears the record ({@link #onPlayerTick}, called from the player tick mixin), so the
- * first air jump of every fall is always accepted - exactly what a normal client can do.
+ * Packets sent a cooldown apart can arrive a little closer together (lag, bunching), so the server
+ * waits {@link #lagToleranceTicks} less than the client: at most {@link #MAX_LAG_TOLERANCE_TICKS}
+ * (1 s, owner 2026-09-29) and never more than a quarter of the cooldown. The client's own cooldown
+ * (the XP-slot bar) also keeps running across landings, so a normal client never hits the guard.
  */
 public final class AirJumpGuard {
 
-    /** Packets sent a cooldown apart can arrive a little closer together. */
-    public static final int LATENCY_SLACK_TICKS = 3;
+    /** Upper bound of the lag tolerance: 1 second (owner 2026-09-29). */
+    public static final int MAX_LAG_TOLERANCE_TICKS = 20;
 
     /**
      * Default {@code airJumpCooldownTicks}: 20 s at level I, so 10 s at level II (owner 2026-09-29;
@@ -43,10 +44,18 @@ public final class AirJumpGuard {
         return Math.max(MIN_COOLDOWN_TICKS, Math.min(MAX_COOLDOWN_TICKS, configured));
     }
 
-    /** Server tick of the last accepted air jump in the current fall; absent = none used since landing. */
+    /** Server tick of the last accepted air jump; absent = none yet (or the player object is new). */
     private static final Map<ServerPlayer, Integer> JUMP_USED_AT = new WeakHashMap<>();
 
     private AirJumpGuard() {
+    }
+
+    /**
+     * How much earlier than the full {@code cooldown} the server accepts the next air jump: a quarter
+     * of the cooldown, at most {@link #MAX_LAG_TOLERANCE_TICKS}. 400 ticks -> 20, 200 -> 20, 20 -> 5.
+     */
+    public static int lagToleranceTicks(int cooldown) {
+        return Math.max(0, Math.min(MAX_LAG_TOLERANCE_TICKS, cooldown / 4));
     }
 
     /**
@@ -54,29 +63,35 @@ public final class AirJumpGuard {
      * level of the boots (already checked to be at least 1).
      */
     public static boolean tryUse(ServerPlayer player, int level) {
+        int now = player.level().getServer() != null ? player.level().getServer().getTickCount() : 0;
+        return tryUse(player, level, now);
+    }
+
+    /** {@link #tryUse(ServerPlayer, int)} at server tick {@code now} (the gametests drive the clock). */
+    public static boolean tryUse(ServerPlayer player, int level, int now) {
         // Serverschalter server.features.airJump (2026-09-28): aus = kein Luftsprung, egal was der Client meint.
         if (player.onGround() || !com.simplebuilding.config.ServerTuning.get().features.airJump) {
             return false;
         }
-        int now = player.level().getServer() != null ? player.level().getServer().getTickCount() : 0;
         Integer usedAt = JUMP_USED_AT.get(player);
-        if (usedAt != null && now - usedAt < cooldownTicks(level) - LATENCY_SLACK_TICKS) {
-            return false;
+        if (usedAt != null) {
+            int cooldown = cooldownTicks(level);
+            if (now - usedAt < cooldown - lagToleranceTicks(cooldown)) {
+                return false;
+            }
         }
         JUMP_USED_AT.put(player, now);
         return true;
     }
 
-    /** Clears the record once the player stands on the ground again. Cheap when nobody jumped. */
-    public static void onPlayerTick(ServerPlayer player) {
-        if (!JUMP_USED_AT.isEmpty() && player.onGround()) {
-            JUMP_USED_AT.remove(player);
-        }
-    }
-
-    /** Whether an air jump has been used since the player last stood on the ground. */
+    /** Whether the server has an accepted air jump on record for this player (landing keeps it). */
     public static boolean isUsed(ServerPlayer player) {
         return JUMP_USED_AT.containsKey(player);
+    }
+
+    /** Test hook: drops the record, as if the cooldown had long run out. */
+    public static void forget(ServerPlayer player) {
+        JUMP_USED_AT.remove(player);
     }
 
     /** The same cooldown the client waits, see {@code DoubleJumpController#cooldownTicksForLevel}. */

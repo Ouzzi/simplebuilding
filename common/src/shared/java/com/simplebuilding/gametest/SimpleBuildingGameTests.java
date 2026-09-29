@@ -484,6 +484,8 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("air_jump_game_test_the_bar_fills_up_while_the_air_jump_recharges", AirJumpTests::theBarFillsUpWhileTheAirJumpRecharges)
                     .build(),
+            GameTestSpec.named("air_jump_game_test_the_server_enforces_the_full_cooldown_across_landings", AirJumpTests::theServerEnforcesTheFullCooldownAcrossLandings)
+                    .build(),
             GameTestSpec.named("server_tuning_game_test_the_server_value_wins_over_the_client_file", ServerTuningTests::theServerValueWinsOverTheClientFile)
                     .build(),
             GameTestSpec.named("server_tuning_game_test_every_speed_and_range_option_is_clamped", ServerTuningTests::everySpeedAndRangeOptionIsClamped)

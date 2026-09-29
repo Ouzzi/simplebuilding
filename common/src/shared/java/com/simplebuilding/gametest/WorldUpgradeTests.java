@@ -291,6 +291,8 @@ public final class WorldUpgradeTests {
         backpack.set(DataComponents.DYED_COLOR, new DyedItemColor(BACKPACK_COLOUR));
         items.add(backpack);
 
+        // glow_level 3: old Glowing II+ data; the component codec already migrates it to 1 on parse,
+        // so the fixture holds 1 (Glowing has one level since 2026-09-29).
         items.add(parseStack(helper, "{id:\"simplebuilding:enderite_chestplate\",count:1,components:{"
                 + "\"minecraft:trim\":{material:\"simplebuilding:enderite\",pattern:\"minecraft:sentry\"},"
                 + "\"minecraft:enchantments\":{\"simplebuilding:kinetic_protection\":2,\"minecraft:unbreaking\":3},"
@@ -494,7 +496,8 @@ public final class WorldUpgradeTests {
                 "enderite chestplate trim changed: " + trim);
         helper.assertValueEqual(enchantmentLevel(helper, chestplate, "simplebuilding:kinetic_protection"), 2, "kinetic protection level");
         helper.assertValueEqual(enchantmentLevel(helper, chestplate, "minecraft:unbreaking"), 3, "unbreaking level");
-        helper.assertValueEqual(chestplate.get(ModDataComponentTypes.GLOW_LEVEL), 3, "glow level");
+        // Glowing II and above no longer exist (owner 2026-09-29): the saved 3 migrates to plain Glowing.
+        helper.assertValueEqual(chestplate.get(ModDataComponentTypes.GLOW_LEVEL), 1, "glow level (migrated to plain Glowing)");
         helper.assertValueEqual(chestplate.get(ModDataComponentTypes.VISUAL_GLOW), Boolean.TRUE, "visual glow");
         helper.assertValueEqual(chestplate.getDamageValue(), 11, "chestplate damage");
 

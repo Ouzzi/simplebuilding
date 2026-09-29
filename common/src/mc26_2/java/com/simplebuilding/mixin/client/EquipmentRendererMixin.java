@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.Slice;
 
 /**
  * Licht und Farbe des Ruestungsbesatzes (Lichtregeln des Besitzers 2026-09-29, siehe
- * {@link GlowingTrimUtils#trimLight}): Glowing I/II leuchten ruhig (II heller), nur Pulsating + Glowing
+ * {@link GlowingTrimUtils#trimLight}): Glowing leuchtet ruhig voll hell (nur eine Stufe), nur Pulsating + Glowing
  * schwankt in der Helligkeit, Pulsating allein laesst das Licht und pulsiert in der Saettigung.
  */
 @Mixin(EquipmentLayerRenderer.class)

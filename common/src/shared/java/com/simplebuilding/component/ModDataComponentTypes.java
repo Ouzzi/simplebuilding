@@ -12,7 +12,11 @@ import net.minecraft.resources.Identifier;
 public class ModDataComponentTypes {
     public static final DataComponentType<Integer> OFFSET = register("offset", builder -> builder.persistent(Codec.INT));
 
-    public static final DataComponentType<Integer> GLOW_LEVEL = register("glow_level", builder -> builder.persistent(Codec.INT));
+    // Glowing hat nur noch eine Stufe (Besitzer 2026-09-29): der Codec liest alte Stufe-2-Ruestung als 1,
+    // beim naechsten Speichern steht dann 1 da (GlowingTrimUtils.normalizeGlowLevel). Ohne eigenen
+    // Netzwerk-Codec leitet Vanilla ihn aus diesem ab, der Client sieht also ebenfalls nur 1.
+    public static final DataComponentType<Integer> GLOW_LEVEL = register("glow_level", builder -> builder.persistent(
+            Codec.INT.xmap(com.simplebuilding.util.GlowingTrimUtils::normalizeGlowLevel, level -> level)));
 
     // NEU: Visueller Glow (RGB Effekt)
     public static final DataComponentType<Boolean> VISUAL_GLOW = register("visual_glow", builder -> builder.persistent(Codec.BOOL));

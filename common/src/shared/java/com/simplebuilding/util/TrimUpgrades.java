@@ -10,14 +10,14 @@ import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Die drei Besatz-Aufwertungen der Mod am Schmiedetisch, an einer Stelle: Glowing (Leuchttinte, bis
- * Stufe 2), Emitting (Glowstonestaub, Strahlkraft bis 5) und Pulsating (Echoscherbe, einmalig).
+ * Die drei Besatz-Aufwertungen der Mod am Schmiedetisch, an einer Stelle: Glowing (Leuchttinte, eine
+ * Stufe), Emitting (Glowstonestaub, Strahlkraft bis 5) und Pulsating (Echoscherbe, einmalig).
  * {@code SmithingScreenHandlerMixin} legt das Ergebnis in den Ausgabe-Slot, die JEI-Anzeige zeigt
  * dasselbe Ergebnis (Ruestung mit Wirkung statt der Vorlage, die das Platzhalter-Rezept nennt).
  */
 public final class TrimUpgrades {
-    /** Hoechste Glowing-Stufe. */
-    public static final int MAX_GLOW_LEVEL = 2;
+    /** Hoechste (und einzige) Glowing-Stufe - Glowing II gibt es nicht mehr (Besitzer 2026-09-29). */
+    public static final int MAX_GLOW_LEVEL = GlowingTrimUtils.MAX_GLOW_LEVEL;
     /** Hoechste Strahlkraft (Emitting). */
     public static final int MAX_EMISSION_LEVEL = 5;
 
