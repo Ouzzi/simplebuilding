@@ -24,27 +24,34 @@ import snownee.jade.api.WailaPlugin;
  * <p>Shows the pad owner, launchpad charges, potion pad potion and cooldown, forced chunks of a chunk
  * loader, the mod hopper's filter (all through Jade's server data), plus piston durability, tiered
  * chest slots and furnace speed (from the block state, client side). The data comes from
- * {@link BlockInfo}; one {@link BlockInfoProvider} per topic, so each can be switched off in Jade's
- * config ({@code config.jade.plugin_simplebuilding.<topic>}).
+ * {@link BlockInfo}; one {@link BlockInfoClientProvider} per topic, so each can be switched off in
+ * Jade's config ({@code config.jade.plugin_simplebuilding.<topic>}), plus one
+ * {@link BlockInfoServerProvider} per server topic under the same id. The two halves must stay
+ * separate classes: Jade throws on a physical client when a data provider is also a component
+ * provider (since Minecraft 1.21.6), which kept the client from starting.
  */
 @WailaPlugin
 public class SimplebuildingJadePlugin implements IWailaPlugin {
-    private static final Map<BlockInfo.Topic, BlockInfoProvider> PROVIDERS = new EnumMap<>(BlockInfo.Topic.class);
+    private static final Map<BlockInfo.Topic, BlockInfoServerProvider> DATA = new EnumMap<>(BlockInfo.Topic.class);
+    private static final Map<BlockInfo.Topic, BlockInfoClientProvider> PROVIDERS = new EnumMap<>(BlockInfo.Topic.class);
 
     static {
         for (BlockInfo.Topic topic : BlockInfo.Topic.values()) {
-            PROVIDERS.put(topic, new BlockInfoProvider(topic));
+            if (topic.fromServer()) {
+                DATA.put(topic, new BlockInfoServerProvider(topic));
+            }
+            PROVIDERS.put(topic, new BlockInfoClientProvider(topic));
         }
     }
 
     @Override
     public void register(IWailaCommonRegistration registration) {
-        registration.registerBlockDataProvider(PROVIDERS.get(BlockInfo.Topic.OWNER), OwnedBlockEntity.class);
-        BlockInfoProvider pads = PROVIDERS.get(BlockInfo.Topic.PAD_STATUS);
+        registration.registerBlockDataProvider(DATA.get(BlockInfo.Topic.OWNER), OwnedBlockEntity.class);
+        BlockInfoServerProvider pads = DATA.get(BlockInfo.Topic.PAD_STATUS);
         registration.registerBlockDataProvider(pads, LaunchpadBlockEntity.class);
         registration.registerBlockDataProvider(pads, PotionPadBlockEntity.class);
         registration.registerBlockDataProvider(pads, ChunkLoaderBlockEntity.class);
-        registration.registerBlockDataProvider(PROVIDERS.get(BlockInfo.Topic.HOPPER_FILTER), ModHopperBlockEntity.class);
+        registration.registerBlockDataProvider(DATA.get(BlockInfo.Topic.HOPPER_FILTER), ModHopperBlockEntity.class);
     }
 
     @Override
