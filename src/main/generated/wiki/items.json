@@ -658,7 +658,6 @@
       "maxStackSize": 16
     },
     {
-<<<<<<< HEAD
       "id": "simplebuilding:guide_book_vanilla_caves",
       "maxStackSize": 16
     },
@@ -693,9 +692,9 @@
     {
       "id": "simplebuilding:guide_book_vanilla_start",
       "maxStackSize": 16
-=======
+    },
+    {
       "id": "simplebuilding:husk_head"
->>>>>>> worktree-agent-ad588a015b1bb6192
     },
     {
       "id": "simplebuilding:infused_potion_pad",

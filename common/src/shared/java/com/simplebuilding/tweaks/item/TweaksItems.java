@@ -210,7 +210,6 @@ public final class TweaksItems {
     }
 
     /**
-<<<<<<< HEAD
      * Zeilen des Tabs "SimplePads" (ModItemGroupsContent#padsRows; bis 2026-09-29 in SimpleMachines), Besitzer 2026-09-28/29:
      * erst die Druckplatten - Eiche (als einzige Holzplatte, die anderen Holzarten stehen nur noch im
      * Vanilla-Tab), Stein und polierter Schwarzstein mit den Metall-/Materialplatten (schwer = Eisen,
@@ -218,15 +217,6 @@ public final class TweaksItems {
      * Danach die Pads in Erz-Reihenfolge Kupfer, Eisen, Gold, Diamant, Netherit, Enderit: jede Familie mit
      * drei Stufen als "drei Stufen + ihre Freischalt-Zutat im vierten Feld", eine Luecke, dann die naechste
      * Familie in derselben Zeile. Zuletzt die weiteren Mobkoepfe ({@link #extraMobHeads()}).
-=======
-     * Zeilen fuer den Tab "Maschinen & Lager" (ModItemGroupsContent#functionalRows), Besitzer 2026-09-28:
-     * erst die Druckplatten - Holz (eine Zeile und ein Rest), dann Stein und polierter Schwarzstein mit den
-     * Metall-/Materialplatten (schwer = Eisen, leicht = Gold, Diamant, Netherit, Enderit) in einer Zeile,
-     * dann Kupfer (vier Stufen, dann gewachst). Danach die Pads in Erz-Reihenfolge Kupfer, Eisen, Gold,
-     * Diamant, Netherit, Enderit: jede Familie mit drei Stufen als "drei Stufen + ihr Materialkern im vierten
-     * Feld" (Stufe I braucht seit 2026-09-29 den Kern), eine Luecke, dann die naechste Familie in derselben
-     * Zeile. Zuletzt alle Mob-Koepfe der Mod in einer eigenen Zeile (laeuft in eine zweite Zeile weiter).
->>>>>>> worktree-agent-ad588a015b1bb6192
      */
     public static List<CreativeTabLayout.Row> padsRows() {
         List<CreativeTabLayout.Row> rows = new ArrayList<>(List.of(
@@ -258,28 +248,18 @@ public final class TweaksItems {
                         TweaksBlocks.POTION_PAD, TweaksBlocks.REINFORCED_POTION_PAD, TweaksBlocks.INFUSED_POTION_PAD,
                         com.simplebuilding.items.ModItems.NETHERITE_CORE, CreativeTabLayout.GAP,
                         TweaksBlocks.FLYPAD, TweaksBlocks.REINFORCED_FLYPAD, TweaksBlocks.STELLAR_FLYPAD,
-<<<<<<< HEAD
                         com.simplebuilding.items.ModItems.ENDERITE_CORE)));
-        // Weitere Mobkoepfe: eigene Zeile direkt unter Lohen- und Endermankopf, nur wenn es welche gibt.
+        // Alle Mod-Mobkoepfe in einer eigenen Zeile unter den Pads.
         List<ItemLike> heads = extraMobHeads();
         if (!heads.isEmpty()) {
             rows.add(CreativeTabLayout.Row.of("mob_heads", heads.toArray(ItemLike[]::new)));
         }
         return List.copyOf(rows);
-=======
-                        com.simplebuilding.items.ModItems.ENDERITE_CORE),
-                // Alle Mob-Koepfe (Lohe, Enderman, die Trial-Chamber-Koepfe, Shulker, Ertrunkener; docs/MOBKOEPFE.md)
-                CreativeTabLayout.Row.of("mob_heads", heads().toArray(ItemLike[]::new)));
->>>>>>> worktree-agent-ad588a015b1bb6192
     }
 
-    /**
-     * Platz fuer weitere Mobkoepfe (etwa die der Pruefkammer-Mobs): hier eintragen, dann erscheinen sie in
-     * SimplePads als Zeile "mob_heads" direkt unter der Zeile mit dem Lohenkopf (Lohen- und Endermankopf
-     * bleiben als Freischalt-Zutat bei ihren Pads). Leer erscheint die Zeile nicht.
-     */
+    /** Alle Mod-Mobkoepfe fuer die eigene Zeile im SimplePads-Tab. */
     public static List<ItemLike> extraMobHeads() {
-        return List.of();
+        return new ArrayList<>(heads());
     }
 
     private static Item register(String name, Function<Item.Properties, Item> factory) {

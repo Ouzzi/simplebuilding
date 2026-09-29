@@ -2578,3 +2578,1955 @@ public final class DataIntegrityTests {
                 List.of(TweaksBlocks.POTION_PAD.asItem(), TweaksBlocks.REINFORCED_POTION_PAD.asItem(),
                         TweaksBlocks.INFUSED_POTION_PAD.asItem(), ModItems.NETHERITE_CORE, gap,
                         TweaksBlocks.FLYPAD.asItem(), TweaksBlocks.REINFORCED_FLYPAD.asItem(),
+                        TweaksBlocks.STELLAR_FLYPAD.asItem(), ModItems.ENDERITE_CORE)));
+        List<Item> heads = TweaksItems.extraMobHeads().stream().map(net.minecraft.world.level.ItemLike::asItem).toList();
+        if (!heads.isEmpty()) {
+            expected.add(heads);
+        }
+        expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.PADS, problems), expectedSlots(expected), "SimplePads", problems);
+        helper.assertTrue(problems.isEmpty(), "pads layout: " + problems);
+        helper.succeed();
+    }
+
+    /**
+     * SimpleBlocks is laid out in rows like every other tab (owner 2026-09-28 "row layout for all
+     * tabs"): the three end stones (polished, astral, nihil); per palette a row of block, bricks with
+     * stairs, slab and wall, pillar, chiseled bricks (and the palette's purpur) with the polished row
+     * below it - astralit, nihilith, then ender quartz (block, stairs and slab first, nine in all); the
+     * quartz checkers; the gravity blocks (suspended | levitating); storage and light (cracked diamond
+     * block, enderite block | construction light).
+     *
+     * <p>Read slot by slot like {@link #machinesAndStorageTabIsLaidOutInRowsOfNine}. What breaks this: a
+     * block moved into another row or reordered, a gap missing, the tab emitted as a flat list again.
+     */
+    public static void buildingBlocksTabIsLaidOutInRows(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        Item gap = Items.AIR;
+        List<List<Item>> expected = List.of(
+                List.of(ModItems.POLISHED_END_STONE, ModItems.ASTRAL_END_STONE, ModItems.NIHIL_END_STONE),
+                List.of(ModItems.ASTRALIT_BLOCK, ModItems.ASTRALIT_BRICKS, ModItems.ASTRALIT_BRICK_STAIRS,
+                        ModItems.ASTRALIT_BRICK_SLAB, ModItems.ASTRALIT_BRICK_WALL, ModItems.ASTRALIT_PILLAR,
+                        ModItems.CHISELED_ASTRALIT_BRICKS, ModItems.ASTRAL_PURPUR_BLOCK),
+                List.of(ModItems.POLISHED_ASTRALIT, ModItems.POLISHED_ASTRALIT_STAIRS, ModItems.POLISHED_ASTRALIT_SLAB,
+                        ModItems.POLISHED_ASTRALIT_WALL),
+                List.of(ModItems.NIHILITH_BLOCK, ModItems.NIHILITH_BRICKS, ModItems.NIHILITH_BRICK_STAIRS,
+                        ModItems.NIHILITH_BRICK_SLAB, ModItems.NIHILITH_BRICK_WALL, ModItems.NIHILITH_PILLAR,
+                        ModItems.CHISELED_NIHILITH_BRICKS, ModItems.NIHIL_PURPUR_BLOCK),
+                List.of(ModItems.POLISHED_NIHILITH, ModItems.POLISHED_NIHILITH_STAIRS, ModItems.POLISHED_NIHILITH_SLAB,
+                        ModItems.POLISHED_NIHILITH_WALL),
+                List.of(ModItems.ENDER_QUARTZ_BLOCK, ModItems.ENDER_QUARTZ_STAIRS, ModItems.ENDER_QUARTZ_SLAB,
+                        ModItems.ENDER_QUARTZ_BRICKS, ModItems.ENDER_QUARTZ_BRICK_STAIRS, ModItems.ENDER_QUARTZ_BRICK_SLAB,
+                        ModItems.ENDER_QUARTZ_BRICK_WALL, ModItems.ENDER_QUARTZ_PILLAR, ModItems.CHISELED_ENDER_QUARTZ_BRICKS),
+                List.of(ModItems.POLISHED_ENDER_QUARTZ, ModItems.POLISHED_ENDER_QUARTZ_STAIRS, ModItems.POLISHED_ENDER_QUARTZ_SLAB,
+                        ModItems.POLISHED_ENDER_QUARTZ_WALL),
+                List.of(ModItems.PURPUR_QUARTZ_CHECKER, ModItems.LAPIS_QUARTZ_CHECKER, ModItems.BLACKSTONE_QUARTZ_CHECKER,
+                        ModItems.RESIN_QUARTZ_CHECKER, ModItems.NIHILITH_QUARTZ_CHECKER, ModItems.ASTRALIT_QUARTZ_CHECKER,
+                        ModItems.ENDER_QUARTZ_CHECKER),
+                List.of(ModItems.SUSPENDED_SAND, ModItems.SUSPENDED_GRAVEL, gap, ModItems.LEVITATING_SAND, ModItems.LEVITATING_GRAVEL),
+                List.of(ModItems.CRACKED_DIAMOND_BLOCK, ModItems.ENDERITE_BLOCK_ITEM, gap, ModItems.CONSTRUCTION_LIGHT));
+        expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.BUILDING_BLOCKS, problems), expectedSlots(expected), "SimpleBlocks", problems);
+        helper.assertTrue(problems.isEmpty(), "building blocks layout: " + problems);
+        helper.succeed();
+    }
+
+    /**
+     * SimpleMaterials is laid out in rows like the other tabs (owner 2026-09-28): end ores with their
+     * yield (nihilith ore, shard | astralit ore, dust | ender quartz), the materials in ore order
+     * (diamond pebble, cracked diamond, netherite nugget, raw enderite, scrap, nugget, ingot | leather
+     * sheet), the building cores copper to enderite, every smithing template in one place - the
+     * upgrades (basic, vanilla netherite, enderite), then all vanilla armour trims in vanilla's order
+     * followed by the glowing and emitting trims -, and the food (netherite | enderite).
+     *
+     * <p>Read slot by slot like {@link #machinesAndStorageTabIsLaidOutInRowsOfNine}. What breaks this: a
+     * row moved or reordered, a gap missing, a vanilla trim missing from the templates, a mod item left
+     * out of its row.
+     */
+    public static void materialsTabIsLaidOutInRows(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        Item gap = Items.AIR;
+        List<Item> trims = new ArrayList<>();
+        for (String trim : List.of("sentry", "vex", "wild", "coast", "dune", "wayfinder", "raiser", "shaper", "host", "ward",
+                "silence", "tide", "snout", "rib", "eye", "spire", "flow", "bolt")) {
+            Item template = BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(trim + "_armor_trim_smithing_template"));
+            if (template == Items.AIR) {
+                problems.add("minecraft:" + trim + "_armor_trim_smithing_template is not registered");
+            }
+            trims.add(template);
+        }
+        // Neuere Versionen: weitere Vanilla-Besaetze folgen nach Namen.
+        BuiltInRegistries.ITEM.keySet().stream()
+                .filter(id -> "minecraft".equals(id.getNamespace()) && id.getPath().endsWith("_armor_trim_smithing_template"))
+                .map(id -> BuiltInRegistries.ITEM.getValue(id))
+                .filter(item -> !trims.contains(item))
+                .sorted(Comparator.comparing(item -> BuiltInRegistries.ITEM.getKey(item).getPath()))
+                .forEach(trims::add);
+        trims.add(ModItems.GLOWING_TRIM_TEMPLATE);
+        trims.add(ModItems.EMITTING_TRIM_TEMPLATE);
+        trims.add(ModItems.PULSATING_TRIM_TEMPLATE);
+        List<List<Item>> expected = List.of(
+                List.of(ModItems.NIHILITH_ORE_ITEM, ModItems.NIHILITH_SHARD, gap, ModItems.ASTRALIT_ORE_ITEM, ModItems.ASTRALIT_DUST,
+                        gap, ModItems.ENDER_QUARTZ),
+                List.of(ModItems.DIAMOND_PEBBLE, ModItems.CRACKED_DIAMOND, ModItems.NETHERITE_NUGGET, ModItems.RAW_ENDERITE,
+                        ModItems.LAYERED_RAW_ENDERITE, ModItems.ENDERITE_SCRAP, ModItems.ENDERITE_NUGGET, ModItems.ENDERITE_INGOT,
+                        ModItems.LEATHER_SHEET),
+                List.of(ModItems.COPPER_CORE, ModItems.IRON_CORE, ModItems.GOLD_CORE, ModItems.DIAMOND_CORE,
+                        ModItems.NETHERITE_CORE, ModItems.ENDERITE_CORE),
+                List.of(ModItems.BASIC_UPGRADE_TEMPLATE, Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, ModItems.ENDERITE_UPGRADE_TEMPLATE),
+                trims,
+                List.of(ModItems.NETHERITE_APPLE, ModItems.ENCHANTED_NETHERITE_APPLE, ModItems.NETHERITE_CARROT, gap,
+                        ModItems.ENDERITE_APPLE, ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_CARROT));
+        expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.MATERIALS, problems), expectedSlots(expected), "SimpleMaterials", problems);
+        helper.assertTrue(problems.isEmpty(), "materials layout: " + problems);
+        helper.succeed();
+    }
+
+    /**
+     * The slots a tab of these rows has to emit: each row runs on over nine columns and is padded
+     * with spacers ({@code Items.AIR} here) to the next multiple of nine, except the last one.
+     */
+    private static List<Item> expectedSlots(List<List<Item>> rows) {
+        List<Item> slots = new ArrayList<>();
+        for (int r = 0; r < rows.size(); r++) {
+            slots.addAll(rows.get(r));
+            if (r < rows.size() - 1) {
+                while (slots.size() % 9 != 0) {
+                    slots.add(Items.AIR);
+                }
+            }
+        }
+        return slots;
+    }
+
+    /** What the tab emits, a spacer read as {@code Items.AIR}; a spacer visible in the search tab is a problem. */
+    private static List<Item> tabSlots(GameTestHelper helper, ModItemGroupsContent.Tab tab, List<String> problems) {
+        List<Item> slots = new ArrayList<>();
+        ModItemGroupsContent.populate(tab, (CreativeModeTab.Output) (stack, visibility) -> {
+            if (stack.is(ModItems.CREATIVE_SPACER)) {
+                if (visibility != CreativeModeTab.TabVisibility.PARENT_TAB_ONLY) {
+                    problems.add(tab + ": spacer at slot " + slots.size() + " is visible as " + visibility
+                            + ", so it would show up in the search tab");
+                }
+                slots.add(Items.AIR);
+            } else {
+                slots.add(stack.getItem());
+            }
+        }, helper.getLevel().registryAccess());
+        return slots;
+    }
+
+    /** Compares two slot lists row by row (nine per row) and names every row that differs. */
+    private static void expectSlots(List<Item> actual, List<Item> expected, String tab, List<String> problems) {
+        int rows = (Math.max(actual.size(), expected.size()) + 8) / 9;
+        for (int r = 0; r < rows; r++) {
+            List<Item> a = actual.subList(Math.min(actual.size(), r * 9), Math.min(actual.size(), r * 9 + 9));
+            List<Item> e = expected.subList(Math.min(expected.size(), r * 9), Math.min(expected.size(), r * 9 + 9));
+            if (!a.equals(e)) {
+                problems.add(tab + " row " + (r + 1) + " is " + a + " instead of " + e + " (air = spacer)");
+            }
+        }
+        if (!actual.isEmpty() && actual.get(actual.size() - 1) == Items.AIR) {
+            problems.add(tab + " ends on a spacer");
+        }
+    }
+
+    /** Mod items whose English name says "Enderite" but that are not made of it. */
+    private static final Map<String, String> ENDERITE_NAME_EXEMPT = Map.of(
+            "guide_book_end", "the guide book about the End and enderite, paper and leather");
+
+    /**
+     * Every enderite item of the mod carries both enderite perks (owner decision 2026-09-28): as a
+     * dropped item it floats instead of falling into the void, and it lies twice as long before it
+     * despawns. Both perks read one tag, {@code simplebuilding:enderite_items}, through
+     * {@code void_protected} and {@code double_despawn_time}.
+     *
+     * <p>The test finds the enderite items on its own, twice over: by registry path ("enderite"
+     * anywhere in it - that catches {@code raw_enderite} and {@code enchanted_enderite_apple}) and
+     * by English name ("Enderite" anywhere in the shipped {@code en_us.json}). On top it names the
+     * enderite tiers whose id and name say neither - the three flypads (all smithed from the
+     * enderite pressure plate), the Fine Elytra Pad V, the Infused Potion Pad III and the Echo Sounder
+     * (enderite core and nuggets). Each of them
+     * must be in the tag, reach both perks through it, and a real drop of two of them must float
+     * below the world floor (the mixin, not only the tag).
+     *
+     * <p>What breaks this test: a new enderite item the datagen rule misses, a stale tag json,
+     * {@code void_protected} or {@code double_despawn_time} no longer including the tag, a mixin
+     * that reads another tag, and a rule so wide that netherite or ender items slip in.
+     */
+    public static void everyEnderiteItemIsInTheEnderiteItemsTag(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        JsonObject en = langFile(helper, "en_us");
+
+        Set<String> found = new TreeSet<>();
+        for (Identifier id : BuiltInRegistries.ITEM.keySet()) {
+            if (!MOD_ID.equals(id.getNamespace()) || ENDERITE_NAME_EXEMPT.containsKey(id.getPath())) {
+                continue;
+            }
+            Item item = BuiltInRegistries.ITEM.getValue(id);
+            JsonElement name = en.get(item.getDescriptionId());
+            if (id.getPath().contains("enderite") || (name != null && name.getAsString().contains("Enderite"))) {
+                found.add(id.toString());
+            }
+        }
+        List<Item> tiersWithoutTheWord = List.of(TweaksBlocks.FLYPAD.asItem(), TweaksBlocks.REINFORCED_FLYPAD.asItem(),
+                TweaksBlocks.STELLAR_FLYPAD.asItem(), TweaksBlocks.FINE_ELYTRA_PAD.asItem(),
+                TweaksBlocks.INFUSED_POTION_PAD.asItem(), TweaksItems.ECHO_COMPASS);
+        for (Item item : tiersWithoutTheWord) {
+            found.add(BuiltInRegistries.ITEM.getKey(item).toString());
+        }
+
+        // Anchors, spelled out: a finder that goes blind must not make the loop below pass trivially.
+        for (Item anchor : List.of(ModItems.ENDERITE_INGOT, ModItems.RAW_ENDERITE, ModItems.LAYERED_RAW_ENDERITE, ModItems.ENDERITE_SCRAP,
+                ModItems.ENDERITE_UPGRADE_TEMPLATE, ModItems.ENDERITE_PICKAXE, ModItems.ENDERITE_CHESTPLATE,
+                ModItems.ENDERITE_HORSE_ARMOR, ModItems.ENDERITE_NAUTILUS_ARMOR, ModItems.ENDERITE_APPLE,
+                ModItems.ENCHANTED_ENDERITE_APPLE, ModItems.ENDERITE_BLOCK_ITEM, ModItems.ENDERITE_QUIVER,
+                TweaksBlocks.ENDERITE_SPAWN_TELEPORTER.asItem())) {
+            if (!found.contains(BuiltInRegistries.ITEM.getKey(anchor).toString())) {
+                problems.add("test broken: the enderite finder does not see " + BuiltInRegistries.ITEM.getKey(anchor));
+            }
+        }
+
+        for (String id : found) {
+            ItemStack stack = new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.parse(id)));
+            List<String> missing = new ArrayList<>();
+            if (!stack.typeHolder().is(ModTags.Items.ENDERITE_ITEMS)) {
+                missing.add(ModTags.Items.ENDERITE_ITEMS.location().toString());
+            }
+            if (!isVoidProtected(stack)) {
+                missing.add(ModTags.Items.VOID_PROTECTED.location().toString());
+            }
+            if (EnderiteLifetime.lifetime(stack, 6000) != ModTags.Items.DOUBLE_DESPAWN_LIFETIME) {
+                missing.add(ModTags.Items.DOUBLE_DESPAWN_TIME.location() + " (lifetime "
+                        + EnderiteLifetime.lifetime(stack, 6000) + ")");
+            }
+            if (!missing.isEmpty()) {
+                problems.add(id + " is an enderite item but not in " + missing);
+            }
+        }
+
+        // The other end: the tag holds exactly what the rule names, and nothing that is not enderite.
+        Set<String> tagged = new TreeSet<>();
+        for (Holder<Item> holder : BuiltInRegistries.ITEM.getTagOrEmpty(ModTags.Items.ENDERITE_ITEMS)) {
+            holder.unwrapKey().ifPresent(key -> tagged.add(key.identifier().toString()));
+        }
+        if (!tagged.equals(found)) {
+            Set<String> extra = new TreeSet<>(tagged);
+            extra.removeAll(found);
+            Set<String> lacking = new TreeSet<>(found);
+            lacking.removeAll(tagged);
+            problems.add(ModTags.Items.ENDERITE_ITEMS.location() + " additionally holds " + extra
+                    + " and lacks " + lacking + " (datagen not re-run, or the rule drifted from this test)");
+        }
+        for (Item control : List.of(ModItems.NETHERITE_QUIVER, ModItems.NETHERITE_CORE, ModItems.ENDER_QUARTZ,
+                TweaksBlocks.NETHERITE_FLYPAD.asItem(), ModItems.GUIDE_BOOK_END, Items.NETHERITE_INGOT,
+                Items.NETHERITE_HORSE_ARMOR, Items.ENDER_PEARL)) {
+            ItemStack stack = new ItemStack(control);
+            if (stack.typeHolder().is(ModTags.Items.ENDERITE_ITEMS) || isVoidProtected(stack)
+                    || EnderiteLifetime.lifetime(stack, 6000) != 6000) {
+                problems.add(BuiltInRegistries.ITEM.getKey(control) + " gets an enderite perk but is no enderite item");
+            }
+        }
+
+        // The mixin, for two items the old "enderite_" prefix rule missed.
+        ServerLevel level = helper.getLevel();
+        int minY = level.getMinY();
+        BlockPos anchor = helper.absolutePos(new BlockPos(3, 1, 3));
+        for (Item item : List.of(TweaksBlocks.STELLAR_FLYPAD.asItem(), ModItems.ENCHANTED_ENDERITE_APPLE)) {
+            ItemEntity entity = dropBelowTheWorld(helper, new ItemStack(item), anchor, minY - 20.0);
+            entity.tick();
+            if (!entity.isNoGravity() || entity.getY() < minY) {
+                problems.add("a dropped " + BuiltInRegistries.ITEM.getKey(item) + " below the world was left in the void at Y="
+                        + entity.getY());
+            }
+        }
+
+        helper.assertTrue(problems.isEmpty(), "enderite perks: " + problems);
+        helper.succeed();
+    }
+
+    /**
+     * The six legacy spatulas (from before the rename to chisels) have no recipe and only exist
+     * for old worlds; recipe viewers must not list them (owner decision 2026-09-28). JEI, REI and
+     * EMI all hide what is in the convention tag {@code c:hidden_from_recipe_viewers}; the JEI info
+     * page that used to explain them is gone, and the chisels they turn into stay visible.
+     *
+     * <p>What breaks this test: a spatula dropped from the hidden tag (it shows up in JEI without a
+     * recipe again), the info page brought back, or the chisels hidden by mistake.
+     */
+    public static void legacySpatulasAreHiddenFromRecipeViewers(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        TagKey<Item> hidden = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "hidden_from_recipe_viewers"));
+        List<Item> spatulas = List.of(ModItems.STONE_SPATULA, ModItems.COPPER_SPATULA, ModItems.IRON_SPATULA,
+                ModItems.GOLD_SPATULA, ModItems.DIAMOND_SPATULA, ModItems.NETHERITE_SPATULA);
+        for (Item spatula : spatulas) {
+            if (!new ItemStack(spatula).is(hidden)) {
+                problems.add(BuiltInRegistries.ITEM.getKey(spatula) + " is not in c:hidden_from_recipe_viewers, so JEI/REI/EMI list it");
+            }
+        }
+        com.simplebuilding.compat.RecipelessJeiInfo.pages().forEach((page, items) -> {
+            for (net.minecraft.world.level.ItemLike item : items) {
+                if (spatulas.contains(item.asItem())) {
+                    problems.add("the JEI info page " + page + " still lists " + BuiltInRegistries.ITEM.getKey(item.asItem()));
+                }
+            }
+        });
+        if (langFile(helper, "en_us").has("jei.simplebuilding.info.legacy_spatula")) {
+            problems.add("en_us.json still carries the removed JEI page jei.simplebuilding.info.legacy_spatula");
+        }
+        for (Item chisel : List.of(ModItems.STONE_CHISEL, ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL)) {
+            if (new ItemStack(chisel).is(hidden)) {
+                problems.add(BuiltInRegistries.ITEM.getKey(chisel) + " is hidden from recipe viewers, but it is the current tool");
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), "legacy spatulas in recipe viewers: " + problems);
+        helper.succeed();
+    }
+
+    /**
+     * Enderite horse armor and enderite nautilus armor (owner decision 2026-09-28) sit a step
+     * above vanilla's netherite ones: more armor on the body slot (22 against 19), at least as much
+     * toughness and knockback resistance, fire resistant, worn only by the animals vanilla's
+     * versions fit, drawn with the {@code simplebuilding:enderite} equipment asset - whose
+     * {@code horse_body} and {@code nautilus_body} layers and textures must ship, or the armor is
+     * invisible on the animal. The smithing recipes are pinned in
+     * {@link #everyEnderiteGearPieceUpgradesFromItsNetheriteTwin}.
+     *
+     * <p>What breaks this test: a weaker or missing BODY value on the enderite armor material, the
+     * wrong equippable (humanoid slot, no entity restriction), a missing equipment layer or texture.
+     */
+    public static void enderiteHorseAndNautilusArmorRankOneStepAboveNetherite(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        Object[][] pairs = {
+                {ModItems.ENDERITE_HORSE_ARMOR, Items.NETHERITE_HORSE_ARMOR, EntityTypes.HORSE, EntityTypes.ZOMBIE, "horse_body"},
+                {ModItems.ENDERITE_NAUTILUS_ARMOR, Items.NETHERITE_NAUTILUS_ARMOR, EntityTypes.NAUTILUS, EntityTypes.HORSE, "nautilus_body"}};
+        for (Object[] pair : pairs) {
+            ItemStack enderite = new ItemStack((Item) pair[0]);
+            ItemStack netherite = new ItemStack((Item) pair[1]);
+            net.minecraft.world.entity.EntityType<?> wearer = (net.minecraft.world.entity.EntityType<?>) pair[2];
+            net.minecraft.world.entity.EntityType<?> stranger = (net.minecraft.world.entity.EntityType<?>) pair[3];
+            String name = BuiltInRegistries.ITEM.getKey(enderite.getItem()).getPath();
+
+            double armor = bodyValue(enderite, net.minecraft.world.entity.ai.attributes.Attributes.ARMOR);
+            double netheriteArmor = bodyValue(netherite, net.minecraft.world.entity.ai.attributes.Attributes.ARMOR);
+            if (armor != 22.0 || armor <= netheriteArmor) {
+                problems.add(name + " gives " + armor + " armor on the body slot, netherite gives " + netheriteArmor
+                        + "; expected 22, a step above");
+            }
+            for (var attribute : List.of(net.minecraft.world.entity.ai.attributes.Attributes.ARMOR_TOUGHNESS,
+                    net.minecraft.world.entity.ai.attributes.Attributes.KNOCKBACK_RESISTANCE)) {
+                if (bodyValue(enderite, attribute) < bodyValue(netherite, attribute)) {
+                    problems.add(name + " has less " + attribute.getRegisteredName() + " than its netherite twin");
+                }
+            }
+
+            net.minecraft.world.item.equipment.Equippable equippable = enderite.get(DataComponents.EQUIPPABLE);
+            if (equippable == null || equippable.slot() != net.minecraft.world.entity.EquipmentSlot.BODY) {
+                problems.add(name + " is not worn on the body slot: " + equippable);
+            } else {
+                if (!equippable.canBeEquippedBy(wearer.builtInRegistryHolder())) {
+                    problems.add(name + " cannot be worn by " + BuiltInRegistries.ENTITY_TYPE.getKey(wearer));
+                }
+                if (equippable.canBeEquippedBy(stranger.builtInRegistryHolder())) {
+                    problems.add(name + " can be worn by " + BuiltInRegistries.ENTITY_TYPE.getKey(stranger));
+                }
+                if (!equippable.assetId().map(key -> key.identifier().toString()).orElse("").equals(MOD_ID + ":enderite")) {
+                    problems.add(name + " is drawn with " + equippable.assetId() + " instead of " + MOD_ID + ":enderite");
+                }
+            }
+            if (!isFireResistant(helper, enderite)) {
+                problems.add(name + " burns in fire and lava, but everything made of enderite is fire resistant");
+            }
+
+            String layer = (String) pair[4];
+            JsonObject asset = shippedJson("assets/simplebuilding/equipment/enderite.json", json -> json.has("layers"));
+            if (asset == null || !asset.getAsJsonObject("layers").has(layer)) {
+                problems.add("equipment/enderite.json has no " + layer + " layer, so " + name + " is invisible on the animal");
+            }
+            String texture = "/assets/simplebuilding/textures/entity/equipment/" + layer + "/enderite.png";
+            if (DataIntegrityTests.class.getResource(texture) == null) {
+                problems.add(texture + " is not shipped");
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), "enderite mount armor: " + problems);
+        helper.succeed();
+    }
+
+    /** The value an item's attribute modifiers add to {@code attribute} on the body slot, from 0. */
+    private static double bodyValue(ItemStack stack, Holder<net.minecraft.world.entity.ai.attributes.Attribute> attribute) {
+        return stack.getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, net.minecraft.world.item.component.ItemAttributeModifiers.EMPTY)
+                .compute(attribute, 0.0, net.minecraft.world.entity.EquipmentSlot.BODY);
+    }
+
+    private static boolean isFireResistant(GameTestHelper helper, ItemStack stack) {
+        net.minecraft.world.item.component.DamageResistant resistant = stack.get(DataComponents.DAMAGE_RESISTANT);
+        return resistant != null && resistant.isResistantTo(helper.getLevel().damageSources().lava());
+    }
+
+    /**
+     * Every enderite gear piece comes from its netherite twin at the smithing table: enderite
+     * upgrade template + netherite piece + enderite ingot, under {@code simplebuilding:enderite_<kind>_smithing}.
+     * The enderite spear was registered without that recipe and was not obtainable in survival at
+     * all (audit 2026-09-26 #18).
+     */
+    public static void everyEnderiteGearPieceUpgradesFromItsNetheriteTwin(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        RecipeManager recipes = level.getServer().getRecipeManager();
+        List<String> problems = new ArrayList<>();
+        for (String kind : List.of("pickaxe", "shovel", "hoe", "axe", "sword", "spear",
+                "helmet", "chestplate", "leggings", "boots", "horse_armor", "nautilus_armor")) {
+            Item netherite = BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace("netherite_" + kind));
+            Item enderite = BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(MOD_ID, "enderite_" + kind));
+            if (netherite == Items.AIR || enderite == Items.AIR) {
+                problems.add("netherite_" + kind + " or enderite_" + kind + " is not registered");
+                continue;
+            }
+            SmithingRecipeInput input = new SmithingRecipeInput(new ItemStack(ModItems.ENDERITE_UPGRADE_TEMPLATE),
+                    new ItemStack(netherite), new ItemStack(ModItems.ENDERITE_INGOT));
+            Optional<RecipeHolder<SmithingRecipe>> match = recipes.getRecipeFor(RecipeType.SMITHING, input, level);
+            if (match.isEmpty()) {
+                problems.add("no smithing recipe turns netherite_" + kind + " into enderite_" + kind);
+            } else if (!match.get().id().toString().contains(MOD_ID + ":enderite_" + kind + "_smithing")) {
+                problems.add("netherite_" + kind + " + enderite ingot matches " + match.get().id()
+                        + " instead of " + MOD_ID + ":enderite_" + kind + "_smithing");
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), String.join("; ", problems));
+        helper.succeed();
+    }
+
+    /**
+     * SimpleTools is laid out in rows of nine, one family per row from the lowest tier up to
+     * enderite, the vanilla tools, weapons and armour of every tier included: chisel, building wand
+     * (after a gap the building planning in the same row: blueprint and cartography table, right next
+     * to the enderite wand that builds a blueprint - owner 2026-09-29), sledgehammer, pickaxe, shovel,
+     * hoe, axe, then sword and spear, then helmet, chestplate,
+     * leggings and boots, then the gadgets (compass, recovery compass, echo compass, velocity gauge,
+     * ore detector, magnet, rotator, amethyst lens, octant - a full row),
+     * the sixteen coloured octants (one category over two rows) and last the enchanted books, one
+     * per mod enchantment.
+     *
+     * <p>Read slot by slot like {@link #machinesAndStorageTabIsLaidOutInRowsOfNine}: every cell holds
+     * the expected item, a spacer where a gap or the rest of a row belongs.
+     *
+     * <p>What breaks this: a family moved, reordered or missing a tier, a vanilla tier dropped, a
+     * missing spacer, the planning in a row of its own or without its gap, books spread into another
+     * row or a book missing.
+     */
+    public static void toolsTabIsLaidOutInRowsOfNine(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        List<String> vanillaTools = List.of("wooden", "stone", "copper", "iron", "golden", "diamond", "netherite");
+        List<String> vanillaArmour = List.of("leather", "chainmail", "copper", "iron", "golden", "diamond", "netherite");
+        List<List<Item>> expected = new ArrayList<>();
+        expected.add(List.of(ModItems.STONE_CHISEL, ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL, ModItems.GOLD_CHISEL,
+                ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL, ModItems.ENDERITE_CHISEL));
+        // Baustaebe, Luecke, Bauplanung (Blaupause, Kartografentisch) - eine Zeile, genau neun.
+        expected.add(List.of(ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND,
+                ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND, ModItems.ENDERITE_BUILDING_WAND,
+                Items.AIR, ModItems.BLUEPRINT, Items.CARTOGRAPHY_TABLE));
+        expected.add(List.of(ModItems.STONE_SLEDGEHAMMER, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER,
+                ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_SLEDGEHAMMER,
+                ModItems.ENDERITE_SLEDGEHAMMER));
+        Map<String, Item> enderite = new LinkedHashMap<>();
+        enderite.put("pickaxe", ModItems.ENDERITE_PICKAXE);
+        enderite.put("shovel", ModItems.ENDERITE_SHOVEL);
+        enderite.put("hoe", ModItems.ENDERITE_HOE);
+        enderite.put("axe", ModItems.ENDERITE_AXE);
+        enderite.put("sword", ModItems.ENDERITE_SWORD);
+        enderite.put("spear", ModItems.ENDERITE_SPEAR);
+        enderite.put("helmet", ModItems.ENDERITE_HELMET);
+        enderite.put("chestplate", ModItems.ENDERITE_CHESTPLATE);
+        enderite.put("leggings", ModItems.ENDERITE_LEGGINGS);
+        enderite.put("boots", ModItems.ENDERITE_BOOTS);
+        enderite.forEach((kind, top) -> {
+            List<Item> family = new ArrayList<>();
+            boolean armour = List.of("helmet", "chestplate", "leggings", "boots").contains(kind);
+            for (String tier : armour ? vanillaArmour : vanillaTools) {
+                family.add(BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(tier + "_" + kind)));
+            }
+            family.add(top);
+            expected.add(family);
+        });
+        // Reittier-Ruestung (2026-09-28): alle Vanilla-Stufen, oben Enderit.
+        expected.add(List.of(Items.LEATHER_HORSE_ARMOR, Items.COPPER_HORSE_ARMOR, Items.IRON_HORSE_ARMOR,
+                Items.GOLDEN_HORSE_ARMOR, Items.DIAMOND_HORSE_ARMOR, Items.NETHERITE_HORSE_ARMOR, ModItems.ENDERITE_HORSE_ARMOR));
+        expected.add(List.of(Items.COPPER_NAUTILUS_ARMOR, Items.IRON_NAUTILUS_ARMOR, Items.GOLDEN_NAUTILUS_ARMOR,
+                Items.DIAMOND_NAUTILUS_ARMOR, Items.NETHERITE_NAUTILUS_ARMOR, ModItems.ENDERITE_NAUTILUS_ARMOR));
+        // Geraete (Besitzer 2026-09-27): Kompassartiges zuerst, dann Magnet, Rotator, Amethystlinse, Oktant -
+        // genau neun; die 16 gefaerbten Oktanten laufen ueber zwei Zeilen.
+        expected.add(List.of(Items.COMPASS, Items.RECOVERY_COMPASS, TweaksItems.ECHO_COMPASS,
+                ModItems.VELOCITY_GAUGE, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR, TweaksItems.LASER_POINTER,
+                ModItems.OCTANT));
+        List<Item> colored = new ArrayList<>();
+        for (DyeColor color : DyeColor.values()) {
+            colored.add(ModItems.COLORED_OCTANT_ITEMS.get(color));
+        }
+        expected.add(colored);
+        // Handbuecher: je Regal eine Kategorie (GuideBooks.Shelf, Lesezeichen-Reihenfolge). Eine Kategorie, die
+        // genau volle Zeilen fuellt, hat keinen Fueller - rowLayout liest sie dann mit der naechsten als eine
+        // (wie bei den Geraeten); die verzauberten Buecher folgen auf das letzte Regal.
+        int modEnchantments = (int) helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
+                .listElements().filter(h -> MOD_ID.equals(h.key().identifier().getNamespace())).count();
+        List<Item> pending = new ArrayList<>();
+        for (com.simplebuilding.guide.GuideBooks.Shelf shelf : com.simplebuilding.guide.GuideBooks.Shelf.values()) {
+            shelf.books().forEach(book -> pending.add(com.simplebuilding.guide.GuideBooks.item(book)));
+            if (pending.size() % 9 != 0) {
+                expected.add(new ArrayList<>(pending));
+                pending.clear();
+            }
+        }
+        pending.addAll(Collections.nCopies(modEnchantments, Items.ENCHANTED_BOOK));
+        expected.add(pending);
+
+        expectSlots(tabSlots(helper, ModItemGroupsContent.Tab.TOOLS, problems), expectedSlots(expected), "SimpleTools", problems);
+        helper.assertTrue(problems.isEmpty(), "tools layout: " + problems);
+        helper.succeed();
+    }
+
+    /**
+     * The layout spacer is filler that cannot be taken or kept.
+     *
+     * <p>A slot that holds it reports itself inactive ({@code SlotMixin}), which is what the creative
+     * screen asks before it draws a slot, highlights it, shows its tooltip or lets it be clicked; the
+     * same slot with a hopper in it stays active, so the mixin cannot pass by switching every slot
+     * off. A spacer that lands in an inventory anyway (a {@code /give}, say) is gone after one
+     * inventory tick. It is hidden from recipe viewers through {@code c:hidden_from_recipe_viewers},
+     * locked in creative slots and hides its tooltip, and item command suggestions leave it out
+     * ({@code ItemParserStateMixin}).
+     *
+     * <p>What breaks this: the mixin not applied or checking the wrong item, the self deletion dropped,
+     * the tag or the default components lost, the suggestion filter gone.
+     */
+    public static void creativeSpacerCannotBeTakenOrKept(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+
+        net.minecraft.world.inventory.Slot slot = new net.minecraft.world.inventory.Slot(
+                new net.minecraft.world.SimpleContainer(1), 0, 0, 0);
+        slot.set(new ItemStack(Items.HOPPER));
+        if (!slot.isActive()) {
+            problems.add("a slot holding a hopper is inactive; the spacer check switches off every slot");
+        }
+        slot.set(new ItemStack(ModItems.CREATIVE_SPACER));
+        if (slot.isActive()) {
+            problems.add("a slot holding the spacer is still active, so the creative screen draws it, "
+                    + "shows its tooltip and lets it be picked up");
+        }
+
+        net.minecraft.world.entity.player.Player player = helper.makeMockPlayer(net.minecraft.world.level.GameType.SURVIVAL);
+        player.getInventory().setItem(0, new ItemStack(ModItems.CREATIVE_SPACER));
+        player.getInventory().tick();
+        if (!player.getInventory().getItem(0).isEmpty()) {
+            problems.add("a spacer in a player's inventory survived an inventory tick");
+        }
+
+        ItemStack spacer = new ItemStack(ModItems.CREATIVE_SPACER);
+        TagKey<Item> hidden = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "hidden_from_recipe_viewers"));
+        if (!spacer.is(hidden)) {
+            problems.add("the spacer is not in c:hidden_from_recipe_viewers, so JEI/REI/EMI list it");
+        }
+        if (!spacer.has(DataComponents.CREATIVE_SLOT_LOCK)) {
+            problems.add("the spacer has no creative_slot_lock");
+        }
+        if (!spacer.getOrDefault(DataComponents.TOOLTIP_DISPLAY, net.minecraft.world.item.component.TooltipDisplay.DEFAULT).hideTooltip()) {
+            problems.add("the spacer does not hide its tooltip");
+        }
+
+
+        // Command suggestions (ItemParserStateMixin): /give, /clear and /item offer every mod item but
+        // the spacer. The same ItemParser the ItemArgument asks on the client, here on the server's
+        // registries; the chiseled astralit bricks next to it are the control that suggestions work.
+        List<String> offered = new net.minecraft.commands.arguments.item.ItemParser(helper.getLevel().registryAccess())
+                .fillSuggestions(new com.mojang.brigadier.suggestion.SuggestionsBuilder("simplebuilding:c", 0))
+                .join().getList().stream().map(com.mojang.brigadier.suggestion.Suggestion::getText).toList();
+        if (!offered.contains("simplebuilding:chiseled_astralit_bricks")) {
+            problems.add("item suggestions for simplebuilding:c do not offer the chiseled astralit bricks either, "
+                    + "so the spacer check below proves nothing: " + offered);
+        }
+        if (offered.contains("simplebuilding:creative_spacer")) {
+            problems.add("/give suggests simplebuilding:creative_spacer");
+        }
+        helper.assertTrue(problems.isEmpty(), "creative spacer: " + problems);
+        helper.succeed();
+    }
+
+    /** Every non-curse enchantment whose supported items hold the stack, straight from the registry. */
+    private static List<Holder<Enchantment>> supportedEnchantments(GameTestHelper helper, ItemStack stack) {
+        List<Holder<Enchantment>> out = new ArrayList<>();
+        helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).listElements()
+                .filter(h -> !h.is(EnchantmentTags.CURSE) && h.value().isSupportedItem(stack))
+                .forEach(out::add);
+        return out;
+    }
+
+    /**
+     * The development tab "SimpleEnchants (Dev)" holds the best tier of every enchantable
+     * item family, pre-enchanted at max level, with one variant per choice among mutually exclusive
+     * enchantments.
+     *
+     * <p><b>Registered</b> as {@code simplebuilding:enchanted_dev} with its title key; its entries are
+     * {@code PARENT_TAB_ONLY}, so none of the duplicates reaches the search tab.
+     *
+     * <p><b>Top tiers only</b>: the enderite chisel, wand, sledgehammer, bundle, quiver, backpack,
+     * tools and armour, the tierless gadgets and the two vanilla items Constructor's Touch gives a
+     * function (stick, shulker box) are there; every lower tier, the colored octants, vanilla
+     * netherite gear (an enderite piece carries all of its enchantments) and unenchantable items are
+     * not.
+     *
+     * <p><b>Enchantments</b>, checked against the registry for every item in the tab: each variant only
+     * holds enchantments the item supports, each at its max level, no curse, no two incompatible ones,
+     * and it is maximal - every supported enchantment it lacks conflicts with one it has. Over all
+     * variants of an item every supported enchantment appears, so each member of an exclusive set is
+     * offered. Anchors so this cannot pass on an empty tab: all five armour protections on the
+     * enderite boots, silk touch and fortune as well as vein and strip miner on the enderite pickaxe,
+     * cover and bridge on the enderite wand. No item has more than twelve variants.
+     */
+    public static void devEnchantedTabOffersEveryExclusiveChoiceAtMaxLevelOnTopTiers(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+
+        Identifier devId = Identifier.fromNamespaceAndPath(MOD_ID, "enchanted_dev");
+        CreativeModeTab registered = BuiltInRegistries.CREATIVE_MODE_TAB.getValue(devId);
+        if (registered == null) {
+            problems.add(devId + " is not a registered creative tab");
+        } else if (!(registered.getDisplayName().getContents() instanceof TranslatableContents title)
+                || !"itemgroup.simplebuilding.enchanted_dev".equals(title.getKey())) {
+            problems.add(devId + " is titled " + registered.getDisplayName());
+        }
+
+        Map<Item, List<ItemStack>> byItem = new LinkedHashMap<>();
+        com.simplebuilding.items.DevEnchantedTab.populate((CreativeModeTab.Output) (stack, visibility) -> {
+            byItem.computeIfAbsent(stack.getItem(), item -> new ArrayList<>()).add(stack);
+            if (visibility != CreativeModeTab.TabVisibility.PARENT_TAB_ONLY) {
+                problems.add(BuiltInRegistries.ITEM.getKey(stack.getItem()) + " is offered as " + visibility
+                        + ", so the dev duplicates reach the search tab");
+            }
+        }, helper.getLevel().registryAccess());
+        helper.assertTrue(!byItem.isEmpty(), "the dev tab offered nothing, so none of the checks below could fail");
+
+        List<Item> present = List.of(ModItems.ENDERITE_CHISEL, ModItems.ENDERITE_BUILDING_WAND, ModItems.ENDERITE_SLEDGEHAMMER,
+                ModItems.ENDERITE_BUNDLE, ModItems.ENDERITE_QUIVER, ModItems.ENDERITE_BACKPACK, ModItems.ENDERITE_PICKAXE,
+                ModItems.ENDERITE_AXE, ModItems.ENDERITE_SWORD, ModItems.ENDERITE_SPEAR, ModItems.ENDERITE_HELMET, ModItems.ENDERITE_BOOTS,
+                ModItems.OCTANT, ModItems.ORE_DETECTOR, ModItems.MAGNET, ModItems.ROTATOR, ModItems.VELOCITY_GAUGE,
+                Items.STICK, Items.SHULKER_BOX);
+        for (Item item : present) {
+            if (!byItem.containsKey(item)) {
+                problems.add(BuiltInRegistries.ITEM.getKey(item) + " is missing from the dev tab");
+            }
+        }
+        List<Item> absent = new ArrayList<>(List.of(
+                ModItems.STONE_CHISEL, ModItems.COPPER_CHISEL, ModItems.IRON_CHISEL, ModItems.GOLD_CHISEL,
+                ModItems.DIAMOND_CHISEL, ModItems.NETHERITE_CHISEL,
+                ModItems.COPPER_BUILDING_WAND, ModItems.IRON_BUILDING_WAND, ModItems.GOLD_BUILDING_WAND,
+                ModItems.DIAMOND_BUILDING_WAND, ModItems.NETHERITE_BUILDING_WAND,
+                ModItems.STONE_SLEDGEHAMMER, ModItems.COPPER_SLEDGEHAMMER, ModItems.IRON_SLEDGEHAMMER,
+                ModItems.GOLD_SLEDGEHAMMER, ModItems.DIAMOND_SLEDGEHAMMER, ModItems.NETHERITE_SLEDGEHAMMER,
+                ModItems.REINFORCED_BUNDLE, ModItems.NETHERITE_BUNDLE,
+                ModItems.QUIVER, ModItems.REINFORCED_QUIVER, ModItems.NETHERITE_QUIVER,
+                ModItems.BACKPACK, ModItems.REINFORCED_BACKPACK, ModItems.NETHERITE_BACKPACK,
+                Items.NETHERITE_PICKAXE, Items.DIAMOND_PICKAXE, Items.NETHERITE_BOOTS, Items.LEATHER_BOOTS,
+                Items.NETHERITE_SPEAR, Items.SHEARS, ModItems.ENDERITE_INGOT, ModItems.CREATIVE_SPACER, Items.ENCHANTED_BOOK));
+        absent.addAll(ModItems.COLORED_OCTANT_ITEMS.values());
+        for (Item item : absent) {
+            if (byItem.containsKey(item)) {
+                problems.add(BuiltInRegistries.ITEM.getKey(item) + " is in the dev tab, but only the best tier of a family belongs there");
+            }
+        }
+
+        Map<Item, Set<String>> offeredPerItem = new HashMap<>();
+        byItem.forEach((item, stacks) -> {
+            String id = BuiltInRegistries.ITEM.getKey(item).toString();
+            List<Holder<Enchantment>> supported = supportedEnchantments(helper, new ItemStack(item));
+            if (supported.isEmpty()) {
+                problems.add(id + " is in the dev tab but supports no enchantment");
+            }
+            if (stacks.size() > 12) {
+                problems.add(id + " has " + stacks.size() + " variants; exclusive sets must not explode");
+            }
+            Set<String> offered = new TreeSet<>();
+            Set<String> variants = new HashSet<>();
+            for (ItemStack stack : stacks) {
+                var enchantments = stack.getOrDefault(DataComponents.ENCHANTMENTS,
+                        net.minecraft.world.item.enchantment.ItemEnchantments.EMPTY);
+                List<Holder<Enchantment>> held = new ArrayList<>(enchantments.keySet());
+                if (!variants.add(held.stream().map(h -> h.getRegisteredName()).sorted().toList().toString())) {
+                    problems.add(id + " offers the same enchantment set twice: " + held);
+                }
+                for (Holder<Enchantment> h : held) {
+                    offered.add(h.getRegisteredName());
+                    if (!supported.contains(h)) {
+                        problems.add(id + " carries " + h.getRegisteredName() + ", which it does not support (or a curse)");
+                    }
+                    if (enchantments.getLevel(h) != h.value().getMaxLevel()) {
+                        problems.add(id + " carries " + h.getRegisteredName() + " " + enchantments.getLevel(h)
+                                + " instead of its max level " + h.value().getMaxLevel());
+                    }
+                    for (Holder<Enchantment> other : held) {
+                        if (!h.equals(other) && !Enchantment.areCompatible(h, other)) {
+                            problems.add(id + " carries the incompatible " + h.getRegisteredName() + " and " + other.getRegisteredName());
+                        }
+                    }
+                }
+                for (Holder<Enchantment> missing : supported) {
+                    if (!held.contains(missing) && held.stream().allMatch(h -> Enchantment.areCompatible(h, missing))) {
+                        problems.add(id + " variant " + held.stream().map(Holder::getRegisteredName).toList()
+                                + " could also carry " + missing.getRegisteredName() + " but does not");
+                    }
+                }
+            }
+            for (Holder<Enchantment> h : supported) {
+                if (!offered.contains(h.getRegisteredName())) {
+                    problems.add(id + " supports " + h.getRegisteredName() + " but no variant carries it");
+                }
+            }
+            offeredPerItem.put(item, offered);
+        });
+
+        Map<Item, List<String>> anchors = new LinkedHashMap<>();
+        anchors.put(ModItems.ENDERITE_BOOTS, List.of("minecraft:protection", "minecraft:fire_protection",
+                "minecraft:blast_protection", "minecraft:projectile_protection", "simplebuilding:kinetic_protection",
+                "simplebuilding:double_jump"));
+        anchors.put(ModItems.ENDERITE_PICKAXE, List.of("minecraft:silk_touch", "minecraft:fortune",
+                "simplebuilding:vein_miner", "simplebuilding:strip_miner"));
+        anchors.put(ModItems.ENDERITE_BUILDING_WAND, List.of("simplebuilding:cover", "simplebuilding:bridge"));
+        anchors.forEach((item, names) -> {
+            Set<String> offered = offeredPerItem.getOrDefault(item, Set.of());
+            for (String name : names) {
+                if (!offered.contains(name)) {
+                    problems.add(BuiltInRegistries.ITEM.getKey(item) + " has no variant with " + name);
+                }
+            }
+        });
+
+        helper.assertTrue(problems.isEmpty(), "dev enchanted tab: " + problems);
+        helper.succeed();
+    }
+
+    /**
+     * The dev tab is only filled in a development environment or with {@code showDevEnchantedTab};
+     * otherwise it stays empty, and vanilla does not show an empty category tab at all.
+     *
+     * <p>Both switches are flipped here and restored in {@code finally}; the body does not yield, so
+     * no other test runs while they are flipped.
+     *
+     * <p>What breaks this: the gate dropped (tab always filled), or one of the two switches ignored.
+     */
+    public static void devEnchantedTabIsOnlyFilledInDevelopmentOrWhenConfigured(GameTestHelper helper) {
+        com.simplebuilding.config.SimplebuildingConfig config = Simplebuilding.getConfig();
+        helper.assertTrue(config != null, "no config loaded, so the option cannot be tested");
+        boolean development = com.simplebuilding.platform.ModEnvironment.isDevelopmentEnvironment();
+        boolean option = config.showDevEnchantedTab;
+        List<String> problems = new ArrayList<>();
+        try {
+            boolean[][] cases = {{false, false}, {false, true}, {true, false}};
+            for (boolean[] c : cases) {
+                com.simplebuilding.platform.ModEnvironment.setDevelopmentEnvironment(c[0]);
+                config.showDevEnchantedTab = c[1];
+                int[] count = {0};
+                com.simplebuilding.items.DevEnchantedTab.populateIfShown(
+                        (CreativeModeTab.Output) (stack, visibility) -> count[0]++, helper.getLevel().registryAccess());
+                boolean shouldFill = c[0] || c[1];
+                if ((count[0] > 0) != shouldFill) {
+                    problems.add("development=" + c[0] + ", showDevEnchantedTab=" + c[1] + " gave " + count[0]
+                            + " entries, expected " + (shouldFill ? "some" : "none"));
+                }
+            }
+        } finally {
+            com.simplebuilding.platform.ModEnvironment.setDevelopmentEnvironment(development);
+            config.showDevEnchantedTab = option;
+        }
+        helper.assertTrue(problems.isEmpty(), "dev tab gate: " + problems);
+        helper.succeed();
+    }
+
+    /** The 18 trim patterns vanilla ships, spelled out so an empty registry cannot pass the icon test. */
+    private static final List<String> VANILLA_TRIM_PATTERNS = List.of(
+            "bolt", "coast", "dune", "eye", "flow", "host", "raiser", "rib", "sentry",
+            "shaper", "silence", "snout", "spire", "tide", "vex", "ward", "wayfinder", "wild");
+
+    /**
+     * Visible armour trims: every trimmable armour piece shows the PATTERN of its trim on the item
+     * icon, in the colours of the trim material - for every pattern and every material the server
+     * knows, vanilla and mod alike.
+     *
+     * <p>The item model is client data, so this reads the shipped JSON and PNG files off the
+     * classpath, the same files the resource manager loads. For each item in
+     * {@code #minecraft:trimmable_armor} (vanilla armour, the turtle shell, Enderite armour) it
+     * finds the item definition the mod ships - the one whose root selects on
+     * {@code simplebuilding:visible_trim_icons}; vanilla's own copy in the client jar selects on
+     * {@code minecraft:trim_material} - and checks:
+     * <ul>
+     *   <li>the root has one case {@code visible} holding a {@code minecraft:composite} and, as
+     *       fallback (client option off), vanilla's selection by trim material - for vanilla armour
+     *       identical to vanilla's own definition when the client jar is on the classpath;</li>
+     *   <li>layer 1 is a {@code minecraft:component} select on {@code minecraft:trim} with ONE case
+     *       listing every pattern x material, whose model is the untrimmed piece (no vanilla colour
+     *       blob under the pattern), and a fallback (vanilla look without a trim or with a trim the
+     *       mod has no picture for);</li>
+     *   <li>layer 2 is the same select with a case per pattern x material pointing at
+     *       {@code simplebuilding:item/trim_overlay/<slot>_<pattern>_<colour>}, where the colour is
+     *       what the material's {@code MaterialAssetGroup} names for this armour (so iron on iron is
+     *       {@code iron_darker}, exactly as on the worn armour), and {@code minecraft:empty} as
+     *       fallback;</li>
+     *   <li>that overlay model exists and uses the sprite {@code simplebuilding:trims/items/...} of
+     *       the same name, whose grey source PNG exists, and the items atlas the mod ships lists
+     *       that PNG in a {@code paletted_permutations} source together with the colour.</li>
+     * </ul>
+     *
+     * <p>What breaks this: a new armour or trim material without re-running datagen; a pattern
+     * without a drawn overlay (tools/textures/generate_trim_overlays.py); a palette missing from
+     * the atlas (the icon would show the missing-texture checkerboard); the darker variant
+     * computed from the base colour only; or the datagen dropping the fallback.
+     */
+    /** Select property of the client options visibleTrimIconsVanillaArmor/visibleTrimIconsModArmor. */
+    private static final String TRIM_ICON_PROPERTY = MOD_ID + ":visible_trim_icons";
+
+    public static void everyTrimmableArmourShowsEveryTrimPatternOnItsIcon(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        var access = helper.getLevel().registryAccess();
+        List<Holder.Reference<TrimPattern>> patterns = access.lookupOrThrow(Registries.TRIM_PATTERN).listElements().toList();
+        List<Holder.Reference<TrimMaterial>> materials = access.lookupOrThrow(Registries.TRIM_MATERIAL).listElements().toList();
+        Set<String> patternIds = new TreeSet<>();
+        patterns.forEach(p -> patternIds.add(p.key().identifier().toString()));
+        for (String vanilla : VANILLA_TRIM_PATTERNS) {
+            if (!patternIds.contains("minecraft:" + vanilla)) {
+                problems.add("trim pattern minecraft:" + vanilla + " is not in the registry");
+            }
+        }
+        helper.assertTrue(materials.size() >= 14, "expected the 11 vanilla and 3 mod trim materials, found " + materials.size());
+
+        JsonObject atlas = shippedJson("assets/minecraft/atlases/items.json",
+                json -> json.toString().contains("simplebuilding:trims/items/"));
+        Map<String, Set<String>> atlasPalettes = new HashMap<>();
+        if (atlas == null) {
+            problems.add("no assets/minecraft/atlases/items.json on the classpath lists simplebuilding:trims/items/*");
+        } else {
+            for (JsonElement source : atlas.getAsJsonArray("sources")) {
+                JsonObject s = source.getAsJsonObject();
+                if (!"minecraft:paletted_permutations".equals(s.get("type").getAsString())) continue;
+                Set<String> palettes = s.getAsJsonObject("permutations").keySet();
+                for (JsonElement texture : s.getAsJsonArray("textures")) {
+                    atlasPalettes.computeIfAbsent(texture.getAsString(), k -> new HashSet<>()).addAll(palettes);
+                }
+            }
+        }
+
+        int armourPieces = 0;
+        int cells = 0;
+        for (Holder<Item> holder : BuiltInRegistries.ITEM.getTagOrEmpty(ItemTags.TRIMMABLE_ARMOR)) {
+            Item item = holder.value();
+            Identifier id = BuiltInRegistries.ITEM.getKey(item);
+            String slot = holder.is(ItemTags.HEAD_ARMOR) ? "helmet" : holder.is(ItemTags.CHEST_ARMOR) ? "chestplate"
+                    : holder.is(ItemTags.LEG_ARMOR) ? "leggings" : holder.is(ItemTags.FOOT_ARMOR) ? "boots" : null;
+            var equippable = new ItemStack(item).get(DataComponents.EQUIPPABLE);
+            if (slot == null || equippable == null || equippable.assetId().isEmpty()) {
+                problems.add(id + " is trimmable armour without an armour slot tag or an equipment asset");
+                continue;
+            }
+            armourPieces++;
+            String definitionPath = "assets/" + id.getNamespace() + "/items/" + id.getPath() + ".json";
+            JsonObject definition = shippedJson(definitionPath, json -> json.getAsJsonObject("model").has("property")
+                    && TRIM_ICON_PROPERTY.equals(json.getAsJsonObject("model").get("property").getAsString()));
+            if (definition == null) {
+                problems.add(id + ": the mod ships no trim-pattern item definition selecting on " + TRIM_ICON_PROPERTY
+                        + " (" + definitionPath + ")");
+                continue;
+            }
+            // Outermost: the client option. "visible" shows the pattern layers, anything else falls
+            // back to vanilla's selection by material - for vanilla armour exactly vanilla's own
+            // definition from the client jar, when that is on the classpath.
+            JsonObject option = definition.getAsJsonObject("model");
+            JsonArray optionCases = option.getAsJsonArray("cases");
+            JsonObject optionCase = optionCases.size() == 1 ? optionCases.get(0).getAsJsonObject() : null;
+            if (optionCase == null || !com.simplebuilding.items.VisibleTrimIcons.VISIBLE.equals(optionCase.get("when").getAsString())
+                    || !"minecraft:composite".equals(optionCase.getAsJsonObject("model").get("type").getAsString())) {
+                problems.add(id + ": the option select needs exactly one case \"visible\" with the composite pattern model");
+                continue;
+            }
+            JsonObject optionFallback = option.getAsJsonObject("fallback");
+            if (optionFallback == null || !"minecraft:trim_material".equals(optionFallback.get("property").getAsString())) {
+                problems.add(id + ": with the option off the icon does not fall back to vanilla's selection by trim material");
+            } else if ("minecraft".equals(id.getNamespace())) {
+                // Vanilla's copy selects on minecraft:trim_material. NeoForge 26.x ships its own copy
+                // (neoforge:trimmed_armor) on the classpath too; that one is not the reference.
+                JsonObject vanilla = shippedJson(definitionPath, json -> json.getAsJsonObject("model").has("property")
+                        && "minecraft:trim_material".equals(json.getAsJsonObject("model").get("property").getAsString()));
+                if (vanilla != null && !vanilla.getAsJsonObject("model").equals(optionFallback)) {
+                    problems.add(id + ": the option-off fallback differs from vanilla's own item definition");
+                }
+            }
+            JsonArray layers = optionCase.getAsJsonObject("model").getAsJsonArray("models");
+            JsonObject base = layers.get(0).getAsJsonObject();
+            JsonObject overlay = layers.get(1).getAsJsonObject();
+            for (JsonObject select : List.of(base, overlay)) {
+                if (!"minecraft:component".equals(select.get("property").getAsString())
+                        || !"minecraft:trim".equals(select.get("component").getAsString())
+                        || !select.has("fallback")) {
+                    problems.add(id + ": a layer does not select on the whole minecraft:trim component with a fallback");
+                }
+            }
+            if (!"minecraft:empty".equals(overlay.getAsJsonObject("fallback").get("type").getAsString())) {
+                problems.add(id + ": the pattern layer draws something when the trim is unknown or missing");
+            }
+            Set<String> untrimmed = new HashSet<>();
+            JsonArray baseCases = base.getAsJsonArray("cases");
+            JsonObject baseModel = baseCases.get(0).getAsJsonObject().getAsJsonObject("model");
+            if (baseCases.size() != 1 || !baseModel.get("model").getAsString().equals(id.withPrefix("item/").toString())) {
+                problems.add(id + ": a known trim does not show the untrimmed piece under the pattern (" + baseModel + ")");
+            }
+            for (JsonElement when : baseCases.get(0).getAsJsonObject().getAsJsonArray("when")) {
+                untrimmed.add(trimKey(when.getAsJsonObject()));
+            }
+            Map<String, String> overlays = new HashMap<>();
+            for (JsonElement c : overlay.getAsJsonArray("cases")) {
+                JsonObject entry = c.getAsJsonObject();
+                overlays.put(trimKey(entry.getAsJsonObject("when")), entry.getAsJsonObject("model").get("model").getAsString());
+            }
+
+            for (Holder.Reference<TrimPattern> pattern : patterns) {
+                for (Holder.Reference<TrimMaterial> material : materials) {
+                    String key = material.key().identifier() + "|" + pattern.key().identifier();
+                    String colour = McVersion.trimColourSuffix(material.value(), equippable.assetId().get());
+                    String sprite = slot + "_" + pattern.value().assetId().getPath() + "_" + colour;
+                    String expected = MOD_ID + ":item/trim_overlay/" + sprite;
+                    cells++;
+                    if (!untrimmed.contains(key)) {
+                        problems.add(id + " " + key + ": not drawn untrimmed under the pattern");
+                    }
+                    if (!expected.equals(overlays.get(key))) {
+                        problems.add(id + " " + key + ": pattern layer " + overlays.get(key) + ", expected " + expected);
+                        continue;
+                    }
+                    JsonObject model = shippedJson("assets/" + MOD_ID + "/models/item/trim_overlay/" + sprite + ".json", json -> true);
+                    String texture = model == null ? null : model.getAsJsonObject("textures").get("layer0").getAsString();
+                    if (!(MOD_ID + ":trims/items/" + sprite).equals(texture)) {
+                        problems.add(expected + ": model missing or layer0 is " + texture);
+                    }
+                    String grey = MOD_ID + ":trims/items/" + slot + "_" + pattern.value().assetId().getPath();
+                    if (DataIntegrityTests.class.getClassLoader().getResource("assets/" + MOD_ID + "/textures/trims/items/"
+                            + slot + "_" + pattern.value().assetId().getPath() + ".png") == null) {
+                        problems.add(grey + ".png is missing (tools/textures/generate_trim_overlays.py)");
+                    }
+                    if (!atlasPalettes.getOrDefault(grey, Set.of()).contains(colour)) {
+                        problems.add("the items atlas does not colour " + grey + " as " + colour);
+                    }
+                }
+            }
+        }
+        helper.assertTrue(armourPieces >= 33, "expected 33 trimmable armour pieces (7 vanilla sets, turtle shell, Enderite), found " + armourPieces);
+        if (problems.size() > 20) {
+            int more = problems.size() - 20;
+            problems = new ArrayList<>(problems.subList(0, 20));
+            problems.add("... and " + more + " more");
+        }
+        helper.assertTrue(problems.isEmpty(), "visible armour trims (" + cells + " icon cells): " + problems);
+        helper.succeed();
+    }
+
+    private static String trimKey(JsonObject when) {
+        return when.get("material").getAsString() + "|" + when.get("pattern").getAsString();
+    }
+
+    /**
+     * The copy of a client resource that the mod ships: the classpath holds the vanilla client jar
+     * too, so every copy is read and the one {@code isOurs} accepts is returned (null if none is).
+     */
+    private static JsonObject shippedJson(String path, java.util.function.Predicate<JsonObject> isOurs) {
+        try {
+            Enumeration<URL> urls = DataIntegrityTests.class.getClassLoader().getResources(path);
+            while (urls.hasMoreElements()) {
+                try (InputStream in = urls.nextElement().openStream()) {
+                    JsonObject json = JsonParser.parseReader(new InputStreamReader(in, StandardCharsets.UTF_8)).getAsJsonObject();
+                    if (isOurs.test(json)) {
+                        return json;
+                    }
+                }
+            }
+        } catch (java.io.IOException | RuntimeException e) {
+            throw new IllegalStateException("cannot read " + path + ": " + e, e);
+        }
+        return null;
+    }
+
+    /**
+     * Every registered item of the mod has an item definition ({@code assets/simplebuilding/items/<id>.json})
+     * that draws something, and everything that definition references resolves:
+     * <ul>
+     *   <li>each {@code minecraft:model} (and a {@code minecraft:special} base) model file exists, with
+     *       its whole parent chain - mod models always, vanilla models whenever the client assets are
+     *       on the classpath;</li>
+     *   <li>each texture of the chain exists as a PNG, or - for the trim overlays - is produced by a
+     *       {@code paletted_permutations} source of the items atlas the mod ships;</li>
+     *   <li>each texture variable a face or texture slot uses ({@code #wall}, {@code #layer0}) is
+     *       defined somewhere in the chain (checked when the chain's vanilla parents are readable).</li>
+     * </ul>
+     * Only the Creative Spacer may draw nothing ({@code minecraft:empty} as its whole model).
+     *
+     * <p>What breaks this: a new item without re-running datagen, a model pointing at a renamed
+     * texture, an inventory model with the wrong texture key (a wall's {@code wall_inventory} needs
+     * {@code wall}), a range-dispatch entry naming a frame that was never drawn.
+     */
+    public static void everyItemHasAnItemDefinitionWhoseModelsAndTexturesExist(GameTestHelper helper) {
+        ClassLoader loader = DataIntegrityTests.class.getClassLoader();
+        boolean vanillaAssets = loader.getResource("assets/minecraft/models/block/block.json") != null
+                && loader.getResource("assets/minecraft/textures/item/stick.png") != null;
+        Set<String> permuted = new HashSet<>();
+        JsonObject atlas = shippedJson("assets/minecraft/atlases/items.json",
+                json -> json.toString().contains(MOD_ID + ":"));
+        if (atlas != null) {
+            for (JsonElement source : atlas.getAsJsonArray("sources")) {
+                JsonObject s = source.getAsJsonObject();
+                if (!"minecraft:paletted_permutations".equals(s.get("type").getAsString())) continue;
+                for (JsonElement texture : s.getAsJsonArray("textures")) {
+                    for (String palette : s.getAsJsonObject("permutations").keySet()) {
+                        permuted.add(texture.getAsString() + "_" + palette);
+                    }
+                }
+            }
+        }
+        List<String> problems = new ArrayList<>();
+        Map<String, List<String>> checkedModels = new HashMap<>();
+        int items = 0;
+        int models = 0;
+        for (Item item : BuiltInRegistries.ITEM) {
+            Identifier id = BuiltInRegistries.ITEM.getKey(item);
+            if (!MOD_ID.equals(id.getNamespace())) continue;
+            items++;
+            String path = "assets/" + MOD_ID + "/items/" + id.getPath() + ".json";
+            JsonObject definition = shippedJson(path, json -> true);
+            if (definition == null || !definition.has("model")) {
+                problems.add(id + ": no item definition " + path);
+                continue;
+            }
+            List<String> referenced = new ArrayList<>();
+            collectItemModels(definition.get("model"), referenced);
+            if (referenced.isEmpty() && item != ModItems.CREATIVE_SPACER) {
+                problems.add(id + ": the item definition draws nothing (no minecraft:model in it)");
+            }
+            for (String model : referenced) {
+                models++;
+                List<String> found = checkedModels.computeIfAbsent(model,
+                        m -> checkItemModel(loader, m, vanillaAssets, permuted));
+                for (String p : found) problems.add(id + ": " + p);
+            }
+        }
+        helper.assertTrue(items >= 200, "expected at least 200 mod items, found " + items);
+        if (problems.size() > 20) {
+            int more = problems.size() - 20;
+            problems = new ArrayList<>(problems.subList(0, 20));
+            problems.add("... and " + more + " more");
+        }
+        helper.assertTrue(problems.isEmpty(), "item definitions (" + items + " items, " + models + " model references, vanilla assets "
+                + (vanillaAssets ? "checked" : "not on the classpath") + "): " + problems);
+        helper.succeed();
+    }
+
+    private static void collectItemModels(JsonElement node, List<String> out) {
+        if (node.isJsonArray()) {
+            node.getAsJsonArray().forEach(e -> collectItemModels(e, out));
+            return;
+        }
+        if (!node.isJsonObject()) return;
+        JsonObject object = node.getAsJsonObject();
+        String type = object.has("type") && object.get("type").isJsonPrimitive() ? object.get("type").getAsString() : "";
+        if ((type.equals("minecraft:model") || type.equals("model")) && object.get("model").isJsonPrimitive()) {
+            out.add(object.get("model").getAsString());
+        }
+        if ((type.equals("minecraft:special") || type.equals("special")) && object.has("base")) {
+            out.add(object.get("base").getAsString());
+        }
+        for (Map.Entry<String, JsonElement> entry : object.entrySet()) {
+            collectItemModels(entry.getValue(), out);
+        }
+    }
+
+    /** Problems of one item model: missing files along the parent chain, missing textures, undefined texture variables. */
+    private static List<String> checkItemModel(ClassLoader loader, String model, boolean vanillaAssets, Set<String> permuted) {
+        List<String> problems = new ArrayList<>();
+        List<JsonObject> chain = new ArrayList<>();
+        boolean complete = true;
+        Set<String> seen = new HashSet<>();
+        String current = model;
+        while (current != null) {
+            Identifier id = Identifier.parse(current);
+            if (id.getPath().startsWith("builtin/") || !seen.add(id.toString())) break;
+            boolean ours = MOD_ID.equals(id.getNamespace());
+            if (!ours && !vanillaAssets) {
+                complete = false;
+                break;
+            }
+            JsonObject json = shippedJson("assets/" + id.getNamespace() + "/models/" + id.getPath() + ".json", j -> true);
+            if (json == null) {
+                problems.add("model " + id + " is missing" + (id.toString().equals(model) ? "" : " (parent in the chain of " + model + ")"));
+                complete = false;
+                break;
+            }
+            chain.add(json);
+            current = json.has("parent") ? json.get("parent").getAsString() : null;
+        }
+        Map<String, String> textures = new HashMap<>();
+        List<String> uses = new ArrayList<>();
+        for (int i = chain.size() - 1; i >= 0; i--) {
+            JsonObject json = chain.get(i);
+            if (json.has("textures")) {
+                for (Map.Entry<String, JsonElement> entry : json.getAsJsonObject("textures").entrySet()) {
+                    JsonElement value = entry.getValue();
+                    String sprite = value.isJsonObject() ? value.getAsJsonObject().get("sprite").getAsString() : value.getAsString();
+                    textures.put(entry.getKey(), sprite);
+                }
+            }
+            if (json.has("elements")) {
+                for (JsonElement element : json.getAsJsonArray("elements")) {
+                    JsonObject faces = element.getAsJsonObject().getAsJsonObject("faces");
+                    if (faces == null) continue;
+                    for (Map.Entry<String, JsonElement> face : faces.entrySet()) {
+                        uses.add(face.getValue().getAsJsonObject().get("texture").getAsString());
+                    }
+                }
+            }
+        }
+        uses.addAll(textures.values());
+        for (String use : new TreeSet<>(uses)) {
+            String sprite = use;
+            for (int hops = 0; sprite != null && sprite.startsWith("#") && hops < 16; hops++) {
+                sprite = textures.get(sprite.substring(1));
+            }
+            if (sprite == null || sprite.startsWith("#")) {
+                if (complete) problems.add("model " + model + " uses texture variable " + use + " that its chain never defines");
+                continue;
+            }
+            Identifier texture = Identifier.parse(sprite);
+            boolean ours = MOD_ID.equals(texture.getNamespace());
+            if (!ours && !vanillaAssets) continue;
+            if (loader.getResource("assets/" + texture.getNamespace() + "/textures/" + texture.getPath() + ".png") == null
+                    && !permuted.contains(texture.toString())) {
+                problems.add("model " + model + " uses texture " + texture + ", which does not exist");
+            }
+        }
+        return problems;
+    }
+
+    /**
+     * Every vanilla enchantment has its own enchanted book: an entry in
+     * {@code VanillaBookTextures.VANILLA}, a case {@code minecraft_<id>} in
+     * {@code assets/minecraft/items/enchanted_book.json} that points at
+     * {@code simplebuilding:item/enchanted_book_vanilla_<id>}, and that model and its texture in the
+     * mod's resources. The list holds nothing that is not a vanilla enchantment any more.
+     *
+     * <p>What breaks this: a vanilla enchantment added by a Minecraft update without a book, a typo
+     * in a case or model name, a texture the generator no longer writes, or a stale list entry.
+     */
+    public static void everyVanillaEnchantmentHasItsOwnBookModel(GameTestHelper helper) {
+        var enchantments = helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
+        List<String> vanilla = enchantments.listElementIds()
+                .map(key -> key.identifier())
+                .filter(id -> "minecraft".equals(id.getNamespace()))
+                .map(Identifier::getPath)
+                .sorted()
+                .toList();
+        List<String> problems = new ArrayList<>();
+        String itemModel = vanillaBookResource("/assets/minecraft/items/enchanted_book.json", problems);
+        for (String path : vanilla) {
+            if (!com.simplebuilding.enchantment.VanillaBookTextures.VANILLA.contains(path)) {
+                problems.add(path + " is missing from VanillaBookTextures.VANILLA");
+            }
+            String model = com.simplebuilding.enchantment.VanillaBookTextures.modelPath(path);
+            String caseEntry = "\"when\": \"" + com.simplebuilding.enchantment.VanillaBookTextures.caseKey(path)
+                    + "\", \"model\": { \"type\": \"minecraft:model\", \"model\": \"simplebuilding:" + model + "\" }";
+            if (itemModel != null && !itemModel.contains(caseEntry)) {
+                problems.add("enchanted_book.json has no case for minecraft:" + path);
+            }
+            vanillaBookResource("/assets/simplebuilding/models/" + model + ".json", problems);
+            vanillaBookResource("/assets/simplebuilding/textures/" + model + ".png", problems);
+        }
+        for (String listed : com.simplebuilding.enchantment.VanillaBookTextures.VANILLA) {
+            if (!vanilla.contains(listed)) {
+                problems.add(listed + " is listed but is no vanilla enchantment");
+            }
+        }
+        helper.assertTrue(vanilla.size() >= 40, "only " + vanilla.size() + " vanilla enchantments in the registry");
+        helper.assertTrue(problems.isEmpty(), "vanilla enchanted books: " + problems);
+        helper.succeed();
+    }
+
+    /** Reads a resource of the mod as text, or notes it as missing. */
+    private static String vanillaBookResource(String path, List<String> problems) {
+        try (java.io.InputStream in = com.simplebuilding.enchantment.VanillaBookTextures.class.getResourceAsStream(path)) {
+            if (in == null) {
+                problems.add("missing resource " + path);
+                return null;
+            }
+            return new String(in.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8);
+        } catch (java.io.IOException e) {
+            problems.add("unreadable resource " + path + ": " + e);
+            return null;
+        }
+    }
+
+    /**
+     * The book select value follows the client option {@code vanillaEnchantedBookTextures}: on, a
+     * book with Sharpness selects {@code minecraft_sharpness}; off, it selects {@code none} and falls
+     * back to the vanilla model. A book with only a mod enchantment never selects a vanilla book (the
+     * property picks the mod book before it asks for a vanilla one). The option itself flips
+     * {@code VanillaBookTextures.enabled()} and is restored in {@code finally}.
+     *
+     * <p>What breaks this: the option ignored, the fallback value renamed, or a mod enchantment
+     * mistaken for a vanilla one.
+     */
+    public static void vanillaBookTextureFollowsTheClientOption(GameTestHelper helper) {
+        var enchantments = helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
+        net.minecraft.world.item.enchantment.ItemEnchantments.Mutable sharp =
+                new net.minecraft.world.item.enchantment.ItemEnchantments.Mutable(net.minecraft.world.item.enchantment.ItemEnchantments.EMPTY);
+        sharp.set(enchantments.getOrThrow(net.minecraft.world.item.enchantment.Enchantments.SHARPNESS), 3);
+        net.minecraft.world.item.enchantment.ItemEnchantments.Mutable mod =
+                new net.minecraft.world.item.enchantment.ItemEnchantments.Mutable(net.minecraft.world.item.enchantment.ItemEnchantments.EMPTY);
+        mod.set(enchantments.getOrThrow(ModEnchantments.FUNNEL), 1);
+        helper.assertValueEqual(com.simplebuilding.enchantment.VanillaBookTextures.key(sharp.toImmutable(), true),
+                "minecraft_sharpness", "select value of a Sharpness book with the option on");
+        helper.assertValueEqual(com.simplebuilding.enchantment.VanillaBookTextures.key(sharp.toImmutable(), false),
+                com.simplebuilding.enchantment.VanillaBookTextures.NONE, "select value of a Sharpness book with the option off");
+        helper.assertValueEqual(com.simplebuilding.enchantment.VanillaBookTextures.key(mod.toImmutable(), true),
+                com.simplebuilding.enchantment.VanillaBookTextures.NONE, "select value of a book with only a mod enchantment");
+
+        com.simplebuilding.config.SimplebuildingConfig config = Simplebuilding.getConfig();
+        helper.assertTrue(config != null, "no config loaded, so the option cannot be tested");
+        boolean option = config.vanillaEnchantedBookTextures;
+        try {
+            config.vanillaEnchantedBookTextures = false;
+            helper.assertTrue(!com.simplebuilding.enchantment.VanillaBookTextures.enabled(), "option off, but enabled() is true");
+            config.vanillaEnchantedBookTextures = true;
+            helper.assertTrue(com.simplebuilding.enchantment.VanillaBookTextures.enabled(), "option on, but enabled() is false");
+        } finally {
+            config.vanillaEnchantedBookTextures = option;
+        }
+        helper.succeed();
+    }
+
+    /**
+     * The mod's own enchanted books follow the client option {@code modEnchantedBookTextures}: on, a
+     * Funnel book selects {@code funnel}; off, it selects {@code none} and shows the plain vanilla
+     * book. A book with Funnel AND Sharpness shows the Funnel book while the option is on and the
+     * Sharpness book while it is off (the vanilla option still applies), and nothing at all when
+     * both options are off. Every entry of {@code VanillaBookTextures.MOD_BOOKS} is a mod
+     * enchantment of the registry with its own case in {@code assets/minecraft/items/enchanted_book.json}
+     * and its own model. The option itself flips {@code modEnabled()} and is restored in
+     * {@code finally}.
+     *
+     * <p>What breaks this: the option ignored, mod books checked after vanilla ones, a book case
+     * without an entry in the list, or the vanilla option switched off together with the mod one.
+     */
+    public static void modBookTextureFollowsTheClientOption(GameTestHelper helper) {
+        var enchantments = helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
+        net.minecraft.world.item.enchantment.ItemEnchantments.Mutable funnel =
+                new net.minecraft.world.item.enchantment.ItemEnchantments.Mutable(net.minecraft.world.item.enchantment.ItemEnchantments.EMPTY);
+        funnel.set(enchantments.getOrThrow(ModEnchantments.FUNNEL), 1);
+        net.minecraft.world.item.enchantment.ItemEnchantments.Mutable both =
+                new net.minecraft.world.item.enchantment.ItemEnchantments.Mutable(net.minecraft.world.item.enchantment.ItemEnchantments.EMPTY);
+        both.set(enchantments.getOrThrow(net.minecraft.world.item.enchantment.Enchantments.SHARPNESS), 2);
+        both.set(enchantments.getOrThrow(ModEnchantments.FUNNEL), 1);
+        String none = com.simplebuilding.enchantment.VanillaBookTextures.NONE;
+        helper.assertValueEqual(com.simplebuilding.enchantment.VanillaBookTextures.select(funnel.toImmutable(), true, true),
+                "funnel", "select value of a Funnel book with the mod option on");
+        helper.assertValueEqual(com.simplebuilding.enchantment.VanillaBookTextures.select(funnel.toImmutable(), false, true),
+                none, "select value of a Funnel book with the mod option off");
+        helper.assertValueEqual(com.simplebuilding.enchantment.VanillaBookTextures.select(both.toImmutable(), true, true),
+                "funnel", "select value of a Funnel + Sharpness book with both options on");
+        helper.assertValueEqual(com.simplebuilding.enchantment.VanillaBookTextures.select(both.toImmutable(), false, true),
+                "minecraft_sharpness", "select value of a Funnel + Sharpness book with only the vanilla option on");
+        helper.assertValueEqual(com.simplebuilding.enchantment.VanillaBookTextures.select(both.toImmutable(), false, false),
+                none, "select value of a Funnel + Sharpness book with both options off");
+        helper.assertValueEqual(com.simplebuilding.enchantment.VanillaBookTextures.select(null, true, true),
+                none, "select value of an item without enchantments");
+
+        List<String> problems = new ArrayList<>();
+        String book = vanillaBookResource("/assets/minecraft/items/enchanted_book.json", problems);
+        for (ResourceKey<net.minecraft.world.item.enchantment.Enchantment> key : com.simplebuilding.enchantment.VanillaBookTextures.MOD_BOOKS) {
+            String path = key.identifier().getPath();
+            if (!MOD_ID.equals(key.identifier().getNamespace()) || enchantments.get(key).isEmpty()) {
+                problems.add(key.identifier() + " is not a mod enchantment of the registry");
+            }
+            if (book != null && !book.contains("\"when\": \"" + path + "\"")) {
+                problems.add("enchanted_book.json has no case " + path);
+            }
+            if (DataIntegrityTests.class.getResource("/assets/" + MOD_ID + "/models/item/enchanted_book_" + path + ".json") == null) {
+                problems.add("missing model " + MOD_ID + ":item/enchanted_book_" + path);
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), "mod enchanted books: " + problems);
+
+        com.simplebuilding.config.SimplebuildingConfig config = Simplebuilding.getConfig();
+        helper.assertTrue(config != null, "no config loaded, so the option cannot be tested");
+        boolean option = config.modEnchantedBookTextures;
+        try {
+            config.modEnchantedBookTextures = false;
+            helper.assertTrue(!com.simplebuilding.enchantment.VanillaBookTextures.modEnabled(), "option off, but modEnabled() is true");
+            config.modEnchantedBookTextures = true;
+            helper.assertTrue(com.simplebuilding.enchantment.VanillaBookTextures.modEnabled(), "option on, but modEnabled() is false");
+        } finally {
+            config.modEnchantedBookTextures = option;
+        }
+        helper.succeed();
+    }
+
+    /**
+     * The visible trim patterns on armour icons follow two client options: vanilla armour (here the
+     * iron chestplate and the turtle shell) follows {@code visibleTrimIconsVanillaArmor}, the mod's
+     * Enderite armour follows {@code visibleTrimIconsModArmor}, each independently of the other.
+     * On, the select property yields {@code visible} (the pattern layers); off, it yields
+     * {@code vanilla}, which no case matches, so the icon falls back to vanilla's look. Both options
+     * are flipped on the loaded config and restored in {@code finally}.
+     *
+     * <p>What breaks this: an option ignored, the two options swapped, or mod armour recognised by
+     * anything but its namespace.
+     */
+    public static void visibleTrimIconsFollowTheClientOptions(GameTestHelper helper) {
+        Identifier iron = BuiltInRegistries.ITEM.getKey(Items.IRON_CHESTPLATE);
+        Identifier turtle = BuiltInRegistries.ITEM.getKey(Items.TURTLE_HELMET);
+        Identifier enderite = BuiltInRegistries.ITEM.getKey(com.simplebuilding.items.ModItems.ENDERITE_CHESTPLATE);
+        String visible = com.simplebuilding.items.VisibleTrimIcons.VISIBLE;
+        String vanilla = com.simplebuilding.items.VisibleTrimIcons.VANILLA;
+        helper.assertTrue(!vanilla.equals(visible), "the fallback value must not be the visible case");
+        for (boolean vanillaOn : new boolean[]{false, true}) {
+            for (boolean modOn : new boolean[]{false, true}) {
+                String settings = " with vanilla armour " + (vanillaOn ? "on" : "off") + ", mod armour " + (modOn ? "on" : "off");
+                helper.assertValueEqual(com.simplebuilding.items.VisibleTrimIcons.key(iron, vanillaOn, modOn),
+                        vanillaOn ? visible : vanilla, "iron chestplate" + settings);
+                helper.assertValueEqual(com.simplebuilding.items.VisibleTrimIcons.key(turtle, vanillaOn, modOn),
+                        vanillaOn ? visible : vanilla, "turtle shell" + settings);
+                helper.assertValueEqual(com.simplebuilding.items.VisibleTrimIcons.key(enderite, vanillaOn, modOn),
+                        modOn ? visible : vanilla, "enderite chestplate" + settings);
+            }
+        }
+
+        com.simplebuilding.config.SimplebuildingConfig config = Simplebuilding.getConfig();
+        helper.assertTrue(config != null, "no config loaded, so the options cannot be tested");
+        boolean vanillaOption = config.visibleTrimIconsVanillaArmor;
+        boolean modOption = config.visibleTrimIconsModArmor;
+        try {
+            config.visibleTrimIconsVanillaArmor = false;
+            config.visibleTrimIconsModArmor = true;
+            helper.assertValueEqual(com.simplebuilding.items.VisibleTrimIcons.key(iron), vanilla, "iron chestplate, config vanilla off");
+            helper.assertValueEqual(com.simplebuilding.items.VisibleTrimIcons.key(enderite), visible, "enderite chestplate, config mod on");
+            config.visibleTrimIconsVanillaArmor = true;
+            config.visibleTrimIconsModArmor = false;
+            helper.assertValueEqual(com.simplebuilding.items.VisibleTrimIcons.key(iron), visible, "iron chestplate, config vanilla on");
+            helper.assertValueEqual(com.simplebuilding.items.VisibleTrimIcons.key(enderite), vanilla, "enderite chestplate, config mod off");
+        } finally {
+            config.visibleTrimIconsVanillaArmor = vanillaOption;
+            config.visibleTrimIconsModArmor = modOption;
+        }
+        helper.succeed();
+    }
+
+    /**
+     * Audit #37/#39/#46: the player-facing texts that used to be hardcoded - ore detector, item
+     * frame lock, magnet, hopper filter modes, smithing templates, structure compasses, toggle
+     * keys, octant/velocity gauge HUD, trim stats panel, chisel tooltip - now go through
+     * {@code Component.translatable}, and the legacy spatulas have names. Every one of those keys
+     * has to exist in the shipped {@code en_us.json} and {@code de_de.json}, non-empty and with
+     * the same number of {@code %s} placeholders; both files have to hold exactly the same key
+     * set; and the German texts the audit found still in English are German now.
+     *
+     * <p>Read straight from the classpath, so both languages are checked on every server run.
+     *
+     * <p>What breaks it: a key used in code but missing from one language file, a translation
+     * that drops or adds a placeholder, or one of the two files growing a key the other lacks.
+     */
+    public static void everyPlayerFacingTextHasEnglishAndGermanTranslations(GameTestHelper helper) {
+        JsonObject en = langFile(helper, "en_us");
+        JsonObject de = langFile(helper, "de_de");
+        List<String> keys = new ArrayList<>();
+        for (String mode : List.of("iron", "gold", "diamond", "netherite", "all", "custom")) {
+            keys.add("simplebuilding.ore_detector.mode." + mode);
+        }
+        keys.addAll(List.of(
+                "tooltip.simplebuilding.ore_detector.mode",
+                "tooltip.simplebuilding.ore_detector.target", "tooltip.simplebuilding.ore_detector.no_target",
+                "tooltip.simplebuilding.ore_detector.cycle_hint", "tooltip.simplebuilding.ore_detector.place_hint", "tooltip.simplebuilding.ore_detector.power",
+                "tooltip.simplebuilding.ore_detector.all_classes", "tooltip.simplebuilding.ore_detector.damping",
+                "message.simplebuilding.item_frame.locked", "message.simplebuilding.item_frame.unlocked",
+                "message.simplebuilding.item_frame.hidden", "message.simplebuilding.item_frame.shown",
+                "tooltip.simplebuilding.magnet.filtering", "tooltip.simplebuilding.magnet.no_filter",
+                "tooltip.simplebuilding.magnet.clear",
+                "simplebuilding.hopper_filter.none", "simplebuilding.hopper_filter.whitelist", "simplebuilding.hopper_filter.type",
+                "tooltip.simplebuilding.chisel.last_target",
+                "message.simplebuilding.toggle.highlights", "message.simplebuilding.toggle.octant_figure",
+                "hud.simplebuilding.rangefinder.pos1", "hud.simplebuilding.rangefinder.pos2",
+                "hud.simplebuilding.rangefinder.set_pos1", "hud.simplebuilding.rangefinder.set_pos2",
+                "hud.simplebuilding.rangefinder.distance", "hud.simplebuilding.rangefinder.area",
+                "hud.simplebuilding.rangefinder.volume", "hud.simplebuilding.velocity_gauge.title",
+                "hud.simplebuilding.velocity_gauge.stats", "hud.simplebuilding.velocity_gauge.unit",
+                "tooltip.simplebuilding.velocity_gauge.tooltip", "tooltip.simplebuilding.velocity_gauge.touch_hint",
+                "hud.simplebuilding.amethyst_lens.laser", "hud.simplebuilding.amethyst_lens.distance",
+                "hud.simplebuilding.amethyst_lens.height", "tooltip.simplebuilding.amethyst_lens.last_measured",
+                "tooltip.simplebuilding.amethyst_lens.last_target", "tooltip.simplebuilding.amethyst_lens.touch_hint",
+                "item.simplebuilding.structure_compass.dimension", "item.simplebuilding.structure_compass.no_signal",
+                "item.simplebuilding.structure_compass.no_signal.line1", "item.simplebuilding.structure_compass.no_signal.line2"));
+        for (String template : List.of("glowing", "emitting")) {
+            for (String part : List.of("applies_to", "ingredients", "base_slot_description", "additions_slot_description")) {
+                keys.add("item.simplebuilding." + template + "_trim_template." + part);
+            }
+        }
+        for (String compass : List.of("ancient_city", "mansion", "monument", "fortress", "bastion", "trial_chambers",
+                "outpost", "end_city", "mineshaft", "village", "shipwreck", "igloo", "desert_pyramid", "jungle_temple",
+                "witch_hut", "stronghold")) {
+            keys.add("item.simplebuilding.structure_compass." + compass);
+        }
+        for (String part : List.of("title", "level", "xp_gathered", "survival", "distance", "time_alive", "survival_hint",
+                "combat", "hostiles", "passives", "damage_taken", "cap", "capped", "death")) {
+            keys.add("gui.simplebuilding.trim_stats." + part);
+        }
+        for (String tier : List.of("stone", "copper", "iron", "gold", "diamond", "netherite")) {
+            keys.add("item.simplebuilding." + tier + "_spatula");
+        }
+
+        List<String> problems = new ArrayList<>();
+        for (String key : keys) {
+            String english = en.has(key) ? en.get(key).getAsString() : null;
+            String german = de.has(key) ? de.get(key).getAsString() : null;
+            if (english == null || english.isBlank()) problems.add(key + " missing in en_us");
+            if (german == null || german.isBlank()) problems.add(key + " missing in de_de");
+            if (english != null && german != null && placeholders(english) != placeholders(german)) {
+                problems.add(key + " has " + placeholders(english) + " placeholders in en_us but " + placeholders(german) + " in de_de");
+            }
+        }
+        for (String key : en.keySet()) {
+            if (!de.has(key)) problems.add(key + " only in en_us");
+        }
+        for (String key : de.keySet()) {
+            if (!en.has(key)) problems.add(key + " only in de_de");
+        }
+        for (String key : List.of("simplebuilding.testcentre.chisel.touch", "text.autoconfig.simplebuilding.option.tweaks.balancing",
+                "simplebuilding.ore_detector.mode.iron", "message.simplebuilding.item_frame.locked")) {
+            if (en.has(key) && de.has(key) && en.get(key).getAsString().equals(de.get(key).getAsString())) {
+                problems.add(key + " is still English in de_de: " + de.get(key).getAsString());
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " translation problems: " + problems);
+                helper.succeed();
+    }
+
+    /**
+     * Konsistenz der Werkzeugnamen (Besitzer 2026-09-28): nach den Umbenennungen Laserpointer ->
+     * Amethystlinse, Echo-Kompass -> Echolot und Tachometer -> "Velocity" (wie der
+     * Geschwindigkeitsmesser, "Velocity Gauge") darf keine Sprachdatei die alten Namen mehr zeigen,
+     * und die Verzauberung Berührung des Konstrukteurs heisst im Deutschen ueberall gleich.
+     *
+     * <p>What breaks it: a lang value that still says Speedometer/Laser Pointer/Echo Compass (or
+     * Tachometer/Laserpointer/Echo-Kompass/Entfernungsmesser in German), the old
+     * hud.simplebuilding.speedometer.* keys coming back, or the Velocity Gauge HUD title losing its
+     * new name in either language.
+     */
+    public static void toolNamesCarryNoLeftoverOldNames(GameTestHelper helper) {
+        JsonObject en = langFile(helper, "en_us");
+        JsonObject de = langFile(helper, "de_de");
+        List<String> problems = new ArrayList<>();
+        List<String> oldEnglish = List.of("speedometer", "laser pointer", "laserpointer", "echo compass", "rangefinder");
+        List<String> oldGerman = List.of("tachometer", "laserpointer", "echo-kompass", "echokompass", "entfernungsmesser", "konstrukteurs-händchen");
+        for (String key : en.keySet()) {
+            String value = en.get(key).getAsString().toLowerCase(java.util.Locale.ROOT);
+            for (String old : oldEnglish) {
+                if (value.contains(old)) problems.add("en_us " + key + " still says '" + old + "'");
+            }
+            if (key.startsWith("hud.simplebuilding.speedometer.")) problems.add("old key " + key + " is back");
+        }
+        for (String key : de.keySet()) {
+            String value = de.get(key).getAsString();
+            String lower = value.toLowerCase(java.util.Locale.ROOT);
+            for (String old : oldGerman) {
+                if (lower.contains(old)) problems.add("de_de " + key + " still says '" + old + "'");
+            }
+            if (lower.contains("konstrukteur") && !value.contains("Berührung des Konstrukteurs")) {
+                problems.add("de_de " + key + " names Constructor's Touch differently: " + value);
+            }
+        }
+        java.util.Map<String, String[]> expected = new java.util.LinkedHashMap<>();
+        expected.put("hud.simplebuilding.velocity_gauge.title", new String[]{"Velocity", "Geschwindigkeit"});
+        expected.put("item.simplebuilding.velocity_gauge", new String[]{"Velocity Gauge", "Geschwindigkeitsmesser"});
+        expected.put("item.simplebuilding.amethyst_lens", new String[]{"Amethyst Lens", "Amethystlinse"});
+        expected.put("item.simplebuilding.echo_sounder", new String[]{"Echo Sounder", "Echolot"});
+        expected.put("hud.simplebuilding.amethyst_lens.laser", new String[]{"Laser", "Laser"});
+        for (var entry : expected.entrySet()) {
+            String english = en.has(entry.getKey()) ? en.get(entry.getKey()).getAsString() : null;
+            String german = de.has(entry.getKey()) ? de.get(entry.getKey()).getAsString() : null;
+            if (!entry.getValue()[0].equals(english)) problems.add(entry.getKey() + " is '" + english + "' in en_us, not '" + entry.getValue()[0] + "'");
+            if (!entry.getValue()[1].equals(german)) problems.add(entry.getKey() + " is '" + german + "' in de_de, not '" + entry.getValue()[1] + "'");
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " name problems: " + problems);
+        helper.succeed();
+    }
+
+    /**
+     * The Basic Upgrade Smithing Template's "applies to" and "ingredients" lines name exactly the
+     * tools and materials its smithing recipes really take. They once said "Hammer, Excavator" and
+     * "Diamond Ingots" - neither exists in the game.
+     *
+     * <p>Derived from the loaded recipes: every {@code count_based_smithing} recipe whose template
+     * is the basic template contributes the tool kind of its result (the base is the same kind one
+     * tier lower) and the material of its addition. The English "applies to" line has to list
+     * exactly those kinds, and the "ingredients" line has to name every material.
+     */
+    public static void basicUpgradeTemplateTextNamesOnlyRealToolsAndMaterials(GameTestHelper helper) {
+        Map<String, String> kindNames = new LinkedHashMap<>();
+        kindNames.put("_building_wand", "Building Wand");
+        kindNames.put("_sledgehammer", "Sledgehammer");
+        kindNames.put("_chisel", "Chisel");
+        kindNames.put("_pickaxe", "Pickaxe");
+        kindNames.put("_axe", "Axe");
+        kindNames.put("_shovel", "Shovel");
+        kindNames.put("_hoe", "Hoe");
+        kindNames.put("_sword", "Sword");
+        Map<Item, String> materialNames = new LinkedHashMap<>();
+        materialNames.put(Items.COBBLESTONE, "Cobblestone");
+        materialNames.put(Items.IRON_INGOT, "Iron Ingots");
+        materialNames.put(Items.GOLD_INGOT, "Gold Ingots");
+        materialNames.put(Items.DIAMOND, "Diamonds");
+        materialNames.put(ModItems.IRON_CORE, "Cores");
+        materialNames.put(ModItems.GOLD_CORE, "Cores");
+        materialNames.put(ModItems.DIAMOND_CORE, "Cores");
+
+        ItemStack template = new ItemStack(ModItems.BASIC_UPGRADE_TEMPLATE);
+        Set<String> kinds = new java.util.TreeSet<>();
+        Set<String> materials = new java.util.TreeSet<>();
+        List<String> problems = new ArrayList<>();
+        int recipes = 0;
+        for (RecipeHolder<?> holder : helper.getLevel().getServer().getRecipeManager().getRecipes()) {
+            if (!(holder.value() instanceof CountBasedSmithingRecipe recipe)
+                    || recipe.templateIngredient().isEmpty() || !recipe.templateIngredient().get().test(template)) {
+                continue;
+            }
+            recipes++;
+            String path = BuiltInRegistries.ITEM.getKey(recipe.getResultStack().getItem()).getPath();
+            String kind = kindNames.entrySet().stream().filter(e -> path.endsWith(e.getKey()))
+                    .map(Map.Entry::getValue).findFirst().orElse(null);
+            if (kind == null) {
+                problems.add("the template upgrades to " + path + ", a tool kind this test does not know");
+            } else {
+                kinds.add(kind);
+            }
+            String material = recipe.additionIngredient()
+                    .flatMap(addition -> materialNames.entrySet().stream()
+                            .filter(e -> addition.test(new ItemStack(e.getKey()))).map(Map.Entry::getValue).findFirst())
+                    .orElse(null);
+            if (material == null) {
+                problems.add(holder.id().identifier() + " takes a material this test does not know");
+            } else {
+                materials.add(material);
+            }
+        }
+        helper.assertTrue(recipes >= 30, "only " + recipes + " basic template recipes loaded");
+
+        JsonObject en = langFile(helper, "en_us");
+        Set<String> listed = new java.util.TreeSet<>(List.of(
+                en.get("item.simplebuilding.basic_upgrade_template.applies_to").getAsString().split(",\\s*")));
+        if (!listed.equals(kinds)) {
+            problems.add("applies_to lists " + listed + " but the recipes upgrade " + kinds);
+        }
+        String ingredients = en.get("item.simplebuilding.basic_upgrade_template.ingredients").getAsString();
+        for (String material : materials) {
+            if (!ingredients.contains(material)) {
+                problems.add("ingredients \"" + ingredients + "\" does not name " + material);
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " template text problems: " + problems);
+        helper.succeed();
+    }
+
+    /**
+     * JEI shows how to get an item through its recipes and the mod's in-world categories. Every mod
+     * item that has neither - loot, ore drops, legacy items - needs an information page instead, or
+     * JEI shows it without any hint where it comes from.
+     *
+     * <p>Derived from the running game, not from a list: every item registered under the mod's
+     * namespace, minus the results of every loaded recipe (count-based smithing exposes no
+     * {@code RecipeDisplay}, so its result is read directly; JEI shows it through its smithing
+     * extension), minus every output of {@link com.simplebuilding.compat.InWorldRecipeCatalog},
+     * minus {@code c:hidden_from_recipe_viewers}. What remains must be on a page of
+     * {@link com.simplebuilding.compat.RecipelessJeiInfo} or
+     * {@link com.simplebuilding.tweaks.item.TweaksJeiInfo}, and every page key must be translated
+     * in en_us and de_de. The other direction is checked too: a page in {@code RecipelessJeiInfo}
+     * for an item that gained a recipe is stale.
+     */
+    public static void everyRecipelessModItemHasJeiInfo(GameTestHelper helper) {
+        ContextMap displayContext = SlotDisplayContext.fromLevel(helper.getLevel());
+        Set<Item> obtainable = new HashSet<>();
+        for (RecipeHolder<?> holder : helper.getLevel().getServer().getRecipeManager().getRecipes()) {
+            if (holder.value() instanceof CountBasedSmithingRecipe countBased) {
+                obtainable.add(countBased.getResultStack().getItem());
+            }
+            for (RecipeDisplay display : holder.value().display()) {
+                for (ItemStack stack : display.result().resolveForStacks(displayContext)) {
+                    obtainable.add(stack.getItem());
+                }
+            }
+        }
+        com.simplebuilding.compat.InWorldRecipeCatalog.Catalog catalog = com.simplebuilding.compat.InWorldRecipeCatalog.build();
+        for (com.simplebuilding.compat.InWorldRecipeCatalog.Entry entry : catalog.entries()) {
+            obtainable.addAll(entry.output().items());
+        }
+        helper.assertTrue(obtainable.size() > 100, "only " + obtainable.size() + " items come out of recipes - recipes not loaded?");
+
+        Map<Item, String> pageOf = new HashMap<>();
+        Map<String, List<net.minecraft.world.level.ItemLike>> pages = new LinkedHashMap<>(com.simplebuilding.tweaks.item.TweaksJeiInfo.families());
+        pages.putAll(com.simplebuilding.compat.RecipelessJeiInfo.pages());
+        for (Map.Entry<String, List<net.minecraft.world.level.ItemLike>> page : pages.entrySet()) {
+            for (net.minecraft.world.level.ItemLike like : page.getValue()) {
+                pageOf.put(like.asItem(), page.getKey());
+            }
+        }
+
+        TagKey<Item> hidden = TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "hidden_from_recipe_viewers"));
+        List<String> problems = new ArrayList<>();
+        int recipeless = 0;
+        for (Item item : BuiltInRegistries.ITEM) {
+            Identifier id = BuiltInRegistries.ITEM.getKey(item);
+            if (!MOD_ID.equals(id.getNamespace()) || obtainable.contains(item) || new ItemStack(item).is(hidden)) {
+                continue;
+            }
+            recipeless++;
+            if (!pageOf.containsKey(item)) {
+                problems.add(id + " has no recipe, no in-world entry and no JEI info page (add it to RecipelessJeiInfo)");
+            }
+        }
+        for (Map.Entry<String, List<net.minecraft.world.level.ItemLike>> page : com.simplebuilding.compat.RecipelessJeiInfo.pages().entrySet()) {
+            for (net.minecraft.world.level.ItemLike like : page.getValue()) {
+                if (obtainable.contains(like.asItem())) {
+                    problems.add(BuiltInRegistries.ITEM.getKey(like.asItem()) + " is on the recipeless page " + page.getKey()
+                            + " but has a JEI-visible recipe now");
+                }
+            }
+        }
+        JsonObject en = langFile(helper, "en_us");
+        JsonObject de = langFile(helper, "de_de");
+        for (String page : pages.keySet()) {
+            String key = com.simplebuilding.compat.RecipelessJeiInfo.KEY_PREFIX + page;
+            for (Map.Entry<String, JsonObject> lang : Map.of("en_us", en, "de_de", de).entrySet()) {
+                JsonElement text = lang.getValue().get(key);
+                if (text == null || text.getAsString().isBlank()) {
+                    problems.add(key + " missing in " + lang.getKey());
+                }
+            }
+        }
+        helper.assertTrue(recipeless > 0, "no recipeless mod item found at all - the check sees nothing");
+        helper.assertTrue(problems.isEmpty(), problems.size() + " JEI info problems: " + problems);
+        helper.succeed();
+    }
+
+    // =====================================================================================
+    // SELTENHEIT UND NAMEN (docs/RARITAETEN.md)
+    // =====================================================================================
+
+    /** Ausruestung im Vanilla-Sinn: bleibt auf jeder Stufe COMMON, wie Vanillas Netheritschwert. */
+    private static final List<String> GEAR_SUFFIXES = List.of("_sword", "_spear", "_pickaxe", "_axe", "_shovel", "_hoe",
+            "_helmet", "_chestplate", "_leggings", "_boots", "_chisel", "_spatula", "_sledgehammer", "_building_wand",
+            "_horse_armor", "_nautilus_armor");
+    /** Werkstoffe: COMMON wie Netheritbarren, -platten und -block, auch aus Enderit. */
+    private static final Set<String> MATERIALS = Set.of("enderite_ingot", "enderite_scrap", "enderite_nugget",
+            "enderite_block", "netherite_nugget", "raw_enderite");
+    private static final Map<String, net.minecraft.world.item.Rarity> RARITY_EXCEPTIONS = Map.ofEntries(
+            // Vorlagen: Aufwertungen wie Vanillas Netherit-Aufwertung, Besatz-Aufwertungen eine Stufe darueber
+            Map.entry("basic_upgrade_template", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("enderite_upgrade_template", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("glowing_trim_template", net.minecraft.world.item.Rarity.RARE),
+            Map.entry("emitting_trim_template", net.minecraft.world.item.Rarity.RARE),
+            Map.entry("pulsating_trim_template", net.minecraft.world.item.Rarity.RARE),
+            // Nahrung: verzaubert wie Vanillas verzauberter goldener Apfel, Enderit bleibt ganz oben
+            Map.entry("enchanted_netherite_apple", net.minecraft.world.item.Rarity.RARE),
+            Map.entry("enchanted_enderite_apple", net.minecraft.world.item.Rarity.EPIC),
+            // Pads nach dem Material ihrer Stufe (Netherit-Druckplatte bzw. Enderit-Platte/-Kern)
+            Map.entry("spawn_teleporter_tier_2", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("spawn_teleporter_tier_3", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("spawn_teleporter_tier_4", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("potion_pad", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("reinforced_potion_pad", net.minecraft.world.item.Rarity.EPIC),
+            Map.entry("infused_potion_pad", net.minecraft.world.item.Rarity.EPIC),
+            Map.entry("flypad", net.minecraft.world.item.Rarity.EPIC),
+            Map.entry("reinforced_flypad", net.minecraft.world.item.Rarity.EPIC),
+            Map.entry("stellar_flypad", net.minecraft.world.item.Rarity.EPIC),
+            Map.entry("fine_elytra_pad", net.minecraft.world.item.Rarity.EPIC),
+            // Geraete nach ihrer wertvollsten Zutat: Echoscherben (Vanilla UNCOMMON), Enderit-Kern
+            Map.entry("detector", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("echo_sounder", net.minecraft.world.item.Rarity.EPIC),
+            // Koepfe wie Vanillas Mob-Koepfe, Easter wie das Drachenei, Technik wie die Barriere
+            Map.entry("blaze_head", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("enderman_head", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("husk_head", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("spider_head", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("cave_spider_head", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("stray_skull", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("bogged_skull", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("slime_head", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("silverfish_head", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("breeze_head", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("shulker_head", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("drowned_head", net.minecraft.world.item.Rarity.UNCOMMON),
+            Map.entry("funny_stick", net.minecraft.world.item.Rarity.EPIC),
+            Map.entry("creative_spacer", net.minecraft.world.item.Rarity.EPIC));
+    /** Feuerfest ausser allem mit netherite_/enderite_ vorn: alles, was mit Netherit oder Enderit gebaut wird. */
+    private static final Set<String> FIRE_RESISTANT_EXTRA = Set.of("enchanted_netherite_apple", "enchanted_enderite_apple",
+            "echo_sounder", "spawn_teleporter_tier_2", "spawn_teleporter_tier_3", "spawn_teleporter_tier_4",
+            "potion_pad", "reinforced_potion_pad", "infused_potion_pad", "flypad", "reinforced_flypad", "stellar_flypad",
+            "fine_elytra_pad",
+            // Ausnahmen mit eigenem Grund: die geliehene Spawn-Elytra verbrennt nicht ueber Lava, der Easter-Stock nie
+            "spawn_elytra", "funny_stick");
+
+    /** Die Seltenheit, die das Schema aus docs/RARITAETEN.md einem Mod-Item gibt. */
+    static net.minecraft.world.item.Rarity expectedRarity(String path) {
+        net.minecraft.world.item.Rarity exception = RARITY_EXCEPTIONS.get(path);
+        if (exception != null) {
+            return exception;
+        }
+        if (MATERIALS.contains(path) || GEAR_SUFFIXES.stream().anyMatch(path::endsWith)) {
+            return net.minecraft.world.item.Rarity.COMMON;
+        }
+        if (path.startsWith("enderite_")) {
+            return net.minecraft.world.item.Rarity.EPIC;
+        }
+        if (path.startsWith("netherite_")) {
+            return net.minecraft.world.item.Rarity.UNCOMMON;
+        }
+        return net.minecraft.world.item.Rarity.COMMON;
+    }
+
+    /**
+     * Seltenheit und Feuerfestigkeit folgen je Familie einer Regel (docs/RARITAETEN.md), gelesen am
+     * laufenden Spiel fuer jedes Item der Mod:
+     *
+     * <ul>
+     *   <li>Ausruestung (Werkzeuge, Waffen, Ruestung, Meissel, Spachtel, Vorschlaghaemmer, Baustaebe) und
+     *       Werkstoffe bleiben auf jeder Stufe COMMON - wie Vanillas Netheritschwert und Netheritbarren;
+     *       die Verzauberung hebt die angezeigte Seltenheit ohnehin.</li>
+     *   <li>Alle anderen Stufenfamilien (Lager, Maschinen, Kerne, Druckplatten, Pads, Nahrung): Netherit
+     *       UNCOMMON (wie Vanillas Netherit-Aufwertung), Enderit EPIC, alles darunter COMMON.</li>
+     *   <li>Vorlagen, verzauberte Aepfel, Geraete, Kopf, Easter und Technik laut Ausnahmetabelle.</li>
+     *   <li>Feuerfest ist genau, was netherite_/enderite_ heisst oder daraus gebaut wird - ausser der
+     *       Enderit-Schmiedevorlage, die wie Vanillas Netherit-Aufwertung brennt.</li>
+     * </ul>
+     *
+     * <p>What breaks it: a registration that adds, drops or changes {@code rarity(...)} or
+     * {@code fireResistant()} against the scheme, and a new item family that nobody sorted into it
+     * (it then falls under "COMMON, burns" and shows up here if it was registered otherwise).
+     */
+    public static void modItemRaritiesFollowTheFamilyScheme(GameTestHelper helper) {
+        List<String> problems = new ArrayList<>();
+        int checked = 0;
+        for (Item item : BuiltInRegistries.ITEM) {
+            Identifier id = BuiltInRegistries.ITEM.getKey(item);
+            if (!MOD_ID.equals(id.getNamespace())) {
+                continue;
+            }
+            checked++;
+            String path = id.getPath();
+            ItemStack stack = new ItemStack(item);
+            net.minecraft.world.item.Rarity actual = stack.getOrDefault(DataComponents.RARITY, net.minecraft.world.item.Rarity.COMMON);
+            net.minecraft.world.item.Rarity expected = expectedRarity(path);
+            if (actual != expected) {
+                problems.add(path + " is " + actual + ", the scheme says " + expected);
+            }
+            net.minecraft.world.item.component.DamageResistant resistant = stack.get(DataComponents.DAMAGE_RESISTANT);
+            boolean fireResistant = resistant != null && resistant.isResistantTo(helper.getLevel().damageSources().lava());
+            // Die Enderit-Schmiedevorlage (Diamanten + Endstein) brennt wie Vanillas Netherit-Aufwertung.
+            boolean shouldResist = (path.startsWith("netherite_") || path.startsWith("enderite_")) && !path.endsWith("_template")
+                    || FIRE_RESISTANT_EXTRA.contains(path);
+            if (fireResistant != shouldResist) {
+                problems.add(path + (fireResistant ? " survives lava but is not built from netherite/enderite"
+                        : " burns in lava although it is built from netherite/enderite"));
+            }
+        }
+        helper.assertTrue(checked > 200, "only " + checked + " mod items found - registry not filled?");
+        // Abklingende Trank-Pads (Komponente potion_pad_cooldown) sind dasselbe Item: gleiche Seltenheit und
+        // Feuerfestigkeit wie ihre Stufe, Stapelgroesse 1 wie jedes Pad.
+        for (net.minecraft.world.level.block.Block pad : List.of(TweaksBlocks.POTION_PAD, TweaksBlocks.REINFORCED_POTION_PAD, TweaksBlocks.INFUSED_POTION_PAD)) {
+            ItemStack cooling = new ItemStack(pad);
+            cooling.set(com.simplebuilding.tweaks.component.TweaksComponents.POTION_PAD_COOLDOWN, 1200);
+            String path = BuiltInRegistries.ITEM.getKey(cooling.getItem()).getPath();
+            net.minecraft.world.item.Rarity actual = cooling.getOrDefault(DataComponents.RARITY, net.minecraft.world.item.Rarity.COMMON);
+            net.minecraft.world.item.component.DamageResistant resistant = cooling.get(DataComponents.DAMAGE_RESISTANT);
+            if (actual != expectedRarity(path) || resistant == null || !resistant.isResistantTo(helper.getLevel().damageSources().lava())
+                    || cooling.getMaxStackSize() != 1) {
+                problems.add("cooling " + path + " is " + actual + " (fire resistant " + (resistant != null) + ", stack " + cooling.getMaxStackSize()
+                        + "), its tier says " + expectedRarity(path));
+            }
+        }
+        for (String path : RARITY_EXCEPTIONS.keySet()) {
+            if (!BuiltInRegistries.ITEM.containsKey(Identifier.fromNamespaceAndPath(MOD_ID, path))) {
+                problems.add("the rarity table names " + path + ", which is not registered");
+            }
+        }
+        helper.assertTrue(problems.isEmpty(), problems.size() + " rarity problems: " + problems);
+        helper.succeed();
+    }
+
+    /**
+     * Die angezeigten Namen folgen je Familie einem Muster, in beiden Sprachen:
+     *
+     * <ul>
+     *   <li>Stufenwort vorn: stone_/copper_/iron_/gold_/diamond_/netherite_/enderite_/reinforced_ heisst
+     *       "Stone .../Stein...", ..., "Enderite .../Enderit...", "Reinforced .../Verstärkt..." (Vanillas
+     *       "Block of X" zaehlt mit). Einzige Ausnahme: Spawn-Teleporter V (Besitzer 2026-09-28).</li>
+     *   <li>Deutsch: nach dem Werkstoff entweder zusammen ("Enderitschwert") oder mit Bindestrich und
+     *       grossem Nomen ("Enderit-Vorschlaghammer") - und innerhalb einer Familie auf allen Stufen gleich.</li>
+     *   <li>Vanilla-Muster: "Block of X", "X Nugget"/"...klumpen", "X Ingot"/"...barren", "... Pressure
+     *       Plate"/"...druckplatte", "... Armor Trim"/"...Rüstungsbesatz" und "... Upgrade"/"...Aufwertung" (Vorlagen ohne "Smithing"), Treppe, Stufe, Mauer,
+     *       Ziegel, Erz, Saeule; Vanilla-Gegenstuecke heissen wie Vanillas Netherit-Stueck (Enderitharnisch).</li>
+     *   <li>Pad-Familien enden auf die roemische Stufenzahl, Altlasten auf "(Legacy)"/"(alt)".</li>
+     *   <li>Kein Deutsch gleich Englisch ausser Rotator (der Magnet heisst jetzt Attractor/Attraktor); keine alten Namen (Nugget, Upgrade
+     *       Template, Old ..., Roh-Enderit, Netherit-Bündel, ...) in irgendeinem Text.</li>
+     * </ul>
+     *
+     * <p>What breaks it: a renamed or new item whose name breaks its family's pattern, a translation
+     * left in English, or an old name coming back in a tooltip, JEI page, book or advancement.
+     */
+    public static void modItemNamesFollowTheFamilyPatterns(GameTestHelper helper) {
+        JsonObject en = langFile(helper, "en_us");
+        JsonObject de = langFile(helper, "de_de");
+        List<String> problems = new ArrayList<>();
+        Map<String, String[]> tierWords = new LinkedHashMap<>();
+        tierWords.put("stone", new String[]{"Stone", "Stein"});
+        tierWords.put("copper", new String[]{"Copper", "Kupfer"});
+        tierWords.put("iron", new String[]{"Iron", "Eisen"});
+        tierWords.put("gold", new String[]{"Gold", "Gold"});
+        tierWords.put("diamond", new String[]{"Diamond", "Diamant"});
+        tierWords.put("netherite", new String[]{"Netherite", "Netherit"});
+        tierWords.put("enderite", new String[]{"Enderite", "Enderit"});
+        tierWords.put("reinforced", new String[]{"Reinforced", "Verstärkt"});
+        String[][] suffixes = {
+                {"_block", null, "block"}, {"_nugget", " Nugget", "klumpen"}, {"_ingot", " Ingot", "barren"},
+                {"_pressure_plate", " Pressure Plate", "Druckplatte"},
+                // Vorlagen ohne "Smithing" wie Vanillas "Netherite Upgrade" / "Host Armor Trim" (Besitzer 2026-09-28)
+                {"_trim_template", " Armor Trim", "Rüstungsbesatz"}, {"_upgrade_template", " Upgrade", "Aufwertung"},
+                {"_stairs", " Stairs", "treppe"}, {"_slab", " Slab", "stufe"}, {"_wall", " Wall", "mauer"},
+                {"_bricks", " Bricks", "ziegel"}, {"_ore", " Ore", "erz"}, {"_pillar", " Pillar", "säule"}};
+        Map<String, String[]> vanillaTwins = new LinkedHashMap<>();
+        vanillaTwins.put("enderite_block", new String[]{"Block of Enderite", "Enderitblock"});
+        vanillaTwins.put("enderite_ingot", new String[]{"Enderite Ingot", "Enderitbarren"});
+        vanillaTwins.put("enderite_nugget", new String[]{"Enderite Nugget", "Enderitklumpen"});
+        vanillaTwins.put("netherite_nugget", new String[]{"Netherite Nugget", "Netheritklumpen"});
+        vanillaTwins.put("enderite_scrap", new String[]{"Enderite Scrap", "Enderitplatten"});
+        // Besitzer 2026-09-29: drei Fragmente ergeben den rohen Schrott, der zu Enderite Scrap schmilzt.
+        vanillaTwins.put("raw_enderite", new String[]{"Raw Enderite Fragment", "Rohes Enderitfragment"});
+        vanillaTwins.put("layered_raw_enderite", new String[]{"Raw Enderite Scrap", "Rohe Enderitplatten"});
+        vanillaTwins.put("enderite_chestplate", new String[]{"Enderite Chestplate", "Enderitharnisch"});
+        vanillaTwins.put("enderite_leggings", new String[]{"Enderite Leggings", "Enderitbeinschutz"});
+        vanillaTwins.put("enderite_spear", new String[]{"Enderite Spear", "Enderitspeer"});
+        vanillaTwins.put("enderite_upgrade_template", new String[]{"Enderite Upgrade", "Enderit-Aufwertung"});
+
+        Map<String, Map<String, Boolean>> styleByFamily = new java.util.TreeMap<>();
+        for (Item item : BuiltInRegistries.ITEM) {
+            Identifier id = BuiltInRegistries.ITEM.getKey(item);
+            if (!MOD_ID.equals(id.getNamespace()) || id.getPath().equals("creative_spacer")) {
+                continue;
+            }
+            String path = id.getPath();
+            String key = item.getDescriptionId();
+            String english = en.has(key) ? en.get(key).getAsString() : null;
+            String german = de.has(key) ? de.get(key).getAsString() : null;
+            if (english == null || german == null) {
+                problems.add(path + " has no name (" + key + ") in " + (english == null ? "en_us" : "de_de"));
+                continue;
+            }
+            if (english.equals(german) && !Set.of("magnet", "rotator").contains(path)) {
+                problems.add(path + " is still English in de_de: " + german);
+            }
+            String tier = path.contains("_") ? path.substring(0, path.indexOf('_')) : path;
+            String[] words = tierWords.get(tier);
+            if (words != null && !path.equals("enderite_spawn_teleporter")) {
+                if (!english.startsWith(words[0] + " ") && !english.startsWith("Block of " + words[0])) {
+                    problems.add(path + " should start with '" + words[0] + "' in en_us: " + english);
+                }
+                if (!german.startsWith(words[1])) {
+                    problems.add(path + " should start with '" + words[1] + "' in de_de: " + german);
+                } else if (!tier.equals("reinforced") && german.length() > words[1].length()) {
+                    String rest = german.substring(words[1].length());
+                    boolean hyphen = rest.length() > 1 && rest.charAt(0) == '-' && Character.isUpperCase(rest.charAt(1));
+                    boolean closed = Character.isLowerCase(rest.charAt(0));
+                    if (!hyphen && !closed) {
+                        problems.add(path + " joins '" + words[1] + "' neither closed nor with a hyphen: " + german);
+                    }
+                    styleByFamily.computeIfAbsent(path.substring(tier.length()), k -> new java.util.TreeMap<>()).put(path, hyphen);
+                }
+            }
+            for (String[] suffix : suffixes) {
+                if (!path.endsWith(suffix[0]) || path.endsWith("purpur_block")) {
+                    continue;
+                }
+                boolean englishOk = suffix[1] == null ? english.startsWith("Block of ") : english.endsWith(suffix[1]);
+                if (!englishOk) {
+                    problems.add(path + " breaks the vanilla pattern in en_us ('" + (suffix[1] == null ? "Block of X" : "X" + suffix[1]) + "'): " + english);
+                }
+                if (!german.toLowerCase(java.util.Locale.ROOT).endsWith(suffix[2].toLowerCase(java.util.Locale.ROOT))) {
+                    problems.add(path + " should end with '" + suffix[2] + "' in de_de: " + german);
+                }
+            }
+            Block block = Block.byItem(item);
+            boolean legacy = path.endsWith("_spatula") || block instanceof com.simplebuilding.tweaks.block.LegacyTierBlock;
+            if (legacy != english.endsWith(" (Legacy)") || legacy != german.endsWith(" (alt)")) {
+                problems.add(path + (legacy ? " is a legacy item but not named '... (Legacy)' / '... (alt)': "
+                        : " is named like a legacy item: ") + english + " / " + german);
+            }
+        }
+        for (Map.Entry<String, Map<String, Boolean>> family : styleByFamily.entrySet()) {
+            if (new HashSet<>(family.getValue().values()).size() > 1) {
+                problems.add("the *" + family.getKey() + " family mixes closed and hyphenated German names: " + family.getValue());
+            }
+        }
+        for (Map.Entry<String, String[]> twin : vanillaTwins.entrySet()) {
+            Item item = BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(MOD_ID, twin.getKey()));
+            String key = item.getDescriptionId();
+            if (!twin.getValue()[0].equals(en.has(key) ? en.get(key).getAsString() : null)
+                    || !twin.getValue()[1].equals(de.has(key) ? de.get(key).getAsString() : null)) {
+                problems.add(twin.getKey() + " should mirror its vanilla twin as '" + twin.getValue()[0] + "' / '" + twin.getValue()[1] + "'");
+            }
+        }
+        String[] roman = {"I", "II", "III", "IV", "V", "VI"};
+        for (com.simplebuilding.tweaks.block.TweaksFamilies.Family family : com.simplebuilding.tweaks.easter.EasterEggs.families()) {
+            List<Block> tiers = com.simplebuilding.tweaks.block.TweaksFamilies.tiers(family);
+            for (int i = 0; i < tiers.size(); i++) {
+                String key = tiers.get(i).getDescriptionId();
+                for (JsonObject lang : List.of(en, de)) {
+                    String name = lang.has(key) ? lang.get(key).getAsString() : "";
+                    if (!name.endsWith(" " + roman[i])) {
+                        problems.add(key + " is tier " + roman[i] + " of " + family + " but reads '" + name + "'");
+                    }
+                }
+            }
+        }
+        List<String> oldEnglish = List.of("Upgrade Template", "Trim Smithing Template", "Upgrade Smithing Template", "Old Netherite", "Old Enderite", "Enderite Block", "Cracked Diamond Block",
+                // 2026-09-28: Nihilith heisst jetzt Nihilit (Anzeige; die Ids bleiben nihilith_*)
+                "Nihilith");
+        List<String> oldGerman = List.of("Nugget", "Enderiten-", "Altes Netherit", "Altes Enderit", "Basisaufwertung", "Roh-Enderit",
+                "Enderitschrott", "Enderit-Schrott", "Enderit-Brustpanzer", "Enderit-Hose", "Enderit-Speer", "Netherit-Bündel",
+                "Enderit-Bündel", "Netherit-Köcher", "Enderit-Köcher", "Netherit-Apfel", "Enderit-Apfel", "Netherit-Karotte",
+                "Enderit-Karotte", "Netherit-Kern", "Enderit-Kern", "Astralit-Ziegel", "Nihilith",
+                "Astralit-Erz", "Astralit-Säule", "Aufwertungsvorlage", "Leuchtende Schmiedevorlage", "Strahlende Schmiedevorlage",
+                "Basis-Schmiedevorlage", "Enderit-Schmiedevorlage");
+        for (String key : en.keySet()) {
+            for (String old : oldEnglish) {
+                if (en.get(key).getAsString().contains(old)) problems.add("en_us " + key + " still says '" + old + "'");
+            }
+        }
+        for (String key : de.keySet()) {
+            for (String old : oldGerman) {
+                if (de.get(key).getAsString().contains(old)) problems.add("de_de " + key + " still says '" + old + "'");
+            }
+        }
+        helper.assertTrue(styleByFamily.containsKey("_sledgehammer") && styleByFamily.containsKey("_chisel"),
+                "the family style check saw no sledgehammers or chisels - it checks nothing");
+        helper.assertTrue(problems.isEmpty(), problems.size() + " name problems: " + problems);
+        helper.succeed();
+    }
+
+    private static JsonObject langFile(GameTestHelper helper, String locale) {
+        String path = "assets/simplebuilding/lang/" + locale + ".json";
+        try (InputStream in = DataIntegrityTests.class.getClassLoader().getResourceAsStream(path)) {
+            helper.assertTrue(in != null, path + " is not on the classpath");
+            return JsonParser.parseReader(new InputStreamReader(in, StandardCharsets.UTF_8)).getAsJsonObject();
+        } catch (java.io.IOException e) {
+            throw new IllegalStateException("cannot read " + path, e);
+        }
+    }
+
+    private static int placeholders(String text) {
+        int count = 0;
+        for (int i = text.indexOf('%'); i >= 0; i = text.indexOf('%', i + 1)) {
+            count++;
+        }
+        return count;
+    }
+}
