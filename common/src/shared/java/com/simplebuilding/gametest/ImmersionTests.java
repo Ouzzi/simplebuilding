@@ -266,7 +266,7 @@ public final class ImmersionTests {
                     "items the tooltip of " + entry.getKey() + " lists vs. the recipes that take it");
         }
         List<String> lines = text(new ItemStack(ModItems.GOLD_CORE));
-        helper.assertTrue(lines.contains("Used in:") && lines.contains("  Gold Building Wand, Ore Detector"),
+        helper.assertTrue(lines.contains("Used in:") && lines.contains("  Gold Building Wand, Ore Detector, Octant"),
                 "the gold core tooltip reads " + lines);
         helper.succeed();
     }
