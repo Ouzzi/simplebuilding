@@ -56,7 +56,7 @@ public class ItemMixin {
             textConsumer.accept(Component.translatable("tooltip.simplebuilding.radiance_level", emittingLevel).withStyle(ChatFormatting.GOLD));
         }
         if (glowLevel > 0) {
-            textConsumer.accept(Component.translatable(glowLevel == 2 ? "tooltip.simplebuilding.glow_level_2" : "tooltip.simplebuilding.glow_level", glowLevel).withStyle(ChatFormatting.AQUA));
+            textConsumer.accept(Component.translatable("tooltip.simplebuilding.glow_level").withStyle(ChatFormatting.AQUA));
         }
         if (GlowingTrimUtils.isPulsating(stack)) {
             textConsumer.accept(Component.translatable("tooltip.simplebuilding.pulsating").withStyle(ChatFormatting.DARK_AQUA));

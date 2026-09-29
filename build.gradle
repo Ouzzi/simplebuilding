@@ -172,6 +172,8 @@ dependencies {
 	// Jade plugin (common/src/jade/java). Jade publishes no API artifact; its Fabric jar is
 	// unobfuscated on 26.x, so plain compileOnly against the same jar the dev runtime uses.
 	compileOnly "maven.modrinth:jade:${project.dev_jade_fabric}"
+	// JadeProviderSplitTest loads the plugin classes against the real Jade interfaces.
+	testRuntimeOnly("maven.modrinth:jade:${project.dev_jade_fabric}") { transitive = false }
 
 	// REI plugin API (common/src/rei/java). compileOnly: the mod runs without REI. Non-transitive,
 	// so REI's own Fabric API / Cloth Config versions never reach this module's compile classpath;

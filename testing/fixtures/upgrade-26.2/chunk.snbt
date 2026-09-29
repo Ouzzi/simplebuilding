@@ -195,7 +195,7 @@
                             material: "simplebuilding:enderite",
                             pattern: "minecraft:sentry"
                         },
-                        "simplebuilding:glow_level": 3,
+                        "simplebuilding:glow_level": 1,
                         "simplebuilding:visual_glow": 1b
                     },
                     count: 1,

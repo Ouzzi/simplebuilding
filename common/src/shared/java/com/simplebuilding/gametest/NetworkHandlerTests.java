@@ -198,24 +198,26 @@ public final class NetworkHandlerTests {
     /**
      * Audit #30: the server no longer believes every air jump packet. A modified client used to
      * send one just before touching down - on every tick if it liked - and never took fall damage.
-     * {@code AirJumpGuard} now grants an air jump only while the player is in the air, once per
-     * fall (a second one only after the client's own cooldown), and frees it again on landing.
+     * {@code AirJumpGuard} now grants an air jump only while the player is in the air and only once
+     * per cooldown - landing does not free it again (owner 2026-09-29: the full cooldown always holds;
+     * the timing itself is pinned in {@code AirJumpTests}).
      *
      * <p>What breaks it: dropping the on-ground check (the first case would clear the fall), not
-     * recording the used jump (the third case would clear it again), or never clearing the record
-     * on landing (the last case would stay refused).
+     * recording the used jump (the third case would clear it again), or landing clearing the record
+     * again (the last case would be granted).
      */
     public static void airJumpIsRefusedOnTheGroundAndGrantedOncePerFall(GameTestHelper helper) {
         ServerPlayer player = mockPlayer(helper);
         ItemStack boots = new ItemStack(Items.DIAMOND_BOOTS);
         boots.enchant(enchantment(helper, ModEnchantments.DOUBLE_JUMP), 1);
         player.setItemSlot(EquipmentSlot.FEET, boots);
-        helper.assertTrue(AirJumpGuard.cooldownTicks(1) > AirJumpGuard.LATENCY_SLACK_TICKS,
+        int cooldown = AirJumpGuard.cooldownTicks(1);
+        helper.assertTrue(cooldown > AirJumpGuard.lagToleranceTicks(cooldown),
                 "test setup broken: the configured air jump cooldown is too short to be told apart from latency");
+        AirJumpGuard.forget(player);
 
         // --- standing on the ground: a jump packet must not clear anything ---
         player.setOnGround(true);
-        AirJumpGuard.onPlayerTick(player);
         player.fallDistance = 7.5F;
         ModMessageHandlers.handleDoubleJump(new DoubleJumpPayload(), player);
         helper.assertTrue(player.fallDistance == 7.5F,
@@ -234,13 +236,15 @@ public final class NetworkHandlerTests {
                 "a second air jump in the same fall was granted right away - a client could reset its "
                         + "fall on every tick before landing");
 
-        // --- landing frees it again ---
+        // --- landing does not free it: the full cooldown holds (owner 2026-09-29) ---
         player.setOnGround(true);
-        AirJumpGuard.onPlayerTick(player);
-        helper.assertTrue(!AirJumpGuard.isUsed(player), "landing did not free the air jump");
         player.setOnGround(false);
+        player.fallDistance = 7.5F;
         ModMessageHandlers.handleDoubleJump(new DoubleJumpPayload(), player);
-        helper.assertTrue(player.fallDistance == 0.0F, "the air jump stayed refused after landing");
+        helper.assertTrue(AirJumpGuard.isUsed(player), "landing dropped the server's record of the air jump");
+        helper.assertTrue(player.fallDistance == 7.5F,
+                "an air jump right after landing was granted - a client could skip the cooldown by touching down");
+        AirJumpGuard.forget(player);
 
                 helper.succeed();
     }

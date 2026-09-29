@@ -113,7 +113,7 @@ public final class TestCentreSections {
                     ItemStack stack = trimmed(piece, material, pattern);
                     boolean pulsating = variant[0].startsWith("pulsating");
                     if (variant[0].equals("glowing") || variant[0].equals("both")) {
-                        GlowingTrimUtils.setGlowLevel(stack, 2);
+                        GlowingTrimUtils.setGlowLevel(stack, 1);
                     }
                     if (variant[0].equals("pulsating_glow")) {
                         GlowingTrimUtils.setGlowLevel(stack, 1);

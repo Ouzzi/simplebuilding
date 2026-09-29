@@ -568,8 +568,8 @@ public final class ConsumptionAndDurabilityTests {
                 "the air jump was free; the boots have to take a point of wear in survival");
 
         // Three more jumps, three more points - the cost is per jump, not once per pair of boots.
-        // Each one in a fall of its own: since audit #30 the server grants one air jump per fall
-        // (AirJumpGuard), so the player lands and takes off again in between.
+        // Each one after the cooldown: the server grants one air jump per cooldown (AirJumpGuard,
+        // landing does not reset it), so the test drops the record in between as if it had run out.
         for (int i = 0; i < 3; i++) {
             landAndTakeOff(survival);
             ModMessageHandlers.handleDoubleJump(new DoubleJumpPayload(), survival);
@@ -625,10 +625,13 @@ public final class ConsumptionAndDurabilityTests {
         return player;
     }
 
-    /** The player touches the ground (which frees the air jump again, see AirJumpGuard) and leaves it. */
+    /**
+     * The player touches the ground and leaves it, and the air jump cooldown is over (landing alone
+     * does not reset it since 2026-09-29, so the record is dropped as if the time had passed).
+     */
     private static void landAndTakeOff(ServerPlayer player) {
         player.setOnGround(true);
-        com.simplebuilding.util.AirJumpGuard.onPlayerTick(player);
+        com.simplebuilding.util.AirJumpGuard.forget(player);
         player.setOnGround(false);
     }
 

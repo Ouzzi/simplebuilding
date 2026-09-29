@@ -164,6 +164,7 @@ a.tile:hover { text-decoration: none; border-color: var(--accent); transform: tr
 /* Slots */
 .slot { display: inline-flex; align-items: center; justify-content: center; position: relative; width: 34px; height: 34px; background: var(--slot-bg); box-shadow: inset 2px 2px 0 var(--slot-lo), inset -2px -2px 0 var(--slot-hi); border-radius: 2px; color: var(--slot-text); overflow: hidden; flex: none; vertical-align: middle; }
 .slot img { width: 24px; height: 24px; image-rendering: pixelated; image-rendering: crisp-edges; display: block; }
+.slot img.anim { object-fit: cover; object-position: top; }  /* animierte Textur: senkrechter Streifen, nur das erste Bild */
 .slot-text { font-size: 7.5px; line-height: 1.1; text-align: center; padding: 1px 2px; word-break: break-word; font-weight: 700; }
 .slot.big { width: 84px; height: 84px; box-shadow: inset 3px 3px 0 var(--slot-lo), inset -3px -3px 0 var(--slot-hi); }
 .slot.big img { width: 60px; height: 60px; }
@@ -299,3 +300,29 @@ a.tile:hover { text-decoration: none; border-color: var(--accent); transform: tr
   .pending { left: 12px; right: 12px; transform: none; flex-wrap: wrap; }
 }
 .box li { overflow-wrap: anywhere; }
+
+/* Zeiten bearbeiten (Zielzeit -> Stellwerte) */
+.tcell { white-space: nowrap; }
+.tcell del.old { display: block; color: var(--old); text-decoration: line-through; text-decoration-thickness: 2px; font-size: .78rem; line-height: 1.1; margin: 0 .35rem .1rem 0; }
+.tcell.tchanged .tin { border-color: var(--warn-border); background: var(--warn-bg); font-weight: 700; }
+.tcell.strong .tin { font-weight: 700; }
+.tin { width: 5.6em; height: 26px; padding: 0 .35rem; border: 1px dashed var(--border); border-radius: 5px; background: transparent; color: inherit; text-align: right; font: inherit; font-variant-numeric: tabular-nums; }
+.tin:hover { border-color: var(--border-strong); border-style: solid; background: var(--panel); }
+.tin:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-style: solid; background: var(--panel); }
+.tin.bad { border-color: var(--danger); background: var(--danger-bg); }
+.tin:disabled { opacity: .6; }
+.tspin { margin-left: .3rem; }
+td.titem { min-width: 12rem; }
+.table tr:has(+ tr.tchg-row) td { border-bottom: 0; padding-bottom: .1rem; }
+.table tr.tchg-row td { padding-top: 0; padding-bottom: .3rem; }
+.table tr.tchg-row:hover td { background: transparent; }
+.table tr.tchg-row details.tchanges { margin-top: 0; }
+details.tchanges { margin-top: .3rem; font-size: .8rem; }
+details.tchanges > summary { cursor: pointer; color: var(--muted); }
+details.tchanges.has > summary { color: var(--warn-text); font-weight: 650; }
+details.tchanges[open] { background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; padding: .35rem .6rem .6rem; }
+.tchg-body { white-space: normal; }
+.tchg-edits { margin: .2rem 0 .5rem; padding-left: 1.1rem; }
+.tchg-table td, .tchg-table th { font-size: .8rem; }
+.tstrat { height: 28px; border: 1px solid var(--border); border-radius: 6px; background: var(--panel); color: var(--text); max-width: 100%; }
+.tstrat-l { display: inline-flex; gap: .4rem; align-items: center; flex-wrap: wrap; }

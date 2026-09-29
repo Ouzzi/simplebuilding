@@ -112,7 +112,7 @@ public final class PulsatingTrimTests {
      * {@code simplebuilding:pulsating} auf einer Kopie (Basis unveraendert, Glowing/Emitting bleiben),
      * ein zweites Mal gibt es kein Ergebnis. Falsches Material, gekreuzte Vorlagen und Nicht-Ruestung
      * tun nichts. Mit Glowing kombiniert pulsiert der Besatz leuchtend - beide Komponenten liegen dann
-     * auf demselben Teil. Lichtregeln: Pulsating allein laesst das Licht, Glowing I/II leuchten ruhig,
+     * auf demselben Teil. Lichtregeln: Pulsating allein laesst das Licht, Glowing leuchtet ruhig voll hell,
      * nur beide zusammen schwanken zwischen 15 und 1; allein pulsiert die Saettigung (Farbe -> grau).
      */
     public static void thePulsatingUpgradeMakesTheTrimPulseOnceAndCombinesWithGlowing(GameTestHelper helper) {
@@ -177,22 +177,18 @@ public final class PulsatingTrimTests {
             helper.assertTrue(GlowingTrimUtils.trimLight(env, 0, true, t) == env,
                     "pulsating alone changed the trim light at " + t + " ms");
             helper.assertTrue(GlowingTrimUtils.trimLight(env, 0, false, t) == env, "a plain trim changed its light");
-            // Glowing I und II leuchten ruhig, II heller als I.
-            helper.assertTrue(GlowingTrimUtils.trimLight(env, 1, false, t) == GlowingTrimUtils.packLight(12, 12),
-                    "glowing I is not a steady light 12 at " + t + " ms");
-            helper.assertTrue(GlowingTrimUtils.trimLight(env, 2, false, t) == full,
-                    "glowing II is not a steady full bright at " + t + " ms");
+            // Glowing leuchtet ruhig mit voller Helligkeit (Besitzer 2026-09-29).
+            helper.assertTrue(GlowingTrimUtils.trimLight(env, 1, false, t) == full,
+                    "glowing is not a steady full bright at " + t + " ms");
         }
-        // Glowing I hebt nur an: im hellen Tageslicht bleibt der Besatz so hell wie die Umgebung.
-        helper.assertTrue(GlowingTrimUtils.trimLight(GlowingTrimUtils.packLight(14, 15), 1, false, 0L)
-                        == GlowingTrimUtils.packLight(14, 15),
-                "glowing I darkened a trim in daylight");
-        // Nur Pulsating + Glowing schwankt: 15 auf der Spitze, 1 im Tal, auf beiden Stufen.
-        for (int level = 1; level <= 2; level++) {
-            helper.assertTrue(GlowingTrimUtils.trimLight(env, level, true, 0L) == full
-                            && GlowingTrimUtils.trimLight(env, level, true, period / 2) == GlowingTrimUtils.packLight(1, 1),
-                    "pulsating + glowing " + level + " does not swing between 15 and 1");
-        }
+        // Glowing ist auch im Tageslicht voll hell (nie dunkler als die Umgebung).
+        helper.assertTrue(GlowingTrimUtils.trimLight(GlowingTrimUtils.packLight(14, 15), 1, false, 0L) == full
+                        && GlowingTrimUtils.GLOW_LIGHT == 15,
+                "glowing is not full bright in daylight");
+        // Nur Pulsating + Glowing schwankt: 15 auf der Spitze, 1 im Tal.
+        helper.assertTrue(GlowingTrimUtils.trimLight(env, 1, true, 0L) == full
+                        && GlowingTrimUtils.trimLight(env, 1, true, period / 2) == GlowingTrimUtils.packLight(1, 1),
+                "pulsating + glowing does not swing between 15 and 1");
 
         // Saettigung: Stufe 0 auf der Spitze (volle Farbe), die letzte Stufe im Tal (grau).
         helper.assertTrue(GlowingTrimUtils.desaturationStep(0L) == 0

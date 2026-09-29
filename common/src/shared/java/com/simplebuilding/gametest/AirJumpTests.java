@@ -6,6 +6,7 @@ import com.simplebuilding.tweaks.SimpleTweaks;
 import com.simplebuilding.util.AirJumpBarRule;
 import com.simplebuilding.util.AirJumpGuard;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.server.level.ServerPlayer;
 
 /**
  * Air jump cooldown and its bar (owner 2026-09-29): 20 s at level I, 10 s at level II, configurable
@@ -118,6 +119,80 @@ public final class AirJumpTests {
         helper.assertTrue(AirJumpBarRule.progressWidth(500, 400) == 0 && AirJumpBarRule.progressWidth(-5, 400) == 182,
                 "the fill leaves 0..182 for a remaining time outside the cooldown");
         helper.assertTrue(AirJumpBarRule.BAR_WIDTH == 182, "the bar is no longer as wide as vanilla's experience bar");
+        helper.succeed();
+    }
+
+    /**
+     * The server enforces the full air jump cooldown (owner 2026-09-29): a jump inside the cooldown
+     * is refused, landing in between does NOT reset it (until 2026-09-29 the first jump of every fall
+     * went through, so a modified client could skip the 20 s / 10 s by touching down briefly), and it
+     * is accepted again once the cooldown minus the lag tolerance has passed. The tolerance is never
+     * more than 20 ticks (1 s) and never more than a quarter of the cooldown.
+     *
+     * <p>Driven through {@code AirJumpGuard.tryUse(player, level, now)} with an explicit server tick,
+     * so the test does not have to wait 20 real seconds; the packet handler reads the real tick.
+     *
+     * <p>What breaks it: landing clearing the record again, a tolerance above 1 s, the cooldown
+     * counting from the refused packet instead of the accepted one, or level II no longer halving.
+     */
+    @SuppressWarnings("removal")
+    public static void theServerEnforcesTheFullCooldownAcrossLandings(GameTestHelper helper) {
+        // --- the tolerance: at most 20 ticks, at most a quarter of the cooldown ---
+        for (int cooldown = 0; cooldown <= AirJumpGuard.MAX_COOLDOWN_TICKS; cooldown++) {
+            int tolerance = AirJumpGuard.lagToleranceTicks(cooldown);
+            helper.assertTrue(tolerance >= 0 && tolerance <= 20 && tolerance <= cooldown / 4,
+                    "a cooldown of " + cooldown + " ticks gets a lag tolerance of " + tolerance + " ticks");
+        }
+        helper.assertTrue(AirJumpGuard.MAX_LAG_TOLERANCE_TICKS == 20
+                        && AirJumpGuard.lagToleranceTicks(400) == 20 && AirJumpGuard.lagToleranceTicks(200) == 20
+                        && AirJumpGuard.lagToleranceTicks(20) == 5,
+                "the lag tolerance is not 20 / 20 / 5 ticks for cooldowns of 400 / 200 / 20");
+
+        SimplebuildingConfig config = Simplebuilding.getConfig();
+        int original = config.airJumpCooldownTicks;
+        ServerPlayer player = helper.makeMockServerPlayerInLevel();
+        try {
+            config.airJumpCooldownTicks = 400;
+            AirJumpGuard.forget(player);
+            int t = 10_000;
+
+            // --- level I: 400 ticks, accepted again from 380 on ---
+            player.setOnGround(false);
+            helper.assertTrue(AirJumpGuard.tryUse(player, 1, t), "the first air jump was refused");
+            helper.assertTrue(!AirJumpGuard.tryUse(player, 1, t + 1), "a second air jump one tick later was accepted");
+
+            // landing in between does not reset the cooldown - also not through the player tick
+            // (PlayerEntityMixin used to clear the record there)
+            player.setOnGround(true);
+            player.doTick();
+            helper.assertTrue(!AirJumpGuard.tryUse(player, 1, t + 2), "an air jump packet on the ground was accepted");
+            player.setOnGround(false);
+            helper.assertTrue(!AirJumpGuard.tryUse(player, 1, t + 3),
+                    "landing reset the air jump cooldown - a client could skip it by touching down");
+            helper.assertTrue(AirJumpGuard.isUsed(player), "landing dropped the server's record of the air jump");
+
+            helper.assertTrue(!AirJumpGuard.tryUse(player, 1, t + 379),
+                    "an air jump 21 ticks before the end of the cooldown was accepted - more than 1 s tolerance");
+            helper.assertTrue(AirJumpGuard.tryUse(player, 1, t + 380),
+                    "an air jump 20 ticks (1 s lag tolerance) before the end of the cooldown was refused");
+
+            // --- the next cooldown runs from the accepted jump; level II waits 200, from 180 on ---
+            t += 380;
+            helper.assertTrue(!AirJumpGuard.tryUse(player, 2, t + 179), "level II accepted an air jump after 179 ticks");
+            helper.assertTrue(AirJumpGuard.tryUse(player, 2, t + 180), "level II refused an air jump after 180 ticks");
+
+            // --- the floor: 20 ticks, tolerance 5 ---
+            config.airJumpCooldownTicks = 20;
+            t += 1_000;
+            AirJumpGuard.forget(player);
+            helper.assertTrue(AirJumpGuard.tryUse(player, 1, t), "the first air jump at the shortest cooldown was refused");
+            helper.assertTrue(!AirJumpGuard.tryUse(player, 1, t + 14), "the shortest cooldown accepted a jump after 14 ticks");
+            helper.assertTrue(AirJumpGuard.tryUse(player, 1, t + 15), "the shortest cooldown refused a jump after 15 ticks");
+        } finally {
+            config.airJumpCooldownTicks = original;
+            AirJumpGuard.forget(player);
+            helper.getLevel().getServer().getPlayerList().remove(player);
+        }
         helper.succeed();
     }
 }

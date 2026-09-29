@@ -382,7 +382,7 @@ def _row(key, kind, label, mode, times, ks, **extra):
     return row
 
 
-def source_rows(ctx: Ctx, item_key: str, mode: str, ks: list[int], seen=None) -> tuple[list[dict], list[tuple]]:
+def source_rows(ctx: Ctx, item_key: str, mode: str, ks: list[int], seen=None, recipes: bool = True) -> tuple[list[dict], list[tuple]]:
     """Alle Zeilen für ein Item und die Poisson-Ströme (für die Summe 'normales Spiel')."""
     K = max(ks)
     rows: list[dict] = []
@@ -479,7 +479,7 @@ def source_rows(ctx: Ctx, item_key: str, mode: str, ks: list[int], seen=None) ->
         all_streams.append((rate, dist))
     # Rezepte (Ketten)
     seen = set(seen or ()) | {item_key}
-    if len(seen) <= 2 and mode == "targeted":
+    if recipes and len(seen) <= 2 and mode == "targeted":
         rows += recipe_rows(ctx, item_key, ks, seen)
     return rows, all_streams
 
@@ -601,19 +601,26 @@ def item_report(ctx: Ctx, item_key: str, kmax: int = KMAX) -> dict:
 
 def metric(ctx: Ctx, item_key: str, row_key: str | None, mode: str, stat: str, k: int) -> float:
     ks = list(range(1, max(k, 1) + 1))
-    if mode == "normal" or row_key in (None, "", "__normal__"):
-        _, streams = source_rows(ctx, item_key, "normal", ks)
-        times = compound_times(streams, ks) if streams else {"mean": [INF] * len(ks), "median": [INF] * len(ks)}
+    never = {"mean": [INF] * len(ks), "median": [INF] * len(ks), "p90": [INF] * len(ks)}
+    if row_key in (None, "", "__normal__"):
+        _, streams = source_rows(ctx, item_key, "normal", ks, recipes=False)
+        times = compound_times(streams, ks) if streams else never
         return times[stat][k - 1]
     if row_key == "__together__":
-        _, streams = source_rows(ctx, item_key, "targeted", ks)
-        times = compound_times(streams, ks) if streams else {"mean": [INF] * len(ks), "median": [INF] * len(ks)}
+        _, streams = source_rows(ctx, item_key, "targeted", ks, recipes=False)
+        times = compound_times(streams, ks) if streams else never
         return times[stat][k - 1]
+    if mode == "normal":
+        rows, _ = source_rows(ctx, item_key, "normal", ks, recipes=False)
+        for r in rows:
+            if r["key"] == row_key:
+                return r[stat][k - 1]
+        return INF
     if row_key == "__best__":
-        rows, _ = source_rows(ctx, item_key, "targeted", ks)
+        rows, _ = source_rows(ctx, item_key, "targeted", ks, recipes=False)
         rows = [r for r in rows if not r.get("disabled") and r["kind"] != "recipe"]
         return min((r[stat][k - 1] for r in rows), default=INF)
-    rows, _ = source_rows(ctx, item_key, "targeted", ks)
+    rows, _ = source_rows(ctx, item_key, "targeted", ks, recipes=str(row_key).startswith("recipe:"))
     for r in rows:
         if r["key"] == row_key:
             return r[stat][k - 1]
@@ -685,6 +692,7 @@ def overview(ctx: Ctx, item_keys: list[str]) -> list[dict]:
                     "bestMean": rep["best"]["mean"][0] if rep["best"] else None,
                     "bestMedian": rep["best"]["median"][0] if rep["best"] else None,
                     "bestLabel": rep["best"]["label"] if rep["best"] else None,
+                    "bestKey": rep["best"]["key"] if rep["best"] else None,
                     "normalMean": rep["normal"]["mean"][0] if rep["normal"] else None,
                     "normalMedian": rep["normal"]["median"][0] if rep["normal"] else None,
                     "sources": len([r for r in rep["rows"] if not r.get("disabled")])})

@@ -16,7 +16,7 @@ from __future__ import annotations
 import time
 from pathlib import Path
 
-from . import ex_config, ex_constants, ex_data, ex_javadata, ex_loot, ex_trades, params, sites, vanilla
+from . import ex_config, ex_constants, ex_data, ex_javadata, ex_loot, ex_trades, icons as icon_lib, params, sites, vanilla
 from .values import CATEGORIES, problem
 
 # Was grundsaetzlich nicht (oder nur als Annahme) auslesbar ist - steht im Bericht, damit niemand
@@ -69,9 +69,11 @@ def build(repo: Path, refresh_vanilla: bool = False) -> dict:
     notes += vnotes
     lang = ex_data.load_lang(repo)
     names = ex_data.Names(lang, vanilla_names)
-    icons = ex_data.icons(repo)
-    if not icons:
-        notes.append("wiki/data/simplebuilding.json fehlt oder ist leer - keine Icons (python wiki/generate.py)")
+    resolver = icon_resolver(repo)
+    if not resolver.wiki:
+        notes.append("wiki/data/simplebuilding.json fehlt oder ist leer - Mod-Icons nur aus den Modellen (python wiki/generate.py)")
+    if not resolver.jar_names() and not (repo / icon_lib.WIKI_VANILLA).is_dir():
+        notes.append(f"Client-Jar {resolver.jar} fehlt und wiki/assets/textures/minecraft ist leer - Vanilla-Items als Textkacheln")
 
     items, item_values, p = ex_data.extract_items(repo, names)
     problems += p
@@ -198,8 +200,15 @@ def build(repo: Path, refresh_vanilla: bool = False) -> dict:
     add_all(params.param_records(mob_victims, ore_blocks))
 
     # Namen/Icons an die Items
+    icon_cache: dict[str, dict | None] = {}
+
+    def icon_of(key):
+        if key not in icon_cache:
+            icon_cache[key] = resolver.resolve(key)
+        return icon_cache[key]
     for entry in items:
-        entry["icon"] = icons.get(entry["id"])
+        got = icon_of(entry["id"])
+        entry["icon"] = got and got["icon"]
     for rec in recipes:
         rec["name"] = names.item(rec["result"]["id"])
     for trade in trades:
@@ -221,12 +230,27 @@ def build(repo: Path, refresh_vanilla: bool = False) -> dict:
         drop["name"] = names.item(drop["item"])
         drop["blockName"] = names.item(drop["block"])
 
+    def shown(key, name, **extra):
+        got = icon_of(key) or {}
+        out = {"name": name, "icon": got.get("icon")}
+        if got.get("anim"):
+            out["anim"] = True
+        out.update(extra)
+        return out
+
     display = {}
     for entry in items:
-        display[entry["id"]] = {"name": entry["name"], "icon": entry.get("icon")}
+        display[entry["id"]] = shown(entry["id"], entry["name"])
     for key, book in books.items():
-        display[key] = {"name": book["name"], "icon": "wiki/" + "assets/textures/minecraft/item/enchanted_book.png", "book": True}
+        display[key] = shown(key, book["name"], book=True)
     referenced = set(sources)
+    for table in loot["tables"]:
+        for pool in table["pools"]:
+            for entry in pool["entries"]:
+                if entry.get("item") and not entry.get("enchantment"):
+                    referenced.add(entry["item"])
+    for drop in mob_drops:
+        referenced.add(drop.get("item"))
     for trade in trades:
         for field in ("gives", "wants", "alsoWants"):
             ident = (trade.get(field) or {}).get("id")
@@ -242,7 +266,7 @@ def build(repo: Path, refresh_vanilla: bool = False) -> dict:
         referenced.update((drop["block"], drop["item"]))
     for key in sorted(k for k in referenced if k):
         if key not in display:
-            display[key] = {"name": names.item(key), "icon": icons.get(key)}
+            display[key] = shown(key, names.item(key))
 
     counts = {cat: 0 for cat in CATEGORIES}
     for record in values.values():
@@ -296,3 +320,18 @@ def fingerprint(repo: Path) -> float:
                 except OSError:
                     pass
     return newest
+
+
+_RESOLVERS: dict = {}
+
+
+def icon_resolver(repo: Path) -> "icon_lib.Resolver":
+    """Ein Bild-Auflöser je Repo (das Jar-Verzeichnis wird nur einmal gelesen); Wiki-Daten bei jedem Einlesen neu."""
+    key = str(Path(repo).resolve())
+    resolver = _RESOLVERS.get(key)
+    if resolver is None:
+        resolver = icon_lib.Resolver(Path(repo))
+        _RESOLVERS[key] = resolver
+    else:
+        resolver.wiki = resolver._wiki_icons()
+    return resolver

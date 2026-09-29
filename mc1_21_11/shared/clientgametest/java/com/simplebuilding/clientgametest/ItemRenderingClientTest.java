@@ -554,9 +554,13 @@ public final class ItemRenderingClientTest {
             GlowingTrimUtils.setGlowLevel(glowing, 1);
             requireTooltipLine(client, "Radiance and glow tooltips", glowing, "Glowing", TextColor.fromLegacyFormat(ChatFormatting.AQUA));
 
+            // Glowing II is gone (owner 2026-09-29): an old level-2 piece reads as plain "Glowing".
             ItemStack overcharged = new ItemStack(Items.DIAMOND_CHESTPLATE);
-            GlowingTrimUtils.setGlowLevel(overcharged, 2);
-            requireTooltipLine(client, "Radiance and glow tooltips", overcharged, "Glowing II", TextColor.fromLegacyFormat(ChatFormatting.AQUA));
+            overcharged.set(com.simplebuilding.component.ModDataComponentTypes.GLOW_LEVEL, 2);
+            requireTooltipLine(client, "Radiance and glow tooltips", overcharged, "Glowing", TextColor.fromLegacyFormat(ChatFormatting.AQUA));
+            if (tooltipTexts(client, overcharged).contains("Glowing II")) {
+                throw tooltipFailure("Radiance and glow tooltips", "an old level-2 piece still shows Glowing II");
+            }
 
             List<String> plain = tooltipTexts(client, new ItemStack(Items.DIAMOND_CHESTPLATE));
 
@@ -1238,7 +1242,7 @@ public final class ItemRenderingClientTest {
             noiseFloor.set(diff);
         });
 
-        // Level 1: a constant glow. Sampled at both extremes of the pulse that Pulsating + Glowing
+        // Glowing (the only level): a constant full-bright glow. Sampled at both extremes of the pulse that Pulsating + Glowing
         // uses, so a level 1 that started pulsing would fail the second comparison.
         wearTrimmedArmour(script, 1);
         waitForPulse(script, true);
@@ -1258,25 +1262,7 @@ public final class ItemRenderingClientTest {
                         "glow level 1 is supposed to be a steady glow (only Pulsating + Glowing pulses), so "
                                 + "the peak and the trough of the pulse have to look the same"));
 
-        // Level 2: steady as well, but brighter than level 1 (light 15 instead of 12).
-        wearTrimmedArmour(script, 2);
-        waitForPulse(script, true);
-        Later<Path> levelTwoPeak = script.shot("glowtrim-e-level-two-at-peak");
-        waitForPulse(script, false);
-        Later<Path> levelTwoTrough = script.shot("glowtrim-f-level-two-at-trough");
-
-        script.verify("glow level 2 is brighter than glow level 1", () ->
-                ScreenshotDiff.assertDrew("EquipmentRendererMixin (glow level 2 against level 1)",
-                        noiseFloor.get(),
-                        ScreenshotDiff.compare("glow level 2 against glow level 1",
-                                levelOnePeak.get(), levelTwoPeak.get())));
-
-        script.verify("glow level 2 is constant across half a pulse period", () ->
-                ScreenshotDiff.assertLooksIdentical(noiseFloor.get(),
-                        ScreenshotDiff.compare("glow level 2 across half a pulse period",
-                                levelTwoPeak.get(), levelTwoTrough.get()),
-                        "glow level 2 no longer pulses (owner 2026-09-29), so the peak and the trough "
-                                + "of the pulse have to look the same"));
+        // No level 2 any more (owner 2026-09-29): Glowing has one level, already full bright (15).
 
         // Pulsating + Glowing: the only combination whose brightness swings; has to come back.
         wearTrimmedArmour(script, 1, true);

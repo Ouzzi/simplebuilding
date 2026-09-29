@@ -19,7 +19,7 @@ from pathlib import Path
 
 from . import apply as applier
 from . import check as balance_checker
-from . import docs, extract, javaedit, jobs, model, params
+from . import docs, extract, javaedit, jobs, model, params, solver
 from .store import Store, StoreError
 from .values import CATEGORIES, Invalid, same, validate
 
@@ -497,6 +497,99 @@ class Service:
         result = model.reverse(self.snapshot, ctx_with, payload.get("item"), payload.get("row") or "__best__", tunable, k,
                                stat, payload.get("mode", "targeted"), hours)
         return _finite(result)
+
+    def solve_time(self, payload: dict) -> dict:
+        """
+        Zeit -> Stellwerte (sbdev/solver.py): welche Werte ergeben die eingetippte Zeit? Liefert die Änderungen
+        (alt -> neu, Stellen je Linie, wirkt in Mod/Rechner) und alle Zeiten vorher/nachher. Schreibt nichts -
+        die Oberfläche übernimmt das Ergebnis als Entwürfe; gespeichert wird nur über preview/save.
+        """
+        item = payload.get("item")
+        if not isinstance(item, str) or not item:
+            raise StoreError(400, "item fehlt.")
+        try:
+            hours = float(str(payload.get("hours")).replace(",", "."))
+            k = int(payload.get("k", 1))
+        except (TypeError, ValueError):
+            raise StoreError(400, "Zielzeit und Stückzahl müssen Zahlen sein.") from None
+        if not (0 < hours < 1e6) or not math.isfinite(hours) or not (1 <= k <= 64):
+            raise StoreError(400, "Zielzeit muss > 0 sein, Stückzahl 1 bis 64.")
+        stat = payload.get("stat", "mean")
+        if stat not in ("mean", "median", "p90"):
+            raise StoreError(400, "stat muss mean, median oder p90 sein.")
+        row = payload.get("row") or "__normal__"
+        mode = "normal" if row == "__normal__" or payload.get("mode") == "normal" else "targeted"
+        strategy = payload.get("strategy") or "proportional"
+        if not isinstance(strategy, str) or not (strategy == "proportional" or strategy.startswith(("source:", "value:"))):
+            raise StoreError(400, "strategy muss proportional, source:<Quelle> oder value:<Id> sein.")
+        overrides = self._overrides(payload)
+        entries = self.store.state()["entries"]
+
+        def ctx_with(extra):
+            merged = dict(overrides)
+            merged.update(extra)
+            return model.Ctx(self.snapshot, self.effective_fn(entries, merged), self.custom_ids(entries, merged))
+
+        result = solver.solve(ctx_with, item, row, mode, stat, k, hours, strategy)
+        new_values = {}
+        lines = []
+        for change in result["changes"]:
+            vid = change["id"]
+            record = self.record_for(vid) or {"id": vid, "label": vid, "category": "source", "type": change["type"],
+                                              "apply": "plan", "source": {}, "refs": {}}
+            new = result["specs"].get(vid) if change.get("field") else change["new"]
+            new_values[vid] = new
+            old = ctx_with({}).eff(vid)
+            line = self._line(record, old, new, record.get("value"), True)
+            try:
+                self.validate_value(record, new)
+            except Invalid as err:
+                line["error"] = str(err)
+            line.update(clamped=change.get("clamped"), field=change.get("field"), oldNumber=change["old"],
+                        newNumber=change["new"], alsoAffects=sorted(self.affected_items(vid) - {item})[:24])
+            lines.append(line)
+        before = model.item_report(ctx_with({}), item)
+        after = model.item_report(ctx_with(new_values), item) if new_values else before
+        result.pop("specs", None)
+        result["atLimitLabels"] = [f"{(self.record_for(v) or {}).get('group', '')} - {(self.record_for(v) or {}).get('label', v)}"
+                                   for v in result.get("atLimit", [])]
+        result.update(item=item, lines=lines, values=new_values, before=before, after=after)
+        return _finite(result)
+
+    def affected_items(self, vid: str) -> set:
+        """Items, deren Zeiten ein Wert mitbewegt (derselbe Pool, dasselbe Händler-Angebot/-Pool)."""
+        index = getattr(self, "_affected", None)
+        if index is None or index[0] is not self.snapshot:
+            table: dict[str, set] = {}
+            for t in self.snapshot["loot"]["tables"]:
+                for pool in t["pools"]:
+                    keys = {f"book:{e['enchantment']}:{e['level']}" if e.get("enchantment") else e.get("item")
+                            for e in pool["entries"] if e.get("item")}
+                    ids = list((pool["rolls"].get("ids") or {}).values())
+                    for e in pool["entries"]:
+                        ids += [i for i in (e.get("ids") or {}).values() if i]
+                    for i in ids:
+                        table.setdefault(i, set()).update(keys)
+            by_pool: dict[str, set] = {}
+            trade_items = {}
+            for tr in self.snapshot["trades"]:
+                gives = {f"book:{e['enchantment']}:{e['level']}" for e in tr.get("enchantPool") or []} or {(tr.get("gives") or {}).get("id")}
+                trade_items[tr["id"]] = {g for g in gives if g}
+                for pool in tr["pools"]:
+                    by_pool.setdefault(pool["key"], set()).update(trade_items[tr["id"]])
+            for tr in self.snapshot["trades"]:
+                ids = tr.get("ids") or {}
+                if ids.get("offerChance"):
+                    pooled = set().union(*(by_pool.get(p["key"], set()) for p in tr["pools"])) if tr["pools"] else set()
+                    table.setdefault(ids["offerChance"], set()).update(trade_items[tr["id"]] | pooled)
+                for field in ("maxUses", "gives"):
+                    if ids.get(field):
+                        table.setdefault(ids[field], set()).update(trade_items[tr["id"]])
+                for e in tr.get("enchantPool") or []:
+                    table.setdefault(e["id"], set()).update(trade_items[tr["id"]])
+            index = (self.snapshot, table)
+            self._affected = index
+        return set(index[1].get(vid, set()))
 
     def overview(self, payload: dict) -> dict:
         ctx = self.ctx(self._overrides(payload))
