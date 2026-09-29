@@ -53,4 +53,11 @@ public final class McClientVersion {
                     net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY, -1, crumbling);
         }
     }
+
+    /** Submits a whole model without break overlay (26.3 dropped the crumbling parameter of this overload). */
+    public static <S> void submitModel(net.minecraft.client.renderer.OrderedSubmitNodeCollector collector,
+                                       net.minecraft.client.model.Model<? super S> model, S state, PoseStack poseStack,
+                                       RenderType renderType, int lightCoords, int overlayCoords, int outlineColor) {
+        collector.submitModel(model, state, poseStack, renderType, lightCoords, overlayCoords, outlineColor);
+    }
 }

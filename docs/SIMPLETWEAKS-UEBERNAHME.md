@@ -251,10 +251,13 @@ Keine Redstone-Animation (Vanillas Kopfwuerfel hat keine bewegten Teile).
   `enableLootTableChanges`, weil der Kopf die einzige Quelle fuer das Trank-Pad ist.
 - **Technik**: `SkullBlockEntityTypeMixin` laesst den Lohenkopf als gueltigen Block des Vanilla-Typs
   `minecraft:skull` zu (sonst verweigert `BlockEntity#validateBlockState` das Setzen); das Modell
-  (Vanillas Mob-Kopf-Wuerfel, `SkullModel.createMobHeadLayer`) und die Textur
-  `textures/entity/blaze_head.png` haengt `SkullModelMixin` an `SkullBlockRenderer` - das nutzen
-  Block, Item-Modell (`minecraft:head`, `kind: simplebuilding:blaze`) und der getragene Kopf.
-- **Textur**: neue Pixelkunst (64x32, Kopf bei UV 0,0), Glutgesicht mit Brauenkante und Lohenaugen.
+  (Vanillas Mob-Kopf-Wuerfel, `SkullModel.createMobHeadLayer`) und die Textur haengt
+  `SkullModelMixin` (ueber `ModSkullModels`) an `SkullBlockRenderer` - das nutzen Block,
+  Item-Modell (`minecraft:head`, `kind: simplebuilding:blaze`) und der getragene Kopf.
+- **Textur** (seit 2026-09-29): die echte Lohen-Textur `minecraft:textures/entity/blaze/blaze.png`
+  per Resource-Location (Kopf der Lohe = Mob-Kopf-Wuerfel bei UV 0,0), keine eigene Pixelkunst mehr;
+  Ressourcenpakete gelten mit. Der Endermankopf ebenso: `entity/enderman/enderman.png` mit Vanillas
+  Enderman-Kopfmodell (Kopf + eingezogener Kiefer) und leuchtender Augenschicht `enderman_eyes.png`.
 
 Namen (en/de): "Potion Pad I" / "Trank-Pad I", "Reinforced Potion Pad II" / "Verstaerktes Trank-Pad II",
 "Infused Potion Pad III" / "Durchtraenktes Trank-Pad III", "Blaze Head" / "Lohenkopf". Kreativ-Tab:

@@ -50,6 +50,14 @@ HEAD_KINDS = {
     "player": ("minecraft:entity/player/wide/steve", 64, 64),
 }
 
+# The mod's heads use the real vanilla mob textures (ModSkullModels.java): candidates in order,
+# the first one the client jar has wins (1.21.11 keeps the blaze directly under entity/).
+MOD_HEAD_KINDS = {
+    "simplebuilding:blaze": ("minecraft:entity/blaze/blaze", "minecraft:entity/blaze"),
+    "simplebuilding:enderman": ("minecraft:entity/enderman/enderman",),
+}
+ENDERMAN_EYES = "minecraft:entity/enderman/enderman_eyes"
+
 
 def rl(value: str) -> tuple[str, str]:
     """'block/stone' -> ('minecraft', 'block/stone'); 'ns:path' -> ('ns', 'path')."""
@@ -413,6 +421,10 @@ class IconRenderer:
     def head_texture(self, kind: str):
         if kind in HEAD_KINDS:
             ref, w, h = HEAD_KINDS[kind]
+        elif kind in MOD_HEAD_KINDS:
+            candidates = MOD_HEAD_KINDS[kind]
+            ref = next((c for c in candidates if self.assets.texture(c) is not None), candidates[0])
+            w, h = 64, 32
         else:
             ns, name = rl(kind)
             ref, w, h = f"{ns}:entity/{name}_head", 64, 32
@@ -429,12 +441,19 @@ class IconRenderer:
             faces += self.box((6, 0, 12), (10, 4, 13), tex, (31, 1), (4, 4, 1))
         else:
             faces = self.box((4, 0, 4), (12, 8, 12), tex, (0, 0), (8, 8, 8))
+            if kind == "simplebuilding:enderman":
+                # EndermanModel: the jaw ("hat", UV 0,16) sits 0.5 px inside the open-bottomed head,
+                # the eyes layer glows (no shading) - drawn a hair in front, as in the game.
+                faces += self.box((4.5, 0.5, 4.5), (11.5, 7.5, 11.5), tex, (0, 16), (8, 8, 8))
+                eyes = self.assets.texture(ENDERMAN_EYES)
+                if eyes is not None:
+                    faces += self.box((4, 0, 3.75), (12, 8, 12.25), eyes, (0, 0), (8, 8, 8), shade=False)
             # Humanoid heads (64x64: zombie, player) carry a hat layer at (32, 0), 0.25 px out.
             if tex.shape[0] == tex.shape[1] and kind in ("zombie", "player"):
                 faces += self.box((3.75, -0.25, 3.75), (12.25, 8.25, 12.25), tex, (32, 0), (8, 8, 8))
         return faces
 
-    def box(self, f, t, tex, offset, size, flip_y: bool = False) -> list[Face]:
+    def box(self, f, t, tex, offset, size, flip_y: bool = False, shade: bool = True) -> list[Face]:
         """
         An entity-model cube (texOffs + size) with its face at +z, as a skull item shows it.
         flip_y: the model is drawn upside down in the game (chests), so top and bottom trade
@@ -458,7 +477,7 @@ class IconRenderer:
         faces = []
         for name, uv in regions.items():
             corners = [np.array(c, dtype=float) for c in _face_corners(name, f, t)]
-            faces.append(Face(corners, uv, tex, 0, np.array(NORMALS[name], dtype=float), None, True))
+            faces.append(Face(corners, uv, tex, 0, np.array(NORMALS[name], dtype=float), None, shade))
         return faces
 
     def chest_faces(self, texture_ref: str) -> list[Face] | None:
