@@ -83,6 +83,11 @@ repositories {
 	maven { url = "https://maven.shedaniel.me/" }
 	maven { url = "https://maven.terraformersmc.com/releases/" }
 	maven { url = "https://maven.blamejared.com/" }
+	// Trinkets Updated (optional accessory slots, compileOnly API), see TrinketsCompat
+	exclusiveContent {
+		forRepository { maven { url = "https://maven.nucleoid.xyz/" } }
+		filter { includeGroup "eu.pb4" }
+	}
 	exclusiveContent {
 		forRepository { maven { url = "https://api.modrinth.com/maven" } }
 		filter { includeGroup "maven.modrinth" }
@@ -123,6 +128,8 @@ dependencies {
 	implementation "com.terraformersmc:modmenu:${project.mc263_modmenu_version}"
 
 	compileOnly "mezz.jei:jei-${project.mc263_minecraft_version}-common-api:${project.mc263_jei_version}"
+	// Trinkets Updated API for TrinketsCompat (optional, see the root build.gradle)
+	compileOnly("eu.pb4:trinkets:${project.mc263_trinkets_version}") { transitive = false }
 	devMods "mezz.jei:jei-${project.mc263_minecraft_version}-fabric:${project.mc263_jei_version}"
 	devMods "maven.modrinth:jade:${project.mc263_dev_jade_fabric}"
 	devMods "maven.modrinth:mouse-tweaks:${project.mc263_dev_mousetweaks_fabric}"

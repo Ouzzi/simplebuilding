@@ -83,6 +83,11 @@ repositories {
 	maven { url = "https://maven.shedaniel.me/" }
 	maven { url = "https://maven.terraformersmc.com/releases/" }
 	maven { url = "https://maven.blamejared.com/" }
+	// Trinkets Updated (optional accessory slots, compileOnly API), see TrinketsCompat
+	exclusiveContent {
+		forRepository { maven { url = "https://maven.nucleoid.xyz/" } }
+		filter { includeGroup "eu.pb4" }
+	}
 }
 
 // No dev-only runtime mods (JEI, Jade, Mouse Tweaks, AppleSkin) on the snapshot: none of them has a
@@ -101,6 +106,9 @@ dependencies {
 	implementation "com.terraformersmc:modmenu:${project.mc264_modmenu_version}"
 
 	compileOnly "mezz.jei:jei-${project.mc263_minecraft_version}-common-api:${project.mc263_jei_version}"
+	// No Trinkets Updated build for 26.4: TrinketsCompat compiles against the 26.3 API and is never
+	// loaded at runtime (isModLoaded("trinkets_updated") stays false).
+	compileOnly("eu.pb4:trinkets:${project.mc263_trinkets_version}") { transitive = false }
 
 	implementation fabricApi.module("fabric-gametest-api-v1", project.mc264_fabric_version)
 }

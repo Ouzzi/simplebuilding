@@ -47,7 +47,7 @@ public final class BackpackKeyHandler {
             if (player == null || client.gui.screen() != null) {
                 continue;
             }
-            if (BackpackItem.carriedBackpackSlot(player) >= 0) {
+            if (BackpackItem.carriedBackpackSlot(player) != -1) {
                 ClientNetworking.send(new OpenBackpackPayload());
             } else if (client.gameMode != null && client.gameMode.isServerControlledInventory()) {
                 player.sendOpenInventory();

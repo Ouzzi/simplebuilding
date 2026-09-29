@@ -36,7 +36,10 @@ import net.minecraft.world.item.ItemStack;
 public class WornBackpackContainer extends BackpackContainer {
     private final Player owner;
     private final ItemStack backingStack;
-    /** Inventar-Index des Rucksacks ({@code Inventory#getItem}); der Brust-Slot ist 38. */
+    /**
+     * Inventar-Index des Rucksacks ({@code Inventory#getItem}); der Brust-Slot ist 38,
+     * {@link BackpackItem#ACCESSORY_SLOT} an accessory slot.
+     */
     private final int inventorySlot;
     private BackpackContents lastWritten;
 
@@ -61,8 +64,14 @@ public class WornBackpackContainer extends BackpackContainer {
         return this.inventorySlot;
     }
 
-    /** Liegt der Rucksack noch in seinem Slot (getragen oder im Inventar)? */
+    /**
+     * Liegt der Rucksack noch in seinem Slot (getragen oder im Inventar)? For
+     * {@link BackpackItem#ACCESSORY_SLOT}: does an accessory slot still hold exactly this stack?
+     */
     public boolean isStillWorn() {
+        if (this.inventorySlot == BackpackItem.ACCESSORY_SLOT) {
+            return com.simplebuilding.compat.accessory.AccessorySlots.isWorn(this.owner, this.backingStack);
+        }
         return this.owner.getInventory().getItem(this.inventorySlot) == this.backingStack;
     }
 

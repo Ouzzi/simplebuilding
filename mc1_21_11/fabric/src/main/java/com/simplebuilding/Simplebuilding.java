@@ -57,6 +57,11 @@ public class Simplebuilding implements ModInitializer {
         ModEnvironment.setDevelopmentEnvironment(FabricLoader.getInstance().isDevelopmentEnvironment());
         // FTB Quests (optional): copy the SimpleBuilding chapters into its quest book once.
         com.simplebuilding.compat.FtbQuestsDefaults.installIfPresent(FabricLoader.getInstance().getConfigDir());
+        // Trinkets (optional): backpacks and quivers in the back/belt accessory slots count as worn.
+        // The literal id keeps TrinketsCompat (and the Trinkets API behind it) unloaded without Trinkets.
+        if (FabricLoader.getInstance().isModLoaded("trinkets")) {
+            com.simplebuilding.compat.TrinketsCompat.register();
+        }
         LOGGER.info("Starting Simplebuilding initialization...");
         LOGGER.info(SimplebuildingBootstrap.initialize(SimplebuildingLoader.FABRIC, buildStartupPlan()));
     }

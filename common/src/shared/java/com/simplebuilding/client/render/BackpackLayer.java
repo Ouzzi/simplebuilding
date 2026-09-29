@@ -4,6 +4,7 @@ import com.simplebuilding.version.McClientVersion;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simplebuilding.Simplebuilding;
+import com.simplebuilding.compat.accessory.AccessorySlots;
 import com.simplebuilding.items.custom.BackpackItem;
 import com.simplebuilding.items.custom.BackpackTier;
 import com.simplebuilding.util.DyedStorage;
@@ -48,7 +49,8 @@ import org.jetbrains.annotations.Nullable;
  * <p>Der Rucksack traegt keine Ausruestungs-Grafik ({@code EQUIPPABLE} ohne {@code asset_id}), daher
  * liefert der Render-Zustand ihn nicht als {@code chestEquipment}. Die Ebene fragt stattdessen die
  * Entity ueber {@link AvatarRenderState#id} im Client-Level - fuer Spieler in der Welt ebenso wie fuer
- * das Spielerbild im Inventar.
+ * das Spielerbild im Inventar. A backpack in a visible accessory slot (Curios/Trinkets) renders the
+ * same way, see {@link #backItem(LivingEntity)}.
  *
  * <p>Registriert wird die Ebene je Loader auf allen Avatar-Renderern (Fabric
  * {@code LivingEntityRenderLayerRegistrationCallback} bzw. auf 1.21.11
@@ -144,20 +146,36 @@ public class BackpackLayer extends RenderLayer<AvatarRenderState, PlayerModel> {
         if (state.isInvisible) {
             return ItemStack.EMPTY;
         }
-        ItemStack chest = wornChest(state.id);
-        return chest.getItem() instanceof BackpackItem ? chest : ItemStack.EMPTY;
+        ItemStack back = backItem(state.id);
+        return back.getItem() instanceof BackpackItem ? back : ItemStack.EMPTY;
     }
 
-    /** Die Stufe des Rucksacks im Brust-Slot der Entity mit dieser Id, oder null. */
+    /** Die Stufe des Rucksacks, den die Entity mit dieser Id sichtbar auf dem Ruecken traegt, oder null. */
     @Nullable
     public static BackpackTier wornTier(int entityId) {
-        ItemStack chest = wornChest(entityId);
-        return chest.getItem() instanceof BackpackItem backpack ? backpack.getTier() : null;
+        ItemStack back = backItem(entityId);
+        return back.getItem() instanceof BackpackItem backpack ? backpack.getTier() : null;
     }
 
-    private static ItemStack wornChest(int entityId) {
+    private static ItemStack backItem(int entityId) {
         ClientLevel level = Minecraft.getInstance().level;
         Entity entity = level == null ? null : level.getEntity(entityId);
-        return entity instanceof LivingEntity living ? living.getItemBySlot(EquipmentSlot.CHEST) : ItemStack.EMPTY;
+        return entity instanceof LivingEntity living ? backItem(living) : ItemStack.EMPTY;
+    }
+
+    /**
+     * What the back shows - at most one thing, so a backpack and a quiver never render into each
+     * other: a backpack or quiver in the chest slot, else a backpack in a visible accessory slot
+     * (Curios/Trinkets, {@link AccessorySlots#findFirstVisible}), else a quiver there; otherwise EMPTY.
+     * {@link QuiverLayer} draws the result if it is a quiver, this layer if it is a backpack.
+     */
+    public static ItemStack backItem(LivingEntity living) {
+        ItemStack chest = living.getItemBySlot(EquipmentSlot.CHEST);
+        if (chest.getItem() instanceof BackpackItem || chest.getItem() instanceof com.simplebuilding.items.custom.QuiverItem) {
+            return chest;
+        }
+        ItemStack backpack = AccessorySlots.findFirstVisible(living, s -> s.getItem() instanceof BackpackItem);
+        return !backpack.isEmpty() ? backpack
+                : AccessorySlots.findFirstVisible(living, s -> s.getItem() instanceof com.simplebuilding.items.custom.QuiverItem);
     }
 }

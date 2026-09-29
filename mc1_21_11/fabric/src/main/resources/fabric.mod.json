@@ -70,6 +70,7 @@
       "com.simplebuilding.gametest.PistonBreachGameTest",
       "com.simplebuilding.gametest.LeatherAndQuiverGameTest",
       "com.simplebuilding.gametest.BackpackGameTest",
+      "com.simplebuilding.gametest.AccessorySlotGameTest",
       "com.simplebuilding.gametest.DyedStorageGameTest",
       "com.simplebuilding.gametest.HopperGameTest",
       "com.simplebuilding.gametest.WorldAndPlayerGameTest",
@@ -121,6 +122,7 @@
     "modmenu": "*",
     "jade": "*",
     "appleskin": "*",
-    "mousetweaks": "*"
+    "mousetweaks": "*",
+    "trinkets": "*"
   }
 }

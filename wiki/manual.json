@@ -1080,7 +1080,8 @@
         "src/main/resources/assets/simplebuilding/models/block/template_backpack_dyed.json",
         "common/src/shared/java/com/simplebuilding/client/render/BackpackBlockTint.java",
         "common/src/shared/java/com/simplebuilding/client/gui/tooltip/BackpackTooltip.java",
-        "common/src/shared/java/com/simplebuilding/items/tooltip/BackpackTooltipData.java"
+        "common/src/shared/java/com/simplebuilding/items/tooltip/BackpackTooltipData.java",
+        "common/src/shared/java/com/simplebuilding/compat/accessory/AccessorySlots.java"
       ],
       "en": {
         "title": "Backpacks",
@@ -1096,7 +1097,8 @@
           "Safety: a destroyed backpack item spills its contents like a shulker box; Netherite and Enderite Backpack resist fire and explosions as items, and the Enderite Backpack is protected from the void.",
           "Enchantments (anvil only): Deep Pockets I/II doubles or quadruples the stack limit of stackable items in the backpack; Funnel lets the worn backpack vacuum up items after your bundles; Master Builder on the backpack makes it a material source for the Building Wand and for pick block; Constructor's Touch refills your hand from the backpack when a block stack runs out while placing. Drawer and Color Palette do not go on backpacks.",
           "Dyeing: a backpack takes dye like leather armour - put it into the crafting grid with one or more dyes (colours mix, and a dyed backpack can be dyed again). Contents, name and enchantments stay; the colour shows on the item, on the worn backpack and as a faint tint of the backpack rows in its screen (the extra columns keep their purple). A water cauldron washes the colour off again and leaves everything else. The colour survives upgrades and setting the backpack down, and the placed backpack shows it as well.",
-          "Limits for now: the extra columns are plain storage (they are meant to become special slots later), and the recipe book does not draw from the backpack."
+          "Limits for now: the extra columns are plain storage (they are meant to become special slots later), and the recipe book does not draw from the backpack.",
+          "Accessory slots (optional): with Curios (NeoForge) or Trinkets Updated (Fabric) installed, a backpack also fits the back accessory slot, so it no longer takes the chest slot from a chestplate or elytra. A backpack there counts as worn: the backpack key opens it (after one in the chest slot, before one in the inventory), Funnel, Constructor's Touch and Master Builder use it, and it shows on your back unless the slot's render toggle hides it. Without an accessory mod nothing changes. Forge has no accessory mod build for 26.2."
         ]
       },
       "de": {
@@ -1113,7 +1115,8 @@
           "Sicherheit: Ein zerstörtes Rucksack-Item verstreut seinen Inhalt wie eine Shulkerkiste; Netherit- und Enderit-Rucksack widerstehen als Item Feuer und Explosionen, und der Enderit-Rucksack ist vor der Leere geschützt.",
           "Verzauberungen (nur Amboss): Tiefe Taschen I/II verdoppelt bzw. vervierfacht die Stapelgrenze stapelbarer Items im Rucksack; mit Trichter saugt der getragene Rucksack Items nach den Bündeln auf; Baumeister auf dem Rucksack macht ihn zur Materialquelle für Baustab und Blockauswahl; Berührung des Konstrukteurs füllt die Hand aus dem Rucksack nach, wenn beim Platzieren ein Blockstapel aufgebraucht ist. Schublade und Farbpalette gehen nicht auf Rucksäcke.",
           "Färben: Ein Rucksack nimmt Farbstoff an wie Lederrüstung – mit einem oder mehreren Farbstoffen in die Werkbank legen (Farben mischen sich, ein gefärbter Rucksack lässt sich weiter färben). Inhalt, Name und Verzauberungen bleiben; die Farbe zeigt sich am Item, am getragenen Rucksack und als leichte Tönung der Rucksack-Reihen im Bildschirm (die Zusatzspalten bleiben violett). Ein Wasserkessel wäscht die Farbe wieder ab und lässt alles andere. Die Farbe übersteht Aufwertungen und das Abstellen, und auch der abgestellte Rucksack zeigt sie.",
-          "Grenzen vorerst: Die Zusatzspalten sind gewöhnlicher Stauraum (sie sollen später Spezial-Plätze werden), und das Rezeptbuch greift nicht auf den Rucksack zu."
+          "Grenzen vorerst: Die Zusatzspalten sind gewöhnlicher Stauraum (sie sollen später Spezial-Plätze werden), und das Rezeptbuch greift nicht auf den Rucksack zu.",
+          "Accessoire-Slots (optional): Mit Curios (NeoForge) oder Trinkets Updated (Fabric) passt ein Rucksack auch in den Ruecken-Accessoire-Slot und nimmt dann Brustpanzer oder Elytra nicht mehr den Brust-Slot weg. Ein Rucksack dort gilt als getragen: die Rucksack-Taste oeffnet ihn (nach einem im Brust-Slot, vor einem im Inventar), Trichter, Konstrukteurs Hand und Meisterbauer nutzen ihn, und er ist auf dem Ruecken zu sehen, solange der Anzeige-Schalter des Slots ihn nicht ausblendet. Ohne Accessoire-Mod aendert sich nichts. Fuer Forge 26.2 gibt es keinen Build einer Accessoire-Mod."
         ]
       }
     },
@@ -1312,7 +1315,8 @@
         "common/src/shared/java/com/simplebuilding/recipe/ReinforcedBundleRecipe.java",
         "src/main/generated/data/simplebuilding/recipe/reinforced_quiver.json",
         "common/src/shared/java/com/simplebuilding/mixin/CrossbowItemMixin.java",
-        "common/src/shared/java/com/simplebuilding/mixin/AbstractArrowPickupMixin.java"
+        "common/src/shared/java/com/simplebuilding/mixin/AbstractArrowPickupMixin.java",
+        "common/src/shared/java/com/simplebuilding/compat/accessory/AccessorySlots.java"
       ],
       "en": {
         "title": "Quivers",
@@ -1330,7 +1334,8 @@
           "Right-clicking with the quiver in hand does nothing - it does not put the quiver on either; the quiver goes into the chest slot in the inventory screen, dragged there or shift-clicked. Master Builder and Color Palette can be applied but do nothing on a quiver as long as it only holds arrows.",
           "Limits: the tooltip lines in the language file are never shown.",
           "Where to find them: only the plain Quiver lies in loot chests (Ancient City, Pillager Outpost, Woodland Mansion), provided the loot changes are enabled in the config (default: on).",
-          "The Netherite and Enderite tiers are registered with fireResistant(); the Quiver and the Reinforced Quiver are not. The Enderite Quiver additionally floats via the tag void_protected instead of vanishing into the void. The Enderite Quiver is immune to explosions as a dropped item, like the Netherite Bundle; the Quiver, the Reinforced Quiver and the Netherite Quiver are not."
+          "The Netherite and Enderite tiers are registered with fireResistant(); the Quiver and the Reinforced Quiver are not. The Enderite Quiver additionally floats via the tag void_protected instead of vanishing into the void. The Enderite Quiver is immune to explosions as a dropped item, like the Netherite Bundle; the Quiver, the Reinforced Quiver and the Netherite Quiver are not.",
+          "Accessory slots (optional): with Curios (NeoForge) or Trinkets Updated (Fabric) installed, a quiver also fits the belt or back accessory slot. A quiver there feeds bow and crossbow right after the chest slot (before the hotbar), pays the arrow from that very quiver, and takes picked up arrows with Funnel (after the quivers in the inventory). On your back only one thing shows: a backpack or quiver in the chest slot, else a backpack in an accessory slot, else the quiver. Without an accessory mod nothing changes."
         ]
       },
       "de": {
@@ -1349,7 +1354,8 @@
           "Rechtsklick mit dem Köcher in der Hand tut nichts - er legt den Köcher auch nicht an; in den Brustpanzer-Slot kommt der Köcher im Inventarbildschirm, per Ziehen oder Umschalt-Klick. Baumeister und Farbpalette sind zwar auflegbar, bewirken beim Köcher aber nichts, solange nur Pfeile darin liegen.",
           "Grenzen: Die Tooltip-Texte der Sprachdatei werden nicht angezeigt.",
           "Fundorte: Nur der einfache Köcher liegt in Loot-Truhen (Antike Stadt, Plünderer-Außenposten, Waldanwesen), sofern die Loot-Änderungen in der Config aktiv sind (Standard: an).",
-          "Netherit- und Enderit-Stufe sind mit fireResistant() registriert, Köcher und Verstärkter Köcher nicht; der Enderitköcher schwebt zusätzlich über das Tag void_protected, statt in der Leere zu verschwinden. Der Enderitköcher ist als Drop explosionsimmun wie das Netheritbündel; Köcher, Verstärkter Köcher und Netheritköcher sind es nicht."
+          "Netherit- und Enderit-Stufe sind mit fireResistant() registriert, Köcher und Verstärkter Köcher nicht; der Enderitköcher schwebt zusätzlich über das Tag void_protected, statt in der Leere zu verschwinden. Der Enderitköcher ist als Drop explosionsimmun wie das Netheritbündel; Köcher, Verstärkter Köcher und Netheritköcher sind es nicht.",
+          "Accessoire-Slots (optional): Mit Curios (NeoForge) oder Trinkets Updated (Fabric) passt ein Koecher auch in den Guertel- oder Ruecken-Accessoire-Slot. Ein Koecher dort versorgt Bogen und Armbrust gleich nach dem Brust-Slot (vor der Schnellleiste), bezahlt den Pfeil aus genau diesem Koecher und nimmt mit Trichter aufgehobene Pfeile auf (nach den Koechern im Inventar). Auf dem Ruecken ist nur eines zu sehen: Rucksack oder Koecher im Brust-Slot, sonst ein Rucksack im Accessoire-Slot, sonst der Koecher. Ohne Accessoire-Mod aendert sich nichts."
         ]
       }
     },

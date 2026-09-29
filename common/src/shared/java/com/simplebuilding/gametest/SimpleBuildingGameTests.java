@@ -857,6 +857,16 @@ public final class SimpleBuildingGameTests {
                     .build(),
             GameTestSpec.named("backpack_game_test_placed_backpack_outputs_its_fill_level_to_acomparator", BackpackTests::placedBackpackOutputsItsFillLevelToAComparator)
                     .build(),
+            GameTestSpec.named("accessory_slot_game_test_backpack_lookup_goes_chest_then_accessory_then_inventory", AccessorySlotTests::backpackLookupGoesChestThenAccessoryThenInventory)
+                    .build(),
+            GameTestSpec.named("accessory_slot_game_test_backpack_key_opens_and_writes_back_the_accessory_backpack", AccessorySlotTests::backpackKeyOpensAndWritesBackTheAccessoryBackpack)
+                    .build(),
+            GameTestSpec.named("accessory_slot_game_test_quiver_lookup_goes_chest_then_accessory_then_hotbar", AccessorySlotTests::quiverLookupGoesChestThenAccessoryThenHotbar)
+                    .build(),
+            GameTestSpec.named("accessory_slot_game_test_master_builder_and_funnel_read_the_accessory_backpack", AccessorySlotTests::masterBuilderAndFunnelReadTheAccessoryBackpack)
+                    .build(),
+            GameTestSpec.named("accessory_slot_game_test_an_incompatible_accessory_mod_is_dropped_instead_of_crashing", AccessorySlotTests::anIncompatibleAccessoryModIsDroppedInsteadOfCrashing)
+                    .build(),
             GameTestSpec.named("dyed_storage_game_test_dyeing_colours_every_backpack_and_bundle_and_keeps_its_components", DyedStorageTests::dyeingColoursEveryBackpackAndBundleAndKeepsItsComponents)
                     .build(),
             GameTestSpec.named("dyed_storage_game_test_water_cauldron_washes_only_the_dye_off_backpacks_and_bundles", DyedStorageTests::waterCauldronWashesOnlyTheDyeOffBackpacksAndBundles)

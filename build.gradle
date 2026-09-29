@@ -51,6 +51,12 @@ repositories {
 	// JEI (API + dev runtime)
 	maven { url = "https://maven.blamejared.com/" }
 
+	// Trinkets Updated (optional accessory slots, compileOnly API), see TrinketsCompat
+	exclusiveContent {
+		forRepository { maven { url = "https://maven.nucleoid.xyz/" } }
+		filter { includeGroup "eu.pb4" }
+	}
+
 	// Dev-only runtime mods (Jade, Mouse Tweaks, AppleSkin), see devMods below
 	exclusiveContent {
 		forRepository { maven { url = "https://api.modrinth.com/maven" } }
@@ -155,6 +161,10 @@ dependencies {
 
 	// JEI plugin API (common/src/jei/java). compileOnly: the mod runs without JEI.
 	compileOnly "mezz.jei:jei-${project.minecraft_version}-common-api:${project.jei_version}"
+
+	// Trinkets Updated API (src/main/java/.../compat/TrinketsCompat.java). compileOnly and not
+	// transitive: the mod runs without Trinkets, and TrinketsCompat is only loaded when it is there.
+	compileOnly("eu.pb4:trinkets:${project.trinkets_version}") { transitive = false }
 
 	// Dev-only runtime mods, see configurations.devMods above. The JEI jar is the full distributable
 	// (its mezz_config dependency is jar-in-jar), so no transitive resolution is needed.

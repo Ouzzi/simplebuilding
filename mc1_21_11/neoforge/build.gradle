@@ -211,6 +211,11 @@ neoForge {
 repositories {
     maven { url = 'https://maven.shedaniel.me/' }
     maven { url = 'https://maven.blamejared.com/' }
+    // Curios API (optional accessory slots, compileOnly), see CuriosCompat
+    exclusiveContent {
+        forRepository { maven { url = 'https://maven.theillusivec4.top/' } }
+        filter { includeGroup 'top.theillusivec4.curios' }
+    }
     exclusiveContent {
         forRepository { maven { url = 'https://api.modrinth.com/maven' } }
         filter { includeGroup 'maven.modrinth' }
@@ -255,6 +260,9 @@ dependencies {
 
     // JEI plugin API (mc1_21_11/jei/java). compileOnly: the mod runs without JEI.
     compileOnly "mezz.jei:jei-${project.mc11_minecraft_version}-common-api:${project.mc11_jei_version}"
+
+    // Curios API for CuriosCompat (optional, see neoforge/build.gradle)
+    compileOnly("top.theillusivec4.curios:curios-neoforge:${project.mc11_curios_version}:api") { transitive = false }
 
     devMods("mezz.jei:jei-${project.mc11_minecraft_version}-neoforge:${project.mc11_jei_version}") { transitive = false }
     devMods("maven.modrinth:jade:${project.mc11_dev_jade_neoforge}") { transitive = false }
