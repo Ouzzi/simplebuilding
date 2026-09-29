@@ -19,29 +19,38 @@ Welle 24, gemergt in master (lokal/gepusht siehe Git-Log):
 - **GG** Tabs: SimplePads-Tab, Bauplanung in SimpleTools, Zeilen-Layout überall, Mod-Items im Suchtab neben Vanilla-Vorbildern.
 - Client-Tests repariert (732/732 auf allen sechs Zielen, Stand vor den letzten Merges).
 
-## NICHT fertig (WIP-Branches, nichts davon ist in master)
-Alle drei Branches liegen im Repo als WIP-Commit (Agent wurde wegen Limit gestoppt, Tests waren teils rot/unvollständig):
-| Paket | Branch | Inhalt | Stand |
-|---|---|---|---|
-| HH | `worktree-agent-ad588a015b1bb6192` | Pad-Tier-I mit Materialkern, Mobköpfe (Vanilla-Texturen, nur Charged Creeper, geheime Fähigkeiten, Silberfisch schrumpft), Chunkloader-I/Launchpad-I akzeptieren Trial-Chamber-Kopf, Flypad-I braucht Shulkerkopf + Enderit-Kern/-Platte + Elytra mit Mending | mitten in der Arbeit (`HeadAbilities`) |
-| II | `worktree-agent-a1fbc00162b5ec7fc` | gestufte Shulkerkisten (wie die Truhen, etwas teurer, 10 Hammerschläge + Material) | Tests zu reparieren |
-| JJ | `worktree-agent-a985977351248fc71` | Linse → mystischer „…rod“-Name, schnellerer Verschleiß, Amboss-Reparatur ohne Level, Neige-Animation + Partikel, Laserpunkt mittig, Fadenkreuz aus; Attractor (Filter nur mit Constructor's Touch, Range-Verzauberung); Velocity Gauge → „Gauge“ + Zusatzfunktion + Verzauberung + animierte Textur; einheitliche Overlays | Registrierungen/Config-Tests offen |
-| Pulsating | `work` (Commit 29415666, Worktree `agent-a253429a9fb439791`) | Warden-Motiv kleiner und um 45° gedreht (Raute) | **wartet auf Okay des Besitzers**: Augen/Mund wirken blass |
-
-Vorgehen pro Branch: `git merge --no-ff <branch>` in master, Konflikte lösen (siehe AGENTS.md §5), Tests des Pakets, dann Gate.
-HH: Merge-Punkt ist `TweaksItems.extraMobHeads()` (gibt bisher leere Liste; GG legt darunter die Reihe „mob_heads“ an).
+## HH / II / JJ und Pulsating integriert (2026-09-29, Codex)
+- HH gemergt: Materialkerne/Pad-Rezepte, zusätzliche Mobköpfe und Fähigkeiten; Creative-Tab-Layout aus GG erhalten.
+  Cave-Spider-Test trennt Bodenschaden von Luftangriffen. Gefiltert **30/30 grün** (Run `2026-09-29T19-54-57Z-8b89`).
+- II gemergt: gestufte Shulkerkisten, Tab-Zeile und Export-Katalog ergänzt. Gefiltert **16/16 grün**
+  (Run `2026-09-29T19-56-30Z-3ece`).
+- JJ gemergt: Amethyst Resonance Rod, Attractor/Range/Touch und Gauge. Veraltete 4-Block-Erwartung auf 3 korrigiert;
+  Filter-Test beendet Schleichen, bevor Ansaugen geprüft wird. Gefiltert **22/22 grün**
+  (Run `2026-09-29T20-00-47Z-fc9d`).
+- Besitzerwahl Pulsating: **Raute mit stärkerem Augen-/Mundkontrast** umgesetzt und 16-fach gezeigt.
+  `work` integriert, 1.21.11-Textur noch unverändert. `MAIN_TREE_ONLY` und `MAIN_TREE_PREFIXES` bis zum Port behalten.
+- Bücher-Faktenpass: Namen, Pad-Rezepte, Spawn-Ziele, Attractor-Reichweite/Filter, Rod-Reparatur, Gauge und
+  Shulkerkisten aktualisiert; passende Rezeptkarten. Bücherprüfung **0 Probleme**, keine doppelten Lang-Schlüssel.
+- Wiki-Fakten für Gadgets und Pads nach Code korrigiert; Quest-Hinweise der Hauptlinie korrigiert.
+- Texturprüfung **470 Texturen + 9 mcmeta aktuell**. Shulker-/Gauge-Vorschau ebenfalls gezeigt.
+- Der erste `check` stoppte an `checkQuests` (Reihenfolge der generierten Lang-Schlüssel); Generator erneut ausgeführt.
+  Vollständiges Server-Gate und abschließender Build-Check stehen noch aus; bisher **kein Push** dieser Merges.
 
 ## Nächste Schritte in Reihenfolge
-1. HH, II, JJ fertigstellen und mergen (je Paket gefilterte Server-Tests auf `fabric-263,neoforge-263`).
-2. Pulsating-Textur mit dem Besitzer klären (Kontrast von Augen/Mund erhöhen?).
-3. **Bücher-Faktenpass**: Namen/Rezepte nach den Merges prüfen. Bekannt: deutscher Titel „Radius: Detektor“ und „detector“ im
-   Admin-Kapitel „Feature Switches“ sind fest verdrahtet; `docs/` sagt an einigen Stellen noch „Ore Detector“.
-4. Volles Gate im Worktree (`check`, Server-Tests 26.3), lesen, erst bei grün pushen.
-5. Client-Gate und Testzentrale neu bauen (nur wenn keine Besitzer-Clients laufen).
-6. **Port-Run** auf 26.2 Fabric/NeoForge/Forge, 1.21.11, 26.4. Mitzunehmen: neue Bücher/Texturen/Texte, drei Mixins des Admin-Buchs
-   (`OperatorBook*Mixin`), Nugget-Neigung im 26.2-`HeldItemRenderer`, `MAIN_TREE_ONLY`/`POTION_PAD_MAIN_ONLY`/`MAIN_LINE_ONLY` in
-   `tools/textures` leeren und neu generieren, REI-Ausblendung des Admin-Buchs, Forge-Paket für `PlacedBundleScrollPayload`.
-7. Später (Queue): Vorlagen teurer machen, Punkte 64–69, Wiki-UX-Ideen aus der Zentrale, Baustab über den Planer, Kerne als Module.
+1. Laufendes vollständiges Server-Gate auf `fabric-263,neoforge-263` auswerten, Fehler beheben.
+   Alte Flypad-/Chunkloader-Rezepterwartungen im Tweaks-Test sind bereits korrigiert, im Gesamt-Gate gegenprüfen.
+2. Generiertes Wiki übernehmen; `check` im Worktree `C:/Users/oussa/AppData/Local/Temp/sbgate` grün lesen.
+3. Client-Gate für beide 26.3-Ziele seriell, erst wenn der Besitzer-Client geschlossen ist. Besitzer wurde gefragt.
+   Testzentrale neu bauen und vollständige Item-Abdeckung prüfen. Keine Besitzerwelt ungefragt ersetzen.
+4. Nur nach gelesenem grünen Gate (Runner: **alles gruen**) pushen.
+5. Nach Abnahme von 26.3 durch den Besitzer: eigener **Port-Run** auf 26.2 Fabric/NeoForge/Forge, 1.21.11 und 26.4.
+   Mitzunehmen: HH/II/JJ, neue Bücher/Texturen/Texte, Pulsating-Kontrast, Quest-Fakten, drei Mixins des Admin-Buchs
+   (`OperatorBook*Mixin`), Nugget-Neigung im 26.2-`HeldItemRenderer`, Textur-Scope-Schalter in `tools/textures`,
+   REI-Ausblendung des Admin-Buchs, Forge-Paket für `PlacedBundleScrollPayload`.
+6. Später (Queue): Vorlagen teurer machen, Punkte 64–69, Wiki-UX-Ideen aus der Zentrale, Baustab über den Planer, Kerne als Module.
+
+Die unversionierten Detector-Texturen unter `mc1_21_11/fabric/.../textures/item` lagen schon vor diesem Run
+im Haupt-Repo und wurden nicht angefasst. Redundante Wiki-Sicherungen liegen als beschriftete Stashes vor.
 
 ## Fakten, die man leicht vergisst
 - Mason verkauft keine Kerne; fahrender Händler: Kupfer/Eisen/Gold/Diamant-Kern selten und teuer.
