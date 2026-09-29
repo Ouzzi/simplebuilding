@@ -685,6 +685,18 @@ def lang_paths() -> list[tuple[Path, str]]:
 
 def updated_lang(path: Path, entries: dict[str, str]) -> str:
     data = json.loads(path.read_text(encoding="utf-8"))
+    # Main-line facts; the 1.21.11 copy follows in the separate port run.
+    if path.is_relative_to(REPO / "src/main/resources"):
+        entries = dict(entries)
+        german = path.stem == "de_de"
+        entries[LANG_KEY + ".stage_1.guide_book.description"] = (
+            "Ein Buch und eine Werkbank ergeben das Einsteiger-Handbuch. Mit dem passenden Gegenstand wird daraus ein Themen-Handbuch."
+            if german else
+            "A book and a crafting table make the Beginner's Guide. Craft it with a matching item to make a topic guide.")
+        entries[LANG_KEY + ".stage_3.launchpad.hint"] = (
+            "Schmiede eine schwere Wägeplatte mit einem Eisenkern im Vorlagenfeld und einem Trial-Chamber-Mobkopf als Zusatz."
+            if german else
+            "Smith a heavy weighted pressure plate with an Iron Core in the template slot and a Trial Chamber mob head as the addition.")
     items = [(k, v) for k, v in data.items() if not k.startswith(LANG_KEY + ".")]
     anchor = max((i for i, (k, _) in enumerate(items) if k.startswith("advancements." + NS + ".")), default=len(items) - 1)
     items = items[:anchor + 1] + list(entries.items()) + items[anchor + 1:]
