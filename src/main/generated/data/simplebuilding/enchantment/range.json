@@ -30,6 +30,6 @@
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#simplebuilding:chisel_and_mining_tools",
+  "supported_items": "#simplebuilding:range_enchantable",
   "weight": 1
 }

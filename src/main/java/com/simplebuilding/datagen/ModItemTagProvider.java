@@ -59,6 +59,11 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .forceAddTag(ItemTags.MINING_ENCHANTABLE)
                 .addTag(ModTags.Items.SLEDGEHAMMER_ENCHANTABLE)
                 .forceAddTag(ModTags.Items.OCTANTS_ENCHANTABLE);
+        // Reichweite am Amboss: dazu Attractor (Zugradius) und Messuhr (Hoehenmesser), ohne Blockreichweite (RangeReach).
+        builder(ModTags.Items.RANGE_ENCHANTABLE)
+                .addTag(ModTags.Items.CHISEL_AND_MINING_TOOLS)
+                .add(key(ModItems.MAGNET))
+                .add(key(ModItems.VELOCITY_GAUGE));
 
         // Lohenkopf (Simple Tweaks, Trank-Pad): ein Mob-Kopf wie die Vanilla-Koepfe (Fluch der
         // Bindung/des Verschwindens ueber #equippable_enchantable/#vanishing_enchantable).

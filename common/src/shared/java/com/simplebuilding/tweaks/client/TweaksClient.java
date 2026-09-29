@@ -52,6 +52,17 @@ public final class TweaksClient {
         }
         jumpWasDown = jumpDown;
 
+        if (isAimingLaser(player) && laserTicks % LaserPointerItem.SPARK_PERIOD == 0 && client.level != null) {
+            // Eigene Funken an der Spitze des Stabs (die des Servers gehen nur an die anderen).
+            Vec3 tip = LaserPointerItem.tipPosition(player.getEyePosition(), player.getViewVector(1.0f), player.getYRot(),
+                    player.getMainArm() == net.minecraft.world.entity.HumanoidArm.RIGHT
+                            == (player.getUsedItemHand() == net.minecraft.world.InteractionHand.MAIN_HAND));
+            for (int i = 0; i < 2; i++) {
+                client.level.addParticle(LaserPointerItem.SPARK, tip.x + (player.getRandom().nextDouble() - 0.5) * 0.06,
+                        tip.y + (player.getRandom().nextDouble() - 0.5) * 0.06, tip.z + (player.getRandom().nextDouble() - 0.5) * 0.06,
+                        0.0, 0.01, 0.0);
+            }
+        }
         if (isAimingLaser(player) && laserTicks++ % 2 == 0) {
             Vec3 hit = laserHit(player, 1.0f);
             if (hit != null) {

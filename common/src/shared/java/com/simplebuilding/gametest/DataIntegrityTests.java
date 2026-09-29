@@ -3797,17 +3797,18 @@ public final class DataIntegrityTests {
                 "message.simplebuilding.item_frame.locked", "message.simplebuilding.item_frame.unlocked",
                 "message.simplebuilding.item_frame.hidden", "message.simplebuilding.item_frame.shown",
                 "tooltip.simplebuilding.magnet.filtering", "tooltip.simplebuilding.magnet.no_filter",
-                "tooltip.simplebuilding.magnet.clear",
+                "tooltip.simplebuilding.magnet.clear", "tooltip.simplebuilding.magnet.touch_hint",
                 "simplebuilding.hopper_filter.none", "simplebuilding.hopper_filter.whitelist", "simplebuilding.hopper_filter.type",
                 "tooltip.simplebuilding.chisel.last_target",
                 "message.simplebuilding.toggle.highlights", "message.simplebuilding.toggle.octant_figure",
                 "hud.simplebuilding.rangefinder.pos1", "hud.simplebuilding.rangefinder.pos2",
                 "hud.simplebuilding.rangefinder.set_pos1", "hud.simplebuilding.rangefinder.set_pos2",
                 "hud.simplebuilding.rangefinder.distance", "hud.simplebuilding.rangefinder.area",
-                "hud.simplebuilding.rangefinder.volume", "hud.simplebuilding.velocity_gauge.title",
+                "hud.simplebuilding.rangefinder.volume", "hud.simplebuilding.velocity_gauge.ground",
+                "hud.simplebuilding.velocity_gauge.ground_far", "hud.simplebuilding.velocity_gauge.impact",
                 "hud.simplebuilding.velocity_gauge.stats", "hud.simplebuilding.velocity_gauge.unit",
                 "tooltip.simplebuilding.velocity_gauge.tooltip", "tooltip.simplebuilding.velocity_gauge.touch_hint",
-                "hud.simplebuilding.amethyst_lens.laser", "hud.simplebuilding.amethyst_lens.distance",
+                "hud.simplebuilding.amethyst_lens.distance",
                 "hud.simplebuilding.amethyst_lens.height", "tooltip.simplebuilding.amethyst_lens.last_measured",
                 "tooltip.simplebuilding.amethyst_lens.last_target", "tooltip.simplebuilding.amethyst_lens.touch_hint",
                 "item.simplebuilding.structure_compass.dimension", "item.simplebuilding.structure_compass.no_signal",
@@ -3857,10 +3858,12 @@ public final class DataIntegrityTests {
     }
 
     /**
-     * Konsistenz der Werkzeugnamen (Besitzer 2026-09-28): nach den Umbenennungen Laserpointer ->
-     * Amethystlinse, Echo-Kompass -> Echolot und Tachometer -> "Velocity" (wie der
-     * Geschwindigkeitsmesser, "Velocity Gauge") darf keine Sprachdatei die alten Namen mehr zeigen,
-     * und die Verzauberung Berührung des Konstrukteurs heisst im Deutschen ueberall gleich.
+     * Konsistenz der Werkzeugnamen (Besitzer 2026-09-28/29): nach den Umbenennungen Laserpointer ->
+     * Amethystlinse -> Amethyst-Resonanzstab (Amethyst Resonance Rod), Echo-Kompass -> Echolot und
+     * Tachometer -> Geschwindigkeitsmesser -> Messuhr (Gauge) darf keine Sprachdatei die alten Namen
+     * mehr zeigen, und die Verzauberung Berührung des Konstrukteurs heisst im Deutschen ueberall gleich.
+     * Die HUD-Kaesten tragen seit 2026-09-29 den Namen des Items als Titel (kein eigener Titel-Schluessel,
+     * kein "Laser"-Text mehr).
      *
      * <p>What breaks it: a lang value that still says Speedometer/Laser Pointer/Echo Compass (or
      * Tachometer/Laserpointer/Echo-Kompass/Entfernungsmesser in German), the old
@@ -3871,14 +3874,19 @@ public final class DataIntegrityTests {
         JsonObject en = langFile(helper, "en_us");
         JsonObject de = langFile(helper, "de_de");
         List<String> problems = new ArrayList<>();
-        List<String> oldEnglish = List.of("speedometer", "laser pointer", "laserpointer", "echo compass", "rangefinder");
-        List<String> oldGerman = List.of("tachometer", "laserpointer", "echo-kompass", "echokompass", "entfernungsmesser", "konstrukteurs-händchen");
+        List<String> oldEnglish = List.of("speedometer", "laser pointer", "laserpointer", "echo compass", "rangefinder",
+                "amethyst lens", "velocity gauge");
+        List<String> oldGerman = List.of("tachometer", "laserpointer", "echo-kompass", "echokompass", "entfernungsmesser", "konstrukteurs-händchen",
+                "amethystlinse", "geschwindigkeitsmesser");
         for (String key : en.keySet()) {
             String value = en.get(key).getAsString().toLowerCase(java.util.Locale.ROOT);
             for (String old : oldEnglish) {
                 if (value.contains(old)) problems.add("en_us " + key + " still says '" + old + "'");
             }
             if (key.startsWith("hud.simplebuilding.speedometer.")) problems.add("old key " + key + " is back");
+            if (key.equals("hud.simplebuilding.velocity_gauge.title") || key.equals("hud.simplebuilding.amethyst_lens.laser")) {
+                problems.add("retired key " + key + " is back (the HUD boxes use the item name, no 'Laser' text)");
+            }
         }
         for (String key : de.keySet()) {
             String value = de.get(key).getAsString();
@@ -3891,11 +3899,9 @@ public final class DataIntegrityTests {
             }
         }
         java.util.Map<String, String[]> expected = new java.util.LinkedHashMap<>();
-        expected.put("hud.simplebuilding.velocity_gauge.title", new String[]{"Velocity", "Geschwindigkeit"});
-        expected.put("item.simplebuilding.velocity_gauge", new String[]{"Velocity Gauge", "Geschwindigkeitsmesser"});
-        expected.put("item.simplebuilding.amethyst_lens", new String[]{"Amethyst Lens", "Amethystlinse"});
+        expected.put("item.simplebuilding.velocity_gauge", new String[]{"Gauge", "Messuhr"});
+        expected.put("item.simplebuilding.amethyst_lens", new String[]{"Amethyst Resonance Rod", "Amethyst-Resonanzstab"});
         expected.put("item.simplebuilding.echo_sounder", new String[]{"Echo Sounder", "Echolot"});
-        expected.put("hud.simplebuilding.amethyst_lens.laser", new String[]{"Laser", "Laser"});
         for (var entry : expected.entrySet()) {
             String english = en.has(entry.getKey()) ? en.get(entry.getKey()).getAsString() : null;
             String german = de.has(entry.getKey()) ? de.get(entry.getKey()).getAsString() : null;

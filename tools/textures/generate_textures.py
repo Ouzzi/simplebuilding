@@ -65,6 +65,7 @@ from mount_armor_textures import mount_armor_textures  # Enderit-Pferde-/Nautilu
 from potion_pad_textures import POTION_PAD_ANIMATIONS, potion_pad_textures  # Trank-Pads I-III (aus den alten Flypads)
 from guide_book_textures import guide_book_textures  # Einsteiger-Handbuch + sieben Themenbuecher
 from ore_detector_textures import ore_detector_textures  # Erzdetektor: Gehaeuse, 32 Nadeln, Ruhebild
+from gauge_textures import gauge_textures  # Messuhr: Zifferblatt, 17 Nadeln, Ruhebild (nur Hauptbaum)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -72,6 +73,9 @@ TREES = [
     os.path.join(REPO, "src", "main", "resources", "assets", "simplebuilding", "textures"),
     os.path.join(REPO, "mc1_21_11", "fabric", "src", "main", "resources", "assets", "simplebuilding", "textures"),
 ]
+# Texturen nur fuer den Hauptbaum (26.2/26.3, Hauptlinie 26.3 zuerst): die 1.21.11-Kopie zieht der
+# Port-Run nach, bis dahin behaelt sie ihre alten Bilder.
+MAIN_TREE_ONLY = ("item/velocity_gauge",)
 PREVIEW = os.path.join(HERE, "preview.png")
 GEAR_PREVIEW = os.path.join(HERE, "gear_preview.png")
 HAND = os.path.join(HERE, "hand")  # unveraenderte Vorlagen handgemalter Texturen, die der Generator nachbearbeitet
@@ -3041,6 +3045,7 @@ def build():
     tex.update(guide_book_textures())
     tex.update(ore_detector_textures())
     tex.update(mount_armor_textures())
+    tex.update(gauge_textures())
     return tex
 
 
@@ -4187,7 +4192,7 @@ def main():
     stale = []
     for rel, img in sorted(tex.items()):
         data = png_bytes(img)
-        for tree in TREES:
+        for tree in (TREES[:1] if rel.startswith(MAIN_TREE_ONLY) else TREES):
             path = os.path.join(tree, *rel.split("/"))
             if args.check:
                 try:

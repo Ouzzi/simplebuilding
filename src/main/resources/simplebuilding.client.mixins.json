@@ -17,6 +17,8 @@
     "HandledScreenMixin",
     "HeldItemRendererMixin",
     "HudContextualBarMixin",
+    "LaserCrosshairMixin",
+    "LaserSteadyViewMixin",
     "InventoryScreenMixin",
     "ItemDecorationsMixin",
     "ItemFrameEntityRendererMixin",

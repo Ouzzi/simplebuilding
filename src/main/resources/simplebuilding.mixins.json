@@ -17,6 +17,7 @@
     "CartographyTableMenuMixin",
     "DataFixTypesMixin",
     "EnchantmentMixin",
+    "RangeReachMixin",
     "EnderiteItemMixin",
     "EntityLightRemovalMixin",
     "EndermanSpawnMixin",

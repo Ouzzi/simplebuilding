@@ -1073,7 +1073,7 @@ public final class TweaksTests {
                 "padTuning.launchpadStrengthMultiplier=1.0", "padTuning.potionPadChargeStepTicks=20",
                 "padTuning.potionPadCooldownFactor=2.0", "balancing.echoSounderJumpCooldownTicks=480",
                 "commands.killCommandRadius=100", "optimization.xpClumpRadius=2.0",
-                "laserPointer.beamCostPerSecond=1", "laserPointer.effectCost=5",
+                "laserPointer.chargePerSecond=4", "laserPointer.beamCostPerSecond=1", "laserPointer.effectCost=5",
                 "balancing.rocketStackSize=64", "dimensions.allowNether=true",
                 "dimensions.allowEnd=true", "spawn.forceExactSpawn=false", "spawn.disableFallDamageInSpawn=true",
                 "spawn.useCustomWorldSpawn=false", "spawn.xCoordSpawnPoint=0", "spawn.yCoordSpawnPoint=-1",
@@ -1427,7 +1427,7 @@ public final class TweaksTests {
         ItemStack lens = new ItemStack(TweaksItems.LASER_POINTER);
         helper.assertTrue(lens.isDamageableItem() && lens.getMaxDamage() == LaserPointerItem.MAX_CHARGE,
                 "the lens has no charge of " + LaserPointerItem.MAX_CHARGE + " (max damage " + lens.getMaxDamage() + ")");
-        helper.assertTrue(LaserPointerItem.CHARGE_PER_REDSTONE * 64 == LaserPointerItem.MAX_CHARGE, "64 redstone are not exactly one full charge");
+        helper.assertTrue(LaserPointerItem.CHARGE_PER_SHARD * 16 == LaserPointerItem.MAX_CHARGE, "16 amethyst shards are not exactly one full charge");
         helper.succeed();
     }
 
@@ -1957,45 +1957,150 @@ public final class TweaksTests {
         helper.succeed();
     }
 
-    /** Aufladen im Amboss: Redstone, 0 Stufen, 64 Staub = voll, nur der noetige Teil eines Stapels wird verbraucht. */
-    public static void anvilRechargeWithRedstoneCostsNoLevels(GameTestHelper helper) {
+    /**
+     * Aufladen im Amboss mit dem Material des Stabs, Amethystscherben (Besitzer 2026-09-29, vorher
+     * Redstone): 0 Stufen, auch bei Stufe 0 abholbar, 16 Scherben = voll, nur der noetige Teil eines
+     * Stapels wird verbraucht. Redstone laedt nicht mehr.
+     */
+    public static void anvilRechargeWithAmethystShardsCostsNoLevels(GameTestHelper helper) {
         ServerPlayer player = survivalLikePlayer(helper, new Vec3(2.5, 2.0, 5.5));
         player.experienceLevel = 0;
 
         ItemStack empty = new ItemStack(TweaksItems.LASER_POINTER);
         empty.setDamageValue(LaserPointerItem.MAX_CHARGE);
-        net.minecraft.world.inventory.AnvilMenu full = recharge(helper, player, empty, 64);
+        net.minecraft.world.inventory.AnvilMenu full = recharge(helper, player, empty, Items.AMETHYST_SHARD, 16);
         ItemStack out = full.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem();
-        helper.assertTrue(out.is(TweaksItems.LASER_POINTER) && out.getDamageValue() == 0, "64 redstone did not fully charge an empty lens: " + out + " damage " + out.getDamageValue());
+        helper.assertTrue(out.is(TweaksItems.LASER_POINTER) && out.getDamageValue() == 0, "16 amethyst shards did not fully charge an empty rod: " + out + " damage " + out.getDamageValue());
         helper.assertTrue(full.getCost() == 0, "recharging costs " + full.getCost() + " levels");
         takeResult(helper, player, full);
-        helper.assertTrue(full.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).getItem().isEmpty(), "a full recharge left redstone behind");
+        helper.assertTrue(full.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).getItem().isEmpty(), "a full recharge left shards behind");
         helper.assertTrue(player.experienceLevel == 0, "recharging changed the player's level");
 
         ItemStack partial = new ItemStack(TweaksItems.LASER_POINTER);
         partial.setDamageValue(25);
-        net.minecraft.world.inventory.AnvilMenu topUp = recharge(helper, player, partial, 64);
-        helper.assertTrue(topUp.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().getDamageValue() == 0, "a top-up did not fill the lens");
+        net.minecraft.world.inventory.AnvilMenu topUp = recharge(helper, player, partial, Items.AMETHYST_SHARD, 64);
+        helper.assertTrue(topUp.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().getDamageValue() == 0, "a top-up did not fill the rod");
+        helper.assertTrue(topUp.getCost() == 0, "a top-up costs " + topUp.getCost() + " levels");
         takeResult(helper, player, topUp);
         int left = topUp.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).getItem().getCount();
-        helper.assertTrue(left == 61, "topping up 25 charge used " + (64 - left) + " redstone instead of 3");
+        helper.assertTrue(left == 63, "topping up 25 charge used " + (64 - left) + " shards instead of 1");
 
         ItemStack drained = new ItemStack(TweaksItems.LASER_POINTER);
         drained.setDamageValue(LaserPointerItem.MAX_CHARGE);
-        net.minecraft.world.inventory.AnvilMenu some = recharge(helper, player, drained, 10);
+        net.minecraft.world.inventory.AnvilMenu some = recharge(helper, player, drained, Items.AMETHYST_SHARD, 10);
         int damage = some.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().getDamageValue();
-        helper.assertTrue(damage == LaserPointerItem.MAX_CHARGE - 10 * LaserPointerItem.CHARGE_PER_REDSTONE, "10 redstone charged to damage " + damage);
+        helper.assertTrue(damage == LaserPointerItem.MAX_CHARGE - 10 * LaserPointerItem.CHARGE_PER_SHARD, "10 shards charged to damage " + damage);
+
+        ItemStack redstoneTry = new ItemStack(TweaksItems.LASER_POINTER);
+        redstoneTry.setDamageValue(LaserPointerItem.MAX_CHARGE);
+        net.minecraft.world.inventory.AnvilMenu withRedstone = recharge(helper, player, redstoneTry, Items.REDSTONE, 64);
+        ItemStack redstoneOut = withRedstone.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem();
+        helper.assertTrue(redstoneOut.isEmpty() || redstoneOut.getDamageValue() == LaserPointerItem.MAX_CHARGE,
+                "redstone still recharges the rod: " + redstoneOut + " damage " + redstoneOut.getDamageValue());
 
         ItemStack alreadyFull = new ItemStack(TweaksItems.LASER_POINTER);
-        net.minecraft.world.inventory.AnvilMenu none = recharge(helper, player, alreadyFull, 5);
-        helper.assertTrue(none.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().isEmpty(), "the anvil offers to recharge a full lens");
+        net.minecraft.world.inventory.AnvilMenu none = recharge(helper, player, alreadyFull, Items.AMETHYST_SHARD, 5);
+        helper.assertTrue(none.getSlot(net.minecraft.world.inventory.AnvilMenu.RESULT_SLOT).getItem().isEmpty(), "the anvil offers to recharge a full rod");
         helper.succeed();
     }
 
-    private static net.minecraft.world.inventory.AnvilMenu recharge(GameTestHelper helper, ServerPlayer player, ItemStack lens, int redstone) {
+    /**
+     * Der Stab leert sich zuegig (Besitzer 2026-09-29): 4 Ladung je angefangener Sekunde Strahl
+     * (Standard der Config {@code chargePerSecond}), eine volle Ladung reicht fuer 160 s statt fast
+     * 11 min. Gefahren ueber den echten Benutzungs-Tick: nach 20 Ticks Zeigen ins Leere 4, nach 40
+     * Ticks 8, und die letzte Sekunde Ladung leert den Stab.
+     */
+    public static void theRodDrainsFourChargePerSecondOfBeaming(GameTestHelper helper) {
+        helper.assertTrue(LaserPointerItem.BEAM_COST == 4, "BEAM_COST is " + LaserPointerItem.BEAM_COST + ", not 4");
+        helper.assertTrue(new com.simplebuilding.tweaks.TweaksConfig().laserPointer.chargePerSecond == 4,
+                "the default config charge per second is not 4");
+        helper.assertTrue(LaserPointerItem.beamCost() == SimpleTweaks.config().laserPointer.chargePerSecond,
+                "beamCost() does not read tweaks.laserPointer.chargePerSecond");
+        helper.assertTrue(LaserPointerItem.MAX_CHARGE / LaserPointerItem.BEAM_COST <= 160,
+                "a full rod lasts " + (LaserPointerItem.MAX_CHARGE / LaserPointerItem.BEAM_COST) + " s of beaming, more than 160 s");
+
+        ServerPlayer player = survivalLikePlayer(helper, new Vec3(2.5, 2.0, 5.5));
+        player.setXRot(-90.0f); // straight up into the air: no block effect, only the beam cost
+        ItemStack rod = new ItemStack(TweaksItems.LASER_POINTER);
+        player.setItemInHand(InteractionHand.MAIN_HAND, rod);
+        int duration = rod.getItem().getUseDuration(rod, player);
+        int cost = LaserPointerItem.beamCost();
+        for (int used = 0; used < 40; used++) {
+            rod.getItem().onUseTick(helper.getLevel(), player, rod, duration - used);
+            if (used == 19) {
+                helper.assertValueEqual(rod.getDamageValue(), cost, "charge used after the first second of beaming");
+            }
+        }
+        helper.assertValueEqual(rod.getDamageValue(), 2 * cost, "charge used after two seconds of beaming");
+        LaserBeam.reset(player);
+
+        ItemStack almost = new ItemStack(TweaksItems.LASER_POINTER);
+        almost.setDamageValue(LaserPointerItem.MAX_CHARGE - cost);
+        player.setItemInHand(InteractionHand.MAIN_HAND, almost);
+        almost.getItem().onUseTick(helper.getLevel(), player, almost, duration);
+        helper.assertTrue(LaserPointerItem.isEmpty(almost), "the last second of charge did not empty the rod");
+        LaserBeam.reset(player);
+        helper.succeed();
+    }
+
+    /**
+     * Messuhr (2026-09-29): der Hoehenmesser misst den Abstand der Fuesse zur Oberkante des ersten
+     * festen Blocks darunter, hoechstens so tief wie seine Messweite - 24 Bloecke, je Stufe Reichweite
+     * 16 mehr, nie ueber 64. Fluessigkeit ist kein Boden. Der vorhergesagte Fallschaden folgt Vanillas
+     * Formel. Reichweite passt am Amboss auf die Messuhr, verlaengert dort aber die Blockreichweite nicht.
+     */
+    public static void theGaugeAltimeterReadsTheGroundAndRangeReachesDeeper(GameTestHelper helper) {
+        helper.assertValueEqual(com.simplebuilding.items.custom.VelocityGaugeItem.altimeterRange(0), 24, "altimeter range without Range");
+        helper.assertValueEqual(com.simplebuilding.items.custom.VelocityGaugeItem.altimeterRange(1), 40, "altimeter range with Range I");
+        helper.assertValueEqual(com.simplebuilding.items.custom.VelocityGaugeItem.altimeterRange(3), 64, "altimeter range with Range III");
+        helper.assertValueEqual(com.simplebuilding.items.custom.VelocityGaugeItem.altimeterRange(5), 64, "altimeter range with Range V (cap)");
+
+        ServerLevel level = helper.getLevel();
+        net.minecraft.core.Holder<net.minecraft.world.item.enchantment.Enchantment> range = level.registryAccess()
+                .lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(com.simplebuilding.enchantment.ModEnchantments.RANGE);
+        ItemStack gauge = new ItemStack(ModItems.VELOCITY_GAUGE);
+        helper.assertTrue(range.value().isSupportedItem(gauge), "Range cannot be put on the Gauge at an anvil");
+        helper.assertValueEqual(com.simplebuilding.items.custom.VelocityGaugeItem.altimeterRange(gauge, level), 24, "plain Gauge range");
+        gauge.enchant(range, 2);
+        helper.assertValueEqual(com.simplebuilding.items.custom.VelocityGaugeItem.altimeterRange(gauge, level), 56, "Gauge with Range II");
+        boolean[] reach = {false};
+        net.minecraft.world.item.enchantment.EnchantmentHelper.forEachModifier(gauge, net.minecraft.world.entity.EquipmentSlot.MAINHAND,
+                (attribute, modifier) -> reach[0] |= com.simplebuilding.util.RangeReach.isRangeModifier(modifier.id()));
+        helper.assertTrue(!reach[0], "Range on the Gauge adds block interaction range");
+
+        // Ground: stone at y 1 (top 2), measured from feet at y 8.25 -> 6.25 blocks.
+        BlockPos column = new BlockPos(3, 1, 3);
+        helper.setBlock(column, Blocks.STONE);
+        Vec3 feet = helper.absoluteVec(new Vec3(3.5, 8.25, 3.5));
+        double height = com.simplebuilding.items.custom.VelocityGaugeItem.heightAboveGround(level, feet.x, feet.y, feet.z, 24);
+        helper.assertTrue(Math.abs(height - 6.25) < 1.0E-6, "height above stone is " + height + " instead of 6.25");
+        helper.setBlock(column.above(2), Blocks.WATER);
+        height = com.simplebuilding.items.custom.VelocityGaugeItem.heightAboveGround(level, feet.x, feet.y, feet.z, 24);
+        helper.assertTrue(Math.abs(height - 6.25) < 1.0E-6, "water counted as ground: " + height);
+        helper.setBlock(column.above(2), Blocks.STONE_SLAB);
+        height = com.simplebuilding.items.custom.VelocityGaugeItem.heightAboveGround(level, feet.x, feet.y, feet.z, 24);
+        helper.assertTrue(Math.abs(height - 4.75) < 1.0E-6, "height above a bottom slab is " + height + " instead of 4.75");
+        height = com.simplebuilding.items.custom.VelocityGaugeItem.heightAboveGround(level, feet.x, feet.y, feet.z, 4);
+        helper.assertTrue(height < 0.0, "ground 4.75 below was found with a 4 block altimeter: " + height);
+        helper.setBlock(column.above(2), Blocks.AIR);
+        helper.setBlock(column, Blocks.AIR);
+
+        // Fall damage: safe fall distance 3, factor 1 - 10 blocks in all = 7 half hearts.
+        helper.assertValueEqual(com.simplebuilding.items.custom.VelocityGaugeItem.impactDamage(4.0, 6.0, 3.0, 1.0), 7, "impact after 4 + 6 blocks");
+        helper.assertValueEqual(com.simplebuilding.items.custom.VelocityGaugeItem.impactDamage(1.0, 1.5, 3.0, 1.0), 0, "a 2.5 block fall hurts");
+        helper.assertValueEqual(com.simplebuilding.items.custom.VelocityGaugeItem.impactDamage(10.0, 0.0, 3.0, 0.5), 3, "impact with half fall damage");
+        helper.assertTrue(com.simplebuilding.items.custom.VelocityGaugeItem.needleFraction(0.0) == 0.0
+                        && com.simplebuilding.items.custom.VelocityGaugeItem.needleFraction(50.0) == 1.0
+                        && com.simplebuilding.items.custom.VelocityGaugeItem.needleFraction(500.0) == 1.0
+                        && Math.abs(com.simplebuilding.items.custom.VelocityGaugeItem.needleFraction(12.5) - 0.5) < 1.0E-9,
+                "the needle scale is not the square-root scale of the HUD");
+        helper.succeed();
+    }
+
+    private static net.minecraft.world.inventory.AnvilMenu recharge(GameTestHelper helper, ServerPlayer player, ItemStack lens, Item material, int count) {
         net.minecraft.world.inventory.AnvilMenu menu = new net.minecraft.world.inventory.AnvilMenu(1, player.getInventory(), net.minecraft.world.inventory.ContainerLevelAccess.NULL);
         menu.getSlot(net.minecraft.world.inventory.AnvilMenu.INPUT_SLOT).set(lens);
-        menu.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).set(new ItemStack(Items.REDSTONE, redstone));
+        menu.getSlot(net.minecraft.world.inventory.AnvilMenu.ADDITIONAL_SLOT).set(new ItemStack(material, count));
         return menu;
     }
 

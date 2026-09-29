@@ -306,8 +306,18 @@ public final class TweaksGameTest {
     }
 
     @GameTest
-    public void anvilRechargeWithRedstoneCostsNoLevels(GameTestHelper helper) {
-        TweaksTests.anvilRechargeWithRedstoneCostsNoLevels(helper);
+    public void anvilRechargeWithAmethystShardsCostsNoLevels(GameTestHelper helper) {
+        TweaksTests.anvilRechargeWithAmethystShardsCostsNoLevels(helper);
+    }
+
+    @GameTest
+    public void theRodDrainsFourChargePerSecondOfBeaming(GameTestHelper helper) {
+        TweaksTests.theRodDrainsFourChargePerSecondOfBeaming(helper);
+    }
+
+    @GameTest
+    public void theGaugeAltimeterReadsTheGroundAndRangeReachesDeeper(GameTestHelper helper) {
+        TweaksTests.theGaugeAltimeterReadsTheGroundAndRangeReachesDeeper(helper);
     }
 
     @GameTest

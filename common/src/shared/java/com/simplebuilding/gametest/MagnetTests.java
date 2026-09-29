@@ -99,14 +99,8 @@ import net.minecraft.world.phys.Vec3;
  *       breaks.</li>
  *   <li><b>{@code getMaxDamage() == 0}.</b> A registration property with no behaviour behind it -
  *       the magnet never calls {@code hurtAndBreak}, so nothing observable changes either way.</li>
- *   <li><b>The Range enchantment branch in {@code getCurrentRange}.</b> Range does not support the
- *       magnet, so neither an enchanting table nor an anvil can put it there. The branch is not
- *       dead code though: {@code getMagnetRangeLevel} reads the enchantments component, and
- *       {@code /give} with components, a datapack and {@code ItemStack#enchant} all write that
- *       component without consulting {@code isSupportedItem}. It is left uncovered because nothing
- *       a player can do in a normal world reaches it; the guard in {@link
- *       #magnetReachIsFourBlocksAndConstructorsTouchWidensIt} goes red the day Range starts
- *       supporting the magnet and the branch becomes ordinary live code.</li>
+ *   <li>(Since 2026-09-29 Range supports the Attractor at an anvil and is covered by
+ *       {@link #magnetReachIsThreeBlocksAndRangeWidensItUpToItsCap}.)</li>
  * </ul>
  */
 public final class MagnetTests {
@@ -476,149 +470,198 @@ public final class MagnetTests {
     // =====================================================================================
 
     /**
-     * The magnet reaches four blocks, and Constructor's Touch widens that.
+     * The reach since 2026-09-29 (owner: "default range minimal, Range widens it, not overpowered"):
+     * {@code MagnetItem#BASE_RANGE} 3 blocks around the player's bounding box, Constructor's Touch
+     * adds nothing any more (it only unlocks the filter), each level of Range adds
+     * {@code RANGE_PER_LEVEL} 1.5 and the sum stops at {@code MAX_RANGE} 7.5 - a Range V written by a
+     * command reaches exactly as far as Range III.
      *
-     * <p>The reach is a box, not a sphere: {@code getEntitiesOfClass} gets the player's bounding
-     * box inflated by the range, and {@code AABB#intersects} is strict. With the player parked at
-     * x 1.5 its box ends at x 1.8, and an item's own hull is 0.25 wide, so an unenchanted magnet
-     * catches exactly those items whose hull starts before x 5.8. The two controls on that axis sit
-     * 0.075 either side of that edge, which pins {@code BASE_RANGE} to the interval (3.925, 4.075]
-     * - controls a full block apart would have let it wander anywhere between 3.6 and 4.5. The
-     * diagonal item is the same 4.35 blocks out on x <em>and</em> z, i.e. 6.15 blocks away in a
-     * straight line, and still has to come; that is the pair that says "box, not sphere".
+     * <p>The horizontal probes sit 0.075 inside and outside the box edge (player box edge x 1.8 plus
+     * the range; an item is caught while its hull, 0.125 to each side, starts before that edge). The
+     * cap is measured straight down from {@link #HIGH_SPOT} (y 10): 7.5 blocks down the box ends at
+     * y 2.5, an item at y 2.3 (hull top 2.55) is caught, one at y 1.4 (hull top 1.65, 8.35 away) is
+     * not - Range V without the cap would reach 10.5 and pull both.
      *
-     * <p>Constructor's Touch is pinned from below by the item at the far wall: its hull starts at
-     * x 7.775, so pulling it means {@code BOOSTED_RANGE > 5.975}. That alone is not the claim the
-     * enchantment makes - it says the reach <em>doubles</em>, and 6.0 blocks satisfies "more than
-     * 5.975" just as well as 8.0 does, as would 20.0. Horizontally the room cannot say more: an
-     * item that a reach of 8 must miss would have to sit past x 9.925, outside the 8x8x8 room, and
-     * entities placed outside the room land in whatever gametest is running next door, the failure
-     * mode CLAUDE.md warns about.
-     *
-     * <p>The axis that can say more is the vertical one, because nothing runs above or below a
-     * gametest room - the grid is flat. With the player parked at {@link #HIGH_SPOT}, two blocks
-     * above the room, its box starts at y 10, and an inflated box therefore reaches down to
-     * {@code 10 - range}. The item at y 2.4 (hull up to 2.65) is caught from a range of 7.35
-     * upwards, the one at y 1.4 (hull up to 1.65) only from 8.35 upwards; requiring the first to be
-     * pulled and the second to stay put pins {@code BOOSTED_RANGE} to (7.35, 8.35]. Only the
-     * player leaves the room there, and only its bounding box does - the two probes stay inside.
-     * Neither probe is within the plain magnet's four blocks, which is asserted as well: without
-     * that, a {@code BASE_RANGE} grown past 7.35 would carry the whole section.
-     *
-     * <p>The boosted tick really does search eight blocks in every direction. The rooms of a batch
-     * are five blocks apart along x ({@code StructureGridSpawner.SPACE_BETWEEN_COLUMNS}), so
-     * inflating the player box by 8 reaches from x 1.2 down to x -6.8: into the last 1.8 blocks of
-     * the room in the column before this one. What keeps that from corrupting the single tick tests
-     * over there is not a tolerance - {@code AT_REST} lets nothing above a speed of 1e-4 pass,
-     * while one magnet impulse is 0.1, a thousand times more - but atomicity: a test body runs from
-     * start to finish inside one server tick, so no neighbour ever measures while this test has a
-     * hand on its entities. What stays exposed are multi tick item tests in that column. The known
-     * one is {@link ToolBehaviourTests#magnetPullsNearbyItemsAndIgnoresDistantOnes}, whose parked
-     * gold ingot is allowed 0.5 blocks of drift, while a single 0.1 impulse on an item lying on
-     * stone adds up to 0.1 / (1 - 0.98 * 0.6) = 0.24 blocks. A factor of two is the whole margin,
-     * which is why the enchanted tick is fired exactly once <em>from the floor</em>. The second
-     * enchanted tick, the one fired from {@link #HIGH_SPOT}, spends none of that margin: from y 10
-     * the inflated box starts at y 2, while that gold ingot is spawned at y 1.5 and sinks to the
-     * floor from there. Inside a neighbouring room the raised tick reaches a strict subset of what
-     * the tick from the floor reached anyway.
-     *
-     * <p>What breaks this test: {@code BASE_RANGE} leaving (3.925, 4.075], {@code BOOSTED_RANGE}
-     * leaving (7.35, 8.35] in either direction, the Constructor's Touch lookup breaking, and
-     * swapping the inflated bounding box for a straight distance check (the diagonal item stops
-     * being pulled).
-     * The guard at the top goes red if the magnet ever joins
-     * {@code simplebuilding:chisel_and_mining_tools} - the Range branch in {@code getCurrentRange}
-     * would become reachable in normal play and would need a case of its own.
+     * <p>What breaks this test: BASE_RANGE leaving (2.925, 3.075], Constructor's Touch widening the
+     * reach again, a level of Range adding something other than about 1.5, the cap going away or
+     * moving, and Range no longer being allowed on the Attractor at an anvil.
      */
-    public static void magnetReachIsFourBlocksAndConstructorsTouchWidensIt(GameTestHelper helper) {
+    public static void magnetReachIsThreeBlocksAndRangeWidensItUpToItsCap(GameTestHelper helper) {
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper);
 
-        // Guard, not coverage: while Range does not support the magnet, no enchanting table and no
-        // anvil can put it there. The "+2 blocks per level" branch is still reachable for a command
-        // or a datapack - ItemStack#enchant below writes an unsupported enchantment just as
-        // happily. See the class javadoc.
-        helper.assertTrue(!enchantment(helper, ModEnchantments.RANGE).value()
-                        .isSupportedItem(new ItemStack(ModItems.MAGNET)),
-                "Range can now be put on the magnet through the enchanting UI, so getCurrentRange's "
-                        + "per level branch is reachable in normal play and needs its own test");
+        helper.assertTrue(enchantment(helper, ModEnchantments.RANGE).value().isSupportedItem(new ItemStack(ModItems.MAGNET)),
+                "Range cannot be put on the Attractor at an anvil (simplebuilding:range_enchantable)");
+        helper.assertTrue(com.simplebuilding.items.custom.MagnetItem.pullRange(0, 1.0) == 3.0
+                        && com.simplebuilding.items.custom.MagnetItem.pullRange(1, 1.0) == 4.5
+                        && com.simplebuilding.items.custom.MagnetItem.pullRange(3, 1.0) == 7.5
+                        && com.simplebuilding.items.custom.MagnetItem.pullRange(5, 1.0) == 7.5
+                        && com.simplebuilding.items.custom.MagnetItem.pullRange(3, 4.0) == 12.0,
+                "pull range table is not 3 / 4.5 / 7.5 / capped 7.5 / hard cap 12");
 
-        // The unenchanted reach box ends at x 5.8 (player box edge 1.8 plus BASE_RANGE 4.0); an
-        // item is caught while its own hull, 0.125 to each side, starts before that. These two sit
-        // 0.075 inside and 0.075 outside the edge.
-        ItemEntity inReach = helper.spawnItem(Items.DIAMOND, new Vec3(5.85, 1.0, 1.5));
-        ItemEntity outOfReach = helper.spawnItem(Items.DIAMOND, new Vec3(6.0, 1.0, 1.5));
-        // The same distance out on both horizontal axes at once.
-        ItemEntity diagonal = helper.spawnItem(Items.DIAMOND, new Vec3(5.85, 1.0, 5.85));
-        // At the far wall of the room: only a boosted magnet can be this wide.
-        ItemEntity farOutOfReach = helper.spawnItem(Items.DIAMOND, new Vec3(7.9, 1.0, 1.5));
+        ItemEntity inReach = helper.spawnItem(Items.DIAMOND, new Vec3(4.85, 1.0, 1.5));
+        ItemEntity outOfReach = helper.spawnItem(Items.DIAMOND, new Vec3(5.0, 1.0, 1.5));
+        ItemEntity diagonal = helper.spawnItem(Items.DIAMOND, new Vec3(4.85, 1.0, 4.85));
+        ItemEntity rangeOneEdge = helper.spawnItem(Items.DIAMOND, new Vec3(6.35, 1.0, 1.5));
+        ItemEntity beyondRangeOne = helper.spawnItem(Items.DIAMOND, new Vec3(6.5, 1.0, 1.5));
 
-        // --- plain magnet: up to the edge of its box, and the corners of that box too ---
+        // --- plain Attractor: 3 blocks ---
         ItemStack plain = new ItemStack(ModItems.MAGNET);
         player.setItemInHand(InteractionHand.MAIN_HAND, plain);
-        restAll(inReach, outOfReach, diagonal, farOutOfReach);
+        restAll(inReach, outOfReach, diagonal, rangeOneEdge, beyondRangeOne);
         tick(plain, level, player, EquipmentSlot.MAINHAND);
+        helper.assertTrue(moved(inReach), "an item 0.075 inside the 3 block box was not pulled");
+        helper.assertTrue(moved(diagonal), "the corner of the 3 block box was not pulled");
+        helper.assertTrue(!moved(outOfReach), "an item 0.075 outside the 3 block box was pulled; BASE_RANGE grew");
 
-        helper.assertTrue(moved(inReach),
-                "an item whose hull ends 0.075 inside the reach box was not pulled; BASE_RANGE has "
-                        + "shrunk below 3.925");
-        helper.assertTrue(moved(diagonal),
-                "an item 4.35 blocks away on two axes at once was not pulled; the reach is the "
-                        + "player's bounding box inflated by the range, so the corners of that box "
-                        + "are in reach even though they are 6.15 blocks away in a straight line");
-        helper.assertTrue(!moved(outOfReach),
-                "an item whose hull starts 0.075 outside the reach box was pulled; BASE_RANGE has "
-                        + "grown past 4.075");
-        helper.assertTrue(!moved(farOutOfReach),
-                "an unenchanted magnet pulled an item 6.4 blocks away, at the far wall of the room");
+        // --- Constructor's Touch alone: same reach ---
+        ItemStack touched = new ItemStack(ModItems.MAGNET);
+        touched.enchant(enchantment(helper, ModEnchantments.CONSTRUCTORS_TOUCH), 1);
+        player.setItemInHand(InteractionHand.MAIN_HAND, touched);
+        restAll(inReach, outOfReach, diagonal, rangeOneEdge, beyondRangeOne);
+        tick(touched, level, player, EquipmentSlot.MAINHAND);
+        helper.assertTrue(moved(inReach) && !moved(outOfReach),
+                "Constructor's Touch changed the reach; it only unlocks the filter now");
 
-        // --- Constructor's Touch: both items the plain magnet had to leave alone ---
-        ItemStack enchanted = new ItemStack(ModItems.MAGNET);
-        enchanted.enchant(enchantment(helper, ModEnchantments.CONSTRUCTORS_TOUCH), 1);
-        player.setItemInHand(InteractionHand.MAIN_HAND, enchanted);
-        restAll(inReach, outOfReach, diagonal, farOutOfReach);
-        tick(enchanted, level, player, EquipmentSlot.MAINHAND);
+        // --- Range I: 4.5 blocks ---
+        ItemStack rangeOne = new ItemStack(ModItems.MAGNET);
+        rangeOne.enchant(enchantment(helper, ModEnchantments.RANGE), 1);
+        player.setItemInHand(InteractionHand.MAIN_HAND, rangeOne);
+        restAll(inReach, outOfReach, diagonal, rangeOneEdge, beyondRangeOne);
+        tick(rangeOne, level, player, EquipmentSlot.MAINHAND);
+        helper.assertTrue(moved(outOfReach) && moved(rangeOneEdge),
+                "Range I did not widen the reach to 4.5 blocks");
+        helper.assertTrue(!moved(beyondRangeOne), "Range I reached more than 4.5 blocks");
 
-        helper.assertTrue(moved(farOutOfReach),
-                "Constructor's Touch did not reach the item at the far wall, so BOOSTED_RANGE is "
-                        + "5.975 or less and the enchantment adds less than two blocks");
-        helper.assertTrue(moved(outOfReach),
-                "Constructor's Touch did not widen the reach at all: the item just outside the "
-                        + "plain magnet's box stayed put");
-        helper.assertTrue(moved(inReach),
-                "the enchanted magnet stopped pulling the item that the plain one reached");
-
-        // --- how far Constructor's Touch reaches, measured downwards from above the room ---
-        // The horizontal probes above only say "more than 5.975 blocks", which a boost of 6.0 -
-        // half of what the enchantment promises - satisfies as well as 8.0 does. Straight down
-        // there is room for both a probe the boost has to reach and one it must not. See the
-        // javadoc for the arithmetic; the numbers are (7.35, 8.35] around a documented 8.0.
+        // --- the cap, straight down from above the room ---
         moveTo(helper, player, HIGH_SPOT);
-        ItemEntity insideBoostedEdge = helper.spawnItem(Items.DIAMOND, new Vec3(1.5, 2.4, 1.5));
-        ItemEntity outsideBoostedEdge = helper.spawnItem(Items.DIAMOND, new Vec3(1.5, 1.4, 1.5));
-
-        restAll(insideBoostedEdge, outsideBoostedEdge);
-        tick(enchanted, level, player, EquipmentSlot.MAINHAND);
-
-        helper.assertTrue(moved(insideBoostedEdge),
-                "Constructor's Touch did not reach an item 7.35 blocks below the player, so "
-                        + "BOOSTED_RANGE has dropped below 7.35 and the enchantment no longer "
-                        + "doubles the four block reach it doubles on paper");
-        helper.assertTrue(!moved(outsideBoostedEdge),
-                "Constructor's Touch pulled an item 8.35 blocks below the player; BOOSTED_RANGE has "
-                        + "grown past 8.35");
-
-        // The control for both: neither probe is inside the plain magnet's reach, so the two
-        // assertions above are about the boost and not about the base range having grown.
-        restAll(insideBoostedEdge, outsideBoostedEdge);
-        tick(plain, level, player, EquipmentSlot.MAINHAND);
-
-        helper.assertTrue(!moved(insideBoostedEdge) && !moved(outsideBoostedEdge),
-                "the unenchanted magnet reached one of the two probes 7.35 and 8.35 blocks below "
-                        + "the player, so BASE_RANGE has grown past 7.35 and the boosted assertions "
-                        + "above no longer measure the boost");
-
+        ItemEntity insideCap = helper.spawnItem(Items.DIAMOND, new Vec3(1.5, 2.3, 1.5));
+        ItemEntity beyondCap = helper.spawnItem(Items.DIAMOND, new Vec3(1.5, 1.4, 1.5));
+        for (int rangeLevel : new int[]{3, 5}) {
+            ItemStack ranged = new ItemStack(ModItems.MAGNET);
+            ranged.enchant(enchantment(helper, ModEnchantments.RANGE), rangeLevel);
+            player.setItemInHand(InteractionHand.MAIN_HAND, ranged);
+            restAll(insideCap, beyondCap);
+            tick(ranged, level, player, EquipmentSlot.MAINHAND);
+            helper.assertTrue(moved(insideCap), "Range " + rangeLevel + " did not reach 7.35 blocks below the player");
+            helper.assertTrue(!moved(beyondCap), "Range " + rangeLevel + " reached 8.35 blocks below the player; the 7.5 cap is gone");
+        }
         moveTo(helper, player, PLAYER_SPOT);
+
+        // --- Range on the Attractor does not lengthen the player's block reach ---
+        ItemStack rangeThree = new ItemStack(ModItems.MAGNET);
+        rangeThree.enchant(enchantment(helper, ModEnchantments.RANGE), 3);
+        boolean[] reachModifier = {false};
+        net.minecraft.world.item.enchantment.EnchantmentHelper.forEachModifier(rangeThree, EquipmentSlot.MAINHAND,
+                (attribute, modifier) -> reachModifier[0] |= com.simplebuilding.util.RangeReach.isRangeModifier(modifier.id()));
+        helper.assertTrue(!reachModifier[0], "Range on the Attractor still adds block interaction range");
+        ItemStack pickaxe = new ItemStack(Items.IRON_PICKAXE);
+        pickaxe.enchant(enchantment(helper, ModEnchantments.RANGE), 3);
+        boolean[] pickaxeReach = {false};
+        net.minecraft.world.item.enchantment.EnchantmentHelper.forEachModifier(pickaxe, EquipmentSlot.MAINHAND,
+                (attribute, modifier) -> pickaxeReach[0] |= com.simplebuilding.util.RangeReach.isRangeModifier(modifier.id()));
+        helper.assertTrue(pickaxeReach[0], "control: Range on a pickaxe no longer adds block reach");
+
+        helper.succeed();
+    }
+
+    /**
+     * Owner 2026-09-29: the filter exists only with Constructor's Touch, set like the ore detector -
+     * sneak + right-click on a block (its item) or on a loose item in the world, in the inventory a
+     * right-click with the Attractor on an item (or with an item on the Attractor). Without the
+     * enchantment none of those gestures writes a filter and a stored filter (old worlds) is ignored:
+     * a plain Attractor is a plain magnet. With the enchantment a plain right-click on a block places
+     * it, since its sneak click is taken by the filter.
+     */
+    public static void theFilterNeedsConstructorsTouchAndIsSetLikeTheDetector(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        ServerPlayer player = mockPlayer(helper);
+        ItemEntity diamond = helper.spawnItem(Items.DIAMOND, NEAR_SPOT);
+        ItemEntity gold = helper.spawnItem(Items.GOLD_INGOT, SECOND_NEAR_SPOT);
+
+        // --- a stored filter without the enchantment does nothing ---
+        ItemStack plain = new ItemStack(ModItems.MAGNET);
+        setFilter(plain, "minecraft:diamond");
+        player.setItemInHand(InteractionHand.MAIN_HAND, plain);
+        assertFilterPicks(helper, level, player, plain, "minecraft:diamond", diamond, true, gold, true,
+                "a plain Attractor with an old stored filter");
+        helper.assertTrue(com.simplebuilding.items.custom.MagnetItem.effectiveFilter(plain, level) == null,
+                "a plain Attractor reports an effective filter");
+        List<String> plainTooltip = tooltipOf(helper, plain);
+        helper.assertTrue(plainTooltip.size() == 1 && plainTooltip.get(0).equals("Constructor's Touch: set a filter"),
+                "plain Attractor tooltip: " + plainTooltip);
+
+        // --- inventory: right-click with the plain Attractor on a slot does nothing special ---
+        net.minecraft.world.SimpleContainer container = new net.minecraft.world.SimpleContainer(1);
+        container.setItem(0, new ItemStack(Items.EMERALD));
+        net.minecraft.world.inventory.Slot slot = new net.minecraft.world.inventory.Slot(container, 0, 0, 0);
+        setFilter(plain, null);
+        helper.assertTrue(!plain.getItem().overrideStackedOnOther(plain, slot, net.minecraft.world.inventory.ClickAction.SECONDARY, player),
+                "a plain Attractor took over a right-click on a slot");
+        helper.assertTrue(!hasFilterKey(plain), "a plain Attractor got a filter from the inventory");
+
+        // --- world: sneak + right-click on a block with the plain Attractor writes no filter ---
+        BlockPos floor = new BlockPos(3, 0, 3);
+        player.setShiftKeyDown(true);
+        plain.useOn(new net.minecraft.world.item.context.UseOnContext(player, InteractionHand.MAIN_HAND,
+                new net.minecraft.world.phys.BlockHitResult(helper.absoluteVec(new Vec3(3.5, 1.0, 3.5)),
+                        net.minecraft.core.Direction.UP, helper.absolutePos(floor), false)));
+        helper.assertTrue(!hasFilterKey(plain), "sneak + right-click on a block gave a plain Attractor a filter");
+        helper.setBlock(floor.above(), Blocks.AIR);
+
+        // --- with Constructor's Touch: inventory in both directions ---
+        ItemStack touched = new ItemStack(ModItems.MAGNET);
+        touched.enchant(enchantment(helper, ModEnchantments.CONSTRUCTORS_TOUCH), 1);
+        player.setItemInHand(InteractionHand.MAIN_HAND, touched);
+        helper.assertTrue(touched.getItem().overrideStackedOnOther(touched, slot, net.minecraft.world.inventory.ClickAction.SECONDARY, player),
+                "right-click with the touched Attractor on an emerald was not taken");
+        helper.assertValueEqual(filterOf(touched), "minecraft:emerald", "filter after the inventory click");
+        helper.assertTrue(container.getItem(0).is(Items.EMERALD), "the inventory click moved the emerald");
+        helper.assertTrue(!touched.getItem().overrideStackedOnOther(touched, slot, net.minecraft.world.inventory.ClickAction.PRIMARY, player),
+                "a left click on a slot set the filter");
+        net.minecraft.world.inventory.Slot own = new net.minecraft.world.inventory.Slot(new net.minecraft.world.SimpleContainer(1), 0, 0, 0);
+        helper.assertTrue(touched.getItem().overrideOtherStackedOnMe(touched, new ItemStack(Items.GOLD_INGOT), own,
+                        net.minecraft.world.inventory.ClickAction.SECONDARY, player, new net.minecraft.world.entity.SlotAccess() {
+                            @Override
+                            public ItemStack get() {
+                                return ItemStack.EMPTY;
+                            }
+
+                            @Override
+                            public boolean set(ItemStack stack) {
+                                return true;
+                            }
+                        }),
+                "right-click with a gold ingot on the touched Attractor was not taken");
+        helper.assertValueEqual(filterOf(touched), "minecraft:gold_ingot", "filter after clicking an item onto the Attractor");
+
+        // --- world: sneak + right-click on a block sets it, and places nothing ---
+        helper.setBlock(floor, Blocks.STONE);
+        InteractionResult onBlock = touched.useOn(new net.minecraft.world.item.context.UseOnContext(player, InteractionHand.MAIN_HAND,
+                new net.minecraft.world.phys.BlockHitResult(helper.absoluteVec(new Vec3(3.5, 1.0, 3.5)),
+                        net.minecraft.core.Direction.UP, helper.absolutePos(floor), false)));
+        helper.assertTrue(onBlock.consumesAction(), "sneak + right-click on stone returned " + onBlock);
+        helper.assertValueEqual(filterOf(touched), "minecraft:stone", "filter after sneak + right-click on stone");
+        helper.assertTrue(helper.getBlockState(floor.above()).isAir(), "sneak + right-click with the touched Attractor placed it");
+
+        // --- world: sneak + right-click on a loose item ---
+        restAll(diamond, gold);
+        player.lookAt(net.minecraft.commands.arguments.EntityAnchorArgument.Anchor.EYES, gold.position().add(0.0, 0.125, 0.0));
+        InteractionResult onItem = touched.getItem().use(level, player, InteractionHand.MAIN_HAND);
+        helper.assertTrue(onItem.consumesAction(), "sneak + right-click on a loose gold ingot returned " + onItem);
+        helper.assertValueEqual(filterOf(touched), "minecraft:gold_ingot", "filter after sneak + right-click on a loose item");
+        assertFilterPicks(helper, level, player, touched, "minecraft:gold_ingot", diamond, false, gold, true,
+                "a touched Attractor filtered on the gold ingot");
+
+        // --- without sneaking a right-click on a block places the touched Attractor ---
+        player.setShiftKeyDown(false);
+        InteractionResult place = touched.useOn(new net.minecraft.world.item.context.UseOnContext(player, InteractionHand.MAIN_HAND,
+                new net.minecraft.world.phys.BlockHitResult(helper.absoluteVec(new Vec3(3.5, 1.0, 3.5)),
+                        net.minecraft.core.Direction.UP, helper.absolutePos(floor), false)));
+        helper.assertTrue(place.consumesAction() && !helper.getBlockState(floor.above()).isAir(),
+                "a plain right-click on a block did not place the touched Attractor (" + place + ")");
+        helper.setBlock(floor.above(), Blocks.AIR);
+        helper.setBlock(floor, Blocks.AIR);
 
         helper.succeed();
     }
@@ -659,6 +702,8 @@ public final class MagnetTests {
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper);
         ItemStack magnet = new ItemStack(ModItems.MAGNET);
+        // Since 2026-09-29 the filter only works with Constructor's Touch.
+        magnet.enchant(enchantment(helper, ModEnchantments.CONSTRUCTORS_TOUCH), 1);
         player.setItemInHand(InteractionHand.MAIN_HAND, magnet);
 
         ItemEntity diamond = helper.spawnItem(Items.DIAMOND, NEAR_SPOT);
@@ -719,6 +764,8 @@ public final class MagnetTests {
         ServerLevel level = helper.getLevel();
         ServerPlayer player = mockPlayer(helper);
         ItemStack magnet = new ItemStack(ModItems.MAGNET);
+        // Since 2026-09-29 the filter only works with Constructor's Touch.
+        magnet.enchant(enchantment(helper, ModEnchantments.CONSTRUCTORS_TOUCH), 1);
         setFilter(magnet, "minecraft:diamond");
         player.setItemInHand(InteractionHand.MAIN_HAND, magnet);
 
@@ -729,7 +776,7 @@ public final class MagnetTests {
         helper.assertValueEqual(withFilter.size(), 2, "tooltip lines on a filtered magnet");
         helper.assertValueEqual(withFilter.get(0), "Filtering: minecraft:diamond",
                 "first tooltip line of a filtered magnet");
-        helper.assertValueEqual(withFilter.get(1), "Sneak + right-click the air to clear; on a block to place",
+        helper.assertValueEqual(withFilter.get(1), "Sneak + right-click a block or item to filter, the air to clear",
                 "second tooltip line of a filtered magnet");
 
         // --- and the filter is really doing something ---

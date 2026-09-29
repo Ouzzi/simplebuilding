@@ -89,6 +89,18 @@ public final class PlacedTemplates {
     }
 
     /**
+     * Ob dieser Klick ablegt: Schleichen + Rechtsklick - ausser beim Attractor mit Beruehrung des
+     * Konstrukteurs, dessen Schleich-Rechtsklick den Filter stellt ({@code MagnetItem#useOn}); er legt
+     * sich mit einfachem Rechtsklick ab (Besitzer 2026-09-29).
+     */
+    public static boolean isPlaceGesture(Player player, ItemStack stack, Level level) {
+        if (PlacedAttractors.isAttractor(stack) && com.simplebuilding.items.custom.MagnetItem.canFilter(stack, level)) {
+            return !player.isSecondaryUseActive();
+        }
+        return player.isSecondaryUseActive();
+    }
+
+    /**
      * Rechtsklick einer Vorlage oder Blaupause auf einen Block (aus {@code Item#useOn}). Null, wenn
      * nichts abgelegt wird - dann laeuft das gewohnte Verhalten des Items weiter.
      */
@@ -96,7 +108,7 @@ public final class PlacedTemplates {
         Player player = context.getPlayer();
         ItemStack stack = context.getItemInHand();
         Block block = placedBlockFor(stack);
-        if (player == null || !player.isSecondaryUseActive() || block == null || !player.mayBuild()) {
+        if (player == null || !isPlaceGesture(player, stack, context.getLevel()) || block == null || !player.mayBuild()) {
             return null;
         }
         BlockPlaceContext place = new BlockPlaceContext(context);

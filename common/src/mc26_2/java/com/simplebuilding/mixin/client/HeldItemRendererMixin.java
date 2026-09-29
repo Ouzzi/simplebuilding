@@ -40,6 +40,9 @@ public class HeldItemRendererMixin {
      * {@link SledgehammerUpgrades#drawBack}. Nur gespeichert, damit der Client-Test es lesen kann.
      */
     @Unique private float mainHandHammerDrawBack = 0.0F;
+    /** Neigung des Resonanzstabs beim Strahlen (0..1), je Hand. */
+    @Unique private float mainHandRodTilt = 0.0F;
+    @Unique private float offHandRodTilt = 0.0F;
 
     @Inject(
             method = "submitArmWithItem",
@@ -106,6 +109,23 @@ public class HeldItemRendererMixin {
 
         float smoothingSpeed = 0.15F;
 
+        // Resonanzstab: beim Strahlen nach vorn geneigt (Besitzer 2026-09-29), unabhaengig von der
+        // Werkzeug-Animations-Einstellung - er steht dann still, statt zu wackeln.
+        boolean beaming = item.getItem() instanceof com.simplebuilding.tweaks.item.LaserPointerItem
+                && player.isUsingItem() && player.getUsedItemHand() == hand;
+        float rodTarget = beaming ? 1.0F : 0.0F;
+        if (hand == InteractionHand.MAIN_HAND) {
+            this.mainHandRodTilt += (rodTarget - this.mainHandRodTilt) * 0.25F;
+            if (this.mainHandRodTilt > 0.001F) {
+                this.applyRodTilt(matrices, this.mainHandRodTilt);
+            }
+        } else {
+            this.offHandRodTilt += (rodTarget - this.offHandRodTilt) * 0.25F;
+            if (this.offHandRodTilt > 0.001F) {
+                this.applyRodTilt(matrices, this.offHandRodTilt);
+            }
+        }
+
         if (hand == InteractionHand.MAIN_HAND) {
             this.mainHandChiselProgress += (targetProgress - this.mainHandChiselProgress) * smoothingSpeed;
             if (this.mainHandChiselProgress > 0.001F) {
@@ -154,6 +174,13 @@ public class HeldItemRendererMixin {
     private void applyHammerDrawBack(PoseStack matrices, float drawBack, float followThrough) {
         matrices.translate(0.0, 0.2 * drawBack - 0.06 * followThrough, 0.06 * drawBack - 0.08 * followThrough);
         matrices.mulPose(Axis.XP.rotationDegrees(28.0F * drawBack - 22.0F * followThrough));
+    }
+
+    /** Resonanzstab: Spitze nach vorn zum Ziel gekippt, leicht vor und nach unten geschoben. */
+    @Unique
+    private void applyRodTilt(PoseStack matrices, float progress) {
+        matrices.translate(0.0, -0.04 * progress, -0.06 * progress);
+        matrices.mulPose(Axis.XP.rotationDegrees(-30.0F * progress));
     }
 
     @Unique

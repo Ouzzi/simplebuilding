@@ -25,23 +25,26 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * Amethystlinse (Registry-Id {@code amethyst_lens}, bis 2026-09-28 laser_pointer; Simple Tweaks: Laserpointer). Gedrueckt
- * halten zeigt einen Punkt, den alle in der Naehe sehen; ruht der Strahl auf einem Block, wirkt er
- * dort ({@link LaserBeam}: schmelzen, zuenden, trocknen, TNT, Lebewesen anzuenden - Verweildauer
- * waechst mit dem Abstand, Klaenge am Trefferpunkt).
+ * Amethyst-Resonanzstab (Registry-Id {@code amethyst_lens} bleibt; bis 2026-09-29 "Amethystlinse", bis
+ * 2026-09-28 laser_pointer; Simple Tweaks: Laserpointer). Gedrueckt halten zeigt einen Punkt, den alle
+ * in der Naehe sehen; ruht der Strahl auf einem Block, wirkt er dort ({@link LaserBeam}: schmelzen,
+ * zuenden, trocknen, TNT, Lebewesen anzuenden - Verweildauer waechst mit dem Abstand, Klaenge am
+ * Trefferpunkt). Beim Benutzen neigt sich der Stab nach vorn und sprueht Amethyst-Funken
+ * ({@link #emitSparks}); das Fadenkreuz verschwindet, der Punkt sitzt genau in seiner Mitte.
  *
  * <p>Die Haltbarkeit ist die Ladung: Strahlen kostet {@link #BEAM_COST} je angefangener Sekunde -
- * auch blosses Zeigen, in die Luft oder auf einen Block ohne Wirkung, und schon der erste Tick
- * (vorher erst nach 20 Ticks, kurzes Antippen war dadurch gratis) -, jede Blockwirkung zusaetzlich
- * {@link #EFFECT_COST}. Die Linse zerbricht nie, sie wird nur leer und
- * strahlt dann nicht mehr. Aufladen im Amboss mit Redstone, ohne Stufenkosten: ein voller Stapel
- * (64) laedt ganz auf ({@link #CHARGE_PER_REDSTONE} je Staub).
+ * auch blosses Zeigen, in die Luft oder auf einen Block ohne Wirkung, und schon der erste Tick -,
+ * jede Blockwirkung zusaetzlich {@link #EFFECT_COST}. Seit 2026-09-29 (Besitzer: "leert sich zu
+ * langsam") vier je Sekunde statt einer: eine volle Ladung reicht fuer 160 s Dauerstrahl statt fast
+ * 11 min. Der Stab zerbricht nie, er wird nur leer und strahlt dann nicht mehr. Aufladen im Amboss mit
+ * seinem Material, Amethystscherben, ohne Stufenkosten: 16 Scherben laden ganz auf
+ * ({@link #CHARGE_PER_SHARD} je Scherbe, bis 2026-09-29 Redstone). Reparatur (Mending) bleibt gesperrt.
  *
- * <p>Messen (Besitzer 2026-09-28): ohne Verzauberung zeigt das HUD neben dem Fadenkreuz nur
- * "Laser". Mit Beruehrung des Konstrukteurs (Amboss + Buch, wie beim Geschwindigkeitsmesser)
- * wird die Linse zum Entfernungsmesser: das HUD zeigt Entfernung, Zielblock und Hoehe, und der
- * Server schreibt die letzte Messung ({@link LensMeasurement}) in die Linse - beim ersten Tick,
- * danach je Sekunde und beim Loslassen; der Tooltip zeigt sie.
+ * <p>Messen (Besitzer 2026-09-28): ohne Verzauberung kein Text, nur der Punkt. Mit Beruehrung des
+ * Konstrukteurs (Amboss + Buch, wie bei der Messuhr) wird der Stab zum Entfernungsmesser: das HUD zeigt
+ * im gemeinsamen Anzeigekasten der Mod (wie der Oktant) Entfernung, Zielblock und Hoehe, und der Server
+ * schreibt die letzte Messung ({@link LensMeasurement}) in den Stab - beim ersten Tick, danach je
+ * Sekunde und beim Loslassen; der Tooltip zeigt sie.
  */
 public class LaserPointerItem extends Item implements com.simplebuilding.items.AnvilRechargeable {
     /** Standard der vollen Ladung. */
@@ -51,10 +54,12 @@ public class LaserPointerItem extends Item implements com.simplebuilding.items.A
      * (Neustart noetig; Client und Server brauchen denselben Wert).
      */
     public static final int MAX_CHARGE = com.simplebuilding.config.ServerTuning.startupLensMaxCharge();
-    /** Ein Redstone laedt 1/64 der vollen Ladung. */
-    public static final int CHARGE_PER_REDSTONE = MAX_CHARGE / 64;
-    /** Ladung je Sekunde Strahlen (auch nur zeigen). */
-    public static final int BEAM_COST = 1;
+    /** Scherben fuer eine volle Ladung. */
+    public static final int SHARDS_PER_FULL_CHARGE = 16;
+    /** Eine Amethystscherbe laedt 1/16 der vollen Ladung (10 s Strahl). */
+    public static final int CHARGE_PER_SHARD = MAX_CHARGE / SHARDS_PER_FULL_CHARGE;
+    /** Ladung je Sekunde Strahlen (auch nur zeigen); 2026-09-29 von 1 auf 4. */
+    public static final int BEAM_COST = 4;
     /** Ladung je ausgeloester Blockwirkung. */
     public static final int EFFECT_COST = 5;
     /**
@@ -74,17 +79,17 @@ public class LaserPointerItem extends Item implements com.simplebuilding.items.A
 
     @Override
     public boolean isRechargeMaterial(ItemStack material) {
-        return material.is(net.minecraft.world.item.Items.REDSTONE);
+        return material.is(net.minecraft.world.item.Items.AMETHYST_SHARD);
     }
 
     @Override
     public int chargePerMaterial() {
-        return CHARGE_PER_REDSTONE;
+        return CHARGE_PER_SHARD;
     }
 
-    /** Ladung je angefangener Sekunde Strahlen: Config {@code tweaks.laserPointer.beamCostPerSecond} (Standard {@link #BEAM_COST}). */
+    /** Ladung je angefangener Sekunde Strahlen: Config {@code tweaks.laserPointer.chargePerSecond} (Standard {@link #BEAM_COST}). */
     public static int beamCost() {
-        return Math.max(0, SimpleTweaks.config().laserPointer.beamCostPerSecond);
+        return Math.max(0, SimpleTweaks.config().laserPointer.chargePerSecond);
     }
 
     /** Ladung je Wirkung: Config {@code tweaks.laserPointer.effectCost} (Standard {@link #EFFECT_COST}). */
@@ -105,16 +110,16 @@ public class LaserPointerItem extends Item implements com.simplebuilding.items.A
         stack.setDamageValue(Math.min(stack.getMaxDamage(), stack.getDamageValue() + amount));
     }
 
-    /** Wie viel Redstone (hoechstens {@code available}) die Linse bis voll braucht; 0 = schon voll. */
-    public static int redstoneNeeded(ItemStack stack, int available) {
+    /** Wie viele Amethystscherben (hoechstens {@code available}) der Stab bis voll braucht; 0 = schon voll. */
+    public static int shardsNeeded(ItemStack stack, int available) {
         int missing = stack.getDamageValue();
-        return Math.max(0, Math.min(available, (missing + CHARGE_PER_REDSTONE - 1) / CHARGE_PER_REDSTONE));
+        return Math.max(0, Math.min(available, (missing + CHARGE_PER_SHARD - 1) / CHARGE_PER_SHARD));
     }
 
-    /** Kopie der Linse, mit {@code redstone} Staub aufgeladen. */
-    public static ItemStack recharged(ItemStack stack, int redstone) {
+    /** Kopie des Stabs, mit {@code shards} Amethystscherben aufgeladen. */
+    public static ItemStack recharged(ItemStack stack, int shards) {
         ItemStack result = stack.copy();
-        result.setDamageValue(Math.max(0, stack.getDamageValue() - redstone * CHARGE_PER_REDSTONE));
+        result.setDamageValue(Math.max(0, stack.getDamageValue() - shards * CHARGE_PER_SHARD));
         return result;
     }
 
@@ -157,6 +162,9 @@ public class LaserPointerItem extends Item implements com.simplebuilding.items.A
             drain(player, stack, beamCost());
             recordMeasurement(player, stack, target);
         }
+        if (usedTicks % SPARK_PERIOD == 0) {
+            emitSparks(player);
+        }
         boolean hum = usedTicks % LaserBeam.HUM_PERIOD == 0;
         if (target instanceof EntityHitResult entityHit) {
             if (hum) {
@@ -171,6 +179,41 @@ public class LaserPointerItem extends Item implements com.simplebuilding.items.A
         } else {
             LaserBeam.reset(player);
         }
+    }
+
+    /** Alle so viele Ticks sprueht der Stab Funken. */
+    public static final int SPARK_PERIOD = 3;
+
+    /**
+     * Amethyst-Funken an der Spitze des Stabs, fuer alle anderen in der Naehe: etwas vor und rechts
+     * unter den Augen (wo die Hand den Stab haelt). Der Benutzer selbst sieht die Funken seiner
+     * ersten Person von {@code TweaksClient} an der gezeichneten Spitze - hier ausgenommen, sonst
+     * schwebten sie fuer ihn neben der Hand.
+     */
+    public static void emitSparks(ServerPlayer player) {
+        Vec3 tip = tipPosition(player.getEyePosition(), player.getViewVector(1.0f), player.getYRot(),
+                player.getMainArm() == net.minecraft.world.entity.HumanoidArm.RIGHT
+                        == (player.getUsedItemHand() == InteractionHand.MAIN_HAND));
+        net.minecraft.server.level.ServerLevel level = player.level();
+        for (ServerPlayer other : level.players()) {
+            if (other != player && other.distanceToSqr(tip) < 32 * 32) {
+                level.sendParticles(other, SPARK, false, false, tip.x, tip.y, tip.z, 2, 0.03, 0.03, 0.03, 0.0);
+            }
+        }
+    }
+
+    /** Amethystlila Funkenstaub. */
+    public static final net.minecraft.core.particles.DustParticleOptions SPARK =
+            new net.minecraft.core.particles.DustParticleOptions(0xC890F0, 0.6f);
+
+    /**
+     * Wo die Spitze des gehaltenen Stabs ungefaehr ist: 0,6 Bloecke vor den Augen, 0,3 zur Seite der
+     * haltenden Hand, 0,25 tiefer.
+     */
+    public static Vec3 tipPosition(Vec3 eye, Vec3 view, float yRot, boolean rightHand) {
+        double yaw = Math.toRadians(yRot);
+        Vec3 right = new Vec3(-Math.cos(yaw), 0.0, -Math.sin(yaw));
+        return eye.add(view.scale(0.6)).add(right.scale(rightHand ? 0.3 : -0.3)).add(0.0, -0.25, 0.0);
     }
 
     /**

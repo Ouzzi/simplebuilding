@@ -1,11 +1,10 @@
 package com.simplebuilding.client.gui;
 
 import com.simplebuilding.items.ModItems;
-import com.simplebuilding.items.custom.OctantItem;
+import com.simplebuilding.items.custom.VelocityGaugeItem;
 import com.simplebuilding.util.EnchantmentHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.inventory.tooltip.TooltipRenderUtil;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
@@ -17,8 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * HUD des Geschwindigkeitsmessers ("Velocity"), solange er in einer Hand liegt: ein kleiner
- * Zeigertacho im Vanilla-Tooltip-Kasten (Besitzer 2026-09-28). Der Zeiger faehrt wie beim Auto
+ * HUD der Messuhr (Gauge, bis 2026-09-29 Geschwindigkeitsmesser), solange sie in einer Hand liegt: ein
+ * kleiner Zeigertacho im gemeinsamen Anzeigekasten der Mod ({@link HudPanel}, Titel = Name des Items
+ * wie beim Oktanten). Der Zeiger faehrt wie beim Auto
  * von unten links (Stillstand) ueber oben nach unten rechts (Vollausschlag bei
  * {@link #FULL_SCALE_BPS}); daneben die Zahl in Bloecken je Sekunde. Die Skala ist eine
  * Wurzelskala, damit Gehen (4,3 b/s) und Sprinten (5,6 b/s) noch sichtbar auseinanderliegen und
@@ -27,6 +27,10 @@ import java.util.List;
  *
  * <p>Mit Beruehrung des Konstrukteurs kommen darunter grau Hoechst- und Durchschnittstempo seit
  * dem Anlegen dazu, am Boden die X/Z-Anteile, im Gleitflug ein Warnzeichen ab 15 b/s.
+ *
+ * <p>Hoehenmesser (2026-09-29): in der Luft eine Zeile mit dem Abstand zum Boden
+ * ({@link VelocityGaugeItem#heightAboveGround}, Messweite mit Reichweite verlaengerbar) und beim Fallen
+ * dem Schaden einer Landung jetzt in Herzen - rot, wenn er toedlich waere.
  */
 public class SpeedometerHudOverlay {
 
@@ -36,7 +40,7 @@ public class SpeedometerHudOverlay {
     private static final int COLOR_SAFE = 0xFF55FF55;
 
     /** Geschwindigkeit bei Vollausschlag (Bloecke/s). */
-    public static final double FULL_SCALE_BPS = 50.0;
+    public static final double FULL_SCALE_BPS = VelocityGaugeItem.FULL_SCALE_BPS;
     /** Ab diesem Skalenanteil ist der Bogen rot (entspricht 32 b/s). */
     private static final double RED_ZONE = 0.8;
     /** Radius des Zifferblatts in GUI-Pixeln. */
@@ -59,8 +63,7 @@ public class SpeedometerHudOverlay {
 
     /** Skalenanteil 0..1 fuer eine Geschwindigkeit (Wurzelskala, oben abgeschnitten). */
     public static double scaleFraction(double bps) {
-        if (bps <= 0.0) return 0.0;
-        return Math.min(1.0, Math.sqrt(bps / FULL_SCALE_BPS));
+        return VelocityGaugeItem.needleFraction(bps);
     }
 
     /**
@@ -104,9 +107,6 @@ public class SpeedometerHudOverlay {
         }
         wasHoldingSpeedometer = true;
 
-        // 2. Oktant gleichzeitig gehalten? Dann rueckt der Kasten nach unten (RangefinderHudOverlay nach oben).
-        boolean hasOctant = (main.getItem() instanceof OctantItem) || (off.getItem() instanceof OctantItem);
-
         // --- BERECHNUNG --- (im Sattel/Boot zaehlt das Fahrzeug)
         Entity moving = client.player.getVehicle() != null ? client.player.getVehicle() : client.player;
         Vec3 velocity = moving.getDeltaMovement();
@@ -144,8 +144,7 @@ public class SpeedometerHudOverlay {
         boolean touched = EnchantmentHelper.hasConstructorsTouch(activeStack, client.level);
 
         // --- TEXT ---
-        Component title = Component.translatable("hud.simplebuilding.velocity_gauge.title")
-                .withStyle(touched ? ChatFormatting.AQUA : ChatFormatting.WHITE);
+        Component title = HudPanel.title(activeStack);
         Component number = Component.literal(String.format("%.1f", speedBps))
                 .setStyle(Style.EMPTY.withColor(COLOR_SPEED));
         Component unit = Component.translatable("hud.simplebuilding.velocity_gauge.unit");
@@ -165,6 +164,10 @@ public class SpeedometerHudOverlay {
                         .withStyle(ChatFormatting.GRAY));
             }
         }
+        Component altitude = altimeterLine(client, moving, activeStack);
+        if (altitude != null) {
+            extras.add(altitude);
+        }
 
         // --- LAYOUT ---
         Font font = client.font;
@@ -175,19 +178,19 @@ public class SpeedometerHudOverlay {
         int contentWidth = Math.max(gaugeRowWidth, font.width(title));
         for (Component line : extras) contentWidth = Math.max(contentWidth, font.width(line));
 
-        int titleGap = 4;
-        int lineStep = font.lineHeight + 2;
+        int titleGap = HudPanel.TITLE_GAP;
+        int lineStep = font.lineHeight + HudPanel.LINE_GAP;
         int contentHeight = font.lineHeight + titleGap + dialHeight + (extras.isEmpty() ? 0 : 3 + extras.size() * lineStep - 2);
 
-        int padding = 6;
-        // Ort und Groesse aus der Client-Config (ModHud); mit Oktant rueckt der Kasten 35 px nach unten.
-        ModHud.begin(context, contentWidth + padding * 2, contentHeight + padding * 2, hasOctant ? 35 : 0);
+        int padding = HudPanel.PADDING;
+        // Ort und Groesse aus der Client-Config (ModHud); mit Oktant/Stab-Anzeige stapeln sich die Kaesten (HudPanel).
+        ModHud.begin(context, contentWidth + padding * 2, contentHeight + padding * 2, HudPanel.stackOffset(HudPanel.Slot.GAUGE, client));
         int x = padding;
         int y = padding;
 
         // Vanilla-Tooltip-Hintergrund (Sprites tooltip/background + tooltip/frame); bekommt den
         // INHALT und legt selbst 3 px Rand darum.
-        TooltipRenderUtil.extractTooltipBackground(context, x, y, contentWidth, contentHeight, null);
+        HudPanel.background(context, x, y, contentWidth, contentHeight);
 
         context.text(font, title, x, y, 0xFFFFFFFF, true);
         int dialTop = y + font.lineHeight + titleGap;
@@ -204,6 +207,36 @@ public class SpeedometerHudOverlay {
             lineY += lineStep;
         }
         ModHud.end(context);
+    }
+
+    /**
+     * Hoehenmesser-Zeile, nur in der Luft (nicht am Boden, nicht schwimmend, nicht im Sattel am
+     * Boden): "⬇ 12.5 m", jenseits der Messweite "⬇ > 24 m"; beim Fallen dahinter der Schaden einer
+     * Landung jetzt in Herzen (rot, wenn toedlich). Null, wenn nichts zu zeigen ist.
+     */
+    static Component altimeterLine(Minecraft client, Entity moving, ItemStack gauge) {
+        if (moving.onGround() || moving.isInWater() || client.player.getAbilities().flying || client.level == null) {
+            return null;
+        }
+        int range = VelocityGaugeItem.altimeterRange(gauge, client.level);
+        double height = VelocityGaugeItem.heightAboveGround(client.level, moving.getX(), moving.getY(), moving.getZ(), range);
+        Component distance = height < 0.0
+                ? Component.translatable("hud.simplebuilding.velocity_gauge.ground_far", range)
+                : Component.translatable("hud.simplebuilding.velocity_gauge.ground", String.format("%.1f", height));
+        net.minecraft.network.chat.MutableComponent line = Component.empty().append(distance.copy().withStyle(ChatFormatting.GRAY));
+        if (moving == client.player && moving.getDeltaMovement().y < 0.0 && height >= 0.0 && !client.player.isFallFlying()) {
+            var player = client.player;
+            int damage = VelocityGaugeItem.impactDamage(player.fallDistance, height,
+                    player.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.SAFE_FALL_DISTANCE),
+                    player.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.FALL_DAMAGE_MULTIPLIER));
+            if (damage > 0) {
+                boolean lethal = damage >= player.getHealth() + player.getAbsorptionAmount();
+                line.append(Component.literal("  "));
+                line.append(Component.translatable("hud.simplebuilding.velocity_gauge.impact", String.format("%.1f", damage / 2.0))
+                        .setStyle(Style.EMPTY.withColor(lethal ? COLOR_DANGER : COLOR_SPEED)));
+            }
+        }
+        return line;
     }
 
     /** Bogen (270 Grad, unten offen), fuenf Skalenstriche, Zeiger und Nabe; links oben bei (left, top). */

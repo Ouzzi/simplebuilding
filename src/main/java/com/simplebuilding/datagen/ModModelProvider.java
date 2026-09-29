@@ -247,6 +247,37 @@ public class ModModelProvider extends FabricModelProvider {
                 new ClientItem.Properties(false, false, 1.0F));
     }
 
+    /** Nadelstellungen der Messuhr: 0 = Ruhe (unten links) bis GAUGE_FRAMES - 1 = Vollausschlag (unten rechts). */
+    public static final int GAUGE_FRAMES = 17;
+
+    /**
+     * Messuhr (2026-09-29) wie ein Kompass: Ebene 0 das Zifferblatt ({@code item/velocity_gauge_dial}),
+     * Ebene 1 die Nadel ({@code item/velocity_gauge_needle_NN}), gewaehlt ueber
+     * {@code simplebuilding:gauge_needle} (Tempo des Halters, 0..1, {@code GaugeNeedleModelProperty}).
+     * {@code item/velocity_gauge} bleibt als flaches Ruhebild fuer Rezeptanzeigen und das Wiki. Die
+     * Eigenschaft muss dafuer schon hier am {@code ID_MAPPER} haengen - die Datagen schreibt sie ueber
+     * deren Codec. Kein Ausholen der Hand, wenn die Nadel springt.
+     */
+    private static void generateGauge(ItemModelGenerators generator) {
+        Item gauge = ModItems.VELOCITY_GAUGE;
+        net.minecraft.client.renderer.item.properties.numeric.RangeSelectItemModelProperties.ID_MAPPER.put(
+                com.simplebuilding.client.property.GaugeNeedleModelProperty.ID,
+                com.simplebuilding.client.property.GaugeNeedleModelProperty.CODEC);
+        ModelTemplates.FLAT_ITEM.create(gauge, TextureMapping.layer0(gauge), generator.modelOutput);
+        java.util.List<net.minecraft.client.renderer.item.RangeSelectItemModel.Entry> frames = new java.util.ArrayList<>();
+        for (int i = 0; i < GAUGE_FRAMES; i++) {
+            String suffix = String.format(java.util.Locale.ROOT, "_%02d", i);
+            Identifier model = ModelTemplates.TWO_LAYERED_ITEM.create(ModelLocationUtils.getModelLocation(gauge, suffix),
+                    TextureMapping.layered(TextureMapping.getItemTexture(gauge, "_dial"),
+                            TextureMapping.getItemTexture(gauge, "_needle" + suffix)), generator.modelOutput);
+            float threshold = i == 0 ? 0.0F : (i - 0.5F) / (GAUGE_FRAMES - 1);
+            frames.add(ItemModelUtils.override(ItemModelUtils.plainModel(model), threshold));
+        }
+        generator.itemModelOutput.accept(gauge, ItemModelUtils.rangeSelect(
+                        new com.simplebuilding.client.property.GaugeNeedleModelProperty(), 1.0F, frames),
+                new ClientItem.Properties(false, false, 1.0F));
+    }
+
     private static ItemModel.Unbaked oreDetectorFrame(ItemModelGenerators generator, int index) {
         Item detector = ModItems.ORE_DETECTOR;
         String suffix = String.format(java.util.Locale.ROOT, "_%02d", index);
@@ -626,7 +657,7 @@ public class ModModelProvider extends FabricModelProvider {
 
 
         // --- CORES & MISC ---
-        itemModelGenerator.generateFlatItem(ModItems.VELOCITY_GAUGE, ModelTemplates.FLAT_ITEM);
+        generateGauge(itemModelGenerator);
         generateOreDetector(itemModelGenerator);
         itemModelGenerator.generateFlatItem(ModItems.MAGNET, ModelTemplates.FLAT_ITEM);
         generateRotator(itemModelGenerator);

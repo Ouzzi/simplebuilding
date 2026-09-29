@@ -81,6 +81,7 @@ public final class SimplebuildingNeoForgeClient {
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerKeys);
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerHudLayers);
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerSelectItemProperties);
+        modEventBus.addListener(SimplebuildingNeoForgeClient::registerRangeSelectItemProperties);
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerTooltipComponents);
         modEventBus.addListener(SimplebuildingNeoForgeClient::registerBlockTints);
         NeoForge.EVENT_BUS.addListener(this::onClientTick);
@@ -185,6 +186,12 @@ public final class SimplebuildingNeoForgeClient {
         event.register(Identifier.fromNamespaceAndPath(Simplebuilding.MOD_ID, "visible_trim_icons"), TrimIconsModelProperty.PROPERTY_TYPE);
         event.register(com.simplebuilding.client.property.BlueprintStateModelProperty.ID,
                 com.simplebuilding.client.property.BlueprintStateModelProperty.PROPERTY_TYPE);
+    }
+
+    /** Messuhr: Nadel auf dem Item (simplebuilding:gauge_needle). */
+    public static void registerRangeSelectItemProperties(net.neoforged.neoforge.client.event.RegisterRangeSelectItemModelPropertyEvent event) {
+        event.register(com.simplebuilding.client.property.GaugeNeedleModelProperty.ID,
+                com.simplebuilding.client.property.GaugeNeedleModelProperty.CODEC);
     }
 
     /** Abgestellter gefaerbter Rucksack: Leder-Ebene in der Farbe der Block-Entity. */

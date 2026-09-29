@@ -59,7 +59,11 @@ public class ModDataComponentTypes {
     public static final DataComponentType<LensMeasurement> LENS_MEASUREMENT =
             register("lens_measurement", builder -> builder
                     .persistent(LensMeasurement.CODEC)
-                    .networkSynchronized(LensMeasurement.STREAM_CODEC));
+                    .networkSynchronized(LensMeasurement.STREAM_CODEC)
+                    // Die Messung wird beim Strahlen jede Sekunde neu geschrieben; ohne das senkte
+                    // Vanilla den Stab in der Hand jedes Mal ab und hob ihn wieder (Besitzer 2026-09-29:
+                    // "das Item darf sich nicht bewegen"). Wie DAMAGE.
+                    .ignoreSwapAnimation());
 
 
     private static <T> DataComponentType<T> register(String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
