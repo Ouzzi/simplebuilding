@@ -482,7 +482,6 @@ public final class ConfigOptionTests {
             "tweaks.laserPointer.scale float=0.25",
             "tweaks.laserPointer.range int=512",
             "tweaks.laserPointer.chargePerSecond int=4",
-            "tweaks.laserPointer.beamCostPerSecond int=1",
             "tweaks.laserPointer.effectCost int=5",
             "tweaks.laserPointer.showLine boolean=false",
             "tweaks.balancing.rocketStackSize int=64",

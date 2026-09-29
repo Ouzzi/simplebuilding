@@ -650,6 +650,7 @@ public final class MagnetTests {
         InteractionResult onItem = touched.getItem().use(level, player, InteractionHand.MAIN_HAND);
         helper.assertTrue(onItem.consumesAction(), "sneak + right-click on a loose gold ingot returned " + onItem);
         helper.assertValueEqual(filterOf(touched), "minecraft:gold_ingot", "filter after sneak + right-click on a loose item");
+        player.setShiftKeyDown(false); // Sneaking pauses attraction, even with a matching filter.
         assertFilterPicks(helper, level, player, touched, "minecraft:gold_ingot", diamond, false, gold, true,
                 "a touched Attractor filtered on the gold ingot");
 
