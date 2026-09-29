@@ -420,7 +420,7 @@ async function editTime(input) {
   for (const l of lines) values[l.id] = res.values[l.id];
   (timeEdits[d.item] = timeEdits[d.item] || []).push({
     row: d.row, label: d.label, stat: d.stat, k: +d.k, old: res.current, hours: target, achieved: res.achieved, strategy,
-    feasible: res.feasible, message: res.message, sharedUsed: res.sharedUsed, at: Date.now(),
+    feasible: res.feasible, message: res.message, sharedUsed: res.sharedUsed, atLimit: res.atLimitLabels || [], at: Date.now(),
     lines: lines.map((l) => ({ id: l.id, label: l.label, group: l.group, type: l.type, apply: l.apply, sites: l.sites, lines: l.lines,
       file: l.file, line: l.line, clamped: l.clamped, alsoAffects: l.alsoAffects, warnings: l.warnings, error: l.error, datagen: l.datagen })),
   });
@@ -442,7 +442,7 @@ function changesBox(item, report, opts = {}) {
   const where = (l) => (l.sites && l.sites.length ? l.sites.map((x) => `${x.mc}: ${String(x.file || '').split('/').pop()}${x.line ? ':' + x.line : ''}`).join(' · ') : (l.file ? `${String(l.file).split('/').pop()}${l.line ? ':' + l.line : ''}` : ''));
   const body = `<div class="tchg-body">
       ${opts.strategy === false ? '' : `<div style="margin:.3rem 0 .5rem">${strategySelect(item, report)}</div>`}
-      ${live.length ? `<ul class="tchg-edits">${live.map((e) => `<li><b>${h(e.label || e.row)}</b> · ${e.k}. Stück · ${STAT_LABEL[e.stat] || e.stat}: <del class="diff-old">${h(hours(e.old))}</del> → <span class="diff-new">${h(hours(e.hours))}</span>${timeDiffers(e.hours, e.achieved) ? ` <span class="muted">(erreicht ${h(hours(e.achieved))})</span>` : ''} <span class="badge">${h(e.strategy === 'proportional' ? 'proportional' : e.strategy.startsWith('source:') ? 'nur eine Quelle' : 'nur ein Wert')}</span>${e.sharedUsed ? ' <span class="badge b-drift" title="Die eigenen Werte des Items reichten nicht - auch geteilte Werte (Würfe, Angebots-Chance eines Buch-Angebots) wurden angepasst">auch geteilte Werte</span>' : ''}${e.message ? `<div class="tiny" style="color:var(--warn-text)">${h(e.message)}</div>` : ''}</li>`).join('')}</ul>` : ''}
+      ${live.length ? `<ul class="tchg-edits">${live.map((e) => `<li><b>${h(e.label || e.row)}</b> · ${e.k}. Stück · ${STAT_LABEL[e.stat] || e.stat}: <del class="diff-old">${h(hours(e.old))}</del> → <span class="diff-new">${h(hours(e.hours))}</span>${timeDiffers(e.hours, e.achieved) ? ` <span class="muted">(erreicht ${h(hours(e.achieved))})</span>` : ''} <span class="badge">${h(e.strategy === 'proportional' ? 'proportional' : e.strategy.startsWith('source:') ? 'nur eine Quelle' : 'nur ein Wert')}</span>${e.sharedUsed ? ' <span class="badge b-drift" title="Die eigenen Werte des Items reichten nicht - auch geteilte Werte (Würfe, Angebots-Chance eines Buch-Angebots) wurden angepasst">auch geteilte Werte</span>' : ''}${e.message ? `<div class="tiny" style="color:var(--warn-text)">${h(e.message)}</div>` : ''}${(e.atLimit || []).length ? `<div class="tiny muted">unverändert, weil schon an der Grenze: ${h(e.atLimit.join(' · '))}</div>` : ''}</li>`).join('')}</ul>` : ''}
       ${ids.length ? `<div class="table-wrap"><table class="table tchg-table"><thead><tr><th>Wert</th><th class="num">alt</th><th></th><th>neu</th><th>Stelle</th><th>wirkt</th><th></th></tr></thead><tbody>${ids.map((id) => {
         const l = info[id]; const r = rec(id) || { label: l.label, type: l.type, group: l.group };
         const oldV = baseValue(id), newV = curValue(id);

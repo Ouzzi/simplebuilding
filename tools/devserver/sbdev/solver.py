@@ -303,9 +303,12 @@ def _finish(out: dict, ctx_with, at, drivers: list[dict], feasible: bool, factor
         rounded = _refine_ints(drivers, rounded, at, out["target"])
     achieved = at(_overrides_from(drivers, rounded))
     changes = []
+    at_limit = []  # Stellwerte, die schon an ihrer Grenze standen (z. B. Angebots-Chance 100 %)
     for d, x, r in zip(drivers, raw, rounded):
         clamped = "max" if x >= d["hi"] - 1e-15 else ("min" if x <= d["lo"] + 1e-15 else None)
         if _close(r, d["cur"]):
+            if clamped:
+                at_limit.append(d["id"])
             continue
         changes.append({"id": d["id"], "field": d["field"], "type": d["type"], "old": d["cur"], "new": r,
                         "clamped": clamped})
@@ -319,7 +322,10 @@ def _finish(out: dict, ctx_with, at, drivers: list[dict], feasible: bool, factor
     if feasible and any(d["type"] == "int" for d in drivers) and not _near(achieved, out["target"]):
         message = (message + " " if message else "") + (
             f"Ganze Zahlen: genauer geht es nicht - mit den gerundeten Werten {_h(achieved)} statt {_h(out['target'])}.")
-    return dict(out, feasible=feasible, factor=factor, achieved=achieved, changes=changes, message=message,
+    if at_limit:
+        message = (message + " " if message else "") + (
+            f"Schon an der Grenze und daher unverändert: {len(at_limit)} Wert{'' if len(at_limit) == 1 else 'e'}.")
+    return dict(out, feasible=feasible, factor=factor, achieved=achieved, changes=changes, message=message, atLimit=at_limit,
                 specs={d["id"]: _overrides_from([d], [r])[d["id"]] for d, r in zip(drivers, rounded) if d["field"]})
 
 
@@ -354,4 +360,4 @@ def _near(a: float, b: float) -> bool:
 def _h(t: float) -> str:
     if math.isinf(t):
         return "nie"
-    return f"{t:.2f} h" if t < 100 else f"{t:.0f} h"
+    return (f"{t:.2f} h" if t < 100 else f"{t:.0f} h").replace(".", ",")

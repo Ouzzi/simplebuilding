@@ -551,6 +551,8 @@ class Service:
         before = model.item_report(ctx_with({}), item)
         after = model.item_report(ctx_with(new_values), item) if new_values else before
         result.pop("specs", None)
+        result["atLimitLabels"] = [f"{(self.record_for(v) or {}).get('group', '')} - {(self.record_for(v) or {}).get('label', v)}"
+                                   for v in result.get("atLimit", [])]
         result.update(item=item, lines=lines, values=new_values, before=before, after=after)
         return _finite(result)
 
