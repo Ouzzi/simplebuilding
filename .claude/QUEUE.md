@@ -195,13 +195,13 @@ Verlauf im Detail: git log.
 - [x] U: Curios/Trinkets fuer Rucksack/Koecher (optional, nach Q; Besitzer 2026-09-28: ja)
 - [ ] Punkte 64-69: Sprachen, Attractor mit Ladung, neue Bloecke, Baustab ueber Planer, Kern-Module, Rucksack-Sortierung/Multi-Mod-Repo
 
-## Welle 24 (Besitzer 2026-09-29) - NEUE REGEL: 26.3 Hauptlinie, erst dort fertig, dann Port-Run
-- [ ] BB Items/Rezepte: Attractor-Arme laenger, Ore Detector -> Detector (Rezept gedreht, 4 Echoscherben, Kern unten links, kalibrierter Sculk oben rechts), Detector platzierbar + aktiv + Trigger durch Item in Hand, Tacho-Rezept analog, Oktant-Rezept (Goldnuggets, Leine unten rechts, Blitzableiter oben rechts), Blaupause mit Leuchttinte, Enderit-Namen (Raw Enderite Scrap Part / Raw Enderite Scrap), klebriger verstaerkter Kolben -> Netherit, Diamantblock erst ab Eisenhammer
-- [ ] CC Buecher: alles aktuell + Formatierung, Pads/Gadgets getrennt, Admin-Buch nur OP, 9 Vanilla-Buecher, Buch pausiert nicht, Resonanz erklaert + Inventar nur Wert mit Hover, Max-Werte
-- [ ] DD Platziertes Buendel (Sneak+Scroll, Rechtsklick raus, Sneak+Rechtsklick rein, Item zum Spieler gedreht), platzierter Oktant (Umriss an/aus, Leuchten fuer Aktivierer)
-- [ ] EE Aktiv-Texturen + Partikel fuer alle Pads, Spawn-Teleporter zum eigenen Spawn / Redstone -> Weltspawn + Sounds, Hammer ohne GUI-Text + Nugget neigt sich, Echolot Klick einmal + Sperre bis 5 s
-- [ ] FF Kerne verwandeln Wirtsblock selten in Erz (Enderit ~1/2000, Kupfer ~1/10000), coolere Kern-Animation, Warden-Gesicht gerade
-- [ ] GG Tabs: Pads/Druckplatten eigener Tab, Blaupause+Kartentisch+Enderit-Baustab zu Tools, Zeilen-Layout ueberall
+## Welle 24 (Besitzer 2026-09-29; BB-GG gemergt, HH/II/JJ als WIP-Branches, siehe docs/HANDOFF.md) - NEUE REGEL: 26.3 Hauptlinie, erst dort fertig, dann Port-Run
+- [x] BB Items/Rezepte: Attractor-Arme laenger, Ore Detector -> Detector (Rezept gedreht, 4 Echoscherben, Kern unten links, kalibrierter Sculk oben rechts), Detector platzierbar + aktiv + Trigger durch Item in Hand, Tacho-Rezept analog, Oktant-Rezept (Goldnuggets, Leine unten rechts, Blitzableiter oben rechts), Blaupause mit Leuchttinte, Enderit-Namen (Raw Enderite Scrap Part / Raw Enderite Scrap), klebriger verstaerkter Kolben -> Netherit, Diamantblock erst ab Eisenhammer
+- [x] CC Buecher: alles aktuell + Formatierung, Pads/Gadgets getrennt, Admin-Buch nur OP, 9 Vanilla-Buecher, Buch pausiert nicht, Resonanz erklaert + Inventar nur Wert mit Hover, Max-Werte
+- [x] DD Platziertes Buendel (Sneak+Scroll, Rechtsklick raus, Sneak+Rechtsklick rein, Item zum Spieler gedreht), platzierter Oktant (Umriss an/aus, Leuchten fuer Aktivierer)
+- [x] EE Aktiv-Texturen + Partikel fuer alle Pads, Spawn-Teleporter zum eigenen Spawn / Redstone -> Weltspawn + Sounds, Hammer ohne GUI-Text + Nugget neigt sich, Echolot Klick einmal + Sperre bis 5 s
+- [x] FF Kerne verwandeln Wirtsblock selten in Erz (Enderit ~1/2000, Kupfer ~1/10000), coolere Kern-Animation, Warden-Gesicht gerade
+- [x] GG Tabs: Pads/Druckplatten eigener Tab, Blaupause+Kartentisch+Enderit-Baustab zu Tools, Zeilen-Layout ueberall
 - [ ] HH Pads Stufe I mit Materialkern statt Vorlage; Chunkloader I + Launchpad I nehmen einen Trial-Chamber-Mobkopf (Tag); neue Mobkoepfe mit Vanilla-Textur (nur Charged Creeper), jeder mit geheimer harmloser Faehigkeit (Silberfisch schrumpft den Spieler); Koepfe-Zeile im Tab
 - [ ] GG+: im Tab nur Eichen-Druckplatte, in derselben Zeile wie die anderen Platten
 - [ ] Danach: Buecher-Faktenpass, Server-Gate 26.3, Port-Run 26.2/Forge/1.21.11/26.4
